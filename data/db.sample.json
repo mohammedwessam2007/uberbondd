@@ -1,0 +1,21 @@
+{
+  "version": 5,
+  "prospects": [],
+  "campaigns": [],
+  "jobs": [],
+  "messages": [],
+  "replies": [],
+  "suppressions": [],
+  "socialTasks": [],
+  "accounts": [],
+  "auditLog": [],
+  "settings": {},
+  "leads": [],
+  "orders": [],
+  "subscriptions": [],
+  "monitoringRuns": [],
+  "notifications": [],
+  "revenueEvents": [],
+  "discoveryRuns": [],
+  "workerHeartbeats": []
+}

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UberBond — Free Website Revenue Audit</title>
+<meta name="description" content="A free, automated audit of your public website: positioning, conversion paths, mobile experience, and technical trust signals.">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<main class="shell">
+  <header class="brand">
+    <span class="mark">UBERBOND</span>
+    <span class="tag">Website Revenue Audits</span>
+  </header>
+
+  <section class="hero">
+    <h1>Find the revenue your website is quietly leaking.</h1>
+    <p class="sub">A free, automated audit of your public pages — positioning, conversion paths, mobile experience, and technical trust signals. No call. No account. Evidence only.</p>
+  </section>
+
+  <section class="card" id="form-card">
+    <div class="field">
+      <label for="website">Your website</label>
+      <input id="website" type="text" inputmode="url" autocomplete="url" placeholder="yourclinic.com" maxlength="300">
+    </div>
+    <div class="field">
+      <label for="email">Your email</label>
+      <input id="email" type="email" autocomplete="email" placeholder="you@yourclinic.com" maxlength="254">
+    </div>
+    <button id="submit" type="button">Run my free audit</button>
+    <p class="error" id="error" hidden></p>
+    <p class="fineprint">We analyze only publicly available pages of the website you submit. Your report link is private to you — bookmark it.</p>
+  </section>
+
+  <section class="card success" id="success-card" hidden>
+    <h2>Your audit is queued.</h2>
+    <p>Your private report will appear at this link, usually within the hour:</p>
+    <p class="report-link"><a id="report-link" href="#" rel="noopener"></a></p>
+    <button id="copy" type="button" class="ghost">Copy link</button>
+    <p class="fineprint">Bookmark it now — the link is the only key to your report. It refreshes itself automatically once the audit completes.</p>
+  </section>
+
+  <section class="steps">
+    <div class="step"><b>1 · Submit</b><span>Enter your site. It joins a secure audit queue.</span></div>
+    <div class="step"><b>2 · Automated audit</b><span>A real browser crawls your public pages and scores twelve revenue-critical signals.</span></div>
+    <div class="step"><b>3 · Private report</b><span>Findings, evidence, and a prioritized fix list — with one-tap access to implementation by UberBond.</span></div>
+  </section>
+
+  <footer class="foot">© UberBond · Premium web systems for clinics and considered brands.</footer>
+</main>
+<script src="/site.js" defer></script>
+</body>
+</html>

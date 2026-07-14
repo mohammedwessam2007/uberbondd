@@ -1,0 +1,27 @@
+# UBERBOND Tonight Launch Status
+
+- Canonical version: 1.4.0
+- Baseline tests: 51/51 passed after clean npm ci on 2026-07-10
+- GitHub repository: WAITING FOR OWNER TO CREATE PRIVATE REPO
+- Commit SHA: PENDING
+- Public Web URL:
+- PostgreSQL: NOT STARTED
+- Web service: NOT STARTED
+- Worker service: NOT STARTED
+- Worker heartbeat: NOT STARTED
+- Public audit test: NOT STARTED
+- Shared screenshot test: NOT STARTED
+- Gmail OAuth: NOT STARTED
+- Controlled Gmail send: NOT STARTED
+- Unsubscribe/suppression test: NOT STARTED
+- Sender domain SPF: NOT STARTED
+- Sender domain DKIM: NOT STARTED
+- Sender domain DMARC: NOT STARTED
+- Checkout provider: NOT STARTED
+- Payment webhook: NOT STARTED
+- Paid report unlock: NOT STARTED
+- Monitoring subscription: NOT STARTED
+- Discovery preview: NOT STARTED
+- Outbound dry run: NOT STARTED
+- Live outbound: DISABLED
+- Remaining blockers:

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UberBond Revenue Engine · Command Center</title>
+<meta name="theme-color" content="#05070d">
+<link rel="stylesheet" href="/styles.css">
+<link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="/icon.svg" type="image/svg+xml"><meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="mark">UB</span><div><b>UBERBOND REVENUE ENGINE</b><small>24/7 SALES · DELIVERY · RETENTION</small></div></div>
+  <div class="status"><a class="public-link" href="/">Public storefront</a><i></i><span id="mode">Loading…</span></div>
+</header>
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">AUTONOMOUS RESEARCH · EVIDENCE FIRST</p>
+    <h1>A business that keeps<br><em>selling after midnight.</em></h1>
+    <p class="lede">Attract inbound audits, research outbound opportunities, unlock paid reports, monitor subscriptions, and surface only the decisions that need a human.</p>
+  </div>
+  <div class="control-panel">
+    <label>Admin token<input id="token" type="password" placeholder="Optional ADMIN_TOKEN"></label>
+    <div class="button-row"><button id="save-token">Save token</button><button class="gold" id="run">Run nightshift</button></div>
+    <div class="button-row"><button id="pause">Pause worker</button><button id="resume">Resume worker</button></div>
+    <div class="button-row"><button id="pause-outbound">Emergency stop outbound</button><button id="resume-outbound">Resume outbound</button></div>
+    <small id="outbound-status">Outbound is loading…</small>
+    <small>Research works without API keys. AI, Hunter, and Gmail remain optional upgrades.</small>
+  </div>
+</section>
+<section class="metrics" id="revenue-metrics"></section>
+<section class="metrics" id="metrics"></section>
+<section class="grid two">
+  <article>
+    <div class="kicker">01 · CONTRACT</div>
+    <h2>Create a campaign</h2>
+    <p class="hint">Define the market and minimum quality once. Nightshift will operate only inside this contract.</p>
+    <form id="campaign-form">
+      <label>Campaign name<input name="name" value="Global Digital Opportunity Scan"></label>
+      <label>Target market<input name="niche" value="SaaS, hospitality, premium brands, agencies, medical and scientific organizations"></label>
+      <label>Offer<input name="offer" value="Evidence-backed digital opportunity audit"></label>
+      <label>Allowed countries<input name="allowedCountries" placeholder="United Kingdom, Germany"></label>
+      <small class="hint">Sending remains blocked unless each country is also present in the server OUTBOUND_ALLOWED_COUNTRIES setting.</small>
+      <div class="row"><label>Minimum score<input name="minScore" type="number" value="60" min="50" max="95"></label><label>Follow-ups<input name="maxFollowups" type="number" value="0" min="0" max="1"></label></div>
+      <label class="check"><input name="approved" type="checkbox" checked> Approve research under this contract</label>
+      <label class="check"><input name="autoSend" type="checkbox"> Enable Gmail sending after credentials are connected</label>
+      <button class="gold">Create campaign</button>
+    </form>
+  </article>
+  <article>
+    <div class="kicker">02 · IMPORT</div>
+    <h2>Feed the machine</h2>
+    <p class="hint">Upload a CSV or paste JSON. Required columns: <code>company</code> and <code>website</code>.</p>
+    <label>Campaign<select id="campaign-select"></select></label>
+    <label class="drop" for="csv-file"><input id="csv-file" type="file" accept=".csv,text/csv"><span>Drop CSV here or tap to choose</span><small id="file-name">No file selected</small></label>
+    <button id="import-csv">Import CSV</button>
+    <details><summary>Paste JSON instead</summary><textarea id="import-json" spellcheck="false">[
+  {"company":"Example Company","website":"https://example.com","industry":"SaaS","country":"United States"}
+]</textarea><button id="import-json-btn">Import JSON</button></details>
+  </article>
+</section>
+<section class="grid two">
+  <article>
+    <div class="kicker">03 · DISCOVERY</div>
+    <h2>Find businesses automatically</h2>
+    <p class="hint">Search public OpenStreetMap business records that already include a website. Preview first, then import into an approved campaign.</p>
+    <form id="discovery-form">
+      <label>Campaign<select id="discovery-campaign-select"></select></label>
+      <label>Bounding box<input name="bbox" placeholder="south,west,north,east" autocomplete="off"></label>
+      <small class="hint">Use a city-sized box. Example format: <code>51.28,-0.51,51.69,0.33</code></small>
+      <label>Categories<input name="categories" value="clinic,dentist,medical" autocomplete="off"></label>
+      <div class="row"><label>Country label<input name="country" placeholder="United Kingdom"></label><label>City label<input name="city" placeholder="London"></label></div>
+      <label>Maximum results<input name="limit" type="number" value="20" min="1" max="50"></label>
+      <label class="check"><input name="dryRun" type="checkbox" checked> Preview only. Do not import yet.</label>
+      <button class="gold">Run discovery</button>
+    </form>
+    <small>Source attribution: © OpenStreetMap contributors. Google Maps and LinkedIn scraping are not used.</small>
+  </article>
+  <article>
+    <div class="kicker">04 · DISCOVERY LOG</div>
+    <h2>Latest source runs</h2>
+    <p class="hint">A preview does not feed the audit queue. Uncheck preview only after the results look relevant.</p>
+    <div id="discovery-runs" class="stack"></div>
+  </article>
+</section>
+<section class="grid three">
+  <article><div class="kicker">05 · OUTPUT</div><h2>Exports</h2><p class="hint">Take the prospect vault anywhere.</p><div class="stack"><a class="action" id="export-csv" href="#">Download CSV</a><a class="action" id="export-json" href="#">Download JSON</a></div></article>
+  <article><div class="kicker">06 · GMAIL</div><h2>Optional inboxes</h2><p class="hint">Connect later. Research and dossiers work without Gmail.</p><div class="stack"><a class="action" id="gmail-a" href="#">Connect Email A</a><a class="action" id="gmail-b" href="#">Connect Email B</a><div id="accounts"></div></div></article>
+  <article><div class="kicker">07 · NIGHT LOG</div><h2>Latest jobs</h2><div id="jobs" class="stack"></div></article>
+</section>
+<section class="pipeline-section">
+  <div class="section-head"><div><div class="kicker">LIVE PIPELINE</div><h2>Opportunity vault</h2><p class="hint">Open any completed prospect to inspect evidence, screenshots, score logic, and the generated draft.</p></div><div class="filters"><select id="status-filter"><option value="">All statuses</option><option>queued</option><option>crawling</option><option>ready</option><option>research-complete</option><option>rejected</option><option>error</option><option>send-uncertain</option><option>bounce</option><option>complaint</option><option>suppressed</option></select><button id="refresh">Refresh</button></div></div>
+  <div class="table-wrap"><table><thead><tr><th>Company</th><th>Status</th><th>Score</th><th>Primary opportunity</th><th>Contact</th><th>Action</th></tr></thead><tbody id="prospects"></tbody></table></div>
+</section>
+<section class="grid three"><article><div class="kicker">INBOUND LEADS</div><h2>Audit requests</h2><div id="leads" class="stack"></div></article><article><div class="kicker">REVENUE</div><h2>Orders & subscriptions</h2><div id="orders" class="stack"></div></article><article><div class="kicker">NOTIFICATIONS</div><h2>Needs attention</h2><div id="notifications" class="stack"></div></article></section>
+<section class="grid two"><article><div class="kicker">REPLIES</div><h2>Matched inbox activity</h2><div id="replies" class="stack"></div></article><article><div class="kicker">SOCIAL TASKS</div><h2>Manual platform queue</h2><div id="social" class="stack"></div></article></section>
+</main>
+<div class="modal" id="modal" aria-hidden="true"><div class="modal-shell"><button class="close" id="close-modal" aria-label="Close">×</button><div id="dossier"></div></div></div>
+<footer>UberBond Nightshift · Automate repetition. Keep judgment human.</footer>
+<script type="module" src="/admin.js"></script>
+</body></html>

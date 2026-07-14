@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Your Website Audit — UberBond</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<main class="shell">
+  <header class="brand">
+    <span class="mark">UBERBOND</span>
+    <span class="tag">Private Audit Report</span>
+  </header>
+
+  <section id="state" class="card center">
+    <h2 id="state-title">Loading your report…</h2>
+    <p id="state-text"></p>
+  </section>
+
+  <section id="report" hidden>
+    <div class="scorewrap card">
+      <div class="score"><span id="score">–</span><small>/100</small></div>
+      <div class="scoremeta">
+        <h2 id="domain"></h2>
+        <p id="grade" class="grade"></p>
+        <p id="meta" class="fineprint"></p>
+      </div>
+    </div>
+    <div id="findings"></div>
+
+    <section class="card cta" id="cta">
+      <h2>Want these fixed — properly?</h2>
+      <p>UberBond designs and implements these exact repairs for premium clinics and considered brands: positioning, conversion architecture, mobile experience, and trust systems.</p>
+      <div class="field"><label for="lead-name">Name</label><input id="lead-name" type="text" maxlength="120" autocomplete="name"></div>
+      <div class="field"><label for="lead-email">Email</label><input id="lead-email" type="email" maxlength="254" autocomplete="email"></div>
+      <div class="field"><label for="lead-message">Anything specific? <span class="opt">(optional)</span></label><textarea id="lead-message" rows="3" maxlength="2000"></textarea></div>
+      <button id="lead-submit" type="button">Request implementation</button>
+      <p class="error" id="lead-error" hidden></p>
+      <p class="fineprint">A human replies — usually within one business day. No automated sales sequence.</p>
+    </section>
+    <section class="card success" id="cta-done" hidden>
+      <h2>Request received.</h2>
+      <p>Thank you — UberBond will reply personally, usually within one business day.</p>
+    </section>
+  </section>
+
+  <footer class="foot"><a href="/">Run another audit</a> · © UberBond</footer>
+</main>
+<script src="/report.js" defer></script>
+</body>
+</html>

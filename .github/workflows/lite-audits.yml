@@ -1,0 +1,47 @@
+name: Cash Engine Lite Audits
+
+on:
+  schedule:
+    - cron: '*/30 * * * *' # every 30 minutes (GitHub may delay scheduled runs slightly)
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lite-audits
+  cancel-in-progress: false
+
+jobs:
+  audits:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Process queued audits and pending leads
+        run: node lite/worker/run-audits.mjs
+        env:
+          DATABASE_URL: ${{ secrets.LITE_DATABASE_URL }}
+          RESEND_API_KEY: ${{ secrets.LITE_RESEND_API_KEY }}
+          OWNER_EMAIL: ${{ secrets.LITE_OWNER_EMAIL }}
+          LITE_HASH_SALT: ${{ secrets.LITE_HASH_SALT }}

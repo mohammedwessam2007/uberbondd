@@ -1,0 +1,71 @@
+envVarGroups:
+  - name: uberbond-shared
+    envVars:
+      - key: STORE_BACKEND
+        value: postgres
+      - key: DATABASE_SSL
+        value: true
+      - key: AI_PROVIDER
+        value: rules
+      - key: AUTOPILOT_ENABLED
+        value: false
+      - key: DISCOVERY_ENABLED
+        value: false
+      - key: DISCOVERY_DRY_RUN
+        value: true
+      - key: PUBLIC_AUDIT_ENABLED
+        value: true
+      - key: ALLOW_TEST_PAYMENT_UNLOCK
+        value: false
+
+databases:
+  - name: uberbond-postgres
+    databaseName: uberbond
+    user: uberbond
+    plan: basic-256mb
+
+services:
+  - type: web
+    name: uberbond-web
+    runtime: docker
+    plan: starter
+    dockerCommand: node server.mjs
+    healthCheckPath: /api/health
+    autoDeployTrigger: off
+    maxShutdownDelaySeconds: 120
+    envVars:
+      - fromGroup: uberbond-shared
+      - key: PROCESS_ROLE
+        value: web
+      - key: APP_BASE_URL
+        sync: false
+      - key: ADMIN_TOKEN
+        sync: false
+      - key: TOKEN_ENCRYPTION_KEY
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: uberbond-postgres
+          property: connectionString
+
+  - type: worker
+    name: uberbond-worker
+    runtime: docker
+    plan: starter
+    dockerCommand: node worker.mjs
+    autoDeployTrigger: off
+    maxShutdownDelaySeconds: 120
+    envVars:
+      - fromGroup: uberbond-shared
+      - key: PROCESS_ROLE
+        value: worker
+      - key: APP_BASE_URL
+        sync: false
+      - key: ADMIN_TOKEN
+        sync: false
+      - key: TOKEN_ENCRYPTION_KEY
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: uberbond-postgres
+          property: connectionString

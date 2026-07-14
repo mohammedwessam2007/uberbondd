@@ -1,0 +1,58 @@
+import {
+  q, ensureSchema, createAuditRequest,
+  countRecentRequestsByRequester, countRecentRequestsByEmail, countActiveRequests
+} from '../lib/db.mjs';
+import { readJson, requesterHash, sendJson, handleError } from '../lib/http.mjs';
+import { parseEmail, parseWebsite } from '../lib/validate.mjs';
+import { createReportToken, hashToken } from '../lib/tokens.mjs';
+import { getLimits, decideAuditRateLimit } from '../lib/rate-limit.mjs';
+
+const HOUR = 60 * 60 * 1000;
+const DAY = 24 * HOUR;
+
+export function createHandler(deps = {}) {
+  const query = deps.query || q;
+  const ensure = deps.ensure || (() => ensureSchema(query));
+  const lookup = deps.lookup || null;
+  const nowFn = deps.now || (() => Date.now());
+
+  return async function handler(req, res) {
+    if (req.method !== 'POST') return sendJson(res, 405, { ok: false, error: 'Method not allowed' }, { allow: 'POST' });
+    try {
+      await ensure();
+      const body = await readJson(req);
+      const email = parseEmail(body.email);
+      const site = await parseWebsite(body.website, { lookup });
+      const requester = requesterHash(req);
+      const now = nowFn();
+      const limits = getLimits();
+      const [perIpCount, perEmailCount, activeCount] = await Promise.all([
+        countRecentRequestsByRequester(query, requester, new Date(now - HOUR)),
+        countRecentRequestsByEmail(query, email, new Date(now - DAY)),
+        countActiveRequests(query)
+      ]);
+      const gate = decideAuditRateLimit({ perIpCount, perEmailCount, activeCount }, limits);
+      if (!gate.allowed) return sendJson(res, 429, { ok: false, error: gate.message, reason: gate.reason });
+
+      const token = createReportToken();
+      await createAuditRequest(query, {
+        websiteUrl: site.href,
+        domain: site.domain,
+        email,
+        tokenHash: hashToken(token),
+        requesterHash: requester
+      });
+      return sendJson(res, 200, {
+        ok: true,
+        status: 'queued',
+        domain: site.domain,
+        reportPath: `/r/${token}`,
+        note: 'Audits run automatically on a schedule. Your report is usually ready within the hour.'
+      });
+    } catch (error) {
+      return handleError(res, error, 'request-audit');
+    }
+  };
+}
+
+export default createHandler();

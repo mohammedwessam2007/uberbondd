@@ -1,0 +1,9 @@
+{
+  "name": "UberBond Revenue Engine",
+  "short_name": "UberBond",
+  "start_url": "/admin.html",
+  "display": "standalone",
+  "background_color": "#05070d",
+  "theme_color": "#05070d",
+  "icons": [{"src":"/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}

@@ -29,11 +29,27 @@
         <p id="meta" class="fineprint"></p>
       </div>
     </div>
-    <div id="findings"></div>
+    <section id="priorities-section" hidden>
+      <h2 class="section-title">Top priorities</h2>
+      <p class="section-intro">Ranked from measured evidence using business impact, confidence, reach, and estimated effort.</p>
+      <div id="priorities"></div>
+    </section>
+
+    <section id="quick-wins-section" class="card quick-wins" hidden>
+      <h2>Quick Wins</h2>
+      <p>High-confidence, lower-effort improvements drawn directly from this audit.</p>
+      <div id="quick-wins"></div>
+    </section>
+
+    <section id="findings-section">
+      <h2 id="findings-title" class="section-title">Additional evidence-backed findings</h2>
+      <div id="findings"></div>
+    </section>
 
     <section class="card cta" id="cta">
       <h2>Want these fixed — properly?</h2>
-      <p>UberBond designs and implements these exact repairs for premium clinics and considered brands: positioning, conversion architecture, mobile experience, and trust systems.</p>
+      <p id="cta-context">UberBond can scope and implement the evidence-backed improvements in this report for your business.</p>
+      <div class="field"><label for="lead-interest">What should we help with?</label><select id="lead-interest"><option value="">General implementation review</option></select></div>
       <div class="field"><label for="lead-name">Name</label><input id="lead-name" type="text" maxlength="120" autocomplete="name"></div>
       <div class="field"><label for="lead-email">Email</label><input id="lead-email" type="email" maxlength="254" autocomplete="email"></div>
       <div class="field"><label for="lead-message">Anything specific? <span class="opt">(optional)</span></label><textarea id="lead-message" rows="3" maxlength="2000"></textarea></div>
@@ -43,7 +59,7 @@
     </section>
     <section class="card success" id="cta-done" hidden>
       <h2>Request received.</h2>
-      <p>Thank you — UberBond will reply personally, usually within one business day.</p>
+      <p id="cta-done-text">Thank you — UberBond will reply personally, usually within one business day.</p>
     </section>
   </section>
 

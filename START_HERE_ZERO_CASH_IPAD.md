@@ -57,6 +57,8 @@ The APIs can create the same idempotent schema on first use, but run the migrati
     - `lite_audit_requests`
     - `lite_reports`
     - `lite_leads`
+11. Open `lite_audit_requests` and confirm it includes `processing_stage`.
+12. Open `lite_leads` and confirm it includes `selected_issue_code`, `service_interest`, `status`, `source_page`, and `dedupe_key`.
 
 Stop here if the SQL reports an error. Do not deploy against a partially created schema.
 
@@ -176,6 +178,7 @@ Use a public website you own or are authorized to test.
 5. Wait for **Your audit is queued**.
 6. Tap **Copy link** and save the private report link in your password manager or Notes.
 7. Do not share that link: the random token inside it is the key to the report.
+8. Open the report link and leave it open. It polls automatically and shows only stages recorded by the worker; it does not use a simulated percentage.
 
 ## 11. Process the queued audit immediately
 
@@ -190,21 +193,24 @@ Use a public website you own or are authorized to test.
 ## 12. Open the secure report
 
 1. Open the private `/r/...` link saved in Step 10.
-2. If it still says **Audit queued**, refresh once after the GitHub run finishes.
-3. Confirm the page shows the submitted domain, score, grade, and findings.
-4. Confirm the URL still begins with your own Vercel origin and `/r/`.
-5. Do not copy the token into support messages, screenshots, analytics, or public notes.
+2. The page should update automatically from waiting, active processing, and report-preparation states. A manual refresh is safe but normally unnecessary.
+3. Confirm the page shows the submitted domain, score, grade, evidence-backed findings, and up to three ranked priorities.
+4. If **Quick Wins** appears, confirm every listed item also exists as an evidence-backed finding. The section is intentionally omitted when no finding meets its threshold.
+5. Confirm the URL still begins with your own Vercel origin and `/r/`.
+6. Do not copy the token into support messages, screenshots, analytics, or public notes.
 
 The report response is configured as private/no-store/noindex with a no-referrer policy. Only the SHA-256 hash of the generated 256-bit token is stored in PostgreSQL.
 
 ## 13. Test the implementation-request button
 
 1. Scroll to **Want these fixed—properly?**
-2. Enter your name.
-3. Enter an email address you control.
-4. In the message, enter `Launch verification test — please ignore.`
-5. Tap **Request implementation** once.
-6. Confirm the page displays **Request received**.
+2. Under **What should we help with?**, select one listed finding or keep **General implementation review**.
+3. Enter your name.
+4. Enter an email address you control.
+5. In the message, enter `Launch verification test — please ignore.`
+6. Tap **Request implementation** once.
+7. Confirm the page displays **Request received** and says the request is stored.
+8. Do not tap again. If a network retry does repeat the same request, the database deduplicates it.
 
 If Resend is configured:
 
@@ -217,14 +223,16 @@ If Resend is not configured:
 2. Run:
 
 ```sql
-SELECT id, email, name, message, owner_notified, created_at
+SELECT id, email, name, message, selected_issue_code, service_interest,
+       status, source_page, owner_notified, created_at
 FROM lite_leads
 ORDER BY created_at DESC
 LIMIT 5;
 ```
 
 3. Confirm the test request appears.
-4. GitHub Actions logs will show only the lead ID and domain, not its email, name, or message.
+4. Confirm `status` is `new`, `source_page` is `private_report`, and the selected issue/service matches the form.
+5. GitHub Actions logs will show only the lead ID and domain, not its email, name, or message.
 
 ## 14. Final launch check
 
@@ -235,8 +243,9 @@ Do not call the system launched until all are true:
 - [ ] Neon contains the three `lite_*` tables.
 - [ ] GitHub's **Cash Engine Lite Audits** run is green.
 - [ ] One authorized real website audit completed.
-- [ ] Its private report opened with findings.
-- [ ] The implementation request was stored in `lite_leads`.
+- [ ] Its private report opened with typed evidence and no unsupported finding.
+- [ ] Ranked priorities contain no duplicates; fewer than three is acceptable.
+- [ ] The implementation request was stored once in `lite_leads` with issue/service, `new` status, and `private_report` source.
 - [ ] Owner notification arrived, or the owner can read the lead securely in Neon.
 
 The automatic schedule runs every 30 minutes, but GitHub may delay scheduled jobs. Manual **Run workflow** remains the fastest launch check.

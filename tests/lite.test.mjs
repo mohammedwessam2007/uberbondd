@@ -93,7 +93,7 @@ test('rate-limit decisions cover every gate with friendly messages', () => {
 });
 
 test('buildReport strips screenshots, bounds the score, and grades correctly', () => {
-  const crawl = { pages: [{}, {}], errors: [{}], summary: { pagesVisited: 2 }, engine: 'playwright' };
+  const crawl = { pages: [{}, {}], errors: [], summary: { pagesVisited: 2 }, engine: 'playwright' };
   const findings = [
     { code: 'no-cta', title: 'No CTA', severity: 5, confidence: 0.94, category: 'Conversion', implication: 'x', service: 'y', evidenceUrl: 'https://a', evidenceExcerpt: 'e', screenshots: { desktop: '/x.png' }, safeForOutreach: true },
     { code: 'mobile-overflow', title: 'Overflow', severity: 5, confidence: 0.99, category: 'Mobile', implication: 'x', service: 'y', evidenceUrl: 'https://a', evidenceExcerpt: 'e', screenshots: {} }
@@ -103,13 +103,17 @@ test('buildReport strips screenshots, bounds the score, and grades correctly', (
   assert(!('screenshots' in report.findings[0]));
   assert(!('safeForOutreach' in report.findings[0]));
   assert.equal(report.summary.pagesVisited, 2);
-  assert.equal(report.summary.pageErrors, 1);
+  assert.equal(report.summary.pageErrors, 0);
   assert.deepEqual(report.summary.topFixes, ['No CTA', 'Overflow']);
   assert(report.score >= 15 && report.score <= 94);
   const clean = buildReport({ pages: [{}] }, []);
   assert.equal(clean.score, 96);
   assert.equal(clean.grade, 'Excellent');
-  const wrecked = buildReport(crawl, Array.from({ length: 12 }, (_, i) => ({ title: `F${i}`, severity: 5, confidence: 0.99 })));
+  const wrecked = buildReport(crawl, Array.from({ length: 12 }, (_, i) => ({
+    code: `f-${i}`, title: `F${i}`, severity: 5, confidence: 0.99,
+    category: 'Technical', implication: 'A supported high-impact issue.', service: 'Website repair',
+    evidenceUrl: `https://example.com/page-${i}`, evidenceExcerpt: `Measured issue ${i}.`
+  })));
   assert.equal(wrecked.score, 15);
   assert.equal(wrecked.grade, 'Critical gaps');
 });
@@ -199,10 +203,10 @@ function stubQuery(state) {
     if (text.includes('COUNT(*)') && text.includes('requester_hash') && text.includes('lite_audit_requests')) return { rows: [{ n: state.perIp }] };
     if (text.includes('COUNT(*)') && text.includes('email')) return { rows: [{ n: state.perEmail }] };
     if (text.includes("status IN ('queued','running')")) return { rows: [{ n: state.active }] };
-    if (text.startsWith('INSERT INTO lite_audit_requests')) { state.inserted = params; return { rows: [] }; }
+    if (text.startsWith('INSERT INTO lite_audit_requests')) { state.inserted = params; return { rows: [{ id: params[0] }] }; }
     if (text.includes('COUNT(*)') && text.includes('lite_leads')) return { rows: [{ n: state.leadCount || 0 }] };
     if (text.includes('FROM lite_audit_requests r')) return { rows: state.reportRows || [] };
-    if (text.startsWith('INSERT INTO lite_leads')) { state.leadInserted = params; return { rows: [] }; }
+    if (text.startsWith('INSERT INTO lite_leads')) { state.leadInserted = params; return { rows: [{ id: params[0] }] }; }
     if (text.startsWith('UPDATE lite_leads')) { state.leadNotified = params[0]; return { rows: [] }; }
     throw new Error(`unexpected query in stub: ${text.slice(0, 60)}`);
   };
@@ -247,7 +251,7 @@ test('report handler validates token shape and hides unknown reports', async () 
 });
 
 test('interest handler stores leads, requires an email, and notifies the owner', async () => {
-  const state = { reportRows: [{ id: 'req1', domain: 'clinic-example.com', status: 'done' }], leadCount: 0 };
+  const state = { reportRows: [{ id: 'req1', domain: 'clinic-example.com', status: 'done', score: 82, findings: [] }], leadCount: 0 };
   let notified = null;
   const handler = createInterestHandler({
     query: stubQuery(state),

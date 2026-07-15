@@ -1,10 +1,10 @@
 import {
-  q, ensureSchema, createAuditRequest,
+  q, ensureSchema, createOrGetAuditRequest,
   countRecentRequestsByRequester, countRecentRequestsByEmail, countActiveRequests
 } from '../lib/db.mjs';
 import { readJson, requesterHash, sendJson, handleError } from '../lib/http.mjs';
-import { parseEmail, parseWebsite } from '../lib/validate.mjs';
-import { createReportToken, hashToken } from '../lib/tokens.mjs';
+import { parseEmail, parseWebsite, LiteInputError } from '../lib/validate.mjs';
+import { createReportToken, hashToken, isTokenShape } from '../lib/tokens.mjs';
 import { getLimits, decideAuditRateLimit } from '../lib/rate-limit.mjs';
 
 const HOUR = 60 * 60 * 1000;
@@ -34,8 +34,12 @@ export function createHandler(deps = {}) {
       const gate = decideAuditRateLimit({ perIpCount, perEmailCount, activeCount }, limits);
       if (!gate.allowed) return sendJson(res, 429, { ok: false, error: gate.message, reason: gate.reason });
 
-      const token = createReportToken();
-      await createAuditRequest(query, {
+      const suppliedToken = String(body.reportToken ?? '');
+      if (suppliedToken && (!isTokenShape(suppliedToken) || suppliedToken.length < 40)) {
+        throw new LiteInputError('The secure report link could not be created. Please try again.');
+      }
+      const token = suppliedToken || createReportToken();
+      const request = await createOrGetAuditRequest(query, {
         websiteUrl: site.href,
         domain: site.domain,
         email,
@@ -45,6 +49,8 @@ export function createHandler(deps = {}) {
       return sendJson(res, 200, {
         ok: true,
         status: 'queued',
+        processingStage: request.created ? 'request_accepted' : 'waiting_for_audit_worker',
+        duplicate: !request.created,
         domain: site.domain,
         reportPath: `/r/${token}`,
         note: 'Audits run automatically on a schedule. Your report is usually ready within the hour.'

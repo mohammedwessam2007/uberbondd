@@ -8,6 +8,16 @@
   var successCard = document.getElementById('success-card');
   var linkEl = document.getElementById('report-link');
   var copyBtn = document.getElementById('copy');
+  var pendingReportToken = '';
+
+  function createReportToken() {
+    if (!window.crypto || !window.crypto.getRandomValues) return '';
+    var bytes = new Uint8Array(32);
+    window.crypto.getRandomValues(bytes);
+    var binary = '';
+    bytes.forEach(function (value) { binary += String.fromCharCode(value); });
+    return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+  }
 
   function showError(message) {
     errorEl.textContent = message;
@@ -18,10 +28,11 @@
     errorEl.hidden = true;
     submit.disabled = true;
     submit.textContent = 'Queuing your audit…';
+    if (!pendingReportToken) pendingReportToken = createReportToken();
     fetch('/api/request-audit', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ website: website.value, email: email.value })
+      body: JSON.stringify({ website: website.value, email: email.value, reportToken: pendingReportToken || undefined })
     })
       .then(function (res) { return res.json().then(function (data) { return { res: res, data: data }; }); })
       .then(function (result) {
@@ -33,6 +44,7 @@
         linkEl.href = result.data.reportPath;
         formCard.hidden = true;
         successCard.hidden = false;
+        pendingReportToken = '';
         successCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
       })
       .catch(function (err) {
@@ -42,6 +54,10 @@
         submit.disabled = false;
         submit.textContent = 'Run my free audit';
       });
+  });
+
+  [website, email].forEach(function (field) {
+    field.addEventListener('input', function () { pendingReportToken = ''; });
   });
 
   copyBtn.addEventListener('click', function () {

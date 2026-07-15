@@ -8,7 +8,7 @@ import { crawlSiteBrowser } from '../../src/browser-crawler.mjs';
 import { deterministicAudit } from '../../src/audit-rules.mjs';
 import {
   q, ensureSchema, closePool, sweepStaleRequests, claimNextAudit,
-  completeAudit, failAudit, pendingLeads, markLeadNotified
+  completeAudit, failAudit, updateAuditStage, pendingLeads, markLeadNotified
 } from '../lib/db.mjs';
 import { buildReport } from '../lib/report.mjs';
 import { sendOwnerEmail, formatPendingLeadLog } from '../lib/email.mjs';
@@ -25,13 +25,16 @@ async function runOneAudit(item) {
       maxPages: MAX_PAGES,
       delayMs: 400,
       timeoutMs: 25_000,
-      screenshotDir: shotsDir // ephemeral; the stored report is text + JSON only
+      screenshotDir: shotsDir, // ephemeral; the stored report is text + JSON only
+      onProgress: stage => updateAuditStage(q, item.id, stage)
     });
     if (!crawl.pages.length) {
       const first = crawl.errors?.[0];
       throw new Error(first?.error || (first?.status ? `HTTP ${first.status}` : 'No public pages could be crawled'));
     }
+    await updateAuditStage(q, item.id, 'generating_findings');
     const findings = deterministicAudit(crawl, {});
+    await updateAuditStage(q, item.id, 'preparing_report');
     const report = buildReport(crawl, findings);
     await completeAudit(q, {
       requestId: item.id,
@@ -60,6 +63,8 @@ async function notifyLeads() {
         `Website: ${lead.domain} (${lead.website_url})`,
         `Lead email: ${lead.email}`,
         lead.name ? `Name: ${lead.name}` : null,
+        lead.selected_issue_code ? `Selected issue: ${lead.selected_issue_code}` : null,
+        lead.service_interest ? `Service interest: ${lead.service_interest}` : null,
         lead.message ? `Message:\n${lead.message}` : null
       ].filter(Boolean).join('\n')
     });
@@ -69,7 +74,7 @@ async function notifyLeads() {
     } else if (result.skipped) {
       console.log(`[lite] lead email skipped (${result.reason}) — the lead above is stored in PostgreSQL`);
     } else {
-      console.warn(`[lite] lead email failed (${result.status || ''} ${result.error || ''}) — will retry next run`);
+      console.warn(`[lite] lead email failed${result.status ? ` (HTTP ${result.status})` : ''} — request remains stored and will retry next run`);
     }
   }
 }
@@ -94,7 +99,7 @@ async function main() {
       done++;
     } catch (error) {
       failed++;
-      console.error(`[lite] audit failed for ${item.domain}: ${error.message}`);
+      console.error(`[lite] audit failed for ${item.domain}; internal detail retained in PostgreSQL for operator review`);
       const status = await failAudit(q, { requestId: item.id, error: error.message, maxAttempts: MAX_ATTEMPTS });
       console.error(`[lite] ${item.domain} → ${status === 'failed' ? 'failed permanently' : 'requeued for retry'}`);
     }

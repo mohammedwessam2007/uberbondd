@@ -12,6 +12,7 @@ import {
 } from '../lib/db.mjs';
 import { buildReport } from '../lib/report.mjs';
 import { sendOwnerEmail, formatPendingLeadLog } from '../lib/email.mjs';
+import { emitQueueDiagnostic } from '../lib/queue-diagnostics.mjs';
 
 const MAX_ATTEMPTS = Math.max(1, Number(process.env.LITE_MAX_ATTEMPTS || 2));
 const MAX_PER_RUN = Math.max(1, Number(process.env.LITE_MAX_AUDITS_PER_RUN || 3));
@@ -85,6 +86,11 @@ async function main() {
     return;
   }
   await ensureSchema();
+  await emitQueueDiagnostic({
+    query: q,
+    databaseUrl: process.env.DATABASE_URL,
+    source: 'github-worker-start'
+  });
   const staleBefore = new Date(Date.now() - STALE_MINUTES * 60_000);
   const swept = await sweepStaleRequests(q, { staleBefore, maxAttempts: MAX_ATTEMPTS });
   if (swept) console.log(`[lite] marked ${swept} stale run(s) as failed`);
@@ -106,6 +112,11 @@ async function main() {
   }
 
   await notifyLeads();
+  await emitQueueDiagnostic({
+    query: q,
+    databaseUrl: process.env.DATABASE_URL,
+    source: 'github-worker-end'
+  });
   console.log(`[lite] run complete — ${done} done, ${failed} failed this run`);
 }
 

@@ -11,6 +11,7 @@ import { createReportToken, hashToken } from '../lite/lib/tokens.mjs';
 import { createHandler as createRequestHandler } from '../lite/api/request-audit.mjs';
 import { createHandler as createReportHandler } from '../lite/api/report.mjs';
 import { createHandler as createInterestHandler } from '../lite/api/interest.mjs';
+import { databaseFingerprint, emitQueueDiagnostic } from '../lite/lib/queue-diagnostics.mjs';
 
 const publicLookup = async () => [{ address: '93.184.216.34', family: 4 }];
 const FUTURE = new Date(Date.now() - 60_000); // "stale before" cutoff in the recent past
@@ -46,6 +47,80 @@ const fakeCrawl = {
 const fakeFindings = [
   { code: 'no-cta', title: 'No obvious primary action was detected', severity: 5, confidence: 0.94, category: 'Conversion', implication: 'A ready visitor may not know what to do next.', service: 'Conversion design', evidenceUrl: 'https://clinic-example.com/', evidenceExcerpt: 'No visible booking action.', screenshots: { desktop: '/x.png' } }
 ];
+
+test('submission and worker diagnostics prove one shared queue without leaking secrets', async () => {
+  const isolatedDb = new PGlite();
+  await isolatedDb.exec(SCHEMA_SQL);
+  const query = (text, params = []) => isolatedDb.query(text, params);
+  const databaseUrl = 'postgresql://diagnostic_role:never-log-this-password@ep-shared-pooler.example.net/lite_db?sslmode=require';
+  const lines = [];
+  const logger = {
+    info: line => lines.push(line),
+    warn: line => lines.push(line)
+  };
+
+  try {
+    const requestHandler = createRequestHandler({
+      query,
+      ensure: async () => {},
+      lookup: publicLookup,
+      env: { DATABASE_URL: databaseUrl },
+      logger
+    });
+    const submitted = fakeRes();
+    await requestHandler(fakeReq({
+      ip: '198.51.100.201',
+      body: { website: 'https://diagnostic-example.com', email: 'private@diagnostic-example.com' }
+    }), submitted);
+    assert.equal(submitted.statusCode, 200);
+    assert.match(lines[0], /source=vercel-submit/);
+    assert.match(lines[0], /inserted=true queued=1 running=0 done=0/);
+
+    const workerStart = await emitQueueDiagnostic({
+      query,
+      databaseUrl,
+      source: 'github-worker-start',
+      logger
+    });
+    assert.equal(workerStart.ok, true);
+    assert.deepEqual(workerStart.counts, { queued: 1, running: 0, done: 0 });
+
+    const claimed = await claimNextAudit(query, { staleBefore: FUTURE, maxAttempts: MAX_ATTEMPTS });
+    assert.equal(claimed.domain, 'diagnostic-example.com');
+    await completeAudit(query, {
+      requestId: claimed.id,
+      domain: claimed.domain,
+      score: 88,
+      summary: { grade: 'Strong', pagesVisited: 1, pageErrors: 0, topFixes: [] },
+      findings: []
+    });
+    const workerEnd = await emitQueueDiagnostic({
+      query,
+      databaseUrl,
+      source: 'github-worker-end',
+      logger
+    });
+    assert.deepEqual(workerEnd.counts, { queued: 0, running: 0, done: 1 });
+
+    const fingerprint = databaseFingerprint(databaseUrl);
+    assert.match(fingerprint, /^[a-f0-9]{16}$/);
+    assert.equal(
+      fingerprint,
+      databaseFingerprint('postgres://diagnostic_role:rotated-password@ep-shared-pooler.example.net:5432/lite_db?channel_binding=require')
+    );
+    assert.notEqual(
+      fingerprint,
+      databaseFingerprint('postgresql://diagnostic_role:anything@ep-other-pooler.example.net/lite_db')
+    );
+    assert(lines.every(line => line.includes(`db=${fingerprint}`)));
+    assert.doesNotMatch(
+      lines.join('\n'),
+      /never-log-this-password|rotated-password|private@|diagnostic_role|ep-shared-pooler|postgres(?:ql)?:\/\//
+    );
+  } finally {
+    await isolatedDb.close();
+  }
+});
 
 test('full lite flow: request → claim → report → secure link → lead', async () => {
   // 1. Visitor submits through the real API handler

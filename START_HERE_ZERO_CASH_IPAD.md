@@ -190,6 +190,23 @@ Use a public website you own or are authorized to test.
 6. Confirm the log ends with `1 done, 0 failed this run` for the submitted domain.
 7. If it says the audit failed, leave the row and error intact; do not repeatedly rerun. Check whether the target blocks automated browsers or is temporarily unavailable.
 
+### If the run still says `0 done, 0 failed`
+
+That line means the worker found no claimable request in the database it opened. The private report link alone does not prove that Vercel and GitHub opened the same database.
+
+1. In Vercel, open the latest **Production** deployment → **Logs** and find the line beginning `[lite] queue diagnostic source=vercel-submit` for your test submission.
+2. In GitHub, open the same worker run → **Process queued audits and pending leads** and find `[lite] queue diagnostic source=github-worker-start`.
+3. Compare only the short value after `db=`. Never copy or screenshot either full connection string.
+4. If the two `db=` values differ, open Vercel → **Settings** → **Environment Variables** and confirm the pooled Neon URL is named `DATABASE_URL` for **Production**. Then open **Deployments** and redeploy. Vercel environment-variable changes do not update deployments that already exist.
+5. Confirm the public `.vercel.app` production alias now points to that new deployment. Do not test an older deployment URL or a Preview deployment.
+6. In GitHub → **Settings** → **Secrets and variables** → **Actions**, replace `LITE_DATABASE_URL` with the same pooled Neon URL if its endpoint is wrong. Do not print the secret to compare it.
+7. Submit one fresh authorized test site after the production redeploy, run the workflow once, and compare the new lines:
+   - Vercel should show `inserted=true` and at least one `queued` row.
+   - GitHub worker start should show the same `db=` value and the queued row.
+   - GitHub worker end should show the row moved out of `queued`, and the run should finish `1 done, 0 failed this run`.
+
+The diagnostic contains only a one-way database fingerprint, aggregate `queued`/`running`/`done` counts, and an insertion flag. It never prints the database URL, password, report token, domain, email, requester hash, or stored error.
+
 ## 12. Open the secure report
 
 1. Open the private `/r/...` link saved in Step 10.

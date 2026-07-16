@@ -6,6 +6,7 @@ import { readJson, requesterHash, sendJson, handleError } from '../lib/http.mjs'
 import { parseEmail, parseWebsite, LiteInputError } from '../lib/validate.mjs';
 import { createReportToken, hashToken, isTokenShape } from '../lib/tokens.mjs';
 import { getLimits, decideAuditRateLimit } from '../lib/rate-limit.mjs';
+import { emitQueueDiagnostic } from '../lib/queue-diagnostics.mjs';
 
 const HOUR = 60 * 60 * 1000;
 const DAY = 24 * HOUR;
@@ -15,6 +16,9 @@ export function createHandler(deps = {}) {
   const ensure = deps.ensure || (() => ensureSchema(query));
   const lookup = deps.lookup || null;
   const nowFn = deps.now || (() => Date.now());
+  const env = deps.env || process.env;
+  const diagnoseQueue = deps.diagnoseQueue || emitQueueDiagnostic;
+  const logger = deps.logger || console;
 
   return async function handler(req, res) {
     if (req.method !== 'POST') return sendJson(res, 405, { ok: false, error: 'Method not allowed' }, { allow: 'POST' });
@@ -46,6 +50,22 @@ export function createHandler(deps = {}) {
         tokenHash: hashToken(token),
         requesterHash: requester
       });
+      // A successful response already requires the INSERT above to finish.
+      // This temporary, non-secret log proves which queue received the row.
+      if (env.DATABASE_URL) {
+        try {
+          await diagnoseQueue({
+            query,
+            databaseUrl: env.DATABASE_URL,
+            source: 'vercel-submit',
+            inserted: request.created,
+            logger
+          });
+        } catch {
+          // Diagnostics are best-effort and must not turn a stored request into
+          // a misleading HTTP failure that encourages duplicate submissions.
+        }
+      }
       return sendJson(res, 200, {
         ok: true,
         status: 'queued',

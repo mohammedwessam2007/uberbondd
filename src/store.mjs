@@ -2,22 +2,23 @@ import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { Pool } from 'pg';
-import { now } from './utils.mjs';
+import { now, normalizeDomain } from './utils.mjs';
+import { redactSensitiveText, sanitizeLogDetail } from './security.mjs';
 
 export const COLLECTIONS = [
   'prospects', 'campaigns', 'jobs', 'messages', 'replies', 'suppressions',
   'socialTasks', 'accounts', 'auditLog', 'leads', 'orders', 'subscriptions',
-  'monitoringRuns', 'notifications', 'revenueEvents', 'discoveryRuns', 'workerHeartbeats',
-  'outboundReservations', 'senderHealth', 'outboundEvents'
+  'offers', 'deliveries', 'monitoringRuns', 'notifications', 'revenueEvents', 'discoveryRuns', 'workerHeartbeats',
+  'outboundReservations', 'senderHealth', 'outboundEvents', 'experiments'
 ];
 
 const EMPTY = {
-  version: 5,
+  version: 8,
   prospects: [], campaigns: [], jobs: [], messages: [], replies: [],
   suppressions: [], socialTasks: [], accounts: [], auditLog: [], settings: {},
-  leads: [], orders: [], subscriptions: [], monitoringRuns: [], notifications: [],
+  leads: [], orders: [], subscriptions: [], offers: [], deliveries: [], monitoringRuns: [], notifications: [],
   revenueEvents: [], discoveryRuns: [], workerHeartbeats: [],
-  outboundReservations: [], senderHealth: [], outboundEvents: []
+  outboundReservations: [], senderHealth: [], outboundEvents: [], experiments: []
 };
 
 const MAP = {
@@ -57,8 +58,10 @@ const MAP = {
   accounts: { table: 'accounts', columns: { slot: 'slot', connected: 'connected', createdAt: 'created_at', updatedAt: 'updated_at' } },
   auditLog: { table: 'audit_log', columns: { type: 'type', detail: 'detail', createdAt: 'created_at' } },
   leads: { table: 'leads', columns: { prospectId: 'prospect_id', accessTokenHash: 'access_token_hash', status: 'status', paymentStatus: 'payment_status', createdAt: 'created_at', updatedAt: 'updated_at' } },
-  orders: { table: 'orders', columns: { provider: 'provider', providerEventId: 'provider_event_id', eventName: 'event_name', leadId: 'lead_id', prospectId: 'prospect_id', status: 'status', createdAt: 'created_at', updatedAt: 'updated_at' } },
+  orders: { table: 'orders', columns: { provider: 'provider', providerEventId: 'provider_event_id', eventName: 'event_name', offerId: 'offer_id', leadId: 'lead_id', prospectId: 'prospect_id', status: 'status', paymentState: 'payment_state', occurredAt: 'occurred_at', createdAt: 'created_at', updatedAt: 'updated_at' } },
   subscriptions: { table: 'subscriptions', columns: { leadId: 'lead_id', prospectId: 'prospect_id', providerId: 'provider_id', status: 'status', nextRunAt: 'next_run_at', createdAt: 'created_at', updatedAt: 'updated_at' } },
+  offers: { table: 'offers', columns: { campaignId: 'campaign_id', prospectId: 'prospect_id', leadId: 'lead_id', type: 'type', status: 'status', ownerApproved: 'owner_approved', createdAt: 'created_at', updatedAt: 'updated_at' } },
+  deliveries: { table: 'deliveries', columns: { offerId: 'offer_id', orderId: 'order_id', campaignId: 'campaign_id', prospectId: 'prospect_id', leadId: 'lead_id', status: 'status', deliveryDeadline: 'delivery_deadline', createdAt: 'created_at', updatedAt: 'updated_at' } },
   monitoringRuns: { table: 'monitoring_runs', columns: { subscriptionId: 'subscription_id', leadId: 'lead_id', prospectId: 'prospect_id', status: 'status', createdAt: 'created_at', completedAt: 'completed_at', updatedAt: 'updated_at' } },
   notifications: { table: 'notifications', columns: { type: 'type', leadId: 'lead_id', prospectId: 'prospect_id', status: 'status', createdAt: 'created_at', updatedAt: 'updated_at' } },
   revenueEvents: { table: 'revenue_events', columns: { providerEventId: 'provider_event_id', leadId: 'lead_id', prospectId: 'prospect_id', createdAt: 'created_at' } },
@@ -89,6 +92,13 @@ const MAP = {
       occurredAt: 'occurred_at', createdAt: 'created_at', updatedAt: 'updated_at'
     }
   },
+  experiments: {
+    table: 'experiments',
+    columns: {
+      campaignId: 'campaign_id', dimension: 'dimension', status: 'status',
+      createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
 };
 
 export class StoreError extends Error {
@@ -115,12 +125,101 @@ function dateOnly(value) {
   return d.toISOString().slice(0, 10);
 }
 
+function crawlSlotKey(domain) {
+  return `crawlRate:${crypto.createHash('sha256').update(String(domain || '').toLowerCase()).digest('hex')}`;
+}
+
+function auditCapacityKey(campaignId, date) {
+  const campaignHash = crypto.createHash('sha256').update(String(campaignId || '')).digest('hex');
+  return `auditCapacity:${date}:${campaignHash}`;
+}
+
+function draftCapacityKey(campaignId, date) {
+  const campaignHash = crypto.createHash('sha256').update(String(campaignId || '')).digest('hex');
+  return `draftCapacity:${date}:${campaignHash}`;
+}
+
+function prospectHash(prospectId) {
+  return crypto.createHash('sha256').update(String(prospectId || '')).digest('hex');
+}
+
+const STOPPED_OUTBOUND_STATUSES = new Set([
+  'replied', 'interested', 'meeting-requested', 'asks-for-information', 'objection',
+  'not-interested', 'unsubscribed', 'suppressed', 'bounced', 'complaint', 'paid',
+  'send-uncertain', 'checkout-sent', 'delivery-queued', 'delivered'
+]);
+
+function dispatchLockKeys({ prospectId = '', inbox = '', email = '', domain = '' } = {}) {
+  return [...new Set([
+    'outbound:global',
+    inbox && `outbound:inbox:${inbox}`,
+    prospectId && `outbound:prospect:${prospectId}`,
+    email && `outbound:recipient:${String(email).toLowerCase()}`,
+    domain && `outbound:recipient:${String(domain).toLowerCase()}`
+  ].filter(Boolean))].sort();
+}
+
+function outboundStopReason({ reservation, prospect, suppressions = [], replies = [], lead, orders = [] }) {
+  if (!prospect) return 'reservation-prospect-mismatch';
+  const email = String(reservation?.recipientEmail || '').toLowerCase();
+  const domain = String(prospect.domain || normalizeDomain(prospect.website)).toLowerCase();
+  const suppressionValues = new Set(suppressions.map(item => String(item.value || '').toLowerCase()));
+  if (suppressionValues.has(email) || suppressionValues.has(domain)) return 'suppressed';
+  if (prospect.repliedAt || replies.length) return 'reply-received';
+  if (STOPPED_OUTBOUND_STATUSES.has(prospect.status)) return `prospect-${prospect.status}`;
+  if (prospect.paymentStatus === 'paid' || prospect.paidAt || lead?.paymentStatus === 'paid' || lead?.paidAt) return 'payment-received';
+  if (orders.some(order => ['paid', 'order_created', 'subscription_created', 'transaction.completed'].includes(String(order.status || order.eventName || '').toLowerCase()))) return 'payment-received';
+  return '';
+}
+
+function dispatchDecision(context, gate = {}) {
+  const { reservation, prospect, campaign, settings = {}, health, suppressions = [], replies = [], lead, orders = [] } = context;
+  if (!reservation) return { ok: false, reason: 'reservation-not-found' };
+  if (reservation.status !== 'reserved') return { ok: false, reason: `reservation-${reservation.status || 'invalid'}` };
+  if (!prospect || reservation.prospectId !== prospect.id) return { ok: false, reason: 'reservation-prospect-mismatch' };
+  if (!campaign || reservation.campaignId !== campaign.id || prospect.campaignId !== campaign.id) return { ok: false, reason: 'reservation-campaign-mismatch' };
+  if (String(reservation.recipientEmail || '').toLowerCase() !== String(prospect.contact?.email || '').toLowerCase()) return { ok: false, reason: 'reservation-recipient-mismatch' };
+  if (settings.outboundPaused === true) return { ok: false, reason: 'global-outbound-paused' };
+  if (health?.paused === true) return { ok: false, reason: 'sender-paused' };
+  if (campaign.approved !== true || campaign.enabled === false) return { ok: false, reason: 'campaign-not-enabled' };
+  const stopReason = outboundStopReason({ reservation, prospect, suppressions, replies, lead, orders });
+  if (stopReason) return { ok: false, reason: stopReason };
+  const followup = Number(reservation.followup || 0);
+  if (followup > 0) {
+    if (prospect.status !== 'sent') return { ok: false, reason: 'followup-prospect-state' };
+    if (campaign.autoSend !== true) return { ok: false, reason: 'campaign-auto-send-disabled' };
+    if (followup > Number(campaign.maximumFollowups ?? campaign.maxFollowups ?? 0)) return { ok: false, reason: 'followup-limit-invalidated' };
+  }
+  if (!followup && gate.authorization === 'owner-approved') {
+    if (prospect.status !== 'scheduled' || prospect.draftApproval?.status !== 'approved') return { ok: false, reason: 'owner-approval-invalidated' };
+  } else if (!followup) {
+    if (!campaign.autoSend) return { ok: false, reason: 'campaign-auto-send-disabled' };
+    if (!['ready', 'research-complete'].includes(prospect.status)) return { ok: false, reason: 'initial-prospect-state-invalidated' };
+  }
+  if (!followup && (String(prospect.draft || '') !== String(gate.draftBody || '') || String(prospect.subject || '') !== String(gate.draftSubject || ''))) {
+    return { ok: false, reason: 'draft-invalidated' };
+  }
+  if (gate.simulation === true) {
+    if (gate.systemProvider !== 'test' || gate.systemDryRun !== true || campaign.dryRun !== true) return { ok: false, reason: 'dry-run-dispatch-invalidated' };
+  } else {
+    if (gate.systemProvider !== 'gmail' || gate.systemEnabled !== true || gate.systemDryRun !== false || gate.systemLiveSendApproved !== true) {
+      return { ok: false, reason: 'system-live-send-disabled' };
+    }
+    if (campaign.dryRun !== false || campaign.liveSendApproved !== true) return { ok: false, reason: 'campaign-live-send-disabled' };
+  }
+  return { ok: true };
+}
+
 function normalizeRecord(key, item) {
   const copy = structuredClone(item);
   if (key === 'prospects') copy.domain = String(copy.domain || '').toLowerCase();
   if (key === 'suppressions') copy.value = String(copy.value || '').toLowerCase();
   if (key === 'discoveryRuns') copy.runDate = copy.runDate || dateOnly(copy.startedAt || copy.createdAt);
   if (key === 'outboundReservations') copy.recipientEmail = String(copy.recipientEmail || '').toLowerCase();
+  if (key === 'offers') {
+    copy.currency = String(copy.currency || '').toUpperCase();
+    copy.ownerApproved = copy.ownerApproval?.status === 'approved';
+  }
   if (key === 'senderHealth') copy.healthDate = copy.healthDate || dateOnly(copy.updatedAt || copy.createdAt);
   return copy;
 }
@@ -160,18 +259,25 @@ class JsonTransactionStore {
   async patch(key, id, patch) { return this.parent._patchDirect(key, id, patch); }
   async getSettings() { return structuredClone(this.parent.data.settings || {}); }
   async setSetting(key, value) { this.parent.data.settings[key] = structuredClone(value); return value; }
-  async log(type, detail = {}) { return this.add('auditLog', { id: crypto.randomUUID(), type, detail, createdAt: now() }); }
-  async reserveDiscoveryCapacity(date, cap, requested, runId = '') { return this.parent._reserveDiscoveryCapacityDirect(date, cap, requested, runId); }
+  async log(type, detail = {}) { return this.add('auditLog', { id: crypto.randomUUID(), type, detail: sanitizeLogDetail(detail), createdAt: now() }); }
+  async reserveDiscoveryCapacity(date, cap, requested, runId = '', scope = {}) { return this.parent._reserveDiscoveryCapacityDirect(date, cap, requested, runId, scope); }
+  async reserveCrawlSlot(domain, minGapMs, at) { return this.parent._reserveCrawlSlotDirect(domain, minGapMs, at); }
+  async reserveAuditCapacity(campaignId, date, cap, prospectId) { return this.parent._reserveAuditCapacityDirect(campaignId, date, cap, prospectId); }
+  async reserveDraftCapacity(campaignId, date, cap, prospectId) { return this.parent._reserveDraftCapacityDirect(campaignId, date, cap, prospectId); }
   async claimProspects(limit = 1) { return this.parent._claimProspectsDirect(limit); }
   async claimProspect(id) { return this.parent._claimProspectDirect(id); }
-  async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000) { return this.parent._claimJobsDirect(workerId, limit, lockTimeoutMs); }
-  async completeJob(id, result = {}) { return this.parent._completeJobDirect(id, result); }
+  async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000, types = []) { return this.parent._claimJobsDirect(workerId, limit, lockTimeoutMs, types); }
+  async completeJob(id, result = {}, lease = {}) { return this.parent._completeJobDirect(id, result, lease); }
   async failJob(id, error, options = {}) { return this.parent._failJobDirect(id, error, options); }
   async heartbeatJob(id, workerId) { return this.parent._heartbeatJobDirect(id, workerId); }
   async recoverStaleJobs(lockTimeoutMs = 300000) { return this.parent._recoverStaleJobsDirect(lockTimeoutMs); }
   async queueStats() { return this.parent._queueStatsDirect(); }
   async reserveOutboundSend(input) { return this.parent._reserveOutboundSendDirect(input); }
+  async beginOutboundDispatch(id, gate = {}) { return this.parent._beginOutboundDispatchDirect(id, gate); }
+  async finalizeOutboundDispatch(id, status, reservationPatch = {}, prospectPatch = {}) { return this.parent._finalizeOutboundDispatchDirect(id, status, reservationPatch, prospectPatch); }
   async markOutboundReservation(id, status, patch = {}) { return this.parent._markOutboundReservationDirect(id, status, patch); }
+  async suppressOutbound(input = {}) { return this.parent._suppressOutboundDirect(input); }
+  async recordReplyAndStop(record, prospectPatch = {}) { return this.parent._recordReplyAndStopDirect(record, prospectPatch); }
   async recordOutboundEvent(input, thresholds = {}) { return this.parent._recordOutboundEventDirect(input, thresholds); }
   async transaction(fn) { return fn(this); }
   async tx(fn) { return fn(this.parent.data); }
@@ -189,7 +295,7 @@ export class JsonStore {
     await fs.mkdir(this.dir, { recursive: true });
     try {
       const loaded = JSON.parse(await fs.readFile(this.file, 'utf8'));
-      this.data = { ...structuredClone(EMPTY), ...loaded, version: 5 };
+      this.data = { ...structuredClone(EMPTY), ...loaded, version: 8 };
       for (const key of Object.keys(EMPTY)) {
         if (!(key in this.data)) this.data[key] = structuredClone(EMPTY[key]);
       }
@@ -250,6 +356,8 @@ export class JsonStore {
     if (key === 'replies' && record.gmailId && other(item => item.gmailId === record.gmailId)) throw new ConflictError(`Duplicate reply: ${record.gmailId}`);
     if (key === 'accounts' && other(item => item.slot === record.slot)) throw new ConflictError(`Duplicate account slot: ${record.slot}`);
     if (key === 'orders' && record.providerEventId && other(item => item.providerEventId === record.providerEventId)) throw new ConflictError(`Duplicate payment event: ${record.providerEventId}`);
+    if (key === 'offers' && record.prospectId && record.type && other(item => item.prospectId === record.prospectId && item.type === record.type)) throw new ConflictError(`Duplicate offer type for prospect: ${record.type}`);
+    if (key === 'deliveries' && record.orderId && other(item => item.orderId === record.orderId)) throw new ConflictError(`Duplicate delivery payment event: ${record.orderId}`);
     if (key === 'revenueEvents' && record.providerEventId && other(item => item.providerEventId === record.providerEventId)) throw new ConflictError(`Duplicate revenue event: ${record.providerEventId}`);
     if (key === 'jobs' && record.dedupeKey && other(item => item.dedupeKey === record.dedupeKey)) throw new ConflictError(`Duplicate job dedupe key: ${record.dedupeKey}`);
     if (key === 'jobs' && record.singletonKey && ['queued', 'retry', 'active'].includes(record.status) && other(item => item.singletonKey === record.singletonKey && ['queued', 'retry', 'active'].includes(item.status))) throw new ConflictError(`Active singleton job already exists: ${record.singletonKey}`);
@@ -284,19 +392,79 @@ export class JsonStore {
     return structuredClone(item);
   }
 
-  _reserveDiscoveryCapacityDirect(date, cap, requested, runId = '') {
-    const used = (this.data.discoveryRuns || [])
-      .filter(run => run.id !== runId && run.runDate === date && run.status !== 'error')
-      .reduce((sum, run) => sum + Number(run.importedCount || 0), 0);
-    const allowed = Math.max(0, Math.min(Number(requested || 0), Number(cap || 0) - used));
+  _reserveDiscoveryCapacityDirect(date, cap, requested, runId = '', scope = {}) {
+    const eligible = (this.data.discoveryRuns || [])
+      .filter(run => run.id !== runId && run.runDate === date && run.status !== 'error');
+    const used = eligible.reduce((sum, run) => sum + Number(run.importedCount || 0), 0);
+    const campaignId = String(scope.campaignId || '');
+    const campaignUsed = campaignId
+      ? eligible.filter(run => run.campaignId === campaignId).reduce((sum, run) => sum + Number(run.importedCount || 0), 0)
+      : used;
+    const campaignCap = Number.isFinite(Number(scope.campaignCap)) ? Number(scope.campaignCap) : Number(cap || 0);
+    const allowed = Math.max(0, Math.min(
+      Number(requested || 0),
+      Number(cap || 0) - used,
+      campaignCap - campaignUsed
+    ));
     const current = (this.data.discoveryRuns || []).find(run => run.id === runId);
     if (current) { current.importedCount = allowed; current.capacityReserved = allowed; current.updatedAt = now(); }
     return allowed;
   }
 
+  _reserveCrawlSlotDirect(domain, minGapMs = 1000, at = now()) {
+    const requestedAt = new Date(at);
+    if (Number.isNaN(requestedAt.getTime())) throw new StoreError('Invalid crawl reservation time', 'INVALID_INPUT');
+    const gap = Math.max(0, Math.min(3600000, Number(minGapMs || 0)));
+    const key = crawlSlotKey(domain);
+    const existing = this.data.settings[key] || {};
+    const previousNext = Date.parse(existing.nextAllowedAt || 0);
+    const reservedMs = Math.max(requestedAt.getTime(), Number.isFinite(previousNext) ? previousNext : 0);
+    const reservation = {
+      domainHash: key.slice('crawlRate:'.length),
+      reservedAt: new Date(reservedMs).toISOString(),
+      nextAllowedAt: new Date(reservedMs + gap).toISOString(),
+      updatedAt: now()
+    };
+    this.data.settings[key] = reservation;
+    return { ...reservation, waitMs: Math.max(0, reservedMs - requestedAt.getTime()) };
+  }
+
+  _reserveAuditCapacityDirect(campaignId, date, cap, prospectId) {
+    const limit = Math.max(0, Math.min(100, Number(cap || 0)));
+    const key = auditCapacityKey(campaignId, date);
+    const hash = prospectHash(prospectId);
+    const existing = this.data.settings[key] || { count: 0, prospectHashes: [] };
+    if ((existing.prospectHashes || []).includes(hash)) return { ok: true, duplicate: true, remaining: Math.max(0, limit - Number(existing.count || 0)) };
+    if (Number(existing.count || 0) >= limit) return { ok: false, reason: 'campaign-daily-audit-cap', remaining: 0 };
+    const record = {
+      count: Number(existing.count || 0) + 1,
+      prospectHashes: [...(existing.prospectHashes || []), hash].slice(-100),
+      updatedAt: now()
+    };
+    this.data.settings[key] = record;
+    return { ok: true, duplicate: false, remaining: Math.max(0, limit - record.count) };
+  }
+
+  _reserveDraftCapacityDirect(campaignId, date, cap, prospectId) {
+    const limit = Math.max(0, Math.min(100, Number(cap || 0)));
+    const key = draftCapacityKey(campaignId, date);
+    const hash = prospectHash(prospectId);
+    const existing = this.data.settings[key] || { count: 0, prospectHashes: [] };
+    if ((existing.prospectHashes || []).includes(hash)) return { ok: true, duplicate: true, remaining: Math.max(0, limit - Number(existing.count || 0)) };
+    if (Number(existing.count || 0) >= limit) return { ok: false, reason: 'campaign-daily-draft-cap', remaining: 0 };
+    const record = {
+      count: Number(existing.count || 0) + 1,
+      prospectHashes: [...(existing.prospectHashes || []), hash].slice(-100),
+      updatedAt: now()
+    };
+    this.data.settings[key] = record;
+    return { ok: true, duplicate: false, remaining: Math.max(0, limit - record.count) };
+  }
+
   _claimProspectsDirect(limit = 1) {
     const claimed = (this.data.prospects || [])
       .filter(prospect => ['queued', 'new', 'retry', 'error'].includes(prospect.status))
+      .filter(prospect => !prospect.nextCrawlAt || Date.parse(prospect.nextCrawlAt) <= Date.now())
       .slice(0, Math.max(0, limit));
     for (const prospect of claimed) {
       prospect.status = 'claimed';
@@ -307,7 +475,10 @@ export class JsonStore {
   }
 
   _claimProspectDirect(id) {
-    const prospect = (this.data.prospects || []).find(item => item.id === id && ['queued', 'new', 'retry', 'error'].includes(item.status));
+    const prospect = (this.data.prospects || []).find(item =>
+      item.id === id && ['queued', 'new', 'retry', 'error'].includes(item.status)
+      && (!item.nextCrawlAt || Date.parse(item.nextCrawlAt) <= Date.now())
+    );
     if (!prospect) return null;
     prospect.status = 'claimed';
     prospect.claimedAt = now();
@@ -340,11 +511,14 @@ export class JsonStore {
     return { recovered, deadLettered };
   }
 
-  _claimJobsDirect(workerId, limit = 1, lockTimeoutMs = 300000) {
+  _claimJobsDirect(workerId, limit = 1, lockTimeoutMs = 300000, types = []) {
     this._recoverStaleJobsDirect(lockTimeoutMs);
     const current = Date.now();
+    const allowedTypes = new Set((Array.isArray(types) ? types : [])
+      .map(value => String(value || '').trim()).filter(Boolean).slice(0, 20));
     const jobs = (this.data.jobs || [])
       .filter(job => ['queued', 'retry'].includes(job.status) && Date.parse(job.runAt || job.scheduledAt || job.createdAt || 0) <= current)
+      .filter(job => !allowedTypes.size || allowedTypes.has(job.type) || allowedTypes.has(job.queue))
       .sort((a, b) => Number(b.priority || 0) - Number(a.priority || 0) || String(a.createdAt || '').localeCompare(String(b.createdAt || '')))
       .slice(0, Math.max(0, limit));
     for (const job of jobs) {
@@ -359,19 +533,21 @@ export class JsonStore {
     return structuredClone(jobs);
   }
 
-  _completeJobDirect(id, result = {}) {
-    const job = (this.data.jobs || []).find(item => item.id === id);
+  _completeJobDirect(id, result = {}, lease = {}) {
+    const job = (this.data.jobs || []).find(item => item.id === id && item.status === 'active'
+      && item.lockedBy === lease.workerId && item.lockedAt === lease.lockedAt);
     if (!job) return null;
     Object.assign(job, { status: 'completed', result, completedAt: now(), lockedAt: null, lockedBy: null, heartbeatAt: null, lastError: '', updatedAt: now() });
     return structuredClone(job);
   }
 
   _failJobDirect(id, error, options = {}) {
-    const job = (this.data.jobs || []).find(item => item.id === id);
+    const job = (this.data.jobs || []).find(item => item.id === id && item.status === 'active'
+      && item.lockedBy === options.workerId && item.lockedAt === options.lockedAt);
     if (!job) return null;
     const attempts = Number(job.attempts || 0);
     const maxAttempts = Number(options.maxAttempts || job.maxAttempts || 5);
-    const message = String(error?.message || error || 'Unknown job failure').slice(0, 2000);
+    const message = redactSensitiveText(error?.message || error || 'Unknown job failure').slice(0, 2000);
     if (attempts >= maxAttempts) {
       Object.assign(job, { status: 'dead-letter', deadLetteredAt: now(), lastError: message, lockedAt: null, lockedBy: null, heartbeatAt: null, updatedAt: now() });
     } else {
@@ -427,6 +603,70 @@ export class JsonStore {
     return { ok: true, reservation };
   }
 
+  _beginOutboundDispatchDirect(id, gate = {}) {
+    const reservation = (this.data.outboundReservations || []).find(item => item.id === id);
+    const prospect = reservation ? (this.data.prospects || []).find(item => item.id === reservation.prospectId) : null;
+    const campaign = prospect ? (this.data.campaigns || []).find(item => item.id === prospect.campaignId) : null;
+    const context = {
+      reservation, prospect, campaign, settings: this.data.settings || {},
+      health: reservation ? (this.data.senderHealth || []).find(item => item.inbox === reservation.inbox) : null,
+      suppressions: this.data.suppressions || [],
+      replies: prospect ? (this.data.replies || []).filter(item => item.prospectId === prospect.id) : [],
+      lead: prospect?.leadId ? (this.data.leads || []).find(item => item.id === prospect.leadId) : null,
+      orders: prospect ? (this.data.orders || []).filter(item => item.prospectId === prospect.id) : []
+    };
+    const decision = dispatchDecision(context, gate);
+    if (!decision.ok) {
+      if (reservation?.status === 'reserved') this._markOutboundReservationDirect(id, 'cancelled', { cancelReason: decision.reason });
+      return { ...decision, reservation: reservation ? structuredClone(reservation) : null };
+    }
+    return { ok: true, reservation: this._markOutboundReservationDirect(id, 'dispatching') };
+  }
+
+  _finalizeOutboundDispatchDirect(id, status, reservationPatch = {}, prospectPatch = {}) {
+    if (!['sent', 'uncertain'].includes(status)) throw new StoreError('Invalid outbound finalization status', 'INVALID_OUTBOUND_STATE');
+    const reservation = (this.data.outboundReservations || []).find(item => item.id === id && item.status === 'dispatching');
+    if (!reservation) return { ok: false, reason: 'reservation-not-dispatching' };
+    const prospect = (this.data.prospects || []).find(item => item.id === reservation.prospectId) || null;
+    const context = {
+      reservation, prospect, suppressions: this.data.suppressions || [],
+      replies: prospect ? (this.data.replies || []).filter(item => item.prospectId === prospect.id) : [],
+      lead: prospect?.leadId ? (this.data.leads || []).find(item => item.id === prospect.leadId) : null,
+      orders: prospect ? (this.data.orders || []).filter(item => item.prospectId === prospect.id) : []
+    };
+    const stopReason = outboundStopReason(context);
+    const finalizedReservation = this._markOutboundReservationDirect(id, status, reservationPatch);
+    let finalizedProspect = null;
+    if (prospect) {
+      const safePatch = { ...prospectPatch };
+      if (stopReason) {
+        delete safePatch.status;
+        safePatch.nextFollowupAt = null;
+        safePatch.sendSafety = { ...(prospect.sendSafety || {}), ...(safePatch.sendSafety || {}), terminalStopReason: stopReason };
+      }
+      finalizedProspect = this._patchDirect('prospects', prospect.id, safePatch);
+    }
+    return { ok: true, reservation: finalizedReservation, prospect: finalizedProspect, stopReason };
+  }
+
+  _suppressOutboundDirect(input = {}) {
+    const values = [...new Set((input.values || []).map(value => String(value || '').trim().toLowerCase()).filter(Boolean))].sort();
+    for (const value of values) {
+      if ((this.data.suppressions || []).some(item => item.value === value)) continue;
+      this._addDirect('suppressions', { id: crypto.randomUUID(), value, reason: String(input.reason || 'suppressed'), createdAt: now() });
+    }
+    const prospect = input.prospectId ? this._patchDirect('prospects', input.prospectId, {
+      status: input.status || 'suppressed', nextFollowupAt: null, ...(input.prospectPatch || {})
+    }) : null;
+    return { ok: true, values, prospect };
+  }
+
+  _recordReplyAndStopDirect(record, prospectPatch = {}) {
+    const reply = this._addDirect('replies', record);
+    const prospect = record.prospectId ? this._patchDirect('prospects', record.prospectId, { ...prospectPatch, nextFollowupAt: null }) : null;
+    return { reply, prospect };
+  }
+
   _markOutboundReservationDirect(id, status, patch = {}) {
     return this._patchDirect('outboundReservations', id, {
       ...patch, status,
@@ -438,9 +678,10 @@ export class JsonStore {
   _recordOutboundEventDirect(input = {}, thresholds = {}) {
     const timestamp = input.occurredAt || now();
     const today = String(timestamp).slice(0, 10);
+    const recipientHash = input.recipientEmail ? crypto.createHash('sha256').update(String(input.recipientEmail).trim().toLowerCase()).digest('hex') : '';
     this._addDirect('outboundEvents', {
       id: input.id || crypto.randomUUID(), inbox: input.inbox || '', eventType: input.eventType,
-      prospectId: input.prospectId || null, recipientEmail: input.recipientEmail || '',
+      prospectId: input.prospectId || null, recipientEmail: '', recipientHash,
       detail: input.detail || {}, occurredAt: timestamp, createdAt: timestamp, updatedAt: timestamp
     });
     let health = (this.data.senderHealth || []).find(item => item.inbox === input.inbox);
@@ -477,18 +718,25 @@ export class JsonStore {
   async patch(key, id, patch) { return this.transaction(tx => tx.patch(key, id, patch)); }
   async getSettings() { return structuredClone(this.data.settings || {}); }
   async setSetting(key, value) { return this.transaction(tx => tx.setSetting(key, value)); }
-  async log(type, detail = {}) { return this.add('auditLog', { id: crypto.randomUUID(), type, detail, createdAt: now() }); }
-  async reserveDiscoveryCapacity(date, cap, requested, runId = '') { return this.transaction(tx => tx.reserveDiscoveryCapacity(date, cap, requested, runId)); }
+  async log(type, detail = {}) { return this.add('auditLog', { id: crypto.randomUUID(), type, detail: sanitizeLogDetail(detail), createdAt: now() }); }
+  async reserveDiscoveryCapacity(date, cap, requested, runId = '', scope = {}) { return this.transaction(tx => tx.reserveDiscoveryCapacity(date, cap, requested, runId, scope)); }
+  async reserveCrawlSlot(domain, minGapMs, at = now()) { return this.transaction(tx => tx.reserveCrawlSlot(domain, minGapMs, at)); }
+  async reserveAuditCapacity(campaignId, date, cap, prospectId) { return this.transaction(tx => tx.reserveAuditCapacity(campaignId, date, cap, prospectId)); }
+  async reserveDraftCapacity(campaignId, date, cap, prospectId) { return this.transaction(tx => tx.reserveDraftCapacity(campaignId, date, cap, prospectId)); }
   async claimProspects(limit = 1) { return this.transaction(tx => tx.claimProspects(limit)); }
   async claimProspect(id) { return this.transaction(tx => tx.claimProspect(id)); }
-  async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000) { return this.transaction(tx => tx.claimJobs(workerId, limit, lockTimeoutMs)); }
-  async completeJob(id, result = {}) { return this.transaction(tx => tx.completeJob(id, result)); }
+  async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000, types = []) { return this.transaction(tx => tx.claimJobs(workerId, limit, lockTimeoutMs, types)); }
+  async completeJob(id, result = {}, lease = {}) { return this.transaction(tx => tx.completeJob(id, result, lease)); }
   async failJob(id, error, options = {}) { return this.transaction(tx => tx.failJob(id, error, options)); }
   async heartbeatJob(id, workerId) { return this.transaction(tx => tx.heartbeatJob(id, workerId)); }
   async recoverStaleJobs(lockTimeoutMs = 300000) { return this.transaction(tx => tx.recoverStaleJobs(lockTimeoutMs)); }
   async queueStats() { return this._queueStatsDirect(); }
   async reserveOutboundSend(input) { return this.transaction(tx => tx.reserveOutboundSend(input)); }
+  async beginOutboundDispatch(id, gate = {}) { return this.transaction(tx => tx.beginOutboundDispatch(id, gate)); }
+  async finalizeOutboundDispatch(id, status, reservationPatch = {}, prospectPatch = {}) { return this.transaction(tx => tx.finalizeOutboundDispatch(id, status, reservationPatch, prospectPatch)); }
   async markOutboundReservation(id, status, patch = {}) { return this.transaction(tx => tx.markOutboundReservation(id, status, patch)); }
+  async suppressOutbound(input = {}) { return this.transaction(tx => tx.suppressOutbound(input)); }
+  async recordReplyAndStop(record, prospectPatch = {}) { return this.transaction(tx => tx.recordReplyAndStop(record, prospectPatch)); }
   async recordOutboundEvent(input, thresholds = {}) { return this.transaction(tx => tx.recordOutboundEvent(input, thresholds)); }
   async setOutboundPaused(paused, reason = '') { await this.setSetting('outboundPaused', Boolean(paused)); await this.setSetting('outboundPauseReason', String(reason || '')); return { paused: Boolean(paused), reason }; }
   async setSenderPaused(inbox, paused, reason = '') {
@@ -638,14 +886,28 @@ export class PostgresStore {
   }
 
   async log(type, detail = {}) {
-    return this.add('auditLog', { id: crypto.randomUUID(), type, detail, createdAt: now() });
+    return this.add('auditLog', { id: crypto.randomUUID(), type, detail: sanitizeLogDetail(detail), createdAt: now() });
   }
 
-  async reserveDiscoveryCapacity(date, cap, requested, runId = '') {
+  async reserveDiscoveryCapacity(date, cap, requested, runId = '', scope = {}) {
     return this.transaction(async tx => {
       await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`discovery-cap:${date}`]);
-      const result = await tx.pool.query("SELECT COALESCE(sum(imported_count), 0)::int AS used FROM discovery_runs WHERE run_date = $1::date AND status <> 'error' AND id <> $2", [date, runId]);
-      const allowed = Math.max(0, Math.min(Number(requested || 0), Number(cap || 0) - Number(result.rows[0].used || 0)));
+      const campaignId = String(scope.campaignId || '');
+      const result = await tx.pool.query(`
+        SELECT
+          COALESCE(sum(imported_count), 0)::int AS used,
+          COALESCE(sum(imported_count) FILTER (WHERE campaign_id = $3), 0)::int AS campaign_used
+        FROM discovery_runs
+        WHERE run_date = $1::date AND status <> 'error' AND id <> $2
+      `, [date, runId, campaignId]);
+      const used = Number(result.rows[0].used || 0);
+      const campaignUsed = campaignId ? Number(result.rows[0].campaign_used || 0) : used;
+      const campaignCap = Number.isFinite(Number(scope.campaignCap)) ? Number(scope.campaignCap) : Number(cap || 0);
+      const allowed = Math.max(0, Math.min(
+        Number(requested || 0),
+        Number(cap || 0) - used,
+        campaignCap - campaignUsed
+      ));
       if (runId) {
         const row = await tx.pool.query('SELECT data FROM discovery_runs WHERE id = $1 FOR UPDATE', [runId]);
         if (row.rows[0]) {
@@ -657,12 +919,84 @@ export class PostgresStore {
     });
   }
 
+  async reserveCrawlSlot(domain, minGapMs = 1000, at = now()) {
+    return this.transaction(async tx => {
+      const requestedAt = new Date(at);
+      if (Number.isNaN(requestedAt.getTime())) throw new StoreError('Invalid crawl reservation time', 'INVALID_INPUT');
+      const gap = Math.max(0, Math.min(3600000, Number(minGapMs || 0)));
+      const key = crawlSlotKey(domain);
+      await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [key]);
+      const row = await tx.pool.query('SELECT value FROM settings WHERE key = $1 FOR UPDATE', [key]);
+      const existing = row.rows[0]?.value || {};
+      const previousNext = Date.parse(existing.nextAllowedAt || 0);
+      const reservedMs = Math.max(requestedAt.getTime(), Number.isFinite(previousNext) ? previousNext : 0);
+      const reservation = {
+        domainHash: key.slice('crawlRate:'.length),
+        reservedAt: new Date(reservedMs).toISOString(),
+        nextAllowedAt: new Date(reservedMs + gap).toISOString(),
+        updatedAt: now()
+      };
+      await tx.pool.query(`
+        INSERT INTO settings(key, value, updated_at) VALUES ($1, $2::jsonb, now())
+        ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = now()
+      `, [key, JSON.stringify(reservation)]);
+      return { ...reservation, waitMs: Math.max(0, reservedMs - requestedAt.getTime()) };
+    });
+  }
+
+  async reserveAuditCapacity(campaignId, date, cap, prospectId) {
+    return this.transaction(async tx => {
+      const limit = Math.max(0, Math.min(100, Number(cap || 0)));
+      const key = auditCapacityKey(campaignId, date);
+      const hash = prospectHash(prospectId);
+      await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [key]);
+      const row = await tx.pool.query('SELECT value FROM settings WHERE key = $1 FOR UPDATE', [key]);
+      const existing = row.rows[0]?.value || { count: 0, prospectHashes: [] };
+      if ((existing.prospectHashes || []).includes(hash)) return { ok: true, duplicate: true, remaining: Math.max(0, limit - Number(existing.count || 0)) };
+      if (Number(existing.count || 0) >= limit) return { ok: false, reason: 'campaign-daily-audit-cap', remaining: 0 };
+      const record = {
+        count: Number(existing.count || 0) + 1,
+        prospectHashes: [...(existing.prospectHashes || []), hash].slice(-100),
+        updatedAt: now()
+      };
+      await tx.pool.query(`
+        INSERT INTO settings(key, value, updated_at) VALUES ($1, $2::jsonb, now())
+        ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = now()
+      `, [key, JSON.stringify(record)]);
+      return { ok: true, duplicate: false, remaining: Math.max(0, limit - record.count) };
+    });
+  }
+
+  async reserveDraftCapacity(campaignId, date, cap, prospectId) {
+    return this.transaction(async tx => {
+      const limit = Math.max(0, Math.min(100, Number(cap || 0)));
+      const key = draftCapacityKey(campaignId, date);
+      const hash = prospectHash(prospectId);
+      await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [key]);
+      const row = await tx.pool.query('SELECT value FROM settings WHERE key = $1 FOR UPDATE', [key]);
+      const existing = row.rows[0]?.value || { count: 0, prospectHashes: [] };
+      if ((existing.prospectHashes || []).includes(hash)) return { ok: true, duplicate: true, remaining: Math.max(0, limit - Number(existing.count || 0)) };
+      if (Number(existing.count || 0) >= limit) return { ok: false, reason: 'campaign-daily-draft-cap', remaining: 0 };
+      const record = {
+        count: Number(existing.count || 0) + 1,
+        prospectHashes: [...(existing.prospectHashes || []), hash].slice(-100),
+        updatedAt: now()
+      };
+      await tx.pool.query(`
+        INSERT INTO settings(key, value, updated_at) VALUES ($1, $2::jsonb, now())
+        ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = now()
+      `, [key, JSON.stringify(record)]);
+      return { ok: true, duplicate: false, remaining: Math.max(0, limit - record.count) };
+    });
+  }
+
   async claimProspects(limit = 1) {
     return this.transaction(async tx => {
       const result = await tx.pool.query(`
         WITH candidates AS (
           SELECT id FROM prospects
           WHERE status = ANY($1::text[])
+            AND COALESCE((data->>'nextCrawlAt')::timestamptz, now()) <= now()
           ORDER BY created_at ASC NULLS FIRST
           FOR UPDATE SKIP LOCKED
           LIMIT $2
@@ -685,6 +1019,7 @@ export class PostgresStore {
       SET status='claimed', updated_at=now(),
           data=jsonb_set(jsonb_set(data,'{status}','"claimed"'::jsonb),'{claimedAt}',to_jsonb(now()::text))
       WHERE id=$1 AND status=ANY($2::text[])
+        AND COALESCE((data->>'nextCrawlAt')::timestamptz, now()) <= now()
       RETURNING data
     `, [id, ['queued', 'new', 'retry', 'error']]);
     return result.rows[0]?.data || null;
@@ -723,14 +1058,17 @@ export class PostgresStore {
     });
   }
 
-  async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000) {
+  async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000, types = []) {
     await this.recoverStaleJobs(lockTimeoutMs);
+    const allowedTypes = (Array.isArray(types) ? types : [])
+      .map(value => String(value || '').trim()).filter(Boolean).slice(0, 20);
     return this.transaction(async tx => {
       const result = await tx.pool.query(`
         WITH candidates AS (
           SELECT id FROM jobs
           WHERE status = ANY($1::text[])
             AND COALESCE(run_at, scheduled_at, created_at, now()) <= now()
+            AND ($4::text[] IS NULL OR type = ANY($4::text[]) OR queue = ANY($4::text[]))
           ORDER BY priority DESC, created_at ASC NULLS FIRST
           FOR UPDATE SKIP LOCKED
           LIMIT $2
@@ -747,29 +1085,29 @@ export class PostgresStore {
         FROM candidates c
         WHERE j.id = c.id
         RETURNING j.data
-      `, [['queued', 'retry'], Math.max(0, Number(limit || 0)), String(workerId)]);
+      `, [['queued', 'retry'], Math.max(0, Number(limit || 0)), String(workerId), allowedTypes.length ? allowedTypes : null]);
       return result.rows.map(row => row.data);
     });
   }
 
-  async completeJob(id, result = {}) {
+  async completeJob(id, result = {}, lease = {}) {
     const query = await this.pool.query(`
       UPDATE jobs SET status='completed', result=$2::jsonb, completed_at=now(),
         locked_at=NULL, locked_by=NULL, heartbeat_at=NULL, last_error=NULL, updated_at=now(),
         data=data || jsonb_build_object('status','completed','result',$2::jsonb,'completedAt',now()::text,
           'lockedAt',NULL,'lockedBy',NULL,'heartbeatAt',NULL,'lastError','','updatedAt',now()::text)
-      WHERE id=$1 RETURNING data
-    `, [id, JSON.stringify(result || {})]);
+      WHERE id=$1 AND status='active' AND locked_by=$3::text AND locked_at=$4::timestamptz RETURNING data
+    `, [id, JSON.stringify(result || {}), String(lease.workerId || ''), lease.lockedAt || null]);
     return query.rows[0]?.data || null;
   }
 
   async failJob(id, error, options = {}) {
     return this.transaction(async tx => {
-      const row = await tx.pool.query('SELECT attempts,max_attempts,data FROM jobs WHERE id=$1 FOR UPDATE', [id]);
+      const row = await tx.pool.query("SELECT attempts,max_attempts,data FROM jobs WHERE id=$1 AND status='active' AND locked_by=$2::text AND locked_at=$3::timestamptz FOR UPDATE", [id, String(options.workerId || ''), options.lockedAt || null]);
       if (!row.rows[0]) return null;
       const attempts = Number(row.rows[0].attempts || 0);
       const maxAttempts = Number(options.maxAttempts || row.rows[0].max_attempts || 5);
-      const message = String(error?.message || error || 'Unknown job failure').slice(0, 2000);
+      const message = redactSensitiveText(error?.message || error || 'Unknown job failure').slice(0, 2000);
       const dead = attempts >= maxAttempts;
       const base = Math.max(1000, Number(options.baseDelayMs || 30000));
       const maxDelay = Math.max(base, Number(options.maxDelayMs || 3600000));
@@ -833,6 +1171,145 @@ export class PostgresStore {
     });
   }
 
+  async beginOutboundDispatch(id, gate = {}) {
+    return this.transaction(async tx => {
+      const reservationRow = await tx.pool.query('SELECT data FROM outbound_reservations WHERE id=$1 FOR UPDATE', [id]);
+      const reservation = reservationRow.rows[0]?.data || null;
+      if (!reservation) return { ok: false, reason: 'reservation-not-found', reservation: null };
+      const preliminary = await tx.pool.query('SELECT data FROM prospects WHERE id=$1', [reservation.prospectId]);
+      const preliminaryProspect = preliminary.rows[0]?.data || null;
+      const email = String(reservation.recipientEmail || '').toLowerCase();
+      const domain = String(preliminaryProspect?.domain || normalizeDomain(preliminaryProspect?.website)).toLowerCase();
+      for (const key of dispatchLockKeys({ prospectId: reservation.prospectId, inbox: reservation.inbox, email, domain })) {
+        await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [key]);
+      }
+      const [prospectRow, settingsRow, healthRow, suppressionRows, replyRows, orderRows] = await Promise.all([
+        tx.pool.query('SELECT data FROM prospects WHERE id=$1 FOR UPDATE', [reservation.prospectId]),
+        tx.pool.query("SELECT key,value FROM settings WHERE key='outboundPaused'"),
+        tx.pool.query('SELECT data FROM sender_health WHERE inbox=$1 FOR UPDATE', [reservation.inbox]),
+        tx.pool.query('SELECT data FROM suppressions WHERE value=ANY($1::text[])', [[email, domain].filter(Boolean)]),
+        tx.pool.query('SELECT data FROM replies WHERE prospect_id=$1', [reservation.prospectId]),
+        tx.pool.query('SELECT data FROM orders WHERE prospect_id=$1', [reservation.prospectId])
+      ]);
+      const prospect = prospectRow.rows[0]?.data || null;
+      const campaignRow = prospect
+        ? await tx.pool.query('SELECT data FROM campaigns WHERE id=$1 FOR UPDATE', [prospect.campaignId])
+        : { rows: [] };
+      const leadRow = prospect?.leadId
+        ? await tx.pool.query('SELECT data FROM leads WHERE id=$1', [prospect.leadId])
+        : { rows: [] };
+      const decision = dispatchDecision({
+        reservation, prospect, campaign: campaignRow.rows[0]?.data || null,
+        settings: Object.fromEntries(settingsRow.rows.map(row => [row.key, row.value])),
+        health: healthRow.rows[0]?.data || null,
+        suppressions: suppressionRows.rows.map(row => row.data),
+        replies: replyRows.rows.map(row => row.data),
+        lead: leadRow.rows[0]?.data || null,
+        orders: orderRows.rows.map(row => row.data)
+      }, gate);
+      const timestamp = now();
+      const updated = {
+        ...reservation,
+        status: decision.ok ? 'dispatching' : 'cancelled',
+        ...(decision.ok ? { dispatchedAt: timestamp } : { cancelReason: decision.reason, completedAt: timestamp }),
+        updatedAt: timestamp
+      };
+      await tx.upsert('outboundReservations', updated);
+      return { ...decision, reservation: updated };
+    });
+  }
+
+  async finalizeOutboundDispatch(id, status, reservationPatch = {}, prospectPatch = {}) {
+    if (!['sent', 'uncertain'].includes(status)) throw new StoreError('Invalid outbound finalization status', 'INVALID_OUTBOUND_STATE');
+    return this.transaction(async tx => {
+      const reservationRow = await tx.pool.query('SELECT data FROM outbound_reservations WHERE id=$1 FOR UPDATE', [id]);
+      const reservation = reservationRow.rows[0]?.data || null;
+      if (!reservation || reservation.status !== 'dispatching') return { ok: false, reason: 'reservation-not-dispatching' };
+      const preliminary = await tx.pool.query('SELECT data FROM prospects WHERE id=$1', [reservation.prospectId]);
+      const preliminaryProspect = preliminary.rows[0]?.data || null;
+      const email = String(reservation.recipientEmail || '').toLowerCase();
+      const domain = String(preliminaryProspect?.domain || normalizeDomain(preliminaryProspect?.website)).toLowerCase();
+      for (const key of dispatchLockKeys({ prospectId: reservation.prospectId, inbox: reservation.inbox, email, domain })) {
+        await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [key]);
+      }
+      const [prospectRow, suppressionRows, replyRows, orderRows] = await Promise.all([
+        tx.pool.query('SELECT data FROM prospects WHERE id=$1 FOR UPDATE', [reservation.prospectId]),
+        tx.pool.query('SELECT data FROM suppressions WHERE value=ANY($1::text[])', [[email, domain].filter(Boolean)]),
+        tx.pool.query('SELECT data FROM replies WHERE prospect_id=$1', [reservation.prospectId]),
+        tx.pool.query('SELECT data FROM orders WHERE prospect_id=$1', [reservation.prospectId])
+      ]);
+      const prospect = prospectRow.rows[0]?.data || null;
+      const leadRow = prospect?.leadId
+        ? await tx.pool.query('SELECT data FROM leads WHERE id=$1', [prospect.leadId])
+        : { rows: [] };
+      const stopReason = outboundStopReason({
+        reservation, prospect,
+        suppressions: suppressionRows.rows.map(row => row.data),
+        replies: replyRows.rows.map(row => row.data),
+        lead: leadRow.rows[0]?.data || null,
+        orders: orderRows.rows.map(row => row.data)
+      });
+      const timestamp = now();
+      const finalizedReservation = {
+        ...reservation, ...reservationPatch, status, completedAt: timestamp,
+        ...(status === 'sent' && !reservationPatch.sentAt ? { sentAt: timestamp } : {}),
+        updatedAt: timestamp
+      };
+      await tx.upsert('outboundReservations', finalizedReservation);
+      let finalizedProspect = null;
+      if (prospect) {
+        const safePatch = { ...prospectPatch };
+        if (stopReason) {
+          delete safePatch.status;
+          safePatch.nextFollowupAt = null;
+          safePatch.sendSafety = { ...(prospect.sendSafety || {}), ...(safePatch.sendSafety || {}), terminalStopReason: stopReason };
+        }
+        finalizedProspect = { ...prospect, ...safePatch, updatedAt: timestamp };
+        await tx.upsert('prospects', finalizedProspect);
+      }
+      return { ok: true, reservation: finalizedReservation, prospect: finalizedProspect, stopReason };
+    });
+  }
+
+  async suppressOutbound(input = {}) {
+    return this.transaction(async tx => {
+      const values = [...new Set((input.values || []).map(value => String(value || '').trim().toLowerCase()).filter(Boolean))].sort();
+      const locks = [...new Set(['outbound:global', input.prospectId && `outbound:prospect:${input.prospectId}`, ...values.map(value => `outbound:recipient:${value}`)].filter(Boolean))].sort();
+      for (const key of locks) await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [key]);
+      for (const value of values) {
+        try { await tx.add('suppressions', { id: crypto.randomUUID(), value, reason: String(input.reason || 'suppressed'), createdAt: now() }); }
+        catch (error) { if (!(error instanceof ConflictError)) throw error; }
+      }
+      let prospect = null;
+      if (input.prospectId) {
+        const row = await tx.pool.query('SELECT data FROM prospects WHERE id=$1 FOR UPDATE', [input.prospectId]);
+        if (row.rows[0]?.data) {
+          prospect = { ...row.rows[0].data, status: input.status || 'suppressed', nextFollowupAt: null, ...(input.prospectPatch || {}), updatedAt: now() };
+          await tx.upsert('prospects', prospect);
+        }
+      }
+      return { ok: true, values, prospect };
+    });
+  }
+
+  async recordReplyAndStop(record, prospectPatch = {}) {
+    return this.transaction(async tx => {
+      for (const key of dispatchLockKeys({ prospectId: record.prospectId, inbox: record.inbox })) {
+        await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [key]);
+      }
+      const reply = await tx.add('replies', record);
+      let prospect = null;
+      if (record.prospectId) {
+        const row = await tx.pool.query('SELECT data FROM prospects WHERE id=$1 FOR UPDATE', [record.prospectId]);
+        if (row.rows[0]?.data) {
+          prospect = { ...row.rows[0].data, ...prospectPatch, nextFollowupAt: null, updatedAt: now() };
+          await tx.upsert('prospects', prospect);
+        }
+      }
+      return { reply, prospect };
+    });
+  }
+
   async markOutboundReservation(id, status, patch = {}) {
     return this.patch('outboundReservations', id, {
       ...patch, status,
@@ -846,10 +1323,11 @@ export class PostgresStore {
       const timestamp = input.occurredAt || now();
       const today = String(timestamp).slice(0, 10);
       const inbox = String(input.inbox || '');
-      await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`sender-health:${inbox}`]);
+      const recipientHash = input.recipientEmail ? crypto.createHash('sha256').update(String(input.recipientEmail).trim().toLowerCase()).digest('hex') : '';
+      await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`outbound:inbox:${inbox}`]);
       await tx.add('outboundEvents', {
         id: input.id || crypto.randomUUID(), inbox, eventType: input.eventType,
-        prospectId: input.prospectId || null, recipientEmail: input.recipientEmail || '', detail: input.detail || {},
+        prospectId: input.prospectId || null, recipientEmail: '', recipientHash, detail: input.detail || {},
         occurredAt: timestamp, createdAt: timestamp, updatedAt: timestamp
       });
       const result = await tx.pool.query('SELECT data FROM sender_health WHERE inbox=$1 FOR UPDATE', [inbox]);
@@ -874,6 +1352,7 @@ export class PostgresStore {
 
   async setOutboundPaused(paused, reason = '') {
     await this.transaction(async tx => {
+      await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', ['outbound:global']);
       await tx.setSetting('outboundPaused', Boolean(paused));
       await tx.setSetting('outboundPauseReason', String(reason || ''));
     });
@@ -881,12 +1360,16 @@ export class PostgresStore {
   }
 
   async setSenderPaused(inbox, paused, reason = '') {
-    const existing = await this.findOne('senderHealth', { inbox });
-    const record = {
-      ...(existing || { id: `sender_${inbox}`, inbox, hardBouncesToday: 0, complaintsToday: 0, failureStreak: 0, healthDate: dateOnly() }),
-      paused: Boolean(paused), pauseReason: String(reason || ''), updatedAt: now(), createdAt: existing?.createdAt || now()
-    };
-    return this.upsert('senderHealth', record);
+    return this.transaction(async tx => {
+      await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`outbound:inbox:${inbox}`]);
+      const result = await tx.pool.query('SELECT data FROM sender_health WHERE inbox=$1 FOR UPDATE', [inbox]);
+      const existing = result.rows[0]?.data || null;
+      const record = {
+        ...(existing || { id: `sender_${inbox}`, inbox, hardBouncesToday: 0, complaintsToday: 0, failureStreak: 0, healthDate: dateOnly() }),
+        paused: Boolean(paused), pauseReason: String(reason || ''), updatedAt: now(), createdAt: existing?.createdAt || now()
+      };
+      return tx.upsert('senderHealth', record);
+    });
   }
 
   async putArtifact({ id, contentType = 'application/octet-stream', content, sha256 = '', expiresAt = null, metadata = {} }) {

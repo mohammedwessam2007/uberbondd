@@ -6,6 +6,7 @@ import { DurableQueue } from './src/queue.mjs';
 import { DiscoveryRunner } from './src/discovery-runner.mjs';
 import { createJobHandlers } from './src/job-handlers.mjs';
 import { startScheduler } from './src/scheduler.mjs';
+import { safeErrorDetails } from './src/security.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -14,16 +15,16 @@ if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
 
 const store = createStore(config);
 await store.init();
-if (typeof store.deleteExpiredArtifacts === 'function') await store.deleteExpiredArtifacts().catch(error => console.error('Artifact cleanup failed', error));
+if (typeof store.deleteExpiredArtifacts === 'function') await store.deleteExpiredArtifacts().catch(error => console.error('Artifact cleanup failed', safeErrorDetails(error)));
 const queue = new DurableQueue(store, config, console);
 let revenue;
 const pipeline = new Pipeline(store, config, { onProspectComplete: prospect => revenue?.onProspectComplete(prospect) });
 const enqueueResearch = payload => queue.enqueue('research.batch', payload, {
   maxAttempts: 3,
-  dedupeKey: payload.leadId ? `research:lead:${payload.leadId}` : `research:${payload.reason || 'manual'}:${Math.floor(Date.now() / 30000)}`
+  dedupeKey: payload.dedupeKey || (payload.leadId ? `research:lead:${payload.leadId}` : `research:${payload.reason || 'manual'}:${Math.floor(Date.now() / 30000)}`)
 });
 revenue = new RevenueEngine(store, config, pipeline, { enqueueResearch });
-const discoveryRunner = new DiscoveryRunner(store, config);
+const discoveryRunner = new DiscoveryRunner(store, config, { enqueueResearch });
 const handlers = createJobHandlers({ store, pipeline, revenue, discoveryRunner });
 const stopScheduler = startScheduler(queue, config, console);
 const workerPromise = queue.startWorker(handlers, { concurrency: config.queue.concurrency });
@@ -36,7 +37,7 @@ async function shutdown(signal) {
   shuttingDown = true;
   console.log(`Received ${signal}; worker is draining active jobs.`);
   stopScheduler();
-  await queue.stopWorker().catch(error => console.error('Worker stop failed', error));
+  await queue.stopWorker().catch(error => console.error('Worker stop failed', safeErrorDetails(error)));
   await store.close();
   process.exit(0);
 }

@@ -56,7 +56,7 @@ PROCESS_ROLE=web node server.mjs
 Provides:
 
 - `/` public storefront
-- `/report.html?token=...` customer report
+- `/report.html#token=...` private customer report (the fragment is never sent to access logs)
 - `/admin.html` protected operator dashboard
 - `/api/health` service, queue, worker, and outbound status
 - payment webhooks and Gmail OAuth callback

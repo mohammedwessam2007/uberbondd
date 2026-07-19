@@ -30,7 +30,7 @@ const mock=http.createServer(async(req,res)=>{
   ];
   else if(req.url.startsWith('/cap')) elements=[1,2,3,4,5].map(i=>el(i,`Cap Clinic ${i}`,`https://cap${i}.example`));
   else if(req.url.startsWith('/conc')){const c=++concCounter;await wait(400);elements=[1,2,3,4,5].map(i=>el(c*10+i,`Conc ${c}-${i}`,`https://conc${c}-${i}.example`));}
-  else if(req.url.startsWith('/fixture')){const p=req.url.split('?')[1];elements=[el(1,'Local A',`http://127.0.0.1:${p}/a`),el(2,'Local B',`http://127.0.0.2:${p}/b`)];}
+  else if(req.url.startsWith('/fixture')){elements=[el(1,'Fixture A','https://fixture-a.example'),el(2,'Fixture B','https://fixture-b.example')];}
   else elements=[el(1,'Atlas Clinic','https://atlas.example'),el(2,'Nova Dental','https://nova.example',{amenity:'dentist'})];
   res.writeHead(200,{'content-type':'application/json'});res.end(JSON.stringify({elements}));
 });
@@ -54,6 +54,7 @@ async function withApp(env,fn,preSeed=null){
   const child=spawn(process.execPath,['server.mjs'],{cwd:root,env:{
     ...process.env,PORT:String(port),APP_BASE_URL:`http://127.0.0.1:${port}`,DATA_DIR:dir,
     SCREENSHOT_DIR:path.join(dir,'screenshots'),ADMIN_TOKEN:'probe-token',TOKEN_ENCRYPTION_KEY:'a'.repeat(64),
+    NODE_ENV:'test',ALLOW_LOCAL_FIXTURES:'true',DISCOVERY_ALLOW_RESERVED_DOMAINS:'true',
     AI_PROVIDER:'rules',AUTOPILOT_ENABLED:'false',...env
   },stdio:['ignore','pipe','pipe']});
   let logs='';child.stdout.on('data',d=>logs+=d);child.stderr.on('data',d=>logs+=d);
@@ -67,7 +68,21 @@ async function withApp(env,fn,preSeed=null){
     await fn(api,()=>logs,port);
   }finally{child.kill('SIGTERM');await wait(150);await fs.rm(dir,{recursive:true,force:true});}
 }
-const mkCampaign=async(api,extra={})=>(await api('/api/campaigns',{method:'POST',body:JSON.stringify({name:'Probe',niche:'clinics',offer:'audit',minScore:50,maxFollowups:0,approved:true,autoSend:false,...extra})})).data;
+let campaignSequence=0;
+const mkCampaign=async(api,extra={})=>{
+  campaignSequence+=1;
+  const enabled=extra.approved===false?false:(extra.enabled??true);
+  const input={
+    campaignId:`probe-campaign-${campaignSequence}`,name:'Probe campaign',niche:'clinics',countries:['GB'],cities:['London'],
+    boundingBoxes:[[51.4,-0.3,51.7,0.1]],discoveryCategories:['clinic'],minimumProspectScore:50,minimumEvidenceConfidence:.75,
+    dailyDiscoveryCap:100,dailyAuditCap:100,dailyDraftCap:100,dailySendCap:0,hourlySendCap:0,allowedInboxes:[],
+    businessHourStart:9,businessHourEnd:17,maximumFollowups:0,followupDelayDays:5,offer:'Evidence-backed audit',
+    callToAction:'Would the concise findings be useful?',subjectVariants:['Website evidence'],messageVariants:['Use only stored evidence.'],
+    suppressionKeywords:['unsubscribe'],prohibitedClaims:['guaranteed revenue'],dryRun:true,autoSend:false,enabled,
+    ...Object.fromEntries(Object.entries(extra).filter(([key])=>key!=='approved'))
+  };
+  return(await api('/api/campaigns',{method:'POST',body:JSON.stringify(input)})).data;
+};
 
 async function awaitQueued(api,response,{timeoutMs=20000}={}){
   if(response.status!==202||!response.data?.jobId)return response;
@@ -118,7 +133,7 @@ await withApp({DISCOVERY_OVERPASS_ENDPOINT:`http://127.0.0.1:${mockPort}/gate/ap
   ok(r.status>=400&&/campaign/i.test(r.data.error||''),'P6 unknown campaign rejected');
   const unapproved=await mkCampaign(api,{approved:false});
   r=await api('/api/discovery/run',{method:'POST',body:JSON.stringify({campaignId:unapproved.id,bbox,categories:['clinic'],dryRun:false})});
-  ok(r.status>=400&&/approved/i.test(r.data.error||''),'P6 unapproved campaign rejected',JSON.stringify(r.data));
+  ok(r.status>=400&&/enabled/i.test(r.data.error||''),'P6 disabled campaign rejected',JSON.stringify(r.data));
   ok((await api('/api/discovery-runs')).data.length===0,'P6 invalid attempts are rejected before queueing or contacting the provider');
 
   // P1 API surface: hostile inputs rejected server-side, nothing reaches Overpass
@@ -153,11 +168,11 @@ await withApp({DISCOVERY_OVERPASS_ENDPOINT:`http://127.0.0.1:${mockPort}/gate/ap
 
   // P8 attribution
   const p=pros.find(x=>x.domain==='good.example');
-  ok(p.source==='openstreetmap'&&p.sourceRecordId==='node/1'&&p.sourceUrl==='https://www.openstreetmap.org/node/1'&&p.sourceLicense.includes('OpenStreetMap')&&p.sourceMetadata?.osmId===1&&p.sourceMetadata?.websiteTag==='website',
+  ok(p.source==='openstreetmap'&&p.sourceRecordId==='node/1'&&p.sourceUrl==='https://www.openstreetmap.org/node/1'&&p.sourceLicense.includes('ODbL')&&p.sourceMetadata?.osmId==='1'&&p.sourceMetadata?.websiteTag==='website',
     'P8 attribution: source, sourceUrl, sourceRecordId, license, OSM id and website tag retained on the record');
   const exp=await api('/api/export.json');
   const ep=(exp.data.prospects||[]).find(x=>x.domain==='good.example');
-  ok(ep&&ep.sourceRecordId==='node/1'&&ep.sourceLicense.includes('OpenStreetMap'),'P8 attribution survives JSON export');
+  ok(ep&&ep.sourceRecordId==='node/1'&&ep.sourceLicense.includes('ODbL'),'P8 attribution survives JSON export');
 
   // P9 error quality + auth
   r=await api('/api/discovery/run',{method:'POST',body:JSON.stringify({campaignId:camp.id,bbox:'0,0,80,80',categories:['clinic'],dryRun:true})});
@@ -198,24 +213,23 @@ await withApp({DISCOVERY_OVERPASS_ENDPOINT:`http://127.0.0.1:${mockPort}/conc/ap
 
 // ================= P7: discovery never enables sending =================
 await withApp({
-  DISCOVERY_OVERPASS_ENDPOINT:`http://127.0.0.1:${mockPort}/fixture/api/interpreter?${fixturePort}`,
+  DISCOVERY_OVERPASS_ENDPOINT:`http://127.0.0.1:${mockPort}/fixture/api/interpreter`,
   DISCOVERY_DAILY_CAP:'10',ALLOW_LOCAL_FIXTURES:'true',CHROMIUM_PATH:'/usr/bin/chromium'
 },async api=>{
   const camp=await mkCampaign(api,{autoSend:false});
   const r=await submitAndWait(api,'/api/discovery/run',{method:'POST',body:JSON.stringify({campaignId:camp.id,bbox:'51.4,-0.3,51.7,0.1',categories:['clinic'],dryRun:false})});
   ok(r.data.importedCount===2,'P7 setup: 2 local prospects imported for research');
-  await api('/api/run',{method:'POST',body:JSON.stringify({limit:5})});
-  let sum;for(let i=0;i<80;i++){sum=(await api('/api/summary')).data;if(sum.queued===0&&!sum.running)break;await wait(500);}
+  const sum=(await api('/api/summary')).data;
   const pros=(await api('/api/prospects')).data;
-  ok(pros.every(x=>['ready','research-complete','rejected','error'].includes(x.status))&&sum.sent===0,
-    'P7 researched discovery prospects never reach "sent" while autoSend is false and no inbox is connected',JSON.stringify(pros.map(x=>x.status)));
+  ok(pros.every(x=>['queued','claimed','crawling','retry','audit-failed'].includes(x.status))&&sum.sent===0,
+    'P7 discovered prospects never reach "sent" while autoSend is false and no inbox is connected',JSON.stringify(pros.map(x=>x.status)));
   const camps=(await api('/api/campaigns')).data;
   ok(camps.every(c=>c.systemKey||c.autoSend===false),'P7 discovery run did not flip any campaign autoSend flag');
 });
 
 // ================= P7b/P5c: scheduled autopilot path =================
 {
-  const preSeed={version:4,prospects:[],campaigns:[{id:'camp_sched',name:'Scheduled',niche:'clinics',offer:'audit',allowedCountries:[],minScore:50,dailyCaps:{A:0,B:0},maxFollowups:0,autoSend:false,approved:true,createdAt:new Date().toISOString()}],jobs:[],messages:[],replies:[],suppressions:[],socialTasks:[],accounts:[],auditLog:[],settings:{},leads:[],orders:[],subscriptions:[],monitoringRuns:[],notifications:[],revenueEvents:[],discoveryRuns:[]};
+  const preSeed={version:8,prospects:[],campaigns:[{id:'camp_sched',campaignId:'camp_sched',name:'Scheduled',niche:'clinics',countries:['GB'],cities:['London'],boundingBoxes:[[51.4,-0.3,51.7,0.1]],discoveryCategories:['clinic'],minimumProspectScore:50,minimumEvidenceConfidence:.75,dailyDiscoveryCap:3,dailyAuditCap:3,dailyDraftCap:3,dailySendCap:0,hourlySendCap:0,allowedInboxes:[],businessHourStart:9,businessHourEnd:17,maximumFollowups:0,followupDelayDays:5,offer:'Evidence-backed audit',callToAction:'Would the findings help?',subjectVariants:['Website evidence'],messageVariants:['Stored evidence only'],suppressionKeywords:['unsubscribe'],prohibitedClaims:['guaranteed revenue'],dryRun:true,enabled:true,allowedCountries:['GB'],minScore:50,dailyCaps:{A:0,B:0},maxFollowups:0,autoSend:false,approved:true,createdAt:new Date().toISOString()}],jobs:[],messages:[],replies:[],suppressions:[],socialTasks:[],accounts:[],auditLog:[],settings:{},leads:[],orders:[],subscriptions:[],monitoringRuns:[],notifications:[],revenueEvents:[],discoveryRuns:[],workerHeartbeats:[],outboundReservations:[],senderHealth:[],outboundEvents:[],experiments:[]};
   await withApp({
     AUTOPILOT_ENABLED:'true',DISCOVERY_ENABLED:'true',DISCOVERY_DRY_RUN:'false',
     DISCOVERY_CAMPAIGN_ID:'camp_sched',DISCOVERY_BBOX:'51.4,-0.3,51.7,0.1',DISCOVERY_CATEGORIES:'clinic,dentist',

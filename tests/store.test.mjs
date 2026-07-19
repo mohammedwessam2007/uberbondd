@@ -36,6 +36,11 @@ test('JSON repository enforces domain, suppression, reply, payment and slot uniq
   await assert.rejects(store.add('accounts', { id: 'a2', slot: 'A' }), ConflictError);
   await store.add('orders', { id: 'o1', providerEventId: 'evt-1' });
   await assert.rejects(store.add('orders', { id: 'o2', providerEventId: 'evt-1' }), ConflictError);
+  await store.add('offers', { id: 'offer-1', prospectId: 'p1', type: 'diagnostic', currency: 'usd', status: 'draft' });
+  await assert.rejects(store.add('offers', { id: 'offer-2', prospectId: 'p1', type: 'diagnostic', currency: 'USD', status: 'draft' }), ConflictError);
+  assert.equal((await store.get('offers', 'offer-1')).currency, 'USD');
+  await store.add('deliveries', { id: 'delivery-1', orderId: 'o1', prospectId: 'p1', status: 'delivery-queued' });
+  await assert.rejects(store.add('deliveries', { id: 'delivery-2', orderId: 'o1', prospectId: 'p1', status: 'delivery-queued' }), ConflictError);
 });
 
 test('JSON repository transaction can create circular lead/prospect pair safely', async () => {
@@ -57,4 +62,14 @@ test('targeted prospect claiming does not consume an unrelated queued prospect',
   assert.equal(claimed.id, 'target');
   assert.equal((await store.get('prospects', 'target')).status, 'claimed');
   assert.equal((await store.get('prospects', 'old')).status, 'queued');
+});
+
+test('prospect claiming respects deferred crawl timestamps', async () => {
+  const store = await tempStore();
+  await store.add('prospects', { id: 'future', domain: 'future.test', website: 'https://future.test', status: 'retry', nextCrawlAt: '2999-01-01T00:00:00.000Z' });
+  await store.add('prospects', { id: 'due', domain: 'due.test', website: 'https://due.test', status: 'retry', nextCrawlAt: '2020-01-01T00:00:00.000Z' });
+  const claimed = await store.claimProspects(10);
+  assert.deepEqual(claimed.map(item => item.id), ['due']);
+  assert.equal(await store.claimProspect('future'), null);
+  assert.equal((await store.get('prospects', 'future')).status, 'retry');
 });

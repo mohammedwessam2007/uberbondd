@@ -109,7 +109,7 @@ try {
 
   let report;
   for (let attempt = 0; attempt < 100; attempt += 1) {
-    const response = await fetch(`http://127.0.0.1:${appPort}/api/public/report/${encodeURIComponent(created.accessToken)}`);
+    const response = await fetch(`http://127.0.0.1:${appPort}/api/public/report`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ token: created.accessToken }) });
     report = await response.json();
     if (report.report?.ready) break;
     await wait(250);

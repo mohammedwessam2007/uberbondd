@@ -13,7 +13,42 @@
   <div class="brand"><span class="mark">UB</span><div><b>UBERBOND REVENUE ENGINE</b><small>24/7 SALES · DELIVERY · RETENTION</small></div></div>
   <div class="status"><a class="public-link" href="/">Public storefront</a><i></i><span id="mode">Loading…</span></div>
 </header>
-<main>
+<main id="attention-main" class="cockpit-main">
+<section class="cockpit-head">
+  <div><p class="eyebrow">OWNER ATTENTION · IPAD MODE</p><h1>What needs you now</h1><p class="lede">Only exceptions, draft decisions, positive replies, payments, and delivery work appear here.</p></div>
+  <div class="cockpit-access">
+    <label>Admin token<input id="token" type="password" placeholder="Optional ADMIN_TOKEN" autocomplete="current-password"></label>
+    <div class="button-row"><button id="save-token">Save token</button><button id="view-operations">Open operations</button></div>
+    <div class="button-row"><button id="cockpit-kill" class="danger">Kill outbound</button><button id="cockpit-resume">Resume safely</button></div>
+    <small id="outbound-status">Outbound is loading…</small>
+  </div>
+</section>
+<section class="cockpit-filters" aria-label="Cockpit filters">
+  <label>Campaign<select id="cockpit-campaign"><option value="">All campaigns</option></select></label>
+  <label>Country<select id="cockpit-country"><option value="">All countries</option></select></label>
+  <label>Niche<select id="cockpit-niche"><option value="">All niches</option></select></label>
+  <label>Minimum score<input id="cockpit-score" type="number" min="0" max="100" value="0"></label>
+  <label>Status<select id="cockpit-status"><option value="">All statuses</option></select></label>
+  <label>From<input id="cockpit-from" type="date"></label>
+  <label>To<input id="cockpit-to" type="date"></label>
+  <button id="cockpit-apply" class="gold">Apply</button>
+</section>
+<p id="cockpit-message" class="cockpit-message" role="status" aria-live="polite"></p>
+<section class="cockpit-controls">
+  <div><h3>Campaign control</h3><div class="button-row"><select id="cockpit-campaign-control"></select><button id="cockpit-campaign-toggle">Pause campaign</button></div></div>
+  <div><h3>Inbox health</h3><div id="cockpit-inboxes" class="inbox-controls"></div></div>
+  <div><h3>Safe export</h3><div class="button-row"><a class="action" id="cockpit-export-csv" href="#">CSV</a><a class="action" id="cockpit-export-json" href="#">JSON</a></div></div>
+</section>
+<section class="attention-grid">
+  <article><div class="kicker">URGENT</div><h2>Problems</h2><div id="attention-urgent" class="attention-list"></div></article>
+  <article><div class="kicker">REVIEW</div><h2>Drafts</h2><button id="approve-safe-batch" class="small">Approve selected safe drafts</button><div id="attention-drafts" class="attention-list"></div></article>
+  <article><div class="kicker">REPLIES</div><h2>Positive</h2><div id="attention-positive" class="attention-list"></div></article>
+  <article><div class="kicker">REVENUE</div><h2>Payments</h2><div id="attention-payments" class="attention-list"></div></article>
+  <article><div class="kicker">DELIVERY</div><h2>Tasks</h2><div id="attention-delivery" class="attention-list"></div></article>
+</section>
+<section class="lifecycle-strip"><div><div class="kicker">LIFECYCLE</div><h2>All acquisition states</h2></div><div id="lifecycle-counts"></div></section>
+</main>
+<main id="operations-main" class="operations-only" hidden>
 <section class="hero">
   <div>
     <p class="eyebrow">AUTONOMOUS RESEARCH · EVIDENCE FIRST</p>
@@ -21,16 +56,54 @@
     <p class="lede">Attract inbound audits, research outbound opportunities, unlock paid reports, monitor subscriptions, and surface only the decisions that need a human.</p>
   </div>
   <div class="control-panel">
-    <label>Admin token<input id="token" type="password" placeholder="Optional ADMIN_TOKEN"></label>
-    <div class="button-row"><button id="save-token">Save token</button><button class="gold" id="run">Run nightshift</button></div>
+    <div class="button-row"><button id="view-attention">Back to attention</button><button class="gold" id="run">Run nightshift</button></div>
     <div class="button-row"><button id="pause">Pause worker</button><button id="resume">Resume worker</button></div>
     <div class="button-row"><button id="pause-outbound">Emergency stop outbound</button><button id="resume-outbound">Resume outbound</button></div>
-    <small id="outbound-status">Outbound is loading…</small>
+    <small id="outbound-status-operations">Outbound is loading…</small>
     <small>Research works without API keys. AI, Hunter, and Gmail remain optional upgrades.</small>
   </div>
 </section>
 <section class="metrics" id="revenue-metrics"></section>
 <section class="metrics" id="metrics"></section>
+<section class="grid two" aria-label="Acquisition learning">
+  <article>
+    <div class="kicker">OUTCOME LEARNING</div>
+    <h2>Conversion funnel</h2>
+    <p class="hint">Reply and verified commercial outcomes only. Delivery is shown only when a provider explicitly confirms it; opens and tracking pixels are never used.</p>
+    <div id="learning-funnel" class="stack"></div>
+    <div id="learning-revenue" class="mini-card"></div>
+    <small id="learning-policy" class="hint"></small>
+  </article>
+  <article>
+    <div class="kicker">EXPERIMENT LAB</div>
+    <h2>Owner-reviewed recommendations</h2>
+    <p class="hint">Every variant must clear the minimum sample independently. A recommendation can be approved or rejected, but it never changes campaigns or sending caps automatically.</p>
+    <form id="experiment-form">
+      <label>Name<input name="name" maxlength="120" placeholder="Subject test · clinics"></label>
+      <label>Campaign<select id="learning-campaign" name="campaignId"><option value="">All campaigns</option></select></label>
+      <div class="row">
+        <label>Dimension<select name="dimension">
+          <option value="subjectVariant">Subject variant</option><option value="messageVariant">Message variant</option>
+          <option value="cta">CTA</option><option value="recipientRole">Recipient role</option>
+          <option value="sendTime">Send time</option><option value="evidenceType">Evidence type</option>
+          <option value="country">Country</option><option value="niche">Niche</option>
+          <option value="inbox">Inbox</option><option value="campaign">Campaign</option>
+        </select></label>
+        <label>Primary metric<select name="primaryMetric">
+          <option value="positiveReplyRate">Positive reply rate</option><option value="replyRate">Reply rate</option>
+          <option value="meetingRate">Meeting rate</option><option value="paidRate">Paid rate</option>
+          <option value="checkoutRate">Checkout rate</option><option value="draftApprovalRate">Draft approval rate</option>
+          <option value="qualificationRate">Qualification rate</option><option value="bounceRate">Bounce rate</option>
+          <option value="unsubscribeRate">Unsubscribe rate</option>
+        </select></label>
+      </div>
+      <label>Variant values<textarea name="variants" rows="3" placeholder="One exact stored variant value per line"></textarea></label>
+      <label>Minimum sample per variant<input name="minimumSampleSize" type="number" min="20" max="100000" value="30"></label>
+      <button class="gold">Create safe experiment</button>
+    </form>
+    <div id="experiments" class="stack"></div>
+  </article>
+</section>
 <section class="grid two">
   <article>
     <div class="kicker">01 · CONTRACT</div>
@@ -44,7 +117,8 @@
       <small class="hint">Sending remains blocked unless each country is also present in the server OUTBOUND_ALLOWED_COUNTRIES setting.</small>
       <div class="row"><label>Minimum score<input name="minScore" type="number" value="60" min="50" max="95"></label><label>Follow-ups<input name="maxFollowups" type="number" value="0" min="0" max="1"></label></div>
       <label class="check"><input name="approved" type="checkbox" checked> Approve research under this contract</label>
-      <label class="check"><input name="autoSend" type="checkbox"> Enable Gmail sending after credentials are connected</label>
+      <label class="check"><input name="autoSend" type="checkbox" disabled> Live auto-send requires a separate privileged activation</label>
+      <small class="hint">New campaigns are created in dry-run mode. This form cannot approve live sending.</small>
       <button class="gold">Create campaign</button>
     </form>
   </article>

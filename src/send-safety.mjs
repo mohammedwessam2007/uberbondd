@@ -1,10 +1,6 @@
+import crypto from 'node:crypto';
 import { normalizeDomain } from './utils.mjs';
-
-const FREE_EMAIL_DOMAINS = new Set([
-  'gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','outlook.com','hotmail.com','live.com',
-  'icloud.com','me.com','aol.com','proton.me','protonmail.com','gmx.com','mail.com','zoho.com'
-]);
-const RISKY_LOCAL_PART = /^(?:no-?reply|donotreply|do-?not-?reply|abuse|privacy|legal|webmaster|postmaster|security|mailer-daemon)$/i;
+import { emailDomain, isFreePersonalEmail, isRiskyMailbox, isSameBusinessDomain, normalizeEmail } from './contacts.mjs';
 
 const COUNTRY_ALIASES = new Map(Object.entries({
   gb:'GB',uk:'GB','united kingdom':'GB','great britain':'GB',england:'GB',scotland:'GB',wales:'GB',
@@ -13,14 +9,17 @@ const COUNTRY_ALIASES = new Map(Object.entries({
   pt:'PT',portugal:'PT',it:'IT',italy:'IT',se:'SE',sweden:'SE',no:'NO',norway:'NO',
   dk:'DK',denmark:'DK',fi:'FI',finland:'FI',nz:'NZ','new zealand':'NZ',sg:'SG',singapore:'SG',
   us:'US',usa:'US','united states':'US','united states of america':'US',ca:'CA',canada:'CA',
-  au:'AU',australia:'AU'
+  au:'AU',australia:'AU',ae:'AE',uae:'AE','united arab emirates':'AE',
+  sa:'SA','saudi arabia':'SA',qa:'QA',qatar:'QA',kw:'KW',kuwait:'KW',
+  bh:'BH',bahrain:'BH',om:'OM',oman:'OM'
 }));
 
 const DEFAULT_TIMEZONES = new Map(Object.entries({
   GB:'Europe/London', IE:'Europe/Dublin', DE:'Europe/Berlin', FR:'Europe/Paris', NL:'Europe/Amsterdam',
   BE:'Europe/Brussels', CH:'Europe/Zurich', AT:'Europe/Vienna', ES:'Europe/Madrid', PT:'Europe/Lisbon',
   IT:'Europe/Rome', SE:'Europe/Stockholm', NO:'Europe/Oslo', DK:'Europe/Copenhagen', FI:'Europe/Helsinki',
-  NZ:'Pacific/Auckland', SG:'Asia/Singapore'
+  NZ:'Pacific/Auckland', SG:'Asia/Singapore', AE:'Asia/Dubai', SA:'Asia/Riyadh',
+  QA:'Asia/Qatar', KW:'Asia/Kuwait', BH:'Asia/Bahrain', OM:'Asia/Muscat'
 }));
 
 export function normalizeCountry(value = '') {
@@ -33,10 +32,6 @@ export function normalizeCountry(value = '') {
 export function normalizeCountryList(values = []) {
   const list = Array.isArray(values) ? values : String(values || '').split(',');
   return [...new Set(list.map(normalizeCountry).filter(Boolean))];
-}
-
-export function emailDomain(email = '') {
-  return String(email || '').trim().toLowerCase().split('@')[1] || '';
 }
 
 function validTimeZone(timeZone) {
@@ -61,44 +56,91 @@ export function localBusinessTime(timeZone, date = new Date()) {
 }
 
 export function contactEligibility(contact = {}, prospect = {}) {
-  const email = String(contact.email || '').trim().toLowerCase();
+  const email = normalizeEmail(contact.email || '');
   const domain = emailDomain(email);
   const prospectDomain = normalizeDomain(prospect.website || prospect.domain || '');
-  const local = email.split('@')[0] || '';
   if (!email || !domain || !prospectDomain) return { ok: false, reason: 'missing-contact' };
-  if (FREE_EMAIL_DOMAINS.has(domain)) return { ok: false, reason: 'free-mail-contact' };
-  if (RISKY_LOCAL_PART.test(local)) return { ok: false, reason: 'risky-mailbox' };
-  if (!(domain === prospectDomain || domain.endsWith(`.${prospectDomain}`))) return { ok: false, reason: 'contact-domain-mismatch' };
-  const published = contact.source === 'website';
-  const positivelyVerified = String(contact.verified || '').toLowerCase() === 'valid';
-  if (!published && !positivelyVerified) return { ok: false, reason: 'contact-not-published-or-verified' };
-  return { ok: true, mode: published ? 'published' : 'verified', email, domain };
+  if (isFreePersonalEmail(email)) return { ok: false, reason: 'free-mail-contact' };
+  if (isRiskyMailbox(email)) return { ok: false, reason: 'risky-mailbox' };
+  if (!isSameBusinessDomain(email, prospectDomain)) return { ok: false, reason: 'contact-domain-mismatch' };
+
+  const evidence = Array.isArray(contact.evidence) ? contact.evidence : [];
+  const supportedPublication = contact.published === true && evidence.some(item => {
+    const sourceDomain = normalizeDomain(item?.sourceUrl || '');
+    const sameSourceDomain = sourceDomain === prospectDomain || sourceDomain.endsWith(`.${prospectDomain}`);
+    return item?.published === true && sameSourceDomain &&
+      String(item.evidenceExcerpt || '').toLowerCase().includes(email);
+  });
+  if (contact.published === true && !supportedPublication) return { ok: false, reason: 'published-evidence-missing' };
+
+  const status = String(contact.verificationStatus || contact.verified || '').toLowerCase();
+  const externallyVerified = contact.externallyVerified === true && status === 'valid';
+  if (!supportedPublication && !externallyVerified) return { ok: false, reason: 'contact-not-published-or-verified' };
+  return { ok: true, mode: supportedPublication ? 'published' : 'externally_verified', email, domain };
 }
 
 export function evidenceEligibility(prospect = {}, campaign = {}, cfg = {}) {
   const issue = prospect.issue || {};
   const confidence = Number(issue.confidence || 0);
-  const threshold = Number(cfg.outbound?.minEvidenceConfidence ?? 0.75);
+  const threshold = Math.max(
+    Number(cfg.outbound?.minEvidenceConfidence ?? 0.75),
+    Number(campaign.minimumEvidenceConfidence ?? campaign.minEvidenceConfidence ?? 0)
+  );
   if (!issue.title || issue.safeForOutreach === false) return { ok: false, reason: 'unsafe-or-missing-evidence' };
   if (!issue.evidenceUrl || !issue.evidenceExcerpt) return { ok: false, reason: 'incomplete-evidence' };
   if (confidence < threshold) return { ok: false, reason: 'low-evidence-confidence' };
   if (normalizeDomain(issue.evidenceUrl) !== normalizeDomain(prospect.website)) return { ok: false, reason: 'evidence-domain-mismatch' };
-  if (Number(prospect.score?.total || 0) < Number(campaign.minScore || 0)) return { ok: false, reason: 'score-below-campaign-threshold' };
+  if (Number(prospect.score?.total || 0) < Number(campaign.minimumProspectScore ?? campaign.minScore ?? 0)) return { ok: false, reason: 'score-below-campaign-threshold' };
   return { ok: true };
 }
 
-export function evaluateSendEligibility({ prospect = {}, campaign = {}, cfg = {}, date = new Date(), followup = 0 } = {}) {
-  if (!campaign.approved || !campaign.autoSend) return { ok: false, reason: 'campaign-not-enabled' };
-  if (!cfg.outbound?.enabled) return { ok: false, reason: 'outbound-disabled' };
-  if (cfg.outbound?.dryRun) return { ok: false, reason: 'outbound-dry-run' };
+export function deterministicCadenceSeconds(baseSeconds = 0, jitterSeconds = 0, key = '') {
+  const base = Math.max(0, Math.floor(Number(baseSeconds || 0)));
+  const jitter = Math.max(0, Math.min(3600, Math.floor(Number(jitterSeconds || 0))));
+  if (!jitter) return base;
+  const digest = crypto.createHash('sha256').update(String(key || 'outbound')).digest();
+  return base + (digest.readUInt32BE(0) % (jitter + 1));
+}
+
+export function evaluateSendEligibility({ prospect = {}, campaign = {}, cfg = {}, date = new Date(), followup = 0, authorization = 'auto', simulation = false } = {}) {
+  if (campaign.approved !== true || campaign.enabled === false) return { ok: false, reason: 'campaign-not-enabled' };
+  const ownerApproved = authorization === 'owner-approved';
+  if (ownerApproved) {
+    if (Number(followup || 0) > 0) return { ok: false, reason: 'owner-approval-initial-only' };
+    if (prospect.draftApproval?.status !== 'approved') return { ok: false, reason: 'owner-approval-required' };
+    if (prospect.status !== 'scheduled') return { ok: false, reason: 'owner-schedule-required' };
+  } else if (!campaign.autoSend) return { ok: false, reason: 'campaign-auto-send-disabled' };
+  if (simulation) {
+    if (cfg.outbound?.provider !== 'test') return { ok: false, reason: 'test-provider-required' };
+    if (campaign.dryRun !== true || cfg.outbound?.dryRun !== true) return { ok: false, reason: 'test-provider-requires-dry-run' };
+  } else {
+    if (campaign.dryRun !== false) return { ok: false, reason: 'campaign-dry-run' };
+    if (campaign.liveSendApproved !== true) return { ok: false, reason: 'campaign-live-send-not-approved' };
+    if (!cfg.outbound?.enabled) return { ok: false, reason: 'outbound-disabled' };
+    if (cfg.outbound?.dryRun) return { ok: false, reason: 'outbound-dry-run' };
+    if (cfg.outbound?.liveSendApproved !== true) return { ok: false, reason: 'system-live-send-not-approved' };
+    if (cfg.outbound?.provider !== 'gmail') return { ok: false, reason: 'gmail-provider-required' };
+  }
   if (!String(cfg.sender?.address || '').trim()) return { ok: false, reason: 'business-address-missing' };
   if (!String(prospect.draft || '').trim() && Number(followup || 0) === 0) return { ok: false, reason: 'draft-missing' };
+  if (Number(followup || 0) === 0) {
+    const selectedDraft = prospect.outreach?.selected;
+    if (selectedDraft?.quality?.passed !== true) return { ok: false, reason: 'draft-quality-gate' };
+    if (String(selectedDraft.body || '').trim() !== String(prospect.draft || '').trim() || String(selectedDraft.subject || '').trim() !== String(prospect.subject || '').trim()) {
+      return { ok: false, reason: 'draft-record-mismatch' };
+    }
+  }
   if (!String(prospect.unsubscribeUrl || '').startsWith('https://')) return { ok: false, reason: 'unsubscribe-link-missing' };
   if (!String(prospect.oneClickUnsubscribeUrl || '').startsWith('https://')) return { ok: false, reason: 'one-click-unsubscribe-missing' };
+  const maximumFollowups = Number(campaign.maximumFollowups ?? campaign.maxFollowups ?? 0);
+  if (Number(followup || 0) > maximumFollowups) return { ok: false, reason: 'followup-limit-exceeded' };
+  if (Number(followup || 0) > 0 && (!prospect.threadId || !prospect.rfcMessageId)) return { ok: false, reason: 'followup-thread-metadata-missing' };
+  const allowedInboxes = Array.isArray(campaign.allowedInboxes) ? campaign.allowedInboxes : [];
+  if (allowedInboxes.length && !allowedInboxes.includes(prospect.inbox)) return { ok: false, reason: 'inbox-not-campaign-allowed' };
 
   const country = normalizeCountry(prospect.country || prospect.countryCode);
   const systemAllowlist = normalizeCountryList(cfg.outbound?.allowedCountries || []);
-  const campaignAllowlist = normalizeCountryList(campaign.allowedCountries || []);
+  const campaignAllowlist = normalizeCountryList(campaign.countries || campaign.allowedCountries || []);
   if (!country) return { ok: false, reason: 'country-missing' };
   if (!systemAllowlist.includes(country)) return { ok: false, reason: 'country-not-system-allowed', country };
   if (!campaignAllowlist.includes(country)) return { ok: false, reason: 'country-not-campaign-allowed', country };
@@ -111,8 +153,11 @@ export function evaluateSendEligibility({ prospect = {}, campaign = {}, cfg = {}
   const timeZone = resolveRecipientTimeZone(prospect);
   if (!timeZone) return { ok: false, reason: 'recipient-timezone-missing' };
   const local = localBusinessTime(timeZone, date);
-  const start = Number(cfg.outbound?.businessHourStart ?? 9);
-  const end = Number(cfg.outbound?.businessHourEnd ?? 17);
+  const systemStart = Number(cfg.outbound?.businessHourStart ?? 9);
+  const systemEnd = Number(cfg.outbound?.businessHourEnd ?? 17);
+  const start = Math.max(systemStart, Number(campaign.businessHourStart ?? systemStart));
+  const end = Math.min(systemEnd, Number(campaign.businessHourEnd ?? systemEnd));
+  if (start >= end) return { ok: false, reason: 'business-hour-window-mismatch' };
   if (!local.valid) return { ok: false, reason: 'recipient-timezone-invalid' };
   if (['Sat', 'Sun'].includes(local.weekday) || local.hour < start || local.hour >= end) {
     return { ok: false, reason: 'outside-recipient-business-hours', timeZone, local };

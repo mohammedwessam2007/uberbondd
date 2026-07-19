@@ -25,11 +25,14 @@ export const config = {
   chromiumPath: env.CHROMIUM_PATH || '',
   caps: { A: num(env.DEFAULT_DAILY_CAP_A, 20), B: num(env.DEFAULT_DAILY_CAP_B, 20) },
   outbound: {
+    provider: String(env.OUTBOUND_PROVIDER || 'test').toLowerCase(),
     enabled: bool(env.OUTBOUND_ENABLED, false),
     dryRun: bool(env.OUTBOUND_DRY_RUN, true),
+    liveSendApproved: bool(env.OUTBOUND_LIVE_SEND_APPROVED, false),
     allowedCountries: (env.OUTBOUND_ALLOWED_COUNTRIES || '').split(',').map(value => value.trim()).filter(Boolean),
     hourlyCaps: { A: num(env.OUTBOUND_HOURLY_CAP_A, 5), B: num(env.OUTBOUND_HOURLY_CAP_B, 5) },
     minGapSeconds: num(env.OUTBOUND_MIN_GAP_SECONDS, 90),
+    maxGapJitterSeconds: num(env.OUTBOUND_MAX_GAP_JITTER_SECONDS, 90),
     businessHourStart: num(env.OUTBOUND_BUSINESS_HOUR_START, 9),
     businessHourEnd: num(env.OUTBOUND_BUSINESS_HOUR_END, 17),
     minEvidenceConfidence: num(env.OUTBOUND_MIN_EVIDENCE_CONFIDENCE, 0.75),
@@ -42,8 +45,12 @@ export const config = {
   crawl: {
     concurrency: num(env.CRAWL_CONCURRENCY, 2),
     delayMs: num(env.CRAWL_DELAY_MS, 500),
+    minDomainGapMs: num(env.CRAWL_MIN_DOMAIN_GAP_MS, 1500),
     maxPages: num(env.MAX_PAGES_PER_SITE, 5),
-    timeoutMs: num(env.CRAWL_TIMEOUT_MS, 25000)
+    timeoutMs: num(env.CRAWL_TIMEOUT_MS, 25000),
+    maxAttempts: Math.max(1, Math.min(5, num(env.CRAWL_MAX_ATTEMPTS, 3))),
+    minimumTextLength: Math.max(20, num(env.CRAWL_MIN_TEXT_LENGTH, 80)),
+    minimumQualityScore: Math.max(0, Math.min(100, num(env.CRAWL_MIN_QUALITY_SCORE, 60)))
   },
   replyPollMinutes: num(env.REPLY_POLL_MINUTES, 10),
   artifacts: {
@@ -72,11 +79,15 @@ export const config = {
     categories: (env.DISCOVERY_CATEGORIES || 'clinic,dentist,medical').split(',').map(value => value.trim()).filter(Boolean),
     country: env.DISCOVERY_COUNTRY || '',
     city: env.DISCOVERY_CITY || '',
-    dailyCap: num(env.DISCOVERY_DAILY_CAP, 50),
+    dailyCap: Math.max(0, Math.min(100, num(env.DISCOVERY_DAILY_CAP, 100))),
+    batchesPerRun: Math.max(1, Math.min(100, num(env.DISCOVERY_BATCHES_PER_RUN, 1))),
+    maxCampaignsPerRun: Math.max(1, Math.min(25, num(env.DISCOVERY_MAX_CAMPAIGNS_PER_RUN, 10))),
     runEveryHours: num(env.DISCOVERY_RUN_EVERY_HOURS, 24),
     timeoutMs: num(env.DISCOVERY_TIMEOUT_MS, 30000),
     maxBboxSpan: num(env.DISCOVERY_MAX_BBOX_SPAN, 5),
-    userAgent: env.DISCOVERY_USER_AGENT || 'UberBondRevenueEngine/1.3'
+    excludedDomains: (env.DISCOVERY_EXCLUDED_DOMAINS || 'uberbondd-lite-private.vercel.app,uberbondd.vercel.app').split(',').map(value => value.trim()).filter(Boolean),
+    allowReservedDomains: env.NODE_ENV === 'test' && bool(env.DISCOVERY_ALLOW_RESERVED_DOMAINS, false),
+    userAgent: env.DISCOVERY_USER_AGENT || 'UberBondRevenueEngine/1.4 (+public business discovery; contact via site)'
   },
   ai: {
     provider: env.AI_PROVIDER || 'rules',
@@ -89,7 +100,8 @@ export const config = {
   google: {
     clientId: env.GOOGLE_CLIENT_ID || '',
     clientSecret: env.GOOGLE_CLIENT_SECRET || '',
-    redirectUri: env.GOOGLE_REDIRECT_URI || `${env.APP_BASE_URL || 'http://localhost:8080'}/oauth/google/callback`
+    redirectUri: env.GOOGLE_REDIRECT_URI || `${env.APP_BASE_URL || 'http://localhost:8080'}/oauth/google/callback`,
+    allowNetwork: env.NODE_ENV !== 'test' && !bool(env.CI, false)
   },
   sender: {
     name: env.SENDER_NAME || 'Mohamed Wessam',
@@ -123,6 +135,8 @@ export function validateStartupConfig(cfg = config) {
   const role = cfg.processRole || (cfg.nodeEnv === 'production' ? 'web' : 'all');
   if (!['web', 'worker', 'all'].includes(role)) throw new Error('PROCESS_ROLE must be web, worker, or all');
   if (!['json', 'postgres'].includes(cfg.storeBackend)) throw new Error('STORE_BACKEND must be "json" or "postgres"');
+  if (!['test', 'gmail'].includes(cfg.outbound?.provider || 'test')) throw new Error('OUTBOUND_PROVIDER must be test or gmail');
+  if (cfg.nodeEnv === 'test' && cfg.outbound?.provider === 'gmail') throw new Error('Tests cannot use the real Gmail provider');
   if (cfg.storeBackend === 'postgres' && !cfg.databaseUrl) throw new Error('DATABASE_URL is required when STORE_BACKEND=postgres');
   if (cfg.nodeEnv !== 'production') return true;
   if (cfg.storeBackend !== 'postgres') throw new Error('Production requires STORE_BACKEND=postgres');
@@ -131,6 +145,8 @@ export function validateStartupConfig(cfg = config) {
   if (!cfg.adminToken || cfg.adminToken.length < 32) throw new Error('Production requires a strong ADMIN_TOKEN of at least 32 characters');
   if (!String(cfg.baseUrl).startsWith('https://')) throw new Error('Production requires an HTTPS APP_BASE_URL');
   if (cfg.outbound?.enabled && !cfg.outbound?.dryRun) {
+    if (cfg.outbound?.provider !== 'gmail') throw new Error('Live outbound requires OUTBOUND_PROVIDER=gmail');
+    if (cfg.outbound?.liveSendApproved !== true) throw new Error('Live outbound requires explicit OUTBOUND_LIVE_SEND_APPROVED=true');
     if (!cfg.sender?.address) throw new Error('Live outbound requires BUSINESS_ADDRESS');
     if (!Array.isArray(cfg.outbound.allowedCountries) || cfg.outbound.allowedCountries.length === 0) throw new Error('Live outbound requires OUTBOUND_ALLOWED_COUNTRIES');
     if (!cfg.google.clientId || !cfg.google.clientSecret) throw new Error('Live outbound requires Google OAuth credentials');
@@ -141,6 +157,9 @@ export function validateStartupConfig(cfg = config) {
   const gmailConfigured = Boolean(cfg.google.clientId || cfg.google.clientSecret);
   if (gmailConfigured && !/^[a-f0-9]{64}$/i.test(cfg.encryptionKey || '')) {
     throw new Error('Production Gmail integration requires a 64-character hexadecimal TOKEN_ENCRYPTION_KEY');
+  }
+  if (cfg.revenue?.autoEmailReports && !/^[a-f0-9]{64}$/i.test(cfg.encryptionKey || '')) {
+    throw new Error('Automatic report delivery requires a 64-character hexadecimal TOKEN_ENCRYPTION_KEY');
   }
   return true;
 }

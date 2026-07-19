@@ -1,0 +1,46 @@
+{
+  "campaignId": "e2e-acceptance-dry-run",
+  "name": "Deterministic acquisition acceptance",
+  "niche": "Test-fixture clinics only",
+  "countries": ["GB"],
+  "cities": ["London"],
+  "boundingBoxes": [[51.49, -0.14, 51.53, -0.08]],
+  "discoveryCategories": ["clinic"],
+  "minimumProspectScore": 60,
+  "minimumEvidenceConfidence": 0.8,
+  "dailyDiscoveryCap": 1,
+  "dailyAuditCap": 1,
+  "dailyDraftCap": 1,
+  "maximumPagesPerSite": 2,
+  "dailySendCap": 1,
+  "hourlySendCap": 1,
+  "allowedInboxes": ["A"],
+  "businessHourStart": 9,
+  "businessHourEnd": 17,
+  "maximumFollowups": 1,
+  "followupDelayDays": 5,
+  "offer": "An owner-reviewed implementation sprint limited to the evidenced website issue",
+  "callToAction": "Would a concise implementation outline be useful?",
+  "subjectVariants": [
+    "One evidenced website issue",
+    "A public-page observation"
+  ],
+  "messageVariants": [
+    "State the observed issue, its qualitative implication, and one low-friction question.",
+    "Use the stored page evidence and make no numerical or medical claim."
+  ],
+  "suppressionKeywords": [
+    "unsubscribe",
+    "remove me",
+    "do not contact"
+  ],
+  "prohibitedClaims": [
+    "guaranteed revenue",
+    "guaranteed rankings",
+    "guaranteed conversion growth",
+    "guaranteed patient growth"
+  ],
+  "dryRun": true,
+  "autoSend": false,
+  "enabled": true
+}

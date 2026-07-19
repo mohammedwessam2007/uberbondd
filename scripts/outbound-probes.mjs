@@ -11,11 +11,11 @@ function probe(name, fn) {
   checks.push(Promise.resolve().then(fn).then(() => { passed += 1; console.log(`PASS  ${name}`); }));
 }
 const date = new Date('2026-07-13T10:00:00Z');
-const baseCfg = { outbound: { enabled: true, dryRun: false, allowedCountries: ['GB'], businessHourStart: 9, businessHourEnd: 17, minEvidenceConfidence: .75 }, sender: { address: 'Address' } };
-const baseCampaign = { approved: true, autoSend: true, allowedCountries: ['GB'], minScore: 60 };
+const baseCfg = { outbound: { provider:'gmail',enabled: true, dryRun: false, liveSendApproved:true,allowedCountries: ['GB'], businessHourStart: 9, businessHourEnd: 17, minEvidenceConfidence: .75 }, sender: { address: 'Address' } };
+const baseCampaign = { approved: true,enabled:true,autoSend: true,dryRun:false,liveSendApproved:true,countries:['GB'],allowedCountries: ['GB'], minimumProspectScore:60,minScore: 60 };
 const base = {
-  id:'p', website:'https://clinic.example', country:'GB', draft:'draft', unsubscribeUrl:'https://app.example/unsubscribe?t=x', oneClickUnsubscribeUrl:'https://app.example/api/public/unsubscribe?t=x',
-  contact:{email:'info@clinic.example',source:'website',verified:'unknown'}, score:{total:80},
+  id:'p', website:'https://clinic.example', country:'GB', draft:'draft',subject:'subject',outreach:{selected:{body:'draft',subject:'subject',quality:{passed:true}}},unsubscribeUrl:'https://app.example/unsubscribe?t=x', oneClickUnsubscribeUrl:'https://app.example/api/public/unsubscribe?t=x',
+  contact:{email:'info@clinic.example',source:'website',verified:'unknown',published:true,evidence:[{email:'info@clinic.example',sourceUrl:'https://clinic.example/contact',sourceType:'visible_text',evidenceExcerpt:'Contact info@clinic.example',published:true}]}, score:{total:80},
   issue:{title:'Booking error',confidence:.9,safeForOutreach:true,evidenceUrl:'https://clinic.example/book',evidenceExcerpt:'error'}
 };
 const reason = (prospect=base,campaign=baseCampaign,cfg=baseCfg,when=date) => evaluateSendEligibility({prospect,campaign,cfg,date:when}).reason;
@@ -26,19 +26,19 @@ probe('missing postal address blocks',()=>assert.equal(reason(base,baseCampaign,
 probe('missing body unsubscribe blocks',()=>assert.equal(reason({...base,unsubscribeUrl:''}),'unsubscribe-link-missing'));
 probe('missing one-click unsubscribe blocks',()=>assert.equal(reason({...base,oneClickUnsubscribeUrl:''}),'one-click-unsubscribe-missing'));
 probe('system country allowlist blocks',()=>assert.equal(reason(base,baseCampaign,{...baseCfg,outbound:{...baseCfg.outbound,allowedCountries:['DE']}}),'country-not-system-allowed'));
-probe('campaign country allowlist blocks',()=>assert.equal(reason(base,{...baseCampaign,allowedCountries:['DE']}),'country-not-campaign-allowed'));
+probe('campaign country allowlist blocks',()=>assert.equal(reason(base,{...baseCampaign,countries:['DE'],allowedCountries:['DE']}),'country-not-campaign-allowed'));
 probe('free email contacts block',()=>assert.equal(contactEligibility({email:'clinic@gmail.com',source:'website'},base).reason,'free-mail-contact'));
 probe('risky system mailboxes block',()=>assert.equal(contactEligibility({email:'noreply@clinic.example',source:'website'},base).reason,'risky-mailbox'));
 probe('cross-domain contacts block',()=>assert.equal(contactEligibility({email:'info@other.example',source:'website'},base).reason,'contact-domain-mismatch'));
 probe('unverified enrichment blocks',()=>assert.equal(contactEligibility({email:'owner@clinic.example',source:'hunter',verified:'unknown'},base).reason,'contact-not-published-or-verified'));
-probe('positively verified enrichment passes',()=>assert.equal(contactEligibility({email:'owner@clinic.example',source:'hunter',verified:'valid'},base).ok,true));
+probe('positively verified enrichment passes',()=>assert.equal(contactEligibility({email:'owner@clinic.example',source:'hunter',verified:'valid',verificationStatus:'valid',externallyVerified:true},base).ok,true));
 probe('unsafe evidence blocks',()=>assert.equal(reason({...base,issue:{...base.issue,safeForOutreach:false}}),'unsafe-or-missing-evidence'));
 probe('low confidence evidence blocks',()=>assert.equal(reason({...base,issue:{...base.issue,confidence:.4}}),'low-evidence-confidence'));
 probe('cross-domain evidence blocks',()=>assert.equal(reason({...base,issue:{...base.issue,evidenceUrl:'https://other.example'}}),'evidence-domain-mismatch'));
 probe('low score blocks',()=>assert.equal(reason({...base,score:{total:20}}),'score-below-campaign-threshold'));
 probe('weekends block',()=>assert.equal(reason(base,baseCampaign,baseCfg,new Date('2026-07-12T10:00:00Z')),'outside-recipient-business-hours'));
 probe('early hours block',()=>assert.equal(reason(base,baseCampaign,baseCfg,new Date('2026-07-13T02:00:00Z')),'outside-recipient-business-hours'));
-probe('multi-timezone country requires explicit zone',()=>assert.equal(reason({...base,country:'US'}, {...baseCampaign,allowedCountries:['US']}, {...baseCfg,outbound:{...baseCfg.outbound,allowedCountries:['US']}}),'recipient-timezone-missing'));
+probe('multi-timezone country requires explicit zone',()=>assert.equal(reason({...base,country:'US'}, {...baseCampaign,countries:['US'],allowedCountries:['US']}, {...baseCfg,outbound:{...baseCfg.outbound,allowedCountries:['US']}}),'recipient-timezone-missing'));
 probe('mailer daemon is recognized as bounce',()=>assert.equal(classifyDeliverySignal({from:'mailer-daemon@example.com',subject:'Undeliverable',body:'550 5.1.1'}).label,'bounce'));
 probe('spam complaint signal is recognized',()=>assert.equal(classifyDeliverySignal({subject:'Feedback loop spam complaint'}).label,'complaint'));
 

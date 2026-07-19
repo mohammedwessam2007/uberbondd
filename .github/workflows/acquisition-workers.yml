@@ -1,0 +1,282 @@
+name: Acquisition Workers (Safe by Default)
+
+on:
+  schedule:
+    - cron: '17 1 * * 1-5'
+    - cron: '23 */2 * * 1-5'
+    - cron: '43 */3 * * 1-5'
+    - cron: '11,41 * * * *'
+    - cron: '7 9,13 * * 1-5'
+    - cron: '5 * * * *'
+    - cron: '31 3 * * 0'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Bounded worker to run; all excludes any outbound-send worker
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - discovery
+          - crawl-audit
+          - draft-generation
+          - reply-sync
+          - followup-scheduler
+          - payment-reconciliation
+          - stale-recovery
+          - deterministic-tests
+
+permissions:
+  contents: read
+
+env:
+  NODE_ENV: production
+  PROCESS_ROLE: worker
+  STORE_BACKEND: postgres
+  DATABASE_URL: ${{ secrets.ACQUISITION_DATABASE_URL }}
+  DATABASE_SSL: 'true'
+  APP_BASE_URL: ${{ vars.ACQUISITION_APP_BASE_URL }}
+  TOKEN_ENCRYPTION_KEY: ${{ secrets.ACQUISITION_TOKEN_ENCRYPTION_KEY }}
+  UNSUBSCRIBE_SECRET: ${{ secrets.ACQUISITION_UNSUBSCRIBE_SECRET }}
+  GOOGLE_CLIENT_ID: ${{ secrets.ACQUISITION_GOOGLE_CLIENT_ID }}
+  GOOGLE_CLIENT_SECRET: ${{ secrets.ACQUISITION_GOOGLE_CLIENT_SECRET }}
+  GOOGLE_REDIRECT_URI: ${{ vars.ACQUISITION_GOOGLE_REDIRECT_URI }}
+  AUTOPILOT_ENABLED: 'false'
+  OUTBOUND_PROVIDER: test
+  OUTBOUND_ENABLED: 'false'
+  OUTBOUND_DRY_RUN: 'true'
+  OUTBOUND_LIVE_SEND_APPROVED: 'false'
+  AI_PROVIDER: rules
+  DISCOVERY_ENABLED: 'true'
+  DISCOVERY_DRY_RUN: 'false'
+  DISCOVERY_DAILY_CAP: '100'
+  DISCOVERY_BATCHES_PER_RUN: '1'
+  CRAWL_CONCURRENCY: '1'
+  MAX_BATCH_SIZE: '10'
+  QUEUE_CONCURRENCY: '1'
+  QUEUE_MAX_RUNTIME_MS: '720000'
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+  ACQUISITION_WORKERS_ACTIVE: ${{ vars.ACQUISITION_WORKERS_ACTIVE }}
+  GITHUB_EVENT_NAME: ${{ github.event_name }}
+
+jobs:
+  discovery:
+    if: ${{ (github.event_name == 'workflow_dispatch' && (inputs.mode == 'all' || inputs.mode == 'discovery')) || (github.event_name == 'schedule' && vars.ACQUISITION_WORKERS_ACTIVE == 'true' && github.event.schedule == '17 1 * * 1-5') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: acquisition-discovery
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Discover and queue public business websites
+        run: node scripts/run-acquisition-worker.mjs
+        env:
+          WORKER_MODE: discovery
+          WORKER_BATCH_SIZE: '5'
+      - name: Upload privacy-safe worker summary
+        if: ${{ always() && hashFiles('worker-summary.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: discovery-summary-${{ github.run_id }}
+          path: worker-summary.json
+          retention-days: 7
+
+  crawl-audit:
+    if: ${{ (github.event_name == 'workflow_dispatch' && (inputs.mode == 'all' || inputs.mode == 'crawl-audit')) || (github.event_name == 'schedule' && vars.ACQUISITION_WORKERS_ACTIVE == 'true' && github.event.schedule == '23 */2 * * 1-5') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: acquisition-crawl-audit
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: acquisition-playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Crawl and audit a bounded queue batch
+        run: node scripts/run-acquisition-worker.mjs
+        env:
+          WORKER_MODE: crawl-audit
+          WORKER_BATCH_SIZE: '4'
+      - name: Upload privacy-safe worker summary
+        if: ${{ always() && hashFiles('worker-summary.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: crawl-audit-summary-${{ github.run_id }}
+          path: worker-summary.json
+          retention-days: 7
+
+  draft-generation:
+    if: ${{ (github.event_name == 'workflow_dispatch' && (inputs.mode == 'all' || inputs.mode == 'draft-generation')) || (github.event_name == 'schedule' && vars.ACQUISITION_WORKERS_ACTIVE == 'true' && github.event.schedule == '43 */3 * * 1-5') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: acquisition-draft-generation
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Generate evidence-locked drafts without sending
+        run: node scripts/run-acquisition-worker.mjs
+        env:
+          WORKER_MODE: draft-generation
+          WORKER_BATCH_SIZE: '10'
+      - name: Upload privacy-safe worker summary
+        if: ${{ always() && hashFiles('worker-summary.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: draft-generation-summary-${{ github.run_id }}
+          path: worker-summary.json
+          retention-days: 7
+
+  reply-sync:
+    if: ${{ github.event_name == 'workflow_dispatch' && (inputs.mode == 'all' || inputs.mode == 'reply-sync') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: acquisition-reply-sync
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify reply-sync readiness without using real Gmail in CI
+        run: node scripts/run-acquisition-worker.mjs
+        env:
+          WORKER_MODE: reply-sync
+          WORKER_BATCH_SIZE: '20'
+          OUTBOUND_PROVIDER: gmail
+      - name: Upload privacy-safe worker summary
+        if: ${{ always() && hashFiles('worker-summary.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: reply-sync-summary-${{ github.run_id }}
+          path: worker-summary.json
+          retention-days: 7
+
+  followup-scheduler:
+    if: ${{ (github.event_name == 'workflow_dispatch' && (inputs.mode == 'all' || inputs.mode == 'followup-scheduler')) || (github.event_name == 'schedule' && vars.ACQUISITION_WORKERS_ACTIVE == 'true' && github.event.schedule == '7 9,13 * * 1-5') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: acquisition-followup-scheduler
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Review bounded due follow-ups through disabled test outbound
+        run: node scripts/run-acquisition-worker.mjs
+        env:
+          WORKER_MODE: followup-scheduler
+          WORKER_BATCH_SIZE: '10'
+      - name: Upload privacy-safe worker summary
+        if: ${{ always() && hashFiles('worker-summary.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: followup-scheduler-summary-${{ github.run_id }}
+          path: worker-summary.json
+          retention-days: 7
+
+  payment-reconciliation:
+    if: ${{ (github.event_name == 'workflow_dispatch' && (inputs.mode == 'all' || inputs.mode == 'payment-reconciliation')) || (github.event_name == 'schedule' && vars.ACQUISITION_WORKERS_ACTIVE == 'true' && github.event.schedule == '11,41 * * * *') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: acquisition-payment-reconciliation
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Resume verified payment events only
+        run: node scripts/run-acquisition-worker.mjs
+        env:
+          WORKER_MODE: payment-reconciliation
+          WORKER_BATCH_SIZE: '10'
+      - name: Upload privacy-safe worker summary
+        if: ${{ always() && hashFiles('worker-summary.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: payment-reconciliation-summary-${{ github.run_id }}
+          path: worker-summary.json
+          retention-days: 7
+
+  stale-recovery:
+    if: ${{ (github.event_name == 'workflow_dispatch' && (inputs.mode == 'all' || inputs.mode == 'stale-recovery')) || (github.event_name == 'schedule' && vars.ACQUISITION_WORKERS_ACTIVE == 'true' && github.event.schedule == '5 * * * *') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: acquisition-stale-recovery
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Recover stale queue and crawl locks
+        run: node scripts/run-acquisition-worker.mjs
+        env:
+          WORKER_MODE: stale-recovery
+          WORKER_BATCH_SIZE: '1'
+      - name: Upload privacy-safe worker summary
+        if: ${{ always() && hashFiles('worker-summary.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: stale-recovery-summary-${{ github.run_id }}
+          path: worker-summary.json
+          retention-days: 7
+
+  deterministic-tests:
+    if: ${{ (github.event_name == 'workflow_dispatch' && (inputs.mode == 'all' || inputs.mode == 'deterministic-tests')) || (github.event_name == 'schedule' && vars.ACQUISITION_WORKERS_ACTIVE == 'true' && github.event.schedule == '31 3 * * 0') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: acquisition-deterministic-tests
+      cancel-in-progress: false
+    env:
+      NODE_ENV: test
+      STORE_BACKEND: json
+      OUTBOUND_PROVIDER: test
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm audit --audit-level=low

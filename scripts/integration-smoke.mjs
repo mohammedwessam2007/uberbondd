@@ -25,12 +25,13 @@ try{
   const home=await fetch(`http://127.0.0.1:${appPort}/`);assert(home.ok,'storefront did not load');assert((await home.text()).includes('Find what your website'),'storefront content missing');
   const intake=await fetch(`http://127.0.0.1:${appPort}/api/public/audit`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({company:'Northstar Boutique Hotel',website:`http://127.0.0.1:${fixturePort}/`,email:'owner@example.com',industry:'Hospitality / Travel',country:'United Arab Emirates',language:'English',consent:true})});
   const created=await intake.json();assert(intake.ok,`intake failed: ${JSON.stringify(created)}`);assert(created.accessToken,'missing access token');
-  let report;for(let i=0;i<60;i++){const r=await fetch(`http://127.0.0.1:${appPort}/api/public/report/${encodeURIComponent(created.accessToken)}`);report=await r.json();if(report.report?.ready)break;await wait(500)}
+  const fetchReport=()=>fetch(`http://127.0.0.1:${appPort}/api/public/report`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:created.accessToken})});
+  let report;for(let i=0;i<60;i++){const r=await fetchReport();report=await r.json();if(report.report?.ready)break;await wait(500)}
   assert(report?.report?.ready,`report never became ready: ${JSON.stringify(report)} logs=${logs}`);
   assert(report.report.observations.length===1,'free report should expose exactly one finding');
   assert(report.report.hiddenFindings>=1,'free report should lock additional findings');
   const unlock=await fetch(`http://127.0.0.1:${appPort}/api/test/unlock`,{method:'POST',headers:{authorization:'Bearer test-token','content-type':'application/json'},body:JSON.stringify({leadId:created.leadId,product:'full',amountCents:4900})});assert(unlock.ok,`unlock failed: ${await unlock.text()}`);
-  const paid=await fetch(`http://127.0.0.1:${appPort}/api/public/report/${encodeURIComponent(created.accessToken)}`).then(r=>r.json());
+  const paid=await fetchReport().then(r=>r.json());
   assert(paid.report.fullAccess,'paid report did not unlock');assert(paid.report.observations.length>1,'paid report did not expose all findings');
   const summary=await fetch(`http://127.0.0.1:${appPort}/api/summary`,{headers:{authorization:'Bearer test-token'}}).then(r=>r.json());assert(summary.revenue.grossRevenue===49,'revenue dashboard did not record payment');
   console.log(JSON.stringify({ok:true,leadId:created.leadId,score:paid.report.score?.total,findings:paid.report.observations.length,revenue:summary.revenue.grossRevenue,screenshotCount:paid.report.screenshots.length},null,2));

@@ -2,6 +2,7 @@ import os from 'node:os';
 import crypto from 'node:crypto';
 import { id, now } from './utils.mjs';
 import { ConflictError } from './store.mjs';
+import { redactSensitiveText, safeErrorDetails } from './security.mjs';
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -85,14 +86,15 @@ export class DurableQueue {
 
   async runJob(job, handlers) {
     const handler = handlers[job.type] || handlers[job.queue];
+    const lease = { workerId: this.workerId, lockedAt: job.lockedAt };
     if (!handler) {
-      await this.store.failJob(job.id, new Error(`No handler registered for ${job.type}`), { maxAttempts: 1, baseDelayMs: 1000 });
+      await this.store.failJob(job.id, new Error(`No handler registered for ${job.type}`), { ...lease, maxAttempts: 1, baseDelayMs: 1000 });
       return;
     }
     this.active += 1;
     const heartbeatEvery = Math.max(1000, Number(this.cfg.queue.jobHeartbeatMs || 15000));
     const heartbeat = setInterval(() => {
-      this.store.heartbeatJob(job.id, this.workerId).catch(error => this.log.error('job heartbeat failed', error));
+      this.store.heartbeatJob(job.id, this.workerId).catch(error => this.log.error('job heartbeat failed', safeErrorDetails(error)));
     }, heartbeatEvery);
     heartbeat.unref?.();
     try {
@@ -107,22 +109,31 @@ export class DurableQueue {
           Promise.resolve(handler(job.payload || {}, job)),
           timeoutPromise
         ]);
-        await this.store.completeJob(job.id, result ?? {});
+        const completed = await this.store.completeJob(job.id, result ?? {}, lease);
+        if (!completed) {
+          await this.store.log('queue_job_lease_lost', { jobId: job.id, type: job.type, workerId: this.workerId, phase: 'complete' });
+          return;
+        }
       } finally {
         if (runtimeTimer) clearTimeout(runtimeTimer);
       }
       await this.store.log('queue_job_completed', { jobId: job.id, type: job.type, workerId: this.workerId, attempts: job.attempts });
     } catch (error) {
       const failed = await this.store.failJob(job.id, error, {
+        ...lease,
         baseDelayMs: this.cfg.queue.retryBaseMs,
         maxDelayMs: this.cfg.queue.retryMaxMs,
         maxAttempts: error?.retryable === false ? 1 : job.maxAttempts
       });
-      await this.store.log(failed?.status === 'dead-letter' ? 'queue_job_dead_lettered' : 'queue_job_retry_scheduled', {
+      if (!failed) {
+        await this.store.log('queue_job_lease_lost', { jobId: job.id, type: job.type, workerId: this.workerId, phase: 'fail' });
+        return;
+      }
+      await this.store.log(failed.status === 'dead-letter' ? 'queue_job_dead_lettered' : 'queue_job_retry_scheduled', {
         jobId: job.id, type: job.type, workerId: this.workerId, attempts: job.attempts,
-        error: String(error?.message || error).slice(0, 1000), nextRunAt: failed?.runAt || null
+        error: redactSensitiveText(error?.message || error).slice(0, 1000), nextRunAt: failed.runAt || null
       });
-      this.log.error(`Queue job ${job.type} ${job.id} failed`, error);
+      this.log.error(`Queue job ${job.type} ${job.id} failed`, safeErrorDetails(error));
     } finally {
       clearInterval(heartbeat);
       this.active -= 1;
@@ -134,7 +145,9 @@ export class DurableQueue {
     const concurrency = Math.max(1, Number(options.concurrency || this.cfg.queue.concurrency || 2));
     const available = Math.max(0, concurrency - this.active);
     if (!available) return { paused: false, claimed: 0 };
-    const jobs = await this.store.claimJobs(this.workerId, available, this.cfg.queue.lockTimeoutMs);
+    const types = (Array.isArray(options.types) ? options.types : [])
+      .map(value => String(value || '').trim()).filter(Boolean).slice(0, 20);
+    const jobs = await this.store.claimJobs(this.workerId, available, this.cfg.queue.lockTimeoutMs, types);
     if (!jobs.length) return { paused: false, claimed: 0 };
     await Promise.all(jobs.map(job => this.runJob(job, handlers)));
     return { paused: false, claimed: jobs.length };
@@ -146,7 +159,7 @@ export class DurableQueue {
     await this.store.recoverStaleJobs(this.cfg.queue.lockTimeoutMs);
     await this.recordWorkerHeartbeat({ state: 'starting' });
     this.heartbeatTimer = setInterval(() => {
-      this.recordWorkerHeartbeat({ state: this.stopping ? 'stopping' : 'running' }).catch(error => this.log.error('worker heartbeat failed', error));
+      this.recordWorkerHeartbeat({ state: this.stopping ? 'stopping' : 'running' }).catch(error => this.log.error('worker heartbeat failed', safeErrorDetails(error)));
     }, Math.max(1000, Number(this.cfg.queue.workerHeartbeatMs || 15000)));
     this.heartbeatTimer.unref?.();
     const pollMs = Math.max(100, Number(options.pollMs || this.cfg.queue.pollMs || 1000));
@@ -156,7 +169,7 @@ export class DurableQueue {
           const result = await this.runOnce(handlers, options);
           if (!result.claimed) await sleep(result.paused ? Math.max(pollMs, 2000) : pollMs);
         } catch (error) {
-          this.log.error('queue polling failed', error);
+          this.log.error('queue polling failed', safeErrorDetails(error));
           await sleep(Math.max(pollMs, 2000));
         }
       }

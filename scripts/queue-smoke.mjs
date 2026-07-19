@@ -65,7 +65,7 @@ try {
   assert(recovered.recovered === 1, `Expected one recovered job, got ${JSON.stringify(recovered)}`);
   const reclaimed = await storeB.claimJobs('replacement-worker', 1, 1000);
   assert(reclaimed[0]?.id === abandoned.id, 'Replacement worker did not reclaim abandoned job');
-  await storeB.completeJob(abandoned.id, { recovered: true });
+  await storeB.completeJob(abandoned.id, { recovered: true }, { workerId: 'replacement-worker', lockedAt: reclaimed[0].lockedAt });
 
   await queueA.recordWorkerHeartbeat({ state: 'running' });
   assert((await queueB.liveWorkers()).some(worker => worker.id === queueA.workerId), 'Worker heartbeat not visible across processes');

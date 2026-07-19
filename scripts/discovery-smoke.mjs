@@ -8,9 +8,9 @@ const appPort=8191;
 const mockPort=8192;
 const dataDir=await fs.mkdtemp(path.join(os.tmpdir(),'ub-discovery-smoke-'));
 const mockPayload={elements:[
-  {type:'node',id:101,lat:51.5,lon:-0.1,tags:{name:'Atlas Clinic',amenity:'clinic',website:'https://atlas.example'}},
+  {type:'node',id:101,lat:51.5,lon:-0.1,tags:{name:'Atlas Clinic',amenity:'clinic',website:'https://atlas.example.com'}},
   {type:'node',id:102,lat:51.51,lon:-0.11,tags:{name:'No Site Clinic',amenity:'clinic'}},
-  {type:'way',id:103,center:{lat:51.52,lon:-0.12},tags:{name:'Nova Dental',amenity:'dentist','contact:website':'https://nova.example'}}
+  {type:'way',id:103,center:{lat:51.52,lon:-0.12},tags:{name:'Nova Dental',amenity:'dentist','contact:website':'https://nova.example.com'}}
 ]};
 const mock=http.createServer(async(req,res)=>{
   if(req.method!=='POST'){res.writeHead(405);return res.end();}
@@ -44,11 +44,19 @@ async function waitForJob(jobId,{timeoutMs=15000}={}){
 }
 try{
   for(let i=0;i<40;i++){try{await api('/api/health');break}catch{await wait(100)}}
-  const campaign=await api('/api/campaigns',{method:'POST',body:JSON.stringify({name:'Discovery smoke',niche:'clinics',offer:'audit',minScore:60,maxFollowups:0,approved:true,autoSend:false})});
-  const previewQueued=await api('/api/discovery/run',{method:'POST',body:JSON.stringify({campaignId:campaign.id,bbox:'51.4,-0.3,51.7,0.1',categories:['clinic','dentist'],country:'United Kingdom',city:'London',limit:10,dryRun:true})});
+  const campaign=await api('/api/campaigns',{method:'POST',body:JSON.stringify({
+    campaignId:'discovery-smoke',name:'Discovery smoke',niche:'clinics',countries:['GB'],cities:['London'],
+    boundingBoxes:[[51.4,-0.3,51.7,0.1]],discoveryCategories:['clinic','dentist'],minimumProspectScore:60,
+    minimumEvidenceConfidence:0.8,dailyDiscoveryCap:10,dailyAuditCap:10,dailyDraftCap:10,dailySendCap:0,
+    hourlySendCap:0,allowedInboxes:[],businessHourStart:9,businessHourEnd:17,maximumFollowups:0,
+    followupDelayDays:5,offer:'Evidence-backed audit',callToAction:'Would an outline be useful?',
+    subjectVariants:['A website issue'],messageVariants:['One evidence-backed issue and one CTA.'],
+    suppressionKeywords:['unsubscribe'],prohibitedClaims:['guaranteed revenue'],dryRun:true,autoSend:false,enabled:true
+  })});
+  const previewQueued=await api('/api/discovery/run',{method:'POST',body:JSON.stringify({campaignId:campaign.id,limit:10,dryRun:true})});
   const preview=await waitForJob(previewQueued.jobId);
   if(preview.discoveredCount!==2||preview.importedCount!==0)throw new Error(`Unexpected preview: ${JSON.stringify(preview)}`);
-  const importedQueued=await api('/api/discovery/run',{method:'POST',body:JSON.stringify({campaignId:campaign.id,bbox:'51.4,-0.3,51.7,0.1',categories:['clinic','dentist'],country:'United Kingdom',city:'London',limit:10,dryRun:false})});
+  const importedQueued=await api('/api/discovery/run',{method:'POST',body:JSON.stringify({campaignId:campaign.id,limit:10,dryRun:false})});
   const imported=await waitForJob(importedQueued.jobId);
   if(imported.importedCount!==2)throw new Error(`Unexpected import: ${JSON.stringify(imported)}`);
   const prospects=await api('/api/prospects');

@@ -1,4 +1,5 @@
 import { absoluteUrl } from './utils.mjs';
+import { assertPublicUrl } from './security.mjs';
 
 export function parseRobots(text = '', agent = 'UberBondSignal') {
   const groups = [];
@@ -25,11 +26,15 @@ export function isAllowed(url, rules) {
   ].filter(x => x.v && path.startsWith(x.v)).sort((a,b) => b.v.length - a.v.length);
   return !candidates.length || candidates[0].type === 'allow';
 }
-export async function getRobots(startUrl, fetcher = fetch) {
+export async function getRobots(startUrl, fetcher = fetch, options = {}) {
   const url = absoluteUrl('/robots.txt', startUrl);
   try {
-    const res = await fetcher(url, {headers: {'user-agent': 'UberBondSignal/2.0 (+research; contact via configured sender)'}});
-    if (!res.ok) return {allow: [], disallow: [], crawlDelay: 0};
-    return parseRobots(await res.text());
-  } catch { return {allow: [], disallow: [], crawlDelay: 0}; }
+    await assertPublicUrl(url, { allowLocal: options.allowLocal === true });
+    const res = await fetcher(url, {
+      redirect: 'manual',
+      headers: {'user-agent': 'UberBondSignal/2.0 (+research; contact via configured sender)'}
+    });
+    if (!res.ok) return {allow: [], disallow: [], crawlDelay: 0, checked: true, status: res.status, policyAvailable: false};
+    return { ...parseRobots(await res.text()), checked: true, status: res.status, policyAvailable: true };
+  } catch { return {allow: [], disallow: [], crawlDelay: 0, checked: true, status: 0, policyAvailable: false}; }
 }

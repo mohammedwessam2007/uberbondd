@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {parseRobots,isAllowed} from '../src/robots.mjs';
+import {parseRobots,isAllowed,getRobots} from '../src/robots.mjs';
 import {deterministicAudit,scoreProspect,chooseIssue} from '../src/audit-rules.mjs';
 import {buildMessage,routeInbox} from '../src/copy.mjs';
 import {encryptJson,decryptJson} from '../src/crypto.mjs';
@@ -8,6 +8,7 @@ import {parseCsv} from '../src/csv.mjs';
 import {isPrivateIp,assertPublicUrl} from '../src/security.mjs';
 
 test('robots longest matching directive wins',()=>{const r=parseRobots('User-agent: *\nDisallow: /private\nAllow: /private/public');assert.equal(isAllowed('https://x.com/private/no',r),false);assert.equal(isAllowed('https://x.com/private/public/a',r),true)});
+test('robots fetch never follows a private or metadata target',async()=>{let called=false;const rules=await getRobots('http://169.254.169.254/',async()=>{called=true;throw new Error('must not fetch')});assert.equal(called,false);assert.equal(rules.policyAvailable,false);});
 
 test('audit detects no CTA and weak contact path',()=>{
   const page={url:'https://x.test',title:'Example Company',description:'',h1Count:1,visibleH1:['Welcome'],headings:[{level:'h1',text:'Welcome'}],ctas:[],controls:[],images:[],forms:[],bodyText:'A company in Cairo',lang:'en',contactSignals:0,mobile:{horizontalOverflow:false,controls:[],document:{width:390},viewport:{width:390}},screenshots:{desktop:'/x.png',mobile:'/m.png'},brokenLinks:[]};

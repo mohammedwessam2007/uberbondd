@@ -28,6 +28,21 @@ test('durable queue deduplicates, claims, and completes jobs', async () => {
   assert.deepEqual(completed.result, { doubled: 14 });
 });
 
+test('bounded workers claim only their allowlisted job types', async () => {
+  const { store, queue } = await setup();
+  const discovery = await queue.enqueue('discovery.run', { limit: 2 });
+  const replies = await queue.enqueue('replies.poll', { messageLimit: 5 });
+  const handled = [];
+  const result = await queue.runOnce({
+    'discovery.run': async () => { handled.push('discovery.run'); },
+    'replies.poll': async () => { handled.push('replies.poll'); }
+  }, { concurrency: 1, types: ['replies.poll'] });
+  assert.equal(result.claimed, 1);
+  assert.deepEqual(handled, ['replies.poll']);
+  assert.equal((await store.get('jobs', replies.id)).status, 'completed');
+  assert.equal((await store.get('jobs', discovery.id)).status, 'queued');
+});
+
 test('durable queue retries failures then dead-letters at the attempt ceiling', async () => {
   const { store, queue } = await setup();
   const job = await queue.enqueue('test.fail', {}, { maxAttempts: 2 });

@@ -1,3 +1,5 @@
+import { safeErrorDetails } from './security.mjs';
+
 const MINUTE = 60000;
 const HOUR = 60 * MINUTE;
 
@@ -5,7 +7,7 @@ function bucket(intervalMs) { return Math.floor(Date.now() / intervalMs); }
 
 export function startScheduler(queue, cfg, log = console) {
   const timers = [];
-  const safe = (label, fn) => Promise.resolve().then(fn).catch(error => log.error(label, error));
+  const safe = (label, fn) => Promise.resolve().then(fn).catch(error => log.error(label, safeErrorDetails(error)));
   const schedule = (type, intervalMs, payload = {}, options = {}) => queue.enqueue(type, payload, {
     ...options,
     dedupeKey: `${type}:${bucket(intervalMs)}`,

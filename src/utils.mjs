@@ -22,7 +22,10 @@ export const uniq = arr => [...new Set(arr.filter(Boolean))];
 export const emailRx = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
 export const isEmail = value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
 export const csvEscape = value => {
-  const s = String(value ?? '');
+  const raw = String(value ?? '');
+  // Spreadsheet applications can execute formula-leading CSV cells. Prefix
+  // untrusted formula syntax with an apostrophe so exports remain inert.
+  const s = /^(?:[\t\r]|\s*[=+@-])/.test(raw) ? `'${raw}` : raw;
   return /[",\n]/.test(s) ? `"${s.replaceAll('"', '""')}"` : s;
 };
 export function redact(value = '') {

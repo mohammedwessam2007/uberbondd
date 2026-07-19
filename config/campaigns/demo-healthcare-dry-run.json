@@ -1,0 +1,55 @@
+{
+  "campaignId": "demo-healthcare-dry-run",
+  "name": "Healthcare evidence preview",
+  "niche": "Clinics, dentists, and public-facing medical businesses",
+  "countries": ["AE", "SA", "QA", "KW", "GB", "AU"],
+  "cities": ["Dubai", "Riyadh", "Doha", "Kuwait City", "London", "Sydney"],
+  "boundingBoxes": [
+    [25.05, 54.9, 25.35, 55.55],
+    [24.4, 46.3, 25.0, 47.0],
+    [25.15, 51.35, 25.45, 51.65],
+    [29.15, 47.75, 29.5, 48.15],
+    [51.28, -0.51, 51.69, 0.33],
+    [-34.1, 150.8, -33.6, 151.4]
+  ],
+  "discoveryCategories": ["clinic", "dentist", "medical", "dermatology", "cosmetic_clinic", "fertility_clinic", "healthcare_agency"],
+  "minimumProspectScore": 65,
+  "minimumEvidenceConfidence": 0.8,
+  "dailyDiscoveryCap": 100,
+  "dailyAuditCap": 100,
+  "dailyDraftCap": 100,
+  "maximumPagesPerSite": 5,
+  "dailySendCap": 0,
+  "hourlySendCap": 0,
+  "allowedInboxes": [],
+  "businessHourStart": 9,
+  "businessHourEnd": 17,
+  "maximumFollowups": 1,
+  "followupDelayDays": 5,
+  "offer": "Evidence-backed website diagnostic with an owner-approved implementation option",
+  "callToAction": "Would a concise implementation outline be useful?",
+  "subjectVariants": [
+    "A website issue on {{businessName}}",
+    "Evidence from {{affectedPage}}"
+  ],
+  "messageVariants": [
+    "Software assisted this public-page review. Use one stored issue, one commercial implication, one low-friction CTA, and a respectful opt-out.",
+    "Reference only the selected evidence excerpt and affected page. Do not add unsupported praise, urgency, metrics, or claims."
+  ],
+  "suppressionKeywords": [
+    "unsubscribe",
+    "do not contact",
+    "not interested",
+    "remove me"
+  ],
+  "prohibitedClaims": [
+    "guaranteed revenue",
+    "guaranteed rankings",
+    "guaranteed conversion growth",
+    "guaranteed patient growth",
+    "manual review when software performed the review"
+  ],
+  "dryRun": true,
+  "autoSend": false,
+  "enabled": false
+}

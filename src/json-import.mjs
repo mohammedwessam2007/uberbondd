@@ -3,8 +3,8 @@ import path from 'node:path';
 import { COLLECTIONS, ConflictError } from './store.mjs';
 
 const IMPORT_ORDER = [
-  'campaigns', 'leads', 'prospects', 'jobs', 'messages', 'replies', 'suppressions',
-  'socialTasks', 'accounts', 'orders', 'subscriptions', 'monitoringRuns',
+  'campaigns', 'experiments', 'leads', 'prospects', 'offers', 'jobs', 'messages', 'replies', 'suppressions',
+  'socialTasks', 'accounts', 'orders', 'deliveries', 'subscriptions', 'monitoringRuns',
   'notifications', 'revenueEvents', 'discoveryRuns', 'auditLog'
 ];
 
@@ -14,6 +14,8 @@ const UNIQUE_LOOKUPS = {
   replies: item => item.gmailId ? { gmailId: item.gmailId } : null,
   accounts: item => item.slot ? { slot: item.slot } : null,
   orders: item => item.providerEventId ? { providerEventId: item.providerEventId } : null,
+  offers: item => item.prospectId && item.type ? { prospectId: item.prospectId, type: item.type } : null,
+  deliveries: item => item.orderId ? { orderId: item.orderId } : null,
   revenueEvents: item => item.providerEventId ? { providerEventId: item.providerEventId } : null
 };
 

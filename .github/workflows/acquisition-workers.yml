@@ -9,6 +9,7 @@ on:
     - cron: '7 9,13 * * 1-5'
     - cron: '5 * * * *'
     - cron: '31 3 * * 0'
+    - cron: '19,49 * * * *'
   workflow_dispatch:
     inputs:
       mode:
@@ -150,7 +151,7 @@ jobs:
           retention-days: 7
 
   reply-sync:
-    if: ${{ github.event_name == 'workflow_dispatch' && (inputs.mode == 'all' || inputs.mode == 'reply-sync') }}
+    if: ${{ (github.event_name == 'workflow_dispatch' && (inputs.mode == 'all' || inputs.mode == 'reply-sync')) || (github.event_name == 'schedule' && vars.ACQUISITION_WORKERS_ACTIVE == 'true' && github.event.schedule == '19,49 * * * *') }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     concurrency:

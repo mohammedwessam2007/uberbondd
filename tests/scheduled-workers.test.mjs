@@ -255,7 +255,9 @@ test('Actions policy uses isolated jobs, safe secrets, bounded timeouts, and no 
   assert.match(workflow, /OUTBOUND_LIVE_SEND_APPROVED: 'false'/);
   assert.match(workflow, /ACQUISITION_WORKERS_ACTIVE: \$\{\{ vars\.ACQUISITION_WORKERS_ACTIVE \}\}/);
   assert.match(workflow, /GITHUB_EVENT_NAME: \$\{\{ github\.event_name \}\}/);
-  assert.equal((workflow.match(/vars\.ACQUISITION_WORKERS_ACTIVE == 'true'/g) || []).length, 7);
+  assert.match(workflow, /- cron: '19,49 \* \* \* \*'/);
+  assert.match(workflow, /reply-sync:\n    if: \$\{\{ .*github\.event\.schedule == '19,49 \* \* \* \*'.* \}\}/s);
+  assert.equal((workflow.match(/vars\.ACQUISITION_WORKERS_ACTIVE == 'true'/g) || []).length, 8);
   assert.doesNotMatch(workflow, /WORKER_MODE: outbound|outbound\.process|LITE_DATABASE_URL/);
   assert.doesNotMatch(workflow, /LEMONSQUEEZY_WEBHOOK_SECRET|OUTBOUND_LIVE_SEND_APPROVED: \$\{\{/);
   assert.match(workflow, /path: worker-summary\.json/);

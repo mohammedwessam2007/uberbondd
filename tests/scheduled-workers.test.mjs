@@ -140,6 +140,7 @@ test('scheduled handlers expose bounded draft, reply, follow-up, payment, and re
   const handlers = createJobHandlers({
     store: {
       recoverStaleJobs: async () => ({ recovered: 2, deadLettered: 0 }),
+      recoverStaleOutboundReservations: async () => ({ recovered: 1, attempted: 1 }),
       deleteExpiredArtifacts: async () => 3
     },
     pipeline: {
@@ -161,7 +162,7 @@ test('scheduled handlers expose bounded draft, reply, follow-up, payment, and re
   await handlers['followups.process']({ limit: 8 });
   await handlers['payments.reconcile']({ limit: 9 });
   assert.deepEqual(await handlers['stale.recover']({ includeArtifacts: true }), {
-    jobs: { recovered: 2, deadLettered: 0 }, prospects: 4, artifacts: 3
+    jobs: { recovered: 2, deadLettered: 0 }, prospects: 4, reservations: { recovered: 1, attempted: 1 }, artifacts: 3
   });
   assert.deepEqual(calls, [['drafts', 6], ['replies', 7], ['followups', 8], ['payments', 9]]);
 });

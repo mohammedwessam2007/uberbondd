@@ -278,5 +278,13 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: acquisition-playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
       - run: npm run check
+      - run: npm run test:browser
       - run: npm audit --audit-level=low

@@ -149,6 +149,12 @@ const STOPPED_OUTBOUND_STATUSES = new Set([
   'send-uncertain', 'checkout-sent', 'delivery-queued', 'delivered'
 ]);
 
+// A dispatch that never reached finalizeOutboundDispatch (worker crash/kill between
+// beginOutboundDispatch's commit and the provider call returning) is recovered here,
+// not retried. Default matches the brief's 10-minute default; callers may override.
+const DEFAULT_STALE_DISPATCH_TIMEOUT_MS = 10 * 60 * 1000;
+const STALE_DISPATCH_RECOVERY_REASON = 'stale_dispatch_recovered';
+
 function dispatchLockKeys({ prospectId = '', inbox = '', email = '', domain = '' } = {}) {
   return [...new Set([
     'outbound:global',
@@ -275,6 +281,7 @@ class JsonTransactionStore {
   async reserveOutboundSend(input) { return this.parent._reserveOutboundSendDirect(input); }
   async beginOutboundDispatch(id, gate = {}) { return this.parent._beginOutboundDispatchDirect(id, gate); }
   async finalizeOutboundDispatch(id, status, reservationPatch = {}, prospectPatch = {}) { return this.parent._finalizeOutboundDispatchDirect(id, status, reservationPatch, prospectPatch); }
+  async recoverStaleOutboundReservations(timeoutMs = DEFAULT_STALE_DISPATCH_TIMEOUT_MS) { return this.parent._recoverStaleOutboundReservationsDirect(timeoutMs); }
   async markOutboundReservation(id, status, patch = {}) { return this.parent._markOutboundReservationDirect(id, status, patch); }
   async suppressOutbound(input = {}) { return this.parent._suppressOutboundDirect(input); }
   async recordReplyAndStop(record, prospectPatch = {}) { return this.parent._recordReplyAndStopDirect(record, prospectPatch); }
@@ -649,6 +656,26 @@ export class JsonStore {
     return { ok: true, reservation: finalizedReservation, prospect: finalizedProspect, stopReason };
   }
 
+  _recoverStaleOutboundReservationsDirect(timeoutMs = DEFAULT_STALE_DISPATCH_TIMEOUT_MS) {
+    const cutoff = Date.now() - Math.max(1000, Number(timeoutMs || DEFAULT_STALE_DISPATCH_TIMEOUT_MS));
+    const staleIds = (this.data.outboundReservations || [])
+      .filter(item => item.status === 'dispatching')
+      .filter(item => Number.isFinite(Date.parse(item.dispatchedAt || '')) && Date.parse(item.dispatchedAt) < cutoff)
+      .map(item => item.id);
+    let recovered = 0;
+    for (const id of staleIds) {
+      // Same finalization path a network-error catch block already uses: this both
+      // marks the reservation uncertain (never retry-sends) and re-checks suppression/
+      // reply/payment stop so a prospect who stopped mid-crash is not resurrected.
+      const outcome = this._finalizeOutboundDispatchDirect(id, 'uncertain', { recoveryReason: STALE_DISPATCH_RECOVERY_REASON }, {
+        status: 'send-uncertain', nextFollowupAt: null,
+        sendSafety: { sent: false, reason: 'stale-dispatch-recovered', reservationId: id, checkedAt: now() }
+      });
+      if (outcome.ok) recovered += 1;
+    }
+    return { recovered, attempted: staleIds.length };
+  }
+
   _suppressOutboundDirect(input = {}) {
     const values = [...new Set((input.values || []).map(value => String(value || '').trim().toLowerCase()).filter(Boolean))].sort();
     for (const value of values) {
@@ -734,6 +761,7 @@ export class JsonStore {
   async reserveOutboundSend(input) { return this.transaction(tx => tx.reserveOutboundSend(input)); }
   async beginOutboundDispatch(id, gate = {}) { return this.transaction(tx => tx.beginOutboundDispatch(id, gate)); }
   async finalizeOutboundDispatch(id, status, reservationPatch = {}, prospectPatch = {}) { return this.transaction(tx => tx.finalizeOutboundDispatch(id, status, reservationPatch, prospectPatch)); }
+  async recoverStaleOutboundReservations(timeoutMs = DEFAULT_STALE_DISPATCH_TIMEOUT_MS) { return this.transaction(tx => tx.recoverStaleOutboundReservations(timeoutMs)); }
   async markOutboundReservation(id, status, patch = {}) { return this.transaction(tx => tx.markOutboundReservation(id, status, patch)); }
   async suppressOutbound(input = {}) { return this.transaction(tx => tx.suppressOutbound(input)); }
   async recordReplyAndStop(record, prospectPatch = {}) { return this.transaction(tx => tx.recordReplyAndStop(record, prospectPatch)); }
@@ -1269,6 +1297,38 @@ export class PostgresStore {
       }
       return { ok: true, reservation: finalizedReservation, prospect: finalizedProspect, stopReason };
     });
+  }
+
+  async recoverStaleOutboundReservations(timeoutMs = DEFAULT_STALE_DISPATCH_TIMEOUT_MS) {
+    const seconds = Math.max(1, Math.ceil(Number(timeoutMs || DEFAULT_STALE_DISPATCH_TIMEOUT_MS) / 1000));
+    // Claim candidates in one short transaction (FOR UPDATE SKIP LOCKED, the same
+    // technique recoverStaleJobs uses) so two concurrent recovery workers don't both
+    // block on the same scan. The claim intentionally does not write anything: it
+    // only identifies candidates. Safety against double-recovery of the same row
+    // does not depend on this claim window — it comes from finalizeOutboundDispatch's
+    // own SELECT ... FOR UPDATE + "status must still be dispatching" precondition
+    // below, so calling finalizeOutboundDispatch here (which opens its own
+    // transaction) can never run nested inside this one and deadlock on the lock
+    // this claim would otherwise still be holding.
+    const staleIds = await this.transaction(async tx => {
+      const result = await tx.pool.query(`
+        SELECT id FROM outbound_reservations
+        WHERE status = 'dispatching'
+          AND dispatched_at IS NOT NULL
+          AND dispatched_at < now() - ($1::text || ' seconds')::interval
+        FOR UPDATE SKIP LOCKED
+      `, [String(seconds)]);
+      return result.rows.map(row => row.id);
+    });
+    let recovered = 0;
+    for (const id of staleIds) {
+      const outcome = await this.finalizeOutboundDispatch(id, 'uncertain', { recoveryReason: STALE_DISPATCH_RECOVERY_REASON }, {
+        status: 'send-uncertain', nextFollowupAt: null,
+        sendSafety: { sent: false, reason: 'stale-dispatch-recovered', reservationId: id, checkedAt: now() }
+      });
+      if (outcome.ok) recovered += 1;
+    }
+    return { recovered, attempted: staleIds.length };
   }
 
   async suppressOutbound(input = {}) {

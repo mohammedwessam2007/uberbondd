@@ -11,10 +11,11 @@ export function createJobHandlers({ store, pipeline, revenue, discoveryRunner })
     'stale.recover': async payload => {
       const jobs = await store.recoverStaleJobs();
       const prospects = await pipeline.recoverStaleProspects();
+      const reservations = await store.recoverStaleOutboundReservations();
       const artifacts = payload?.includeArtifacts && typeof store?.deleteExpiredArtifacts === 'function'
         ? await store.deleteExpiredArtifacts()
         : 0;
-      return { jobs, prospects, artifacts };
+      return { jobs, prospects, reservations, artifacts };
     },
     'artifacts.cleanup': async () => ({ deleted: typeof store?.deleteExpiredArtifacts === 'function' ? await store.deleteExpiredArtifacts() : 0 })
   };

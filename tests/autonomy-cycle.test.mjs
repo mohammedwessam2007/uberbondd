@@ -235,3 +235,28 @@ test('bounded pagination never fetches more than maxPagesPerCycle * maxMessagesP
   assert.equal(result.ok, true);
   assert.ok(result.digest.counts.messagesFetched <= 3, `expected bounded fetch, got ${result.digest.counts.messagesFetched}`);
 });
+
+test('BND: a stage that runs longer than maxStageRuntimeMs is aborted, marked failed, and remains retryable', async () => {
+  const store = await tempStore();
+  const cfg = baseCfg({ limits: { maxStageRuntimeMs: 50, maxStageRetries: 5 } });
+  const hangingReader = { listMessages: () => new Promise(() => {}), getMessage: async () => ({ data: {} }) };
+  const result = await runAutonomyCycle({ store, cfg, runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: hangingReader, accounts: [account] });
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'stage-not-complete');
+  assert.equal(result.run.stages['poll-inbound'].status, 'failed');
+  assert.match(result.run.stages['poll-inbound'].result.error, /exceeded 50ms runtime limit/);
+});
+
+test('BND: total cycle runtime beyond maxCycleRuntimeMs stops starting new stages without crashing', async () => {
+  const store = await tempStore();
+  const cfg = baseCfg({ inboundOverrides: { enabled: false, gmailReadEnabled: false }, limits: { maxCycleRuntimeMs: 10 } });
+  await new Promise(resolve => setTimeout(resolve, 30));
+  // Pre-create the run directly so its startedAt is already in the past relative to the tiny
+  // cycle budget, then let runAutonomyCycle try to continue it.
+  const created = await store.createAutonomyCycleRun('slow-run', 'worker-1', 60000);
+  await store.patch('autonomyCycleRuns', created.run.id, { startedAt: new Date(Date.now() - 1000).toISOString() });
+  const result = await runAutonomyCycle({ store, cfg, runKey: 'slow-run', leaseOwner: 'worker-1' });
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'cycle-timeout');
+  assert.equal(result.run.status, 'active', 'a cycle-timeout must not finalize the run -- it stays retryable');
+});

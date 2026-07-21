@@ -8,16 +8,16 @@ export const COLLECTIONS = [
   'prospects', 'campaigns', 'jobs', 'messages', 'replies', 'suppressions',
   'socialTasks', 'accounts', 'auditLog', 'leads', 'orders', 'subscriptions',
   'monitoringRuns', 'notifications', 'revenueEvents', 'discoveryRuns', 'workerHeartbeats',
-  'outboundReservations', 'senderHealth', 'outboundEvents'
+  'outboundReservations', 'senderHealth', 'outboundEvents', 'autonomyCycleRuns'
 ];
 
 const EMPTY = {
-  version: 5,
+  version: 6,
   prospects: [], campaigns: [], jobs: [], messages: [], replies: [],
   suppressions: [], socialTasks: [], accounts: [], auditLog: [], settings: {},
   leads: [], orders: [], subscriptions: [], monitoringRuns: [], notifications: [],
   revenueEvents: [], discoveryRuns: [], workerHeartbeats: [],
-  outboundReservations: [], senderHealth: [], outboundEvents: []
+  outboundReservations: [], senderHealth: [], outboundEvents: [], autonomyCycleRuns: []
 };
 
 const MAP = {
@@ -87,6 +87,17 @@ const MAP = {
     columns: {
       inbox: 'inbox', eventType: 'event_type', prospectId: 'prospect_id', recipientEmail: 'recipient_email',
       occurredAt: 'occurred_at', createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
+  // Read-only via the generic list/get/count below. Writes always go through the dedicated
+  // create/patch/reclaim methods further down (never generic add/patch) because this collection
+  // has singleton and compare-and-swap rules the generic path doesn't know about.
+  autonomyCycleRuns: {
+    table: 'autonomy_cycle_runs',
+    columns: {
+      runKey: 'run_key', status: 'status', version: 'version', checkpointVersion: 'checkpoint_version',
+      leaseOwner: 'lease_owner', leaseExpiresAt: 'lease_expires_at', finalizedAt: 'finalized_at',
+      digestWrittenAt: 'digest_written_at', startedAt: 'started_at', createdAt: 'created_at', updatedAt: 'updated_at'
     }
   },
 };
@@ -173,6 +184,9 @@ class JsonTransactionStore {
   async reserveOutboundSend(input) { return this.parent._reserveOutboundSendDirect(input); }
   async markOutboundReservation(id, status, patch = {}) { return this.parent._markOutboundReservationDirect(id, status, patch); }
   async recordOutboundEvent(input, thresholds = {}) { return this.parent._recordOutboundEventDirect(input, thresholds); }
+  async createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs = 300000) { return this.parent._createAutonomyCycleRunDirect(runKey, leaseOwner, leaseTtlMs); }
+  async patchAutonomyCycleRun(id, expectedVersion, patch = {}) { return this.parent._patchAutonomyCycleRunDirect(id, expectedVersion, patch); }
+  async reclaimStaleAutonomyCycleRun(newLeaseOwner, leaseTtlMs = 300000) { return this.parent._reclaimStaleAutonomyCycleRunDirect(newLeaseOwner, leaseTtlMs); }
   async transaction(fn) { return fn(this); }
   async tx(fn) { return fn(this.parent.data); }
 }
@@ -464,6 +478,61 @@ export class JsonStore {
     return structuredClone(health);
   }
 
+  // Database-enforced (here: single-process-JSON-enforced) singleton: only one autonomy_cycle_runs
+  // row may have status 'active' at a time, regardless of runKey. Reusing a runKey is rejected too,
+  // so retrying the same logical cycle is idempotent rather than creating a second row.
+  _createAutonomyCycleRunDirect(runKey, leaseOwner, leaseTtlMs = 300000) {
+    const key = String(runKey || '');
+    if (!key) return { ok: false, reason: 'missing-run-key' };
+    const runs = this.data.autonomyCycleRuns || (this.data.autonomyCycleRuns = []);
+    const activeElsewhere = runs.find(item => item.status === 'active');
+    if (activeElsewhere) return { ok: false, reason: 'cycle-already-active', run: structuredClone(activeElsewhere) };
+    const existing = runs.find(item => item.runKey === key);
+    if (existing) return { ok: false, reason: `duplicate-run-key-${existing.status}`, run: structuredClone(existing) };
+    const timestamp = now();
+    const run = {
+      id: crypto.randomUUID(), runKey: key, status: 'active', version: 0, checkpointVersion: 1,
+      leaseOwner: String(leaseOwner || ''), leaseExpiresAt: new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 300000)).toISOString(),
+      finalizedAt: null, digestWrittenAt: null, stages: {}, extra: {},
+      startedAt: timestamp, createdAt: timestamp, updatedAt: timestamp
+    };
+    runs.push(run);
+    return { ok: true, run: structuredClone(run) };
+  }
+
+  // Compare-and-swap: the caller must present the version it last read. A stale version is
+  // rejected rather than silently overwritten, and a finalized run can never be patched again.
+  _patchAutonomyCycleRunDirect(id, expectedVersion, patch = {}) {
+    const run = (this.data.autonomyCycleRuns || []).find(item => item.id === id);
+    if (!run) return { ok: false, reason: 'not-found' };
+    if (run.finalizedAt) return { ok: false, reason: 'already-finalized', run: structuredClone(run) };
+    if (Number(run.version) !== Number(expectedVersion)) return { ok: false, reason: 'version-conflict', run: structuredClone(run) };
+    if (patch.status !== undefined) run.status = patch.status;
+    if (patch.stagesPatch && typeof patch.stagesPatch === 'object') run.stages = { ...run.stages, ...patch.stagesPatch };
+    if (patch.extraPatch && typeof patch.extraPatch === 'object') run.extra = { ...run.extra, ...patch.extraPatch };
+    if (patch.leaseOwner !== undefined) run.leaseOwner = patch.leaseOwner;
+    if (patch.leaseExpiresAt !== undefined) run.leaseExpiresAt = patch.leaseExpiresAt;
+    if (patch.finalizedAt !== undefined) run.finalizedAt = patch.finalizedAt;
+    if (patch.digestWrittenAt !== undefined) run.digestWrittenAt = patch.digestWrittenAt;
+    run.version = Number(run.version) + 1;
+    run.updatedAt = now();
+    return { ok: true, run: structuredClone(run) };
+  }
+
+  // Recovers a run whose owning process crashed or stalled (lease expired) without waiting for
+  // it to time out through any other mechanism. Only ever touches a run that is still 'active'
+  // and already past its lease — never a completed/failed/aborted one.
+  _reclaimStaleAutonomyCycleRunDirect(newLeaseOwner, leaseTtlMs = 300000) {
+    const nowMs = Date.now();
+    const run = (this.data.autonomyCycleRuns || []).find(item => item.status === 'active' && Date.parse(item.leaseExpiresAt || 0) < nowMs);
+    if (!run) return { ok: false, reason: 'no-stale-lease' };
+    run.leaseOwner = String(newLeaseOwner || '');
+    run.leaseExpiresAt = new Date(nowMs + Math.max(1000, Number(leaseTtlMs) || 300000)).toISOString();
+    run.version = Number(run.version) + 1;
+    run.updatedAt = now();
+    return { ok: true, run: structuredClone(run) };
+  }
+
   async putArtifact() { return null; }
   async getArtifact() { return null; }
   async deleteExpiredArtifacts() { return 0; }
@@ -490,6 +559,9 @@ export class JsonStore {
   async reserveOutboundSend(input) { return this.transaction(tx => tx.reserveOutboundSend(input)); }
   async markOutboundReservation(id, status, patch = {}) { return this.transaction(tx => tx.markOutboundReservation(id, status, patch)); }
   async recordOutboundEvent(input, thresholds = {}) { return this.transaction(tx => tx.recordOutboundEvent(input, thresholds)); }
+  async createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs = 300000) { return this.transaction(tx => tx.createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs)); }
+  async patchAutonomyCycleRun(id, expectedVersion, patch = {}) { return this.transaction(tx => tx.patchAutonomyCycleRun(id, expectedVersion, patch)); }
+  async reclaimStaleAutonomyCycleRun(newLeaseOwner, leaseTtlMs = 300000) { return this.transaction(tx => tx.reclaimStaleAutonomyCycleRun(newLeaseOwner, leaseTtlMs)); }
   async setOutboundPaused(paused, reason = '') { await this.setSetting('outboundPaused', Boolean(paused)); await this.setSetting('outboundPauseReason', String(reason || '')); return { paused: Boolean(paused), reason }; }
   async setSenderPaused(inbox, paused, reason = '') {
     const existing = await this.findOne('senderHealth', { inbox });
@@ -869,6 +941,95 @@ export class PostgresStore {
       health = { ...health, lastEventAt: timestamp, updatedAt: timestamp };
       await tx.upsert('senderHealth', health);
       return health;
+    });
+  }
+
+  // Database-enforced singleton: migrations/005_autonomy_cycle.sql has a unique index that lets
+  // Postgres itself refuse a second 'active' row regardless of run_key. The advisory lock here
+  // just serializes concurrent attempts into a friendly {ok:false,...} result instead of racing
+  // to hit that constraint and surfacing a raw duplicate-key error.
+  async createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs = 300000) {
+    const key = String(runKey || '');
+    if (!key) return { ok: false, reason: 'missing-run-key' };
+    return this.transaction(async tx => {
+      await tx.pool.query("SELECT pg_advisory_xact_lock(hashtext('autonomy-cycle:singleton'))");
+      const active = await tx.pool.query("SELECT data FROM autonomy_cycle_runs WHERE status='active' FOR UPDATE");
+      if (active.rows[0]) return { ok: false, reason: 'cycle-already-active', run: active.rows[0].data };
+      const existing = await tx.pool.query('SELECT data FROM autonomy_cycle_runs WHERE run_key=$1 FOR UPDATE', [key]);
+      if (existing.rows[0]) return { ok: false, reason: `duplicate-run-key-${existing.rows[0].data.status}`, run: existing.rows[0].data };
+      const timestamp = now();
+      const run = {
+        id: crypto.randomUUID(), runKey: key, status: 'active', version: 0, checkpointVersion: 1,
+        leaseOwner: String(leaseOwner || ''), leaseExpiresAt: new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 300000)).toISOString(),
+        finalizedAt: null, digestWrittenAt: null, stages: {}, extra: {},
+        startedAt: timestamp, createdAt: timestamp, updatedAt: timestamp
+      };
+      try {
+        await tx.pool.query(`
+          INSERT INTO autonomy_cycle_runs
+            (id, run_key, status, version, checkpoint_version, lease_owner, lease_expires_at, started_at, created_at, updated_at, stages, data)
+          VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11::jsonb,$12::jsonb)
+        `, [run.id, run.runKey, run.status, run.version, run.checkpointVersion, run.leaseOwner, run.leaseExpiresAt,
+            run.startedAt, run.createdAt, run.updatedAt, JSON.stringify(run.stages), JSON.stringify(run)]);
+      } catch (error) {
+        if (error?.code === '23505') return { ok: false, reason: 'cycle-already-active-or-duplicate-run-key' };
+        throw error;
+      }
+      return { ok: true, run };
+    });
+  }
+
+  // Compare-and-swap: rejects a stale version (checked in the WHERE clause, not just read-then-write
+  // in application code) and never patches a run that's already finalized.
+  async patchAutonomyCycleRun(id, expectedVersion, patch = {}) {
+    return this.transaction(async tx => {
+      const result = await tx.pool.query('SELECT data, finalized_at, version FROM autonomy_cycle_runs WHERE id=$1 FOR UPDATE', [id]);
+      const row = result.rows[0];
+      if (!row) return { ok: false, reason: 'not-found' };
+      if (row.finalized_at) return { ok: false, reason: 'already-finalized', run: row.data };
+      if (Number(row.version) !== Number(expectedVersion)) return { ok: false, reason: 'version-conflict', run: row.data };
+      const run = { ...row.data };
+      if (patch.status !== undefined) run.status = patch.status;
+      if (patch.stagesPatch && typeof patch.stagesPatch === 'object') run.stages = { ...run.stages, ...patch.stagesPatch };
+      if (patch.extraPatch && typeof patch.extraPatch === 'object') run.extra = { ...run.extra, ...patch.extraPatch };
+      if (patch.leaseOwner !== undefined) run.leaseOwner = patch.leaseOwner;
+      if (patch.leaseExpiresAt !== undefined) run.leaseExpiresAt = patch.leaseExpiresAt;
+      if (patch.finalizedAt !== undefined) run.finalizedAt = patch.finalizedAt;
+      if (patch.digestWrittenAt !== undefined) run.digestWrittenAt = patch.digestWrittenAt;
+      run.version = Number(run.version) + 1;
+      run.updatedAt = now();
+      const updated = await tx.pool.query(`
+        UPDATE autonomy_cycle_runs SET
+          status=$3, version=$4, lease_owner=$5, lease_expires_at=$6, finalized_at=$7, digest_written_at=$8,
+          updated_at=$9, stages=$10::jsonb, data=$11::jsonb
+        WHERE id=$1 AND version=$2 RETURNING data
+      `, [id, expectedVersion, run.status, run.version, run.leaseOwner, run.leaseExpiresAt, run.finalizedAt,
+          run.digestWrittenAt, run.updatedAt, JSON.stringify(run.stages), JSON.stringify(run)]);
+      if (!updated.rows[0]) return { ok: false, reason: 'version-conflict', run: row.data };
+      return { ok: true, run: updated.rows[0].data };
+    });
+  }
+
+  // Recovers a run whose owning process crashed or stalled (lease expired), without waiting on
+  // any other timeout mechanism. Only ever touches a still-active, lease-expired run.
+  async reclaimStaleAutonomyCycleRun(newLeaseOwner, leaseTtlMs = 300000) {
+    return this.transaction(async tx => {
+      const stale = await tx.pool.query(`
+        SELECT data FROM autonomy_cycle_runs WHERE status='active' AND lease_expires_at < now()
+        ORDER BY lease_expires_at ASC LIMIT 1 FOR UPDATE SKIP LOCKED
+      `);
+      const row = stale.rows[0];
+      if (!row) return { ok: false, reason: 'no-stale-lease' };
+      const run = { ...row.data };
+      run.leaseOwner = String(newLeaseOwner || '');
+      run.leaseExpiresAt = new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 300000)).toISOString();
+      run.version = Number(run.version) + 1;
+      run.updatedAt = now();
+      await tx.pool.query(`
+        UPDATE autonomy_cycle_runs SET lease_owner=$2, lease_expires_at=$3, version=$4, updated_at=$5, data=$6::jsonb
+        WHERE id=$1
+      `, [run.id, run.leaseOwner, run.leaseExpiresAt, run.version, run.updatedAt, JSON.stringify(run)]);
+      return { ok: true, run };
     });
   }
 

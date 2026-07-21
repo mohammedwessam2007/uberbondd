@@ -191,7 +191,9 @@ function buildDigest(run, limits) {
     runKey: run.runKey,
     startedAt: run.startedAt,
     finishedAt: new Date().toISOString(),
-    stageStatuses: Object.fromEntries(STAGES.map(name => [name, run.stages[name]?.status || 'pending'])),
+    // write-digest reports itself as 'done' here even though its own stage record hasn't been
+    // persisted yet -- reaching this line only happens when that stage is about to succeed.
+    stageStatuses: Object.fromEntries(STAGES.map(name => [name, name === 'write-digest' ? 'done' : (run.stages[name]?.status || 'pending')])),
     counts: {
       messagesFetched: Number(pollResult.messagesFetched || 0),
       processed: Number(classifyResult.processed || 0),

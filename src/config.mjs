@@ -4,6 +4,10 @@ const env = process.env;
 const root = path.resolve('.');
 const num = (value, fallback) => Number.isFinite(Number(value)) ? Number(value) : fallback;
 const bool = (value, fallback = false) => value == null ? fallback : String(value).toLowerCase() === 'true';
+// Strict, canonical-only boolean parsing for capability-gate flags: anything other than the exact
+// lowercase string "true" is false. Unlike bool() above, this never treats "TRUE", "1", "yes", or
+// whitespace-padded input as an enable signal, so an ambiguous env var can never turn on a gate.
+export const parseCanonicalBoolean = value => value === 'true';
 const production = env.NODE_ENV === 'production';
 
 export const config = {
@@ -37,6 +41,13 @@ export const config = {
     complaintPauseThreshold: num(env.OUTBOUND_COMPLAINT_PAUSE_THRESHOLD, 1),
     failurePauseThreshold: num(env.OUTBOUND_FAILURE_PAUSE_THRESHOLD, 3),
     processBatchSize: num(env.OUTBOUND_PROCESS_BATCH_SIZE, 10)
+  },
+  // Inbound (P2.2 shadow autonomy) read gate. Deliberately independent of `outbound.*` above —
+  // this must never be inferred from, or tied to, outbound enablement. Everything defaults off.
+  inbound: {
+    provider: String(env.INBOUND_PROVIDER || 'test').toLowerCase(),
+    enabled: parseCanonicalBoolean(env.INBOUND_ENABLED),
+    gmailReadEnabled: parseCanonicalBoolean(env.INBOUND_GMAIL_READ_ENABLED)
   },
   maxBatch: num(env.MAX_BATCH_SIZE, 25),
   crawl: {

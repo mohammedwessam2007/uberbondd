@@ -31,3 +31,25 @@ frozen first, per the mission's own ordering, and will not be started before tha
 - No conflict resolution may touch lite/ — will abort any such conflict rather than resolve it.
 - No test may be weakened/skipped/relabeled to go green.
 - No claim of CI-green or real-Postgres-race-pass without an actual run.
+
+## 2026-07-21 — Scoping decision: P1-09/P0-08/P1-11 deferred
+
+After completing all directly-actionable P0 findings (P0-01, P0-03/04/05/13, P0-06, P0-07) plus
+P1-10 and P1-12, the remaining P1-09 (token CAS) and the fuller part of P1-11 (encrypted work
+items) both require building a new `inboundAccounts` protected-collection repository that does
+not exist anywhere in the codebase yet -- this is real, separate infrastructure (owner-approval
+flow, encrypted token CAS, keyed-hash dedupe, retention TTL), not a contained bug fix like the
+findings already closed. Rather than rushing a half-built version of it to claim more matrix rows
+green, it was left honestly Not Run/Not attempted, documented in IMPLEMENTATION_REPORT.md and the
+hostile matrix, with the exact next steps recorded in NEXT_SESSION_PROMPT.md / SESSION_STATE.md
+for a future session.
+
+## 2026-07-21 — P0-05 terminal-timeout policy: intentional reversal, not a judgment call left open
+
+The rejected branch's own test asserted "a cycle-timeout must not finalize the run -- it stays
+retryable," directly opposite to the definitive repair spec's explicit P0-05 requirement (terminal
+finalize, cleared lease, new run ID required to continue; resumption would need "a separate
+per-attempt deadline model... independently reviewed"). Implemented the spec's terminal policy as
+directed, since resolving exactly this kind of P0 finding was the stated purpose of the repair
+pass, and rewrote the test to verify the new (correct) behavior. Documented in the relevant commit
+message and TEST_LOG.md rather than silently changed.

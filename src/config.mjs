@@ -50,7 +50,23 @@ export const config = {
   inbound: {
     provider: String(env.INBOUND_PROVIDER || 'test').toLowerCase(),
     enabled: parseCanonicalBoolean(env.INBOUND_ENABLED),
-    gmailReadEnabled: parseCanonicalBoolean(env.INBOUND_GMAIL_READ_ENABLED)
+    gmailReadEnabled: parseCanonicalBoolean(env.INBOUND_GMAIL_READ_ENABLED),
+    // Defensible bounds so a single cycle can never run unbounded work, regardless of what an
+    // upstream API returns. All are clamp-safe (num() falls back to the default for bad input).
+    limits: {
+      maxPagesPerCycle: Math.max(1, num(env.INBOUND_MAX_PAGES_PER_CYCLE, 5)),
+      maxMessagesPerPage: Math.max(1, Math.min(500, num(env.INBOUND_MAX_MESSAGES_PER_PAGE, 25))),
+      maxMessageBytes: Math.max(1024, num(env.INBOUND_MAX_MESSAGE_BYTES, 2 * 1024 * 1024)),
+      maxMimeDepth: Math.max(1, num(env.INBOUND_MAX_MIME_DEPTH, 10)),
+      maxMimePartCount: Math.max(1, num(env.INBOUND_MAX_MIME_PART_COUNT, 200)),
+      maxDecodedBodyBytes: Math.max(1024, num(env.INBOUND_MAX_DECODED_BODY_BYTES, 262144)),
+      maxStageRuntimeMs: Math.max(1000, num(env.INBOUND_MAX_STAGE_RUNTIME_MS, 60000)),
+      maxCycleRuntimeMs: Math.max(1000, num(env.INBOUND_MAX_CYCLE_RUNTIME_MS, 300000)),
+      maxStageRetries: Math.max(0, num(env.INBOUND_MAX_STAGE_RETRIES, 3)),
+      maxOwnerExceptionsPerCycle: Math.max(1, num(env.INBOUND_MAX_OWNER_EXCEPTIONS_PER_CYCLE, 25)),
+      maxSummaryBytes: Math.max(512, num(env.INBOUND_MAX_SUMMARY_BYTES, 8192)),
+      leaseTtlMs: Math.max(10000, num(env.INBOUND_LEASE_TTL_MS, 120000))
+    }
   },
   maxBatch: num(env.MAX_BATCH_SIZE, 25),
   crawl: {

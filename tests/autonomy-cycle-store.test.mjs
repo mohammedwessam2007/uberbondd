@@ -69,16 +69,38 @@ test('F-07: a finalized run can never be patched again, even with the correct ve
 
 test('CRS: a stale lease can be reclaimed by a new owner, and a fresh lease cannot', async () => {
   const store = await tempStore();
-  const created = await store.createAutonomyCycleRun('run-a', 'worker-1', 60000);
+  // Create with the minimum-clamped TTL so the lease is already stale after a short real wait —
+  // never fake this via a generic patch, which is exactly the CAS/lease invariant this collection
+  // is protected against (see PROTECTED_COLLECTION tests below).
+  const created = await store.createAutonomyCycleRun('run-a', 'worker-1', 1);
   const tooSoon = await store.reclaimStaleAutonomyCycleRun('worker-2', 60000);
   assert.equal(tooSoon.ok, false);
   assert.equal(tooSoon.reason, 'no-stale-lease');
-  // Force the lease into the past to simulate the owning process having crashed.
-  await store.patch('autonomyCycleRuns', created.run.id, { leaseExpiresAt: new Date(Date.now() - 1000).toISOString() });
+  await new Promise(resolve => setTimeout(resolve, 1100));
   const reclaimed = await store.reclaimStaleAutonomyCycleRun('worker-2', 60000);
   assert.equal(reclaimed.ok, true);
   assert.equal(reclaimed.run.leaseOwner, 'worker-2');
+  assert.equal(reclaimed.run.id, created.run.id);
   assert.equal(reclaimed.run.version, 1);
+});
+
+test('P0-06: generic add/upsert/patch reject autonomyCycleRuns on the JSON backend', async () => {
+  const store = await tempStore();
+  await assert.rejects(store.add('autonomyCycleRuns', { id: 'x', runKey: 'k', status: 'active', leaseOwner: 'w', leaseExpiresAt: new Date().toISOString() }), { code: 'PROTECTED_COLLECTION' });
+  await assert.rejects(store.upsert('autonomyCycleRuns', { id: 'x', runKey: 'k', status: 'active', leaseOwner: 'w', leaseExpiresAt: new Date().toISOString() }), { code: 'PROTECTED_COLLECTION' });
+  const created = await store.createAutonomyCycleRun('run-a', 'worker-1', 60000);
+  await assert.rejects(store.patch('autonomyCycleRuns', created.run.id, { leaseExpiresAt: new Date(0).toISOString() }), { code: 'PROTECTED_COLLECTION' });
+  // The bypass attempt must not have mutated anything.
+  const unchanged = await store.get('autonomyCycleRuns', created.run.id);
+  assert.equal(unchanged.leaseExpiresAt, created.run.leaseExpiresAt);
+});
+
+test('P0-06: dedicated create/patch/reclaim methods still work after the generic-write guard is in place', async () => {
+  const store = await tempStore();
+  const created = await store.createAutonomyCycleRun('run-a', 'worker-1', 60000);
+  assert.equal(created.ok, true);
+  const patched = await store.patchAutonomyCycleRun(created.run.id, 0, { stagesPatch: { discover: 'done' } });
+  assert.equal(patched.ok, true);
 });
 
 test('missing run key is rejected up front', async () => {

@@ -112,6 +112,17 @@ const MAP = {
   },
 };
 
+// Collections with singleton, lease, or CAS invariants that the generic add/upsert/patch path
+// cannot know about. Every write must go through their dedicated methods; the generic path is
+// read-only for these keys in both backends.
+export const PROTECTED_COLLECTIONS = new Set(['autonomyCycleRuns']);
+
+function assertGenericMutationAllowed(key) {
+  if (PROTECTED_COLLECTIONS.has(key)) {
+    throw new StoreError(`${key} does not accept generic writes; use its dedicated methods`, 'PROTECTED_COLLECTION');
+  }
+}
+
 export class StoreError extends Error {
   constructor(message, code = 'STORE_ERROR', cause) {
     super(message, { cause });
@@ -387,6 +398,7 @@ export class JsonStore {
   }
 
   _addDirect(key, item) {
+    assertGenericMutationAllowed(key);
     if (!Array.isArray(this.data[key])) this.data[key] = [];
     const record = normalizeRecord(key, item);
     this._checkUnique(key, record);
@@ -395,6 +407,7 @@ export class JsonStore {
   }
 
   _upsertDirect(key, item) {
+    assertGenericMutationAllowed(key);
     if (!Array.isArray(this.data[key])) this.data[key] = [];
     const record = normalizeRecord(key, item);
     const index = this.data[key].findIndex(existing => existing.id === record.id);
@@ -405,6 +418,7 @@ export class JsonStore {
   }
 
   _patchDirect(key, id, patch) {
+    assertGenericMutationAllowed(key);
     const item = (this.data[key] || []).find(existing => existing.id === id);
     if (!item) return null;
     const record = normalizeRecord(key, { ...item, ...patch, updatedAt: now() });
@@ -947,6 +961,7 @@ export class PostgresStore {
   }
 
   async add(key, item) {
+    assertGenericMutationAllowed(key);
     const { def, record, columns, values } = postgresValues(key, item);
     const placeholders = values.map((_, index) => `$${index + 1}`);
     try {
@@ -956,6 +971,7 @@ export class PostgresStore {
   }
 
   async upsert(key, item) {
+    assertGenericMutationAllowed(key);
     const { def, record, columns, values } = postgresValues(key, item);
     const placeholders = values.map((_, index) => `$${index + 1}`);
     const updates = columns.filter(column => column !== 'id').map(column => `${column} = EXCLUDED.${column}`);
@@ -966,6 +982,7 @@ export class PostgresStore {
   }
 
   async patch(key, id, patch) {
+    assertGenericMutationAllowed(key);
     return this.transaction(async tx => {
       const def = definition(key);
       const result = await tx.pool.query(`SELECT data FROM ${def.table} WHERE id = $1 FOR UPDATE`, [id]);

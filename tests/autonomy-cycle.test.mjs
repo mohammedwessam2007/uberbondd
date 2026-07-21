@@ -250,11 +250,11 @@ test('BND: a stage that runs longer than maxStageRuntimeMs is aborted, marked fa
 test('BND: total cycle runtime beyond maxCycleRuntimeMs stops starting new stages without crashing', async () => {
   const store = await tempStore();
   const cfg = baseCfg({ inboundOverrides: { enabled: false, gmailReadEnabled: false }, limits: { maxCycleRuntimeMs: 10 } });
+  // Create the run for real (startedAt is set by the dedicated CAS method, never faked via a
+  // generic patch — autonomyCycleRuns is a protected collection), then let real elapsed time push
+  // it past the tiny cycle budget before runAutonomyCycle tries to continue it.
+  await store.createAutonomyCycleRun('slow-run', 'worker-1', 60000);
   await new Promise(resolve => setTimeout(resolve, 30));
-  // Pre-create the run directly so its startedAt is already in the past relative to the tiny
-  // cycle budget, then let runAutonomyCycle try to continue it.
-  const created = await store.createAutonomyCycleRun('slow-run', 'worker-1', 60000);
-  await store.patch('autonomyCycleRuns', created.run.id, { startedAt: new Date(Date.now() - 1000).toISOString() });
   const result = await runAutonomyCycle({ store, cfg, runKey: 'slow-run', leaseOwner: 'worker-1' });
   assert.equal(result.ok, false);
   assert.equal(result.reason, 'cycle-timeout');

@@ -37,3 +37,36 @@ rejected branch): P0-04 (no lease_epoch column), P0-06 (generic store.add/patch/
 'autonomyCycleRuns' still unguarded — confirmed via code read, and tests/autonomy-cycle-store.test.mjs
 line 77 still uses generic store.patch() to fake a stale timestamp, which patch guide explicitly
 prohibits). These are the next repair groups.
+
+## 2026-07-21 — P0-06 protected generic-collection mutation guard implemented
+
+Added PROTECTED_COLLECTIONS Set + assertGenericMutationAllowed() guard to src/store.mjs,
+enforced inside JsonStore._addDirect/_upsertDirect/_patchDirect and PostgresStore's
+transaction-scoped add/upsert/patch (both the entry points the outer public API and every
+internal caller funnel through). Throws StoreError with code PROTECTED_COLLECTION.
+
+Fixed two pre-existing test anti-patterns that the patch guide explicitly prohibits (tests
+directly patching a cycle row to fake a timestamp instead of using real elapsed time):
+- tests/autonomy-cycle-store.test.mjs "CRS: a stale lease can be reclaimed..." — now creates
+  with a real (clamped-minimum) TTL and waits for real elapsed time instead of generic-patching
+  leaseExpiresAt into the past.
+- tests/autonomy-cycle.test.mjs "BND: total cycle runtime beyond maxCycleRuntimeMs..." — now
+  creates the run for real and waits real elapsed time past the budget instead of generic-patching
+  startedAt into the past.
+
+New hostile tests added (both currently fail-closed, i.e. reject with code PROTECTED_COLLECTION):
+- tests/autonomy-cycle-store.test.mjs: JSON backend, add/upsert/patch all rejected; dedicated
+  create/patch/reclaim methods still work.
+- tests/store.test.mjs: PostgreSQL backend (via PGlite), same coverage.
+
+Commands run:
+- `node --test tests/autonomy-cycle-store.test.mjs` -> 10/10 pass
+- `node --test tests/store.test.mjs` -> 13/13 pass
+- `node --test tests/autonomy-cycle.test.mjs` -> 16/16 pass
+- `npm run check` (full syntax + full deterministic suite, 263 tests) -> 263/263 pass, 0 fail
+- `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff
+
+P0-06 acceptance gate ("No public generic API can mutate protected lifecycle/account/work-item
+records in either backend") is now genuinely satisfied for autonomyCycleRuns on both backends.
+inboundAccounts/inboundWorkItems will be added to PROTECTED_COLLECTIONS when those tables are
+introduced in the P1-09/P1-11 repair groups.

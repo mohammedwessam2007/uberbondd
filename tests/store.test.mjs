@@ -233,3 +233,28 @@ test('PostgreSQL stale outbound reservation recovery cannot recover the same res
     assert.equal(second.recovered, 0);
   } finally { await db.close(); }
 });
+
+test('P0-06: generic add/upsert/patch reject autonomyCycleRuns on the PostgreSQL backend', async () => {
+  const { db, store } = await tempPostgresStore();
+  try {
+    await assert.rejects(
+      store.add('autonomyCycleRuns', { id: 'pg-x', runKey: 'pg-k', status: 'active', leaseOwner: 'w', leaseExpiresAt: new Date().toISOString() }),
+      { code: 'PROTECTED_COLLECTION' }
+    );
+    await assert.rejects(
+      store.upsert('autonomyCycleRuns', { id: 'pg-x', runKey: 'pg-k', status: 'active', leaseOwner: 'w', leaseExpiresAt: new Date().toISOString() }),
+      { code: 'PROTECTED_COLLECTION' }
+    );
+    const created = await store.createAutonomyCycleRun('pg-run-a', 'worker-1', 60000);
+    assert.equal(created.ok, true);
+    await assert.rejects(
+      store.patch('autonomyCycleRuns', created.run.id, { leaseExpiresAt: new Date(0).toISOString() }),
+      { code: 'PROTECTED_COLLECTION' }
+    );
+    const unchanged = await store.get('autonomyCycleRuns', created.run.id);
+    assert.equal(unchanged.leaseExpiresAt, created.run.leaseExpiresAt);
+    // Dedicated CAS method still works after the guard is in place.
+    const patched = await store.patchAutonomyCycleRun(created.run.id, 0, { stagesPatch: { discover: 'done' } });
+    assert.equal(patched.ok, true);
+  } finally { await db.close(); }
+});

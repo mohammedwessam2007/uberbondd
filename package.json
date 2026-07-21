@@ -24,6 +24,7 @@
     "visual": "node scripts/visual-qa.mjs",
     "probes": "node scripts/review-probes.mjs",
     "smoke:postgres": "node scripts/postgres-smoke.mjs",
+    "smoke:postgres-p2-2-race": "node --test tests/p2-2-postgres-race.test.mjs",
     "smoke:postgres-app": "node scripts/postgres-app-smoke.mjs",
     "start:worker": "node worker.mjs",
     "start:all": "PROCESS_ROLE=all node server.mjs",

@@ -5,7 +5,7 @@ import { PGlite } from '@electric-sql/pglite';
 
 async function migratedDb() {
   const db = new PGlite();
-  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql']) {
+  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql', '005_autonomy_cycle.sql']) {
     await db.exec(await fs.readFile(new URL(`../migrations/${name}`, import.meta.url), 'utf8'));
   }
   return db;
@@ -16,7 +16,7 @@ test('PostgreSQL migration creates every required table and index foundation', a
   try {
     const tables = await db.query("SELECT table_name FROM information_schema.tables WHERE table_schema='public'");
     const names = new Set(tables.rows.map(row => row.table_name));
-    for (const name of ['prospects','campaigns','jobs','messages','replies','suppressions','social_tasks','accounts','audit_log','settings','leads','orders','subscriptions','monitoring_runs','notifications','revenue_events','discovery_runs','worker_heartbeats','artifacts','outbound_reservations','sender_health','outbound_events']) {
+    for (const name of ['prospects','campaigns','jobs','messages','replies','suppressions','social_tasks','accounts','audit_log','settings','leads','orders','subscriptions','monitoring_runs','notifications','revenue_events','discovery_runs','worker_heartbeats','artifacts','outbound_reservations','sender_health','outbound_events','autonomy_cycle_runs']) {
       assert(names.has(name), `missing table ${name}`);
     }
   } finally { await db.close(); }
@@ -103,5 +103,56 @@ test('outbound safety migration enforces durable idempotency and sender health u
     await assert.rejects(db.query("INSERT INTO outbound_reservations(id,idempotency_key,inbox,recipient_email,status,reserved_at,data) VALUES ('or2','initial:p1','A','info@example.com','reserved',now(),'{}'::jsonb)"));
     await db.query("INSERT INTO sender_health(id,inbox,data) VALUES ('sh1','A','{}'::jsonb)");
     await assert.rejects(db.query("INSERT INTO sender_health(id,inbox,data) VALUES ('sh2','A','{}'::jsonb)"));
+  } finally { await db.close(); }
+});
+
+test('CON-01/F-04: the database refuses a second active autonomy cycle, even with a different run key', async () => {
+  const db = await migratedDb();
+  try {
+    await db.query(`INSERT INTO autonomy_cycle_runs(id, run_key, status, lease_owner, lease_expires_at)
+      VALUES ('run1', 'key-one', 'active', 'worker-a', now() + interval '5 minutes')`);
+    await assert.rejects(db.query(`INSERT INTO autonomy_cycle_runs(id, run_key, status, lease_owner, lease_expires_at)
+      VALUES ('run2', 'key-two', 'active', 'worker-b', now() + interval '5 minutes')`));
+    // Completing the first frees the slot for a genuinely new cycle.
+    await db.query(`UPDATE autonomy_cycle_runs SET status='completed', finalized_at=now() WHERE id='run1'`);
+    await db.query(`INSERT INTO autonomy_cycle_runs(id, run_key, status, lease_owner, lease_expires_at)
+      VALUES ('run3', 'key-two', 'active', 'worker-b', now() + interval '5 minutes')`);
+  } finally { await db.close(); }
+});
+
+test('same run key is rejected as a duplicate cycle (idempotent run creation)', async () => {
+  const db = await migratedDb();
+  try {
+    await db.query(`INSERT INTO autonomy_cycle_runs(id, run_key, status, lease_owner, lease_expires_at)
+      VALUES ('run1', 'same-key', 'completed', 'worker-a', now())`);
+    await assert.rejects(db.query(`INSERT INTO autonomy_cycle_runs(id, run_key, status, lease_owner, lease_expires_at)
+      VALUES ('run2', 'same-key', 'active', 'worker-b', now() + interval '5 minutes')`));
+  } finally { await db.close(); }
+});
+
+test('autonomy cycle status is constrained to known values', async () => {
+  const db = await migratedDb();
+  try {
+    await assert.rejects(db.query(`INSERT INTO autonomy_cycle_runs(id, run_key, status, lease_owner, lease_expires_at)
+      VALUES ('run1', 'bad-status', 'running-forever', 'worker-a', now())`));
+  } finally { await db.close(); }
+});
+
+test('CAS: a stale version number is rejected instead of silently overwriting newer progress', async () => {
+  const db = await migratedDb();
+  try {
+    await db.query(`INSERT INTO autonomy_cycle_runs(id, run_key, status, version, lease_owner, lease_expires_at)
+      VALUES ('run1', 'cas-key', 'active', 0, 'worker-a', now() + interval '5 minutes')`);
+    const first = await db.query(`UPDATE autonomy_cycle_runs SET version = version + 1, stages = '{"discover":"done"}'::jsonb, updated_at = now()
+      WHERE id='run1' AND version = 0 RETURNING version`);
+    assert.equal(first.rows[0].version, 1);
+    // A second writer still holding the old version number (e.g. a resumed process that read
+    // state before the first writer committed) must not be able to overwrite it.
+    const stale = await db.query(`UPDATE autonomy_cycle_runs SET version = version + 1, stages = '{"discover":"overwritten"}'::jsonb, updated_at = now()
+      WHERE id='run1' AND version = 0 RETURNING version`);
+    assert.equal(stale.rows.length, 0);
+    const current = await db.query(`SELECT version, stages FROM autonomy_cycle_runs WHERE id='run1'`);
+    assert.equal(current.rows[0].version, 1);
+    assert.deepEqual(current.rows[0].stages, { discover: 'done' });
   } finally { await db.close(); }
 });

@@ -213,12 +213,20 @@ async function classifyAndSuppressStage(ctx) {
     const categoryKey = { bounce: 'bounce', complaint: 'complaint', unsubscribe: 'unsubscribe', 'out-of-office': 'outOfOffice', reply: 'reply', unknown: 'unknown' }[classification.category] || 'unknown';
     counts[categoryKey] += 1;
 
+    // P0-07: every matched inbound message stops the existing follow-up state, not just the
+    // suppression-worthy categories. Never guess at an ambiguous/unmatched thread -- if no
+    // prospect matches, only the bounded owner exception (below) records that something needs a
+    // human look, nothing is silently applied to an unrelated prospect.
+    const prospects = await store.list('prospects');
+    const prospect = prospects.find(item => item.threadId && item.threadId === message.threadId);
+    if (prospect && prospect.nextFollowupAt !== null) {
+      await store.patch('prospects', prospect.id, { nextFollowupAt: null });
+    }
+
     const suppressWorthy = ['bounce', 'complaint', 'unsubscribe'].includes(classification.category);
     if (suppressWorthy) {
-      const prospects = await store.list('prospects');
-      const prospect = prospects.find(item => item.threadId && item.threadId === message.threadId);
       if (prospect) {
-        await store.patch('prospects', prospect.id, { status: classification.category, nextFollowupAt: null });
+        await store.patch('prospects', prospect.id, { status: classification.category });
       }
       // Prefer the matched prospect's own contact address -- that's the actual recipient who
       // bounced/complained/unsubscribed. The From header is often a bounce daemon or complaint
@@ -234,8 +242,14 @@ async function classifyAndSuppressStage(ctx) {
       }
     }
 
-    if ((classification.category === 'reply' || classification.category === 'unknown') && ownerExceptions < limits.maxOwnerExceptionsPerCycle) {
-      await store.add('notifications', { id: crypto.randomUUID(), type: 'autonomy_owner_exception', leadId: null, prospectId: null, status: 'open', createdAt: nowIso() });
+    // reply/unknown/out-of-office never auto-suppress (a real prospect who might still convert),
+    // but every one of them stopped a follow-up above and gets a bounded owner exception so a
+    // human decides what happens next -- out-of-office specifically needs a human to reschedule,
+    // not an automatic new follow-up date.
+    const needsOwnerReview = ['reply', 'unknown', 'out-of-office'].includes(classification.category);
+    if (needsOwnerReview && ownerExceptions < limits.maxOwnerExceptionsPerCycle) {
+      const exceptionReason = { reply: 'inbound-reply', unknown: 'inbound-unknown', 'out-of-office': 'inbound-out-of-office' }[classification.category];
+      await store.add('notifications', { id: crypto.randomUUID(), type: 'autonomy_owner_exception', reason: exceptionReason, leadId: null, prospectId: prospect?.id || null, status: 'open', createdAt: nowIso() });
       ownerExceptions += 1;
       counts.ownerExceptions += 1;
     }

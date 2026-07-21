@@ -149,3 +149,30 @@ Commands run:
   break any existing capability/import-graph proof)
 - `npm run check` (full syntax + full deterministic suite) -> 269/269 pass, 0 fail
 - `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff
+
+## 2026-07-21 — P0-07 implemented: every matched inbound message stops follow-up
+
+Confirmed the exact finding by reading classify-and-suppress before this fix: `nextFollowupAt`
+was only cleared for bounce/complaint/unsubscribe (the "suppressWorthy" branch). reply, unknown,
+and out-of-office left the prospect's existing nextFollowupAt untouched, so the outbound scheduler
+could still reserve/send a follow-up to someone who had just replied.
+
+Restructured classify-and-suppress: the prospect lookup by threadId and nextFollowupAt=null patch
+now happen unconditionally for every matched inbound message, before any category-specific branch.
+bounce/complaint/unsubscribe still additionally set prospect.status and create durable suppression
+(unchanged). reply/unknown/out-of-office never auto-suppress (a real prospect might still convert;
+out-of-office specifically needs a human to reschedule, not an automatic new date) but now always
+stop the follow-up and create a bounded owner exception carrying a reason code
+(inbound-reply/inbound-unknown/inbound-out-of-office) and the matched prospectId (or null if no
+thread matched -- an ambiguous/unmatched message is never guessed onto an unrelated prospect).
+
+New hostile tests in tests/autonomy-cycle.test.mjs:
+- reply to a matched prospect stops follow-up (previously it did not) + owner exception, no suppression
+- unknown-classification message to a matched prospect stops follow-up + owner exception
+- out-of-office stops the CURRENT follow-up + review/reschedule exception, never auto-suppressed
+- an unmatched thread creates an owner exception (prospectId: null) without touching any unrelated prospect
+
+Commands run:
+- `node --test tests/autonomy-cycle.test.mjs` -> 20/20 pass (16 existing unchanged + 4 new)
+- `npm run check` (full syntax + full deterministic suite) -> 273/273 pass, 0 fail
+- `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff

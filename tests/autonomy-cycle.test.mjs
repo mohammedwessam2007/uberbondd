@@ -103,6 +103,80 @@ test('complaint and unsubscribe also stop future outreach', async () => {
   }
 });
 
+test('P0-07: a reply to a matched prospect stops its follow-up (previously only bounce/complaint/unsubscribe did)', async () => {
+  const store = await tempStore();
+  await store.add('campaigns', { id: 'c1', approved: true, autoSend: false, createdAt: new Date().toISOString() });
+  await store.add('prospects', { id: 'p1', domain: 'example.com', campaignId: 'c1', status: 'sent', threadId: 'thread-1', contact: { email: 'lead@example.com' }, nextFollowupAt: new Date(Date.now() + 86400000).toISOString(), createdAt: new Date().toISOString() });
+  const reader = createTestGmailInboundReader({
+    messagesByPage: [{ messages: [{ id: 'm1' }] }],
+    messages: { m1: textMessage('m1', { from: 'lead@example.com', subject: 'Re: your audit', 'in-reply-to': '<x@y>' }, 'tell me more please') }
+  });
+  const result = await runAutonomyCycle({ store, cfg: baseCfg(), runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: reader, accounts: [account] });
+  assert.equal(result.ok, true);
+  assert.equal(result.digest.counts.reply, 1);
+  assert.equal(result.digest.ownerExceptions, 1);
+  const prospect = await store.get('prospects', 'p1');
+  assert.equal(prospect.nextFollowupAt, null, 'a reply must stop the follow-up, not just create an owner exception');
+  // A genuine reply is not auto-suppressed -- it might still convert, a human decides.
+  assert.equal((await store.list('suppressions')).length, 0);
+  const notifications = await store.list('notifications');
+  const exception = notifications.find(n => n.type === 'autonomy_owner_exception');
+  assert.equal(exception.prospectId, 'p1');
+  assert.equal(exception.reason, 'inbound-reply');
+});
+
+test('P0-07: an unknown-classification message to a matched prospect stops its follow-up', async () => {
+  const store = await tempStore();
+  await store.add('campaigns', { id: 'c1', approved: true, autoSend: false, createdAt: new Date().toISOString() });
+  await store.add('prospects', { id: 'p1', domain: 'example.com', campaignId: 'c1', status: 'sent', threadId: 'thread-1', contact: { email: 'lead@example.com' }, nextFollowupAt: new Date(Date.now() + 86400000).toISOString(), createdAt: new Date().toISOString() });
+  const reader = createTestGmailInboundReader({
+    messagesByPage: [{ messages: [{ id: 'm1' }] }],
+    messages: { m1: textMessage('m1', { from: 'lead@example.com', subject: 'question' }, 'what is this about') }
+  });
+  const result = await runAutonomyCycle({ store, cfg: baseCfg(), runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: reader, accounts: [account] });
+  assert.equal(result.ok, true);
+  assert.equal(result.digest.counts.unknown, 1);
+  const prospect = await store.get('prospects', 'p1');
+  assert.equal(prospect.nextFollowupAt, null);
+  const notifications = await store.list('notifications');
+  assert.equal(notifications.find(n => n.type === 'autonomy_owner_exception').reason, 'inbound-unknown');
+});
+
+test('P0-07: out-of-office stops the current follow-up and creates a review/reschedule exception, never auto-suppressed', async () => {
+  const store = await tempStore();
+  await store.add('campaigns', { id: 'c1', approved: true, autoSend: false, createdAt: new Date().toISOString() });
+  await store.add('prospects', { id: 'p1', domain: 'example.com', campaignId: 'c1', status: 'sent', threadId: 'thread-1', contact: { email: 'lead@example.com' }, nextFollowupAt: new Date(Date.now() + 86400000).toISOString(), createdAt: new Date().toISOString() });
+  const reader = createTestGmailInboundReader({
+    messagesByPage: [{ messages: [{ id: 'm1' }] }],
+    messages: { m1: textMessage('m1', { from: 'lead@example.com', subject: 'Automatic reply: Out of Office' }, 'I am out of office until next week') }
+  });
+  const result = await runAutonomyCycle({ store, cfg: baseCfg(), runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: reader, accounts: [account] });
+  assert.equal(result.ok, true);
+  assert.equal(result.digest.counts.outOfOffice, 1);
+  const prospect = await store.get('prospects', 'p1');
+  assert.equal(prospect.nextFollowupAt, null, 'out-of-office must stop the current follow-up so nothing auto-sends while they are away');
+  assert.equal((await store.list('suppressions')).length, 0, 'out-of-office is never a durable suppression -- only owner review can reschedule');
+  const notifications = await store.list('notifications');
+  assert.equal(notifications.find(n => n.type === 'autonomy_owner_exception').reason, 'inbound-out-of-office');
+});
+
+test('P0-07: an unmatched thread (no prospect found) still creates an owner exception without touching any unrelated prospect', async () => {
+  const store = await tempStore();
+  await store.add('campaigns', { id: 'c1', approved: true, autoSend: false, createdAt: new Date().toISOString() });
+  await store.add('prospects', { id: 'unrelated', domain: 'other.example', campaignId: 'c1', status: 'sent', threadId: 'thread-unrelated', contact: { email: 'other@example.com' }, nextFollowupAt: new Date(Date.now() + 86400000).toISOString(), createdAt: new Date().toISOString() });
+  const reader = createTestGmailInboundReader({
+    messagesByPage: [{ messages: [{ id: 'm1' }] }],
+    messages: { m1: textMessage('m1', { from: 'stranger@example.com', subject: 'Re: hello', 'in-reply-to': '<x@y>' }, 'hi', 'thread-does-not-match-anything') }
+  });
+  const result = await runAutonomyCycle({ store, cfg: baseCfg(), runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: reader, accounts: [account] });
+  assert.equal(result.ok, true);
+  assert.equal(result.digest.ownerExceptions, 1);
+  const notifications = await store.list('notifications');
+  assert.equal(notifications.find(n => n.type === 'autonomy_owner_exception').prospectId, null);
+  const unrelated = await store.get('prospects', 'unrelated');
+  assert.notEqual(unrelated.nextFollowupAt, null, 'must never guess and mutate an unrelated prospect on an ambiguous match');
+});
+
 test('a positive/ambiguous reply creates exactly one owner exception and zero sends', async () => {
   const store = await tempStore();
   const reader = createTestGmailInboundReader({

@@ -123,3 +123,29 @@ Commands run:
   the environment IS available here and the race/CAS/reclaim/crash-recovery evidence is genuine,
   not simulated with PGlite.
 - `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff
+
+## 2026-07-21 — P1-12 bounded HTTP implemented in gmail-inbound.mjs
+
+Made fetch injectable (cfg.fetch, defaulting to global fetch) so hostile HTTP behavior can be
+tested without real network — allowNetwork:true only permits reaching the injected fake, tests
+never set NODE_ENV=test so the existing network-disabled gate is genuinely exercised rather than
+bypassed. Added readBoundedJson(): rejects an oversized Content-Length before any body read;
+otherwise streams via a byte-counting reader and aborts as soon as actual bytes exceed
+maxResponseBytes (new config, default 5MB, separate from the existing maxMessageBytes which
+bounds the already-parsed Gmail payload); parses JSON only from the bounded text and returns a
+fixed error code (never the raw body) on invalid JSON. signal now threads through token refresh
+and every GET, checked before and after each await boundary.
+
+New file tests/gmail-inbound-bounds.test.mjs (registered in package.json test:deterministic):
+- oversized Content-Length rejected before any body read (body never touched)
+- no/false Content-Length but oversized actual stream rejected mid-read
+- invalid JSON -> fixed gmail-inbound-invalid-json code, not raw body
+- a hanging fetch is aborted promptly via signal, not left to hang the caller
+- a well-formed in-bounds response still parses correctly (no false-positive rejection)
+
+Commands run:
+- `node --test tests/gmail-inbound-bounds.test.mjs` -> 5/5 pass
+- `node --test tests/p2-2-capabilities.test.mjs` -> 15/15 pass (fetch-injection refactor didn't
+  break any existing capability/import-graph proof)
+- `npm run check` (full syntax + full deterministic suite) -> 269/269 pass, 0 fail
+- `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff

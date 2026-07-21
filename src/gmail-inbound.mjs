@@ -38,45 +38,97 @@ function requireInboundNetwork(cfg = {}) {
   }
 }
 
-async function tokenRequest(cfg, body) {
+const DEFAULT_MAX_RESPONSE_BYTES = 5 * 1024 * 1024;
+
+function parseContentLength(headers) {
+  const raw = headers?.get ? headers.get('content-length') : null;
+  if (raw == null) return null;
+  const n = Number(raw);
+  return Number.isFinite(n) && n >= 0 ? n : null;
+}
+
+// Rejects an oversized response before allocating anything for it: a declared Content-Length over
+// the cap is rejected outright, and even without one (or a lying one), a byte-counting stream
+// reader aborts as soon as the actual bytes read exceed the cap -- so neither a huge honest
+// response nor an adversarial one with a false/missing Content-Length can force unbounded memory
+// use or an unbounded JSON.parse. Every awaited chunk read also re-checks the signal, so an
+// in-flight bounded read still stops promptly on cancellation, not just at completion.
+async function readBoundedJson(res, { signal, maxBytes = DEFAULT_MAX_RESPONSE_BYTES } = {}) {
+  const declared = parseContentLength(res.headers);
+  if (declared !== null && declared > maxBytes) {
+    await res.body?.cancel?.('response-too-large').catch(() => {});
+    throw new GmailInboundError('gmail-inbound-response-too-large');
+  }
+  if (!res.body || typeof res.body.getReader !== 'function') {
+    // Fallback for fetch implementations/fixtures without a streamable body -- still bounded, just
+    // via a single read instead of incremental chunks.
+    const text = await res.text();
+    if (Buffer.byteLength(text, 'utf8') > maxBytes) throw new GmailInboundError('gmail-inbound-response-too-large');
+    if (!text) return null;
+    try { return JSON.parse(text); } catch { throw new GmailInboundError('gmail-inbound-invalid-json'); }
+  }
+  const reader = res.body.getReader();
+  const chunks = [];
+  let total = 0;
+  for (;;) {
+    signal?.throwIfAborted();
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > maxBytes) {
+      await reader.cancel('response-too-large').catch(() => {});
+      throw new GmailInboundError('gmail-inbound-response-too-large');
+    }
+    chunks.push(value);
+  }
+  const text = Buffer.concat(chunks.map(chunk => Buffer.from(chunk))).toString('utf8');
+  if (!text) return null;
+  try { return JSON.parse(text); } catch { throw new GmailInboundError('gmail-inbound-invalid-json'); }
+}
+
+async function tokenRequest(cfg, body, { signal } = {}) {
   requireInboundNetwork(cfg);
-  const res = await fetch('https://oauth2.googleapis.com/token', {
+  const doFetch = cfg.fetch || fetch;
+  const res = await doFetch('https://oauth2.googleapis.com/token', {
     method: 'POST',
     headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams(body)
+    body: new URLSearchParams(body),
+    signal
   });
   if (!res.ok) throw new GmailInboundError('gmail-inbound-token-error', { status: res.status });
-  return res.json();
+  return readBoundedJson(res, { signal, maxBytes: cfg.maxResponseBytes });
 }
 
 export function sealInboundTokens(tokens, key) { return encryptJson(tokens, key); }
 export function openInboundTokens(blob, key) { return decryptJson(blob, key); }
 
-async function inboundAccessToken(cfg, account, key) {
+async function inboundAccessToken(cfg, account, key, { signal } = {}) {
   const tokens = openInboundTokens(account.tokens, key);
-  if (tokens.access_token && tokens.expires_at > Date.now() + 60000) return { token: tokens.access_token, tokens };
+  if (tokens.access_token && tokens.expires_at > Date.now() + 60000) return { token: tokens.access_token, tokens, refreshed: false };
   const fresh = await tokenRequest(cfg, {
     refresh_token: tokens.refresh_token,
     client_id: cfg.clientId,
     client_secret: cfg.clientSecret,
     grant_type: 'refresh_token'
-  });
+  }, { signal });
   const merged = { ...tokens, ...fresh, expires_at: Date.now() + (fresh.expires_in || 3600) * 1000 };
-  return { token: merged.access_token, tokens: merged };
+  return { token: merged.access_token, tokens: merged, refreshed: true };
 }
 
 async function inboundGet(cfg, account, key, path, { signal } = {}) {
   requireInboundNetwork(cfg);
   signal?.throwIfAborted();
-  const auth = await inboundAccessToken(cfg, account, key);
+  const auth = await inboundAccessToken(cfg, account, key, { signal });
   signal?.throwIfAborted();
-  const res = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/${path}`, {
+  const doFetch = cfg.fetch || fetch;
+  const res = await doFetch(`https://gmail.googleapis.com/gmail/v1/users/me/${path}`, {
     method: 'GET',
     headers: { authorization: `Bearer ${auth.token}` },
     signal
   });
   if (!res.ok) throw new GmailInboundError('gmail-inbound-api-error', { status: res.status });
-  return { data: res.status === 204 ? null : await res.json(), tokens: auth.tokens };
+  const data = res.status === 204 ? null : await readBoundedJson(res, { signal, maxBytes: cfg.maxResponseBytes });
+  return { data, tokens: auth.tokens, tokenRefreshed: auth.refreshed };
 }
 
 // Clamps a caller-supplied page size into a safe range regardless of input (huge numbers, zero,

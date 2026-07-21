@@ -57,6 +57,9 @@ export const config = {
       maxPagesPerCycle: Math.max(1, num(env.INBOUND_MAX_PAGES_PER_CYCLE, 5)),
       maxMessagesPerPage: Math.max(1, Math.min(500, num(env.INBOUND_MAX_MESSAGES_PER_PAGE, 25))),
       maxMessageBytes: Math.max(1024, num(env.INBOUND_MAX_MESSAGE_BYTES, 2 * 1024 * 1024)),
+      // Raw HTTP response byte cap, checked before any JSON parsing/allocation -- distinct from
+      // maxMessageBytes above, which bounds the already-parsed Gmail payload's declared size.
+      maxResponseBytes: Math.max(1024, num(env.INBOUND_MAX_RESPONSE_BYTES, 5 * 1024 * 1024)),
       maxMimeDepth: Math.max(1, num(env.INBOUND_MAX_MIME_DEPTH, 10)),
       maxMimePartCount: Math.max(1, num(env.INBOUND_MAX_MIME_PART_COUNT, 200)),
       maxDecodedBodyBytes: Math.max(1024, num(env.INBOUND_MAX_DECODED_BODY_BYTES, 262144)),

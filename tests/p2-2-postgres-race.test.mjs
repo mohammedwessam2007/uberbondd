@@ -84,15 +84,17 @@ test('CON-01/F-04 (real Postgres, two separate connections): concurrent createAu
   assert.equal(rejected[0].reason, 'cycle-already-active');
   const active = await storeA.pool.query("SELECT count(*)::int AS count FROM autonomy_cycle_runs WHERE status='active'");
   assert.equal(active.rows[0].count, 1);
-  await storeA.patchAutonomyCycleRun(succeeded[0].run.id, succeeded[0].run.version, { status: 'completed', finalizedAt: new Date().toISOString() });
+  const winner = succeeded[0].run;
+  await storeA.patchAutonomyCycleRun(winner.id, { owner: winner.leaseOwner, epoch: winner.leaseEpoch, version: winner.version }, { status: 'completed', finalizedAt: new Date().toISOString() });
 });
 
 test('CON: real Postgres compare-and-swap rejects a stale version under genuine concurrent connections', async () => {
   const created = await storeA.createAutonomyCycleRun('pg-cas-run', 'worker-a', 60000);
   assert.equal(created.ok, true);
+  const fence = { owner: created.run.leaseOwner, epoch: created.run.leaseEpoch, version: created.run.version };
   const [first, second] = await Promise.all([
-    storeA.patchAutonomyCycleRun(created.run.id, 0, { stagesPatch: { 'poll-inbound': { status: 'done', result: { from: 'A' }, attempts: 0, completedAt: new Date().toISOString() } } }),
-    storeB.patchAutonomyCycleRun(created.run.id, 0, { stagesPatch: { 'poll-inbound': { status: 'done', result: { from: 'B' }, attempts: 0, completedAt: new Date().toISOString() } } })
+    storeA.patchAutonomyCycleRun(created.run.id, fence, { stagesPatch: { 'poll-inbound': { status: 'done', result: { from: 'A' }, attempts: 0, completedAt: new Date().toISOString() } } }),
+    storeB.patchAutonomyCycleRun(created.run.id, fence, { stagesPatch: { 'poll-inbound': { status: 'done', result: { from: 'B' }, attempts: 0, completedAt: new Date().toISOString() } } })
   ]);
   const outcomes = [first, second];
   const succeeded = outcomes.filter(r => r.ok);
@@ -102,7 +104,8 @@ test('CON: real Postgres compare-and-swap rejects a stale version under genuine 
   assert.equal(rejected[0].reason, 'version-conflict');
   const row = await storeA.pool.query('SELECT data FROM autonomy_cycle_runs WHERE id=$1', [created.run.id]);
   assert.equal(row.rows[0].data.version, 1, 'version must have advanced exactly once, not twice');
-  await storeA.patchAutonomyCycleRun(created.run.id, 1, { status: 'completed', finalizedAt: new Date().toISOString() });
+  const winner = succeeded[0].run;
+  await storeA.patchAutonomyCycleRun(created.run.id, { owner: winner.leaseOwner, epoch: winner.leaseEpoch, version: winner.version }, { status: 'completed', finalizedAt: new Date().toISOString() });
 });
 
 test('CON: real Postgres stale-lease reclaim race also collapses to exactly one winner', async () => {
@@ -116,7 +119,8 @@ test('CON: real Postgres stale-lease reclaim race also collapses to exactly one 
   const outcomes = [first, second];
   const succeeded = outcomes.filter(r => r.ok);
   assert.equal(succeeded.length, 1, 'exactly one connection should reclaim the stale lease');
-  await storeA.patchAutonomyCycleRun(succeeded[0].run.id, succeeded[0].run.version, { status: 'aborted', finalizedAt: new Date().toISOString() });
+  const winner = succeeded[0].run;
+  await storeA.patchAutonomyCycleRun(winner.id, { owner: winner.leaseOwner, epoch: winner.leaseEpoch, version: winner.version }, { status: 'aborted', finalizedAt: new Date().toISOString() });
 });
 
 test('end-to-end: runAutonomyCycle completes against a real PostgreSQL backend, not just JSON/PGlite', async () => {

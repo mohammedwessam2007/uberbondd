@@ -65,7 +65,10 @@ export const config = {
       maxStageRetries: Math.max(0, num(env.INBOUND_MAX_STAGE_RETRIES, 3)),
       maxOwnerExceptionsPerCycle: Math.max(1, num(env.INBOUND_MAX_OWNER_EXCEPTIONS_PER_CYCLE, 25)),
       maxSummaryBytes: Math.max(512, num(env.INBOUND_MAX_SUMMARY_BYTES, 8192)),
-      leaseTtlMs: Math.max(10000, num(env.INBOUND_LEASE_TTL_MS, 120000))
+      leaseTtlMs: Math.max(10000, num(env.INBOUND_LEASE_TTL_MS, 120000)),
+      // Default keeps the 4:1 lease-to-heartbeat ratio the repair spec calls for (30s against a
+      // 120s TTL) regardless of what leaseTtlMs is overridden to, unless explicitly overridden itself.
+      heartbeatIntervalMs: Math.max(1000, num(env.INBOUND_HEARTBEAT_INTERVAL_MS, Math.floor(Math.max(10000, num(env.INBOUND_LEASE_TTL_MS, 120000)) / 4)))
     }
   },
   maxBatch: num(env.MAX_BATCH_SIZE, 25),

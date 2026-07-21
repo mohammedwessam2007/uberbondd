@@ -70,3 +70,56 @@ P0-06 acceptance gate ("No public generic API can mutate protected lifecycle/acc
 records in either backend") is now genuinely satisfied for autonomyCycleRuns on both backends.
 inboundAccounts/inboundWorkItems will be added to PROTECTED_COLLECTIONS when those tables are
 introduced in the P1-09/P1-11 repair groups.
+
+## 2026-07-21 — P0-04/P0-03/P0-05/P1-13 implemented (lease epoch, real cancellation, terminal timeout, remaining-budget stage limits)
+
+P0-04 (lease epoch + heartbeat): added migrations/009_autonomy_cycle_lease_epoch.sql
+(lease_epoch, attempt_started_at, deadline_at, terminal_reason columns). Both backends now
+increment leaseEpoch on create (epoch=1) and on every reclaim; patchAutonomyCycleRun now takes
+a full fence object {owner, epoch, version} instead of a bare version number, checked in the
+same WHERE clause as the UPDATE (Postgres) / same guarded read in JSON, requiring status='active'
+AND lease_owner=? AND lease_epoch=? AND version=? AND lease_expires_at>now(). Added a dedicated
+heartbeatAutonomyCycleRun method with the identical fence check, fenced independently of stage
+progress.
+
+P0-03 (real cancellation): withStageTimeout() now creates a real linked AbortController per stage
+(child of the whole-cycle controller), passes signal into stage handlers, which thread it into
+mailboxReader.listMessages/getMessage and gmail-inbound.mjs's fetch() calls. A heartbeat loop
+(startHeartbeat) runs on its own interval (default leaseTtlMs/4) independent of stage progress;
+a rejected heartbeat aborts the cycle controller immediately. Late-resolving stage work can never
+commit because every write after a stage settles is fenced by the CURRENT owner+epoch+version,
+which a lease-losing worker can never present again.
+
+P0-05 (terminal timeout): total-cycle timeout is now terminal, not a resumable pause. On timeout:
+fenced-finalize as status='aborted', terminalReason='cycle-timeout', clear leaseOwner/leaseExpiresAt.
+A terminated run can never be patched or reclaimed again (proven by hostile test); a genuinely new
+run (fresh runKey) is required and gets a new run id. This intentionally reverses the rejected
+branch's own pre-existing test/comment ("a cycle-timeout must not finalize the run -- it stays
+retryable"), which was exactly what the repair spec's P0-05 finding requires fixing.
+
+P1-13 (remaining-budget stage timeouts): deadlineAt is computed once at run creation (persisted,
+survives reclaim by a different worker) and never reset. Before every stage: remainingMs =
+deadlineAt - now(); if <=0, terminal-timeout path immediately without starting the stage.
+effectiveStageMs = min(maxStageRuntimeMs, remainingMs), passed to the per-stage AbortController.
+
+Known accepted limitation (documented, not hidden): heartbeat and stage-effect-commit share a
+single version counter and are not serialized against each other, so a heartbeat tick landing
+between a stage's fence-read and its patch call can cause a spurious (safe) version-conflict
+rejection rather than a real race condition. This never allows an unsafe commit -- worst case is
+an extra retry on the next invocation -- but is not a fully race-free design. A dedicated
+serialized fence broker would remove this; out of scope for this repair pass.
+
+Commands run:
+- `node --test tests/autonomy-cycle-store.test.mjs` -> 11/11 pass (incl. new EPOCH hostile test:
+  old owner's fence with correct version but stale epoch is permanently rejected after reclaim)
+- `node --test tests/autonomy-cycle.test.mjs` -> 16/16 pass (incl. rewritten P0-05 test proving
+  terminal status='aborted', terminalReason, cleared lease, un-reclaimable, un-patchable, and that
+  a fresh runKey can proceed with a genuinely new run id)
+- `npm run test:deterministic` -> 264/264 pass, 0 fail
+- `node --test tests/p2-2-postgres-race.test.mjs` -> **5/5 pass, REAL isolated PostgreSQL** via
+  embedded-postgres (a genuine disposable local server, two separately-pooled connections racing
+  exactly as two separate worker processes would) -- includes a real SIGKILL mid-stage crash test.
+  This resolves the "isolated PostgreSQL test database... may block acceptance" stop condition:
+  the environment IS available here and the race/CAS/reclaim/crash-recovery evidence is genuine,
+  not simulated with PGlite.
+- `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff

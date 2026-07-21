@@ -12,12 +12,17 @@ async function tempStore() {
   return store;
 }
 
+function fenceFor(run) {
+  return { owner: run.leaseOwner, epoch: run.leaseEpoch, version: run.version };
+}
+
 test('CON-01/F-04: a second cycle cannot become active while one is already active, even with a different run key', async () => {
   const store = await tempStore();
   const first = await store.createAutonomyCycleRun('run-a', 'worker-1', 60000);
   assert.equal(first.ok, true);
   assert.equal(first.run.status, 'active');
   assert.equal(first.run.version, 0);
+  assert.equal(first.run.leaseEpoch, 1);
   const second = await store.createAutonomyCycleRun('run-b', 'worker-2', 60000);
   assert.equal(second.ok, false);
   assert.equal(second.reason, 'cycle-already-active');
@@ -27,7 +32,7 @@ test('reusing a run key is idempotent-safe: rejected as a duplicate, not a secon
   const store = await tempStore();
   const first = await store.createAutonomyCycleRun('same-key', 'worker-1', 60000);
   assert.equal(first.ok, true);
-  await store.patchAutonomyCycleRun(first.run.id, 0, { status: 'completed', finalizedAt: new Date().toISOString() });
+  await store.patchAutonomyCycleRun(first.run.id, fenceFor(first.run), { status: 'completed', finalizedAt: new Date().toISOString() });
   const second = await store.createAutonomyCycleRun('same-key', 'worker-2', 60000);
   assert.equal(second.ok, false);
   assert.match(second.reason, /^duplicate-run-key-/);
@@ -36,7 +41,7 @@ test('reusing a run key is idempotent-safe: rejected as a duplicate, not a secon
 test('completing the active cycle frees the slot for a genuinely new one', async () => {
   const store = await tempStore();
   const first = await store.createAutonomyCycleRun('run-a', 'worker-1', 60000);
-  await store.patchAutonomyCycleRun(first.run.id, 0, { status: 'completed', finalizedAt: new Date().toISOString() });
+  await store.patchAutonomyCycleRun(first.run.id, fenceFor(first.run), { status: 'completed', finalizedAt: new Date().toISOString() });
   const second = await store.createAutonomyCycleRun('run-b', 'worker-2', 60000);
   assert.equal(second.ok, true);
 });
@@ -44,12 +49,12 @@ test('completing the active cycle frees the slot for a genuinely new one', async
 test('CAS: patching with a stale version is rejected and does not change stored state', async () => {
   const store = await tempStore();
   const created = await store.createAutonomyCycleRun('run-a', 'worker-1', 60000);
-  const applied = await store.patchAutonomyCycleRun(created.run.id, 0, { stagesPatch: { discover: 'done' } });
+  const applied = await store.patchAutonomyCycleRun(created.run.id, fenceFor(created.run), { stagesPatch: { discover: 'done' } });
   assert.equal(applied.ok, true);
   assert.equal(applied.run.version, 1);
   // Simulates a second process that read the run at version 0 and is now trying to write, after
   // the first process already advanced it to version 1.
-  const stale = await store.patchAutonomyCycleRun(created.run.id, 0, { stagesPatch: { discover: 'overwritten' } });
+  const stale = await store.patchAutonomyCycleRun(created.run.id, fenceFor(created.run), { stagesPatch: { discover: 'overwritten' } });
   assert.equal(stale.ok, false);
   assert.equal(stale.reason, 'version-conflict');
   const current = await store.get('autonomyCycleRuns', created.run.id);
@@ -57,12 +62,12 @@ test('CAS: patching with a stale version is rejected and does not change stored 
   assert.deepEqual(current.stages, { discover: 'done' });
 });
 
-test('F-07: a finalized run can never be patched again, even with the correct version', async () => {
+test('F-07: a finalized run can never be patched again, even with the correct fence', async () => {
   const store = await tempStore();
   const created = await store.createAutonomyCycleRun('run-a', 'worker-1', 60000);
-  const finalized = await store.patchAutonomyCycleRun(created.run.id, 0, { status: 'completed', finalizedAt: new Date().toISOString() });
+  const finalized = await store.patchAutonomyCycleRun(created.run.id, fenceFor(created.run), { status: 'completed', finalizedAt: new Date().toISOString() });
   assert.equal(finalized.ok, true);
-  const attempt = await store.patchAutonomyCycleRun(created.run.id, finalized.run.version, { stagesPatch: { discover: 'tampered' } });
+  const attempt = await store.patchAutonomyCycleRun(created.run.id, fenceFor(finalized.run), { stagesPatch: { discover: 'tampered' } });
   assert.equal(attempt.ok, false);
   assert.equal(attempt.reason, 'already-finalized');
 });
@@ -82,6 +87,20 @@ test('CRS: a stale lease can be reclaimed by a new owner, and a fresh lease cann
   assert.equal(reclaimed.run.leaseOwner, 'worker-2');
   assert.equal(reclaimed.run.id, created.run.id);
   assert.equal(reclaimed.run.version, 1);
+  assert.equal(reclaimed.run.leaseEpoch, 2);
+});
+
+test('EPOCH: after a reclaim, the old owner\'s fence (correct version, stale epoch) is permanently rejected', async () => {
+  const store = await tempStore();
+  const created = await store.createAutonomyCycleRun('run-a', 'worker-1', 1);
+  await new Promise(resolve => setTimeout(resolve, 1100));
+  const reclaimed = await store.reclaimStaleAutonomyCycleRun('worker-2', 60000);
+  assert.equal(reclaimed.ok, true);
+  // worker-1 still thinks it holds epoch 1, version 0 -- both are individually "real" past values,
+  // but the (owner, epoch) pair no longer matches, which is exactly what must stop it from committing.
+  const staleWrite = await store.patchAutonomyCycleRun(created.run.id, { owner: 'worker-1', epoch: 1, version: 0 }, { stagesPatch: { discover: 'from-old-worker' } });
+  assert.equal(staleWrite.ok, false);
+  assert.equal(staleWrite.reason, 'lease-lost');
 });
 
 test('P0-06: generic add/upsert/patch reject autonomyCycleRuns on the JSON backend', async () => {
@@ -99,7 +118,7 @@ test('P0-06: dedicated create/patch/reclaim methods still work after the generic
   const store = await tempStore();
   const created = await store.createAutonomyCycleRun('run-a', 'worker-1', 60000);
   assert.equal(created.ok, true);
-  const patched = await store.patchAutonomyCycleRun(created.run.id, 0, { stagesPatch: { discover: 'done' } });
+  const patched = await store.patchAutonomyCycleRun(created.run.id, fenceFor(created.run), { stagesPatch: { discover: 'done' } });
   assert.equal(patched.ok, true);
 });
 
@@ -112,7 +131,7 @@ test('missing run key is rejected up front', async () => {
 
 test('patching a run that does not exist is reported, not thrown', async () => {
   const store = await tempStore();
-  const result = await store.patchAutonomyCycleRun('nope', 0, { status: 'completed' });
+  const result = await store.patchAutonomyCycleRun('nope', { owner: 'worker-1', epoch: 1, version: 0 }, { status: 'completed' });
   assert.equal(result.ok, false);
   assert.equal(result.reason, 'not-found');
 });

@@ -254,7 +254,7 @@ test('P0-06: generic add/upsert/patch reject autonomyCycleRuns on the PostgreSQL
     const unchanged = await store.get('autonomyCycleRuns', created.run.id);
     assert.equal(unchanged.leaseExpiresAt, created.run.leaseExpiresAt);
     // Dedicated CAS method still works after the guard is in place.
-    const patched = await store.patchAutonomyCycleRun(created.run.id, 0, { stagesPatch: { discover: 'done' } });
+    const patched = await store.patchAutonomyCycleRun(created.run.id, { owner: created.run.leaseOwner, epoch: created.run.leaseEpoch, version: created.run.version }, { stagesPatch: { discover: 'done' } });
     assert.equal(patched.ok, true);
   } finally { await db.close(); }
 });

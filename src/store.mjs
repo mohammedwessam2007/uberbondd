@@ -308,8 +308,9 @@ class JsonTransactionStore {
   async suppressOutbound(input = {}) { return this.parent._suppressOutboundDirect(input); }
   async recordReplyAndStop(record, prospectPatch = {}) { return this.parent._recordReplyAndStopDirect(record, prospectPatch); }
   async recordOutboundEvent(input, thresholds = {}) { return this.parent._recordOutboundEventDirect(input, thresholds); }
-  async createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs = 300000) { return this.parent._createAutonomyCycleRunDirect(runKey, leaseOwner, leaseTtlMs); }
-  async patchAutonomyCycleRun(id, expectedVersion, patch = {}) { return this.parent._patchAutonomyCycleRunDirect(id, expectedVersion, patch); }
+  async createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs = 300000, deadlineMs = 300000) { return this.parent._createAutonomyCycleRunDirect(runKey, leaseOwner, leaseTtlMs, deadlineMs); }
+  async patchAutonomyCycleRun(id, fence, patch = {}) { return this.parent._patchAutonomyCycleRunDirect(id, fence, patch); }
+  async heartbeatAutonomyCycleRun(id, fence, leaseTtlMs = 120000) { return this.parent._heartbeatAutonomyCycleRunDirect(id, fence, leaseTtlMs); }
   async reclaimStaleAutonomyCycleRun(newLeaseOwner, leaseTtlMs = 300000) { return this.parent._reclaimStaleAutonomyCycleRunDirect(newLeaseOwner, leaseTtlMs); }
   async transaction(fn) { return fn(this); }
   async tx(fn) { return fn(this.parent.data); }
@@ -763,7 +764,7 @@ export class JsonStore {
   // Database-enforced (here: single-process-JSON-enforced) singleton: only one autonomy_cycle_runs
   // row may have status 'active' at a time, regardless of runKey. Reusing a runKey is rejected too,
   // so retrying the same logical cycle is idempotent rather than creating a second row.
-  _createAutonomyCycleRunDirect(runKey, leaseOwner, leaseTtlMs = 300000) {
+  _createAutonomyCycleRunDirect(runKey, leaseOwner, leaseTtlMs = 300000, deadlineMs = 300000) {
     const key = String(runKey || '');
     if (!key) return { ok: false, reason: 'missing-run-key' };
     const runs = this.data.autonomyCycleRuns || (this.data.autonomyCycleRuns = []);
@@ -774,21 +775,30 @@ export class JsonStore {
     const timestamp = now();
     const run = {
       id: crypto.randomUUID(), runKey: key, status: 'active', version: 0, checkpointVersion: 1,
-      leaseOwner: String(leaseOwner || ''), leaseExpiresAt: new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 300000)).toISOString(),
-      finalizedAt: null, digestWrittenAt: null, stages: {}, extra: {},
+      leaseOwner: String(leaseOwner || ''), leaseEpoch: 1,
+      leaseExpiresAt: new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 300000)).toISOString(),
+      attemptStartedAt: timestamp, deadlineAt: new Date(Date.now() + Math.max(1000, Number(deadlineMs) || 300000)).toISOString(),
+      finalizedAt: null, digestWrittenAt: null, terminalReason: null, stages: {}, extra: {},
       startedAt: timestamp, createdAt: timestamp, updatedAt: timestamp
     };
     runs.push(run);
     return { ok: true, run: structuredClone(run) };
   }
 
-  // Compare-and-swap: the caller must present the version it last read. A stale version is
-  // rejected rather than silently overwritten, and a finalized run can never be patched again.
-  _patchAutonomyCycleRunDirect(id, expectedVersion, patch = {}) {
+  // Compare-and-swap: the caller must present the exact owner+epoch+version it last read, not
+  // just the version. This is what stops an old worker that lost its lease (a new epoch was
+  // issued via reclaim) from re-establishing itself just because it still knows the last version
+  // number -- version alone repeats across epochs, but owner+epoch does not. A finalized run can
+  // never be patched again regardless of a matching fence.
+  _patchAutonomyCycleRunDirect(id, fence = {}, patch = {}) {
     const run = (this.data.autonomyCycleRuns || []).find(item => item.id === id);
     if (!run) return { ok: false, reason: 'not-found' };
     if (run.finalizedAt) return { ok: false, reason: 'already-finalized', run: structuredClone(run) };
-    if (Number(run.version) !== Number(expectedVersion)) return { ok: false, reason: 'version-conflict', run: structuredClone(run) };
+    if (run.status !== 'active') return { ok: false, reason: 'not-active', run: structuredClone(run) };
+    if (String(run.leaseOwner) !== String(fence.owner || '')) return { ok: false, reason: 'lease-lost', run: structuredClone(run) };
+    if (Number(run.leaseEpoch) !== Number(fence.epoch)) return { ok: false, reason: 'lease-lost', run: structuredClone(run) };
+    if (Number(run.version) !== Number(fence.version)) return { ok: false, reason: 'version-conflict', run: structuredClone(run) };
+    if (Date.parse(run.leaseExpiresAt || 0) <= Date.now()) return { ok: false, reason: 'lease-lost', run: structuredClone(run) };
     if (patch.status !== undefined) run.status = patch.status;
     if (patch.stagesPatch && typeof patch.stagesPatch === 'object') run.stages = { ...run.stages, ...patch.stagesPatch };
     if (patch.extraPatch && typeof patch.extraPatch === 'object') run.extra = { ...run.extra, ...patch.extraPatch };
@@ -796,6 +806,25 @@ export class JsonStore {
     if (patch.leaseExpiresAt !== undefined) run.leaseExpiresAt = patch.leaseExpiresAt;
     if (patch.finalizedAt !== undefined) run.finalizedAt = patch.finalizedAt;
     if (patch.digestWrittenAt !== undefined) run.digestWrittenAt = patch.digestWrittenAt;
+    if (patch.terminalReason !== undefined) run.terminalReason = patch.terminalReason;
+    run.version = Number(run.version) + 1;
+    run.updatedAt = now();
+    return { ok: true, run: structuredClone(run) };
+  }
+
+  // Independent of stage progress: a healthy worker calls this every leaseTtlMs/4 (30s against a
+  // 120s TTL by default) purely to keep its lease alive. A rejected heartbeat (wrong owner/epoch,
+  // stale version, expired lease, or non-active status) must make the caller abort its current
+  // stage immediately -- it does not get to keep working on the strength of a heartbeat that failed.
+  _heartbeatAutonomyCycleRunDirect(id, fence = {}, leaseTtlMs = 120000) {
+    const run = (this.data.autonomyCycleRuns || []).find(item => item.id === id);
+    if (!run) return { ok: false, reason: 'not-found' };
+    if (run.status !== 'active') return { ok: false, reason: 'not-active', run: structuredClone(run) };
+    if (String(run.leaseOwner) !== String(fence.owner || '')) return { ok: false, reason: 'lease-lost', run: structuredClone(run) };
+    if (Number(run.leaseEpoch) !== Number(fence.epoch)) return { ok: false, reason: 'lease-lost', run: structuredClone(run) };
+    if (Number(run.version) !== Number(fence.version)) return { ok: false, reason: 'version-conflict', run: structuredClone(run) };
+    if (Date.parse(run.leaseExpiresAt || 0) <= Date.now()) return { ok: false, reason: 'lease-lost', run: structuredClone(run) };
+    run.leaseExpiresAt = new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 120000)).toISOString();
     run.version = Number(run.version) + 1;
     run.updatedAt = now();
     return { ok: true, run: structuredClone(run) };
@@ -803,12 +832,15 @@ export class JsonStore {
 
   // Recovers a run whose owning process crashed or stalled (lease expired) without waiting for
   // it to time out through any other mechanism. Only ever touches a run that is still 'active'
-  // and already past its lease — never a completed/failed/aborted one.
+  // and already past its lease — never a completed/failed/aborted one. Incrementing leaseEpoch
+  // (not just version) is what makes the crashed worker's fence permanently stale: even if it
+  // somehow still had the right version number, its epoch can never match again.
   _reclaimStaleAutonomyCycleRunDirect(newLeaseOwner, leaseTtlMs = 300000) {
     const nowMs = Date.now();
     const run = (this.data.autonomyCycleRuns || []).find(item => item.status === 'active' && Date.parse(item.leaseExpiresAt || 0) < nowMs);
     if (!run) return { ok: false, reason: 'no-stale-lease' };
     run.leaseOwner = String(newLeaseOwner || '');
+    run.leaseEpoch = Number(run.leaseEpoch || 0) + 1;
     run.leaseExpiresAt = new Date(nowMs + Math.max(1000, Number(leaseTtlMs) || 300000)).toISOString();
     run.version = Number(run.version) + 1;
     run.updatedAt = now();
@@ -849,8 +881,9 @@ export class JsonStore {
   async suppressOutbound(input = {}) { return this.transaction(tx => tx.suppressOutbound(input)); }
   async recordReplyAndStop(record, prospectPatch = {}) { return this.transaction(tx => tx.recordReplyAndStop(record, prospectPatch)); }
   async recordOutboundEvent(input, thresholds = {}) { return this.transaction(tx => tx.recordOutboundEvent(input, thresholds)); }
-  async createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs = 300000) { return this.transaction(tx => tx.createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs)); }
-  async patchAutonomyCycleRun(id, expectedVersion, patch = {}) { return this.transaction(tx => tx.patchAutonomyCycleRun(id, expectedVersion, patch)); }
+  async createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs = 300000, deadlineMs = 300000) { return this.transaction(tx => tx.createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs, deadlineMs)); }
+  async patchAutonomyCycleRun(id, fence, patch = {}) { return this.transaction(tx => tx.patchAutonomyCycleRun(id, fence, patch)); }
+  async heartbeatAutonomyCycleRun(id, fence, leaseTtlMs = 120000) { return this.transaction(tx => tx.heartbeatAutonomyCycleRun(id, fence, leaseTtlMs)); }
   async reclaimStaleAutonomyCycleRun(newLeaseOwner, leaseTtlMs = 300000) { return this.transaction(tx => tx.reclaimStaleAutonomyCycleRun(newLeaseOwner, leaseTtlMs)); }
   async setOutboundPaused(paused, reason = '') { await this.setSetting('outboundPaused', Boolean(paused)); await this.setSetting('outboundPauseReason', String(reason || '')); return { paused: Boolean(paused), reason }; }
   async setSenderPaused(inbox, paused, reason = '') {
@@ -1503,7 +1536,7 @@ export class PostgresStore {
   // Postgres itself refuse a second 'active' row regardless of run_key. The advisory lock here
   // just serializes concurrent attempts into a friendly {ok:false,...} result instead of racing
   // to hit that constraint and surfacing a raw duplicate-key error.
-  async createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs = 300000) {
+  async createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs = 300000, deadlineMs = 300000) {
     const key = String(runKey || '');
     if (!key) return { ok: false, reason: 'missing-run-key' };
     return this.transaction(async tx => {
@@ -1515,17 +1548,20 @@ export class PostgresStore {
       const timestamp = now();
       const run = {
         id: crypto.randomUUID(), runKey: key, status: 'active', version: 0, checkpointVersion: 1,
-        leaseOwner: String(leaseOwner || ''), leaseExpiresAt: new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 300000)).toISOString(),
-        finalizedAt: null, digestWrittenAt: null, stages: {}, extra: {},
+        leaseOwner: String(leaseOwner || ''), leaseEpoch: 1,
+        leaseExpiresAt: new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 300000)).toISOString(),
+        attemptStartedAt: timestamp, deadlineAt: new Date(Date.now() + Math.max(1000, Number(deadlineMs) || 300000)).toISOString(),
+        finalizedAt: null, digestWrittenAt: null, terminalReason: null, stages: {}, extra: {},
         startedAt: timestamp, createdAt: timestamp, updatedAt: timestamp
       };
       try {
         await tx.pool.query(`
           INSERT INTO autonomy_cycle_runs
-            (id, run_key, status, version, checkpoint_version, lease_owner, lease_expires_at, started_at, created_at, updated_at, stages, data)
-          VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11::jsonb,$12::jsonb)
-        `, [run.id, run.runKey, run.status, run.version, run.checkpointVersion, run.leaseOwner, run.leaseExpiresAt,
-            run.startedAt, run.createdAt, run.updatedAt, JSON.stringify(run.stages), JSON.stringify(run)]);
+            (id, run_key, status, version, checkpoint_version, lease_owner, lease_epoch, lease_expires_at,
+             attempt_started_at, deadline_at, started_at, created_at, updated_at, stages, data)
+          VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::jsonb,$15::jsonb)
+        `, [run.id, run.runKey, run.status, run.version, run.checkpointVersion, run.leaseOwner, run.leaseEpoch, run.leaseExpiresAt,
+            run.attemptStartedAt, run.deadlineAt, run.startedAt, run.createdAt, run.updatedAt, JSON.stringify(run.stages), JSON.stringify(run)]);
       } catch (error) {
         if (error?.code === '23505') return { ok: false, reason: 'cycle-already-active-or-duplicate-run-key' };
         throw error;
@@ -1534,15 +1570,23 @@ export class PostgresStore {
     });
   }
 
-  // Compare-and-swap: rejects a stale version (checked in the WHERE clause, not just read-then-write
-  // in application code) and never patches a run that's already finalized.
-  async patchAutonomyCycleRun(id, expectedVersion, patch = {}) {
+  // Fenced compare-and-swap: the WHERE clause itself enforces status='active' AND lease_owner=?
+  // AND lease_epoch=? AND version=? AND lease_expires_at>now(), not just a version check in
+  // application code -- an old worker whose lease was reclaimed (new epoch issued) can never win
+  // this UPDATE again even if it still has the last version number it read. A finalized run can
+  // never be patched again regardless of a matching fence.
+  async patchAutonomyCycleRun(id, fence = {}, patch = {}) {
     return this.transaction(async tx => {
-      const result = await tx.pool.query('SELECT data, finalized_at, version FROM autonomy_cycle_runs WHERE id=$1 FOR UPDATE', [id]);
+      const result = await tx.pool.query('SELECT data, finalized_at, status, lease_owner, lease_epoch, version, lease_expires_at FROM autonomy_cycle_runs WHERE id=$1 FOR UPDATE', [id]);
       const row = result.rows[0];
       if (!row) return { ok: false, reason: 'not-found' };
       if (row.finalized_at) return { ok: false, reason: 'already-finalized', run: row.data };
-      if (Number(row.version) !== Number(expectedVersion)) return { ok: false, reason: 'version-conflict', run: row.data };
+      if (row.status !== 'active') return { ok: false, reason: 'not-active', run: row.data };
+      if (String(row.lease_owner) !== String(fence.owner || '') || Number(row.lease_epoch) !== Number(fence.epoch)) {
+        return { ok: false, reason: 'lease-lost', run: row.data };
+      }
+      if (Number(row.version) !== Number(fence.version)) return { ok: false, reason: 'version-conflict', run: row.data };
+      if (new Date(row.lease_expires_at).getTime() <= Date.now()) return { ok: false, reason: 'lease-lost', run: row.data };
       const run = { ...row.data };
       if (patch.status !== undefined) run.status = patch.status;
       if (patch.stagesPatch && typeof patch.stagesPatch === 'object') run.stages = { ...run.stages, ...patch.stagesPatch };
@@ -1551,22 +1595,45 @@ export class PostgresStore {
       if (patch.leaseExpiresAt !== undefined) run.leaseExpiresAt = patch.leaseExpiresAt;
       if (patch.finalizedAt !== undefined) run.finalizedAt = patch.finalizedAt;
       if (patch.digestWrittenAt !== undefined) run.digestWrittenAt = patch.digestWrittenAt;
+      if (patch.terminalReason !== undefined) run.terminalReason = patch.terminalReason;
       run.version = Number(run.version) + 1;
       run.updatedAt = now();
       const updated = await tx.pool.query(`
         UPDATE autonomy_cycle_runs SET
-          status=$3, version=$4, lease_owner=$5, lease_expires_at=$6, finalized_at=$7, digest_written_at=$8,
-          updated_at=$9, stages=$10::jsonb, data=$11::jsonb
-        WHERE id=$1 AND version=$2 RETURNING data
-      `, [id, expectedVersion, run.status, run.version, run.leaseOwner, run.leaseExpiresAt, run.finalizedAt,
-          run.digestWrittenAt, run.updatedAt, JSON.stringify(run.stages), JSON.stringify(run)]);
-      if (!updated.rows[0]) return { ok: false, reason: 'version-conflict', run: row.data };
+          status=$5, version=$6, lease_owner=$7, lease_expires_at=$8, finalized_at=$9, digest_written_at=$10,
+          terminal_reason=$11, updated_at=$12, stages=$13::jsonb, data=$14::jsonb
+        WHERE id=$1 AND status='active' AND lease_owner=$2 AND lease_epoch=$3 AND version=$4 AND lease_expires_at > now()
+        RETURNING data
+      `, [id, fence.owner, fence.epoch, fence.version, run.status, run.version, run.leaseOwner, run.leaseExpiresAt,
+          run.finalizedAt, run.digestWrittenAt, run.terminalReason, run.updatedAt, JSON.stringify(run.stages), JSON.stringify(run)]);
+      if (!updated.rows[0]) return { ok: false, reason: 'lease-lost', run: row.data };
+      return { ok: true, run: updated.rows[0].data };
+    });
+  }
+
+  // Independent of stage progress: only extends lease_expires_at and bumps version, fenced by the
+  // exact same owner+epoch+version+active+unexpired predicate as patchAutonomyCycleRun.
+  async heartbeatAutonomyCycleRun(id, fence = {}, leaseTtlMs = 120000) {
+    return this.transaction(async tx => {
+      const newExpiry = new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 120000)).toISOString();
+      const updated = await tx.pool.query(`
+        UPDATE autonomy_cycle_runs
+           SET lease_expires_at = $5, version = version + 1, updated_at = now(),
+               data = jsonb_set(jsonb_set(data, '{leaseExpiresAt}', to_jsonb($5::text)), '{version}', to_jsonb(version + 1))
+         WHERE id = $1 AND status = 'active' AND lease_owner = $2 AND lease_epoch = $3 AND version = $4 AND lease_expires_at > now()
+        RETURNING data
+      `, [id, fence.owner, fence.epoch, fence.version, newExpiry]);
+      if (!updated.rows[0]) {
+        const current = await tx.pool.query('SELECT data FROM autonomy_cycle_runs WHERE id=$1', [id]);
+        return { ok: false, reason: 'lease-lost', run: current.rows[0]?.data || null };
+      }
       return { ok: true, run: updated.rows[0].data };
     });
   }
 
   // Recovers a run whose owning process crashed or stalled (lease expired), without waiting on
-  // any other timeout mechanism. Only ever touches a still-active, lease-expired run.
+  // any other timeout mechanism. Only ever touches a still-active, lease-expired run. Incrementing
+  // lease_epoch (not just version) is what permanently invalidates the crashed worker's fence.
   async reclaimStaleAutonomyCycleRun(newLeaseOwner, leaseTtlMs = 300000) {
     return this.transaction(async tx => {
       const stale = await tx.pool.query(`
@@ -1577,13 +1644,14 @@ export class PostgresStore {
       if (!row) return { ok: false, reason: 'no-stale-lease' };
       const run = { ...row.data };
       run.leaseOwner = String(newLeaseOwner || '');
+      run.leaseEpoch = Number(run.leaseEpoch || 0) + 1;
       run.leaseExpiresAt = new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 300000)).toISOString();
       run.version = Number(run.version) + 1;
       run.updatedAt = now();
       await tx.pool.query(`
-        UPDATE autonomy_cycle_runs SET lease_owner=$2, lease_expires_at=$3, version=$4, updated_at=$5, data=$6::jsonb
+        UPDATE autonomy_cycle_runs SET lease_owner=$2, lease_epoch=$3, lease_expires_at=$4, version=$5, updated_at=$6, data=$7::jsonb
         WHERE id=$1
-      `, [run.id, run.leaseOwner, run.leaseExpiresAt, run.version, run.updatedAt, JSON.stringify(run)]);
+      `, [run.id, run.leaseOwner, run.leaseEpoch, run.leaseExpiresAt, run.version, run.updatedAt, JSON.stringify(run)]);
       return { ok: true, run };
     });
   }

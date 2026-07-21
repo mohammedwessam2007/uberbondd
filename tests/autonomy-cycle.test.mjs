@@ -169,7 +169,7 @@ test('CRS: a crashed cycle resumes without repeating an already-completed stage'
   const cfg = baseCfg({ inboundOverrides: { enabled: false, gmailReadEnabled: false }, limits: { leaseTtlMs: 1000 } });
   // Simulate a crash: create a run, mark poll-inbound done, then let its lease expire.
   const created = await store.createAutonomyCycleRun('crashed-run', 'dead-worker', 1000);
-  const afterPoll = await store.patchAutonomyCycleRun(created.run.id, 0, {
+  const afterPoll = await store.patchAutonomyCycleRun(created.run.id, { owner: created.run.leaseOwner, epoch: created.run.leaseEpoch, version: created.run.version }, {
     stagesPatch: { 'poll-inbound': { status: 'done', result: { skipped: true, reason: 'inbound-disabled', messagesFetched: 0 }, attempts: 0, completedAt: new Date().toISOString() } }
   });
   assert.equal(afterPoll.ok, true);
@@ -247,16 +247,34 @@ test('BND: a stage that runs longer than maxStageRuntimeMs is aborted, marked fa
   assert.match(result.run.stages['poll-inbound'].result.error, /exceeded 50ms runtime limit/);
 });
 
-test('BND: total cycle runtime beyond maxCycleRuntimeMs stops starting new stages without crashing', async () => {
+test('P0-05/BND: total cycle runtime beyond maxCycleRuntimeMs terminally finalizes the run as aborted, clears the lease, and forbids resume', async () => {
   const store = await tempStore();
   const cfg = baseCfg({ inboundOverrides: { enabled: false, gmailReadEnabled: false }, limits: { maxCycleRuntimeMs: 10 } });
-  // Create the run for real (startedAt is set by the dedicated CAS method, never faked via a
-  // generic patch — autonomyCycleRuns is a protected collection), then let real elapsed time push
-  // it past the tiny cycle budget before runAutonomyCycle tries to continue it.
-  await store.createAutonomyCycleRun('slow-run', 'worker-1', 60000);
-  await new Promise(resolve => setTimeout(resolve, 30));
+  // Create the run for real (startedAt/deadlineAt are set by the dedicated CAS method, never
+  // faked via a generic patch — autonomyCycleRuns is a protected collection). The store clamps
+  // deadlineMs to a 1000ms floor (same floor as leaseTtlMs), so wait past that real floor rather
+  // than assuming the tiny configured value takes effect immediately.
+  const created = await store.createAutonomyCycleRun('slow-run', 'worker-1', 60000, 10);
+  await new Promise(resolve => setTimeout(resolve, 1100));
   const result = await runAutonomyCycle({ store, cfg, runKey: 'slow-run', leaseOwner: 'worker-1' });
   assert.equal(result.ok, false);
   assert.equal(result.reason, 'cycle-timeout');
-  assert.equal(result.run.status, 'active', 'a cycle-timeout must not finalize the run -- it stays retryable');
+  assert.equal(result.run.status, 'aborted', 'a cycle-timeout is terminal -- the run must never remain active');
+  assert.equal(result.run.terminalReason, 'cycle-timeout');
+  assert.ok(result.run.finalizedAt);
+  assert.equal(result.run.leaseOwner, null);
+  assert.equal(result.run.leaseExpiresAt, null);
+
+  // The old run can never be resumed or reclaimed again...
+  const reclaimAttempt = await store.reclaimStaleAutonomyCycleRun('worker-2', 60000);
+  assert.equal(reclaimAttempt.ok, false);
+  assert.equal(reclaimAttempt.reason, 'no-stale-lease');
+  const staleFencePatch = await store.patchAutonomyCycleRun(created.run.id, { owner: 'worker-1', epoch: created.run.leaseEpoch, version: created.run.version }, { stagesPatch: { discover: 'late' } });
+  assert.equal(staleFencePatch.ok, false);
+
+  // ...but a genuinely new run (a fresh runKey, as a real caller would supply on retry) can proceed.
+  const nextCfg = baseCfg({ inboundOverrides: { enabled: false, gmailReadEnabled: false } });
+  const fresh = await runAutonomyCycle({ store, cfg: nextCfg, runKey: 'slow-run-retry-1', leaseOwner: 'worker-2' });
+  assert.equal(fresh.ok, true);
+  assert.notEqual(fresh.run.id, created.run.id, 'must be a genuinely new run, not a resumed old one');
 });

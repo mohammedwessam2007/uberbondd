@@ -65,12 +65,15 @@ async function inboundAccessToken(cfg, account, key) {
   return { token: merged.access_token, tokens: merged };
 }
 
-async function inboundGet(cfg, account, key, path) {
+async function inboundGet(cfg, account, key, path, { signal } = {}) {
   requireInboundNetwork(cfg);
+  signal?.throwIfAborted();
   const auth = await inboundAccessToken(cfg, account, key);
+  signal?.throwIfAborted();
   const res = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/${path}`, {
     method: 'GET',
-    headers: { authorization: `Bearer ${auth.token}` }
+    headers: { authorization: `Bearer ${auth.token}` },
+    signal
   });
   if (!res.ok) throw new GmailInboundError('gmail-inbound-api-error', { status: res.status });
   return { data: res.status === 204 ? null : await res.json(), tokens: auth.tokens };
@@ -88,14 +91,14 @@ export function boundMessageLimit(maxResults) {
 // there is no such key to be missing, not an unset/undefined one.
 export function createGmailInboundReader(cfg) {
   return Object.freeze({
-    getProfile: (account, key) => inboundGet(cfg, account, key, 'profile'),
-    listMessages: (account, key, q, maxResults = 50, pageToken = '') => {
+    getProfile: (account, key, options = {}) => inboundGet(cfg, account, key, 'profile', options),
+    listMessages: (account, key, q, maxResults = 50, pageToken = '', options = {}) => {
       const params = { q: String(q || ''), maxResults: String(boundMessageLimit(maxResults)) };
       if (pageToken) params.pageToken = String(pageToken);
       const qs = new URLSearchParams(params);
-      return inboundGet(cfg, account, key, `messages?${qs}`);
+      return inboundGet(cfg, account, key, `messages?${qs}`, options);
     },
-    getMessage: (account, key, id) => inboundGet(cfg, account, key, `messages/${encodeURIComponent(id)}?format=full`)
+    getMessage: (account, key, id, options = {}) => inboundGet(cfg, account, key, `messages/${encodeURIComponent(id)}?format=full`, options)
   });
 }
 

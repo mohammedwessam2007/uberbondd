@@ -89,10 +89,28 @@ export function boundMessageLimit(maxResults) {
 export function createGmailInboundReader(cfg) {
   return Object.freeze({
     getProfile: (account, key) => inboundGet(cfg, account, key, 'profile'),
-    listMessages: (account, key, q, maxResults = 50) => {
-      const qs = new URLSearchParams({ q: String(q || ''), maxResults: String(boundMessageLimit(maxResults)) });
+    listMessages: (account, key, q, maxResults = 50, pageToken = '') => {
+      const params = { q: String(q || ''), maxResults: String(boundMessageLimit(maxResults)) };
+      if (pageToken) params.pageToken = String(pageToken);
+      const qs = new URLSearchParams(params);
       return inboundGet(cfg, account, key, `messages?${qs}`);
     },
     getMessage: (account, key, id) => inboundGet(cfg, account, key, `messages/${encodeURIComponent(id)}?format=full`)
+  });
+}
+
+// A structurally send-incapable stand-in reader for tests and for any run where
+// config.inbound.provider !== 'gmail'. Same shape as createGmailInboundReader's result (frozen,
+// no sendEmail key) but never performs network I/O — returns caller-supplied fixture data.
+export function createTestGmailInboundReader(fixture = { messagesByPage: [], messages: {} }) {
+  let pageIndex = 0;
+  return Object.freeze({
+    getProfile: async () => ({ data: { emailAddress: 'test@example.invalid' } }),
+    listMessages: async () => {
+      const page = fixture.messagesByPage[pageIndex] || { messages: [] };
+      pageIndex += 1;
+      return { data: page };
+    },
+    getMessage: async (account, key, id) => ({ data: fixture.messages[id] || { id, payload: {} } })
   });
 }

@@ -6,9 +6,12 @@ import { fileURLToPath } from 'node:url';
 import { config, parseCanonicalBoolean } from '../src/config.mjs';
 import * as gmailInbound from '../src/gmail-inbound.mjs';
 import { createGmailInboundReader, INBOUND_SCOPES, GmailInboundError, boundMessageLimit } from '../src/gmail-inbound.mjs';
+import * as autonomyCycle from '../src/autonomy-cycle.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const gmailInboundSource = await fs.readFile(path.join(here, '../src/gmail-inbound.mjs'), 'utf8');
+const autonomyCycleSource = await fs.readFile(path.join(here, '../src/autonomy-cycle.mjs'), 'utf8');
+const importLines = autonomyCycleSource.split('\n').filter(line => /^\s*import\b/.test(line));
 
 test('CFG-08: only the exact canonical string "true" enables a safety gate', () => {
   assert.equal(parseCanonicalBoolean('true'), true);
@@ -91,4 +94,35 @@ test('BND-05: message page size clamps huge, zero, negative, and non-numeric lim
   assert.equal(boundMessageLimit(undefined), 50);
   assert.equal(boundMessageLimit('20'), 20);
   assert.equal(boundMessageLimit('not-a-number'), 50);
+});
+
+test('CAP-01/F-01: autonomy-cycle.mjs imports nothing from the send-capable/general-handler graph', () => {
+  const forbidden = ["'./gmail.mjs'", '"./gmail.mjs"', "'./pipeline.mjs'", '"./pipeline.mjs"', "'./revenue.mjs'", '"./revenue.mjs"', "'./job-handlers.mjs'", '"./job-handlers.mjs"'];
+  for (const needle of forbidden) assert.ok(!autonomyCycleSource.includes(needle), `must not import ${needle}`);
+});
+
+test('F-03: autonomy-cycle.mjs never imports the shared job queue, so it cannot claim an unrelated queued job', () => {
+  assert.ok(!autonomyCycleSource.includes("'./queue.mjs'") && !autonomyCycleSource.includes('"./queue.mjs"'));
+  assert.ok(!autonomyCycleSource.includes('claimJobs'));
+});
+
+test('full import list of autonomy-cycle.mjs contains only reviewed, send-incapable modules', () => {
+  const allowed = ["'./store.mjs'", "'./inbound-classify.mjs'", 'node:crypto'];
+  for (const line of importLines) {
+    assert.ok(allowed.some(ok => line.includes(ok)), `unexpected import: ${line.trim()}`);
+  }
+});
+
+test('F-02: the stage list never runs outbound or follow-up processing', () => {
+  assert.deepEqual(autonomyCycle.STAGES, ['poll-inbound', 'classify-and-suppress', 'write-digest']);
+  assert.ok(!autonomyCycleSource.includes('outbound.process'));
+  assert.ok(!autonomyCycleSource.includes('followups.process'));
+  assert.ok(!autonomyCycleSource.includes('processOutboundQueue'));
+  assert.ok(!autonomyCycleSource.includes('processFollowups'));
+});
+
+test('autonomy-cycle.mjs exports no send-capable function', () => {
+  const exportNames = Object.keys(autonomyCycle);
+  const forbidden = ['sendEmail', 'buildRawMessage', 'processOutboundQueue', 'processFollowups', 'createJobHandlers'];
+  for (const name of forbidden) assert.ok(!exportNames.includes(name), `unexpected export: ${name}`);
 });

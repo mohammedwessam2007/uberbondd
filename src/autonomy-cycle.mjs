@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import { ConflictError } from './store.mjs';
 import { parseInboundMime, classifyInboundEvent } from './inbound-classify.mjs';
+import { listVerifiedSignals } from './verified-payments.mjs';
 
 // P2.2 shadow autonomy cycle. This module must never import Pipeline, RevenueEngine, the general
 // job handlers, gmail.mjs (the mixed read/write module), or queue.mjs. It never claims a queue job
@@ -261,7 +262,7 @@ async function classifyAndSuppressStage(ctx) {
 // Strict allow-listed schema: only counts, short status strings, and timestamps. Never spreads
 // a stage's raw result object in, so no future stage can accidentally leak PII into the digest
 // just by adding a field to its own result.
-function buildDigest(run, limits) {
+function buildDigest(run, limits, verifiedPayments) {
   const pollResult = run.stages['poll-inbound']?.result || {};
   const classifyResult = run.stages['classify-and-suppress']?.result || {};
   const digest = {
@@ -285,7 +286,7 @@ function buildDigest(run, limits) {
     },
     ownerExceptions: Number(classifyResult.ownerExceptions || 0),
     suppressed: Number(classifyResult.bounce || 0) + Number(classifyResult.complaint || 0) + Number(classifyResult.unsubscribe || 0),
-    verifiedPayments: 0,
+    verifiedPayments: Number(verifiedPayments || 0),
     liveOutboundEnabled: false
   };
   const bytes = Buffer.byteLength(JSON.stringify(digest), 'utf8');
@@ -293,9 +294,26 @@ function buildDigest(run, limits) {
   return { digest, bytes };
 }
 
+// P1-10: reads only already-verified payment signals (src/payments.mjs enforces the verified-
+// source requirement long before a row can reach paymentState:'paid' -- see verified-payments.mjs)
+// through a narrow, count-only, cursor-bounded read. Never calls a payment provider, never
+// reconciles, never mutates anything. The cursor (a plain setting, not a protected collection) is
+// only ever advanced forward on real success, so a failed/aborted cycle re-reads the same window
+// next time rather than silently skipping it.
+async function readVerifiedPaymentSignals({ store, limits, signal }) {
+  const settings = await store.getSettings();
+  const since = settings.autonomyPaymentSignalCursor || null;
+  const result = await listVerifiedSignals({ store, since, limit: limits.maxPaymentSignalsPerCycle, signal });
+  if (result.latestOccurredAt && result.latestOccurredAt !== since) {
+    await store.setSetting('autonomyPaymentSignalCursor', result.latestOccurredAt);
+  }
+  return result.count;
+}
+
 async function writeDigestStage(ctx) {
-  const { run, cfg } = ctx;
-  const built = buildDigest(run, cfg.inbound.limits);
+  const { run, cfg, store, signal } = ctx;
+  const verifiedPayments = await readVerifiedPaymentSignals({ store, limits: cfg.inbound.limits, signal });
+  const built = buildDigest(run, cfg.inbound.limits, verifiedPayments);
   if (built.oversized) return { status: 'blocked', result: { reason: 'digest-too-large', bytes: built.bytes } };
   return { status: 'done', result: built.digest };
 }

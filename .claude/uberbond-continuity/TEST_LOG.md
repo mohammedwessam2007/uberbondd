@@ -176,3 +176,42 @@ Commands run:
 - `node --test tests/autonomy-cycle.test.mjs` -> 20/20 pass (16 existing unchanged + 4 new)
 - `npm run check` (full syntax + full deterministic suite) -> 273/273 pass, 0 fail
 - `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff
+
+## 2026-07-21 — P1-10 implemented: real read-only verified-payment-signal count
+
+Found a genuine canonical verified payment-event source already in the accepted-base codebase:
+`src/revenue.mjs`'s handleLemonWebhook verifies an HMAC signature before creating an `orders` row
+(paymentState:'paid', processingStatus:'completed', providerEventId, occurredAt); `src/payments.mjs`
+independently rejects any state transition to 'paid'/'refunded'/'disputed'/'cancelled' whose source
+isn't 'verified-webhook'/'manual-owner'/'test-simulation'. This satisfies the spec's requirement
+for a canonical trusted source -- P1-10 is fixable, not BLOCKED.
+
+New src/verified-payments.mjs: listVerifiedSignals({store, since, limit, signal}) -- zero imports,
+zero network calls, zero calls to any mutating store method or payment/offer/delivery write
+function (proven by a new hostile capability test that scans its own source). Reads `orders`,
+filters to paymentState==='paid' && processingStatus==='completed', dedupes by providerEventId,
+excludes anything at/before a persisted cursor (a plain setting, not a protected collection),
+sorted oldest-first before bounding so a truncated batch never skips an out-of-order-arrival
+payment older than the new cursor.
+
+Wired into writeDigestStage (not a new STAGE entry, to avoid touching the stage-resume state
+machine -- a deliberate scope decision): reads the cursor, calls the reader, advances the cursor
+on genuine progress, passes the real count into buildDigest, replacing the hardcoded
+`verifiedPayments: 0`.
+
+New tests:
+- tests/verified-payments.test.mjs (7 tests): verified paid order counted; unverified/pending/
+  refunded/disputed never counted; duplicate provider-event-identity deduped; bounded to configured
+  limit with truncated flag; since-cursor excludes prior signals; end-to-end through the real
+  digest; cursor advances across cycles so the same payment is never recounted, but a genuinely new
+  one after it still is.
+- tests/p2-2-capabilities.test.mjs: added verified-payments.mjs to the autonomy-cycle.mjs reviewed-
+  import allowlist, plus a new source-scan test proving verified-payments.mjs itself has zero
+  imports, no fetch() call, and no call to any store mutation method or payment/offer transition
+  function.
+
+Commands run:
+- `node --test tests/verified-payments.test.mjs` -> 7/7 pass
+- `node --test tests/p2-2-capabilities.test.mjs` -> 16/16 pass
+- `npm run check` (full syntax + full deterministic suite) -> 281/281 pass, 0 fail
+- `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff

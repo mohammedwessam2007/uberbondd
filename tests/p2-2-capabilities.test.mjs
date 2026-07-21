@@ -107,10 +107,21 @@ test('F-03: autonomy-cycle.mjs never imports the shared job queue, so it cannot 
 });
 
 test('full import list of autonomy-cycle.mjs contains only reviewed, send-incapable modules', () => {
-  const allowed = ["'./store.mjs'", "'./inbound-classify.mjs'", 'node:crypto'];
+  const allowed = ["'./store.mjs'", "'./inbound-classify.mjs'", "'./verified-payments.mjs'", 'node:crypto'];
   for (const line of importLines) {
     assert.ok(allowed.some(ok => line.includes(ok)), `unexpected import: ${line.trim()}`);
   }
+});
+
+test('P1-10: verified-payments.mjs itself is read-only -- no provider calls, no order/offer/delivery mutation', async () => {
+  const source = await fs.readFile(path.join(here, '../src/verified-payments.mjs'), 'utf8');
+  const importLines2 = source.split('\n').filter(line => /^\s*import\b/.test(line));
+  assert.equal(importLines2.length, 0, 'must have zero imports -- no network client, no other domain module');
+  assert.ok(!source.includes('fetch('), 'must never call a payment provider over the network');
+  for (const mutator of ['store.add(', 'store.upsert(', 'store.patch(', 'store.remove(', 'transitionOfferRecord', 'applyOfferPayment']) {
+    assert.ok(!source.includes(mutator), `must never call ${mutator} -- this module is read-only`);
+  }
+  assert.ok(source.includes('store.list('), 'must actually read through the store, not just claim to');
 });
 
 test('F-02: the stage list never runs outbound or follow-up processing', () => {

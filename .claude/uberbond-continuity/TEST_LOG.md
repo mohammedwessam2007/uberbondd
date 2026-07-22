@@ -241,3 +241,29 @@ Commands run:
   PostgreSQL concurrent-CAS race test)
 - `npm run check` (full syntax + full deterministic suite) -> 292/292 pass, 0 fail
 - `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff
+
+## 2026-07-22 — Part C: refreshed OAuth token persistence (P1-09)
+
+gmail-inbound.mjs's inboundAccessToken now persists a refreshed token exactly once through
+cfg.accounts.replaceInboundAccountTokenCAS (the Part A repository) when the caller injects an
+`accounts` dependency and the account object carries an id + tokenVersion -- silently skipped
+otherwise (keeps old tests/fixtures that only care about the token itself working unchanged).
+Preserves the existing refresh_token explicitly when the provider's response omits one. Checks
+the abort signal immediately before persisting, so a worker that lost its lease/cycle in the gap
+between refresh and persistence cannot still write the new token.
+
+New tests/gmail-inbound-token-persistence.test.mjs (8 tests, all real, all through the actual
+reader -- not just the raw store methods already covered in inbound-accounts-store.test.mjs):
+one refresh persists exactly once; two concurrent refreshers race to exactly one CAS winner
+(loser's own in-flight request still succeeds, its refresh just isn't durably saved); a stale
+expectedVersion is rejected without clobbering an already-persisted newer version; provider
+omitting a refresh token preserves the old one; provider rotating a refresh token retains the
+new one; an aborted refresh persists nothing; an invalid/oversized token-endpoint response fails
+safely with zero persistence; a failed refresh's error never contains the account's token
+material.
+
+Commands run:
+- `node --test tests/gmail-inbound-token-persistence.test.mjs` -> 8/8 pass
+- `node --test tests/gmail-inbound-bounds.test.mjs tests/p2-2-capabilities.test.mjs` -> 21/21 pass (no regression from the inboundAccessToken change)
+- `npm run check` (full syntax + full deterministic suite) -> 300/300 pass, 0 fail
+- `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff

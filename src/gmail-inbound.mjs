@@ -102,6 +102,24 @@ async function tokenRequest(cfg, body, { signal } = {}) {
 export function sealInboundTokens(tokens, key) { return encryptJson(tokens, key); }
 export function openInboundTokens(blob, key) { return decryptJson(blob, key); }
 
+// P1-09: persists a refreshed token exactly once, through the dedicated inboundAccounts CAS
+// repository -- never through the generic store. Silently skipped (not an error) when the caller
+// didn't inject an account repository or the account has no tokenVersion to fence on, which keeps
+// this function usable in tests/fixtures that only care about the token itself. Checks the abort
+// signal immediately before persisting: a worker that lost its lease or hit the total-cycle
+// deadline in the gap between refreshing and persisting must not still write the new token.
+async function persistRefreshedToken(cfg, account, key, mergedTokens, { signal } = {}) {
+  if (!cfg.accounts || typeof cfg.accounts.replaceInboundAccountTokenCAS !== 'function') return { persisted: false };
+  if (account.tokenVersion === undefined || account.tokenVersion === null || account.id === undefined) return { persisted: false };
+  signal?.throwIfAborted();
+  const encryptedTokens = sealInboundTokens(mergedTokens, key);
+  const tokenExpiresAt = Number.isFinite(mergedTokens.expires_at) ? new Date(mergedTokens.expires_at).toISOString() : null;
+  const result = await cfg.accounts.replaceInboundAccountTokenCAS({
+    accountId: account.id, expectedVersion: account.tokenVersion, encryptedTokens, tokenExpiresAt
+  });
+  return { persisted: result.ok === true, reason: result.ok ? null : result.reason };
+}
+
 async function inboundAccessToken(cfg, account, key, { signal } = {}) {
   const tokens = openInboundTokens(account.tokens, key);
   if (tokens.access_token && tokens.expires_at > Date.now() + 60000) return { token: tokens.access_token, tokens, refreshed: false };
@@ -111,8 +129,16 @@ async function inboundAccessToken(cfg, account, key, { signal } = {}) {
     client_secret: cfg.clientSecret,
     grant_type: 'refresh_token'
   }, { signal });
-  const merged = { ...tokens, ...fresh, expires_at: Date.now() + (fresh.expires_in || 3600) * 1000 };
-  return { token: merged.access_token, tokens: merged, refreshed: true };
+  // Preserve the existing refresh token when the provider omits a new one in this response --
+  // not every provider rotates it on every refresh, and losing it would strand the account.
+  const merged = {
+    ...tokens,
+    access_token: fresh.access_token,
+    refresh_token: fresh.refresh_token || tokens.refresh_token,
+    expires_at: Date.now() + (Number(fresh.expires_in) || 3600) * 1000
+  };
+  const persistence = await persistRefreshedToken(cfg, account, key, merged, { signal });
+  return { token: merged.access_token, tokens: merged, refreshed: true, tokenPersisted: persistence.persisted, persistenceReason: persistence.reason };
 }
 
 async function inboundGet(cfg, account, key, path, { signal } = {}) {
@@ -128,7 +154,7 @@ async function inboundGet(cfg, account, key, path, { signal } = {}) {
   });
   if (!res.ok) throw new GmailInboundError('gmail-inbound-api-error', { status: res.status });
   const data = res.status === 204 ? null : await readBoundedJson(res, { signal, maxBytes: cfg.maxResponseBytes });
-  return { data, tokens: auth.tokens, tokenRefreshed: auth.refreshed };
+  return { data, tokens: auth.tokens, tokenRefreshed: auth.refreshed, tokenPersisted: auth.tokenPersisted || false };
 }
 
 // Clamps a caller-supplied page size into a safe range regardless of input (huge numbers, zero,

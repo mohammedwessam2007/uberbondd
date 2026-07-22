@@ -51,6 +51,11 @@ export const config = {
     provider: String(env.INBOUND_PROVIDER || 'test').toLowerCase(),
     enabled: parseCanonicalBoolean(env.INBOUND_ENABLED),
     gmailReadEnabled: parseCanonicalBoolean(env.INBOUND_GMAIL_READ_ENABLED),
+    // Same fail-closed default as gmail-inbound.mjs's own requireInboundNetwork check --
+    // duplicated here only so the runtime factory can refuse to even attempt composition when
+    // network is not explicitly allowed, rather than constructing a reader that would immediately
+    // fail every call.
+    allowNetwork: parseCanonicalBoolean(env.INBOUND_ALLOW_NETWORK),
     // Defensible bounds so a single cycle can never run unbounded work, regardless of what an
     // upstream API returns. All are clamp-safe (num() falls back to the default for bad input).
     limits: {
@@ -74,6 +79,14 @@ export const config = {
       // 120s TTL) regardless of what leaseTtlMs is overridden to, unless explicitly overridden itself.
       heartbeatIntervalMs: Math.max(1000, num(env.INBOUND_HEARTBEAT_INTERVAL_MS, Math.floor(Math.max(10000, num(env.INBOUND_LEASE_TTL_MS, 120000)) / 4)))
     }
+  },
+  // Separate OAuth client identity for inbound (read-only) Gmail, deliberately never shared with
+  // any outbound/send credential set. Empty by default -- the runtime factory refuses to compose
+  // without all three present, regardless of the inbound.enabled/gmailReadEnabled gates.
+  inboundGoogle: {
+    clientId: String(env.INBOUND_GOOGLE_CLIENT_ID || ''),
+    clientSecret: String(env.INBOUND_GOOGLE_CLIENT_SECRET || ''),
+    redirectUri: String(env.INBOUND_GOOGLE_REDIRECT_URI || '')
   },
   maxBatch: num(env.MAX_BATCH_SIZE, 25),
   crawl: {

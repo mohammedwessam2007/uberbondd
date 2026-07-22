@@ -267,3 +267,41 @@ Commands run:
 - `node --test tests/gmail-inbound-bounds.test.mjs tests/p2-2-capabilities.test.mjs` -> 21/21 pass (no regression from the inboundAccessToken change)
 - `npm run check` (full syntax + full deterministic suite) -> 300/300 pass, 0 fail
 - `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff
+
+## 2026-07-22 — Part B: inbound-only runtime factory wired into the production entry point (P0-08)
+
+New src/inbound-runtime.mjs: createInboundOnlyRuntime(cfg, {store, fetch}) composes config +
+listApprovedActiveInboundAccounts() (Part A) + createGmailInboundReader (with the store injected
+as its accounts dependency, so Part C's token persistence is live, not a no-op) into a real
+reader+accounts pair, or fails closed with a bounded reason (inbound-disabled /
+inbound-provider-not-gmail / missing-inbound-credentials / no-approved-accounts) -- never throws
+for these expected states. Imports only ./gmail-inbound.mjs; zero outbound/mixed-module imports
+(proven by a source-scan capability test, mirroring the one already covering autonomy-cycle.mjs).
+
+Added inboundGoogle {clientId, clientSecret, redirectUri} and inbound.allowNetwork to
+src/config.mjs (all empty/false by default; documented in .env.example, all defaulting to
+disabled/blank). Wired into scripts/run-autonomy-cycle.mjs: previously called runAutonomyCycle
+with no mailboxReader/accounts at all (the exact P0-08 gap confirmed by this session's earlier
+capability-graph scan) -- now calls createInboundOnlyRuntime first and passes its result through,
+falling back to the existing safe no-reader path when bootstrap fails closed. Confirmed via a real
+smoke run: `node scripts/run-autonomy-cycle.mjs` with default env still completes safely
+(bootstrapReason: "inbound-disabled", poll-inbound skipped, zero network, zero side effects).
+
+New tests/inbound-runtime.test.mjs (8 tests): import-graph proof, no-send-capable-symbol proof,
+entry-point still schedule-free; GM-01 disabled-by-default (all 3 flag combinations); GM-02
+missing-credential blocks with a bounded reason; GM-03 no-approved-account fails closed; GM-04
+**fake-HTTP integration test that executes the real composition path end to end** (factory ->
+real reader -> real stored account -> real poll-inbound stage -> real message -> real digest
+count, not individually mocked pieces); GM-18 still fails closed under NODE_ENV=test even with
+allowNetwork:true.
+
+Commands run:
+- `node --test tests/inbound-runtime.test.mjs` -> 8/8 pass
+- `node scripts/run-autonomy-cycle.mjs` (real smoke run, default env) -> completes safely,
+  bootstrapReason "inbound-disabled"
+- `npm run check` (full syntax + full deterministic suite) -> 308/308 pass, 0 fail
+- `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff
+
+P0-08 ("real Gmail execution is not wired") is now genuinely closed: the production entry point
+composes a real reader/account pair when properly configured and approved, and fails closed
+otherwise -- proven end to end with fake HTTP, not just unit-tested in isolation.

@@ -55,3 +55,29 @@ P0-08 ("real Gmail execution is not wired") remains genuinely open. Building the
 `inboundAccounts` repository + factory is a real, separate piece of infrastructure (ties directly
 into P1-09, refreshed-token persistence, which has nowhere to persist to without it) — flagged as
 not attempted in this session's final report rather than rushed.
+
+## 2026-07-22 — Re-scan after Parts A-D (inbound-accounts, inbound-runtime, crypto, work-items)
+
+Re-traced the full graph from the real entry point after adding src/inbound-runtime.mjs,
+crypto.mjs's keyedHash export, and the inboundAccounts/inboundWorkItems store methods:
+
+```
+scripts/run-autonomy-cycle.mjs
+  -> src/config.mjs        -> node:path
+  -> src/store.mjs         -> node:crypto, node:fs/promises, node:path, pg, src/utils.mjs, src/security.mjs
+  -> src/autonomy-cycle.mjs -> src/store.mjs (ConflictError), src/inbound-classify.mjs,
+                               src/verified-payments.mjs, src/crypto.mjs
+  -> src/inbound-runtime.mjs -> src/gmail-inbound.mjs -> src/crypto.mjs
+```
+
+Confirmed by direct grep:
+- Zero matches for send-capable symbols (send/sendEmail/.draft(/.reply(/.forward(/.modify(/
+  .trash(/.label(/outbound.process/followups.process) anywhere in the traced graph outside
+  comments stating the prohibition.
+- Zero `import` of `./gmail.mjs` anywhere in the traced graph -- every textual match is a comment.
+- `src/inbound-runtime.mjs` imports only `./gmail-inbound.mjs`. `src/crypto.mjs` imports only
+  `node:crypto`. `src/verified-payments.mjs` imports nothing (confirmed earlier this session).
+
+P0-08's gap (entry point never wired a mailboxReader/accounts) is now closed by
+src/inbound-runtime.mjs -- but the capability boundary itself remains exactly as strict as before:
+still zero reachable send capability anywhere in the graph.

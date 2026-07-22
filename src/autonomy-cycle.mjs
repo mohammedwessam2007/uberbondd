@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import { ConflictError } from './store.mjs';
 import { parseInboundMime, classifyInboundEvent } from './inbound-classify.mjs';
 import { listVerifiedSignals } from './verified-payments.mjs';
+import { keyedHash, encryptJson, decryptJson } from './crypto.mjs';
 
 // P2.2 shadow autonomy cycle. This module must never import Pipeline, RevenueEngine, the general
 // job handlers, gmail.mjs (the mixed read/write module), or queue.mjs. It never claims a queue job
@@ -158,7 +159,13 @@ async function pollInboundStage(ctx) {
       pageToken = nextToken;
     }
   }
-  return { status: 'done', result: { messagesFetched: fetched.length, refs: fetched } };
+  // P1-11: the poll result is checkpointed onto the autonomy-cycle run record, which is readable
+  // by any code with store access even though generic writes to it are blocked -- so the raw
+  // provider message/account identifiers must never sit there in the clear, only encrypted
+  // (never hashed, since classify-and-suppress needs the real ID back to actually fetch the
+  // message on resume).
+  const encryptedRefs = fetched.map(ref => encryptJson(ref, cfg.encryptionKey));
+  return { status: 'done', result: { messagesFetched: fetched.length, encryptedRefs } };
 }
 
 // Reads the previous stage's own persisted result (not shared mutable state) so this stage works
@@ -168,7 +175,8 @@ async function classifyAndSuppressStage(ctx) {
   const { store, cfg, mailboxReader, accounts, run, signal } = ctx;
   const limits = cfg.inbound.limits;
   const pollResult = run.stages['poll-inbound']?.result || {};
-  const refs = Array.isArray(pollResult.refs) ? pollResult.refs : [];
+  const encryptedRefs = Array.isArray(pollResult.encryptedRefs) ? pollResult.encryptedRefs : [];
+  const refs = encryptedRefs.map(blob => decryptJson(blob, cfg.encryptionKey));
   const accountsById = new Map((accounts || []).map(account => [account.id, account]));
   const counts = {
     processed: 0, duplicate: 0, oversized: 0,
@@ -187,8 +195,13 @@ async function classifyAndSuppressStage(ctx) {
     signal?.throwIfAborted();
     const message = full.data || {};
     const gmailId = String(message.id || ref.refId);
+    const threadId = String(message.threadId || '');
 
-    const existing = await store.findOne('replies', { gmailId });
+    // P1-11: dedupe on a keyed (HMAC) hash of the provider message ID, never the raw ID itself --
+    // the durable record this creates below never stores gmailId, threadId, from, or subject in
+    // the clear or even redacted, only these one-way hashes plus an encrypted reference.
+    const messageKey = keyedHash(gmailId, cfg.encryptionKey);
+    const existing = await store.findInboundWorkItemByMessageKey(messageKey);
     if (existing) { counts.duplicate += 1; continue; }
 
     const approxBytes = Buffer.byteLength(JSON.stringify(message.payload || {}), 'utf8');
@@ -199,15 +212,29 @@ async function classifyAndSuppressStage(ctx) {
     const parsed = oversized ? { body: '', truncated: true } : parseInboundMime(message.payload, limits);
     const classification = classifyInboundEvent({ headers, body: parsed.body });
 
-    try {
-      await store.add('replies', {
-        id: crypto.randomUUID(), prospectId: null, gmailId, threadId: String(message.threadId || ''),
-        from: redactText(headers.from), subject: redactText(headers.subject), body: '',
-        classification, receivedAt: nowIso()
-      });
-    } catch (error) {
-      if (error instanceof ConflictError) { counts.duplicate += 1; continue; }
-      throw error;
+    // Prospect lookup happens before the work item is created so its (safe, internal-only)
+    // prospectId reference can be recorded on the item -- never guess at an ambiguous/unmatched
+    // thread; if no prospect matches, only the bounded owner exception (below) records that
+    // something needs a human look, nothing is silently applied to an unrelated prospect.
+    const prospects = await store.list('prospects');
+    const prospect = prospects.find(item => item.threadId && item.threadId === threadId);
+
+    const created = await store.createInboundWorkItem({
+      messageKey,
+      accountKey: keyedHash(String(account.id || ''), cfg.encryptionKey),
+      threadKey: threadId ? keyedHash(threadId, cfg.encryptionKey) : null,
+      // Encrypted, not hashed, because this one needs to be reversible: it's the only way to
+      // re-fetch the actual message later if that's ever needed, and it's never returned to any
+      // owner-facing surface (digest/notification/log) -- only the internal record holds it.
+      encryptedProviderRef: encryptJson({ accountId: account.id, gmailId, threadId }, cfg.encryptionKey),
+      classificationCode: classification.category,
+      confidenceBucket: classification.confidence,
+      prospectId: prospect?.id || null,
+      expiresAt: new Date(Date.now() + (limits.inboundWorkItemRetentionMs || 30 * 24 * 60 * 60 * 1000)).toISOString()
+    });
+    if (!created.ok) {
+      if (created.reason === 'duplicate-message') { counts.duplicate += 1; continue; }
+      throw new Error(`inbound work item creation failed: ${created.reason}`);
     }
     counts.processed += 1;
 
@@ -215,11 +242,7 @@ async function classifyAndSuppressStage(ctx) {
     counts[categoryKey] += 1;
 
     // P0-07: every matched inbound message stops the existing follow-up state, not just the
-    // suppression-worthy categories. Never guess at an ambiguous/unmatched thread -- if no
-    // prospect matches, only the bounded owner exception (below) records that something needs a
-    // human look, nothing is silently applied to an unrelated prospect.
-    const prospects = await store.list('prospects');
-    const prospect = prospects.find(item => item.threadId && item.threadId === message.threadId);
+    // suppression-worthy categories.
     if (prospect && prospect.nextFollowupAt !== null) {
       await store.patch('prospects', prospect.id, { nextFollowupAt: null });
     }
@@ -259,6 +282,24 @@ async function classifyAndSuppressStage(ctx) {
   return { status: 'done', result: counts };
 }
 
+// PRIV-01: a real runtime validator, not just "we only ever construct it this way" -- if any
+// future change to buildDigest (or something spreading extra fields in) introduces a key outside
+// this exact allowlist, or a counts field that isn't a plain non-negative integer, this throws
+// rather than silently letting it through to an owner-facing surface.
+const DIGEST_KEYS = Object.freeze(['runKey', 'startedAt', 'finishedAt', 'stageStatuses', 'counts', 'ownerExceptions', 'suppressed', 'verifiedPayments', 'liveOutboundEnabled']);
+const DIGEST_COUNT_KEYS = Object.freeze(['messagesFetched', 'processed', 'duplicate', 'oversized', 'bounce', 'complaint', 'unsubscribe', 'outOfOffice', 'reply', 'unknown']);
+
+export function assertExactDigestKeys(digest) {
+  const extra = Object.keys(digest).filter(key => !DIGEST_KEYS.includes(key));
+  if (extra.length) throw new Error(`digest contains unknown key(s): ${extra.join(', ')}`);
+  const extraCounts = Object.keys(digest.counts || {}).filter(key => !DIGEST_COUNT_KEYS.includes(key));
+  if (extraCounts.length) throw new Error(`digest.counts contains unknown key(s): ${extraCounts.join(', ')}`);
+  for (const key of DIGEST_COUNT_KEYS) {
+    const value = digest.counts[key];
+    if (!Number.isInteger(value) || value < 0) throw new Error(`digest.counts.${key} must be a non-negative integer`);
+  }
+}
+
 // Strict allow-listed schema: only counts, short status strings, and timestamps. Never spreads
 // a stage's raw result object in, so no future stage can accidentally leak PII into the digest
 // just by adding a field to its own result.
@@ -289,6 +330,7 @@ function buildDigest(run, limits, verifiedPayments) {
     verifiedPayments: Number(verifiedPayments || 0),
     liveOutboundEnabled: false
   };
+  assertExactDigestKeys(digest);
   const bytes = Buffer.byteLength(JSON.stringify(digest), 'utf8');
   if (bytes > limits.maxSummaryBytes) return { oversized: true, bytes };
   return { digest, bytes };

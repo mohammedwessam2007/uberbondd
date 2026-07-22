@@ -9,16 +9,16 @@ export const COLLECTIONS = [
   'prospects', 'campaigns', 'jobs', 'messages', 'replies', 'suppressions',
   'socialTasks', 'accounts', 'auditLog', 'leads', 'orders', 'subscriptions',
   'offers', 'deliveries', 'monitoringRuns', 'notifications', 'revenueEvents', 'discoveryRuns', 'workerHeartbeats',
-  'outboundReservations', 'senderHealth', 'outboundEvents', 'experiments', 'autonomyCycleRuns', 'inboundAccounts'
+  'outboundReservations', 'senderHealth', 'outboundEvents', 'experiments', 'autonomyCycleRuns', 'inboundAccounts', 'inboundWorkItems'
 ];
 
 const EMPTY = {
-  version: 10,
+  version: 11,
   prospects: [], campaigns: [], jobs: [], messages: [], replies: [],
   suppressions: [], socialTasks: [], accounts: [], auditLog: [], settings: {},
   leads: [], orders: [], subscriptions: [], offers: [], deliveries: [], monitoringRuns: [], notifications: [],
   revenueEvents: [], discoveryRuns: [], workerHeartbeats: [],
-  outboundReservations: [], senderHealth: [], outboundEvents: [], experiments: [], autonomyCycleRuns: [], inboundAccounts: []
+  outboundReservations: [], senderHealth: [], outboundEvents: [], experiments: [], autonomyCycleRuns: [], inboundAccounts: [], inboundWorkItems: []
 };
 
 const MAP = {
@@ -122,12 +122,24 @@ const MAP = {
       createdAt: 'created_at', updatedAt: 'updated_at'
     }
   },
+  // Read-only via the generic list/get/count below. Writes go only through
+  // createInboundWorkItem/deleteExpiredInboundWorkItems -- never generic add/patch. Holds no raw
+  // or redacted message content; see migrations/011_inbound_work_items.sql for exactly what is
+  // (and is deliberately not) stored here.
+  inboundWorkItems: {
+    table: 'inbound_work_items',
+    columns: {
+      messageKey: 'message_key', accountKey: 'account_key', threadKey: 'thread_key',
+      classificationCode: 'classification_code', confidenceBucket: 'confidence_bucket',
+      prospectId: 'prospect_id', expiresAt: 'expires_at', createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
 };
 
 // Collections with singleton, lease, or CAS invariants that the generic add/upsert/patch path
 // cannot know about. Every write must go through their dedicated methods; the generic path is
 // read-only for these keys in both backends.
-export const PROTECTED_COLLECTIONS = new Set(['autonomyCycleRuns', 'inboundAccounts']);
+export const PROTECTED_COLLECTIONS = new Set(['autonomyCycleRuns', 'inboundAccounts', 'inboundWorkItems']);
 
 function assertGenericMutationAllowed(key) {
   if (PROTECTED_COLLECTIONS.has(key)) {
@@ -329,6 +341,9 @@ class JsonTransactionStore {
   async listApprovedActiveInboundAccounts() { return this.parent._listApprovedActiveInboundAccountsDirect(); }
   async replaceInboundAccountTokenCAS(input = {}) { return this.parent._replaceInboundAccountTokenCASDirect(input); }
   async disableInboundAccount(accountId) { return this.parent._disableInboundAccountDirect(accountId); }
+  async createInboundWorkItem(input = {}) { return this.parent._createInboundWorkItemDirect(input); }
+  async findInboundWorkItemByMessageKey(messageKey) { return this.parent._findInboundWorkItemByMessageKeyDirect(messageKey); }
+  async deleteExpiredInboundWorkItems(asOfIso) { return this.parent._deleteExpiredInboundWorkItemsDirect(asOfIso); }
   async transaction(fn) { return fn(this); }
   async tx(fn) { return fn(this.parent.data); }
 }
@@ -927,6 +942,45 @@ export class JsonStore {
     return { ok: true, account: structuredClone(account) };
   }
 
+  // One row per messageKey (the durable half of dedupe -- the caller's own in-cycle loop is the
+  // other half). Returns {ok:false, reason:'duplicate-message'} rather than throwing, exactly
+  // like the caller's existing `existing = await store.findOne('replies', {gmailId})` pattern
+  // used to, so classify-and-suppress's control flow barely changes.
+  _createInboundWorkItemDirect(input = {}) {
+    const messageKey = String(input.messageKey || '');
+    if (!messageKey) return { ok: false, reason: 'missing-message-key' };
+    const items = this.data.inboundWorkItems || (this.data.inboundWorkItems = []);
+    const existing = items.find(item => item.messageKey === messageKey);
+    if (existing) return { ok: false, reason: 'duplicate-message', item: structuredClone(existing) };
+    const timestamp = now();
+    const item = {
+      id: crypto.randomUUID(), messageKey,
+      accountKey: String(input.accountKey || ''), threadKey: input.threadKey || null,
+      encryptedProviderRef: input.encryptedProviderRef || null,
+      classificationCode: input.classificationCode, confidenceBucket: input.confidenceBucket,
+      prospectId: input.prospectId || null, expiresAt: input.expiresAt,
+      createdAt: timestamp, updatedAt: timestamp
+    };
+    items.push(item);
+    return { ok: true, item: structuredClone(item) };
+  }
+
+  _findInboundWorkItemByMessageKeyDirect(messageKey) {
+    const item = (this.data.inboundWorkItems || []).find(entry => entry.messageKey === messageKey);
+    return item ? structuredClone(item) : null;
+  }
+
+  // Retention sweep: removes every work item whose expiresAt has passed. Never called
+  // automatically on a schedule (no schedule exists anywhere in this repair) -- a caller invokes
+  // it explicitly (e.g. from a manual maintenance script) when it wants to enforce the TTL.
+  _deleteExpiredInboundWorkItemsDirect(asOfIso) {
+    const cutoffMs = Date.parse(asOfIso || new Date().toISOString());
+    const items = this.data.inboundWorkItems || (this.data.inboundWorkItems = []);
+    const before = items.length;
+    this.data.inboundWorkItems = items.filter(item => Date.parse(item.expiresAt || 0) > cutoffMs);
+    return { ok: true, deleted: before - this.data.inboundWorkItems.length };
+  }
+
   async putArtifact() { return null; }
   async getArtifact() { return null; }
   async deleteExpiredArtifacts() { return 0; }
@@ -970,6 +1024,9 @@ export class JsonStore {
   async listApprovedActiveInboundAccounts() { return this.transaction(tx => tx.listApprovedActiveInboundAccounts()); }
   async replaceInboundAccountTokenCAS(input = {}) { return this.transaction(tx => tx.replaceInboundAccountTokenCAS(input)); }
   async disableInboundAccount(accountId) { return this.transaction(tx => tx.disableInboundAccount(accountId)); }
+  async createInboundWorkItem(input = {}) { return this.transaction(tx => tx.createInboundWorkItem(input)); }
+  async findInboundWorkItemByMessageKey(messageKey) { return this.transaction(tx => tx.findInboundWorkItemByMessageKey(messageKey)); }
+  async deleteExpiredInboundWorkItems(asOfIso) { return this.transaction(tx => tx.deleteExpiredInboundWorkItems(asOfIso)); }
   async setOutboundPaused(paused, reason = '') { await this.setSetting('outboundPaused', Boolean(paused)); await this.setSetting('outboundPauseReason', String(reason || '')); return { paused: Boolean(paused), reason }; }
   async setSenderPaused(inbox, paused, reason = '') {
     const existing = await this.findOne('senderHealth', { inbox });
@@ -1817,6 +1874,50 @@ export class PostgresStore {
       `, [accountId, account.updatedAt, JSON.stringify(account)]);
       return { ok: true, account };
     });
+  }
+
+  // One row per messageKey, enforced by inbound_work_items_message_key_idx -- a duplicate insert
+  // hits that constraint rather than racing an application-level check across two workers polling
+  // the same account concurrently (which the singleton autonomy-cycle lease normally prevents, but
+  // this stays correct even if that assumption is ever relaxed).
+  async createInboundWorkItem(input = {}) {
+    const messageKey = String(input.messageKey || '');
+    if (!messageKey) return { ok: false, reason: 'missing-message-key' };
+    return this.transaction(async tx => {
+      const timestamp = now();
+      const item = {
+        id: crypto.randomUUID(), messageKey,
+        accountKey: String(input.accountKey || ''), threadKey: input.threadKey || null,
+        encryptedProviderRef: input.encryptedProviderRef || null,
+        classificationCode: input.classificationCode, confidenceBucket: input.confidenceBucket,
+        prospectId: input.prospectId || null, expiresAt: input.expiresAt,
+        createdAt: timestamp, updatedAt: timestamp
+      };
+      try {
+        await tx.pool.query(`
+          INSERT INTO inbound_work_items
+            (id, message_key, account_key, thread_key, encrypted_provider_ref, classification_code, confidence_bucket, prospect_id, expires_at, created_at, updated_at, data)
+          VALUES ($1,$2,$3,$4,$5::jsonb,$6,$7,$8,$9,$10,$11,$12::jsonb)
+        `, [item.id, item.messageKey, item.accountKey, item.threadKey, JSON.stringify(item.encryptedProviderRef),
+            item.classificationCode, item.confidenceBucket, item.prospectId, item.expiresAt,
+            item.createdAt, item.updatedAt, JSON.stringify(item)]);
+      } catch (error) {
+        if (error?.code === '23505') return { ok: false, reason: 'duplicate-message' };
+        throw error;
+      }
+      return { ok: true, item };
+    });
+  }
+
+  async findInboundWorkItemByMessageKey(messageKey) {
+    const result = await this.pool.query('SELECT data FROM inbound_work_items WHERE message_key=$1', [messageKey]);
+    return result.rows[0]?.data || null;
+  }
+
+  async deleteExpiredInboundWorkItems(asOfIso) {
+    const asOf = asOfIso || new Date().toISOString();
+    const result = await this.pool.query('DELETE FROM inbound_work_items WHERE expires_at <= $1', [asOf]);
+    return { ok: true, deleted: result.rowCount || 0 };
   }
 
   async setOutboundPaused(paused, reason = '') {

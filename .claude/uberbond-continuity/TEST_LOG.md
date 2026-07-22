@@ -305,3 +305,67 @@ Commands run:
 P0-08 ("real Gmail execution is not wired") is now genuinely closed: the production entry point
 composes a real reader/account pair when properly configured and approved, and fails closed
 otherwise -- proven end to end with fake HTTP, not just unit-tested in isolation.
+
+## 2026-07-22 — Part D: protected inboundWorkItems privacy architecture (P1-11)
+
+Confirmed the exact P1-11 finding before this fix: classify-and-suppress stored gmailId,
+threadId, and a redacted-but-not-removed from/subject directly into the generally-readable
+`replies` table (which has GET /api/replies/:id and GET /api/replies list routes in server.mjs).
+This is now replaced with a new protected inboundWorkItems collection
+(migrations/011_inbound_work_items.sql): keyed (HMAC-SHA256, same TOKEN_ENCRYPTION_KEY-derived
+construction already used by src/unsubscribe.mjs, added as crypto.mjs's new keyedHash export
+rather than inventing a second cryptographic format) messageKey/accountKey/threadKey for durable
+dedupe, an encrypted (not hashed -- reversible, needed only for a hypothetical future re-fetch)
+providerRef covering only {accountId, gmailId, threadId}, classificationCode, confidenceBucket,
+prospectId, and a retention expiresAt (default 30 days, new inboundWorkItemRetentionMs config).
+Added to PROTECTED_COLLECTIONS; dedicated createInboundWorkItem/findInboundWorkItemByMessageKey/
+deleteExpiredInboundWorkItems methods on both backends, unique index on message_key (real
+Postgres-enforced dedupe, not just app logic).
+
+Also fixed a genuine leak my own privacy-corpus hostile test (below) actually caught: the
+poll-inbound stage's checkpointed result (persisted onto the autonomyCycleRuns record, which is
+generally READABLE by any code with store access even though generic WRITES to it are blocked)
+stored raw {accountId, refId} pairs in the clear. Now encrypted per-ref before checkpointing;
+classify-and-suppress decrypts them back (never hashed here, since the real ID must be recoverable
+to actually fetch the message on a crash-resume).
+
+Added a real runtime digest-key validator (assertExactDigestKeys, exported) -- previously the
+digest was only implicitly count-only "by construction"; now an unknown key or a non-integer/
+negative count value in either the top-level digest or its nested counts object throws, proven by
+a test that deliberately injects an unknown key.
+
+Bug found and fixed along the way: several test fixtures' `encryptionKey: 'key'` (a short string,
+never valid) started throwing "TOKEN_ENCRYPTION_KEY must be 64 hex characters" the moment a real
+message actually reached the new keyedHash/encryptJson calls -- fixed to 'a'.repeat(64) via the
+existing convention used elsewhere in the test suite (my first attempted fix used a hand-typed hex
+literal that was silently 2 characters short; caught by actually running the tests, not assumed).
+
+New tests:
+- tests/inbound-work-items-store.test.mjs (8 tests): keyed/encrypted persistence shape; durable
+  dedupe by messageKey (app-level and, separately, real-Postgres-unique-index-level); missing-key
+  rejection; retention TTL sweep; STORE-06 generic add/upsert/patch rejected on both backends.
+- tests/inbound-privacy.test.mjs (6 tests): a realistic hostile message carrying the full required
+  corpus (name, email, phone, postal address, URL, OAuth token, API key, Unicode MIME-encoded
+  header, MIME filename, provider message/account/thread IDs) run through the real end-to-end
+  cycle, proving the corpus is absent from: the digest, the run's persisted stage output
+  (this is what caught the checkpoint leak above), notifications/owner-exception records, and the
+  protected work item itself (not even encrypted, for the content fields -- only the three
+  provider-identifying fields are encrypted, and only as ciphertext, never plaintext columns);
+  plus a direct test that assertExactDigestKeys genuinely rejects an injected unknown key.
+
+Commands run:
+- `node --test tests/inbound-work-items-store.test.mjs` -> 8/8 pass
+- `node --test tests/inbound-privacy.test.mjs` -> 6/6 pass (after the checkpoint-encryption fix;
+  1/6 genuinely failed before that fix, showing the corpus scan actually works)
+- `node --test tests/autonomy-cycle.test.mjs` -> 20/20 pass (existing "digest and per-stage
+  results are count-only" test rewritten to check inboundWorkItems instead of the now-unused
+  replies write path)
+- `npm run check` (full syntax + full deterministic suite) -> 323/323 pass, 0 fail
+- `node --test tests/p2-2-postgres-race.test.mjs` -> 5/5 pass, real isolated PostgreSQL,
+  re-verified against the two new migrations (010/011) together
+- `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff
+
+Note: src/pipeline.mjs (the separate, already-accepted P2.1 "autonomous reply sync" feature) still
+writes to the general `replies` table via its own independent logic -- confirmed unaffected by
+this change, since P2.2's autonomy-cycle.mjs only ever wrote to `replies` from within its own
+classify-and-suppress stage, never shared any code path with pipeline.mjs.

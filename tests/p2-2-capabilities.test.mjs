@@ -107,7 +107,7 @@ test('F-03: autonomy-cycle.mjs never imports the shared job queue, so it cannot 
 });
 
 test('full import list of autonomy-cycle.mjs contains only reviewed, send-incapable modules', () => {
-  const allowed = ["'./store.mjs'", "'./inbound-classify.mjs'", "'./verified-payments.mjs'", 'node:crypto'];
+  const allowed = ["'./store.mjs'", "'./inbound-classify.mjs'", "'./verified-payments.mjs'", "'./crypto.mjs'", 'node:crypto'];
   for (const line of importLines) {
     assert.ok(allowed.some(ok => line.includes(ok)), `unexpected import: ${line.trim()}`);
   }
@@ -122,6 +122,16 @@ test('P1-10: verified-payments.mjs itself is read-only -- no provider calls, no 
     assert.ok(!source.includes(mutator), `must never call ${mutator} -- this module is read-only`);
   }
   assert.ok(source.includes('store.list('), 'must actually read through the store, not just claim to');
+});
+
+test('P1-11: crypto.mjs has zero network capability and only the expected exports', async () => {
+  const source = await fs.readFile(path.join(here, '../src/crypto.mjs'), 'utf8');
+  const importLines2 = source.split('\n').filter(line => /^\s*import\b/.test(line));
+  assert.deepEqual(importLines2.map(line => line.trim()), ["import crypto from 'node:crypto';"]);
+  assert.ok(!source.includes('fetch('));
+  for (const exportName of ['encryptJson', 'decryptJson', 'keyedHash']) {
+    assert.ok(source.includes(`export function ${exportName}`), `must export ${exportName}`);
+  }
 });
 
 test('F-02: the stage list never runs outbound or follow-up processing', () => {

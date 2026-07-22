@@ -74,6 +74,10 @@ export const config = {
       maxOwnerExceptionsPerCycle: Math.max(1, num(env.INBOUND_MAX_OWNER_EXCEPTIONS_PER_CYCLE, 25)),
       maxPaymentSignalsPerCycle: Math.max(1, Math.min(500, num(env.INBOUND_MAX_PAYMENT_SIGNALS_PER_CYCLE, 25))),
       maxSummaryBytes: Math.max(512, num(env.INBOUND_MAX_SUMMARY_BYTES, 8192)),
+      // Retention TTL for protected inbound work items (P1-11) -- 30 days by default. Only
+      // enforced when something explicitly calls store.deleteExpiredInboundWorkItems(); nothing
+      // runs that on a schedule, since no schedule exists anywhere in this repair.
+      inboundWorkItemRetentionMs: Math.max(3600000, num(env.INBOUND_WORK_ITEM_RETENTION_MS, 30 * 24 * 60 * 60 * 1000)),
       leaseTtlMs: Math.max(10000, num(env.INBOUND_LEASE_TTL_MS, 120000)),
       // Default keeps the 4:1 lease-to-heartbeat ratio the repair spec calls for (30s against a
       // 120s TTL) regardless of what leaseTtlMs is overridden to, unless explicitly overridden itself.

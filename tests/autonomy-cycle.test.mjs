@@ -16,7 +16,7 @@ async function tempStore() {
 
 function baseCfg(overrides = {}) {
   return {
-    encryptionKey: 'key',
+    encryptionKey: 'a'.repeat(64),
     inbound: {
       provider: 'test', enabled: true, gmailReadEnabled: true,
       limits: {
@@ -286,10 +286,22 @@ test('digest and per-stage results are count-only and contain no email addresses
   const serializedDigest = JSON.stringify(result.digest);
   assert.ok(!/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i.test(serializedDigest), 'digest must contain no email address');
   assert.ok(!/https?:\/\//i.test(serializedDigest), 'digest must contain no URL');
-  const stored = await store.list('replies');
-  assert.equal(stored[0].body, '', 'stored reply body must be empty, never the raw message text');
-  const serializedFrom = JSON.stringify(stored[0].from);
-  assert.ok(!/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i.test(serializedFrom), 'stored from header must be redacted');
+  // P1-11: the durable internal record (inboundWorkItems) holds no raw or redacted message
+  // content at all -- not even a redacted `from`/`subject` string -- only keyed hashes, an
+  // encrypted reference, and normalized classification fields. See tests/inbound-privacy.test.mjs
+  // for the full hostile privacy corpus proof.
+  const stored = await store.list('inboundWorkItems');
+  assert.equal(stored.length, 1);
+  const item = stored[0];
+  assert.equal(Object.prototype.hasOwnProperty.call(item, 'from'), false);
+  assert.equal(Object.prototype.hasOwnProperty.call(item, 'subject'), false);
+  assert.equal(Object.prototype.hasOwnProperty.call(item, 'body'), false);
+  assert.equal(Object.prototype.hasOwnProperty.call(item, 'gmailId'), false);
+  const serializedItem = JSON.stringify(item);
+  assert.ok(!serializedItem.includes('someone@example.com'), 'no raw email in the stored work item');
+  assert.ok(!/https?:\/\//i.test(serializedItem), 'no raw URL in the stored work item');
+  assert.equal(item.classificationCode, 'unknown');
+  assert.ok(['low', 'medium', 'high'].includes(item.confidenceBucket));
 });
 
 test('redactText strips emails, URLs, and token/secret assignments', () => {

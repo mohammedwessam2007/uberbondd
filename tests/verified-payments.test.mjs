@@ -28,7 +28,7 @@ function paidOrder(overrides = {}) {
 
 function baseCfg(overrides = {}) {
   return {
-    encryptionKey: 'key',
+    encryptionKey: 'a'.repeat(64),
     inbound: {
       provider: 'test', enabled: false, gmailReadEnabled: false,
       limits: {

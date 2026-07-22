@@ -10,3 +10,11 @@ export function decryptJson(blob, hex) {
   decipher.setAuthTag(Buffer.from(blob.tag,'base64'));
   return JSON.parse(Buffer.concat([decipher.update(Buffer.from(blob.data,'base64')),decipher.final()]).toString('utf8'));
 }
+// Same keyed-secret (TOKEN_ENCRYPTION_KEY) and HMAC construction already used by
+// src/unsubscribe.mjs for signed links -- reused here for dedupe identifiers (P1-11) rather than
+// inventing a second cryptographic format. Deterministic (same input+key always hashes the same),
+// which is required for dedupe lookups, but one-way: the original provider ID cannot be recovered
+// from the hash alone.
+export function keyedHash(value, hex) {
+  return crypto.createHmac('sha256', keyFrom(hex)).update(String(value ?? '')).digest('base64url');
+}

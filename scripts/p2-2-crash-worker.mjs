@@ -21,7 +21,7 @@ process.stdout.write('crash-worker: starting cycle\n');
 await runAutonomyCycle({
   store,
   cfg: {
-    encryptionKey: 'key',
+    encryptionKey: 'a'.repeat(64),
     inbound: {
       provider: 'test', enabled: true, gmailReadEnabled: true,
       limits: {

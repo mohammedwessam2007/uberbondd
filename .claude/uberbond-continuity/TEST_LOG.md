@@ -215,3 +215,29 @@ Commands run:
 - `node --test tests/p2-2-capabilities.test.mjs` -> 16/16 pass
 - `npm run check` (full syntax + full deterministic suite) -> 281/281 pass, 0 fail
 - `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff
+
+## 2026-07-22 — Part A: protected inboundAccounts repository (P0-08/P1-09 groundwork)
+
+New migrations/010_inbound_accounts.sql: inbound_accounts table with unique (provider,
+account_identity), approval_status/active columns, encrypted_tokens jsonb (ciphertext only, no
+plaintext token column), token_expires_at, token_version. Added 'inboundAccounts' to
+PROTECTED_COLLECTIONS in src/store.mjs.
+
+Dedicated methods on both JSON and PostgreSQL backends: createInboundAccount,
+readInboundAccount, listApprovedActiveInboundAccounts, replaceInboundAccountTokenCAS (fenced
+on accountId+expectedVersion), disableInboundAccount. No separate "approve" mutation method by
+design -- approval is an input to creation only, never a field flippable through any other path.
+
+New tests/inbound-accounts-store.test.mjs (11 tests): default pending/inactive vs explicit
+approved creation; duplicate (provider,accountIdentity) rejected; missing identity rejected;
+listApprovedActive filters correctly; STORE-05 generic add/upsert/patch rejected on both backends;
+token CAS one-refresh-persists + stale-version-rejected; GM-09 concurrent refresh CAS real
+PostgreSQL race (exactly one winner, version advances once not twice); disable revokes and drops
+from the approved-active list; missing-account reads/CAS reported not thrown; token material
+never appears as plaintext in any returned record.
+
+Commands run:
+- `node --test tests/inbound-accounts-store.test.mjs` -> 11/11 pass (incl. real PGlite-backed
+  PostgreSQL concurrent-CAS race test)
+- `npm run check` (full syntax + full deterministic suite) -> 292/292 pass, 0 fail
+- `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff

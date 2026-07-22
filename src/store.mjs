@@ -9,16 +9,16 @@ export const COLLECTIONS = [
   'prospects', 'campaigns', 'jobs', 'messages', 'replies', 'suppressions',
   'socialTasks', 'accounts', 'auditLog', 'leads', 'orders', 'subscriptions',
   'offers', 'deliveries', 'monitoringRuns', 'notifications', 'revenueEvents', 'discoveryRuns', 'workerHeartbeats',
-  'outboundReservations', 'senderHealth', 'outboundEvents', 'experiments', 'autonomyCycleRuns'
+  'outboundReservations', 'senderHealth', 'outboundEvents', 'experiments', 'autonomyCycleRuns', 'inboundAccounts'
 ];
 
 const EMPTY = {
-  version: 9,
+  version: 10,
   prospects: [], campaigns: [], jobs: [], messages: [], replies: [],
   suppressions: [], socialTasks: [], accounts: [], auditLog: [], settings: {},
   leads: [], orders: [], subscriptions: [], offers: [], deliveries: [], monitoringRuns: [], notifications: [],
   revenueEvents: [], discoveryRuns: [], workerHeartbeats: [],
-  outboundReservations: [], senderHealth: [], outboundEvents: [], experiments: [], autonomyCycleRuns: []
+  outboundReservations: [], senderHealth: [], outboundEvents: [], experiments: [], autonomyCycleRuns: [], inboundAccounts: []
 };
 
 const MAP = {
@@ -110,12 +110,24 @@ const MAP = {
       digestWrittenAt: 'digest_written_at', startedAt: 'started_at', createdAt: 'created_at', updatedAt: 'updated_at'
     }
   },
+  // Read-only via the generic list/get/count below. Writes always go through the dedicated
+  // create/read/replaceTokenCAS/disable methods further down (never generic add/patch) -- token
+  // material has its own CAS/versioning rules the generic path doesn't know about, and must never
+  // be reachable through a generic upsert.
+  inboundAccounts: {
+    table: 'inbound_accounts',
+    columns: {
+      provider: 'provider', accountIdentity: 'account_identity', approvalStatus: 'approval_status',
+      active: 'active', tokenExpiresAt: 'token_expires_at', tokenVersion: 'token_version',
+      createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
 };
 
 // Collections with singleton, lease, or CAS invariants that the generic add/upsert/patch path
 // cannot know about. Every write must go through their dedicated methods; the generic path is
 // read-only for these keys in both backends.
-export const PROTECTED_COLLECTIONS = new Set(['autonomyCycleRuns']);
+export const PROTECTED_COLLECTIONS = new Set(['autonomyCycleRuns', 'inboundAccounts']);
 
 function assertGenericMutationAllowed(key) {
   if (PROTECTED_COLLECTIONS.has(key)) {
@@ -312,6 +324,11 @@ class JsonTransactionStore {
   async patchAutonomyCycleRun(id, fence, patch = {}) { return this.parent._patchAutonomyCycleRunDirect(id, fence, patch); }
   async heartbeatAutonomyCycleRun(id, fence, leaseTtlMs = 120000) { return this.parent._heartbeatAutonomyCycleRunDirect(id, fence, leaseTtlMs); }
   async reclaimStaleAutonomyCycleRun(newLeaseOwner, leaseTtlMs = 300000) { return this.parent._reclaimStaleAutonomyCycleRunDirect(newLeaseOwner, leaseTtlMs); }
+  async createInboundAccount(input = {}) { return this.parent._createInboundAccountDirect(input); }
+  async readInboundAccount(accountId) { return this.parent._readInboundAccountDirect(accountId); }
+  async listApprovedActiveInboundAccounts() { return this.parent._listApprovedActiveInboundAccountsDirect(); }
+  async replaceInboundAccountTokenCAS(input = {}) { return this.parent._replaceInboundAccountTokenCASDirect(input); }
+  async disableInboundAccount(accountId) { return this.parent._disableInboundAccountDirect(accountId); }
   async transaction(fn) { return fn(this); }
   async tx(fn) { return fn(this.parent.data); }
 }
@@ -847,6 +864,69 @@ export class JsonStore {
     return { ok: true, run: structuredClone(run) };
   }
 
+  // One row per (provider, accountIdentity). approvalStatus/active default to pending/false
+  // unless the caller explicitly passes an already-approved state (e.g. an owner-run approval
+  // tool creating the row directly) -- there is no separate "approve" mutation method, by design:
+  // approval is an input to creation, not a generic-collection field anyone could flip later.
+  _createInboundAccountDirect(input = {}) {
+    const provider = String(input.provider || 'gmail');
+    const accountIdentity = String(input.accountIdentity || '');
+    if (!accountIdentity) return { ok: false, reason: 'missing-account-identity' };
+    const accounts = this.data.inboundAccounts || (this.data.inboundAccounts = []);
+    const existing = accounts.find(item => item.provider === provider && item.accountIdentity === accountIdentity);
+    if (existing) return { ok: false, reason: 'duplicate-account', account: structuredClone(existing) };
+    const approved = input.approvalStatus === 'approved';
+    const timestamp = now();
+    const account = {
+      id: crypto.randomUUID(), provider, accountIdentity,
+      approvalStatus: approved ? 'approved' : 'pending',
+      active: approved ? Boolean(input.active) : false,
+      encryptedTokens: input.encryptedTokens || null,
+      tokenExpiresAt: input.tokenExpiresAt || null,
+      tokenVersion: 0,
+      createdAt: timestamp, updatedAt: timestamp
+    };
+    accounts.push(account);
+    return { ok: true, account: structuredClone(account) };
+  }
+
+  _readInboundAccountDirect(accountId) {
+    const account = (this.data.inboundAccounts || []).find(item => item.id === accountId);
+    return account ? structuredClone(account) : null;
+  }
+
+  _listApprovedActiveInboundAccountsDirect() {
+    return (this.data.inboundAccounts || [])
+      .filter(item => item.approvalStatus === 'approved' && item.active === true)
+      .map(item => structuredClone(item));
+  }
+
+  // CAS on accountId + expectedVersion: a losing concurrent refresher gets version-conflict and
+  // must reload the account (which now carries the winner's tokens) rather than overwrite it.
+  // Token material never appears in the return value's account.encryptedTokens key name change --
+  // it's the same ciphertext blob shape the caller already had, never plaintext, never logged.
+  _replaceInboundAccountTokenCASDirect({ accountId, expectedVersion, encryptedTokens, tokenExpiresAt } = {}) {
+    const account = (this.data.inboundAccounts || []).find(item => item.id === accountId);
+    if (!account) return { ok: false, reason: 'not-found' };
+    if (Number(account.tokenVersion) !== Number(expectedVersion)) {
+      return { ok: false, reason: 'version-conflict', account: structuredClone(account) };
+    }
+    account.encryptedTokens = encryptedTokens;
+    account.tokenExpiresAt = tokenExpiresAt || null;
+    account.tokenVersion = Number(account.tokenVersion) + 1;
+    account.updatedAt = now();
+    return { ok: true, account: structuredClone(account) };
+  }
+
+  _disableInboundAccountDirect(accountId) {
+    const account = (this.data.inboundAccounts || []).find(item => item.id === accountId);
+    if (!account) return { ok: false, reason: 'not-found' };
+    account.active = false;
+    account.approvalStatus = 'revoked';
+    account.updatedAt = now();
+    return { ok: true, account: structuredClone(account) };
+  }
+
   async putArtifact() { return null; }
   async getArtifact() { return null; }
   async deleteExpiredArtifacts() { return 0; }
@@ -885,6 +965,11 @@ export class JsonStore {
   async patchAutonomyCycleRun(id, fence, patch = {}) { return this.transaction(tx => tx.patchAutonomyCycleRun(id, fence, patch)); }
   async heartbeatAutonomyCycleRun(id, fence, leaseTtlMs = 120000) { return this.transaction(tx => tx.heartbeatAutonomyCycleRun(id, fence, leaseTtlMs)); }
   async reclaimStaleAutonomyCycleRun(newLeaseOwner, leaseTtlMs = 300000) { return this.transaction(tx => tx.reclaimStaleAutonomyCycleRun(newLeaseOwner, leaseTtlMs)); }
+  async createInboundAccount(input = {}) { return this.transaction(tx => tx.createInboundAccount(input)); }
+  async readInboundAccount(accountId) { return this.transaction(tx => tx.readInboundAccount(accountId)); }
+  async listApprovedActiveInboundAccounts() { return this.transaction(tx => tx.listApprovedActiveInboundAccounts()); }
+  async replaceInboundAccountTokenCAS(input = {}) { return this.transaction(tx => tx.replaceInboundAccountTokenCAS(input)); }
+  async disableInboundAccount(accountId) { return this.transaction(tx => tx.disableInboundAccount(accountId)); }
   async setOutboundPaused(paused, reason = '') { await this.setSetting('outboundPaused', Boolean(paused)); await this.setSetting('outboundPauseReason', String(reason || '')); return { paused: Boolean(paused), reason }; }
   async setSenderPaused(inbox, paused, reason = '') {
     const existing = await this.findOne('senderHealth', { inbox });
@@ -1653,6 +1738,84 @@ export class PostgresStore {
         WHERE id=$1
       `, [run.id, run.leaseOwner, run.leaseEpoch, run.leaseExpiresAt, run.version, run.updatedAt, JSON.stringify(run)]);
       return { ok: true, run };
+    });
+  }
+
+  // One row per (provider, accountIdentity), enforced by inbound_accounts_provider_identity_idx --
+  // a duplicate insert hits that constraint rather than racing an application-level check.
+  async createInboundAccount(input = {}) {
+    const provider = String(input.provider || 'gmail');
+    const accountIdentity = String(input.accountIdentity || '');
+    if (!accountIdentity) return { ok: false, reason: 'missing-account-identity' };
+    const approved = input.approvalStatus === 'approved';
+    return this.transaction(async tx => {
+      const timestamp = now();
+      const account = {
+        id: crypto.randomUUID(), provider, accountIdentity,
+        approvalStatus: approved ? 'approved' : 'pending',
+        active: approved ? Boolean(input.active) : false,
+        encryptedTokens: input.encryptedTokens || null,
+        tokenExpiresAt: input.tokenExpiresAt || null,
+        tokenVersion: 0,
+        createdAt: timestamp, updatedAt: timestamp
+      };
+      try {
+        await tx.pool.query(`
+          INSERT INTO inbound_accounts
+            (id, provider, account_identity, approval_status, active, encrypted_tokens, token_expires_at, token_version, created_at, updated_at, data)
+          VALUES ($1,$2,$3,$4,$5,$6::jsonb,$7,$8,$9,$10,$11::jsonb)
+        `, [account.id, account.provider, account.accountIdentity, account.approvalStatus, account.active,
+            JSON.stringify(account.encryptedTokens), account.tokenExpiresAt, account.tokenVersion,
+            account.createdAt, account.updatedAt, JSON.stringify(account)]);
+      } catch (error) {
+        if (error?.code === '23505') return { ok: false, reason: 'duplicate-account' };
+        throw error;
+      }
+      return { ok: true, account };
+    });
+  }
+
+  async readInboundAccount(accountId) {
+    const result = await this.pool.query('SELECT data FROM inbound_accounts WHERE id=$1', [accountId]);
+    return result.rows[0]?.data || null;
+  }
+
+  async listApprovedActiveInboundAccounts() {
+    const result = await this.pool.query("SELECT data FROM inbound_accounts WHERE approval_status='approved' AND active=true");
+    return result.rows.map(row => row.data);
+  }
+
+  // Fenced on accountId + expectedVersion in the WHERE clause of the UPDATE itself -- a losing
+  // concurrent refresher's UPDATE simply matches zero rows and must reload the winner's account.
+  async replaceInboundAccountTokenCAS({ accountId, expectedVersion, encryptedTokens, tokenExpiresAt } = {}) {
+    return this.transaction(async tx => {
+      const result = await tx.pool.query('SELECT data, token_version FROM inbound_accounts WHERE id=$1 FOR UPDATE', [accountId]);
+      const row = result.rows[0];
+      if (!row) return { ok: false, reason: 'not-found' };
+      if (Number(row.token_version) !== Number(expectedVersion)) {
+        return { ok: false, reason: 'version-conflict', account: row.data };
+      }
+      const account = { ...row.data, encryptedTokens, tokenExpiresAt: tokenExpiresAt || null, tokenVersion: Number(row.token_version) + 1, updatedAt: now() };
+      const updated = await tx.pool.query(`
+        UPDATE inbound_accounts SET encrypted_tokens=$3::jsonb, token_expires_at=$4, token_version=$5, updated_at=$6, data=$7::jsonb
+        WHERE id=$1 AND token_version=$2
+        RETURNING data
+      `, [accountId, expectedVersion, JSON.stringify(encryptedTokens), account.tokenExpiresAt, account.tokenVersion, account.updatedAt, JSON.stringify(account)]);
+      if (!updated.rows[0]) return { ok: false, reason: 'version-conflict', account: row.data };
+      return { ok: true, account: updated.rows[0].data };
+    });
+  }
+
+  async disableInboundAccount(accountId) {
+    return this.transaction(async tx => {
+      const result = await tx.pool.query('SELECT data FROM inbound_accounts WHERE id=$1 FOR UPDATE', [accountId]);
+      const row = result.rows[0];
+      if (!row) return { ok: false, reason: 'not-found' };
+      const account = { ...row.data, active: false, approvalStatus: 'revoked', updatedAt: now() };
+      await tx.pool.query(`
+        UPDATE inbound_accounts SET active=false, approval_status='revoked', updated_at=$2, data=$3::jsonb WHERE id=$1
+      `, [accountId, account.updatedAt, JSON.stringify(account)]);
+      return { ok: true, account };
     });
   }
 

@@ -9,16 +9,16 @@ export const COLLECTIONS = [
   'prospects', 'campaigns', 'jobs', 'messages', 'replies', 'suppressions',
   'socialTasks', 'accounts', 'auditLog', 'leads', 'orders', 'subscriptions',
   'offers', 'deliveries', 'monitoringRuns', 'notifications', 'revenueEvents', 'discoveryRuns', 'workerHeartbeats',
-  'outboundReservations', 'senderHealth', 'outboundEvents', 'experiments'
+  'outboundReservations', 'senderHealth', 'outboundEvents', 'experiments', 'autonomyCycleRuns', 'inboundAccounts', 'inboundWorkItems'
 ];
 
 const EMPTY = {
-  version: 8,
+  version: 11,
   prospects: [], campaigns: [], jobs: [], messages: [], replies: [],
   suppressions: [], socialTasks: [], accounts: [], auditLog: [], settings: {},
   leads: [], orders: [], subscriptions: [], offers: [], deliveries: [], monitoringRuns: [], notifications: [],
   revenueEvents: [], discoveryRuns: [], workerHeartbeats: [],
-  outboundReservations: [], senderHealth: [], outboundEvents: [], experiments: []
+  outboundReservations: [], senderHealth: [], outboundEvents: [], experiments: [], autonomyCycleRuns: [], inboundAccounts: [], inboundWorkItems: []
 };
 
 const MAP = {
@@ -99,7 +99,53 @@ const MAP = {
       createdAt: 'created_at', updatedAt: 'updated_at'
     }
   },
+  // Read-only via the generic list/get/count below. Writes always go through the dedicated
+  // create/patch/reclaim methods further down (never generic add/patch) because this collection
+  // has singleton and compare-and-swap rules the generic path doesn't know about.
+  autonomyCycleRuns: {
+    table: 'autonomy_cycle_runs',
+    columns: {
+      runKey: 'run_key', status: 'status', version: 'version', checkpointVersion: 'checkpoint_version',
+      leaseOwner: 'lease_owner', leaseExpiresAt: 'lease_expires_at', finalizedAt: 'finalized_at',
+      digestWrittenAt: 'digest_written_at', startedAt: 'started_at', createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
+  // Read-only via the generic list/get/count below. Writes always go through the dedicated
+  // create/read/replaceTokenCAS/disable methods further down (never generic add/patch) -- token
+  // material has its own CAS/versioning rules the generic path doesn't know about, and must never
+  // be reachable through a generic upsert.
+  inboundAccounts: {
+    table: 'inbound_accounts',
+    columns: {
+      provider: 'provider', accountIdentity: 'account_identity', approvalStatus: 'approval_status',
+      active: 'active', tokenExpiresAt: 'token_expires_at', tokenVersion: 'token_version',
+      createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
+  // Read-only via the generic list/get/count below. Writes go only through
+  // createInboundWorkItem/deleteExpiredInboundWorkItems -- never generic add/patch. Holds no raw
+  // or redacted message content; see migrations/011_inbound_work_items.sql for exactly what is
+  // (and is deliberately not) stored here.
+  inboundWorkItems: {
+    table: 'inbound_work_items',
+    columns: {
+      messageKey: 'message_key', accountKey: 'account_key', threadKey: 'thread_key',
+      classificationCode: 'classification_code', confidenceBucket: 'confidence_bucket',
+      prospectId: 'prospect_id', expiresAt: 'expires_at', createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
 };
+
+// Collections with singleton, lease, or CAS invariants that the generic add/upsert/patch path
+// cannot know about. Every write must go through their dedicated methods; the generic path is
+// read-only for these keys in both backends.
+export const PROTECTED_COLLECTIONS = new Set(['autonomyCycleRuns', 'inboundAccounts', 'inboundWorkItems']);
+
+function assertGenericMutationAllowed(key) {
+  if (PROTECTED_COLLECTIONS.has(key)) {
+    throw new StoreError(`${key} does not accept generic writes; use its dedicated methods`, 'PROTECTED_COLLECTION');
+  }
+}
 
 export class StoreError extends Error {
   constructor(message, code = 'STORE_ERROR', cause) {
@@ -286,6 +332,18 @@ class JsonTransactionStore {
   async suppressOutbound(input = {}) { return this.parent._suppressOutboundDirect(input); }
   async recordReplyAndStop(record, prospectPatch = {}) { return this.parent._recordReplyAndStopDirect(record, prospectPatch); }
   async recordOutboundEvent(input, thresholds = {}) { return this.parent._recordOutboundEventDirect(input, thresholds); }
+  async createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs = 300000, deadlineMs = 300000) { return this.parent._createAutonomyCycleRunDirect(runKey, leaseOwner, leaseTtlMs, deadlineMs); }
+  async patchAutonomyCycleRun(id, fence, patch = {}) { return this.parent._patchAutonomyCycleRunDirect(id, fence, patch); }
+  async heartbeatAutonomyCycleRun(id, fence, leaseTtlMs = 120000) { return this.parent._heartbeatAutonomyCycleRunDirect(id, fence, leaseTtlMs); }
+  async reclaimStaleAutonomyCycleRun(newLeaseOwner, leaseTtlMs = 300000) { return this.parent._reclaimStaleAutonomyCycleRunDirect(newLeaseOwner, leaseTtlMs); }
+  async createInboundAccount(input = {}) { return this.parent._createInboundAccountDirect(input); }
+  async readInboundAccount(accountId) { return this.parent._readInboundAccountDirect(accountId); }
+  async listApprovedActiveInboundAccounts() { return this.parent._listApprovedActiveInboundAccountsDirect(); }
+  async replaceInboundAccountTokenCAS(input = {}) { return this.parent._replaceInboundAccountTokenCASDirect(input); }
+  async disableInboundAccount(accountId) { return this.parent._disableInboundAccountDirect(accountId); }
+  async createInboundWorkItem(input = {}) { return this.parent._createInboundWorkItemDirect(input); }
+  async findInboundWorkItemByMessageKey(messageKey) { return this.parent._findInboundWorkItemByMessageKeyDirect(messageKey); }
+  async deleteExpiredInboundWorkItems(asOfIso) { return this.parent._deleteExpiredInboundWorkItemsDirect(asOfIso); }
   async transaction(fn) { return fn(this); }
   async tx(fn) { return fn(this.parent.data); }
 }
@@ -373,6 +431,7 @@ export class JsonStore {
   }
 
   _addDirect(key, item) {
+    assertGenericMutationAllowed(key);
     if (!Array.isArray(this.data[key])) this.data[key] = [];
     const record = normalizeRecord(key, item);
     this._checkUnique(key, record);
@@ -381,6 +440,7 @@ export class JsonStore {
   }
 
   _upsertDirect(key, item) {
+    assertGenericMutationAllowed(key);
     if (!Array.isArray(this.data[key])) this.data[key] = [];
     const record = normalizeRecord(key, item);
     const index = this.data[key].findIndex(existing => existing.id === record.id);
@@ -391,6 +451,7 @@ export class JsonStore {
   }
 
   _patchDirect(key, id, patch) {
+    assertGenericMutationAllowed(key);
     const item = (this.data[key] || []).find(existing => existing.id === id);
     if (!item) return null;
     const record = normalizeRecord(key, { ...item, ...patch, updatedAt: now() });
@@ -732,6 +793,194 @@ export class JsonStore {
     return structuredClone(health);
   }
 
+  // Database-enforced (here: single-process-JSON-enforced) singleton: only one autonomy_cycle_runs
+  // row may have status 'active' at a time, regardless of runKey. Reusing a runKey is rejected too,
+  // so retrying the same logical cycle is idempotent rather than creating a second row.
+  _createAutonomyCycleRunDirect(runKey, leaseOwner, leaseTtlMs = 300000, deadlineMs = 300000) {
+    const key = String(runKey || '');
+    if (!key) return { ok: false, reason: 'missing-run-key' };
+    const runs = this.data.autonomyCycleRuns || (this.data.autonomyCycleRuns = []);
+    const activeElsewhere = runs.find(item => item.status === 'active');
+    if (activeElsewhere) return { ok: false, reason: 'cycle-already-active', run: structuredClone(activeElsewhere) };
+    const existing = runs.find(item => item.runKey === key);
+    if (existing) return { ok: false, reason: `duplicate-run-key-${existing.status}`, run: structuredClone(existing) };
+    const timestamp = now();
+    const run = {
+      id: crypto.randomUUID(), runKey: key, status: 'active', version: 0, checkpointVersion: 1,
+      leaseOwner: String(leaseOwner || ''), leaseEpoch: 1,
+      leaseExpiresAt: new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 300000)).toISOString(),
+      attemptStartedAt: timestamp, deadlineAt: new Date(Date.now() + Math.max(1000, Number(deadlineMs) || 300000)).toISOString(),
+      finalizedAt: null, digestWrittenAt: null, terminalReason: null, stages: {}, extra: {},
+      startedAt: timestamp, createdAt: timestamp, updatedAt: timestamp
+    };
+    runs.push(run);
+    return { ok: true, run: structuredClone(run) };
+  }
+
+  // Compare-and-swap: the caller must present the exact owner+epoch+version it last read, not
+  // just the version. This is what stops an old worker that lost its lease (a new epoch was
+  // issued via reclaim) from re-establishing itself just because it still knows the last version
+  // number -- version alone repeats across epochs, but owner+epoch does not. A finalized run can
+  // never be patched again regardless of a matching fence.
+  _patchAutonomyCycleRunDirect(id, fence = {}, patch = {}) {
+    const run = (this.data.autonomyCycleRuns || []).find(item => item.id === id);
+    if (!run) return { ok: false, reason: 'not-found' };
+    if (run.finalizedAt) return { ok: false, reason: 'already-finalized', run: structuredClone(run) };
+    if (run.status !== 'active') return { ok: false, reason: 'not-active', run: structuredClone(run) };
+    if (String(run.leaseOwner) !== String(fence.owner || '')) return { ok: false, reason: 'lease-lost', run: structuredClone(run) };
+    if (Number(run.leaseEpoch) !== Number(fence.epoch)) return { ok: false, reason: 'lease-lost', run: structuredClone(run) };
+    if (Number(run.version) !== Number(fence.version)) return { ok: false, reason: 'version-conflict', run: structuredClone(run) };
+    if (Date.parse(run.leaseExpiresAt || 0) <= Date.now()) return { ok: false, reason: 'lease-lost', run: structuredClone(run) };
+    if (patch.status !== undefined) run.status = patch.status;
+    if (patch.stagesPatch && typeof patch.stagesPatch === 'object') run.stages = { ...run.stages, ...patch.stagesPatch };
+    if (patch.extraPatch && typeof patch.extraPatch === 'object') run.extra = { ...run.extra, ...patch.extraPatch };
+    if (patch.leaseOwner !== undefined) run.leaseOwner = patch.leaseOwner;
+    if (patch.leaseExpiresAt !== undefined) run.leaseExpiresAt = patch.leaseExpiresAt;
+    if (patch.finalizedAt !== undefined) run.finalizedAt = patch.finalizedAt;
+    if (patch.digestWrittenAt !== undefined) run.digestWrittenAt = patch.digestWrittenAt;
+    if (patch.terminalReason !== undefined) run.terminalReason = patch.terminalReason;
+    run.version = Number(run.version) + 1;
+    run.updatedAt = now();
+    return { ok: true, run: structuredClone(run) };
+  }
+
+  // Independent of stage progress: a healthy worker calls this every leaseTtlMs/4 (30s against a
+  // 120s TTL by default) purely to keep its lease alive. A rejected heartbeat (wrong owner/epoch,
+  // stale version, expired lease, or non-active status) must make the caller abort its current
+  // stage immediately -- it does not get to keep working on the strength of a heartbeat that failed.
+  _heartbeatAutonomyCycleRunDirect(id, fence = {}, leaseTtlMs = 120000) {
+    const run = (this.data.autonomyCycleRuns || []).find(item => item.id === id);
+    if (!run) return { ok: false, reason: 'not-found' };
+    if (run.status !== 'active') return { ok: false, reason: 'not-active', run: structuredClone(run) };
+    if (String(run.leaseOwner) !== String(fence.owner || '')) return { ok: false, reason: 'lease-lost', run: structuredClone(run) };
+    if (Number(run.leaseEpoch) !== Number(fence.epoch)) return { ok: false, reason: 'lease-lost', run: structuredClone(run) };
+    if (Number(run.version) !== Number(fence.version)) return { ok: false, reason: 'version-conflict', run: structuredClone(run) };
+    if (Date.parse(run.leaseExpiresAt || 0) <= Date.now()) return { ok: false, reason: 'lease-lost', run: structuredClone(run) };
+    run.leaseExpiresAt = new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 120000)).toISOString();
+    run.version = Number(run.version) + 1;
+    run.updatedAt = now();
+    return { ok: true, run: structuredClone(run) };
+  }
+
+  // Recovers a run whose owning process crashed or stalled (lease expired) without waiting for
+  // it to time out through any other mechanism. Only ever touches a run that is still 'active'
+  // and already past its lease — never a completed/failed/aborted one. Incrementing leaseEpoch
+  // (not just version) is what makes the crashed worker's fence permanently stale: even if it
+  // somehow still had the right version number, its epoch can never match again.
+  _reclaimStaleAutonomyCycleRunDirect(newLeaseOwner, leaseTtlMs = 300000) {
+    const nowMs = Date.now();
+    const run = (this.data.autonomyCycleRuns || []).find(item => item.status === 'active' && Date.parse(item.leaseExpiresAt || 0) < nowMs);
+    if (!run) return { ok: false, reason: 'no-stale-lease' };
+    run.leaseOwner = String(newLeaseOwner || '');
+    run.leaseEpoch = Number(run.leaseEpoch || 0) + 1;
+    run.leaseExpiresAt = new Date(nowMs + Math.max(1000, Number(leaseTtlMs) || 300000)).toISOString();
+    run.version = Number(run.version) + 1;
+    run.updatedAt = now();
+    return { ok: true, run: structuredClone(run) };
+  }
+
+  // One row per (provider, accountIdentity). approvalStatus/active default to pending/false
+  // unless the caller explicitly passes an already-approved state (e.g. an owner-run approval
+  // tool creating the row directly) -- there is no separate "approve" mutation method, by design:
+  // approval is an input to creation, not a generic-collection field anyone could flip later.
+  _createInboundAccountDirect(input = {}) {
+    const provider = String(input.provider || 'gmail');
+    const accountIdentity = String(input.accountIdentity || '');
+    if (!accountIdentity) return { ok: false, reason: 'missing-account-identity' };
+    const accounts = this.data.inboundAccounts || (this.data.inboundAccounts = []);
+    const existing = accounts.find(item => item.provider === provider && item.accountIdentity === accountIdentity);
+    if (existing) return { ok: false, reason: 'duplicate-account', account: structuredClone(existing) };
+    const approved = input.approvalStatus === 'approved';
+    const timestamp = now();
+    const account = {
+      id: crypto.randomUUID(), provider, accountIdentity,
+      approvalStatus: approved ? 'approved' : 'pending',
+      active: approved ? Boolean(input.active) : false,
+      encryptedTokens: input.encryptedTokens || null,
+      tokenExpiresAt: input.tokenExpiresAt || null,
+      tokenVersion: 0,
+      createdAt: timestamp, updatedAt: timestamp
+    };
+    accounts.push(account);
+    return { ok: true, account: structuredClone(account) };
+  }
+
+  _readInboundAccountDirect(accountId) {
+    const account = (this.data.inboundAccounts || []).find(item => item.id === accountId);
+    return account ? structuredClone(account) : null;
+  }
+
+  _listApprovedActiveInboundAccountsDirect() {
+    return (this.data.inboundAccounts || [])
+      .filter(item => item.approvalStatus === 'approved' && item.active === true)
+      .map(item => structuredClone(item));
+  }
+
+  // CAS on accountId + expectedVersion: a losing concurrent refresher gets version-conflict and
+  // must reload the account (which now carries the winner's tokens) rather than overwrite it.
+  // Token material never appears in the return value's account.encryptedTokens key name change --
+  // it's the same ciphertext blob shape the caller already had, never plaintext, never logged.
+  _replaceInboundAccountTokenCASDirect({ accountId, expectedVersion, encryptedTokens, tokenExpiresAt } = {}) {
+    const account = (this.data.inboundAccounts || []).find(item => item.id === accountId);
+    if (!account) return { ok: false, reason: 'not-found' };
+    if (Number(account.tokenVersion) !== Number(expectedVersion)) {
+      return { ok: false, reason: 'version-conflict', account: structuredClone(account) };
+    }
+    account.encryptedTokens = encryptedTokens;
+    account.tokenExpiresAt = tokenExpiresAt || null;
+    account.tokenVersion = Number(account.tokenVersion) + 1;
+    account.updatedAt = now();
+    return { ok: true, account: structuredClone(account) };
+  }
+
+  _disableInboundAccountDirect(accountId) {
+    const account = (this.data.inboundAccounts || []).find(item => item.id === accountId);
+    if (!account) return { ok: false, reason: 'not-found' };
+    account.active = false;
+    account.approvalStatus = 'revoked';
+    account.updatedAt = now();
+    return { ok: true, account: structuredClone(account) };
+  }
+
+  // One row per messageKey (the durable half of dedupe -- the caller's own in-cycle loop is the
+  // other half). Returns {ok:false, reason:'duplicate-message'} rather than throwing, exactly
+  // like the caller's existing `existing = await store.findOne('replies', {gmailId})` pattern
+  // used to, so classify-and-suppress's control flow barely changes.
+  _createInboundWorkItemDirect(input = {}) {
+    const messageKey = String(input.messageKey || '');
+    if (!messageKey) return { ok: false, reason: 'missing-message-key' };
+    const items = this.data.inboundWorkItems || (this.data.inboundWorkItems = []);
+    const existing = items.find(item => item.messageKey === messageKey);
+    if (existing) return { ok: false, reason: 'duplicate-message', item: structuredClone(existing) };
+    const timestamp = now();
+    const item = {
+      id: crypto.randomUUID(), messageKey,
+      accountKey: String(input.accountKey || ''), threadKey: input.threadKey || null,
+      encryptedProviderRef: input.encryptedProviderRef || null,
+      classificationCode: input.classificationCode, confidenceBucket: input.confidenceBucket,
+      prospectId: input.prospectId || null, expiresAt: input.expiresAt,
+      createdAt: timestamp, updatedAt: timestamp
+    };
+    items.push(item);
+    return { ok: true, item: structuredClone(item) };
+  }
+
+  _findInboundWorkItemByMessageKeyDirect(messageKey) {
+    const item = (this.data.inboundWorkItems || []).find(entry => entry.messageKey === messageKey);
+    return item ? structuredClone(item) : null;
+  }
+
+  // Retention sweep: removes every work item whose expiresAt has passed. Never called
+  // automatically on a schedule (no schedule exists anywhere in this repair) -- a caller invokes
+  // it explicitly (e.g. from a manual maintenance script) when it wants to enforce the TTL.
+  _deleteExpiredInboundWorkItemsDirect(asOfIso) {
+    const cutoffMs = Date.parse(asOfIso || new Date().toISOString());
+    const items = this.data.inboundWorkItems || (this.data.inboundWorkItems = []);
+    const before = items.length;
+    this.data.inboundWorkItems = items.filter(item => Date.parse(item.expiresAt || 0) > cutoffMs);
+    return { ok: true, deleted: before - this.data.inboundWorkItems.length };
+  }
+
   async putArtifact() { return null; }
   async getArtifact() { return null; }
   async deleteExpiredArtifacts() { return 0; }
@@ -766,6 +1015,18 @@ export class JsonStore {
   async suppressOutbound(input = {}) { return this.transaction(tx => tx.suppressOutbound(input)); }
   async recordReplyAndStop(record, prospectPatch = {}) { return this.transaction(tx => tx.recordReplyAndStop(record, prospectPatch)); }
   async recordOutboundEvent(input, thresholds = {}) { return this.transaction(tx => tx.recordOutboundEvent(input, thresholds)); }
+  async createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs = 300000, deadlineMs = 300000) { return this.transaction(tx => tx.createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs, deadlineMs)); }
+  async patchAutonomyCycleRun(id, fence, patch = {}) { return this.transaction(tx => tx.patchAutonomyCycleRun(id, fence, patch)); }
+  async heartbeatAutonomyCycleRun(id, fence, leaseTtlMs = 120000) { return this.transaction(tx => tx.heartbeatAutonomyCycleRun(id, fence, leaseTtlMs)); }
+  async reclaimStaleAutonomyCycleRun(newLeaseOwner, leaseTtlMs = 300000) { return this.transaction(tx => tx.reclaimStaleAutonomyCycleRun(newLeaseOwner, leaseTtlMs)); }
+  async createInboundAccount(input = {}) { return this.transaction(tx => tx.createInboundAccount(input)); }
+  async readInboundAccount(accountId) { return this.transaction(tx => tx.readInboundAccount(accountId)); }
+  async listApprovedActiveInboundAccounts() { return this.transaction(tx => tx.listApprovedActiveInboundAccounts()); }
+  async replaceInboundAccountTokenCAS(input = {}) { return this.transaction(tx => tx.replaceInboundAccountTokenCAS(input)); }
+  async disableInboundAccount(accountId) { return this.transaction(tx => tx.disableInboundAccount(accountId)); }
+  async createInboundWorkItem(input = {}) { return this.transaction(tx => tx.createInboundWorkItem(input)); }
+  async findInboundWorkItemByMessageKey(messageKey) { return this.transaction(tx => tx.findInboundWorkItemByMessageKey(messageKey)); }
+  async deleteExpiredInboundWorkItems(asOfIso) { return this.transaction(tx => tx.deleteExpiredInboundWorkItems(asOfIso)); }
   async setOutboundPaused(paused, reason = '') { await this.setSetting('outboundPaused', Boolean(paused)); await this.setSetting('outboundPauseReason', String(reason || '')); return { paused: Boolean(paused), reason }; }
   async setSenderPaused(inbox, paused, reason = '') {
     const existing = await this.findOne('senderHealth', { inbox });
@@ -875,6 +1136,7 @@ export class PostgresStore {
   }
 
   async add(key, item) {
+    assertGenericMutationAllowed(key);
     const { def, record, columns, values } = postgresValues(key, item);
     const placeholders = values.map((_, index) => `$${index + 1}`);
     try {
@@ -884,6 +1146,7 @@ export class PostgresStore {
   }
 
   async upsert(key, item) {
+    assertGenericMutationAllowed(key);
     const { def, record, columns, values } = postgresValues(key, item);
     const placeholders = values.map((_, index) => `$${index + 1}`);
     const updates = columns.filter(column => column !== 'id').map(column => `${column} = EXCLUDED.${column}`);
@@ -894,6 +1157,7 @@ export class PostgresStore {
   }
 
   async patch(key, id, patch) {
+    assertGenericMutationAllowed(key);
     return this.transaction(async tx => {
       const def = definition(key);
       const result = await tx.pool.query(`SELECT data FROM ${def.table} WHERE id = $1 FOR UPDATE`, [id]);
@@ -1408,6 +1672,252 @@ export class PostgresStore {
       await tx.upsert('senderHealth', health);
       return health;
     });
+  }
+
+  // Database-enforced singleton: migrations/005_autonomy_cycle.sql has a unique index that lets
+  // Postgres itself refuse a second 'active' row regardless of run_key. The advisory lock here
+  // just serializes concurrent attempts into a friendly {ok:false,...} result instead of racing
+  // to hit that constraint and surfacing a raw duplicate-key error.
+  async createAutonomyCycleRun(runKey, leaseOwner, leaseTtlMs = 300000, deadlineMs = 300000) {
+    const key = String(runKey || '');
+    if (!key) return { ok: false, reason: 'missing-run-key' };
+    return this.transaction(async tx => {
+      await tx.pool.query("SELECT pg_advisory_xact_lock(hashtext('autonomy-cycle:singleton'))");
+      const active = await tx.pool.query("SELECT data FROM autonomy_cycle_runs WHERE status='active' FOR UPDATE");
+      if (active.rows[0]) return { ok: false, reason: 'cycle-already-active', run: active.rows[0].data };
+      const existing = await tx.pool.query('SELECT data FROM autonomy_cycle_runs WHERE run_key=$1 FOR UPDATE', [key]);
+      if (existing.rows[0]) return { ok: false, reason: `duplicate-run-key-${existing.rows[0].data.status}`, run: existing.rows[0].data };
+      const timestamp = now();
+      const run = {
+        id: crypto.randomUUID(), runKey: key, status: 'active', version: 0, checkpointVersion: 1,
+        leaseOwner: String(leaseOwner || ''), leaseEpoch: 1,
+        leaseExpiresAt: new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 300000)).toISOString(),
+        attemptStartedAt: timestamp, deadlineAt: new Date(Date.now() + Math.max(1000, Number(deadlineMs) || 300000)).toISOString(),
+        finalizedAt: null, digestWrittenAt: null, terminalReason: null, stages: {}, extra: {},
+        startedAt: timestamp, createdAt: timestamp, updatedAt: timestamp
+      };
+      try {
+        await tx.pool.query(`
+          INSERT INTO autonomy_cycle_runs
+            (id, run_key, status, version, checkpoint_version, lease_owner, lease_epoch, lease_expires_at,
+             attempt_started_at, deadline_at, started_at, created_at, updated_at, stages, data)
+          VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::jsonb,$15::jsonb)
+        `, [run.id, run.runKey, run.status, run.version, run.checkpointVersion, run.leaseOwner, run.leaseEpoch, run.leaseExpiresAt,
+            run.attemptStartedAt, run.deadlineAt, run.startedAt, run.createdAt, run.updatedAt, JSON.stringify(run.stages), JSON.stringify(run)]);
+      } catch (error) {
+        if (error?.code === '23505') return { ok: false, reason: 'cycle-already-active-or-duplicate-run-key' };
+        throw error;
+      }
+      return { ok: true, run };
+    });
+  }
+
+  // Fenced compare-and-swap: the WHERE clause itself enforces status='active' AND lease_owner=?
+  // AND lease_epoch=? AND version=? AND lease_expires_at>now(), not just a version check in
+  // application code -- an old worker whose lease was reclaimed (new epoch issued) can never win
+  // this UPDATE again even if it still has the last version number it read. A finalized run can
+  // never be patched again regardless of a matching fence.
+  async patchAutonomyCycleRun(id, fence = {}, patch = {}) {
+    return this.transaction(async tx => {
+      const result = await tx.pool.query('SELECT data, finalized_at, status, lease_owner, lease_epoch, version, lease_expires_at FROM autonomy_cycle_runs WHERE id=$1 FOR UPDATE', [id]);
+      const row = result.rows[0];
+      if (!row) return { ok: false, reason: 'not-found' };
+      if (row.finalized_at) return { ok: false, reason: 'already-finalized', run: row.data };
+      if (row.status !== 'active') return { ok: false, reason: 'not-active', run: row.data };
+      if (String(row.lease_owner) !== String(fence.owner || '') || Number(row.lease_epoch) !== Number(fence.epoch)) {
+        return { ok: false, reason: 'lease-lost', run: row.data };
+      }
+      if (Number(row.version) !== Number(fence.version)) return { ok: false, reason: 'version-conflict', run: row.data };
+      if (new Date(row.lease_expires_at).getTime() <= Date.now()) return { ok: false, reason: 'lease-lost', run: row.data };
+      const run = { ...row.data };
+      if (patch.status !== undefined) run.status = patch.status;
+      if (patch.stagesPatch && typeof patch.stagesPatch === 'object') run.stages = { ...run.stages, ...patch.stagesPatch };
+      if (patch.extraPatch && typeof patch.extraPatch === 'object') run.extra = { ...run.extra, ...patch.extraPatch };
+      if (patch.leaseOwner !== undefined) run.leaseOwner = patch.leaseOwner;
+      if (patch.leaseExpiresAt !== undefined) run.leaseExpiresAt = patch.leaseExpiresAt;
+      if (patch.finalizedAt !== undefined) run.finalizedAt = patch.finalizedAt;
+      if (patch.digestWrittenAt !== undefined) run.digestWrittenAt = patch.digestWrittenAt;
+      if (patch.terminalReason !== undefined) run.terminalReason = patch.terminalReason;
+      run.version = Number(run.version) + 1;
+      run.updatedAt = now();
+      const updated = await tx.pool.query(`
+        UPDATE autonomy_cycle_runs SET
+          status=$5, version=$6, lease_owner=$7, lease_expires_at=$8, finalized_at=$9, digest_written_at=$10,
+          terminal_reason=$11, updated_at=$12, stages=$13::jsonb, data=$14::jsonb
+        WHERE id=$1 AND status='active' AND lease_owner=$2 AND lease_epoch=$3 AND version=$4 AND lease_expires_at > now()
+        RETURNING data
+      `, [id, fence.owner, fence.epoch, fence.version, run.status, run.version, run.leaseOwner, run.leaseExpiresAt,
+          run.finalizedAt, run.digestWrittenAt, run.terminalReason, run.updatedAt, JSON.stringify(run.stages), JSON.stringify(run)]);
+      if (!updated.rows[0]) return { ok: false, reason: 'lease-lost', run: row.data };
+      return { ok: true, run: updated.rows[0].data };
+    });
+  }
+
+  // Independent of stage progress: only extends lease_expires_at and bumps version, fenced by the
+  // exact same owner+epoch+version+active+unexpired predicate as patchAutonomyCycleRun.
+  async heartbeatAutonomyCycleRun(id, fence = {}, leaseTtlMs = 120000) {
+    return this.transaction(async tx => {
+      const newExpiry = new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 120000)).toISOString();
+      const updated = await tx.pool.query(`
+        UPDATE autonomy_cycle_runs
+           SET lease_expires_at = $5::timestamptz, version = version + 1, updated_at = now(),
+               data = jsonb_set(jsonb_set(data, '{leaseExpiresAt}', to_jsonb($5::text)), '{version}', to_jsonb(version + 1))
+         WHERE id = $1 AND status = 'active' AND lease_owner = $2 AND lease_epoch = $3 AND version = $4 AND lease_expires_at > now()
+        RETURNING data
+      `, [id, fence.owner, fence.epoch, fence.version, newExpiry]);
+      if (!updated.rows[0]) {
+        const current = await tx.pool.query('SELECT data FROM autonomy_cycle_runs WHERE id=$1', [id]);
+        return { ok: false, reason: 'lease-lost', run: current.rows[0]?.data || null };
+      }
+      return { ok: true, run: updated.rows[0].data };
+    });
+  }
+
+  // Recovers a run whose owning process crashed or stalled (lease expired), without waiting on
+  // any other timeout mechanism. Only ever touches a still-active, lease-expired run. Incrementing
+  // lease_epoch (not just version) is what permanently invalidates the crashed worker's fence.
+  async reclaimStaleAutonomyCycleRun(newLeaseOwner, leaseTtlMs = 300000) {
+    return this.transaction(async tx => {
+      const stale = await tx.pool.query(`
+        SELECT data FROM autonomy_cycle_runs WHERE status='active' AND lease_expires_at < now()
+        ORDER BY lease_expires_at ASC LIMIT 1 FOR UPDATE SKIP LOCKED
+      `);
+      const row = stale.rows[0];
+      if (!row) return { ok: false, reason: 'no-stale-lease' };
+      const run = { ...row.data };
+      run.leaseOwner = String(newLeaseOwner || '');
+      run.leaseEpoch = Number(run.leaseEpoch || 0) + 1;
+      run.leaseExpiresAt = new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 300000)).toISOString();
+      run.version = Number(run.version) + 1;
+      run.updatedAt = now();
+      await tx.pool.query(`
+        UPDATE autonomy_cycle_runs SET lease_owner=$2, lease_epoch=$3, lease_expires_at=$4, version=$5, updated_at=$6, data=$7::jsonb
+        WHERE id=$1
+      `, [run.id, run.leaseOwner, run.leaseEpoch, run.leaseExpiresAt, run.version, run.updatedAt, JSON.stringify(run)]);
+      return { ok: true, run };
+    });
+  }
+
+  // One row per (provider, accountIdentity), enforced by inbound_accounts_provider_identity_idx --
+  // a duplicate insert hits that constraint rather than racing an application-level check.
+  async createInboundAccount(input = {}) {
+    const provider = String(input.provider || 'gmail');
+    const accountIdentity = String(input.accountIdentity || '');
+    if (!accountIdentity) return { ok: false, reason: 'missing-account-identity' };
+    const approved = input.approvalStatus === 'approved';
+    return this.transaction(async tx => {
+      const timestamp = now();
+      const account = {
+        id: crypto.randomUUID(), provider, accountIdentity,
+        approvalStatus: approved ? 'approved' : 'pending',
+        active: approved ? Boolean(input.active) : false,
+        encryptedTokens: input.encryptedTokens || null,
+        tokenExpiresAt: input.tokenExpiresAt || null,
+        tokenVersion: 0,
+        createdAt: timestamp, updatedAt: timestamp
+      };
+      try {
+        await tx.pool.query(`
+          INSERT INTO inbound_accounts
+            (id, provider, account_identity, approval_status, active, encrypted_tokens, token_expires_at, token_version, created_at, updated_at, data)
+          VALUES ($1,$2,$3,$4,$5,$6::jsonb,$7,$8,$9,$10,$11::jsonb)
+        `, [account.id, account.provider, account.accountIdentity, account.approvalStatus, account.active,
+            JSON.stringify(account.encryptedTokens), account.tokenExpiresAt, account.tokenVersion,
+            account.createdAt, account.updatedAt, JSON.stringify(account)]);
+      } catch (error) {
+        if (error?.code === '23505') return { ok: false, reason: 'duplicate-account' };
+        throw error;
+      }
+      return { ok: true, account };
+    });
+  }
+
+  async readInboundAccount(accountId) {
+    const result = await this.pool.query('SELECT data FROM inbound_accounts WHERE id=$1', [accountId]);
+    return result.rows[0]?.data || null;
+  }
+
+  async listApprovedActiveInboundAccounts() {
+    const result = await this.pool.query("SELECT data FROM inbound_accounts WHERE approval_status='approved' AND active=true");
+    return result.rows.map(row => row.data);
+  }
+
+  // Fenced on accountId + expectedVersion in the WHERE clause of the UPDATE itself -- a losing
+  // concurrent refresher's UPDATE simply matches zero rows and must reload the winner's account.
+  async replaceInboundAccountTokenCAS({ accountId, expectedVersion, encryptedTokens, tokenExpiresAt } = {}) {
+    return this.transaction(async tx => {
+      const result = await tx.pool.query('SELECT data, token_version FROM inbound_accounts WHERE id=$1 FOR UPDATE', [accountId]);
+      const row = result.rows[0];
+      if (!row) return { ok: false, reason: 'not-found' };
+      if (Number(row.token_version) !== Number(expectedVersion)) {
+        return { ok: false, reason: 'version-conflict', account: row.data };
+      }
+      const account = { ...row.data, encryptedTokens, tokenExpiresAt: tokenExpiresAt || null, tokenVersion: Number(row.token_version) + 1, updatedAt: now() };
+      const updated = await tx.pool.query(`
+        UPDATE inbound_accounts SET encrypted_tokens=$3::jsonb, token_expires_at=$4, token_version=$5, updated_at=$6, data=$7::jsonb
+        WHERE id=$1 AND token_version=$2
+        RETURNING data
+      `, [accountId, expectedVersion, JSON.stringify(encryptedTokens), account.tokenExpiresAt, account.tokenVersion, account.updatedAt, JSON.stringify(account)]);
+      if (!updated.rows[0]) return { ok: false, reason: 'version-conflict', account: row.data };
+      return { ok: true, account: updated.rows[0].data };
+    });
+  }
+
+  async disableInboundAccount(accountId) {
+    return this.transaction(async tx => {
+      const result = await tx.pool.query('SELECT data FROM inbound_accounts WHERE id=$1 FOR UPDATE', [accountId]);
+      const row = result.rows[0];
+      if (!row) return { ok: false, reason: 'not-found' };
+      const account = { ...row.data, active: false, approvalStatus: 'revoked', updatedAt: now() };
+      await tx.pool.query(`
+        UPDATE inbound_accounts SET active=false, approval_status='revoked', updated_at=$2, data=$3::jsonb WHERE id=$1
+      `, [accountId, account.updatedAt, JSON.stringify(account)]);
+      return { ok: true, account };
+    });
+  }
+
+  // One row per messageKey, enforced by inbound_work_items_message_key_idx -- a duplicate insert
+  // hits that constraint rather than racing an application-level check across two workers polling
+  // the same account concurrently (which the singleton autonomy-cycle lease normally prevents, but
+  // this stays correct even if that assumption is ever relaxed).
+  async createInboundWorkItem(input = {}) {
+    const messageKey = String(input.messageKey || '');
+    if (!messageKey) return { ok: false, reason: 'missing-message-key' };
+    return this.transaction(async tx => {
+      const timestamp = now();
+      const item = {
+        id: crypto.randomUUID(), messageKey,
+        accountKey: String(input.accountKey || ''), threadKey: input.threadKey || null,
+        encryptedProviderRef: input.encryptedProviderRef || null,
+        classificationCode: input.classificationCode, confidenceBucket: input.confidenceBucket,
+        prospectId: input.prospectId || null, expiresAt: input.expiresAt,
+        createdAt: timestamp, updatedAt: timestamp
+      };
+      try {
+        await tx.pool.query(`
+          INSERT INTO inbound_work_items
+            (id, message_key, account_key, thread_key, encrypted_provider_ref, classification_code, confidence_bucket, prospect_id, expires_at, created_at, updated_at, data)
+          VALUES ($1,$2,$3,$4,$5::jsonb,$6,$7,$8,$9,$10,$11,$12::jsonb)
+        `, [item.id, item.messageKey, item.accountKey, item.threadKey, JSON.stringify(item.encryptedProviderRef),
+            item.classificationCode, item.confidenceBucket, item.prospectId, item.expiresAt,
+            item.createdAt, item.updatedAt, JSON.stringify(item)]);
+      } catch (error) {
+        if (error?.code === '23505') return { ok: false, reason: 'duplicate-message' };
+        throw error;
+      }
+      return { ok: true, item };
+    });
+  }
+
+  async findInboundWorkItemByMessageKey(messageKey) {
+    const result = await this.pool.query('SELECT data FROM inbound_work_items WHERE message_key=$1', [messageKey]);
+    return result.rows[0]?.data || null;
+  }
+
+  async deleteExpiredInboundWorkItems(asOfIso) {
+    const asOf = asOfIso || new Date().toISOString();
+    const result = await this.pool.query('DELETE FROM inbound_work_items WHERE expires_at <= $1', [asOf]);
+    return { ok: true, deleted: result.rowCount || 0 };
   }
 
   async setOutboundPaused(paused, reason = '') {

@@ -1,0 +1,427 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import { Store } from '../src/store.mjs';
+import { STAGES, runAutonomyCycle, redactText } from '../src/autonomy-cycle.mjs';
+import { createTestGmailInboundReader } from '../src/gmail-inbound.mjs';
+
+async function tempStore() {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'uberbond-autonomy-cycle-'));
+  const store = new Store(dir);
+  await store.init();
+  return store;
+}
+
+function baseCfg(overrides = {}) {
+  return {
+    encryptionKey: 'a'.repeat(64),
+    inbound: {
+      provider: 'test', enabled: true, gmailReadEnabled: true,
+      limits: {
+        maxPagesPerCycle: 5, maxMessagesPerPage: 25, maxMessageBytes: 2 * 1024 * 1024,
+        maxMimeDepth: 10, maxMimePartCount: 200, maxDecodedBodyBytes: 262144,
+        maxStageRuntimeMs: 5000, maxCycleRuntimeMs: 30000, maxStageRetries: 3,
+        maxOwnerExceptionsPerCycle: 25, maxSummaryBytes: 8192, leaseTtlMs: 60000,
+        ...overrides.limits
+      },
+      ...overrides.inboundOverrides
+    }
+  };
+}
+
+const account = { id: 'acct-1', tokens: {} };
+
+function b64(text) { return Buffer.from(text).toString('base64url'); }
+function textMessage(id, headers, bodyText, threadId = 'thread-1') {
+  return {
+    id, threadId,
+    payload: { headers: Object.entries(headers).map(([name, value]) => ({ name, value })), mimeType: 'text/plain', body: { data: b64(bodyText) } }
+  };
+}
+
+test('exact stage ordering is fixed and does not include outbound or follow-up processing', () => {
+  assert.deepEqual(STAGES, ['poll-inbound', 'classify-and-suppress', 'write-digest']);
+  const asText = JSON.stringify(STAGES);
+  assert.ok(!asText.includes('outbound'));
+  assert.ok(!asText.includes('followup'));
+});
+
+test('inbound disabled by default produces a safe skipped stage, not a crash or send', async () => {
+  const store = await tempStore();
+  const cfg = baseCfg({ inboundOverrides: { enabled: false, gmailReadEnabled: false } });
+  const result = await runAutonomyCycle({ store, cfg, runKey: 'run-1', leaseOwner: 'worker-1' });
+  assert.equal(result.ok, true);
+  assert.equal(result.run.stages['poll-inbound'].status, 'skipped');
+  assert.equal(result.digest.counts.messagesFetched, 0);
+});
+
+test('enabled but no mailbox reader configured is a safe blocked stage, retryable, not a crash', async () => {
+  const store = await tempStore();
+  const cfg = baseCfg();
+  const result = await runAutonomyCycle({ store, cfg, runKey: 'run-1', leaseOwner: 'worker-1' });
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'stage-not-complete');
+  assert.equal(result.stage, 'poll-inbound');
+  assert.equal(result.run.stages['poll-inbound'].status, 'blocked');
+});
+
+test('end-to-end: a bounce suppresses the recipient and cancels its follow-up', async () => {
+  const store = await tempStore();
+  await store.add('campaigns', { id: 'c1', approved: true, autoSend: false, createdAt: new Date().toISOString() });
+  await store.add('prospects', { id: 'p1', domain: 'example.com', campaignId: 'c1', status: 'sent', threadId: 'thread-1', contact: { email: 'owner@example.com' }, nextFollowupAt: new Date(Date.now() + 86400000).toISOString(), createdAt: new Date().toISOString() });
+  const reader = createTestGmailInboundReader({
+    messagesByPage: [{ messages: [{ id: 'm1' }] }],
+    messages: { m1: textMessage('m1', { from: 'Mail Delivery System <mailer-daemon@example.com>', subject: 'Undelivered Mail Returned to Sender' }, 'bounced') }
+  });
+  const cfg = baseCfg();
+  const result = await runAutonomyCycle({ store, cfg, runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: reader, accounts: [account] });
+  assert.equal(result.ok, true);
+  assert.equal(result.digest.counts.bounce, 1);
+  const prospect = await store.get('prospects', 'p1');
+  assert.equal(prospect.status, 'bounce');
+  assert.equal(prospect.nextFollowupAt, null);
+  const suppressions = await store.list('suppressions');
+  assert.ok(suppressions.some(item => item.value === 'owner@example.com'));
+});
+
+test('complaint and unsubscribe also stop future outreach', async () => {
+  for (const [subject, expectCategory] of [['This is a formal abuse report', 'complaint'], ['Please unsubscribe me from this list', 'unsubscribe']]) {
+    const store = await tempStore();
+    await store.add('campaigns', { id: 'c1', approved: true, autoSend: false, createdAt: new Date().toISOString() });
+    await store.add('prospects', { id: 'p1', domain: 'example.com', campaignId: 'c1', status: 'sent', threadId: 'thread-1', contact: { email: 'owner@example.com' }, nextFollowupAt: new Date().toISOString(), createdAt: new Date().toISOString() });
+    const reader = createTestGmailInboundReader({
+      messagesByPage: [{ messages: [{ id: 'm1' }] }],
+      messages: { m1: textMessage('m1', { from: 'owner@example.com', subject }, subject) }
+    });
+    const result = await runAutonomyCycle({ store, cfg: baseCfg(), runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: reader, accounts: [account] });
+    assert.equal(result.ok, true);
+    assert.equal(result.digest.counts[expectCategory], 1, `expected ${expectCategory}`);
+    const prospect = await store.get('prospects', 'p1');
+    assert.equal(prospect.nextFollowupAt, null);
+  }
+});
+
+test('P0-07: a reply to a matched prospect stops its follow-up (previously only bounce/complaint/unsubscribe did)', async () => {
+  const store = await tempStore();
+  await store.add('campaigns', { id: 'c1', approved: true, autoSend: false, createdAt: new Date().toISOString() });
+  await store.add('prospects', { id: 'p1', domain: 'example.com', campaignId: 'c1', status: 'sent', threadId: 'thread-1', contact: { email: 'lead@example.com' }, nextFollowupAt: new Date(Date.now() + 86400000).toISOString(), createdAt: new Date().toISOString() });
+  const reader = createTestGmailInboundReader({
+    messagesByPage: [{ messages: [{ id: 'm1' }] }],
+    messages: { m1: textMessage('m1', { from: 'lead@example.com', subject: 'Re: your audit', 'in-reply-to': '<x@y>' }, 'tell me more please') }
+  });
+  const result = await runAutonomyCycle({ store, cfg: baseCfg(), runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: reader, accounts: [account] });
+  assert.equal(result.ok, true);
+  assert.equal(result.digest.counts.reply, 1);
+  assert.equal(result.digest.ownerExceptions, 1);
+  const prospect = await store.get('prospects', 'p1');
+  assert.equal(prospect.nextFollowupAt, null, 'a reply must stop the follow-up, not just create an owner exception');
+  // A genuine reply is not auto-suppressed -- it might still convert, a human decides.
+  assert.equal((await store.list('suppressions')).length, 0);
+  const notifications = await store.list('notifications');
+  const exception = notifications.find(n => n.type === 'autonomy_owner_exception');
+  assert.equal(exception.prospectId, 'p1');
+  assert.equal(exception.reason, 'inbound-reply');
+});
+
+test('P0-07: an unknown-classification message to a matched prospect stops its follow-up', async () => {
+  const store = await tempStore();
+  await store.add('campaigns', { id: 'c1', approved: true, autoSend: false, createdAt: new Date().toISOString() });
+  await store.add('prospects', { id: 'p1', domain: 'example.com', campaignId: 'c1', status: 'sent', threadId: 'thread-1', contact: { email: 'lead@example.com' }, nextFollowupAt: new Date(Date.now() + 86400000).toISOString(), createdAt: new Date().toISOString() });
+  const reader = createTestGmailInboundReader({
+    messagesByPage: [{ messages: [{ id: 'm1' }] }],
+    messages: { m1: textMessage('m1', { from: 'lead@example.com', subject: 'question' }, 'what is this about') }
+  });
+  const result = await runAutonomyCycle({ store, cfg: baseCfg(), runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: reader, accounts: [account] });
+  assert.equal(result.ok, true);
+  assert.equal(result.digest.counts.unknown, 1);
+  const prospect = await store.get('prospects', 'p1');
+  assert.equal(prospect.nextFollowupAt, null);
+  const notifications = await store.list('notifications');
+  assert.equal(notifications.find(n => n.type === 'autonomy_owner_exception').reason, 'inbound-unknown');
+});
+
+test('P0-07: out-of-office stops the current follow-up and creates a review/reschedule exception, never auto-suppressed', async () => {
+  const store = await tempStore();
+  await store.add('campaigns', { id: 'c1', approved: true, autoSend: false, createdAt: new Date().toISOString() });
+  await store.add('prospects', { id: 'p1', domain: 'example.com', campaignId: 'c1', status: 'sent', threadId: 'thread-1', contact: { email: 'lead@example.com' }, nextFollowupAt: new Date(Date.now() + 86400000).toISOString(), createdAt: new Date().toISOString() });
+  const reader = createTestGmailInboundReader({
+    messagesByPage: [{ messages: [{ id: 'm1' }] }],
+    messages: { m1: textMessage('m1', { from: 'lead@example.com', subject: 'Automatic reply: Out of Office' }, 'I am out of office until next week') }
+  });
+  const result = await runAutonomyCycle({ store, cfg: baseCfg(), runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: reader, accounts: [account] });
+  assert.equal(result.ok, true);
+  assert.equal(result.digest.counts.outOfOffice, 1);
+  const prospect = await store.get('prospects', 'p1');
+  assert.equal(prospect.nextFollowupAt, null, 'out-of-office must stop the current follow-up so nothing auto-sends while they are away');
+  assert.equal((await store.list('suppressions')).length, 0, 'out-of-office is never a durable suppression -- only owner review can reschedule');
+  const notifications = await store.list('notifications');
+  assert.equal(notifications.find(n => n.type === 'autonomy_owner_exception').reason, 'inbound-out-of-office');
+});
+
+test('P0-07: an unmatched thread (no prospect found) still creates an owner exception without touching any unrelated prospect', async () => {
+  const store = await tempStore();
+  await store.add('campaigns', { id: 'c1', approved: true, autoSend: false, createdAt: new Date().toISOString() });
+  await store.add('prospects', { id: 'unrelated', domain: 'other.example', campaignId: 'c1', status: 'sent', threadId: 'thread-unrelated', contact: { email: 'other@example.com' }, nextFollowupAt: new Date(Date.now() + 86400000).toISOString(), createdAt: new Date().toISOString() });
+  const reader = createTestGmailInboundReader({
+    messagesByPage: [{ messages: [{ id: 'm1' }] }],
+    messages: { m1: textMessage('m1', { from: 'stranger@example.com', subject: 'Re: hello', 'in-reply-to': '<x@y>' }, 'hi', 'thread-does-not-match-anything') }
+  });
+  const result = await runAutonomyCycle({ store, cfg: baseCfg(), runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: reader, accounts: [account] });
+  assert.equal(result.ok, true);
+  assert.equal(result.digest.ownerExceptions, 1);
+  const notifications = await store.list('notifications');
+  assert.equal(notifications.find(n => n.type === 'autonomy_owner_exception').prospectId, null);
+  const unrelated = await store.get('prospects', 'unrelated');
+  assert.notEqual(unrelated.nextFollowupAt, null, 'must never guess and mutate an unrelated prospect on an ambiguous match');
+});
+
+test('a positive/ambiguous reply creates exactly one owner exception and zero sends', async () => {
+  const store = await tempStore();
+  const reader = createTestGmailInboundReader({
+    messagesByPage: [{ messages: [{ id: 'm1' }] }],
+    messages: { m1: textMessage('m1', { from: 'lead@example.com', subject: 'Re: your audit', 'in-reply-to': '<x@y>' }, 'tell me more please') }
+  });
+  const result = await runAutonomyCycle({ store, cfg: baseCfg(), runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: reader, accounts: [account] });
+  assert.equal(result.ok, true);
+  assert.equal(result.digest.ownerExceptions, 1);
+  const notifications = await store.list('notifications');
+  assert.equal(notifications.filter(n => n.type === 'autonomy_owner_exception').length, 1);
+  assert.equal((await store.list('outboundReservations')).length, 0);
+  assert.equal((await store.list('messages')).length, 0);
+});
+
+test('duplicate reply polling across two separate cycles creates no duplicate notification', async () => {
+  const store = await tempStore();
+  const message = textMessage('m1', { from: 'lead@example.com', subject: 'Re: hello', 'in-reply-to': '<x@y>' }, 'hi again');
+  const fixture = { messagesByPage: [{ messages: [{ id: 'm1' }] }], messages: { m1: message } };
+
+  const first = await runAutonomyCycle({ store, cfg: baseCfg(), runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: createTestGmailInboundReader(fixture), accounts: [account] });
+  assert.equal(first.ok, true);
+  assert.equal(first.digest.ownerExceptions, 1);
+
+  const second = await runAutonomyCycle({ store, cfg: baseCfg(), runKey: 'run-2', leaseOwner: 'worker-1', mailboxReader: createTestGmailInboundReader(fixture), accounts: [account] });
+  assert.equal(second.ok, true);
+  assert.equal(second.digest.counts.duplicate, 1);
+  assert.equal(second.digest.ownerExceptions, 0);
+  const notifications = await store.list('notifications');
+  assert.equal(notifications.filter(n => n.type === 'autonomy_owner_exception').length, 1);
+});
+
+test('CON: same run key is idempotent -- a second call after completion does not re-run or duplicate effects', async () => {
+  const store = await tempStore();
+  const first = await runAutonomyCycle({ store, cfg: baseCfg({ inboundOverrides: { enabled: false, gmailReadEnabled: false } }), runKey: 'same-key', leaseOwner: 'worker-1' });
+  assert.equal(first.ok, true);
+  const second = await runAutonomyCycle({ store, cfg: baseCfg({ inboundOverrides: { enabled: false, gmailReadEnabled: false } }), runKey: 'same-key', leaseOwner: 'worker-2' });
+  assert.equal(second.ok, false);
+  assert.match(second.reason, /^duplicate-run-key-/);
+  const runs = await store.list('autonomyCycleRuns');
+  assert.equal(runs.length, 1);
+});
+
+test('CON: concurrent cycle starts collapse to exactly one active run', async () => {
+  const store = await tempStore();
+  const cfg = baseCfg({ inboundOverrides: { enabled: false, gmailReadEnabled: false } });
+  const [a, b] = await Promise.all([
+    runAutonomyCycle({ store, cfg, runKey: 'run-a', leaseOwner: 'worker-a' }),
+    runAutonomyCycle({ store, cfg, runKey: 'run-b', leaseOwner: 'worker-b' })
+  ]);
+  const outcomes = [a, b];
+  const succeeded = outcomes.filter(o => o.ok);
+  const rejected = outcomes.filter(o => !o.ok);
+  assert.equal(succeeded.length, 1, 'exactly one cycle should have completed');
+  assert.equal(rejected.length, 1);
+  assert.equal(rejected[0].reason, 'cycle-already-active');
+});
+
+test('CRS: a crashed cycle resumes without repeating an already-completed stage', async () => {
+  const store = await tempStore();
+  // 1000ms is the store layer's enforced minimum lease TTL (a deliberate floor against
+  // pathologically short leases), so the test waits past that floor rather than assuming its
+  // own smaller number takes effect.
+  const cfg = baseCfg({ inboundOverrides: { enabled: false, gmailReadEnabled: false }, limits: { leaseTtlMs: 1000 } });
+  // Simulate a crash: create a run, mark poll-inbound done, then let its lease expire.
+  const created = await store.createAutonomyCycleRun('crashed-run', 'dead-worker', 1000);
+  const afterPoll = await store.patchAutonomyCycleRun(created.run.id, { owner: created.run.leaseOwner, epoch: created.run.leaseEpoch, version: created.run.version }, {
+    stagesPatch: { 'poll-inbound': { status: 'done', result: { skipped: true, reason: 'inbound-disabled', messagesFetched: 0 }, attempts: 0, completedAt: new Date().toISOString() } }
+  });
+  assert.equal(afterPoll.ok, true);
+  await new Promise(resolve => setTimeout(resolve, 1300));
+
+  const resumed = await runAutonomyCycle({ store, cfg, runKey: 'irrelevant-new-key', leaseOwner: 'new-worker' });
+  assert.equal(resumed.ok, true);
+  assert.equal(resumed.run.runKey, 'crashed-run', 'should have resumed the crashed run, not started a new one');
+  assert.equal(resumed.run.leaseOwner, 'new-worker');
+  assert.equal(resumed.run.stages['classify-and-suppress'].status, 'done');
+  assert.equal(resumed.run.stages['write-digest'].status, 'done');
+});
+
+test('CRS/F-05: a stage that keeps failing is retried up to the limit, then the run terminates as failed (not silently skipped)', async () => {
+  const store = await tempStore();
+  const cfg = baseCfg({ inboundOverrides: { enabled: true, gmailReadEnabled: true }, limits: { maxStageRetries: 2 } });
+  const throwingReader = { listMessages: async () => { throw new Error('simulated transient failure'); }, getMessage: async () => ({ data: {} }) };
+  // Each call is one attempt; a scheduler is expected to call this repeatedly (same run key,
+  // same lease owner) to drive retries forward -- this loop simulates that scheduler.
+  let result;
+  for (let attempt = 0; attempt < 6; attempt += 1) {
+    result = await runAutonomyCycle({ store, cfg, runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: throwingReader, accounts: [account] });
+    if (result.reason === 'stage-retries-exhausted') break;
+    assert.equal(result.reason, 'stage-not-complete', `unexpected reason on attempt ${attempt}`);
+  }
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'stage-retries-exhausted');
+  assert.equal(result.run.status, 'failed');
+  assert.ok(result.run.finalizedAt);
+});
+
+test('digest and per-stage results are count-only and contain no email addresses or URLs', async () => {
+  const store = await tempStore();
+  const reader = createTestGmailInboundReader({
+    messagesByPage: [{ messages: [{ id: 'm1' }] }],
+    messages: { m1: textMessage('m1', { from: 'someone@example.com', subject: 'check out http://example.com/secret?token=abc123' }, 'visit http://example.com/x and email me at someone@example.com') }
+  });
+  const result = await runAutonomyCycle({ store, cfg: baseCfg(), runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: reader, accounts: [account] });
+  assert.equal(result.ok, true);
+  const serializedDigest = JSON.stringify(result.digest);
+  assert.ok(!/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i.test(serializedDigest), 'digest must contain no email address');
+  assert.ok(!/https?:\/\//i.test(serializedDigest), 'digest must contain no URL');
+  // P1-11: the durable internal record (inboundWorkItems) holds no raw or redacted message
+  // content at all -- not even a redacted `from`/`subject` string -- only keyed hashes, an
+  // encrypted reference, and normalized classification fields. See tests/inbound-privacy.test.mjs
+  // for the full hostile privacy corpus proof.
+  const stored = await store.list('inboundWorkItems');
+  assert.equal(stored.length, 1);
+  const item = stored[0];
+  assert.equal(Object.prototype.hasOwnProperty.call(item, 'from'), false);
+  assert.equal(Object.prototype.hasOwnProperty.call(item, 'subject'), false);
+  assert.equal(Object.prototype.hasOwnProperty.call(item, 'body'), false);
+  assert.equal(Object.prototype.hasOwnProperty.call(item, 'gmailId'), false);
+  const serializedItem = JSON.stringify(item);
+  assert.ok(!serializedItem.includes('someone@example.com'), 'no raw email in the stored work item');
+  assert.ok(!/https?:\/\//i.test(serializedItem), 'no raw URL in the stored work item');
+  assert.equal(item.classificationCode, 'unknown');
+  assert.ok(['low', 'medium', 'high'].includes(item.confidenceBucket));
+});
+
+test('redactText strips emails, URLs, and token/secret assignments', () => {
+  const input = 'contact me@example.com or visit https://example.com/x?token=abc123 token=zzz secret: yyy';
+  const out = redactText(input);
+  assert.ok(!out.includes('me@example.com'));
+  assert.ok(!out.includes('https://example.com'));
+  assert.ok(!/token=abc123/.test(out));
+});
+
+test('bounded pagination never fetches more than maxPagesPerCycle * maxMessagesPerPage messages', async () => {
+  const store = await tempStore();
+  const manyPages = Array.from({ length: 20 }, (_, i) => ({ messages: [{ id: `m${i}` }], nextPageToken: `tok-${i + 1}` }));
+  const reader = createTestGmailInboundReader({ messagesByPage: manyPages, messages: {} });
+  const cfg = baseCfg({ limits: { maxPagesPerCycle: 3, maxMessagesPerPage: 1 } });
+  const result = await runAutonomyCycle({ store, cfg, runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: reader, accounts: [account] });
+  assert.equal(result.ok, true);
+  assert.ok(result.digest.counts.messagesFetched <= 3, `expected bounded fetch, got ${result.digest.counts.messagesFetched}`);
+});
+
+test('BND: a stage that runs longer than maxStageRuntimeMs is aborted, marked failed, and remains retryable', async () => {
+  const store = await tempStore();
+  const cfg = baseCfg({ limits: { maxStageRuntimeMs: 50, maxStageRetries: 5 } });
+  const hangingReader = { listMessages: () => new Promise(() => {}), getMessage: async () => ({ data: {} }) };
+  const result = await runAutonomyCycle({ store, cfg, runKey: 'run-1', leaseOwner: 'worker-1', mailboxReader: hangingReader, accounts: [account] });
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'stage-not-complete');
+  assert.equal(result.run.stages['poll-inbound'].status, 'failed');
+  assert.match(result.run.stages['poll-inbound'].result.error, /exceeded 50ms runtime limit/);
+});
+
+test('P0-05/BND: total cycle runtime beyond maxCycleRuntimeMs terminally finalizes the run as aborted, clears the lease, and forbids resume', async () => {
+  const store = await tempStore();
+  const cfg = baseCfg({ inboundOverrides: { enabled: false, gmailReadEnabled: false }, limits: { maxCycleRuntimeMs: 10 } });
+  // Create the run for real (startedAt/deadlineAt are set by the dedicated CAS method, never
+  // faked via a generic patch — autonomyCycleRuns is a protected collection). The store clamps
+  // deadlineMs to a 1000ms floor (same floor as leaseTtlMs), so wait past that real floor rather
+  // than assuming the tiny configured value takes effect immediately.
+  const created = await store.createAutonomyCycleRun('slow-run', 'worker-1', 60000, 10);
+  await new Promise(resolve => setTimeout(resolve, 1100));
+  const result = await runAutonomyCycle({ store, cfg, runKey: 'slow-run', leaseOwner: 'worker-1' });
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'cycle-timeout');
+  assert.equal(result.run.status, 'aborted', 'a cycle-timeout is terminal -- the run must never remain active');
+  assert.equal(result.run.terminalReason, 'cycle-timeout');
+  assert.ok(result.run.finalizedAt);
+  assert.equal(result.run.leaseOwner, null);
+  assert.equal(result.run.leaseExpiresAt, null);
+
+  // The old run can never be resumed or reclaimed again...
+  const reclaimAttempt = await store.reclaimStaleAutonomyCycleRun('worker-2', 60000);
+  assert.equal(reclaimAttempt.ok, false);
+  assert.equal(reclaimAttempt.reason, 'no-stale-lease');
+  const staleFencePatch = await store.patchAutonomyCycleRun(created.run.id, { owner: 'worker-1', epoch: created.run.leaseEpoch, version: created.run.version }, { stagesPatch: { discover: 'late' } });
+  assert.equal(staleFencePatch.ok, false);
+
+  // ...but a genuinely new run (a fresh runKey, as a real caller would supply on retry) can proceed.
+  const nextCfg = baseCfg({ inboundOverrides: { enabled: false, gmailReadEnabled: false } });
+  const fresh = await runAutonomyCycle({ store, cfg: nextCfg, runKey: 'slow-run-retry-1', leaseOwner: 'worker-2' });
+  assert.equal(fresh.ok, true);
+  assert.notEqual(fresh.run.id, created.run.id, 'must be a genuinely new run, not a resumed old one');
+});
+
+test('GM-05: a repeating page token terminates the pagination loop via the loop guard, not the hard page cap', async () => {
+  const store = await tempStore();
+  let calls = 0;
+  // Every page reports the SAME nextPageToken and always has a message left to fetch -- if the
+  // repeating-token guard (`nextToken === pageToken` -> break) did not exist, only the hard
+  // maxPagesPerCycle cap (set deliberately high here) would ever stop this loop.
+  const loopingReader = {
+    listMessages: async (acct, key, q, maxResults, pageToken) => {
+      calls += 1;
+      return { data: { messages: [{ id: `m-${calls}` }], nextPageToken: 'same-token-forever' } };
+    },
+    getMessage: async (acct, key, id) => ({ data: { id, payload: {} } })
+  };
+  const cfg = baseCfg({ limits: { maxPagesPerCycle: 50, maxMessagesPerPage: 25 } });
+  const result = await runAutonomyCycle({ store, cfg, runKey: 'gm05-run', leaseOwner: 'worker-1', mailboxReader: loopingReader, accounts: [account] });
+  assert.equal(result.ok, true);
+  // First call establishes pageToken='same-token-forever'; second call's response repeats that
+  // same token, so `nextToken === pageToken` breaks the loop right there -- exactly 2 calls, not
+  // anywhere near the 50-page hard cap.
+  assert.equal(calls, 2, `loop guard should stop pagination at 2 calls, not run toward the 50-page hard cap (got ${calls})`);
+  assert.equal(result.digest.counts.messagesFetched, 2);
+});
+
+test('GM-17: a huge raw header array and an oversized header value are both capped before classification', async () => {
+  const store = await tempStore();
+  const hugeHeaders = Array.from({ length: 5000 }, (_, i) => ({ name: `x-hostile-header-${i}`, value: 'v' }));
+  hugeHeaders.push({ name: 'from', value: 'attacker@example.com' });
+  hugeHeaders.push({ name: 'subject', value: 'A'.repeat(1024 * 1024) }); // 1MB single header value
+  const message = { id: 'gm17-msg', threadId: 'gm17-thread', payload: { headers: hugeHeaders, mimeType: 'text/plain', body: { data: b64('hello') } } };
+  const reader = createTestGmailInboundReader({ messagesByPage: [{ messages: [{ id: 'gm17-msg' }] }], messages: { 'gm17-msg': message } });
+  const start = Date.now();
+  const result = await runAutonomyCycle({ store, cfg: baseCfg(), runKey: 'gm17-run', leaseOwner: 'worker-1', mailboxReader: reader, accounts: [account] });
+  const elapsedMs = Date.now() - start;
+  assert.equal(result.ok, true);
+  assert.equal(result.digest.counts.processed, 1, 'the message must still be processed, just with a bounded header set');
+  assert.ok(elapsedMs < 5000, `bounded header handling must stay fast, took ${elapsedMs}ms`);
+  // The work item itself must never carry the raw oversized subject header or any of the 5000
+  // hostile header names -- proving the cap applied before anything reached the durable record.
+  const items = await store.list('inboundWorkItems');
+  const serialized = JSON.stringify(items);
+  assert.ok(!serialized.includes('A'.repeat(1024 * 1024)), 'the 1MB header value must never be stored whole');
+  assert.ok(!serialized.includes('attacker@example.com'), 'no raw header content should reach the durable work item');
+});
+
+test('GM-17 (unit): boundHeaders caps count and per-value length directly', async () => {
+  const { boundHeaders } = await import('../src/inbound-classify.mjs');
+  const many = Array.from({ length: 300 }, (_, i) => ({ name: `h${i}`, value: 'x' }));
+  const capped = boundHeaders(many, { maxHeaderCount: 100, maxHeaderValueBytes: 8192 });
+  assert.equal(Object.keys(capped.headers).length, 100);
+  assert.equal(capped.truncated, true);
+  assert.equal(capped.headerCount, 300);
+
+  const longValue = boundHeaders([{ name: 'subject', value: 'z'.repeat(20000) }], { maxHeaderCount: 100, maxHeaderValueBytes: 8192 });
+  assert.equal(Buffer.byteLength(longValue.headers.subject, 'utf8'), 8192);
+  assert.equal(longValue.truncated, true);
+
+  const clean = boundHeaders([{ name: 'from', value: 'a@b.com' }], { maxHeaderCount: 100, maxHeaderValueBytes: 8192 });
+  assert.equal(clean.truncated, false);
+  assert.equal(clean.headers.from, 'a@b.com');
+});

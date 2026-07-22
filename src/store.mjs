@@ -1760,7 +1760,7 @@ export class PostgresStore {
       const newExpiry = new Date(Date.now() + Math.max(1000, Number(leaseTtlMs) || 120000)).toISOString();
       const updated = await tx.pool.query(`
         UPDATE autonomy_cycle_runs
-           SET lease_expires_at = $5, version = version + 1, updated_at = now(),
+           SET lease_expires_at = $5::timestamptz, version = version + 1, updated_at = now(),
                data = jsonb_set(jsonb_set(data, '{leaseExpiresAt}', to_jsonb($5::text)), '{version}', to_jsonb(version + 1))
          WHERE id = $1 AND status = 'active' AND lease_owner = $2 AND lease_epoch = $3 AND version = $4 AND lease_expires_at > now()
         RETURNING data

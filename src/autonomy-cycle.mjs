@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 import { ConflictError } from './store.mjs';
-import { parseInboundMime, classifyInboundEvent } from './inbound-classify.mjs';
+import { parseInboundMime, classifyInboundEvent, boundHeaders } from './inbound-classify.mjs';
 import { listVerifiedSignals } from './verified-payments.mjs';
 import { keyedHash, encryptJson, decryptJson } from './crypto.mjs';
 
@@ -208,7 +208,10 @@ async function classifyAndSuppressStage(ctx) {
     const oversized = approxBytes > limits.maxMessageBytes;
     if (oversized) counts.oversized += 1;
 
-    const headers = Object.fromEntries((message.payload?.headers || []).map(h => [String(h.name || '').toLowerCase(), h.value]));
+    // GM-17: a huge raw header array or a huge single header value is capped here, before it
+    // reaches classification or the From-address extraction below, regardless of the overall
+    // message being under the response-size cap.
+    const { headers } = boundHeaders(message.payload?.headers, limits);
     const parsed = oversized ? { body: '', truncated: true } : parseInboundMime(message.payload, limits);
     const classification = classifyInboundEvent({ headers, body: parsed.body });
 

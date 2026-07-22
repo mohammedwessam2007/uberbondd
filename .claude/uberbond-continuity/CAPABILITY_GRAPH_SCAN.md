@@ -81,3 +81,20 @@ Confirmed by direct grep:
 P0-08's gap (entry point never wired a mailboxReader/accounts) is now closed by
 src/inbound-runtime.mjs -- but the capability boundary itself remains exactly as strict as before:
 still zero reachable send capability anywhere in the graph.
+
+## 2026-07-22 (owner-authorized session) — Re-scan after Phase 2 (GM-05/GM-17 fixes)
+
+The only source change this phase was `boundHeaders()` added to `src/inbound-classify.mjs`
+(header-count/value-length cap, GM-17) and a one-line call-site change in
+`classifyAndSuppressStage`. Re-confirmed:
+
+- `src/inbound-classify.mjs` still has zero imports (`grep -c '^import' src/inbound-classify.mjs`
+  -> 0) -- still a pure, network-free, send-incapable module.
+- No new import edges were added anywhere in the traced graph; `src/autonomy-cycle.mjs`'s import
+  of `./inbound-classify.mjs` already existed and only gained one more named import
+  (`boundHeaders`) from the same already-reviewed file.
+- Grep for send-capable symbols across the traced graph: still zero matches outside comments.
+
+The `src/store.mjs` fix in this phase (an explicit `::timestamptz` cast added to
+`heartbeatAutonomyCycleRun`'s SQL, fixing a real Postgres type-inference bug caught by the new
+LEASE-03 test) is a pure SQL-correctness fix with no capability or import-graph impact.

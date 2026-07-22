@@ -2,7 +2,31 @@
 // Deliberately has no imports at all (not even ./utils.mjs) and no way to send, reply, or modify
 // anything — it only ever turns data already in memory into a label or a bounded string.
 
-const DEFAULT_LIMITS = { maxMimeDepth: 10, maxMimePartCount: 200, maxDecodedBodyBytes: 262144 };
+const DEFAULT_LIMITS = { maxMimeDepth: 10, maxMimePartCount: 200, maxDecodedBodyBytes: 262144, maxHeaderCount: 100, maxHeaderValueBytes: 8192 };
+
+// GM-17: bounds the raw Gmail envelope header array before anything downstream (classification,
+// extractEmailAddress) ever sees it, regardless of how many headers a hostile/malformed message
+// declares or how long any single value is. A header past maxHeaderCount is dropped rather than
+// processed; a value past maxHeaderValueBytes is cut down to that size rather than kept whole --
+// either case sets `truncated` so callers can tell the envelope was capped.
+export function boundHeaders(rawHeaders, limits = {}) {
+  const cfg = { ...DEFAULT_LIMITS, ...limits };
+  const list = Array.isArray(rawHeaders) ? rawHeaders : [];
+  const capped = list.slice(0, cfg.maxHeaderCount);
+  let truncated = list.length > capped.length;
+  const headers = {};
+  for (const entry of capped) {
+    const name = String(entry?.name || '').toLowerCase();
+    if (!name) continue;
+    let value = String(entry?.value ?? '');
+    if (Buffer.byteLength(value, 'utf8') > cfg.maxHeaderValueBytes) {
+      value = Buffer.from(value, 'utf8').subarray(0, cfg.maxHeaderValueBytes).toString('utf8');
+      truncated = true;
+    }
+    headers[name] = value;
+  }
+  return { headers, truncated, headerCount: list.length };
+}
 
 // Bounded recursive MIME body extractor. Depth, part count, and total decoded bytes are all
 // capped regardless of what the input claims or how it's shaped, so a hostile or malformed

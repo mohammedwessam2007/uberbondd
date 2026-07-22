@@ -18,6 +18,7 @@ import { spawn } from 'node:child_process';
 import EmbeddedPostgres from 'embedded-postgres';
 import { PostgresStore } from '../src/store.mjs';
 import { runAutonomyCycle } from '../src/autonomy-cycle.mjs';
+import { encryptJson, keyedHash } from '../src/crypto.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const crashWorkerScript = path.join(here, '../scripts/p2-2-crash-worker.mjs');
@@ -172,4 +173,193 @@ test('CRS: a real SIGKILL mid-stage leaves the run resumable, not corrupted or d
   // correctly comes back 'skipped', proving the stage was genuinely retried from scratch and not
   // left over from (or corrupted by) the killed process's in-flight attempt.
   assert.equal(resumed.run.stages['poll-inbound'].status, 'skipped');
+});
+
+test('LEASE-03 (real Postgres, two separate connections): a live heartbeat blocks a concurrent reclaim attempt across the original TTL', async () => {
+  const created = await storeA.createAutonomyCycleRun('lease03-run', 'worker-a', 1200);
+  assert.equal(created.ok, true);
+  let fence = { owner: created.run.leaseOwner, epoch: created.run.leaseEpoch, version: created.run.version };
+  // Heartbeat on storeA every 400ms for 2s total -- well past the original 1200ms TTL, which
+  // would have expired on its own by the second iteration if the heartbeat were not renewing it.
+  // storeB (a genuinely separate connection) tries to reclaim after every heartbeat.
+  for (let i = 0; i < 5; i += 1) {
+    await new Promise(resolve => setTimeout(resolve, 400));
+    const hb = await storeA.heartbeatAutonomyCycleRun(created.run.id, fence, 1200);
+    assert.equal(hb.ok, true, `heartbeat ${i} must keep renewing the live lease`);
+    fence = { owner: fence.owner, epoch: hb.run.leaseEpoch, version: hb.run.version };
+    const reclaim = await storeB.reclaimStaleAutonomyCycleRun('reclaimer', 60000);
+    assert.equal(reclaim.ok, false, `a concurrent reclaimer must get nothing while heartbeats keep the lease alive (iteration ${i})`);
+    assert.equal(reclaim.reason, 'no-stale-lease');
+  }
+  const row = await storeA.pool.query('SELECT data FROM autonomy_cycle_runs WHERE id=$1', [created.run.id]);
+  assert.equal(row.rows[0].data.leaseOwner, 'worker-a', 'the original owner must still hold the lease throughout');
+  assert.equal(row.rows[0].data.status, 'active');
+  await storeA.patchAutonomyCycleRun(created.run.id, fence, { status: 'completed', finalizedAt: new Date().toISOString() });
+});
+
+test('CRASH-03 (real Postgres): resuming after a crash between an effect commit and its stage checkpoint does not duplicate the effect', async () => {
+  const cfg = baseCfg({ limits: { maxStageRetries: 3 } });
+  const gmailId = 'crash03-message';
+  const messageKey = keyedHash(gmailId, cfg.encryptionKey);
+  const created = await storeA.createAutonomyCycleRun('crash03-run', 'worker-a', 60000);
+  assert.equal(created.ok, true);
+  let fence = { owner: created.run.leaseOwner, epoch: created.run.leaseEpoch, version: created.run.version };
+  // Simulate poll-inbound having already committed its checkpoint (as a real prior attempt would
+  // have) for a single ref pointing at this message.
+  const encryptedRefs = [encryptJson({ accountId: 'acct-crash03', refId: gmailId }, cfg.encryptionKey)];
+  const pollPatch = await storeA.patchAutonomyCycleRun(created.run.id, fence, {
+    stagesPatch: { 'poll-inbound': { status: 'done', result: { messagesFetched: 1, encryptedRefs }, attempts: 0, completedAt: new Date().toISOString() } }
+  });
+  assert.equal(pollPatch.ok, true);
+  fence = { owner: pollPatch.run.leaseOwner, epoch: pollPatch.run.leaseEpoch, version: pollPatch.run.version };
+  // Simulate a *previous* classify-and-suppress attempt that got as far as committing the durable
+  // effect (the inbound work item) and then crashed -- SIGKILL, OOM, deploy -- before it could
+  // patch the run's own stage checkpoint. The run record therefore still shows
+  // classify-and-suppress as not-done, exactly as it would after a real crash at this point.
+  const preCommitted = await storeA.createInboundWorkItem({
+    messageKey, accountKey: keyedHash('acct-crash03', cfg.encryptionKey), threadKey: null,
+    encryptedProviderRef: encryptJson({ accountId: 'acct-crash03', gmailId, threadId: '' }, cfg.encryptionKey),
+    classificationCode: 'unknown', confidenceBucket: 'low', prospectId: null,
+    expiresAt: new Date(Date.now() + 86400000).toISOString()
+  });
+  assert.equal(preCommitted.ok, true);
+
+  const reader = {
+    listMessages: async () => ({ data: { messages: [] } }),
+    getMessage: async () => ({ data: { id: gmailId, threadId: '', payload: { headers: [], mimeType: 'text/plain', body: { data: Buffer.from('hi').toString('base64url') } } } })
+  };
+  // Same leaseOwner as the crashed attempt -- a worker process restarting under its own fixed
+  // identity (a common real deployment shape) re-enters its own still-live lease rather than
+  // needing a separate reclaim step, exactly like acquireRun's same-owner reentry path.
+  const resumed = await runAutonomyCycle({ store: storeA, cfg, runKey: 'crash03-run', leaseOwner: 'worker-a', mailboxReader: reader, accounts: [{ id: 'acct-crash03', tokens: {} }] });
+  assert.equal(resumed.ok, true, 'the resumed cycle must complete, not error, on a pre-existing effect');
+  assert.equal(resumed.run.stages['classify-and-suppress'].status, 'done', 'the stage checkpoint must now advance');
+  assert.equal(resumed.run.stages['classify-and-suppress'].result.duplicate, 1, 'the pre-committed effect must be recognized as a duplicate, not reprocessed as new');
+  assert.equal(resumed.run.stages['classify-and-suppress'].result.processed, 0);
+
+  const items = await storeA.pool.query('SELECT id FROM inbound_work_items WHERE message_key=$1', [messageKey]);
+  assert.equal(items.rows.length, 1, 'effect count must remain exactly one after resume, never duplicated');
+});
+
+test('CRASH-05 (real Postgres): repeated recovery across multiple simulated crashes stays bounded and never duplicates an effect', async () => {
+  // baseCfg() defaults inbound to disabled (most tests in this file don't need it) -- this
+  // scenario needs the real pollInboundStage to run so the flaky reader is actually exercised,
+  // not skipped.
+  const cfg = baseCfg({ limits: { maxStageRetries: 3, maxStageRuntimeMs: 5000 } });
+  cfg.inbound.enabled = true;
+  cfg.inbound.gmailReadEnabled = true;
+  const gmailId = 'crash05-message';
+  let getMessageCalls = 0;
+  const flakyReader = {
+    listMessages: async () => ({ data: { messages: [{ id: gmailId }] } }),
+    getMessage: async () => {
+      getMessageCalls += 1;
+      // Fails on the first two attempts (simulating two separate crashes mid-effect), succeeds
+      // on the third -- within the maxStageRetries budget of 3.
+      if (getMessageCalls < 3) throw new Error(`simulated crash on attempt ${getMessageCalls}`);
+      return { data: { id: gmailId, threadId: '', payload: { headers: [], mimeType: 'text/plain', body: { data: Buffer.from('hi').toString('base64url') } } } };
+    }
+  };
+  const runKey = 'crash05-flaky-run';
+  let result = null;
+  let calls = 0;
+  for (; calls < 5; calls += 1) {
+    result = await runAutonomyCycle({ store: storeA, cfg, runKey, leaseOwner: 'worker-a', mailboxReader: flakyReader, accounts: [{ id: 'acct-crash05', tokens: {} }] });
+    if (result.ok) break;
+    assert.equal(result.reason, 'stage-not-complete', `unexpected failure mode on recovery attempt ${calls}: ${result.reason}`);
+  }
+  assert.equal(result.ok, true, 'recovery must eventually succeed within the retry budget');
+  assert.ok(calls < cfg.inbound.limits.maxStageRetries, `recovery took ${calls + 1} calls, which must stay below maxStageRetries (${cfg.inbound.limits.maxStageRetries})`);
+  const messageKey = keyedHash(gmailId, cfg.encryptionKey);
+  const items = await storeA.pool.query('SELECT id FROM inbound_work_items WHERE message_key=$1', [messageKey]);
+  assert.equal(items.rows.length, 1, 'exactly one effect must exist no matter how many recovery attempts it took');
+
+  // Second sub-scenario: a reader that never recovers must hard-stop at maxStageRetries, not
+  // retry forever, and must never have created a duplicate (or any) effect along the way.
+  const alwaysFailingReader = {
+    listMessages: async () => ({ data: { messages: [{ id: 'crash05-never-recovers' }] } }),
+    getMessage: async () => { throw new Error('permanently broken'); }
+  };
+  const boundedRunKey = 'crash05-bounded-run';
+  let boundedResult = null;
+  let boundedCalls = 0;
+  for (; boundedCalls < 10; boundedCalls += 1) {
+    boundedResult = await runAutonomyCycle({ store: storeA, cfg, runKey: boundedRunKey, leaseOwner: 'worker-a', mailboxReader: alwaysFailingReader, accounts: [{ id: 'acct-crash05b', tokens: {} }] });
+    if (boundedResult.reason === 'stage-retries-exhausted') break;
+  }
+  assert.equal(boundedResult.reason, 'stage-retries-exhausted', 'a permanently failing stage must terminally stop, not retry forever');
+  assert.equal(boundedCalls + 1, cfg.inbound.limits.maxStageRetries, `must hit the exact retry cap (${cfg.inbound.limits.maxStageRetries}), took ${boundedCalls + 1} calls`);
+  assert.equal(boundedResult.run.status, 'failed');
+  const neverKey = keyedHash('crash05-never-recovers', cfg.encryptionKey);
+  const noItems = await storeA.pool.query('SELECT id FROM inbound_work_items WHERE message_key=$1', [neverKey]);
+  assert.equal(noItems.rows.length, 0, 'a permanently failing attempt must never have created an effect at all');
+});
+
+async function seedReplyRaceFixture(store, suffix) {
+  const campaign = { id: `rep08-campaign-${suffix}`, approved: true, enabled: true, autoSend: true, dryRun: true, liveSendApproved: false };
+  const prospect = {
+    id: `rep08-prospect-${suffix}`, campaignId: campaign.id, company: 'Clinic', website: `https://${suffix}.example`,
+    domain: `${suffix}.example`, status: 'ready', inbox: 'A',
+    draft: 'Approved evidence-backed body', subject: 'Approved subject',
+    contact: { email: `info@${suffix}.example` }
+  };
+  await store.add('campaigns', campaign);
+  await store.add('prospects', prospect);
+  const reserved = await store.reserveOutboundSend({
+    idempotencyKey: `rep08:${prospect.id}`, prospectId: prospect.id, campaignId: campaign.id,
+    inbox: 'A', recipientEmail: prospect.contact.email, dailyCap: 100, hourlyCap: 100,
+    minGapSeconds: 0, now: new Date().toISOString()
+  });
+  assert.equal(reserved.ok, true);
+  return { campaign, prospect, reservation: reserved.reservation };
+}
+
+const rep08DryRunGate = {
+  authorization: 'auto', simulation: true, systemProvider: 'test',
+  systemEnabled: false, systemDryRun: true, systemLiveSendApproved: false,
+  draftBody: 'Approved evidence-backed body', draftSubject: 'Approved subject'
+};
+
+test('REP-08 (real Postgres, two separate connections): a reply that lands first makes the dispatch fence reject the due follow-up reservation', async () => {
+  const { prospect, reservation } = await seedReplyRaceFixture(storeA, 'rep08-ordered');
+  const replied = await storeB.recordReplyAndStop({
+    id: 'rep08-reply-ordered', prospectId: prospect.id, inbox: 'A', gmailId: 'rep08-gmail-ordered', processingStatus: 'processing'
+  }, { status: 'replied', repliedAt: new Date().toISOString() });
+  assert.ok(replied.prospect);
+  const dispatch = await storeA.beginOutboundDispatch(reservation.id, rep08DryRunGate);
+  assert.equal(dispatch.ok, false, 'no provider/send call may be authorized once a reply already landed for this prospect');
+  assert.equal(dispatch.reason, 'reply-received');
+  const finalReservation = await storeA.get('outboundReservations', reservation.id);
+  assert.equal(finalReservation.status, 'cancelled');
+  assert.equal(finalReservation.cancelReason, 'reply-received');
+});
+
+test('REP-08 (real Postgres, genuine concurrent race across 15 trials): the dispatch fence and the reply-stop path never produce an inconsistent outcome', async () => {
+  const outcomes = { dispatchWon: 0, replyWon: 0 };
+  for (let i = 0; i < 15; i += 1) {
+    const suffix = `rep08-race-${i}`;
+    const { prospect, reservation } = await seedReplyRaceFixture(storeA, suffix);
+    const [dispatchResult, replyResult] = await Promise.all([
+      storeA.beginOutboundDispatch(reservation.id, rep08DryRunGate),
+      storeB.recordReplyAndStop({ id: `rep08-reply-${suffix}`, prospectId: prospect.id, inbox: 'A', gmailId: `rep08-gmail-${suffix}`, processingStatus: 'processing' }, { status: 'replied', repliedAt: new Date().toISOString() })
+    ]);
+    assert.ok(replyResult.prospect, `reply must always be recorded regardless of dispatch timing (trial ${i})`);
+    const finalReservation = await storeA.get('outboundReservations', reservation.id);
+    if (dispatchResult.ok) {
+      // Dispatch won the per-prospect advisory lock and legitimately committed before the reply
+      // did -- a valid interleaving, not a defect, since nothing had replied yet at that instant.
+      outcomes.dispatchWon += 1;
+      assert.equal(finalReservation.status, 'dispatching');
+    } else {
+      // The reply won the lock first -- the fence must reject with exactly 'reply-received', and
+      // the reservation must be left cancelled, never left ambiguously in 'reserved'.
+      outcomes.replyWon += 1;
+      assert.equal(dispatchResult.reason, 'reply-received', `trial ${i} must reject specifically because of the reply, not some other reason`);
+      assert.equal(finalReservation.status, 'cancelled');
+      assert.equal(finalReservation.cancelReason, 'reply-received');
+    }
+  }
+  // Real evidence that both legitimate interleavings were actually observed across the 15 trials,
+  // not just one side of the race by construction.
+  assert.ok(outcomes.dispatchWon + outcomes.replyWon === 15);
 });

@@ -147,3 +147,27 @@ test('autonomy-cycle.mjs exports no send-capable function', () => {
   const forbidden = ['sendEmail', 'buildRawMessage', 'processOutboundQueue', 'processFollowups', 'createJobHandlers'];
   for (const name of forbidden) assert.ok(!exportNames.includes(name), `unexpected export: ${name}`);
 });
+
+test('STORE-03: no generic remove/delete capability exists anywhere in the Store, so a protected collection cannot be removed via a generic path', async () => {
+  // The scenario as written ("generic remove rejects cycle runs") presupposes a generic
+  // remove()/delete() method exists that PROTECTED_COLLECTIONS must guard. It does not: this
+  // codebase never implements one at all -- add/upsert/patch are the only generic mutators, and
+  // every actual delete-shaped operation (deleteExpiredInboundWorkItems, the stale-dispatch/stale-
+  // job recovery sweeps) is a narrow, dedicated, named method scoped to exactly one collection and
+  // one retention/recovery purpose, not a caller-suppliable "remove this record" primitive. The
+  // invariant the row is actually protecting -- a protected collection's rows cannot be erased by
+  // any caller-directed generic path -- therefore holds by construction, proven here two ways:
+  // (1) the store source has no generic remove/delete method definition; (2) every export name on
+  // both the JSON-store transaction wrapper class and PostgresStore is enumerated and none is a
+  // bare "remove"/"delete" (only the specific, already-reviewed deleteExpiredInboundWorkItems).
+  const storeSource = await fs.readFile(path.join(here, '../src/store.mjs'), 'utf8');
+  assert.ok(!/\bremove\s*\(/.test(storeSource.replace(/deleteExpiredInboundWorkItems|_deleteExpiredInboundWorkItemsDirect/g, '')), 'no remove( symbol anywhere outside the one named retention-sweep method');
+  const methodNames = [...storeSource.matchAll(/^\s{2}async ([a-zA-Z_]+)\(/gm)].map(m => m[1]);
+  const genericMutators = methodNames.filter(name => /^(remove|delete)$/i.test(name));
+  assert.deepEqual(genericMutators, [], `found a generic remove/delete method that PROTECTED_COLLECTIONS would need to guard: ${genericMutators.join(', ')}`);
+  const deleteShapedMethods = [...new Set(methodNames.filter(name => /delete/i.test(name)))].sort();
+  // Both are named, single-collection, single-purpose retention sweeps (never take a caller-
+  // supplied id/filter) -- not a general-purpose remove that PROTECTED_COLLECTIONS would need to
+  // additionally guard.
+  assert.deepEqual(deleteShapedMethods, ['deleteExpiredArtifacts', 'deleteExpiredInboundWorkItems']);
+});

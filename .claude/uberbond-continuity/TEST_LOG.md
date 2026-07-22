@@ -369,3 +369,79 @@ Note: src/pipeline.mjs (the separate, already-accepted P2.1 "autonomous reply sy
 writes to the general `replies` table via its own independent logic -- confirmed unaffected by
 this change, since P2.2's autonomy-cycle.mjs only ever wrote to `replies` from within its own
 classify-and-suppress stage, never shared any code path with pipeline.mjs.
+
+## 2026-07-22 (owner-authorized session) — Phase 2: closing the last 7 hostile-matrix rows
+
+Owner explicitly authorized pushing this branch and opening a draft PR this session (previous
+sessions were local-only). Before any push, closed every remaining Not Run row with real evidence
+rather than carrying them forward.
+
+- **GM-05** (repeated page-token loop guard): new test in `tests/autonomy-cycle.test.mjs` uses a
+  custom mailboxReader that returns the *same* `nextPageToken` on every call. Proven: exactly 2
+  `listMessages` calls before the loop guard (`nextToken === pageToken` -> break) stops it, not
+  the 50-page hard cap configured in the test. `node --test tests/autonomy-cycle.test.mjs` -> pass.
+- **GM-17** (header count/value length cap): genuine gap, not just an untested guard -- there was
+  no cap on the raw Gmail envelope header array or a single header's value length prior to this
+  fix (only the overall response byte size was bounded). Added `boundHeaders()` to
+  `src/inbound-classify.mjs` (pure, zero imports, same style as `parseInboundMime`) with
+  `maxHeaderCount`/`maxHeaderValueBytes` limits (new `cfg.inbound.limits` keys, defaults 100 /
+  8192 bytes), wired into `classifyAndSuppressStage` in `src/autonomy-cycle.mjs` before headers
+  ever reach classification or From-address extraction. Three new tests (end-to-end with a 5000-
+  header/1MB-value hostile message, plus a direct unit test of `boundHeaders`) all pass.
+- **LEASE-03** (live heartbeat blocks a concurrent reclaim): new real-Postgres test in
+  `tests/p2-2-postgres-race.test.mjs` heartbeats a run every 400ms for 2s (past its original
+  1200ms TTL) on `storeA` while `storeB` repeatedly tries `reclaimStaleAutonomyCycleRun` -- always
+  rejected with `no-stale-lease`. **This test caught a genuine, previously-undetected production
+  bug**: `heartbeatAutonomyCycleRun`'s PostgreSQL SQL used the same bound parameter (`$5`, the new
+  lease-expiry timestamp) both as an implicit `timestamptz` column assignment and inside an
+  explicit `to_jsonb($5::text)` cast, which Postgres rejects as "inconsistent types deduced for
+  parameter $5" (code 42P08) -- `heartbeatAutonomyCycleRun` had zero prior test coverage against a
+  real Postgres connection (or PGlite) before this session, only being exercised indirectly and
+  never asserted on. Fixed by adding an explicit `$5::timestamptz` cast alongside the existing
+  `$5::text` one in `src/store.mjs`. Confirmed the method now works end to end.
+- **CRASH-03** (crash after effect commit, before stage checkpoint, does not duplicate): new real-
+  Postgres test pre-seeds the exact effect (an `inboundWorkItems` row) a crashed prior attempt
+  would have committed, without patching the run's own stage checkpoint (simulating the crash
+  landing in that gap), then resumes with the same run/lease-owner identity. Confirms: the stage
+  checkpoint advances to `done`, the message is correctly recognized as a duplicate
+  (`counts.duplicate === 1`, `counts.processed === 0`), and exactly one row exists in
+  `inbound_work_items` for that `message_key` afterward.
+- **CRASH-05** (repeated recovery stays bounded and duplicate-free): two real-Postgres sub-
+  scenarios in the same test. (a) A reader that fails twice then succeeds: repeated
+  `runAutonomyCycle` calls (simulating repeated crash+recovery) converge to success within the
+  `maxStageRetries` budget, and exactly one `inbound_work_items` row exists afterward -- no
+  duplicate from the earlier failed attempts. (b) A reader that never recovers: retries hard-stop
+  at exactly `maxStageRetries` calls with `reason: 'stage-retries-exhausted'`, never looping
+  forever, and zero effect rows were ever created.
+- **REP-08** (concurrent scheduler loses to the inbound reply-stop fence): two real-Postgres,
+  two-separate-connection tests. (a) Deterministic: a reply fully commits via
+  `store.recordReplyAndStop` on one connection, then a due-followup dispatch attempt on the other
+  connection is rejected with `reason: 'reply-received'`, reservation left `cancelled`. (b) Genuine
+  concurrent race across 15 trials (`Promise.all` of `beginOutboundDispatch` and
+  `recordReplyAndStop` on separate connections, fresh prospect per trial): both legitimate
+  interleavings were observed (dispatch-won and reply-won), and every reply-won outcome rejected
+  with exactly `reply-received` and left the reservation `cancelled` -- no inconsistent state
+  across any of the 15 trials. Uses the pre-existing per-prospect Postgres advisory lock
+  (`outbound:prospect:<id>`) that both `beginOutboundDispatch` and `recordReplyAndStop` already
+  took before this session -- this session added the hostile test proving it under genuine
+  concurrency, not the locking mechanism itself.
+- **STORE-03** (generic remove rejects protected collections): the scenario as literally written
+  doesn't apply -- this codebase has never implemented a generic `remove()`/`delete()` method at
+  all (only `add`/`upsert`/`patch` are generic; every delete-shaped operation is a named, single-
+  collection, no-argument or narrowly-scoped retention sweep:
+  `deleteExpiredInboundWorkItems`/`deleteExpiredArtifacts`). New test in
+  `tests/p2-2-capabilities.test.mjs` proves this by enumerating every method name on `src/store.mjs`
+  and asserting no bare `remove`/`delete` method exists and the only delete-shaped methods are
+  those two named sweeps -- the invariant STORE-03 is protecting (a protected collection's rows
+  cannot be erased by any caller-directed generic path) holds by construction.
+
+Commands run this phase:
+- `node --test tests/autonomy-cycle.test.mjs` -> 23/23 pass (GM-05, GM-17 x2 added)
+- `node --test tests/p2-2-postgres-race.test.mjs` -> 10/10 pass, real isolated PostgreSQL
+  (LEASE-03, CRASH-03, CRASH-05, REP-08 x2 added; 5 pre-existing also still pass)
+- `node --test tests/p2-2-capabilities.test.mjs` -> 18/18 pass (STORE-03 added)
+- `npm run check` -> 327/327 pass, 0 fail (up from 323)
+- `npm audit` -> 0 vulnerabilities
+- `CHROMIUM_PATH=/opt/pw-browsers/chromium npm run test:browser` -> 2/2 pass
+- `git diff --exit-code a905c907...HEAD -- lite/` -> PASS, zero diff (re-verified after every
+  commit this phase)

@@ -68,6 +68,10 @@ export const config = {
       maxMimeDepth: Math.max(1, num(env.INBOUND_MAX_MIME_DEPTH, 10)),
       maxMimePartCount: Math.max(1, num(env.INBOUND_MAX_MIME_PART_COUNT, 200)),
       maxDecodedBodyBytes: Math.max(1024, num(env.INBOUND_MAX_DECODED_BODY_BYTES, 262144)),
+      // GM-17: caps on the raw Gmail envelope header array itself (count and per-value size),
+      // independent of the overall message/response byte caps above.
+      maxHeaderCount: Math.max(1, num(env.INBOUND_MAX_HEADER_COUNT, 100)),
+      maxHeaderValueBytes: Math.max(64, num(env.INBOUND_MAX_HEADER_VALUE_BYTES, 8192)),
       maxStageRuntimeMs: Math.max(1000, num(env.INBOUND_MAX_STAGE_RUNTIME_MS, 60000)),
       maxCycleRuntimeMs: Math.max(1000, num(env.INBOUND_MAX_CYCLE_RUNTIME_MS, 300000)),
       maxStageRetries: Math.max(0, num(env.INBOUND_MAX_STAGE_RETRIES, 3)),

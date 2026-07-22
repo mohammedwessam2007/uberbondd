@@ -364,3 +364,64 @@ test('P0-05/BND: total cycle runtime beyond maxCycleRuntimeMs terminally finaliz
   assert.equal(fresh.ok, true);
   assert.notEqual(fresh.run.id, created.run.id, 'must be a genuinely new run, not a resumed old one');
 });
+
+test('GM-05: a repeating page token terminates the pagination loop via the loop guard, not the hard page cap', async () => {
+  const store = await tempStore();
+  let calls = 0;
+  // Every page reports the SAME nextPageToken and always has a message left to fetch -- if the
+  // repeating-token guard (`nextToken === pageToken` -> break) did not exist, only the hard
+  // maxPagesPerCycle cap (set deliberately high here) would ever stop this loop.
+  const loopingReader = {
+    listMessages: async (acct, key, q, maxResults, pageToken) => {
+      calls += 1;
+      return { data: { messages: [{ id: `m-${calls}` }], nextPageToken: 'same-token-forever' } };
+    },
+    getMessage: async (acct, key, id) => ({ data: { id, payload: {} } })
+  };
+  const cfg = baseCfg({ limits: { maxPagesPerCycle: 50, maxMessagesPerPage: 25 } });
+  const result = await runAutonomyCycle({ store, cfg, runKey: 'gm05-run', leaseOwner: 'worker-1', mailboxReader: loopingReader, accounts: [account] });
+  assert.equal(result.ok, true);
+  // First call establishes pageToken='same-token-forever'; second call's response repeats that
+  // same token, so `nextToken === pageToken` breaks the loop right there -- exactly 2 calls, not
+  // anywhere near the 50-page hard cap.
+  assert.equal(calls, 2, `loop guard should stop pagination at 2 calls, not run toward the 50-page hard cap (got ${calls})`);
+  assert.equal(result.digest.counts.messagesFetched, 2);
+});
+
+test('GM-17: a huge raw header array and an oversized header value are both capped before classification', async () => {
+  const store = await tempStore();
+  const hugeHeaders = Array.from({ length: 5000 }, (_, i) => ({ name: `x-hostile-header-${i}`, value: 'v' }));
+  hugeHeaders.push({ name: 'from', value: 'attacker@example.com' });
+  hugeHeaders.push({ name: 'subject', value: 'A'.repeat(1024 * 1024) }); // 1MB single header value
+  const message = { id: 'gm17-msg', threadId: 'gm17-thread', payload: { headers: hugeHeaders, mimeType: 'text/plain', body: { data: b64('hello') } } };
+  const reader = createTestGmailInboundReader({ messagesByPage: [{ messages: [{ id: 'gm17-msg' }] }], messages: { 'gm17-msg': message } });
+  const start = Date.now();
+  const result = await runAutonomyCycle({ store, cfg: baseCfg(), runKey: 'gm17-run', leaseOwner: 'worker-1', mailboxReader: reader, accounts: [account] });
+  const elapsedMs = Date.now() - start;
+  assert.equal(result.ok, true);
+  assert.equal(result.digest.counts.processed, 1, 'the message must still be processed, just with a bounded header set');
+  assert.ok(elapsedMs < 5000, `bounded header handling must stay fast, took ${elapsedMs}ms`);
+  // The work item itself must never carry the raw oversized subject header or any of the 5000
+  // hostile header names -- proving the cap applied before anything reached the durable record.
+  const items = await store.list('inboundWorkItems');
+  const serialized = JSON.stringify(items);
+  assert.ok(!serialized.includes('A'.repeat(1024 * 1024)), 'the 1MB header value must never be stored whole');
+  assert.ok(!serialized.includes('attacker@example.com'), 'no raw header content should reach the durable work item');
+});
+
+test('GM-17 (unit): boundHeaders caps count and per-value length directly', async () => {
+  const { boundHeaders } = await import('../src/inbound-classify.mjs');
+  const many = Array.from({ length: 300 }, (_, i) => ({ name: `h${i}`, value: 'x' }));
+  const capped = boundHeaders(many, { maxHeaderCount: 100, maxHeaderValueBytes: 8192 });
+  assert.equal(Object.keys(capped.headers).length, 100);
+  assert.equal(capped.truncated, true);
+  assert.equal(capped.headerCount, 300);
+
+  const longValue = boundHeaders([{ name: 'subject', value: 'z'.repeat(20000) }], { maxHeaderCount: 100, maxHeaderValueBytes: 8192 });
+  assert.equal(Buffer.byteLength(longValue.headers.subject, 'utf8'), 8192);
+  assert.equal(longValue.truncated, true);
+
+  const clean = boundHeaders([{ name: 'from', value: 'a@b.com' }], { maxHeaderCount: 100, maxHeaderValueBytes: 8192 });
+  assert.equal(clean.truncated, false);
+  assert.equal(clean.headers.from, 'a@b.com');
+});

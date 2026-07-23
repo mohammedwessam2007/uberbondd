@@ -9,9 +9,22 @@ test('lane selection routes high-value deliveries to a contractor', () => {
   assert.equal(selectFulfillmentLane(delivery).lane, 'contractor');
 });
 
-test('lane selection routes site-change work to the client-authorized provider', () => {
-  const delivery = { ...baseDelivery(), selectedIssue: { service: 'Website implementation sprint' } };
+test('lane selection routes site-change work to the client-authorized provider, detected structurally rather than by free-text label', () => {
+  // Mirrors what src/delivery.mjs's TEMPLATES['implementation-sprint'] actually produces --
+  // selectedIssue.service is deliberately left as an unrelated free-text label here, to prove
+  // detection no longer depends on that field's wording (see the fix this review made).
+  const delivery = {
+    ...baseDelivery(),
+    selectedIssue: { service: 'Website strategy' },
+    implementationChecklist: [{ id: 'confirm-authorization', status: 'pending' }, { id: 'implement-scope', status: 'pending' }],
+    requiredCustomerInputs: [{ id: 'written-authorization', status: 'pending' }, { id: 'access-provisioned', status: 'pending' }]
+  };
   assert.equal(selectFulfillmentLane(delivery).lane, 'client_provider');
+});
+
+test('lane selection does not misroute a diagnostic delivery just because its issue label mentions "website"', () => {
+  const delivery = { ...baseDelivery(), selectedIssue: { service: 'Website conversion diagnostic' } };
+  assert.equal(selectFulfillmentLane(delivery).lane, 'mohamed');
 });
 
 test('lane selection defaults small diagnostic deliveries internally', () => {

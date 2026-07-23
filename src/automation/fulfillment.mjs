@@ -25,14 +25,21 @@ const TASK_TRANSITIONS = Object.freeze({
  * to override it via a direct fulfillmentTasks patch.
  */
 export function selectFulfillmentLane(delivery = {}, options = {}) {
-  const offerType = String(delivery.selectedIssue?.service || '').toLowerCase();
   const amountCents = Number(delivery.amountPaid?.amountCents || 0);
   if (options.forceLane && FULFILLMENT_LANES.includes(options.forceLane)) {
     return { lane: options.forceLane, reason: 'owner-forced-lane' };
   }
   if (delivery.testMode) return { lane: 'mohamed', reason: 'test-mode-always-internal' };
   if (amountCents >= 100000) return { lane: 'contractor', reason: 'high-value-delivery-routed-to-contractor' };
-  if (/implementation|website change|site change/.test(offerType)) return { lane: 'client_provider', reason: 'requires-client-authorized-site-access' };
+  // Detect an implementation-sprint delivery structurally, via the checklist/input items
+  // src/delivery.mjs's TEMPLATES.'implementation-sprint' actually generates ('implement-scope',
+  // 'access-provisioned', 'written-authorization'), rather than pattern-matching the free-text
+  // `selectedIssue.service` label -- that field is sourced from the audit finding's service
+  // category (e.g. "Website strategy"), not the offer/delivery type, and does not reliably say
+  // whether this delivery requires touching the customer's live site at all.
+  const requiresSiteAccess = (delivery.implementationChecklist || []).some(item => item.id === 'implement-scope')
+    || (delivery.requiredCustomerInputs || []).some(item => item.id === 'access-provisioned' || item.id === 'written-authorization');
+  if (requiresSiteAccess) return { lane: 'client_provider', reason: 'requires-client-authorized-site-access' };
   return { lane: 'mohamed', reason: 'default-internal-lane' };
 }
 

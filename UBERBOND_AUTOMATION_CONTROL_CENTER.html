@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>UberBond Automation Control Center</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{color-scheme:light dark;--bg:#0b0f14;--panel:#141a22;--fg:#e6edf3;--muted:#8b96a3;--accent:#4f9cff;--ok:#3fb950;--warn:#e3b341;--bad:#f85149;}
+@media (prefers-color-scheme: light){:root{--bg:#f6f8fa;--panel:#ffffff;--fg:#1f2328;--muted:#57606a;}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;padding:24px;}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 20px;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.panel{background:var(--panel);border:1px solid rgba(127,127,127,.25);border-radius:10px;padding:16px}
+.panel h2{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:0 0 10px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+td,th{text-align:left;padding:4px 0;border-bottom:1px solid rgba(127,127,127,.15)}
+.badge{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:600}
+.badge.ok{background:rgba(63,185,80,.15);color:var(--ok)}
+.badge.warn{background:rgba(227,179,65,.15);color:var(--warn)}
+.badge.bad{background:rgba(248,81,73,.15);color:var(--bad)}
+.big{font-size:28px;font-weight:700}
+.action{background:rgba(79,156,255,.12);border:1px solid rgba(79,156,255,.3);border-radius:8px;padding:12px;font-weight:600}
+.footer{margin-top:20px;color:var(--muted);font-size:12px}
+</style></head><body>
+<h1>UberBond Automation Control Center</h1>
+<p class="sub">Generated 2026-07-23T00:14:27.619Z from seeded demonstration data via the real Store + automation modules. Not connected to a live database.</p>
+
+<div class="grid">
+<section class="panel"><h2>Automation mode</h2>
+  <div class="big">APPROVAL</div>
+  <table>
+    <tr><td>Enabled</td><td><span class="badge ok">true</span></td></tr>
+    <tr><td>Live (advances without owner click)</td><td><span class="badge warn">true</span></td></tr>
+    <tr><td>Campaign policy required</td><td>true</td></tr>
+  </table></section>
+
+<section class="panel"><h2>Active campaign policy</h2>
+  <table>
+    <tr><td>Campaign</td><td>Healthcare evidence preview</td></tr>
+    <tr><td>Policy ID</td><td>policy_demo-healthcare-dry-run_v1</td></tr>
+    <tr><td>Signature valid</td><td><span class="badge ok">true</span></td></tr>
+    <tr><td>Daily send cap</td><td>20</td></tr>
+    <tr><td>Evidence threshold</td><td>0.8</td></tr>
+    <tr><td>Expires</td><td>2026-08-22T00:14:27.599Z</td></tr>
+  </table></section>
+
+<section class="panel"><h2>Kill switches</h2>
+  <table>
+    <tr><td>Outbound provider</td><td>test</td></tr>
+    <tr><td>Outbound enabled</td><td><span class="badge ok">false</span></td></tr>
+    <tr><td>Dry run</td><td><span class="badge ok">true</span></td></tr>
+    <tr><td>Live send approved</td><td><span class="badge ok">false</span></td></tr>
+    <tr><td>Paused inboxes</td><td>B</td></tr>
+    <tr><td>Dead-letter jobs</td><td>1</td></tr>
+  </table></section>
+
+<section class="panel"><h2>Prospects by lifecycle stage</h2>
+  <table><tr><td>DISCOVERED</td><td>1</td></tr><tr><td>CRAWLED</td><td>1</td></tr><tr><td>DRAFT_READY</td><td>1</td></tr><tr><td>REPLIED</td><td>1</td></tr><tr><td>NO_REPLY</td><td>1</td></tr><tr><td>PAID</td><td>1</td></tr><tr><td>REJECTED</td><td>1</td></tr></table></section>
+
+<section class="panel"><h2>Evidence &amp; drafts</h2>
+  <table>
+    <tr><td>Evidence pass rate</td><td>14%</td></tr>
+    <tr><td>Queued drafts (needs-review)</td><td>1</td></tr>
+    <tr><td>Sends in test mode</td><td>1</td></tr>
+    <tr><td>Approved campaign volume (dailySendCap)</td><td>20</td></tr>
+  </table></section>
+
+<section class="panel"><h2>Replies</h2>
+  <table>
+    <tr><td>Total replies</td><td>1</td></tr>
+    <tr><td>Positive replies</td><td>2</td></tr>
+  </table></section>
+
+<section class="panel"><h2>Payments</h2>
+  <table>
+    <tr><td>Orders</td><td>2</td></tr>
+    <tr><td>Paid</td><td>1</td></tr>
+    <tr><td>Disputed</td><td><span class="badge bad">1</span></td></tr>
+  </table></section>
+
+<section class="panel"><h2>Fulfillment</h2>
+  <table><tr><td>fulfill_demo_1</td><td>mohamed</td><td>assigned</td></tr></table></section>
+
+<section class="panel"><h2>Monitoring</h2>
+  <table><tr><td>sub_demo_1</td><td>active</td><td>next: 2026-08-22T00:14:27.613Z</td></tr></table></section>
+
+<section class="panel"><h2>Worker health</h2>
+  <table>
+    <tr><td>Live workers</td><td>1</td></tr>
+    <tr><td>Dead-letter jobs</td><td>1</td></tr>
+  </table></section>
+
+<section class="panel"><h2>Exceptions (4)</h2>
+  <table>
+    <tr><th>Priority</th><th>Category</th><th>Reason</th><th>Exact action</th></tr>
+    <tr><td><span class="badge bad">P0</span></td><td>kill_switch_recovery</td><td>Sender inbox B is paused (complaint-threshold)</td><td>Investigate the bounce/complaint spike before resuming this inbox.</td></tr><tr><td><span class="badge bad">P0</span></td><td>payment_mismatch</td><td>Payment dispute on order order_demo_2</td><td>Investigate the dispute with the payment provider. Do not proceed with fulfillment until resolved.</td></tr><tr><td><span class="badge warn">P1</span></td><td>positive_reply</td><td>Positive reply from prospect pros_demo_5</td><td>Review the reply, send a personal reply from the owner. Do not auto-negotiate price or scope.</td></tr><tr><td><span class="badge warn">P1</span></td><td>kill_switch_recovery</td><td>Job research.batch moved to the dead-letter queue after repeated failures</td><td>Diagnose the failure and requeue from the dead-letter queue, or resolve manually.</td></tr>
+  </table></section>
+</div>
+
+<div class="action">Next owner action: 4 exceptions awaiting review (2 P0).</div>
+<p class="footer">Sample/demonstration data only. This page is generated by scripts/generate-automation-control-center.mjs and can be re-pointed at a live Store to show real state.</p>
+</body></html>

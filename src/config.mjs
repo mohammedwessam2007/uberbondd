@@ -151,6 +151,29 @@ export const config = {
     openaiKey: env.OPENAI_API_KEY || '',
     openaiModel: env.OPENAI_MODEL || 'gpt-5-mini'
   },
+  // Full-automation layer (spec section O): an additional, independent gate stacked on top of the
+  // existing per-capability gates above (outbound.*, inbound.*, discovery.*, revenue.*). Those
+  // still separately govern whether any given side effect can literally happen; `automation.*`
+  // governs whether the scheduler is allowed to advance prospects through stages *without* a
+  // per-item owner click. Both layers must independently allow an action -- neither implies the
+  // other, and nothing here weakens the existing gates.
+  automation: {
+    mode: String(env.AUTOMATION_MODE || 'shadow').toLowerCase(),
+    enabled: parseCanonicalBoolean(env.AUTOMATION_ENABLED),
+    campaignPolicyRequired: env.CAMPAIGN_POLICY_REQUIRED === undefined ? true : parseCanonicalBoolean(env.CAMPAIGN_POLICY_REQUIRED),
+    autonomousConfirmed: parseCanonicalBoolean(env.AUTOMATION_AUTONOMOUS_CONFIRMED),
+    fulfillmentAutomationEnabled: parseCanonicalBoolean(env.FULFILLMENT_AUTOMATION_ENABLED),
+    monitoringEnabled: parseCanonicalBoolean(env.MONITORING_ENABLED),
+    maxDailySends: Math.max(0, num(env.MAX_DAILY_SENDS, 0)),
+    maxTotalCampaignSends: Math.max(0, num(env.MAX_TOTAL_CAMPAIGN_SENDS, 0)),
+    policySecret: env.CAMPAIGN_POLICY_SECRET || env.TOKEN_ENCRYPTION_KEY || ''
+  },
+  apify: {
+    enabled: parseCanonicalBoolean(env.APIFY_ENABLED),
+    token: env.APIFY_TOKEN || '',
+    taskId: env.APIFY_TASK_ID || '',
+    pollMinutes: Math.max(5, num(env.APIFY_POLL_MINUTES, 60))
+  },
   hunterKey: env.HUNTER_API_KEY || '',
   google: {
     clientId: env.GOOGLE_CLIENT_ID || '',
@@ -189,6 +212,12 @@ export const config = {
 export function validateStartupConfig(cfg = config) {
   const role = cfg.processRole || (cfg.nodeEnv === 'production' ? 'web' : 'all');
   if (!['web', 'worker', 'all'].includes(role)) throw new Error('PROCESS_ROLE must be web, worker, or all');
+  if (!['shadow', 'approval', 'autonomous'].includes(cfg.automation?.mode || 'shadow')) {
+    throw new Error('AUTOMATION_MODE must be shadow, approval, or autonomous');
+  }
+  if (cfg.automation?.mode === 'autonomous' && cfg.nodeEnv === 'test' && cfg.automation?.autonomousConfirmed) {
+    throw new Error('Tests cannot run with autonomous mode confirmed');
+  }
   if (!['json', 'postgres'].includes(cfg.storeBackend)) throw new Error('STORE_BACKEND must be "json" or "postgres"');
   if (!['test', 'gmail'].includes(cfg.outbound?.provider || 'test')) throw new Error('OUTBOUND_PROVIDER must be test or gmail');
   if (cfg.nodeEnv === 'test' && cfg.outbound?.provider === 'gmail') throw new Error('Tests cannot use the real Gmail provider');

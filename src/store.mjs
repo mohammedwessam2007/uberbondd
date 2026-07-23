@@ -9,7 +9,8 @@ export const COLLECTIONS = [
   'prospects', 'campaigns', 'jobs', 'messages', 'replies', 'suppressions',
   'socialTasks', 'accounts', 'auditLog', 'leads', 'orders', 'subscriptions',
   'offers', 'deliveries', 'monitoringRuns', 'notifications', 'revenueEvents', 'discoveryRuns', 'workerHeartbeats',
-  'outboundReservations', 'senderHealth', 'outboundEvents', 'experiments', 'autonomyCycleRuns', 'inboundAccounts', 'inboundWorkItems'
+  'outboundReservations', 'senderHealth', 'outboundEvents', 'experiments', 'autonomyCycleRuns', 'inboundAccounts', 'inboundWorkItems',
+  'fulfillmentTasks', 'automationDigests'
 ];
 
 const EMPTY = {
@@ -18,7 +19,8 @@ const EMPTY = {
   suppressions: [], socialTasks: [], accounts: [], auditLog: [], settings: {},
   leads: [], orders: [], subscriptions: [], offers: [], deliveries: [], monitoringRuns: [], notifications: [],
   revenueEvents: [], discoveryRuns: [], workerHeartbeats: [],
-  outboundReservations: [], senderHealth: [], outboundEvents: [], experiments: [], autonomyCycleRuns: [], inboundAccounts: [], inboundWorkItems: []
+  outboundReservations: [], senderHealth: [], outboundEvents: [], experiments: [], autonomyCycleRuns: [], inboundAccounts: [], inboundWorkItems: [],
+  fulfillmentTasks: [], automationDigests: []
 };
 
 const MAP = {
@@ -134,6 +136,17 @@ const MAP = {
       prospectId: 'prospect_id', expiresAt: 'expires_at', createdAt: 'created_at', updatedAt: 'updated_at'
     }
   },
+  fulfillmentTasks: {
+    table: 'fulfillment_tasks',
+    columns: {
+      deliveryId: 'delivery_id', prospectId: 'prospect_id', lane: 'lane', status: 'status',
+      slaDueAt: 'sla_due_at', createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
+  automationDigests: {
+    table: 'automation_digests',
+    columns: { kind: 'kind', digestDate: 'digest_date', createdAt: 'created_at', updatedAt: 'updated_at' }
+  }
 };
 
 // Collections with singleton, lease, or CAS invariants that the generic add/upsert/patch path

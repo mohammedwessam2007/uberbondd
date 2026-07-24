@@ -57,14 +57,23 @@ with the actual final bundle HEAD.
 - **Commercially unproven**: this patch changes nothing about that standing fact. No claim is made
   about a real buyer, real send, real payment, real reply, or product-market fit.
 
-## Commits (14-17, continuing the branch's numbering)
+## Commits (14-19, continuing the branch's numbering)
 
 14. `d521ee8` -- secure XLSX importer
 15. `877e909` -- safe real-site crawler provider
 16. `bb93cd6` -- documentation truth repair
-17. (this commit) -- clean-room verification and final packaging
+17. `39b9af7` -- clean-room verification and final packaging (docs + manifest)
+18. `57607e4` -- **disclosed bug fix**, found during this patch's own first clean-room bundle-clone
+    run: `hostile-and-security.test.mjs`'s zero-lite-diff check ran `git diff ... main -- lite/`,
+    which fails in a single-ref `git bundle create <file> HEAD` clone (no local `main` branch ref
+    exists there) even though the underlying content is identical. Fixed by pinning the check to
+    the base commit hash instead of the ref name -- the commit is reachable from HEAD in any clone
+    with full history, bundle or not. See this commit's own message and
+    `LIVE_BRIDGE_TEST_EVIDENCE.md`'s clean-room section for the full story. Reverified clean
+    (221/221, 92/92) both in this worktree and in a second fresh clone after the fix.
+19. (this commit) -- manifest/report consistency update disclosing commit 18 above.
 
-Combined with the 13 commits already on this branch, HEAD after this commit is the 17th commit on
+Combined with the 13 commits already on this branch, HEAD after this commit is the 19th commit on
 `overnight/first-payment-revenue-os`, based on `main` @ `ba2b100`. Exact file/insertion counts and
 the final HEAD hash are in the final chat response and `CHECKSUMS.sha256` (not hardcoded here, for
 the same fixed-point reason `LIVE_BRIDGE_ZERO_LITE_PROOF.md` explains: this commit's own hash

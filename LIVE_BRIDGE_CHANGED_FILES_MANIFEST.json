@@ -7,9 +7,11 @@
     { "n": 14, "hash": "d521ee8", "title": "secure XLSX importer" },
     { "n": 15, "hash": "877e909", "title": "safe real-site crawler provider" },
     { "n": 16, "hash": "bb93cd6", "title": "documentation truth repair" },
-    { "n": 17, "hash": null, "title": "clean-room verification and final packaging", "note": "hash unknown at manifest-write time -- see final chat response and CHECKSUMS.sha256" }
+    { "n": 17, "hash": "39b9af7", "title": "clean-room verification and final packaging (docs + manifest)" },
+    { "n": 18, "hash": "57607e4", "title": "disclosed bug fix: hostile-and-security.test.mjs's zero-lite-diff check used the ref name 'main', which a single-ref git-bundle clone does not have; pinned to the base commit hash instead -- found during this patch's own first clean-room clone run" },
+    { "n": 19, "hash": null, "title": "manifest/report consistency update disclosing commit 18 (this commit)", "note": "hash unknown at manifest-write time -- see final chat response and CHECKSUMS.sha256" }
   ],
-  "diffstatCommits14to16": { "filesChanged": 14, "insertions": 2375, "deletions": 23 },
+  "diffstatCommits14to18": { "filesChanged": 23, "insertions": 3121, "deletions": 26 },
   "filesAdded": [
     "LIVE_BRIDGE_CRAWLER_SAFETY.md",
     "LIVE_BRIDGE_EXTERNAL_BLOCKERS.md",
@@ -34,7 +36,8 @@
     "UBERBOND_FIRST_PAYMENT_REVENUE_OS_ZERO_LITE_PROOF.md",
     "package-lock.json",
     "package.json",
-    "revenue-os/src/importer.mjs"
+    "revenue-os/src/importer.mjs",
+    "tests/revenue-os/hostile-and-security.test.mjs"
   ],
   "filesDeleted": [],
   "liteDirTouched": false,

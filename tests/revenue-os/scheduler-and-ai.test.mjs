@@ -6,7 +6,7 @@ import path from 'node:path';
 import { Store } from '../../revenue-os/src/store.mjs';
 import { DurableQueue } from '../../src/queue.mjs';
 import { loadRevenueOsConfig } from '../../revenue-os/src/config.mjs';
-import { MODE_DEFINITIONS, SCHEDULED_MODES, planScheduledJob, schedulerPreflight, runScheduledJob, SchedulerError } from '../../revenue-os/src/scheduler.mjs';
+import { MODE_DEFINITIONS, SCHEDULED_MODES, ALWAYS_SAFE_PRIORITY, planScheduledJob, schedulerPreflight, runScheduledJob, selectNextSafeTask, runNextSafeTask, SchedulerError } from '../../revenue-os/src/scheduler.mjs';
 import { createRevenueOsJobHandlers } from '../../revenue-os/src/job-handlers.mjs';
 import { createCircuitBreaker, CircuitBreakerOpenError } from '../../revenue-os/src/circuit-breaker.mjs';
 import { createFakeAiProvider, createReplayAiProvider, assertAiContract } from '../../revenue-os/src/providers/ai.mjs';
@@ -29,7 +29,7 @@ async function makeQueueAndHandlers(store, overrides = {}) {
 // --- scheduler registry ---
 
 test('every mission-listed job is represented in the scheduler registry', () => {
-  assert.equal(SCHEDULED_MODES.length, 15);
+  assert.equal(SCHEDULED_MODES.length, 17);
 });
 
 test('scheduler.mjs contains no repeating-timer API -- scheduling is one-shot planning, never a hidden loop', async () => {
@@ -141,6 +141,81 @@ test('ros.reply_import with no provider configured reports zero-imported rather 
 });
 
 // --- circuit breaker ---
+
+// --- 24/7 Continuous Revenue Core section 4/5: buyer-intent-revalidation + experiment-analysis jobs ---
+
+test('ros.buyer_intent_revalidation delegates to buyer-intent.mjs and expires an opportunity with no evidence', async () => {
+  const store = await harness();
+  await store.add('opportunities', { organizationDomain: 'sched-buyer-intent.invalid', channel: 'published_email', status: 'candidate', data: {} });
+  const { queue, handlers } = await makeQueueAndHandlers(store);
+  const result = await runScheduledJob({ mode: 'buyer-intent-revalidation', payload: {}, queue, handlers, store });
+  assert.equal(result.jobStatus, 'completed');
+  const opp = (await store.list('opportunities'))[0];
+  assert.equal(opp.status, 'expired');
+});
+
+test('ros.experiment_analysis groups assignments by experiment name and reports sample sufficiency', async () => {
+  const store = await harness();
+  for (let i = 0; i < 5; i += 1) {
+    await store.add('experiments', { name: 'subject-line-test', variable: 'subject', subjectId: `s${i}`, variant: i % 2 === 0 ? 'a' : 'b', status: 'active', outcome: i % 3 === 0 ? 'converted' : null });
+  }
+  const { queue, handlers } = await makeQueueAndHandlers(store);
+  const result = await runScheduledJob({ mode: 'experiment-analysis', payload: {}, queue, handlers, store });
+  assert.equal(result.jobStatus, 'completed');
+  const storedJob = (await store.list('jobs')).find(j => j.type === 'ros.experiment_analysis');
+  assert.equal(storedJob.result.experimentCount, 5);
+  assert.equal(storedJob.result.summaries[0].name, 'subject-line-test');
+  assert.equal(storedJob.result.summaries[0].significant, false, 'sample of 5 is far below the minimum, and this module never fabricates significance regardless');
+});
+
+// --- always-working fallback orchestrator ---
+
+test('ALWAYS_SAFE_PRIORITY is exactly a reordering of SCHEDULED_MODES -- no mode is missing or invented', () => {
+  assert.deepEqual([...ALWAYS_SAFE_PRIORITY].sort(), [...SCHEDULED_MODES].sort());
+});
+
+test('selectNextSafeTask picks the first priority mode when nothing has ever run', () => {
+  assert.equal(selectNextSafeTask({}), ALWAYS_SAFE_PRIORITY[0]);
+});
+
+test('selectNextSafeTask picks the least-recently-run mode, never the outbound-blocked state', () => {
+  const lastRunAt = Object.fromEntries(ALWAYS_SAFE_PRIORITY.map((mode, i) => [mode, new Date(1000 * (i + 1)).toISOString()]));
+  // Make the last-priority mode the actual least-recently-run one -- it should win despite being
+  // last in priority order, proving the pick is driven by recency, not just position.
+  const overdueMode = ALWAYS_SAFE_PRIORITY[ALWAYS_SAFE_PRIORITY.length - 1];
+  lastRunAt[overdueMode] = new Date(0).toISOString();
+  assert.equal(selectNextSafeTask(lastRunAt), overdueMode);
+});
+
+test('selectNextSafeTask never reads or requires any outbound/live-sending input at all (structural proof)', async () => {
+  const content = await fs.readFile(new URL('../../revenue-os/src/scheduler.mjs', import.meta.url), 'utf8');
+  const start = content.indexOf('export function selectNextSafeTask');
+  const fnBody = content.slice(start, content.indexOf('\n}\n', start) + 3);
+  assert.doesNotMatch(fnBody, /outbound|liveSending|live_sending/i);
+});
+
+test('runNextSafeTask always finds and runs a next task on a fresh store, and rotates modes on repeated calls', async () => {
+  const store = await harness();
+  const { queue, handlers } = await makeQueueAndHandlers(store);
+  const first = await runNextSafeTask({ store, queue, handlers });
+  assert.equal(first.jobStatus, 'completed');
+  assert.equal(first.mode, ALWAYS_SAFE_PRIORITY[0]);
+  const second = await runNextSafeTask({ store, queue, handlers });
+  assert.equal(second.jobStatus, 'completed');
+  assert.notEqual(second.mode, first.mode, 'having just run the first mode, it is no longer the most overdue');
+});
+
+test('runNextSafeTask makes real progress across many consecutive calls (an always-on loop never starves)', async () => {
+  const store = await harness();
+  const { queue, handlers } = await makeQueueAndHandlers(store);
+  const modesSeen = new Set();
+  for (let i = 0; i < ALWAYS_SAFE_PRIORITY.length; i += 1) {
+    const result = await runNextSafeTask({ store, queue, handlers });
+    assert.equal(result.jobStatus, 'completed');
+    modesSeen.add(result.mode);
+  }
+  assert.equal(modesSeen.size, ALWAYS_SAFE_PRIORITY.length, 'every mode got a turn within one full cycle, none was starved');
+});
 
 test('createCircuitBreaker opens after the failure threshold and refuses calls while open', async () => {
   let now = 0;

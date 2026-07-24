@@ -1,4 +1,4 @@
-// Job handler bodies for the mission's 15 named scheduler jobs, wired into DurableQueue (reused
+// Job handler bodies for the mission's 17 named scheduler jobs, wired into DurableQueue (reused
 // unmodified from ../../src/queue.mjs) via createRevenueOsJobHandlers(). Every handler composes
 // already-built, already-tested modules -- nothing here reimplements scoring, payment
 // verification, or report generation a second time. No handler ever sends, charges, refunds,
@@ -14,6 +14,8 @@ import { deliveryGate } from './diagnostic-workflow.mjs';
 import { purgeExpiredEvidence } from './monitoring.mjs';
 import { verifyReportManifest } from './report.mjs';
 import { createCircuitBreaker } from './circuit-breaker.mjs';
+import { revalidateAndExpireOpportunities } from './buyer-intent.mjs';
+import { summarizeExperiment } from './funnel.mjs';
 
 export class JobHandlerError extends Error {
   constructor(code, message = code) {
@@ -65,6 +67,15 @@ export function createRevenueOsJobHandlers({ store, clock = () => Date.now(), re
         if (decision.qualified) requalified += 1; else disqualified += 1;
       }
       return { correlationId: correlationId(clock), revalidated: opportunities.length, requalified, disqualified };
+    },
+
+    // 3b. buyer_intent_revalidation (24/7 Continuous Revenue Core, section 4/5): delegates entirely
+    // to buyer-intent.mjs's own revalidate/expire sweep -- expires (status transition, not delete)
+    // any opportunity whose freshest evidence no longer passes the domain/channel-medium/freshness
+    // gates. Complementary to opportunity_revalidation above, not a duplicate of it.
+    'ros.buyer_intent_revalidation': async () => {
+      const result = await revalidateAndExpireOpportunities(store, { now: clock() });
+      return { correlationId: correlationId(clock), ...result };
     },
 
     // 4. approval_expiry: delegates entirely to approval.mjs's own sweep.
@@ -215,6 +226,20 @@ export function createRevenueOsJobHandlers({ store, clock = () => Date.now(), re
       }
       if (failed > 0) await store.log('deterministic_verification_failed', { correlationId: correlationId(clock), failed });
       return { correlationId: correlationId(clock), verified, failed };
+    },
+
+    // 16. experiment_analysis (24/7 Continuous Revenue Core, section 5/10 -- "measured learning" /
+    // "experimentation analysis"): groups every experiment assignment by name and runs
+    // funnel.mjs's own summarizeExperiment per group. summarizeExperiment already refuses to call
+    // anything "significant" without a real statistical test, so this job only ever reports sample
+    // sufficiency, never a fabricated significance claim.
+    'ros.experiment_analysis': async () => {
+      const experiments = await store.list('experiments');
+      const byName = {};
+      for (const experiment of experiments) (byName[experiment.name] ||= []).push(experiment);
+      const summaries = Object.entries(byName).map(([name, assignments]) => ({ name, ...summarizeExperiment(assignments) }));
+      await store.log('experiment_analysis_run', { correlationId: correlationId(clock), experimentCount: experiments.length, summaryCount: summaries.length });
+      return { correlationId: correlationId(clock), experimentCount: experiments.length, summaries };
     }
   };
 }

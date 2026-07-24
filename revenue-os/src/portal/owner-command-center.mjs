@@ -5,7 +5,14 @@
 // approval queue, send handoff, replies, proposals, payments, projects, fulfillment, monitoring,
 // experiments, blockers, provider/scheduler health, audit log, scoreboard) is a separate section
 // below it, not competing for home-screen attention.
+//
+// 24/7 Continuous Revenue Core, section 12: "No workbook, dashboard, API, or report may display
+// READY while a required gate is false." Enforced here, not just documented: assertNoReadyWhileBlocked
+// throws before any HTML is built if `verdict` claims readiness while `blockers` is non-empty --
+// there is no way to call this function and get back a document that says "ready" next to a
+// non-empty blocker list.
 import { escapeHtml, redactEmail } from '../utils.mjs';
+import { assertNoReadyWhileBlocked } from '../launch-gate.mjs';
 
 function section(title, bodyHtml) { return `<section><h2>${escapeHtml(title)}</h2>${bodyHtml}</section>`; }
 function list(items, renderItem) { return items.length ? `<ul>${items.map(renderItem).join('')}</ul>` : '<p><em>None</em></p>'; }
@@ -16,6 +23,7 @@ export function renderOwnerCommandCenter({
   sendHandoffs = [], replies = [], proposals = [], payments = [], projects = [], monitoringOffers = [],
   experiments = [], providerHealth = [], schedulerHealth = { counts: {}, total: 0 }, auditLog = [], validationErrors = []
 } = {}) {
+  assertNoReadyWhileBlocked(verdict, blockers);
   const nextThree = ownerActions.slice(0, 3);
   return `<!doctype html><html><head><meta charset="utf-8"><title>Owner Command Center</title>
 <style>body{font-family:sans-serif;max-width:960px;margin:0 auto;padding:24px;} section{margin-bottom:28px;border-top:1px solid #ddd;padding-top:12px;} .home{background:#eff6ff;padding:16px;border-radius:8px;margin-bottom:24px;}</style>

@@ -144,3 +144,20 @@ test('renderOwnerCommandCenter redacts reply sender emails in the Replies sectio
   const html = renderOwnerCommandCenter({ replies: [{ classification: 'pricing', data: { from: 'buyer@realcompany.example' } }] });
   assert.ok(!html.includes('buyer@realcompany.example'));
 });
+
+// 24/7 Continuous Revenue Core, section 12: reproduces the exact named defect ("cached READY while
+// required gates were false") as a hostile test and proves this codebase's real dashboard now
+// refuses to render it, rather than just documenting that it should.
+test('hostile: renderOwnerCommandCenter refuses to render a verdict that claims READY while blockers are present', () => {
+  assert.throws(() => renderOwnerCommandCenter({ verdict: 'READY', blockers: [{ code: 'payment-not-verified', workstream: 'diagnostic' }] }));
+});
+
+test('computeVerdict (the real verdict source this codebase actually uses) never produces the word "ready" while any count is non-zero', () => {
+  const scenarios = [
+    { pendingApprovals: 1, openBlockers: 0, pendingPayments: 0, activeMonitoring: 0 },
+    { pendingApprovals: 0, openBlockers: 2, pendingPayments: 0, activeMonitoring: 0 },
+    { pendingApprovals: 0, openBlockers: 0, pendingPayments: 3, activeMonitoring: 0 },
+    { pendingApprovals: 0, openBlockers: 0, pendingPayments: 0, activeMonitoring: 1 }
+  ];
+  for (const scenario of scenarios) assert.doesNotMatch(computeVerdict(scenario), /\bready\b/i);
+});

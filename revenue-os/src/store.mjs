@@ -14,7 +14,11 @@ export const COLLECTIONS = Object.freeze([
   'organizations', 'websites', 'opportunities', 'evidenceItems', 'offers', 'messageDrafts',
   'approvals', 'sendRecords', 'replies', 'suppressions', 'proposals', 'invoiceHandoffs', 'payments',
   'diagnosticProjects', 'checkRuns', 'defects', 'reports', 'repairTasks', 'deliveries',
-  'monitoringOffers', 'experiments', 'ownerActions', 'blockers', 'auditEvents', 'jobs', 'auditLog'
+  'monitoringOffers', 'experiments', 'ownerActions', 'blockers', 'auditEvents', 'jobs', 'auditLog',
+  // 24/7 Continuous Revenue Core, section 7: the owner-approved, bounded campaign policy object --
+  // see campaign-policy.mjs. A distinct collection from `approvals` (which gates one message), not a
+  // reuse of it -- a policy bounds many prospective sends, an approval gates exactly one.
+  'campaignPolicies'
 ]);
 
 const EMPTY = Object.fromEntries([...COLLECTIONS.map(key => [key, []]), ['settings', {}], ['version', 1]]);

@@ -11,7 +11,7 @@ const MIGRATIONS_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url))
 test('every migration file applies cleanly, in order, against a real Postgres-compatible engine', async () => {
   const db = new PGlite();
   const files = (await fs.readdir(MIGRATIONS_DIR)).filter(f => f.endsWith('.sql')).sort();
-  assert.equal(files.length, 6);
+  assert.equal(files.length, 7);
   for (const file of files) {
     const sql = await fs.readFile(path.join(MIGRATIONS_DIR, file), 'utf8');
     await db.exec(sql);
@@ -22,6 +22,7 @@ test('every migration file applies cleanly, in order, against a real Postgres-co
   assert.ok(tables.includes('ros_organizations'));
   assert.ok(tables.includes('ros_payments'));
   assert.ok(tables.includes('ros_jobs'));
+  assert.ok(tables.includes('ros_campaign_policies'));
 });
 
 test('ros_payments.status CHECK constraint enforces the mission\'s exact 13-state vocabulary', async () => {

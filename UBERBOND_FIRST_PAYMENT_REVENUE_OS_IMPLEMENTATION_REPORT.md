@@ -50,7 +50,7 @@ Nothing else from `main`, `lite/`, or this session's other worktrees is reused a
 ## Acceptance checklist mapping (from `02_ACCEPTANCE_CHECKLIST.md`)
 
 **Safety**: separate worktree/branch ✓; exact base SHA recorded (`ba2b100`) ✓; zero `lite/` diff,
-reconfirmed after all 12 commits ✓; no real send/charge/refund/deploy/credential-storage/site-change
+reconfirmed after all 13 commits ✓; no real send/charge/refund/deploy/credential-storage/site-change
 anywhere in the code path (structural, not policy -- see each module's own header comment) ✓.
 
 **End-to-end demonstration**: every named step (import+validate+quarantine, dedupe+rank, approval
@@ -88,7 +88,7 @@ external blockers, owner start card -- all produced, see the final response for 
   or a real dollar. No claim is made about response rates, conversion rates, or product-market fit
   -- the funnel math is real arithmetic over whatever data is actually put into it, nothing more.
 
-## Commits (12, on `overnight/first-payment-revenue-os`)
+## Commits (13, on `overnight/first-payment-revenue-os`)
 
 1. `e9a25bd` -- forensics + package skeleton
 2. `d455cb0` -- migrations + canonical model
@@ -102,8 +102,13 @@ external blockers, owner start card -- all produced, see the final response for 
 10. `08bb70f` -- autonomous scheduler + bounded AI assistants
 11. `867096f` -- funnel/experiment tracking + owner command center + CLI
 12. `3814aec` -- hostile/security tests + end-to-end demo + fixtures
+13. `b98d846` -- final verification + required deliverable docs (this report and its four siblings)
 
-Base: `main` @ `ba2b100`. HEAD: `3814aec`. 77 files changed, 6,758 insertions, 0 deletions.
+Base: `main` @ `ba2b100`. HEAD: `b98d846`. 82 files changed, 7,128 insertions, 0 deletions.
+
+(An earlier draft of this report and its siblings, written mid-commit-13, incorrectly still named
+commit 12's `3814aec` as the final HEAD with 12 commits / 77 files / 6,758 insertions -- that
+snapshot predated this report's own commit finishing. Corrected in the Live Bridge Patch, commit 16.)
 
 Two real bugs were found and fixed via this mission's own "inspect → implement → test → commit →
 continue" discipline, not assumed away:
@@ -115,7 +120,17 @@ continue" discipline, not assumed away:
 
 ## Overnight operating rule compliance
 
-`inspect → implement → test → commit → continue` was followed for all 12 commits, without
+`inspect → implement → test → commit → continue` was followed for all 13 commits, without
 stopping after one checkpoint or returning only a plan. No routine questions were asked. No
 criteria were silently lowered -- every scope reduction is named in this report and in
 `docs/REUSE_VS_REPLACE_DECISION.md`.
+
+## Status as of this mission's own completion (commit 13, HEAD `b98d846`)
+
+This report describes the first-payment Revenue OS mission as it stood at its own completion,
+commit 13 (`b98d846`). A later, narrower Live Bridge Patch (commits 14-17: secure XLSX import, a
+safe owner-approved real-site crawler provider, this documentation truth repair, and clean-room
+verification/repackaging) was applied on top of this same branch afterward. For the actual current
+HEAD, commit count, file count, and insertion count as of that patch's own completion, see
+`LIVE_BRIDGE_IMPLEMENTATION_REPORT.md` -- this file is left describing its own commit-13 snapshot
+rather than being rewritten to describe work it did not do.

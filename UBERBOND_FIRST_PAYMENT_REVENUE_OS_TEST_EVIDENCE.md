@@ -1,7 +1,12 @@
 # Test Evidence
 
 Exact commands run in this worktree (`/home/user/uberbondd-revenue-os`, branch
-`overnight/first-payment-revenue-os`) and their results, captured immediately before packaging.
+`overnight/first-payment-revenue-os`) and their results, captured immediately before packaging, as
+of this mission's own completion at commit 13 (HEAD `b98d846`). Corrected under Live Bridge Patch
+commit 16 -- an earlier draft of this file miscounted the syntax-checked file total as 39; the
+actual count matching `check:revenue-os:syntax`'s file list is 34. For the current-HEAD re-run
+covering commits 14-17 (XLSX import, real crawler, this correction, clean-room verification), see
+`LIVE_BRIDGE_TEST_EVIDENCE.md`.
 
 ## New suite (this mission's own tests)
 
@@ -9,7 +14,7 @@ Command:
 ```
 npm run check:revenue-os
 ```
-(runs `check:revenue-os:syntax` -- `node --check` against all 39 new source/script/fixture files
+(runs `check:revenue-os:syntax` -- `node --check` against all 34 new source/script/fixture files
 -- then `test:revenue-os`, 14 test files)
 
 Result:
@@ -101,8 +106,9 @@ Command:
 ```
 git diff --exit-code main -- lite/
 ```
-Result: exit code 0, empty output -- confirmed at the end of every one of the 12 commits on this
-branch, and reconfirmed here as the final step before packaging. Also enforced by a standing test
+Result: exit code 0, empty output -- confirmed at the end of every one of the 13 commits on this
+branch as of this mission's own completion, and reconfirmed here as the final step before
+packaging. Also enforced by a standing test
 (`hostile-and-security.test.mjs`) so a future change to this package cannot silently regress it.
 See `UBERBOND_FIRST_PAYMENT_REVENUE_OS_ZERO_LITE_PROOF.md` for the full transcript.
 

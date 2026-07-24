@@ -29,7 +29,7 @@ async function makeQueueAndHandlers(store, overrides = {}) {
 // --- scheduler registry ---
 
 test('every mission-listed job is represented in the scheduler registry', () => {
-  assert.equal(SCHEDULED_MODES.length, 17);
+  assert.equal(SCHEDULED_MODES.length, 18);
 });
 
 test('scheduler.mjs contains no repeating-timer API -- scheduling is one-shot planning, never a hidden loop', async () => {
@@ -166,6 +166,18 @@ test('ros.experiment_analysis groups assignments by experiment name and reports 
   assert.equal(storedJob.result.experimentCount, 5);
   assert.equal(storedJob.result.summaries[0].name, 'subject-line-test');
   assert.equal(storedJob.result.summaries[0].significant, false, 'sample of 5 is far below the minimum, and this module never fabricates significance regardless');
+});
+
+test('ros.channel_performance_review delegates to learning.mjs and reports a result per observed channel', async () => {
+  const store = await harness();
+  await store.add('opportunities', { organizationDomain: 'sched-channel.invalid', channel: 'referral_intro', status: 'candidate', data: {} });
+  const { queue, handlers } = await makeQueueAndHandlers(store);
+  const result = await runScheduledJob({ mode: 'channel-performance-review', payload: {}, queue, handlers, store });
+  assert.equal(result.jobStatus, 'completed');
+  const storedJob = (await store.list('jobs')).find(j => j.type === 'ros.channel_performance_review');
+  assert.equal(storedJob.result.results.length, 1);
+  assert.equal(storedJob.result.results[0].channel, 'referral_intro');
+  assert.equal(storedJob.result.results[0].recommendation, 'insufficient-sample');
 });
 
 // --- always-working fallback orchestrator ---

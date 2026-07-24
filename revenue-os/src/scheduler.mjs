@@ -1,6 +1,7 @@
-// Deterministic scheduler registry for the mission's 17 named jobs (15 from the original Revenue OS
+// Deterministic scheduler registry for the mission's 18 named jobs (15 from the original Revenue OS
 // build, plus buyer-intent-revalidation and experiment-analysis added for 24/7 Continuous Revenue
-// Core section 5). Mirrors the validated-declaration / bounded-batch pattern proven in this
+// Core section 5, plus channel-performance-review added for section 10). Mirrors the validated-
+// declaration / bounded-batch pattern proven in this
 // session's sibling missions. This file starts no timer of its own -- "no hidden loop" is
 // structural (see the capability-scan test), not just a comment. Idempotency/lease/heartbeat/
 // bounded-concurrency/timeout/retry-budget/dead-letter come from DurableQueue (reused unmodified
@@ -35,6 +36,10 @@ export const MODE_DEFINITIONS = Object.freeze({
   // minimum sample size) into a recurring sweep, rather than leaving it a library function nobody
   // calls on a schedule.
   'experiment-analysis': Object.freeze({ jobType: 'ros.experiment_analysis', maxAttempts: 3 }),
+  // section 10: evaluates per-channel payment-rate performance and flags candidates to pause --
+  // always a recommendation (learning.mjs never self-actuates a pause), never a production-rule
+  // change made by this job itself.
+  'channel-performance-review': Object.freeze({ jobType: 'ros.channel_performance_review', maxAttempts: 3 }),
   'deterministic-verification': Object.freeze({ jobType: 'ros.deterministic_verification', maxAttempts: 3 })
 });
 
@@ -42,7 +47,7 @@ export const SCHEDULED_MODES = Object.freeze(Object.keys(MODE_DEFINITIONS));
 
 // 24/7 Continuous Revenue Core, section 5: "UberBond must continuously perform the highest-value
 // safe work available ... a paused outbound provider must never idle the entire company." Every
-// mode below is proof of that by construction, not just by claim: none of these 17 modes sends,
+// mode below is proof of that by construction, not just by claim: none of these 18 modes sends,
 // charges, refunds, or deploys (see this file's own header comment -- verified structurally by this
 // package's capability-scan test), so none of them can ever be gated on outbound/live-sending
 // state. There is no "send" mode in this registry for outbound to pause -- sending lives entirely
@@ -55,7 +60,7 @@ export const ALWAYS_SAFE_PRIORITY = Object.freeze([
   'approval-expiry', 'followup-eligibility', 'reply-import', 'payment-reconciliation',
   'project-deadlines', 'report-generation', 'qa-reminders', 'delivery-readiness',
   'monitoring-checks', 'owner-digest', 'retention-purge', 'experiment-analysis',
-  'deterministic-verification'
+  'channel-performance-review', 'deterministic-verification'
 ]);
 
 export class SchedulerError extends Error {

@@ -1,4 +1,4 @@
-// Job handler bodies for the mission's 17 named scheduler jobs, wired into DurableQueue (reused
+// Job handler bodies for the mission's 18 named scheduler jobs, wired into DurableQueue (reused
 // unmodified from ../../src/queue.mjs) via createRevenueOsJobHandlers(). Every handler composes
 // already-built, already-tested modules -- nothing here reimplements scoring, payment
 // verification, or report generation a second time. No handler ever sends, charges, refunds,
@@ -16,6 +16,7 @@ import { verifyReportManifest } from './report.mjs';
 import { createCircuitBreaker } from './circuit-breaker.mjs';
 import { revalidateAndExpireOpportunities } from './buyer-intent.mjs';
 import { summarizeExperiment } from './funnel.mjs';
+import { evaluateChannelPerformance } from './learning.mjs';
 
 export class JobHandlerError extends Error {
   constructor(code, message = code) {
@@ -240,6 +241,17 @@ export function createRevenueOsJobHandlers({ store, clock = () => Date.now(), re
       const summaries = Object.entries(byName).map(([name, assignments]) => ({ name, ...summarizeExperiment(assignments) }));
       await store.log('experiment_analysis_run', { correlationId: correlationId(clock), experimentCount: experiments.length, summaryCount: summaries.length });
       return { correlationId: correlationId(clock), experimentCount: experiments.length, summaries };
+    },
+
+    // 17. channel_performance_review (24/7 Continuous Revenue Core, section 10): delegates entirely
+    // to learning.mjs's own evaluateChannelPerformance -- produces a recommendation per channel,
+    // never itself pauses or reconfigures anything (learning.mjs's own capability-scan proves it
+    // touches no production-rule module).
+    'ros.channel_performance_review': async () => {
+      const results = await evaluateChannelPerformance(store);
+      const recommendedPause = results.filter(r => r.recommendation === 'recommend-pause').map(r => r.channel);
+      if (recommendedPause.length) await store.log('channel_performance_pause_recommended', { correlationId: correlationId(clock), channels: recommendedPause });
+      return { correlationId: correlationId(clock), results };
     }
   };
 }

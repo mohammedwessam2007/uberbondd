@@ -60,7 +60,7 @@ export function classifyReply(bodyText = '') {
 /** Categories where drafting an outreach-continuation reply is ever appropriate -- every other
  * category either needs no reply (bounce/automated) or must never receive one (unsubscribe/
  * complaint/legal_concern, per the stop-gate below). */
-const DRAFTABLE_CATEGORIES = Object.freeze(['interested', 'pricing', 'proof_request', 'timing', 'implementation_interest', 'monitoring_interest']);
+export const DRAFTABLE_CATEGORIES = Object.freeze(['interested', 'pricing', 'proof_request', 'timing', 'implementation_interest', 'monitoring_interest']);
 
 const DRAFT_TEMPLATES = Object.freeze({
   interested: (opportunity, offer, offerKey) => `Great to hear from you. The ${offerKey.replace(/_/g, ' ').toLowerCase()} is $${(offer.priceCents / 100).toFixed(0)} and covers ${offer.siteCount || 'your'} site(s), delivered within ${offer.deliveryHoursMin || 12}-${offer.deliveryHoursMax || 24} hours of verified payment and inputs.`,

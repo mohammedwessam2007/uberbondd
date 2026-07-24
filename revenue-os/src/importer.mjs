@@ -127,7 +127,11 @@ export async function importBatch(store, prepared, { organizationsById = new Map
     const opportunity = await store.add('opportunities', {
       id: id('opp'), organizationDomain: record.organizationDomain, channel: record.channel,
       status: 'candidate', score: null,
-      data: { demandSignals: [], portfolioItems: [], buyerRole: null, verified: record.verified, confidence: record.confidence, lineage: record.lineage }
+      // evidenceCompleteness is 1 at import time because import always creates exactly one real
+      // evidence item alongside the opportunity (below) -- scoring.mjs#qualify reads this field
+      // directly off the opportunity record, not off the transient scoring input, so it must be
+      // set here or every freshly-imported opportunity would fail qualification regardless of score.
+      data: { demandSignals: [], portfolioItems: [], buyerRole: null, verified: record.verified, confidence: record.confidence, evidenceCompleteness: 1, lineage: record.lineage }
     });
     await store.add('evidenceItems', {
       id: id('evidence'), opportunityId: opportunity.id, sourceUrl: record.sourceUrl, sourceType: 'research_pack',

@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "checklist": [
+    {
+      "key": "all_websites_checked",
+      "label": "Every configured website has at least one check run",
+      "passed": true
+    },
+    {
+      "key": "every_defect_has_evidence",
+      "label": "Every defect card cites at least one evidence item",
+      "passed": true
+    },
+    {
+      "key": "no_unsupported_claims",
+      "label": "No defect card or report text matches a guarantee-shaped claim pattern",
+      "passed": true
+    },
+    {
+      "key": "branding_complete",
+      "label": "Agency brand name, primary color, and contact email are all present",
+      "passed": true
+    },
+    {
+      "key": "report_not_empty",
+      "label": "The report has at least one defect or an explicit \"no defects found\" statement",
+      "passed": true
+    },
+    {
+      "key": "manifest_signed",
+      "label": "A signed manifest exists for the report",
+      "passed": true
+    }
+  ],
+  "failedItems": []
+}

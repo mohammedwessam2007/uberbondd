@@ -1,0 +1,341 @@
+{
+  "reportData": {
+    "generatedAt": "2026-07-24T12:00:00.000Z",
+    "period": "2026-07",
+    "project": {
+      "id": "ros_ba8ae009-0c8c-4ce1-870c-fc43c873b3a2",
+      "organizationDomain": "riverside-agency.invalid"
+    },
+    "websites": [
+      {
+        "id": "site1",
+        "domain": "northgate-agency.invalid"
+      },
+      {
+        "id": "site2",
+        "domain": "northgate-client-two.invalid"
+      },
+      {
+        "id": "site3",
+        "domain": "northgate-client-three.invalid"
+      }
+    ],
+    "executiveSummary": {
+      "totalDefects": 7,
+      "bySeverity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 3,
+        "low": 4
+      },
+      "noDefectsFound": false,
+      "headline": "7 lead-path issue(s) found across 3 site(s)."
+    },
+    "technicalAppendix": {
+      "defects": [
+        {
+          "id": "defect_7270aa40-2d53-44e2-867a-a4c034d6ddff",
+          "websiteId": "site1",
+          "category": "missing_phone_lead_path",
+          "severity": "medium",
+          "checkKey": "phone_link",
+          "reproduction": "View page source and search for a tel: link.",
+          "confidence": 0.8,
+          "limitations": "Automated check only; not a manual QA review or a security audit.",
+          "evidenceRefs": [
+            "ros_5d082115-ae0b-45da-9803-52d42890ab9d"
+          ]
+        },
+        {
+          "id": "defect_c2dd36cc-b209-46b4-841b-f31c2664e803",
+          "websiteId": "site1",
+          "category": "missing_email_lead_path",
+          "severity": "low",
+          "checkKey": "email_link",
+          "reproduction": "Re-run the email_link check against the same URL.",
+          "confidence": 0.8,
+          "limitations": "Automated check only; not a manual QA review or a security audit.",
+          "evidenceRefs": [
+            "ros_5d082115-ae0b-45da-9803-52d42890ab9d"
+          ]
+        },
+        {
+          "id": "defect_234736fb-c700-4ddb-9be7-e23328e2641e",
+          "websiteId": "site1",
+          "category": "missing_contact_lead_path",
+          "severity": "medium",
+          "checkKey": "contact_link",
+          "reproduction": "Re-run the contact_link check against the same URL.",
+          "confidence": 0.8,
+          "limitations": "Automated check only; not a manual QA review or a security audit.",
+          "evidenceRefs": [
+            "ros_5d082115-ae0b-45da-9803-52d42890ab9d"
+          ]
+        },
+        {
+          "id": "defect_05b420e7-422f-4bd5-ac86-88757f70b8e4",
+          "websiteId": "site1",
+          "category": "missing_lead_form",
+          "severity": "medium",
+          "checkKey": "form_presence",
+          "reproduction": "View the page and look for a visible contact/lead form.",
+          "confidence": 0.8,
+          "limitations": "Automated check only; not a manual QA review or a security audit.",
+          "evidenceRefs": [
+            "ros_5d082115-ae0b-45da-9803-52d42890ab9d"
+          ]
+        },
+        {
+          "id": "defect_366090dc-982c-4882-ad37-a0591da20b6c",
+          "websiteId": "site1",
+          "category": "missing_call_to_action",
+          "severity": "low",
+          "checkKey": "cta_presence",
+          "reproduction": "Re-run the cta_presence check against the same URL.",
+          "confidence": 0.8,
+          "limitations": "Automated check only; not a manual QA review or a security audit.",
+          "evidenceRefs": [
+            "ros_5d082115-ae0b-45da-9803-52d42890ab9d"
+          ]
+        },
+        {
+          "id": "defect_b13cf320-6d60-4d68-be96-fba8ac6c7a83",
+          "websiteId": "site2",
+          "category": "missing_call_to_action",
+          "severity": "low",
+          "checkKey": "cta_presence",
+          "reproduction": "Re-run the cta_presence check against the same URL.",
+          "confidence": 0.8,
+          "limitations": "Automated check only; not a manual QA review or a security audit.",
+          "evidenceRefs": [
+            "ros_3606b1c1-58ce-4eff-8050-48860d57aa37"
+          ]
+        },
+        {
+          "id": "defect_0c8f5973-ec48-4139-a5ae-276d85aedd73",
+          "websiteId": "site3",
+          "category": "missing_call_to_action",
+          "severity": "low",
+          "checkKey": "cta_presence",
+          "reproduction": "Re-run the cta_presence check against the same URL.",
+          "confidence": 0.8,
+          "limitations": "Automated check only; not a manual QA review or a security audit.",
+          "evidenceRefs": [
+            "ros_28354d03-56e2-48ec-ba22-dc6bdfb87646"
+          ]
+        }
+      ]
+    },
+    "evidenceLedger": [
+      {
+        "id": "ros_5d082115-ae0b-45da-9803-52d42890ab9d",
+        "websiteId": "site1",
+        "sourceUrl": "https://northgate-agency.invalid/",
+        "sourceType": "page_fetch",
+        "rawHash": "demo-hash",
+        "capturedAt": "2026-07-24T12:00:00.000Z"
+      },
+      {
+        "id": "ros_3606b1c1-58ce-4eff-8050-48860d57aa37",
+        "websiteId": "site2",
+        "sourceUrl": "https://northgate-client-two.invalid/",
+        "sourceType": "page_fetch",
+        "rawHash": "demo-hash",
+        "capturedAt": "2026-07-24T12:00:00.000Z"
+      },
+      {
+        "id": "ros_28354d03-56e2-48ec-ba22-dc6bdfb87646",
+        "websiteId": "site3",
+        "sourceUrl": "https://northgate-client-three.invalid/",
+        "sourceType": "page_fetch",
+        "rawHash": "demo-hash",
+        "capturedAt": "2026-07-24T12:00:00.000Z"
+      }
+    ],
+    "defectCards": [
+      {
+        "id": "defect_7270aa40-2d53-44e2-867a-a4c034d6ddff",
+        "category": "missing_phone_lead_path",
+        "severity": "medium",
+        "cautiousConsequence": "This may reduce how easily a visitor can call the business; actual impact is not measured by this check.",
+        "recommendation": "Add a visible tel: link near the top of the page.",
+        "effortHours": 2,
+        "reversibility": "reversible",
+        "authorizationRequired": true
+      },
+      {
+        "id": "defect_c2dd36cc-b209-46b4-841b-f31c2664e803",
+        "category": "missing_email_lead_path",
+        "severity": "low",
+        "cautiousConsequence": "This may reduce how easily a visitor can email the business; actual impact is not measured by this check.",
+        "recommendation": "Review this finding with a developer before making any change.",
+        "effortHours": 1,
+        "reversibility": "reversible",
+        "authorizationRequired": true
+      },
+      {
+        "id": "defect_234736fb-c700-4ddb-9be7-e23328e2641e",
+        "category": "missing_contact_lead_path",
+        "severity": "medium",
+        "cautiousConsequence": "This may reduce how easily a visitor can find a contact page; actual impact is not measured by this check.",
+        "recommendation": "Add or restore a working link to a contact page.",
+        "effortHours": 2,
+        "reversibility": "reversible",
+        "authorizationRequired": true
+      },
+      {
+        "id": "defect_05b420e7-422f-4bd5-ac86-88757f70b8e4",
+        "category": "missing_lead_form",
+        "severity": "medium",
+        "cautiousConsequence": "This may reduce how easily a visitor can submit an inquiry; actual impact is not measured by this check.",
+        "recommendation": "Add a lead-capture form to the page.",
+        "effortHours": 2,
+        "reversibility": "reversible",
+        "authorizationRequired": true
+      },
+      {
+        "id": "defect_366090dc-982c-4882-ad37-a0591da20b6c",
+        "category": "missing_call_to_action",
+        "severity": "low",
+        "cautiousConsequence": "This may reduce how easily a visitor can take the next step; actual impact is not measured by this check.",
+        "recommendation": "Add a clear call-to-action (e.g. \"Get a Quote\" or \"Call Now\").",
+        "effortHours": 1,
+        "reversibility": "reversible",
+        "authorizationRequired": true
+      },
+      {
+        "id": "defect_b13cf320-6d60-4d68-be96-fba8ac6c7a83",
+        "category": "missing_call_to_action",
+        "severity": "low",
+        "cautiousConsequence": "This may reduce how easily a visitor can take the next step; actual impact is not measured by this check.",
+        "recommendation": "Add a clear call-to-action (e.g. \"Get a Quote\" or \"Call Now\").",
+        "effortHours": 1,
+        "reversibility": "reversible",
+        "authorizationRequired": true
+      },
+      {
+        "id": "defect_0c8f5973-ec48-4139-a5ae-276d85aedd73",
+        "category": "missing_call_to_action",
+        "severity": "low",
+        "cautiousConsequence": "This may reduce how easily a visitor can take the next step; actual impact is not measured by this check.",
+        "recommendation": "Add a clear call-to-action (e.g. \"Get a Quote\" or \"Call Now\").",
+        "effortHours": 1,
+        "reversibility": "reversible",
+        "authorizationRequired": true
+      }
+    ],
+    "roadmap": [
+      {
+        "rank": 1,
+        "defectId": "defect_7270aa40-2d53-44e2-867a-a4c034d6ddff",
+        "category": "missing_phone_lead_path",
+        "severity": "medium",
+        "effortHours": 2
+      },
+      {
+        "rank": 2,
+        "defectId": "defect_234736fb-c700-4ddb-9be7-e23328e2641e",
+        "category": "missing_contact_lead_path",
+        "severity": "medium",
+        "effortHours": 2
+      },
+      {
+        "rank": 3,
+        "defectId": "defect_05b420e7-422f-4bd5-ac86-88757f70b8e4",
+        "category": "missing_lead_form",
+        "severity": "medium",
+        "effortHours": 2
+      },
+      {
+        "rank": 4,
+        "defectId": "defect_c2dd36cc-b209-46b4-841b-f31c2664e803",
+        "category": "missing_email_lead_path",
+        "severity": "low",
+        "effortHours": 1
+      },
+      {
+        "rank": 5,
+        "defectId": "defect_366090dc-982c-4882-ad37-a0591da20b6c",
+        "category": "missing_call_to_action",
+        "severity": "low",
+        "effortHours": 1
+      },
+      {
+        "rank": 6,
+        "defectId": "defect_b13cf320-6d60-4d68-be96-fba8ac6c7a83",
+        "category": "missing_call_to_action",
+        "severity": "low",
+        "effortHours": 1
+      },
+      {
+        "rank": 7,
+        "defectId": "defect_0c8f5973-ec48-4139-a5ae-276d85aedd73",
+        "category": "missing_call_to_action",
+        "severity": "low",
+        "effortHours": 1
+      }
+    ],
+    "implementationScope": [
+      {
+        "defectId": "defect_7270aa40-2d53-44e2-867a-a4c034d6ddff",
+        "description": "Add a visible tel: link near the top of the page.",
+        "estimatedHours": 2,
+        "reversibility": "reversible",
+        "authorizationRequired": true
+      },
+      {
+        "defectId": "defect_c2dd36cc-b209-46b4-841b-f31c2664e803",
+        "description": "Review this finding with a developer before making any change.",
+        "estimatedHours": 1,
+        "reversibility": "reversible",
+        "authorizationRequired": true
+      },
+      {
+        "defectId": "defect_234736fb-c700-4ddb-9be7-e23328e2641e",
+        "description": "Add or restore a working link to a contact page.",
+        "estimatedHours": 2,
+        "reversibility": "reversible",
+        "authorizationRequired": true
+      },
+      {
+        "defectId": "defect_05b420e7-422f-4bd5-ac86-88757f70b8e4",
+        "description": "Add a lead-capture form to the page.",
+        "estimatedHours": 2,
+        "reversibility": "reversible",
+        "authorizationRequired": true
+      },
+      {
+        "defectId": "defect_366090dc-982c-4882-ad37-a0591da20b6c",
+        "description": "Add a clear call-to-action (e.g. \"Get a Quote\" or \"Call Now\").",
+        "estimatedHours": 1,
+        "reversibility": "reversible",
+        "authorizationRequired": true
+      },
+      {
+        "defectId": "defect_b13cf320-6d60-4d68-be96-fba8ac6c7a83",
+        "description": "Add a clear call-to-action (e.g. \"Get a Quote\" or \"Call Now\").",
+        "estimatedHours": 1,
+        "reversibility": "reversible",
+        "authorizationRequired": true
+      },
+      {
+        "defectId": "defect_0c8f5973-ec48-4139-a5ae-276d85aedd73",
+        "description": "Add a clear call-to-action (e.g. \"Get a Quote\" or \"Call Now\").",
+        "estimatedHours": 1,
+        "reversibility": "reversible",
+        "authorizationRequired": true
+      }
+    ],
+    "limitations": [
+      "This report reflects automated lead-path checks only; it is not a security audit or a guarantee of revenue impact.",
+      "No form on any checked site was submitted; form presence and action availability are checked structurally only.",
+      "Visual and mobile-viewport checks compare screenshot hashes, not a rendered pixel diff.",
+      "Every claim in this report is linked to a specific evidence item captured during this diagnostic."
+    ]
+  },
+  "manifest": {
+    "signature": "2890e62080723ec03b9c94c307416847d33e6517a59c7bd55c2933e9250419fe",
+    "algorithm": "hmac-sha256",
+    "signedAt": "2026-07-24T02:57:00.098Z"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "diagnosticProjectId": "ros_ba8ae009-0c8c-4ce1-870c-fc43c873b3a2",
+  "kind": "monitoring",
+  "status": "active",
+  "priceCents": 29900,
+  "active": true,
+  "data": {
+    "consent": {
+      "sites": [
+        "northgate-agency.invalid",
+        "northgate-client-two.invalid",
+        "northgate-client-three.invalid"
+      ],
+      "schedule": "daily",
+      "usageLimits": {
+        "maxChecksPerDay": 10
+      },
+      "cancellationTerms": "cancel anytime, no penalty",
+      "falsePositiveThreshold": 0.05,
+      "ownerTimeThreshold": 60,
+      "marginFloorRate": 0.3
+    },
+    "consentedAt": "2026-07-24T02:57:00.162Z"
+  },
+  "createdAt": "2026-07-24T02:57:00.161Z",
+  "updatedAt": "2026-07-24T02:57:00.162Z",
+  "id": "ros_132a2028-b787-470b-bab2-562c8c568f69"
+}

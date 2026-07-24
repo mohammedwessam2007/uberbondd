@@ -1,0 +1,25 @@
+{
+  "id": "repair_245d8ee6-1134-42c5-a52b-ba859e3110d3",
+  "defectId": "defect_7270aa40-2d53-44e2-867a-a4c034d6ddff",
+  "status": "authorized",
+  "revenueCents": 30000,
+  "directCostCents": 10000,
+  "data": {
+    "qa": {
+      "passed": false
+    },
+    "rollback": {
+      "planned": false,
+      "plan": ""
+    },
+    "backup": {
+      "taken": false
+    },
+    "staging": {
+      "path": ""
+    }
+  },
+  "createdAt": "2026-07-24T02:57:00.155Z",
+  "updatedAt": "2026-07-24T02:57:00.157Z",
+  "marginRate": 0.6666666666666666
+}

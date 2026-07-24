@@ -1,0 +1,37 @@
+{
+  "projectId": "ros_ba8ae009-0c8c-4ce1-870c-fc43c873b3a2",
+  "generatedAt": "2026-07-24T12:00:00.000Z",
+  "files": [
+    {
+      "path": "onboarding.json",
+      "sha256": "b9367d62965846ddf2c5c036d2d038adb340ce96ec42d130132140630070f9c5",
+      "bytes": 100
+    },
+    {
+      "path": "proposal.json",
+      "sha256": "b17126c00e490d7aab5078f6b7d0d634d32237a8516070a74a3a9a5540320447",
+      "bytes": 538
+    },
+    {
+      "path": "qa-result.json",
+      "sha256": "d4a37831a9fd419319e2b3fbd13f49ea84d92f0ce2f20018e6660e7b6b86ad45",
+      "bytes": 953
+    },
+    {
+      "path": "report.html",
+      "sha256": "bb8209f23baeb225aa7916866c3b416814ca780708aa330bc313d2a41dba5723",
+      "bytes": 3316
+    },
+    {
+      "path": "report.json",
+      "sha256": "2819129f0d2a65e6a87eb6694520990a6033f65f283febe73ac98e7aab7dbe1a",
+      "bytes": 12008
+    },
+    {
+      "path": "report.md",
+      "sha256": "1e4f5cfc7526caa90e954c10b92be0b0c211bdbe33da998afc86467e8af9739b",
+      "bytes": 2384
+    }
+  ],
+  "signature": "8e395c86df054255b393106421f16da7e3af926e4aa511c1e5babe3bc1ed2717"
+}

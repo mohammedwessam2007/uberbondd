@@ -22,6 +22,17 @@ export function loadRevenueOsConfig(env = process.env) {
     rollingSendCapWindowDays: num(env.REVENUE_OS_ROLLING_CAP_WINDOW_DAYS, 7),
     rollingSendCap: num(env.REVENUE_OS_ROLLING_SEND_CAP, 100),
     approvalReviewTargetSeconds: num(env.REVENUE_OS_APPROVAL_REVIEW_TARGET_SECONDS, 60),
+    queue: {
+      concurrency: num(env.REVENUE_OS_QUEUE_CONCURRENCY, 2),
+      maxAttempts: num(env.REVENUE_OS_QUEUE_MAX_ATTEMPTS, 5),
+      lockTimeoutMs: num(env.REVENUE_OS_QUEUE_LOCK_TIMEOUT_MS, 300000),
+      retryBaseMs: num(env.REVENUE_OS_QUEUE_RETRY_BASE_MS, 30000),
+      retryMaxMs: num(env.REVENUE_OS_QUEUE_RETRY_MAX_MS, 3600000),
+      jobHeartbeatMs: num(env.REVENUE_OS_QUEUE_JOB_HEARTBEAT_MS, 15000),
+      maxRuntimeMs: num(env.REVENUE_OS_QUEUE_MAX_RUNTIME_MS, 900000),
+      workerHeartbeatMs: num(env.REVENUE_OS_QUEUE_WORKER_HEARTBEAT_MS, 15000),
+      pollMs: num(env.REVENUE_OS_QUEUE_POLL_MS, 1000)
+    },
     ai: {
       provider: String(env.REVENUE_OS_AI_PROVIDER || 'fake').toLowerCase(),
       maxCostCentsPerCall: num(env.REVENUE_OS_AI_MAX_COST_CENTS, 5),

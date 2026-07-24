@@ -51,7 +51,7 @@ export function buildApprovalPacket({ opportunity, evidenceItems = [], draft, of
       evidence: evidenceItems.map(item => ({ id: item.id, sourceUrl: item.sourceUrl, capturedAt: item.capturedAt, verified: item.verified })),
       demandSignals: opportunity.data?.demandSignals || [],
       portfolioItems: opportunity.data?.portfolioItems || [],
-      offerKey: offer.offerKey, priceCents: offer.priceCents,
+      offerKey: offer.offerKey || offer.key, priceCents: offer.priceCents,
       messagePreview: { channel: draft.channel, subject: draft.subject, body: draft.body },
       messageHash: draft.messageHash,
       proofAssets, risks, confidence: opportunity.data?.confidence ?? null

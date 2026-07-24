@@ -5,15 +5,13 @@
 // missing any of that is quarantined with an explicit reason, never silently dropped or silently
 // promoted with defaults.
 //
-// XLSX is explicitly NOT implemented -- this repository has no spreadsheet-parsing dependency
-// (confirmed during forensics; no xlsx/exceljs package present) and adding one is outside this
-// mission's "no new dependency" discipline used throughout this session. An XLSX pack fails
-// importPack() with a clear 'unsupported-format:xlsx' error rather than a silent no-op; see
-// EXTERNAL_BLOCKERS for the full disclosure. ZIP packs are validated at the entry-metadata level
-// (archive-safety.mjs) exactly like this session's other missions -- this repo has no ZIP
-// central-directory parser, so ZIP *content* import assumes the caller already extracted entries
-// and supplies them as a JSON/CSV/JSONL record array plus the raw entry metadata for the safety
-// check.
+// XLSX is implemented separately in ./xlsx-import.mjs (Live Bridge Patch 1), which extracts raw
+// records from a workbook and calls prepareImportBatch below directly -- it is a producer of
+// rawRecords for this same pipeline, not a parallel validation path. ZIP packs are validated at the
+// entry-metadata level (archive-safety.mjs) exactly like this session's other missions -- this repo
+// has no ZIP central-directory parser, so ZIP *content* import assumes the caller already extracted
+// entries and supplies them as a JSON/CSV/JSONL/XLSX record array plus the raw entry metadata for
+// the safety check.
 import { id } from './store.mjs';
 import { parseCsv, parseJsonl } from './csv.mjs';
 import { validateArchiveSafety } from './archive-safety.mjs';
@@ -21,8 +19,14 @@ import { sha256Hex, isValidDomain, normalizeDomain } from './utils.mjs';
 
 export const IMPORTER_VERSION = 1;
 
+// The last three entries were added for Live Bridge Patch 1's XLSX Work-agent files ("priority
+// lists", "approval queues", "channel and signal evidence") -- the pre-existing six pack types
+// don't map 1:1 onto those three, so this is a disclosed, mission-required addition, not a
+// spontaneous broadening; every other PACK_TYPES consumer (scoring, opportunity creation) treats
+// all entries identically, so no other file needed a change for this addition.
 export const PACK_TYPES = Object.freeze([
-  'qualified_agency', 'buyer_intent', 'marketplace_demand', 'partner', 'proof_demo', 'payment_legal_research'
+  'qualified_agency', 'buyer_intent', 'marketplace_demand', 'partner', 'proof_demo', 'payment_legal_research',
+  'priority_list', 'approval_queue', 'channel_signal_evidence'
 ]);
 
 export const ALLOWED_CHANNELS = Object.freeze([

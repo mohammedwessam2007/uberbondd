@@ -34,6 +34,13 @@ export const ALLOWED_CHANNELS = Object.freeze([
 ]);
 
 const MAX_EVIDENCE_AGE_DAYS = 90;
+// A future-dated capturedAt previously passed silently: (Date.now() - Date.parse(capturedAt)) goes
+// negative for a future timestamp, which is always <= MAX_EVIDENCE_AGE_DAYS, so the staleness
+// check alone never caught it. A small allowance accommodates real clock skew between the
+// machine that captured the evidence and this one; anything beyond it is rejected outright, not
+// silently clamped or accepted (mission requirement: "Malformed or future-dated evidence must
+// block progression").
+const CLOCK_SKEW_ALLOWANCE_MS = 5 * 60 * 1000;
 const REPLACEMENT_CHAR = '�';
 
 export class ImporterError extends Error {
@@ -81,7 +88,11 @@ export function normalizeRecord(raw, { packType, packVersion, sourceFile } = {})
   if (!ALLOWED_CHANNELS.includes(channel)) reasons.push('unsupported-channel');
   if (!sourceUrl) reasons.push('missing-source-url');
   if (!capturedAt || !Number.isFinite(Date.parse(capturedAt))) reasons.push('missing-or-invalid-timestamp');
-  else if ((Date.now() - Date.parse(capturedAt)) / 86400000 > MAX_EVIDENCE_AGE_DAYS) reasons.push('stale-evidence');
+  else {
+    const ageMs = Date.now() - Date.parse(capturedAt);
+    if (ageMs < -CLOCK_SKEW_ALLOWANCE_MS) reasons.push('future-dated-evidence');
+    else if (ageMs / 86400000 > MAX_EVIDENCE_AGE_DAYS) reasons.push('stale-evidence');
+  }
   if (!Number.isFinite(confidence) || confidence < 0 || confidence > 1) reasons.push('invalid-confidence');
   if (!verified && !raw.inferredBasis) reasons.push('inferred-contact-without-basis');
   if ([raw.organizationDomain, raw.channel, raw.sourceUrl, raw.notes].some(detectCorruptedEncoding)) reasons.push('corrupted-encoding');

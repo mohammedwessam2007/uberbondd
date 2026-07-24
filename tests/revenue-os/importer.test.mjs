@@ -60,6 +60,24 @@ test('normalizeRecord quarantines every distinct malformed-input category with a
   assert.ok(normalizeRecord(goodRow(), { packType: 'not-a-real-pack-type' }).reasons.includes('unknown-pack-type'));
 });
 
+// 24/7 Continuous Revenue Core, section 2 (preflight safety repair): a future-dated capturedAt
+// previously passed silently, because (Date.now() - Date.parse(capturedAt)) goes negative for a
+// future timestamp, which is always <= MAX_EVIDENCE_AGE_DAYS -- the staleness check alone never
+// caught it. Fixed by an explicit clock-skew-bounded future check, reproduced here as a regression.
+test('normalizeRecord rejects future-dated evidence rather than silently accepting it (regression)', () => {
+  const farFuture = new Date(Date.now() + 30 * 86400000).toISOString();
+  const result = normalizeRecord(goodRow({ capturedAt: farFuture }), { packType: 'qualified_agency' });
+  assert.equal(result.ok, false);
+  assert.ok(result.reasons.includes('future-dated-evidence'));
+  assert.ok(!result.reasons.includes('stale-evidence'), 'a future date is not stale evidence, it is a distinct failure mode');
+});
+
+test('normalizeRecord still accepts a timestamp within the small clock-skew allowance', () => {
+  const barelyFuture = new Date(Date.now() + 60000).toISOString(); // 1 minute
+  const result = normalizeRecord(goodRow({ capturedAt: barelyFuture }), { packType: 'qualified_agency' });
+  assert.equal(result.ok, true);
+});
+
 test('an inferred (unverified) contact with an explicit basis is accepted, not quarantined', () => {
   const result = normalizeRecord(goodRow({ verified: 'false', inferredBasis: 'role-based email pattern match' }), { packType: 'qualified_agency' });
   assert.equal(result.ok, true);

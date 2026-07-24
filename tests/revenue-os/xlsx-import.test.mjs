@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { importXlsxPack, XlsxImportError, COLUMN_ALIASES } from '../../revenue-os/src/xlsx-import.mjs';
+import { importXlsxPack, normalizeOoxmlCompat, XlsxImportError, COLUMN_ALIASES } from '../../revenue-os/src/xlsx-import.mjs';
 import {
   validWorkbook, formulaInjectionWorkbook, manyRowsWorkbook, hiddenSheetWorkbook, hiddenRowWorkbook,
   duplicateAcrossSheetsWorkbook, dateVarietyWorkbook, corruptWorkbook, encryptedLikeWorkbookBuffer,
-  aliasedHeadersWorkbook
+  aliasedHeadersWorkbook, namespacedWithAbsoluteTableTargetWorkbook, titleAndBannerBeforeHeaderWorkbook
 } from '../../revenue-os/fixtures/xlsx-fixtures.mjs';
 
 const OPTS = { packType: 'qualified_agency', packVersion: 1, sourceFile: 'test.xlsx' };
@@ -157,4 +157,55 @@ test('sheet allowlist: a sheet not in the allowlist is skipped and disclosed, no
   const result = await importXlsxPack(buf, { ...OPTS, packType: 'approval_queue', sheetAllowlist: ['Approval Queue'] });
   assert.equal(result.accepted.length, 1);
   assert.deepEqual(result.disclosures.skippedSheetsNotAllowlisted, ['Internal Notes']);
+});
+
+// --- OOXML compatibility normalization (found against a real operational workbook) ---
+
+test('normalizeOoxmlCompat rewrites a namespace-prefixed workbook and an absolute-path table Target so exceljs can parse it', async () => {
+  const buf = await namespacedWithAbsoluteTableTargetWorkbook();
+  const { buffer: normalized, applied } = await normalizeOoxmlCompat(buf);
+  assert.equal(applied, true);
+  assert.notDeepEqual(normalized, buf);
+  const ExcelJS = (await import('exceljs')).default;
+  const wb = new ExcelJS.Workbook();
+  await wb.xlsx.load(normalized); // would throw before the fix ("Cannot read properties of undefined")
+  assert.equal(wb.worksheets.length, 1);
+});
+
+test('normalizeOoxmlCompat is a no-op (byte-identical) for a normally-authored workbook', async () => {
+  const buf = await validWorkbook();
+  const { buffer: normalized, applied } = await normalizeOoxmlCompat(buf);
+  assert.equal(applied, false);
+  assert.equal(normalized, buf);
+});
+
+test('importXlsxPack transparently imports a namespace-prefixed workbook with an absolute table Target, and discloses that normalization ran', async () => {
+  const buf = await namespacedWithAbsoluteTableTargetWorkbook();
+  const result = await importXlsxPack(buf, { ...OPTS, packType: 'priority_list' });
+  assert.equal(result.disclosures.ooxmlCompatNormalizationApplied, true);
+  assert.equal(result.accepted.length, 1);
+  assert.equal(result.accepted[0].organizationDomain, 'prefixed-quirk.invalid');
+});
+
+test('importXlsxPack does not flag normalization as applied for a normally-authored workbook', async () => {
+  const buf = await validWorkbook();
+  const result = await importXlsxPack(buf, OPTS);
+  assert.equal(result.disclosures.ooxmlCompatNormalizationApplied, false);
+});
+
+// --- header-row auto-detection (found against a real workbook with a title + banner row) ---
+
+test('importXlsxPack detects a header row after a title row and a merged summary banner, not just row 1', async () => {
+  const buf = await titleAndBannerBeforeHeaderWorkbook();
+  const result = await importXlsxPack(buf, { ...OPTS, packType: 'buyer_intent' });
+  assert.equal(result.sheetReports[0].headerRow, 3);
+  assert.equal(result.accepted.length, 1);
+  assert.equal(result.accepted[0].organizationDomain, 'banner-offset.invalid');
+  assert.equal(result.accepted[0].raw.__row, 4); // lineage still reports the true spreadsheet row
+});
+
+test('importXlsxPack still detects header row 1 for every existing row-1-header fixture (no regression)', async () => {
+  const buf = await validWorkbook();
+  const result = await importXlsxPack(buf, OPTS);
+  assert.equal(result.sheetReports[0].headerRow, 1);
 });

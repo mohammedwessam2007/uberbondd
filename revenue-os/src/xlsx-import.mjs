@@ -21,6 +21,7 @@
 // must never ride in on a formula result an attacker fully controls the *shape* of, even if this
 // importer never executes it as a formula.
 import ExcelJS from 'exceljs';
+import JSZip from 'jszip';
 import { prepareImportBatch } from './importer.mjs';
 import { sha256Hex, normalizeDomain } from './utils.mjs';
 
@@ -43,12 +44,22 @@ export const DEFAULT_LIMITS = Object.freeze({
 // non-alphanumeric stripped, so "Source URL", "source_url", and "SourceUrl" all match the same
 // alias). `organization` is not read by normalizeRecord but is kept for this module's own
 // domain+organization dedup pass (see dedupeByDomainAndOrganization below).
+// The 'canonicaldomain', 'business', 'publicsourceurl', 'issueurl', and 'observed' aliases were
+// added after this pipeline was first run against a real Work-agent workbook
+// (UBERBOND_FIRST_100_VERIFIED_TARGETS.xlsx) whose real column spellings ("Canonical Domain",
+// "Business", "Public Source URL", "Issue URL", "Observed") didn't resolve against the original
+// alias set -- a disclosed, narrow addition, not a schema redesign. `channel` intentionally has no
+// alias added for that workbook's "Public Role Contact" column: its values are free-text
+// descriptions ("Website service form; service@gofalconair.com"), not one of ALLOWED_CHANNELS'
+// enum values, so aliasing it would only ever produce a predictable 'unsupported-channel'
+// quarantine -- leaving it unmapped instead correctly reports 'channel' as a missing mandatory
+// column, a more honest signal that this real dataset doesn't carry a structured channel field.
 export const COLUMN_ALIASES = Object.freeze({
-  organizationDomain: ['organizationdomain', 'domain', 'website', 'organizationdomainname', 'orgdomain', 'companydomain'],
-  organization: ['organization', 'organizationname', 'company', 'companyname', 'agency', 'agencyname'],
+  organizationDomain: ['organizationdomain', 'domain', 'website', 'organizationdomainname', 'orgdomain', 'companydomain', 'canonicaldomain'],
+  organization: ['organization', 'organizationname', 'company', 'companyname', 'agency', 'agencyname', 'business'],
   channel: ['channel', 'contactchannel'],
-  sourceUrl: ['sourceurl', 'evidenceurl', 'link', 'url'],
-  capturedAt: ['capturedat', 'datecaptured', 'evidencedate', 'capturedate'],
+  sourceUrl: ['sourceurl', 'evidenceurl', 'link', 'url', 'publicsourceurl', 'issueurl'],
+  capturedAt: ['capturedat', 'datecaptured', 'evidencedate', 'capturedate', 'observed'],
   confidence: ['confidence', 'confidencescore'],
   verified: ['verified', 'isverified'],
   inferredBasis: ['inferredbasis', 'basis'],
@@ -106,6 +117,85 @@ function extractCellValue(cell, isFormula) {
     return '';
   }
   return String(v).trim();
+}
+
+const NS_MAIN = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main';
+
+/**
+ * Normalizes two real-world OOXML variations found in this operation's actual required input
+ * files -- both spec-valid, both incompatible with exceljs's reader:
+ *
+ * 1. An arbitrary namespace prefix (e.g. `x:`) bound to the spreadsheetML main namespace on every
+ *    element, instead of the default (unprefixed) namespace exceljs's parser expects. Confirmed
+ *    against `UBERBOND_FIRST_100_VERIFIED_TARGETS.xlsx` and `UBERBOND_FIRST_PAYMENT_COMMAND_CENTER.xlsx`,
+ *    both of which crashed exceljs with "Cannot read properties of undefined (reading 'sheets')"
+ *    before this normalization.
+ * 2. Excel-Table relationship Targets written as package-absolute paths
+ *    (`Target="/xl/tables/table1.xml"`) instead of the literal relative-path string
+ *    (`../tables/table1.xml`) exceljs's own table lookup hardcodes as a plain string key rather
+ *    than resolving generically (`node_modules/exceljs/lib/xlsx/xlsx.js` stores parsed tables
+ *    keyed by `` `../tables/${name}.xml` `` and worksheet-xform.js looks that exact string up --
+ *    an absolute Target that resolves to the identical file on disk still misses the string match
+ *    and produces `undefined`, which crashes a later `.reduce` with "Cannot read properties of
+ *    undefined (reading 'name')"). Every other relationship type (worksheets, styles,
+ *    sharedStrings, theme) resolves absolute targets correctly in exceljs -- only this one
+ *    hardcoded string comparison needed the rewrite, confirmed by testing narrower and broader
+ *    fixes against the real file before settling on this exact scope.
+ *
+ * Returns the original buffer unchanged if neither pattern is present (a no-op scan for a
+ * standard Excel/LibreOffice-authored file) or if normalization itself fails for any reason --
+ * falls through to exceljs's own load attempt either way, so a genuinely corrupt workbook still
+ * produces the normal corrupt-workbook error rather than an error from this preprocessing step.
+ */
+export async function normalizeOoxmlCompat(buffer) {
+  let zip;
+  try { zip = await JSZip.loadAsync(buffer); } catch { return { buffer, applied: false }; }
+  let changedAny = false;
+  for (const name of Object.keys(zip.files)) {
+    if (!name.endsWith('.xml') && !name.endsWith('.rels')) continue;
+    const file = zip.files[name];
+    if (file.dir) continue;
+    let text;
+    try { text = await file.async('string'); } catch { continue; }
+    let changed = false;
+
+    const nsMatch = text.match(/xmlns:([a-zA-Z0-9_]+)="http:\/\/schemas\.openxmlformats\.org\/spreadsheetml\/2006\/main"/);
+    if (nsMatch) {
+      const prefix = nsMatch[1];
+      text = text.replace(new RegExp(`<${prefix}:`, 'g'), '<').replace(new RegExp(`</${prefix}:`, 'g'), '</');
+      text = text.replace(new RegExp(`xmlns:${prefix}="${NS_MAIN.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), `xmlns="${NS_MAIN}"`);
+      changed = true;
+    }
+    if (name.endsWith('.rels') && text.includes('/relationships/table"') && text.includes('Target="/xl/tables/')) {
+      text = text.replace(/Target="\/xl\/tables\//g, 'Target="../tables/');
+      changed = true;
+    }
+
+    if (changed) { zip.file(name, text); changedAny = true; }
+  }
+  if (!changedAny) return { buffer, applied: false };
+  try { return { buffer: await zip.generateAsync({ type: 'nodebuffer' }), applied: true }; }
+  catch { return { buffer, applied: false }; }
+}
+
+/** Scans the first few rows of a sheet and picks the one that resolves the most COLUMN_ALIASES
+ * fields as the header row, instead of always assuming row 1. Real Work-agent workbooks were found
+ * to prepend a title row and a merged summary-banner row before the actual header row (table `ref`
+ * starting at row 3, not row 1) -- assuming row 1 in that case would treat the title text as every
+ * column's header and silently import zero usable rows. Ties prefer the earliest row, so every
+ * existing fixture with a genuine row-1 header (the common case) is unaffected. */
+function detectHeaderRow(worksheet, maxScanRows = 10) {
+  let best = { row: 1, score: -1 };
+  const scanLimit = Math.min(maxScanRows, worksheet.rowCount || 1);
+  for (let r = 1; r <= scanLimit; r++) {
+    const headers = [];
+    worksheet.getRow(r).eachCell({ includeEmpty: true }, (cell, colNumber) => {
+      headers[colNumber] = cellTextValue(cell).trim();
+    });
+    const { usedCols } = resolveColumnMap(headers);
+    if (usedCols.size > best.score) best = { row: r, score: usedCols.size };
+  }
+  return best.row;
 }
 
 function resolveColumnMap(headers) {
@@ -171,9 +261,12 @@ export async function importXlsxPack(buffer, options = {}) {
   if (format === 'cfb') throw new XlsxImportError('encrypted-or-legacy-format', 'workbook appears to be password-protected (OOXML encryption wraps the workbook in a CFB container) or is a legacy .xls binary file -- neither is supported');
   if (format !== 'zip') throw new XlsxImportError('not-xlsx', 'file is not a valid .xlsx (OOXML zip) workbook');
 
+  const workbookHash = sha256Hex(buffer); // hash of the ORIGINAL bytes, not the compat-normalized copy -- lineage must reflect what was actually uploaded
+  const { buffer: loadBuffer, applied: ooxmlCompatApplied } = await normalizeOoxmlCompat(buffer);
+
   const workbook = new ExcelJS.Workbook();
   try {
-    await workbook.xlsx.load(buffer);
+    await workbook.xlsx.load(loadBuffer);
   } catch (error) {
     throw new XlsxImportError('corrupt-workbook', `workbook failed to parse: ${error.message}`);
   }
@@ -182,10 +275,9 @@ export async function importXlsxPack(buffer, options = {}) {
     throw new XlsxImportError('too-many-sheets', `workbook has ${workbook.worksheets.length} sheets, limit is ${maxSheets}`);
   }
 
-  const workbookHash = sha256Hex(buffer);
   const sheetReports = [];
   const rawRecords = [];
-  const disclosures = { hiddenSheets: [], hiddenRows: [], formulaCells: [], skippedSheetsNotAllowlisted: [] };
+  const disclosures = { hiddenSheets: [], hiddenRows: [], formulaCells: [], skippedSheetsNotAllowlisted: [], ooxmlCompatNormalizationApplied: ooxmlCompatApplied };
 
   for (const worksheet of workbook.worksheets) {
     const sheetName = worksheet.name;
@@ -205,8 +297,9 @@ export async function importXlsxPack(buffer, options = {}) {
       throw new XlsxImportError('too-many-rows', `sheet "${sheetName}" has ${worksheet.rowCount} rows, limit is ${maxRowsPerSheet}`);
     }
 
+    const headerRow = detectHeaderRow(worksheet);
     const headers = [];
-    worksheet.getRow(1).eachCell({ includeEmpty: true }, (cell, colNumber) => {
+    worksheet.getRow(headerRow).eachCell({ includeEmpty: true }, (cell, colNumber) => {
       headers[colNumber] = cellTextValue(cell).trim();
     });
     const { map: columnMap, usedCols } = resolveColumnMap(headers);
@@ -214,7 +307,7 @@ export async function importXlsxPack(buffer, options = {}) {
     const missingMandatoryColumns = MANDATORY_FIELDS.filter(f => !(f in columnMap));
 
     const sheetReport = {
-      sheet: sheetName, hidden: isHidden, headers: headers.filter(Boolean), columnMap: { ...columnMap },
+      sheet: sheetName, hidden: isHidden, headerRow, headers: headers.filter(Boolean), columnMap: { ...columnMap },
       unmappedHeaders, missingMandatoryColumns, rowsExtracted: 0, rowsSkippedHidden: 0
     };
     sheetReports.push(sheetReport);
@@ -225,7 +318,7 @@ export async function importXlsxPack(buffer, options = {}) {
     }
 
     worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
-      if (rowNumber === 1) return;
+      if (rowNumber <= headerRow) return;
       if (row.hidden) {
         disclosures.hiddenRows.push({ sheet: sheetName, row: rowNumber });
         if (!includeHiddenRows) { sheetReport.rowsSkippedHidden += 1; return; }

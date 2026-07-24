@@ -4,6 +4,7 @@
 // own API. All domains use the reserved .invalid TLD -- same discipline as
 // fixtures/synthetic-packs.mjs -- nothing here is ever real market evidence.
 import ExcelJS from 'exceljs';
+import JSZip from 'jszip';
 
 const NOW_ISO = () => new Date().toISOString();
 
@@ -131,5 +132,65 @@ export async function aliasedHeadersWorkbook() {
   const ws = wb.addWorksheet('Channel and Signal Evidence');
   ws.addRow(['Website', 'Company', 'Contact Channel', 'Evidence URL', 'Date Captured', 'Confidence Score', 'Is Verified']);
   ws.addRow(['aliased.invalid', 'Aliased Co', 'published_email', 'https://aliased.invalid/', NOW_ISO(), 0.75, true]);
+  return toBuffer(wb);
+}
+
+/** Reproduces the two real-world OOXML variants found in an actual operational workbook that
+ * crashed exceljs before xlsx-import.mjs's normalizeOoxmlCompat preprocessing was added: (1) every
+ * spreadsheetML element carries an arbitrary namespace prefix (`x:`) instead of the default
+ * namespace, and (2) the Excel-Table relationship Target is a package-absolute path
+ * (`/xl/tables/table1.xml`) instead of the relative form exceljs's own reader hardcodes as a
+ * literal string key. Built by taking a normal exceljs-authored workbook (which already includes a
+ * real Table, so the table-relationship bug has something to bite on) and rewriting its XML parts
+ * with jszip -- exceljs itself cannot author either non-standard form, so this is the only way to
+ * produce a deterministic, checked-in-as-code reproduction rather than depending on an external
+ * binary fixture file. */
+export async function namespacedWithAbsoluteTableTargetWorkbook() {
+  const wb = new ExcelJS.Workbook();
+  const ws = wb.addWorksheet('Qualified Targets');
+  ws.addRow(['Domain', 'Channel', 'Source URL', 'Captured At', 'Confidence', 'Verified']);
+  ws.addRow(['prefixed-quirk.invalid', 'published_email', 'https://prefixed-quirk.invalid/', NOW_ISO(), 0.8, true]);
+  ws.addTable({
+    name: 'T1', ref: 'A1', headerRow: true,
+    columns: [{ name: 'Domain' }, { name: 'Channel' }, { name: 'Source URL' }, { name: 'Captured At' }, { name: 'Confidence' }, { name: 'Verified' }],
+    rows: [['prefixed-quirk.invalid', 'published_email', 'https://prefixed-quirk.invalid/', NOW_ISO(), 0.8, true]]
+  });
+  const original = await toBuffer(wb);
+
+  const NS_MAIN = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main';
+  const zip = await JSZip.loadAsync(original);
+  for (const name of Object.keys(zip.files)) {
+    if (!name.endsWith('.xml') && !name.endsWith('.rels')) continue;
+    const file = zip.files[name];
+    if (file.dir) continue;
+    let text = await file.async('string');
+    let changed = false;
+    if (text.includes(`"${NS_MAIN}"`) && !text.includes(`xmlns:x="${NS_MAIN}"`)) {
+      text = text.replace(/<\?xml[^>]*\?>/, m => ` ${m} `) // shield the XML declaration from the open-tag rewrite below
+        .replace(/<([a-zA-Z][a-zA-Z0-9]*)((?:\s|>))/g, '<x:$1$2')
+        .replace(/<\/([a-zA-Z][a-zA-Z0-9]*)/g, '</x:$1')
+        .replace(/ <\?xml[^>]*\?> /, m => m.slice(1, -1))
+        .replace(`xmlns="${NS_MAIN}"`, `xmlns:x="${NS_MAIN}"`);
+      changed = true;
+    }
+    if (name.endsWith('.rels') && text.includes('/relationships/table"') && text.includes('Target="../tables/')) {
+      text = text.replace(/Target="\.\.\/tables\//g, 'Target="/xl/tables/');
+      changed = true;
+    }
+    if (changed) zip.file(name, text);
+  }
+  return zip.generateAsync({ type: 'nodebuffer' });
+}
+
+/** A workbook with a title row and a merged summary-banner row before the real header row (row 3),
+ * mirroring the real operational workbook's shape -- proves detectHeaderRow finds the actual
+ * header instead of assuming row 1. */
+export async function titleAndBannerBeforeHeaderWorkbook() {
+  const wb = new ExcelJS.Workbook();
+  const ws = wb.addWorksheet('Qualified Targets');
+  ws.addRow(['Qualified Targets']);
+  ws.addRow(['24 of 100 reviewed businesses passed both gates.']);
+  ws.addRow(['Domain', 'Channel', 'Source URL', 'Captured At', 'Confidence', 'Verified']);
+  ws.addRow(['banner-offset.invalid', 'published_email', 'https://banner-offset.invalid/', NOW_ISO(), 0.8, true]);
   return toBuffer(wb);
 }

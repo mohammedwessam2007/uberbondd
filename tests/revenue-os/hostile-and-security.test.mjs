@@ -181,7 +181,13 @@ test('immutable payment evidence: once a payment is VERIFIED, its evidenceHash c
 
 // --- zero changes to lite/ ---
 
-test('lite/ has zero diff against main -- this mission must never touch it', () => {
-  const output = execFileSync('git', ['diff', '--name-only', 'main', '--', 'lite/'], { cwd: REPO_ROOT, encoding: 'utf8' });
-  assert.equal(output.trim(), '', `lite/ has diverged from main:\n${output}`);
+test('lite/ has zero diff against the branch base -- this mission must never touch it', () => {
+  // Pinned to the actual base commit hash, not the ref name 'main': a `git bundle create
+  // <file> HEAD` clone (as used for this repository's own clean-room verification) carries only
+  // the HEAD ref's history, not a local 'main' branch ref, so `git diff ... main ...` fails with
+  // "unknown revision" in a fresh bundle clone even though the commit content is identical. The
+  // hash is reachable from HEAD in every clone that has this commit's full history, bundle or not.
+  const BASE_SHA = 'ba2b100ac57b7cf0fd84532f6ea6770c6ebeed8a';
+  const output = execFileSync('git', ['diff', '--name-only', BASE_SHA, '--', 'lite/'], { cwd: REPO_ROOT, encoding: 'utf8' });
+  assert.equal(output.trim(), '', `lite/ has diverged from ${BASE_SHA}:\n${output}`);
 });

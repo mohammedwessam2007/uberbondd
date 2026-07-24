@@ -1,0 +1,60 @@
+{
+  "patch": "Live Bridge Patch",
+  "branch": "overnight/first-payment-revenue-os",
+  "base": "ba2b100ac57b7cf0fd84532f6ea6770c6ebeed8a",
+  "headBeforePatch": "b98d84627bd9c765a49dcaa5dfb2f6a254b3cdca",
+  "commits": [
+    { "n": 14, "hash": "d521ee8", "title": "secure XLSX importer" },
+    { "n": 15, "hash": "877e909", "title": "safe real-site crawler provider" },
+    { "n": 16, "hash": "bb93cd6", "title": "documentation truth repair" },
+    { "n": 17, "hash": null, "title": "clean-room verification and final packaging", "note": "hash unknown at manifest-write time -- see final chat response and CHECKSUMS.sha256" }
+  ],
+  "diffstatCommits14to16": { "filesChanged": 14, "insertions": 2375, "deletions": 23 },
+  "filesAdded": [
+    "LIVE_BRIDGE_CRAWLER_SAFETY.md",
+    "LIVE_BRIDGE_EXTERNAL_BLOCKERS.md",
+    "LIVE_BRIDGE_IMPLEMENTATION_REPORT.md",
+    "LIVE_BRIDGE_OWNER_START_CARD.md",
+    "LIVE_BRIDGE_TEST_EVIDENCE.md",
+    "LIVE_BRIDGE_XLSX_SCHEMA_MAP.md",
+    "LIVE_BRIDGE_ZERO_LITE_PROOF.md",
+    "LIVE_BRIDGE_CHANGED_FILES_MANIFEST.json",
+    "revenue-os/fixtures/local-test-server.mjs",
+    "revenue-os/fixtures/xlsx-fixtures.mjs",
+    "revenue-os/scripts/crawl.mjs",
+    "revenue-os/src/providers/real-crawler.mjs",
+    "revenue-os/src/xlsx-import.mjs",
+    "tests/revenue-os/crawl-cli.test.mjs",
+    "tests/revenue-os/real-crawler.test.mjs",
+    "tests/revenue-os/xlsx-import.test.mjs"
+  ],
+  "filesModified": [
+    "UBERBOND_FIRST_PAYMENT_REVENUE_OS_IMPLEMENTATION_REPORT.md",
+    "UBERBOND_FIRST_PAYMENT_REVENUE_OS_TEST_EVIDENCE.md",
+    "UBERBOND_FIRST_PAYMENT_REVENUE_OS_ZERO_LITE_PROOF.md",
+    "package-lock.json",
+    "package.json",
+    "revenue-os/src/importer.mjs"
+  ],
+  "filesDeleted": [],
+  "liteDirTouched": false,
+  "newDependencies": [
+    { "name": "exceljs", "version": "4.4.0", "pinnedExact": true }
+  ],
+  "newTestFiles": [
+    "tests/revenue-os/xlsx-import.test.mjs (16 tests)",
+    "tests/revenue-os/real-crawler.test.mjs (19 tests)",
+    "tests/revenue-os/crawl-cli.test.mjs (4 tests)"
+  ],
+  "testTotals": {
+    "revenueOsSuite": 221,
+    "rootSuite": 92,
+    "combined": 313,
+    "failures": 0
+  },
+  "verification": {
+    "zeroLiteDiff": "git diff --exit-code ba2b100 -- lite/  ->  exit 0, empty",
+    "syntaxCheckedFileCount": 39,
+    "note": "syntaxCheckedFileCount is post-commit-17 total (34 from ROS + 5 new: xlsx-import.mjs, real-crawler.mjs, crawl.mjs, xlsx-fixtures.mjs, local-test-server.mjs)"
+  }
+}

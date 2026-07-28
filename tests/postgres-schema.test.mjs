@@ -5,7 +5,7 @@ import { PGlite } from '@electric-sql/pglite';
 
 export async function migratedDb() {
   const db = new PGlite();
-  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql', '005_revenue_os_control_plane.sql', '006_pr6_repair.sql']) {
+  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql', '005_revenue_os_control_plane.sql', '006_pr6_repair.sql', '007_pr6_repair_2.sql']) {
     await db.exec(await fs.readFile(new URL(`../migrations/${name}`, import.meta.url), 'utf8'));
   }
   return db;

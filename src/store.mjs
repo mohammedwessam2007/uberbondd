@@ -98,7 +98,7 @@ const MAP = {
     columns: {
       prospectId: 'prospect_id', organizationDomain: 'organization_domain', sourceUrl: 'source_url',
       sourceType: 'source_type', status: 'status', contactEmail: 'contact_email',
-      contentHash: 'content_hash', capturedAt: 'captured_at', expiresAt: 'expires_at',
+      contentHash: 'content_hash', signalKey: 'signal_key', capturedAt: 'captured_at', expiresAt: 'expires_at',
       createdAt: 'created_at', updatedAt: 'updated_at'
     }
   },
@@ -250,6 +250,13 @@ class JsonTransactionStore {
   async count(key, filters = {}) { return (await this.list(key, { filters })).length; }
   async add(key, item) { return this.parent._addDirect(key, item); }
   async upsert(key, item) { return this.parent._upsertDirect(key, item); }
+  async findOrCreate(key, item, uniqueColumns) {
+    const filters = {};
+    for (const col of uniqueColumns) filters[col] = item[col];
+    const existing = await this.findOne(key, filters);
+    if (existing) return { record: existing, inserted: false };
+    return { record: await this.add(key, item), inserted: true };
+  }
   async patch(key, id, patch) { return this.parent._patchDirect(key, id, patch); }
   async getSettings() { return structuredClone(this.parent.data.settings || {}); }
   async setSetting(key, value) { this.parent.data.settings[key] = structuredClone(value); return value; }
@@ -576,6 +583,7 @@ export class JsonStore {
   async count(key, filters = {}) { return (await this.list(key, { filters })).length; }
   async add(key, item) { return this.transaction(tx => tx.add(key, item)); }
   async upsert(key, item) { return this.transaction(tx => tx.upsert(key, item)); }
+  async findOrCreate(key, item, uniqueColumns) { return this.transaction(tx => tx.findOrCreate(key, item, uniqueColumns)); }
   async patch(key, id, patch) { return this.transaction(tx => tx.patch(key, id, patch)); }
   async getSettings() { return structuredClone(this.data.settings || {}); }
   async setSetting(key, value) { return this.transaction(tx => tx.setSetting(key, value)); }
@@ -716,6 +724,31 @@ export class PostgresStore {
     try {
       await this.pool.query(`INSERT INTO ${def.table} (${columns.join(', ')}) VALUES (${placeholders.join(', ')}) ON CONFLICT (id) DO UPDATE SET ${updates.join(', ')}`, values);
       return record;
+    } catch (error) { throw duplicateError(error, key, record); }
+  }
+
+  /** Atomic find-or-create against a named unique constraint, via a single INSERT ... ON CONFLICT
+   * ... RETURNING statement. PR #6 second-pass repair item 1: the previous pattern (catch a unique
+   * violation from a plain INSERT, then run a SELECT to find the existing row) is unsafe on
+   * Postgres inside a multi-statement transaction -- once one statement in a transaction errors,
+   * that transaction is aborted and every subsequent statement fails with
+   * "current transaction is aborted, commands ignored until end of transaction block" (25P02),
+   * so the recovery SELECT never actually ran. ON CONFLICT ... DO UPDATE ... RETURNING is a single
+   * atomic statement that never raises on a conflict at all, so there is nothing to recover from.
+   * The `(xmax = 0)` idiom distinguishes a genuine insert from a conflict-triggered no-op update. */
+  async findOrCreate(key, item, uniqueColumns) {
+    const { def, record, columns, values } = postgresValues(key, item);
+    const conflictColumns = uniqueColumns.map(property => def.columns[property] || property);
+    const placeholders = values.map((_, index) => `$${index + 1}`);
+    try {
+      const result = await this.pool.query(
+        `INSERT INTO ${def.table} (${columns.join(', ')}) VALUES (${placeholders.join(', ')})
+         ON CONFLICT (${conflictColumns.join(', ')}) DO UPDATE SET id = ${def.table}.id
+         RETURNING data, (xmax = 0) AS inserted`,
+        values
+      );
+      const row = result.rows[0];
+      return { record: row.data, inserted: row.inserted === true };
     } catch (error) { throw duplicateError(error, key, record); }
   }
 

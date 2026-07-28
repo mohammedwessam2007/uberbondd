@@ -203,36 +203,43 @@ test('buildOwnerGate: rejects a missing action', () => {
   assert.throws(() => buildOwnerGate(validGateInput({ action: '' })), (err) => err.code === 'action-required');
 });
 
-// --- tenOfTenReadiness: PR #6 audit item 1 (missing telemetry falsely passing readiness) ---
+// --- tenOfTenReadiness: PR #6 audit item 1 (missing telemetry falsely passing readiness) and the
+// second-pass audit item 3 (restore the original commercial gates + full evidence provenance) ---
+
+const PROVENANCE = { evidenceRef: 'TEST_EVIDENCE.log', source: 'test-harness', measurementWindow: '2026-07-01..2026-07-28', timestamp: '2026-07-28T12:00:00.000Z' };
+const bool = (value) => ({ value, ...PROVENANCE });
+const rate = (numerator, denominator) => ({ numerator, denominator, ...PROVENANCE });
+const count = (value) => ({ value, ...PROVENANCE });
 
 function completeMetrics(overrides = {}) {
   return {
-    deterministicChecks: true, browserChecks: true, migrationChecks: true,
-    previewAuditable: true, importAtomicity: true, concurrencySafety: true, auditCompleteness: true,
-    duplicates: { numerator: 0, denominator: 40 },
-    hardBounces: { numerator: 0, denominator: 60 },
-    complaints: { numerator: 0, denominator: 60 },
-    evidenceCoverage: { numerator: 40, denominator: 40 },
-    positiveReplies: { numerator: 3, denominator: 60 },
-    paidPilots: 3, collectedRevenueCents: 150000, contributionMarginCents: 100,
-    recurringClients: 1, ownerActionsPerDay: 2,
+    deterministicChecks: bool(true), browserChecks: bool(true), migrationChecks: bool(true), previewAuditable: bool(true),
+    importAtomicity: bool(true), concurrencySafety: bool(true), auditCompleteness: bool(true),
+    suppressionTesting: bool(true), killSwitchTesting: bool(true), incidentRecovery: bool(true),
+    duplicates: rate(0, 40), hardBounces: rate(0, 60), complaints: rate(0, 60),
+    evidenceCoverage: rate(40, 40), positiveReplies: rate(3, 60),
+    revenueAttribution: rate(5, 5), acceptedPaidDelivery: rate(3, 3),
+    paidPilots: count(3), collectedRevenueCents: count(150000), contributionMarginCents: count(100),
+    recurringClients: count(1), ownerActionsPerDay: count(2),
     ...overrides
   };
 }
 
-test('tenOfTenReadiness: every gate passing with sufficient evidence yields ready:true, score:10', () => {
+test('tenOfTenReadiness: every gate passing with sufficient, fully-provenanced evidence yields ready:true, score:10', () => {
   const result = tenOfTenReadiness(completeMetrics());
   assert.equal(result.ready, true);
   assert.equal(result.score, 10);
-  assert.equal(result.total, 17);
   assert.equal(result.unknown, 0);
+  assert.equal(result.coreGateCount, 19);
+  assert.equal(result.additionalGateCount, 3);
+  assert.equal(result.total, 22);
 });
 
 test('tenOfTenReadiness: an entirely empty metrics object is not ready, and every gate is unknown, not a false pass', () => {
   const result = tenOfTenReadiness({});
   assert.equal(result.ready, false);
   assert.equal(result.passed, 0);
-  assert.equal(result.unknown, 17);
+  assert.equal(result.unknown, result.total);
   for (const gate of Object.values(result.gates)) assert.equal(gate.status, 'unknown');
 });
 
@@ -243,20 +250,55 @@ test('tenOfTenReadiness: a missing rate denominator is unknown, not a silent pas
 });
 
 test('tenOfTenReadiness: a rate below its minimum sample size is unknown even if the observed rate looks perfect', () => {
-  const result = tenOfTenReadiness(completeMetrics({ hardBounces: { numerator: 0, denominator: 3 } }));
+  const result = tenOfTenReadiness(completeMetrics({ hardBounces: rate(0, 3) }));
   assert.equal(result.gates.hardBounceRate.status, 'unknown');
   assert.equal(result.gates.hardBounceRate.reason, 'insufficient-sample');
   assert.equal(result.ready, false);
 });
 
 test('tenOfTenReadiness: a rate at or above its minimum sample size and past its threshold fails, not unknown', () => {
-  const result = tenOfTenReadiness(completeMetrics({ hardBounces: { numerator: 5, denominator: 60 } }));
+  const result = tenOfTenReadiness(completeMetrics({ hardBounces: rate(5, 60) }));
   assert.equal(result.gates.hardBounceRate.status, 'fail');
   assert.equal(result.ready, false);
 });
 
 test('tenOfTenReadiness: a boolean gate explicitly set to false is fail, not unknown', () => {
-  const result = tenOfTenReadiness(completeMetrics({ auditCompleteness: false }));
+  const result = tenOfTenReadiness(completeMetrics({ auditCompleteness: bool(false) }));
   assert.equal(result.gates.auditCompleteness.status, 'fail');
   assert.equal(result.ready, false);
+});
+
+// Second-pass audit item 3: evidence without full provenance (evidenceRef/source/measurementWindow/
+// timestamp) is unknown, identical to missing evidence entirely -- a bare `true`/number is no
+// longer accepted.
+test('tenOfTenReadiness: a bare boolean/number with no provenance object is unknown, not a pass', () => {
+  const result = tenOfTenReadiness(completeMetrics({ deterministicChecks: true, paidPilots: 3 }));
+  assert.equal(result.gates.deterministicChecks.status, 'unknown');
+  assert.equal(result.gates.paidPilots.status, 'unknown');
+});
+
+test('tenOfTenReadiness: evidence missing just one provenance field (e.g. timestamp) is unknown', () => {
+  const incomplete = { value: true, evidenceRef: 'x', source: 'y', measurementWindow: 'z' }; // no timestamp
+  const result = tenOfTenReadiness(completeMetrics({ deterministicChecks: incomplete }));
+  assert.equal(result.gates.deterministicChecks.status, 'unknown');
+});
+
+// Second-pass audit item 3: the five gates this audit explicitly named as missing must exist,
+// have real evidence structure (numerator/denominator or boolean value), and gate readiness like
+// every other gate -- not be decorative.
+test('tenOfTenReadiness: the five newly-restored commercial gates exist and fail closed on missing evidence', () => {
+  const empty = tenOfTenReadiness({});
+  for (const name of ['revenueAttribution', 'acceptedPaidDelivery', 'suppressionTesting', 'killSwitchTesting', 'incidentRecovery']) {
+    assert(name in empty.gates, `missing gate: ${name}`);
+    assert.equal(empty.gates[name].status, 'unknown');
+  }
+  const missingOneAttribution = tenOfTenReadiness(completeMetrics({ revenueAttribution: rate(4, 5) }));
+  assert.equal(missingOneAttribution.gates.revenueAttribution.status, 'fail', 'revenueAttribution requires full (100%) attribution, not partial');
+  assert.equal(missingOneAttribution.ready, false);
+});
+
+test('tenOfTenReadiness: importAtomicity/concurrencySafety/auditCompleteness are additional technical gates, not a substitute for any core gate, and still block readiness when unknown', () => {
+  const result = tenOfTenReadiness(completeMetrics({ importAtomicity: undefined }));
+  assert.equal(result.gates.importAtomicity.status, 'unknown');
+  assert.equal(result.ready, false, 'an additional technical gate still counts toward overall readiness');
 });

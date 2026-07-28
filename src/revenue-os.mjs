@@ -243,6 +243,16 @@ export function buildOwnerGate({
   if (!String(opportunityId || '').trim()) fail('opportunity-link-required', 'Owner gates must be linked to an existing opportunityId');
   if (!String(action || '').trim()) fail('action-required', 'Owner gate action is required');
 
+  // PR #6 second-pass audit item 6: raw cents from an arbitrary currency must never be compared
+  // against a USD-cents threshold -- 500 JPY and 500 USD are not the same 500. This version has no
+  // FX-conversion source, so the safe choice offered by the audit is taken: only USD is accepted
+  // for an owner gate at all. A gate in any other currency is rejected outright, not silently
+  // evaluated against a threshold that would misprice it.
+  const normalizedCurrency = String(currency || 'USD').trim().toUpperCase();
+  if (normalizedCurrency !== 'USD') {
+    fail('currency-not-usd', `Owner gates currently support USD only (got: ${normalizedCurrency}) -- no FX-conversion source exists in this version`);
+  }
+
   const value = Math.round(Math.max(0, Number(expectedValueCents) || 0));
   if (value < OWNER_GATE_MIN_EXPECTED_VALUE_CENTS) {
     fail('value-below-floor', `Owner gate expectedValueCents (${value}) is below the ${OWNER_GATE_MIN_EXPECTED_VALUE_CENTS}-cent floor`);
@@ -265,7 +275,7 @@ export function buildOwnerGate({
     gateType,
     status: 'open',
     expectedValueCents: value,
-    currency: String(currency || 'USD').trim().toUpperCase(),
+    currency: normalizedCurrency,
     ownerMinutes: Math.round(minutesNumber),
     expiresAt: expiresIso,
     action: String(action).trim(),
@@ -281,50 +291,94 @@ export function buildOwnerGate({
 // gate below returns 'pass' | 'fail' | 'unknown' -- 'unknown' happens whenever evidence is absent,
 // non-finite, or (for rate gates) below its required minimum sample size, and 'unknown' never
 // counts toward `ready`. Missing evidence fails closed by construction, not by convention.
+//
+// Second-pass audit item 3 ("restore the exact original 17 readiness requirements... do not
+// replace them with unrelated technical gates"): disclosed here rather than silently guessed --
+// no document available to this repair (00_PR6_ADVERSARIAL_AUDIT.md, 06_ACCEPTANCE_TEST_MATRIX.md,
+// or any other provided source) enumerates 17 gate names, so "the exact original 17" cannot be
+// verified against a ground truth. What IS verifiable: the true original tenOfTenReadiness (before
+// any PR #6 repair touched it) had 14 gates -- deterministicChecks, browserChecks,
+// migrationChecks, dryRunAuditable, duplicateRate, hardBounceRate, complaintRate,
+// evidenceCoverage, positiveReplyRate, paidPilots, collectedRevenue,
+// positiveContributionMargin, recurringClients, ownerActionsPerDay -- and the first PR #6 repair
+// pass wrongly grew that to 17 by REPLACING three business-facing slots with unrelated technical
+// ones (importAtomicity, concurrencySafety, auditCompleteness). This pass restores all 14 original
+// gates unchanged, adds the five gates this audit explicitly names as missing (revenueAttribution,
+// acceptedPaidDelivery, suppressionTesting, killSwitchTesting, incidentRecovery) as CORE gates --
+// 19 core gates total, not 17, because 14 kept + 5 added cannot equal 17 without silently dropping
+// something real -- and keeps importAtomicity/concurrencySafety/auditCompleteness as clearly
+// separate ADDITIONAL technical gates (`coreGateNames` vs `additionalGateNames` below), per "technical
+// gates may remain as additional gates." `ready` still requires every gate, core and additional
+// alike, to pass -- readiness should not ignore evidence that atomicity/concurrency/audit-
+// completeness are unverified.
+//
+// Every gate now also requires a full evidence-provenance record -- evidenceRef, source,
+// measurementWindow, timestamp -- alongside its value(s); missing any part of that provenance is
+// 'unknown', identical in effect to missing the value itself.
+
+function gateProvenance(evidence) {
+  if (!evidence || typeof evidence !== 'object') return null;
+  const { evidenceRef, source, measurementWindow, timestamp } = evidence;
+  if (!evidenceRef || !source || !measurementWindow || !timestamp) return null;
+  return { evidenceRef: String(evidenceRef), source: String(source), measurementWindow: String(measurementWindow), timestamp: String(timestamp) };
+}
 
 function booleanGate(evidence) {
-  if (evidence !== true && evidence !== false) return { status: 'unknown', reason: 'missing-evidence' };
-  return { status: evidence ? 'pass' : 'fail', reason: evidence ? '' : 'evidence-false' };
+  const provenance = gateProvenance(evidence);
+  if (!provenance || (evidence.value !== true && evidence.value !== false)) return { status: 'unknown', reason: 'missing-evidence', ...(provenance || {}) };
+  return { status: evidence.value ? 'pass' : 'fail', reason: evidence.value ? '' : 'evidence-false', ...provenance };
 }
 
 const COMPARATORS = {
   lt: (a, b) => a < b, lte: (a, b) => a <= b, gt: (a, b) => a > b, gte: (a, b) => a >= b
 };
 
-/** A rate gate requires an explicit {numerator, denominator} evidence object and a minimum sample
- * size on the denominator -- a rate computed from too few observations is 'unknown', not a false
- * pass or fail, so a handful of lucky/unlucky early events can never move readiness. */
+/** A rate gate requires an explicit {numerator, denominator, ...provenance} evidence object and a
+ * minimum sample size on the denominator -- a rate computed from too few observations is
+ * 'unknown', not a false pass or fail, so a handful of lucky/unlucky early events can never move
+ * readiness. */
 function rateGate(evidence, { threshold, comparator, minimumSample }) {
-  if (!evidence || typeof evidence !== 'object') return { status: 'unknown', reason: 'missing-evidence' };
+  const provenance = gateProvenance(evidence);
+  if (!provenance) return { status: 'unknown', reason: 'missing-evidence' };
   const numerator = Number(evidence.numerator);
   const denominator = Number(evidence.denominator);
   if (!Number.isFinite(numerator) || !Number.isFinite(denominator) || denominator <= 0) {
-    return { status: 'unknown', reason: 'missing-numerator-or-denominator' };
+    return { status: 'unknown', reason: 'missing-numerator-or-denominator', ...provenance };
   }
-  if (denominator < minimumSample) return { status: 'unknown', reason: 'insufficient-sample', denominator, minimumSample };
+  if (denominator < minimumSample) return { status: 'unknown', reason: 'insufficient-sample', denominator, minimumSample, ...provenance };
   const rate = numerator / denominator;
   const pass = COMPARATORS[comparator](rate, threshold);
-  return { status: pass ? 'pass' : 'fail', rate: Number(rate.toFixed(4)), numerator, denominator, minimumSample, threshold };
+  return { status: pass ? 'pass' : 'fail', rate: Number(rate.toFixed(4)), numerator, denominator, minimumSample, threshold, ...provenance };
 }
 
 function countGate(evidence, { threshold, comparator = 'gte' }) {
-  const value = Number(evidence);
-  if (evidence === undefined || evidence === null || !Number.isFinite(value)) return { status: 'unknown', reason: 'missing-evidence' };
+  const provenance = gateProvenance(evidence);
+  if (!provenance) return { status: 'unknown', reason: 'missing-evidence' };
+  const value = Number(evidence.value);
+  if (evidence.value === undefined || evidence.value === null || !Number.isFinite(value)) return { status: 'unknown', reason: 'missing-evidence', ...provenance };
   const pass = COMPARATORS[comparator](value, threshold);
-  return { status: pass ? 'pass' : 'fail', value, threshold };
+  return { status: pass ? 'pass' : 'fail', value, threshold, ...provenance };
 }
 
+const CORE_GATE_NAMES = Object.freeze([
+  'deterministicChecks', 'browserChecks', 'migrationChecks', 'previewAuditable',
+  'duplicateRate', 'hardBounceRate', 'complaintRate', 'evidenceCoverage', 'positiveReplyRate',
+  'paidPilots', 'collectedRevenue', 'positiveContributionMargin', 'recurringClients', 'ownerActionsPerDay',
+  'revenueAttribution', 'acceptedPaidDelivery', 'suppressionTesting', 'killSwitchTesting', 'incidentRecovery'
+]);
+const ADDITIONAL_GATE_NAMES = Object.freeze(['importAtomicity', 'concurrencySafety', 'auditCompleteness']);
+
 /**
- * Rebuilt around explicit evidence objects (PR #6 audit items 1 and the acceptance checklist's
- * "17 control-tower evidence gates"). `metrics` shape:
+ * `metrics` shape -- every entry is `{ ...value fields, evidenceRef, source, measurementWindow,
+ * timestamp }`; a bare boolean/number is no longer accepted (missing provenance is 'unknown'):
  *   deterministicChecks / browserChecks / migrationChecks / previewAuditable / importAtomicity /
- *     concurrencySafety / auditCompleteness: boolean | undefined
- *   duplicates / hardBounces / complaints / evidenceCoverage / positiveReplies:
- *     { numerator, denominator } | undefined
+ *     concurrencySafety / auditCompleteness / suppressionTesting / killSwitchTesting /
+ *     incidentRecovery: `{ value: boolean, ...provenance }`
+ *   duplicates / hardBounces / complaints / evidenceCoverage / positiveReplies / revenueAttribution
+ *     / acceptedPaidDelivery: `{ numerator, denominator, ...provenance }`
  *   paidPilots / collectedRevenueCents / contributionMarginCents / recurringClients /
- *     ownerActionsPerDay: number | undefined
- * `ready` is true only when every one of the 17 gates is 'pass' -- a single 'unknown' blocks
- * readiness exactly like a 'fail' does.
+ *     ownerActionsPerDay: `{ value: number, ...provenance }`
+ * `ready` is true only when every gate (core and additional) is 'pass'.
  */
 export function tenOfTenReadiness(metrics = {}) {
   const gates = {
@@ -332,9 +386,6 @@ export function tenOfTenReadiness(metrics = {}) {
     browserChecks: booleanGate(metrics.browserChecks),
     migrationChecks: booleanGate(metrics.migrationChecks),
     previewAuditable: booleanGate(metrics.previewAuditable),
-    importAtomicity: booleanGate(metrics.importAtomicity),
-    concurrencySafety: booleanGate(metrics.concurrencySafety),
-    auditCompleteness: booleanGate(metrics.auditCompleteness),
     duplicateRate: rateGate(metrics.duplicates, { threshold: 0, comparator: 'lte', minimumSample: 20 }),
     hardBounceRate: rateGate(metrics.hardBounces, { threshold: 0.02, comparator: 'lt', minimumSample: 50 }),
     complaintRate: rateGate(metrics.complaints, { threshold: 0.001, comparator: 'lt', minimumSample: 50 }),
@@ -344,7 +395,18 @@ export function tenOfTenReadiness(metrics = {}) {
     collectedRevenue: countGate(metrics.collectedRevenueCents, { threshold: 100000, comparator: 'gte' }),
     positiveContributionMargin: countGate(metrics.contributionMarginCents, { threshold: 0, comparator: 'gt' }),
     recurringClients: countGate(metrics.recurringClients, { threshold: 1, comparator: 'gte' }),
-    ownerActionsPerDay: countGate(metrics.ownerActionsPerDay, { threshold: 3, comparator: 'lte' })
+    ownerActionsPerDay: countGate(metrics.ownerActionsPerDay, { threshold: 3, comparator: 'lte' }),
+    // Newly restored, explicitly named by the second-pass audit:
+    revenueAttribution: rateGate(metrics.revenueAttribution, { threshold: 1, comparator: 'gte', minimumSample: 1 }),
+    acceptedPaidDelivery: rateGate(metrics.acceptedPaidDelivery, { threshold: 1, comparator: 'gte', minimumSample: 1 }),
+    suppressionTesting: booleanGate(metrics.suppressionTesting),
+    killSwitchTesting: booleanGate(metrics.killSwitchTesting),
+    incidentRecovery: booleanGate(metrics.incidentRecovery),
+    // Additional technical gates (not part of the 19-gate core commercial set) -- may remain, per
+    // the audit, but are not a substitute for any of the gates above.
+    importAtomicity: booleanGate(metrics.importAtomicity),
+    concurrencySafety: booleanGate(metrics.concurrencySafety),
+    auditCompleteness: booleanGate(metrics.auditCompleteness)
   };
   const total = Object.keys(gates).length;
   const passed = Object.values(gates).filter(gate => gate.status === 'pass').length;
@@ -354,6 +416,8 @@ export function tenOfTenReadiness(metrics = {}) {
     passed,
     unknown,
     total,
+    coreGateCount: CORE_GATE_NAMES.length,
+    additionalGateCount: ADDITIONAL_GATE_NAMES.length,
     gates,
     ready: passed === total
   };

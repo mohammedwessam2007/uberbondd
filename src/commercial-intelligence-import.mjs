@@ -5,46 +5,52 @@
 // path here that could contact anyone, so "never send mail" is true structurally, not by a flag
 // someone could flip.
 //
-// Repaired per the PR #6 adversarial audit (00_PR6_ADVERSARIAL_AUDIT.md). The original version had
-// nine merge-blocking defects; every one is fixed here, and each fix is called out inline where it
-// matters rather than only in the repair report:
-//   1. tenOfTenReadiness (revenue-os.mjs) now fails closed on missing evidence -- not this file's
-//      concern directly, but this file's `previewAuditable`/`importAtomicity`/`concurrencySafety`/
-//      `auditCompleteness` evidence feeds it.
-//   2. Every opportunity/message-variant/owner-gate/partner-route/offer/rejection import is one
-//      real store.transaction() -- validate-and-compute happens first, writes happen together, any
-//      failure rolls back the whole record atomically. See processRecord() below.
-//   3. `mode: 'preview'` (the default) performs every validation/scoring/policy step and persists
-//      NOTHING -- no opportunity, no evidence, no policy decision, no audit-log row for any
-//      individual record. The one disclosed exception: a single batch-level
-//      'commercial_intelligence_import_preview' audit-log entry recording that a preview ran and
-//      its summary counts -- observability metadata about the preview itself, not a commercial-
-//      intelligence business record, and the only way `previewAuditable` evidence can ever exist.
-//      `mode: 'commit'` is required for any durable business write; the CLI script defaults to
-//      preview and requires an explicit --commit flag.
-//   4. Every emitted policy reason code is validated against src/policy-reason-codes.mjs's
-//      canonical registry (revenue-os.mjs#evaluateOpportunityPolicy does this now).
-//   5. organization_domain/service_lane/source.url must agree exactly with the corresponding
-//      idempotency_inputs fields (after normalization) -- validateCommercialIntelligenceRecord
-//      rejects any disagreement before returning, and this module always computes the idempotency
-//      key from the canonical top-level fields, never from a second, independently-suppliable copy.
-//   6. Opportunities are stored with stage:'ready_for_message' (policy pass) or
-//      stage:'policy_rejected' (policy reject) -- never the ambiguous 'discovered' stage a
-//      not-yet-evaluated opportunity would have. listQueueableOpportunities() below is the only
-//      supported way to find opportunities actually ready for outreach.
-//   7. message_variant records require real subject/body/opportunity_id (explicit fields, schema-
-//      permitted extras -- 04_COMMERCIAL_INTELLIGENCE_SCHEMA.json has no additionalProperties:false)
-//      and are hashed from normalized subject+body, not from signalKey.
-//   8. owner_gate records require explicit gate_type/opportunity_id/action fields (not a reused
-//      service_lane) and buildOwnerGate (revenue-os.mjs) enforces the value floor/minutes ceiling/
-//      future-expiry bounds itself -- an out-of-policy gate cannot be constructed at all.
-//   9. Every commit-mode outcome logs exactly one of the ten canonical audit event types.
-//  10. partner_route/offer/rejection records get full, real persistence (migrations/006) --
-//      PARTIAL_PERSISTENCE no longer exists; every record_type is fully persistable.
+// Repaired per the PR #6 adversarial audit (00_PR6_ADVERSARIAL_AUDIT.md) and its second-pass
+// hardening audit. Every fix is called out inline where it matters rather than only in the repair
+// reports:
+//   1. Source-evidence conflict resolution uses store.mjs#findOrCreate (a single atomic
+//      INSERT...ON CONFLICT...RETURNING), not a catch-then-query pattern -- the latter is unsafe on
+//      Postgres, since a failed statement aborts the rest of the transaction. See buildSourceEvidence.
+//   2. Owner gates and message variants may only link to an opportunity whose stage is
+//      'ready_for_message' -- existence alone is insufficient (a policy-rejected opportunity must
+//      never receive a gate or a message). See requireOpportunityReadyForMessage.
+//   3. tenOfTenReadiness (revenue-os.mjs) is not this file's concern directly, but this file's
+//      `previewAuditable`/`importAtomicity`/`concurrencySafety`/`auditCompleteness` evidence feeds it.
+//   4. content_hash is computed from real evidence content (url/excerpt/capturedAt/official/
+//      confidence/type), never from signalKey or the record id -- signalKey is stored as its own
+//      column. See computeEvidenceContentHash.
+//   5. Every opportunity/message-variant/owner-gate/partner-route/offer/rejection import is one real
+//      store.transaction() -- validate-and-compute happens first, writes happen together, any
+//      failure rolls back the whole record atomically.
+//   6. `mode: 'preview'` (the default) performs every validation/scoring/policy step and persists
+//      NOTHING at all -- not even a batch-level audit-log row. Audit evidence for a preview run
+//      lives entirely in the returned report object; nothing is written to the store in preview
+//      mode. `mode: 'commit'` is required for any durable write, including the audit trail.
+//   7. Every emitted policy reason code is validated against src/policy-reason-codes.mjs's
+//      canonical registry.
+//   8. organization_domain/service_lane/source.url must agree exactly with the corresponding
+//      idempotency_inputs fields (after normalization).
+//   9. Opportunities are stored with stage:'ready_for_message' (policy pass) or
+//      stage:'policy_rejected' (policy reject) -- never the ambiguous 'discovered' stage.
+//      listQueueableOpportunities() is the only supported way to find opportunities ready for
+//      outreach.
+//  10. message_variant records require real subject/body/opportunity_id and are hashed from
+//      normalized subject+body.
+//  11. owner_gate records require explicit gate_type/opportunity_id/action fields; buildOwnerGate
+//      (revenue-os.mjs) enforces the value floor/minutes ceiling/future-expiry/USD-only bounds
+//      itself.
+//  12. Every commit-mode outcome logs exactly one of the ten canonical audit event types.
+//  13. partner_route/offer/rejection records get full, real persistence (migrations/006) and now
+//      go through the same common evidence/policy validation opportunities do (freshness, official
+//      source, supported lane, suppression, contact provenance/prohibited-mailbox). rejection
+//      records require their own explicit, canonical-registry-validated reason_codes field --
+//      `risks` is never used as a reason code.
 import crypto from 'node:crypto';
 import { parseCsv } from './csv.mjs';
 import { id, now, normalizeDomain } from './utils.mjs';
 import { ConflictError } from './store.mjs';
+import { contactEligibility } from './send-safety.mjs';
+import { isCanonicalReasonCode, canonicalizeContactReason, assertCanonicalReasonCode } from './policy-reason-codes.mjs';
 import {
   opportunityIdempotencyKey, evaluateOpportunityPolicy, scoreOpportunity, buildOwnerGate,
   SUPPORTED_SERVICE_LANES, OWNER_GATE_TYPES, REVENUE_OS_POLICY_VERSION
@@ -67,7 +73,12 @@ const REQUIRED_RECORD_FIELDS = Object.freeze([
 ]);
 const REQUIRED_SOURCE_FIELDS = Object.freeze(['url', 'type', 'captured_at', 'official', 'confidence']);
 const REQUIRED_IDEMPOTENCY_INPUTS = Object.freeze(['organization_domain', 'service_lane', 'source_url', 'signal_key']);
+const SOURCE_EVIDENCE_UNIQUE_COLUMNS = Object.freeze(['organizationDomain', 'sourceUrl', 'contentHash']);
 
+// IMPORT_PREVIEW is part of the canonical ten-event taxonomy but, per item 6/7 above, is never
+// actually written by importCommercialIntelligenceBatch itself -- preview mode writes nothing at
+// all. The name is kept here as the reserved, canonical label for a caller who chooses to persist
+// a preview report on their own (this module has no opinion on whether they should).
 const CANONICAL_AUDIT_EVENTS = Object.freeze({
   IMPORT_PREVIEW: 'commercial_intelligence_import_preview',
   IMPORT_COMMITTED: 'commercial_intelligence_import_committed',
@@ -136,9 +147,9 @@ export function validateCommercialIntelligenceRecord(raw, rowContext) {
   }
 
   // PR #6 audit item 5 ("identity integrity is not enforced"): organization_domain/service_lane/
-  // source.url can disagree with idempotency_inputs' own copies of the same three concepts, which
-  // can bypass dedupe or attach evidence to the wrong record. Require exact equality (after the
-  // same normalization each side would otherwise get independently) before returning anything.
+  // source.url can disagree with idempotency_inputs' own copies of the same three concepts.
+  // Require exact equality (after the same normalization each side would otherwise get
+  // independently) before returning anything.
   const organizationDomain = normalizeDomain(raw.organization_domain || '');
   const serviceLane = String(raw.service_lane || '').trim().toLowerCase();
   const sourceUrl = String(raw.source.url || '').trim();
@@ -155,9 +166,8 @@ export function validateCommercialIntelligenceRecord(raw, rowContext) {
     fail('identity-source-url-mismatch', `source.url (${sourceUrl}) disagrees with idempotency_inputs.source_url (${idempotencySourceUrl})`);
   }
 
-  // PR #6 audit item 8: owner_gate records need an explicit gate_type/opportunity_id/action, not a
-  // reused service_lane and no linkage. These are schema-permitted extra top-level fields
-  // (04_COMMERCIAL_INTELLIGENCE_SCHEMA.json has no additionalProperties:false).
+  // owner_gate records need an explicit gate_type/opportunity_id/action, not a reused service_lane
+  // and no linkage. Schema-permitted extra top-level fields (no additionalProperties:false).
   let gate = null;
   if (raw.record_type === 'owner_gate') {
     const gateType = String(raw.gate_type || '').trim();
@@ -169,8 +179,8 @@ export function validateCommercialIntelligenceRecord(raw, rowContext) {
     gate = { gateType, opportunityId, action, evidenceRequired: Array.isArray(raw.evidence_required) ? raw.evidence_required.map(String) : [] };
   }
 
-  // PR #6 audit item 7: message_variant records need real content, not a subject surrogate with
-  // signalKey standing in for a body hash.
+  // message_variant records need real content, not a subject surrogate with signalKey standing in
+  // for a body hash.
   let messageContent = null;
   if (raw.record_type === 'message_variant') {
     const subject = String(raw.subject || '').trim();
@@ -184,6 +194,21 @@ export function validateCommercialIntelligenceRecord(raw, rowContext) {
       experimentId: raw.experiment_id ? String(raw.experiment_id).trim() : null,
       prohibitedClaims: Array.isArray(raw.prohibited_claims) ? raw.prohibited_claims.map(String) : []
     };
+  }
+
+  // Second-pass audit item 5: rejection records must carry their own explicit, canonical
+  // reason_codes -- `risks` is a free-text list of concerns, not a reason-code vocabulary, and must
+  // never be used as one.
+  let rejectionReasonCodes = null;
+  if (raw.record_type === 'rejection') {
+    if (!Array.isArray(raw.reason_codes) || raw.reason_codes.length === 0) {
+      fail('rejection-reason-codes-required', 'rejection records require a non-empty reason_codes array');
+    }
+    const nonCanonical = raw.reason_codes.filter(code => !isCanonicalReasonCode(code));
+    if (nonCanonical.length) {
+      fail('rejection-reason-codes-invalid', `reason_codes contains non-canonical code(s): ${nonCanonical.join(', ')}`);
+    }
+    rejectionReasonCodes = [...new Set(raw.reason_codes.map(String))];
   }
 
   return {
@@ -213,13 +238,12 @@ export function validateCommercialIntelligenceRecord(raw, rowContext) {
     risks: raw.risks.map(String),
     killCondition: String(raw.kill_condition).trim(),
     // Derived internally from the canonical top-level fields (now proven equal to the raw
-    // idempotency_inputs copies above), not re-read from the raw copies -- PR #6 audit item 5's
-    // "derive idempotency inputs internally where possible."
+    // idempotency_inputs copies above), not re-read from the raw copies.
     idempotencyInputs: {
       organizationDomain, serviceLane, sourceUrl,
       signalKey: String(raw.idempotency_inputs.signal_key || '')
     },
-    gate, messageContent
+    gate, messageContent, rejectionReasonCodes
   };
 }
 
@@ -258,13 +282,14 @@ export function parseCommercialIntelligenceCsv(text) {
         risks: row.risks ? JSON.parse(row.risks) : undefined,
         evidence_required: row.evidence_required ? JSON.parse(row.evidence_required) : undefined,
         prohibited_claims: row.prohibited_claims ? JSON.parse(row.prohibited_claims) : undefined,
+        reason_codes: row.reason_codes ? JSON.parse(row.reason_codes) : undefined,
         expected_value_cents: row.expected_value_cents !== undefined ? Number(row.expected_value_cents) : undefined,
         owner_minutes: row.owner_minutes !== undefined ? Number(row.owner_minutes) : undefined,
         delivery_hours: row.delivery_hours !== undefined ? Number(row.delivery_hours) : undefined,
         recurring_potential: row.recurring_potential !== '' && row.recurring_potential !== undefined ? Number(row.recurring_potential) : undefined
       };
     } catch {
-      errors.push({ row: rowNumber, code: 'csv-json-cell-invalid', message: `row ${rowNumber}: source/contact/idempotency_inputs/risks/evidence_required/prohibited_claims must be valid JSON in their CSV cell` });
+      errors.push({ row: rowNumber, code: 'csv-json-cell-invalid', message: `row ${rowNumber}: source/contact/idempotency_inputs/risks/evidence_required/prohibited_claims/reason_codes must be valid JSON in their CSV cell` });
       continue;
     }
     try { records.push(validateCommercialIntelligenceRecord(candidate, rowNumber)); }
@@ -282,7 +307,7 @@ export function isEvidenceFresh(record, { maxAgeDays = 30, at = new Date() } = {
   return freshByAge && freshByExpiry;
 }
 
-/** The only supported way to find opportunities actually ready for outreach (PR #6 audit item 6):
+/** The only supported way to find opportunities actually ready for outreach:
  * policy-rejected opportunities have stage:'policy_rejected' and are never returned here. */
 export async function listQueueableOpportunities(store) {
   return store.list('opportunities', { filters: { stage: 'ready_for_message' } });
@@ -290,6 +315,46 @@ export async function listQueueableOpportunities(store) {
 
 function normalizedContentHash(subject, body) {
   return crypto.createHash('sha256').update(`${subject.trim().toLowerCase()}\n${body.trim().toLowerCase()}`).digest('hex');
+}
+
+// Second-pass audit item 4: content_hash previously stood in for signalKey or the record id --
+// neither reflects the evidence's actual content, so two genuinely different observations (or two
+// genuinely identical ones) could never be told apart by identity alone. Hashing the real content
+// fields means: (a) two records that legitimately observed the exact same snapshot (same url,
+// excerpt, capture time, official flag, confidence, source type) correctly resolve to one evidence
+// row -- the "distinct opportunities share the same evidence identity" case; (b) a genuinely fresher
+// re-crawl (different excerpt and/or capturedAt) always gets its OWN new row rather than silently
+// reusing an older, staler snapshot's identity, so evidence history is preserved rather than
+// overwritten.
+function computeEvidenceContentHash(record) {
+  const normalized = JSON.stringify({
+    url: record.source.url.trim().toLowerCase(),
+    sourceType: record.source.type.trim().toLowerCase(),
+    excerpt: record.source.excerpt.trim().toLowerCase(),
+    capturedAt: record.source.capturedAt,
+    official: record.source.official,
+    confidence: record.source.confidence
+  });
+  return crypto.createHash('sha256').update(normalized).digest('hex');
+}
+
+function buildSourceEvidence(record) {
+  return {
+    id: id('ev'), organizationDomain: record.organizationDomain, sourceUrl: record.source.url,
+    sourceType: record.source.type, status: 'active', contactEmail: record.contact?.email || null,
+    contentHash: computeEvidenceContentHash(record),
+    signalKey: record.idempotencyInputs.signalKey || null,
+    capturedAt: record.source.capturedAt, expiresAt: record.source.expiresAt,
+    data: { excerpt: record.source.excerpt, official: record.source.official, confidence: record.source.confidence }
+  };
+}
+
+/** Atomically resolves the source-evidence row for `record` inside transaction `tx`: a single
+ * INSERT...ON CONFLICT...RETURNING (store.mjs#findOrCreate), never a catch-then-query -- see the
+ * module doc comment's item 1. */
+async function resolveSourceEvidence(tx, record) {
+  const { record: evidence } = await tx.findOrCreate('sourceEvidence', buildSourceEvidence(record), SOURCE_EVIDENCE_UNIQUE_COLUMNS);
+  return evidence;
 }
 
 function computeScoreAndPolicy(record, cfg, at, suppressions) {
@@ -314,14 +379,25 @@ function computeScoreAndPolicy(record, cfg, at, suppressions) {
   return { score, policyResult };
 }
 
-function buildSourceEvidence(record) {
-  return {
-    id: id('ev'), organizationDomain: record.organizationDomain, sourceUrl: record.source.url,
-    sourceType: record.source.type, status: 'active', contactEmail: record.contact?.email || null,
-    contentHash: record.idempotencyInputs.signalKey || record.id,
-    capturedAt: record.source.capturedAt, expiresAt: record.source.expiresAt,
-    data: { excerpt: record.source.excerpt, official: record.source.official, confidence: record.source.confidence }
-  };
+// Second-pass audit item 5: partner_route/offer/rejection previously bypassed every acceptance
+// check opportunities get (freshness is checked separately by the caller; this covers the rest:
+// official source, supported lane, suppression, contact provenance/prohibited-mailbox). Every code
+// this returns is asserted against the canonical registry.
+function commonEvidenceReasonCodes(record, suppressions) {
+  const reasonCodes = [];
+  if (!SUPPORTED_SERVICE_LANES.includes(record.serviceLane)) reasonCodes.push('unsupported-service-lane');
+  if (record.source.official !== true) reasonCodes.push('missing-current-official-evidence');
+  const contactResult = contactEligibility(
+    record.contact ? { email: record.contact.email, source: record.contact.publishedOfficially ? 'website' : 'other', verified: 'unverified' } : {},
+    { website: record.organizationDomain, domain: record.organizationDomain }
+  );
+  if (!contactResult.ok) reasonCodes.push(canonicalizeContactReason(contactResult.reason));
+  const domain = record.organizationDomain;
+  const recipientEmail = String(record.contact?.email || '').trim().toLowerCase();
+  const suppressionSet = new Set((suppressions || []).map(item => String(item?.value ?? item ?? '').trim().toLowerCase()).filter(Boolean));
+  if (recipientEmail && suppressionSet.has(recipientEmail)) reasonCodes.push('recipient-suppressed');
+  if (domain && suppressionSet.has(domain)) reasonCodes.push('domain-suppressed');
+  return [...new Set(reasonCodes)].map(assertCanonicalReasonCode);
 }
 
 function buildOpportunityRow(record, { idempotencyKey, evidenceId, stage, score }) {
@@ -329,12 +405,9 @@ function buildOpportunityRow(record, { idempotencyKey, evidenceId, stage, score 
     id: record.id, idempotencyKey, sourceEvidenceId: evidenceId, stage,
     serviceLane: record.serviceLane, geography: record.geography,
     expectedValueCents: record.expectedValueCents, currency: record.currency,
-    // probabilityBps has no import-time signal yet (no experiment/attribution data exists before a
-    // record is even imported) -- 0 is the column's own DEFAULT, set explicitly here because
-    // Postgres inserts always specify every mapped column (store.mjs#postgresValues), and an
-    // explicit NULL is not "use the DEFAULT" -- it violates the column's NOT NULL constraint. This
-    // was a real, previously-undetected bug (found by this repair's new real-Postgres tests): the
-    // pre-repair importer never set this field and had never been tested against real Postgres.
+    // probabilityBps has no import-time signal yet -- 0 is the column's own DEFAULT, set
+    // explicitly here because Postgres inserts always specify every mapped column
+    // (store.mjs#postgresValues), and an explicit NULL is not "use the DEFAULT".
     probabilityBps: 0,
     ownerMinutes: record.ownerMinutes, deliveryHours: record.deliveryHours,
     scoreTotal: score.total, scoreVersion: score.version, expiresAt: record.expiresAt,
@@ -359,9 +432,8 @@ function recordIdempotencyKey(record) {
 
 /** Handles one 'opportunity' record. Preview: read-only duplicate check + score + policy, zero
  * writes. Commit: one store.transaction() -- compute-then-write, insert evidence/opportunity/
- * policy-decision/audit-event together, roll back the whole record on any failure (PR #6 audit
- * item 2). */
-async function processOpportunity(store, record, { commit, cfg, at, previewKnownOpportunityIds }) {
+ * policy-decision/audit-event together, roll back the whole record on any failure. */
+async function processOpportunity(store, record, { commit, cfg, at, previewAcceptedIds, previewRejectedIds }) {
   if (!SUPPORTED_SERVICE_LANES.includes(record.serviceLane)) {
     throw new CommercialIntelligenceImportError('unsupported-service-lane', 'unsupported-service-lane');
   }
@@ -377,7 +449,10 @@ async function processOpportunity(store, record, { commit, cfg, at, previewKnown
     const suppressions = await store.list('suppressions');
     const { score, policyResult } = computeScoreAndPolicy(record, cfg, at, suppressions);
     const stage = policyResult.decision === 'pass' ? 'ready_for_message' : 'policy_rejected';
-    previewKnownOpportunityIds?.add(record.id);
+    // PR #6 second-pass audit item 2: accepted and policy-rejected ids are tracked SEPARATELY, so a
+    // same-batch owner_gate/message_variant can only link to an id in the accepted set.
+    if (stage === 'ready_for_message') previewAcceptedIds?.add(record.id);
+    else previewRejectedIds?.add(record.id);
     const data = {
       id: record.id, idempotencyKey, organization: record.organization, organizationDomain: record.organizationDomain,
       serviceLane: record.serviceLane, stage, scoreTotal: score.total,
@@ -395,18 +470,7 @@ async function processOpportunity(store, record, { commit, cfg, at, previewKnown
       const { score, policyResult } = computeScoreAndPolicy(record, cfg, at, suppressions);
       const stage = policyResult.decision === 'pass' ? 'ready_for_message' : 'policy_rejected';
 
-      let evidence;
-      try {
-        evidence = await tx.add('sourceEvidence', buildSourceEvidence(record));
-      } catch (error) {
-        if (!(error instanceof ConflictError)) throw error;
-        evidence = await tx.findOne('sourceEvidence', {
-          organizationDomain: record.organizationDomain, sourceUrl: record.source.url,
-          contentHash: record.idempotencyInputs.signalKey || record.id
-        });
-        if (!evidence) throw error;
-      }
-
+      const evidence = await resolveSourceEvidence(tx, record);
       const opportunity = await tx.add('opportunities', buildOpportunityRow(record, { idempotencyKey, evidenceId: evidence.id, stage, score }));
       const policyDecision = await tx.add('policyDecisions', buildPolicyDecisionRow(record, opportunity.id, policyResult));
       await tx.log(stage === 'ready_for_message' ? CANONICAL_AUDIT_EVENTS.ACCEPTED : CANONICAL_AUDIT_EVENTS.POLICY_REJECTED, {
@@ -433,18 +497,29 @@ async function processOpportunity(store, record, { commit, cfg, at, previewKnown
   }
 }
 
-async function opportunityIsKnown(store, opportunityId, previewKnownOpportunityIds) {
-  if (previewKnownOpportunityIds?.has(opportunityId)) return true;
-  return Boolean(await store.get('opportunities', opportunityId));
+/** PR #6 second-pass audit item 2: existence alone is insufficient -- an owner_gate or
+ * message_variant may only link to an opportunity whose stage is 'ready_for_message'. In preview
+ * mode this checks ONLY the accepted-ids set built so far in this batch (never the rejected set);
+ * in commit mode it re-reads the real, already-committed opportunity row and checks its stage. */
+async function requireOpportunityReadyForMessage(store, opportunityId, previewAcceptedIds, recordId, recordLabel) {
+  if (previewAcceptedIds) {
+    if (!previewAcceptedIds.has(opportunityId)) {
+      throw new CommercialIntelligenceImportError(`${recordLabel}-opportunity-not-ready`, `${recordLabel} ${recordId} references opportunity ${opportunityId}, which is not an accepted (ready_for_message) opportunity in this preview batch`);
+    }
+    return;
+  }
+  const opportunity = await store.get('opportunities', opportunityId);
+  if (!opportunity) throw new CommercialIntelligenceImportError(`${recordLabel}-opportunity-not-found`, `${recordLabel} ${recordId} references unknown opportunity ${opportunityId}`);
+  if (opportunity.stage !== 'ready_for_message') {
+    throw new CommercialIntelligenceImportError(`${recordLabel}-opportunity-not-ready`, `${recordLabel} ${recordId} references opportunity ${opportunityId} with stage '${opportunity.stage}', not ready_for_message`);
+  }
 }
 
 /** Handles one 'owner_gate' record. buildOwnerGate (revenue-os.mjs) enforces the value floor,
- * minutes ceiling, and future-expiry bounds; this function additionally enforces the "existing
- * opportunity link" requirement (PR #6 audit item 8), which needs store access buildOwnerGate
- * itself doesn't have. */
-async function processOwnerGate(store, record, { commit, at, previewKnownOpportunityIds }) {
-  const linked = await opportunityIsKnown(store, record.gate.opportunityId, previewKnownOpportunityIds);
-  if (!linked) throw new CommercialIntelligenceImportError('gate-opportunity-not-found', `owner_gate ${record.id} references unknown opportunity ${record.gate.opportunityId}`);
+ * minutes ceiling, USD-only currency, and future-expiry bounds; this function additionally enforces
+ * that the referenced opportunity exists AND is accepted (ready_for_message). */
+async function processOwnerGate(store, record, { commit, at, previewAcceptedIds }) {
+  await requireOpportunityReadyForMessage(store, record.gate.opportunityId, previewAcceptedIds, record.id, 'gate');
 
   const gate = buildOwnerGate({
     id: record.id, opportunityId: record.gate.opportunityId, gateType: record.gate.gateType,
@@ -470,10 +545,9 @@ async function processOwnerGate(store, record, { commit, at, previewKnownOpportu
 }
 
 /** Handles one 'message_variant' record: real subject/body, hashed together, linked to an
- * opportunity that must already exist (in the store, or already previewed in this same batch). */
-async function processMessageVariant(store, record, { commit, previewKnownOpportunityIds }) {
-  const linked = await opportunityIsKnown(store, record.messageContent.opportunityId, previewKnownOpportunityIds);
-  if (!linked) throw new CommercialIntelligenceImportError('message-opportunity-not-found', `message_variant ${record.id} references unknown opportunity ${record.messageContent.opportunityId}`);
+ * opportunity that must be accepted (ready_for_message), not merely present. */
+async function processMessageVariant(store, record, { commit, previewAcceptedIds }) {
+  await requireOpportunityReadyForMessage(store, record.messageContent.opportunityId, previewAcceptedIds, record.id, 'message');
 
   const bodyHash = normalizedContentHash(record.messageContent.subject, record.messageContent.body);
   const row = () => ({
@@ -503,22 +577,27 @@ const PARTNER_ROUTE_OFFER_REJECTION_COLLECTIONS = Object.freeze({ partner_route:
 const PARTNER_ROUTE_OFFER_REJECTION_STATUS = Object.freeze({ partner_route: 'partnerRoute', offer: 'offer', rejection: 'rejectionRecord' });
 
 /** Handles 'partner_route' / 'offer' / 'rejection' records: full persistence into
- * migrations/006_pr6_repair.sql's dedicated tables (PR #6 audit's "integration gap" item -- these
- * were audit-log-only before). */
-async function processPartnerRouteOfferOrRejection(store, record, { commit, at }) {
+ * migrations/006_pr6_repair.sql's dedicated tables, gated by the same common evidence/policy
+ * validation opportunities get (freshness, official source, supported lane, suppression, contact
+ * provenance/prohibited-mailbox). */
+async function processPartnerRouteOfferOrRejection(store, record, { commit, cfg, at }) {
   const collection = PARTNER_ROUTE_OFFER_REJECTION_COLLECTIONS[record.recordType];
   const status = PARTNER_ROUTE_OFFER_REJECTION_STATUS[record.recordType];
+
+  if (!isEvidenceFresh(record, { maxAgeDays: cfg.revenueOs?.maxEvidenceAgeDays, at })) {
+    if (commit) await store.log(CANONICAL_AUDIT_EVENTS.STALE_REJECTED, { id: record.id, recordType: record.recordType, organizationDomain: record.organizationDomain });
+    return { status: 'stale', data: { id: record.id, organizationDomain: record.organizationDomain } };
+  }
+
   const idempotencyKey = recordIdempotencyKey(record);
 
   // rejections has a narrower column set than partner_routes/offers (migrations/006_pr6_repair.sql
   // has no expected_value_cents/currency/owner_minutes/delivery_hours/expires_at on that table --
-  // a rejection is a negative signal, not a priced opportunity). Extra properties on a JSON row are
-  // harmless (JsonStore keeps the object as-is); for Postgres, postgresValues() only reads columns
-  // this collection's MAP actually defines, so unmapped properties simply never reach a column and
-  // still round-trip inside the `data` jsonb blob.
+  // a rejection is a negative signal, not a priced opportunity). Its reason_codes column holds the
+  // record's own explicit, canonical-validated reason_codes field -- never `risks`.
   const detail = { organization: record.organization, buyerSignal: record.buyerSignal, risks: record.risks, killCondition: record.killCondition };
   const buildRow = evidenceId => record.recordType === 'rejection'
-    ? { id: record.id, idempotencyKey, organizationDomain: record.organizationDomain, serviceLane: record.serviceLane, reasonCodes: record.risks, sourceEvidenceId: evidenceId, data: detail }
+    ? { id: record.id, idempotencyKey, organizationDomain: record.organizationDomain, serviceLane: record.serviceLane, reasonCodes: record.rejectionReasonCodes, sourceEvidenceId: evidenceId, data: detail }
     : {
         id: record.id, idempotencyKey, organizationDomain: record.organizationDomain, serviceLane: record.serviceLane,
         geography: record.geography, expectedValueCents: record.expectedValueCents, currency: record.currency,
@@ -529,6 +608,9 @@ async function processPartnerRouteOfferOrRejection(store, record, { commit, at }
   if (!commit) {
     const existing = await store.list(collection, { filters: { idempotencyKey } });
     if (existing.length > 0) return { status: 'duplicate', data: { id: record.id, idempotencyKey } };
+    const suppressions = await store.list('suppressions');
+    const reasonCodes = commonEvidenceReasonCodes(record, suppressions);
+    if (reasonCodes.length) throw new CommercialIntelligenceImportError('policy-rejected', `${record.recordType} ${record.id} failed common evidence/policy checks: ${reasonCodes.join(', ')}`);
     return { status, data: buildRow(null) };
   }
 
@@ -536,17 +618,10 @@ async function processPartnerRouteOfferOrRejection(store, record, { commit, at }
     const outcome = await store.transaction(async tx => {
       const existing = await tx.list(collection, { filters: { idempotencyKey } });
       if (existing.length > 0) return { duplicate: true };
-      let evidence;
-      try {
-        evidence = await tx.add('sourceEvidence', buildSourceEvidence(record));
-      } catch (error) {
-        if (!(error instanceof ConflictError)) throw error;
-        evidence = await tx.findOne('sourceEvidence', {
-          organizationDomain: record.organizationDomain, sourceUrl: record.source.url,
-          contentHash: record.idempotencyInputs.signalKey || record.id
-        });
-        if (!evidence) throw error;
-      }
+      const suppressions = await tx.list('suppressions');
+      const reasonCodes = commonEvidenceReasonCodes(record, suppressions);
+      if (reasonCodes.length) return { invalid: true, reasonCodes };
+      const evidence = await resolveSourceEvidence(tx, record);
       const saved = await tx.add(collection, buildRow(evidence.id));
       await tx.log(CANONICAL_AUDIT_EVENTS.ACCEPTED, { id: record.id, recordType: record.recordType, organizationDomain: record.organizationDomain, idempotencyKey });
       return { saved };
@@ -555,8 +630,13 @@ async function processPartnerRouteOfferOrRejection(store, record, { commit, at }
       await store.log(CANONICAL_AUDIT_EVENTS.DUPLICATE_REJECTED, { id: record.id, recordType: record.recordType, idempotencyKey });
       return { status: 'duplicate', data: { id: record.id, idempotencyKey } };
     }
+    if (outcome.invalid) {
+      await store.log(CANONICAL_AUDIT_EVENTS.INVALID_REJECTED, { id: record.id, recordType: record.recordType, reasonCodes: outcome.reasonCodes });
+      throw new CommercialIntelligenceImportError('policy-rejected', `${record.recordType} ${record.id} failed common evidence/policy checks: ${outcome.reasonCodes.join(', ')}`);
+    }
     return { status, data: outcome.saved };
   } catch (error) {
+    if (error instanceof CommercialIntelligenceImportError) throw error;
     await store.log(CANONICAL_AUDIT_EVENTS.TRANSACTION_ROLLED_BACK, { id: record.id, recordType: record.recordType, reason: error.message });
     if (error instanceof ConflictError) return { status: 'duplicate', data: { id: record.id, idempotencyKey } };
     throw error;
@@ -567,13 +647,15 @@ async function processPartnerRouteOfferOrRejection(store, record, { commit, at }
  * Imports a batch of already-validated commercial-intelligence records.
  *
  * `mode: 'preview'` (default, fail-safe) validates, normalizes, scores, and policy-evaluates every
- * record but writes NO durable business record -- no opportunity, evidence, policy decision, gate,
- * message variant, partner route, offer, or rejection row, and no per-record audit-log entry. The
- * one exception, disclosed above the module doc comment: a single batch-level
- * 'commercial_intelligence_import_preview' audit-log row.
+ * record but writes NOTHING to the store at all -- not an opportunity, evidence, policy decision,
+ * gate, message variant, partner route, offer, rejection row, nor any audit-log entry, not even a
+ * batch-level summary one. Every fact a preview run establishes is returned directly in this
+ * function's return value; if a caller wants a durable trace of a preview, persisting the returned
+ * report is the caller's decision to make, not this function's.
  *
  * `mode: 'commit'` performs the same computation and additionally persists everything, one
- * store.transaction() per record, with a canonical audit event for every outcome.
+ * store.transaction() per record, with a canonical audit event for every outcome (including one
+ * batch-level 'commercial_intelligence_import_committed' summary entry).
  */
 export async function importCommercialIntelligenceBatch(store, records, { mode = 'preview', cfg = {}, at = new Date() } = {}) {
   if (mode !== 'preview' && mode !== 'commit') {
@@ -591,15 +673,16 @@ export async function importCommercialIntelligenceBatch(store, records, { mode =
   const partnerRoutesImported = [];
   const offersImported = [];
   const rejectionsImported = [];
-  const previewKnownOpportunityIds = commit ? null : new Set();
+  const previewAcceptedIds = commit ? null : new Set();
+  const previewRejectedIds = commit ? null : new Set();
 
   for (const record of records) {
     try {
       let outcome;
-      if (record.recordType === 'owner_gate') outcome = await processOwnerGate(store, record, { commit, at, previewKnownOpportunityIds });
-      else if (record.recordType === 'message_variant') outcome = await processMessageVariant(store, record, { commit, previewKnownOpportunityIds });
-      else if (record.recordType === 'partner_route' || record.recordType === 'offer' || record.recordType === 'rejection') outcome = await processPartnerRouteOfferOrRejection(store, record, { commit, at });
-      else outcome = await processOpportunity(store, record, { commit, cfg, at, previewKnownOpportunityIds });
+      if (record.recordType === 'owner_gate') outcome = await processOwnerGate(store, record, { commit, at, previewAcceptedIds });
+      else if (record.recordType === 'message_variant') outcome = await processMessageVariant(store, record, { commit, previewAcceptedIds });
+      else if (record.recordType === 'partner_route' || record.recordType === 'offer' || record.recordType === 'rejection') outcome = await processPartnerRouteOfferOrRejection(store, record, { commit, cfg, at });
+      else outcome = await processOpportunity(store, record, { commit, cfg, at, previewAcceptedIds, previewRejectedIds });
 
       switch (outcome.status) {
         case 'accepted': accepted.push(outcome.data); break;
@@ -627,7 +710,9 @@ export async function importCommercialIntelligenceBatch(store, records, { mode =
     partnerRoutesImportedCount: partnerRoutesImported.length, offersImportedCount: offersImported.length,
     rejectionsImportedCount: rejectionsImported.length
   };
-  await store.log(commit ? CANONICAL_AUDIT_EVENTS.IMPORT_COMMITTED : CANONICAL_AUDIT_EVENTS.IMPORT_PREVIEW, summary);
+  // Only commit mode writes anything -- including its own audit trail. Preview's evidence is the
+  // return value itself (see the doc comment above).
+  if (commit) await store.log(CANONICAL_AUDIT_EVENTS.IMPORT_COMMITTED, summary);
 
   return {
     mode, durableWrites: commit, zeroLiveSend: true, // structural: no send path exists in this file regardless of mode

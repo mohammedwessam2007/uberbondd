@@ -1,7 +1,7 @@
-// Tests for the Commercial Intelligence Importer (Revenue OS V2): schema validation against
-// 04_COMMERCIAL_INTELLIGENCE_SCHEMA.json's exact contract, JSONL/CSV parsing, duplicate/stale
-// rejection, owner-gate creation limited to record_type:'owner_gate', and the zero-live-send
-// guarantee.
+// Tests for the Commercial Intelligence Importer (Revenue OS V2), rewritten for the PR #6
+// adversarial-audit repair: identity-agreement enforcement, preview/commit modes, atomic
+// per-record transactions, real owner-gate/message-variant linkage and content, stage transitions,
+// full partner-route/offer/rejection persistence, and audit-event completeness.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
@@ -11,7 +11,7 @@ import { Store } from '../src/store.mjs';
 import {
   validateCommercialIntelligenceRecord, parseCommercialIntelligenceJsonl,
   parseCommercialIntelligenceCsv, isEvidenceFresh, importCommercialIntelligenceBatch,
-  CommercialIntelligenceImportError, RECORD_TYPES
+  listQueueableOpportunities, CommercialIntelligenceImportError, RECORD_TYPES, CANONICAL_AUDIT_EVENTS
 } from '../src/commercial-intelligence-import.mjs';
 
 async function tempStore() {
@@ -22,6 +22,7 @@ async function tempStore() {
 }
 
 const now = new Date('2026-07-28T12:00:00.000Z');
+const future = '2026-08-10T00:00:00.000Z';
 
 function goodOpportunityRecord(overrides = {}) {
   return {
@@ -34,11 +35,34 @@ function goodOpportunityRecord(overrides = {}) {
     },
     contact: { email: 'partners@example.com', source_url: 'https://example.com/contact', published_officially: true },
     expected_value_cents: 50000, currency: 'USD', owner_minutes: 15, delivery_hours: 4,
-    expires_at: '2026-08-10T00:00:00.000Z', risks: ['CMS access delay'], kill_condition: 'RFP closes with no reply.',
+    expires_at: future, risks: ['CMS access delay'], kill_condition: 'RFP closes with no reply.',
     idempotency_inputs: { organization_domain: 'example.com', service_lane: 'website-qa', source_url: 'https://example.com/rfp', signal_key: 'rfp-1' },
     ...overrides
   };
 }
+
+function goodGateRecord(overrides = {}) {
+  return goodOpportunityRecord({
+    id: 'rec_gate_1', record_type: 'owner_gate', service_lane: 'marketplace-submission',
+    idempotency_inputs: { organization_domain: 'example.com', service_lane: 'marketplace-submission', source_url: 'https://example.com/rfp', signal_key: 'rfp-1' },
+    gate_type: 'marketplace-submission', opportunity_id: 'rec_opp_1',
+    action: 'Submit the authenticated proposal on the partner portal.',
+    evidence_required: ['final screenshot'],
+    ...overrides
+  });
+}
+
+function goodMessageVariantRecord(overrides = {}) {
+  return goodOpportunityRecord({
+    id: 'rec_mv_1', record_type: 'message_variant',
+    subject: 'A pre-launch QA pass for example.com',
+    body: 'Hi -- we noticed your public RFP and can run a pre-launch QA pass this week.',
+    opportunity_id: 'rec_opp_1',
+    ...overrides
+  });
+}
+
+const cfg = { revenueOs: { minExpectedValueCents: 25000, maxOwnerMinutes: 20, maxEvidenceAgeDays: 30 } };
 
 // --- schema validation ---
 
@@ -92,7 +116,61 @@ test('validateCommercialIntelligenceRecord: a row number is attached to the thro
   }
 });
 
-// --- JSONL parsing ---
+// --- identity integrity (PR #6 audit item 5) ---
+
+test('validateCommercialIntelligenceRecord: organization_domain disagreeing with idempotency_inputs.organization_domain is rejected', () => {
+  assert.throws(
+    () => validateCommercialIntelligenceRecord(goodOpportunityRecord({ idempotency_inputs: { ...goodOpportunityRecord().idempotency_inputs, organization_domain: 'not-example.com' } })),
+    (err) => err.code === 'identity-domain-mismatch'
+  );
+});
+
+test('validateCommercialIntelligenceRecord: service_lane disagreeing with idempotency_inputs.service_lane is rejected', () => {
+  assert.throws(
+    () => validateCommercialIntelligenceRecord(goodOpportunityRecord({ idempotency_inputs: { ...goodOpportunityRecord().idempotency_inputs, service_lane: 'mobile-ux' } })),
+    (err) => err.code === 'identity-service-lane-mismatch'
+  );
+});
+
+test('validateCommercialIntelligenceRecord: source.url disagreeing with idempotency_inputs.source_url is rejected', () => {
+  assert.throws(
+    () => validateCommercialIntelligenceRecord(goodOpportunityRecord({ idempotency_inputs: { ...goodOpportunityRecord().idempotency_inputs, source_url: 'https://example.com/other-page' } })),
+    (err) => err.code === 'identity-source-url-mismatch'
+  );
+});
+
+test('validateCommercialIntelligenceRecord: idempotency inputs are derived from the canonical top-level fields, not re-read from the raw copies', () => {
+  // Both sides normalize to the same value here (different casing/trailing slash), so validation
+  // passes -- and the returned idempotencyInputs must equal the normalized top-level fields.
+  const record = validateCommercialIntelligenceRecord(goodOpportunityRecord({
+    organization_domain: 'EXAMPLE.com',
+    idempotency_inputs: { ...goodOpportunityRecord().idempotency_inputs, organization_domain: 'example.com' }
+  }));
+  assert.equal(record.idempotencyInputs.organizationDomain, record.organizationDomain);
+});
+
+// --- owner_gate / message_variant explicit-field validation (PR #6 audit items 7, 8) ---
+
+test('validateCommercialIntelligenceRecord: owner_gate requires gate_type, opportunity_id, and action as explicit fields', () => {
+  assert.throws(() => validateCommercialIntelligenceRecord(goodGateRecord({ gate_type: undefined })), (err) => err.code === 'gate-type-invalid');
+  assert.throws(() => validateCommercialIntelligenceRecord(goodGateRecord({ gate_type: 'not-a-gate-type' })), (err) => err.code === 'gate-type-invalid');
+  assert.throws(() => validateCommercialIntelligenceRecord(goodGateRecord({ opportunity_id: undefined })), (err) => err.code === 'gate-opportunity-id-required');
+  assert.throws(() => validateCommercialIntelligenceRecord(goodGateRecord({ action: undefined })), (err) => err.code === 'gate-action-required');
+  const record = validateCommercialIntelligenceRecord(goodGateRecord());
+  assert.equal(record.gate.gateType, 'marketplace-submission');
+  assert.equal(record.gate.opportunityId, 'rec_opp_1');
+});
+
+test('validateCommercialIntelligenceRecord: message_variant requires subject, body, and opportunity_id as explicit fields', () => {
+  assert.throws(() => validateCommercialIntelligenceRecord(goodMessageVariantRecord({ subject: undefined })), (err) => err.code === 'message-subject-required');
+  assert.throws(() => validateCommercialIntelligenceRecord(goodMessageVariantRecord({ body: undefined })), (err) => err.code === 'message-body-required');
+  assert.throws(() => validateCommercialIntelligenceRecord(goodMessageVariantRecord({ opportunity_id: undefined })), (err) => err.code === 'message-opportunity-id-required');
+  const record = validateCommercialIntelligenceRecord(goodMessageVariantRecord());
+  assert.equal(record.messageContent.subject, 'A pre-launch QA pass for example.com');
+  assert.equal(record.messageContent.opportunityId, 'rec_opp_1');
+});
+
+// --- JSONL / CSV parsing ---
 
 test('parseCommercialIntelligenceJsonl: valid lines parse, invalid lines are collected with line numbers, parsing continues past bad lines', () => {
   const jsonl = [
@@ -116,8 +194,6 @@ test('parseCommercialIntelligenceJsonl: blank lines are ignored, not counted as 
   assert.equal(records.length, 1);
   assert.equal(errors.length, 0);
 });
-
-// --- CSV parsing ---
 
 test('parseCommercialIntelligenceCsv: object/array fields are read as JSON-encoded CSV cells', () => {
   const rec = goodOpportunityRecord();
@@ -153,16 +229,57 @@ test('isEvidenceFresh: true within the age window and before expiry; false once 
   assert.equal(isEvidenceFresh(expired, { at: now }), false, 'past its own stated expiry');
 });
 
-// --- batch import: opportunities ---
+// --- preview mode: zero durable business writes (PR #6 audit item 3) ---
 
-test('importCommercialIntelligenceBatch: a fresh, valid opportunity is imported with sourceEvidence, a score, and a policy decision', async () => {
+test('importCommercialIntelligenceBatch: preview mode (the default) computes the full outcome but persists zero opportunities, evidence, or policy decisions', async () => {
   const store = await tempStore();
   const record = validateCommercialIntelligenceRecord(goodOpportunityRecord());
-  const result = await importCommercialIntelligenceBatch(store, [record], { at: now, cfg: { revenueOs: { minExpectedValueCents: 25000, maxOwnerMinutes: 20, maxEvidenceAgeDays: 30 } } });
-  assert.equal(result.importedCount, 1);
-  assert.equal(result.dryRun, true);
+  const result = await importCommercialIntelligenceBatch(store, [record], { at: now, cfg });
+  assert.equal(result.mode, 'preview');
+  assert.equal(result.durableWrites, false);
+  assert.equal(result.acceptedCount, 1);
+  assert.equal(result.accepted[0].stage, 'ready_for_message');
+  assert.equal((await store.list('opportunities')).length, 0, 'preview must not create an opportunity row');
+  assert.equal((await store.list('sourceEvidence')).length, 0, 'preview must not create an evidence row');
+  assert.equal((await store.list('policyDecisions')).length, 0, 'preview must not create a policy-decision row');
+});
+
+test('importCommercialIntelligenceBatch: preview mode writes exactly one disclosed batch-level audit entry, nothing per-record', async () => {
+  const store = await tempStore();
+  const record = validateCommercialIntelligenceRecord(goodOpportunityRecord());
+  await importCommercialIntelligenceBatch(store, [record], { at: now, cfg });
+  const audit = await store.list('auditLog');
+  assert.equal(audit.length, 1);
+  assert.equal(audit[0].type, CANONICAL_AUDIT_EVENTS.IMPORT_PREVIEW);
+});
+
+test('importCommercialIntelligenceBatch: mode defaults to preview when omitted', async () => {
+  const store = await tempStore();
+  const record = validateCommercialIntelligenceRecord(goodOpportunityRecord());
+  const result = await importCommercialIntelligenceBatch(store, [record], { at: now, cfg });
+  assert.equal(result.mode, 'preview');
+});
+
+test('importCommercialIntelligenceBatch: an unknown mode value throws rather than silently defaulting', async () => {
+  const store = await tempStore();
+  const record = validateCommercialIntelligenceRecord(goodOpportunityRecord());
+  await assert.rejects(
+    importCommercialIntelligenceBatch(store, [record], { mode: 'dry-run', at: now, cfg }),
+    (err) => err.code === 'invalid-mode'
+  );
+});
+
+// --- commit mode: real, canonical, atomic persistence ---
+
+test('importCommercialIntelligenceBatch: commit mode persists sourceEvidence, an opportunity at stage ready_for_message, and a passing policy decision', async () => {
+  const store = await tempStore();
+  const record = validateCommercialIntelligenceRecord(goodOpportunityRecord());
+  const result = await importCommercialIntelligenceBatch(store, [record], { mode: 'commit', at: now, cfg });
+  assert.equal(result.durableWrites, true);
+  assert.equal(result.acceptedCount, 1);
   const opportunities = await store.list('opportunities');
   assert.equal(opportunities.length, 1);
+  assert.equal(opportunities[0].stage, 'ready_for_message');
   assert.equal(opportunities[0].scoreVersion, 'revenue-os-score-v1');
   const evidence = await store.list('sourceEvidence');
   assert.equal(evidence.length, 1);
@@ -174,13 +291,15 @@ test('importCommercialIntelligenceBatch: a fresh, valid opportunity is imported 
 test('importCommercialIntelligenceBatch: a re-import of the same idempotency key is rejected as a duplicate, not imported twice', async () => {
   const store = await tempStore();
   const record = validateCommercialIntelligenceRecord(goodOpportunityRecord());
-  const first = await importCommercialIntelligenceBatch(store, [record], { at: now });
-  assert.equal(first.importedCount, 1);
-  const second = await importCommercialIntelligenceBatch(store, [record], { at: now });
-  assert.equal(second.importedCount, 0);
+  const first = await importCommercialIntelligenceBatch(store, [record], { mode: 'commit', at: now, cfg });
+  assert.equal(first.acceptedCount, 1);
+  const second = await importCommercialIntelligenceBatch(store, [record], { mode: 'commit', at: now, cfg });
+  assert.equal(second.acceptedCount, 0);
   assert.equal(second.rejectedDuplicateCount, 1);
   const opportunities = await store.list('opportunities');
   assert.equal(opportunities.length, 1, 're-import must not create a second opportunity row');
+  const duplicateAudit = await store.list('auditLog', { filters: { type: CANONICAL_AUDIT_EVENTS.DUPLICATE_REJECTED } });
+  assert.equal(duplicateAudit.length, 1);
 });
 
 test('importCommercialIntelligenceBatch: stale evidence (older than maxEvidenceAgeDays) is rejected, never imported', async () => {
@@ -188,8 +307,8 @@ test('importCommercialIntelligenceBatch: stale evidence (older than maxEvidenceA
   const stale = validateCommercialIntelligenceRecord(goodOpportunityRecord({
     source: { ...goodOpportunityRecord().source, captured_at: '2026-01-01T00:00:00.000Z' }
   }));
-  const result = await importCommercialIntelligenceBatch(store, [stale], { at: now, cfg: { revenueOs: { maxEvidenceAgeDays: 30 } } });
-  assert.equal(result.importedCount, 0);
+  const result = await importCommercialIntelligenceBatch(store, [stale], { mode: 'commit', at: now, cfg: { revenueOs: { maxEvidenceAgeDays: 30 } } });
+  assert.equal(result.acceptedCount, 0);
   assert.equal(result.rejectedStaleCount, 1);
   assert.equal((await store.list('opportunities')).length, 0);
 });
@@ -197,70 +316,237 @@ test('importCommercialIntelligenceBatch: stale evidence (older than maxEvidenceA
 test('importCommercialIntelligenceBatch: an unsupported service_lane is rejected as invalid', async () => {
   const store = await tempStore();
   const record = validateCommercialIntelligenceRecord(goodOpportunityRecord({ service_lane: 'not-a-real-lane', idempotency_inputs: { ...goodOpportunityRecord().idempotency_inputs, service_lane: 'not-a-real-lane' } }));
-  const result = await importCommercialIntelligenceBatch(store, [record], { at: now });
-  assert.equal(result.importedCount, 0);
+  const result = await importCommercialIntelligenceBatch(store, [record], { mode: 'commit', at: now, cfg });
+  assert.equal(result.acceptedCount, 0);
   assert.equal(result.rejectedInvalidCount, 1);
 });
 
-// --- batch import: owner gates only for record_type:'owner_gate' ---
+// --- stage transitions and the queue (PR #6 audit item 6) ---
 
-test('importCommercialIntelligenceBatch: record_type:"owner_gate" with a valid OWNER_GATE_TYPES value creates a gate', async () => {
+test('importCommercialIntelligenceBatch: a policy-rejected opportunity is stored with stage:policy_rejected and excluded from listQueueableOpportunities', async () => {
   const store = await tempStore();
   const record = validateCommercialIntelligenceRecord(goodOpportunityRecord({
-    id: 'rec_gate_1', record_type: 'owner_gate', service_lane: 'marketplace-submission',
-    buyer_signal: 'Submit the authenticated proposal on the partner portal.'
+    contact: { email: 'someone@not-example.com', source_url: 'https://not-example.com/contact', published_officially: true }
   }));
-  const result = await importCommercialIntelligenceBatch(store, [record], { at: now });
+  const result = await importCommercialIntelligenceBatch(store, [record], { mode: 'commit', at: now, cfg });
+  assert.equal(result.acceptedCount, 0);
+  assert.equal(result.policyRejectedCount, 1);
+  const opportunities = await store.list('opportunities');
+  assert.equal(opportunities[0].stage, 'policy_rejected');
+  const queueable = await listQueueableOpportunities(store);
+  assert.equal(queueable.length, 0, 'a policy-rejected opportunity must never be claimable from the queue');
+});
+
+test('importCommercialIntelligenceBatch: an accepted opportunity is queueable, and a mixed batch queue contains only the accepted one', async () => {
+  const store = await tempStore();
+  const accepted = validateCommercialIntelligenceRecord(goodOpportunityRecord({ id: 'rec_accept' }));
+  const rejected = validateCommercialIntelligenceRecord(goodOpportunityRecord({
+    id: 'rec_reject', organization_domain: 'other-example.com',
+    idempotency_inputs: { organization_domain: 'other-example.com', service_lane: 'website-qa', source_url: 'https://other-example.com/rfp', signal_key: 'rfp-2' },
+    source: { ...goodOpportunityRecord().source, url: 'https://other-example.com/rfp' },
+    contact: { email: 'someone@not-other-example.com', source_url: 'https://not-other-example.com/contact', published_officially: true }
+  }));
+  await importCommercialIntelligenceBatch(store, [accepted, rejected], { mode: 'commit', at: now, cfg });
+  const queueable = await listQueueableOpportunities(store);
+  assert.deepEqual(queueable.map(o => o.id), ['rec_accept']);
+});
+
+// --- owner gates: explicit linkage and enforced bounds (PR #6 audit item 8) ---
+
+test('importCommercialIntelligenceBatch: a well-formed owner_gate linked to an already-committed opportunity creates a gate', async () => {
+  const store = await tempStore();
+  const opp = validateCommercialIntelligenceRecord(goodOpportunityRecord());
+  const gate = validateCommercialIntelligenceRecord(goodGateRecord());
+  const result = await importCommercialIntelligenceBatch(store, [opp, gate], { mode: 'commit', at: now, cfg });
   assert.equal(result.ownerGatesCreatedCount, 1);
   const gates = await store.list('ownerGates');
   assert.equal(gates.length, 1);
   assert.equal(gates[0].gateType, 'marketplace-submission');
+  assert.equal(gates[0].opportunityId, 'rec_opp_1');
   assert.equal(gates[0].status, 'open');
+  const gateAudit = await store.list('auditLog', { filters: { type: CANONICAL_AUDIT_EVENTS.OWNER_GATE_CREATED } });
+  assert.equal(gateAudit.length, 1);
 });
 
-test('importCommercialIntelligenceBatch: an "opportunity" record never creates an owner gate, even with a large expected value', async () => {
+test('importCommercialIntelligenceBatch: an owner_gate referencing an opportunity that was never imported is rejected as invalid, not created', async () => {
+  const store = await tempStore();
+  const gate = validateCommercialIntelligenceRecord(goodGateRecord({ opportunity_id: 'never-imported' }));
+  const result = await importCommercialIntelligenceBatch(store, [gate], { mode: 'commit', at: now, cfg });
+  assert.equal(result.ownerGatesCreatedCount, 0);
+  assert.equal(result.rejectedInvalidCount, 1);
+  assert.equal(result.rejectedInvalid[0].code, 'gate-opportunity-not-found');
+});
+
+test('importCommercialIntelligenceBatch: an owner_gate below the value floor or above the minutes ceiling is rejected, not silently clamped', async () => {
+  const store = await tempStore();
+  const opp = validateCommercialIntelligenceRecord(goodOpportunityRecord());
+  const tinyGate = validateCommercialIntelligenceRecord(goodGateRecord({ id: 'rec_gate_tiny', expected_value_cents: 100 }));
+  const result = await importCommercialIntelligenceBatch(store, [opp, tinyGate], { mode: 'commit', at: now, cfg });
+  assert.equal(result.ownerGatesCreatedCount, 0);
+  assert.equal(result.rejectedInvalidCount, 1);
+  assert.equal(result.rejectedInvalid[0].code, 'value-below-floor');
+});
+
+test('importCommercialIntelligenceBatch: preview mode can link an owner_gate to an opportunity previewed earlier in the same batch, even though nothing is persisted', async () => {
+  const store = await tempStore();
+  const opp = validateCommercialIntelligenceRecord(goodOpportunityRecord());
+  const gate = validateCommercialIntelligenceRecord(goodGateRecord());
+  const result = await importCommercialIntelligenceBatch(store, [opp, gate], { at: now, cfg });
+  assert.equal(result.ownerGatesCreatedCount, 1);
+  assert.equal((await store.list('ownerGates')).length, 0, 'preview must still persist nothing');
+});
+
+test('importCommercialIntelligenceBatch: record_type:"opportunity" never creates an owner gate, even with a large expected value', async () => {
   const store = await tempStore();
   const record = validateCommercialIntelligenceRecord(goodOpportunityRecord({ expected_value_cents: 5000000 }));
-  const result = await importCommercialIntelligenceBatch(store, [record], { at: now });
+  const result = await importCommercialIntelligenceBatch(store, [record], { mode: 'commit', at: now, cfg });
   assert.equal(result.ownerGatesCreatedCount, 0);
   assert.equal((await store.list('ownerGates')).length, 0);
 });
 
-test('importCommercialIntelligenceBatch: record_type:"owner_gate" with an unsupported gate type in service_lane is rejected, not coerced', async () => {
+// --- message variants: real content and linkage (PR #6 audit item 7) ---
+
+test('importCommercialIntelligenceBatch: a message_variant linked to a committed opportunity persists real subject/body and a content hash', async () => {
   const store = await tempStore();
-  const record = validateCommercialIntelligenceRecord(goodOpportunityRecord({
-    id: 'rec_gate_bad', record_type: 'owner_gate', service_lane: 'website-qa' // a service lane, not an OWNER_GATE_TYPES value
-  }));
-  const result = await importCommercialIntelligenceBatch(store, [record], { at: now });
-  assert.equal(result.ownerGatesCreatedCount, 0);
-  assert.equal(result.rejectedInvalidCount, 1);
+  const opp = validateCommercialIntelligenceRecord(goodOpportunityRecord());
+  const mv = validateCommercialIntelligenceRecord(goodMessageVariantRecord());
+  const result = await importCommercialIntelligenceBatch(store, [opp, mv], { mode: 'commit', at: now, cfg });
+  assert.equal(result.messageVariantsImportedCount, 1);
+  const variants = await store.list('messageVariants');
+  assert.equal(variants.length, 1);
+  assert.equal(variants[0].subject, 'A pre-launch QA pass for example.com');
+  assert.equal(variants[0].body, 'Hi -- we noticed your public RFP and can run a pre-launch QA pass this week.');
+  assert.equal(variants[0].opportunityId, 'rec_opp_1');
+  assert(variants[0].bodyHash && variants[0].bodyHash.length === 64, 'bodyHash must be a real sha256 hex digest');
 });
 
-// --- message_variant and partial-persistence record types ---
-
-test('importCommercialIntelligenceBatch: record_type:"message_variant" is stored in messageVariants', async () => {
+test('importCommercialIntelligenceBatch: two message variants under different experiments with identical normalized subject+body hash the same and both persist', async () => {
   const store = await tempStore();
-  const record = validateCommercialIntelligenceRecord(goodOpportunityRecord({ id: 'rec_mv_1', record_type: 'message_variant' }));
-  const result = await importCommercialIntelligenceBatch(store, [record], { at: now });
-  assert.equal(result.importedCount, 1);
+  const opp = validateCommercialIntelligenceRecord(goodOpportunityRecord());
+  // Same content, different experiment_id: a legitimate case (e.g. variant B starts as a copy of
+  // variant A). Same content under the SAME experiment scope is a real duplicate and is correctly
+  // rejected -- see the next test.
+  const mv1 = validateCommercialIntelligenceRecord(goodMessageVariantRecord({ id: 'rec_mv_a', experiment_id: 'exp_1' }));
+  const mv2 = validateCommercialIntelligenceRecord(goodMessageVariantRecord({ id: 'rec_mv_b', experiment_id: 'exp_2' }));
+  const result = await importCommercialIntelligenceBatch(store, [opp, mv1, mv2], { mode: 'commit', at: now, cfg });
+  assert.equal(result.messageVariantsImportedCount, 2);
+  const variants = await store.list('messageVariants');
+  assert.equal(variants.length, 2);
+  assert.equal(variants[0].bodyHash, variants[1].bodyHash);
+});
+
+test('importCommercialIntelligenceBatch: two message variants with identical content under the SAME experiment scope are rejected as a duplicate, not double-stored', async () => {
+  const store = await tempStore();
+  const opp = validateCommercialIntelligenceRecord(goodOpportunityRecord());
+  const mv1 = validateCommercialIntelligenceRecord(goodMessageVariantRecord({ id: 'rec_mv_c', experiment_id: 'exp_same' }));
+  const mv2 = validateCommercialIntelligenceRecord(goodMessageVariantRecord({ id: 'rec_mv_d', experiment_id: 'exp_same' }));
+  const result = await importCommercialIntelligenceBatch(store, [opp, mv1, mv2], { mode: 'commit', at: now, cfg });
+  assert.equal(result.messageVariantsImportedCount, 1);
+  assert.equal(result.rejectedDuplicateCount, 1);
   assert.equal((await store.list('messageVariants')).length, 1);
 });
 
-test('importCommercialIntelligenceBatch: partner_route/offer/rejection records are counted as partiallyPersisted and audited, not silently dropped', async () => {
+test('importCommercialIntelligenceBatch: a message_variant referencing an opportunity that was never imported is rejected, not created', async () => {
+  const store = await tempStore();
+  const mv = validateCommercialIntelligenceRecord(goodMessageVariantRecord({ opportunity_id: 'never-imported' }));
+  const result = await importCommercialIntelligenceBatch(store, [mv], { mode: 'commit', at: now, cfg });
+  assert.equal(result.messageVariantsImportedCount, 0);
+  assert.equal(result.rejectedInvalidCount, 1);
+  assert.equal(result.rejectedInvalid[0].code, 'message-opportunity-not-found');
+});
+
+// --- partner_route / offer / rejection: full persistence, not audit-log-only (PR #6 audit item 10) ---
+
+test('importCommercialIntelligenceBatch: partner_route, offer, and rejection records are fully persisted into their own tables/collections', async () => {
   const store = await tempStore();
   const records = ['partner_route', 'offer', 'rejection'].map((type, i) =>
-    validateCommercialIntelligenceRecord(goodOpportunityRecord({ id: `rec_partial_${i}`, record_type: type })));
-  const result = await importCommercialIntelligenceBatch(store, records, { at: now });
-  assert.equal(result.partiallyPersistedCount, 3);
-  const auditLog = await store.list('auditLog', { filters: { type: 'commercial_intelligence_partial_persistence' } });
-  assert.equal(auditLog.length, 3);
+    validateCommercialIntelligenceRecord(goodOpportunityRecord({
+      id: `rec_partial_${i}`, record_type: type, organization_domain: `partial-${i}.example`,
+      idempotency_inputs: { organization_domain: `partial-${i}.example`, service_lane: 'website-qa', source_url: `https://partial-${i}.example/rfp`, signal_key: `partial-${i}` },
+      source: { ...goodOpportunityRecord().source, url: `https://partial-${i}.example/rfp` }
+    })));
+  const result = await importCommercialIntelligenceBatch(store, records, { mode: 'commit', at: now, cfg });
+  assert.equal(result.partnerRoutesImportedCount, 1);
+  assert.equal(result.offersImportedCount, 1);
+  assert.equal(result.rejectionsImportedCount, 1);
+  assert.equal((await store.list('partnerRoutes')).length, 1);
+  assert.equal((await store.list('offers')).length, 1);
+  assert.equal((await store.list('rejections')).length, 1);
+  // No more audit-log-only partial persistence -- this used to be the disclosed limitation.
+  const partialAudit = await store.list('auditLog', { filters: { type: 'commercial_intelligence_partial_persistence' } });
+  assert.equal(partialAudit.length, 0);
+});
+
+test('importCommercialIntelligenceBatch: a duplicate partner_route (same idempotency key) is rejected, not persisted twice', async () => {
+  const store = await tempStore();
+  const record = validateCommercialIntelligenceRecord(goodOpportunityRecord({ id: 'rec_pr_1', record_type: 'partner_route' }));
+  const first = await importCommercialIntelligenceBatch(store, [record], { mode: 'commit', at: now, cfg });
+  assert.equal(first.partnerRoutesImportedCount, 1);
+  const second = await importCommercialIntelligenceBatch(store, [record], { mode: 'commit', at: now, cfg });
+  assert.equal(second.partnerRoutesImportedCount, 0);
+  assert.equal(second.rejectedDuplicateCount, 1);
+  assert.equal((await store.list('partnerRoutes')).length, 1);
+});
+
+// --- audit completeness (PR #6 audit item 9) ---
+
+test('importCommercialIntelligenceBatch: a batch exercising every outcome logs every one of the ten canonical audit event types', async () => {
+  const store = await tempStore();
+  const accepted = validateCommercialIntelligenceRecord(goodOpportunityRecord({ id: 'rec_a' }));
+  const rejected = validateCommercialIntelligenceRecord(goodOpportunityRecord({
+    id: 'rec_b', organization_domain: 'other.example',
+    idempotency_inputs: { organization_domain: 'other.example', service_lane: 'website-qa', source_url: 'https://other.example/rfp', signal_key: 'other-1' },
+    source: { ...goodOpportunityRecord().source, url: 'https://other.example/rfp' },
+    contact: { email: 'someone@not-other.example', source_url: 'https://not-other.example/contact', published_officially: true }
+  }));
+  const stale = validateCommercialIntelligenceRecord(goodOpportunityRecord({
+    id: 'rec_c', organization_domain: 'stale.example',
+    idempotency_inputs: { organization_domain: 'stale.example', service_lane: 'website-qa', source_url: 'https://stale.example/rfp', signal_key: 'stale-1' },
+    source: { url: 'https://stale.example/rfp', type: 'official-company', captured_at: '2020-01-01T00:00:00.000Z', official: true, confidence: 0.9 }
+  }));
+  const invalid = validateCommercialIntelligenceRecord(goodOpportunityRecord({
+    id: 'rec_d', service_lane: 'not-a-lane', organization_domain: 'invalid.example',
+    idempotency_inputs: { organization_domain: 'invalid.example', service_lane: 'not-a-lane', source_url: 'https://invalid.example/rfp', signal_key: 'invalid-1' },
+    source: { ...goodOpportunityRecord().source, url: 'https://invalid.example/rfp' }
+  }));
+  const gate = validateCommercialIntelligenceRecord(goodGateRecord({ opportunity_id: 'rec_a' }));
+  const mv = validateCommercialIntelligenceRecord(goodMessageVariantRecord({ opportunity_id: 'rec_a' }));
+
+  await importCommercialIntelligenceBatch(store, [accepted], { at: now, cfg }); // preview mode: logs IMPORT_PREVIEW
+  await importCommercialIntelligenceBatch(store, [accepted, rejected, stale, invalid, gate, mv], { mode: 'commit', at: now, cfg });
+  await importCommercialIntelligenceBatch(store, [accepted], { mode: 'commit', at: now, cfg }); // duplicate, on the 2nd call
+
+  const audit = await store.list('auditLog');
+  const types = new Set(audit.map(entry => entry.type));
+  for (const eventType of Object.values(CANONICAL_AUDIT_EVENTS)) {
+    if (eventType === CANONICAL_AUDIT_EVENTS.TRANSACTION_ROLLED_BACK) continue; // no injected failure in this batch; covered separately
+    assert(types.has(eventType), `missing canonical audit event: ${eventType}`);
+  }
+});
+
+// --- rollback: JSON-store parity with the real-Postgres rollback test (PR #6 audit item 2) ---
+
+test('importCommercialIntelligenceBatch: a mid-transaction id collision rolls back the whole record on JsonStore too, leaving no orphan evidence', async () => {
+  const store = await tempStore();
+  await store.add('opportunities', { id: 'rec_opp_1', idempotencyKey: 'opportunity:pre-existing:different:key', serviceLane: 'website-qa', stage: 'ready_for_message', data: {} });
+  const evidenceBefore = (await store.list('sourceEvidence')).length;
+
+  const record = validateCommercialIntelligenceRecord(goodOpportunityRecord());
+  const result = await importCommercialIntelligenceBatch(store, [record], { mode: 'commit', at: now, cfg });
+
+  assert.equal(result.acceptedCount, 0);
+  assert.equal(result.rejectedDuplicateCount, 1);
+  assert.equal((await store.list('sourceEvidence')).length, evidenceBefore, 'the evidence insert from the same failed transaction must be rolled back, not orphaned');
+  assert.equal((await store.list('opportunities')).length, 1, 'still only the pre-seeded row');
 });
 
 // --- zero-live-send guarantee ---
 
-test('importCommercialIntelligenceBatch: the result always reports dryRun:true regardless of the dryRun argument -- there is no send path to guard', async () => {
+test('importCommercialIntelligenceBatch: zeroLiveSend is always true in both modes -- there is no send path to guard', async () => {
   const store = await tempStore();
   const record = validateCommercialIntelligenceRecord(goodOpportunityRecord());
-  const result = await importCommercialIntelligenceBatch(store, [record], { at: now, dryRun: false });
-  assert.equal(result.dryRun, true);
+  const preview = await importCommercialIntelligenceBatch(store, [record], { at: now, cfg });
+  const commitResult = await importCommercialIntelligenceBatch(store, [record], { mode: 'commit', at: now, cfg });
+  assert.equal(preview.zeroLiveSend, true);
+  assert.equal(commitResult.zeroLiveSend, true);
 });

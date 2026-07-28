@@ -9,17 +9,19 @@ export const COLLECTIONS = [
   'socialTasks', 'accounts', 'auditLog', 'leads', 'orders', 'subscriptions',
   'monitoringRuns', 'notifications', 'revenueEvents', 'discoveryRuns', 'workerHeartbeats',
   'outboundReservations', 'senderHealth', 'outboundEvents', 'sourceEvidence',
-  'opportunities', 'policyDecisions', 'experiments', 'messageVariants', 'ownerGates'
+  'opportunities', 'policyDecisions', 'experiments', 'messageVariants', 'ownerGates',
+  'partnerRoutes', 'offers', 'rejections'
 ];
 
 const EMPTY = {
-  version: 6,
+  version: 7,
   prospects: [], campaigns: [], jobs: [], messages: [], replies: [],
   suppressions: [], socialTasks: [], accounts: [], auditLog: [], settings: {},
   leads: [], orders: [], subscriptions: [], monitoringRuns: [], notifications: [],
   revenueEvents: [], discoveryRuns: [], workerHeartbeats: [],
   outboundReservations: [], senderHealth: [], outboundEvents: [], sourceEvidence: [],
-  opportunities: [], policyDecisions: [], experiments: [], messageVariants: [], ownerGates: []
+  opportunities: [], policyDecisions: [], experiments: [], messageVariants: [], ownerGates: [],
+  partnerRoutes: [], offers: [], rejections: []
 };
 
 const MAP = {
@@ -131,7 +133,8 @@ const MAP = {
   messageVariants: {
     table: 'message_variants',
     columns: {
-      campaignId: 'campaign_id', experimentId: 'experiment_id', lane: 'lane', subject: 'subject',
+      campaignId: 'campaign_id', experimentId: 'experiment_id', opportunityId: 'opportunity_id',
+      lane: 'lane', subject: 'subject', body: 'body',
       bodyHash: 'body_hash', status: 'status', createdAt: 'created_at', updatedAt: 'updated_at'
     }
   },
@@ -141,6 +144,32 @@ const MAP = {
       opportunityId: 'opportunity_id', gateType: 'gate_type', status: 'status',
       expectedValueCents: 'expected_value_cents', currency: 'currency', ownerMinutes: 'owner_minutes',
       expiresAt: 'expires_at', createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
+  partnerRoutes: {
+    table: 'partner_routes',
+    columns: {
+      idempotencyKey: 'idempotency_key', organizationDomain: 'organization_domain', serviceLane: 'service_lane',
+      geography: 'geography', expectedValueCents: 'expected_value_cents', currency: 'currency',
+      ownerMinutes: 'owner_minutes', deliveryHours: 'delivery_hours', sourceEvidenceId: 'source_evidence_id',
+      expiresAt: 'expires_at', createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
+  offers: {
+    table: 'offers',
+    columns: {
+      idempotencyKey: 'idempotency_key', organizationDomain: 'organization_domain', serviceLane: 'service_lane',
+      geography: 'geography', expectedValueCents: 'expected_value_cents', currency: 'currency',
+      ownerMinutes: 'owner_minutes', deliveryHours: 'delivery_hours', sourceEvidenceId: 'source_evidence_id',
+      expiresAt: 'expires_at', createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
+  rejections: {
+    table: 'rejections',
+    columns: {
+      idempotencyKey: 'idempotency_key', organizationDomain: 'organization_domain', serviceLane: 'service_lane',
+      reasonCodes: 'reason_codes', sourceEvidenceId: 'source_evidence_id',
+      createdAt: 'created_at', updatedAt: 'updated_at'
     }
   },
 };
@@ -180,8 +209,11 @@ function normalizeRecord(key, item) {
     copy.organizationDomain = normalizeDomain(copy.organizationDomain || '');
     copy.contactEmail = String(copy.contactEmail || '').trim().toLowerCase() || null;
   }
-  if (key === 'opportunities' || key === 'ownerGates') {
+  if (key === 'opportunities' || key === 'ownerGates' || key === 'partnerRoutes' || key === 'offers') {
     copy.currency = String(copy.currency || 'USD').trim().toUpperCase();
+  }
+  if (key === 'partnerRoutes' || key === 'offers' || key === 'rejections') {
+    copy.organizationDomain = normalizeDomain(copy.organizationDomain || '');
   }
   return copy;
 }
@@ -250,7 +282,7 @@ export class JsonStore {
     await fs.mkdir(this.dir, { recursive: true });
     try {
       const loaded = JSON.parse(await fs.readFile(this.file, 'utf8'));
-      this.data = { ...structuredClone(EMPTY), ...loaded, version: 6 };
+      this.data = { ...structuredClone(EMPTY), ...loaded, version: 7 };
       for (const key of Object.keys(EMPTY)) {
         if (!(key in this.data)) this.data[key] = structuredClone(EMPTY[key]);
       }
@@ -316,6 +348,15 @@ export class JsonStore {
     if (key === 'jobs' && record.singletonKey && ['queued', 'retry', 'active'].includes(record.status) && other(item => item.singletonKey === record.singletonKey && ['queued', 'retry', 'active'].includes(item.status))) throw new ConflictError(`Active singleton job already exists: ${record.singletonKey}`);
     if (key === 'outboundReservations' && record.idempotencyKey && other(item => item.idempotencyKey === record.idempotencyKey)) throw new ConflictError(`Duplicate outbound idempotency key: ${record.idempotencyKey}`);
     if (key === 'senderHealth' && record.inbox && other(item => item.inbox === record.inbox)) throw new ConflictError(`Duplicate sender health inbox: ${record.inbox}`);
+    // PR #6 audit checklist: "JSON and PostgreSQL behavior match." These four mirror real unique
+    // indexes migrations 005/006 add in Postgres -- without them, JsonStore silently allowed
+    // duplicates that only Postgres's schema would reject, so the two backends disagreed on the
+    // one guarantee (atomic, race-safe dedupe) commercial-intelligence-import.mjs's transactional
+    // ConflictError-catch path depends on.
+    if (key === 'sourceEvidence' && other(item => item.organizationDomain === record.organizationDomain && item.sourceUrl === record.sourceUrl && item.contentHash === record.contentHash)) throw new ConflictError(`Duplicate source evidence: ${record.organizationDomain}/${record.sourceUrl}`);
+    if (key === 'opportunities' && record.idempotencyKey && other(item => item.idempotencyKey === record.idempotencyKey)) throw new ConflictError(`Duplicate opportunity idempotency key: ${record.idempotencyKey}`);
+    if (key === 'messageVariants' && record.bodyHash && other(item => (item.campaignId || '') === (record.campaignId || '') && (item.experimentId || '') === (record.experimentId || '') && item.bodyHash === record.bodyHash)) throw new ConflictError(`Duplicate message variant: ${record.bodyHash}`);
+    if ((key === 'partnerRoutes' || key === 'offers' || key === 'rejections') && record.idempotencyKey && other(item => item.idempotencyKey === record.idempotencyKey)) throw new ConflictError(`Duplicate ${key} idempotency key: ${record.idempotencyKey}`);
   }
 
   _addDirect(key, item) {

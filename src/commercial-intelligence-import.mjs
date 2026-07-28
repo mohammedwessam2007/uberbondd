@@ -1,17 +1,47 @@
-// Commercial Intelligence Importer (Revenue OS V2, mission steps 3-10). Validates JSONL/CSV
-// batches from ChatGPT Work against UBERBOND_AI_REVENUE_SWARM.../04_COMMERCIAL_INTELLIGENCE_SCHEMA.json
-// (transcribed here as hand-written validation, matching this repo's existing style --
-// prospect-import.mjs, json-import.mjs -- no new JSON-Schema library dependency), normalizes
-// domains/contacts, computes idempotency keys, rejects duplicates and stale evidence, stores
-// versioned policy decisions, and creates owner gates ONLY for `record_type: 'owner_gate'`
-// records. This module has no send capability of any kind -- there is no code path here that
-// could contact anyone, so "never send mail" is true structurally, not by a flag someone could
-// flip.
+// Commercial Intelligence Importer (Revenue OS V2). Validates JSONL/CSV batches from ChatGPT Work
+// against 04_COMMERCIAL_INTELLIGENCE_SCHEMA.json's exact contract, normalizes domains/contacts,
+// computes idempotency keys, and imports opportunities/message variants/owner gates/partner
+// routes/offers/rejections. This module has no send capability of any kind -- there is no code
+// path here that could contact anyone, so "never send mail" is true structurally, not by a flag
+// someone could flip.
 //
-// Reuses, never duplicates: parseCsv (./csv.mjs), id/now/normalizeDomain (./utils.mjs),
-// ConflictError (./store.mjs), and revenue-os.mjs's own opportunityIdempotencyKey,
-// evaluateOpportunityPolicy, scoreOpportunity, buildOwnerGate, SUPPORTED_SERVICE_LANES,
-// OWNER_GATE_TYPES -- this file adds only the batch-ingestion/validation layer on top.
+// Repaired per the PR #6 adversarial audit (00_PR6_ADVERSARIAL_AUDIT.md). The original version had
+// nine merge-blocking defects; every one is fixed here, and each fix is called out inline where it
+// matters rather than only in the repair report:
+//   1. tenOfTenReadiness (revenue-os.mjs) now fails closed on missing evidence -- not this file's
+//      concern directly, but this file's `previewAuditable`/`importAtomicity`/`concurrencySafety`/
+//      `auditCompleteness` evidence feeds it.
+//   2. Every opportunity/message-variant/owner-gate/partner-route/offer/rejection import is one
+//      real store.transaction() -- validate-and-compute happens first, writes happen together, any
+//      failure rolls back the whole record atomically. See processRecord() below.
+//   3. `mode: 'preview'` (the default) performs every validation/scoring/policy step and persists
+//      NOTHING -- no opportunity, no evidence, no policy decision, no audit-log row for any
+//      individual record. The one disclosed exception: a single batch-level
+//      'commercial_intelligence_import_preview' audit-log entry recording that a preview ran and
+//      its summary counts -- observability metadata about the preview itself, not a commercial-
+//      intelligence business record, and the only way `previewAuditable` evidence can ever exist.
+//      `mode: 'commit'` is required for any durable business write; the CLI script defaults to
+//      preview and requires an explicit --commit flag.
+//   4. Every emitted policy reason code is validated against src/policy-reason-codes.mjs's
+//      canonical registry (revenue-os.mjs#evaluateOpportunityPolicy does this now).
+//   5. organization_domain/service_lane/source.url must agree exactly with the corresponding
+//      idempotency_inputs fields (after normalization) -- validateCommercialIntelligenceRecord
+//      rejects any disagreement before returning, and this module always computes the idempotency
+//      key from the canonical top-level fields, never from a second, independently-suppliable copy.
+//   6. Opportunities are stored with stage:'ready_for_message' (policy pass) or
+//      stage:'policy_rejected' (policy reject) -- never the ambiguous 'discovered' stage a
+//      not-yet-evaluated opportunity would have. listQueueableOpportunities() below is the only
+//      supported way to find opportunities actually ready for outreach.
+//   7. message_variant records require real subject/body/opportunity_id (explicit fields, schema-
+//      permitted extras -- 04_COMMERCIAL_INTELLIGENCE_SCHEMA.json has no additionalProperties:false)
+//      and are hashed from normalized subject+body, not from signalKey.
+//   8. owner_gate records require explicit gate_type/opportunity_id/action fields (not a reused
+//      service_lane) and buildOwnerGate (revenue-os.mjs) enforces the value floor/minutes ceiling/
+//      future-expiry bounds itself -- an out-of-policy gate cannot be constructed at all.
+//   9. Every commit-mode outcome logs exactly one of the ten canonical audit event types.
+//  10. partner_route/offer/rejection records get full, real persistence (migrations/006) --
+//      PARTIAL_PERSISTENCE no longer exists; every record_type is fully persistable.
+import crypto from 'node:crypto';
 import { parseCsv } from './csv.mjs';
 import { id, now, normalizeDomain } from './utils.mjs';
 import { ConflictError } from './store.mjs';
@@ -38,21 +68,27 @@ const REQUIRED_RECORD_FIELDS = Object.freeze([
 const REQUIRED_SOURCE_FIELDS = Object.freeze(['url', 'type', 'captured_at', 'official', 'confidence']);
 const REQUIRED_IDEMPOTENCY_INPUTS = Object.freeze(['organization_domain', 'service_lane', 'source_url', 'signal_key']);
 
-// Record types this importer can persist into a real, already-migrated table (see
-// migrations/005_revenue_os_control_plane.sql). partner_route/offer/rejection are still fully
-// schema-validated below, but this mission's tranche did not add dedicated tables for them -- see
-// PARTIAL_PERSISTENCE_RECORD_TYPES and this module's own doc comment on importCommercialIntelligenceBatch
-// for the disclosed limitation, rather than inventing new schema beyond what was actually applied.
-export const PERSISTABLE_RECORD_TYPES = Object.freeze(['opportunity', 'message_variant', 'owner_gate']);
-export const PARTIAL_PERSISTENCE_RECORD_TYPES = Object.freeze(['partner_route', 'offer', 'rejection']);
+const CANONICAL_AUDIT_EVENTS = Object.freeze({
+  IMPORT_PREVIEW: 'commercial_intelligence_import_preview',
+  IMPORT_COMMITTED: 'commercial_intelligence_import_committed',
+  ACCEPTED: 'commercial_intelligence_accepted',
+  POLICY_REJECTED: 'commercial_intelligence_policy_rejected',
+  DUPLICATE_REJECTED: 'commercial_intelligence_duplicate_rejected',
+  STALE_REJECTED: 'commercial_intelligence_stale_rejected',
+  INVALID_REJECTED: 'commercial_intelligence_invalid_rejected',
+  TRANSACTION_ROLLED_BACK: 'commercial_intelligence_transaction_rolled_back',
+  OWNER_GATE_CREATED: 'commercial_intelligence_owner_gate_created',
+  MESSAGE_VARIANT_IMPORTED: 'commercial_intelligence_message_variant_imported'
+});
+export { CANONICAL_AUDIT_EVENTS };
 
 function isIsoDateTime(value) {
   return typeof value === 'string' && Number.isFinite(Date.parse(value));
 }
 
-/** Validates one raw commercial-intelligence record against the schema's exact contract. Throws
- * CommercialIntelligenceImportError with a `row` on the error object when rowContext is supplied,
- * so a batch-level caller can report which line/row failed without losing the reason. */
+/** Validates one raw commercial-intelligence record against the schema's exact contract, plus this
+ * module's own identity-agreement and record-type-specific requirements. Throws
+ * CommercialIntelligenceImportError with a `row` on the error object when rowContext is supplied. */
 export function validateCommercialIntelligenceRecord(raw, rowContext) {
   const fail = (code, message) => {
     const error = new CommercialIntelligenceImportError(code, message);
@@ -99,14 +135,65 @@ export function validateCommercialIntelligenceRecord(raw, rowContext) {
     if (!Number.isFinite(recurring) || recurring < 0 || recurring > 10) fail('recurring-potential-invalid', 'recurring_potential must be in [0,10]');
   }
 
+  // PR #6 audit item 5 ("identity integrity is not enforced"): organization_domain/service_lane/
+  // source.url can disagree with idempotency_inputs' own copies of the same three concepts, which
+  // can bypass dedupe or attach evidence to the wrong record. Require exact equality (after the
+  // same normalization each side would otherwise get independently) before returning anything.
+  const organizationDomain = normalizeDomain(raw.organization_domain || '');
+  const serviceLane = String(raw.service_lane || '').trim().toLowerCase();
+  const sourceUrl = String(raw.source.url || '').trim();
+  const idempotencyDomain = normalizeDomain(raw.idempotency_inputs.organization_domain || '');
+  const idempotencyLane = String(raw.idempotency_inputs.service_lane || '').trim().toLowerCase();
+  const idempotencySourceUrl = String(raw.idempotency_inputs.source_url || '').trim();
+  if (organizationDomain !== idempotencyDomain) {
+    fail('identity-domain-mismatch', `organization_domain (${organizationDomain}) disagrees with idempotency_inputs.organization_domain (${idempotencyDomain})`);
+  }
+  if (serviceLane !== idempotencyLane) {
+    fail('identity-service-lane-mismatch', `service_lane (${serviceLane}) disagrees with idempotency_inputs.service_lane (${idempotencyLane})`);
+  }
+  if (sourceUrl !== idempotencySourceUrl) {
+    fail('identity-source-url-mismatch', `source.url (${sourceUrl}) disagrees with idempotency_inputs.source_url (${idempotencySourceUrl})`);
+  }
+
+  // PR #6 audit item 8: owner_gate records need an explicit gate_type/opportunity_id/action, not a
+  // reused service_lane and no linkage. These are schema-permitted extra top-level fields
+  // (04_COMMERCIAL_INTELLIGENCE_SCHEMA.json has no additionalProperties:false).
+  let gate = null;
+  if (raw.record_type === 'owner_gate') {
+    const gateType = String(raw.gate_type || '').trim();
+    if (!OWNER_GATE_TYPES.includes(gateType)) fail('gate-type-invalid', `gate_type must be one of ${OWNER_GATE_TYPES.join(', ')}`);
+    const opportunityId = String(raw.opportunity_id || '').trim();
+    if (!opportunityId) fail('gate-opportunity-id-required', 'owner_gate records require opportunity_id');
+    const action = String(raw.action || '').trim();
+    if (!action) fail('gate-action-required', 'owner_gate records require action');
+    gate = { gateType, opportunityId, action, evidenceRequired: Array.isArray(raw.evidence_required) ? raw.evidence_required.map(String) : [] };
+  }
+
+  // PR #6 audit item 7: message_variant records need real content, not a subject surrogate with
+  // signalKey standing in for a body hash.
+  let messageContent = null;
+  if (raw.record_type === 'message_variant') {
+    const subject = String(raw.subject || '').trim();
+    if (!subject) fail('message-subject-required', 'message_variant records require subject');
+    const body = String(raw.body || '').trim();
+    if (!body) fail('message-body-required', 'message_variant records require body');
+    const opportunityId = String(raw.opportunity_id || '').trim();
+    if (!opportunityId) fail('message-opportunity-id-required', 'message_variant records require opportunity_id');
+    messageContent = {
+      subject, body, opportunityId,
+      experimentId: raw.experiment_id ? String(raw.experiment_id).trim() : null,
+      prohibitedClaims: Array.isArray(raw.prohibited_claims) ? raw.prohibited_claims.map(String) : []
+    };
+  }
+
   return {
     id: recordId,
     recordType: raw.record_type,
     organization: String(raw.organization || '').trim(),
-    organizationDomain: normalizeDomain(raw.organization_domain || ''),
+    organizationDomain,
     geography: String(raw.geography || '').trim(),
     source: {
-      url: String(raw.source.url), type: String(raw.source.type || '').trim(),
+      url: sourceUrl, type: String(raw.source.type || '').trim(),
       capturedAt: new Date(Date.parse(raw.source.captured_at)).toISOString(),
       expiresAt: raw.source.expires_at ? new Date(Date.parse(raw.source.expires_at)).toISOString() : null,
       official: raw.source.official, confidence,
@@ -117,8 +204,7 @@ export function validateCommercialIntelligenceRecord(raw, rowContext) {
       sourceUrl: String(raw.contact.source_url || ''),
       publishedOfficially: raw.contact.published_officially === true
     } : null,
-    serviceLane: String(raw.service_lane || '').trim().toLowerCase(),
-    buyerSignal: String(raw.buyer_signal || '').trim(),
+    serviceLane, buyerSignal: String(raw.buyer_signal || '').trim(),
     expectedValueCents, currency: String(raw.currency || 'USD').trim().toUpperCase(),
     ownerMinutes, deliveryHours,
     expiresAt: new Date(Date.parse(raw.expires_at)).toISOString(),
@@ -126,19 +212,19 @@ export function validateCommercialIntelligenceRecord(raw, rowContext) {
     recurringPotential: raw.recurring_potential !== undefined ? Number(raw.recurring_potential) : null,
     risks: raw.risks.map(String),
     killCondition: String(raw.kill_condition).trim(),
+    // Derived internally from the canonical top-level fields (now proven equal to the raw
+    // idempotency_inputs copies above), not re-read from the raw copies -- PR #6 audit item 5's
+    // "derive idempotency inputs internally where possible."
     idempotencyInputs: {
-      organizationDomain: normalizeDomain(raw.idempotency_inputs.organization_domain || ''),
-      serviceLane: String(raw.idempotency_inputs.service_lane || '').trim().toLowerCase(),
-      sourceUrl: String(raw.idempotency_inputs.source_url || ''),
+      organizationDomain, serviceLane, sourceUrl,
       signalKey: String(raw.idempotency_inputs.signal_key || '')
-    }
+    },
+    gate, messageContent
   };
 }
 
 /** Parses a JSONL batch (one JSON object per non-empty line). Every line is attempted -- a
- * malformed or schema-invalid line is collected as an error with its 1-indexed line number, it
- * does not abort parsing of the rest of the batch (a caller reviewing a large ChatGPT Work batch
- * needs to see every problem at once, not fix-and-rerun one at a time). */
+ * malformed or schema-invalid line is collected as an error with its 1-indexed line number. */
 export function parseCommercialIntelligenceJsonl(text) {
   const lines = String(text || '').split('\n').map(line => line.trim()).filter(Boolean);
   const records = [];
@@ -154,10 +240,8 @@ export function parseCommercialIntelligenceJsonl(text) {
   return { records, errors };
 }
 
-/** Parses a CSV batch via this repo's existing parseCsv (./csv.mjs). CSV is flat, so the
- * object-valued fields the schema requires (source, contact, idempotency_inputs) and the
- * array-valued field (risks) must be supplied as JSON-encoded cell values (a CSV convention this
- * function documents rather than silently working around by inventing implicit structure). */
+/** Parses a CSV batch via this repo's existing parseCsv (./csv.mjs). Object/array-valued fields
+ * must be supplied as JSON-encoded cell values. */
 export function parseCommercialIntelligenceCsv(text) {
   const rows = parseCsv(text);
   const records = [];
@@ -172,13 +256,15 @@ export function parseCommercialIntelligenceCsv(text) {
         contact: row.contact ? JSON.parse(row.contact) : undefined,
         idempotency_inputs: row.idempotency_inputs ? JSON.parse(row.idempotency_inputs) : undefined,
         risks: row.risks ? JSON.parse(row.risks) : undefined,
+        evidence_required: row.evidence_required ? JSON.parse(row.evidence_required) : undefined,
+        prohibited_claims: row.prohibited_claims ? JSON.parse(row.prohibited_claims) : undefined,
         expected_value_cents: row.expected_value_cents !== undefined ? Number(row.expected_value_cents) : undefined,
         owner_minutes: row.owner_minutes !== undefined ? Number(row.owner_minutes) : undefined,
         delivery_hours: row.delivery_hours !== undefined ? Number(row.delivery_hours) : undefined,
         recurring_potential: row.recurring_potential !== '' && row.recurring_potential !== undefined ? Number(row.recurring_potential) : undefined
       };
     } catch {
-      errors.push({ row: rowNumber, code: 'csv-json-cell-invalid', message: `row ${rowNumber}: source/contact/idempotency_inputs/risks must be valid JSON in their CSV cell` });
+      errors.push({ row: rowNumber, code: 'csv-json-cell-invalid', message: `row ${rowNumber}: source/contact/idempotency_inputs/risks/evidence_required/prohibited_claims must be valid JSON in their CSV cell` });
       continue;
     }
     try { records.push(validateCommercialIntelligenceRecord(candidate, rowNumber)); }
@@ -187,8 +273,7 @@ export function parseCommercialIntelligenceCsv(text) {
   return { records, errors };
 }
 
-/** Evidence freshness per the shared handoff contract's own target (98% of accepted opportunities
- * must carry evidence fresher than maxAgeDays, and not past its own stated expiry). */
+/** Evidence freshness per the shared handoff contract's own target. */
 export function isEvidenceFresh(record, { maxAgeDays = 30, at = new Date() } = {}) {
   const capturedAt = new Date(record.source.capturedAt);
   const ageMs = at.getTime() - capturedAt.getTime();
@@ -197,149 +282,359 @@ export function isEvidenceFresh(record, { maxAgeDays = 30, at = new Date() } = {
   return freshByAge && freshByExpiry;
 }
 
+/** The only supported way to find opportunities actually ready for outreach (PR #6 audit item 6):
+ * policy-rejected opportunities have stage:'policy_rejected' and are never returned here. */
+export async function listQueueableOpportunities(store) {
+  return store.list('opportunities', { filters: { stage: 'ready_for_message' } });
+}
+
+function normalizedContentHash(subject, body) {
+  return crypto.createHash('sha256').update(`${subject.trim().toLowerCase()}\n${body.trim().toLowerCase()}`).digest('hex');
+}
+
+function computeScoreAndPolicy(record, cfg, at, suppressions) {
+  const dimensions = {
+    activeDemand: record.source.confidence * 10, abilityToPay: record.competition ? 5 : 6,
+    capabilityFit: SUPPORTED_SERVICE_LANES.includes(record.serviceLane) ? 8 : 0,
+    evidenceConfidence: record.source.confidence * 10, timeToCash: 6, grossProfit: 6,
+    ownerEfficiency: record.ownerMinutes > 0 ? Math.max(0, 10 - record.ownerMinutes / 5) : 10,
+    deliveryEase: record.deliveryHours > 0 ? Math.max(0, 10 - record.deliveryHours / 4) : 8,
+    recurringPotential: record.recurringPotential ?? 0, strategicLeverage: 5
+  };
+  const score = scoreOpportunity(dimensions);
+  const policyResult = evaluateOpportunityPolicy({
+    opportunity: { serviceLane: record.serviceLane, expectedValueCents: record.expectedValueCents, ownerMinutes: record.ownerMinutes, expiresAt: record.expiresAt },
+    prospect: {
+      website: record.organizationDomain, domain: record.organizationDomain, status: 'new',
+      contact: record.contact ? { email: record.contact.email, source: record.contact.publishedOfficially ? 'website' : 'other', verified: 'unverified' } : {}
+    },
+    evidence: [{ sourceUrl: record.source.url, sourceType: record.source.type, official: record.source.official, status: 'active', capturedAt: record.source.capturedAt, expiresAt: record.source.expiresAt }],
+    suppressions, cfg, at
+  });
+  return { score, policyResult };
+}
+
+function buildSourceEvidence(record) {
+  return {
+    id: id('ev'), organizationDomain: record.organizationDomain, sourceUrl: record.source.url,
+    sourceType: record.source.type, status: 'active', contactEmail: record.contact?.email || null,
+    contentHash: record.idempotencyInputs.signalKey || record.id,
+    capturedAt: record.source.capturedAt, expiresAt: record.source.expiresAt,
+    data: { excerpt: record.source.excerpt, official: record.source.official, confidence: record.source.confidence }
+  };
+}
+
+function buildOpportunityRow(record, { idempotencyKey, evidenceId, stage, score }) {
+  return {
+    id: record.id, idempotencyKey, sourceEvidenceId: evidenceId, stage,
+    serviceLane: record.serviceLane, geography: record.geography,
+    expectedValueCents: record.expectedValueCents, currency: record.currency,
+    // probabilityBps has no import-time signal yet (no experiment/attribution data exists before a
+    // record is even imported) -- 0 is the column's own DEFAULT, set explicitly here because
+    // Postgres inserts always specify every mapped column (store.mjs#postgresValues), and an
+    // explicit NULL is not "use the DEFAULT" -- it violates the column's NOT NULL constraint. This
+    // was a real, previously-undetected bug (found by this repair's new real-Postgres tests): the
+    // pre-repair importer never set this field and had never been tested against real Postgres.
+    probabilityBps: 0,
+    ownerMinutes: record.ownerMinutes, deliveryHours: record.deliveryHours,
+    scoreTotal: score.total, scoreVersion: score.version, expiresAt: record.expiresAt,
+    data: { organization: record.organization, buyerSignal: record.buyerSignal, risks: record.risks, killCondition: record.killCondition, score }
+  };
+}
+
+function buildPolicyDecisionRow(record, opportunityId, policyResult) {
+  return {
+    id: id('policy'), opportunityId, policyVersion: REVENUE_OS_POLICY_VERSION,
+    decision: policyResult.decision, reasonCodes: policyResult.reasonCodes, evaluatedAt: policyResult.evaluatedAt,
+    data: { evidenceIds: policyResult.evidenceIds }
+  };
+}
+
+function recordIdempotencyKey(record) {
+  return opportunityIdempotencyKey({
+    organizationDomain: record.organizationDomain, serviceLane: record.serviceLane,
+    sourceUrl: record.source.url, signalKey: record.idempotencyInputs.signalKey
+  });
+}
+
+/** Handles one 'opportunity' record. Preview: read-only duplicate check + score + policy, zero
+ * writes. Commit: one store.transaction() -- compute-then-write, insert evidence/opportunity/
+ * policy-decision/audit-event together, roll back the whole record on any failure (PR #6 audit
+ * item 2). */
+async function processOpportunity(store, record, { commit, cfg, at, previewKnownOpportunityIds }) {
+  if (!SUPPORTED_SERVICE_LANES.includes(record.serviceLane)) {
+    throw new CommercialIntelligenceImportError('unsupported-service-lane', 'unsupported-service-lane');
+  }
+  if (!isEvidenceFresh(record, { maxAgeDays: cfg.revenueOs?.maxEvidenceAgeDays, at })) {
+    if (commit) await store.log(CANONICAL_AUDIT_EVENTS.STALE_REJECTED, { id: record.id, organizationDomain: record.organizationDomain });
+    return { status: 'stale', data: { id: record.id, organizationDomain: record.organizationDomain } };
+  }
+  const idempotencyKey = recordIdempotencyKey(record);
+
+  if (!commit) {
+    const existing = await store.list('opportunities', { filters: { idempotencyKey } });
+    if (existing.length > 0) return { status: 'duplicate', data: { id: record.id, idempotencyKey } };
+    const suppressions = await store.list('suppressions');
+    const { score, policyResult } = computeScoreAndPolicy(record, cfg, at, suppressions);
+    const stage = policyResult.decision === 'pass' ? 'ready_for_message' : 'policy_rejected';
+    previewKnownOpportunityIds?.add(record.id);
+    const data = {
+      id: record.id, idempotencyKey, organization: record.organization, organizationDomain: record.organizationDomain,
+      serviceLane: record.serviceLane, stage, scoreTotal: score.total,
+      policyDecision: policyResult.decision, reasonCodes: policyResult.reasonCodes
+    };
+    return { status: stage === 'ready_for_message' ? 'accepted' : 'policyRejected', data };
+  }
+
+  try {
+    const outcome = await store.transaction(async tx => {
+      const existing = await tx.list('opportunities', { filters: { idempotencyKey } });
+      if (existing.length > 0) return { duplicate: true };
+
+      const suppressions = await tx.list('suppressions');
+      const { score, policyResult } = computeScoreAndPolicy(record, cfg, at, suppressions);
+      const stage = policyResult.decision === 'pass' ? 'ready_for_message' : 'policy_rejected';
+
+      let evidence;
+      try {
+        evidence = await tx.add('sourceEvidence', buildSourceEvidence(record));
+      } catch (error) {
+        if (!(error instanceof ConflictError)) throw error;
+        evidence = await tx.findOne('sourceEvidence', {
+          organizationDomain: record.organizationDomain, sourceUrl: record.source.url,
+          contentHash: record.idempotencyInputs.signalKey || record.id
+        });
+        if (!evidence) throw error;
+      }
+
+      const opportunity = await tx.add('opportunities', buildOpportunityRow(record, { idempotencyKey, evidenceId: evidence.id, stage, score }));
+      const policyDecision = await tx.add('policyDecisions', buildPolicyDecisionRow(record, opportunity.id, policyResult));
+      await tx.log(stage === 'ready_for_message' ? CANONICAL_AUDIT_EVENTS.ACCEPTED : CANONICAL_AUDIT_EVENTS.POLICY_REJECTED, {
+        id: record.id, opportunityId: opportunity.id, idempotencyKey, reasonCodes: policyResult.reasonCodes
+      });
+      return { opportunity, policyDecision: policyResult, score, stage };
+    });
+
+    if (outcome.duplicate) {
+      await store.log(CANONICAL_AUDIT_EVENTS.DUPLICATE_REJECTED, { id: record.id, idempotencyKey });
+      return { status: 'duplicate', data: { id: record.id, idempotencyKey } };
+    }
+    return {
+      status: outcome.stage === 'ready_for_message' ? 'accepted' : 'policyRejected',
+      data: { ...outcome.opportunity, scoreTotal: outcome.score.total, policyDecision: outcome.policyDecision }
+    };
+  } catch (error) {
+    await store.log(CANONICAL_AUDIT_EVENTS.TRANSACTION_ROLLED_BACK, { id: record.id, recordType: 'opportunity', reason: error.message });
+    if (error instanceof ConflictError) {
+      await store.log(CANONICAL_AUDIT_EVENTS.DUPLICATE_REJECTED, { id: record.id, idempotencyKey, reason: error.message });
+      return { status: 'duplicate', data: { id: record.id, idempotencyKey } };
+    }
+    throw error;
+  }
+}
+
+async function opportunityIsKnown(store, opportunityId, previewKnownOpportunityIds) {
+  if (previewKnownOpportunityIds?.has(opportunityId)) return true;
+  return Boolean(await store.get('opportunities', opportunityId));
+}
+
+/** Handles one 'owner_gate' record. buildOwnerGate (revenue-os.mjs) enforces the value floor,
+ * minutes ceiling, and future-expiry bounds; this function additionally enforces the "existing
+ * opportunity link" requirement (PR #6 audit item 8), which needs store access buildOwnerGate
+ * itself doesn't have. */
+async function processOwnerGate(store, record, { commit, at, previewKnownOpportunityIds }) {
+  const linked = await opportunityIsKnown(store, record.gate.opportunityId, previewKnownOpportunityIds);
+  if (!linked) throw new CommercialIntelligenceImportError('gate-opportunity-not-found', `owner_gate ${record.id} references unknown opportunity ${record.gate.opportunityId}`);
+
+  const gate = buildOwnerGate({
+    id: record.id, opportunityId: record.gate.opportunityId, gateType: record.gate.gateType,
+    expectedValueCents: record.expectedValueCents, currency: record.currency, ownerMinutes: record.ownerMinutes,
+    expiresAt: record.expiresAt, action: record.gate.action, evidenceRequired: record.gate.evidenceRequired,
+    risk: record.competition, killCondition: record.killCondition, now: at
+  });
+
+  if (!commit) return { status: 'ownerGate', data: gate };
+
+  try {
+    const saved = await store.transaction(async tx => {
+      const row = await tx.add('ownerGates', gate);
+      await tx.log(CANONICAL_AUDIT_EVENTS.OWNER_GATE_CREATED, { id: record.id, opportunityId: record.gate.opportunityId, gateType: gate.gateType });
+      return row;
+    });
+    return { status: 'ownerGate', data: saved };
+  } catch (error) {
+    await store.log(CANONICAL_AUDIT_EVENTS.TRANSACTION_ROLLED_BACK, { id: record.id, recordType: 'owner_gate', reason: error.message });
+    if (error instanceof ConflictError) return { status: 'duplicate', data: { id: record.id, reason: 'duplicate-owner-gate' } };
+    throw error;
+  }
+}
+
+/** Handles one 'message_variant' record: real subject/body, hashed together, linked to an
+ * opportunity that must already exist (in the store, or already previewed in this same batch). */
+async function processMessageVariant(store, record, { commit, previewKnownOpportunityIds }) {
+  const linked = await opportunityIsKnown(store, record.messageContent.opportunityId, previewKnownOpportunityIds);
+  if (!linked) throw new CommercialIntelligenceImportError('message-opportunity-not-found', `message_variant ${record.id} references unknown opportunity ${record.messageContent.opportunityId}`);
+
+  const bodyHash = normalizedContentHash(record.messageContent.subject, record.messageContent.body);
+  const row = () => ({
+    id: record.id, campaignId: null, experimentId: record.messageContent.experimentId,
+    opportunityId: record.messageContent.opportunityId, lane: record.serviceLane,
+    subject: record.messageContent.subject, body: record.messageContent.body, bodyHash, status: 'draft',
+    data: { prohibitedClaims: record.messageContent.prohibitedClaims }
+  });
+
+  if (!commit) return { status: 'messageVariant', data: row() };
+
+  try {
+    const saved = await store.transaction(async tx => {
+      const savedRow = await tx.add('messageVariants', row());
+      await tx.log(CANONICAL_AUDIT_EVENTS.MESSAGE_VARIANT_IMPORTED, { id: record.id, opportunityId: record.messageContent.opportunityId, bodyHash });
+      return savedRow;
+    });
+    return { status: 'messageVariant', data: saved };
+  } catch (error) {
+    await store.log(CANONICAL_AUDIT_EVENTS.TRANSACTION_ROLLED_BACK, { id: record.id, recordType: 'message_variant', reason: error.message });
+    if (error instanceof ConflictError) return { status: 'duplicate', data: { id: record.id, reason: 'duplicate-message-variant' } };
+    throw error;
+  }
+}
+
+const PARTNER_ROUTE_OFFER_REJECTION_COLLECTIONS = Object.freeze({ partner_route: 'partnerRoutes', offer: 'offers', rejection: 'rejections' });
+const PARTNER_ROUTE_OFFER_REJECTION_STATUS = Object.freeze({ partner_route: 'partnerRoute', offer: 'offer', rejection: 'rejectionRecord' });
+
+/** Handles 'partner_route' / 'offer' / 'rejection' records: full persistence into
+ * migrations/006_pr6_repair.sql's dedicated tables (PR #6 audit's "integration gap" item -- these
+ * were audit-log-only before). */
+async function processPartnerRouteOfferOrRejection(store, record, { commit, at }) {
+  const collection = PARTNER_ROUTE_OFFER_REJECTION_COLLECTIONS[record.recordType];
+  const status = PARTNER_ROUTE_OFFER_REJECTION_STATUS[record.recordType];
+  const idempotencyKey = recordIdempotencyKey(record);
+
+  // rejections has a narrower column set than partner_routes/offers (migrations/006_pr6_repair.sql
+  // has no expected_value_cents/currency/owner_minutes/delivery_hours/expires_at on that table --
+  // a rejection is a negative signal, not a priced opportunity). Extra properties on a JSON row are
+  // harmless (JsonStore keeps the object as-is); for Postgres, postgresValues() only reads columns
+  // this collection's MAP actually defines, so unmapped properties simply never reach a column and
+  // still round-trip inside the `data` jsonb blob.
+  const detail = { organization: record.organization, buyerSignal: record.buyerSignal, risks: record.risks, killCondition: record.killCondition };
+  const buildRow = evidenceId => record.recordType === 'rejection'
+    ? { id: record.id, idempotencyKey, organizationDomain: record.organizationDomain, serviceLane: record.serviceLane, reasonCodes: record.risks, sourceEvidenceId: evidenceId, data: detail }
+    : {
+        id: record.id, idempotencyKey, organizationDomain: record.organizationDomain, serviceLane: record.serviceLane,
+        geography: record.geography, expectedValueCents: record.expectedValueCents, currency: record.currency,
+        ownerMinutes: record.ownerMinutes, deliveryHours: record.deliveryHours, sourceEvidenceId: evidenceId,
+        expiresAt: record.expiresAt, data: detail
+      };
+
+  if (!commit) {
+    const existing = await store.list(collection, { filters: { idempotencyKey } });
+    if (existing.length > 0) return { status: 'duplicate', data: { id: record.id, idempotencyKey } };
+    return { status, data: buildRow(null) };
+  }
+
+  try {
+    const outcome = await store.transaction(async tx => {
+      const existing = await tx.list(collection, { filters: { idempotencyKey } });
+      if (existing.length > 0) return { duplicate: true };
+      let evidence;
+      try {
+        evidence = await tx.add('sourceEvidence', buildSourceEvidence(record));
+      } catch (error) {
+        if (!(error instanceof ConflictError)) throw error;
+        evidence = await tx.findOne('sourceEvidence', {
+          organizationDomain: record.organizationDomain, sourceUrl: record.source.url,
+          contentHash: record.idempotencyInputs.signalKey || record.id
+        });
+        if (!evidence) throw error;
+      }
+      const saved = await tx.add(collection, buildRow(evidence.id));
+      await tx.log(CANONICAL_AUDIT_EVENTS.ACCEPTED, { id: record.id, recordType: record.recordType, organizationDomain: record.organizationDomain, idempotencyKey });
+      return { saved };
+    });
+    if (outcome.duplicate) {
+      await store.log(CANONICAL_AUDIT_EVENTS.DUPLICATE_REJECTED, { id: record.id, recordType: record.recordType, idempotencyKey });
+      return { status: 'duplicate', data: { id: record.id, idempotencyKey } };
+    }
+    return { status, data: outcome.saved };
+  } catch (error) {
+    await store.log(CANONICAL_AUDIT_EVENTS.TRANSACTION_ROLLED_BACK, { id: record.id, recordType: record.recordType, reason: error.message });
+    if (error instanceof ConflictError) return { status: 'duplicate', data: { id: record.id, idempotencyKey } };
+    throw error;
+  }
+}
+
 /**
- * Imports one already-validated batch of commercial-intelligence records into the store. This
- * function never sends anything to anyone -- it has no email/HTTP-outbound dependency of any
- * kind, so `dryRun` is reported in the return summary for transparency but is not actually a
- * switch that enables sending; there is nothing here that could send regardless of its value.
+ * Imports a batch of already-validated commercial-intelligence records.
  *
- * Per record:
- *   - stale or duplicate (by idempotency key) records are rejected before any store write;
- *   - 'opportunity' records get a sourceEvidence row, an opportunities row (idempotency_key
- *     unique constraint is the authoritative duplicate guard -- the pre-check above is a fast
- *     path, not the only one), a deterministic score, and a policyDecisions row;
- *   - 'message_variant' records get a messageVariants row;
- *   - 'owner_gate' records get an ownerGates row via revenue-os.mjs#buildOwnerGate, gated on
- *     OWNER_GATE_TYPES -- an owner_gate record naming an unsupported gate_type is rejected, not
- *     silently coerced into one that happens to validate;
- *   - 'partner_route' / 'offer' / 'rejection' records are fully schema-validated (see
- *     validateCommercialIntelligenceRecord) but this mission's applied migration
- *     (005_revenue_os_control_plane.sql) did not add dedicated tables for them. They are counted
- *     as `partiallyPersisted` and written to the existing generic `auditLog` collection so the
- *     record is not silently discarded, but they do NOT get their own queryable table this pass --
- *     a disclosed limitation, not a claim of full persistence.
+ * `mode: 'preview'` (default, fail-safe) validates, normalizes, scores, and policy-evaluates every
+ * record but writes NO durable business record -- no opportunity, evidence, policy decision, gate,
+ * message variant, partner route, offer, or rejection row, and no per-record audit-log entry. The
+ * one exception, disclosed above the module doc comment: a single batch-level
+ * 'commercial_intelligence_import_preview' audit-log row.
+ *
+ * `mode: 'commit'` performs the same computation and additionally persists everything, one
+ * store.transaction() per record, with a canonical audit event for every outcome.
  */
-export async function importCommercialIntelligenceBatch(store, records, { dryRun = true, cfg = {}, at = new Date() } = {}) {
-  const imported = [];
+export async function importCommercialIntelligenceBatch(store, records, { mode = 'preview', cfg = {}, at = new Date() } = {}) {
+  if (mode !== 'preview' && mode !== 'commit') {
+    throw new CommercialIntelligenceImportError('invalid-mode', `mode must be 'preview' or 'commit', got: ${mode}`);
+  }
+  const commit = mode === 'commit';
+
+  const accepted = [];
+  const policyRejected = [];
   const rejectedDuplicate = [];
   const rejectedStale = [];
   const rejectedInvalid = [];
   const ownerGatesCreated = [];
-  const partiallyPersisted = [];
+  const messageVariantsImported = [];
+  const partnerRoutesImported = [];
+  const offersImported = [];
+  const rejectionsImported = [];
+  const previewKnownOpportunityIds = commit ? null : new Set();
 
   for (const record of records) {
-    if (record.recordType === 'owner_gate') {
-      // 04_COMMERCIAL_INTELLIGENCE_SCHEMA.json has no field dedicated to "which owner-gate type is
-      // this" -- it reuses the generic `service_lane` string across all 6 record_types. For
-      // record_type:'owner_gate' this importer therefore expects `service_lane` to hold one of
-      // revenue-os.mjs's OWNER_GATE_TYPES (e.g. 'marketplace-submission'), not a service lane --
-      // buildOwnerGate itself rejects anything else, so a mismatched value fails loudly here
-      // (rejectedInvalid) rather than silently creating a gate of the wrong type.
-      try {
-        const gate = buildOwnerGate({
-          id: record.id, opportunityId: null, gateType: record.serviceLane,
-          expectedValueCents: record.expectedValueCents, currency: record.currency,
-          ownerMinutes: record.ownerMinutes, expiresAt: record.expiresAt,
-          action: record.buyerSignal, evidenceRequired: record.risks,
-          risk: record.competition, killCondition: record.killCondition
-        });
-        const saved = await store.add('ownerGates', gate);
-        ownerGatesCreated.push(saved);
-      } catch (error) {
-        rejectedInvalid.push({ id: record.id, reason: error.message });
-      }
-      continue;
-    }
-
-    if (record.recordType === 'message_variant') {
-      try {
-        const saved = await store.add('messageVariants', {
-          id: record.id, lane: record.serviceLane, subject: record.buyerSignal.slice(0, 200),
-          bodyHash: record.idempotencyInputs.signalKey || record.id, status: 'draft'
-        });
-        imported.push(saved);
-      } catch (error) {
-        if (error instanceof ConflictError) { rejectedDuplicate.push({ id: record.id, reason: 'duplicate-message-variant' }); continue; }
-        rejectedInvalid.push({ id: record.id, reason: error.message });
-      }
-      continue;
-    }
-
-    if (PARTIAL_PERSISTENCE_RECORD_TYPES.includes(record.recordType)) {
-      await store.log('commercial_intelligence_partial_persistence', { id: record.id, recordType: record.recordType, organizationDomain: record.organizationDomain });
-      partiallyPersisted.push({ id: record.id, recordType: record.recordType });
-      continue;
-    }
-
-    // record.recordType === 'opportunity' from here on.
-    if (!SUPPORTED_SERVICE_LANES.includes(record.serviceLane)) { rejectedInvalid.push({ id: record.id, reason: 'unsupported-service-lane' }); continue; }
-    if (!isEvidenceFresh(record, { maxAgeDays: cfg.revenueOs?.maxEvidenceAgeDays, at })) { rejectedStale.push({ id: record.id, organizationDomain: record.organizationDomain }); continue; }
-
-    let idempotencyKey;
     try {
-      idempotencyKey = opportunityIdempotencyKey({
-        organizationDomain: record.idempotencyInputs.organizationDomain,
-        serviceLane: record.idempotencyInputs.serviceLane,
-        sourceUrl: record.idempotencyInputs.sourceUrl,
-        signalKey: record.idempotencyInputs.signalKey
-      });
-    } catch (error) { rejectedInvalid.push({ id: record.id, reason: error.message }); continue; }
+      let outcome;
+      if (record.recordType === 'owner_gate') outcome = await processOwnerGate(store, record, { commit, at, previewKnownOpportunityIds });
+      else if (record.recordType === 'message_variant') outcome = await processMessageVariant(store, record, { commit, previewKnownOpportunityIds });
+      else if (record.recordType === 'partner_route' || record.recordType === 'offer' || record.recordType === 'rejection') outcome = await processPartnerRouteOfferOrRejection(store, record, { commit, at });
+      else outcome = await processOpportunity(store, record, { commit, cfg, at, previewKnownOpportunityIds });
 
-    const existing = await store.list('opportunities', { filters: { idempotencyKey } });
-    if (existing.length > 0) { rejectedDuplicate.push({ id: record.id, idempotencyKey }); continue; }
-
-    const evidence = await store.add('sourceEvidence', {
-      id: id('ev'), organizationDomain: record.organizationDomain, sourceUrl: record.source.url,
-      sourceType: record.source.type, status: 'active', contactEmail: record.contact?.email || null,
-      contentHash: record.idempotencyInputs.signalKey || record.id,
-      capturedAt: record.source.capturedAt, expiresAt: record.source.expiresAt,
-      data: { excerpt: record.source.excerpt, official: record.source.official, confidence: record.source.confidence }
-    });
-
-    const dimensions = {
-      activeDemand: record.source.confidence * 10, abilityToPay: record.competition ? 5 : 6,
-      capabilityFit: SUPPORTED_SERVICE_LANES.includes(record.serviceLane) ? 8 : 0,
-      evidenceConfidence: record.source.confidence * 10, timeToCash: 6, grossProfit: 6,
-      ownerEfficiency: record.ownerMinutes > 0 ? Math.max(0, 10 - record.ownerMinutes / 5) : 10,
-      deliveryEase: record.deliveryHours > 0 ? Math.max(0, 10 - record.deliveryHours / 4) : 8,
-      recurringPotential: record.recurringPotential ?? 0, strategicLeverage: 5
-    };
-    const score = scoreOpportunity(dimensions);
-
-    const opportunity = await store.add('opportunities', {
-      id: record.id, idempotencyKey, sourceEvidenceId: evidence.id, stage: 'discovered',
-      serviceLane: record.serviceLane, geography: record.geography,
-      expectedValueCents: record.expectedValueCents, currency: record.currency,
-      ownerMinutes: record.ownerMinutes, deliveryHours: record.deliveryHours,
-      scoreTotal: score.total, scoreVersion: score.version, expiresAt: record.expiresAt,
-      data: { organization: record.organization, buyerSignal: record.buyerSignal, risks: record.risks, killCondition: record.killCondition, score }
-    });
-
-    const policyResult = evaluateOpportunityPolicy({
-      opportunity: { serviceLane: record.serviceLane, expectedValueCents: record.expectedValueCents, ownerMinutes: record.ownerMinutes, expiresAt: record.expiresAt },
-      prospect: { website: record.organizationDomain, domain: record.organizationDomain, status: 'new', contact: record.contact ? { email: record.contact.email, source: record.contact.publishedOfficially ? 'website' : 'other', verified: 'unverified' } : {} },
-      evidence: [{ id: evidence.id, sourceUrl: record.source.url, sourceType: record.source.type, official: record.source.official, status: 'active', capturedAt: record.source.capturedAt, expiresAt: record.source.expiresAt }],
-      suppressions: await store.list('suppressions'),
-      cfg, at
-    });
-
-    await store.add('policyDecisions', {
-      id: id('policy'), opportunityId: opportunity.id, policyVersion: REVENUE_OS_POLICY_VERSION,
-      decision: policyResult.decision, reasonCodes: policyResult.reasonCodes, evaluatedAt: policyResult.evaluatedAt,
-      data: { evidenceIds: policyResult.evidenceIds }
-    });
-
-    imported.push({ ...opportunity, policyDecision: policyResult });
+      switch (outcome.status) {
+        case 'accepted': accepted.push(outcome.data); break;
+        case 'policyRejected': policyRejected.push(outcome.data); break;
+        case 'duplicate': rejectedDuplicate.push(outcome.data); break;
+        case 'stale': rejectedStale.push(outcome.data); break;
+        case 'ownerGate': ownerGatesCreated.push(outcome.data); break;
+        case 'messageVariant': messageVariantsImported.push(outcome.data); break;
+        case 'partnerRoute': partnerRoutesImported.push(outcome.data); break;
+        case 'offer': offersImported.push(outcome.data); break;
+        case 'rejectionRecord': rejectionsImported.push(outcome.data); break;
+      }
+    } catch (error) {
+      rejectedInvalid.push({ id: record.id, reason: error.message, code: error.code });
+      if (commit) await store.log(CANONICAL_AUDIT_EVENTS.INVALID_REJECTED, { id: record.id, recordType: record.recordType, reason: error.message, code: error.code });
+    }
   }
 
+  const summary = {
+    recordCount: records.length,
+    acceptedCount: accepted.length, policyRejectedCount: policyRejected.length,
+    rejectedDuplicateCount: rejectedDuplicate.length, rejectedStaleCount: rejectedStale.length,
+    rejectedInvalidCount: rejectedInvalid.length, ownerGatesCreatedCount: ownerGatesCreated.length,
+    messageVariantsImportedCount: messageVariantsImported.length,
+    partnerRoutesImportedCount: partnerRoutesImported.length, offersImportedCount: offersImported.length,
+    rejectionsImportedCount: rejectionsImported.length
+  };
+  await store.log(commit ? CANONICAL_AUDIT_EVENTS.IMPORT_COMMITTED : CANONICAL_AUDIT_EVENTS.IMPORT_PREVIEW, summary);
+
   return {
-    dryRun: true, // structural: this function has no send path, regardless of the dryRun argument
-    importedCount: imported.length, imported,
-    rejectedDuplicateCount: rejectedDuplicate.length, rejectedDuplicate,
-    rejectedStaleCount: rejectedStale.length, rejectedStale,
-    rejectedInvalidCount: rejectedInvalid.length, rejectedInvalid,
-    ownerGatesCreatedCount: ownerGatesCreated.length, ownerGatesCreated,
-    partiallyPersistedCount: partiallyPersisted.length, partiallyPersisted,
+    mode, durableWrites: commit, zeroLiveSend: true, // structural: no send path exists in this file regardless of mode
+    ...summary,
+    accepted, policyRejected,
+    rejectedDuplicate, rejectedStale, rejectedInvalid,
+    ownerGatesCreated, messageVariantsImported, partnerRoutesImported, offersImported, rejectionsImported,
     importedAt: now()
   };
 }

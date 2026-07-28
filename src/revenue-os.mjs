@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import { normalizeDomain } from './utils.mjs';
 import { contactEligibility } from './send-safety.mjs';
+import { assertCanonicalReasonCode, canonicalizeContactReason } from './policy-reason-codes.mjs';
 
 export const REVENUE_OS_POLICY_VERSION = 'revenue-os-policy-v1';
 export const REVENUE_OS_SCORE_VERSION = 'revenue-os-score-v1';
@@ -175,7 +176,7 @@ export function evaluateOpportunityPolicy({
   if (!currentOfficialEvidence) reasonCodes.push('missing-current-official-evidence');
 
   const contactResult = contactEligibility(prospect.contact || {}, prospect);
-  if (!contactResult.ok) reasonCodes.push(`contact-${contactResult.reason}`);
+  if (!contactResult.ok) reasonCodes.push(canonicalizeContactReason(contactResult.reason));
 
   const recipientEmail = normalizeSuppression(prospect.contact?.email);
   const domain = normalizeDomain(prospect.website || prospect.domain || '');
@@ -190,14 +191,37 @@ export function evaluateOpportunityPolicy({
     reasonCodes.push('prospect-terminal-status');
   }
 
+  // Every reason code this function can emit must be in the canonical registry -- a code that
+  // isn't (a typo, or a future addition someone forgot to register) fails loudly here rather than
+  // silently reaching a stored policy decision, a report, or the dashboard (PR #6 audit item 4).
+  const finalReasonCodes = [...new Set(reasonCodes)].map(assertCanonicalReasonCode);
+
   return {
-    ok: reasonCodes.length === 0,
-    decision: reasonCodes.length === 0 ? 'pass' : 'reject',
-    reasonCodes: [...new Set(reasonCodes)],
+    ok: finalReasonCodes.length === 0,
+    decision: finalReasonCodes.length === 0 ? 'pass' : 'reject',
+    reasonCodes: finalReasonCodes,
     evidenceIds: [...new Set(evidenceIds)],
     policyVersion: REVENUE_OS_POLICY_VERSION,
     evaluatedAt: evaluatedAt.toISOString()
   };
+}
+
+// PR #6 audit item 8: owner gates were structurally unsafe -- gateType came from a reused field,
+// gates were never linked to an opportunity, and nothing enforced the value/time bounds an owner
+// gate is supposed to guarantee before it can interrupt a human. This constructor now enforces
+// every one of those bounds itself, so "an out-of-policy gate exists" is impossible to construct,
+// not just discouraged by caller convention.
+export const OWNER_GATE_MIN_EXPECTED_VALUE_CENTS = 25000; // USD 250 (currency-blind threshold --
+// see docs: this compares raw cents regardless of the gate's own currency field, the same
+// currency-blind approximation revenue-os.mjs's policy defaults already use elsewhere).
+export const OWNER_GATE_MAX_OWNER_MINUTES = 20;
+
+export class OwnerGatePolicyError extends Error {
+  constructor(code, message = code) {
+    super(message);
+    this.name = 'OwnerGatePolicyError';
+    this.code = code;
+  }
 }
 
 export function buildOwnerGate({
@@ -211,20 +235,39 @@ export function buildOwnerGate({
   action,
   evidenceRequired = [],
   risk = '',
-  killCondition = ''
+  killCondition = '',
+  now = new Date()
 } = {}) {
-  if (!OWNER_GATE_TYPES.includes(gateType)) throw new Error(`Unsupported owner gate type: ${gateType}`);
-  if (!String(action || '').trim()) throw new Error('Owner gate action is required');
-  const minutes = clamp(ownerMinutes, 0, 1440);
+  const fail = (code, message) => { throw new OwnerGatePolicyError(code, message); };
+  if (!OWNER_GATE_TYPES.includes(gateType)) fail('unsupported-gate-type', `Unsupported owner gate type: ${gateType}`);
+  if (!String(opportunityId || '').trim()) fail('opportunity-link-required', 'Owner gates must be linked to an existing opportunityId');
+  if (!String(action || '').trim()) fail('action-required', 'Owner gate action is required');
+
+  const value = Math.round(Math.max(0, Number(expectedValueCents) || 0));
+  if (value < OWNER_GATE_MIN_EXPECTED_VALUE_CENTS) {
+    fail('value-below-floor', `Owner gate expectedValueCents (${value}) is below the ${OWNER_GATE_MIN_EXPECTED_VALUE_CENTS}-cent floor`);
+  }
+
+  const minutesNumber = Number(ownerMinutes);
+  if (!Number.isFinite(minutesNumber) || minutesNumber < 0) fail('owner-minutes-invalid', 'Owner gate ownerMinutes must be a non-negative number');
+  if (minutesNumber > OWNER_GATE_MAX_OWNER_MINUTES) {
+    fail('owner-minutes-above-ceiling', `Owner gate ownerMinutes (${minutesNumber}) exceeds the ${OWNER_GATE_MAX_OWNER_MINUTES}-minute ceiling`);
+  }
+
+  const expiresIso = iso(expiresAt);
+  const at = now instanceof Date ? now : new Date(now);
+  if (!expiresAt || !expiresIso) fail('expiry-required', 'Owner gate expiresAt is required');
+  else if (new Date(expiresIso) <= at) fail('expiry-not-future', `Owner gate expiresAt (${expiresIso}) must be in the future`);
+
   return {
     id: id || `gate_${crypto.randomUUID()}`,
-    opportunityId: opportunityId || null,
+    opportunityId: String(opportunityId).trim(),
     gateType,
     status: 'open',
-    expectedValueCents: Math.round(Math.max(0, Number(expectedValueCents) || 0)),
+    expectedValueCents: value,
     currency: String(currency || 'USD').trim().toUpperCase(),
-    ownerMinutes: Math.round(minutes),
-    expiresAt: expiresAt ? iso(expiresAt) : null,
+    ownerMinutes: Math.round(minutesNumber),
+    expiresAt: expiresIso,
     action: String(action).trim(),
     evidenceRequired: Array.isArray(evidenceRequired) ? evidenceRequired.map(String) : [],
     risk: String(risk || '').trim(),
@@ -233,28 +276,83 @@ export function buildOwnerGate({
   };
 }
 
+// PR #6 audit item 1: the old readiness gates converted a MISSING metric to 0/false via `|| 0`,
+// which meant no evidence at all (never measured, not zero) silently passed several gates. Every
+// gate below returns 'pass' | 'fail' | 'unknown' -- 'unknown' happens whenever evidence is absent,
+// non-finite, or (for rate gates) below its required minimum sample size, and 'unknown' never
+// counts toward `ready`. Missing evidence fails closed by construction, not by convention.
+
+function booleanGate(evidence) {
+  if (evidence !== true && evidence !== false) return { status: 'unknown', reason: 'missing-evidence' };
+  return { status: evidence ? 'pass' : 'fail', reason: evidence ? '' : 'evidence-false' };
+}
+
+const COMPARATORS = {
+  lt: (a, b) => a < b, lte: (a, b) => a <= b, gt: (a, b) => a > b, gte: (a, b) => a >= b
+};
+
+/** A rate gate requires an explicit {numerator, denominator} evidence object and a minimum sample
+ * size on the denominator -- a rate computed from too few observations is 'unknown', not a false
+ * pass or fail, so a handful of lucky/unlucky early events can never move readiness. */
+function rateGate(evidence, { threshold, comparator, minimumSample }) {
+  if (!evidence || typeof evidence !== 'object') return { status: 'unknown', reason: 'missing-evidence' };
+  const numerator = Number(evidence.numerator);
+  const denominator = Number(evidence.denominator);
+  if (!Number.isFinite(numerator) || !Number.isFinite(denominator) || denominator <= 0) {
+    return { status: 'unknown', reason: 'missing-numerator-or-denominator' };
+  }
+  if (denominator < minimumSample) return { status: 'unknown', reason: 'insufficient-sample', denominator, minimumSample };
+  const rate = numerator / denominator;
+  const pass = COMPARATORS[comparator](rate, threshold);
+  return { status: pass ? 'pass' : 'fail', rate: Number(rate.toFixed(4)), numerator, denominator, minimumSample, threshold };
+}
+
+function countGate(evidence, { threshold, comparator = 'gte' }) {
+  const value = Number(evidence);
+  if (evidence === undefined || evidence === null || !Number.isFinite(value)) return { status: 'unknown', reason: 'missing-evidence' };
+  const pass = COMPARATORS[comparator](value, threshold);
+  return { status: pass ? 'pass' : 'fail', value, threshold };
+}
+
+/**
+ * Rebuilt around explicit evidence objects (PR #6 audit items 1 and the acceptance checklist's
+ * "17 control-tower evidence gates"). `metrics` shape:
+ *   deterministicChecks / browserChecks / migrationChecks / previewAuditable / importAtomicity /
+ *     concurrencySafety / auditCompleteness: boolean | undefined
+ *   duplicates / hardBounces / complaints / evidenceCoverage / positiveReplies:
+ *     { numerator, denominator } | undefined
+ *   paidPilots / collectedRevenueCents / contributionMarginCents / recurringClients /
+ *     ownerActionsPerDay: number | undefined
+ * `ready` is true only when every one of the 17 gates is 'pass' -- a single 'unknown' blocks
+ * readiness exactly like a 'fail' does.
+ */
 export function tenOfTenReadiness(metrics = {}) {
   const gates = {
-    deterministicChecks: Boolean(metrics.deterministicChecks),
-    browserChecks: Boolean(metrics.browserChecks),
-    migrationChecks: Boolean(metrics.migrationChecks),
-    dryRunAuditable: Boolean(metrics.dryRunAuditable),
-    duplicateRate: Number(metrics.duplicateRate || 0) === 0,
-    hardBounceRate: Number(metrics.hardBounceRate || 0) < 0.02,
-    complaintRate: Number(metrics.complaintRate || 0) < 0.001,
-    evidenceCoverage: Number(metrics.evidenceCoverage || 0) >= 0.98,
-    positiveReplyRate: Number(metrics.positiveReplyRate || 0) >= 0.03,
-    paidPilots: Number(metrics.paidPilots || 0) >= 3,
-    collectedRevenue: Number(metrics.collectedRevenue || 0) >= 1000,
-    positiveContributionMargin: Number(metrics.contributionMargin || 0) > 0,
-    recurringClients: Number(metrics.recurringClients || 0) >= 1,
-    ownerActionsPerDay: Number(metrics.ownerActionsPerDay || Infinity) <= 3
+    deterministicChecks: booleanGate(metrics.deterministicChecks),
+    browserChecks: booleanGate(metrics.browserChecks),
+    migrationChecks: booleanGate(metrics.migrationChecks),
+    previewAuditable: booleanGate(metrics.previewAuditable),
+    importAtomicity: booleanGate(metrics.importAtomicity),
+    concurrencySafety: booleanGate(metrics.concurrencySafety),
+    auditCompleteness: booleanGate(metrics.auditCompleteness),
+    duplicateRate: rateGate(metrics.duplicates, { threshold: 0, comparator: 'lte', minimumSample: 20 }),
+    hardBounceRate: rateGate(metrics.hardBounces, { threshold: 0.02, comparator: 'lt', minimumSample: 50 }),
+    complaintRate: rateGate(metrics.complaints, { threshold: 0.001, comparator: 'lt', minimumSample: 50 }),
+    evidenceCoverage: rateGate(metrics.evidenceCoverage, { threshold: 0.98, comparator: 'gte', minimumSample: 20 }),
+    positiveReplyRate: rateGate(metrics.positiveReplies, { threshold: 0.03, comparator: 'gte', minimumSample: 50 }),
+    paidPilots: countGate(metrics.paidPilots, { threshold: 3, comparator: 'gte' }),
+    collectedRevenue: countGate(metrics.collectedRevenueCents, { threshold: 100000, comparator: 'gte' }),
+    positiveContributionMargin: countGate(metrics.contributionMarginCents, { threshold: 0, comparator: 'gt' }),
+    recurringClients: countGate(metrics.recurringClients, { threshold: 1, comparator: 'gte' }),
+    ownerActionsPerDay: countGate(metrics.ownerActionsPerDay, { threshold: 3, comparator: 'lte' })
   };
-  const passed = Object.values(gates).filter(Boolean).length;
   const total = Object.keys(gates).length;
+  const passed = Object.values(gates).filter(gate => gate.status === 'pass').length;
+  const unknown = Object.values(gates).filter(gate => gate.status === 'unknown').length;
   return {
     score: Number(((passed / total) * 10).toFixed(2)),
     passed,
+    unknown,
     total,
     gates,
     ready: passed === total

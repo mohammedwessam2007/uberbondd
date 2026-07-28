@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { PGlite } from '@electric-sql/pglite';
 
-async function migratedDb() {
+export async function migratedDb() {
   const db = new PGlite();
-  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql', '005_revenue_os_control_plane.sql']) {
+  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql', '005_revenue_os_control_plane.sql', '006_pr6_repair.sql']) {
     await db.exec(await fs.readFile(new URL(`../migrations/${name}`, import.meta.url), 'utf8'));
   }
   return db;
@@ -136,5 +136,46 @@ test('Revenue OS control-plane migration enforces numeric bounds (probability_bp
   try {
     await assert.rejects(db.query("INSERT INTO opportunities(id,idempotency_key,service_lane,probability_bps,data) VALUES ('op-bad','opportunity:x:y:z','website-qa',10001,'{}'::jsonb)"));
     await assert.rejects(db.query("INSERT INTO opportunities(id,idempotency_key,service_lane,owner_minutes,data) VALUES ('op-bad2','opportunity:x:y:z2',ARRAY['website-qa'][1],-1,'{}'::jsonb)"));
+  } finally { await db.close(); }
+});
+
+// --- migration 006 (PR #6 repair): partner_routes/offers/rejections, stage CHECK, message content columns ---
+
+test('PR #6 repair migration (006) creates partner_routes, offers, and rejections tables', async () => {
+  const db = await migratedDb();
+  try {
+    const tables = await db.query("SELECT table_name FROM information_schema.tables WHERE table_schema='public'");
+    const names = new Set(tables.rows.map(row => row.table_name));
+    for (const name of ['partner_routes', 'offers', 'rejections']) assert(names.has(name), `missing table ${name}`);
+  } finally { await db.close(); }
+});
+
+test('PR #6 repair migration (006) enforces idempotency-key uniqueness on partner_routes, offers, and rejections', async () => {
+  const db = await migratedDb();
+  try {
+    await db.query("INSERT INTO partner_routes(id,idempotency_key,organization_domain,service_lane,data) VALUES ('pr1','k1','example.com','website-qa','{}'::jsonb)");
+    await assert.rejects(db.query("INSERT INTO partner_routes(id,idempotency_key,organization_domain,service_lane,data) VALUES ('pr2','k1','example.com','website-qa','{}'::jsonb)"));
+    await db.query("INSERT INTO offers(id,idempotency_key,organization_domain,service_lane,data) VALUES ('of1','k2','example.com','website-qa','{}'::jsonb)");
+    await assert.rejects(db.query("INSERT INTO offers(id,idempotency_key,organization_domain,service_lane,data) VALUES ('of2','k2','example.com','website-qa','{}'::jsonb)"));
+    await db.query("INSERT INTO rejections(id,idempotency_key,organization_domain,service_lane,data) VALUES ('rj1','k3','example.com','website-qa','{}'::jsonb)");
+    await assert.rejects(db.query("INSERT INTO rejections(id,idempotency_key,organization_domain,service_lane,data) VALUES ('rj2','k3','example.com','website-qa','{}'::jsonb)"));
+  } finally { await db.close(); }
+});
+
+test('PR #6 repair migration (006) makes an invalid opportunity stage impossible to persist', async () => {
+  const db = await migratedDb();
+  try {
+    await db.query("INSERT INTO opportunities(id,idempotency_key,service_lane,stage,data) VALUES ('op-stage-ok','opportunity:x:y:stage-ok','website-qa','ready_for_message','{}'::jsonb)");
+    await assert.rejects(db.query("INSERT INTO opportunities(id,idempotency_key,service_lane,stage,data) VALUES ('op-stage-bad','opportunity:x:y:stage-bad','website-qa','not-a-real-stage','{}'::jsonb)"));
+  } finally { await db.close(); }
+});
+
+test('PR #6 repair migration (006) adds message_variants.opportunity_id and .body columns', async () => {
+  const db = await migratedDb();
+  try {
+    const columns = await db.query("SELECT column_name FROM information_schema.columns WHERE table_name='message_variants'");
+    const names = new Set(columns.rows.map(row => row.column_name));
+    assert(names.has('opportunity_id'), 'missing message_variants.opportunity_id');
+    assert(names.has('body'), 'missing message_variants.body');
   } finally { await db.close(); }
 });

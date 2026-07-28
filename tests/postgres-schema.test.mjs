@@ -5,7 +5,7 @@ import { PGlite } from '@electric-sql/pglite';
 
 async function migratedDb() {
   const db = new PGlite();
-  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql']) {
+  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql', '005_revenue_os_control_plane.sql']) {
     await db.exec(await fs.readFile(new URL(`../migrations/${name}`, import.meta.url), 'utf8'));
   }
   return db;
@@ -103,5 +103,38 @@ test('outbound safety migration enforces durable idempotency and sender health u
     await assert.rejects(db.query("INSERT INTO outbound_reservations(id,idempotency_key,inbox,recipient_email,status,reserved_at,data) VALUES ('or2','initial:p1','A','info@example.com','reserved',now(),'{}'::jsonb)"));
     await db.query("INSERT INTO sender_health(id,inbox,data) VALUES ('sh1','A','{}'::jsonb)");
     await assert.rejects(db.query("INSERT INTO sender_health(id,inbox,data) VALUES ('sh2','A','{}'::jsonb)"));
+  } finally { await db.close(); }
+});
+
+test('Revenue OS control-plane migration (005) creates every new table', async () => {
+  const db = await migratedDb();
+  try {
+    const tables = await db.query("SELECT table_name FROM information_schema.tables WHERE table_schema='public'");
+    const names = new Set(tables.rows.map(row => row.table_name));
+    for (const name of ['source_evidence', 'experiments', 'opportunities', 'policy_decisions', 'message_variants', 'owner_gates']) {
+      assert(names.has(name), `missing table ${name}`);
+    }
+  } finally { await db.close(); }
+});
+
+test('Revenue OS control-plane migration enforces identity uniqueness (source evidence, opportunities, message variants)', async () => {
+  const db = await migratedDb();
+  try {
+    await db.query("INSERT INTO source_evidence(id,organization_domain,source_url,source_type,captured_at,content_hash,data) VALUES ('ev1','example.com','https://example.com/careers','official-company',now(),'hash1','{}'::jsonb)");
+    await assert.rejects(db.query("INSERT INTO source_evidence(id,organization_domain,source_url,source_type,captured_at,content_hash,data) VALUES ('ev2','example.com','https://example.com/careers','official-company',now(),'hash1','{}'::jsonb)"));
+
+    await db.query("INSERT INTO opportunities(id,idempotency_key,service_lane,data) VALUES ('op1','opportunity:example.com:website-qa:abc','website-qa','{}'::jsonb)");
+    await assert.rejects(db.query("INSERT INTO opportunities(id,idempotency_key,service_lane,data) VALUES ('op2','opportunity:example.com:website-qa:abc','website-qa','{}'::jsonb)"));
+
+    await db.query("INSERT INTO message_variants(id,lane,subject,body_hash,data) VALUES ('mv1','website-qa','Subject A','bodyhash1','{}'::jsonb)");
+    await assert.rejects(db.query("INSERT INTO message_variants(id,lane,subject,body_hash,data) VALUES ('mv2','website-qa','Subject A','bodyhash1','{}'::jsonb)"));
+  } finally { await db.close(); }
+});
+
+test('Revenue OS control-plane migration enforces numeric bounds (probability_bps, owner_minutes, delivery_hours)', async () => {
+  const db = await migratedDb();
+  try {
+    await assert.rejects(db.query("INSERT INTO opportunities(id,idempotency_key,service_lane,probability_bps,data) VALUES ('op-bad','opportunity:x:y:z','website-qa',10001,'{}'::jsonb)"));
+    await assert.rejects(db.query("INSERT INTO opportunities(id,idempotency_key,service_lane,owner_minutes,data) VALUES ('op-bad2','opportunity:x:y:z2',ARRAY['website-qa'][1],-1,'{}'::jsonb)"));
   } finally { await db.close(); }
 });

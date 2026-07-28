@@ -2,22 +2,24 @@ import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { Pool } from 'pg';
-import { now } from './utils.mjs';
+import { now, normalizeDomain } from './utils.mjs';
 
 export const COLLECTIONS = [
   'prospects', 'campaigns', 'jobs', 'messages', 'replies', 'suppressions',
   'socialTasks', 'accounts', 'auditLog', 'leads', 'orders', 'subscriptions',
   'monitoringRuns', 'notifications', 'revenueEvents', 'discoveryRuns', 'workerHeartbeats',
-  'outboundReservations', 'senderHealth', 'outboundEvents'
+  'outboundReservations', 'senderHealth', 'outboundEvents', 'sourceEvidence',
+  'opportunities', 'policyDecisions', 'experiments', 'messageVariants', 'ownerGates'
 ];
 
 const EMPTY = {
-  version: 5,
+  version: 6,
   prospects: [], campaigns: [], jobs: [], messages: [], replies: [],
   suppressions: [], socialTasks: [], accounts: [], auditLog: [], settings: {},
   leads: [], orders: [], subscriptions: [], monitoringRuns: [], notifications: [],
   revenueEvents: [], discoveryRuns: [], workerHeartbeats: [],
-  outboundReservations: [], senderHealth: [], outboundEvents: []
+  outboundReservations: [], senderHealth: [], outboundEvents: [], sourceEvidence: [],
+  opportunities: [], policyDecisions: [], experiments: [], messageVariants: [], ownerGates: []
 };
 
 const MAP = {
@@ -89,6 +91,58 @@ const MAP = {
       occurredAt: 'occurred_at', createdAt: 'created_at', updatedAt: 'updated_at'
     }
   },
+  sourceEvidence: {
+    table: 'source_evidence',
+    columns: {
+      prospectId: 'prospect_id', organizationDomain: 'organization_domain', sourceUrl: 'source_url',
+      sourceType: 'source_type', status: 'status', contactEmail: 'contact_email',
+      contentHash: 'content_hash', capturedAt: 'captured_at', expiresAt: 'expires_at',
+      createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
+  opportunities: {
+    table: 'opportunities',
+    columns: {
+      idempotencyKey: 'idempotency_key', prospectId: 'prospect_id', campaignId: 'campaign_id',
+      sourceEvidenceId: 'source_evidence_id', experimentId: 'experiment_id', stage: 'stage',
+      serviceLane: 'service_lane', geography: 'geography', expectedValueCents: 'expected_value_cents',
+      currency: 'currency', probabilityBps: 'probability_bps', ownerMinutes: 'owner_minutes',
+      deliveryHours: 'delivery_hours', scoreTotal: 'score_total', scoreVersion: 'score_version',
+      expiresAt: 'expires_at', createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
+  policyDecisions: {
+    table: 'policy_decisions',
+    columns: {
+      opportunityId: 'opportunity_id', prospectId: 'prospect_id', policyVersion: 'policy_version',
+      decision: 'decision', reasonCodes: 'reason_codes', evaluatedAt: 'evaluated_at',
+      createdAt: 'created_at'
+    }
+  },
+  experiments: {
+    table: 'experiments',
+    columns: {
+      campaignId: 'campaign_id', status: 'status', hypothesis: 'hypothesis', lane: 'lane',
+      variant: 'variant', minimumSample: 'minimum_sample', successMetric: 'success_metric',
+      startedAt: 'started_at', endedAt: 'ended_at', decision: 'decision',
+      createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
+  messageVariants: {
+    table: 'message_variants',
+    columns: {
+      campaignId: 'campaign_id', experimentId: 'experiment_id', lane: 'lane', subject: 'subject',
+      bodyHash: 'body_hash', status: 'status', createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
+  ownerGates: {
+    table: 'owner_gates',
+    columns: {
+      opportunityId: 'opportunity_id', gateType: 'gate_type', status: 'status',
+      expectedValueCents: 'expected_value_cents', currency: 'currency', ownerMinutes: 'owner_minutes',
+      expiresAt: 'expires_at', createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
 };
 
 export class StoreError extends Error {
@@ -122,6 +176,13 @@ function normalizeRecord(key, item) {
   if (key === 'discoveryRuns') copy.runDate = copy.runDate || dateOnly(copy.startedAt || copy.createdAt);
   if (key === 'outboundReservations') copy.recipientEmail = String(copy.recipientEmail || '').toLowerCase();
   if (key === 'senderHealth') copy.healthDate = copy.healthDate || dateOnly(copy.updatedAt || copy.createdAt);
+  if (key === 'sourceEvidence') {
+    copy.organizationDomain = normalizeDomain(copy.organizationDomain || '');
+    copy.contactEmail = String(copy.contactEmail || '').trim().toLowerCase() || null;
+  }
+  if (key === 'opportunities' || key === 'ownerGates') {
+    copy.currency = String(copy.currency || 'USD').trim().toUpperCase();
+  }
   return copy;
 }
 
@@ -189,7 +250,7 @@ export class JsonStore {
     await fs.mkdir(this.dir, { recursive: true });
     try {
       const loaded = JSON.parse(await fs.readFile(this.file, 'utf8'));
-      this.data = { ...structuredClone(EMPTY), ...loaded, version: 5 };
+      this.data = { ...structuredClone(EMPTY), ...loaded, version: 6 };
       for (const key of Object.keys(EMPTY)) {
         if (!(key in this.data)) this.data[key] = structuredClone(EMPTY[key]);
       }

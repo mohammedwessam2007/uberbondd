@@ -7,7 +7,29 @@ inp=data.get("tool_input") or {}
 if tool!="Bash":
     raise SystemExit(0)
 cmd=str(inp.get("command",""))
-normalized="\n".join(" ".join(line.lower().split()) for line in cmd.split("\n"))
+
+def strip_heredocs(text):
+    # Heredoc bodies (e.g. `git commit -m "$(cat <<'EOF' ... EOF)"`) are
+    # literal data, not executable shell syntax -- scanning their contents
+    # for danger patterns produces false positives on ordinary prose
+    # (a commit message that documents this very policy, for instance).
+    out=[]
+    delim=None
+    strip_tabs=False
+    for line in text.split("\n"):
+        if delim is not None:
+            check=line.lstrip("\t") if strip_tabs else line
+            if check==delim:
+                delim=None
+            continue
+        m=re.search(r"<<(-)?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\2",line)
+        if m:
+            delim=m.group(3)
+            strip_tabs=bool(m.group(1))
+        out.append(line)
+    return "\n".join(out)
+
+normalized="\n".join(" ".join(line.lower().split()) for line in strip_heredocs(cmd).split("\n"))
 danger=[
     r"(^|[;&|]\s*)rm\s+-rf\s+/(?:\s|$)",
     r"\bgit\s+push\b[^;&|\n]*\b(origin\s+)?main\b",

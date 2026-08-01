@@ -10,18 +10,20 @@ export const COLLECTIONS = [
   'monitoringRuns', 'notifications', 'revenueEvents', 'discoveryRuns', 'workerHeartbeats',
   'outboundReservations', 'senderHealth', 'outboundEvents', 'sourceEvidence',
   'opportunities', 'policyDecisions', 'experiments', 'messageVariants', 'ownerGates',
-  'partnerRoutes', 'offers', 'rejections'
+  'partnerRoutes', 'offers', 'rejections',
+  'campaignActivationApprovals', 'costLedgerEntries', 'campaignCohortMembers'
 ];
 
 const EMPTY = {
-  version: 7,
+  version: 9,
   prospects: [], campaigns: [], jobs: [], messages: [], replies: [],
   suppressions: [], socialTasks: [], accounts: [], auditLog: [], settings: {},
   leads: [], orders: [], subscriptions: [], monitoringRuns: [], notifications: [],
   revenueEvents: [], discoveryRuns: [], workerHeartbeats: [],
   outboundReservations: [], senderHealth: [], outboundEvents: [], sourceEvidence: [],
   opportunities: [], policyDecisions: [], experiments: [], messageVariants: [], ownerGates: [],
-  partnerRoutes: [], offers: [], rejections: []
+  partnerRoutes: [], offers: [], rejections: [],
+  campaignActivationApprovals: [], costLedgerEntries: [], campaignCohortMembers: []
 };
 
 const MAP = {
@@ -172,6 +174,31 @@ const MAP = {
       createdAt: 'created_at', updatedAt: 'updated_at'
     }
   },
+  campaignActivationApprovals: {
+    table: 'campaign_activation_approvals',
+    columns: {
+      experimentId: 'experiment_id', batchHash: 'batch_hash', recipientsHash: 'recipients_hash',
+      senderSet: 'sender_set', maxCount: 'max_count', policyVersion: 'policy_version', status: 'status',
+      approvedBy: 'approved_by', approvedAt: 'approved_at', expiresAt: 'expires_at',
+      createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
+  costLedgerEntries: {
+    table: 'cost_ledger_entries',
+    columns: {
+      ledgerDate: 'ledger_date', category: 'category', reservedCents: 'reserved_cents',
+      budgetCents: 'budget_cents', cycleRunId: 'cycle_run_id',
+      createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
+  campaignCohortMembers: {
+    table: 'campaign_cohort_members',
+    columns: {
+      approvalId: 'approval_id', organizationDomain: 'organization_domain', recipientEmail: 'recipient_email',
+      status: 'status', firstTouchReservationId: 'first_touch_reservation_id',
+      createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
 };
 
 export class StoreError extends Error {
@@ -214,6 +241,11 @@ function normalizeRecord(key, item) {
   }
   if (key === 'partnerRoutes' || key === 'offers' || key === 'rejections') {
     copy.organizationDomain = normalizeDomain(copy.organizationDomain || '');
+  }
+  if (key === 'costLedgerEntries') copy.ledgerDate = copy.ledgerDate || dateOnly(copy.createdAt);
+  if (key === 'campaignCohortMembers') {
+    copy.organizationDomain = normalizeDomain(copy.organizationDomain || '');
+    copy.recipientEmail = String(copy.recipientEmail || '').trim().toLowerCase();
   }
   return copy;
 }
@@ -262,6 +294,8 @@ class JsonTransactionStore {
   async setSetting(key, value) { this.parent.data.settings[key] = structuredClone(value); return value; }
   async log(type, detail = {}) { return this.add('auditLog', { id: crypto.randomUUID(), type, detail, createdAt: now() }); }
   async reserveDiscoveryCapacity(date, cap, requested, runId = '') { return this.parent._reserveDiscoveryCapacityDirect(date, cap, requested, runId); }
+  async reserveCostBudget(ledgerDate, category, amountCents, budgetCents, cycleRunId = '') { return this.parent._reserveCostBudgetDirect(ledgerDate, category, amountCents, budgetCents, cycleRunId); }
+  async claimCohortMember(approvalId, organizationDomain, toStatus = 'reserved') { return this.parent._claimCohortMemberDirect(approvalId, organizationDomain, toStatus); }
   async claimProspects(limit = 1) { return this.parent._claimProspectsDirect(limit); }
   async claimProspect(id) { return this.parent._claimProspectDirect(id); }
   async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000) { return this.parent._claimJobsDirect(workerId, limit, lockTimeoutMs); }
@@ -289,7 +323,7 @@ export class JsonStore {
     await fs.mkdir(this.dir, { recursive: true });
     try {
       const loaded = JSON.parse(await fs.readFile(this.file, 'utf8'));
-      this.data = { ...structuredClone(EMPTY), ...loaded, version: 7 };
+      this.data = { ...structuredClone(EMPTY), ...loaded, version: 9 };
       for (const key of Object.keys(EMPTY)) {
         if (!(key in this.data)) this.data[key] = structuredClone(EMPTY[key]);
       }
@@ -364,6 +398,10 @@ export class JsonStore {
     if (key === 'opportunities' && record.idempotencyKey && other(item => item.idempotencyKey === record.idempotencyKey)) throw new ConflictError(`Duplicate opportunity idempotency key: ${record.idempotencyKey}`);
     if (key === 'messageVariants' && record.bodyHash && other(item => (item.campaignId || '') === (record.campaignId || '') && (item.experimentId || '') === (record.experimentId || '') && item.bodyHash === record.bodyHash)) throw new ConflictError(`Duplicate message variant: ${record.bodyHash}`);
     if ((key === 'partnerRoutes' || key === 'offers' || key === 'rejections') && record.idempotencyKey && other(item => item.idempotencyKey === record.idempotencyKey)) throw new ConflictError(`Duplicate ${key} idempotency key: ${record.idempotencyKey}`);
+    if (key === 'campaignActivationApprovals' && other(item => item.experimentId === record.experimentId && item.batchHash === record.batchHash)) throw new ConflictError(`Duplicate campaign activation approval: ${record.experimentId}/${record.batchHash}`);
+    if (key === 'costLedgerEntries' && other(item => item.ledgerDate === record.ledgerDate && item.category === record.category)) throw new ConflictError(`Duplicate cost ledger entry: ${record.ledgerDate}/${record.category}`);
+    if (key === 'campaignCohortMembers' && other(item => item.approvalId === record.approvalId && item.organizationDomain === record.organizationDomain)) throw new ConflictError(`Duplicate cohort member organization: ${record.approvalId}/${record.organizationDomain}`);
+    if (key === 'campaignCohortMembers' && other(item => item.approvalId === record.approvalId && item.recipientEmail === record.recipientEmail)) throw new ConflictError(`Duplicate cohort member recipient: ${record.approvalId}/${record.recipientEmail}`);
   }
 
   _addDirect(key, item) {
@@ -401,6 +439,49 @@ export class JsonStore {
     const current = (this.data.discoveryRuns || []).find(run => run.id === runId);
     if (current) { current.importedCount = allowed; current.capacityReserved = allowed; current.updatedAt = now(); }
     return allowed;
+  }
+
+  /** P1-010: atomically reserves `amountCents` of `category`'s daily budget for `ledgerDate`
+   * against a durable per-(date,category) ledger row -- never a process-local counter. Concurrent
+   * or restarted callers all pass through this one path, so the sum of every successful
+   * reservation for a (date, category) pair can never exceed budgetCents. */
+  _reserveCostBudgetDirect(ledgerDate, category, amountCents, budgetCents, cycleRunId = '') {
+    const amount = Math.max(0, Number(amountCents || 0));
+    const budget = Math.max(0, Number(budgetCents || 0));
+    const entry = (this.data.costLedgerEntries || []).find(row => row.ledgerDate === ledgerDate && row.category === category);
+    const currentReserved = Number(entry?.reservedCents || 0);
+    if (currentReserved + amount > budget) {
+      return { ok: false, reason: 'budget-exceeded', reservedCents: currentReserved, budgetCents: budget };
+    }
+    const reservedCents = currentReserved + amount;
+    if (entry) {
+      entry.reservedCents = reservedCents;
+      entry.budgetCents = budget;
+      entry.cycleRunId = cycleRunId || entry.cycleRunId || null;
+      entry.updatedAt = now();
+    } else {
+      this._addDirect('costLedgerEntries', {
+        id: crypto.randomUUID(), ledgerDate, category, reservedCents, budgetCents,
+        cycleRunId: cycleRunId || null, createdAt: now(), updatedAt: now()
+      });
+    }
+    return { ok: true, reservedCents, budgetCents: budget };
+  }
+
+  /** PR #7 repair, C-P0-003: atomically claims exactly one frozen-cohort member row
+   * (status 'pending' -> `toStatus`, default 'reserved') for `(approvalId, organizationDomain)`.
+   * This is the ONE place a cohort seat is consumed -- since exactly N member rows exist per
+   * approval (created once, at approval time), "at most N first touches" is a structural fact,
+   * not a runtime count a race could exceed. Distinguishes "not a member of this cohort" from
+   * "already claimed" for a useful reason code; both fail the same way (ok:false). */
+  _claimCohortMemberDirect(approvalId, organizationDomain, toStatus = 'reserved') {
+    const domain = normalizeDomain(organizationDomain);
+    const member = (this.data.campaignCohortMembers || []).find(row => row.approvalId === approvalId && row.organizationDomain === domain);
+    if (!member) return { ok: false, reason: 'not-a-cohort-member' };
+    if (member.status !== 'pending') return { ok: false, reason: `cohort-member-already-${member.status}`, member: structuredClone(member) };
+    member.status = toStatus;
+    member.updatedAt = now();
+    return { ok: true, member: structuredClone(member) };
   }
 
   _claimProspectsDirect(limit = 1) {
@@ -589,6 +670,8 @@ export class JsonStore {
   async setSetting(key, value) { return this.transaction(tx => tx.setSetting(key, value)); }
   async log(type, detail = {}) { return this.add('auditLog', { id: crypto.randomUUID(), type, detail, createdAt: now() }); }
   async reserveDiscoveryCapacity(date, cap, requested, runId = '') { return this.transaction(tx => tx.reserveDiscoveryCapacity(date, cap, requested, runId)); }
+  async reserveCostBudget(ledgerDate, category, amountCents, budgetCents, cycleRunId = '') { return this.transaction(tx => tx.reserveCostBudget(ledgerDate, category, amountCents, budgetCents, cycleRunId)); }
+  async claimCohortMember(approvalId, organizationDomain, toStatus = 'reserved') { return this.transaction(tx => tx.claimCohortMember(approvalId, organizationDomain, toStatus)); }
   async claimProspects(limit = 1) { return this.transaction(tx => tx.claimProspects(limit)); }
   async claimProspect(id) { return this.transaction(tx => tx.claimProspect(id)); }
   async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000) { return this.transaction(tx => tx.claimJobs(workerId, limit, lockTimeoutMs)); }
@@ -789,6 +872,50 @@ export class PostgresStore {
         }
       }
       return allowed;
+    });
+  }
+
+  async reserveCostBudget(ledgerDate, category, amountCents, budgetCents, cycleRunId = '') {
+    return this.transaction(async tx => {
+      await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`cost-ledger:${ledgerDate}:${category}`]);
+      const amount = Math.max(0, Number(amountCents || 0));
+      const budget = Math.max(0, Number(budgetCents || 0));
+      const row = await tx.pool.query('SELECT data, reserved_cents FROM cost_ledger_entries WHERE ledger_date = $1::date AND category = $2 FOR UPDATE', [ledgerDate, category]);
+      const currentReserved = Number(row.rows[0]?.reserved_cents || 0);
+      if (currentReserved + amount > budget) {
+        return { ok: false, reason: 'budget-exceeded', reservedCents: currentReserved, budgetCents: budget };
+      }
+      const reservedCents = currentReserved + amount;
+      const record = {
+        id: row.rows[0]?.data?.id || crypto.randomUUID(), ledgerDate, category, reservedCents,
+        budgetCents: budget, cycleRunId: cycleRunId || row.rows[0]?.data?.cycleRunId || null,
+        createdAt: row.rows[0]?.data?.createdAt || now(), updatedAt: now()
+      };
+      await tx.upsert('costLedgerEntries', record);
+      return { ok: true, reservedCents, budgetCents: budget };
+    });
+  }
+
+  /** Single atomic conditional UPDATE -- the `WHERE status='pending'` clause plus Postgres's own
+   * row-level locking during the UPDATE is what makes this race-safe without any advisory lock:
+   * two concurrent claimers for the same (approvalId, organizationDomain) can never both see
+   * 'pending' and both succeed, because the second UPDATE simply matches zero rows once the first
+   * has committed its status change (or is holding the row lock mid-transaction). Zero rows
+   * affected is not an error, so a diagnostic follow-up SELECT is safe in the same transaction. */
+  async claimCohortMember(approvalId, organizationDomain, toStatus = 'reserved') {
+    return this.transaction(async tx => {
+      const domain = normalizeDomain(organizationDomain);
+      const result = await tx.pool.query(`
+        UPDATE campaign_cohort_members
+        SET status = $3::text, updated_at = now(),
+            data = data || jsonb_build_object('status', $3::text, 'updatedAt', now()::text)
+        WHERE approval_id = $1 AND organization_domain = $2 AND status = 'pending'
+        RETURNING data
+      `, [approvalId, domain, toStatus]);
+      if (result.rows[0]) return { ok: true, member: result.rows[0].data };
+      const existing = await tx.pool.query('SELECT data FROM campaign_cohort_members WHERE approval_id=$1 AND organization_domain=$2', [approvalId, domain]);
+      if (!existing.rows[0]) return { ok: false, reason: 'not-a-cohort-member' };
+      return { ok: false, reason: `cohort-member-already-${existing.rows[0].data.status}`, member: existing.rows[0].data };
     });
   }
 

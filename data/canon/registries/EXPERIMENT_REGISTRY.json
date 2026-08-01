@@ -1,0 +1,63 @@
+{
+  "version": "1.0",
+  "authority_date": "2026-08-01",
+  "global_rules": {
+    "research_records_send_eligible": false,
+    "minimum_unique_organizations": 100,
+    "followups_count_as_new_prospects": false,
+    "ordinary_reply_sweep_hours": 24,
+    "live_outbound_default": false,
+    "protected_path": "lite/",
+    "optimization_objective": "collected contribution margin per founder hour"
+  },
+  "experiments": [
+    {
+      "experiment_id": "EXP-001-APPOINTMENT-RECOVERY",
+      "lane_id": "LANE-001",
+      "sample": {
+        "unique_organizations": 100,
+        "first_touches": 100
+      },
+      "variants": [
+        "VAR-A-REVENUE-LEAKAGE",
+        "VAR-B-WHITE-LABEL-DELIVERY"
+      ],
+      "positive_reply_threshold": 5,
+      "paid_pilot_threshold": 1,
+      "hard_bounce_limit_pct": 3.0,
+      "complaint_pause_pct": 0.2,
+      "scale_condition": "Two paid pilots with measurable ROI and under 90 owner minutes each",
+      "kill_condition": "Zero qualified positive replies or zero paid pilots after the full declared sequence"
+    },
+    {
+      "experiment_id": "EXP-002-AGENCY-AI-BACKEND",
+      "lane_id": "LANE-002",
+      "sample": {
+        "unique_organizations": 100,
+        "first_touches": 100
+      },
+      "variants": [
+        "VAR-A-OVERFLOW-FULFILLMENT",
+        "VAR-B-RECURRING-QA"
+      ],
+      "paid_pilot_threshold": 1,
+      "scale_condition": "At least one accepted paid workflow and a credible recurring QA or monitoring expansion",
+      "kill_condition": "No paid pilot after 100 live-validated first touches"
+    },
+    {
+      "experiment_id": "EXP-003-WATCHTOWER",
+      "lane_id": "LANE-003",
+      "sample": {
+        "unique_organizations": 100,
+        "first_touches": 100
+      },
+      "variants": [
+        "VAR-A-CLIENT-RESCUE",
+        "VAR-B-WHITE-LABEL-MONITORING"
+      ],
+      "paid_pilot_threshold": 1,
+      "scale_condition": "Accepted delivery plus recurring monitoring or repeat agency order",
+      "kill_condition": "No paid pilot after 100 live-validated first touches"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "version": "1.0",
+  "required_chain": [
+    "source_identity",
+    "evidence_record",
+    "capability_signal",
+    "buyer_signal",
+    "opportunity",
+    "lane",
+    "experiment",
+    "prospect_company",
+    "contact_route",
+    "message_variant",
+    "sender_mailbox",
+    "send_reservation",
+    "delivery_event",
+    "reply_event",
+    "meeting",
+    "proposal",
+    "invoice",
+    "payment",
+    "delivery_acceptance",
+    "recurring_revenue"
+  ],
+  "required_identifiers": {
+    "source_identity": "stable source-family and official URL identity",
+    "evidence_record": "content hash plus captured_at",
+    "prospect_company": "normalized organization/domain identity",
+    "send_reservation": "idempotency key",
+    "commercial_event": "immutable event ID and occurred_at"
+  },
+  "optimization_metrics": [
+    "collected_cash_usd",
+    "contribution_margin_usd",
+    "paid_pilots",
+    "recurring_customers",
+    "delivery_acceptance",
+    "positive_replies",
+    "qualified_backlog",
+    "sender_health",
+    "owner_minutes",
+    "model_cost_usd",
+    "infrastructure_cost_usd"
+  ],
+  "never_optimize_alone": [
+    "sends",
+    "opens",
+    "theoretical_pipeline",
+    "raw opportunity count"
+  ]
+}

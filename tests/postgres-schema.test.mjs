@@ -5,7 +5,7 @@ import { PGlite } from '@electric-sql/pglite';
 
 export async function migratedDb() {
   const db = new PGlite();
-  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql', '005_revenue_os_control_plane.sql', '006_pr6_repair.sql', '007_pr6_repair_2.sql']) {
+  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql', '005_revenue_os_control_plane.sql', '006_pr6_repair.sql', '007_pr6_repair_2.sql', '008_canon_v3_integration.sql', '009_canon_cohort_repair.sql']) {
     await db.exec(await fs.readFile(new URL(`../migrations/${name}`, import.meta.url), 'utf8'));
   }
   return db;
@@ -19,6 +19,33 @@ test('PostgreSQL migration creates every required table and index foundation', a
     for (const name of ['prospects','campaigns','jobs','messages','replies','suppressions','social_tasks','accounts','audit_log','settings','leads','orders','subscriptions','monitoring_runs','notifications','revenue_events','discovery_runs','worker_heartbeats','artifacts','outbound_reservations','sender_health','outbound_events']) {
       assert(names.has(name), `missing table ${name}`);
     }
+  } finally { await db.close(); }
+});
+
+test('PR #7 repair: migrations 008/009 create the Canon cohort/ledger tables and source_evidence columns', async () => {
+  const db = await migratedDb();
+  try {
+    const tables = await db.query("SELECT table_name FROM information_schema.tables WHERE table_schema='public'");
+    const names = new Set(tables.rows.map(row => row.table_name));
+    for (const name of ['campaign_activation_approvals', 'cost_ledger_entries', 'campaign_cohort_members']) {
+      assert(names.has(name), `missing table ${name}`);
+    }
+    const columns = await db.query("SELECT column_name FROM information_schema.columns WHERE table_name='source_evidence'");
+    const columnNames = new Set(columns.rows.map(row => row.column_name));
+    for (const name of ['source_family', 'claim_origin', 'last_verified_at', 'pre_send_verified_at']) {
+      assert(columnNames.has(name), `missing source_evidence column ${name}`);
+    }
+  } finally { await db.close(); }
+});
+
+test('PR #7 repair: campaign_cohort_members rejects a duplicate organization or recipient within one approval', async () => {
+  const db = await migratedDb();
+  try {
+    await db.query("INSERT INTO experiments(id, status, hypothesis, lane, variant, success_metric, data) VALUES ('exp1','active','h','lane','a','replies','{}'::jsonb)");
+    await db.query("INSERT INTO campaign_activation_approvals(id, experiment_id, batch_hash, recipients_hash, sender_set, max_count, policy_version, approved_by, approved_at, expires_at, data) VALUES ('appr1','exp1','bh','rh','{sender-a}',1,'v1','owner',now(),now()+interval '1 day','{}'::jsonb)");
+    await db.query("INSERT INTO campaign_cohort_members(id, approval_id, organization_domain, recipient_email, data) VALUES ('m1','appr1','acme.com','buyer@acme.com','{}'::jsonb)");
+    await assert.rejects(db.query("INSERT INTO campaign_cohort_members(id, approval_id, organization_domain, recipient_email, data) VALUES ('m2','appr1','acme.com','buyer2@acme.com','{}'::jsonb)"));
+    await assert.rejects(db.query("INSERT INTO campaign_cohort_members(id, approval_id, organization_domain, recipient_email, data) VALUES ('m3','appr1','other.com','buyer@acme.com','{}'::jsonb)"));
   } finally { await db.close(); }
 });
 

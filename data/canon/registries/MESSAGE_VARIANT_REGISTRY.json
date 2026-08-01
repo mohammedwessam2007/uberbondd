@@ -1,0 +1,82 @@
+[
+  {
+    "variant_id": "VAR-A-REVENUE-LEAKAGE",
+    "lane_id": "LANE-001",
+    "source_status": "SOURCE_DERIVED",
+    "subject_template": "Recover missed demand across appointment clients",
+    "opening_rule": "Use one current, exact, source-linked fact about missed calls, no-shows, or delayed follow-up.",
+    "offer_rule": "One client, one workflow, one KPI, and the USD 3,500 paid pilot.",
+    "prohibited": [
+      "generic AI claims",
+      "fabricated personalization",
+      "unverified ROI",
+      "personal email inference"
+    ]
+  },
+  {
+    "variant_id": "VAR-B-WHITE-LABEL-DELIVERY",
+    "lane_id": "LANE-001",
+    "source_status": "SOURCE_DERIVED",
+    "subject_template": "A partner-ready recovery workflow, not another custom build",
+    "opening_rule": "Lead with partner economics, branded delivery, human escalation, and the repeatable rollout path.",
+    "offer_rule": "Fixed-scope paid pilot before implementation or recurring deployment.",
+    "prohibited": [
+      "claiming an integration exists",
+      "claiming medical compliance",
+      "claiming a completed client result"
+    ]
+  },
+  {
+    "variant_id": "VAR-A-OVERFLOW-FULFILLMENT",
+    "lane_id": "LANE-002",
+    "source_status": "CANONICAL_PROPOSED_VARIANT",
+    "subject_template": "A bounded white-label workflow for one client backlog",
+    "opening_rule": "Use a current public demand signal such as hiring, partner expansion, or an explicit implementation route.",
+    "offer_rule": "One bounded client workflow with white-label QA and exception handling.",
+    "prohibited": [
+      "open-ended staffing pitch",
+      "unsupported capacity claim",
+      "fake case study"
+    ]
+  },
+  {
+    "variant_id": "VAR-B-RECURRING-QA",
+    "lane_id": "LANE-002",
+    "source_status": "CANONICAL_PROPOSED_VARIANT",
+    "subject_template": "Add recurring QA without adding another operator",
+    "opening_rule": "Use evidence that the agency deploys AI or automation for clients.",
+    "offer_rule": "Pilot the evaluation and exception layer, then expand only after acceptance.",
+    "prohibited": [
+      "claiming autonomous perfection",
+      "claiming zero human review",
+      "unbounded SLA"
+    ]
+  },
+  {
+    "variant_id": "VAR-A-CLIENT-RESCUE",
+    "lane_id": "LANE-003",
+    "source_status": "SOURCE_DERIVED_FROM_AGENCY_CLIENT_RESCUE",
+    "subject_template": "One bounded client-site rescue pilot",
+    "opening_rule": "Use a current, reproducible issue on a public client site and a lawful agency-facing route.",
+    "offer_rule": "Three sites, source-linked evidence, bounded reversible repairs, seven business days.",
+    "prohibited": [
+      "security testing",
+      "real form submissions",
+      "outcome guarantee",
+      "stale screenshots"
+    ]
+  },
+  {
+    "variant_id": "VAR-B-WHITE-LABEL-MONITORING",
+    "lane_id": "LANE-003",
+    "source_status": "CANONICAL_PROPOSED_VARIANT",
+    "subject_template": "White-label revenue-path monitoring for agency clients",
+    "opening_rule": "Use current evidence that the agency manages multiple client sites.",
+    "offer_rule": "Start with a paid rescue pilot; discuss monitoring only after accepted delivery.",
+    "prohibited": [
+      "leading with a subscription before proof",
+      "fabricated monitored-site volume",
+      "guaranteed revenue"
+    ]
+  }
+]

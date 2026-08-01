@@ -50,6 +50,46 @@ class HookTests(unittest.TestCase):
             p = self.run_hook("pretool_guard.py", {"hook_event_name": "PreToolUse", "tool_name": "Bash", "tool_input": {"command": "git push origin main"}, "cwd": d}, d)
             self.assertEqual(p.returncode, 2)
 
+    def test_git_push_master_blocked(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = self.run_hook("pretool_guard.py", {"hook_event_name": "PreToolUse", "tool_name": "Bash", "tool_input": {"command": "git push origin master"}, "cwd": d}, d)
+            self.assertEqual(p.returncode, 2)
+
+    def test_git_push_force_blocked(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = self.run_hook("pretool_guard.py", {"hook_event_name": "PreToolUse", "tool_name": "Bash", "tool_input": {"command": "git push --force origin setup/fable-fraction-v4"}, "cwd": d}, d)
+            self.assertEqual(p.returncode, 2)
+
+    def test_git_push_delete_blocked(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = self.run_hook("pretool_guard.py", {"hook_event_name": "PreToolUse", "tool_name": "Bash", "tool_input": {"command": "git push origin --delete some-branch"}, "cwd": d}, d)
+            self.assertEqual(p.returncode, 2)
+
+    def test_git_push_tags_blocked(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = self.run_hook("pretool_guard.py", {"hook_event_name": "PreToolUse", "tool_name": "Bash", "tool_input": {"command": "git push --tags origin"}, "cwd": d}, d)
+            self.assertEqual(p.returncode, 2)
+
+    def test_git_push_feature_branch_allowed(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = self.run_hook("pretool_guard.py", {"hook_event_name": "PreToolUse", "tool_name": "Bash", "tool_input": {"command": "git push -u origin setup/fable-fraction-v4"}, "cwd": d}, d)
+            self.assertEqual(p.returncode, 0)
+
+    def test_git_push_prose_across_lines_not_blocked(self):
+        # A multi-line commit message that mentions "git push" and "main" in
+        # separate lines of prose must not be mistaken for a real dangerous
+        # git push invocation elsewhere in the same compound Bash command.
+        cmd = (
+            'git commit -m "$(cat <<\'EOF\'\n'
+            'chore: allow approved feature-branch pushes\n\n'
+            'Narrow the git-push deny rule: ordinary git push now requires ask\n'
+            'approval, while push to main/master, force pushes remain denied.\n'
+            'EOF\n)"'
+        )
+        with tempfile.TemporaryDirectory() as d:
+            p = self.run_hook("pretool_guard.py", {"hook_event_name": "PreToolUse", "tool_name": "Bash", "tool_input": {"command": cmd}, "cwd": d}, d)
+            self.assertEqual(p.returncode, 0, p.stderr)
+
     def test_safe_test_allowed(self):
         with tempfile.TemporaryDirectory() as d:
             p = self.run_hook("pretool_guard.py", {"hook_event_name": "PreToolUse", "tool_name": "Bash", "tool_input": {"command": "npm test"}, "cwd": d}, d)

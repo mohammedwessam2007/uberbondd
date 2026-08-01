@@ -7,10 +7,19 @@ inp=data.get("tool_input") or {}
 if tool!="Bash":
     raise SystemExit(0)
 cmd=str(inp.get("command",""))
-normalized=" ".join(cmd.lower().split())
+normalized="\n".join(" ".join(line.lower().split()) for line in cmd.split("\n"))
 danger=[
     r"(^|[;&|]\s*)rm\s+-rf\s+/(?:\s|$)",
-    r"\bgit\s+push\b",
+    r"\bgit\s+push\b[^;&|\n]*\b(origin\s+)?main\b",
+    r"\bgit\s+push\b[^;&|\n]*\b(origin\s+)?master\b",
+    r"\bgit\s+push\b[^;&|\n]*(--force\b|(?<![\w-])-f\b)",
+    r"\bgit\s+push\b[^;&|\n]*--force-with-lease\b",
+    r"\bgit\s+push\b[^;&|\n]*--mirror\b",
+    r"\bgit\s+push\b[^;&|\n]*--all\b",
+    r"\bgit\s+push\b[^;&|\n]*(--delete\b|(?<![\w-])-d\b)",
+    r"\bgit\s+push\b[^;&|\n]*\s:\S",
+    r"\bgit\s+push\b[^;&|\n]*--tags\b",
+    r"\bgit\s+push\b[^;&|\n]*refs/tags/",
     r"\bgh\s+pr\s+merge\b",
     r"\bnpm\s+publish\b",
     r"\bpnpm\s+publish\b",

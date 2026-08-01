@@ -1,3 +1,5 @@
+import { scheduleCanonCycle } from './autonomous-cycle.mjs';
+
 const MINUTE = 60000;
 const HOUR = 60 * MINUTE;
 
@@ -31,5 +33,17 @@ export function startScheduler(queue, cfg, log = console) {
       timers.push(timer);
     }
   }
+
+  // Canon/V3 acquisition cycle -- a SEPARATE, explicit default-false gate
+  // (ACQUISITION_WORKERS_ACTIVE) from cfg.autopilot above. Registration of the Canon job handlers
+  // (job-handlers.mjs) is unconditional, so a manual `queue.enqueue('canon.cycle.opportunity_hunt',
+  // ...)` always works regardless of this flag; only the automatic daily kickoff is gated here.
+  if (cfg.acquisition?.workersActive) {
+    safe('initial canon.cycle', () => scheduleCanonCycle(queue, { cfg }));
+    const timer = setInterval(() => safe('schedule canon.cycle', () => scheduleCanonCycle(queue, { cfg })), 24 * HOUR);
+    timer.unref?.();
+    timers.push(timer);
+  }
+
   return () => timers.forEach(clearInterval);
 }

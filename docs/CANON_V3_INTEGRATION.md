@@ -6,6 +6,13 @@ Base: PR #6 head `27cd700e7d27287382c9f5e1811ae704f4f1535e` (branch
 Full finding-by-finding disposition of the premerge audit (`UBERBOND_CLAUDE_PREMERGE_AUDIT_V1`):
 see `docs/PREMERGE_AUDIT_DISPOSITION.md`. Repo orientation for future sessions: `CLAUDE.md`.
 
+**This PR was subsequently repaired** in response to an independent review
+(`UBERBOND_CLAUDE_PR7_REPAIR_PACK_V1`) that found real defects in the durable stage ordering, the
+frozen-cohort/batch-approval model, and the pre-dispatch safety recheck. Every finding and its fix
+is documented in `docs/PR7_REPAIR_REPORT.md` — read that alongside this file for the current,
+correct state of the cycle/cohort/dispatch mechanisms (some of what follows below describes the
+pre-repair design; the repair report is authoritative wherever the two differ).
+
 ## What this delivers
 
 A durable, staged, resumable acquisition cycle (`src/autonomous-cycle.mjs`) built entirely on PR

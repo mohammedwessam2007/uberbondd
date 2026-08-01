@@ -48,11 +48,14 @@ This repo has three layers:
   `src/opportunity-hunter.mjs`, `src/prospect-supply.mjs`, `src/portfolio-allocator.mjs`,
   `src/send-eligibility.mjs`, `src/dispatch-adapter.mjs`, `src/campaign-activation.mjs`,
   `src/reply-classifier.mjs`, `src/reserved-domains.mjs`, `src/contact-routes.mjs`,
-  `src/evidence-independence.mjs`, `src/canon-registries.mjs`, `src/research-seed.mjs`, migration
-  `008`): a durable staged-job orchestration layer built entirely on top of Revenue OS's tables via
-  the existing `DurableQueue` — it adds zero new store/queue/audit *mechanisms*, only new job
-  types, collections, and pure decision functions. Full disposition of every premerge-audit finding:
-  `docs/PREMERGE_AUDIT_DISPOSITION.md`.
+  `src/evidence-independence.mjs`, `src/canon-registries.mjs`, `src/research-seed.mjs`,
+  `src/attribution-chain.mjs`, migrations `008`-`009`): a durable staged-job orchestration layer
+  built entirely on top of Revenue OS's tables via the existing `DurableQueue` — it adds zero new
+  store/queue/audit *mechanisms*, only new job types, collections, and pure decision functions.
+  Full disposition of every premerge-audit finding: `docs/PREMERGE_AUDIT_DISPOSITION.md`. This
+  integration was subsequently repaired against an independent review —
+  `docs/PR7_REPAIR_REPORT.md` is authoritative for the cycle/cohort/dispatch mechanisms described
+  below wherever it differs from the original disposition doc.
 
 ### Canon cycle stages (`src/autonomous-cycle.mjs`)
 
@@ -60,11 +63,28 @@ This repo has three layers:
 opportunity_hunt → prospect_discovery → send_planning → dispatch → reply_sweep → attribution → checkpoint
 ```
 
-Each is a `DurableQueue` job type (`CANON_JOB_TYPES`), scheduled once per day
-(`scheduleCanonCycle`) except `reply_sweep`, which self-gates to once per 24h via the
-`canonLastReplySweepAt` durable setting regardless of how often its job runs. Every stage is
-idempotent/resumable by construction — see `docs/PREMERGE_AUDIT_DISPOSITION.md`'s P0-001 entry for
-why that's true without any new leasing code.
+Each is a `DurableQueue` job type (`CANON_JOB_TYPES`). **Stages are chained, not scheduled in bulk**:
+`scheduleCanonCycle` enqueues only the first stage; every stage handler enqueues the next one
+itself (same `cycleRunId`, injected clock carried via `payload.now`) only after its own work
+completes successfully — so at any instant at most one Canon stage job for a given day exists at
+all, which is what actually guarantees downstream stages cannot run before their predecessor even
+at queue concurrency > 1 (see `docs/PR7_REPAIR_REPORT.md`'s C-P0-002 entry; the first version of
+this integration enqueued all seven jobs up front and did NOT have this guarantee). `reply_sweep`
+additionally self-gates to once per 24h via the `canonLastReplySweepAt` durable setting, but the
+chain still advances past it on a not-due day. Every stage is idempotent/resumable by construction
+— a crash mid-stage is resumed by `DurableQueue`'s existing lease/heartbeat/`recoverStaleJobs`
+machinery, and the stable next-stage `singletonKey` means resuming never double-advances the chain.
+
+Send planning claims a seat from a **frozen cohort** (`src/campaign-activation.mjs`,
+`campaignCohortMembers` — migration `009`) rather than matching a whole-batch content hash against
+a single recipient; `store.mjs#claimCohortMember` is the atomic pending→reserved primitive (both
+backends). Every reservation is patched with its full canonical message
+(`messageVariantId`/`contentHash`/`subject`/`body`) and attribution identity
+(`opportunityId`/`sourceEvidenceId`/`experimentId`/`lane`/`cohortApprovalId`/`prospectId`) before
+send-planning considers it done — `src/attribution-chain.mjs#reconstructAttributionChain` proves
+the full chain resolves. `autonomous-cycle.mjs#runDispatch` re-runs the full canonical eligibility
+check transactionally, immediately before any provider invocation, so a suppression/expiry/reply
+arriving after reservation but before dispatch still blocks it.
 
 ### Known limitations (disclosed, not hidden)
 
@@ -86,7 +106,7 @@ why that's true without any new leasing code.
 ## Protected paths
 
 - `lite/` — never modify. Verify with the git diff command in rule 2 above.
-- `migrations/*.sql` that are already applied (001-008 as of this branch) — never edit in place;
+- `migrations/*.sql` that are already applied (001-009 as of this branch) — never edit in place;
   add a new migration file instead.
 - `src/store.mjs`'s `COLLECTIONS`/`MAP`/`EMPTY` — extend by adding new entries, never remove or
   rename an existing collection or column mapping (breaks both backends' data in place).
@@ -116,7 +136,10 @@ npm run db:migrate      # apply pending migrations against DATABASE_URL
 
 - This integration branch is built from **PR #6 head `27cd700e7d27287382c9f5e1811ae704f4f1535e`**
   (`claude/uberbond-full-automation-841k2f`), base `main` at `ba2b100ac57b7cf0fd84532f6ea6770c6ebeed8a`.
-- Full finding-by-finding disposition: `docs/PREMERGE_AUDIT_DISPOSITION.md`.
+- Full finding-by-finding disposition: `docs/PREMERGE_AUDIT_DISPOSITION.md`. This branch was then
+  repaired against an independent review's findings: `docs/PR7_REPAIR_REPORT.md` (read this one
+  first for anything touching the cycle's stage ordering, the cohort/approval model, dispatch, or
+  attribution — it supersedes the corresponding parts of the disposition doc).
 - To continue this work: read the "Known limitations" section above first — every deferred item
   already has its fail-closed blocker identified, so closing one is additive (implement the real
   behavior, then remove the blocker's now-redundant restriction) rather than requiring new safety

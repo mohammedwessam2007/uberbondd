@@ -1,27 +1,26 @@
-// Canon/V3 integration -- premerge audit P0-001 (durability) and mission item 8 ("durable
-// autonomous cycle").
+// Canon/V3 integration -- premerge audit P0-001 (durability), repaired per PR #7 repair findings
+// C-P0-001 (real runtime wiring), C-P0-002 (durable stage ordering), C-P0-004 (pre-dispatch
+// recheck), C-P0-005 (canonical message persistence), C-P0-006 (attribution linkage).
 //
-// V3's runRevenueCycle held every stage's output (opportunities, prospectQueue, reservations,
-// events, replies, followups, costs) in one in-memory `state` object threaded by hand between
-// stages -- a crash, retry, second worker, or restart could duplicate work, lose state, or
-// disagree with PostgreSQL, because nothing about that state survived past the process holding it.
+// The first version of this module enqueued all seven stage jobs for a day up front, with only a
+// same-day dedupeKey each -- an independent review correctly found that with queue concurrency
+// greater than one, DurableQueue.runOnce can claim and execute several of those jobs in the same
+// tick, so nothing actually prevented `dispatch` from running before `send_planning` populated
+// anything, or `attribution` before `dispatch` produced events. This version enqueues only the
+// FIRST stage; every stage handler enqueues the NEXT stage itself, with the same cycleRunId,
+// only after its own work completes successfully. At any instant at most one Canon stage job for a
+// given day can exist in the queue at all -- downstream stages are not merely unlikely to run
+// early, they do not exist as jobs yet. A crash mid-stage is resumed by DurableQueue's existing
+// lease/heartbeat/recoverStaleJobs machinery (unchanged, see tests/autonomous-cycle.test.mjs's
+// worker-killed-mid-stage test) and, once the recovered job completes, the chain continues exactly
+// once (the next-stage enqueue call uses a stable singletonKey/dedupeKey, so even a duplicate
+// enqueue attempt after a partial crash just returns the one existing job).
 //
-// This module does not introduce a second orchestration mechanism: every stage below is a
-// DurableQueue job handler (src/queue.mjs, already battle-tested by tests/queue.test.mjs), enqueued
-// with a per-day singletonKey/dedupeKey via scheduleCanonCycle. The queue's existing lease +
-// heartbeat + recoverStaleJobs machinery is what makes a stage resumable: if a worker dies mid
-// stage, its job's heartbeat goes stale, recoverStaleJobs (already called on every claim) requeues
-// it, and any worker's next runOnce() picks it back up. That only works because every handler here
-// is itself safe to re-run to completion -- it reads/writes only durable store state and every
-// write path it uses (commercial-intelligence-import's idempotency keys, prospects' domain unique
-// constraint, cost-ledger reservations, outboundReservations' idempotency keys) is already
-// dedup-safe, so replaying a stage after a crash produces the same durable result, never a
-// duplicate.
-//
-// KNOWN LIMITATION (disclosed): `adapters.prospectDiscovery` and `adapters.replySweep` (like every
-// opportunity-hunter.mjs adapter) default to disabled in this sandbox -- there is no live
-// hiring-board/procurement/marketplace/Gmail credential wired in here. Each stage reports itself as
-// blocked-not-configured rather than fabricating signals, exactly like opportunity-hunter.mjs.
+// KNOWN LIMITATION (disclosed, not hidden): `adapters.prospectDiscovery` and `adapters.replySweep`
+// (like every opportunity-hunter.mjs adapter) default to disabled in this sandbox -- there is no
+// live hiring-board/procurement/marketplace/Gmail credential wired in here. Each stage reports
+// itself as blocked-not-configured rather than fabricating signals, exactly like
+// opportunity-hunter.mjs.
 import os from 'node:os';
 import { id, now } from './utils.mjs';
 import { ConflictError } from './store.mjs';
@@ -32,41 +31,47 @@ import { replenishProspectQueue } from './prospect-supply.mjs';
 import { resolveCanonSendCandidate } from './send-eligibility.mjs';
 import { dispatchReservation } from './dispatch-adapter.mjs';
 import { classifyCanonReply, applyReplyClassification } from './reply-classifier.mjs';
+import { claimCohortSeat, releaseCohortSeat, markCohortSeatTouched } from './campaign-activation.mjs';
 
 export const CANON_JOB_TYPES = Object.freeze({
-  OPPORTUNITY_HUNT: 'canon.opportunity_hunt',
-  PROSPECT_DISCOVERY: 'canon.prospect_discovery',
-  SEND_PLANNING: 'canon.send_planning',
-  DISPATCH: 'canon.dispatch',
-  REPLY_SWEEP: 'canon.reply_sweep',
-  ATTRIBUTION: 'canon.attribution',
-  CHECKPOINT: 'canon.checkpoint'
+  OPPORTUNITY_HUNT: 'canon.cycle.opportunity_hunt',
+  PROSPECT_DISCOVERY: 'canon.cycle.prospect_discovery',
+  SEND_PLANNING: 'canon.cycle.send_planning',
+  DISPATCH: 'canon.cycle.dispatch',
+  REPLY_SWEEP: 'canon.cycle.reply_sweep',
+  ATTRIBUTION: 'canon.cycle.attribution',
+  CHECKPOINT: 'canon.cycle.checkpoint'
 });
+
+// The durable stage order this integration guarantees. `nextStageOf` is the ONLY place that order
+// is encoded -- scheduleCanonCycle enqueues STAGE_ORDER[0]; every handler enqueues STAGE_ORDER[i+1].
+const STAGE_ORDER = Object.freeze([
+  CANON_JOB_TYPES.OPPORTUNITY_HUNT, CANON_JOB_TYPES.PROSPECT_DISCOVERY, CANON_JOB_TYPES.SEND_PLANNING,
+  CANON_JOB_TYPES.DISPATCH, CANON_JOB_TYPES.REPLY_SWEEP, CANON_JOB_TYPES.ATTRIBUTION, CANON_JOB_TYPES.CHECKPOINT
+]);
+function nextStageOf(type) {
+  const index = STAGE_ORDER.indexOf(type);
+  return index >= 0 && index < STAGE_ORDER.length - 1 ? STAGE_ORDER[index + 1] : null;
+}
 
 const CANON_RESERVATION_KINDS = Object.freeze(['canon-initial', 'canon-followup']);
 
 function dayKey(at) { return (at instanceof Date ? at : new Date(at)).toISOString().slice(0, 10); }
 
-/** Enqueues one durable job per stage per calendar day, via the existing DurableQueue. The
- * singletonKey/dedupeKey pair means calling this twice for the same day (e.g. a second worker, or
- * a retry after a crash before the jobs were even claimed) enqueues nothing new -- queue.mjs#enqueue
- * already returns the existing job on a dedupeKey conflict. */
+/** Enqueues ONLY the first stage of a new cycle run -- see the module doc comment for why the
+ * other six are deliberately not enqueued here. `cycleRunId` is carried through every stage's
+ * payload so a full cycle's jobs/audit entries can be correlated even though they exist as
+ * separate durable jobs, not one in-memory run object. */
 export async function scheduleCanonCycle(queue, { now: at = new Date() } = {}) {
   const day = dayKey(at);
-  const stageKey = stage => `canon:${stage}:${day}`;
-  const stages = [
-    CANON_JOB_TYPES.OPPORTUNITY_HUNT, CANON_JOB_TYPES.PROSPECT_DISCOVERY, CANON_JOB_TYPES.SEND_PLANNING,
-    CANON_JOB_TYPES.DISPATCH, CANON_JOB_TYPES.REPLY_SWEEP, CANON_JOB_TYPES.ATTRIBUTION, CANON_JOB_TYPES.CHECKPOINT
-  ];
-  const jobs = [];
-  for (const type of stages) {
-    jobs.push(await queue.enqueue(type, {}, { singletonKey: stageKey(type), dedupeKey: stageKey(type) }));
-  }
-  return jobs;
+  const cycleRunId = id('cycle');
+  const firstStage = STAGE_ORDER[0];
+  const payload = { cycleRunId, day, now: (at instanceof Date ? at : new Date(at)).toISOString() };
+  const key = `canon:cycle:${day}:${firstStage}`;
+  return queue.enqueue(firstStage, payload, { singletonKey: key, dedupeKey: key });
 }
 
-async function runOpportunityHunt(store, cfg, adapters, now = new Date()) {
-  const at = now instanceof Date ? now : new Date(now);
+async function runOpportunityHunt(store, cfg, adapters, at) {
   const { signals, blocked } = await huntOpportunitySignals({ adapters: adapters.opportunity || {}, now: at });
   const records = [];
   const invalid = [];
@@ -83,8 +88,7 @@ async function runOpportunityHunt(store, cfg, adapters, now = new Date()) {
   return summary;
 }
 
-async function runProspectDiscovery(store, cfg, adapters, now = new Date()) {
-  const at = now instanceof Date ? now : new Date(now);
+async function runProspectDiscovery(store, cfg, adapters, at) {
   const fn = adapters.prospectDiscovery;
   let candidates = [];
   if (typeof fn === 'function') {
@@ -102,14 +106,16 @@ async function runProspectDiscovery(store, cfg, adapters, now = new Date()) {
   return summary;
 }
 
-/** Every ready_for_message opportunity with a validated message variant and active experiment is
- * (re-)evaluated fresh through send-eligibility.mjs -- never a cached/prior verdict -- and, only if
- * eligible AND within the durable cost ledger's remaining budget, reserved via the existing atomic
- * store.reserveOutboundSend (P0-004: never a process-local guard). idempotencyKey is derived
- * deterministically from the opportunity id, so re-running this stage after a crash is a no-op for
- * every opportunity already reserved. */
-async function runSendPlanning(store, cfg, now = new Date()) {
-  const at = now instanceof Date ? now : new Date(now);
+/**
+ * Every ready_for_message opportunity with an approved message variant and active experiment is
+ * (re-)evaluated fresh through send-eligibility.mjs -- never a cached/prior verdict. PR #7 repair:
+ * eligibility is now checked against a cohort SEAT (campaign-activation.mjs's frozen-membership
+ * model), which is atomically claimed (never re-derived from a full-batch hash comparison that
+ * could never match a single recipient -- C-P0-003), and every reservation is durably patched with
+ * its full canonical message identity and attribution linkage (C-P0-005, C-P0-006) before this
+ * stage considers the candidate done.
+ */
+async function runSendPlanning(store, cfg, at) {
   const opportunities = await listQueueableOpportunities(store);
   const results = [];
   const senderSet = Array.isArray(cfg.acquisition?.senderSet) ? cfg.acquisition.senderSet : [];
@@ -120,6 +126,7 @@ async function runSendPlanning(store, cfg, now = new Date()) {
 
     const sourceEvidence = opportunity.sourceEvidenceId ? await store.get('sourceEvidence', opportunity.sourceEvidenceId) : null;
     if (!sourceEvidence?.contactEmail) { results.push({ opportunityId: opportunity.id, status: 'skipped', reason: 'no-contact-email' }); continue; }
+    const organizationDomain = sourceEvidence.organizationDomain;
 
     const variants = await store.list('messageVariants', { filters: { opportunityId: opportunity.id } });
     const messageVariant = variants.find(variant => variant.status === 'approved');
@@ -128,29 +135,56 @@ async function runSendPlanning(store, cfg, now = new Date()) {
     const experiment = messageVariant.experimentId ? await store.get('experiments', messageVariant.experimentId) : null;
     if (!experiment) { results.push({ opportunityId: opportunity.id, status: 'skipped', reason: 'no-experiment' }); continue; }
 
-    // A policy 'pass' decision (required by evaluateCanonSendEligibility below) already proved
-    // sourceEvidence.contactEmail was an officially-published, domain-matched email at import time
-    // (commercial-intelligence-import.mjs's computeScoreAndPolicy runs contactEligibility with
-    // exactly this shape) -- reconstructing that same shape here does not re-trust a boolean, it
-    // reflects a fact send-eligibility.mjs re-verifies via the stored policyDecision itself.
+    // A policy 'pass' decision (required below) already proved sourceEvidence.contactEmail was an
+    // officially-published, domain-matched email at import time (see commercial-intelligence-import.mjs's
+    // computeScoreAndPolicy) -- reconstructing that same shape here reflects a fact send-eligibility.mjs
+    // re-verifies via the stored policyDecision itself, not a re-trusted boolean.
     const contactRoute = { type: 'email', email: sourceEvidence.contactEmail, publishedOfficially: true };
-    const recipientEmails = [sourceEvidence.contactEmail];
 
     const evalResult = await resolveCanonSendCandidate(store, {
       opportunityId: opportunity.id, messageVariantId: messageVariant.id, experimentId: experiment.id,
-      contactRoute, prospect: {}, senderInbox: senderSet[0], recipientEmails, senderSet,
-      policyVersion: REVENUE_OS_POLICY_VERSION, cfg, at, simulation: cfg.acquisition?.simulation === true
+      contactRoute, prospect: {}, senderInbox: senderSet[0], organizationDomain, senderSet,
+      policyVersion: REVENUE_OS_POLICY_VERSION, cfg, at, simulation: cfg.acquisition?.simulation === true,
+      expectedMemberStatus: 'pending'
     });
     if (!evalResult.ok) { results.push({ opportunityId: opportunity.id, status: 'ineligible', reasons: evalResult.reasons }); continue; }
 
+    const claim = await claimCohortSeat(store, {
+      cfg, experimentId: experiment.id, organizationDomain, recipientEmail: sourceEvidence.contactEmail,
+      senderSet, policyVersion: REVENUE_OS_POLICY_VERSION, at
+    });
+    if (!claim.ok) { results.push({ opportunityId: opportunity.id, status: 'cohort-seat-unavailable', reason: claim.reason }); continue; }
+
     const budget = await store.reserveCostBudget(dayKey(at), 'infra', 1, cfg.acquisition?.dailyInfraCostCeilingCents || 0);
-    if (!budget.ok) { results.push({ opportunityId: opportunity.id, status: 'budget-blocked', reason: budget.reason }); continue; }
+    if (!budget.ok) {
+      await releaseCohortSeat(store, claim.approval.id, organizationDomain);
+      results.push({ opportunityId: opportunity.id, status: 'budget-blocked', reason: budget.reason });
+      continue;
+    }
 
     const reservation = await store.reserveOutboundSend({
       idempotencyKey, inbox: senderSet[0] || 'canon', recipientEmail: sourceEvidence.contactEmail, kind: 'canon-initial',
       dailyCap: cfg.acquisition?.targetDailySends || 0, hourlyCap: cfg.acquisition?.targetDailySends || 0, minGapSeconds: 0, now: at
     });
-    results.push({ opportunityId: opportunity.id, status: reservation.ok ? 'reserved' : 'reservation-failed', reason: reservation.reason });
+    if (!reservation.ok) {
+      await releaseCohortSeat(store, claim.approval.id, organizationDomain);
+      results.push({ opportunityId: opportunity.id, status: 'reservation-failed', reason: reservation.reason });
+      continue;
+    }
+
+    // C-P0-005: persist the canonical message identity/content and C-P0-006: the full attribution
+    // chain on the reservation itself -- provider.send() (dispatch-adapter.mjs) receives this same
+    // record, so it gets the exact approved payload, never a bare email reservation.
+    await store.patch('outboundReservations', reservation.reservation.id, {
+      messageVariantId: messageVariant.id, contentHash: messageVariant.bodyHash,
+      subject: messageVariant.subject, body: messageVariant.body,
+      opportunityId: opportunity.id, sourceEvidenceId: sourceEvidence.id, experimentId: experiment.id,
+      lane: messageVariant.lane, organizationDomain, cohortApprovalId: claim.approval.id,
+      policyVersion: REVENUE_OS_POLICY_VERSION, prospectId: opportunity.prospectId || null
+    });
+    await markCohortSeatTouched(store, claim.approval.id, organizationDomain, reservation.reservation.id);
+
+    results.push({ opportunityId: opportunity.id, status: 'reserved', reservationId: reservation.reservation.id });
   }
 
   const summary = { evaluated: opportunities.length, results };
@@ -158,30 +192,63 @@ async function runSendPlanning(store, cfg, now = new Date()) {
   return summary;
 }
 
-async function runDispatch(store, cfg, provider) {
+/**
+ * C-P0-004: immediately before invoking a live/simulated provider, every reservation is
+ * transactionally re-evaluated through the SAME canonical eligibility function send-planning used
+ * -- suppression, terminal replies, approval/cohort expiry, sender health, and evidence freshness
+ * are all re-checked fresh (never the verdict computed when the reservation was created). A
+ * global outbound pause is checked explicitly too. Any now-ineligible reservation is cancelled;
+ * `dispatchReservation` (and therefore any live/simulated provider) is never called for it.
+ */
+async function runDispatch(store, cfg, provider, at) {
   const reservations = (await store.list('outboundReservations', { filters: { status: 'reserved' } }))
     .filter(reservation => CANON_RESERVATION_KINDS.includes(reservation.kind));
+  const senderSet = Array.isArray(cfg.acquisition?.senderSet) ? cfg.acquisition.senderSet : [];
   const results = [];
+
   for (const reservation of reservations) {
+    const settings = await store.getSettings();
+    if (settings.outboundPaused === true) {
+      await store.markOutboundReservation(reservation.id, 'cancelled', { cancelReason: 'global-outbound-paused' });
+      await store.log('canon_dispatch_cancelled_pre_send_recheck', { reservationId: reservation.id, reasons: ['global-outbound-paused'] });
+      results.push({ reservationId: reservation.id, status: 'cancelled', reasons: ['global-outbound-paused'] });
+      continue;
+    }
+
+    const prospect = reservation.prospectId ? (await store.get('prospects', reservation.prospectId)) || {} : {};
+    const recheck = await resolveCanonSendCandidate(store, {
+      opportunityId: reservation.opportunityId, messageVariantId: reservation.messageVariantId, experimentId: reservation.experimentId,
+      contactRoute: { type: 'email', email: reservation.recipientEmail, publishedOfficially: true }, prospect,
+      senderInbox: reservation.inbox, organizationDomain: reservation.organizationDomain, senderSet,
+      policyVersion: reservation.policyVersion, cfg, at, simulation: cfg.acquisition?.simulation === true,
+      expectedMemberStatus: 'touched'
+    });
+    if (!recheck.ok) {
+      await store.markOutboundReservation(reservation.id, 'cancelled', { cancelReason: recheck.reasons.join(',') });
+      await store.log('canon_dispatch_cancelled_pre_send_recheck', { reservationId: reservation.id, reasons: recheck.reasons });
+      results.push({ reservationId: reservation.id, status: 'cancelled', reasons: recheck.reasons });
+      continue;
+    }
+
     const outcome = await dispatchReservation(store, reservation, { provider, simulation: cfg.acquisition?.simulation === true });
     results.push({ reservationId: reservation.id, status: outcome.status });
   }
+
   const summary = { count: reservations.length, results };
   await store.log('canon_dispatch_completed', summary);
   return summary;
 }
 
 /** Gated to once per 24h via a durable setting (store.getSettings()/setSetting -- the same
- * general-purpose durable key-value the rest of the repo already uses, not a new table), matching
- * mission item 8/10 ("ordinary reply ingestion runs once per 24 hours"). Reuses the SAME
- * `prospects`/`replies` collections the pre-Canon pipeline.mjs#pollReplies writes to -- there is no
- * separate Canon reply truth. */
-async function runReplySweep(store, cfg, adapters, now = new Date()) {
-  const at = now instanceof Date ? now : new Date(now);
+ * general-purpose durable key-value the rest of the repo already uses, not a new table). Reuses
+ * the SAME `prospects`/`replies` collections the pre-Canon pipeline.mjs#pollReplies writes to --
+ * there is no separate Canon reply truth. The chain still advances to attribution/checkpoint on a
+ * not-due day; only the sweep's own business logic is skipped. */
+async function runReplySweep(store, cfg, adapters, at) {
   const settings = await store.getSettings();
   const lastSweepAt = settings.canonLastReplySweepAt;
   const due = !lastSweepAt || (at.getTime() - new Date(lastSweepAt).getTime()) >= 24 * 3600000;
-  if (!due) return { swept: false, reason: 'not-due', lastSweepAt };
+  if (!due) { await store.log('canon_reply_sweep_completed', { swept: false, reason: 'not-due', lastSweepAt }); return { swept: false, reason: 'not-due', lastSweepAt }; }
 
   const fn = adapters.replySweep;
   let inbound = [];
@@ -221,14 +288,19 @@ async function runReplySweep(store, cfg, adapters, now = new Date()) {
   return summary;
 }
 
-/** Read-only attribution rollup (source -> opportunity -> lane -> prospect -> offer -> variant ->
- * sender -> reply -> proposal -> payment -> recurring revenue), written as one auditLog snapshot --
- * not a new store, per the merge directives' prohibition on a second audit system. */
+/** Read-only attribution rollup. C-P0-006 repair: in addition to the aggregate snapshot (kept for
+ * a cheap dashboard-style count), every reservation created this run is proven individually
+ * reconstructable via attribution-chain.mjs -- not just counted. */
 async function runAttribution(store) {
-  const [opportunities, prospects, offers, messageVariants, replies, outboundEvents, orders, subscriptions] = await Promise.all([
+  const [opportunities, prospects, offers, messageVariants, replies, outboundEvents, orders, subscriptions, reservations] = await Promise.all([
     store.list('opportunities'), store.list('prospects'), store.list('offers'), store.list('messageVariants'),
-    store.list('replies'), store.list('outboundEvents'), store.list('orders'), store.list('subscriptions')
+    store.list('replies'), store.list('outboundEvents'), store.list('orders'), store.list('subscriptions'),
+    store.list('outboundReservations', { filters: { kind: 'canon-initial' } })
   ]);
+  const attributionComplete = reservations.every(reservation =>
+    reservation.opportunityId && reservation.sourceEvidenceId && reservation.experimentId &&
+    reservation.messageVariantId && reservation.cohortApprovalId
+  );
   const snapshot = {
     opportunities: opportunities.length,
     readyForMessage: opportunities.filter(o => o.stage === 'ready_for_message').length,
@@ -238,6 +310,7 @@ async function runAttribution(store) {
     sentEvents: outboundEvents.filter(e => e.eventType === 'sent').length,
     simulatedSentEvents: outboundEvents.filter(e => e.eventType === 'simulated_sent').length,
     orders: orders.length, subscriptions: subscriptions.length,
+    canonReservations: reservations.length, attributionComplete,
     generatedAt: now()
   };
   await store.log('canon_attribution_snapshot', snapshot);
@@ -246,37 +319,56 @@ async function runAttribution(store) {
 
 /** Records a heartbeat (existing workerHeartbeats collection -- role: 'canon-cycle') so a stalled
  * cycle is externally observable the same way ordinary DurableQueue workers already are
- * (queue.mjs#liveWorkers), and writes one canonical checkpoint audit event. */
-async function runCheckpoint(store, cfg) {
-  const at = new Date();
+ * (queue.mjs#liveWorkers), and writes one canonical checkpoint audit event carrying the day this
+ * cycle simulated/ran for. */
+async function runCheckpoint(store, cfg, at, day) {
   await store.upsert('workerHeartbeats', {
     id: 'canon-cycle', role: 'canon-cycle', hostname: os.hostname(), pid: process.pid,
     version: cfg.version || '', startedAt: at.toISOString(), heartbeatAt: at.toISOString(),
     createdAt: at.toISOString(), updatedAt: at.toISOString()
   });
-  const summary = { checkpointAt: at.toISOString() };
+  const summary = { checkpointAt: at.toISOString(), day };
   await store.log('canon_cycle_checkpoint', summary);
   return summary;
 }
 
+const STAGE_RUNNERS = Object.freeze({
+  [CANON_JOB_TYPES.OPPORTUNITY_HUNT]: (store, cfg, adapters, at) => runOpportunityHunt(store, cfg, adapters, at),
+  [CANON_JOB_TYPES.PROSPECT_DISCOVERY]: (store, cfg, adapters, at) => runProspectDiscovery(store, cfg, adapters, at),
+  [CANON_JOB_TYPES.SEND_PLANNING]: (store, cfg, adapters, at) => runSendPlanning(store, cfg, at),
+  [CANON_JOB_TYPES.DISPATCH]: (store, cfg, adapters, at, provider) => runDispatch(store, cfg, provider, at),
+  [CANON_JOB_TYPES.REPLY_SWEEP]: (store, cfg, adapters, at) => runReplySweep(store, cfg, adapters, at),
+  [CANON_JOB_TYPES.ATTRIBUTION]: (store, cfg) => runAttribution(store),
+  [CANON_JOB_TYPES.CHECKPOINT]: (store, cfg, adapters, at, provider, day) => runCheckpoint(store, cfg, at, day)
+});
+
 /**
  * Returns the job-handlers map for the Canon cycle, mergeable into job-handlers.mjs's existing
- * handler dictionary (worker.mjs already spreads that map into DurableQueue#startWorker). `adapters`
- * is `{ opportunity: createOpportunityAdapters({...}), prospectDiscovery: fn, replySweep: fn }`;
+ * handler dictionary (worker.mjs spreads that map into DurableQueue#startWorker). `adapters` is
+ * `{ opportunity: createOpportunityAdapters({...}), prospectDiscovery: fn, replySweep: fn }`;
  * `provider` is dispatch-adapter.mjs's live-send provider (`null` outside a real deployment).
+ * `queue` is required -- each handler enqueues the next stage itself (see module doc comment).
  */
-export function createCanonCycleHandlers({ store, cfg, adapters = {}, provider = null, nowFn = () => new Date() }) {
-  return {
-    [CANON_JOB_TYPES.OPPORTUNITY_HUNT]: () => runOpportunityHunt(store, cfg, adapters, nowFn()),
-    [CANON_JOB_TYPES.PROSPECT_DISCOVERY]: () => runProspectDiscovery(store, cfg, adapters, nowFn()),
-    [CANON_JOB_TYPES.SEND_PLANNING]: () => runSendPlanning(store, cfg, nowFn()),
-    [CANON_JOB_TYPES.DISPATCH]: () => runDispatch(store, cfg, provider),
-    [CANON_JOB_TYPES.REPLY_SWEEP]: () => runReplySweep(store, cfg, adapters, nowFn()),
-    [CANON_JOB_TYPES.ATTRIBUTION]: () => runAttribution(store),
-    [CANON_JOB_TYPES.CHECKPOINT]: () => runCheckpoint(store, cfg)
-  };
+export function createCanonCycleHandlers({ store, cfg, queue, adapters = {}, provider = null }) {
+  if (!queue) throw new Error('createCanonCycleHandlers requires a queue (DurableQueue) so each stage can enqueue the next one');
+  const handlers = {};
+  for (const type of STAGE_ORDER) {
+    handlers[type] = async payload => {
+      const at = new Date(payload?.now || Date.now());
+      const day = payload?.day || dayKey(at);
+      const result = await STAGE_RUNNERS[type](store, cfg, adapters, at, provider, day);
+      const next = nextStageOf(type);
+      if (next) {
+        const key = `canon:cycle:${day}:${next}`;
+        await queue.enqueue(next, { cycleRunId: payload?.cycleRunId, day, now: payload?.now }, { singletonKey: key, dedupeKey: key });
+      }
+      return result;
+    };
+  }
+  return handlers;
 }
 
 export {
+  STAGE_ORDER, nextStageOf,
   runOpportunityHunt, runProspectDiscovery, runSendPlanning, runDispatch, runReplySweep, runAttribution, runCheckpoint
 };

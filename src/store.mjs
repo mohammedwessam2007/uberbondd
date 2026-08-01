@@ -11,11 +11,11 @@ export const COLLECTIONS = [
   'outboundReservations', 'senderHealth', 'outboundEvents', 'sourceEvidence',
   'opportunities', 'policyDecisions', 'experiments', 'messageVariants', 'ownerGates',
   'partnerRoutes', 'offers', 'rejections',
-  'campaignActivationApprovals', 'costLedgerEntries'
+  'campaignActivationApprovals', 'costLedgerEntries', 'campaignCohortMembers'
 ];
 
 const EMPTY = {
-  version: 8,
+  version: 9,
   prospects: [], campaigns: [], jobs: [], messages: [], replies: [],
   suppressions: [], socialTasks: [], accounts: [], auditLog: [], settings: {},
   leads: [], orders: [], subscriptions: [], monitoringRuns: [], notifications: [],
@@ -23,7 +23,7 @@ const EMPTY = {
   outboundReservations: [], senderHealth: [], outboundEvents: [], sourceEvidence: [],
   opportunities: [], policyDecisions: [], experiments: [], messageVariants: [], ownerGates: [],
   partnerRoutes: [], offers: [], rejections: [],
-  campaignActivationApprovals: [], costLedgerEntries: []
+  campaignActivationApprovals: [], costLedgerEntries: [], campaignCohortMembers: []
 };
 
 const MAP = {
@@ -191,6 +191,14 @@ const MAP = {
       createdAt: 'created_at', updatedAt: 'updated_at'
     }
   },
+  campaignCohortMembers: {
+    table: 'campaign_cohort_members',
+    columns: {
+      approvalId: 'approval_id', organizationDomain: 'organization_domain', recipientEmail: 'recipient_email',
+      status: 'status', firstTouchReservationId: 'first_touch_reservation_id',
+      createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
 };
 
 export class StoreError extends Error {
@@ -235,6 +243,10 @@ function normalizeRecord(key, item) {
     copy.organizationDomain = normalizeDomain(copy.organizationDomain || '');
   }
   if (key === 'costLedgerEntries') copy.ledgerDate = copy.ledgerDate || dateOnly(copy.createdAt);
+  if (key === 'campaignCohortMembers') {
+    copy.organizationDomain = normalizeDomain(copy.organizationDomain || '');
+    copy.recipientEmail = String(copy.recipientEmail || '').trim().toLowerCase();
+  }
   return copy;
 }
 
@@ -283,6 +295,7 @@ class JsonTransactionStore {
   async log(type, detail = {}) { return this.add('auditLog', { id: crypto.randomUUID(), type, detail, createdAt: now() }); }
   async reserveDiscoveryCapacity(date, cap, requested, runId = '') { return this.parent._reserveDiscoveryCapacityDirect(date, cap, requested, runId); }
   async reserveCostBudget(ledgerDate, category, amountCents, budgetCents, cycleRunId = '') { return this.parent._reserveCostBudgetDirect(ledgerDate, category, amountCents, budgetCents, cycleRunId); }
+  async claimCohortMember(approvalId, organizationDomain, toStatus = 'reserved') { return this.parent._claimCohortMemberDirect(approvalId, organizationDomain, toStatus); }
   async claimProspects(limit = 1) { return this.parent._claimProspectsDirect(limit); }
   async claimProspect(id) { return this.parent._claimProspectDirect(id); }
   async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000) { return this.parent._claimJobsDirect(workerId, limit, lockTimeoutMs); }
@@ -310,7 +323,7 @@ export class JsonStore {
     await fs.mkdir(this.dir, { recursive: true });
     try {
       const loaded = JSON.parse(await fs.readFile(this.file, 'utf8'));
-      this.data = { ...structuredClone(EMPTY), ...loaded, version: 8 };
+      this.data = { ...structuredClone(EMPTY), ...loaded, version: 9 };
       for (const key of Object.keys(EMPTY)) {
         if (!(key in this.data)) this.data[key] = structuredClone(EMPTY[key]);
       }
@@ -387,6 +400,8 @@ export class JsonStore {
     if ((key === 'partnerRoutes' || key === 'offers' || key === 'rejections') && record.idempotencyKey && other(item => item.idempotencyKey === record.idempotencyKey)) throw new ConflictError(`Duplicate ${key} idempotency key: ${record.idempotencyKey}`);
     if (key === 'campaignActivationApprovals' && other(item => item.experimentId === record.experimentId && item.batchHash === record.batchHash)) throw new ConflictError(`Duplicate campaign activation approval: ${record.experimentId}/${record.batchHash}`);
     if (key === 'costLedgerEntries' && other(item => item.ledgerDate === record.ledgerDate && item.category === record.category)) throw new ConflictError(`Duplicate cost ledger entry: ${record.ledgerDate}/${record.category}`);
+    if (key === 'campaignCohortMembers' && other(item => item.approvalId === record.approvalId && item.organizationDomain === record.organizationDomain)) throw new ConflictError(`Duplicate cohort member organization: ${record.approvalId}/${record.organizationDomain}`);
+    if (key === 'campaignCohortMembers' && other(item => item.approvalId === record.approvalId && item.recipientEmail === record.recipientEmail)) throw new ConflictError(`Duplicate cohort member recipient: ${record.approvalId}/${record.recipientEmail}`);
   }
 
   _addDirect(key, item) {
@@ -451,6 +466,22 @@ export class JsonStore {
       });
     }
     return { ok: true, reservedCents, budgetCents: budget };
+  }
+
+  /** PR #7 repair, C-P0-003: atomically claims exactly one frozen-cohort member row
+   * (status 'pending' -> `toStatus`, default 'reserved') for `(approvalId, organizationDomain)`.
+   * This is the ONE place a cohort seat is consumed -- since exactly N member rows exist per
+   * approval (created once, at approval time), "at most N first touches" is a structural fact,
+   * not a runtime count a race could exceed. Distinguishes "not a member of this cohort" from
+   * "already claimed" for a useful reason code; both fail the same way (ok:false). */
+  _claimCohortMemberDirect(approvalId, organizationDomain, toStatus = 'reserved') {
+    const domain = normalizeDomain(organizationDomain);
+    const member = (this.data.campaignCohortMembers || []).find(row => row.approvalId === approvalId && row.organizationDomain === domain);
+    if (!member) return { ok: false, reason: 'not-a-cohort-member' };
+    if (member.status !== 'pending') return { ok: false, reason: `cohort-member-already-${member.status}`, member: structuredClone(member) };
+    member.status = toStatus;
+    member.updatedAt = now();
+    return { ok: true, member: structuredClone(member) };
   }
 
   _claimProspectsDirect(limit = 1) {
@@ -640,6 +671,7 @@ export class JsonStore {
   async log(type, detail = {}) { return this.add('auditLog', { id: crypto.randomUUID(), type, detail, createdAt: now() }); }
   async reserveDiscoveryCapacity(date, cap, requested, runId = '') { return this.transaction(tx => tx.reserveDiscoveryCapacity(date, cap, requested, runId)); }
   async reserveCostBudget(ledgerDate, category, amountCents, budgetCents, cycleRunId = '') { return this.transaction(tx => tx.reserveCostBudget(ledgerDate, category, amountCents, budgetCents, cycleRunId)); }
+  async claimCohortMember(approvalId, organizationDomain, toStatus = 'reserved') { return this.transaction(tx => tx.claimCohortMember(approvalId, organizationDomain, toStatus)); }
   async claimProspects(limit = 1) { return this.transaction(tx => tx.claimProspects(limit)); }
   async claimProspect(id) { return this.transaction(tx => tx.claimProspect(id)); }
   async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000) { return this.transaction(tx => tx.claimJobs(workerId, limit, lockTimeoutMs)); }
@@ -861,6 +893,29 @@ export class PostgresStore {
       };
       await tx.upsert('costLedgerEntries', record);
       return { ok: true, reservedCents, budgetCents: budget };
+    });
+  }
+
+  /** Single atomic conditional UPDATE -- the `WHERE status='pending'` clause plus Postgres's own
+   * row-level locking during the UPDATE is what makes this race-safe without any advisory lock:
+   * two concurrent claimers for the same (approvalId, organizationDomain) can never both see
+   * 'pending' and both succeed, because the second UPDATE simply matches zero rows once the first
+   * has committed its status change (or is holding the row lock mid-transaction). Zero rows
+   * affected is not an error, so a diagnostic follow-up SELECT is safe in the same transaction. */
+  async claimCohortMember(approvalId, organizationDomain, toStatus = 'reserved') {
+    return this.transaction(async tx => {
+      const domain = normalizeDomain(organizationDomain);
+      const result = await tx.pool.query(`
+        UPDATE campaign_cohort_members
+        SET status = $3::text, updated_at = now(),
+            data = data || jsonb_build_object('status', $3::text, 'updatedAt', now()::text)
+        WHERE approval_id = $1 AND organization_domain = $2 AND status = 'pending'
+        RETURNING data
+      `, [approvalId, domain, toStatus]);
+      if (result.rows[0]) return { ok: true, member: result.rows[0].data };
+      const existing = await tx.pool.query('SELECT data FROM campaign_cohort_members WHERE approval_id=$1 AND organization_domain=$2', [approvalId, domain]);
+      if (!existing.rows[0]) return { ok: false, reason: 'not-a-cohort-member' };
+      return { ok: false, reason: `cohort-member-already-${existing.rows[0].data.status}`, member: existing.rows[0].data };
     });
   }
 

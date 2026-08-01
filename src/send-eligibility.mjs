@@ -90,7 +90,8 @@ export function evaluateCanonSendEligibility({
  */
 export async function resolveCanonSendCandidate(store, {
   opportunityId, messageVariantId, experimentId, contactRoute, prospect = {}, senderInbox,
-  recipientEmails = [], senderSet = [], policyVersion, cfg = {}, at = new Date(), simulation = false
+  organizationDomain, senderSet = [], policyVersion, cfg = {}, at = new Date(), simulation = false,
+  expectedMemberStatus = 'pending'
 } = {}) {
   return store.transaction(async tx => {
     const opportunity = await tx.get('opportunities', opportunityId);
@@ -101,8 +102,10 @@ export async function resolveCanonSendCandidate(store, {
     const experiment = experimentId ? await tx.get('experiments', experimentId) : null;
     const senderHealth = senderInbox ? await tx.findOne('senderHealth', { inbox: senderInbox }) : null;
     const suppressions = await tx.list('suppressions');
+    const recipientEmail = contactRoute?.email || contactRoute?.recipientEmail || '';
     const campaignActivation = await assertCampaignActivation({
-      store: tx, cfg, experimentId, recipientEmails, senderSet, requestedCount: recipientEmails.length, policyVersion, at
+      store: tx, cfg, experimentId, organizationDomain: organizationDomain || normalizeDomain(sourceEvidence?.organizationDomain || ''),
+      recipientEmail, senderSet, policyVersion, at, expectedMemberStatus
     });
 
     const result = evaluateCanonSendEligibility({

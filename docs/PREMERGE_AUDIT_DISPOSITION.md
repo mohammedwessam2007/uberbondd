@@ -6,16 +6,31 @@ and fixed before anything else in this branch. Every P1/P2 finding has an explic
 fixed, deferred with a fail-closed blocker, or (none were) rejected — per
 `CLAUDE_AUDIT_ADDENDUM.md`'s instructions.
 
+> **PR #7 repair pass:** an independent review of this branch's first version
+> (`UBERBOND_CLAUDE_PR7_REPAIR_PACK_V1`) found that several of the mechanisms described below did
+> not actually hold up once exercised harder (multi-member cohorts, real queue concurrency, a
+> pre-dispatch recheck, canonical message persistence). Every one of those gaps has since been
+> fixed — see `docs/PR7_REPAIR_REPORT.md` for the full finding-by-finding account. The P0-001,
+> P0-003, P0-004, P0-005, and P0-006 entries below have been updated in place to describe the
+> REPAIRED mechanism and its current test coverage; the repair report has the before/after detail.
+
 ## P0 — merge blockers (all fixed)
 
-### P0-001 · durability — FIXED
+### P0-001 · durability — FIXED (repaired)
 V3's `runRevenueCycle` threaded one in-memory `state` object between stages by hand. Rewritten as
 staged durable jobs on the existing `DurableQueue` (`src/queue.mjs`, unmodified): each stage is a
-job type (`src/autonomous-cycle.mjs`, `CANON_JOB_TYPES`), enqueued with a per-day
-singleton/dedupe key (`scheduleCanonCycle`). The queue's existing lease + heartbeat +
-`recoverStaleJobs` machinery — not new code — is what makes a stage resumable.
-**Test:** `tests/autonomous-cycle.test.mjs` → *"P0-001 acceptance: a worker killed mid-stage is
-recovered and the stage completes from another worker"*.
+job type (`src/autonomous-cycle.mjs`, `CANON_JOB_TYPES`). **Repair note:** the first version
+enqueued all seven stage jobs up front with only same-day dedupe keys, which an independent review
+correctly found did not actually prevent a concurrency-≥2 worker from running a downstream stage
+before its predecessor. `scheduleCanonCycle` now enqueues ONLY the first stage; every stage handler
+enqueues the next stage itself, with the same `cycleRunId`, only after its own work completes
+successfully — at any instant at most one Canon stage job for a given day can exist at all. See
+`docs/PR7_REPAIR_REPORT.md` (C-P0-002) for the full account.
+**Tests:** `tests/autonomous-cycle.test.mjs` → *"C-P0-002 acceptance: with queue concurrency >= 3,
+downstream stages never exist as jobs before their predecessor completes"* and *"P0-001/C-P0-002
+acceptance: a worker killed mid-stage is recovered and the chain resumes and continues exactly
+once"*; `tests/canon-seven-day-simulation.test.mjs` (real-queue, seven-day, includes one in-run
+stale-job recovery).
 
 ### P0-002 · dispatch — FIXED
 `src/dispatch-adapter.mjs#dispatchReservation`. Outside `simulation: true`, a missing `provider`
@@ -45,21 +60,42 @@ one recipient and exactly one reservation succeeds"* (JsonStore backend). The Po
 `tests/commercial-intelligence-concurrency.test.mjs`'s real-Postgres concurrency tests; not
 re-tested here since this change reuses it unmodified.
 
-### P0-005 · suppression — FIXED
+### P0-005 · suppression — FIXED (repair adds a pre-dispatch recheck)
 `evaluateCanonSendEligibility` checks canonical `suppressions` (recipient email + organization
 domain) before a reservation can be considered eligible, and rejects any `prospect.status` in the
 terminal set (`lost`, `rejected`, `opted-out`, `complaint`, `hard-bounce`, `wrong-recipient`).
-**Test:** `tests/send-eligibility.test.mjs` → *"P0-005 acceptance: a suppressed recipient blocks
-reservation"* and *"a terminal prospect status blocks reservation"*.
+**Repair note:** the first version only checked this at reservation time, at send-planning — an
+independent review correctly pointed out that a suppression (or an approval expiring) arriving
+*after* the reservation but *before* dispatch would not have been caught.
+`autonomous-cycle.mjs#runDispatch` now re-runs this exact same check, transactionally, immediately
+before invoking any provider; a newly-ineligible reservation is cancelled and the provider is never
+called. See `docs/PR7_REPAIR_REPORT.md` (C-P0-004).
+**Tests:** `tests/send-eligibility.test.mjs` → *"P0-005 acceptance: a suppressed recipient blocks
+reservation"* and *"a terminal prospect status blocks reservation"*; `tests/autonomous-cycle.test.mjs`
+→ *"C-P0-004 acceptance: suppression inserted after reservation but before dispatch blocks
+dispatch; provider spy never called"* and *"...an expired campaign activation approval discovered
+at dispatch time blocks dispatch"*; `tests/canon-seven-day-simulation.test.mjs` (same race, driven
+through the real queue).
 
-### P0-006 · live activation — FIXED
+### P0-006 · live activation — FIXED (repaired: real per-member cohort model)
 `src/campaign-activation.mjs#assertCampaignActivation` requires **both** the global
 `ACQUISITION_WORKERS_ACTIVE` gate (`cfg.acquisition.workersActive`) **and** a matching, unexpired
-`campaignActivationApprovals` row (migration `008_canon_v3_integration.sql`) naming the exact
-experiment, a content hash of the exact recipient set, the exact sender set, a hard `maxCount`,
-and the policy version. Neither alone is sufficient.
-**Test:** `tests/campaign-activation.test.mjs` — all 4 combinations (global-only, batch-only,
-expired, both-matching) plus recipient-set/sender-set mismatch cases.
+`campaignActivationApprovals` row naming the exact experiment, sender set, and policy version.
+Neither alone is sufficient. **Repair note:** the first version additionally required an exact
+content hash of the FULL recipient set to match on every check — but per-recipient send-planning
+evaluates one recipient at a time, so a hash over N recipients could never match a hash over 1,
+meaning every batch with more than one member was structurally unable to pass (the first version's
+tests only ever exercised a single-member cohort, which is why this was not caught before
+delivery). Migration `009_canon_cohort_repair.sql` adds `campaign_cohort_members` — exactly N
+individually-claimable member rows created once, at approval time. `store.mjs#claimCohortMember`
+atomically claims one (pending → reserved, an atomic conditional UPDATE on Postgres, no advisory
+lock needed) — "one 100-company approval authorizes only those 100 members" is now a structural
+fact, not a hash comparison. See `docs/PR7_REPAIR_REPORT.md` (C-P0-003).
+**Tests:** `tests/campaign-activation.test.mjs` — global/batch-only/expired/matching combinations,
+*"C-P0-003 acceptance: one N-member approval authorizes EACH of its members individually"*, *"...one
+100-company approval authorizes exactly 100 first touches, no more"*, and a **real-Postgres**
+10-concurrent-claim race (*"P0-004 acceptance (real Postgres): ten concurrent workers race for one
+cohort seat and exactly one claim succeeds"*).
 
 ## P1 findings
 

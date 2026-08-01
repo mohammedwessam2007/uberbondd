@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { evaluateCanonSendEligibility, resolveCanonSendCandidate } from '../src/send-eligibility.mjs';
-import { buildCampaignActivationApproval } from '../src/campaign-activation.mjs';
+import { persistCampaignActivationApproval } from '../src/campaign-activation.mjs';
 import { JsonStore } from '../src/store.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -30,11 +30,10 @@ async function seedReadyCandidate(store, overrides = {}) {
   const messageVariant = await store.add('messageVariants', { id: 'mv_1', opportunityId: opportunity.id, lane: 'ai-workflow', subject: 's', body: 'b', bodyHash: 'h', status: 'approved', data: {}, ...overrides.messageVariant });
   const experiment = await store.add('experiments', { id: 'exp_1', status: 'active', hypothesis: 'h', lane: 'ai-workflow', variant: 'a', successMetric: 'replies', data: {}, ...overrides.experiment });
   const recipients = ['buyer@acme.com'];
-  const approval = buildCampaignActivationApproval({
-    experimentId: experiment.id, recipientEmails: recipients, senderSet: ['inbox-a'], maxCount: 1,
-    policyVersion: 'v1', approvedBy: 'owner', expiresAt: '2026-08-10T00:00:00.000Z', now: at
+  await persistCampaignActivationApproval(store, {
+    experimentId: experiment.id, members: [{ organizationDomain: 'acme.com', recipientEmail: 'buyer@acme.com' }],
+    senderSet: ['inbox-a'], policyVersion: 'v1', approvedBy: 'owner', expiresAt: '2026-08-10T00:00:00.000Z', now: at
   });
-  await store.add('campaignActivationApprovals', approval);
   return { evidence, opportunity, messageVariant, experiment, recipients };
 }
 
@@ -44,7 +43,7 @@ test('a fully ready candidate passes', async () => {
   const result = await resolveCanonSendCandidate(store, {
     opportunityId: opportunity.id, messageVariantId: messageVariant.id, experimentId: experiment.id,
     contactRoute: { type: 'email', email: 'buyer@acme.com', publishedOfficially: true },
-    prospect: { status: 'new' }, senderInbox: 'inbox-a', recipientEmails: recipients, senderSet: ['inbox-a'],
+    prospect: { status: 'new' }, senderInbox: 'inbox-a', organizationDomain: 'acme.com', senderSet: ['inbox-a'],
     policyVersion: 'v1', cfg: { acquisition: { workersActive: true } }, at
   });
   assert.equal(result.ok, true, JSON.stringify(result.reasons));
@@ -61,7 +60,7 @@ test('P0-003 acceptance: a policy-rejected opportunity cannot reserve even with 
     // A stale/tampered record claiming eligibility -- these fields are never read by the
     // eligibility function at all, so flipping them cannot change the outcome.
     prospect: { status: 'ready_for_message', sendEligible: true },
-    senderInbox: 'inbox-a', recipientEmails: recipients, senderSet: ['inbox-a'], policyVersion: 'v1',
+    senderInbox: 'inbox-a', organizationDomain: 'acme.com', senderSet: ['inbox-a'], policyVersion: 'v1',
     cfg: { acquisition: { workersActive: true } }, at
   });
   assert.equal(result.ok, false);
@@ -75,7 +74,7 @@ test('P0-005 acceptance: a suppressed recipient blocks reservation', async () =>
   const result = await resolveCanonSendCandidate(store, {
     opportunityId: opportunity.id, messageVariantId: messageVariant.id, experimentId: experiment.id,
     contactRoute: { type: 'email', email: 'buyer@acme.com', publishedOfficially: true },
-    prospect: { status: 'new' }, senderInbox: 'inbox-a', recipientEmails: recipients, senderSet: ['inbox-a'],
+    prospect: { status: 'new' }, senderInbox: 'inbox-a', organizationDomain: 'acme.com', senderSet: ['inbox-a'],
     policyVersion: 'v1', cfg: { acquisition: { workersActive: true } }, at
   });
   assert.equal(result.ok, false);

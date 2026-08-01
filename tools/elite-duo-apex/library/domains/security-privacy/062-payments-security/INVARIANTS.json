@@ -1,0 +1,15 @@
+{
+  "domain": "payments-security",
+  "group": "security-privacy",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Payments Security decisions trace to the mission contract and current evidence.",
+    "Payments Security preserves one durable source of truth for each governed concept.",
+    "Payments Security changes require real-path validation rather than isolated helper evidence.",
+    "Payments Security limitations, residual risks, and approval boundaries are explicit.",
+    "Payments Security never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

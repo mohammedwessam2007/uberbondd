@@ -1,0 +1,15 @@
+{
+  "domain": "operations-design",
+  "group": "business-operations",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Operations Design decisions trace to the mission contract and current evidence.",
+    "Operations Design preserves one durable source of truth for each governed concept.",
+    "Operations Design changes require real-path validation rather than isolated helper evidence.",
+    "Operations Design limitations, residual risks, and approval boundaries are explicit.",
+    "Operations Design never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

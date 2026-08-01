@@ -1,0 +1,22 @@
+{
+  "name": "verify-evidence-survey-design",
+  "title": "Verify Evidence: Survey Design",
+  "domain": "survey-design",
+  "group": "research-knowledge",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Survey Design source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VERIFY_EVIDENCE_SURVEY_DESIGN_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

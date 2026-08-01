@@ -1,0 +1,8 @@
+﻿claim,reason,verdict
+Pasting the full leaked Fable prompt makes Sonnet equal to Fable.,Prompt text cannot transfer model weights or provider-side capabilities.,UNSUPPORTED
+Replacing Claude Code's system prompt is better than appending.,"Replacement can remove native tool, environment, permission, and safety scaffolding.",HIGH_RISK
+Starting on Fable then switching to Sonnet preserves Fable intelligence.,Visible artifacts persist; hidden inference and model weights do not. The model switch also warms a separate cache.,FALSE_AS_STATED
+A giant prompt always improves quality.,Large repeated instructions can reduce adherence and trigger unnecessary reasoning.,FALSE
+Separate fresh-context roles can improve review.,Independent contexts reduce self-critique contamination and are recommended in Fable guidance.,SUPPORTED_PATTERN
+All work should use max effort.,Effort should be tied to remaining judgment; deterministic work gains nothing from extra reasoning.,FALSE
+Sonnet-only roles consume Sonnet allowance.,Every configured role uses model: sonnet; no other API is called.,SUPPORTED

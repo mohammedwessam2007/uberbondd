@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CONTEXT_MANIFEST",
+  "type": "object",
+  "required": [
+    "capsule_sha256",
+    "files",
+    "loss_ledger"
+  ],
+  "properties": {
+    "capsule_sha256": {
+      "type": "string"
+    },
+    "files": {
+      "type": "array"
+    },
+    "loss_ledger": {
+      "type": "array"
+    }
+  }
+}

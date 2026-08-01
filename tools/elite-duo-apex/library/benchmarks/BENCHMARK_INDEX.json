@@ -1,0 +1,2309 @@
+{
+  "count": 288,
+  "benchmarks": [
+    {
+      "case_id": "001-api-design-standard",
+      "domain": "api-design",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/001-api-design-standard"
+    },
+    {
+      "case_id": "001-api-design-adversarial",
+      "domain": "api-design",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/001-api-design-adversarial"
+    },
+    {
+      "case_id": "002-backend-services-standard",
+      "domain": "backend-services",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/002-backend-services-standard"
+    },
+    {
+      "case_id": "002-backend-services-adversarial",
+      "domain": "backend-services",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/002-backend-services-adversarial"
+    },
+    {
+      "case_id": "003-frontend-systems-standard",
+      "domain": "frontend-systems",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/003-frontend-systems-standard"
+    },
+    {
+      "case_id": "003-frontend-systems-adversarial",
+      "domain": "frontend-systems",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/003-frontend-systems-adversarial"
+    },
+    {
+      "case_id": "004-mobile-applications-standard",
+      "domain": "mobile-applications",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/004-mobile-applications-standard"
+    },
+    {
+      "case_id": "004-mobile-applications-adversarial",
+      "domain": "mobile-applications",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/004-mobile-applications-adversarial"
+    },
+    {
+      "case_id": "005-database-engineering-standard",
+      "domain": "database-engineering",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/005-database-engineering-standard"
+    },
+    {
+      "case_id": "005-database-engineering-adversarial",
+      "domain": "database-engineering",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/005-database-engineering-adversarial"
+    },
+    {
+      "case_id": "006-distributed-systems-standard",
+      "domain": "distributed-systems",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/006-distributed-systems-standard"
+    },
+    {
+      "case_id": "006-distributed-systems-adversarial",
+      "domain": "distributed-systems",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/006-distributed-systems-adversarial"
+    },
+    {
+      "case_id": "007-event-driven-architecture-standard",
+      "domain": "event-driven-architecture",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/007-event-driven-architecture-standard"
+    },
+    {
+      "case_id": "007-event-driven-architecture-adversarial",
+      "domain": "event-driven-architecture",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/007-event-driven-architecture-adversarial"
+    },
+    {
+      "case_id": "008-workflow-engines-standard",
+      "domain": "workflow-engines",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/008-workflow-engines-standard"
+    },
+    {
+      "case_id": "008-workflow-engines-adversarial",
+      "domain": "workflow-engines",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/008-workflow-engines-adversarial"
+    },
+    {
+      "case_id": "009-developer-tooling-standard",
+      "domain": "developer-tooling",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/009-developer-tooling-standard"
+    },
+    {
+      "case_id": "009-developer-tooling-adversarial",
+      "domain": "developer-tooling",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/009-developer-tooling-adversarial"
+    },
+    {
+      "case_id": "010-ci-cd-standard",
+      "domain": "ci-cd",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/010-ci-cd-standard"
+    },
+    {
+      "case_id": "010-ci-cd-adversarial",
+      "domain": "ci-cd",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/010-ci-cd-adversarial"
+    },
+    {
+      "case_id": "011-observability-standard",
+      "domain": "observability",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/011-observability-standard"
+    },
+    {
+      "case_id": "011-observability-adversarial",
+      "domain": "observability",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/011-observability-adversarial"
+    },
+    {
+      "case_id": "012-performance-engineering-standard",
+      "domain": "performance-engineering",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/012-performance-engineering-standard"
+    },
+    {
+      "case_id": "012-performance-engineering-adversarial",
+      "domain": "performance-engineering",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/012-performance-engineering-adversarial"
+    },
+    {
+      "case_id": "013-reliability-engineering-standard",
+      "domain": "reliability-engineering",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/013-reliability-engineering-standard"
+    },
+    {
+      "case_id": "013-reliability-engineering-adversarial",
+      "domain": "reliability-engineering",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/013-reliability-engineering-adversarial"
+    },
+    {
+      "case_id": "014-platform-engineering-standard",
+      "domain": "platform-engineering",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/014-platform-engineering-standard"
+    },
+    {
+      "case_id": "014-platform-engineering-adversarial",
+      "domain": "platform-engineering",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/014-platform-engineering-adversarial"
+    },
+    {
+      "case_id": "015-cloud-architecture-standard",
+      "domain": "cloud-architecture",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/015-cloud-architecture-standard"
+    },
+    {
+      "case_id": "015-cloud-architecture-adversarial",
+      "domain": "cloud-architecture",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/015-cloud-architecture-adversarial"
+    },
+    {
+      "case_id": "016-edge-computing-standard",
+      "domain": "edge-computing",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/016-edge-computing-standard"
+    },
+    {
+      "case_id": "016-edge-computing-adversarial",
+      "domain": "edge-computing",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/016-edge-computing-adversarial"
+    },
+    {
+      "case_id": "017-serverless-standard",
+      "domain": "serverless",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/017-serverless-standard"
+    },
+    {
+      "case_id": "017-serverless-adversarial",
+      "domain": "serverless",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/017-serverless-adversarial"
+    },
+    {
+      "case_id": "018-microservices-standard",
+      "domain": "microservices",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/018-microservices-standard"
+    },
+    {
+      "case_id": "018-microservices-adversarial",
+      "domain": "microservices",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/018-microservices-adversarial"
+    },
+    {
+      "case_id": "019-monolith-modernization-standard",
+      "domain": "monolith-modernization",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/019-monolith-modernization-standard"
+    },
+    {
+      "case_id": "019-monolith-modernization-adversarial",
+      "domain": "monolith-modernization",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/019-monolith-modernization-adversarial"
+    },
+    {
+      "case_id": "020-data-migrations-standard",
+      "domain": "data-migrations",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/020-data-migrations-standard"
+    },
+    {
+      "case_id": "020-data-migrations-adversarial",
+      "domain": "data-migrations",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/020-data-migrations-adversarial"
+    },
+    {
+      "case_id": "021-testing-systems-standard",
+      "domain": "testing-systems",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/021-testing-systems-standard"
+    },
+    {
+      "case_id": "021-testing-systems-adversarial",
+      "domain": "testing-systems",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/021-testing-systems-adversarial"
+    },
+    {
+      "case_id": "022-release-engineering-standard",
+      "domain": "release-engineering",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/022-release-engineering-standard"
+    },
+    {
+      "case_id": "022-release-engineering-adversarial",
+      "domain": "release-engineering",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/022-release-engineering-adversarial"
+    },
+    {
+      "case_id": "023-package-management-standard",
+      "domain": "package-management",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/023-package-management-standard"
+    },
+    {
+      "case_id": "023-package-management-adversarial",
+      "domain": "package-management",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/023-package-management-adversarial"
+    },
+    {
+      "case_id": "024-configuration-standard",
+      "domain": "configuration",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/024-configuration-standard"
+    },
+    {
+      "case_id": "024-configuration-adversarial",
+      "domain": "configuration",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/024-configuration-adversarial"
+    },
+    {
+      "case_id": "025-feature-flags-standard",
+      "domain": "feature-flags",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/025-feature-flags-standard"
+    },
+    {
+      "case_id": "025-feature-flags-adversarial",
+      "domain": "feature-flags",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/025-feature-flags-adversarial"
+    },
+    {
+      "case_id": "026-multi-tenancy-standard",
+      "domain": "multi-tenancy",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/026-multi-tenancy-standard"
+    },
+    {
+      "case_id": "026-multi-tenancy-adversarial",
+      "domain": "multi-tenancy",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/026-multi-tenancy-adversarial"
+    },
+    {
+      "case_id": "027-billing-systems-standard",
+      "domain": "billing-systems",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/027-billing-systems-standard"
+    },
+    {
+      "case_id": "027-billing-systems-adversarial",
+      "domain": "billing-systems",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/027-billing-systems-adversarial"
+    },
+    {
+      "case_id": "028-identity-access-standard",
+      "domain": "identity-access",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/028-identity-access-standard"
+    },
+    {
+      "case_id": "028-identity-access-adversarial",
+      "domain": "identity-access",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/028-identity-access-adversarial"
+    },
+    {
+      "case_id": "029-search-systems-standard",
+      "domain": "search-systems",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/029-search-systems-standard"
+    },
+    {
+      "case_id": "029-search-systems-adversarial",
+      "domain": "search-systems",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/029-search-systems-adversarial"
+    },
+    {
+      "case_id": "030-notification-systems-standard",
+      "domain": "notification-systems",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/030-notification-systems-standard"
+    },
+    {
+      "case_id": "030-notification-systems-adversarial",
+      "domain": "notification-systems",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/030-notification-systems-adversarial"
+    },
+    {
+      "case_id": "031-file-processing-standard",
+      "domain": "file-processing",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/031-file-processing-standard"
+    },
+    {
+      "case_id": "031-file-processing-adversarial",
+      "domain": "file-processing",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/031-file-processing-adversarial"
+    },
+    {
+      "case_id": "032-browser-automation-standard",
+      "domain": "browser-automation",
+      "group": "software-engineering",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/software-engineering/032-browser-automation-standard"
+    },
+    {
+      "case_id": "032-browser-automation-adversarial",
+      "domain": "browser-automation",
+      "group": "software-engineering",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/software-engineering/032-browser-automation-adversarial"
+    },
+    {
+      "case_id": "033-llm-applications-standard",
+      "domain": "llm-applications",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/033-llm-applications-standard"
+    },
+    {
+      "case_id": "033-llm-applications-adversarial",
+      "domain": "llm-applications",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/033-llm-applications-adversarial"
+    },
+    {
+      "case_id": "034-agent-architecture-standard",
+      "domain": "agent-architecture",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/034-agent-architecture-standard"
+    },
+    {
+      "case_id": "034-agent-architecture-adversarial",
+      "domain": "agent-architecture",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/034-agent-architecture-adversarial"
+    },
+    {
+      "case_id": "035-rag-systems-standard",
+      "domain": "rag-systems",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/035-rag-systems-standard"
+    },
+    {
+      "case_id": "035-rag-systems-adversarial",
+      "domain": "rag-systems",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/035-rag-systems-adversarial"
+    },
+    {
+      "case_id": "036-embeddings-standard",
+      "domain": "embeddings",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/036-embeddings-standard"
+    },
+    {
+      "case_id": "036-embeddings-adversarial",
+      "domain": "embeddings",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/036-embeddings-adversarial"
+    },
+    {
+      "case_id": "037-reranking-standard",
+      "domain": "reranking",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/037-reranking-standard"
+    },
+    {
+      "case_id": "037-reranking-adversarial",
+      "domain": "reranking",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/037-reranking-adversarial"
+    },
+    {
+      "case_id": "038-prompt-engineering-standard",
+      "domain": "prompt-engineering",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/038-prompt-engineering-standard"
+    },
+    {
+      "case_id": "038-prompt-engineering-adversarial",
+      "domain": "prompt-engineering",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/038-prompt-engineering-adversarial"
+    },
+    {
+      "case_id": "039-model-evaluation-standard",
+      "domain": "model-evaluation",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/039-model-evaluation-standard"
+    },
+    {
+      "case_id": "039-model-evaluation-adversarial",
+      "domain": "model-evaluation",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/039-model-evaluation-adversarial"
+    },
+    {
+      "case_id": "040-model-routing-standard",
+      "domain": "model-routing",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/040-model-routing-standard"
+    },
+    {
+      "case_id": "040-model-routing-adversarial",
+      "domain": "model-routing",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/040-model-routing-adversarial"
+    },
+    {
+      "case_id": "041-synthetic-data-standard",
+      "domain": "synthetic-data",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/041-synthetic-data-standard"
+    },
+    {
+      "case_id": "041-synthetic-data-adversarial",
+      "domain": "synthetic-data",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/041-synthetic-data-adversarial"
+    },
+    {
+      "case_id": "042-fine-tuning-standard",
+      "domain": "fine-tuning",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/042-fine-tuning-standard"
+    },
+    {
+      "case_id": "042-fine-tuning-adversarial",
+      "domain": "fine-tuning",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/042-fine-tuning-adversarial"
+    },
+    {
+      "case_id": "043-multimodal-ai-standard",
+      "domain": "multimodal-ai",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/043-multimodal-ai-standard"
+    },
+    {
+      "case_id": "043-multimodal-ai-adversarial",
+      "domain": "multimodal-ai",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/043-multimodal-ai-adversarial"
+    },
+    {
+      "case_id": "044-vision-systems-standard",
+      "domain": "vision-systems",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/044-vision-systems-standard"
+    },
+    {
+      "case_id": "044-vision-systems-adversarial",
+      "domain": "vision-systems",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/044-vision-systems-adversarial"
+    },
+    {
+      "case_id": "045-speech-systems-standard",
+      "domain": "speech-systems",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/045-speech-systems-standard"
+    },
+    {
+      "case_id": "045-speech-systems-adversarial",
+      "domain": "speech-systems",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/045-speech-systems-adversarial"
+    },
+    {
+      "case_id": "046-document-ai-standard",
+      "domain": "document-ai",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/046-document-ai-standard"
+    },
+    {
+      "case_id": "046-document-ai-adversarial",
+      "domain": "document-ai",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/046-document-ai-adversarial"
+    },
+    {
+      "case_id": "047-recommendation-systems-standard",
+      "domain": "recommendation-systems",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/047-recommendation-systems-standard"
+    },
+    {
+      "case_id": "047-recommendation-systems-adversarial",
+      "domain": "recommendation-systems",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/047-recommendation-systems-adversarial"
+    },
+    {
+      "case_id": "048-forecasting-standard",
+      "domain": "forecasting",
+      "group": "ai-data",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/ai-data/048-forecasting-standard"
+    },
+    {
+      "case_id": "048-forecasting-adversarial",
+      "domain": "forecasting",
+      "group": "ai-data",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/ai-data/048-forecasting-adversarial"
+    },
+    {
+      "case_id": "049-application-security-standard",
+      "domain": "application-security",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/049-application-security-standard"
+    },
+    {
+      "case_id": "049-application-security-adversarial",
+      "domain": "application-security",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/049-application-security-adversarial"
+    },
+    {
+      "case_id": "050-cloud-security-standard",
+      "domain": "cloud-security",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/050-cloud-security-standard"
+    },
+    {
+      "case_id": "050-cloud-security-adversarial",
+      "domain": "cloud-security",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/050-cloud-security-adversarial"
+    },
+    {
+      "case_id": "051-identity-security-standard",
+      "domain": "identity-security",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/051-identity-security-standard"
+    },
+    {
+      "case_id": "051-identity-security-adversarial",
+      "domain": "identity-security",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/051-identity-security-adversarial"
+    },
+    {
+      "case_id": "052-secrets-management-standard",
+      "domain": "secrets-management",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/052-secrets-management-standard"
+    },
+    {
+      "case_id": "052-secrets-management-adversarial",
+      "domain": "secrets-management",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/052-secrets-management-adversarial"
+    },
+    {
+      "case_id": "053-threat-modeling-standard",
+      "domain": "threat-modeling",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/053-threat-modeling-standard"
+    },
+    {
+      "case_id": "053-threat-modeling-adversarial",
+      "domain": "threat-modeling",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/053-threat-modeling-adversarial"
+    },
+    {
+      "case_id": "054-incident-response-standard",
+      "domain": "incident-response",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/054-incident-response-standard"
+    },
+    {
+      "case_id": "054-incident-response-adversarial",
+      "domain": "incident-response",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/054-incident-response-adversarial"
+    },
+    {
+      "case_id": "055-data-privacy-standard",
+      "domain": "data-privacy",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/055-data-privacy-standard"
+    },
+    {
+      "case_id": "055-data-privacy-adversarial",
+      "domain": "data-privacy",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/055-data-privacy-adversarial"
+    },
+    {
+      "case_id": "056-prompt-injection-standard",
+      "domain": "prompt-injection",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/056-prompt-injection-standard"
+    },
+    {
+      "case_id": "056-prompt-injection-adversarial",
+      "domain": "prompt-injection",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/056-prompt-injection-adversarial"
+    },
+    {
+      "case_id": "057-supply-chain-security-standard",
+      "domain": "supply-chain-security",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/057-supply-chain-security-standard"
+    },
+    {
+      "case_id": "057-supply-chain-security-adversarial",
+      "domain": "supply-chain-security",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/057-supply-chain-security-adversarial"
+    },
+    {
+      "case_id": "058-vulnerability-management-standard",
+      "domain": "vulnerability-management",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/058-vulnerability-management-standard"
+    },
+    {
+      "case_id": "058-vulnerability-management-adversarial",
+      "domain": "vulnerability-management",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/058-vulnerability-management-adversarial"
+    },
+    {
+      "case_id": "059-security-logging-standard",
+      "domain": "security-logging",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/059-security-logging-standard"
+    },
+    {
+      "case_id": "059-security-logging-adversarial",
+      "domain": "security-logging",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/059-security-logging-adversarial"
+    },
+    {
+      "case_id": "060-abuse-prevention-standard",
+      "domain": "abuse-prevention",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/060-abuse-prevention-standard"
+    },
+    {
+      "case_id": "060-abuse-prevention-adversarial",
+      "domain": "abuse-prevention",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/060-abuse-prevention-adversarial"
+    },
+    {
+      "case_id": "061-fraud-detection-standard",
+      "domain": "fraud-detection",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/061-fraud-detection-standard"
+    },
+    {
+      "case_id": "061-fraud-detection-adversarial",
+      "domain": "fraud-detection",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/061-fraud-detection-adversarial"
+    },
+    {
+      "case_id": "062-payments-security-standard",
+      "domain": "payments-security",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/062-payments-security-standard"
+    },
+    {
+      "case_id": "062-payments-security-adversarial",
+      "domain": "payments-security",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/062-payments-security-adversarial"
+    },
+    {
+      "case_id": "063-tenant-isolation-standard",
+      "domain": "tenant-isolation",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/063-tenant-isolation-standard"
+    },
+    {
+      "case_id": "063-tenant-isolation-adversarial",
+      "domain": "tenant-isolation",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/063-tenant-isolation-adversarial"
+    },
+    {
+      "case_id": "064-secure-deployment-standard",
+      "domain": "secure-deployment",
+      "group": "security-privacy",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/security-privacy/064-secure-deployment-standard"
+    },
+    {
+      "case_id": "064-secure-deployment-adversarial",
+      "domain": "secure-deployment",
+      "group": "security-privacy",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/security-privacy/064-secure-deployment-adversarial"
+    },
+    {
+      "case_id": "065-product-strategy-standard",
+      "domain": "product-strategy",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/065-product-strategy-standard"
+    },
+    {
+      "case_id": "065-product-strategy-adversarial",
+      "domain": "product-strategy",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/065-product-strategy-adversarial"
+    },
+    {
+      "case_id": "066-product-discovery-standard",
+      "domain": "product-discovery",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/066-product-discovery-standard"
+    },
+    {
+      "case_id": "066-product-discovery-adversarial",
+      "domain": "product-discovery",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/066-product-discovery-adversarial"
+    },
+    {
+      "case_id": "067-user-research-standard",
+      "domain": "user-research",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/067-user-research-standard"
+    },
+    {
+      "case_id": "067-user-research-adversarial",
+      "domain": "user-research",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/067-user-research-adversarial"
+    },
+    {
+      "case_id": "068-ux-design-standard",
+      "domain": "ux-design",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/068-ux-design-standard"
+    },
+    {
+      "case_id": "068-ux-design-adversarial",
+      "domain": "ux-design",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/068-ux-design-adversarial"
+    },
+    {
+      "case_id": "069-design-systems-standard",
+      "domain": "design-systems",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/069-design-systems-standard"
+    },
+    {
+      "case_id": "069-design-systems-adversarial",
+      "domain": "design-systems",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/069-design-systems-adversarial"
+    },
+    {
+      "case_id": "070-accessibility-standard",
+      "domain": "accessibility",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/070-accessibility-standard"
+    },
+    {
+      "case_id": "070-accessibility-adversarial",
+      "domain": "accessibility",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/070-accessibility-adversarial"
+    },
+    {
+      "case_id": "071-onboarding-standard",
+      "domain": "onboarding",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/071-onboarding-standard"
+    },
+    {
+      "case_id": "071-onboarding-adversarial",
+      "domain": "onboarding",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/071-onboarding-adversarial"
+    },
+    {
+      "case_id": "072-activation-standard",
+      "domain": "activation",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/072-activation-standard"
+    },
+    {
+      "case_id": "072-activation-adversarial",
+      "domain": "activation",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/072-activation-adversarial"
+    },
+    {
+      "case_id": "073-retention-standard",
+      "domain": "retention",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/073-retention-standard"
+    },
+    {
+      "case_id": "073-retention-adversarial",
+      "domain": "retention",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/073-retention-adversarial"
+    },
+    {
+      "case_id": "074-experimentation-standard",
+      "domain": "experimentation",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/074-experimentation-standard"
+    },
+    {
+      "case_id": "074-experimentation-adversarial",
+      "domain": "experimentation",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/074-experimentation-adversarial"
+    },
+    {
+      "case_id": "075-analytics-standard",
+      "domain": "analytics",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/075-analytics-standard"
+    },
+    {
+      "case_id": "075-analytics-adversarial",
+      "domain": "analytics",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/075-analytics-adversarial"
+    },
+    {
+      "case_id": "076-roadmapping-standard",
+      "domain": "roadmapping",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/076-roadmapping-standard"
+    },
+    {
+      "case_id": "076-roadmapping-adversarial",
+      "domain": "roadmapping",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/076-roadmapping-adversarial"
+    },
+    {
+      "case_id": "077-pricing-design-standard",
+      "domain": "pricing-design",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/077-pricing-design-standard"
+    },
+    {
+      "case_id": "077-pricing-design-adversarial",
+      "domain": "pricing-design",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/077-pricing-design-adversarial"
+    },
+    {
+      "case_id": "078-enterprise-product-standard",
+      "domain": "enterprise-product",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/078-enterprise-product-standard"
+    },
+    {
+      "case_id": "078-enterprise-product-adversarial",
+      "domain": "enterprise-product",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/078-enterprise-product-adversarial"
+    },
+    {
+      "case_id": "079-developer-experience-standard",
+      "domain": "developer-experience",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/079-developer-experience-standard"
+    },
+    {
+      "case_id": "079-developer-experience-adversarial",
+      "domain": "developer-experience",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/079-developer-experience-adversarial"
+    },
+    {
+      "case_id": "080-content-design-standard",
+      "domain": "content-design",
+      "group": "product-design",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/product-design/080-content-design-standard"
+    },
+    {
+      "case_id": "080-content-design-adversarial",
+      "domain": "content-design",
+      "group": "product-design",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/product-design/080-content-design-adversarial"
+    },
+    {
+      "case_id": "081-market-research-standard",
+      "domain": "market-research",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/081-market-research-standard"
+    },
+    {
+      "case_id": "081-market-research-adversarial",
+      "domain": "market-research",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/081-market-research-adversarial"
+    },
+    {
+      "case_id": "082-buyer-intelligence-standard",
+      "domain": "buyer-intelligence",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/082-buyer-intelligence-standard"
+    },
+    {
+      "case_id": "082-buyer-intelligence-adversarial",
+      "domain": "buyer-intelligence",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/082-buyer-intelligence-adversarial"
+    },
+    {
+      "case_id": "083-offer-design-standard",
+      "domain": "offer-design",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/083-offer-design-standard"
+    },
+    {
+      "case_id": "083-offer-design-adversarial",
+      "domain": "offer-design",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/083-offer-design-adversarial"
+    },
+    {
+      "case_id": "084-sales-operations-standard",
+      "domain": "sales-operations",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/084-sales-operations-standard"
+    },
+    {
+      "case_id": "084-sales-operations-adversarial",
+      "domain": "sales-operations",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/084-sales-operations-adversarial"
+    },
+    {
+      "case_id": "085-outbound-systems-standard",
+      "domain": "outbound-systems",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/085-outbound-systems-standard"
+    },
+    {
+      "case_id": "085-outbound-systems-adversarial",
+      "domain": "outbound-systems",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/085-outbound-systems-adversarial"
+    },
+    {
+      "case_id": "086-inbound-growth-standard",
+      "domain": "inbound-growth",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/086-inbound-growth-standard"
+    },
+    {
+      "case_id": "086-inbound-growth-adversarial",
+      "domain": "inbound-growth",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/086-inbound-growth-adversarial"
+    },
+    {
+      "case_id": "087-partnerships-standard",
+      "domain": "partnerships",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/087-partnerships-standard"
+    },
+    {
+      "case_id": "087-partnerships-adversarial",
+      "domain": "partnerships",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/087-partnerships-adversarial"
+    },
+    {
+      "case_id": "088-channels-standard",
+      "domain": "channels",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/088-channels-standard"
+    },
+    {
+      "case_id": "088-channels-adversarial",
+      "domain": "channels",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/088-channels-adversarial"
+    },
+    {
+      "case_id": "089-seo-standard",
+      "domain": "seo",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/089-seo-standard"
+    },
+    {
+      "case_id": "089-seo-adversarial",
+      "domain": "seo",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/089-seo-adversarial"
+    },
+    {
+      "case_id": "090-content-marketing-standard",
+      "domain": "content-marketing",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/090-content-marketing-standard"
+    },
+    {
+      "case_id": "090-content-marketing-adversarial",
+      "domain": "content-marketing",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/090-content-marketing-adversarial"
+    },
+    {
+      "case_id": "091-lifecycle-marketing-standard",
+      "domain": "lifecycle-marketing",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/091-lifecycle-marketing-standard"
+    },
+    {
+      "case_id": "091-lifecycle-marketing-adversarial",
+      "domain": "lifecycle-marketing",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/091-lifecycle-marketing-adversarial"
+    },
+    {
+      "case_id": "092-customer-success-standard",
+      "domain": "customer-success",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/092-customer-success-standard"
+    },
+    {
+      "case_id": "092-customer-success-adversarial",
+      "domain": "customer-success",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/092-customer-success-adversarial"
+    },
+    {
+      "case_id": "093-support-operations-standard",
+      "domain": "support-operations",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/093-support-operations-standard"
+    },
+    {
+      "case_id": "093-support-operations-adversarial",
+      "domain": "support-operations",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/093-support-operations-adversarial"
+    },
+    {
+      "case_id": "094-revenue-operations-standard",
+      "domain": "revenue-operations",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/094-revenue-operations-standard"
+    },
+    {
+      "case_id": "094-revenue-operations-adversarial",
+      "domain": "revenue-operations",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/094-revenue-operations-adversarial"
+    },
+    {
+      "case_id": "095-account-management-standard",
+      "domain": "account-management",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/095-account-management-standard"
+    },
+    {
+      "case_id": "095-account-management-adversarial",
+      "domain": "account-management",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/095-account-management-adversarial"
+    },
+    {
+      "case_id": "096-procurement-sales-standard",
+      "domain": "procurement-sales",
+      "group": "commercial-growth",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/commercial-growth/096-procurement-sales-standard"
+    },
+    {
+      "case_id": "096-procurement-sales-adversarial",
+      "domain": "procurement-sales",
+      "group": "commercial-growth",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/commercial-growth/096-procurement-sales-adversarial"
+    },
+    {
+      "case_id": "097-financial-modeling-standard",
+      "domain": "financial-modeling",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/097-financial-modeling-standard"
+    },
+    {
+      "case_id": "097-financial-modeling-adversarial",
+      "domain": "financial-modeling",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/097-financial-modeling-adversarial"
+    },
+    {
+      "case_id": "098-budgeting-standard",
+      "domain": "budgeting",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/098-budgeting-standard"
+    },
+    {
+      "case_id": "098-budgeting-adversarial",
+      "domain": "budgeting",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/098-budgeting-adversarial"
+    },
+    {
+      "case_id": "099-cash-management-standard",
+      "domain": "cash-management",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/099-cash-management-standard"
+    },
+    {
+      "case_id": "099-cash-management-adversarial",
+      "domain": "cash-management",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/099-cash-management-adversarial"
+    },
+    {
+      "case_id": "100-vendor-management-standard",
+      "domain": "vendor-management",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/100-vendor-management-standard"
+    },
+    {
+      "case_id": "100-vendor-management-adversarial",
+      "domain": "vendor-management",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/100-vendor-management-adversarial"
+    },
+    {
+      "case_id": "101-procurement-standard",
+      "domain": "procurement",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/101-procurement-standard"
+    },
+    {
+      "case_id": "101-procurement-adversarial",
+      "domain": "procurement",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/101-procurement-adversarial"
+    },
+    {
+      "case_id": "102-risk-management-standard",
+      "domain": "risk-management",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/102-risk-management-standard"
+    },
+    {
+      "case_id": "102-risk-management-adversarial",
+      "domain": "risk-management",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/102-risk-management-adversarial"
+    },
+    {
+      "case_id": "103-business-continuity-standard",
+      "domain": "business-continuity",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/103-business-continuity-standard"
+    },
+    {
+      "case_id": "103-business-continuity-adversarial",
+      "domain": "business-continuity",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/103-business-continuity-adversarial"
+    },
+    {
+      "case_id": "104-operations-design-standard",
+      "domain": "operations-design",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/104-operations-design-standard"
+    },
+    {
+      "case_id": "104-operations-design-adversarial",
+      "domain": "operations-design",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/104-operations-design-adversarial"
+    },
+    {
+      "case_id": "105-project-management-standard",
+      "domain": "project-management",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/105-project-management-standard"
+    },
+    {
+      "case_id": "105-project-management-adversarial",
+      "domain": "project-management",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/105-project-management-adversarial"
+    },
+    {
+      "case_id": "106-program-management-standard",
+      "domain": "program-management",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/106-program-management-standard"
+    },
+    {
+      "case_id": "106-program-management-adversarial",
+      "domain": "program-management",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/106-program-management-adversarial"
+    },
+    {
+      "case_id": "107-knowledge-management-standard",
+      "domain": "knowledge-management",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/107-knowledge-management-standard"
+    },
+    {
+      "case_id": "107-knowledge-management-adversarial",
+      "domain": "knowledge-management",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/107-knowledge-management-adversarial"
+    },
+    {
+      "case_id": "108-quality-management-standard",
+      "domain": "quality-management",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/108-quality-management-standard"
+    },
+    {
+      "case_id": "108-quality-management-adversarial",
+      "domain": "quality-management",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/108-quality-management-adversarial"
+    },
+    {
+      "case_id": "109-hiring-systems-standard",
+      "domain": "hiring-systems",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/109-hiring-systems-standard"
+    },
+    {
+      "case_id": "109-hiring-systems-adversarial",
+      "domain": "hiring-systems",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/109-hiring-systems-adversarial"
+    },
+    {
+      "case_id": "110-people-operations-standard",
+      "domain": "people-operations",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/110-people-operations-standard"
+    },
+    {
+      "case_id": "110-people-operations-adversarial",
+      "domain": "people-operations",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/110-people-operations-adversarial"
+    },
+    {
+      "case_id": "111-training-standard",
+      "domain": "training",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/111-training-standard"
+    },
+    {
+      "case_id": "111-training-adversarial",
+      "domain": "training",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/111-training-adversarial"
+    },
+    {
+      "case_id": "112-executive-reporting-standard",
+      "domain": "executive-reporting",
+      "group": "business-operations",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/business-operations/112-executive-reporting-standard"
+    },
+    {
+      "case_id": "112-executive-reporting-adversarial",
+      "domain": "executive-reporting",
+      "group": "business-operations",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/business-operations/112-executive-reporting-adversarial"
+    },
+    {
+      "case_id": "113-contract-preparation-standard",
+      "domain": "contract-preparation",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/113-contract-preparation-standard"
+    },
+    {
+      "case_id": "113-contract-preparation-adversarial",
+      "domain": "contract-preparation",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/113-contract-preparation-adversarial"
+    },
+    {
+      "case_id": "114-privacy-compliance-prep-standard",
+      "domain": "privacy-compliance-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/114-privacy-compliance-prep-standard"
+    },
+    {
+      "case_id": "114-privacy-compliance-prep-adversarial",
+      "domain": "privacy-compliance-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/114-privacy-compliance-prep-adversarial"
+    },
+    {
+      "case_id": "115-security-compliance-prep-standard",
+      "domain": "security-compliance-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/115-security-compliance-prep-standard"
+    },
+    {
+      "case_id": "115-security-compliance-prep-adversarial",
+      "domain": "security-compliance-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/115-security-compliance-prep-adversarial"
+    },
+    {
+      "case_id": "116-tax-research-prep-standard",
+      "domain": "tax-research-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/116-tax-research-prep-standard"
+    },
+    {
+      "case_id": "116-tax-research-prep-adversarial",
+      "domain": "tax-research-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/116-tax-research-prep-adversarial"
+    },
+    {
+      "case_id": "117-employment-law-prep-standard",
+      "domain": "employment-law-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/117-employment-law-prep-standard"
+    },
+    {
+      "case_id": "117-employment-law-prep-adversarial",
+      "domain": "employment-law-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/117-employment-law-prep-adversarial"
+    },
+    {
+      "case_id": "118-ip-research-prep-standard",
+      "domain": "ip-research-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/118-ip-research-prep-standard"
+    },
+    {
+      "case_id": "118-ip-research-prep-adversarial",
+      "domain": "ip-research-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/118-ip-research-prep-adversarial"
+    },
+    {
+      "case_id": "119-regulatory-research-prep-standard",
+      "domain": "regulatory-research-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/119-regulatory-research-prep-standard"
+    },
+    {
+      "case_id": "119-regulatory-research-prep-adversarial",
+      "domain": "regulatory-research-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/119-regulatory-research-prep-adversarial"
+    },
+    {
+      "case_id": "120-vendor-due-diligence-standard",
+      "domain": "vendor-due-diligence",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/120-vendor-due-diligence-standard"
+    },
+    {
+      "case_id": "120-vendor-due-diligence-adversarial",
+      "domain": "vendor-due-diligence",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/120-vendor-due-diligence-adversarial"
+    },
+    {
+      "case_id": "121-data-processing-agreements-standard",
+      "domain": "data-processing-agreements",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/121-data-processing-agreements-standard"
+    },
+    {
+      "case_id": "121-data-processing-agreements-adversarial",
+      "domain": "data-processing-agreements",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/121-data-processing-agreements-adversarial"
+    },
+    {
+      "case_id": "122-terms-policy-prep-standard",
+      "domain": "terms-policy-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/122-terms-policy-prep-standard"
+    },
+    {
+      "case_id": "122-terms-policy-prep-adversarial",
+      "domain": "terms-policy-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/122-terms-policy-prep-adversarial"
+    },
+    {
+      "case_id": "123-audit-readiness-standard",
+      "domain": "audit-readiness",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/123-audit-readiness-standard"
+    },
+    {
+      "case_id": "123-audit-readiness-adversarial",
+      "domain": "audit-readiness",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/123-audit-readiness-adversarial"
+    },
+    {
+      "case_id": "124-record-retention-standard",
+      "domain": "record-retention",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/124-record-retention-standard"
+    },
+    {
+      "case_id": "124-record-retention-adversarial",
+      "domain": "record-retention",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/124-record-retention-adversarial"
+    },
+    {
+      "case_id": "125-international-expansion-prep-standard",
+      "domain": "international-expansion-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/125-international-expansion-prep-standard"
+    },
+    {
+      "case_id": "125-international-expansion-prep-adversarial",
+      "domain": "international-expansion-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/125-international-expansion-prep-adversarial"
+    },
+    {
+      "case_id": "126-payments-regulation-prep-standard",
+      "domain": "payments-regulation-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/126-payments-regulation-prep-standard"
+    },
+    {
+      "case_id": "126-payments-regulation-prep-adversarial",
+      "domain": "payments-regulation-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/126-payments-regulation-prep-adversarial"
+    },
+    {
+      "case_id": "127-consumer-protection-prep-standard",
+      "domain": "consumer-protection-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/127-consumer-protection-prep-standard"
+    },
+    {
+      "case_id": "127-consumer-protection-prep-adversarial",
+      "domain": "consumer-protection-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/127-consumer-protection-prep-adversarial"
+    },
+    {
+      "case_id": "128-ai-governance-prep-standard",
+      "domain": "ai-governance-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/legal-compliance-prep/128-ai-governance-prep-standard"
+    },
+    {
+      "case_id": "128-ai-governance-prep-adversarial",
+      "domain": "ai-governance-prep",
+      "group": "legal-compliance-prep",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/legal-compliance-prep/128-ai-governance-prep-adversarial"
+    },
+    {
+      "case_id": "129-web-research-standard",
+      "domain": "web-research",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/129-web-research-standard"
+    },
+    {
+      "case_id": "129-web-research-adversarial",
+      "domain": "web-research",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/129-web-research-adversarial"
+    },
+    {
+      "case_id": "130-scientific-literature-standard",
+      "domain": "scientific-literature",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/130-scientific-literature-standard"
+    },
+    {
+      "case_id": "130-scientific-literature-adversarial",
+      "domain": "scientific-literature",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/130-scientific-literature-adversarial"
+    },
+    {
+      "case_id": "131-competitive-intelligence-standard",
+      "domain": "competitive-intelligence",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/131-competitive-intelligence-standard"
+    },
+    {
+      "case_id": "131-competitive-intelligence-adversarial",
+      "domain": "competitive-intelligence",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/131-competitive-intelligence-adversarial"
+    },
+    {
+      "case_id": "132-source-verification-standard",
+      "domain": "source-verification",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/132-source-verification-standard"
+    },
+    {
+      "case_id": "132-source-verification-adversarial",
+      "domain": "source-verification",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/132-source-verification-adversarial"
+    },
+    {
+      "case_id": "133-evidence-synthesis-standard",
+      "domain": "evidence-synthesis",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/133-evidence-synthesis-standard"
+    },
+    {
+      "case_id": "133-evidence-synthesis-adversarial",
+      "domain": "evidence-synthesis",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/133-evidence-synthesis-adversarial"
+    },
+    {
+      "case_id": "134-survey-design-standard",
+      "domain": "survey-design",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/134-survey-design-standard"
+    },
+    {
+      "case_id": "134-survey-design-adversarial",
+      "domain": "survey-design",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/134-survey-design-adversarial"
+    },
+    {
+      "case_id": "135-qualitative-analysis-standard",
+      "domain": "qualitative-analysis",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/135-qualitative-analysis-standard"
+    },
+    {
+      "case_id": "135-qualitative-analysis-adversarial",
+      "domain": "qualitative-analysis",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/135-qualitative-analysis-adversarial"
+    },
+    {
+      "case_id": "136-quantitative-analysis-standard",
+      "domain": "quantitative-analysis",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/136-quantitative-analysis-standard"
+    },
+    {
+      "case_id": "136-quantitative-analysis-adversarial",
+      "domain": "quantitative-analysis",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/136-quantitative-analysis-adversarial"
+    },
+    {
+      "case_id": "137-knowledge-graphs-standard",
+      "domain": "knowledge-graphs",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/137-knowledge-graphs-standard"
+    },
+    {
+      "case_id": "137-knowledge-graphs-adversarial",
+      "domain": "knowledge-graphs",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/137-knowledge-graphs-adversarial"
+    },
+    {
+      "case_id": "138-taxonomy-design-standard",
+      "domain": "taxonomy-design",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/138-taxonomy-design-standard"
+    },
+    {
+      "case_id": "138-taxonomy-design-adversarial",
+      "domain": "taxonomy-design",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/138-taxonomy-design-adversarial"
+    },
+    {
+      "case_id": "139-document-synthesis-standard",
+      "domain": "document-synthesis",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/139-document-synthesis-standard"
+    },
+    {
+      "case_id": "139-document-synthesis-adversarial",
+      "domain": "document-synthesis",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/139-document-synthesis-adversarial"
+    },
+    {
+      "case_id": "140-fact-checking-standard",
+      "domain": "fact-checking",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/140-fact-checking-standard"
+    },
+    {
+      "case_id": "140-fact-checking-adversarial",
+      "domain": "fact-checking",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/140-fact-checking-adversarial"
+    },
+    {
+      "case_id": "141-historical-analysis-standard",
+      "domain": "historical-analysis",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/141-historical-analysis-standard"
+    },
+    {
+      "case_id": "141-historical-analysis-adversarial",
+      "domain": "historical-analysis",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/141-historical-analysis-adversarial"
+    },
+    {
+      "case_id": "142-policy-research-standard",
+      "domain": "policy-research",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/142-policy-research-standard"
+    },
+    {
+      "case_id": "142-policy-research-adversarial",
+      "domain": "policy-research",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/142-policy-research-adversarial"
+    },
+    {
+      "case_id": "143-technical-writing-standard",
+      "domain": "technical-writing",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/143-technical-writing-standard"
+    },
+    {
+      "case_id": "143-technical-writing-adversarial",
+      "domain": "technical-writing",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/143-technical-writing-adversarial"
+    },
+    {
+      "case_id": "144-decision-memos-standard",
+      "domain": "decision-memos",
+      "group": "research-knowledge",
+      "scenario": "standard",
+      "difficulty": "hard",
+      "path": "library/benchmarks/research-knowledge/144-decision-memos-standard"
+    },
+    {
+      "case_id": "144-decision-memos-adversarial",
+      "domain": "decision-memos",
+      "group": "research-knowledge",
+      "scenario": "adversarial",
+      "difficulty": "extreme",
+      "path": "library/benchmarks/research-knowledge/144-decision-memos-adversarial"
+    }
+  ]
+}

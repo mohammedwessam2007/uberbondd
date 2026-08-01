@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FABLE_EXECUTION_MODEL",
+  "type": "object",
+  "required": [
+    "mission_id",
+    "phases",
+    "state_boundaries",
+    "delegation",
+    "memory",
+    "recovery",
+    "verification"
+  ],
+  "properties": {
+    "mission_id": {
+      "type": "string"
+    },
+    "phases": {
+      "type": "array"
+    },
+    "state_boundaries": {
+      "type": "array"
+    },
+    "delegation": {
+      "type": "array"
+    },
+    "memory": {
+      "type": "array"
+    },
+    "recovery": {
+      "type": "array"
+    },
+    "verification": {
+      "type": "array"
+    }
+  }
+}

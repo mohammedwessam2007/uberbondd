@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during research,research,True,Inbound Growth research acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during segment,segment,True,Inbound Growth segment acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during offer,offer,True,Inbound Growth offer acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during activate,activate,True,Inbound Growth activate acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during measure,measure,True,Inbound Growth measure acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during retain,retain,True,Inbound Growth retain acceptance

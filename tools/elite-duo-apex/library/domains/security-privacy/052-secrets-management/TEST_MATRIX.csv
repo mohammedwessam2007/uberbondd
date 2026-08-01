@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during scope,scope,True,Secrets Management scope acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during model,model,True,Secrets Management model acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Secrets Management control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Secrets Management test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during respond,respond,True,Secrets Management respond acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Secrets Management improve acceptance

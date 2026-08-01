@@ -1,0 +1,15 @@
+{
+  "name": "model-uncertain-outcomes",
+  "purpose": "Define pending, confirmed, failed, and unknown external outcomes.",
+  "kernel": "sol",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "provider behavior"
+  ],
+  "outputs": [
+    "OUTCOME_STATE_MODEL.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

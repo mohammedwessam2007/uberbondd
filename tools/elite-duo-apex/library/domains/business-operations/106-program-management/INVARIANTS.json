@@ -1,0 +1,15 @@
+{
+  "domain": "program-management",
+  "group": "business-operations",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Program Management decisions trace to the mission contract and current evidence.",
+    "Program Management preserves one durable source of truth for each governed concept.",
+    "Program Management changes require real-path validation rather than isolated helper evidence.",
+    "Program Management limitations, residual risks, and approval boundaries are explicit.",
+    "Program Management never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

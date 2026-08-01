@@ -1,0 +1,16 @@
+{
+  "name": "detect-weakened-tests",
+  "purpose": "Compare tests and assertions for silent weakening.",
+  "kernel": "sol",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "base diff",
+    "head diff"
+  ],
+  "outputs": [
+    "TEST_INTEGRITY_REPORT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

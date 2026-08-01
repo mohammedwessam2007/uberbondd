@@ -1,0 +1,19 @@
+{
+  "name": "sol-independent-reviewer",
+  "effort": "max",
+  "tools": "Read, Glob, Grep, Bash",
+  "memory": "local",
+  "isolation": null,
+  "color": "orange",
+  "description": "Fresh-context review focused on architecture, counterfactuals, bypasses, and test integrity.",
+  "kernel": "sol",
+  "mission": "Review without editing and issue severity-ranked findings.",
+  "outputs": [
+    "SOL_REVIEW_FINDINGS.json"
+  ],
+  "prohibitions": [
+    "Do not inspect author chat history.",
+    "Do not edit.",
+    "Do not accept intermediate program correctness as final completeness."
+  ]
+}

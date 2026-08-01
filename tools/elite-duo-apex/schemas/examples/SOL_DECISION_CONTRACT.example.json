@@ -1,0 +1,10 @@
+{
+  "mission_id": "",
+  "objective": "",
+  "selected_architecture": {},
+  "invariants": [],
+  "counterfactuals": [],
+  "tool_plan": [],
+  "acceptance_tests": [],
+  "rollback": []
+}

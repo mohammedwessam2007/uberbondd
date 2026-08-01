@@ -1,0 +1,15 @@
+{
+  "name": "implement-module",
+  "purpose": "Implement one isolated module under explicit ownership.",
+  "kernel": "fable",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "module contract"
+  ],
+  "outputs": [
+    "MODULE_EVIDENCE.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

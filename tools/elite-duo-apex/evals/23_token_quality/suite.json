@@ -1,0 +1,35 @@
+{
+  "suite_id": "23_token_quality",
+  "title": "Token quality",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "stable_prefixes",
+      "description": "stable prefixes",
+      "weight": 0.2
+    },
+    {
+      "id": "fresh_contexts",
+      "description": "fresh contexts",
+      "weight": 0.2
+    },
+    {
+      "id": "no_model_switches",
+      "description": "no model switches",
+      "weight": 0.2
+    },
+    {
+      "id": "no_lost_authority",
+      "description": "no lost authority",
+      "weight": 0.2
+    },
+    {
+      "id": "xhigh_max_justified",
+      "description": "xhigh/max justified",
+      "weight": 0.2
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

@@ -1,0 +1,22 @@
+{
+  "name": "design-defense-secrets-management",
+  "title": "Design Defense: Secrets Management",
+  "domain": "secrets-management",
+  "group": "security-privacy",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Secrets Management source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "DESIGN_DEFENSE_SECRETS_MANAGEMENT_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

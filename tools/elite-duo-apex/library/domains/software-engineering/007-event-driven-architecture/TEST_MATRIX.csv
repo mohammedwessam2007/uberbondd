@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Event Driven Architecture discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during architect,architect,True,Event Driven Architecture architect acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during implement,implement,True,Event Driven Architecture implement acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during verify,verify,True,Event Driven Architecture verify acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during release,release,True,Event Driven Architecture release acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during operate,operate,True,Event Driven Architecture operate acceptance

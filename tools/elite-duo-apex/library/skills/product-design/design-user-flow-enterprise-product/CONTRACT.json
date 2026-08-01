@@ -1,0 +1,22 @@
+{
+  "name": "design-user-flow-enterprise-product",
+  "title": "Design User Flow: Enterprise Product",
+  "domain": "enterprise-product",
+  "group": "product-design",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Enterprise Product source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "DESIGN_USER_FLOW_ENTERPRISE_PRODUCT_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

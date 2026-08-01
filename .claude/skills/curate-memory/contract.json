@@ -1,0 +1,15 @@
+{
+  "name": "curate-memory",
+  "purpose": "Store reusable lessons and remove duplicates or invalidated notes.",
+  "kernel": "fable",
+  "effort": "high",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "session evidence"
+  ],
+  "outputs": [
+    "MEMORY_UPDATE.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Agent Architecture discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Agent Architecture design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during build,build,True,Agent Architecture build acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during evaluate,evaluate,True,Agent Architecture evaluate acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during deploy,deploy,True,Agent Architecture deploy acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during monitor,monitor,True,Agent Architecture monitor acceptance

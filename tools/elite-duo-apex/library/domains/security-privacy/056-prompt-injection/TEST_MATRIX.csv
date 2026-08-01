@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during scope,scope,True,Prompt Injection scope acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during model,model,True,Prompt Injection model acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Prompt Injection control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Prompt Injection test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during respond,respond,True,Prompt Injection respond acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Prompt Injection improve acceptance

@@ -1,0 +1,15 @@
+{
+  "name": "prepare-compaction",
+  "purpose": "Persist state, failures, decisions, tests, and next action before compaction.",
+  "kernel": "fable",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "mission state"
+  ],
+  "outputs": [
+    "PRECOMPACT_SNAPSHOT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

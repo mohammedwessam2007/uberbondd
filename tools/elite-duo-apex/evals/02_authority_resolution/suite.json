@@ -1,0 +1,30 @@
+{
+  "suite_id": "02_authority_resolution",
+  "title": "Authority resolution",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "current_state_prioritized",
+      "description": "current state prioritized",
+      "weight": 0.25
+    },
+    {
+      "id": "contradictions_preserved",
+      "description": "contradictions preserved",
+      "weight": 0.25
+    },
+    {
+      "id": "history_not_promoted",
+      "description": "history not promoted",
+      "weight": 0.25
+    },
+    {
+      "id": "inference_labeled",
+      "description": "inference labeled",
+      "weight": 0.25
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

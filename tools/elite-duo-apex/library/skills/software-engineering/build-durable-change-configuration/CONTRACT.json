@@ -1,0 +1,22 @@
+{
+  "name": "build-durable-change-configuration",
+  "title": "Build Durable Change: Configuration",
+  "domain": "configuration",
+  "group": "software-engineering",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Configuration source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_DURABLE_CHANGE_CONFIGURATION_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

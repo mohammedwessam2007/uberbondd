@@ -1,0 +1,12 @@
+{
+  "name": "19_RUNTIME_WIRING",
+  "title": "Audit operational reachability",
+  "steps": [
+    "map-repository",
+    "trace-runtime",
+    "design-real-path-tests",
+    "issue-final-verdict"
+  ],
+  "output": "RUNTIME_WIRING_REPORT.md",
+  "model": "claude-sonnet-5"
+}

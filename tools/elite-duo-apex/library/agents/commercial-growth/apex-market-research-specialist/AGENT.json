@@ -1,0 +1,16 @@
+{
+  "name": "apex-market-research-specialist",
+  "domain": "market-research",
+  "group": "commercial-growth",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "effort": "max",
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Write"
+  ],
+  "memory": "project",
+  "self_approval": false
+}

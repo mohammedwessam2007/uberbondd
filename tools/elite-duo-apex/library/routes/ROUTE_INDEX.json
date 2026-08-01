@@ -1,0 +1,2597 @@
+{
+  "count": 288,
+  "routes": [
+    {
+      "route_id": "001-api-design-architect",
+      "title": "Architect Api Design",
+      "domain": "api-design",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/001-api-design-architect"
+    },
+    {
+      "route_id": "001-api-design-repair",
+      "title": "Repair Api Design",
+      "domain": "api-design",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/001-api-design-repair"
+    },
+    {
+      "route_id": "002-backend-services-implement",
+      "title": "Implement Backend Services",
+      "domain": "backend-services",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/002-backend-services-implement"
+    },
+    {
+      "route_id": "002-backend-services-migrate",
+      "title": "Migrate Backend Services",
+      "domain": "backend-services",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/002-backend-services-migrate"
+    },
+    {
+      "route_id": "003-frontend-systems-repair",
+      "title": "Repair Frontend Systems",
+      "domain": "frontend-systems",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/003-frontend-systems-repair"
+    },
+    {
+      "route_id": "003-frontend-systems-architect",
+      "title": "Architect Frontend Systems",
+      "domain": "frontend-systems",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/003-frontend-systems-architect"
+    },
+    {
+      "route_id": "004-mobile-applications-migrate",
+      "title": "Migrate Mobile Applications",
+      "domain": "mobile-applications",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/004-mobile-applications-migrate"
+    },
+    {
+      "route_id": "004-mobile-applications-implement",
+      "title": "Implement Mobile Applications",
+      "domain": "mobile-applications",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/004-mobile-applications-implement"
+    },
+    {
+      "route_id": "005-database-engineering-architect",
+      "title": "Architect Database Engineering",
+      "domain": "database-engineering",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/005-database-engineering-architect"
+    },
+    {
+      "route_id": "005-database-engineering-repair",
+      "title": "Repair Database Engineering",
+      "domain": "database-engineering",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/005-database-engineering-repair"
+    },
+    {
+      "route_id": "006-distributed-systems-implement",
+      "title": "Implement Distributed Systems",
+      "domain": "distributed-systems",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/006-distributed-systems-implement"
+    },
+    {
+      "route_id": "006-distributed-systems-migrate",
+      "title": "Migrate Distributed Systems",
+      "domain": "distributed-systems",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/006-distributed-systems-migrate"
+    },
+    {
+      "route_id": "007-event-driven-architecture-repair",
+      "title": "Repair Event Driven Architecture",
+      "domain": "event-driven-architecture",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/007-event-driven-architecture-repair"
+    },
+    {
+      "route_id": "007-event-driven-architecture-architect",
+      "title": "Architect Event Driven Architecture",
+      "domain": "event-driven-architecture",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/007-event-driven-architecture-architect"
+    },
+    {
+      "route_id": "008-workflow-engines-migrate",
+      "title": "Migrate Workflow Engines",
+      "domain": "workflow-engines",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/008-workflow-engines-migrate"
+    },
+    {
+      "route_id": "008-workflow-engines-implement",
+      "title": "Implement Workflow Engines",
+      "domain": "workflow-engines",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/008-workflow-engines-implement"
+    },
+    {
+      "route_id": "009-developer-tooling-architect",
+      "title": "Architect Developer Tooling",
+      "domain": "developer-tooling",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/009-developer-tooling-architect"
+    },
+    {
+      "route_id": "009-developer-tooling-repair",
+      "title": "Repair Developer Tooling",
+      "domain": "developer-tooling",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/009-developer-tooling-repair"
+    },
+    {
+      "route_id": "010-ci-cd-implement",
+      "title": "Implement Ci Cd",
+      "domain": "ci-cd",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/010-ci-cd-implement"
+    },
+    {
+      "route_id": "010-ci-cd-migrate",
+      "title": "Migrate Ci Cd",
+      "domain": "ci-cd",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/010-ci-cd-migrate"
+    },
+    {
+      "route_id": "011-observability-repair",
+      "title": "Repair Observability",
+      "domain": "observability",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/011-observability-repair"
+    },
+    {
+      "route_id": "011-observability-architect",
+      "title": "Architect Observability",
+      "domain": "observability",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/011-observability-architect"
+    },
+    {
+      "route_id": "012-performance-engineering-migrate",
+      "title": "Migrate Performance Engineering",
+      "domain": "performance-engineering",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/012-performance-engineering-migrate"
+    },
+    {
+      "route_id": "012-performance-engineering-implement",
+      "title": "Implement Performance Engineering",
+      "domain": "performance-engineering",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/012-performance-engineering-implement"
+    },
+    {
+      "route_id": "013-reliability-engineering-architect",
+      "title": "Architect Reliability Engineering",
+      "domain": "reliability-engineering",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/013-reliability-engineering-architect"
+    },
+    {
+      "route_id": "013-reliability-engineering-repair",
+      "title": "Repair Reliability Engineering",
+      "domain": "reliability-engineering",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/013-reliability-engineering-repair"
+    },
+    {
+      "route_id": "014-platform-engineering-implement",
+      "title": "Implement Platform Engineering",
+      "domain": "platform-engineering",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/014-platform-engineering-implement"
+    },
+    {
+      "route_id": "014-platform-engineering-migrate",
+      "title": "Migrate Platform Engineering",
+      "domain": "platform-engineering",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/014-platform-engineering-migrate"
+    },
+    {
+      "route_id": "015-cloud-architecture-repair",
+      "title": "Repair Cloud Architecture",
+      "domain": "cloud-architecture",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/015-cloud-architecture-repair"
+    },
+    {
+      "route_id": "015-cloud-architecture-architect",
+      "title": "Architect Cloud Architecture",
+      "domain": "cloud-architecture",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/015-cloud-architecture-architect"
+    },
+    {
+      "route_id": "016-edge-computing-migrate",
+      "title": "Migrate Edge Computing",
+      "domain": "edge-computing",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/016-edge-computing-migrate"
+    },
+    {
+      "route_id": "016-edge-computing-implement",
+      "title": "Implement Edge Computing",
+      "domain": "edge-computing",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/016-edge-computing-implement"
+    },
+    {
+      "route_id": "017-serverless-architect",
+      "title": "Architect Serverless",
+      "domain": "serverless",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/017-serverless-architect"
+    },
+    {
+      "route_id": "017-serverless-repair",
+      "title": "Repair Serverless",
+      "domain": "serverless",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/017-serverless-repair"
+    },
+    {
+      "route_id": "018-microservices-implement",
+      "title": "Implement Microservices",
+      "domain": "microservices",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/018-microservices-implement"
+    },
+    {
+      "route_id": "018-microservices-migrate",
+      "title": "Migrate Microservices",
+      "domain": "microservices",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/018-microservices-migrate"
+    },
+    {
+      "route_id": "019-monolith-modernization-repair",
+      "title": "Repair Monolith Modernization",
+      "domain": "monolith-modernization",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/019-monolith-modernization-repair"
+    },
+    {
+      "route_id": "019-monolith-modernization-architect",
+      "title": "Architect Monolith Modernization",
+      "domain": "monolith-modernization",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/019-monolith-modernization-architect"
+    },
+    {
+      "route_id": "020-data-migrations-migrate",
+      "title": "Migrate Data Migrations",
+      "domain": "data-migrations",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/020-data-migrations-migrate"
+    },
+    {
+      "route_id": "020-data-migrations-implement",
+      "title": "Implement Data Migrations",
+      "domain": "data-migrations",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/020-data-migrations-implement"
+    },
+    {
+      "route_id": "021-testing-systems-architect",
+      "title": "Architect Testing Systems",
+      "domain": "testing-systems",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/021-testing-systems-architect"
+    },
+    {
+      "route_id": "021-testing-systems-repair",
+      "title": "Repair Testing Systems",
+      "domain": "testing-systems",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/021-testing-systems-repair"
+    },
+    {
+      "route_id": "022-release-engineering-implement",
+      "title": "Implement Release Engineering",
+      "domain": "release-engineering",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/022-release-engineering-implement"
+    },
+    {
+      "route_id": "022-release-engineering-migrate",
+      "title": "Migrate Release Engineering",
+      "domain": "release-engineering",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/022-release-engineering-migrate"
+    },
+    {
+      "route_id": "023-package-management-repair",
+      "title": "Repair Package Management",
+      "domain": "package-management",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/023-package-management-repair"
+    },
+    {
+      "route_id": "023-package-management-architect",
+      "title": "Architect Package Management",
+      "domain": "package-management",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/023-package-management-architect"
+    },
+    {
+      "route_id": "024-configuration-migrate",
+      "title": "Migrate Configuration",
+      "domain": "configuration",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/024-configuration-migrate"
+    },
+    {
+      "route_id": "024-configuration-implement",
+      "title": "Implement Configuration",
+      "domain": "configuration",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/024-configuration-implement"
+    },
+    {
+      "route_id": "025-feature-flags-architect",
+      "title": "Architect Feature Flags",
+      "domain": "feature-flags",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/025-feature-flags-architect"
+    },
+    {
+      "route_id": "025-feature-flags-repair",
+      "title": "Repair Feature Flags",
+      "domain": "feature-flags",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/025-feature-flags-repair"
+    },
+    {
+      "route_id": "026-multi-tenancy-implement",
+      "title": "Implement Multi Tenancy",
+      "domain": "multi-tenancy",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/026-multi-tenancy-implement"
+    },
+    {
+      "route_id": "026-multi-tenancy-migrate",
+      "title": "Migrate Multi Tenancy",
+      "domain": "multi-tenancy",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/026-multi-tenancy-migrate"
+    },
+    {
+      "route_id": "027-billing-systems-repair",
+      "title": "Repair Billing Systems",
+      "domain": "billing-systems",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/027-billing-systems-repair"
+    },
+    {
+      "route_id": "027-billing-systems-architect",
+      "title": "Architect Billing Systems",
+      "domain": "billing-systems",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/027-billing-systems-architect"
+    },
+    {
+      "route_id": "028-identity-access-migrate",
+      "title": "Migrate Identity Access",
+      "domain": "identity-access",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/028-identity-access-migrate"
+    },
+    {
+      "route_id": "028-identity-access-implement",
+      "title": "Implement Identity Access",
+      "domain": "identity-access",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/028-identity-access-implement"
+    },
+    {
+      "route_id": "029-search-systems-architect",
+      "title": "Architect Search Systems",
+      "domain": "search-systems",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/029-search-systems-architect"
+    },
+    {
+      "route_id": "029-search-systems-repair",
+      "title": "Repair Search Systems",
+      "domain": "search-systems",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/029-search-systems-repair"
+    },
+    {
+      "route_id": "030-notification-systems-implement",
+      "title": "Implement Notification Systems",
+      "domain": "notification-systems",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/030-notification-systems-implement"
+    },
+    {
+      "route_id": "030-notification-systems-migrate",
+      "title": "Migrate Notification Systems",
+      "domain": "notification-systems",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/030-notification-systems-migrate"
+    },
+    {
+      "route_id": "031-file-processing-repair",
+      "title": "Repair File Processing",
+      "domain": "file-processing",
+      "group": "software-engineering",
+      "operation": "repair",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/031-file-processing-repair"
+    },
+    {
+      "route_id": "031-file-processing-architect",
+      "title": "Architect File Processing",
+      "domain": "file-processing",
+      "group": "software-engineering",
+      "operation": "architect",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/031-file-processing-architect"
+    },
+    {
+      "route_id": "032-browser-automation-migrate",
+      "title": "Migrate Browser Automation",
+      "domain": "browser-automation",
+      "group": "software-engineering",
+      "operation": "migrate",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/032-browser-automation-migrate"
+    },
+    {
+      "route_id": "032-browser-automation-implement",
+      "title": "Implement Browser Automation",
+      "domain": "browser-automation",
+      "group": "software-engineering",
+      "operation": "implement",
+      "risk": "HIGH",
+      "path": "library/routes/software-engineering/032-browser-automation-implement"
+    },
+    {
+      "route_id": "033-llm-applications-design",
+      "title": "Design Llm Applications",
+      "domain": "llm-applications",
+      "group": "ai-data",
+      "operation": "design",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/033-llm-applications-design"
+    },
+    {
+      "route_id": "033-llm-applications-integrate",
+      "title": "Integrate Llm Applications",
+      "domain": "llm-applications",
+      "group": "ai-data",
+      "operation": "integrate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/033-llm-applications-integrate"
+    },
+    {
+      "route_id": "034-agent-architecture-evaluate",
+      "title": "Evaluate Agent Architecture",
+      "domain": "agent-architecture",
+      "group": "ai-data",
+      "operation": "evaluate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/034-agent-architecture-evaluate"
+    },
+    {
+      "route_id": "034-agent-architecture-monitor",
+      "title": "Monitor Agent Architecture",
+      "domain": "agent-architecture",
+      "group": "ai-data",
+      "operation": "monitor",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/034-agent-architecture-monitor"
+    },
+    {
+      "route_id": "035-rag-systems-integrate",
+      "title": "Integrate Rag Systems",
+      "domain": "rag-systems",
+      "group": "ai-data",
+      "operation": "integrate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/035-rag-systems-integrate"
+    },
+    {
+      "route_id": "035-rag-systems-design",
+      "title": "Design Rag Systems",
+      "domain": "rag-systems",
+      "group": "ai-data",
+      "operation": "design",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/035-rag-systems-design"
+    },
+    {
+      "route_id": "036-embeddings-monitor",
+      "title": "Monitor Embeddings",
+      "domain": "embeddings",
+      "group": "ai-data",
+      "operation": "monitor",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/036-embeddings-monitor"
+    },
+    {
+      "route_id": "036-embeddings-evaluate",
+      "title": "Evaluate Embeddings",
+      "domain": "embeddings",
+      "group": "ai-data",
+      "operation": "evaluate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/036-embeddings-evaluate"
+    },
+    {
+      "route_id": "037-reranking-design",
+      "title": "Design Reranking",
+      "domain": "reranking",
+      "group": "ai-data",
+      "operation": "design",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/037-reranking-design"
+    },
+    {
+      "route_id": "037-reranking-integrate",
+      "title": "Integrate Reranking",
+      "domain": "reranking",
+      "group": "ai-data",
+      "operation": "integrate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/037-reranking-integrate"
+    },
+    {
+      "route_id": "038-prompt-engineering-evaluate",
+      "title": "Evaluate Prompt Engineering",
+      "domain": "prompt-engineering",
+      "group": "ai-data",
+      "operation": "evaluate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/038-prompt-engineering-evaluate"
+    },
+    {
+      "route_id": "038-prompt-engineering-monitor",
+      "title": "Monitor Prompt Engineering",
+      "domain": "prompt-engineering",
+      "group": "ai-data",
+      "operation": "monitor",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/038-prompt-engineering-monitor"
+    },
+    {
+      "route_id": "039-model-evaluation-integrate",
+      "title": "Integrate Model Evaluation",
+      "domain": "model-evaluation",
+      "group": "ai-data",
+      "operation": "integrate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/039-model-evaluation-integrate"
+    },
+    {
+      "route_id": "039-model-evaluation-design",
+      "title": "Design Model Evaluation",
+      "domain": "model-evaluation",
+      "group": "ai-data",
+      "operation": "design",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/039-model-evaluation-design"
+    },
+    {
+      "route_id": "040-model-routing-monitor",
+      "title": "Monitor Model Routing",
+      "domain": "model-routing",
+      "group": "ai-data",
+      "operation": "monitor",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/040-model-routing-monitor"
+    },
+    {
+      "route_id": "040-model-routing-evaluate",
+      "title": "Evaluate Model Routing",
+      "domain": "model-routing",
+      "group": "ai-data",
+      "operation": "evaluate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/040-model-routing-evaluate"
+    },
+    {
+      "route_id": "041-synthetic-data-design",
+      "title": "Design Synthetic Data",
+      "domain": "synthetic-data",
+      "group": "ai-data",
+      "operation": "design",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/041-synthetic-data-design"
+    },
+    {
+      "route_id": "041-synthetic-data-integrate",
+      "title": "Integrate Synthetic Data",
+      "domain": "synthetic-data",
+      "group": "ai-data",
+      "operation": "integrate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/041-synthetic-data-integrate"
+    },
+    {
+      "route_id": "042-fine-tuning-evaluate",
+      "title": "Evaluate Fine Tuning",
+      "domain": "fine-tuning",
+      "group": "ai-data",
+      "operation": "evaluate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/042-fine-tuning-evaluate"
+    },
+    {
+      "route_id": "042-fine-tuning-monitor",
+      "title": "Monitor Fine Tuning",
+      "domain": "fine-tuning",
+      "group": "ai-data",
+      "operation": "monitor",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/042-fine-tuning-monitor"
+    },
+    {
+      "route_id": "043-multimodal-ai-integrate",
+      "title": "Integrate Multimodal Ai",
+      "domain": "multimodal-ai",
+      "group": "ai-data",
+      "operation": "integrate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/043-multimodal-ai-integrate"
+    },
+    {
+      "route_id": "043-multimodal-ai-design",
+      "title": "Design Multimodal Ai",
+      "domain": "multimodal-ai",
+      "group": "ai-data",
+      "operation": "design",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/043-multimodal-ai-design"
+    },
+    {
+      "route_id": "044-vision-systems-monitor",
+      "title": "Monitor Vision Systems",
+      "domain": "vision-systems",
+      "group": "ai-data",
+      "operation": "monitor",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/044-vision-systems-monitor"
+    },
+    {
+      "route_id": "044-vision-systems-evaluate",
+      "title": "Evaluate Vision Systems",
+      "domain": "vision-systems",
+      "group": "ai-data",
+      "operation": "evaluate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/044-vision-systems-evaluate"
+    },
+    {
+      "route_id": "045-speech-systems-design",
+      "title": "Design Speech Systems",
+      "domain": "speech-systems",
+      "group": "ai-data",
+      "operation": "design",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/045-speech-systems-design"
+    },
+    {
+      "route_id": "045-speech-systems-integrate",
+      "title": "Integrate Speech Systems",
+      "domain": "speech-systems",
+      "group": "ai-data",
+      "operation": "integrate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/045-speech-systems-integrate"
+    },
+    {
+      "route_id": "046-document-ai-evaluate",
+      "title": "Evaluate Document Ai",
+      "domain": "document-ai",
+      "group": "ai-data",
+      "operation": "evaluate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/046-document-ai-evaluate"
+    },
+    {
+      "route_id": "046-document-ai-monitor",
+      "title": "Monitor Document Ai",
+      "domain": "document-ai",
+      "group": "ai-data",
+      "operation": "monitor",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/046-document-ai-monitor"
+    },
+    {
+      "route_id": "047-recommendation-systems-integrate",
+      "title": "Integrate Recommendation Systems",
+      "domain": "recommendation-systems",
+      "group": "ai-data",
+      "operation": "integrate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/047-recommendation-systems-integrate"
+    },
+    {
+      "route_id": "047-recommendation-systems-design",
+      "title": "Design Recommendation Systems",
+      "domain": "recommendation-systems",
+      "group": "ai-data",
+      "operation": "design",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/047-recommendation-systems-design"
+    },
+    {
+      "route_id": "048-forecasting-monitor",
+      "title": "Monitor Forecasting",
+      "domain": "forecasting",
+      "group": "ai-data",
+      "operation": "monitor",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/048-forecasting-monitor"
+    },
+    {
+      "route_id": "048-forecasting-evaluate",
+      "title": "Evaluate Forecasting",
+      "domain": "forecasting",
+      "group": "ai-data",
+      "operation": "evaluate",
+      "risk": "HIGH",
+      "path": "library/routes/ai-data/048-forecasting-evaluate"
+    },
+    {
+      "route_id": "049-application-security-threat-model",
+      "title": "Threat Model Application Security",
+      "domain": "application-security",
+      "group": "security-privacy",
+      "operation": "threat-model",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/049-application-security-threat-model"
+    },
+    {
+      "route_id": "049-application-security-audit",
+      "title": "Audit Application Security",
+      "domain": "application-security",
+      "group": "security-privacy",
+      "operation": "audit",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/049-application-security-audit"
+    },
+    {
+      "route_id": "050-cloud-security-harden",
+      "title": "Harden Cloud Security",
+      "domain": "cloud-security",
+      "group": "security-privacy",
+      "operation": "harden",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/050-cloud-security-harden"
+    },
+    {
+      "route_id": "050-cloud-security-respond",
+      "title": "Respond Cloud Security",
+      "domain": "cloud-security",
+      "group": "security-privacy",
+      "operation": "respond",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/050-cloud-security-respond"
+    },
+    {
+      "route_id": "051-identity-security-audit",
+      "title": "Audit Identity Security",
+      "domain": "identity-security",
+      "group": "security-privacy",
+      "operation": "audit",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/051-identity-security-audit"
+    },
+    {
+      "route_id": "051-identity-security-threat-model",
+      "title": "Threat Model Identity Security",
+      "domain": "identity-security",
+      "group": "security-privacy",
+      "operation": "threat-model",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/051-identity-security-threat-model"
+    },
+    {
+      "route_id": "052-secrets-management-respond",
+      "title": "Respond Secrets Management",
+      "domain": "secrets-management",
+      "group": "security-privacy",
+      "operation": "respond",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/052-secrets-management-respond"
+    },
+    {
+      "route_id": "052-secrets-management-harden",
+      "title": "Harden Secrets Management",
+      "domain": "secrets-management",
+      "group": "security-privacy",
+      "operation": "harden",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/052-secrets-management-harden"
+    },
+    {
+      "route_id": "053-threat-modeling-threat-model",
+      "title": "Threat Model Threat Modeling",
+      "domain": "threat-modeling",
+      "group": "security-privacy",
+      "operation": "threat-model",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/053-threat-modeling-threat-model"
+    },
+    {
+      "route_id": "053-threat-modeling-audit",
+      "title": "Audit Threat Modeling",
+      "domain": "threat-modeling",
+      "group": "security-privacy",
+      "operation": "audit",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/053-threat-modeling-audit"
+    },
+    {
+      "route_id": "054-incident-response-harden",
+      "title": "Harden Incident Response",
+      "domain": "incident-response",
+      "group": "security-privacy",
+      "operation": "harden",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/054-incident-response-harden"
+    },
+    {
+      "route_id": "054-incident-response-respond",
+      "title": "Respond Incident Response",
+      "domain": "incident-response",
+      "group": "security-privacy",
+      "operation": "respond",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/054-incident-response-respond"
+    },
+    {
+      "route_id": "055-data-privacy-audit",
+      "title": "Audit Data Privacy",
+      "domain": "data-privacy",
+      "group": "security-privacy",
+      "operation": "audit",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/055-data-privacy-audit"
+    },
+    {
+      "route_id": "055-data-privacy-threat-model",
+      "title": "Threat Model Data Privacy",
+      "domain": "data-privacy",
+      "group": "security-privacy",
+      "operation": "threat-model",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/055-data-privacy-threat-model"
+    },
+    {
+      "route_id": "056-prompt-injection-respond",
+      "title": "Respond Prompt Injection",
+      "domain": "prompt-injection",
+      "group": "security-privacy",
+      "operation": "respond",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/056-prompt-injection-respond"
+    },
+    {
+      "route_id": "056-prompt-injection-harden",
+      "title": "Harden Prompt Injection",
+      "domain": "prompt-injection",
+      "group": "security-privacy",
+      "operation": "harden",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/056-prompt-injection-harden"
+    },
+    {
+      "route_id": "057-supply-chain-security-threat-model",
+      "title": "Threat Model Supply Chain Security",
+      "domain": "supply-chain-security",
+      "group": "security-privacy",
+      "operation": "threat-model",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/057-supply-chain-security-threat-model"
+    },
+    {
+      "route_id": "057-supply-chain-security-audit",
+      "title": "Audit Supply Chain Security",
+      "domain": "supply-chain-security",
+      "group": "security-privacy",
+      "operation": "audit",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/057-supply-chain-security-audit"
+    },
+    {
+      "route_id": "058-vulnerability-management-harden",
+      "title": "Harden Vulnerability Management",
+      "domain": "vulnerability-management",
+      "group": "security-privacy",
+      "operation": "harden",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/058-vulnerability-management-harden"
+    },
+    {
+      "route_id": "058-vulnerability-management-respond",
+      "title": "Respond Vulnerability Management",
+      "domain": "vulnerability-management",
+      "group": "security-privacy",
+      "operation": "respond",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/058-vulnerability-management-respond"
+    },
+    {
+      "route_id": "059-security-logging-audit",
+      "title": "Audit Security Logging",
+      "domain": "security-logging",
+      "group": "security-privacy",
+      "operation": "audit",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/059-security-logging-audit"
+    },
+    {
+      "route_id": "059-security-logging-threat-model",
+      "title": "Threat Model Security Logging",
+      "domain": "security-logging",
+      "group": "security-privacy",
+      "operation": "threat-model",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/059-security-logging-threat-model"
+    },
+    {
+      "route_id": "060-abuse-prevention-respond",
+      "title": "Respond Abuse Prevention",
+      "domain": "abuse-prevention",
+      "group": "security-privacy",
+      "operation": "respond",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/060-abuse-prevention-respond"
+    },
+    {
+      "route_id": "060-abuse-prevention-harden",
+      "title": "Harden Abuse Prevention",
+      "domain": "abuse-prevention",
+      "group": "security-privacy",
+      "operation": "harden",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/060-abuse-prevention-harden"
+    },
+    {
+      "route_id": "061-fraud-detection-threat-model",
+      "title": "Threat Model Fraud Detection",
+      "domain": "fraud-detection",
+      "group": "security-privacy",
+      "operation": "threat-model",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/061-fraud-detection-threat-model"
+    },
+    {
+      "route_id": "061-fraud-detection-audit",
+      "title": "Audit Fraud Detection",
+      "domain": "fraud-detection",
+      "group": "security-privacy",
+      "operation": "audit",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/061-fraud-detection-audit"
+    },
+    {
+      "route_id": "062-payments-security-harden",
+      "title": "Harden Payments Security",
+      "domain": "payments-security",
+      "group": "security-privacy",
+      "operation": "harden",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/062-payments-security-harden"
+    },
+    {
+      "route_id": "062-payments-security-respond",
+      "title": "Respond Payments Security",
+      "domain": "payments-security",
+      "group": "security-privacy",
+      "operation": "respond",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/062-payments-security-respond"
+    },
+    {
+      "route_id": "063-tenant-isolation-audit",
+      "title": "Audit Tenant Isolation",
+      "domain": "tenant-isolation",
+      "group": "security-privacy",
+      "operation": "audit",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/063-tenant-isolation-audit"
+    },
+    {
+      "route_id": "063-tenant-isolation-threat-model",
+      "title": "Threat Model Tenant Isolation",
+      "domain": "tenant-isolation",
+      "group": "security-privacy",
+      "operation": "threat-model",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/063-tenant-isolation-threat-model"
+    },
+    {
+      "route_id": "064-secure-deployment-respond",
+      "title": "Respond Secure Deployment",
+      "domain": "secure-deployment",
+      "group": "security-privacy",
+      "operation": "respond",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/064-secure-deployment-respond"
+    },
+    {
+      "route_id": "064-secure-deployment-harden",
+      "title": "Harden Secure Deployment",
+      "domain": "secure-deployment",
+      "group": "security-privacy",
+      "operation": "harden",
+      "risk": "CRITICAL",
+      "path": "library/routes/security-privacy/064-secure-deployment-harden"
+    },
+    {
+      "route_id": "065-product-strategy-discover",
+      "title": "Discover Product Strategy",
+      "domain": "product-strategy",
+      "group": "product-design",
+      "operation": "discover",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/065-product-strategy-discover"
+    },
+    {
+      "route_id": "065-product-strategy-experiment",
+      "title": "Experiment Product Strategy",
+      "domain": "product-strategy",
+      "group": "product-design",
+      "operation": "experiment",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/065-product-strategy-experiment"
+    },
+    {
+      "route_id": "066-product-discovery-design",
+      "title": "Design Product Discovery",
+      "domain": "product-discovery",
+      "group": "product-design",
+      "operation": "design",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/066-product-discovery-design"
+    },
+    {
+      "route_id": "066-product-discovery-launch",
+      "title": "Launch Product Discovery",
+      "domain": "product-discovery",
+      "group": "product-design",
+      "operation": "launch",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/066-product-discovery-launch"
+    },
+    {
+      "route_id": "067-user-research-experiment",
+      "title": "Experiment User Research",
+      "domain": "user-research",
+      "group": "product-design",
+      "operation": "experiment",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/067-user-research-experiment"
+    },
+    {
+      "route_id": "067-user-research-discover",
+      "title": "Discover User Research",
+      "domain": "user-research",
+      "group": "product-design",
+      "operation": "discover",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/067-user-research-discover"
+    },
+    {
+      "route_id": "068-ux-design-launch",
+      "title": "Launch Ux Design",
+      "domain": "ux-design",
+      "group": "product-design",
+      "operation": "launch",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/068-ux-design-launch"
+    },
+    {
+      "route_id": "068-ux-design-design",
+      "title": "Design Ux Design",
+      "domain": "ux-design",
+      "group": "product-design",
+      "operation": "design",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/068-ux-design-design"
+    },
+    {
+      "route_id": "069-design-systems-discover",
+      "title": "Discover Design Systems",
+      "domain": "design-systems",
+      "group": "product-design",
+      "operation": "discover",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/069-design-systems-discover"
+    },
+    {
+      "route_id": "069-design-systems-experiment",
+      "title": "Experiment Design Systems",
+      "domain": "design-systems",
+      "group": "product-design",
+      "operation": "experiment",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/069-design-systems-experiment"
+    },
+    {
+      "route_id": "070-accessibility-design",
+      "title": "Design Accessibility",
+      "domain": "accessibility",
+      "group": "product-design",
+      "operation": "design",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/070-accessibility-design"
+    },
+    {
+      "route_id": "070-accessibility-launch",
+      "title": "Launch Accessibility",
+      "domain": "accessibility",
+      "group": "product-design",
+      "operation": "launch",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/070-accessibility-launch"
+    },
+    {
+      "route_id": "071-onboarding-experiment",
+      "title": "Experiment Onboarding",
+      "domain": "onboarding",
+      "group": "product-design",
+      "operation": "experiment",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/071-onboarding-experiment"
+    },
+    {
+      "route_id": "071-onboarding-discover",
+      "title": "Discover Onboarding",
+      "domain": "onboarding",
+      "group": "product-design",
+      "operation": "discover",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/071-onboarding-discover"
+    },
+    {
+      "route_id": "072-activation-launch",
+      "title": "Launch Activation",
+      "domain": "activation",
+      "group": "product-design",
+      "operation": "launch",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/072-activation-launch"
+    },
+    {
+      "route_id": "072-activation-design",
+      "title": "Design Activation",
+      "domain": "activation",
+      "group": "product-design",
+      "operation": "design",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/072-activation-design"
+    },
+    {
+      "route_id": "073-retention-discover",
+      "title": "Discover Retention",
+      "domain": "retention",
+      "group": "product-design",
+      "operation": "discover",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/073-retention-discover"
+    },
+    {
+      "route_id": "073-retention-experiment",
+      "title": "Experiment Retention",
+      "domain": "retention",
+      "group": "product-design",
+      "operation": "experiment",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/073-retention-experiment"
+    },
+    {
+      "route_id": "074-experimentation-design",
+      "title": "Design Experimentation",
+      "domain": "experimentation",
+      "group": "product-design",
+      "operation": "design",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/074-experimentation-design"
+    },
+    {
+      "route_id": "074-experimentation-launch",
+      "title": "Launch Experimentation",
+      "domain": "experimentation",
+      "group": "product-design",
+      "operation": "launch",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/074-experimentation-launch"
+    },
+    {
+      "route_id": "075-analytics-experiment",
+      "title": "Experiment Analytics",
+      "domain": "analytics",
+      "group": "product-design",
+      "operation": "experiment",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/075-analytics-experiment"
+    },
+    {
+      "route_id": "075-analytics-discover",
+      "title": "Discover Analytics",
+      "domain": "analytics",
+      "group": "product-design",
+      "operation": "discover",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/075-analytics-discover"
+    },
+    {
+      "route_id": "076-roadmapping-launch",
+      "title": "Launch Roadmapping",
+      "domain": "roadmapping",
+      "group": "product-design",
+      "operation": "launch",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/076-roadmapping-launch"
+    },
+    {
+      "route_id": "076-roadmapping-design",
+      "title": "Design Roadmapping",
+      "domain": "roadmapping",
+      "group": "product-design",
+      "operation": "design",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/076-roadmapping-design"
+    },
+    {
+      "route_id": "077-pricing-design-discover",
+      "title": "Discover Pricing Design",
+      "domain": "pricing-design",
+      "group": "product-design",
+      "operation": "discover",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/077-pricing-design-discover"
+    },
+    {
+      "route_id": "077-pricing-design-experiment",
+      "title": "Experiment Pricing Design",
+      "domain": "pricing-design",
+      "group": "product-design",
+      "operation": "experiment",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/077-pricing-design-experiment"
+    },
+    {
+      "route_id": "078-enterprise-product-design",
+      "title": "Design Enterprise Product",
+      "domain": "enterprise-product",
+      "group": "product-design",
+      "operation": "design",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/078-enterprise-product-design"
+    },
+    {
+      "route_id": "078-enterprise-product-launch",
+      "title": "Launch Enterprise Product",
+      "domain": "enterprise-product",
+      "group": "product-design",
+      "operation": "launch",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/078-enterprise-product-launch"
+    },
+    {
+      "route_id": "079-developer-experience-experiment",
+      "title": "Experiment Developer Experience",
+      "domain": "developer-experience",
+      "group": "product-design",
+      "operation": "experiment",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/079-developer-experience-experiment"
+    },
+    {
+      "route_id": "079-developer-experience-discover",
+      "title": "Discover Developer Experience",
+      "domain": "developer-experience",
+      "group": "product-design",
+      "operation": "discover",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/079-developer-experience-discover"
+    },
+    {
+      "route_id": "080-content-design-launch",
+      "title": "Launch Content Design",
+      "domain": "content-design",
+      "group": "product-design",
+      "operation": "launch",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/080-content-design-launch"
+    },
+    {
+      "route_id": "080-content-design-design",
+      "title": "Design Content Design",
+      "domain": "content-design",
+      "group": "product-design",
+      "operation": "design",
+      "risk": "MEDIUM",
+      "path": "library/routes/product-design/080-content-design-design"
+    },
+    {
+      "route_id": "081-market-research-research",
+      "title": "Research Market Research",
+      "domain": "market-research",
+      "group": "commercial-growth",
+      "operation": "research",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/081-market-research-research"
+    },
+    {
+      "route_id": "081-market-research-activate",
+      "title": "Activate Market Research",
+      "domain": "market-research",
+      "group": "commercial-growth",
+      "operation": "activate",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/081-market-research-activate"
+    },
+    {
+      "route_id": "082-buyer-intelligence-design-offer",
+      "title": "Design Offer Buyer Intelligence",
+      "domain": "buyer-intelligence",
+      "group": "commercial-growth",
+      "operation": "design-offer",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/082-buyer-intelligence-design-offer"
+    },
+    {
+      "route_id": "082-buyer-intelligence-optimize",
+      "title": "Optimize Buyer Intelligence",
+      "domain": "buyer-intelligence",
+      "group": "commercial-growth",
+      "operation": "optimize",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/082-buyer-intelligence-optimize"
+    },
+    {
+      "route_id": "083-offer-design-activate",
+      "title": "Activate Offer Design",
+      "domain": "offer-design",
+      "group": "commercial-growth",
+      "operation": "activate",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/083-offer-design-activate"
+    },
+    {
+      "route_id": "083-offer-design-research",
+      "title": "Research Offer Design",
+      "domain": "offer-design",
+      "group": "commercial-growth",
+      "operation": "research",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/083-offer-design-research"
+    },
+    {
+      "route_id": "084-sales-operations-optimize",
+      "title": "Optimize Sales Operations",
+      "domain": "sales-operations",
+      "group": "commercial-growth",
+      "operation": "optimize",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/084-sales-operations-optimize"
+    },
+    {
+      "route_id": "084-sales-operations-design-offer",
+      "title": "Design Offer Sales Operations",
+      "domain": "sales-operations",
+      "group": "commercial-growth",
+      "operation": "design-offer",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/084-sales-operations-design-offer"
+    },
+    {
+      "route_id": "085-outbound-systems-research",
+      "title": "Research Outbound Systems",
+      "domain": "outbound-systems",
+      "group": "commercial-growth",
+      "operation": "research",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/085-outbound-systems-research"
+    },
+    {
+      "route_id": "085-outbound-systems-activate",
+      "title": "Activate Outbound Systems",
+      "domain": "outbound-systems",
+      "group": "commercial-growth",
+      "operation": "activate",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/085-outbound-systems-activate"
+    },
+    {
+      "route_id": "086-inbound-growth-design-offer",
+      "title": "Design Offer Inbound Growth",
+      "domain": "inbound-growth",
+      "group": "commercial-growth",
+      "operation": "design-offer",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/086-inbound-growth-design-offer"
+    },
+    {
+      "route_id": "086-inbound-growth-optimize",
+      "title": "Optimize Inbound Growth",
+      "domain": "inbound-growth",
+      "group": "commercial-growth",
+      "operation": "optimize",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/086-inbound-growth-optimize"
+    },
+    {
+      "route_id": "087-partnerships-activate",
+      "title": "Activate Partnerships",
+      "domain": "partnerships",
+      "group": "commercial-growth",
+      "operation": "activate",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/087-partnerships-activate"
+    },
+    {
+      "route_id": "087-partnerships-research",
+      "title": "Research Partnerships",
+      "domain": "partnerships",
+      "group": "commercial-growth",
+      "operation": "research",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/087-partnerships-research"
+    },
+    {
+      "route_id": "088-channels-optimize",
+      "title": "Optimize Channels",
+      "domain": "channels",
+      "group": "commercial-growth",
+      "operation": "optimize",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/088-channels-optimize"
+    },
+    {
+      "route_id": "088-channels-design-offer",
+      "title": "Design Offer Channels",
+      "domain": "channels",
+      "group": "commercial-growth",
+      "operation": "design-offer",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/088-channels-design-offer"
+    },
+    {
+      "route_id": "089-seo-research",
+      "title": "Research Seo",
+      "domain": "seo",
+      "group": "commercial-growth",
+      "operation": "research",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/089-seo-research"
+    },
+    {
+      "route_id": "089-seo-activate",
+      "title": "Activate Seo",
+      "domain": "seo",
+      "group": "commercial-growth",
+      "operation": "activate",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/089-seo-activate"
+    },
+    {
+      "route_id": "090-content-marketing-design-offer",
+      "title": "Design Offer Content Marketing",
+      "domain": "content-marketing",
+      "group": "commercial-growth",
+      "operation": "design-offer",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/090-content-marketing-design-offer"
+    },
+    {
+      "route_id": "090-content-marketing-optimize",
+      "title": "Optimize Content Marketing",
+      "domain": "content-marketing",
+      "group": "commercial-growth",
+      "operation": "optimize",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/090-content-marketing-optimize"
+    },
+    {
+      "route_id": "091-lifecycle-marketing-activate",
+      "title": "Activate Lifecycle Marketing",
+      "domain": "lifecycle-marketing",
+      "group": "commercial-growth",
+      "operation": "activate",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/091-lifecycle-marketing-activate"
+    },
+    {
+      "route_id": "091-lifecycle-marketing-research",
+      "title": "Research Lifecycle Marketing",
+      "domain": "lifecycle-marketing",
+      "group": "commercial-growth",
+      "operation": "research",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/091-lifecycle-marketing-research"
+    },
+    {
+      "route_id": "092-customer-success-optimize",
+      "title": "Optimize Customer Success",
+      "domain": "customer-success",
+      "group": "commercial-growth",
+      "operation": "optimize",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/092-customer-success-optimize"
+    },
+    {
+      "route_id": "092-customer-success-design-offer",
+      "title": "Design Offer Customer Success",
+      "domain": "customer-success",
+      "group": "commercial-growth",
+      "operation": "design-offer",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/092-customer-success-design-offer"
+    },
+    {
+      "route_id": "093-support-operations-research",
+      "title": "Research Support Operations",
+      "domain": "support-operations",
+      "group": "commercial-growth",
+      "operation": "research",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/093-support-operations-research"
+    },
+    {
+      "route_id": "093-support-operations-activate",
+      "title": "Activate Support Operations",
+      "domain": "support-operations",
+      "group": "commercial-growth",
+      "operation": "activate",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/093-support-operations-activate"
+    },
+    {
+      "route_id": "094-revenue-operations-design-offer",
+      "title": "Design Offer Revenue Operations",
+      "domain": "revenue-operations",
+      "group": "commercial-growth",
+      "operation": "design-offer",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/094-revenue-operations-design-offer"
+    },
+    {
+      "route_id": "094-revenue-operations-optimize",
+      "title": "Optimize Revenue Operations",
+      "domain": "revenue-operations",
+      "group": "commercial-growth",
+      "operation": "optimize",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/094-revenue-operations-optimize"
+    },
+    {
+      "route_id": "095-account-management-activate",
+      "title": "Activate Account Management",
+      "domain": "account-management",
+      "group": "commercial-growth",
+      "operation": "activate",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/095-account-management-activate"
+    },
+    {
+      "route_id": "095-account-management-research",
+      "title": "Research Account Management",
+      "domain": "account-management",
+      "group": "commercial-growth",
+      "operation": "research",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/095-account-management-research"
+    },
+    {
+      "route_id": "096-procurement-sales-optimize",
+      "title": "Optimize Procurement Sales",
+      "domain": "procurement-sales",
+      "group": "commercial-growth",
+      "operation": "optimize",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/096-procurement-sales-optimize"
+    },
+    {
+      "route_id": "096-procurement-sales-design-offer",
+      "title": "Design Offer Procurement Sales",
+      "domain": "procurement-sales",
+      "group": "commercial-growth",
+      "operation": "design-offer",
+      "risk": "HIGH",
+      "path": "library/routes/commercial-growth/096-procurement-sales-design-offer"
+    },
+    {
+      "route_id": "097-financial-modeling-model",
+      "title": "Model Financial Modeling",
+      "domain": "financial-modeling",
+      "group": "business-operations",
+      "operation": "model",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/097-financial-modeling-model"
+    },
+    {
+      "route_id": "097-financial-modeling-control",
+      "title": "Control Financial Modeling",
+      "domain": "financial-modeling",
+      "group": "business-operations",
+      "operation": "control",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/097-financial-modeling-control"
+    },
+    {
+      "route_id": "098-budgeting-design-process",
+      "title": "Design Process Budgeting",
+      "domain": "budgeting",
+      "group": "business-operations",
+      "operation": "design-process",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/098-budgeting-design-process"
+    },
+    {
+      "route_id": "098-budgeting-review",
+      "title": "Review Budgeting",
+      "domain": "budgeting",
+      "group": "business-operations",
+      "operation": "review",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/098-budgeting-review"
+    },
+    {
+      "route_id": "099-cash-management-control",
+      "title": "Control Cash Management",
+      "domain": "cash-management",
+      "group": "business-operations",
+      "operation": "control",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/099-cash-management-control"
+    },
+    {
+      "route_id": "099-cash-management-model",
+      "title": "Model Cash Management",
+      "domain": "cash-management",
+      "group": "business-operations",
+      "operation": "model",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/099-cash-management-model"
+    },
+    {
+      "route_id": "100-vendor-management-review",
+      "title": "Review Vendor Management",
+      "domain": "vendor-management",
+      "group": "business-operations",
+      "operation": "review",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/100-vendor-management-review"
+    },
+    {
+      "route_id": "100-vendor-management-design-process",
+      "title": "Design Process Vendor Management",
+      "domain": "vendor-management",
+      "group": "business-operations",
+      "operation": "design-process",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/100-vendor-management-design-process"
+    },
+    {
+      "route_id": "101-procurement-model",
+      "title": "Model Procurement",
+      "domain": "procurement",
+      "group": "business-operations",
+      "operation": "model",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/101-procurement-model"
+    },
+    {
+      "route_id": "101-procurement-control",
+      "title": "Control Procurement",
+      "domain": "procurement",
+      "group": "business-operations",
+      "operation": "control",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/101-procurement-control"
+    },
+    {
+      "route_id": "102-risk-management-design-process",
+      "title": "Design Process Risk Management",
+      "domain": "risk-management",
+      "group": "business-operations",
+      "operation": "design-process",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/102-risk-management-design-process"
+    },
+    {
+      "route_id": "102-risk-management-review",
+      "title": "Review Risk Management",
+      "domain": "risk-management",
+      "group": "business-operations",
+      "operation": "review",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/102-risk-management-review"
+    },
+    {
+      "route_id": "103-business-continuity-control",
+      "title": "Control Business Continuity",
+      "domain": "business-continuity",
+      "group": "business-operations",
+      "operation": "control",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/103-business-continuity-control"
+    },
+    {
+      "route_id": "103-business-continuity-model",
+      "title": "Model Business Continuity",
+      "domain": "business-continuity",
+      "group": "business-operations",
+      "operation": "model",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/103-business-continuity-model"
+    },
+    {
+      "route_id": "104-operations-design-review",
+      "title": "Review Operations Design",
+      "domain": "operations-design",
+      "group": "business-operations",
+      "operation": "review",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/104-operations-design-review"
+    },
+    {
+      "route_id": "104-operations-design-design-process",
+      "title": "Design Process Operations Design",
+      "domain": "operations-design",
+      "group": "business-operations",
+      "operation": "design-process",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/104-operations-design-design-process"
+    },
+    {
+      "route_id": "105-project-management-model",
+      "title": "Model Project Management",
+      "domain": "project-management",
+      "group": "business-operations",
+      "operation": "model",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/105-project-management-model"
+    },
+    {
+      "route_id": "105-project-management-control",
+      "title": "Control Project Management",
+      "domain": "project-management",
+      "group": "business-operations",
+      "operation": "control",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/105-project-management-control"
+    },
+    {
+      "route_id": "106-program-management-design-process",
+      "title": "Design Process Program Management",
+      "domain": "program-management",
+      "group": "business-operations",
+      "operation": "design-process",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/106-program-management-design-process"
+    },
+    {
+      "route_id": "106-program-management-review",
+      "title": "Review Program Management",
+      "domain": "program-management",
+      "group": "business-operations",
+      "operation": "review",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/106-program-management-review"
+    },
+    {
+      "route_id": "107-knowledge-management-control",
+      "title": "Control Knowledge Management",
+      "domain": "knowledge-management",
+      "group": "business-operations",
+      "operation": "control",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/107-knowledge-management-control"
+    },
+    {
+      "route_id": "107-knowledge-management-model",
+      "title": "Model Knowledge Management",
+      "domain": "knowledge-management",
+      "group": "business-operations",
+      "operation": "model",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/107-knowledge-management-model"
+    },
+    {
+      "route_id": "108-quality-management-review",
+      "title": "Review Quality Management",
+      "domain": "quality-management",
+      "group": "business-operations",
+      "operation": "review",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/108-quality-management-review"
+    },
+    {
+      "route_id": "108-quality-management-design-process",
+      "title": "Design Process Quality Management",
+      "domain": "quality-management",
+      "group": "business-operations",
+      "operation": "design-process",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/108-quality-management-design-process"
+    },
+    {
+      "route_id": "109-hiring-systems-model",
+      "title": "Model Hiring Systems",
+      "domain": "hiring-systems",
+      "group": "business-operations",
+      "operation": "model",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/109-hiring-systems-model"
+    },
+    {
+      "route_id": "109-hiring-systems-control",
+      "title": "Control Hiring Systems",
+      "domain": "hiring-systems",
+      "group": "business-operations",
+      "operation": "control",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/109-hiring-systems-control"
+    },
+    {
+      "route_id": "110-people-operations-design-process",
+      "title": "Design Process People Operations",
+      "domain": "people-operations",
+      "group": "business-operations",
+      "operation": "design-process",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/110-people-operations-design-process"
+    },
+    {
+      "route_id": "110-people-operations-review",
+      "title": "Review People Operations",
+      "domain": "people-operations",
+      "group": "business-operations",
+      "operation": "review",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/110-people-operations-review"
+    },
+    {
+      "route_id": "111-training-control",
+      "title": "Control Training",
+      "domain": "training",
+      "group": "business-operations",
+      "operation": "control",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/111-training-control"
+    },
+    {
+      "route_id": "111-training-model",
+      "title": "Model Training",
+      "domain": "training",
+      "group": "business-operations",
+      "operation": "model",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/111-training-model"
+    },
+    {
+      "route_id": "112-executive-reporting-review",
+      "title": "Review Executive Reporting",
+      "domain": "executive-reporting",
+      "group": "business-operations",
+      "operation": "review",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/112-executive-reporting-review"
+    },
+    {
+      "route_id": "112-executive-reporting-design-process",
+      "title": "Design Process Executive Reporting",
+      "domain": "executive-reporting",
+      "group": "business-operations",
+      "operation": "design-process",
+      "risk": "HIGH",
+      "path": "library/routes/business-operations/112-executive-reporting-design-process"
+    },
+    {
+      "route_id": "113-contract-preparation-research",
+      "title": "Research Contract Preparation",
+      "domain": "contract-preparation",
+      "group": "legal-compliance-prep",
+      "operation": "research",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/113-contract-preparation-research"
+    },
+    {
+      "route_id": "113-contract-preparation-prepare-brief",
+      "title": "Prepare Brief Contract Preparation",
+      "domain": "contract-preparation",
+      "group": "legal-compliance-prep",
+      "operation": "prepare-brief",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/113-contract-preparation-prepare-brief"
+    },
+    {
+      "route_id": "114-privacy-compliance-prep-classify",
+      "title": "Classify Privacy Compliance Prep",
+      "domain": "privacy-compliance-prep",
+      "group": "legal-compliance-prep",
+      "operation": "classify",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/114-privacy-compliance-prep-classify"
+    },
+    {
+      "route_id": "114-privacy-compliance-prep-audit-readiness",
+      "title": "Audit Readiness Privacy Compliance Prep",
+      "domain": "privacy-compliance-prep",
+      "group": "legal-compliance-prep",
+      "operation": "audit-readiness",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/114-privacy-compliance-prep-audit-readiness"
+    },
+    {
+      "route_id": "115-security-compliance-prep-prepare-brief",
+      "title": "Prepare Brief Security Compliance Prep",
+      "domain": "security-compliance-prep",
+      "group": "legal-compliance-prep",
+      "operation": "prepare-brief",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/115-security-compliance-prep-prepare-brief"
+    },
+    {
+      "route_id": "115-security-compliance-prep-research",
+      "title": "Research Security Compliance Prep",
+      "domain": "security-compliance-prep",
+      "group": "legal-compliance-prep",
+      "operation": "research",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/115-security-compliance-prep-research"
+    },
+    {
+      "route_id": "116-tax-research-prep-audit-readiness",
+      "title": "Audit Readiness Tax Research Prep",
+      "domain": "tax-research-prep",
+      "group": "legal-compliance-prep",
+      "operation": "audit-readiness",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/116-tax-research-prep-audit-readiness"
+    },
+    {
+      "route_id": "116-tax-research-prep-classify",
+      "title": "Classify Tax Research Prep",
+      "domain": "tax-research-prep",
+      "group": "legal-compliance-prep",
+      "operation": "classify",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/116-tax-research-prep-classify"
+    },
+    {
+      "route_id": "117-employment-law-prep-research",
+      "title": "Research Employment Law Prep",
+      "domain": "employment-law-prep",
+      "group": "legal-compliance-prep",
+      "operation": "research",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/117-employment-law-prep-research"
+    },
+    {
+      "route_id": "117-employment-law-prep-prepare-brief",
+      "title": "Prepare Brief Employment Law Prep",
+      "domain": "employment-law-prep",
+      "group": "legal-compliance-prep",
+      "operation": "prepare-brief",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/117-employment-law-prep-prepare-brief"
+    },
+    {
+      "route_id": "118-ip-research-prep-classify",
+      "title": "Classify Ip Research Prep",
+      "domain": "ip-research-prep",
+      "group": "legal-compliance-prep",
+      "operation": "classify",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/118-ip-research-prep-classify"
+    },
+    {
+      "route_id": "118-ip-research-prep-audit-readiness",
+      "title": "Audit Readiness Ip Research Prep",
+      "domain": "ip-research-prep",
+      "group": "legal-compliance-prep",
+      "operation": "audit-readiness",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/118-ip-research-prep-audit-readiness"
+    },
+    {
+      "route_id": "119-regulatory-research-prep-prepare-brief",
+      "title": "Prepare Brief Regulatory Research Prep",
+      "domain": "regulatory-research-prep",
+      "group": "legal-compliance-prep",
+      "operation": "prepare-brief",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/119-regulatory-research-prep-prepare-brief"
+    },
+    {
+      "route_id": "119-regulatory-research-prep-research",
+      "title": "Research Regulatory Research Prep",
+      "domain": "regulatory-research-prep",
+      "group": "legal-compliance-prep",
+      "operation": "research",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/119-regulatory-research-prep-research"
+    },
+    {
+      "route_id": "120-vendor-due-diligence-audit-readiness",
+      "title": "Audit Readiness Vendor Due Diligence",
+      "domain": "vendor-due-diligence",
+      "group": "legal-compliance-prep",
+      "operation": "audit-readiness",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/120-vendor-due-diligence-audit-readiness"
+    },
+    {
+      "route_id": "120-vendor-due-diligence-classify",
+      "title": "Classify Vendor Due Diligence",
+      "domain": "vendor-due-diligence",
+      "group": "legal-compliance-prep",
+      "operation": "classify",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/120-vendor-due-diligence-classify"
+    },
+    {
+      "route_id": "121-data-processing-agreements-research",
+      "title": "Research Data Processing Agreements",
+      "domain": "data-processing-agreements",
+      "group": "legal-compliance-prep",
+      "operation": "research",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/121-data-processing-agreements-research"
+    },
+    {
+      "route_id": "121-data-processing-agreements-prepare-brief",
+      "title": "Prepare Brief Data Processing Agreements",
+      "domain": "data-processing-agreements",
+      "group": "legal-compliance-prep",
+      "operation": "prepare-brief",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/121-data-processing-agreements-prepare-brief"
+    },
+    {
+      "route_id": "122-terms-policy-prep-classify",
+      "title": "Classify Terms Policy Prep",
+      "domain": "terms-policy-prep",
+      "group": "legal-compliance-prep",
+      "operation": "classify",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/122-terms-policy-prep-classify"
+    },
+    {
+      "route_id": "122-terms-policy-prep-audit-readiness",
+      "title": "Audit Readiness Terms Policy Prep",
+      "domain": "terms-policy-prep",
+      "group": "legal-compliance-prep",
+      "operation": "audit-readiness",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/122-terms-policy-prep-audit-readiness"
+    },
+    {
+      "route_id": "123-audit-readiness-prepare-brief",
+      "title": "Prepare Brief Audit Readiness",
+      "domain": "audit-readiness",
+      "group": "legal-compliance-prep",
+      "operation": "prepare-brief",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/123-audit-readiness-prepare-brief"
+    },
+    {
+      "route_id": "123-audit-readiness-research",
+      "title": "Research Audit Readiness",
+      "domain": "audit-readiness",
+      "group": "legal-compliance-prep",
+      "operation": "research",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/123-audit-readiness-research"
+    },
+    {
+      "route_id": "124-record-retention-audit-readiness",
+      "title": "Audit Readiness Record Retention",
+      "domain": "record-retention",
+      "group": "legal-compliance-prep",
+      "operation": "audit-readiness",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/124-record-retention-audit-readiness"
+    },
+    {
+      "route_id": "124-record-retention-classify",
+      "title": "Classify Record Retention",
+      "domain": "record-retention",
+      "group": "legal-compliance-prep",
+      "operation": "classify",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/124-record-retention-classify"
+    },
+    {
+      "route_id": "125-international-expansion-prep-research",
+      "title": "Research International Expansion Prep",
+      "domain": "international-expansion-prep",
+      "group": "legal-compliance-prep",
+      "operation": "research",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/125-international-expansion-prep-research"
+    },
+    {
+      "route_id": "125-international-expansion-prep-prepare-brief",
+      "title": "Prepare Brief International Expansion Prep",
+      "domain": "international-expansion-prep",
+      "group": "legal-compliance-prep",
+      "operation": "prepare-brief",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/125-international-expansion-prep-prepare-brief"
+    },
+    {
+      "route_id": "126-payments-regulation-prep-classify",
+      "title": "Classify Payments Regulation Prep",
+      "domain": "payments-regulation-prep",
+      "group": "legal-compliance-prep",
+      "operation": "classify",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/126-payments-regulation-prep-classify"
+    },
+    {
+      "route_id": "126-payments-regulation-prep-audit-readiness",
+      "title": "Audit Readiness Payments Regulation Prep",
+      "domain": "payments-regulation-prep",
+      "group": "legal-compliance-prep",
+      "operation": "audit-readiness",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/126-payments-regulation-prep-audit-readiness"
+    },
+    {
+      "route_id": "127-consumer-protection-prep-prepare-brief",
+      "title": "Prepare Brief Consumer Protection Prep",
+      "domain": "consumer-protection-prep",
+      "group": "legal-compliance-prep",
+      "operation": "prepare-brief",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/127-consumer-protection-prep-prepare-brief"
+    },
+    {
+      "route_id": "127-consumer-protection-prep-research",
+      "title": "Research Consumer Protection Prep",
+      "domain": "consumer-protection-prep",
+      "group": "legal-compliance-prep",
+      "operation": "research",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/127-consumer-protection-prep-research"
+    },
+    {
+      "route_id": "128-ai-governance-prep-audit-readiness",
+      "title": "Audit Readiness Ai Governance Prep",
+      "domain": "ai-governance-prep",
+      "group": "legal-compliance-prep",
+      "operation": "audit-readiness",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/128-ai-governance-prep-audit-readiness"
+    },
+    {
+      "route_id": "128-ai-governance-prep-classify",
+      "title": "Classify Ai Governance Prep",
+      "domain": "ai-governance-prep",
+      "group": "legal-compliance-prep",
+      "operation": "classify",
+      "risk": "CRITICAL",
+      "path": "library/routes/legal-compliance-prep/128-ai-governance-prep-classify"
+    },
+    {
+      "route_id": "129-web-research-frame",
+      "title": "Frame Web Research",
+      "domain": "web-research",
+      "group": "research-knowledge",
+      "operation": "frame",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/129-web-research-frame"
+    },
+    {
+      "route_id": "129-web-research-verify",
+      "title": "Verify Web Research",
+      "domain": "web-research",
+      "group": "research-knowledge",
+      "operation": "verify",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/129-web-research-verify"
+    },
+    {
+      "route_id": "130-scientific-literature-collect",
+      "title": "Collect Scientific Literature",
+      "domain": "scientific-literature",
+      "group": "research-knowledge",
+      "operation": "collect",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/130-scientific-literature-collect"
+    },
+    {
+      "route_id": "130-scientific-literature-synthesize",
+      "title": "Synthesize Scientific Literature",
+      "domain": "scientific-literature",
+      "group": "research-knowledge",
+      "operation": "synthesize",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/130-scientific-literature-synthesize"
+    },
+    {
+      "route_id": "131-competitive-intelligence-verify",
+      "title": "Verify Competitive Intelligence",
+      "domain": "competitive-intelligence",
+      "group": "research-knowledge",
+      "operation": "verify",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/131-competitive-intelligence-verify"
+    },
+    {
+      "route_id": "131-competitive-intelligence-frame",
+      "title": "Frame Competitive Intelligence",
+      "domain": "competitive-intelligence",
+      "group": "research-knowledge",
+      "operation": "frame",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/131-competitive-intelligence-frame"
+    },
+    {
+      "route_id": "132-source-verification-synthesize",
+      "title": "Synthesize Source Verification",
+      "domain": "source-verification",
+      "group": "research-knowledge",
+      "operation": "synthesize",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/132-source-verification-synthesize"
+    },
+    {
+      "route_id": "132-source-verification-collect",
+      "title": "Collect Source Verification",
+      "domain": "source-verification",
+      "group": "research-knowledge",
+      "operation": "collect",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/132-source-verification-collect"
+    },
+    {
+      "route_id": "133-evidence-synthesis-frame",
+      "title": "Frame Evidence Synthesis",
+      "domain": "evidence-synthesis",
+      "group": "research-knowledge",
+      "operation": "frame",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/133-evidence-synthesis-frame"
+    },
+    {
+      "route_id": "133-evidence-synthesis-verify",
+      "title": "Verify Evidence Synthesis",
+      "domain": "evidence-synthesis",
+      "group": "research-knowledge",
+      "operation": "verify",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/133-evidence-synthesis-verify"
+    },
+    {
+      "route_id": "134-survey-design-collect",
+      "title": "Collect Survey Design",
+      "domain": "survey-design",
+      "group": "research-knowledge",
+      "operation": "collect",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/134-survey-design-collect"
+    },
+    {
+      "route_id": "134-survey-design-synthesize",
+      "title": "Synthesize Survey Design",
+      "domain": "survey-design",
+      "group": "research-knowledge",
+      "operation": "synthesize",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/134-survey-design-synthesize"
+    },
+    {
+      "route_id": "135-qualitative-analysis-verify",
+      "title": "Verify Qualitative Analysis",
+      "domain": "qualitative-analysis",
+      "group": "research-knowledge",
+      "operation": "verify",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/135-qualitative-analysis-verify"
+    },
+    {
+      "route_id": "135-qualitative-analysis-frame",
+      "title": "Frame Qualitative Analysis",
+      "domain": "qualitative-analysis",
+      "group": "research-knowledge",
+      "operation": "frame",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/135-qualitative-analysis-frame"
+    },
+    {
+      "route_id": "136-quantitative-analysis-synthesize",
+      "title": "Synthesize Quantitative Analysis",
+      "domain": "quantitative-analysis",
+      "group": "research-knowledge",
+      "operation": "synthesize",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/136-quantitative-analysis-synthesize"
+    },
+    {
+      "route_id": "136-quantitative-analysis-collect",
+      "title": "Collect Quantitative Analysis",
+      "domain": "quantitative-analysis",
+      "group": "research-knowledge",
+      "operation": "collect",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/136-quantitative-analysis-collect"
+    },
+    {
+      "route_id": "137-knowledge-graphs-frame",
+      "title": "Frame Knowledge Graphs",
+      "domain": "knowledge-graphs",
+      "group": "research-knowledge",
+      "operation": "frame",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/137-knowledge-graphs-frame"
+    },
+    {
+      "route_id": "137-knowledge-graphs-verify",
+      "title": "Verify Knowledge Graphs",
+      "domain": "knowledge-graphs",
+      "group": "research-knowledge",
+      "operation": "verify",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/137-knowledge-graphs-verify"
+    },
+    {
+      "route_id": "138-taxonomy-design-collect",
+      "title": "Collect Taxonomy Design",
+      "domain": "taxonomy-design",
+      "group": "research-knowledge",
+      "operation": "collect",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/138-taxonomy-design-collect"
+    },
+    {
+      "route_id": "138-taxonomy-design-synthesize",
+      "title": "Synthesize Taxonomy Design",
+      "domain": "taxonomy-design",
+      "group": "research-knowledge",
+      "operation": "synthesize",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/138-taxonomy-design-synthesize"
+    },
+    {
+      "route_id": "139-document-synthesis-verify",
+      "title": "Verify Document Synthesis",
+      "domain": "document-synthesis",
+      "group": "research-knowledge",
+      "operation": "verify",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/139-document-synthesis-verify"
+    },
+    {
+      "route_id": "139-document-synthesis-frame",
+      "title": "Frame Document Synthesis",
+      "domain": "document-synthesis",
+      "group": "research-knowledge",
+      "operation": "frame",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/139-document-synthesis-frame"
+    },
+    {
+      "route_id": "140-fact-checking-synthesize",
+      "title": "Synthesize Fact Checking",
+      "domain": "fact-checking",
+      "group": "research-knowledge",
+      "operation": "synthesize",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/140-fact-checking-synthesize"
+    },
+    {
+      "route_id": "140-fact-checking-collect",
+      "title": "Collect Fact Checking",
+      "domain": "fact-checking",
+      "group": "research-knowledge",
+      "operation": "collect",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/140-fact-checking-collect"
+    },
+    {
+      "route_id": "141-historical-analysis-frame",
+      "title": "Frame Historical Analysis",
+      "domain": "historical-analysis",
+      "group": "research-knowledge",
+      "operation": "frame",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/141-historical-analysis-frame"
+    },
+    {
+      "route_id": "141-historical-analysis-verify",
+      "title": "Verify Historical Analysis",
+      "domain": "historical-analysis",
+      "group": "research-knowledge",
+      "operation": "verify",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/141-historical-analysis-verify"
+    },
+    {
+      "route_id": "142-policy-research-collect",
+      "title": "Collect Policy Research",
+      "domain": "policy-research",
+      "group": "research-knowledge",
+      "operation": "collect",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/142-policy-research-collect"
+    },
+    {
+      "route_id": "142-policy-research-synthesize",
+      "title": "Synthesize Policy Research",
+      "domain": "policy-research",
+      "group": "research-knowledge",
+      "operation": "synthesize",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/142-policy-research-synthesize"
+    },
+    {
+      "route_id": "143-technical-writing-verify",
+      "title": "Verify Technical Writing",
+      "domain": "technical-writing",
+      "group": "research-knowledge",
+      "operation": "verify",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/143-technical-writing-verify"
+    },
+    {
+      "route_id": "143-technical-writing-frame",
+      "title": "Frame Technical Writing",
+      "domain": "technical-writing",
+      "group": "research-knowledge",
+      "operation": "frame",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/143-technical-writing-frame"
+    },
+    {
+      "route_id": "144-decision-memos-synthesize",
+      "title": "Synthesize Decision Memos",
+      "domain": "decision-memos",
+      "group": "research-knowledge",
+      "operation": "synthesize",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/144-decision-memos-synthesize"
+    },
+    {
+      "route_id": "144-decision-memos-collect",
+      "title": "Collect Decision Memos",
+      "domain": "decision-memos",
+      "group": "research-knowledge",
+      "operation": "collect",
+      "risk": "MEDIUM",
+      "path": "library/routes/research-knowledge/144-decision-memos-collect"
+    }
+  ]
+}

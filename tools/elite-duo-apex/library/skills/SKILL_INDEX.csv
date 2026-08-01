@@ -1,0 +1,289 @@
+﻿domain,group,name,path,title
+api-design,software-engineering,analyze-runtime-api-design,library/skills/software-engineering/analyze-runtime-api-design,Analyze Runtime: Api Design
+api-design,software-engineering,build-durable-change-api-design,library/skills/software-engineering/build-durable-change-api-design,Build Durable Change: Api Design
+backend-services,software-engineering,analyze-runtime-backend-services,library/skills/software-engineering/analyze-runtime-backend-services,Analyze Runtime: Backend Services
+backend-services,software-engineering,build-durable-change-backend-services,library/skills/software-engineering/build-durable-change-backend-services,Build Durable Change: Backend Services
+frontend-systems,software-engineering,analyze-runtime-frontend-systems,library/skills/software-engineering/analyze-runtime-frontend-systems,Analyze Runtime: Frontend Systems
+frontend-systems,software-engineering,build-durable-change-frontend-systems,library/skills/software-engineering/build-durable-change-frontend-systems,Build Durable Change: Frontend Systems
+mobile-applications,software-engineering,analyze-runtime-mobile-applications,library/skills/software-engineering/analyze-runtime-mobile-applications,Analyze Runtime: Mobile Applications
+mobile-applications,software-engineering,build-durable-change-mobile-applications,library/skills/software-engineering/build-durable-change-mobile-applications,Build Durable Change: Mobile Applications
+database-engineering,software-engineering,analyze-runtime-database-engineering,library/skills/software-engineering/analyze-runtime-database-engineering,Analyze Runtime: Database Engineering
+database-engineering,software-engineering,build-durable-change-database-engineering,library/skills/software-engineering/build-durable-change-database-engineering,Build Durable Change: Database Engineering
+distributed-systems,software-engineering,analyze-runtime-distributed-systems,library/skills/software-engineering/analyze-runtime-distributed-systems,Analyze Runtime: Distributed Systems
+distributed-systems,software-engineering,build-durable-change-distributed-systems,library/skills/software-engineering/build-durable-change-distributed-systems,Build Durable Change: Distributed Systems
+event-driven-architecture,software-engineering,analyze-runtime-event-driven-architecture,library/skills/software-engineering/analyze-runtime-event-driven-architecture,Analyze Runtime: Event Driven Architecture
+event-driven-architecture,software-engineering,build-durable-change-event-driven-architecture,library/skills/software-engineering/build-durable-change-event-driven-architecture,Build Durable Change: Event Driven Architecture
+workflow-engines,software-engineering,analyze-runtime-workflow-engines,library/skills/software-engineering/analyze-runtime-workflow-engines,Analyze Runtime: Workflow Engines
+workflow-engines,software-engineering,build-durable-change-workflow-engines,library/skills/software-engineering/build-durable-change-workflow-engines,Build Durable Change: Workflow Engines
+developer-tooling,software-engineering,analyze-runtime-developer-tooling,library/skills/software-engineering/analyze-runtime-developer-tooling,Analyze Runtime: Developer Tooling
+developer-tooling,software-engineering,build-durable-change-developer-tooling,library/skills/software-engineering/build-durable-change-developer-tooling,Build Durable Change: Developer Tooling
+ci-cd,software-engineering,analyze-runtime-ci-cd,library/skills/software-engineering/analyze-runtime-ci-cd,Analyze Runtime: Ci Cd
+ci-cd,software-engineering,build-durable-change-ci-cd,library/skills/software-engineering/build-durable-change-ci-cd,Build Durable Change: Ci Cd
+observability,software-engineering,analyze-runtime-observability,library/skills/software-engineering/analyze-runtime-observability,Analyze Runtime: Observability
+observability,software-engineering,build-durable-change-observability,library/skills/software-engineering/build-durable-change-observability,Build Durable Change: Observability
+performance-engineering,software-engineering,analyze-runtime-performance-engineering,library/skills/software-engineering/analyze-runtime-performance-engineering,Analyze Runtime: Performance Engineering
+performance-engineering,software-engineering,build-durable-change-performance-engineering,library/skills/software-engineering/build-durable-change-performance-engineering,Build Durable Change: Performance Engineering
+reliability-engineering,software-engineering,analyze-runtime-reliability-engineering,library/skills/software-engineering/analyze-runtime-reliability-engineering,Analyze Runtime: Reliability Engineering
+reliability-engineering,software-engineering,build-durable-change-reliability-engineering,library/skills/software-engineering/build-durable-change-reliability-engineering,Build Durable Change: Reliability Engineering
+platform-engineering,software-engineering,analyze-runtime-platform-engineering,library/skills/software-engineering/analyze-runtime-platform-engineering,Analyze Runtime: Platform Engineering
+platform-engineering,software-engineering,build-durable-change-platform-engineering,library/skills/software-engineering/build-durable-change-platform-engineering,Build Durable Change: Platform Engineering
+cloud-architecture,software-engineering,analyze-runtime-cloud-architecture,library/skills/software-engineering/analyze-runtime-cloud-architecture,Analyze Runtime: Cloud Architecture
+cloud-architecture,software-engineering,build-durable-change-cloud-architecture,library/skills/software-engineering/build-durable-change-cloud-architecture,Build Durable Change: Cloud Architecture
+edge-computing,software-engineering,analyze-runtime-edge-computing,library/skills/software-engineering/analyze-runtime-edge-computing,Analyze Runtime: Edge Computing
+edge-computing,software-engineering,build-durable-change-edge-computing,library/skills/software-engineering/build-durable-change-edge-computing,Build Durable Change: Edge Computing
+serverless,software-engineering,analyze-runtime-serverless,library/skills/software-engineering/analyze-runtime-serverless,Analyze Runtime: Serverless
+serverless,software-engineering,build-durable-change-serverless,library/skills/software-engineering/build-durable-change-serverless,Build Durable Change: Serverless
+microservices,software-engineering,analyze-runtime-microservices,library/skills/software-engineering/analyze-runtime-microservices,Analyze Runtime: Microservices
+microservices,software-engineering,build-durable-change-microservices,library/skills/software-engineering/build-durable-change-microservices,Build Durable Change: Microservices
+monolith-modernization,software-engineering,analyze-runtime-monolith-modernization,library/skills/software-engineering/analyze-runtime-monolith-modernization,Analyze Runtime: Monolith Modernization
+monolith-modernization,software-engineering,build-durable-change-monolith-modernization,library/skills/software-engineering/build-durable-change-monolith-modernization,Build Durable Change: Monolith Modernization
+data-migrations,software-engineering,analyze-runtime-data-migrations,library/skills/software-engineering/analyze-runtime-data-migrations,Analyze Runtime: Data Migrations
+data-migrations,software-engineering,build-durable-change-data-migrations,library/skills/software-engineering/build-durable-change-data-migrations,Build Durable Change: Data Migrations
+testing-systems,software-engineering,analyze-runtime-testing-systems,library/skills/software-engineering/analyze-runtime-testing-systems,Analyze Runtime: Testing Systems
+testing-systems,software-engineering,build-durable-change-testing-systems,library/skills/software-engineering/build-durable-change-testing-systems,Build Durable Change: Testing Systems
+release-engineering,software-engineering,analyze-runtime-release-engineering,library/skills/software-engineering/analyze-runtime-release-engineering,Analyze Runtime: Release Engineering
+release-engineering,software-engineering,build-durable-change-release-engineering,library/skills/software-engineering/build-durable-change-release-engineering,Build Durable Change: Release Engineering
+package-management,software-engineering,analyze-runtime-package-management,library/skills/software-engineering/analyze-runtime-package-management,Analyze Runtime: Package Management
+package-management,software-engineering,build-durable-change-package-management,library/skills/software-engineering/build-durable-change-package-management,Build Durable Change: Package Management
+configuration,software-engineering,analyze-runtime-configuration,library/skills/software-engineering/analyze-runtime-configuration,Analyze Runtime: Configuration
+configuration,software-engineering,build-durable-change-configuration,library/skills/software-engineering/build-durable-change-configuration,Build Durable Change: Configuration
+feature-flags,software-engineering,analyze-runtime-feature-flags,library/skills/software-engineering/analyze-runtime-feature-flags,Analyze Runtime: Feature Flags
+feature-flags,software-engineering,build-durable-change-feature-flags,library/skills/software-engineering/build-durable-change-feature-flags,Build Durable Change: Feature Flags
+multi-tenancy,software-engineering,analyze-runtime-multi-tenancy,library/skills/software-engineering/analyze-runtime-multi-tenancy,Analyze Runtime: Multi Tenancy
+multi-tenancy,software-engineering,build-durable-change-multi-tenancy,library/skills/software-engineering/build-durable-change-multi-tenancy,Build Durable Change: Multi Tenancy
+billing-systems,software-engineering,analyze-runtime-billing-systems,library/skills/software-engineering/analyze-runtime-billing-systems,Analyze Runtime: Billing Systems
+billing-systems,software-engineering,build-durable-change-billing-systems,library/skills/software-engineering/build-durable-change-billing-systems,Build Durable Change: Billing Systems
+identity-access,software-engineering,analyze-runtime-identity-access,library/skills/software-engineering/analyze-runtime-identity-access,Analyze Runtime: Identity Access
+identity-access,software-engineering,build-durable-change-identity-access,library/skills/software-engineering/build-durable-change-identity-access,Build Durable Change: Identity Access
+search-systems,software-engineering,analyze-runtime-search-systems,library/skills/software-engineering/analyze-runtime-search-systems,Analyze Runtime: Search Systems
+search-systems,software-engineering,build-durable-change-search-systems,library/skills/software-engineering/build-durable-change-search-systems,Build Durable Change: Search Systems
+notification-systems,software-engineering,analyze-runtime-notification-systems,library/skills/software-engineering/analyze-runtime-notification-systems,Analyze Runtime: Notification Systems
+notification-systems,software-engineering,build-durable-change-notification-systems,library/skills/software-engineering/build-durable-change-notification-systems,Build Durable Change: Notification Systems
+file-processing,software-engineering,analyze-runtime-file-processing,library/skills/software-engineering/analyze-runtime-file-processing,Analyze Runtime: File Processing
+file-processing,software-engineering,build-durable-change-file-processing,library/skills/software-engineering/build-durable-change-file-processing,Build Durable Change: File Processing
+browser-automation,software-engineering,analyze-runtime-browser-automation,library/skills/software-engineering/analyze-runtime-browser-automation,Analyze Runtime: Browser Automation
+browser-automation,software-engineering,build-durable-change-browser-automation,library/skills/software-engineering/build-durable-change-browser-automation,Build Durable Change: Browser Automation
+llm-applications,ai-data,evaluate-model-system-llm-applications,library/skills/ai-data/evaluate-model-system-llm-applications,Evaluate Model System: Llm Applications
+llm-applications,ai-data,build-ai-pipeline-llm-applications,library/skills/ai-data/build-ai-pipeline-llm-applications,Build Ai Pipeline: Llm Applications
+agent-architecture,ai-data,evaluate-model-system-agent-architecture,library/skills/ai-data/evaluate-model-system-agent-architecture,Evaluate Model System: Agent Architecture
+agent-architecture,ai-data,build-ai-pipeline-agent-architecture,library/skills/ai-data/build-ai-pipeline-agent-architecture,Build Ai Pipeline: Agent Architecture
+rag-systems,ai-data,evaluate-model-system-rag-systems,library/skills/ai-data/evaluate-model-system-rag-systems,Evaluate Model System: Rag Systems
+rag-systems,ai-data,build-ai-pipeline-rag-systems,library/skills/ai-data/build-ai-pipeline-rag-systems,Build Ai Pipeline: Rag Systems
+embeddings,ai-data,evaluate-model-system-embeddings,library/skills/ai-data/evaluate-model-system-embeddings,Evaluate Model System: Embeddings
+embeddings,ai-data,build-ai-pipeline-embeddings,library/skills/ai-data/build-ai-pipeline-embeddings,Build Ai Pipeline: Embeddings
+reranking,ai-data,evaluate-model-system-reranking,library/skills/ai-data/evaluate-model-system-reranking,Evaluate Model System: Reranking
+reranking,ai-data,build-ai-pipeline-reranking,library/skills/ai-data/build-ai-pipeline-reranking,Build Ai Pipeline: Reranking
+prompt-engineering,ai-data,evaluate-model-system-prompt-engineering,library/skills/ai-data/evaluate-model-system-prompt-engineering,Evaluate Model System: Prompt Engineering
+prompt-engineering,ai-data,build-ai-pipeline-prompt-engineering,library/skills/ai-data/build-ai-pipeline-prompt-engineering,Build Ai Pipeline: Prompt Engineering
+model-evaluation,ai-data,evaluate-model-system-model-evaluation,library/skills/ai-data/evaluate-model-system-model-evaluation,Evaluate Model System: Model Evaluation
+model-evaluation,ai-data,build-ai-pipeline-model-evaluation,library/skills/ai-data/build-ai-pipeline-model-evaluation,Build Ai Pipeline: Model Evaluation
+model-routing,ai-data,evaluate-model-system-model-routing,library/skills/ai-data/evaluate-model-system-model-routing,Evaluate Model System: Model Routing
+model-routing,ai-data,build-ai-pipeline-model-routing,library/skills/ai-data/build-ai-pipeline-model-routing,Build Ai Pipeline: Model Routing
+synthetic-data,ai-data,evaluate-model-system-synthetic-data,library/skills/ai-data/evaluate-model-system-synthetic-data,Evaluate Model System: Synthetic Data
+synthetic-data,ai-data,build-ai-pipeline-synthetic-data,library/skills/ai-data/build-ai-pipeline-synthetic-data,Build Ai Pipeline: Synthetic Data
+fine-tuning,ai-data,evaluate-model-system-fine-tuning,library/skills/ai-data/evaluate-model-system-fine-tuning,Evaluate Model System: Fine Tuning
+fine-tuning,ai-data,build-ai-pipeline-fine-tuning,library/skills/ai-data/build-ai-pipeline-fine-tuning,Build Ai Pipeline: Fine Tuning
+multimodal-ai,ai-data,evaluate-model-system-multimodal-ai,library/skills/ai-data/evaluate-model-system-multimodal-ai,Evaluate Model System: Multimodal Ai
+multimodal-ai,ai-data,build-ai-pipeline-multimodal-ai,library/skills/ai-data/build-ai-pipeline-multimodal-ai,Build Ai Pipeline: Multimodal Ai
+vision-systems,ai-data,evaluate-model-system-vision-systems,library/skills/ai-data/evaluate-model-system-vision-systems,Evaluate Model System: Vision Systems
+vision-systems,ai-data,build-ai-pipeline-vision-systems,library/skills/ai-data/build-ai-pipeline-vision-systems,Build Ai Pipeline: Vision Systems
+speech-systems,ai-data,evaluate-model-system-speech-systems,library/skills/ai-data/evaluate-model-system-speech-systems,Evaluate Model System: Speech Systems
+speech-systems,ai-data,build-ai-pipeline-speech-systems,library/skills/ai-data/build-ai-pipeline-speech-systems,Build Ai Pipeline: Speech Systems
+document-ai,ai-data,evaluate-model-system-document-ai,library/skills/ai-data/evaluate-model-system-document-ai,Evaluate Model System: Document Ai
+document-ai,ai-data,build-ai-pipeline-document-ai,library/skills/ai-data/build-ai-pipeline-document-ai,Build Ai Pipeline: Document Ai
+recommendation-systems,ai-data,evaluate-model-system-recommendation-systems,library/skills/ai-data/evaluate-model-system-recommendation-systems,Evaluate Model System: Recommendation Systems
+recommendation-systems,ai-data,build-ai-pipeline-recommendation-systems,library/skills/ai-data/build-ai-pipeline-recommendation-systems,Build Ai Pipeline: Recommendation Systems
+forecasting,ai-data,evaluate-model-system-forecasting,library/skills/ai-data/evaluate-model-system-forecasting,Evaluate Model System: Forecasting
+forecasting,ai-data,build-ai-pipeline-forecasting,library/skills/ai-data/build-ai-pipeline-forecasting,Build Ai Pipeline: Forecasting
+application-security,security-privacy,audit-control-application-security,library/skills/security-privacy/audit-control-application-security,Audit Control: Application Security
+application-security,security-privacy,design-defense-application-security,library/skills/security-privacy/design-defense-application-security,Design Defense: Application Security
+cloud-security,security-privacy,audit-control-cloud-security,library/skills/security-privacy/audit-control-cloud-security,Audit Control: Cloud Security
+cloud-security,security-privacy,design-defense-cloud-security,library/skills/security-privacy/design-defense-cloud-security,Design Defense: Cloud Security
+identity-security,security-privacy,audit-control-identity-security,library/skills/security-privacy/audit-control-identity-security,Audit Control: Identity Security
+identity-security,security-privacy,design-defense-identity-security,library/skills/security-privacy/design-defense-identity-security,Design Defense: Identity Security
+secrets-management,security-privacy,audit-control-secrets-management,library/skills/security-privacy/audit-control-secrets-management,Audit Control: Secrets Management
+secrets-management,security-privacy,design-defense-secrets-management,library/skills/security-privacy/design-defense-secrets-management,Design Defense: Secrets Management
+threat-modeling,security-privacy,audit-control-threat-modeling,library/skills/security-privacy/audit-control-threat-modeling,Audit Control: Threat Modeling
+threat-modeling,security-privacy,design-defense-threat-modeling,library/skills/security-privacy/design-defense-threat-modeling,Design Defense: Threat Modeling
+incident-response,security-privacy,audit-control-incident-response,library/skills/security-privacy/audit-control-incident-response,Audit Control: Incident Response
+incident-response,security-privacy,design-defense-incident-response,library/skills/security-privacy/design-defense-incident-response,Design Defense: Incident Response
+data-privacy,security-privacy,audit-control-data-privacy,library/skills/security-privacy/audit-control-data-privacy,Audit Control: Data Privacy
+data-privacy,security-privacy,design-defense-data-privacy,library/skills/security-privacy/design-defense-data-privacy,Design Defense: Data Privacy
+prompt-injection,security-privacy,audit-control-prompt-injection,library/skills/security-privacy/audit-control-prompt-injection,Audit Control: Prompt Injection
+prompt-injection,security-privacy,design-defense-prompt-injection,library/skills/security-privacy/design-defense-prompt-injection,Design Defense: Prompt Injection
+supply-chain-security,security-privacy,audit-control-supply-chain-security,library/skills/security-privacy/audit-control-supply-chain-security,Audit Control: Supply Chain Security
+supply-chain-security,security-privacy,design-defense-supply-chain-security,library/skills/security-privacy/design-defense-supply-chain-security,Design Defense: Supply Chain Security
+vulnerability-management,security-privacy,audit-control-vulnerability-management,library/skills/security-privacy/audit-control-vulnerability-management,Audit Control: Vulnerability Management
+vulnerability-management,security-privacy,design-defense-vulnerability-management,library/skills/security-privacy/design-defense-vulnerability-management,Design Defense: Vulnerability Management
+security-logging,security-privacy,audit-control-security-logging,library/skills/security-privacy/audit-control-security-logging,Audit Control: Security Logging
+security-logging,security-privacy,design-defense-security-logging,library/skills/security-privacy/design-defense-security-logging,Design Defense: Security Logging
+abuse-prevention,security-privacy,audit-control-abuse-prevention,library/skills/security-privacy/audit-control-abuse-prevention,Audit Control: Abuse Prevention
+abuse-prevention,security-privacy,design-defense-abuse-prevention,library/skills/security-privacy/design-defense-abuse-prevention,Design Defense: Abuse Prevention
+fraud-detection,security-privacy,audit-control-fraud-detection,library/skills/security-privacy/audit-control-fraud-detection,Audit Control: Fraud Detection
+fraud-detection,security-privacy,design-defense-fraud-detection,library/skills/security-privacy/design-defense-fraud-detection,Design Defense: Fraud Detection
+payments-security,security-privacy,audit-control-payments-security,library/skills/security-privacy/audit-control-payments-security,Audit Control: Payments Security
+payments-security,security-privacy,design-defense-payments-security,library/skills/security-privacy/design-defense-payments-security,Design Defense: Payments Security
+tenant-isolation,security-privacy,audit-control-tenant-isolation,library/skills/security-privacy/audit-control-tenant-isolation,Audit Control: Tenant Isolation
+tenant-isolation,security-privacy,design-defense-tenant-isolation,library/skills/security-privacy/design-defense-tenant-isolation,Design Defense: Tenant Isolation
+secure-deployment,security-privacy,audit-control-secure-deployment,library/skills/security-privacy/audit-control-secure-deployment,Audit Control: Secure Deployment
+secure-deployment,security-privacy,design-defense-secure-deployment,library/skills/security-privacy/design-defense-secure-deployment,Design Defense: Secure Deployment
+product-strategy,product-design,validate-product-decision-product-strategy,library/skills/product-design/validate-product-decision-product-strategy,Validate Product Decision: Product Strategy
+product-strategy,product-design,design-user-flow-product-strategy,library/skills/product-design/design-user-flow-product-strategy,Design User Flow: Product Strategy
+product-discovery,product-design,validate-product-decision-product-discovery,library/skills/product-design/validate-product-decision-product-discovery,Validate Product Decision: Product Discovery
+product-discovery,product-design,design-user-flow-product-discovery,library/skills/product-design/design-user-flow-product-discovery,Design User Flow: Product Discovery
+user-research,product-design,validate-product-decision-user-research,library/skills/product-design/validate-product-decision-user-research,Validate Product Decision: User Research
+user-research,product-design,design-user-flow-user-research,library/skills/product-design/design-user-flow-user-research,Design User Flow: User Research
+ux-design,product-design,validate-product-decision-ux-design,library/skills/product-design/validate-product-decision-ux-design,Validate Product Decision: Ux Design
+ux-design,product-design,design-user-flow-ux-design,library/skills/product-design/design-user-flow-ux-design,Design User Flow: Ux Design
+design-systems,product-design,validate-product-decision-design-systems,library/skills/product-design/validate-product-decision-design-systems,Validate Product Decision: Design Systems
+design-systems,product-design,design-user-flow-design-systems,library/skills/product-design/design-user-flow-design-systems,Design User Flow: Design Systems
+accessibility,product-design,validate-product-decision-accessibility,library/skills/product-design/validate-product-decision-accessibility,Validate Product Decision: Accessibility
+accessibility,product-design,design-user-flow-accessibility,library/skills/product-design/design-user-flow-accessibility,Design User Flow: Accessibility
+onboarding,product-design,validate-product-decision-onboarding,library/skills/product-design/validate-product-decision-onboarding,Validate Product Decision: Onboarding
+onboarding,product-design,design-user-flow-onboarding,library/skills/product-design/design-user-flow-onboarding,Design User Flow: Onboarding
+activation,product-design,validate-product-decision-activation,library/skills/product-design/validate-product-decision-activation,Validate Product Decision: Activation
+activation,product-design,design-user-flow-activation,library/skills/product-design/design-user-flow-activation,Design User Flow: Activation
+retention,product-design,validate-product-decision-retention,library/skills/product-design/validate-product-decision-retention,Validate Product Decision: Retention
+retention,product-design,design-user-flow-retention,library/skills/product-design/design-user-flow-retention,Design User Flow: Retention
+experimentation,product-design,validate-product-decision-experimentation,library/skills/product-design/validate-product-decision-experimentation,Validate Product Decision: Experimentation
+experimentation,product-design,design-user-flow-experimentation,library/skills/product-design/design-user-flow-experimentation,Design User Flow: Experimentation
+analytics,product-design,validate-product-decision-analytics,library/skills/product-design/validate-product-decision-analytics,Validate Product Decision: Analytics
+analytics,product-design,design-user-flow-analytics,library/skills/product-design/design-user-flow-analytics,Design User Flow: Analytics
+roadmapping,product-design,validate-product-decision-roadmapping,library/skills/product-design/validate-product-decision-roadmapping,Validate Product Decision: Roadmapping
+roadmapping,product-design,design-user-flow-roadmapping,library/skills/product-design/design-user-flow-roadmapping,Design User Flow: Roadmapping
+pricing-design,product-design,validate-product-decision-pricing-design,library/skills/product-design/validate-product-decision-pricing-design,Validate Product Decision: Pricing Design
+pricing-design,product-design,design-user-flow-pricing-design,library/skills/product-design/design-user-flow-pricing-design,Design User Flow: Pricing Design
+enterprise-product,product-design,validate-product-decision-enterprise-product,library/skills/product-design/validate-product-decision-enterprise-product,Validate Product Decision: Enterprise Product
+enterprise-product,product-design,design-user-flow-enterprise-product,library/skills/product-design/design-user-flow-enterprise-product,Design User Flow: Enterprise Product
+developer-experience,product-design,validate-product-decision-developer-experience,library/skills/product-design/validate-product-decision-developer-experience,Validate Product Decision: Developer Experience
+developer-experience,product-design,design-user-flow-developer-experience,library/skills/product-design/design-user-flow-developer-experience,Design User Flow: Developer Experience
+content-design,product-design,validate-product-decision-content-design,library/skills/product-design/validate-product-decision-content-design,Validate Product Decision: Content Design
+content-design,product-design,design-user-flow-content-design,library/skills/product-design/design-user-flow-content-design,Design User Flow: Content Design
+market-research,commercial-growth,verify-demand-market-research,library/skills/commercial-growth/verify-demand-market-research,Verify Demand: Market Research
+market-research,commercial-growth,build-commercial-system-market-research,library/skills/commercial-growth/build-commercial-system-market-research,Build Commercial System: Market Research
+buyer-intelligence,commercial-growth,verify-demand-buyer-intelligence,library/skills/commercial-growth/verify-demand-buyer-intelligence,Verify Demand: Buyer Intelligence
+buyer-intelligence,commercial-growth,build-commercial-system-buyer-intelligence,library/skills/commercial-growth/build-commercial-system-buyer-intelligence,Build Commercial System: Buyer Intelligence
+offer-design,commercial-growth,verify-demand-offer-design,library/skills/commercial-growth/verify-demand-offer-design,Verify Demand: Offer Design
+offer-design,commercial-growth,build-commercial-system-offer-design,library/skills/commercial-growth/build-commercial-system-offer-design,Build Commercial System: Offer Design
+sales-operations,commercial-growth,verify-demand-sales-operations,library/skills/commercial-growth/verify-demand-sales-operations,Verify Demand: Sales Operations
+sales-operations,commercial-growth,build-commercial-system-sales-operations,library/skills/commercial-growth/build-commercial-system-sales-operations,Build Commercial System: Sales Operations
+outbound-systems,commercial-growth,verify-demand-outbound-systems,library/skills/commercial-growth/verify-demand-outbound-systems,Verify Demand: Outbound Systems
+outbound-systems,commercial-growth,build-commercial-system-outbound-systems,library/skills/commercial-growth/build-commercial-system-outbound-systems,Build Commercial System: Outbound Systems
+inbound-growth,commercial-growth,verify-demand-inbound-growth,library/skills/commercial-growth/verify-demand-inbound-growth,Verify Demand: Inbound Growth
+inbound-growth,commercial-growth,build-commercial-system-inbound-growth,library/skills/commercial-growth/build-commercial-system-inbound-growth,Build Commercial System: Inbound Growth
+partnerships,commercial-growth,verify-demand-partnerships,library/skills/commercial-growth/verify-demand-partnerships,Verify Demand: Partnerships
+partnerships,commercial-growth,build-commercial-system-partnerships,library/skills/commercial-growth/build-commercial-system-partnerships,Build Commercial System: Partnerships
+channels,commercial-growth,verify-demand-channels,library/skills/commercial-growth/verify-demand-channels,Verify Demand: Channels
+channels,commercial-growth,build-commercial-system-channels,library/skills/commercial-growth/build-commercial-system-channels,Build Commercial System: Channels
+seo,commercial-growth,verify-demand-seo,library/skills/commercial-growth/verify-demand-seo,Verify Demand: Seo
+seo,commercial-growth,build-commercial-system-seo,library/skills/commercial-growth/build-commercial-system-seo,Build Commercial System: Seo
+content-marketing,commercial-growth,verify-demand-content-marketing,library/skills/commercial-growth/verify-demand-content-marketing,Verify Demand: Content Marketing
+content-marketing,commercial-growth,build-commercial-system-content-marketing,library/skills/commercial-growth/build-commercial-system-content-marketing,Build Commercial System: Content Marketing
+lifecycle-marketing,commercial-growth,verify-demand-lifecycle-marketing,library/skills/commercial-growth/verify-demand-lifecycle-marketing,Verify Demand: Lifecycle Marketing
+lifecycle-marketing,commercial-growth,build-commercial-system-lifecycle-marketing,library/skills/commercial-growth/build-commercial-system-lifecycle-marketing,Build Commercial System: Lifecycle Marketing
+customer-success,commercial-growth,verify-demand-customer-success,library/skills/commercial-growth/verify-demand-customer-success,Verify Demand: Customer Success
+customer-success,commercial-growth,build-commercial-system-customer-success,library/skills/commercial-growth/build-commercial-system-customer-success,Build Commercial System: Customer Success
+support-operations,commercial-growth,verify-demand-support-operations,library/skills/commercial-growth/verify-demand-support-operations,Verify Demand: Support Operations
+support-operations,commercial-growth,build-commercial-system-support-operations,library/skills/commercial-growth/build-commercial-system-support-operations,Build Commercial System: Support Operations
+revenue-operations,commercial-growth,verify-demand-revenue-operations,library/skills/commercial-growth/verify-demand-revenue-operations,Verify Demand: Revenue Operations
+revenue-operations,commercial-growth,build-commercial-system-revenue-operations,library/skills/commercial-growth/build-commercial-system-revenue-operations,Build Commercial System: Revenue Operations
+account-management,commercial-growth,verify-demand-account-management,library/skills/commercial-growth/verify-demand-account-management,Verify Demand: Account Management
+account-management,commercial-growth,build-commercial-system-account-management,library/skills/commercial-growth/build-commercial-system-account-management,Build Commercial System: Account Management
+procurement-sales,commercial-growth,verify-demand-procurement-sales,library/skills/commercial-growth/verify-demand-procurement-sales,Verify Demand: Procurement Sales
+procurement-sales,commercial-growth,build-commercial-system-procurement-sales,library/skills/commercial-growth/build-commercial-system-procurement-sales,Build Commercial System: Procurement Sales
+financial-modeling,business-operations,model-operation-financial-modeling,library/skills/business-operations/model-operation-financial-modeling,Model Operation: Financial Modeling
+financial-modeling,business-operations,build-control-system-financial-modeling,library/skills/business-operations/build-control-system-financial-modeling,Build Control System: Financial Modeling
+budgeting,business-operations,model-operation-budgeting,library/skills/business-operations/model-operation-budgeting,Model Operation: Budgeting
+budgeting,business-operations,build-control-system-budgeting,library/skills/business-operations/build-control-system-budgeting,Build Control System: Budgeting
+cash-management,business-operations,model-operation-cash-management,library/skills/business-operations/model-operation-cash-management,Model Operation: Cash Management
+cash-management,business-operations,build-control-system-cash-management,library/skills/business-operations/build-control-system-cash-management,Build Control System: Cash Management
+vendor-management,business-operations,model-operation-vendor-management,library/skills/business-operations/model-operation-vendor-management,Model Operation: Vendor Management
+vendor-management,business-operations,build-control-system-vendor-management,library/skills/business-operations/build-control-system-vendor-management,Build Control System: Vendor Management
+procurement,business-operations,model-operation-procurement,library/skills/business-operations/model-operation-procurement,Model Operation: Procurement
+procurement,business-operations,build-control-system-procurement,library/skills/business-operations/build-control-system-procurement,Build Control System: Procurement
+risk-management,business-operations,model-operation-risk-management,library/skills/business-operations/model-operation-risk-management,Model Operation: Risk Management
+risk-management,business-operations,build-control-system-risk-management,library/skills/business-operations/build-control-system-risk-management,Build Control System: Risk Management
+business-continuity,business-operations,model-operation-business-continuity,library/skills/business-operations/model-operation-business-continuity,Model Operation: Business Continuity
+business-continuity,business-operations,build-control-system-business-continuity,library/skills/business-operations/build-control-system-business-continuity,Build Control System: Business Continuity
+operations-design,business-operations,model-operation-operations-design,library/skills/business-operations/model-operation-operations-design,Model Operation: Operations Design
+operations-design,business-operations,build-control-system-operations-design,library/skills/business-operations/build-control-system-operations-design,Build Control System: Operations Design
+project-management,business-operations,model-operation-project-management,library/skills/business-operations/model-operation-project-management,Model Operation: Project Management
+project-management,business-operations,build-control-system-project-management,library/skills/business-operations/build-control-system-project-management,Build Control System: Project Management
+program-management,business-operations,model-operation-program-management,library/skills/business-operations/model-operation-program-management,Model Operation: Program Management
+program-management,business-operations,build-control-system-program-management,library/skills/business-operations/build-control-system-program-management,Build Control System: Program Management
+knowledge-management,business-operations,model-operation-knowledge-management,library/skills/business-operations/model-operation-knowledge-management,Model Operation: Knowledge Management
+knowledge-management,business-operations,build-control-system-knowledge-management,library/skills/business-operations/build-control-system-knowledge-management,Build Control System: Knowledge Management
+quality-management,business-operations,model-operation-quality-management,library/skills/business-operations/model-operation-quality-management,Model Operation: Quality Management
+quality-management,business-operations,build-control-system-quality-management,library/skills/business-operations/build-control-system-quality-management,Build Control System: Quality Management
+hiring-systems,business-operations,model-operation-hiring-systems,library/skills/business-operations/model-operation-hiring-systems,Model Operation: Hiring Systems
+hiring-systems,business-operations,build-control-system-hiring-systems,library/skills/business-operations/build-control-system-hiring-systems,Build Control System: Hiring Systems
+people-operations,business-operations,model-operation-people-operations,library/skills/business-operations/model-operation-people-operations,Model Operation: People Operations
+people-operations,business-operations,build-control-system-people-operations,library/skills/business-operations/build-control-system-people-operations,Build Control System: People Operations
+training,business-operations,model-operation-training,library/skills/business-operations/model-operation-training,Model Operation: Training
+training,business-operations,build-control-system-training,library/skills/business-operations/build-control-system-training,Build Control System: Training
+executive-reporting,business-operations,model-operation-executive-reporting,library/skills/business-operations/model-operation-executive-reporting,Model Operation: Executive Reporting
+executive-reporting,business-operations,build-control-system-executive-reporting,library/skills/business-operations/build-control-system-executive-reporting,Build Control System: Executive Reporting
+contract-preparation,legal-compliance-prep,prepare-issue-map-contract-preparation,library/skills/legal-compliance-prep/prepare-issue-map-contract-preparation,Prepare Issue Map: Contract Preparation
+contract-preparation,legal-compliance-prep,build-review-packet-contract-preparation,library/skills/legal-compliance-prep/build-review-packet-contract-preparation,Build Review Packet: Contract Preparation
+privacy-compliance-prep,legal-compliance-prep,prepare-issue-map-privacy-compliance-prep,library/skills/legal-compliance-prep/prepare-issue-map-privacy-compliance-prep,Prepare Issue Map: Privacy Compliance Prep
+privacy-compliance-prep,legal-compliance-prep,build-review-packet-privacy-compliance-prep,library/skills/legal-compliance-prep/build-review-packet-privacy-compliance-prep,Build Review Packet: Privacy Compliance Prep
+security-compliance-prep,legal-compliance-prep,prepare-issue-map-security-compliance-prep,library/skills/legal-compliance-prep/prepare-issue-map-security-compliance-prep,Prepare Issue Map: Security Compliance Prep
+security-compliance-prep,legal-compliance-prep,build-review-packet-security-compliance-prep,library/skills/legal-compliance-prep/build-review-packet-security-compliance-prep,Build Review Packet: Security Compliance Prep
+tax-research-prep,legal-compliance-prep,prepare-issue-map-tax-research-prep,library/skills/legal-compliance-prep/prepare-issue-map-tax-research-prep,Prepare Issue Map: Tax Research Prep
+tax-research-prep,legal-compliance-prep,build-review-packet-tax-research-prep,library/skills/legal-compliance-prep/build-review-packet-tax-research-prep,Build Review Packet: Tax Research Prep
+employment-law-prep,legal-compliance-prep,prepare-issue-map-employment-law-prep,library/skills/legal-compliance-prep/prepare-issue-map-employment-law-prep,Prepare Issue Map: Employment Law Prep
+employment-law-prep,legal-compliance-prep,build-review-packet-employment-law-prep,library/skills/legal-compliance-prep/build-review-packet-employment-law-prep,Build Review Packet: Employment Law Prep
+ip-research-prep,legal-compliance-prep,prepare-issue-map-ip-research-prep,library/skills/legal-compliance-prep/prepare-issue-map-ip-research-prep,Prepare Issue Map: Ip Research Prep
+ip-research-prep,legal-compliance-prep,build-review-packet-ip-research-prep,library/skills/legal-compliance-prep/build-review-packet-ip-research-prep,Build Review Packet: Ip Research Prep
+regulatory-research-prep,legal-compliance-prep,prepare-issue-map-regulatory-research-prep,library/skills/legal-compliance-prep/prepare-issue-map-regulatory-research-prep,Prepare Issue Map: Regulatory Research Prep
+regulatory-research-prep,legal-compliance-prep,build-review-packet-regulatory-research-prep,library/skills/legal-compliance-prep/build-review-packet-regulatory-research-prep,Build Review Packet: Regulatory Research Prep
+vendor-due-diligence,legal-compliance-prep,prepare-issue-map-vendor-due-diligence,library/skills/legal-compliance-prep/prepare-issue-map-vendor-due-diligence,Prepare Issue Map: Vendor Due Diligence
+vendor-due-diligence,legal-compliance-prep,build-review-packet-vendor-due-diligence,library/skills/legal-compliance-prep/build-review-packet-vendor-due-diligence,Build Review Packet: Vendor Due Diligence
+data-processing-agreements,legal-compliance-prep,prepare-issue-map-data-processing-agreements,library/skills/legal-compliance-prep/prepare-issue-map-data-processing-agreements,Prepare Issue Map: Data Processing Agreements
+data-processing-agreements,legal-compliance-prep,build-review-packet-data-processing-agreements,library/skills/legal-compliance-prep/build-review-packet-data-processing-agreements,Build Review Packet: Data Processing Agreements
+terms-policy-prep,legal-compliance-prep,prepare-issue-map-terms-policy-prep,library/skills/legal-compliance-prep/prepare-issue-map-terms-policy-prep,Prepare Issue Map: Terms Policy Prep
+terms-policy-prep,legal-compliance-prep,build-review-packet-terms-policy-prep,library/skills/legal-compliance-prep/build-review-packet-terms-policy-prep,Build Review Packet: Terms Policy Prep
+audit-readiness,legal-compliance-prep,prepare-issue-map-audit-readiness,library/skills/legal-compliance-prep/prepare-issue-map-audit-readiness,Prepare Issue Map: Audit Readiness
+audit-readiness,legal-compliance-prep,build-review-packet-audit-readiness,library/skills/legal-compliance-prep/build-review-packet-audit-readiness,Build Review Packet: Audit Readiness
+record-retention,legal-compliance-prep,prepare-issue-map-record-retention,library/skills/legal-compliance-prep/prepare-issue-map-record-retention,Prepare Issue Map: Record Retention
+record-retention,legal-compliance-prep,build-review-packet-record-retention,library/skills/legal-compliance-prep/build-review-packet-record-retention,Build Review Packet: Record Retention
+international-expansion-prep,legal-compliance-prep,prepare-issue-map-international-expansion-prep,library/skills/legal-compliance-prep/prepare-issue-map-international-expansion-prep,Prepare Issue Map: International Expansion Prep
+international-expansion-prep,legal-compliance-prep,build-review-packet-international-expansion-prep,library/skills/legal-compliance-prep/build-review-packet-international-expansion-prep,Build Review Packet: International Expansion Prep
+payments-regulation-prep,legal-compliance-prep,prepare-issue-map-payments-regulation-prep,library/skills/legal-compliance-prep/prepare-issue-map-payments-regulation-prep,Prepare Issue Map: Payments Regulation Prep
+payments-regulation-prep,legal-compliance-prep,build-review-packet-payments-regulation-prep,library/skills/legal-compliance-prep/build-review-packet-payments-regulation-prep,Build Review Packet: Payments Regulation Prep
+consumer-protection-prep,legal-compliance-prep,prepare-issue-map-consumer-protection-prep,library/skills/legal-compliance-prep/prepare-issue-map-consumer-protection-prep,Prepare Issue Map: Consumer Protection Prep
+consumer-protection-prep,legal-compliance-prep,build-review-packet-consumer-protection-prep,library/skills/legal-compliance-prep/build-review-packet-consumer-protection-prep,Build Review Packet: Consumer Protection Prep
+ai-governance-prep,legal-compliance-prep,prepare-issue-map-ai-governance-prep,library/skills/legal-compliance-prep/prepare-issue-map-ai-governance-prep,Prepare Issue Map: Ai Governance Prep
+ai-governance-prep,legal-compliance-prep,build-review-packet-ai-governance-prep,library/skills/legal-compliance-prep/build-review-packet-ai-governance-prep,Build Review Packet: Ai Governance Prep
+web-research,research-knowledge,verify-evidence-web-research,library/skills/research-knowledge/verify-evidence-web-research,Verify Evidence: Web Research
+web-research,research-knowledge,synthesize-decision-web-research,library/skills/research-knowledge/synthesize-decision-web-research,Synthesize Decision: Web Research
+scientific-literature,research-knowledge,verify-evidence-scientific-literature,library/skills/research-knowledge/verify-evidence-scientific-literature,Verify Evidence: Scientific Literature
+scientific-literature,research-knowledge,synthesize-decision-scientific-literature,library/skills/research-knowledge/synthesize-decision-scientific-literature,Synthesize Decision: Scientific Literature
+competitive-intelligence,research-knowledge,verify-evidence-competitive-intelligence,library/skills/research-knowledge/verify-evidence-competitive-intelligence,Verify Evidence: Competitive Intelligence
+competitive-intelligence,research-knowledge,synthesize-decision-competitive-intelligence,library/skills/research-knowledge/synthesize-decision-competitive-intelligence,Synthesize Decision: Competitive Intelligence
+source-verification,research-knowledge,verify-evidence-source-verification,library/skills/research-knowledge/verify-evidence-source-verification,Verify Evidence: Source Verification
+source-verification,research-knowledge,synthesize-decision-source-verification,library/skills/research-knowledge/synthesize-decision-source-verification,Synthesize Decision: Source Verification
+evidence-synthesis,research-knowledge,verify-evidence-evidence-synthesis,library/skills/research-knowledge/verify-evidence-evidence-synthesis,Verify Evidence: Evidence Synthesis
+evidence-synthesis,research-knowledge,synthesize-decision-evidence-synthesis,library/skills/research-knowledge/synthesize-decision-evidence-synthesis,Synthesize Decision: Evidence Synthesis
+survey-design,research-knowledge,verify-evidence-survey-design,library/skills/research-knowledge/verify-evidence-survey-design,Verify Evidence: Survey Design
+survey-design,research-knowledge,synthesize-decision-survey-design,library/skills/research-knowledge/synthesize-decision-survey-design,Synthesize Decision: Survey Design
+qualitative-analysis,research-knowledge,verify-evidence-qualitative-analysis,library/skills/research-knowledge/verify-evidence-qualitative-analysis,Verify Evidence: Qualitative Analysis
+qualitative-analysis,research-knowledge,synthesize-decision-qualitative-analysis,library/skills/research-knowledge/synthesize-decision-qualitative-analysis,Synthesize Decision: Qualitative Analysis
+quantitative-analysis,research-knowledge,verify-evidence-quantitative-analysis,library/skills/research-knowledge/verify-evidence-quantitative-analysis,Verify Evidence: Quantitative Analysis
+quantitative-analysis,research-knowledge,synthesize-decision-quantitative-analysis,library/skills/research-knowledge/synthesize-decision-quantitative-analysis,Synthesize Decision: Quantitative Analysis
+knowledge-graphs,research-knowledge,verify-evidence-knowledge-graphs,library/skills/research-knowledge/verify-evidence-knowledge-graphs,Verify Evidence: Knowledge Graphs
+knowledge-graphs,research-knowledge,synthesize-decision-knowledge-graphs,library/skills/research-knowledge/synthesize-decision-knowledge-graphs,Synthesize Decision: Knowledge Graphs
+taxonomy-design,research-knowledge,verify-evidence-taxonomy-design,library/skills/research-knowledge/verify-evidence-taxonomy-design,Verify Evidence: Taxonomy Design
+taxonomy-design,research-knowledge,synthesize-decision-taxonomy-design,library/skills/research-knowledge/synthesize-decision-taxonomy-design,Synthesize Decision: Taxonomy Design
+document-synthesis,research-knowledge,verify-evidence-document-synthesis,library/skills/research-knowledge/verify-evidence-document-synthesis,Verify Evidence: Document Synthesis
+document-synthesis,research-knowledge,synthesize-decision-document-synthesis,library/skills/research-knowledge/synthesize-decision-document-synthesis,Synthesize Decision: Document Synthesis
+fact-checking,research-knowledge,verify-evidence-fact-checking,library/skills/research-knowledge/verify-evidence-fact-checking,Verify Evidence: Fact Checking
+fact-checking,research-knowledge,synthesize-decision-fact-checking,library/skills/research-knowledge/synthesize-decision-fact-checking,Synthesize Decision: Fact Checking
+historical-analysis,research-knowledge,verify-evidence-historical-analysis,library/skills/research-knowledge/verify-evidence-historical-analysis,Verify Evidence: Historical Analysis
+historical-analysis,research-knowledge,synthesize-decision-historical-analysis,library/skills/research-knowledge/synthesize-decision-historical-analysis,Synthesize Decision: Historical Analysis
+policy-research,research-knowledge,verify-evidence-policy-research,library/skills/research-knowledge/verify-evidence-policy-research,Verify Evidence: Policy Research
+policy-research,research-knowledge,synthesize-decision-policy-research,library/skills/research-knowledge/synthesize-decision-policy-research,Synthesize Decision: Policy Research
+technical-writing,research-knowledge,verify-evidence-technical-writing,library/skills/research-knowledge/verify-evidence-technical-writing,Verify Evidence: Technical Writing
+technical-writing,research-knowledge,synthesize-decision-technical-writing,library/skills/research-knowledge/synthesize-decision-technical-writing,Synthesize Decision: Technical Writing
+decision-memos,research-knowledge,verify-evidence-decision-memos,library/skills/research-knowledge/verify-evidence-decision-memos,Verify Evidence: Decision Memos
+decision-memos,research-knowledge,synthesize-decision-decision-memos,library/skills/research-knowledge/synthesize-decision-decision-memos,Synthesize Decision: Decision Memos

@@ -1,0 +1,16 @@
+{
+  "name": "apex-threat-modeling-specialist",
+  "domain": "threat-modeling",
+  "group": "security-privacy",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "effort": "max",
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Bash"
+  ],
+  "memory": "project",
+  "self_approval": false
+}

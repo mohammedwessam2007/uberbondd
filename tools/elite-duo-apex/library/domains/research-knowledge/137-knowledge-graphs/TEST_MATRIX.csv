@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during frame,frame,True,Knowledge Graphs frame acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during search,search,True,Knowledge Graphs search acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during extract,extract,True,Knowledge Graphs extract acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during verify,verify,True,Knowledge Graphs verify acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during synthesize,synthesize,True,Knowledge Graphs synthesize acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during publish,publish,True,Knowledge Graphs publish acceptance

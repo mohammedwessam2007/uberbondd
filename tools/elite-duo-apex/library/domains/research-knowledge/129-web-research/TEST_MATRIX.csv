@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during frame,frame,True,Web Research frame acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during search,search,True,Web Research search acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during extract,extract,True,Web Research extract acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during verify,verify,True,Web Research verify acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during synthesize,synthesize,True,Web Research synthesize acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during publish,publish,True,Web Research publish acceptance

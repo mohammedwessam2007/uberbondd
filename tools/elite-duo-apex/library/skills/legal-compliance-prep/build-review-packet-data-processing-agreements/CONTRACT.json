@@ -1,0 +1,22 @@
+{
+  "name": "build-review-packet-data-processing-agreements",
+  "title": "Build Review Packet: Data Processing Agreements",
+  "domain": "data-processing-agreements",
+  "group": "legal-compliance-prep",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Data Processing Agreements source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_REVIEW_PACKET_DATA_PROCESSING_AGREEMENTS_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

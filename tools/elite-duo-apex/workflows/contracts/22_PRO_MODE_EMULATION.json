@@ -1,0 +1,16 @@
+{
+  "name": "22_PRO_MODE_EMULATION",
+  "title": "Single polished result after hidden internal stages",
+  "steps": [
+    "compile-mission",
+    "design-fable-execution",
+    "design-sol-architecture",
+    "implement-contract",
+    "review-fable-lens",
+    "review-sol-lens",
+    "adjudicate-reviews",
+    "audit-final-message"
+  ],
+  "output": "FINAL_VERDICT.json",
+  "model": "claude-sonnet-5"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "verify-demand-procurement-sales",
+  "title": "Verify Demand: Procurement Sales",
+  "domain": "procurement-sales",
+  "group": "commercial-growth",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Procurement Sales source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VERIFY_DEMAND_PROCUREMENT_SALES_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

@@ -1,0 +1,35 @@
+{
+  "suite_id": "01_mission_compilation",
+  "title": "Mission compilation",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "intent_is_correct",
+      "description": "intent is correct",
+      "weight": 0.2
+    },
+    {
+      "id": "deliverables_finite",
+      "description": "deliverables finite",
+      "weight": 0.2
+    },
+    {
+      "id": "approval_boundaries_explicit",
+      "description": "approval boundaries explicit",
+      "weight": 0.2
+    },
+    {
+      "id": "acceptance_tests_falsifiable",
+      "description": "acceptance tests falsifiable",
+      "weight": 0.2
+    },
+    {
+      "id": "stop_condition_finite",
+      "description": "stop condition finite",
+      "weight": 0.2
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

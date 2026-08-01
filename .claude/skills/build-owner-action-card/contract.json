@@ -1,0 +1,15 @@
+{
+  "name": "build-owner-action-card",
+  "purpose": "Compress irreversible work into exact human actions.",
+  "kernel": "fusion",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "blockers"
+  ],
+  "outputs": [
+    "OWNER_ACTION_CARD.md"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

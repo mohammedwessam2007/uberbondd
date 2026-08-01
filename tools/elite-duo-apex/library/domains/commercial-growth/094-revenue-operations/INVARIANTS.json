@@ -1,0 +1,15 @@
+{
+  "domain": "revenue-operations",
+  "group": "commercial-growth",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Revenue Operations decisions trace to the mission contract and current evidence.",
+    "Revenue Operations preserves one durable source of truth for each governed concept.",
+    "Revenue Operations changes require real-path validation rather than isolated helper evidence.",
+    "Revenue Operations limitations, residual risks, and approval boundaries are explicit.",
+    "Revenue Operations never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

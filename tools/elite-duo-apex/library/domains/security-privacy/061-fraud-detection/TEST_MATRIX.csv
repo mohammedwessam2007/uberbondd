@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during scope,scope,True,Fraud Detection scope acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during model,model,True,Fraud Detection model acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Fraud Detection control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Fraud Detection test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during respond,respond,True,Fraud Detection respond acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Fraud Detection improve acceptance

@@ -1,0 +1,15 @@
+{
+  "domain": "product-discovery",
+  "group": "product-design",
+  "risk": "MEDIUM",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Product Discovery decisions trace to the mission contract and current evidence.",
+    "Product Discovery preserves one durable source of truth for each governed concept.",
+    "Product Discovery changes require real-path validation rather than isolated helper evidence.",
+    "Product Discovery limitations, residual risks, and approval boundaries are explicit.",
+    "Product Discovery never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

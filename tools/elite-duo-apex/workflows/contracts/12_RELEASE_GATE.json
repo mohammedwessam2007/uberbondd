@@ -1,0 +1,13 @@
+{
+  "name": "12_RELEASE_GATE",
+  "title": "Release readiness gate",
+  "steps": [
+    "recompute-counts",
+    "audit-artifacts",
+    "review-fable-lens",
+    "review-sol-lens",
+    "issue-final-verdict"
+  ],
+  "output": "FINAL_VERDICT.json",
+  "model": "claude-sonnet-5"
+}

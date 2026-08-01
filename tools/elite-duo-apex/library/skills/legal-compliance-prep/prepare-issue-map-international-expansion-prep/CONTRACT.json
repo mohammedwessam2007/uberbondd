@@ -1,0 +1,22 @@
+{
+  "name": "prepare-issue-map-international-expansion-prep",
+  "title": "Prepare Issue Map: International Expansion Prep",
+  "domain": "international-expansion-prep",
+  "group": "legal-compliance-prep",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "International Expansion Prep source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "PREPARE_ISSUE_MAP_INTERNATIONAL_EXPANSION_PREP_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

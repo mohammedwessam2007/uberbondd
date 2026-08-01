@@ -1,0 +1,13 @@
+{
+  "mission_id": "",
+  "author_model": "claude-sonnet-5",
+  "base_ref": "",
+  "head_ref": "",
+  "changed_files": [],
+  "critical_patches": [],
+  "tests": [],
+  "protected_path_evidence": [],
+  "limitations": [],
+  "external_actions": [],
+  "rollback": []
+}

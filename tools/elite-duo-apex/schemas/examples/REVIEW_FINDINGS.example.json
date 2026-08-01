@@ -1,0 +1,8 @@
+{
+  "reviewer": "",
+  "reviewer_model": "claude-sonnet-5",
+  "lens": "fable",
+  "verdict": "REJECT",
+  "findings": [],
+  "uncertainties": []
+}

@@ -1,0 +1,22 @@
+{
+  "name": "model-operation-business-continuity",
+  "title": "Model Operation: Business Continuity",
+  "domain": "business-continuity",
+  "group": "business-operations",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Business Continuity source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "MODEL_OPERATION_BUSINESS_CONTINUITY_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

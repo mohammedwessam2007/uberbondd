@@ -1,0 +1,16 @@
+{
+  "name": "assign-file-ownership",
+  "purpose": "Assign exclusive file ownership to parallel workers.",
+  "kernel": "fusion",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "team plan",
+    "repository"
+  ],
+  "outputs": [
+    "FILE_OWNERSHIP.csv"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

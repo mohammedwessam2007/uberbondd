@@ -1,0 +1,17 @@
+{
+  "name": "apex-business-continuity-specialist",
+  "domain": "business-continuity",
+  "group": "business-operations",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "effort": "max",
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Bash",
+    "Write"
+  ],
+  "memory": "project",
+  "self_approval": false
+}

@@ -1,0 +1,22 @@
+{
+  "name": "build-control-system-hiring-systems",
+  "title": "Build Control System: Hiring Systems",
+  "domain": "hiring-systems",
+  "group": "business-operations",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Hiring Systems source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_CONTROL_SYSTEM_HIRING_SYSTEMS_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

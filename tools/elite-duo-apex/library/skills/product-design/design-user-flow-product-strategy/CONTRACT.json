@@ -1,0 +1,22 @@
+{
+  "name": "design-user-flow-product-strategy",
+  "title": "Design User Flow: Product Strategy",
+  "domain": "product-strategy",
+  "group": "product-design",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Product Strategy source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "DESIGN_USER_FLOW_PRODUCT_STRATEGY_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

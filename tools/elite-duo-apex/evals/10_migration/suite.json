@@ -1,0 +1,35 @@
+{
+  "suite_id": "10_migration",
+  "title": "Migration",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "additive",
+      "description": "additive",
+      "weight": 0.2
+    },
+    {
+      "id": "mixed_version",
+      "description": "mixed-version",
+      "weight": 0.2
+    },
+    {
+      "id": "rollback",
+      "description": "rollback",
+      "weight": 0.2
+    },
+    {
+      "id": "data_preservation",
+      "description": "data preservation",
+      "weight": 0.2
+    },
+    {
+      "id": "locking",
+      "description": "locking",
+      "weight": 0.2
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

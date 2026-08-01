@@ -1,0 +1,15 @@
+{
+  "name": "map-repository",
+  "purpose": "Map architecture, entry points, tests, state, and protected paths.",
+  "kernel": "fable",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "repository"
+  ],
+  "outputs": [
+    "REPOSITORY_MAP.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

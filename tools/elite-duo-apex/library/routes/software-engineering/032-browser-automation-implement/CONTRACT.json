@@ -1,0 +1,42 @@
+{
+  "route_id": "032-browser-automation-implement",
+  "title": "Implement Browser Automation",
+  "domain": "browser-automation",
+  "group": "software-engineering",
+  "operation": "implement",
+  "model": "claude-sonnet-5",
+  "effort": {
+    "architecture": "max",
+    "execution": "xhigh",
+    "review": "max"
+  },
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Bash",
+    "Edit",
+    "Write"
+  ],
+  "phases": [
+    "compile",
+    "inspect",
+    "architect",
+    "execute",
+    "verify",
+    "review",
+    "stop"
+  ],
+  "required_evidence": [
+    "mission contract",
+    "authority map",
+    "current-state evidence",
+    "decision contract",
+    "test or validation evidence",
+    "limitations",
+    "rollback",
+    "independent verdict"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

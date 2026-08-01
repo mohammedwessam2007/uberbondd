@@ -1,0 +1,22 @@
+{
+  "name": "build-review-packet-audit-readiness",
+  "title": "Build Review Packet: Audit Readiness",
+  "domain": "audit-readiness",
+  "group": "legal-compliance-prep",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Audit Readiness source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_REVIEW_PACKET_AUDIT_READINESS_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

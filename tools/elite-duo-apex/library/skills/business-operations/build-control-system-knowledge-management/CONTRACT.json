@@ -1,0 +1,22 @@
+{
+  "name": "build-control-system-knowledge-management",
+  "title": "Build Control System: Knowledge Management",
+  "domain": "knowledge-management",
+  "group": "business-operations",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Knowledge Management source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_CONTROL_SYSTEM_KNOWLEDGE_MANAGEMENT_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

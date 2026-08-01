@@ -1,0 +1,22 @@
+{
+  "name": "verify-demand-outbound-systems",
+  "title": "Verify Demand: Outbound Systems",
+  "domain": "outbound-systems",
+  "group": "commercial-growth",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Outbound Systems source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VERIFY_DEMAND_OUTBOUND_SYSTEMS_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

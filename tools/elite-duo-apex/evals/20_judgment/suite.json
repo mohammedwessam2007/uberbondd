@@ -1,0 +1,35 @@
+{
+  "suite_id": "20_judgment",
+  "title": "Review adjudication",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "evidence_based",
+      "description": "evidence-based",
+      "weight": 0.2
+    },
+    {
+      "id": "severity_correct",
+      "description": "severity correct",
+      "weight": 0.2
+    },
+    {
+      "id": "no_compromise_finding",
+      "description": "no compromise finding",
+      "weight": 0.2
+    },
+    {
+      "id": "repair_bounded",
+      "description": "repair bounded",
+      "weight": 0.2
+    },
+    {
+      "id": "verdict_allowed",
+      "description": "verdict allowed",
+      "weight": 0.2
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

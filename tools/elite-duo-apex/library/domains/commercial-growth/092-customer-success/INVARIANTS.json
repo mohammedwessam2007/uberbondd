@@ -1,0 +1,15 @@
+{
+  "domain": "customer-success",
+  "group": "commercial-growth",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Customer Success decisions trace to the mission contract and current evidence.",
+    "Customer Success preserves one durable source of truth for each governed concept.",
+    "Customer Success changes require real-path validation rather than isolated helper evidence.",
+    "Customer Success limitations, residual risks, and approval boundaries are explicit.",
+    "Customer Success never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during issue-spot,issue-spot,True,Ip Research Prep issue-spot acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during research,research,True,Ip Research Prep research acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during classify,classify,True,Ip Research Prep classify acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during prepare,prepare,True,Ip Research Prep prepare acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during review,review,True,Ip Research Prep review acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during retain,retain,True,Ip Research Prep retain acceptance

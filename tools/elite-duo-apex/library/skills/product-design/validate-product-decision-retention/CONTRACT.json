@@ -1,0 +1,22 @@
+{
+  "name": "validate-product-decision-retention",
+  "title": "Validate Product Decision: Retention",
+  "domain": "retention",
+  "group": "product-design",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Retention source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VALIDATE_PRODUCT_DECISION_RETENTION_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

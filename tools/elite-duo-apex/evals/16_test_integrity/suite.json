@@ -1,0 +1,35 @@
+{
+  "suite_id": "16_test_integrity",
+  "title": "Test integrity",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "real_path",
+      "description": "real path",
+      "weight": 0.2
+    },
+    {
+      "id": "negative_tests",
+      "description": "negative tests",
+      "weight": 0.2
+    },
+    {
+      "id": "no_weakened_assertions",
+      "description": "no weakened assertions",
+      "weight": 0.2
+    },
+    {
+      "id": "determinism",
+      "description": "determinism",
+      "weight": 0.2
+    },
+    {
+      "id": "coverage_of_failure",
+      "description": "coverage of failure",
+      "weight": 0.2
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

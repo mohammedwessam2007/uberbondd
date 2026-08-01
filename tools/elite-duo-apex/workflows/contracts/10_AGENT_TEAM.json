@@ -1,0 +1,14 @@
+{
+  "name": "10_AGENT_TEAM",
+  "title": "Opt-in independent parallel work",
+  "steps": [
+    "compile-mission",
+    "plan-agent-team",
+    "assign-file-ownership",
+    "create-worktree-plan",
+    "implement-module",
+    "adjudicate-reviews"
+  ],
+  "output": "FINAL_VERDICT.json",
+  "model": "claude-sonnet-5"
+}

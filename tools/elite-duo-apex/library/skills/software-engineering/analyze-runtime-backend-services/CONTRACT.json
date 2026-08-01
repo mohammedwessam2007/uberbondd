@@ -1,0 +1,22 @@
+{
+  "name": "analyze-runtime-backend-services",
+  "title": "Analyze Runtime: Backend Services",
+  "domain": "backend-services",
+  "group": "software-engineering",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Backend Services source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "ANALYZE_RUNTIME_BACKEND_SERVICES_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

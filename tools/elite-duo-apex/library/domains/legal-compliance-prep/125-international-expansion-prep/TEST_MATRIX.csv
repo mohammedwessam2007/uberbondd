@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during issue-spot,issue-spot,True,International Expansion Prep issue-spot acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during research,research,True,International Expansion Prep research acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during classify,classify,True,International Expansion Prep classify acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during prepare,prepare,True,International Expansion Prep prepare acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during review,review,True,International Expansion Prep review acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during retain,retain,True,International Expansion Prep retain acceptance

@@ -1,0 +1,11 @@
+{
+  "name": "23_PROGRAMMATIC_TOOL_STAGE",
+  "title": "Bounded programmatic processing",
+  "steps": [
+    "design-programmatic-stage",
+    "write-local-tool-program",
+    "validate-program-output"
+  ],
+  "output": "PROGRAM_EVIDENCE.json",
+  "model": "claude-sonnet-5"
+}

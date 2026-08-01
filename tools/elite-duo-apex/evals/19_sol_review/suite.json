@@ -1,0 +1,35 @@
+{
+  "suite_id": "19_sol_review",
+  "title": "Sol reviewer",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "architecture",
+      "description": "architecture",
+      "weight": 0.2
+    },
+    {
+      "id": "counterfactuals",
+      "description": "counterfactuals",
+      "weight": 0.2
+    },
+    {
+      "id": "bypasses",
+      "description": "bypasses",
+      "weight": 0.2
+    },
+    {
+      "id": "test_integrity",
+      "description": "test integrity",
+      "weight": 0.2
+    },
+    {
+      "id": "final_completeness",
+      "description": "final completeness",
+      "weight": 0.2
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

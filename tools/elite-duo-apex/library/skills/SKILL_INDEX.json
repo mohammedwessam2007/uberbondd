@@ -1,0 +1,2021 @@
+{
+  "count": 288,
+  "skills": [
+    {
+      "name": "analyze-runtime-api-design",
+      "title": "Analyze Runtime: Api Design",
+      "domain": "api-design",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-api-design"
+    },
+    {
+      "name": "build-durable-change-api-design",
+      "title": "Build Durable Change: Api Design",
+      "domain": "api-design",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-api-design"
+    },
+    {
+      "name": "analyze-runtime-backend-services",
+      "title": "Analyze Runtime: Backend Services",
+      "domain": "backend-services",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-backend-services"
+    },
+    {
+      "name": "build-durable-change-backend-services",
+      "title": "Build Durable Change: Backend Services",
+      "domain": "backend-services",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-backend-services"
+    },
+    {
+      "name": "analyze-runtime-frontend-systems",
+      "title": "Analyze Runtime: Frontend Systems",
+      "domain": "frontend-systems",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-frontend-systems"
+    },
+    {
+      "name": "build-durable-change-frontend-systems",
+      "title": "Build Durable Change: Frontend Systems",
+      "domain": "frontend-systems",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-frontend-systems"
+    },
+    {
+      "name": "analyze-runtime-mobile-applications",
+      "title": "Analyze Runtime: Mobile Applications",
+      "domain": "mobile-applications",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-mobile-applications"
+    },
+    {
+      "name": "build-durable-change-mobile-applications",
+      "title": "Build Durable Change: Mobile Applications",
+      "domain": "mobile-applications",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-mobile-applications"
+    },
+    {
+      "name": "analyze-runtime-database-engineering",
+      "title": "Analyze Runtime: Database Engineering",
+      "domain": "database-engineering",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-database-engineering"
+    },
+    {
+      "name": "build-durable-change-database-engineering",
+      "title": "Build Durable Change: Database Engineering",
+      "domain": "database-engineering",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-database-engineering"
+    },
+    {
+      "name": "analyze-runtime-distributed-systems",
+      "title": "Analyze Runtime: Distributed Systems",
+      "domain": "distributed-systems",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-distributed-systems"
+    },
+    {
+      "name": "build-durable-change-distributed-systems",
+      "title": "Build Durable Change: Distributed Systems",
+      "domain": "distributed-systems",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-distributed-systems"
+    },
+    {
+      "name": "analyze-runtime-event-driven-architecture",
+      "title": "Analyze Runtime: Event Driven Architecture",
+      "domain": "event-driven-architecture",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-event-driven-architecture"
+    },
+    {
+      "name": "build-durable-change-event-driven-architecture",
+      "title": "Build Durable Change: Event Driven Architecture",
+      "domain": "event-driven-architecture",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-event-driven-architecture"
+    },
+    {
+      "name": "analyze-runtime-workflow-engines",
+      "title": "Analyze Runtime: Workflow Engines",
+      "domain": "workflow-engines",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-workflow-engines"
+    },
+    {
+      "name": "build-durable-change-workflow-engines",
+      "title": "Build Durable Change: Workflow Engines",
+      "domain": "workflow-engines",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-workflow-engines"
+    },
+    {
+      "name": "analyze-runtime-developer-tooling",
+      "title": "Analyze Runtime: Developer Tooling",
+      "domain": "developer-tooling",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-developer-tooling"
+    },
+    {
+      "name": "build-durable-change-developer-tooling",
+      "title": "Build Durable Change: Developer Tooling",
+      "domain": "developer-tooling",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-developer-tooling"
+    },
+    {
+      "name": "analyze-runtime-ci-cd",
+      "title": "Analyze Runtime: Ci Cd",
+      "domain": "ci-cd",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-ci-cd"
+    },
+    {
+      "name": "build-durable-change-ci-cd",
+      "title": "Build Durable Change: Ci Cd",
+      "domain": "ci-cd",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-ci-cd"
+    },
+    {
+      "name": "analyze-runtime-observability",
+      "title": "Analyze Runtime: Observability",
+      "domain": "observability",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-observability"
+    },
+    {
+      "name": "build-durable-change-observability",
+      "title": "Build Durable Change: Observability",
+      "domain": "observability",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-observability"
+    },
+    {
+      "name": "analyze-runtime-performance-engineering",
+      "title": "Analyze Runtime: Performance Engineering",
+      "domain": "performance-engineering",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-performance-engineering"
+    },
+    {
+      "name": "build-durable-change-performance-engineering",
+      "title": "Build Durable Change: Performance Engineering",
+      "domain": "performance-engineering",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-performance-engineering"
+    },
+    {
+      "name": "analyze-runtime-reliability-engineering",
+      "title": "Analyze Runtime: Reliability Engineering",
+      "domain": "reliability-engineering",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-reliability-engineering"
+    },
+    {
+      "name": "build-durable-change-reliability-engineering",
+      "title": "Build Durable Change: Reliability Engineering",
+      "domain": "reliability-engineering",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-reliability-engineering"
+    },
+    {
+      "name": "analyze-runtime-platform-engineering",
+      "title": "Analyze Runtime: Platform Engineering",
+      "domain": "platform-engineering",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-platform-engineering"
+    },
+    {
+      "name": "build-durable-change-platform-engineering",
+      "title": "Build Durable Change: Platform Engineering",
+      "domain": "platform-engineering",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-platform-engineering"
+    },
+    {
+      "name": "analyze-runtime-cloud-architecture",
+      "title": "Analyze Runtime: Cloud Architecture",
+      "domain": "cloud-architecture",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-cloud-architecture"
+    },
+    {
+      "name": "build-durable-change-cloud-architecture",
+      "title": "Build Durable Change: Cloud Architecture",
+      "domain": "cloud-architecture",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-cloud-architecture"
+    },
+    {
+      "name": "analyze-runtime-edge-computing",
+      "title": "Analyze Runtime: Edge Computing",
+      "domain": "edge-computing",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-edge-computing"
+    },
+    {
+      "name": "build-durable-change-edge-computing",
+      "title": "Build Durable Change: Edge Computing",
+      "domain": "edge-computing",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-edge-computing"
+    },
+    {
+      "name": "analyze-runtime-serverless",
+      "title": "Analyze Runtime: Serverless",
+      "domain": "serverless",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-serverless"
+    },
+    {
+      "name": "build-durable-change-serverless",
+      "title": "Build Durable Change: Serverless",
+      "domain": "serverless",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-serverless"
+    },
+    {
+      "name": "analyze-runtime-microservices",
+      "title": "Analyze Runtime: Microservices",
+      "domain": "microservices",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-microservices"
+    },
+    {
+      "name": "build-durable-change-microservices",
+      "title": "Build Durable Change: Microservices",
+      "domain": "microservices",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-microservices"
+    },
+    {
+      "name": "analyze-runtime-monolith-modernization",
+      "title": "Analyze Runtime: Monolith Modernization",
+      "domain": "monolith-modernization",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-monolith-modernization"
+    },
+    {
+      "name": "build-durable-change-monolith-modernization",
+      "title": "Build Durable Change: Monolith Modernization",
+      "domain": "monolith-modernization",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-monolith-modernization"
+    },
+    {
+      "name": "analyze-runtime-data-migrations",
+      "title": "Analyze Runtime: Data Migrations",
+      "domain": "data-migrations",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-data-migrations"
+    },
+    {
+      "name": "build-durable-change-data-migrations",
+      "title": "Build Durable Change: Data Migrations",
+      "domain": "data-migrations",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-data-migrations"
+    },
+    {
+      "name": "analyze-runtime-testing-systems",
+      "title": "Analyze Runtime: Testing Systems",
+      "domain": "testing-systems",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-testing-systems"
+    },
+    {
+      "name": "build-durable-change-testing-systems",
+      "title": "Build Durable Change: Testing Systems",
+      "domain": "testing-systems",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-testing-systems"
+    },
+    {
+      "name": "analyze-runtime-release-engineering",
+      "title": "Analyze Runtime: Release Engineering",
+      "domain": "release-engineering",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-release-engineering"
+    },
+    {
+      "name": "build-durable-change-release-engineering",
+      "title": "Build Durable Change: Release Engineering",
+      "domain": "release-engineering",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-release-engineering"
+    },
+    {
+      "name": "analyze-runtime-package-management",
+      "title": "Analyze Runtime: Package Management",
+      "domain": "package-management",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-package-management"
+    },
+    {
+      "name": "build-durable-change-package-management",
+      "title": "Build Durable Change: Package Management",
+      "domain": "package-management",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-package-management"
+    },
+    {
+      "name": "analyze-runtime-configuration",
+      "title": "Analyze Runtime: Configuration",
+      "domain": "configuration",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-configuration"
+    },
+    {
+      "name": "build-durable-change-configuration",
+      "title": "Build Durable Change: Configuration",
+      "domain": "configuration",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-configuration"
+    },
+    {
+      "name": "analyze-runtime-feature-flags",
+      "title": "Analyze Runtime: Feature Flags",
+      "domain": "feature-flags",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-feature-flags"
+    },
+    {
+      "name": "build-durable-change-feature-flags",
+      "title": "Build Durable Change: Feature Flags",
+      "domain": "feature-flags",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-feature-flags"
+    },
+    {
+      "name": "analyze-runtime-multi-tenancy",
+      "title": "Analyze Runtime: Multi Tenancy",
+      "domain": "multi-tenancy",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-multi-tenancy"
+    },
+    {
+      "name": "build-durable-change-multi-tenancy",
+      "title": "Build Durable Change: Multi Tenancy",
+      "domain": "multi-tenancy",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-multi-tenancy"
+    },
+    {
+      "name": "analyze-runtime-billing-systems",
+      "title": "Analyze Runtime: Billing Systems",
+      "domain": "billing-systems",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-billing-systems"
+    },
+    {
+      "name": "build-durable-change-billing-systems",
+      "title": "Build Durable Change: Billing Systems",
+      "domain": "billing-systems",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-billing-systems"
+    },
+    {
+      "name": "analyze-runtime-identity-access",
+      "title": "Analyze Runtime: Identity Access",
+      "domain": "identity-access",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-identity-access"
+    },
+    {
+      "name": "build-durable-change-identity-access",
+      "title": "Build Durable Change: Identity Access",
+      "domain": "identity-access",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-identity-access"
+    },
+    {
+      "name": "analyze-runtime-search-systems",
+      "title": "Analyze Runtime: Search Systems",
+      "domain": "search-systems",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-search-systems"
+    },
+    {
+      "name": "build-durable-change-search-systems",
+      "title": "Build Durable Change: Search Systems",
+      "domain": "search-systems",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-search-systems"
+    },
+    {
+      "name": "analyze-runtime-notification-systems",
+      "title": "Analyze Runtime: Notification Systems",
+      "domain": "notification-systems",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-notification-systems"
+    },
+    {
+      "name": "build-durable-change-notification-systems",
+      "title": "Build Durable Change: Notification Systems",
+      "domain": "notification-systems",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-notification-systems"
+    },
+    {
+      "name": "analyze-runtime-file-processing",
+      "title": "Analyze Runtime: File Processing",
+      "domain": "file-processing",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-file-processing"
+    },
+    {
+      "name": "build-durable-change-file-processing",
+      "title": "Build Durable Change: File Processing",
+      "domain": "file-processing",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-file-processing"
+    },
+    {
+      "name": "analyze-runtime-browser-automation",
+      "title": "Analyze Runtime: Browser Automation",
+      "domain": "browser-automation",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/analyze-runtime-browser-automation"
+    },
+    {
+      "name": "build-durable-change-browser-automation",
+      "title": "Build Durable Change: Browser Automation",
+      "domain": "browser-automation",
+      "group": "software-engineering",
+      "path": "library/skills/software-engineering/build-durable-change-browser-automation"
+    },
+    {
+      "name": "evaluate-model-system-llm-applications",
+      "title": "Evaluate Model System: Llm Applications",
+      "domain": "llm-applications",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-llm-applications"
+    },
+    {
+      "name": "build-ai-pipeline-llm-applications",
+      "title": "Build Ai Pipeline: Llm Applications",
+      "domain": "llm-applications",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-llm-applications"
+    },
+    {
+      "name": "evaluate-model-system-agent-architecture",
+      "title": "Evaluate Model System: Agent Architecture",
+      "domain": "agent-architecture",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-agent-architecture"
+    },
+    {
+      "name": "build-ai-pipeline-agent-architecture",
+      "title": "Build Ai Pipeline: Agent Architecture",
+      "domain": "agent-architecture",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-agent-architecture"
+    },
+    {
+      "name": "evaluate-model-system-rag-systems",
+      "title": "Evaluate Model System: Rag Systems",
+      "domain": "rag-systems",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-rag-systems"
+    },
+    {
+      "name": "build-ai-pipeline-rag-systems",
+      "title": "Build Ai Pipeline: Rag Systems",
+      "domain": "rag-systems",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-rag-systems"
+    },
+    {
+      "name": "evaluate-model-system-embeddings",
+      "title": "Evaluate Model System: Embeddings",
+      "domain": "embeddings",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-embeddings"
+    },
+    {
+      "name": "build-ai-pipeline-embeddings",
+      "title": "Build Ai Pipeline: Embeddings",
+      "domain": "embeddings",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-embeddings"
+    },
+    {
+      "name": "evaluate-model-system-reranking",
+      "title": "Evaluate Model System: Reranking",
+      "domain": "reranking",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-reranking"
+    },
+    {
+      "name": "build-ai-pipeline-reranking",
+      "title": "Build Ai Pipeline: Reranking",
+      "domain": "reranking",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-reranking"
+    },
+    {
+      "name": "evaluate-model-system-prompt-engineering",
+      "title": "Evaluate Model System: Prompt Engineering",
+      "domain": "prompt-engineering",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-prompt-engineering"
+    },
+    {
+      "name": "build-ai-pipeline-prompt-engineering",
+      "title": "Build Ai Pipeline: Prompt Engineering",
+      "domain": "prompt-engineering",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-prompt-engineering"
+    },
+    {
+      "name": "evaluate-model-system-model-evaluation",
+      "title": "Evaluate Model System: Model Evaluation",
+      "domain": "model-evaluation",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-model-evaluation"
+    },
+    {
+      "name": "build-ai-pipeline-model-evaluation",
+      "title": "Build Ai Pipeline: Model Evaluation",
+      "domain": "model-evaluation",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-model-evaluation"
+    },
+    {
+      "name": "evaluate-model-system-model-routing",
+      "title": "Evaluate Model System: Model Routing",
+      "domain": "model-routing",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-model-routing"
+    },
+    {
+      "name": "build-ai-pipeline-model-routing",
+      "title": "Build Ai Pipeline: Model Routing",
+      "domain": "model-routing",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-model-routing"
+    },
+    {
+      "name": "evaluate-model-system-synthetic-data",
+      "title": "Evaluate Model System: Synthetic Data",
+      "domain": "synthetic-data",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-synthetic-data"
+    },
+    {
+      "name": "build-ai-pipeline-synthetic-data",
+      "title": "Build Ai Pipeline: Synthetic Data",
+      "domain": "synthetic-data",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-synthetic-data"
+    },
+    {
+      "name": "evaluate-model-system-fine-tuning",
+      "title": "Evaluate Model System: Fine Tuning",
+      "domain": "fine-tuning",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-fine-tuning"
+    },
+    {
+      "name": "build-ai-pipeline-fine-tuning",
+      "title": "Build Ai Pipeline: Fine Tuning",
+      "domain": "fine-tuning",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-fine-tuning"
+    },
+    {
+      "name": "evaluate-model-system-multimodal-ai",
+      "title": "Evaluate Model System: Multimodal Ai",
+      "domain": "multimodal-ai",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-multimodal-ai"
+    },
+    {
+      "name": "build-ai-pipeline-multimodal-ai",
+      "title": "Build Ai Pipeline: Multimodal Ai",
+      "domain": "multimodal-ai",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-multimodal-ai"
+    },
+    {
+      "name": "evaluate-model-system-vision-systems",
+      "title": "Evaluate Model System: Vision Systems",
+      "domain": "vision-systems",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-vision-systems"
+    },
+    {
+      "name": "build-ai-pipeline-vision-systems",
+      "title": "Build Ai Pipeline: Vision Systems",
+      "domain": "vision-systems",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-vision-systems"
+    },
+    {
+      "name": "evaluate-model-system-speech-systems",
+      "title": "Evaluate Model System: Speech Systems",
+      "domain": "speech-systems",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-speech-systems"
+    },
+    {
+      "name": "build-ai-pipeline-speech-systems",
+      "title": "Build Ai Pipeline: Speech Systems",
+      "domain": "speech-systems",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-speech-systems"
+    },
+    {
+      "name": "evaluate-model-system-document-ai",
+      "title": "Evaluate Model System: Document Ai",
+      "domain": "document-ai",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-document-ai"
+    },
+    {
+      "name": "build-ai-pipeline-document-ai",
+      "title": "Build Ai Pipeline: Document Ai",
+      "domain": "document-ai",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-document-ai"
+    },
+    {
+      "name": "evaluate-model-system-recommendation-systems",
+      "title": "Evaluate Model System: Recommendation Systems",
+      "domain": "recommendation-systems",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-recommendation-systems"
+    },
+    {
+      "name": "build-ai-pipeline-recommendation-systems",
+      "title": "Build Ai Pipeline: Recommendation Systems",
+      "domain": "recommendation-systems",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-recommendation-systems"
+    },
+    {
+      "name": "evaluate-model-system-forecasting",
+      "title": "Evaluate Model System: Forecasting",
+      "domain": "forecasting",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/evaluate-model-system-forecasting"
+    },
+    {
+      "name": "build-ai-pipeline-forecasting",
+      "title": "Build Ai Pipeline: Forecasting",
+      "domain": "forecasting",
+      "group": "ai-data",
+      "path": "library/skills/ai-data/build-ai-pipeline-forecasting"
+    },
+    {
+      "name": "audit-control-application-security",
+      "title": "Audit Control: Application Security",
+      "domain": "application-security",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-application-security"
+    },
+    {
+      "name": "design-defense-application-security",
+      "title": "Design Defense: Application Security",
+      "domain": "application-security",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-application-security"
+    },
+    {
+      "name": "audit-control-cloud-security",
+      "title": "Audit Control: Cloud Security",
+      "domain": "cloud-security",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-cloud-security"
+    },
+    {
+      "name": "design-defense-cloud-security",
+      "title": "Design Defense: Cloud Security",
+      "domain": "cloud-security",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-cloud-security"
+    },
+    {
+      "name": "audit-control-identity-security",
+      "title": "Audit Control: Identity Security",
+      "domain": "identity-security",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-identity-security"
+    },
+    {
+      "name": "design-defense-identity-security",
+      "title": "Design Defense: Identity Security",
+      "domain": "identity-security",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-identity-security"
+    },
+    {
+      "name": "audit-control-secrets-management",
+      "title": "Audit Control: Secrets Management",
+      "domain": "secrets-management",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-secrets-management"
+    },
+    {
+      "name": "design-defense-secrets-management",
+      "title": "Design Defense: Secrets Management",
+      "domain": "secrets-management",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-secrets-management"
+    },
+    {
+      "name": "audit-control-threat-modeling",
+      "title": "Audit Control: Threat Modeling",
+      "domain": "threat-modeling",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-threat-modeling"
+    },
+    {
+      "name": "design-defense-threat-modeling",
+      "title": "Design Defense: Threat Modeling",
+      "domain": "threat-modeling",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-threat-modeling"
+    },
+    {
+      "name": "audit-control-incident-response",
+      "title": "Audit Control: Incident Response",
+      "domain": "incident-response",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-incident-response"
+    },
+    {
+      "name": "design-defense-incident-response",
+      "title": "Design Defense: Incident Response",
+      "domain": "incident-response",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-incident-response"
+    },
+    {
+      "name": "audit-control-data-privacy",
+      "title": "Audit Control: Data Privacy",
+      "domain": "data-privacy",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-data-privacy"
+    },
+    {
+      "name": "design-defense-data-privacy",
+      "title": "Design Defense: Data Privacy",
+      "domain": "data-privacy",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-data-privacy"
+    },
+    {
+      "name": "audit-control-prompt-injection",
+      "title": "Audit Control: Prompt Injection",
+      "domain": "prompt-injection",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-prompt-injection"
+    },
+    {
+      "name": "design-defense-prompt-injection",
+      "title": "Design Defense: Prompt Injection",
+      "domain": "prompt-injection",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-prompt-injection"
+    },
+    {
+      "name": "audit-control-supply-chain-security",
+      "title": "Audit Control: Supply Chain Security",
+      "domain": "supply-chain-security",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-supply-chain-security"
+    },
+    {
+      "name": "design-defense-supply-chain-security",
+      "title": "Design Defense: Supply Chain Security",
+      "domain": "supply-chain-security",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-supply-chain-security"
+    },
+    {
+      "name": "audit-control-vulnerability-management",
+      "title": "Audit Control: Vulnerability Management",
+      "domain": "vulnerability-management",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-vulnerability-management"
+    },
+    {
+      "name": "design-defense-vulnerability-management",
+      "title": "Design Defense: Vulnerability Management",
+      "domain": "vulnerability-management",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-vulnerability-management"
+    },
+    {
+      "name": "audit-control-security-logging",
+      "title": "Audit Control: Security Logging",
+      "domain": "security-logging",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-security-logging"
+    },
+    {
+      "name": "design-defense-security-logging",
+      "title": "Design Defense: Security Logging",
+      "domain": "security-logging",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-security-logging"
+    },
+    {
+      "name": "audit-control-abuse-prevention",
+      "title": "Audit Control: Abuse Prevention",
+      "domain": "abuse-prevention",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-abuse-prevention"
+    },
+    {
+      "name": "design-defense-abuse-prevention",
+      "title": "Design Defense: Abuse Prevention",
+      "domain": "abuse-prevention",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-abuse-prevention"
+    },
+    {
+      "name": "audit-control-fraud-detection",
+      "title": "Audit Control: Fraud Detection",
+      "domain": "fraud-detection",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-fraud-detection"
+    },
+    {
+      "name": "design-defense-fraud-detection",
+      "title": "Design Defense: Fraud Detection",
+      "domain": "fraud-detection",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-fraud-detection"
+    },
+    {
+      "name": "audit-control-payments-security",
+      "title": "Audit Control: Payments Security",
+      "domain": "payments-security",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-payments-security"
+    },
+    {
+      "name": "design-defense-payments-security",
+      "title": "Design Defense: Payments Security",
+      "domain": "payments-security",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-payments-security"
+    },
+    {
+      "name": "audit-control-tenant-isolation",
+      "title": "Audit Control: Tenant Isolation",
+      "domain": "tenant-isolation",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-tenant-isolation"
+    },
+    {
+      "name": "design-defense-tenant-isolation",
+      "title": "Design Defense: Tenant Isolation",
+      "domain": "tenant-isolation",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-tenant-isolation"
+    },
+    {
+      "name": "audit-control-secure-deployment",
+      "title": "Audit Control: Secure Deployment",
+      "domain": "secure-deployment",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/audit-control-secure-deployment"
+    },
+    {
+      "name": "design-defense-secure-deployment",
+      "title": "Design Defense: Secure Deployment",
+      "domain": "secure-deployment",
+      "group": "security-privacy",
+      "path": "library/skills/security-privacy/design-defense-secure-deployment"
+    },
+    {
+      "name": "validate-product-decision-product-strategy",
+      "title": "Validate Product Decision: Product Strategy",
+      "domain": "product-strategy",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-product-strategy"
+    },
+    {
+      "name": "design-user-flow-product-strategy",
+      "title": "Design User Flow: Product Strategy",
+      "domain": "product-strategy",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-product-strategy"
+    },
+    {
+      "name": "validate-product-decision-product-discovery",
+      "title": "Validate Product Decision: Product Discovery",
+      "domain": "product-discovery",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-product-discovery"
+    },
+    {
+      "name": "design-user-flow-product-discovery",
+      "title": "Design User Flow: Product Discovery",
+      "domain": "product-discovery",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-product-discovery"
+    },
+    {
+      "name": "validate-product-decision-user-research",
+      "title": "Validate Product Decision: User Research",
+      "domain": "user-research",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-user-research"
+    },
+    {
+      "name": "design-user-flow-user-research",
+      "title": "Design User Flow: User Research",
+      "domain": "user-research",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-user-research"
+    },
+    {
+      "name": "validate-product-decision-ux-design",
+      "title": "Validate Product Decision: Ux Design",
+      "domain": "ux-design",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-ux-design"
+    },
+    {
+      "name": "design-user-flow-ux-design",
+      "title": "Design User Flow: Ux Design",
+      "domain": "ux-design",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-ux-design"
+    },
+    {
+      "name": "validate-product-decision-design-systems",
+      "title": "Validate Product Decision: Design Systems",
+      "domain": "design-systems",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-design-systems"
+    },
+    {
+      "name": "design-user-flow-design-systems",
+      "title": "Design User Flow: Design Systems",
+      "domain": "design-systems",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-design-systems"
+    },
+    {
+      "name": "validate-product-decision-accessibility",
+      "title": "Validate Product Decision: Accessibility",
+      "domain": "accessibility",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-accessibility"
+    },
+    {
+      "name": "design-user-flow-accessibility",
+      "title": "Design User Flow: Accessibility",
+      "domain": "accessibility",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-accessibility"
+    },
+    {
+      "name": "validate-product-decision-onboarding",
+      "title": "Validate Product Decision: Onboarding",
+      "domain": "onboarding",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-onboarding"
+    },
+    {
+      "name": "design-user-flow-onboarding",
+      "title": "Design User Flow: Onboarding",
+      "domain": "onboarding",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-onboarding"
+    },
+    {
+      "name": "validate-product-decision-activation",
+      "title": "Validate Product Decision: Activation",
+      "domain": "activation",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-activation"
+    },
+    {
+      "name": "design-user-flow-activation",
+      "title": "Design User Flow: Activation",
+      "domain": "activation",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-activation"
+    },
+    {
+      "name": "validate-product-decision-retention",
+      "title": "Validate Product Decision: Retention",
+      "domain": "retention",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-retention"
+    },
+    {
+      "name": "design-user-flow-retention",
+      "title": "Design User Flow: Retention",
+      "domain": "retention",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-retention"
+    },
+    {
+      "name": "validate-product-decision-experimentation",
+      "title": "Validate Product Decision: Experimentation",
+      "domain": "experimentation",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-experimentation"
+    },
+    {
+      "name": "design-user-flow-experimentation",
+      "title": "Design User Flow: Experimentation",
+      "domain": "experimentation",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-experimentation"
+    },
+    {
+      "name": "validate-product-decision-analytics",
+      "title": "Validate Product Decision: Analytics",
+      "domain": "analytics",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-analytics"
+    },
+    {
+      "name": "design-user-flow-analytics",
+      "title": "Design User Flow: Analytics",
+      "domain": "analytics",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-analytics"
+    },
+    {
+      "name": "validate-product-decision-roadmapping",
+      "title": "Validate Product Decision: Roadmapping",
+      "domain": "roadmapping",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-roadmapping"
+    },
+    {
+      "name": "design-user-flow-roadmapping",
+      "title": "Design User Flow: Roadmapping",
+      "domain": "roadmapping",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-roadmapping"
+    },
+    {
+      "name": "validate-product-decision-pricing-design",
+      "title": "Validate Product Decision: Pricing Design",
+      "domain": "pricing-design",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-pricing-design"
+    },
+    {
+      "name": "design-user-flow-pricing-design",
+      "title": "Design User Flow: Pricing Design",
+      "domain": "pricing-design",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-pricing-design"
+    },
+    {
+      "name": "validate-product-decision-enterprise-product",
+      "title": "Validate Product Decision: Enterprise Product",
+      "domain": "enterprise-product",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-enterprise-product"
+    },
+    {
+      "name": "design-user-flow-enterprise-product",
+      "title": "Design User Flow: Enterprise Product",
+      "domain": "enterprise-product",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-enterprise-product"
+    },
+    {
+      "name": "validate-product-decision-developer-experience",
+      "title": "Validate Product Decision: Developer Experience",
+      "domain": "developer-experience",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-developer-experience"
+    },
+    {
+      "name": "design-user-flow-developer-experience",
+      "title": "Design User Flow: Developer Experience",
+      "domain": "developer-experience",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-developer-experience"
+    },
+    {
+      "name": "validate-product-decision-content-design",
+      "title": "Validate Product Decision: Content Design",
+      "domain": "content-design",
+      "group": "product-design",
+      "path": "library/skills/product-design/validate-product-decision-content-design"
+    },
+    {
+      "name": "design-user-flow-content-design",
+      "title": "Design User Flow: Content Design",
+      "domain": "content-design",
+      "group": "product-design",
+      "path": "library/skills/product-design/design-user-flow-content-design"
+    },
+    {
+      "name": "verify-demand-market-research",
+      "title": "Verify Demand: Market Research",
+      "domain": "market-research",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-market-research"
+    },
+    {
+      "name": "build-commercial-system-market-research",
+      "title": "Build Commercial System: Market Research",
+      "domain": "market-research",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-market-research"
+    },
+    {
+      "name": "verify-demand-buyer-intelligence",
+      "title": "Verify Demand: Buyer Intelligence",
+      "domain": "buyer-intelligence",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-buyer-intelligence"
+    },
+    {
+      "name": "build-commercial-system-buyer-intelligence",
+      "title": "Build Commercial System: Buyer Intelligence",
+      "domain": "buyer-intelligence",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-buyer-intelligence"
+    },
+    {
+      "name": "verify-demand-offer-design",
+      "title": "Verify Demand: Offer Design",
+      "domain": "offer-design",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-offer-design"
+    },
+    {
+      "name": "build-commercial-system-offer-design",
+      "title": "Build Commercial System: Offer Design",
+      "domain": "offer-design",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-offer-design"
+    },
+    {
+      "name": "verify-demand-sales-operations",
+      "title": "Verify Demand: Sales Operations",
+      "domain": "sales-operations",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-sales-operations"
+    },
+    {
+      "name": "build-commercial-system-sales-operations",
+      "title": "Build Commercial System: Sales Operations",
+      "domain": "sales-operations",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-sales-operations"
+    },
+    {
+      "name": "verify-demand-outbound-systems",
+      "title": "Verify Demand: Outbound Systems",
+      "domain": "outbound-systems",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-outbound-systems"
+    },
+    {
+      "name": "build-commercial-system-outbound-systems",
+      "title": "Build Commercial System: Outbound Systems",
+      "domain": "outbound-systems",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-outbound-systems"
+    },
+    {
+      "name": "verify-demand-inbound-growth",
+      "title": "Verify Demand: Inbound Growth",
+      "domain": "inbound-growth",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-inbound-growth"
+    },
+    {
+      "name": "build-commercial-system-inbound-growth",
+      "title": "Build Commercial System: Inbound Growth",
+      "domain": "inbound-growth",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-inbound-growth"
+    },
+    {
+      "name": "verify-demand-partnerships",
+      "title": "Verify Demand: Partnerships",
+      "domain": "partnerships",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-partnerships"
+    },
+    {
+      "name": "build-commercial-system-partnerships",
+      "title": "Build Commercial System: Partnerships",
+      "domain": "partnerships",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-partnerships"
+    },
+    {
+      "name": "verify-demand-channels",
+      "title": "Verify Demand: Channels",
+      "domain": "channels",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-channels"
+    },
+    {
+      "name": "build-commercial-system-channels",
+      "title": "Build Commercial System: Channels",
+      "domain": "channels",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-channels"
+    },
+    {
+      "name": "verify-demand-seo",
+      "title": "Verify Demand: Seo",
+      "domain": "seo",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-seo"
+    },
+    {
+      "name": "build-commercial-system-seo",
+      "title": "Build Commercial System: Seo",
+      "domain": "seo",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-seo"
+    },
+    {
+      "name": "verify-demand-content-marketing",
+      "title": "Verify Demand: Content Marketing",
+      "domain": "content-marketing",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-content-marketing"
+    },
+    {
+      "name": "build-commercial-system-content-marketing",
+      "title": "Build Commercial System: Content Marketing",
+      "domain": "content-marketing",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-content-marketing"
+    },
+    {
+      "name": "verify-demand-lifecycle-marketing",
+      "title": "Verify Demand: Lifecycle Marketing",
+      "domain": "lifecycle-marketing",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-lifecycle-marketing"
+    },
+    {
+      "name": "build-commercial-system-lifecycle-marketing",
+      "title": "Build Commercial System: Lifecycle Marketing",
+      "domain": "lifecycle-marketing",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-lifecycle-marketing"
+    },
+    {
+      "name": "verify-demand-customer-success",
+      "title": "Verify Demand: Customer Success",
+      "domain": "customer-success",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-customer-success"
+    },
+    {
+      "name": "build-commercial-system-customer-success",
+      "title": "Build Commercial System: Customer Success",
+      "domain": "customer-success",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-customer-success"
+    },
+    {
+      "name": "verify-demand-support-operations",
+      "title": "Verify Demand: Support Operations",
+      "domain": "support-operations",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-support-operations"
+    },
+    {
+      "name": "build-commercial-system-support-operations",
+      "title": "Build Commercial System: Support Operations",
+      "domain": "support-operations",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-support-operations"
+    },
+    {
+      "name": "verify-demand-revenue-operations",
+      "title": "Verify Demand: Revenue Operations",
+      "domain": "revenue-operations",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-revenue-operations"
+    },
+    {
+      "name": "build-commercial-system-revenue-operations",
+      "title": "Build Commercial System: Revenue Operations",
+      "domain": "revenue-operations",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-revenue-operations"
+    },
+    {
+      "name": "verify-demand-account-management",
+      "title": "Verify Demand: Account Management",
+      "domain": "account-management",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-account-management"
+    },
+    {
+      "name": "build-commercial-system-account-management",
+      "title": "Build Commercial System: Account Management",
+      "domain": "account-management",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-account-management"
+    },
+    {
+      "name": "verify-demand-procurement-sales",
+      "title": "Verify Demand: Procurement Sales",
+      "domain": "procurement-sales",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/verify-demand-procurement-sales"
+    },
+    {
+      "name": "build-commercial-system-procurement-sales",
+      "title": "Build Commercial System: Procurement Sales",
+      "domain": "procurement-sales",
+      "group": "commercial-growth",
+      "path": "library/skills/commercial-growth/build-commercial-system-procurement-sales"
+    },
+    {
+      "name": "model-operation-financial-modeling",
+      "title": "Model Operation: Financial Modeling",
+      "domain": "financial-modeling",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-financial-modeling"
+    },
+    {
+      "name": "build-control-system-financial-modeling",
+      "title": "Build Control System: Financial Modeling",
+      "domain": "financial-modeling",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-financial-modeling"
+    },
+    {
+      "name": "model-operation-budgeting",
+      "title": "Model Operation: Budgeting",
+      "domain": "budgeting",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-budgeting"
+    },
+    {
+      "name": "build-control-system-budgeting",
+      "title": "Build Control System: Budgeting",
+      "domain": "budgeting",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-budgeting"
+    },
+    {
+      "name": "model-operation-cash-management",
+      "title": "Model Operation: Cash Management",
+      "domain": "cash-management",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-cash-management"
+    },
+    {
+      "name": "build-control-system-cash-management",
+      "title": "Build Control System: Cash Management",
+      "domain": "cash-management",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-cash-management"
+    },
+    {
+      "name": "model-operation-vendor-management",
+      "title": "Model Operation: Vendor Management",
+      "domain": "vendor-management",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-vendor-management"
+    },
+    {
+      "name": "build-control-system-vendor-management",
+      "title": "Build Control System: Vendor Management",
+      "domain": "vendor-management",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-vendor-management"
+    },
+    {
+      "name": "model-operation-procurement",
+      "title": "Model Operation: Procurement",
+      "domain": "procurement",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-procurement"
+    },
+    {
+      "name": "build-control-system-procurement",
+      "title": "Build Control System: Procurement",
+      "domain": "procurement",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-procurement"
+    },
+    {
+      "name": "model-operation-risk-management",
+      "title": "Model Operation: Risk Management",
+      "domain": "risk-management",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-risk-management"
+    },
+    {
+      "name": "build-control-system-risk-management",
+      "title": "Build Control System: Risk Management",
+      "domain": "risk-management",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-risk-management"
+    },
+    {
+      "name": "model-operation-business-continuity",
+      "title": "Model Operation: Business Continuity",
+      "domain": "business-continuity",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-business-continuity"
+    },
+    {
+      "name": "build-control-system-business-continuity",
+      "title": "Build Control System: Business Continuity",
+      "domain": "business-continuity",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-business-continuity"
+    },
+    {
+      "name": "model-operation-operations-design",
+      "title": "Model Operation: Operations Design",
+      "domain": "operations-design",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-operations-design"
+    },
+    {
+      "name": "build-control-system-operations-design",
+      "title": "Build Control System: Operations Design",
+      "domain": "operations-design",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-operations-design"
+    },
+    {
+      "name": "model-operation-project-management",
+      "title": "Model Operation: Project Management",
+      "domain": "project-management",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-project-management"
+    },
+    {
+      "name": "build-control-system-project-management",
+      "title": "Build Control System: Project Management",
+      "domain": "project-management",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-project-management"
+    },
+    {
+      "name": "model-operation-program-management",
+      "title": "Model Operation: Program Management",
+      "domain": "program-management",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-program-management"
+    },
+    {
+      "name": "build-control-system-program-management",
+      "title": "Build Control System: Program Management",
+      "domain": "program-management",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-program-management"
+    },
+    {
+      "name": "model-operation-knowledge-management",
+      "title": "Model Operation: Knowledge Management",
+      "domain": "knowledge-management",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-knowledge-management"
+    },
+    {
+      "name": "build-control-system-knowledge-management",
+      "title": "Build Control System: Knowledge Management",
+      "domain": "knowledge-management",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-knowledge-management"
+    },
+    {
+      "name": "model-operation-quality-management",
+      "title": "Model Operation: Quality Management",
+      "domain": "quality-management",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-quality-management"
+    },
+    {
+      "name": "build-control-system-quality-management",
+      "title": "Build Control System: Quality Management",
+      "domain": "quality-management",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-quality-management"
+    },
+    {
+      "name": "model-operation-hiring-systems",
+      "title": "Model Operation: Hiring Systems",
+      "domain": "hiring-systems",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-hiring-systems"
+    },
+    {
+      "name": "build-control-system-hiring-systems",
+      "title": "Build Control System: Hiring Systems",
+      "domain": "hiring-systems",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-hiring-systems"
+    },
+    {
+      "name": "model-operation-people-operations",
+      "title": "Model Operation: People Operations",
+      "domain": "people-operations",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-people-operations"
+    },
+    {
+      "name": "build-control-system-people-operations",
+      "title": "Build Control System: People Operations",
+      "domain": "people-operations",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-people-operations"
+    },
+    {
+      "name": "model-operation-training",
+      "title": "Model Operation: Training",
+      "domain": "training",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-training"
+    },
+    {
+      "name": "build-control-system-training",
+      "title": "Build Control System: Training",
+      "domain": "training",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-training"
+    },
+    {
+      "name": "model-operation-executive-reporting",
+      "title": "Model Operation: Executive Reporting",
+      "domain": "executive-reporting",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/model-operation-executive-reporting"
+    },
+    {
+      "name": "build-control-system-executive-reporting",
+      "title": "Build Control System: Executive Reporting",
+      "domain": "executive-reporting",
+      "group": "business-operations",
+      "path": "library/skills/business-operations/build-control-system-executive-reporting"
+    },
+    {
+      "name": "prepare-issue-map-contract-preparation",
+      "title": "Prepare Issue Map: Contract Preparation",
+      "domain": "contract-preparation",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-contract-preparation"
+    },
+    {
+      "name": "build-review-packet-contract-preparation",
+      "title": "Build Review Packet: Contract Preparation",
+      "domain": "contract-preparation",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-contract-preparation"
+    },
+    {
+      "name": "prepare-issue-map-privacy-compliance-prep",
+      "title": "Prepare Issue Map: Privacy Compliance Prep",
+      "domain": "privacy-compliance-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-privacy-compliance-prep"
+    },
+    {
+      "name": "build-review-packet-privacy-compliance-prep",
+      "title": "Build Review Packet: Privacy Compliance Prep",
+      "domain": "privacy-compliance-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-privacy-compliance-prep"
+    },
+    {
+      "name": "prepare-issue-map-security-compliance-prep",
+      "title": "Prepare Issue Map: Security Compliance Prep",
+      "domain": "security-compliance-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-security-compliance-prep"
+    },
+    {
+      "name": "build-review-packet-security-compliance-prep",
+      "title": "Build Review Packet: Security Compliance Prep",
+      "domain": "security-compliance-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-security-compliance-prep"
+    },
+    {
+      "name": "prepare-issue-map-tax-research-prep",
+      "title": "Prepare Issue Map: Tax Research Prep",
+      "domain": "tax-research-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-tax-research-prep"
+    },
+    {
+      "name": "build-review-packet-tax-research-prep",
+      "title": "Build Review Packet: Tax Research Prep",
+      "domain": "tax-research-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-tax-research-prep"
+    },
+    {
+      "name": "prepare-issue-map-employment-law-prep",
+      "title": "Prepare Issue Map: Employment Law Prep",
+      "domain": "employment-law-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-employment-law-prep"
+    },
+    {
+      "name": "build-review-packet-employment-law-prep",
+      "title": "Build Review Packet: Employment Law Prep",
+      "domain": "employment-law-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-employment-law-prep"
+    },
+    {
+      "name": "prepare-issue-map-ip-research-prep",
+      "title": "Prepare Issue Map: Ip Research Prep",
+      "domain": "ip-research-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-ip-research-prep"
+    },
+    {
+      "name": "build-review-packet-ip-research-prep",
+      "title": "Build Review Packet: Ip Research Prep",
+      "domain": "ip-research-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-ip-research-prep"
+    },
+    {
+      "name": "prepare-issue-map-regulatory-research-prep",
+      "title": "Prepare Issue Map: Regulatory Research Prep",
+      "domain": "regulatory-research-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-regulatory-research-prep"
+    },
+    {
+      "name": "build-review-packet-regulatory-research-prep",
+      "title": "Build Review Packet: Regulatory Research Prep",
+      "domain": "regulatory-research-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-regulatory-research-prep"
+    },
+    {
+      "name": "prepare-issue-map-vendor-due-diligence",
+      "title": "Prepare Issue Map: Vendor Due Diligence",
+      "domain": "vendor-due-diligence",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-vendor-due-diligence"
+    },
+    {
+      "name": "build-review-packet-vendor-due-diligence",
+      "title": "Build Review Packet: Vendor Due Diligence",
+      "domain": "vendor-due-diligence",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-vendor-due-diligence"
+    },
+    {
+      "name": "prepare-issue-map-data-processing-agreements",
+      "title": "Prepare Issue Map: Data Processing Agreements",
+      "domain": "data-processing-agreements",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-data-processing-agreements"
+    },
+    {
+      "name": "build-review-packet-data-processing-agreements",
+      "title": "Build Review Packet: Data Processing Agreements",
+      "domain": "data-processing-agreements",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-data-processing-agreements"
+    },
+    {
+      "name": "prepare-issue-map-terms-policy-prep",
+      "title": "Prepare Issue Map: Terms Policy Prep",
+      "domain": "terms-policy-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-terms-policy-prep"
+    },
+    {
+      "name": "build-review-packet-terms-policy-prep",
+      "title": "Build Review Packet: Terms Policy Prep",
+      "domain": "terms-policy-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-terms-policy-prep"
+    },
+    {
+      "name": "prepare-issue-map-audit-readiness",
+      "title": "Prepare Issue Map: Audit Readiness",
+      "domain": "audit-readiness",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-audit-readiness"
+    },
+    {
+      "name": "build-review-packet-audit-readiness",
+      "title": "Build Review Packet: Audit Readiness",
+      "domain": "audit-readiness",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-audit-readiness"
+    },
+    {
+      "name": "prepare-issue-map-record-retention",
+      "title": "Prepare Issue Map: Record Retention",
+      "domain": "record-retention",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-record-retention"
+    },
+    {
+      "name": "build-review-packet-record-retention",
+      "title": "Build Review Packet: Record Retention",
+      "domain": "record-retention",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-record-retention"
+    },
+    {
+      "name": "prepare-issue-map-international-expansion-prep",
+      "title": "Prepare Issue Map: International Expansion Prep",
+      "domain": "international-expansion-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-international-expansion-prep"
+    },
+    {
+      "name": "build-review-packet-international-expansion-prep",
+      "title": "Build Review Packet: International Expansion Prep",
+      "domain": "international-expansion-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-international-expansion-prep"
+    },
+    {
+      "name": "prepare-issue-map-payments-regulation-prep",
+      "title": "Prepare Issue Map: Payments Regulation Prep",
+      "domain": "payments-regulation-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-payments-regulation-prep"
+    },
+    {
+      "name": "build-review-packet-payments-regulation-prep",
+      "title": "Build Review Packet: Payments Regulation Prep",
+      "domain": "payments-regulation-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-payments-regulation-prep"
+    },
+    {
+      "name": "prepare-issue-map-consumer-protection-prep",
+      "title": "Prepare Issue Map: Consumer Protection Prep",
+      "domain": "consumer-protection-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-consumer-protection-prep"
+    },
+    {
+      "name": "build-review-packet-consumer-protection-prep",
+      "title": "Build Review Packet: Consumer Protection Prep",
+      "domain": "consumer-protection-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-consumer-protection-prep"
+    },
+    {
+      "name": "prepare-issue-map-ai-governance-prep",
+      "title": "Prepare Issue Map: Ai Governance Prep",
+      "domain": "ai-governance-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-ai-governance-prep"
+    },
+    {
+      "name": "build-review-packet-ai-governance-prep",
+      "title": "Build Review Packet: Ai Governance Prep",
+      "domain": "ai-governance-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/skills/legal-compliance-prep/build-review-packet-ai-governance-prep"
+    },
+    {
+      "name": "verify-evidence-web-research",
+      "title": "Verify Evidence: Web Research",
+      "domain": "web-research",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-web-research"
+    },
+    {
+      "name": "synthesize-decision-web-research",
+      "title": "Synthesize Decision: Web Research",
+      "domain": "web-research",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-web-research"
+    },
+    {
+      "name": "verify-evidence-scientific-literature",
+      "title": "Verify Evidence: Scientific Literature",
+      "domain": "scientific-literature",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-scientific-literature"
+    },
+    {
+      "name": "synthesize-decision-scientific-literature",
+      "title": "Synthesize Decision: Scientific Literature",
+      "domain": "scientific-literature",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-scientific-literature"
+    },
+    {
+      "name": "verify-evidence-competitive-intelligence",
+      "title": "Verify Evidence: Competitive Intelligence",
+      "domain": "competitive-intelligence",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-competitive-intelligence"
+    },
+    {
+      "name": "synthesize-decision-competitive-intelligence",
+      "title": "Synthesize Decision: Competitive Intelligence",
+      "domain": "competitive-intelligence",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-competitive-intelligence"
+    },
+    {
+      "name": "verify-evidence-source-verification",
+      "title": "Verify Evidence: Source Verification",
+      "domain": "source-verification",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-source-verification"
+    },
+    {
+      "name": "synthesize-decision-source-verification",
+      "title": "Synthesize Decision: Source Verification",
+      "domain": "source-verification",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-source-verification"
+    },
+    {
+      "name": "verify-evidence-evidence-synthesis",
+      "title": "Verify Evidence: Evidence Synthesis",
+      "domain": "evidence-synthesis",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-evidence-synthesis"
+    },
+    {
+      "name": "synthesize-decision-evidence-synthesis",
+      "title": "Synthesize Decision: Evidence Synthesis",
+      "domain": "evidence-synthesis",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-evidence-synthesis"
+    },
+    {
+      "name": "verify-evidence-survey-design",
+      "title": "Verify Evidence: Survey Design",
+      "domain": "survey-design",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-survey-design"
+    },
+    {
+      "name": "synthesize-decision-survey-design",
+      "title": "Synthesize Decision: Survey Design",
+      "domain": "survey-design",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-survey-design"
+    },
+    {
+      "name": "verify-evidence-qualitative-analysis",
+      "title": "Verify Evidence: Qualitative Analysis",
+      "domain": "qualitative-analysis",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-qualitative-analysis"
+    },
+    {
+      "name": "synthesize-decision-qualitative-analysis",
+      "title": "Synthesize Decision: Qualitative Analysis",
+      "domain": "qualitative-analysis",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-qualitative-analysis"
+    },
+    {
+      "name": "verify-evidence-quantitative-analysis",
+      "title": "Verify Evidence: Quantitative Analysis",
+      "domain": "quantitative-analysis",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-quantitative-analysis"
+    },
+    {
+      "name": "synthesize-decision-quantitative-analysis",
+      "title": "Synthesize Decision: Quantitative Analysis",
+      "domain": "quantitative-analysis",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-quantitative-analysis"
+    },
+    {
+      "name": "verify-evidence-knowledge-graphs",
+      "title": "Verify Evidence: Knowledge Graphs",
+      "domain": "knowledge-graphs",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-knowledge-graphs"
+    },
+    {
+      "name": "synthesize-decision-knowledge-graphs",
+      "title": "Synthesize Decision: Knowledge Graphs",
+      "domain": "knowledge-graphs",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-knowledge-graphs"
+    },
+    {
+      "name": "verify-evidence-taxonomy-design",
+      "title": "Verify Evidence: Taxonomy Design",
+      "domain": "taxonomy-design",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-taxonomy-design"
+    },
+    {
+      "name": "synthesize-decision-taxonomy-design",
+      "title": "Synthesize Decision: Taxonomy Design",
+      "domain": "taxonomy-design",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-taxonomy-design"
+    },
+    {
+      "name": "verify-evidence-document-synthesis",
+      "title": "Verify Evidence: Document Synthesis",
+      "domain": "document-synthesis",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-document-synthesis"
+    },
+    {
+      "name": "synthesize-decision-document-synthesis",
+      "title": "Synthesize Decision: Document Synthesis",
+      "domain": "document-synthesis",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-document-synthesis"
+    },
+    {
+      "name": "verify-evidence-fact-checking",
+      "title": "Verify Evidence: Fact Checking",
+      "domain": "fact-checking",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-fact-checking"
+    },
+    {
+      "name": "synthesize-decision-fact-checking",
+      "title": "Synthesize Decision: Fact Checking",
+      "domain": "fact-checking",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-fact-checking"
+    },
+    {
+      "name": "verify-evidence-historical-analysis",
+      "title": "Verify Evidence: Historical Analysis",
+      "domain": "historical-analysis",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-historical-analysis"
+    },
+    {
+      "name": "synthesize-decision-historical-analysis",
+      "title": "Synthesize Decision: Historical Analysis",
+      "domain": "historical-analysis",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-historical-analysis"
+    },
+    {
+      "name": "verify-evidence-policy-research",
+      "title": "Verify Evidence: Policy Research",
+      "domain": "policy-research",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-policy-research"
+    },
+    {
+      "name": "synthesize-decision-policy-research",
+      "title": "Synthesize Decision: Policy Research",
+      "domain": "policy-research",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-policy-research"
+    },
+    {
+      "name": "verify-evidence-technical-writing",
+      "title": "Verify Evidence: Technical Writing",
+      "domain": "technical-writing",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-technical-writing"
+    },
+    {
+      "name": "synthesize-decision-technical-writing",
+      "title": "Synthesize Decision: Technical Writing",
+      "domain": "technical-writing",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-technical-writing"
+    },
+    {
+      "name": "verify-evidence-decision-memos",
+      "title": "Verify Evidence: Decision Memos",
+      "domain": "decision-memos",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/verify-evidence-decision-memos"
+    },
+    {
+      "name": "synthesize-decision-decision-memos",
+      "title": "Synthesize Decision: Decision Memos",
+      "domain": "decision-memos",
+      "group": "research-knowledge",
+      "path": "library/skills/research-knowledge/synthesize-decision-decision-memos"
+    }
+  ]
+}

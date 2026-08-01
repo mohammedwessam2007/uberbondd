@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "REPAIR_CONTRACT",
+  "type": "object",
+  "required": [
+    "mission_id",
+    "accepted_findings",
+    "files_in_scope",
+    "tests_required",
+    "forbidden_scope",
+    "stop_condition"
+  ],
+  "properties": {
+    "mission_id": {
+      "type": "string"
+    },
+    "accepted_findings": {
+      "type": "array"
+    },
+    "files_in_scope": {
+      "type": "array"
+    },
+    "tests_required": {
+      "type": "array"
+    },
+    "forbidden_scope": {
+      "type": "array"
+    },
+    "stop_condition": {
+      "type": "string"
+    }
+  }
+}

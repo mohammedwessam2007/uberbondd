@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Billing Systems discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during architect,architect,True,Billing Systems architect acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during implement,implement,True,Billing Systems implement acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during verify,verify,True,Billing Systems verify acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during release,release,True,Billing Systems release acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during operate,operate,True,Billing Systems operate acceptance

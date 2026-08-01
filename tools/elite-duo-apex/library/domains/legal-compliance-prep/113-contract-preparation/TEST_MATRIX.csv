@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during issue-spot,issue-spot,True,Contract Preparation issue-spot acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during research,research,True,Contract Preparation research acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during classify,classify,True,Contract Preparation classify acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during prepare,prepare,True,Contract Preparation prepare acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during review,review,True,Contract Preparation review acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during retain,retain,True,Contract Preparation retain acceptance

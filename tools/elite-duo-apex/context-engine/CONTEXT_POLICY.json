@@ -1,0 +1,77 @@
+{
+  "version": "4.0.0",
+  "model": "claude-sonnet-5",
+  "quality_floor": "high",
+  "zones": [
+    {
+      "name": "green",
+      "min": 0,
+      "max": 44,
+      "actions": [
+        "normal work",
+        "preserve stable prefix"
+      ]
+    },
+    {
+      "name": "yellow",
+      "min": 45,
+      "max": 61,
+      "actions": [
+        "delegate noisy reads",
+        "spill large outputs",
+        "avoid unrelated exploration"
+      ]
+    },
+    {
+      "name": "orange",
+      "min": 62,
+      "max": 74,
+      "actions": [
+        "finish phase",
+        "snapshot state",
+        "prepare focused compaction",
+        "prefer fork for same-context side work"
+      ]
+    },
+    {
+      "name": "red",
+      "min": 75,
+      "max": 87,
+      "actions": [
+        "no new broad branch",
+        "compact at safe boundary",
+        "rewind abandoned paths",
+        "preserve evidence first"
+      ]
+    },
+    {
+      "name": "critical",
+      "min": 88,
+      "max": 100,
+      "actions": [
+        "persist immediately",
+        "only safe-boundary work",
+        "compact or stop"
+      ]
+    }
+  ],
+  "default_autocompact_pct": 82,
+  "effective_window_tokens": 300000,
+  "large_tool_output_chars": 24000,
+  "hard_tool_output_chars": 90000,
+  "never_evaporate_tools": [
+    "Edit",
+    "Write"
+  ],
+  "fresh_subagent_for": [
+    "independent review",
+    "noisy research",
+    "large log analysis with little parent context"
+  ],
+  "fork_for": [
+    "same-context side task",
+    "alternative implementation",
+    "tests derived from current discussion"
+  ],
+  "quality_gate": "Savings count only when acceptance and review scores are not lower."
+}

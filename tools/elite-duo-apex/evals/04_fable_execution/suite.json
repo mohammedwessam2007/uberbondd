@@ -1,0 +1,35 @@
+{
+  "suite_id": "04_fable_execution",
+  "title": "Fable execution behavior",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "acts_once_ready",
+      "description": "acts once ready",
+      "weight": 0.2
+    },
+    {
+      "id": "durable_state",
+      "description": "durable state",
+      "weight": 0.2
+    },
+    {
+      "id": "evidence_grounded_progress",
+      "description": "evidence-grounded progress",
+      "weight": 0.2
+    },
+    {
+      "id": "recovery",
+      "description": "recovery",
+      "weight": 0.2
+    },
+    {
+      "id": "completion",
+      "description": "completion",
+      "weight": 0.2
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

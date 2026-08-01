@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during scope,scope,True,Abuse Prevention scope acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during model,model,True,Abuse Prevention model acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Abuse Prevention control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Abuse Prevention test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during respond,respond,True,Abuse Prevention respond acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Abuse Prevention improve acceptance

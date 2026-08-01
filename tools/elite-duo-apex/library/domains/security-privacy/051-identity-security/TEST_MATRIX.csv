@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during scope,scope,True,Identity Security scope acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during model,model,True,Identity Security model acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Identity Security control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Identity Security test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during respond,respond,True,Identity Security respond acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Identity Security improve acceptance

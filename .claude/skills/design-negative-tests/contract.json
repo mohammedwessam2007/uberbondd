@@ -1,0 +1,15 @@
+{
+  "name": "design-negative-tests",
+  "purpose": "Design denial, stale, malformed, and missing-evidence tests.",
+  "kernel": "sol",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "invariants"
+  ],
+  "outputs": [
+    "NEGATIVE_TESTS.md"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

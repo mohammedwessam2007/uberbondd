@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during assess,assess,True,Vendor Management assess acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Vendor Management design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during execute,execute,True,Vendor Management execute acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Vendor Management control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during review,review,True,Vendor Management review acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Vendor Management improve acceptance

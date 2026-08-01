@@ -1,0 +1,15 @@
+﻿id,publisher,supports,title,type,url,verified
+ANT-FABLE-PROMPT,Anthropic,"long-horizon autonomy, effort, subagents, memory, progress grounding, completion behavior",Prompting Claude Fable 5,official,https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5,2026-08-01
+ANT-SONNET-PROMPT,Anthropic,"adaptive thinking, effort, tool use, literal instruction following, response control",Prompting Claude Sonnet 5,official,https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5,2026-08-01
+ANT-EFFORT,Anthropic,"high, xhigh, max and model-specific effort guidance",Effort,official,https://platform.claude.com/docs/en/build-with-claude/effort,2026-08-01
+ANT-SUBAGENTS,Anthropic,"separate contexts, model, effort, memory, skills, hooks, worktrees",Create custom subagents,official,https://code.claude.com/docs/en/sub-agents,2026-08-01
+ANT-TEAMS,Anthropic,"teams, shared tasks, messaging, limitations, token overhead",Orchestrate agent teams,official,https://code.claude.com/docs/en/agent-teams,2026-08-01
+ANT-HOOKS,Anthropic,"lifecycle events, blocking, context injection, tool and stop enforcement",Hooks reference,official,https://code.claude.com/docs/en/hooks,2026-08-01
+ANT-MEMORY,Anthropic,"CLAUDE.md, path rules, auto memory, limits, compaction behavior",How Claude remembers your project,official,https://code.claude.com/docs/en/memory,2026-08-01
+ANT-SKILLS,Anthropic,"skills, supporting files, invocation controls",Extend Claude with skills,official,https://code.claude.com/docs/en/slash-commands,2026-08-01
+ANT-CACHE,Anthropic,"cache behavior, model switches, subagents, forks, compaction",How Claude Code uses prompt caching,official,https://code.claude.com/docs/en/prompt-caching,2026-08-01
+ANT-MCP,Anthropic,"MCP configuration, approval, OAuth, output limits",Connect Claude Code to tools via MCP,official,https://code.claude.com/docs/en/mcp,2026-08-01
+OAI-56-GUIDE,OpenAI,"max reasoning, pro mode, PTC, persisted reasoning, explicit caching, lean prompts, autonomy",GPT-5.6 model guidance,official,https://developers.openai.com/api/docs/guides/latest-model,2026-08-01
+OAI-56-SOL,OpenAI,"context, output, tools, pricing, model features",GPT-5.6 Sol model,official,https://developers.openai.com/api/docs/models/gpt-5.6-sol,2026-08-01
+OAI-56-RELEASE,OpenAI,"Sol, max, ultra, efficiency claims, availability",GPT-5.6 release,official,https://openai.com/index/gpt-5-6/,2026-08-01
+COMMUNITY-LEAK,Community reports,"existence of community prompt-transplant technique, not model-equivalence claims",Fable system-prompt transplant claims,unofficial,https://jugaldb.substack.com/p/claudes-entire-fable-5-system-prompt,2026-08-01

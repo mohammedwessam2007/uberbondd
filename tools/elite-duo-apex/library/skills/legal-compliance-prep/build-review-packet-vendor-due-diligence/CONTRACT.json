@@ -1,0 +1,22 @@
+{
+  "name": "build-review-packet-vendor-due-diligence",
+  "title": "Build Review Packet: Vendor Due Diligence",
+  "domain": "vendor-due-diligence",
+  "group": "legal-compliance-prep",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Vendor Due Diligence source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_REVIEW_PACKET_VENDOR_DUE_DILIGENCE_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

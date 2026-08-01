@@ -1,0 +1,15 @@
+{
+  "name": "run-counterfactuals",
+  "purpose": "Test crashes, races, stale evidence, timeouts, attacks, and rollback.",
+  "kernel": "sol",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "architecture"
+  ],
+  "outputs": [
+    "COUNTERFACTUAL_ANALYSIS.md"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

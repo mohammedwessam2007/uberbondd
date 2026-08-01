@@ -1,0 +1,11 @@
+{
+  "domain": "mobile-applications",
+  "tests": [
+    "resume from last durable boundary",
+    "retry without duplicate effect",
+    "recover after process crash",
+    "reject stale final check",
+    "preserve unknown provider outcome",
+    "stop only after evidence"
+  ]
+}

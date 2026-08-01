@@ -1,0 +1,30 @@
+{
+  "suite_id": "06_dual_merge",
+  "title": "Dual contract merge",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "no_contradiction_hidden",
+      "description": "no contradiction hidden",
+      "weight": 0.25
+    },
+    {
+      "id": "architecture_execution_ownership_clear",
+      "description": "architecture/execution ownership clear",
+      "weight": 0.25
+    },
+    {
+      "id": "one_source_of_truth",
+      "description": "one source of truth",
+      "weight": 0.25
+    },
+    {
+      "id": "finite_order",
+      "description": "finite order",
+      "weight": 0.25
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

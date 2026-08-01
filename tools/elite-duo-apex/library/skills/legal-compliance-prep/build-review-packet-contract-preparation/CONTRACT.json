@@ -1,0 +1,22 @@
+{
+  "name": "build-review-packet-contract-preparation",
+  "title": "Build Review Packet: Contract Preparation",
+  "domain": "contract-preparation",
+  "group": "legal-compliance-prep",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Contract Preparation source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_REVIEW_PACKET_CONTRACT_PREPARATION_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

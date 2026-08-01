@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Frontend Systems discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during architect,architect,True,Frontend Systems architect acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during implement,implement,True,Frontend Systems implement acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during verify,verify,True,Frontend Systems verify acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during release,release,True,Frontend Systems release acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during operate,operate,True,Frontend Systems operate acceptance

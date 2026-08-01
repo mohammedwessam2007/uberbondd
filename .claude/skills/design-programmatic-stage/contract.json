@@ -1,0 +1,15 @@
+{
+  "name": "design-programmatic-stage",
+  "purpose": "Design a bounded local-program tool stage with strict schemas.",
+  "kernel": "sol",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "workflow"
+  ],
+  "outputs": [
+    "PROGRAMMATIC_STAGE.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

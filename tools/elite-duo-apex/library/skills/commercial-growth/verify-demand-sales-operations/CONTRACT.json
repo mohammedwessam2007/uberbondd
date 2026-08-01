@@ -1,0 +1,22 @@
+{
+  "name": "verify-demand-sales-operations",
+  "title": "Verify Demand: Sales Operations",
+  "domain": "sales-operations",
+  "group": "commercial-growth",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Sales Operations source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VERIFY_DEMAND_SALES_OPERATIONS_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

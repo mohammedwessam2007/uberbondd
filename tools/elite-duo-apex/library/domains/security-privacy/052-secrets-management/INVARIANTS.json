@@ -1,0 +1,15 @@
+{
+  "domain": "secrets-management",
+  "group": "security-privacy",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Secrets Management decisions trace to the mission contract and current evidence.",
+    "Secrets Management preserves one durable source of truth for each governed concept.",
+    "Secrets Management changes require real-path validation rather than isolated helper evidence.",
+    "Secrets Management limitations, residual risks, and approval boundaries are explicit.",
+    "Secrets Management never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

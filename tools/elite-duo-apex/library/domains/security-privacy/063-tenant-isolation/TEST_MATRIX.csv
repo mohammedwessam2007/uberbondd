@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during scope,scope,True,Tenant Isolation scope acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during model,model,True,Tenant Isolation model acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Tenant Isolation control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Tenant Isolation test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during respond,respond,True,Tenant Isolation respond acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Tenant Isolation improve acceptance

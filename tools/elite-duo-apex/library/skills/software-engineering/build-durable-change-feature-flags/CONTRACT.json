@@ -1,0 +1,22 @@
+{
+  "name": "build-durable-change-feature-flags",
+  "title": "Build Durable Change: Feature Flags",
+  "domain": "feature-flags",
+  "group": "software-engineering",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Feature Flags source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_DURABLE_CHANGE_FEATURE_FLAGS_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

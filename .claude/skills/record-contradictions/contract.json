@@ -1,0 +1,15 @@
+{
+  "name": "record-contradictions",
+  "purpose": "Preserve conflicting claims and dispositions.",
+  "kernel": "fusion",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "sources"
+  ],
+  "outputs": [
+    "CONTRADICTION_LEDGER.csv"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

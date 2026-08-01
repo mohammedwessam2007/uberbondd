@@ -1,0 +1,15 @@
+{
+  "name": "benchmark-xhigh-vs-max",
+  "purpose": "Compare Sonnet xhigh and max on representative tasks.",
+  "kernel": "sol",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "evaluation suite"
+  ],
+  "outputs": [
+    "EFFORT_BENCHMARK.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

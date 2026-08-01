@@ -1,0 +1,15 @@
+{
+  "domain": "privacy-compliance-prep",
+  "group": "legal-compliance-prep",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Privacy Compliance Prep decisions trace to the mission contract and current evidence.",
+    "Privacy Compliance Prep preserves one durable source of truth for each governed concept.",
+    "Privacy Compliance Prep changes require real-path validation rather than isolated helper evidence.",
+    "Privacy Compliance Prep limitations, residual risks, and approval boundaries are explicit.",
+    "Privacy Compliance Prep never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

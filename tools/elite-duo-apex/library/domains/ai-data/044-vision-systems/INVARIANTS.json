@@ -1,0 +1,15 @@
+{
+  "domain": "vision-systems",
+  "group": "ai-data",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Vision Systems decisions trace to the mission contract and current evidence.",
+    "Vision Systems preserves one durable source of truth for each governed concept.",
+    "Vision Systems changes require real-path validation rather than isolated helper evidence.",
+    "Vision Systems limitations, residual risks, and approval boundaries are explicit.",
+    "Vision Systems never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

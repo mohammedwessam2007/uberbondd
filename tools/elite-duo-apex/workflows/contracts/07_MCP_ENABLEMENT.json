@@ -1,0 +1,13 @@
+{
+  "name": "07_MCP_ENABLEMENT",
+  "title": "Controlled MCP enablement",
+  "steps": [
+    "compile-mission",
+    "audit-mcp",
+    "audit-permissions",
+    "design-hooks",
+    "issue-final-verdict"
+  ],
+  "output": "OWNER_ACTION_CARD.md",
+  "model": "claude-sonnet-5"
+}

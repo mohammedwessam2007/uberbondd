@@ -1,0 +1,15 @@
+{
+  "name": "run-targeted-tests",
+  "purpose": "Run minimal causal test set and preserve raw output.",
+  "kernel": "fable",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "test plan"
+  ],
+  "outputs": [
+    "TARGETED_TEST_EVIDENCE.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

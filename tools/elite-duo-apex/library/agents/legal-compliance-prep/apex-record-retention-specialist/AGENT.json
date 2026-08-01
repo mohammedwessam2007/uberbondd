@@ -1,0 +1,16 @@
+{
+  "name": "apex-record-retention-specialist",
+  "domain": "record-retention",
+  "group": "legal-compliance-prep",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "effort": "max",
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Write"
+  ],
+  "memory": "project",
+  "self_approval": false
+}

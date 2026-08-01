@@ -1,0 +1,22 @@
+{
+  "name": "design-user-flow-retention",
+  "title": "Design User Flow: Retention",
+  "domain": "retention",
+  "group": "product-design",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Retention source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "DESIGN_USER_FLOW_RETENTION_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

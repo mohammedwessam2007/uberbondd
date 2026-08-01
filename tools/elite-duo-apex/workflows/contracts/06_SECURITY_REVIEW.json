@@ -1,0 +1,12 @@
+{
+  "name": "06_SECURITY_REVIEW",
+  "title": "Security architecture review",
+  "steps": [
+    "build-threat-model",
+    "audit-prompt-injection",
+    "audit-permissions",
+    "review-sol-lens"
+  ],
+  "output": "FINAL_VERDICT.json",
+  "model": "claude-sonnet-5"
+}

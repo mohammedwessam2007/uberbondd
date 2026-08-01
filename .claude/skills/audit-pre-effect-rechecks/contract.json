@@ -1,0 +1,15 @@
+{
+  "name": "audit-pre-effect-rechecks",
+  "purpose": "Verify final-boundary suppression, approval, health, freshness, and budget checks.",
+  "kernel": "fusion",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "side effect path"
+  ],
+  "outputs": [
+    "PRE_EFFECT_RECHECK_REPORT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

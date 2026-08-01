@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during frame,frame,True,Fact Checking frame acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during search,search,True,Fact Checking search acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during extract,extract,True,Fact Checking extract acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during verify,verify,True,Fact Checking verify acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during synthesize,synthesize,True,Fact Checking synthesize acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during publish,publish,True,Fact Checking publish acceptance

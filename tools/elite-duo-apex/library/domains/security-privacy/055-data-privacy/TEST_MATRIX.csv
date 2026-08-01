@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during scope,scope,True,Data Privacy scope acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during model,model,True,Data Privacy model acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Data Privacy control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Data Privacy test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during respond,respond,True,Data Privacy respond acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Data Privacy improve acceptance

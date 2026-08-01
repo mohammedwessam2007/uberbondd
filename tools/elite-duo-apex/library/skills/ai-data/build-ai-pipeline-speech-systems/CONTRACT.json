@@ -1,0 +1,22 @@
+{
+  "name": "build-ai-pipeline-speech-systems",
+  "title": "Build Ai Pipeline: Speech Systems",
+  "domain": "speech-systems",
+  "group": "ai-data",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Speech Systems source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_AI_PIPELINE_SPEECH_SYSTEMS_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

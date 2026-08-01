@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FINAL_VERDICT",
+  "type": "object",
+  "required": [
+    "mission_id",
+    "verdict",
+    "evidence",
+    "blockers",
+    "owner_actions",
+    "external_actions"
+  ],
+  "properties": {
+    "mission_id": {
+      "type": "string"
+    },
+    "verdict": {
+      "enum": [
+        "REJECT",
+        "REPAIR_REQUIRED",
+        "READY_FOR_OWNER_REVIEW",
+        "READY_FOR_CONTROLLED_SIMULATION",
+        "READY_FOR_BOUNDED_CANARY"
+      ]
+    },
+    "evidence": {
+      "type": "array"
+    },
+    "blockers": {
+      "type": "array"
+    },
+    "owner_actions": {
+      "type": "array",
+      "maxItems": 3
+    },
+    "external_actions": {
+      "type": "array"
+    }
+  }
+}

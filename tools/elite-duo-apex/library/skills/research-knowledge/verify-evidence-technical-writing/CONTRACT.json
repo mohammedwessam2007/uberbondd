@@ -1,0 +1,22 @@
+{
+  "name": "verify-evidence-technical-writing",
+  "title": "Verify Evidence: Technical Writing",
+  "domain": "technical-writing",
+  "group": "research-knowledge",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Technical Writing source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VERIFY_EVIDENCE_TECHNICAL_WRITING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

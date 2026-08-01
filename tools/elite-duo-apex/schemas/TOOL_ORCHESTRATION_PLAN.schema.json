@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TOOL_ORCHESTRATION_PLAN",
+  "type": "object",
+  "required": [
+    "stage",
+    "eligible_tools",
+    "program_schema",
+    "retry_limit",
+    "stop_condition",
+    "semantic_handoff"
+  ],
+  "properties": {
+    "stage": {
+      "type": "string"
+    },
+    "eligible_tools": {
+      "type": "array"
+    },
+    "program_schema": {
+      "type": "object"
+    },
+    "retry_limit": {
+      "type": "integer"
+    },
+    "stop_condition": {
+      "type": "string"
+    },
+    "semantic_handoff": {
+      "type": "string"
+    }
+  }
+}

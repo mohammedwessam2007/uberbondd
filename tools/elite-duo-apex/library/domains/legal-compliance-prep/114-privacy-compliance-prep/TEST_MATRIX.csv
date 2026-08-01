@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during issue-spot,issue-spot,True,Privacy Compliance Prep issue-spot acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during research,research,True,Privacy Compliance Prep research acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during classify,classify,True,Privacy Compliance Prep classify acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during prepare,prepare,True,Privacy Compliance Prep prepare acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during review,review,True,Privacy Compliance Prep review acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during retain,retain,True,Privacy Compliance Prep retain acceptance

@@ -1,0 +1,15 @@
+{
+  "domain": "outbound-systems",
+  "group": "commercial-growth",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Outbound Systems decisions trace to the mission contract and current evidence.",
+    "Outbound Systems preserves one durable source of truth for each governed concept.",
+    "Outbound Systems changes require real-path validation rather than isolated helper evidence.",
+    "Outbound Systems limitations, residual risks, and approval boundaries are explicit.",
+    "Outbound Systems never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

@@ -1,0 +1,15 @@
+{
+  "name": "benchmark-kernel-components",
+  "purpose": "Ablate kernel modules and measure active ingredients.",
+  "kernel": "sol",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "evaluation suite"
+  ],
+  "outputs": [
+    "KERNEL_ABLATION.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

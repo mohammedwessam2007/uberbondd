@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during issue-spot,issue-spot,True,Data Processing Agreements issue-spot acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during research,research,True,Data Processing Agreements research acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during classify,classify,True,Data Processing Agreements classify acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during prepare,prepare,True,Data Processing Agreements prepare acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during review,review,True,Data Processing Agreements review acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during retain,retain,True,Data Processing Agreements retain acceptance

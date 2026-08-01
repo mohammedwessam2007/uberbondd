@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during frame,frame,True,Document Synthesis frame acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during search,search,True,Document Synthesis search acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during extract,extract,True,Document Synthesis extract acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during verify,verify,True,Document Synthesis verify acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during synthesize,synthesize,True,Document Synthesis synthesize acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during publish,publish,True,Document Synthesis publish acceptance

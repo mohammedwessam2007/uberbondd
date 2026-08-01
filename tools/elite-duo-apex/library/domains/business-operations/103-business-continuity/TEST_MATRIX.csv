@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during assess,assess,True,Business Continuity assess acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Business Continuity design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during execute,execute,True,Business Continuity execute acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Business Continuity control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during review,review,True,Business Continuity review acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Business Continuity improve acceptance

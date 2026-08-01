@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during issue-spot,issue-spot,True,Audit Readiness issue-spot acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during research,research,True,Audit Readiness research acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during classify,classify,True,Audit Readiness classify acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during prepare,prepare,True,Audit Readiness prepare acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during review,review,True,Audit Readiness review acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during retain,retain,True,Audit Readiness retain acceptance

@@ -1,0 +1,17 @@
+{
+  "name": "apex-executive-reporting-specialist",
+  "domain": "executive-reporting",
+  "group": "business-operations",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "effort": "max",
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Bash",
+    "Write"
+  ],
+  "memory": "project",
+  "self_approval": false
+}

@@ -1,0 +1,22 @@
+{
+  "name": "build-ai-pipeline-model-evaluation",
+  "title": "Build Ai Pipeline: Model Evaluation",
+  "domain": "model-evaluation",
+  "group": "ai-data",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Model Evaluation source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_AI_PIPELINE_MODEL_EVALUATION_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

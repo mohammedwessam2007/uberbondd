@@ -1,0 +1,22 @@
+{
+  "name": "build-durable-change-api-design",
+  "title": "Build Durable Change: Api Design",
+  "domain": "api-design",
+  "group": "software-engineering",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Api Design source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_DURABLE_CHANGE_API_DESIGN_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

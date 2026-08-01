@@ -1,0 +1,22 @@
+{
+  "name": "build-control-system-program-management",
+  "title": "Build Control System: Program Management",
+  "domain": "program-management",
+  "group": "business-operations",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Program Management source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_CONTROL_SYSTEM_PROGRAM_MANAGEMENT_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

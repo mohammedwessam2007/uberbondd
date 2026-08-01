@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during assess,assess,True,Knowledge Management assess acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Knowledge Management design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during execute,execute,True,Knowledge Management execute acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Knowledge Management control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during review,review,True,Knowledge Management review acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Knowledge Management improve acceptance

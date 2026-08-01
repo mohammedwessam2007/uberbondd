@@ -1,0 +1,12 @@
+{
+  "name": "20_TEST_INTEGRITY",
+  "title": "Audit and strengthen tests",
+  "steps": [
+    "detect-weakened-tests",
+    "design-real-path-tests",
+    "design-negative-tests",
+    "design-concurrency-tests"
+  ],
+  "output": "TEST_INTEGRITY_REPORT.json",
+  "model": "claude-sonnet-5"
+}

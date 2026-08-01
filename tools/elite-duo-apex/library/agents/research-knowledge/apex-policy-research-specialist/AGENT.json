@@ -1,0 +1,16 @@
+{
+  "name": "apex-policy-research-specialist",
+  "domain": "policy-research",
+  "group": "research-knowledge",
+  "risk": "MEDIUM",
+  "model": "claude-sonnet-5",
+  "effort": "max",
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Write"
+  ],
+  "memory": "project",
+  "self_approval": false
+}

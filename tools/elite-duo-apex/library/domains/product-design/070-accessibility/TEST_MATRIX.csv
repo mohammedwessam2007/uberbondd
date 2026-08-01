@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Accessibility discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during define,define,True,Accessibility define acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Accessibility design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Accessibility test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during launch,launch,True,Accessibility launch acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during learn,learn,True,Accessibility learn acceptance

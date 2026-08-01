@@ -1,0 +1,15 @@
+{
+  "domain": "product-strategy",
+  "group": "product-design",
+  "risk": "MEDIUM",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Product Strategy decisions trace to the mission contract and current evidence.",
+    "Product Strategy preserves one durable source of truth for each governed concept.",
+    "Product Strategy changes require real-path validation rather than isolated helper evidence.",
+    "Product Strategy limitations, residual risks, and approval boundaries are explicit.",
+    "Product Strategy never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

@@ -1,0 +1,15 @@
+{
+  "domain": "activation",
+  "group": "product-design",
+  "risk": "MEDIUM",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Activation decisions trace to the mission contract and current evidence.",
+    "Activation preserves one durable source of truth for each governed concept.",
+    "Activation changes require real-path validation rather than isolated helper evidence.",
+    "Activation limitations, residual risks, and approval boundaries are explicit.",
+    "Activation never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

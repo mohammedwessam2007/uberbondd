@@ -1,0 +1,16 @@
+{
+  "control_id": "049-application-security-detective",
+  "domain": "application-security",
+  "type": "detective",
+  "risk": "CRITICAL",
+  "model_when_judgment_required": "claude-sonnet-5",
+  "effort": "max",
+  "fail_mode": "closed",
+  "evidence": [
+    "control configuration",
+    "trigger input",
+    "result",
+    "timestamp",
+    "artifact hash"
+  ]
+}

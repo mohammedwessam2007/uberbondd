@@ -1,0 +1,16 @@
+{
+  "name": "audit-permissions",
+  "purpose": "Audit tool, shell, file, network, MCP, and approval permissions.",
+  "kernel": "fusion",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "settings",
+    "hooks"
+  ],
+  "outputs": [
+    "PERMISSION_AUDIT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

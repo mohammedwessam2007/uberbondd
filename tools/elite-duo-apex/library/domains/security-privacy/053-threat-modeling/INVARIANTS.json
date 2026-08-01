@@ -1,0 +1,15 @@
+{
+  "domain": "threat-modeling",
+  "group": "security-privacy",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Threat Modeling decisions trace to the mission contract and current evidence.",
+    "Threat Modeling preserves one durable source of truth for each governed concept.",
+    "Threat Modeling changes require real-path validation rather than isolated helper evidence.",
+    "Threat Modeling limitations, residual risks, and approval boundaries are explicit.",
+    "Threat Modeling never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

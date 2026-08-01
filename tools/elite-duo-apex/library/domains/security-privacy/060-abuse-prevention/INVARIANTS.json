@@ -1,0 +1,15 @@
+{
+  "domain": "abuse-prevention",
+  "group": "security-privacy",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Abuse Prevention decisions trace to the mission contract and current evidence.",
+    "Abuse Prevention preserves one durable source of truth for each governed concept.",
+    "Abuse Prevention changes require real-path validation rather than isolated helper evidence.",
+    "Abuse Prevention limitations, residual risks, and approval boundaries are explicit.",
+    "Abuse Prevention never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

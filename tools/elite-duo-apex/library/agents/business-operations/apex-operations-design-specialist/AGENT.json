@@ -1,0 +1,17 @@
+{
+  "name": "apex-operations-design-specialist",
+  "domain": "operations-design",
+  "group": "business-operations",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "effort": "max",
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Bash",
+    "Write"
+  ],
+  "memory": "project",
+  "self_approval": false
+}

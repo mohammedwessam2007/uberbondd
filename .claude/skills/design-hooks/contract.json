@@ -1,0 +1,15 @@
+{
+  "name": "design-hooks",
+  "purpose": "Design deterministic lifecycle enforcement hooks.",
+  "kernel": "fable",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "policies"
+  ],
+  "outputs": [
+    "HOOK_PLAN.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

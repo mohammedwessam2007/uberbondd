@@ -1,0 +1,15 @@
+{
+  "domain": "identity-access",
+  "group": "software-engineering",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Identity Access decisions trace to the mission contract and current evidence.",
+    "Identity Access preserves one durable source of truth for each governed concept.",
+    "Identity Access changes require real-path validation rather than isolated helper evidence.",
+    "Identity Access limitations, residual risks, and approval boundaries are explicit.",
+    "Identity Access never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

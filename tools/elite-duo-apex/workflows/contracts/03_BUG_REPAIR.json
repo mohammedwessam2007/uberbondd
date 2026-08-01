@@ -1,0 +1,16 @@
+{
+  "name": "03_BUG_REPAIR",
+  "title": "Root-cause bug repair",
+  "steps": [
+    "compile-mission",
+    "map-repository",
+    "debug-causally",
+    "run-targeted-tests",
+    "run-full-validation",
+    "compile-evidence-packet",
+    "review-fable-lens",
+    "review-sol-lens"
+  ],
+  "output": "FINAL_VERDICT.json",
+  "model": "claude-sonnet-5"
+}

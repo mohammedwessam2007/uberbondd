@@ -1,0 +1,10 @@
+{
+  "mission_id": "",
+  "state": "INGEST",
+  "completed": [],
+  "blockers": [],
+  "modified_files": [],
+  "tests": [],
+  "external_actions": [],
+  "next_action": ""
+}

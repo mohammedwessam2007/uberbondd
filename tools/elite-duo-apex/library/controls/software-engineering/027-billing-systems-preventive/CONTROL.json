@@ -1,0 +1,16 @@
+{
+  "control_id": "027-billing-systems-preventive",
+  "domain": "billing-systems",
+  "type": "preventive",
+  "risk": "HIGH",
+  "model_when_judgment_required": "claude-sonnet-5",
+  "effort": "max",
+  "fail_mode": "structured finding",
+  "evidence": [
+    "control configuration",
+    "trigger input",
+    "result",
+    "timestamp",
+    "artifact hash"
+  ]
+}

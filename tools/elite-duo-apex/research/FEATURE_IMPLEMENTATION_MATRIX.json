@@ -1,0 +1,249 @@
+{
+  "features": [
+    {
+      "source_family": "FABLE",
+      "feature": "Long-horizon autonomy",
+      "implementation": "Fable execution kernel",
+      "source_id": "ANT-FABLE-PROMPT",
+      "status": "implemented"
+    },
+    {
+      "source_family": "FABLE",
+      "feature": "Act once ready",
+      "implementation": "Action-over-overplanning module",
+      "source_id": "ANT-FABLE-PROMPT",
+      "status": "implemented"
+    },
+    {
+      "source_family": "FABLE",
+      "feature": "Ground progress in tools",
+      "implementation": "Evidence hooks and progress law",
+      "source_id": "ANT-FABLE-PROMPT",
+      "status": "implemented"
+    },
+    {
+      "source_family": "FABLE",
+      "feature": "Parallel subagents",
+      "implementation": "Sonnet-only scoped agents",
+      "source_id": "ANT-FABLE-PROMPT",
+      "status": "implemented"
+    },
+    {
+      "source_family": "FABLE",
+      "feature": "Long-lived memory",
+      "implementation": "Project memory and correction ledger",
+      "source_id": "ANT-FABLE-PROMPT",
+      "status": "implemented"
+    },
+    {
+      "source_family": "FABLE",
+      "feature": "Fresh-context verification",
+      "implementation": "Dual max reviewers",
+      "source_id": "ANT-FABLE-PROMPT",
+      "status": "implemented"
+    },
+    {
+      "source_family": "FABLE",
+      "feature": "Ambiguity navigation",
+      "implementation": "Mission compiler and authority adjudicator",
+      "source_id": "ANT-FABLE-PROMPT",
+      "status": "implemented"
+    },
+    {
+      "source_family": "FABLE",
+      "feature": "Scope minimalism",
+      "implementation": "Scope rule and minimalist refactorer",
+      "source_id": "ANT-FABLE-PROMPT",
+      "status": "implemented"
+    },
+    {
+      "source_family": "FABLE",
+      "feature": "Autonomous completion",
+      "implementation": "Stop gate and state machine",
+      "source_id": "ANT-FABLE-PROMPT",
+      "status": "implemented"
+    },
+    {
+      "source_family": "SONNET",
+      "feature": "Adaptive thinking",
+      "implementation": "Effort-specific role agents",
+      "source_id": "ANT-SONNET-PROMPT",
+      "status": "implemented"
+    },
+    {
+      "source_family": "SONNET",
+      "feature": "High tool-use rate at high effort",
+      "implementation": "xhigh/max execution and review",
+      "source_id": "ANT-SONNET-PROMPT",
+      "status": "implemented"
+    },
+    {
+      "source_family": "SONNET",
+      "feature": "Literal instruction following",
+      "implementation": "Explicit per-role scope and outputs",
+      "source_id": "ANT-SONNET-PROMPT",
+      "status": "implemented"
+    },
+    {
+      "source_family": "SONNET",
+      "feature": "1M context",
+      "implementation": "Context capsules and selective loading",
+      "source_id": "ANT-SONNET-PROMPT",
+      "status": "implemented"
+    },
+    {
+      "source_family": "SONNET",
+      "feature": "128K output",
+      "implementation": "Large-turn-aware workflows",
+      "source_id": "ANT-SONNET-PROMPT",
+      "status": "implemented"
+    },
+    {
+      "source_family": "CLAUDE CODE",
+      "feature": "Subagent isolated contexts",
+      "implementation": "32 custom Sonnet agents",
+      "source_id": "ANT-SUBAGENTS",
+      "status": "implemented"
+    },
+    {
+      "source_family": "CLAUDE CODE",
+      "feature": "Per-agent model and effort",
+      "implementation": "All roles pinned to Sonnet high/xhigh/max",
+      "source_id": "ANT-SUBAGENTS",
+      "status": "implemented"
+    },
+    {
+      "source_family": "CLAUDE CODE",
+      "feature": "Worktree isolation",
+      "implementation": "Editing agents use worktrees",
+      "source_id": "ANT-SUBAGENTS",
+      "status": "implemented"
+    },
+    {
+      "source_family": "CLAUDE CODE",
+      "feature": "Project/local memory",
+      "implementation": "Memory curator and templates",
+      "source_id": "ANT-MEMORY",
+      "status": "implemented"
+    },
+    {
+      "source_family": "CLAUDE CODE",
+      "feature": "Skills with resources",
+      "implementation": "64 skills with contracts and rubrics",
+      "source_id": "ANT-SKILLS",
+      "status": "implemented"
+    },
+    {
+      "source_family": "CLAUDE CODE",
+      "feature": "Lifecycle hooks",
+      "implementation": "18 deterministic hooks",
+      "source_id": "ANT-HOOKS",
+      "status": "implemented"
+    },
+    {
+      "source_family": "CLAUDE CODE",
+      "feature": "Prompt caching",
+      "implementation": "Stable kernel and context topology",
+      "source_id": "ANT-CACHE",
+      "status": "implemented"
+    },
+    {
+      "source_family": "CLAUDE CODE",
+      "feature": "Path-scoped rules",
+      "implementation": "16 scoped project rules",
+      "source_id": "ANT-MEMORY",
+      "status": "implemented"
+    },
+    {
+      "source_family": "CLAUDE CODE",
+      "feature": "Agent teams",
+      "implementation": "Opt-in max-effort team workflow",
+      "source_id": "ANT-TEAMS",
+      "status": "implemented"
+    },
+    {
+      "source_family": "CLAUDE CODE",
+      "feature": "MCP",
+      "implementation": "Disabled by default and audited before enablement",
+      "source_id": "ANT-MCP",
+      "status": "implemented"
+    },
+    {
+      "source_family": "SOL",
+      "feature": "Lean prompts",
+      "implementation": "Modular selective kernel loading",
+      "source_id": "OAI-56-GUIDE",
+      "status": "implemented"
+    },
+    {
+      "source_family": "SOL",
+      "feature": "Max reasoning",
+      "implementation": "Max architecture and review roles",
+      "source_id": "OAI-56-GUIDE",
+      "status": "implemented"
+    },
+    {
+      "source_family": "SOL",
+      "feature": "Pro mode",
+      "implementation": "One validated final result after internal stages",
+      "source_id": "OAI-56-GUIDE",
+      "status": "emulated"
+    },
+    {
+      "source_family": "SOL",
+      "feature": "Programmatic tool calling",
+      "implementation": "Local bounded programs and schema validation",
+      "source_id": "OAI-56-GUIDE",
+      "status": "emulated"
+    },
+    {
+      "source_family": "SOL",
+      "feature": "Persisted reasoning",
+      "implementation": "Explicit durable decision artifacts",
+      "source_id": "OAI-56-GUIDE",
+      "status": "emulated"
+    },
+    {
+      "source_family": "SOL",
+      "feature": "Explicit caching",
+      "implementation": "Stable-prefix file architecture",
+      "source_id": "OAI-56-GUIDE",
+      "status": "emulated"
+    },
+    {
+      "source_family": "SOL",
+      "feature": "Multi-agent",
+      "implementation": "Opt-in Sonnet agent teams",
+      "source_id": "OAI-56-RELEASE",
+      "status": "emulated"
+    },
+    {
+      "source_family": "SOL",
+      "feature": "Intent understanding",
+      "implementation": "Mission compiler and objective contract",
+      "source_id": "OAI-56-GUIDE",
+      "status": "implemented"
+    },
+    {
+      "source_family": "SOL",
+      "feature": "Autonomy boundaries",
+      "implementation": "Intent classifier, approvals, hooks",
+      "source_id": "OAI-56-GUIDE",
+      "status": "implemented"
+    },
+    {
+      "source_family": "SOL",
+      "feature": "Final answer evaluation",
+      "implementation": "Final-message audit and stop gate",
+      "source_id": "OAI-56-GUIDE",
+      "status": "implemented"
+    },
+    {
+      "source_family": "SOL",
+      "feature": "Tool hygiene",
+      "implementation": "Strict per-agent tool allowlists",
+      "source_id": "OAI-56-SOL",
+      "status": "implemented"
+    }
+  ]
+}

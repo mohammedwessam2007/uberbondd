@@ -1,0 +1,16 @@
+{
+  "control_id": "039-model-evaluation-preventive",
+  "domain": "model-evaluation",
+  "type": "preventive",
+  "risk": "HIGH",
+  "model_when_judgment_required": "claude-sonnet-5",
+  "effort": "max",
+  "fail_mode": "structured finding",
+  "evidence": [
+    "control configuration",
+    "trigger input",
+    "result",
+    "timestamp",
+    "artifact hash"
+  ]
+}

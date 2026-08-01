@@ -1,0 +1,16 @@
+{
+  "name": "apex-revenue-operations-specialist",
+  "domain": "revenue-operations",
+  "group": "commercial-growth",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "effort": "max",
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Write"
+  ],
+  "memory": "project",
+  "self_approval": false
+}

@@ -1,0 +1,22 @@
+{
+  "name": "design-user-flow-experimentation",
+  "title": "Design User Flow: Experimentation",
+  "domain": "experimentation",
+  "group": "product-design",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Experimentation source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "DESIGN_USER_FLOW_EXPERIMENTATION_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

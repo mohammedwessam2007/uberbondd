@@ -1,0 +1,15 @@
+{
+  "domain": "analytics",
+  "group": "product-design",
+  "risk": "MEDIUM",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Analytics decisions trace to the mission contract and current evidence.",
+    "Analytics preserves one durable source of truth for each governed concept.",
+    "Analytics changes require real-path validation rather than isolated helper evidence.",
+    "Analytics limitations, residual risks, and approval boundaries are explicit.",
+    "Analytics never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

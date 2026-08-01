@@ -1,0 +1,16 @@
+{
+  "name": "apex-pricing-design-specialist",
+  "domain": "pricing-design",
+  "group": "product-design",
+  "risk": "MEDIUM",
+  "model": "claude-sonnet-5",
+  "effort": "max",
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Write"
+  ],
+  "memory": "project",
+  "self_approval": false
+}

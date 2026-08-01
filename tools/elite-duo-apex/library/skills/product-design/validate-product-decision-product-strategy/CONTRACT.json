@@ -1,0 +1,22 @@
+{
+  "name": "validate-product-decision-product-strategy",
+  "title": "Validate Product Decision: Product Strategy",
+  "domain": "product-strategy",
+  "group": "product-design",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Product Strategy source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VALIDATE_PRODUCT_DECISION_PRODUCT_STRATEGY_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

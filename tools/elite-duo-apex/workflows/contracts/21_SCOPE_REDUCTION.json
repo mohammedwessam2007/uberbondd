@@ -1,0 +1,12 @@
+{
+  "name": "21_SCOPE_REDUCTION",
+  "title": "Remove unnecessary design without quality loss",
+  "steps": [
+    "build-authority-map",
+    "run-counterfactuals",
+    "audit-context-cost",
+    "issue-final-verdict"
+  ],
+  "output": "SCOPE_REDUCTION.md",
+  "model": "claude-sonnet-5"
+}

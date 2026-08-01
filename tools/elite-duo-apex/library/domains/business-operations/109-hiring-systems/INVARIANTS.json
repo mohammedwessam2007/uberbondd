@@ -1,0 +1,15 @@
+{
+  "domain": "hiring-systems",
+  "group": "business-operations",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Hiring Systems decisions trace to the mission contract and current evidence.",
+    "Hiring Systems preserves one durable source of truth for each governed concept.",
+    "Hiring Systems changes require real-path validation rather than isolated helper evidence.",
+    "Hiring Systems limitations, residual risks, and approval boundaries are explicit.",
+    "Hiring Systems never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

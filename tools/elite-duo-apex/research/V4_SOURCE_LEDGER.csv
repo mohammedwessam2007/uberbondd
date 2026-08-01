@@ -1,0 +1,15 @@
+﻿id,supports,title,url
+CC-CONTEXT,"what loads, compaction survival, skill reinjection caps",Explore the context window,https://code.claude.com/docs/en/context-window
+CC-CACHE,"exact prefix, cache invalidation, effort cache safety, rewind, subagent and fork cache",How Claude Code uses prompt caching,https://code.claude.com/docs/en/prompt-caching
+CC-COSTS,"clear, compact focus, skills, MCP overhead, context cost",Manage costs effectively,https://code.claude.com/docs/en/costs
+CC-SUBAGENTS,"isolated contexts, auto compaction, forked subagents, cache sharing",Create custom subagents,https://code.claude.com/docs/en/sub-agents
+CC-HOOKS,"PreCompact, PostCompact, updatedToolOutput, lifecycle enforcement",Hooks reference,https://code.claude.com/docs/en/hooks
+CC-STATUS,"context, cache, cost, effort and rate-limit telemetry",Customize your status line,https://code.claude.com/docs/en/statusline
+CC-ENV,auto-compaction thresholds and context window policy,Environment variables,https://code.claude.com/docs/en/env-vars
+CC-MEMORY,"CLAUDE.md, auto-memory size and on-demand topic files",How Claude remembers your project,https://code.claude.com/docs/en/memory
+CC-COMMANDS,"compact, rewind, branch/fork, recap, clear",Commands,https://code.claude.com/docs/en/commands
+ANT-TOOLS,"tool search, programmatic calling, caching, context editing",Manage tool context,https://platform.claude.com/docs/en/agents-and-tools/tool-use/manage-tool-context
+ANT-EDIT,"tool-result clearing, thinking clearing, compaction, memory preservation",Context editing,https://platform.claude.com/docs/en/build-with-claude/context-editing
+ANT-EFFORT,"Sonnet 5 high, xhigh, max tradeoffs",Effort,https://platform.claude.com/docs/en/build-with-claude/effort
+ANT-FABLE,"long horizon, delegation, memory, progress evidence, completion",Prompting Claude Fable 5,https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5
+OAI-CODEX-LOOP,"prefix caching, compact endpoint, auto compact limit, encrypted compaction item",Unrolling the Codex agent loop,https://openai.com/index/unrolling-the-codex-agent-loop/

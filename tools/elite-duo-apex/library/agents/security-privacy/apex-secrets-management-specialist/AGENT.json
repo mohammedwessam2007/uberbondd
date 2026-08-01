@@ -1,0 +1,16 @@
+{
+  "name": "apex-secrets-management-specialist",
+  "domain": "secrets-management",
+  "group": "security-privacy",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "effort": "max",
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Bash"
+  ],
+  "memory": "project",
+  "self_approval": false
+}

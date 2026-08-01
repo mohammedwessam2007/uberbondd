@@ -1,0 +1,22 @@
+{
+  "name": "build-ai-pipeline-fine-tuning",
+  "title": "Build Ai Pipeline: Fine Tuning",
+  "domain": "fine-tuning",
+  "group": "ai-data",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Fine Tuning source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_AI_PIPELINE_FINE_TUNING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

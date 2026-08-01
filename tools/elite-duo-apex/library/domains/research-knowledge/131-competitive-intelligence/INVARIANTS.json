@@ -1,0 +1,15 @@
+{
+  "domain": "competitive-intelligence",
+  "group": "research-knowledge",
+  "risk": "MEDIUM",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Competitive Intelligence decisions trace to the mission contract and current evidence.",
+    "Competitive Intelligence preserves one durable source of truth for each governed concept.",
+    "Competitive Intelligence changes require real-path validation rather than isolated helper evidence.",
+    "Competitive Intelligence limitations, residual risks, and approval boundaries are explicit.",
+    "Competitive Intelligence never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

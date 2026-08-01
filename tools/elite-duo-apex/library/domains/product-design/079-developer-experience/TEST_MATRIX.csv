@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Developer Experience discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during define,define,True,Developer Experience define acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Developer Experience design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Developer Experience test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during launch,launch,True,Developer Experience launch acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during learn,learn,True,Developer Experience learn acceptance

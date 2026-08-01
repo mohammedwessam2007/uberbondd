@@ -1,0 +1,15 @@
+{
+  "domain": "prompt-engineering",
+  "group": "ai-data",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Prompt Engineering decisions trace to the mission contract and current evidence.",
+    "Prompt Engineering preserves one durable source of truth for each governed concept.",
+    "Prompt Engineering changes require real-path validation rather than isolated helper evidence.",
+    "Prompt Engineering limitations, residual risks, and approval boundaries are explicit.",
+    "Prompt Engineering never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

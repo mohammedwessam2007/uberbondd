@@ -1,0 +1,22 @@
+{
+  "name": "build-ai-pipeline-synthetic-data",
+  "title": "Build Ai Pipeline: Synthetic Data",
+  "domain": "synthetic-data",
+  "group": "ai-data",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Synthetic Data source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_AI_PIPELINE_SYNTHETIC_DATA_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

@@ -1,0 +1,22 @@
+{
+  "name": "build-ai-pipeline-prompt-engineering",
+  "title": "Build Ai Pipeline: Prompt Engineering",
+  "domain": "prompt-engineering",
+  "group": "ai-data",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Prompt Engineering source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_AI_PIPELINE_PROMPT_ENGINEERING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

@@ -1,0 +1,22 @@
+{
+  "name": "model-operation-quality-management",
+  "title": "Model Operation: Quality Management",
+  "domain": "quality-management",
+  "group": "business-operations",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Quality Management source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "MODEL_OPERATION_QUALITY_MANAGEMENT_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

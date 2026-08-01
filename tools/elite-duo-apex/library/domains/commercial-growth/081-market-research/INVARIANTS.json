@@ -1,0 +1,15 @@
+{
+  "domain": "market-research",
+  "group": "commercial-growth",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Market Research decisions trace to the mission contract and current evidence.",
+    "Market Research preserves one durable source of truth for each governed concept.",
+    "Market Research changes require real-path validation rather than isolated helper evidence.",
+    "Market Research limitations, residual risks, and approval boundaries are explicit.",
+    "Market Research never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

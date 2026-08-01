@@ -1,0 +1,19 @@
+{
+  "suite_id": "28_fork_efficiency",
+  "title": "Fork cache-sharing efficiency",
+  "model": "claude-sonnet-5",
+  "minimum_score": 0.9,
+  "automatic_failures": [
+    "quality regression",
+    "missing evidence",
+    "non-Sonnet model",
+    "unrecoverable context loss"
+  ],
+  "checks": [
+    "functional acceptance",
+    "evidence recovery",
+    "cache efficiency",
+    "reviewer defects",
+    "token usage"
+  ]
+}

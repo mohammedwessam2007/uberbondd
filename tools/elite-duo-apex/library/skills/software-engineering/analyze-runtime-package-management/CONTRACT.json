@@ -1,0 +1,22 @@
+{
+  "name": "analyze-runtime-package-management",
+  "title": "Analyze Runtime: Package Management",
+  "domain": "package-management",
+  "group": "software-engineering",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Package Management source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "ANALYZE_RUNTIME_PACKAGE_MANAGEMENT_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

@@ -1,0 +1,22 @@
+{
+  "name": "audit-control-tenant-isolation",
+  "title": "Audit Control: Tenant Isolation",
+  "domain": "tenant-isolation",
+  "group": "security-privacy",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Tenant Isolation source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "AUDIT_CONTROL_TENANT_ISOLATION_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

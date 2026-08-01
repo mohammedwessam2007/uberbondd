@@ -1,0 +1,15 @@
+{
+  "domain": "workflow-engines",
+  "group": "software-engineering",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Workflow Engines decisions trace to the mission contract and current evidence.",
+    "Workflow Engines preserves one durable source of truth for each governed concept.",
+    "Workflow Engines changes require real-path validation rather than isolated helper evidence.",
+    "Workflow Engines limitations, residual risks, and approval boundaries are explicit.",
+    "Workflow Engines never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

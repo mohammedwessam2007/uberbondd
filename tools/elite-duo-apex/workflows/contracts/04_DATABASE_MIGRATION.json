@@ -1,0 +1,16 @@
+{
+  "name": "04_DATABASE_MIGRATION",
+  "title": "Database migration",
+  "steps": [
+    "compile-mission",
+    "design-migration",
+    "review-transaction-boundaries",
+    "attack-concurrency",
+    "design-real-path-tests",
+    "implement-contract",
+    "run-full-validation",
+    "review-sol-lens"
+  ],
+  "output": "FINAL_VERDICT.json",
+  "model": "claude-sonnet-5"
+}

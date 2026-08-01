@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ELITE_DECISION_CONTRACT",
+  "type": "object",
+  "required": [
+    "mission_id",
+    "architecture",
+    "execution_order",
+    "files_likely_to_change",
+    "protected_paths",
+    "invariants",
+    "acceptance_tests",
+    "escalation_conditions",
+    "stop_condition"
+  ],
+  "properties": {
+    "mission_id": {
+      "type": "string"
+    },
+    "architecture": {
+      "type": "object"
+    },
+    "execution_order": {
+      "type": "array"
+    },
+    "files_likely_to_change": {
+      "type": "array"
+    },
+    "protected_paths": {
+      "type": "array"
+    },
+    "invariants": {
+      "type": "array"
+    },
+    "acceptance_tests": {
+      "type": "array"
+    },
+    "escalation_conditions": {
+      "type": "array"
+    },
+    "stop_condition": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PROGRAM_EVIDENCE",
+  "type": "object",
+  "required": [
+    "program_sha256",
+    "input_sha256",
+    "output_sha256",
+    "schema_valid",
+    "record_counts",
+    "errors"
+  ],
+  "properties": {
+    "program_sha256": {
+      "type": "string"
+    },
+    "input_sha256": {
+      "type": "string"
+    },
+    "output_sha256": {
+      "type": "string"
+    },
+    "schema_valid": {
+      "type": "boolean"
+    },
+    "record_counts": {
+      "type": "object"
+    },
+    "errors": {
+      "type": "array"
+    }
+  }
+}

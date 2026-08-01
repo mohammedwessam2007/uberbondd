@@ -1,0 +1,15 @@
+{
+  "name": "compile-evidence-packet",
+  "purpose": "Package changes, tests, limitations, actions, and rollback.",
+  "kernel": "fable",
+  "effort": "high",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "implementation"
+  ],
+  "outputs": [
+    "EVIDENCE_PACKET.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

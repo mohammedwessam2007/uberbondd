@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Speech Systems discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Speech Systems design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during build,build,True,Speech Systems build acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during evaluate,evaluate,True,Speech Systems evaluate acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during deploy,deploy,True,Speech Systems deploy acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during monitor,monitor,True,Speech Systems monitor acceptance

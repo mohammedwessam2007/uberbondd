@@ -1,0 +1,22 @@
+{
+  "name": "synthesize-decision-document-synthesis",
+  "title": "Synthesize Decision: Document Synthesis",
+  "domain": "document-synthesis",
+  "group": "research-knowledge",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Document Synthesis source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "SYNTHESIZE_DECISION_DOCUMENT_SYNTHESIS_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

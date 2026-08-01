@@ -1,0 +1,15 @@
+{
+  "name": "define-invariants",
+  "purpose": "Define sources of truth, identity, evidence, policy, audit, and cost invariants.",
+  "kernel": "sol",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "architecture"
+  ],
+  "outputs": [
+    "INVARIANTS.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

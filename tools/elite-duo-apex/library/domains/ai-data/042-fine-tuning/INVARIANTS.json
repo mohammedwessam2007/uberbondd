@@ -1,0 +1,15 @@
+{
+  "domain": "fine-tuning",
+  "group": "ai-data",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Fine Tuning decisions trace to the mission contract and current evidence.",
+    "Fine Tuning preserves one durable source of truth for each governed concept.",
+    "Fine Tuning changes require real-path validation rather than isolated helper evidence.",
+    "Fine Tuning limitations, residual risks, and approval boundaries are explicit.",
+    "Fine Tuning never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

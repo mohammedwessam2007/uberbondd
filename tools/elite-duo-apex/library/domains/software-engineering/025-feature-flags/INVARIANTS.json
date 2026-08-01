@@ -1,0 +1,15 @@
+{
+  "domain": "feature-flags",
+  "group": "software-engineering",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Feature Flags decisions trace to the mission contract and current evidence.",
+    "Feature Flags preserves one durable source of truth for each governed concept.",
+    "Feature Flags changes require real-path validation rather than isolated helper evidence.",
+    "Feature Flags limitations, residual risks, and approval boundaries are explicit.",
+    "Feature Flags never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

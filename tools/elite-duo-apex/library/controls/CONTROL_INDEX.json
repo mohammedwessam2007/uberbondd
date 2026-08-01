@@ -1,0 +1,2021 @@
+{
+  "count": 288,
+  "controls": [
+    {
+      "control_id": "001-api-design-preventive",
+      "domain": "api-design",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/001-api-design-preventive"
+    },
+    {
+      "control_id": "001-api-design-detective",
+      "domain": "api-design",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/001-api-design-detective"
+    },
+    {
+      "control_id": "002-backend-services-preventive",
+      "domain": "backend-services",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/002-backend-services-preventive"
+    },
+    {
+      "control_id": "002-backend-services-detective",
+      "domain": "backend-services",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/002-backend-services-detective"
+    },
+    {
+      "control_id": "003-frontend-systems-preventive",
+      "domain": "frontend-systems",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/003-frontend-systems-preventive"
+    },
+    {
+      "control_id": "003-frontend-systems-detective",
+      "domain": "frontend-systems",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/003-frontend-systems-detective"
+    },
+    {
+      "control_id": "004-mobile-applications-preventive",
+      "domain": "mobile-applications",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/004-mobile-applications-preventive"
+    },
+    {
+      "control_id": "004-mobile-applications-detective",
+      "domain": "mobile-applications",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/004-mobile-applications-detective"
+    },
+    {
+      "control_id": "005-database-engineering-preventive",
+      "domain": "database-engineering",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/005-database-engineering-preventive"
+    },
+    {
+      "control_id": "005-database-engineering-detective",
+      "domain": "database-engineering",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/005-database-engineering-detective"
+    },
+    {
+      "control_id": "006-distributed-systems-preventive",
+      "domain": "distributed-systems",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/006-distributed-systems-preventive"
+    },
+    {
+      "control_id": "006-distributed-systems-detective",
+      "domain": "distributed-systems",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/006-distributed-systems-detective"
+    },
+    {
+      "control_id": "007-event-driven-architecture-preventive",
+      "domain": "event-driven-architecture",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/007-event-driven-architecture-preventive"
+    },
+    {
+      "control_id": "007-event-driven-architecture-detective",
+      "domain": "event-driven-architecture",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/007-event-driven-architecture-detective"
+    },
+    {
+      "control_id": "008-workflow-engines-preventive",
+      "domain": "workflow-engines",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/008-workflow-engines-preventive"
+    },
+    {
+      "control_id": "008-workflow-engines-detective",
+      "domain": "workflow-engines",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/008-workflow-engines-detective"
+    },
+    {
+      "control_id": "009-developer-tooling-preventive",
+      "domain": "developer-tooling",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/009-developer-tooling-preventive"
+    },
+    {
+      "control_id": "009-developer-tooling-detective",
+      "domain": "developer-tooling",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/009-developer-tooling-detective"
+    },
+    {
+      "control_id": "010-ci-cd-preventive",
+      "domain": "ci-cd",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/010-ci-cd-preventive"
+    },
+    {
+      "control_id": "010-ci-cd-detective",
+      "domain": "ci-cd",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/010-ci-cd-detective"
+    },
+    {
+      "control_id": "011-observability-preventive",
+      "domain": "observability",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/011-observability-preventive"
+    },
+    {
+      "control_id": "011-observability-detective",
+      "domain": "observability",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/011-observability-detective"
+    },
+    {
+      "control_id": "012-performance-engineering-preventive",
+      "domain": "performance-engineering",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/012-performance-engineering-preventive"
+    },
+    {
+      "control_id": "012-performance-engineering-detective",
+      "domain": "performance-engineering",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/012-performance-engineering-detective"
+    },
+    {
+      "control_id": "013-reliability-engineering-preventive",
+      "domain": "reliability-engineering",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/013-reliability-engineering-preventive"
+    },
+    {
+      "control_id": "013-reliability-engineering-detective",
+      "domain": "reliability-engineering",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/013-reliability-engineering-detective"
+    },
+    {
+      "control_id": "014-platform-engineering-preventive",
+      "domain": "platform-engineering",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/014-platform-engineering-preventive"
+    },
+    {
+      "control_id": "014-platform-engineering-detective",
+      "domain": "platform-engineering",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/014-platform-engineering-detective"
+    },
+    {
+      "control_id": "015-cloud-architecture-preventive",
+      "domain": "cloud-architecture",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/015-cloud-architecture-preventive"
+    },
+    {
+      "control_id": "015-cloud-architecture-detective",
+      "domain": "cloud-architecture",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/015-cloud-architecture-detective"
+    },
+    {
+      "control_id": "016-edge-computing-preventive",
+      "domain": "edge-computing",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/016-edge-computing-preventive"
+    },
+    {
+      "control_id": "016-edge-computing-detective",
+      "domain": "edge-computing",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/016-edge-computing-detective"
+    },
+    {
+      "control_id": "017-serverless-preventive",
+      "domain": "serverless",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/017-serverless-preventive"
+    },
+    {
+      "control_id": "017-serverless-detective",
+      "domain": "serverless",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/017-serverless-detective"
+    },
+    {
+      "control_id": "018-microservices-preventive",
+      "domain": "microservices",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/018-microservices-preventive"
+    },
+    {
+      "control_id": "018-microservices-detective",
+      "domain": "microservices",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/018-microservices-detective"
+    },
+    {
+      "control_id": "019-monolith-modernization-preventive",
+      "domain": "monolith-modernization",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/019-monolith-modernization-preventive"
+    },
+    {
+      "control_id": "019-monolith-modernization-detective",
+      "domain": "monolith-modernization",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/019-monolith-modernization-detective"
+    },
+    {
+      "control_id": "020-data-migrations-preventive",
+      "domain": "data-migrations",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/020-data-migrations-preventive"
+    },
+    {
+      "control_id": "020-data-migrations-detective",
+      "domain": "data-migrations",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/020-data-migrations-detective"
+    },
+    {
+      "control_id": "021-testing-systems-preventive",
+      "domain": "testing-systems",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/021-testing-systems-preventive"
+    },
+    {
+      "control_id": "021-testing-systems-detective",
+      "domain": "testing-systems",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/021-testing-systems-detective"
+    },
+    {
+      "control_id": "022-release-engineering-preventive",
+      "domain": "release-engineering",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/022-release-engineering-preventive"
+    },
+    {
+      "control_id": "022-release-engineering-detective",
+      "domain": "release-engineering",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/022-release-engineering-detective"
+    },
+    {
+      "control_id": "023-package-management-preventive",
+      "domain": "package-management",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/023-package-management-preventive"
+    },
+    {
+      "control_id": "023-package-management-detective",
+      "domain": "package-management",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/023-package-management-detective"
+    },
+    {
+      "control_id": "024-configuration-preventive",
+      "domain": "configuration",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/024-configuration-preventive"
+    },
+    {
+      "control_id": "024-configuration-detective",
+      "domain": "configuration",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/024-configuration-detective"
+    },
+    {
+      "control_id": "025-feature-flags-preventive",
+      "domain": "feature-flags",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/025-feature-flags-preventive"
+    },
+    {
+      "control_id": "025-feature-flags-detective",
+      "domain": "feature-flags",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/025-feature-flags-detective"
+    },
+    {
+      "control_id": "026-multi-tenancy-preventive",
+      "domain": "multi-tenancy",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/026-multi-tenancy-preventive"
+    },
+    {
+      "control_id": "026-multi-tenancy-detective",
+      "domain": "multi-tenancy",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/026-multi-tenancy-detective"
+    },
+    {
+      "control_id": "027-billing-systems-preventive",
+      "domain": "billing-systems",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/027-billing-systems-preventive"
+    },
+    {
+      "control_id": "027-billing-systems-detective",
+      "domain": "billing-systems",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/027-billing-systems-detective"
+    },
+    {
+      "control_id": "028-identity-access-preventive",
+      "domain": "identity-access",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/028-identity-access-preventive"
+    },
+    {
+      "control_id": "028-identity-access-detective",
+      "domain": "identity-access",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/028-identity-access-detective"
+    },
+    {
+      "control_id": "029-search-systems-preventive",
+      "domain": "search-systems",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/029-search-systems-preventive"
+    },
+    {
+      "control_id": "029-search-systems-detective",
+      "domain": "search-systems",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/029-search-systems-detective"
+    },
+    {
+      "control_id": "030-notification-systems-preventive",
+      "domain": "notification-systems",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/030-notification-systems-preventive"
+    },
+    {
+      "control_id": "030-notification-systems-detective",
+      "domain": "notification-systems",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/030-notification-systems-detective"
+    },
+    {
+      "control_id": "031-file-processing-preventive",
+      "domain": "file-processing",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/031-file-processing-preventive"
+    },
+    {
+      "control_id": "031-file-processing-detective",
+      "domain": "file-processing",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/031-file-processing-detective"
+    },
+    {
+      "control_id": "032-browser-automation-preventive",
+      "domain": "browser-automation",
+      "group": "software-engineering",
+      "type": "preventive",
+      "path": "library/controls/software-engineering/032-browser-automation-preventive"
+    },
+    {
+      "control_id": "032-browser-automation-detective",
+      "domain": "browser-automation",
+      "group": "software-engineering",
+      "type": "detective",
+      "path": "library/controls/software-engineering/032-browser-automation-detective"
+    },
+    {
+      "control_id": "033-llm-applications-preventive",
+      "domain": "llm-applications",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/033-llm-applications-preventive"
+    },
+    {
+      "control_id": "033-llm-applications-detective",
+      "domain": "llm-applications",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/033-llm-applications-detective"
+    },
+    {
+      "control_id": "034-agent-architecture-preventive",
+      "domain": "agent-architecture",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/034-agent-architecture-preventive"
+    },
+    {
+      "control_id": "034-agent-architecture-detective",
+      "domain": "agent-architecture",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/034-agent-architecture-detective"
+    },
+    {
+      "control_id": "035-rag-systems-preventive",
+      "domain": "rag-systems",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/035-rag-systems-preventive"
+    },
+    {
+      "control_id": "035-rag-systems-detective",
+      "domain": "rag-systems",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/035-rag-systems-detective"
+    },
+    {
+      "control_id": "036-embeddings-preventive",
+      "domain": "embeddings",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/036-embeddings-preventive"
+    },
+    {
+      "control_id": "036-embeddings-detective",
+      "domain": "embeddings",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/036-embeddings-detective"
+    },
+    {
+      "control_id": "037-reranking-preventive",
+      "domain": "reranking",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/037-reranking-preventive"
+    },
+    {
+      "control_id": "037-reranking-detective",
+      "domain": "reranking",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/037-reranking-detective"
+    },
+    {
+      "control_id": "038-prompt-engineering-preventive",
+      "domain": "prompt-engineering",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/038-prompt-engineering-preventive"
+    },
+    {
+      "control_id": "038-prompt-engineering-detective",
+      "domain": "prompt-engineering",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/038-prompt-engineering-detective"
+    },
+    {
+      "control_id": "039-model-evaluation-preventive",
+      "domain": "model-evaluation",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/039-model-evaluation-preventive"
+    },
+    {
+      "control_id": "039-model-evaluation-detective",
+      "domain": "model-evaluation",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/039-model-evaluation-detective"
+    },
+    {
+      "control_id": "040-model-routing-preventive",
+      "domain": "model-routing",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/040-model-routing-preventive"
+    },
+    {
+      "control_id": "040-model-routing-detective",
+      "domain": "model-routing",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/040-model-routing-detective"
+    },
+    {
+      "control_id": "041-synthetic-data-preventive",
+      "domain": "synthetic-data",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/041-synthetic-data-preventive"
+    },
+    {
+      "control_id": "041-synthetic-data-detective",
+      "domain": "synthetic-data",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/041-synthetic-data-detective"
+    },
+    {
+      "control_id": "042-fine-tuning-preventive",
+      "domain": "fine-tuning",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/042-fine-tuning-preventive"
+    },
+    {
+      "control_id": "042-fine-tuning-detective",
+      "domain": "fine-tuning",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/042-fine-tuning-detective"
+    },
+    {
+      "control_id": "043-multimodal-ai-preventive",
+      "domain": "multimodal-ai",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/043-multimodal-ai-preventive"
+    },
+    {
+      "control_id": "043-multimodal-ai-detective",
+      "domain": "multimodal-ai",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/043-multimodal-ai-detective"
+    },
+    {
+      "control_id": "044-vision-systems-preventive",
+      "domain": "vision-systems",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/044-vision-systems-preventive"
+    },
+    {
+      "control_id": "044-vision-systems-detective",
+      "domain": "vision-systems",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/044-vision-systems-detective"
+    },
+    {
+      "control_id": "045-speech-systems-preventive",
+      "domain": "speech-systems",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/045-speech-systems-preventive"
+    },
+    {
+      "control_id": "045-speech-systems-detective",
+      "domain": "speech-systems",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/045-speech-systems-detective"
+    },
+    {
+      "control_id": "046-document-ai-preventive",
+      "domain": "document-ai",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/046-document-ai-preventive"
+    },
+    {
+      "control_id": "046-document-ai-detective",
+      "domain": "document-ai",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/046-document-ai-detective"
+    },
+    {
+      "control_id": "047-recommendation-systems-preventive",
+      "domain": "recommendation-systems",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/047-recommendation-systems-preventive"
+    },
+    {
+      "control_id": "047-recommendation-systems-detective",
+      "domain": "recommendation-systems",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/047-recommendation-systems-detective"
+    },
+    {
+      "control_id": "048-forecasting-preventive",
+      "domain": "forecasting",
+      "group": "ai-data",
+      "type": "preventive",
+      "path": "library/controls/ai-data/048-forecasting-preventive"
+    },
+    {
+      "control_id": "048-forecasting-detective",
+      "domain": "forecasting",
+      "group": "ai-data",
+      "type": "detective",
+      "path": "library/controls/ai-data/048-forecasting-detective"
+    },
+    {
+      "control_id": "049-application-security-preventive",
+      "domain": "application-security",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/049-application-security-preventive"
+    },
+    {
+      "control_id": "049-application-security-detective",
+      "domain": "application-security",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/049-application-security-detective"
+    },
+    {
+      "control_id": "050-cloud-security-preventive",
+      "domain": "cloud-security",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/050-cloud-security-preventive"
+    },
+    {
+      "control_id": "050-cloud-security-detective",
+      "domain": "cloud-security",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/050-cloud-security-detective"
+    },
+    {
+      "control_id": "051-identity-security-preventive",
+      "domain": "identity-security",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/051-identity-security-preventive"
+    },
+    {
+      "control_id": "051-identity-security-detective",
+      "domain": "identity-security",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/051-identity-security-detective"
+    },
+    {
+      "control_id": "052-secrets-management-preventive",
+      "domain": "secrets-management",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/052-secrets-management-preventive"
+    },
+    {
+      "control_id": "052-secrets-management-detective",
+      "domain": "secrets-management",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/052-secrets-management-detective"
+    },
+    {
+      "control_id": "053-threat-modeling-preventive",
+      "domain": "threat-modeling",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/053-threat-modeling-preventive"
+    },
+    {
+      "control_id": "053-threat-modeling-detective",
+      "domain": "threat-modeling",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/053-threat-modeling-detective"
+    },
+    {
+      "control_id": "054-incident-response-preventive",
+      "domain": "incident-response",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/054-incident-response-preventive"
+    },
+    {
+      "control_id": "054-incident-response-detective",
+      "domain": "incident-response",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/054-incident-response-detective"
+    },
+    {
+      "control_id": "055-data-privacy-preventive",
+      "domain": "data-privacy",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/055-data-privacy-preventive"
+    },
+    {
+      "control_id": "055-data-privacy-detective",
+      "domain": "data-privacy",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/055-data-privacy-detective"
+    },
+    {
+      "control_id": "056-prompt-injection-preventive",
+      "domain": "prompt-injection",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/056-prompt-injection-preventive"
+    },
+    {
+      "control_id": "056-prompt-injection-detective",
+      "domain": "prompt-injection",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/056-prompt-injection-detective"
+    },
+    {
+      "control_id": "057-supply-chain-security-preventive",
+      "domain": "supply-chain-security",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/057-supply-chain-security-preventive"
+    },
+    {
+      "control_id": "057-supply-chain-security-detective",
+      "domain": "supply-chain-security",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/057-supply-chain-security-detective"
+    },
+    {
+      "control_id": "058-vulnerability-management-preventive",
+      "domain": "vulnerability-management",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/058-vulnerability-management-preventive"
+    },
+    {
+      "control_id": "058-vulnerability-management-detective",
+      "domain": "vulnerability-management",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/058-vulnerability-management-detective"
+    },
+    {
+      "control_id": "059-security-logging-preventive",
+      "domain": "security-logging",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/059-security-logging-preventive"
+    },
+    {
+      "control_id": "059-security-logging-detective",
+      "domain": "security-logging",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/059-security-logging-detective"
+    },
+    {
+      "control_id": "060-abuse-prevention-preventive",
+      "domain": "abuse-prevention",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/060-abuse-prevention-preventive"
+    },
+    {
+      "control_id": "060-abuse-prevention-detective",
+      "domain": "abuse-prevention",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/060-abuse-prevention-detective"
+    },
+    {
+      "control_id": "061-fraud-detection-preventive",
+      "domain": "fraud-detection",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/061-fraud-detection-preventive"
+    },
+    {
+      "control_id": "061-fraud-detection-detective",
+      "domain": "fraud-detection",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/061-fraud-detection-detective"
+    },
+    {
+      "control_id": "062-payments-security-preventive",
+      "domain": "payments-security",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/062-payments-security-preventive"
+    },
+    {
+      "control_id": "062-payments-security-detective",
+      "domain": "payments-security",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/062-payments-security-detective"
+    },
+    {
+      "control_id": "063-tenant-isolation-preventive",
+      "domain": "tenant-isolation",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/063-tenant-isolation-preventive"
+    },
+    {
+      "control_id": "063-tenant-isolation-detective",
+      "domain": "tenant-isolation",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/063-tenant-isolation-detective"
+    },
+    {
+      "control_id": "064-secure-deployment-preventive",
+      "domain": "secure-deployment",
+      "group": "security-privacy",
+      "type": "preventive",
+      "path": "library/controls/security-privacy/064-secure-deployment-preventive"
+    },
+    {
+      "control_id": "064-secure-deployment-detective",
+      "domain": "secure-deployment",
+      "group": "security-privacy",
+      "type": "detective",
+      "path": "library/controls/security-privacy/064-secure-deployment-detective"
+    },
+    {
+      "control_id": "065-product-strategy-preventive",
+      "domain": "product-strategy",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/065-product-strategy-preventive"
+    },
+    {
+      "control_id": "065-product-strategy-detective",
+      "domain": "product-strategy",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/065-product-strategy-detective"
+    },
+    {
+      "control_id": "066-product-discovery-preventive",
+      "domain": "product-discovery",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/066-product-discovery-preventive"
+    },
+    {
+      "control_id": "066-product-discovery-detective",
+      "domain": "product-discovery",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/066-product-discovery-detective"
+    },
+    {
+      "control_id": "067-user-research-preventive",
+      "domain": "user-research",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/067-user-research-preventive"
+    },
+    {
+      "control_id": "067-user-research-detective",
+      "domain": "user-research",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/067-user-research-detective"
+    },
+    {
+      "control_id": "068-ux-design-preventive",
+      "domain": "ux-design",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/068-ux-design-preventive"
+    },
+    {
+      "control_id": "068-ux-design-detective",
+      "domain": "ux-design",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/068-ux-design-detective"
+    },
+    {
+      "control_id": "069-design-systems-preventive",
+      "domain": "design-systems",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/069-design-systems-preventive"
+    },
+    {
+      "control_id": "069-design-systems-detective",
+      "domain": "design-systems",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/069-design-systems-detective"
+    },
+    {
+      "control_id": "070-accessibility-preventive",
+      "domain": "accessibility",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/070-accessibility-preventive"
+    },
+    {
+      "control_id": "070-accessibility-detective",
+      "domain": "accessibility",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/070-accessibility-detective"
+    },
+    {
+      "control_id": "071-onboarding-preventive",
+      "domain": "onboarding",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/071-onboarding-preventive"
+    },
+    {
+      "control_id": "071-onboarding-detective",
+      "domain": "onboarding",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/071-onboarding-detective"
+    },
+    {
+      "control_id": "072-activation-preventive",
+      "domain": "activation",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/072-activation-preventive"
+    },
+    {
+      "control_id": "072-activation-detective",
+      "domain": "activation",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/072-activation-detective"
+    },
+    {
+      "control_id": "073-retention-preventive",
+      "domain": "retention",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/073-retention-preventive"
+    },
+    {
+      "control_id": "073-retention-detective",
+      "domain": "retention",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/073-retention-detective"
+    },
+    {
+      "control_id": "074-experimentation-preventive",
+      "domain": "experimentation",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/074-experimentation-preventive"
+    },
+    {
+      "control_id": "074-experimentation-detective",
+      "domain": "experimentation",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/074-experimentation-detective"
+    },
+    {
+      "control_id": "075-analytics-preventive",
+      "domain": "analytics",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/075-analytics-preventive"
+    },
+    {
+      "control_id": "075-analytics-detective",
+      "domain": "analytics",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/075-analytics-detective"
+    },
+    {
+      "control_id": "076-roadmapping-preventive",
+      "domain": "roadmapping",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/076-roadmapping-preventive"
+    },
+    {
+      "control_id": "076-roadmapping-detective",
+      "domain": "roadmapping",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/076-roadmapping-detective"
+    },
+    {
+      "control_id": "077-pricing-design-preventive",
+      "domain": "pricing-design",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/077-pricing-design-preventive"
+    },
+    {
+      "control_id": "077-pricing-design-detective",
+      "domain": "pricing-design",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/077-pricing-design-detective"
+    },
+    {
+      "control_id": "078-enterprise-product-preventive",
+      "domain": "enterprise-product",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/078-enterprise-product-preventive"
+    },
+    {
+      "control_id": "078-enterprise-product-detective",
+      "domain": "enterprise-product",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/078-enterprise-product-detective"
+    },
+    {
+      "control_id": "079-developer-experience-preventive",
+      "domain": "developer-experience",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/079-developer-experience-preventive"
+    },
+    {
+      "control_id": "079-developer-experience-detective",
+      "domain": "developer-experience",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/079-developer-experience-detective"
+    },
+    {
+      "control_id": "080-content-design-preventive",
+      "domain": "content-design",
+      "group": "product-design",
+      "type": "preventive",
+      "path": "library/controls/product-design/080-content-design-preventive"
+    },
+    {
+      "control_id": "080-content-design-detective",
+      "domain": "content-design",
+      "group": "product-design",
+      "type": "detective",
+      "path": "library/controls/product-design/080-content-design-detective"
+    },
+    {
+      "control_id": "081-market-research-preventive",
+      "domain": "market-research",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/081-market-research-preventive"
+    },
+    {
+      "control_id": "081-market-research-detective",
+      "domain": "market-research",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/081-market-research-detective"
+    },
+    {
+      "control_id": "082-buyer-intelligence-preventive",
+      "domain": "buyer-intelligence",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/082-buyer-intelligence-preventive"
+    },
+    {
+      "control_id": "082-buyer-intelligence-detective",
+      "domain": "buyer-intelligence",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/082-buyer-intelligence-detective"
+    },
+    {
+      "control_id": "083-offer-design-preventive",
+      "domain": "offer-design",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/083-offer-design-preventive"
+    },
+    {
+      "control_id": "083-offer-design-detective",
+      "domain": "offer-design",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/083-offer-design-detective"
+    },
+    {
+      "control_id": "084-sales-operations-preventive",
+      "domain": "sales-operations",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/084-sales-operations-preventive"
+    },
+    {
+      "control_id": "084-sales-operations-detective",
+      "domain": "sales-operations",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/084-sales-operations-detective"
+    },
+    {
+      "control_id": "085-outbound-systems-preventive",
+      "domain": "outbound-systems",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/085-outbound-systems-preventive"
+    },
+    {
+      "control_id": "085-outbound-systems-detective",
+      "domain": "outbound-systems",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/085-outbound-systems-detective"
+    },
+    {
+      "control_id": "086-inbound-growth-preventive",
+      "domain": "inbound-growth",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/086-inbound-growth-preventive"
+    },
+    {
+      "control_id": "086-inbound-growth-detective",
+      "domain": "inbound-growth",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/086-inbound-growth-detective"
+    },
+    {
+      "control_id": "087-partnerships-preventive",
+      "domain": "partnerships",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/087-partnerships-preventive"
+    },
+    {
+      "control_id": "087-partnerships-detective",
+      "domain": "partnerships",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/087-partnerships-detective"
+    },
+    {
+      "control_id": "088-channels-preventive",
+      "domain": "channels",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/088-channels-preventive"
+    },
+    {
+      "control_id": "088-channels-detective",
+      "domain": "channels",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/088-channels-detective"
+    },
+    {
+      "control_id": "089-seo-preventive",
+      "domain": "seo",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/089-seo-preventive"
+    },
+    {
+      "control_id": "089-seo-detective",
+      "domain": "seo",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/089-seo-detective"
+    },
+    {
+      "control_id": "090-content-marketing-preventive",
+      "domain": "content-marketing",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/090-content-marketing-preventive"
+    },
+    {
+      "control_id": "090-content-marketing-detective",
+      "domain": "content-marketing",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/090-content-marketing-detective"
+    },
+    {
+      "control_id": "091-lifecycle-marketing-preventive",
+      "domain": "lifecycle-marketing",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/091-lifecycle-marketing-preventive"
+    },
+    {
+      "control_id": "091-lifecycle-marketing-detective",
+      "domain": "lifecycle-marketing",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/091-lifecycle-marketing-detective"
+    },
+    {
+      "control_id": "092-customer-success-preventive",
+      "domain": "customer-success",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/092-customer-success-preventive"
+    },
+    {
+      "control_id": "092-customer-success-detective",
+      "domain": "customer-success",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/092-customer-success-detective"
+    },
+    {
+      "control_id": "093-support-operations-preventive",
+      "domain": "support-operations",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/093-support-operations-preventive"
+    },
+    {
+      "control_id": "093-support-operations-detective",
+      "domain": "support-operations",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/093-support-operations-detective"
+    },
+    {
+      "control_id": "094-revenue-operations-preventive",
+      "domain": "revenue-operations",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/094-revenue-operations-preventive"
+    },
+    {
+      "control_id": "094-revenue-operations-detective",
+      "domain": "revenue-operations",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/094-revenue-operations-detective"
+    },
+    {
+      "control_id": "095-account-management-preventive",
+      "domain": "account-management",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/095-account-management-preventive"
+    },
+    {
+      "control_id": "095-account-management-detective",
+      "domain": "account-management",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/095-account-management-detective"
+    },
+    {
+      "control_id": "096-procurement-sales-preventive",
+      "domain": "procurement-sales",
+      "group": "commercial-growth",
+      "type": "preventive",
+      "path": "library/controls/commercial-growth/096-procurement-sales-preventive"
+    },
+    {
+      "control_id": "096-procurement-sales-detective",
+      "domain": "procurement-sales",
+      "group": "commercial-growth",
+      "type": "detective",
+      "path": "library/controls/commercial-growth/096-procurement-sales-detective"
+    },
+    {
+      "control_id": "097-financial-modeling-preventive",
+      "domain": "financial-modeling",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/097-financial-modeling-preventive"
+    },
+    {
+      "control_id": "097-financial-modeling-detective",
+      "domain": "financial-modeling",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/097-financial-modeling-detective"
+    },
+    {
+      "control_id": "098-budgeting-preventive",
+      "domain": "budgeting",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/098-budgeting-preventive"
+    },
+    {
+      "control_id": "098-budgeting-detective",
+      "domain": "budgeting",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/098-budgeting-detective"
+    },
+    {
+      "control_id": "099-cash-management-preventive",
+      "domain": "cash-management",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/099-cash-management-preventive"
+    },
+    {
+      "control_id": "099-cash-management-detective",
+      "domain": "cash-management",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/099-cash-management-detective"
+    },
+    {
+      "control_id": "100-vendor-management-preventive",
+      "domain": "vendor-management",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/100-vendor-management-preventive"
+    },
+    {
+      "control_id": "100-vendor-management-detective",
+      "domain": "vendor-management",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/100-vendor-management-detective"
+    },
+    {
+      "control_id": "101-procurement-preventive",
+      "domain": "procurement",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/101-procurement-preventive"
+    },
+    {
+      "control_id": "101-procurement-detective",
+      "domain": "procurement",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/101-procurement-detective"
+    },
+    {
+      "control_id": "102-risk-management-preventive",
+      "domain": "risk-management",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/102-risk-management-preventive"
+    },
+    {
+      "control_id": "102-risk-management-detective",
+      "domain": "risk-management",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/102-risk-management-detective"
+    },
+    {
+      "control_id": "103-business-continuity-preventive",
+      "domain": "business-continuity",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/103-business-continuity-preventive"
+    },
+    {
+      "control_id": "103-business-continuity-detective",
+      "domain": "business-continuity",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/103-business-continuity-detective"
+    },
+    {
+      "control_id": "104-operations-design-preventive",
+      "domain": "operations-design",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/104-operations-design-preventive"
+    },
+    {
+      "control_id": "104-operations-design-detective",
+      "domain": "operations-design",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/104-operations-design-detective"
+    },
+    {
+      "control_id": "105-project-management-preventive",
+      "domain": "project-management",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/105-project-management-preventive"
+    },
+    {
+      "control_id": "105-project-management-detective",
+      "domain": "project-management",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/105-project-management-detective"
+    },
+    {
+      "control_id": "106-program-management-preventive",
+      "domain": "program-management",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/106-program-management-preventive"
+    },
+    {
+      "control_id": "106-program-management-detective",
+      "domain": "program-management",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/106-program-management-detective"
+    },
+    {
+      "control_id": "107-knowledge-management-preventive",
+      "domain": "knowledge-management",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/107-knowledge-management-preventive"
+    },
+    {
+      "control_id": "107-knowledge-management-detective",
+      "domain": "knowledge-management",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/107-knowledge-management-detective"
+    },
+    {
+      "control_id": "108-quality-management-preventive",
+      "domain": "quality-management",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/108-quality-management-preventive"
+    },
+    {
+      "control_id": "108-quality-management-detective",
+      "domain": "quality-management",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/108-quality-management-detective"
+    },
+    {
+      "control_id": "109-hiring-systems-preventive",
+      "domain": "hiring-systems",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/109-hiring-systems-preventive"
+    },
+    {
+      "control_id": "109-hiring-systems-detective",
+      "domain": "hiring-systems",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/109-hiring-systems-detective"
+    },
+    {
+      "control_id": "110-people-operations-preventive",
+      "domain": "people-operations",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/110-people-operations-preventive"
+    },
+    {
+      "control_id": "110-people-operations-detective",
+      "domain": "people-operations",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/110-people-operations-detective"
+    },
+    {
+      "control_id": "111-training-preventive",
+      "domain": "training",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/111-training-preventive"
+    },
+    {
+      "control_id": "111-training-detective",
+      "domain": "training",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/111-training-detective"
+    },
+    {
+      "control_id": "112-executive-reporting-preventive",
+      "domain": "executive-reporting",
+      "group": "business-operations",
+      "type": "preventive",
+      "path": "library/controls/business-operations/112-executive-reporting-preventive"
+    },
+    {
+      "control_id": "112-executive-reporting-detective",
+      "domain": "executive-reporting",
+      "group": "business-operations",
+      "type": "detective",
+      "path": "library/controls/business-operations/112-executive-reporting-detective"
+    },
+    {
+      "control_id": "113-contract-preparation-preventive",
+      "domain": "contract-preparation",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/113-contract-preparation-preventive"
+    },
+    {
+      "control_id": "113-contract-preparation-detective",
+      "domain": "contract-preparation",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/113-contract-preparation-detective"
+    },
+    {
+      "control_id": "114-privacy-compliance-prep-preventive",
+      "domain": "privacy-compliance-prep",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/114-privacy-compliance-prep-preventive"
+    },
+    {
+      "control_id": "114-privacy-compliance-prep-detective",
+      "domain": "privacy-compliance-prep",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/114-privacy-compliance-prep-detective"
+    },
+    {
+      "control_id": "115-security-compliance-prep-preventive",
+      "domain": "security-compliance-prep",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/115-security-compliance-prep-preventive"
+    },
+    {
+      "control_id": "115-security-compliance-prep-detective",
+      "domain": "security-compliance-prep",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/115-security-compliance-prep-detective"
+    },
+    {
+      "control_id": "116-tax-research-prep-preventive",
+      "domain": "tax-research-prep",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/116-tax-research-prep-preventive"
+    },
+    {
+      "control_id": "116-tax-research-prep-detective",
+      "domain": "tax-research-prep",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/116-tax-research-prep-detective"
+    },
+    {
+      "control_id": "117-employment-law-prep-preventive",
+      "domain": "employment-law-prep",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/117-employment-law-prep-preventive"
+    },
+    {
+      "control_id": "117-employment-law-prep-detective",
+      "domain": "employment-law-prep",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/117-employment-law-prep-detective"
+    },
+    {
+      "control_id": "118-ip-research-prep-preventive",
+      "domain": "ip-research-prep",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/118-ip-research-prep-preventive"
+    },
+    {
+      "control_id": "118-ip-research-prep-detective",
+      "domain": "ip-research-prep",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/118-ip-research-prep-detective"
+    },
+    {
+      "control_id": "119-regulatory-research-prep-preventive",
+      "domain": "regulatory-research-prep",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/119-regulatory-research-prep-preventive"
+    },
+    {
+      "control_id": "119-regulatory-research-prep-detective",
+      "domain": "regulatory-research-prep",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/119-regulatory-research-prep-detective"
+    },
+    {
+      "control_id": "120-vendor-due-diligence-preventive",
+      "domain": "vendor-due-diligence",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/120-vendor-due-diligence-preventive"
+    },
+    {
+      "control_id": "120-vendor-due-diligence-detective",
+      "domain": "vendor-due-diligence",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/120-vendor-due-diligence-detective"
+    },
+    {
+      "control_id": "121-data-processing-agreements-preventive",
+      "domain": "data-processing-agreements",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/121-data-processing-agreements-preventive"
+    },
+    {
+      "control_id": "121-data-processing-agreements-detective",
+      "domain": "data-processing-agreements",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/121-data-processing-agreements-detective"
+    },
+    {
+      "control_id": "122-terms-policy-prep-preventive",
+      "domain": "terms-policy-prep",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/122-terms-policy-prep-preventive"
+    },
+    {
+      "control_id": "122-terms-policy-prep-detective",
+      "domain": "terms-policy-prep",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/122-terms-policy-prep-detective"
+    },
+    {
+      "control_id": "123-audit-readiness-preventive",
+      "domain": "audit-readiness",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/123-audit-readiness-preventive"
+    },
+    {
+      "control_id": "123-audit-readiness-detective",
+      "domain": "audit-readiness",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/123-audit-readiness-detective"
+    },
+    {
+      "control_id": "124-record-retention-preventive",
+      "domain": "record-retention",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/124-record-retention-preventive"
+    },
+    {
+      "control_id": "124-record-retention-detective",
+      "domain": "record-retention",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/124-record-retention-detective"
+    },
+    {
+      "control_id": "125-international-expansion-prep-preventive",
+      "domain": "international-expansion-prep",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/125-international-expansion-prep-preventive"
+    },
+    {
+      "control_id": "125-international-expansion-prep-detective",
+      "domain": "international-expansion-prep",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/125-international-expansion-prep-detective"
+    },
+    {
+      "control_id": "126-payments-regulation-prep-preventive",
+      "domain": "payments-regulation-prep",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/126-payments-regulation-prep-preventive"
+    },
+    {
+      "control_id": "126-payments-regulation-prep-detective",
+      "domain": "payments-regulation-prep",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/126-payments-regulation-prep-detective"
+    },
+    {
+      "control_id": "127-consumer-protection-prep-preventive",
+      "domain": "consumer-protection-prep",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/127-consumer-protection-prep-preventive"
+    },
+    {
+      "control_id": "127-consumer-protection-prep-detective",
+      "domain": "consumer-protection-prep",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/127-consumer-protection-prep-detective"
+    },
+    {
+      "control_id": "128-ai-governance-prep-preventive",
+      "domain": "ai-governance-prep",
+      "group": "legal-compliance-prep",
+      "type": "preventive",
+      "path": "library/controls/legal-compliance-prep/128-ai-governance-prep-preventive"
+    },
+    {
+      "control_id": "128-ai-governance-prep-detective",
+      "domain": "ai-governance-prep",
+      "group": "legal-compliance-prep",
+      "type": "detective",
+      "path": "library/controls/legal-compliance-prep/128-ai-governance-prep-detective"
+    },
+    {
+      "control_id": "129-web-research-preventive",
+      "domain": "web-research",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/129-web-research-preventive"
+    },
+    {
+      "control_id": "129-web-research-detective",
+      "domain": "web-research",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/129-web-research-detective"
+    },
+    {
+      "control_id": "130-scientific-literature-preventive",
+      "domain": "scientific-literature",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/130-scientific-literature-preventive"
+    },
+    {
+      "control_id": "130-scientific-literature-detective",
+      "domain": "scientific-literature",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/130-scientific-literature-detective"
+    },
+    {
+      "control_id": "131-competitive-intelligence-preventive",
+      "domain": "competitive-intelligence",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/131-competitive-intelligence-preventive"
+    },
+    {
+      "control_id": "131-competitive-intelligence-detective",
+      "domain": "competitive-intelligence",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/131-competitive-intelligence-detective"
+    },
+    {
+      "control_id": "132-source-verification-preventive",
+      "domain": "source-verification",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/132-source-verification-preventive"
+    },
+    {
+      "control_id": "132-source-verification-detective",
+      "domain": "source-verification",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/132-source-verification-detective"
+    },
+    {
+      "control_id": "133-evidence-synthesis-preventive",
+      "domain": "evidence-synthesis",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/133-evidence-synthesis-preventive"
+    },
+    {
+      "control_id": "133-evidence-synthesis-detective",
+      "domain": "evidence-synthesis",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/133-evidence-synthesis-detective"
+    },
+    {
+      "control_id": "134-survey-design-preventive",
+      "domain": "survey-design",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/134-survey-design-preventive"
+    },
+    {
+      "control_id": "134-survey-design-detective",
+      "domain": "survey-design",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/134-survey-design-detective"
+    },
+    {
+      "control_id": "135-qualitative-analysis-preventive",
+      "domain": "qualitative-analysis",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/135-qualitative-analysis-preventive"
+    },
+    {
+      "control_id": "135-qualitative-analysis-detective",
+      "domain": "qualitative-analysis",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/135-qualitative-analysis-detective"
+    },
+    {
+      "control_id": "136-quantitative-analysis-preventive",
+      "domain": "quantitative-analysis",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/136-quantitative-analysis-preventive"
+    },
+    {
+      "control_id": "136-quantitative-analysis-detective",
+      "domain": "quantitative-analysis",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/136-quantitative-analysis-detective"
+    },
+    {
+      "control_id": "137-knowledge-graphs-preventive",
+      "domain": "knowledge-graphs",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/137-knowledge-graphs-preventive"
+    },
+    {
+      "control_id": "137-knowledge-graphs-detective",
+      "domain": "knowledge-graphs",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/137-knowledge-graphs-detective"
+    },
+    {
+      "control_id": "138-taxonomy-design-preventive",
+      "domain": "taxonomy-design",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/138-taxonomy-design-preventive"
+    },
+    {
+      "control_id": "138-taxonomy-design-detective",
+      "domain": "taxonomy-design",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/138-taxonomy-design-detective"
+    },
+    {
+      "control_id": "139-document-synthesis-preventive",
+      "domain": "document-synthesis",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/139-document-synthesis-preventive"
+    },
+    {
+      "control_id": "139-document-synthesis-detective",
+      "domain": "document-synthesis",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/139-document-synthesis-detective"
+    },
+    {
+      "control_id": "140-fact-checking-preventive",
+      "domain": "fact-checking",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/140-fact-checking-preventive"
+    },
+    {
+      "control_id": "140-fact-checking-detective",
+      "domain": "fact-checking",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/140-fact-checking-detective"
+    },
+    {
+      "control_id": "141-historical-analysis-preventive",
+      "domain": "historical-analysis",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/141-historical-analysis-preventive"
+    },
+    {
+      "control_id": "141-historical-analysis-detective",
+      "domain": "historical-analysis",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/141-historical-analysis-detective"
+    },
+    {
+      "control_id": "142-policy-research-preventive",
+      "domain": "policy-research",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/142-policy-research-preventive"
+    },
+    {
+      "control_id": "142-policy-research-detective",
+      "domain": "policy-research",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/142-policy-research-detective"
+    },
+    {
+      "control_id": "143-technical-writing-preventive",
+      "domain": "technical-writing",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/143-technical-writing-preventive"
+    },
+    {
+      "control_id": "143-technical-writing-detective",
+      "domain": "technical-writing",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/143-technical-writing-detective"
+    },
+    {
+      "control_id": "144-decision-memos-preventive",
+      "domain": "decision-memos",
+      "group": "research-knowledge",
+      "type": "preventive",
+      "path": "library/controls/research-knowledge/144-decision-memos-preventive"
+    },
+    {
+      "control_id": "144-decision-memos-detective",
+      "domain": "decision-memos",
+      "group": "research-knowledge",
+      "type": "detective",
+      "path": "library/controls/research-knowledge/144-decision-memos-detective"
+    }
+  ]
+}

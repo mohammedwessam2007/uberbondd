@@ -1,0 +1,22 @@
+{
+  "name": "design-user-flow-design-systems",
+  "title": "Design User Flow: Design Systems",
+  "domain": "design-systems",
+  "group": "product-design",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Design Systems source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "DESIGN_USER_FLOW_DESIGN_SYSTEMS_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

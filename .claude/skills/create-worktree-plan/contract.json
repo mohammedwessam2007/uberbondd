@@ -1,0 +1,15 @@
+{
+  "name": "create-worktree-plan",
+  "purpose": "Plan isolated worktrees and integration order.",
+  "kernel": "fable",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "team plan"
+  ],
+  "outputs": [
+    "WORKTREE_PLAN.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

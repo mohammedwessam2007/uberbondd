@@ -1,0 +1,15 @@
+{
+  "name": "audit-context-cost",
+  "purpose": "Find repeated context, unstable prefixes, and unnecessary agent multiplication.",
+  "kernel": "sol",
+  "effort": "high",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "session artifacts"
+  ],
+  "outputs": [
+    "CONTEXT_COST_AUDIT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

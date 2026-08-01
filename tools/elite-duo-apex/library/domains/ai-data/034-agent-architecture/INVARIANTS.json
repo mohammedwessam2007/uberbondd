@@ -1,0 +1,15 @@
+{
+  "domain": "agent-architecture",
+  "group": "ai-data",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Agent Architecture decisions trace to the mission contract and current evidence.",
+    "Agent Architecture preserves one durable source of truth for each governed concept.",
+    "Agent Architecture changes require real-path validation rather than isolated helper evidence.",
+    "Agent Architecture limitations, residual risks, and approval boundaries are explicit.",
+    "Agent Architecture never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

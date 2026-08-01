@@ -1,0 +1,15 @@
+{
+  "name": "repair-from-contract",
+  "purpose": "Apply accepted findings without widening scope.",
+  "kernel": "fusion",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "repair contract"
+  ],
+  "outputs": [
+    "REPAIR_EVIDENCE.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

@@ -1,0 +1,18 @@
+{
+  "name": "apex-api-design-specialist",
+  "domain": "api-design",
+  "group": "software-engineering",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "effort": "max",
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Bash",
+    "Edit",
+    "Write"
+  ],
+  "memory": "project",
+  "self_approval": false
+}

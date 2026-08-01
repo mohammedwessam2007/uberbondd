@@ -1,0 +1,22 @@
+{
+  "name": "build-durable-change-browser-automation",
+  "title": "Build Durable Change: Browser Automation",
+  "domain": "browser-automation",
+  "group": "software-engineering",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Browser Automation source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_DURABLE_CHANGE_BROWSER_AUTOMATION_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

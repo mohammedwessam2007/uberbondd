@@ -1,0 +1,22 @@
+{
+  "name": "validate-product-decision-content-design",
+  "title": "Validate Product Decision: Content Design",
+  "domain": "content-design",
+  "group": "product-design",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Content Design source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VALIDATE_PRODUCT_DECISION_CONTENT_DESIGN_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

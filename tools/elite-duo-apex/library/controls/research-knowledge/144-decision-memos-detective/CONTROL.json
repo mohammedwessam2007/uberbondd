@@ -1,0 +1,16 @@
+{
+  "control_id": "144-decision-memos-detective",
+  "domain": "decision-memos",
+  "type": "detective",
+  "risk": "MEDIUM",
+  "model_when_judgment_required": "claude-sonnet-5",
+  "effort": "max",
+  "fail_mode": "structured finding",
+  "evidence": [
+    "control configuration",
+    "trigger input",
+    "result",
+    "timestamp",
+    "artifact hash"
+  ]
+}

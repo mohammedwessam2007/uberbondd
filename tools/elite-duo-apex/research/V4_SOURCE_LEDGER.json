@@ -1,0 +1,89 @@
+{
+  "verified": "2026-08-01",
+  "sources": [
+    {
+      "id": "CC-CONTEXT",
+      "title": "Explore the context window",
+      "url": "https://code.claude.com/docs/en/context-window",
+      "supports": "what loads, compaction survival, skill reinjection caps"
+    },
+    {
+      "id": "CC-CACHE",
+      "title": "How Claude Code uses prompt caching",
+      "url": "https://code.claude.com/docs/en/prompt-caching",
+      "supports": "exact prefix, cache invalidation, effort cache safety, rewind, subagent and fork cache"
+    },
+    {
+      "id": "CC-COSTS",
+      "title": "Manage costs effectively",
+      "url": "https://code.claude.com/docs/en/costs",
+      "supports": "clear, compact focus, skills, MCP overhead, context cost"
+    },
+    {
+      "id": "CC-SUBAGENTS",
+      "title": "Create custom subagents",
+      "url": "https://code.claude.com/docs/en/sub-agents",
+      "supports": "isolated contexts, auto compaction, forked subagents, cache sharing"
+    },
+    {
+      "id": "CC-HOOKS",
+      "title": "Hooks reference",
+      "url": "https://code.claude.com/docs/en/hooks",
+      "supports": "PreCompact, PostCompact, updatedToolOutput, lifecycle enforcement"
+    },
+    {
+      "id": "CC-STATUS",
+      "title": "Customize your status line",
+      "url": "https://code.claude.com/docs/en/statusline",
+      "supports": "context, cache, cost, effort and rate-limit telemetry"
+    },
+    {
+      "id": "CC-ENV",
+      "title": "Environment variables",
+      "url": "https://code.claude.com/docs/en/env-vars",
+      "supports": "auto-compaction thresholds and context window policy"
+    },
+    {
+      "id": "CC-MEMORY",
+      "title": "How Claude remembers your project",
+      "url": "https://code.claude.com/docs/en/memory",
+      "supports": "CLAUDE.md, auto-memory size and on-demand topic files"
+    },
+    {
+      "id": "CC-COMMANDS",
+      "title": "Commands",
+      "url": "https://code.claude.com/docs/en/commands",
+      "supports": "compact, rewind, branch/fork, recap, clear"
+    },
+    {
+      "id": "ANT-TOOLS",
+      "title": "Manage tool context",
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/manage-tool-context",
+      "supports": "tool search, programmatic calling, caching, context editing"
+    },
+    {
+      "id": "ANT-EDIT",
+      "title": "Context editing",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/context-editing",
+      "supports": "tool-result clearing, thinking clearing, compaction, memory preservation"
+    },
+    {
+      "id": "ANT-EFFORT",
+      "title": "Effort",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "supports": "Sonnet 5 high, xhigh, max tradeoffs"
+    },
+    {
+      "id": "ANT-FABLE",
+      "title": "Prompting Claude Fable 5",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5",
+      "supports": "long horizon, delegation, memory, progress evidence, completion"
+    },
+    {
+      "id": "OAI-CODEX-LOOP",
+      "title": "Unrolling the Codex agent loop",
+      "url": "https://openai.com/index/unrolling-the-codex-agent-loop/",
+      "supports": "prefix caching, compact endpoint, auto compact limit, encrypted compaction item"
+    }
+  ]
+}

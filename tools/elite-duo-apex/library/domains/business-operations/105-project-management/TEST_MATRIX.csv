@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during assess,assess,True,Project Management assess acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Project Management design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during execute,execute,True,Project Management execute acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Project Management control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during review,review,True,Project Management review acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Project Management improve acceptance

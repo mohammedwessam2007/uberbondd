@@ -1,0 +1,76 @@
+{
+  "gaps": [
+    {
+      "feature": "Actual Fable 5 model weights",
+      "status": "NOT_TRANSFERABLE",
+      "v2_approach": "Clean-room execution kernel",
+      "quality_difference": "Latent intelligence and benchmark performance remain Sonnet-limited."
+    },
+    {
+      "feature": "Actual GPT-5.6 Sol model weights",
+      "status": "NOT_TRANSFERABLE",
+      "v2_approach": "Clean-room decision kernel",
+      "quality_difference": "Architecture judgment remains Sonnet-limited."
+    },
+    {
+      "feature": "Fable adaptive reasoning distribution",
+      "status": "PARTIAL",
+      "v2_approach": "Sonnet adaptive thinking at xhigh/max",
+      "quality_difference": "Different model calibration."
+    },
+    {
+      "feature": "Anthropic task budgets",
+      "status": "UNAVAILABLE_ON_SONNET",
+      "v2_approach": "State phases, maxTurns, stop hooks, and deterministic budget records",
+      "quality_difference": "Not a server-side token countdown."
+    },
+    {
+      "feature": "GPT-5.6 Programmatic Tool Calling",
+      "status": "EMULATED",
+      "v2_approach": "Sonnet writes local programs through Bash and validates strict output",
+      "quality_difference": "No OpenAI hosted PTC runtime or program items."
+    },
+    {
+      "feature": "GPT-5.6 persisted hidden reasoning",
+      "status": "EMULATED",
+      "v2_approach": "Explicit decision contracts and mission state",
+      "quality_difference": "No hidden reasoning item reuse."
+    },
+    {
+      "feature": "GPT-5.6 explicit cache breakpoints",
+      "status": "EMULATED",
+      "v2_approach": "Stable file prefixes and Claude Code automatic caching",
+      "quality_difference": "No OpenAI cache-write controls."
+    },
+    {
+      "feature": "GPT-5.6 pro mode",
+      "status": "EMULATED",
+      "v2_approach": "Architecture, execution, dual review, repair, single final result",
+      "quality_difference": "No provider-side pro execution."
+    },
+    {
+      "feature": "GPT-5.6 ultra",
+      "status": "EMULATED_OPTIONAL",
+      "v2_approach": "Claude Code agent teams with Sonnet max",
+      "quality_difference": "Different orchestration and much higher Sonnet usage."
+    },
+    {
+      "feature": "Fable task-specific safety classifiers",
+      "status": "NOT_TRANSFERABLE",
+      "v2_approach": "Claude Code/ Sonnet safety plus deterministic hooks",
+      "quality_difference": "Not identical provider safeguards."
+    },
+    {
+      "feature": "Fable native vision gains",
+      "status": "NOT_TRANSFERABLE",
+      "v2_approach": "Sonnet 5 vision and image tooling",
+      "quality_difference": "Vision quality remains Sonnet's."
+    },
+    {
+      "feature": "Cross-model cache continuity",
+      "status": "IMPOSSIBLE",
+      "v2_approach": "Remain Sonnet-only",
+      "quality_difference": "Model switches warm separate caches."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+﻿feature,purpose,status,v2_implementation
+Subagents,Separate context windows,implemented,32 Sonnet-only role agents
+Agent model override,Pin role model,implemented,model: sonnet for all agents
+Agent effort override,Per-role reasoning depth,implemented,high/xhigh/max only
+Agent memory,Cross-session learning,implemented,project/local memory by role
+Agent skills,Preloaded procedures,implemented,role-compatible skill library
+Agent worktrees,Isolated edits,implemented,editing agents use worktree isolation
+Background agents,Concurrent side work,controlled,available but not forced
+Agent teams,Shared tasks and messaging,experimental,opt-in apex-team profile
+Task dependencies,Parallel coordination,implemented,team plan and file ownership
+CLAUDE.md,Persistent project rules,implemented,template under 200 lines
+Path-scoped rules,Conditional context,implemented,16 rules
+Auto memory,Learned project facts,implemented,enabled with curator and audit
+Skills,Reusable workflows,implemented,64 skills
+Supporting files,Contracts and rubrics,implemented,every skill has both
+SessionStart hook,Initialize context,implemented,installed
+UserPromptSubmit hook,Initialize mission state,implemented,installed
+PreToolUse hook,Block unsafe tools,implemented,installed
+PostToolUse hook,Log evidence,implemented,installed
+PostToolUseFailure hook,Log failures,implemented,installed
+PostToolBatch hook,Ground progress,implemented,installed
+SubagentStart hook,Inject role law,implemented,installed
+SubagentStop hook,Validate outputs,implemented,installed
+TaskCompleted hook,Require evidence pointer,implemented,installed
+PreCompact hook,Snapshot state,implemented,installed
+PostCompact hook,Log compaction,implemented,installed
+InstructionsLoaded hook,Audit rule loading,implemented,installed
+ConfigChange hook,Block unapproved config,implemented,installed
+Stop hook,Prevent premature stop,implemented,installed
+SessionEnd hook,Log termination,implemented,installed
+Prompt caching,Automatic cache reuse,implemented,stable Sonnet-only kernel
+MCP,External tools,controlled,disabled by default
+Permission rules,Hard client denials,implemented,publishing and merge blocked
+Plan mode,Architecture without edits,implemented,elite-apex-plan
+Max effort,Highest Sonnet effort,implemented,elite-apex-max and max agents
+xhigh effort,Long-horizon implementation,implemented,elite-apex default

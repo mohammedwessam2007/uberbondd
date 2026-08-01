@@ -1,0 +1,16 @@
+{
+  "name": "apex-historical-analysis-specialist",
+  "domain": "historical-analysis",
+  "group": "research-knowledge",
+  "risk": "MEDIUM",
+  "model": "claude-sonnet-5",
+  "effort": "max",
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Write"
+  ],
+  "memory": "project",
+  "self_approval": false
+}

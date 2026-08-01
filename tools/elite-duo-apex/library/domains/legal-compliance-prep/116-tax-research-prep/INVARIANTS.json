@@ -1,0 +1,15 @@
+{
+  "domain": "tax-research-prep",
+  "group": "legal-compliance-prep",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Tax Research Prep decisions trace to the mission contract and current evidence.",
+    "Tax Research Prep preserves one durable source of truth for each governed concept.",
+    "Tax Research Prep changes require real-path validation rather than isolated helper evidence.",
+    "Tax Research Prep limitations, residual risks, and approval boundaries are explicit.",
+    "Tax Research Prep never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

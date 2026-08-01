@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EXTERNAL_ACTION_LEDGER",
+  "type": "object",
+  "required": [
+    "actions"
+  ],
+  "properties": {
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "authorized",
+          "attempted",
+          "confirmed",
+          "evidence"
+        ]
+      }
+    }
+  }
+}

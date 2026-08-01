@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during research,research,True,Revenue Operations research acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during segment,segment,True,Revenue Operations segment acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during offer,offer,True,Revenue Operations offer acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during activate,activate,True,Revenue Operations activate acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during measure,measure,True,Revenue Operations measure acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during retain,retain,True,Revenue Operations retain acceptance

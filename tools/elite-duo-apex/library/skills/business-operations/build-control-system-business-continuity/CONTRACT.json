@@ -1,0 +1,22 @@
+{
+  "name": "build-control-system-business-continuity",
+  "title": "Build Control System: Business Continuity",
+  "domain": "business-continuity",
+  "group": "business-operations",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Business Continuity source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_CONTROL_SYSTEM_BUSINESS_CONTINUITY_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

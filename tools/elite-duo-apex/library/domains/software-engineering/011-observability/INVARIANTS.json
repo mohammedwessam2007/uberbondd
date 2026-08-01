@@ -1,0 +1,15 @@
+{
+  "domain": "observability",
+  "group": "software-engineering",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Observability decisions trace to the mission contract and current evidence.",
+    "Observability preserves one durable source of truth for each governed concept.",
+    "Observability changes require real-path validation rather than isolated helper evidence.",
+    "Observability limitations, residual risks, and approval boundaries are explicit.",
+    "Observability never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

@@ -1,0 +1,22 @@
+{
+  "name": "prepare-issue-map-record-retention",
+  "title": "Prepare Issue Map: Record Retention",
+  "domain": "record-retention",
+  "group": "legal-compliance-prep",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Record Retention source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "PREPARE_ISSUE_MAP_RECORD_RETENTION_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

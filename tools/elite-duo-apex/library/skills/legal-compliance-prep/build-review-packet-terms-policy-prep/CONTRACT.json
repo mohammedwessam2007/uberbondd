@@ -1,0 +1,22 @@
+{
+  "name": "build-review-packet-terms-policy-prep",
+  "title": "Build Review Packet: Terms Policy Prep",
+  "domain": "terms-policy-prep",
+  "group": "legal-compliance-prep",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Terms Policy Prep source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_REVIEW_PACKET_TERMS_POLICY_PREP_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

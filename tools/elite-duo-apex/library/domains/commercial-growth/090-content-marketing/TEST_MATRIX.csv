@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during research,research,True,Content Marketing research acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during segment,segment,True,Content Marketing segment acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during offer,offer,True,Content Marketing offer acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during activate,activate,True,Content Marketing activate acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during measure,measure,True,Content Marketing measure acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during retain,retain,True,Content Marketing retain acceptance

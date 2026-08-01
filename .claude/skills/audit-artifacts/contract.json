@@ -1,0 +1,15 @@
+{
+  "name": "audit-artifacts",
+  "purpose": "Validate JSON, CSV, ZIP, checksums, links, and manifests.",
+  "kernel": "fable",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "outputs"
+  ],
+  "outputs": [
+    "ARTIFACT_VALIDATION_REPORT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

@@ -1,0 +1,16 @@
+{
+  "control_id": "059-security-logging-preventive",
+  "domain": "security-logging",
+  "type": "preventive",
+  "risk": "CRITICAL",
+  "model_when_judgment_required": "claude-sonnet-5",
+  "effort": "max",
+  "fail_mode": "closed",
+  "evidence": [
+    "control configuration",
+    "trigger input",
+    "result",
+    "timestamp",
+    "artifact hash"
+  ]
+}

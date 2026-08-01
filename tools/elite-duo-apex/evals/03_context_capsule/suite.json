@@ -1,0 +1,30 @@
+{
+  "suite_id": "03_context_capsule",
+  "title": "Context capsule",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "all_authoritative_facts_retained",
+      "description": "all authoritative facts retained",
+      "weight": 0.25
+    },
+    {
+      "id": "relevant_files_included",
+      "description": "relevant files included",
+      "weight": 0.25
+    },
+    {
+      "id": "loss_ledger_accurate",
+      "description": "loss ledger accurate",
+      "weight": 0.25
+    },
+    {
+      "id": "no_unrelated_history",
+      "description": "no unrelated history",
+      "weight": 0.25
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

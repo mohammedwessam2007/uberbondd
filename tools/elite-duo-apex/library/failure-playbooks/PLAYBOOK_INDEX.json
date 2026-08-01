@@ -1,0 +1,869 @@
+{
+  "count": 144,
+  "playbooks": [
+    {
+      "domain": "api-design",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/001-api-design",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "backend-services",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/002-backend-services",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "frontend-systems",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/003-frontend-systems",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "mobile-applications",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/004-mobile-applications",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "database-engineering",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/005-database-engineering",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "distributed-systems",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/006-distributed-systems",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "event-driven-architecture",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/007-event-driven-architecture",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "workflow-engines",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/008-workflow-engines",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "developer-tooling",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/009-developer-tooling",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "ci-cd",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/010-ci-cd",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "observability",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/011-observability",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "performance-engineering",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/012-performance-engineering",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "reliability-engineering",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/013-reliability-engineering",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "platform-engineering",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/014-platform-engineering",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "cloud-architecture",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/015-cloud-architecture",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "edge-computing",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/016-edge-computing",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "serverless",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/017-serverless",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "microservices",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/018-microservices",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "monolith-modernization",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/019-monolith-modernization",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "data-migrations",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/020-data-migrations",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "testing-systems",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/021-testing-systems",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "release-engineering",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/022-release-engineering",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "package-management",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/023-package-management",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "configuration",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/024-configuration",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "feature-flags",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/025-feature-flags",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "multi-tenancy",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/026-multi-tenancy",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "billing-systems",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/027-billing-systems",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "identity-access",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/028-identity-access",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "search-systems",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/029-search-systems",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "notification-systems",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/030-notification-systems",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "file-processing",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/031-file-processing",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "browser-automation",
+      "group": "software-engineering",
+      "path": "library/failure-playbooks/software-engineering/032-browser-automation",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "llm-applications",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/033-llm-applications",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "agent-architecture",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/034-agent-architecture",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "rag-systems",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/035-rag-systems",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "embeddings",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/036-embeddings",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "reranking",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/037-reranking",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "prompt-engineering",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/038-prompt-engineering",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "model-evaluation",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/039-model-evaluation",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "model-routing",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/040-model-routing",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "synthetic-data",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/041-synthetic-data",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "fine-tuning",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/042-fine-tuning",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "multimodal-ai",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/043-multimodal-ai",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "vision-systems",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/044-vision-systems",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "speech-systems",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/045-speech-systems",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "document-ai",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/046-document-ai",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "recommendation-systems",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/047-recommendation-systems",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "forecasting",
+      "group": "ai-data",
+      "path": "library/failure-playbooks/ai-data/048-forecasting",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "application-security",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/049-application-security",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "cloud-security",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/050-cloud-security",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "identity-security",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/051-identity-security",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "secrets-management",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/052-secrets-management",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "threat-modeling",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/053-threat-modeling",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "incident-response",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/054-incident-response",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "data-privacy",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/055-data-privacy",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "prompt-injection",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/056-prompt-injection",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "supply-chain-security",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/057-supply-chain-security",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "vulnerability-management",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/058-vulnerability-management",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "security-logging",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/059-security-logging",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "abuse-prevention",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/060-abuse-prevention",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "fraud-detection",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/061-fraud-detection",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "payments-security",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/062-payments-security",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "tenant-isolation",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/063-tenant-isolation",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "secure-deployment",
+      "group": "security-privacy",
+      "path": "library/failure-playbooks/security-privacy/064-secure-deployment",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "product-strategy",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/065-product-strategy",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "product-discovery",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/066-product-discovery",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "user-research",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/067-user-research",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "ux-design",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/068-ux-design",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "design-systems",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/069-design-systems",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "accessibility",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/070-accessibility",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "onboarding",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/071-onboarding",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "activation",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/072-activation",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "retention",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/073-retention",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "experimentation",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/074-experimentation",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "analytics",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/075-analytics",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "roadmapping",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/076-roadmapping",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "pricing-design",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/077-pricing-design",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "enterprise-product",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/078-enterprise-product",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "developer-experience",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/079-developer-experience",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "content-design",
+      "group": "product-design",
+      "path": "library/failure-playbooks/product-design/080-content-design",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "market-research",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/081-market-research",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "buyer-intelligence",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/082-buyer-intelligence",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "offer-design",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/083-offer-design",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "sales-operations",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/084-sales-operations",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "outbound-systems",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/085-outbound-systems",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "inbound-growth",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/086-inbound-growth",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "partnerships",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/087-partnerships",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "channels",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/088-channels",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "seo",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/089-seo",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "content-marketing",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/090-content-marketing",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "lifecycle-marketing",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/091-lifecycle-marketing",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "customer-success",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/092-customer-success",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "support-operations",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/093-support-operations",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "revenue-operations",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/094-revenue-operations",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "account-management",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/095-account-management",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "procurement-sales",
+      "group": "commercial-growth",
+      "path": "library/failure-playbooks/commercial-growth/096-procurement-sales",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "financial-modeling",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/097-financial-modeling",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "budgeting",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/098-budgeting",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "cash-management",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/099-cash-management",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "vendor-management",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/100-vendor-management",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "procurement",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/101-procurement",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "risk-management",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/102-risk-management",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "business-continuity",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/103-business-continuity",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "operations-design",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/104-operations-design",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "project-management",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/105-project-management",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "program-management",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/106-program-management",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "knowledge-management",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/107-knowledge-management",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "quality-management",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/108-quality-management",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "hiring-systems",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/109-hiring-systems",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "people-operations",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/110-people-operations",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "training",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/111-training",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "executive-reporting",
+      "group": "business-operations",
+      "path": "library/failure-playbooks/business-operations/112-executive-reporting",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "contract-preparation",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/113-contract-preparation",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "privacy-compliance-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/114-privacy-compliance-prep",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "security-compliance-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/115-security-compliance-prep",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "tax-research-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/116-tax-research-prep",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "employment-law-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/117-employment-law-prep",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "ip-research-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/118-ip-research-prep",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "regulatory-research-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/119-regulatory-research-prep",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "vendor-due-diligence",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/120-vendor-due-diligence",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "data-processing-agreements",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/121-data-processing-agreements",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "terms-policy-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/122-terms-policy-prep",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "audit-readiness",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/123-audit-readiness",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "record-retention",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/124-record-retention",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "international-expansion-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/125-international-expansion-prep",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "payments-regulation-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/126-payments-regulation-prep",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "consumer-protection-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/127-consumer-protection-prep",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "ai-governance-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/failure-playbooks/legal-compliance-prep/128-ai-governance-prep",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "web-research",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/129-web-research",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "scientific-literature",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/130-scientific-literature",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "competitive-intelligence",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/131-competitive-intelligence",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "source-verification",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/132-source-verification",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "evidence-synthesis",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/133-evidence-synthesis",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "survey-design",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/134-survey-design",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "qualitative-analysis",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/135-qualitative-analysis",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "quantitative-analysis",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/136-quantitative-analysis",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "knowledge-graphs",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/137-knowledge-graphs",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "taxonomy-design",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/138-taxonomy-design",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "document-synthesis",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/139-document-synthesis",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "fact-checking",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/140-fact-checking",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "historical-analysis",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/141-historical-analysis",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "policy-research",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/142-policy-research",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "technical-writing",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/143-technical-writing",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    },
+    {
+      "domain": "decision-memos",
+      "group": "research-knowledge",
+      "path": "library/failure-playbooks/research-knowledge/144-decision-memos",
+      "failure_types": "authority-drift partial-completion stale-final-check duplicate-effect evidence-gap unsafe-stop"
+    }
+  ]
+}

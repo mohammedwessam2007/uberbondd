@@ -1,0 +1,390 @@
+{
+  "model": "claude-sonnet-5",
+  "skill_count": 64,
+  "skills": [
+    {
+      "name": "compile-mission",
+      "purpose": "Compile a request into a finite mission contract.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "classify-intent",
+      "purpose": "Classify assessment, plan, implementation, review, or external-action intent.",
+      "kernel": "sol",
+      "effort": "xhigh"
+    },
+    {
+      "name": "build-authority-map",
+      "purpose": "Rank current state, contracts, docs, code, history, and inference.",
+      "kernel": "fusion",
+      "effort": "max"
+    },
+    {
+      "name": "record-contradictions",
+      "purpose": "Preserve conflicting claims and dispositions.",
+      "kernel": "fusion",
+      "effort": "xhigh"
+    },
+    {
+      "name": "build-context-capsule",
+      "purpose": "Compress relevant context with a loss ledger.",
+      "kernel": "fusion",
+      "effort": "xhigh"
+    },
+    {
+      "name": "map-repository",
+      "purpose": "Map architecture, entry points, tests, state, and protected paths.",
+      "kernel": "fable",
+      "effort": "xhigh"
+    },
+    {
+      "name": "trace-runtime",
+      "purpose": "Trace a feature through real scheduler, API, worker, handler, and provider paths.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "design-fable-execution",
+      "purpose": "Create long-horizon state, delegation, recovery, and verification.",
+      "kernel": "fable",
+      "effort": "max"
+    },
+    {
+      "name": "design-sol-architecture",
+      "purpose": "Create architecture, invariants, counterfactuals, and acceptance.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "merge-dual-contracts",
+      "purpose": "Merge compatible Fable and Sol artifacts under arbitration rules.",
+      "kernel": "fusion",
+      "effort": "max"
+    },
+    {
+      "name": "design-state-machine",
+      "purpose": "Define stages, transitions, durable state, retries, and recovery.",
+      "kernel": "fusion",
+      "effort": "max"
+    },
+    {
+      "name": "define-invariants",
+      "purpose": "Define sources of truth, identity, evidence, policy, audit, and cost invariants.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "run-counterfactuals",
+      "purpose": "Test crashes, races, stale evidence, timeouts, attacks, and rollback.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "design-programmatic-stage",
+      "purpose": "Design a bounded local-program tool stage with strict schemas.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "write-local-tool-program",
+      "purpose": "Implement a deterministic local program for bounded processing.",
+      "kernel": "fusion",
+      "effort": "xhigh"
+    },
+    {
+      "name": "validate-program-output",
+      "purpose": "Validate program schema, counts, hashes, and completeness.",
+      "kernel": "fable",
+      "effort": "high"
+    },
+    {
+      "name": "design-cache-layout",
+      "purpose": "Separate stable kernel, project context, and volatile mission data.",
+      "kernel": "sol",
+      "effort": "xhigh"
+    },
+    {
+      "name": "audit-context-cost",
+      "purpose": "Find repeated context, unstable prefixes, and unnecessary agent multiplication.",
+      "kernel": "sol",
+      "effort": "high"
+    },
+    {
+      "name": "prepare-compaction",
+      "purpose": "Persist state, failures, decisions, tests, and next action before compaction.",
+      "kernel": "fable",
+      "effort": "xhigh"
+    },
+    {
+      "name": "rehydrate-after-compaction",
+      "purpose": "Restore mission state from durable artifacts.",
+      "kernel": "fable",
+      "effort": "xhigh"
+    },
+    {
+      "name": "curate-memory",
+      "purpose": "Store reusable lessons and remove duplicates or invalidated notes.",
+      "kernel": "fable",
+      "effort": "high"
+    },
+    {
+      "name": "validate-memory",
+      "purpose": "Check memory freshness, authority, duplication, and size.",
+      "kernel": "fusion",
+      "effort": "high"
+    },
+    {
+      "name": "plan-subagents",
+      "purpose": "Choose isolated Sonnet subagents and context boundaries.",
+      "kernel": "fable",
+      "effort": "max"
+    },
+    {
+      "name": "plan-agent-team",
+      "purpose": "Create an opt-in non-overlapping Sonnet team topology.",
+      "kernel": "fusion",
+      "effort": "max"
+    },
+    {
+      "name": "assign-file-ownership",
+      "purpose": "Assign exclusive file ownership to parallel workers.",
+      "kernel": "fusion",
+      "effort": "xhigh"
+    },
+    {
+      "name": "create-worktree-plan",
+      "purpose": "Plan isolated worktrees and integration order.",
+      "kernel": "fable",
+      "effort": "xhigh"
+    },
+    {
+      "name": "implement-contract",
+      "purpose": "Implement an approved elite decision contract.",
+      "kernel": "fusion",
+      "effort": "xhigh"
+    },
+    {
+      "name": "implement-module",
+      "purpose": "Implement one isolated module under explicit ownership.",
+      "kernel": "fable",
+      "effort": "xhigh"
+    },
+    {
+      "name": "debug-causally",
+      "purpose": "Reproduce and repair the first causal defect.",
+      "kernel": "fusion",
+      "effort": "max"
+    },
+    {
+      "name": "repair-from-contract",
+      "purpose": "Apply accepted findings without widening scope.",
+      "kernel": "fusion",
+      "effort": "xhigh"
+    },
+    {
+      "name": "design-migration",
+      "purpose": "Design additive, reversible, mixed-version-safe migration.",
+      "kernel": "fusion",
+      "effort": "max"
+    },
+    {
+      "name": "review-transaction-boundaries",
+      "purpose": "Audit transactions, isolation, locks, and partial failure.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "attack-concurrency",
+      "purpose": "Generate real interleavings for ordering, lease, and retry races.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "design-idempotency",
+      "purpose": "Define idempotency keys, deduplication, and retry semantics.",
+      "kernel": "fusion",
+      "effort": "max"
+    },
+    {
+      "name": "audit-pre-effect-rechecks",
+      "purpose": "Verify final-boundary suppression, approval, health, freshness, and budget checks.",
+      "kernel": "fusion",
+      "effort": "max"
+    },
+    {
+      "name": "model-uncertain-outcomes",
+      "purpose": "Define pending, confirmed, failed, and unknown external outcomes.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "build-threat-model",
+      "purpose": "Threat-model trust boundaries, secrets, injection, and permissions.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "audit-prompt-injection",
+      "purpose": "Find hostile instructions and authority inversion.",
+      "kernel": "fusion",
+      "effort": "max"
+    },
+    {
+      "name": "audit-permissions",
+      "purpose": "Audit tool, shell, file, network, MCP, and approval permissions.",
+      "kernel": "fusion",
+      "effort": "xhigh"
+    },
+    {
+      "name": "audit-mcp",
+      "purpose": "Audit MCP transport, OAuth, outputs, permissions, and side effects.",
+      "kernel": "fusion",
+      "effort": "max"
+    },
+    {
+      "name": "design-hooks",
+      "purpose": "Design deterministic lifecycle enforcement hooks.",
+      "kernel": "fable",
+      "effort": "xhigh"
+    },
+    {
+      "name": "install-hooks",
+      "purpose": "Install approved hooks with backup and rollback.",
+      "kernel": "fable",
+      "effort": "xhigh"
+    },
+    {
+      "name": "design-real-path-tests",
+      "purpose": "Design tests through actual runtime entry points.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "design-negative-tests",
+      "purpose": "Design denial, stale, malformed, and missing-evidence tests.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "design-concurrency-tests",
+      "purpose": "Design deterministic races and crash-recovery tests.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "design-property-tests",
+      "purpose": "Design invariant and property-based test cases.",
+      "kernel": "sol",
+      "effort": "xhigh"
+    },
+    {
+      "name": "run-targeted-tests",
+      "purpose": "Run minimal causal test set and preserve raw output.",
+      "kernel": "fable",
+      "effort": "xhigh"
+    },
+    {
+      "name": "run-full-validation",
+      "purpose": "Run required complete suite and environment checks.",
+      "kernel": "fable",
+      "effort": "xhigh"
+    },
+    {
+      "name": "detect-weakened-tests",
+      "purpose": "Compare tests and assertions for silent weakening.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "compile-evidence-packet",
+      "purpose": "Package changes, tests, limitations, actions, and rollback.",
+      "kernel": "fable",
+      "effort": "high"
+    },
+    {
+      "name": "recompute-counts",
+      "purpose": "Recalculate counts instead of trusting summaries.",
+      "kernel": "fable",
+      "effort": "high"
+    },
+    {
+      "name": "audit-artifacts",
+      "purpose": "Validate JSON, CSV, ZIP, checksums, links, and manifests.",
+      "kernel": "fable",
+      "effort": "xhigh"
+    },
+    {
+      "name": "review-fable-lens",
+      "purpose": "Review completeness, execution, runtime, recovery, and evidence.",
+      "kernel": "fable",
+      "effort": "max"
+    },
+    {
+      "name": "review-sol-lens",
+      "purpose": "Review architecture, counterfactuals, bypasses, and final completeness.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "adjudicate-reviews",
+      "purpose": "Reconcile reviewers and produce accepted findings.",
+      "kernel": "fusion",
+      "effort": "max"
+    },
+    {
+      "name": "write-repair-contract",
+      "purpose": "Convert accepted findings into finite repairs and tests.",
+      "kernel": "fusion",
+      "effort": "max"
+    },
+    {
+      "name": "issue-final-verdict",
+      "purpose": "Issue only an allowed readiness verdict.",
+      "kernel": "fusion",
+      "effort": "max"
+    },
+    {
+      "name": "build-owner-action-card",
+      "purpose": "Compress irreversible work into exact human actions.",
+      "kernel": "fusion",
+      "effort": "xhigh"
+    },
+    {
+      "name": "create-rollback",
+      "purpose": "Create rollback, data restoration, and deployment reversal instructions.",
+      "kernel": "fusion",
+      "effort": "xhigh"
+    },
+    {
+      "name": "build-incident-plan",
+      "purpose": "Create detection, containment, recovery, and evidence procedures.",
+      "kernel": "fusion",
+      "effort": "max"
+    },
+    {
+      "name": "package-deliverable",
+      "purpose": "Build manifest, checksums, ZIP, and stop statement.",
+      "kernel": "fable",
+      "effort": "high"
+    },
+    {
+      "name": "benchmark-xhigh-vs-max",
+      "purpose": "Compare Sonnet xhigh and max on representative tasks.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "benchmark-kernel-components",
+      "purpose": "Ablate kernel modules and measure active ingredients.",
+      "kernel": "sol",
+      "effort": "max"
+    },
+    {
+      "name": "audit-final-message",
+      "purpose": "Verify the final message matches artifacts and does not overclaim.",
+      "kernel": "fusion",
+      "effort": "xhigh"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "design-defense-security-logging",
+  "title": "Design Defense: Security Logging",
+  "domain": "security-logging",
+  "group": "security-privacy",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Security Logging source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "DESIGN_DEFENSE_SECURITY_LOGGING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

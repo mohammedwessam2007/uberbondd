@@ -1,0 +1,22 @@
+{
+  "name": "analyze-runtime-mobile-applications",
+  "title": "Analyze Runtime: Mobile Applications",
+  "domain": "mobile-applications",
+  "group": "software-engineering",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Mobile Applications source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "ANALYZE_RUNTIME_MOBILE_APPLICATIONS_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

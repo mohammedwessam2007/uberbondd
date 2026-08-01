@@ -1,0 +1,16 @@
+{
+  "name": "apex-ai-governance-prep-specialist",
+  "domain": "ai-governance-prep",
+  "group": "legal-compliance-prep",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "effort": "max",
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Write"
+  ],
+  "memory": "project",
+  "self_approval": false
+}

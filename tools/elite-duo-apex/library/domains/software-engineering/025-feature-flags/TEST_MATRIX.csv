@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Feature Flags discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during architect,architect,True,Feature Flags architect acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during implement,implement,True,Feature Flags implement acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during verify,verify,True,Feature Flags verify acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during release,release,True,Feature Flags release acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during operate,operate,True,Feature Flags operate acceptance

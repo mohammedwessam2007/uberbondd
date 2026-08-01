@@ -1,0 +1,15 @@
+{
+  "name": "classify-intent",
+  "purpose": "Classify assessment, plan, implementation, review, or external-action intent.",
+  "kernel": "sol",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "request"
+  ],
+  "outputs": [
+    "INTENT_CLASSIFICATION.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

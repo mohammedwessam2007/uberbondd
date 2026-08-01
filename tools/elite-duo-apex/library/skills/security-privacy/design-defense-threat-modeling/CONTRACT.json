@@ -1,0 +1,22 @@
+{
+  "name": "design-defense-threat-modeling",
+  "title": "Design Defense: Threat Modeling",
+  "domain": "threat-modeling",
+  "group": "security-privacy",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Threat Modeling source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "DESIGN_DEFENSE_THREAT_MODELING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

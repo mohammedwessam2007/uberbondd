@@ -1,0 +1,16 @@
+{
+  "name": "audit-final-message",
+  "purpose": "Verify the final message matches artifacts and does not overclaim.",
+  "kernel": "fusion",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "final message",
+    "evidence"
+  ],
+  "outputs": [
+    "FINAL_MESSAGE_AUDIT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

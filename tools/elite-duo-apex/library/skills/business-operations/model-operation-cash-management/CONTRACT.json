@@ -1,0 +1,22 @@
+{
+  "name": "model-operation-cash-management",
+  "title": "Model Operation: Cash Management",
+  "domain": "cash-management",
+  "group": "business-operations",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Cash Management source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "MODEL_OPERATION_CASH_MANAGEMENT_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

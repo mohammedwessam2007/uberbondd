@@ -1,0 +1,16 @@
+{
+  "name": "implement-contract",
+  "purpose": "Implement an approved elite decision contract.",
+  "kernel": "fusion",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "decision contract",
+    "repository"
+  ],
+  "outputs": [
+    "EVIDENCE_PACKET.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

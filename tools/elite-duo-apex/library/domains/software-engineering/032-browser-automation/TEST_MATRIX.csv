@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Browser Automation discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during architect,architect,True,Browser Automation architect acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during implement,implement,True,Browser Automation implement acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during verify,verify,True,Browser Automation verify acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during release,release,True,Browser Automation release acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during operate,operate,True,Browser Automation operate acceptance

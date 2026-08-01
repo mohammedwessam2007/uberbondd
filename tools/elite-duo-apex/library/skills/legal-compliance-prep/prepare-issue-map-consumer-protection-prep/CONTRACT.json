@@ -1,0 +1,22 @@
+{
+  "name": "prepare-issue-map-consumer-protection-prep",
+  "title": "Prepare Issue Map: Consumer Protection Prep",
+  "domain": "consumer-protection-prep",
+  "group": "legal-compliance-prep",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Consumer Protection Prep source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "PREPARE_ISSUE_MAP_CONSUMER_PROTECTION_PREP_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

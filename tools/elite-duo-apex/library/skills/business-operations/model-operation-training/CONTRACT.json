@@ -1,0 +1,22 @@
+{
+  "name": "model-operation-training",
+  "title": "Model Operation: Training",
+  "domain": "training",
+  "group": "business-operations",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Training source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "MODEL_OPERATION_TRAINING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

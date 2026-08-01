@@ -1,0 +1,22 @@
+{
+  "name": "design-defense-application-security",
+  "title": "Design Defense: Application Security",
+  "domain": "application-security",
+  "group": "security-privacy",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Application Security source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "DESIGN_DEFENSE_APPLICATION_SECURITY_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

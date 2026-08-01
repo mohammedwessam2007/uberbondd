@@ -1,0 +1,11 @@
+{
+  "mission_id": "",
+  "architecture": {},
+  "execution_order": [],
+  "files_likely_to_change": [],
+  "protected_paths": [],
+  "invariants": [],
+  "acceptance_tests": [],
+  "escalation_conditions": [],
+  "stop_condition": ""
+}

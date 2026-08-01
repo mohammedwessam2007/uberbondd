@@ -1,0 +1,22 @@
+{
+  "name": "model-operation-executive-reporting",
+  "title": "Model Operation: Executive Reporting",
+  "domain": "executive-reporting",
+  "group": "business-operations",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Executive Reporting source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "MODEL_OPERATION_EXECUTIVE_REPORTING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

@@ -1,0 +1,35 @@
+{
+  "suite_id": "14_implementation",
+  "title": "Implementation",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "contract_fidelity",
+      "description": "contract fidelity",
+      "weight": 0.2
+    },
+    {
+      "id": "minimal_scope",
+      "description": "minimal scope",
+      "weight": 0.2
+    },
+    {
+      "id": "real_tests",
+      "description": "real tests",
+      "weight": 0.2
+    },
+    {
+      "id": "protected_paths",
+      "description": "protected paths",
+      "weight": 0.2
+    },
+    {
+      "id": "rollback",
+      "description": "rollback",
+      "weight": 0.2
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

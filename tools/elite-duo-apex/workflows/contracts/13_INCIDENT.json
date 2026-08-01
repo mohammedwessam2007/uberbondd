@@ -1,0 +1,13 @@
+{
+  "name": "13_INCIDENT",
+  "title": "Incident diagnosis and recovery plan",
+  "steps": [
+    "compile-mission",
+    "debug-causally",
+    "build-incident-plan",
+    "create-rollback",
+    "build-owner-action-card"
+  ],
+  "output": "INCIDENT_PLAN.md",
+  "model": "claude-sonnet-5"
+}

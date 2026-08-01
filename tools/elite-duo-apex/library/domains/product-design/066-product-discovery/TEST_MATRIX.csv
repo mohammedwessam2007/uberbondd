@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Product Discovery discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during define,define,True,Product Discovery define acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Product Discovery design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Product Discovery test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during launch,launch,True,Product Discovery launch acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during learn,learn,True,Product Discovery learn acceptance

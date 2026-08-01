@@ -1,0 +1,15 @@
+{
+  "domain": "record-retention",
+  "group": "legal-compliance-prep",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Record Retention decisions trace to the mission contract and current evidence.",
+    "Record Retention preserves one durable source of truth for each governed concept.",
+    "Record Retention changes require real-path validation rather than isolated helper evidence.",
+    "Record Retention limitations, residual risks, and approval boundaries are explicit.",
+    "Record Retention never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

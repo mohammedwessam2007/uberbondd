@@ -1,0 +1,22 @@
+{
+  "name": "build-ai-pipeline-agent-architecture",
+  "title": "Build Ai Pipeline: Agent Architecture",
+  "domain": "agent-architecture",
+  "group": "ai-data",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Agent Architecture source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_AI_PIPELINE_AGENT_ARCHITECTURE_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

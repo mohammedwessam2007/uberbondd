@@ -1,0 +1,22 @@
+{
+  "name": "build-control-system-executive-reporting",
+  "title": "Build Control System: Executive Reporting",
+  "domain": "executive-reporting",
+  "group": "business-operations",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Executive Reporting source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_CONTROL_SYSTEM_EXECUTIVE_REPORTING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

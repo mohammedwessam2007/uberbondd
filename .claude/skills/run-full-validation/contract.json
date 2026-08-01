@@ -1,0 +1,15 @@
+{
+  "name": "run-full-validation",
+  "purpose": "Run required complete suite and environment checks.",
+  "kernel": "fable",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "repository"
+  ],
+  "outputs": [
+    "FULL_VALIDATION_EVIDENCE.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

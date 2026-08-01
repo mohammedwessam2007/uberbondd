@@ -1,0 +1,22 @@
+{
+  "name": "validate-product-decision-roadmapping",
+  "title": "Validate Product Decision: Roadmapping",
+  "domain": "roadmapping",
+  "group": "product-design",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Roadmapping source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VALIDATE_PRODUCT_DECISION_ROADMAPPING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

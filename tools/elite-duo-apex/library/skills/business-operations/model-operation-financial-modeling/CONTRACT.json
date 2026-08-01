@@ -1,0 +1,22 @@
+{
+  "name": "model-operation-financial-modeling",
+  "title": "Model Operation: Financial Modeling",
+  "domain": "financial-modeling",
+  "group": "business-operations",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Financial Modeling source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "MODEL_OPERATION_FINANCIAL_MODELING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

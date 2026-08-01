@@ -1,0 +1,17 @@
+{
+  "name": "apex-hiring-systems-specialist",
+  "domain": "hiring-systems",
+  "group": "business-operations",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "effort": "max",
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Bash",
+    "Write"
+  ],
+  "memory": "project",
+  "self_approval": false
+}

@@ -1,0 +1,15 @@
+{
+  "name": "audit-mcp",
+  "purpose": "Audit MCP transport, OAuth, outputs, permissions, and side effects.",
+  "kernel": "fusion",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "MCP config"
+  ],
+  "outputs": [
+    "MCP_AUDIT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

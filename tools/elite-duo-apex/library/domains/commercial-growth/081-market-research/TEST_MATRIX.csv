@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during research,research,True,Market Research research acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during segment,segment,True,Market Research segment acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during offer,offer,True,Market Research offer acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during activate,activate,True,Market Research activate acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during measure,measure,True,Market Research measure acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during retain,retain,True,Market Research retain acceptance

@@ -1,0 +1,22 @@
+{
+  "name": "build-review-packet-ai-governance-prep",
+  "title": "Build Review Packet: Ai Governance Prep",
+  "domain": "ai-governance-prep",
+  "group": "legal-compliance-prep",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Ai Governance Prep source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_REVIEW_PACKET_AI_GOVERNANCE_PREP_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

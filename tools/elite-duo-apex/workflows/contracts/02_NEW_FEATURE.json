@@ -1,0 +1,19 @@
+{
+  "name": "02_NEW_FEATURE",
+  "title": "New bounded feature",
+  "steps": [
+    "compile-mission",
+    "map-repository",
+    "trace-runtime",
+    "design-fable-execution",
+    "design-sol-architecture",
+    "merge-dual-contracts",
+    "implement-contract",
+    "compile-evidence-packet",
+    "review-fable-lens",
+    "review-sol-lens",
+    "adjudicate-reviews"
+  ],
+  "output": "FINAL_VERDICT.json",
+  "model": "claude-sonnet-5"
+}

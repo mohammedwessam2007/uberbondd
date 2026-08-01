@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MEMORY_UPDATE",
+  "type": "object",
+  "required": [
+    "added",
+    "updated",
+    "deleted",
+    "rejected"
+  ],
+  "properties": {
+    "added": {
+      "type": "array"
+    },
+    "updated": {
+      "type": "array"
+    },
+    "deleted": {
+      "type": "array"
+    },
+    "rejected": {
+      "type": "array"
+    }
+  }
+}

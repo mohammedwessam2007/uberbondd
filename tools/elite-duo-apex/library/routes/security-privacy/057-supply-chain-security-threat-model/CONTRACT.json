@@ -1,0 +1,40 @@
+{
+  "route_id": "057-supply-chain-security-threat-model",
+  "title": "Threat Model Supply Chain Security",
+  "domain": "supply-chain-security",
+  "group": "security-privacy",
+  "operation": "threat-model",
+  "model": "claude-sonnet-5",
+  "effort": {
+    "architecture": "max",
+    "execution": "xhigh",
+    "review": "max"
+  },
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Bash"
+  ],
+  "phases": [
+    "compile",
+    "inspect",
+    "architect",
+    "execute",
+    "verify",
+    "review",
+    "stop"
+  ],
+  "required_evidence": [
+    "mission contract",
+    "authority map",
+    "current-state evidence",
+    "decision contract",
+    "test or validation evidence",
+    "limitations",
+    "rollback",
+    "independent verdict"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

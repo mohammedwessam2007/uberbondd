@@ -1,0 +1,39 @@
+{
+  "apply": true,
+  "project": "/home/user/uberbondd",
+  "backup": "/home/user/uberbondd/.claude-apex-backups/20260801-215739",
+  "actions": [
+    {
+      "action": "backup",
+      "source": "/home/user/uberbondd/.claude",
+      "destination": "/home/user/uberbondd/.claude-apex-backups/20260801-215739"
+    },
+    {
+      "action": "copy_hooks",
+      "source": "/tmp/claude-0/-home-user-uberbondd/808134f5-21bc-575f-9b7c-71e69fa6a702/scratchpad/elite_duo/ELITE_DUO_FABLE_FRACTION_ENGINE_V4/claude/hooks",
+      "destination": "/home/user/uberbondd/.claude/hooks"
+    },
+    {
+      "action": "copy_statusline",
+      "source": "/tmp/claude-0/-home-user-uberbondd/808134f5-21bc-575f-9b7c-71e69fa6a702/scratchpad/elite_duo/ELITE_DUO_FABLE_FRACTION_ENGINE_V4/claude/statusline",
+      "destination": "/home/user/uberbondd/.claude/statusline"
+    },
+    {
+      "action": "copy_rules",
+      "source": "/tmp/claude-0/-home-user-uberbondd/808134f5-21bc-575f-9b7c-71e69fa6a702/scratchpad/elite_duo/ELITE_DUO_FABLE_FRACTION_ENGINE_V4/claude/rules",
+      "destination": "/home/user/uberbondd/.claude/rules/elite-duo-apex"
+    },
+    {
+      "action": "merge_settings",
+      "destination": "/home/user/uberbondd/.claude/settings.json"
+    },
+    {
+      "action": "write_proposed_claude",
+      "destination": "/home/user/uberbondd/.claude/CLAUDE.apex.proposed.md"
+    },
+    {
+      "action": "create_state_dir",
+      "destination": "/home/user/uberbondd/.claude/apex"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Model Evaluation discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Model Evaluation design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during build,build,True,Model Evaluation build acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during evaluate,evaluate,True,Model Evaluation evaluate acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during deploy,deploy,True,Model Evaluation deploy acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during monitor,monitor,True,Model Evaluation monitor acceptance

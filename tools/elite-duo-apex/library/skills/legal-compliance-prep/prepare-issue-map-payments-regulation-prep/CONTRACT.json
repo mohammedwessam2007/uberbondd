@@ -1,0 +1,22 @@
+{
+  "name": "prepare-issue-map-payments-regulation-prep",
+  "title": "Prepare Issue Map: Payments Regulation Prep",
+  "domain": "payments-regulation-prep",
+  "group": "legal-compliance-prep",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Payments Regulation Prep source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "PREPARE_ISSUE_MAP_PAYMENTS_REGULATION_PREP_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

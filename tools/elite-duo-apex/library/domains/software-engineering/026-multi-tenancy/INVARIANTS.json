@@ -1,0 +1,15 @@
+{
+  "domain": "multi-tenancy",
+  "group": "software-engineering",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Multi Tenancy decisions trace to the mission contract and current evidence.",
+    "Multi Tenancy preserves one durable source of truth for each governed concept.",
+    "Multi Tenancy changes require real-path validation rather than isolated helper evidence.",
+    "Multi Tenancy limitations, residual risks, and approval boundaries are explicit.",
+    "Multi Tenancy never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

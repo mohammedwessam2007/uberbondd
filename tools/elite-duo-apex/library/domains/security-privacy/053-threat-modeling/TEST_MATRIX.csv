@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during scope,scope,True,Threat Modeling scope acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during model,model,True,Threat Modeling model acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Threat Modeling control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Threat Modeling test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during respond,respond,True,Threat Modeling respond acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Threat Modeling improve acceptance

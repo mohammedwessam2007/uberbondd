@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Fine Tuning discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Fine Tuning design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during build,build,True,Fine Tuning build acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during evaluate,evaluate,True,Fine Tuning evaluate acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during deploy,deploy,True,Fine Tuning deploy acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during monitor,monitor,True,Fine Tuning monitor acceptance

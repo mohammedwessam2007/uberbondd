@@ -1,0 +1,15 @@
+{
+  "domain": "tenant-isolation",
+  "group": "security-privacy",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Tenant Isolation decisions trace to the mission contract and current evidence.",
+    "Tenant Isolation preserves one durable source of truth for each governed concept.",
+    "Tenant Isolation changes require real-path validation rather than isolated helper evidence.",
+    "Tenant Isolation limitations, residual risks, and approval boundaries are explicit.",
+    "Tenant Isolation never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

@@ -1,0 +1,15 @@
+{
+  "domain": "incident-response",
+  "group": "security-privacy",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Incident Response decisions trace to the mission contract and current evidence.",
+    "Incident Response preserves one durable source of truth for each governed concept.",
+    "Incident Response changes require real-path validation rather than isolated helper evidence.",
+    "Incident Response limitations, residual risks, and approval boundaries are explicit.",
+    "Incident Response never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

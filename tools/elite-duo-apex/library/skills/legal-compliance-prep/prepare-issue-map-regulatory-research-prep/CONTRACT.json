@@ -1,0 +1,22 @@
+{
+  "name": "prepare-issue-map-regulatory-research-prep",
+  "title": "Prepare Issue Map: Regulatory Research Prep",
+  "domain": "regulatory-research-prep",
+  "group": "legal-compliance-prep",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Regulatory Research Prep source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "PREPARE_ISSUE_MAP_REGULATORY_RESEARCH_PREP_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

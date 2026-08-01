@@ -1,0 +1,22 @@
+{
+  "name": "build-commercial-system-inbound-growth",
+  "title": "Build Commercial System: Inbound Growth",
+  "domain": "inbound-growth",
+  "group": "commercial-growth",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Inbound Growth source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_COMMERCIAL_SYSTEM_INBOUND_GROWTH_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

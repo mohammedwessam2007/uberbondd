@@ -1,0 +1,22 @@
+{
+  "name": "analyze-runtime-event-driven-architecture",
+  "title": "Analyze Runtime: Event Driven Architecture",
+  "domain": "event-driven-architecture",
+  "group": "software-engineering",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Event Driven Architecture source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "ANALYZE_RUNTIME_EVENT_DRIVEN_ARCHITECTURE_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

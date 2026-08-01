@@ -1,0 +1,22 @@
+{
+  "name": "verify-evidence-source-verification",
+  "title": "Verify Evidence: Source Verification",
+  "domain": "source-verification",
+  "group": "research-knowledge",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Source Verification source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VERIFY_EVIDENCE_SOURCE_VERIFICATION_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

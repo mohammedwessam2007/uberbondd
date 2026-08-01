@@ -1,0 +1,14 @@
+{
+  "name": "11_CODE_REVIEW",
+  "title": "Independent code review",
+  "steps": [
+    "compile-mission",
+    "map-repository",
+    "trace-runtime",
+    "review-fable-lens",
+    "review-sol-lens",
+    "adjudicate-reviews"
+  ],
+  "output": "REVIEW_ADJUDICATION.json",
+  "model": "claude-sonnet-5"
+}

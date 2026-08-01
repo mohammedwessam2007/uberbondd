@@ -1,0 +1,14 @@
+{
+  "name": "01_ARCHITECTURE_ONLY",
+  "title": "Architecture decision without edits",
+  "steps": [
+    "compile-mission",
+    "build-authority-map",
+    "build-context-capsule",
+    "design-fable-execution",
+    "design-sol-architecture",
+    "merge-dual-contracts"
+  ],
+  "output": "ELITE_DECISION_CONTRACT.json",
+  "model": "claude-sonnet-5"
+}

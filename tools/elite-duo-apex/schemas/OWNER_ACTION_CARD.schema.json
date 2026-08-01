@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OWNER_ACTION_CARD",
+  "type": "object",
+  "required": [
+    "actions"
+  ],
+  "properties": {
+    "actions": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "action",
+          "location",
+          "minutes",
+          "cost",
+          "evidence",
+          "default"
+        ]
+      }
+    }
+  }
+}

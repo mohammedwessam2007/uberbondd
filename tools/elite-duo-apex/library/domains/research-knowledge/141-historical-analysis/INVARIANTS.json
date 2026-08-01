@@ -1,0 +1,15 @@
+{
+  "domain": "historical-analysis",
+  "group": "research-knowledge",
+  "risk": "MEDIUM",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Historical Analysis decisions trace to the mission contract and current evidence.",
+    "Historical Analysis preserves one durable source of truth for each governed concept.",
+    "Historical Analysis changes require real-path validation rather than isolated helper evidence.",
+    "Historical Analysis limitations, residual risks, and approval boundaries are explicit.",
+    "Historical Analysis never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

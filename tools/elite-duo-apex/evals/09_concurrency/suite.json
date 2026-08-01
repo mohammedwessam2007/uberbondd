@@ -1,0 +1,35 @@
+{
+  "suite_id": "09_concurrency",
+  "title": "Concurrency",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "race_interleavings",
+      "description": "race interleavings",
+      "weight": 0.2
+    },
+    {
+      "id": "duplicate_prevention",
+      "description": "duplicate prevention",
+      "weight": 0.2
+    },
+    {
+      "id": "stale_lease",
+      "description": "stale lease",
+      "weight": 0.2
+    },
+    {
+      "id": "atomic_boundary",
+      "description": "atomic boundary",
+      "weight": 0.2
+    },
+    {
+      "id": "parallel_execution",
+      "description": "parallel execution",
+      "weight": 0.2
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

@@ -1,0 +1,16 @@
+{
+  "control_id": "029-search-systems-detective",
+  "domain": "search-systems",
+  "type": "detective",
+  "risk": "HIGH",
+  "model_when_judgment_required": "claude-sonnet-5",
+  "effort": "max",
+  "fail_mode": "structured finding",
+  "evidence": [
+    "control configuration",
+    "trigger input",
+    "result",
+    "timestamp",
+    "artifact hash"
+  ]
+}

@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during scope,scope,True,Secure Deployment scope acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during model,model,True,Secure Deployment model acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Secure Deployment control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Secure Deployment test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during respond,respond,True,Secure Deployment respond acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Secure Deployment improve acceptance

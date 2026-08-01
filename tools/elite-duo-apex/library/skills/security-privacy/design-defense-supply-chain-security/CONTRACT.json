@@ -1,0 +1,22 @@
+{
+  "name": "design-defense-supply-chain-security",
+  "title": "Design Defense: Supply Chain Security",
+  "domain": "supply-chain-security",
+  "group": "security-privacy",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Supply Chain Security source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "DESIGN_DEFENSE_SUPPLY_CHAIN_SECURITY_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

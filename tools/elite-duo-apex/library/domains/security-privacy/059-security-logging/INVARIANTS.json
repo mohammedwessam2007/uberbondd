@@ -1,0 +1,15 @@
+{
+  "domain": "security-logging",
+  "group": "security-privacy",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Security Logging decisions trace to the mission contract and current evidence.",
+    "Security Logging preserves one durable source of truth for each governed concept.",
+    "Security Logging changes require real-path validation rather than isolated helper evidence.",
+    "Security Logging limitations, residual risks, and approval boundaries are explicit.",
+    "Security Logging never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

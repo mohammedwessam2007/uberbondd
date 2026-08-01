@@ -1,0 +1,16 @@
+{
+  "name": "trace-runtime",
+  "purpose": "Trace a feature through real scheduler, API, worker, handler, and provider paths.",
+  "kernel": "sol",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "repository",
+    "feature"
+  ],
+  "outputs": [
+    "RUNTIME_WIRING_REPORT.md"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during assess,assess,True,Procurement assess acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Procurement design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during execute,execute,True,Procurement execute acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Procurement control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during review,review,True,Procurement review acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Procurement improve acceptance

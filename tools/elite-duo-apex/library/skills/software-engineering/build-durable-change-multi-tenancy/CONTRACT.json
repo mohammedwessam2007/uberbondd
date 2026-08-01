@@ -1,0 +1,22 @@
+{
+  "name": "build-durable-change-multi-tenancy",
+  "title": "Build Durable Change: Multi Tenancy",
+  "domain": "multi-tenancy",
+  "group": "software-engineering",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Multi Tenancy source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_DURABLE_CHANGE_MULTI_TENANCY_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

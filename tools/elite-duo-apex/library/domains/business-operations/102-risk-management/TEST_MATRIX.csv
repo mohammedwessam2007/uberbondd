@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during assess,assess,True,Risk Management assess acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Risk Management design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during execute,execute,True,Risk Management execute acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Risk Management control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during review,review,True,Risk Management review acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Risk Management improve acceptance

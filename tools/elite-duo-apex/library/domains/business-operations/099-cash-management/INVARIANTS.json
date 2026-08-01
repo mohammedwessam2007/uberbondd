@@ -1,0 +1,15 @@
+{
+  "domain": "cash-management",
+  "group": "business-operations",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Cash Management decisions trace to the mission contract and current evidence.",
+    "Cash Management preserves one durable source of truth for each governed concept.",
+    "Cash Management changes require real-path validation rather than isolated helper evidence.",
+    "Cash Management limitations, residual risks, and approval boundaries are explicit.",
+    "Cash Management never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

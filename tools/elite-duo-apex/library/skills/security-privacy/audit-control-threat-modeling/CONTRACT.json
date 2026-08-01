@@ -1,0 +1,22 @@
+{
+  "name": "audit-control-threat-modeling",
+  "title": "Audit Control: Threat Modeling",
+  "domain": "threat-modeling",
+  "group": "security-privacy",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Threat Modeling source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "AUDIT_CONTROL_THREAT_MODELING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

@@ -1,0 +1,15 @@
+{
+  "domain": "lifecycle-marketing",
+  "group": "commercial-growth",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Lifecycle Marketing decisions trace to the mission contract and current evidence.",
+    "Lifecycle Marketing preserves one durable source of truth for each governed concept.",
+    "Lifecycle Marketing changes require real-path validation rather than isolated helper evidence.",
+    "Lifecycle Marketing limitations, residual risks, and approval boundaries are explicit.",
+    "Lifecycle Marketing never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

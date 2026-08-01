@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Design Systems discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during define,define,True,Design Systems define acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Design Systems design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Design Systems test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during launch,launch,True,Design Systems launch acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during learn,learn,True,Design Systems learn acceptance

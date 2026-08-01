@@ -1,0 +1,35 @@
+{
+  "suite_id": "15_debugging",
+  "title": "Causal debugging",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "reproduction",
+      "description": "reproduction",
+      "weight": 0.2
+    },
+    {
+      "id": "root_cause",
+      "description": "root cause",
+      "weight": 0.2
+    },
+    {
+      "id": "smallest_fix",
+      "description": "smallest fix",
+      "weight": 0.2
+    },
+    {
+      "id": "regression_test",
+      "description": "regression test",
+      "weight": 0.2
+    },
+    {
+      "id": "no_symptom_patch",
+      "description": "no symptom patch",
+      "weight": 0.2
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

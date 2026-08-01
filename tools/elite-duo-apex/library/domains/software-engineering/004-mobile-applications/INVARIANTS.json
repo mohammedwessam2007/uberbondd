@@ -1,0 +1,15 @@
+{
+  "domain": "mobile-applications",
+  "group": "software-engineering",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Mobile Applications decisions trace to the mission contract and current evidence.",
+    "Mobile Applications preserves one durable source of truth for each governed concept.",
+    "Mobile Applications changes require real-path validation rather than isolated helper evidence.",
+    "Mobile Applications limitations, residual risks, and approval boundaries are explicit.",
+    "Mobile Applications never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

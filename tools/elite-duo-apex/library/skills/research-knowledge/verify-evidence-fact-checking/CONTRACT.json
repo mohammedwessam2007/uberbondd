@@ -1,0 +1,22 @@
+{
+  "name": "verify-evidence-fact-checking",
+  "title": "Verify Evidence: Fact Checking",
+  "domain": "fact-checking",
+  "group": "research-knowledge",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Fact Checking source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VERIFY_EVIDENCE_FACT_CHECKING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

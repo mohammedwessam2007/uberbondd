@@ -1,0 +1,15 @@
+{
+  "domain": "experimentation",
+  "group": "product-design",
+  "risk": "MEDIUM",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Experimentation decisions trace to the mission contract and current evidence.",
+    "Experimentation preserves one durable source of truth for each governed concept.",
+    "Experimentation changes require real-path validation rather than isolated helper evidence.",
+    "Experimentation limitations, residual risks, and approval boundaries are explicit.",
+    "Experimentation never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

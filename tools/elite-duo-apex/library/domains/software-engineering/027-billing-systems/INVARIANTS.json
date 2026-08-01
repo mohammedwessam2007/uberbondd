@@ -1,0 +1,15 @@
+{
+  "domain": "billing-systems",
+  "group": "software-engineering",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Billing Systems decisions trace to the mission contract and current evidence.",
+    "Billing Systems preserves one durable source of truth for each governed concept.",
+    "Billing Systems changes require real-path validation rather than isolated helper evidence.",
+    "Billing Systems limitations, residual risks, and approval boundaries are explicit.",
+    "Billing Systems never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

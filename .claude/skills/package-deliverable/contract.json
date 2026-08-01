@@ -1,0 +1,17 @@
+{
+  "name": "package-deliverable",
+  "purpose": "Build manifest, checksums, ZIP, and stop statement.",
+  "kernel": "fable",
+  "effort": "high",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "output directory"
+  ],
+  "outputs": [
+    "MANIFEST.json",
+    "SHA256SUMS.txt",
+    "DELIVERABLE.zip"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

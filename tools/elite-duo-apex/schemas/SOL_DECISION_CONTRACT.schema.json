@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SOL_DECISION_CONTRACT",
+  "type": "object",
+  "required": [
+    "mission_id",
+    "objective",
+    "selected_architecture",
+    "invariants",
+    "counterfactuals",
+    "tool_plan",
+    "acceptance_tests",
+    "rollback"
+  ],
+  "properties": {
+    "mission_id": {
+      "type": "string"
+    },
+    "objective": {
+      "type": "string"
+    },
+    "selected_architecture": {
+      "type": "object"
+    },
+    "invariants": {
+      "type": "array"
+    },
+    "counterfactuals": {
+      "type": "array"
+    },
+    "tool_plan": {
+      "type": "array"
+    },
+    "acceptance_tests": {
+      "type": "array"
+    },
+    "rollback": {
+      "type": "array"
+    }
+  }
+}

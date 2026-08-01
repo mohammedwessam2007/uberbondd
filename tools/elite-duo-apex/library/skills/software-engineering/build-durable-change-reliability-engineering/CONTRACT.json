@@ -1,0 +1,22 @@
+{
+  "name": "build-durable-change-reliability-engineering",
+  "title": "Build Durable Change: Reliability Engineering",
+  "domain": "reliability-engineering",
+  "group": "software-engineering",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Reliability Engineering source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_DURABLE_CHANGE_RELIABILITY_ENGINEERING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

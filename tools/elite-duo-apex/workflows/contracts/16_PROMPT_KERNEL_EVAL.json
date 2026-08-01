@@ -1,0 +1,10 @@
+{
+  "name": "16_PROMPT_KERNEL_EVAL",
+  "title": "Evaluate kernel active ingredients",
+  "steps": [
+    "benchmark-kernel-components",
+    "benchmark-xhigh-vs-max"
+  ],
+  "output": "KERNEL_ABLATION.json",
+  "model": "claude-sonnet-5"
+}

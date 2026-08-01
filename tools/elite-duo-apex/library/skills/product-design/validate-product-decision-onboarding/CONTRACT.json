@@ -1,0 +1,22 @@
+{
+  "name": "validate-product-decision-onboarding",
+  "title": "Validate Product Decision: Onboarding",
+  "domain": "onboarding",
+  "group": "product-design",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Onboarding source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VALIDATE_PRODUCT_DECISION_ONBOARDING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

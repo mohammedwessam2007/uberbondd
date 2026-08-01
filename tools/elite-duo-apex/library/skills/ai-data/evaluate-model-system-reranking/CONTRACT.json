@@ -1,0 +1,22 @@
+{
+  "name": "evaluate-model-system-reranking",
+  "title": "Evaluate Model System: Reranking",
+  "domain": "reranking",
+  "group": "ai-data",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Reranking source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "EVALUATE_MODEL_SYSTEM_RERANKING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

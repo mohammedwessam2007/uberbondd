@@ -1,0 +1,17 @@
+{
+  "name": "build-context-capsule",
+  "purpose": "Compress relevant context with a loss ledger.",
+  "kernel": "fusion",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "mission",
+    "repository"
+  ],
+  "outputs": [
+    "CONTEXT_CAPSULE.md",
+    "LOSS_LEDGER.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

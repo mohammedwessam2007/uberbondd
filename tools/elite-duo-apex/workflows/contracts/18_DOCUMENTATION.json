@@ -1,0 +1,10 @@
+{
+  "name": "18_DOCUMENTATION",
+  "title": "Generate verified handoff and executive summary",
+  "steps": [
+    "compile-evidence-packet",
+    "audit-final-message"
+  ],
+  "output": "HANDOFF.md",
+  "model": "claude-sonnet-5"
+}

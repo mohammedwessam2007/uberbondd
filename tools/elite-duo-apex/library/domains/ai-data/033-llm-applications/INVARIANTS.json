@@ -1,0 +1,15 @@
+{
+  "domain": "llm-applications",
+  "group": "ai-data",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Llm Applications decisions trace to the mission contract and current evidence.",
+    "Llm Applications preserves one durable source of truth for each governed concept.",
+    "Llm Applications changes require real-path validation rather than isolated helper evidence.",
+    "Llm Applications limitations, residual risks, and approval boundaries are explicit.",
+    "Llm Applications never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

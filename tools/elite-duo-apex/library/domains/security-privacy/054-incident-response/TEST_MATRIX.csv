@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during scope,scope,True,Incident Response scope acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during model,model,True,Incident Response model acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Incident Response control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Incident Response test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during respond,respond,True,Incident Response respond acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Incident Response improve acceptance

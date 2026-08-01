@@ -1,0 +1,22 @@
+{
+  "name": "build-commercial-system-lifecycle-marketing",
+  "title": "Build Commercial System: Lifecycle Marketing",
+  "domain": "lifecycle-marketing",
+  "group": "commercial-growth",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Lifecycle Marketing source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_COMMERCIAL_SYSTEM_LIFECYCLE_MARKETING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

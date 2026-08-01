@@ -1,0 +1,14 @@
+{
+  "name": "05_CONCURRENCY_REPAIR",
+  "title": "Race or ordering repair",
+  "steps": [
+    "design-state-machine",
+    "attack-concurrency",
+    "design-idempotency",
+    "design-concurrency-tests",
+    "repair-from-contract",
+    "run-full-validation"
+  ],
+  "output": "FINAL_VERDICT.json",
+  "model": "claude-sonnet-5"
+}

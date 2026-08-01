@@ -1,0 +1,22 @@
+{
+  "name": "build-commercial-system-customer-success",
+  "title": "Build Commercial System: Customer Success",
+  "domain": "customer-success",
+  "group": "commercial-growth",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Customer Success source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_COMMERCIAL_SYSTEM_CUSTOMER_SUCCESS_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

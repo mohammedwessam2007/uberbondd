@@ -1,0 +1,15 @@
+{
+  "domain": "data-processing-agreements",
+  "group": "legal-compliance-prep",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Data Processing Agreements decisions trace to the mission contract and current evidence.",
+    "Data Processing Agreements preserves one durable source of truth for each governed concept.",
+    "Data Processing Agreements changes require real-path validation rather than isolated helper evidence.",
+    "Data Processing Agreements limitations, residual risks, and approval boundaries are explicit.",
+    "Data Processing Agreements never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

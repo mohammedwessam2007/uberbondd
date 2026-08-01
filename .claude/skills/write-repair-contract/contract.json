@@ -1,0 +1,15 @@
+{
+  "name": "write-repair-contract",
+  "purpose": "Convert accepted findings into finite repairs and tests.",
+  "kernel": "fusion",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "adjudication"
+  ],
+  "outputs": [
+    "REPAIR_CONTRACT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

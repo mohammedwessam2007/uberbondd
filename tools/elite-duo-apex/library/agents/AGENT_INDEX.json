@@ -1,0 +1,869 @@
+{
+  "count": 144,
+  "agents": [
+    {
+      "name": "apex-api-design-specialist",
+      "domain": "api-design",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-api-design-specialist"
+    },
+    {
+      "name": "apex-backend-services-specialist",
+      "domain": "backend-services",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-backend-services-specialist"
+    },
+    {
+      "name": "apex-frontend-systems-specialist",
+      "domain": "frontend-systems",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-frontend-systems-specialist"
+    },
+    {
+      "name": "apex-mobile-applications-specialist",
+      "domain": "mobile-applications",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-mobile-applications-specialist"
+    },
+    {
+      "name": "apex-database-engineering-specialist",
+      "domain": "database-engineering",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-database-engineering-specialist"
+    },
+    {
+      "name": "apex-distributed-systems-specialist",
+      "domain": "distributed-systems",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-distributed-systems-specialist"
+    },
+    {
+      "name": "apex-event-driven-architecture-specialist",
+      "domain": "event-driven-architecture",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-event-driven-architecture-specialist"
+    },
+    {
+      "name": "apex-workflow-engines-specialist",
+      "domain": "workflow-engines",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-workflow-engines-specialist"
+    },
+    {
+      "name": "apex-developer-tooling-specialist",
+      "domain": "developer-tooling",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-developer-tooling-specialist"
+    },
+    {
+      "name": "apex-ci-cd-specialist",
+      "domain": "ci-cd",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-ci-cd-specialist"
+    },
+    {
+      "name": "apex-observability-specialist",
+      "domain": "observability",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-observability-specialist"
+    },
+    {
+      "name": "apex-performance-engineering-specialist",
+      "domain": "performance-engineering",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-performance-engineering-specialist"
+    },
+    {
+      "name": "apex-reliability-engineering-specialist",
+      "domain": "reliability-engineering",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-reliability-engineering-specialist"
+    },
+    {
+      "name": "apex-platform-engineering-specialist",
+      "domain": "platform-engineering",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-platform-engineering-specialist"
+    },
+    {
+      "name": "apex-cloud-architecture-specialist",
+      "domain": "cloud-architecture",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-cloud-architecture-specialist"
+    },
+    {
+      "name": "apex-edge-computing-specialist",
+      "domain": "edge-computing",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-edge-computing-specialist"
+    },
+    {
+      "name": "apex-serverless-specialist",
+      "domain": "serverless",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-serverless-specialist"
+    },
+    {
+      "name": "apex-microservices-specialist",
+      "domain": "microservices",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-microservices-specialist"
+    },
+    {
+      "name": "apex-monolith-modernization-specialist",
+      "domain": "monolith-modernization",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-monolith-modernization-specialist"
+    },
+    {
+      "name": "apex-data-migrations-specialist",
+      "domain": "data-migrations",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-data-migrations-specialist"
+    },
+    {
+      "name": "apex-testing-systems-specialist",
+      "domain": "testing-systems",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-testing-systems-specialist"
+    },
+    {
+      "name": "apex-release-engineering-specialist",
+      "domain": "release-engineering",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-release-engineering-specialist"
+    },
+    {
+      "name": "apex-package-management-specialist",
+      "domain": "package-management",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-package-management-specialist"
+    },
+    {
+      "name": "apex-configuration-specialist",
+      "domain": "configuration",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-configuration-specialist"
+    },
+    {
+      "name": "apex-feature-flags-specialist",
+      "domain": "feature-flags",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-feature-flags-specialist"
+    },
+    {
+      "name": "apex-multi-tenancy-specialist",
+      "domain": "multi-tenancy",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-multi-tenancy-specialist"
+    },
+    {
+      "name": "apex-billing-systems-specialist",
+      "domain": "billing-systems",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-billing-systems-specialist"
+    },
+    {
+      "name": "apex-identity-access-specialist",
+      "domain": "identity-access",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-identity-access-specialist"
+    },
+    {
+      "name": "apex-search-systems-specialist",
+      "domain": "search-systems",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-search-systems-specialist"
+    },
+    {
+      "name": "apex-notification-systems-specialist",
+      "domain": "notification-systems",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-notification-systems-specialist"
+    },
+    {
+      "name": "apex-file-processing-specialist",
+      "domain": "file-processing",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-file-processing-specialist"
+    },
+    {
+      "name": "apex-browser-automation-specialist",
+      "domain": "browser-automation",
+      "group": "software-engineering",
+      "path": "library/agents/software-engineering/apex-browser-automation-specialist"
+    },
+    {
+      "name": "apex-llm-applications-specialist",
+      "domain": "llm-applications",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-llm-applications-specialist"
+    },
+    {
+      "name": "apex-agent-architecture-specialist",
+      "domain": "agent-architecture",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-agent-architecture-specialist"
+    },
+    {
+      "name": "apex-rag-systems-specialist",
+      "domain": "rag-systems",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-rag-systems-specialist"
+    },
+    {
+      "name": "apex-embeddings-specialist",
+      "domain": "embeddings",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-embeddings-specialist"
+    },
+    {
+      "name": "apex-reranking-specialist",
+      "domain": "reranking",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-reranking-specialist"
+    },
+    {
+      "name": "apex-prompt-engineering-specialist",
+      "domain": "prompt-engineering",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-prompt-engineering-specialist"
+    },
+    {
+      "name": "apex-model-evaluation-specialist",
+      "domain": "model-evaluation",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-model-evaluation-specialist"
+    },
+    {
+      "name": "apex-model-routing-specialist",
+      "domain": "model-routing",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-model-routing-specialist"
+    },
+    {
+      "name": "apex-synthetic-data-specialist",
+      "domain": "synthetic-data",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-synthetic-data-specialist"
+    },
+    {
+      "name": "apex-fine-tuning-specialist",
+      "domain": "fine-tuning",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-fine-tuning-specialist"
+    },
+    {
+      "name": "apex-multimodal-ai-specialist",
+      "domain": "multimodal-ai",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-multimodal-ai-specialist"
+    },
+    {
+      "name": "apex-vision-systems-specialist",
+      "domain": "vision-systems",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-vision-systems-specialist"
+    },
+    {
+      "name": "apex-speech-systems-specialist",
+      "domain": "speech-systems",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-speech-systems-specialist"
+    },
+    {
+      "name": "apex-document-ai-specialist",
+      "domain": "document-ai",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-document-ai-specialist"
+    },
+    {
+      "name": "apex-recommendation-systems-specialist",
+      "domain": "recommendation-systems",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-recommendation-systems-specialist"
+    },
+    {
+      "name": "apex-forecasting-specialist",
+      "domain": "forecasting",
+      "group": "ai-data",
+      "path": "library/agents/ai-data/apex-forecasting-specialist"
+    },
+    {
+      "name": "apex-application-security-specialist",
+      "domain": "application-security",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-application-security-specialist"
+    },
+    {
+      "name": "apex-cloud-security-specialist",
+      "domain": "cloud-security",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-cloud-security-specialist"
+    },
+    {
+      "name": "apex-identity-security-specialist",
+      "domain": "identity-security",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-identity-security-specialist"
+    },
+    {
+      "name": "apex-secrets-management-specialist",
+      "domain": "secrets-management",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-secrets-management-specialist"
+    },
+    {
+      "name": "apex-threat-modeling-specialist",
+      "domain": "threat-modeling",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-threat-modeling-specialist"
+    },
+    {
+      "name": "apex-incident-response-specialist",
+      "domain": "incident-response",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-incident-response-specialist"
+    },
+    {
+      "name": "apex-data-privacy-specialist",
+      "domain": "data-privacy",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-data-privacy-specialist"
+    },
+    {
+      "name": "apex-prompt-injection-specialist",
+      "domain": "prompt-injection",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-prompt-injection-specialist"
+    },
+    {
+      "name": "apex-supply-chain-security-specialist",
+      "domain": "supply-chain-security",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-supply-chain-security-specialist"
+    },
+    {
+      "name": "apex-vulnerability-management-specialist",
+      "domain": "vulnerability-management",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-vulnerability-management-specialist"
+    },
+    {
+      "name": "apex-security-logging-specialist",
+      "domain": "security-logging",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-security-logging-specialist"
+    },
+    {
+      "name": "apex-abuse-prevention-specialist",
+      "domain": "abuse-prevention",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-abuse-prevention-specialist"
+    },
+    {
+      "name": "apex-fraud-detection-specialist",
+      "domain": "fraud-detection",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-fraud-detection-specialist"
+    },
+    {
+      "name": "apex-payments-security-specialist",
+      "domain": "payments-security",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-payments-security-specialist"
+    },
+    {
+      "name": "apex-tenant-isolation-specialist",
+      "domain": "tenant-isolation",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-tenant-isolation-specialist"
+    },
+    {
+      "name": "apex-secure-deployment-specialist",
+      "domain": "secure-deployment",
+      "group": "security-privacy",
+      "path": "library/agents/security-privacy/apex-secure-deployment-specialist"
+    },
+    {
+      "name": "apex-product-strategy-specialist",
+      "domain": "product-strategy",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-product-strategy-specialist"
+    },
+    {
+      "name": "apex-product-discovery-specialist",
+      "domain": "product-discovery",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-product-discovery-specialist"
+    },
+    {
+      "name": "apex-user-research-specialist",
+      "domain": "user-research",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-user-research-specialist"
+    },
+    {
+      "name": "apex-ux-design-specialist",
+      "domain": "ux-design",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-ux-design-specialist"
+    },
+    {
+      "name": "apex-design-systems-specialist",
+      "domain": "design-systems",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-design-systems-specialist"
+    },
+    {
+      "name": "apex-accessibility-specialist",
+      "domain": "accessibility",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-accessibility-specialist"
+    },
+    {
+      "name": "apex-onboarding-specialist",
+      "domain": "onboarding",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-onboarding-specialist"
+    },
+    {
+      "name": "apex-activation-specialist",
+      "domain": "activation",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-activation-specialist"
+    },
+    {
+      "name": "apex-retention-specialist",
+      "domain": "retention",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-retention-specialist"
+    },
+    {
+      "name": "apex-experimentation-specialist",
+      "domain": "experimentation",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-experimentation-specialist"
+    },
+    {
+      "name": "apex-analytics-specialist",
+      "domain": "analytics",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-analytics-specialist"
+    },
+    {
+      "name": "apex-roadmapping-specialist",
+      "domain": "roadmapping",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-roadmapping-specialist"
+    },
+    {
+      "name": "apex-pricing-design-specialist",
+      "domain": "pricing-design",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-pricing-design-specialist"
+    },
+    {
+      "name": "apex-enterprise-product-specialist",
+      "domain": "enterprise-product",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-enterprise-product-specialist"
+    },
+    {
+      "name": "apex-developer-experience-specialist",
+      "domain": "developer-experience",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-developer-experience-specialist"
+    },
+    {
+      "name": "apex-content-design-specialist",
+      "domain": "content-design",
+      "group": "product-design",
+      "path": "library/agents/product-design/apex-content-design-specialist"
+    },
+    {
+      "name": "apex-market-research-specialist",
+      "domain": "market-research",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-market-research-specialist"
+    },
+    {
+      "name": "apex-buyer-intelligence-specialist",
+      "domain": "buyer-intelligence",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-buyer-intelligence-specialist"
+    },
+    {
+      "name": "apex-offer-design-specialist",
+      "domain": "offer-design",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-offer-design-specialist"
+    },
+    {
+      "name": "apex-sales-operations-specialist",
+      "domain": "sales-operations",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-sales-operations-specialist"
+    },
+    {
+      "name": "apex-outbound-systems-specialist",
+      "domain": "outbound-systems",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-outbound-systems-specialist"
+    },
+    {
+      "name": "apex-inbound-growth-specialist",
+      "domain": "inbound-growth",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-inbound-growth-specialist"
+    },
+    {
+      "name": "apex-partnerships-specialist",
+      "domain": "partnerships",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-partnerships-specialist"
+    },
+    {
+      "name": "apex-channels-specialist",
+      "domain": "channels",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-channels-specialist"
+    },
+    {
+      "name": "apex-seo-specialist",
+      "domain": "seo",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-seo-specialist"
+    },
+    {
+      "name": "apex-content-marketing-specialist",
+      "domain": "content-marketing",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-content-marketing-specialist"
+    },
+    {
+      "name": "apex-lifecycle-marketing-specialist",
+      "domain": "lifecycle-marketing",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-lifecycle-marketing-specialist"
+    },
+    {
+      "name": "apex-customer-success-specialist",
+      "domain": "customer-success",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-customer-success-specialist"
+    },
+    {
+      "name": "apex-support-operations-specialist",
+      "domain": "support-operations",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-support-operations-specialist"
+    },
+    {
+      "name": "apex-revenue-operations-specialist",
+      "domain": "revenue-operations",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-revenue-operations-specialist"
+    },
+    {
+      "name": "apex-account-management-specialist",
+      "domain": "account-management",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-account-management-specialist"
+    },
+    {
+      "name": "apex-procurement-sales-specialist",
+      "domain": "procurement-sales",
+      "group": "commercial-growth",
+      "path": "library/agents/commercial-growth/apex-procurement-sales-specialist"
+    },
+    {
+      "name": "apex-financial-modeling-specialist",
+      "domain": "financial-modeling",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-financial-modeling-specialist"
+    },
+    {
+      "name": "apex-budgeting-specialist",
+      "domain": "budgeting",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-budgeting-specialist"
+    },
+    {
+      "name": "apex-cash-management-specialist",
+      "domain": "cash-management",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-cash-management-specialist"
+    },
+    {
+      "name": "apex-vendor-management-specialist",
+      "domain": "vendor-management",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-vendor-management-specialist"
+    },
+    {
+      "name": "apex-procurement-specialist",
+      "domain": "procurement",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-procurement-specialist"
+    },
+    {
+      "name": "apex-risk-management-specialist",
+      "domain": "risk-management",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-risk-management-specialist"
+    },
+    {
+      "name": "apex-business-continuity-specialist",
+      "domain": "business-continuity",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-business-continuity-specialist"
+    },
+    {
+      "name": "apex-operations-design-specialist",
+      "domain": "operations-design",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-operations-design-specialist"
+    },
+    {
+      "name": "apex-project-management-specialist",
+      "domain": "project-management",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-project-management-specialist"
+    },
+    {
+      "name": "apex-program-management-specialist",
+      "domain": "program-management",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-program-management-specialist"
+    },
+    {
+      "name": "apex-knowledge-management-specialist",
+      "domain": "knowledge-management",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-knowledge-management-specialist"
+    },
+    {
+      "name": "apex-quality-management-specialist",
+      "domain": "quality-management",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-quality-management-specialist"
+    },
+    {
+      "name": "apex-hiring-systems-specialist",
+      "domain": "hiring-systems",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-hiring-systems-specialist"
+    },
+    {
+      "name": "apex-people-operations-specialist",
+      "domain": "people-operations",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-people-operations-specialist"
+    },
+    {
+      "name": "apex-training-specialist",
+      "domain": "training",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-training-specialist"
+    },
+    {
+      "name": "apex-executive-reporting-specialist",
+      "domain": "executive-reporting",
+      "group": "business-operations",
+      "path": "library/agents/business-operations/apex-executive-reporting-specialist"
+    },
+    {
+      "name": "apex-contract-preparation-specialist",
+      "domain": "contract-preparation",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-contract-preparation-specialist"
+    },
+    {
+      "name": "apex-privacy-compliance-prep-specialist",
+      "domain": "privacy-compliance-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-privacy-compliance-prep-specialist"
+    },
+    {
+      "name": "apex-security-compliance-prep-specialist",
+      "domain": "security-compliance-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-security-compliance-prep-specialist"
+    },
+    {
+      "name": "apex-tax-research-prep-specialist",
+      "domain": "tax-research-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-tax-research-prep-specialist"
+    },
+    {
+      "name": "apex-employment-law-prep-specialist",
+      "domain": "employment-law-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-employment-law-prep-specialist"
+    },
+    {
+      "name": "apex-ip-research-prep-specialist",
+      "domain": "ip-research-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-ip-research-prep-specialist"
+    },
+    {
+      "name": "apex-regulatory-research-prep-specialist",
+      "domain": "regulatory-research-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-regulatory-research-prep-specialist"
+    },
+    {
+      "name": "apex-vendor-due-diligence-specialist",
+      "domain": "vendor-due-diligence",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-vendor-due-diligence-specialist"
+    },
+    {
+      "name": "apex-data-processing-agreements-specialist",
+      "domain": "data-processing-agreements",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-data-processing-agreements-specialist"
+    },
+    {
+      "name": "apex-terms-policy-prep-specialist",
+      "domain": "terms-policy-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-terms-policy-prep-specialist"
+    },
+    {
+      "name": "apex-audit-readiness-specialist",
+      "domain": "audit-readiness",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-audit-readiness-specialist"
+    },
+    {
+      "name": "apex-record-retention-specialist",
+      "domain": "record-retention",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-record-retention-specialist"
+    },
+    {
+      "name": "apex-international-expansion-prep-specialist",
+      "domain": "international-expansion-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-international-expansion-prep-specialist"
+    },
+    {
+      "name": "apex-payments-regulation-prep-specialist",
+      "domain": "payments-regulation-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-payments-regulation-prep-specialist"
+    },
+    {
+      "name": "apex-consumer-protection-prep-specialist",
+      "domain": "consumer-protection-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-consumer-protection-prep-specialist"
+    },
+    {
+      "name": "apex-ai-governance-prep-specialist",
+      "domain": "ai-governance-prep",
+      "group": "legal-compliance-prep",
+      "path": "library/agents/legal-compliance-prep/apex-ai-governance-prep-specialist"
+    },
+    {
+      "name": "apex-web-research-specialist",
+      "domain": "web-research",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-web-research-specialist"
+    },
+    {
+      "name": "apex-scientific-literature-specialist",
+      "domain": "scientific-literature",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-scientific-literature-specialist"
+    },
+    {
+      "name": "apex-competitive-intelligence-specialist",
+      "domain": "competitive-intelligence",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-competitive-intelligence-specialist"
+    },
+    {
+      "name": "apex-source-verification-specialist",
+      "domain": "source-verification",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-source-verification-specialist"
+    },
+    {
+      "name": "apex-evidence-synthesis-specialist",
+      "domain": "evidence-synthesis",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-evidence-synthesis-specialist"
+    },
+    {
+      "name": "apex-survey-design-specialist",
+      "domain": "survey-design",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-survey-design-specialist"
+    },
+    {
+      "name": "apex-qualitative-analysis-specialist",
+      "domain": "qualitative-analysis",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-qualitative-analysis-specialist"
+    },
+    {
+      "name": "apex-quantitative-analysis-specialist",
+      "domain": "quantitative-analysis",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-quantitative-analysis-specialist"
+    },
+    {
+      "name": "apex-knowledge-graphs-specialist",
+      "domain": "knowledge-graphs",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-knowledge-graphs-specialist"
+    },
+    {
+      "name": "apex-taxonomy-design-specialist",
+      "domain": "taxonomy-design",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-taxonomy-design-specialist"
+    },
+    {
+      "name": "apex-document-synthesis-specialist",
+      "domain": "document-synthesis",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-document-synthesis-specialist"
+    },
+    {
+      "name": "apex-fact-checking-specialist",
+      "domain": "fact-checking",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-fact-checking-specialist"
+    },
+    {
+      "name": "apex-historical-analysis-specialist",
+      "domain": "historical-analysis",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-historical-analysis-specialist"
+    },
+    {
+      "name": "apex-policy-research-specialist",
+      "domain": "policy-research",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-policy-research-specialist"
+    },
+    {
+      "name": "apex-technical-writing-specialist",
+      "domain": "technical-writing",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-technical-writing-specialist"
+    },
+    {
+      "name": "apex-decision-memos-specialist",
+      "domain": "decision-memos",
+      "group": "research-knowledge",
+      "path": "library/agents/research-knowledge/apex-decision-memos-specialist"
+    }
+  ]
+}

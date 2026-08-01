@@ -1,0 +1,15 @@
+{
+  "domain": "document-synthesis",
+  "group": "research-knowledge",
+  "risk": "MEDIUM",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Document Synthesis decisions trace to the mission contract and current evidence.",
+    "Document Synthesis preserves one durable source of truth for each governed concept.",
+    "Document Synthesis changes require real-path validation rather than isolated helper evidence.",
+    "Document Synthesis limitations, residual risks, and approval boundaries are explicit.",
+    "Document Synthesis never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

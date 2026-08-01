@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Onboarding discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during define,define,True,Onboarding define acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Onboarding design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Onboarding test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during launch,launch,True,Onboarding launch acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during learn,learn,True,Onboarding learn acceptance

@@ -1,0 +1,22 @@
+{
+  "name": "verify-demand-offer-design",
+  "title": "Verify Demand: Offer Design",
+  "domain": "offer-design",
+  "group": "commercial-growth",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Offer Design source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VERIFY_DEMAND_OFFER_DESIGN_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

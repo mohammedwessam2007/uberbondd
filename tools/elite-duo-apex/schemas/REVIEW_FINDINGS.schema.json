@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "REVIEW_FINDINGS",
+  "type": "object",
+  "required": [
+    "reviewer",
+    "reviewer_model",
+    "lens",
+    "verdict",
+    "findings",
+    "uncertainties"
+  ],
+  "properties": {
+    "reviewer": {
+      "type": "string"
+    },
+    "reviewer_model": {
+      "const": "claude-sonnet-5"
+    },
+    "lens": {
+      "enum": [
+        "fable",
+        "sol",
+        "fusion"
+      ]
+    },
+    "verdict": {
+      "enum": [
+        "REJECT",
+        "REPAIR_REQUIRED",
+        "READY_FOR_OWNER_REVIEW",
+        "READY_FOR_CONTROLLED_SIMULATION",
+        "READY_FOR_BOUNDED_CANARY"
+      ]
+    },
+    "findings": {
+      "type": "array"
+    },
+    "uncertainties": {
+      "type": "array"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "validate-memory",
+  "purpose": "Check memory freshness, authority, duplication, and size.",
+  "kernel": "fusion",
+  "effort": "high",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "memory files"
+  ],
+  "outputs": [
+    "MEMORY_AUDIT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

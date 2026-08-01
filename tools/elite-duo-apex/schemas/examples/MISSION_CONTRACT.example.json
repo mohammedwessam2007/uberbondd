@@ -1,0 +1,11 @@
+{
+  "mission_id": "",
+  "intent": "assess",
+  "goal": "",
+  "authority": [],
+  "deliverables": [],
+  "constraints": [],
+  "approval_boundaries": [],
+  "acceptance_tests": [],
+  "stop_condition": ""
+}

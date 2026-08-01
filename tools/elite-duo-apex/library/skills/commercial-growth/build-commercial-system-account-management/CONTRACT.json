@@ -1,0 +1,22 @@
+{
+  "name": "build-commercial-system-account-management",
+  "title": "Build Commercial System: Account Management",
+  "domain": "account-management",
+  "group": "commercial-growth",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Account Management source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_COMMERCIAL_SYSTEM_ACCOUNT_MANAGEMENT_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

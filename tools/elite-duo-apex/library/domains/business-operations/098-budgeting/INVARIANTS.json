@@ -1,0 +1,15 @@
+{
+  "domain": "budgeting",
+  "group": "business-operations",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Budgeting decisions trace to the mission contract and current evidence.",
+    "Budgeting preserves one durable source of truth for each governed concept.",
+    "Budgeting changes require real-path validation rather than isolated helper evidence.",
+    "Budgeting limitations, residual risks, and approval boundaries are explicit.",
+    "Budgeting never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

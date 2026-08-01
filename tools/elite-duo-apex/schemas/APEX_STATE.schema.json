@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "APEX_STATE",
+  "type": "object",
+  "required": [
+    "mission_id",
+    "state",
+    "completed",
+    "blockers",
+    "modified_files",
+    "tests",
+    "external_actions",
+    "next_action"
+  ],
+  "properties": {
+    "mission_id": {
+      "type": "string"
+    },
+    "state": {
+      "enum": [
+        "INGEST",
+        "ARCHITECT",
+        "EXECUTE",
+        "VERIFY",
+        "REPAIR",
+        "DELIVER",
+        "STOP",
+        "BLOCKED_USER_INPUT"
+      ]
+    },
+    "completed": {
+      "type": "array"
+    },
+    "blockers": {
+      "type": "array"
+    },
+    "modified_files": {
+      "type": "array"
+    },
+    "tests": {
+      "type": "array"
+    },
+    "external_actions": {
+      "type": "array"
+    },
+    "next_action": {
+      "type": "string"
+    }
+  }
+}

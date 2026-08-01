@@ -1,0 +1,40 @@
+{
+  "route_id": "128-ai-governance-prep-classify",
+  "title": "Classify Ai Governance Prep",
+  "domain": "ai-governance-prep",
+  "group": "legal-compliance-prep",
+  "operation": "classify",
+  "model": "claude-sonnet-5",
+  "effort": {
+    "architecture": "max",
+    "execution": "xhigh",
+    "review": "max"
+  },
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Write"
+  ],
+  "phases": [
+    "compile",
+    "inspect",
+    "architect",
+    "execute",
+    "verify",
+    "review",
+    "stop"
+  ],
+  "required_evidence": [
+    "mission contract",
+    "authority map",
+    "current-state evidence",
+    "decision contract",
+    "test or validation evidence",
+    "limitations",
+    "rollback",
+    "independent verdict"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

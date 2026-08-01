@@ -1,0 +1,22 @@
+{
+  "name": "evaluate-model-system-model-routing",
+  "title": "Evaluate Model System: Model Routing",
+  "domain": "model-routing",
+  "group": "ai-data",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Model Routing source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "EVALUATE_MODEL_SYSTEM_MODEL_ROUTING_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

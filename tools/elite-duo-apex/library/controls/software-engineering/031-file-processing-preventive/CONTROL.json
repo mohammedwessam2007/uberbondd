@@ -1,0 +1,16 @@
+{
+  "control_id": "031-file-processing-preventive",
+  "domain": "file-processing",
+  "type": "preventive",
+  "risk": "HIGH",
+  "model_when_judgment_required": "claude-sonnet-5",
+  "effort": "max",
+  "fail_mode": "structured finding",
+  "evidence": [
+    "control configuration",
+    "trigger input",
+    "result",
+    "timestamp",
+    "artifact hash"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "issue-final-verdict",
+  "purpose": "Issue only an allowed readiness verdict.",
+  "kernel": "fusion",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "evidence",
+    "reviews"
+  ],
+  "outputs": [
+    "FINAL_VERDICT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

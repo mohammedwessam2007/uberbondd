@@ -1,0 +1,27 @@
+{
+  "domain": "fact-checking",
+  "title": "Fact Checking",
+  "lifecycle": [
+    "frame",
+    "search",
+    "extract",
+    "verify",
+    "synthesize",
+    "publish"
+  ],
+  "roles": [
+    "mission-compiler",
+    "fable-execution-architect",
+    "sol-decision-architect",
+    "apex-implementation-lead",
+    "fable-independent-reviewer",
+    "sol-independent-reviewer",
+    "apex-judge"
+  ],
+  "model": "claude-sonnet-5",
+  "quality_profile": {
+    "architecture": "max",
+    "execution": "xhigh",
+    "review": "max"
+  }
+}

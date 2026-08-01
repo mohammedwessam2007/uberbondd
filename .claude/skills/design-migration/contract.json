@@ -1,0 +1,16 @@
+{
+  "name": "design-migration",
+  "purpose": "Design additive, reversible, mixed-version-safe migration.",
+  "kernel": "fusion",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "schema",
+    "requirements"
+  ],
+  "outputs": [
+    "MIGRATION_CONTRACT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

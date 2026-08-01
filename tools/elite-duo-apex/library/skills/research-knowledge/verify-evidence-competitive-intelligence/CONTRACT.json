@@ -1,0 +1,22 @@
+{
+  "name": "verify-evidence-competitive-intelligence",
+  "title": "Verify Evidence: Competitive Intelligence",
+  "domain": "competitive-intelligence",
+  "group": "research-knowledge",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Competitive Intelligence source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VERIFY_EVIDENCE_COMPETITIVE_INTELLIGENCE_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

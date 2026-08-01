@@ -1,0 +1,16 @@
+{
+  "control_id": "122-terms-policy-prep-preventive",
+  "domain": "terms-policy-prep",
+  "type": "preventive",
+  "risk": "CRITICAL",
+  "model_when_judgment_required": "claude-sonnet-5",
+  "effort": "max",
+  "fail_mode": "closed",
+  "evidence": [
+    "control configuration",
+    "trigger input",
+    "result",
+    "timestamp",
+    "artifact hash"
+  ]
+}

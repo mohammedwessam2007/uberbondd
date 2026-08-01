@@ -1,0 +1,15 @@
+{
+  "domain": "frontend-systems",
+  "group": "software-engineering",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Frontend Systems decisions trace to the mission contract and current evidence.",
+    "Frontend Systems preserves one durable source of truth for each governed concept.",
+    "Frontend Systems changes require real-path validation rather than isolated helper evidence.",
+    "Frontend Systems limitations, residual risks, and approval boundaries are explicit.",
+    "Frontend Systems never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

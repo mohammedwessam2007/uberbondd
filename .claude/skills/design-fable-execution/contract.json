@@ -1,0 +1,16 @@
+{
+  "name": "design-fable-execution",
+  "purpose": "Create long-horizon state, delegation, recovery, and verification.",
+  "kernel": "fable",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "mission",
+    "context"
+  ],
+  "outputs": [
+    "FABLE_EXECUTION_MODEL.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

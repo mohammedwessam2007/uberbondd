@@ -1,0 +1,15 @@
+{
+  "domain": "consumer-protection-prep",
+  "group": "legal-compliance-prep",
+  "risk": "CRITICAL",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Consumer Protection Prep decisions trace to the mission contract and current evidence.",
+    "Consumer Protection Prep preserves one durable source of truth for each governed concept.",
+    "Consumer Protection Prep changes require real-path validation rather than isolated helper evidence.",
+    "Consumer Protection Prep limitations, residual risks, and approval boundaries are explicit.",
+    "Consumer Protection Prep never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

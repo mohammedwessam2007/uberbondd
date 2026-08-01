@@ -1,0 +1,11 @@
+{
+  "name": "17_ARTIFACT_DELIVERY",
+  "title": "Validate and package deliverables",
+  "steps": [
+    "audit-artifacts",
+    "package-deliverable",
+    "audit-final-message"
+  ],
+  "output": "DELIVERABLE.zip",
+  "model": "claude-sonnet-5"
+}

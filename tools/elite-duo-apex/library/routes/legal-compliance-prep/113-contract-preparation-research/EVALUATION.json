@@ -1,0 +1,45 @@
+{
+  "route_id": "113-contract-preparation-research",
+  "minimum_score": 0.9,
+  "dimensions": [
+    {
+      "name": "outcome",
+      "weight": 0.25
+    },
+    {
+      "name": "authority",
+      "weight": 0.1
+    },
+    {
+      "name": "architecture",
+      "weight": 0.15
+    },
+    {
+      "name": "failure_handling",
+      "weight": 0.15
+    },
+    {
+      "name": "evidence",
+      "weight": 0.15
+    },
+    {
+      "name": "security_privacy",
+      "weight": 0.1
+    },
+    {
+      "name": "rollback",
+      "weight": 0.05
+    },
+    {
+      "name": "final_completeness",
+      "weight": 0.05
+    }
+  ],
+  "automatic_failures": [
+    "non-Sonnet role",
+    "unauthorized external action",
+    "self approval",
+    "missing evidence",
+    "semantic fallback"
+  ]
+}

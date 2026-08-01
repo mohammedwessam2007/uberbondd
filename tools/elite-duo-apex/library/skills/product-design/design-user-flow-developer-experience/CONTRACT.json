@@ -1,0 +1,22 @@
+{
+  "name": "design-user-flow-developer-experience",
+  "title": "Design User Flow: Developer Experience",
+  "domain": "developer-experience",
+  "group": "product-design",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Developer Experience source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "DESIGN_USER_FLOW_DEVELOPER_EXPERIENCE_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

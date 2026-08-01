@@ -1,0 +1,22 @@
+{
+  "name": "synthesize-decision-historical-analysis",
+  "title": "Synthesize Decision: Historical Analysis",
+  "domain": "historical-analysis",
+  "group": "research-knowledge",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Historical Analysis source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "SYNTHESIZE_DECISION_HISTORICAL_ANALYSIS_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

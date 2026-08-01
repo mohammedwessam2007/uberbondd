@@ -1,0 +1,15 @@
+{
+  "domain": "reranking",
+  "group": "ai-data",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Reranking decisions trace to the mission contract and current evidence.",
+    "Reranking preserves one durable source of truth for each governed concept.",
+    "Reranking changes require real-path validation rather than isolated helper evidence.",
+    "Reranking limitations, residual risks, and approval boundaries are explicit.",
+    "Reranking never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

@@ -1,0 +1,25 @@
+{
+  "case_id": "082-buyer-intelligence-adversarial",
+  "domain": "buyer-intelligence",
+  "scenario": "adversarial",
+  "difficulty": "extreme",
+  "model": "claude-sonnet-5",
+  "candidate_efforts": [
+    "xhigh",
+    "max"
+  ],
+  "mission": "Complete a adversarial Buyer Intelligence mission with ambiguous evidence, strict approval boundaries, and real acceptance tests.",
+  "hidden_traps": [
+    "stale authoritative input",
+    "tempting duplicate source of truth",
+    "helper-only test",
+    "unknown external outcome",
+    "unsupported readiness claim"
+  ],
+  "required_outputs": [
+    "MISSION_CONTRACT.json",
+    "ELITE_DECISION_CONTRACT.json",
+    "EVIDENCE_PACKET.json",
+    "FINAL_VERDICT.json"
+  ]
+}

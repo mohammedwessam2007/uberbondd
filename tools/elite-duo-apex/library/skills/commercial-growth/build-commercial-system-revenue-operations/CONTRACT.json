@@ -1,0 +1,22 @@
+{
+  "name": "build-commercial-system-revenue-operations",
+  "title": "Build Commercial System: Revenue Operations",
+  "domain": "revenue-operations",
+  "group": "commercial-growth",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Revenue Operations source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_COMMERCIAL_SYSTEM_REVENUE_OPERATIONS_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

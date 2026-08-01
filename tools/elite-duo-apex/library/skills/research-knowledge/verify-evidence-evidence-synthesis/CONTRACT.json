@@ -1,0 +1,22 @@
+{
+  "name": "verify-evidence-evidence-synthesis",
+  "title": "Verify Evidence: Evidence Synthesis",
+  "domain": "evidence-synthesis",
+  "group": "research-knowledge",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Evidence Synthesis source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VERIFY_EVIDENCE_EVIDENCE_SYNTHESIS_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

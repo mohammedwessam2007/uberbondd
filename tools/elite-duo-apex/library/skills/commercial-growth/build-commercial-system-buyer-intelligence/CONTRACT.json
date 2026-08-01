@@ -1,0 +1,22 @@
+{
+  "name": "build-commercial-system-buyer-intelligence",
+  "title": "Build Commercial System: Buyer Intelligence",
+  "domain": "buyer-intelligence",
+  "group": "commercial-growth",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Buyer Intelligence source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "BUILD_COMMERCIAL_SYSTEM_BUYER_INTELLIGENCE_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

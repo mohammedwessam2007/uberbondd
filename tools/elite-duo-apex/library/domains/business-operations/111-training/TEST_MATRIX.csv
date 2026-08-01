@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during assess,assess,True,Training assess acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Training design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during execute,execute,True,Training execute acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Training control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during review,review,True,Training review acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Training improve acceptance

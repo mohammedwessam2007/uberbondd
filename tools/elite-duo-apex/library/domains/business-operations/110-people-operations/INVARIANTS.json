@@ -1,0 +1,15 @@
+{
+  "domain": "people-operations",
+  "group": "business-operations",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "People Operations decisions trace to the mission contract and current evidence.",
+    "People Operations preserves one durable source of truth for each governed concept.",
+    "People Operations changes require real-path validation rather than isolated helper evidence.",
+    "People Operations limitations, residual risks, and approval boundaries are explicit.",
+    "People Operations never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

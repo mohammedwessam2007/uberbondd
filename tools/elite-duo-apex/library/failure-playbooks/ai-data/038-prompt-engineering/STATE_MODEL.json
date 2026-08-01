@@ -1,0 +1,21 @@
+{
+  "domain": "prompt-engineering",
+  "states": [
+    "detected",
+    "contained",
+    "evidence-preserved",
+    "cause-modeled",
+    "repairing",
+    "verifying",
+    "resolved",
+    "blocked-user-input"
+  ],
+  "terminal_states": [
+    "resolved",
+    "blocked-user-input"
+  ],
+  "forbidden_transition": [
+    "detected->resolved without verification",
+    "unknown outcome->confirmed without evidence"
+  ]
+}

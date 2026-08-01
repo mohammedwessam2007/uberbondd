@@ -1,0 +1,35 @@
+{
+  "suite_id": "05_sol_architecture",
+  "title": "Sol architecture behavior",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "minimal_durable_design",
+      "description": "minimal durable design",
+      "weight": 0.2
+    },
+    {
+      "id": "counterfactuals",
+      "description": "counterfactuals",
+      "weight": 0.2
+    },
+    {
+      "id": "invariants",
+      "description": "invariants",
+      "weight": 0.2
+    },
+    {
+      "id": "tool_plan",
+      "description": "tool plan",
+      "weight": 0.2
+    },
+    {
+      "id": "acceptance",
+      "description": "acceptance",
+      "weight": 0.2
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

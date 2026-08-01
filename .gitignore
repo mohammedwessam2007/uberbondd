@@ -4,3 +4,21 @@ data/screenshots/*
 !data/screenshots/.gitkeep
 .env
 .DS_Store
+
+# ELITE DUO FABLE FRACTION ENGINE V4 (tools/elite-duo-apex/) -- build/runtime artifacts only.
+# The selective-intelligence library catalog is regenerated with:
+#   python3 tools/elite-duo-apex/library/build_catalog.py
+__pycache__/
+*.pyc
+tools/elite-duo-apex/library/catalog.sqlite
+tools/elite-duo-apex/library/catalog.jsonl
+tools/elite-duo-apex/library/catalog.csv
+tools/elite-duo-apex/library/CATALOG_STATS.json
+.claude/apex/*.jsonl
+.claude/apex/APEX_STATE.json
+.claude/apex/CONTEXT_HEALTH.json
+.claude/apex/tool-results/
+.claude-apex-backups/
+# Dry-run demo output of `library/apex_library.py materialize` (Phase 7 smoke test) -- regenerate with:
+#   python3 tools/elite-duo-apex/library/apex_library.py materialize --query "..." --output tools/elite-duo-apex/MISSION_INTELLIGENCE_PACK
+tools/elite-duo-apex/MISSION_INTELLIGENCE_PACK/

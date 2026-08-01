@@ -1,0 +1,15 @@
+{
+  "domain": "design-systems",
+  "group": "product-design",
+  "risk": "MEDIUM",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Design Systems decisions trace to the mission contract and current evidence.",
+    "Design Systems preserves one durable source of truth for each governed concept.",
+    "Design Systems changes require real-path validation rather than isolated helper evidence.",
+    "Design Systems limitations, residual risks, and approval boundaries are explicit.",
+    "Design Systems never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

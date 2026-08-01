@@ -1,0 +1,7 @@
+{
+  "name": "context-health",
+  "model": "claude-sonnet-5",
+  "effort": "high",
+  "quality_gate": "no lower acceptance or higher reviewer defects",
+  "external_actions": false
+}

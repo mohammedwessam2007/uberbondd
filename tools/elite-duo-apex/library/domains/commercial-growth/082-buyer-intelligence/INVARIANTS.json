@@ -1,0 +1,15 @@
+{
+  "domain": "buyer-intelligence",
+  "group": "commercial-growth",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Buyer Intelligence decisions trace to the mission contract and current evidence.",
+    "Buyer Intelligence preserves one durable source of truth for each governed concept.",
+    "Buyer Intelligence changes require real-path validation rather than isolated helper evidence.",
+    "Buyer Intelligence limitations, residual risks, and approval boundaries are explicit.",
+    "Buyer Intelligence never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

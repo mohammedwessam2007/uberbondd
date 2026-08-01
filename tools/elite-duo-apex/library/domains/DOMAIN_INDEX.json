@@ -1,0 +1,1301 @@
+{
+  "count": 144,
+  "domains": [
+    {
+      "id": "001-api-design",
+      "group": "software-engineering",
+      "domain": "api-design",
+      "title": "Api Design",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/001-api-design",
+      "keywords": "software-engineering api-design Api Design discover architect implement verify release operate"
+    },
+    {
+      "id": "002-backend-services",
+      "group": "software-engineering",
+      "domain": "backend-services",
+      "title": "Backend Services",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/002-backend-services",
+      "keywords": "software-engineering backend-services Backend Services discover architect implement verify release operate"
+    },
+    {
+      "id": "003-frontend-systems",
+      "group": "software-engineering",
+      "domain": "frontend-systems",
+      "title": "Frontend Systems",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/003-frontend-systems",
+      "keywords": "software-engineering frontend-systems Frontend Systems discover architect implement verify release operate"
+    },
+    {
+      "id": "004-mobile-applications",
+      "group": "software-engineering",
+      "domain": "mobile-applications",
+      "title": "Mobile Applications",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/004-mobile-applications",
+      "keywords": "software-engineering mobile-applications Mobile Applications discover architect implement verify release operate"
+    },
+    {
+      "id": "005-database-engineering",
+      "group": "software-engineering",
+      "domain": "database-engineering",
+      "title": "Database Engineering",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/005-database-engineering",
+      "keywords": "software-engineering database-engineering Database Engineering discover architect implement verify release operate"
+    },
+    {
+      "id": "006-distributed-systems",
+      "group": "software-engineering",
+      "domain": "distributed-systems",
+      "title": "Distributed Systems",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/006-distributed-systems",
+      "keywords": "software-engineering distributed-systems Distributed Systems discover architect implement verify release operate"
+    },
+    {
+      "id": "007-event-driven-architecture",
+      "group": "software-engineering",
+      "domain": "event-driven-architecture",
+      "title": "Event Driven Architecture",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/007-event-driven-architecture",
+      "keywords": "software-engineering event-driven-architecture Event Driven Architecture discover architect implement verify release operate"
+    },
+    {
+      "id": "008-workflow-engines",
+      "group": "software-engineering",
+      "domain": "workflow-engines",
+      "title": "Workflow Engines",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/008-workflow-engines",
+      "keywords": "software-engineering workflow-engines Workflow Engines discover architect implement verify release operate"
+    },
+    {
+      "id": "009-developer-tooling",
+      "group": "software-engineering",
+      "domain": "developer-tooling",
+      "title": "Developer Tooling",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/009-developer-tooling",
+      "keywords": "software-engineering developer-tooling Developer Tooling discover architect implement verify release operate"
+    },
+    {
+      "id": "010-ci-cd",
+      "group": "software-engineering",
+      "domain": "ci-cd",
+      "title": "Ci Cd",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/010-ci-cd",
+      "keywords": "software-engineering ci-cd Ci Cd discover architect implement verify release operate"
+    },
+    {
+      "id": "011-observability",
+      "group": "software-engineering",
+      "domain": "observability",
+      "title": "Observability",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/011-observability",
+      "keywords": "software-engineering observability Observability discover architect implement verify release operate"
+    },
+    {
+      "id": "012-performance-engineering",
+      "group": "software-engineering",
+      "domain": "performance-engineering",
+      "title": "Performance Engineering",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/012-performance-engineering",
+      "keywords": "software-engineering performance-engineering Performance Engineering discover architect implement verify release operate"
+    },
+    {
+      "id": "013-reliability-engineering",
+      "group": "software-engineering",
+      "domain": "reliability-engineering",
+      "title": "Reliability Engineering",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/013-reliability-engineering",
+      "keywords": "software-engineering reliability-engineering Reliability Engineering discover architect implement verify release operate"
+    },
+    {
+      "id": "014-platform-engineering",
+      "group": "software-engineering",
+      "domain": "platform-engineering",
+      "title": "Platform Engineering",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/014-platform-engineering",
+      "keywords": "software-engineering platform-engineering Platform Engineering discover architect implement verify release operate"
+    },
+    {
+      "id": "015-cloud-architecture",
+      "group": "software-engineering",
+      "domain": "cloud-architecture",
+      "title": "Cloud Architecture",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/015-cloud-architecture",
+      "keywords": "software-engineering cloud-architecture Cloud Architecture discover architect implement verify release operate"
+    },
+    {
+      "id": "016-edge-computing",
+      "group": "software-engineering",
+      "domain": "edge-computing",
+      "title": "Edge Computing",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/016-edge-computing",
+      "keywords": "software-engineering edge-computing Edge Computing discover architect implement verify release operate"
+    },
+    {
+      "id": "017-serverless",
+      "group": "software-engineering",
+      "domain": "serverless",
+      "title": "Serverless",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/017-serverless",
+      "keywords": "software-engineering serverless Serverless discover architect implement verify release operate"
+    },
+    {
+      "id": "018-microservices",
+      "group": "software-engineering",
+      "domain": "microservices",
+      "title": "Microservices",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/018-microservices",
+      "keywords": "software-engineering microservices Microservices discover architect implement verify release operate"
+    },
+    {
+      "id": "019-monolith-modernization",
+      "group": "software-engineering",
+      "domain": "monolith-modernization",
+      "title": "Monolith Modernization",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/019-monolith-modernization",
+      "keywords": "software-engineering monolith-modernization Monolith Modernization discover architect implement verify release operate"
+    },
+    {
+      "id": "020-data-migrations",
+      "group": "software-engineering",
+      "domain": "data-migrations",
+      "title": "Data Migrations",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/020-data-migrations",
+      "keywords": "software-engineering data-migrations Data Migrations discover architect implement verify release operate"
+    },
+    {
+      "id": "021-testing-systems",
+      "group": "software-engineering",
+      "domain": "testing-systems",
+      "title": "Testing Systems",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/021-testing-systems",
+      "keywords": "software-engineering testing-systems Testing Systems discover architect implement verify release operate"
+    },
+    {
+      "id": "022-release-engineering",
+      "group": "software-engineering",
+      "domain": "release-engineering",
+      "title": "Release Engineering",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/022-release-engineering",
+      "keywords": "software-engineering release-engineering Release Engineering discover architect implement verify release operate"
+    },
+    {
+      "id": "023-package-management",
+      "group": "software-engineering",
+      "domain": "package-management",
+      "title": "Package Management",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/023-package-management",
+      "keywords": "software-engineering package-management Package Management discover architect implement verify release operate"
+    },
+    {
+      "id": "024-configuration",
+      "group": "software-engineering",
+      "domain": "configuration",
+      "title": "Configuration",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/024-configuration",
+      "keywords": "software-engineering configuration Configuration discover architect implement verify release operate"
+    },
+    {
+      "id": "025-feature-flags",
+      "group": "software-engineering",
+      "domain": "feature-flags",
+      "title": "Feature Flags",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/025-feature-flags",
+      "keywords": "software-engineering feature-flags Feature Flags discover architect implement verify release operate"
+    },
+    {
+      "id": "026-multi-tenancy",
+      "group": "software-engineering",
+      "domain": "multi-tenancy",
+      "title": "Multi Tenancy",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/026-multi-tenancy",
+      "keywords": "software-engineering multi-tenancy Multi Tenancy discover architect implement verify release operate"
+    },
+    {
+      "id": "027-billing-systems",
+      "group": "software-engineering",
+      "domain": "billing-systems",
+      "title": "Billing Systems",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/027-billing-systems",
+      "keywords": "software-engineering billing-systems Billing Systems discover architect implement verify release operate"
+    },
+    {
+      "id": "028-identity-access",
+      "group": "software-engineering",
+      "domain": "identity-access",
+      "title": "Identity Access",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/028-identity-access",
+      "keywords": "software-engineering identity-access Identity Access discover architect implement verify release operate"
+    },
+    {
+      "id": "029-search-systems",
+      "group": "software-engineering",
+      "domain": "search-systems",
+      "title": "Search Systems",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/029-search-systems",
+      "keywords": "software-engineering search-systems Search Systems discover architect implement verify release operate"
+    },
+    {
+      "id": "030-notification-systems",
+      "group": "software-engineering",
+      "domain": "notification-systems",
+      "title": "Notification Systems",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/030-notification-systems",
+      "keywords": "software-engineering notification-systems Notification Systems discover architect implement verify release operate"
+    },
+    {
+      "id": "031-file-processing",
+      "group": "software-engineering",
+      "domain": "file-processing",
+      "title": "File Processing",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/031-file-processing",
+      "keywords": "software-engineering file-processing File Processing discover architect implement verify release operate"
+    },
+    {
+      "id": "032-browser-automation",
+      "group": "software-engineering",
+      "domain": "browser-automation",
+      "title": "Browser Automation",
+      "risk": "HIGH",
+      "path": "library/domains/software-engineering/032-browser-automation",
+      "keywords": "software-engineering browser-automation Browser Automation discover architect implement verify release operate"
+    },
+    {
+      "id": "033-llm-applications",
+      "group": "ai-data",
+      "domain": "llm-applications",
+      "title": "Llm Applications",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/033-llm-applications",
+      "keywords": "ai-data llm-applications Llm Applications discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "034-agent-architecture",
+      "group": "ai-data",
+      "domain": "agent-architecture",
+      "title": "Agent Architecture",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/034-agent-architecture",
+      "keywords": "ai-data agent-architecture Agent Architecture discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "035-rag-systems",
+      "group": "ai-data",
+      "domain": "rag-systems",
+      "title": "Rag Systems",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/035-rag-systems",
+      "keywords": "ai-data rag-systems Rag Systems discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "036-embeddings",
+      "group": "ai-data",
+      "domain": "embeddings",
+      "title": "Embeddings",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/036-embeddings",
+      "keywords": "ai-data embeddings Embeddings discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "037-reranking",
+      "group": "ai-data",
+      "domain": "reranking",
+      "title": "Reranking",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/037-reranking",
+      "keywords": "ai-data reranking Reranking discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "038-prompt-engineering",
+      "group": "ai-data",
+      "domain": "prompt-engineering",
+      "title": "Prompt Engineering",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/038-prompt-engineering",
+      "keywords": "ai-data prompt-engineering Prompt Engineering discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "039-model-evaluation",
+      "group": "ai-data",
+      "domain": "model-evaluation",
+      "title": "Model Evaluation",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/039-model-evaluation",
+      "keywords": "ai-data model-evaluation Model Evaluation discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "040-model-routing",
+      "group": "ai-data",
+      "domain": "model-routing",
+      "title": "Model Routing",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/040-model-routing",
+      "keywords": "ai-data model-routing Model Routing discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "041-synthetic-data",
+      "group": "ai-data",
+      "domain": "synthetic-data",
+      "title": "Synthetic Data",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/041-synthetic-data",
+      "keywords": "ai-data synthetic-data Synthetic Data discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "042-fine-tuning",
+      "group": "ai-data",
+      "domain": "fine-tuning",
+      "title": "Fine Tuning",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/042-fine-tuning",
+      "keywords": "ai-data fine-tuning Fine Tuning discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "043-multimodal-ai",
+      "group": "ai-data",
+      "domain": "multimodal-ai",
+      "title": "Multimodal Ai",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/043-multimodal-ai",
+      "keywords": "ai-data multimodal-ai Multimodal Ai discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "044-vision-systems",
+      "group": "ai-data",
+      "domain": "vision-systems",
+      "title": "Vision Systems",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/044-vision-systems",
+      "keywords": "ai-data vision-systems Vision Systems discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "045-speech-systems",
+      "group": "ai-data",
+      "domain": "speech-systems",
+      "title": "Speech Systems",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/045-speech-systems",
+      "keywords": "ai-data speech-systems Speech Systems discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "046-document-ai",
+      "group": "ai-data",
+      "domain": "document-ai",
+      "title": "Document Ai",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/046-document-ai",
+      "keywords": "ai-data document-ai Document Ai discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "047-recommendation-systems",
+      "group": "ai-data",
+      "domain": "recommendation-systems",
+      "title": "Recommendation Systems",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/047-recommendation-systems",
+      "keywords": "ai-data recommendation-systems Recommendation Systems discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "048-forecasting",
+      "group": "ai-data",
+      "domain": "forecasting",
+      "title": "Forecasting",
+      "risk": "HIGH",
+      "path": "library/domains/ai-data/048-forecasting",
+      "keywords": "ai-data forecasting Forecasting discover design build evaluate deploy monitor"
+    },
+    {
+      "id": "049-application-security",
+      "group": "security-privacy",
+      "domain": "application-security",
+      "title": "Application Security",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/049-application-security",
+      "keywords": "security-privacy application-security Application Security scope model control test respond improve"
+    },
+    {
+      "id": "050-cloud-security",
+      "group": "security-privacy",
+      "domain": "cloud-security",
+      "title": "Cloud Security",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/050-cloud-security",
+      "keywords": "security-privacy cloud-security Cloud Security scope model control test respond improve"
+    },
+    {
+      "id": "051-identity-security",
+      "group": "security-privacy",
+      "domain": "identity-security",
+      "title": "Identity Security",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/051-identity-security",
+      "keywords": "security-privacy identity-security Identity Security scope model control test respond improve"
+    },
+    {
+      "id": "052-secrets-management",
+      "group": "security-privacy",
+      "domain": "secrets-management",
+      "title": "Secrets Management",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/052-secrets-management",
+      "keywords": "security-privacy secrets-management Secrets Management scope model control test respond improve"
+    },
+    {
+      "id": "053-threat-modeling",
+      "group": "security-privacy",
+      "domain": "threat-modeling",
+      "title": "Threat Modeling",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/053-threat-modeling",
+      "keywords": "security-privacy threat-modeling Threat Modeling scope model control test respond improve"
+    },
+    {
+      "id": "054-incident-response",
+      "group": "security-privacy",
+      "domain": "incident-response",
+      "title": "Incident Response",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/054-incident-response",
+      "keywords": "security-privacy incident-response Incident Response scope model control test respond improve"
+    },
+    {
+      "id": "055-data-privacy",
+      "group": "security-privacy",
+      "domain": "data-privacy",
+      "title": "Data Privacy",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/055-data-privacy",
+      "keywords": "security-privacy data-privacy Data Privacy scope model control test respond improve"
+    },
+    {
+      "id": "056-prompt-injection",
+      "group": "security-privacy",
+      "domain": "prompt-injection",
+      "title": "Prompt Injection",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/056-prompt-injection",
+      "keywords": "security-privacy prompt-injection Prompt Injection scope model control test respond improve"
+    },
+    {
+      "id": "057-supply-chain-security",
+      "group": "security-privacy",
+      "domain": "supply-chain-security",
+      "title": "Supply Chain Security",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/057-supply-chain-security",
+      "keywords": "security-privacy supply-chain-security Supply Chain Security scope model control test respond improve"
+    },
+    {
+      "id": "058-vulnerability-management",
+      "group": "security-privacy",
+      "domain": "vulnerability-management",
+      "title": "Vulnerability Management",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/058-vulnerability-management",
+      "keywords": "security-privacy vulnerability-management Vulnerability Management scope model control test respond improve"
+    },
+    {
+      "id": "059-security-logging",
+      "group": "security-privacy",
+      "domain": "security-logging",
+      "title": "Security Logging",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/059-security-logging",
+      "keywords": "security-privacy security-logging Security Logging scope model control test respond improve"
+    },
+    {
+      "id": "060-abuse-prevention",
+      "group": "security-privacy",
+      "domain": "abuse-prevention",
+      "title": "Abuse Prevention",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/060-abuse-prevention",
+      "keywords": "security-privacy abuse-prevention Abuse Prevention scope model control test respond improve"
+    },
+    {
+      "id": "061-fraud-detection",
+      "group": "security-privacy",
+      "domain": "fraud-detection",
+      "title": "Fraud Detection",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/061-fraud-detection",
+      "keywords": "security-privacy fraud-detection Fraud Detection scope model control test respond improve"
+    },
+    {
+      "id": "062-payments-security",
+      "group": "security-privacy",
+      "domain": "payments-security",
+      "title": "Payments Security",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/062-payments-security",
+      "keywords": "security-privacy payments-security Payments Security scope model control test respond improve"
+    },
+    {
+      "id": "063-tenant-isolation",
+      "group": "security-privacy",
+      "domain": "tenant-isolation",
+      "title": "Tenant Isolation",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/063-tenant-isolation",
+      "keywords": "security-privacy tenant-isolation Tenant Isolation scope model control test respond improve"
+    },
+    {
+      "id": "064-secure-deployment",
+      "group": "security-privacy",
+      "domain": "secure-deployment",
+      "title": "Secure Deployment",
+      "risk": "CRITICAL",
+      "path": "library/domains/security-privacy/064-secure-deployment",
+      "keywords": "security-privacy secure-deployment Secure Deployment scope model control test respond improve"
+    },
+    {
+      "id": "065-product-strategy",
+      "group": "product-design",
+      "domain": "product-strategy",
+      "title": "Product Strategy",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/065-product-strategy",
+      "keywords": "product-design product-strategy Product Strategy discover define design test launch learn"
+    },
+    {
+      "id": "066-product-discovery",
+      "group": "product-design",
+      "domain": "product-discovery",
+      "title": "Product Discovery",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/066-product-discovery",
+      "keywords": "product-design product-discovery Product Discovery discover define design test launch learn"
+    },
+    {
+      "id": "067-user-research",
+      "group": "product-design",
+      "domain": "user-research",
+      "title": "User Research",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/067-user-research",
+      "keywords": "product-design user-research User Research discover define design test launch learn"
+    },
+    {
+      "id": "068-ux-design",
+      "group": "product-design",
+      "domain": "ux-design",
+      "title": "Ux Design",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/068-ux-design",
+      "keywords": "product-design ux-design Ux Design discover define design test launch learn"
+    },
+    {
+      "id": "069-design-systems",
+      "group": "product-design",
+      "domain": "design-systems",
+      "title": "Design Systems",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/069-design-systems",
+      "keywords": "product-design design-systems Design Systems discover define design test launch learn"
+    },
+    {
+      "id": "070-accessibility",
+      "group": "product-design",
+      "domain": "accessibility",
+      "title": "Accessibility",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/070-accessibility",
+      "keywords": "product-design accessibility Accessibility discover define design test launch learn"
+    },
+    {
+      "id": "071-onboarding",
+      "group": "product-design",
+      "domain": "onboarding",
+      "title": "Onboarding",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/071-onboarding",
+      "keywords": "product-design onboarding Onboarding discover define design test launch learn"
+    },
+    {
+      "id": "072-activation",
+      "group": "product-design",
+      "domain": "activation",
+      "title": "Activation",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/072-activation",
+      "keywords": "product-design activation Activation discover define design test launch learn"
+    },
+    {
+      "id": "073-retention",
+      "group": "product-design",
+      "domain": "retention",
+      "title": "Retention",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/073-retention",
+      "keywords": "product-design retention Retention discover define design test launch learn"
+    },
+    {
+      "id": "074-experimentation",
+      "group": "product-design",
+      "domain": "experimentation",
+      "title": "Experimentation",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/074-experimentation",
+      "keywords": "product-design experimentation Experimentation discover define design test launch learn"
+    },
+    {
+      "id": "075-analytics",
+      "group": "product-design",
+      "domain": "analytics",
+      "title": "Analytics",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/075-analytics",
+      "keywords": "product-design analytics Analytics discover define design test launch learn"
+    },
+    {
+      "id": "076-roadmapping",
+      "group": "product-design",
+      "domain": "roadmapping",
+      "title": "Roadmapping",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/076-roadmapping",
+      "keywords": "product-design roadmapping Roadmapping discover define design test launch learn"
+    },
+    {
+      "id": "077-pricing-design",
+      "group": "product-design",
+      "domain": "pricing-design",
+      "title": "Pricing Design",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/077-pricing-design",
+      "keywords": "product-design pricing-design Pricing Design discover define design test launch learn"
+    },
+    {
+      "id": "078-enterprise-product",
+      "group": "product-design",
+      "domain": "enterprise-product",
+      "title": "Enterprise Product",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/078-enterprise-product",
+      "keywords": "product-design enterprise-product Enterprise Product discover define design test launch learn"
+    },
+    {
+      "id": "079-developer-experience",
+      "group": "product-design",
+      "domain": "developer-experience",
+      "title": "Developer Experience",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/079-developer-experience",
+      "keywords": "product-design developer-experience Developer Experience discover define design test launch learn"
+    },
+    {
+      "id": "080-content-design",
+      "group": "product-design",
+      "domain": "content-design",
+      "title": "Content Design",
+      "risk": "MEDIUM",
+      "path": "library/domains/product-design/080-content-design",
+      "keywords": "product-design content-design Content Design discover define design test launch learn"
+    },
+    {
+      "id": "081-market-research",
+      "group": "commercial-growth",
+      "domain": "market-research",
+      "title": "Market Research",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/081-market-research",
+      "keywords": "commercial-growth market-research Market Research research segment offer activate measure retain"
+    },
+    {
+      "id": "082-buyer-intelligence",
+      "group": "commercial-growth",
+      "domain": "buyer-intelligence",
+      "title": "Buyer Intelligence",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/082-buyer-intelligence",
+      "keywords": "commercial-growth buyer-intelligence Buyer Intelligence research segment offer activate measure retain"
+    },
+    {
+      "id": "083-offer-design",
+      "group": "commercial-growth",
+      "domain": "offer-design",
+      "title": "Offer Design",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/083-offer-design",
+      "keywords": "commercial-growth offer-design Offer Design research segment offer activate measure retain"
+    },
+    {
+      "id": "084-sales-operations",
+      "group": "commercial-growth",
+      "domain": "sales-operations",
+      "title": "Sales Operations",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/084-sales-operations",
+      "keywords": "commercial-growth sales-operations Sales Operations research segment offer activate measure retain"
+    },
+    {
+      "id": "085-outbound-systems",
+      "group": "commercial-growth",
+      "domain": "outbound-systems",
+      "title": "Outbound Systems",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/085-outbound-systems",
+      "keywords": "commercial-growth outbound-systems Outbound Systems research segment offer activate measure retain"
+    },
+    {
+      "id": "086-inbound-growth",
+      "group": "commercial-growth",
+      "domain": "inbound-growth",
+      "title": "Inbound Growth",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/086-inbound-growth",
+      "keywords": "commercial-growth inbound-growth Inbound Growth research segment offer activate measure retain"
+    },
+    {
+      "id": "087-partnerships",
+      "group": "commercial-growth",
+      "domain": "partnerships",
+      "title": "Partnerships",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/087-partnerships",
+      "keywords": "commercial-growth partnerships Partnerships research segment offer activate measure retain"
+    },
+    {
+      "id": "088-channels",
+      "group": "commercial-growth",
+      "domain": "channels",
+      "title": "Channels",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/088-channels",
+      "keywords": "commercial-growth channels Channels research segment offer activate measure retain"
+    },
+    {
+      "id": "089-seo",
+      "group": "commercial-growth",
+      "domain": "seo",
+      "title": "Seo",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/089-seo",
+      "keywords": "commercial-growth seo Seo research segment offer activate measure retain"
+    },
+    {
+      "id": "090-content-marketing",
+      "group": "commercial-growth",
+      "domain": "content-marketing",
+      "title": "Content Marketing",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/090-content-marketing",
+      "keywords": "commercial-growth content-marketing Content Marketing research segment offer activate measure retain"
+    },
+    {
+      "id": "091-lifecycle-marketing",
+      "group": "commercial-growth",
+      "domain": "lifecycle-marketing",
+      "title": "Lifecycle Marketing",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/091-lifecycle-marketing",
+      "keywords": "commercial-growth lifecycle-marketing Lifecycle Marketing research segment offer activate measure retain"
+    },
+    {
+      "id": "092-customer-success",
+      "group": "commercial-growth",
+      "domain": "customer-success",
+      "title": "Customer Success",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/092-customer-success",
+      "keywords": "commercial-growth customer-success Customer Success research segment offer activate measure retain"
+    },
+    {
+      "id": "093-support-operations",
+      "group": "commercial-growth",
+      "domain": "support-operations",
+      "title": "Support Operations",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/093-support-operations",
+      "keywords": "commercial-growth support-operations Support Operations research segment offer activate measure retain"
+    },
+    {
+      "id": "094-revenue-operations",
+      "group": "commercial-growth",
+      "domain": "revenue-operations",
+      "title": "Revenue Operations",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/094-revenue-operations",
+      "keywords": "commercial-growth revenue-operations Revenue Operations research segment offer activate measure retain"
+    },
+    {
+      "id": "095-account-management",
+      "group": "commercial-growth",
+      "domain": "account-management",
+      "title": "Account Management",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/095-account-management",
+      "keywords": "commercial-growth account-management Account Management research segment offer activate measure retain"
+    },
+    {
+      "id": "096-procurement-sales",
+      "group": "commercial-growth",
+      "domain": "procurement-sales",
+      "title": "Procurement Sales",
+      "risk": "HIGH",
+      "path": "library/domains/commercial-growth/096-procurement-sales",
+      "keywords": "commercial-growth procurement-sales Procurement Sales research segment offer activate measure retain"
+    },
+    {
+      "id": "097-financial-modeling",
+      "group": "business-operations",
+      "domain": "financial-modeling",
+      "title": "Financial Modeling",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/097-financial-modeling",
+      "keywords": "business-operations financial-modeling Financial Modeling assess design execute control review improve"
+    },
+    {
+      "id": "098-budgeting",
+      "group": "business-operations",
+      "domain": "budgeting",
+      "title": "Budgeting",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/098-budgeting",
+      "keywords": "business-operations budgeting Budgeting assess design execute control review improve"
+    },
+    {
+      "id": "099-cash-management",
+      "group": "business-operations",
+      "domain": "cash-management",
+      "title": "Cash Management",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/099-cash-management",
+      "keywords": "business-operations cash-management Cash Management assess design execute control review improve"
+    },
+    {
+      "id": "100-vendor-management",
+      "group": "business-operations",
+      "domain": "vendor-management",
+      "title": "Vendor Management",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/100-vendor-management",
+      "keywords": "business-operations vendor-management Vendor Management assess design execute control review improve"
+    },
+    {
+      "id": "101-procurement",
+      "group": "business-operations",
+      "domain": "procurement",
+      "title": "Procurement",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/101-procurement",
+      "keywords": "business-operations procurement Procurement assess design execute control review improve"
+    },
+    {
+      "id": "102-risk-management",
+      "group": "business-operations",
+      "domain": "risk-management",
+      "title": "Risk Management",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/102-risk-management",
+      "keywords": "business-operations risk-management Risk Management assess design execute control review improve"
+    },
+    {
+      "id": "103-business-continuity",
+      "group": "business-operations",
+      "domain": "business-continuity",
+      "title": "Business Continuity",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/103-business-continuity",
+      "keywords": "business-operations business-continuity Business Continuity assess design execute control review improve"
+    },
+    {
+      "id": "104-operations-design",
+      "group": "business-operations",
+      "domain": "operations-design",
+      "title": "Operations Design",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/104-operations-design",
+      "keywords": "business-operations operations-design Operations Design assess design execute control review improve"
+    },
+    {
+      "id": "105-project-management",
+      "group": "business-operations",
+      "domain": "project-management",
+      "title": "Project Management",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/105-project-management",
+      "keywords": "business-operations project-management Project Management assess design execute control review improve"
+    },
+    {
+      "id": "106-program-management",
+      "group": "business-operations",
+      "domain": "program-management",
+      "title": "Program Management",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/106-program-management",
+      "keywords": "business-operations program-management Program Management assess design execute control review improve"
+    },
+    {
+      "id": "107-knowledge-management",
+      "group": "business-operations",
+      "domain": "knowledge-management",
+      "title": "Knowledge Management",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/107-knowledge-management",
+      "keywords": "business-operations knowledge-management Knowledge Management assess design execute control review improve"
+    },
+    {
+      "id": "108-quality-management",
+      "group": "business-operations",
+      "domain": "quality-management",
+      "title": "Quality Management",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/108-quality-management",
+      "keywords": "business-operations quality-management Quality Management assess design execute control review improve"
+    },
+    {
+      "id": "109-hiring-systems",
+      "group": "business-operations",
+      "domain": "hiring-systems",
+      "title": "Hiring Systems",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/109-hiring-systems",
+      "keywords": "business-operations hiring-systems Hiring Systems assess design execute control review improve"
+    },
+    {
+      "id": "110-people-operations",
+      "group": "business-operations",
+      "domain": "people-operations",
+      "title": "People Operations",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/110-people-operations",
+      "keywords": "business-operations people-operations People Operations assess design execute control review improve"
+    },
+    {
+      "id": "111-training",
+      "group": "business-operations",
+      "domain": "training",
+      "title": "Training",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/111-training",
+      "keywords": "business-operations training Training assess design execute control review improve"
+    },
+    {
+      "id": "112-executive-reporting",
+      "group": "business-operations",
+      "domain": "executive-reporting",
+      "title": "Executive Reporting",
+      "risk": "HIGH",
+      "path": "library/domains/business-operations/112-executive-reporting",
+      "keywords": "business-operations executive-reporting Executive Reporting assess design execute control review improve"
+    },
+    {
+      "id": "113-contract-preparation",
+      "group": "legal-compliance-prep",
+      "domain": "contract-preparation",
+      "title": "Contract Preparation",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/113-contract-preparation",
+      "keywords": "legal-compliance-prep contract-preparation Contract Preparation issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "114-privacy-compliance-prep",
+      "group": "legal-compliance-prep",
+      "domain": "privacy-compliance-prep",
+      "title": "Privacy Compliance Prep",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/114-privacy-compliance-prep",
+      "keywords": "legal-compliance-prep privacy-compliance-prep Privacy Compliance Prep issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "115-security-compliance-prep",
+      "group": "legal-compliance-prep",
+      "domain": "security-compliance-prep",
+      "title": "Security Compliance Prep",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/115-security-compliance-prep",
+      "keywords": "legal-compliance-prep security-compliance-prep Security Compliance Prep issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "116-tax-research-prep",
+      "group": "legal-compliance-prep",
+      "domain": "tax-research-prep",
+      "title": "Tax Research Prep",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/116-tax-research-prep",
+      "keywords": "legal-compliance-prep tax-research-prep Tax Research Prep issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "117-employment-law-prep",
+      "group": "legal-compliance-prep",
+      "domain": "employment-law-prep",
+      "title": "Employment Law Prep",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/117-employment-law-prep",
+      "keywords": "legal-compliance-prep employment-law-prep Employment Law Prep issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "118-ip-research-prep",
+      "group": "legal-compliance-prep",
+      "domain": "ip-research-prep",
+      "title": "Ip Research Prep",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/118-ip-research-prep",
+      "keywords": "legal-compliance-prep ip-research-prep Ip Research Prep issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "119-regulatory-research-prep",
+      "group": "legal-compliance-prep",
+      "domain": "regulatory-research-prep",
+      "title": "Regulatory Research Prep",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/119-regulatory-research-prep",
+      "keywords": "legal-compliance-prep regulatory-research-prep Regulatory Research Prep issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "120-vendor-due-diligence",
+      "group": "legal-compliance-prep",
+      "domain": "vendor-due-diligence",
+      "title": "Vendor Due Diligence",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/120-vendor-due-diligence",
+      "keywords": "legal-compliance-prep vendor-due-diligence Vendor Due Diligence issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "121-data-processing-agreements",
+      "group": "legal-compliance-prep",
+      "domain": "data-processing-agreements",
+      "title": "Data Processing Agreements",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/121-data-processing-agreements",
+      "keywords": "legal-compliance-prep data-processing-agreements Data Processing Agreements issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "122-terms-policy-prep",
+      "group": "legal-compliance-prep",
+      "domain": "terms-policy-prep",
+      "title": "Terms Policy Prep",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/122-terms-policy-prep",
+      "keywords": "legal-compliance-prep terms-policy-prep Terms Policy Prep issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "123-audit-readiness",
+      "group": "legal-compliance-prep",
+      "domain": "audit-readiness",
+      "title": "Audit Readiness",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/123-audit-readiness",
+      "keywords": "legal-compliance-prep audit-readiness Audit Readiness issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "124-record-retention",
+      "group": "legal-compliance-prep",
+      "domain": "record-retention",
+      "title": "Record Retention",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/124-record-retention",
+      "keywords": "legal-compliance-prep record-retention Record Retention issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "125-international-expansion-prep",
+      "group": "legal-compliance-prep",
+      "domain": "international-expansion-prep",
+      "title": "International Expansion Prep",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/125-international-expansion-prep",
+      "keywords": "legal-compliance-prep international-expansion-prep International Expansion Prep issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "126-payments-regulation-prep",
+      "group": "legal-compliance-prep",
+      "domain": "payments-regulation-prep",
+      "title": "Payments Regulation Prep",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/126-payments-regulation-prep",
+      "keywords": "legal-compliance-prep payments-regulation-prep Payments Regulation Prep issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "127-consumer-protection-prep",
+      "group": "legal-compliance-prep",
+      "domain": "consumer-protection-prep",
+      "title": "Consumer Protection Prep",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/127-consumer-protection-prep",
+      "keywords": "legal-compliance-prep consumer-protection-prep Consumer Protection Prep issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "128-ai-governance-prep",
+      "group": "legal-compliance-prep",
+      "domain": "ai-governance-prep",
+      "title": "Ai Governance Prep",
+      "risk": "CRITICAL",
+      "path": "library/domains/legal-compliance-prep/128-ai-governance-prep",
+      "keywords": "legal-compliance-prep ai-governance-prep Ai Governance Prep issue-spot research classify prepare review retain"
+    },
+    {
+      "id": "129-web-research",
+      "group": "research-knowledge",
+      "domain": "web-research",
+      "title": "Web Research",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/129-web-research",
+      "keywords": "research-knowledge web-research Web Research frame search extract verify synthesize publish"
+    },
+    {
+      "id": "130-scientific-literature",
+      "group": "research-knowledge",
+      "domain": "scientific-literature",
+      "title": "Scientific Literature",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/130-scientific-literature",
+      "keywords": "research-knowledge scientific-literature Scientific Literature frame search extract verify synthesize publish"
+    },
+    {
+      "id": "131-competitive-intelligence",
+      "group": "research-knowledge",
+      "domain": "competitive-intelligence",
+      "title": "Competitive Intelligence",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/131-competitive-intelligence",
+      "keywords": "research-knowledge competitive-intelligence Competitive Intelligence frame search extract verify synthesize publish"
+    },
+    {
+      "id": "132-source-verification",
+      "group": "research-knowledge",
+      "domain": "source-verification",
+      "title": "Source Verification",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/132-source-verification",
+      "keywords": "research-knowledge source-verification Source Verification frame search extract verify synthesize publish"
+    },
+    {
+      "id": "133-evidence-synthesis",
+      "group": "research-knowledge",
+      "domain": "evidence-synthesis",
+      "title": "Evidence Synthesis",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/133-evidence-synthesis",
+      "keywords": "research-knowledge evidence-synthesis Evidence Synthesis frame search extract verify synthesize publish"
+    },
+    {
+      "id": "134-survey-design",
+      "group": "research-knowledge",
+      "domain": "survey-design",
+      "title": "Survey Design",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/134-survey-design",
+      "keywords": "research-knowledge survey-design Survey Design frame search extract verify synthesize publish"
+    },
+    {
+      "id": "135-qualitative-analysis",
+      "group": "research-knowledge",
+      "domain": "qualitative-analysis",
+      "title": "Qualitative Analysis",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/135-qualitative-analysis",
+      "keywords": "research-knowledge qualitative-analysis Qualitative Analysis frame search extract verify synthesize publish"
+    },
+    {
+      "id": "136-quantitative-analysis",
+      "group": "research-knowledge",
+      "domain": "quantitative-analysis",
+      "title": "Quantitative Analysis",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/136-quantitative-analysis",
+      "keywords": "research-knowledge quantitative-analysis Quantitative Analysis frame search extract verify synthesize publish"
+    },
+    {
+      "id": "137-knowledge-graphs",
+      "group": "research-knowledge",
+      "domain": "knowledge-graphs",
+      "title": "Knowledge Graphs",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/137-knowledge-graphs",
+      "keywords": "research-knowledge knowledge-graphs Knowledge Graphs frame search extract verify synthesize publish"
+    },
+    {
+      "id": "138-taxonomy-design",
+      "group": "research-knowledge",
+      "domain": "taxonomy-design",
+      "title": "Taxonomy Design",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/138-taxonomy-design",
+      "keywords": "research-knowledge taxonomy-design Taxonomy Design frame search extract verify synthesize publish"
+    },
+    {
+      "id": "139-document-synthesis",
+      "group": "research-knowledge",
+      "domain": "document-synthesis",
+      "title": "Document Synthesis",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/139-document-synthesis",
+      "keywords": "research-knowledge document-synthesis Document Synthesis frame search extract verify synthesize publish"
+    },
+    {
+      "id": "140-fact-checking",
+      "group": "research-knowledge",
+      "domain": "fact-checking",
+      "title": "Fact Checking",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/140-fact-checking",
+      "keywords": "research-knowledge fact-checking Fact Checking frame search extract verify synthesize publish"
+    },
+    {
+      "id": "141-historical-analysis",
+      "group": "research-knowledge",
+      "domain": "historical-analysis",
+      "title": "Historical Analysis",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/141-historical-analysis",
+      "keywords": "research-knowledge historical-analysis Historical Analysis frame search extract verify synthesize publish"
+    },
+    {
+      "id": "142-policy-research",
+      "group": "research-knowledge",
+      "domain": "policy-research",
+      "title": "Policy Research",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/142-policy-research",
+      "keywords": "research-knowledge policy-research Policy Research frame search extract verify synthesize publish"
+    },
+    {
+      "id": "143-technical-writing",
+      "group": "research-knowledge",
+      "domain": "technical-writing",
+      "title": "Technical Writing",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/143-technical-writing",
+      "keywords": "research-knowledge technical-writing Technical Writing frame search extract verify synthesize publish"
+    },
+    {
+      "id": "144-decision-memos",
+      "group": "research-knowledge",
+      "domain": "decision-memos",
+      "title": "Decision Memos",
+      "risk": "MEDIUM",
+      "path": "library/domains/research-knowledge/144-decision-memos",
+      "keywords": "research-knowledge decision-memos Decision Memos frame search extract verify synthesize publish"
+    }
+  ]
+}

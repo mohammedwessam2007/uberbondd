@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ARTIFACT_MANIFEST",
+  "type": "object",
+  "required": [
+    "package",
+    "files"
+  ],
+  "properties": {
+    "package": {
+      "type": "string"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "bytes",
+          "sha256"
+        ]
+      }
+    }
+  }
+}

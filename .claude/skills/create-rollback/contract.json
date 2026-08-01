@@ -1,0 +1,15 @@
+{
+  "name": "create-rollback",
+  "purpose": "Create rollback, data restoration, and deployment reversal instructions.",
+  "kernel": "fusion",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "changes"
+  ],
+  "outputs": [
+    "ROLLBACK.md"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

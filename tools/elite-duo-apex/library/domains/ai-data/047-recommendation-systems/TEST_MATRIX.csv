@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Recommendation Systems discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Recommendation Systems design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during build,build,True,Recommendation Systems build acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during evaluate,evaluate,True,Recommendation Systems evaluate acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during deploy,deploy,True,Recommendation Systems deploy acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during monitor,monitor,True,Recommendation Systems monitor acceptance

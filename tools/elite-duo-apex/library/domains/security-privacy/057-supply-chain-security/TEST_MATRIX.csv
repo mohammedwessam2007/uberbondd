@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during scope,scope,True,Supply Chain Security scope acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during model,model,True,Supply Chain Security model acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Supply Chain Security control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Supply Chain Security test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during respond,respond,True,Supply Chain Security respond acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Supply Chain Security improve acceptance

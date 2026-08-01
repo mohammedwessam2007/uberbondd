@@ -1,0 +1,22 @@
+{
+  "name": "synthesize-decision-taxonomy-design",
+  "title": "Synthesize Decision: Taxonomy Design",
+  "domain": "taxonomy-design",
+  "group": "research-knowledge",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Taxonomy Design source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "SYNTHESIZE_DECISION_TAXONOMY_DESIGN_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

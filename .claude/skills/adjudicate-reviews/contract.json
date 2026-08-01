@@ -1,0 +1,15 @@
+{
+  "name": "adjudicate-reviews",
+  "purpose": "Reconcile reviewers and produce accepted findings.",
+  "kernel": "fusion",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "two reviews"
+  ],
+  "outputs": [
+    "REVIEW_ADJUDICATION.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

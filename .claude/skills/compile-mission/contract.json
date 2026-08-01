@@ -1,0 +1,16 @@
+{
+  "name": "compile-mission",
+  "purpose": "Compile a request into a finite mission contract.",
+  "kernel": "sol",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "request",
+    "project rules"
+  ],
+  "outputs": [
+    "MISSION_CONTRACT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

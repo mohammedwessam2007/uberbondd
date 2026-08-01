@@ -1,0 +1,42 @@
+{
+  "route_id": "003-frontend-systems-repair",
+  "title": "Repair Frontend Systems",
+  "domain": "frontend-systems",
+  "group": "software-engineering",
+  "operation": "repair",
+  "model": "claude-sonnet-5",
+  "effort": {
+    "architecture": "max",
+    "execution": "xhigh",
+    "review": "max"
+  },
+  "tools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Bash",
+    "Edit",
+    "Write"
+  ],
+  "phases": [
+    "compile",
+    "inspect",
+    "architect",
+    "execute",
+    "verify",
+    "review",
+    "stop"
+  ],
+  "required_evidence": [
+    "mission contract",
+    "authority map",
+    "current-state evidence",
+    "decision contract",
+    "test or validation evidence",
+    "limitations",
+    "rollback",
+    "independent verdict"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

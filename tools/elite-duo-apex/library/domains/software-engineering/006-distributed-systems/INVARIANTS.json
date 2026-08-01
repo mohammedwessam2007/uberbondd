@@ -1,0 +1,15 @@
+{
+  "domain": "distributed-systems",
+  "group": "software-engineering",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Distributed Systems decisions trace to the mission contract and current evidence.",
+    "Distributed Systems preserves one durable source of truth for each governed concept.",
+    "Distributed Systems changes require real-path validation rather than isolated helper evidence.",
+    "Distributed Systems limitations, residual risks, and approval boundaries are explicit.",
+    "Distributed Systems never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

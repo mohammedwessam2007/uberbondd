@@ -1,0 +1,27 @@
+{
+  "domain": "file-processing",
+  "title": "File Processing",
+  "lifecycle": [
+    "discover",
+    "architect",
+    "implement",
+    "verify",
+    "release",
+    "operate"
+  ],
+  "roles": [
+    "mission-compiler",
+    "fable-execution-architect",
+    "sol-decision-architect",
+    "apex-implementation-lead",
+    "fable-independent-reviewer",
+    "sol-independent-reviewer",
+    "apex-judge"
+  ],
+  "model": "claude-sonnet-5",
+  "quality_profile": {
+    "architecture": "max",
+    "execution": "xhigh",
+    "review": "max"
+  }
+}

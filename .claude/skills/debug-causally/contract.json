@@ -1,0 +1,16 @@
+{
+  "name": "debug-causally",
+  "purpose": "Reproduce and repair the first causal defect.",
+  "kernel": "fusion",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "failure evidence",
+    "repository"
+  ],
+  "outputs": [
+    "DEBUG_CAUSAL_MODEL.md"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

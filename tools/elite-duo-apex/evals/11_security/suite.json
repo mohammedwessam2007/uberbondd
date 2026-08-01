@@ -1,0 +1,35 @@
+{
+  "suite_id": "11_security",
+  "title": "Security",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "trust_boundaries",
+      "description": "trust boundaries",
+      "weight": 0.2
+    },
+    {
+      "id": "secrets",
+      "description": "secrets",
+      "weight": 0.2
+    },
+    {
+      "id": "permissions",
+      "description": "permissions",
+      "weight": 0.2
+    },
+    {
+      "id": "injection",
+      "description": "injection",
+      "weight": 0.2
+    },
+    {
+      "id": "residual_risk",
+      "description": "residual risk",
+      "weight": 0.2
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

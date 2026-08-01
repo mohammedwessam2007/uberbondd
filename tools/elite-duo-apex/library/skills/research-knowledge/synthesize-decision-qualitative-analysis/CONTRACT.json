@@ -1,0 +1,22 @@
+{
+  "name": "synthesize-decision-qualitative-analysis",
+  "title": "Synthesize Decision: Qualitative Analysis",
+  "domain": "qualitative-analysis",
+  "group": "research-knowledge",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Qualitative Analysis source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "SYNTHESIZE_DECISION_QUALITATIVE_ANALYSIS_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

@@ -1,0 +1,22 @@
+{
+  "name": "prepare-issue-map-security-compliance-prep",
+  "title": "Prepare Issue Map: Security Compliance Prep",
+  "domain": "security-compliance-prep",
+  "group": "legal-compliance-prep",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Security Compliance Prep source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "PREPARE_ISSUE_MAP_SECURITY_COMPLIANCE_PREP_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

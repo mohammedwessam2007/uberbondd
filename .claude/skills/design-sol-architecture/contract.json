@@ -1,0 +1,16 @@
+{
+  "name": "design-sol-architecture",
+  "purpose": "Create architecture, invariants, counterfactuals, and acceptance.",
+  "kernel": "sol",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "mission",
+    "context"
+  ],
+  "outputs": [
+    "SOL_DECISION_CONTRACT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

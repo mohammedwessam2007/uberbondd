@@ -1,0 +1,16 @@
+{
+  "name": "write-local-tool-program",
+  "purpose": "Implement a deterministic local program for bounded processing.",
+  "kernel": "fusion",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "program contract"
+  ],
+  "outputs": [
+    "program",
+    "PROGRAM_EVIDENCE.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

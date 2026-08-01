@@ -1,0 +1,15 @@
+{
+  "name": "plan-agent-team",
+  "purpose": "Create an opt-in non-overlapping Sonnet team topology.",
+  "kernel": "fusion",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "independent workstreams"
+  ],
+  "outputs": [
+    "TEAM_PLAN.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

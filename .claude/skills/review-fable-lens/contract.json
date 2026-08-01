@@ -1,0 +1,17 @@
+{
+  "name": "review-fable-lens",
+  "purpose": "Review completeness, execution, runtime, recovery, and evidence.",
+  "kernel": "fable",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "mission",
+    "contract",
+    "evidence"
+  ],
+  "outputs": [
+    "FABLE_REVIEW_FINDINGS.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

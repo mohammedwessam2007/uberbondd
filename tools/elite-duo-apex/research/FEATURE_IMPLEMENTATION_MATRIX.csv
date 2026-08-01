@@ -1,0 +1,36 @@
+﻿feature,implementation,source_family,source_id,status
+Long-horizon autonomy,Fable execution kernel,FABLE,ANT-FABLE-PROMPT,implemented
+Act once ready,Action-over-overplanning module,FABLE,ANT-FABLE-PROMPT,implemented
+Ground progress in tools,Evidence hooks and progress law,FABLE,ANT-FABLE-PROMPT,implemented
+Parallel subagents,Sonnet-only scoped agents,FABLE,ANT-FABLE-PROMPT,implemented
+Long-lived memory,Project memory and correction ledger,FABLE,ANT-FABLE-PROMPT,implemented
+Fresh-context verification,Dual max reviewers,FABLE,ANT-FABLE-PROMPT,implemented
+Ambiguity navigation,Mission compiler and authority adjudicator,FABLE,ANT-FABLE-PROMPT,implemented
+Scope minimalism,Scope rule and minimalist refactorer,FABLE,ANT-FABLE-PROMPT,implemented
+Autonomous completion,Stop gate and state machine,FABLE,ANT-FABLE-PROMPT,implemented
+Adaptive thinking,Effort-specific role agents,SONNET,ANT-SONNET-PROMPT,implemented
+High tool-use rate at high effort,xhigh/max execution and review,SONNET,ANT-SONNET-PROMPT,implemented
+Literal instruction following,Explicit per-role scope and outputs,SONNET,ANT-SONNET-PROMPT,implemented
+1M context,Context capsules and selective loading,SONNET,ANT-SONNET-PROMPT,implemented
+128K output,Large-turn-aware workflows,SONNET,ANT-SONNET-PROMPT,implemented
+Subagent isolated contexts,32 custom Sonnet agents,CLAUDE CODE,ANT-SUBAGENTS,implemented
+Per-agent model and effort,All roles pinned to Sonnet high/xhigh/max,CLAUDE CODE,ANT-SUBAGENTS,implemented
+Worktree isolation,Editing agents use worktrees,CLAUDE CODE,ANT-SUBAGENTS,implemented
+Project/local memory,Memory curator and templates,CLAUDE CODE,ANT-MEMORY,implemented
+Skills with resources,64 skills with contracts and rubrics,CLAUDE CODE,ANT-SKILLS,implemented
+Lifecycle hooks,18 deterministic hooks,CLAUDE CODE,ANT-HOOKS,implemented
+Prompt caching,Stable kernel and context topology,CLAUDE CODE,ANT-CACHE,implemented
+Path-scoped rules,16 scoped project rules,CLAUDE CODE,ANT-MEMORY,implemented
+Agent teams,Opt-in max-effort team workflow,CLAUDE CODE,ANT-TEAMS,implemented
+MCP,Disabled by default and audited before enablement,CLAUDE CODE,ANT-MCP,implemented
+Lean prompts,Modular selective kernel loading,SOL,OAI-56-GUIDE,implemented
+Max reasoning,Max architecture and review roles,SOL,OAI-56-GUIDE,implemented
+Pro mode,One validated final result after internal stages,SOL,OAI-56-GUIDE,emulated
+Programmatic tool calling,Local bounded programs and schema validation,SOL,OAI-56-GUIDE,emulated
+Persisted reasoning,Explicit durable decision artifacts,SOL,OAI-56-GUIDE,emulated
+Explicit caching,Stable-prefix file architecture,SOL,OAI-56-GUIDE,emulated
+Multi-agent,Opt-in Sonnet agent teams,SOL,OAI-56-RELEASE,emulated
+Intent understanding,Mission compiler and objective contract,SOL,OAI-56-GUIDE,implemented
+Autonomy boundaries,"Intent classifier, approvals, hooks",SOL,OAI-56-GUIDE,implemented
+Final answer evaluation,Final-message audit and stop gate,SOL,OAI-56-GUIDE,implemented
+Tool hygiene,Strict per-agent tool allowlists,SOL,OAI-56-SOL,implemented

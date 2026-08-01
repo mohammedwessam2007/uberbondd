@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EVIDENCE_PACKET",
+  "type": "object",
+  "required": [
+    "mission_id",
+    "author_model",
+    "base_ref",
+    "head_ref",
+    "changed_files",
+    "critical_patches",
+    "tests",
+    "protected_path_evidence",
+    "limitations",
+    "external_actions",
+    "rollback"
+  ],
+  "properties": {
+    "mission_id": {
+      "type": "string"
+    },
+    "author_model": {
+      "const": "claude-sonnet-5"
+    },
+    "base_ref": {},
+    "head_ref": {},
+    "changed_files": {
+      "type": "array"
+    },
+    "critical_patches": {
+      "type": "array"
+    },
+    "tests": {
+      "type": "array"
+    },
+    "protected_path_evidence": {
+      "type": "array"
+    },
+    "limitations": {
+      "type": "array"
+    },
+    "external_actions": {
+      "type": "array"
+    },
+    "rollback": {
+      "type": "array"
+    }
+  }
+}

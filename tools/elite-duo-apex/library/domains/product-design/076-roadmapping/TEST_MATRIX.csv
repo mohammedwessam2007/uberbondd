@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Roadmapping discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during define,define,True,Roadmapping define acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Roadmapping design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Roadmapping test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during launch,launch,True,Roadmapping launch acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during learn,learn,True,Roadmapping learn acceptance

@@ -1,0 +1,13 @@
+{
+  "name": "08_EXTERNAL_EFFECT",
+  "title": "Email, payment, deployment, or provider effect",
+  "steps": [
+    "compile-mission",
+    "model-uncertain-outcomes",
+    "audit-pre-effect-rechecks",
+    "audit-external-actions",
+    "issue-final-verdict"
+  ],
+  "output": "FINAL_VERDICT.json",
+  "model": "claude-sonnet-5"
+}

@@ -1,0 +1,15 @@
+{
+  "domain": "quality-management",
+  "group": "business-operations",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Quality Management decisions trace to the mission contract and current evidence.",
+    "Quality Management preserves one durable source of truth for each governed concept.",
+    "Quality Management changes require real-path validation rather than isolated helper evidence.",
+    "Quality Management limitations, residual risks, and approval boundaries are explicit.",
+    "Quality Management never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

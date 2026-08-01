@@ -1,0 +1,15 @@
+{
+  "name": "rehydrate-after-compaction",
+  "purpose": "Restore mission state from durable artifacts.",
+  "kernel": "fable",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "snapshot"
+  ],
+  "outputs": [
+    "REHYDRATION_REPORT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

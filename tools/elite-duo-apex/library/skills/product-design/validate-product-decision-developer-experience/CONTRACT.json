@@ -1,0 +1,22 @@
+{
+  "name": "validate-product-decision-developer-experience",
+  "title": "Validate Product Decision: Developer Experience",
+  "domain": "developer-experience",
+  "group": "product-design",
+  "model": "claude-sonnet-5",
+  "effort": "xhigh",
+  "inputs": [
+    "mission contract",
+    "Developer Experience source materials",
+    "current-state evidence",
+    "approval policy"
+  ],
+  "outputs": [
+    "VALIDATE_PRODUCT_DECISION_DEVELOPER_EXPERIENCE_RESULT.json",
+    "EVIDENCE.md",
+    "LIMITATIONS.md"
+  ],
+  "review_model": "claude-sonnet-5",
+  "review_effort": "max",
+  "self_approval": false
+}

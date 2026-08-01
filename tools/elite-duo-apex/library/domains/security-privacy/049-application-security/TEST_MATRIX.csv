@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during scope,scope,True,Application Security scope acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during model,model,True,Application Security model acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Application Security control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during test,test,True,Application Security test acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during respond,respond,True,Application Security respond acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Application Security improve acceptance

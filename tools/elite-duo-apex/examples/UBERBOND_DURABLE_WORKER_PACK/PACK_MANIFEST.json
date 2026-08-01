@@ -1,0 +1,422 @@
+{
+  "corpus": "ELITE_DUO_APEX_ULTRA_CORPUS_V3",
+  "query": "UberBond durable acquisition worker crash recovery concurrency idempotency zero outbound payment reconciliation protected lite path independent review",
+  "selected_count": 59,
+  "selected_bytes": 40266,
+  "max_bytes": 1500000,
+  "files": [
+    {
+      "path": "00_START_HERE_V3.md",
+      "bytes": 1067,
+      "sha256": "0f770d151e558e765bd9958b7ab8e262a220f46b063b54b138cc9b62bcf81a08",
+      "score": 999.0,
+      "reason": "mandatory apex constitution"
+    },
+    {
+      "path": "01_EXECUTIVE_SPECIFICATION.md",
+      "bytes": 1746,
+      "sha256": "6c3d09e2bfc427a1a58b706a85bd59825c11047c0d23b204a14923c4c32a2d5b",
+      "score": 999.0,
+      "reason": "mandatory apex constitution"
+    },
+    {
+      "path": "03_APEX_ARCHITECTURE.md",
+      "bytes": 2554,
+      "sha256": "2c29e93d4d670c39941d250ef64c5a5c71042c98687463565880d8d118d26769",
+      "score": 999.0,
+      "reason": "mandatory apex constitution"
+    },
+    {
+      "path": "04_QUALITY_WITHOUT_CHEAP_MODELS.md",
+      "bytes": 1268,
+      "sha256": "79c5fdec5f30d78651e8652f59a96654dbb78d20e38b84e47f1a5b35466d973c",
+      "score": 999.0,
+      "reason": "mandatory apex constitution"
+    },
+    {
+      "path": "06_SECURITY_AND_APPROVALS.md",
+      "bytes": 1147,
+      "sha256": "dae5cb1994ad0c0ac40b51be56c468134e3c0fdd6b08b1e1c4e7f778fa56b635",
+      "score": 999.0,
+      "reason": "mandatory apex constitution"
+    },
+    {
+      "path": "07_OPERATING_CONSTITUTION.md",
+      "bytes": 1041,
+      "sha256": "8207bbd3fce647a859d8e5926f3a605cd2f454d328edb48e952f6e8690efb242",
+      "score": 999.0,
+      "reason": "mandatory apex constitution"
+    },
+    {
+      "path": "kernels/ELITE_FUSION_MASTER.md",
+      "bytes": 570,
+      "sha256": "bea13651f5631c42edaec007d550c4ef4b5a7cb16a040b62f9054ce2bdcec381",
+      "score": 999.0,
+      "reason": "mandatory apex constitution"
+    },
+    {
+      "path": "kernels/FABLE_APEX_MASTER.md",
+      "bytes": 461,
+      "sha256": "ecbfb5de485eb780d2da5d30e3438aeda61f5ba05384cb72e7487b74086ba49a",
+      "score": 999.0,
+      "reason": "mandatory apex constitution"
+    },
+    {
+      "path": "kernels/SOL_APEX_MASTER.md",
+      "bytes": 441,
+      "sha256": "7d0b77d73ede1de6d14dcc351b82cfd3e54739ac153f9205a7e5ca1aeb1d5bdc",
+      "score": 999.0,
+      "reason": "mandatory apex constitution"
+    },
+    {
+      "path": "12_UBERBOND_USAGE.md",
+      "bytes": 1009,
+      "sha256": "668218d0b45550fb163e9baa86a233411b8157cbf7b8f62420ed95a16ef5c2c2",
+      "score": 55.0,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "legacy/ELITE_DUO_SONNET_OS_V1/claude/agents/elite-independent-reviewer.md",
+      "bytes": 423,
+      "sha256": "358efca665fc81645813ad585df27067f2a7f8d52edc43f36d70cf5899594b69",
+      "score": 51.0,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/domains/commercial-growth/085-outbound-systems/REVIEW_RUBRIC.md",
+      "bytes": 443,
+      "sha256": "cb8188bcaf77f74848347ee64a326f3e23d0ec870f2104def691a52bebdaca3e",
+      "score": 43.25,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/domains/legal-compliance-prep/126-payments-regulation-prep/REVIEW_RUBRIC.md",
+      "bytes": 451,
+      "sha256": "2efa100d74c76f4332a070551d548d96500d846ca52bd47ff7d79857592893fb",
+      "score": 43.25,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/domains/research-knowledge/130-scientific-literature/REVIEW_RUBRIC.md",
+      "bytes": 448,
+      "sha256": "d765e9c0390852ec1966edcc84a872e9c3cf3b9d56b7df4da5ffdf46db318aa2",
+      "score": 43.25,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/domains/security-privacy/062-payments-security/REVIEW_RUBRIC.md",
+      "bytes": 444,
+      "sha256": "952f4c7a56fe43080d7c5edb4af68b4469f984780c47ed45e9b89626ab4b916f",
+      "score": 43.25,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/skills/legal-compliance-prep/build-review-packet-payments-regulation-prep/RUBRIC.md",
+      "bytes": 351,
+      "sha256": "6e46f8438c4efac61e91387010e4e3def4dae8a382766f28c9010d461a4d8919",
+      "score": 43.25,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "agents/fable-independent-reviewer.json",
+      "bytes": 556,
+      "sha256": "c86e663ec6b0776829ac7f02ad6d5166d4cab30bb940fb3c9f3bb08d482fdf97",
+      "score": 39.0,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "agents/sol-independent-reviewer.json",
+      "bytes": 582,
+      "sha256": "f130ff8aa767f4d72b524a961ff4589bfd36253f9d15a2c77b2255bbb4b8e82a",
+      "score": 36.5,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "legacy/ELITE_DUO_SONNET_OS_V1/00_START_HERE.md",
+      "bytes": 1668,
+      "sha256": "ab4287b94b14ec6266ce3f954d3b30502e489d6dbba15da65fa4f9a169f0f428",
+      "score": 36.0,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "legacy/ELITE_DUO_SONNET_OS_V1/kernels/SOL_MAX_KERNEL.md",
+      "bytes": 1930,
+      "sha256": "b5c8f9dd4039f403f49396117058289e3f9d6844cc4ed6f1476ae3c66b7b5062",
+      "score": 35.0,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "legacy/ELITE_DUO_SONNET_OS_V1/workflows/04_REVIEW_AND_REPAIR.md",
+      "bytes": 266,
+      "sha256": "9e1d8857b90a24338145b3c5d9a3e82d78d3c5334e25d74da536789008dc7bf3",
+      "score": 35.0,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "scripts/run_apex_review.py",
+      "bytes": 1384,
+      "sha256": "39e67d0bb00d012a7c0e8b7a87d62fdce5fb3eb627e14706a8dbd80781bc4b37",
+      "score": 32.0,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "workflows/11_CODE_REVIEW.md",
+      "bytes": 526,
+      "sha256": "76ecfa15b0f83496facdee0f3ccc71382be9f00ec274452b789d41880427514d",
+      "score": 31.5,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/skills/legal-compliance-prep/build-review-packet-payments-regulation-prep/SKILL.md",
+      "bytes": 1084,
+      "sha256": "17ab203968378ff933114fb565012c4389f7115da31557b5ecf142a15d0aa031",
+      "score": 31.25,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "legacy/ELITE_DUO_SONNET_OS_V1/claude/CLAUDE_ELITE_DUO_IMPORT.md",
+      "bytes": 467,
+      "sha256": "6b01bc40ada41ea2db50202a9475daecacdd2b5b189e6e68fe25e66ce62f4a82",
+      "score": 31.0,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/failure-playbooks/commercial-growth/085-outbound-systems/RECOVERY_TESTS.json",
+      "bytes": 271,
+      "sha256": "adddd4a10c01c5a90450424a9395f70352c5683084dd4c471dd98505e7aa8f21",
+      "score": 29.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/failure-playbooks/legal-compliance-prep/126-payments-regulation-prep/RECOVERY_TESTS.json",
+      "bytes": 279,
+      "sha256": "942c521762dcf51b5da995882e6a1243962bdd6afad712716a1d2730a131f2e6",
+      "score": 29.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/failure-playbooks/research-knowledge/130-scientific-literature/RECOVERY_TESTS.json",
+      "bytes": 276,
+      "sha256": "def273ac4ccf5c905424c15dbc252ba9fd0fe187ef676a6f2663cc74fb66b3c5",
+      "score": 29.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/failure-playbooks/security-privacy/062-payments-security/RECOVERY_TESTS.json",
+      "bytes": 272,
+      "sha256": "2d047d460b9dcd4934af0d2bb06590a0a16d2b21bd410ee73f1ff6a203dbf7dc",
+      "score": 29.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/domains/legal-compliance-prep/126-payments-regulation-prep/DOMAIN_DOCTRINE.md",
+      "bytes": 755,
+      "sha256": "3454e8f86cc879813634bcdebcf8b2d4cdb7f51cedd28fcc73e3dcf04c69e7bd",
+      "score": 28.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/routes/commercial-growth/085-outbound-systems-activate/ROUTE.md",
+      "bytes": 878,
+      "sha256": "928681c1af25c2a1888d039fea135219cb6e4d61db8e4009a5cb101263e682d3",
+      "score": 28.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/routes/commercial-growth/085-outbound-systems-research/ROUTE.md",
+      "bytes": 878,
+      "sha256": "e32f0f8862211fa6cdb78aa4699dc5e154d2072365210f441164b1c8d2bb1a90",
+      "score": 28.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/routes/legal-compliance-prep/126-payments-regulation-prep-audit-readiness/ROUTE.md",
+      "bytes": 927,
+      "sha256": "9658fc58eac933f0b4f232fe8f7e4b352db931573a6dd8d335e2e43a7f9990e2",
+      "score": 28.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/routes/legal-compliance-prep/126-payments-regulation-prep-classify/ROUTE.md",
+      "bytes": 906,
+      "sha256": "b8909246fab7aca28c7369a23c5c0aad1f880966c10a0463e8d2af99bb94d70c",
+      "score": 28.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/routes/research-knowledge/130-scientific-literature-collect/ROUTE.md",
+      "bytes": 892,
+      "sha256": "3fbcd1dd30ad97805683cce40964c8b90cc49374b31b40e6ffc49049feefd493",
+      "score": 28.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/routes/research-knowledge/130-scientific-literature-synthesize/ROUTE.md",
+      "bytes": 901,
+      "sha256": "7b82005e93fd7c69b43643b950bb45e6f34494e8fe09b2dc00f67efb96273fc2",
+      "score": 28.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/routes/security-privacy/062-payments-security-harden/ROUTE.md",
+      "bytes": 879,
+      "sha256": "5b13b903c9e1d97b57cd5254a9e8b363e98591260cca3fec5929d5311d86cc29",
+      "score": 28.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/routes/security-privacy/062-payments-security-respond/ROUTE.md",
+      "bytes": 882,
+      "sha256": "ecc58ad6695840a3637e9a10eaf630a186c6e5a5c148468a811d4b7901e89c2f",
+      "score": 28.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/domains/commercial-growth/085-outbound-systems/DOMAIN_DOCTRINE.md",
+      "bytes": 727,
+      "sha256": "17515aa9e0409de045de2203903bd87a0b63995310f7d721b3df8628debda02a",
+      "score": 28.25,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/domains/research-knowledge/130-scientific-literature/DOMAIN_DOCTRINE.md",
+      "bytes": 740,
+      "sha256": "803137e92e56b802c262ecf7c1d764df8302fe1301c3debbb2f054531b12502e",
+      "score": 28.25,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/domains/security-privacy/062-payments-security/DOMAIN_DOCTRINE.md",
+      "bytes": 726,
+      "sha256": "a6b6c07fb57c6756ef4a383b86a17d5eea8de5064d1f0f4d035e2635039227e9",
+      "score": 28.25,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/skills/commercial-growth/build-commercial-system-outbound-systems/RUBRIC.md",
+      "bytes": 347,
+      "sha256": "64a26f62a4f535d023ae934432d9b09d124d4f729073e7d875f91aea880bf847",
+      "score": 27.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/skills/commercial-growth/verify-demand-outbound-systems/RUBRIC.md",
+      "bytes": 337,
+      "sha256": "15e87235d5cacf0ddd99910e7749bc7a027eb81e6ef10b81daf6cf71d3497436",
+      "score": 27.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/skills/legal-compliance-prep/prepare-issue-map-payments-regulation-prep/RUBRIC.md",
+      "bytes": 349,
+      "sha256": "154af1395353398bfd18dcd836f505e4179e46f46d68ce2cab1b69ee192e55e4",
+      "score": 27.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/skills/research-knowledge/synthesize-decision-scientific-literature/RUBRIC.md",
+      "bytes": 348,
+      "sha256": "31d494465bfd4ba56cf65bbaf04469ada1e136c2cddbda0bda29fb14a206a44b",
+      "score": 27.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/skills/research-knowledge/verify-evidence-scientific-literature/RUBRIC.md",
+      "bytes": 344,
+      "sha256": "9009c8aedd73874fbed5a0e4f44de0e66cffc3c46c44141b37c86f4a8ae444ad",
+      "score": 27.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/skills/security-privacy/audit-control-payments-security/RUBRIC.md",
+      "bytes": 338,
+      "sha256": "c51cd4d7bf0ff888933c0b8bfba39927403e206589d4a277eb0c8d09b1b463c5",
+      "score": 27.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/skills/security-privacy/design-defense-payments-security/RUBRIC.md",
+      "bytes": 339,
+      "sha256": "5d527a44051ec76caea9a3b7af2871846d558efcbbe6b30f98df931f2161faf8",
+      "score": 27.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/skills/software-engineering/build-durable-change-api-design/RUBRIC.md",
+      "bytes": 338,
+      "sha256": "f6b1732afb8d389fc27b190271eb509c0a2345a4af37306c0234e74dcf0e2365",
+      "score": 27.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/skills/software-engineering/build-durable-change-backend-services/RUBRIC.md",
+      "bytes": 344,
+      "sha256": "8a0005aee24908b63b4eb72d0ae50e8cf9826bcbcb3c8d15204419041fb2e299",
+      "score": 27.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/skills/software-engineering/build-durable-change-billing-systems/RUBRIC.md",
+      "bytes": 343,
+      "sha256": "6df0efdb0e71c930466a995f6f1694b455b075d2cdf18d4ee46ef165ea2f0d8a",
+      "score": 27.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/skills/software-engineering/build-durable-change-browser-automation/RUBRIC.md",
+      "bytes": 346,
+      "sha256": "aade5ec54effb517a607c10907370c8b667e02fd9cceb93b9725572ba023d358",
+      "score": 27.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/skills/software-engineering/build-durable-change-ci-cd/RUBRIC.md",
+      "bytes": 333,
+      "sha256": "9f6c9498e6503130f78fb233b23b3598ed900f180933ef670ba1c90f41f487ea",
+      "score": 27.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/domains/ai-data/033-llm-applications/REVIEW_RUBRIC.md",
+      "bytes": 443,
+      "sha256": "d260170c463d9692881be1f86ddd0f8426b0acb25f8840fe0b0e653d8173d2dc",
+      "score": 25.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/domains/ai-data/034-agent-architecture/REVIEW_RUBRIC.md",
+      "bytes": 445,
+      "sha256": "11151d5ce8d9caf629536d3cf3be2cd58931595c48a7b4de84ac42c1ea25f74d",
+      "score": 25.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/domains/ai-data/035-rag-systems/REVIEW_RUBRIC.md",
+      "bytes": 438,
+      "sha256": "bb9a1fcb4cf4ff4ffd8f2af4c5194a0e11156cedb594fa4b949a10cfd069e3af",
+      "score": 25.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/domains/ai-data/036-embeddings/REVIEW_RUBRIC.md",
+      "bytes": 437,
+      "sha256": "0a1d07a7586825cbf80fe78904cee22f584919f11442a0ecbef544ca439908d5",
+      "score": 25.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/domains/ai-data/037-reranking/REVIEW_RUBRIC.md",
+      "bytes": 436,
+      "sha256": "d968c258533c22544c08d0f34949808fd99c0b3ddcd0c62effc01aafa7a47e7d",
+      "score": 25.75,
+      "reason": "deterministic query match"
+    },
+    {
+      "path": "library/domains/ai-data/038-prompt-engineering/REVIEW_RUBRIC.md",
+      "bytes": 445,
+      "sha256": "de1310666f334dad2180bb3485bd0fef5930875f05d0f88f0578fb65479e0532",
+      "score": 25.75,
+      "reason": "deterministic query match"
+    }
+  ]
+}

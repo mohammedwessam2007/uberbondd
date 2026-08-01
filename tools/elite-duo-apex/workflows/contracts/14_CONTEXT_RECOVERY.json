@@ -1,0 +1,11 @@
+{
+  "name": "14_CONTEXT_RECOVERY",
+  "title": "Recover after compaction or interrupted session",
+  "steps": [
+    "rehydrate-after-compaction",
+    "validate-memory",
+    "build-context-capsule"
+  ],
+  "output": "REHYDRATION_REPORT.json",
+  "model": "claude-sonnet-5"
+}

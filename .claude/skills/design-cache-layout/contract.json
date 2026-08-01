@@ -1,0 +1,15 @@
+{
+  "name": "design-cache-layout",
+  "purpose": "Separate stable kernel, project context, and volatile mission data.",
+  "kernel": "sol",
+  "effort": "xhigh",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "prompt stack"
+  ],
+  "outputs": [
+    "CACHE_LAYOUT.md"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

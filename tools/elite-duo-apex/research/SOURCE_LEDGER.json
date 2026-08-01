@@ -1,0 +1,131 @@
+{
+  "authority_date": "2026-08-01",
+  "sources": [
+    {
+      "id": "ANT-FABLE-PROMPT",
+      "publisher": "Anthropic",
+      "title": "Prompting Claude Fable 5",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5",
+      "type": "official",
+      "verified": "2026-08-01",
+      "supports": "long-horizon autonomy, effort, subagents, memory, progress grounding, completion behavior"
+    },
+    {
+      "id": "ANT-SONNET-PROMPT",
+      "publisher": "Anthropic",
+      "title": "Prompting Claude Sonnet 5",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5",
+      "type": "official",
+      "verified": "2026-08-01",
+      "supports": "adaptive thinking, effort, tool use, literal instruction following, response control"
+    },
+    {
+      "id": "ANT-EFFORT",
+      "publisher": "Anthropic",
+      "title": "Effort",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "type": "official",
+      "verified": "2026-08-01",
+      "supports": "high, xhigh, max and model-specific effort guidance"
+    },
+    {
+      "id": "ANT-SUBAGENTS",
+      "publisher": "Anthropic",
+      "title": "Create custom subagents",
+      "url": "https://code.claude.com/docs/en/sub-agents",
+      "type": "official",
+      "verified": "2026-08-01",
+      "supports": "separate contexts, model, effort, memory, skills, hooks, worktrees"
+    },
+    {
+      "id": "ANT-TEAMS",
+      "publisher": "Anthropic",
+      "title": "Orchestrate agent teams",
+      "url": "https://code.claude.com/docs/en/agent-teams",
+      "type": "official",
+      "verified": "2026-08-01",
+      "supports": "teams, shared tasks, messaging, limitations, token overhead"
+    },
+    {
+      "id": "ANT-HOOKS",
+      "publisher": "Anthropic",
+      "title": "Hooks reference",
+      "url": "https://code.claude.com/docs/en/hooks",
+      "type": "official",
+      "verified": "2026-08-01",
+      "supports": "lifecycle events, blocking, context injection, tool and stop enforcement"
+    },
+    {
+      "id": "ANT-MEMORY",
+      "publisher": "Anthropic",
+      "title": "How Claude remembers your project",
+      "url": "https://code.claude.com/docs/en/memory",
+      "type": "official",
+      "verified": "2026-08-01",
+      "supports": "CLAUDE.md, path rules, auto memory, limits, compaction behavior"
+    },
+    {
+      "id": "ANT-SKILLS",
+      "publisher": "Anthropic",
+      "title": "Extend Claude with skills",
+      "url": "https://code.claude.com/docs/en/slash-commands",
+      "type": "official",
+      "verified": "2026-08-01",
+      "supports": "skills, supporting files, invocation controls"
+    },
+    {
+      "id": "ANT-CACHE",
+      "publisher": "Anthropic",
+      "title": "How Claude Code uses prompt caching",
+      "url": "https://code.claude.com/docs/en/prompt-caching",
+      "type": "official",
+      "verified": "2026-08-01",
+      "supports": "cache behavior, model switches, subagents, forks, compaction"
+    },
+    {
+      "id": "ANT-MCP",
+      "publisher": "Anthropic",
+      "title": "Connect Claude Code to tools via MCP",
+      "url": "https://code.claude.com/docs/en/mcp",
+      "type": "official",
+      "verified": "2026-08-01",
+      "supports": "MCP configuration, approval, OAuth, output limits"
+    },
+    {
+      "id": "OAI-56-GUIDE",
+      "publisher": "OpenAI",
+      "title": "GPT-5.6 model guidance",
+      "url": "https://developers.openai.com/api/docs/guides/latest-model",
+      "type": "official",
+      "verified": "2026-08-01",
+      "supports": "max reasoning, pro mode, PTC, persisted reasoning, explicit caching, lean prompts, autonomy"
+    },
+    {
+      "id": "OAI-56-SOL",
+      "publisher": "OpenAI",
+      "title": "GPT-5.6 Sol model",
+      "url": "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+      "type": "official",
+      "verified": "2026-08-01",
+      "supports": "context, output, tools, pricing, model features"
+    },
+    {
+      "id": "OAI-56-RELEASE",
+      "publisher": "OpenAI",
+      "title": "GPT-5.6 release",
+      "url": "https://openai.com/index/gpt-5-6/",
+      "type": "official",
+      "verified": "2026-08-01",
+      "supports": "Sol, max, ultra, efficiency claims, availability"
+    },
+    {
+      "id": "COMMUNITY-LEAK",
+      "publisher": "Community reports",
+      "title": "Fable system-prompt transplant claims",
+      "url": "https://jugaldb.substack.com/p/claudes-entire-fable-5-system-prompt",
+      "type": "unofficial",
+      "verified": "2026-08-01",
+      "supports": "existence of community prompt-transplant technique, not model-equivalence claims"
+    }
+  ]
+}

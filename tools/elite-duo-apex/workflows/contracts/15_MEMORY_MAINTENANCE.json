@@ -1,0 +1,10 @@
+{
+  "name": "15_MEMORY_MAINTENANCE",
+  "title": "Curate project memory",
+  "steps": [
+    "curate-memory",
+    "validate-memory"
+  ],
+  "output": "MEMORY_AUDIT.json",
+  "model": "claude-sonnet-5"
+}

@@ -1,0 +1,289 @@
+﻿domain,group,operation,path,risk,route_id,title
+api-design,software-engineering,architect,library/routes/software-engineering/001-api-design-architect,HIGH,001-api-design-architect,Architect Api Design
+api-design,software-engineering,repair,library/routes/software-engineering/001-api-design-repair,HIGH,001-api-design-repair,Repair Api Design
+backend-services,software-engineering,implement,library/routes/software-engineering/002-backend-services-implement,HIGH,002-backend-services-implement,Implement Backend Services
+backend-services,software-engineering,migrate,library/routes/software-engineering/002-backend-services-migrate,HIGH,002-backend-services-migrate,Migrate Backend Services
+frontend-systems,software-engineering,repair,library/routes/software-engineering/003-frontend-systems-repair,HIGH,003-frontend-systems-repair,Repair Frontend Systems
+frontend-systems,software-engineering,architect,library/routes/software-engineering/003-frontend-systems-architect,HIGH,003-frontend-systems-architect,Architect Frontend Systems
+mobile-applications,software-engineering,migrate,library/routes/software-engineering/004-mobile-applications-migrate,HIGH,004-mobile-applications-migrate,Migrate Mobile Applications
+mobile-applications,software-engineering,implement,library/routes/software-engineering/004-mobile-applications-implement,HIGH,004-mobile-applications-implement,Implement Mobile Applications
+database-engineering,software-engineering,architect,library/routes/software-engineering/005-database-engineering-architect,HIGH,005-database-engineering-architect,Architect Database Engineering
+database-engineering,software-engineering,repair,library/routes/software-engineering/005-database-engineering-repair,HIGH,005-database-engineering-repair,Repair Database Engineering
+distributed-systems,software-engineering,implement,library/routes/software-engineering/006-distributed-systems-implement,HIGH,006-distributed-systems-implement,Implement Distributed Systems
+distributed-systems,software-engineering,migrate,library/routes/software-engineering/006-distributed-systems-migrate,HIGH,006-distributed-systems-migrate,Migrate Distributed Systems
+event-driven-architecture,software-engineering,repair,library/routes/software-engineering/007-event-driven-architecture-repair,HIGH,007-event-driven-architecture-repair,Repair Event Driven Architecture
+event-driven-architecture,software-engineering,architect,library/routes/software-engineering/007-event-driven-architecture-architect,HIGH,007-event-driven-architecture-architect,Architect Event Driven Architecture
+workflow-engines,software-engineering,migrate,library/routes/software-engineering/008-workflow-engines-migrate,HIGH,008-workflow-engines-migrate,Migrate Workflow Engines
+workflow-engines,software-engineering,implement,library/routes/software-engineering/008-workflow-engines-implement,HIGH,008-workflow-engines-implement,Implement Workflow Engines
+developer-tooling,software-engineering,architect,library/routes/software-engineering/009-developer-tooling-architect,HIGH,009-developer-tooling-architect,Architect Developer Tooling
+developer-tooling,software-engineering,repair,library/routes/software-engineering/009-developer-tooling-repair,HIGH,009-developer-tooling-repair,Repair Developer Tooling
+ci-cd,software-engineering,implement,library/routes/software-engineering/010-ci-cd-implement,HIGH,010-ci-cd-implement,Implement Ci Cd
+ci-cd,software-engineering,migrate,library/routes/software-engineering/010-ci-cd-migrate,HIGH,010-ci-cd-migrate,Migrate Ci Cd
+observability,software-engineering,repair,library/routes/software-engineering/011-observability-repair,HIGH,011-observability-repair,Repair Observability
+observability,software-engineering,architect,library/routes/software-engineering/011-observability-architect,HIGH,011-observability-architect,Architect Observability
+performance-engineering,software-engineering,migrate,library/routes/software-engineering/012-performance-engineering-migrate,HIGH,012-performance-engineering-migrate,Migrate Performance Engineering
+performance-engineering,software-engineering,implement,library/routes/software-engineering/012-performance-engineering-implement,HIGH,012-performance-engineering-implement,Implement Performance Engineering
+reliability-engineering,software-engineering,architect,library/routes/software-engineering/013-reliability-engineering-architect,HIGH,013-reliability-engineering-architect,Architect Reliability Engineering
+reliability-engineering,software-engineering,repair,library/routes/software-engineering/013-reliability-engineering-repair,HIGH,013-reliability-engineering-repair,Repair Reliability Engineering
+platform-engineering,software-engineering,implement,library/routes/software-engineering/014-platform-engineering-implement,HIGH,014-platform-engineering-implement,Implement Platform Engineering
+platform-engineering,software-engineering,migrate,library/routes/software-engineering/014-platform-engineering-migrate,HIGH,014-platform-engineering-migrate,Migrate Platform Engineering
+cloud-architecture,software-engineering,repair,library/routes/software-engineering/015-cloud-architecture-repair,HIGH,015-cloud-architecture-repair,Repair Cloud Architecture
+cloud-architecture,software-engineering,architect,library/routes/software-engineering/015-cloud-architecture-architect,HIGH,015-cloud-architecture-architect,Architect Cloud Architecture
+edge-computing,software-engineering,migrate,library/routes/software-engineering/016-edge-computing-migrate,HIGH,016-edge-computing-migrate,Migrate Edge Computing
+edge-computing,software-engineering,implement,library/routes/software-engineering/016-edge-computing-implement,HIGH,016-edge-computing-implement,Implement Edge Computing
+serverless,software-engineering,architect,library/routes/software-engineering/017-serverless-architect,HIGH,017-serverless-architect,Architect Serverless
+serverless,software-engineering,repair,library/routes/software-engineering/017-serverless-repair,HIGH,017-serverless-repair,Repair Serverless
+microservices,software-engineering,implement,library/routes/software-engineering/018-microservices-implement,HIGH,018-microservices-implement,Implement Microservices
+microservices,software-engineering,migrate,library/routes/software-engineering/018-microservices-migrate,HIGH,018-microservices-migrate,Migrate Microservices
+monolith-modernization,software-engineering,repair,library/routes/software-engineering/019-monolith-modernization-repair,HIGH,019-monolith-modernization-repair,Repair Monolith Modernization
+monolith-modernization,software-engineering,architect,library/routes/software-engineering/019-monolith-modernization-architect,HIGH,019-monolith-modernization-architect,Architect Monolith Modernization
+data-migrations,software-engineering,migrate,library/routes/software-engineering/020-data-migrations-migrate,HIGH,020-data-migrations-migrate,Migrate Data Migrations
+data-migrations,software-engineering,implement,library/routes/software-engineering/020-data-migrations-implement,HIGH,020-data-migrations-implement,Implement Data Migrations
+testing-systems,software-engineering,architect,library/routes/software-engineering/021-testing-systems-architect,HIGH,021-testing-systems-architect,Architect Testing Systems
+testing-systems,software-engineering,repair,library/routes/software-engineering/021-testing-systems-repair,HIGH,021-testing-systems-repair,Repair Testing Systems
+release-engineering,software-engineering,implement,library/routes/software-engineering/022-release-engineering-implement,HIGH,022-release-engineering-implement,Implement Release Engineering
+release-engineering,software-engineering,migrate,library/routes/software-engineering/022-release-engineering-migrate,HIGH,022-release-engineering-migrate,Migrate Release Engineering
+package-management,software-engineering,repair,library/routes/software-engineering/023-package-management-repair,HIGH,023-package-management-repair,Repair Package Management
+package-management,software-engineering,architect,library/routes/software-engineering/023-package-management-architect,HIGH,023-package-management-architect,Architect Package Management
+configuration,software-engineering,migrate,library/routes/software-engineering/024-configuration-migrate,HIGH,024-configuration-migrate,Migrate Configuration
+configuration,software-engineering,implement,library/routes/software-engineering/024-configuration-implement,HIGH,024-configuration-implement,Implement Configuration
+feature-flags,software-engineering,architect,library/routes/software-engineering/025-feature-flags-architect,HIGH,025-feature-flags-architect,Architect Feature Flags
+feature-flags,software-engineering,repair,library/routes/software-engineering/025-feature-flags-repair,HIGH,025-feature-flags-repair,Repair Feature Flags
+multi-tenancy,software-engineering,implement,library/routes/software-engineering/026-multi-tenancy-implement,HIGH,026-multi-tenancy-implement,Implement Multi Tenancy
+multi-tenancy,software-engineering,migrate,library/routes/software-engineering/026-multi-tenancy-migrate,HIGH,026-multi-tenancy-migrate,Migrate Multi Tenancy
+billing-systems,software-engineering,repair,library/routes/software-engineering/027-billing-systems-repair,HIGH,027-billing-systems-repair,Repair Billing Systems
+billing-systems,software-engineering,architect,library/routes/software-engineering/027-billing-systems-architect,HIGH,027-billing-systems-architect,Architect Billing Systems
+identity-access,software-engineering,migrate,library/routes/software-engineering/028-identity-access-migrate,HIGH,028-identity-access-migrate,Migrate Identity Access
+identity-access,software-engineering,implement,library/routes/software-engineering/028-identity-access-implement,HIGH,028-identity-access-implement,Implement Identity Access
+search-systems,software-engineering,architect,library/routes/software-engineering/029-search-systems-architect,HIGH,029-search-systems-architect,Architect Search Systems
+search-systems,software-engineering,repair,library/routes/software-engineering/029-search-systems-repair,HIGH,029-search-systems-repair,Repair Search Systems
+notification-systems,software-engineering,implement,library/routes/software-engineering/030-notification-systems-implement,HIGH,030-notification-systems-implement,Implement Notification Systems
+notification-systems,software-engineering,migrate,library/routes/software-engineering/030-notification-systems-migrate,HIGH,030-notification-systems-migrate,Migrate Notification Systems
+file-processing,software-engineering,repair,library/routes/software-engineering/031-file-processing-repair,HIGH,031-file-processing-repair,Repair File Processing
+file-processing,software-engineering,architect,library/routes/software-engineering/031-file-processing-architect,HIGH,031-file-processing-architect,Architect File Processing
+browser-automation,software-engineering,migrate,library/routes/software-engineering/032-browser-automation-migrate,HIGH,032-browser-automation-migrate,Migrate Browser Automation
+browser-automation,software-engineering,implement,library/routes/software-engineering/032-browser-automation-implement,HIGH,032-browser-automation-implement,Implement Browser Automation
+llm-applications,ai-data,design,library/routes/ai-data/033-llm-applications-design,HIGH,033-llm-applications-design,Design Llm Applications
+llm-applications,ai-data,integrate,library/routes/ai-data/033-llm-applications-integrate,HIGH,033-llm-applications-integrate,Integrate Llm Applications
+agent-architecture,ai-data,evaluate,library/routes/ai-data/034-agent-architecture-evaluate,HIGH,034-agent-architecture-evaluate,Evaluate Agent Architecture
+agent-architecture,ai-data,monitor,library/routes/ai-data/034-agent-architecture-monitor,HIGH,034-agent-architecture-monitor,Monitor Agent Architecture
+rag-systems,ai-data,integrate,library/routes/ai-data/035-rag-systems-integrate,HIGH,035-rag-systems-integrate,Integrate Rag Systems
+rag-systems,ai-data,design,library/routes/ai-data/035-rag-systems-design,HIGH,035-rag-systems-design,Design Rag Systems
+embeddings,ai-data,monitor,library/routes/ai-data/036-embeddings-monitor,HIGH,036-embeddings-monitor,Monitor Embeddings
+embeddings,ai-data,evaluate,library/routes/ai-data/036-embeddings-evaluate,HIGH,036-embeddings-evaluate,Evaluate Embeddings
+reranking,ai-data,design,library/routes/ai-data/037-reranking-design,HIGH,037-reranking-design,Design Reranking
+reranking,ai-data,integrate,library/routes/ai-data/037-reranking-integrate,HIGH,037-reranking-integrate,Integrate Reranking
+prompt-engineering,ai-data,evaluate,library/routes/ai-data/038-prompt-engineering-evaluate,HIGH,038-prompt-engineering-evaluate,Evaluate Prompt Engineering
+prompt-engineering,ai-data,monitor,library/routes/ai-data/038-prompt-engineering-monitor,HIGH,038-prompt-engineering-monitor,Monitor Prompt Engineering
+model-evaluation,ai-data,integrate,library/routes/ai-data/039-model-evaluation-integrate,HIGH,039-model-evaluation-integrate,Integrate Model Evaluation
+model-evaluation,ai-data,design,library/routes/ai-data/039-model-evaluation-design,HIGH,039-model-evaluation-design,Design Model Evaluation
+model-routing,ai-data,monitor,library/routes/ai-data/040-model-routing-monitor,HIGH,040-model-routing-monitor,Monitor Model Routing
+model-routing,ai-data,evaluate,library/routes/ai-data/040-model-routing-evaluate,HIGH,040-model-routing-evaluate,Evaluate Model Routing
+synthetic-data,ai-data,design,library/routes/ai-data/041-synthetic-data-design,HIGH,041-synthetic-data-design,Design Synthetic Data
+synthetic-data,ai-data,integrate,library/routes/ai-data/041-synthetic-data-integrate,HIGH,041-synthetic-data-integrate,Integrate Synthetic Data
+fine-tuning,ai-data,evaluate,library/routes/ai-data/042-fine-tuning-evaluate,HIGH,042-fine-tuning-evaluate,Evaluate Fine Tuning
+fine-tuning,ai-data,monitor,library/routes/ai-data/042-fine-tuning-monitor,HIGH,042-fine-tuning-monitor,Monitor Fine Tuning
+multimodal-ai,ai-data,integrate,library/routes/ai-data/043-multimodal-ai-integrate,HIGH,043-multimodal-ai-integrate,Integrate Multimodal Ai
+multimodal-ai,ai-data,design,library/routes/ai-data/043-multimodal-ai-design,HIGH,043-multimodal-ai-design,Design Multimodal Ai
+vision-systems,ai-data,monitor,library/routes/ai-data/044-vision-systems-monitor,HIGH,044-vision-systems-monitor,Monitor Vision Systems
+vision-systems,ai-data,evaluate,library/routes/ai-data/044-vision-systems-evaluate,HIGH,044-vision-systems-evaluate,Evaluate Vision Systems
+speech-systems,ai-data,design,library/routes/ai-data/045-speech-systems-design,HIGH,045-speech-systems-design,Design Speech Systems
+speech-systems,ai-data,integrate,library/routes/ai-data/045-speech-systems-integrate,HIGH,045-speech-systems-integrate,Integrate Speech Systems
+document-ai,ai-data,evaluate,library/routes/ai-data/046-document-ai-evaluate,HIGH,046-document-ai-evaluate,Evaluate Document Ai
+document-ai,ai-data,monitor,library/routes/ai-data/046-document-ai-monitor,HIGH,046-document-ai-monitor,Monitor Document Ai
+recommendation-systems,ai-data,integrate,library/routes/ai-data/047-recommendation-systems-integrate,HIGH,047-recommendation-systems-integrate,Integrate Recommendation Systems
+recommendation-systems,ai-data,design,library/routes/ai-data/047-recommendation-systems-design,HIGH,047-recommendation-systems-design,Design Recommendation Systems
+forecasting,ai-data,monitor,library/routes/ai-data/048-forecasting-monitor,HIGH,048-forecasting-monitor,Monitor Forecasting
+forecasting,ai-data,evaluate,library/routes/ai-data/048-forecasting-evaluate,HIGH,048-forecasting-evaluate,Evaluate Forecasting
+application-security,security-privacy,threat-model,library/routes/security-privacy/049-application-security-threat-model,CRITICAL,049-application-security-threat-model,Threat Model Application Security
+application-security,security-privacy,audit,library/routes/security-privacy/049-application-security-audit,CRITICAL,049-application-security-audit,Audit Application Security
+cloud-security,security-privacy,harden,library/routes/security-privacy/050-cloud-security-harden,CRITICAL,050-cloud-security-harden,Harden Cloud Security
+cloud-security,security-privacy,respond,library/routes/security-privacy/050-cloud-security-respond,CRITICAL,050-cloud-security-respond,Respond Cloud Security
+identity-security,security-privacy,audit,library/routes/security-privacy/051-identity-security-audit,CRITICAL,051-identity-security-audit,Audit Identity Security
+identity-security,security-privacy,threat-model,library/routes/security-privacy/051-identity-security-threat-model,CRITICAL,051-identity-security-threat-model,Threat Model Identity Security
+secrets-management,security-privacy,respond,library/routes/security-privacy/052-secrets-management-respond,CRITICAL,052-secrets-management-respond,Respond Secrets Management
+secrets-management,security-privacy,harden,library/routes/security-privacy/052-secrets-management-harden,CRITICAL,052-secrets-management-harden,Harden Secrets Management
+threat-modeling,security-privacy,threat-model,library/routes/security-privacy/053-threat-modeling-threat-model,CRITICAL,053-threat-modeling-threat-model,Threat Model Threat Modeling
+threat-modeling,security-privacy,audit,library/routes/security-privacy/053-threat-modeling-audit,CRITICAL,053-threat-modeling-audit,Audit Threat Modeling
+incident-response,security-privacy,harden,library/routes/security-privacy/054-incident-response-harden,CRITICAL,054-incident-response-harden,Harden Incident Response
+incident-response,security-privacy,respond,library/routes/security-privacy/054-incident-response-respond,CRITICAL,054-incident-response-respond,Respond Incident Response
+data-privacy,security-privacy,audit,library/routes/security-privacy/055-data-privacy-audit,CRITICAL,055-data-privacy-audit,Audit Data Privacy
+data-privacy,security-privacy,threat-model,library/routes/security-privacy/055-data-privacy-threat-model,CRITICAL,055-data-privacy-threat-model,Threat Model Data Privacy
+prompt-injection,security-privacy,respond,library/routes/security-privacy/056-prompt-injection-respond,CRITICAL,056-prompt-injection-respond,Respond Prompt Injection
+prompt-injection,security-privacy,harden,library/routes/security-privacy/056-prompt-injection-harden,CRITICAL,056-prompt-injection-harden,Harden Prompt Injection
+supply-chain-security,security-privacy,threat-model,library/routes/security-privacy/057-supply-chain-security-threat-model,CRITICAL,057-supply-chain-security-threat-model,Threat Model Supply Chain Security
+supply-chain-security,security-privacy,audit,library/routes/security-privacy/057-supply-chain-security-audit,CRITICAL,057-supply-chain-security-audit,Audit Supply Chain Security
+vulnerability-management,security-privacy,harden,library/routes/security-privacy/058-vulnerability-management-harden,CRITICAL,058-vulnerability-management-harden,Harden Vulnerability Management
+vulnerability-management,security-privacy,respond,library/routes/security-privacy/058-vulnerability-management-respond,CRITICAL,058-vulnerability-management-respond,Respond Vulnerability Management
+security-logging,security-privacy,audit,library/routes/security-privacy/059-security-logging-audit,CRITICAL,059-security-logging-audit,Audit Security Logging
+security-logging,security-privacy,threat-model,library/routes/security-privacy/059-security-logging-threat-model,CRITICAL,059-security-logging-threat-model,Threat Model Security Logging
+abuse-prevention,security-privacy,respond,library/routes/security-privacy/060-abuse-prevention-respond,CRITICAL,060-abuse-prevention-respond,Respond Abuse Prevention
+abuse-prevention,security-privacy,harden,library/routes/security-privacy/060-abuse-prevention-harden,CRITICAL,060-abuse-prevention-harden,Harden Abuse Prevention
+fraud-detection,security-privacy,threat-model,library/routes/security-privacy/061-fraud-detection-threat-model,CRITICAL,061-fraud-detection-threat-model,Threat Model Fraud Detection
+fraud-detection,security-privacy,audit,library/routes/security-privacy/061-fraud-detection-audit,CRITICAL,061-fraud-detection-audit,Audit Fraud Detection
+payments-security,security-privacy,harden,library/routes/security-privacy/062-payments-security-harden,CRITICAL,062-payments-security-harden,Harden Payments Security
+payments-security,security-privacy,respond,library/routes/security-privacy/062-payments-security-respond,CRITICAL,062-payments-security-respond,Respond Payments Security
+tenant-isolation,security-privacy,audit,library/routes/security-privacy/063-tenant-isolation-audit,CRITICAL,063-tenant-isolation-audit,Audit Tenant Isolation
+tenant-isolation,security-privacy,threat-model,library/routes/security-privacy/063-tenant-isolation-threat-model,CRITICAL,063-tenant-isolation-threat-model,Threat Model Tenant Isolation
+secure-deployment,security-privacy,respond,library/routes/security-privacy/064-secure-deployment-respond,CRITICAL,064-secure-deployment-respond,Respond Secure Deployment
+secure-deployment,security-privacy,harden,library/routes/security-privacy/064-secure-deployment-harden,CRITICAL,064-secure-deployment-harden,Harden Secure Deployment
+product-strategy,product-design,discover,library/routes/product-design/065-product-strategy-discover,MEDIUM,065-product-strategy-discover,Discover Product Strategy
+product-strategy,product-design,experiment,library/routes/product-design/065-product-strategy-experiment,MEDIUM,065-product-strategy-experiment,Experiment Product Strategy
+product-discovery,product-design,design,library/routes/product-design/066-product-discovery-design,MEDIUM,066-product-discovery-design,Design Product Discovery
+product-discovery,product-design,launch,library/routes/product-design/066-product-discovery-launch,MEDIUM,066-product-discovery-launch,Launch Product Discovery
+user-research,product-design,experiment,library/routes/product-design/067-user-research-experiment,MEDIUM,067-user-research-experiment,Experiment User Research
+user-research,product-design,discover,library/routes/product-design/067-user-research-discover,MEDIUM,067-user-research-discover,Discover User Research
+ux-design,product-design,launch,library/routes/product-design/068-ux-design-launch,MEDIUM,068-ux-design-launch,Launch Ux Design
+ux-design,product-design,design,library/routes/product-design/068-ux-design-design,MEDIUM,068-ux-design-design,Design Ux Design
+design-systems,product-design,discover,library/routes/product-design/069-design-systems-discover,MEDIUM,069-design-systems-discover,Discover Design Systems
+design-systems,product-design,experiment,library/routes/product-design/069-design-systems-experiment,MEDIUM,069-design-systems-experiment,Experiment Design Systems
+accessibility,product-design,design,library/routes/product-design/070-accessibility-design,MEDIUM,070-accessibility-design,Design Accessibility
+accessibility,product-design,launch,library/routes/product-design/070-accessibility-launch,MEDIUM,070-accessibility-launch,Launch Accessibility
+onboarding,product-design,experiment,library/routes/product-design/071-onboarding-experiment,MEDIUM,071-onboarding-experiment,Experiment Onboarding
+onboarding,product-design,discover,library/routes/product-design/071-onboarding-discover,MEDIUM,071-onboarding-discover,Discover Onboarding
+activation,product-design,launch,library/routes/product-design/072-activation-launch,MEDIUM,072-activation-launch,Launch Activation
+activation,product-design,design,library/routes/product-design/072-activation-design,MEDIUM,072-activation-design,Design Activation
+retention,product-design,discover,library/routes/product-design/073-retention-discover,MEDIUM,073-retention-discover,Discover Retention
+retention,product-design,experiment,library/routes/product-design/073-retention-experiment,MEDIUM,073-retention-experiment,Experiment Retention
+experimentation,product-design,design,library/routes/product-design/074-experimentation-design,MEDIUM,074-experimentation-design,Design Experimentation
+experimentation,product-design,launch,library/routes/product-design/074-experimentation-launch,MEDIUM,074-experimentation-launch,Launch Experimentation
+analytics,product-design,experiment,library/routes/product-design/075-analytics-experiment,MEDIUM,075-analytics-experiment,Experiment Analytics
+analytics,product-design,discover,library/routes/product-design/075-analytics-discover,MEDIUM,075-analytics-discover,Discover Analytics
+roadmapping,product-design,launch,library/routes/product-design/076-roadmapping-launch,MEDIUM,076-roadmapping-launch,Launch Roadmapping
+roadmapping,product-design,design,library/routes/product-design/076-roadmapping-design,MEDIUM,076-roadmapping-design,Design Roadmapping
+pricing-design,product-design,discover,library/routes/product-design/077-pricing-design-discover,MEDIUM,077-pricing-design-discover,Discover Pricing Design
+pricing-design,product-design,experiment,library/routes/product-design/077-pricing-design-experiment,MEDIUM,077-pricing-design-experiment,Experiment Pricing Design
+enterprise-product,product-design,design,library/routes/product-design/078-enterprise-product-design,MEDIUM,078-enterprise-product-design,Design Enterprise Product
+enterprise-product,product-design,launch,library/routes/product-design/078-enterprise-product-launch,MEDIUM,078-enterprise-product-launch,Launch Enterprise Product
+developer-experience,product-design,experiment,library/routes/product-design/079-developer-experience-experiment,MEDIUM,079-developer-experience-experiment,Experiment Developer Experience
+developer-experience,product-design,discover,library/routes/product-design/079-developer-experience-discover,MEDIUM,079-developer-experience-discover,Discover Developer Experience
+content-design,product-design,launch,library/routes/product-design/080-content-design-launch,MEDIUM,080-content-design-launch,Launch Content Design
+content-design,product-design,design,library/routes/product-design/080-content-design-design,MEDIUM,080-content-design-design,Design Content Design
+market-research,commercial-growth,research,library/routes/commercial-growth/081-market-research-research,HIGH,081-market-research-research,Research Market Research
+market-research,commercial-growth,activate,library/routes/commercial-growth/081-market-research-activate,HIGH,081-market-research-activate,Activate Market Research
+buyer-intelligence,commercial-growth,design-offer,library/routes/commercial-growth/082-buyer-intelligence-design-offer,HIGH,082-buyer-intelligence-design-offer,Design Offer Buyer Intelligence
+buyer-intelligence,commercial-growth,optimize,library/routes/commercial-growth/082-buyer-intelligence-optimize,HIGH,082-buyer-intelligence-optimize,Optimize Buyer Intelligence
+offer-design,commercial-growth,activate,library/routes/commercial-growth/083-offer-design-activate,HIGH,083-offer-design-activate,Activate Offer Design
+offer-design,commercial-growth,research,library/routes/commercial-growth/083-offer-design-research,HIGH,083-offer-design-research,Research Offer Design
+sales-operations,commercial-growth,optimize,library/routes/commercial-growth/084-sales-operations-optimize,HIGH,084-sales-operations-optimize,Optimize Sales Operations
+sales-operations,commercial-growth,design-offer,library/routes/commercial-growth/084-sales-operations-design-offer,HIGH,084-sales-operations-design-offer,Design Offer Sales Operations
+outbound-systems,commercial-growth,research,library/routes/commercial-growth/085-outbound-systems-research,HIGH,085-outbound-systems-research,Research Outbound Systems
+outbound-systems,commercial-growth,activate,library/routes/commercial-growth/085-outbound-systems-activate,HIGH,085-outbound-systems-activate,Activate Outbound Systems
+inbound-growth,commercial-growth,design-offer,library/routes/commercial-growth/086-inbound-growth-design-offer,HIGH,086-inbound-growth-design-offer,Design Offer Inbound Growth
+inbound-growth,commercial-growth,optimize,library/routes/commercial-growth/086-inbound-growth-optimize,HIGH,086-inbound-growth-optimize,Optimize Inbound Growth
+partnerships,commercial-growth,activate,library/routes/commercial-growth/087-partnerships-activate,HIGH,087-partnerships-activate,Activate Partnerships
+partnerships,commercial-growth,research,library/routes/commercial-growth/087-partnerships-research,HIGH,087-partnerships-research,Research Partnerships
+channels,commercial-growth,optimize,library/routes/commercial-growth/088-channels-optimize,HIGH,088-channels-optimize,Optimize Channels
+channels,commercial-growth,design-offer,library/routes/commercial-growth/088-channels-design-offer,HIGH,088-channels-design-offer,Design Offer Channels
+seo,commercial-growth,research,library/routes/commercial-growth/089-seo-research,HIGH,089-seo-research,Research Seo
+seo,commercial-growth,activate,library/routes/commercial-growth/089-seo-activate,HIGH,089-seo-activate,Activate Seo
+content-marketing,commercial-growth,design-offer,library/routes/commercial-growth/090-content-marketing-design-offer,HIGH,090-content-marketing-design-offer,Design Offer Content Marketing
+content-marketing,commercial-growth,optimize,library/routes/commercial-growth/090-content-marketing-optimize,HIGH,090-content-marketing-optimize,Optimize Content Marketing
+lifecycle-marketing,commercial-growth,activate,library/routes/commercial-growth/091-lifecycle-marketing-activate,HIGH,091-lifecycle-marketing-activate,Activate Lifecycle Marketing
+lifecycle-marketing,commercial-growth,research,library/routes/commercial-growth/091-lifecycle-marketing-research,HIGH,091-lifecycle-marketing-research,Research Lifecycle Marketing
+customer-success,commercial-growth,optimize,library/routes/commercial-growth/092-customer-success-optimize,HIGH,092-customer-success-optimize,Optimize Customer Success
+customer-success,commercial-growth,design-offer,library/routes/commercial-growth/092-customer-success-design-offer,HIGH,092-customer-success-design-offer,Design Offer Customer Success
+support-operations,commercial-growth,research,library/routes/commercial-growth/093-support-operations-research,HIGH,093-support-operations-research,Research Support Operations
+support-operations,commercial-growth,activate,library/routes/commercial-growth/093-support-operations-activate,HIGH,093-support-operations-activate,Activate Support Operations
+revenue-operations,commercial-growth,design-offer,library/routes/commercial-growth/094-revenue-operations-design-offer,HIGH,094-revenue-operations-design-offer,Design Offer Revenue Operations
+revenue-operations,commercial-growth,optimize,library/routes/commercial-growth/094-revenue-operations-optimize,HIGH,094-revenue-operations-optimize,Optimize Revenue Operations
+account-management,commercial-growth,activate,library/routes/commercial-growth/095-account-management-activate,HIGH,095-account-management-activate,Activate Account Management
+account-management,commercial-growth,research,library/routes/commercial-growth/095-account-management-research,HIGH,095-account-management-research,Research Account Management
+procurement-sales,commercial-growth,optimize,library/routes/commercial-growth/096-procurement-sales-optimize,HIGH,096-procurement-sales-optimize,Optimize Procurement Sales
+procurement-sales,commercial-growth,design-offer,library/routes/commercial-growth/096-procurement-sales-design-offer,HIGH,096-procurement-sales-design-offer,Design Offer Procurement Sales
+financial-modeling,business-operations,model,library/routes/business-operations/097-financial-modeling-model,HIGH,097-financial-modeling-model,Model Financial Modeling
+financial-modeling,business-operations,control,library/routes/business-operations/097-financial-modeling-control,HIGH,097-financial-modeling-control,Control Financial Modeling
+budgeting,business-operations,design-process,library/routes/business-operations/098-budgeting-design-process,HIGH,098-budgeting-design-process,Design Process Budgeting
+budgeting,business-operations,review,library/routes/business-operations/098-budgeting-review,HIGH,098-budgeting-review,Review Budgeting
+cash-management,business-operations,control,library/routes/business-operations/099-cash-management-control,HIGH,099-cash-management-control,Control Cash Management
+cash-management,business-operations,model,library/routes/business-operations/099-cash-management-model,HIGH,099-cash-management-model,Model Cash Management
+vendor-management,business-operations,review,library/routes/business-operations/100-vendor-management-review,HIGH,100-vendor-management-review,Review Vendor Management
+vendor-management,business-operations,design-process,library/routes/business-operations/100-vendor-management-design-process,HIGH,100-vendor-management-design-process,Design Process Vendor Management
+procurement,business-operations,model,library/routes/business-operations/101-procurement-model,HIGH,101-procurement-model,Model Procurement
+procurement,business-operations,control,library/routes/business-operations/101-procurement-control,HIGH,101-procurement-control,Control Procurement
+risk-management,business-operations,design-process,library/routes/business-operations/102-risk-management-design-process,HIGH,102-risk-management-design-process,Design Process Risk Management
+risk-management,business-operations,review,library/routes/business-operations/102-risk-management-review,HIGH,102-risk-management-review,Review Risk Management
+business-continuity,business-operations,control,library/routes/business-operations/103-business-continuity-control,HIGH,103-business-continuity-control,Control Business Continuity
+business-continuity,business-operations,model,library/routes/business-operations/103-business-continuity-model,HIGH,103-business-continuity-model,Model Business Continuity
+operations-design,business-operations,review,library/routes/business-operations/104-operations-design-review,HIGH,104-operations-design-review,Review Operations Design
+operations-design,business-operations,design-process,library/routes/business-operations/104-operations-design-design-process,HIGH,104-operations-design-design-process,Design Process Operations Design
+project-management,business-operations,model,library/routes/business-operations/105-project-management-model,HIGH,105-project-management-model,Model Project Management
+project-management,business-operations,control,library/routes/business-operations/105-project-management-control,HIGH,105-project-management-control,Control Project Management
+program-management,business-operations,design-process,library/routes/business-operations/106-program-management-design-process,HIGH,106-program-management-design-process,Design Process Program Management
+program-management,business-operations,review,library/routes/business-operations/106-program-management-review,HIGH,106-program-management-review,Review Program Management
+knowledge-management,business-operations,control,library/routes/business-operations/107-knowledge-management-control,HIGH,107-knowledge-management-control,Control Knowledge Management
+knowledge-management,business-operations,model,library/routes/business-operations/107-knowledge-management-model,HIGH,107-knowledge-management-model,Model Knowledge Management
+quality-management,business-operations,review,library/routes/business-operations/108-quality-management-review,HIGH,108-quality-management-review,Review Quality Management
+quality-management,business-operations,design-process,library/routes/business-operations/108-quality-management-design-process,HIGH,108-quality-management-design-process,Design Process Quality Management
+hiring-systems,business-operations,model,library/routes/business-operations/109-hiring-systems-model,HIGH,109-hiring-systems-model,Model Hiring Systems
+hiring-systems,business-operations,control,library/routes/business-operations/109-hiring-systems-control,HIGH,109-hiring-systems-control,Control Hiring Systems
+people-operations,business-operations,design-process,library/routes/business-operations/110-people-operations-design-process,HIGH,110-people-operations-design-process,Design Process People Operations
+people-operations,business-operations,review,library/routes/business-operations/110-people-operations-review,HIGH,110-people-operations-review,Review People Operations
+training,business-operations,control,library/routes/business-operations/111-training-control,HIGH,111-training-control,Control Training
+training,business-operations,model,library/routes/business-operations/111-training-model,HIGH,111-training-model,Model Training
+executive-reporting,business-operations,review,library/routes/business-operations/112-executive-reporting-review,HIGH,112-executive-reporting-review,Review Executive Reporting
+executive-reporting,business-operations,design-process,library/routes/business-operations/112-executive-reporting-design-process,HIGH,112-executive-reporting-design-process,Design Process Executive Reporting
+contract-preparation,legal-compliance-prep,research,library/routes/legal-compliance-prep/113-contract-preparation-research,CRITICAL,113-contract-preparation-research,Research Contract Preparation
+contract-preparation,legal-compliance-prep,prepare-brief,library/routes/legal-compliance-prep/113-contract-preparation-prepare-brief,CRITICAL,113-contract-preparation-prepare-brief,Prepare Brief Contract Preparation
+privacy-compliance-prep,legal-compliance-prep,classify,library/routes/legal-compliance-prep/114-privacy-compliance-prep-classify,CRITICAL,114-privacy-compliance-prep-classify,Classify Privacy Compliance Prep
+privacy-compliance-prep,legal-compliance-prep,audit-readiness,library/routes/legal-compliance-prep/114-privacy-compliance-prep-audit-readiness,CRITICAL,114-privacy-compliance-prep-audit-readiness,Audit Readiness Privacy Compliance Prep
+security-compliance-prep,legal-compliance-prep,prepare-brief,library/routes/legal-compliance-prep/115-security-compliance-prep-prepare-brief,CRITICAL,115-security-compliance-prep-prepare-brief,Prepare Brief Security Compliance Prep
+security-compliance-prep,legal-compliance-prep,research,library/routes/legal-compliance-prep/115-security-compliance-prep-research,CRITICAL,115-security-compliance-prep-research,Research Security Compliance Prep
+tax-research-prep,legal-compliance-prep,audit-readiness,library/routes/legal-compliance-prep/116-tax-research-prep-audit-readiness,CRITICAL,116-tax-research-prep-audit-readiness,Audit Readiness Tax Research Prep
+tax-research-prep,legal-compliance-prep,classify,library/routes/legal-compliance-prep/116-tax-research-prep-classify,CRITICAL,116-tax-research-prep-classify,Classify Tax Research Prep
+employment-law-prep,legal-compliance-prep,research,library/routes/legal-compliance-prep/117-employment-law-prep-research,CRITICAL,117-employment-law-prep-research,Research Employment Law Prep
+employment-law-prep,legal-compliance-prep,prepare-brief,library/routes/legal-compliance-prep/117-employment-law-prep-prepare-brief,CRITICAL,117-employment-law-prep-prepare-brief,Prepare Brief Employment Law Prep
+ip-research-prep,legal-compliance-prep,classify,library/routes/legal-compliance-prep/118-ip-research-prep-classify,CRITICAL,118-ip-research-prep-classify,Classify Ip Research Prep
+ip-research-prep,legal-compliance-prep,audit-readiness,library/routes/legal-compliance-prep/118-ip-research-prep-audit-readiness,CRITICAL,118-ip-research-prep-audit-readiness,Audit Readiness Ip Research Prep
+regulatory-research-prep,legal-compliance-prep,prepare-brief,library/routes/legal-compliance-prep/119-regulatory-research-prep-prepare-brief,CRITICAL,119-regulatory-research-prep-prepare-brief,Prepare Brief Regulatory Research Prep
+regulatory-research-prep,legal-compliance-prep,research,library/routes/legal-compliance-prep/119-regulatory-research-prep-research,CRITICAL,119-regulatory-research-prep-research,Research Regulatory Research Prep
+vendor-due-diligence,legal-compliance-prep,audit-readiness,library/routes/legal-compliance-prep/120-vendor-due-diligence-audit-readiness,CRITICAL,120-vendor-due-diligence-audit-readiness,Audit Readiness Vendor Due Diligence
+vendor-due-diligence,legal-compliance-prep,classify,library/routes/legal-compliance-prep/120-vendor-due-diligence-classify,CRITICAL,120-vendor-due-diligence-classify,Classify Vendor Due Diligence
+data-processing-agreements,legal-compliance-prep,research,library/routes/legal-compliance-prep/121-data-processing-agreements-research,CRITICAL,121-data-processing-agreements-research,Research Data Processing Agreements
+data-processing-agreements,legal-compliance-prep,prepare-brief,library/routes/legal-compliance-prep/121-data-processing-agreements-prepare-brief,CRITICAL,121-data-processing-agreements-prepare-brief,Prepare Brief Data Processing Agreements
+terms-policy-prep,legal-compliance-prep,classify,library/routes/legal-compliance-prep/122-terms-policy-prep-classify,CRITICAL,122-terms-policy-prep-classify,Classify Terms Policy Prep
+terms-policy-prep,legal-compliance-prep,audit-readiness,library/routes/legal-compliance-prep/122-terms-policy-prep-audit-readiness,CRITICAL,122-terms-policy-prep-audit-readiness,Audit Readiness Terms Policy Prep
+audit-readiness,legal-compliance-prep,prepare-brief,library/routes/legal-compliance-prep/123-audit-readiness-prepare-brief,CRITICAL,123-audit-readiness-prepare-brief,Prepare Brief Audit Readiness
+audit-readiness,legal-compliance-prep,research,library/routes/legal-compliance-prep/123-audit-readiness-research,CRITICAL,123-audit-readiness-research,Research Audit Readiness
+record-retention,legal-compliance-prep,audit-readiness,library/routes/legal-compliance-prep/124-record-retention-audit-readiness,CRITICAL,124-record-retention-audit-readiness,Audit Readiness Record Retention
+record-retention,legal-compliance-prep,classify,library/routes/legal-compliance-prep/124-record-retention-classify,CRITICAL,124-record-retention-classify,Classify Record Retention
+international-expansion-prep,legal-compliance-prep,research,library/routes/legal-compliance-prep/125-international-expansion-prep-research,CRITICAL,125-international-expansion-prep-research,Research International Expansion Prep
+international-expansion-prep,legal-compliance-prep,prepare-brief,library/routes/legal-compliance-prep/125-international-expansion-prep-prepare-brief,CRITICAL,125-international-expansion-prep-prepare-brief,Prepare Brief International Expansion Prep
+payments-regulation-prep,legal-compliance-prep,classify,library/routes/legal-compliance-prep/126-payments-regulation-prep-classify,CRITICAL,126-payments-regulation-prep-classify,Classify Payments Regulation Prep
+payments-regulation-prep,legal-compliance-prep,audit-readiness,library/routes/legal-compliance-prep/126-payments-regulation-prep-audit-readiness,CRITICAL,126-payments-regulation-prep-audit-readiness,Audit Readiness Payments Regulation Prep
+consumer-protection-prep,legal-compliance-prep,prepare-brief,library/routes/legal-compliance-prep/127-consumer-protection-prep-prepare-brief,CRITICAL,127-consumer-protection-prep-prepare-brief,Prepare Brief Consumer Protection Prep
+consumer-protection-prep,legal-compliance-prep,research,library/routes/legal-compliance-prep/127-consumer-protection-prep-research,CRITICAL,127-consumer-protection-prep-research,Research Consumer Protection Prep
+ai-governance-prep,legal-compliance-prep,audit-readiness,library/routes/legal-compliance-prep/128-ai-governance-prep-audit-readiness,CRITICAL,128-ai-governance-prep-audit-readiness,Audit Readiness Ai Governance Prep
+ai-governance-prep,legal-compliance-prep,classify,library/routes/legal-compliance-prep/128-ai-governance-prep-classify,CRITICAL,128-ai-governance-prep-classify,Classify Ai Governance Prep
+web-research,research-knowledge,frame,library/routes/research-knowledge/129-web-research-frame,MEDIUM,129-web-research-frame,Frame Web Research
+web-research,research-knowledge,verify,library/routes/research-knowledge/129-web-research-verify,MEDIUM,129-web-research-verify,Verify Web Research
+scientific-literature,research-knowledge,collect,library/routes/research-knowledge/130-scientific-literature-collect,MEDIUM,130-scientific-literature-collect,Collect Scientific Literature
+scientific-literature,research-knowledge,synthesize,library/routes/research-knowledge/130-scientific-literature-synthesize,MEDIUM,130-scientific-literature-synthesize,Synthesize Scientific Literature
+competitive-intelligence,research-knowledge,verify,library/routes/research-knowledge/131-competitive-intelligence-verify,MEDIUM,131-competitive-intelligence-verify,Verify Competitive Intelligence
+competitive-intelligence,research-knowledge,frame,library/routes/research-knowledge/131-competitive-intelligence-frame,MEDIUM,131-competitive-intelligence-frame,Frame Competitive Intelligence
+source-verification,research-knowledge,synthesize,library/routes/research-knowledge/132-source-verification-synthesize,MEDIUM,132-source-verification-synthesize,Synthesize Source Verification
+source-verification,research-knowledge,collect,library/routes/research-knowledge/132-source-verification-collect,MEDIUM,132-source-verification-collect,Collect Source Verification
+evidence-synthesis,research-knowledge,frame,library/routes/research-knowledge/133-evidence-synthesis-frame,MEDIUM,133-evidence-synthesis-frame,Frame Evidence Synthesis
+evidence-synthesis,research-knowledge,verify,library/routes/research-knowledge/133-evidence-synthesis-verify,MEDIUM,133-evidence-synthesis-verify,Verify Evidence Synthesis
+survey-design,research-knowledge,collect,library/routes/research-knowledge/134-survey-design-collect,MEDIUM,134-survey-design-collect,Collect Survey Design
+survey-design,research-knowledge,synthesize,library/routes/research-knowledge/134-survey-design-synthesize,MEDIUM,134-survey-design-synthesize,Synthesize Survey Design
+qualitative-analysis,research-knowledge,verify,library/routes/research-knowledge/135-qualitative-analysis-verify,MEDIUM,135-qualitative-analysis-verify,Verify Qualitative Analysis
+qualitative-analysis,research-knowledge,frame,library/routes/research-knowledge/135-qualitative-analysis-frame,MEDIUM,135-qualitative-analysis-frame,Frame Qualitative Analysis
+quantitative-analysis,research-knowledge,synthesize,library/routes/research-knowledge/136-quantitative-analysis-synthesize,MEDIUM,136-quantitative-analysis-synthesize,Synthesize Quantitative Analysis
+quantitative-analysis,research-knowledge,collect,library/routes/research-knowledge/136-quantitative-analysis-collect,MEDIUM,136-quantitative-analysis-collect,Collect Quantitative Analysis
+knowledge-graphs,research-knowledge,frame,library/routes/research-knowledge/137-knowledge-graphs-frame,MEDIUM,137-knowledge-graphs-frame,Frame Knowledge Graphs
+knowledge-graphs,research-knowledge,verify,library/routes/research-knowledge/137-knowledge-graphs-verify,MEDIUM,137-knowledge-graphs-verify,Verify Knowledge Graphs
+taxonomy-design,research-knowledge,collect,library/routes/research-knowledge/138-taxonomy-design-collect,MEDIUM,138-taxonomy-design-collect,Collect Taxonomy Design
+taxonomy-design,research-knowledge,synthesize,library/routes/research-knowledge/138-taxonomy-design-synthesize,MEDIUM,138-taxonomy-design-synthesize,Synthesize Taxonomy Design
+document-synthesis,research-knowledge,verify,library/routes/research-knowledge/139-document-synthesis-verify,MEDIUM,139-document-synthesis-verify,Verify Document Synthesis
+document-synthesis,research-knowledge,frame,library/routes/research-knowledge/139-document-synthesis-frame,MEDIUM,139-document-synthesis-frame,Frame Document Synthesis
+fact-checking,research-knowledge,synthesize,library/routes/research-knowledge/140-fact-checking-synthesize,MEDIUM,140-fact-checking-synthesize,Synthesize Fact Checking
+fact-checking,research-knowledge,collect,library/routes/research-knowledge/140-fact-checking-collect,MEDIUM,140-fact-checking-collect,Collect Fact Checking
+historical-analysis,research-knowledge,frame,library/routes/research-knowledge/141-historical-analysis-frame,MEDIUM,141-historical-analysis-frame,Frame Historical Analysis
+historical-analysis,research-knowledge,verify,library/routes/research-knowledge/141-historical-analysis-verify,MEDIUM,141-historical-analysis-verify,Verify Historical Analysis
+policy-research,research-knowledge,collect,library/routes/research-knowledge/142-policy-research-collect,MEDIUM,142-policy-research-collect,Collect Policy Research
+policy-research,research-knowledge,synthesize,library/routes/research-knowledge/142-policy-research-synthesize,MEDIUM,142-policy-research-synthesize,Synthesize Policy Research
+technical-writing,research-knowledge,verify,library/routes/research-knowledge/143-technical-writing-verify,MEDIUM,143-technical-writing-verify,Verify Technical Writing
+technical-writing,research-knowledge,frame,library/routes/research-knowledge/143-technical-writing-frame,MEDIUM,143-technical-writing-frame,Frame Technical Writing
+decision-memos,research-knowledge,synthesize,library/routes/research-knowledge/144-decision-memos-synthesize,MEDIUM,144-decision-memos-synthesize,Synthesize Decision Memos
+decision-memos,research-knowledge,collect,library/routes/research-knowledge/144-decision-memos-collect,MEDIUM,144-decision-memos-collect,Collect Decision Memos

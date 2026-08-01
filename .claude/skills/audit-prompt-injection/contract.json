@@ -1,0 +1,16 @@
+{
+  "name": "audit-prompt-injection",
+  "purpose": "Find hostile instructions and authority inversion.",
+  "kernel": "fusion",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "files",
+    "tool output"
+  ],
+  "outputs": [
+    "PROMPT_INJECTION_REPORT.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

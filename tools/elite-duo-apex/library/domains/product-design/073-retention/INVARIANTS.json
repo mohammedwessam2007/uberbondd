@@ -1,0 +1,15 @@
+{
+  "domain": "retention",
+  "group": "product-design",
+  "risk": "MEDIUM",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Retention decisions trace to the mission contract and current evidence.",
+    "Retention preserves one durable source of truth for each governed concept.",
+    "Retention changes require real-path validation rather than isolated helper evidence.",
+    "Retention limitations, residual risks, and approval boundaries are explicit.",
+    "Retention never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

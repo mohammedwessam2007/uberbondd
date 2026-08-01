@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during discover,discover,True,Prompt Engineering discover acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Prompt Engineering design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during build,build,True,Prompt Engineering build acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during evaluate,evaluate,True,Prompt Engineering evaluate acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during deploy,deploy,True,Prompt Engineering deploy acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during monitor,monitor,True,Prompt Engineering monitor acceptance

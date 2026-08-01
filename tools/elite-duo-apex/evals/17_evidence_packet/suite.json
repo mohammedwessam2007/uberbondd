@@ -1,0 +1,35 @@
+{
+  "suite_id": "17_evidence_packet",
+  "title": "Evidence packet",
+  "model": "claude-sonnet-5",
+  "minimum_effort": "xhigh",
+  "checks": [
+    {
+      "id": "changed_files",
+      "description": "changed files",
+      "weight": 0.2
+    },
+    {
+      "id": "raw_test_hashes",
+      "description": "raw test hashes",
+      "weight": 0.2
+    },
+    {
+      "id": "limitations",
+      "description": "limitations",
+      "weight": 0.2
+    },
+    {
+      "id": "external_actions",
+      "description": "external actions",
+      "weight": 0.2
+    },
+    {
+      "id": "rollback",
+      "description": "rollback",
+      "weight": 0.2
+    }
+  ],
+  "minimum_score": 0.9,
+  "independent_review": true
+}

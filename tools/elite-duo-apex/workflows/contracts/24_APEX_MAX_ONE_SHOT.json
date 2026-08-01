@@ -1,0 +1,19 @@
+{
+  "name": "24_APEX_MAX_ONE_SHOT",
+  "title": "Maximum Sonnet-only finite mission",
+  "steps": [
+    "compile-mission",
+    "build-context-capsule",
+    "design-fable-execution",
+    "design-sol-architecture",
+    "merge-dual-contracts",
+    "implement-contract",
+    "review-fable-lens",
+    "review-sol-lens",
+    "adjudicate-reviews",
+    "repair-from-contract",
+    "issue-final-verdict"
+  ],
+  "output": "FINAL_VERDICT.json",
+  "model": "claude-sonnet-5"
+}

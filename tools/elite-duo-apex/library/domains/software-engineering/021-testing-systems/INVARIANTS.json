@@ -1,0 +1,15 @@
+{
+  "domain": "testing-systems",
+  "group": "software-engineering",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Testing Systems decisions trace to the mission contract and current evidence.",
+    "Testing Systems preserves one durable source of truth for each governed concept.",
+    "Testing Systems changes require real-path validation rather than isolated helper evidence.",
+    "Testing Systems limitations, residual risks, and approval boundaries are explicit.",
+    "Testing Systems never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

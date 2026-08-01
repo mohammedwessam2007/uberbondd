@@ -1,0 +1,15 @@
+{
+  "domain": "fact-checking",
+  "group": "research-knowledge",
+  "risk": "MEDIUM",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Fact Checking decisions trace to the mission contract and current evidence.",
+    "Fact Checking preserves one durable source of truth for each governed concept.",
+    "Fact Checking changes require real-path validation rather than isolated helper evidence.",
+    "Fact Checking limitations, residual risks, and approval boundaries are explicit.",
+    "Fact Checking never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

@@ -1,0 +1,17 @@
+{
+  "name": "review-sol-lens",
+  "purpose": "Review architecture, counterfactuals, bypasses, and final completeness.",
+  "kernel": "sol",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "mission",
+    "contract",
+    "evidence"
+  ],
+  "outputs": [
+    "SOL_REVIEW_FINDINGS.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

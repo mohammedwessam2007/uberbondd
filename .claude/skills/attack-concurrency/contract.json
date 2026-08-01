@@ -1,0 +1,15 @@
+{
+  "name": "attack-concurrency",
+  "purpose": "Generate real interleavings for ordering, lease, and retry races.",
+  "kernel": "sol",
+  "effort": "max",
+  "model": "claude-sonnet-5",
+  "inputs": [
+    "state machine"
+  ],
+  "outputs": [
+    "CONCURRENCY_FINDINGS.json"
+  ],
+  "external_actions_allowed": false,
+  "self_approval_allowed": false
+}

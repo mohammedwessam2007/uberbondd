@@ -1,0 +1,16 @@
+Install ELITE DUO FABLE FRACTION ENGINE V4 safely.
+
+1. Run `python scripts/validate_v4.py`.
+2. Verify every AI role remains Claude Sonnet 5.
+3. Verify the context governor, status line, output evaporator, PreCompact snapshot and PostCompact audit tests pass.
+4. Back up user and project Claude configuration.
+5. Install V3/V2 components according to the existing prompts.
+6. Install V4 project hooks and status line with `installation/install_project.py` in dry-run mode first.
+7. Do not overwrite the existing CLAUDE.md. Add the compact instructions only through a reviewable proposal.
+8. Keep MCP disabled unless explicitly approved.
+9. Keep agent teams disabled by default.
+10. Fork mode may be enabled only by the `elite-fable-fraction*` launchers.
+11. Do not request API keys or call Fable/OpenAI.
+12. Do not modify application code, deploy, merge, push, purchase, contact anyone or perform external actions.
+13. Run a baseline and candidate mission benchmark. Do not claim savings unless candidate acceptance is at least equal and material reviewer defects do not increase.
+14. Report exact paths, backups, validation and benchmark status, then stop.

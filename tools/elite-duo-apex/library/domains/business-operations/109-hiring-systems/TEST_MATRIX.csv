@@ -1,0 +1,7 @@
+﻿evidence,negative_case,phase,required,test
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during assess,assess,True,Hiring Systems assess acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during design,design,True,Hiring Systems design acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during execute,execute,True,Hiring Systems execute acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during control,control,True,Hiring Systems control acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during review,review,True,Hiring Systems review acceptance
+"tool output, artifact hash, or authoritative source",missing or contradictory evidence during improve,improve,True,Hiring Systems improve acceptance

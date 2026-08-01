@@ -1,0 +1,15 @@
+{
+  "domain": "edge-computing",
+  "group": "software-engineering",
+  "risk": "HIGH",
+  "model": "claude-sonnet-5",
+  "invariants": [
+    "Edge Computing decisions trace to the mission contract and current evidence.",
+    "Edge Computing preserves one durable source of truth for each governed concept.",
+    "Edge Computing changes require real-path validation rather than isolated helper evidence.",
+    "Edge Computing limitations, residual risks, and approval boundaries are explicit.",
+    "Edge Computing never claims an external effect without tool evidence."
+  ],
+  "external_actions_human_gated": true,
+  "self_approval": false
+}

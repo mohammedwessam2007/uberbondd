@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MISSION_CONTRACT",
+  "type": "object",
+  "required": [
+    "mission_id",
+    "intent",
+    "goal",
+    "authority",
+    "deliverables",
+    "constraints",
+    "approval_boundaries",
+    "acceptance_tests",
+    "stop_condition"
+  ],
+  "properties": {
+    "mission_id": {
+      "type": "string"
+    },
+    "intent": {
+      "enum": [
+        "assess",
+        "plan",
+        "implement",
+        "build",
+        "fix",
+        "repair",
+        "review",
+        "audit"
+      ]
+    },
+    "goal": {
+      "type": "string"
+    },
+    "authority": {
+      "type": "array"
+    },
+    "deliverables": {
+      "type": "array"
+    },
+    "constraints": {
+      "type": "array"
+    },
+    "approval_boundaries": {
+      "type": "array"
+    },
+    "acceptance_tests": {
+      "type": "array"
+    },
+    "kill_conditions": {
+      "type": "array"
+    },
+    "stop_condition": {
+      "type": "string"
+    }
+  }
+}

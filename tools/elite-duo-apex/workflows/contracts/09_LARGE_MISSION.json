@@ -1,0 +1,19 @@
+{
+  "name": "09_LARGE_MISSION",
+  "title": "Long multi-phase mission",
+  "steps": [
+    "compile-mission",
+    "build-context-capsule",
+    "plan-subagents",
+    "design-fable-execution",
+    "design-sol-architecture",
+    "merge-dual-contracts",
+    "implement-contract",
+    "compile-evidence-packet",
+    "review-fable-lens",
+    "review-sol-lens",
+    "adjudicate-reviews"
+  ],
+  "output": "FINAL_VERDICT.json",
+  "model": "claude-sonnet-5"
+}

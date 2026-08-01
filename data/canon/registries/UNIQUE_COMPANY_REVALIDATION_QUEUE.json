@@ -1,0 +1,315 @@
+[
+  {
+    "company_key": "appexchange.salesforce.com",
+    "organization": "Salesforce AppExchange",
+    "official_website": "https://appexchange.salesforce.com/",
+    "buyer_segment": "Enterprise CRM marketplace",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-013"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "azure.microsoft.com",
+    "organization": "Microsoft Azure Speech",
+    "official_website": "https://azure.microsoft.com/en-us/products/ai-services/ai-speech",
+    "buyer_segment": "Cloud speech platform",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-023"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "birdeye.com",
+    "organization": "Birdeye",
+    "official_website": "https://birdeye.com/",
+    "buyer_segment": "Multi-location customer experience platform",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-003"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "commure.com",
+    "organization": "Commure",
+    "official_website": "https://www.commure.com/",
+    "buyer_segment": "Healthcare technology platform",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-007"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "demandforce.com",
+    "organization": "Demandforce",
+    "official_website": "https://www.demandforce.com/",
+    "buyer_segment": "Local-business communications platform",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-008"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "dentally.com",
+    "organization": "Dentally",
+    "official_website": "https://www.dentally.com/en-gb/",
+    "buyer_segment": "Dental practice-management software",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-004"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "docplanner.com",
+    "organization": "Docplanner",
+    "official_website": "https://www.docplanner.com/",
+    "buyer_segment": "Healthcare appointment and practice platform",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-006"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "healthcare.ebo.ai",
+    "organization": "EBO",
+    "official_website": "https://healthcare.ebo.ai/",
+    "buyer_segment": "Healthcare AI engagement vendor",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-005"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "hubspot.com",
+    "organization": "HubSpot Solutions Partner Program",
+    "official_website": "https://www.hubspot.com/partners/solutions",
+    "buyer_segment": "Agency and consultancy ecosystem",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-011",
+      "PR-012"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "humain.ai",
+    "organization": "HUMAIN",
+    "official_website": "https://www.humain.ai/",
+    "buyer_segment": "Saudi AI company",
+    "geography": "GCC/MENA",
+    "historical_source_rows": [
+      "PR-025"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "intercom.com",
+    "organization": "Intercom",
+    "official_website": "https://www.intercom.com/",
+    "buyer_segment": "Customer-support platform",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-018"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "natterbox.com",
+    "organization": "Natterbox",
+    "official_website": "https://natterbox.com/",
+    "buyer_segment": "Salesforce-native voice platform",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-010"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "okta.com",
+    "organization": "Okta",
+    "official_website": "https://www.okta.com/",
+    "buyer_segment": "Enterprise identity vendor",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-021"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "ombud.com",
+    "organization": "Ombud",
+    "official_website": "https://www.ombud.com/",
+    "buyer_segment": "RFP and proposal automation vendor",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-020"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "phonely.ai",
+    "organization": "Phonely",
+    "official_website": "https://www.phonely.ai/",
+    "buyer_segment": "AI phone-agent platform",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-009"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "podium.com",
+    "organization": "Podium",
+    "official_website": "https://www.podium.com/",
+    "buyer_segment": "Local-business messaging platform",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-002"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "retellai.com",
+    "organization": "Retell AI",
+    "official_website": "https://www.retellai.com/",
+    "buyer_segment": "Voice-agent platform",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-017"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "ripple.com",
+    "organization": "Ripple",
+    "official_website": "https://ripple.com/",
+    "buyer_segment": "Enterprise fintech vendor",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-022"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "scorpion.co",
+    "organization": "Scorpion",
+    "official_website": "https://www.scorpion.co/healthcare/",
+    "buyer_segment": "Healthcare marketing and intake platform",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-001"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "tii.ae",
+    "organization": "Technology Innovation Institute",
+    "official_website": "https://www.tii.ae/",
+    "buyer_segment": "Regional AI research institution",
+    "geography": "GCC/MENA",
+    "historical_source_rows": [
+      "PR-024"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "twilio.com",
+    "organization": "Twilio",
+    "official_website": "https://www.twilio.com/",
+    "buyer_segment": "Communications platform",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-014"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "vapi.ai",
+    "organization": "Vapi",
+    "official_website": "https://vapi.ai/",
+    "buyer_segment": "Voice-agent platform",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-016"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "whatclinic.com",
+    "organization": "WhatClinic",
+    "official_website": "https://www.whatclinic.com/",
+    "buyer_segment": "Healthcare marketplace",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-015"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  },
+  {
+    "company_key": "zendesk.com",
+    "organization": "Zendesk",
+    "official_website": "https://www.zendesk.com/",
+    "buyer_segment": "Customer-service platform",
+    "geography": "Global",
+    "historical_source_rows": [
+      "PR-019"
+    ],
+    "send_eligible": false,
+    "canonical_state": "RESEARCH_SEED_NEEDS_LIVE_REVALIDATION",
+    "competitor_or_internalized_risk": true
+  }
+]

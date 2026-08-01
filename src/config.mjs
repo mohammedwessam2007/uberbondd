@@ -38,6 +38,24 @@ export const config = {
     failurePauseThreshold: num(env.OUTBOUND_FAILURE_PAUSE_THRESHOLD, 3),
     processBatchSize: num(env.OUTBOUND_PROCESS_BATCH_SIZE, 10)
   },
+  // Canon/V3 autonomous-cycle integration (premerge audit P0-006, P1-010). ACQUISITION_WORKERS_ACTIVE
+  // is the master gate for the Canon opportunity-hunt/prospect-supply/send-planning cycle -- distinct
+  // from OUTBOUND_ENABLED, which gates the pre-existing single-prospect outbound pipeline. Both
+  // default to off; live dispatch additionally requires a matching campaignActivationApprovals row
+  // (src/campaign-activation.mjs) even when this flag is true.
+  acquisition: {
+    workersActive: bool(env.ACQUISITION_WORKERS_ACTIVE, false),
+    simulation: bool(env.ACQUISITION_SIMULATION, true),
+    dailyModelCostCeilingCents: num(env.ACQUISITION_DAILY_MODEL_COST_CEILING_CENTS, 500),
+    monthlyModelCostCeilingCents: num(env.ACQUISITION_MONTHLY_MODEL_COST_CEILING_CENTS, 10000),
+    dailyInfraCostCeilingCents: num(env.ACQUISITION_DAILY_INFRA_COST_CEILING_CENTS, 500),
+    targetProspectBacklog: num(env.ACQUISITION_TARGET_PROSPECT_BACKLOG, 1000),
+    targetDailySends: num(env.ACQUISITION_TARGET_DAILY_SENDS, 0),
+    explorationShare: Math.min(1, Math.max(0, num(env.ACQUISITION_EXPLORATION_SHARE, 0.2))),
+    minimumIndependentEvidence: num(env.ACQUISITION_MIN_INDEPENDENT_EVIDENCE, 3),
+    sourceFamilyHardBouncePauseThreshold: num(env.ACQUISITION_SOURCE_FAMILY_HARD_BOUNCE_PAUSE_THRESHOLD, 2),
+    sourceFamilyComplaintPauseThreshold: num(env.ACQUISITION_SOURCE_FAMILY_COMPLAINT_PAUSE_THRESHOLD, 1)
+  },
   maxBatch: num(env.MAX_BATCH_SIZE, 25),
   crawl: {
     concurrency: num(env.CRAWL_CONCURRENCY, 2),
@@ -137,6 +155,10 @@ export function validateStartupConfig(cfg = config) {
     if (!/^[a-f0-9]{64}$/i.test(cfg.encryptionKey || '')) throw new Error('Live outbound requires a 64-character hexadecimal TOKEN_ENCRYPTION_KEY');
     if (String(cfg.unsubscribeSecret || '').length < 32) throw new Error('Live outbound requires UNSUBSCRIBE_SECRET with at least 32 characters');
     if (cfg.outbound.businessHourStart < 0 || cfg.outbound.businessHourEnd > 24 || cfg.outbound.businessHourStart >= cfg.outbound.businessHourEnd) throw new Error('Invalid outbound business-hour window');
+  }
+  if (cfg.acquisition?.workersActive && cfg.acquisition?.simulation !== true) {
+    if (!cfg.outbound?.enabled || cfg.outbound?.dryRun) throw new Error('Live ACQUISITION_WORKERS_ACTIVE requires OUTBOUND_ENABLED=true and OUTBOUND_DRY_RUN=false');
+    if (!cfg.sender?.address) throw new Error('Live ACQUISITION_WORKERS_ACTIVE requires BUSINESS_ADDRESS');
   }
   const gmailConfigured = Boolean(cfg.google.clientId || cfg.google.clientSecret);
   if (gmailConfigured && !/^[a-f0-9]{64}$/i.test(cfg.encryptionKey || '')) {

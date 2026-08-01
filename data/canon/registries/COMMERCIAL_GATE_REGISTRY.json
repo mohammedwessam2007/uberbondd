@@ -1,0 +1,162 @@
+[
+  {
+    "gate_id": "GATE-001",
+    "key": "business_identity",
+    "default_status": "EXTERNAL_ACTION",
+    "acceptance": "Truthful legal or trading identity configured",
+    "owner": "owner",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-002",
+    "key": "postal_address",
+    "default_status": "EXTERNAL_ACTION",
+    "acceptance": "Valid physical postal address approved for outbound footer",
+    "owner": "owner",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-003",
+    "key": "outreach_domain",
+    "default_status": "EXTERNAL_ACTION",
+    "acceptance": "Dedicated outreach domain owned and documented",
+    "owner": "owner",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-004",
+    "key": "spf",
+    "default_status": "BLOCKED",
+    "acceptance": "SPF passes and aligns",
+    "owner": "software_or_owner",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-005",
+    "key": "dkim",
+    "default_status": "BLOCKED",
+    "acceptance": "2048-bit DKIM passes and aligns",
+    "owner": "software_or_owner",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-006",
+    "key": "dmarc",
+    "default_status": "BLOCKED",
+    "acceptance": "DMARC exists; initial policy may be p=none during controlled launch",
+    "owner": "software_or_owner",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-007",
+    "key": "mailbox_provider",
+    "default_status": "EXTERNAL_ACTION",
+    "acceptance": "Authenticated mailbox and permitted sending API connected",
+    "owner": "owner",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-008",
+    "key": "payment_receiving",
+    "default_status": "EXTERNAL_ACTION",
+    "acceptance": "Real payment receiving and withdrawal path verified",
+    "owner": "owner",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-009",
+    "key": "invoice_flow",
+    "default_status": "EXTERNAL_ACTION",
+    "acceptance": "Invoice or payment-link path tested without fabricating payment",
+    "owner": "owner",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-010",
+    "key": "suppression_system",
+    "default_status": "BLOCKED",
+    "acceptance": "Suppression, opt-out, complaint, hard-bounce, and wrong-recipient states tested",
+    "owner": "software",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-011",
+    "key": "kill_switch",
+    "default_status": "BLOCKED",
+    "acceptance": "Global kill switch and recovery rehearsal pass",
+    "owner": "software",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-012",
+    "key": "live_evidence",
+    "default_status": "BLOCKED",
+    "acceptance": "Current official evidence within declared freshness window",
+    "owner": "software",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-013",
+    "key": "independent_evidence",
+    "default_status": "BLOCKED",
+    "acceptance": "Minimum three materially independent evidence identities for lane activation",
+    "owner": "software",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-014",
+    "key": "buyer_signal",
+    "default_status": "BLOCKED",
+    "acceptance": "At least one current live buyer signal",
+    "owner": "software",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-015",
+    "key": "official_route",
+    "default_status": "BLOCKED",
+    "acceptance": "Official provider-facing route verified; no inferred personal email",
+    "owner": "software",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-016",
+    "key": "message_variant",
+    "default_status": "BLOCKED",
+    "acceptance": "Materially distinct message variant passes similarity and evidence-fragment checks",
+    "owner": "software",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-017",
+    "key": "owner_send_approval",
+    "default_status": "OWNER_ACTION",
+    "acceptance": "Exact first-touch batch approved",
+    "owner": "owner",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-018",
+    "key": "master_activation",
+    "default_status": "OWNER_ACTION",
+    "acceptance": "ACQUISITION_WORKERS_ACTIVE explicitly enabled for bounded batch",
+    "owner": "owner",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-019",
+    "key": "sender_health",
+    "default_status": "BLOCKED",
+    "acceptance": "Hard bounce, complaint, duplicates, and provider warnings below limits",
+    "owner": "software",
+    "evidence_required": true
+  },
+  {
+    "gate_id": "GATE-020",
+    "key": "delivery_readiness",
+    "default_status": "BLOCKED",
+    "acceptance": "Bounded delivery workflow, acceptance criteria, and rollback exist",
+    "owner": "software",
+    "evidence_required": true
+  }
+]

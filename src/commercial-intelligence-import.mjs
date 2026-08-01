@@ -374,7 +374,13 @@ function computeScoreAndPolicy(record, cfg, at, suppressions) {
       contact: record.contact ? { email: record.contact.email, source: record.contact.publishedOfficially ? 'website' : 'other', verified: 'unverified' } : {}
     },
     evidence: [{ sourceUrl: record.source.url, sourceType: record.source.type, official: record.source.official, status: 'active', capturedAt: record.source.capturedAt, expiresAt: record.source.expiresAt }],
-    suppressions, cfg, at
+    // Canon/V3 integration bug fix (found while building the seven-day simulation harness):
+    // evaluateOpportunityPolicy's parameter is named `date`, not `at` -- passing `at` here left it
+    // silently defaulting to `new Date()` (real wall-clock time) regardless of the `at` a caller
+    // supplied, so a deterministic/simulated `at` never actually reached the freshness check.
+    // Invisible in production (real callers always pass an `at` approximately equal to the real
+    // "now" anyway) but it broke deterministic testing/simulation with a non-current `at`.
+    suppressions, cfg, date: at
   });
   return { score, policyResult };
 }

@@ -72,6 +72,26 @@ with `OUTBOUND_DRY_RUN=false` additionally requires `BUSINESS_ADDRESS`,
 | `SENDER_NAME` | `Mohamed Wessam` | From-name. |
 | `SENDER_COMPANY` | `UberBond` | From-company. |
 
+## Canon/V3 acquisition cycle (all off by default; see CLAUDE.md)
+
+Separate master gate from `OUTBOUND_ENABLED` above — this one gates the durable
+opportunity-hunt/prospect-supply/send-planning cycle (`src/autonomous-cycle.mjs`). Live dispatch
+additionally requires a matching, unexpired `campaignActivationApprovals` row
+(`src/campaign-activation.mjs`) even when this flag is `true`.
+
+| Variable | Default | Notes |
+|---|---|---|
+| `ACQUISITION_WORKERS_ACTIVE` | `false` | Master switch for the Canon cycle. |
+| `ACQUISITION_SIMULATION` | `true` | When `true`, dispatch writes `simulated_sent`, never a real send; reserved (`.example`) domains are permitted. |
+| `ACQUISITION_DAILY_MODEL_COST_CEILING_CENTS` | `500` | Durable daily budget for LLM-extraction calls (see `store.mjs#reserveCostBudget`). |
+| `ACQUISITION_MONTHLY_MODEL_COST_CEILING_CENTS` | `10000` | Durable monthly model-cost budget. |
+| `ACQUISITION_DAILY_INFRA_COST_CEILING_CENTS` | `500` | Durable daily budget consumed by `runSendPlanning` per reservation attempt. |
+| `ACQUISITION_TARGET_PROSPECT_BACKLOG` | `1000` | Target backlog size for `replenishProspectQueue`. |
+| `ACQUISITION_TARGET_DAILY_SENDS` | `0` | Daily/hourly reservation cap passed to `reserveOutboundSend`; `0` blocks all Canon reservations by default. |
+| `ACQUISITION_EXPLORATION_SHARE` | `0.2` | Fraction of portfolio allocation reserved for unproven lanes. |
+| `ACQUISITION_MIN_INDEPENDENT_EVIDENCE` | `3` | Minimum independent source families before research-seed activation eligibility. |
+| `ACQUISITION_SOURCE_FAMILY_HARD_BOUNCE_PAUSE_THRESHOLD` / `_COMPLAINT_PAUSE_THRESHOLD` | `2` / `1` | Reserved for the deferred per-source-family circuit breaker (P1-006). |
+
 ## Google / Gmail OAuth
 
 | Variable | Default | Notes |

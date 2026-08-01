@@ -1,0 +1,130 @@
+[
+  {
+    "lane_id": "LANE-001",
+    "name": "White-label appointment revenue recovery",
+    "canonical_role": "Outcome-linked experiment lane distributed through healthcare agencies and adjacent partners",
+    "buyer": "Healthcare marketing agencies and appointment-oriented technology partners",
+    "source_status": "SOURCE_DERIVED",
+    "pilot": {
+      "price_usd": 3500,
+      "duration_days": 14,
+      "scope": [
+        "one missed-call recovery flow",
+        "one reminder or no-show rescue flow",
+        "human fallback path",
+        "basic outcome reporting",
+        "partner-branded delivery"
+      ],
+      "acceptance_metric": "Recovered bookings, callbacks, or confirmations from missed demand"
+    },
+    "expansion": {
+      "implementation_fee_usd": 2500,
+      "recurring_fee_usd_per_location_month": 900,
+      "usage_costs": "Passed through where appropriate"
+    },
+    "operating_constraints": [
+      "Start text-first",
+      "No open-ended medical advice",
+      "No protected health information until contracts, security, and compliance gates are real",
+      "Tool-confirmed actions",
+      "Human fallback",
+      "Transparent attribution"
+    ],
+    "kill_conditions": [
+      "Zero paid pilots after 100 qualified first touches and the full declared sequence",
+      "No clear ROI inside 14 to 30 days",
+      "Support burden remains high after templating",
+      "Attribution cannot be defended",
+      "Compliance or integration complexity destroys margin"
+    ],
+    "source_refs": [
+      "UBERBOND_ASYMMETRIC_AI_MONEY_HUNT_1___TOP_3_GRAND_OPPORTUNITIES.md",
+      "UBERBOND_ASYMMETRIC_AI_MONEY_HUNT_1___FIRST_100_PROSPECT_EXPERIMENT.md",
+      "UBERBOND_ASYMMETRIC_AI_MONEY_HUNT_1___HOSTILE_RED_TEAM.md"
+    ]
+  },
+  {
+    "lane_id": "LANE-002",
+    "name": "Agency/MSP white-label AI workflow backend",
+    "canonical_role": "Primary distribution and fulfillment model across multiple AI workflow lanes",
+    "buyer": "Agencies, MSPs, consultancies, platform partners, and implementation firms",
+    "source_status": "MIXED_SOURCE_AND_CANON_DECISION",
+    "pilot": {
+      "price_usd": null,
+      "duration_days": null,
+      "scope": [
+        "one bounded client workflow",
+        "white-label delivery",
+        "evaluation and QA",
+        "exception handling",
+        "partner-facing evidence pack"
+      ],
+      "acceptance_metric": "Written acceptance of the bounded workflow plus measured delivery economics"
+    },
+    "pricing_note": "The Canon provides a serious-pilot range of USD 500 to USD 5,000. Exact pricing requires live buyer evidence and scope.",
+    "expansion": {
+      "implementation_fee_usd": null,
+      "recurring_model": "QA, monitoring, tuning, and white-label fulfillment retainer"
+    },
+    "operating_constraints": [
+      "Agency remains client-facing",
+      "No fabricated case studies",
+      "No unbounded custom consulting",
+      "Capture reusable delivery artifacts",
+      "Measure owner minutes and gross margin"
+    ],
+    "kill_conditions": [
+      "No paid pilot after 100 live-validated unique organizations",
+      "Repeated demand is subcontracting-only with no recurring path",
+      "Owner time exceeds declared delivery ceiling",
+      "Gross margin is not positive after real costs"
+    ],
+    "source_refs": [
+      "UBERBOND_PRODUCT_AND_BUSINESS_CANON.md",
+      "UBERBOND_TOTAL_AI_REVENUE_FRONTIER deliverable",
+      "UBERBOND_ZERO_TO_FIRST_PAYMENT_WAR_ROOM executive decision"
+    ]
+  },
+  {
+    "lane_id": "LANE-003",
+    "name": "Agency multi-site revenue-path assurance",
+    "canonical_role": "Recurring Watchtower product lane",
+    "buyer": "Marketing agencies, web agencies, and firms managing multiple client websites",
+    "source_status": "SOURCE_DERIVED",
+    "pilot": {
+      "price_usd": 750,
+      "duration_days": 7,
+      "scope": [
+        "three agency client websites",
+        "source-linked evidence",
+        "prioritized defects",
+        "up to two low-risk reversible repairs per site",
+        "one revision",
+        "agency remains client-facing"
+      ],
+      "acceptance_metric": "Accepted evidence pack and completed bounded repairs"
+    },
+    "expansion": {
+      "recurring_model": "Per-site monitoring, repair credits, and white-label reporting",
+      "historical_optional_monitoring_usd_month": 149
+    },
+    "operating_constraints": [
+      "No outcome guarantee",
+      "No credential use before written scope and payment",
+      "No security testing",
+      "No real submissions or purchases",
+      "Low-risk reversible work only"
+    ],
+    "kill_conditions": [
+      "No paid pilot after a valid 100-organization agency experiment",
+      "False positives or inaccessible CMSs make delivery unreliable",
+      "Monitoring does not convert after accepted delivery",
+      "Founder time cannot be reduced through templates and automation"
+    ],
+    "source_refs": [
+      "BRAIN continuity: Agency Client Rescue Pilot",
+      "Agency Revenue Watchtower artifacts",
+      "Zero-to-first-payment bounded diagnostic"
+    ]
+  }
+]

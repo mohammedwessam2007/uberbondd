@@ -1,6 +1,18 @@
-import json, sqlite3, subprocess, sys, tempfile, unittest
+import json, os, sqlite3, subprocess, sys, tempfile, unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
+
+def _catalog_env(catalog_dir: Path) -> dict:
+    # Build the catalog fresh into a temporary directory rather than relying
+    # on a pre-existing (gitignored, never committed) library/catalog.sqlite.
+    subprocess.run(
+        [sys.executable, str(ROOT/"library/build_catalog.py"), "--output-dir", str(catalog_dir)],
+        capture_output=True, text=True, check=True,
+    )
+    env = dict(os.environ)
+    env["APEX_LIBRARY_CATALOG_DB"] = str(catalog_dir/"catalog.sqlite")
+    return env
+
 class V3LibraryTests(unittest.TestCase):
     def test_counts(self):
         self.assertGreaterEqual(len([p for p in ROOT.rglob("*") if p.is_file() and "__pycache__" not in p.parts]),6000)
@@ -17,13 +29,16 @@ class V3LibraryTests(unittest.TestCase):
             self.assertIn("model: sonnet",text)
             self.assertIn("effort: max",text)
     def test_search(self):
-        p=subprocess.run([sys.executable,str(ROOT/"library/apex_library.py"),"search","payment concurrency idempotency","--limit","10"],capture_output=True,text=True)
-        self.assertEqual(p.returncode,0,p.stderr)
-        results=json.loads(p.stdout)
-        self.assertTrue(results)
+        with tempfile.TemporaryDirectory() as catalog_dir:
+            env=_catalog_env(Path(catalog_dir))
+            p=subprocess.run([sys.executable,str(ROOT/"library/apex_library.py"),"search","payment concurrency idempotency","--limit","10"],capture_output=True,text=True,env=env)
+            self.assertEqual(p.returncode,0,p.stderr)
+            results=json.loads(p.stdout)
+            self.assertTrue(results)
     def test_materialize(self):
-        with tempfile.TemporaryDirectory() as d:
-            p=subprocess.run([sys.executable,str(ROOT/"library/apex_library.py"),"materialize","--query","durable worker crash recovery concurrency","--output",d,"--limit","24","--max-bytes","500000"],capture_output=True,text=True)
+        with tempfile.TemporaryDirectory() as catalog_dir, tempfile.TemporaryDirectory() as d:
+            env=_catalog_env(Path(catalog_dir))
+            p=subprocess.run([sys.executable,str(ROOT/"library/apex_library.py"),"materialize","--query","durable worker crash recovery concurrency","--output",d,"--limit","24","--max-bytes","500000"],capture_output=True,text=True,env=env)
             self.assertEqual(p.returncode,0,p.stderr)
             self.assertTrue((Path(d)/"PACK_MANIFEST.json").exists())
             manifest=json.loads((Path(d)/"PACK_MANIFEST.json").read_text())

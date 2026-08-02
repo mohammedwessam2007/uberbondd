@@ -1,9 +1,11 @@
 import re, unittest
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1]
+# Runtime agents live at the repo root's .claude/agents, not under a
+# tools/elite-duo-apex/claude/ mirror.
+REPO_ROOT=Path(__file__).resolve().parents[3]
 class AgentTests(unittest.TestCase):
     def test_agents(self):
-        agents=list((ROOT/"claude/agents").glob("*.md"))
+        agents=list((REPO_ROOT/".claude/agents").glob("*.md"))
         self.assertEqual(len(agents),32)
         for p in agents:
             text=p.read_text()

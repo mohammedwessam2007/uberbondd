@@ -3,14 +3,28 @@ import hashlib, json, os, sys, time
 from pathlib import Path
 from typing import Any
 
+# This file lives at <repo-root>/.claude/hooks/lib.py, so its own location
+# (not the process's working directory) is an authoritative fallback for the
+# repo root -- deriving from __file__ means running a hook from an arbitrary
+# cwd (e.g. tools/elite-duo-apex/) can never resolve outside the repo.
+_REPO_ROOT_FALLBACK = Path(__file__).resolve().parents[2]
+
 def read_input() -> dict[str, Any]:
     raw = sys.stdin.read()
     return json.loads(raw) if raw.strip() else {}
 
 def project_dir(data: dict | None = None) -> Path:
+    # CLAUDE_PROJECT_DIR is the session-wide, explicitly-supplied project root
+    # and must win over data["cwd"] -- the latter is only the working directory
+    # of the specific tool invocation (e.g. a Bash command that itself ran
+    # `cd some/subdir`), so trusting it here would make persistent state
+    # location depend on the process working directory of arbitrary tool calls.
+    env = os.environ.get("CLAUDE_PROJECT_DIR")
+    if env:
+        return Path(env).resolve()
     if data and data.get("cwd"):
         return Path(data["cwd"]).resolve()
-    return Path(os.environ.get("CLAUDE_PROJECT_DIR", os.getcwd())).resolve()
+    return _REPO_ROOT_FALLBACK
 
 def apex_dir(data: dict | None = None) -> Path:
     p = project_dir(data) / ".claude" / "apex"

@@ -3,6 +3,11 @@ from __future__ import annotations
 import json, os, sys, time
 from pathlib import Path
 
+# This file lives at <repo-root>/.claude/statusline/apex_statusline.py; its
+# own location is an authoritative fallback so invocation from an arbitrary
+# cwd never resolves the project directory outside the repo.
+_REPO_ROOT_FALLBACK = Path(__file__).resolve().parents[2]
+
 def zone(p):
     if p < 45: return 'GREEN'
     if p < 62: return 'YELLOW'
@@ -21,7 +26,7 @@ ratio=read/max(1,read+create+fresh)
 model=(data.get('model') or {}).get('display_name','Sonnet')
 eff=(data.get('effort') or {}).get('level','?')
 cost=(data.get('cost') or {}).get('total_cost_usd')
-project=Path((data.get('workspace') or {}).get('project_dir') or (data.get('workspace') or {}).get('current_dir') or os.getcwd())
+project=Path((data.get('workspace') or {}).get('project_dir') or (data.get('workspace') or {}).get('current_dir') or os.environ.get('CLAUDE_PROJECT_DIR') or _REPO_ROOT_FALLBACK)
 apex=project/'.claude'/'apex'; apex.mkdir(parents=True,exist_ok=True)
 row={'at':time.time(),'session_id':data.get('session_id'),'used_percentage':pct,'zone':zone(pct),'cache_read':read,'cache_create':create,'fresh_input':fresh,'cache_ratio':ratio,'effort':eff,'cost_usd':cost}
 with (apex/'context-telemetry.jsonl').open('a',encoding='utf-8') as f: f.write(json.dumps(row)+'\n')

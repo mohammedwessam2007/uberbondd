@@ -14,11 +14,15 @@ tools/elite-duo-apex/library/catalog.sqlite
 tools/elite-duo-apex/library/catalog.jsonl
 tools/elite-duo-apex/library/catalog.csv
 tools/elite-duo-apex/library/CATALOG_STATS.json
-.claude/apex/*.jsonl
-.claude/apex/APEX_STATE.json
-.claude/apex/CONTEXT_HEALTH.json
-.claude/apex/tool-results/
+# .claude/apex/ is entirely runtime state written by hooks/statusline at
+# session time; only INSTALL_REPORT.json is an intentionally durable record.
+.claude/apex/*
+!.claude/apex/INSTALL_REPORT.json
 .claude-apex-backups/
 # Dry-run demo output of `library/apex_library.py materialize` (Phase 7 smoke test) -- regenerate with:
 #   python3 tools/elite-duo-apex/library/apex_library.py materialize --query "..." --output tools/elite-duo-apex/MISSION_INTELLIGENCE_PACK
 tools/elite-duo-apex/MISSION_INTELLIGENCE_PACK/
+# Demo/report output of `scripts/benchmark_fraction_engine.py` -- its --output
+# default is cwd-relative, so ignore it wherever it might land.
+FRACTION_ENGINE_BENCHMARK.json
+tools/elite-duo-apex/FRACTION_ENGINE_BENCHMARK.json

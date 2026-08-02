@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse, hashlib, json, re, shutil, sqlite3
+import argparse, hashlib, json, os, re, shutil, sqlite3
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DB = ROOT / "library" / "catalog.sqlite"
+# $APEX_LIBRARY_CATALOG_DB lets validation/test runs point at a catalog built
+# in a temporary directory instead of requiring the gitignored library/
+# catalog.sqlite to already exist on disk.
+DB = Path(os.environ["APEX_LIBRARY_CATALOG_DB"]) if os.environ.get("APEX_LIBRARY_CATALOG_DB") else ROOT / "library" / "catalog.sqlite"
 
 MANDATORY = [
     "00_START_HERE_V3.md",

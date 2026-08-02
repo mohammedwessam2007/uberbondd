@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
+# COMPATIBILITY-ONLY: validates the vendored package's own source tree
+# (library/, schemas/, scripts/) in isolation. It is not authoritative for
+# the installed repo deployment -- use scripts/validate_repo_deployment.py
+# for that (repo-root .claude/ + tools/elite-duo-apex/).
 from __future__ import annotations
-import json, py_compile, re, sqlite3, subprocess, sys
+import json, py_compile, re, sqlite3, subprocess, sys, tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 errors=[]
@@ -39,20 +43,30 @@ for p in ROOT.rglob("*.py"):
     try: py_compile.compile(str(p),doraise=True)
     except Exception as e: errors.append(f"invalid Python {p.relative_to(ROOT)}: {e}")
 
-db=ROOT/"library/catalog.sqlite"
-if not db.exists(): errors.append("catalog.sqlite missing")
-else:
-    con=sqlite3.connect(db)
-    count=con.execute("select count(*) from artifacts").fetchone()[0]
-    con.close()
-    if count<6000: errors.append(f"catalog too small: {count}")
+# Catalog is generated, gitignored, and never required to pre-exist: build a
+# throwaway copy in a temporary directory so validation works from a fresh
+# checkout without depending on (or leaving behind) library/catalog.sqlite.
+with tempfile.TemporaryDirectory() as catalog_dir:
+    build=subprocess.run(
+        [sys.executable,str(ROOT/"library/build_catalog.py"),"--output-dir",catalog_dir],
+        capture_output=True,text=True,
+    )
+    if build.returncode:
+        errors.append("catalog build failed:\n"+build.stdout+build.stderr)
+        count=0
+    else:
+        db=Path(catalog_dir)/"catalog.sqlite"
+        con=sqlite3.connect(db)
+        count=con.execute("select count(*) from artifacts").fetchone()[0]
+        con.close()
+        if count<6000: errors.append(f"catalog too small: {count}")
 
 proc=subprocess.run([sys.executable,"-m","unittest","discover","-s",str(ROOT/"tests")],capture_output=True,text=True)
 if proc.returncode: errors.append("tests failed:\n"+proc.stdout+proc.stderr)
 
 report={
  "passed":not errors,"file_count":file_count,"counts":actual,"expected":expected,
- "catalog_artifacts":count if db.exists() else 0,
+ "catalog_artifacts":count,
  "unit_test_exit_code":proc.returncode,
  "unit_test_summary":"All V2 and V3 tests passed" if proc.returncode==0 else (proc.stdout+proc.stderr)[-5000:],
  "errors":errors

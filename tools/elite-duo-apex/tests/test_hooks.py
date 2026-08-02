@@ -1,7 +1,9 @@
 import importlib.util, io, json, os, subprocess, sys, tempfile, unittest
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1]
-HOOKS=ROOT/"claude/hooks"
+# Runtime hooks live at the repo root's .claude/hooks, not under a
+# tools/elite-duo-apex/claude/ mirror.
+REPO_ROOT=Path(__file__).resolve().parents[3]
+HOOKS=REPO_ROOT/".claude/hooks"
 class HookTests(unittest.TestCase):
     def run_hook(self,name,payload,cwd):
         env=dict(os.environ); env["CLAUDE_PROJECT_DIR"]=str(cwd)

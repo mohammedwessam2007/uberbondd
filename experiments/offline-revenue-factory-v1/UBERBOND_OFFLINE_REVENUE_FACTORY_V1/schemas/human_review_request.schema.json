@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urf://schemas/human_review_request.schema.json",
+  "title": "HumanReviewRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["request_id", "run_id", "lane", "reason", "required_role", "blocking", "status"],
+  "properties": {
+    "request_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "lane": {"type": "string"},
+    "reason": {"type": "string", "minLength": 1},
+    "required_role": {"type": "string", "enum": ["owner", "licensed_professional", "partner", "customer", "unspecified"]},
+    "blocking": {"type": "boolean"},
+    "status": {"type": "string", "enum": ["open", "resolved", "waived"]}
+  }
+}

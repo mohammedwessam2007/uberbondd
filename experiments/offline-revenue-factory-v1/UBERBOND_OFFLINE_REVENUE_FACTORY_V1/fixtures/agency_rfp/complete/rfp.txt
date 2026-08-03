@@ -1,0 +1,89 @@
+RFP_ID: RFP-2026-101
+TITLE: Regional Water Authority Customer Portal Modernization
+ISSUING_ORG: Regional Water Authority Procurement Office
+ISSUED_DATE: 2026-05-01
+DUE_DATE: 2026-06-30T17:00:00
+SUBMISSION_METHOD: electronic portal
+AMENDMENT_OF:
+
+[REQUIREMENT]
+ID: REQ-001
+TYPE: MANDATORY
+SECTION: 3.1
+TEXT: Vendor must hold a current business license in the state of operation.
+OWNER: vendor
+DUE: submission
+STATUS: met
+EVIDENCE: business_license.pdf
+CONFLICTS_WITH:
+DEPENDS_ON:
+[/REQUIREMENT]
+
+[REQUIREMENT]
+ID: REQ-002
+TYPE: SCORED
+WEIGHT: 20
+SECTION: 4.2
+TEXT: Describe your approach to WCAG 2.1 AA accessibility compliance for the customer portal.
+OWNER: vendor
+DUE: submission
+STATUS: met
+EVIDENCE: accessibility_approach.pdf
+CONFLICTS_WITH:
+DEPENDS_ON:
+[/REQUIREMENT]
+
+[REQUIREMENT]
+ID: REQ-003
+TYPE: PASS_FAIL
+SECTION: 3.4
+TEXT: Vendor must be registered to do business in the issuing state.
+OWNER: vendor
+DUE: submission
+STATUS: met
+EVIDENCE: state_registration.pdf
+CONFLICTS_WITH:
+DEPENDS_ON:
+[/REQUIREMENT]
+
+[REQUIREMENT]
+ID: REQ-004
+TYPE: SCORED
+WEIGHT: 15
+SECTION: 4.5
+TEXT: Describe your data backup and disaster recovery plan.
+OWNER: vendor
+DUE: submission
+STATUS: met
+EVIDENCE: dr_plan.pdf
+CONFLICTS_WITH:
+DEPENDS_ON:
+[/REQUIREMENT]
+
+[ATTACHMENT]
+ID: ATT-001
+FILENAME: business_license.pdf
+REQUIRED: true
+PROVIDED: true
+[/ATTACHMENT]
+
+[ATTACHMENT]
+ID: ATT-002
+FILENAME: accessibility_approach.pdf
+REQUIRED: true
+PROVIDED: true
+[/ATTACHMENT]
+
+[ATTACHMENT]
+ID: ATT-003
+FILENAME: state_registration.pdf
+REQUIRED: true
+PROVIDED: true
+[/ATTACHMENT]
+
+[ATTACHMENT]
+ID: ATT-004
+FILENAME: dr_plan.pdf
+REQUIRED: true
+PROVIDED: true
+[/ATTACHMENT]

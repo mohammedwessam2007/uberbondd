@@ -1,0 +1,10 @@
+{
+  "auditor": "synthetic-auditor-01",
+  "audited_at": "2026-07-19T09:00:00Z",
+  "items": [
+    {"wcag_sc": "1.1.1", "title": "Non-text Content", "result": "fail", "notes": "Product thumbnail images missing alt text, matches automated finding."},
+    {"wcag_sc": "2.1.1", "title": "Keyboard", "result": "pass", "notes": "All interactive elements reachable via keyboard."},
+    {"wcag_sc": "3.3.2", "title": "Labels or Instructions", "result": "fail", "notes": "Promo code field has no visible or programmatic label."},
+    {"wcag_sc": "4.1.2", "title": "Name, Role, Value", "result": "fail", "notes": "Promo code input exposes no accessible name."}
+  ]
+}

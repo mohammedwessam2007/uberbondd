@@ -1,0 +1,11 @@
+{
+  "finding_id": "fnd-example-0001",
+  "run_id": "run-example-000000000000",
+  "lane": "hospital_mrf",
+  "label": "deterministic calculation",
+  "statement": "File hash sha256:0000...00aa was computed from the supplied fixture bytes.",
+  "evidence_refs": ["ev-example-0001"],
+  "confidence": "high",
+  "human_review_required": false,
+  "blocked_reason": null
+}

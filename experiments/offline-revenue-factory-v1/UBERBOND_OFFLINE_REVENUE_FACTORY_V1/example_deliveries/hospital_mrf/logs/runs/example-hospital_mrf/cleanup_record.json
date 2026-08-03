@@ -1,0 +1,14 @@
+{
+  "cleanup_id": "cln-example-hospital_mrf",
+  "lane": "hospital_mrf",
+  "performed_at": "2026-08-03T00:49:39Z",
+  "removed_paths": [
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/hospital_mrf/tmp/runs/example-hospital_mrf"
+  ],
+  "retained_paths": [
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/hospital_mrf/reports/runs/example-hospital_mrf",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/hospital_mrf/evidence/runs/example-hospital_mrf",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/hospital_mrf/logs/runs/example-hospital_mrf"
+  ],
+  "run_id": "example-hospital_mrf"
+}

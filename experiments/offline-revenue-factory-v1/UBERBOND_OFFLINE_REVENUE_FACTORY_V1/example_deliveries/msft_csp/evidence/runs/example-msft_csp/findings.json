@@ -1,0 +1,26 @@
+[
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-msft_csp-0012"
+    ],
+    "finding_id": "fnd-example-msft_csp-0001",
+    "human_review_required": false,
+    "label": "deterministic calculation",
+    "lane": "msft_csp",
+    "run_id": "example-msft_csp",
+    "statement": "Incident INC-SYN-1001 overlaps a matching service-health degradation window for 10200 seconds."
+  },
+  {
+    "blocked_reason": "rule_source_current and partner_submission_channel_available can never both be true in this offline system, so a positive eligibility conclusion is always withheld.",
+    "confidence": "unknown",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-msft_csp-0002",
+    "human_review_required": true,
+    "label": "blocked conclusion",
+    "lane": "msft_csp",
+    "run_id": "example-msft_csp",
+    "statement": "Overall SLA-credit eligibility conclusion is BLOCKED. This output is not a claim. This output is not an eligibility decision. This output is not a Microsoft representation. Authorized CSP/customer evidence is required before any submission. Current SLA/contract review is required before any submission. Partner submission is required; this system does not submit anything."
+  }
+]

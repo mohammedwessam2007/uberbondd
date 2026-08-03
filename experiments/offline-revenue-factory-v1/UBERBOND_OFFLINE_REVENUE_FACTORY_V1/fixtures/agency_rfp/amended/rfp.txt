@@ -1,0 +1,48 @@
+RFP_ID: RFP-2026-202
+TITLE: County Parks Department Booking System
+ISSUING_ORG: County Parks Department
+ISSUED_DATE: 2026-04-10
+DUE_DATE: 2026-05-20T17:00:00
+SUBMISSION_METHOD: email
+AMENDMENT_OF:
+
+[REQUIREMENT]
+ID: REQ-001
+TYPE: MANDATORY
+SECTION: 2.1
+TEXT: Vendor must provide three references from prior government clients.
+OWNER: vendor
+DUE: submission
+STATUS: met
+EVIDENCE: references.pdf
+CONFLICTS_WITH:
+DEPENDS_ON:
+[/REQUIREMENT]
+
+[REQUIREMENT]
+ID: REQ-002
+TYPE: SCORED
+WEIGHT: 10
+SECTION: 3.3
+TEXT: Describe your project management methodology.
+OWNER: vendor
+DUE: submission
+STATUS: met
+EVIDENCE: pm_methodology.pdf
+CONFLICTS_WITH:
+DEPENDS_ON:
+[/REQUIREMENT]
+
+[ATTACHMENT]
+ID: ATT-001
+FILENAME: references.pdf
+REQUIRED: true
+PROVIDED: true
+[/ATTACHMENT]
+
+[ATTACHMENT]
+ID: ATT-002
+FILENAME: pm_methodology.pdf
+REQUIRED: true
+PROVIDED: true
+[/ATTACHMENT]

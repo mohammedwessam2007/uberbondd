@@ -1,0 +1,7 @@
+{
+  "content_type": "application/json",
+  "status_code": 200,
+  "redirect_chain": [],
+  "final_url_placeholder": "REQUIRES-CURRENT-VERIFICATION://example-hospital.test/mrf.json",
+  "captured_note": "Simulated metadata for a synthetic fixture. Not a live HTTP fetch; no network request was made."
+}

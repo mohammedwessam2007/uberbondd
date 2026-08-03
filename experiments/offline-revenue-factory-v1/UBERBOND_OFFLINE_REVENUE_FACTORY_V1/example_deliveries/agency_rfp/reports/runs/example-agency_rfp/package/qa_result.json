@@ -1,0 +1,41 @@
+{
+  "checks": [
+    {
+      "check_id": "qa-evidence-refs-resolve",
+      "description": "Every finding's evidence_refs resolve to an existing evidence item",
+      "detail": null,
+      "status": "pass"
+    },
+    {
+      "check_id": "qa-finding-labels-valid",
+      "description": "Every finding carries one of the nine required labels",
+      "detail": null,
+      "status": "pass"
+    },
+    {
+      "check_id": "qa-human-review-consistency",
+      "description": "Findings labeled 'human-review requirement' also set human_review_required=true",
+      "detail": null,
+      "status": "pass"
+    },
+    {
+      "check_id": "qa-no-submission-recommendation",
+      "description": "No finding recommends submitting, no-bidding, or asserts legal sufficiency",
+      "detail": null,
+      "status": "pass"
+    },
+    {
+      "check_id": "qa-conflicts-flagged-as-issues",
+      "description": "Every declared requirement conflict produces a matching issue record",
+      "detail": null,
+      "status": "pass"
+    }
+  ],
+  "evaluated_at": "2026-08-03T00:49:32Z",
+  "failed": 0,
+  "lane": "agency_rfp",
+  "overall_status": "pass",
+  "passed": 5,
+  "qa_id": "qa-example-agency_rfp",
+  "run_id": "example-agency_rfp"
+}

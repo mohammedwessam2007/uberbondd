@@ -1,0 +1,21 @@
+{
+  "report_id": "rpt-example-0001",
+  "run_id": "run-example-000000000000",
+  "lane": "hospital_mrf",
+  "template": "internal_qa",
+  "executive_summary": "Synthetic fixture processed; structural checks completed; no compliance certification issued.",
+  "scope": ["Structural and hashing evidence for one synthetic MRF fixture."],
+  "exclusions": ["Price accuracy", "Legal sufficiency", "Completeness certification"],
+  "inputs": ["fixtures/hospital_mrf/valid/mrf_valid.json"],
+  "methods": ["sha256 hashing", "JSON structural field check"],
+  "findings": ["fnd-example-0001"],
+  "evidence_refs": ["ev-example-0001"],
+  "unknowns": [],
+  "blocked_conclusions": [],
+  "human_review_requirements": [],
+  "limitations": ["Synthetic data only."],
+  "delivery_acceptance_ref": null,
+  "run_manifest_ref": "run-example-000000000000",
+  "checksum": null,
+  "generated_at": "2026-08-03T00:00:00Z"
+}

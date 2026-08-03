@@ -1,0 +1,32 @@
+[
+  {
+    "category": "missing_optional_file",
+    "description": "Optional input file 'tracking_config.json' is absent from fixture broken_link_step.",
+    "detected_at": "2026-08-03T00:49:33Z",
+    "issue_id": "iss-example-lead_path-0001",
+    "lane": "lead_path",
+    "run_id": "example-lead_path",
+    "severity": "minor",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/lead_path/broken_link_step/tracking_config.json"
+  },
+  {
+    "category": "broken_funnel_link",
+    "description": "Step s2 (Service Selection) has a broken link to its expected next step 's3'; this is a hard dead end in the funnel.",
+    "detected_at": "2026-08-03T00:49:33Z",
+    "issue_id": "iss-example-lead_path-0002",
+    "lane": "lead_path",
+    "run_id": "example-lead_path",
+    "severity": "critical",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/lead_path/broken_link_step/funnel_steps.json"
+  },
+  {
+    "category": "high_dropoff_step",
+    "description": "Step s3 shows a 93.8% drop-off from step s2 in the supplied visit log, at or above the 50.0% flag threshold.",
+    "detected_at": "2026-08-03T00:49:33Z",
+    "issue_id": "iss-example-lead_path-0003",
+    "lane": "lead_path",
+    "run_id": "example-lead_path",
+    "severity": "serious",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/lead_path/broken_link_step/synthetic_funnel_log.json"
+  }
+]

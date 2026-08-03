@@ -1,0 +1,43 @@
+{
+  "deliverable": "UBERBOND_OFFLINE_REVENUE_FACTORY_V1.zip",
+  "generated_at": "2026-08-03T01:05:00Z",
+  "source_repo_branch": "claude/offline-revenue-factory-v1-s28c75",
+  "source_repo_commit": "967446bdf13f39e6ba9ad799908dc93534b92d1c",
+  "contents": [
+    "00_EXECUTIVE_SUMMARY.md",
+    "01_ARCHITECTURE.md",
+    "02_COMMON_EVIDENCE_MODEL.md",
+    "03_CLAIM_SAFETY_POLICY.md",
+    "04_DATA_CLASSIFICATION_POLICY.md",
+    "05_MICROSOFT_CSP_FACTORY/",
+    "06_HOSPITAL_MRF_FACTORY/",
+    "07_AGENCY_RFP_FACTORY/",
+    "08_ACCESSIBILITY_FACTORY/",
+    "09_LEAD_PATH_FACTORY/",
+    "10_COMMON_REPORT_ENGINE/",
+    "11_COMMON_QA_ENGINE/",
+    "12_COMMERCIAL_TEMPLATES/",
+    "13_ECONOMIC_INSTRUMENTATION/",
+    "14_FIVE_EXAMPLE_DELIVERIES/",
+    "15_TEST_REPORT.md",
+    "16_LIMITATION_REGISTER.md",
+    "17_OWNER_HANDOFF.md",
+    "18_FUTURE_INTEGRATION_PLAN.md",
+    "UBERBOND_OFFLINE_REVENUE_FACTORY_V1/",
+    "MANIFEST.json",
+    "CHECKSUMS.sha256"
+  ],
+  "note_on_factory_directories": "Items 05 through 14 are pointer directories (a README.md each) referencing the real, single-copy implementation inside UBERBOND_OFFLINE_REVENUE_FACTORY_V1/, rather than duplicated source trees, per this build's scope-discipline rule (avoid unrelated duplication).",
+  "self_test_status": {
+    "total_tests": 82,
+    "passed": 82,
+    "failed": 0
+  },
+  "example_deliveries_verified": 5,
+  "prohibited_pattern_scan": {
+    "files_scanned": 181,
+    "hits": 0
+  },
+  "final_verdict": "OFFLINE_FACTORY_READY",
+  "note": "This manifest is a build record. It is not a claim of buyer demand, legal clearance, or commercial readiness — see LEGAL_AND_CLAIM_BOUNDARIES.md inside UBERBOND_OFFLINE_REVENUE_FACTORY_V1/."
+}

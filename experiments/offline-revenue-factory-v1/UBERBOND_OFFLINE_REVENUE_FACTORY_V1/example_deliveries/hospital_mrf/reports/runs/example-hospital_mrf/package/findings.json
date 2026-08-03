@@ -1,0 +1,57 @@
+[
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-hospital_mrf-0001",
+    "human_review_required": false,
+    "label": "deterministic calculation",
+    "lane": "hospital_mrf",
+    "run_id": "example-hospital_mrf",
+    "statement": "File mrf.json hashes to sha256:6327072a4c293a72ede758086c9a51c1056941176259b851d875baf4c827b3ed (722 bytes, compression=none)."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-hospital_mrf-0002",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "hospital_mrf",
+    "run_id": "example-hospital_mrf",
+    "statement": "mrf.json contains all 6 required structural fields."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-hospital_mrf-0003",
+    "human_review_required": false,
+    "label": "deterministic calculation",
+    "lane": "hospital_mrf",
+    "run_id": "example-hospital_mrf",
+    "statement": "mrf.json contains an estimated 2 standard_charge_information row(s)."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-hospital_mrf-0004",
+    "human_review_required": false,
+    "label": "deterministic calculation",
+    "lane": "hospital_mrf",
+    "run_id": "example-hospital_mrf",
+    "statement": "mrf.json last_updated_on is 19 day(s) old (within the 365-day freshness threshold)."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-hospital_mrf-0005",
+    "human_review_required": false,
+    "label": "deterministic calculation",
+    "lane": "hospital_mrf",
+    "run_id": "example-hospital_mrf",
+    "statement": "Local link-map check: 1/1 referenced file(s) resolve locally."
+  }
+]

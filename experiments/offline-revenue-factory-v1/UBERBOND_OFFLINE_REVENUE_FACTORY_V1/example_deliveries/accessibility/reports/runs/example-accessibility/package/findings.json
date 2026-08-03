@@ -1,0 +1,163 @@
+[
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-accessibility-0001"
+    ],
+    "finding_id": "fnd-example-accessibility-0001",
+    "human_review_required": false,
+    "label": "deterministic calculation",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "statement": "Automated scan is 15 day(s) old (within the 90-day freshness threshold)."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-accessibility-0002"
+    ],
+    "finding_id": "fnd-example-accessibility-0002",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "statement": "Automated violation color-contrast (WCAG 1.4.3, impact=serious) at selector '#submit-btn': Elements must meet minimum color contrast ratio thresholds."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-accessibility-0003"
+    ],
+    "finding_id": "fnd-example-accessibility-0003",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "statement": "Automated violation image-alt (WCAG 1.1.1, impact=critical) at selector 'img.product-thumb': Images must have alternate text."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-accessibility-0004"
+    ],
+    "finding_id": "fnd-example-accessibility-0004",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "statement": "Automated violation label (WCAG 4.1.2, impact=critical) at selector 'input#promo-code': Form elements must have labels."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-accessibility-0005"
+    ],
+    "finding_id": "fnd-example-accessibility-0005",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "statement": "Automated violation link-name (WCAG 2.4.4, impact=moderate) at selector 'a.icon-only': Links must have discernible text."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-accessibility-0006",
+    "human_review_required": true,
+    "label": "deterministic calculation",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "statement": "Automated scan violation summary: 2 critical, 1 serious, 1 moderate, 0 minor (4 unique violation(s), 4 raw entrie(s) before dedup)."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-accessibility-0007"
+    ],
+    "finding_id": "fnd-example-accessibility-0007",
+    "human_review_required": true,
+    "label": "parsed fact",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "statement": "Manual check WCAG 1.1.1 (Non-text Content): result=fail."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-accessibility-0008"
+    ],
+    "finding_id": "fnd-example-accessibility-0008",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "statement": "Manual check WCAG 2.1.1 (Keyboard): result=pass."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-accessibility-0009"
+    ],
+    "finding_id": "fnd-example-accessibility-0009",
+    "human_review_required": true,
+    "label": "parsed fact",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "statement": "Manual check WCAG 3.3.2 (Labels or Instructions): result=fail."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-accessibility-0010"
+    ],
+    "finding_id": "fnd-example-accessibility-0010",
+    "human_review_required": true,
+    "label": "parsed fact",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "statement": "Manual check WCAG 4.1.2 (Name, Role, Value): result=fail."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-accessibility-0011",
+    "human_review_required": true,
+    "label": "deterministic calculation",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "statement": "Manual checklist summary: 1 pass, 3 fail, 0 not tested (4 item(s) sampled)."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-accessibility-0012",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "statement": "Page inventory lists 2 page(s) in scope for this evidence pack."
+  },
+  {
+    "blocked_reason": "Full WCAG conformance determination requires manual assistive-technology testing beyond automated scanning and a sampled checklist.",
+    "confidence": "unknown",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-accessibility-0013",
+    "human_review_required": true,
+    "label": "blocked conclusion",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "statement": "Overall WCAG conformance/acceptance conclusion is BLOCKED: automated scan results and any sampled manual checklist are organized here as evidence, but full conformance requires manual testing of every page/state with real assistive technologies, which this offline system does not perform. This output is not a WCAG conformance certification. This output is not an ADA, Section 508, or other legal accessibility compliance determination. Automated scanning covers only a subset of WCAG success criteria and cannot detect most usability or assistive-technology issues. A sampled manual checklist is not a full audit across every page, component state, and assistive technology combination."
+  }
+]

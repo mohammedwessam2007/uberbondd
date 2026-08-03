@@ -1,0 +1,31 @@
+{
+  "final_package_hash": "680a17c3c6e7fda483387967141fcbd22860bbb73ad26d13344cec64e8d2dc9f",
+  "finding_count": 2,
+  "finished_at": "2026-08-03T00:49:39Z",
+  "fixture_id": "complete",
+  "git_commit": "967446bdf13f39e6ba9ad799908dc93534b92d1c",
+  "human_review_count": 1,
+  "input_hashes": {
+    "msft_csp/complete/affected_services.json": "fd589466f5d5a0a51c0822342e1ae12e7975f2734333dc1686dc939c980658b4",
+    "msft_csp/complete/incident_timeline.json": "2e0c56cd72b0415cc4b052e6d497e9f342cce2e299b1415b143db3d50d7ff51f",
+    "msft_csp/complete/rule_source_registry.json": "d92cb91e943f6a682e835cef73a823a2bc743a5cff55830c2640ffb2e566e1c7",
+    "msft_csp/complete/service_health_timeline.json": "adadd7bf3645e8d4a9db9aeb2269a9a3c634761b81406048ae242629b5bf9ada",
+    "msft_csp/complete/subscription_metadata.json": "578783218ce78ce250140d9c78ef4e45ed7b548493603bbca982551510a6cf2a"
+  },
+  "lane": "msft_csp",
+  "qa_ref": "qa-example-msft_csp",
+  "run_id": "example-msft_csp",
+  "software_version": "1.0.0",
+  "stages_completed": [
+    "init-run",
+    "validate-input",
+    "execute",
+    "qa",
+    "render",
+    "package",
+    "cleanup"
+  ],
+  "started_at": "2026-08-03T00:49:33Z",
+  "unknown_count": 0,
+  "warning_count": 0
+}

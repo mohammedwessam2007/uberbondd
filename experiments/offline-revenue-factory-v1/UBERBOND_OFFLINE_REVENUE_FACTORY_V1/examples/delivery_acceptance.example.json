@@ -1,0 +1,10 @@
+{
+  "acceptance_id": "acc-example-0001",
+  "run_id": "run-example-000000000000",
+  "lane": "hospital_mrf",
+  "buyer_role": "internal_qa",
+  "acceptance_criteria": ["Package checksum verifies", "No blocking human-review items open"],
+  "signed": false,
+  "signed_at": null,
+  "notes": "Internal example only; not an executed buyer acceptance."
+}

@@ -1,0 +1,35 @@
+{
+  "checks": [
+    {
+      "check_id": "qa-evidence-refs-resolve",
+      "description": "Every finding's evidence_refs resolve to an existing evidence item",
+      "detail": null,
+      "status": "pass"
+    },
+    {
+      "check_id": "qa-finding-labels-valid",
+      "description": "Every finding carries one of the nine required labels",
+      "detail": null,
+      "status": "pass"
+    },
+    {
+      "check_id": "qa-human-review-consistency",
+      "description": "Findings labeled 'human-review requirement' also set human_review_required=true",
+      "detail": null,
+      "status": "pass"
+    },
+    {
+      "check_id": "qa-no-revenue-quantification-claim",
+      "description": "No finding asserts a guaranteed dollar recovery or certifies the funnel leak-free",
+      "detail": null,
+      "status": "pass"
+    }
+  ],
+  "evaluated_at": "2026-08-03T00:49:33Z",
+  "failed": 0,
+  "lane": "lead_path",
+  "overall_status": "pass",
+  "passed": 4,
+  "qa_id": "qa-example-lead_path",
+  "run_id": "example-lead_path"
+}

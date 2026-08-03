@@ -1,0 +1,11 @@
+[
+  {
+    "incident_id": "INC-SYN-1001",
+    "service": "Azure Virtual Machines",
+    "region": "eastus",
+    "start": "2026-07-10T02:00:00Z",
+    "end": "2026-07-10T05:30:00Z",
+    "customer_reported": true,
+    "source": "synthetic_fixture"
+  }
+]

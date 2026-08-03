@@ -1,0 +1,9 @@
+{
+  "auditor": "synthetic-auditor-02",
+  "audited_at": "2026-07-22T15:00:00Z",
+  "items": [
+    {"wcag_sc": "1.3.1", "title": "Info and Relationships", "result": "pass", "notes": "Heading order issue noted but content relationships remain programmatically determinable."},
+    {"wcag_sc": "2.4.3", "title": "Focus Order", "result": "not_tested", "notes": "Auditor ran out of time before testing tab order on this page."},
+    {"wcag_sc": "1.4.10", "title": "Reflow", "result": "not_tested", "notes": "Zoom/reflow testing not yet performed."}
+  ]
+}

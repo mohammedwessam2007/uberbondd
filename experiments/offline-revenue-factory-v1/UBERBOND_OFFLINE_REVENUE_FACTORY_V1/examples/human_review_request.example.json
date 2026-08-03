@@ -1,0 +1,9 @@
+{
+  "request_id": "hrr-example-0001",
+  "run_id": "run-example-000000000000",
+  "lane": "accessibility",
+  "reason": "Automated checks cannot certify WCAG conformance; a qualified manual reviewer must confirm contrast and keyboard-trap findings.",
+  "required_role": "licensed_professional",
+  "blocking": true,
+  "status": "open"
+}

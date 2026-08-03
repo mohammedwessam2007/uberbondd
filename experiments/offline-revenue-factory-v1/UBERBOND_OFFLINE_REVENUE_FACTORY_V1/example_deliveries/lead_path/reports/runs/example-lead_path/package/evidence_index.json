@@ -1,0 +1,143 @@
+[
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.lead_path",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-lead_path-0001",
+    "human_review_required": false,
+    "lane": "lead_path",
+    "limitation": "Synthetic step graph; not a live crawl or click-through recording.",
+    "observed_value": {
+      "steps": [
+        {
+          "expected_next_step_id": "s2",
+          "has_working_link_to_next": true,
+          "name": "Landing Page",
+          "step_id": "s1",
+          "type": "landing",
+          "url": "https://example-buyer.test/"
+        },
+        {
+          "expected_next_step_id": "s3",
+          "has_working_link_to_next": false,
+          "name": "Service Selection",
+          "step_id": "s2",
+          "type": "selection",
+          "url": "https://example-buyer.test/services"
+        },
+        {
+          "expected_next_step_id": "s4",
+          "has_working_link_to_next": true,
+          "name": "Booking Form",
+          "step_id": "s3",
+          "type": "form",
+          "url": "https://example-buyer.test/book"
+        },
+        {
+          "expected_next_step_id": null,
+          "has_working_link_to_next": null,
+          "name": "Confirmation",
+          "step_id": "s4",
+          "type": "confirmation",
+          "url": "https://example-buyer.test/confirm"
+        }
+      ]
+    },
+    "parser": "lead_path.funnel_steps_reader",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "A working link between steps does not guarantee the page renders correctly or converts.",
+    "report_refs": [],
+    "run_id": "example-lead_path",
+    "source_hash": "f72a39446c00575a7208c4186f6cbd73618949e951aafb0214345e0cce6cef99",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/lead_path/broken_link_step/funnel_steps.json",
+    "source_type": "synthetic_fixture"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.lead_path",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-lead_path-0002",
+    "human_review_required": false,
+    "lane": "lead_path",
+    "limitation": "Synthetic form configuration; not a live form submission test.",
+    "observed_value": {
+      "confirmation_present": true,
+      "fields": [
+        {
+          "has_label": true,
+          "has_validation": true,
+          "name": "full_name",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "has_label": true,
+          "has_validation": true,
+          "name": "email",
+          "required": true,
+          "type": "email"
+        }
+      ],
+      "form_id": "booking-form-1",
+      "page_url": "https://example-buyer.test/book",
+      "submit_action_configured": true
+    },
+    "parser": "lead_path.form_fields_reader",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "A configured submit action does not guarantee the backend processes submissions correctly.",
+    "report_refs": [],
+    "run_id": "example-lead_path",
+    "source_hash": "3d41810de388abe533f2d146e887b612e619cba3e7271e3766bf2699d4b6e2e5",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/lead_path/broken_link_step/form_fields.json",
+    "source_type": "synthetic_fixture"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.lead_path",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-lead_path-0003",
+    "human_review_required": false,
+    "lane": "lead_path",
+    "limitation": "Synthetic visit counts; not a live analytics export.",
+    "observed_value": {
+      "visits_by_step": {
+        "s1": 1000,
+        "s2": 640,
+        "s3": 40,
+        "s4": 35
+      }
+    },
+    "parser": "lead_path.funnel_log_reader",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Do not treat these counts as real traffic volume.",
+    "report_refs": [],
+    "run_id": "example-lead_path",
+    "source_hash": "58351932fe324e1e62367f66291f4f6ab8253a1d47566051bf360c86e2462a29",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/lead_path/broken_link_step/synthetic_funnel_log.json",
+    "source_type": "synthetic_fixture"
+  }
+]

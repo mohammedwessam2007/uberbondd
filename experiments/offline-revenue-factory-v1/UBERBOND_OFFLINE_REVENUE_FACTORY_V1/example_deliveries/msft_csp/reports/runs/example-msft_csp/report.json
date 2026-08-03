@@ -1,0 +1,73 @@
+{
+  "blocked_conclusions": [
+    "fnd-example-msft_csp-0002"
+  ],
+  "checksum": "69cdd1794e9c20bf1e89326ed6058fb14823be84e7ce9605809012451acb5169",
+  "delivery_acceptance_ref": null,
+  "evidence_refs": [
+    "ev-example-msft_csp-0001",
+    "ev-example-msft_csp-0002",
+    "ev-example-msft_csp-0003",
+    "ev-example-msft_csp-0004",
+    "ev-example-msft_csp-0005",
+    "ev-example-msft_csp-0006",
+    "ev-example-msft_csp-0007",
+    "ev-example-msft_csp-0008",
+    "ev-example-msft_csp-0009",
+    "ev-example-msft_csp-0010",
+    "ev-example-msft_csp-0011",
+    "ev-example-msft_csp-0012",
+    "ev-example-msft_csp-0013"
+  ],
+  "exclusions": [
+    "No live Microsoft, Azure Service Health, or CSP partner system is accessed.",
+    "No SLA credit is claimed, requested, or submitted.",
+    "No current SLA/contract text is fetched or verified."
+  ],
+  "executive_summary": "Synthetic evidence-desk pack for a Microsoft CSP outage SLA-credit review. This pack organizes incident and service-health timeline evidence, computes deterministic impact-window overlaps, and runs a claim-readiness checklist. This output is not a claim. This output is not an eligibility decision. This output is not a Microsoft representation. Authorized CSP/customer evidence is required before any submission. Current SLA/contract review is required before any submission. Partner submission is required; this system does not submit anything.",
+  "findings": [
+    "fnd-example-msft_csp-0001"
+  ],
+  "generated_at": "2026-08-03T00:49:33Z",
+  "human_review_requirements": [
+    "hrr-example-msft_csp-0001"
+  ],
+  "inputs": [
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/incident_timeline.json",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/service_health_timeline.json",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/subscription_metadata.json",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/affected_services.json",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/rule_source_registry.json",
+    "gate:incident_evidence_present",
+    "gate:service_health_evidence_present",
+    "gate:subscription_evidence_present",
+    "gate:affected_service_confirmed",
+    "gate:rule_source_current",
+    "gate:partner_submission_channel_available",
+    "incident:INC-SYN-1001",
+    "partner_responsibility_matrix"
+  ],
+  "lane": "msft_csp",
+  "limitations": [
+    "This output is not a claim.",
+    "This output is not an eligibility decision.",
+    "This output is not a Microsoft representation.",
+    "Authorized CSP/customer evidence is required before any submission.",
+    "Current SLA/contract review is required before any submission.",
+    "Partner submission is required; this system does not submit anything."
+  ],
+  "methods": [
+    "Interval-intersection calculation over supplied timeline fixtures.",
+    "Static claim-readiness gate checklist."
+  ],
+  "report_id": "rpt-example-msft_csp-direct_buyer",
+  "run_id": "example-msft_csp",
+  "run_manifest_ref": "example-msft_csp",
+  "scope": [
+    "Synthetic incident and service-health timeline reconciliation.",
+    "Deterministic impact-window overlap calculation.",
+    "Claim-readiness gate evaluation."
+  ],
+  "template": "direct_buyer",
+  "unknowns": []
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urf://schemas/source_artifact.schema.json",
+  "title": "SourceArtifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["artifact_id", "lane", "path", "sha256", "byte_size", "format", "data_classification", "collected_at"],
+  "properties": {
+    "artifact_id": {"type": "string", "minLength": 1},
+    "lane": {"type": "string"},
+    "path": {"type": "string", "minLength": 1},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "byte_size": {"type": "integer", "minimum": 0},
+    "format": {"type": "string"},
+    "data_classification": {
+      "type": "string",
+      "enum": ["PUBLIC", "SYNTHETIC", "CUSTOMER_PROVIDED", "CONFIDENTIAL", "PERSONAL_DATA", "PHI", "CREDENTIAL", "PROHIBITED"]
+    },
+    "collected_at": {"type": "string"}
+  }
+}

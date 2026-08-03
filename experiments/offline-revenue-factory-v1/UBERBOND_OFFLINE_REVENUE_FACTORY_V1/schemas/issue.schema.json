@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urf://schemas/issue.schema.json",
+  "title": "Issue",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["issue_id", "run_id", "lane", "severity", "category", "description", "detected_at"],
+  "properties": {
+    "issue_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "lane": {"type": "string"},
+    "severity": {"type": "string", "enum": ["critical", "serious", "moderate", "minor", "informational"]},
+    "category": {"type": "string", "minLength": 1},
+    "description": {"type": "string", "minLength": 1},
+    "source_path": {"type": ["string", "null"]},
+    "detected_at": {"type": "string"}
+  }
+}

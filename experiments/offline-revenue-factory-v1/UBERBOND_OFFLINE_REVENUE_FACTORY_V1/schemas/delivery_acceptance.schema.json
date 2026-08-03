@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urf://schemas/delivery_acceptance.schema.json",
+  "title": "DeliveryAcceptance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["acceptance_id", "run_id", "lane", "buyer_role", "acceptance_criteria", "signed", "signed_at", "notes"],
+  "properties": {
+    "acceptance_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "lane": {"type": "string"},
+    "buyer_role": {"type": "string"},
+    "acceptance_criteria": {"type": "array", "items": {"type": "string"}},
+    "signed": {"type": "boolean"},
+    "signed_at": {"type": ["string", "null"]},
+    "notes": {"type": "string"}
+  }
+}

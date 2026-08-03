@@ -1,0 +1,14 @@
+{
+  "hospital_name": "Synthetic Stale Hospital",
+  "last_updated_on": "2019-03-01",
+  "hospital_location": ["789 Synthetic Way"],
+  "hospital_address": ["789 Synthetic Way, Faketown, ZZ 00000"],
+  "license_information": {"license_number": "SYN-000002", "state": "ZZ"},
+  "standard_charge_information": [
+    {
+      "description": "Basic metabolic panel",
+      "code_information": [{"code": "80048", "type": "CPT"}],
+      "standard_charges": [{"payer_name": "Synthetic Payer B", "standard_charge": 41.0}]
+    }
+  ]
+}

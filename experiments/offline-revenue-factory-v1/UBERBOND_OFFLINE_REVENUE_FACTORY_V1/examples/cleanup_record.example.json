@@ -1,0 +1,8 @@
+{
+  "cleanup_id": "cln-example-0001",
+  "run_id": "run-example-000000000000",
+  "lane": "hospital_mrf",
+  "removed_paths": ["tmp/runs/run-example-000000000000"],
+  "retained_paths": ["evidence/runs/run-example-000000000000", "reports/runs/run-example-000000000000"],
+  "performed_at": "2026-08-03T00:00:02Z"
+}

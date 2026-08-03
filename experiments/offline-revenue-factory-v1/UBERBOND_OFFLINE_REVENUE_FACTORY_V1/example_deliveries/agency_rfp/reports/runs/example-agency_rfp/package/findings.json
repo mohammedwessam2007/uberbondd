@@ -1,0 +1,111 @@
+[
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-agency_rfp-0001"
+    ],
+    "finding_id": "fnd-example-agency_rfp-0001",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "agency_rfp",
+    "run_id": "example-agency_rfp",
+    "statement": "Parsed RFP header from rfp.txt: rfp_id='RFP-2026-101', due_date='2026-06-30T17:00:00', submission_method='electronic portal'."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-agency_rfp-0002"
+    ],
+    "finding_id": "fnd-example-agency_rfp-0002",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "agency_rfp",
+    "run_id": "example-agency_rfp",
+    "statement": "Requirement REQ-001 (MANDATORY, section 3.1) extracted with status='met'."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-agency_rfp-0003"
+    ],
+    "finding_id": "fnd-example-agency_rfp-0003",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "agency_rfp",
+    "run_id": "example-agency_rfp",
+    "statement": "Requirement REQ-002 (SCORED, section 4.2) extracted with status='met'."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-agency_rfp-0004"
+    ],
+    "finding_id": "fnd-example-agency_rfp-0004",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "agency_rfp",
+    "run_id": "example-agency_rfp",
+    "statement": "Requirement REQ-003 (PASS_FAIL, section 3.4) extracted with status='met'."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-agency_rfp-0005"
+    ],
+    "finding_id": "fnd-example-agency_rfp-0005",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "agency_rfp",
+    "run_id": "example-agency_rfp",
+    "statement": "Requirement REQ-004 (SCORED, section 4.5) extracted with status='met'."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-agency_rfp-0006",
+    "human_review_required": false,
+    "label": "deterministic calculation",
+    "lane": "agency_rfp",
+    "run_id": "example-agency_rfp",
+    "statement": "Requirement mix: 1 mandatory, 2 scored, 1 pass/fail (4 total)."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-agency_rfp-0007",
+    "human_review_required": false,
+    "label": "deterministic calculation",
+    "lane": "agency_rfp",
+    "run_id": "example-agency_rfp",
+    "statement": "Attachment completeness: 4/4 declared attachment(s) are REQUIRED-and-PROVIDED or not required."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-agency_rfp-0008",
+    "human_review_required": false,
+    "label": "deterministic calculation",
+    "lane": "agency_rfp",
+    "run_id": "example-agency_rfp",
+    "statement": "Readiness signal: 0 unmet mandatory requirement(s), 0 missing required attachment(s), 0 declared conflict(s), 0 unanswered question(s). no_bid_review_flag=False."
+  },
+  {
+    "blocked_reason": "A submission decision requires human legal/business judgment this system does not and cannot provide.",
+    "confidence": "unknown",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-agency_rfp-0009",
+    "human_review_required": true,
+    "label": "blocked conclusion",
+    "lane": "agency_rfp",
+    "run_id": "example-agency_rfp",
+    "statement": "Overall submission-readiness conclusion is BLOCKED: this pack organizes the compliance matrix, evidence gaps, conflicts, and open questions, but a human owner must make the actual submit/no-bid decision. This output is not a bid submission. This output is not a no-bid decision. This output is not a legal sufficiency determination. This output does not guarantee compliance with the RFP's requirements. A qualified human reviewer must validate every mandatory and pass/fail requirement, and resolve every flagged conflict, before any submission decision is made. This system does not submit, sign, or certify any procurement response."
+  }
+]

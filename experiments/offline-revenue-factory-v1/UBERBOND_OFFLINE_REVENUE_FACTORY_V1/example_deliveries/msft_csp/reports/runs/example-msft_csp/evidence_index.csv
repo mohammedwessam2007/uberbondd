@@ -1,0 +1,14 @@
+evidence_id,lane,source_type,source_path,source_hash,collected_at,data_classification,parser,parser_version,confidence,human_review_required
+ev-example-msft_csp-0001,msft_csp,synthetic_fixture,/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/incident_timeline.json,,2026-08-03T00:49:33Z,SYNTHETIC,msft_csp.load_json_lenient,1.0.0,high,False
+ev-example-msft_csp-0002,msft_csp,synthetic_fixture,/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/service_health_timeline.json,,2026-08-03T00:49:33Z,SYNTHETIC,msft_csp.load_json_lenient,1.0.0,high,False
+ev-example-msft_csp-0003,msft_csp,synthetic_fixture,/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/subscription_metadata.json,,2026-08-03T00:49:33Z,SYNTHETIC,msft_csp.load_json_lenient,1.0.0,high,False
+ev-example-msft_csp-0004,msft_csp,synthetic_fixture,/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/affected_services.json,,2026-08-03T00:49:33Z,SYNTHETIC,msft_csp.load_json_lenient,1.0.0,high,False
+ev-example-msft_csp-0005,msft_csp,synthetic_fixture,/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/rule_source_registry.json,,2026-08-03T00:49:33Z,SYNTHETIC,msft_csp.load_json_lenient,1.0.0,high,False
+ev-example-msft_csp-0006,msft_csp,derived,gate:incident_evidence_present,,2026-08-03T00:49:33Z,SYNTHETIC,msft_csp.claim_readiness_checklist,1.0.0,high,False
+ev-example-msft_csp-0007,msft_csp,derived,gate:service_health_evidence_present,,2026-08-03T00:49:33Z,SYNTHETIC,msft_csp.claim_readiness_checklist,1.0.0,high,False
+ev-example-msft_csp-0008,msft_csp,derived,gate:subscription_evidence_present,,2026-08-03T00:49:33Z,SYNTHETIC,msft_csp.claim_readiness_checklist,1.0.0,high,False
+ev-example-msft_csp-0009,msft_csp,derived,gate:affected_service_confirmed,,2026-08-03T00:49:33Z,SYNTHETIC,msft_csp.claim_readiness_checklist,1.0.0,high,False
+ev-example-msft_csp-0010,msft_csp,derived,gate:rule_source_current,,2026-08-03T00:49:33Z,SYNTHETIC,msft_csp.claim_readiness_checklist,1.0.0,high,True
+ev-example-msft_csp-0011,msft_csp,derived,gate:partner_submission_channel_available,,2026-08-03T00:49:33Z,SYNTHETIC,msft_csp.claim_readiness_checklist,1.0.0,high,True
+ev-example-msft_csp-0012,msft_csp,derived,incident:INC-SYN-1001,,2026-08-03T00:49:33Z,SYNTHETIC,msft_csp.impact_window_calculator,1.0.0,high,False
+ev-example-msft_csp-0013,msft_csp,derived,partner_responsibility_matrix,,2026-08-03T00:49:33Z,PUBLIC,msft_csp.partner_responsibility_matrix,1.0.0,high,False

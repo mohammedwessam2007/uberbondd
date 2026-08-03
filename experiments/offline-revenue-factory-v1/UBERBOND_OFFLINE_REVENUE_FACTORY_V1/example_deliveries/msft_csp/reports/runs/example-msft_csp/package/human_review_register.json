@@ -1,0 +1,11 @@
+[
+  {
+    "blocking": true,
+    "lane": "msft_csp",
+    "reason": "Current SLA/contract text and partner submission channel must be confirmed by a human before any credit request is prepared.",
+    "request_id": "hrr-example-msft_csp-0001",
+    "required_role": "partner",
+    "run_id": "example-msft_csp",
+    "status": "open"
+  }
+]

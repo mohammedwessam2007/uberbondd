@@ -1,0 +1,7 @@
+{
+  "content_type": "text/html",
+  "status_code": 200,
+  "redirect_chain": ["REQUIRES-CURRENT-VERIFICATION://example-hospital.test/", "REQUIRES-CURRENT-VERIFICATION://example-hospital.test/mrf-old.json"],
+  "final_url_placeholder": "REQUIRES-CURRENT-VERIFICATION://example-hospital.test/mrf-old.json",
+  "captured_note": "Simulated metadata for a synthetic fixture. Content-type mismatch (html, not json) is deliberate."
+}

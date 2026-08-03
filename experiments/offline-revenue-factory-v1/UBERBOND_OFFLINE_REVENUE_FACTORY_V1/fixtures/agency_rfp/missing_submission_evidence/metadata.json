@@ -1,0 +1,5 @@
+{
+  "document_filename": "rfp.txt",
+  "amendment_filename": null,
+  "capture_note": "Synthetic fixture document authored directly in the line-based urf.lanes.agency_rfp format; two MANDATORY/PASS_FAIL requirements reference attachments that are declared REQUIRED but not PROVIDED, simulating an incomplete submission package."
+}

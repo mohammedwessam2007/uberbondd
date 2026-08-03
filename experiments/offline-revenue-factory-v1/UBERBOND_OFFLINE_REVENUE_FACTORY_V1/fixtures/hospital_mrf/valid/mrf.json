@@ -1,0 +1,19 @@
+{
+  "hospital_name": "Synthetic General Hospital",
+  "last_updated_on": "2026-07-15",
+  "hospital_location": ["123 Synthetic Ave"],
+  "hospital_address": ["123 Synthetic Ave, Faketown, ZZ 00000"],
+  "license_information": {"license_number": "SYN-000000", "state": "ZZ"},
+  "standard_charge_information": [
+    {
+      "description": "Basic metabolic panel",
+      "code_information": [{"code": "80048", "type": "CPT"}],
+      "standard_charges": [{"payer_name": "Synthetic Payer A", "standard_charge": 45.0}]
+    },
+    {
+      "description": "Chest X-ray",
+      "code_information": [{"code": "71046", "type": "CPT"}],
+      "standard_charges": [{"payer_name": "Synthetic Payer A", "standard_charge": 120.0}]
+    }
+  ]
+}

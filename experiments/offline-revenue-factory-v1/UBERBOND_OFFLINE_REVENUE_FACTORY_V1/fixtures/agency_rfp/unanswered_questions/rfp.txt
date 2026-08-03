@@ -1,0 +1,72 @@
+RFP_ID: RFP-2026-115
+TITLE: Metro Transit Authority Rider Alerts Platform
+ISSUING_ORG: Metro Transit Authority Procurement Office
+ISSUED_DATE: 2026-05-10
+DUE_DATE: 2026-06-20T17:00:00
+SUBMISSION_METHOD: email
+AMENDMENT_OF:
+
+[REQUIREMENT]
+ID: REQ-001
+TYPE: MANDATORY
+SECTION: 2.3
+TEXT: Vendor must provide a data processing agreement covering rider location data.
+OWNER: vendor
+DUE: submission
+STATUS: met
+EVIDENCE: dpa.pdf
+CONFLICTS_WITH:
+DEPENDS_ON:
+[/REQUIREMENT]
+
+[REQUIREMENT]
+ID: REQ-002
+TYPE: SCORED
+WEIGHT: 25
+SECTION: 4.1
+TEXT: Describe your alert-delivery latency targets and how they are measured.
+OWNER: vendor
+DUE: submission
+STATUS: met
+EVIDENCE: latency_targets.pdf
+CONFLICTS_WITH:
+DEPENDS_ON:
+[/REQUIREMENT]
+
+[ATTACHMENT]
+ID: ATT-001
+FILENAME: dpa.pdf
+REQUIRED: true
+PROVIDED: true
+[/ATTACHMENT]
+
+[ATTACHMENT]
+ID: ATT-002
+FILENAME: latency_targets.pdf
+REQUIRED: true
+PROVIDED: true
+[/ATTACHMENT]
+
+[QUESTION]
+ID: Q-001
+TEXT: Can the alert-delivery integration use a third-party SMS gateway not listed in Appendix B?
+ASKED_BY: vendor
+STATUS: unanswered
+ANSWER:
+[/QUESTION]
+
+[QUESTION]
+ID: Q-002
+TEXT: Is the 7-year rider data retention requirement in Section 6.2 negotiable?
+ASKED_BY: vendor
+STATUS: answered
+ANSWER: No, the retention requirement is fixed by the Authority's records policy and is not negotiable.
+[/QUESTION]
+
+[QUESTION]
+ID: Q-003
+TEXT: Will the Authority accept a SOC 2 Type II report dated more than 12 months ago?
+ASKED_BY: vendor
+STATUS: unanswered
+ANSWER:
+[/QUESTION]

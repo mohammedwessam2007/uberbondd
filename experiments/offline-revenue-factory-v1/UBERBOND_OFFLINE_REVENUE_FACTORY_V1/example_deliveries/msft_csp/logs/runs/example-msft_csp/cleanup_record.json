@@ -1,0 +1,14 @@
+{
+  "cleanup_id": "cln-example-msft_csp",
+  "lane": "msft_csp",
+  "performed_at": "2026-08-03T00:49:39Z",
+  "removed_paths": [
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/msft_csp/tmp/runs/example-msft_csp"
+  ],
+  "retained_paths": [
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/msft_csp/reports/runs/example-msft_csp",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/msft_csp/evidence/runs/example-msft_csp",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/msft_csp/logs/runs/example-msft_csp"
+  ],
+  "run_id": "example-msft_csp"
+}

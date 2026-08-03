@@ -1,0 +1,8 @@
+{
+  "steps": [
+    {"step_id": "s1", "name": "Landing Page", "url": "https://example-buyer.test/", "type": "landing", "expected_next_step_id": "s2", "has_working_link_to_next": true},
+    {"step_id": "s2", "name": "Service Selection", "url": "https://example-buyer.test/services", "type": "selection", "expected_next_step_id": "s3", "has_working_link_to_next": true},
+    {"step_id": "s3", "name": "Booking Form", "url": "https://example-buyer.test/book", "type": "form", "expected_next_step_id": "s4", "has_working_link_to_next": true},
+    {"step_id": "s4", "name": "Confirmation", "url": "https://example-buyer.test/confirm", "type": "confirmation", "expected_next_step_id": null, "has_working_link_to_next": null}
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "hospital_name": "Synthetic Duplicate-Key Hospital",
+  "last_updated_on": "2026-07-01",
+  "hospital_location": ["1 Synthetic Way"],
+  "hospital_address": ["1 Synthetic Way, Faketown, ZZ 00000"],
+  "license_information": {"license_number": "SYN-000003", "state": "ZZ"},
+  "standard_charge_information": [
+    {
+      "description": "Basic metabolic panel",
+      "code_information": [{"code": "80048", "type": "CPT"}],
+      "standard_charges": [{"payer_name": "Synthetic Payer A", "standard_charge": 45.0}]
+    }
+  ],
+  "hospital_name": "Synthetic Duplicate-Key Hospital (second occurrence)"
+}

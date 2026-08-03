@@ -1,0 +1,68 @@
+RFP_ID: RFP-2026-142
+TITLE: County Sheriff Department Records Management System
+ISSUING_ORG: County Sheriff Department Procurement Office
+ISSUED_DATE: 2026-05-20
+DUE_DATE: 2026-07-10T17:00:00
+SUBMISSION_METHOD: electronic portal
+AMENDMENT_OF:
+
+[REQUIREMENT]
+ID: REQ-001
+TYPE: MANDATORY
+SECTION: 3.1
+TEXT: Vendor must provide proof of general liability insurance of at least $2,000,000.
+OWNER: vendor
+DUE: submission
+STATUS: not_met
+EVIDENCE: insurance_certificate.pdf
+CONFLICTS_WITH:
+DEPENDS_ON:
+[/REQUIREMENT]
+
+[REQUIREMENT]
+ID: REQ-002
+TYPE: PASS_FAIL
+SECTION: 3.6
+TEXT: Vendor must provide a completed CJIS security addendum.
+OWNER: vendor
+DUE: submission
+STATUS: not_met
+EVIDENCE: cjis_addendum.pdf
+CONFLICTS_WITH:
+DEPENDS_ON:
+[/REQUIREMENT]
+
+[REQUIREMENT]
+ID: REQ-003
+TYPE: SCORED
+WEIGHT: 10
+SECTION: 4.4
+TEXT: Describe your records-retention and destruction schedule.
+OWNER: vendor
+DUE: submission
+STATUS: met
+EVIDENCE: retention_schedule.pdf
+CONFLICTS_WITH:
+DEPENDS_ON:
+[/REQUIREMENT]
+
+[ATTACHMENT]
+ID: ATT-001
+FILENAME: insurance_certificate.pdf
+REQUIRED: true
+PROVIDED: false
+[/ATTACHMENT]
+
+[ATTACHMENT]
+ID: ATT-002
+FILENAME: cjis_addendum.pdf
+REQUIRED: true
+PROVIDED: false
+[/ATTACHMENT]
+
+[ATTACHMENT]
+ID: ATT-003
+FILENAME: retention_schedule.pdf
+REQUIRED: true
+PROVIDED: true
+[/ATTACHMENT]

@@ -1,0 +1,29 @@
+{
+  "final_package_hash": null,
+  "finding_count": 5,
+  "finished_at": null,
+  "fixture_id": "valid",
+  "git_commit": "967446bdf13f39e6ba9ad799908dc93534b92d1c",
+  "human_review_count": 0,
+  "input_hashes": {
+    "hospital_mrf/valid/filename_metadata.json": "82dfdb06d785e3f7e782eab655c9b0af45128f3d22ea22be618f694171c81c3e",
+    "hospital_mrf/valid/http_metadata.json": "805835eb8df71df69cec7588fb6b9800bf23701b286e88b7457787f9b78543e6",
+    "hospital_mrf/valid/link_map.json": "62cf7befde28570ce4e12b6bcf9a72d81d6856bd5b17bf94c8102addc5baa42d",
+    "hospital_mrf/valid/mrf.json": "6327072a4c293a72ede758086c9a51c1056941176259b851d875baf4c827b3ed",
+    "hospital_mrf/valid/root_mrf_list.txt": "2f6e838cee2ddaccdda9e419d27095df30e91871d803684f1ea7de0150aab240"
+  },
+  "lane": "hospital_mrf",
+  "qa_ref": null,
+  "run_id": "example-hospital_mrf",
+  "software_version": "1.0.0",
+  "stages_completed": [
+    "init-run",
+    "validate-input",
+    "execute",
+    "qa",
+    "render"
+  ],
+  "started_at": "2026-08-03T00:49:33Z",
+  "unknown_count": 0,
+  "warning_count": 0
+}

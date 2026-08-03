@@ -1,0 +1,10 @@
+{
+  "artifact_id": "art-example-0001",
+  "lane": "hospital_mrf",
+  "path": "fixtures/hospital_mrf/valid/mrf_valid.json",
+  "sha256": "7879e96990325e18da5b2ce24d1f553c31d125afbfa4e86400212b8b77d5c467",
+  "byte_size": 512,
+  "format": "json",
+  "data_classification": "SYNTHETIC",
+  "collected_at": "2026-08-03T00:00:00Z"
+}

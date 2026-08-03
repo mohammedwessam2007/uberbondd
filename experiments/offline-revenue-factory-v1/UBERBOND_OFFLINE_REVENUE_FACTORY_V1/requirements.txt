@@ -1,0 +1,3 @@
+# No third-party dependencies. Python 3.11+ standard library only.
+# This file is intentionally empty of packages: `pip install -r requirements.txt`
+# is a documented no-op, kept for tooling that expects the file to exist.

@@ -1,0 +1,10 @@
+{
+  "tool": "synthetic-axe-like",
+  "tool_version": "0.0.0-synthetic",
+  "scanned_at": "2026-07-23T10:00:00Z",
+  "url": "https://example-buyer.test/search",
+  "violations": [
+    {"id": "color-contrast", "wcag_sc": "1.4.3", "impact": "serious", "help": "Elements must meet minimum color contrast ratio thresholds.", "nodes": [{"selector": "#search-btn", "html_snippet": "<button id=\"search-btn\">Search</button>"}]},
+    {"id": "color-contrast", "wcag_sc": "1.4.3", "impact": "serious", "help": "Elements must meet minimum color contrast ratio thresholds.", "nodes": [{"selector": "#search-btn", "html_snippet": "<button id=\"search-btn\">Search</button>"}]}
+  ]
+}

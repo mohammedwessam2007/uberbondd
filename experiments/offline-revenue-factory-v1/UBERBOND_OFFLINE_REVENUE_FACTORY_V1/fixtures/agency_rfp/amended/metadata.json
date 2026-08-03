@@ -1,0 +1,5 @@
+{
+  "document_filename": "rfp.txt",
+  "amendment_filename": "amendment.txt",
+  "capture_note": "Synthetic fixture pair: base RFP document plus one amendment document that extends the due date, reweights a scored requirement, and adds a new pass/fail requirement."
+}

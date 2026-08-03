@@ -1,0 +1,9 @@
+{
+  "subscription_id": "SUB-SYN-0001",
+  "sku": "Pay-As-You-Go",
+  "region": "eastus",
+  "support_tier": "Standard",
+  "active_from": "2025-01-01",
+  "active_to": null,
+  "source": "synthetic_fixture"
+}

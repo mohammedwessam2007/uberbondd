@@ -1,0 +1,24 @@
+AMENDS: RFP-2026-202
+AMENDMENT_ID: AMD-001
+ISSUED_DATE: 2026-04-25
+NEW_DUE_DATE: 2026-06-03T17:00:00
+REASON: Extended due to procurement office holiday closure.
+
+[AMENDMENT_ACTION]
+ACTION: MODIFY
+TARGET_ID: REQ-002
+FIELD: WEIGHT
+NEW_VALUE: 25
+[/AMENDMENT_ACTION]
+
+[AMENDMENT_ACTION]
+ACTION: ADD
+ID: REQ-003
+TYPE: PASS_FAIL
+SECTION: 5.1
+TEXT: Vendor must confirm no conflict of interest with County Parks Department staff.
+OWNER: vendor
+DUE: submission
+STATUS: not_met
+EVIDENCE:
+[/AMENDMENT_ACTION]

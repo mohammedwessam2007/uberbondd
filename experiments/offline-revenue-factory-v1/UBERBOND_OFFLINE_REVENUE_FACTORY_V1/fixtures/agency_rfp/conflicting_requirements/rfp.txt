@@ -1,0 +1,61 @@
+RFP_ID: RFP-2026-130
+TITLE: State Library Consortium Catalog Migration
+ISSUING_ORG: State Library Consortium
+ISSUED_DATE: 2026-05-15
+DUE_DATE: 2026-07-01T17:00:00
+SUBMISSION_METHOD: electronic portal
+AMENDMENT_OF:
+
+[REQUIREMENT]
+ID: REQ-001
+TYPE: MANDATORY
+SECTION: 3.2
+TEXT: Vendor must have a minimum of 5 years of experience delivering government library-catalog migrations.
+OWNER: vendor
+DUE: submission
+STATUS: met
+EVIDENCE: experience_summary.pdf
+CONFLICTS_WITH: REQ-005
+DEPENDS_ON:
+[/REQUIREMENT]
+
+[REQUIREMENT]
+ID: REQ-002
+TYPE: SCORED
+WEIGHT: 15
+SECTION: 4.3
+TEXT: Describe your MARC21 record-mapping methodology.
+OWNER: vendor
+DUE: submission
+STATUS: met
+EVIDENCE: mapping_methodology.pdf
+CONFLICTS_WITH:
+DEPENDS_ON:
+[/REQUIREMENT]
+
+[REQUIREMENT]
+ID: REQ-005
+TYPE: MANDATORY
+SECTION: 7.1
+TEXT: Vendor must have a minimum of 3 years of experience delivering government library-catalog migrations.
+OWNER: vendor
+DUE: submission
+STATUS: met
+EVIDENCE: experience_summary.pdf
+CONFLICTS_WITH: REQ-001
+DEPENDS_ON:
+[/REQUIREMENT]
+
+[ATTACHMENT]
+ID: ATT-001
+FILENAME: experience_summary.pdf
+REQUIRED: true
+PROVIDED: true
+[/ATTACHMENT]
+
+[ATTACHMENT]
+ID: ATT-002
+FILENAME: mapping_methodology.pdf
+REQUIRED: true
+PROVIDED: true
+[/ATTACHMENT]

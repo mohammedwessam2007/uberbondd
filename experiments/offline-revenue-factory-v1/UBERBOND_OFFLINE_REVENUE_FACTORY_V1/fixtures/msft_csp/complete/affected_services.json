@@ -1,0 +1,8 @@
+[
+  {
+    "service": "Azure Virtual Machines",
+    "region": "eastus",
+    "customer_confirmed": true,
+    "source": "synthetic_fixture"
+  }
+]

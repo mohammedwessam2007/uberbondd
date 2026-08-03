@@ -1,0 +1,11 @@
+[
+  {
+    "blocking": true,
+    "lane": "agency_rfp",
+    "reason": "A qualified human owner must review the full compliance matrix, resolve every flagged conflict and evidence gap, and make the final submit/no-bid decision.",
+    "request_id": "hrr-example-agency_rfp-0001",
+    "required_role": "owner",
+    "run_id": "example-agency_rfp",
+    "status": "open"
+  }
+]

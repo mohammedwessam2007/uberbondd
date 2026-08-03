@@ -1,0 +1,10 @@
+[
+  {
+    "blocking": false,
+    "lane": "lead_path",
+    "question": "Is conversion tracking configured for this funnel?",
+    "reason": "tracking_config.json absent from fixture broken_link_step; conversion impact of any flagged leak cannot be measured without it.",
+    "run_id": "example-lead_path",
+    "unknown_id": "unk-example-lead_path-0001"
+  }
+]

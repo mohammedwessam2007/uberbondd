@@ -1,0 +1,10 @@
+{
+  "auditor": "synthetic-auditor-01",
+  "audited_at": "2026-07-21T09:00:00Z",
+  "items": [
+    {"wcag_sc": "1.1.1", "title": "Non-text Content", "result": "pass", "notes": "All images have alt text."},
+    {"wcag_sc": "2.1.1", "title": "Keyboard", "result": "pass", "notes": "All interactive elements reachable via keyboard."},
+    {"wcag_sc": "2.4.7", "title": "Focus Visible", "result": "pass", "notes": "Focus ring visible on all interactive elements."},
+    {"wcag_sc": "4.1.2", "title": "Name, Role, Value", "result": "pass", "notes": "ARIA roles verified with a screen-reader spot-check."}
+  ]
+}

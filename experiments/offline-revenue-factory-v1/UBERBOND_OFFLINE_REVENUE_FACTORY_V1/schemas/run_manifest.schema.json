@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urf://schemas/run_manifest.schema.json",
+  "title": "RunManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id", "lane", "fixture_id", "input_hashes", "software_version", "started_at",
+    "finished_at", "stages_completed", "finding_count", "unknown_count", "warning_count",
+    "human_review_count", "qa_ref", "final_package_hash", "git_commit"
+  ],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "lane": {"type": "string"},
+    "fixture_id": {"type": "string"},
+    "input_hashes": {"type": "object"},
+    "software_version": {"type": "string"},
+    "started_at": {"type": "string"},
+    "finished_at": {"type": ["string", "null"]},
+    "stages_completed": {"type": "array", "items": {"type": "string"}},
+    "finding_count": {"type": "integer", "minimum": 0},
+    "unknown_count": {"type": "integer", "minimum": 0},
+    "warning_count": {"type": "integer", "minimum": 0},
+    "human_review_count": {"type": "integer", "minimum": 0},
+    "qa_ref": {"type": ["string", "null"]},
+    "final_package_hash": {"type": ["string", "null"]},
+    "git_commit": {"type": ["string", "null"]}
+  }
+}

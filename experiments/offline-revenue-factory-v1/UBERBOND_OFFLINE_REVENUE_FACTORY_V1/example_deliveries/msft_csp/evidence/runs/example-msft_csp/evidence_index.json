@@ -1,0 +1,427 @@
+[
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.msft_csp",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-msft_csp-0001",
+    "human_review_required": false,
+    "lane": "msft_csp",
+    "limitation": "Synthetic fixture; not authorized CSP/customer evidence.",
+    "observed_value": [
+      {
+        "customer_reported": true,
+        "end": "2026-07-10T05:30:00Z",
+        "incident_id": "INC-SYN-1001",
+        "region": "eastus",
+        "service": "Azure Virtual Machines",
+        "source": "synthetic_fixture",
+        "start": "2026-07-10T02:00:00Z"
+      }
+    ],
+    "parser": "msft_csp.load_json_lenient",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Do not treat as Microsoft-confirmed eligibility.",
+    "report_refs": [],
+    "run_id": "example-msft_csp",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/incident_timeline.json",
+    "source_type": "synthetic_fixture"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.msft_csp",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-msft_csp-0002",
+    "human_review_required": false,
+    "lane": "msft_csp",
+    "limitation": "Synthetic fixture; not authorized CSP/customer evidence.",
+    "observed_value": [
+      {
+        "end": "2026-07-10T05:00:00Z",
+        "region": "eastus",
+        "service": "Azure Virtual Machines",
+        "source": "synthetic_service_health_placeholder",
+        "start": "2026-07-10T02:10:00Z",
+        "status": "degraded"
+      }
+    ],
+    "parser": "msft_csp.load_json_lenient",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Do not treat as Microsoft-confirmed eligibility.",
+    "report_refs": [],
+    "run_id": "example-msft_csp",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/service_health_timeline.json",
+    "source_type": "synthetic_fixture"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.msft_csp",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-msft_csp-0003",
+    "human_review_required": false,
+    "lane": "msft_csp",
+    "limitation": "Synthetic fixture; not authorized CSP/customer evidence.",
+    "observed_value": {
+      "active_from": "2025-01-01",
+      "active_to": null,
+      "region": "eastus",
+      "sku": "Pay-As-You-Go",
+      "source": "synthetic_fixture",
+      "subscription_id": "SUB-SYN-0001",
+      "support_tier": "Standard"
+    },
+    "parser": "msft_csp.load_json_lenient",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Do not treat as Microsoft-confirmed eligibility.",
+    "report_refs": [],
+    "run_id": "example-msft_csp",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/subscription_metadata.json",
+    "source_type": "synthetic_fixture"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.msft_csp",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-msft_csp-0004",
+    "human_review_required": false,
+    "lane": "msft_csp",
+    "limitation": "Synthetic fixture; not authorized CSP/customer evidence.",
+    "observed_value": [
+      {
+        "customer_confirmed": true,
+        "region": "eastus",
+        "service": "Azure Virtual Machines",
+        "source": "synthetic_fixture"
+      }
+    ],
+    "parser": "msft_csp.load_json_lenient",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Do not treat as Microsoft-confirmed eligibility.",
+    "report_refs": [],
+    "run_id": "example-msft_csp",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/affected_services.json",
+    "source_type": "synthetic_fixture"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.msft_csp",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-msft_csp-0005",
+    "human_review_required": false,
+    "lane": "msft_csp",
+    "limitation": "Synthetic fixture; not authorized CSP/customer evidence.",
+    "observed_value": [
+      {
+        "rule_id": "SLA-VM-PLACEHOLDER",
+        "status": "requires_current_verification",
+        "title": "Virtual Machines SLA (placeholder \u2014 not fetched live)",
+        "url_placeholder": "REQUIRES-CURRENT-VERIFICATION://legal/sla/virtual-machines"
+      }
+    ],
+    "parser": "msft_csp.load_json_lenient",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Do not treat as Microsoft-confirmed eligibility.",
+    "report_refs": [],
+    "run_id": "example-msft_csp",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/rule_source_registry.json",
+    "source_type": "synthetic_fixture"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.msft_csp",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": "gate_evaluation",
+    "evidence_id": "ev-example-msft_csp-0006",
+    "human_review_required": false,
+    "lane": "msft_csp",
+    "limitation": "Gate evaluated against synthetic/offline evidence only.",
+    "observed_value": {
+      "gate": "incident_evidence_present",
+      "satisfied": true
+    },
+    "parser": "msft_csp.claim_readiness_checklist",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "A satisfied gate does not by itself establish eligibility.",
+    "report_refs": [],
+    "run_id": "example-msft_csp",
+    "source_hash": null,
+    "source_path": "gate:incident_evidence_present",
+    "source_type": "derived"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.msft_csp",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": "gate_evaluation",
+    "evidence_id": "ev-example-msft_csp-0007",
+    "human_review_required": false,
+    "lane": "msft_csp",
+    "limitation": "Gate evaluated against synthetic/offline evidence only.",
+    "observed_value": {
+      "gate": "service_health_evidence_present",
+      "satisfied": true
+    },
+    "parser": "msft_csp.claim_readiness_checklist",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "A satisfied gate does not by itself establish eligibility.",
+    "report_refs": [],
+    "run_id": "example-msft_csp",
+    "source_hash": null,
+    "source_path": "gate:service_health_evidence_present",
+    "source_type": "derived"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.msft_csp",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": "gate_evaluation",
+    "evidence_id": "ev-example-msft_csp-0008",
+    "human_review_required": false,
+    "lane": "msft_csp",
+    "limitation": "Gate evaluated against synthetic/offline evidence only.",
+    "observed_value": {
+      "gate": "subscription_evidence_present",
+      "satisfied": true
+    },
+    "parser": "msft_csp.claim_readiness_checklist",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "A satisfied gate does not by itself establish eligibility.",
+    "report_refs": [],
+    "run_id": "example-msft_csp",
+    "source_hash": null,
+    "source_path": "gate:subscription_evidence_present",
+    "source_type": "derived"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.msft_csp",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": "gate_evaluation",
+    "evidence_id": "ev-example-msft_csp-0009",
+    "human_review_required": false,
+    "lane": "msft_csp",
+    "limitation": "Gate evaluated against synthetic/offline evidence only.",
+    "observed_value": {
+      "gate": "affected_service_confirmed",
+      "satisfied": true
+    },
+    "parser": "msft_csp.claim_readiness_checklist",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "A satisfied gate does not by itself establish eligibility.",
+    "report_refs": [],
+    "run_id": "example-msft_csp",
+    "source_hash": null,
+    "source_path": "gate:affected_service_confirmed",
+    "source_type": "derived"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.msft_csp",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": "gate_evaluation",
+    "evidence_id": "ev-example-msft_csp-0010",
+    "human_review_required": true,
+    "lane": "msft_csp",
+    "limitation": "Gate evaluated against synthetic/offline evidence only.",
+    "observed_value": {
+      "gate": "rule_source_current",
+      "satisfied": false
+    },
+    "parser": "msft_csp.claim_readiness_checklist",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "A satisfied gate does not by itself establish eligibility.",
+    "report_refs": [],
+    "run_id": "example-msft_csp",
+    "source_hash": null,
+    "source_path": "gate:rule_source_current",
+    "source_type": "derived"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.msft_csp",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": "gate_evaluation",
+    "evidence_id": "ev-example-msft_csp-0011",
+    "human_review_required": true,
+    "lane": "msft_csp",
+    "limitation": "Gate evaluated against synthetic/offline evidence only.",
+    "observed_value": {
+      "gate": "partner_submission_channel_available",
+      "satisfied": false
+    },
+    "parser": "msft_csp.claim_readiness_checklist",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "A satisfied gate does not by itself establish eligibility.",
+    "report_refs": [],
+    "run_id": "example-msft_csp",
+    "source_hash": null,
+    "source_path": "gate:partner_submission_channel_available",
+    "source_type": "derived"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.msft_csp",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": "interval_intersection",
+    "evidence_id": "ev-example-msft_csp-0012",
+    "human_review_required": false,
+    "lane": "msft_csp",
+    "limitation": "Computed from synthetic timelines; not authoritative Microsoft telemetry.",
+    "observed_value": {
+      "incident_id": "INC-SYN-1001",
+      "overlap_seconds": 10200
+    },
+    "parser": "msft_csp.impact_window_calculator",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Overlap duration alone does not establish SLA credit eligibility.",
+    "report_refs": [],
+    "run_id": "example-msft_csp",
+    "source_hash": null,
+    "source_path": "incident:INC-SYN-1001",
+    "source_type": "derived"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.msft_csp",
+        "at": "2026-08-03T00:49:33Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:33Z",
+    "confidence": "high",
+    "data_classification": "PUBLIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-msft_csp-0013",
+    "human_review_required": false,
+    "lane": "msft_csp",
+    "limitation": "Describes typical role division; not a contractual commitment by any party.",
+    "observed_value": [
+      {
+        "owner": "customer",
+        "step": "Confirm subscription and support tier"
+      },
+      {
+        "owner": "customer",
+        "step": "Provide authorized incident/service-health evidence"
+      },
+      {
+        "owner": "CSP partner",
+        "step": "Verify current SLA/contract text"
+      },
+      {
+        "owner": "CSP partner",
+        "step": "Prepare and submit credit request"
+      },
+      {
+        "owner": "Microsoft",
+        "step": "Adjudicate and issue credit"
+      },
+      {
+        "owner": "UberBond evidence desk",
+        "step": "Compile and hand off evidence desk pack (this system's scope)"
+      }
+    ],
+    "parser": "msft_csp.partner_responsibility_matrix",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Does not assign legal responsibility.",
+    "report_refs": [],
+    "run_id": "example-msft_csp",
+    "source_hash": null,
+    "source_path": "partner_responsibility_matrix",
+    "source_type": "derived"
+  }
+]

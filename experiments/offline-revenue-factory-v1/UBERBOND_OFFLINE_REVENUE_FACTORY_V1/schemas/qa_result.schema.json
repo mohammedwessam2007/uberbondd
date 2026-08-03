@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urf://schemas/qa_result.schema.json",
+  "title": "QAResult",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["qa_id", "run_id", "lane", "checks", "passed", "failed", "overall_status", "evaluated_at"],
+  "properties": {
+    "qa_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "lane": {"type": "string"},
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["check_id", "description", "status"],
+        "properties": {
+          "check_id": {"type": "string"},
+          "description": {"type": "string"},
+          "status": {"type": "string", "enum": ["pass", "fail", "skipped"]},
+          "detail": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "passed": {"type": "integer", "minimum": 0},
+    "failed": {"type": "integer", "minimum": 0},
+    "overall_status": {"type": "string", "enum": ["pass", "fail"]},
+    "evaluated_at": {"type": "string"}
+  }
+}

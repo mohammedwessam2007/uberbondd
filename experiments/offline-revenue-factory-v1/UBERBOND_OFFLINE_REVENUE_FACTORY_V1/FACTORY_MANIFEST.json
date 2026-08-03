@@ -1,0 +1,49 @@
+{
+  "product": "UberBond Offline Revenue Factory",
+  "version": "1.0.0",
+  "generated_at": "2026-08-03T00:59:36Z",
+  "source_repo_branch": "claude/offline-revenue-factory-v1-s28c75",
+  "source_repo_commit": "967446bdf13f39e6ba9ad799908dc93534b92d1c",
+  "runtime": {
+    "language": "Python",
+    "minimum_version": "3.11",
+    "third_party_dependencies": [],
+    "network_access_required": false
+  },
+  "lanes": [
+    "msft_csp",
+    "hospital_mrf",
+    "agency_rfp",
+    "accessibility",
+    "lead_path"
+  ],
+  "evidence_model": {
+    "record_types": [
+      "evidence_item", "source_artifact", "finding", "issue", "unknown",
+      "human_review_request", "report", "run_manifest", "qa_result",
+      "delivery_acceptance", "cleanup_record"
+    ],
+    "finding_labels": [
+      "observed fact", "parsed fact", "deterministic calculation",
+      "source-derived rule", "model interpretation", "assumption",
+      "unknown", "blocked conclusion", "human-review requirement"
+    ],
+    "data_classifications": [
+      "PUBLIC", "SYNTHETIC", "CUSTOMER_PROVIDED", "CONFIDENTIAL",
+      "PERSONAL_DATA", "PHI", "CREDENTIAL", "PROHIBITED"
+    ]
+  },
+  "cli_entry_point": "bin/urf",
+  "test_runner": "scripts/run_tests.sh",
+  "self_test_status": {
+    "total_tests": 82,
+    "passed": 82,
+    "failed": 0,
+    "modules": 7
+  },
+  "example_deliveries": [
+    "msft_csp", "hospital_mrf", "agency_rfp", "accessibility", "lead_path"
+  ],
+  "outbound_enabled": false,
+  "note": "This manifest describes the product as built. It is not a claim of buyer demand, legal clearance, or commercial readiness — see LEGAL_AND_CLAIM_BOUNDARIES.md."
+}

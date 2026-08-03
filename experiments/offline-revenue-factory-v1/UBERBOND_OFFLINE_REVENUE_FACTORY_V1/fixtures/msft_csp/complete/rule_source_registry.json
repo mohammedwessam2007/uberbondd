@@ -1,0 +1,8 @@
+[
+  {
+    "rule_id": "SLA-VM-PLACEHOLDER",
+    "title": "Virtual Machines SLA (placeholder — not fetched live)",
+    "url_placeholder": "REQUIRES-CURRENT-VERIFICATION://legal/sla/virtual-machines",
+    "status": "requires_current_verification"
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "checks": [
+    {
+      "check_id": "qa-evidence-refs-resolve",
+      "description": "Every finding's evidence_refs resolve to an existing evidence item",
+      "detail": null,
+      "status": "pass"
+    },
+    {
+      "check_id": "qa-finding-labels-valid",
+      "description": "Every finding carries one of the nine required labels",
+      "detail": null,
+      "status": "pass"
+    },
+    {
+      "check_id": "qa-human-review-consistency",
+      "description": "Findings labeled 'human-review requirement' also set human_review_required=true",
+      "detail": null,
+      "status": "pass"
+    },
+    {
+      "check_id": "qa-no-compliance-certification",
+      "description": "No finding certifies compliance, price accuracy, or legal sufficiency",
+      "detail": null,
+      "status": "pass"
+    }
+  ],
+  "evaluated_at": "2026-08-03T00:49:34Z",
+  "failed": 0,
+  "lane": "hospital_mrf",
+  "overall_status": "pass",
+  "passed": 4,
+  "qa_id": "qa-example-hospital_mrf",
+  "run_id": "example-hospital_mrf"
+}

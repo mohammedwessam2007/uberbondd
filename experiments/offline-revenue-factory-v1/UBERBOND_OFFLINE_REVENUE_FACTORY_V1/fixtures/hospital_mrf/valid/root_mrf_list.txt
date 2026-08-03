@@ -1,0 +1,2 @@
+# Synthetic hospital MRF list (offline placeholder — not fetched live)
+mrf.json

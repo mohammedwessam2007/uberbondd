@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urf://schemas/report.schema.json",
+  "title": "Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "report_id", "run_id", "lane", "template", "executive_summary", "scope", "exclusions",
+    "inputs", "methods", "findings", "evidence_refs", "unknowns", "blocked_conclusions",
+    "human_review_requirements", "limitations", "delivery_acceptance_ref", "run_manifest_ref",
+    "checksum", "generated_at"
+  ],
+  "properties": {
+    "report_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "lane": {"type": "string"},
+    "template": {"type": "string", "enum": ["direct_buyer", "white_label_partner", "internal_qa", "technical_appendix"]},
+    "executive_summary": {"type": "string"},
+    "scope": {"type": "array", "items": {"type": "string"}},
+    "exclusions": {"type": "array", "items": {"type": "string"}},
+    "inputs": {"type": "array", "items": {"type": "string"}},
+    "methods": {"type": "array", "items": {"type": "string"}},
+    "findings": {"type": "array", "items": {"type": "string"}},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "unknowns": {"type": "array", "items": {"type": "string"}},
+    "blocked_conclusions": {"type": "array", "items": {"type": "string"}},
+    "human_review_requirements": {"type": "array", "items": {"type": "string"}},
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "delivery_acceptance_ref": {"type": ["string", "null"]},
+    "run_manifest_ref": {"type": "string"},
+    "checksum": {"type": ["string", "null"]},
+    "generated_at": {"type": "string"}
+  }
+}

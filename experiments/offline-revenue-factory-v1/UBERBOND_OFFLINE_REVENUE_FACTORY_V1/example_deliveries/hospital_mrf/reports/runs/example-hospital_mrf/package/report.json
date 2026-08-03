@@ -1,0 +1,59 @@
+{
+  "blocked_conclusions": [],
+  "checksum": "ffd6a3023fc9761d7305f9b90efba19b928d1cec44160935b3364d87e335b6bf",
+  "delivery_acceptance_ref": null,
+  "evidence_refs": [
+    "ev-example-hospital_mrf-0001",
+    "ev-example-hospital_mrf-0002",
+    "ev-example-hospital_mrf-0003",
+    "ev-example-hospital_mrf-0004",
+    "ev-example-hospital_mrf-0005"
+  ],
+  "exclusions": [
+    "No live HTTP fetch of any hospital website is performed.",
+    "No price accuracy, completeness, or legal-sufficiency certification is issued.",
+    "No CMS/regulator submission or attestation is made."
+  ],
+  "executive_summary": "Structural and integrity evidence pack for a hospital price-transparency machine-readable file (MRF), built entirely from local synthetic fixtures. This evidence pack does not certify price-transparency compliance. This evidence pack does not certify price accuracy. This evidence pack does not certify completeness. This evidence pack does not certify legal sufficiency.",
+  "findings": [
+    "fnd-example-hospital_mrf-0001",
+    "fnd-example-hospital_mrf-0002",
+    "fnd-example-hospital_mrf-0003",
+    "fnd-example-hospital_mrf-0004",
+    "fnd-example-hospital_mrf-0005"
+  ],
+  "generated_at": "2026-08-03T00:49:34Z",
+  "human_review_requirements": [],
+  "inputs": [
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/hospital_mrf/valid/http_metadata.json",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/hospital_mrf/valid/filename_metadata.json",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/hospital_mrf/valid/link_map.json",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/hospital_mrf/valid/root_mrf_list.txt",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/hospital_mrf/valid/mrf.json"
+  ],
+  "lane": "hospital_mrf",
+  "limitations": [
+    "This evidence pack does not certify price-transparency compliance.",
+    "This evidence pack does not certify price accuracy.",
+    "This evidence pack does not certify completeness.",
+    "This evidence pack does not certify legal sufficiency."
+  ],
+  "methods": [
+    "sha256 file hashing and byte-size measurement.",
+    "gzip magic-byte compression detection.",
+    "Strict JSON parsing with duplicate-key detection.",
+    "Structural-field presence check against a fixed required-field list.",
+    "Update-indicator age calculation against a 365-day threshold."
+  ],
+  "report_id": "rpt-example-hospital_mrf-direct_buyer",
+  "run_id": "example-hospital_mrf",
+  "run_manifest_ref": "example-hospital_mrf",
+  "scope": [
+    "File hashing, size, and compression detection.",
+    "JSON structural-field and duplicate-field checks.",
+    "Update-indicator staleness calculation.",
+    "Local link-map validation (no live crawling)."
+  ],
+  "template": "direct_buyer",
+  "unknowns": []
+}

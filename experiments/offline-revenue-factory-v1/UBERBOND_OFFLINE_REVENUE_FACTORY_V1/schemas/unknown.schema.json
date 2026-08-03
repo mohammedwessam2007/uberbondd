@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urf://schemas/unknown.schema.json",
+  "title": "Unknown",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["unknown_id", "run_id", "lane", "question", "reason", "blocking"],
+  "properties": {
+    "unknown_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "lane": {"type": "string"},
+    "question": {"type": "string", "minLength": 1},
+    "reason": {"type": "string", "minLength": 1},
+    "blocking": {"type": "boolean"}
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "document_filename": "rfp.bin",
+  "amendment_filename": null,
+  "capture_note": "Synthetic fixture simulating a submitted RFP document in a binary/unsupported format (e.g. a scanned PDF image) that this offline, stdlib-only system has no parser for. Exercises graceful degradation: the lane must emit an 'unknown' finding and a blocking human-review request instead of crashing or fabricating extracted content."
+}

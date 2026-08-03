@@ -1,0 +1,29 @@
+[
+  {
+    "blocking": true,
+    "lane": "lead_path",
+    "reason": "Step s2 (Service Selection) is a dead end; confirm and fix the link before relying on this funnel for lead capture.",
+    "request_id": "hrr-example-lead_path-0001",
+    "required_role": "owner",
+    "run_id": "example-lead_path",
+    "status": "open"
+  },
+  {
+    "blocking": false,
+    "lane": "lead_path",
+    "reason": "Investigate step s3 for a possible revenue leak; drop-off in a synthetic log is only a candidate signal, not confirmed real-world behavior.",
+    "request_id": "hrr-example-lead_path-0002",
+    "required_role": "owner",
+    "run_id": "example-lead_path",
+    "status": "open"
+  },
+  {
+    "blocking": true,
+    "lane": "lead_path",
+    "reason": "A qualified owner must verify each flagged leak candidate against real user behavior and prioritize fixes; this system does not do so itself.",
+    "request_id": "hrr-example-lead_path-0003",
+    "required_role": "owner",
+    "run_id": "example-lead_path",
+    "status": "open"
+  }
+]

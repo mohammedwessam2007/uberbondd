@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urf://schemas/finding.schema.json",
+  "title": "Finding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["finding_id", "run_id", "lane", "label", "statement", "evidence_refs", "confidence", "human_review_required"],
+  "properties": {
+    "finding_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "lane": {"type": "string"},
+    "label": {
+      "type": "string",
+      "enum": [
+        "observed fact", "parsed fact", "deterministic calculation", "source-derived rule",
+        "model interpretation", "assumption", "unknown", "blocked conclusion", "human-review requirement"
+      ]
+    },
+    "statement": {"type": "string", "minLength": 1},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "confidence": {"type": "string", "enum": ["high", "medium", "low", "unknown"]},
+    "human_review_required": {"type": "boolean"},
+    "blocked_reason": {"type": ["string", "null"]}
+  }
+}

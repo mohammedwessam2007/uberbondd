@@ -1,0 +1,27 @@
+{
+  "final_package_hash": null,
+  "finding_count": 12,
+  "finished_at": null,
+  "fixture_id": "broken_link_step",
+  "git_commit": "967446bdf13f39e6ba9ad799908dc93534b92d1c",
+  "human_review_count": 3,
+  "input_hashes": {
+    "lead_path/broken_link_step/form_fields.json": "3d41810de388abe533f2d146e887b612e619cba3e7271e3766bf2699d4b6e2e5",
+    "lead_path/broken_link_step/funnel_steps.json": "f72a39446c00575a7208c4186f6cbd73618949e951aafb0214345e0cce6cef99",
+    "lead_path/broken_link_step/synthetic_funnel_log.json": "58351932fe324e1e62367f66291f4f6ab8253a1d47566051bf360c86e2462a29"
+  },
+  "lane": "lead_path",
+  "qa_ref": null,
+  "run_id": "example-lead_path",
+  "software_version": "1.0.0",
+  "stages_completed": [
+    "init-run",
+    "validate-input",
+    "execute",
+    "qa",
+    "render"
+  ],
+  "started_at": "2026-08-03T00:49:32Z",
+  "unknown_count": 1,
+  "warning_count": 1
+}

@@ -1,0 +1,84 @@
+{
+  "blocked_conclusions": [
+    "fnd-example-accessibility-0013"
+  ],
+  "checksum": "9182e2becb95887ee23c061b9c3a0a6453921538dcdec7afb3e3ee7067cba5bc",
+  "delivery_acceptance_ref": null,
+  "evidence_refs": [
+    "ev-example-accessibility-0001",
+    "ev-example-accessibility-0002",
+    "ev-example-accessibility-0003",
+    "ev-example-accessibility-0004",
+    "ev-example-accessibility-0005",
+    "ev-example-accessibility-0006",
+    "ev-example-accessibility-0007",
+    "ev-example-accessibility-0008",
+    "ev-example-accessibility-0009",
+    "ev-example-accessibility-0010",
+    "ev-example-accessibility-0011"
+  ],
+  "exclusions": [
+    "No live crawl or scan of any real website is performed.",
+    "No WCAG conformance, ADA, or Section 508 compliance certification is issued.",
+    "No assistive-technology (screen reader, switch device, etc.) testing is performed by this system."
+  ],
+  "executive_summary": "Accessibility acceptance-evidence pack combining synthetic automated-scan results and an optional sampled manual checklist. This output is not a WCAG conformance certification. This output is not an ADA, Section 508, or other legal accessibility compliance determination. Automated scanning covers only a subset of WCAG success criteria and cannot detect most usability or assistive-technology issues. A sampled manual checklist is not a full audit across every page, component state, and assistive technology combination.",
+  "findings": [
+    "fnd-example-accessibility-0001",
+    "fnd-example-accessibility-0002",
+    "fnd-example-accessibility-0003",
+    "fnd-example-accessibility-0004",
+    "fnd-example-accessibility-0005",
+    "fnd-example-accessibility-0006",
+    "fnd-example-accessibility-0007",
+    "fnd-example-accessibility-0008",
+    "fnd-example-accessibility-0009",
+    "fnd-example-accessibility-0010",
+    "fnd-example-accessibility-0011",
+    "fnd-example-accessibility-0012"
+  ],
+  "generated_at": "2026-08-03T00:49:32Z",
+  "human_review_requirements": [
+    "hrr-example-accessibility-0001",
+    "hrr-example-accessibility-0002",
+    "hrr-example-accessibility-0003",
+    "hrr-example-accessibility-0004"
+  ],
+  "inputs": [
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/automated_scan.json",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/automated_scan.json#color-contrast:#submit-btn",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/automated_scan.json#image-alt:img.product-thumb",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/automated_scan.json#label:input#promo-code",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/automated_scan.json#link-name:a.icon-only",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/manual_checklist.json",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/manual_checklist.json#1.1.1",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/manual_checklist.json#2.1.1",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/manual_checklist.json#3.3.2",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/manual_checklist.json#4.1.2",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/page_inventory.json"
+  ],
+  "lane": "accessibility",
+  "limitations": [
+    "This output is not a WCAG conformance certification.",
+    "This output is not an ADA, Section 508, or other legal accessibility compliance determination.",
+    "Automated scanning covers only a subset of WCAG success criteria and cannot detect most usability or assistive-technology issues.",
+    "A sampled manual checklist is not a full audit across every page, component state, and assistive technology combination."
+  ],
+  "methods": [
+    "Rule-id + selector based deduplication of automated violation entries.",
+    "Impact-severity bucketing (critical/serious/moderate/minor).",
+    "Scan-timestamp age calculation against a 90-day freshness threshold.",
+    "Manual checklist pass/fail/not-tested tally."
+  ],
+  "report_id": "rpt-example-accessibility-direct_buyer",
+  "run_id": "example-accessibility",
+  "run_manifest_ref": "example-accessibility",
+  "scope": [
+    "Automated-scan violation extraction, deduplication, and impact-severity summary.",
+    "Scan-data freshness (staleness) calculation.",
+    "Manual checklist item extraction and pass/fail/not-tested summary.",
+    "Page-inventory scope recording."
+  ],
+  "template": "direct_buyer",
+  "unknowns": []
+}

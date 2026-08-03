@@ -1,0 +1,373 @@
+[
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.accessibility",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-accessibility-0001",
+    "human_review_required": false,
+    "lane": "accessibility",
+    "limitation": "Synthetic scanner output; not a live automated-scan run against a real site.",
+    "observed_value": {
+      "scanned_at": "2026-07-18T10:00:00Z",
+      "tool": "synthetic-axe-like",
+      "tool_version": "0.0.0-synthetic",
+      "url": "https://example-buyer.test/checkout",
+      "violation_count_raw": 4
+    },
+    "parser": "accessibility.scan_reader",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Absence of a violation does not mean the criterion is satisfied; the scanner only detects a subset of WCAG failure modes.",
+    "report_refs": [],
+    "run_id": "example-accessibility",
+    "source_hash": "43380d20845c604ad118ee3e3ba2a8134abd2df35d1215fbd72b0befa09ce6d9",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/automated_scan.json",
+    "source_type": "synthetic_fixture"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.accessibility",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": "deduplicate_by_rule_and_selector",
+    "evidence_id": "ev-example-accessibility-0002",
+    "human_review_required": false,
+    "lane": "accessibility",
+    "limitation": "One automated-scan finding; does not by itself establish severity to end users.",
+    "observed_value": {
+      "help": "Elements must meet minimum color contrast ratio thresholds.",
+      "id": "color-contrast",
+      "impact": "serious",
+      "nodes": [
+        {
+          "html_snippet": "<button id=\"submit-btn\">Pay Now</button>",
+          "selector": "#submit-btn"
+        }
+      ],
+      "wcag_sc": "1.4.3"
+    },
+    "parser": "accessibility.violation_extractor",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Absence from this list does not mean the page has no other issues.",
+    "report_refs": [],
+    "run_id": "example-accessibility",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/automated_scan.json#color-contrast:#submit-btn",
+    "source_type": "derived"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.accessibility",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": "deduplicate_by_rule_and_selector",
+    "evidence_id": "ev-example-accessibility-0003",
+    "human_review_required": false,
+    "lane": "accessibility",
+    "limitation": "One automated-scan finding; does not by itself establish severity to end users.",
+    "observed_value": {
+      "help": "Images must have alternate text.",
+      "id": "image-alt",
+      "impact": "critical",
+      "nodes": [
+        {
+          "html_snippet": "<img class=\"product-thumb\" src=\"item1.jpg\">",
+          "selector": "img.product-thumb"
+        }
+      ],
+      "wcag_sc": "1.1.1"
+    },
+    "parser": "accessibility.violation_extractor",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Absence from this list does not mean the page has no other issues.",
+    "report_refs": [],
+    "run_id": "example-accessibility",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/automated_scan.json#image-alt:img.product-thumb",
+    "source_type": "derived"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.accessibility",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": "deduplicate_by_rule_and_selector",
+    "evidence_id": "ev-example-accessibility-0004",
+    "human_review_required": false,
+    "lane": "accessibility",
+    "limitation": "One automated-scan finding; does not by itself establish severity to end users.",
+    "observed_value": {
+      "help": "Form elements must have labels.",
+      "id": "label",
+      "impact": "critical",
+      "nodes": [
+        {
+          "html_snippet": "<input id=\"promo-code\">",
+          "selector": "input#promo-code"
+        }
+      ],
+      "wcag_sc": "4.1.2"
+    },
+    "parser": "accessibility.violation_extractor",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Absence from this list does not mean the page has no other issues.",
+    "report_refs": [],
+    "run_id": "example-accessibility",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/automated_scan.json#label:input#promo-code",
+    "source_type": "derived"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.accessibility",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": "deduplicate_by_rule_and_selector",
+    "evidence_id": "ev-example-accessibility-0005",
+    "human_review_required": false,
+    "lane": "accessibility",
+    "limitation": "One automated-scan finding; does not by itself establish severity to end users.",
+    "observed_value": {
+      "help": "Links must have discernible text.",
+      "id": "link-name",
+      "impact": "moderate",
+      "nodes": [
+        {
+          "html_snippet": "<a class=\"icon-only\" href=\"/cart\"></a>",
+          "selector": "a.icon-only"
+        }
+      ],
+      "wcag_sc": "2.4.4"
+    },
+    "parser": "accessibility.violation_extractor",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Absence from this list does not mean the page has no other issues.",
+    "report_refs": [],
+    "run_id": "example-accessibility",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/automated_scan.json#link-name:a.icon-only",
+    "source_type": "derived"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.accessibility",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-accessibility-0006",
+    "human_review_required": false,
+    "lane": "accessibility",
+    "limitation": "Synthetic manual-checklist fixture; not a real auditor's work product.",
+    "observed_value": {
+      "audited_at": "2026-07-19T09:00:00Z",
+      "auditor": "synthetic-auditor-01",
+      "item_count": 4
+    },
+    "parser": "accessibility.checklist_reader",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "A 'pass' result reflects one auditor's sampled check, not exhaustive assistive-technology testing.",
+    "report_refs": [],
+    "run_id": "example-accessibility",
+    "source_hash": "615b682f85de0717165864082982f20c91e08082c78d57a7c12506c2da99958c",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/manual_checklist.json",
+    "source_type": "synthetic_fixture"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.accessibility",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-accessibility-0007",
+    "human_review_required": true,
+    "lane": "accessibility",
+    "limitation": "One auditor's sampled manual check; not exhaustive testing.",
+    "observed_value": {
+      "notes": "Product thumbnail images missing alt text, matches automated finding.",
+      "result": "fail",
+      "title": "Non-text Content",
+      "wcag_sc": "1.1.1"
+    },
+    "parser": "accessibility.checklist_item_extractor",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "A 'pass' result does not certify the criterion across every page/state.",
+    "report_refs": [],
+    "run_id": "example-accessibility",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/manual_checklist.json#1.1.1",
+    "source_type": "derived"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.accessibility",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-accessibility-0008",
+    "human_review_required": false,
+    "lane": "accessibility",
+    "limitation": "One auditor's sampled manual check; not exhaustive testing.",
+    "observed_value": {
+      "notes": "All interactive elements reachable via keyboard.",
+      "result": "pass",
+      "title": "Keyboard",
+      "wcag_sc": "2.1.1"
+    },
+    "parser": "accessibility.checklist_item_extractor",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "A 'pass' result does not certify the criterion across every page/state.",
+    "report_refs": [],
+    "run_id": "example-accessibility",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/manual_checklist.json#2.1.1",
+    "source_type": "derived"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.accessibility",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-accessibility-0009",
+    "human_review_required": true,
+    "lane": "accessibility",
+    "limitation": "One auditor's sampled manual check; not exhaustive testing.",
+    "observed_value": {
+      "notes": "Promo code field has no visible or programmatic label.",
+      "result": "fail",
+      "title": "Labels or Instructions",
+      "wcag_sc": "3.3.2"
+    },
+    "parser": "accessibility.checklist_item_extractor",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "A 'pass' result does not certify the criterion across every page/state.",
+    "report_refs": [],
+    "run_id": "example-accessibility",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/manual_checklist.json#3.3.2",
+    "source_type": "derived"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.accessibility",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-accessibility-0010",
+    "human_review_required": true,
+    "lane": "accessibility",
+    "limitation": "One auditor's sampled manual check; not exhaustive testing.",
+    "observed_value": {
+      "notes": "Promo code input exposes no accessible name.",
+      "result": "fail",
+      "title": "Name, Role, Value",
+      "wcag_sc": "4.1.2"
+    },
+    "parser": "accessibility.checklist_item_extractor",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "A 'pass' result does not certify the criterion across every page/state.",
+    "report_refs": [],
+    "run_id": "example-accessibility",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/manual_checklist.json#4.1.2",
+    "source_type": "derived"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.accessibility",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-accessibility-0011",
+    "human_review_required": false,
+    "lane": "accessibility",
+    "limitation": "Synthetic page inventory; not a verified full site map.",
+    "observed_value": {
+      "pages": [
+        {
+          "title": "Home",
+          "url": "https://example-buyer.test/"
+        },
+        {
+          "title": "Checkout",
+          "url": "https://example-buyer.test/checkout"
+        }
+      ]
+    },
+    "parser": "accessibility.page_inventory_reader",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Coverage of listed pages does not imply coverage of the entire site.",
+    "report_refs": [],
+    "run_id": "example-accessibility",
+    "source_hash": "c49ad414fb64269950f6c6f3715e94ebba960307778b5ee11196040cab5df0f4",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/page_inventory.json",
+    "source_type": "synthetic_fixture"
+  }
+]

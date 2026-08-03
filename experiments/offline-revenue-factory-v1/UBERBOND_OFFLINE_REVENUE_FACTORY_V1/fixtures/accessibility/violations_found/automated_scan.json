@@ -1,0 +1,12 @@
+{
+  "tool": "synthetic-axe-like",
+  "tool_version": "0.0.0-synthetic",
+  "scanned_at": "2026-07-18T10:00:00Z",
+  "url": "https://example-buyer.test/checkout",
+  "violations": [
+    {"id": "color-contrast", "wcag_sc": "1.4.3", "impact": "serious", "help": "Elements must meet minimum color contrast ratio thresholds.", "nodes": [{"selector": "#submit-btn", "html_snippet": "<button id=\"submit-btn\">Pay Now</button>"}]},
+    {"id": "image-alt", "wcag_sc": "1.1.1", "impact": "critical", "help": "Images must have alternate text.", "nodes": [{"selector": "img.product-thumb", "html_snippet": "<img class=\"product-thumb\" src=\"item1.jpg\">"}]},
+    {"id": "label", "wcag_sc": "4.1.2", "impact": "critical", "help": "Form elements must have labels.", "nodes": [{"selector": "input#promo-code", "html_snippet": "<input id=\"promo-code\">"}]},
+    {"id": "link-name", "wcag_sc": "2.4.4", "impact": "moderate", "help": "Links must have discernible text.", "nodes": [{"selector": "a.icon-only", "html_snippet": "<a class=\"icon-only\" href=\"/cart\"></a>"}]}
+  ]
+}

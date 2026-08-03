@@ -1,0 +1,151 @@
+[
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.hospital_mrf",
+        "at": "2026-08-03T00:49:34Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:34Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-hospital_mrf-0001",
+    "human_review_required": false,
+    "lane": "hospital_mrf",
+    "limitation": "Locally supplied metadata; not a live HTTP capture.",
+    "observed_value": {
+      "captured_note": "Simulated metadata for a synthetic fixture. Not a live HTTP fetch; no network request was made.",
+      "content_type": "application/json",
+      "final_url_placeholder": "REQUIRES-CURRENT-VERIFICATION://example-hospital.test/mrf.json",
+      "redirect_chain": [],
+      "status_code": 200
+    },
+    "parser": "hospital_mrf.metadata_reader",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Does not certify the source URL's live availability or content.",
+    "report_refs": [],
+    "run_id": "example-hospital_mrf",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/hospital_mrf/valid/http_metadata.json",
+    "source_type": "local_file"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.hospital_mrf",
+        "at": "2026-08-03T00:49:34Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:34Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-hospital_mrf-0002",
+    "human_review_required": false,
+    "lane": "hospital_mrf",
+    "limitation": "Locally supplied metadata; not a live HTTP capture.",
+    "observed_value": {
+      "captured_note": "Synthetic fixture filename metadata.",
+      "extension": ".json",
+      "original_filename": "mrf.json"
+    },
+    "parser": "hospital_mrf.metadata_reader",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Does not certify the source URL's live availability or content.",
+    "report_refs": [],
+    "run_id": "example-hospital_mrf",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/hospital_mrf/valid/filename_metadata.json",
+    "source_type": "local_file"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.hospital_mrf",
+        "at": "2026-08-03T00:49:34Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:34Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-hospital_mrf-0003",
+    "human_review_required": false,
+    "lane": "hospital_mrf",
+    "limitation": "Locally supplied metadata; not a live HTTP capture.",
+    "observed_value": {
+      "linked_files": [
+        "mrf.json"
+      ],
+      "root_txt_path": "root_mrf_list.txt",
+      "root_txt_present": true
+    },
+    "parser": "hospital_mrf.metadata_reader",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Does not certify the source URL's live availability or content.",
+    "report_refs": [],
+    "run_id": "example-hospital_mrf",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/hospital_mrf/valid/link_map.json",
+    "source_type": "local_file"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.hospital_mrf",
+        "at": "2026-08-03T00:49:34Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:34Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-hospital_mrf-0004",
+    "human_review_required": false,
+    "lane": "hospital_mrf",
+    "limitation": "Locally supplied metadata; not a live HTTP capture.",
+    "observed_value": "# Synthetic hospital MRF list (offline placeholder \u2014 not fetched live)\nmrf.json\n",
+    "parser": "hospital_mrf.metadata_reader",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Does not certify the source URL's live availability or content.",
+    "report_refs": [],
+    "run_id": "example-hospital_mrf",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/hospital_mrf/valid/root_mrf_list.txt",
+    "source_type": "local_file"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.hospital_mrf",
+        "at": "2026-08-03T00:49:34Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:34Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": "sha256+stat",
+    "evidence_id": "ev-example-hospital_mrf-0005",
+    "human_review_required": false,
+    "lane": "hospital_mrf",
+    "limitation": "Hash and size only establish file identity, not content correctness.",
+    "observed_value": {
+      "byte_size": 722,
+      "compression": "none"
+    },
+    "parser": "hospital_mrf.file_stat",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Do not treat as a validity or compliance signal by itself.",
+    "report_refs": [],
+    "run_id": "example-hospital_mrf",
+    "source_hash": "6327072a4c293a72ede758086c9a51c1056941176259b851d875baf4c827b3ed",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/hospital_mrf/valid/mrf.json",
+    "source_type": "local_file"
+  }
+]

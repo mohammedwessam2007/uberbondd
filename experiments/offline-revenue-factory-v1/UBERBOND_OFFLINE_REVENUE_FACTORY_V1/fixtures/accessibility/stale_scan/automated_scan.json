@@ -1,0 +1,9 @@
+{
+  "tool": "synthetic-axe-like",
+  "tool_version": "0.0.0-synthetic",
+  "scanned_at": "2025-01-05T10:00:00Z",
+  "url": "https://example-buyer.test/legacy",
+  "violations": [
+    {"id": "html-has-lang", "wcag_sc": "3.1.1", "impact": "serious", "help": "html element must have a lang attribute.", "nodes": [{"selector": "html", "html_snippet": "<html>"}]}
+  ]
+}

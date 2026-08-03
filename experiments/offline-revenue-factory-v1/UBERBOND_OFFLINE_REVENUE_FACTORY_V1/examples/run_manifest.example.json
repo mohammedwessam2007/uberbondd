@@ -1,0 +1,17 @@
+{
+  "run_id": "run-example-000000000000",
+  "lane": "hospital_mrf",
+  "fixture_id": "valid",
+  "input_hashes": {"fixtures/hospital_mrf/valid/mrf_valid.json": "7879e96990325e18da5b2ce24d1f553c31d125afbfa4e86400212b8b77d5c467"},
+  "software_version": "1.0.0",
+  "started_at": "2026-08-03T00:00:00Z",
+  "finished_at": "2026-08-03T00:00:01Z",
+  "stages_completed": ["init-run", "validate-input", "execute", "qa", "render"],
+  "finding_count": 1,
+  "unknown_count": 0,
+  "warning_count": 0,
+  "human_review_count": 0,
+  "qa_ref": "qa-example-0001",
+  "final_package_hash": null,
+  "git_commit": null
+}

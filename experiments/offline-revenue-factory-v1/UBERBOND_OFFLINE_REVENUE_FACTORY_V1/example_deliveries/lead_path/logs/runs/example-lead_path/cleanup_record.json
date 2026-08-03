@@ -1,0 +1,14 @@
+{
+  "cleanup_id": "cln-example-lead_path",
+  "lane": "lead_path",
+  "performed_at": "2026-08-03T00:49:39Z",
+  "removed_paths": [
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/lead_path/tmp/runs/example-lead_path"
+  ],
+  "retained_paths": [
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/lead_path/reports/runs/example-lead_path",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/lead_path/evidence/runs/example-lead_path",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/lead_path/logs/runs/example-lead_path"
+  ],
+  "run_id": "example-lead_path"
+}

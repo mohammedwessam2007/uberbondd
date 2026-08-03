@@ -1,0 +1,7 @@
+{
+  "auditor": "synthetic-auditor-01",
+  "audited_at": "2025-01-06T09:00:00Z",
+  "items": [
+    {"wcag_sc": "3.1.1", "title": "Language of Page", "result": "fail", "notes": "Confirms missing lang attribute; audit itself is now old and should be refreshed."}
+  ]
+}

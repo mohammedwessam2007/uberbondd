@@ -1,0 +1,14 @@
+{
+  "cleanup_id": "cln-example-agency_rfp",
+  "lane": "agency_rfp",
+  "performed_at": "2026-08-03T00:49:39Z",
+  "removed_paths": [
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/agency_rfp/tmp/runs/example-agency_rfp"
+  ],
+  "retained_paths": [
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/agency_rfp/reports/runs/example-agency_rfp",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/agency_rfp/evidence/runs/example-agency_rfp",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/agency_rfp/logs/runs/example-agency_rfp"
+  ],
+  "run_id": "example-agency_rfp"
+}

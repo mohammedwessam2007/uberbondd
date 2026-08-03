@@ -1,0 +1,180 @@
+[
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.agency_rfp",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": "sha256+stat",
+    "evidence_id": "ev-example-agency_rfp-0001",
+    "human_review_required": false,
+    "lane": "agency_rfp",
+    "limitation": "Hash and size only establish file identity, not requirement content.",
+    "observed_value": {
+      "byte_size": 1651
+    },
+    "parser": "agency_rfp.file_stat",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Do not treat as a compliance signal by itself.",
+    "report_refs": [],
+    "run_id": "example-agency_rfp",
+    "source_hash": "b255dfe0efe26a8c122953adbdaf8133629c8c39202698db39e65fdd0316d271",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/agency_rfp/complete/rfp.txt",
+    "source_type": "local_file"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.agency_rfp",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-agency_rfp-0002",
+    "human_review_required": false,
+    "lane": "agency_rfp",
+    "limitation": "Extracted from a synthetic plain-text fixture, not a live RFP submission portal.",
+    "observed_value": {
+      "CONFLICTS_WITH": "",
+      "DEPENDS_ON": "",
+      "DUE": "submission",
+      "EVIDENCE": "business_license.pdf",
+      "ID": "REQ-001",
+      "OWNER": "vendor",
+      "SECTION": "3.1",
+      "STATUS": "met",
+      "TEXT": "Vendor must hold a current business license in the state of operation.",
+      "TYPE": "MANDATORY"
+    },
+    "parser": "agency_rfp.requirement_extractor",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Presence in this register does not establish the requirement is satisfied.",
+    "report_refs": [],
+    "run_id": "example-agency_rfp",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/agency_rfp/complete/rfp.txt#REQ-001",
+    "source_type": "local_file"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.agency_rfp",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-agency_rfp-0003",
+    "human_review_required": false,
+    "lane": "agency_rfp",
+    "limitation": "Extracted from a synthetic plain-text fixture, not a live RFP submission portal.",
+    "observed_value": {
+      "CONFLICTS_WITH": "",
+      "DEPENDS_ON": "",
+      "DUE": "submission",
+      "EVIDENCE": "accessibility_approach.pdf",
+      "ID": "REQ-002",
+      "OWNER": "vendor",
+      "SECTION": "4.2",
+      "STATUS": "met",
+      "TEXT": "Describe your approach to WCAG 2.1 AA accessibility compliance for the customer portal.",
+      "TYPE": "SCORED",
+      "WEIGHT": "20"
+    },
+    "parser": "agency_rfp.requirement_extractor",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Presence in this register does not establish the requirement is satisfied.",
+    "report_refs": [],
+    "run_id": "example-agency_rfp",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/agency_rfp/complete/rfp.txt#REQ-002",
+    "source_type": "local_file"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.agency_rfp",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-agency_rfp-0004",
+    "human_review_required": false,
+    "lane": "agency_rfp",
+    "limitation": "Extracted from a synthetic plain-text fixture, not a live RFP submission portal.",
+    "observed_value": {
+      "CONFLICTS_WITH": "",
+      "DEPENDS_ON": "",
+      "DUE": "submission",
+      "EVIDENCE": "state_registration.pdf",
+      "ID": "REQ-003",
+      "OWNER": "vendor",
+      "SECTION": "3.4",
+      "STATUS": "met",
+      "TEXT": "Vendor must be registered to do business in the issuing state.",
+      "TYPE": "PASS_FAIL"
+    },
+    "parser": "agency_rfp.requirement_extractor",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Presence in this register does not establish the requirement is satisfied.",
+    "report_refs": [],
+    "run_id": "example-agency_rfp",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/agency_rfp/complete/rfp.txt#REQ-003",
+    "source_type": "local_file"
+  },
+  {
+    "chain_of_custody": [
+      {
+        "actor": "urf.lanes.agency_rfp",
+        "at": "2026-08-03T00:49:32Z",
+        "event": "collected"
+      }
+    ],
+    "collected_at": "2026-08-03T00:49:32Z",
+    "confidence": "high",
+    "data_classification": "SYNTHETIC",
+    "deterministic_transform": null,
+    "evidence_id": "ev-example-agency_rfp-0005",
+    "human_review_required": false,
+    "lane": "agency_rfp",
+    "limitation": "Extracted from a synthetic plain-text fixture, not a live RFP submission portal.",
+    "observed_value": {
+      "CONFLICTS_WITH": "",
+      "DEPENDS_ON": "",
+      "DUE": "submission",
+      "EVIDENCE": "dr_plan.pdf",
+      "ID": "REQ-004",
+      "OWNER": "vendor",
+      "SECTION": "4.5",
+      "STATUS": "met",
+      "TEXT": "Describe your data backup and disaster recovery plan.",
+      "TYPE": "SCORED",
+      "WEIGHT": "15"
+    },
+    "parser": "agency_rfp.requirement_extractor",
+    "parser_version": "1.0.0",
+    "prohibited_interpretation": "Presence in this register does not establish the requirement is satisfied.",
+    "report_refs": [],
+    "run_id": "example-agency_rfp",
+    "source_hash": null,
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/agency_rfp/complete/rfp.txt#REQ-004",
+    "source_type": "local_file"
+  }
+]

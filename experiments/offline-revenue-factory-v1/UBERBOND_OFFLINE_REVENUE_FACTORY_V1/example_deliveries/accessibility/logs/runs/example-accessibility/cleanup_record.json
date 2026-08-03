@@ -1,0 +1,14 @@
+{
+  "cleanup_id": "cln-example-accessibility",
+  "lane": "accessibility",
+  "performed_at": "2026-08-03T00:49:39Z",
+  "removed_paths": [
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/accessibility/tmp/runs/example-accessibility"
+  ],
+  "retained_paths": [
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/accessibility/reports/runs/example-accessibility",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/accessibility/evidence/runs/example-accessibility",
+    "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/example_deliveries/accessibility/logs/runs/example-accessibility"
+  ],
+  "run_id": "example-accessibility"
+}

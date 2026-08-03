@@ -1,0 +1,11 @@
+{
+  "form_id": "booking-form-2",
+  "page_url": "https://example-buyer.test/book",
+  "fields": [
+    {"name": "full_name", "type": "text", "required": true, "has_validation": false, "has_label": true},
+    {"name": "email", "type": "email", "required": true, "has_validation": false, "has_label": false},
+    {"name": "preferred_date", "type": "date", "required": true, "has_validation": true, "has_label": true}
+  ],
+  "submit_action_configured": true,
+  "confirmation_present": true
+}

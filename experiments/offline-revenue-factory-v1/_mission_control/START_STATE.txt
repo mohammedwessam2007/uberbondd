@@ -1,0 +1,3 @@
+start_commit=967446bdf13f39e6ba9ad799908dc93534b92d1c
+start_branch=claude/offline-revenue-factory-v1-s28c75
+capture_time_utc=2026-08-03T00:01:38Z

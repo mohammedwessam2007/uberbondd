@@ -1,0 +1,72 @@
+[
+  {
+    "category": "automated_accessibility_violation",
+    "description": "color-contrast (WCAG 1.4.3) at '#submit-btn': Elements must meet minimum color contrast ratio thresholds.",
+    "detected_at": "2026-08-03T00:49:32Z",
+    "issue_id": "iss-example-accessibility-0001",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "severity": "serious",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/automated_scan.json"
+  },
+  {
+    "category": "automated_accessibility_violation",
+    "description": "image-alt (WCAG 1.1.1) at 'img.product-thumb': Images must have alternate text.",
+    "detected_at": "2026-08-03T00:49:32Z",
+    "issue_id": "iss-example-accessibility-0002",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "severity": "critical",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/automated_scan.json"
+  },
+  {
+    "category": "automated_accessibility_violation",
+    "description": "label (WCAG 4.1.2) at 'input#promo-code': Form elements must have labels.",
+    "detected_at": "2026-08-03T00:49:32Z",
+    "issue_id": "iss-example-accessibility-0003",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "severity": "critical",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/automated_scan.json"
+  },
+  {
+    "category": "automated_accessibility_violation",
+    "description": "link-name (WCAG 2.4.4) at 'a.icon-only': Links must have discernible text.",
+    "detected_at": "2026-08-03T00:49:32Z",
+    "issue_id": "iss-example-accessibility-0004",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "severity": "moderate",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/automated_scan.json"
+  },
+  {
+    "category": "manual_check_failed",
+    "description": "Manual check for WCAG 1.1.1 (Non-text Content) failed: Product thumbnail images missing alt text, matches automated finding.",
+    "detected_at": "2026-08-03T00:49:32Z",
+    "issue_id": "iss-example-accessibility-0005",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "severity": "serious",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/manual_checklist.json"
+  },
+  {
+    "category": "manual_check_failed",
+    "description": "Manual check for WCAG 3.3.2 (Labels or Instructions) failed: Promo code field has no visible or programmatic label.",
+    "detected_at": "2026-08-03T00:49:32Z",
+    "issue_id": "iss-example-accessibility-0006",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "severity": "serious",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/manual_checklist.json"
+  },
+  {
+    "category": "manual_check_failed",
+    "description": "Manual check for WCAG 4.1.2 (Name, Role, Value) failed: Promo code input exposes no accessible name.",
+    "detected_at": "2026-08-03T00:49:32Z",
+    "issue_id": "iss-example-accessibility-0007",
+    "lane": "accessibility",
+    "run_id": "example-accessibility",
+    "severity": "serious",
+    "source_path": "/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/accessibility/violations_found/manual_checklist.json"
+  }
+]

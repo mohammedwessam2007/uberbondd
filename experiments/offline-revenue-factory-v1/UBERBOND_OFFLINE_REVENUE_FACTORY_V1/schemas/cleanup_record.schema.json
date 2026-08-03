@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urf://schemas/cleanup_record.schema.json",
+  "title": "CleanupRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["cleanup_id", "run_id", "lane", "removed_paths", "retained_paths", "performed_at"],
+  "properties": {
+    "cleanup_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "lane": {"type": "string"},
+    "removed_paths": {"type": "array", "items": {"type": "string"}},
+    "retained_paths": {"type": "array", "items": {"type": "string"}},
+    "performed_at": {"type": "string"}
+  }
+}

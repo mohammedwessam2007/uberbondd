@@ -1,0 +1,11 @@
+[
+  {
+    "incident_id": "INC-SYN-2001",
+    "service": "Azure App Service",
+    "region": "westeurope",
+    "start": "2026-06-01T10:00:00Z",
+    "end": "2026-06-01T11:00:00Z",
+    "customer_reported": true,
+    "source": "synthetic_fixture"
+  }
+]

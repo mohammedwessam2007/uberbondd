@@ -1,0 +1,12 @@
+{
+  "qa_id": "qa-example-0001",
+  "run_id": "run-example-000000000000",
+  "lane": "hospital_mrf",
+  "checks": [
+    {"check_id": "qa-01", "description": "All findings reference existing evidence IDs", "status": "pass", "detail": null}
+  ],
+  "passed": 1,
+  "failed": 0,
+  "overall_status": "pass",
+  "evaluated_at": "2026-08-03T00:00:01Z"
+}

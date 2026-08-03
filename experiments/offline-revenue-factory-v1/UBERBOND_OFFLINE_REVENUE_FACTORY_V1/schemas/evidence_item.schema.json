@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urf://schemas/evidence_item.schema.json",
+  "title": "EvidenceItem",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_id", "run_id", "lane", "source_type", "source_path", "source_hash",
+    "collected_at", "data_classification", "observed_value", "parser", "parser_version",
+    "deterministic_transform", "confidence", "limitation", "prohibited_interpretation",
+    "human_review_required", "chain_of_custody", "report_refs"
+  ],
+  "properties": {
+    "evidence_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "lane": {"type": "string", "enum": ["msft_csp", "hospital_mrf", "agency_rfp", "accessibility", "lead_path"]},
+    "source_type": {"type": "string", "enum": ["synthetic_fixture", "local_file", "supplied_evidence", "derived"]},
+    "source_path": {"type": "string", "minLength": 1},
+    "source_hash": {"type": ["string", "null"]},
+    "collected_at": {"type": "string", "minLength": 1},
+    "data_classification": {
+      "type": "string",
+      "enum": ["PUBLIC", "SYNTHETIC", "CUSTOMER_PROVIDED", "CONFIDENTIAL", "PERSONAL_DATA", "PHI", "CREDENTIAL", "PROHIBITED"]
+    },
+    "observed_value": {},
+    "parser": {"type": "string", "minLength": 1},
+    "parser_version": {"type": "string", "minLength": 1},
+    "deterministic_transform": {"type": ["string", "null"]},
+    "confidence": {"type": "string", "enum": ["high", "medium", "low", "unknown"]},
+    "limitation": {"type": "string"},
+    "prohibited_interpretation": {"type": "string"},
+    "human_review_required": {"type": "boolean"},
+    "chain_of_custody": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["event", "actor", "at"],
+        "properties": {
+          "event": {"type": "string", "enum": ["collected", "parsed", "transformed", "quarantined", "redacted", "packaged", "verified"]},
+          "actor": {"type": "string"},
+          "at": {"type": "string"}
+        }
+      }
+    },
+    "report_refs": {"type": "array", "items": {"type": "string"}}
+  }
+}

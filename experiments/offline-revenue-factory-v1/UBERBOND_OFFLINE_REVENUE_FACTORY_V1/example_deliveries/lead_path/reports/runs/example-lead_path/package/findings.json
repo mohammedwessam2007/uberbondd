@@ -1,0 +1,152 @@
+[
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-lead_path-0001"
+    ],
+    "finding_id": "fnd-example-lead_path-0001",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "lead_path",
+    "run_id": "example-lead_path",
+    "statement": "Funnel step s1 (Landing Page, type=landing) extracted; expected_next_step_id='s2', has_working_link_to_next=True."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-lead_path-0001"
+    ],
+    "finding_id": "fnd-example-lead_path-0002",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "lead_path",
+    "run_id": "example-lead_path",
+    "statement": "Funnel step s2 (Service Selection, type=selection) extracted; expected_next_step_id='s3', has_working_link_to_next=False."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-lead_path-0001"
+    ],
+    "finding_id": "fnd-example-lead_path-0003",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "lead_path",
+    "run_id": "example-lead_path",
+    "statement": "Funnel step s3 (Booking Form, type=form) extracted; expected_next_step_id='s4', has_working_link_to_next=True."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-lead_path-0001"
+    ],
+    "finding_id": "fnd-example-lead_path-0004",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "lead_path",
+    "run_id": "example-lead_path",
+    "statement": "Funnel step s4 (Confirmation, type=confirmation) extracted; expected_next_step_id=None, has_working_link_to_next=None."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-lead_path-0002"
+    ],
+    "finding_id": "fnd-example-lead_path-0005",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "lead_path",
+    "run_id": "example-lead_path",
+    "statement": "Form field 'full_name' (type=text): required=True, has_validation=True, has_label=True."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-lead_path-0002"
+    ],
+    "finding_id": "fnd-example-lead_path-0006",
+    "human_review_required": false,
+    "label": "parsed fact",
+    "lane": "lead_path",
+    "run_id": "example-lead_path",
+    "statement": "Form field 'email' (type=email): required=True, has_validation=True, has_label=True."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-lead_path-0007",
+    "human_review_required": false,
+    "label": "deterministic calculation",
+    "lane": "lead_path",
+    "run_id": "example-lead_path",
+    "statement": "Form field gap summary: 0/2 required field(s) missing validation and/or a label."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-lead_path-0003"
+    ],
+    "finding_id": "fnd-example-lead_path-0008",
+    "human_review_required": false,
+    "label": "deterministic calculation",
+    "lane": "lead_path",
+    "run_id": "example-lead_path",
+    "statement": "Step-over-step drop-off s1->s2: 1000 -> 640 visit(s) (36.0% drop-off, below threshold)."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-lead_path-0003"
+    ],
+    "finding_id": "fnd-example-lead_path-0009",
+    "human_review_required": true,
+    "label": "deterministic calculation",
+    "lane": "lead_path",
+    "run_id": "example-lead_path",
+    "statement": "Step-over-step drop-off s2->s3: 640 -> 40 visit(s) (93.8% drop-off, flagged as a leak candidate)."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [
+      "ev-example-lead_path-0003"
+    ],
+    "finding_id": "fnd-example-lead_path-0010",
+    "human_review_required": false,
+    "label": "deterministic calculation",
+    "lane": "lead_path",
+    "run_id": "example-lead_path",
+    "statement": "Step-over-step drop-off s3->s4: 40 -> 35 visit(s) (12.5% drop-off, below threshold)."
+  },
+  {
+    "blocked_reason": null,
+    "confidence": "high",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-lead_path-0011",
+    "human_review_required": true,
+    "label": "deterministic calculation",
+    "lane": "lead_path",
+    "run_id": "example-lead_path",
+    "statement": "Revenue-leak candidate count for this run: 2 flagged item(s) (structural + statistical, critical/serious severity only)."
+  },
+  {
+    "blocked_reason": "Dollar-impact quantification and full leak-free certification require real traffic data and business context this offline system does not have.",
+    "confidence": "unknown",
+    "evidence_refs": [],
+    "finding_id": "fnd-example-lead_path-0012",
+    "human_review_required": true,
+    "label": "blocked conclusion",
+    "lane": "lead_path",
+    "run_id": "example-lead_path",
+    "statement": "Overall revenue-leak conclusion is BLOCKED: this pack flags structural and statistical leak candidates, but does not quantify dollar impact or certify the funnel is leak-free beyond what was checked. This output is not a quantified revenue-loss estimate. This output does not certify the funnel is free of leaks beyond what was checked here. Drop-off percentages are computed from a supplied visit log; they are not live analytics and do not establish real-world traffic volume or causation. A human owner must verify each flagged item against real user behavior before prioritizing a fix."
+  }
+]

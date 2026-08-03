@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>msft_csp — direct_buyer report</title></head><body>
+<h1>msft_csp — Direct Buyer Report</h1>
+<br/>
+<p>Report ID: `rpt-example-msft_csp-direct_buyer`  </p>
+<p>Run ID: `example-msft_csp`  </p>
+<p>Generated: 2026-08-03T00:49:33Z  </p>
+<br/>
+<h2>Executive Summary</h2>
+<br/>
+<p>Synthetic evidence-desk pack for a Microsoft CSP outage SLA-credit review. This pack organizes incident and service-health timeline evidence, computes deterministic impact-window overlaps, and runs a claim-readiness checklist. This output is not a claim. This output is not an eligibility decision. This output is not a Microsoft representation. Authorized CSP/customer evidence is required before any submission. Current SLA/contract review is required before any submission. Partner submission is required; this system does not submit anything.</p>
+<br/>
+<h2>Scope</h2>
+<br/>
+<li>Synthetic incident and service-health timeline reconciliation.</li>
+<li>Deterministic impact-window overlap calculation.</li>
+<li>Claim-readiness gate evaluation.</li>
+<br/>
+<h2>Exclusions</h2>
+<br/>
+<li>No live Microsoft, Azure Service Health, or CSP partner system is accessed.</li>
+<li>No SLA credit is claimed, requested, or submitted.</li>
+<li>No current SLA/contract text is fetched or verified.</li>
+<br/>
+<h2>Inputs</h2>
+<br/>
+<li>/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/incident_timeline.json</li>
+<li>/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/service_health_timeline.json</li>
+<li>/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/subscription_metadata.json</li>
+<li>/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/affected_services.json</li>
+<li>/home/user/uberbondd/experiments/offline-revenue-factory-v1/UBERBOND_OFFLINE_REVENUE_FACTORY_V1/fixtures/msft_csp/complete/rule_source_registry.json</li>
+<li>gate:incident_evidence_present</li>
+<li>gate:service_health_evidence_present</li>
+<li>gate:subscription_evidence_present</li>
+<li>gate:affected_service_confirmed</li>
+<li>gate:rule_source_current</li>
+<li>gate:partner_submission_channel_available</li>
+<li>incident:INC-SYN-1001</li>
+<li>partner_responsibility_matrix</li>
+<br/>
+<h2>Findings (by ID — see evidence index for detail)</h2>
+<br/>
+<li>fnd-example-msft_csp-0001</li>
+<br/>
+<h2>Unknowns</h2>
+<br/>
+<p>_None recorded._</p>
+<br/>
+<h2>Blocked Conclusions</h2>
+<br/>
+<li>fnd-example-msft_csp-0002</li>
+<br/>
+<h2>Human Review Requirements</h2>
+<br/>
+<li>hrr-example-msft_csp-0001</li>
+<br/>
+<h2>Limitations</h2>
+<br/>
+<li>This output is not a claim.</li>
+<li>This output is not an eligibility decision.</li>
+<li>This output is not a Microsoft representation.</li>
+<li>Authorized CSP/customer evidence is required before any submission.</li>
+<li>Current SLA/contract review is required before any submission.</li>
+<li>Partner submission is required; this system does not submit anything.</li>
+</body></html>

@@ -1,0 +1,7 @@
+{
+  "auditor": "synthetic-auditor-01",
+  "audited_at": "2026-07-23T14:00:00Z",
+  "items": [
+    {"wcag_sc": "1.4.3", "title": "Contrast (Minimum)", "result": "fail", "notes": "Confirms automated color-contrast finding on the search button."}
+  ]
+}

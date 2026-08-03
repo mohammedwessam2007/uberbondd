@@ -1,0 +1,5 @@
+{
+  "document_filename": "rfp.txt",
+  "amendment_filename": null,
+  "capture_note": "Synthetic fixture document authored directly in the line-based urf.lanes.agency_rfp format; Section 3.2 and Section 7.1 deliberately state contradictory minimum-experience thresholds (5 years vs. 3 years) for the same obligation, with each requirement's CONFLICTS_WITH field pointing at the other. The contradiction is structural markup supplied by this fixture, not inferred by the lane."
+}

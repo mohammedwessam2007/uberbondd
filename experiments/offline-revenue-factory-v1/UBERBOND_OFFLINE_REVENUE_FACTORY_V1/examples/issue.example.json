@@ -1,0 +1,10 @@
+{
+  "issue_id": "iss-example-0001",
+  "run_id": "run-example-000000000000",
+  "lane": "hospital_mrf",
+  "severity": "serious",
+  "category": "structural_field_missing",
+  "description": "Required field 'last_updated_on' absent from fixture.",
+  "source_path": "fixtures/hospital_mrf/missing_fields/mrf_missing_fields.json",
+  "detected_at": "2026-08-03T00:00:00Z"
+}

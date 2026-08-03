@@ -1,0 +1,1 @@
+{"content_type": "application/json", "content_encoding": "gzip", "status_code": 200, "redirect_chain": [], "final_url_placeholder": "REQUIRES-CURRENT-VERIFICATION://example-hospital.test/mrf.json.gz", "captured_note": "Simulated metadata."}

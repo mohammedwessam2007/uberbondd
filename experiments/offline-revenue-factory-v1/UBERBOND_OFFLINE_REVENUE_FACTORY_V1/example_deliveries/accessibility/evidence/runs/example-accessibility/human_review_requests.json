@@ -1,0 +1,38 @@
+[
+  {
+    "blocking": false,
+    "lane": "accessibility",
+    "reason": "Manual check failure for WCAG 1.1.1 (Non-text Content) requires remediation tracking and re-verification.",
+    "request_id": "hrr-example-accessibility-0001",
+    "required_role": "owner",
+    "run_id": "example-accessibility",
+    "status": "open"
+  },
+  {
+    "blocking": false,
+    "lane": "accessibility",
+    "reason": "Manual check failure for WCAG 3.3.2 (Labels or Instructions) requires remediation tracking and re-verification.",
+    "request_id": "hrr-example-accessibility-0002",
+    "required_role": "owner",
+    "run_id": "example-accessibility",
+    "status": "open"
+  },
+  {
+    "blocking": false,
+    "lane": "accessibility",
+    "reason": "Manual check failure for WCAG 4.1.2 (Name, Role, Value) requires remediation tracking and re-verification.",
+    "request_id": "hrr-example-accessibility-0003",
+    "required_role": "owner",
+    "run_id": "example-accessibility",
+    "status": "open"
+  },
+  {
+    "blocking": true,
+    "lane": "accessibility",
+    "reason": "A qualified accessibility reviewer must confirm scope, remediation status, and any conformance claim before this evidence pack is used in a buyer- or partner-facing acceptance decision.",
+    "request_id": "hrr-example-accessibility-0004",
+    "required_role": "licensed_professional",
+    "run_id": "example-accessibility",
+    "status": "open"
+  }
+]

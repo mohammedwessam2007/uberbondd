@@ -1,0 +1,8 @@
+{
+  "unknown_id": "unk-example-0001",
+  "run_id": "run-example-000000000000",
+  "lane": "msft_csp",
+  "question": "Is the subscription active for the full incident window?",
+  "reason": "Fixture omits subscription end-of-term metadata for this window.",
+  "blocking": true
+}

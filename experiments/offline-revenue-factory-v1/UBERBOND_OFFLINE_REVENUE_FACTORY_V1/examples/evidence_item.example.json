@@ -1,0 +1,22 @@
+{
+  "evidence_id": "ev-example-0001",
+  "run_id": "run-example-000000000000",
+  "lane": "hospital_mrf",
+  "source_type": "synthetic_fixture",
+  "source_path": "fixtures/hospital_mrf/valid/mrf_valid.json",
+  "source_hash": "7879e96990325e18da5b2ce24d1f553c31d125afbfa4e86400212b8b77d5c467",
+  "collected_at": "2026-08-03T00:00:00Z",
+  "data_classification": "SYNTHETIC",
+  "observed_value": {"last_updated_on": "2026-07-01"},
+  "parser": "hospital_mrf.parse_json",
+  "parser_version": "1.0.0",
+  "deterministic_transform": "extract_update_indicator",
+  "confidence": "high",
+  "limitation": "Synthetic fixture only; not a live hospital file.",
+  "prohibited_interpretation": "Do not treat as a compliance or price-accuracy certification.",
+  "human_review_required": false,
+  "chain_of_custody": [
+    {"event": "collected", "actor": "urf.lanes.hospital_mrf", "at": "2026-08-03T00:00:00Z"}
+  ],
+  "report_refs": []
+}

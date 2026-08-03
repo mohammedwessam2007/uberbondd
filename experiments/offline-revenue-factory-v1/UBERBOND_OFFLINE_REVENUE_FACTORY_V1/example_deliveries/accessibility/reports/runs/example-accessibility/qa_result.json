@@ -1,0 +1,41 @@
+{
+  "checks": [
+    {
+      "check_id": "qa-evidence-refs-resolve",
+      "description": "Every finding's evidence_refs resolve to an existing evidence item",
+      "detail": null,
+      "status": "pass"
+    },
+    {
+      "check_id": "qa-finding-labels-valid",
+      "description": "Every finding carries one of the nine required labels",
+      "detail": null,
+      "status": "pass"
+    },
+    {
+      "check_id": "qa-human-review-consistency",
+      "description": "Findings labeled 'human-review requirement' also set human_review_required=true",
+      "detail": null,
+      "status": "pass"
+    },
+    {
+      "check_id": "qa-no-conformance-certification",
+      "description": "No finding certifies WCAG/ADA/Section 508 conformance or full accessibility",
+      "detail": null,
+      "status": "pass"
+    },
+    {
+      "check_id": "qa-violation-dedup-sane",
+      "description": "Unique violation count never exceeds raw violation count",
+      "detail": null,
+      "status": "pass"
+    }
+  ],
+  "evaluated_at": "2026-08-03T00:49:32Z",
+  "failed": 0,
+  "lane": "accessibility",
+  "overall_status": "pass",
+  "passed": 5,
+  "qa_id": "qa-example-accessibility",
+  "run_id": "example-accessibility"
+}

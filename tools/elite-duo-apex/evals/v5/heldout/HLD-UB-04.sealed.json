@@ -1,0 +1,33 @@
+{
+  "capability_class": "repo-tooling:deterministic-inventory",
+  "contamination_policy": "../CONTAMINATION_POLICY.md",
+  "custody_rules": [
+    "The vault is a private store outside this repository and outside any routinely cloned working copy (CONTAMINATION_POLICY.md, storage topology).",
+    "No commit to this repository may ever contain the fixture mutation, the answer key, the hidden tests, or the canary for this task.",
+    "The vault is mounted read-only into a disposable worktree at scoring time and unmounted before the worktree is destroyed.",
+    "Any executing session that reads vault material directly is a contamination event; the run is voided, not repaired."
+  ],
+  "declaration": "This file is a placeholder contract, not evaluator material. No hidden answer, fixture mutation, hidden test, or canary for HLD-UB-04 exists anywhere in this repository. This task CANNOT be scored until a custodian supplies the material listed in required_from_vault_custodian into the vault path named by vault_pointer.",
+  "evaluator_version": "v1",
+  "fixture_version": "FX-HLD-04-v1",
+  "hidden_material_present_in_repository": false,
+  "pre_scoring_integrity_conditions": [
+    "fixture_hash recorded in the run record matches the vault fixture hash",
+    "the executor packet used for the run hashes to the committed packet_hash",
+    "no canary token from the vault appears in any run artifact, judge packet, report, or Fable evidence packet",
+    "the disposable worktree was destroyed and the base tree hash restored"
+  ],
+  "public_packet": "../public/heldout/HLD-UB-04.packet.json",
+  "required_from_vault_custodian": [
+    "fixture mutation (owner-controlled private vault only)",
+    "answer key",
+    "hidden tests",
+    "canary string",
+    "evaluator harness version"
+  ],
+  "scoring_blocked_reason": "AWAITING_VAULT_MATERIAL",
+  "seal_status": "SEALED_PLACEHOLDER",
+  "task_class": "HELD_OUT",
+  "task_id": "HLD-UB-04",
+  "vault_pointer": "vault://heldout/HLD-UB-04/"
+}

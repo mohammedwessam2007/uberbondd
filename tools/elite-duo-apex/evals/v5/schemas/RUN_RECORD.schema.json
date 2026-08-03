@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://uberbondd.local/evals/v5/schemas/RUN_RECORD.schema.json",
+  "title": "V5 Benchmark Run Record",
+  "description": "Append-only per-run telemetry record. Every field is nullable: use null when a value is genuinely unavailable, never a fabricated zero. Grounded in 17_OWNER_CONTROL_TOWER.md and 21_30_DAY_OBSERVATION_PLAN.md telemetry lists.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["task_id", "config_hash", "anon_run_id", "starting_commit", "fixture_hash"],
+  "properties": {
+    "task_id": {"type": "string"},
+    "config_hash": {"type": "string", "description": "Configuration-manifest hash. Never the human-readable configuration name."},
+    "anon_run_id": {"type": "string", "description": "Fresh random label (e.g. 4-char code), not derived from configuration order."},
+    "starting_commit": {"type": "string"},
+    "fixture_hash": {"type": ["string", "null"]},
+    "actual_session_model": {"type": ["string", "null"]},
+    "actual_effort_level": {"type": ["string", "null"]},
+    "start_time": {"type": ["string", "null"], "format": "date-time"},
+    "end_time": {"type": ["string", "null"], "format": "date-time"},
+    "fresh_input_tokens": {"type": ["integer", "null"], "minimum": 0},
+    "cache_write_tokens": {"type": ["integer", "null"], "minimum": 0},
+    "cache_read_tokens": {"type": ["integer", "null"], "minimum": 0},
+    "output_tokens": {"type": ["integer", "null"], "minimum": 0},
+    "compaction_count": {"type": ["integer", "null"], "minimum": 0},
+    "tool_calls": {"type": ["integer", "null"], "minimum": 0},
+    "file_reads": {"type": ["integer", "null"], "minimum": 0},
+    "files_modified": {"type": ["integer", "null"], "minimum": 0},
+    "tests_run": {"type": ["integer", "null"], "minimum": 0},
+    "failed_tests": {"type": ["integer", "null"], "minimum": 0},
+    "repair_cycles": {"type": ["integer", "null"], "minimum": 0},
+    "owner_interventions": {"type": ["integer", "null"], "minimum": 0},
+    "owner_minutes": {"type": ["number", "null"], "minimum": 0},
+    "acceptance_result": {"type": ["string", "null"], "enum": ["PASS", "FAIL", "PARTIAL", null]},
+    "critical_defects": {"type": ["integer", "null"], "minimum": 0},
+    "material_defects": {"type": ["integer", "null"], "minimum": 0},
+    "scope_violations": {"type": ["integer", "null"], "minimum": 0},
+    "cleanup_result": {"type": ["string", "null"], "enum": ["CLEAN", "RESIDUE_DETECTED", null]},
+    "final_tree_state": {"type": ["string", "null"], "enum": ["CLEAN", "DIRTY", null]},
+    "measured_cost_usd": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "description": "Only set when a genuine product-reported monetary figure is available; otherwise null. Never inferred or converted from tokens."
+    },
+    "unknown_fields": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Names of fields the harness could not populate this run, kept explicit rather than silently defaulted."
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://uberbondd.local/evals/v5/schemas/PROMOTION_DECISION.schema.json",
+  "title": "V5 Promotion Decision",
+  "description": "Output of decide_promotion.py. Grounded in the mission's promotion-decision contract and 17_OWNER_CONTROL_TOWER.md Stage 8-10 gates.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["decision", "campaign_id", "gates", "evidence_refs"],
+  "properties": {
+    "decision": {
+      "type": "string",
+      "enum": ["PROMOTE", "REJECT", "INSUFFICIENT_EVIDENCE", "CONTAMINATED"]
+    },
+    "campaign_id": {"type": "string"},
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "no_critical_quality_regression",
+        "no_increase_in_material_defects",
+        "no_increase_in_owner_intervention",
+        "acceptance_success_equal_or_greater",
+        "efficiency_benefit",
+        "held_out_repeatability",
+        "static_context_budget_compliance",
+        "maintenance_budget_compliance",
+        "contamination_free"
+      ],
+      "properties": {
+        "no_critical_quality_regression": {"type": ["boolean", "null"]},
+        "no_increase_in_material_defects": {"type": ["boolean", "null"]},
+        "no_increase_in_owner_intervention": {"type": ["boolean", "null"]},
+        "acceptance_success_equal_or_greater": {"type": ["boolean", "null"]},
+        "efficiency_benefit": {
+          "type": ["boolean", "null"],
+          "description": "True only if lower median fresh-token usage OR lower measured total cost, per the mission's promotion contract."
+        },
+        "held_out_repeatability": {"type": ["boolean", "null"]},
+        "static_context_budget_compliance": {"type": ["boolean", "null"]},
+        "maintenance_budget_compliance": {"type": ["boolean", "null"]},
+        "contamination_free": {"type": ["boolean", "null"]}
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1,
+      "description": "Hashes/paths of the run records and judge results this decision is computed from."
+    },
+    "rationale": {"type": "string"},
+    "quarantined_tasks": {"type": "array", "items": {"type": "string"}},
+    "excluded_runs": {"type": "array", "items": {"type": "string"}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"decision": {"const": "PROMOTE"}}},
+      "then": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "no_critical_quality_regression": {"const": true},
+              "no_increase_in_material_defects": {"const": true},
+              "no_increase_in_owner_intervention": {"const": true},
+              "acceptance_success_equal_or_greater": {"const": true},
+              "efficiency_benefit": {"const": true},
+              "held_out_repeatability": {"const": true},
+              "static_context_budget_compliance": {"const": true},
+              "maintenance_budget_compliance": {"const": true},
+              "contamination_free": {"const": true}
+            }
+          }
+        }
+      }
+    }
+  ]
+}

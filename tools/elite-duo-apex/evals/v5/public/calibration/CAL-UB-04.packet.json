@@ -1,0 +1,67 @@
+{
+  "_notice": "This packet is the complete task statement. Hidden evaluator material exists for this task and is deliberately not included. Do not search the repository, git history, or any vault for evaluator answers, hidden tests, or canaries; doing so is a contamination event under CONTAMINATION_POLICY.md and voids the run.",
+  "allowed_paths": [
+    ".claude/hooks/lib.py",
+    ".claude/statusline/apex_statusline.py",
+    "tools/elite-duo-apex/library/build_catalog.py",
+    "tools/elite-duo-apex/scripts/validate_repo_deployment.py",
+    "tools/elite-duo-apex/tests/test_cwd_independence.py",
+    ".gitignore only if a generated pattern is demonstrably missing"
+  ],
+  "capability_class": "repo-tooling:CWD-fresh-container-reproducibility",
+  "cleanup_contract": "Delete all temp catalogs/runtime state, invert FX-CAL-04-v1, verify no generated tracked/untracked artifacts, and prove branch tree equals 967446....",
+  "critical_failure_rules": [
+    "trusting process CWD over explicit project root",
+    "writing outside the temporary/project location",
+    "tracking generated output",
+    "deleting tests",
+    "claiming task quality/token savings",
+    "touching product code",
+    "treating the old smoke test as repaired-commit evidence"
+  ],
+  "estimated_difficulty": "MEDIUM",
+  "evaluator_version": "v1",
+  "exact_objective": "Recover identical validator/hook behavior from repository root, package directory, and arbitrary CWD; prefer explicit project root to payload tool CWD; generate catalogs only in a temp/output directory; leave no nested .claude or tracked benchmark artifact; keep structural validation distinct from task-quality evidence.",
+  "expected_owner_approvals": "none beyond benchmark execution; all edits confined to a disposable tooling fixture and no remote write occurs",
+  "external_apis_prohibited": true,
+  "fixture_version": "FX-CAL-04-v1",
+  "forbidden_paths": [
+    "product code",
+    "lite/**",
+    "migrations",
+    "package*.json",
+    "settings/rules/agents/skills",
+    "proposed kernel",
+    "workflows",
+    "production/deployment files",
+    "tracked benchmark results"
+  ],
+  "internet_research_permitted": false,
+  "maximum_scope": "6 named files; <=320 changed lines; no redesign of context governor/rules/agents/skills/V5; one repair cycle",
+  "packet_hash": "5a24f065aabd70af81ccf8084b80e2e2bd452fe13fd12a4688f07c239aa2a2e8",
+  "protected_paths": [
+    "product protected paths hard forbidden; .claude/ changes limited to the two named files"
+  ],
+  "required_tests": [
+    "three invocation directories",
+    "conflicting CLAUDE_PROJECT_DIR and payload cwd",
+    "no-env deterministic fallback",
+    "absent pre-generated catalog",
+    "temporary catalog schema/search",
+    "authoritative validator",
+    "vendored compatibility tests",
+    "tracked/generated-artifact scan",
+    "clean-tree assertion"
+  ],
+  "risk_tier": "T1",
+  "starting_commit_or_fixture": "967446bdf13f39e6ba9ad799908dc93534b92d1c + visible FX-CAL-04-v1 (reversible partial reversion)",
+  "task_class": "CALIBRATION",
+  "task_id": "CAL-UB-04",
+  "visible_acceptance_criteria": [
+    "every invocation resolves the same intended project",
+    "no artifact appears below tools/elite-duo-apex/.claude or arbitrary CWD",
+    "validators do not require repository-generated catalog files",
+    "authoritative/compatibility labels are truthful",
+    "all focused tests pass from root and package CWD"
+  ]
+}

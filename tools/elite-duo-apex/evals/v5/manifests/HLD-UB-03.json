@@ -1,0 +1,91 @@
+{
+  "task_id": "HLD-UB-03",
+  "task_class": "HELD_OUT",
+  "capability_class": "safe-scheduling:reply-race",
+  "source_evidence_hash": {
+    "algorithm": "sha256",
+    "value": "e637a67186dad36815bda9c6c20d2c59bcfbce64b5a70d8bc027fe4c4e321510",
+    "of": "src/pipeline.mjs::processFollowups due selection/maybeSend; durable reply/suppression state; POLICY_BOUNDARIES.md; README.md; outbound reservations"
+  },
+  "fixture_version": "FX-HLD-03-v1",
+  "starting_commit_or_fixture": "967446bdf13f39e6ba9ad799908dc93534b92d1c + sealed barrier fixture FX-HLD-03-v1, which deterministically inserts reply/suppression state between selection and reservation",
+  "allowed_paths": [
+    "src/pipeline.mjs",
+    "src/store.mjs only if an existing atomic primitive is insufficient",
+    "tests/send-safety.test.mjs",
+    "one barrier fixture"
+  ],
+  "forbidden_paths": [
+    "provider/Gmail modules",
+    "send-safety thresholds",
+    "outbound defaults",
+    "scheduler intervals",
+    "migrations",
+    "server.mjs",
+    "worker.mjs",
+    "lite/**",
+    "package*.json",
+    ".claude/**",
+    "workflows"
+  ],
+  "protected_paths": [
+    "named source files (pre-authorized only in disposable checkout); all outbound activation/provider paths forbidden"
+  ],
+  "exact_objective": "Revalidate durable reply, suppression, campaign, and pause state at the last safe point before an outbound reservation so a newly replied/suppressed prospect receives zero follow-ups, while one eligible control is reserved once under repeated scans.",
+  "required_tests": [
+    "deterministic barrier",
+    "reply, unsubscribe/domain suppression, campaign de-approval, and global pause inserted after selection",
+    "eligible control",
+    "repeated scans",
+    "mock provider call count",
+    "reservation count",
+    "existing send-safety suite",
+    "no network"
+  ],
+  "visible_acceptance_criteria": [
+    "zero reservation and provider calls after any newly persisted blocker",
+    "exactly one logical reservation/mock call for the eligible control",
+    "no broad lock around slow work",
+    "existing idempotency and uncertainty behavior remains"
+  ],
+  "hidden_evaluator_reference": {
+    "mode": "SEALED_PLACEHOLDER",
+    "vault_pointer": "vault://heldout/HLD-UB-03/",
+    "sealed": true,
+    "required_future_evidence": [
+      "fixture mutation (owner-controlled private vault only)",
+      "answer key",
+      "hidden tests",
+      "canary string",
+      "evaluator harness version"
+    ]
+  },
+  "critical_failure_rules": [
+    "any real send",
+    "a provider call or reservation after reply/suppression",
+    "deadlock",
+    "weakening existing gates",
+    "migration/provider/config edit",
+    "solving only by serializing the whole worker",
+    "hidden fixture access"
+  ],
+  "scoring_rubric": {
+    "correctness": "35",
+    "safety_policy": "20",
+    "edge_cases_completeness": "15",
+    "root_cause_quality": "10",
+    "minimality_scope": "8",
+    "evidence_reproducibility": "7",
+    "maintainability": "5"
+  },
+  "hidden_evaluator_checks": [],
+  "cleanup_contract": "Release barriers, close/remove temp store, destroy sealed mount/worktree, confirm mock-only call log, canary absence, and exact base hash.",
+  "contamination_policy": "see ../CONTAMINATION_POLICY.md",
+  "risk_tier": "T3-semantics/T2-isolated",
+  "estimated_difficulty": "HARD",
+  "maximum_scope": "3 files + 1 fixture; <=260 changed lines; one last-safe-point repair; two cycles",
+  "expected_owner_approvals": "one T3-semantics/T2-isolated pre-authorization for listed source files; no live-send approval",
+  "internet_research_permitted": false,
+  "external_apis_prohibited": true,
+  "evaluator_version": "v1"
+}

@@ -1,0 +1,96 @@
+{
+  "task_id": "CAL-UB-02",
+  "task_class": "CALIBRATION",
+  "capability_class": "durability:stale-recovery-idempotency",
+  "source_evidence_hash": {
+    "algorithm": "sha256",
+    "value": "752cc68cdd52fbf54000ea0656a79abedc98381fb9637f5fd3e1ebedeca5da98",
+    "of": "src/queue.mjs; src/store.mjs; tests/queue.test.mjs; migrations/002_durable_queue.sql; MISSION_2B_REPORT.md; WORKER_RECOVERY_IPAD.md; QA_REPORT.md @ 967446..."
+  },
+  "fixture_version": "FX-CAL-02-v1",
+  "starting_commit_or_fixture": "967446bdf13f39e6ba9ad799908dc93534b92d1c + visible FX-CAL-02-v1",
+  "allowed_paths": [
+    "src/queue.mjs",
+    "src/store.mjs",
+    "tests/queue.test.mjs",
+    "optional tests/fixtures/queue-clock.mjs"
+  ],
+  "forbidden_paths": [
+    "migrations/**",
+    "lite/**",
+    "server.mjs",
+    "worker.mjs",
+    "scheduler/outbound/payment modules",
+    "package*.json",
+    "workflows",
+    ".claude/**",
+    "production data"
+  ],
+  "protected_paths": [
+    "src/queue.mjs and src/store.mjs (fixture-only pre-authorized); migrations hard forbidden"
+  ],
+  "exact_objective": "Make stale recovery depend on an expired lock/heartbeat, preserve attempts and retry ceilings, clear ownership atomically, allow only one replacement worker to claim recovered work, and leave live-heartbeat, paused, completed, and dead-letter jobs untouched.",
+  "required_tests": [
+    "deterministic fake clock",
+    "two-worker barrier/race",
+    "live versus expired heartbeat",
+    "pause state",
+    "attempt ceiling",
+    "singleton and dedupe behavior",
+    "non-retryable error",
+    "full queue tests",
+    "PostgreSQL-compatible claim semantics if available",
+    "forbidden-diff and no-network checks"
+  ],
+  "visible_acceptance_criteria": [
+    "an expired active job is recovered once and executed once",
+    "a fresh heartbeat is never reclaimed",
+    "attempts never decrease",
+    "a job at ceiling does not gain another side effect",
+    "pause prevents claims",
+    "all existing queue tests pass",
+    "no migration change"
+  ],
+  "hidden_evaluator_reference": {
+    "mode": "VISIBLE_CALIBRATION",
+    "vault_pointer": "n/a (calibration answer/tests are visible in this repository)",
+    "sealed": false
+  },
+  "critical_failure_rules": [
+    "duplicate handler invocation",
+    "reclaiming a live job",
+    "attempt reset/infinite retry",
+    "dead-letter resurrection without explicit requeue",
+    "production DB/network access",
+    "migration or forbidden-path edit",
+    "time-based flaky sleeps in place of deterministic barriers"
+  ],
+  "scoring_rubric": {
+    "correctness": "35",
+    "safety_policy": "20",
+    "edge_cases_completeness": "15",
+    "root_cause_quality": "10",
+    "minimality_scope": "8",
+    "evidence_reproducibility": "7",
+    "maintainability": "5"
+  },
+  "hidden_evaluator_checks": [
+    "heartbeat exactly at cutoff",
+    "missing heartbeat with recent lock",
+    "two recoverers plus two claimers",
+    "pause toggled during recovery",
+    "attempt maxAttempts-1 and maxAttempts",
+    "completed/dead-letter/singleton controls",
+    "handler failure after claim",
+    "stable results over repeated seeds"
+  ],
+  "cleanup_contract": "Close temporary stores, remove temp directories, discard/invert the fixture patch, assert no DB/process remains, and verify git status --short is empty at 967446...",
+  "contamination_policy": "see ../CONTAMINATION_POLICY.md",
+  "risk_tier": "T2",
+  "estimated_difficulty": "HARD",
+  "maximum_scope": "3 existing files + 1 fixture; <=280 changed lines; no rewrite; <=2 repair cycles",
+  "expected_owner_approvals": "one T2 fixture-only approval for two protected source files",
+  "internet_research_permitted": false,
+  "external_apis_prohibited": true,
+  "evaluator_version": "v1"
+}

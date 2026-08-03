@@ -1,0 +1,68 @@
+{
+  "_notice": "This packet is the complete task statement. Hidden evaluator material exists for this task and is deliberately not included. Do not search the repository, git history, or any vault for evaluator answers, hidden tests, or canaries; doing so is a contamination event under CONTAMINATION_POLICY.md and voids the run.",
+  "allowed_paths": [
+    "src/queue.mjs",
+    "src/store.mjs",
+    "tests/queue.test.mjs",
+    "optional tests/fixtures/queue-clock.mjs"
+  ],
+  "capability_class": "durability:stale-recovery-idempotency",
+  "cleanup_contract": "Close temporary stores, remove temp directories, discard/invert the fixture patch, assert no DB/process remains, and verify git status --short is empty at 967446...",
+  "critical_failure_rules": [
+    "duplicate handler invocation",
+    "reclaiming a live job",
+    "attempt reset/infinite retry",
+    "dead-letter resurrection without explicit requeue",
+    "production DB/network access",
+    "migration or forbidden-path edit",
+    "time-based flaky sleeps in place of deterministic barriers"
+  ],
+  "estimated_difficulty": "HARD",
+  "evaluator_version": "v1",
+  "exact_objective": "Make stale recovery depend on an expired lock/heartbeat, preserve attempts and retry ceilings, clear ownership atomically, allow only one replacement worker to claim recovered work, and leave live-heartbeat, paused, completed, and dead-letter jobs untouched.",
+  "expected_owner_approvals": "one T2 fixture-only approval for two protected source files",
+  "external_apis_prohibited": true,
+  "fixture_version": "FX-CAL-02-v1",
+  "forbidden_paths": [
+    "migrations/**",
+    "lite/**",
+    "server.mjs",
+    "worker.mjs",
+    "scheduler/outbound/payment modules",
+    "package*.json",
+    "workflows",
+    ".claude/**",
+    "production data"
+  ],
+  "internet_research_permitted": false,
+  "maximum_scope": "3 existing files + 1 fixture; <=280 changed lines; no rewrite; <=2 repair cycles",
+  "packet_hash": "409918b46af979f8a6b7180ac1c6674cefd1d2c6b9245da95fccdbe5ca89e3d9",
+  "protected_paths": [
+    "src/queue.mjs and src/store.mjs (fixture-only pre-authorized); migrations hard forbidden"
+  ],
+  "required_tests": [
+    "deterministic fake clock",
+    "two-worker barrier/race",
+    "live versus expired heartbeat",
+    "pause state",
+    "attempt ceiling",
+    "singleton and dedupe behavior",
+    "non-retryable error",
+    "full queue tests",
+    "PostgreSQL-compatible claim semantics if available",
+    "forbidden-diff and no-network checks"
+  ],
+  "risk_tier": "T2",
+  "starting_commit_or_fixture": "967446bdf13f39e6ba9ad799908dc93534b92d1c + visible FX-CAL-02-v1",
+  "task_class": "CALIBRATION",
+  "task_id": "CAL-UB-02",
+  "visible_acceptance_criteria": [
+    "an expired active job is recovered once and executed once",
+    "a fresh heartbeat is never reclaimed",
+    "attempts never decrease",
+    "a job at ceiling does not gain another side effect",
+    "pause prevents claims",
+    "all existing queue tests pass",
+    "no migration change"
+  ]
+}

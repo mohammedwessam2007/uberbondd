@@ -1,0 +1,94 @@
+{
+  "task_id": "HLD-UB-01",
+  "task_class": "HELD_OUT",
+  "capability_class": "evidence-quality:cross-boundary-provenance",
+  "source_evidence_hash": {
+    "algorithm": "sha256",
+    "value": "60420018add2572d2dbff1d4d41b192f6a6757b22f81f0fca4dc93e9f5d203b0",
+    "of": "src/browser-crawler.mjs same-domain/cross-origin boundary; src/pipeline.mjs AI issue fields; src/audit-rules.mjs typed observations; src/send-safety.mjs::evidenceEligibility; P0_1_ACCEPTANCE_REPAIR_REPORT.md"
+  },
+  "fixture_version": "FX-HLD-01-v1",
+  "starting_commit_or_fixture": "967446bdf13f39e6ba9ad799908dc93534b92d1c + sealed FX-HLD-01-v1; executor receives only a local crawl/AI fixture and failing public contract, not the mutation or hidden tests",
+  "allowed_paths": [
+    "src/pipeline.mjs",
+    "src/audit-rules.mjs",
+    "src/send-safety.mjs",
+    "tests/core.test.mjs",
+    "at most one new local evidence fixture"
+  ],
+  "forbidden_paths": [
+    "crawler security/robots code",
+    "lite/**",
+    "providers",
+    "server.mjs",
+    "worker.mjs",
+    "store/migrations",
+    "config defaults",
+    "package*.json",
+    ".claude/**",
+    "workflows",
+    "data"
+  ],
+  "protected_paths": [
+    "three named src/ files (pre-authorized only in the disposable checkout)"
+  ],
+  "exact_objective": "Ensure every issue used in stored audit, selected issue, draft, dossier, or send decision has valid public HTTP(S) same-domain provenance, a non-empty bounded excerpt, safe status, and the applicable confidence threshold; degraded coverage must not convert missing observations into evidence.",
+  "required_tests": [
+    "local redirect/cross-domain fixture",
+    "malformed/credential/private-like URL",
+    "AI issue and deterministic issue paths",
+    "exact confidence boundaries",
+    "degraded crawl",
+    "duplicate findings",
+    "valid control",
+    "existing core/send tests",
+    "no-network and forbidden-diff checks"
+  ],
+  "visible_acceptance_criteria": [
+    "invalid/cross-domain/unsafe/low-confidence evidence reaches none of the five named projections",
+    "valid same-domain evidence remains",
+    "no raw error or secret-like value leaks",
+    "behavior is centralized enough to prevent boundary drift",
+    "existing tests pass"
+  ],
+  "hidden_evaluator_reference": {
+    "mode": "SEALED_PLACEHOLDER",
+    "vault_pointer": "vault://heldout/HLD-UB-01/",
+    "sealed": true,
+    "required_future_evidence": [
+      "fixture mutation (owner-controlled private vault only)",
+      "answer key",
+      "hidden tests",
+      "canary string",
+      "evaluator harness version"
+    ]
+  },
+  "critical_failure_rules": [
+    "unsafe evidence enters any projection",
+    "valid evidence is broadly suppressed",
+    "real crawl/AI call",
+    "SSRF weakening",
+    "protected-path scope breach",
+    "fixture/hidden-test discovery",
+    "only the send gate is fixed while stored/draft output remains unsafe"
+  ],
+  "scoring_rubric": {
+    "correctness": "35",
+    "safety_policy": "20",
+    "edge_cases_completeness": "15",
+    "root_cause_quality": "10",
+    "minimality_scope": "8",
+    "evidence_reproducibility": "7",
+    "maintainability": "5"
+  },
+  "hidden_evaluator_checks": [],
+  "cleanup_contract": "Evaluator copies outputs for anonymous scoring, destroys the checkout and sealed mount, verifies canary absence, and returns tree hash to 967446....",
+  "contamination_policy": "see ../CONTAMINATION_POLICY.md",
+  "risk_tier": "T2",
+  "estimated_difficulty": "HARD",
+  "maximum_scope": "4 existing files + 1 fixture; <=300 changed lines; no new evidence framework; two repair cycles",
+  "expected_owner_approvals": "one T2 fixture-only approval for the three protected files",
+  "internet_research_permitted": false,
+  "external_apis_prohibited": true,
+  "evaluator_version": "v1"
+}

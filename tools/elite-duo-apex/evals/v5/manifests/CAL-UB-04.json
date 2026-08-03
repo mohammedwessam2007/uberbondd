@@ -1,0 +1,96 @@
+{
+  "task_id": "CAL-UB-04",
+  "task_class": "CALIBRATION",
+  "capability_class": "repo-tooling:CWD-fresh-container-reproducibility",
+  "source_evidence_hash": {
+    "algorithm": "sha256",
+    "value": "8769fe67fa56a9f75673b838a3b9b8bbd2dd86c21d8432a61d907344e6ae6e68",
+    "of": "859c1ed6f5024d9058e9fcf98496e95e7be98ca9 pre-repair behavior; 967446... repair commit; .claude/hooks/lib.py; .claude/statusline/apex_statusline.py; tools/elite-duo-apex/scripts/validate_repo_deployment.py; library/build_catalog.py; tests/test_cwd_independence.py; .gitignore"
+  },
+  "fixture_version": "FX-CAL-04-v1",
+  "starting_commit_or_fixture": "967446bdf13f39e6ba9ad799908dc93534b92d1c + visible FX-CAL-04-v1 (reversible partial reversion)",
+  "allowed_paths": [
+    ".claude/hooks/lib.py",
+    ".claude/statusline/apex_statusline.py",
+    "tools/elite-duo-apex/library/build_catalog.py",
+    "tools/elite-duo-apex/scripts/validate_repo_deployment.py",
+    "tools/elite-duo-apex/tests/test_cwd_independence.py",
+    ".gitignore only if a generated pattern is demonstrably missing"
+  ],
+  "forbidden_paths": [
+    "product code",
+    "lite/**",
+    "migrations",
+    "package*.json",
+    "settings/rules/agents/skills",
+    "proposed kernel",
+    "workflows",
+    "production/deployment files",
+    "tracked benchmark results"
+  ],
+  "protected_paths": [
+    "product protected paths hard forbidden; .claude/ changes limited to the two named files"
+  ],
+  "exact_objective": "Recover identical validator/hook behavior from repository root, package directory, and arbitrary CWD; prefer explicit project root to payload tool CWD; generate catalogs only in a temp/output directory; leave no nested .claude or tracked benchmark artifact; keep structural validation distinct from task-quality evidence.",
+  "required_tests": [
+    "three invocation directories",
+    "conflicting CLAUDE_PROJECT_DIR and payload cwd",
+    "no-env deterministic fallback",
+    "absent pre-generated catalog",
+    "temporary catalog schema/search",
+    "authoritative validator",
+    "vendored compatibility tests",
+    "tracked/generated-artifact scan",
+    "clean-tree assertion"
+  ],
+  "visible_acceptance_criteria": [
+    "every invocation resolves the same intended project",
+    "no artifact appears below tools/elite-duo-apex/.claude or arbitrary CWD",
+    "validators do not require repository-generated catalog files",
+    "authoritative/compatibility labels are truthful",
+    "all focused tests pass from root and package CWD"
+  ],
+  "hidden_evaluator_reference": {
+    "mode": "VISIBLE_CALIBRATION",
+    "vault_pointer": "n/a (calibration answer/tests are visible in this repository)",
+    "sealed": false
+  },
+  "critical_failure_rules": [
+    "trusting process CWD over explicit project root",
+    "writing outside the temporary/project location",
+    "tracking generated output",
+    "deleting tests",
+    "claiming task quality/token savings",
+    "touching product code",
+    "treating the old smoke test as repaired-commit evidence"
+  ],
+  "scoring_rubric": {
+    "correctness": "35",
+    "safety_policy": "20",
+    "edge_cases_completeness": "15",
+    "root_cause_quality": "10",
+    "minimality_scope": "8",
+    "evidence_reproducibility": "7",
+    "maintainability": "5"
+  },
+  "hidden_evaluator_checks": [
+    "symlinked package directory",
+    "spaces in path",
+    "conflicting payload CWD",
+    "no environment variable",
+    "read-only package subtree with writable temp",
+    "missing catalog",
+    "pre-existing decoy catalog",
+    "benchmark output default",
+    "validator launched via absolute path"
+  ],
+  "cleanup_contract": "Delete all temp catalogs/runtime state, invert FX-CAL-04-v1, verify no generated tracked/untracked artifacts, and prove branch tree equals 967446....",
+  "contamination_policy": "see ../CONTAMINATION_POLICY.md",
+  "risk_tier": "T1",
+  "estimated_difficulty": "MEDIUM",
+  "maximum_scope": "6 named files; <=320 changed lines; no redesign of context governor/rules/agents/skills/V5; one repair cycle",
+  "expected_owner_approvals": "none beyond benchmark execution; all edits confined to a disposable tooling fixture and no remote write occurs",
+  "internet_research_permitted": false,
+  "external_apis_prohibited": true,
+  "evaluator_version": "v1"
+}

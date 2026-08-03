@@ -1,0 +1,97 @@
+{
+  "task_id": "CAL-UB-05",
+  "task_class": "CALIBRATION",
+  "capability_class": "durability:discovery-cap-dedupe-concurrency",
+  "source_evidence_hash": {
+    "algorithm": "sha256",
+    "value": "275051b89359361b429409ba48d6f171c445d02155ee8bd25768a67ec15ec462",
+    "of": "CLAUDE_REVIEW_REPORT_MISSION_1.md actual 6-under-cap-3 race; src/discovery-runner.mjs; src/store.mjs; scripts/review-probes.mjs; scripts/postgres-smoke.mjs; tests/discovery.test.mjs; MISSION_1_REPORT.md"
+  },
+  "fixture_version": "FX-CAL-05-v1",
+  "starting_commit_or_fixture": "967446bdf13f39e6ba9ad799908dc93534b92d1c + visible FX-CAL-05-v1",
+  "allowed_paths": [
+    "src/discovery-runner.mjs",
+    "src/store.mjs",
+    "tests/discovery.test.mjs",
+    "scripts/review-probes.mjs",
+    "<=1 local response fixture"
+  ],
+  "forbidden_paths": [
+    "real endpoint configuration",
+    "server.mjs",
+    "worker.mjs",
+    "migrations",
+    "outbound/payment modules",
+    "lite/**",
+    "package*.json",
+    "workflows",
+    ".claude/**",
+    "production data"
+  ],
+  "protected_paths": [
+    "the two named src/ files (pre-authorized in disposable checkout); production stores and migrations hard forbidden"
+  ],
+  "exact_objective": "Atomically reserve at most the configured daily import capacity across overlapping runs, deduplicate normalized domains globally, retain OSM attribution/source identity, and ensure dry-run previews make zero writes and consume zero capacity.",
+  "required_tests": [
+    "two and eight concurrent local runs",
+    "cap 0/1/3 boundaries",
+    "www/scheme/path domain variants",
+    "duplicate OSM elements",
+    "one run fails after reservation",
+    "dry-run/live overlap",
+    "local fetcher only",
+    "JSON plus existing PGlite/PostgreSQL-compatible reservation test",
+    "full discovery tests",
+    "network-deny check"
+  ],
+  "visible_acceptance_criteria": [
+    "total imported never exceeds cap",
+    "a domain has one canonical prospect",
+    "dry run has zero persistent writes/reservations",
+    "invalid/missing websites are rejected",
+    "source attribution remains",
+    "failed reservation behavior is explicit and bounded rather than silently overfilling"
+  ],
+  "hidden_evaluator_reference": {
+    "mode": "VISIBLE_CALIBRATION",
+    "vault_pointer": "n/a (calibration answer/tests are visible in this repository)",
+    "sealed": false
+  },
+  "critical_failure_rules": [
+    "real Overpass/API call",
+    "cap exceeded",
+    "duplicate domain imported",
+    "dry run writes",
+    "attribution removed",
+    "migration edit",
+    "global lock that deadlocks/unboundedly serializes unrelated work",
+    "production data mutation"
+  ],
+  "scoring_rubric": {
+    "correctness": "35",
+    "safety_policy": "20",
+    "edge_cases_completeness": "15",
+    "root_cause_quality": "10",
+    "minimality_scope": "8",
+    "evidence_reproducibility": "7",
+    "maintainability": "5"
+  },
+  "hidden_evaluator_checks": [
+    "requested limit larger/non-numeric",
+    "midnight bucket boundary",
+    "canceled run",
+    "duplicate run ID",
+    "IDN/case/trailing-dot/www variants",
+    "import conflict after capacity reservation",
+    "20 randomized interleavings"
+  ],
+  "cleanup_contract": "Close temp stores, remove local response fixtures/results, discard the worktree, assert no capacity/data survives, and restore exact SHA.",
+  "contamination_policy": "see ../CONTAMINATION_POLICY.md",
+  "risk_tier": "T2",
+  "estimated_difficulty": "HARD",
+  "maximum_scope": "4 existing files + 1 fixture; <=320 changed lines; no provider or architecture replacement; two repair cycles",
+  "expected_owner_approvals": "one T2 fixture-only approval for two protected source files; none for network/production because those are prohibited",
+  "internet_research_permitted": false,
+  "external_apis_prohibited": true,
+  "evaluator_version": "v1"
+}

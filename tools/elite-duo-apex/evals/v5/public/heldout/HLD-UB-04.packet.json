@@ -1,0 +1,65 @@
+{
+  "_notice": "This packet is the complete task statement. Hidden evaluator material exists for this task and is deliberately not included. Do not search the repository, git history, or any vault for evaluator answers, hidden tests, or canaries; doing so is a contamination event under CONTAMINATION_POLICY.md and voids the run.",
+  "allowed_paths": [
+    ".claude/skills/SKILL_INDEX.json",
+    "one deterministic generator under tools/elite-duo-apex/scripts/",
+    "tools/elite-duo-apex/scripts/validate_repo_deployment.py",
+    "focused tests below tools/elite-duo-apex/tests/",
+    "directly affected package-map text only if generated from the same source of truth"
+  ],
+  "capability_class": "repo-tooling:deterministic-inventory",
+  "cleanup_contract": "Archive anonymous outputs, remove generated temp files, destroy checkout/sealed mount, scan for canary leakage, and verify 967446... tree.",
+  "critical_failure_rules": [
+    "changing skill definitions/count to match stale data",
+    "nondeterministic output",
+    "process-CWD leakage",
+    "scanning/rewriting thousands of unrelated corpus files",
+    "structural pass with stale index",
+    "hidden-test/fixture access",
+    "product-path edit"
+  ],
+  "estimated_difficulty": "MEDIUM-HARD",
+  "evaluator_version": "v1",
+  "exact_objective": "Create one deterministic, CWD-independent installed-skill inventory from actual frontmatter/contracts; make count/names/model metadata consistent; have the authoritative validator detect missing, duplicate, stale, or non-deterministic entries; do not inflate or delete skills to satisfy a count.",
+  "expected_owner_approvals": "none beyond benchmark execution; tooling-only disposable changes",
+  "external_apis_prohibited": true,
+  "fixture_version": "FX-HLD-04-v1",
+  "forbidden_paths": [
+    "any SKILL.md or contract",
+    "agents/hooks/rules/settings/statusline",
+    "product code",
+    "lite/**",
+    "migrations",
+    "package*.json",
+    "workflows",
+    "benchmark results",
+    "library corpus unrelated to the installed skill index"
+  ],
+  "internet_research_permitted": false,
+  "maximum_scope": "1 index, 1 generator, 1 validator, up to 2 focused tests, at most 2 directly affected short docs; <=320 changed lines; two cycles",
+  "packet_hash": "1bf8523c0e58ed1eee6a60cde0c9356c71e624cc8e49a29d69f3673fb1da2ddf",
+  "protected_paths": [
+    "product paths hard forbidden; installed skill definitions read-only; only the index file writable below .claude/skills"
+  ],
+  "required_tests": [
+    "generation from root/package/arbitrary CWD",
+    "shuffled filesystem enumeration",
+    "missing/duplicate/bad-contract fixture",
+    "stable byte-for-byte output",
+    "validator failure on stale index and pass on regenerated index",
+    "clean-tree/generated-artifact check",
+    "no product tests weakened"
+  ],
+  "risk_tier": "T1",
+  "starting_commit_or_fixture": "clean 967446bdf13f39e6ba9ad799908dc93534b92d1c + sealed inventory-order fixture FX-HLD-04-v1; the factual mismatch is discoverable but generator expectations and hidden checks are not exposed",
+  "task_class": "HELD_OUT",
+  "task_id": "HLD-UB-04",
+  "visible_acceptance_criteria": [
+    "index exactly represents all installed skills once",
+    "stable ordering and bytes",
+    "validator detects drift",
+    "legacy package corpus is not mistaken for installed runtime",
+    "no SKILL.md content changes",
+    "no unrelated docs mass rewrite"
+  ]
+}

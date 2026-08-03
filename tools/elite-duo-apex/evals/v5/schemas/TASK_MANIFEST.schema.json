@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://uberbondd.local/evals/v5/schemas/TASK_MANIFEST.schema.json",
+  "title": "V5 Benchmark Task Manifest",
+  "description": "Authoritative record for one benchmark task, grounded in UBERBOND_FABLE_FRACTION_STRATEGY_V5.zip / 13_BENCHMARK_TASK_BANK.md and 14_BENCHMARK_MANIFEST.csv. One file per task under manifests/.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_id",
+    "task_class",
+    "capability_class",
+    "source_evidence_hash",
+    "fixture_version",
+    "allowed_paths",
+    "forbidden_paths",
+    "protected_paths",
+    "visible_acceptance_criteria",
+    "hidden_evaluator_reference",
+    "critical_failure_rules",
+    "cleanup_contract",
+    "contamination_policy",
+    "evaluator_version"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "pattern": "^(CAL|HLD|ADV)-UB-[0-9]{2}$",
+      "description": "Immutable task ID, e.g. CAL-UB-01. Never renumbered."
+    },
+    "task_class": {
+      "type": "string",
+      "enum": ["CALIBRATION", "HELD_OUT", "ADVERSARIAL"]
+    },
+    "capability_class": {
+      "type": "string",
+      "minLength": 1,
+      "description": "One of the four bank capability classes, e.g. evidence-quality:narrow-repair."
+    },
+    "source_evidence_hash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "value", "of"],
+      "properties": {
+        "algorithm": {"type": "string", "enum": ["sha256"]},
+        "value": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "of": {
+          "type": "string",
+          "description": "What was hashed, e.g. '13_BENCHMARK_TASK_BANK.md section for this task_id' or a source-file list."
+        }
+      }
+    },
+    "fixture_version": {
+      "type": "string",
+      "pattern": "^FX-(CAL|HLD|ADV)-[0-9]{2}-v[0-9]+$"
+    },
+    "starting_commit_or_fixture": {"type": "string"},
+    "allowed_paths": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "forbidden_paths": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "protected_paths": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "exact_objective": {"type": "string"},
+    "required_tests": {"type": "array", "items": {"type": "string"}},
+    "visible_acceptance_criteria": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1
+    },
+    "hidden_evaluator_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "vault_pointer", "sealed"],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["VISIBLE_CALIBRATION", "SEALED_PLACEHOLDER"],
+          "description": "CALIBRATION tasks are VISIBLE_CALIBRATION (answer/tests may be in-repo). HELD_OUT/ADVERSARIAL must be SEALED_PLACEHOLDER: no hidden answer, fixture mutation, or hidden test may be committed to this repository."
+        },
+        "vault_pointer": {
+          "type": "string",
+          "description": "Non-resolving pointer string naming the future private-vault path this task's hidden material must live in, per CONTAMINATION_POLICY.md storage topology. Never a real, reachable location inside this repository."
+        },
+        "sealed": {"type": "boolean"},
+        "required_future_evidence": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "What the vault custodian must supply before this task can be scored: fixture mutation, answer key, hidden tests, canary. Required when sealed=true."
+        }
+      }
+    },
+    "critical_failure_rules": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1
+    },
+    "scoring_rubric": {
+      "type": "object",
+      "description": "The task-specific binding of the common 100-point frame (35/20/15/10/8/7/5).",
+      "additionalProperties": {"type": "string"}
+    },
+    "hidden_evaluator_checks": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "For CALIBRATION tasks only: disclosed hidden-evaluator check descriptions (from the visible bank). Must be empty for HELD_OUT/ADVERSARIAL manifests."
+    },
+    "cleanup_contract": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Exact cleanup/rollback procedure text from the task bank."
+    },
+    "contamination_policy": {
+      "type": "string",
+      "const": "see ../CONTAMINATION_POLICY.md"
+    },
+    "risk_tier": {"type": "string"},
+    "estimated_difficulty": {"type": "string"},
+    "maximum_scope": {"type": "string"},
+    "expected_owner_approvals": {"type": "string"},
+    "internet_research_permitted": {"type": "boolean"},
+    "external_apis_prohibited": {"type": "boolean"},
+    "evaluator_version": {"type": "string", "pattern": "^v[0-9]+$"}
+  }
+}

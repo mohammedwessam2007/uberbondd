@@ -76,9 +76,16 @@ class HookTests(unittest.TestCase):
             cwd=hooks, env=env,
         )
 
+    # Modules that live beside the hooks but are imported rather than invoked.
+    # Named explicitly so the count below stays a statement about how many hook
+    # entry points exist, not just how many files happen to sit in the folder.
+    HOOK_LIBRARIES = {"lib.py", "secret_paths.py"}
+
     def test_hook_count(self):
-        hooks = list((CLAUDE_DIR / "hooks").glob("*.py"))
-        self.assertEqual(len(hooks), 23)
+        modules = list((CLAUDE_DIR / "hooks").glob("*.py"))
+        self.assertEqual(len(modules), 24)
+        entry_points = [p for p in modules if p.name not in self.HOOK_LIBRARIES]
+        self.assertEqual(len(entry_points), 22)
 
     def test_git_push_blocked(self):
         with tempfile.TemporaryDirectory() as d:

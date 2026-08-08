@@ -94,6 +94,7 @@ export async function reconcilePreEffectAuthority({ pool, shadowObservation, exe
   const approval = approvalRow.data;
   if (approvalRow.tenant_id !== authority.tenant_id || approval?.tenantId !== authority.tenant_id) return incomplete('approval-authority-tenant-mismatch');
   if (approval?.approvalId !== authority.approval_id || approvalRow.digest !== approval?.approvalDigest) return incomplete('approval-authority-identity-mismatch');
+  if (!contentTimeBefore(approval?.issuedAt, observedMs)) return incomplete('approval-content-issued-after-observation');
   const notBefore = finiteTime(approval?.notBefore);
   const expiresAt = finiteTime(approval?.expiresAt);
   if (notBefore == null || expiresAt == null || notBefore > observedMs || expiresAt <= observedMs) return incomplete('approval-not-active-at-pre-effect-boundary');

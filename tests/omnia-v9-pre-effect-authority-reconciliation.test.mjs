@@ -305,3 +305,36 @@ test('real PostgreSQL: an authority reservation created a few hundred millisecon
     assert.equal(result.reason, 'authority-reservation-not-proven-before-effect');
   } finally { await db.end(); }
 });
+
+test('real PostgreSQL: an authority reservation created a few hundred milliseconds BEFORE the pre-effect observation is legitimately accepted', { skip: !realPostgresUrl }, async () => {
+  // Companion to the test above: proves the fix does not overcorrect. A reservation
+  // genuinely created a few hundred milliseconds *before* the pre-effect observation
+  // (the legitimate ordering) must still reconcile successfully — sub-second
+  // precision must be preserved in both directions, not just used to reject.
+  const db = await realDbFixture();
+  try {
+    const suffix = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
+    const idempotencyKey = `p8pglegit:${suffix}`;
+    const reservationId = `res_${suffix}`;
+    const approvalId = `approval_${suffix}`;
+    const intent = makeIntent({ idempotencyKey, nonce: `nonce:${suffix}` });
+    const approvalObject = approval({ approvalId });
+    const decisionObject = decision(intent, { approvalId });
+    const obs = observation({ reservationId, observedAt: '2026-08-08T11:02:00.900Z' });
+    const receipt = executionReceipt(obs, { id: reservationId, idempotencyKey, sentAt: '2026-08-08T11:03:00.000Z' });
+
+    await insertObject(db, 'ACTION_INTENT', intent.intentDigest, 'tenant1', intent.intentDigest, intent, '2026-08-08T10:56:00.000Z');
+    await insertObject(db, 'OWNER_APPROVAL', approvalObject.approvalId, 'tenant1', approvalObject.approvalDigest, approvalObject, '2026-08-08T10:40:00.000Z');
+    await insertObject(db, 'AUTHORIZATION_DECISION', decisionObject.decisionDigest, 'tenant1', decisionObject.decisionDigest, decisionObject, '2026-08-08T11:00:30.000Z');
+    await db.query(
+      `INSERT INTO omnia_v9_authority_reservations(idempotency_key,intent_digest,approval_id,tenant_id,use_delta,cost_delta_usd,blast_radius,status,created_at,updated_at)
+       VALUES ($1,$2,$3,'tenant1',1,0.01,1,'RESERVED',$4::timestamptz,$4::timestamptz)`,
+      [idempotencyKey, intent.intentDigest, approvalId, '2026-08-08T11:02:00.500Z']
+    );
+    await seedP6(db, receipt);
+
+    const result = await reconcile({ pool: db, shadowObservation: obs, executionReceipt: receipt });
+    assert.equal(result.status, 'RECONCILED');
+    assert.equal(result.reconciled, true);
+  } finally { await db.end(); }
+});

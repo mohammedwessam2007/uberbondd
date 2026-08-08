@@ -74,8 +74,7 @@ export async function observeOutboundFinalAdmission({ hook, store, context }) {
       decision: normalizeDecision(result),
       reasons: Array.isArray(result?.reasons) ? result.reasons.map(item => clip(item, 240)).slice(0, 20) : [],
       policyDigest: clip(result?.policyDigest || '', 128),
-      constitutionDigest: clip(result?.constitutionDigest || '', 128),
-      receiptDigest: clip(result?.receiptDigest || '', 128)
+      constitutionDigest: clip(result?.constitutionDigest || '', 128)
     };
     try { await store?.log?.('omnia_v9_outbound_final_shadow', observation); } catch {}
     return observation;

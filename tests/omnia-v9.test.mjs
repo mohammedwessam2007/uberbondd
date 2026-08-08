@@ -122,6 +122,29 @@ test('cross-tenant evidence is denied', () => {
   assert.equal(admitAction(intent(), context(ev)).decision, 'DENY');
 });
 
+test('stale evidence fails closed like other blocking lifecycle flags', () => {
+  const ev = evidence({ lifecycleFlags: ['STALE'] });
+  const result = verifyEvidence(ev, { now });
+  assert.equal(result.ok, false);
+  assert(result.errors.includes('evidence:inactive'));
+  assert.equal(admitAction(intent(), context(ev)).decision, 'DENY');
+});
+
+test('a tampered intent carrying a non-finite cost cannot be canonicalized or verified', () => {
+  const tampered = { ...intent(), maxCostUsd: Infinity };
+  const result = verifyIntent(tampered, { now });
+  assert.equal(result.ok, false);
+  assert(result.errors.includes('intent:canonicalization-failed'));
+});
+
+test('a tampered intent carrying NaN blast radius fails closed', () => {
+  const tampered = { ...intent(), blastRadius: NaN };
+  const result = verifyIntent(tampered, { now });
+  assert.equal(result.ok, false);
+  assert(result.errors.includes('intent:canonicalization-failed'));
+  assert(result.errors.includes('intent:invalid-blast-radius'));
+});
+
 test('kill state dominates otherwise valid allow', () => assert.equal(admitAction(intent(), context(evidence(), approval(), { killState: { active: true } })).decision, 'DENY'));
 
 test('missing evidence-requirement resolver fails closed for consequential actions', () => {

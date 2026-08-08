@@ -32,5 +32,14 @@ if (cedarResult.status !== 0 || cedarReport?.status !== 'P3_POLICY_VERIFIED') {
 }
 console.log(`OMNIA_V9_CEDAR_POLICY_VERIFIED evaluator=${cedarReport.evaluator.packageName}@${cedarReport.evaluator.version} cedarVersion=${cedarReport.evaluator.cedarVersion} policyDigest=${cedarReport.policyDigest}`);
 
+const circuitResult = spawnSync(process.execPath, ['--test', 'tests/omnia-v9-end-to-end-proof-circuit.test.mjs'], {
+  stdio: 'inherit',
+  env: process.env
+});
+if (circuitResult.status !== 0) {
+  console.log('OMNIA_V9_CLOSURE_FAIL=END_TO_END_PROOF_CIRCUIT_FAILED');
+  process.exit(circuitResult.status || 1);
+}
+
 console.log('OMNIA_V9_CLOSURE_CIRCUIT_VERIFIED');
 console.log('OMNIA_V9_CLOSURE_VERIFIED');

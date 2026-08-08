@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { PGlite } from '@electric-sql/pglite';
+import { Pool } from 'pg';
 import { createActionIntent } from '../src/omnia-v9/kernel.mjs';
 import { digestObject } from '../src/omnia-v9/canonical.mjs';
 import { buildReceiptFromDurableReservation } from '../src/omnia-v9/execution-receipt-shadow.mjs';
@@ -197,4 +198,48 @@ test('duplicate path refuses missing generic proof object', async () => {
     await db.query("DELETE FROM omnia_v9_objects WHERE object_type='EXECUTION_AUTHORIZATION_BINDING' AND object_id=$1", [binding.bindingDigest]);
     await assert.rejects(store.persistOnce({ binding, intent: i, authorizationDecision: d, executionReceipt: r }), error => error?.code === 'PROOF_LEDGER_CONFLICT');
   } finally { await db.close(); }
+});
+
+const realPostgresUrl = process.env.OMNIA_V9_TEST_DATABASE_URL || '';
+
+async function realMigratedDb() {
+  const pool = new Pool({ connectionString: realPostgresUrl, max: 4 });
+  for (const migration of ['005_omnia_v9_proof_store.sql', '006_omnia_v9_execution_receipt_uniqueness.sql', '007_omnia_v9_authorization_bound_receipts.sql']) {
+    await pool.query(await fs.readFile(new URL(`../migrations/${migration}`, import.meta.url), 'utf8'));
+  }
+  return pool;
+}
+
+test('real PostgreSQL: two concurrent workers binding conflicting authorization lineage to the same consequence yield one durable winner', { skip: !realPostgresUrl }, async () => {
+  const db = await realMigratedDb();
+  const suffix = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
+  const reservationId = `res_${suffix}`;
+  const idempotencyKey = `send:${suffix}:0`;
+  try {
+    const i = intent({ idempotencyKey, nonce: `nonce_${suffix}` });
+    const r = receiptFor(reservation({ id: reservationId, idempotencyKey, prospectId: `p_${suffix}`, gmailId: `gmail_${suffix}`, threadId: `thread_${suffix}`, rfcMessageId: `<${suffix}@example.com>` }));
+    const receiptStore = new OmniaV9ExecutionReceiptStore({ pool: db });
+    await receiptStore.persistOnce({ tenantId: 'tenant1', receipt: r });
+
+    const store = new OmniaV9AuthorizationBoundReceiptStore({ pool: db });
+    const decisionA = decisionFor(i, { approvalId: `approval_a_${suffix}` });
+    const decisionB = decisionFor(i, { approvalId: `approval_b_${suffix}` });
+    const bindingA = buildAuthorizationBoundExecutionReceipt({ tenantId: 'tenant1', intent: i, authorizationDecision: decisionA, executionReceipt: r, boundAt: NOW });
+    const bindingB = buildAuthorizationBoundExecutionReceipt({ tenantId: 'tenant1', intent: i, authorizationDecision: decisionB, executionReceipt: r, boundAt: NOW });
+
+    const results = await Promise.allSettled([
+      store.persistOnce({ binding: bindingA, intent: i, authorizationDecision: decisionA, executionReceipt: r }),
+      store.persistOnce({ binding: bindingB, intent: i, authorizationDecision: decisionB, executionReceipt: r })
+    ]);
+
+    const fulfilled = results.filter(item => item.status === 'fulfilled');
+    const rejected = results.filter(item => item.status === 'rejected');
+    assert.equal(fulfilled.length, 1, 'exactly one conflicting authorization binding must durably win');
+    assert.equal(rejected.length, 1);
+    assert.match(rejected[0].reason?.code || '', /AUTHORIZATION_BINDING_CONFLICT|AUTHORIZATION_BINDING_IDENTITY_CONFLICT/);
+
+    const rows = await db.query('SELECT approval_id FROM omnia_v9_execution_authorization_bindings WHERE reservation_id=$1', [reservationId]);
+    assert.equal(rows.rows.length, 1, 'one consequence cannot durably carry two conflicting authorization bindings');
+    assert([decisionA.approvalId, decisionB.approvalId].includes(rows.rows[0].approval_id));
+  } finally { await db.end(); }
 });

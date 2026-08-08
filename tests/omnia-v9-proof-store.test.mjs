@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { generateKeyPairSync } from 'node:crypto';
 import { PGlite } from '@electric-sql/pglite';
+import { Pool } from 'pg';
 import { signDigestHex, sha256 } from '../src/omnia-v9/canonical.mjs';
 import { createActionIntent, createApproval, createEvidenceRecord } from '../src/omnia-v9/kernel.mjs';
 import { OmniaV9ProofStore } from '../src/omnia-v9/proof-store.mjs';
@@ -295,4 +296,77 @@ test('persistent admission only becomes executable after exact intent scope and 
     const second = await persistAndReserveAdmission({ proofStore: store, intent: secondIntent, evidence: [ev], approvals: [ap], context: policyContext });
     assert.equal(second.executable, false);
   } finally { await db.close(); }
+});
+
+const realPostgresUrl = process.env.OMNIA_V9_TEST_DATABASE_URL || '';
+
+async function realStoreDb() {
+  const pool = new Pool({ connectionString: realPostgresUrl, max: 4 });
+  await pool.query(await fs.readFile(new URL('../migrations/005_omnia_v9_proof_store.sql', import.meta.url), 'utf8'));
+  return { db: pool, store: new OmniaV9ProofStore({ pool, keyResolver }) };
+}
+
+test('real PostgreSQL: two concurrent workers racing to reserve a single-use bounded authority produce exactly one winner and no double-spend', { skip: !realPostgresUrl }, async () => {
+  const { db, store } = await realStoreDb();
+  const suffix = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
+  const approvalId = `ap_race_${suffix}`;
+  const tenantId = `tenant_race_${suffix}`;
+  try {
+    const ap = approval({ approvalId, tenantId, maxUses: 1, maxCostUsd: 1 });
+    await persistApproval(store, ap);
+
+    const first = actionIntent({ idempotencyKey: `k1_${suffix}`, recipient: `a_${suffix}@example.com`, tenantId });
+    const second = actionIntent({ idempotencyKey: `k2_${suffix}`, recipient: `b_${suffix}@example.com`, tenantId });
+    await persistIntent(store, first);
+    await persistIntent(store, second);
+
+    const [a, b] = await Promise.all([
+      reserve(store, first, { approvalId, tenantId }),
+      reserve(store, second, { approvalId, tenantId })
+    ]);
+
+    const outcomes = [a, b];
+    assert.equal(outcomes.filter(result => result.ok).length, 1, 'exactly one concurrent reservation must win a single-use authority');
+    assert.equal(outcomes.filter(result => !result.ok).length, 1);
+    const denied = outcomes.find(result => !result.ok);
+    assert.match(denied.reason, /uses-exhausted|approval-scope/);
+
+    const usage = await store.getApprovalUsage(approvalId);
+    assert.equal(usage.uses, 1, 'concurrent racing reservations must not double-spend a single-use approval');
+
+    const rows = await db.query(
+      `SELECT status FROM omnia_v9_authority_reservations WHERE approval_id=$1 ORDER BY idempotency_key`,
+      [approvalId]
+    );
+    assert.equal(rows.rows.filter(row => row.status === 'RESERVED').length, 1);
+    assert.equal(rows.rows.filter(row => row.status === 'DENIED').length, 1);
+  } finally {
+    await db.end();
+  }
+});
+
+test('real PostgreSQL: concurrent identical idempotent retries of the same reservation converge on one winner', { skip: !realPostgresUrl }, async () => {
+  const { db, store } = await realStoreDb();
+  const suffix = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
+  const approvalId = `ap_retry_${suffix}`;
+  const tenantId = `tenant_retry_${suffix}`;
+  try {
+    const ap = approval({ approvalId, tenantId, maxUses: 5, maxCostUsd: 5 });
+    await persistApproval(store, ap);
+    const intent = actionIntent({ idempotencyKey: `retry_${suffix}`, recipient: `r_${suffix}@example.com`, tenantId });
+    await persistIntent(store, intent);
+
+    const results = await Promise.all([
+      reserve(store, intent, { approvalId, tenantId }),
+      reserve(store, intent, { approvalId, tenantId }),
+      reserve(store, intent, { approvalId, tenantId })
+    ]);
+    assert(results.every(result => result.ok === true));
+    assert.equal(results.filter(result => result.duplicate).length, 2, 'exactly one attempt should be the original, the rest idempotent replays');
+
+    const usage = await store.getApprovalUsage(approvalId);
+    assert.equal(usage.uses, 1, 'concurrent identical idempotent retries must consume budget exactly once');
+  } finally {
+    await db.end();
+  }
 });

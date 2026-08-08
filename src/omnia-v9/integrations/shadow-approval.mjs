@@ -1,16 +1,30 @@
 import { createApproval } from '../kernel.mjs';
 
 /**
- * The one purpose value every shadow-only approval is forced to carry.
- * No real UberBond campaign uses this purpose (real outbound intents use
- * 'qualified-b2b-outreach' -- see integrations/outbound-admission.mjs), so
- * even if a shadow approval were somehow handed to a real admission path,
- * approvalCoversIntent()'s scope:purpose check (frozen kernel.mjs) would
- * reject it. This is belt #1. Belt #2 is the registry below: reality-shadow
- * evaluation only ever consults approvals that are BOTH resolvable from the
- * real proof store AND present in omnia_v9_shadow_approval_registry --
- * there is no code path in this mission that resolves approvals any other
- * way, so a shadow approval can never be read as production authority.
+ * Default purpose for a shadow approval when the caller doesn't need it to
+ * cover a real outbound-shaped candidate (e.g. pure issuance/revocation/
+ * expiry mechanism drills). Reality-shadow evaluation of real outbound
+ * candidates instead issues approvals with the SAME purposes/operations/
+ * effect classes a real approval would need (e.g. 'qualified-b2b-outreach'),
+ * because the entire point is testing "would this real-shaped candidate be
+ * authorized" -- an approval that could never match a real intent's purpose
+ * couldn't meaningfully answer that question.
+ *
+ * The actual, load-bearing guarantee that a shadow approval can never become
+ * production authority is NOT the purpose string. It's this: reality-shadow
+ * evaluation is the ONLY code path in this codebase that ever calls
+ * resolveShadowAuthorityContext() below, which is the ONLY code path that
+ * reads omnia_v9_shadow_approval_registry, which is the ONLY table this
+ * approval is registered in. No enforce/canary mode exists anywhere in this
+ * codebase (config.mjs's ALLOWED_MODES is exactly {off, shadow, compare}),
+ * and V9's decision -- in every mode that exists -- never gates the real
+ * Gmail send call (src/pipeline.mjs ignores it entirely; see
+ * tests/omnia-v9-integration-pipeline.test.mjs). So a shadow approval has no
+ * path to production consequence today regardless of what purpose it
+ * declares. If a real enforce path is ever built, it must be built with its
+ * own approval resolver against real, non-shadow-registered approvals --
+ * this module's registry-gated resolver is deliberately unsuited for reuse
+ * there, which is itself part of the safety argument.
  */
 export const SHADOW_APPROVAL_PURPOSE = 'reality-shadow-validation';
 
@@ -27,13 +41,15 @@ export class ShadowApprovalError extends Error {
  * Issues a real, correctly-signed OWNER_APPROVAL object (frozen P0/P1
  * shape, unmodified) and registers it as shadow-only. Persists via the
  * real, frozen OmniaV9ProofStore.putObject -- the same content-addressed,
- * immutable store used for every other V9 proof object. Never grants any
- * production capability: purposes is always forced to
- * SHADOW_APPROVAL_PURPOSE regardless of what the caller requests.
+ * immutable store used for every other V9 proof object. `purposes` defaults
+ * to [SHADOW_APPROVAL_PURPOSE] but callers may pass real-shaped purposes
+ * (e.g. ['qualified-b2b-outreach']) so this approval can meaningfully cover
+ * real outbound-shaped reality-shadow candidates -- see the module-level
+ * comment above for why that does not weaken the shadow-only guarantee.
  */
 export async function issueShadowApproval({
   proofStore, pool, signer, approvalId, issuerId, keyId, tenantId,
-  actorIds, operations, resourcePrefixes, effectClasses,
+  actorIds, operations, resourcePrefixes, effectClasses, purposes = [SHADOW_APPROVAL_PURPOSE],
   maxBlastRadius, maxCostUsd, maxUses, notBefore, expiresAt, issuedAt
 }) {
   if (!proofStore || typeof proofStore.putObject !== 'function') throw new ShadowApprovalError('proofStore required', 'CONFIG');
@@ -42,7 +58,7 @@ export async function issueShadowApproval({
 
   const approval = createApproval({
     approvalId, issuerId, keyId, tenantId, actorIds, operations, resourcePrefixes,
-    purposes: [SHADOW_APPROVAL_PURPOSE],
+    purposes,
     effectClasses, maxBlastRadius, maxCostUsd, maxUses, notBefore, expiresAt, issuedAt
   }, signer);
 
@@ -51,12 +67,13 @@ export async function issueShadowApproval({
     digest: approval.approvalDigest, data: approval
   });
 
+  const purposeRestriction = [...approval.purposes].sort().join(',');
   const inserted = await pool.query(
     `INSERT INTO omnia_v9_shadow_approval_registry(approval_id, tenant_id, purpose_restriction)
      VALUES ($1, $2, $3)
      ON CONFLICT (approval_id) DO NOTHING
      RETURNING approval_id`,
-    [approval.approvalId, approval.tenantId, SHADOW_APPROVAL_PURPOSE]
+    [approval.approvalId, approval.tenantId, purposeRestriction]
   );
   if (!inserted.rows?.length) {
     const existing = await pool.query(
@@ -64,7 +81,7 @@ export async function issueShadowApproval({
       [approval.approvalId]
     );
     const row = existing.rows?.[0];
-    if (!row || row.tenant_id !== approval.tenantId || row.purpose_restriction !== SHADOW_APPROVAL_PURPOSE) {
+    if (!row || row.tenant_id !== approval.tenantId || row.purpose_restriction !== purposeRestriction) {
       throw new ShadowApprovalError('shadow approval registry conflict', 'REGISTRY_CONFLICT', { approvalId: approval.approvalId });
     }
   }

@@ -1,0 +1,50 @@
+{
+  "UberBondV9": {
+    "commonTypes": {},
+    "entityTypes": {
+      "Actor": {
+        "memberOfTypes": [],
+        "shape": {
+          "type": "Record",
+          "attributes": {
+            "tenantId": { "type": "String", "required": true }
+          },
+          "additionalAttributes": false
+        }
+      },
+      "GovernedResource": {
+        "memberOfTypes": [],
+        "shape": {
+          "type": "Record",
+          "attributes": {
+            "tenantId": { "type": "String", "required": true },
+            "operation": { "type": "String", "required": true },
+            "effectClass": { "type": "String", "required": true }
+          },
+          "additionalAttributes": false
+        }
+      }
+    },
+    "actions": {
+      "execute": {
+        "appliesTo": {
+          "principalTypes": ["Actor"],
+          "resourceTypes": ["GovernedResource"],
+          "context": {
+            "type": "Record",
+            "attributes": {
+              "authorityResolved": { "type": "Boolean", "required": true },
+              "identityResolved": { "type": "Boolean", "required": true },
+              "evidenceResolved": { "type": "Boolean", "required": true },
+              "policyBound": { "type": "Boolean", "required": true },
+              "constitutionBound": { "type": "Boolean", "required": true },
+              "proposalOrigin": { "type": "String", "required": true },
+              "sovereigntyChange": { "type": "Boolean", "required": true }
+            },
+            "additionalAttributes": false
+          }
+        }
+      }
+    }
+  }
+}

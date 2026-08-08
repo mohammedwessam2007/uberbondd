@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "omnia.v9.policy-projection.p3",
+  "projectionVersion": "p3.0.0",
+  "semantics": "TRACEABLE_PROJECTION_NOT_FULL_CONSTITUTION",
+  "rules": [
+    {
+      "id": "FAIL_CLOSED_UNRESOLVED_ADMISSION",
+      "effect": "FORBID",
+      "sourceRole": "DECISION_ENGINE",
+      "sourceAnchor": "A stage MUST fail closed when a critical input, authority, identity, policy, or calculation is unresolved.",
+      "mechanization": "Forbid consequential execution unless authority, identity, evidence, policy and constitution resolution facts are all true."
+    },
+    {
+      "id": "LEARNING_CANNOT_EXPAND_SOVEREIGNTY",
+      "effect": "FORBID",
+      "sourceRole": "LEARNING_ENGINE",
+      "sourceAnchor": "- collection authority, credential scope, external-action permission, budgets, recipients, or approval authority;",
+      "mechanization": "Forbid an execution request whose proposal origin is LEARNING when it changes sovereignty-bearing authority."
+    },
+    {
+      "id": "PERMIT_ONLY_RESOLVED_NON_SOVEREIGNTY_EXECUTION",
+      "effect": "PERMIT",
+      "sourceRole": "DECISION_ENGINE",
+      "sourceAnchor": "A stage MUST fail closed when a critical input, authority, identity, policy, or calculation is unresolved.",
+      "mechanization": "Permit only when every required resolver fact is true; Cedar default-deny remains authoritative when no permit applies."
+    }
+  ],
+  "resolverFacts": [
+    "authorityResolved",
+    "identityResolved",
+    "evidenceResolved",
+    "policyBound",
+    "constitutionBound",
+    "proposalOrigin",
+    "sovereigntyChange"
+  ],
+  "cedarRuntimeContract": {
+    "package": "@cedar-policy/cedar-wasm",
+    "nodeImport": "@cedar-policy/cedar-wasm/nodejs",
+    "requiredFunctions": ["checkParseSchema", "checkParsePolicySet", "validate", "isAuthorized"],
+    "strictValidationMode": "strict",
+    "observedOfficialExamplePackageVersion": "4.1.0",
+    "observedOfficialExampleBranch": "release/4.12.x",
+    "versionPolicy": "PIN_EXACT_VERSION_AND_LOCKFILE_BEFORE_PRODUCTION"
+  }
+}

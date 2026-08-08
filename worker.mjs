@@ -6,6 +6,8 @@ import { DurableQueue } from './src/queue.mjs';
 import { DiscoveryRunner } from './src/discovery-runner.mjs';
 import { createJobHandlers } from './src/job-handlers.mjs';
 import { startScheduler } from './src/scheduler.mjs';
+import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
+import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -17,7 +19,12 @@ await store.init();
 if (typeof store.deleteExpiredArtifacts === 'function') await store.deleteExpiredArtifacts().catch(error => console.error('Artifact cleanup failed', error));
 const queue = new DurableQueue(store, config, console);
 let revenue;
-const pipeline = new Pipeline(store, config, { onProspectComplete: prospect => revenue?.onProspectComplete(prospect) });
+const omniaV9Mode = resolveOmniaV9Mode(process.env);
+console.log(`OMNIA V9 outbound integration mode: ${omniaV9Mode}`);
+const pipeline = new Pipeline(store, config, {
+  onProspectComplete: prospect => revenue?.onProspectComplete(prospect),
+  outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store })
+});
 const enqueueResearch = payload => queue.enqueue('research.batch', payload, {
   maxAttempts: 3,
   dedupeKey: payload.leadId ? `research:lead:${payload.leadId}` : `research:${payload.reason || 'manual'}:${Math.floor(Date.now() / 30000)}`

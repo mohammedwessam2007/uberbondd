@@ -19,6 +19,8 @@ import { importProspects } from './src/prospect-import.mjs';
 import { createJobHandlers } from './src/job-handlers.mjs';
 import { normalizeCountryList } from './src/send-safety.mjs';
 import { verifyUnsubscribeToken } from './src/unsubscribe.mjs';
+import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
+import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
 
 class HttpError extends Error {
   constructor(status, message) { super(message); this.status = status; }
@@ -30,7 +32,12 @@ const store = createStore(config);
 await store.init();
 const queue = new DurableQueue(store, config, console);
 let revenue;
-const pipeline = new Pipeline(store, config, { onProspectComplete: async prospect => revenue?.onProspectComplete(prospect) });
+const omniaV9Mode = resolveOmniaV9Mode(process.env);
+console.log(`OMNIA V9 outbound integration mode: ${omniaV9Mode}`);
+const pipeline = new Pipeline(store, config, {
+  onProspectComplete: async prospect => revenue?.onProspectComplete(prospect),
+  outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store })
+});
 const enqueueResearch = payload => queue.enqueue('research.batch', payload, {
   maxAttempts: 3,
   dedupeKey: payload.leadId ? `research:lead:${payload.leadId}` : `research:${payload.reason || 'manual'}:${Math.floor(Date.now() / 30000)}`

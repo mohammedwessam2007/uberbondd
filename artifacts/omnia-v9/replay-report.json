@@ -1,0 +1,2734 @@
+{
+  "schemaVersion": "omnia.v9.replay-report.v1",
+  "generatedAt": "2026-08-08T20:36:52.299Z",
+  "disclaimer": "SYNTHETIC / OFFLINE REPLAY ONLY. No live sending, no real database, no real Cedar connection, and no production data were used. These numbers measure the V9 admission-decision logic and its integration adapter in isolation; they are not production metrics and must not be presented as such.",
+  "totalScenarios": 188,
+  "comparisonCategoryCounts": {
+    "BOTH_ALLOW": 54,
+    "BOTH_DENY": 5,
+    "LEGACY_ALLOW_V9_DENY": 69,
+    "LEGACY_DENY_V9_ALLOW": 0,
+    "V9_INCOMPLETE": 54,
+    "V9_ERROR": 6
+  },
+  "byFailureClass": {
+    "authority": {
+      "total": 22,
+      "comparisonCategories": {
+        "BOTH_ALLOW": 10,
+        "V9_INCOMPLETE": 12
+      }
+    },
+    "expiry": {
+      "total": 11,
+      "comparisonCategories": {
+        "V9_INCOMPLETE": 10,
+        "BOTH_ALLOW": 1
+      }
+    },
+    "revocation": {
+      "total": 8,
+      "comparisonCategories": {
+        "BOTH_ALLOW": 8
+      }
+    },
+    "tenant": {
+      "total": 9,
+      "comparisonCategories": {
+        "V9_INCOMPLETE": 8,
+        "BOTH_ALLOW": 1
+      }
+    },
+    "evidence": {
+      "total": 10,
+      "comparisonCategories": {
+        "LEGACY_ALLOW_V9_DENY": 5,
+        "BOTH_DENY": 5
+      }
+    },
+    "policy": {
+      "total": 18,
+      "comparisonCategories": {
+        "LEGACY_ALLOW_V9_DENY": 14,
+        "V9_INCOMPLETE": 4
+      }
+    },
+    "constitution": {
+      "total": 6,
+      "comparisonCategories": {
+        "LEGACY_ALLOW_V9_DENY": 6
+      }
+    },
+    "idempotency": {
+      "total": 18,
+      "comparisonCategories": {
+        "BOTH_ALLOW": 18
+      }
+    },
+    "concurrency": {
+      "total": 6,
+      "comparisonCategories": {
+        "BOTH_ALLOW": 6
+      }
+    },
+    "provider-uncertainty": {
+      "total": 6,
+      "comparisonCategories": {
+        "BOTH_ALLOW": 6
+      }
+    },
+    "malformed-inputs": {
+      "total": 10,
+      "comparisonCategories": {
+        "LEGACY_ALLOW_V9_DENY": 6,
+        "BOTH_ALLOW": 4
+      }
+    },
+    "stale-proof": {
+      "total": 6,
+      "comparisonCategories": {
+        "LEGACY_ALLOW_V9_DENY": 6
+      }
+    },
+    "missing-proof": {
+      "total": 6,
+      "comparisonCategories": {
+        "LEGACY_ALLOW_V9_DENY": 6
+      }
+    },
+    "inconsistent-proof": {
+      "total": 6,
+      "comparisonCategories": {
+        "LEGACY_ALLOW_V9_DENY": 6
+      }
+    },
+    "evidence-tampering": {
+      "total": 8,
+      "comparisonCategories": {
+        "LEGACY_ALLOW_V9_DENY": 8
+      }
+    },
+    "wrong-recipient": {
+      "total": 8,
+      "comparisonCategories": {
+        "V9_INCOMPLETE": 8
+      }
+    },
+    "excessive-blast-radius": {
+      "total": 6,
+      "comparisonCategories": {
+        "V9_INCOMPLETE": 6
+      }
+    },
+    "excessive-cost": {
+      "total": 6,
+      "comparisonCategories": {
+        "V9_INCOMPLETE": 6
+      }
+    },
+    "kill-state": {
+      "total": 6,
+      "comparisonCategories": {
+        "LEGACY_ALLOW_V9_DENY": 6
+      }
+    },
+    "unavailable-database": {
+      "total": 6,
+      "comparisonCategories": {
+        "V9_ERROR": 6
+      }
+    },
+    "unavailable-cedar": {
+      "total": 6,
+      "comparisonCategories": {
+        "LEGACY_ALLOW_V9_DENY": 6
+      }
+    }
+  },
+  "criticalDisagreementCount": 0,
+  "criticalDisagreements": [],
+  "errorCount": 6,
+  "errors": [
+    {
+      "id": "db-unavailable-0",
+      "category": "unavailable-database",
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "db-unavailable-1",
+      "category": "unavailable-database",
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "db-unavailable-2",
+      "category": "unavailable-database",
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "db-unavailable-3",
+      "category": "unavailable-database",
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "db-unavailable-4",
+      "category": "unavailable-database",
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "db-unavailable-5",
+      "category": "unavailable-database",
+      "error": "simulated database unavailable"
+    }
+  ],
+  "latencyMs": {
+    "p50": 0.361442,
+    "p95": 0.81689,
+    "p99": 1.204197,
+    "maxObserved": 2.993869
+  },
+  "fullResults": [
+    {
+      "id": "authority-valid-0",
+      "category": "authority",
+      "description": "valid covering approval authorizes the send",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 2.993869,
+      "error": null
+    },
+    {
+      "id": "authority-valid-1",
+      "category": "authority",
+      "description": "valid covering approval authorizes the send",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.655573,
+      "error": null
+    },
+    {
+      "id": "authority-valid-2",
+      "category": "authority",
+      "description": "valid covering approval authorizes the send",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.481339,
+      "error": null
+    },
+    {
+      "id": "authority-valid-3",
+      "category": "authority",
+      "description": "valid covering approval authorizes the send",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.654229,
+      "error": null
+    },
+    {
+      "id": "authority-valid-4",
+      "category": "authority",
+      "description": "valid covering approval authorizes the send",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 1.204197,
+      "error": null
+    },
+    {
+      "id": "authority-valid-5",
+      "category": "authority",
+      "description": "valid covering approval authorizes the send",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.48557,
+      "error": null
+    },
+    {
+      "id": "authority-valid-6",
+      "category": "authority",
+      "description": "valid covering approval authorizes the send",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.513997,
+      "error": null
+    },
+    {
+      "id": "authority-valid-7",
+      "category": "authority",
+      "description": "valid covering approval authorizes the send",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 1.031387,
+      "error": null
+    },
+    {
+      "id": "authority-valid-8",
+      "category": "authority",
+      "description": "valid covering approval authorizes the send",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.816195,
+      "error": null
+    },
+    {
+      "id": "authority-valid-9",
+      "category": "authority",
+      "description": "valid covering approval authorizes the send",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.532029,
+      "error": null
+    },
+    {
+      "id": "expiry-0",
+      "category": "expiry",
+      "description": "approval expired 1ms before evaluation",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:expired",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.430502,
+      "error": null
+    },
+    {
+      "id": "expiry-1",
+      "category": "expiry",
+      "description": "approval expired 1000ms before evaluation",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:expired",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.473552,
+      "error": null
+    },
+    {
+      "id": "expiry-2",
+      "category": "expiry",
+      "description": "approval expired 60000ms before evaluation",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:expired",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.37124,
+      "error": null
+    },
+    {
+      "id": "expiry-3",
+      "category": "expiry",
+      "description": "approval expired 3600000ms before evaluation",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:expired",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.382215,
+      "error": null
+    },
+    {
+      "id": "expiry-4",
+      "category": "expiry",
+      "description": "approval expired 86400000ms before evaluation",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:expired",
+        "approval:invalid-window",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.47838,
+      "error": null
+    },
+    {
+      "id": "expiry-5",
+      "category": "expiry",
+      "description": "approval expired 604800000ms before evaluation",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:expired",
+        "approval:invalid-window",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.42143,
+      "error": null
+    },
+    {
+      "id": "expiry-6",
+      "category": "expiry",
+      "description": "approval expired 2592000000ms before evaluation",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:expired",
+        "approval:invalid-window",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 1.034989,
+      "error": null
+    },
+    {
+      "id": "expiry-7",
+      "category": "expiry",
+      "description": "approval expired 2ms before evaluation",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:expired",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.38573,
+      "error": null
+    },
+    {
+      "id": "expiry-8",
+      "category": "expiry",
+      "description": "approval expired 500ms before evaluation",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:expired",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.326778,
+      "error": null
+    },
+    {
+      "id": "expiry-9",
+      "category": "expiry",
+      "description": "approval expired 999ms before evaluation",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:expired",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.375235,
+      "error": null
+    },
+    {
+      "id": "expiry-intent-window",
+      "category": "expiry",
+      "description": "intent itself expired before evaluation",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.358183,
+      "error": null
+    },
+    {
+      "id": "revocation-0",
+      "category": "revocation",
+      "description": "approval revoked after issuance",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.469092,
+      "error": null
+    },
+    {
+      "id": "revocation-1",
+      "category": "revocation",
+      "description": "approval revoked after issuance",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.426658,
+      "error": null
+    },
+    {
+      "id": "revocation-2",
+      "category": "revocation",
+      "description": "approval revoked after issuance",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.547068,
+      "error": null
+    },
+    {
+      "id": "revocation-3",
+      "category": "revocation",
+      "description": "approval revoked after issuance",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.392455,
+      "error": null
+    },
+    {
+      "id": "revocation-4",
+      "category": "revocation",
+      "description": "approval revoked after issuance",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.480204,
+      "error": null
+    },
+    {
+      "id": "revocation-5",
+      "category": "revocation",
+      "description": "approval revoked after issuance",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.387969,
+      "error": null
+    },
+    {
+      "id": "revocation-6",
+      "category": "revocation",
+      "description": "approval revoked after issuance",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.339376,
+      "error": null
+    },
+    {
+      "id": "revocation-7",
+      "category": "revocation",
+      "description": "approval revoked after issuance",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.428366,
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-0",
+      "category": "tenant",
+      "description": "approval tenant does not match intent tenant",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:tenant"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.694934,
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-1",
+      "category": "tenant",
+      "description": "approval tenant does not match intent tenant",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:tenant"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.69817,
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-2",
+      "category": "tenant",
+      "description": "approval tenant does not match intent tenant",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:tenant"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.764034,
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-3",
+      "category": "tenant",
+      "description": "approval tenant does not match intent tenant",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:tenant"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.592329,
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-4",
+      "category": "tenant",
+      "description": "approval tenant does not match intent tenant",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:tenant"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.486575,
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-5",
+      "category": "tenant",
+      "description": "approval tenant does not match intent tenant",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:tenant"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.398173,
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-6",
+      "category": "tenant",
+      "description": "approval tenant does not match intent tenant",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:tenant"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.433341,
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-7",
+      "category": "tenant",
+      "description": "approval tenant does not match intent tenant",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:tenant"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.476518,
+      "error": null
+    },
+    {
+      "id": "tenant-cross-campaign-evidence",
+      "category": "tenant",
+      "description": "evidence tenant differs from intent tenant",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.434634,
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-0",
+      "category": "evidence",
+      "description": "no external evidence URL available (internal-only signal)",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:external-required",
+        "evidence:origin-not-allowed"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.20395,
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-1",
+      "category": "evidence",
+      "description": "no external evidence URL available (internal-only signal)",
+      "legacyEligible": false,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:external-required",
+        "evidence:origin-not-allowed"
+      ],
+      "comparisonCategory": "BOTH_DENY",
+      "latencyMs": 0.225241,
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-2",
+      "category": "evidence",
+      "description": "no external evidence URL available (internal-only signal)",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:external-required",
+        "evidence:origin-not-allowed"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.601173,
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-3",
+      "category": "evidence",
+      "description": "no external evidence URL available (internal-only signal)",
+      "legacyEligible": false,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:external-required",
+        "evidence:origin-not-allowed"
+      ],
+      "comparisonCategory": "BOTH_DENY",
+      "latencyMs": 0.25048,
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-4",
+      "category": "evidence",
+      "description": "no external evidence URL available (internal-only signal)",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:external-required",
+        "evidence:origin-not-allowed"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.224529,
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-5",
+      "category": "evidence",
+      "description": "no external evidence URL available (internal-only signal)",
+      "legacyEligible": false,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:external-required",
+        "evidence:origin-not-allowed"
+      ],
+      "comparisonCategory": "BOTH_DENY",
+      "latencyMs": 0.253993,
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-6",
+      "category": "evidence",
+      "description": "no external evidence URL available (internal-only signal)",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:external-required",
+        "evidence:origin-not-allowed"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.189253,
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-7",
+      "category": "evidence",
+      "description": "no external evidence URL available (internal-only signal)",
+      "legacyEligible": false,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:external-required",
+        "evidence:origin-not-allowed"
+      ],
+      "comparisonCategory": "BOTH_DENY",
+      "latencyMs": 0.270549,
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-8",
+      "category": "evidence",
+      "description": "no external evidence URL available (internal-only signal)",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:external-required",
+        "evidence:origin-not-allowed"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.249412,
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-9",
+      "category": "evidence",
+      "description": "no external evidence URL available (internal-only signal)",
+      "legacyEligible": false,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:external-required",
+        "evidence:origin-not-allowed"
+      ],
+      "comparisonCategory": "BOTH_DENY",
+      "latencyMs": 0.219042,
+      "error": null
+    },
+    {
+      "id": "policy-deny-0",
+      "category": "policy",
+      "description": "live policy authorizer denies despite valid authority",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy-rule-0-triggered",
+        "policy:not-allowed"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.655983,
+      "error": null
+    },
+    {
+      "id": "policy-deny-1",
+      "category": "policy",
+      "description": "live policy authorizer denies despite valid authority",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy-rule-1-triggered",
+        "policy:not-allowed"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.507092,
+      "error": null
+    },
+    {
+      "id": "policy-deny-2",
+      "category": "policy",
+      "description": "live policy authorizer denies despite valid authority",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy-rule-2-triggered",
+        "policy:not-allowed"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.676113,
+      "error": null
+    },
+    {
+      "id": "policy-deny-3",
+      "category": "policy",
+      "description": "live policy authorizer denies despite valid authority",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy-rule-3-triggered",
+        "policy:not-allowed"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.588357,
+      "error": null
+    },
+    {
+      "id": "policy-deny-4",
+      "category": "policy",
+      "description": "live policy authorizer denies despite valid authority",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy-rule-4-triggered",
+        "policy:not-allowed"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.585241,
+      "error": null
+    },
+    {
+      "id": "policy-deny-5",
+      "category": "policy",
+      "description": "live policy authorizer denies despite valid authority",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy-rule-5-triggered",
+        "policy:not-allowed"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.439551,
+      "error": null
+    },
+    {
+      "id": "policy-deny-6",
+      "category": "policy",
+      "description": "live policy authorizer denies despite valid authority",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy-rule-6-triggered",
+        "policy:not-allowed"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.442055,
+      "error": null
+    },
+    {
+      "id": "policy-deny-7",
+      "category": "policy",
+      "description": "live policy authorizer denies despite valid authority",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy-rule-7-triggered",
+        "policy:not-allowed"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.451344,
+      "error": null
+    },
+    {
+      "id": "policy-review-0",
+      "category": "policy",
+      "description": "live policy authorizer returns REVIEW",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "ambiguous-policy-match",
+        "policy:not-allowed"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.429946,
+      "error": null
+    },
+    {
+      "id": "policy-review-1",
+      "category": "policy",
+      "description": "live policy authorizer returns REVIEW",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "ambiguous-policy-match",
+        "policy:not-allowed"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.430596,
+      "error": null
+    },
+    {
+      "id": "policy-review-2",
+      "category": "policy",
+      "description": "live policy authorizer returns REVIEW",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "ambiguous-policy-match",
+        "policy:not-allowed"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.395626,
+      "error": null
+    },
+    {
+      "id": "policy-review-3",
+      "category": "policy",
+      "description": "live policy authorizer returns REVIEW",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "ambiguous-policy-match",
+        "policy:not-allowed"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.380584,
+      "error": null
+    },
+    {
+      "id": "constitution-missing-0",
+      "category": "constitution",
+      "description": "constitution digest missing before consequential allow",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "constitution:digest-missing"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.428576,
+      "error": null
+    },
+    {
+      "id": "constitution-missing-1",
+      "category": "constitution",
+      "description": "constitution digest missing before consequential allow",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "constitution:digest-missing"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.81689,
+      "error": null
+    },
+    {
+      "id": "constitution-missing-2",
+      "category": "constitution",
+      "description": "constitution digest missing before consequential allow",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "constitution:digest-missing"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.622215,
+      "error": null
+    },
+    {
+      "id": "constitution-missing-3",
+      "category": "constitution",
+      "description": "constitution digest missing before consequential allow",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "constitution:digest-missing"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.694975,
+      "error": null
+    },
+    {
+      "id": "constitution-missing-4",
+      "category": "constitution",
+      "description": "constitution digest missing before consequential allow",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "constitution:digest-missing"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.890795,
+      "error": null
+    },
+    {
+      "id": "constitution-missing-5",
+      "category": "constitution",
+      "description": "constitution digest missing before consequential allow",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "constitution:digest-missing"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.716889,
+      "error": null
+    },
+    {
+      "id": "policy-digest-missing-0",
+      "category": "policy",
+      "description": "policy digest missing before consequential allow",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy:digest-missing"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.544215,
+      "error": null
+    },
+    {
+      "id": "policy-digest-missing-1",
+      "category": "policy",
+      "description": "policy digest missing before consequential allow",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy:digest-missing"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.904665,
+      "error": null
+    },
+    {
+      "id": "policy-digest-missing-2",
+      "category": "policy",
+      "description": "policy digest missing before consequential allow",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy:digest-missing"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.373301,
+      "error": null
+    },
+    {
+      "id": "policy-digest-missing-3",
+      "category": "policy",
+      "description": "policy digest missing before consequential allow",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy:digest-missing"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.353027,
+      "error": null
+    },
+    {
+      "id": "policy-digest-missing-4",
+      "category": "policy",
+      "description": "policy digest missing before consequential allow",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy:digest-missing"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.329765,
+      "error": null
+    },
+    {
+      "id": "policy-digest-missing-5",
+      "category": "policy",
+      "description": "policy digest missing before consequential allow",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy:digest-missing"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.349422,
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-0",
+      "category": "idempotency",
+      "description": "re-evaluating an identical candidate yields the identical decision",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.35175,
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-1",
+      "category": "idempotency",
+      "description": "re-evaluating an identical candidate yields the identical decision",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.331956,
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-2",
+      "category": "idempotency",
+      "description": "re-evaluating an identical candidate yields the identical decision",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.382695,
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-3",
+      "category": "idempotency",
+      "description": "re-evaluating an identical candidate yields the identical decision",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.402441,
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-4",
+      "category": "idempotency",
+      "description": "re-evaluating an identical candidate yields the identical decision",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.371425,
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-5",
+      "category": "idempotency",
+      "description": "re-evaluating an identical candidate yields the identical decision",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.32151,
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-6",
+      "category": "idempotency",
+      "description": "re-evaluating an identical candidate yields the identical decision",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.302097,
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-7",
+      "category": "idempotency",
+      "description": "re-evaluating an identical candidate yields the identical decision",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.356065,
+      "error": null
+    },
+    {
+      "id": "idempotency-key-mismatch-0",
+      "category": "idempotency",
+      "description": "reservation idempotency key does not match the intent it was derived from",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.415166,
+      "error": null
+    },
+    {
+      "id": "idempotency-key-mismatch-1",
+      "category": "idempotency",
+      "description": "reservation idempotency key does not match the intent it was derived from",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.319415,
+      "error": null
+    },
+    {
+      "id": "idempotency-key-mismatch-2",
+      "category": "idempotency",
+      "description": "reservation idempotency key does not match the intent it was derived from",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.356426,
+      "error": null
+    },
+    {
+      "id": "idempotency-key-mismatch-3",
+      "category": "idempotency",
+      "description": "reservation idempotency key does not match the intent it was derived from",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.392721,
+      "error": null
+    },
+    {
+      "id": "idempotency-key-mismatch-4",
+      "category": "idempotency",
+      "description": "reservation idempotency key does not match the intent it was derived from",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.345967,
+      "error": null
+    },
+    {
+      "id": "idempotency-key-mismatch-5",
+      "category": "idempotency",
+      "description": "reservation idempotency key does not match the intent it was derived from",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.321008,
+      "error": null
+    },
+    {
+      "id": "concurrency-determinism-0",
+      "category": "concurrency",
+      "description": "two \"concurrent\" evaluations of the same candidate must not diverge (true multi-connection races are covered by the closure suite against real PostgreSQL, not by this offline replay)",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.357999,
+      "error": null
+    },
+    {
+      "id": "concurrency-determinism-1",
+      "category": "concurrency",
+      "description": "two \"concurrent\" evaluations of the same candidate must not diverge (true multi-connection races are covered by the closure suite against real PostgreSQL, not by this offline replay)",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.355631,
+      "error": null
+    },
+    {
+      "id": "concurrency-determinism-2",
+      "category": "concurrency",
+      "description": "two \"concurrent\" evaluations of the same candidate must not diverge (true multi-connection races are covered by the closure suite against real PostgreSQL, not by this offline replay)",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.322588,
+      "error": null
+    },
+    {
+      "id": "concurrency-determinism-3",
+      "category": "concurrency",
+      "description": "two \"concurrent\" evaluations of the same candidate must not diverge (true multi-connection races are covered by the closure suite against real PostgreSQL, not by this offline replay)",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.309937,
+      "error": null
+    },
+    {
+      "id": "concurrency-determinism-4",
+      "category": "concurrency",
+      "description": "two \"concurrent\" evaluations of the same candidate must not diverge (true multi-connection races are covered by the closure suite against real PostgreSQL, not by this offline replay)",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.419611,
+      "error": null
+    },
+    {
+      "id": "concurrency-determinism-5",
+      "category": "concurrency",
+      "description": "two \"concurrent\" evaluations of the same candidate must not diverge (true multi-connection races are covered by the closure suite against real PostgreSQL, not by this offline replay)",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.312525,
+      "error": null
+    },
+    {
+      "id": "provider-uncertain-0",
+      "category": "provider-uncertainty",
+      "description": "evidence sourced from an uncertain provider callback",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.880975,
+      "error": null
+    },
+    {
+      "id": "provider-uncertain-1",
+      "category": "provider-uncertainty",
+      "description": "evidence sourced from an uncertain provider callback",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.350704,
+      "error": null
+    },
+    {
+      "id": "provider-uncertain-2",
+      "category": "provider-uncertainty",
+      "description": "evidence sourced from an uncertain provider callback",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.351187,
+      "error": null
+    },
+    {
+      "id": "provider-uncertain-3",
+      "category": "provider-uncertainty",
+      "description": "evidence sourced from an uncertain provider callback",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.350582,
+      "error": null
+    },
+    {
+      "id": "provider-uncertain-4",
+      "category": "provider-uncertainty",
+      "description": "evidence sourced from an uncertain provider callback",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.399644,
+      "error": null
+    },
+    {
+      "id": "provider-uncertain-5",
+      "category": "provider-uncertainty",
+      "description": "evidence sourced from an uncertain provider callback",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.387545,
+      "error": null
+    },
+    {
+      "id": "malformed-0",
+      "category": "malformed-inputs",
+      "description": "intent.blastRadius = NaN",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "intent:canonicalization-failed",
+        "intent:invalid-blast-radius",
+        "intent:type:blastRadius"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.261187,
+      "error": null
+    },
+    {
+      "id": "malformed-1",
+      "category": "malformed-inputs",
+      "description": "intent.blastRadius = Infinity",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "intent:canonicalization-failed",
+        "intent:invalid-blast-radius",
+        "intent:type:blastRadius"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.1558,
+      "error": null
+    },
+    {
+      "id": "malformed-2",
+      "category": "malformed-inputs",
+      "description": "intent.maxCostUsd = NaN",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "intent:canonicalization-failed",
+        "intent:invalid-cost",
+        "intent:type:maxCostUsd"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.116557,
+      "error": null
+    },
+    {
+      "id": "malformed-3",
+      "category": "malformed-inputs",
+      "description": "intent.maxCostUsd = -Infinity",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "intent:canonicalization-failed",
+        "intent:invalid-cost",
+        "intent:type:maxCostUsd"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.107862,
+      "error": null
+    },
+    {
+      "id": "malformed-4",
+      "category": "malformed-inputs",
+      "description": "intent.blastRadius = -1",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "intent:digest-mismatch",
+        "intent:invalid-blast-radius"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.108213,
+      "error": null
+    },
+    {
+      "id": "malformed-5",
+      "category": "malformed-inputs",
+      "description": "intent.maxCostUsd = -5",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "intent:digest-mismatch",
+        "intent:invalid-cost"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.138932,
+      "error": null
+    },
+    {
+      "id": "malformed-timestamp-0",
+      "category": "malformed-inputs",
+      "description": "malformed ISO timestamp in context.observedAt",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.345889,
+      "error": null
+    },
+    {
+      "id": "malformed-timestamp-1",
+      "category": "malformed-inputs",
+      "description": "malformed ISO timestamp in context.observedAt",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.307909,
+      "error": null
+    },
+    {
+      "id": "malformed-timestamp-2",
+      "category": "malformed-inputs",
+      "description": "malformed ISO timestamp in context.observedAt",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.461718,
+      "error": null
+    },
+    {
+      "id": "malformed-timestamp-3",
+      "category": "malformed-inputs",
+      "description": "malformed ISO timestamp in context.observedAt",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.56649,
+      "error": null
+    },
+    {
+      "id": "stale-evidence-0",
+      "category": "stale-proof",
+      "description": "evidence lifecycle flagged STALE",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch",
+        "evidence:inactive"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.327335,
+      "error": null
+    },
+    {
+      "id": "stale-evidence-1",
+      "category": "stale-proof",
+      "description": "evidence lifecycle flagged STALE",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch",
+        "evidence:inactive"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.238729,
+      "error": null
+    },
+    {
+      "id": "stale-evidence-2",
+      "category": "stale-proof",
+      "description": "evidence lifecycle flagged STALE",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch",
+        "evidence:inactive"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.243875,
+      "error": null
+    },
+    {
+      "id": "stale-evidence-3",
+      "category": "stale-proof",
+      "description": "evidence lifecycle flagged STALE",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch",
+        "evidence:inactive"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.203332,
+      "error": null
+    },
+    {
+      "id": "stale-evidence-4",
+      "category": "stale-proof",
+      "description": "evidence lifecycle flagged STALE",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch",
+        "evidence:inactive"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.257446,
+      "error": null
+    },
+    {
+      "id": "stale-evidence-5",
+      "category": "stale-proof",
+      "description": "evidence lifecycle flagged STALE",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch",
+        "evidence:inactive"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.202109,
+      "error": null
+    },
+    {
+      "id": "missing-evidence-0",
+      "category": "missing-proof",
+      "description": "evidence record cannot be resolved by ID",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:insufficient-count",
+        "evidence:unresolved"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.25393,
+      "error": null
+    },
+    {
+      "id": "missing-evidence-1",
+      "category": "missing-proof",
+      "description": "evidence record cannot be resolved by ID",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:insufficient-count",
+        "evidence:unresolved"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.148707,
+      "error": null
+    },
+    {
+      "id": "missing-evidence-2",
+      "category": "missing-proof",
+      "description": "evidence record cannot be resolved by ID",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:insufficient-count",
+        "evidence:unresolved"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.256145,
+      "error": null
+    },
+    {
+      "id": "missing-evidence-3",
+      "category": "missing-proof",
+      "description": "evidence record cannot be resolved by ID",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:insufficient-count",
+        "evidence:unresolved"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.197829,
+      "error": null
+    },
+    {
+      "id": "missing-evidence-4",
+      "category": "missing-proof",
+      "description": "evidence record cannot be resolved by ID",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:insufficient-count",
+        "evidence:unresolved"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.150188,
+      "error": null
+    },
+    {
+      "id": "missing-evidence-5",
+      "category": "missing-proof",
+      "description": "evidence record cannot be resolved by ID",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:insufficient-count",
+        "evidence:unresolved"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.189965,
+      "error": null
+    },
+    {
+      "id": "inconsistent-evidence-0",
+      "category": "inconsistent-proof",
+      "description": "evidence content mutated after digest was computed",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.28116,
+      "error": null
+    },
+    {
+      "id": "inconsistent-evidence-1",
+      "category": "inconsistent-proof",
+      "description": "evidence content mutated after digest was computed",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.219336,
+      "error": null
+    },
+    {
+      "id": "inconsistent-evidence-2",
+      "category": "inconsistent-proof",
+      "description": "evidence content mutated after digest was computed",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.937098,
+      "error": null
+    },
+    {
+      "id": "inconsistent-evidence-3",
+      "category": "inconsistent-proof",
+      "description": "evidence content mutated after digest was computed",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.215182,
+      "error": null
+    },
+    {
+      "id": "inconsistent-evidence-4",
+      "category": "inconsistent-proof",
+      "description": "evidence content mutated after digest was computed",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.310676,
+      "error": null
+    },
+    {
+      "id": "inconsistent-evidence-5",
+      "category": "inconsistent-proof",
+      "description": "evidence content mutated after digest was computed",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.250989,
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-0",
+      "category": "evidence-tampering",
+      "description": "synthetic evidence presented with a forged external source reference",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch",
+        "evidence:invalid-external-source-ref"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.236042,
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-1",
+      "category": "evidence-tampering",
+      "description": "synthetic evidence presented with a forged external source reference",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch",
+        "evidence:invalid-external-source-ref"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.171573,
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-2",
+      "category": "evidence-tampering",
+      "description": "synthetic evidence presented with a forged external source reference",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch",
+        "evidence:invalid-external-source-ref"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.210687,
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-3",
+      "category": "evidence-tampering",
+      "description": "synthetic evidence presented with a forged external source reference",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch",
+        "evidence:invalid-external-source-ref"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.155673,
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-4",
+      "category": "evidence-tampering",
+      "description": "synthetic evidence presented with a forged external source reference",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch",
+        "evidence:invalid-external-source-ref"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.143329,
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-5",
+      "category": "evidence-tampering",
+      "description": "synthetic evidence presented with a forged external source reference",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch",
+        "evidence:invalid-external-source-ref"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.159812,
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-6",
+      "category": "evidence-tampering",
+      "description": "synthetic evidence presented with a forged external source reference",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch",
+        "evidence:invalid-external-source-ref"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.199601,
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-7",
+      "category": "evidence-tampering",
+      "description": "synthetic evidence presented with a forged external source reference",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "evidence:digest-mismatch",
+        "evidence:invalid-external-source-ref"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.151962,
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-0",
+      "category": "wrong-recipient",
+      "description": "approval resource prefix does not cover the intent recipient",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:resource"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.417899,
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-1",
+      "category": "wrong-recipient",
+      "description": "approval resource prefix does not cover the intent recipient",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:resource"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.377737,
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-2",
+      "category": "wrong-recipient",
+      "description": "approval resource prefix does not cover the intent recipient",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:resource"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.383623,
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-3",
+      "category": "wrong-recipient",
+      "description": "approval resource prefix does not cover the intent recipient",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:resource"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.371995,
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-4",
+      "category": "wrong-recipient",
+      "description": "approval resource prefix does not cover the intent recipient",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:resource"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.349252,
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-5",
+      "category": "wrong-recipient",
+      "description": "approval resource prefix does not cover the intent recipient",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:resource"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.334946,
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-6",
+      "category": "wrong-recipient",
+      "description": "approval resource prefix does not cover the intent recipient",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:resource"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.367537,
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-7",
+      "category": "wrong-recipient",
+      "description": "approval resource prefix does not cover the intent recipient",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:resource"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.312363,
+      "error": null
+    },
+    {
+      "id": "excessive-blast-radius-0",
+      "category": "excessive-blast-radius",
+      "description": "approval max blast radius is 0, intent needs 1",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:blast-radius"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.32091,
+      "error": null
+    },
+    {
+      "id": "excessive-blast-radius-1",
+      "category": "excessive-blast-radius",
+      "description": "approval max blast radius is 0, intent needs 1",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:blast-radius"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.428286,
+      "error": null
+    },
+    {
+      "id": "excessive-blast-radius-2",
+      "category": "excessive-blast-radius",
+      "description": "approval max blast radius is 0, intent needs 1",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:blast-radius"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.333805,
+      "error": null
+    },
+    {
+      "id": "excessive-blast-radius-3",
+      "category": "excessive-blast-radius",
+      "description": "approval max blast radius is 0, intent needs 1",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:blast-radius"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.367839,
+      "error": null
+    },
+    {
+      "id": "excessive-blast-radius-4",
+      "category": "excessive-blast-radius",
+      "description": "approval max blast radius is 0, intent needs 1",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:blast-radius"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.323274,
+      "error": null
+    },
+    {
+      "id": "excessive-blast-radius-5",
+      "category": "excessive-blast-radius",
+      "description": "approval max blast radius is 0, intent needs 1",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:blast-radius"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.373052,
+      "error": null
+    },
+    {
+      "id": "excessive-cost-0",
+      "category": "excessive-cost",
+      "description": "approval max cost is below the intent cost",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:budget-exhausted",
+        "scope:intent-cost"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.488423,
+      "error": null
+    },
+    {
+      "id": "excessive-cost-1",
+      "category": "excessive-cost",
+      "description": "approval max cost is below the intent cost",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:budget-exhausted",
+        "scope:intent-cost"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.807931,
+      "error": null
+    },
+    {
+      "id": "excessive-cost-2",
+      "category": "excessive-cost",
+      "description": "approval max cost is below the intent cost",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:budget-exhausted",
+        "scope:intent-cost"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.305935,
+      "error": null
+    },
+    {
+      "id": "excessive-cost-3",
+      "category": "excessive-cost",
+      "description": "approval max cost is below the intent cost",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:budget-exhausted",
+        "scope:intent-cost"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.294,
+      "error": null
+    },
+    {
+      "id": "excessive-cost-4",
+      "category": "excessive-cost",
+      "description": "approval max cost is below the intent cost",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:budget-exhausted",
+        "scope:intent-cost"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.336595,
+      "error": null
+    },
+    {
+      "id": "excessive-cost-5",
+      "category": "excessive-cost",
+      "description": "approval max cost is below the intent cost",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "scope:budget-exhausted",
+        "scope:intent-cost"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.301153,
+      "error": null
+    },
+    {
+      "id": "kill-state-0",
+      "category": "kill-state",
+      "description": "global kill state is active",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "kill-state:active"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.098087,
+      "error": null
+    },
+    {
+      "id": "kill-state-1",
+      "category": "kill-state",
+      "description": "global kill state is active",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "kill-state:active"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.07848,
+      "error": null
+    },
+    {
+      "id": "kill-state-2",
+      "category": "kill-state",
+      "description": "global kill state is active",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "kill-state:active"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.07572,
+      "error": null
+    },
+    {
+      "id": "kill-state-3",
+      "category": "kill-state",
+      "description": "global kill state is active",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "kill-state:active"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.116763,
+      "error": null
+    },
+    {
+      "id": "kill-state-4",
+      "category": "kill-state",
+      "description": "global kill state is active",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "kill-state:active"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.101244,
+      "error": null
+    },
+    {
+      "id": "kill-state-5",
+      "category": "kill-state",
+      "description": "global kill state is active",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "kill-state:active"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.1195,
+      "error": null
+    },
+    {
+      "id": "db-unavailable-0",
+      "category": "unavailable-database",
+      "description": "usage/authority resolver throws as if the database were unreachable",
+      "legacyEligible": true,
+      "v9Decision": null,
+      "v9Reasons": [],
+      "comparisonCategory": "V9_ERROR",
+      "latencyMs": 0.395898,
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "db-unavailable-1",
+      "category": "unavailable-database",
+      "description": "usage/authority resolver throws as if the database were unreachable",
+      "legacyEligible": true,
+      "v9Decision": null,
+      "v9Reasons": [],
+      "comparisonCategory": "V9_ERROR",
+      "latencyMs": 0.436345,
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "db-unavailable-2",
+      "category": "unavailable-database",
+      "description": "usage/authority resolver throws as if the database were unreachable",
+      "legacyEligible": true,
+      "v9Decision": null,
+      "v9Reasons": [],
+      "comparisonCategory": "V9_ERROR",
+      "latencyMs": 0.31836,
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "db-unavailable-3",
+      "category": "unavailable-database",
+      "description": "usage/authority resolver throws as if the database were unreachable",
+      "legacyEligible": true,
+      "v9Decision": null,
+      "v9Reasons": [],
+      "comparisonCategory": "V9_ERROR",
+      "latencyMs": 0.283952,
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "db-unavailable-4",
+      "category": "unavailable-database",
+      "description": "usage/authority resolver throws as if the database were unreachable",
+      "legacyEligible": true,
+      "v9Decision": null,
+      "v9Reasons": [],
+      "comparisonCategory": "V9_ERROR",
+      "latencyMs": 0.293301,
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "db-unavailable-5",
+      "category": "unavailable-database",
+      "description": "usage/authority resolver throws as if the database were unreachable",
+      "legacyEligible": true,
+      "v9Decision": null,
+      "v9Reasons": [],
+      "comparisonCategory": "V9_ERROR",
+      "latencyMs": 0.335577,
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "cedar-unavailable-0",
+      "category": "unavailable-cedar",
+      "description": "policy authorizer throws as if Cedar were unreachable",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy:error:simulated Cedar evaluation failure"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.361442,
+      "error": null
+    },
+    {
+      "id": "cedar-unavailable-1",
+      "category": "unavailable-cedar",
+      "description": "policy authorizer throws as if Cedar were unreachable",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy:error:simulated Cedar evaluation failure"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.367759,
+      "error": null
+    },
+    {
+      "id": "cedar-unavailable-2",
+      "category": "unavailable-cedar",
+      "description": "policy authorizer throws as if Cedar were unreachable",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy:error:simulated Cedar evaluation failure"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.324033,
+      "error": null
+    },
+    {
+      "id": "cedar-unavailable-3",
+      "category": "unavailable-cedar",
+      "description": "policy authorizer throws as if Cedar were unreachable",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy:error:simulated Cedar evaluation failure"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.303188,
+      "error": null
+    },
+    {
+      "id": "cedar-unavailable-4",
+      "category": "unavailable-cedar",
+      "description": "policy authorizer throws as if Cedar were unreachable",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy:error:simulated Cedar evaluation failure"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.363003,
+      "error": null
+    },
+    {
+      "id": "cedar-unavailable-5",
+      "category": "unavailable-cedar",
+      "description": "policy authorizer throws as if Cedar were unreachable",
+      "legacyEligible": true,
+      "v9Decision": "DENY",
+      "v9Reasons": [
+        "policy:error:simulated Cedar evaluation failure"
+      ],
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "latencyMs": 0.316457,
+      "error": null
+    },
+    {
+      "id": "forged-signature-0",
+      "category": "authority",
+      "description": "approval signed by an attacker key, not the trusted owner key",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "approval:signature-invalid"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.600705,
+      "error": null
+    },
+    {
+      "id": "forged-signature-1",
+      "category": "authority",
+      "description": "approval signed by an attacker key, not the trusted owner key",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "approval:signature-invalid"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.48553,
+      "error": null
+    },
+    {
+      "id": "forged-signature-2",
+      "category": "authority",
+      "description": "approval signed by an attacker key, not the trusted owner key",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "approval:signature-invalid"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.546971,
+      "error": null
+    },
+    {
+      "id": "forged-signature-3",
+      "category": "authority",
+      "description": "approval signed by an attacker key, not the trusted owner key",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "approval:signature-invalid"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.465997,
+      "error": null
+    },
+    {
+      "id": "forged-signature-4",
+      "category": "authority",
+      "description": "approval signed by an attacker key, not the trusted owner key",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "approval:signature-invalid"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.518177,
+      "error": null
+    },
+    {
+      "id": "forged-signature-5",
+      "category": "authority",
+      "description": "approval signed by an attacker key, not the trusted owner key",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:no-covering-resolvable-approval",
+        "approval:signature-invalid"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.44928,
+      "error": null
+    },
+    {
+      "id": "mutated-after-signing-0",
+      "category": "authority",
+      "description": "approval content mutated after signing (budget inflated post-hoc)",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:digest-mismatch",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.513022,
+      "error": null
+    },
+    {
+      "id": "mutated-after-signing-1",
+      "category": "authority",
+      "description": "approval content mutated after signing (budget inflated post-hoc)",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:digest-mismatch",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.510083,
+      "error": null
+    },
+    {
+      "id": "mutated-after-signing-2",
+      "category": "authority",
+      "description": "approval content mutated after signing (budget inflated post-hoc)",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:digest-mismatch",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 1.167907,
+      "error": null
+    },
+    {
+      "id": "mutated-after-signing-3",
+      "category": "authority",
+      "description": "approval content mutated after signing (budget inflated post-hoc)",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:digest-mismatch",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.358123,
+      "error": null
+    },
+    {
+      "id": "mutated-after-signing-4",
+      "category": "authority",
+      "description": "approval content mutated after signing (budget inflated post-hoc)",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:digest-mismatch",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.306328,
+      "error": null
+    },
+    {
+      "id": "mutated-after-signing-5",
+      "category": "authority",
+      "description": "approval content mutated after signing (budget inflated post-hoc)",
+      "legacyEligible": true,
+      "v9Decision": "REVIEW",
+      "v9Reasons": [
+        "approval:digest-mismatch",
+        "approval:no-covering-resolvable-approval"
+      ],
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.312928,
+      "error": null
+    },
+    {
+      "id": "wrong-idempotency-key-0",
+      "category": "idempotency",
+      "description": "reservation idempotency key does not correspond to any real intent nonce",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.34493,
+      "error": null
+    },
+    {
+      "id": "wrong-idempotency-key-1",
+      "category": "idempotency",
+      "description": "reservation idempotency key does not correspond to any real intent nonce",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.364814,
+      "error": null
+    },
+    {
+      "id": "wrong-idempotency-key-2",
+      "category": "idempotency",
+      "description": "reservation idempotency key does not correspond to any real intent nonce",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.351969,
+      "error": null
+    },
+    {
+      "id": "wrong-idempotency-key-3",
+      "category": "idempotency",
+      "description": "reservation idempotency key does not correspond to any real intent nonce",
+      "legacyEligible": true,
+      "v9Decision": "ALLOW",
+      "v9Reasons": [
+        "admission:all-gates-satisfied"
+      ],
+      "comparisonCategory": "BOTH_ALLOW",
+      "latencyMs": 0.295843,
+      "error": null
+    }
+  ]
+}

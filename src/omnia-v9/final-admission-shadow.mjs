@@ -9,7 +9,7 @@ function normalizeDecision(value) {
   return ['ALLOW', 'DENY', 'REVIEW'].includes(decision) ? decision : 'REVIEW';
 }
 
-export function buildOutboundShadowContext({ reservation, prospect, campaign, account, subject, body, followup = 0, idempotencyKey, observedAt }) {
+export function buildOutboundShadowContext({ reservation, prospect, campaign, account, subject, body, followup = 0, idempotencyKey, observedAt, legacyEligibility }) {
   if (!reservation?.id) throw new Error('reservation required');
   if (!prospect?.id || !campaign?.id || !account?.email) throw new Error('outbound context incomplete');
   return {
@@ -44,7 +44,11 @@ export function buildOutboundShadowContext({ reservation, prospect, campaign, ac
       issueSafeForOutreach: prospect.issue?.safeForOutreach === true,
       issueConfidence: Number(prospect.issue?.confidence || 0),
       contactSource: clip(prospect.contact?.source || '', 80),
-      contactVerification: clip(prospect.contact?.verified || '', 80)
+      contactVerification: clip(prospect.contact?.verified || '', 80),
+      // Populated only in compare mode (see src/omnia-v9/integrations/).
+      // Shadow mode leaves this at its safe default and never reads it.
+      legacyEligible: legacyEligibility?.ok === true,
+      legacyReason: clip(legacyEligibility?.reason || '', 120)
     }
   };
 }

@@ -195,7 +195,7 @@ export class Pipeline {
     await this.store.markOutboundReservation(reservation.id, 'dispatching');
     const shadowContext = buildOutboundShadowContext({
       reservation, prospect, campaign, account, subject, body, followup, idempotencyKey,
-      observedAt: this.clock().toISOString()
+      observedAt: this.clock().toISOString(), legacyEligibility: eligibility
     });
     await observeOutboundFinalAdmission({
       hook: this.outboundFinalAdmissionShadowFn,

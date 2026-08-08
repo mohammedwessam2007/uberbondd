@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "omnia.v9.frozen-baseline.v1",
+  "frozenAt": "2026-08-08T20:00:00Z",
+  "canonicalBranch": "claude/omnia-v9-closure-verify-1iuar2",
+  "canonicalClosureTestedSha": "4e256c91de5d21f2f69027534ef45cd9876fdf2b",
+  "canonicalClosureReportCommitSha": "5dc1b082a3f8b8a9d437680021e87bb115673913",
+  "integrationBranchForkPoint": "5dc1b082a3f8b8a9d437680021e87bb115673913",
+  "closureReportReference": "artifacts/omnia-v9/closure-report.json (schema omnia.v9.closure-report.v2)",
+  "closureCommand": "node scripts/verify-v9-closure.mjs",
+  "closureLastResult": "OMNIA_V9_FINAL_CLOSURE_VERIFIED",
+  "constitutionDigest": "e0a38ea42ce17ed6f18f1e465c4465fc47cf9183396e008838414e5e473508bd",
+  "sourceSetDigest": "ffbbdedd61db246d1472a22357faa2cb1250020ab5ef964707cd22b2ea6bd67b",
+  "policyDigest": "9ccecfff9cae4b82b7a896495a434100752201597c80cd85cb691c50401cb98b",
+  "cedar": {
+    "package": "@cedar-policy/cedar-wasm",
+    "packageVersion": "4.12.0",
+    "runtimeVersion": "4.12.0"
+  },
+  "postgres": {
+    "versionAtClosure": "PostgreSQL 16.13 (Ubuntu 16.13-0ubuntu0.24.04.1) on x86_64-pc-linux-gnu",
+    "pgcryptoVersion": "1.3"
+  },
+  "migrations": [
+    "001_initial.sql",
+    "002_durable_queue.sql",
+    "003_shared_artifacts.sql",
+    "004_unattended_send_safety.sql",
+    "005_omnia_v9_proof_store.sql",
+    "006_omnia_v9_execution_receipt_uniqueness.sql",
+    "007_omnia_v9_authorization_bound_receipts.sql",
+    "008_omnia_v9_authority_transition_ledger.sql"
+  ],
+  "testTotals": {
+    "v9GrandTotal": 174,
+    "v9Pass": 174,
+    "v9Fail": 0,
+    "v9Skipped": 0,
+    "fullRepositoryRegression": 267,
+    "fullRepositoryPass": 267,
+    "fullRepositoryFail": 0
+  },
+  "frozenCoreClassification": "P0-P9 kernel, proof, policy, constitution, and ledger modules plus their migrations and the canonical closure/Cedar verification scripts. These implement the admission decision, proof storage, and provenance invariants that the two closure missions adversarially verified. Modifying any of these requires a reproduced operational defect, not integration convenience — see the amendment protocol below.",
+  "frozenCoreFiles": {
+    "src/omnia-v9/canonical.mjs": "4e81baddaba82b8bc3d7b7f9be9d0dd5c0922bd0b316d6b4fd5aef65caabc3bd",
+    "src/omnia-v9/schema.mjs": "97c6561027991a51e0d056aa67a926ef5c96cc174c9de0425215662e45042868",
+    "src/omnia-v9/kernel.mjs": "9f2c350b181f2ba38a1b4e92d14fa1a2a69ab29162a3ba02671f5964eaf8218e",
+    "src/omnia-v9/proof-store.mjs": "b573ef293466abc1857294bd689eb4c19546a2f71db575d5be73f9f01dc6d551",
+    "src/omnia-v9/persistent-admission.mjs": "c75f66e5fa78709866653262194c351599a4374103486faa423d96ea92083ed8",
+    "src/omnia-v9/constitution.mjs": "141a0ddf6b72c7f47ec74b25346f3cca7f74930a5bc5d50f52c23cf926263882",
+    "src/omnia-v9/policy-bundle.mjs": "8ae181ee9e68e6d4921622c9234c67ee1f79bbe5401e0c34c8c83697b32885f2",
+    "src/omnia-v9/cedar-adapter.mjs": "f8fb25fba8abaf953fe71c8a61f4b1d09e8171f141cdde411d4e92358e0b2e78",
+    "src/omnia-v9/execution-receipt-shadow.mjs": "5ffee6dcd53850a996f80aa8975c27b3c33401cdff318ba5fa56daf96ee59caf",
+    "src/omnia-v9/execution-receipt-store.mjs": "044e25e717d8f667f304dc1a3171e88b72ae1c75516d2411d9895854d4726c35",
+    "src/omnia-v9/authorization-bound-receipt.mjs": "4e6592480f4341533aa056b4ef2a644028e3047692ea7c4362618bfd21f23dea",
+    "src/omnia-v9/authorization-bound-receipt-store.mjs": "9cc32466a2e1278f5599b155dd3ef8fee3df134886c2b016f30f9d969604c932",
+    "src/omnia-v9/pre-effect-authority-reconciler.mjs": "ffb14bd43534d41b594e39e0dae133904adbc4b80955713b40ebcc452eb0dd01",
+    "src/omnia-v9/authority-transition-ledger.mjs": "21deab4e1c25cacdc28c0725e2640973564a2b0ab57a00cd9358279a44d63a41",
+    "migrations/005_omnia_v9_proof_store.sql": "82c7bc8f194d352f72465eae9771a6e9180719dfed730693baf47d7240c8a49f",
+    "migrations/006_omnia_v9_execution_receipt_uniqueness.sql": "6ee7ef1ef8b005ce1098ad0bc188a7712120c0f50b5303fb7c51375421ff7342",
+    "migrations/007_omnia_v9_authorization_bound_receipts.sql": "c39a7e9f6eebc18aa08f0b79fa9daf1286c919025123b96938f8bffaed09db76",
+    "migrations/008_omnia_v9_authority_transition_ledger.sql": "3673ecd5e04754387deb07acabc7db3f78b71769e2232fb040444b1dc165a4cc",
+    "scripts/verify-v9-closure.mjs": "0c179c19f2e7f054c89839d0989f5f7d7da8e465e08c0147432fc460ddc74b7d",
+    "scripts/verify-v9-p3.mjs": "a8885f19daf156d1a6924e4b4368d19005f4b909bedf2bf43eb5f87c92c92e38"
+  },
+  "digestAlgorithm": "sha256 over raw file bytes as committed at canonicalClosureTestedSha, computed with node:crypto createHash('sha256')",
+  "explicitlyNotFrozen": {
+    "src/omnia-v9/outbound-shadow.mjs": "pre-existing P0-level shadow adapter, designed to be extended for integration",
+    "src/omnia-v9/final-admission-shadow.mjs": "pre-existing P4-level shadow adapter and the exact seam this integration extends; classified as integration glue, not kernel",
+    "src/omnia-v9/integrations/**": "new in this mission; this is the integration layer itself, expected to evolve independently of the frozen core"
+  },
+  "knownLimitations": [
+    "PostgreSQL used for closure verification is a native local install, not the Docker postgres:16 image CI uses (same major version and pgcrypto extension)",
+    "Mutation testing across both closure passes covers ten named critical protections; it is not an exhaustive sweep of every conceivable mutation",
+    "Browser test suite (tests/browser.test.mjs) cannot run in the verification sandbox due to a pre-existing Playwright browser-revision mismatch unrelated to V9",
+    "No real Cedar-backed policy or owner-issued approval exists in production yet; V9's admission decisions in this integration will be evidence-limited until real approvals are issued (see V9_REAL_INTEGRATION_ARCHITECTURE.md)"
+  ],
+  "architecturalFreezeStatement": "As of this baseline, OMNIA V9's P0-P9 core (admission kernel, proof store, constitution/policy binding, Cedar evaluation, execution-receipt and authorization-binding stores, and the authority-transition ledger) is frozen. No new constitutional abstractions, governance layers, or architectural expansion may be added to this core without: (1) a reproduced real operational defect, (2) measured evidence of the failure, (3) an explicit statement of which invariant changes, and (4) a new regression test proving the fix and guarding against regression. This baseline exists precisely so that future changes are judged against it rather than against vague architectural ambition."
+}

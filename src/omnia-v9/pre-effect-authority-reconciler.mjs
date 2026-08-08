@@ -23,8 +23,9 @@ function contentTimeBefore(value, boundaryMs) {
   return ms != null && ms <= boundaryMs;
 }
 
-export async function reconcilePreEffectAuthority({ pool, shadowObservation, executionReceipt, bindingStore = null }) {
+export async function reconcilePreEffectAuthority({ pool, shadowObservation, executionReceipt, bindingStore = null, transitionProofResolver = proveReservedBefore }) {
   if (!pool || typeof pool.query !== 'function') throw new TypeError('pool.query is required');
+  if (typeof transitionProofResolver !== 'function') throw new TypeError('transitionProofResolver must be a function');
 
   const receiptVerification = verifyExecutionReceiptShadow(executionReceipt);
   if (!receiptVerification.ok) return incomplete('execution-receipt-invalid', receiptVerification);
@@ -68,7 +69,7 @@ export async function reconcilePreEffectAuthority({ pool, shadowObservation, exe
   }
   if (authority.tenant_id !== p6.tenant_id) return incomplete('authority-p6-tenant-mismatch');
 
-  const transitionProof = await proveReservedBefore({
+  const transitionProof = await transitionProofResolver({
     pool,
     idempotencyKey,
     boundaryAt: shadowObservation.observedAt,
@@ -76,10 +77,10 @@ export async function reconcilePreEffectAuthority({ pool, shadowObservation, exe
     intentDigest: authority.intent_digest,
     approvalId: authority.approval_id
   });
-  if (!transitionProof.ok) {
+  if (!transitionProof?.ok) {
     return incomplete('authority-transition-proof-invalid', {
-      reason: transitionProof.reason,
-      detail: transitionProof.detail || {}
+      reason: transitionProof?.reason || 'transition-proof-missing',
+      detail: transitionProof?.detail || {}
     });
   }
 
@@ -180,10 +181,10 @@ export async function reconcilePreEffectAuthority({ pool, shadowObservation, exe
         createdAt: authority.created_at
       },
       reservedTransition: {
-        eventDigest: transitionProof.reservedEvent.eventDigest,
-        sequenceNo: transitionProof.reservedEvent.sequenceNo,
-        occurredAt: transitionProof.reservedEvent.occurredAt,
-        headDigest: transitionProof.headDigest
+        eventDigest: transitionProof.reservedEvent?.eventDigest || '',
+        sequenceNo: transitionProof.reservedEvent?.sequenceNo || null,
+        occurredAt: transitionProof.reservedEvent?.occurredAt || null,
+        headDigest: transitionProof.headDigest || ''
       },
       intentCreatedAt: intentRow.created_at,
       approvalCreatedAt: approvalRow.created_at,

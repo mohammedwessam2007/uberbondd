@@ -1,5 +1,5 @@
 import { digestObject } from './canonical.mjs';
-import { verifyApproval } from './kernel.mjs';
+import { approvalCoversIntent, verifyApproval, verifyIntent } from './kernel.mjs';
 
 const SHA256_HEX = /^[a-f0-9]{64}$/i;
 const PROOF_TYPES = new Set([
@@ -64,6 +64,10 @@ function requirePositiveInteger(value, name) {
   const number = Number(value);
   if (!Number.isInteger(number) || number <= 0) throw new OmniaV9ProofStoreError(`${name} must be a positive integer`, 'INVALID_INPUT', { field: name });
   return number;
+}
+
+function sameMoney(a, b) {
+  return Number.isFinite(Number(a)) && Number.isFinite(Number(b)) && Math.abs(Number(a) - Number(b)) <= 1e-9;
 }
 
 function approvalLimits(approval) {
@@ -134,6 +138,9 @@ export class OmniaV9ProofStore {
     tenantId = requireString(tenantId, 'tenantId');
     digest = requireDigest(digest);
     if (!data || typeof data !== 'object' || Array.isArray(data)) throw new OmniaV9ProofStoreError('data must be an object', 'INVALID_INPUT');
+    if (Object.prototype.hasOwnProperty.call(data, 'tenantId') && data.tenantId !== tenantId) {
+      throw new OmniaV9ProofStoreError('database tenant must equal signed/content tenant', 'TENANT_BINDING');
+    }
 
     const digestField = CONTENT_DIGEST_FIELDS.get(objectType);
     if (data[digestField] !== digest) throw new OmniaV9ProofStoreError(`object digest must equal data.${digestField}`, 'DIGEST_BINDING');
@@ -238,6 +245,7 @@ export class OmniaV9ProofStore {
     useDelta = requirePositiveInteger(useDelta, 'useDelta');
     costDeltaUsd = requireNonNegativeFinite(costDeltaUsd, 'costDeltaUsd');
     blastRadius = requireNonNegativeFinite(blastRadius, 'blastRadius');
+    if (useDelta !== 1) throw new OmniaV9ProofStoreError('P1 reserves exactly one action per intent', 'INVALID_INPUT');
     if (!(now instanceof Date) || !Number.isFinite(now.getTime())) throw new OmniaV9ProofStoreError('now must be valid Date', 'INVALID_INPUT');
 
     return this._transaction(async client => {
@@ -265,6 +273,30 @@ export class OmniaV9ProofStore {
           reservation: row
         };
       }
+
+      const intentResult = await client.query(
+        `SELECT tenant_id,digest,data FROM omnia_v9_objects
+         WHERE object_type='ACTION_INTENT' AND object_id=$1 FOR SHARE`,
+        [intentDigest]
+      );
+      const intentRow = intentResult.rows?.[0];
+      if (!intentRow) return this._denyReservation(client, idempotencyKey, 'intent-not-found');
+      if (intentRow.tenant_id !== tenantId) return this._denyReservation(client, idempotencyKey, 'intent-tenant-mismatch');
+      const intent = intentRow.data;
+      if (intentRow.digest !== intentDigest || intent?.intentDigest !== intentDigest) return this._denyReservation(client, idempotencyKey, 'intent-storage-digest-mismatch');
+      const intentVerification = verifyIntent(intent, { now });
+      if (!intentVerification.ok) return this._denyReservation(client, idempotencyKey, `intent-unverified:${intentVerification.errors.join('|')}`);
+      if (intent.tenantId !== tenantId) return this._denyReservation(client, idempotencyKey, 'intent-content-tenant-mismatch');
+      if (intent.idempotencyKey !== idempotencyKey) return this._denyReservation(client, idempotencyKey, 'intent-idempotency-mismatch');
+      if (!sameMoney(intent.maxCostUsd, costDeltaUsd)) return this._denyReservation(client, idempotencyKey, 'intent-cost-mismatch');
+      if (Number(intent.blastRadius) !== blastRadius) return this._denyReservation(client, idempotencyKey, 'intent-blast-radius-mismatch');
+
+      const intentRevoked = await client.query(
+        `SELECT 1 FROM omnia_v9_revocations
+         WHERE target_type='ACTION_INTENT' AND target_id=$1 AND tenant_id=$2 LIMIT 1`,
+        [intentDigest, tenantId]
+      );
+      if (intentRevoked.rows?.length) return this._denyReservation(client, idempotencyKey, 'intent-revoked');
 
       const approvalResult = await client.query(
         `SELECT tenant_id,digest,data FROM omnia_v9_objects
@@ -306,8 +338,11 @@ export class OmniaV9ProofStore {
       const usage = usageResult.rows?.[0];
       if (!usage || usage.tenant_id !== tenantId) return this._denyReservation(client, idempotencyKey, 'usage-tenant-mismatch');
 
-      const nextUses = Number(usage.uses) + useDelta;
-      const nextCost = Number(usage.cost_usd) + costDeltaUsd;
+      const scope = approvalCoversIntent(approval, intent, { uses: Number(usage.uses), costUsd: Number(usage.cost_usd) });
+      if (!scope.ok) return this._denyReservation(client, idempotencyKey, `approval-scope:${scope.errors.join('|')}`);
+
+      const nextUses = Number(usage.uses) + 1;
+      const nextCost = Number(usage.cost_usd) + Number(intent.maxCostUsd);
       if (!Number.isSafeInteger(nextUses) || nextUses > limits.maxUses) return this._denyReservation(client, idempotencyKey, 'uses-exhausted');
       if (!Number.isFinite(nextCost) || nextCost > limits.maxCostUsd + 1e-9) return this._denyReservation(client, idempotencyKey, 'cost-budget-exhausted');
 

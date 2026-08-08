@@ -14,6 +14,12 @@ async function pgliteStore() {
   return { db, store: new OmniaV9ExecutionReceiptStore({ pool: db }) };
 }
 
+async function migrateRealPostgres(pool) {
+  for (const migration of ['005_omnia_v9_proof_store.sql', '006_omnia_v9_execution_receipt_uniqueness.sql']) {
+    await pool.query(await fs.readFile(new URL(`../migrations/${migration}`, import.meta.url), 'utf8'));
+  }
+}
+
 function observation(reservationId = 'res_1', contextChar = 'c') {
   return {
     schemaVersion: 'omnia.v9.outbound-final-shadow-observation.p4',
@@ -152,17 +158,63 @@ test('duplicate path refuses a binding whose generic proof object disappeared', 
 
 const realPostgresUrl = process.env.OMNIA_V9_TEST_DATABASE_URL || '';
 
+function uniqueRealFixture(label) {
+  const suffix = `${label}_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+  const id = `res_${suffix}`;
+  const res = reservation({
+    id,
+    prospectId: `p_${suffix}`,
+    idempotencyKey: `send:${suffix}:0`,
+    gmailId: `gmail_${suffix}`,
+    threadId: `thread_${suffix}`,
+    rfcMessageId: `<${suffix}@example.com>`
+  });
+  return { res, receipt: receiptFor(res, observation(id, 'e')) };
+}
+
+async function cleanupRealFixture(pool, receipt) {
+  await pool.query('DELETE FROM omnia_v9_execution_receipt_bindings WHERE reservation_id=$1', [receipt.reservation.id]).catch(() => {});
+  await pool.query("DELETE FROM omnia_v9_objects WHERE object_type='EXECUTION_RECEIPT' AND object_id=$1", [receipt.receiptDigest]).catch(() => {});
+}
+
 test('real PostgreSQL concurrent identical writers produce one binding and one idempotent replay', { skip: !realPostgresUrl }, async () => {
   const pool = new Pool({ connectionString: realPostgresUrl, max: 4 });
-  const suffix = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
-  const table = `omnia_v9_execution_receipt_bindings_test_${suffix.replace(/[^a-zA-Z0-9_]/g, '')}`;
+  const { receipt } = uniqueRealFixture('identical');
   try {
-    // Isolate the concurrency proof from production tables while preserving the exact uniqueness semantics.
-    await pool.query(`CREATE TEMP TABLE ${table} (LIKE omnia_v9_execution_receipt_bindings INCLUDING ALL)`);
-    // A true multi-connection concurrency proof for the production table must run in a disposable test database.
-    // This test intentionally remains skipped unless OMNIA_V9_TEST_DATABASE_URL points to such a database.
-    assert.ok(realPostgresUrl);
+    await migrateRealPostgres(pool);
+    const store = new OmniaV9ExecutionReceiptStore({ pool });
+    const [a, b] = await Promise.all([
+      store.persistOnce({ tenantId: 'tenant1', receipt }),
+      store.persistOnce({ tenantId: 'tenant1', receipt })
+    ]);
+    assert.equal([a.inserted, b.inserted].filter(Boolean).length, 1);
+    assert.equal([a.duplicate, b.duplicate].filter(Boolean).length, 1);
+    const count = await pool.query('SELECT count(*)::int AS n FROM omnia_v9_execution_receipt_bindings WHERE reservation_id=$1', [receipt.reservation.id]);
+    assert.equal(Number(count.rows[0].n), 1);
   } finally {
+    await cleanupRealFixture(pool, receipt);
+    await pool.end();
+  }
+});
+
+test('real PostgreSQL concurrent contradictory receipts for one reservation yield one winner and one consequence conflict', { skip: !realPostgresUrl }, async () => {
+  const pool = new Pool({ connectionString: realPostgresUrl, max: 4 });
+  const { res, receipt: first } = uniqueRealFixture('conflict');
+  const second = receiptFor({ ...res, gmailId: `${res.gmailId}_other`, threadId: `${res.threadId}_other` }, observation(res.id, 'f'));
+  try {
+    await migrateRealPostgres(pool);
+    const store = new OmniaV9ExecutionReceiptStore({ pool });
+    const results = await Promise.allSettled([
+      store.persistOnce({ tenantId: 'tenant1', receipt: first }),
+      store.persistOnce({ tenantId: 'tenant1', receipt: second })
+    ]);
+    assert.equal(results.filter(item => item.status === 'fulfilled').length, 1);
+    assert.equal(results.filter(item => item.status === 'rejected' && item.reason?.code === 'CONSEQUENCE_CONFLICT').length, 1);
+    const count = await pool.query('SELECT count(*)::int AS n FROM omnia_v9_execution_receipt_bindings WHERE reservation_id=$1', [res.id]);
+    assert.equal(Number(count.rows[0].n), 1);
+  } finally {
+    await cleanupRealFixture(pool, first);
+    await cleanupRealFixture(pool, second);
     await pool.end();
   }
 });

@@ -5,7 +5,7 @@ import { PGlite } from '@electric-sql/pglite';
 
 async function migratedDb() {
   const db = new PGlite();
-  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql', '005_omnia_v9_proof_store.sql']) {
+  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql', '005_omnia_v9_proof_store.sql', '006_omnia_v9_execution_receipt_uniqueness.sql']) {
     await db.exec(await fs.readFile(new URL(`../migrations/${name}`, import.meta.url), 'utf8'));
   }
   return db;
@@ -16,7 +16,7 @@ test('PostgreSQL migration creates every required table and index foundation', a
   try {
     const tables = await db.query("SELECT table_name FROM information_schema.tables WHERE table_schema='public'");
     const names = new Set(tables.rows.map(row => row.table_name));
-    for (const name of ['prospects','campaigns','jobs','messages','replies','suppressions','social_tasks','accounts','audit_log','settings','leads','orders','subscriptions','monitoring_runs','notifications','revenue_events','discovery_runs','worker_heartbeats','artifacts','outbound_reservations','sender_health','outbound_events','omnia_v9_objects','omnia_v9_revocations','omnia_v9_approval_usage','omnia_v9_authority_reservations']) {
+    for (const name of ['prospects','campaigns','jobs','messages','replies','suppressions','social_tasks','accounts','audit_log','settings','leads','orders','subscriptions','monitoring_runs','notifications','revenue_events','discovery_runs','worker_heartbeats','artifacts','outbound_reservations','sender_health','outbound_events','omnia_v9_objects','omnia_v9_revocations','omnia_v9_approval_usage','omnia_v9_authority_reservations','omnia_v9_execution_receipt_bindings']) {
       assert(names.has(name), `missing table ${name}`);
     }
   } finally { await db.close(); }
@@ -36,8 +36,8 @@ test('PostgreSQL constraints reject duplicate business and provider identities',
     await assert.rejects(db.query("INSERT INTO accounts(id, slot, data) VALUES ('a2', 'A', '{}'::jsonb)"));
     await db.query("INSERT INTO orders(id, provider_event_id, data) VALUES ('o1', 'evt-1', '{}'::jsonb)");
     await assert.rejects(db.query("INSERT INTO orders(id, provider_event_id, data) VALUES ('o2', 'evt-1', '{}'::jsonb)"));
-    await db.query("INSERT INTO revenue_events(id, provider_event_id, data) VALUES ('v1', 'rev-1', '{}'::jsonb)");
-    await assert.rejects(db.query("INSERT INTO revenue_events(id, provider_event_id, data) VALUES ('v2', 'rev-1', '{}'::jsonb)"));
+    await db.query("INSERT INTO revenue_events(id, provider_event_id, lead_id, data) VALUES ('v1', 'rev-1', NULL, '{}'::jsonb)");
+    await assert.rejects(db.query("INSERT INTO revenue_events(id, provider_event_id, lead_id, data) VALUES ('v2', 'rev-1', NULL, '{}'::jsonb)"));
   } finally { await db.close(); }
 });
 
@@ -100,5 +100,18 @@ test('outbound safety migration enforces durable idempotency and sender health u
     await assert.rejects(db.query("INSERT INTO outbound_reservations(id,idempotency_key,inbox,recipient_email,status,reserved_at,data) VALUES ('or2','initial:p1','A','info@example.com','reserved',now(),'{}'::jsonb)"));
     await db.query("INSERT INTO sender_health(id,inbox,data) VALUES ('sh1','A','{}'::jsonb)");
     await assert.rejects(db.query("INSERT INTO sender_health(id,inbox,data) VALUES ('sh2','A','{}'::jsonb)"));
+  } finally { await db.close(); }
+});
+
+test('P6 execution receipt binding migration enforces one consequence and one digest identity', async () => {
+  const db = await migratedDb();
+  try {
+    const a = 'a'.repeat(64);
+    const b = 'b'.repeat(64);
+    const c = 'c'.repeat(64);
+    const receipt = JSON.stringify({ receiptDigest: a, reservation: { id: 'res1' } });
+    await db.query(`INSERT INTO omnia_v9_execution_receipt_bindings(reservation_id,receipt_digest,tenant_id,outcome,pre_effect_context_digest,pre_effect_observation_digest,receipt) VALUES ('res1',$1,'tenant1','PROVIDER_ACCEPTED',$2,$3,$4::jsonb)`, [a, b, c, receipt]);
+    await assert.rejects(db.query(`INSERT INTO omnia_v9_execution_receipt_bindings(reservation_id,receipt_digest,tenant_id,outcome,pre_effect_context_digest,pre_effect_observation_digest,receipt) VALUES ('res1',$1,'tenant1','PROVIDER_ACCEPTED',$2,$3,$4::jsonb)`, ['d'.repeat(64), b, c, receipt]));
+    await assert.rejects(db.query(`INSERT INTO omnia_v9_execution_receipt_bindings(reservation_id,receipt_digest,tenant_id,outcome,pre_effect_context_digest,pre_effect_observation_digest,receipt) VALUES ('res2',$1,'tenant1','PROVIDER_ACCEPTED',$2,$3,$4::jsonb)`, [a, b, c, receipt]));
   } finally { await db.close(); }
 });

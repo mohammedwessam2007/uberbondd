@@ -49,7 +49,7 @@ function fakeCedar(overrides = {}) {
     isAuthorized: call => {
       const c = call.context;
       const allow = c.authorityResolved && c.identityResolved && c.evidenceResolved && c.policyBound && c.constitutionBound && !(c.proposalOrigin === 'LEARNING' && c.sovereigntyChange);
-      return { type: 'success', response: { decision: allow ? 'Allow' : 'Deny', diagnostics: { reasons: [], errors: [] } } };
+      return { type: 'success', response: { decision: allow ? 'allow' : 'deny', diagnostics: { reasons: [], errors: [] } } };
     },
     ...overrides
   };
@@ -175,6 +175,6 @@ test('Cedar evaluation exceptions fail closed', () => {
 });
 
 test('Cedar Allow with diagnostic errors is still denied', () => {
-  const input = authorizationInput({ cedar: fakeCedar({ isAuthorized: () => ({ type: 'success', response: { decision: 'Allow', diagnostics: { errors: ['bad'] } } }) }) });
+  const input = authorizationInput({ cedar: fakeCedar({ isAuthorized: () => ({ type: 'success', response: { decision: 'allow', diagnostics: { errors: ['bad'] } } }) }) });
   assert.equal(authorizeWithCedar(input).decision, 'DENY');
 });

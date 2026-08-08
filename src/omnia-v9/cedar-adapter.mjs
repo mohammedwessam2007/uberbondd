@@ -50,7 +50,7 @@ export function validateCedarPolicy({ cedar, schemaText, policyText }) {
     throw new CedarAdapterError('Cedar schema parse failed', 'CEDAR_SCHEMA_INVALID', { result: schemaParse });
   }
 
-  const policyParse = cedar.checkParsePolicySet(policyText);
+  const policyParse = cedar.checkParsePolicySet({ staticPolicies: policyText });
   if (!policyParse || policyParse.type !== 'success') {
     throw new CedarAdapterError('Cedar policy parse failed', 'CEDAR_POLICY_INVALID', { result: policyParse });
   }
@@ -58,7 +58,7 @@ export function validateCedarPolicy({ cedar, schemaText, policyText }) {
   const validation = cedar.validate({
     validationSettings: { mode: 'strict' },
     schema,
-    policies: policyText
+    policies: { staticPolicies: policyText }
   });
   if (!validation || validation.type !== 'success') {
     throw new CedarAdapterError('Cedar validation call failed', 'CEDAR_VALIDATION_FAILURE', { result: validation });
@@ -122,7 +122,7 @@ export function authorizeWithCedar({ cedar, validatedPolicy, policyText, actor, 
         proposalOrigin: resolverFacts.proposalOrigin,
         sovereigntyChange: resolverFacts.sovereigntyChange
       },
-      policies: policyText,
+      policies: { staticPolicies: policyText },
       entities,
       schema: validatedPolicy.schema
     });
@@ -135,7 +135,7 @@ export function authorizeWithCedar({ cedar, validatedPolicy, policyText, actor, 
   }
   const cedarDecision = result.response?.decision;
   const diagnostics = result.response?.diagnostics || {};
-  if (cedarDecision !== 'Allow') {
+  if (cedarDecision !== 'allow') {
     return { decision: 'DENY', reasons: ['cedar:not-allowed'], cedarDecision, diagnostics };
   }
   if (Array.isArray(diagnostics.errors) && diagnostics.errors.length) {

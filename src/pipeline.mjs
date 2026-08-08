@@ -10,6 +10,7 @@ import { ConflictError } from './store.mjs';
 import { persistCrawlArtifacts } from './artifacts.mjs';
 import { evaluateSendEligibility, sendIdempotencyKey, classifyDeliverySignal } from './send-safety.mjs';
 import { unsubscribeUrl, oneClickUnsubscribeUrl } from './unsubscribe.mjs';
+import { buildOutboundShadowContext, observeOutboundFinalAdmission } from './omnia-v9/final-admission-shadow.mjs';
 
 export class Pipeline {
   constructor(store, cfg, hooks = {}) {
@@ -23,6 +24,7 @@ export class Pipeline {
     this.getMessageFn = hooks.getMessage || getMessage;
     this.parseMessageFn = hooks.parseGmailMessage || parseGmailMessage;
     this.clock = hooks.clock || (() => new Date());
+    this.outboundFinalAdmissionShadowFn = hooks.outboundFinalAdmissionShadow || null;
   }
 
   async isSuppressed(prospect, email = '') {
@@ -191,6 +193,16 @@ export class Pipeline {
 
     const reservation = reserved.reservation;
     await this.store.markOutboundReservation(reservation.id, 'dispatching');
+    const shadowContext = buildOutboundShadowContext({
+      reservation, prospect, campaign, account, subject, body, followup, idempotencyKey,
+      observedAt: this.clock().toISOString()
+    });
+    await observeOutboundFinalAdmission({
+      hook: this.outboundFinalAdmissionShadowFn,
+      store: this.store,
+      context: shadowContext
+    });
+
     let result;
     try {
       result = await this.sendEmailFn(this.cfg.google, account, this.cfg.encryptionKey, {

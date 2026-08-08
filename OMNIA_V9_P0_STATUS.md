@@ -6,21 +6,26 @@ Status: **P0_KERNEL_VERIFIED locally; NOT production-authoritative**
 
 - Deterministic canonical serialization and SHA-256 content binding.
 - Ed25519 signing and verification helpers for approval digests.
-- Closed schemas for `ActionIntent`, `OwnerApproval`, and `EvidenceRecord`; unknown fields fail validation.
+- Closed schemas for `ActionIntent`, `OwnerApproval`, `EvidenceRecord`, and `ExecutionReceipt`; unknown fields fail validation.
 - A fail-closed admission kernel producing `ALLOW`, `REVIEW`, or `DENY` decisions.
 - Resolvable approval verification: issuer/key lookup, signature, temporal validity, revocation, tenant, actor, operation, resource, purpose, effect class, blast-radius, cost and use limits.
-- Evidence verification with immutable origin, relation, verification claims, lifecycle flags, content digest, tenant binding, freshness/expiry, and optional external-origin requirement.
+- Evidence verification with immutable origin, relation, validated verification claims/lifecycle flags, content digest, tenant binding, freshness/expiry, and resolved origin requirements. `EXTERNAL_SOURCE` must resolve to HTTP(S), not a fabricated placeholder.
 - Kill-state and intent-revocation dominance.
 - Policy adapter boundary that DENIES when no policy authorizer exists or when policy evaluation errors.
-- Content-bound `ExecutionReceipt` primitive.
+- Content-bound `ExecutionReceipt` creation plus independent receipt verification.
 - Shadow-only outbound adapter that does not accept legacy `campaign.approved = true` as authority.
-- 27 materially distinct semantic/adversarial tests.
+- 44 materially distinct semantic/adversarial tests.
 - `node scripts/verify-v9.mjs` one-command P0 verifier.
 
 ## Bugs already caught by the new verifier during construction
 
 1. Non-finite numeric input (`NaN`) originally caused canonicalization to throw instead of returning a controlled deny. The verifier exposed it; the kernel now fails closed.
 2. Malformed timestamps could originally flow into comparisons as `NaN`. The verifier exposed it; intent, approval and evidence timestamp parsing now fails closed.
+3. The first shadow adapter could label a missing evidence URL as `EXTERNAL_SOURCE`; it now records an internal observation and therefore cannot satisfy an external-evidence gate.
+4. The first admission draft accepted a caller-supplied `effectKnown` flag; effect classes are now closed-schema facts, so callers cannot bless an unknown consequential effect.
+5. A consequential `ALLOW` originally did not require resolvable policy/constitution digests; P0 now denies without both.
+6. The first receipt helper could create a content-bound receipt without independently validating its schema/timestamps/cost; receipt creation now self-verifies and tampering is separately detectable.
+7. Canonicalization originally accepted more JavaScript object shapes than a signing boundary should. It now rejects cycles, non-plain objects, non-finite numbers, BigInt/functions/symbols/undefined.
 
 These are exactly the kinds of defects V9 is intended to surface before consequence.
 
@@ -41,7 +46,10 @@ The following remain unimplemented:
 - TLA+/TLC temporal models and Alloy relational models for the sovereignty invariants.
 - Mutation-test automation beyond the explicit adversarial test cases in P0.
 - Fuzzing, concurrency, crash-recovery and migration/rollback gates for V9 state.
-- Cedar schema/policy bundle version registry and fail-closed adapter semantics.
+- Cedar schema/policy bundle version registry and fail-closed adapter semantics. P0 requires policy/constitution digests for consequential ALLOW but does not yet prove that `policyDigest` cryptographically names the exact evaluator implementation/bundle.
+- Cross-language standard canonicalization. P0 uses a deterministic internal JSON canonicalizer; before production signatures cross runtime/language boundaries, adopt or justify a standard such as RFC 8785 JCS or deterministic CBOR.
+- Evidence verification claims are closed enums in P0 but remain metadata. P1 must resolve each material claim to an attestation/identity/source object rather than trusting the label.
+- Structured resource ontology. P0 resource scope uses string prefixes; P1 should move authority decisions to typed resources/entities.
 - A full `./verify-v9 --full` contract spanning software, formal, provenance and external-proof states.
 
 ## P1 admission gates

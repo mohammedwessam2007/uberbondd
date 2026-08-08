@@ -32,11 +32,13 @@ function sourceForRole(constitutionManifest, role) {
   return constitutionManifest.sources?.find(source => source.role === role) || null;
 }
 
-export function buildPolicyBundle({ constitutionBundle, constitutionManifest, projection, schemaText, policyText, evaluator }) {
+export function buildPolicyBundle({ constitutionBundle, constitutionManifest, sourceTextByRole, projection, schemaText, policyText, evaluator }) {
   assertPlainObject(constitutionBundle, 'constitutionBundle');
   assertPlainObject(constitutionManifest, 'constitutionManifest');
   assertPlainObject(projection, 'projection');
+  if (!(sourceTextByRole instanceof Map)) throw new PolicyBundleError('sourceTextByRole must be a Map', 'UNTRACEABLE_RULE');
   if (!SHA256_HEX.test(String(constitutionBundle.constitutionDigest || ''))) throw new PolicyBundleError('constitutionDigest must be sha256', 'CONSTITUTION_UNBOUND');
+  if (!SHA256_HEX.test(String(constitutionBundle.sourceSetDigest || ''))) throw new PolicyBundleError('sourceSetDigest must be sha256', 'CONSTITUTION_UNBOUND');
   if (constitutionBundle.semantics !== 'EXACT_SOURCE_BINDING_NOT_EXECUTABLE_POLICY') throw new PolicyBundleError('unexpected constitution semantics', 'CONSTITUTION_UNBOUND');
   if (projection.schemaVersion !== 'omnia.v9.policy-projection.p3' || projection.semantics !== 'TRACEABLE_PROJECTION_NOT_FULL_CONSTITUTION') {
     throw new PolicyBundleError('unsupported projection contract');
@@ -54,11 +56,16 @@ export function buildPolicyBundle({ constitutionBundle, constitutionManifest, pr
     ruleIds.add(rule.id);
     const source = sourceForRole(constitutionManifest, rule.sourceRole);
     if (!source) throw new PolicyBundleError(`rule ${rule.id} references missing constitutional role`, 'UNTRACEABLE_RULE');
+    const sourceText = sourceTextByRole.get(rule.sourceRole);
+    if (typeof sourceText !== 'string' || !sourceText.includes(rule.sourceAnchor)) {
+      throw new PolicyBundleError(`rule ${rule.id} anchor is not present in exact constitutional source`, 'UNTRACEABLE_RULE', { role: rule.sourceRole, anchor: rule.sourceAnchor });
+    }
     return {
       id: rule.id,
       effect: rule.effect,
       sourceRole: rule.sourceRole,
       sourcePath: source.path,
+      sourceDocumentSha256: sha256(sourceText),
       sourceAnchorSha256: sha256(rule.sourceAnchor),
       sourceAnchor: rule.sourceAnchor,
       mechanizationSha256: sha256(rule.mechanization)

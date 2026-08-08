@@ -23,6 +23,19 @@ function requireDigest(value, field) {
   return text;
 }
 
+async function assertGenericProof(client, { receiptDigest, tenantId }) {
+  const proofResult = await client.query(
+    `SELECT object_id,digest,tenant_id,data FROM omnia_v9_objects
+     WHERE object_type='EXECUTION_RECEIPT' AND object_id=$1 FOR SHARE`,
+    [receiptDigest]
+  );
+  const proof = proofResult.rows?.[0];
+  if (!proof || proof.digest !== receiptDigest || proof.tenant_id !== tenantId) {
+    throw new OmniaV9ExecutionReceiptStoreError('generic proof ledger conflicts with receipt binding', 'PROOF_LEDGER_CONFLICT', { receiptDigest });
+  }
+  return proof;
+}
+
 export class OmniaV9ExecutionReceiptStore {
   constructor({ pool } = {}) {
     if (!pool || typeof pool.query !== 'function') throw new OmniaV9ExecutionReceiptStoreError('pool.query is required', 'CONFIG');
@@ -74,28 +87,45 @@ export class OmniaV9ExecutionReceiptStore {
            reservation_id,receipt_digest,tenant_id,outcome,
            pre_effect_context_digest,pre_effect_observation_digest,receipt
          ) VALUES ($1,$2,$3,$4,$5,$6,$7::jsonb)
-         ON CONFLICT (reservation_id) DO NOTHING
+         ON CONFLICT DO NOTHING
          RETURNING reservation_id,receipt_digest,tenant_id,outcome,pre_effect_context_digest,pre_effect_observation_digest,receipt,created_at`,
         [reservationId, receiptDigest, tenantId, outcome, contextDigest, observationDigest, JSON.stringify(receipt)]
       );
 
       let binding = inserted.rows?.[0] || null;
       if (!binding) {
-        const existing = await client.query(
+        const existingByReservation = await client.query(
           `SELECT reservation_id,receipt_digest,tenant_id,outcome,pre_effect_context_digest,pre_effect_observation_digest,receipt,created_at
            FROM omnia_v9_execution_receipt_bindings WHERE reservation_id=$1 FOR UPDATE`,
           [reservationId]
         );
-        binding = existing.rows?.[0] || null;
-        if (!binding) throw new OmniaV9ExecutionReceiptStoreError('receipt conflict without existing binding', 'STORE_INCONSISTENT');
-        if (binding.receipt_digest !== receiptDigest || binding.tenant_id !== tenantId) {
+        binding = existingByReservation.rows?.[0] || null;
+        if (binding) {
+          if (binding.receipt_digest !== receiptDigest || binding.tenant_id !== tenantId) {
+            throw new OmniaV9ExecutionReceiptStoreError(
+              'reservation already has a different immutable execution receipt',
+              'CONSEQUENCE_CONFLICT',
+              { reservationId, existingReceiptDigest: binding.receipt_digest, attemptedReceiptDigest: receiptDigest }
+            );
+          }
+          await assertGenericProof(client, { receiptDigest, tenantId });
+          return { inserted: false, duplicate: true, binding };
+        }
+
+        const existingByDigest = await client.query(
+          `SELECT reservation_id,receipt_digest,tenant_id FROM omnia_v9_execution_receipt_bindings
+           WHERE receipt_digest=$1 FOR UPDATE`,
+          [receiptDigest]
+        );
+        const digestBinding = existingByDigest.rows?.[0] || null;
+        if (digestBinding) {
           throw new OmniaV9ExecutionReceiptStoreError(
-            'reservation already has a different immutable execution receipt',
-            'CONSEQUENCE_CONFLICT',
-            { reservationId, existingReceiptDigest: binding.receipt_digest, attemptedReceiptDigest: receiptDigest }
+            'receipt digest is already bound to a different consequence identity',
+            'RECEIPT_IDENTITY_CONFLICT',
+            { receiptDigest, existingReservationId: digestBinding.reservation_id, attemptedReservationId: reservationId }
           );
         }
-        return { inserted: false, duplicate: true, binding };
+        throw new OmniaV9ExecutionReceiptStoreError('receipt insert conflicted without resolvable binding', 'STORE_INCONSISTENT');
       }
 
       const proofInsert = await client.query(
@@ -106,18 +136,7 @@ export class OmniaV9ExecutionReceiptStore {
         [receiptDigest, tenantId, JSON.stringify(receipt)]
       );
 
-      if (!proofInsert.rows?.length) {
-        const existingProof = await client.query(
-          `SELECT object_id,digest,tenant_id,data FROM omnia_v9_objects
-           WHERE object_type='EXECUTION_RECEIPT' AND object_id=$1 FOR SHARE`,
-          [receiptDigest]
-        );
-        const proof = existingProof.rows?.[0];
-        if (!proof || proof.digest !== receiptDigest || proof.tenant_id !== tenantId) {
-          throw new OmniaV9ExecutionReceiptStoreError('generic proof ledger conflicts with receipt binding', 'PROOF_LEDGER_CONFLICT', { receiptDigest });
-        }
-      }
-
+      if (!proofInsert.rows?.length) await assertGenericProof(client, { receiptDigest, tenantId });
       return { inserted: true, duplicate: false, binding };
     });
   }

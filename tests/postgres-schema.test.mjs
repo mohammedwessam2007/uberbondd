@@ -36,8 +36,8 @@ test('PostgreSQL constraints reject duplicate business and provider identities',
     await assert.rejects(db.query("INSERT INTO accounts(id, slot, data) VALUES ('a2', 'A', '{}'::jsonb)"));
     await db.query("INSERT INTO orders(id, provider_event_id, data) VALUES ('o1', 'evt-1', '{}'::jsonb)");
     await assert.rejects(db.query("INSERT INTO orders(id, provider_event_id, data) VALUES ('o2', 'evt-1', '{}'::jsonb)"));
-    await db.query("INSERT INTO revenue_events(id, provider_event_id, lead_id, data) VALUES ('v1', 'rev-1', NULL, '{}'::jsonb)");
-    await assert.rejects(db.query("INSERT INTO revenue_events(id, provider_event_id, lead_id, data) VALUES ('v2', 'rev-1', NULL, '{}'::jsonb)"));
+    await db.query("INSERT INTO revenue_events(id, provider_event_id, data) VALUES ('v1', 'rev-1', '{}'::jsonb)");
+    await assert.rejects(db.query("INSERT INTO revenue_events(id, provider_event_id, data) VALUES ('v2', 'rev-1', '{}'::jsonb)"));
   } finally { await db.close(); }
 });
 

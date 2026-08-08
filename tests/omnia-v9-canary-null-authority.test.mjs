@@ -9,6 +9,7 @@ import { OmniaV9ProofStore } from '../src/omnia-v9/proof-store.mjs';
 import { issueShadowApproval, revokeShadowApproval } from '../src/omnia-v9/integrations/shadow-approval.mjs';
 import { issueCanaryApproval, CANARY_NULL_OPERATION, CANARY_NULL_EFFECT_CLASS, CANARY_NULL_PURPOSE } from '../src/omnia-v9/integrations/canary-approval.mjs';
 import { NullConsequenceAdapter } from '../src/omnia-v9/integrations/null-consequence-adapter.mjs';
+import { CanaryReceiptStore } from '../src/omnia-v9/integrations/canary-receipt-store.mjs';
 import { bindRealCedarAuthority } from '../src/omnia-v9/integrations/reality-shadow-cedar.mjs';
 import { evaluateAndGateCanaryNull, classifyCanaryGateOutcome, CANARY_EXECUTABLE_DECISIONS, CANARY_KNOWN_NO_EXECUTION_DECISIONS } from '../src/omnia-v9/integrations/canary-null-authority.mjs';
 
@@ -21,6 +22,7 @@ async function realDb() {
   const pglite = new PGlite();
   await pglite.exec(await fs.readFile(new URL('../migrations/005_omnia_v9_proof_store.sql', import.meta.url), 'utf8'));
   await pglite.exec(await fs.readFile(new URL('../migrations/009_omnia_v9_shadow_approval_registry.sql', import.meta.url), 'utf8'));
+  await pglite.exec(await fs.readFile(new URL('../migrations/010_omnia_v9_canary_null_receipts.sql', import.meta.url), 'utf8'));
   const store = new OmniaV9ProofStore({ pool: pglite, keyResolver });
   return { pglite, store };
 }
@@ -72,9 +74,10 @@ test('a covering canary approval produces exactly one real null-sink execution w
       notBefore: new Date(NOW.getTime() - 3600_000).toISOString(), expiresAt: new Date(NOW.getTime() + 3600_000).toISOString(), issuedAt: new Date(NOW.getTime() - 3600_000).toISOString()
     });
     const adapter = new NullConsequenceAdapter();
+    const receiptStore = new CanaryReceiptStore({ pool: pglite });
     const evidence = canaryEvidence('ev-allow');
     const result = await evaluateAndGateCanaryNull({
-      pool: pglite, proofStore: store, tenantId: 'campaign:canary', cedarAuthority, keyResolver, adapter,
+      pool: pglite, proofStore: store, tenantId: 'campaign:canary', cedarAuthority, keyResolver, adapter, receiptStore,
       intent: canaryIntent({ suffix: 'allow', evidenceId: 'ev-allow' }), evidence, now: NOW
     });
     assert.equal(result.decision, 'ALLOW');
@@ -89,8 +92,9 @@ test('no covering approval produces REVIEW and zero executions', async () => {
   try {
     const cedarAuthority = await bindRealCedarAuthority();
     const adapter = new NullConsequenceAdapter();
+    const receiptStore = new CanaryReceiptStore({ pool: pglite });
     const result = await evaluateAndGateCanaryNull({
-      pool: pglite, proofStore: store, tenantId: 'campaign:canary-no-approval', cedarAuthority, keyResolver, adapter,
+      pool: pglite, proofStore: store, tenantId: 'campaign:canary-no-approval', cedarAuthority, keyResolver, adapter, receiptStore,
       intent: canaryIntent({ suffix: 'no-approval', evidenceId: 'ev-noap', tenantId: 'campaign:canary-no-approval' }), evidence: canaryEvidence('ev-noap', 'campaign:canary-no-approval'), now: NOW
     });
     assert.equal(result.decision, 'REVIEW');
@@ -110,8 +114,9 @@ test('a revoked canary approval produces REVIEW (no covering approval) and zero 
     });
     await revokeShadowApproval({ proofStore: store, pool: pglite, approvalId: 'canary-ap-revoked', tenantId: 'campaign:canary-revoked', revocationId: 'rev-1', reason: 'test', now: NOW });
     const adapter = new NullConsequenceAdapter();
+    const receiptStore = new CanaryReceiptStore({ pool: pglite });
     const result = await evaluateAndGateCanaryNull({
-      pool: pglite, proofStore: store, tenantId: 'campaign:canary-revoked', cedarAuthority, keyResolver, adapter,
+      pool: pglite, proofStore: store, tenantId: 'campaign:canary-revoked', cedarAuthority, keyResolver, adapter, receiptStore,
       intent: canaryIntent({ suffix: 'revoked', evidenceId: 'ev-revoked', tenantId: 'campaign:canary-revoked' }), evidence: canaryEvidence('ev-revoked', 'campaign:canary-revoked'), now: NOW
     });
     assert.equal(result.decision, 'REVIEW');
@@ -130,8 +135,9 @@ test('a thrown policyAuthorizer is caught by the frozen kernel and fails closed 
     });
     const throwingCedarAuthority = { policyAuthorizer: () => { throw new Error('simulated Cedar evaluator exception'); }, policyDigest: sha256('p'), constitutionDigest: sha256('c') };
     const adapter = new NullConsequenceAdapter();
+    const receiptStore = new CanaryReceiptStore({ pool: pglite });
     const result = await evaluateAndGateCanaryNull({
-      pool: pglite, proofStore: store, tenantId: 'campaign:canary-cedar-fail', cedarAuthority: throwingCedarAuthority, keyResolver, adapter,
+      pool: pglite, proofStore: store, tenantId: 'campaign:canary-cedar-fail', cedarAuthority: throwingCedarAuthority, keyResolver, adapter, receiptStore,
       intent: canaryIntent({ suffix: 'cedar-fail', evidenceId: 'ev-cedar-fail', tenantId: 'campaign:canary-cedar-fail' }), evidence: canaryEvidence('ev-cedar-fail'), now: NOW
     });
     // The frozen kernel catches a throwing policyAuthorizer and fails closed to DENY -- this is a completed
@@ -148,9 +154,10 @@ test('operation attenuation: an intent using operation=email.send is rejected by
   try {
     const cedarAuthority = await bindRealCedarAuthority();
     const adapter = new NullConsequenceAdapter();
+    const receiptStore = new CanaryReceiptStore({ pool: pglite });
     const forgedIntent = { ...canaryIntent({ suffix: 'forged-op', evidenceId: 'ev-forged' }), operation: 'email.send' };
     const result = await evaluateAndGateCanaryNull({
-      pool: pglite, proofStore: store, tenantId: 'campaign:canary', cedarAuthority, keyResolver, adapter,
+      pool: pglite, proofStore: store, tenantId: 'campaign:canary', cedarAuthority, keyResolver, adapter, receiptStore,
       intent: forgedIntent, evidence: canaryEvidence('ev-forged'), now: NOW
     });
     assert.equal(result.executed, false);

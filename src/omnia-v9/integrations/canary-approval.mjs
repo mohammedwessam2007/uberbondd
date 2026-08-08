@@ -1,4 +1,4 @@
-import { issueShadowApproval } from './shadow-approval.mjs';
+import { issueShadowApproval, revokeShadowApproval } from './shadow-approval.mjs';
 
 /**
  * A canary approval is a shadow approval (same real, signed, Postgres-
@@ -45,4 +45,13 @@ export async function issueCanaryApproval({
     effectClasses: [CANARY_NULL_EFFECT_CLASS],
     maxBlastRadius, maxCostUsd, maxUses, notBefore, expiresAt, issuedAt
   });
+}
+
+/**
+ * Revokes a canary approval via the same real, frozen, generic P1
+ * revocation mechanism every shadow approval uses -- a canary approval is
+ * a shadow approval, so it needs no separate revocation path.
+ */
+export async function revokeCanaryApproval({ proofStore, pool, approvalId, tenantId, revocationId, reason, now }) {
+  return revokeShadowApproval({ proofStore, pool, approvalId, tenantId, revocationId, reason, now });
 }

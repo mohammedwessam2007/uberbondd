@@ -1,4 +1,7 @@
 function parseTime(value) {
+  if (value instanceof Date) {
+    return Number.isFinite(value.getTime()) ? value.getTime() : null;
+  }
   const ms = Date.parse(String(value || ''));
   return Number.isFinite(ms) ? ms : null;
 }

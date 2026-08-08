@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { PGlite } from '@electric-sql/pglite';
+import { Pool } from 'pg';
 import { createActionIntent } from '../src/omnia-v9/kernel.mjs';
 import { digestObject } from '../src/omnia-v9/canonical.mjs';
 import { buildReceiptFromDurableReservation } from '../src/omnia-v9/execution-receipt-shadow.mjs';
@@ -250,4 +251,57 @@ test('P8 refuses an observation timestamp that occurs after the provider result'
     const result = await reconcile({ pool: db, shadowObservation: obs, executionReceipt: receipt });
     assert.equal(result.reason, 'pre-effect-observation-occurs-after-effect');
   } finally { await db.close(); }
+});
+
+const realPostgresUrl = process.env.OMNIA_V9_TEST_DATABASE_URL || '';
+
+async function realDbFixture() {
+  const pool = new Pool({ connectionString: realPostgresUrl, max: 2 });
+  for (const migration of ['005_omnia_v9_proof_store.sql', '006_omnia_v9_execution_receipt_uniqueness.sql', '007_omnia_v9_authorization_bound_receipts.sql']) {
+    await pool.query(await fs.readFile(new URL(`../migrations/${migration}`, import.meta.url), 'utf8'));
+  }
+  return pool;
+}
+
+test('real PostgreSQL: an authority reservation created a few hundred milliseconds after the pre-effect observation is still refused, not rounded away', { skip: !realPostgresUrl }, async () => {
+  // node-postgres parses timestamptz columns into JS Date objects. A prior defect
+  // compared such Date objects against ISO strings using Date.parse(String(dateObject)),
+  // which truncates to whole-second precision via Date.prototype.toString() and can
+  // silently round a *later* sub-second timestamp down to look earlier than the
+  // pre-effect boundary. This test pins a sub-second race that only a real
+  // PostgreSQL driver (not PGlite's string-typed columns) can expose.
+  //
+  // Unlike the PGlite-backed tests above, this database is a persistent disposable
+  // instance shared across the whole test run, so every identifier must be
+  // unique per invocation to avoid colliding with rows from earlier runs.
+  const db = await realDbFixture();
+  try {
+    // seedAuthority's shared reservation INSERT hardcodes idempotency_key='send:p1:0',
+    // which is safe for the PGlite tests above (each gets a fresh in-memory database)
+    // but collides on a persistent real-Postgres instance across repeated runs, so this
+    // test seeds its own uniquely-keyed rows instead of reusing that helper's insert.
+    const suffix = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
+    const idempotencyKey = `p8pg:${suffix}`;
+    const reservationId = `res_${suffix}`;
+    const approvalId = `approval_${suffix}`;
+    const intent = makeIntent({ idempotencyKey, nonce: `nonce:${suffix}` });
+    const approvalObject = approval({ approvalId });
+    const decisionObject = decision(intent, { approvalId });
+    const obs = observation({ reservationId, observedAt: '2026-08-08T11:02:00.800Z' });
+    const receipt = executionReceipt(obs, { id: reservationId, idempotencyKey, sentAt: '2026-08-08T11:03:00.000Z' });
+
+    await insertObject(db, 'ACTION_INTENT', intent.intentDigest, 'tenant1', intent.intentDigest, intent, '2026-08-08T10:56:00.000Z');
+    await insertObject(db, 'OWNER_APPROVAL', approvalObject.approvalId, 'tenant1', approvalObject.approvalDigest, approvalObject, '2026-08-08T10:40:00.000Z');
+    await insertObject(db, 'AUTHORIZATION_DECISION', decisionObject.decisionDigest, 'tenant1', decisionObject.decisionDigest, decisionObject, '2026-08-08T11:00:30.000Z');
+    await db.query(
+      `INSERT INTO omnia_v9_authority_reservations(idempotency_key,intent_digest,approval_id,tenant_id,use_delta,cost_delta_usd,blast_radius,status,created_at,updated_at)
+       VALUES ($1,$2,$3,'tenant1',1,0.01,1,'RESERVED',$4::timestamptz,$4::timestamptz)`,
+      [idempotencyKey, intent.intentDigest, approvalId, '2026-08-08T11:02:00.950Z']
+    );
+    await seedP6(db, receipt);
+
+    const result = await reconcile({ pool: db, shadowObservation: obs, executionReceipt: receipt });
+    assert.equal(result.status, 'INCOMPLETE');
+    assert.equal(result.reason, 'authority-reservation-not-proven-before-effect');
+  } finally { await db.end(); }
 });

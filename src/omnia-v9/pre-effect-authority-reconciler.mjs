@@ -5,6 +5,9 @@ import { buildAuthorizationBoundExecutionReceipt } from './authorization-bound-r
 import { proveReservedBefore } from './authority-transition-ledger.mjs';
 
 function finiteTime(value) {
+  if (value instanceof Date) {
+    return Number.isFinite(value.getTime()) ? value.getTime() : null;
+  }
   const ms = Date.parse(String(value || ''));
   return Number.isFinite(ms) ? ms : null;
 }

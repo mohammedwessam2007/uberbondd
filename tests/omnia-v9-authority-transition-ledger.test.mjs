@@ -130,6 +130,84 @@ test('P9 refuses RESERVED authorization that happened after the effect boundary'
   assert.equal(result.reason, 'authority-not-reserved-before-effect');
 });
 
+test('P9 chain verification treats a native Date occurred_at column (as returned by node-postgres) as equal to its sub-second-precision ISO event timestamp', async () => {
+  // node-postgres parses timestamptz columns into JS Date objects, while the
+  // jsonb `event` payload stores occurredAt as an ISO string. A prior defect
+  // compared them via Date.parse(String(dateObject)), which invokes
+  // Date.prototype.toString() and silently truncates sub-second precision,
+  // producing spurious authority-transition-time-mismatch failures (or worse,
+  // falsely satisfying "reserved before boundary" checks) whenever a real
+  // PostgreSQL driver was used instead of a string-returning shim.
+  const occurredAtIso = '2026-08-08T10:00:00.837Z';
+  const genesis = {
+    event_digest: 'a'.repeat(64),
+    idempotency_key: 'send:p1:0',
+    sequence_no: 1,
+    tenant_id: 'tenant1',
+    intent_digest: 'b'.repeat(64),
+    approval_id: 'approval1',
+    from_status: null,
+    to_status: 'PENDING',
+    reason: '',
+    previous_event_digest: null,
+    occurred_at: new Date(occurredAtIso),
+    created_at: new Date(occurredAtIso),
+    event: {
+      schemaVersion: 'omnia.v9.authority-transition.p9',
+      idempotencyKey: 'send:p1:0',
+      sequenceNo: 1,
+      tenantId: 'tenant1',
+      intentDigest: 'b'.repeat(64),
+      approvalId: 'approval1',
+      fromStatus: null,
+      toStatus: 'PENDING',
+      reason: '',
+      previousEventDigest: null,
+      occurredAt: occurredAtIso,
+      eventDigest: 'a'.repeat(64)
+    },
+    recomputed_digest: 'a'.repeat(64)
+  };
+  const result = await verifyAuthorityTransitionChain({ pool: fakePool([genesis]), idempotencyKey: 'send:p1:0' });
+  assert.equal(result.ok, true);
+  assert.equal(result.events.length, 1);
+});
+
+test('P9 chain verification still rejects a genuine sub-second time disagreement even when occurred_at is a Date object', async () => {
+  const genesis = {
+    event_digest: 'a'.repeat(64),
+    idempotency_key: 'send:p1:0',
+    sequence_no: 1,
+    tenant_id: 'tenant1',
+    intent_digest: 'b'.repeat(64),
+    approval_id: 'approval1',
+    from_status: null,
+    to_status: 'PENDING',
+    reason: '',
+    previous_event_digest: null,
+    occurred_at: new Date('2026-08-08T10:00:00.837Z'),
+    created_at: new Date('2026-08-08T10:00:00.837Z'),
+    event: {
+      schemaVersion: 'omnia.v9.authority-transition.p9',
+      idempotencyKey: 'send:p1:0',
+      sequenceNo: 1,
+      tenantId: 'tenant1',
+      intentDigest: 'b'.repeat(64),
+      approvalId: 'approval1',
+      fromStatus: null,
+      toStatus: 'PENDING',
+      reason: '',
+      previousEventDigest: null,
+      occurredAt: '2026-08-08T10:00:05.000Z',
+      eventDigest: 'a'.repeat(64)
+    },
+    recomputed_digest: 'a'.repeat(64)
+  };
+  const result = await verifyAuthorityTransitionChain({ pool: fakePool([genesis]), idempotencyKey: 'send:p1:0' });
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'authority-transition-time-mismatch');
+});
+
 const realPostgresUrl = process.env.OMNIA_V9_TEST_DATABASE_URL || '';
 
 async function migrateRealPostgres(pool) {

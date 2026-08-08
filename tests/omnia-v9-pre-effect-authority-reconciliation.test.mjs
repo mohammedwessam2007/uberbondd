@@ -12,6 +12,20 @@ const OCCURRED_AT = '2026-08-08T11:03:00.000Z';
 const POLICY = 'a'.repeat(64);
 const CONSTITUTION = 'b'.repeat(64);
 
+const transitionProofResolver = async () => ({
+  ok: true,
+  headDigest: 'f'.repeat(64),
+  reservedEvent: {
+    eventDigest: 'e'.repeat(64),
+    sequenceNo: 2,
+    occurredAt: '2026-08-08T11:01:30.000Z'
+  }
+});
+
+function reconcile(args) {
+  return reconcilePreEffectAuthority({ ...args, transitionProofResolver });
+}
+
 async function dbFixture() {
   const db = new PGlite();
   for (const migration of ['005_omnia_v9_proof_store.sql','006_omnia_v9_execution_receipt_uniqueness.sql','007_omnia_v9_authorization_bound_receipts.sql']) {
@@ -106,7 +120,7 @@ test('P8 reconciles only a complete durable authority chain that predates the pr
     const receipt = executionReceipt(obs);
     await seedAuthority(db);
     await seedP6(db, receipt);
-    const result = await reconcilePreEffectAuthority({ pool: db, shadowObservation: obs, executionReceipt: receipt });
+    const result = await reconcile({ pool: db, shadowObservation: obs, executionReceipt: receipt });
     assert.equal(result.status, 'RECONCILED');
     assert.equal(result.reconciled, true);
     assert.equal(result.binding.tenantId, 'tenant1');
@@ -121,7 +135,7 @@ test('P8 refuses a P4 observation that was not ALLOW', async () => {
     const receipt = executionReceipt(obs);
     await seedAuthority(db);
     await seedP6(db, receipt);
-    const result = await reconcilePreEffectAuthority({ pool: db, shadowObservation: obs, executionReceipt: receipt });
+    const result = await reconcile({ pool: db, shadowObservation: obs, executionReceipt: receipt });
     assert.equal(result.status, 'INCOMPLETE');
     assert.equal(result.reason, 'shadow-observation-not-allow');
   } finally { await db.close(); }
@@ -134,7 +148,7 @@ test('P8 refuses an authorization decision persisted after the pre-effect observ
     const receipt = executionReceipt(obs);
     await seedAuthority(db, { decisionCreatedAt: '2026-08-08T11:02:30.000Z' });
     await seedP6(db, receipt);
-    const result = await reconcilePreEffectAuthority({ pool: db, shadowObservation: obs, executionReceipt: receipt });
+    const result = await reconcile({ pool: db, shadowObservation: obs, executionReceipt: receipt });
     assert.equal(result.reason, 'missing-matching-pre-effect-authorization-decision');
   } finally { await db.close(); }
 });
@@ -146,7 +160,7 @@ test('P8 refuses an approval persisted after the pre-effect observation', async 
     const receipt = executionReceipt(obs);
     await seedAuthority(db, { approvalCreatedAt: '2026-08-08T11:02:30.000Z' });
     await seedP6(db, receipt);
-    const result = await reconcilePreEffectAuthority({ pool: db, shadowObservation: obs, executionReceipt: receipt });
+    const result = await reconcile({ pool: db, shadowObservation: obs, executionReceipt: receipt });
     assert.equal(result.reason, 'owner-approval-not-proven-before-effect');
   } finally { await db.close(); }
 });
@@ -158,7 +172,7 @@ test('P8 refuses an approval whose signed content says it was issued after the o
     const receipt = executionReceipt(obs);
     await seedAuthority(db, { approvalObject: approval({ issuedAt: '2026-08-08T11:02:30.000Z' }) });
     await seedP6(db, receipt);
-    const result = await reconcilePreEffectAuthority({ pool: db, shadowObservation: obs, executionReceipt: receipt });
+    const result = await reconcile({ pool: db, shadowObservation: obs, executionReceipt: receipt });
     assert.equal(result.reason, 'approval-content-issued-after-observation');
   } finally { await db.close(); }
 });
@@ -170,7 +184,7 @@ test('P8 refuses an authority reservation first persisted after the observation'
     const receipt = executionReceipt(obs);
     await seedAuthority(db, { authorityCreatedAt: '2026-08-08T11:02:30.000Z' });
     await seedP6(db, receipt);
-    const result = await reconcilePreEffectAuthority({ pool: db, shadowObservation: obs, executionReceipt: receipt });
+    const result = await reconcile({ pool: db, shadowObservation: obs, executionReceipt: receipt });
     assert.equal(result.reason, 'authority-reservation-not-proven-before-effect');
   } finally { await db.close(); }
 });
@@ -183,7 +197,7 @@ test('P8 refuses policy or constitution lineage that disagrees with the live P4 
     const i = makeIntent();
     await seedAuthority(db, { intent: i, decisionObject: decision(i, { policyDigest: 'd'.repeat(64), constitutionDigest: 'e'.repeat(64) }) });
     await seedP6(db, receipt);
-    const result = await reconcilePreEffectAuthority({ pool: db, shadowObservation: obs, executionReceipt: receipt });
+    const result = await reconcile({ pool: db, shadowObservation: obs, executionReceipt: receipt });
     assert.equal(result.reason, 'missing-matching-pre-effect-authorization-decision');
   } finally { await db.close(); }
 });
@@ -196,7 +210,7 @@ test('P8 refuses a shadow observation whose digest is not the one bound into the
     const tampered = { ...original, reasons: ['changed-after-effect'] };
     await seedAuthority(db);
     await seedP6(db, receipt);
-    const result = await reconcilePreEffectAuthority({ pool: db, shadowObservation: tampered, executionReceipt: receipt });
+    const result = await reconcile({ pool: db, shadowObservation: tampered, executionReceipt: receipt });
     assert.equal(result.reason, 'shadow-observation-digest-mismatch');
   } finally { await db.close(); }
 });
@@ -207,7 +221,7 @@ test('P8 refuses when the durable P6 receipt binding is absent', async () => {
     const obs = observation();
     const receipt = executionReceipt(obs);
     await seedAuthority(db);
-    const result = await reconcilePreEffectAuthority({ pool: db, shadowObservation: obs, executionReceipt: receipt });
+    const result = await reconcile({ pool: db, shadowObservation: obs, executionReceipt: receipt });
     assert.equal(result.reason, 'missing-durable-p6-receipt-binding');
   } finally { await db.close(); }
 });
@@ -221,7 +235,7 @@ test('P8 refuses ambiguous matching ALLOW decisions instead of choosing whicheve
     const d2 = decision(seeded.intent, { reasons: ['second-valid-looking-decision'], decidedAt: '2026-08-08T11:01:30.000Z' });
     await insertObject(db, 'AUTHORIZATION_DECISION', d2.decisionDigest, 'tenant1', d2.decisionDigest, d2, '2026-08-08T11:01:31.000Z');
     await seedP6(db, receipt);
-    const result = await reconcilePreEffectAuthority({ pool: db, shadowObservation: obs, executionReceipt: receipt });
+    const result = await reconcile({ pool: db, shadowObservation: obs, executionReceipt: receipt });
     assert.equal(result.reason, 'ambiguous-pre-effect-authorization-decisions');
   } finally { await db.close(); }
 });
@@ -233,7 +247,7 @@ test('P8 refuses an observation timestamp that occurs after the provider result'
     const receipt = executionReceipt(obs);
     await seedAuthority(db);
     await seedP6(db, receipt);
-    const result = await reconcilePreEffectAuthority({ pool: db, shadowObservation: obs, executionReceipt: receipt });
+    const result = await reconcile({ pool: db, shadowObservation: obs, executionReceipt: receipt });
     assert.equal(result.reason, 'pre-effect-observation-occurs-after-effect');
   } finally { await db.close(); }
 });

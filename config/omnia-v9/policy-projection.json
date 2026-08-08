@@ -37,10 +37,10 @@
   "cedarRuntimeContract": {
     "package": "@cedar-policy/cedar-wasm",
     "nodeImport": "@cedar-policy/cedar-wasm/nodejs",
-    "requiredFunctions": ["checkParseSchema", "checkParsePolicySet", "validate", "isAuthorized"],
+    "requiredFunctions": ["checkParseSchema", "checkParsePolicySet", "validate", "isAuthorized", "getCedarVersion"],
     "strictValidationMode": "strict",
     "observedOfficialExamplePackageVersion": "4.1.0",
     "observedOfficialExampleBranch": "release/4.12.x",
-    "versionPolicy": "PIN_EXACT_VERSION_AND_LOCKFILE_BEFORE_PRODUCTION"
+    "versionPolicy": "PIN_EXACT_PACKAGE_AND_RUNTIME_ENGINE_VERSION_BEFORE_PRODUCTION"
   }
 }

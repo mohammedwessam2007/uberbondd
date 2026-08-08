@@ -2,6 +2,7 @@ import { sha256 } from './canonical.mjs';
 import { verifyIntent } from './kernel.mjs';
 import { verifyExecutionReceiptShadow } from './execution-receipt-shadow.mjs';
 import { buildAuthorizationBoundExecutionReceipt } from './authorization-bound-receipt.mjs';
+import { proveReservedBefore } from './authority-transition-ledger.mjs';
 
 function finiteTime(value) {
   const ms = Date.parse(String(value || ''));
@@ -66,6 +67,21 @@ export async function reconcilePreEffectAuthority({ pool, shadowObservation, exe
     return incomplete('authority-reservation-not-executable', { status: authority.status || null });
   }
   if (authority.tenant_id !== p6.tenant_id) return incomplete('authority-p6-tenant-mismatch');
+
+  const transitionProof = await proveReservedBefore({
+    pool,
+    idempotencyKey,
+    boundaryAt: shadowObservation.observedAt,
+    tenantId: authority.tenant_id,
+    intentDigest: authority.intent_digest,
+    approvalId: authority.approval_id
+  });
+  if (!transitionProof.ok) {
+    return incomplete('authority-transition-proof-invalid', {
+      reason: transitionProof.reason,
+      detail: transitionProof.detail || {}
+    });
+  }
 
   const intentResult = await pool.query(
     `SELECT object_id,tenant_id,digest,data,created_at FROM omnia_v9_objects
@@ -162,6 +178,12 @@ export async function reconcilePreEffectAuthority({ pool, shadowObservation, exe
         approvalId: authority.approval_id,
         tenantId: authority.tenant_id,
         createdAt: authority.created_at
+      },
+      reservedTransition: {
+        eventDigest: transitionProof.reservedEvent.eventDigest,
+        sequenceNo: transitionProof.reservedEvent.sequenceNo,
+        occurredAt: transitionProof.reservedEvent.occurredAt,
+        headDigest: transitionProof.headDigest
       },
       intentCreatedAt: intentRow.created_at,
       approvalCreatedAt: approvalRow.created_at,

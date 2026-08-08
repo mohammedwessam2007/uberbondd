@@ -5,7 +5,7 @@ import { PGlite } from '@electric-sql/pglite';
 
 async function migratedDb() {
   const db = new PGlite();
-  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql', '005_omnia_v9_proof_store.sql', '006_omnia_v9_execution_receipt_uniqueness.sql']) {
+  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql', '005_omnia_v9_proof_store.sql', '006_omnia_v9_execution_receipt_uniqueness.sql', '007_omnia_v9_authorization_bound_receipts.sql']) {
     await db.exec(await fs.readFile(new URL(`../migrations/${name}`, import.meta.url), 'utf8'));
   }
   return db;
@@ -16,7 +16,7 @@ test('PostgreSQL migration creates every required table and index foundation', a
   try {
     const tables = await db.query("SELECT table_name FROM information_schema.tables WHERE table_schema='public'");
     const names = new Set(tables.rows.map(row => row.table_name));
-    for (const name of ['prospects','campaigns','jobs','messages','replies','suppressions','social_tasks','accounts','audit_log','settings','leads','orders','subscriptions','monitoring_runs','notifications','revenue_events','discovery_runs','worker_heartbeats','artifacts','outbound_reservations','sender_health','outbound_events','omnia_v9_objects','omnia_v9_revocations','omnia_v9_approval_usage','omnia_v9_authority_reservations','omnia_v9_execution_receipt_bindings']) {
+    for (const name of ['prospects','campaigns','jobs','messages','replies','suppressions','social_tasks','accounts','audit_log','settings','leads','orders','subscriptions','monitoring_runs','notifications','revenue_events','discovery_runs','worker_heartbeats','artifacts','outbound_reservations','sender_health','outbound_events','omnia_v9_objects','omnia_v9_revocations','omnia_v9_approval_usage','omnia_v9_authority_reservations','omnia_v9_execution_receipt_bindings','omnia_v9_execution_authorization_bindings']) {
       assert(names.has(name), `missing table ${name}`);
     }
   } finally { await db.close(); }
@@ -113,5 +113,23 @@ test('P6 execution receipt binding migration enforces one consequence and one di
     await db.query(`INSERT INTO omnia_v9_execution_receipt_bindings(reservation_id,receipt_digest,tenant_id,outcome,pre_effect_context_digest,pre_effect_observation_digest,receipt) VALUES ('res1',$1,'tenant1','PROVIDER_ACCEPTED',$2,$3,$4::jsonb)`, [a, b, c, receipt]);
     await assert.rejects(db.query(`INSERT INTO omnia_v9_execution_receipt_bindings(reservation_id,receipt_digest,tenant_id,outcome,pre_effect_context_digest,pre_effect_observation_digest,receipt) VALUES ('res1',$1,'tenant1','PROVIDER_ACCEPTED',$2,$3,$4::jsonb)`, ['d'.repeat(64), b, c, receipt]));
     await assert.rejects(db.query(`INSERT INTO omnia_v9_execution_receipt_bindings(reservation_id,receipt_digest,tenant_id,outcome,pre_effect_context_digest,pre_effect_observation_digest,receipt) VALUES ('res2',$1,'tenant1','PROVIDER_ACCEPTED',$2,$3,$4::jsonb)`, [a, b, c, receipt]));
+  } finally { await db.close(); }
+});
+
+test('P7 authorization binding migration enforces one immutable authority chain per consequence', async () => {
+  const db = await migratedDb();
+  try {
+    const receiptDigest = 'a'.repeat(64);
+    const contextDigest = 'b'.repeat(64);
+    const observationDigest = 'c'.repeat(64);
+    const bindingDigest = 'd'.repeat(64);
+    const otherBindingDigest = 'e'.repeat(64);
+    const intentDigest = 'f'.repeat(64);
+    const decisionDigest = '1'.repeat(64);
+    const policyDigest = '2'.repeat(64);
+    const constitutionDigest = '3'.repeat(64);
+    await db.query(`INSERT INTO omnia_v9_execution_receipt_bindings(reservation_id,receipt_digest,tenant_id,outcome,pre_effect_context_digest,pre_effect_observation_digest,receipt) VALUES ('p7-res1',$1,'tenant1','PROVIDER_ACCEPTED',$2,$3,'{}'::jsonb)`, [receiptDigest, contextDigest, observationDigest]);
+    await db.query(`INSERT INTO omnia_v9_execution_authorization_bindings(reservation_id,receipt_digest,binding_digest,tenant_id,intent_digest,authorization_decision_digest,approval_id,policy_version,policy_digest,constitution_digest,binding) VALUES ('p7-res1',$1,$2,'tenant1',$3,$4,'approval1','policy-v1',$5,$6,'{}'::jsonb)`, [receiptDigest, bindingDigest, intentDigest, decisionDigest, policyDigest, constitutionDigest]);
+    await assert.rejects(db.query(`INSERT INTO omnia_v9_execution_authorization_bindings(reservation_id,receipt_digest,binding_digest,tenant_id,intent_digest,authorization_decision_digest,approval_id,policy_version,policy_digest,constitution_digest,binding) VALUES ('p7-res1',$1,$2,'tenant1',$3,$4,'approval2','policy-v1',$5,$6,'{}'::jsonb)`, [receiptDigest, otherBindingDigest, intentDigest, decisionDigest, policyDigest, constitutionDigest]));
   } finally { await db.close(); }
 });

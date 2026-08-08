@@ -10,6 +10,7 @@ import { persistAndReserveAdmission } from '../src/omnia-v9/persistent-admission
 
 const now = new Date('2026-08-08T00:00:00Z');
 const { publicKey, privateKey } = generateKeyPairSync('ed25519');
+const attackerKeys = generateKeyPairSync('ed25519');
 const keyResolver = keyId => keyId === 'owner-key-1' ? publicKey : null;
 
 async function storeDb() {
@@ -18,11 +19,13 @@ async function storeDb() {
   return { db, store: new OmniaV9ProofStore({ pool: db, keyResolver }) };
 }
 
-function approval(overrides = {}) {
-  return createApproval({ approvalId: 'ap1', issuerId: 'mohamed', keyId: 'owner-key-1', tenantId: 'tenant1', actorIds: ['worker1'],
+function approval(overrides = {}, signerKey = privateKey) {
+  return createApproval({
+    approvalId: 'ap1', issuerId: 'mohamed', keyId: 'owner-key-1', tenantId: 'tenant1', actorIds: ['worker1'],
     operations: ['email.send'], resourcePrefixes: ['email:'], purposes: ['qualified-b2b-outreach'], effectClasses: ['COMMUNICATE_EXTERNAL'],
     maxBlastRadius: 5, maxCostUsd: 1, maxUses: 2, notBefore: '2026-08-07T00:00:00Z', expiresAt: '2026-08-09T00:00:00Z',
-    issuedAt: '2026-08-07T00:00:00Z', ...overrides }, digest => signDigestHex(digest, privateKey));
+    issuedAt: '2026-08-07T00:00:00Z', ...overrides
+  }, digest => signDigestHex(digest, signerKey));
 }
 
 async function persistApproval(store, ap = approval()) {
@@ -46,7 +49,10 @@ test('proof objects are content-bound and immutable by identity', async () => {
     const again = await store.putObject({ objectType: 'OWNER_APPROVAL', objectId: ap.approvalId, tenantId: ap.tenantId, digest: ap.approvalDigest, data: ap });
     assert.equal(again.inserted, false);
     const tampered = { ...ap, maxUses: 99 };
-    await assert.rejects(store.putObject({ objectType: 'OWNER_APPROVAL', objectId: ap.approvalId, tenantId: ap.tenantId, digest: ap.approvalDigest, data: tampered }), /immutable|digest/i);
+    await assert.rejects(
+      store.putObject({ objectType: 'OWNER_APPROVAL', objectId: ap.approvalId, tenantId: ap.tenantId, digest: ap.approvalDigest, data: tampered }),
+      /recompute|digest|immutable/i
+    );
   } finally { await db.close(); }
 });
 
@@ -54,17 +60,29 @@ test('proof object identity must match the identity inside signed content', asyn
   const { db, store } = await storeDb();
   try {
     const ap = approval();
-    await assert.rejects(store.putObject({ objectType: 'OWNER_APPROVAL', objectId: 'alias', tenantId: ap.tenantId, digest: ap.approvalDigest, data: ap }), /approvalId|identity/i);
+    await assert.rejects(
+      store.putObject({ objectType: 'OWNER_APPROVAL', objectId: 'alias', tenantId: ap.tenantId, digest: ap.approvalDigest, data: ap }),
+      /approvalId|identity/i
+    );
   } finally { await db.close(); }
 });
 
-test('stored but cryptographically invalid approval cannot spend authority', async () => {
+test('unsupported future proof type cannot bypass an undefined digest algorithm', async () => {
   const { db, store } = await storeDb();
   try {
-    const ap = approval();
-    const tampered = { ...ap, maxUses: 99 };
-    await store.putObject({ objectType: 'OWNER_APPROVAL', objectId: tampered.approvalId, tenantId: 'tenant1', digest: tampered.approvalDigest, data: tampered });
-    const result = await store.reserveAuthority({ approvalId: tampered.approvalId, tenantId: 'tenant1', intentDigest: sha256('i'), idempotencyKey: 'k', costDeltaUsd: 0, blastRadius: 1, now });
+    await assert.rejects(
+      store.putObject({ objectType: 'POLICY_BUNDLE', objectId: 'p1', tenantId: 'tenant1', digest: sha256('policy'), data: { digest: sha256('policy') } }),
+      /unsupported/i
+    );
+  } finally { await db.close(); }
+});
+
+test('stored content-valid but cryptographically invalid approval cannot spend authority', async () => {
+  const { db, store } = await storeDb();
+  try {
+    const forged = approval({}, attackerKeys.privateKey);
+    await persistApproval(store, forged);
+    const result = await store.reserveAuthority({ approvalId: forged.approvalId, tenantId: 'tenant1', intentDigest: sha256('i'), idempotencyKey: 'k', costDeltaUsd: 0, blastRadius: 1, now });
     assert.equal(result.ok, false);
     assert.match(result.reason, /unverified/);
   } finally { await db.close(); }
@@ -90,7 +108,10 @@ test('same idempotency key cannot represent different intent', async () => {
   try {
     await persistApproval(store);
     await store.reserveAuthority({ approvalId: 'ap1', tenantId: 'tenant1', intentDigest: sha256('i1'), idempotencyKey: 'same', costDeltaUsd: 0, blastRadius: 1, now });
-    await assert.rejects(store.reserveAuthority({ approvalId: 'ap1', tenantId: 'tenant1', intentDigest: sha256('i2'), idempotencyKey: 'same', costDeltaUsd: 0, blastRadius: 1, now }), /idempotency/i);
+    await assert.rejects(
+      store.reserveAuthority({ approvalId: 'ap1', tenantId: 'tenant1', intentDigest: sha256('i2'), idempotencyKey: 'same', costDeltaUsd: 0, blastRadius: 1, now }),
+      /idempotency/i
+    );
     assert.equal((await store.getApprovalUsage('ap1')).uses, 1);
   } finally { await db.close(); }
 });
@@ -117,14 +138,38 @@ test('cost budget is enforced by persistent usage', async () => {
   } finally { await db.close(); }
 });
 
-test('revocation blocks future reservations', async () => {
+test('expired approval cannot spend persistent authority', async () => {
+  const { db, store } = await storeDb();
+  try {
+    await persistApproval(store, approval({ expiresAt: '2026-08-07T23:59:59Z' }));
+    const result = await store.reserveAuthority({ approvalId: 'ap1', tenantId: 'tenant1', intentDigest: sha256('i'), idempotencyKey: 'k', blastRadius: 1, now });
+    assert.equal(result.ok, false);
+    assert.match(result.reason, /expired|unverified/);
+  } finally { await db.close(); }
+});
+
+test('revocation resolves the target tenant and blocks future reservations', async () => {
   const { db, store } = await storeDb();
   try {
     await persistApproval(store);
+    await assert.rejects(
+      store.revoke({ targetType: 'OWNER_APPROVAL', targetId: 'ap1', revocationId: 'wrong-tenant', tenantId: 'tenant2', reason: 'invalid' }),
+      /tenant/i
+    );
     await store.revoke({ targetType: 'OWNER_APPROVAL', targetId: 'ap1', revocationId: 'rev1', tenantId: 'tenant1', reason: 'owner-stop' });
     const result = await store.reserveAuthority({ approvalId: 'ap1', tenantId: 'tenant1', intentDigest: sha256('i'), idempotencyKey: 'k', blastRadius: 1, now });
     assert.equal(result.ok, false);
     assert.equal(result.reason, 'approval-revoked');
+  } finally { await db.close(); }
+});
+
+test('revocation cannot target an object that does not exist', async () => {
+  const { db, store } = await storeDb();
+  try {
+    await assert.rejects(
+      store.revoke({ targetType: 'OWNER_APPROVAL', targetId: 'missing', revocationId: 'rev1', tenantId: 'tenant1', reason: 'owner-stop' }),
+      /does not exist|target/i
+    );
   } finally { await db.close(); }
 });
 
@@ -136,11 +181,13 @@ test('release refunds a reserved budget once, commit does not', async () => {
     await store.finalizeAuthorityReservation({ idempotencyKey: 'k1', outcome: 'RELEASED', reason: 'pre-execution-cancel' });
     await store.finalizeAuthorityReservation({ idempotencyKey: 'k1', outcome: 'RELEASED', reason: 'duplicate' });
     let usage = await store.getApprovalUsage('ap1');
-    assert.equal(usage.uses, 0); assert.equal(usage.costUsd, 0);
+    assert.equal(usage.uses, 0);
+    assert.equal(usage.costUsd, 0);
     await store.reserveAuthority({ approvalId: 'ap1', tenantId: 'tenant1', intentDigest: sha256('i2'), idempotencyKey: 'k2', costDeltaUsd: 0.25, blastRadius: 1, now });
     await store.finalizeAuthorityReservation({ idempotencyKey: 'k2', outcome: 'COMMITTED' });
     usage = await store.getApprovalUsage('ap1');
-    assert.equal(usage.uses, 1); assert.equal(usage.costUsd, 0.25);
+    assert.equal(usage.uses, 1);
+    assert.equal(usage.costUsd, 0.25);
   } finally { await db.close(); }
 });
 
@@ -155,6 +202,7 @@ test('persistent admission only becomes executable after atomic authority reserv
     assert.equal(result.admission.decision, 'ALLOW');
     assert.equal(result.authorityReservation.ok, true);
     assert.equal(result.executable, true);
+
     const secondIntent = createActionIntent({ missionId: i.missionId, tenantId: i.tenantId, actorId: i.actorId, operation: i.operation, resource: 'email:b@example.com', purpose: i.purpose, effectClass: i.effectClass, arguments: { to: 'b@example.com' }, evidenceIds: ['ev1'], maxCostUsd: 0.1, blastRadius: 1, rollback: i.rollback, expiresAt: i.expiresAt, nonce: 'n2', idempotencyKey: 'k2' }, now);
     const second = await persistAndReserveAdmission({ proofStore: store, intent: secondIntent, evidence: [ev], approvals: [ap], context: policyContext });
     assert.equal(second.executable, false);

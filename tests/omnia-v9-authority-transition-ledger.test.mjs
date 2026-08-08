@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { Pool } from 'pg';
 import { proveReservedBefore, verifyAuthorityTransitionChain } from '../src/omnia-v9/authority-transition-ledger.mjs';
 
@@ -210,6 +211,10 @@ test('P9 chain verification still rejects a genuine sub-second time disagreement
 
 const realPostgresUrl = process.env.OMNIA_V9_TEST_DATABASE_URL || '';
 
+function hexFor(label) {
+  return createHash('sha256').update(label).digest('hex');
+}
+
 async function migrateRealPostgres(pool) {
   for (const migration of ['005_omnia_v9_proof_store.sql', '008_omnia_v9_authority_transition_ledger.sql']) {
     await pool.query(await fs.readFile(new URL(`../migrations/${migration}`, import.meta.url), 'utf8'));
@@ -260,6 +265,101 @@ test('real PostgreSQL atomically captures direct authority mutations and makes p
     await assert.rejects(
       pool.query(`DELETE FROM omnia_v9_authority_transition_events WHERE idempotency_key=$1 AND sequence_no=2`, [idempotencyKey])
     );
+  } finally {
+    await pool.end();
+  }
+});
+
+test('real PostgreSQL: a forged event row inserted directly (bypassing the reservation trigger) with sequence-number surgery is detected', { skip: !realPostgresUrl }, async () => {
+  // The append-only triggers only guard UPDATE/DELETE on the events table; there is
+  // no trigger preventing a direct INSERT that bypasses the reservation-table trigger
+  // entirely. This proves the application-level chain verifier still detects such a
+  // forged row using PostgreSQL's own digest() computation, not a JS-side mock.
+  const pool = new Pool({ connectionString: realPostgresUrl, max: 2 });
+  const suffix = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
+  const idempotencyKey = `p9forge:${suffix}`;
+  const intentDigest = '2'.repeat(64);
+  try {
+    await migrateRealPostgres(pool);
+    await pool.query(
+      `INSERT INTO omnia_v9_authority_reservations(
+         idempotency_key,intent_digest,approval_id,tenant_id,use_delta,cost_delta_usd,blast_radius,status,reason
+       ) VALUES ($1,$2,$3,$4,1,0.01,1,'PENDING','')`,
+      [idempotencyKey, intentDigest, `approval_${suffix}`, 'tenant_real']
+    );
+    await pool.query(
+      `UPDATE omnia_v9_authority_reservations SET status='RESERVED',updated_at=now() WHERE idempotency_key=$1`,
+      [idempotencyKey]
+    );
+
+    // Sequence surgery: insert a forged row that jumps ahead past the real next
+    // sequence number, skipping over the gap.
+    const forgedDigest = hexFor(`forge-seq:${suffix}`);
+    await pool.query(
+      `INSERT INTO omnia_v9_authority_transition_events(
+         event_digest,idempotency_key,sequence_no,tenant_id,intent_digest,approval_id,
+         from_status,to_status,reason,previous_event_digest,occurred_at,event
+       ) VALUES ($1,$2,9,$3,$4,$5,'RESERVED','COMMITTED','forged-sequence-jump',NULL,now(),$6::jsonb)`,
+      [
+        forgedDigest, idempotencyKey, 'tenant_real', intentDigest, `approval_${suffix}`,
+        JSON.stringify({
+          schemaVersion: 'omnia.v9.authority-transition.p9', idempotencyKey, sequenceNo: 9,
+          tenantId: 'tenant_real', intentDigest, approvalId: `approval_${suffix}`,
+          fromStatus: 'RESERVED', toStatus: 'COMMITTED', reason: 'forged-sequence-jump',
+          previousEventDigest: null, occurredAt: new Date().toISOString(), eventDigest: forgedDigest
+        })
+      ]
+    );
+
+    const chain = await verifyAuthorityTransitionChain({ pool, idempotencyKey });
+    assert.equal(chain.ok, false);
+    assert.equal(chain.reason, 'authority-transition-sequence-gap');
+  } finally {
+    await pool.end();
+  }
+});
+
+test('real PostgreSQL: a forged event row with a digest that does not match PostgreSQL\'s own recomputation is detected', { skip: !realPostgresUrl }, async () => {
+  const pool = new Pool({ connectionString: realPostgresUrl, max: 2 });
+  const suffix = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
+  const idempotencyKey = `p9digest:${suffix}`;
+  const intentDigest = '3'.repeat(64);
+  try {
+    await migrateRealPostgres(pool);
+    await pool.query(
+      `INSERT INTO omnia_v9_authority_reservations(
+         idempotency_key,intent_digest,approval_id,tenant_id,use_delta,cost_delta_usd,blast_radius,status,reason
+       ) VALUES ($1,$2,$3,$4,1,0.01,1,'PENDING','')`,
+      [idempotencyKey, intentDigest, `approval_${suffix}`, 'tenant_real']
+    );
+
+    // Genesis row now exists at sequence_no=1 via the trigger. Directly insert a
+    // sequence_no=2 row whose event_digest column disagrees with what PostgreSQL's
+    // digest() function actually computes over the stored event payload.
+    const genesis = await pool.query(
+      `SELECT event_digest FROM omnia_v9_authority_transition_events WHERE idempotency_key=$1 AND sequence_no=1`,
+      [idempotencyKey]
+    );
+    const previousDigest = genesis.rows[0].event_digest;
+    const wrongDigest = hexFor(`forge-digest:${suffix}`);
+    const forgedEvent = {
+      schemaVersion: 'omnia.v9.authority-transition.p9', idempotencyKey, sequenceNo: 2,
+      tenantId: 'tenant_real', intentDigest, approvalId: `approval_${suffix}`,
+      fromStatus: 'PENDING', toStatus: 'RESERVED', reason: '',
+      previousEventDigest: previousDigest, occurredAt: new Date().toISOString(),
+      eventDigest: wrongDigest
+    };
+    await pool.query(
+      `INSERT INTO omnia_v9_authority_transition_events(
+         event_digest,idempotency_key,sequence_no,tenant_id,intent_digest,approval_id,
+         from_status,to_status,reason,previous_event_digest,occurred_at,event
+       ) VALUES ($1,$2,2,$3,$4,$5,'PENDING','RESERVED','',$6,now(),$7::jsonb)`,
+      [wrongDigest, idempotencyKey, 'tenant_real', intentDigest, `approval_${suffix}`, previousDigest, JSON.stringify(forgedEvent)]
+    );
+
+    const chain = await verifyAuthorityTransitionChain({ pool, idempotencyKey });
+    assert.equal(chain.ok, false);
+    assert.equal(chain.reason, 'authority-transition-digest-mismatch');
   } finally {
     await pool.end();
   }

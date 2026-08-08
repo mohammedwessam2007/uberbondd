@@ -1,0 +1,188 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import { Pool } from 'pg';
+import { proveReservedBefore, verifyAuthorityTransitionChain } from '../src/omnia-v9/authority-transition-ledger.mjs';
+
+function row({
+  sequence = 1,
+  digest = 'a'.repeat(64),
+  previous = null,
+  fromStatus = null,
+  toStatus = 'PENDING',
+  occurredAt = '2026-08-08T10:00:00.000Z',
+  tenantId = 'tenant1',
+  intentDigest = 'b'.repeat(64),
+  approvalId = 'approval1',
+  idempotencyKey = 'send:p1:0',
+  reason = ''
+} = {}) {
+  const event = {
+    schemaVersion: 'omnia.v9.authority-transition.p9',
+    idempotencyKey,
+    sequenceNo: sequence,
+    tenantId,
+    intentDigest,
+    approvalId,
+    fromStatus,
+    toStatus,
+    reason,
+    previousEventDigest: previous,
+    occurredAt,
+    eventDigest: digest
+  };
+  return {
+    event_digest: digest,
+    idempotency_key: idempotencyKey,
+    sequence_no: sequence,
+    tenant_id: tenantId,
+    intent_digest: intentDigest,
+    approval_id: approvalId,
+    from_status: fromStatus,
+    to_status: toStatus,
+    reason,
+    previous_event_digest: previous,
+    occurred_at: occurredAt,
+    created_at: occurredAt,
+    event,
+    recomputed_digest: digest
+  };
+}
+
+function fakePool(rows) {
+  return { query: async () => ({ rows }) };
+}
+
+function validRows() {
+  const first = row();
+  const second = row({
+    sequence: 2,
+    digest: 'c'.repeat(64),
+    previous: first.event_digest,
+    fromStatus: 'PENDING',
+    toStatus: 'RESERVED',
+    occurredAt: '2026-08-08T10:01:00.000Z'
+  });
+  const third = row({
+    sequence: 3,
+    digest: 'd'.repeat(64),
+    previous: second.event_digest,
+    fromStatus: 'RESERVED',
+    toStatus: 'COMMITTED',
+    reason: 'provider-accepted',
+    occurredAt: '2026-08-08T10:02:00.000Z'
+  });
+  return [first, second, third];
+}
+
+test('P9 accepts a continuous identity-stable authority transition chain', async () => {
+  const result = await verifyAuthorityTransitionChain({ pool: fakePool(validRows()), idempotencyKey: 'send:p1:0' });
+  assert.equal(result.ok, true);
+  assert.equal(result.currentStatus, 'COMMITTED');
+  assert.equal(result.events.length, 3);
+  assert.equal(result.headDigest, 'd'.repeat(64));
+});
+
+test('P9 proves exactly one RESERVED transition existed before the effect boundary', async () => {
+  const result = await proveReservedBefore({
+    pool: fakePool(validRows()),
+    idempotencyKey: 'send:p1:0',
+    boundaryAt: '2026-08-08T10:01:30.000Z',
+    tenantId: 'tenant1',
+    intentDigest: 'b'.repeat(64),
+    approvalId: 'approval1'
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.reservedEvent.sequenceNo, 2);
+});
+
+test('P9 refuses chain-link surgery', async () => {
+  const rows = validRows();
+  rows[2] = { ...rows[2], previous_event_digest: 'e'.repeat(64), event: { ...rows[2].event, previousEventDigest: 'e'.repeat(64) } };
+  const result = await verifyAuthorityTransitionChain({ pool: fakePool(rows), idempotencyKey: 'send:p1:0' });
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'authority-transition-chain-link-mismatch');
+});
+
+test('P9 refuses a database/event digest disagreement', async () => {
+  const rows = validRows();
+  rows[1] = { ...rows[1], recomputed_digest: 'f'.repeat(64) };
+  const result = await verifyAuthorityTransitionChain({ pool: fakePool(rows), idempotencyKey: 'send:p1:0' });
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'authority-transition-digest-mismatch');
+});
+
+test('P9 refuses identity drift inside one reservation chain', async () => {
+  const rows = validRows();
+  rows[2] = { ...rows[2], tenant_id: 'tenant2', event: { ...rows[2].event, tenantId: 'tenant2' } };
+  const result = await verifyAuthorityTransitionChain({ pool: fakePool(rows), idempotencyKey: 'send:p1:0' });
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'authority-transition-tenant-drift');
+});
+
+test('P9 refuses RESERVED authorization that happened after the effect boundary', async () => {
+  const result = await proveReservedBefore({
+    pool: fakePool(validRows()),
+    idempotencyKey: 'send:p1:0',
+    boundaryAt: '2026-08-08T10:00:30.000Z'
+  });
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'authority-not-reserved-before-effect');
+});
+
+const realPostgresUrl = process.env.OMNIA_V9_TEST_DATABASE_URL || '';
+
+async function migrateRealPostgres(pool) {
+  for (const migration of ['005_omnia_v9_proof_store.sql', '008_omnia_v9_authority_transition_ledger.sql']) {
+    await pool.query(await fs.readFile(new URL(`../migrations/${migration}`, import.meta.url), 'utf8'));
+  }
+}
+
+test('real PostgreSQL atomically captures direct authority mutations and makes provenance append-only', { skip: !realPostgresUrl }, async () => {
+  const pool = new Pool({ connectionString: realPostgresUrl, max: 2 });
+  const suffix = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
+  const idempotencyKey = `p9:${suffix}`;
+  const intentDigest = '1'.repeat(64);
+  try {
+    await migrateRealPostgres(pool);
+    await pool.query(
+      `INSERT INTO omnia_v9_authority_reservations(
+         idempotency_key,intent_digest,approval_id,tenant_id,use_delta,cost_delta_usd,blast_radius,status,reason
+       ) VALUES ($1,$2,$3,$4,1,0.01,1,'PENDING','')`,
+      [idempotencyKey, intentDigest, `approval_${suffix}`, 'tenant_real']
+    );
+    await pool.query(
+      `UPDATE omnia_v9_authority_reservations SET status='RESERVED',updated_at=now() WHERE idempotency_key=$1`,
+      [idempotencyKey]
+    );
+    await pool.query(
+      `UPDATE omnia_v9_authority_reservations SET status='COMMITTED',reason='provider-accepted',updated_at=now() WHERE idempotency_key=$1`,
+      [idempotencyKey]
+    );
+
+    const chain = await verifyAuthorityTransitionChain({ pool, idempotencyKey });
+    assert.equal(chain.ok, true);
+    assert.deepEqual(chain.events.map(event => event.toStatus), ['PENDING', 'RESERVED', 'COMMITTED']);
+    assert.equal(chain.events[1].fromStatus, 'PENDING');
+    assert.equal(chain.events[2].previousEventDigest, chain.events[1].eventDigest);
+
+    const proof = await proveReservedBefore({
+      pool,
+      idempotencyKey,
+      boundaryAt: chain.events[2].occurredAt,
+      tenantId: 'tenant_real',
+      intentDigest,
+      approvalId: `approval_${suffix}`
+    });
+    assert.equal(proof.ok, true);
+
+    await assert.rejects(
+      pool.query(`UPDATE omnia_v9_authority_transition_events SET reason='forged' WHERE idempotency_key=$1 AND sequence_no=2`, [idempotencyKey])
+    );
+    await assert.rejects(
+      pool.query(`DELETE FROM omnia_v9_authority_transition_events WHERE idempotency_key=$1 AND sequence_no=2`, [idempotencyKey])
+    );
+  } finally {
+    await pool.end();
+  }
+});

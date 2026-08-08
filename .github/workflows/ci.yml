@@ -35,3 +35,37 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Run Chromium-dependent test separately
         run: npm run test:browser
+
+  omnia-v9-closure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: uberbond_v9
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d uberbond_v9"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    env:
+      OMNIA_V9_TEST_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/uberbond_v9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      - name: Verify OMNIA V9 closure against real PostgreSQL
+        run: node scripts/verify-v9-closure.mjs
+      - name: Run OMNIA V9 end-to-end closure circuit
+        run: node --test tests/omnia-v9-closure.test.mjs

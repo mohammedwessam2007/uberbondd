@@ -71,7 +71,8 @@ export function evaluateOutboundAdmission({
   policyVersion = 'omnia-v9-outbound-integration-v1',
   policyDigest,
   constitutionDigest,
-  killState = { active: false }
+  killState = { active: false },
+  revokedApprovalIds = new Set()
 } = {}) {
   const { intent, evidence } = deriveOutboundActionIntent(context, now);
   const authorization = admitAction(intent, {
@@ -85,7 +86,8 @@ export function evaluateOutboundAdmission({
     policyVersion,
     policyDigest,
     constitutionDigest,
-    killState
+    killState,
+    revokedApprovalIds
   });
 
   return {

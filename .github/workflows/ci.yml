@@ -68,4 +68,4 @@ jobs:
       - name: Verify OMNIA V9 closure against real PostgreSQL
         run: node scripts/verify-v9-closure.mjs
       - name: Run OMNIA V9 end-to-end closure circuit
-        run: node --test tests/omnia-v9-closure.test.mjs
+        run: node --test tests/omnia-v9-end-to-end-proof-circuit.test.mjs

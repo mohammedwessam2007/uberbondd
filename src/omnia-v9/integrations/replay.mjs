@@ -32,7 +32,8 @@ export function runScenario(testScenario) {
       policyVersion: admissionOptions.policyVersion || 'omnia-v9-replay-v1',
       policyDigest: admissionOptions.policyDigest,
       constitutionDigest: admissionOptions.constitutionDigest,
-      killState: admissionOptions.killState || { active: false }
+      killState: admissionOptions.killState || { active: false },
+      revokedApprovalIds: admissionOptions.revokedApprovalIds || new Set()
     });
 
     const latencyMs = Number(process.hrtime.bigint() - startedAt) / 1e6;

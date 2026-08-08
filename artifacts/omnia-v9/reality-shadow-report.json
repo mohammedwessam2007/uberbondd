@@ -1,0 +1,1866 @@
+{
+  "schemaVersion": "omnia.v9.reality-shadow-report.v1",
+  "mission": "OMNIA V9 reality-shadow validation",
+  "generatedAt": "2026-08-08T22:31:55.572Z",
+  "cedar": {
+    "packageName": "@cedar-policy/cedar-wasm",
+    "packageVersion": "4.12.0",
+    "runtimeVersion": "4.12.0",
+    "policyDigest": "9ccecfff9cae4b82b7a896495a434100752201597c80cd85cb691c50401cb98b",
+    "constitutionDigest": "e0a38ea42ce17ed6f18f1e465c4465fc47cf9183396e008838414e5e473508bd",
+    "note": "the real, already closure-verified @cedar-policy/cedar-wasm package -- no mock, no duplicate parser"
+  },
+  "sampleComposition": {
+    "REAL_OPERATIONAL": {
+      "count": 0,
+      "reason": "data/db.sample.json (this environment's only operational data source) has zero prospects, campaigns, reservations, leads, or audit-log entries; there is no real or historical UberBond outbound activity to resolve reality-shadow candidates from."
+    },
+    "HISTORICAL_OPERATIONAL": {
+      "count": 0,
+      "reason": "data/db.sample.json (this environment's only operational data source) has zero prospects, campaigns, reservations, leads, or audit-log entries; there is no real or historical UberBond outbound activity to resolve reality-shadow candidates from."
+    },
+    "SYNTHETIC": {
+      "count": 162
+    },
+    "ADVERSARIAL": {
+      "count": 26
+    }
+  },
+  "comparisonByLabel": {
+    "SYNTHETIC": {
+      "total": 162,
+      "counts": {
+        "BOTH_ALLOW": 46,
+        "BOTH_DENY": 5,
+        "LEGACY_ALLOW_V9_DENY": 55,
+        "LEGACY_DENY_V9_ALLOW": 0,
+        "V9_INCOMPLETE": 50,
+        "V9_ERROR": 6
+      },
+      "criticalDisagreementCount": 0
+    },
+    "ADVERSARIAL": {
+      "total": 26,
+      "counts": {
+        "BOTH_ALLOW": 0,
+        "BOTH_DENY": 0,
+        "LEGACY_ALLOW_V9_DENY": 14,
+        "LEGACY_DENY_V9_ALLOW": 0,
+        "V9_INCOMPLETE": 12,
+        "V9_ERROR": 0
+      },
+      "criticalDisagreementCount": 0
+    }
+  },
+  "latencyByLabel": {
+    "SYNTHETIC": {
+      "p50": 0.299778,
+      "p95": 1.974036,
+      "p99": 5.837853,
+      "count": 162
+    },
+    "ADVERSARIAL": {
+      "p50": 0.210237,
+      "p95": 0.285971,
+      "p99": 0.297122,
+      "count": 26
+    }
+  },
+  "realStackLatency": {
+    "environment": {
+      "database": "real PostgreSQL 16 (pg_ctlcluster, TCP over 127.0.0.1:5432)",
+      "cedarPackage": "@cedar-policy/cedar-wasm",
+      "cedarPackageVersion": "4.12.0",
+      "cedarRuntimeVersion": "4.12.0",
+      "candidateCount": 60
+    },
+    "cedarBindLatencyMs": 90.929614,
+    "totalLatencyMs": {
+      "p50": 3.410458,
+      "p95": 7.998184,
+      "p99": 19.628229,
+      "max": 19.628229,
+      "count": 60
+    },
+    "coldTotalLatencyMs": {
+      "p50": 7.998184,
+      "p95": 19.628229,
+      "p99": 19.628229,
+      "max": 19.628229,
+      "count": 6
+    },
+    "warmTotalLatencyMs": {
+      "p50": 3.321088,
+      "p95": 5.05558,
+      "p99": 6.983546,
+      "max": 6.983546,
+      "count": 54
+    },
+    "cedarOnlyLatencyMs": {
+      "p50": 1.107474,
+      "p95": 5.591237,
+      "p99": 12.085035,
+      "max": 12.085035,
+      "count": 60
+    },
+    "databaseQueriesPerAction": {
+      "p50": 3,
+      "p95": 3,
+      "p99": 3,
+      "max": 3,
+      "count": 60
+    },
+    "bytesWrittenPerAction": {
+      "p50": 0,
+      "p95": 0,
+      "p99": 0,
+      "max": 0,
+      "count": 60
+    }
+  },
+  "founderBurden": {
+    "measuredOrEstimated": "MEASURED (from this mission's real-Cedar-substituted synthetic/adversarial replay, and real-Postgres-backed full-stack demo) -- NOT a production forecast, because REAL_OPERATIONAL sample count is 0",
+    "SYNTHETIC": {
+      "governedActions": 162,
+      "reviewsRequired": 111,
+      "reviewsPer100GovernedActions": 68.51851851851852,
+      "founderMinutesPer100GovernedActions": 205.55555555555554,
+      "ownerExceptionsPer100GovernedActions": 0
+    },
+    "ADVERSARIAL": {
+      "governedActions": 26,
+      "reviewsRequired": 26,
+      "reviewsPer100GovernedActions": 100,
+      "founderMinutesPer100GovernedActions": 300,
+      "ownerExceptionsPer100GovernedActions": 0
+    },
+    "northStar": "founder_minutes_per_100_governed_actions",
+    "note": "these numbers describe how often this specific probe set requires review, not how often real UberBond traffic would. Real founder-burden numbers require real shadow-mode data against real traffic, which does not exist in this environment."
+  },
+  "incompleteCaseWaterfall": {
+    "initialIncomplete": 62,
+    "proofResolved": 0,
+    "authorityResolved": 0,
+    "evidenceStillMissing": 62,
+    "externalProofRequired": 0,
+    "finalIncomplete": 62,
+    "note": "unchanged from PR #19's offline replay (54) because these specific scenarios deliberately construct a missing-authority situation to test that V9 correctly refuses to fabricate ALLOW -- wiring real Cedar does not and should not close this gap, since Cedar was never the missing ingredient (a covering approval was). Separately, fullStackDemo below shows real Postgres-backed shadow approvals DO resolve incompleteness for candidates that have real covering authority."
+  },
+  "fullStackDemo": {
+    "reuse": {
+      "approvalMaxUses": 3,
+      "candidatesEvaluated": 4,
+      "decisions": [
+        "ALLOW",
+        "ALLOW",
+        "ALLOW",
+        "REVIEW"
+      ],
+      "note": "the 4th candidate exceeds maxUses=3 and correctly falls back to REVIEW, never a fabricated ALLOW"
+    },
+    "revocation": {
+      "beforeRevoke": "ALLOW",
+      "afterRevoke": "REVIEW",
+      "note": "no cached authorization survives revocation -- afterRevoke re-resolves authority fresh from the database on every evaluation"
+    }
+  },
+  "criticalDisagreements": {
+    "SYNTHETIC": 0,
+    "ADVERSARIAL": 0,
+    "note": "zero critical disagreements in either label is a precondition for V9_CANARY_ELIGIBLE"
+  },
+  "results": [
+    {
+      "id": "authority-valid-0",
+      "category": "authority",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "authority-valid-1",
+      "category": "authority",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "authority-valid-2",
+      "category": "authority",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "authority-valid-3",
+      "category": "authority",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "authority-valid-4",
+      "category": "authority",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "authority-valid-5",
+      "category": "authority",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "authority-valid-6",
+      "category": "authority",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "authority-valid-7",
+      "category": "authority",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "authority-valid-8",
+      "category": "authority",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "authority-valid-9",
+      "category": "authority",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "expiry-0",
+      "category": "expiry",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "expiry-1",
+      "category": "expiry",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "expiry-2",
+      "category": "expiry",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "expiry-3",
+      "category": "expiry",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "expiry-4",
+      "category": "expiry",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "expiry-5",
+      "category": "expiry",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "expiry-6",
+      "category": "expiry",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "expiry-7",
+      "category": "expiry",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "expiry-8",
+      "category": "expiry",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "expiry-9",
+      "category": "expiry",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "expiry-intent-window",
+      "category": "expiry",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "revocation-0",
+      "category": "revocation",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "revocation-1",
+      "category": "revocation",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "revocation-2",
+      "category": "revocation",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "revocation-3",
+      "category": "revocation",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "revocation-4",
+      "category": "revocation",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "revocation-5",
+      "category": "revocation",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "revocation-6",
+      "category": "revocation",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "revocation-7",
+      "category": "revocation",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-0",
+      "category": "tenant",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-1",
+      "category": "tenant",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-2",
+      "category": "tenant",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-3",
+      "category": "tenant",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-4",
+      "category": "tenant",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-5",
+      "category": "tenant",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-6",
+      "category": "tenant",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "tenant-mismatch-7",
+      "category": "tenant",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "tenant-cross-campaign-evidence",
+      "category": "tenant",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-0",
+      "category": "evidence",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-1",
+      "category": "evidence",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-2",
+      "category": "evidence",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-3",
+      "category": "evidence",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-4",
+      "category": "evidence",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-5",
+      "category": "evidence",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-6",
+      "category": "evidence",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-7",
+      "category": "evidence",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-8",
+      "category": "evidence",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-missing-url-9",
+      "category": "evidence",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "policy-deny-0",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "policy-deny-1",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "policy-deny-2",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "policy-deny-3",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "policy-deny-4",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "policy-deny-5",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "policy-deny-6",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "policy-deny-7",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "policy-review-0",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "policy-review-1",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "policy-review-2",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "policy-review-3",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "constitution-missing-0",
+      "category": "constitution",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "constitution-missing-1",
+      "category": "constitution",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "constitution-missing-2",
+      "category": "constitution",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "constitution-missing-3",
+      "category": "constitution",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "constitution-missing-4",
+      "category": "constitution",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "constitution-missing-5",
+      "category": "constitution",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "policy-digest-missing-0",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "policy-digest-missing-1",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "policy-digest-missing-2",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "policy-digest-missing-3",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "policy-digest-missing-4",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "policy-digest-missing-5",
+      "category": "policy",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-0",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-1",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-2",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-3",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-4",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-5",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-6",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "idempotency-consistent-7",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "idempotency-key-mismatch-0",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "idempotency-key-mismatch-1",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "idempotency-key-mismatch-2",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "idempotency-key-mismatch-3",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "idempotency-key-mismatch-4",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "idempotency-key-mismatch-5",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "concurrency-determinism-0",
+      "category": "concurrency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "concurrency-determinism-1",
+      "category": "concurrency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "concurrency-determinism-2",
+      "category": "concurrency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "concurrency-determinism-3",
+      "category": "concurrency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "concurrency-determinism-4",
+      "category": "concurrency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "concurrency-determinism-5",
+      "category": "concurrency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "provider-uncertain-0",
+      "category": "provider-uncertainty",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "provider-uncertain-1",
+      "category": "provider-uncertainty",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "provider-uncertain-2",
+      "category": "provider-uncertainty",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "provider-uncertain-3",
+      "category": "provider-uncertainty",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "provider-uncertain-4",
+      "category": "provider-uncertainty",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "provider-uncertain-5",
+      "category": "provider-uncertainty",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "malformed-0",
+      "category": "malformed-inputs",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "malformed-1",
+      "category": "malformed-inputs",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "malformed-2",
+      "category": "malformed-inputs",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "malformed-3",
+      "category": "malformed-inputs",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "malformed-4",
+      "category": "malformed-inputs",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "malformed-5",
+      "category": "malformed-inputs",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "malformed-timestamp-0",
+      "category": "malformed-inputs",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "malformed-timestamp-1",
+      "category": "malformed-inputs",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "malformed-timestamp-2",
+      "category": "malformed-inputs",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "malformed-timestamp-3",
+      "category": "malformed-inputs",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "stale-evidence-0",
+      "category": "stale-proof",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "stale-evidence-1",
+      "category": "stale-proof",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "stale-evidence-2",
+      "category": "stale-proof",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "stale-evidence-3",
+      "category": "stale-proof",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "stale-evidence-4",
+      "category": "stale-proof",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "stale-evidence-5",
+      "category": "stale-proof",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "missing-evidence-0",
+      "category": "missing-proof",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "missing-evidence-1",
+      "category": "missing-proof",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "missing-evidence-2",
+      "category": "missing-proof",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "missing-evidence-3",
+      "category": "missing-proof",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "missing-evidence-4",
+      "category": "missing-proof",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "missing-evidence-5",
+      "category": "missing-proof",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "inconsistent-evidence-0",
+      "category": "inconsistent-proof",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "inconsistent-evidence-1",
+      "category": "inconsistent-proof",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "inconsistent-evidence-2",
+      "category": "inconsistent-proof",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "inconsistent-evidence-3",
+      "category": "inconsistent-proof",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "inconsistent-evidence-4",
+      "category": "inconsistent-proof",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "inconsistent-evidence-5",
+      "category": "inconsistent-proof",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-0",
+      "category": "evidence-tampering",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-1",
+      "category": "evidence-tampering",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-2",
+      "category": "evidence-tampering",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-3",
+      "category": "evidence-tampering",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-4",
+      "category": "evidence-tampering",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-5",
+      "category": "evidence-tampering",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-6",
+      "category": "evidence-tampering",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "evidence-tamper-7",
+      "category": "evidence-tampering",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-0",
+      "category": "wrong-recipient",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-1",
+      "category": "wrong-recipient",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-2",
+      "category": "wrong-recipient",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-3",
+      "category": "wrong-recipient",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-4",
+      "category": "wrong-recipient",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-5",
+      "category": "wrong-recipient",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-6",
+      "category": "wrong-recipient",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "wrong-recipient-7",
+      "category": "wrong-recipient",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "excessive-blast-radius-0",
+      "category": "excessive-blast-radius",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "excessive-blast-radius-1",
+      "category": "excessive-blast-radius",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "excessive-blast-radius-2",
+      "category": "excessive-blast-radius",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "excessive-blast-radius-3",
+      "category": "excessive-blast-radius",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "excessive-blast-radius-4",
+      "category": "excessive-blast-radius",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "excessive-blast-radius-5",
+      "category": "excessive-blast-radius",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "excessive-cost-0",
+      "category": "excessive-cost",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "excessive-cost-1",
+      "category": "excessive-cost",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "excessive-cost-2",
+      "category": "excessive-cost",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "excessive-cost-3",
+      "category": "excessive-cost",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "excessive-cost-4",
+      "category": "excessive-cost",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "excessive-cost-5",
+      "category": "excessive-cost",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "kill-state-0",
+      "category": "kill-state",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "kill-state-1",
+      "category": "kill-state",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "kill-state-2",
+      "category": "kill-state",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "kill-state-3",
+      "category": "kill-state",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "kill-state-4",
+      "category": "kill-state",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "kill-state-5",
+      "category": "kill-state",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "db-unavailable-0",
+      "category": "unavailable-database",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_ERROR",
+      "v9Decision": null,
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "db-unavailable-1",
+      "category": "unavailable-database",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_ERROR",
+      "v9Decision": null,
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "db-unavailable-2",
+      "category": "unavailable-database",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_ERROR",
+      "v9Decision": null,
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "db-unavailable-3",
+      "category": "unavailable-database",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_ERROR",
+      "v9Decision": null,
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "db-unavailable-4",
+      "category": "unavailable-database",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_ERROR",
+      "v9Decision": null,
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "db-unavailable-5",
+      "category": "unavailable-database",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_ERROR",
+      "v9Decision": null,
+      "error": "simulated database unavailable"
+    },
+    {
+      "id": "cedar-unavailable-0",
+      "category": "unavailable-cedar",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "cedar-unavailable-1",
+      "category": "unavailable-cedar",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "cedar-unavailable-2",
+      "category": "unavailable-cedar",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "cedar-unavailable-3",
+      "category": "unavailable-cedar",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "cedar-unavailable-4",
+      "category": "unavailable-cedar",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "cedar-unavailable-5",
+      "category": "unavailable-cedar",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": false,
+      "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
+      "v9Decision": "DENY",
+      "error": null
+    },
+    {
+      "id": "forged-signature-0",
+      "category": "authority",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "forged-signature-1",
+      "category": "authority",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "forged-signature-2",
+      "category": "authority",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "forged-signature-3",
+      "category": "authority",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "forged-signature-4",
+      "category": "authority",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "forged-signature-5",
+      "category": "authority",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "mutated-after-signing-0",
+      "category": "authority",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "mutated-after-signing-1",
+      "category": "authority",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "mutated-after-signing-2",
+      "category": "authority",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "mutated-after-signing-3",
+      "category": "authority",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "mutated-after-signing-4",
+      "category": "authority",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "mutated-after-signing-5",
+      "category": "authority",
+      "datasetLabel": "ADVERSARIAL",
+      "cedarEligible": true,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "v9Decision": "REVIEW",
+      "error": null
+    },
+    {
+      "id": "wrong-idempotency-key-0",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "wrong-idempotency-key-1",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "wrong-idempotency-key-2",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    },
+    {
+      "id": "wrong-idempotency-key-3",
+      "category": "idempotency",
+      "datasetLabel": "SYNTHETIC",
+      "cedarEligible": true,
+      "comparisonCategory": "BOTH_ALLOW",
+      "v9Decision": "ALLOW",
+      "error": null
+    }
+  ]
+}

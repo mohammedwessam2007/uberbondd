@@ -59,3 +59,15 @@ test('with a bound real Cedar authority, eligible candidates run through real Ce
   assert(eligibleCount > 150, 'expected the large majority of the 188 scenarios to be Cedar-substitution-eligible');
   assert(realCedarInvocations > 0, 'expected real Cedar to actually be invoked for at least the authority-valid happy-path scenarios');
 });
+
+test('regression: revocation scenarios genuinely exercise revocation (runScenario forwards revokedApprovalIds), never silently falling through to ALLOW', () => {
+  const original = buildReplayScenarios();
+  const revocationScenarios = original.filter(scenario => scenario.category === 'revocation');
+  assert.equal(revocationScenarios.length, 8, 'the replay set is expected to carry exactly 8 revocation scenarios');
+  for (const scenario of revocationScenarios) {
+    const { admissionOptions } = scenario.build();
+    assert(admissionOptions.revokedApprovalIds instanceof Set && admissionOptions.revokedApprovalIds.size > 0, `${scenario.id} must declare a non-empty revokedApprovalIds set`);
+    const result = runScenario(scenario);
+    assert.equal(result.comparisonCategory, 'V9_INCOMPLETE', `${scenario.id}: a revoked approval must never resolve to ALLOW -- runScenario must forward revokedApprovalIds to admitAction`);
+  }
+});

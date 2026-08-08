@@ -1,14 +1,14 @@
 {
   "schemaVersion": "omnia.v9.replay-report.v1",
-  "generatedAt": "2026-08-08T20:36:52.299Z",
+  "generatedAt": "2026-08-08T22:31:46.263Z",
   "disclaimer": "SYNTHETIC / OFFLINE REPLAY ONLY. No live sending, no real database, no real Cedar connection, and no production data were used. These numbers measure the V9 admission-decision logic and its integration adapter in isolation; they are not production metrics and must not be presented as such.",
   "totalScenarios": 188,
   "comparisonCategoryCounts": {
-    "BOTH_ALLOW": 54,
+    "BOTH_ALLOW": 46,
     "BOTH_DENY": 5,
     "LEGACY_ALLOW_V9_DENY": 69,
     "LEGACY_DENY_V9_ALLOW": 0,
-    "V9_INCOMPLETE": 54,
+    "V9_INCOMPLETE": 62,
     "V9_ERROR": 6
   },
   "byFailureClass": {
@@ -29,7 +29,7 @@
     "revocation": {
       "total": 8,
       "comparisonCategories": {
-        "BOTH_ALLOW": 8
+        "V9_INCOMPLETE": 8
       }
     },
     "tenant": {
@@ -181,10 +181,10 @@
     }
   ],
   "latencyMs": {
-    "p50": 0.361442,
-    "p95": 0.81689,
-    "p99": 1.204197,
-    "maxObserved": 2.993869
+    "p50": 0.239739,
+    "p95": 0.543618,
+    "p99": 1.033183,
+    "maxObserved": 2.361229
   },
   "fullResults": [
     {
@@ -197,7 +197,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 2.993869,
+      "latencyMs": 2.361229,
       "error": null
     },
     {
@@ -210,7 +210,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.655573,
+      "latencyMs": 0.568142,
       "error": null
     },
     {
@@ -223,7 +223,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.481339,
+      "latencyMs": 0.381088,
       "error": null
     },
     {
@@ -236,7 +236,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.654229,
+      "latencyMs": 0.499564,
       "error": null
     },
     {
@@ -249,7 +249,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 1.204197,
+      "latencyMs": 1.033183,
       "error": null
     },
     {
@@ -262,7 +262,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.48557,
+      "latencyMs": 0.316309,
       "error": null
     },
     {
@@ -275,7 +275,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.513997,
+      "latencyMs": 0.364052,
       "error": null
     },
     {
@@ -288,7 +288,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 1.031387,
+      "latencyMs": 0.392,
       "error": null
     },
     {
@@ -301,7 +301,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.816195,
+      "latencyMs": 0.543618,
       "error": null
     },
     {
@@ -314,7 +314,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.532029,
+      "latencyMs": 0.343693,
       "error": null
     },
     {
@@ -328,7 +328,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.430502,
+      "latencyMs": 0.381185,
       "error": null
     },
     {
@@ -342,7 +342,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.473552,
+      "latencyMs": 0.376751,
       "error": null
     },
     {
@@ -356,7 +356,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.37124,
+      "latencyMs": 0.272932,
       "error": null
     },
     {
@@ -370,7 +370,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.382215,
+      "latencyMs": 0.380511,
       "error": null
     },
     {
@@ -385,7 +385,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.47838,
+      "latencyMs": 0.347411,
       "error": null
     },
     {
@@ -400,7 +400,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.42143,
+      "latencyMs": 0.226481,
       "error": null
     },
     {
@@ -415,7 +415,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 1.034989,
+      "latencyMs": 0.907125,
       "error": null
     },
     {
@@ -429,7 +429,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.38573,
+      "latencyMs": 0.237694,
       "error": null
     },
     {
@@ -443,7 +443,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.326778,
+      "latencyMs": 0.298975,
       "error": null
     },
     {
@@ -457,7 +457,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.375235,
+      "latencyMs": 0.247393,
       "error": null
     },
     {
@@ -470,7 +470,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.358183,
+      "latencyMs": 0.240092,
       "error": null
     },
     {
@@ -478,12 +478,13 @@
       "category": "revocation",
       "description": "approval revoked after issuance",
       "legacyEligible": true,
-      "v9Decision": "ALLOW",
+      "v9Decision": "REVIEW",
       "v9Reasons": [
-        "admission:all-gates-satisfied"
+        "approval:no-covering-resolvable-approval",
+        "approval:revoked"
       ],
-      "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.469092,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.303707,
       "error": null
     },
     {
@@ -491,12 +492,13 @@
       "category": "revocation",
       "description": "approval revoked after issuance",
       "legacyEligible": true,
-      "v9Decision": "ALLOW",
+      "v9Decision": "REVIEW",
       "v9Reasons": [
-        "admission:all-gates-satisfied"
+        "approval:no-covering-resolvable-approval",
+        "approval:revoked"
       ],
-      "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.426658,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.234881,
       "error": null
     },
     {
@@ -504,12 +506,13 @@
       "category": "revocation",
       "description": "approval revoked after issuance",
       "legacyEligible": true,
-      "v9Decision": "ALLOW",
+      "v9Decision": "REVIEW",
       "v9Reasons": [
-        "admission:all-gates-satisfied"
+        "approval:no-covering-resolvable-approval",
+        "approval:revoked"
       ],
-      "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.547068,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.299472,
       "error": null
     },
     {
@@ -517,12 +520,13 @@
       "category": "revocation",
       "description": "approval revoked after issuance",
       "legacyEligible": true,
-      "v9Decision": "ALLOW",
+      "v9Decision": "REVIEW",
       "v9Reasons": [
-        "admission:all-gates-satisfied"
+        "approval:no-covering-resolvable-approval",
+        "approval:revoked"
       ],
-      "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.392455,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.27075,
       "error": null
     },
     {
@@ -530,12 +534,13 @@
       "category": "revocation",
       "description": "approval revoked after issuance",
       "legacyEligible": true,
-      "v9Decision": "ALLOW",
+      "v9Decision": "REVIEW",
       "v9Reasons": [
-        "admission:all-gates-satisfied"
+        "approval:no-covering-resolvable-approval",
+        "approval:revoked"
       ],
-      "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.480204,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.276419,
       "error": null
     },
     {
@@ -543,12 +548,13 @@
       "category": "revocation",
       "description": "approval revoked after issuance",
       "legacyEligible": true,
-      "v9Decision": "ALLOW",
+      "v9Decision": "REVIEW",
       "v9Reasons": [
-        "admission:all-gates-satisfied"
+        "approval:no-covering-resolvable-approval",
+        "approval:revoked"
       ],
-      "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.387969,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.216734,
       "error": null
     },
     {
@@ -556,12 +562,13 @@
       "category": "revocation",
       "description": "approval revoked after issuance",
       "legacyEligible": true,
-      "v9Decision": "ALLOW",
+      "v9Decision": "REVIEW",
       "v9Reasons": [
-        "admission:all-gates-satisfied"
+        "approval:no-covering-resolvable-approval",
+        "approval:revoked"
       ],
-      "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.339376,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.258657,
       "error": null
     },
     {
@@ -569,12 +576,13 @@
       "category": "revocation",
       "description": "approval revoked after issuance",
       "legacyEligible": true,
-      "v9Decision": "ALLOW",
+      "v9Decision": "REVIEW",
       "v9Reasons": [
-        "admission:all-gates-satisfied"
+        "approval:no-covering-resolvable-approval",
+        "approval:revoked"
       ],
-      "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.428366,
+      "comparisonCategory": "V9_INCOMPLETE",
+      "latencyMs": 0.291695,
       "error": null
     },
     {
@@ -588,7 +596,7 @@
         "scope:tenant"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.694934,
+      "latencyMs": 0.311687,
       "error": null
     },
     {
@@ -602,7 +610,7 @@
         "scope:tenant"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.69817,
+      "latencyMs": 0.297013,
       "error": null
     },
     {
@@ -616,7 +624,7 @@
         "scope:tenant"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.764034,
+      "latencyMs": 0.337618,
       "error": null
     },
     {
@@ -630,7 +638,7 @@
         "scope:tenant"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.592329,
+      "latencyMs": 0.273166,
       "error": null
     },
     {
@@ -644,7 +652,7 @@
         "scope:tenant"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.486575,
+      "latencyMs": 0.305834,
       "error": null
     },
     {
@@ -658,7 +666,7 @@
         "scope:tenant"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.398173,
+      "latencyMs": 0.262752,
       "error": null
     },
     {
@@ -672,7 +680,7 @@
         "scope:tenant"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.433341,
+      "latencyMs": 0.321485,
       "error": null
     },
     {
@@ -686,7 +694,7 @@
         "scope:tenant"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.476518,
+      "latencyMs": 0.267635,
       "error": null
     },
     {
@@ -699,7 +707,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.434634,
+      "latencyMs": 0.295333,
       "error": null
     },
     {
@@ -713,7 +721,7 @@
         "evidence:origin-not-allowed"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.20395,
+      "latencyMs": 0.163805,
       "error": null
     },
     {
@@ -727,7 +735,7 @@
         "evidence:origin-not-allowed"
       ],
       "comparisonCategory": "BOTH_DENY",
-      "latencyMs": 0.225241,
+      "latencyMs": 0.102237,
       "error": null
     },
     {
@@ -741,7 +749,7 @@
         "evidence:origin-not-allowed"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.601173,
+      "latencyMs": 0.726971,
       "error": null
     },
     {
@@ -755,7 +763,7 @@
         "evidence:origin-not-allowed"
       ],
       "comparisonCategory": "BOTH_DENY",
-      "latencyMs": 0.25048,
+      "latencyMs": 0.094712,
       "error": null
     },
     {
@@ -769,7 +777,7 @@
         "evidence:origin-not-allowed"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.224529,
+      "latencyMs": 0.070642,
       "error": null
     },
     {
@@ -783,7 +791,7 @@
         "evidence:origin-not-allowed"
       ],
       "comparisonCategory": "BOTH_DENY",
-      "latencyMs": 0.253993,
+      "latencyMs": 0.084272,
       "error": null
     },
     {
@@ -797,7 +805,7 @@
         "evidence:origin-not-allowed"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.189253,
+      "latencyMs": 0.073352,
       "error": null
     },
     {
@@ -811,7 +819,7 @@
         "evidence:origin-not-allowed"
       ],
       "comparisonCategory": "BOTH_DENY",
-      "latencyMs": 0.270549,
+      "latencyMs": 0.067437,
       "error": null
     },
     {
@@ -825,7 +833,7 @@
         "evidence:origin-not-allowed"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.249412,
+      "latencyMs": 0.07136,
       "error": null
     },
     {
@@ -839,7 +847,7 @@
         "evidence:origin-not-allowed"
       ],
       "comparisonCategory": "BOTH_DENY",
-      "latencyMs": 0.219042,
+      "latencyMs": 0.072408,
       "error": null
     },
     {
@@ -853,7 +861,7 @@
         "policy:not-allowed"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.655983,
+      "latencyMs": 0.379486,
       "error": null
     },
     {
@@ -867,7 +875,7 @@
         "policy:not-allowed"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.507092,
+      "latencyMs": 0.252379,
       "error": null
     },
     {
@@ -881,7 +889,7 @@
         "policy:not-allowed"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.676113,
+      "latencyMs": 0.389127,
       "error": null
     },
     {
@@ -895,7 +903,7 @@
         "policy:not-allowed"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.588357,
+      "latencyMs": 0.364164,
       "error": null
     },
     {
@@ -909,7 +917,7 @@
         "policy:not-allowed"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.585241,
+      "latencyMs": 0.270476,
       "error": null
     },
     {
@@ -923,7 +931,7 @@
         "policy:not-allowed"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.439551,
+      "latencyMs": 0.223701,
       "error": null
     },
     {
@@ -937,7 +945,7 @@
         "policy:not-allowed"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.442055,
+      "latencyMs": 0.261943,
       "error": null
     },
     {
@@ -951,7 +959,7 @@
         "policy:not-allowed"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.451344,
+      "latencyMs": 0.314246,
       "error": null
     },
     {
@@ -965,7 +973,7 @@
         "policy:not-allowed"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.429946,
+      "latencyMs": 0.301553,
       "error": null
     },
     {
@@ -979,7 +987,7 @@
         "policy:not-allowed"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.430596,
+      "latencyMs": 0.266844,
       "error": null
     },
     {
@@ -993,7 +1001,7 @@
         "policy:not-allowed"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.395626,
+      "latencyMs": 0.294021,
       "error": null
     },
     {
@@ -1007,7 +1015,7 @@
         "policy:not-allowed"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.380584,
+      "latencyMs": 0.266039,
       "error": null
     },
     {
@@ -1020,7 +1028,7 @@
         "constitution:digest-missing"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.428576,
+      "latencyMs": 0.279443,
       "error": null
     },
     {
@@ -1033,7 +1041,7 @@
         "constitution:digest-missing"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.81689,
+      "latencyMs": 0.310002,
       "error": null
     },
     {
@@ -1046,7 +1054,7 @@
         "constitution:digest-missing"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.622215,
+      "latencyMs": 0.268555,
       "error": null
     },
     {
@@ -1059,7 +1067,7 @@
         "constitution:digest-missing"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.694975,
+      "latencyMs": 0.241476,
       "error": null
     },
     {
@@ -1072,7 +1080,7 @@
         "constitution:digest-missing"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.890795,
+      "latencyMs": 0.311811,
       "error": null
     },
     {
@@ -1085,7 +1093,7 @@
         "constitution:digest-missing"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.716889,
+      "latencyMs": 0.624896,
       "error": null
     },
     {
@@ -1098,7 +1106,7 @@
         "policy:digest-missing"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.544215,
+      "latencyMs": 0.314519,
       "error": null
     },
     {
@@ -1111,7 +1119,7 @@
         "policy:digest-missing"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.904665,
+      "latencyMs": 0.633638,
       "error": null
     },
     {
@@ -1124,7 +1132,7 @@
         "policy:digest-missing"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.373301,
+      "latencyMs": 0.219794,
       "error": null
     },
     {
@@ -1137,7 +1145,7 @@
         "policy:digest-missing"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.353027,
+      "latencyMs": 0.202909,
       "error": null
     },
     {
@@ -1150,7 +1158,7 @@
         "policy:digest-missing"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.329765,
+      "latencyMs": 0.265438,
       "error": null
     },
     {
@@ -1163,7 +1171,7 @@
         "policy:digest-missing"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.349422,
+      "latencyMs": 0.209908,
       "error": null
     },
     {
@@ -1176,7 +1184,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.35175,
+      "latencyMs": 0.235651,
       "error": null
     },
     {
@@ -1189,7 +1197,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.331956,
+      "latencyMs": 0.211917,
       "error": null
     },
     {
@@ -1202,7 +1210,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.382695,
+      "latencyMs": 0.250917,
       "error": null
     },
     {
@@ -1215,7 +1223,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.402441,
+      "latencyMs": 0.216686,
       "error": null
     },
     {
@@ -1228,7 +1236,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.371425,
+      "latencyMs": 0.205631,
       "error": null
     },
     {
@@ -1241,7 +1249,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.32151,
+      "latencyMs": 0.288772,
       "error": null
     },
     {
@@ -1254,7 +1262,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.302097,
+      "latencyMs": 0.264737,
       "error": null
     },
     {
@@ -1267,7 +1275,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.356065,
+      "latencyMs": 0.228261,
       "error": null
     },
     {
@@ -1280,7 +1288,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.415166,
+      "latencyMs": 0.284627,
       "error": null
     },
     {
@@ -1293,7 +1301,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.319415,
+      "latencyMs": 0.216716,
       "error": null
     },
     {
@@ -1306,7 +1314,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.356426,
+      "latencyMs": 0.251585,
       "error": null
     },
     {
@@ -1319,7 +1327,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.392721,
+      "latencyMs": 0.220262,
       "error": null
     },
     {
@@ -1332,7 +1340,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.345967,
+      "latencyMs": 0.269102,
       "error": null
     },
     {
@@ -1345,7 +1353,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.321008,
+      "latencyMs": 0.234929,
       "error": null
     },
     {
@@ -1358,7 +1366,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.357999,
+      "latencyMs": 0.321857,
       "error": null
     },
     {
@@ -1371,7 +1379,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.355631,
+      "latencyMs": 0.235809,
       "error": null
     },
     {
@@ -1384,7 +1392,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.322588,
+      "latencyMs": 0.225212,
       "error": null
     },
     {
@@ -1397,7 +1405,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.309937,
+      "latencyMs": 0.214062,
       "error": null
     },
     {
@@ -1410,7 +1418,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.419611,
+      "latencyMs": 0.356505,
       "error": null
     },
     {
@@ -1423,7 +1431,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.312525,
+      "latencyMs": 0.23443,
       "error": null
     },
     {
@@ -1436,7 +1444,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.880975,
+      "latencyMs": 0.303214,
       "error": null
     },
     {
@@ -1449,7 +1457,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.350704,
+      "latencyMs": 0.789562,
       "error": null
     },
     {
@@ -1462,7 +1470,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.351187,
+      "latencyMs": 0.233029,
       "error": null
     },
     {
@@ -1475,7 +1483,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.350582,
+      "latencyMs": 0.262498,
       "error": null
     },
     {
@@ -1488,7 +1496,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.399644,
+      "latencyMs": 0.239352,
       "error": null
     },
     {
@@ -1501,7 +1509,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.387545,
+      "latencyMs": 0.225886,
       "error": null
     },
     {
@@ -1516,7 +1524,7 @@
         "intent:type:blastRadius"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.261187,
+      "latencyMs": 0.251858,
       "error": null
     },
     {
@@ -1531,7 +1539,7 @@
         "intent:type:blastRadius"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.1558,
+      "latencyMs": 0.088447,
       "error": null
     },
     {
@@ -1546,7 +1554,7 @@
         "intent:type:maxCostUsd"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.116557,
+      "latencyMs": 0.084454,
       "error": null
     },
     {
@@ -1561,7 +1569,7 @@
         "intent:type:maxCostUsd"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.107862,
+      "latencyMs": 0.067143,
       "error": null
     },
     {
@@ -1575,7 +1583,7 @@
         "intent:invalid-blast-radius"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.108213,
+      "latencyMs": 0.067659,
       "error": null
     },
     {
@@ -1589,7 +1597,7 @@
         "intent:invalid-cost"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.138932,
+      "latencyMs": 0.059003,
       "error": null
     },
     {
@@ -1602,7 +1610,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.345889,
+      "latencyMs": 0.299403,
       "error": null
     },
     {
@@ -1615,7 +1623,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.307909,
+      "latencyMs": 0.220626,
       "error": null
     },
     {
@@ -1628,7 +1636,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.461718,
+      "latencyMs": 0.262452,
       "error": null
     },
     {
@@ -1641,7 +1649,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.56649,
+      "latencyMs": 0.223887,
       "error": null
     },
     {
@@ -1655,7 +1663,7 @@
         "evidence:inactive"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.327335,
+      "latencyMs": 0.146794,
       "error": null
     },
     {
@@ -1669,7 +1677,7 @@
         "evidence:inactive"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.238729,
+      "latencyMs": 0.078657,
       "error": null
     },
     {
@@ -1683,7 +1691,7 @@
         "evidence:inactive"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.243875,
+      "latencyMs": 0.07024,
       "error": null
     },
     {
@@ -1697,7 +1705,7 @@
         "evidence:inactive"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.203332,
+      "latencyMs": 0.078951,
       "error": null
     },
     {
@@ -1711,7 +1719,7 @@
         "evidence:inactive"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.257446,
+      "latencyMs": 0.069163,
       "error": null
     },
     {
@@ -1725,7 +1733,7 @@
         "evidence:inactive"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.202109,
+      "latencyMs": 0.070457,
       "error": null
     },
     {
@@ -1739,7 +1747,7 @@
         "evidence:unresolved"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.25393,
+      "latencyMs": 0.08538,
       "error": null
     },
     {
@@ -1753,7 +1761,7 @@
         "evidence:unresolved"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.148707,
+      "latencyMs": 0.053835,
       "error": null
     },
     {
@@ -1767,7 +1775,7 @@
         "evidence:unresolved"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.256145,
+      "latencyMs": 0.051644,
       "error": null
     },
     {
@@ -1781,7 +1789,7 @@
         "evidence:unresolved"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.197829,
+      "latencyMs": 0.055234,
       "error": null
     },
     {
@@ -1795,7 +1803,7 @@
         "evidence:unresolved"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.150188,
+      "latencyMs": 0.051057,
       "error": null
     },
     {
@@ -1809,7 +1817,7 @@
         "evidence:unresolved"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.189965,
+      "latencyMs": 0.050014,
       "error": null
     },
     {
@@ -1822,7 +1830,7 @@
         "evidence:digest-mismatch"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.28116,
+      "latencyMs": 0.135597,
       "error": null
     },
     {
@@ -1835,7 +1843,7 @@
         "evidence:digest-mismatch"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.219336,
+      "latencyMs": 0.083709,
       "error": null
     },
     {
@@ -1848,7 +1856,7 @@
         "evidence:digest-mismatch"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.937098,
+      "latencyMs": 0.072242,
       "error": null
     },
     {
@@ -1861,7 +1869,7 @@
         "evidence:digest-mismatch"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.215182,
+      "latencyMs": 0.536384,
       "error": null
     },
     {
@@ -1874,7 +1882,7 @@
         "evidence:digest-mismatch"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.310676,
+      "latencyMs": 0.104572,
       "error": null
     },
     {
@@ -1887,7 +1895,7 @@
         "evidence:digest-mismatch"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.250989,
+      "latencyMs": 0.254737,
       "error": null
     },
     {
@@ -1901,7 +1909,7 @@
         "evidence:invalid-external-source-ref"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.236042,
+      "latencyMs": 0.192695,
       "error": null
     },
     {
@@ -1915,7 +1923,7 @@
         "evidence:invalid-external-source-ref"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.171573,
+      "latencyMs": 0.167139,
       "error": null
     },
     {
@@ -1929,7 +1937,7 @@
         "evidence:invalid-external-source-ref"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.210687,
+      "latencyMs": 0.087892,
       "error": null
     },
     {
@@ -1943,7 +1951,7 @@
         "evidence:invalid-external-source-ref"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.155673,
+      "latencyMs": 0.082015,
       "error": null
     },
     {
@@ -1957,7 +1965,7 @@
         "evidence:invalid-external-source-ref"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.143329,
+      "latencyMs": 0.078117,
       "error": null
     },
     {
@@ -1971,7 +1979,7 @@
         "evidence:invalid-external-source-ref"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.159812,
+      "latencyMs": 0.075951,
       "error": null
     },
     {
@@ -1985,7 +1993,7 @@
         "evidence:invalid-external-source-ref"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.199601,
+      "latencyMs": 0.099688,
       "error": null
     },
     {
@@ -1999,7 +2007,7 @@
         "evidence:invalid-external-source-ref"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.151962,
+      "latencyMs": 0.113324,
       "error": null
     },
     {
@@ -2013,7 +2021,7 @@
         "scope:resource"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.417899,
+      "latencyMs": 0.257217,
       "error": null
     },
     {
@@ -2027,7 +2035,7 @@
         "scope:resource"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.377737,
+      "latencyMs": 0.249516,
       "error": null
     },
     {
@@ -2041,7 +2049,7 @@
         "scope:resource"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.383623,
+      "latencyMs": 0.211471,
       "error": null
     },
     {
@@ -2055,7 +2063,7 @@
         "scope:resource"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.371995,
+      "latencyMs": 0.2463,
       "error": null
     },
     {
@@ -2069,7 +2077,7 @@
         "scope:resource"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.349252,
+      "latencyMs": 0.21818,
       "error": null
     },
     {
@@ -2083,7 +2091,7 @@
         "scope:resource"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.334946,
+      "latencyMs": 0.20797,
       "error": null
     },
     {
@@ -2097,7 +2105,7 @@
         "scope:resource"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.367537,
+      "latencyMs": 0.202938,
       "error": null
     },
     {
@@ -2111,7 +2119,7 @@
         "scope:resource"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.312363,
+      "latencyMs": 0.227836,
       "error": null
     },
     {
@@ -2125,7 +2133,7 @@
         "scope:blast-radius"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.32091,
+      "latencyMs": 0.241959,
       "error": null
     },
     {
@@ -2139,7 +2147,7 @@
         "scope:blast-radius"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.428286,
+      "latencyMs": 0.206958,
       "error": null
     },
     {
@@ -2153,7 +2161,7 @@
         "scope:blast-radius"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.333805,
+      "latencyMs": 0.259417,
       "error": null
     },
     {
@@ -2167,7 +2175,7 @@
         "scope:blast-radius"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.367839,
+      "latencyMs": 0.226098,
       "error": null
     },
     {
@@ -2181,7 +2189,7 @@
         "scope:blast-radius"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.323274,
+      "latencyMs": 0.245114,
       "error": null
     },
     {
@@ -2195,7 +2203,7 @@
         "scope:blast-radius"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.373052,
+      "latencyMs": 0.213841,
       "error": null
     },
     {
@@ -2210,7 +2218,7 @@
         "scope:intent-cost"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.488423,
+      "latencyMs": 0.20922,
       "error": null
     },
     {
@@ -2225,7 +2233,7 @@
         "scope:intent-cost"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.807931,
+      "latencyMs": 0.71802,
       "error": null
     },
     {
@@ -2240,7 +2248,7 @@
         "scope:intent-cost"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.305935,
+      "latencyMs": 0.22366,
       "error": null
     },
     {
@@ -2255,7 +2263,7 @@
         "scope:intent-cost"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.294,
+      "latencyMs": 0.286732,
       "error": null
     },
     {
@@ -2270,7 +2278,7 @@
         "scope:intent-cost"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.336595,
+      "latencyMs": 0.268122,
       "error": null
     },
     {
@@ -2285,7 +2293,7 @@
         "scope:intent-cost"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.301153,
+      "latencyMs": 0.20327,
       "error": null
     },
     {
@@ -2298,7 +2306,7 @@
         "kill-state:active"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.098087,
+      "latencyMs": 0.057596,
       "error": null
     },
     {
@@ -2311,7 +2319,7 @@
         "kill-state:active"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.07848,
+      "latencyMs": 0.044363,
       "error": null
     },
     {
@@ -2324,7 +2332,7 @@
         "kill-state:active"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.07572,
+      "latencyMs": 0.069316,
       "error": null
     },
     {
@@ -2337,7 +2345,7 @@
         "kill-state:active"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.116763,
+      "latencyMs": 0.046887,
       "error": null
     },
     {
@@ -2350,7 +2358,7 @@
         "kill-state:active"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.101244,
+      "latencyMs": 0.042617,
       "error": null
     },
     {
@@ -2363,7 +2371,7 @@
         "kill-state:active"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.1195,
+      "latencyMs": 0.042575,
       "error": null
     },
     {
@@ -2374,7 +2382,7 @@
       "v9Decision": null,
       "v9Reasons": [],
       "comparisonCategory": "V9_ERROR",
-      "latencyMs": 0.395898,
+      "latencyMs": 0.321471,
       "error": "simulated database unavailable"
     },
     {
@@ -2385,7 +2393,7 @@
       "v9Decision": null,
       "v9Reasons": [],
       "comparisonCategory": "V9_ERROR",
-      "latencyMs": 0.436345,
+      "latencyMs": 0.293487,
       "error": "simulated database unavailable"
     },
     {
@@ -2396,7 +2404,7 @@
       "v9Decision": null,
       "v9Reasons": [],
       "comparisonCategory": "V9_ERROR",
-      "latencyMs": 0.31836,
+      "latencyMs": 0.251633,
       "error": "simulated database unavailable"
     },
     {
@@ -2407,7 +2415,7 @@
       "v9Decision": null,
       "v9Reasons": [],
       "comparisonCategory": "V9_ERROR",
-      "latencyMs": 0.283952,
+      "latencyMs": 0.213829,
       "error": "simulated database unavailable"
     },
     {
@@ -2418,7 +2426,7 @@
       "v9Decision": null,
       "v9Reasons": [],
       "comparisonCategory": "V9_ERROR",
-      "latencyMs": 0.293301,
+      "latencyMs": 0.239739,
       "error": "simulated database unavailable"
     },
     {
@@ -2429,7 +2437,7 @@
       "v9Decision": null,
       "v9Reasons": [],
       "comparisonCategory": "V9_ERROR",
-      "latencyMs": 0.335577,
+      "latencyMs": 0.23923,
       "error": "simulated database unavailable"
     },
     {
@@ -2442,7 +2450,7 @@
         "policy:error:simulated Cedar evaluation failure"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.361442,
+      "latencyMs": 0.267114,
       "error": null
     },
     {
@@ -2455,7 +2463,7 @@
         "policy:error:simulated Cedar evaluation failure"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.367759,
+      "latencyMs": 0.210785,
       "error": null
     },
     {
@@ -2468,7 +2476,7 @@
         "policy:error:simulated Cedar evaluation failure"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.324033,
+      "latencyMs": 0.254558,
       "error": null
     },
     {
@@ -2481,7 +2489,7 @@
         "policy:error:simulated Cedar evaluation failure"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.303188,
+      "latencyMs": 0.2229,
       "error": null
     },
     {
@@ -2494,7 +2502,7 @@
         "policy:error:simulated Cedar evaluation failure"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.363003,
+      "latencyMs": 0.238243,
       "error": null
     },
     {
@@ -2507,7 +2515,7 @@
         "policy:error:simulated Cedar evaluation failure"
       ],
       "comparisonCategory": "LEGACY_ALLOW_V9_DENY",
-      "latencyMs": 0.316457,
+      "latencyMs": 0.214897,
       "error": null
     },
     {
@@ -2521,7 +2529,7 @@
         "approval:signature-invalid"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.600705,
+      "latencyMs": 0.247896,
       "error": null
     },
     {
@@ -2535,7 +2543,7 @@
         "approval:signature-invalid"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.48553,
+      "latencyMs": 0.216014,
       "error": null
     },
     {
@@ -2549,7 +2557,7 @@
         "approval:signature-invalid"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.546971,
+      "latencyMs": 0.200292,
       "error": null
     },
     {
@@ -2563,7 +2571,7 @@
         "approval:signature-invalid"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.465997,
+      "latencyMs": 0.194418,
       "error": null
     },
     {
@@ -2577,7 +2585,7 @@
         "approval:signature-invalid"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.518177,
+      "latencyMs": 0.319051,
       "error": null
     },
     {
@@ -2591,7 +2599,7 @@
         "approval:signature-invalid"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.44928,
+      "latencyMs": 0.229013,
       "error": null
     },
     {
@@ -2605,7 +2613,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.513022,
+      "latencyMs": 0.330601,
       "error": null
     },
     {
@@ -2619,7 +2627,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.510083,
+      "latencyMs": 0.276331,
       "error": null
     },
     {
@@ -2633,7 +2641,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 1.167907,
+      "latencyMs": 0.258143,
       "error": null
     },
     {
@@ -2647,7 +2655,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.358123,
+      "latencyMs": 0.3968,
       "error": null
     },
     {
@@ -2661,7 +2669,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.306328,
+      "latencyMs": 0.265091,
       "error": null
     },
     {
@@ -2675,7 +2683,7 @@
         "approval:no-covering-resolvable-approval"
       ],
       "comparisonCategory": "V9_INCOMPLETE",
-      "latencyMs": 0.312928,
+      "latencyMs": 0.238692,
       "error": null
     },
     {
@@ -2688,7 +2696,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.34493,
+      "latencyMs": 0.228069,
       "error": null
     },
     {
@@ -2701,7 +2709,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.364814,
+      "latencyMs": 0.242695,
       "error": null
     },
     {
@@ -2714,7 +2722,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.351969,
+      "latencyMs": 0.214957,
       "error": null
     },
     {
@@ -2727,7 +2735,7 @@
         "admission:all-gates-satisfied"
       ],
       "comparisonCategory": "BOTH_ALLOW",
-      "latencyMs": 0.295843,
+      "latencyMs": 0.219336,
       "error": null
     }
   ]

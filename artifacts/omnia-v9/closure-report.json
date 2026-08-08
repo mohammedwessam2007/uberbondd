@@ -1,7 +1,7 @@
 {
   "schemaVersion": "omnia.v9.closure-report.v2",
   "testedGitSha": "4e256c91de5d21f2f69027534ef45cd9876fdf2b",
-  "reportCommitSha": "PENDING_NEXT_COMMIT_ON_THIS_BRANCH",
+  "reportCommitSha": "7d5b8d839915cb5b9ae7b96d847577a3a9dec3ce",
   "reportCommitShaNote": "This file is committed together with docs/OMNIA_V9_FINAL_CLOSURE_REPORT.md in the commit immediately following testedGitSha on this branch. The report commit necessarily postdates testedGitSha (it adds this file) but changes no executable code — the decisive verification run in this document was executed AT testedGitSha, before this file existed.",
   "branch": "claude/omnia-v9-closure-verify-1iuar2",
   "baseBranch": "agent/omnia-v9-closure",

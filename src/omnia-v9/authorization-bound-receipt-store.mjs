@@ -9,6 +9,18 @@ export class OmniaV9AuthorizationBoundReceiptStoreError extends Error {
   }
 }
 
+async function verifyGenericProof(client, binding) {
+  const existingProof = await client.query(
+    `SELECT object_id,digest,tenant_id,data FROM omnia_v9_objects
+     WHERE object_type='EXECUTION_AUTHORIZATION_BINDING' AND object_id=$1 FOR SHARE`,
+    [binding.bindingDigest]
+  );
+  const proof = existingProof.rows?.[0];
+  if (!proof || proof.digest !== binding.bindingDigest || proof.tenant_id !== binding.tenantId) {
+    throw new OmniaV9AuthorizationBoundReceiptStoreError('generic proof ledger conflicts with authorization binding', 'PROOF_LEDGER_CONFLICT');
+  }
+}
+
 export class OmniaV9AuthorizationBoundReceiptStore {
   constructor({ pool } = {}) {
     if (!pool || typeof pool.query !== 'function') {
@@ -63,30 +75,47 @@ export class OmniaV9AuthorizationBoundReceiptStore {
         throw new OmniaV9AuthorizationBoundReceiptStoreError('P6 receipt tenant disagrees with P7 authorization binding', 'TENANT_CONFLICT');
       }
 
-      const inserted = await client.query(
-        `INSERT INTO omnia_v9_execution_authorization_bindings(
-           reservation_id,receipt_digest,binding_digest,tenant_id,intent_digest,
-           authorization_decision_digest,approval_id,policy_version,policy_digest,
-           constitution_digest,binding
-         ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11::jsonb)
-         ON CONFLICT (reservation_id) DO NOTHING
-         RETURNING reservation_id,receipt_digest,binding_digest,tenant_id,intent_digest,
-                   authorization_decision_digest,approval_id,policy_version,policy_digest,
-                   constitution_digest,binding,created_at`,
-        [
-          binding.consequence.reservationId,
-          binding.consequence.receiptDigest,
-          binding.bindingDigest,
-          binding.tenantId,
-          binding.intentDigest,
-          binding.authorizationDecisionDigest,
-          binding.approvalId,
-          binding.policyVersion,
-          binding.policyDigest,
-          binding.constitutionDigest,
-          JSON.stringify(binding)
-        ]
-      );
+      let inserted;
+      try {
+        inserted = await client.query(
+          `INSERT INTO omnia_v9_execution_authorization_bindings(
+             reservation_id,receipt_digest,binding_digest,tenant_id,intent_digest,
+             authorization_decision_digest,approval_id,policy_version,policy_digest,
+             constitution_digest,binding
+           ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11::jsonb)
+           ON CONFLICT (reservation_id) DO NOTHING
+           RETURNING reservation_id,receipt_digest,binding_digest,tenant_id,intent_digest,
+                     authorization_decision_digest,approval_id,policy_version,policy_digest,
+                     constitution_digest,binding,created_at`,
+          [
+            binding.consequence.reservationId,
+            binding.consequence.receiptDigest,
+            binding.bindingDigest,
+            binding.tenantId,
+            binding.intentDigest,
+            binding.authorizationDecisionDigest,
+            binding.approvalId,
+            binding.policyVersion,
+            binding.policyDigest,
+            binding.constitutionDigest,
+            JSON.stringify(binding)
+          ]
+        );
+      } catch (error) {
+        if (error?.code === '23505') {
+          const digestOwner = await client.query(
+            `SELECT reservation_id,binding_digest FROM omnia_v9_execution_authorization_bindings
+             WHERE binding_digest=$1 OR receipt_digest=$2`,
+            [binding.bindingDigest, binding.consequence.receiptDigest]
+          ).catch(() => ({ rows: [] }));
+          throw new OmniaV9AuthorizationBoundReceiptStoreError(
+            'authorization binding or receipt identity is already owned by another consequence',
+            'AUTHORIZATION_BINDING_IDENTITY_CONFLICT',
+            { owner: digestOwner.rows?.[0] || null }
+          );
+        }
+        throw error;
+      }
 
       let row = inserted.rows?.[0] || null;
       if (!row) {
@@ -108,6 +137,7 @@ export class OmniaV9AuthorizationBoundReceiptStore {
             { reservationId: binding.consequence.reservationId, existingBindingDigest: row.binding_digest, attemptedBindingDigest: binding.bindingDigest }
           );
         }
+        await verifyGenericProof(client, binding);
         return { inserted: false, duplicate: true, binding: row };
       }
 
@@ -119,17 +149,7 @@ export class OmniaV9AuthorizationBoundReceiptStore {
         [binding.bindingDigest, binding.tenantId, JSON.stringify(binding)]
       );
 
-      if (!proofInsert.rows?.length) {
-        const existingProof = await client.query(
-          `SELECT object_id,digest,tenant_id,data FROM omnia_v9_objects
-           WHERE object_type='EXECUTION_AUTHORIZATION_BINDING' AND object_id=$1 FOR SHARE`,
-          [binding.bindingDigest]
-        );
-        const proof = existingProof.rows?.[0];
-        if (!proof || proof.digest !== binding.bindingDigest || proof.tenant_id !== binding.tenantId) {
-          throw new OmniaV9AuthorizationBoundReceiptStoreError('generic proof ledger conflicts with authorization binding', 'PROOF_LEDGER_CONFLICT');
-        }
-      }
+      if (!proofInsert.rows?.length) await verifyGenericProof(client, binding);
 
       return { inserted: true, duplicate: false, binding: row };
     });

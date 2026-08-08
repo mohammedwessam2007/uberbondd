@@ -5,7 +5,7 @@ import { PGlite } from '@electric-sql/pglite';
 
 async function migratedDb() {
   const db = new PGlite();
-  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql']) {
+  for (const name of ['001_initial.sql', '002_durable_queue.sql', '003_shared_artifacts.sql', '004_unattended_send_safety.sql', '005_omnia_v9_proof_store.sql']) {
     await db.exec(await fs.readFile(new URL(`../migrations/${name}`, import.meta.url), 'utf8'));
   }
   return db;
@@ -16,7 +16,7 @@ test('PostgreSQL migration creates every required table and index foundation', a
   try {
     const tables = await db.query("SELECT table_name FROM information_schema.tables WHERE table_schema='public'");
     const names = new Set(tables.rows.map(row => row.table_name));
-    for (const name of ['prospects','campaigns','jobs','messages','replies','suppressions','social_tasks','accounts','audit_log','settings','leads','orders','subscriptions','monitoring_runs','notifications','revenue_events','discovery_runs','worker_heartbeats','artifacts','outbound_reservations','sender_health','outbound_events']) {
+    for (const name of ['prospects','campaigns','jobs','messages','replies','suppressions','social_tasks','accounts','audit_log','settings','leads','orders','subscriptions','monitoring_runs','notifications','revenue_events','discovery_runs','worker_heartbeats','artifacts','outbound_reservations','sender_health','outbound_events','omnia_v9_objects','omnia_v9_revocations','omnia_v9_approval_usage','omnia_v9_authority_reservations']) {
       assert(names.has(name), `missing table ${name}`);
     }
   } finally { await db.close(); }
@@ -51,7 +51,6 @@ test('PostgreSQL prospect claiming uses SKIP LOCKED-compatible state columns', a
   } finally { await db.close(); }
 });
 
-
 test('durable queue migration adds retry, locking, dedupe, and dead-letter columns', async () => {
   const db = await migratedDb();
   try {
@@ -68,7 +67,6 @@ test('durable queue migration adds retry, locking, dedupe, and dead-letter colum
     await db.query(`INSERT INTO jobs(id,type,queue,status,singleton_key,run_at,data) VALUES ('j5','single','single','queued','one-active',now(),'{"id":"j5","status":"queued"}'::jsonb)`);
   } finally { await db.close(); }
 });
-
 
 test('shared artifact table stores binary screenshots for separate web and worker services', async () => {
   const db = await migratedDb();
@@ -94,7 +92,6 @@ test('PostgreSQL can atomically claim one requested prospect without taking the 
     assert.equal(old.rows[0].status, 'queued');
   } finally { await db.close(); }
 });
-
 
 test('outbound safety migration enforces durable idempotency and sender health uniqueness', async () => {
   const db = await migratedDb();

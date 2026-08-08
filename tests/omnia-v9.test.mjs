@@ -4,7 +4,7 @@ import { generateKeyPairSync } from 'node:crypto';
 import { canonicalize, signDigestHex, sha256 } from '../src/omnia-v9/canonical.mjs';
 import {
   createActionIntent, createApproval, createEvidenceRecord, admitAction, verifyEvidence, verifyApproval,
-  createExecutionReceipt, verifyExecutionReceipt
+  createExecutionReceipt, verifyExecutionReceipt, verifyIntent
 } from '../src/omnia-v9/kernel.mjs';
 import { buildOutboundShadowArtifacts, evaluateOutboundShadow } from '../src/omnia-v9/outbound-shadow.mjs';
 
@@ -201,6 +201,19 @@ test('outbound shadow cannot allow even with a valid approval until canonical co
 });
 
 test('malformed intent timestamps fail closed', () => assert.equal(admitAction(intent({ expiresAt: 'not-a-date' }), context()).decision, 'DENY'));
+
+test('expired intent cannot authorize even with a valid covering approval', () => {
+  const result = admitAction(intent({ createdAt: '2026-08-06T00:00:00Z', expiresAt: '2026-08-07T00:00:00Z' }), context());
+  assert.equal(result.decision, 'DENY');
+  assert(result.reasons.includes('intent:expired'));
+});
+
+test('verifyIntent directly rejects an expired intent whose window was otherwise valid', () => {
+  const expired = intent({ createdAt: '2026-08-06T00:00:00Z', expiresAt: '2026-08-07T00:00:00Z' });
+  const result = verifyIntent(expired, { now });
+  assert.equal(result.ok, false);
+  assert.deepEqual(result.errors, ['intent:expired']);
+});
 
 test('unknown approval fields prevent authorization', () => assert.equal(admitAction(intent(), context(evidence(), { ...approval(), surprisePower: 'ALLOW_ALL' })).decision, 'REVIEW'));
 

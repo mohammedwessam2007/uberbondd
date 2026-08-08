@@ -121,6 +121,30 @@ test('an arbitrary or unstored intent digest cannot spend authority', async () =
   } finally { await db.close(); }
 });
 
+test('authority reservation refuses a stored intent row whose database tenant column disagrees with its own signed content tenant', async () => {
+  // putObject() always enforces that the database tenant column matches
+  // data.tenantId at write time, so this path is unreachable through the
+  // normal API. This proves the defense-in-depth recheck inside
+  // reserveAuthority still catches it if that invariant is ever violated
+  // by a direct row insert (e.g. a bypassed or buggy migration/import tool).
+  const { db, store } = await storeDb();
+  try {
+    await persistApproval(store);
+    const forged = actionIntent({ idempotencyKey: 'forged-k', tenantId: 'tenant2' });
+    await db.query(
+      `INSERT INTO omnia_v9_objects(object_type,object_id,tenant_id,digest,data)
+       VALUES ('ACTION_INTENT',$1,'tenant1',$1,$2::jsonb)`,
+      [forged.intentDigest, JSON.stringify(forged)]
+    );
+    const result = await store.reserveAuthority({
+      approvalId: 'ap1', tenantId: 'tenant1', intentDigest: forged.intentDigest,
+      idempotencyKey: 'forged-k', costDeltaUsd: forged.maxCostUsd, blastRadius: forged.blastRadius, now
+    });
+    assert.equal(result.ok, false);
+    assert.equal(result.reason, 'intent-content-tenant-mismatch');
+  } finally { await db.close(); }
+});
+
 test('authority reservation independently rechecks approval scope against stored intent', async () => {
   const { db, store } = await storeDb();
   try {

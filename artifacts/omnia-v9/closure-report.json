@@ -1,0 +1,192 @@
+{
+  "schemaVersion": "omnia.v9.closure-report.v1",
+  "gitSha": "b9eaa883a96c5cfd27a15bf9048c15ed0e643db9",
+  "branch": "claude/omnia-v9-closure-verify-1iuar2",
+  "baseBranch": "agent/omnia-v9-closure",
+  "timestamp": "2026-08-08T18:06:04Z",
+  "nodeVersion": "v22.22.2",
+  "postgresVersion": "PostgreSQL 16.13 (Ubuntu 16.13-0ubuntu0.24.04.1) on x86_64-pc-linux-gnu",
+  "postgresSource": "local disposable instance (postgresql-16 package), not Docker (no docker daemon available in this environment) — real PostgreSQL server, not a mock",
+  "database": {
+    "name": "omnia_v9_test",
+    "role": "omnia_v9_test",
+    "pgcryptoVersion": "1.3",
+    "migrationsApplied": [
+      "001_initial.sql",
+      "002_durable_queue.sql",
+      "003_shared_artifacts.sql",
+      "004_unattended_send_safety.sql",
+      "005_omnia_v9_proof_store.sql",
+      "006_omnia_v9_execution_receipt_uniqueness.sql",
+      "007_omnia_v9_authorization_bound_receipts.sql",
+      "008_omnia_v9_authority_transition_ledger.sql"
+    ],
+    "migrationsIdempotent": true,
+    "migrationsApplyCleanFromEmpty": true
+  },
+  "v9Suites": {
+    "npmScript": "test:v9",
+    "files": {
+      "tests/omnia-v9.test.mjs": 49,
+      "tests/omnia-v9-proof-store.test.mjs": 23,
+      "tests/omnia-v9-constitution.test.mjs": 16,
+      "tests/omnia-v9-policy.test.mjs": 20,
+      "tests/omnia-v9-outbound-shadow.test.mjs": 5,
+      "tests/omnia-v9-execution-receipt.test.mjs": 12,
+      "tests/omnia-v9-receipt-store.test.mjs": 10,
+      "tests/omnia-v9-authorization-bound-receipt.test.mjs": 14,
+      "tests/omnia-v9-pre-effect-authority-reconciliation.test.mjs": 12,
+      "tests/omnia-v9-authority-transition-ledger.test.mjs": 11
+    },
+    "totalInTestV9Script": 172,
+    "endToEndProofCircuit": {
+      "file": "tests/omnia-v9-end-to-end-proof-circuit.test.mjs",
+      "count": 1,
+      "note": "run separately via CI's omnia-v9-closure job, not part of npm run test:v9"
+    },
+    "grandTotalV9Tests": 173,
+    "pass": 173,
+    "fail": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "realPostgresTests": {
+    "count": 10,
+    "byFile": {
+      "tests/omnia-v9-proof-store.test.mjs": 2,
+      "tests/omnia-v9-receipt-store.test.mjs": 2,
+      "tests/omnia-v9-authorization-bound-receipt.test.mjs": 1,
+      "tests/omnia-v9-pre-effect-authority-reconciliation.test.mjs": 1,
+      "tests/omnia-v9-authority-transition-ledger.test.mjs": 3,
+      "tests/omnia-v9-end-to-end-proof-circuit.test.mjs": 1
+    },
+    "note": "all gated with { skip: !realPostgresUrl } and confirmed NOT skipped in this run because OMNIA_V9_TEST_DATABASE_URL was set to the disposable local database"
+  },
+  "concurrencyRaceResults": [
+    {
+      "id": "P1-single-use-authority-race",
+      "description": "two concurrent workers race to reserve a single-use bounded authority",
+      "winners": 1,
+      "losers": 1,
+      "doubleSpend": false,
+      "stressRuns": 5,
+      "flakes": 0
+    },
+    {
+      "id": "P1-idempotent-retry-race",
+      "description": "three concurrent identical reservation attempts for the same intent",
+      "converged": true,
+      "originalWinners": 1,
+      "idempotentReplays": 2,
+      "budgetConsumedOnce": true
+    },
+    {
+      "id": "P6-identical-receipt-race",
+      "description": "two workers persist the identical execution receipt concurrently",
+      "winners": 1,
+      "idempotentReplays": 1,
+      "preExisting": true
+    },
+    {
+      "id": "P6-contradictory-receipt-race",
+      "description": "two workers persist contradictory receipts for one reservation concurrently",
+      "winners": 1,
+      "conflictsRejected": 1,
+      "preExisting": true
+    },
+    {
+      "id": "P7-conflicting-authorization-binding-race",
+      "description": "two workers durably bind conflicting authorization lineage to the same P6 consequence",
+      "winners": 1,
+      "conflictsRejected": 1,
+      "stressRuns": 3,
+      "flakes": 0
+    }
+  ],
+  "transitionLedgerTamperResults": [
+    { "id": "direct-UPDATE-rejected", "method": "raw SQL UPDATE on omnia_v9_authority_transition_events", "detected": true, "mechanism": "BEFORE UPDATE trigger raises exception" },
+    { "id": "direct-DELETE-rejected", "method": "raw SQL DELETE on omnia_v9_authority_transition_events", "detected": true, "mechanism": "BEFORE DELETE trigger raises exception" },
+    { "id": "sequence-number-surgery", "method": "raw SQL INSERT jumping to a future sequence_no, bypassing the reservation-table trigger", "detected": true, "mechanism": "application verifier: authority-transition-sequence-gap" },
+    { "id": "digest-surgery", "method": "raw SQL INSERT with event_digest not matching PostgreSQL's own digest() recomputation over the payload", "detected": true, "mechanism": "application verifier: authority-transition-digest-mismatch" }
+  ],
+  "mutationTestResults": [
+    { "id": "ignore-intent-expiry", "location": "src/omnia-v9/kernel.mjs verifyIntent", "survivedInitially": true, "action": "added 2 regression tests", "caughtAfterFix": true },
+    { "id": "ignore-approval-revocation", "location": "src/omnia-v9/proof-store.mjs reserveAuthority", "survivedInitially": false, "caughtByExistingTests": true },
+    { "id": "skip-content-tenant-recheck", "location": "src/omnia-v9/proof-store.mjs reserveAuthority", "survivedInitially": true, "note": "unreachable via normal API since putObject() enforces the same invariant at write time; added a direct-SQL-bypass test to exercise the defense-in-depth path", "caughtAfterFix": true },
+    { "id": "disable-append-only-transition-trigger", "location": "migrations/008_omnia_v9_authority_transition_ledger.sql", "survivedInitially": false, "caughtByExistingTests": true, "note": "required mutating the migration file itself; the test's own migration helper re-applies migration 008 (including CREATE TRIGGER) before every run, which silently undid an out-of-band DROP TRIGGER" }
+  ],
+  "mutationTestResultsNotExhaustive": true,
+  "mutationTestResultsCaveat": "Time-boxed to the highest-value protections explicitly named in the mission (expiry, revocation, tenant isolation, append-only ledger). Receipt-uniqueness and authorization-binding-conflict enforcement were verified via passing concurrency/conflict tests (see concurrencyRaceResults) rather than live constraint-drop mutation, because the receipt-bindings table has FK-dependent tables and a risky cascading DROP CONSTRAINT was judged not worth the blast radius on a shared disposable database for this pass.",
+  "cedar": {
+    "package": "@cedar-policy/cedar-wasm",
+    "version": "4.12.0",
+    "cedarRuntimeVersion": "4.12.0",
+    "installedThisSession": true,
+    "installMethod": "npm install --save (real package manager, package-lock.json updated)",
+    "status": "P3_POLICY_VERIFIED",
+    "constitutionDigest": "e0a38ea42ce17ed6f18f1e465c4465fc47cf9183396e008838414e5e473508bd",
+    "sourceSetDigest": "ffbbdedd61db246d1472a22357faa2cb1250020ab5ef964707cd22b2ea6bd67b",
+    "policyDigest": "9ccecfff9cae4b82b7a896495a434100752201597c80cd85cb691c50401cb98b",
+    "wiredIntoClosureGate": true,
+    "defectsFoundAndFixed": [
+      "checkParsePolicySet/validate/isAuthorized require policies as a PolicySet struct ({ staticPolicies: text }), not a raw string — adapter was passing a raw string",
+      "this cedar-wasm version returns lowercase decision values (\"allow\"/\"deny\"), not \"Allow\"/\"Deny\" — adapter compared against the wrong case, which would have silently DENIED every real ALLOW decision"
+    ]
+  },
+  "closureCircuit": {
+    "script": "scripts/verify-v9-closure.mjs",
+    "result": "OMNIA_V9_CLOSURE_VERIFIED",
+    "requiresRealPostgres": true,
+    "requiresCedarVerified": true,
+    "requiresFullV9SuiteZeroFailZeroSkip": true
+  },
+  "ciFixed": {
+    "file": ".github/workflows/ci.yml",
+    "defect": "omnia-v9-closure job's last step ran 'node --test tests/omnia-v9-closure.test.mjs', which does not exist in the repository; reproduced locally as exit code 1",
+    "fix": "pointed the step at the real file, tests/omnia-v9-end-to-end-proof-circuit.test.mjs",
+    "verifiedLocally": true
+  },
+  "implementationDefectsFixed": [
+    {
+      "id": "date-object-timestamp-truncation",
+      "files": ["src/omnia-v9/authority-transition-ledger.mjs", "src/omnia-v9/pre-effect-authority-reconciler.mjs"],
+      "description": "parseTime()/finiteTime() compared node-postgres Date objects via Date.parse(String(value)), which invokes Date.prototype.toString() and truncates to whole-second precision. Caused spurious P9 chain-verification failures against real PostgreSQL, and in the P8 reconciler could let a reservation created up to ~1s after a pre-effect observation appear to have existed before it.",
+      "howFound": "running the existing 'real PostgreSQL atomically captures direct authority mutations...' test against a genuine local PostgreSQL 16 instance instead of PGlite",
+      "regressionTestsAdded": 3
+    }
+  ],
+  "fullRepositoryRegression": {
+    "command": "npm run test:deterministic",
+    "totalTests": 266,
+    "pass": 266,
+    "fail": 0,
+    "skipped": 0,
+    "includesV9": true,
+    "liteDirectoryModified": false,
+    "browserTests": {
+      "attempted": true,
+      "result": "FAILED_ENVIRONMENT",
+      "reason": "Playwright browser revision mismatch in this sandbox (installed playwright package expects chrome-headless-shell-1228; only revision 1194 is present under /opt/pw-browsers). Pre-existing environment limitation unrelated to any change made in this session; the failing test (tests/browser.test.mjs) exercises an unrelated site-crawler feature, not OMNIA V9.",
+      "outOfScopeForV9Closure": true
+    }
+  },
+  "v8DefectRegressionCheck": {
+    "unknownConsequentialFactsFailOpen": "NOT_PRESENT — kernel.mjs fails closed on unresolved evidence requirements and unknown fields",
+    "expiredCapabilitiesAuthorizingWork": "NOT_PRESENT — covered by intent/approval expiry checks, now with direct regression tests",
+    "selfDeclaredReviewerIndependence": "NOT_APPLICABLE — V9 P0-P9 does not implement a review/promotion pipeline with reviewer identity in this codebase; the closest analog is the P3 Cedar LEARNING_CANNOT_EXPAND_SOVEREIGNTY rule, which is tested",
+    "unknownConstitutionalFieldsBypassingLaw": "NOT_PRESENT — constitution.mjs binds exact source text and digest; unknown roles/anchors are rejected",
+    "unsupportedSelfImprovementReachingPromotion": "NOT_APPLICABLE — no self-improvement/promotion pipeline in V9 scope",
+    "arbitrarySourceIdsBecomingProvenance": "NOT_PRESENT — proof-store objectId/digest identity binding rejects mismatches",
+    "malformedSupplierValuesWinning": "NOT_PRESENT — canonicalizer throws on non-finite numbers, verified by new regression tests",
+    "fakeCausalTerminologyWithNoSemantics": "NOT_APPLICABLE to this codebase's terminology",
+    "externalEffectsCompiledWithoutAuthority": "NOT_PRESENT — P8 reconciler requires a proven pre-effect authority chain",
+    "giantGeneratedTestsDisconnectedFromImplementation": "NOT_PRESENT — this session avoided volume-inflation; all added tests target specific, verified defects/gaps"
+  },
+  "finalResult": "OMNIA_V9_CLOSURE_VERIFIED",
+  "remainingNonProductionLimitations": [
+    "PostgreSQL is a local disposable instance in this sandbox, not the Docker-based postgres:16 service CI uses — behavior matches (same major version, same pgcrypto extension) but this is not the identical container image",
+    "Mutation testing was time-boxed and not exhaustive across every check named in the mission; see mutationTestResultsCaveat",
+    "Browser test suite could not run in this sandbox due to a pre-existing Playwright browser-revision mismatch unrelated to V9",
+    "Nothing was deployed, no outbound network calls were made to real providers, and no production credentials were used or touched"
+  ]
+}

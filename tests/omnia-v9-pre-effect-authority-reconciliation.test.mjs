@@ -151,6 +151,18 @@ test('P8 refuses an approval persisted after the pre-effect observation', async 
   } finally { await db.close(); }
 });
 
+test('P8 refuses an approval whose signed content says it was issued after the observation', async () => {
+  const db = await dbFixture();
+  try {
+    const obs = observation();
+    const receipt = executionReceipt(obs);
+    await seedAuthority(db, { approvalObject: approval({ issuedAt: '2026-08-08T11:02:30.000Z' }) });
+    await seedP6(db, receipt);
+    const result = await reconcilePreEffectAuthority({ pool: db, shadowObservation: obs, executionReceipt: receipt });
+    assert.equal(result.reason, 'approval-content-issued-after-observation');
+  } finally { await db.close(); }
+});
+
 test('P8 refuses an authority reservation first persisted after the observation', async () => {
   const db = await dbFixture();
   try {

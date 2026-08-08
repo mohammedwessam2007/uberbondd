@@ -99,3 +99,9 @@ DROP TRIGGER IF EXISTS omnia_v9_authority_transition_events_no_delete ON omnia_v
 CREATE TRIGGER omnia_v9_authority_transition_events_no_delete
 BEFORE DELETE ON omnia_v9_authority_transition_events
 FOR EACH ROW EXECUTE FUNCTION omnia_v9_reject_authority_transition_mutation();
+
+CREATE TABLE IF NOT EXISTS schema_migrations (
+  version text PRIMARY KEY,
+  applied_at timestamptz NOT NULL DEFAULT now()
+);
+INSERT INTO schema_migrations(version) VALUES ('008_omnia_v9_authority_transition_ledger') ON CONFLICT DO NOTHING;

@@ -53,3 +53,9 @@ CREATE INDEX IF NOT EXISTS idx_omnia_v9_authority_reservations_approval
   ON omnia_v9_authority_reservations(approval_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_omnia_v9_authority_reservations_tenant_status
   ON omnia_v9_authority_reservations(tenant_id, status, created_at DESC);
+
+CREATE TABLE IF NOT EXISTS schema_migrations (
+  version text PRIMARY KEY,
+  applied_at timestamptz NOT NULL DEFAULT now()
+);
+INSERT INTO schema_migrations(version) VALUES ('005_omnia_v9_proof_store') ON CONFLICT DO NOTHING;

@@ -17,3 +17,9 @@ CREATE TABLE IF NOT EXISTS omnia_v9_execution_authorization_bindings (
 
 CREATE INDEX IF NOT EXISTS idx_omnia_v9_execution_authorization_tenant_intent
   ON omnia_v9_execution_authorization_bindings(tenant_id, intent_digest);
+
+CREATE TABLE IF NOT EXISTS schema_migrations (
+  version text PRIMARY KEY,
+  applied_at timestamptz NOT NULL DEFAULT now()
+);
+INSERT INTO schema_migrations(version) VALUES ('007_omnia_v9_authorization_bound_receipts') ON CONFLICT DO NOTHING;

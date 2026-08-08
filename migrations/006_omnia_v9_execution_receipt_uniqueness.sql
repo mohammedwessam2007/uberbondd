@@ -11,3 +11,9 @@ CREATE TABLE IF NOT EXISTS omnia_v9_execution_receipt_bindings (
 
 CREATE INDEX IF NOT EXISTS idx_omnia_v9_execution_receipt_bindings_tenant_created
   ON omnia_v9_execution_receipt_bindings(tenant_id, created_at DESC);
+
+CREATE TABLE IF NOT EXISTS schema_migrations (
+  version text PRIMARY KEY,
+  applied_at timestamptz NOT NULL DEFAULT now()
+);
+INSERT INTO schema_migrations(version) VALUES ('006_omnia_v9_execution_receipt_uniqueness') ON CONFLICT DO NOTHING;

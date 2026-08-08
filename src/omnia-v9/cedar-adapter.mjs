@@ -1,4 +1,4 @@
-const REQUIRED_FUNCTIONS = ['checkParseSchema', 'checkParsePolicySet', 'validate', 'isAuthorized'];
+const REQUIRED_FUNCTIONS = ['checkParseSchema', 'checkParsePolicySet', 'validate', 'isAuthorized', 'getCedarVersion'];
 
 export class CedarAdapterError extends Error {
   constructor(message, code = 'CEDAR_ADAPTER_ERROR', detail = {}) {
@@ -9,10 +9,26 @@ export class CedarAdapterError extends Error {
   }
 }
 
-function assertCedarModule(cedar) {
+export function assertCedarModule(cedar) {
   if (!cedar || typeof cedar !== 'object') throw new CedarAdapterError('Cedar module missing', 'CEDAR_UNAVAILABLE');
   const missing = REQUIRED_FUNCTIONS.filter(name => typeof cedar[name] !== 'function');
   if (missing.length) throw new CedarAdapterError('Cedar module contract incomplete', 'CEDAR_CONTRACT_MISMATCH', { missing });
+  const cedarVersion = String(cedar.getCedarVersion() || '').trim();
+  if (!cedarVersion) throw new CedarAdapterError('Cedar runtime version unavailable', 'CEDAR_CONTRACT_MISMATCH');
+  return { cedarVersion };
+}
+
+export function cedarRuntimeIdentity(cedar, { packageName, packageVersion, importPath }) {
+  const { cedarVersion } = assertCedarModule(cedar);
+  for (const [field, value] of Object.entries({ packageName, packageVersion, importPath })) {
+    if (typeof value !== 'string' || !value.trim()) throw new CedarAdapterError(`${field} required`, 'CEDAR_IDENTITY_INVALID');
+  }
+  return {
+    packageName: packageName.trim(),
+    version: packageVersion.trim(),
+    importPath: importPath.trim(),
+    cedarVersion
+  };
 }
 
 function parseJson(text, name) {
@@ -52,7 +68,7 @@ export function validateCedarPolicy({ cedar, schemaText, policyText }) {
   if (errors.length) {
     throw new CedarAdapterError('Cedar strict validation produced errors', 'CEDAR_POLICY_INVALID', { errors, warnings });
   }
-  return { ok: true, schema, warnings };
+  return { ok: true, schema, warnings, cedarVersion: String(cedar.getCedarVersion()) };
 }
 
 function requireResolverFacts(facts) {

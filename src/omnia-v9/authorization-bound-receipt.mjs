@@ -1,5 +1,6 @@
 import { digestObject } from './canonical.mjs';
-import { verifyIntent, verifyExecutionReceiptShadow } from './kernel.mjs';
+import { verifyIntent } from './kernel.mjs';
+import { verifyExecutionReceiptShadow } from './execution-receipt-shadow.mjs';
 
 const SHA256_HEX = /^[a-f0-9]{64}$/i;
 const SCHEMA_VERSION = 'omnia.v9.authorization-bound-execution-receipt.p7';
@@ -51,8 +52,9 @@ function verifyDecision(decision) {
 
 export function buildAuthorizationBoundExecutionReceipt({ tenantId, intent, authorizationDecision, executionReceipt, boundAt = new Date().toISOString() }) {
   tenantId = requireText(tenantId, 'tenantId');
+  const boundTime = validIso(boundAt, 'boundAt');
 
-  const intentVerification = verifyIntent(intent, { now: new Date(boundAt) });
+  const intentVerification = verifyIntent(intent, { now: new Date(boundTime) });
   if (!intentVerification.ok) {
     throw new OmniaV9AuthorizationBindingError('intent verification failed', 'INTENT_INVALID', { errors: intentVerification.errors });
   }
@@ -102,7 +104,7 @@ export function buildAuthorizationBoundExecutionReceipt({ tenantId, intent, auth
       preEffectObservationDigest: requireDigest(executionReceipt.preEffectObservationDigest, 'executionReceipt.preEffectObservationDigest'),
       outcome: requireText(executionReceipt.outcome, 'executionReceipt.outcome')
     },
-    boundAt: validIso(boundAt, 'boundAt')
+    boundAt: boundTime
   };
 
   return { ...base, bindingDigest: digestObject(base) };

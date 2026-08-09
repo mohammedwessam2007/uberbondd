@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "omnia.v9.gmail-preflight-report.v1",
+  "generatedAt": "2026-08-09T02:30:00.000Z",
+  "mission": "gmail-adapter-preflight-and-owner-gated-live-reconciliation",
+  "branch": "product/omnia-v9-gmail-preflight",
+  "baseBranch": "product/omnia-v9-external-effect-recovery",
+  "frozenBaselineCheck": {
+    "result": "ALL_20_FILES_MATCH",
+    "filesChecked": 20,
+    "referenceFile": "artifacts/omnia-v9/frozen-baseline.json"
+  },
+  "ownerAuthorizationGate": {
+    "approvalDocument": "docs/omnia-v9/V9_GMAIL_SELF_TEST_OWNER_APPROVAL.md",
+    "filledIn": false,
+    "approved": false,
+    "result": "AWAITING_OWNER_AUTHORIZATION"
+  },
+  "credentialGate": {
+    "gmailOAuthEnvVarsPresent": false,
+    "checkedPatterns": ["gmail_client*", "google_client*", "gmail_refresh*", "gmail_token*"],
+    "result": "NO_TEST_CREDENTIALS_FOUND"
+  },
+  "liveSelfTest": {
+    "executed": false,
+    "reason": "owner authorization gate not satisfied; per mission instruction the process stops before the credential gate is even reached"
+  },
+  "adapterImplementation": {
+    "file": "src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs",
+    "methods": ["prepare", "dispatch", "reconcile", "classifyOutcome"],
+    "frozenKernelModified": false,
+    "sharedDispatcherModified": false,
+    "sharedRecoveryWorkerModified": false,
+    "additiveGmailMjsChanges": ["cfg.fetchImpl injection point", "err.status on thrown errors", "optional message.messageId header"]
+  },
+  "staticSafetyTests": {
+    "file": "tests/omnia-v9-gmail-effect-adapter-static-safety.test.mjs",
+    "count": 14,
+    "pass": 14,
+    "fail": 0
+  },
+  "mockedContractTests": {
+    "file": "tests/omnia-v9-gmail-effect-adapter-contract.test.mjs",
+    "count": 15,
+    "pass": 15,
+    "fail": 0,
+    "note": "validates this adapter's own logic against a controlled fake transport; NOT provider evidence about Gmail's real behavior"
+  },
+  "dispatchRecoveryIntegrationTests": {
+    "file": "tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs",
+    "count": 4,
+    "pass": 4,
+    "fail": 0,
+    "note": "runs the real Mission-6 dispatcher and recovery worker against this adapter and real PostgreSQL 16, proving a genuine drop-in replacement for null-sink-v2.mjs"
+  },
+  "mutationTests": {
+    "totalMutations": 7,
+    "allCaught": true,
+    "allReverted": true,
+    "results": [
+      { "id": 1, "description": "Message-ID binding removed from the send call", "testsFailed": 6, "testsTotal": 15 },
+      { "id": 2, "description": "automatic send retry permitted on failure", "testsFailed": 3, "testsTotal": 15 },
+      { "id": 3, "description": "UNCERTAIN converted to NOT_FOUND", "testsFailed": 4, "testsTotal": 15 },
+      { "id": 4, "description": "NOT_FOUND triggers immediate resend (shared recovery worker)", "testsFailed": 4, "testsTotal": 19, "note": "caught in both the Gmail-specific and Mission 6 null-sink test files" },
+      { "id": 5, "description": "multiple reconciliation matches accepted heuristically", "testsFailed": 1, "testsTotal": 15 },
+      { "id": 6, "description": "recipient mismatch ignored during reconciliation", "testsFailed": 1, "testsTotal": 15 },
+      { "id": 7, "description": "Gmail message identity verification ignored after fetch", "testsFailed": 1, "testsTotal": 15 }
+    ]
+  },
+  "gmailReconciliationVerdict": "GMAIL_RECONCILIATION_PARTIALLY_VERIFIED",
+  "realOutboundCanaryVerdict": "REAL_OUTBOUND_CANARY_NOT_ELIGIBLE",
+  "finalVerdict": "GMAIL_LIVE_TEST_AWAITING_OWNER_AUTHORIZATION",
+  "noLiveOutboundSent": true,
+  "noProductionActivation": true,
+  "noProspectOrCustomerContact": true
+}

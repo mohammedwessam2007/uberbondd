@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "omnia.v9.external-effect-recovery-report.v1",
+  "measuredAt": "2026-08-09T01:50:58.663Z",
+  "performance": {
+    "preDispatchPersistenceOverheadMs": {
+      "count": 200,
+      "p50Ms": 2.311,
+      "p95Ms": 3.268,
+      "p99Ms": 3.915,
+      "minMs": 1.709,
+      "maxMs": 9.181
+    },
+    "fullSafeDispatchOverheadMs": {
+      "count": 200,
+      "p50Ms": 5.068,
+      "p95Ms": 6.37,
+      "p99Ms": 7.361,
+      "minMs": 3.641,
+      "maxMs": 162.661
+    },
+    "recoveryLookupLatencyMs": {
+      "count": 200,
+      "p50Ms": 4.344,
+      "p95Ms": 5.476,
+      "p99Ms": 7.991,
+      "minMs": 3.506,
+      "maxMs": 9.962
+    },
+    "reconciliationLatencyMs": {
+      "count": 200,
+      "p50Ms": 0.317,
+      "p95Ms": 0.431,
+      "p99Ms": 0.466,
+      "minMs": 0.231,
+      "maxMs": 0.533
+    },
+    "storagePerConsequenceBytes": {
+      "executionRow": 352,
+      "evidenceRows": 392,
+      "transitionLedgerRows": 2184,
+      "total": 2928
+    }
+  },
+  "founderBurden": {
+    "source": "external-effect-property-run-summary.json",
+    "totalScenarios": 1000,
+    "uncertainOrRecoveredScenarios": 787,
+    "ownerReviewScenarios": 91,
+    "ownerReviewsPer100UncertainEffects": 11.56
+  },
+  "note": "CANARY_MEASURED against synthetic scenarios, not REAL_OPERATIONAL traffic -- see V9_REAL_OPERATIONAL_SAMPLE_PLAN.md for why REAL_OPERATIONAL remains 0 in this environment."
+}

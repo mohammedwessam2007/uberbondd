@@ -2,7 +2,26 @@
 
 ## What this report is, and is not
 
-This report combines (a) research into Gmail's documented behavior, already gathered in Mission 6's [`V9_GMAIL_IDEMPOTENCY_AND_RECONCILIATION_RESEARCH.md`](./V9_GMAIL_IDEMPOTENCY_AND_RECONCILIATION_RESEARCH.md), (b) this mission's own adapter-logic verification against a fake Gmail transport, and (c) an honest statement of what remains empirically unverified. **No live Gmail API call was made in this mission.** No owner authorization for a live self-test was present (see [`V9_GMAIL_SELF_TEST_OWNER_APPROVAL.md`](./V9_GMAIL_SELF_TEST_OWNER_APPROVAL.md)), and per this mission's own instruction, absent that authorization the live self-test is designed and not executed.
+This report combines (a) research into Gmail's documented behavior, already gathered in Mission 6's [`V9_GMAIL_IDEMPOTENCY_AND_RECONCILIATION_RESEARCH.md`](./V9_GMAIL_IDEMPOTENCY_AND_RECONCILIATION_RESEARCH.md), (b) this mission's own adapter-logic verification against a fake Gmail transport, and (c) an honest statement of what remains empirically unverified. **No live Gmail API call was made in this mission.** No owner authorization for a live self-test was present when this report was first written (see [`V9_GMAIL_SELF_TEST_OWNER_APPROVAL.md`](./V9_GMAIL_SELF_TEST_OWNER_APPROVAL.md)), and per this mission's own instruction, absent that authorization the live self-test was designed and not executed.
+
+## LIVE_OWNER_CONTROLLED_SELF_TEST (Mission 8 attempt)
+
+A follow-up mission (Mission 8) supplied an explicit, written owner authorization for exactly one live self-test message, narrowly scoped (one message, owner-controlled sender and recipient only, no prospect contact). Before attempting anything network-facing, the mission's own required pre-send checks were executed and passed:
+
+| Check | Result |
+|---|---|
+| Branch matches authorization (`product/omnia-v9-gmail-preflight`) | Confirmed |
+| SHA matches authorization (`b384e0a...`) | Confirmed |
+| Frozen baseline (all 20 files) | `ALL MATCH` |
+| Gmail static-safety tests | 14/14 passing |
+| `node scripts/verify-v9-closure.mjs` | `OMNIA_V9_CLOSURE_VERIFIED` |
+
+The authorization then required, before any send: (1) an explicit, owner-controlled recipient address available from secure local configuration or owner-provided environment data, and (2) safe Gmail OAuth test credentials present in the environment. **Both prerequisites were checked directly and neither was found:**
+
+- **Recipient**: the authorization names no specific address (sender/recipient mailboxes are described only as "owner-controlled," never given as literal addresses), and no owner-controlled test recipient address exists in any environment variable, `.env` file, or repository configuration. Per the authorization's own explicit instruction ("Do NOT infer an address"), no address was guessed or constructed.
+- **Credentials**: `grep`-level and file-level search for `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI`, any Gmail refresh/access token, or any sealed account-token file found nothing. `.env.example` documents the expected variable names; no corresponding `.env` or real environment values exist in this session. No production `accounts` table row with real Gmail OAuth tokens exists in this disposable environment either.
+
+**Result: no live Gmail API call was made.** `gmail_send_count = 0`. The one-message send this mission authorized could not be attempted because its own prerequisites (a real recipient, real credentials) were never satisfied in this environment -- not because of a decision to withhold it. All other required evidence fields (Message-ID preservation classification, `rfc822msgid:` search outcome, indexing delay, response-loss reconciliation, provider evidence digest) are consequently `NOT_APPLICABLE: no send occurred`.
 
 ## Automatic retry inspection (section 6)
 
@@ -73,3 +92,5 @@ This directly maps onto the existing, already-tested `RECONCILING -> RESULT_UNCE
 Not `GMAIL_RECONCILIATION_VERIFIED`, because that classification requires empirical proof this mission does not have: no live send occurred, so whether Gmail actually preserves a caller-supplied `Message-ID:` verbatim, and how quickly `rfc822msgid:` reflects a just-sent message, are both unverified facts, not confirmed ones. Not `GMAIL_RECONCILIATION_UNSAFE_FOR_CANARY` either -- nothing in the research or the adapter-logic testing suggests Gmail's real semantics are incompatible with this protocol; the reconciliation mechanism (`Message-ID:` + `rfc822msgid:`) is real and documented, the adapter correctly refuses to trust ambiguous or multiple search results, and the shared recovery worker never blindly retries regardless of provider.
 
 **`PARTIALLY_VERIFIED` means exactly this: the adapter's own logic is proven correct against every scenario a controlled fake can produce, and 7 targeted mutations of its safety-critical logic are all caught -- but the provider's actual behavior (Message-ID preservation, search-index latency) still requires the one owner-authorized live self-test this mission was instructed to design and not execute without authorization.** Conservative manual review of the first several real reconciliations (were a real canary ever run) remains necessary until that live test closes this gap.
+
+**This classification is unchanged after the Mission 8 owner-authorization attempt** (see "LIVE_OWNER_CONTROLLED_SELF_TEST" above): owner authorization was granted, but the two remaining execution prerequisites -- a real owner-controlled recipient address and real Gmail OAuth test credentials -- were both absent from this environment, so the live test could not run and no new empirical evidence was gathered. The gap this classification describes remains exactly as open as before.

@@ -38,7 +38,7 @@ function decodeRawMessage(raw) {
  * recipient, duplicate Message-ID, etc.) that don't correspond to any real
  * send call in the test.
  */
-export function createFakeGmailTransport({ mode = FAKE_GMAIL_MODES.DEFINITE_SUCCESS } = {}) {
+export function createFakeGmailTransport({ mode = FAKE_GMAIL_MODES.DEFINITE_SUCCESS, looseListMatch = false } = {}) {
   const mailbox = []; // [{ id, threadId, headers, body }]
   let nextId = 1;
 
@@ -87,7 +87,11 @@ export function createFakeGmailTransport({ mode = FAKE_GMAIL_MODES.DEFINITE_SUCC
       const q = qs.get('q') || '';
       const match = /rfc822msgid:(.+)/.exec(q);
       const targetMessageId = match ? match[1].trim() : null;
-      const found = mailbox.filter(m => stripAngle(m.headers['message-id']) === stripAngle(targetMessageId));
+      // looseListMatch simulates a hypothetical fuzzier-than-exact provider search --
+      // used only to prove the adapter's OWN post-fetch Message-ID verification is load
+      // bearing (mutation-testing tests/omnia-v9-gmail-effect-adapter-mutation.test.mjs),
+      // not a claim about Gmail's real search precision.
+      const found = looseListMatch ? mailbox.slice() : mailbox.filter(m => stripAngle(m.headers['message-id']) === stripAngle(targetMessageId));
       return jsonResponse(200, { messages: found.map(m => ({ id: m.id, threadId: m.threadId })) });
     }
 

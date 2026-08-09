@@ -148,6 +148,32 @@ test('mocked contract: search finds the same Message-ID with incompatible metada
   assert.equal(reconciled.detail.reason, 'subject-mismatch');
 });
 
+test('mocked contract: a provider search result whose FULL fetched message-id header does not actually match the query is never trusted -- AMBIGUOUS, not RECONCILED_ACCEPTED', async () => {
+  // looseListMatch simulates a hypothetical fuzzier-than-exact Gmail search result; this
+  // proves the adapter's own post-fetch verification (not the search call itself) is what
+  // actually protects against a false-positive match.
+  const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.DEFINITE_SUCCESS, looseListMatch: true });
+  const adapter = makeAdapter(transport);
+  // A real, unrelated message -- different Message-ID -- happens to exist in the mailbox.
+  const otherPrepared = await adapter.prepare({ businessKey: 'bk-other', providerEffectIdentity: 'peid-other', executionId: 'exec-other', effectPayload: payload() });
+  await adapter.dispatch(otherPrepared);
+  // We reconcile for a DIFFERENT (never-dispatched) execution's Message-ID -- the loose
+  // list match returns the unrelated message anyway.
+  const neverDispatchedMessageId = generateMessageId('exec-never-dispatched-2', MESSAGE_ID_DOMAIN);
+  const reconciled = await adapter.reconcile({ businessKey: 'bk-target', providerEffectIdentity: neverDispatchedMessageId });
+  assert.equal(reconciled.lifecycle, 'AMBIGUOUS');
+  assert.equal(reconciled.detail.reason, 'message-id-mismatch-after-fetch');
+});
+
+test('mocked contract: two attempted definite-rejection dispatches never accumulate more than one mailbox entry each (no hidden client-level auto-retry)', async () => {
+  const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.SERVER_ERROR });
+  const adapter = makeAdapter(transport);
+  const prepared = await adapter.prepare({ businessKey: 'bk-noretry', providerEffectIdentity: 'peid-noretry', executionId: 'exec-noretry', effectPayload: payload() });
+  await adapter.dispatch(prepared);
+  assert.equal(adapter.dispatchCallCount, 1, 'dispatch() must never internally retry the send call');
+  assert.equal(transport.mailbox.length, 1, 'exactly one send attempt reached the (fake) provider');
+});
+
 test('mocked contract: classifyOutcome() maps every lifecycle to the correct adapter outcome, and unknown lifecycles fail closed to UNCERTAIN', () => {
   const transport = createFakeGmailTransport({});
   const adapter = makeAdapter(transport);

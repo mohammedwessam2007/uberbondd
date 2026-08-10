@@ -8,6 +8,7 @@ import { createJobHandlers } from './src/job-handlers.mjs';
 import { startScheduler } from './src/scheduler.mjs';
 import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
+import { createAuthoritativeOutreachConsequenceGate } from './src/omnia-v9/integrations/outreach-consequence-admission.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -23,7 +24,8 @@ const omniaV9Mode = resolveOmniaV9Mode(process.env);
 console.log(`OMNIA V9 outbound integration mode: ${omniaV9Mode}`);
 const pipeline = new Pipeline(store, config, {
   onProspectComplete: prospect => revenue?.onProspectComplete(prospect),
-  outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store })
+  outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store }),
+  outboundConsequenceGate: createAuthoritativeOutreachConsequenceGate({ store, cfg: config })
 });
 const enqueueResearch = payload => queue.enqueue('research.batch', payload, {
   maxAttempts: 3,

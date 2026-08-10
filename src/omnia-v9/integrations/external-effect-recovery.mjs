@@ -48,7 +48,14 @@ async function recordReconciliationEvidence({ evidenceStore, execution, provider
  *         fail closed, never auto-resolved.
  */
 async function reconcileAndTransition({ store, evidenceStore, adapter, execution }) {
-  const providerEvidence = await adapter.reconcile({ businessKey: execution.businessKey, providerEffectIdentity: execution.providerEffectIdentity });
+  const expectedTo = String(execution.resource || '').startsWith('email:')
+    ? String(execution.resource).slice('email:'.length)
+    : undefined;
+  const providerEvidence = await adapter.reconcile({
+    businessKey: execution.businessKey,
+    providerEffectIdentity: execution.providerEffectIdentity,
+    expectedTo
+  });
   await recordReconciliationEvidence({ evidenceStore, execution, providerEvidence });
   const classification = adapter.classifyOutcome(providerEvidence);
 

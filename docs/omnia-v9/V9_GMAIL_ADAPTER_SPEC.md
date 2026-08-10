@@ -1,6 +1,6 @@
 # OMNIA V9 Gmail Adapter Spec
 
-The real Gmail implementation of the provider-neutral external-effect contract from Mission 6 ([`V9_EXTERNAL_EFFECT_PROTOCOL.md`](./V9_EXTERNAL_EFFECT_PROTOCOL.md)). Source: [`src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs`](../../src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs). The frozen V9 kernel, the state machine, the dispatcher, and the recovery worker are completely unmodified by this mission and unaware this is Gmail rather than the null-sink simulator -- proven directly in [`tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs`](../../tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs), which runs the real dispatcher and recovery worker against this adapter with zero Gmail-specific code in either.
+The Gmail implementation of the provider-neutral external-effect contract from Mission 6 ([`V9_EXTERNAL_EFFECT_PROTOCOL.md`](./V9_EXTERNAL_EFFECT_PROTOCOL.md)). Source: [`src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs`](../../src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs). The cumulative closure branch also hardens the shared dispatcher and V9 policy binding; Gmail-specific behavior remains isolated in the adapter. [`tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs`](../../tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs) exercises that adapter through the provider-neutral dispatcher and recovery worker.
 
 ## Additive changes to `src/gmail.mjs`
 
@@ -18,11 +18,12 @@ Everything validated **before** any network I/O:
 - **Subject**: required, ≤200 characters, no raw CR/LF (header-injection guard).
 - **Body**: required, ≤20,000 characters.
 - **Attachments**: unsupported -- always rejected if present.
-- **Bcc/Cc**: rejected unless the adapter is explicitly constructed with `allowBcc: true`.
+- **Bcc/Cc**: unsupported and always rejected. The underlying raw-message sender has no approved Cc/Bcc path, so the adapter never pretends those fields were delivered.
 - **Unexpected fields**: any field in `effectPayload` outside the fixed allow-list (`to`, `subject`, `body`, `bcc`, `cc`, `attachments`, `replyToId`, `listUnsubscribe`, `threadId`) is rejected.
-- **Business key / provider effect identity / execution ID**: required, matching the generic execution-store contract from Mission 6.
+- **Header-bearing optional fields**: `replyToId` must be one safe angle-bracketed Message-ID; `listUnsubscribe` must be an HTTPS URL without embedded credentials; `threadId` is length- and character-bounded. CR/LF header injection is rejected.
+- **Business key / provider effect identity / execution ID**: required. `providerEffectIdentity` must exactly equal the Message-ID derived from the durable execution ID; a caller cannot substitute an unrelated identity.
 
-Generates the Message-ID (see below) and returns a fully-formed, ready-to-dispatch object. 14 dedicated tests in [`tests/omnia-v9-gmail-effect-adapter-static-safety.test.mjs`](../../tests/omnia-v9-gmail-effect-adapter-static-safety.test.mjs) prove every one of these rejections fires before any network call.
+Generates the Message-ID (see below) and returns a fully-formed, ready-to-dispatch object plus an `argumentsDigest` covering recipient, sender, subject/body digests, Message-ID, thread/reply identifiers, and unsubscribe URL. Dedicated tests in [`tests/omnia-v9-gmail-effect-adapter-static-safety.test.mjs`](../../tests/omnia-v9-gmail-effect-adapter-static-safety.test.mjs) prove every one of these rejections fires before any network call.
 
 ## `dispatch(preparedEffect)`
 
@@ -43,7 +44,7 @@ This exact mapping is why 429/5xx are excluded from the definite-rejection set: 
 
 Read-only. Searches by the caller-generated Message-ID via the real, documented `rfc822msgid:` Gmail search operator (see [`V9_GMAIL_RECONCILIATION_REPORT.md`](./V9_GMAIL_RECONCILIATION_REPORT.md)), then:
 
-1. **Zero matches** -> `NOT_FOUND`.
+1. **Zero matches** -> `UNCERTAIN` with reason `zero-matches-not-proof-of-non-submission`. Gmail does not document zero-latency search indexing, so a zero-result search never releases the business key or authorizes a resend.
 2. **Multiple matches** -> `AMBIGUOUS` -- never resolved heuristically, per this mission's explicit instruction (section 16).
 3. **Exactly one match** -> fetches the full message, parses its actual `Message-ID:` header, and verifies it matches the query byte-for-byte. A search "hit" whose fetched message doesn't actually carry the expected header is treated as `AMBIGUOUS`, not trusted -- this defends against a hypothetically fuzzier-than-exact real search (untested against the real API, since no live call occurred in this mission), proven directly in a dedicated test using a fake transport configured for loose/fuzzy matching.
 4. If `expectedTo`/`expectedSubject` are supplied and don't match the fetched message -> `AMBIGUOUS`.
@@ -68,8 +69,8 @@ This exact shape was chosen over embedding the business key or a plaintext execu
 
 ## Static safety, mocked contract, and dispatch/recovery test coverage
 
-- [`tests/omnia-v9-gmail-effect-adapter-static-safety.test.mjs`](../../tests/omnia-v9-gmail-effect-adapter-static-safety.test.mjs) -- 14 tests, all pre-network validation.
+- [`tests/omnia-v9-gmail-effect-adapter-static-safety.test.mjs`](../../tests/omnia-v9-gmail-effect-adapter-static-safety.test.mjs) -- pre-network validation, including exact provider-identity binding.
 - [`tests/omnia-v9-gmail-effect-adapter-contract.test.mjs`](../../tests/omnia-v9-gmail-effect-adapter-contract.test.mjs) -- 15 tests against [`tests/helpers/fake-gmail-transport.mjs`](../../tests/helpers/fake-gmail-transport.mjs), covering every scenario this mission's section 10 requires (definite success/rejection, timeout before/after acceptance, response loss, rate limiting, search finding zero/one/multiple/wrong-recipient/mismatched-metadata/loosely-matched-but-wrong results) plus a no-hidden-retry check. **These tests validate this adapter's own logic against a controlled fake -- they are explicitly not provider evidence about Gmail's real behavior**, per this mission's own instruction.
-- [`tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs`](../../tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs) -- 4 tests running this adapter through the real dispatcher and recovery worker against real PostgreSQL, including a checkpoint-C-shaped crash-injection test and a two-concurrent-recovery-worker race, proving this is a genuine drop-in replacement for `null-sink-v2.mjs`.
+- [`tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs`](../../tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs) -- 4 database-backed tests, including a checkpoint-C-shaped crash and a two-worker recovery race. They run only when `OMNIA_V9_TEST_DATABASE_URL` points to PostgreSQL; `npm run check:v9:postgres` refuses to produce a false-green result without that database.
 
-7 mutations applied directly to committed source (Message-ID binding removed, automatic send retry permitted, UNCERTAIN converted to NOT_FOUND, NOT_FOUND triggers immediate resend, multiple reconciliation matches accepted heuristically, recipient mismatch ignored, Gmail message identity verification ignored) -- all caught, all reverted; see [`V9_GMAIL_RECONCILIATION_REPORT.md`](./V9_GMAIL_RECONCILIATION_REPORT.md) for exact results.
+The earlier mission's seven mutation drills remain historical evidence. The cumulative closure additionally tests that a missing final admission, stale payload binding, provider substitution, or late kill-switch engagement cannot reach the provider.

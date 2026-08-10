@@ -21,6 +21,14 @@ import { normalizeCountryList } from './src/send-safety.mjs';
 import { verifyUnsubscribeToken } from './src/unsubscribe.mjs';
 import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
+import { createAuthoritativeOutreachConsequenceGate } from './src/omnia-v9/integrations/outreach-consequence-admission.mjs';
+import { digestOutboundEffectPayload } from './src/omnia-v9/integrations/outbound-consequence-gate.mjs';
+import {
+  createOutreachApproval,
+  createOutreachRouteEvidence,
+  evaluateOutreachGovernance,
+  outreachMessageDigest
+} from './src/outreach-governance.mjs';
 
 class HttpError extends Error {
   constructor(status, message) { super(message); this.status = status; }
@@ -36,7 +44,8 @@ const omniaV9Mode = resolveOmniaV9Mode(process.env);
 console.log(`OMNIA V9 outbound integration mode: ${omniaV9Mode}`);
 const pipeline = new Pipeline(store, config, {
   onProspectComplete: async prospect => revenue?.onProspectComplete(prospect),
-  outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store })
+  outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store }),
+  outboundConsequenceGate: createAuthoritativeOutreachConsequenceGate({ store, cfg: config })
 });
 const enqueueResearch = payload => queue.enqueue('research.batch', payload, {
   maxAttempts: 3,
@@ -311,6 +320,118 @@ const server = http.createServer(async (req, res) => {
     }
     if (method === 'POST' && url.pathname === '/api/outbound/resume') {
       return json(res, 200, await store.setOutboundPaused(false, ''));
+    }
+    if (method === 'POST' && url.pathname === '/api/outbound/approve-prospect') {
+      const input = await parseBody(req);
+      const prospect = await store.get('prospects', String(input.prospectId || ''));
+      if (!prospect) throw new HttpError(404, 'Prospect not found');
+      const campaign = await store.get('campaigns', prospect.campaignId);
+      if (!campaign?.approved || !campaign.autoSend) throw new HttpError(400, 'Campaign must be approved and autoSend-enabled before message approval');
+      const followup = Number(input.followup || 0);
+      if (!Number.isInteger(followup) || followup < 0 || followup > 1) throw new HttpError(400, 'followup must be 0 or 1');
+      const subject = String(input.subject ?? (followup === 0 ? prospect.subject : ''));
+      const body = String(input.body ?? (followup === 0 ? prospect.draft : ''));
+      if (!subject.trim() || !body.trim()) throw new HttpError(400, 'The exact subject and body are required');
+      const recipientEmail = String(prospect.contact?.email || '').trim().toLowerCase();
+      if (!recipientEmail) throw new HttpError(400, 'Prospect has no resolved recipient');
+      const account = await store.findOne('accounts', { slot: prospect.inbox });
+      if (!account?.connected || !account.email) throw new HttpError(400, 'The selected Gmail sender account must be connected before approval');
+      const approvedAt = now();
+      const approvalExpiresAt = String(input.expiresAt || new Date(Date.parse(approvedAt) + 24 * 3600000).toISOString());
+      const route = createOutreachRouteEvidence({
+        ...(input.routeEvidence || {}),
+        recipientEmail,
+        provider: config.outbound.provider
+      }, new Date(approvedAt));
+      const effectPayload = {
+        from: `${config.sender.name} <${account.email}>`,
+        to: recipientEmail,
+        subject,
+        body,
+        threadId: followup ? prospect.threadId : undefined,
+        replyToId: followup ? prospect.rfcMessageId : undefined,
+        listUnsubscribe: prospect.oneClickUnsubscribeUrl
+      };
+      const messageDigest = outreachMessageDigest({
+        recipientEmail,
+        subject,
+        body,
+        provider: config.outbound.provider,
+        inbox: prospect.inbox,
+        followup,
+        threadId: followup ? prospect.threadId : '',
+        replyToId: followup ? prospect.rfcMessageId : '',
+        listUnsubscribe: prospect.oneClickUnsubscribeUrl
+      });
+      const approval = createOutreachApproval({
+        approvalId: input.approvalId,
+        prospectId: prospect.id,
+        campaignId: campaign.id,
+        recipientEmail,
+        provider: config.outbound.provider,
+        inbox: prospect.inbox,
+        followup,
+        routeDigest: route.routeDigest,
+        messageDigest,
+        effectPayloadDigest: digestOutboundEffectPayload(effectPayload),
+        approvedBy: config.outbound.approverId,
+        approvedAt,
+        expiresAt: approvalExpiresAt
+      }, config.outbound.approvalSecret);
+      const candidate = followup === 0
+        ? { ...prospect, subject, draft: body, outreachRoute: route, outreachApproval: approval }
+        : { ...prospect, outreachRoute: route, followupApprovals: { ...(prospect.followupApprovals || {}), [String(followup)]: approval } };
+      const governance = evaluateOutreachGovernance({ prospect: candidate, campaign, cfg: config, subject, body, followup, date: new Date(approvedAt) });
+      if (!governance.ok) throw new HttpError(400, `Approval refused: ${governance.reason}`);
+      const patch = followup === 0 ? {
+        subject,
+        draft: body,
+        outreachRoute: route,
+        outreachApproval: approval,
+        status: 'ready',
+        outreachApprovedAt: approvedAt
+      } : {
+        outreachRoute: route,
+        followupApprovals: candidate.followupApprovals,
+        outreachApprovedAt: approvedAt
+      };
+      await store.patch('prospects', prospect.id, patch);
+      await store.log('outreach_message_approved', {
+        prospectId: prospect.id,
+        campaignId: campaign.id,
+        followup,
+        approvalId: approval.approvalId,
+        approvalDigest: approval.approvalDigest,
+        routeDigest: route.routeDigest,
+        messageDigest,
+        effectPayloadDigest: approval.effectPayloadDigest,
+        approvedAt,
+        expiresAt: approval.expiresAt
+      });
+      return json(res, 201, {
+        approved: true,
+        prospectId: prospect.id,
+        followup,
+        approvalId: approval.approvalId,
+        approvalDigest: approval.approvalDigest,
+        routeDigest: route.routeDigest,
+        messageDigest,
+        effectPayloadDigest: approval.effectPayloadDigest,
+        expiresAt: approval.expiresAt
+      });
+    }
+    if (method === 'POST' && url.pathname === '/api/outbound/revoke-prospect-approval') {
+      const input = await parseBody(req);
+      const prospect = await store.get('prospects', String(input.prospectId || ''));
+      if (!prospect) throw new HttpError(404, 'Prospect not found');
+      const followup = Number(input.followup || 0);
+      if (!Number.isInteger(followup) || followup < 0 || followup > 1) throw new HttpError(400, 'followup must be 0 or 1');
+      const patch = followup === 0
+        ? { outreachApproval: null, status: prospect.status === 'ready' ? 'research-complete' : prospect.status, nextFollowupAt: null }
+        : { followupApprovals: { ...(prospect.followupApprovals || {}), [String(followup)]: null }, nextFollowupAt: null };
+      await store.patch('prospects', prospect.id, patch);
+      await store.log('outreach_message_approval_revoked', { prospectId: prospect.id, followup, reason: String(input.reason || 'owner-revoked').slice(0, 500), revokedAt: now() });
+      return json(res, 200, { revoked: true, prospectId: prospect.id, followup });
     }
     if (method === 'POST' && /^\/api\/outbound\/sender\/[AB]\/pause$/.test(url.pathname)) {
       const slot = url.pathname.split('/')[4];

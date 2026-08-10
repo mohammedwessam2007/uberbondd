@@ -191,7 +191,7 @@ export class OmniaV9ProofStore {
 
     return this._transaction(async client => {
       const targetResult = await client.query(
-        `SELECT tenant_id FROM omnia_v9_objects WHERE object_type=$1 AND object_id=$2 FOR SHARE`,
+        `SELECT tenant_id FROM omnia_v9_objects WHERE object_type=$1 AND object_id=$2 FOR UPDATE`,
         [targetType, targetId]
       );
       const target = targetResult.rows?.[0];

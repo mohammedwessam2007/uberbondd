@@ -4,9 +4,9 @@
 
 This report combines (a) research into Gmail's documented behavior, already gathered in Mission 6's [`V9_GMAIL_IDEMPOTENCY_AND_RECONCILIATION_RESEARCH.md`](./V9_GMAIL_IDEMPOTENCY_AND_RECONCILIATION_RESEARCH.md), (b) this mission's own adapter-logic verification against a fake Gmail transport, and (c) an honest statement of what remains empirically unverified. **No live Gmail API call was made in this mission.** No owner authorization for a live self-test was present when this report was first written (see [`V9_GMAIL_SELF_TEST_OWNER_APPROVAL.md`](./V9_GMAIL_SELF_TEST_OWNER_APPROVAL.md)), and per this mission's own instruction, absent that authorization the live self-test was designed and not executed.
 
-## LIVE_OWNER_CONTROLLED_SELF_TEST (Mission 8 attempt)
+## Historical LIVE_OWNER_CONTROLLED_SELF_TEST attempt (Mission 8)
 
-A follow-up mission (Mission 8) supplied an explicit, written owner authorization for exactly one live self-test message, narrowly scoped (one message, owner-controlled sender and recipient only, no prospect contact). Before attempting anything network-facing, the mission's own required pre-send checks were executed and passed:
+A follow-up mission (Mission 8) supplied an explicit, written owner authorization for exactly one live self-test message, narrowly scoped (one message, owner-controlled sender and recipient only, no prospect contact). The following table is the historical record from that attempt; its branch/SHA and test counts are not a claim about the later cumulative closure patch:
 
 | Check | Result |
 |---|---|
@@ -35,19 +35,19 @@ All 15 tests in [`tests/omnia-v9-gmail-effect-adapter-contract.test.mjs`](../../
 |---|---|
 | Definite success | `ACCEPTED`, real (fake) Gmail message ID returned |
 | Definite rejection (400) | `REJECTED`, zero mailbox entries created |
-| Timeout before request received | `UNCERTAIN`; reconciliation independently confirms `NOT_FOUND` |
+| Timeout before request received | `UNCERTAIN`; a zero-result search remains `UNCERTAIN` and cannot authorize a resend |
 | Timeout after request accepted | `UNCERTAIN` locally; reconciliation finds `RECONCILED_ACCEPTED` |
 | Response lost (5xx after actual storage) | `UNCERTAIN`; reconciliation recovers `RECONCILED_ACCEPTED` |
 | Rate limited (429) | `UNCERTAIN`, never `REJECTED` |
 | Search finds exactly one | Reconciles cleanly to `RECONCILED_ACCEPTED` |
-| Search finds zero | `NOT_FOUND` |
+| Search finds zero | `UNCERTAIN` (`zero-matches-not-proof-of-non-submission`) |
 | Search finds multiple | `AMBIGUOUS` -- never resolved heuristically |
 | Search finds wrong recipient | `AMBIGUOUS` -- never trusted blindly |
 | Search finds mismatched subject | `AMBIGUOUS` |
 | A loosely-matched search result whose fetched message doesn't actually carry the queried Message-ID | `AMBIGUOUS` -- the adapter's own post-fetch verification catches what a hypothetically fuzzier real search might miss |
 | No hidden client-level auto-retry | Confirmed: exactly one dispatch, one mailbox entry |
 
-Additionally, [`tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs`](../../tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs) runs this adapter through the real dispatcher and recovery worker against real PostgreSQL 16: a checkpoint-C-shaped crash (Gmail accepts, local evidence never written, process "restarts") finalizes correctly via reconciliation with **zero** repeat `dispatch()` calls, and two concurrent recovery workers racing on the same stuck Gmail-bound execution converge on exactly one outcome, all 4 tests passing.
+Additionally, [`tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs`](../../tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs) defines four PostgreSQL-backed cases: a checkpoint-C-shaped crash (Gmail accepts, local evidence never writes, process "restarts"), zero-repeat-dispatch recovery, zero-match uncertainty retention, and a two-worker race. Historical runs passed against PostgreSQL. The current cumulative patch must be rerun with `OMNIA_V9_TEST_DATABASE_URL`; the ordinary deterministic command reports these cases as skipped rather than mislabeling them current evidence.
 
 ## Mutation testing: 7 mutations, all caught
 
@@ -67,14 +67,15 @@ Applied directly to committed source, confirmed RED, reverted via `git checkout`
 
 Per [`V9_GMAIL_IDEMPOTENCY_AND_RECONCILIATION_RESEARCH.md`](./V9_GMAIL_IDEMPOTENCY_AND_RECONCILIATION_RESEARCH.md): no client-supplied idempotency key; no documented duplicate-send guarantee; the real, documented reconciliation path is a caller-set `Message-ID:` header plus the `rfc822msgid:` search operator. That research was conducted via `WebSearch` results quoting Google's own documentation (direct `WebFetch` was blocked by this environment's egress proxy), not a live API call.
 
-## NOT_FOUND semantics -- the one thing this mission cannot resolve without a live test (section 17)
+## Zero-match semantics -- conservatively resolved in code
 
-**`NOT_FOUND` from a `rfc822msgid:` search does not necessarily mean "the provider never received the request."** Search-index lag is a documented characteristic of search systems generally, and this mission found no Gmail-specific documentation guaranteeing zero indexing delay for a just-sent message. This is the single most important open question standing between the current `PARTIALLY_VERIFIED` classification below and a stronger one:
+**A zero result from a `rfc822msgid:` search does not prove that the provider never received the request.** This mission found no Gmail-specific guarantee of zero indexing delay. The adapter therefore no longer emits `NOT_FOUND` for Gmail zero-match searches. It emits `UNCERTAIN`, retains the business-key lock, and never creates resend permission.
 
-- If Gmail's search index reflects a just-sent message within, say, low single-digit seconds, `NOT_FOUND` after a short bounded window is a reasonably strong signal of non-submission.
-- If indexing can lag by tens of seconds or longer under some conditions, `NOT_FOUND` too soon after a suspected send is not safe to treat as proof of non-submission -- doing so risks exactly the double-send this whole mission exists to prevent.
+- A later exact match can reconcile to `RECONCILED_ACCEPTED`.
+- Repeated zero matches remain `RESULT_UNCERTAIN` and may eventually require owner review.
+- Only a provider-specific, affirmative proof of non-submission may use `NOT_FOUND`; Gmail search absence is not such proof.
 
-**This mission does not resolve this question, because resolving it requires a live send and a live search against a real account -- exactly the empirical step gated behind explicit owner authorization** (absent in this mission; see [`V9_GMAIL_SELF_TEST_OWNER_APPROVAL.md`](./V9_GMAIL_SELF_TEST_OWNER_APPROVAL.md)).
+The live test is still useful for measuring Message-ID preservation and search visibility, but safety no longer depends on guessing a delay threshold.
 
 ## Bounded reconciliation window (design, not yet empirically tuned)
 
@@ -83,14 +84,14 @@ Per section 18, a conservative design (not implemented as a running scheduler in
 1. **Immediate read**: one `reconcile()` call right after a `RESULT_UNCERTAIN` transition.
 2. **Delayed read**: a second attempt after a short, deliberately un-aggressive delay (e.g. 30-60 seconds) -- the exact interval is one of the things a real self-test would calibrate, not something this mission invents a number for without evidence.
 3. **Later read**: one more attempt after a longer delay (e.g. 5-10 minutes), covering slower indexing scenarios.
-4. **`OWNER_REVIEW_REQUIRED`**: if still unresolved after the bounded window, park for manual review -- never poll indefinitely, never treat a still-`NOT_FOUND` result past the window as license to resend.
+4. **`OWNER_REVIEW_REQUIRED`**: if still unresolved after the bounded window, park for manual review -- never poll indefinitely, never treat a still-empty result as license to resend.
 
 This directly maps onto the existing, already-tested `RECONCILING -> RESULT_UNCERTAIN` loop-back transition in [`external-effect-recovery.mjs`](../../src/omnia-v9/integrations/external-effect-recovery.mjs) (Mission 6) -- no new state-machine states are needed; only a scheduling policy for how often `recoverUnresolvedExecutions()` is invoked in production, which is an operational decision outside this mission's scope.
 
-## Verdict: `GMAIL_RECONCILIATION_PARTIALLY_VERIFIED`
+## Verdict: `ADAPTER_LOGIC_VERIFIED_PROVIDER_SEMANTICS_UNVERIFIED`
 
-Not `GMAIL_RECONCILIATION_VERIFIED`, because that classification requires empirical proof this mission does not have: no live send occurred, so whether Gmail actually preserves a caller-supplied `Message-ID:` verbatim, and how quickly `rfc822msgid:` reflects a just-sent message, are both unverified facts, not confirmed ones. Not `GMAIL_RECONCILIATION_UNSAFE_FOR_CANARY` either -- nothing in the research or the adapter-logic testing suggests Gmail's real semantics are incompatible with this protocol; the reconciliation mechanism (`Message-ID:` + `rfc822msgid:`) is real and documented, the adapter correctly refuses to trust ambiguous or multiple search results, and the shared recovery worker never blindly retries regardless of provider.
+This is not `GMAIL_RECONCILIATION_VERIFIED`: no live send occurred, so caller-supplied Message-ID preservation and real search visibility remain unverified. The adapter logic is conservative under that uncertainty: ambiguous, missing, or zero-result evidence never becomes success, rejection, or resend permission. Production outbound also remains blocked unless an authoritative exact-payload consequence gate is configured.
 
-**`PARTIALLY_VERIFIED` means exactly this: the adapter's own logic is proven correct against every scenario a controlled fake can produce, and 7 targeted mutations of its safety-critical logic are all caught -- but the provider's actual behavior (Message-ID preservation, search-index latency) still requires the one owner-authorized live self-test this mission was instructed to design and not execute without authorization.** Conservative manual review of the first several real reconciliations (were a real canary ever run) remains necessary until that live test closes this gap.
+The controlled fake proves local classifications and retry behavior, not Google's real behavior. Conservative manual review of the first real reconciliations remains mandatory until an owner-controlled test closes the provider-evidence gap.
 
 **This classification is unchanged after the Mission 8 owner-authorization attempt** (see "LIVE_OWNER_CONTROLLED_SELF_TEST" above): owner authorization was granted, but the two remaining execution prerequisites -- a real owner-controlled recipient address and real Gmail OAuth test credentials -- were both absent from this environment, so the live test could not run and no new empirical evidence was gathered. The gap this classification describes remains exactly as open as before.

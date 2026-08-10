@@ -7,20 +7,23 @@ import { Store } from '../src/store.mjs';
 import { Pipeline } from '../src/pipeline.mjs';
 import { sendIdempotencyKey } from '../src/send-safety.mjs';
 import { resolveOutboundFinalAdmissionHook } from '../src/omnia-v9/integrations/outbound-admission.mjs';
+import { allowOutboundConsequenceForTest } from './helpers/outbound-consequence-gate.mjs';
+import { approveProspectForTest, TEST_OUTREACH_APPROVAL_SECRET } from './helpers/outreach-governance.mjs';
 
 const monday = new Date('2026-07-13T10:00:00.000Z');
 const campaign = { id: 'camp', approved: true, autoSend: true, allowedCountries: ['GB'], minScore: 60, dailyCaps: { A: 10 }, maxFollowups: 0 };
 const cfg = {
-  outbound: { enabled: true, dryRun: false, allowedCountries: ['United Kingdom'], hourlyCaps: { A: 3 }, minGapSeconds: 0, businessHourStart: 9, businessHourEnd: 17, minEvidenceConfidence: .75, hardBouncePauseThreshold: 2, complaintPauseThreshold: 1, failurePauseThreshold: 3 },
+  outbound: { enabled: true, dryRun: false, launchPhase: 'canary', provider: 'fixture', approvalSecret: TEST_OUTREACH_APPROVAL_SECRET, routeEvidenceMaxAgeDays: 7, allowedCountries: ['United Kingdom'], hourlyCaps: { A: 3 }, minGapSeconds: 0, canaryDailyCap: 3, canaryHourlyCap: 1, canaryMinGapSeconds: 0, recipientCooldownDays: 365, domainCooldownDays: 90, businessHourStart: 9, businessHourEnd: 17, minEvidenceConfidence: .75, hardBouncePauseThreshold: 2, complaintPauseThreshold: 1, failurePauseThreshold: 3 },
   sender: { name: 'Mohamed', company: 'UberBond', address: 'Business address' }, caps: { A: 10 }, google: {}, encryptionKey: ''
 };
-const prospect = {
+const baseProspect = {
   id: 'pros', campaignId: 'camp', company: 'Clinic', website: 'https://clinic.example', domain: 'clinic.example', country: 'United Kingdom',
   inbox: 'A', draft: 'Evidence-backed message with reply no.', subject: 'Website observation',
   unsubscribeUrl: 'https://uberbond.example/unsubscribe?token=test', oneClickUnsubscribeUrl: 'https://uberbond.example/api/public/unsubscribe?token=test',
   contact: { email: 'info@clinic.example', source: 'website', verified: 'unverified' },
   score: { total: 80 }, issue: { title: 'Booking path issue', confidence: .9, safeForOutreach: true, evidenceUrl: 'https://clinic.example/book', evidenceExcerpt: 'Book button returned an error.' }
 };
+const prospect = approveProspectForTest({ prospect: baseProspect, campaign, cfg, date: monday });
 
 async function tempStore() {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'uberbond-omnia-v9-integration-'));
@@ -42,6 +45,7 @@ async function sendOnceWithMode(mode, { hookOverride } = {}) {
   const hook = hookOverride !== undefined ? hookOverride : resolveOutboundFinalAdmissionHook({ mode, store });
   const pipeline = new Pipeline(store, cfg, {
     clock: () => monday,
+    outboundConsequenceGate: allowOutboundConsequenceForTest,
     sendEmail: async () => { sends += 1; return { data: { id: 'gmail-1', threadId: 'thread-1' } }; },
     getMessage: async () => ({ data: { payload: { headers: [{ name: 'Message-ID', value: '<message-1@example>' }] } } }),
     outboundFinalAdmissionShadow: hook
@@ -64,6 +68,7 @@ test('mode=shadow: a V9 DENY decision never blocks the send — legacy remains a
   const denyingHook = async () => ({ decision: 'DENY', reasons: ['forced-deny-for-test'] });
   const pipeline = new Pipeline(store, cfg, {
     clock: () => monday,
+    outboundConsequenceGate: allowOutboundConsequenceForTest,
     sendEmail: async () => { sends += 1; return { data: { id: 'gmail-1', threadId: 'thread-1' } }; },
     getMessage: async () => ({ data: { payload: { headers: [{ name: 'Message-ID', value: '<message-1@example>' }] } } }),
     outboundFinalAdmissionShadow: denyingHook
@@ -79,6 +84,7 @@ test('a crashing V9 hook never blocks or duplicates the send', async () => {
   const crashingHook = async () => { throw new Error('simulated V9 crash'); };
   const pipeline = new Pipeline(store, cfg, {
     clock: () => monday,
+    outboundConsequenceGate: allowOutboundConsequenceForTest,
     sendEmail: async () => { sends += 1; return { data: { id: 'gmail-1', threadId: 'thread-1' } }; },
     getMessage: async () => ({ data: { payload: { headers: [{ name: 'Message-ID', value: '<message-1@example>' }] } } }),
     outboundFinalAdmissionShadow: crashingHook
@@ -94,6 +100,7 @@ test('mode=compare: repeated execution is still stopped by the durable idempoten
   let sends = 0;
   const pipeline = new Pipeline(store, cfg, {
     clock: () => monday,
+    outboundConsequenceGate: allowOutboundConsequenceForTest,
     sendEmail: async () => { sends += 1; return { data: { id: 'gmail-1', threadId: 'thread-1' } }; },
     getMessage: async () => ({ data: { payload: { headers: [{ name: 'Message-ID', value: '<message-1@example>' }] } } }),
     outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: 'compare', store })
@@ -115,6 +122,7 @@ test('mode=off produces the exact pre-integration NO_HOOK observation, not a dif
   store.log = async (type, detail) => { logged.push({ type, detail }); return originalLog(type, detail); };
   const pipeline = new Pipeline(store, cfg, {
     clock: () => monday,
+    outboundConsequenceGate: allowOutboundConsequenceForTest,
     sendEmail: async () => ({ data: { id: 'gmail-1', threadId: 'thread-1' } }),
     getMessage: async () => ({ data: { payload: { headers: [{ name: 'Message-ID', value: '<message-1@example>' }] } } }),
     outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: 'off', store })
@@ -136,6 +144,7 @@ test('mode=shadow never produces a compare-mode record (only compare mode does)'
   store.log = async (type, detail) => { logged.push({ type, detail }); return originalLog(type, detail); };
   const pipeline = new Pipeline(store, cfg, {
     clock: () => monday,
+    outboundConsequenceGate: allowOutboundConsequenceForTest,
     sendEmail: async () => ({ data: { id: 'gmail-1', threadId: 'thread-1' } }),
     getMessage: async () => ({ data: { payload: { headers: [{ name: 'Message-ID', value: '<message-1@example>' }] } } }),
     outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: 'shadow', store })

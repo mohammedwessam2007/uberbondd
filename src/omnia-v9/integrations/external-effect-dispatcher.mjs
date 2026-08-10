@@ -71,6 +71,15 @@ export class ExternalEffectKillSwitchEngagedError extends Error {
   }
 }
 
+export class ExternalEffectFinalAdmissionError extends Error {
+  constructor(message, code = 'EXTERNAL_EFFECT_FINAL_ADMISSION_BLOCKED', detail = {}) {
+    super(message);
+    this.name = 'ExternalEffectFinalAdmissionError';
+    this.code = code;
+    this.detail = detail;
+  }
+}
+
 function maybeCrash(crashAt, point) {
   if (crashAt === point) throw new CrashInjected(point);
 }
@@ -89,12 +98,111 @@ function classificationToStatus(classification) {
  * identity"), not this function's, so this function has no hidden
  * randomness that would make crash-injection scenarios non-deterministic.
  */
-export async function dispatchExternalEffect({ store, evidenceStore, adapter, effectIntent, crashAt = null, now = () => new Date(), env = process.env }) {
+function requireMatchingIdentity(prepared, expected, field) {
+  if (String(prepared?.[field] || '') !== String(expected || '')) {
+    throw new ExternalEffectFinalAdmissionError(`adapter.prepare() changed ${field}`, 'PREPARED_EFFECT_IDENTITY_MISMATCH', { field });
+  }
+}
+
+function validateFinalAdmission(admission, prepared, effectIntent) {
+  if (!admission || admission.decision !== 'ALLOW') {
+    return { ok: false, reason: admission?.reason || `final-admission:${String(admission?.decision || 'missing').toLowerCase()}` };
+  }
+  if (admission.authoritative !== true || admission.enforced !== true) {
+    return { ok: false, reason: 'final-admission:not-authoritative-and-enforced' };
+  }
+  const bindings = [
+    ['executionId', effectIntent.executionId],
+    ['businessKey', effectIntent.businessKey],
+    ['actionIntentDigest', effectIntent.actionIntentDigest],
+    ['authorizationDigest', effectIntent.authorizationDigest],
+    ['providerEffectIdentity', effectIntent.providerEffectIdentity],
+    ['approvalId', effectIntent.approvalId],
+    ['policyDigest', effectIntent.policyDigest],
+    ['constitutionDigest', effectIntent.constitutionDigest]
+  ];
+  for (const [field, expected] of bindings) {
+    if (String(admission[field] || '') !== String(expected || '')) return { ok: false, reason: `final-admission:${field}-mismatch` };
+  }
+  if (prepared?.argumentsDigest && String(admission.argumentsDigest || '') !== String(prepared.argumentsDigest)) {
+    return { ok: false, reason: 'final-admission:arguments-digest-mismatch' };
+  }
+  return { ok: true };
+}
+
+export async function dispatchExternalEffect({
+  store, evidenceStore, adapter, effectIntent, finalAdmissionCheck = null,
+  crashAt = null, now = () => new Date(), env = process.env
+}) {
   if (isExternalEffectKillSwitchEngaged(env)) throw new ExternalEffectKillSwitchEngagedError();
   maybeCrash(crashAt, CRASH_POINTS.AFTER_AUTHORITY_RESERVATION);
 
+  if (String(adapter?.providerName || '') !== String(effectIntent?.provider || '')) {
+    throw new ExternalEffectFinalAdmissionError('adapter provider does not match the durable effect intent', 'PROVIDER_SUBSTITUTION');
+  }
+
   const prepared = await store.prepare(effectIntent);
   maybeCrash(crashAt, CRASH_POINTS.AFTER_EXECUTION_OBJECT_CREATED);
+
+  let preparedEffect;
+  try {
+    preparedEffect = await adapter.prepare({
+      businessKey: prepared.businessKey,
+      providerEffectIdentity: prepared.providerEffectIdentity,
+      executionId: prepared.executionId,
+      effectPayload: effectIntent.effectPayload,
+      simulation: effectIntent.simulation
+    });
+    requireMatchingIdentity(preparedEffect, prepared.businessKey, 'businessKey');
+    requireMatchingIdentity(preparedEffect, prepared.providerEffectIdentity, 'providerEffectIdentity');
+  } catch (error) {
+    await store.transition({
+      executionId: prepared.executionId, toStatus: 'ABORTED_BEFORE_DISPATCH',
+      reason: `prepare-error:${String(error?.code || error?.message || error)}`,
+      expectedFromStatus: 'PREPARED'
+    });
+    throw error;
+  }
+
+  // A real provider may never be reached without a fresh, authoritative
+  // admission check over the exact prepared effect. The null sink remains
+  // exempt because it has no external consequence and is the deterministic
+  // uncertainty simulator used by the crash/property suite.
+  if (adapter.providerName !== 'null-sink-v2') {
+    let admission;
+    try {
+      if (typeof finalAdmissionCheck !== 'function') {
+        throw new ExternalEffectFinalAdmissionError('a real provider requires finalAdmissionCheck', 'FINAL_ADMISSION_REQUIRED');
+      }
+      admission = await finalAdmissionCheck({ execution: prepared, preparedEffect, effectIntent, now: now() });
+    } catch (error) {
+      await store.transition({
+        executionId: prepared.executionId, toStatus: 'ABORTED_BEFORE_DISPATCH',
+        reason: `final-admission-error:${String(error?.code || error?.message || error)}`,
+        expectedFromStatus: 'PREPARED'
+      });
+      throw error;
+    }
+    const verified = validateFinalAdmission(admission, preparedEffect, effectIntent);
+    if (!verified.ok) {
+      const blocked = await store.transition({
+        executionId: prepared.executionId, toStatus: 'ABORTED_BEFORE_DISPATCH',
+        reason: verified.reason, expectedFromStatus: 'PREPARED'
+      });
+      return { executionId: prepared.executionId, status: blocked.execution.status, blocked: true, decision: admission?.decision || 'DENY', reason: verified.reason };
+    }
+  }
+
+  // Re-read the independently controlled kill switch after all preparation
+  // and admission work but before the durable dispatch boundary. Once
+  // DISPATCHING commits, execution has begun and recovery must reconcile it.
+  if (isExternalEffectKillSwitchEngaged(env)) {
+    await store.transition({
+      executionId: prepared.executionId, toStatus: 'ABORTED_BEFORE_DISPATCH',
+      reason: 'external-effect-kill-switch-engaged-before-dispatch', expectedFromStatus: 'PREPARED'
+    });
+    throw new ExternalEffectKillSwitchEngagedError();
+  }
 
   const dispatching = await store.transition({
     executionId: prepared.executionId, toStatus: 'DISPATCHING', reason: 'dispatch-begin', expectedFromStatus: 'PREPARED'
@@ -103,19 +211,12 @@ export async function dispatchExternalEffect({ store, evidenceStore, adapter, ef
     throw new Error(`could not durably enter DISPATCHING for ${prepared.executionId}: current status ${dispatching.execution?.status}`);
   }
   maybeCrash(crashAt, CRASH_POINTS.AFTER_DISPATCHING_DURABLE);
-
-  const preparedEffect = await adapter.prepare({
-    businessKey: prepared.businessKey,
-    providerEffectIdentity: prepared.providerEffectIdentity,
-    executionId: prepared.executionId,
-    simulation: effectIntent.simulation
-  });
   maybeCrash(crashAt, CRASH_POINTS.IMMEDIATELY_BEFORE_PROVIDER_CALL);
 
   let dispatchResult;
   let thrown = null;
   try {
-    dispatchResult = await adapter.dispatch({ ...preparedEffect, simulation: effectIntent.simulation });
+    dispatchResult = await adapter.dispatch(preparedEffect);
   } catch (error) {
     thrown = error;
   }

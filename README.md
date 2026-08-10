@@ -4,16 +4,19 @@
 
 UberBond is a self-hosted revenue operating system for evidence-first website audits, personalized outreach, paid reports, and recurring monitoring.
 
-Version 1.4 completes the unattended outbound safety gate on top of the PostgreSQL and durable-worker foundation:
+Version 1.4 completes a bounded outbound canary gate on top of the PostgreSQL and durable-worker foundation:
 
 - automatic permitted business discovery
 - Playwright desktop and mobile evidence capture
 - PostgreSQL source of truth
 - durable Web and Worker services
-- verified-contact and first-party-published-contact enforcement
+- provider-policy route enforcement: Gmail API sends require a solicited, consented, or requested-information route
+- exact recipient, message, route, sender, and effect-payload approval binding
+- short-lived HMAC approvals with one logical use
 - system and campaign country allowlists
 - transactional daily and hourly sending capacity
 - minimum spacing between sends
+- recipient and business-domain cooldowns across re-imports and inboxes
 - recipient-local business-hour enforcement
 - durable send idempotency
 - ambiguous-provider-result quarantine
@@ -23,18 +26,29 @@ Version 1.4 completes the unattended outbound safety gate on top of the PostgreS
 - global outbound emergency stop
 - one-follow-up maximum by default
 
-It does not guarantee demand, revenue, legal compliance, inbox placement, or provider approval. Live Gmail sending remains disabled by default until the owner completes staging deployment, DNS authentication, account connection, and a controlled dry run.
+It does not guarantee demand, revenue, legal compliance, inbox placement, or provider approval. Generic unsolicited commercial outreach is intentionally denied on the Gmail API route. Live Gmail sending remains disabled by default until the owner completes staging deployment, DNS authentication, account connection, route evidence, exact message approval, and a controlled dry run.
+
+## Solicited Opportunity Factory
+
+Before anything can enter the outbound canary, an offline compiler can validate current official applications, freelancer networks, explicit consent, and requested-information routes:
+
+```bash
+npm run opportunities:dry-run
+```
+
+It rejects prior-contact collisions, stale sources, qualification mismatches, unverified legal gates, missing hashed assets, unsupported claims, and low-fit routes. It never submits forms or platforms, never creates a V9 approval, and never sends. See [`docs/opportunities/SOLICITED_OPPORTUNITY_FACTORY.md`](docs/opportunities/SOLICITED_OPPORTUNITY_FACTORY.md).
 
 ## Current autonomous loop
 
 ```text
-Permitted discovery or public audit request
+Solicited opportunity, explicit consent, or requested-information route
 → durable PostgreSQL job
 → Playwright inspection
 → screenshots and deterministic evidence
 → scoring and optional AI enhancement
 → contact discovery
-→ strict unattended-send safety gate
+→ current route evidence and exact owner approval
+→ strict final-consequence safety gate
 → personalized outreach reservation
 → Gmail send or dry run
 → one safe follow-up
@@ -98,6 +112,7 @@ The release ships with live outbound disabled:
 AUTOPILOT_ENABLED=false
 OUTBOUND_ENABLED=false
 OUTBOUND_DRY_RUN=true
+OUTBOUND_LAUNCH_PHASE=off
 DISCOVERY_ENABLED=false
 DISCOVERY_DRY_RUN=true
 AI_PROVIDER=rules
@@ -124,7 +139,13 @@ DISCOVERY_ENABLED=false
 DISCOVERY_DRY_RUN=true
 OUTBOUND_ENABLED=false
 OUTBOUND_DRY_RUN=true
+OUTBOUND_LAUNCH_PHASE=off
+OUTBOUND_PROVIDER=gmail-api
+OUTREACH_APPROVAL_SECRET=dedicated-random-secret-at-least-32-characters
+OUTREACH_APPROVER_ID=mohamed
 OUTBOUND_ALLOWED_COUNTRIES=
+OUTBOUND_CANARY_DAILY_CAP=1
+OUTBOUND_CANARY_MIN_GAP_SECONDS=1800
 AI_PROVIDER=rules
 BUSINESS_ADDRESS=your-valid-postal-business-address
 ```
@@ -135,17 +156,18 @@ Both services use the same PostgreSQL database and `APP_BASE_URL`. The Worker ne
 
 A message cannot reserve a live send unless all required checks pass:
 
-1. The system outbound switch is enabled.
-2. The campaign is approved and `autoSend` is enabled.
-3. The prospect country appears in both the system and campaign allowlists.
-4. The prospect has a qualified evidence finding above the configured confidence and score thresholds.
-5. The contact is either visibly published on the business's own website or positively verified as `valid` by an approved verifier.
-6. Free-mail, risky-role, unknown, unverified, catch-all, mismatched-domain, and suppressed contacts are rejected.
-7. The recipient is inside the configured local business-hour window.
-8. Transactional daily and hourly capacity is available for the sender.
-9. The configured minimum gap from the sender's previous reservation has elapsed.
-10. The message-step idempotency key has never been used.
-11. The sender and global outbound switches are not paused.
+1. The system outbound switch is enabled, dry-run is off, and launch phase is `canary`.
+2. The Gmail API route is `SOLICITED_APPLICATION`, `EXPLICIT_CONSENT`, or `REQUESTED_INFORMATION`; a merely public business address is not enough.
+3. Current HTTPS source evidence identifies the exact recipient, jurisdiction, permission scope, and role relevance.
+4. A short-lived owner approval exactly binds recipient, sender slot, subject, body, unsubscribe URL, route digest, and final provider payload.
+5. The campaign is approved and `autoSend` is enabled.
+6. The prospect country appears in both the system and campaign allowlists.
+7. The prospect has a qualified website finding above the configured confidence and score thresholds.
+8. Free-mail, risky-role, unknown, unverified, catch-all, mismatched-domain, and suppressed contacts are rejected.
+9. The recipient is inside the configured local business-hour window.
+10. Canary capacity is available: at most one message per hour, no more than five per day, and one prospect per queue invocation.
+11. Recipient and business-domain cooldowns, cross-inbox locks, idempotency, and indefinite uncertain-result quarantine all pass.
+12. The sender and global outbound switches are not paused.
 
 The reservation is stored before the provider call. If Gmail returns an ambiguous result after dispatch begins, the reservation is marked `uncertain` and is never retried automatically.
 
@@ -244,7 +266,7 @@ Payment and Gmail features require owner-created accounts and credentials.
 
 ## Remaining live-validation boundary
 
-The release has not yet sent a real commercial message through Gmail or received a real provider complaint event. Before live activation, complete:
+This release's automated provider path has not yet completed a real canary or received a real provider complaint event. Before live activation, complete:
 
 - deployed Web, Worker, and PostgreSQL health check
 - sender-domain SPF, DKIM, and DMARC setup
@@ -252,12 +274,12 @@ The release has not yet sent a real commercial message through Gmail or received
 - real unsubscribe test to a controlled mailbox
 - real bounce test to a controlled invalid address
 - payment test mode checkout and webhook
-- discovery preview review
-- small dry-run campaign review
+- one current solicited, consented, or requested-information route review
+- one-message dry-run and exact-approval review
 - explicit jurisdiction and campaign allowlist decision
-- tiny staged live campaign with manual observation
+- one-message staged live canary with manual observation and immediate reconciliation
 
-See `ACTIVATE_OUTBOUND_IPAD.md`, `POLICY_BOUNDARIES.md`, and `docs/LIMITATIONS.md`.
+See `ACTIVATE_OUTBOUND_IPAD.md`, `docs/outreach/BOUNDED_OUTREACH_CANARY_RUNBOOK.md`, `POLICY_BOUNDARIES.md`, and `docs/LIMITATIONS.md`.
 
 ## iPad operator guides
 
@@ -265,6 +287,7 @@ See `ACTIVATE_OUTBOUND_IPAD.md`, `POLICY_BOUNDARIES.md`, and `docs/LIMITATIONS.m
 - `DEPLOY_WEB_WORKER_IPAD.md`
 - `CONNECT_POSTGRES_IPAD.md`
 - `ACTIVATE_OUTBOUND_IPAD.md`
+- `docs/outreach/BOUNDED_OUTREACH_CANARY_RUNBOOK.md`
 - `WORKER_RECOVERY_IPAD.md`
 - `MIGRATE_JSON_IPAD.md`
 - `ROLLBACK_IPAD.md`

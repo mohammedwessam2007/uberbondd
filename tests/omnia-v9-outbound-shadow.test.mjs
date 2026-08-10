@@ -6,20 +6,23 @@ import path from 'node:path';
 import { Store } from '../src/store.mjs';
 import { Pipeline } from '../src/pipeline.mjs';
 import { buildOutboundShadowContext, observeOutboundFinalAdmission } from '../src/omnia-v9/final-admission-shadow.mjs';
+import { allowOutboundConsequenceForTest } from './helpers/outbound-consequence-gate.mjs';
+import { approveProspectForTest, TEST_OUTREACH_APPROVAL_SECRET } from './helpers/outreach-governance.mjs';
 
 const monday = new Date('2026-07-13T10:00:00.000Z');
 const campaign = { id: 'camp', approved: true, autoSend: true, allowedCountries: ['GB'], minScore: 60, dailyCaps: { A: 10 }, maxFollowups: 0 };
 const cfg = {
-  outbound: { enabled: true, dryRun: false, allowedCountries: ['United Kingdom'], hourlyCaps: { A: 3 }, minGapSeconds: 0, businessHourStart: 9, businessHourEnd: 17, minEvidenceConfidence: .75, hardBouncePauseThreshold: 2, complaintPauseThreshold: 1, failurePauseThreshold: 3 },
+  outbound: { enabled: true, dryRun: false, launchPhase: 'canary', provider: 'fixture', approvalSecret: TEST_OUTREACH_APPROVAL_SECRET, routeEvidenceMaxAgeDays: 7, allowedCountries: ['United Kingdom'], hourlyCaps: { A: 3 }, minGapSeconds: 0, canaryDailyCap: 3, canaryHourlyCap: 1, canaryMinGapSeconds: 0, recipientCooldownDays: 365, domainCooldownDays: 90, businessHourStart: 9, businessHourEnd: 17, minEvidenceConfidence: .75, hardBouncePauseThreshold: 2, complaintPauseThreshold: 1, failurePauseThreshold: 3 },
   sender: { name: 'Mohamed', company: 'UberBond', address: 'Business address' }, caps: { A: 10 }, google: {}, encryptionKey: ''
 };
-const prospect = {
+const baseProspect = {
   id: 'pros-shadow', campaignId: 'camp', company: 'Clinic', website: 'https://clinic.example', domain: 'clinic.example', country: 'United Kingdom',
   inbox: 'A', draft: 'Evidence-backed message with reply no.', subject: 'Website observation',
   unsubscribeUrl: 'https://uberbond.example/unsubscribe?token=test', oneClickUnsubscribeUrl: 'https://uberbond.example/api/public/unsubscribe?token=test',
   contact: { email: 'info@clinic.example', source: 'website', verified: 'unverified' },
   score: { total: 80 }, issue: { title: 'Booking path issue', confidence: .9, safeForOutreach: true, evidenceUrl: 'https://clinic.example/book', evidenceExcerpt: 'Book button returned an error.' }
 };
+const prospect = approveProspectForTest({ prospect: baseProspect, campaign, cfg, date: monday });
 
 async function tempStore() {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'uberbond-v9-shadow-'));
@@ -77,6 +80,7 @@ test('pipeline invokes shadow only after durable reservation is dispatching and 
   const events = [];
   const pipeline = new Pipeline(store, cfg, {
     clock: () => monday,
+    outboundConsequenceGate: allowOutboundConsequenceForTest,
     outboundFinalAdmissionShadow: async context => {
       const reservation = await store.get('outboundReservations', context.reservation.id);
       assert.equal(reservation.status, 'dispatching');
@@ -98,6 +102,7 @@ test('a shadow DENY cannot block, alter, or duplicate the legacy send', async ()
   let shadowCalls = 0;
   const pipeline = new Pipeline(store, cfg, {
     clock: () => monday,
+    outboundConsequenceGate: allowOutboundConsequenceForTest,
     outboundFinalAdmissionShadow: async () => {
       shadowCalls += 1;
       return { decision: 'DENY', reasons: ['unresolved-authority-in-shadow'] };
@@ -119,6 +124,7 @@ test('a shadow observer exception is converted to REVIEW and cannot suppress Gma
   let sends = 0;
   const pipeline = new Pipeline(store, cfg, {
     clock: () => monday,
+    outboundConsequenceGate: allowOutboundConsequenceForTest,
     outboundFinalAdmissionShadow: async () => { throw new Error('shadow exploded'); },
     sendEmail: async () => { sends += 1; return { data: { id: 'gmail-shadow-error', threadId: 'thread-shadow-error' } }; },
     getMessage: async () => ({ data: { payload: { headers: [{ name: 'Message-ID', value: '<shadow-error@example>' }] } } })

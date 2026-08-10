@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { bindRealCedarAuthority, resetRealCedarAuthorityCache, RealCedarBindingError, classifyRealCedarFailure } from '../src/omnia-v9/integrations/reality-shadow-cedar.mjs';
+import { bindRealCedarAuthority, resetRealCedarAuthorityCache, RealCedarBindingError, classifyRealCedarFailure, deriveProposalFacts } from '../src/omnia-v9/integrations/reality-shadow-cedar.mjs';
 import { createActionIntent, createApproval, createEvidenceRecord, admitAction } from '../src/omnia-v9/kernel.mjs';
 import { sha256, signDigestHex } from '../src/omnia-v9/canonical.mjs';
 import { generateKeyPairSync } from 'node:crypto';
@@ -37,9 +37,57 @@ test('real Cedar policyAuthorizer ALLOWs a well-formed governed action', async (
     createdAt: NOW.toISOString(), expiresAt: new Date(NOW.getTime() + 60_000).toISOString(),
     nonce: 'n1', idempotencyKey: 'k1'
   }, NOW);
-  const result = authority.policyAuthorizer({ intent, approval: null, evidence: [], requirements: {} });
+  const result = authority.policyAuthorizer({
+    intent,
+    binding: { policyVersion: 'test-v1', policyDigest: authority.policyDigest, constitutionDigest: authority.constitutionDigest },
+    resolverFacts: { authorityResolved: true, identityResolved: true, evidenceResolved: true }
+  });
   assert.equal(result.decision, 'ALLOW');
   assert.equal(result.cedarDecision, 'allow');
+});
+
+test('real Cedar policyAuthorizer DENYs stale policy or constitution bindings', async () => {
+  const authority = await bindRealCedarAuthority();
+  const intent = createActionIntent({
+    missionId: 'campaign:c1', tenantId: 'campaign:c1', actorId: 'uberbond-outbound-worker',
+    operation: 'email.send', resource: 'email:buyer@example.com', purpose: 'qualified-b2b-outreach',
+    effectClass: 'COMMUNICATE_EXTERNAL', argumentsDigest: sha256('args-binding'), evidenceIds: [],
+    maxCostUsd: 0, blastRadius: 1, rollback: 'SUPPRESS_FUTURE_CONTACT', createdAt: NOW.toISOString(),
+    expiresAt: new Date(NOW.getTime() + 60_000).toISOString(), nonce: 'binding', idempotencyKey: 'binding'
+  }, NOW);
+  const facts = { authorityResolved: true, identityResolved: true, evidenceResolved: true };
+  const wrongPolicy = authority.policyAuthorizer({
+    intent, resolverFacts: facts,
+    binding: { policyVersion: 'test-v1', policyDigest: '0'.repeat(64), constitutionDigest: authority.constitutionDigest }
+  });
+  const wrongConstitution = authority.policyAuthorizer({
+    intent, resolverFacts: facts,
+    binding: { policyVersion: 'test-v1', policyDigest: authority.policyDigest, constitutionDigest: '0'.repeat(64) }
+  });
+  assert.equal(wrongPolicy.decision, 'DENY');
+  assert.equal(wrongConstitution.decision, 'DENY');
+});
+
+test('proposal facts are derived from the signed intent and fail closed for learning sovereignty changes and unknown actors', async () => {
+  assert.deepEqual(deriveProposalFacts({ actorId: 'learning:optimizer', operation: 'policy.update', resource: 'policy:outbound', purpose: 'expand-budget' }), {
+    proposalOrigin: 'LEARNING', sovereigntyChange: true
+  });
+  assert.deepEqual(deriveProposalFacts({ actorId: 'unknown-worker', operation: 'email.send', resource: 'email:buyer@example.com', purpose: 'qualified-b2b-outreach' }), {
+    proposalOrigin: 'LEARNING', sovereigntyChange: true
+  });
+  const authority = await bindRealCedarAuthority();
+  const learningIntent = createActionIntent({
+    missionId: 'campaign:c1', tenantId: 'campaign:c1', actorId: 'learning:optimizer', operation: 'policy.update',
+    resource: 'policy:outbound', purpose: 'expand-budget', effectClass: 'WRITE_INTERNAL', argumentsDigest: sha256('learning-control'),
+    evidenceIds: [], maxCostUsd: 0, blastRadius: 1, rollback: 'NONE', createdAt: NOW.toISOString(),
+    expiresAt: new Date(NOW.getTime() + 60_000).toISOString(), nonce: 'learning', idempotencyKey: 'learning'
+  }, NOW);
+  const result = authority.policyAuthorizer({
+    intent: learningIntent,
+    binding: { policyVersion: 'test-v1', policyDigest: authority.policyDigest, constitutionDigest: authority.constitutionDigest },
+    resolverFacts: { authorityResolved: true, identityResolved: true, evidenceResolved: true }
+  });
+  assert.equal(result.decision, 'DENY');
 });
 
 test('classifyRealCedarFailure maps Cedar-unavailable and missing-config codes to V9_INCOMPLETE, everything else to V9_ERROR, never ALLOW', () => {

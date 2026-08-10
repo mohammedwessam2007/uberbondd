@@ -5,6 +5,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { PostgresStore } from '../src/store.mjs';
 import { Pipeline } from '../src/pipeline.mjs';
+import { sha256 } from '../src/omnia-v9/canonical.mjs';
 
 const root = await fs.mkdtemp(path.join(os.tmpdir(), 'uberbond-outbound-smoke-'));
 await fs.chmod(root, 0o777);
@@ -54,8 +55,17 @@ try {
     sender: { name: 'Mohamed', company: 'UberBond', address: 'Business address' }, caps: { A: 1 }, google: {}, encryptionKey: ''
   };
   let sends = 0;
+  const smokeOnlyConsequenceGate = context => ({
+    decision: 'ALLOW', authoritative: true, enforced: true,
+    contextDigest: sha256(context), reservationId: context.reservation.id,
+    actionIntentDigest: context.actionIntentDigest, effectPayloadDigest: context.effectPayloadDigest,
+    authorizationDigest: sha256(`smoke-authorization:${context.actionIntentDigest}`),
+    policyDigest: sha256('smoke-policy'), constitutionDigest: sha256('smoke-constitution'),
+    authorityReservationId: `smoke-authority:${context.reservation.id}`
+  });
   const pipeline = new Pipeline(store, cfg, {
     clock: () => fixed,
+    outboundConsequenceGate: smokeOnlyConsequenceGate,
     sendEmail: async (_google, _account, _key, message) => {
       sends += 1;
       assert.equal(message.listUnsubscribe, prospect.oneClickUnsubscribeUrl);

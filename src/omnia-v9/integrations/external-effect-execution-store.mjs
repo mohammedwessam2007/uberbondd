@@ -168,7 +168,9 @@ export class ExternalEffectExecutionStore {
 
   async findActiveByBusinessKey(businessKey) {
     const result = await this.pool.query(
-      `SELECT * FROM omnia_v9_external_effect_executions WHERE business_key=$1 AND status <> 'ABORTED_BEFORE_DISPATCH'`,
+      `SELECT * FROM omnia_v9_external_effect_executions
+       WHERE business_key=$1 AND status NOT IN ('ABORTED_BEFORE_DISPATCH','RECONCILED_NOT_SUBMITTED')
+       ORDER BY created_at DESC LIMIT 1`,
       [requireText(businessKey, 'businessKey')]
     );
     return normalizeRow(result.rows[0]);

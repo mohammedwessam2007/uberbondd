@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import { sendEmail, listMessages, getMessage, parseGmailMessage } from '../../../gmail.mjs';
 import { ExternalEffectAdapter, ADAPTER_OUTCOMES } from '../external-effect-adapter.mjs';
+import { sha256 } from '../../canonical.mjs';
 
 /**
  * The real Gmail implementation of the provider-neutral external-effect
@@ -79,6 +80,64 @@ function stripAngleBrackets(messageId) {
   return String(messageId || '').replace(/^</, '').replace(/>$/, '');
 }
 
+function normalizeMailbox(value) {
+  const text = String(value || '').trim().toLowerCase();
+  const bracket = text.match(/<([^<>]+)>/);
+  return (bracket ? bracket[1] : text).trim();
+}
+
+function mailboxHeaderContains(header, expected) {
+  const wanted = normalizeMailbox(expected);
+  if (!wanted) return false;
+  return String(header || '').split(',').some(part => normalizeMailbox(part) === wanted);
+}
+
+function validateMessageIdHeader(value, field = 'replyToId') {
+  if (value == null || value === '') return undefined;
+  const text = String(value);
+  if (text.length > 998 || /[\r\n]/.test(text) || !/^<[^<>\s@]+@[^<>\s@]+>$/.test(text)) {
+    throw new GmailEffectAdapterError(`${field} must be one safe angle-bracketed Message-ID`, 'INVALID_HEADER', { field });
+  }
+  return text;
+}
+
+function validateListUnsubscribe(value) {
+  if (value == null || value === '') return undefined;
+  const text = String(value);
+  if (text.length > 2048 || /[\r\n<>]/.test(text)) {
+    throw new GmailEffectAdapterError('listUnsubscribe contains unsafe header characters', 'INVALID_HEADER', { field: 'listUnsubscribe' });
+  }
+  let parsed;
+  try { parsed = new URL(text); }
+  catch { throw new GmailEffectAdapterError('listUnsubscribe must be a valid HTTPS URL', 'INVALID_HEADER', { field: 'listUnsubscribe' }); }
+  if (parsed.protocol !== 'https:' || parsed.username || parsed.password) {
+    throw new GmailEffectAdapterError('listUnsubscribe must be an HTTPS URL without embedded credentials', 'INVALID_HEADER', { field: 'listUnsubscribe' });
+  }
+  return parsed.href;
+}
+
+function validateThreadId(value) {
+  if (value == null || value === '') return undefined;
+  const text = String(value);
+  if (text.length > 256 || !/^[A-Za-z0-9_-]+$/.test(text)) {
+    throw new GmailEffectAdapterError('threadId contains unsupported characters', 'INVALID_INPUT', { field: 'threadId' });
+  }
+  return text;
+}
+
+export function gmailArgumentsDigest({ to, from, subject, body, messageId, threadId, replyToId, listUnsubscribe }) {
+  return sha256({
+    to: normalizeMailbox(to),
+    from: normalizeMailbox(from),
+    subjectSha256: sha256Hex(String(subject || '')),
+    bodySha256: sha256Hex(String(body || '')),
+    messageId: String(messageId || ''),
+    threadId: String(threadId || ''),
+    replyToId: String(replyToId || ''),
+    listUnsubscribe: String(listUnsubscribe || '')
+  });
+}
+
 export class GmailEffectAdapter extends ExternalEffectAdapter {
   /**
    * @param {object} deps
@@ -87,9 +146,8 @@ export class GmailEffectAdapter extends ExternalEffectAdapter {
    * @param {string} deps.encryptionKey - the key used to open/seal the account's sealed tokens.
    * @param {string} deps.messageIdDomain - the domain used for generated Message-IDs; must be explicit, never assumed.
    * @param {string} deps.fromAddress   - the exact From: address this adapter is allowed to send as.
-   * @param {boolean} [deps.allowBcc]   - defaults to false; this adapter refuses Bcc/Cc/attachments/custom headers unless explicitly enabled, per this mission's "hidden BCC/CC if not allowed" static-safety requirement.
    */
-  constructor({ cfg, account, encryptionKey, messageIdDomain, fromAddress, allowBcc = false } = {}) {
+  constructor({ cfg, account, encryptionKey, messageIdDomain, fromAddress } = {}) {
     super();
     if (!cfg) throw new GmailEffectAdapterError('cfg is required', 'CONFIG');
     if (!account) throw new GmailEffectAdapterError('account is required', 'CONFIG');
@@ -99,8 +157,7 @@ export class GmailEffectAdapter extends ExternalEffectAdapter {
     this.account = account;
     this.encryptionKey = encryptionKey;
     this.messageIdDomain = messageIdDomain;
-    this.fromAddress = fromAddress;
-    this.allowBcc = allowBcc;
+    this.fromAddress = validateRecipient(fromAddress);
     this.dispatchCallCount = 0;
   }
 
@@ -121,8 +178,8 @@ export class GmailEffectAdapter extends ExternalEffectAdapter {
     const to = validateRecipient(effectPayload.to);
     validateSubjectAndBody(effectPayload.subject, effectPayload.body);
 
-    if (!this.allowBcc && (effectPayload.bcc || effectPayload.cc)) {
-      throw new GmailEffectAdapterError('Bcc/Cc are not permitted unless explicitly enabled', 'DISALLOWED_HEADER');
+    if (effectPayload.bcc || effectPayload.cc) {
+      throw new GmailEffectAdapterError('Bcc/Cc are not supported by this adapter', 'DISALLOWED_HEADER');
     }
     if (effectPayload.attachments && effectPayload.attachments.length > 0) {
       throw new GmailEffectAdapterError('attachments are not supported by this adapter', 'UNSUPPORTED_ATTACHMENT');
@@ -136,13 +193,19 @@ export class GmailEffectAdapter extends ExternalEffectAdapter {
     }
 
     const messageId = generateMessageId(executionId, this.messageIdDomain);
+    if (String(providerEffectIdentity) !== messageId) {
+      throw new GmailEffectAdapterError('providerEffectIdentity does not match the Message-ID derived from executionId', 'PROVIDER_EFFECT_IDENTITY_MISMATCH');
+    }
 
-    return {
+    const prepared = {
       businessKey, providerEffectIdentity, executionId,
       to, from: this.fromAddress, subject: effectPayload.subject, body: effectPayload.body,
       messageId,
-      threadId: effectPayload.threadId, replyToId: effectPayload.replyToId, listUnsubscribe: effectPayload.listUnsubscribe
+      threadId: validateThreadId(effectPayload.threadId),
+      replyToId: validateMessageIdHeader(effectPayload.replyToId),
+      listUnsubscribe: validateListUnsubscribe(effectPayload.listUnsubscribe)
     };
+    return { ...prepared, argumentsDigest: gmailArgumentsDigest(prepared) };
   }
 
   /**
@@ -204,7 +267,7 @@ export class GmailEffectAdapter extends ExternalEffectAdapter {
    * multiple matches are never resolved heuristically (section 16: always
    * AMBIGUOUS, never a guess).
    */
-  async reconcile({ businessKey, providerEffectIdentity, executionId, expectedTo, expectedSubject }) {
+  async reconcile({ businessKey, providerEffectIdentity, executionId, expectedTo, expectedSubject, expectedSubjectSha256 }) {
     const observedAt = new Date().toISOString();
     const messageId = providerEffectIdentity || (executionId ? generateMessageId(executionId, this.messageIdDomain) : null);
     if (!messageId) {
@@ -227,10 +290,13 @@ export class GmailEffectAdapter extends ExternalEffectAdapter {
 
     const matches = listResult?.data?.messages || [];
     if (matches.length === 0) {
+      // Gmail does not document a zero-latency search-index guarantee. A
+      // zero-result query therefore cannot prove non-submission and must
+      // never release the business key or authorize a resend.
       return {
         businessIdentity: businessKey, providerReferenceId: null, observedAt,
         evidenceType: 'RECONCILIATION_LOOKUP', acquisitionMethod: 'gmail-effect-adapter:rfc822msgid-search',
-        reconciliationSource: 'gmail-api', lifecycle: 'NOT_FOUND', detail: { messageId }
+        reconciliationSource: 'gmail-api', lifecycle: 'UNCERTAIN', detail: { reason: 'zero-matches-not-proof-of-non-submission', messageId }
       };
     }
     if (matches.length > 1) {
@@ -255,7 +321,7 @@ export class GmailEffectAdapter extends ExternalEffectAdapter {
         detail: { reason: 'message-id-mismatch-after-fetch', expected: bareMessageId, found: parsedMessageId }
       };
     }
-    if (expectedTo && parsed.to && !parsed.to.includes(expectedTo)) {
+    if (expectedTo && !mailboxHeaderContains(parsed.to, expectedTo)) {
       return {
         businessIdentity: businessKey, providerReferenceId: matches[0].id, observedAt,
         evidenceType: 'RECONCILIATION_LOOKUP', acquisitionMethod: 'gmail-effect-adapter:rfc822msgid-search+get',
@@ -269,6 +335,14 @@ export class GmailEffectAdapter extends ExternalEffectAdapter {
         evidenceType: 'RECONCILIATION_LOOKUP', acquisitionMethod: 'gmail-effect-adapter:rfc822msgid-search+get',
         reconciliationSource: 'gmail-api', lifecycle: 'AMBIGUOUS',
         detail: { reason: 'subject-mismatch', expected: expectedSubject, found: parsed.subject }
+      };
+    }
+    if (expectedSubjectSha256 && sha256Hex(String(parsed.subject || '')) !== expectedSubjectSha256) {
+      return {
+        businessIdentity: businessKey, providerReferenceId: matches[0].id, observedAt,
+        evidenceType: 'RECONCILIATION_LOOKUP', acquisitionMethod: 'gmail-effect-adapter:rfc822msgid-search+get',
+        reconciliationSource: 'gmail-api', lifecycle: 'AMBIGUOUS',
+        detail: { reason: 'subject-digest-mismatch', expectedSubjectSha256, foundSubjectSha256: sha256Hex(String(parsed.subject || '')) }
       };
     }
 

@@ -202,7 +202,24 @@ export function admitAction(intent, context = {}) {
     if (!SHA256_HEX.test(String(context.constitutionDigest || ''))) return decision('DENY', intent, ['constitution:digest-missing'], context, covering.approval);
   }
   let policy;
-  try { policy = context.policyAuthorizer({ intent, approval: covering.approval, evidence, requirements }); }
+  try {
+    policy = context.policyAuthorizer({
+      intent,
+      approval: covering.approval,
+      evidence,
+      requirements,
+      binding: {
+        policyVersion: context.policyVersion,
+        policyDigest: context.policyDigest,
+        constitutionDigest: context.constitutionDigest
+      },
+      resolverFacts: {
+        identityResolved: verifiedIntent.ok,
+        evidenceResolved: reasons.length === 0 && evidence.length === intent.evidenceIds.length,
+        authorityResolved: covering.verify.ok && approvalCoversIntent(covering.approval, intent, covering.usage).ok
+      }
+    });
+  }
   catch (error) { return decision('DENY', intent, [`policy:error:${String(error?.message || error)}`], context, covering.approval); }
   if (!policy || policy.decision !== 'ALLOW') return decision(policy?.decision === 'REVIEW' ? 'REVIEW' : 'DENY', intent, ['policy:not-allowed', ...(policy?.reasons || [])], context, covering.approval);
   return decision('ALLOW', intent, ['admission:all-gates-satisfied'], context, covering.approval);

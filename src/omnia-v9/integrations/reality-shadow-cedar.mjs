@@ -34,6 +34,29 @@ export function classifyRealCedarFailure(error) {
   return 'V9_ERROR';
 }
 
+const CONTROL_PLANE_PATTERN = /(approval|authority|credential|policy|constitution|budget|recipient[-_. ]?scope|collection[-_. ]?scope|external[-_. ]?permission|kill[-_. ]?switch)/i;
+const OPERATOR_ACTORS = new Set(['uberbond-outbound-worker', 'uberbond-canary-worker', 'mohamed']);
+
+/**
+ * Proposal provenance and sovereignty impact are derived only from the signed
+ * action intent. Unknown actors fail closed as learning-origin control-plane
+ * changes; callers cannot supply friendlier resolver facts to override this.
+ */
+export function deriveProposalFacts(intent) {
+  const actorId = String(intent?.actorId || '');
+  const operation = String(intent?.operation || '');
+  const resource = String(intent?.resource || '');
+  const purpose = String(intent?.purpose || '');
+  const explicitlyLearning = /(^|[:/._-])learning([:/._-]|$)/i.test(actorId);
+  const explicitlyOperator = OPERATOR_ACTORS.has(actorId) || /^(owner|operator)[:/]/i.test(actorId);
+  const actorKnown = explicitlyLearning || explicitlyOperator;
+  const sovereigntyChange = !actorKnown || CONTROL_PLANE_PATTERN.test(`${operation}\n${resource}\n${purpose}`);
+  return {
+    proposalOrigin: explicitlyOperator ? 'OPERATOR' : 'LEARNING',
+    sovereigntyChange
+  };
+}
+
 async function readJson(relative) {
   try {
     return JSON.parse(await fs.readFile(path.join(root, relative), 'utf8'));
@@ -160,25 +183,15 @@ export async function bindRealCedarAuthority({ fresh = false } = {}) {
       throw new RealCedarBindingError(error.message || String(error), code, 'policy-validation', error.detail);
     }
 
-    /**
-     * By the time admitAction() invokes policyAuthorizer, it has already:
-     * verified intent identity/time bounds, resolved and sufficiently
-     * checked evidence, found a covering resolvable approval, and confirmed
-     * policyDigest/constitutionDigest are present. So identityResolved,
-     * evidenceResolved, authorityResolved, policyBound and
-     * constitutionBound are true facts here, not assumptions -- Cedar is
-     * re-checking the same real policy the P3 gate already validated, not
-     * re-deriving facts the kernel already proved.
-     */
-    function policyAuthorizer({ intent }) {
+    function policyAuthorizer({ intent, binding = {}, resolverFacts: resolved = {} }) {
+      const proposalFacts = deriveProposalFacts(intent);
       const resolverFacts = {
-        authorityResolved: true,
-        identityResolved: true,
-        evidenceResolved: true,
-        policyBound: true,
-        constitutionBound: true,
-        proposalOrigin: 'OPERATOR',
-        sovereigntyChange: false
+        authorityResolved: resolved.authorityResolved === true,
+        identityResolved: resolved.identityResolved === true,
+        evidenceResolved: resolved.evidenceResolved === true,
+        policyBound: String(binding.policyDigest || '') === policyBundle.policyDigest && Boolean(String(binding.policyVersion || '').trim()),
+        constitutionBound: String(binding.constitutionDigest || '') === constitution.bundle.constitutionDigest,
+        ...proposalFacts
       };
       const actor = { id: intent.actorId, tenantId: intent.tenantId };
       const resource = { id: intent.resource, tenantId: intent.tenantId, operation: intent.operation, effectClass: intent.effectClass };

@@ -11,6 +11,7 @@ import { persistCrawlArtifacts } from './artifacts.mjs';
 import { evaluateSendEligibility, sendIdempotencyKey, classifyDeliverySignal } from './send-safety.mjs';
 import { unsubscribeUrl, oneClickUnsubscribeUrl } from './unsubscribe.mjs';
 import { buildOutboundShadowContext, observeOutboundFinalAdmission } from './omnia-v9/final-admission-shadow.mjs';
+import { buildOutboundConsequenceContext, enforceOutboundConsequence } from './omnia-v9/integrations/outbound-consequence-gate.mjs';
 
 export class Pipeline {
   constructor(store, cfg, hooks = {}) {
@@ -25,6 +26,7 @@ export class Pipeline {
     this.parseMessageFn = hooks.parseGmailMessage || parseGmailMessage;
     this.clock = hooks.clock || (() => new Date());
     this.outboundFinalAdmissionShadowFn = hooks.outboundFinalAdmissionShadow || null;
+    this.outboundConsequenceGateFn = hooks.outboundConsequenceGate || null;
   }
 
   async isSuppressed(prospect, email = '') {
@@ -167,13 +169,22 @@ export class Pipeline {
 
     const configuredDaily = Number(this.cfg.caps?.[prospect.inbox] ?? 0);
     const campaignDaily = Number(campaign.dailyCaps?.[prospect.inbox] ?? configuredDaily);
-    const dailyCap = Math.max(0, Math.min(campaignDaily, configuredDaily));
-    const hourlyCap = Math.max(0, Number(this.cfg.outbound?.hourlyCaps?.[prospect.inbox] ?? 0));
+    const canaryDaily = Number(this.cfg.outbound?.canaryDailyCap ?? 0);
+    const dailyCap = Math.max(0, Math.min(campaignDaily, configuredDaily, canaryDaily));
+    const configuredHourly = Number(this.cfg.outbound?.hourlyCaps?.[prospect.inbox] ?? 0);
+    const hourlyCap = Math.max(0, Math.min(configuredHourly, Number(this.cfg.outbound?.canaryHourlyCap ?? 1)));
+    const minGapSeconds = Math.max(
+      Number(this.cfg.outbound?.minGapSeconds || 0),
+      Number(this.cfg.outbound?.canaryMinGapSeconds || 0)
+    );
     const idempotencyKey = sendIdempotencyKey(prospect.id, followup);
     const reserved = await this.store.reserveOutboundSend({
       idempotencyKey, prospectId: prospect.id, campaignId: campaign.id, inbox: prospect.inbox,
       recipientEmail: prospect.contact.email, kind: followup ? 'followup' : 'initial', followup,
-      dailyCap, hourlyCap, minGapSeconds: this.cfg.outbound?.minGapSeconds, now: this.clock().toISOString()
+      businessDomain: normalizeDomain(prospect.website || prospect.domain),
+      recipientCooldownDays: this.cfg.outbound?.recipientCooldownDays,
+      domainCooldownDays: this.cfg.outbound?.domainCooldownDays,
+      dailyCap, hourlyCap, minGapSeconds, now: this.clock().toISOString()
     });
     if (!reserved.ok) {
       if (reserved.reason === 'duplicate-sent' && reserved.reservation) {
@@ -192,6 +203,37 @@ export class Pipeline {
     }
 
     const reservation = reserved.reservation;
+    const effectPayload = {
+      from: `${this.cfg.sender.name} <${account.email}>`,
+      to: prospect.contact.email,
+      subject,
+      body,
+      threadId: followup ? prospect.threadId : undefined,
+      replyToId: followup ? prospect.rfcMessageId : undefined,
+      listUnsubscribe: prospect.oneClickUnsubscribeUrl
+    };
+    const consequenceContext = buildOutboundConsequenceContext({
+      reservation, prospect, campaign, account, effectPayload, followup, idempotencyKey,
+      checkedAt: this.clock().toISOString()
+    });
+    const consequenceAdmission = await enforceOutboundConsequence({
+      hook: this.outboundConsequenceGateFn,
+      context: consequenceContext
+    });
+    if (!consequenceAdmission.allowed) {
+      await this.store.markOutboundReservation(reservation.id, 'cancelled', {
+        cancellationReason: consequenceAdmission.reason,
+        consequenceAdmission
+      });
+      await this.store.log('omnia_v9_outbound_consequence_blocked', consequenceAdmission);
+      return this.markSendSafety(prospect, {
+        sent: false,
+        reason: 'v9-authoritative-consequence-admission-required',
+        detail: consequenceAdmission.reason,
+        reservationId: reservation.id
+      });
+    }
+
     await this.store.markOutboundReservation(reservation.id, 'dispatching');
     const shadowContext = buildOutboundShadowContext({
       reservation, prospect, campaign, account, subject, body, followup, idempotencyKey,
@@ -205,12 +247,7 @@ export class Pipeline {
 
     let result;
     try {
-      result = await this.sendEmailFn(this.cfg.google, account, this.cfg.encryptionKey, {
-        from: `${this.cfg.sender.name} <${account.email}>`, to: prospect.contact.email, subject, body,
-        threadId: followup ? prospect.threadId : undefined,
-        replyToId: followup ? prospect.rfcMessageId : undefined,
-        listUnsubscribe: prospect.oneClickUnsubscribeUrl
-      });
+      result = await this.sendEmailFn(this.cfg.google, account, this.cfg.encryptionKey, effectPayload);
     } catch (error) {
       await this.store.markOutboundReservation(reservation.id, 'uncertain', { error: String(error.message || error).slice(0, 1000) });
       const health = await this.store.recordOutboundEvent({
@@ -281,7 +318,7 @@ export class Pipeline {
     let sent = 0;
     const candidates = (await this.store.list('prospects'))
       .filter(prospect => ['ready', 'research-complete'].includes(prospect.status) && !prospect.repliedAt)
-      .slice(0, Math.max(1, Number(limit || 10)));
+      .slice(0, Math.min(1, Math.max(1, Number(limit || 10))));
     for (const prospect of candidates) {
       const campaign = await this.campaignFor(prospect);
       if (!campaign?.approved || !campaign.autoSend) continue;

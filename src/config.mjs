@@ -27,9 +27,19 @@ export const config = {
   outbound: {
     enabled: bool(env.OUTBOUND_ENABLED, false),
     dryRun: bool(env.OUTBOUND_DRY_RUN, true),
+    launchPhase: String(env.OUTBOUND_LAUNCH_PHASE || 'off').trim().toLowerCase(),
+    provider: String(env.OUTBOUND_PROVIDER || 'gmail-api').trim().toLowerCase(),
+    approvalSecret: env.OUTREACH_APPROVAL_SECRET || '',
+    approverId: String(env.OUTREACH_APPROVER_ID || 'mohamed').trim(),
     allowedCountries: (env.OUTBOUND_ALLOWED_COUNTRIES || '').split(',').map(value => value.trim()).filter(Boolean),
     hourlyCaps: { A: num(env.OUTBOUND_HOURLY_CAP_A, 5), B: num(env.OUTBOUND_HOURLY_CAP_B, 5) },
     minGapSeconds: num(env.OUTBOUND_MIN_GAP_SECONDS, 90),
+    canaryDailyCap: Math.max(1, Math.min(5, num(env.OUTBOUND_CANARY_DAILY_CAP, 3))),
+    canaryHourlyCap: 1,
+    canaryMinGapSeconds: Math.max(900, num(env.OUTBOUND_CANARY_MIN_GAP_SECONDS, 1800)),
+    routeEvidenceMaxAgeDays: Math.max(1, Math.min(30, num(env.OUTBOUND_ROUTE_EVIDENCE_MAX_AGE_DAYS, 7))),
+    recipientCooldownDays: Math.max(30, num(env.OUTBOUND_RECIPIENT_COOLDOWN_DAYS, 365)),
+    domainCooldownDays: Math.max(7, num(env.OUTBOUND_DOMAIN_COOLDOWN_DAYS, 90)),
     businessHourStart: num(env.OUTBOUND_BUSINESS_HOUR_START, 9),
     businessHourEnd: num(env.OUTBOUND_BUSINESS_HOUR_END, 17),
     minEvidenceConfidence: num(env.OUTBOUND_MIN_EVIDENCE_CONFIDENCE, 0.75),
@@ -131,12 +141,17 @@ export function validateStartupConfig(cfg = config) {
   if (!cfg.adminToken || cfg.adminToken.length < 32) throw new Error('Production requires a strong ADMIN_TOKEN of at least 32 characters');
   if (!String(cfg.baseUrl).startsWith('https://')) throw new Error('Production requires an HTTPS APP_BASE_URL');
   if (cfg.outbound?.enabled && !cfg.outbound?.dryRun) {
+    if (cfg.outbound.launchPhase !== 'canary') throw new Error('Live outbound requires OUTBOUND_LAUNCH_PHASE=canary');
+    if (cfg.outbound.provider !== 'gmail-api') throw new Error('This release only permits OUTBOUND_PROVIDER=gmail-api');
+    if (String(cfg.outbound.approvalSecret || '').length < 32) throw new Error('Live outbound requires OUTREACH_APPROVAL_SECRET with at least 32 characters');
     if (!cfg.sender?.address) throw new Error('Live outbound requires BUSINESS_ADDRESS');
     if (!Array.isArray(cfg.outbound.allowedCountries) || cfg.outbound.allowedCountries.length === 0) throw new Error('Live outbound requires OUTBOUND_ALLOWED_COUNTRIES');
     if (!cfg.google.clientId || !cfg.google.clientSecret) throw new Error('Live outbound requires Google OAuth credentials');
     if (!/^[a-f0-9]{64}$/i.test(cfg.encryptionKey || '')) throw new Error('Live outbound requires a 64-character hexadecimal TOKEN_ENCRYPTION_KEY');
     if (String(cfg.unsubscribeSecret || '').length < 32) throw new Error('Live outbound requires UNSUBSCRIBE_SECRET with at least 32 characters');
     if (cfg.outbound.businessHourStart < 0 || cfg.outbound.businessHourEnd > 24 || cfg.outbound.businessHourStart >= cfg.outbound.businessHourEnd) throw new Error('Invalid outbound business-hour window');
+    if (Number(cfg.outbound.canaryDailyCap || 0) < 1 || Number(cfg.outbound.canaryDailyCap || 0) > 5) throw new Error('OUTBOUND_CANARY_DAILY_CAP must be between 1 and 5');
+    if (Number(cfg.outbound.canaryMinGapSeconds || 0) < 900) throw new Error('OUTBOUND_CANARY_MIN_GAP_SECONDS must be at least 900');
   }
   const gmailConfigured = Boolean(cfg.google.clientId || cfg.google.clientSecret);
   if (gmailConfigured && !/^[a-f0-9]{64}$/i.test(cfg.encryptionKey || '')) {

@@ -7,6 +7,7 @@ import { createFakeGmailTransport } from './helpers/fake-gmail-transport.mjs';
 
 const ENCRYPTION_KEY = crypto.randomBytes(32).toString('hex');
 const CFG = { clientId: 'fake-client', clientSecret: 'fake-secret', redirectUri: 'https://example.test/callback' };
+const MESSAGE_ID_DOMAIN = 'uberbond-controlled-test.example';
 
 function freshAccount() {
   const tokens = { access_token: 'fresh-token', refresh_token: 'fresh-refresh', expires_at: Date.now() + 3600_000 };
@@ -19,7 +20,7 @@ function makeAdapter(overrides = {}) {
     cfg: { ...CFG, fetchImpl: transport.fetchImpl },
     account: freshAccount(),
     encryptionKey: ENCRYPTION_KEY,
-    messageIdDomain: 'uberbond-controlled-test.example',
+    messageIdDomain: MESSAGE_ID_DOMAIN,
     fromAddress: 'sender@uberbond-controlled-test.example',
     ...overrides
   });
@@ -27,6 +28,16 @@ function makeAdapter(overrides = {}) {
 
 function payload(overrides = {}) {
   return { to: 'recipient@example.test', subject: 'Test subject', body: 'Test body content.', ...overrides };
+}
+
+function preparedInput(id, effectPayload = payload()) {
+  const executionId = `exec-${id}`;
+  return {
+    businessKey: `bk-${id}`,
+    providerEffectIdentity: generateMessageId(executionId, MESSAGE_ID_DOMAIN),
+    executionId,
+    effectPayload
+  };
 }
 
 test('static safety: invalid recipient (missing @) is rejected before any network call', async () => {
@@ -66,6 +77,14 @@ test('static safety: duplicate Message-ID generation is deterministic per execut
   assert.equal(a1, a2, 'same execution ID must always produce the same Message-ID');
   assert.notEqual(a1, b, 'different execution IDs must never collide');
   assert.doesNotMatch(a1, /exec-same/, 'the raw execution ID must never appear in the generated Message-ID (PII/internal-identifier leakage)');
+});
+
+test('static safety: provider identity must equal the Message-ID derived from the durable execution ID', async () => {
+  const adapter = makeAdapter();
+  await assert.rejects(
+    () => adapter.prepare({ ...preparedInput('identity-mismatch'), providerEffectIdentity: generateMessageId('exec-someone-else', MESSAGE_ID_DOMAIN) }),
+    error => error.code === 'PROVIDER_EFFECT_IDENTITY_MISMATCH'
+  );
 });
 
 test('static safety: wrong tenant / wrong execution ID / wrong policy digest / wrong constitution digest are the dispatcher\'s and store\'s job, not this adapter\'s -- verified they are not silently accepted by prepare()', async () => {
@@ -116,15 +135,41 @@ test('static safety: attachments are unsupported and rejected', async () => {
   );
 });
 
-test('static safety: hidden Bcc/Cc are rejected unless explicitly allowed', async () => {
+test('static safety: hidden Bcc/Cc are always rejected', async () => {
   const adapter = makeAdapter();
   await assert.rejects(
     () => adapter.prepare({ businessKey: 'bk-10', providerEffectIdentity: 'peid-10', executionId: 'exec-10', effectPayload: payload({ bcc: 'hidden@example.test' }) }),
     error => error.code === 'DISALLOWED_HEADER'
   );
-  const allowingAdapter = makeAdapter({ allowBcc: true });
-  const prepared = await allowingAdapter.prepare({ businessKey: 'bk-10b', providerEffectIdentity: 'peid-10b', executionId: 'exec-10b', effectPayload: payload() });
-  assert.ok(prepared);
+  await assert.rejects(
+    () => adapter.prepare(preparedInput('10b', payload({ cc: 'copy@example.test' }))),
+    error => error.code === 'DISALLOWED_HEADER'
+  );
+});
+
+test('static safety: header-bearing fields reject injection and unsafe URLs', async () => {
+  const adapter = makeAdapter();
+  await assert.rejects(
+    () => adapter.prepare(preparedInput('header-reply', payload({ replyToId: '<safe@example.test>\r\nBcc: attacker@example.test' }))),
+    error => error.code === 'INVALID_HEADER'
+  );
+  await assert.rejects(
+    () => adapter.prepare(preparedInput('header-unsubscribe', payload({ listUnsubscribe: 'javascript:alert(1)' }))),
+    error => error.code === 'INVALID_HEADER'
+  );
+  await assert.rejects(
+    () => adapter.prepare(preparedInput('thread-id', payload({ threadId: 'unsafe thread\r\n' }))),
+    error => error.code === 'INVALID_INPUT'
+  );
+});
+
+test('static safety: arguments digest binds every externally visible prepared field', async () => {
+  const adapter = makeAdapter();
+  const base = await adapter.prepare(preparedInput('digest-base', payload({ listUnsubscribe: 'https://example.test/unsubscribe' })));
+  const changedRecipient = await adapter.prepare(preparedInput('digest-to', payload({ to: 'other@example.test', listUnsubscribe: 'https://example.test/unsubscribe' })));
+  const changedHeader = await adapter.prepare(preparedInput('digest-header', payload({ listUnsubscribe: 'https://example.test/other' })));
+  assert.notEqual(base.argumentsDigest, changedRecipient.argumentsDigest);
+  assert.notEqual(base.argumentsDigest, changedHeader.argumentsDigest);
 });
 
 test('static safety: unexpected/unapproved header fields are rejected', async () => {
@@ -137,7 +182,7 @@ test('static safety: unexpected/unapproved header fields are rejected', async ()
 
 test('static safety: a fully valid payload is accepted and produces a stable Message-ID with no network call', async () => {
   const adapter = makeAdapter();
-  const prepared = await adapter.prepare({ businessKey: 'bk-12', providerEffectIdentity: 'peid-12', executionId: 'exec-12', effectPayload: payload() });
+  const prepared = await adapter.prepare(preparedInput('12'));
   assert.equal(adapter.dispatchCallCount, 0, 'prepare() must never perform network I/O');
   assert.match(prepared.messageId, /^<v9-[0-9a-f]{64}@uberbond-controlled-test\.example>$/);
 });

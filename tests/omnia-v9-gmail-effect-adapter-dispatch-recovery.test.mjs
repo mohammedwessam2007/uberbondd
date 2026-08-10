@@ -60,26 +60,29 @@ function baseIntent({ id, effectPayload }) {
     tenantId: 'tenant-gmail-preflight', operation: 'op', resource: `res:${id}`, businessKey: `bk-${id}`,
     provider: 'gmail', providerEffectIdentity: generateMessageId(`exec-${id}`, MESSAGE_ID_DOMAIN),
     approvalId: 'ap-gmail-preflight', constitutionDigest: 'cd', policyDigest: 'pd', consequenceClass: 'COMMUNICATE_EXTERNAL',
-    simulation: { effectPayload: effectPayload || { to: 'recipient@example.test', subject: 'OMNIA V9 Gmail dispatch test', body: 'Automated test body.' } }
+    effectPayload: effectPayload || { to: 'recipient@example.test', subject: 'OMNIA V9 Gmail dispatch test', body: 'Automated test body.' }
   };
 }
 
-// external-effect-dispatcher.mjs calls adapter.prepare({businessKey, providerEffectIdentity, executionId, simulation})
-// -- GmailEffectAdapter.prepare() expects `effectPayload`, not `simulation`, so this thin bridge maps the dispatcher's
-// generic field name onto the Gmail adapter's expected one without changing the frozen dispatcher's own contract.
-function bridgeAdapter(adapter) {
+function testOnlyFinalAdmission({ preparedEffect, effectIntent }) {
   return {
-    providerName: adapter.providerName,
-    dispatchCallCount: 0,
-    prepare: ({ businessKey, providerEffectIdentity, executionId, simulation }) =>
-      adapter.prepare({ businessKey, providerEffectIdentity, executionId, effectPayload: simulation?.effectPayload }),
-    dispatch(preparedEffect) {
-      this.dispatchCallCount += 1;
-      return adapter.dispatch(preparedEffect);
-    },
-    reconcile: identity => adapter.reconcile(identity),
-    classifyOutcome: evidence => adapter.classifyOutcome(evidence)
+    decision: 'ALLOW',
+    authoritative: true,
+    enforced: true,
+    executionId: effectIntent.executionId,
+    businessKey: effectIntent.businessKey,
+    actionIntentDigest: effectIntent.actionIntentDigest,
+    authorizationDigest: effectIntent.authorizationDigest,
+    providerEffectIdentity: effectIntent.providerEffectIdentity,
+    approvalId: effectIntent.approvalId,
+    policyDigest: effectIntent.policyDigest,
+    constitutionDigest: effectIntent.constitutionDigest,
+    argumentsDigest: preparedEffect.argumentsDigest
   };
+}
+
+function dispatchAuthorized(args) {
+  return dispatchExternalEffect({ ...args, finalAdmissionCheck: testOnlyFinalAdmission });
 }
 
 test('Gmail adapter through the real dispatcher: definite success reaches PROVIDER_ACCEPTED', { skip: !realPostgresUrl }, async () => {
@@ -89,9 +92,9 @@ test('Gmail adapter through the real dispatcher: definite success reaches PROVID
     const store = new ExternalEffectExecutionStore({ pool });
     const evidenceStore = new ExternalEffectEvidenceStore({ pool });
     const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.DEFINITE_SUCCESS });
-    const adapter = bridgeAdapter(makeAdapter(transport));
+    const adapter = makeAdapter(transport);
     const id = `gmail-happy-${suffix()}`;
-    const result = await dispatchExternalEffect({ store, evidenceStore, adapter, effectIntent: baseIntent({ id }) });
+    const result = await dispatchAuthorized({ store, evidenceStore, adapter, effectIntent: baseIntent({ id }) });
     assert.equal(result.status, 'PROVIDER_ACCEPTED');
     assert.equal(adapter.dispatchCallCount, 1);
   } finally { await pool.end(); }
@@ -104,13 +107,12 @@ test('Gmail adapter checkpoint-C shape: crash immediately after Gmail accepts bu
     const store = new ExternalEffectExecutionStore({ pool });
     const evidenceStore = new ExternalEffectEvidenceStore({ pool });
     const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.DEFINITE_SUCCESS });
-    const rawAdapter = makeAdapter(transport);
-    const adapter = bridgeAdapter(rawAdapter);
+    const adapter = makeAdapter(transport);
     const id = `gmail-checkpoint-c-${suffix()}`;
     const intent = baseIntent({ id });
 
     await assert.rejects(
-      () => dispatchExternalEffect({ store, evidenceStore, adapter, effectIntent: intent, crashAt: CRASH_POINTS.IMMEDIATELY_AFTER_PROVIDER_ACCEPTS }),
+      () => dispatchAuthorized({ store, evidenceStore, adapter, effectIntent: intent, crashAt: CRASH_POINTS.IMMEDIATELY_AFTER_PROVIDER_ACCEPTS }),
       CrashInjected
     );
     assert.equal(transport.mailbox.length, 1, 'sanity: Gmail (fake) truly received and stored the message before the crash');
@@ -120,7 +122,7 @@ test('Gmail adapter checkpoint-C shape: crash immediately after Gmail accepts bu
     assert.equal(afterCrash.status, 'DISPATCHING');
 
     const freshTransportSharedMailbox = transport; // "process restart" reuses the same external Gmail mailbox, just like a real crash would
-    const freshAdapter = bridgeAdapter(makeAdapter(freshTransportSharedMailbox));
+    const freshAdapter = makeAdapter(freshTransportSharedMailbox);
     const recovered = await recoverOneExecution({ store, evidenceStore, adapter: freshAdapter, execution: afterCrash });
 
     assert.equal(freshAdapter.dispatchCallCount, 0, 'MISSION-CRITICAL: recovery must never call Gmail send again');
@@ -130,23 +132,25 @@ test('Gmail adapter checkpoint-C shape: crash immediately after Gmail accepts bu
   } finally { await pool.end(); }
 });
 
-test('Gmail adapter: provider never received the request (proven via reconciliation NOT_FOUND) -- frees the business key for a real retry', { skip: !realPostgresUrl }, async () => {
+test('Gmail adapter: zero search matches remain uncertain and never free the business key for a retry', { skip: !realPostgresUrl }, async () => {
   const pool = new Pool({ connectionString: realPostgresUrl, max: 5 });
   try {
     await migrateReal(pool);
     const store = new ExternalEffectExecutionStore({ pool });
     const evidenceStore = new ExternalEffectEvidenceStore({ pool });
     const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.TIMEOUT_BEFORE_REQUEST_RECEIVED });
-    const adapter = bridgeAdapter(makeAdapter(transport));
-    const id = `gmail-not-found-${suffix()}`;
+    const adapter = makeAdapter(transport);
+    const id = `gmail-zero-match-${suffix()}`;
     const intent = baseIntent({ id });
-    const result = await dispatchExternalEffect({ store, evidenceStore, adapter, effectIntent: intent });
+    const result = await dispatchAuthorized({ store, evidenceStore, adapter, effectIntent: intent });
     assert.equal(result.status, 'RESULT_UNCERTAIN');
 
     const execution = await store.getById(`exec-${id}`);
     const recovered = await recoverOneExecution({ store, evidenceStore, adapter, execution });
-    assert.equal(recovered.action, RECOVERY_ACTIONS.ABORTED_BEFORE_DISPATCH);
-    assert.equal(recovered.status, 'RECONCILED_NOT_SUBMITTED');
+    assert.equal(recovered.action, RECOVERY_ACTIONS.RECONCILE_PROVIDER);
+    assert.equal(recovered.status, 'RESULT_UNCERTAIN');
+    const stillActive = await store.findActiveByBusinessKey(intent.businessKey);
+    assert.equal(stillActive.executionId, intent.executionId, 'uncertainty must retain the business-key lock');
     assert.equal(adapter.dispatchCallCount, 1, 'the ORIGINAL attempt counted once -- recovery itself never dispatches again');
   } finally { await pool.end(); }
 });
@@ -158,13 +162,13 @@ test('Gmail adapter: two concurrent recovery workers on the same stuck Gmail-bou
     const store = new ExternalEffectExecutionStore({ pool });
     const evidenceStore = new ExternalEffectEvidenceStore({ pool });
     const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.TIMEOUT_BEFORE_REQUEST_RECEIVED });
-    const adapter = bridgeAdapter(makeAdapter(transport));
+    const adapter = makeAdapter(transport);
     const id = `gmail-race-${suffix()}`;
     const intent = baseIntent({ id });
-    await dispatchExternalEffect({ store, evidenceStore, adapter, effectIntent: intent });
+    await dispatchAuthorized({ store, evidenceStore, adapter, effectIntent: intent });
 
-    const workerA = bridgeAdapter(makeAdapter(transport));
-    const workerB = bridgeAdapter(makeAdapter(transport));
+    const workerA = makeAdapter(transport);
+    const workerB = makeAdapter(transport);
     // A generous limit (not just enough for this one row) keeps this assertion robust
     // against unrelated unresolved rows a long-lived local database may carry from other
     // tests/dev iterations -- a disposable per-run database (the CI/final-regression
@@ -180,7 +184,7 @@ test('Gmail adapter: two concurrent recovery workers on the same stuck Gmail-bou
     assert.equal(claimedByA !== claimedByB, true, 'exactly one worker claims this Gmail-bound execution, never both, never neither');
 
     const finalExecution = await store.getById(executionId);
-    assert.equal(finalExecution.status, 'RECONCILED_NOT_SUBMITTED');
+    assert.equal(finalExecution.status, 'RESULT_UNCERTAIN');
     assert.equal(workerA.dispatchCallCount + workerB.dispatchCallCount, 0, 'no recovery worker ever calls Gmail send');
   } finally { await pool.end(); }
 });

@@ -69,9 +69,9 @@ export class NullSinkV2Adapter extends ExternalEffectAdapter {
   }
 
   /** Computed before any provider call -- the stable, provider-independent effect identity. */
-  async prepare({ businessKey, providerEffectIdentity }) {
+  async prepare({ businessKey, providerEffectIdentity, simulation = {} }) {
     if (!businessKey || !providerEffectIdentity) throw new NullSinkV2Error('businessKey and providerEffectIdentity are required', 'INVALID_INPUT');
-    return { businessKey: String(businessKey), providerEffectIdentity: String(providerEffectIdentity) };
+    return { businessKey: String(businessKey), providerEffectIdentity: String(providerEffectIdentity), simulation };
   }
 
   /**

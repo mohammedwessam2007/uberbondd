@@ -408,6 +408,31 @@ export class JsonStore {
     if (health?.paused) return { ok: false, reason: 'sender-paused', health: structuredClone(health) };
     const existing = (this.data.outboundReservations || []).find(item => item.idempotencyKey === input.idempotencyKey);
     if (existing) return { ok: false, reason: `duplicate-${existing.status || 'reservation'}`, reservation: structuredClone(existing) };
+    const recipientEmail = String(input.recipientEmail || '').trim().toLowerCase();
+    const businessDomain = String(input.businessDomain || '').trim().toLowerCase();
+    const consequential = (this.data.outboundReservations || []).filter(item => ['reserved','dispatching','sent','uncertain'].includes(item.status));
+    if ((input.kind || 'initial') === 'initial') {
+      const priorRecipient = consequential
+        .filter(item => String(item.recipientEmail || '').toLowerCase() === recipientEmail)
+        .sort((a, b) => Date.parse(b.reservedAt || 0) - Date.parse(a.reservedAt || 0))[0];
+      if (priorRecipient?.status === 'uncertain') return { ok: false, reason: 'recipient-result-uncertain', reservation: structuredClone(priorRecipient) };
+      const recipientCutoff = current.getTime() - Math.max(1, Number(input.recipientCooldownDays || 365)) * 86400000;
+      if (priorRecipient && Date.parse(priorRecipient.reservedAt || 0) >= recipientCutoff) {
+        return { ok: false, reason: 'recipient-contact-cooldown', reservation: structuredClone(priorRecipient) };
+      }
+      const priorDomain = businessDomain ? consequential
+        .filter(item => {
+          const recorded = String(item.businessDomain || '').trim().toLowerCase();
+          const fallback = String(item.recipientEmail || '').split('@')[1]?.toLowerCase() || '';
+          return (recorded || fallback) === businessDomain;
+        })
+        .sort((a, b) => Date.parse(b.reservedAt || 0) - Date.parse(a.reservedAt || 0))[0] : null;
+      if (priorDomain?.status === 'uncertain') return { ok: false, reason: 'business-domain-result-uncertain', reservation: structuredClone(priorDomain) };
+      const domainCutoff = current.getTime() - Math.max(1, Number(input.domainCooldownDays || 90)) * 86400000;
+      if (priorDomain && Date.parse(priorDomain.reservedAt || 0) >= domainCutoff) {
+        return { ok: false, reason: 'business-domain-contact-cooldown', reservation: structuredClone(priorDomain) };
+      }
+    }
     const active = (this.data.outboundReservations || []).filter(item => item.inbox === input.inbox && ['reserved','dispatching','sent','uncertain'].includes(item.status));
     const daily = active.filter(item => String(item.reservedAt || '').startsWith(day)).length;
     const hourly = active.filter(item => String(item.reservedAt || '').startsWith(hour)).length;
@@ -419,7 +444,7 @@ export class JsonStore {
     const reservation = normalizeRecord('outboundReservations', {
       id: input.id || crypto.randomUUID(), idempotencyKey: input.idempotencyKey,
       prospectId: input.prospectId || null, campaignId: input.campaignId || null,
-      inbox: input.inbox, recipientEmail: input.recipientEmail, kind: input.kind || 'initial',
+      inbox: input.inbox, recipientEmail, businessDomain, kind: input.kind || 'initial',
       followup: Number(input.followup || 0), status: 'reserved', reservedAt: timestamp,
       createdAt: timestamp, updatedAt: timestamp
     });
@@ -800,13 +825,42 @@ export class PostgresStore {
     return this.transaction(async tx => {
       const timestamp = new Date(input.now || Date.now());
       const inbox = String(input.inbox || '');
+      const recipientEmail = String(input.recipientEmail || '').trim().toLowerCase();
+      const businessDomain = String(input.businessDomain || '').trim().toLowerCase();
       await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`outbound:${inbox}`]);
+      await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`outbound-recipient:${recipientEmail}`]);
+      if (businessDomain) await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`outbound-domain:${businessDomain}`]);
       const paused = await tx.pool.query("SELECT value FROM settings WHERE key='outboundPaused'");
       if (paused.rows[0]?.value === true) return { ok: false, reason: 'global-outbound-paused' };
       const health = await tx.pool.query('SELECT data FROM sender_health WHERE inbox=$1 FOR UPDATE', [inbox]);
       if (health.rows[0]?.data?.paused) return { ok: false, reason: 'sender-paused', health: health.rows[0].data };
       const duplicate = await tx.pool.query('SELECT data FROM outbound_reservations WHERE idempotency_key=$1 FOR UPDATE', [input.idempotencyKey]);
       if (duplicate.rows[0]) return { ok: false, reason: `duplicate-${duplicate.rows[0].data.status || 'reservation'}`, reservation: duplicate.rows[0].data };
+      if ((input.kind || 'initial') === 'initial') {
+        const recipientCutoff = new Date(timestamp.getTime() - Math.max(1, Number(input.recipientCooldownDays || 365)) * 86400000).toISOString();
+        const priorRecipient = await tx.pool.query(
+          `SELECT data FROM outbound_reservations
+           WHERE recipient_email=$1 AND status=ANY($2::text[])
+             AND (status='uncertain' OR reserved_at >= $3::timestamptz)
+           ORDER BY reserved_at DESC LIMIT 1 FOR UPDATE`,
+          [recipientEmail, ['reserved','dispatching','sent','uncertain'], recipientCutoff]
+        );
+        if (priorRecipient.rows[0]?.data?.status === 'uncertain') return { ok: false, reason: 'recipient-result-uncertain', reservation: priorRecipient.rows[0].data };
+        if (priorRecipient.rows[0]) return { ok: false, reason: 'recipient-contact-cooldown', reservation: priorRecipient.rows[0].data };
+        if (businessDomain) {
+          const domainCutoff = new Date(timestamp.getTime() - Math.max(1, Number(input.domainCooldownDays || 90)) * 86400000).toISOString();
+          const priorDomain = await tx.pool.query(
+            `SELECT data FROM outbound_reservations
+             WHERE COALESCE(NULLIF(data->>'businessDomain',''), split_part(recipient_email,'@',2))=$1
+               AND status=ANY($2::text[])
+               AND (status='uncertain' OR reserved_at >= $3::timestamptz)
+             ORDER BY reserved_at DESC LIMIT 1 FOR UPDATE`,
+            [businessDomain, ['reserved','dispatching','sent','uncertain'], domainCutoff]
+          );
+          if (priorDomain.rows[0]?.data?.status === 'uncertain') return { ok: false, reason: 'business-domain-result-uncertain', reservation: priorDomain.rows[0].data };
+          if (priorDomain.rows[0]) return { ok: false, reason: 'business-domain-contact-cooldown', reservation: priorDomain.rows[0].data };
+        }
+      }
       const counts = await tx.pool.query(`
         SELECT
           count(*) FILTER (WHERE reserved_at >= date_trunc('day',$2::timestamptz))::int AS daily,
@@ -824,7 +878,7 @@ export class PostgresStore {
       const reservation = {
         id: input.id || crypto.randomUUID(), idempotencyKey: input.idempotencyKey,
         prospectId: input.prospectId || null, campaignId: input.campaignId || null, inbox,
-        recipientEmail: String(input.recipientEmail || '').toLowerCase(), kind: input.kind || 'initial',
+        recipientEmail, businessDomain, kind: input.kind || 'initial',
         followup: Number(input.followup || 0), status: 'reserved', reservedAt: timestamp.toISOString(),
         createdAt: timestamp.toISOString(), updatedAt: timestamp.toISOString()
       };

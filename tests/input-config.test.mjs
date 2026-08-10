@@ -40,11 +40,19 @@ test('live unattended outbound requires identity, allowlist, OAuth, encryption, 
     adminToken: 'x'.repeat(32), baseUrl: 'https://app.example.com',
     google: { clientId: 'id', clientSecret: 'secret' }, encryptionKey: 'a'.repeat(64), unsubscribeSecret: 'b'.repeat(64),
     sender: { address: 'Valid postal address' },
-    outbound: { enabled: true, dryRun: false, allowedCountries: ['GB'], businessHourStart: 9, businessHourEnd: 17 }
+    outbound: {
+      enabled: true, dryRun: false, launchPhase: 'canary', provider: 'gmail-api',
+      approvalSecret: 'c'.repeat(64), allowedCountries: ['GB'],
+      businessHourStart: 9, businessHourEnd: 17,
+      canaryDailyCap: 3, canaryMinGapSeconds: 1800
+    }
   };
   assert.equal(validateStartupConfig(base), true);
   assert.throws(() => validateStartupConfig({ ...base, sender: { address: '' } }), /BUSINESS_ADDRESS/);
   assert.throws(() => validateStartupConfig({ ...base, outbound: { ...base.outbound, allowedCountries: [] } }), /OUTBOUND_ALLOWED_COUNTRIES/);
   assert.throws(() => validateStartupConfig({ ...base, google: { clientId: '', clientSecret: '' } }), /Google OAuth/);
   assert.throws(() => validateStartupConfig({ ...base, unsubscribeSecret: 'short' }), /UNSUBSCRIBE_SECRET/);
+  assert.throws(() => validateStartupConfig({ ...base, outbound: { ...base.outbound, launchPhase: 'off' } }), /OUTBOUND_LAUNCH_PHASE=canary/);
+  assert.throws(() => validateStartupConfig({ ...base, outbound: { ...base.outbound, approvalSecret: 'short' } }), /OUTREACH_APPROVAL_SECRET/);
+  assert.throws(() => validateStartupConfig({ ...base, outbound: { ...base.outbound, provider: 'unknown-smtp' } }), /OUTBOUND_PROVIDER=gmail-api/);
 });

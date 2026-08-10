@@ -1,4 +1,5 @@
 import { normalizeDomain } from './utils.mjs';
+import { evaluateOutreachGovernance } from './outreach-governance.mjs';
 
 const FREE_EMAIL_DOMAINS = new Set([
   'gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','outlook.com','hotmail.com','live.com',
@@ -96,12 +97,24 @@ export function evaluateSendEligibility({ prospect = {}, campaign = {}, cfg = {}
   if (!String(prospect.unsubscribeUrl || '').startsWith('https://')) return { ok: false, reason: 'unsubscribe-link-missing' };
   if (!String(prospect.oneClickUnsubscribeUrl || '').startsWith('https://')) return { ok: false, reason: 'one-click-unsubscribe-missing' };
 
+  const governance = evaluateOutreachGovernance({
+    prospect,
+    campaign,
+    cfg,
+    subject: prospect.subject,
+    body: prospect.draft,
+    followup,
+    date
+  });
+  if (!governance.ok) return governance;
+
   const country = normalizeCountry(prospect.country || prospect.countryCode);
   const systemAllowlist = normalizeCountryList(cfg.outbound?.allowedCountries || []);
   const campaignAllowlist = normalizeCountryList(campaign.allowedCountries || []);
   if (!country) return { ok: false, reason: 'country-missing' };
   if (!systemAllowlist.includes(country)) return { ok: false, reason: 'country-not-system-allowed', country };
   if (!campaignAllowlist.includes(country)) return { ok: false, reason: 'country-not-campaign-allowed', country };
+  if (prospect.outreachRoute?.jurisdiction !== country) return { ok: false, reason: 'outreach-route-jurisdiction-mismatch', country };
 
   const contact = contactEligibility(prospect.contact, prospect);
   if (!contact.ok) return contact;
@@ -117,7 +130,17 @@ export function evaluateSendEligibility({ prospect = {}, campaign = {}, cfg = {}
   if (['Sat', 'Sun'].includes(local.weekday) || local.hour < start || local.hour >= end) {
     return { ok: false, reason: 'outside-recipient-business-hours', timeZone, local };
   }
-  return { ok: true, country, timeZone, local, contactMode: contact.mode };
+  return {
+    ok: true,
+    country,
+    timeZone,
+    local,
+    contactMode: contact.mode,
+    outreachProvider: governance.provider,
+    outreachRouteType: governance.routeType,
+    outreachApprovalId: governance.approvalId,
+    outreachApprovalDigest: governance.approvalDigest
+  };
 }
 
 export function sendIdempotencyKey(prospectId, followup = 0) {

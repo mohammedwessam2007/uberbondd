@@ -9,6 +9,7 @@ Keep these values until the final stage:
 ```text
 OUTBOUND_ENABLED=false
 OUTBOUND_DRY_RUN=true
+OUTBOUND_LAUNCH_PHASE=off
 AUTOPILOT_ENABLED=false
 DISCOVERY_ENABLED=false
 DISCOVERY_DRY_RUN=true
@@ -37,14 +38,22 @@ Add:
 - `ADMIN_TOKEN`: a random value with at least 32 characters
 - `TOKEN_ENCRYPTION_KEY`: exactly 64 hexadecimal characters
 - `UNSUBSCRIBE_SECRET`: a different random value with at least 32 characters
+- `OUTREACH_APPROVAL_SECRET`: another dedicated random value with at least 32 characters
+- `OUTREACH_APPROVER_ID`: your stable operator identifier
 - `BUSINESS_ADDRESS`: your valid postal business address
 - `APP_BASE_URL`: the public HTTPS URL of the Web service
 
 Do not reuse one secret for another field.
 
-## Stage 3: choose the initial policy boundary
+## Stage 3: choose the initial route and policy boundary
 
-Decide one narrowly defined business market and jurisdiction after checking its current rules.
+Choose one current opportunity that explicitly asks for applications, one recipient who explicitly consented, or one recipient who requested the information. Gmail API policy blocks generic unsolicited commercial mail even when a business address is public.
+
+Preserve the HTTPS source URL, a non-empty source excerpt or its digest, observation time, expiry time, exact recipient, jurisdiction, permission scope, and why the message is relevant to the recipient's role.
+
+Do not use `PUBLIC_BUSINESS_CONTACT` or `CONSPICUOUS_PUBLICATION` for Gmail API sends. Do not treat email verification as permission.
+
+Then decide one narrowly defined jurisdiction after checking its current rules.
 
 In the shared variables, set:
 
@@ -85,18 +94,13 @@ Confirm the email provider reports authentication as passing. Do not continue wh
 
 Do not test on a stranger.
 
-## Stage 7: run discovery preview
+## Stage 7: reconcile prior contact and prepare one eligible prospect
 
-Set:
+Search Sent, replies, suppression, and reservation history for the exact recipient and business domain. Mark an existing initial message as prior contact instead of importing it as a new prospect. An ambiguous provider outcome remains blocked indefinitely.
 
-```text
-DISCOVERY_ENABLED=true
-DISCOVERY_DRY_RUN=true
-```
+Prepare only one eligible prospect. The campaign must be approved and `autoSend` enabled, but live outbound remains disabled.
 
-Run one small discovery preview. Inspect every candidate. Confirm websites, countries, and business categories are accurate. Do not import a large batch.
-
-## Stage 8: run an outbound dry run
+## Stage 8: run an outbound dry run and exact approval
 
 Set:
 
@@ -104,6 +108,10 @@ Set:
 AUTOPILOT_ENABLED=true
 OUTBOUND_ENABLED=true
 OUTBOUND_DRY_RUN=true
+OUTBOUND_LAUNCH_PHASE=canary
+OUTBOUND_PROVIDER=gmail-api
+OUTBOUND_CANARY_DAILY_CAP=1
+OUTBOUND_CANARY_MIN_GAP_SECONDS=1800
 ```
 
 Create one approved campaign with:
@@ -112,23 +120,23 @@ Create one approved campaign with:
 - a high score threshold
 - a very small daily cap
 - `autoSend` enabled
-- maximum one follow-up
+- maximum one follow-up, separately approved after real thread proof exists
 
-Inspect every generated message and its evidence. Confirm:
+Use the protected exact-approval endpoint described in `docs/outreach/BOUNDED_OUTREACH_CANARY_RUNBOOK.md`. Inspect the exact recipient, subject, body, source evidence, sender slot, and unsubscribe URL before approval. Then run `npm run outreach:dry-run` and confirm:
 
-- the contact is first-party published or positively verified
+- the route is solicited, explicitly consented, or requested information
 - the evidence is true and belongs to the same domain
 - the message does not invent a name, result, or financial claim
 - the unsubscribe link is present
 - rejected contacts remain blocked
 - the dashboard shows dry-run reservations rather than provider sends
 
-## Stage 9: controlled live test
+## Stage 9: one-message controlled live test
 
 Only after all previous stages pass:
 
-1. Keep the campaign to a tiny, observed batch.
-2. Set conservative hourly and daily caps.
+1. Keep the campaign to exactly one approved message.
+2. Keep the canary daily cap at one.
 3. Leave every other campaign disabled.
 4. Change only:
 
@@ -139,8 +147,9 @@ OUTBOUND_DRY_RUN=false
 5. Restart Web and Worker if the platform requires it.
 6. Watch the first reservations and Gmail Sent folder.
 7. Confirm each logical message appears once.
-8. Test one opt-out from a controlled account.
-9. Stop immediately after any unexpected duplicate, authentication error, complaint, hard-bounce cluster, or inaccurate personalization.
+8. Pause outbound immediately after the first provider result and reconcile Gmail Sent.
+9. Test one opt-out from a controlled account.
+10. Stop immediately after any unexpected duplicate, authentication error, complaint, bounce, policy mismatch, or inaccurate personalization.
 
 ## Emergency stop
 

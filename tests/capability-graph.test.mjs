@@ -36,6 +36,14 @@ test('getCapability() returns null for an unknown id rather than throwing', () =
   assert.ok(getCapability('postgres-store'));
 });
 
+test('the Prometheus economic spine and safe commercial slices are visible in the capability graph', () => {
+  for (const id of ['market-signal-registry', 'prometheus-economic-spine', 'commercial-experiment-compiler', 'distribution-channel-registry', 'commercial-outcome-lineage']) {
+    const entry = getCapability(id);
+    assert.equal(entry.status, 'TEST_VERIFIED');
+    assert.ok(entry.testRefs.length > 0);
+  }
+});
+
 test('the stranded-but-real OMNIA V9 and Canon/V3 lineages are honestly marked MISSING here, with a pointer to where they actually exist', () => {
   const v9 = getCapability('omnia-v9-kernel');
   assert.equal(v9.status, 'MISSING');

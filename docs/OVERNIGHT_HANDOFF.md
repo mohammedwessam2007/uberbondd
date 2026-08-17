@@ -158,3 +158,56 @@ reconciliation, canonical data contracts). Most of the remaining mission
 scope is deferred against two concrete, named external gates — not against
 engineering difficulty — with the reasoning for every deferred subsystem
 written down rather than silently skipped.
+
+## Addendum — Prometheus economic spine extension — 2026-08-18
+
+The earlier handoff above predates the latest local-only slice. The current
+working tree additionally contains:
+
+- `src/commercial-experiment.mjs` — bounded `PROBE` compiler with cleared
+  payment as the primary metric, kill conditions, owner-minute/budget limits,
+  promotion non-advancement, and zero external effects.
+- `src/distribution-channel.mjs` — normalized channel registry and
+  fail-closed allocator. No verified cleared-payment outcome history means
+  `DO_NOT_DISTRIBUTE`; measured channels remain preparation-only.
+- `src/commercial-outcome.mjs` — lineage normalizer. Cleared-payment claims
+  require the existing payment classifier, its policy version, positive
+  amount/currency, and provider event proof.
+- `src/market-signal-registry.mjs` — bounded caller-supplied signal registry
+  with dedupe, contradiction flags, freshness, batch caps, replay safety, and
+  optional compact audit persistence.
+- `src/prometheus-economic-spine.mjs` — canonical signal-to-offer composition.
+- `src/job-handlers.mjs` — five local Prometheus handlers: signal ingest,
+  opportunity preparation, experiment preparation, distribution allocation,
+  and outcome recording.
+- `src/capability-graph.mjs` — new slices marked `TEST_VERIFIED`; V9/Canon
+  lineages remain honestly marked missing on this branch.
+- `package.json` and hostile tests — all new code wired into verification.
+
+`lite/` remains untouched in the working tree.
+
+### Current verification receipt
+
+- `node --check` on the four new/changed runtime modules — PASS.
+- Targeted new suites — **27/27 PASS**.
+- `npm run check` — **368/368 deterministic tests PASS**, 0 failed.
+- `npm run test:browser` — NOT_RUN; the local browser command required network
+  approval and approval was cancelled before execution.
+- `npm audit` — NOT_RUN; network approval was unavailable.
+
+These are local results from the current working tree; they do not claim
+hosted CI, live MCP, live adapters, customer activity, or revenue.
+
+### Updated truth boundary
+
+The new modules are preparation contracts only. They do not send, spend,
+deploy, publish, change credentials/DNS, mutate checkout, mark revenue, or
+claim a buyer. A cleared-payment outcome is accepted only with the existing
+payment classifier, its policy version, a positive amount/currency, and
+provider event proof. Without real outcome data the allocator remains
+`DO_NOT_DISTRIBUTE`.
+
+External state remains: 0 customers, $0 verified revenue, 0 cleared payments,
+0 accepted live deliveries, 0 live distributions. The highest-leverage
+external gate is still an owner-approved checkout path followed by one real
+lawful payment experiment.

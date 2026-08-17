@@ -16,17 +16,17 @@ Vocabulary: `IMPLEMENTED_VERIFIED`, `IMPLEMENTED_PARTIAL_PROOF`,
 |---|---|---|
 | Market radar (social/platform signals) | `RESEARCH_REQUIRED` | No credentials, no compliant access path this session; see `docs/PROMETHEUS_SOURCE_ADAPTERS.md`. |
 | Source adapters | `DEFERRED_LOW_VALUE` | Contract designed (`docs/PROMETHEUS_SOURCE_ADAPTERS.md`); code deferred pending the V9-vs-Guard decision (`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`) so it isn't built twice. |
-| Signal ingestion/dedup | `DEFERRED_LOW_VALUE` | Same reason; `MarketSignal` itself already implements dedup/freshness logic and is real. |
+| Signal ingestion/dedup | `IMPLEMENTED_VERIFIED` | `src/market-signal-registry.mjs` provides bounded caller-supplied ingestion, dedupe, contradiction flags, freshness, replay safety, and optional audit receipts; no live adapter is claimed. |
 | Business genome | `IMPLEMENTED_VERIFIED` | `src/opportunity-registry.mjs#compileBusinessGenome`, 32 tests. Extraction *from live signals* specifically is the deferred part. |
 | Mechanism atoms | `DEFERRED_LOW_VALUE` | No real evidence base to extract atoms from yet. |
 | Recombination engine | `DEFERRED_LOW_VALUE` | Depends on mechanism atoms; would generate combinatorial noise over zero real atoms. |
 | Capability graph | `IMPLEMENTED_VERIFIED` | `src/capability-graph.mjs`, 11 tests, this wave. |
 | Build distance | `IMPLEMENTED_VERIFIED` | `incrementalBuildDistance()` (Wave 6) now driven by the real capability graph, tested this wave. |
 | Opportunity tournament | `IMPLEMENTED_VERIFIED` | `src/opportunity-registry.mjs#scoreOpportunity`, 15 criteria, 32 tests. V2 additions deferred — see `docs/PROMETHEUS_OPPORTUNITY_SYSTEM.md`. |
-| Experiment compiler | `DEFERRED_LOW_VALUE` | No validated opportunities exist yet to compile experiments for. |
-| Channel registry | `DEFERRED_LOW_VALUE` | Zero real distribution-outcome data anywhere in this system; see `docs/PROMETHEUS_DISTRIBUTION_BRAIN.md`. |
-| Distribution allocator | `DEFERRED_LOW_VALUE` | Same; would always output `DO NOTHING` today, which is correct but not worth a full module yet. |
-| Commercial outcome graph | `DEFERRED_LOW_VALUE` | No experiments/distribution decisions exist to link into a lineage yet. |
+| Experiment compiler | `IMPLEMENTED_VERIFIED` | `src/commercial-experiment.mjs` compiles a preparation-only `PROBE` contract from the economic spine; no live experiment is claimed. |
+| Channel registry | `IMPLEMENTED_VERIFIED` | `src/distribution-channel.mjs` normalizes bounded channel descriptions; no access or terms are inferred. |
+| Distribution allocator | `IMPLEMENTED_VERIFIED` | Fail-closed allocator returns `DO_NOT_DISTRIBUTE` without verified cleared-payment outcomes and never sends/spends. |
+| Commercial outcome graph | `IMPLEMENTED_VERIFIED` | `src/commercial-outcome.mjs` normalizes signal/opportunity/experiment/channel lineage through auditLog; it is not a parallel revenue ledger. |
 | Revenue-weighted learning | `DEFERRED_LOW_VALUE` | No outcomes to learn from; payment-truth's classification hierarchy (Wave 5) is the real prerequisite already in place. |
 | Commercial memory | `IMPLEMENTED_PARTIAL_PROOF` | Raw `auditLog`/`store.log()` is real and used extensively; no dedicated summarizing/query layer beyond the founder command center's narrow slices. |
 | Failure memory | `DEFERRED_LOW_VALUE` | Zero real experiments have run; nothing has failed yet to remember. |
@@ -75,6 +75,10 @@ system), not because the idea is bad.
   branch integration plan for whichever direction the owner picks.
 - **`src/market-signal.mjs`** — 20 tests, structurally prevents synthetic-
   to-external evidence promotion.
+- **Prometheus economic spine extension** — bounded signal ingestion, a
+  signal-to-offer composition, experiment preparation, fail-closed distribution
+  allocation, and payment-proof-gated commercial outcome lineage; all local
+  only and deterministic-tested.
 - **`src/capability-graph.mjs`** — 11 tests, honestly represents the
   stranded lineages as `MISSING` here with a pointer to where they're real.
 
@@ -88,6 +92,10 @@ built without risking a third parallel system).
 ## Capabilities still missing
 
 Everything marked `DEFERRED_LOW_VALUE` or `RESEARCH_REQUIRED` above.
+
+The later local-only economic-spine slices reduce the deferred set, but do not
+change the external commercial state: no source adapter, buyer, payment,
+accepted delivery, or live distribution exists on the evidence available here.
 
 ## Real commercial state
 
@@ -121,6 +129,23 @@ architecture, no dependency on the V9 decision.
 ## Final verdict
 
 **`PROMETHEUS_PARTIALLY_IMPLEMENTED_EXTERNAL_GATES_REMAIN`**
+
+## Addendum: 2026-08-18 local economic-spine extension
+
+The matrix above was originally written before the bounded commercial slices
+were added. The current branch also contains:
+
+- `src/market-signal-registry.mjs` and `prometheus.signals.ingest`;
+- `src/prometheus-economic-spine.mjs` and `prometheus.opportunity.prepare`;
+- `src/commercial-experiment.mjs` and `prometheus.experiment.prepare`;
+- `src/distribution-channel.mjs` and `prometheus.distribution.allocate`;
+- `src/commercial-outcome.mjs` and `prometheus.outcome.record`.
+
+These are `TEST_VERIFIED` local contracts, not externally proven commerce.
+They deliberately keep source adapters unconfigured, channels preparation-only,
+and payment claims behind the existing payment-truth classifier plus provider
+event proof. The verdict therefore remains
+`PROMETHEUS_PARTIALLY_IMPLEMENTED_EXTERNAL_GATES_REMAIN`.
 
 Real, verified progress was made on the correctness/reconciliation/
 canonical-data-contract priorities the mission itself ranks highest

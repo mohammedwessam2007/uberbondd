@@ -13,24 +13,27 @@ WORLD
 [Source Adapters]           DEFERRED       docs/PROMETHEUS_SOURCE_ADAPTERS.md
   |
   v
-[Signal Ingestion/Dedup]    DEFERRED       (would consume MarketSignal + adapters)
+[Signal Ingestion/Dedup]    REAL, TESTED   src/market-signal-registry.mjs
+                              Bounded caller-supplied ingestion over auditLog; no source adapter/network
+                              is implied and empty adapter input produces zero signals.
   |
   v
 [Business Genome /          REAL, TESTED   src/opportunity-registry.mjs (Wave 6, 32 tests)
  Opportunity Scoring]       Scores caller-supplied candidates against 15 Money Model
-  |                         Tournament criteria. Not yet wired to MarketSignal --
-  |                         that wiring is exactly the deferred ingestion layer above.
+  |                         Tournament criteria and is composed with MarketSignal by
+  |                         src/prometheus-economic-spine.mjs.
   v
 [Capability Graph /         REAL, TESTED   src/capability-graph.mjs (this wave, 11 tests)
  Build Distance]            Honest static registry + incrementalBuildDistance().
   |
   v
-[Commercial Experiment      DEFERRED       No experiments exist to compile yet --
- Compiler]                                 building this now would be scaffolding
-  |                                        with nothing real to hold.
+[Commercial Experiment      REAL, TESTED   src/commercial-experiment.mjs
+ Compiler]                                 Preparation-only PROBE contract. No live
+  |                                        experiment or external authority.
   v
-[Distribution Channel       DEFERRED       docs/PROMETHEUS_DISTRIBUTION_BRAIN.md
- Registry / Allocator]
+[Distribution Channel       REAL, TESTED   src/distribution-channel.mjs
+ Registry / Allocator]                     Fail-closed: no verified cleared-payment
+  |                                        outcomes -> DO_NOT_DISTRIBUTE; never sends/spends.
   |
   v
 [V9-governed consequence]   PARTIAL, TWO SYSTEMS EXIST, NEITHER CHOSEN
@@ -43,6 +46,10 @@ WORLD
  Retention]                                src/offer-compiler.mjs, src/founder-command-center.mjs
   |                         Zero real transactions have occurred.
   v
+[Commercial Outcome         REAL, TESTED   src/commercial-outcome.mjs
+ Lineage]                                  Uses existing payment truth + auditLog; no parallel
+  |                                        revenue ledger. Zero cleared payments currently exist.
+  v
 [Commercial Memory]         PARTIAL        Raw data exists (store.log()/auditLog);
   |                                        no summarizing/query layer beyond the
   |                                        founder command center's narrow slices.
@@ -53,34 +60,35 @@ WORLD
 WORLD
 ```
 
-## Why adapters/ingestion/genome-extraction are deferred, not stubbed
+## Why source adapters remain deferred while local ingestion is real
 
 The mission's own philosophy ("BUILD THE SOCKET, NOT FAKE THE ELECTRICITY")
 argues for building adapter *contracts* even without credentials. That
-principle is followed for `MarketSignal` itself (a real, tested, credential-
-independent primitive). It is deliberately **not** extended to the adapter/
-ingestion/genome-extraction layers this wave, for a reason specific to what
-this session's branch reconciliation found, not a generic reluctance:
+principle is followed for `MarketSignal` and the local ingestion registry (real,
+tested, credential-independent primitives). It is deliberately **not** extended
+to live source adapters or automatic genome extraction this wave, for a reason
+specific to what this session's branch reconciliation found, not a generic
+reluctance:
 
 The branch reconciliation (`docs/PROMETHEUS_BRANCH_RECONCILIATION.md`)
 discovered two large, real, independently-tested unmerged systems — the
 OMNIA V9 kernel and the Canon/V3 acquisition cycle — that already contain
 opinions about evidence, authorization, and opportunity shape. Building a
-third, independent ingestion pipeline this wave, before the owner decides
+third, independent live adapter pipeline this wave, before the owner decides
 whether V9 becomes canonical, risks producing exactly the "parallel truth
-system" the mission's own Critical Architectural Law forbids. `MarketSignal`
-was kept deliberately free of any assumption about which system consumes
-it (see its own file header) specifically so it survives either outcome.
-Adapters and ingestion, by contrast, would need to make real choices about
-where signals land — that's premature until the reconciliation's pending
-decision is made.
+system" the mission's own Critical Architectural Law forbids. The registry
+therefore accepts only caller-supplied candidates, writes compact audit
+receipts, and stays empty when adapters are unconfigured. `MarketSignal` and
+the registry remain free of credentials and provider assumptions; a future
+adapter still needs a documented lawful access path and must not be inferred
+from this local contract.
 
 ## What actually composes with what, today
 
-`opportunity-registry.mjs` (scoring) and `capability-graph.mjs`
-(build-distance input) already compose — proven by
-`tests/capability-graph.test.mjs`'s `incrementalBuildDistance()` tests,
-which drive the scorer's build-distance calculation from the graph's real
-`existingCapabilityIds()` rather than a hand-typed list. `market-signal.mjs`
-does not yet compose with `opportunity-registry.mjs` — that link is the
-deferred ingestion layer, and deliberately so per the above.
+`market-signal-registry.mjs`, `prometheus-economic-spine.mjs`,
+`commercial-experiment.mjs`, `distribution-channel.mjs`, and
+`commercial-outcome.mjs` now form a preparation-only vertical composition.
+The modules remain honest about their inputs: source adapters, buyer outcomes,
+and payment proof are still external dependencies. `opportunity-registry.mjs`
+and `capability-graph.mjs` also compose through the graph's real
+`existingCapabilityIds()` rather than a hand-typed list.

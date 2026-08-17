@@ -101,3 +101,31 @@ It provides:
 - queue handler prometheus.signals.ingest.
 
 The registry does not call a source adapter. A future adapter must supply candidates through this contract and declare its own access/policy state. An empty or unconfigured adapter therefore produces a truthful zero-signal result.
+
+## Commercial experiment, distribution, and outcome extension
+
+The third slice adds three source-adapter-neutral contracts:
+
+- `src/commercial-experiment.mjs` compiles a `PROBE` experiment from a
+  prepared economic-spine decision. It makes the primary metric
+  `CLEARED_PAYMENT`, records kill conditions and owner-minute/budget limits,
+  and never advances the promotion ladder.
+- `src/distribution-channel.mjs` normalizes channel descriptions and ranks
+  preparation plans only when measured outcomes contain a verified
+  `CLEARED_PAYMENT`, contribution margin, and owner minutes. Without that
+  evidence it returns `DO_NOT_DISTRIBUTE`.
+- `src/commercial-outcome.mjs` normalizes outcome lineage through the existing
+  payment classifier and audit writer. A cleared-payment outcome requires the
+  existing payment policy version, a cleared classification, amount/currency,
+  and provider event proof. It is not a second revenue ledger.
+
+The queue handlers are `prometheus.experiment.prepare`,
+`prometheus.distribution.allocate`, and `prometheus.outcome.record`. All are
+local-only preparation/receipt handlers. They do not send, spend, deploy,
+publish, mutate checkout, or claim revenue without external proof.
+
+The capability graph now marks the registry, economic spine, experiment
+compiler, distribution allocator, and outcome lineage as `TEST_VERIFIED`.
+That status means local deterministic behavior is covered; it does not mean
+any source adapter, channel, checkout, customer, payment, or live deployment
+exists.

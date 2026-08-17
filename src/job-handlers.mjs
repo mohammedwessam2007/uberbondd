@@ -1,4 +1,8 @@
 import { recoverStaleOutboundReservations } from './reservation-recovery.mjs';
+import {
+  preparePrometheusEconomicSpine,
+  logPrometheusEconomicSpineDecision
+} from './prometheus-economic-spine.mjs';
 
 export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunner }) {
   return {
@@ -15,6 +19,14 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       limit: cfg?.outbound?.reservationRecoverySweepLimit,
       workspaceId: payload?.workspaceId || '',
       dryRun: Boolean(payload?.dryRun)
-    })
+    }),
+    // Local-only composition task. It requires a caller-supplied signal,
+    // candidate, and canonical prospect; it has no provider boundary.
+    'prometheus.opportunity.prepare': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const decision = preparePrometheusEconomicSpine({ ...input, cfg });
+      if (decision.ok) await logPrometheusEconomicSpineDecision(store, decision);
+      return decision;
+    }
   };
 }

@@ -1,139 +1,160 @@
-# Overnight Handoff — 2026-08-17 (Prometheus wave)
+# Overnight Handoff — 2026-08-17 (Prometheus V2 wave)
 
 ## Outcome
 
-**Wave: Scoped, honest response to "Project Prometheus."** The mission asked
-for a 52-file, ≥300-mechanism global economic-research package built from
-live scrapers into a dozen social/commerce platforms this session has no
-access to. Producing that would have meant fabricating "verified" evidence
-tags on invented data — the opposite of what the mission's own Economic
-Truth Engine section demands. Instead: a full honest audit of current
-UberBond capability, a small (5-item) evidence-tiered opportunity scan
-instead of 300 fabricated ones, and — following the mission's own buried
-IMPLEMENTATION RULE ("identify 5 shared capabilities... MAXIMUM FIVE INITIAL
-BUILDS") — one real shared capability built and tested end-to-end, plus one
-small real product-surface addition. Full reasoning, the required verdict,
-and the mission's 28-item final-response list are in
-`docs/PROMETHEUS_SCOPED_VERDICT.md`.
+**Wave: Execute every locally/safely executable Prometheus capability,
+honestly bounded.** Full details in `docs/PROMETHEUS_FINAL_IMPLEMENTATION_
+REPORT.md` (completion matrix), `docs/PROMETHEUS_BRANCH_RECONCILIATION.md`
+(the big discovery), and `docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`
+(what to do about it). Summary: closed a real, three-times-disclosed
+reliability gap (PostgresStore live proof), discovered and independently
+verified two large stranded lineages of prior work (OMNIA V9, Canon/V3 —
+~50,000 lines combined, both real and tested), and shipped two small
+tested foundational primitives (MarketSignal, Capability Graph) while
+deliberately deferring the more speculative Prometheus machinery pending
+an owner architecture decision the reconciliation surfaced.
 
 ## Changed artifacts
 
-- `src/opportunity-registry.mjs` (new) — Business Genome + Money Model
-  Tournament scoring engine + Promotion Ladder + `incrementalBuildDistance`.
-  Pure, deterministic, zero I/O of its own (asserted by a test that greps
-  the source for `fetch`/`http.request`/`readFile`/etc.). Every genome field
-  must be evidence-tagged (`CLAIM_CLASSIFICATIONS`, mirroring the mission's
-  own hierarchy); untagged/weak claims reduce `confidence` but never inflate
-  `compositeScore` — verified by a test that shows tagged vs. untagged
-  identical inputs produce the same score but different confidence. No new
-  store collection/migration — persistence (`logOpportunityEvaluation`)
-  reuses the existing `store.log()` auditLog writer.
-- `src/audit-rules.mjs` — two new deterministic findings inside the existing
-  `deterministicAudit()` function, reusing evidence (`home.jsonLd`) that was
-  already being captured by the crawler but had zero consumers before this
-  wave: `no-structured-data` (homepage has no JSON-LD at all) and
-  `invalid-structured-data` (JSON-LD present but fails to parse, so search
-  engines/AI agents silently ignore it). New `category: 'Agent Readiness'`.
-  No changes needed to `browser-crawler.mjs`, `pipeline.mjs`, or
-  `scoreProspect` — the checker and scorer are already generic over
-  whatever findings the rule engine returns.
-- `tests/opportunity-registry.test.mjs` (new, 32 tests) — includes a real
-  regression catch: an early version of the recurring-revenue criterion
-  checked a non-existent `.present` field on `numericScore()`'s return
-  value (which only returns `{score, claimType}`), so the "retention
-  present, no recurring trigger" fallback path always evaluated to `null`
-  instead of a discounted score. Caught by the hostile test, fixed in the
-  same pass (`src/opportunity-registry.mjs`).
-- `tests/core.test.mjs` — 2 new tests for the two new audit-rules checks,
-  following the file's existing minimal-fixture pattern.
-- `package.json` — wired `src/opportunity-registry.mjs` into `check:syntax`
-  and `tests/opportunity-registry.test.mjs` into `test:deterministic`.
-  (`src/audit-rules.mjs` and `tests/core.test.mjs` were already wired in.)
-- `docs/PROMETHEUS_SCOPED_VERDICT.md` (new) — the full honest response:
-  current-reality audit, 5-item opportunity scan with real evidence tiers,
-  top-5 shared-capabilities roadmap, kill list, adversarial council, final
-  verdict, and the mission's 28-item final-response list.
+- `tests/postgres-store-live.test.mjs` (new, 19 tests) — the actual
+  `PostgresStore` JS class exercised against a real local PostgreSQL 16
+  server (started via `service postgresql start`, already installed in
+  this container), not just migration SQL. Closes a gap disclosed across
+  three prior waves. Found and fixed two real test-design bugs while
+  building it (missing FK fixture, a claimJobs concurrency test not
+  isolated from leftover rows — see the final report for detail). New
+  `npm run test:postgres-live` script, gated on `LIVE_POSTGRES_TEST_URL`
+  so it never runs/hangs without a real server.
+- `docs/PROMETHEUS_BRANCH_RECONCILIATION.md` (new) — independently
+  re-verified (checked out both branches into worktrees, ran their own
+  test suites myself) that PR #24 (OMNIA V9 tip) and PR #7 (Canon/V3) are
+  real, tested, unmerged: 500/459/41-skipped/0-failed and 317/317/0-failed
+  respectively, both matching their PR descriptions exactly. Found that
+  OMNIA V9 — which the Prometheus mission assumed already governs
+  UberBond — does not exist on `main` or this branch; it exists, tested,
+  on an unmerged stack.
+- `docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md` (new) — a concrete
+  two-branch action plan (V9-canonical vs. this session's lighter
+  Deliverability-Guard-canonical) for whichever direction gets chosen.
+- `src/market-signal.mjs` (new, 20 tests) — a pure, source-neutral
+  `MarketSignal` normalizer. Structurally prevents synthetic-to-external
+  evidence promotion (a `SYNTHETIC_TEST_FIXTURE` can never carry a real
+  `sourceUrl`).
+- `src/capability-graph.mjs` (new, 11 tests) — an honest, hand-maintained
+  registry of what this branch can actually do, using the mission's own
+  status vocabulary. Marks the two stranded lineages `MISSING` here with
+  an explicit pointer to where they're real. Wires `incrementalBuildDistance()`
+  (Wave 6) to a real data source.
+- `docs/PROMETHEUS_ARCHITECTURE.md`, `docs/PROMETHEUS_SOURCE_ADAPTERS.md`,
+  `docs/PROMETHEUS_OPPORTUNITY_SYSTEM.md`,
+  `docs/PROMETHEUS_DISTRIBUTION_BRAIN.md`,
+  `docs/PROMETHEUS_SELF_UPGRADE_ENGINE.md`,
+  `docs/PROMETHEUS_EXTERNAL_GATES.md`,
+  `docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md` — the required minimum
+  doc set, each honestly stating what's built vs. deferred and why, with
+  the full completion matrix in the final report.
+- `package.json` — wired every new module/test file into
+  `check:syntax`/`test:deterministic`, plus the new opt-in
+  `test:postgres-live` script.
 
 `lite/` has zero changes, confirmed via `git status --short lite/` before
 and after this wave.
 
+## What was deliberately NOT built, and why
+
+Adapters, signal ingestion, mechanism atoms, recombination, experiment
+compiler, distribution brain, self-upgrade engine, shadow/canary, business-
+death detector, and most of the remaining mission waves are deferred, not
+built shallow. Two distinct reasons, both real:
+
+1. **Architecture-decision risk**: the reconciliation found two large real
+   systems (V9 kernel, Canon/V3 cycle) that already have opinions about
+   evidence/authorization/opportunity shape. Building a third parallel
+   ingestion/opportunity pipeline before the owner picks a direction risks
+   exactly the "parallel truth system" failure the mission's own Critical
+   Architectural Law forbids.
+2. **No real data to build around**: several waves (mechanism atoms,
+   distribution allocator, failure memory, business-death detector) would
+   produce structurally-correct code with zero real inputs — the mission's
+   own third invariant ("Prometheus must be capable of concluding BUILD
+   NOTHING") applies directly.
+
+Full reasoning per subsystem is in the completion matrix
+(`docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md`).
+
 ## Tests actually run and results
 
-- `node --check src/opportunity-registry.mjs src/audit-rules.mjs` — PASS.
-- `tests/opportunity-registry.test.mjs` — 32/32 PASS (found and fixed one
-  real logic bug mid-wave, see above).
-- `tests/core.test.mjs` — 12/12 PASS (10 pre-existing + 2 new).
-- `npm run check` (syntax + full deterministic suite) — **285/285 passed**
-  (251 pre-existing + 34 new), 0 failed.
+- `node --check` on all new/changed source files — PASS.
+- `tests/postgres-store-live.test.mjs` — 19/19 PASS against a real local
+  PostgreSQL 16 server (stable across 3 consecutive runs).
+- `tests/market-signal.test.mjs` — 20/20 PASS.
+- `tests/capability-graph.test.mjs` — 11/11 PASS.
+- `npm run check` (syntax + full deterministic suite) — **316/316 passed**
+  (285 prior + 31 new), 0 failed.
 - `npm audit` — 0 vulnerabilities.
-- `npm run test:browser` — **1/1 PASS**, but only once pointed at this
-  container's pre-installed Chromium via `CHROMIUM_PATH=/opt/pw-browsers/
-  chromium`. Without it, the run fails with Playwright's "please run
-  `npx playwright install`" message. Root cause confirmed: the repo's pinned
-  Playwright version (1.61.1) expects Chromium revision 1228; this
-  container ships revision 1194 pre-installed. This is a **pre-existing
-  container/dependency version drift**, unrelated to any change in this
-  wave (`browser-crawler.mjs`'s launch logic was read but not modified) —
-  disclosed honestly rather than silently worked around by editing the
-  repo's launch code to hardcode a path.
 - `uberbond_get_state` / `uberbond_run_verification(suite: check)` via the
-  live local MCP bridge — both succeeded, real output, confirmed 285/285,
-  `externalCalls: 0`, `spendCents: 0`, worktree diff matched exactly what
-  this wave changed.
+  live local MCP bridge — both succeeded, real output, confirmed 316/316,
+  `externalCalls: 0`, `spendCents: 0`.
+- Independently re-ran the OMNIA V9 branch's own test suite (500/459/41-
+  skipped/0-failed) and the Canon/V3 branch's own test suite (317/317/0-
+  failed) in throwaway worktrees — both matched their PR descriptions'
+  claims exactly.
 
 ## Truth table
 
 | Item | Status |
 |---|---|
-| Honest scope reduction from the 52-file/300-mechanism ask | COMPLETE (documented, not silently done) |
-| Current UberBond Reality audit | COMPLETE |
-| Opportunity Registry (Business Genome + scoring + promotion ladder) | COMPLETE, 32/32 tests |
-| Agent-readiness findings (`no-structured-data`, `invalid-structured-data`) | COMPLETE, tested |
-| 5-item evidence-tiered opportunity scan | COMPLETE (explicitly not 300; nothing tagged VERIFIED_FACT about the outside world) |
-| `npm run check` (285 tests) | PASS_LOCAL |
+| PostgresStore live-proof gap (disclosed since Wave 5) | **CLOSED** — 19/19 real Postgres tests |
+| Branch/PR reconciliation | COMPLETE (bounded scope, disclosed) |
+| OMNIA V9 / Canon-V3 independent re-verification | COMPLETE — both confirmed real and tested |
+| MarketSignal kernel | COMPLETE, 20/20 tests |
+| Capability Graph + build-distance wiring | COMPLETE, 11/11 tests |
+| Required minimum doc set | COMPLETE (9 docs, cross-referenced not padded) |
+| Adapters / ingestion / genome extraction | DEFERRED — architecture-decision risk, documented |
+| Distribution brain / self-upgrade engine / shadow-canary | DEFERRED — no real data, documented |
+| `npm run check` (316 tests) | PASS_LOCAL |
 | `npm audit` | PASS_LOCAL |
-| Browser suite | PASS_LOCAL (with disclosed pre-existing container Chromium-version caveat) |
 | Live MCP calls this session | PASS_LOCAL |
-| 52-file Prometheus package / 300 verified mechanisms / ZIP | NOT_PRODUCED — explained, not silently skipped |
-| Distribution allocator, agent factory, capital allocator, planetary radar | NOT_BUILT — explicitly on the kill/defer list, with reasons |
-| `PostgresStore` class-level proof | Still NOT_RUN — pre-existing disclosed gap, unchanged this wave |
-| Any real revenue, customer, or payment | NONE — none claimed |
+| Any real customer, revenue, or payment | NONE — none claimed |
+| GitHub Actions hosted run | Unchanged: BLOCKED (billing lock, confirmed prior waves) |
 
 ## External-effect ledger
 
 0 real provider/network calls, 0 messages, 0 purchases, 0 deployments, 0
-DNS/credential changes, 0 production mutations, 0 spend. Confirmed live via
-MCP bridge (`externalCalls: 0`, `spendCents: 0`). Only action: local commits
-on `claude/uberbond-overnight-shift-o73nrs`. `main` unchanged. `lite/`
-unchanged. Secrets: none read, exposed, or created.
+DNS/credential changes, 0 production mutations, 0 spend. A local
+PostgreSQL 16 server was started inside this container (`service
+postgresql start`) purely to close the live-proof gap — a local,
+non-networked action with zero external effect, not a production database.
+Confirmed live via MCP bridge (`externalCalls: 0`, `spendCents: 0`). Only
+action: local commits on `claude/uberbond-overnight-shift-o73nrs`. `main`
+unchanged. `lite/` unchanged. Secrets: none read, exposed, or created.
 
 ## Remaining risks
 
-- The Opportunity Registry is only as useful as what gets fed into it —
-  it's cheap infrastructure (pure functions, no new DB table), but it does
-  nothing on its own without real, honestly-tagged candidates over time.
-- The two new agent-readiness checks are a first slice, not the full
-  "machine-readable company" concept from the mission — robots.txt-level
-  disallow-all detection and sitemap presence are natural next checks using
-  the same integration point, not built this wave.
-- The Playwright/Chromium version drift in this container should be fixed
-  at the environment level (either pin a matching Playwright version or
-  update the pre-installed browser), not worked around per-session.
-- `PostgresStore` class-level test coverage remains the single most
-  valuable next reliability wave — unchanged from prior handoffs.
+- The two stranded lineages (V9, Canon/V3) still exist as 26 open draft
+  PRs total; none were closed or merged this wave (deliberately — that's
+  an owner action).
+- `docs/PROMETHEUS_BRANCH_RECONCILIATION.md` is explicitly a bounded
+  reconciliation (test-pass verification + targeted file sampling), not an
+  exhaustive line-by-line review of ~50,000 stranded lines — said plainly
+  in the doc itself rather than implied as complete.
+- The local Postgres role/database created this wave
+  (`uberbond_test`/`uberbond_test`) is a throwaway superuser credential
+  local to this container — fine for this session, should not be reused
+  as-is anywhere persistent.
 
 ## Next highest-leverage wave
 
-Per the founder actions in `docs/PROMETHEUS_SCOPED_VERDICT.md`: configure
-the real checkout URLs (the actual #1 blocker to a first dollar — already
-fully coded), then decide whether real external research tooling is worth
-acquiring before any literal market-atlas work is attempted again.
+Per `docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md`'s owner-action list:
+(1) configure the real checkout URLs — zero engineering blocking this,
+highest leverage available; (2) the V9-vs-Guard architecture decision,
+which unblocks most of the deferred Prometheus machinery at once.
 
 ## Decision
 
-**PROCEED, scoped down.** No evidence found this wave changes the wedge
-decision from turn 6. This wave shipped one small, tested, real,
-zero-external-effect capability (Opportunity Registry) and one small, tested
-product-surface addition (agent-readiness findings) rather than a fabricated
-research package. Full reasoning and required verdict vocabulary in
-`docs/PROMETHEUS_SCOPED_VERDICT.md`.
+**PROCEED, honestly bounded.** Real, verified progress on the mission's
+own highest-ranked priorities (correctness gaps, existing-code
+reconciliation, canonical data contracts). Most of the remaining mission
+scope is deferred against two concrete, named external gates — not against
+engineering difficulty — with the reasoning for every deferred subsystem
+written down rather than silently skipped.

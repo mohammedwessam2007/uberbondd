@@ -51,13 +51,18 @@ A \`PREPARED\` result means a local packet passed the current gates. It does not
 
 ## Verification
 
-The new test file is \`tests/prometheus-economic-spine.test.mjs\`. The branch's required commands are:
+The exact branch head verified in a temporary checkout was
+\`69c535fc13995372d10a15700721aee60123f7d8\`.
 
-- \`node --check src/prometheus-economic-spine.mjs\`
-- \`node --test tests/prometheus-economic-spine.test.mjs\`
-- \`npm run check\`
+- \`npm ci\` — PASS; 20 packages installed.
+- \`node --check src/prometheus-economic-spine.mjs\` — PASS.
+- \`node --check src/market-signal-registry.mjs\` — PASS.
+- \`node --test tests/prometheus-economic-spine.test.mjs tests/market-signal-registry.test.mjs\` — 24/24 PASS.
+- \`npm run check\` — 340/340 deterministic tests PASS.
+- \`npm run test:browser\` — NOT_RUN; the environment required network approval for the browser command and approval was unavailable.
+- \`npm audit\` — NOT_RUN for the same network-approval limitation.
 
-The connected GitHub environment used for this change does not execute repository commands, so post-change test results remain NOT_RUN until Claude Code or another repository runner executes them. Prior branch evidence of 316/316 was recorded before this wave and is not reused as proof for these new changes.
+The older branch evidence of 316/316 is not being used as proof for these changes; the 340/340 result was run after this wave.
 
 ## Remaining economic spine
 

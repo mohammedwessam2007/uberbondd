@@ -9,6 +9,7 @@ import { sendEmail, listMessages, getMessage, parseGmailMessage, sealTokens } fr
 import { ConflictError } from './store.mjs';
 import { persistCrawlArtifacts } from './artifacts.mjs';
 import { evaluateSendEligibility, sendIdempotencyKey, classifyDeliverySignal, suppressionLookup } from './send-safety.mjs';
+import { evaluateDeliverabilityGuard } from './deliverability-guard.mjs';
 import { unsubscribeUrl, oneClickUnsubscribeUrl } from './unsubscribe.mjs';
 
 export class Pipeline {
@@ -146,15 +147,72 @@ export class Pipeline {
     return result;
   }
 
+  async logGuardDecision(phase, guardResult, { prospect, campaign, followup, reservationId } = {}) {
+    return this.store.log('deliverability_guard_decision', {
+      phase,
+      decision: guardResult.decision,
+      prospectId: prospect?.id || null,
+      campaignId: campaign?.id || null,
+      followup: Number(followup || 0),
+      idempotencyKey: guardResult.idempotencyKey,
+      actionIdentity: guardResult.actionIdentity,
+      workspaceId: guardResult.workspaceId,
+      reservationId: reservationId || null,
+      receipt: guardResult
+    });
+  }
+
   async maybeSend(prospect, campaign, options = {}) {
     const followup = Number(options.followup || 0);
+    const body = options.body || prospect?.draft;
+    const subject = options.subject || prospect?.subject;
+    const candidate = { ...(prospect || {}), draft: body, subject };
+
+    // Admission gate: every proposed outbound action is evaluated and the
+    // decision receipt is persisted before any reservation is attempted.
+    const admission = await evaluateDeliverabilityGuard({
+      store: this.store, prospect: candidate, campaign, cfg: this.cfg, date: this.clock(), followup, body, subject
+    });
+    await this.logGuardDecision('admission', admission, { prospect, campaign, followup });
+    if (admission.decision !== 'ALLOW_LOCAL_PREPARATION') {
+      // A denial whose ONLY reason is a replay against an existing reservation is not a
+      // new failure: it is this exact action being re-asked for. Preserve the pre-existing
+      // idempotent contract (already-sent replays report success; in-flight/uncertain
+      // replays report their status) rather than surfacing a fresh denial that could mask
+      // that the action already completed. Any other reason present still hard-denies.
+      const existing = admission.deduplicationResult?.existingReservation;
+      const isPureReplay = existing && admission.denyReasonCodes.length === 1 && admission.denyReasonCodes[0].startsWith('replay-idempotency-key');
+      if (isPureReplay && prospect?.id) {
+        if (existing.status === 'sent') {
+          const duplicatePatch = followup ? {
+            status: 'sent', followupCount: Math.max(Number(prospect.followupCount || 0), followup),
+            nextFollowupAt: followup < campaign.maxFollowups ? new Date(Date.now() + 5 * 86400000).toISOString() : null,
+            sendSafety: { sent: true, reason: 'already-sent', reservationId: existing.id, checkedAt: now() }
+          } : {
+            status: 'sent', sentAt: existing.sentAt || existing.completedAt || prospect.sentAt,
+            sendSafety: { sent: true, reason: 'already-sent', reservationId: existing.id, checkedAt: now() }
+          };
+          await this.store.patch('prospects', prospect.id, duplicatePatch);
+          return { sent: true, duplicate: true, reservation: existing };
+        }
+        return this.markSendSafety(prospect, { sent: false, reason: `duplicate-${existing.status}`, reservation: existing });
+      }
+      if (prospect?.id) {
+        await this.markSendSafety(prospect, {
+          sent: false, reason: admission.decision === 'DENY' ? 'deliverability-guard-denied' : 'deliverability-guard-review-required',
+          decision: admission.decision, reasonCodes: admission.reasonCodes
+        });
+      }
+      return { sent: false, decision: admission.decision, guard: admission };
+    }
+
+    // The guard's ALLOW_LOCAL_PREPARATION only means "safe to draft"; every
+    // pre-existing send gate below still runs, unweakened, so removing the
+    // guard could never silently widen what is allowed to send.
     if (await this.isSuppressed(prospect, prospect.contact?.email)) {
       await this.store.patch('prospects', prospect.id, { status: 'suppressed', nextFollowupAt: null });
       return { sent: false, reason: 'suppressed' };
     }
-    const body = options.body || prospect.draft;
-    const subject = options.subject || prospect.subject;
-    const candidate = { ...prospect, draft: body, subject };
     const eligibility = evaluateSendEligibility({ prospect: candidate, campaign, cfg: this.cfg, date: this.clock(), followup });
     if (!eligibility.ok) return this.markSendSafety(prospect, { sent: false, ...eligibility });
 
@@ -189,6 +247,27 @@ export class Pipeline {
 
     const reservation = reserved.reservation;
     await this.store.markOutboundReservation(reservation.id, 'dispatching');
+
+    // Final recheck immediately before the provider boundary: state (suppression,
+    // evidence, authority, sender health, policy) may have changed since
+    // admission. excludeReservationId keeps the guard from flagging the
+    // reservation this very call just made as a replay or ceiling breach.
+    const finalRecheck = await evaluateDeliverabilityGuard({
+      store: this.store, prospect: candidate, campaign, cfg: this.cfg, date: this.clock(), followup, body, subject,
+      excludeReservationId: reservation.id
+    });
+    await this.logGuardDecision('final-recheck', finalRecheck, { prospect, campaign, followup, reservationId: reservation.id });
+    if (finalRecheck.decision !== 'ALLOW_LOCAL_PREPARATION') {
+      await this.store.markOutboundReservation(reservation.id, 'cancelled', {
+        cancelReason: finalRecheck.decision, cancelReasonCodes: finalRecheck.reasonCodes
+      });
+      await this.markSendSafety(prospect, {
+        sent: false, reason: 'deliverability-guard-denied-on-final-recheck',
+        decision: finalRecheck.decision, reasonCodes: finalRecheck.reasonCodes, reservationId: reservation.id
+      });
+      return { sent: false, decision: finalRecheck.decision, guard: finalRecheck, reservation };
+    }
+
     let result;
     try {
       result = await this.sendEmailFn(this.cfg.google, account, this.cfg.encryptionKey, {

@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import {
   contactEligibility, evidenceEligibility, suppressionLookup, sendIdempotencyKey,
   normalizeCountry, normalizeCountryList, resolveRecipientTimeZone, localBusinessTime,
@@ -52,9 +53,34 @@ function malformedReceipt(reasons, timestamp) {
     costEstimate: { amountCents: 0, currency: 'USD', basis: 'no-action-taken' },
     ownerBurden: { manualStepsRequired: null, description: ownerBurdenDescription('DENY') },
     idempotencyKey: '',
+    workspaceId: null,
+    actionIdentity: null,
     timestamp,
     reversibleNextStep: reversibleNextStep('DENY')
   };
+}
+
+// A stable per-logical-send id (idempotencyKey) can and should stay the same
+// across retries. actionIdentity is different on purpose: it is a content hash
+// that changes whenever the message, recipient, evidence, authority, or policy
+// version changes, so a receipt can be checked against the *current* action
+// instead of just the current idempotency key.
+function computeActionIdentity({ campaign, prospect, followup, subject, body }) {
+  const material = {
+    campaignId: campaign.id,
+    prospectId: prospect.id,
+    followup: Number(followup || 0),
+    recipientEmail: String(prospect.contact?.email || '').trim().toLowerCase(),
+    messageSubject: String(subject || prospect.subject || ''),
+    messageBody: String(body || prospect.draft || ''),
+    evidenceUrl: prospect.issue?.evidenceUrl || '',
+    evidenceExcerpt: prospect.issue?.evidenceExcerpt || '',
+    evidenceConfidence: Number(prospect.issue?.confidence || 0),
+    campaignApproved: Boolean(campaign.approved),
+    campaignAutoSend: Boolean(campaign.autoSend),
+    policyVersion: POLICY_VERSION
+  };
+  return createHash('sha256').update(JSON.stringify(material)).digest('hex').slice(0, 32);
 }
 
 // Pure, side-effect-free deterministic gate. Reads existing canonical records
@@ -62,7 +88,7 @@ function malformedReceipt(reasons, timestamp) {
 // writes, reserves, or calls a provider — even an ALLOW_LOCAL_PREPARATION result
 // only means "safe to draft," not "safe to send."
 export async function evaluateDeliverabilityGuard({
-  store, prospect, campaign, cfg, date = new Date(), followup = 0, body, subject
+  store, prospect, campaign, cfg, date = new Date(), followup = 0, body, subject, excludeReservationId = ''
 } = {}) {
   const referenceDate = date instanceof Date && !Number.isNaN(date.getTime()) ? date : new Date();
   const referenceMs = referenceDate.getTime();
@@ -86,7 +112,7 @@ export async function evaluateDeliverabilityGuard({
   if (suppression.suppressed) deny.push(`suppressed:${suppression.reason || 'listed'}`);
 
   const existingReservations = await store.list('outboundReservations', { filters: { idempotencyKey } });
-  const existingReservation = existingReservations[0] || null;
+  const existingReservation = existingReservations.find(item => item.id !== excludeReservationId) || null;
   const deduplication = { duplicate: Boolean(existingReservation), idempotencyKey, existingReservation };
   if (existingReservation) {
     if (['sent', 'dispatching', 'uncertain'].includes(existingReservation.status)) {
@@ -159,7 +185,7 @@ export async function evaluateDeliverabilityGuard({
   const day = timestamp.slice(0, 10);
   const hour = timestamp.slice(0, 13);
   const inboxReservations = await store.list('outboundReservations', { filters: { inbox: prospect.inbox } });
-  const active = inboxReservations.filter(item => ACTIVE_RESERVATION_STATUSES.includes(item.status));
+  const active = inboxReservations.filter(item => item.id !== excludeReservationId && ACTIVE_RESERVATION_STATUSES.includes(item.status));
   const dailyCount = active.filter(item => String(item.reservedAt || '').startsWith(day)).length;
   const hourlyCount = active.filter(item => String(item.reservedAt || '').startsWith(hour)).length;
   if (dailyCount >= dailyCap) deny.push('daily-volume-ceiling-exceeded');
@@ -197,6 +223,8 @@ export async function evaluateDeliverabilityGuard({
       description: ownerBurdenDescription(decision)
     },
     idempotencyKey,
+    workspaceId: campaign.id,
+    actionIdentity: computeActionIdentity({ campaign, prospect, followup, subject, body }),
     timestamp,
     reversibleNextStep: reversibleNextStep(decision)
   };

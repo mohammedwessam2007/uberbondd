@@ -35,6 +35,26 @@ export function deterministicAudit(crawl, prospect={}) {
     'Indexing configuration repair','SEO',true,
     {type:'page_metadata',url:home.url,field:'robots_directive',observedValue:noindexDirectives.join(' | ')}
   ));
+  const jsonLdBlocks=home.jsonLd||[];
+  if(!jsonLdBlocks.length) issues.push(finding(
+    'no-structured-data','Homepage has no structured data (JSON-LD) for search or AI agents',3,0.93,home,
+    'No <script type="application/ld+json"> block was detected on the homepage.',
+    'Search engines and AI shopping/answer agents that rely on structured data (schema.org) to understand products, organizations, and offers may be unable to accurately represent this business as buyer discovery increasingly shifts from browsing to AI agents.',
+    'Structured data (schema.org) implementation','Agent Readiness'
+  ));
+  else {
+    const invalidBlock=jsonLdBlocks.map(raw=>{try{JSON.parse(raw);return null;}catch(error){return {raw,message:error.message};}}).find(Boolean);
+    if(invalidBlock){
+      const excerptText=`${invalidBlock.message}: ${invalidBlock.raw}`.slice(0,320);
+      issues.push(finding(
+        'invalid-structured-data','Structured data on the homepage contains invalid JSON and will be ignored',3,0.98,home,
+        excerptText,
+        'Search engines and AI agents parsing structured data will silently skip malformed blocks, so any product, pricing, or organization information intended for them is not actually being received.',
+        'Structured data (schema.org) implementation','Agent Readiness',true,
+        {type:'page_observation',url:home.url,excerpt:excerptText}
+      ));
+    }
+  }
   if(home.genericHero) issues.push(finding('generic-hero','Opening message appears generic',4,0.82,home,homepageCopy,'A broad promise can make the business interchangeable with competitors.','Positioning and conversion copy','Positioning'));
   if((home.visibleH1||[]).every(x=>x.length<12) && (home.visibleH1||[]).length) issues.push(finding('thin-hero','Primary headline communicates very little detail',3,0.8,home,(home.visibleH1||[]).join(' | '),'Visitors may not understand the offer, audience, or difference quickly.','Positioning and conversion copy','Positioning'));
 

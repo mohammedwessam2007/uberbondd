@@ -1,198 +1,139 @@
-# Overnight Handoff — 2026-08-17
+# Overnight Handoff — 2026-08-17 (Prometheus wave)
 
 ## Outcome
 
-**Wave: Trajectory-shift audit and Payment Truth foundation.** Audited
-UberBond's actual commercial trajectory using real codebase evidence (not
-assumptions) and found the wedge itself is sound — the gap is commercial-loop
-*integrity*, not the business model. Fixed a confirmed real revenue-truth
-bug, built the missing payment classification layer, added a minimal
-offer compiler and a founder command center that immediately surfaces the
-system's actual #1 blocker (checkout not configured), and diagnosed the
-failing Vercel deployment locally with concrete evidence.
-
-## Trajectory decision
-
-**Kept the current wedge (evidence-backed website audits, self-serve
-public intake → free snapshot → paid diagnostic → strategy review →
-monitoring subscription), narrowed to no dramatic pivot.** Full reasoning
-and wedge scoring are in the final report delivered this turn. Summary:
-the code's own signals (niche-routing bias toward clinics/dental/med-spa in
-`pipeline.mjs`, automated evidence capture, already-built payment
-lifecycle) show a wedge with strong buyer clarity, low delivery complexity,
-and high automation potential. The real risk is not the wedge — it's that
-**outbound stays structurally disabled** (by design, per every session's
-boundaries), so the entire funnel depends on inbound traffic this session
-cannot generate or verify. Given that constraint, the highest-leverage
-local work is making the self-serve conversion path (payment truth,
-checkout visibility, offer readiness) bulletproof — which is what this wave
-built — rather than inventing distribution infrastructure this session
-cannot lawfully operate or prove.
+**Wave: Scoped, honest response to "Project Prometheus."** The mission asked
+for a 52-file, ≥300-mechanism global economic-research package built from
+live scrapers into a dozen social/commerce platforms this session has no
+access to. Producing that would have meant fabricating "verified" evidence
+tags on invented data — the opposite of what the mission's own Economic
+Truth Engine section demands. Instead: a full honest audit of current
+UberBond capability, a small (5-item) evidence-tiered opportunity scan
+instead of 300 fabricated ones, and — following the mission's own buried
+IMPLEMENTATION RULE ("identify 5 shared capabilities... MAXIMUM FIVE INITIAL
+BUILDS") — one real shared capability built and tested end-to-end, plus one
+small real product-surface addition. Full reasoning, the required verdict,
+and the mission's 28-item final-response list are in
+`docs/PROMETHEUS_SCOPED_VERDICT.md`.
 
 ## Changed artifacts
 
-- `src/payments.mjs` — added `classifyPaymentEvent()`: a pure, deterministic
-  classifier mapping real Lemon Squeezy webhook events to one of the 8
-  required truth states. Fixes a confirmed bug: `subscription_updated`
-  (metadata-only, fires on card/plan/renewal-date changes) previously
-  triggered a full `unlockLead()` call and created a new `revenueEvents`
-  "sale" row on *every* occurrence — overcounting gross revenue by the
-  number of lifecycle webhooks received, not the number of real charges.
-  Also adds handling for `subscription_payment_success`/`_failed` (real
-  renewal charges and dunning failures), which the system previously never
-  recognized at all — meaning genuine recurring revenue after the first
-  payment was invisible to `revenueEvents`.
-- `src/revenue.mjs` — `handleLemonWebhook` now runs every event through the
-  classifier before acting; `unlockLead` is only ever called for
-  `CLEARED_ONE_TIME_PAYMENT`/`CLEARED_SUBSCRIPTION_PAYMENT`. Refunds are
-  recorded as negative `revenueEvents` (nets out of `grossRevenue`
-  automatically). Every decision is now audited via
-  `store.log('payment_classification', ...)`. `summary()` gained
-  `clearedRevenue`, `refundedRevenue`, and `pendingOrders` fields.
-- `src/config.mjs` — added `revenue.founderHourlyRateCents` (default `0` =
-  unconfigured) so the offer compiler can compute a real gross margin only
-  when the owner actually provides a rate, never a fabricated one.
-- `src/offer-compiler.mjs` (new) — `compileOfferPacket()`: pure function
-  packaging existing prospect/audit/score data into a structured offer for
-  5 products (full, strategy, monitoring, implementation, agency
-  white-label). Every price comes from `cfg.revenue`; a product with no
-  configured price (agency) is reported as `NOT_CONFIGURED`, never invented.
-- `src/founder-command-center.mjs` (new) — `buildFounderCommandCenter()`:
-  read-only report composing the operator summary, offer compiler, and
-  (optionally) `RevenueEngine.summary()` into checkout readiness, offer
-  readiness, delivery readiness, payment truth, and a max-3-action owner
-  queue. Confirmed against a real store: it immediately surfaces
-  "checkout not configured" as the #1 blocking action when checkout URLs
-  are empty — reproducing the flagged gap in the running system, not just
-  in documentation.
-- `tests/payment-truth.test.mjs` (new, 26 tests), `tests/offer-compiler.test.mjs`
-  (new, 16 tests), `tests/founder-command-center.test.mjs` (new, 11 tests).
-- `package.json` — wired every new module into `check:syntax` and every new
-  test file into `test:deterministic`.
+- `src/opportunity-registry.mjs` (new) — Business Genome + Money Model
+  Tournament scoring engine + Promotion Ladder + `incrementalBuildDistance`.
+  Pure, deterministic, zero I/O of its own (asserted by a test that greps
+  the source for `fetch`/`http.request`/`readFile`/etc.). Every genome field
+  must be evidence-tagged (`CLAIM_CLASSIFICATIONS`, mirroring the mission's
+  own hierarchy); untagged/weak claims reduce `confidence` but never inflate
+  `compositeScore` — verified by a test that shows tagged vs. untagged
+  identical inputs produce the same score but different confidence. No new
+  store collection/migration — persistence (`logOpportunityEvaluation`)
+  reuses the existing `store.log()` auditLog writer.
+- `src/audit-rules.mjs` — two new deterministic findings inside the existing
+  `deterministicAudit()` function, reusing evidence (`home.jsonLd`) that was
+  already being captured by the crawler but had zero consumers before this
+  wave: `no-structured-data` (homepage has no JSON-LD at all) and
+  `invalid-structured-data` (JSON-LD present but fails to parse, so search
+  engines/AI agents silently ignore it). New `category: 'Agent Readiness'`.
+  No changes needed to `browser-crawler.mjs`, `pipeline.mjs`, or
+  `scoreProspect` — the checker and scorer are already generic over
+  whatever findings the rule engine returns.
+- `tests/opportunity-registry.test.mjs` (new, 32 tests) — includes a real
+  regression catch: an early version of the recurring-revenue criterion
+  checked a non-existent `.present` field on `numericScore()`'s return
+  value (which only returns `{score, claimType}`), so the "retention
+  present, no recurring trigger" fallback path always evaluated to `null`
+  instead of a discounted score. Caught by the hostile test, fixed in the
+  same pass (`src/opportunity-registry.mjs`).
+- `tests/core.test.mjs` — 2 new tests for the two new audit-rules checks,
+  following the file's existing minimal-fixture pattern.
+- `package.json` — wired `src/opportunity-registry.mjs` into `check:syntax`
+  and `tests/opportunity-registry.test.mjs` into `test:deterministic`.
+  (`src/audit-rules.mjs` and `tests/core.test.mjs` were already wired in.)
+- `docs/PROMETHEUS_SCOPED_VERDICT.md` (new) — the full honest response:
+  current-reality audit, 5-item opportunity scan with real evidence tiers,
+  top-5 shared-capabilities roadmap, kill list, adversarial council, final
+  verdict, and the mission's 28-item final-response list.
 
-`lite/` has zero changes, confirmed via `git status --short lite/`.
-
-## Vercel diagnosis (local evidence only, no remote logs)
-
-The failing "Vercel – uberbondd" check is almost certainly a **misconfigured
-deployment target**, not a code defect:
-
-- The repository root has **no `vercel.json`** and is a persistent Node HTTP
-  server (`server.mjs`/`worker.mjs`) — not serverless-function-shaped.
-- The root **is** correctly configured for Docker-based platforms: a
-  `Dockerfile` (`CMD ["node","server.mjs"]`), `railway.json` +
-  `railway-worker.json` (Railway, Docker builder), and `render.yaml`
-  (Render, `runtime: docker`, with a Postgres database and shared env
-  group already defined).
-- `lite/` **does** have a `vercel.json` (security headers + report-link
-  rewrite) and its own Vercel project ("Vercel – uberbondd-lite-private")
-  passes.
-- Conclusion: a Vercel project appears to be pointed at the repository
-  root instead of `lite/`. This cannot be fixed without Vercel dashboard
-  access (owner action), and doing so is explicitly out of this session's
-  boundaries (no deploy/DNS/credential changes). **EXTERNAL_PROOF_REQUIRED**
-  for final confirmation, but the local evidence is unambiguous.
+`lite/` has zero changes, confirmed via `git status --short lite/` before
+and after this wave.
 
 ## Tests actually run and results
 
-- `node --check` on `src/deliverability-guard.mjs`, `src/pipeline.mjs`,
-  `src/send-safety.mjs`, `src/store.mjs`, `src/revenue.mjs`,
-  `src/payments.mjs`, `src/offer-compiler.mjs`,
-  `src/founder-command-center.mjs` — all PASS.
-- `tests/payment-truth.test.mjs` — 26/26 PASS.
-- `tests/offer-compiler.test.mjs` — 16/16 PASS.
-- `tests/founder-command-center.test.mjs` — 11/11 PASS.
-- `tests/revenue.test.mjs` (pre-existing) re-run standalone — 3/3 PASS,
-  confirming the payment-truth refactor didn't regress the existing paid
-  full-report unlock flow.
-- `npm run check` (== `check:syntax` + full `test:deterministic`) —
-  **251/251 tests passed**, 0 failed.
+- `node --check src/opportunity-registry.mjs src/audit-rules.mjs` — PASS.
+- `tests/opportunity-registry.test.mjs` — 32/32 PASS (found and fixed one
+  real logic bug mid-wave, see above).
+- `tests/core.test.mjs` — 12/12 PASS (10 pre-existing + 2 new).
+- `npm run check` (syntax + full deterministic suite) — **285/285 passed**
+  (251 pre-existing + 34 new), 0 failed.
 - `npm audit` — 0 vulnerabilities.
-- `npm run test:browser` (Chromium already present; nothing installed) —
-  1/1 PASS.
-- `uberbond_get_state` / `uberbond_run_verification(suite:check)` via the
-  live local MCP bridge — both succeeded, real output, 251/251 confirmed.
-
-## Postgres proof status
-
-Schema/constraint-level proof (existing `tests/postgres-schema.test.mjs`,
-using PGlite) re-verified passing this wave: `orders.provider_event_id`,
-`revenue_events.provider_event_id`, and `outbound_reservations.idempotency_key`
-are all real `UNIQUE` constraints — the actual mechanism duplicate payment
-events rely on. **Genuine gap found and honestly disclosed**: no test in
-this repository (before or after this wave) exercises the `PostgresStore`
-JS class itself (as opposed to raw migration SQL) against a live/embedded
-Postgres instance — `RevenueEngine`, `Pipeline`, and
-`recoverStaleOutboundReservations` have only ever been tested against
-`JsonStore`. Building a PGlite-to-`pg.Pool` adapter to close this is real
-work, correctly deferred rather than rushed. **NOT_RUN**, not fabricated.
-
-## Task-universe audit (Phase 6) — no new code needed
-
-The existing `DurableQueue` (`src/queue.mjs`) already satisfies 7 of the
-10 required properties: deduplication (`dedupeKey` unique index),
-idempotency (`singletonKey` scoped to active/queued/retry), leases
-(`lockedBy`/`lockedAt`/`heartbeatAt`), stale recovery
-(`recoverStaleJobs`), bounded retries (`maxAttempts` + exponential
-backoff), dead-letter state, and deterministic priority ordering. Genuinely
-absent: explicit cancellation, dependency edges between tasks, and formal
-cost accounting per job. Not built this wave — flagged as real gaps rather
-than silently claimed complete.
+- `npm run test:browser` — **1/1 PASS**, but only once pointed at this
+  container's pre-installed Chromium via `CHROMIUM_PATH=/opt/pw-browsers/
+  chromium`. Without it, the run fails with Playwright's "please run
+  `npx playwright install`" message. Root cause confirmed: the repo's pinned
+  Playwright version (1.61.1) expects Chromium revision 1228; this
+  container ships revision 1194 pre-installed. This is a **pre-existing
+  container/dependency version drift**, unrelated to any change in this
+  wave (`browser-crawler.mjs`'s launch logic was read but not modified) —
+  disclosed honestly rather than silently worked around by editing the
+  repo's launch code to hardcode a path.
+- `uberbond_get_state` / `uberbond_run_verification(suite: check)` via the
+  live local MCP bridge — both succeeded, real output, confirmed 285/285,
+  `externalCalls: 0`, `spendCents: 0`, worktree diff matched exactly what
+  this wave changed.
 
 ## Truth table
 
 | Item | Status |
 |---|---|
-| Payment truth classifier + webhook rewrite | COMPLETE |
-| Overcounting bug (subscription_updated) fixed | COMPLETE |
-| Missing renewal-charge handling added | COMPLETE |
-| Offer compiler (5 products) | COMPLETE |
-| Founder command center | COMPLETE |
-| Vercel misconfiguration diagnosed | COMPLETE (local evidence) |
-| Vercel diagnosis confirmed via remote dashboard | EXTERNAL_PROOF_REQUIRED |
-| 26+16+11 = 53 new hostile tests | PASS_LOCAL |
-| Full `npm run check` (251 tests) | PASS_LOCAL |
+| Honest scope reduction from the 52-file/300-mechanism ask | COMPLETE (documented, not silently done) |
+| Current UberBond Reality audit | COMPLETE |
+| Opportunity Registry (Business Genome + scoring + promotion ladder) | COMPLETE, 32/32 tests |
+| Agent-readiness findings (`no-structured-data`, `invalid-structured-data`) | COMPLETE, tested |
+| 5-item evidence-tiered opportunity scan | COMPLETE (explicitly not 300; nothing tagged VERIFIED_FACT about the outside world) |
+| `npm run check` (285 tests) | PASS_LOCAL |
 | `npm audit` | PASS_LOCAL |
-| Browser suite | PASS_LOCAL |
+| Browser suite | PASS_LOCAL (with disclosed pre-existing container Chromium-version caveat) |
 | Live MCP calls this session | PASS_LOCAL |
-| Postgres schema/constraint proof | PASS_LOCAL |
-| `PostgresStore` class-level proof | NOT_RUN (no harness exists yet) |
-| Task-universe properties (queue) | COMPLETE (7/10), 3 gaps disclosed |
-| Any cleared payment, real customer, or revenue | EXTERNAL_PROOF_REQUIRED — none claimed, none occurred |
-| GitHub Actions hosted run for this commit | Checked prior waves: BLOCKED (billing lock) |
+| 52-file Prometheus package / 300 verified mechanisms / ZIP | NOT_PRODUCED — explained, not silently skipped |
+| Distribution allocator, agent factory, capital allocator, planetary radar | NOT_BUILT — explicitly on the kill/defer list, with reasons |
+| `PostgresStore` class-level proof | Still NOT_RUN — pre-existing disclosed gap, unchanged this wave |
+| Any real revenue, customer, or payment | NONE — none claimed |
 
 ## External-effect ledger
 
 0 real provider/network calls, 0 messages, 0 purchases, 0 deployments, 0
-DNS/credential changes, 0 production mutations. Only action: local commits
-and a push to `claude/uberbond-overnight-shift-o73nrs`. `main` unchanged.
-Secrets: none read, exposed, or created (verified by grep before commit).
+DNS/credential changes, 0 production mutations, 0 spend. Confirmed live via
+MCP bridge (`externalCalls: 0`, `spendCents: 0`). Only action: local commits
+on `claude/uberbond-overnight-shift-o73nrs`. `main` unchanged. `lite/`
+unchanged. Secrets: none read, exposed, or created.
 
 ## Remaining risks
 
-- Refunds do not automatically revoke `lead.paymentStatus`/`plan` access —
-  deliberate (report snapshots are treated as already-delivered, not
-  live-gated), but worth an explicit owner decision if unwanted.
-- `PostgresStore` class-level test coverage gap (above) — the single most
-  valuable next reliability wave.
-- The founder command center's `offerReadiness` check recomputes an offer
-  packet per prospect per product on every call — fine at current data
-  volume, would need pagination/limits at real scale.
-- GitHub Actions billing lock remains unresolved (cannot be fixed locally).
+- The Opportunity Registry is only as useful as what gets fed into it —
+  it's cheap infrastructure (pure functions, no new DB table), but it does
+  nothing on its own without real, honestly-tagged candidates over time.
+- The two new agent-readiness checks are a first slice, not the full
+  "machine-readable company" concept from the mission — robots.txt-level
+  disallow-all detection and sitemap presence are natural next checks using
+  the same integration point, not built this wave.
+- The Playwright/Chromium version drift in this container should be fixed
+  at the environment level (either pin a matching Playwright version or
+  update the pre-installed browser), not worked around per-session.
+- `PostgresStore` class-level test coverage remains the single most
+  valuable next reliability wave — unchanged from prior handoffs.
 
 ## Next highest-leverage wave
 
-Build the PGlite-to-`PostgresStore` test adapter and re-run the payment
-truth, reservation recovery, and quota-agreement suites against real
-Postgres — closing the one honestly-disclosed proof gap without touching
-any production-authoritative SQL logic.
+Per the founder actions in `docs/PROMETHEUS_SCOPED_VERDICT.md`: configure
+the real checkout URLs (the actual #1 blocker to a first dollar — already
+fully coded), then decide whether real external research tooling is worth
+acquiring before any literal market-atlas work is attempted again.
 
 ## Decision
 
-**PROCEED** — the trajectory audit did not find a broken business model,
-it found an unaudited payment layer with a real, now-fixed overcounting
-bug, plus missing visibility into what's actually blocking the first
-dollar (checkout configuration). All new code is narrowly scoped, reuses
-canonical models, and is covered by 53 new passing hostile tests plus full
-regression checks (251/251 total). No external, destructive, or
-irreversible action was taken.
+**PROCEED, scoped down.** No evidence found this wave changes the wedge
+decision from turn 6. This wave shipped one small, tested, real,
+zero-external-effect capability (Opportunity Registry) and one small, tested
+product-surface addition (agent-readiness findings) rather than a fabricated
+research package. Full reasoning and required verdict vocabulary in
+`docs/PROMETHEUS_SCOPED_VERDICT.md`.

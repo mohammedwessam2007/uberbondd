@@ -17,6 +17,25 @@ test('audit detects no CTA and weak contact path',()=>{
   assert(a.every(x=>x.evidenceUrl&&x.evidenceExcerpt));
 });
 
+test('audit flags a homepage with no structured data (JSON-LD)',()=>{
+  const page={url:'https://x.test',title:'Example Company',description:'A company',h1Count:1,visibleH1:['Welcome'],headings:[{level:'h1',text:'Welcome'}],ctas:[{text:'Book now',aboveFold:true}],controls:[],images:[],forms:[],bodyText:'A company in Cairo',lang:'en',contactSignals:1,jsonLd:[],mobile:{horizontalOverflow:false,controls:[],document:{width:390},viewport:{width:390}},screenshots:{desktop:'/x.png',mobile:'/m.png'},brokenLinks:[]};
+  const a=deterministicAudit({pages:[page],errors:[],emails:[]},{niche:'agency'});
+  assert(a.some(x=>x.code==='no-structured-data'&&x.category==='Agent Readiness'));
+  assert(a.every(x=>x.evidenceUrl&&x.evidenceExcerpt));
+});
+
+test('audit flags invalid JSON-LD without false-flagging a homepage with valid JSON-LD',()=>{
+  const basePage={url:'https://x.test',title:'Example Company',description:'A company',h1Count:1,visibleH1:['Welcome'],headings:[{level:'h1',text:'Welcome'}],ctas:[{text:'Book now',aboveFold:true}],controls:[],images:[],forms:[],bodyText:'A company in Cairo',lang:'en',contactSignals:1,mobile:{horizontalOverflow:false,controls:[],document:{width:390},viewport:{width:390}},screenshots:{desktop:'/x.png',mobile:'/m.png'},brokenLinks:[]};
+  const invalid=deterministicAudit({pages:[{...basePage,jsonLd:['{not valid json']}],errors:[],emails:[]},{niche:'agency'});
+  assert(invalid.some(x=>x.code==='invalid-structured-data'));
+  assert(!invalid.some(x=>x.code==='no-structured-data'));
+  assert(invalid.every(x=>x.evidenceUrl&&x.evidenceExcerpt));
+
+  const valid=deterministicAudit({pages:[{...basePage,jsonLd:['{"@context":"https://schema.org","@type":"Organization","name":"Example"}']}],errors:[],emails:[]},{niche:'agency'});
+  assert(!valid.some(x=>x.code==='invalid-structured-data'));
+  assert(!valid.some(x=>x.code==='no-structured-data'));
+});
+
 test('score creates a valid tier',()=>{const s=scoreProspect({niche:'clinic'},[{severity:5,confidence:.9,service:'Medical communication',safeForOutreach:true}],{email:'a@b.com',personal:true});assert(s.total>=50);assert(['A','B','C','Reject'].includes(s.tier))});
 test('chooseIssue rejects unsafe findings',()=>{const x=chooseIssue([{title:'Unsafe',confidence:.99,safeForOutreach:false},{title:'Safe',confidence:.8,safeForOutreach:true}]);assert.equal(x.title,'Safe')});
 test('medical prospects route to A',()=>assert.equal(routeInbox({niche:'dental clinic'},[]),'A'));

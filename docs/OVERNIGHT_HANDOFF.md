@@ -2,278 +2,197 @@
 
 ## Outcome
 
-**Wave: Revenue Safety, Recovery, and Audit Foundation.** Four coherent
-subsystems were added on top of the existing Deliverability Guard, all
-reusing canonical models — no parallel queue, suppression, evidence, or
-revenue system was created:
+**Wave: Trajectory-shift audit and Payment Truth foundation.** Audited
+UberBond's actual commercial trajectory using real codebase evidence (not
+assumptions) and found the wedge itself is sound — the gap is commercial-loop
+*integrity*, not the business model. Fixed a confirmed real revenue-truth
+bug, built the missing payment classification layer, added a minimal
+offer compiler and a founder command center that immediately surfaces the
+system's actual #1 blocker (checkout not configured), and diagnosed the
+failing Vercel deployment locally with concrete evidence.
 
-1. **Reservation recovery** (`src/reservation-recovery.mjs`) — a time-boxed,
-   bounded, deterministic sweep that finds `outboundReservations` stuck
-   past a timeout and safely resolves them using the *existing* reservation
-   state machine (`reserved → dispatching → sent/uncertain/cancelled`).
-2. **Volume/quota unification** — the guard's and the store's daily/hourly
-   cap counting, previously two independently maintained implementations,
-   now share one canonical helper (`countActiveOutboundReservations` in
-   `send-safety.mjs`).
-3. **Transactional report-email audit** — `RevenueEngine.sendReportEmail`
-   now has a real audit trail and an unresolved-outcome retry block, kept
-   deliberately separate from cold-outreach logic.
-4. **Operator visibility** (`src/outbound-operator-summary.mjs`) — a
-   read-only structured summary of reservation states, provider health,
-   review requirements, and the exact next safe action.
+## Trajectory decision
 
-## Subwaves completed
-
-All five requested subwaves were completed in order; none were blocked.
+**Kept the current wedge (evidence-backed website audits, self-serve
+public intake → free snapshot → paid diagnostic → strategy review →
+monitoring subscription), narrowed to no dramatic pivot.** Full reasoning
+and wedge scoring are in the final report delivered this turn. Summary:
+the code's own signals (niche-routing bias toward clinics/dental/med-spa in
+`pipeline.mjs`, automated evidence capture, already-built payment
+lifecycle) show a wedge with strong buyer clarity, low delivery complexity,
+and high automation potential. The real risk is not the wedge — it's that
+**outbound stays structurally disabled** (by design, per every session's
+boundaries), so the entire funnel depends on inbound traffic this session
+cannot generate or verify. Given that constraint, the highest-leverage
+local work is making the self-serve conversion path (payment truth,
+checkout visibility, offer readiness) bulletproof — which is what this wave
+built — rather than inventing distribution infrastructure this session
+cannot lawfully operate or prove.
 
 ## Changed artifacts
 
-- `src/reservation-recovery.mjs` (new) — `recoverStaleOutboundReservations()`, `classifyStaleReservation()`.
-- `src/outbound-operator-summary.mjs` (new) — `buildOutboundOperatorSummary()`.
-- `src/send-safety.mjs` — added `outboundVolumeWindow()` and `countActiveOutboundReservations()`, the one canonical volume-counting helper.
-- `src/deliverability-guard.mjs` — now calls the shared helper instead of its own inline daily/hourly counting; no behavior change (18 pre-existing + 25 unit tests regression-checked).
-- `src/store.mjs` — `JsonStore._reserveOutboundSendDirect` now calls the same shared helper instead of its own inline duplicate; PostgreSQL's SQL-based counting is untouched (see Remaining risks).
-- `src/revenue.mjs` — `RevenueEngine.sendReportEmail` gained a full audit trail (`store.log('report_email_audit', ...)`), an explicit missing-destination check, provider-outcome-uncertain handling, and a `lead.reportEmailAttemptStatus` flag that blocks automatic retry after an unresolved outcome. `onProspectComplete`'s auto-send gate now also checks that flag.
-- `src/config.mjs` — added `outbound.reservationRecoveryTimeoutMs` (default 30 min) and `outbound.reservationRecoverySweepLimit` (default 200), following the existing config pattern.
-- `src/job-handlers.mjs`, `worker.mjs`, `server.mjs` — wired a new `outbound.reservations.recover` job type; `createJobHandlers` now also receives `cfg`.
-- `src/scheduler.mjs` — added `outbound.reservations.recover` to the recurring job list, still fully gated behind the pre-existing, default-off `cfg.autopilot` flag (unchanged dormant-by-default behavior). The job itself has zero external effects regardless.
-- `tests/reservation-recovery.test.mjs` (new, 22 tests), `tests/volume-quota.test.mjs` (new, 12 tests), `tests/revenue-report-email-audit.test.mjs` (new, 11 tests), `tests/outbound-operator-summary.test.mjs` (new, 14 tests).
-- `package.json` — wired every new module into `check:syntax` and every new test file into `test:deterministic`.
+- `src/payments.mjs` — added `classifyPaymentEvent()`: a pure, deterministic
+  classifier mapping real Lemon Squeezy webhook events to one of the 8
+  required truth states. Fixes a confirmed bug: `subscription_updated`
+  (metadata-only, fires on card/plan/renewal-date changes) previously
+  triggered a full `unlockLead()` call and created a new `revenueEvents`
+  "sale" row on *every* occurrence — overcounting gross revenue by the
+  number of lifecycle webhooks received, not the number of real charges.
+  Also adds handling for `subscription_payment_success`/`_failed` (real
+  renewal charges and dunning failures), which the system previously never
+  recognized at all — meaning genuine recurring revenue after the first
+  payment was invisible to `revenueEvents`.
+- `src/revenue.mjs` — `handleLemonWebhook` now runs every event through the
+  classifier before acting; `unlockLead` is only ever called for
+  `CLEARED_ONE_TIME_PAYMENT`/`CLEARED_SUBSCRIPTION_PAYMENT`. Refunds are
+  recorded as negative `revenueEvents` (nets out of `grossRevenue`
+  automatically). Every decision is now audited via
+  `store.log('payment_classification', ...)`. `summary()` gained
+  `clearedRevenue`, `refundedRevenue`, and `pendingOrders` fields.
+- `src/config.mjs` — added `revenue.founderHourlyRateCents` (default `0` =
+  unconfigured) so the offer compiler can compute a real gross margin only
+  when the owner actually provides a rate, never a fabricated one.
+- `src/offer-compiler.mjs` (new) — `compileOfferPacket()`: pure function
+  packaging existing prospect/audit/score data into a structured offer for
+  5 products (full, strategy, monitoring, implementation, agency
+  white-label). Every price comes from `cfg.revenue`; a product with no
+  configured price (agency) is reported as `NOT_CONFIGURED`, never invented.
+- `src/founder-command-center.mjs` (new) — `buildFounderCommandCenter()`:
+  read-only report composing the operator summary, offer compiler, and
+  (optionally) `RevenueEngine.summary()` into checkout readiness, offer
+  readiness, delivery readiness, payment truth, and a max-3-action owner
+  queue. Confirmed against a real store: it immediately surfaces
+  "checkout not configured" as the #1 blocking action when checkout URLs
+  are empty — reproducing the flagged gap in the running system, not just
+  in documentation.
+- `tests/payment-truth.test.mjs` (new, 26 tests), `tests/offer-compiler.test.mjs`
+  (new, 16 tests), `tests/founder-command-center.test.mjs` (new, 11 tests).
+- `package.json` — wired every new module into `check:syntax` and every new
+  test file into `test:deterministic`.
 
-`lite/` has zero changes, confirmed via `git status --short lite/` before and after.
+`lite/` has zero changes, confirmed via `git status --short lite/`.
 
-## Exact tests actually run and results
+## Vercel diagnosis (local evidence only, no remote logs)
 
-- `node --check` on `src/deliverability-guard.mjs`, `src/pipeline.mjs`, `src/send-safety.mjs`, `src/store.mjs`, `src/revenue.mjs` — all PASS.
-- `node --test tests/reservation-recovery.test.mjs` — 22/22 PASS.
-- `node --test tests/volume-quota.test.mjs` — 12/12 PASS.
-- `node --test tests/revenue-report-email-audit.test.mjs` — 11/11 PASS.
-- `node --test tests/outbound-operator-summary.test.mjs` — 14/14 PASS.
-- `node --test tests/deliverability-guard.test.mjs`, `tests/pipeline-deliverability-guard.test.mjs`, `tests/send-safety.test.mjs`, `tests/revenue.test.mjs`, `tests/queue.test.mjs` — all pre-existing suites re-run standalone as regression checks — all still PASS (no behavior change from the refactors).
-- `npm run check` (== `check:syntax` + full `test:deterministic`) — **198/198 tests passed**, 0 failed.
+The failing "Vercel – uberbondd" check is almost certainly a **misconfigured
+deployment target**, not a code defect:
+
+- The repository root has **no `vercel.json`** and is a persistent Node HTTP
+  server (`server.mjs`/`worker.mjs`) — not serverless-function-shaped.
+- The root **is** correctly configured for Docker-based platforms: a
+  `Dockerfile` (`CMD ["node","server.mjs"]`), `railway.json` +
+  `railway-worker.json` (Railway, Docker builder), and `render.yaml`
+  (Render, `runtime: docker`, with a Postgres database and shared env
+  group already defined).
+- `lite/` **does** have a `vercel.json` (security headers + report-link
+  rewrite) and its own Vercel project ("Vercel – uberbondd-lite-private")
+  passes.
+- Conclusion: a Vercel project appears to be pointed at the repository
+  root instead of `lite/`. This cannot be fixed without Vercel dashboard
+  access (owner action), and doing so is explicitly out of this session's
+  boundaries (no deploy/DNS/credential changes). **EXTERNAL_PROOF_REQUIRED**
+  for final confirmation, but the local evidence is unambiguous.
+
+## Tests actually run and results
+
+- `node --check` on `src/deliverability-guard.mjs`, `src/pipeline.mjs`,
+  `src/send-safety.mjs`, `src/store.mjs`, `src/revenue.mjs`,
+  `src/payments.mjs`, `src/offer-compiler.mjs`,
+  `src/founder-command-center.mjs` — all PASS.
+- `tests/payment-truth.test.mjs` — 26/26 PASS.
+- `tests/offer-compiler.test.mjs` — 16/16 PASS.
+- `tests/founder-command-center.test.mjs` — 11/11 PASS.
+- `tests/revenue.test.mjs` (pre-existing) re-run standalone — 3/3 PASS,
+  confirming the payment-truth refactor didn't regress the existing paid
+  full-report unlock flow.
+- `npm run check` (== `check:syntax` + full `test:deterministic`) —
+  **251/251 tests passed**, 0 failed.
 - `npm audit` — 0 vulnerabilities.
-- `npm run test:browser` (Chromium already present in the container at `/opt/pw-browsers/chromium-1194/chrome-linux/chrome`; nothing installed) — 1/1 PASS, unchanged.
-- `uberbond_get_state` via the live local MCP bridge — succeeded; returned the exact real worktree diff for this wave.
-- `uberbond_run_verification` with `suite: check` via the live local MCP bridge — succeeded; returned `status: "passed"`, 198/198 tests.
+- `npm run test:browser` (Chromium already present; nothing installed) —
+  1/1 PASS.
+- `uberbond_get_state` / `uberbond_run_verification(suite:check)` via the
+  live local MCP bridge — both succeeded, real output, 251/251 confirmed.
+
+## Postgres proof status
+
+Schema/constraint-level proof (existing `tests/postgres-schema.test.mjs`,
+using PGlite) re-verified passing this wave: `orders.provider_event_id`,
+`revenue_events.provider_event_id`, and `outbound_reservations.idempotency_key`
+are all real `UNIQUE` constraints — the actual mechanism duplicate payment
+events rely on. **Genuine gap found and honestly disclosed**: no test in
+this repository (before or after this wave) exercises the `PostgresStore`
+JS class itself (as opposed to raw migration SQL) against a live/embedded
+Postgres instance — `RevenueEngine`, `Pipeline`, and
+`recoverStaleOutboundReservations` have only ever been tested against
+`JsonStore`. Building a PGlite-to-`pg.Pool` adapter to close this is real
+work, correctly deferred rather than rushed. **NOT_RUN**, not fabricated.
+
+## Task-universe audit (Phase 6) — no new code needed
+
+The existing `DurableQueue` (`src/queue.mjs`) already satisfies 7 of the
+10 required properties: deduplication (`dedupeKey` unique index),
+idempotency (`singletonKey` scoped to active/queued/retry), leases
+(`lockedBy`/`lockedAt`/`heartbeatAt`), stale recovery
+(`recoverStaleJobs`), bounded retries (`maxAttempts` + exponential
+backoff), dead-letter state, and deterministic priority ordering. Genuinely
+absent: explicit cancellation, dependency edges between tasks, and formal
+cost accounting per job. Not built this wave — flagged as real gaps rather
+than silently claimed complete.
 
 ## Truth table
 
 | Item | Status |
 |---|---|
-| Reservation recovery sweep, reusing the existing state machine | COMPLETE |
-| Volume/quota unification (guard ↔ JsonStore) | COMPLETE |
-| Transactional report-email audit trail + unresolved-outcome retry block | COMPLETE |
-| Operator visibility summary | COMPLETE |
-| 22+12+11+14 = 59 new hostile tests | PASS_LOCAL |
-| Regression check of pre-existing suites after every refactor | PASS_LOCAL |
-| Full `npm run check` (198 tests) | PASS_LOCAL |
+| Payment truth classifier + webhook rewrite | COMPLETE |
+| Overcounting bug (subscription_updated) fixed | COMPLETE |
+| Missing renewal-charge handling added | COMPLETE |
+| Offer compiler (5 products) | COMPLETE |
+| Founder command center | COMPLETE |
+| Vercel misconfiguration diagnosed | COMPLETE (local evidence) |
+| Vercel diagnosis confirmed via remote dashboard | EXTERNAL_PROOF_REQUIRED |
+| 26+16+11 = 53 new hostile tests | PASS_LOCAL |
+| Full `npm run check` (251 tests) | PASS_LOCAL |
 | `npm audit` | PASS_LOCAL |
 | Browser suite | PASS_LOCAL |
-| Live MCP `uberbond_get_state` / `uberbond_run_verification` this session | PASS_LOCAL (via real, connected local bridge) |
-| PostgreSQL-backend concurrency proof for the recovery sweep specifically | NOT_RUN — only the JSON backend was exercised for that specific test; see Remaining risks |
-| GitHub Actions hosted run for this wave's commit | NOT_RUN at verification time (not yet pushed); see below |
-| Draft PR #26 update | COMPLETE (pushed to task branch only) |
-| PR merge / production deploy / any live send | OWNER_REQUIRED — never performed autonomously |
-| Any cleared payment or real revenue | EXTERNAL_PROOF_REQUIRED — none claimed, none occurred |
-
-## Reservation recovery state machine
-
-```
-reserved --(stale, timeout exceeded)--> cancelled   [known: no provider attempt was ever made]
-dispatching --(stale, timeout exceeded)--> uncertain [unknown: provider outcome unresolved]
-sent / cancelled / uncertain --> never touched again (excluded by query, not just by a status check)
-```
-
-No new status was added — `cancelled` and `uncertain` are the exact states
-`Pipeline.maybeSend` already produces for its own final-recheck denials and
-provider-call failures respectively. Reusing `uncertain` means the guard's
-*already-existing* replay-block (`replay-idempotency-key:uncertain` → DENY)
-automatically covers every recovered row too, with zero new guard code.
-
-The `outbound_reservations.status` column has no database CHECK constraint
-(a plain `text` column), so no migration was needed or added.
-
-## Unknown-provider-outcome safety proof
-
-- A reservation found at `dispatching` past the timeout is classified
-  `uncertain`, never `cancelled` and never silently resent — proven by
-  "a stale reservation with a provider attempt in flight (dispatching) is
-  quarantined as unknown, never resent."
-- The recovery sweep never calls `sendEmailFn`/`gmail.mjs`/any network
-  function — proven by a static source-content check plus a behavioral
-  check that `messages` stays empty across every sweep scenario.
-- The transactional report-email path applies the identical philosophy:
-  a provider exception sets `lead.reportEmailAttemptStatus = 'uncertain'`
-  (never `reportEmailSentAt`), and `onProspectComplete`'s auto-send gate
-  refuses to retry while that flag is set — proven by "a provider failure
-  is recorded as unknown, never as success, and blocks automatic retry"
-  and "onProspectComplete never automatically retries after an uncertain
-  outcome."
-- Duplicate/concurrent recovery of the same row cannot double-count or
-  double-log: the audit receipt uses a deterministic id
-  (`recovery:<reservationId>:<fromStatus>:<toStatus>:<dry|live>`) and relies
-  on the store's existing duplicate-id `ConflictError` — the same mechanism
-  already used for suppressions/replies/jobs — rather than a new lock.
-  Proven by "a simulated concurrent sweep... does not double-recover the
-  same row" (a true `Promise.all` race) and "duplicate recovery attempts
-  are idempotent."
-
-## Volume/quota consistency proof
-
-`countActiveOutboundReservations()` in `send-safety.mjs` is now the single
-place that defines "how many sends count toward an inbox's cap." Both
-`evaluateDeliverabilityGuard` and `JsonStore._reserveOutboundSendDirect`
-call it. Proven directly by `tests/volume-quota.test.mjs`: agreement exactly
-at the cap boundary, one under the boundary, cross-campaign-same-inbox
-still counts, cross-inbox never counts, cross-day never counts, cancelled
-excluded, uncertain still counted, concurrent attempts race correctly to
-exactly one winner, malformed timestamps are excluded without crashing,
-and UTC-derived day/hour buckets are timezone-independent by construction
-(`Date.toISOString()` is always UTC regardless of server locale).
-
-**No existing limit or threshold was changed.** The unification is a pure
-refactor of *where* the counting logic lives, not a change to what it
-computes — every pre-existing send-safety/pipeline test still passes
-unmodified.
-
-## Transactional report-email audit status
-
-`sendReportEmail`'s destination is the address the customer themselves
-typed into the public intake form (`RevenueEngine.createLead`) — never
-scraped, inferred, or discovered — and delivery is independently
-kill-switched by `cfg.revenue.autoEmailReports` (default `false`) and keyed
-by `lead.id`, entirely separate from the cold-outreach campaign/guard
-machinery. It was **not** force-fit into the Deliverability Guard, since
-none of the guard's contact-route/evidence/country/business-hour checks
-are meaningful for a self-submitted address.
-
-Every decision now writes a `report_email_audit` receipt: effect class,
-outcome (`blocked`/`uncertain`/`sent`), reason, lead/prospect/workspace
-identifiers, an idempotency key (`report-email:<leadId>`), destination
-provenance, and the kill-switch state at decision time — never the message
-body, access token, or credentials (proven by a test that asserts the
-serialized receipt contains none of those patterns).
-
-## Recovery summary / operator visibility added
-
-`buildOutboundOperatorSummary()` returns, read-only: reservation counts by
-status (including a `quarantined`/`unknownOutcome` bucket derived from
-`uncertain`), a dry-run stale-recovery preview (no mutation), recent
-blocked-action and duplicate/replay counts (bounded to the most recent 500
-audit entries, never an unbounded scan), paused-sender-health detail,
-campaigns/decisions awaiting owner review, the current kill-switch and
-global-pause state, and a single deterministic `nextSafeAction` string. It
-sends nothing and reuses `auditLog`, `outboundReservations`, `senderHealth`,
-`campaigns`, and `settings` — no new storage.
-
-## MCP bridge verification
-
-Both `uberbond_get_state` and `uberbond_run_verification` (`suite: check`)
-were called through the real, connected local MCP bridge this session (see
-Exact tests above) and returned genuine, non-simulated output reflecting
-this wave's actual worktree and test results.
-
-## lite/ protection result
-
-Confirmed unchanged via `git status --short lite/` before and after every
-phase — empty output every time.
+| Live MCP calls this session | PASS_LOCAL |
+| Postgres schema/constraint proof | PASS_LOCAL |
+| `PostgresStore` class-level proof | NOT_RUN (no harness exists yet) |
+| Task-universe properties (queue) | COMPLETE (7/10), 3 gaps disclosed |
+| Any cleared payment, real customer, or revenue | EXTERNAL_PROOF_REQUIRED — none claimed, none occurred |
+| GitHub Actions hosted run for this commit | Checked prior waves: BLOCKED (billing lock) |
 
 ## External-effect ledger
 
-- Network/provider calls: 0 real (every test uses a stubbed `sendEmailFn`).
-- Messages sent: 0. Purchases: 0. Deployments: 0 triggered by this session.
-  DNS/credential changes: 0. Production mutations: 0.
-- Git operations: local commits and a push to
-  `claude/uberbond-overnight-shift-o73nrs` only. No merge, no push to
-  `main` (unchanged), no force-push, no history rewrite.
-- Secrets: none read, exposed, or created (verified by grep before commit).
+0 real provider/network calls, 0 messages, 0 purchases, 0 deployments, 0
+DNS/credential changes, 0 production mutations. Only action: local commits
+and a push to `claude/uberbond-overnight-shift-o73nrs`. `main` unchanged.
+Secrets: none read, exposed, or created (verified by grep before commit).
 
-## GitHub Actions result
+## Remaining risks
 
-Not yet re-checked for this wave's commit at the time local verification
-completed (the push happens after this document is written, per the git
-workflow). If Actions triggers and fails before any job step executes
-(the pattern observed on the two prior commits this session: `completed`/
-`failure` in ~3 seconds with HTTP 404 on log retrieval), report exactly:
-
-**BLOCKED — GitHub Actions billing lock; hosted jobs did not execute.**
-
-This is not a code failure and is not claimed as a hosted CI pass either
-way.
-
-## Benchmark pulse
-
-UNKNOWN — no competitor benchmarking was performed this session. Not a
-worldwide census; no competitor capability, product, or score is claimed
-or invented.
-
-## Remaining risks and contradictions
-
-- **PostgreSQL volume-counting parity is documented, not proven.** The
-  PostgreSQL backend's `reserveOutboundSend` counts daily/hourly volume via
-  `date_trunc('day'/'hour', reserved_at >= ...)` SQL, which is semantically
-  intended to match `countActiveOutboundReservations`'s UTC calendar-day/hour
-  bucketing, but was deliberately **not** rewritten to literally share code
-  with it — doing so would mean fetching all rows into JS instead of using
-  the existing atomic, advisory-locked SQL aggregate, which is the real
-  concurrency-safety mechanism for that backend and must not be weakened.
-  If the Postgres connection's session `timezone` GUC is ever non-UTC, its
-  day/hour boundaries could drift from the JSON backend's. This was not
-  independently verified against a live/embedded Postgres this session and
-  is flagged honestly rather than silently assumed correct.
-- **PostgreSQL concurrency for the recovery sweep is not tested.** The
-  "simulated concurrent sweep" test only exercises the JSON backend (the
-  one actually used by all local tests). The audit-receipt deterministic-id
-  dedup mechanism should work identically for Postgres (it uses the same
-  `add()`/`ConflictError` path with a real `23505` unique violation), but
-  no test proves it against a live Postgres instance.
-- A reservation quarantined as `uncertain` has no automated path back to a
-  retriable state — by design (never auto-retry an unresolved outcome), but
-  it means an owner must manually intervene (e.g. via a future admin action)
-  to ever attempt that specific prospect/followup again, since its
-  idempotency key is now permanently associated with a resolved-but-unknown
-  reservation. This is intentional safety, not an oversight, but is worth
-  flagging as a real operational cost.
-- GitHub Actions billing lock remains unresolved; this session cannot fix
-  billing.
-
-## Rollback instructions
-
-No schema or migration changes were made (the `status` column already
-accepted arbitrary text). Rollback is a pure code revert:
-
-- To disable the recovery sweep entirely: it already never runs unless
-  `cfg.autopilot` is true (default `false`) or a job is manually enqueued;
-  no action needed to keep it dormant.
-- To fully remove this wave: revert the commit. `Pipeline.maybeSend`,
-  `evaluateDeliverabilityGuard`'s decision semantics, and
-  `RevenueEngine.sendReportEmail`'s success/failure contract are all
-  unchanged for the ALLOW/DENY/sent/blocked paths already in use — only new,
-  additive audit fields and a new dormant job type were introduced.
-
-## Exact owner action (max 3)
-
-1. Resolve the GitHub billing lock so Actions can produce a real hosted CI
-   result on PR #26.
-2. Decide whether to enable `cfg.autopilot` (which would activate the new
-   `outbound.reservations.recover` scheduled job alongside the other
-   existing recurring jobs) — currently everything stays dormant by default.
-3. Review and, when ready, merge Draft PR #26 (never done autonomously).
+- Refunds do not automatically revoke `lead.paymentStatus`/`plan` access —
+  deliberate (report snapshots are treated as already-delivered, not
+  live-gated), but worth an explicit owner decision if unwanted.
+- `PostgresStore` class-level test coverage gap (above) — the single most
+  valuable next reliability wave.
+- The founder command center's `offerReadiness` check recomputes an offer
+  packet per prospect per product on every call — fine at current data
+  volume, would need pagination/limits at real scale.
+- GitHub Actions billing lock remains unresolved (cannot be fixed locally).
 
 ## Next highest-leverage wave
 
-Verify the PostgreSQL backend's volume-counting and recovery-sweep
-concurrency behavior against a live/embedded Postgres instance (the repo
-already has `embedded-postgres`/`pglite` dev dependencies used elsewhere in
-`tests/postgres-schema.test.mjs`), closing the one proof gap flagged above
-without touching the authoritative SQL logic itself.
+Build the PGlite-to-`PostgresStore` test adapter and re-run the payment
+truth, reservation recovery, and quota-agreement suites against real
+Postgres — closing the one honestly-disclosed proof gap without touching
+any production-authoritative SQL logic.
 
 ## Decision
 
-**PROCEED** — all four subsystems are narrowly scoped, reuse existing
-canonical models exclusively, are covered by 59 new passing hostile tests
-plus full regression checks of every pre-existing suite (198/198 total),
-and a live MCP verification pass confirms the real bridge sees identical
-results. No external, destructive, or irreversible action was taken. The
-one honestly-disclosed gap (Postgres-specific concurrency/timezone proof)
-is documented rather than glossed over.
+**PROCEED** — the trajectory audit did not find a broken business model,
+it found an unaudited payment layer with a real, now-fixed overcounting
+bug, plus missing visibility into what's actually blocking the first
+dollar (checkout configuration). All new code is narrowly scoped, reuses
+canonical models, and is covered by 53 new passing hostile tests plus full
+regression checks (251/251 total). No external, destructive, or
+irreversible action was taken.

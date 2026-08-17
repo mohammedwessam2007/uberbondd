@@ -108,6 +108,10 @@ export const config = {
     monitoringPrice: num(env.MONITORING_PRICE_USD, 99),
     implementationFrom: num(env.IMPLEMENTATION_FROM_USD, 1000),
     bookingUrl: env.BOOKING_URL || '',
+    // Optional: only set this if you know your actual blended cost per founder
+    // minute. Left at 0 (unconfigured) by default so the offer compiler never
+    // fabricates a delivery cost or gross margin from an unvalidated guess.
+    founderHourlyRateCents: num(env.FOUNDER_HOURLY_RATE_CENTS, 0),
     reportDeliveryInbox: env.REPORT_DELIVERY_INBOX || 'B',
     autoEmailReports: bool(env.AUTO_EMAIL_REPORTS, false),
     paymentProvider: env.PAYMENT_PROVIDER || 'links',

@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 import { id, now, normalizeDomain, isEmail } from './utils.mjs';
-import { checkoutUrl, normalizeLemonEvent, verifyLemonSignature } from './payments.mjs';
+import { checkoutUrl, normalizeLemonEvent, verifyLemonSignature, classifyPaymentEvent, PAYMENT_TRUTH_POLICY_VERSION } from './payments.mjs';
 import { sendEmail, sealTokens } from './gmail.mjs';
 import { encryptJson, decryptJson } from './crypto.mjs';
 import { ConflictError } from './store.mjs';
@@ -310,6 +310,41 @@ export class RevenueEngine {
     return subscription;
   }
 
+  async logPaymentDecision(event, decision, lead) {
+    return this.store.log('payment_classification', {
+      classification: decision.classification,
+      reasonCodes: decision.reasonCodes,
+      eventName: event?.eventName || null,
+      eventId: event?.eventId || null,
+      leadId: lead?.id || event?.custom?.lead_id || null,
+      prospectId: lead?.prospectId || event?.custom?.prospect_id || null,
+      product: event?.custom?.product || null,
+      testMode: Boolean(event?.testMode),
+      shouldUnlock: decision.shouldUnlock,
+      shouldRecordRevenue: decision.shouldRecordRevenue,
+      revenueKind: decision.revenueKind,
+      policyVersion: PAYMENT_TRUTH_POLICY_VERSION,
+      timestamp: this.clock().toISOString()
+    });
+  }
+
+  async recordRevenueEvent(lead, event, decision) {
+    const eventId = `${event.eventName}:${event.eventId}`;
+    try {
+      await this.store.add('revenueEvents', {
+        id: id('rev'), providerEventId: eventId, leadId: lead?.id || null, prospectId: lead?.prospectId || null,
+        product: event.custom?.product || '', kind: decision.revenueKind,
+        amountCents: Number(event.amountCents || 0) * decision.revenueSign,
+        currency: event.currency || 'USD', createdAt: now()
+      });
+    } catch (error) {
+      if (!(error instanceof ConflictError)) throw error;
+    }
+    if (decision.revenueKind === 'refund' && lead?.id) {
+      await this.store.patch('leads', lead.id, { refundedAt: now() });
+    }
+  }
+
   async handleLemonWebhook(rawBody, signature) {
     if (!verifyLemonSignature(rawBody, signature, this.cfg.revenue.lemonWebhookSecret)) throw new Error('Invalid webhook signature');
     const payload = JSON.parse(rawBody);
@@ -322,24 +357,44 @@ export class RevenueEngine {
         status: event.status, testMode: event.testMode, createdAt: now(), raw: payload
       });
     } catch (error) {
-      if (error instanceof ConflictError) return { duplicate: true, event };
+      if (error instanceof ConflictError) {
+        await this.logPaymentDecision(event, { classification: 'DUPLICATE', reasonCodes: ['duplicate-provider-event-id'], shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null }, null);
+        return { duplicate: true, event };
+      }
       throw error;
     }
 
-    const leadId = event.custom.lead_id;
-    const product = event.custom.product || 'full';
-    if (leadId && ['order_created', 'subscription_created', 'subscription_updated', 'subscription_resumed'].includes(event.eventName)) {
-      await this.unlockLead(leadId, product, {
+    const leadId = event.custom.lead_id || '';
+    const lead = leadId ? await this.store.get('leads', leadId) : null;
+    const decision = classifyPaymentEvent({ event, lead, cfg: this.cfg });
+    await this.logPaymentDecision(event, decision, lead);
+
+    if (decision.shouldUnlock) {
+      // Only a genuinely cleared payment (CLEARED_ONE_TIME_PAYMENT or
+      // CLEARED_SUBSCRIPTION_PAYMENT) ever reaches unlockLead, which is the
+      // only place a revenueEvents row is created for a "sale". A
+      // subscription_updated/resumed/terminal event never lands here.
+      await this.unlockLead(leadId, event.custom.product || 'full', {
         provider: 'lemonsqueezy', providerId: event.eventId,
         eventId: `${event.eventName}:${event.eventId}`, amountCents: event.amountCents,
-        currency: event.currency, status: event.status || 'active'
+        currency: event.currency, status: decision.subscriptionStatus || event.status || 'active'
       });
+    } else if (decision.shouldRecordRevenue) {
+      await this.recordRevenueEvent(lead, event, decision);
     }
-    if (leadId && ['subscription_cancelled', 'subscription_canceled', 'subscription_expired', 'subscription_paused'].includes(event.eventName)) {
+
+    if (decision.shouldSyncSubscriptionStatus && !decision.shouldUnlock && leadId) {
       const subscription = (await this.store.list('subscriptions')).find(item => item.leadId === leadId);
-      if (subscription) await this.store.patch('subscriptions', subscription.id, { status: event.eventName.replace('subscription_', ''), nextRunAt: null });
+      if (subscription) {
+        await this.store.patch('subscriptions', subscription.id, {
+          status: decision.subscriptionStatus,
+          nextRunAt: decision.subscriptionStatus === 'active'
+            ? (subscription.nextRunAt || new Date(Date.now() + this.cfg.revenue.monitoringIntervalDays * DAY).toISOString())
+            : null
+        });
+      }
     }
-    return { ok: true, event };
+    return { ok: true, event, classification: decision.classification };
   }
 
   async processMonitoring() {
@@ -387,10 +442,17 @@ export class RevenueEngine {
       this.store.list('orders'), this.store.list('notifications')
     ]);
     const subscriptions = allSubscriptions.filter(item => ['active', 'on_trial', 'trialing'].includes(item.status));
+    // Refunds are stored as negative revenueEvents (kind: 'refund'), so a
+    // plain sum already nets them out of grossRevenue without special-casing.
     const grossCents = events.reduce((sum, event) => sum + Number(event.amountCents || 0), 0);
+    const clearedCents = events.filter(event => Number(event.amountCents || 0) > 0).reduce((sum, event) => sum + Number(event.amountCents || 0), 0);
+    const refundedCents = Math.abs(events.filter(event => Number(event.amountCents || 0) < 0).reduce((sum, event) => sum + Number(event.amountCents || 0), 0));
     const mrrCents = subscriptions.reduce((sum, subscription) => sum + Number(subscription.amountCents || 0), 0);
     const today = new Date().toISOString().slice(0, 10);
     const todayCents = events.filter(event => event.createdAt?.startsWith(today)).reduce((sum, event) => sum + Number(event.amountCents || 0), 0);
+    const pendingOrders = orders.filter(order =>
+      order.eventName === 'order_created' && !['paid', 'completed', 'success'].includes(String(order.status || '').toLowerCase())
+    ).length;
     return {
       leads: leads.length,
       reportReady: leads.filter(lead => lead.status === 'report-ready').length,
@@ -398,6 +460,9 @@ export class RevenueEngine {
       paidCustomers: leads.filter(lead => lead.paymentStatus === 'paid').length,
       activeSubscriptions: subscriptions.length,
       grossRevenue: grossCents / 100,
+      clearedRevenue: clearedCents / 100,
+      refundedRevenue: refundedCents / 100,
+      pendingOrders,
       mrr: mrrCents / 100,
       todayRevenue: todayCents / 100,
       dailyTarget: 200,

@@ -88,7 +88,7 @@ test('an unready experiment cannot be allocated even with outcome history', () =
     outcomes: [{ channelId: 'a', truthLevel: 'CLEARED_PAYMENT', contributionMarginCents: 100, ownerMinutes: 10 }],
     date: referenceDate
   });
-  assert.equal(result.status, 'PREPARE_ONLY_RANKED');
+  assert.equal(result.status, 'DO_NOT_DISTRIBUTE');
   assert.ok(result.reasonCodes.includes('experiment-not-ready-for-owner-review'));
   assert.equal(result.plans[0].externalAction, 'DISABLED');
 });

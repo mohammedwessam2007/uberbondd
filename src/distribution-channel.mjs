@@ -127,11 +127,12 @@ export function allocateDistribution({ experiment, channels = [], outcomes = [],
   const reasonCodes = [];
   if (!hasVerifiedOutcome) reasonCodes.push('no-verified-cleared-payment-outcome-history');
   if (experiment.status !== 'READY_FOR_OWNER_REVIEW') reasonCodes.push('experiment-not-ready-for-owner-review');
+  const canRank = hasVerifiedOutcome && experiment.status === 'READY_FOR_OWNER_REVIEW';
 
   return {
     ok: true,
     policyVersion: DISTRIBUTION_CHANNEL_POLICY_VERSION,
-    status: hasVerifiedOutcome ? 'PREPARE_ONLY_RANKED' : 'DO_NOT_DISTRIBUTE',
+    status: canRank ? 'PREPARE_ONLY_RANKED' : 'DO_NOT_DISTRIBUTE',
     timestamp,
     experimentId: experiment.experimentId || null,
     plans,

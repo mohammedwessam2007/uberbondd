@@ -89,13 +89,26 @@ test('amounts on non-payment outcomes require explicit payment proof', () => {
   assert.ok(result.reasonCodes.includes('revenue-proof-required'));
 });
 
-test('refund and dispute-like outcomes cannot silently become negative revenue', () => {
+test('refunds are linked only when the existing payment truth classifies them', () => {
+  const decision = paymentDecision('order_refunded');
   const refund = normalizeCommercialOutcome({
-    outcome: { eventId: 'refund-1', outcomeType: 'REFUND', occurredAt: referenceDate.toISOString(), opportunityId: 'opp-1', amountCents: 4900, currency: 'USD' },
+    outcome: { eventId: 'refund-1', outcomeType: 'REFUND', occurredAt: referenceDate.toISOString(), opportunityId: 'opp-1', amountCents: 4900, currency: 'USD', providerEventId: 'provider-event-1' },
+    paymentDecision: decision,
+    date: referenceDate
+  });
+  assert.equal(refund.ok, true);
+  assert.equal(refund.status, 'RECORDED_REFUND_OR_DISPUTE');
+  assert.equal(refund.truthLevel, 'REFUND_OR_DISPUTE');
+  assert.equal(refund.economicImpactCents, -4900);
+});
+
+test('refund-like outcomes without the existing payment proof are rejected', () => {
+  const refund = normalizeCommercialOutcome({
+    outcome: { eventId: 'refund-2', outcomeType: 'REFUND', occurredAt: referenceDate.toISOString(), opportunityId: 'opp-1', amountCents: 4900, currency: 'USD' },
     date: referenceDate
   });
   assert.equal(refund.ok, false);
-  assert.ok(refund.reasonCodes.includes('refund-dispute-proof-required'));
+  assert.ok(refund.reasonCodes.includes('payment-truth-decision-required'));
 });
 
 test('invalid lineage and unknown outcome types fail closed', () => {

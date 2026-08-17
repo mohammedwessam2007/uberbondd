@@ -82,6 +82,30 @@ function paymentProof({ outcome, paymentDecision, outcomeType }) {
   };
 }
 
+function refundProof({ outcome, paymentDecision }) {
+  if (!paymentDecision || paymentDecision.policyVersion !== PAYMENT_TRUTH_POLICY_VERSION) {
+    return { ok: false, reason: 'payment-truth-decision-required' };
+  }
+  if (paymentDecision.classification !== 'REFUND_OR_DISPUTE' || paymentDecision.shouldRecordRevenue !== true) {
+    return { ok: false, reason: 'refund-or-dispute-classification-required' };
+  }
+  const amountCents = Number(outcome.amountCents ?? paymentDecision.amountCents);
+  const currency = String(outcome.currency || paymentDecision.currency || '').toUpperCase();
+  const providerEventId = String(outcome.providerEventId || paymentDecision.providerEventId || '').trim();
+  if (!Number.isInteger(amountCents) || amountCents <= 0 || !validCurrency(currency)) {
+    return { ok: false, reason: 'refund-amount-and-currency-required' };
+  }
+  if (!providerEventId) return { ok: false, reason: 'provider-event-proof-required' };
+  return {
+    ok: true,
+    truthLevel: 'REFUND_OR_DISPUTE',
+    amountCents,
+    currency,
+    providerEventId,
+    paymentClassification: paymentDecision.classification
+  };
+}
+
 // Pure normalization. The returned receipt is safe to persist in auditLog;
 // it deliberately excludes raw webhook payloads, customer contact data, and
 // unauthorised claims of revenue.
@@ -135,8 +159,38 @@ export function normalizeCommercialOutcome({ outcome = {}, paymentDecision = nul
     };
   }
 
+  if (refundOrDispute) {
+    const proof = refundProof({ outcome, paymentDecision });
+    if (!proof.ok) return failure([proof.reason], timestamp);
+    return {
+      ok: true,
+      policyVersion: COMMERCIAL_OUTCOME_POLICY_VERSION,
+      outcomeId: `out_${digest({ policyVersion: COMMERCIAL_OUTCOME_POLICY_VERSION, eventId }).slice(0, 24)}`,
+      status: 'RECORDED_REFUND_OR_DISPUTE',
+      truthLevel: proof.truthLevel,
+      outcomeType,
+      eventId,
+      occurredAt: occurredAt.toISOString(),
+      lineage: {
+        signalId: String(outcome.signalId || '').trim() || null,
+        opportunityId,
+        experimentId: String(outcome.experimentId || '').trim() || null,
+        channelId: String(outcome.channelId || '').trim() || null
+      },
+      paymentProof: {
+        providerEventId: proof.providerEventId,
+        paymentClassification: proof.paymentClassification,
+        amountCents: proof.amountCents,
+        currency: proof.currency,
+        paymentPolicyVersion: PAYMENT_TRUTH_POLICY_VERSION
+      },
+      economicImpactCents: -proof.amountCents,
+      externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
+    };
+  }
+
   if (outcome.amountCents != null || outcome.currency != null || outcome.providerEventId != null) {
-    return failure([refundOrDispute ? 'refund-dispute-proof-required' : 'revenue-proof-required'], timestamp);
+    return failure(['revenue-proof-required'], timestamp);
   }
 
   return {

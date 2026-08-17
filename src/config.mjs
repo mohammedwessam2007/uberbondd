@@ -33,6 +33,7 @@ export const config = {
     businessHourStart: num(env.OUTBOUND_BUSINESS_HOUR_START, 9),
     businessHourEnd: num(env.OUTBOUND_BUSINESS_HOUR_END, 17),
     minEvidenceConfidence: num(env.OUTBOUND_MIN_EVIDENCE_CONFIDENCE, 0.75),
+    maxEvidenceAgeDays: num(env.OUTBOUND_MAX_EVIDENCE_AGE_DAYS, 45),
     hardBouncePauseThreshold: num(env.OUTBOUND_HARD_BOUNCE_PAUSE_THRESHOLD, 2),
     complaintPauseThreshold: num(env.OUTBOUND_COMPLAINT_PAUSE_THRESHOLD, 1),
     failurePauseThreshold: num(env.OUTBOUND_FAILURE_PAUSE_THRESHOLD, 3),

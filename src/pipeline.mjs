@@ -1,4 +1,4 @@
-import { id, now, normalizeDomain } from './utils.mjs';
+import { id, now } from './utils.mjs';
 import { crawlSiteBrowser } from './browser-crawler.mjs';
 import { deterministicAudit, scoreProspect, chooseIssue } from './audit-rules.mjs';
 import { enhanceAudit, classifyReply } from './ai.mjs';
@@ -8,7 +8,7 @@ import { buildDossier } from './dossier.mjs';
 import { sendEmail, listMessages, getMessage, parseGmailMessage, sealTokens } from './gmail.mjs';
 import { ConflictError } from './store.mjs';
 import { persistCrawlArtifacts } from './artifacts.mjs';
-import { evaluateSendEligibility, sendIdempotencyKey, classifyDeliverySignal } from './send-safety.mjs';
+import { evaluateSendEligibility, sendIdempotencyKey, classifyDeliverySignal, suppressionLookup } from './send-safety.mjs';
 import { unsubscribeUrl, oneClickUnsubscribeUrl } from './unsubscribe.mjs';
 
 export class Pipeline {
@@ -26,10 +26,8 @@ export class Pipeline {
   }
 
   async isSuppressed(prospect, email = '') {
-    const domain = normalizeDomain(prospect.website);
-    const normalizedEmail = String(email).toLowerCase();
-    const suppressions = await this.store.list('suppressions');
-    return suppressions.some(item => item.value === normalizedEmail || item.value === domain);
+    const result = await suppressionLookup(this.store, { website: prospect.website, email });
+    return result.suppressed;
   }
 
   async campaignFor(prospect) {

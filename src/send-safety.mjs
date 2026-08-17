@@ -120,6 +120,14 @@ export function evaluateSendEligibility({ prospect = {}, campaign = {}, cfg = {}
   return { ok: true, country, timeZone, local, contactMode: contact.mode };
 }
 
+export async function suppressionLookup(store, { website = '', email = '' } = {}) {
+  const domain = normalizeDomain(website);
+  const normalizedEmail = String(email || '').trim().toLowerCase();
+  const suppressions = await store.list('suppressions');
+  const match = suppressions.find(item => item.value === normalizedEmail || item.value === domain);
+  return { suppressed: Boolean(match), matchedValue: match?.value || '', reason: match?.reason || '' };
+}
+
 export function sendIdempotencyKey(prospectId, followup = 0) {
   return followup > 0 ? `followup:${prospectId}:${followup}` : `initial:${prospectId}`;
 }

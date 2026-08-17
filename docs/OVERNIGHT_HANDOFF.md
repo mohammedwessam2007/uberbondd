@@ -189,8 +189,8 @@ working tree additionally contains:
 ### Current verification receipt
 
 - `node --check` on the four new/changed runtime modules — PASS.
-- Targeted new suites — **27/27 PASS**.
-- `npm run check` — **368/368 deterministic tests PASS**, 0 failed.
+- Targeted new suites — **28/28 PASS**.
+- `npm run check` — **369/369 deterministic tests PASS**, 0 failed.
 - `npm run test:browser` — NOT_RUN; the local browser command required network
   approval and approval was cancelled before execution.
 - `npm audit` — NOT_RUN; network approval was unavailable.

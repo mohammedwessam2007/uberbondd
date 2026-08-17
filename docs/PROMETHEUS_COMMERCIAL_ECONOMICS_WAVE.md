@@ -51,8 +51,10 @@ disabled.
 experiment, and channel. For `PAYMENT_CLEARED` or `RENEWAL_CLEARED`, the caller
 must provide the existing `payments.mjs` decision, its policy version, a
 cleared classification, a positive amount, currency, and provider event proof.
-Non-payment outcomes remain observations. A numeric amount attached to an
-observation is rejected rather than treated as revenue.
+Refund/dispute outcomes use the existing refund classification and are
+represented as negative economic impact. Non-payment outcomes remain
+observations. A numeric amount attached to an observation is rejected rather
+than treated as revenue.
 
 ## Queue surface
 

@@ -77,3 +77,22 @@ Still missing and intentionally not fabricated:
 ## Next gate
 
 Run the new deterministic suite. If it passes, the next highest-leverage safe slice is a bounded, source-adapter-neutral signal ingestion registry that persists canonical signals through an existing store collection/audit path, stays disabled when adapters are unconfigured, and proves dedupe, contradiction, freshness, retention, and replay behavior before any distribution automation is considered.
+
+
+## Signal registry extension
+
+The second slice adds src/market-signal-registry.mjs and tests/market-signal-registry.test.mjs.
+
+It provides:
+
+- bounded batch normalization;
+- replay-safe dedupe against prior market_signal_ingest audit entries;
+- coexistence and explicit flagging of contradictory observations;
+- stale-signal flags without deleting history;
+- synthetic-to-external rejection through the canonical normalizer;
+- explicit dry-run default;
+- optional compact audit persistence through store.log;
+- zero-provider, zero-spend, zero-message behavior;
+- queue handler prometheus.signals.ingest.
+
+The registry does not call a source adapter. A future adapter must supply candidates through this contract and declare its own access/policy state. An empty or unconfigured adapter therefore produces a truthful zero-signal result.

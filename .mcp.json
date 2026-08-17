@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "uberbond": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${CLAUDE_PROJECT_DIR:-.}/scripts/uberbond-mcp.mjs"]
+    }
+  }
+}

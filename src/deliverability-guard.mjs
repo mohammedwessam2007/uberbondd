@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import {
   contactEligibility, evidenceEligibility, suppressionLookup, sendIdempotencyKey,
   normalizeCountry, normalizeCountryList, resolveRecipientTimeZone, localBusinessTime,
-  evaluateSendEligibility
+  evaluateSendEligibility, outboundVolumeWindow, countActiveOutboundReservations
 } from './send-safety.mjs';
 
 // Bump when the decision logic changes so past receipts stay attributable to the
@@ -10,7 +10,6 @@ import {
 export const POLICY_VERSION = 'deliverability-guard-1.0.0';
 
 const STALE_RESERVATION_MS = 30 * 60 * 1000;
-const ACTIVE_RESERVATION_STATUSES = ['reserved', 'dispatching', 'sent', 'uncertain'];
 
 const UNSUPPORTED_CLAIM_PATTERNS = [
   { code: 'guarantee', pattern: /\bguarantee(d|s)?\b/i },
@@ -182,12 +181,11 @@ export async function evaluateDeliverabilityGuard({
   const campaignDaily = Number(campaign.dailyCaps?.[prospect.inbox] ?? configuredDaily);
   const dailyCap = Math.max(0, Math.min(campaignDaily, configuredDaily));
   const hourlyCap = Math.max(0, Number(cfg.outbound?.hourlyCaps?.[prospect.inbox] ?? 0));
-  const day = timestamp.slice(0, 10);
-  const hour = timestamp.slice(0, 13);
+  const { day, hour } = outboundVolumeWindow(timestamp);
   const inboxReservations = await store.list('outboundReservations', { filters: { inbox: prospect.inbox } });
-  const active = inboxReservations.filter(item => item.id !== excludeReservationId && ACTIVE_RESERVATION_STATUSES.includes(item.status));
-  const dailyCount = active.filter(item => String(item.reservedAt || '').startsWith(day)).length;
-  const hourlyCount = active.filter(item => String(item.reservedAt || '').startsWith(hour)).length;
+  const { daily: dailyCount, hourly: hourlyCount } = countActiveOutboundReservations(inboxReservations, {
+    inbox: prospect.inbox, day, hour, excludeReservationId
+  });
   if (dailyCount >= dailyCap) deny.push('daily-volume-ceiling-exceeded');
   if (hourlyCount >= hourlyCap) deny.push('hourly-volume-ceiling-exceeded');
 

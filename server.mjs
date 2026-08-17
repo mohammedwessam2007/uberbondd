@@ -37,7 +37,7 @@ const enqueueResearch = payload => queue.enqueue('research.batch', payload, {
 });
 revenue = new RevenueEngine(store, config, pipeline, { enqueueResearch });
 const discoveryRunner = new DiscoveryRunner(store, config);
-const handlers = createJobHandlers({ store, pipeline, revenue, discoveryRunner });
+const handlers = createJobHandlers({ store, cfg: config, pipeline, revenue, discoveryRunner });
 let stopScheduler = () => {};
 let localWorkerPromise = null;
 if (config.processRole === 'all') {

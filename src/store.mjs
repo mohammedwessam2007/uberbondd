@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { Pool } from 'pg';
 import { now } from './utils.mjs';
+import { outboundVolumeWindow, countActiveOutboundReservations } from './send-safety.mjs';
 
 export const COLLECTIONS = [
   'prospects', 'campaigns', 'jobs', 'messages', 'replies', 'suppressions',
@@ -401,16 +402,13 @@ export class JsonStore {
   _reserveOutboundSendDirect(input = {}) {
     const current = new Date(input.now || Date.now());
     const timestamp = current.toISOString();
-    const day = timestamp.slice(0, 10);
-    const hour = timestamp.slice(0, 13);
+    const { day, hour } = outboundVolumeWindow(timestamp);
     if (this.data.settings?.outboundPaused === true) return { ok: false, reason: 'global-outbound-paused' };
     const health = (this.data.senderHealth || []).find(item => item.inbox === input.inbox);
     if (health?.paused) return { ok: false, reason: 'sender-paused', health: structuredClone(health) };
     const existing = (this.data.outboundReservations || []).find(item => item.idempotencyKey === input.idempotencyKey);
     if (existing) return { ok: false, reason: `duplicate-${existing.status || 'reservation'}`, reservation: structuredClone(existing) };
-    const active = (this.data.outboundReservations || []).filter(item => item.inbox === input.inbox && ['reserved','dispatching','sent','uncertain'].includes(item.status));
-    const daily = active.filter(item => String(item.reservedAt || '').startsWith(day)).length;
-    const hourly = active.filter(item => String(item.reservedAt || '').startsWith(hour)).length;
+    const { daily, hourly, active } = countActiveOutboundReservations(this.data.outboundReservations || [], { inbox: input.inbox, day, hour });
     if (daily >= Number(input.dailyCap || 0)) return { ok: false, reason: 'daily-cap', daily };
     if (hourly >= Number(input.hourlyCap || 0)) return { ok: false, reason: 'hourly-cap', hourly };
     const latest = active.map(item => Date.parse(item.reservedAt || 0)).filter(Number.isFinite).sort((a,b)=>b-a)[0] || 0;

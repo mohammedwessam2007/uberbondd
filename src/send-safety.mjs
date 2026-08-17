@@ -120,6 +120,32 @@ export function evaluateSendEligibility({ prospect = {}, campaign = {}, cfg = {}
   return { ok: true, country, timeZone, local, contactMode: contact.mode };
 }
 
+// The single canonical definition of "how many outbound sends currently count
+// against an inbox's daily/hourly ceiling." Both the store's authoritative,
+// race-safe reservation transaction and the Deliverability Guard's read-only
+// precheck call this so they can never drift apart. day/hour are UTC calendar
+// buckets derived from an injected reference timestamp -- never real
+// wall-clock time -- so results are deterministic and reproducible.
+export const ACTIVE_OUTBOUND_RESERVATION_STATUSES = ['reserved', 'dispatching', 'sent', 'uncertain'];
+
+export function outboundVolumeWindow(referenceIso) {
+  const iso = String(referenceIso || '');
+  return { day: iso.slice(0, 10), hour: iso.slice(0, 13) };
+}
+
+export function countActiveOutboundReservations(reservations = [], { inbox = '', day = '', hour = '', excludeReservationId = '' } = {}) {
+  const active = (Array.isArray(reservations) ? reservations : []).filter(item =>
+    item.inbox === inbox &&
+    item.id !== excludeReservationId &&
+    ACTIVE_OUTBOUND_RESERVATION_STATUSES.includes(item.status)
+  );
+  return {
+    daily: active.filter(item => String(item.reservedAt || '').startsWith(day)).length,
+    hourly: active.filter(item => String(item.reservedAt || '').startsWith(hour)).length,
+    active
+  };
+}
+
 export async function suppressionLookup(store, { website = '', email = '' } = {}) {
   const domain = normalizeDomain(website);
   const normalizedEmail = String(email || '').trim().toLowerCase();

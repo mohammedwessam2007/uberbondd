@@ -18,6 +18,7 @@ export function startScheduler(queue, cfg, log = console) {
       ['replies.poll', Math.max(1, cfg.replyPollMinutes) * MINUTE, {}, { maxAttempts: 5 }],
       ['outbound.process', 5 * MINUTE, {}, { maxAttempts: 3 }],
       ['followups.process', 15 * MINUTE, {}, { maxAttempts: 5 }],
+      ['outbound.reservations.recover', 15 * MINUTE, {}, { maxAttempts: 3 }],
       ['monitoring.process', HOUR, {}, { maxAttempts: 5 }],
       ['artifacts.cleanup', 24 * HOUR, {}, { maxAttempts: 3 }]
     ];

@@ -37,7 +37,9 @@ export const config = {
     hardBouncePauseThreshold: num(env.OUTBOUND_HARD_BOUNCE_PAUSE_THRESHOLD, 2),
     complaintPauseThreshold: num(env.OUTBOUND_COMPLAINT_PAUSE_THRESHOLD, 1),
     failurePauseThreshold: num(env.OUTBOUND_FAILURE_PAUSE_THRESHOLD, 3),
-    processBatchSize: num(env.OUTBOUND_PROCESS_BATCH_SIZE, 10)
+    processBatchSize: num(env.OUTBOUND_PROCESS_BATCH_SIZE, 10),
+    reservationRecoveryTimeoutMs: num(env.OUTBOUND_RESERVATION_RECOVERY_TIMEOUT_MS, 30 * 60 * 1000),
+    reservationRecoverySweepLimit: num(env.OUTBOUND_RESERVATION_RECOVERY_SWEEP_LIMIT, 200)
   },
   maxBatch: num(env.MAX_BATCH_SIZE, 25),
   crawl: {

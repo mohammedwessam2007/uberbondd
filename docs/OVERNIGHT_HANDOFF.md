@@ -211,3 +211,17 @@ External state remains: 0 customers, $0 verified revenue, 0 cleared payments,
 0 accepted live deliveries, 0 live distributions. The highest-leverage
 external gate is still an owner-approved checkout path followed by one real
 lawful payment experiment.
+
+### Latest local-only wave — commercial learning memory — 2026-08-18
+
+Added `src/commercial-learning.mjs` and the `prometheus.learning.summarize`
+queue handler. It uses the existing `commercial_outcome` audit receipts as
+durable memory, deduplicates identical receipts, quarantines contradictions,
+and aggregates cleared payments, refunds/disputes, contribution margin, owner
+minutes, and lineage. It never treats observations as revenue and never
+advances promotion, allocates capital, calls a provider, or enables external
+actions.
+
+New targeted suite: `tests/commercial-learning.test.mjs`. The full
+verification command is pending for this wave; do not claim this slice as
+complete until the command receipt is recorded below.

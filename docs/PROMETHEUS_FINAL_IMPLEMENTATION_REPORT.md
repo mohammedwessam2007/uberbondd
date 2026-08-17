@@ -157,3 +157,20 @@ gates — an owner architecture decision and real market credentials/data —
 not against engineering difficulty. Building further without those gates
 resolved would risk exactly the complexity-without-economic-value failure
 mode the mission's own second invariant warns against.
+
+### Addendum — commercial learning memory — 2026-08-18
+
+The current branch now includes `src/commercial-learning.mjs` and the
+`prometheus.learning.summarize` handler. It reads only the existing
+`commercial_outcome` audit receipts and produces bounded summaries by
+opportunity, experiment, and channel. It counts observations without treating
+them as revenue, gives economic weight only to normalized cleared-payment or
+refund/dispute receipts with provider proof, deduplicates identical receipts,
+and quarantines contradictory event identities. Contribution profit per owner
+minute is emitted only when margin and owner-time inputs are complete and no
+refund/dispute makes the ratio stale. No promotion, allocation, spend, or
+provider authority is added.
+
+The learning layer is locally test-verified but has no real inputs yet. Real
+state remains 0 customers, $0 verified revenue, 0 cleared payments, and 0
+accepted live deliveries.

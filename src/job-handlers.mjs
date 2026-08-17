@@ -16,6 +16,11 @@ import {
   normalizeCommercialOutcome,
   logCommercialOutcome
 } from './commercial-outcome.mjs';
+import {
+  loadCommercialOutcomeReceipts,
+  summarizeCommercialLearning,
+  logCommercialLearning
+} from './commercial-learning.mjs';
 
 export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunner }) {
   return {
@@ -70,6 +75,18 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       const outcome = normalizeCommercialOutcome(input);
       if (outcome.ok) await logCommercialOutcome(store, outcome);
       return outcome;
+    },
+    // Reads only the existing commercial_outcome audit receipts unless the
+    // caller supplies a bounded receipt list. It summarizes proof; it never
+    // creates revenue, advances promotion, allocates spend, or calls a provider.
+    'prometheus.learning.summarize': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const outcomes = Array.isArray(input.outcomes)
+        ? input.outcomes
+        : await loadCommercialOutcomeReceipts(store, { limit: input.maxOutcomes });
+      const summary = summarizeCommercialLearning({ ...input, outcomes });
+      if (summary.ok) await logCommercialLearning(store, summary);
+      return summary;
     }
   };
 }

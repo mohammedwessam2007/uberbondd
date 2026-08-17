@@ -50,9 +50,11 @@ WORLD
  Lineage]                                  Uses existing payment truth + auditLog; no parallel
   |                                        revenue ledger. Zero cleared payments currently exist.
   v
-[Commercial Memory]         PARTIAL        Raw data exists (store.log()/auditLog);
-  |                                        no summarizing/query layer beyond the
-  |                                        founder command center's narrow slices.
+[Commercial Memory]         REAL, TESTED   src/commercial-learning.mjs
+  |                                        Bounded summaries over existing
+  |                                        commercial_outcome audit receipts;
+  |                                        contradictions, missing economics,
+  |                                        and refund uncertainty stay explicit.
   v
 [Self-upgrade proposal]     DEFERRED       docs/PROMETHEUS_SELF_UPGRADE_ENGINE.md
   |
@@ -86,8 +88,9 @@ from this local contract.
 ## What actually composes with what, today
 
 `market-signal-registry.mjs`, `prometheus-economic-spine.mjs`,
-`commercial-experiment.mjs`, `distribution-channel.mjs`, and
-`commercial-outcome.mjs` now form a preparation-only vertical composition.
+`commercial-experiment.mjs`, `distribution-channel.mjs`,
+`commercial-outcome.mjs`, and `commercial-learning.mjs` now form a
+preparation-only vertical composition.
 The modules remain honest about their inputs: source adapters, buyer outcomes,
 and payment proof are still external dependencies. `opportunity-registry.mjs`
 and `capability-graph.mjs` also compose through the graph's real

@@ -37,7 +37,7 @@ test('getCapability() returns null for an unknown id rather than throwing', () =
 });
 
 test('the Prometheus economic spine and safe commercial slices are visible in the capability graph', () => {
-  for (const id of ['market-signal-registry', 'prometheus-economic-spine', 'commercial-experiment-compiler', 'distribution-channel-registry', 'commercial-outcome-lineage']) {
+  for (const id of ['market-signal-registry', 'prometheus-economic-spine', 'commercial-experiment-compiler', 'distribution-channel-registry', 'commercial-outcome-lineage', 'commercial-learning-memory']) {
     const entry = getCapability(id);
     assert.equal(entry.status, 'TEST_VERIFIED');
     assert.ok(entry.testRefs.length > 0);

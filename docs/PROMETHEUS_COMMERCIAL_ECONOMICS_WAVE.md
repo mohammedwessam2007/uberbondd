@@ -65,6 +65,8 @@ than treated as revenue.
 - `prometheus.distribution.allocate` — fail-closed channel ranking and receipt.
 - `prometheus.outcome.record` — payment-proof-gated outcome normalization and
   receipt.
+- `prometheus.learning.summarize` — bounded economic memory over the existing
+  `commercial_outcome` audit receipts.
 
 None of these handlers performs a provider call, sends a message, spends
 money, deploys, changes credentials/DNS, mutates production, or marks a
@@ -78,7 +80,7 @@ Still absent and therefore not claimed:
 - real buyer/distribution outcomes;
 - configured checkout and a cleared payment;
 - accepted delivery, renewal, contribution-margin proof, or customer;
-- revenue-weighted learning from non-synthetic outcomes;
+- live revenue-weighted learning from non-synthetic outcomes;
 - formal upgrade/capital allocation engines;
 - shadow/canary promotion;
 - a final canonical OMNIA V9 vs Deliverability Guard authority decision.
@@ -86,3 +88,24 @@ Still absent and therefore not claimed:
 The highest-leverage external dependency remains a configured, owner-approved
 checkout path followed by one real stranger payment. Until then, allocation
 must remain `DO_NOT_DISTRIBUTE` or preparation-only.
+
+## Commercial learning memory — 2026-08-18
+
+`src/commercial-learning.mjs` closes the local memory gap without introducing
+another revenue collection. It reads normalized `commercial_outcome` receipts
+from the existing `auditLog`, deduplicates identical receipts, quarantines
+contradictory event identities, and aggregates by opportunity, experiment, and
+channel. Only receipts with normalized `CLEARED_PAYMENT` or
+`REFUND_OR_DISPUTE` truth plus provider payment proof receive economic weight.
+
+The summary exposes gross cleared revenue, refund/dispute impact, net cash
+impact, known contribution margin, owner minutes, and contribution profit per
+owner minute only when the inputs are complete and refunds cannot make that
+ratio misleading. Missing margin, missing time, observations, and
+post-refund margin remain explicit unknowns. It never advances the promotion
+ladder, allocates spend, or authorizes a provider action.
+
+The handler reads durable receipts when no list is supplied and writes one
+compact `commercial_learning` receipt. This is local economic memory, not
+commercial proof: the current repository still contains zero real cleared
+payments and zero verified revenue.

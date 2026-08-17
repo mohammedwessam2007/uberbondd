@@ -10,6 +10,7 @@ import { ConflictError } from './store.mjs';
 import { persistCrawlArtifacts } from './artifacts.mjs';
 import { evaluateSendEligibility, sendIdempotencyKey, classifyDeliverySignal, suppressionLookup } from './send-safety.mjs';
 import { evaluateDeliverabilityGuard } from './deliverability-guard.mjs';
+import { evaluateConsequenceBoundary, buildOutboundActionIntent } from './consequence-boundary.mjs';
 import { unsubscribeUrl, oneClickUnsubscribeUrl } from './unsubscribe.mjs';
 
 export class Pipeline {
@@ -24,6 +25,11 @@ export class Pipeline {
     this.getMessageFn = hooks.getMessage || getMessage;
     this.parseMessageFn = hooks.parseGmailMessage || parseGmailMessage;
     this.clock = hooks.clock || (() => new Date());
+    // Optional: the V9 admission context (approvals, policyAuthorizer,
+    // evidence resolvers, etc.) an owner injects once real policy content
+    // exists. Absent by default -- see logConsequenceBoundaryDecision and
+    // the outbound.v9AdmissionRequired config flag below.
+    this.v9Context = hooks.v9Context || {};
   }
 
   async isSuppressed(prospect, email = '') {
@@ -162,6 +168,19 @@ export class Pipeline {
     });
   }
 
+  async logConsequenceBoundaryDecision(boundaryResult, { prospect, campaign, reservationId } = {}) {
+    return this.store.log('omnia_v9_consequence_boundary_decision', {
+      finalDecision: boundaryResult.finalDecision,
+      guardDecision: boundaryResult.guardDecision,
+      v9Consulted: boundaryResult.v9Consulted,
+      reasons: boundaryResult.v9Decision?.reasons || [],
+      prospectId: prospect?.id || null,
+      campaignId: campaign?.id || null,
+      reservationId: reservationId || null,
+      policyVersion: boundaryResult.policyVersion
+    });
+  }
+
   async maybeSend(prospect, campaign, options = {}) {
     const followup = Number(options.followup || 0);
     const body = options.body || prospect?.draft;
@@ -266,6 +285,35 @@ export class Pipeline {
         decision: finalRecheck.decision, reasonCodes: finalRecheck.reasonCodes, reservationId: reservation.id
       });
       return { sent: false, decision: finalRecheck.decision, guard: finalRecheck, reservation };
+    }
+
+    // V9 consequence boundary: composed with, not a replacement for, the
+    // Guard checks above (see docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md).
+    // Guard already ran twice and allowed; V9 -- when the owner has turned
+    // it on -- has the final word before any provider is ever called. Off
+    // by default (outbound.v9AdmissionRequired), so existing behavior for
+    // every caller that hasn't opted in is completely unchanged.
+    if (this.cfg.outbound?.v9AdmissionRequired) {
+      const boundary = evaluateConsequenceBoundary({
+        guardDecision: finalRecheck.decision,
+        buildIntent: () => buildOutboundActionIntent({
+          prospect, campaign, inbox: prospect.inbox, cfg: this.cfg, date: this.clock(),
+          nonce: reservation.id, idempotencyKey
+        }),
+        v9Context: this.v9Context,
+        date: this.clock()
+      });
+      await this.logConsequenceBoundaryDecision(boundary, { prospect, campaign, reservationId: reservation.id });
+      if (!boundary.ok) {
+        await this.store.markOutboundReservation(reservation.id, 'cancelled', {
+          cancelReason: `v9-${boundary.finalDecision}`, cancelReasonCodes: boundary.v9Decision?.reasons || ['v9-not-consulted']
+        });
+        await this.markSendSafety(prospect, {
+          sent: false, reason: 'v9-consequence-boundary-denied',
+          decision: boundary.finalDecision, reasonCodes: boundary.v9Decision?.reasons || [], reservationId: reservation.id
+        });
+        return { sent: false, decision: boundary.finalDecision, v9: boundary, reservation };
+      }
     }
 
     let result;

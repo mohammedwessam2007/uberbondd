@@ -39,7 +39,15 @@ export const config = {
     failurePauseThreshold: num(env.OUTBOUND_FAILURE_PAUSE_THRESHOLD, 3),
     processBatchSize: num(env.OUTBOUND_PROCESS_BATCH_SIZE, 10),
     reservationRecoveryTimeoutMs: num(env.OUTBOUND_RESERVATION_RECOVERY_TIMEOUT_MS, 30 * 60 * 1000),
-    reservationRecoverySweepLimit: num(env.OUTBOUND_RESERVATION_RECOVERY_SWEEP_LIMIT, 200)
+    reservationRecoverySweepLimit: num(env.OUTBOUND_RESERVATION_RECOVERY_SWEEP_LIMIT, 200),
+    // Off by default: activates the OMNIA V9 consequence boundary
+    // (src/consequence-boundary.mjs) as the final gate in Pipeline.maybeSend,
+    // composed with (not replacing) the Deliverability Guard. See
+    // docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md. With no real policy
+    // content injected via Pipeline hooks.v9Context, turning this on simply
+    // makes every send fail closed at V9 -- it is not a shortcut to enabling
+    // live sends.
+    v9AdmissionRequired: bool(env.OUTBOUND_V9_ADMISSION_REQUIRED, false)
   },
   maxBatch: num(env.MAX_BATCH_SIZE, 25),
   crawl: {

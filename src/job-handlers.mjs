@@ -20,7 +20,7 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       workspaceId: payload?.workspaceId || '',
       dryRun: Boolean(payload?.dryRun)
     }),
-    // Local-only composition task. It requires a caller-supplied signal,
+    // Bounded signal ingestion. Adapters supply candidates; this handler\n    // performs no network access and persists only when explicitly requested.\n    'prometheus.signals.ingest': async payload => {\n      const input = payload && typeof payload === 'object' ? payload : {};\n      return ingestMarketSignals({ ...input, store });\n    },\n    // Local-only composition task. It requires a caller-supplied signal,
     // candidate, and canonical prospect; it has no provider boundary.
     'prometheus.opportunity.prepare': async payload => {
       const input = payload && typeof payload === 'object' ? payload : {};

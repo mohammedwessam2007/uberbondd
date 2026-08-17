@@ -77,7 +77,7 @@ function safeRelativeFiles(files) {
     if (typeof file !== "string" || !file.trim() || isAbsolute(file)) return false;
     const normalized = resolve(projectRoot, file);
     const relativePath = relative(projectRoot, normalized).replaceAll("\\", "/");
-    const sensitive = relativePath === ".env" || relativePath.startsWith(".env.") || relativePath === "lite" || relativePath.startsWith("lite/") || relativePath.startsWith("credentials/");
+    const sensitive = relativePath === ".env" || relativePath.startsWith(".env.") || relativePath === "lite" || relativePath.startsWith("lite/") || relativePath === "credentials" || relativePath.startsWith("credentials/");
     return relativePath && !relativePath.startsWith("..") && !file.includes("node_modules") && !sensitive;
   }).slice(0, 20);
 }

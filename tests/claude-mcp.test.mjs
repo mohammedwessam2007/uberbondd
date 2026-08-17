@@ -88,6 +88,7 @@ test("hostile: uberbond_prepare_task filters protected and traversal paths", asy
           ".env.production",
           "lite/lib/db.mjs",
           "lite",
+          "credentials",
           "credentials/keys.json",
           "../../etc/passwd",
           "/etc/passwd",

@@ -69,6 +69,18 @@ WORLD
                               Composes command-center, learning, audit, and
                               capability facts; unknowns stay UNKNOWN.
   |
+[Agent relay / disputes]     REAL, TESTED   src/agent-relay.mjs
+                              Evidence-linked worker tasks, budgets, and a
+                              three-round dispute ceiling; execution NOT_RUN.
+  |
+[Mechanism lab]              REAL, TESTED   src/mechanism-lab.mjs
+                              Structured genome atoms and bounded unproven
+                              recombinations; no scrape/copy/price claims.
+  |
+[Fitness / death review]     REAL, TESTED   src/business-model-fitness.mjs
+                              Payment-proof fitness review; no automatic kill
+                              or capital allocation.
+  |
   v
 WORLD
 ```

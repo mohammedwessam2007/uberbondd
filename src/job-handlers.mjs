@@ -38,6 +38,23 @@ import {
   buildPrometheusControlTower,
   logPrometheusControlTower
 } from './prometheus-control-tower.mjs';
+import {
+  compileAgentTask,
+  compileDisputePacket,
+  resolveDisputeRound,
+  logAgentRelayReceipt
+} from './agent-relay.mjs';
+import {
+  extractMechanismAtoms,
+  recombineMechanismAtoms,
+  redTeamMechanismCandidate,
+  logMechanismLabReceipt
+} from './mechanism-lab.mjs';
+import {
+  evaluateBusinessModelFitness,
+  compilePortfolioReview,
+  logBusinessFitnessReceipt
+} from './business-model-fitness.mjs';
 
 export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunner }) {
   return {
@@ -150,6 +167,54 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       const report = await buildPrometheusControlTower({ ...input, store, cfg, revenueEngine: revenue });
       if (report.ok) await logPrometheusControlTower(store, report);
       return report;
+    },
+    'prometheus.agent.task': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const task = compileAgentTask(input);
+      if (task.ok) await logAgentRelayReceipt(store, 'agent_task', task);
+      return task;
+    },
+    'prometheus.agent.dispute': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const dispute = compileDisputePacket(input);
+      if (dispute.ok) await logAgentRelayReceipt(store, 'agent_dispute', dispute);
+      return dispute;
+    },
+    'prometheus.agent.dispute.resolve': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const resolution = resolveDisputeRound(input);
+      if (resolution.ok) await logAgentRelayReceipt(store, 'agent_dispute_resolution', resolution);
+      return resolution;
+    },
+    'prometheus.mechanism.extract': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = extractMechanismAtoms(input);
+      if (result.ok) await logMechanismLabReceipt(store, 'mechanism_extraction', result);
+      return result;
+    },
+    'prometheus.mechanism.recombine': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = recombineMechanismAtoms(input);
+      if (result.ok) await logMechanismLabReceipt(store, 'mechanism_recombination', result);
+      return result;
+    },
+    'prometheus.mechanism.red-team': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = redTeamMechanismCandidate(input);
+      if (result.ok) await logMechanismLabReceipt(store, 'mechanism_red_team', result);
+      return result;
+    },
+    'prometheus.fitness.evaluate': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = evaluateBusinessModelFitness(input);
+      if (result.ok) await logBusinessFitnessReceipt(store, 'business_model_fitness', result);
+      return result;
+    },
+    'prometheus.fitness.portfolio': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = compilePortfolioReview(input);
+      if (result.ok) await logBusinessFitnessReceipt(store, 'business_model_portfolio_review', result);
+      return result;
     }
   };
 }

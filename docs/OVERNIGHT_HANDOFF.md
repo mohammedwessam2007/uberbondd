@@ -252,3 +252,17 @@ Targeted results: self-upgrade 11/11 PASS; control tower 5/5 PASS. Full
 `npm run check`: 408/408 PASS locally. Hosted CI, live adapters, real payment,
 customer delivery, agent execution, deployment, and commercial proof remain
 separate external gates.
+
+### Organization-layer waves — 2026-08-18
+
+Added the bounded agent relay/dispute layer (`src/agent-relay.mjs`), the
+structured mechanism atom/recombination lab (`src/mechanism-lab.mjs`), and the
+payment-proof fitness/death-review layer (`src/business-model-fitness.mjs`).
+These are local contracts only: they do not connect to GPT/Claude, scrape or
+copy sources, invent demand or price, allocate capital, kill a model, deploy,
+send, or spend. Agent packets explicitly remain `NOT_RUN` without a real
+worker receipt; business-model decisions remain owner review.
+
+Targeted results: agent relay 9/9, mechanism lab 8/8, business-model fitness
+8/8 PASS. Full `npm run check`: 433/433 PASS locally. `lite/` remains
+untouched and no customer/revenue/payment proof is claimed.

@@ -18,8 +18,8 @@ Vocabulary: `IMPLEMENTED_VERIFIED`, `IMPLEMENTED_PARTIAL_PROOF`,
 | Source adapters | `DEFERRED_LOW_VALUE` | Contract designed (`docs/PROMETHEUS_SOURCE_ADAPTERS.md`); code deferred pending the V9-vs-Guard decision (`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`) so it isn't built twice. |
 | Signal ingestion/dedup | `IMPLEMENTED_VERIFIED` | `src/market-signal-registry.mjs` provides bounded caller-supplied ingestion, dedupe, contradiction flags, freshness, replay safety, and optional audit receipts; no live adapter is claimed. |
 | Business genome | `IMPLEMENTED_VERIFIED` | `src/opportunity-registry.mjs#compileBusinessGenome`, 32 tests. Extraction *from live signals* specifically is the deferred part. |
-| Mechanism atoms | `DEFERRED_LOW_VALUE` | No real evidence base to extract atoms from yet. |
-| Recombination engine | `DEFERRED_LOW_VALUE` | Depends on mechanism atoms; would generate combinatorial noise over zero real atoms. |
+| Mechanism atoms | `IMPLEMENTED_VERIFIED` | `src/mechanism-lab.mjs` extracts bounded atoms only from caller-supplied structured genomes with evidence references; no live social/web extraction is claimed. |
+| Recombination engine | `IMPLEMENTED_VERIFIED` | `src/mechanism-lab.mjs` generates bounded `HYPOTHESIS` combinations with no invented price, payment, demand, or promotion. |
 | Capability graph | `IMPLEMENTED_VERIFIED` | `src/capability-graph.mjs`, 11 tests, this wave. |
 | Build distance | `IMPLEMENTED_VERIFIED` | `incrementalBuildDistance()` (Wave 6) now driven by the real capability graph, tested this wave. |
 | Opportunity tournament | `IMPLEMENTED_VERIFIED` | `src/opportunity-registry.mjs#scoreOpportunity`, 15 criteria, 32 tests. V2 additions deferred — see `docs/PROMETHEUS_OPPORTUNITY_SYSTEM.md`. |
@@ -35,13 +35,14 @@ Vocabulary: `IMPLEMENTED_VERIFIED`, `IMPLEMENTED_PARTIAL_PROOF`,
 | Engineering packet compiler | `IMPLEMENTED_VERIFIED` | `src/self-upgrade.mjs` creates bounded, non-`lite/` engineering packets with mandatory tests and forbidden external actions; execution remains `NOT_RUN`. |
 | Shadow comparison | `DEFERRED_LOW_VALUE` | Exactly one real comparison candidate exists (V9 kernel vs. Guard) and the recommendation is explicitly *not* to shadow-run it yet — see `docs/PROMETHEUS_SELF_UPGRADE_ENGINE.md`. |
 | Canary contract | `DEFERRED_LOW_VALUE` | No canary candidates; outbound stays structurally disabled. |
-| Business-model death detector | `DEFERRED_LOW_VALUE` | Zero customers; no sample size exists to evaluate health signals against. |
+| Business-model death detector | `IMPLEMENTED_VERIFIED` | `src/business-model-fitness.mjs` keeps small samples `HOLD_FOR_EVIDENCE` and emits owner-reviewed shrink/kill candidates only from measured summaries. |
 | Anti-obsolescence engine | `DEFERRED_LOW_VALUE` | Would need real external monitoring infrastructure this session doesn't have. |
 | Portfolio capital allocator | `DEFERRED_LOW_VALUE` | No competing funded opportunities exist to allocate a budget across. |
 | Founder attention allocator | `IMPLEMENTED_PARTIAL_PROOF` | `founder-command-center.mjs`'s `ownerActionQueue` already caps at 3 ranked actions with reasons — matches the mission's ask closely under a different name. |
 | Cloud scheduling | `IMPLEMENTED_PARTIAL_PROOF` | `DurableQueue` + `scheduler.mjs` are real and tested; no *new* Prometheus-specific jobs added (their upstream inputs — adapters — don't exist yet to schedule around). |
 | Self-health | `DEFERRED_LOW_VALUE` | No adapter/distribution/scoring pipeline runs yet beyond what the founder command center already reports on. |
 | Control tower / morning brief | `IMPLEMENTED_VERIFIED` | `src/prometheus-control-tower.mjs` composes canonical local facts, caps founder actions at 3, and reports unknown commercial/agent state without inference. |
+| Agent relay / dispute packets | `IMPLEMENTED_VERIFIED` | `src/agent-relay.mjs` prepares bounded evidence-linked worker tasks and three-round disputes; no GPT/Claude execution is implied. |
 | Provider/model router | `IMPLEMENTED_PARTIAL_PROOF` | `src/ai.mjs` + `config.mjs#ai` already implement a minimal real version (rules-based default, optional LLM escalation, provider-selectable). Not extended this wave. |
 | Research importer | `DEFERRED_LOW_VALUE` | No structured research packages exist yet to import. |
 | Agent readiness (web standards) | `IMPLEMENTED_VERIFIED` | `src/audit-rules.mjs` `no-structured-data`/`invalid-structured-data` checks, tested, prior wave. |
@@ -214,3 +215,25 @@ Targeted results: self-upgrade 11/11 PASS; control tower 5/5 PASS. Full
 `npm run check`: **408/408 PASS locally**. `lite/` remains untouched. No
 provider calls, messages, purchases, deployments, credential/DNS changes,
 production mutations, customer claims, or revenue claims occurred.
+
+### Addendum — Organization-layer waves — 2026-08-18
+
+Added `src/agent-relay.mjs`, `src/mechanism-lab.mjs`, and
+`src/business-model-fitness.mjs`.
+
+- The agent relay creates evidence-linked tasks for a target worker such as
+  Claude Code, carries budgets and forbidden actions, and caps disputes at
+  three rounds. It records `NOT_RUN` until a real connected worker receipt
+  exists; no direct GPT/Claude connection is claimed.
+- The mechanism lab extracts atoms only from caller-supplied structured genome
+  fields, generates bounded `HYPOTHESIS` recombinations, and red-teams them
+  without inventing a price, buyer demand, payment, or copying a source.
+- The fitness/death review consumes commercial-learning summaries, holds small
+  samples for evidence, and emits `EXPAND_REVIEW` or `SHRINK_OR_KILL_REVIEW`
+  recommendations. No capital allocation or automatic kill exists.
+
+Added handlers for the three areas and wired all new source/test files into
+syntax and deterministic verification. Targeted results: agent relay 9/9,
+mechanism lab 8/8, business-model fitness 8/8 PASS. Full `npm run check`:
+**433/433 PASS locally**. `lite/` remains untouched; external-effect ledger
+remains zero.

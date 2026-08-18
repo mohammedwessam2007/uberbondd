@@ -25,6 +25,17 @@ export function startScheduler(queue, cfg, log = console) {
     if (cfg.discovery?.enabled) {
       recurring.push(['discovery.run', Math.max(1, Number(cfg.discovery.runEveryHours || 24)) * HOUR, { scheduled: true }, { maxAttempts: 4 }]);
     }
+    // Read-only Prometheus recomputation jobs -- layered on top of
+    // autopilot behind their own explicit flag so no existing autopilot
+    // deployment picks these up silently. Neither job ever calls a
+    // provider, sends anything, or spends money; both are pure read +
+    // audit-log-receipt writes.
+    if (cfg.prometheus?.schedulingEnabled) {
+      recurring.push(
+        ['prometheus.capability_gap.recompute', 6 * HOUR, {}, { maxAttempts: 2 }],
+        ['prometheus.commercial_memory.contradiction_scan', 24 * HOUR, {}, { maxAttempts: 2 }]
+      );
+    }
     for (const [type, intervalMs, payload, options] of recurring) {
       safe(`initial ${type}`, () => schedule(type, intervalMs, payload, options));
       const timer = setInterval(() => safe(`schedule ${type}`, () => schedule(type, intervalMs, payload, options)), intervalMs);

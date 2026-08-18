@@ -50,6 +50,13 @@ export const config = {
     v9AdmissionRequired: bool(env.OUTBOUND_V9_ADMISSION_REQUIRED, false)
   },
   maxBatch: num(env.MAX_BATCH_SIZE, 25),
+  prometheus: {
+    // Off by default, and layered on top of autopilot (both must be true).
+    // Only gates the read-only recomputation jobs registered in
+    // src/scheduler.mjs -- never an external-action worker. See
+    // docs/PROMETHEUS_ARCHITECTURE.md.
+    schedulingEnabled: bool(env.PROMETHEUS_SCHEDULING_ENABLED, false)
+  },
   crawl: {
     concurrency: num(env.CRAWL_CONCURRENCY, 2),
     delayMs: num(env.CRAWL_DELAY_MS, 500),

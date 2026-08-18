@@ -295,6 +295,19 @@ test('mailbox registry: authentication + warm-up + signal folding produces the e
   assert.equal(state.complaintCount, 1);
 });
 
+test('mailbox registry: warmupAgeDays is derived (never guessed) from real warm-up start time, and currentHourlyCap stays null unless a provider actually reported one', () => {
+  const registered = registerSendingMailbox({ mailboxId: 'm1', workspaceId: 'w1', address: 'a@example.test', sendingDomainId: 'd1', date: monday }).event;
+  const warmup = recordMailboxWarmupStatus({ mailboxId: 'm1', warmupStatus: 'WARMUP_ACTIVE', warmupStartTime: monday, currentDailyCap: 5, date: monday }).event;
+  const tenDaysLater = new Date(monday.getTime() + 10 * 86_400_000);
+  const state = computeSendingMailboxState([registered, warmup], { date: tenDaysLater });
+  assert.equal(state.warmupAgeDays, 10);
+  assert.equal(state.currentHourlyCap, null, 'hourly cap must stay explicitly unknown, never fabricated from the daily cap');
+
+  const withHourly = recordMailboxWarmupStatus({ mailboxId: 'm1', warmupStatus: 'WARMUP_ACTIVE', warmupStartTime: monday, currentDailyCap: 5, currentHourlyCap: 2, date: monday }).event;
+  const stateWithHourly = computeSendingMailboxState([registered, withHourly], { date: tenDaysLater });
+  assert.equal(stateWithHourly.currentHourlyCap, 2);
+});
+
 test('mailbox registry: mailbox paused state folds correctly and resumes cleanly', () => {
   const registered = registerSendingMailbox({ mailboxId: 'm1', workspaceId: 'w1', address: 'a@example.test', sendingDomainId: 'd1', date: monday }).event;
   const pause = recordMailboxPause({ mailboxId: 'm1', reasonCodes: ['spf-fails'], date: monday }).event;

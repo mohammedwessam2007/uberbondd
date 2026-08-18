@@ -101,11 +101,14 @@ export function recordMailboxAuthentication({ store, mailboxId, authenticationSt
   });
 }
 
-export function recordMailboxWarmupStatus({ store, mailboxId, warmupStatus, warmupStartTime, currentDailyCap, date } = {}) {
+export function recordMailboxWarmupStatus({ store, mailboxId, warmupStatus, warmupStartTime, currentDailyCap, currentHourlyCap, date } = {}) {
   return mailboxEvent('WARMUP_STATUS_CHANGED', {
     store, mailboxId, date, warmupStatus: text(warmupStatus, 60),
     warmupStartTime: warmupStartTime ? new Date(warmupStartTime).toISOString() : null,
-    currentDailyCap: currentDailyCap != null ? Math.max(0, Math.floor(Number(currentDailyCap) || 0)) : null
+    currentDailyCap: currentDailyCap != null ? Math.max(0, Math.floor(Number(currentDailyCap) || 0)) : null,
+    // Hourly cap is never derived/guessed from the daily cap -- it is only
+    // ever a real value a provider reported, or explicitly null (UNKNOWN).
+    currentHourlyCap: currentHourlyCap != null ? Math.max(0, Math.floor(Number(currentHourlyCap) || 0)) : null
   });
 }
 
@@ -147,14 +150,22 @@ async function loadMailboxEvents(store, mailboxId, { limit = 1000 } = {}) {
     .filter(detail => detail && detail.mailboxId === mailboxId);
 }
 
+function warmupAgeDays(warmupStartTime, at) {
+  if (!warmupStartTime) return null;
+  const ms = at.getTime() - Date.parse(warmupStartTime);
+  if (!Number.isFinite(ms) || ms < 0) return null;
+  return Math.floor(ms / 86_400_000);
+}
+
 export function computeSendingMailboxState(events = [], { date = new Date() } = {}) {
+  const at = date instanceof Date && !Number.isNaN(date.getTime()) ? date : new Date();
   if (!Array.isArray(events) || !events.length) return null;
   const registered = events.find(e => e.kind === 'REGISTERED');
   if (!registered) return null;
 
   let authenticationStatus = 'UNKNOWN';
   let mxStatus = 'UNKNOWN'; let spfStatus = 'UNKNOWN'; let dkimStatus = 'UNKNOWN'; let dmarcStatus = 'UNKNOWN'; let alignmentStatus = 'UNKNOWN';
-  let warmupStatus = 'WARMUP_NOT_STARTED'; let warmupStartTime = null; let currentDailyCap = 0;
+  let warmupStatus = 'WARMUP_NOT_STARTED'; let warmupStartTime = null; let currentDailyCap = 0; let currentHourlyCap = null;
   let lastProviderReceipt = null; let lastProviderHealthCheckAt = null;
   let bounceCount = 0; let complaintCount = 0; let replyCount = 0; let rateLimited = false;
   let paused = false; let pauseReasonCodes = [];
@@ -171,6 +182,7 @@ export function computeSendingMailboxState(events = [], { date = new Date() } = 
         warmupStatus = event.warmupStatus || warmupStatus;
         if (event.warmupStartTime) warmupStartTime = event.warmupStartTime;
         if (event.currentDailyCap != null) currentDailyCap = event.currentDailyCap;
+        if (event.currentHourlyCap != null) currentHourlyCap = event.currentHourlyCap;
         break;
       case 'PROVIDER_HEALTH_CHECKED':
         lastProviderReceipt = event.providerReceipt || lastProviderReceipt;
@@ -202,8 +214,8 @@ export function computeSendingMailboxState(events = [], { date = new Date() } = 
     provider: registered.provider || '',
     providerAccountId: registered.providerAccountId || '',
     authenticationStatus, mxStatus, spfStatus, dkimStatus, dmarcStatus, alignmentStatus,
-    warmupStatus, warmupStartTime,
-    currentDailyCap, plannedDailyCap: registered.plannedDailyCap || 0,
+    warmupStatus, warmupStartTime, warmupAgeDays: warmupAgeDays(warmupStartTime, at),
+    currentDailyCap, currentHourlyCap, plannedDailyCap: registered.plannedDailyCap || 0,
     lastProviderHealthCheckAt, lastExternalReceipt: lastProviderReceipt,
     bounceCount, complaintCount, replyCount, providerRateLimited: rateLimited,
     paused, pauseReasonCodes,

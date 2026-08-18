@@ -104,6 +104,42 @@ export const config = {
     openaiModel: env.OPENAI_MODEL || 'gpt-5-mini'
   },
   hunterKey: env.HUNTER_API_KEY || '',
+  // Domain/mailbox readiness OS (see docs/UBERBOND_DOMAIN_MAILBOX_READINESS.md).
+  // Every threshold here is a policy default, not a claim that any provider
+  // is connected -- `providers.*.configured` is the only thing that decides
+  // whether a real adapter can ever be used instead of the unconfigured
+  // fixture adapter.
+  domainMailbox: {
+    minWarmupDays: num(env.WARMUP_MIN_DAYS, 14),
+    recommendedWarmupDaysLow: num(env.WARMUP_RECOMMENDED_DAYS_LOW, 21),
+    recommendedWarmupDaysHigh: num(env.WARMUP_RECOMMENDED_DAYS_HIGH, 28),
+    maxDnsEvidenceAgeHours: num(env.DNS_EVIDENCE_MAX_AGE_HOURS, 24),
+    bounceRatePauseThreshold: num(env.DOMAIN_BOUNCE_RATE_PAUSE_THRESHOLD, 0.05),
+    complaintRatePauseThreshold: num(env.DOMAIN_COMPLAINT_RATE_PAUSE_THRESHOLD, 0.001),
+    schedulingEnabled: bool(env.DOMAIN_MAILBOX_SCHEDULING_ENABLED, false)
+  },
+  // Provider credentials are read only from the environment, never stored,
+  // never logged, and never returned from any function in this codebase --
+  // see src/provider-adapter-contract.mjs. `configured` is a boolean derived
+  // from presence, not a claim the credential is valid; only a real,
+  // successful provider response can prove that.
+  providers: {
+    instantly: {
+      apiKey: env.INSTANTLY_API_KEY || '',
+      configured: Boolean(env.INSTANTLY_API_KEY)
+    },
+    googleWorkspace: {
+      clientId: env.GOOGLE_WORKSPACE_CLIENT_ID || '',
+      clientSecret: env.GOOGLE_WORKSPACE_CLIENT_SECRET || '',
+      configured: Boolean(env.GOOGLE_WORKSPACE_CLIENT_ID && env.GOOGLE_WORKSPACE_CLIENT_SECRET)
+    },
+    microsoft365: {
+      clientId: env.MICROSOFT_365_CLIENT_ID || '',
+      clientSecret: env.MICROSOFT_365_CLIENT_SECRET || '',
+      tenantId: env.MICROSOFT_365_TENANT_ID || '',
+      configured: Boolean(env.MICROSOFT_365_CLIENT_ID && env.MICROSOFT_365_CLIENT_SECRET && env.MICROSOFT_365_TENANT_ID)
+    }
+  },
   google: {
     clientId: env.GOOGLE_CLIENT_ID || '',
     clientSecret: env.GOOGLE_CLIENT_SECRET || '',

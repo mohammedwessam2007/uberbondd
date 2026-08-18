@@ -36,6 +36,20 @@ export function startScheduler(queue, cfg, log = console) {
         ['prometheus.commercial_memory.contradiction_scan', 24 * HOUR, {}, { maxAttempts: 2 }]
       );
     }
+    // Domain/mailbox warm-up reconciliation -- read-only unless a real
+    // registered mailbox+provider pair exists, in which case it re-asks the
+    // provider for real status and persists the receipt. Off by default,
+    // layered on autopilot, same pattern as the Prometheus jobs above. This
+    // scheduler has no way to enumerate registered mailboxes on its own
+    // (deliberately -- adding that here would require a new query surface);
+    // a real deployment wires payload.mailboxId/provider via its own
+    // dispatch layer. Left as a documented, disabled-by-default hook rather
+    // than guessed at.
+    if (cfg.domainMailbox?.schedulingEnabled) {
+      recurring.push(
+        ['domainMailbox.warmup.reconcile', HOUR, {}, { maxAttempts: 3 }]
+      );
+    }
     for (const [type, intervalMs, payload, options] of recurring) {
       safe(`initial ${type}`, () => schedule(type, intervalMs, payload, options));
       const timer = setInterval(() => safe(`schedule ${type}`, () => schedule(type, intervalMs, payload, options)), intervalMs);

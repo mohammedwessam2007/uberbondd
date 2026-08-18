@@ -222,6 +222,33 @@ minutes, and lineage. It never treats observations as revenue and never
 advances promotion, allocates capital, calls a provider, or enables external
 actions.
 
-New targeted suite: `tests/commercial-learning.test.mjs`. The full
-verification command is pending for this wave; do not claim this slice as
-complete until the command receipt is recorded below.
+New targeted suite: `tests/commercial-learning.test.mjs`. The subsequent full
+verification receipt is recorded below: the combined repository gate is green
+locally, while hosted and external proof remain separate.
+
+### Task Universe Engine wave — 2026-08-18
+
+Added `src/task-universe.mjs`, `tests/task-universe.test.mjs`, and the
+`prometheus.task.generate`/`prometheus.task.evaluate` handlers. This is the
+shared work contract for blueprint, trigger, policy, dependency, evaluator,
+receipt, and learning primitives. It is bounded and local-only: no second task
+store, automatic queue insertion, provider call, message, spend, deployment,
+credential/DNS change, or production mutation.
+
+Targeted result: 13/13 PASS. Full `npm run check`: 392/392 PASS locally,
+including the Task Universe syntax and deterministic tests. This is local proof
+only; hosted CI and all external/commercial proof remain separate gates.
+
+### Self-upgrade and control-tower waves — 2026-08-18
+
+Added `src/self-upgrade.mjs` and `src/prometheus-control-tower.mjs`. The
+self-upgrade handlers create evidence-referenced review proposals, bounded
+non-`lite/` engineering packets, and shadow-only evaluations. The control
+tower composes existing command-center, payment-learning, audit, and
+capability facts into a capped founder brief. Neither wave runs agents,
+changes the repository through a handler, deploys, sends, spends, or promotes.
+
+Targeted results: self-upgrade 11/11 PASS; control tower 5/5 PASS. Full
+`npm run check`: 408/408 PASS locally. Hosted CI, live adapters, real payment,
+customer delivery, agent execution, deployment, and commercial proof remain
+separate external gates.

@@ -56,7 +56,18 @@ WORLD
   |                                        contradictions, missing economics,
   |                                        and refund uncertainty stay explicit.
   v
-[Self-upgrade proposal]     DEFERRED       docs/PROMETHEUS_SELF_UPGRADE_ENGINE.md
+[Task Universe]              REAL, TESTED   src/task-universe.mjs
+  |                                        Blueprint/trigger/policy/dependency/
+  |                                        evaluator/receipt primitives; bounded
+  |                                        local preparation only.
+  v
+[Self-upgrade proposal]     REAL, TESTED   src/self-upgrade.mjs
+                              Review-required UpgradeProposal, bounded
+                              EngineeringMissionPacket, and shadow-only gate.
+  |
+[Control tower / morning]    REAL, TESTED   src/prometheus-control-tower.mjs
+                              Composes command-center, learning, audit, and
+                              capability facts; unknowns stay UNKNOWN.
   |
   v
 WORLD
@@ -89,8 +100,11 @@ from this local contract.
 
 `market-signal-registry.mjs`, `prometheus-economic-spine.mjs`,
 `commercial-experiment.mjs`, `distribution-channel.mjs`,
-`commercial-outcome.mjs`, and `commercial-learning.mjs` now form a
-preparation-only vertical composition.
+`commercial-outcome.mjs`, `commercial-learning.mjs`, `task-universe.mjs`,
+`self-upgrade.mjs`, and `prometheus-control-tower.mjs` now form a
+preparation-only vertical composition. Task generation, upgrade packets, and
+control-tower receipts do not enqueue, execute, promote, or authorize external
+actions.
 The modules remain honest about their inputs: source adapters, buyer outcomes,
 and payment proof are still external dependencies. `opportunity-registry.mjs`
 and `capability-graph.mjs` also compose through the graph's real

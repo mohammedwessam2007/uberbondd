@@ -27,12 +27,12 @@ Vocabulary: `IMPLEMENTED_VERIFIED`, `IMPLEMENTED_PARTIAL_PROOF`,
 | Channel registry | `IMPLEMENTED_VERIFIED` | `src/distribution-channel.mjs` normalizes bounded channel descriptions; no access or terms are inferred. |
 | Distribution allocator | `IMPLEMENTED_VERIFIED` | Fail-closed allocator returns `DO_NOT_DISTRIBUTE` without verified cleared-payment outcomes and never sends/spends. |
 | Commercial outcome graph | `IMPLEMENTED_VERIFIED` | `src/commercial-outcome.mjs` normalizes signal/opportunity/experiment/channel lineage through auditLog; it is not a parallel revenue ledger. |
-| Revenue-weighted learning | `DEFERRED_LOW_VALUE` | No outcomes to learn from; payment-truth's classification hierarchy (Wave 5) is the real prerequisite already in place. |
-| Commercial memory | `IMPLEMENTED_PARTIAL_PROOF` | Raw `auditLog`/`store.log()` is real and used extensively; no dedicated summarizing/query layer beyond the founder command center's narrow slices. |
+| Revenue-weighted learning | `IMPLEMENTED_VERIFIED` | `src/commercial-learning.mjs` aggregates only normalized payment-proof receipts; no real outcomes exist yet, so its measured result is honestly empty. |
+| Commercial memory | `IMPLEMENTED_VERIFIED` | `src/commercial-learning.mjs` provides bounded dedupe, contradiction quarantine, payment/refund weighting, margin/owner-minute completeness, and lineage summaries over existing `auditLog`. |
 | Failure memory | `DEFERRED_LOW_VALUE` | Zero real experiments have run; nothing has failed yet to remember. |
-| Upgrade proposals | `IMPLEMENTED_PARTIAL_PROOF` | `docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md` is a real upgrade proposal in substance (rationale, evidence, sequencing, kill criteria) without a formal `UpgradeProposal` class wrapping it. |
+| Upgrade proposals | `IMPLEMENTED_VERIFIED` | `src/self-upgrade.mjs` compiles evidence-referenced, review-required proposals with economic unknowns, risk, acceptance criteria, rollback, and owner authority. |
 | Build/buy/partner router | `IMPLEMENTED_PARTIAL_PROOF` | The branch reconciliation's cherry-pick recommendations are a real build/buy/partner-style decision, made by direct analysis rather than a generic router over a nonexistent second candidate. |
-| Engineering packet compiler | `DEFERRED_LOW_VALUE` | No active engineering backlog exists beyond the single V9 decision itself. |
+| Engineering packet compiler | `IMPLEMENTED_VERIFIED` | `src/self-upgrade.mjs` creates bounded, non-`lite/` engineering packets with mandatory tests and forbidden external actions; execution remains `NOT_RUN`. |
 | Shadow comparison | `DEFERRED_LOW_VALUE` | Exactly one real comparison candidate exists (V9 kernel vs. Guard) and the recommendation is explicitly *not* to shadow-run it yet — see `docs/PROMETHEUS_SELF_UPGRADE_ENGINE.md`. |
 | Canary contract | `DEFERRED_LOW_VALUE` | No canary candidates; outbound stays structurally disabled. |
 | Business-model death detector | `DEFERRED_LOW_VALUE` | Zero customers; no sample size exists to evaluate health signals against. |
@@ -41,6 +41,7 @@ Vocabulary: `IMPLEMENTED_VERIFIED`, `IMPLEMENTED_PARTIAL_PROOF`,
 | Founder attention allocator | `IMPLEMENTED_PARTIAL_PROOF` | `founder-command-center.mjs`'s `ownerActionQueue` already caps at 3 ranked actions with reasons — matches the mission's ask closely under a different name. |
 | Cloud scheduling | `IMPLEMENTED_PARTIAL_PROOF` | `DurableQueue` + `scheduler.mjs` are real and tested; no *new* Prometheus-specific jobs added (their upstream inputs — adapters — don't exist yet to schedule around). |
 | Self-health | `DEFERRED_LOW_VALUE` | No adapter/distribution/scoring pipeline runs yet beyond what the founder command center already reports on. |
+| Control tower / morning brief | `IMPLEMENTED_VERIFIED` | `src/prometheus-control-tower.mjs` composes canonical local facts, caps founder actions at 3, and reports unknown commercial/agent state without inference. |
 | Provider/model router | `IMPLEMENTED_PARTIAL_PROOF` | `src/ai.mjs` + `config.mjs#ai` already implement a minimal real version (rules-based default, optional LLM escalation, provider-selectable). Not extended this wave. |
 | Research importer | `DEFERRED_LOW_VALUE` | No structured research packages exist yet to import. |
 | Agent readiness (web standards) | `IMPLEMENTED_VERIFIED` | `src/audit-rules.mjs` `no-structured-data`/`invalid-structured-data` checks, tested, prior wave. |
@@ -174,3 +175,42 @@ provider authority is added.
 The learning layer is locally test-verified but has no real inputs yet. Real
 state remains 0 customers, $0 verified revenue, 0 cleared payments, and 0
 accepted live deliveries.
+
+### Addendum — Task Universe Engine — 2026-08-18
+
+Added `src/task-universe.mjs` and the `prometheus.task.generate`/
+`prometheus.task.evaluate` handlers. The module provides versioned blueprints,
+triggers, policy decisions, explainable priority, dependency edges, bounded
+just-in-time task instances, deterministic evaluators, receipts, and learning
+events. It reuses the existing DurableQueue conceptually but does not create a
+parallel task collection or enqueue anything automatically. External-effect
+policies deny, owner-required policies review-gate, synthetic triggers remain
+blocked by default, and unknown economics do not receive guessed priorities.
+
+The targeted suite is 13/13 locally passing. Full repository verification is
+also 392/392 locally passing, including syntax checks and the complete
+deterministic suite. This remains local proof only; no hosted CI, live provider,
+payment, deployment, or commercial proof is claimed.
+
+### Addendum — Self-upgrade and control-tower waves — 2026-08-18
+
+Added `src/self-upgrade.mjs` and `src/prometheus-control-tower.mjs` with
+handlers for `prometheus.upgrade.propose`,
+`prometheus.engineering.packet`, `prometheus.upgrade.evaluate`, and
+`prometheus.control-tower.report`.
+
+The self-upgrade contract requires evidence references, acceptance criteria,
+rollback, and owner authority. It produces a bounded non-`lite/` engineering
+packet and can classify a locally verified candidate as `SHADOW_READY`; it
+always leaves promotion `OWNER_REQUIRED` and execution `NOT_RUN`.
+
+The control tower composes the existing founder command center, commercial
+learning, audit receipts, and capability graph into money, businesses,
+distribution, intelligence, product, AI-workforce, capital, and founder
+sections. It reports `UNKNOWN` where facts are absent. Preparation events do
+not become customers, revenue, agent execution, deployment, or spend.
+
+Targeted results: self-upgrade 11/11 PASS; control tower 5/5 PASS. Full
+`npm run check`: **408/408 PASS locally**. `lite/` remains untouched. No
+provider calls, messages, purchases, deployments, credential/DNS changes,
+production mutations, customer claims, or revenue claims occurred.

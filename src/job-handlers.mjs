@@ -21,6 +21,23 @@ import {
   summarizeCommercialLearning,
   logCommercialLearning
 } from './commercial-learning.mjs';
+import {
+  compileTaskBlueprint,
+  compileTrigger,
+  generateTaskInstances,
+  evaluateTaskResult,
+  logTaskUniverseReceipt
+} from './task-universe.mjs';
+import {
+  compileUpgradeProposal,
+  compileEngineeringMissionPacket,
+  evaluateUpgradeGate,
+  logSelfUpgradeReceipt
+} from './self-upgrade.mjs';
+import {
+  buildPrometheusControlTower,
+  logPrometheusControlTower
+} from './prometheus-control-tower.mjs';
 
 export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunner }) {
   return {
@@ -87,6 +104,52 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       const summary = summarizeCommercialLearning({ ...input, outcomes });
       if (summary.ok) await logCommercialLearning(store, summary);
       return summary;
+    },
+    // Shared Task Universe preparation. These handlers return contracts and
+    // receipts only; they do not enqueue, send, spend, deploy, or mutate a
+    // second task store.
+    'prometheus.task.generate': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const blueprint = input.blueprint?.status === 'COMPILED' ? input.blueprint : compileTaskBlueprint({ ...(input.blueprint || {}), date: input.date });
+      const trigger = input.trigger?.ok ? input.trigger : compileTrigger({ ...(input.trigger || {}), date: input.date });
+      const generated = generateTaskInstances({ ...input, blueprint, trigger });
+      if (generated.ok) await logTaskUniverseReceipt(store, 'task_generation', generated.generationReceipt);
+      return generated;
+    },
+    'prometheus.task.evaluate': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const evaluated = evaluateTaskResult(input);
+      if (evaluated.ok) await logTaskUniverseReceipt(store, 'task_evaluation', evaluated.receipt);
+      return evaluated;
+    },
+    // Self-upgrade preparation only. These handlers create reviewable
+    // proposals and bounded engineering packets; they never run an agent,
+    // mutate a repository, promote, deploy, send, or spend.
+    'prometheus.upgrade.propose': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const proposal = compileUpgradeProposal(input);
+      if (proposal.ok) await logSelfUpgradeReceipt(store, 'upgrade_proposal', proposal);
+      return proposal;
+    },
+    'prometheus.engineering.packet': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const packet = compileEngineeringMissionPacket(input);
+      if (packet.ok) await logSelfUpgradeReceipt(store, 'engineering_mission_packet', packet);
+      return packet;
+    },
+    'prometheus.upgrade.evaluate': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const gate = evaluateUpgradeGate(input);
+      if (gate.ok) await logSelfUpgradeReceipt(store, 'upgrade_gate_evaluation', gate);
+      return gate;
+    },
+    // Founder-facing aggregation only. It composes canonical summaries and
+    // records a bounded local receipt; it never sends or allocates money.
+    'prometheus.control-tower.report': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const report = await buildPrometheusControlTower({ ...input, store, cfg, revenueEngine: revenue });
+      if (report.ok) await logPrometheusControlTower(store, report);
+      return report;
     }
   };
 }

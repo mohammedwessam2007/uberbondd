@@ -266,3 +266,20 @@ worker receipt; business-model decisions remain owner review.
 Targeted results: agent relay 9/9, mechanism lab 8/8, business-model fitness
 8/8 PASS. Full `npm run check`: 433/433 PASS locally. `lite/` remains
 untouched and no customer/revenue/payment proof is claimed.
+
+### Adapter contracts and capital planning — 2026-08-18
+
+Added `src/adapter-contracts.mjs` and `src/capital-allocator.mjs`, with
+`tests/adapter-capital.test.mjs` and four local handlers. The adapter layer
+requires a source manifest with purpose, lawful terms URL, and allowed fields;
+it provides authorization evaluation and bounded dry-runs but never stores
+credentials, calls a provider, or claims live access. The capital layer ranks
+only caller-supplied candidates with cleared-payment and positive-margin proof;
+it produces an owner-review plan and keeps actual spend at zero.
+
+Targeted adapter/capital result: **7/7 PASS**. Full `npm run check`:
+**440/440 PASS locally**. The capability graph marks both slices
+`TEST_VERIFIED`. No provider calls, messages, purchases, spend, deployments,
+credential/DNS changes, production mutations, customers, payments, or revenue
+were created by this wave. Browser tests, hosted CI, live adapter access, and
+commercial proof remain external gates.

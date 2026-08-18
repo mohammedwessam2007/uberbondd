@@ -15,7 +15,7 @@ Vocabulary: `IMPLEMENTED_VERIFIED`, `IMPLEMENTED_PARTIAL_PROOF`,
 | Subsystem | Status | Evidence / reason |
 |---|---|---|
 | Market radar (social/platform signals) | `RESEARCH_REQUIRED` | No credentials, no compliant access path this session; see `docs/PROMETHEUS_SOURCE_ADAPTERS.md`. |
-| Source adapters | `DEFERRED_LOW_VALUE` | Contract designed (`docs/PROMETHEUS_SOURCE_ADAPTERS.md`); code deferred pending the V9-vs-Guard decision (`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`) so it isn't built twice. |
+| Source adapters | `INTERFACE_READY_EXTERNAL_ACCESS_REQUIRED` | `src/adapter-contracts.mjs` now provides manifest, authorization evaluation, and bounded dry-run contracts. Authentication, terms acceptance, live access, and network proof remain external. |
 | Signal ingestion/dedup | `IMPLEMENTED_VERIFIED` | `src/market-signal-registry.mjs` provides bounded caller-supplied ingestion, dedupe, contradiction flags, freshness, replay safety, and optional audit receipts; no live adapter is claimed. |
 | Business genome | `IMPLEMENTED_VERIFIED` | `src/opportunity-registry.mjs#compileBusinessGenome`, 32 tests. Extraction *from live signals* specifically is the deferred part. |
 | Mechanism atoms | `IMPLEMENTED_VERIFIED` | `src/mechanism-lab.mjs` extracts bounded atoms only from caller-supplied structured genomes with evidence references; no live social/web extraction is claimed. |
@@ -37,7 +37,7 @@ Vocabulary: `IMPLEMENTED_VERIFIED`, `IMPLEMENTED_PARTIAL_PROOF`,
 | Canary contract | `DEFERRED_LOW_VALUE` | No canary candidates; outbound stays structurally disabled. |
 | Business-model death detector | `IMPLEMENTED_VERIFIED` | `src/business-model-fitness.mjs` keeps small samples `HOLD_FOR_EVIDENCE` and emits owner-reviewed shrink/kill candidates only from measured summaries. |
 | Anti-obsolescence engine | `DEFERRED_LOW_VALUE` | Would need real external monitoring infrastructure this session doesn't have. |
-| Portfolio capital allocator | `DEFERRED_LOW_VALUE` | No competing funded opportunities exist to allocate a budget across. |
+| Portfolio capital allocator | `IMPLEMENTED_VERIFIED` | `src/capital-allocator.mjs` ranks only caller-supplied candidates with cleared-payment and positive-margin proof; it produces an owner-review plan and fixes actual spend at zero. |
 | Founder attention allocator | `IMPLEMENTED_PARTIAL_PROOF` | `founder-command-center.mjs`'s `ownerActionQueue` already caps at 3 ranked actions with reasons — matches the mission's ask closely under a different name. |
 | Cloud scheduling | `IMPLEMENTED_PARTIAL_PROOF` | `DurableQueue` + `scheduler.mjs` are real and tested; no *new* Prometheus-specific jobs added (their upstream inputs — adapters — don't exist yet to schedule around). |
 | Self-health | `DEFERRED_LOW_VALUE` | No adapter/distribution/scoring pipeline runs yet beyond what the founder command center already reports on. |
@@ -237,3 +237,25 @@ syntax and deterministic verification. Targeted results: agent relay 9/9,
 mechanism lab 8/8, business-model fitness 8/8 PASS. Full `npm run check`:
 **433/433 PASS locally**. `lite/` remains untouched; external-effect ledger
 remains zero.
+
+### Addendum — Adapter contracts and capital planning — 2026-08-18
+
+Added `src/adapter-contracts.mjs` and `src/capital-allocator.mjs` to close the
+next safe sockets without pretending to have live access or capital authority.
+
+- Adapter manifests require source identity, lawful terms URL, purpose, and
+  allowed fields. Access evaluation remains `DRY_RUN_ONLY` unless an owner
+  authorization receipt is supplied; even then live access is an external
+  proof gate. Dry-runs digest bounded caller-supplied candidates and never
+  fetch or transmit them.
+- Capital planning accepts only candidates with minimum cleared-payment proof,
+  known positive contribution margin, and a bounded build cost. It returns an
+  owner-review plan; `actualSpendCents` is structurally zero and no provider,
+  purchase, ad, or payment action exists in the module.
+
+Added four local handlers (`prometheus.adapter.manifest`, `.access`,
+`.dry-run`, and `prometheus.capital.plan`) and capability-graph entries. The
+targeted adapter/capital suite is **7/7 PASS**; the full deterministic gate is
+**440/440 PASS locally**. Browser, hosted-CI, live-adapter, real-payment,
+customer, deployment, and commercial-proof gates remain separate and are not
+claimed.

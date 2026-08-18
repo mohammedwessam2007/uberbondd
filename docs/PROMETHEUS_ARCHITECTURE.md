@@ -81,6 +81,14 @@ WORLD
                               Payment-proof fitness review; no automatic kill
                               or capital allocation.
   |
+[Adapter contracts]          REAL, TESTED   src/adapter-contracts.mjs
+                              Terms/purpose/capability manifests and bounded
+                              dry-runs; no authentication or network access.
+  |
+[Capital plan]               REAL, TESTED   src/capital-allocator.mjs
+                              Payment-proof ranking and owner-review plan;
+                              actual spend remains zero.
+  |
   v
 WORLD
 ```

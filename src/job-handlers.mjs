@@ -55,6 +55,13 @@ import {
   compilePortfolioReview,
   logBusinessFitnessReceipt
 } from './business-model-fitness.mjs';
+import {
+  compileAdapterManifest,
+  evaluateAdapterAccess,
+  prepareAdapterDryRun,
+  logAdapterContractReceipt
+} from './adapter-contracts.mjs';
+import { planCapitalAllocation, logCapitalAllocation } from './capital-allocator.mjs';
 
 export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunner }) {
   return {
@@ -214,6 +221,30 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       const input = payload && typeof payload === 'object' ? payload : {};
       const result = compilePortfolioReview(input);
       if (result.ok) await logBusinessFitnessReceipt(store, 'business_model_portfolio_review', result);
+      return result;
+    },
+    'prometheus.adapter.manifest': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = compileAdapterManifest(input);
+      if (result.ok) await logAdapterContractReceipt(store, 'adapter_manifest', result);
+      return result;
+    },
+    'prometheus.adapter.access': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = evaluateAdapterAccess(input);
+      if (result.ok) await logAdapterContractReceipt(store, 'adapter_access_evaluation', result);
+      return result;
+    },
+    'prometheus.adapter.dry-run': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = prepareAdapterDryRun(input);
+      if (result.ok) await logAdapterContractReceipt(store, 'adapter_dry_run', result);
+      return result;
+    },
+    'prometheus.capital.plan': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = planCapitalAllocation(input);
+      if (result.ok) await logCapitalAllocation(store, result);
       return result;
     }
   };

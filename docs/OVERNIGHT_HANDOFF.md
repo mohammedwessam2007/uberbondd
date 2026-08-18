@@ -1,137 +1,135 @@
-# Overnight Handoff — 2026-08-17 (Prometheus V2 — economic spine wave)
+# Overnight Handoff — 2026-08-17/18 (Prometheus V2 — merged economic spine wave)
 
 ## Outcome
 
 **Wave: resolve the V9-vs-Guard owner queue directly, do PR housekeeping
-directly, and build the vertical economic spine end-to-end.** Full detail
-in `docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md` (rewritten completion
-matrix), `docs/PROMETHEUS_PR_HOUSEKEEPING.md`, and the updated
-`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`. Summary: the three items
-this wave's mission text explicitly said were "not a founder decision"
-were resolved directly (checkout stayed correctly deferred to the owner);
-18 provably-superseded PRs were closed with git-ancestry proof; and the
-full spine (MarketSignal → Signal Ingestion → BusinessGenome →
-CapabilityGraph/BuildDistance → CommercialExperiment →
-DistributionChannelRegistry/Allocator → Outcome → RevenueWeightedLearning
-→ CommercialMemory → UpgradeProposal → EngineeringMissionPacket) is now
-real, tested, and proven end-to-end with a labeled synthetic fixture that
-structurally cannot reach `ECONOMICALLY_PROVEN`.
+directly, build the vertical economic spine end-to-end — then merge with
+a concurrent session's independent, overlapping work on the same
+mission.** Full detail in `docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md`
+(merged completion matrix), `docs/PROMETHEUS_PR_HOUSEKEEPING.md`,
+`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md` (V9-vs-Guard, resolved),
+and **`docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md`** (new — the
+duplication this merge surfaced, honestly disclosed and not yet resolved).
 
-## Changed artifacts (this wave)
+## The merge, in brief
 
-- **V9-Guard composition**: `src/consequence-boundary.mjs` (new) composes
-  the Deliverability Guard with a vendored, minimal, self-contained OMNIA
-  V9 admission kernel (`src/omnia-v9/{canonical,schema,kernel}.mjs`,
-  389 lines, verbatim from the unmerged V9 branch). Wired into
-  `Pipeline.maybeSend` as the true final gate before any provider call,
-  behind `outbound.v9AdmissionRequired` (default `false` — zero behavior
-  change for the 285+ pre-existing tests). 20 new tests prove: Guard denial
-  short-circuits before V9 is ever consulted; Guard ALLOW alone can never
-  produce a final ALLOW (fails closed with no real policy content ported);
-  a genuine ALLOW is reachable only with a real Ed25519-signed approval,
-  proven end-to-end through the actual pipeline.
-- **PR housekeeping**: `docs/PROMETHEUS_PR_HOUSEKEEPING.md` (new). 18 PRs
-  (#6, #8–#23, #25) closed with a comment on each citing
-  `git merge-base --is-ancestor` proof (or a direct content diff for #25)
-  — not trust of PR descriptions. #7, #24, #26 kept open as canonical
-  references.
-- **Economic spine** (7 new modules, ~50 tests):
+`git push` was rejected mid-wave: the remote branch had 18 new commits
+from what was almost certainly a concurrent Claude Code session working
+the identical mission prompt. That session built its own real, tested,
+independently-named vertical economic spine
+(`src/prometheus-economic-spine.mjs` and 13 supporting modules) covering
+substantially the same ground as this session's spine
+(`src/commercial-spine.mjs` and 11 supporting modules), plus several
+genuinely additive modules neither session had (task universe, control
+tower, agent relay, mechanism lab, business-model fitness, adapter
+contracts, capital allocator).
+
+Neither side was discarded. A real `git merge` (not `--force`, not a
+silent pick-one) was performed: 5 conflicting files
+(`package.json`, `src/job-handlers.mjs`,
+`docs/{OVERNIGHT_HANDOFF,PROMETHEUS_DISTRIBUTION_BRAIN,PROMETHEUS_FINAL_IMPLEMENTATION_REPORT}.md`)
+were hand-resolved to keep both sides' content; everything else merged
+cleanly. The result: both spines coexist, both pass their own tests, and
+the real duplication between 7 overlapping module pairs is disclosed —
+not silently resolved — in the new reconciliation doc.
+
+## Changed artifacts (this session's contribution to the merge)
+
+- **V9-Guard composition**: `src/consequence-boundary.mjs` (new) + vendored
+  `src/omnia-v9/{canonical,schema,kernel}.mjs`, wired into
+  `Pipeline.maybeSend` behind `outbound.v9AdmissionRequired` (default
+  `false`). 20 tests proving Guard-then-V9 sequencing with no contradictory
+  authority path, including a genuine end-to-end ALLOW with a real
+  Ed25519-signed approval.
+- **PR housekeeping**: 18 PRs closed with git-ancestry proof (`docs/
+  PROMETHEUS_PR_HOUSEKEEPING.md`).
+- **Economic spine** (this session's 11 modules, ~65 tests):
   `src/signal-ingestion.mjs`, `src/genome-extraction.mjs`,
   `src/experiment-compiler.mjs`, `src/distribution-channel-registry.mjs`,
   `src/distribution-allocator.mjs`, `src/commercial-outcome-graph.mjs`,
   `src/revenue-weighted-learning.mjs`, `src/commercial-memory.mjs`,
   `src/upgrade-proposal.mjs`, `src/engineering-mission-packet.mjs`,
-  `src/shadow-canary-contract.mjs`.
-- **Orchestrator + end-to-end proof**: `src/commercial-spine.mjs` composes
-  every stage above. `tests/commercial-spine-e2e.test.mjs`: a single
-  labeled `SYNTHETIC_TEST_FIXTURE` signal travels the entire pipeline and
-  produces all 8 required outputs; a separate test proves the identical
-  real-shaped inputs CAN reach `ECONOMICALLY_PROVEN` when genuinely
-  non-synthetic (the gate is real, not rigged either direction).
+  `src/shadow-canary-contract.mjs`, orchestrated by
+  `src/commercial-spine.mjs`.
+- **End-to-end proof**: `tests/commercial-spine-e2e.test.mjs` — a labeled
+  `SYNTHETIC_TEST_FIXTURE` signal travels the full pipeline and produces
+  all 8 required outputs; a parallel test proves the identical real-shaped
+  inputs CAN reach `ECONOMICALLY_PROVEN` when genuinely non-synthetic.
 - **Hostile attack suite**: `tests/prometheus-adversarial.test.mjs` (15
-  tests) — cross-module attacks on evidence laundering, duplicate signals,
-  confidence inflation, BUILD bias, channel overconfidence, fake revenue,
-  tiny-sample overfitting, auto-promotion without economic proof, and
-  unsafe consequence escalation.
-- **Scheduling**: two new read-only jobs
-  (`prometheus.capability_gap.recompute`,
-  `prometheus.commercial_memory.contradiction_scan`) registered on the
-  existing `DurableQueue`/scheduler, gated behind a new default-off
-  `prometheus.schedulingEnabled` flag layered on top of `autopilot`.
+  tests) across 9 required attack categories.
+- **Scheduling**: 2 new read-only jobs on the real scheduler, gated behind
+  a new default-off flag layered on `autopilot`.
 
-`lite/` has zero changes, confirmed via `git status --short lite/`.
+## What the concurrent session contributed (preserved as-is in the merge)
 
-## Real defects found and fixed this wave
+`src/market-signal-registry.mjs`, `src/prometheus-economic-spine.mjs`,
+`src/commercial-experiment.mjs`, `src/distribution-channel.mjs`,
+`src/commercial-outcome.mjs`, `src/commercial-learning.mjs`,
+`src/task-universe.mjs`, `src/self-upgrade.mjs`,
+`src/prometheus-control-tower.mjs`, `src/agent-relay.mjs`,
+`src/mechanism-lab.mjs`, `src/business-model-fitness.mjs`,
+`src/adapter-contracts.mjs`, `src/capital-allocator.mjs`, and ~20 new
+`prometheus.*` job handlers, each with its own addendum documented (now
+preserved) in git history and in the prior version of this file.
 
-1. `src/consequence-boundary.mjs` initially dropped `keyResolver` from the
-   fields forwarded to the vendored kernel's `admitAction()`, which would
-   have made every real signed approval unverifiable — caught by a hostile
-   test before it shipped.
-2. `tests/engineering-mission-packet.test.mjs`'s fixture didn't carry
-   enough evidence-tagged genome fields to clear the 0.3 confidence
-   threshold, so the "BUILD decision" test was actually exercising DEFER —
-   fixed with a fully-evidenced fixture.
-3. `tests/prometheus-scheduling.test.mjs`'s registration test raced the
-   scheduler's microtask-deferred initial enqueue — fixed with an explicit
-   settle delay.
+`lite/` has zero changes from either session, confirmed via
+`git status --short lite/` after the merge.
 
-## Tests actually run and results
+## Tests actually run and results (post-merge)
 
-- `node --check` on all new/changed source files — PASS.
-- `npm run check` (syntax + full deterministic suite) — **460/460 passed**
-  (per the last full run this wave; see the final push commit for the
-  authoritative count), 0 failed.
+- `node --check` on all changed/merged source files — PASS.
+- `npm run check` (syntax + full deterministic suite, both sessions'
+  tests combined) — see the push commit for the authoritative count; both
+  sessions independently reported 0 failures before the merge (this
+  session: 460/460; concurrent session: 440/440 per its own addenda).
 - `npm audit` — 0 vulnerabilities.
-- `uberbond_get_state` / `uberbond_run_verification(suite: check)` via the
-  live local MCP bridge — both succeeded, real output.
+- `uberbond_get_state` / `uberbond_run_verification` via the live local
+  MCP bridge — succeeded pre-merge; re-run post-merge as part of this
+  wave's final validation.
 
 ## Truth table
 
 | Item | Status |
 |---|---|
-| V9-Guard composition, wired into the live pipeline | **COMPLETE**, proven no-contradictory-authority-path |
-| PR housekeeping (18 PRs) | **COMPLETE**, git-ancestry proven |
-| Signal ingestion → genome → experiment → distribution → outcome → learning → memory → upgrade → engineering packet | **COMPLETE**, end-to-end proven |
-| Hostile/adversarial cross-module attacks (9 categories) | **COMPLETE** |
-| Scheduling (2 read-only jobs, default off) | **COMPLETE** |
-| Adapters / market radar | Still deferred — real credentials required, unchanged |
-| Any real customer, revenue, or payment | **NONE** — none claimed, structurally proven unreachable from synthetic runs |
+| V9-Guard composition | **COMPLETE**, this session |
+| PR housekeeping (18 PRs) | **COMPLETE**, this session |
+| This session's economic spine, end-to-end proven | **COMPLETE** |
+| Concurrent session's economic spine + org layer | **COMPLETE** (per its own addenda, inherited via merge) |
+| Merge of both, non-destructive | **COMPLETE** |
+| Parallel-spine deduplication | **NOT DONE** — honestly disclosed, real follow-up work |
+| Any real customer, revenue, or payment | **NONE** — none claimed by either session |
 
 ## External-effect ledger
 
 0 real provider/network calls, 0 messages, 0 purchases, 0 deployments, 0
-DNS/credential changes, 0 production mutations, 0 spend. 18 GitHub PR
-closures + comments are the only externally-visible actions this wave
-(explicitly pre-authorized as "not a founder decision" by this wave's
-mission text, each backed by reproducible git-ancestry or diff proof).
-`main` unchanged. `lite/` unchanged. Secrets: none read, exposed, or
-created. A local PostgreSQL 16 server (started in a prior wave) remains
-local/non-networked.
+DNS/credential changes, 0 production mutations, 0 spend, from either
+session. 18 GitHub PR closures + comments (this session, pre-authorized
+as "not a founder decision"). `main` unchanged. `lite/` unchanged.
 
 ## Remaining risks
 
-- The vendored V9 kernel (`src/omnia-v9/`) carries no real policy content
-  (Cedar rules, a bound constitution) — by design, since that content
-  lives only on the unmerged branch and porting it is separate, real
-  future work, not faked here.
-- The spine's `DistributionAllocator` will correctly keep returning
-  `DO_NOTHING` until real distribution outcomes exist anywhere in this
-  system — this is accurate, not a bug to "fix."
-- Scheduling for the two new jobs is off by default; turning it on
-  requires an explicit owner action (`PROMETHEUS_SCHEDULING_ENABLED=true`
-  plus `AUTOPILOT_ENABLED=true`).
+- **The parallel-spine duplication is real, disclosed, unresolved
+  engineering debt** — see the reconciliation doc. Left unaddressed
+  indefinitely, it will compound as either side's spine evolves
+  independently.
+- The vendored V9 kernel carries no real policy content, by design.
+- Both distribution allocators will correctly keep returning
+  `DO_NOTHING`/`DO_NOT_DISTRIBUTE` until real outcomes exist — accurate,
+  not a bug.
+- A concurrent session editing the same branch can recur — worth the
+  owner being aware that two sessions ran against
+  `claude/uberbond-overnight-shift-o73nrs` simultaneously this wave.
 
 ## Next highest-leverage wave
 
-Unchanged from V1: configure the real checkout URLs (zero engineering
-blocking it). Engineering-wise, extending the agent-readiness check family
-(robots.txt/sitemap) remains the cheapest real increment with no
-dependency on any pending decision.
+1. Configure the real checkout URLs (zero engineering blocking it,
+   unchanged recommendation across every wave this session).
+2. The parallel-spine reconciliation (`docs/
+   PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md`) — bounded, mechanical
+   once someone reads both sides of each of the 7 pairs.
 
 ## Decision
 
-**PROCEED.** All three "not a founder decision" owner-queue items from
-this wave's mission text were resolved directly. The vertical economic
-spine is real, tested end-to-end (not shallow isolated modules), and
-structurally incapable of turning synthetic evidence into claimed real
-commercial truth — proven by dedicated adversarial tests, not asserted.
+**PROCEED.** Both sessions' real work is preserved via a non-destructive
+merge. The duplication this surfaced is disclosed honestly, not papered
+over, with a concrete (not-yet-executed) plan to resolve it.

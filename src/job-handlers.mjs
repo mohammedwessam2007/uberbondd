@@ -65,24 +65,20 @@ import {
 } from './adapter-contracts.mjs';
 import { planCapitalAllocation, logCapitalAllocation } from './capital-allocator.mjs';
 
-// NOTE (merge of two concurrent sessions' Prometheus work, same wave):
-// This file composes job handlers from two independently-built vertical
-// slices that turned out to cover overlapping ground under different
-// names -- e.g. this session's src/commercial-spine.mjs /
-// src/signal-ingestion.mjs / src/experiment-compiler.mjs /
-// src/distribution-allocator.mjs / src/upgrade-proposal.mjs vs. the
-// concurrent session's src/prometheus-economic-spine.mjs /
-// src/market-signal-registry.mjs / src/commercial-experiment.mjs /
-// src/distribution-channel.mjs / src/self-upgrade.mjs (plus several
-// modules with no equivalent here: task-universe, prometheus-control-tower,
-// agent-relay, mechanism-lab, business-model-fitness, adapter-contracts,
-// capital-allocator). Neither side's handlers were deleted -- both are
-// kept, none collide by job-type name, and `compileUpgradeProposal` /
-// `compileEngineeringMissionPacket` from self-upgrade.mjs are aliased on
-// import to avoid a hard naming clash with this session's
-// src/upgrade-proposal.mjs and src/engineering-mission-packet.mjs exports
-// of the same names. See docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md
-// for the real duplication this surfaced and what it does NOT resolve.
+// NOTE (Wave 0 parallel-spine reconciliation -- see
+// docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md): two concurrent
+// sessions independently built overlapping economic-spine modules on this
+// branch. That duplication has been resolved: for each of the 7
+// overlapping pairs, exactly one implementation is now canonical (the
+// other side's module was deleted, or its unique logic was folded into the
+// canonical side). This file imports only canonical modules, plus
+// `src/commercial-memory.mjs` and `src/genome-extraction.mjs`, which were
+// kept because they have no equivalent on the other side. The
+// `compileUpgradeProposal`/`compileEngineeringMissionPacket` aliases below
+// exist only because job-type names in this file predate the
+// reconciliation, not because of a remaining naming clash with a deleted
+// module -- `src/self-upgrade.mjs` is the sole surviving implementation of
+// both.
 
 export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunner }) {
   return {

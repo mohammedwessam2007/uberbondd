@@ -1,16 +1,15 @@
-# Prometheus Final Implementation Report (V2, merged)
+# Prometheus Final Implementation Report (V3, reconciled)
 
-This supersedes the V1 report's completion matrix and merges two
-independently-built V2 waves that turned out to overlap substantially: this
+This supersedes the V2 report's completion matrix. V2 merged two
+independently-built waves that turned out to overlap substantially: this
 session's vertical spine (`src/commercial-spine.mjs` and its stage modules)
 and a **concurrent session's** parallel vertical spine
 (`src/prometheus-economic-spine.mjs` and its stage modules), discovered only
-when `git push` was rejected on a diverged remote. Both bodies of work are
-real, independently tested, and now merged (not force-pushed over) into this
-branch. **The duplication between them is real and NOT resolved this
-wave** — see `docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md`, which is
-the honest disclosure of exactly what overlaps and what doesn't, mirroring
-how the OMNIA-V9-vs-Guard duplication was handled earlier in this session.
+when `git push` was rejected on a diverged remote, and disclosed the
+duplication without resolving it. **This wave (Wave 0 of the UberBond
+Ascension mission) resolved it.** All 7 overlapping module pairs now have
+exactly one canonical path; the matrix below reflects that. Full account:
+`docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md` (now marked RESOLVED).
 
 ## Completion matrix (merged: best-of-both status per subsystem)
 
@@ -22,25 +21,25 @@ Vocabulary: `IMPLEMENTED_VERIFIED`, `IMPLEMENTED_PARTIAL_PROOF`,
 |---|---|---|
 | Market radar (social/platform signals) | `RESEARCH_REQUIRED` | No credentials, no compliant access path this session. |
 | Source adapters | `INTERFACE_READY_EXTERNAL_ACCESS_REQUIRED` | `src/adapter-contracts.mjs` (concurrent session) provides manifest, authorization evaluation, and bounded dry-run contracts. Authentication, terms acceptance, live access, and network proof remain external. |
-| Signal ingestion/dedup | `IMPLEMENTED_VERIFIED` | Two independent, real implementations coexist: `src/signal-ingestion.mjs` (this session, 18 tests, over `src/market-signal.mjs`) and `src/market-signal-registry.mjs` (concurrent session). Not yet reconciled into one — see the reconciliation doc. |
-| Business genome | `IMPLEMENTED_VERIFIED` | `src/opportunity-registry.mjs#compileBusinessGenome`, 32 tests (shared foundation both sessions built on). `src/genome-extraction.mjs` (this session) is the signal-to-genome seam. |
+| Signal ingestion/dedup | `IMPLEMENTED_VERIFIED` | Reconciled: `src/market-signal-registry.mjs` (concurrent session) is canonical — dry-run-by-default, batch caps, contradiction detection. `src/signal-ingestion.mjs` (this session) deleted. |
+| Business genome | `IMPLEMENTED_VERIFIED` | `src/opportunity-registry.mjs#compileBusinessGenome`, 32 tests (shared foundation both sessions built on). `src/genome-extraction.mjs` (this session) kept as the only signal-to-genome seam, retargeted onto `market-signal-registry.mjs`'s accepted-signal shape. |
 | Mechanism atoms | `IMPLEMENTED_VERIFIED` | `src/mechanism-lab.mjs` (concurrent session) extracts bounded atoms only from caller-supplied structured genomes with evidence references; no live extraction claimed. |
 | Recombination engine | `IMPLEMENTED_VERIFIED` | `src/mechanism-lab.mjs` generates bounded `HYPOTHESIS` combinations; no invented price/demand/promotion. |
 | Capability graph | `IMPLEMENTED_VERIFIED` | `src/capability-graph.mjs`, extended by both sessions; auto-merged cleanly. |
 | Build distance | `IMPLEMENTED_VERIFIED` | `incrementalBuildDistance()` (Wave 6), driven by the real capability graph. |
 | Opportunity tournament | `IMPLEMENTED_VERIFIED` | `src/opportunity-registry.mjs#scoreOpportunity`, 15 criteria, 32 tests. |
-| Experiment compiler | `IMPLEMENTED_VERIFIED` | Two independent implementations coexist: `src/experiment-compiler.mjs` (this session, composes the real offer compiler) and `src/commercial-experiment.mjs` (concurrent session, PROBE contract). Not yet reconciled. |
-| Channel registry | `IMPLEMENTED_VERIFIED` | Two independent implementations coexist: `src/distribution-channel-registry.mjs` + `src/distribution-allocator.mjs` (this session) and `src/distribution-channel.mjs` (concurrent session, fail-closed `DO_NOT_DISTRIBUTE`). Not yet reconciled. |
-| Distribution allocator | `IMPLEMENTED_VERIFIED` | Same pair as above. Both proven fail-closed by default: `DO_NOTHING`/`DO_NOT_DISTRIBUTE` with zero real historical outcomes. |
-| Commercial outcome graph | `IMPLEMENTED_VERIFIED` | Two independent implementations coexist: `src/commercial-outcome-graph.mjs` (this session) and `src/commercial-outcome.mjs` (concurrent session, payment-truth-gated). Not yet reconciled. |
-| Revenue-weighted learning | `IMPLEMENTED_VERIFIED` | `src/revenue-weighted-learning.mjs` (this session, hierarchy tested directly) and `src/commercial-learning.mjs` (concurrent session, contradiction quarantine + margin/owner-minute completeness). Overlapping, not yet reconciled. |
-| Commercial memory | `IMPLEMENTED_VERIFIED` | `src/commercial-memory.mjs` (this session, query layer + `detectContradictions()`) and `src/commercial-learning.mjs` (concurrent session, same concept). Overlapping, not yet reconciled. |
-| Failure memory | `DEFERRED_LOW_VALUE` | Both sessions agree: zero real experiments have run yet; the contradiction-detection mechanisms above are the real prerequisite, already in place on both sides. |
-| Upgrade proposals | `IMPLEMENTED_VERIFIED` | `src/upgrade-proposal.mjs` (this session, deterministic BUILD-bias-guarded router) and `src/self-upgrade.mjs` (concurrent session, evidence-referenced review-required proposals). Overlapping, not yet reconciled — aliased on import in `job-handlers.mjs` to avoid a name clash. |
-| Build/buy/partner router | `IMPLEMENTED_VERIFIED` | Same as above — `src/upgrade-proposal.mjs`'s router is real and tested (this session). |
-| Engineering packet compiler | `IMPLEMENTED_VERIFIED` | `src/engineering-mission-packet.mjs` (this session, `lite/` hardcoded-forbidden) and `src/self-upgrade.mjs` (concurrent session, same concept). Overlapping, not yet reconciled. |
-| Shadow comparison | `IMPLEMENTED_VERIFIED` | `src/shadow-canary-contract.mjs#shadowCompare` (this session only — no concurrent-session equivalent). |
-| Canary contract | `IMPLEMENTED_VERIFIED` | `src/shadow-canary-contract.mjs#canaryPromotionGate` (this session only). Proven: synthetic proof can never reach `ECONOMICALLY_PROVEN` even with an attempted evidence-laundering input. |
+| Experiment compiler | `IMPLEMENTED_VERIFIED` | Reconciled: `src/commercial-experiment.mjs` (concurrent session, PROBE contract, promotion-ladder + lineage-gated) is canonical. `src/experiment-compiler.mjs` (this session) deleted. |
+| Channel registry | `IMPLEMENTED_VERIFIED` | Reconciled: `src/distribution-channel.mjs` (concurrent session, fail-closed `DO_NOT_DISTRIBUTE`, ranks only `truthLevel=CLEARED_PAYMENT` outcomes) is canonical. `src/distribution-channel-registry.mjs` + `src/distribution-allocator.mjs` (this session) deleted; their tiny-sample confidence-tier guard was ported in as a new `sampleConfidence` field on each ranked plan. |
+| Distribution allocator | `IMPLEMENTED_VERIFIED` | Same module as above. Proven fail-closed by default: `DO_NOT_DISTRIBUTE` with zero real historical outcomes. |
+| Commercial outcome graph | `IMPLEMENTED_VERIFIED` | Reconciled: `src/commercial-outcome.mjs` (concurrent session, payment-truth-gated against `payments.mjs`) is canonical. `src/commercial-outcome-graph.mjs` (this session) deleted — it accepted any caller-typed outcome as `RealOutcome` on a bare `isSynthetic:false` claim, a real truth gap the canonical module doesn't have. |
+| Revenue-weighted learning | `IMPLEMENTED_VERIFIED` | Reconciled: `src/commercial-learning.mjs` (concurrent session, contradiction quarantine + margin/owner-minute completeness, proof-based not flag-based) is canonical. `src/revenue-weighted-learning.mjs` (this session) deleted — its one unique idea (ranking engagement signals below payment outcomes) had no production caller. |
+| Commercial memory | `IMPLEMENTED_VERIFIED` | Kept from this session, unchanged in role: `src/commercial-memory.mjs` (hypothesis-level query + `detectContradictions()`, cron-scheduled, no concurrent-session equivalent) and `src/commercial-learning.mjs` (outcome-economics aggregation) are genuinely different concerns and both stay canonical. Both now have `capability-graph.mjs` entries. |
+| Failure memory | `DEFERRED_LOW_VALUE` | Zero real experiments have run yet; the contradiction-detection mechanism above is the real prerequisite, already in place. |
+| Upgrade proposals | `IMPLEMENTED_VERIFIED` | Reconciled (merge, not pick-a-side): `src/self-upgrade.mjs` (concurrent session, evidence-referenced review-required proposals + shadow-readiness gate) is canonical, now including `routeUpgradeDecision` folded in from `src/upgrade-proposal.mjs` (this session, deleted). A router `REJECT` now blocks the proposal outright. |
+| Build/buy/partner router | `IMPLEMENTED_VERIFIED` | `routeUpgradeDecision()`, now in `src/self-upgrade.mjs` (ported from this session's `upgrade-proposal.mjs`). |
+| Engineering packet compiler | `IMPLEMENTED_VERIFIED` | Reconciled: `src/self-upgrade.mjs#compileEngineeringMissionPacket` (concurrent session — mandatory forbidden-actions list, evidence-format gating) is canonical, a strict superset of `src/engineering-mission-packet.mjs` (this session, deleted). |
+| Shadow comparison | `IMPLEMENTED_VERIFIED` | `src/shadow-canary-contract.mjs#shadowCompare` (this session only — no concurrent-session equivalent; kept, additive, not part of the reconciled pairs). |
+| Canary contract | `IMPLEMENTED_VERIFIED` | `src/shadow-canary-contract.mjs#canaryPromotionGate` (this session only, kept). No longer has a production caller after `commercial-spine.mjs`'s deletion — the surviving chain's promotion-blocking is independently covered by `self-upgrade.mjs#evaluateUpgradeGate`. Still proven: synthetic proof can never reach `ECONOMICALLY_PROVEN` even with an attempted evidence-laundering input. |
 | Business-model death detector | `IMPLEMENTED_VERIFIED` | `src/business-model-fitness.mjs` (concurrent session only). Small samples stay `HOLD_FOR_EVIDENCE`; shrink/kill only from measured summaries. |
 | Anti-obsolescence engine | `DEFERRED_LOW_VALUE` | Both sessions agree: needs real external monitoring infrastructure neither has. |
 | Portfolio capital allocator | `IMPLEMENTED_VERIFIED` | `src/capital-allocator.mjs` (concurrent session only). Ranks only cleared-payment-proven candidates; `actualSpendCents` structurally zero. |
@@ -55,7 +54,7 @@ Vocabulary: `IMPLEMENTED_VERIFIED`, `IMPLEMENTED_PARTIAL_PROOF`,
 | Agent-commerce hooks | `DEFERRED_LOW_VALUE` | Both sessions agree: kept behind experimental status. |
 | **V9-Guard composition** | `IMPLEMENTED_VERIFIED` | `src/consequence-boundary.mjs` + vendored `src/omnia-v9/{canonical,schema,kernel}.mjs` (this session only), wired into `Pipeline.maybeSend` behind `outbound.v9AdmissionRequired` (default false). Proven end-to-end: Guard denial short-circuits before V9 is consulted; Guard ALLOW alone never produces a final ALLOW; genuine ALLOW requires a real signed approval. |
 | **PR housekeeping** | `IMPLEMENTED_VERIFIED` | 18 provably-superseded PRs (#6, #8–#23, #25) closed via git-ancestry proof (this session) — see `docs/PROMETHEUS_PR_HOUSEKEEPING.md`. |
-| **Parallel-spine duplication itself** | **`DISCLOSED_UNRESOLVED` (new, this merge)** | See `docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md`. Not a subsystem — a real, disclosed engineering-debt item: 7 overlapping module pairs, two orchestrators, coexisting and both tested, neither yet chosen as canonical. |
+| **Parallel-spine duplication itself** | **`RESOLVED` (this wave)** | See `docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md`. All 7 overlapping module pairs now have exactly one canonical path; 9 superseded files deleted, 2 real merges performed (BUILD/BUY router, tiny-sample confidence field), 2 non-duplicate modules kept and newly represented in the capability graph. |
 
 **Nothing in this matrix is `REJECTED`.** Everything still marked
 `DEFERRED_LOW_VALUE` is deferred for a stated, specific reason both
@@ -78,12 +77,15 @@ tests locally, cumulative).
 
 - **V9-Guard composition** (this session) — real, wired into the live
   pipeline, provably non-contradictory.
-- **Two independently-built, both-real vertical economic spines** now
-  coexist on this branch (this session's `commercial-spine.mjs` chain;
-  the concurrent session's `prometheus-economic-spine.mjs` chain plus its
-  extended organizational layer: task universe, control tower, agent
-  relay, mechanism lab, business-model fitness, adapter contracts, capital
-  allocator).
+- **One canonical vertical economic spine** (this wave's reconciliation):
+  `src/prometheus-economic-spine.mjs` → `src/commercial-experiment.mjs` →
+  `src/distribution-channel.mjs`/`src/commercial-outcome.mjs` →
+  `src/commercial-learning.mjs` → `src/self-upgrade.mjs`, wired per-stage
+  through `src/job-handlers.mjs`, plus its extended organizational layer
+  (task universe, control tower, agent relay, mechanism lab, business-model
+  fitness, adapter contracts, capital allocator) and the two non-duplicate
+  modules kept from the other side (`src/genome-extraction.mjs`,
+  `src/commercial-memory.mjs`).
 - **18 PRs closed** with git-ancestry proof (this session).
 - **PostgresStore live proof**, **branch/PR reconciliation**,
   **MarketSignal**, **Capability Graph** — from V1, unchanged.
@@ -112,30 +114,31 @@ reaching `ECONOMICALLY_PROVEN` or live spend.
 
 1. Configure the real checkout URLs — still the single highest-leverage
    lever, zero engineering blocking it.
-2. **New**: decide how to reconcile the two parallel economic-spine
-   implementations (see `docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md`)
-   — pick one as canonical, or explicitly accept both as redundant options
-   for now. Not urgent (both are inert without real data), but real
-   engineering debt that will compound if left indefinitely.
-3. *(Optional)*: review the 18 closed PRs' git-ancestry proofs if
+2. *(Optional)*: review the 18 closed PRs' git-ancestry proofs if
    independent confirmation is wanted.
+3. *(Optional)*: review the 7 reconciliation decisions in
+   `docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md` if independent
+   confirmation is wanted — none require action, all are already executed
+   and tested.
 
 The V9-vs-Guard question is resolved (composition). The parallel-spine
-duplication is the new open architecture question this merge surfaced.
+duplication this merge surfaced is now also resolved (reconciliation).
 
 ## Next safest action
 
-Unchanged: extend the agent-readiness check family (robots.txt/sitemap) —
-cheapest real, on-wedge, zero-dependency increment, unaffected by the
-spine-duplication question.
+Extend the agent-readiness check family (robots.txt/sitemap) — cheapest
+real, on-wedge, zero-dependency increment. Also real and bounded: wire
+`market-signal-registry.mjs` → `genome-extraction.mjs` →
+`opportunity-registry.mjs` into an actual job handler (both halves exist
+and are tested; only the connecting handler is new).
 
 ## Final verdict
 
 **`PROMETHEUS_PARTIALLY_IMPLEMENTED_EXTERNAL_GATES_REMAIN`**
 
 Materially more of the mission is `IMPLEMENTED_VERIFIED` than either
-session alone would show — the combined completion matrix above is nearly
-full. What genuinely remains gated is external (real credentials, real
-customers) and one new, honestly disclosed piece of engineering debt (the
-parallel-spine duplication) — not a correctness or completeness gap in
-what shipped.
+session alone would show, and the completion matrix now reflects one
+canonical implementation per subsystem rather than disclosed duplicates.
+What genuinely remains gated is external (real credentials, real
+customers) — not a correctness, completeness, or duplication gap in what
+shipped.

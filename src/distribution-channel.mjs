@@ -61,6 +61,21 @@ export function normalizeDistributionChannel(candidate = {}) {
   };
 }
 
+// Sample-size confidence tier, ported from the reconciled
+// src/distribution-allocator.mjs (see
+// docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md -- Pair 3). Informational
+// only: it never changes which channels get ranked or blocks distribution --
+// those stay governed entirely by the CLEARED_PAYMENT truth-level gate above
+// -- it only keeps a single spectacular or cherry-picked outcome from
+// implying more certainty than a tiny sample can support.
+function sampleConfidence(sampleSize) {
+  if (sampleSize >= 30) return 0.8;
+  if (sampleSize >= 10) return 0.5;
+  if (sampleSize >= 3) return 0.2;
+  if (sampleSize >= 1) return 0.05;
+  return 0;
+}
+
 function outcomeScore(outcome) {
   if (!outcome || outcome.truthLevel !== 'CLEARED_PAYMENT') return null;
   if (outcome.contributionMarginCents == null || outcome.ownerMinutes == null) return null;
@@ -117,6 +132,7 @@ export function allocateDistribution({ experiment, channels = [], outcomes = [],
       status: scores.length ? 'MEASURED_PREPARATION_ONLY' : 'UNPROVEN',
       measuredContributionCentsPerOwnerMinute: measured,
       outcomeCount: scores.length,
+      sampleConfidence: sampleConfidence(scores.length),
       authorization: 'OWNER_REQUIRED',
       externalAction: 'DISABLED',
       spendCents: 0

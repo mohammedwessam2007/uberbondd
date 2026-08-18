@@ -8,8 +8,17 @@
 // until the capability/build-distance layer existed to make sense of it.
 export const GENOME_EXTRACTION_POLICY_VERSION = 'genome-extraction-1.0.0';
 
+// Accepts a signal from either surviving ingestion shape (see
+// docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md -- Pair 1): a raw
+// normalizeMarketSignal() record (`.ok === true`, market-signal.mjs), or a
+// market-signal-registry.mjs accepted-batch entry, which carries `status`
+// ('ACCEPTED'/'ACCEPTED_STALE') instead of `.ok`.
+function isAcceptedSignal(s) {
+  return Boolean(s) && (s.ok === true || s.status === 'ACCEPTED' || s.status === 'ACCEPTED_STALE');
+}
+
 function priceFromSignals(signals) {
-  const priceSignal = signals.find(s => s.signalType === 'PRICE_CHANGE' && s.ok);
+  const priceSignal = signals.find(s => s.signalType === 'PRICE_CHANGE' && isAcceptedSignal(s));
   if (!priceSignal) return null;
   // The raw payload isn't retained on a normalized MarketSignal (only its
   // digest is, by design -- see market-signal.mjs) so a real extractor
@@ -27,7 +36,7 @@ function priceFromSignals(signals) {
 // unvalidated data).
 export function extractGenomeCandidate({ signals = [], id, name, category = 'UNCATEGORIZED', priceHint } = {}) {
   if (!id) return { ok: false, reason: 'malformed-input-missing-id', policyVersion: GENOME_EXTRACTION_POLICY_VERSION };
-  const okSignals = signals.filter(s => s && s.ok);
+  const okSignals = signals.filter(isAcceptedSignal);
   if (!okSignals.length) return { ok: false, reason: 'no-usable-signals', policyVersion: GENOME_EXTRACTION_POLICY_VERSION };
 
   const evidenceRefs = okSignals.map(s => s.signalId);

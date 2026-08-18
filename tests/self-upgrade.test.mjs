@@ -6,9 +6,12 @@ import {
   compileEngineeringMissionPacket,
   evaluateUpgradeGate,
   logSelfUpgradeReceipt,
+  routeUpgradeDecision,
+  UPGRADE_DECISIONS,
   SELF_UPGRADE_POLICY_VERSION
 } from '../src/self-upgrade.mjs';
 import { createJobHandlers } from '../src/job-handlers.mjs';
+import { scoreOpportunity, incrementalBuildDistance } from '../src/opportunity-registry.mjs';
 
 const date = new Date('2026-08-18T12:00:00.000Z');
 
@@ -148,6 +151,79 @@ test('handlers prepare and audit all three local-only stages', async () => {
   });
   assert.equal(gate.status, 'SHADOW_READY');
   assert.deepEqual(calls.map(call => call.type), ['upgrade_proposal', 'engineering_mission_packet', 'upgrade_gate_evaluation']);
+});
+
+// Ported from tests/upgrade-proposal.test.mjs (see
+// docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md -- Pair 6): the
+// BUILD/BUY router's own hostile coverage, now driven directly since it
+// lives in this module after reconciliation.
+
+test('a low composite score always REJECTs, regardless of how cheap the build looks', () => {
+  assert.equal(routeUpgradeDecision({ buildDistance: 0, confidence: 1, compositeScore: 10 }), 'REJECT');
+});
+
+test('a commodity never routes to BUILD, no matter how low the build distance is', () => {
+  const decision = routeUpgradeDecision({ buildDistance: 0, confidence: 1, compositeScore: 90, isCommodity: true });
+  assert.notEqual(decision, 'BUILD');
+  assert.ok(['BUY', 'PARTNER'].includes(decision));
+});
+
+test('right at the confidence boundary (0.29 vs 0.30), the router does not round in BUILD\'s favor', () => {
+  assert.equal(routeUpgradeDecision({ buildDistance: 0.1, confidence: 0.29, compositeScore: 90 }), 'DEFER');
+  assert.equal(routeUpgradeDecision({ buildDistance: 0.1, confidence: 0.30, compositeScore: 90 }), 'BUILD');
+});
+
+test('a genuinely cheap, evidenced, non-commodity opportunity can route to BUILD -- the router is not rigged to always defer', () => {
+  assert.equal(routeUpgradeDecision({ buildDistance: 0.1, confidence: 0.8, compositeScore: 80, isCommodity: false }), 'BUILD');
+});
+
+test('a moderate build distance routes to ADAPT, a high one defers even with strong evidence', () => {
+  assert.equal(routeUpgradeDecision({ buildDistance: 0.5, confidence: 0.8, compositeScore: 80 }), 'ADAPT');
+  assert.equal(routeUpgradeDecision({ buildDistance: 0.9, confidence: 0.9, compositeScore: 90 }), 'DEFER');
+});
+
+test('missing/malformed numeric inputs fall back to the most conservative interpretation, never crash', () => {
+  assert.equal(routeUpgradeDecision({}), 'REJECT');
+});
+
+test('proposal composes directly with real scoreOpportunity/incrementalBuildDistance and records the routed decision', () => {
+  const opportunityScore = scoreOpportunity({
+    candidate: {
+      id: 'opp-1', name: 'Test', timeToCashDays: { value: 1, claimType: 'VERIFIED_FACT' },
+      automationPotential: { value: 90, claimType: 'VERIFIED_FACT' }, founderBurden: { value: 5, claimType: 'VERIFIED_FACT' },
+      recurringTrigger: { value: true, claimType: 'VERIFIED_FACT' }, retention: { value: 85, claimType: 'VERIFIED_FACT' },
+      grossMargin: { value: 90, claimType: 'VERIFIED_FACT' }
+    },
+    date
+  });
+  const buildDistanceResult = incrementalBuildDistance(['deterministic-audit'], ['deterministic-audit', 'payment-truth']);
+  const expectedDecision = routeUpgradeDecision({
+    buildDistance: buildDistanceResult.distance, confidence: opportunityScore.confidence, compositeScore: opportunityScore.compositeScore
+  });
+  const result = proposal({ opportunityScore, buildDistanceResult });
+  assert.equal(result.decision, expectedDecision);
+  if (expectedDecision === 'REJECT') {
+    assert.equal(result.ok, false);
+    assert.ok(result.reasonCodes.includes('rejected-insufficient-economic-value'));
+  } else {
+    assert.equal(result.ok, true);
+    assert.ok(UPGRADE_DECISIONS.includes(result.decision));
+  }
+});
+
+test('a router REJECT blocks the proposal outright -- there is no economic case worth a reviewable proposal', () => {
+  const opportunityScore = scoreOpportunity({ candidate: { id: 'opp-weak', name: 'Weak' }, date });
+  const buildDistanceResult = incrementalBuildDistance(['nonexistent-cap'], []);
+  const result = proposal({ opportunityScore, buildDistanceResult });
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('rejected-insufficient-economic-value'));
+  assert.equal(result.decision, 'REJECT');
+});
+
+test('without opportunityScore/buildDistanceResult, the decision stays NOT_EVALUATED and does not block review', () => {
+  const result = proposal();
+  assert.equal(result.ok, true);
+  assert.equal(result.decision, 'NOT_EVALUATED');
 });
 
 test('self-upgrade module has no provider, process, filesystem, or deployment boundary', async () => {

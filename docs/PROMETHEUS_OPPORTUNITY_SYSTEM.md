@@ -1,9 +1,15 @@
-> **V2 update**: the "deferred" items below (experiment compiler, mostly)
-> are now real — `src/experiment-compiler.mjs`, 12 tests, composes with
-> the real offer compiler. Mechanism atoms and the recombination engine
-> remain deferred for the same reason as before (no real evidence base).
-> See `docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md` for the current
-> per-subsystem status.
+> **V3 update (Wave 0 reconciliation)**: `src/experiment-compiler.mjs`
+> (referenced by the V2 update below) is deleted — a concurrent session's
+> `src/commercial-experiment.mjs` was chosen canonical (stronger
+> authorization/lineage gating, already production-wired) and this file's
+> functionality had no unique capability worth preserving separately. See
+> `docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md` for the full 7-pair
+> reconciliation. Mechanism atoms and the recombination engine remain
+> deferred for the same reason as before (no real evidence base) — though
+> a concurrent session's `src/mechanism-lab.mjs` now exists as a genuinely
+> additive, non-overlapping implementation of a bounded version of this
+> idea; see that file and `docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md`
+> for the current per-subsystem status.
 
 # Prometheus Opportunity System
 

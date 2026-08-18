@@ -1,18 +1,26 @@
 # Prometheus Self-Upgrade Engine
 
-> **V2 update**: the `UpgradeProposal` router and `EngineeringMissionPacket`
-> compiler this document argued weren't worth building yet ARE now built —
-> `src/upgrade-proposal.mjs` and `src/engineering-mission-packet.mjs`,
-> tested, including a proven BUILD-bias guard and a hardcoded
-> non-overridable `lite/` exclusion. What changed the calculus: the
-> vertical spine (V2's actual mandate) needed a real router to reach
-> `ECONOMICALLY_PROVEN` in its end-to-end test, so building it stopped
-> being "decoration with one hypothetical use case" and became load-bearing
-> infrastructure with a real caller (`src/commercial-spine.mjs`). The
-> Shadow/Canary reasoning below is UNCHANGED and still holds: the generic
-> `shadowCompare()`/`canaryPromotionGate()` primitives are now real and
-> tested (`src/shadow-canary-contract.mjs`), but they are still not
-> pointed at the V9-vs-Guard comparison specifically — that recommendation
+> **V3 update (Wave 0 reconciliation)**: `src/upgrade-proposal.mjs` and
+> `src/engineering-mission-packet.mjs` (referenced throughout this doc as
+> the V2 addition) have been deleted. Their content is not lost: the
+> BUILD-bias router (`routeUpgradeDecision`) was folded into
+> `src/self-upgrade.mjs`, which was already the stronger, production-wired
+> implementation of the rest of this lifecycle (evidence-gated proposals,
+> the mandatory forbidden-actions list, and `evaluateUpgradeGate`'s
+> shadow-readiness check — all things this doc's V2 update didn't have).
+> `src/commercial-spine.mjs` is also deleted; the surviving caller chain is
+> `src/prometheus-economic-spine.mjs` → `src/commercial-experiment.mjs` →
+> `src/distribution-channel.mjs`/`src/commercial-outcome.mjs` →
+> `src/commercial-learning.mjs` → `src/self-upgrade.mjs`, wired per-stage
+> through `src/job-handlers.mjs`. See
+> `docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md` for the full account.
+> The Shadow/Canary reasoning below is otherwise UNCHANGED and still holds:
+> the generic `shadowCompare()`/`canaryPromotionGate()` primitives
+> (`src/shadow-canary-contract.mjs`) are real and tested, but now have no
+> production caller — `self-upgrade.mjs`'s own `evaluateUpgradeGate`
+> independently blocks promotion for the surviving chain. They remain a
+> real, reusable primitive for whichever future comparison needs one,
+> V9-vs-Guard included — that recommendation
 > stands.
 
 ## Status (V1): deferred, with a specific reason distinct from the distribution brain's

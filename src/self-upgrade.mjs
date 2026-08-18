@@ -119,8 +119,37 @@ function normalizeRisk(value) {
   };
 }
 
+// BUILD/BUY/PARTNER/ADAPT/DEFER/REJECT router, folded in from the reconciled
+// src/upgrade-proposal.mjs (see docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md
+// -- Pair 6). Deliberately conservative: DEFER is the fallback, not BUILD, so
+// a weak or ambiguous case can never accidentally look like a green light to
+// write code. Pure routing logic, isolated so hostile tests can drive it
+// directly without a full opportunity/build-distance object.
+export const UPGRADE_DECISIONS = Object.freeze(['BUILD', 'BUY', 'PARTNER', 'ADAPT', 'DEFER', 'REJECT']);
+
+export function routeUpgradeDecision({ buildDistance, confidence, compositeScore, isCommodity = false } = {}) {
+  const distance = Number.isFinite(buildDistance) ? buildDistance : 1;
+  const conf = Number.isFinite(confidence) ? confidence : 0;
+  const score = Number.isFinite(compositeScore) ? compositeScore : 0;
+
+  if (score < 30) return 'REJECT'; // no economic value signal strong enough to justify any action
+  if (isCommodity) return distance <= 0.2 ? 'BUY' : 'PARTNER'; // never BUILD a commodity regardless of distance
+  if (conf < 0.3) return 'DEFER'; // insufficient evidence to commit engineering time, however cheap it looks
+  if (distance <= 0.3) return 'BUILD'; // genuinely cheap AND evidenced AND non-commodity
+  if (distance <= 0.7) return 'ADAPT';
+  return 'DEFER';
+}
+
 // Compile a proposal without granting authority. Evidence is represented by
 // references only; raw source payloads and secrets never enter this record.
+// opportunityScore/buildDistanceResult are optional: when a caller supplies
+// both a real scoreOpportunity() result and a real incrementalBuildDistance()
+// result, this also runs the BUILD/BUY router and records its decision on
+// the proposal, blocking outright (never REVIEW_REQUIRED) when the router
+// says REJECT -- there is no economic case worth a reviewable proposal.
+// Every other routed decision (BUY/PARTNER/ADAPT/DEFER/BUILD) still requires
+// full owner review like any other proposal; the router never itself
+// authorizes anything.
 export function compileUpgradeProposal({
   proposalId,
   problem,
@@ -133,6 +162,9 @@ export function compileUpgradeProposal({
   rollbackPlan,
   requiredAuthorization = 'OWNER_REQUIRED',
   proposedAgent = 'CLAUDE_CODE',
+  opportunityScore = null,
+  buildDistanceResult = null,
+  isCommodity = false,
   date = new Date()
 } = {}) {
   const at = referenceDate(date);
@@ -148,7 +180,18 @@ export function compileUpgradeProposal({
   if (!criteria.length) reasons.push('acceptance-criteria-required');
   if (!rollback) reasons.push('rollback-plan-required');
   if (String(requiredAuthorization).toUpperCase() !== 'OWNER_REQUIRED') reasons.push('owner-authorization-required');
-  if (reasons.length) return failed(reasons, timestamp);
+
+  const decisionInput = opportunityScore?.ok === true && buildDistanceResult && typeof buildDistanceResult === 'object';
+  const decision = decisionInput
+    ? routeUpgradeDecision({
+      buildDistance: buildDistanceResult.distance,
+      confidence: opportunityScore.confidence,
+      compositeScore: opportunityScore.compositeScore,
+      isCommodity: Boolean(isCommodity)
+    })
+    : 'NOT_EVALUATED';
+  if (decision === 'REJECT') reasons.push('rejected-insufficient-economic-value');
+  if (reasons.length) return failed(reasons, timestamp, { decision });
 
   const economicEffect = normalizeEconomicEffect(expectedEconomicEffect);
   const cost = normalizeBuildCost(buildCost);
@@ -165,7 +208,8 @@ export function compileUpgradeProposal({
     acceptanceCriteria: criteria,
     rollbackPlan: rollback,
     requiredAuthorization: 'OWNER_REQUIRED',
-    proposedAgent: text(proposedAgent, 120) || 'CLAUDE_CODE'
+    proposedAgent: text(proposedAgent, 120) || 'CLAUDE_CODE',
+    decision
   };
 
   return {
@@ -184,6 +228,7 @@ export function compileUpgradeProposal({
     rollbackPlan: rollback,
     requiredAuthorization: 'OWNER_REQUIRED',
     proposedAgent: text(proposedAgent, 120) || 'CLAUDE_CODE',
+    decision,
     execution: {
       status: 'NOT_RUN',
       agentReceipt: null,

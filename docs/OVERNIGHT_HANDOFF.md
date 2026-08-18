@@ -1,6 +1,23 @@
-# Overnight Handoff — 2026-08-17/18 (Prometheus V2 — merged economic spine wave)
+# Overnight Handoff — 2026-08-17/18 → 08-18 (Prometheus V3 — spine reconciliation wave)
 
-## Outcome
+## Outcome (this wave, V3)
+
+**Wave 0 of the UberBond Ascension mission: resolve the parallel-spine
+duplication V2 (below) disclosed but deliberately did not fix.** All 7
+overlapping module pairs now have exactly one canonical path — 9
+superseded files deleted, 2 kept-but-extended (BUILD/BUY router folded
+into `src/self-upgrade.mjs`; a tiny-sample confidence field ported into
+`src/distribution-channel.mjs`), 2 kept unmodified in role
+(`src/genome-extraction.mjs`, `src/commercial-memory.mjs` — real,
+non-duplicate capability with no equivalent on the other side, now also
+represented in `src/capability-graph.mjs` for the first time). The
+cross-module hostile suite (`tests/prometheus-adversarial.test.mjs`) was
+rewritten onto the surviving chain, preserving all 9 attack categories.
+Full account: **`docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md`**
+(now marked RESOLVED). Post-reconciliation: 518/518 deterministic tests
+pass, `npm audit` reports 0 vulnerabilities, `lite/` unchanged.
+
+## Outcome (prior wave, V2 — preserved for record)
 
 **Wave: resolve the V9-vs-Guard owner queue directly, do PR housekeeping
 directly, build the vertical economic spine end-to-end — then merge with
@@ -8,8 +25,9 @@ a concurrent session's independent, overlapping work on the same
 mission.** Full detail in `docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md`
 (merged completion matrix), `docs/PROMETHEUS_PR_HOUSEKEEPING.md`,
 `docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md` (V9-vs-Guard, resolved),
-and **`docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md`** (new — the
-duplication this merge surfaced, honestly disclosed and not yet resolved).
+and `docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md` (the duplication
+that merge surfaced, honestly disclosed and not resolved at the time —
+now resolved, see above).
 
 ## The merge, in brief
 
@@ -96,7 +114,7 @@ preserved) in git history and in the prior version of this file.
 | This session's economic spine, end-to-end proven | **COMPLETE** |
 | Concurrent session's economic spine + org layer | **COMPLETE** (per its own addenda, inherited via merge) |
 | Merge of both, non-destructive | **COMPLETE** |
-| Parallel-spine deduplication | **NOT DONE** — honestly disclosed, real follow-up work |
+| Parallel-spine deduplication | **DONE (V3)** — all 7 pairs resolved, see reconciliation doc |
 | Any real customer, revenue, or payment | **NONE** — none claimed by either session |
 
 ## External-effect ledger
@@ -124,9 +142,10 @@ as "not a founder decision"). `main` unchanged. `lite/` unchanged.
 
 1. Configure the real checkout URLs (zero engineering blocking it,
    unchanged recommendation across every wave this session).
-2. The parallel-spine reconciliation (`docs/
-   PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md`) — bounded, mechanical
-   once someone reads both sides of each of the 7 pairs.
+2. Wire `market-signal-registry.mjs` → `genome-extraction.mjs` →
+   `opportunity-registry.mjs` into a real job handler (both halves exist
+   and are tested; only the connecting handler is new — see the
+   reconciliation doc's "Recommended next steps").
 
 ## Decision
 

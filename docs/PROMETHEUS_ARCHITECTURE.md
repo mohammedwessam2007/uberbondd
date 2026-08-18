@@ -1,15 +1,17 @@
-> **V2 update**: the diagram below (from V1) undersold what's real as of
-> the current wave. Signal Ingestion, Business Genome extraction,
-> Commercial Experiment, Distribution Channel Registry/Allocator,
-> Commercial Outcome Graph, Revenue-Weighted Learning, Commercial Memory,
-> Upgrade Proposal, and Engineering Mission Packet are now all
-> `IMPLEMENTED_VERIFIED` and composed end-to-end by `src/commercial-spine.mjs`
-> — see `docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md`'s completion
-> matrix for the authoritative current status of every row below. V9-Guard
-> composition is also now real: `src/consequence-boundary.mjs`, wired into
-> `Pipeline.maybeSend`. Only the adapter/market-radar layer (far left of
-> the diagram) remains genuinely blocked, on real credentials, not
-> engineering effort.
+> **V3 update (Wave 0 reconciliation)**: `src/commercial-spine.mjs` (the
+> orchestrator V2 pointed to below) is deleted — it never had a production
+> caller. The canonical chain composing these same concepts end-to-end in
+> production is now `src/prometheus-economic-spine.mjs` →
+> `src/commercial-experiment.mjs` → `src/distribution-channel.mjs` /
+> `src/commercial-outcome.mjs` → `src/commercial-learning.mjs` →
+> `src/self-upgrade.mjs`, wired per-stage through `src/job-handlers.mjs`.
+> `src/genome-extraction.mjs` and `src/commercial-memory.mjs` survive from
+> V2's side unchanged in role (no equivalent existed on the other side).
+> See `docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md` for the full
+> 7-pair reconciliation this replaced. V9-Guard composition is unaffected:
+> `src/consequence-boundary.mjs`, wired into `Pipeline.maybeSend`. Only the
+> adapter/market-radar layer (far left of the diagram) remains genuinely
+> blocked, on real credentials, not engineering effort.
 
 # Prometheus Architecture (as actually built, this branch)
 

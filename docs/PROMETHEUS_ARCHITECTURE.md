@@ -1,3 +1,16 @@
+> **V2 update**: the diagram below (from V1) undersold what's real as of
+> the current wave. Signal Ingestion, Business Genome extraction,
+> Commercial Experiment, Distribution Channel Registry/Allocator,
+> Commercial Outcome Graph, Revenue-Weighted Learning, Commercial Memory,
+> Upgrade Proposal, and Engineering Mission Packet are now all
+> `IMPLEMENTED_VERIFIED` and composed end-to-end by `src/commercial-spine.mjs`
+> — see `docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md`'s completion
+> matrix for the authoritative current status of every row below. V9-Guard
+> composition is also now real: `src/consequence-boundary.mjs`, wired into
+> `Pipeline.maybeSend`. Only the adapter/market-radar layer (far left of
+> the diagram) remains genuinely blocked, on real credentials, not
+> engineering effort.
+
 # Prometheus Architecture (as actually built, this branch)
 
 ## What's real vs. what's designed-but-deferred

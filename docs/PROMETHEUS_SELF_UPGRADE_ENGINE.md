@@ -1,6 +1,21 @@
 # Prometheus Self-Upgrade Engine
 
-## Status: deferred, with a specific reason distinct from the distribution brain's
+> **V2 update**: the `UpgradeProposal` router and `EngineeringMissionPacket`
+> compiler this document argued weren't worth building yet ARE now built —
+> `src/upgrade-proposal.mjs` and `src/engineering-mission-packet.mjs`,
+> tested, including a proven BUILD-bias guard and a hardcoded
+> non-overridable `lite/` exclusion. What changed the calculus: the
+> vertical spine (V2's actual mandate) needed a real router to reach
+> `ECONOMICALLY_PROVEN` in its end-to-end test, so building it stopped
+> being "decoration with one hypothetical use case" and became load-bearing
+> infrastructure with a real caller (`src/commercial-spine.mjs`). The
+> Shadow/Canary reasoning below is UNCHANGED and still holds: the generic
+> `shadowCompare()`/`canaryPromotionGate()` primitives are now real and
+> tested (`src/shadow-canary-contract.mjs`), but they are still not
+> pointed at the V9-vs-Guard comparison specifically — that recommendation
+> stands.
+
+## Status (V1): deferred, with a specific reason distinct from the distribution brain's
 
 Unlike the Distribution Brain (deferred purely for lack of input data), the
 Self-Upgrade Proposal Engine (Wave 26) and Engineering Mission Packet

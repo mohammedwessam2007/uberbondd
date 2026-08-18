@@ -1,134 +1,146 @@
-# Prometheus Final Implementation Report
+# Prometheus Final Implementation Report (V2)
 
-This wave's mandate was explicit: execute every locally and safely
-executable part of Prometheus, don't stop at "external access unavailable"
-without building the socket first, and don't confuse architecture documents
-with completion. What follows is the honest accounting against that
-standard.
+This supersedes the V1 report's completion matrix. V1's mandate was
+"execute every locally and safely executable part of Prometheus, build the
+socket not fake the electricity." V2's mandate added: resolve the V9-vs-
+Guard question as composition (not a founder decision), do the PR
+housekeeping directly, and build the vertical economic spine end-to-end
+rather than more isolated modules. What follows is the honest accounting
+against both.
 
 ## Completion matrix
 
 Vocabulary: `IMPLEMENTED_VERIFIED`, `IMPLEMENTED_PARTIAL_PROOF`,
 `INTERFACE_READY_EXTERNAL_ACCESS_REQUIRED`, `RESEARCH_REQUIRED`,
-`DEFERRED_LOW_VALUE`, `REJECTED`.
+`DEFERRED_LOW_VALUE`, `REJECTED`. Rows changed since V1 are marked **(V2)**.
 
 | Subsystem | Status | Evidence / reason |
 |---|---|---|
-| Market radar (social/platform signals) | `RESEARCH_REQUIRED` | No credentials, no compliant access path this session; see `docs/PROMETHEUS_SOURCE_ADAPTERS.md`. |
-| Source adapters | `DEFERRED_LOW_VALUE` | Contract designed (`docs/PROMETHEUS_SOURCE_ADAPTERS.md`); code deferred pending the V9-vs-Guard decision (`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`) so it isn't built twice. |
-| Signal ingestion/dedup | `DEFERRED_LOW_VALUE` | Same reason; `MarketSignal` itself already implements dedup/freshness logic and is real. |
-| Business genome | `IMPLEMENTED_VERIFIED` | `src/opportunity-registry.mjs#compileBusinessGenome`, 32 tests. Extraction *from live signals* specifically is the deferred part. |
-| Mechanism atoms | `DEFERRED_LOW_VALUE` | No real evidence base to extract atoms from yet. |
-| Recombination engine | `DEFERRED_LOW_VALUE` | Depends on mechanism atoms; would generate combinatorial noise over zero real atoms. |
-| Capability graph | `IMPLEMENTED_VERIFIED` | `src/capability-graph.mjs`, 11 tests, this wave. |
-| Build distance | `IMPLEMENTED_VERIFIED` | `incrementalBuildDistance()` (Wave 6) now driven by the real capability graph, tested this wave. |
-| Opportunity tournament | `IMPLEMENTED_VERIFIED` | `src/opportunity-registry.mjs#scoreOpportunity`, 15 criteria, 32 tests. V2 additions deferred — see `docs/PROMETHEUS_OPPORTUNITY_SYSTEM.md`. |
-| Experiment compiler | `DEFERRED_LOW_VALUE` | No validated opportunities exist yet to compile experiments for. |
-| Channel registry | `DEFERRED_LOW_VALUE` | Zero real distribution-outcome data anywhere in this system; see `docs/PROMETHEUS_DISTRIBUTION_BRAIN.md`. |
-| Distribution allocator | `DEFERRED_LOW_VALUE` | Same; would always output `DO NOTHING` today, which is correct but not worth a full module yet. |
-| Commercial outcome graph | `DEFERRED_LOW_VALUE` | No experiments/distribution decisions exist to link into a lineage yet. |
-| Revenue-weighted learning | `DEFERRED_LOW_VALUE` | No outcomes to learn from; payment-truth's classification hierarchy (Wave 5) is the real prerequisite already in place. |
-| Commercial memory | `IMPLEMENTED_PARTIAL_PROOF` | Raw `auditLog`/`store.log()` is real and used extensively; no dedicated summarizing/query layer beyond the founder command center's narrow slices. |
-| Failure memory | `DEFERRED_LOW_VALUE` | Zero real experiments have run; nothing has failed yet to remember. |
-| Upgrade proposals | `IMPLEMENTED_PARTIAL_PROOF` | `docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md` is a real upgrade proposal in substance (rationale, evidence, sequencing, kill criteria) without a formal `UpgradeProposal` class wrapping it. |
-| Build/buy/partner router | `IMPLEMENTED_PARTIAL_PROOF` | The branch reconciliation's cherry-pick recommendations are a real build/buy/partner-style decision, made by direct analysis rather than a generic router over a nonexistent second candidate. |
-| Engineering packet compiler | `DEFERRED_LOW_VALUE` | No active engineering backlog exists beyond the single V9 decision itself. |
-| Shadow comparison | `DEFERRED_LOW_VALUE` | Exactly one real comparison candidate exists (V9 kernel vs. Guard) and the recommendation is explicitly *not* to shadow-run it yet — see `docs/PROMETHEUS_SELF_UPGRADE_ENGINE.md`. |
-| Canary contract | `DEFERRED_LOW_VALUE` | No canary candidates; outbound stays structurally disabled. |
-| Business-model death detector | `DEFERRED_LOW_VALUE` | Zero customers; no sample size exists to evaluate health signals against. |
-| Anti-obsolescence engine | `DEFERRED_LOW_VALUE` | Would need real external monitoring infrastructure this session doesn't have. |
-| Portfolio capital allocator | `DEFERRED_LOW_VALUE` | No competing funded opportunities exist to allocate a budget across. |
-| Founder attention allocator | `IMPLEMENTED_PARTIAL_PROOF` | `founder-command-center.mjs`'s `ownerActionQueue` already caps at 3 ranked actions with reasons — matches the mission's ask closely under a different name. |
-| Cloud scheduling | `IMPLEMENTED_PARTIAL_PROOF` | `DurableQueue` + `scheduler.mjs` are real and tested; no *new* Prometheus-specific jobs added (their upstream inputs — adapters — don't exist yet to schedule around). |
-| Self-health | `DEFERRED_LOW_VALUE` | No adapter/distribution/scoring pipeline runs yet beyond what the founder command center already reports on. |
-| Provider/model router | `IMPLEMENTED_PARTIAL_PROOF` | `src/ai.mjs` + `config.mjs#ai` already implement a minimal real version (rules-based default, optional LLM escalation, provider-selectable). Not extended this wave. |
-| Research importer | `DEFERRED_LOW_VALUE` | No structured research packages exist yet to import. |
-| Agent readiness (web standards) | `IMPLEMENTED_VERIFIED` | `src/audit-rules.mjs` `no-structured-data`/`invalid-structured-data` checks, tested, prior wave. |
-| Agent-commerce hooks | `DEFERRED_LOW_VALUE` | The mission itself says keep this "behind experimental status" — no real need surfaced yet. |
+| Market radar (social/platform signals) | `RESEARCH_REQUIRED` | Unchanged: no credentials, no compliant access path. |
+| Source adapters | `DEFERRED_LOW_VALUE` | Unchanged: contract designed, code deferred — no adapter exists to produce real signals yet, so `MarketSignal`'s consumers (below) are exercised via caller-supplied/synthetic signals only. |
+| Signal ingestion/dedup | **`IMPLEMENTED_VERIFIED` (V2)** | `src/signal-ingestion.mjs`, 18 tests. Replay-safe (proven), reuses the existing auditLog as the dedupe ledger. |
+| Business genome | **`IMPLEMENTED_VERIFIED` (V2)** | `src/genome-extraction.mjs` (8 tests) is the real seam from signals into `compileBusinessGenome()` (Wave 6); a candidate's evidence tier is the *weakest* among its constituent signals, proven. |
+| Mechanism atoms | `DEFERRED_LOW_VALUE` | Unchanged: no real evidence base to extract atoms from. |
+| Recombination engine | `DEFERRED_LOW_VALUE` | Unchanged: depends on mechanism atoms. |
+| Capability graph | `IMPLEMENTED_VERIFIED` | Unchanged from V1; now also feeds `commercial-spine.mjs`'s build-distance stage directly. |
+| Build distance | `IMPLEMENTED_VERIFIED` | Unchanged; wired into the spine and into `src/upgrade-proposal.mjs`'s router this wave. |
+| Opportunity tournament | `IMPLEMENTED_VERIFIED` | Unchanged from V1. |
+| Experiment compiler | **`IMPLEMENTED_VERIFIED` (V2)** | `src/experiment-compiler.mjs`, 12 tests. Always compiles the smallest bounded probe; `maxBudgetUsd` defaults to 0; composes with the real offer compiler when a matching product exists. |
+| Channel registry | **`IMPLEMENTED_VERIFIED` (V2)** | `src/distribution-channel-registry.mjs`, 14 real channels, availability computed from actual config, never asserted. |
+| Distribution allocator | **`IMPLEMENTED_VERIFIED` (V2)** | `src/distribution-allocator.mjs`. Proven: `DO_NOTHING` is the correct, actual output today (zero real historical outcomes exist anywhere in this system); also proven the mechanism is real, not rigged — a genuinely large positive real sample can win. |
+| Commercial outcome graph | **`IMPLEMENTED_VERIFIED` (V2)** | `src/commercial-outcome-graph.mjs`, 7 tests. Lineage edges over already-computed objects only; a synthetic run structurally produces `SimulatedOutcome` nodes, never `RealOutcome`. |
+| Revenue-weighted learning | **`IMPLEMENTED_VERIFIED` (V2)** | `src/revenue-weighted-learning.mjs`. Hierarchy tested directly (cleared money always outranks engagement); 1,000 synthetic records proven to contribute exactly zero to the real aggregate. |
+| Commercial memory | **`IMPLEMENTED_VERIFIED` (V2)** | `src/commercial-memory.mjs` — was `IMPLEMENTED_PARTIAL_PROOF` in V1 (raw log only); now has a real query layer and `detectContradictions()`, tested. |
+| Failure memory | `DEFERRED_LOW_VALUE` | Unchanged: zero real experiments have run yet; `detectContradictions()` (above) is the real mechanism that would surface a failure once one exists. |
+| Upgrade proposals | **`IMPLEMENTED_VERIFIED` (V2)** | `src/upgrade-proposal.mjs` — was a prose-only proposal in V1; now a real deterministic `BUILD/BUY/PARTNER/ADAPT/DEFER/REJECT` router with a proven BUILD-bias guard. |
+| Build/buy/partner router | **`IMPLEMENTED_VERIFIED` (V2)** | Same module as above — the V1 entry described only the branch-reconciliation's manual analysis; that analysis is now backed by a real, tested, reusable router. |
+| Engineering packet compiler | **`IMPLEMENTED_VERIFIED` (V2)** | `src/engineering-mission-packet.mjs`. `lite/` proven hardcoded-forbidden even against a caller trying to override it. |
+| Shadow comparison | **`IMPLEMENTED_VERIFIED` (V2)** | `src/shadow-canary-contract.mjs#shadowCompare` — a real, generic, structurally production-inert comparison primitive (not yet pointed at the V9-vs-Guard comparison specifically, which stays deferred per V1's reasoning — see `docs/PROMETHEUS_SELF_UPGRADE_ENGINE.md`). |
+| Canary contract | **`IMPLEMENTED_VERIFIED` (V2)** | `src/shadow-canary-contract.mjs#canaryPromotionGate`. Proven: requires both real owner approval AND real non-synthetic positive proof; a synthetic run can never reach `ECONOMICALLY_PROVEN` even with an attempted evidence-laundering input (adversarial test). |
+| Business-model death detector | `DEFERRED_LOW_VALUE` | Unchanged: zero customers, no sample size. |
+| Anti-obsolescence engine | `DEFERRED_LOW_VALUE` | Unchanged: needs real external monitoring infrastructure. |
+| Portfolio capital allocator | `DEFERRED_LOW_VALUE` | Unchanged: no competing funded opportunities exist yet. |
+| Founder attention allocator | `IMPLEMENTED_PARTIAL_PROOF` | Unchanged from V1. |
+| Cloud scheduling | **`IMPLEMENTED_VERIFIED` (V2)** | Two new read-only recomputation jobs registered on the real `DurableQueue`/scheduler, gated behind an explicit default-off flag layered on `autopilot`; proven both inert-by-default and genuinely functional when both flags are on. |
+| Self-health | `DEFERRED_LOW_VALUE` | Unchanged: no adapter/distribution pipeline runs live yet beyond the founder command center's existing surface. |
+| Provider/model router | `IMPLEMENTED_PARTIAL_PROOF` | Unchanged from V1. |
+| Research importer | `DEFERRED_LOW_VALUE` | Unchanged: no structured research packages exist yet to import. |
+| Agent readiness (web standards) | `IMPLEMENTED_VERIFIED` | Unchanged from V1. |
+| Agent-commerce hooks | `DEFERRED_LOW_VALUE` | Unchanged. |
+| **V9-Guard composition (new row)** | **`IMPLEMENTED_VERIFIED` (V2)** | `src/consequence-boundary.mjs` + vendored `src/omnia-v9/{canonical,schema,kernel}.mjs`, wired into `Pipeline.maybeSend` behind `outbound.v9AdmissionRequired` (default false, zero behavior change for 285+ pre-existing tests). Proven end-to-end through the real pipeline: Guard denial short-circuits before V9 is ever consulted; Guard ALLOW alone never produces a final ALLOW; a genuine ALLOW is reachable only with a real Ed25519-signed approval. |
+| **Commercial spine orchestrator (new row)** | **`IMPLEMENTED_VERIFIED` (V2)** | `src/commercial-spine.mjs`. The required end-to-end test: one labeled `SYNTHETIC_TEST_FIXTURE` signal travels the full pipeline and produces all 8 required stage outputs, while a separate test proves the exact same real-shaped inputs CAN reach `ECONOMICALLY_PROVEN` when genuinely non-synthetic — the gate is real, not rigged either direction. |
+| **PR housekeeping (new row)** | **`IMPLEMENTED_VERIFIED` (V2)** | 18 provably-superseded PRs (#6, #8–#23, #25) closed via git-ancestry proof, not trust — see `docs/PROMETHEUS_PR_HOUSEKEEPING.md`. |
 
-**Nothing in this matrix is `REJECTED`.** Everything marked
-`DEFERRED_LOW_VALUE` is deferred for a stated, specific reason (usually:
-no real data/decision to build it around yet, or risk of a third parallel
-system), not because the idea is bad.
+**Nothing in this matrix is `REJECTED`.** Everything still marked
+`DEFERRED_LOW_VALUE` is deferred for a stated, specific reason (no real
+data/decision to build it around yet), not because the idea is bad.
 
-## Real defects discovered and fixed this wave
+## Real defects discovered and fixed this wave (V2)
 
-1. `src/opportunity-registry.mjs`'s recurring-revenue criterion checked a
-   non-existent `.present` field on `numericScore()`'s return value —
-   found by a hostile test in the prior wave, still listed here as the
-   pattern this wave's PostgresStore tests then repeated independently.
-2. `tests/postgres-store-live.test.mjs` (this wave): two real test-design
-   bugs found and fixed while building the live-proof suite — a missing
-   `campaigns` FK fixture, and a `claimJobs()` concurrency test that wasn't
-   isolated from leftover rows in the shared throwaway database (an older
-   leftover job was legitimately claimed ahead of a freshly-inserted one —
-   correct store behavior, wrong test assumption, fixed with a `TRUNCATE`
-   in `test.before()`).
+1. `src/consequence-boundary.mjs`: `evaluateV9Admission` initially omitted
+   `keyResolver` from the fields forwarded to the vendored kernel's
+   `admitAction()`, which would have made every real signed approval
+   unverifiable. Caught by a hostile test before it shipped.
+2. `tests/engineering-mission-packet.test.mjs`: the test fixture didn't
+   supply enough evidence-tagged genome fields to clear the 0.3 confidence
+   threshold, so the "BUILD decision produces a real packet" test actually
+   exercised the DEFER path. Fixed by building a fully-evidenced fixture
+   matching the pattern already established in `opportunity-registry.test.mjs`.
+3. `tests/prometheus-scheduling.test.mjs`: a scheduler-registration test
+   checked `queue.enqueue` calls synchronously, but the scheduler defers
+   its initial enqueue through a microtask (`Promise.resolve().then(...)`);
+   fixed by awaiting a short settle delay before asserting.
 
-## Prometheus capabilities now real (this wave, on top of prior waves)
+(V1's two defects — the recurring-revenue `.present` bug and the
+PostgresStore test-isolation bugs — remain listed in the V1 history; not
+repeated here.)
 
-- **PostgresStore live proof** — 19/19 tests against a real local
-  PostgreSQL 16 server, closing a gap disclosed across three prior waves.
-- **Branch/PR reconciliation** — independently re-verified (not just
-  trusted) that two large unmerged lineages (OMNIA V9: 500/459/41-skipped/
-  0-failed; Canon/V3: 317/317) are real and tested, with a concrete two-
-  branch integration plan for whichever direction the owner picks.
-- **`src/market-signal.mjs`** — 20 tests, structurally prevents synthetic-
-  to-external evidence promotion.
-- **`src/capability-graph.mjs`** — 11 tests, honestly represents the
-  stranded lineages as `MISSING` here with a pointer to where they're real.
+## Prometheus capabilities now real (V2, cumulative with V1)
+
+- **V9-Guard composition** — real, wired into the live pipeline, provably
+  non-contradictory.
+- **The full vertical economic spine** — MarketSignal → Signal Ingestion →
+  BusinessGenome → CapabilityGraph/BuildDistance → CommercialExperiment →
+  DistributionChannelRegistry/Allocator → Outcome → RevenueWeightedLearning
+  → CommercialMemory → UpgradeProposal → EngineeringMissionPacket, unified
+  by a CommercialOutcomeGraph, orchestrated by `src/commercial-spine.mjs`,
+  proven end-to-end with a labeled synthetic fixture and 15 additional
+  cross-module hostile/adversarial tests.
+- **18 PRs closed** with git-ancestry proof, not trust.
+- **Read-only scheduling** for the two recomputation jobs that have real
+  work to do today.
 
 ## Capabilities interface-ready but externally blocked
 
-See `docs/PROMETHEUS_EXTERNAL_GATES.md` for the full table. Highest-value:
-checkout configuration (blocks first real dollar), the V9-vs-Guard
-decision (blocks most of the remaining Prometheus machinery from being
-built without risking a third parallel system).
+Unchanged from V1 — see `docs/PROMETHEUS_EXTERNAL_GATES.md`. Checkout
+configuration remains the single highest-leverage blocked item.
 
 ## Capabilities still missing
 
-Everything marked `DEFERRED_LOW_VALUE` or `RESEARCH_REQUIRED` above.
+Everything marked `DEFERRED_LOW_VALUE` or `RESEARCH_REQUIRED` above —
+materially fewer rows than V1, since most of the vertical spine graduated
+from deferred to implemented this wave.
 
 ## Real commercial state
 
-Real customers: **0**. Real revenue: **$0**. Real outbound sent: **0**.
-Real payments cleared: **0**. Real live deployments of this branch: **0**.
-Real market evidence gathered this wave: **0** (no live research tools
-were used; see `docs/PROMETHEUS_SCOPED_VERDICT.md` for why). External
-dependencies: see `docs/PROMETHEUS_EXTERNAL_GATES.md`.
+Unchanged: real customers **0**, real revenue **$0**, real outbound sent
+**0**, real payments cleared **0**, real live deployments **0**. Every
+outcome exercised this wave was explicitly `isSynthetic: true` and is
+provably incapable of reaching `ECONOMICALLY_PROVEN` (adversarial test:
+`ATTACK evidence laundering`).
 
-## External owner actions (max 3)
+## External owner actions (max 3, per this wave's explicit instruction to prefer zero)
 
-1. Configure the real checkout URLs — the single highest-leverage action
-   available; everything else in the payment/offer/founder-command-center
-   pipeline is already built and tested waiting on it.
-2. Decide V9-vs-Guard (`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`) —
-   unblocks adapters, ingestion, distribution brain, and self-upgrade work
-   without risking a third parallel system.
-3. Decide whether to close PRs #8–#23 (intermediate V9 stack checkpoints,
-   all superseded by #24's cumulative tip) to reduce the 26-open-draft-PR
-   surface for future reconciliation passes.
+1. Configure the real checkout URLs — still the single highest-leverage
+   lever, still zero engineering blocking it.
+2. Decide whether to inject real V9 policy content (Cedar rules, a bound
+   constitution, real signed approvals) via `Pipeline`'s `v9Context` hook
+   and flip `outbound.v9AdmissionRequired` on, once outbound itself is
+   ever authorized to go live. Not urgent — outbound remains structurally
+   disabled regardless.
+3. *(Genuinely optional, not required)*: review the 18 closed PRs' git-
+   ancestry proofs in `docs/PROMETHEUS_PR_HOUSEKEEPING.md` if independent
+   confirmation is wanted; the underlying `git merge-base --is-ancestor`
+   checks are reproducible by anyone in under a minute.
+
+The V9-vs-Guard architecture question from V1's owner-action list is
+**resolved** this wave (composition, not a founder decision, per this
+wave's explicit instruction) and is no longer an open item.
 
 ## Next safest action
 
-Given (1) above is the single highest-leverage lever and requires no
-engineering, the next safest *engineering* action (if checkout
-configuration is still pending) is extending the agent-readiness check
-family in `src/audit-rules.mjs` (robots.txt disallow-all detection,
-sitemap presence) — same integration point already proven safe, zero new
-architecture, no dependency on the V9 decision.
+Extend the agent-readiness check family (robots.txt/sitemap) — unchanged
+recommendation from V1, still the cheapest real, on-wedge, zero-dependency
+increment available.
 
 ## Final verdict
 
 **`PROMETHEUS_PARTIALLY_IMPLEMENTED_EXTERNAL_GATES_REMAIN`**
 
-Real, verified progress was made on the correctness/reconciliation/
-canonical-data-contract priorities the mission itself ranks highest
-(PostgresStore live proof, branch reconciliation, MarketSignal,
-Capability Graph — all shipped with passing tests, zero external effects).
-Most of the mission's remaining speculative machinery (adapters through
-canary contracts) is honestly deferred against two concrete external
-gates — an owner architecture decision and real market credentials/data —
-not against engineering difficulty. Building further without those gates
-resolved would risk exactly the complexity-without-economic-value failure
-mode the mission's own second invariant warns against.
+Unchanged verdict category from V1, but materially more of the mission is
+now `IMPLEMENTED_VERIFIED` rather than deferred: the full vertical spine
+is real and tested end-to-end, V9-Guard composition is real and wired into
+the live pipeline, and PR housekeeping is done. What remains gated is
+narrower and more honestly external: real market signal sources (no
+credentials), and real commercial outcomes (no customers yet). Neither is
+an engineering gap this session can close by writing more code.

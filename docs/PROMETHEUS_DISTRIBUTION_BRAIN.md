@@ -1,6 +1,18 @@
 # Prometheus Distribution Brain
 
-## Status: `BUILD NOTHING` this wave, and that is the correct call
+> **V2 update**: the channel registry and allocator described as deferred
+> below are now real — `src/distribution-channel-registry.mjs` and
+> `src/distribution-allocator.mjs`, tested. The core conclusion of this
+> document is UNCHANGED and was proven, not just argued: with zero real
+> historical outcomes anywhere in this system, the allocator's actual
+> output today is `DO_NOTHING`, even with real budget and an available
+> channel (see `tests/distribution-brain.test.mjs`). A separate test
+> proves the mechanism isn't rigged to always say no — a genuinely large,
+> positive real sample size can win. `BUILD NOTHING` was and remains the
+> correct call for actually *acting* on distribution; building the honest
+> decision *mechanism* was the right call, and is now done.
+
+## Status (V1): `BUILD NOTHING` this wave, and that is the correct call
 
 The mission's own third invariant: *"Prometheus must be capable of
 concluding BUILD NOTHING... If no channel has positive expected value,

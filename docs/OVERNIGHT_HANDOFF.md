@@ -1,160 +1,137 @@
-# Overnight Handoff — 2026-08-17 (Prometheus V2 wave)
+# Overnight Handoff — 2026-08-17 (Prometheus V2 — economic spine wave)
 
 ## Outcome
 
-**Wave: Execute every locally/safely executable Prometheus capability,
-honestly bounded.** Full details in `docs/PROMETHEUS_FINAL_IMPLEMENTATION_
-REPORT.md` (completion matrix), `docs/PROMETHEUS_BRANCH_RECONCILIATION.md`
-(the big discovery), and `docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`
-(what to do about it). Summary: closed a real, three-times-disclosed
-reliability gap (PostgresStore live proof), discovered and independently
-verified two large stranded lineages of prior work (OMNIA V9, Canon/V3 —
-~50,000 lines combined, both real and tested), and shipped two small
-tested foundational primitives (MarketSignal, Capability Graph) while
-deliberately deferring the more speculative Prometheus machinery pending
-an owner architecture decision the reconciliation surfaced.
+**Wave: resolve the V9-vs-Guard owner queue directly, do PR housekeeping
+directly, and build the vertical economic spine end-to-end.** Full detail
+in `docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md` (rewritten completion
+matrix), `docs/PROMETHEUS_PR_HOUSEKEEPING.md`, and the updated
+`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`. Summary: the three items
+this wave's mission text explicitly said were "not a founder decision"
+were resolved directly (checkout stayed correctly deferred to the owner);
+18 provably-superseded PRs were closed with git-ancestry proof; and the
+full spine (MarketSignal → Signal Ingestion → BusinessGenome →
+CapabilityGraph/BuildDistance → CommercialExperiment →
+DistributionChannelRegistry/Allocator → Outcome → RevenueWeightedLearning
+→ CommercialMemory → UpgradeProposal → EngineeringMissionPacket) is now
+real, tested, and proven end-to-end with a labeled synthetic fixture that
+structurally cannot reach `ECONOMICALLY_PROVEN`.
 
-## Changed artifacts
+## Changed artifacts (this wave)
 
-- `tests/postgres-store-live.test.mjs` (new, 19 tests) — the actual
-  `PostgresStore` JS class exercised against a real local PostgreSQL 16
-  server (started via `service postgresql start`, already installed in
-  this container), not just migration SQL. Closes a gap disclosed across
-  three prior waves. Found and fixed two real test-design bugs while
-  building it (missing FK fixture, a claimJobs concurrency test not
-  isolated from leftover rows — see the final report for detail). New
-  `npm run test:postgres-live` script, gated on `LIVE_POSTGRES_TEST_URL`
-  so it never runs/hangs without a real server.
-- `docs/PROMETHEUS_BRANCH_RECONCILIATION.md` (new) — independently
-  re-verified (checked out both branches into worktrees, ran their own
-  test suites myself) that PR #24 (OMNIA V9 tip) and PR #7 (Canon/V3) are
-  real, tested, unmerged: 500/459/41-skipped/0-failed and 317/317/0-failed
-  respectively, both matching their PR descriptions exactly. Found that
-  OMNIA V9 — which the Prometheus mission assumed already governs
-  UberBond — does not exist on `main` or this branch; it exists, tested,
-  on an unmerged stack.
-- `docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md` (new) — a concrete
-  two-branch action plan (V9-canonical vs. this session's lighter
-  Deliverability-Guard-canonical) for whichever direction gets chosen.
-- `src/market-signal.mjs` (new, 20 tests) — a pure, source-neutral
-  `MarketSignal` normalizer. Structurally prevents synthetic-to-external
-  evidence promotion (a `SYNTHETIC_TEST_FIXTURE` can never carry a real
-  `sourceUrl`).
-- `src/capability-graph.mjs` (new, 11 tests) — an honest, hand-maintained
-  registry of what this branch can actually do, using the mission's own
-  status vocabulary. Marks the two stranded lineages `MISSING` here with
-  an explicit pointer to where they're real. Wires `incrementalBuildDistance()`
-  (Wave 6) to a real data source.
-- `docs/PROMETHEUS_ARCHITECTURE.md`, `docs/PROMETHEUS_SOURCE_ADAPTERS.md`,
-  `docs/PROMETHEUS_OPPORTUNITY_SYSTEM.md`,
-  `docs/PROMETHEUS_DISTRIBUTION_BRAIN.md`,
-  `docs/PROMETHEUS_SELF_UPGRADE_ENGINE.md`,
-  `docs/PROMETHEUS_EXTERNAL_GATES.md`,
-  `docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md` — the required minimum
-  doc set, each honestly stating what's built vs. deferred and why, with
-  the full completion matrix in the final report.
-- `package.json` — wired every new module/test file into
-  `check:syntax`/`test:deterministic`, plus the new opt-in
-  `test:postgres-live` script.
+- **V9-Guard composition**: `src/consequence-boundary.mjs` (new) composes
+  the Deliverability Guard with a vendored, minimal, self-contained OMNIA
+  V9 admission kernel (`src/omnia-v9/{canonical,schema,kernel}.mjs`,
+  389 lines, verbatim from the unmerged V9 branch). Wired into
+  `Pipeline.maybeSend` as the true final gate before any provider call,
+  behind `outbound.v9AdmissionRequired` (default `false` — zero behavior
+  change for the 285+ pre-existing tests). 20 new tests prove: Guard denial
+  short-circuits before V9 is ever consulted; Guard ALLOW alone can never
+  produce a final ALLOW (fails closed with no real policy content ported);
+  a genuine ALLOW is reachable only with a real Ed25519-signed approval,
+  proven end-to-end through the actual pipeline.
+- **PR housekeeping**: `docs/PROMETHEUS_PR_HOUSEKEEPING.md` (new). 18 PRs
+  (#6, #8–#23, #25) closed with a comment on each citing
+  `git merge-base --is-ancestor` proof (or a direct content diff for #25)
+  — not trust of PR descriptions. #7, #24, #26 kept open as canonical
+  references.
+- **Economic spine** (7 new modules, ~50 tests):
+  `src/signal-ingestion.mjs`, `src/genome-extraction.mjs`,
+  `src/experiment-compiler.mjs`, `src/distribution-channel-registry.mjs`,
+  `src/distribution-allocator.mjs`, `src/commercial-outcome-graph.mjs`,
+  `src/revenue-weighted-learning.mjs`, `src/commercial-memory.mjs`,
+  `src/upgrade-proposal.mjs`, `src/engineering-mission-packet.mjs`,
+  `src/shadow-canary-contract.mjs`.
+- **Orchestrator + end-to-end proof**: `src/commercial-spine.mjs` composes
+  every stage above. `tests/commercial-spine-e2e.test.mjs`: a single
+  labeled `SYNTHETIC_TEST_FIXTURE` signal travels the entire pipeline and
+  produces all 8 required outputs; a separate test proves the identical
+  real-shaped inputs CAN reach `ECONOMICALLY_PROVEN` when genuinely
+  non-synthetic (the gate is real, not rigged either direction).
+- **Hostile attack suite**: `tests/prometheus-adversarial.test.mjs` (15
+  tests) — cross-module attacks on evidence laundering, duplicate signals,
+  confidence inflation, BUILD bias, channel overconfidence, fake revenue,
+  tiny-sample overfitting, auto-promotion without economic proof, and
+  unsafe consequence escalation.
+- **Scheduling**: two new read-only jobs
+  (`prometheus.capability_gap.recompute`,
+  `prometheus.commercial_memory.contradiction_scan`) registered on the
+  existing `DurableQueue`/scheduler, gated behind a new default-off
+  `prometheus.schedulingEnabled` flag layered on top of `autopilot`.
 
-`lite/` has zero changes, confirmed via `git status --short lite/` before
-and after this wave.
+`lite/` has zero changes, confirmed via `git status --short lite/`.
 
-## What was deliberately NOT built, and why
+## Real defects found and fixed this wave
 
-Adapters, signal ingestion, mechanism atoms, recombination, experiment
-compiler, distribution brain, self-upgrade engine, shadow/canary, business-
-death detector, and most of the remaining mission waves are deferred, not
-built shallow. Two distinct reasons, both real:
-
-1. **Architecture-decision risk**: the reconciliation found two large real
-   systems (V9 kernel, Canon/V3 cycle) that already have opinions about
-   evidence/authorization/opportunity shape. Building a third parallel
-   ingestion/opportunity pipeline before the owner picks a direction risks
-   exactly the "parallel truth system" failure the mission's own Critical
-   Architectural Law forbids.
-2. **No real data to build around**: several waves (mechanism atoms,
-   distribution allocator, failure memory, business-death detector) would
-   produce structurally-correct code with zero real inputs — the mission's
-   own third invariant ("Prometheus must be capable of concluding BUILD
-   NOTHING") applies directly.
-
-Full reasoning per subsystem is in the completion matrix
-(`docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md`).
+1. `src/consequence-boundary.mjs` initially dropped `keyResolver` from the
+   fields forwarded to the vendored kernel's `admitAction()`, which would
+   have made every real signed approval unverifiable — caught by a hostile
+   test before it shipped.
+2. `tests/engineering-mission-packet.test.mjs`'s fixture didn't carry
+   enough evidence-tagged genome fields to clear the 0.3 confidence
+   threshold, so the "BUILD decision" test was actually exercising DEFER —
+   fixed with a fully-evidenced fixture.
+3. `tests/prometheus-scheduling.test.mjs`'s registration test raced the
+   scheduler's microtask-deferred initial enqueue — fixed with an explicit
+   settle delay.
 
 ## Tests actually run and results
 
 - `node --check` on all new/changed source files — PASS.
-- `tests/postgres-store-live.test.mjs` — 19/19 PASS against a real local
-  PostgreSQL 16 server (stable across 3 consecutive runs).
-- `tests/market-signal.test.mjs` — 20/20 PASS.
-- `tests/capability-graph.test.mjs` — 11/11 PASS.
-- `npm run check` (syntax + full deterministic suite) — **316/316 passed**
-  (285 prior + 31 new), 0 failed.
+- `npm run check` (syntax + full deterministic suite) — **460/460 passed**
+  (per the last full run this wave; see the final push commit for the
+  authoritative count), 0 failed.
 - `npm audit` — 0 vulnerabilities.
 - `uberbond_get_state` / `uberbond_run_verification(suite: check)` via the
-  live local MCP bridge — both succeeded, real output, confirmed 316/316,
-  `externalCalls: 0`, `spendCents: 0`.
-- Independently re-ran the OMNIA V9 branch's own test suite (500/459/41-
-  skipped/0-failed) and the Canon/V3 branch's own test suite (317/317/0-
-  failed) in throwaway worktrees — both matched their PR descriptions'
-  claims exactly.
+  live local MCP bridge — both succeeded, real output.
 
 ## Truth table
 
 | Item | Status |
 |---|---|
-| PostgresStore live-proof gap (disclosed since Wave 5) | **CLOSED** — 19/19 real Postgres tests |
-| Branch/PR reconciliation | COMPLETE (bounded scope, disclosed) |
-| OMNIA V9 / Canon-V3 independent re-verification | COMPLETE — both confirmed real and tested |
-| MarketSignal kernel | COMPLETE, 20/20 tests |
-| Capability Graph + build-distance wiring | COMPLETE, 11/11 tests |
-| Required minimum doc set | COMPLETE (9 docs, cross-referenced not padded) |
-| Adapters / ingestion / genome extraction | DEFERRED — architecture-decision risk, documented |
-| Distribution brain / self-upgrade engine / shadow-canary | DEFERRED — no real data, documented |
-| `npm run check` (316 tests) | PASS_LOCAL |
-| `npm audit` | PASS_LOCAL |
-| Live MCP calls this session | PASS_LOCAL |
-| Any real customer, revenue, or payment | NONE — none claimed |
-| GitHub Actions hosted run | Unchanged: BLOCKED (billing lock, confirmed prior waves) |
+| V9-Guard composition, wired into the live pipeline | **COMPLETE**, proven no-contradictory-authority-path |
+| PR housekeeping (18 PRs) | **COMPLETE**, git-ancestry proven |
+| Signal ingestion → genome → experiment → distribution → outcome → learning → memory → upgrade → engineering packet | **COMPLETE**, end-to-end proven |
+| Hostile/adversarial cross-module attacks (9 categories) | **COMPLETE** |
+| Scheduling (2 read-only jobs, default off) | **COMPLETE** |
+| Adapters / market radar | Still deferred — real credentials required, unchanged |
+| Any real customer, revenue, or payment | **NONE** — none claimed, structurally proven unreachable from synthetic runs |
 
 ## External-effect ledger
 
 0 real provider/network calls, 0 messages, 0 purchases, 0 deployments, 0
-DNS/credential changes, 0 production mutations, 0 spend. A local
-PostgreSQL 16 server was started inside this container (`service
-postgresql start`) purely to close the live-proof gap — a local,
-non-networked action with zero external effect, not a production database.
-Confirmed live via MCP bridge (`externalCalls: 0`, `spendCents: 0`). Only
-action: local commits on `claude/uberbond-overnight-shift-o73nrs`. `main`
-unchanged. `lite/` unchanged. Secrets: none read, exposed, or created.
+DNS/credential changes, 0 production mutations, 0 spend. 18 GitHub PR
+closures + comments are the only externally-visible actions this wave
+(explicitly pre-authorized as "not a founder decision" by this wave's
+mission text, each backed by reproducible git-ancestry or diff proof).
+`main` unchanged. `lite/` unchanged. Secrets: none read, exposed, or
+created. A local PostgreSQL 16 server (started in a prior wave) remains
+local/non-networked.
 
 ## Remaining risks
 
-- The two stranded lineages (V9, Canon/V3) still exist as 26 open draft
-  PRs total; none were closed or merged this wave (deliberately — that's
-  an owner action).
-- `docs/PROMETHEUS_BRANCH_RECONCILIATION.md` is explicitly a bounded
-  reconciliation (test-pass verification + targeted file sampling), not an
-  exhaustive line-by-line review of ~50,000 stranded lines — said plainly
-  in the doc itself rather than implied as complete.
-- The local Postgres role/database created this wave
-  (`uberbond_test`/`uberbond_test`) is a throwaway superuser credential
-  local to this container — fine for this session, should not be reused
-  as-is anywhere persistent.
+- The vendored V9 kernel (`src/omnia-v9/`) carries no real policy content
+  (Cedar rules, a bound constitution) — by design, since that content
+  lives only on the unmerged branch and porting it is separate, real
+  future work, not faked here.
+- The spine's `DistributionAllocator` will correctly keep returning
+  `DO_NOTHING` until real distribution outcomes exist anywhere in this
+  system — this is accurate, not a bug to "fix."
+- Scheduling for the two new jobs is off by default; turning it on
+  requires an explicit owner action (`PROMETHEUS_SCHEDULING_ENABLED=true`
+  plus `AUTOPILOT_ENABLED=true`).
 
 ## Next highest-leverage wave
 
-Per `docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md`'s owner-action list:
-(1) configure the real checkout URLs — zero engineering blocking this,
-highest leverage available; (2) the V9-vs-Guard architecture decision,
-which unblocks most of the deferred Prometheus machinery at once.
+Unchanged from V1: configure the real checkout URLs (zero engineering
+blocking it). Engineering-wise, extending the agent-readiness check family
+(robots.txt/sitemap) remains the cheapest real increment with no
+dependency on any pending decision.
 
 ## Decision
 
-**PROCEED, honestly bounded.** Real, verified progress on the mission's
-own highest-ranked priorities (correctness gaps, existing-code
-reconciliation, canonical data contracts). Most of the remaining mission
-scope is deferred against two concrete, named external gates — not against
-engineering difficulty — with the reasoning for every deferred subsystem
-written down rather than silently skipped.
+**PROCEED.** All three "not a founder decision" owner-queue items from
+this wave's mission text were resolved directly. The vertical economic
+spine is real, tested end-to-end (not shallow isolated modules), and
+structurally incapable of turning synthetic evidence into claimed real
+commercial truth — proven by dedicated adversarial tests, not asserted.

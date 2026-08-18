@@ -1,3 +1,16 @@
+> **V2 update — this decision is now RESOLVED.** The "core decision this
+> plan cannot make for the owner" below was made by the owner in the V2
+> mission directly: **compose, don't choose.** Guard stays the specialized
+> deterministic preflight/final-recheck layer; V9 stays the authoritative
+> policy/evidence/authority boundary; Guard may deny before V9 is ever
+> consulted; Guard can never grant authority. Implemented in
+> `src/consequence-boundary.mjs` (vendoring the minimal self-contained V9
+> kernel: `src/omnia-v9/{canonical,schema,kernel}.mjs`) and wired into
+> `Pipeline.maybeSend` behind `outbound.v9AdmissionRequired` (default
+> false). The two "if chosen" branches below are kept for historical
+> record of the reasoning, but the composition path is what actually
+> shipped — see `docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md`.
+
 # Prometheus Canonical Integration Plan
 
 Companion to `docs/PROMETHEUS_BRANCH_RECONCILIATION.md` (read that first for

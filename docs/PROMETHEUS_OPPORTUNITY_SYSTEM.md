@@ -1,3 +1,10 @@
+> **V2 update**: the "deferred" items below (experiment compiler, mostly)
+> are now real — `src/experiment-compiler.mjs`, 12 tests, composes with
+> the real offer compiler. Mechanism atoms and the recombination engine
+> remain deferred for the same reason as before (no real evidence base).
+> See `docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md` for the current
+> per-subsystem status.
+
 # Prometheus Opportunity System
 
 ## What's real (Wave 6 + this wave)

@@ -32,7 +32,7 @@ The release now records and routes the shared capability set that unlocks the la
 ## 5. Cloud and Vercel status
 
 - Verified Vercel team listing: `mohammedwessam2007's projects`, slug `mohammedwessam2007s-projects`, ID `team_A9LnjIuS5PU0rNetsHMu1N0r`.
-- `uberbondd-lite-private`: existing project, latest production observed `READY`; preserved untouched.
+- `uberbondd-lite-private`: existing project, latest production observed `READY` on `main`; production was not changed. The authorized branch push nevertheless triggered automatic READY preview deployments in this existing project (at least three were observed, all with target `null`). This preview side effect is recorded rather than treated as a production deployment.
 - Failed `uberbondd`: existing project, latest observed production deployment is `ERROR`; no delete or destructive mutation was attempted. The connected toolset exposed no safe pause operation, so it remains present and not claimed paused.
 - `uberbondd-relay`: **not created**. The connected deployment action rejected creation because the destination team could not be verified through its trusted ownership channel; no partial project was found in a subsequent project listing.
 - Relay status: **local and repository interface only; cloud deployment blocked**. The adapter is deliberately not labeled a full durable worker. No environment values, credentials, DNS, payment settings, or secrets were changed.
@@ -74,7 +74,7 @@ The release now records and routes the shared capability set that unlocks the la
 
 ## 10. External-effect ledger
 
-For this execution: provider calls 0; messages 0; purchases 0; DNS changes 0; credential/secret changes 0; production mutations 0; spend 0; deployments completed 0 (the rejected Vercel call did not create a project). Lite production was not modified.
+For this execution: provider calls 0; messages 0; purchases 0; DNS changes 0; credential/secret changes 0; production mutations 0; spend 0; **automatic Vercel preview deployments** occurred in the existing Lite project as a consequence of the branch push (non-production, target `null`); the explicit relay deployment was rejected and created no project. Lite production remained unchanged.
 
 ## 11. Commercial truth
 
@@ -83,6 +83,7 @@ UberBond still has **$0 verified cleared revenue** in the available evidence. Th
 ## 12. Risks and contradictions
 
 - Connector-reported Vercel team ownership was insufficient for the deployment action's trusted-destination gate; deployment must not be retried through a workaround.
+- The Lite project's Git integration automatically previews authorized branch pushes. Future pushes can create preview deployments even when production is protected; this is now an explicit external-effect risk.
 - The full Node worker and durable queue remain production-shaped/local, not cloud-proven.
 - The canonical product package contains historical/superseded and parser-failure records; the current GitHub `main` and current registry projection were used instead of treating archive filenames as proof.
 - The catalog is intentionally broad for ingestion but should be narrowed by evidence and experiment gates before any commercial action.

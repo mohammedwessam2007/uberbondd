@@ -142,9 +142,10 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       const input = payload && typeof payload === 'object' ? payload : {};
       return ingestMarketSignals({ ...input, store });
     },
-    // Local-only catalog preparation. It compiles the three evidence-labeled
-    // commercial lanes without providers, sends, spend, deployment, or live
-    // payment claims. The stored receipt is an internal research artifact.
+    // Local-only catalog preparation. It compiles the three buyer-signal lanes
+    // plus the explicit taxonomy registry without providers, sends, spend,
+    // deployment, or live payment claims. The stored receipt is an internal
+    // research artifact.
     'prometheus.commercial.catalog': async payload => {
       const input = payload && typeof payload === 'object' ? payload : {};
       const result = compileAllCommercialOpportunities({ date: input.date });

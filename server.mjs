@@ -17,6 +17,7 @@ import { DurableQueue } from './src/queue.mjs';
 import { DiscoveryRunner } from './src/discovery-runner.mjs';
 import { importProspects } from './src/prospect-import.mjs';
 import { createJobHandlers } from './src/job-handlers.mjs';
+import { AGENT_RELAY_JOB_TYPE, CLOUD_AGENT_RELAY_POLICY_VERSION, claimCloudRelayTask, createCloudRelayTask, listCloudRelayTasks, submitCloudRelayResult } from './src/cloud-agent-relay.mjs';
 import { normalizeCountryList } from './src/send-safety.mjs';
 import { verifyUnsubscribeToken } from './src/unsubscribe.mjs';
 import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
@@ -100,6 +101,13 @@ const auth = req => {
   if (safeEqual(bearer, config.adminToken)) return true;
   const queryToken = new URL(req.url, config.baseUrl).searchParams.get('token') || '';
   return safeEqual(queryToken, config.adminToken);
+};
+const relayConfigured = () => Boolean(config.agentRelay?.enabled && config.agentRelay?.token);
+const relayAuth = req => {
+  if (!relayConfigured()) return false;
+  const header = req.headers.authorization || '';
+  const bearer = header.startsWith('Bearer ') ? header.slice(7) : '';
+  return safeEqual(bearer, config.agentRelay.token);
 };
 const pct = (numerator, denominator) => denominator ? Math.round(numerator / denominator * 100) : 0;
 const publicApi = pathname => pathname === '/api/health' || pathname === '/api/public/unsubscribe' || pathname === '/api/public/config' || pathname === '/api/public/audit' || pathname.startsWith('/api/public/report/') || pathname.startsWith('/api/public/artifacts/') || pathname === '/api/public/checkout' || pathname === '/webhooks/lemonsqueezy';
@@ -235,7 +243,15 @@ const server = http.createServer(async (req, res) => {
       await bodyText(req);
       return json(res, 200, await applyUnsubscribe(url.searchParams.get('token') || ''));
     }
-    if ((url.pathname.startsWith('/api/') || url.pathname === '/oauth/google/start') && !publicApi(url.pathname) && !auth(req)) {
+    const relayPath = url.pathname === '/api/agent-relay/health'
+      || url.pathname === '/api/agent-relay/tasks'
+      || url.pathname === '/api/agent-relay/tasks/claim'
+      || /^\/api\/agent-relay\/tasks\/[^/]+\/result$/.test(url.pathname);
+    if (relayPath && !relayAuth(req)) {
+      return json(res, relayConfigured() ? 401 : 503, { error: relayConfigured() ? 'Unauthorized' : 'Agent relay is not configured' });
+    }
+    if ((url.pathname.startsWith('/api/') || url.pathname === '/oauth/google/start')
+      && !relayPath && !publicApi(url.pathname) && !auth(req)) {
       return json(res, 401, { error: 'Unauthorized' });
     }
 
@@ -282,6 +298,63 @@ const server = http.createServer(async (req, res) => {
     if (method === 'POST' && url.pathname === '/webhooks/lemonsqueezy') {
       const raw = await bodyText(req);
       return json(res, 200, await revenue.handleLemonWebhook(raw, req.headers['x-signature']));
+    }
+
+    if (url.pathname.startsWith('/api/agent-relay')) {
+      if (method === 'GET' && url.pathname === '/api/agent-relay/health') {
+        return json(res, 200, {
+          ok: true,
+          configured: relayConfigured(),
+          jobType: AGENT_RELAY_JOB_TYPE,
+          policyVersion: CLOUD_AGENT_RELAY_POLICY_VERSION,
+          externalProviderCalls: 0,
+          externalEffectLedger: {
+            providerCalls: 0, messages: 0, purchases: 0, deployments: 0,
+            credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0
+          }
+        });
+      }
+      if (method === 'POST' && url.pathname === '/api/agent-relay/tasks') {
+        const result = await createCloudRelayTask({ queue, store, input: await parseBody(req) });
+        return result.ok ? json(res, 201, result) : json(res, 400, result);
+      }
+      if (method === 'GET' && url.pathname === '/api/agent-relay/tasks') {
+        const result = await listCloudRelayTasks({
+          store,
+          targetAgent: url.searchParams.get('targetAgent') || '',
+          status: url.searchParams.get('status') || '',
+          limit: Number(url.searchParams.get('limit') || 20)
+        });
+        return result.ok ? json(res, 200, result) : json(res, 400, result);
+      }
+      if (method === 'POST' && url.pathname === '/api/agent-relay/tasks/claim') {
+        const input = await parseBody(req);
+        const result = await claimCloudRelayTask({
+          store,
+          targetAgent: input.targetAgent || 'claude-code',
+          workerId: input.workerId || `claude-code:${process.pid}`
+        });
+        if (result.ok) return json(res, 200, result);
+        return json(res, result.status === 'EMPTY' ? 404 : 409, result);
+      }
+      const match = url.pathname.match(/^\/api\/agent-relay\/tasks\/([^/]+)\/result$/);
+      if (method === 'POST' && match) {
+        const taskId = decodeURIComponent(match[1]);
+        const input = await parseBody(req);
+        const result = await submitCloudRelayResult({
+          store,
+          taskId,
+          workerId: input.workerId,
+          status: input.status,
+          result: input.result,
+          receipt: input.receipt
+        });
+        if (result.ok) return json(res, 200, result);
+        const status = result.reasonCodes?.includes('task-not-found') ? 404
+          : result.reasonCodes?.includes('lease-owner-mismatch') ? 409 : 400;
+        return json(res, status, result);
+      }
+      return json(res, 404, { error: 'Unknown agent relay route' });
     }
 
     if (method === 'GET' && url.pathname === '/api/summary') return json(res, 200, await summary());

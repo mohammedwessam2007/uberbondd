@@ -33,7 +33,8 @@ export function startScheduler(queue, cfg, log = console) {
     if (cfg.prometheus?.schedulingEnabled) {
       recurring.push(
         ['prometheus.capability_gap.recompute', 6 * HOUR, {}, { maxAttempts: 2 }],
-        ['prometheus.commercial_memory.contradiction_scan', 24 * HOUR, {}, { maxAttempts: 2 }]
+        ['prometheus.commercial_memory.contradiction_scan', 24 * HOUR, {}, { maxAttempts: 2 }],
+        ['prometheus.commercial.catalog', 24 * HOUR, {}, { maxAttempts: 2 }]
       );
     }
     // Domain/mailbox warm-up reconciliation -- read-only unless a real

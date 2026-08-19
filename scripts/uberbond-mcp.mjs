@@ -9,6 +9,10 @@ import { createInterface } from "node:readline";
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(process.env.CLAUDE_PROJECT_DIR || join(scriptDirectory, ".."));
 const protocolVersion = "2024-11-05";
+const relayUrl = String(process.env.UBERBOND_AGENT_RELAY_URL || "").trim();
+const relayToken = String(process.env.UBERBOND_AGENT_RELAY_TOKEN || "").trim();
+const relayEnabled = process.env.UBERBOND_AGENT_RELAY_ENABLED === "true";
+const relayAgent = String(process.env.UBERBOND_RELAY_AGENT || "claude-code").trim().toLowerCase();
 
 const tools = [
   {
@@ -32,6 +36,47 @@ const tools = [
         acceptance: { type: "array", items: { type: "string", maxLength: 300 }, maxItems: 12 },
       },
       required: ["objective"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "uberbond_relay_poll",
+    description: "Poll the configured UberBond cloud relay for tasks addressed to Claude Code; no provider or production action is exposed.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        targetAgent: { type: "string", minLength: 1, maxLength: 64 },
+        status: { type: "string", enum: ["queued", "retry", "active", "completed", "dead-letter"] },
+        limit: { type: "integer", minimum: 1, maximum: 20 },
+      },
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "uberbond_relay_claim",
+    description: "Claim one leased UberBond task for this Claude Code worker through the authenticated cloud relay.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        targetAgent: { type: "string", minLength: 1, maxLength: 64 },
+        workerId: { type: "string", minLength: 1, maxLength: 120 },
+      },
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "uberbond_relay_submit",
+    description: "Submit a bounded Claude Code result and receipt to UberBond; nonzero external effects are rejected.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        taskId: { type: "string", minLength: 1, maxLength: 120 },
+        workerId: { type: "string", minLength: 1, maxLength: 120 },
+        status: { type: "string", enum: ["completed", "failed"] },
+        result: { type: "object" },
+        receipt: { type: "object" },
+      },
+      required: ["taskId", "workerId", "status", "result"],
       additionalProperties: false,
     },
   },
@@ -82,7 +127,50 @@ function safeRelativeFiles(files) {
   }).slice(0, 20);
 }
 
+
+async function relayRequest(method, route, body = undefined) {
+  if (!relayEnabled || !relayUrl || !relayToken) {
+    throw new Error("cloud relay disabled or not configured");
+  }
+  let base;
+  try { base = new URL(relayUrl); } catch { throw new Error("cloud relay URL is invalid"); }
+  if (!["http:", "https:"].includes(base.protocol)) throw new Error("cloud relay URL must use http or https");
+  if (!route.startsWith("/api/agent-relay/")) throw new Error("cloud relay route rejected");
+  const endpoint = new URL(route, base.origin);
+  const response = await fetch(endpoint, {
+    method,
+    headers: {
+      authorization: `Bearer ${relayToken}`,
+      ...(body === undefined ? {} : { "content-type": "application/json" }),
+    },
+    ...(body === undefined ? {} : { body: JSON.stringify(body) }),
+    signal: AbortSignal.timeout(15_000),
+  });
+  const content = (await response.text()).slice(0, 1_000_000);
+  let payload;
+  try { payload = content ? JSON.parse(content) : {}; } catch { payload = { raw: content }; }
+  if (!response.ok) {
+    const detail = typeof payload?.error === "string" ? payload.error : `HTTP ${response.status}`;
+    throw new Error(`cloud relay request failed: ${detail}`);
+  }
+  return payload;
+}
+
 async function callTool(name, args) {
+  if (name === "uberbond_relay_poll") {
+    const targetAgent = String(args?.targetAgent || relayAgent).trim().toLowerCase();
+    const params = new URLSearchParams({ targetAgent, limit: String(Math.max(1, Math.min(20, Number(args?.limit || 10)))) });
+    if (args?.status) params.set("status", String(args.status));
+    return textResult(await relayRequest("GET", `/api/agent-relay/tasks?${params.toString()}`));
+  }
+
+  if (name === "uberbond_relay_claim") {
+    return textResult(await relayRequest("POST", "/api/agent-relay/tasks/claim", {
+      targetAgent: String(args?.targetAgent || relayAgent).trim().toLowerCase(),
+      workerId: String(args?.workerId || `claude-code:${process.pid}`).slice(0, 120),
+    }));
+  }
+
   if (name === "uberbond_get_state") {
     const [branch, status] = await Promise.all([
       command("git", ["branch", "--show-current"]),
@@ -90,7 +178,7 @@ async function callTool(name, args) {
     ]);
     return textResult({
       provider: "uberbond",
-      bridge: { transport: "stdio-mcp", connected: true, externalCalls: 0, spendCents: 0, outboundEnabled: false },
+      bridge: { transport: "stdio-mcp", connected: true, externalCalls: 0, spendCents: 0, outboundEnabled: false, cloudRelay: { enabled: relayEnabled, configured: Boolean(relayEnabled && relayUrl && relayToken), agent: relayAgent, tokenExposed: false } },
       projectRoot,
       branch: branch.stdout.trim(),
       worktree: status.stdout.trim().split("\n").filter(Boolean),
@@ -115,6 +203,16 @@ async function callTool(name, args) {
       execution: "Claude may inspect and prepare local changes; external effects remain disabled.",
       requiredReceipt: ["outcome", "changedArtifacts", "testsActuallyRun", "truthTable", "externalEffectLedger", "risks", "decision"],
     });
+  }
+
+  if (name === "uberbond_relay_submit") {
+    const taskId = String(args?.taskId || "").trim();
+    return textResult(await relayRequest("POST", `/api/agent-relay/tasks/${encodeURIComponent(taskId)}/result`, {
+      workerId: String(args?.workerId || "").slice(0, 120),
+      status: String(args?.status || "").toUpperCase(),
+      result: args?.result,
+      receipt: args?.receipt,
+    }));
   }
 
   if (name === "uberbond_run_verification") {

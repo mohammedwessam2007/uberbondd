@@ -17,7 +17,7 @@ test("UberBond exposes a project-scoped no-secret Claude MCP bridge", async () =
 
   const source = await readFile(new URL("../scripts/uberbond-mcp.mjs", import.meta.url), "utf8");
   const docs = await readFile(new URL("../docs/CLAUDE_UBERBOND_MCP.md", import.meta.url), "utf8");
-  for (const tool of ["uberbond_get_state", "uberbond_read_relay_contract", "uberbond_prepare_task", "uberbond_run_verification"]) assert.match(source, new RegExp(tool));
+  for (const tool of ["uberbond_get_state", "uberbond_read_relay_contract", "uberbond_prepare_task", "uberbond_relay_poll", "uberbond_relay_claim", "uberbond_relay_submit", "uberbond_run_verification"]) assert.match(source, new RegExp(tool));
   for (const suite of ["check:syntax", "test:deterministic", "check"]) assert.match(source, new RegExp(suite));
   for (const forbidden of ["deploy", "push", "merge", "credential change", "production mutation"]) assert.match(source, new RegExp(forbidden));
   assert.match(docs, /Approve the trusted project-scoped MCP server/);
@@ -28,6 +28,7 @@ function startBridge() {
   const child = spawn("node", [bridgeScript], {
     cwd: projectRoot,
     stdio: ["pipe", "pipe", "pipe"],
+    env: { ...process.env, UBERBOND_AGENT_RELAY_ENABLED: "false", UBERBOND_AGENT_RELAY_URL: "", UBERBOND_AGENT_RELAY_TOKEN: "" },
   });
   const lines = createInterface({ input: child.stdout, crlfDelay: Infinity });
   const pending = new Map();
@@ -127,6 +128,18 @@ test("hostile: unknown tool name and unsupported method return protocol errors",
     const badMethod = await bridge.request("prompts/list", {});
     assert.ok(badMethod.error, "expected an error for an unsupported method");
     assert.equal(badMethod.error.code, -32601);
+  } finally {
+    bridge.stop();
+  }
+});
+
+test("hostile: cloud relay tools fail closed when not configured", async () => {
+  const bridge = startBridge();
+  try {
+    await bridge.request("initialize", {});
+    const response = await bridge.request("tools/call", { name: "uberbond_relay_poll", arguments: {} });
+    assert.ok(response.error, "expected the disabled relay to fail closed");
+    assert.match(response.error.message, /cloud relay disabled or not configured/);
   } finally {
     bridge.stop();
   }

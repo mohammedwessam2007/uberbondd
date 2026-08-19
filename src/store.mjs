@@ -218,9 +218,12 @@ class JsonTransactionStore {
   async reserveDiscoveryCapacity(date, cap, requested, runId = '') { return this.parent._reserveDiscoveryCapacityDirect(date, cap, requested, runId); }
   async claimProspects(limit = 1) { return this.parent._claimProspectsDirect(limit); }
   async claimProspect(id) { return this.parent._claimProspectDirect(id); }
-  async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000) { return this.parent._claimJobsDirect(workerId, limit, lockTimeoutMs); }
+  async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000, options = {}) { return this.parent._claimJobsDirect(workerId, limit, lockTimeoutMs, options); }
+  async claimJobsByType(type, targetAgent, workerId, limit = 1, lockTimeoutMs = 300000) { return this.parent._claimJobsByTypeDirect(type, targetAgent, workerId, limit, lockTimeoutMs); }
   async completeJob(id, result = {}) { return this.parent._completeJobDirect(id, result); }
+  async completeJobIfOwned(id, workerId, result = {}) { return this.parent._completeJobIfOwnedDirect(id, workerId, result); }
   async failJob(id, error, options = {}) { return this.parent._failJobDirect(id, error, options); }
+  async failJobIfOwned(id, workerId, error, options = {}) { return this.parent._failJobIfOwnedDirect(id, workerId, error, options); }
   async heartbeatJob(id, workerId) { return this.parent._heartbeatJobDirect(id, workerId); }
   async recoverStaleJobs(lockTimeoutMs = 300000) { return this.parent._recoverStaleJobsDirect(lockTimeoutMs); }
   async queueStats() { return this.parent._queueStatsDirect(); }
@@ -401,11 +404,34 @@ export class JsonStore {
     return { recovered, deadLettered };
   }
 
-  _claimJobsDirect(workerId, limit = 1, lockTimeoutMs = 300000) {
+  _claimJobsDirect(workerId, limit = 1, lockTimeoutMs = 300000, options = {}) {
     this._recoverStaleJobsDirect(lockTimeoutMs);
     const current = Date.now();
     const jobs = (this.data.jobs || [])
-      .filter(job => ['queued', 'retry'].includes(job.status) && Date.parse(job.runAt || job.scheduledAt || job.createdAt || 0) <= current)
+      .filter(job => ['queued', 'retry'].includes(job.status) && !(options.excludeTypes || []).includes(job.type) && Date.parse(job.runAt || job.scheduledAt || job.createdAt || 0) <= current)
+      .sort((a, b) => Number(b.priority || 0) - Number(a.priority || 0) || String(a.createdAt || '').localeCompare(String(b.createdAt || '')))
+      .slice(0, Math.max(0, limit));
+    for (const job of jobs) {
+      job.status = 'active';
+      job.attempts = Number(job.attempts || 0) + 1;
+      job.lockedBy = workerId;
+      job.lockedAt = now();
+      job.heartbeatAt = job.lockedAt;
+      job.startedAt = job.startedAt || job.lockedAt;
+      job.updatedAt = now();
+    }
+    return structuredClone(jobs);
+  }
+
+  _claimJobsByTypeDirect(type, targetAgent, workerId, limit = 1, lockTimeoutMs = 300000) {
+    this._recoverStaleJobsDirect(lockTimeoutMs);
+    const current = Date.now();
+    const expectedType = String(type || '');
+    const expectedTarget = String(targetAgent || '');
+    const jobs = (this.data.jobs || [])
+      .filter(job => job.type === expectedType && ['queued', 'retry'].includes(job.status)
+        && (!expectedTarget || job.payload?.targetAgent === expectedTarget)
+        && Date.parse(job.runAt || job.scheduledAt || job.createdAt || 0) <= current)
       .sort((a, b) => Number(b.priority || 0) - Number(a.priority || 0) || String(a.createdAt || '').localeCompare(String(b.createdAt || '')))
       .slice(0, Math.max(0, limit));
     for (const job of jobs) {
@@ -425,6 +451,16 @@ export class JsonStore {
     if (!job) return null;
     Object.assign(job, { status: 'completed', result, completedAt: now(), lockedAt: null, lockedBy: null, heartbeatAt: null, lastError: '', updatedAt: now() });
     return structuredClone(job);
+  }
+
+  _completeJobIfOwnedDirect(id, workerId, result = {}) {
+    const job = (this.data.jobs || []).find(item => item.id === id && item.status === 'active' && item.lockedBy === workerId);
+    return job ? this._completeJobDirect(id, result) : null;
+  }
+
+  _failJobIfOwnedDirect(id, workerId, error, options = {}) {
+    const job = (this.data.jobs || []).find(item => item.id === id && item.status === 'active' && item.lockedBy === workerId);
+    return job ? this._failJobDirect(id, error, options) : null;
   }
 
   _failJobDirect(id, error, options = {}) {
@@ -539,9 +575,12 @@ export class JsonStore {
   async reserveDiscoveryCapacity(date, cap, requested, runId = '') { return this.transaction(tx => tx.reserveDiscoveryCapacity(date, cap, requested, runId)); }
   async claimProspects(limit = 1) { return this.transaction(tx => tx.claimProspects(limit)); }
   async claimProspect(id) { return this.transaction(tx => tx.claimProspect(id)); }
-  async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000) { return this.transaction(tx => tx.claimJobs(workerId, limit, lockTimeoutMs)); }
+  async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000, options = {}) { return this.transaction(tx => tx.claimJobs(workerId, limit, lockTimeoutMs, options)); }
+  async claimJobsByType(type, targetAgent, workerId, limit = 1, lockTimeoutMs = 300000) { return this.transaction(tx => tx.claimJobsByType(type, targetAgent, workerId, limit, lockTimeoutMs)); }
   async completeJob(id, result = {}) { return this.transaction(tx => tx.completeJob(id, result)); }
+  async completeJobIfOwned(id, workerId, result = {}) { return this.transaction(tx => tx.completeJobIfOwned(id, workerId, result)); }
   async failJob(id, error, options = {}) { return this.transaction(tx => tx.failJob(id, error, options)); }
+  async failJobIfOwned(id, workerId, error, options = {}) { return this.transaction(tx => tx.failJobIfOwned(id, workerId, error, options)); }
   async heartbeatJob(id, workerId) { return this.transaction(tx => tx.heartbeatJob(id, workerId)); }
   async recoverStaleJobs(lockTimeoutMs = 300000) { return this.transaction(tx => tx.recoverStaleJobs(lockTimeoutMs)); }
   async queueStats() { return this._queueStatsDirect(); }
@@ -781,13 +820,14 @@ export class PostgresStore {
     });
   }
 
-  async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000) {
+  async claimJobs(workerId, limit = 1, lockTimeoutMs = 300000, options = {}) {
     await this.recoverStaleJobs(lockTimeoutMs);
     return this.transaction(async tx => {
       const result = await tx.pool.query(`
         WITH candidates AS (
           SELECT id FROM jobs
           WHERE status = ANY($1::text[])
+            AND NOT (type = ANY($4::text[]))
             AND COALESCE(run_at, scheduled_at, created_at, now()) <= now()
           ORDER BY priority DESC, created_at ASC NULLS FIRST
           FOR UPDATE SKIP LOCKED
@@ -805,8 +845,58 @@ export class PostgresStore {
         FROM candidates c
         WHERE j.id = c.id
         RETURNING j.data
-      `, [['queued', 'retry'], Math.max(0, Number(limit || 0)), String(workerId)]);
+      `, [['queued', 'retry'], Math.max(0, Number(limit || 0)), String(workerId), Array.isArray(options.excludeTypes) ? options.excludeTypes.map(String) : []]);
       return result.rows.map(row => row.data);
+    });
+  }
+
+  async claimJobsByType(type, targetAgent, workerId, limit = 1, lockTimeoutMs = 300000) {
+    await this.recoverStaleJobs(lockTimeoutMs);
+    return this.transaction(async tx => {
+      const result = await tx.pool.query(`
+        WITH candidates AS (
+          SELECT id FROM jobs
+          WHERE type = $1::text
+            AND status = ANY($2::text[])
+            AND COALESCE(run_at, scheduled_at, created_at, now()) <= now()
+            AND ($3::text = '' OR data->'payload'->>'targetAgent' = $3::text)
+          ORDER BY priority DESC, created_at ASC NULLS FIRST
+          FOR UPDATE SKIP LOCKED
+          LIMIT $4
+        )
+        UPDATE jobs j
+        SET status = 'active', attempts = COALESCE(j.attempts,0) + 1,
+            locked_by = $5::text, locked_at = now(), heartbeat_at = now(),
+            started_at = COALESCE(j.started_at, now()), updated_at = now(),
+            data = j.data || jsonb_build_object(
+              'status','active','attempts',COALESCE(j.attempts,0)+1,'lockedBy',$5::text,
+              'lockedAt',now()::text,'heartbeatAt',now()::text,
+              'startedAt',COALESCE(j.started_at,now())::text,'updatedAt',now()::text
+            )
+        FROM candidates c
+        WHERE j.id = c.id
+        RETURNING j.data
+      `, [String(type), ['queued', 'retry'], String(targetAgent || ''), Math.max(0, Number(limit || 0)), String(workerId)]);
+      return result.rows.map(row => row.data);
+    });
+  }
+
+  async completeJobIfOwned(id, workerId, result = {}) {
+    const query = await this.pool.query(`
+      UPDATE jobs SET status='completed', result=$2::jsonb, completed_at=now(),
+        locked_at=NULL, locked_by=NULL, heartbeat_at=NULL, last_error=NULL, updated_at=now(),
+        data=data || jsonb_build_object('status','completed','result',$2::jsonb,'completedAt',now()::text,
+          'lockedAt',NULL,'lockedBy',NULL,'heartbeatAt',NULL,'lastError','','updatedAt',now()::text)
+      WHERE id=$1 AND status='active' AND locked_by=$3 RETURNING data
+    `, [id, JSON.stringify(result || {}), String(workerId)]);
+    return query.rows[0]?.data || null;
+  }
+
+  async failJobIfOwned(id, workerId, error, options = {}) {
+    return this.transaction(async tx => {
+      const row = await tx.pool.query('SELECT attempts,max_attempts,data FROM jobs WHERE id=$1 AND status=$2 AND locked_by=$3 FOR UPDATE', [id, 'active', String(workerId)]);
+      if (!row.rows[0]) return null;
+      return tx.failJob(id, error, options);
     });
   }
 

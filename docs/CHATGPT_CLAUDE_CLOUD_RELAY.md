@@ -1,5 +1,17 @@
 # UberBond cloud relay: ChatGPT to Claude Code
 
+## Deployed HTTP ingress
+
+A separate Vercel project now hosts the bounded GitHub-Issues ingress:
+
+- Production URL: https://uberbond-relay.vercel.app/api/agent-relay
+- Vercel project: `uberbond-relay`
+- Deployment: `dpl_9ox6CB71AdLeSHVaEfv8oq1ukBZ9` (`READY`)
+- Current state: `RELAY_NOT_CONFIGURED` until the owner adds `UBERBOND_RELAY_TOKEN`, `GITHUB_TOKEN`, and `GITHUB_REPOSITORY` in Vercel project secrets.
+
+The endpoint is not a public unauthenticated bridge. It fails closed before any GitHub request when configuration is incomplete, and then requires the relay bearer token. The existing GitHub Issue transport remains the proven fallback and audit trail.
+
+
 This document describes the bounded transport added in the cloud-agent-relay wave.
 
 ## What it does
@@ -86,6 +98,63 @@ proof obtained (real local HTTP + MCP stdio E2E, real embedded-PostgreSQL
 concurrency), defects found and fixed, and the honest status of every
 Wave (ChatGPT connector, device-off execution, Vercel/CI) from the most
 recent reconciliation wave.
+
+## Using the bridge today (no host, no deploy, no spend)
+
+The HTTP transport above needs a deployed UberBond host, which does not exist
+yet. A second transport does work today and has carried a real task end to end
+(issue #30): **GitHub Issues as the wire.** See `src/github-relay.mjs`.
+
+### To send Claude Code a task
+
+Open an issue in this repository with the label `agent-relay:task` and a fenced
+`uberbond-task` block. The minimum viable packet:
+
+    ```uberbond-task
+    {
+      "taskId": "my-task-1",
+      "objective": "Run the deterministic verification suite",
+      "originAgent": "chatgpt",
+      "targetAgent": "claude-code",
+      "constraints": ["suite:deterministic"],
+      "requiredOutputs": ["outcome"],
+      "acceptanceTests": ["the suite runs to completion"],
+      "evidenceRefs": ["task:my-brief"],
+      "consequenceClass": "LOCAL_PREPARATION"
+    }
+    ```
+
+`evidenceRefs` entries must be prefixed with one of `evidence: audit: test:
+doc: outcome: signal: task: proposal: mission: receipt:` -- the packet compiler
+rejects anything else.
+
+### To read the answer
+
+The worker posts a `uberbond-result` comment on the same issue, adds
+`agent-relay:done`, and closes it. The issue thread is the durable receipt --
+real ids, real timestamps, real author identity, permanently addressable.
+
+### Getting ChatGPT to drive it
+
+ChatGPT does not need a custom connector for this. Any of these work:
+
+- ChatGPT's GitHub connector, if enabled on the account, can open and read issues directly.
+- Ask ChatGPT to write the packet, then paste it into a new issue yourself.
+- Any GitHub automation (Zapier, a webhook, `gh issue create`) can open the issue.
+
+The relay does not care which of these produced the issue, because the packet
+is validated on read regardless of author.
+
+### What runs the worker
+
+- **Today:** an interactive Claude Code session with GitHub access (this is how issue #30 was answered).
+- **Unattended:** `.github/workflows/agent-relay-worker.yml` fires on `issues: opened/labeled` plus an hourly cron and runs `scripts/github-relay-worker.mjs` on GitHub's infrastructure -- no device, no session. It is staged and syntax-checked but has never executed, because GitHub Actions on this account is currently failing at the infrastructure level (see `docs/ARGUS_RELAY_TRUTH.md`). It should start working on its own once Actions billing is restored.
+- **Anywhere else:** `GITHUB_TOKEN=... GITHUB_REPOSITORY=owner/repo node scripts/github-relay-worker.mjs` on any host or cron.
+
+The worker only ever runs three allowlisted npm scripts (`check:syntax`,
+`test:deterministic`, `check`). It reports `UNSUPPORTED_OBJECTIVE` for anything
+else and never executes free text from an issue body -- otherwise "anyone who
+can open an issue" would mean "anyone who can run code in CI."
 
 ## Proof boundary
 

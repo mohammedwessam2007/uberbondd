@@ -27,29 +27,28 @@ The explicit thread taxonomy contains 435 rows across 62 normalized categories, 
 
 ## 4. Shared capability implementation
 
-The release now records and routes the shared capability set that unlocks the largest number of opportunities: market-signal/evidence kernel; business-genome and mechanism atomization; canonical opportunity registry; opportunity scoring/tournament; bounded commercial-experiment engine; distribution/partner graph; revenue/payment/outcome graph; commercial memory and failure memory; governed self-upgrade proposals; cloud relay boundary; V9 consequence boundary; and durable-queue interface. Existing UberBond models are reused; no hundreds-of-businesses implementation was created.
+The release now records and routes the shared capability set that unlocks the largest number of opportunities: market-signal/evidence kernel; business-genome and mechanism atomization; canonical opportunity registry; opportunity scoring/tournament; bounded commercial-experiment engine; distribution/partner graph; revenue/payment/outcome graph; commercial memory and failure memory; governed self-upgrade proposals; GitHub-mediated relay transport; Vercel ingress boundary; the tested partial adapter; V9 consequence boundary; and durable-queue interface. Existing UberBond models are reused; no hundreds-of-businesses implementation was created.
 
 ## 5. Cloud and Vercel status
 
 - Verified Vercel team listing: `mohammedwessam2007's projects`, slug `mohammedwessam2007s-projects`, ID `team_A9LnjIuS5PU0rNetsHMu1N0r`.
-- `uberbondd-lite-private`: existing project, latest production observed `READY` on `main`; production was not changed. The authorized branch push nevertheless triggered automatic READY preview deployments in this existing project (at least three were observed, all with target `null`). This preview side effect is recorded rather than treated as a production deployment.
-- Failed `uberbondd`: existing project, latest observed production deployment is `ERROR`; no delete or destructive mutation was attempted. The connected toolset exposed no safe pause operation, so it remains present and not claimed paused.
+- `uberbondd-lite-private`: existing project, latest production observed `READY` on current `main` (`e62683d91de4cffe5eaef3bf79bb64bb618aa97a`); production was not changed. The authorized branch push triggered automatic READY preview deployments in this existing project (at least six were observed, all with target `null`). This preview side effect is recorded rather than treated as a production deployment.
+- Failed `uberbondd`: existing project, latest `main` production deployment remains `ERROR` (`dpl_Qgb6UpzobjRd8noBv7phYdgSAoDC`); a branch preview for the reconciled branch is also `ERROR`. No delete or destructive mutation was attempted. The connected toolset exposed no safe pause operation, so it remains present and not claimed paused.
 - `uberbondd-relay`: **not created**. The connected deployment action rejected creation because the destination team could not be verified through its trusted ownership channel; no partial project was found in a subsequent project listing.
-- Relay status: **local and repository interface only; cloud deployment blocked**. The adapter is deliberately not labeled a full durable worker. No environment values, credentials, DNS, payment settings, or secrets were changed.
+- Root GitHub/Vercel relay code is present on current `main`, and its bounded contract tests pass, but the failed `uberbondd` deployment and absent separate project mean **no independently verified reachable cloud relay**. The new `relay/` surface remains a deliberately partial adapter, not a durable worker. No environment values, credentials, DNS, payment settings, or secrets were changed.
 
 ## 6. GitHub status
 
-- Current `main` used as the base: `a9c217b130c4d778380b0f04f11d3aaf61fb48fe`.
+- Current `main` used as the base: `e62683d91de4cffe5eaef3bf79bb64bb618aa97a` (rechecked after the branch was created; the branch was merged with this newer main without force-push).
 - Branch: `agent/omnia-registry-relay`.
-- Remote branch tip: `93b4a5357c0ab86cdd1954d7b8bd2d653b8dbe8a`, “Refresh durable branch receipt”; cumulative branch delta is 18 files over `main` (registry/catalog/taxonomy, relay adapter, tests, and truth receipt).
-- Local verification tip: `db89528`; the GitHub API branch tip is the authoritative remote receipt.
-- No force-push, deletion, pull request, or main-branch mutation occurred.
+- The reconciled branch contains the newer main relay additions plus the canonical registry, taxonomy, partial adapter, tests, and truth receipt; the merge was non-force and preserved both parents.
+- No main-branch mutation, deletion, pull request, or force-push occurred.
 
 ## 7. Tests actually run
 
-- `npm run check`: **1,083 total; 1,041 passing; 0 failing; 42 intentionally skipped**.
+- `npm run check`: **1,103 total; 1,061 passing; 0 failing; 42 intentionally skipped**.
 - `npm run check:syntax`: passed.
-- Focused catalog/registry and Vercel-relay tests: **58 passing**.
+- Focused root/partial Vercel-relay syntax and tests (`node --check api/agent-relay.mjs`, `node --check src/github-relay.mjs`, `node --check src/cloud-agent-relay.mjs`, and both relay test files): **9 passing**.
 - All eight product archive ZIPs and the three supplemental ZIPs were checksum/integrity tested before implementation; the eight-part master reports 599 manifest entries, 0 missing, 0 repeated, and 0 ZIP CRC failures.
 
 ## 8. Hourly execution automation
@@ -66,15 +65,17 @@ The release now records and routes the shared capability set that unlocks the la
 | Opportunity ingestion | `IMPLEMENTED_LOCAL` | 438-record canonical projection and deterministic validation |
 | Buyer demand | `BUYER_SIGNAL` only for the three existing core records | Public buyer-request sources in the catalog; not cleared-payment proof |
 | Pricing, margin, timing, burden, competition | `HYPOTHESIS`/`ESTIMATE`/`INFERENCE` unless explicitly sourced | Field-level claim types |
-| Relay | `INTERFACE_ONLY` | Local health and 501 task routes; zero external effects |
-| Durable cloud worker | `NOT_DEPLOYED` | Vercel deployment rejected; no relay project listed |
+| GitHub relay transport | `LIVE_UNPROVEN` | One historical interactive issue proof is documented on current main; unattended Actions worker remains blocked |
+| Root Vercel relay ingress | `IMPLEMENTED_NOT_LIVE` | Current main contains the handler and tests, but the `uberbondd` deployment is ERROR and no separate reachable relay project was verified |
+| Partial Vercel adapter | `INTERFACE_ONLY` | Local health and 501 task routes; zero adapter effects |
+| Durable cloud worker | `NOT_DEPLOYED` | No separately verified durable queue/worker deployment |
 | Outbound | `DISABLED` | No provider calls/messages/purchases |
 | Payment/revenue/customers | `UNPROVEN` | No cleared payment, customer acceptance, or repeat margin receipt |
 | Claude/Cowork execution | `UNPROVEN` | No durable execution receipt |
 
 ## 10. External-effect ledger
 
-For this execution: provider calls 0; messages 0; purchases 0; DNS changes 0; credential/secret changes 0; production mutations 0; spend 0; **automatic Vercel preview deployments** occurred in the existing Lite project as a consequence of the branch push (non-production, target `null`); the explicit relay deployment was rejected and created no project. Lite production remained unchanged.
+For this execution: provider calls 0; messages 0; purchases 0; DNS changes 0; credential/secret changes 0; production mutations 0; spend 0; **at least six automatic Vercel preview deployments** occurred in the existing Lite project as a consequence of the branch push (non-production, target `null`); the explicit relay deployment was rejected and created no project. Lite production remained unchanged.
 
 ## 11. Commercial truth
 
@@ -84,7 +85,9 @@ UberBond still has **$0 verified cleared revenue** in the available evidence. Th
 
 - Connector-reported Vercel team ownership was insufficient for the deployment action's trusted-destination gate; deployment must not be retried through a workaround.
 - The Lite project's Git integration automatically previews authorized branch pushes. Future pushes can create preview deployments even when production is protected; this is now an explicit external-effect risk.
-- The full Node worker and durable queue remain production-shaped/local, not cloud-proven.
+- Current `main` advanced during execution; the branch was explicitly merged with `e62683d…` before the final test run so the registry is not based on a stale remembered SHA.
+- GitHub Actions is independently reported as infrastructure-blocked in the relay truth artifacts; no unattended worker proof was claimed.
+- The durable Postgres worker path remains production-shaped/local, not cloud-proven; the unattended GitHub Actions worker is written but has no current run proof.
 - The canonical product package contains historical/superseded and parser-failure records; the current GitHub `main` and current registry projection were used instead of treating archive filenames as proof.
 - The catalog is intentionally broad for ingestion but should be narrowed by evidence and experiment gates before any commercial action.
 

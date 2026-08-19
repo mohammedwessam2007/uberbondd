@@ -14,7 +14,10 @@ import {
 export const AGENT_RELAY_JOB_TYPE = 'prometheus.agent.relay';
 export const CLOUD_AGENT_RELAY_POLICY_VERSION = 'cloud-agent-relay-1.0.0';
 
-const ZERO_EFFECTS = Object.freeze({
+// Exported so alternative relay transports (see src/github-relay.mjs) reuse
+// the exact same zero-external-effect contract rather than declaring a second,
+// driftable copy of it.
+export const ZERO_EFFECTS = Object.freeze({
   providerCalls: 0,
   messages: 0,
   purchases: 0,
@@ -43,7 +46,9 @@ function sizeOf(value) {
   return Buffer.byteLength(JSON.stringify(value ?? null), 'utf8');
 }
 
-function hasSecret(value) {
+// Exported for reuse by alternative relay transports. One scanner, one set of
+// patterns -- a second copy would drift and silently weaken over time.
+export function hasSecret(value) {
   if (typeof value === 'string') return SECRET_VALUE.test(value);
   if (Array.isArray(value)) return value.some(hasSecret);
   if (!value || typeof value !== 'object') return false;
@@ -129,7 +134,7 @@ function normalizeTargetAgent(value) {
   return /^[a-z0-9][a-z0-9._-]{0,63}$/.test(targetAgent) ? targetAgent : '';
 }
 
-function validResult(result) {
+export function validResult(result) {
   if (!result || typeof result !== 'object' || Array.isArray(result)) return ['result-object-required'];
   const required = ['outcome', 'changedArtifacts', 'testsActuallyRun', 'truthTable', 'externalEffectLedger', 'decision'];
   const missing = required.filter(key => !(key in result));

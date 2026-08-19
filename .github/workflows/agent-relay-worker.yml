@@ -1,0 +1,68 @@
+# Device-off worker for the GitHub-mediated relay (src/github-relay.mjs).
+#
+# Runs on GitHub's own infrastructure, so relay tasks are picked up with no
+# founder device and no Claude session involved. Two triggers:
+#   - issues: opened/labeled  -> react promptly when a task actually arrives
+#   - schedule                -> a safety net for anything the event missed
+#
+# Permissions are deliberately minimal: issues:write (to claim, comment, and
+# close) and contents:read (to check out the code it verifies). It cannot push,
+# merge, deploy, or touch secrets beyond the ephemeral built-in GITHUB_TOKEN.
+#
+# The worker itself only ever runs the repository's own allowlisted npm
+# verification scripts -- see scripts/github-relay-worker.mjs, which refuses
+# any objective outside that set rather than executing instructions from an
+# issue body.
+name: Agent relay worker
+
+on:
+  issues:
+    types: [opened, labeled, reopened]
+  schedule:
+    # Hourly safety net. GitHub may skip or delay scheduled runs on a busy
+    # queue; the issues trigger above is the primary path.
+    - cron: '17 * * * *'
+  workflow_dispatch:
+    inputs:
+      dryRun:
+        description: 'Poll and report without claiming anything'
+        type: boolean
+        default: false
+
+# One worker at a time. Without this, an issues event and a scheduled run could
+# overlap and both claim the same task -- the lease resolves that after the
+# fact, but not before the duplicated work happened.
+concurrency:
+  group: agent-relay-worker
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  relay:
+    # Skip the noise: on an issues event, only wake for actual relay tasks.
+    if: >-
+      github.event_name != 'issues' ||
+      contains(join(github.event.issue.labels.*.name, ','), 'agent-relay:task')
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      - name: Poll, claim, and answer one relay task
+        run: node scripts/github-relay-worker.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          RELAY_WORKER_ID: github-actions:${{ github.run_id }}
+          RELAY_TARGET_AGENT: claude-code
+          RELAY_MAX_TASKS: '1'
+          RELAY_DRY_RUN: ${{ inputs.dryRun && 'true' || 'false' }}

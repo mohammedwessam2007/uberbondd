@@ -76,6 +76,38 @@ not a git push. A session cannot reach a file that only exists on the
 user's own device without the user supplying it directly, which is exactly
 what happened here.
 
+## Second archive supplied: `UBERBOND_OUTREACH_INSTANTLY_PARITY_COMPLETE_20260813_FINAL.zip`
+
+The owner supplied a second archive (sha256
+`7ef3c7f0eb73d6134e42789e236d4c7acf8f61e7e35ea50e84db6041215d91d2`, 357
+files) — the literal artifact originally asked about, filename match
+confirmed (`_2026-08-13_` vs. the archive's own `20260813`). Verified valid
+zip. Diffed file-by-file against the first archive rather than assumed:
+
+- **File list**: every file in archive 2 also exists in archive 1, save one
+  runtime-state file (`data/db.json`, not source). Archive 1 additionally
+  has 23 files archive 2 lacks — all of them the Lead Generation V2 / Lead
+  Intelligence V3 layer (`src/lead-generation.mjs`, `src/lead-intelligence-v3.mjs`,
+  `src/lead-operations.mjs`, `src/lead-generation-benchmark.mjs`, migrations
+  016/017, the QA-diagnostic-offer docs).
+- **Content of the 13 files present in both**: diffed directly
+  (`diff -rq`, then line-count comparison on the five "spine" files). Total
+  lines *removed* going from archive 2 to archive 1: 5 lines across
+  `store.mjs`, `pipeline.mjs`, `prospect-import.mjs`, and `server.mjs`
+  combined (`config.mjs`: zero). Everything else in those files is
+  addition. This is a clean, non-regressive continuation, not a divergent
+  fork.
+
+**Conclusion: archive 1 already is "both of them together."** Archive 2 is
+archive 1's own direct ancestor snapshot — packaged right at the point the
+outreach workbench itself was declared "Instantly parity complete," three
+days before the owner kept going and added the lead-generation layer on
+top of the identical codebase. There is no reconciliation needed *between*
+the two archives; the recovery plan below targets archive 1 alone, and
+archive 2 is preserved in `historical-archive/` purely for provenance (it
+is the literal file matching the mission's original two requested
+filenames most closely).
+
 ## Recovery and reconciliation plan (not yet executed — this is the plan, not the merge)
 
 The archive is real and its own tests pass, but merging 380 files against

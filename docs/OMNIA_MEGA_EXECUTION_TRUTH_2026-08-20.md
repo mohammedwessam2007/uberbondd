@@ -80,7 +80,7 @@ The release now records and routes the shared capability set that unlocks the la
 
 ## 10. External-effect ledger
 
-For this execution: provider calls 0; messages 0; purchases 0; DNS changes 0; credential/secret changes 0; production mutations 0; spend 0; **at least six automatic Vercel preview deployments** occurred in the existing Lite project as a consequence of the branch push (non-production, target `null`); the explicit `uberbondd-relay` deployment was rejected and created no project. The unrelated `uberbond-relay` production deployment was observed only and not changed. Lite production remained unchanged.
+For this execution: provider calls 0; messages 0; purchases 0; DNS changes 0; credential/secret changes 0; production mutations 0; spend 0; **at least seven automatic Vercel preview deployments** were observed in the existing Lite project as a consequence of authorized branch pushes (non-production, target `null`), including the latest `dpl_CNMNVkGBKz5FYN5P7mad2h57NJ8t`; the explicit `uberbondd-relay` deployment was rejected and created no project. The unrelated `uberbond-relay` production deployment was observed only and not changed. Lite production remained unchanged.
 
 ## 11. Commercial truth
 

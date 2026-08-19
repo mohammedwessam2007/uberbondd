@@ -65,6 +65,19 @@ const tools = [
     },
   },
   {
+    name: "uberbond_relay_heartbeat",
+    description: "Extend the exact active UberBond relay lease owned by this Claude Code worker.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        taskId: { type: "string", minLength: 1, maxLength: 120 },
+        workerId: { type: "string", minLength: 1, maxLength: 120 },
+      },
+      required: ["taskId", "workerId"],
+      additionalProperties: false,
+    },
+  },
+  {
     name: "uberbond_relay_submit",
     description: "Submit a bounded Claude Code result and receipt to UberBond; nonzero external effects are rejected.",
     inputSchema: {
@@ -104,6 +117,31 @@ function textResult(value) {
   return { content: [{ type: "text", text: typeof value === "string" ? value : JSON.stringify(value, null, 2) }] };
 }
 
+async function readBoundedResponse(response, maxBytes = 1_000_000) {
+  if (!response.body?.getReader) {
+    const fallback = await response.text();
+    if (Buffer.byteLength(fallback, "utf8") > maxBytes) throw new Error("cloud relay response exceeded the size limit");
+    return fallback;
+  }
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  const chunks = [];
+  let total = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > maxBytes) throw new Error("cloud relay response exceeded the size limit");
+      chunks.push(decoder.decode(value, { stream: true }));
+    }
+    chunks.push(decoder.decode());
+    return chunks.join("");
+  } finally {
+    if (total > maxBytes) await reader.cancel().catch(() => {});
+  }
+}
+
 async function command(commandName, args, extraEnv = {}) {
   return new Promise((resolveCommand, rejectCommand) => {
     execFile(commandName, args, { cwd: projectRoot, env: { ...process.env, ...extraEnv }, timeout: 180_000, maxBuffer: 2_000_000 }, (error, stdout, stderr) => {
@@ -134,7 +172,10 @@ async function relayRequest(method, route, body = undefined) {
   }
   let base;
   try { base = new URL(relayUrl); } catch { throw new Error("cloud relay URL is invalid"); }
-  if (!["http:", "https:"].includes(base.protocol)) throw new Error("cloud relay URL must use http or https");
+  const loopback = ["localhost", "127.0.0.1", "::1", "[::1]"].includes(base.hostname);
+  if (base.protocol !== "https:" && !(base.protocol === "http:" && loopback)) {
+    throw new Error("cloud relay URL must use https except for loopback testing");
+  }
   if (!route.startsWith("/api/agent-relay/")) throw new Error("cloud relay route rejected");
   const endpoint = new URL(route, base.origin);
   const response = await fetch(endpoint, {
@@ -144,9 +185,14 @@ async function relayRequest(method, route, body = undefined) {
       ...(body === undefined ? {} : { "content-type": "application/json" }),
     },
     ...(body === undefined ? {} : { body: JSON.stringify(body) }),
+    redirect: "error",
     signal: AbortSignal.timeout(15_000),
   });
-  const content = (await response.text()).slice(0, 1_000_000);
+  const declaredLength = Number(response.headers.get("content-length") || 0);
+  if (Number.isFinite(declaredLength) && declaredLength > 1_000_000) {
+    throw new Error("cloud relay response exceeded the size limit");
+  }
+  const content = await readBoundedResponse(response);
   let payload;
   try { payload = content ? JSON.parse(content) : {}; } catch { payload = { raw: content }; }
   if (!response.ok) {
@@ -168,6 +214,13 @@ async function callTool(name, args) {
     return textResult(await relayRequest("POST", "/api/agent-relay/tasks/claim", {
       targetAgent: String(args?.targetAgent || relayAgent).trim().toLowerCase(),
       workerId: String(args?.workerId || `claude-code:${process.pid}`).slice(0, 120),
+    }));
+  }
+
+  if (name === "uberbond_relay_heartbeat") {
+    const taskId = String(args?.taskId || "").trim();
+    return textResult(await relayRequest("POST", `/api/agent-relay/tasks/${encodeURIComponent(taskId)}/heartbeat`, {
+      workerId: String(args?.workerId || "").slice(0, 120),
     }));
   }
 

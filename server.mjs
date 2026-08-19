@@ -17,7 +17,7 @@ import { DurableQueue } from './src/queue.mjs';
 import { DiscoveryRunner } from './src/discovery-runner.mjs';
 import { importProspects } from './src/prospect-import.mjs';
 import { createJobHandlers } from './src/job-handlers.mjs';
-import { AGENT_RELAY_JOB_TYPE, CLOUD_AGENT_RELAY_POLICY_VERSION, claimCloudRelayTask, createCloudRelayTask, listCloudRelayTasks, submitCloudRelayResult } from './src/cloud-agent-relay.mjs';
+import { AGENT_RELAY_JOB_TYPE, CLOUD_AGENT_RELAY_POLICY_VERSION, claimCloudRelayTask, createCloudRelayTask, heartbeatCloudRelayTask, listCloudRelayTasks, submitCloudRelayResult } from './src/cloud-agent-relay.mjs';
 import { normalizeCountryList } from './src/send-safety.mjs';
 import { verifyUnsubscribeToken } from './src/unsubscribe.mjs';
 
@@ -237,6 +237,7 @@ const server = http.createServer(async (req, res) => {
     const relayPath = url.pathname === '/api/agent-relay/health'
       || url.pathname === '/api/agent-relay/tasks'
       || url.pathname === '/api/agent-relay/tasks/claim'
+      || /^\/api\/agent-relay\/tasks\/[^/]+\/heartbeat$/.test(url.pathname)
       || /^\/api\/agent-relay\/tasks\/[^/]+\/result$/.test(url.pathname);
     if (relayPath && !relayAuth(req)) {
       return json(res, relayConfigured() ? 401 : 503, { error: relayConfigured() ? 'Unauthorized' : 'Agent relay is not configured' });
@@ -327,6 +328,16 @@ const server = http.createServer(async (req, res) => {
         });
         if (result.ok) return json(res, 200, result);
         return json(res, result.status === 'EMPTY' ? 404 : 409, result);
+      }
+      const heartbeatMatch = url.pathname.match(/^\/api\/agent-relay\/tasks\/([^/]+)\/heartbeat$/);
+      if (method === 'POST' && heartbeatMatch) {
+        const taskId = decodeURIComponent(heartbeatMatch[1]);
+        const input = await parseBody(req);
+        const result = await heartbeatCloudRelayTask({ store, taskId, workerId: input.workerId });
+        if (result.ok) return json(res, 200, result);
+        const status = result.reasonCodes?.includes('task-not-found') ? 404
+          : result.reasonCodes?.some(code => code === 'lease-owner-mismatch' || code === 'lease-lost-before-heartbeat') ? 409 : 400;
+        return json(res, status, result);
       }
       const match = url.pathname.match(/^\/api\/agent-relay\/tasks\/([^/]+)\/result$/);
       if (method === 'POST' && match) {

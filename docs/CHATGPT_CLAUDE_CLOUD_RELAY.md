@@ -38,6 +38,7 @@ All endpoints require an Authorization: Bearer token. There is no public relay e
 - POST /api/agent-relay/tasks
 - GET /api/agent-relay/tasks?targetAgent=claude-code&status=queued&limit=20
 - POST /api/agent-relay/tasks/claim
+- POST /api/agent-relay/tasks/:taskId/heartbeat
 - POST /api/agent-relay/tasks/:taskId/result
 
 The relay reuses the existing jobs queue, so normal workers exclude relay jobs and cannot steal a Claude Code lease. Claiming is atomic in the JSON transaction store and PostgreSQL store. Result submission requires the exact active lease owner.
@@ -64,6 +65,7 @@ Then start Claude Code from the repository root, approve the project-scoped Uber
 
 - uberbond_relay_poll
 - uberbond_relay_claim
+- uberbond_relay_heartbeat
 - uberbond_relay_submit
 
 The MCP server never returns the bearer token through uberbond_get_state.

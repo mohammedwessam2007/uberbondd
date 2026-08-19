@@ -85,8 +85,34 @@ async function relayJobs(store) {
 }
 
 async function findRelayJob(store, taskId) {
+  if (store && typeof store.findOne === 'function') {
+    const job = await store.findOne('jobs', { dedupeKey: `agent-relay:${taskId}` });
+    if (job?.type === AGENT_RELAY_JOB_TYPE && job?.payload?.taskId === taskId) return job;
+  }
   const jobs = await relayJobs(store);
   return jobs.find(job => job?.payload?.taskId === taskId) || null;
+}
+
+function taskIdentity(task) {
+  if (!task || typeof task !== 'object') return null;
+  return {
+    policyVersion: task.policyVersion,
+    taskId: task.taskId,
+    objective: task.objective,
+    originAgent: task.originAgent,
+    targetAgent: task.targetAgent,
+    parentTask: task.parentTask,
+    contextRefs: task.contextRefs,
+    evidenceRefs: task.evidenceRefs,
+    constraints: task.constraints,
+    forbiddenActions: task.forbiddenActions,
+    requiredOutputs: task.requiredOutputs,
+    acceptanceTests: task.acceptanceTests,
+    budget: task.budget,
+    deadline: task.deadline,
+    economicObjective: task.economicObjective,
+    consequenceClass: task.consequenceClass
+  };
 }
 
 function normalizeWorkerId(value) {
@@ -127,8 +153,13 @@ export async function createCloudRelayTask({ queue, store, input = {}, date = ne
     maxAttempts: 3,
     dedupeKey: `agent-relay:${task.taskId}`
   });
+  const storedTask = job?.payload && typeof job.payload === 'object' ? job.payload : task;
+  if (storedTask.taskId !== task.taskId
+    || JSON.stringify(taskIdentity(storedTask)) !== JSON.stringify(taskIdentity(task))) {
+    return errorResult(['task-id-conflict'], 'The task id already belongs to a different immutable task packet.');
+  }
   const queued = {
-    ...task,
+    ...storedTask,
     status: 'QUEUED',
     relayPolicyVersion: CLOUD_AGENT_RELAY_POLICY_VERSION,
     relay: { jobId: job.id, queue: job.queue, status: job.status },
@@ -194,6 +225,29 @@ export async function claimCloudRelayTask({ store, targetAgent = 'claude-code', 
     workerId: worker,
     lease: { status: job.status, lockedAt: job.lockedAt, heartbeatAt: job.heartbeatAt },
     task: job.payload,
+    externalEffectLedger: { ...ZERO_EFFECTS }
+  };
+}
+
+export async function heartbeatCloudRelayTask({ store, taskId, workerId } = {}) {
+  const id = String(taskId || '').trim();
+  const worker = normalizeWorkerId(workerId);
+  if (!id) return errorResult(['task-id-required']);
+  if (!worker) return errorResult(['invalid-worker-id']);
+  if (!store || typeof store.heartbeatJob !== 'function') return errorResult(['relay-heartbeat-not-supported']);
+  const job = await findRelayJob(store, id);
+  if (!job) return errorResult(['task-not-found']);
+  if (job.status !== 'active' || job.lockedBy !== worker) return errorResult(['lease-owner-mismatch']);
+  const updated = await store.heartbeatJob(job.id, worker);
+  if (!updated) return errorResult(['lease-lost-before-heartbeat']);
+  return {
+    ok: true,
+    policyVersion: CLOUD_AGENT_RELAY_POLICY_VERSION,
+    status: 'HEARTBEAT_ACCEPTED',
+    taskId: id,
+    jobId: job.id,
+    workerId: worker,
+    heartbeatAt: updated.heartbeatAt || null,
     externalEffectLedger: { ...ZERO_EFFECTS }
   };
 }

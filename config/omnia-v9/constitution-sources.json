@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "omnia.v9.constitution-sources.p2",
+  "sourceSetVersion": "2026-07-14-v1",
+  "sources": [
+    {
+      "role": "KNOWLEDGE_GRAPH",
+      "path": "docs/constitution/knowledge-graph-v1.md",
+      "title": "UBERBOND Knowledge Graph",
+      "version": "1.0.0",
+      "effectiveDate": "2026-07-14",
+      "requiresRoles": [],
+      "anchors": [
+        "This document is the canonical human-readable source for the first UBERBOND Knowledge Graph.",
+        "**Evidence before inference:**",
+        "**Human override:**"
+      ]
+    },
+    {
+      "role": "DECISION_ENGINE",
+      "path": "docs/constitution/decision-engine-v1.md",
+      "title": "UBERBOND Decision Engine",
+      "version": "1.0.0",
+      "effectiveDate": "2026-07-14",
+      "requiresRoles": ["KNOWLEDGE_GRAPH"],
+      "anchors": [
+        "This is the canonical human-readable decision policy for UBERBOND.",
+        "Optimization is **lexicographic**, not a single weighted maximization.",
+        "A graph prior such as `SUSCEPTIBLE_TO` can determine what to inspect. It can never, by itself, create a finding, recommendation, outreach claim, or price.",
+        "A stage MUST fail closed when a critical input, authority, identity, policy, or calculation is unresolved."
+      ]
+    },
+    {
+      "role": "LEARNING_ENGINE",
+      "path": "docs/constitution/learning-engine-v1.md",
+      "title": "UBERBOND Learning Engine",
+      "version": "1.0.0",
+      "effectiveDate": "2026-07-14",
+      "requiresRoles": ["KNOWLEDGE_GRAPH", "DECISION_ENGINE"],
+      "anchors": [
+        "This is the canonical human-readable learning policy for UBERBOND.",
+        "If this specification conflicts with a non-waivable Decision Engine gate, the gate wins.",
+        "No aggregate metric, model output, or human preference may skip directly from OBSERVED to PROMOTED.",
+        "The Learning Engine MUST NOT autonomously change:"
+      ]
+    },
+    {
+      "role": "CORE_DATA_MODEL",
+      "path": "docs/constitution/core-data-model-v1.md",
+      "title": "UBERBOND Core Data Model",
+      "version": "1.0.0",
+      "effectiveDate": "2026-07-14",
+      "requiresRoles": ["KNOWLEDGE_GRAPH", "DECISION_ENGINE", "LEARNING_ENGINE"],
+      "anchors": [
+        "This document is the canonical human-readable information architecture for UBERBOND.",
+        "Existing published IDs retain their meaning.",
+        "No product, API, agent, or database may create a competing local meaning for a canonical entity."
+      ]
+    }
+  ],
+  "precedenceRules": [
+    {
+      "id": "DECISION_NON_WAIVABLE_GATE_OVER_LEARNING",
+      "higher": "DECISION_ENGINE.NON_WAIVABLE_GATE",
+      "lower": "LEARNING_ENGINE.PROPOSED_CHANGE",
+      "scope": "Any learning candidate that conflicts with a non-waivable decision gate",
+      "anchorRole": "LEARNING_ENGINE",
+      "anchor": "If this specification conflicts with a non-waivable Decision Engine gate, the gate wins."
+    },
+    {
+      "id": "CURRENT_EVIDENCE_OVER_GRAPH_PRIOR_FOR_EXTERNAL_CLAIMS",
+      "higher": "DECISION_ENGINE.CURRENT_EVIDENCE_AND_GATES",
+      "lower": "KNOWLEDGE_GRAPH.PRIOR",
+      "scope": "Findings, recommendations, outreach claims and prices",
+      "anchorRole": "DECISION_ENGINE",
+      "anchor": "A graph prior such as `SUSCEPTIBLE_TO` can determine what to inspect. It can never, by itself, create a finding, recommendation, outreach claim, or price."
+    },
+    {
+      "id": "CORE_CANONICAL_SEMANTICS_OVER_LOCAL_PROJECTION",
+      "higher": "CORE_DATA_MODEL.CANONICAL_SEMANTICS",
+      "lower": "PRODUCT_OR_AGENT_LOCAL_MEANING",
+      "scope": "Canonical entity semantics and published IDs",
+      "anchorRole": "CORE_DATA_MODEL",
+      "anchor": "No product, API, agent, or database may create a competing local meaning for a canonical entity."
+    }
+  ]
+}

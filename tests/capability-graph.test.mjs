@@ -44,11 +44,14 @@ test('the Prometheus economic spine and safe commercial slices are visible in th
   }
 });
 
-test('the stranded-but-real OMNIA V9 and Canon/V3 lineages are honestly marked MISSING here, with a pointer to where they actually exist', () => {
+test('the OMNIA V9 kernel was recovered onto this branch from the historical archive and is no longer stranded', () => {
   const v9 = getCapability('omnia-v9-kernel');
-  assert.equal(v9.status, 'MISSING');
-  assert.match(v9.productionReadiness, /MISSING ON THIS BRANCH ONLY/);
-  assert.match(v9.productionReadiness, /PR #24/);
+  assert.equal(v9.status, 'TEST_VERIFIED');
+  assert.match(v9.productionReadiness, /Recovered/);
+  assert.ok(v9.testRefs.length > 0);
+});
+
+test('the stranded-but-real Canon/V3 lineage is still honestly marked MISSING here, with a pointer to where it actually exists', () => {
   const canon = getCapability('canon-v3-acquisition-cycle');
   assert.equal(canon.status, 'MISSING');
   assert.match(canon.productionReadiness, /PR #7/);
@@ -69,10 +72,10 @@ test('capabilityGraphSummary() counts add up to the total and match CAPABILITY_S
   assert.deepEqual(Object.keys(summary.counts).sort(), [...CAPABILITY_STATUSES].sort());
 });
 
-test('existingCapabilityIds() excludes RESEARCH_ONLY, PARTIAL, and MISSING (including the stranded lineages)', () => {
+test('existingCapabilityIds() excludes RESEARCH_ONLY, PARTIAL, and MISSING (including the still-stranded Canon/V3 lineage), but includes the now-recovered OMNIA V9 kernel', () => {
   const ids = existingCapabilityIds();
   assert.ok(!ids.includes('planetary-signal-adapters'));
-  assert.ok(!ids.includes('omnia-v9-kernel'));
+  assert.ok(ids.includes('omnia-v9-kernel'));
   assert.ok(!ids.includes('canon-v3-acquisition-cycle'));
   assert.ok(!ids.includes('live-outbound-send'));
   assert.ok(ids.includes('postgres-store'));
@@ -85,9 +88,16 @@ test('incrementalBuildDistance() driven by the real capability graph: a hypothet
   assert.equal(result.distance, 0);
 });
 
-test('incrementalBuildDistance() driven by the real capability graph: an opportunity requiring the stranded V9 kernel has nonzero distance even though the code technically exists elsewhere', () => {
+test('incrementalBuildDistance() driven by the real capability graph: an opportunity requiring the stranded Canon/V3 cycle has nonzero distance even though the code technically exists elsewhere', () => {
+  const existing = existingCapabilityIds();
+  const result = incrementalBuildDistance(['canon-v3-acquisition-cycle', 'deterministic-audit'], existing);
+  assert.equal(result.distance, 0.5);
+  assert.deepEqual(result.missing, ['canon-v3-acquisition-cycle']);
+});
+
+test('incrementalBuildDistance() driven by the real capability graph: an opportunity reusing the now-recovered V9 kernel has zero distance', () => {
   const existing = existingCapabilityIds();
   const result = incrementalBuildDistance(['omnia-v9-kernel', 'deterministic-audit'], existing);
-  assert.equal(result.distance, 0.5);
-  assert.deepEqual(result.missing, ['omnia-v9-kernel']);
+  assert.equal(result.distance, 0);
+  assert.deepEqual(result.missing, []);
 });

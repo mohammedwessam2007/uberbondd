@@ -17,9 +17,11 @@ import { DurableQueue } from './src/queue.mjs';
 import { DiscoveryRunner } from './src/discovery-runner.mjs';
 import { importProspects } from './src/prospect-import.mjs';
 import { createJobHandlers } from './src/job-handlers.mjs';
-import { AGENT_RELAY_JOB_TYPE, CLOUD_AGENT_RELAY_POLICY_VERSION, claimCloudRelayTask, createCloudRelayTask, heartbeatCloudRelayTask, listCloudRelayTasks, submitCloudRelayResult } from './src/cloud-agent-relay.mjs';
+import { AGENT_RELAY_JOB_TYPE, CLOUD_AGENT_RELAY_POLICY_VERSION, claimCloudRelayTask, createCloudRelayTask, heartbeatCloudRelayTask, listCloudRelayTasks, relayHealthSummary, submitCloudRelayResult } from './src/cloud-agent-relay.mjs';
 import { normalizeCountryList } from './src/send-safety.mjs';
 import { verifyUnsubscribeToken } from './src/unsubscribe.mjs';
+import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
+import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
 
 class HttpError extends Error {
   constructor(status, message) { super(message); this.status = status; }
@@ -31,7 +33,14 @@ const store = createStore(config);
 await store.init();
 const queue = new DurableQueue(store, config, console);
 let revenue;
-const pipeline = new Pipeline(store, config, { onProspectComplete: async prospect => revenue?.onProspectComplete(prospect) });
+// See worker.mjs for the OMNIA V9 mode/shadow-hook wiring rationale: defaults to
+// 'off', only ever reaches the non-authoritative shadow observer. The AUTHORITATIVE
+// gate is deliberately not wired -- see docs/INSTANTLY_RECONCILIATION.md Sub-wave B.
+const omniaV9Mode = resolveOmniaV9Mode(process.env);
+const pipeline = new Pipeline(store, config, {
+  onProspectComplete: async prospect => revenue?.onProspectComplete(prospect),
+  outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store })
+});
 const enqueueResearch = payload => queue.enqueue('research.batch', payload, {
   maxAttempts: 3,
   dedupeKey: payload.leadId ? `research:lead:${payload.leadId}` : `research:${payload.reason || 'manual'}:${Math.floor(Date.now() / 30000)}`
@@ -99,6 +108,21 @@ const relayAuth = req => {
   const header = req.headers.authorization || '';
   const bearer = header.startsWith('Bearer ') ? header.slice(7) : '';
   return safeEqual(bearer, config.agentRelay.token);
+};
+// Bounds a leaked relay token or a runaway/misbehaving poller (see mission
+// incident class "runaway polling"). Sliding one-minute window per caller IP,
+// same shape as RevenueEngine.rateLimit(). Only reached after relayAuth()
+// already passed, so this never gates on caller identity beyond the token.
+const relayHits = new Map();
+const relayRateLimited = req => {
+  const minute = Math.floor(Date.now() / 60000);
+  const key = `${clientIp(req)}:${minute}`;
+  const count = (relayHits.get(key) || 0) + 1;
+  relayHits.set(key, count);
+  if (relayHits.size > 1000) {
+    for (const entry of relayHits.keys()) if (!entry.endsWith(`:${minute}`)) relayHits.delete(entry);
+  }
+  return count > Math.max(1, Number(config.agentRelay?.rateLimitPerMinute || 120));
 };
 const pct = (numerator, denominator) => denominator ? Math.round(numerator / denominator * 100) : 0;
 const publicApi = pathname => pathname === '/api/health' || pathname === '/api/public/unsubscribe' || pathname === '/api/public/config' || pathname === '/api/public/audit' || pathname.startsWith('/api/public/report/') || pathname.startsWith('/api/public/artifacts/') || pathname === '/api/public/checkout' || pathname === '/webhooks/lemonsqueezy';
@@ -242,6 +266,9 @@ const server = http.createServer(async (req, res) => {
     if (relayPath && !relayAuth(req)) {
       return json(res, relayConfigured() ? 401 : 503, { error: relayConfigured() ? 'Unauthorized' : 'Agent relay is not configured' });
     }
+    if (relayPath && relayRateLimited(req)) {
+      return json(res, 429, { error: 'Too many relay requests. Please slow down.' });
+    }
     if ((url.pathname.startsWith('/api/') || url.pathname === '/oauth/google/start')
       && !relayPath && !publicApi(url.pathname) && !auth(req)) {
       return json(res, 401, { error: 'Unauthorized' });
@@ -294,12 +321,14 @@ const server = http.createServer(async (req, res) => {
 
     if (url.pathname.startsWith('/api/agent-relay')) {
       if (method === 'GET' && url.pathname === '/api/agent-relay/health') {
+        const summary = await relayHealthSummary({ store });
         return json(res, 200, {
           ok: true,
           configured: relayConfigured(),
           jobType: AGENT_RELAY_JOB_TYPE,
           policyVersion: CLOUD_AGENT_RELAY_POLICY_VERSION,
           externalProviderCalls: 0,
+          queue: { counts: summary.counts, total: summary.total, oldestQueuedAt: summary.oldestQueuedAt, staleLeases: summary.staleLeases },
           externalEffectLedger: {
             providerCalls: 0, messages: 0, purchases: 0, deployments: 0,
             credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0

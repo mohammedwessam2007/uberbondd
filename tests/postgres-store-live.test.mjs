@@ -173,6 +173,49 @@ if (!LIVE_URL) {
     assert.equal(claimedIds.filter(claimedId => claimedId === id).length, 1);
   });
 
+  test('claimJobs() with excludeTypes never claims a real relay-typed job -- normal workers cannot steal it', async () => {
+    const id = uid();
+    await store.transaction(async tx => tx.pool.query(
+      `INSERT INTO jobs (id, type, queue, status, priority, attempts, max_attempts, run_at, data, created_at, updated_at)
+       VALUES ($1,'prometheus.agent.relay','agent-relay','queued',100,0,3, now(), $2::jsonb, now(), now())`,
+      [id, JSON.stringify({ id, type: 'prometheus.agent.relay', queue: 'agent-relay', status: 'queued', payload: { taskId: id, targetAgent: 'claude-code' } })]
+    ));
+    const claimed = await store.claimJobs('normal-worker', 5, 300000, { excludeTypes: ['prometheus.agent.relay'] });
+    assert.ok(!claimed.some(job => job.id === id), 'a normal worker claimed a relay-typed job it should have excluded');
+    const row = await store.get('jobs', id);
+    assert.equal(row.status, 'queued', 'the relay job must remain queued, untouched by the excluding claim');
+  });
+
+  test('claimJobsByType() uses real FOR UPDATE SKIP LOCKED for the relay job type: two concurrent claude-code workers racing for one task never both win', async () => {
+    const id = uid();
+    await store.transaction(async tx => tx.pool.query(
+      `INSERT INTO jobs (id, type, queue, status, priority, attempts, max_attempts, run_at, data, created_at, updated_at)
+       VALUES ($1,'prometheus.agent.relay','agent-relay','queued',100,0,3, now(), $2::jsonb, now(), now())`,
+      [id, JSON.stringify({ id, type: 'prometheus.agent.relay', queue: 'agent-relay', status: 'queued', payload: { taskId: id, targetAgent: 'claude-code' } })]
+    ));
+    const [claimA, claimB] = await Promise.all([
+      store.claimJobsByType('prometheus.agent.relay', 'claude-code', 'claude-code:worker-a', 1),
+      store.claimJobsByType('prometheus.agent.relay', 'claude-code', 'claude-code:worker-b', 1)
+    ]);
+    const claimedIds = [...claimA, ...claimB].map(job => job.id);
+    assert.equal(claimedIds.filter(claimedId => claimedId === id).length, 1, 'exactly one worker must win the race for the same relay task');
+    const row = await store.get('jobs', id);
+    assert.ok(['claude-code:worker-a', 'claude-code:worker-b'].includes(row.lockedBy));
+  });
+
+  test('claimJobsByType() only returns jobs matching the requested targetAgent -- a relay task for a different agent is never claimed', async () => {
+    const id = uid();
+    await store.transaction(async tx => tx.pool.query(
+      `INSERT INTO jobs (id, type, queue, status, priority, attempts, max_attempts, run_at, data, created_at, updated_at)
+       VALUES ($1,'prometheus.agent.relay','agent-relay','queued',100,0,3, now(), $2::jsonb, now(), now())`,
+      [id, JSON.stringify({ id, type: 'prometheus.agent.relay', queue: 'agent-relay', status: 'queued', payload: { taskId: id, targetAgent: 'some-other-worker' } })]
+    ));
+    const claimed = await store.claimJobsByType('prometheus.agent.relay', 'claude-code', 'claude-code:worker-a', 1);
+    assert.equal(claimed.length, 0, 'a task targeted at a different agent must not be claimable by claude-code');
+    const row = await store.get('jobs', id);
+    assert.equal(row.status, 'queued');
+  });
+
   test('completeJob() and failJob() transition a real job row correctly', async () => {
     const okId = uid(); const failId = uid();
     await store.transaction(async tx => {

@@ -1,0 +1,601 @@
+{
+  "schemaVersion": "omnia.v9.reality-shadow-latency.v1",
+  "environment": {
+    "database": "real PostgreSQL 16 (pg_ctlcluster, TCP over 127.0.0.1:5432)",
+    "cedarPackage": "@cedar-policy/cedar-wasm",
+    "cedarPackageVersion": "4.12.0",
+    "cedarRuntimeVersion": "4.12.0",
+    "candidateCount": 60
+  },
+  "cedarBindLatencyMs": 90.929614,
+  "totalLatencyMs": {
+    "p50": 3.410458,
+    "p95": 7.998184,
+    "p99": 19.628229,
+    "max": 19.628229,
+    "count": 60
+  },
+  "coldTotalLatencyMs": {
+    "p50": 7.998184,
+    "p95": 19.628229,
+    "p99": 19.628229,
+    "max": 19.628229,
+    "count": 6
+  },
+  "warmTotalLatencyMs": {
+    "p50": 3.321088,
+    "p95": 5.05558,
+    "p99": 6.983546,
+    "max": 6.983546,
+    "count": 54
+  },
+  "cedarOnlyLatencyMs": {
+    "p50": 1.107474,
+    "p95": 5.591237,
+    "p99": 12.085035,
+    "max": 12.085035,
+    "count": 60
+  },
+  "databaseQueriesPerAction": {
+    "p50": 3,
+    "p95": 3,
+    "p99": 3,
+    "max": 3,
+    "count": 60
+  },
+  "bytesWrittenPerAction": {
+    "p50": 0,
+    "p95": 0,
+    "p99": 0,
+    "max": 0,
+    "count": 60
+  },
+  "decisionCounts": {
+    "ALLOW": 60
+  },
+  "statusCounts": {
+    "OBSERVED": 60
+  },
+  "perCandidate": [
+    {
+      "index": 0,
+      "totalMs": 19.628229,
+      "cedarMs": 12.085035,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 1,
+      "totalMs": 5.761424,
+      "cedarMs": 1.750623,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 2,
+      "totalMs": 10.622952,
+      "cedarMs": 7.782262,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 3,
+      "totalMs": 7.998184,
+      "cedarMs": 5.591237,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 4,
+      "totalMs": 4.478054,
+      "cedarMs": 1.64736,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 5,
+      "totalMs": 4.469923,
+      "cedarMs": 1.451497,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 6,
+      "totalMs": 6.983546,
+      "cedarMs": 3.956032,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 7,
+      "totalMs": 5.648115,
+      "cedarMs": 1.242171,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 8,
+      "totalMs": 3.871824,
+      "cedarMs": 1.396611,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 9,
+      "totalMs": 4.154227,
+      "cedarMs": 1.356914,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 10,
+      "totalMs": 3.882557,
+      "cedarMs": 1.621935,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 11,
+      "totalMs": 3.492176,
+      "cedarMs": 1.167516,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 12,
+      "totalMs": 4.784299,
+      "cedarMs": 2.551992,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 13,
+      "totalMs": 3.24492,
+      "cedarMs": 1.115044,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 14,
+      "totalMs": 3.544819,
+      "cedarMs": 1.118276,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 15,
+      "totalMs": 5.05558,
+      "cedarMs": 1.885107,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 16,
+      "totalMs": 3.456618,
+      "cedarMs": 1.040779,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 17,
+      "totalMs": 3.586019,
+      "cedarMs": 1.072489,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 18,
+      "totalMs": 3.353969,
+      "cedarMs": 1.129336,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 19,
+      "totalMs": 3.321088,
+      "cedarMs": 1.154499,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 20,
+      "totalMs": 2.870129,
+      "cedarMs": 1.037512,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 21,
+      "totalMs": 3.129632,
+      "cedarMs": 1.100126,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 22,
+      "totalMs": 2.933541,
+      "cedarMs": 1.064036,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 23,
+      "totalMs": 2.898388,
+      "cedarMs": 1.107474,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 24,
+      "totalMs": 2.887466,
+      "cedarMs": 1.076923,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 25,
+      "totalMs": 3.393618,
+      "cedarMs": 1.090261,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 26,
+      "totalMs": 3.218335,
+      "cedarMs": 1.252046,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 27,
+      "totalMs": 3.410458,
+      "cedarMs": 1.080239,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 28,
+      "totalMs": 3.630906,
+      "cedarMs": 1.134711,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 29,
+      "totalMs": 4.413382,
+      "cedarMs": 1.019923,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 30,
+      "totalMs": 3.217807,
+      "cedarMs": 1.090415,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 31,
+      "totalMs": 4.934703,
+      "cedarMs": 1.012043,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 32,
+      "totalMs": 3.022741,
+      "cedarMs": 1.126885,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 33,
+      "totalMs": 3.26738,
+      "cedarMs": 1.186566,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 34,
+      "totalMs": 2.87299,
+      "cedarMs": 1.028305,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 35,
+      "totalMs": 3.019611,
+      "cedarMs": 0.9861,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 36,
+      "totalMs": 2.974352,
+      "cedarMs": 1.109667,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 37,
+      "totalMs": 3.287351,
+      "cedarMs": 1.162322,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 38,
+      "totalMs": 2.734154,
+      "cedarMs": 1.042393,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 39,
+      "totalMs": 3.285284,
+      "cedarMs": 1.205814,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 40,
+      "totalMs": 3.425286,
+      "cedarMs": 1.067809,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 41,
+      "totalMs": 3.225264,
+      "cedarMs": 1.053868,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 42,
+      "totalMs": 4.227823,
+      "cedarMs": 1.775896,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 43,
+      "totalMs": 4.119802,
+      "cedarMs": 1.513044,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 44,
+      "totalMs": 2.979639,
+      "cedarMs": 1.039879,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 45,
+      "totalMs": 3.164666,
+      "cedarMs": 1.016156,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 46,
+      "totalMs": 2.867949,
+      "cedarMs": 0.967197,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 47,
+      "totalMs": 2.946671,
+      "cedarMs": 1.019953,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 48,
+      "totalMs": 2.616353,
+      "cedarMs": 1.014897,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 49,
+      "totalMs": 3.213114,
+      "cedarMs": 1.088421,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 50,
+      "totalMs": 3.745785,
+      "cedarMs": 1.233978,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 51,
+      "totalMs": 3.723386,
+      "cedarMs": 0.997137,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 52,
+      "totalMs": 3.593034,
+      "cedarMs": 1.020462,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 53,
+      "totalMs": 3.665869,
+      "cedarMs": 1.180859,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 54,
+      "totalMs": 3.110929,
+      "cedarMs": 0.962491,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 55,
+      "totalMs": 3.470154,
+      "cedarMs": 1.078353,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 56,
+      "totalMs": 3.30621,
+      "cedarMs": 1.055638,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 57,
+      "totalMs": 3.421998,
+      "cedarMs": 0.970996,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 58,
+      "totalMs": 3.258783,
+      "cedarMs": 0.999672,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    },
+    {
+      "index": 59,
+      "totalMs": 3.050996,
+      "cedarMs": 1.013455,
+      "queries": 3,
+      "bytesWritten": 0,
+      "status": "OBSERVED",
+      "decision": "ALLOW"
+    }
+  ]
+}

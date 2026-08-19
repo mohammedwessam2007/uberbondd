@@ -29,17 +29,17 @@ doc. Total commits reachable across every branch in all 4 repos: 189.
 
 ## Historical artifact search — commands and results
 
-Full command log and per-artifact verdict: `docs/INSTANTLY_RECONCILIATION.md`.
-Summary: two bounded search passes (prior turn + this turn) covering current
-repo, all local/remote branches, full git history (`git log --all
---diff-filter=A --name-only`), dangling/unreachable git objects (`git fsck
---full --unreachable --dangling`), GitHub-wide PR/commit/code search, `/workspace`,
-`/tmp`, `.agents`/`.codex` directories, and every `*.zip` file reachable from
-any of the 4 repos. **Zero matches** for any of the named historical
-artifacts (`UBERBOND_INSTANTLY_PARITY_AND_SUPERSTACK_V1_1_REPAIRED.zip`,
-`UBERBOND_OUTREACH_INSTANTLY_PARITY_COMPLETE_2026-08-13_FINAL.zip`,
-`/outreach.html`, any "parity matrix" document). The search is closed, not
-abandoned — see the reconciliation doc's classification table.
+**Updated 2026-08-19, corrected**: the GitHub-side search (two bounded
+passes: current repo, all local/remote branches, full git history,
+dangling/unreachable git objects, GitHub-wide PR/commit/code search,
+`/workspace`, `/tmp`) found zero matches — but the archive was never
+pushed to GitHub at all, so that search could never have found it. The
+owner then supplied `UBERBOND_LEAD_INTELLIGENCE_OUTREACH_COMPLETE_20260813.zip`
+directly. It is real: valid, 380 files, own test suite passes (495/536, 41
+skipped). Full account, exact provenance (traced to
+`origin/claude/from-v9-complete-build-2026-08-10`, already in this repo's
+git history, plus ~3 more days of never-pushed work), and the recovery
+plan: `docs/INSTANTLY_RECONCILIATION.md`.
 
 ## What actually exists in the current repository (verified by reading code, not by trusting old reports)
 

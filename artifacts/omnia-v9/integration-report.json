@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "omnia.v9.integration-report.v1",
+  "mission": "OMNIA V9 real-integration and value-proof",
+  "branch": "product/omnia-v9-real-integration",
+  "forkPoint": {
+    "branch": "claude/omnia-v9-closure-verify-1iuar2",
+    "sha": "5dc1b082a3f8b8a9d437680021e87bb115673913"
+  },
+  "frozenBaselineReference": "artifacts/omnia-v9/frozen-baseline.json",
+  "integration": {
+    "scope": "outbound email send path only",
+    "integrationPoint": "src/omnia-v9/final-admission-shadow.mjs hook, called from src/pipeline.mjs Pipeline.maybeSend()",
+    "preExisting": true,
+    "preExistingNote": "the hook seam (outboundFinalAdmissionShadowFn) already existed before this mission, defaulting to null (NO_HOOK, zero consequence). This mission built the real hook and the mode-based wiring decision, not the seam itself.",
+    "filesAdded": [
+      "src/omnia-v9/integrations/config.mjs",
+      "src/omnia-v9/integrations/outbound-admission.mjs",
+      "src/omnia-v9/integrations/compare.mjs",
+      "src/omnia-v9/integrations/metrics.mjs",
+      "src/omnia-v9/integrations/replay-scenarios.mjs",
+      "src/omnia-v9/integrations/replay.mjs",
+      "scripts/omnia-v9-replay.mjs"
+    ],
+    "filesModifiedAdditively": [
+      { "file": "src/omnia-v9/final-admission-shadow.mjs", "change": "one optional parameter (legacyEligibility) added to buildOutboundShadowContext; populates legacySignals.legacyEligible/legacyReason. Backward compatible." },
+      { "file": "src/pipeline.mjs", "change": "one line: passes the already-computed eligibility object into buildOutboundShadowContext." },
+      { "file": "worker.mjs", "change": "resolves OMNIA_V9_MODE and wires resolveOutboundFinalAdmissionHook into Pipeline construction." },
+      { "file": "server.mjs", "change": "same wiring as worker.mjs." }
+    ],
+    "frozenCoreFilesModified": 0,
+    "modes": ["off", "shadow", "compare"],
+    "modesExplicitlyExcluded": ["canary", "canary_eligible", "enforce", "enforce_eligible"],
+    "defaultMode": "off",
+    "unknownModeResolvesTo": "off"
+  },
+  "tests": {
+    "v9ClosureSuite": { "total": 174, "pass": 174, "fail": 0, "skipped": 0, "note": "unchanged from the frozen baseline — closure gate re-run after integration and remains green" },
+    "newIntegrationTests": { "total": 44, "pass": 44, "fail": 0, "files": [
+      "tests/omnia-v9-integration-config.test.mjs",
+      "tests/omnia-v9-integration-outbound.test.mjs",
+      "tests/omnia-v9-integration-compare.test.mjs",
+      "tests/omnia-v9-integration-metrics.test.mjs",
+      "tests/omnia-v9-integration-pipeline.test.mjs"
+    ]},
+    "fullDeterministicRegression": { "total": 311, "pass": 311, "fail": 0, "skipped": 0, "note": "267 (prior baseline) + 44 (new integration tests) = 311" },
+    "browserTests": {
+      "attempted": true,
+      "result": "FAILED_ENVIRONMENT",
+      "reason": "pre-existing Playwright browser-revision mismatch in this sandbox, unrelated to V9 or this integration; identical to both closure-mission findings",
+      "notClassifiedAsPass": true
+    },
+    "liteDirectoryModified": false,
+    "liteDirectoryCheckMethod": "git diff --stat origin/main -- lite/ (empty) and git status --short lite/ (empty)"
+  },
+  "closureGateRerun": {
+    "command": "node scripts/verify-v9-closure.mjs",
+    "against": "freshly dropped-and-recreated disposable PostgreSQL 16 database",
+    "exitCode": 0,
+    "result": "OMNIA_V9_CLOSURE_VERIFIED",
+    "conclusion": "the frozen P0-P9 core is unweakened by this integration"
+  },
+  "replay": {
+    "disclaimer": "SYNTHETIC / OFFLINE REPLAY ONLY. No live sending, no real database, no real Cedar connection, no production data.",
+    "totalScenarios": 188,
+    "categoriesCovered": 21,
+    "comparisonCategoryCounts": {
+      "BOTH_ALLOW": 54,
+      "BOTH_DENY": 5,
+      "LEGACY_ALLOW_V9_DENY": 69,
+      "LEGACY_DENY_V9_ALLOW": 0,
+      "V9_INCOMPLETE": 54,
+      "V9_ERROR": 6
+    },
+    "criticalDisagreementCount": 0,
+    "errorCount": 6,
+    "errorExplanation": "the 6 simulated 'unavailable-database' scenarios throw from usageResolver, which admitAction does not internally catch (unlike policyAuthorizer, which it fail-closes to DENY). In the real pipeline this is caught by the pre-existing observeOutboundFinalAdmission wrapper and becomes a SHADOW_ERROR/REVIEW observation, never crashing the send path — verified by tests/omnia-v9-integration-outbound.test.mjs.",
+    "latencyMs": { "p50": 0.361442, "p95": 0.81689, "p99": 1.204197, "maxObserved": 2.993869 },
+    "latencyNote": "pure in-memory kernel decision time only; excludes database/Cedar I/O, which this integration does not yet perform per-decision",
+    "fullReport": "artifacts/omnia-v9/replay-report.json"
+  },
+  "founderBurden": {
+    "measuredOrEstimated": "ESTIMATED (formula-based on replay data, NOT a production measurement)",
+    "basis": "src/omnia-v9/integrations/metrics.mjs buildFounderBurdenEstimate() applied to the replay confusion matrix",
+    "reviewsRequiredOutOf188Replayed": 129,
+    "note": "129 = LEGACY_ALLOW_V9_DENY (69) + V9_INCOMPLETE (54) + V9_ERROR (6). This number is dominated by the fact that no real owner-issued approval exists yet in production (see frozen-baseline.json knownLimitations) — most replay scenarios deliberately probe that gap. It should not be read as 'V9 will require review 69% of the time in production'; it is a replay-set artifact, not a production forecast. Real founder-burden numbers require real shadow-mode data against real traffic, which does not exist yet."
+  },
+  "safety": {
+    "criticalDisagreementsFoundThisMission": 0,
+    "legacyBehaviorPreserved": true,
+    "legacyBehaviorPreservedEvidence": "tests/omnia-v9-integration-pipeline.test.mjs: identical send outcome/count across off/shadow/compare modes; V9 DENY never blocks a legacy-eligible send; a crashing V9 hook never blocks or duplicates a send; duplicate-send prevention unchanged under compare mode",
+    "killSwitchVerified": true,
+    "killSwitchEvidence": "OMNIA_V9_MODE=off (and any unrecognized value) produces byte-for-byte identical send behavior to no integration existing at all"
+  },
+  "promotionState": {
+    "current": "SHADOW / COMPARE eligible for activation by explicit human config change",
+    "enforcementExists": false,
+    "canaryActivated": false,
+    "productionDeploymentOccurred": false
+  },
+  "finalVerdict": "V9_INTEGRATION_SHADOW_READY"
+}

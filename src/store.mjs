@@ -9,16 +9,18 @@ export const COLLECTIONS = [
   'prospects', 'campaigns', 'jobs', 'messages', 'replies', 'suppressions',
   'socialTasks', 'accounts', 'auditLog', 'leads', 'orders', 'subscriptions',
   'monitoringRuns', 'notifications', 'revenueEvents', 'discoveryRuns', 'workerHeartbeats',
-  'outboundReservations', 'senderHealth', 'outboundEvents'
+  'outboundReservations', 'senderHealth', 'outboundEvents', 'providerEvents', 'leadLists', 'replyDrafts', 'automationPlans', 'automationRuns',
+  'leadSearches', 'leadSignals', 'leadEnrichmentRuns', 'leadIntakeEvents', 'leadFieldResults', 'leadTasks'
 ];
 
 const EMPTY = {
-  version: 5,
+  version: 6,
   prospects: [], campaigns: [], jobs: [], messages: [], replies: [],
   suppressions: [], socialTasks: [], accounts: [], auditLog: [], settings: {},
   leads: [], orders: [], subscriptions: [], monitoringRuns: [], notifications: [],
   revenueEvents: [], discoveryRuns: [], workerHeartbeats: [],
-  outboundReservations: [], senderHealth: [], outboundEvents: []
+  outboundReservations: [], senderHealth: [], outboundEvents: [], providerEvents: [], leadLists: [], replyDrafts: [], automationPlans: [], automationRuns: [],
+  leadSearches: [], leadSignals: [], leadEnrichmentRuns: [], leadIntakeEvents: [], leadFieldResults: [], leadTasks: []
 };
 
 const MAP = {
@@ -86,9 +88,60 @@ const MAP = {
   outboundEvents: {
     table: 'outbound_events',
     columns: {
-      inbox: 'inbox', eventType: 'event_type', prospectId: 'prospect_id', recipientEmail: 'recipient_email',
+      inbox: 'inbox', eventType: 'event_type', providerEventId: 'provider_event_id', prospectId: 'prospect_id', recipientEmail: 'recipient_email',
       occurredAt: 'occurred_at', createdAt: 'created_at', updatedAt: 'updated_at'
     }
+  },
+  // Recovered from the historical Instantly-parity/lead-intelligence
+  // archive -- see docs/INSTANTLY_RECONCILIATION.md. Table names and
+  // migrations (012-017) are byte-identical to that archive's lineage.
+  providerEvents: {
+    table: 'provider_events',
+    columns: {
+      provider: 'provider', providerEventKey: 'provider_event_key', providerEventId: 'provider_event_id',
+      eventType: 'event_type', campaignId: 'campaign_id', leadEmail: 'lead_email', status: 'status',
+      receivedAt: 'received_at', createdAt: 'created_at', updatedAt: 'updated_at'
+    }
+  },
+  leadLists: {
+    table: 'lead_lists',
+    columns: { name: 'name', createdAt: 'created_at', updatedAt: 'updated_at' }
+  },
+  replyDrafts: {
+    table: 'reply_drafts',
+    columns: { prospectId: 'prospect_id', threadId: 'thread_id', status: 'status', createdAt: 'created_at', updatedAt: 'updated_at' }
+  },
+  automationPlans: {
+    table: 'automation_plans',
+    columns: { name: 'name', trigger: 'trigger', enabled: 'enabled', createdAt: 'created_at', updatedAt: 'updated_at' }
+  },
+  automationRuns: {
+    table: 'automation_runs',
+    columns: { planId: 'plan_id', eventKey: 'event_key', status: 'status', createdAt: 'created_at', updatedAt: 'updated_at' }
+  },
+  leadSearches: {
+    table: 'lead_searches',
+    columns: { name: 'name', status: 'status', createdAt: 'created_at', updatedAt: 'updated_at' }
+  },
+  leadSignals: {
+    table: 'lead_signals',
+    columns: { prospectId: 'prospect_id', type: 'type', sourceUrl: 'source_url', observedAt: 'observed_at', createdAt: 'created_at', updatedAt: 'updated_at' }
+  },
+  leadEnrichmentRuns: {
+    table: 'lead_enrichment_runs',
+    columns: { prospectId: 'prospect_id', status: 'status', provider: 'provider', createdAt: 'created_at', updatedAt: 'updated_at' }
+  },
+  leadIntakeEvents: {
+    table: 'lead_intake_events',
+    columns: { prospectId: 'prospect_id', accountKey: 'account_key', kind: 'kind', sourceType: 'source_type', status: 'status', observedAt: 'observed_at', createdAt: 'created_at', updatedAt: 'updated_at' }
+  },
+  leadFieldResults: {
+    table: 'lead_field_results',
+    columns: { prospectId: 'prospect_id', field: 'field', provider: 'provider', status: 'status', observedAt: 'observed_at', createdAt: 'created_at', updatedAt: 'updated_at' }
+  },
+  leadTasks: {
+    table: 'lead_tasks',
+    columns: { prospectId: 'prospect_id', accountKey: 'account_key', taskType: 'task_type', status: 'status', priority: 'priority', dueAt: 'due_at', createdAt: 'created_at', updatedAt: 'updated_at' }
   },
 };
 
@@ -259,6 +312,13 @@ export class JsonStore {
     if (key === 'jobs' && record.singletonKey && ['queued', 'retry', 'active'].includes(record.status) && other(item => item.singletonKey === record.singletonKey && ['queued', 'retry', 'active'].includes(item.status))) throw new ConflictError(`Active singleton job already exists: ${record.singletonKey}`);
     if (key === 'outboundReservations' && record.idempotencyKey && other(item => item.idempotencyKey === record.idempotencyKey)) throw new ConflictError(`Duplicate outbound idempotency key: ${record.idempotencyKey}`);
     if (key === 'senderHealth' && record.inbox && other(item => item.inbox === record.inbox)) throw new ConflictError(`Duplicate sender health inbox: ${record.inbox}`);
+    if (key === 'providerEvents' && record.providerEventKey && other(item => item.providerEventKey === record.providerEventKey)) throw new ConflictError(`Duplicate provider event: ${record.providerEventKey}`);
+    if (key === 'automationRuns' && record.planId && record.eventKey && other(item => item.planId === record.planId && item.eventKey === record.eventKey)) throw new ConflictError(`Duplicate automation run: ${record.planId}:${record.eventKey}`);
+    if (key === 'leadSignals' && record.prospectId && record.digest && other(item => item.prospectId === record.prospectId && item.digest === record.digest)) throw new ConflictError(`Duplicate lead signal: ${record.prospectId}:${record.digest}`);
+    if (key === 'leadEnrichmentRuns' && record.prospectId && record.planId && other(item => item.prospectId === record.prospectId && item.planId === record.planId)) throw new ConflictError(`Duplicate enrichment plan: ${record.prospectId}:${record.planId}`);
+    if (key === 'leadIntakeEvents' && record.digest && other(item => item.digest === record.digest)) throw new ConflictError(`Duplicate lead intake event: ${record.digest}`);
+    if (key === 'leadIntakeEvents' && record.idempotencyKey && other(item => item.idempotencyKey === record.idempotencyKey)) throw new ConflictError(`Duplicate lead intake idempotency key: ${record.idempotencyKey}`);
+    if (key === 'leadTasks' && record.dedupeKey && other(item => item.dedupeKey === record.dedupeKey && ['ready', 'blocked'].includes(String(item.status || '')))) throw new ConflictError(`Duplicate active lead task: ${record.dedupeKey}`);
   }
 
   _addDirect(key, item) {

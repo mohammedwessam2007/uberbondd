@@ -1,0 +1,374 @@
+{
+  "schemaVersion": "uberbond.opportunity-seed-register.v1",
+  "asOf": "2026-08-10T13:00:00.000Z",
+  "profile": {
+    "schemaVersion": "uberbond.opportunity-profile.v1",
+    "id": "mohamed-wessam",
+    "relevantExperienceYears": 1,
+    "languages": ["en", "ar"],
+    "residenceCountry": "EG",
+    "b2bContractStatus": "UNVERIFIED",
+    "b2bEvidenceDigest": "",
+    "claims": [
+      {
+        "id": "structured-qa",
+        "status": "EVIDENCED",
+        "text": "Structured public-site QA, release-readiness review, and evidence-backed reporting",
+        "evidenceAssetIds": ["selected-work", "qa-demonstration"]
+      },
+      {
+        "id": "responsive-web",
+        "status": "EVIDENCED",
+        "text": "Responsive HTML, CSS, JavaScript, navigation, form, and public user-flow review",
+        "evidenceAssetIds": ["selected-work", "resume"]
+      },
+      {
+        "id": "medical-domain",
+        "status": "EVIDENCED",
+        "text": "Medical-domain familiarity without clinical or compliance certification claims",
+        "evidenceAssetIds": ["selected-work", "resume"]
+      },
+      {
+        "id": "senior-wordpress",
+        "status": "PROHIBITED",
+        "text": "Senior custom PHP or WordPress specialization",
+        "evidenceAssetIds": []
+      },
+      {
+        "id": "paid-client-results",
+        "status": "PROHIBITED",
+        "text": "Paid-client outcomes, conversion uplift, or recovered revenue",
+        "evidenceAssetIds": []
+      }
+    ],
+    "prohibitedPhrases": [
+      "senior wordpress specialist",
+      "senior php specialist",
+      "guaranteed conversions",
+      "paid client results",
+      "recovered revenue"
+    ]
+  },
+  "assets": [
+    {
+      "id": "resume",
+      "kind": "RESUME",
+      "label": "Mohamed Wessam Resume",
+      "digest": "7cd4b4b95d0b12df5c8df8f0c32516c5f45f55f0e149333773686c6b005e7e32",
+      "status": "VERIFIED_PRESENT",
+      "observedAt": "2026-08-10T12:00:00.000Z"
+    },
+    {
+      "id": "selected-work",
+      "kind": "PORTFOLIO",
+      "label": "UberBond Selected Work",
+      "digest": "7d2e3ead9ada78e608583da21366987b37d2df27d21fac94f8f0c3da19482a36",
+      "status": "VERIFIED_PRESENT",
+      "observedAt": "2026-08-10T12:00:00.000Z"
+    },
+    {
+      "id": "qa-demonstration",
+      "kind": "DEMONSTRATION",
+      "label": "Fictional Website QA Demonstration",
+      "digest": "003efe9e5251bab21515a913cc9e99f969ad9759c0d70bf927aa82c567ef168e",
+      "status": "VERIFIED_PRESENT",
+      "observedAt": "2026-08-10T12:00:00.000Z"
+    }
+  ],
+  "tombstones": [
+    {
+      "id": "innovate-by-day-exact-edited-message",
+      "organizationDomain": "innovatebyday.ca",
+      "recipientEmail": "careers@innovatebyday.ca",
+      "sourceUrl": "https://innovatebyday.ca/careers/",
+      "contactedAt": "2026-07-27T23:00:49.000Z",
+      "status": "SENT_CONFIRMED",
+      "messageDigest": "c3f8015ebba1ed3c93327ce8aff243efdc9198d91e811384eed5a5fa3158473a",
+      "threadId": "KNOWN_GMAIL_THREAD",
+      "note": "Exact current user-edited application was already sent; never queue as a new initial message."
+    },
+    {
+      "id": "innovate-by-day-earlier-route",
+      "organizationDomain": "innovatebyday.com",
+      "recipientEmail": "apply@innovatebyday.com",
+      "sourceUrl": "",
+      "contactedAt": "2026-07-28T00:00:00.000Z",
+      "status": "SENT_REQUIRES_RECONCILIATION",
+      "messageDigest": "",
+      "threadId": "KNOWN_EARLIER_GMAIL_THREAD",
+      "note": "Earlier materially different application; preserve separately from the exact edited message."
+    }
+  ],
+  "opportunities": [
+    {
+      "schemaVersion": "uberbond.opportunity.v1",
+      "id": "opp-innovate-by-day-2026-08-10",
+      "organization": "Innovate By Day",
+      "organizationDomain": "innovatebyday.ca",
+      "title": "Freelance Web Developer",
+      "sourceUrl": "https://innovatebyday.ca/careers/",
+      "sourceExcerpt": "The official careers page invites remote freelance web-developer applications and publishes the application route.",
+      "sourceObservedAt": "2026-08-10T13:00:00.000Z",
+      "sourceExpiresAt": "2026-08-17T13:00:00.000Z",
+      "jurisdiction": "CA",
+      "routeType": "SOLICITED_APPLICATION",
+      "permissionScope": "CONTRACTOR_APPLICATION",
+      "submissionMechanism": "EMAIL",
+      "recipientEmail": "careers@innovatebyday.ca",
+      "recipientName": "Calvin",
+      "subject": "Freelance Web Developer",
+      "body": "Hi Calvin,\n\nI saw Innovate By Day’s ongoing remote freelance web developer opportunity.\n\nMy strongest fit is the quality-assurance and release-readiness side of website delivery: responsive testing, navigation and form checks, visible user-flow defects, cross-device review, and clear evidence-backed reporting before launch or client handoff.\n\nThrough UberBond, I can support your team with:\n\n- desktop and mobile website QA;\n- forms, buttons, navigation, and user-flow testing;\n- prioritized bug reports with reproduction steps and screenshots;\n- release-readiness reviews;\n- agency-branded or internal HTML/PDF reports;\n- separately scoped implementation support where appropriate.\n\nI want to be transparent that I am not positioning myself as a senior custom PHP or WordPress specialist. My advantage is structured website QA, conversion-path review, medical-domain familiarity, and fast documentation that gives developers a clean repair queue.\n\nA practical starting point would be a fixed USD 250 diagnostic across up to three public websites, delivered within 12–24 hours after the URLs and priority journeys are supplied.\n\nI can share a truthful demonstration report and relevant website work for review.\n\nBest regards,\n\nMohamed Wessam\nUberBond",
+      "requirements": [
+        {"id": "resume", "kind": "REQUIRED_ASSET", "mandatory": true, "value": "resume", "note": "The page asks applicants to provide a resume."},
+        {"id": "portfolio", "kind": "REQUIRED_ASSET", "mandatory": true, "value": "selected-work", "note": "The page asks applicants to provide a portfolio."},
+        {"id": "b2b-clearance", "kind": "B2B_LEGAL_ABILITY", "mandatory": true, "value": "VERIFIED", "note": "UberBond internal legal/payment launch gate, not a claim about the employer page."}
+      ],
+      "fitSignals": {
+        "qaExplicit": false,
+        "freelanceExplicit": true,
+        "remoteExplicit": true,
+        "agencyContext": true,
+        "websiteScopeExplicit": true,
+        "medicalContext": false,
+        "fixedDiagnosticFit": true,
+        "estimatedDecisionDays": 30,
+        "applicationMinutes": 10
+      },
+      "requiredAssetIds": ["resume", "selected-work", "qa-demonstration"],
+      "claimIds": ["structured-qa", "responsive-web", "medical-domain"],
+      "strategyLane": "DIAGNOSTIC_WEDGE",
+      "notes": "Known-contact tombstone must win before any other gate."
+    },
+    {
+      "schemaVersion": "uberbond.opportunity.v1",
+      "id": "opp-ars-futura-qa-2026-08-10",
+      "organization": "Ars Futura",
+      "organizationDomain": "arsfutura.com",
+      "title": "Freelancers (Quality Assurance)",
+      "sourceUrl": "https://arsfutura.com/careers/freelancers-quality-assurance-fd5fffee",
+      "sourceExcerpt": "We’re looking for experienced testers with a B2B contract to work on exciting worldwide projects.",
+      "sourceObservedAt": "2026-08-10T13:00:00.000Z",
+      "sourceExpiresAt": "2026-08-17T13:00:00.000Z",
+      "jurisdiction": "HR",
+      "routeType": "SOLICITED_APPLICATION",
+      "permissionScope": "CONTRACTOR_APPLICATION",
+      "submissionMechanism": "MANUAL_FORM",
+      "recipientEmail": "",
+      "recipientName": "Hiring team",
+      "subject": "",
+      "body": "Truthful application material is intentionally not prepared because mandatory published requirements do not match the current evidenced profile.",
+      "requirements": [
+        {"id": "experience", "kind": "MIN_RELEVANT_YEARS", "mandatory": true, "value": 3, "note": "The official listing requires at least three relevant years and mid/senior knowledge."},
+        {"id": "language", "kind": "REQUIRED_LANGUAGE", "mandatory": true, "value": "hr", "note": "The listing requires Croatian or a related language in addition to English."},
+        {"id": "b2b", "kind": "B2B_LEGAL_ABILITY", "mandatory": true, "value": "VERIFIED", "note": "The listing explicitly requires ability to work on a B2B contract."},
+        {"id": "resume", "kind": "REQUIRED_ASSET", "mandatory": true, "value": "resume", "note": "The application form requires a resume."}
+      ],
+      "fitSignals": {
+        "qaExplicit": true,
+        "freelanceExplicit": true,
+        "remoteExplicit": true,
+        "agencyContext": true,
+        "websiteScopeExplicit": false,
+        "medicalContext": true,
+        "fixedDiagnosticFit": false,
+        "estimatedDecisionDays": 30,
+        "applicationMinutes": 45
+      },
+      "requiredAssetIds": ["resume", "selected-work"],
+      "claimIds": ["structured-qa", "responsive-web"],
+      "strategyLane": "QA_CONTRACT",
+      "notes": "Hard mismatch: preserve as a rejection, not a target."
+    },
+    {
+      "schemaVersion": "uberbond.opportunity.v1",
+      "id": "opp-organic-freelancer-network-2026-08-10",
+      "organization": "Organic",
+      "organizationDomain": "theorganicagency.com",
+      "title": "Join our freelancer network",
+      "sourceUrl": "https://theorganicagency.com/careers/want-to-join-our-network/",
+      "sourceExcerpt": "Are you a digital freelancer who loves making human-centred digital experiences? Whatever your skills are we’d love to hear from you.",
+      "sourceObservedAt": "2026-08-10T13:00:00.000Z",
+      "sourceExpiresAt": "2026-08-17T13:00:00.000Z",
+      "jurisdiction": "GB",
+      "routeType": "SOLICITED_APPLICATION",
+      "permissionScope": "CONTRACTOR_APPLICATION",
+      "submissionMechanism": "MANUAL_FORM",
+      "recipientEmail": "",
+      "recipientName": "Organic freelancer team",
+      "subject": "",
+      "body": "Hello Organic team,\n\nI’m Mohamed Wessam, an early-career web developer and QA operator focused on public-site release readiness: responsive review, navigation and form checks, reproducible defect reporting, and concise developer repair queues.\n\nMy strongest fit is quality assurance around human-centred website journeys. I can share a truthful resume, selected website work, and a fictional demonstration report that shows the reporting format. I do not present myself as a senior custom PHP or WordPress specialist, and I would scope implementation separately.\n\nBest regards,\n\nMohamed Wessam\nUberBond",
+      "requirements": [
+        {"id": "resume", "kind": "REQUIRED_ASSET", "mandatory": true, "value": "resume", "note": "The official form asks for a CV."},
+        {"id": "b2b-clearance", "kind": "B2B_LEGAL_ABILITY", "mandatory": true, "value": "VERIFIED", "note": "UberBond internal legal/payment launch gate."},
+        {"id": "owner-fit", "kind": "OWNER_JUDGMENT", "mandatory": false, "value": "QA_FIT", "note": "The invitation is broad rather than QA-specific; owner must judge fit."}
+      ],
+      "fitSignals": {
+        "qaExplicit": false,
+        "freelanceExplicit": true,
+        "remoteExplicit": false,
+        "agencyContext": true,
+        "websiteScopeExplicit": true,
+        "medicalContext": false,
+        "fixedDiagnosticFit": true,
+        "estimatedDecisionDays": 30,
+        "applicationMinutes": 20
+      },
+      "requiredAssetIds": ["resume", "selected-work", "qa-demonstration"],
+      "claimIds": ["structured-qa", "responsive-web", "medical-domain"],
+      "strategyLane": "FREELANCE_NETWORK",
+      "notes": "Best current manual-form candidate after the legal/payment gate, but not permission to submit."
+    },
+    {
+      "schemaVersion": "uberbond.opportunity.v1",
+      "id": "opp-adaptable-freelancer-network-2026-08-10",
+      "organization": "Adaptable",
+      "organizationDomain": "weareadaptable.com",
+      "title": "Freelancer network registration",
+      "sourceUrl": "https://weareadaptable.com/careers/",
+      "sourceExcerpt": "We’re not currently hiring, but we’re always on the lookout for the best talent and invite freelancers to register.",
+      "sourceObservedAt": "2026-08-10T13:00:00.000Z",
+      "sourceExpiresAt": "2026-08-17T13:00:00.000Z",
+      "jurisdiction": "GB",
+      "routeType": "SOLICITED_APPLICATION",
+      "permissionScope": "CONTRACTOR_APPLICATION",
+      "submissionMechanism": "MANUAL_FORM",
+      "recipientEmail": "",
+      "recipientName": "Adaptable talent team",
+      "subject": "",
+      "body": "Hello Adaptable team,\n\nI’m Mohamed Wessam, an early-career web developer and QA operator specializing in structured public-site review, responsive testing, user-flow checks, and evidence-backed repair queues.\n\nI can share a truthful resume and selected website work. My best fit is release readiness and quality assurance rather than senior custom PHP or WordPress development.\n\nBest regards,\n\nMohamed Wessam\nUberBond",
+      "requirements": [
+        {"id": "resume", "kind": "REQUIRED_ASSET", "mandatory": true, "value": "resume", "note": "The official freelancer form provides a CV upload field."},
+        {"id": "b2b-clearance", "kind": "B2B_LEGAL_ABILITY", "mandatory": true, "value": "VERIFIED", "note": "UberBond internal legal/payment launch gate."}
+      ],
+      "fitSignals": {
+        "qaExplicit": false,
+        "freelanceExplicit": true,
+        "remoteExplicit": false,
+        "agencyContext": true,
+        "websiteScopeExplicit": false,
+        "medicalContext": false,
+        "fixedDiagnosticFit": false,
+        "estimatedDecisionDays": 60,
+        "applicationMinutes": 20
+      },
+      "requiredAssetIds": ["resume", "selected-work"],
+      "claimIds": ["structured-qa", "responsive-web"],
+      "strategyLane": "FREELANCE_NETWORK",
+      "notes": "Official form exists, but fit is broad and current hiring is closed."
+    },
+    {
+      "schemaVersion": "uberbond.opportunity.v1",
+      "id": "opp-gate7-freelancer-network-2026-08-10",
+      "organization": "Gate 7",
+      "organizationDomain": "gate7.com.au",
+      "title": "Join our freelancer network",
+      "sourceUrl": "https://gate7.com.au/careers/",
+      "sourceExcerpt": "We collaborate with a network of freelance specialists, from media and content to creatives and digital experts.",
+      "sourceObservedAt": "2026-08-10T13:00:00.000Z",
+      "sourceExpiresAt": "2026-08-17T13:00:00.000Z",
+      "jurisdiction": "AU",
+      "routeType": "SOLICITED_APPLICATION",
+      "permissionScope": "CONTRACTOR_APPLICATION",
+      "submissionMechanism": "MANUAL_FORM",
+      "recipientEmail": "",
+      "recipientName": "Gate 7 freelancer team",
+      "subject": "",
+      "body": "Hello Gate 7 team,\n\nI’m Mohamed Wessam, an early-career web developer and QA operator focused on structured public-site testing and evidence-backed release-readiness reporting. I would be interested only where that precise quality-assurance support fits a digital project.\n\nBest regards,\n\nMohamed Wessam\nUberBond",
+      "requirements": [
+        {"id": "b2b-clearance", "kind": "B2B_LEGAL_ABILITY", "mandatory": true, "value": "VERIFIED", "note": "UberBond internal legal/payment launch gate."},
+        {"id": "owner-fit", "kind": "OWNER_JUDGMENT", "mandatory": true, "value": "DIGITAL_QA_FIT", "note": "The official invitation does not explicitly name QA or website testing."}
+      ],
+      "fitSignals": {
+        "qaExplicit": false,
+        "freelanceExplicit": true,
+        "remoteExplicit": false,
+        "agencyContext": true,
+        "websiteScopeExplicit": false,
+        "medicalContext": false,
+        "fixedDiagnosticFit": false,
+        "estimatedDecisionDays": 90,
+        "applicationMinutes": 30
+      },
+      "requiredAssetIds": ["resume", "selected-work"],
+      "claimIds": ["structured-qa", "responsive-web"],
+      "strategyLane": "FREELANCE_NETWORK",
+      "notes": "Lower fit; do not spend owner time before stronger routes."
+    },
+    {
+      "schemaVersion": "uberbond.opportunity.v1",
+      "id": "opp-testlio-community-2026-08-10",
+      "organization": "Testlio",
+      "organizationDomain": "testlio.com",
+      "title": "Join the freelance community",
+      "sourceUrl": "https://www.testlio.com/careers",
+      "sourceExcerpt": "The official careers page invites testers to join its worldwide freelance community and describes remote quality work.",
+      "sourceObservedAt": "2026-08-10T13:00:00.000Z",
+      "sourceExpiresAt": "2026-08-17T13:00:00.000Z",
+      "jurisdiction": "US",
+      "routeType": "SOLICITED_APPLICATION",
+      "permissionScope": "CONTRACTOR_APPLICATION",
+      "submissionMechanism": "PLATFORM",
+      "recipientEmail": "",
+      "recipientName": "Testlio community team",
+      "subject": "",
+      "body": "Truthful platform-profile preparation may be considered as a separate side-income route; it is not a substitute for the frozen UberBond diagnostic experiment.",
+      "requirements": [
+        {"id": "b2b-clearance", "kind": "B2B_LEGAL_ABILITY", "mandatory": true, "value": "VERIFIED", "note": "Payment, tax, and platform terms need owner/professional verification before work."},
+        {"id": "owner-strategy", "kind": "OWNER_JUDGMENT", "mandatory": false, "value": "SIDE_INCOME_TIME_BUDGET", "note": "Owner decides whether screening effort distracts from first diagnostic."}
+      ],
+      "fitSignals": {
+        "qaExplicit": true,
+        "freelanceExplicit": true,
+        "remoteExplicit": true,
+        "agencyContext": false,
+        "websiteScopeExplicit": false,
+        "medicalContext": false,
+        "fixedDiagnosticFit": false,
+        "estimatedDecisionDays": 30,
+        "applicationMinutes": 15
+      },
+      "requiredAssetIds": ["resume"],
+      "claimIds": ["structured-qa", "responsive-web"],
+      "strategyLane": "SIDE_INCOME",
+      "notes": "Potential skills/income channel, not the primary commercial validation lane."
+    },
+    {
+      "schemaVersion": "uberbond.opportunity.v1",
+      "id": "opp-toptal-network-2026-08-10",
+      "organization": "Toptal",
+      "organizationDomain": "toptal.com",
+      "title": "Freelance talent application",
+      "sourceUrl": "https://www.toptal.com/freelance-jobs/faq",
+      "sourceExcerpt": "Successful Toptal freelancers typically have at least two to three years of relevant experience.",
+      "sourceObservedAt": "2026-08-10T13:00:00.000Z",
+      "sourceExpiresAt": "2026-08-17T13:00:00.000Z",
+      "jurisdiction": "US",
+      "routeType": "SOLICITED_APPLICATION",
+      "permissionScope": "CONTRACTOR_APPLICATION",
+      "submissionMechanism": "PLATFORM",
+      "recipientEmail": "",
+      "recipientName": "Talent screening team",
+      "subject": "",
+      "body": "Application material is intentionally not prepared because the current evidenced experience does not meet the platform’s published typical threshold.",
+      "requirements": [
+        {"id": "experience", "kind": "MIN_RELEVANT_YEARS", "mandatory": true, "value": 2, "note": "The official FAQ describes two to three relevant years as typical for successful applicants."},
+        {"id": "b2b-clearance", "kind": "B2B_LEGAL_ABILITY", "mandatory": true, "value": "VERIFIED", "note": "UberBond internal legal/payment launch gate."}
+      ],
+      "fitSignals": {
+        "qaExplicit": false,
+        "freelanceExplicit": true,
+        "remoteExplicit": true,
+        "agencyContext": false,
+        "websiteScopeExplicit": false,
+        "medicalContext": false,
+        "fixedDiagnosticFit": false,
+        "estimatedDecisionDays": 30,
+        "applicationMinutes": 60
+      },
+      "requiredAssetIds": ["resume", "selected-work"],
+      "claimIds": ["structured-qa", "responsive-web"],
+      "strategyLane": "SIDE_INCOME",
+      "notes": "Hard experience mismatch; preserve as a no-go until evidence changes."
+    }
+  ]
+}

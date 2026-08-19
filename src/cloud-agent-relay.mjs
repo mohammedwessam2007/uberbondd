@@ -28,7 +28,11 @@ const MAX_LIST_LIMIT = 50;
 const MAX_TASK_BYTES = 200_000;
 const MAX_RESULT_BYTES = 250_000;
 const SECRET_KEY = /token|secret|password|credential|privatekey|apikey|authorization/i;
-const SECRET_VALUE = /(?:sk-[A-Za-z0-9]{12,}|ghp_[A-Za-z0-9]{12,}|-----BEGIN|Bearer\\s+\\S+)/;
+// \b before sk-/ghp_ matters: without it, any ordinary identifier that happens
+// to contain "sk-" or "ghp_" as a substring (e.g. a generated taskId like
+// "e2e-task-1787174626471" contains "sk-1787174626471") false-positives as a
+// secret. \b anchors the match to a real token boundary instead.
+const SECRET_VALUE = /(?:\bsk-[A-Za-z0-9]{12,}|\bghp_[A-Za-z0-9]{12,}|-----BEGIN|Bearer\s+\S+)/;
 
 function at(value) {
   const date = value instanceof Date ? value : new Date(value || Date.now());
@@ -180,6 +184,34 @@ export async function createCloudRelayTask({ queue, store, input = {}, date = ne
   return queued;
 }
 
+// Compact observability summary for /api/agent-relay/health -- the mission's
+// Wave 9 requires queued/active/completed/dead-letter counts, oldest queued
+// task, and stale-lease visibility without exposing any task payload or
+// secret. Read-only; never mutates a job.
+export async function relayHealthSummary({ store, staleLeaseMs = 300000 } = {}) {
+  const rows = await relayJobs(store);
+  const counts = { queued: 0, retry: 0, active: 0, completed: 0, 'dead-letter': 0 };
+  let oldestQueuedAt = null;
+  let staleLeases = 0;
+  const cutoff = Date.now() - Math.max(0, Number(staleLeaseMs || 0));
+  for (const job of rows) {
+    if (Object.hasOwn(counts, job.status)) counts[job.status] += 1;
+    if ((job.status === 'queued' || job.status === 'retry') && (!oldestQueuedAt || String(job.createdAt || '') < oldestQueuedAt)) {
+      oldestQueuedAt = job.createdAt || null;
+    }
+    if (job.status === 'active' && Date.parse(job.heartbeatAt || job.lockedAt || 0) < cutoff) staleLeases += 1;
+  }
+  return {
+    ok: true,
+    policyVersion: CLOUD_AGENT_RELAY_POLICY_VERSION,
+    counts,
+    total: rows.length,
+    oldestQueuedAt,
+    staleLeases,
+    externalEffectLedger: { ...ZERO_EFFECTS }
+  };
+}
+
 export async function listCloudRelayTasks({ store, targetAgent = '', status = '', limit = 20 } = {}) {
   const target = targetAgent ? normalizeTargetAgent(targetAgent) : '';
   if (targetAgent && !target) return errorResult(['invalid-target-agent']);
@@ -229,6 +261,16 @@ export async function claimCloudRelayTask({ store, targetAgent = 'claude-code', 
   };
 }
 
+// A relay task's lease has the same lockTimeoutMs as any other queue job
+// (default 300s). A Claude Code task that legitimately runs longer than
+// that must heartbeat or risk recoverStaleJobs() reclaiming it out from
+// under the still-working owner -- the same stale-lease race the mission's
+// hostile-test list calls out explicitly. Ownership is checked twice: once
+// against the fetched job (fails closed as 'lease-owner-mismatch' without
+// ever touching the store), and store.heartbeatJob() re-checks atomically
+// at write time (status==='active' && lockedBy===workerId) so a lease lost
+// between the read and the write is reported as 'lease-lost-before-heartbeat'
+// rather than silently extended.
 export async function heartbeatCloudRelayTask({ store, taskId, workerId } = {}) {
   const id = String(taskId || '').trim();
   const worker = normalizeWorkerId(workerId);
@@ -248,6 +290,7 @@ export async function heartbeatCloudRelayTask({ store, taskId, workerId } = {}) 
     jobId: job.id,
     workerId: worker,
     heartbeatAt: updated.heartbeatAt || null,
+    lease: { status: updated.status, lockedAt: updated.lockedAt, heartbeatAt: updated.heartbeatAt },
     externalEffectLedger: { ...ZERO_EFFECTS }
   };
 }

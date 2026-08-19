@@ -41,8 +41,8 @@ The release now records and routes the shared capability set that unlocks the la
 
 - Current `main` used as the base: `a9c217b130c4d778380b0f04f11d3aaf61fb48fe`.
 - Branch: `agent/omnia-registry-relay`.
-- Remote commit: `a2caac34cabbebd06fa293f4243534b2b05ebb38`, “Add canonical opportunity registry and safe relay adapter”. GitHub reports 17 changed files.
-- Local verification commit: `a6d0aa0` (same content); the GitHub API commit is the authoritative remote receipt.
+- Remote branch tip: `1876eba0d5ed16e38594876e048ef0d55da6498b`, “Record automatic Vercel preview side effect”; cumulative branch delta is 18 files over `main` (registry/catalog/taxonomy, relay adapter, tests, and truth receipt).
+- Local verification tip: `37f842a`; the GitHub API branch tip is the authoritative remote receipt.
 - No force-push, deletion, pull request, or main-branch mutation occurred.
 
 ## 7. Tests actually run

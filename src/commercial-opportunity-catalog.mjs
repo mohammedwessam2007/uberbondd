@@ -1,8 +1,10 @@
 // Canonical, evidence-labeled catalog for the three immediate commercial
-// experiments. This is a preparation registry, not a revenue database,
-// scraper, checkout, campaign sender, or provider integration.
+// experiments plus the explicit opportunity universe from the UberBond
+// thread. This is a preparation registry, not a revenue database, scraper,
+// checkout, campaign sender, or provider integration.
 import crypto from 'node:crypto';
 import { compileTaskBlueprint } from './task-universe.mjs';
+import { THREAD_OPPORTUNITY_UNIVERSE } from './thread-opportunity-universe.mjs';
 
 export const COMMERCIAL_OPPORTUNITY_CATALOG_POLICY_VERSION = 'commercial-opportunity-catalog-1.0.0';
 
@@ -71,7 +73,7 @@ function taskBlueprint({ id, purpose, outputs, killConditions }) {
   };
 }
 
-const CATALOG = [
+const CORE_CATALOG = [
   {
     id: 'paid-media-revenue-assurance',
     rank: 1,
@@ -257,6 +259,11 @@ const CATALOG = [
     })
   }
 ];
+
+// The three ranked lanes remain the immediate finalists. The broader thread
+// universe is retained as research-only candidates so the system can compare
+// them without pretending that every idea is commercially proven.
+const CATALOG = [...CORE_CATALOG, ...THREAD_OPPORTUNITY_UNIVERSE];
 
 function validDate(value) {
   const candidate = value instanceof Date ? value : new Date(value || Date.now());

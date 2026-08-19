@@ -15,13 +15,14 @@ const date = new Date('2026-08-19T08:00:00.000Z');
 
 test('catalog contains the three ranked, evidence-labeled opportunities', () => {
   const entries = listCommercialOpportunityCatalog();
-  assert.deepEqual(entries.map(entry => entry.id), [
+  assert.deepEqual(entries.slice(0, 3).map(entry => entry.id), [
     'paid-media-revenue-assurance',
     'ai-automation-reliability',
     'conversational-funnel-reliability'
   ]);
+  assert.ok(entries.length >= 200);
   for (const entry of entries) {
-    assert.equal(entry.evidence.classification, 'BUYER_SIGNAL');
+    assert.ok(['BUYER_SIGNAL', 'HYPOTHESIS'].includes(entry.evidence.classification));
     assert.ok(entry.evidence.sources.length > 0);
     assert.ok(entry.sevenDayExperiment.length >= 7);
     assert.ok(entry.taskBlueprint.policy.externalEffects.length === 0);
@@ -45,6 +46,19 @@ test('candidate compilation preserves lineage and does not mutate the catalog', 
   assert.equal(JSON.stringify(getCommercialOpportunity('ai-automation-reliability')), before);
 });
 
+test('thread-explicit opportunities remain research-only and fail closed on proof', () => {
+  const entry = getCommercialOpportunity('agent-acceptance-api');
+  assert.ok(entry);
+  assert.equal(entry.origin, 'THREAD_EXPLICIT');
+  assert.equal(entry.verdict, 'RESEARCH_ONLY');
+  assert.equal(entry.evidence.classification, 'HYPOTHESIS');
+  assert.equal(entry.evidence.sources[0].sourceType, 'USER_THREAD');
+  const result = compileCommercialOpportunity({ opportunityId: entry.id, date });
+  assert.equal(result.ok, true);
+  assert.equal(result.experiment.paymentTruth, 'EXTERNAL_PROOF_REQUIRED');
+  assert.equal(result.experiment.promotion.advanced, false);
+});
+
 test('each opportunity compiles into a local-only task blueprint and seven-day probe', () => {
   for (const entry of listCommercialOpportunityCatalog()) {
     const result = compileCommercialOpportunity({ opportunityId: entry.id, date });
@@ -64,7 +78,7 @@ test('all-catalog compilation is deterministic for a fixed reference date', () =
   const a = compileAllCommercialOpportunities({ date });
   const b = compileAllCommercialOpportunities({ date });
   assert.deepEqual(a, b);
-  assert.equal(a.catalogCount, 3);
+  assert.equal(a.catalogCount, listCommercialOpportunityCatalog().length);
   assert.equal(a.externalEffectLedger.productionMutations, 0);
 });
 
@@ -80,6 +94,6 @@ test('unknown opportunity fails closed and logging uses one bounded audit receip
   assert.deepEqual(receipt, { id: 'audit-1' });
   assert.equal(calls.length, 1);
   assert.equal(calls[0].type, 'commercial_opportunity_catalog');
-  assert.equal(calls[0].detail.catalogCount, 3);
+  assert.equal(calls[0].detail.catalogCount, listCommercialOpportunityCatalog().length);
   assert.equal(Object.prototype.hasOwnProperty.call(calls[0].detail, 'payload'), false);
 });

@@ -1,35 +1,50 @@
 # Commercial Opportunity Catalog
 
-This catalog turns the three highest-ranked opportunities from the dated Business Model Radar into reviewable UberBond preparation contracts.
+UberBond now retains two layers in one canonical catalog:
+
+- Immediate finalists: three dated, evidence-backed buyer-signal lanes from the Business Model Radar.
+- Thread opportunity universe: 234 explicit lanes raised across the Prometheus and Master Context thread, preserved as research-only hypotheses.
+
+The catalog contains 237 deduplicated opportunity records at this revision. It is a preparation registry, not a revenue database, scraper, checkout, campaign sender, or provider integration.
+
+## Immediate finalists
+
+1. paid-media-revenue-assurance
+2. ai-automation-reliability
+3. conversational-funnel-reliability
+
+These compile to local-only seven-day experiment packets. Their public buyer-signal sources, price hypotheses, deliverables, exclusions, and recurring routes are retained in the source module.
+
+## Expanded thread universe
+
+The expanded universe covers:
+
+- public market, buyer-pain, capital-flow, competitor, pricing, procurement, regulation, creator-claim, and platform-policy intelligence;
+- revenue-path diagnostics, conversion/tracking/CRM/workflow/analytics/website QA, ecommerce and payment assurance;
+- lead recovery, billing/refund/chargeback/subscription recovery, cloud and SaaS savings, reliability, compliance, accessibility, and deliverability readiness;
+- website, chatbot, receptionist, booking, CRM, automation, localization, research, enrichment, content, SEO/AEO/GEO, media-buying, support, reporting, and lead-generation services;
+- pay-per-lead, calls, bookings, intent data, buyer-signal products, agencies, white-label, OEM/API resale, embedded infrastructure, and partner revenue share;
+- software, service, digital-goods, data, plugin, agent, creator-brand, expert, procurement, and niche marketplaces plus directories and brokerage;
+- SaaS/ecommerce/B2B affiliate, creator sponsorship, membership, newsletter, podcast, educational media, licensed content, UGC, social commerce, and ecommerce models;
+- templates, code, automation packs, agent workflows, datasets, benchmarks, information products, free tools, programmatic search, and app-ecosystem products;
+- evidence APIs, contact-provenance, MCP/tool products, agent identity, authorization, observability, evaluation, security, memory, payments, reputation, discovery, checkout, machine-customer readiness, and autonomous-company infrastructure;
+- distribution allocation, TAM/lookalikes, partner and creator graphs, content capital, attribution, retention, expansion, churn, win-back, self-upgrade, engineering, model routing, capital allocation, company-factory, moat, and anti-obsolescence candidates.
+
+The registry deliberately does not implement every lane. It gives UberBond a common schema for ranking, testing, killing, or promoting them without creating disconnected product pages.
 
 ## Truth boundary
 
-The catalog records public buyer-signal evidence and explicit hypotheses. It does not claim a worldwide census, a customer, a payment, a live provider integration, or proven profitability.
+Thread-derived records are HYPOTHESIS and RESEARCH_ONLY. They do not prove buyers, payments, retention, platform access, legal permission, or profitability. Unknown cost and time-to-cash remain UNRESOLVED.
 
-Every lane compiles to local preparation only. Provider calls, external messages, purchases, ad spend, deployments, credential changes, and production mutations remain disabled. The primary economic metric is CLEARED_PAYMENT, and payment status remains EXTERNAL_PROOF_REQUIRED until a real payment provider receipt exists.
-
-## Included lanes
-
-1. paid-media-revenue-assurance — paid media and conversion-tracking audit for agencies, operators, and local businesses.
-2. ai-automation-reliability-pilot — bounded workflow automation reliability pilot for SMB and agency operators.
-3. conversational-funnel-reliability-audit — audit and repair plan for chat-based lead and booking funnels.
+Every compiled record is LOCAL_PREPARATION_ONLY. Provider calls, messages, purchases, ad spend, deployments, credential changes, DNS changes, and production mutations remain disabled. The primary economic metric is CLEARED_PAYMENT, and payment status remains EXTERNAL_PROOF_REQUIRED until a real provider receipt exists.
 
 ## Runtime integration
 
-The catalog is exposed through two local job handlers:
+- prometheus.commercial.catalog compiles and logs all 237 records.
+- prometheus.commercial.opportunity.prepare compiles one named record.
+- The all-lane handler remains behind the existing autopilot and Prometheus scheduling gates and only logs a bounded summary receipt.
+- Existing V9, suppression, deliverability, authorization, and external-effect controls remain authoritative.
 
-- prometheus.commercial.catalog compiles and logs all three lanes.
-- prometheus.commercial.opportunity.prepare compiles one named lane.
+## Implementation rule
 
-The all-lane handler is scheduled only behind the existing cfg.autopilot and cfg.prometheus.schedulingEnabled gates, at most once per day. It does not enqueue external work.
-
-## Evidence labels
-
-- BUYER_SIGNAL means a public request or official documentation indicates a problem or workflow, not that UberBond has a customer.
-- HYPOTHESIS marks pricing, recurrence, margin, and conversion assumptions that require testing.
-- ESTIMATE marks test cost and time-to-cash ranges that are planning assumptions.
-- EXTERNAL_PROOF_REQUIRED marks payment, customer, live access, revenue, and platform outcomes that cannot be proven locally.
-
-## Next step
-
-Use the compiled packets to prepare three small owner-reviewed experiments. Do not send, spend, deploy, or contact anyone until exact authority, route, payload, identity, time, and budget bounds are separately approved and all existing V9 and deliverability gates pass.
+The universe is a decision surface, not a 237-project backlog. UberBond should advance only the smallest evidence-backed experiments, then concentrate resources on cleared payment, accepted delivery, repeat payment, contribution margin, and low founder burden.

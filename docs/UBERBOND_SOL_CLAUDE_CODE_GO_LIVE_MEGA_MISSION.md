@@ -99,7 +99,7 @@ Allowed without asking:
 - add deterministic, hostile, integration, concurrency, restart, crash, and security tests;
 - run package installation, syntax checks, tests, browser tests, local PostgreSQL/PGlite/embedded-postgres tests, static analysis, and audits;
 - commit and push to a dedicated task branch;
-- open or update a draft PR;
+- keep the PR ready for review after validation; never convert it back to draft;
 - inspect CI and preview deployment logs;
 - prepare cloud configuration manifests and owner instructions;
 - run test-only local or preview traffic against non-production endpoints when no customer data, send, spend, or consequential effect is involved.
@@ -840,7 +840,7 @@ Do not spend most of the session narrating. Inspect targeted files, execute, and
 - Do not modify lite/.
 - Commit coherent waves.
 - Push only the task branch.
-- Open or update a draft PR.
+- Keep the PR ready for review after validation; never convert it back to draft.
 - Never merge.
 - Never force-push.
 - Never deploy production.

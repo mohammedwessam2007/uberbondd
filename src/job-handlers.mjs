@@ -16,6 +16,10 @@ import {
   logOpportunityTournament
 } from './opportunity-tournament.mjs';
 import {
+  extractGenomeCandidate,
+  logGenomeExtraction
+} from './genome-extraction.mjs';
+import {
   compileCommercialExperiment,
   logCommercialExperiment
 } from './commercial-experiment.mjs';
@@ -171,6 +175,15 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       const input = payload && typeof payload === 'object' ? payload : {};
       const result = rankCanonicalOpportunities(input);
       if (result.ok) await logOpportunityTournament(store, result);
+      return result;
+    },
+    // Signal-to-BusinessGenome composition over caller-supplied normalized
+    // signals. This is local-only and persists one compact lineage receipt;
+    // it never fetches, promotes evidence, or mutates an opportunity record.
+    'prometheus.genome.extract': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = extractGenomeCandidate(input);
+      if (result.ok) await logGenomeExtraction(store, result);
       return result;
     },
     // Local-only composition task. It requires a caller-supplied signal,

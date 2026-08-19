@@ -9,6 +9,7 @@ Observed 2026-08-20 (Africa/Cairo). This is an evidence receipt, not a claim of 
 - Duplicate thread IDs were removed and the explicit opportunity taxonomy was added to the same registry.
 - A deterministic, zero-effect Vercel-native relay adapter was added under `relay/`. It exposes a health route and explicit `501 NOT_IMPLEMENTED` task routes. It is intentionally not the durable cloud worker.
 - The existing scoring kernel now drives a deterministic tournament across all 438 canonical records; it returns a bounded top slice and writes only a compact `auditLog` receipt.
+- The MarketSignal-to-BusinessGenome bridge is now reachable through `prometheus.genome.extract`; it writes one compact lineage receipt containing signal IDs and populated-field names only, with no raw payloads or external effects.
 - Focused relay, catalog/registry, and tournament tests were added to the existing deterministic test suite.
 
 ## 2. Opportunity ingestion
@@ -29,7 +30,7 @@ The explicit thread taxonomy contains 435 rows across 64 normalized categories, 
 
 ## 4. Shared capability implementation
 
-The release now records and routes the shared capability set that unlocks the largest number of opportunities: market-signal/evidence kernel; business-genome and mechanism atomization; canonical opportunity registry; opportunity scoring/tournament; bounded commercial-experiment engine; distribution/partner graph; revenue/payment/outcome graph; commercial memory and failure memory; governed self-upgrade proposals; GitHub-mediated relay transport; Vercel ingress boundary; the tested partial adapter; V9 consequence boundary; and durable-queue interface. Existing UberBond models are reused; no hundreds-of-businesses implementation was created.
+The release now records and routes the shared capability set that unlocks the largest number of opportunities: market-signal/evidence kernel; receipt-backed BusinessGenome extraction and mechanism atomization; canonical opportunity registry; opportunity scoring/tournament; bounded commercial-experiment engine; distribution/partner graph; revenue/payment/outcome graph; commercial memory and failure memory; governed self-upgrade proposals; GitHub-mediated relay transport; Vercel ingress boundary; the tested partial adapter; V9 consequence boundary; and durable-queue interface. Existing UberBond models are reused; no hundreds-of-businesses implementation was created.
 
 ## 5. Cloud and Vercel status
 
@@ -49,10 +50,10 @@ The release now records and routes the shared capability set that unlocks the la
 
 ## 7. Tests actually run
 
-- The direct no-network equivalent of `npm run check` (134 syntax checks followed by the deterministic test command) passed: **1,109 total; 1,067 passing; 0 failing; 42 intentionally skipped**. The package-script invocation itself was blocked by the shell's network-approval guard, so no green result is attributed to that wrapper.
-- Direct syntax checks: **134 files passed**, including the new tournament module.
+- The direct no-network equivalent of `npm run check` (134 syntax checks followed by the deterministic test command) passed: **1,111 total; 1,069 passing; 0 failing; 42 intentionally skipped**. The package-script invocation itself was blocked by the shell's network-approval guard, so no green result is attributed to that wrapper.
+- Direct syntax checks: **134 files passed**, including the tournament and genome-extraction modules.
 - Focused root/partial Vercel-relay syntax and tests (`node --check api/agent-relay.mjs`, `node --check src/github-relay.mjs`, `node --check src/cloud-agent-relay.mjs`, and both relay test files): **9 passing**.
-- Focused opportunity tournament tests: **6 passing**.
+- Focused opportunity tournament tests: **6 passing**; focused genome extraction and handler tests: **10 passing**.
 - All eight product archive ZIPs and the three supplemental ZIPs were checksum/integrity tested before implementation; the eight-part master reports 599 manifest entries, 0 missing, 0 repeated, and 0 ZIP CRC failures.
 
 ## 8. Hourly execution automation

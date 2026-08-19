@@ -156,6 +156,22 @@ test("hostile: cloud relay tools fail closed when not configured", async () => {
   }
 });
 
+test("hostile: cloud relay refuses to send a bearer token over non-loopback HTTP", async () => {
+  const bridge = startBridge({
+    UBERBOND_AGENT_RELAY_ENABLED: "true",
+    UBERBOND_AGENT_RELAY_URL: "http://example.com",
+    UBERBOND_AGENT_RELAY_TOKEN: "fixture-token-never-sent",
+  });
+  try {
+    await bridge.request("initialize", {});
+    const response = await bridge.request("tools/call", { name: "uberbond_relay_poll", arguments: {} });
+    assert.ok(response.error, "expected insecure relay transport to fail closed");
+    assert.match(response.error.message, /must use https except for loopback/);
+  } finally {
+    bridge.stop();
+  }
+});
+
 test("hostile: malformed JSON-RPC input does not crash the bridge", async () => {
   const bridge = startBridge();
   try {
@@ -270,7 +286,7 @@ test("end-to-end: real MCP process polls, claims, and submits through a real loc
     });
     assert.ok(!heartbeatResponse.error, heartbeatResponse.error?.message);
     const heartbeat = JSON.parse(heartbeatResponse.result.content[0].text);
-    assert.equal(heartbeat.status, "HEARTBEAT_OK");
+    assert.equal(heartbeat.status, "HEARTBEAT_ACCEPTED");
     assert.ok(
       Date.parse(heartbeat.lease.heartbeatAt) > Date.parse(claimed.lease.heartbeatAt),
       `heartbeat did not advance heartbeatAt: claim=${claimed.lease.heartbeatAt} heartbeat=${heartbeat.lease.heartbeatAt}`

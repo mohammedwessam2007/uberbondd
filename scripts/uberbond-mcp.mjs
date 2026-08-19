@@ -66,7 +66,7 @@ const tools = [
   },
   {
     name: "uberbond_relay_heartbeat",
-    description: "Extend the lease on a claimed UberBond relay task so a long-running task is not reclaimed as stale by another worker.",
+    description: "Extend the exact active UberBond relay lease owned by this Claude Code worker.",
     inputSchema: {
       type: "object",
       properties: {
@@ -117,6 +117,31 @@ function textResult(value) {
   return { content: [{ type: "text", text: typeof value === "string" ? value : JSON.stringify(value, null, 2) }] };
 }
 
+async function readBoundedResponse(response, maxBytes = 1_000_000) {
+  if (!response.body?.getReader) {
+    const fallback = await response.text();
+    if (Buffer.byteLength(fallback, "utf8") > maxBytes) throw new Error("cloud relay response exceeded the size limit");
+    return fallback;
+  }
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  const chunks = [];
+  let total = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > maxBytes) throw new Error("cloud relay response exceeded the size limit");
+      chunks.push(decoder.decode(value, { stream: true }));
+    }
+    chunks.push(decoder.decode());
+    return chunks.join("");
+  } finally {
+    if (total > maxBytes) await reader.cancel().catch(() => {});
+  }
+}
+
 async function command(commandName, args, extraEnv = {}) {
   return new Promise((resolveCommand, rejectCommand) => {
     execFile(commandName, args, { cwd: projectRoot, env: { ...process.env, ...extraEnv }, timeout: 180_000, maxBuffer: 2_000_000 }, (error, stdout, stderr) => {
@@ -147,7 +172,10 @@ async function relayRequest(method, route, body = undefined) {
   }
   let base;
   try { base = new URL(relayUrl); } catch { throw new Error("cloud relay URL is invalid"); }
-  if (!["http:", "https:"].includes(base.protocol)) throw new Error("cloud relay URL must use http or https");
+  const loopback = ["localhost", "127.0.0.1", "::1", "[::1]"].includes(base.hostname);
+  if (base.protocol !== "https:" && !(base.protocol === "http:" && loopback)) {
+    throw new Error("cloud relay URL must use https except for loopback testing");
+  }
   if (!route.startsWith("/api/agent-relay/")) throw new Error("cloud relay route rejected");
   const endpoint = new URL(route, base.origin);
   const response = await fetch(endpoint, {
@@ -157,9 +185,14 @@ async function relayRequest(method, route, body = undefined) {
       ...(body === undefined ? {} : { "content-type": "application/json" }),
     },
     ...(body === undefined ? {} : { body: JSON.stringify(body) }),
+    redirect: "error",
     signal: AbortSignal.timeout(15_000),
   });
-  const content = (await response.text()).slice(0, 1_000_000);
+  const declaredLength = Number(response.headers.get("content-length") || 0);
+  if (Number.isFinite(declaredLength) && declaredLength > 1_000_000) {
+    throw new Error("cloud relay response exceeded the size limit");
+  }
+  const content = await readBoundedResponse(response);
   let payload;
   try { payload = content ? JSON.parse(content) : {}; } catch { payload = { raw: content }; }
   if (!response.ok) {

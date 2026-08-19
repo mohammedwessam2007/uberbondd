@@ -7,6 +7,7 @@ UberBond now includes a project-scoped MCP server for Claude Code. This is the l
 - `uberbond_get_state`: safe branch, worktree, and safety-boundary status.
 - `uberbond_read_relay_contract`: the canonical Claude handoff contract.
 - `uberbond_prepare_task`: a structured bounded repair/review packet; it does not execute the task.
+- `uberbond_relay_poll`, `uberbond_relay_claim`, `uberbond_relay_heartbeat`, and `uberbond_relay_submit`: authenticated bounded cloud task transport when configured.
 - `uberbond_run_verification`: only the repository's `check:syntax`, `test:deterministic`, `check`, or fixed safe sequence.
 
 The bridge does not expose deployment, push, merge, DNS, credentials, provider calls, purchases, messages, scraping, or production mutation tools. It also never receives an API key through the MCP payload.

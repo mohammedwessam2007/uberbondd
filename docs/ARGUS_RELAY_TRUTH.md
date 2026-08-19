@@ -8,6 +8,35 @@ same discipline as `docs/INSTANTLY_RECONCILIATION.md` and
 in the mission brief against git, source, and test evidence rather than
 trusting it.
 
+## A second reconciliation, mid-wave: `main` moved independently
+
+While this wave was in progress, `main` was fast-forwarded directly (not
+through PR #28) to include the full `agent/cloud-agent-relay` history plus
+one further commit, `fe51c3c "Harden cloud agent relay leases"`, authored
+independently of this session. That commit built its own heartbeat route,
+MCP tool, and module function -- overlapping with the heartbeat gap this
+wave had also just found and closed -- plus two real fixes this wave had
+not made: an idempotent/replay-safe `createCloudRelayTask` (rejects a
+task id reused with a different packet as `task-id-conflict`, replays the
+same packet without creating a second job) and HTTPS enforcement in the MCP
+transport (`scripts/uberbond-mcp.mjs` now refuses to send the bearer token
+over plaintext HTTP to anything but a loopback address).
+
+This was caught by re-fetching `origin/main` before pushing, not assumed
+away. Per the mission's own duplication-handling rule ("map both
+implementations, identify canonical truth, preserve unique useful
+behavior... remove only confirmed duplication"), the two heartbeat
+implementations were reconciled by a real `git merge` (not a pick-one-side
+overwrite): `main`'s ownership-check ordering, reason codes
+(`lease-owner-mismatch` vs `lease-lost-before-heartbeat`), and
+`HEARTBEAT_ACCEPTED` status name were kept as canonical (already tested,
+already on `main`); this wave's own additive, non-overlapping work --
+the two `SECRET_VALUE` regex fixes, rate limiting, `relayHealthSummary()`,
+and the OMNIA-V9/outreach recovery this branch carries that `main` does
+not -- was preserved on top. Both sides' tests were kept, not dropped; one
+duplicate mock method (`heartbeatJob` defined twice in the same test
+fixture object, the second silently shadowing the first) was deduplicated.
+
 ## Branch/PR ancestry (independently verified via `git merge-base`)
 
 - `agent/commercial-opportunity-catalog` (PR #27) branches from

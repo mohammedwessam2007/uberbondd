@@ -261,8 +261,8 @@ const server = http.createServer(async (req, res) => {
     const relayPath = url.pathname === '/api/agent-relay/health'
       || url.pathname === '/api/agent-relay/tasks'
       || url.pathname === '/api/agent-relay/tasks/claim'
-      || /^\/api\/agent-relay\/tasks\/[^/]+\/result$/.test(url.pathname)
-      || /^\/api\/agent-relay\/tasks\/[^/]+\/heartbeat$/.test(url.pathname);
+      || /^\/api\/agent-relay\/tasks\/[^/]+\/heartbeat$/.test(url.pathname)
+      || /^\/api\/agent-relay\/tasks\/[^/]+\/result$/.test(url.pathname);
     if (relayPath && !relayAuth(req)) {
       return json(res, relayConfigured() ? 401 : 503, { error: relayConfigured() ? 'Unauthorized' : 'Agent relay is not configured' });
     }
@@ -360,15 +360,12 @@ const server = http.createServer(async (req, res) => {
       }
       const heartbeatMatch = url.pathname.match(/^\/api\/agent-relay\/tasks\/([^/]+)\/heartbeat$/);
       if (method === 'POST' && heartbeatMatch) {
+        const taskId = decodeURIComponent(heartbeatMatch[1]);
         const input = await parseBody(req);
-        const result = await heartbeatCloudRelayTask({
-          store,
-          taskId: decodeURIComponent(heartbeatMatch[1]),
-          workerId: input.workerId
-        });
+        const result = await heartbeatCloudRelayTask({ store, taskId, workerId: input.workerId });
         if (result.ok) return json(res, 200, result);
         const status = result.reasonCodes?.includes('task-not-found') ? 404
-          : result.reasonCodes?.includes('lease-owner-mismatch') ? 409 : 400;
+          : result.reasonCodes?.some(code => code === 'lease-owner-mismatch' || code === 'lease-lost-before-heartbeat') ? 409 : 400;
         return json(res, status, result);
       }
       const match = url.pathname.match(/^\/api\/agent-relay\/tasks\/([^/]+)\/result$/);

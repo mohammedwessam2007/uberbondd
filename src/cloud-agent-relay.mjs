@@ -89,8 +89,34 @@ async function relayJobs(store) {
 }
 
 async function findRelayJob(store, taskId) {
+  if (store && typeof store.findOne === 'function') {
+    const job = await store.findOne('jobs', { dedupeKey: `agent-relay:${taskId}` });
+    if (job?.type === AGENT_RELAY_JOB_TYPE && job?.payload?.taskId === taskId) return job;
+  }
   const jobs = await relayJobs(store);
   return jobs.find(job => job?.payload?.taskId === taskId) || null;
+}
+
+function taskIdentity(task) {
+  if (!task || typeof task !== 'object') return null;
+  return {
+    policyVersion: task.policyVersion,
+    taskId: task.taskId,
+    objective: task.objective,
+    originAgent: task.originAgent,
+    targetAgent: task.targetAgent,
+    parentTask: task.parentTask,
+    contextRefs: task.contextRefs,
+    evidenceRefs: task.evidenceRefs,
+    constraints: task.constraints,
+    forbiddenActions: task.forbiddenActions,
+    requiredOutputs: task.requiredOutputs,
+    acceptanceTests: task.acceptanceTests,
+    budget: task.budget,
+    deadline: task.deadline,
+    economicObjective: task.economicObjective,
+    consequenceClass: task.consequenceClass
+  };
 }
 
 function normalizeWorkerId(value) {
@@ -131,8 +157,13 @@ export async function createCloudRelayTask({ queue, store, input = {}, date = ne
     maxAttempts: 3,
     dedupeKey: `agent-relay:${task.taskId}`
   });
+  const storedTask = job?.payload && typeof job.payload === 'object' ? job.payload : task;
+  if (storedTask.taskId !== task.taskId
+    || JSON.stringify(taskIdentity(storedTask)) !== JSON.stringify(taskIdentity(task))) {
+    return errorResult(['task-id-conflict'], 'The task id already belongs to a different immutable task packet.');
+  }
   const queued = {
-    ...task,
+    ...storedTask,
     status: 'QUEUED',
     relayPolicyVersion: CLOUD_AGENT_RELAY_POLICY_VERSION,
     relay: { jobId: job.id, queue: job.queue, status: job.status },
@@ -234,9 +265,12 @@ export async function claimCloudRelayTask({ store, targetAgent = 'claude-code', 
 // (default 300s). A Claude Code task that legitimately runs longer than
 // that must heartbeat or risk recoverStaleJobs() reclaiming it out from
 // under the still-working owner -- the same stale-lease race the mission's
-// hostile-test list calls out explicitly. store.heartbeatJob() already
-// enforces lease ownership (status==='active' && lockedBy===workerId) and
-// returns null on mismatch, so this never lets a non-owner extend a lease.
+// hostile-test list calls out explicitly. Ownership is checked twice: once
+// against the fetched job (fails closed as 'lease-owner-mismatch' without
+// ever touching the store), and store.heartbeatJob() re-checks atomically
+// at write time (status==='active' && lockedBy===workerId) so a lease lost
+// between the read and the write is reported as 'lease-lost-before-heartbeat'
+// rather than silently extended.
 export async function heartbeatCloudRelayTask({ store, taskId, workerId } = {}) {
   const id = String(taskId || '').trim();
   const worker = normalizeWorkerId(workerId);
@@ -245,15 +279,17 @@ export async function heartbeatCloudRelayTask({ store, taskId, workerId } = {}) 
   if (!store || typeof store.heartbeatJob !== 'function') return errorResult(['relay-heartbeat-not-supported']);
   const job = await findRelayJob(store, id);
   if (!job) return errorResult(['task-not-found']);
+  if (job.status !== 'active' || job.lockedBy !== worker) return errorResult(['lease-owner-mismatch']);
   const updated = await store.heartbeatJob(job.id, worker);
-  if (!updated) return errorResult(['lease-owner-mismatch']);
+  if (!updated) return errorResult(['lease-lost-before-heartbeat']);
   return {
     ok: true,
     policyVersion: CLOUD_AGENT_RELAY_POLICY_VERSION,
-    status: 'HEARTBEAT_OK',
+    status: 'HEARTBEAT_ACCEPTED',
     taskId: id,
     jobId: job.id,
     workerId: worker,
+    heartbeatAt: updated.heartbeatAt || null,
     lease: { status: updated.status, lockedAt: updated.lockedAt, heartbeatAt: updated.heartbeatAt },
     externalEffectLedger: { ...ZERO_EFFECTS }
   };

@@ -24,6 +24,10 @@ function fixture() {
       const rows = jobs.filter(job => !options.filters?.type || job.type === options.filters.type);
       return rows.slice(0, options.limit || rows.length).map(job => structuredClone(job));
     },
+    async findOne(_key, filters = {}) {
+      const job = jobs.find(item => Object.entries(filters).every(([key, value]) => item[key] === value));
+      return job ? structuredClone(job) : null;
+    },
     async claimJobsByType(type, targetAgent, workerId) {
       const job = jobs.find(item => item.type === type && item.status === 'queued' && item.payload.targetAgent === targetAgent);
       if (!job) return [];
@@ -51,6 +55,8 @@ function fixture() {
   };
   const queue = {
     async enqueue(type, payload, options) {
+      const duplicate = jobs.find(item => options.dedupeKey && item.dedupeKey === options.dedupeKey);
+      if (duplicate) return structuredClone(duplicate);
       const job = {
         id: `job-${next++}`,
         type,
@@ -59,6 +65,7 @@ function fixture() {
         payload: structuredClone(payload),
         attempts: 0,
         maxAttempts: options.maxAttempts,
+        dedupeKey: options.dedupeKey || null,
         runAt: '2026-08-19T10:00:00.000Z',
         createdAt: '2026-08-19T10:00:00.000Z'
       };
@@ -149,6 +156,30 @@ test('cloud relay does not false-positive an ordinary taskId as a secret merely 
   assert.equal(created.status, 'QUEUED');
 });
 
+test('cloud relay rejects a conflicting immutable packet that reuses a task id', async () => {
+  const f = fixture();
+  await createCloudRelayTask({ ...f, date: new Date('2026-08-19T10:00:00.000Z'), input: input() });
+  const conflict = await createCloudRelayTask({
+    ...f,
+    date: new Date('2026-08-19T10:00:00.000Z'),
+    input: input({ objective: 'A different task must not replace the existing packet' })
+  });
+  assert.equal(conflict.ok, false);
+  assert.ok(conflict.reasonCodes.includes('task-id-conflict'));
+  assert.equal(f.jobs.length, 1);
+  assert.equal(f.jobs[0].payload.objective, input().objective);
+});
+
+test('cloud relay replays the same immutable task idempotently without creating a second job', async () => {
+  const f = fixture();
+  const first = await createCloudRelayTask({ ...f, date: new Date('2026-08-19T10:00:00.000Z'), input: input() });
+  const replay = await createCloudRelayTask({ ...f, date: new Date('2026-08-19T10:05:00.000Z'), input: input() });
+  assert.equal(first.ok, true);
+  assert.equal(replay.ok, true);
+  assert.equal(replay.relay.jobId, first.relay.jobId);
+  assert.equal(f.jobs.length, 1);
+});
+
 test('cloud relay claims one task for the designated worker and filters status', async () => {
   const f = fixture();
   await createCloudRelayTask({ ...f, input: input() });
@@ -180,6 +211,37 @@ test('cloud relay enforces lease ownership and accepts a bounded result receipt'
   assert.equal(submitted.status, 'RECEIVED');
   assert.equal(f.jobs[0].status, 'completed');
   assert.equal(f.logs.at(-1).type, 'cloud_agent_relay_result_received');
+});
+
+test('cloud relay heartbeat extends only the exact lease owner', async () => {
+  const f = fixture();
+  await createCloudRelayTask({ ...f, input: input() });
+  const claim = await claimCloudRelayTask({ store: f.store, targetAgent: 'claude-code', workerId: 'claude-code:test' });
+  const wrong = await heartbeatCloudRelayTask({ store: f.store, taskId: claim.taskId, workerId: 'claude-code:other' });
+  assert.equal(wrong.ok, false);
+  assert.ok(wrong.reasonCodes.includes('lease-owner-mismatch'));
+  const accepted = await heartbeatCloudRelayTask({ store: f.store, taskId: claim.taskId, workerId: 'claude-code:test' });
+  assert.equal(accepted.ok, true);
+  assert.equal(accepted.status, 'HEARTBEAT_ACCEPTED');
+  assert.equal(accepted.workerId, 'claude-code:test');
+});
+
+test('cloud relay lease operations use the task dedupe identity beyond the bounded listing window', async () => {
+  const f = fixture();
+  await createCloudRelayTask({ ...f, input: input() });
+  const claim = await claimCloudRelayTask({ store: f.store, targetAgent: 'claude-code', workerId: 'claude-code:test' });
+  for (let index = 0; index < 600; index += 1) {
+    f.jobs.unshift({
+      id: `noise-${index}`,
+      type: AGENT_RELAY_JOB_TYPE,
+      status: 'completed',
+      dedupeKey: `agent-relay:noise-${index}`,
+      payload: { taskId: `noise-${index}`, targetAgent: 'claude-code' }
+    });
+  }
+  const heartbeat = await heartbeatCloudRelayTask({ store: f.store, taskId: claim.taskId, workerId: 'claude-code:test' });
+  assert.equal(heartbeat.ok, true);
+  assert.equal(heartbeat.taskId, claim.taskId);
 });
 
 test('cloud relay rejects nonzero effects and cannot submit twice', async () => {
@@ -218,7 +280,7 @@ test('cloud relay heartbeat extends the lease for the real owner and rejects a n
   const claim = await claimCloudRelayTask({ store: f.store, targetAgent: 'claude-code', workerId: 'claude-code:test' });
   const heartbeat = await heartbeatCloudRelayTask({ store: f.store, taskId: claim.taskId, workerId: 'claude-code:test' });
   assert.equal(heartbeat.ok, true);
-  assert.equal(heartbeat.status, 'HEARTBEAT_OK');
+  assert.equal(heartbeat.status, 'HEARTBEAT_ACCEPTED');
   assert.ok(
     Date.parse(heartbeat.lease.heartbeatAt) > Date.parse(claim.lease.heartbeatAt),
     'heartbeat must advance heartbeatAt past the value set at claim time'

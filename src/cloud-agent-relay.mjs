@@ -43,7 +43,12 @@ function hasSecret(value) {
   if (typeof value === 'string') return SECRET_VALUE.test(value);
   if (Array.isArray(value)) return value.some(hasSecret);
   if (!value || typeof value !== 'object') return false;
-  return Object.entries(value).some(([key, item]) => key !== 'externalEffectLedger' && (SECRET_KEY.test(key) || hasSecret(item)));
+  return Object.entries(value).some(([key, item]) => {
+    if (key === 'externalEffectLedger') {
+      return Object.keys(item || {}).some(effect => !Object.hasOwn(ZERO_EFFECTS, effect));
+    }
+    return SECRET_KEY.test(key) || hasSecret(item);
+  });
 }
 
 function errorResult(reasonCodes, detail = '') {

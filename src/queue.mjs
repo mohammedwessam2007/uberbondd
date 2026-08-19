@@ -134,7 +134,7 @@ export class DurableQueue {
     const concurrency = Math.max(1, Number(options.concurrency || this.cfg.queue.concurrency || 2));
     const available = Math.max(0, concurrency - this.active);
     if (!available) return { paused: false, claimed: 0 };
-    const jobs = await this.store.claimJobs(this.workerId, available, this.cfg.queue.lockTimeoutMs);
+    const jobs = await this.store.claimJobs(this.workerId, available, this.cfg.queue.lockTimeoutMs, { excludeTypes: ['prometheus.agent.relay'] });
     if (!jobs.length) return { paused: false, claimed: 0 };
     await Promise.all(jobs.map(job => this.runJob(job, handlers)));
     return { paused: false, claimed: jobs.length };

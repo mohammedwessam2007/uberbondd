@@ -18,6 +18,11 @@ export const config = {
   databaseUrl: env.DATABASE_URL || '',
   databaseSsl: bool(env.DATABASE_SSL, production),
   adminToken: env.ADMIN_TOKEN || '',
+  agentRelay: {
+    enabled: bool(env.AGENT_RELAY_ENABLED, false),
+    token: env.UBERBOND_AGENT_RELAY_TOKEN || '',
+    maxTaskBytes: num(env.AGENT_RELAY_MAX_TASK_BYTES, 200000)
+  },
   encryptionKey: env.TOKEN_ENCRYPTION_KEY || '',
   unsubscribeSecret: env.UNSUBSCRIBE_SECRET || env.TOKEN_ENCRYPTION_KEY || '',
   autopilot: bool(env.AUTOPILOT_ENABLED, false),

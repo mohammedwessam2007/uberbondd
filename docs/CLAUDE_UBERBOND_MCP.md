@@ -32,3 +32,8 @@ The project configuration is `.mcp.json`; it launches `scripts/uberbond-mcp.mjs`
 Claude Code may inspect the repository, prepare local edits in an isolated worktree, and run the allowlisted verification suites. UberBond remains the control plane for evidence, task state, receipts, owner gates, and deployment truth. A Claude result is not considered complete until it includes changed artifacts, tests actually run, truth status, and an external-effect ledger.
 
 The verification allowlist intentionally avoids browser, provider, outbound, deployment, and production-mutation commands. Anthropic documents project-scoped MCP servers, local stdio transport, workspace trust, and explicit server approval in the Claude Code MCP reference. Treat every server configuration as a permission boundary and review it before approval.
+
+
+## Optional cloud relay
+
+This MCP server exposes bounded cloud relay tools when configured with UBERBOND_AGENT_RELAY_ENABLED=true, UBERBOND_AGENT_RELAY_URL, and UBERBOND_AGENT_RELAY_TOKEN in the process environment. See docs/CHATGPT_CLAUDE_CLOUD_RELAY.md. Without those variables, relay tools fail closed and the local bridge remains local-only.

@@ -41,8 +41,8 @@ The release now records and routes the shared capability set that unlocks the la
 
 - Current `main` used as the base: `a9c217b130c4d778380b0f04f11d3aaf61fb48fe`.
 - Branch: `agent/omnia-registry-relay`.
-- Remote branch tip: `1876eba0d5ed16e38594876e048ef0d55da6498b`, “Record automatic Vercel preview side effect”; cumulative branch delta is 18 files over `main` (registry/catalog/taxonomy, relay adapter, tests, and truth receipt).
-- Local verification tip: `37f842a`; the GitHub API branch tip is the authoritative remote receipt.
+- Remote branch tip: `93b4a5357c0ab86cdd1954d7b8bd2d653b8dbe8a`, “Refresh durable branch receipt”; cumulative branch delta is 18 files over `main` (registry/catalog/taxonomy, relay adapter, tests, and truth receipt).
+- Local verification tip: `db89528`; the GitHub API branch tip is the authoritative remote receipt.
 - No force-push, deletion, pull request, or main-branch mutation occurred.
 
 ## 7. Tests actually run

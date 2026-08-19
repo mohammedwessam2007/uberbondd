@@ -235,7 +235,19 @@ const REGISTRY = Object.freeze([
   { id: 'prospect-import-v2', name: 'Prospect import with evidence-bound normalization', status: 'TEST_VERIFIED',
     dependencies: ['json-store'], testRefs: ['tests/prospect-import.test.mjs'],
     productionReadiness: 'Recovered superset of the prior prospect-import.mjs (adds normalizeImportedContact/normalizeImportedEvidence); core importProspects logic unchanged and backward-compatible.',
-    notes: 'src/prospect-import.mjs' }
+    notes: 'src/prospect-import.mjs' },
+  { id: 'cloud-agent-relay', name: 'Governed ChatGPT <-> UberBond <-> Claude Code cloud relay', status: 'TEST_VERIFIED',
+    dependencies: ['agent-relay-bus', 'durable-queue', 'json-store'], testRefs: ['tests/cloud-agent-relay.test.mjs', 'tests/claude-mcp.test.mjs', 'tests/postgres-store-live.test.mjs'],
+    productionReadiness: 'Merged from PR #28 (agent/cloud-agent-relay) and audited this wave. Real proof obtained: (1) a real local HTTP server + a real local MCP process driven over actual stdio JSON-RPC completed init -> tool-list -> poll -> claim -> submit -> rejected-replay, with the bearer token scanned absent from all captured process output; (2) claimJobsByType/excludeTypes concurrency proven against a real embedded PostgreSQL 18 server (FOR UPDATE SKIP LOCKED, two workers racing for one relay task, target-agent isolation). Two real defects found and fixed during this audit: a double-escaped secret-value regex that never matched real "Bearer <token>" strings, and an unanchored "sk-" OpenAI-key pattern that false-positived on ordinary ids like "task-<timestamp>" (both have regression tests). A rate limiter was added (was previously absent) bounding relay routes to config.agentRelay.rateLimitPerMinute per caller IP. NOT LIVE: no deployed reachable URL exists (root vercel.json is absent -- only lite/vercel.json -- so this long-running server.mjs/worker.mjs pair cannot deploy to the current Vercel project as configured), no real UBERBOND_AGENT_RELAY_TOKEN has been generated/set anywhere, and no ChatGPT/OpenAI connector or API credential is configured in this environment. GitHub Actions CI on PR #28 is BLOCKED, not green: both jobs complete in ~3 seconds (too fast for npm ci + npm run check, which takes ~2 minutes locally) and job log downloads return HTTP 404 -- consistent with a runner-allocation/billing failure, not a real test failure, but not independently resolvable from this session.',
+    notes: 'src/cloud-agent-relay.mjs, server.mjs (/api/agent-relay/*), scripts/uberbond-mcp.mjs (uberbond_relay_poll/claim/submit). See docs/CHATGPT_CLAUDE_CLOUD_RELAY.md and docs/ARGUS_RELAY_TRUTH.md.' },
+  { id: 'commercial-opportunity-catalog', name: 'Evidence-labeled commercial opportunity catalog (237 records)', status: 'TEST_VERIFIED',
+    dependencies: ['task-universe-engine'], testRefs: ['tests/commercial-opportunity-catalog.test.mjs'],
+    productionReadiness: 'Merged from PR #27. 3 immediate finalists carry dated public buyer-signal evidence; 234 records are explicitly HYPOTHESIS/RESEARCH_ONLY -- no buyer, payment, retention, or profitability proof exists for those. LOCAL_PREPARATION_ONLY; zero provider calls.',
+    notes: 'src/commercial-opportunity-catalog.mjs' },
+  { id: 'thread-opportunity-universe', name: 'Thread-explicit opportunity universe compiler', status: 'TEST_VERIFIED',
+    dependencies: ['commercial-opportunity-catalog'], testRefs: ['tests/commercial-opportunity-catalog.test.mjs'],
+    productionReadiness: 'Merged from PR #27. Deterministic compilation from the parent Task Universe module; feeds commercial-opportunity-catalog.',
+    notes: 'src/thread-opportunity-universe.mjs' }
 ]);
 
 const BY_ID = new Map(REGISTRY.map(entry => [entry.id, entry]));

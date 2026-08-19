@@ -65,6 +65,19 @@ const tools = [
     },
   },
   {
+    name: "uberbond_relay_heartbeat",
+    description: "Extend the lease on a claimed UberBond relay task so a long-running task is not reclaimed as stale by another worker.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        taskId: { type: "string", minLength: 1, maxLength: 120 },
+        workerId: { type: "string", minLength: 1, maxLength: 120 },
+      },
+      required: ["taskId", "workerId"],
+      additionalProperties: false,
+    },
+  },
+  {
     name: "uberbond_relay_submit",
     description: "Submit a bounded Claude Code result and receipt to UberBond; nonzero external effects are rejected.",
     inputSchema: {
@@ -168,6 +181,13 @@ async function callTool(name, args) {
     return textResult(await relayRequest("POST", "/api/agent-relay/tasks/claim", {
       targetAgent: String(args?.targetAgent || relayAgent).trim().toLowerCase(),
       workerId: String(args?.workerId || `claude-code:${process.pid}`).slice(0, 120),
+    }));
+  }
+
+  if (name === "uberbond_relay_heartbeat") {
+    const taskId = String(args?.taskId || "").trim();
+    return textResult(await relayRequest("POST", `/api/agent-relay/tasks/${encodeURIComponent(taskId)}/heartbeat`, {
+      workerId: String(args?.workerId || "").slice(0, 120),
     }));
   }
 

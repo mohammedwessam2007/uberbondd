@@ -21,7 +21,10 @@ export const config = {
   agentRelay: {
     enabled: bool(env.AGENT_RELAY_ENABLED, false),
     token: env.UBERBOND_AGENT_RELAY_TOKEN || '',
-    maxTaskBytes: num(env.AGENT_RELAY_MAX_TASK_BYTES, 200000)
+    maxTaskBytes: num(env.AGENT_RELAY_MAX_TASK_BYTES, 200000),
+    // Bounds a leaked token or a runaway/misbehaving poller. Generous enough for
+    // normal poll/claim/heartbeat traffic from one or two legitimate callers.
+    rateLimitPerMinute: num(env.AGENT_RELAY_RATE_LIMIT_PER_MINUTE, 120)
   },
   encryptionKey: env.TOKEN_ENCRYPTION_KEY || '',
   unsubscribeSecret: env.UNSUBSCRIBE_SECRET || env.TOKEN_ENCRYPTION_KEY || '',

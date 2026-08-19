@@ -17,7 +17,7 @@ import { DurableQueue } from './src/queue.mjs';
 import { DiscoveryRunner } from './src/discovery-runner.mjs';
 import { importProspects } from './src/prospect-import.mjs';
 import { createJobHandlers } from './src/job-handlers.mjs';
-import { AGENT_RELAY_JOB_TYPE, CLOUD_AGENT_RELAY_POLICY_VERSION, claimCloudRelayTask, createCloudRelayTask, listCloudRelayTasks, submitCloudRelayResult } from './src/cloud-agent-relay.mjs';
+import { AGENT_RELAY_JOB_TYPE, CLOUD_AGENT_RELAY_POLICY_VERSION, claimCloudRelayTask, createCloudRelayTask, heartbeatCloudRelayTask, listCloudRelayTasks, relayHealthSummary, submitCloudRelayResult } from './src/cloud-agent-relay.mjs';
 import { normalizeCountryList } from './src/send-safety.mjs';
 import { verifyUnsubscribeToken } from './src/unsubscribe.mjs';
 import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
@@ -108,6 +108,21 @@ const relayAuth = req => {
   const header = req.headers.authorization || '';
   const bearer = header.startsWith('Bearer ') ? header.slice(7) : '';
   return safeEqual(bearer, config.agentRelay.token);
+};
+// Bounds a leaked relay token or a runaway/misbehaving poller (see mission
+// incident class "runaway polling"). Sliding one-minute window per caller IP,
+// same shape as RevenueEngine.rateLimit(). Only reached after relayAuth()
+// already passed, so this never gates on caller identity beyond the token.
+const relayHits = new Map();
+const relayRateLimited = req => {
+  const minute = Math.floor(Date.now() / 60000);
+  const key = `${clientIp(req)}:${minute}`;
+  const count = (relayHits.get(key) || 0) + 1;
+  relayHits.set(key, count);
+  if (relayHits.size > 1000) {
+    for (const entry of relayHits.keys()) if (!entry.endsWith(`:${minute}`)) relayHits.delete(entry);
+  }
+  return count > Math.max(1, Number(config.agentRelay?.rateLimitPerMinute || 120));
 };
 const pct = (numerator, denominator) => denominator ? Math.round(numerator / denominator * 100) : 0;
 const publicApi = pathname => pathname === '/api/health' || pathname === '/api/public/unsubscribe' || pathname === '/api/public/config' || pathname === '/api/public/audit' || pathname.startsWith('/api/public/report/') || pathname.startsWith('/api/public/artifacts/') || pathname === '/api/public/checkout' || pathname === '/webhooks/lemonsqueezy';
@@ -246,9 +261,13 @@ const server = http.createServer(async (req, res) => {
     const relayPath = url.pathname === '/api/agent-relay/health'
       || url.pathname === '/api/agent-relay/tasks'
       || url.pathname === '/api/agent-relay/tasks/claim'
-      || /^\/api\/agent-relay\/tasks\/[^/]+\/result$/.test(url.pathname);
+      || /^\/api\/agent-relay\/tasks\/[^/]+\/result$/.test(url.pathname)
+      || /^\/api\/agent-relay\/tasks\/[^/]+\/heartbeat$/.test(url.pathname);
     if (relayPath && !relayAuth(req)) {
       return json(res, relayConfigured() ? 401 : 503, { error: relayConfigured() ? 'Unauthorized' : 'Agent relay is not configured' });
+    }
+    if (relayPath && relayRateLimited(req)) {
+      return json(res, 429, { error: 'Too many relay requests. Please slow down.' });
     }
     if ((url.pathname.startsWith('/api/') || url.pathname === '/oauth/google/start')
       && !relayPath && !publicApi(url.pathname) && !auth(req)) {
@@ -302,12 +321,14 @@ const server = http.createServer(async (req, res) => {
 
     if (url.pathname.startsWith('/api/agent-relay')) {
       if (method === 'GET' && url.pathname === '/api/agent-relay/health') {
+        const summary = await relayHealthSummary({ store });
         return json(res, 200, {
           ok: true,
           configured: relayConfigured(),
           jobType: AGENT_RELAY_JOB_TYPE,
           policyVersion: CLOUD_AGENT_RELAY_POLICY_VERSION,
           externalProviderCalls: 0,
+          queue: { counts: summary.counts, total: summary.total, oldestQueuedAt: summary.oldestQueuedAt, staleLeases: summary.staleLeases },
           externalEffectLedger: {
             providerCalls: 0, messages: 0, purchases: 0, deployments: 0,
             credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0
@@ -336,6 +357,19 @@ const server = http.createServer(async (req, res) => {
         });
         if (result.ok) return json(res, 200, result);
         return json(res, result.status === 'EMPTY' ? 404 : 409, result);
+      }
+      const heartbeatMatch = url.pathname.match(/^\/api\/agent-relay\/tasks\/([^/]+)\/heartbeat$/);
+      if (method === 'POST' && heartbeatMatch) {
+        const input = await parseBody(req);
+        const result = await heartbeatCloudRelayTask({
+          store,
+          taskId: decodeURIComponent(heartbeatMatch[1]),
+          workerId: input.workerId
+        });
+        if (result.ok) return json(res, 200, result);
+        const status = result.reasonCodes?.includes('task-not-found') ? 404
+          : result.reasonCodes?.includes('lease-owner-mismatch') ? 409 : 400;
+        return json(res, status, result);
       }
       const match = url.pathname.match(/^\/api\/agent-relay\/tasks\/([^/]+)\/result$/);
       if (method === 'POST' && match) {

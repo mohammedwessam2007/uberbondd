@@ -4,7 +4,9 @@ import {
   AGENT_RELAY_JOB_TYPE,
   claimCloudRelayTask,
   createCloudRelayTask,
+  heartbeatCloudRelayTask,
   listCloudRelayTasks,
+  relayHealthSummary,
   submitCloudRelayResult
 } from '../src/cloud-agent-relay.mjs';
 
@@ -38,6 +40,12 @@ function fixture() {
       const job = jobs.find(item => item.id === id && item.status === 'active' && item.lockedBy === workerId);
       if (!job) return null;
       Object.assign(job, { status: 'dead-letter', lockedBy: null });
+      return structuredClone(job);
+    },
+    async heartbeatJob(id, workerId) {
+      const job = jobs.find(item => item.id === id && item.status === 'active' && item.lockedBy === workerId);
+      if (!job) return null;
+      job.heartbeatAt = new Date(Date.parse(job.heartbeatAt) + 1000).toISOString();
       return structuredClone(job);
     }
   };
@@ -111,6 +119,36 @@ test('cloud relay rejects invalid or secret-bearing packets', async () => {
   assert.ok(secret.reasonCodes.includes('secret-or-oversized-task-rejected'));
 });
 
+test('cloud relay rejects a secret-shaped VALUE even under an innocuous key name', async () => {
+  // Regression test: the value-scanning regex was previously double-escaped
+  // (`Bearer\\s+\\S+` inside a regex literal matches a literal backslash
+  // character, not whitespace), so a raw "Bearer <token>" string nested
+  // under a key that does not itself look secret (e.g. "note") slipped
+  // past hasSecret() entirely. The key-based check alone is not enough --
+  // a real bearer token can appear under any field name.
+  const f = fixture();
+  const bearerUnderPlainKey = await createCloudRelayTask({ ...f, input: input({ note: 'Bearer eyJhbGciOiJIUzI1NiJ9.example' }) });
+  assert.equal(bearerUnderPlainKey.ok, false);
+  assert.ok(bearerUnderPlainKey.reasonCodes.includes('secret-or-oversized-task-rejected'));
+  const openaiKeyUnderPlainKey = await createCloudRelayTask({ ...f, input: input({ note: 'sk-abcdefghijklmnopqrstuvwxyz' }) });
+  assert.equal(openaiKeyUnderPlainKey.ok, false);
+  const githubTokenUnderPlainKey = await createCloudRelayTask({ ...f, input: input({ note: 'ghp_abcdefghijklmnopqrstuvwxyz' }) });
+  assert.equal(githubTokenUnderPlainKey.ok, false);
+});
+
+test('cloud relay does not false-positive an ordinary taskId as a secret merely because it contains "sk-" as a mid-word substring', async () => {
+  // Regression test: found live via the end-to-end MCP proof -- a real,
+  // ordinary generated id like "e2e-task-1787174626471" contains the
+  // substring "sk-1787174626471" (from "ta**sk-1**787174626471"), which an
+  // earlier, unanchored version of SECRET_VALUE matched as if it were an
+  // OpenAI-style "sk-" API key. A real task with a timestamp-suffixed id
+  // must not be spuriously rejected as secret-bearing.
+  const f = fixture();
+  const created = await createCloudRelayTask({ ...f, input: input({ taskId: 'e2e-task-1787174626471' }) });
+  assert.equal(created.ok, true, JSON.stringify(created));
+  assert.equal(created.status, 'QUEUED');
+});
+
 test('cloud relay claims one task for the designated worker and filters status', async () => {
   const f = fixture();
   await createCloudRelayTask({ ...f, input: input() });
@@ -172,4 +210,53 @@ test('cloud relay rejects nonzero effects and cannot submit twice', async () => 
   });
   assert.equal(replay.ok, false);
   assert.ok(replay.reasonCodes.includes('lease-owner-mismatch'));
+});
+
+test('cloud relay heartbeat extends the lease for the real owner and rejects a non-owner', async () => {
+  const f = fixture();
+  await createCloudRelayTask({ ...f, input: input() });
+  const claim = await claimCloudRelayTask({ store: f.store, targetAgent: 'claude-code', workerId: 'claude-code:test' });
+  const heartbeat = await heartbeatCloudRelayTask({ store: f.store, taskId: claim.taskId, workerId: 'claude-code:test' });
+  assert.equal(heartbeat.ok, true);
+  assert.equal(heartbeat.status, 'HEARTBEAT_OK');
+  assert.ok(
+    Date.parse(heartbeat.lease.heartbeatAt) > Date.parse(claim.lease.heartbeatAt),
+    'heartbeat must advance heartbeatAt past the value set at claim time'
+  );
+  const wrongOwner = await heartbeatCloudRelayTask({ store: f.store, taskId: claim.taskId, workerId: 'claude-code:someone-else' });
+  assert.equal(wrongOwner.ok, false);
+  assert.ok(wrongOwner.reasonCodes.includes('lease-owner-mismatch'));
+});
+
+test('cloud relay heartbeat rejects an unknown task id and a missing worker id', async () => {
+  const f = fixture();
+  const unknown = await heartbeatCloudRelayTask({ store: f.store, taskId: 'does-not-exist', workerId: 'claude-code:test' });
+  assert.equal(unknown.ok, false);
+  assert.ok(unknown.reasonCodes.includes('task-not-found'));
+
+  await createCloudRelayTask({ ...f, input: input() });
+  const claim = await claimCloudRelayTask({ store: f.store, targetAgent: 'claude-code', workerId: 'claude-code:test' });
+  const noWorker = await heartbeatCloudRelayTask({ store: f.store, taskId: claim.taskId, workerId: '' });
+  assert.equal(noWorker.ok, false);
+  assert.ok(noWorker.reasonCodes.includes('invalid-worker-id'));
+});
+
+test('relayHealthSummary() reports real counts, oldest queued task, and stale leases without exposing any task payload', async () => {
+  const f = fixture();
+  const empty = await relayHealthSummary({ store: f.store });
+  assert.equal(empty.total, 0);
+  assert.equal(empty.oldestQueuedAt, null);
+
+  await createCloudRelayTask({ ...f, input: input({ taskId: 'task-a' }) });
+  await createCloudRelayTask({ ...f, input: input({ taskId: 'task-b' }) });
+  const claimed = await claimCloudRelayTask({ store: f.store, targetAgent: 'claude-code', workerId: 'claude-code:test' });
+  await submitCloudRelayResult({ store: f.store, taskId: claimed.taskId, workerId: 'claude-code:test', result: result() });
+
+  const summary = await relayHealthSummary({ store: f.store });
+  assert.equal(summary.total, 2);
+  assert.equal(summary.counts.completed, 1);
+  assert.equal(summary.counts.queued, 1);
+  assert.ok(summary.oldestQueuedAt, 'expected an oldestQueuedAt for the remaining queued task');
+  assert.equal(summary.staleLeases, 0);
+  assert.ok(!('tasks' in summary), 'health summary must never leak task payloads');
 });

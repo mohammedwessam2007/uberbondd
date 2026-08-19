@@ -52,7 +52,14 @@ The release now records and routes the shared capability set that unlocks the la
 - Focused catalog/registry and Vercel-relay tests: **58 passing**.
 - All eight product archive ZIPs and the three supplemental ZIPs were checksum/integrity tested before implementation; the eight-part master reports 599 manifest entries, 0 missing, 0 repeated, and 0 ZIP CRC failures.
 
-## 8. Truth table
+## 8. Hourly execution automation
+
+- Exactly one automation with the required title exists: **`UberBond Hourly 3 Tasks`**.
+- Existing disabled automation ID `6a8624a265cc819194a7af62b2f8b2dd` was updated and enabled; no duplicate was created.
+- Schedule receipt: hourly RRULE, timezone `Africa/Cairo`, enabled.
+- Prompt enforces delta inspection, relevant-evidence reads, exactly three non-duplicate tasks, safe execution, real tests, durable receipts, zero-effect gates, and truthful reporting.
+
+## 9. Truth table
 
 | Claim | Truth classification | Receipt |
 |---|---|---|
@@ -65,28 +72,28 @@ The release now records and routes the shared capability set that unlocks the la
 | Payment/revenue/customers | `UNPROVEN` | No cleared payment, customer acceptance, or repeat margin receipt |
 | Claude/Cowork execution | `UNPROVEN` | No durable execution receipt |
 
-## 9. External-effect ledger
+## 10. External-effect ledger
 
 For this execution: provider calls 0; messages 0; purchases 0; DNS changes 0; credential/secret changes 0; production mutations 0; spend 0; deployments completed 0 (the rejected Vercel call did not create a project). Lite production was not modified.
 
-## 10. Commercial truth
+## 11. Commercial truth
 
 UberBond still has **$0 verified cleared revenue** in the available evidence. The strongest current commercial candidates remain evidence-backed Revenue/Release Assurance and bounded automation reliability, but prices and first-payment windows are hypotheses. Legal/payment clearance, customer acceptance, live provider eligibility, and repeatable contribution margin remain unresolved gates. No outreach or payment experiment was enabled.
 
-## 11. Risks and contradictions
+## 12. Risks and contradictions
 
 - Connector-reported Vercel team ownership was insufficient for the deployment action's trusted-destination gate; deployment must not be retried through a workaround.
 - The full Node worker and durable queue remain production-shaped/local, not cloud-proven.
 - The canonical product package contains historical/superseded and parser-failure records; the current GitHub `main` and current registry projection were used instead of treating archive filenames as proof.
 - The catalog is intentionally broad for ingestion but should be narrowed by evidence and experiment gates before any commercial action.
 
-## 12. Next three tasks
+## 13. Next three tasks
 
 1. Obtain trusted Vercel destination verification, then deploy only the tested `relay/` adapter to a new `uberbondd-relay` project and verify its health route.
 2. Add durable MarketSignal/BusinessGenome receipts and a deterministic tournament over the 438 registry records, still dry-run and zero outbound.
 3. Reconcile first-payment/legal/provider gates into the revenue/outcome graph and produce one owner-reviewable, no-contact seven-day experiment packet.
 
-## 13. Maximum founder actions
+## 14. Maximum founder actions
 
 1. Reconnect or verify the Vercel account/team through the trusted account channel so the authorized relay destination can be proven.
 2. Review the legal/accounting clearance gate before any customer contact or payment setup.

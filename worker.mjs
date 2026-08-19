@@ -6,6 +6,8 @@ import { DurableQueue } from './src/queue.mjs';
 import { DiscoveryRunner } from './src/discovery-runner.mjs';
 import { createJobHandlers } from './src/job-handlers.mjs';
 import { startScheduler } from './src/scheduler.mjs';
+import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
+import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -17,7 +19,17 @@ await store.init();
 if (typeof store.deleteExpiredArtifacts === 'function') await store.deleteExpiredArtifacts().catch(error => console.error('Artifact cleanup failed', error));
 const queue = new DurableQueue(store, config, console);
 let revenue;
-const pipeline = new Pipeline(store, config, { onProspectComplete: prospect => revenue?.onProspectComplete(prospect) });
+// OMNIA_V9_MODE defaults to 'off' (resolveOmniaV9Mode never escalates without an
+// explicit env value from this allowlist). The resolved hook only ever feeds the
+// non-authoritative shadow observer (src/omnia-v9/final-admission-shadow.mjs) --
+// it cannot block or alter a send. The AUTHORITATIVE outbound-consequence-gate.mjs
+// is deliberately NOT wired here -- see docs/INSTANTLY_RECONCILIATION.md Sub-wave B.
+const omniaV9Mode = resolveOmniaV9Mode(process.env);
+console.log(`OMNIA V9 outbound integration mode: ${omniaV9Mode}`);
+const pipeline = new Pipeline(store, config, {
+  onProspectComplete: prospect => revenue?.onProspectComplete(prospect),
+  outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store })
+});
 const enqueueResearch = payload => queue.enqueue('research.batch', payload, {
   maxAttempts: 3,
   dedupeKey: payload.leadId ? `research:lead:${payload.leadId}` : `research:${payload.reason || 'manual'}:${Math.floor(Date.now() / 30000)}`

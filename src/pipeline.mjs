@@ -12,6 +12,7 @@ import { evaluateSendEligibility, sendIdempotencyKey, classifyDeliverySignal, su
 import { evaluateDeliverabilityGuard } from './deliverability-guard.mjs';
 import { evaluateConsequenceBoundary, buildOutboundActionIntent } from './consequence-boundary.mjs';
 import { unsubscribeUrl, oneClickUnsubscribeUrl } from './unsubscribe.mjs';
+import { buildOutboundShadowContext, observeOutboundFinalAdmission } from './omnia-v9/final-admission-shadow.mjs';
 
 export class Pipeline {
   constructor(store, cfg, hooks = {}) {
@@ -30,6 +31,15 @@ export class Pipeline {
     // exists. Absent by default -- see logConsequenceBoundaryDecision and
     // the outbound.v9AdmissionRequired config flag below.
     this.v9Context = hooks.v9Context || {};
+    // Optional, non-authoritative shadow observer (recovered from the
+    // historical OMNIA-V9 closure archive -- see
+    // docs/INSTANTLY_RECONCILIATION.md). observeOutboundFinalAdmission()
+    // can never block, alter, or duplicate a send: every path through it is
+    // wrapped so a missing hook, a hook exception, or a store failure all
+    // degrade to a harmless logged observation, never a thrown error or a
+    // behavior change. Absent by default (this.outboundFinalAdmissionShadowFn
+    // stays null) until an owner wires a real shadow policy hook.
+    this.outboundFinalAdmissionShadowFn = hooks.outboundFinalAdmissionShadow || null;
   }
 
   async isSuppressed(prospect, email = '') {
@@ -266,6 +276,19 @@ export class Pipeline {
 
     const reservation = reserved.reservation;
     await this.store.markOutboundReservation(reservation.id, 'dispatching');
+
+    // Non-authoritative shadow observation only -- see the constructor
+    // comment. Never affects `result` below; exists purely to compare a
+    // shadow policy's decision against what the legacy path actually did,
+    // without ever being able to change it.
+    await observeOutboundFinalAdmission({
+      hook: this.outboundFinalAdmissionShadowFn,
+      store: this.store,
+      context: buildOutboundShadowContext({
+        reservation, prospect, campaign, account, subject, body, followup, idempotencyKey,
+        observedAt: this.clock().toISOString()
+      })
+    });
 
     // Final recheck immediately before the provider boundary: state (suppression,
     // evidence, authority, sender health, policy) may have changed since

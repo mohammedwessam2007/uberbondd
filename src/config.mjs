@@ -47,7 +47,38 @@ export const config = {
     // content injected via Pipeline hooks.v9Context, turning this on simply
     // makes every send fail closed at V9 -- it is not a shortcut to enabling
     // live sends.
-    v9AdmissionRequired: bool(env.OUTBOUND_V9_ADMISSION_REQUIRED, false)
+    v9AdmissionRequired: bool(env.OUTBOUND_V9_ADMISSION_REQUIRED, false),
+    // Recovered from the historical Instantly-parity/lead-intelligence
+    // archive (see docs/INSTANTLY_RECONCILIATION.md). None of these are
+    // consulted by src/pipeline.mjs yet -- src/omnia-v9/integrations/
+    // outbound-consequence-gate.mjs and the Gmail effect adapter are
+    // recovered as available capability, not wired into the live send path
+    // this wave. Present so that future wiring work (and the recovered
+    // omnia-v9-integration-pipeline test, still deliberately deferred) has
+    // real config to read rather than needing yet another follow-up change.
+    launchPhase: String(env.OUTBOUND_LAUNCH_PHASE || 'off').trim().toLowerCase(),
+    provider: String(env.OUTBOUND_PROVIDER || 'gmail-api').trim().toLowerCase(),
+    useEffectAdapter: bool(env.OUTBOUND_USE_EFFECT_ADAPTER, false),
+    messageIdDomain: String(env.OUTBOUND_MESSAGE_ID_DOMAIN || '').trim().toLowerCase(),
+    approvalSecret: env.OUTREACH_APPROVAL_SECRET || '',
+    webhookSecret: env.OUTREACH_WEBHOOK_SECRET || '',
+    webhookMaxAgeSeconds: Math.max(60, Math.min(900, num(env.OUTREACH_WEBHOOK_MAX_AGE_SECONDS, 300))),
+    approverId: String(env.OUTREACH_APPROVER_ID || '').trim(),
+    canaryDailyCap: Math.max(1, Math.min(5, num(env.OUTBOUND_CANARY_DAILY_CAP, 3))),
+    canaryHourlyCap: 1,
+    canaryMinGapSeconds: Math.max(900, num(env.OUTBOUND_CANARY_MIN_GAP_SECONDS, 1800)),
+    routeEvidenceMaxAgeDays: Math.max(1, Math.min(30, num(env.OUTBOUND_ROUTE_EVIDENCE_MAX_AGE_DAYS, 7))),
+    recipientCooldownDays: Math.max(30, num(env.OUTBOUND_RECIPIENT_COOLDOWN_DAYS, 365)),
+    domainCooldownDays: Math.max(7, num(env.OUTBOUND_DOMAIN_COOLDOWN_DAYS, 90))
+  },
+  // Recovered alongside the outreach/lead-intelligence layer (see
+  // docs/INSTANTLY_RECONCILIATION.md). Off by default; no route exists yet
+  // on this branch's server.mjs to receive a capture, so this is config
+  // surface only until that route is built.
+  leadCapture: {
+    enabled: bool(env.LEAD_CAPTURE_ENABLED, false),
+    siteKey: String(env.LEAD_CAPTURE_SITE_KEY || '').trim(),
+    rateLimitPerHour: Math.max(1, num(env.LEAD_CAPTURE_RATE_LIMIT_PER_HOUR, 30))
   },
   maxBatch: num(env.MAX_BATCH_SIZE, 25),
   prometheus: {

@@ -151,6 +151,139 @@ of re-discovering the archive's shape from scratch. The archive itself is
 preserved read-only at the path noted in this session's tool output for
 that next wave to use.
 
+## Recovery execution report (this wave)
+
+The plan above was executed through step 1 and (with an explicit scope
+adjustment) step 2, following the same discipline as the earlier Prometheus
+reconciliation: self-containment checked before every copy, isolated test
+runs before combined runs, additive-only merges into files that had
+independently diverged, and nothing wired into a live path unless its
+safety could be proven from the source rather than assumed.
+
+### Sub-wave A: OMNIA-V9 closure — DONE
+
+The full `src/omnia-v9/` kernel + `integrations/` tree (36 files), Cedar
+policy (`policy/omnia-v9/`), integration config (`config/omnia-v9/`),
+migrations 005-011, and `artifacts/omnia-v9/` were recovered verbatim from
+the archive. `canonical.mjs`/`schema.mjs`/`kernel.mjs` were already present
+and byte-identical, so were not re-copied. All 36 `tests/omnia-v9*.test.mjs`
+files were recovered **except** `omnia-v9-integration-pipeline.test.mjs`,
+which requires the AUTHORITATIVE gate wiring described below and was
+deliberately excluded.
+
+One new dependency was added: `@cedar-policy/cedar-wasm`.
+
+**Live-path wiring — deliberately partial.** `src/omnia-v9/final-admission-shadow.mjs`'s
+`observeOutboundFinalAdmission()` is structurally incapable of blocking or
+altering a send (every path is try/catch-wrapped and degrades to a
+harmless logged `NO_HOOK`/`REVIEW`/`SHADOW_ERROR` observation on any
+failure — provable from the source and confirmed by its own tests). This
+non-authoritative shadow observer is now wired into `src/pipeline.mjs`
+(called right after `markOutboundReservation(..., 'dispatching')`) and,
+mode-gated via `resolveOmniaV9Mode(process.env)` (default `'off'`, and the
+resolver can never escalate past its allowlist of
+`off|shadow|compare|canary_null`), into both `worker.mjs` and `server.mjs`
+via `resolveOutboundFinalAdmissionHook({ mode, store })`.
+
+The AUTHORITATIVE `outbound-consequence-gate.mjs` + `GmailEffectAdapter`
+live-send wiring that the archive's own `worker.mjs` also carried
+(`createAuthoritativeOutreachConsequenceGate`) was **not** ported. Wiring an
+authoritative gate into the live send path is a materially different, much
+higher-risk decision than wiring a non-blocking observer, and doing it
+correctly requires reconciling it against this branch's own later,
+non-overlapping work (the Prometheus economic spine, domain/mailbox
+readiness OS) that did not exist when the archive's wiring was written.
+This is recorded as an explicit open decision, not an oversight.
+
+`src/capability-graph.mjs`'s `omnia-v9-kernel` entry was updated from
+`MISSING` to `TEST_VERIFIED` to reflect this; `tests/capability-graph.test.mjs`
+was updated in the same commit (the old test asserted the kernel was
+still a stranded, off-branch lineage — that assertion is no longer true,
+so the test was rewritten to check the new truth, and a replacement
+"still-stranded" assertion was pointed at `canon-v3-acquisition-cycle`,
+which genuinely is still off this branch).
+
+### Sub-wave B: outreach / lead-generation module family — DONE, self-contained scope
+
+`src/outreach-governance.mjs`, `outreach-workbench.mjs`, `outreach-operator.mjs`,
+`outreach-automation.mjs`, `outreach-provider-events.mjs`, `outreach-upgrades.mjs`,
+`opportunity-factory.mjs`, `lead-generation.mjs`, `lead-generation-benchmark.mjs`,
+`lead-intelligence-v3.mjs`, `lead-operations.mjs` (plus their 11 test files,
+`data/opportunity-factory/seed-register.json`, and
+`scripts/opportunity-factory-dry-run.mjs`) were recovered after confirming
+each module's import graph has zero coupling to any file that differs
+between this branch and the archive. `src/gmail.mjs` and
+`src/prospect-import.mjs` were replaced with the archive's strict supersets
+(additive fields only; existing callers' signatures unaffected).
+
+`src/store.mjs` gained 10 new first-class collections (`providerEvents`,
+`leadLists`, `replyDrafts`, `automationPlans`, `automationRuns`,
+`leadSearches`, `leadSignals`, `leadEnrichmentRuns`, `leadIntakeEvents`,
+`leadFieldResults`, `leadTasks`) plus their uniqueness constraints and
+migrations 012-017 — additive-only, confirmed safe because the base 20
+collections were byte-identical between branch and archive and
+`PostgresStore.migrate()` is generic/migration-file-driven.
+
+`src/config.mjs` gained the archive's `outbound.launchPhase`, `provider`,
+`useEffectAdapter` (defaulted `false`, diverging from the archive's `true`
+— nothing consumes it yet), `messageIdDomain`, `approvalSecret`,
+`webhookSecret`, `webhookMaxAgeSeconds`, `approverId` (defaulted `''`, not
+hardcoded to a name), `canaryDailyCap`, `canaryHourlyCap`,
+`canaryMinGapSeconds`, `routeEvidenceMaxAgeDays`, `recipientCooldownDays`,
+`domainCooldownDays`, and a new `leadCapture` block — all additive, all
+explicitly commented as recovered-but-not-yet-consulted config surface.
+The archive's stricter `validateConfig` live-outbound checks were **not**
+ported (this branch has its own separate live-outbound validation logic
+that would need its own careful review).
+
+`docs/outreach/`, `docs/opportunities/`, `docs/lead-generation/` (17 files
+total, dated 2026-08-12/2026-08-13) were recovered verbatim — zero filename
+collisions with this branch's existing flat `docs/OUTREACH_*.md` files.
+They are historical planning/comparison documents from the archive's own
+period, not live-state claims about this branch; `INSTANTLY_PARITY_LEDGER_2026-08-12.md`
+in particular already carries its own explicit "not a claim that UberBond
+is an Instantly API-compatible replacement" disclaimer, consistent with
+this mission's rule against unproven superiority claims.
+
+`src/capability-graph.mjs` gained 11 new entries for this module family,
+each honestly noting what is and is not yet wired to a live path.
+
+`docs/LIMITATIONS.md` differed between branch and archive (this branch's
+copy has evolved further since); it was **not** overwritten.
+
+### Sub-wave C: HTTP route surface + operator UI — DEFERRED, not executed this wave
+
+The archive's `server.mjs` (2061 lines) adds roughly 53 new `/api/outreach/*`
+and `/api/leadgen/*` routes against this branch's independently-evolved,
+501-line `server.mjs` (50 routes). This is not a small additive merge: it
+is a route-by-route reconciliation at a scale comparable to the entire
+rest of this recovery wave combined, several of the new routes are
+public/unauthenticated surfaces (`/api/public/lead-capture`) that need
+their own rate-limiting and input-validation review before being exposed,
+and the archive's `worker.mjs`/`server.mjs` wiring for these routes
+predates and does not account for this branch's later Prometheus/domain-
+mailbox work. Attempting it in the same pass as Sub-waves A/B would be
+exactly the "blindly copy files" failure mode this mission's own rules
+warn against.
+
+`public/outreach.html`/`outreach.js`/`outreach.css` (161KB combined) are
+100% dependent on those same routes — every fetch call in `outreach.js`
+targets an endpoint that does not exist on this branch yet. Recovering the
+UI without the routes would ship a non-functional control surface, which
+would itself be a form of the fabrication this mission explicitly forbids.
+It was left uncopied.
+
+`src/job-handlers.mjs` needed no action: the archive's version is an
+11-line stub with no outreach/lead-gen job types (this branch's own
+393-line version, built for the Prometheus economic spine, is strictly
+more developed). There was nothing to recover.
+
+Sub-wave C is recorded as the next well-scoped unit of work, not as
+something abandoned. It should be executed as its own reconciliation pass
+(compare, choose canonical route shapes, add security review for public
+endpoints, then re-point the UI at whatever survives) rather than folded
+into this one.
+
 ## Entity-mapping table (this mission's Wave 1 names vs. what already exists)
 
 Built two waves ago tonight, real and tested (589/589 passing before this

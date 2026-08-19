@@ -1,0 +1,326 @@
+{
+  "schemaVersion": "omnia.v9.canary-latency.v1",
+  "environment": {
+    "database": "real PostgreSQL (OMNIA_V9_TEST_DATABASE_URL)",
+    "cedar": {
+      "packageName": "@cedar-policy/cedar-wasm",
+      "version": "4.12.0",
+      "importPath": "@cedar-policy/cedar-wasm/nodejs",
+      "cedarVersion": "4.12.0"
+    },
+    "candidateCount": 40
+  },
+  "cedarBindLatencyMs": 91.464831,
+  "totalLatencyMs": {
+    "p50": 9.713066,
+    "p95": 17.925452,
+    "p99": 27.542327,
+    "max": 27.542327,
+    "count": 40
+  },
+  "coldTotalLatencyMs": {
+    "p50": 15.947837,
+    "p95": 27.542327,
+    "p99": 27.542327,
+    "max": 27.542327,
+    "count": 4
+  },
+  "warmTotalLatencyMs": {
+    "p50": 9.166045,
+    "p95": 15.066636,
+    "p99": 17.925452,
+    "max": 17.925452,
+    "count": 36
+  },
+  "cedarOnlyLatencyMs": {
+    "p50": 1.228691,
+    "p95": 1.726704,
+    "p99": 11.506333,
+    "max": 11.506333,
+    "count": 40
+  },
+  "executedCount": 40,
+  "note": "measures the FULL authoritative canary_null path: real Postgres authority resolution, real Cedar evaluation, real reserveAuthority() transaction, null-sink execution, and durable receipt persistence -- not decision computation alone.",
+  "perCandidate": [
+    {
+      "index": 0,
+      "totalMs": 27.542327,
+      "cedarMs": 11.506333,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 1,
+      "totalMs": 15.947837,
+      "cedarMs": 1.682878,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 2,
+      "totalMs": 14.605397,
+      "cedarMs": 1.599575,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 3,
+      "totalMs": 9.937053,
+      "cedarMs": 1.453686,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 4,
+      "totalMs": 9.713066,
+      "cedarMs": 1.396726,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 5,
+      "totalMs": 10.830715,
+      "cedarMs": 1.321136,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 6,
+      "totalMs": 10.152354,
+      "cedarMs": 1.726704,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 7,
+      "totalMs": 10.4325,
+      "cedarMs": 1.29824,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 8,
+      "totalMs": 10.614983,
+      "cedarMs": 1.557509,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 9,
+      "totalMs": 9.140993,
+      "cedarMs": 1.306385,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 10,
+      "totalMs": 8.887838,
+      "cedarMs": 1.278176,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 11,
+      "totalMs": 8.422803,
+      "cedarMs": 1.180757,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 12,
+      "totalMs": 11.291199,
+      "cedarMs": 1.241017,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 13,
+      "totalMs": 15.066636,
+      "cedarMs": 1.354731,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 14,
+      "totalMs": 9.166045,
+      "cedarMs": 1.251967,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 15,
+      "totalMs": 9.41548,
+      "cedarMs": 1.21125,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 16,
+      "totalMs": 9.736966,
+      "cedarMs": 1.237839,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 17,
+      "totalMs": 10.178605,
+      "cedarMs": 1.133261,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 18,
+      "totalMs": 10.043527,
+      "cedarMs": 1.310777,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 19,
+      "totalMs": 10.604782,
+      "cedarMs": 1.228691,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 20,
+      "totalMs": 12.607625,
+      "cedarMs": 1.636027,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 21,
+      "totalMs": 8.735798,
+      "cedarMs": 1.164027,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 22,
+      "totalMs": 8.651579,
+      "cedarMs": 1.115723,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 23,
+      "totalMs": 8.081289,
+      "cedarMs": 1.164364,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 24,
+      "totalMs": 8.078529,
+      "cedarMs": 1.143171,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 25,
+      "totalMs": 8.770228,
+      "cedarMs": 1.110059,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 26,
+      "totalMs": 9.727149,
+      "cedarMs": 1.090586,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 27,
+      "totalMs": 7.867402,
+      "cedarMs": 1.069019,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 28,
+      "totalMs": 8.940401,
+      "cedarMs": 1.301217,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 29,
+      "totalMs": 17.925452,
+      "cedarMs": 1.327679,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 30,
+      "totalMs": 9.001222,
+      "cedarMs": 1.188326,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 31,
+      "totalMs": 8.279327,
+      "cedarMs": 1.109518,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 32,
+      "totalMs": 8.716537,
+      "cedarMs": 1.097428,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 33,
+      "totalMs": 9.962909,
+      "cedarMs": 1.172305,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 34,
+      "totalMs": 7.522662,
+      "cedarMs": 1.043294,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 35,
+      "totalMs": 9.012168,
+      "cedarMs": 1.039418,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 36,
+      "totalMs": 10.724388,
+      "cedarMs": 1.085902,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 37,
+      "totalMs": 8.791792,
+      "cedarMs": 1.170537,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 38,
+      "totalMs": 8.694167,
+      "cedarMs": 1.033528,
+      "decision": "ALLOW",
+      "executed": true
+    },
+    {
+      "index": 39,
+      "totalMs": 7.970749,
+      "cedarMs": 1.062567,
+      "decision": "ALLOW",
+      "executed": true
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "prospectId": "REPLACE_WITH_PROSPECT_ID",
+  "followup": 0,
+  "subject": "REPLACE_WITH_EXACT_SUBJECT",
+  "body": "REPLACE_WITH_EXACT_APPROVED_BODY",
+  "routeEvidence": {
+    "routeType": "SOLICITED_APPLICATION",
+    "sourceUrl": "https://example.com/current-opportunity",
+    "sourceExcerpt": "REPLACE_WITH_THE_EXACT_NON_EMPTY_INVITATION_EXCERPT",
+    "sourceObservedAt": "2026-08-09T12:00:00.000Z",
+    "sourceExpiresAt": "2026-08-16T12:00:00.000Z",
+    "jurisdiction": "CA",
+    "permissionScope": "CONTRACTOR_APPLICATION",
+    "relevantToRecipientRole": true,
+    "noUnsolicitedStatementPresent": false,
+    "evidenceNote": "Official opportunity explicitly requests applications at the exact recipient address."
+  }
+}

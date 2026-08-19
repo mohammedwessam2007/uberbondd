@@ -8,6 +8,107 @@ same discipline as `docs/INSTANTLY_RECONCILIATION.md` and
 in the mission brief against git, source, and test evidence rather than
 trusting it.
 
+## THE BRIDGE IS NOW LIVE ONCE, over GitHub -- read this first
+
+The earlier waves treated "no deployed HTTP host" as "no live relay is
+possible." That was wrong, and this section corrects it.
+
+The mission's own Wave 5 listed four possible connection paths and explicitly
+included **"(C) GitHub-mediated fallback task packet."** GitHub is already a
+durable, authenticated, always-on, credential-managed store that both ends of
+this bridge can reach today, with no new infrastructure, no new host, and no
+new spend. `src/github-relay.mjs` implements exactly that.
+
+**It has now carried a real task end to end on real infrastructure:**
+
+| Step | Real artifact |
+|---|---|
+| Producer opens a task | [issue #30](https://github.com/mohammedwessam2007/uberbondd/issues/30), labelled `agent-relay:task` |
+| Packet compiled | by the same `compileAgentTask()` the HTTP relay uses |
+| Worker polls + claims | claim comment `5348571058`, lease 1800s |
+| Worker does real work | `npm run test:deterministic` -> **1092 tests, 1050 pass, 0 fail, 42 skipped, exit 0** |
+| Worker returns a receipt | result comment `5348593358` |
+| Task closed | labelled `agent-relay:done`, state `closed` |
+
+No mock at any hop. Real issue, real comment ids, real timestamps, real
+measured test numbers.
+
+### The live run found a real defect that no fixture had
+
+Reading issue #30 back through the MCP GitHub client returned the body
+**HTML-escaped** -- `"` arrived as `&#34;` -- so `JSON.parse` failed and the
+relay reported **zero claimable tasks while a perfectly valid task sat open on
+the repo**. A silent, total failure of the bridge, invisible to every unit
+test, caught only by actually running it. `extractFencedJson()` now falls back
+to single-pass HTML entity decoding (single-pass specifically so a literal
+`&amp;#34;` in content is not double-decoded into a quote), with regression
+tests for both directions.
+
+Worse, the escaping is **inconsistent between endpoints on the same client**:
+reading issue #30's *body* returned `&#34;`, while reading its *comments*
+returned raw `"`. So a client author cannot simply decide "this API escapes" or
+"this API doesn't" -- the parser has to tolerate both on every read, which is
+what it now does (try raw, fall back to decoded).
+
+This is the clearest argument in this whole document for why "the tests pass"
+is not the same as "it works."
+
+The full reviewer round-trip was then re-verified against the real comment
+bodies pulled back from GitHub: `resolveLease()` reports `HELD` by
+`claude-code:argus-session` while the work was in flight and `COMPLETED` once
+the result landed, and `parseResultComment()` recovers the measured numbers
+(1092/1050/0) intact.
+
+### Same contract, different wire -- not a second relay
+
+`src/github-relay.mjs` imports `ZERO_EFFECTS`, `hasSecret()`, and
+`validResult()` from `src/cloud-agent-relay.mjs` rather than re-declaring them,
+and compiles packets with the same `compileAgentTask()`. The two transports
+cannot drift apart in what they consider safe. A result claiming any nonzero
+external effect is rejected identically on both.
+
+### Honest limitation, stated plainly
+
+GitHub labels and comments are **not** database row locks. Two workers that
+poll and claim in the same instant can both believe they hold the lease.
+`resolveLease()` resolves that deterministically after the fact (earliest
+server-assigned comment id wins, and the same answer is returned regardless of
+which worker asks or what order the comments arrive in), but it cannot prevent
+duplicated work that already happened. That is acceptable for the intended
+shape of this bridge -- a small number of owner-initiated tasks and one Claude
+worker -- and unacceptable at high concurrency. `cloud-agent-relay.mjs`, with
+real `SELECT ... FOR UPDATE SKIP LOCKED` proven against a real PostgreSQL
+server, remains the stronger transport and is the one to promote the moment a
+real UberBond host exists.
+
+### Why the status is LIVE_UNPROVEN and not VERIFIED_LIVE
+
+The one live run was driven by an interactive Claude Code session acting as the
+worker. The **unattended** path -- `.github/workflows/agent-relay-worker.yml`
+calling `scripts/github-relay-worker.mjs` -- is written, syntax-checked, and
+minimally-permissioned (`issues:write`, `contents:read`; it cannot push, merge,
+deploy, or reach any other secret), but it has **never executed**, because
+GitHub Actions on this account is blocked (below). Until it runs unattended at
+least once, "device-off" is designed and staged, not proven.
+
+### The worker cannot be turned into a general agent by a task packet
+
+`scripts/github-relay-worker.mjs` runs exactly three allowlisted npm scripts
+(`check:syntax`, `test:deterministic`, `check`) and reports
+`UNSUPPORTED_OBJECTIVE` for anything else. It never interprets free text from
+an issue body as a command. Without that constraint, "anyone who can open an
+issue" would equal "anyone who can run code in CI."
+
+### GitHub Actions is blocked, and the evidence dates it
+
+Not an assumption. CI ran **clean and green through 2026-07-17** on this repo,
+then every run from commit `fe51c3c` onward completes in ~3-10 seconds with
+job logs returning HTTP 404 -- across PRs #26, #28, #29 and the `main` merge.
+Jobs are dying before any step executes. That is the signature of an Actions
+billing/quota/runner-allocation lapse on the account, not a code failure, and
+it is the single thing standing between the staged unattended worker and a
+genuinely device-off bridge. Owner fix: GitHub -> Settings -> Billing.
+
 ## A second reconciliation, mid-wave: `main` moved independently
 
 While this wave was in progress, `main` was fast-forwarded directly (not

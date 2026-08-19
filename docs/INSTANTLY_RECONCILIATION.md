@@ -3,23 +3,49 @@
 Direct answer to the mission's own required question: **did the historical
 Instantly-like code exist, and where?**
 
-**No.** After two bounded, exhaustive search passes across everywhere this
-account's GitHub access reaches, no trace of `UBERBOND_INSTANTLY_PARITY_AND_SUPERSTACK_V1_1_REPAIRED.zip`,
-`UBERBOND_OUTREACH_INSTANTLY_PARITY_COMPLETE_2026-08-13_FINAL.zip`,
-`/outreach.html`, or any "parity matrix" document exists in any repository,
-branch, commit, PR, dangling git object, or local filesystem location this
-session can reach.
+**Yes — corrected 2026-08-19, after the user supplied the archive
+directly.** Two bounded GitHub-side search passes (documented below, left
+intact for the record) found nothing, because they searched for the wrong
+filenames and because the archive was never pushed to any branch this
+session could reach via git or the GitHub API. The user then uploaded
+`UBERBOND_LEAD_INTELLIGENCE_OUTREACH_COMPLETE_20260813.zip` directly (a
+different name from either originally-requested filename, and the actual
+carrier of the same content). It is real: valid zip (sha256
+`6dee168b8094327e41568909678680975092339f4462c5f2f798044fdcd7f605`), 380
+files, and — critically — **its own bundled test suite genuinely passes**
+when run in isolation: `npm run check:syntax` clean, `npm run
+check:outreach`/`check:leadgen`/`check:lead-intelligence` all pass (26/26,
+8/8), and the full `npm run test:deterministic` reports **495 pass, 0
+fail, 41 skipped** (536 total — the skips match this repo's own pattern of
+Postgres-live tests skipped without a live database). This is not
+"impressive-looking but broken" — it is real, working, tested code.
 
-## Search classification (per the mission's required taxonomy)
+**Exact provenance, traced via git, not guessed:** the archive's
+`src/opportunity-factory.mjs` and `src/outreach-governance.mjs` (among
+others) are byte-identical in lineage to files already reachable in this
+repository's own git history on `origin/claude/from-v9-complete-build-2026-08-10`
+(confirmed via `git cat-file -e <branch>:<path>`). That branch has the full,
+un-stripped OMNIA-V9 closure implementation (`kernel.mjs`, `cedar-adapter.mjs`,
+`proof-store.mjs`, `execution-receipt-store.mjs`, a 20-file
+`integrations/` tree) that the current branch's vendored `src/omnia-v9/`
+only ever had a stripped 3-file subset of. The archive is that branch's
+lineage **plus roughly three more days of real, substantial work**
+(2026-08-10 to 2026-08-13) that was packaged as a deliverable and handed to
+the owner directly — matching exactly the "generated as a chat deliverable,
+never committed" hypothesis in this document's original version, now
+confirmed rather than merely inferred.
+
+## Search classification (per the mission's required taxonomy) — corrected
 
 | Artifact | Classification | Evidence |
 |---|---|---|
-| `UBERBOND_INSTANTLY_PARITY_AND_SUPERSTACK_V1_1_REPAIRED.zip` | `NOT_FOUND_AFTER_BOUNDED_SEARCH` | Zero filename matches across all 4 repos' full history (189 commits total), zero GitHub-wide code/commit/PR search hits, not in `/workspace`, `/tmp`, or dangling git objects. |
-| `UBERBOND_OUTREACH_INSTANTLY_PARITY_COMPLETE_2026-08-13_FINAL.zip` | `NOT_FOUND_AFTER_BOUNDED_SEARCH` | Same as above. |
-| `/outreach.html` workbench | `NOT_FOUND_AFTER_BOUNDED_SEARCH` | No file of that name in any branch of any of the 4 repos; the only HTML admin surface found (`Uberbond-repository-/public/admin.html`, 81 lines) is a generic panel, not an outreach workbench — inspected directly, not assumed from its name. |
-| "Instantly parity" implementation code | `NOT_FOUND_AFTER_BOUNDED_SEARCH` | Content search (`instantly`, case-insensitive) across every branch of every repo matches only this wave's own new code, plus one unrelated false positive (the English word "instantly" used as an adverb in an unrelated OMNIA-V9 doc). |
-| Campaign/Unibox/lead/enrichment/warm-up capabilities as a cohesive "Instantly clone" | `NOT_FOUND_AFTER_BOUNDED_SEARCH` as a cohesive system; `FOUND_AND_READ` as scattered, much narrower real pieces (see the entity-mapping table below) | Individual real pieces exist (Gmail send, suppression, sender-health pause) but were never assembled into anything resembling Instantly's actual feature set, and no code anywhere implements warm-up, a unified inbox, or a multi-provider mailbox registry before two waves ago tonight. |
-| The one `.zip` that does exist anywhere (`UberBond_v1.4_ONE_AGENT_TONIGHT_LAUNCH.zip`, in `-uberbond-revenue-engine`) | `FOUND_BUT_CORRUPT` | Real 8.1MB zip, correct `PK` header, but its central directory is truncated — `unzip -l` and `python3 -m zipfile` both fail with "cannot find zipfile directory" / `BadZipFile`. Different name from either artifact requested; not investigated further since the name doesn't match and extracting a corrupt archive risks silent data loss. |
+| `UBERBOND_LEAD_INTELLIGENCE_OUTREACH_COMPLETE_20260813.zip` (the real carrier, supplied directly by the owner) | `FOUND_AND_READ` | sha256 `6dee168b...`, 380 files, extracted and inventoried in full, own test suite run in isolation: 495/536 pass, 0 fail, 41 skipped (Postgres-live). |
+| `UBERBOND_INSTANTLY_PARITY_AND_SUPERSTACK_V1_1_REPAIRED.zip` / `UBERBOND_OUTREACH_INSTANTLY_PARITY_COMPLETE_2026-08-13_FINAL.zip` (the two originally-requested exact filenames) | `NOT_FOUND_AFTER_BOUNDED_SEARCH`, but superseded — the archive that exists under a different name (above) contains the same substantive content (the parity ledger, comparison doc, outreach workbench) | Neither exact filename exists anywhere GitHub-side; the content they'd contain is confirmed present in the differently-named archive instead. |
+| `public/outreach.html` workbench | `FOUND_AND_READ` | Real, 34,068 bytes, at `uberbondd-v9-closure/public/outreach.html` inside the archive, alongside `public/outreach.js` (99,393 bytes) and `public/outreach.css` (28,483 bytes). |
+| "Instantly parity" implementation code and comparison docs | `FOUND_AND_READ` | `docs/outreach/INSTANTLY_PARITY_LEDGER_2026-08-12.md` and `docs/outreach/INSTANTLY_FULL_COMPARISON_AND_UPGRADE_PLAN_2026-08-12.md`, both read in full — see summary below. |
+| Campaign/Unibox/lead/enrichment/warm-up capabilities as a cohesive system | `FOUND_AND_READ` | `src/outreach-workbench.mjs` (59,580 bytes), `src/outreach-operator.mjs` (58,681 bytes), `src/lead-intelligence-v3.mjs` (31,636 bytes), `src/lead-operations.mjs` (35,744 bytes), `src/lead-generation.mjs` (35,787 bytes), `src/outreach-automation.mjs`, `src/outreach-provider-events.mjs`, `src/outreach-upgrades.mjs`, `src/opportunity-factory.mjs` — real, syntax-clean, tested. |
+| The full un-stripped OMNIA-V9 closure (kernel, Cedar policy adapter, proof store, execution receipts, ~20-file `integrations/` tree) | `FOUND_AND_READ` | Matches this repo's own `origin/claude/from-v9-complete-build-2026-08-10` branch, already in git history — the vendored `src/omnia-v9/` on the current branch (`canonical.mjs`/`schema.mjs`/`kernel.mjs` only) is a deliberately-stripped 3-file subset of this. |
+| The one `.zip` that exists in a *different* repo (`UberBond_v1.4_ONE_AGENT_TONIGHT_LAUNCH.zip`, in `-uberbond-revenue-engine`) | `FOUND_BUT_CORRUPT` | Unrelated to the real archive above; different, older, and its central directory is genuinely truncated. Not pursued further. |
 
 ## Search commands run (both passes, for reproducibility)
 
@@ -37,15 +63,61 @@ mcp__github__search_pull_requests / search_code / search_commits (org:mohammedwe
 All four other UberBond-named repos on the account were attached, cloned in
 full (unshallowed), and searched the same way as the primary repo.
 
-## Why the contradiction happened (most likely explanation, stated as inference, not fact)
+## Why the contradiction happened — confirmed, not inference
 
 Every filename referenced (`_IPAD.md` files, `ONE_AGENT_TONIGHT_LAUNCH`,
-`MISSION_*_REPORT.md`) points to a workflow where earlier sessions
+`MISSION_*_REPORT.md`) pointed to a workflow where earlier sessions
 generated deliverables and reports as chat artifacts or downloadable files
-rather than committed code. It is plausible those zips were produced and
-handed to the user directly in a past session and never pushed to any repo.
-This session cannot reach a file that only exists on the user's own device
-— that is not a search gap, it is outside this session's access entirely.
+rather than committed code. That hypothesis is now confirmed: the archive's
+`PACKAGE_MANIFEST.md` states it was "Packaged: 2026-08-13" and explicitly
+lists what it intentionally excludes (`node_modules/`, `.git/`, local
+runtime state, credentials) — the language of a deliberate one-time export,
+not a git push. A session cannot reach a file that only exists on the
+user's own device without the user supplying it directly, which is exactly
+what happened here.
+
+## Recovery and reconciliation plan (not yet executed — this is the plan, not the merge)
+
+The archive is real and its own tests pass, but merging 380 files against
+a current branch that has since diverged with its own substantial,
+non-overlapping real work (the entire Prometheus economic spine, and
+tonight's domain/mailbox readiness OS — neither exists in the archive,
+which predates both) is a multi-pair reconciliation at roughly 10x the
+scale of this session's earlier 7-pair Prometheus reconciliation. Doing it
+carelessly risks exactly the mistake this mission's own rule warns against
+("do not blindly copy files... do not overwrite current work"). The
+responsible sequence, not yet executed:
+
+1. **OMNIA-V9 closure**: the archive's full `src/omnia-v9/` (kernel, Cedar
+   adapter, proof store, execution receipts, ~20-file `integrations/`
+   tree) is strictly more complete than the current branch's stripped
+   3-file vendor copy. This is very likely the single highest-value,
+   lowest-risk recovery — it extends rather than conflicts with anything
+   currently in place, since the current branch's `consequence-boundary.mjs`
+   already treats the stripped copy as intentionally minimal.
+2. **Outreach workbench / operator / lead-intelligence-v3 / lead-operations
+   / lead-generation / opportunity-factory**: real, tested, substantial —
+   but built against the pre-Prometheus, pre-domain-mailbox-readiness data
+   model (e.g. `opportunity-factory.mjs` vs. the current branch's later
+   `opportunity-registry.mjs`; the archive's own sender/warm-up concepts
+   vs. tonight's `sending-domain-registry.mjs`/`sending-mailbox-registry.mjs`).
+   Each needs the same compare-behavior/compare-tests/compare-safety/
+   choose-canonical discipline as the Prometheus reconciliation, module by
+   module — not a directory copy.
+3. **`public/outreach.html`/`outreach.js`/`outreach.css`**: a real,
+   substantial static UI (mission explicitly forbids new website/Vercel
+   work, but this is an owner-only local operator surface, not a public
+   site — same category as the existing `public/admin.html`). Needs to be
+   re-pointed at whichever backend routes survive step 2's reconciliation
+   before it can be trusted to render real data.
+4. Only after 1-3: reconcile the 17 archive migrations against the current
+   branch's schema, and the ~40 archive-only tests against the current
+   branch's 590.
+
+This plan is recorded so the next wave can execute it deliberately instead
+of re-discovering the archive's shape from scratch. The archive itself is
+preserved read-only at the path noted in this session's tool output for
+that next wave to use.
 
 ## Entity-mapping table (this mission's Wave 1 names vs. what already exists)
 

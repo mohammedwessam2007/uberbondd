@@ -1,5 +1,17 @@
 # UberBond cloud relay: ChatGPT to Claude Code
 
+## Deployed HTTP ingress
+
+A separate Vercel project now hosts the bounded GitHub-Issues ingress:
+
+- Production URL: https://uberbond-relay.vercel.app/api/agent-relay
+- Vercel project: `uberbond-relay`
+- Deployment: `dpl_9ox6CB71AdLeSHVaEfv8oq1ukBZ9` (`READY`)
+- Current state: `RELAY_NOT_CONFIGURED` until the owner adds `UBERBOND_RELAY_TOKEN`, `GITHUB_TOKEN`, and `GITHUB_REPOSITORY` in Vercel project secrets.
+
+The endpoint is not a public unauthenticated bridge. It fails closed before any GitHub request when configuration is incomplete, and then requires the relay bearer token. The existing GitHub Issue transport remains the proven fallback and audit trail.
+
+
 This document describes the bounded transport added in the cloud-agent-relay wave.
 
 ## What it does

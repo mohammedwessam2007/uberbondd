@@ -12,6 +12,10 @@ import {
   logCommercialOpportunityCatalog
 } from './commercial-opportunity-catalog.mjs';
 import {
+  rankCanonicalOpportunities,
+  logOpportunityTournament
+} from './opportunity-tournament.mjs';
+import {
   compileCommercialExperiment,
   logCommercialExperiment
 } from './commercial-experiment.mjs';
@@ -159,6 +163,15 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
         opportunityId: input.opportunityId,
         date: input.date
       });
+    },
+    // Ranks the one canonical registry through the existing scoring kernel.
+    // This is a local receipt only: it never promotes an opportunity, sends,
+    // spends, deploys, or creates a second registry.
+    'prometheus.commercial.tournament': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = rankCanonicalOpportunities(input);
+      if (result.ok) await logOpportunityTournament(store, result);
+      return result;
     },
     // Local-only composition task. It requires a caller-supplied signal,
     // candidate, and canonical prospect; it has no provider boundary.

@@ -15,6 +15,9 @@ Completed exactly three bounded, local/repository tasks on branch
 3. Reconciled the current GitHub, Library, and Vercel truth into this handoff
    and `docs/HOURLY_EXECUTION_RECEIPT_2026-08-20T0008Z.json`.
 
+The repository copy is published for review in GitHub PR #33. The durable
+Library copy is `libfile_517bcc0ccbdc8191b77f40d286df588a`.
+
 No production deployment or configuration mutation occurred. The trusted-team
 Vercel deployment `dpl_9ox6CB71AdLeSHVaEfv8oq1ukBZ9` is `READY`, but its health
 response is HTTP 503 `RELAY_NOT_CONFIGURED`; therefore the relay is truthfully

@@ -171,9 +171,10 @@ export async function listPendingAgentSubmissions(store, { limit = 20 } = {}) {
     const currentTime = String(current?.detail?.createdAt || current?.createdAt || '');
     if (!current || rowTime > currentTime) latestByTask.set(record.taskId, row);
   }
+  const replayableStatuses = new Set(['MODEL_RESULT_READY', 'RESULT_SUBMISSION_PENDING']);
   const records = [...latestByTask.values()]
     .map(row => row.detail.executionRecord)
-    .filter(record => String(record.status || '').toUpperCase() === 'RESULT_SUBMISSION_PENDING')
+    .filter(record => replayableStatuses.has(String(record.status || '').toUpperCase()))
     .sort((a, b) => String(a.createdAt || '').localeCompare(String(b.createdAt || '')))
     .slice(0, Math.max(1, Math.min(100, Number(limit || 20))));
   return {

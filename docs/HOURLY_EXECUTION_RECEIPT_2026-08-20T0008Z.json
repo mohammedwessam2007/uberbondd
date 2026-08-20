@@ -5,6 +5,7 @@
     "repository": "mohammedwessam2007/uberbondd",
     "mainSha": "e62683d91de4cffe5eaef3bf79bb64bb618aa97a",
     "branch": "agent/hourly-wave-20260820-0308",
+    "pullRequest": 33,
     "litePathModified": false
   },
   "tasks": [
@@ -60,6 +61,7 @@
     }
   },
   "libraryEvidence": {
+    "executionReceiptFileId": "libfile_517bcc0ccbdc8191b77f40d286df588a",
     "canonicalDigestFileId": "libfile_0e3a63761ed88191b9a909a8abe4333b",
     "splitIndexFileId": "libfile_21b88479c8608191bf86cf99c8431572",
     "splitManifestFileId": "libfile_69493f5b45c881919ac24969942be9b8",

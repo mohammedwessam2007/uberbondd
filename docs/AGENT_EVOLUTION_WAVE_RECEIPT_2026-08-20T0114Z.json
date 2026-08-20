@@ -83,7 +83,16 @@
     "deploymentState": "READY",
     "healthStatus": 503,
     "healthBody": "RELAY_NOT_CONFIGURED",
-    "operational": false
+    "operational": false,
+    "gitLinkedAppProject": {
+      "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
+      "inspectedDeploymentId": "dpl_CYKJmA9an5wGGDmFQRm4XvyWuW4R",
+      "state": "ERROR",
+      "buildFailure": "No entrypoint found in /vercel/path0/lite",
+      "additionalRateLimit": "api-deployments-free-per-day: more than 100",
+      "successfulDeployment": false
+    },
+    "liteProductionArtifactModified": false
   },
   "commercialState": {
     "verifiedRevenue": 0,
@@ -103,12 +112,15 @@
   },
   "controlPlaneWrites": {
     "repositoryPublication": "COMPLETE_DRAFT_PR_36",
-    "libraryReceiptPublication": "COMPLETE"
+    "libraryReceiptPublication": "COMPLETE",
+    "githubLinkedPreviewAttempts": "FAILED_NO_ENTRYPOINT_AND_DAILY_LIMIT",
+    "successfulDeployments": 0
   },
   "benchmarkLimitations": [
     "No competitor benchmark was run in this engineering wave.",
     "This is not a worldwide census and no percentile is asserted.",
-    "Local test volume is not commercial superiority evidence."
+    "Local test volume is not commercial superiority evidence.",
+    "Repository publication triggered Vercel's existing Git integration; attempts failed before a successful deployment and did not mutate production."
   ],
   "lineageNotes": [
     "PR 34 was merged by another actor at 2026-08-20T01:14:15Z before this wave was published.",
@@ -117,6 +129,6 @@
   "nextTasks": [
     "Add a claim-side Claude worker wrapper that consumes only canonical LOCAL_PREPARATION tasks and emits the existing result schema.",
     "Add stale/pending wave reconciliation that reads existing relay state without creating a second task or retrying an uncertain worker result.",
-    "Add a founder control-tower relay card sourced from live health, queue counts, stale leases, disputes, and last validated receipt."
+    "Correct the Git-linked Vercel project root/build-ignore configuration only under separate authorization, then verify one bounded deployment instead of another commit-trigger build storm."
   ]
 }

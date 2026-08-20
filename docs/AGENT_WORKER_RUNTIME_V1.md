@@ -12,7 +12,7 @@ Autonomy session
   → cloud relay job + lease
   → scheduler worker tick
   → durable AI-compute reservation
-  → injected model executor
+  → provider executor socket
   → durable compute commit
   → canonical result validation
   → durable MODEL_RESULT_READY receipt
@@ -23,7 +23,7 @@ Autonomy session
 
 The worker does not grant business-world authority. Customer messages, purchases, deployments, credential changes, DNS changes, production mutations and business spend stay outside this runtime.
 
-## New components
+## Components
 
 ### `src/agent-worker-runtime.mjs`
 
@@ -33,7 +33,7 @@ Properties:
 
 - task must be `LOCAL_PREPARATION`;
 - AI compute has a separate explicit budget and provider allowlist;
-- provider execution is injected rather than hard-wired;
+- provider execution is injected rather than silently enabled;
 - compute reservation is persisted before provider invocation when a persistence hook is configured;
 - provider transport uncertainty is quarantined instead of blindly retried;
 - only an explicit confirmed provider failure can release the compute reservation automatically;
@@ -77,6 +77,28 @@ Order of operations:
 
 This is deliberately not a forever loop. A cloud scheduler can call it repeatedly while each invocation remains bounded and auditable.
 
+### `src/openai-agent-executor.mjs`
+
+Adds a disabled-by-default OpenAI Responses API socket that can be injected into `agent-worker-runtime.mjs`.
+
+Important properties:
+
+- import/constructor performs no request;
+- executor must be explicitly enabled;
+- API key is request-only and is not returned in receipts;
+- endpoint is fixed to the OpenAI Responses API rather than accepting arbitrary destinations;
+- only `LOCAL_PREPARATION` tasks are accepted;
+- no business-world tools are exposed;
+- structured output is requested through a strict JSON schema matching the UberBond worker-result contract;
+- pricing evidence is required before invocation rather than assuming model compute is free;
+- usage is converted to a conservative configured cost estimate for compute-ledger accounting;
+- network/server ambiguity becomes `UNCERTAIN` rather than a blind retry;
+- explicit client/auth/rate-limit rejection is distinguished from uncertain server-side failure;
+- non-completed provider response states remain uncertain;
+- the raw provider request ID is retained for later reconciliation.
+
+The current adapter is a code socket only. No live OpenAI request has been made by this implementation session and no credential has been installed or changed.
+
 ## Crash-window model
 
 ### Crash before provider call
@@ -101,7 +123,7 @@ Only the explicit `CONFIRMED_FAILURE` path releases the compute reservation auto
 
 ## Verification added on this branch
 
-New hostile suites now cover:
+Hostile suites cover or have been authored for:
 
 - paid inference denied without explicit authorization;
 - compute ceilings and provider allowlists;
@@ -116,22 +138,37 @@ New hostile suites now cover:
 - rejection of credential-shaped persistence fields;
 - reservation persistence ordering before provider invocation;
 - fail-closed behavior if reservation persistence fails;
-- persistence of model result before relay completion.
+- persistence of model result before relay completion;
+- OpenAI adapter disabled-by-default behavior;
+- strict Responses API request construction under a fake transport;
+- API-key non-leakage in result receipts;
+- client-failure versus server/transport uncertainty classification;
+- mandatory pricing evidence;
+- rejection of consequenceful tasks before provider invocation;
+- an end-to-end fake OpenAI relay-worker roundtrip from claimed task through compute persistence and result submission.
 
-A full clean-tree repository suite is still required before this draft PR can be treated as merge-ready.
+A full clean-tree repository suite is still required before this draft PR can be treated as merge-ready. The newest durability and OpenAI-adapter tests have not yet received that independent clean-tree run in this implementation environment.
+
+## Current canonical execution choice
+
+`agent-provider-worker.mjs` and `agent-provider-execution.mjs` remain useful pure/provider-transaction primitives and fixtures. For scheduler/device-off operation, the crash-safe path should be treated as:
+
+`agent-worker-job.mjs → agent-worker-runtime.mjs → provider executor → durable compute/result store → relay`.
+
+This avoids two competing live execution paths. The older provider transaction layer should not be wired as a second scheduler loop without reconciliation.
 
 ## What remains before real device-off GPT ↔ Claude work
 
-The missing live pieces are intentionally explicit:
+The remaining live pieces are explicit:
 
-1. a real OpenAI model executor adapter with provider-response reconciliation and pricing/accounting evidence;
-2. a real Claude/Anthropic or Claude Code worker adapter with equivalent uncertainty semantics;
-3. cloud scheduler wiring for the autonomy pump and each model worker;
-4. durable initialization/rotation of authorized AI-compute budgets;
-5. clean-tree full-suite verification and migrations/infrastructure checks;
-6. live health evidence showing scheduler, relay, workers, stale recovery, kill switch and receipts operating together.
+1. independently verify the OpenAI adapter against the real provider in a bounded canary with authorized compute and provider-response reconciliation;
+2. add an equivalent real Claude/Anthropic or Claude Code executor with the same uncertainty and replay semantics;
+3. wire a cloud scheduler for the autonomy pump and each model worker;
+4. initialize and rotate durable authorized AI-compute budgets without granting business-effect authority;
+5. run clean-tree full-suite verification plus migrations/infrastructure checks;
+6. obtain live health evidence showing scheduler, relay, workers, stale recovery, kill switch and receipts operating together.
 
-Until those exist, this branch is an executable autonomy foundation, not a claim of live unattended model-to-model operation.
+Until those exist, this branch is an executable autonomy foundation with a real OpenAI API socket in code, not a claim of live unattended model-to-model operation.
 
 ## Effect boundary
 

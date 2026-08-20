@@ -10,6 +10,13 @@ import './provider-execution.test.mjs';
 import './openai-agent-executor.test.mjs';
 import './anthropic-agent-executor.test.mjs';
 import './agent-mesh-control-plane.test.mjs';
+import './agent-code-change.test.mjs';
+import './agent-mesh-activation-gate.test.mjs';
+import './agent-git-sandbox-collector.test.mjs';
+import './claude-code-sandbox-executor.test.mjs';
+import './agent-sandbox-verifier.test.mjs';
+import './claude-engineering-orchestrator.test.mjs';
+import './agent-code-artifact-store.test.mjs';
 
 import test from 'node:test';
 import assert from 'node:assert/strict';

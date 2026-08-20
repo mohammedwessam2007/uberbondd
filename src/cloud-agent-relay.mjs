@@ -56,6 +56,9 @@ export function hasSecret(value) {
     if (key === 'externalEffectLedger') {
       return Object.keys(item || {}).some(effect => !Object.hasOwn(ZERO_EFFECTS, effect));
     }
+    // `maxTokens` is the canonical bounded-compute field in AgentTask.budget,
+    // not an authentication token. Keep every other token-shaped key blocked.
+    if (key === 'maxTokens' && Number.isInteger(item) && item > 0) return false;
     return SECRET_KEY.test(key) || hasSecret(item);
   });
 }

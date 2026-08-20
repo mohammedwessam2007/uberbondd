@@ -1,3 +1,50 @@
+# Autonomous relay-client wave — 2026-08-20T01:03Z
+
+## Outcome
+
+Built the missing reusable ChatGPT producer/reviewer side of the canonical
+UberBond relay. `src/chatgpt-relay-client.mjs` now prepares one bounded
+`AgentTask`, sends it to the existing `/api/agent-relay` ingress, reads one
+task, and polls a strictly bounded number of times for a validated worker
+receipt. It does not run a model, create another registry, execute arbitrary
+instructions, or grant external authority.
+
+The client fixes the producer identity to `chatgpt`, defaults the consumer to
+`claude-code`, forces `LOCAL_PREPARATION`, accepts only an HTTPS relay endpoint,
+keeps the bearer credential inside its closure, binds every result to the
+expected task identity, and rejects malformed, oversized, secret-bearing, or
+non-zero-effect responses. Network requests and result polling both have hard
+bounds.
+
+The wave also fixed a real contract defect: the shared secret scanner treated
+the canonical `AgentTask.budget.maxTokens` compute ceiling as if it were a
+credential. The scanner now permits only a positive integer under that one
+known-safe field while all other token-shaped keys remain blocked.
+
+Durable Library receipt: `libfile_b45a51f187b48191b95ef2140e5c72db`.
+
+## Verification and truth
+
+- Focused relay/client regression gate: 62 tests, 62 passed, 0 failed.
+- Full `npm run check`: 1,108 tests; 1,066 passed, 42 intentionally skipped,
+  0 failed, 0 cancelled, 0 todo.
+- `package.json` parse, syntax gate, and `git diff --check`: passed.
+- `lite/`: unchanged.
+- Client implementation: `PASS_LOCAL`.
+- Real Vercel-authenticated task creation: `OWNER_REQUIRED` because the relay
+  was last verified fail-closed as `RELAY_NOT_CONFIGURED`; no credential was
+  read or changed in this wave.
+- Claude execution/result receipt: `NOT_RUN`.
+- Verified revenue, customers, cleared payments, and accepted deliveries: all
+  zero.
+
+External-effect ledger: 0 sends, 0 customer messages, 0 spend, 0 provider
+actions, 0 deployments, 0 credential/DNS/payment/KYC changes, and 0 production
+mutations. Repository and Library handoff publication are control-plane writes
+recorded separately.
+
+---
+
 # Hourly execution handoff — 2026-08-20T00:08Z
 
 ## Outcome

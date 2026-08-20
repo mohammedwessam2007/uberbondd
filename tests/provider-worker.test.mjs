@@ -21,7 +21,7 @@ function reservation(overrides = {}) {
   return { reservationId: 'r1', taskId: 'task-1', provider: 'openai', status: 'RESERVED', costCeilingCents: 25, tokenCeiling: 1000, ...overrides };
 }
 function route(overrides = {}) {
-  return { selected: { provider: 'openai', model: 'gpt-x', candidateId: 'm1', ...overrides } };
+  return { ok: true, policyVersion: 'agent-model-router-1.0.0', status: 'ROUTED', selected: { provider: 'openai', model: 'gpt-x', candidateId: 'm1', ...overrides } };
 }
 function result(overrides = {}) {
   return {
@@ -99,4 +99,10 @@ test('runProviderWorker accepts only validated structured result', async () => {
   assert.equal(ok.ok, true);
   const bad = await runProviderWorker({ request: req, invoke: async () => ({ text: 'freeform' }) });
   assert.equal(bad.ok, false);
+});
+
+test('provider request rejects an unverified raw route object', () => {
+  const req = compileProviderWorkRequest({ relayTask: task(), modelRoute: { selected: { provider: 'openai', model: 'gpt-x' } }, computeReservation: reservation() });
+  assert.equal(req.ok, false);
+  assert.ok(req.reasonCodes.includes('valid-model-route-required'));
 });

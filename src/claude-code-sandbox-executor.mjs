@@ -1,7 +1,8 @@
 import { execFile } from 'node:child_process';
+import path from 'node:path';
 import { validResult, ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 
-export const CLAUDE_CODE_SANDBOX_EXECUTOR_POLICY_VERSION = 'claude-code-sandbox-executor-1.0.0';
+export const CLAUDE_CODE_SANDBOX_EXECUTOR_POLICY_VERSION = 'claude-code-sandbox-executor-1.1.0';
 
 const DEFAULT_ALLOWED_TOOLS = Object.freeze(['Read', 'Write', 'Edit']);
 const DEFAULT_DISALLOWED_TOOLS = Object.freeze(['Bash', 'WebFetch', 'WebSearch', 'NotebookEdit']);
@@ -39,6 +40,14 @@ function typedEvidence(values) {
   return [...new Set(values.map(value => text(value, 500)).filter(value => /^(receipt|test|audit|github|doc|provider):/i.test(value)))].slice(0, 50);
 }
 
+function absoluteNonRoot(value) {
+  const raw = text(value, 1000);
+  if (!raw || !path.isAbsolute(raw)) return null;
+  const resolved = path.resolve(raw);
+  if (resolved === path.parse(resolved).root) return null;
+  return resolved;
+}
+
 function validateIsolation(receipt, sandboxRoot) {
   const reasons = [];
   if (!receipt || typeof receipt !== 'object' || Array.isArray(receipt)) return ['os-sandbox-isolation-receipt-required'];
@@ -47,19 +56,33 @@ function validateIsolation(receipt, sandboxRoot) {
   if (String(receipt.filesystemScope || '').toUpperCase() !== 'EPHEMERAL_SANDBOX_ONLY') reasons.push('ephemeral-filesystem-isolation-required');
   if (receipt.businessCredentialsMounted !== false) reasons.push('business-credentials-must-not-be-mounted');
   if (receipt.productionNetworkReachability !== false) reasons.push('production-network-must-be-unreachable');
+  if (String(receipt.networkEgressMode || '').toUpperCase() !== 'ANTHROPIC_ONLY') reasons.push('anthropic-only-network-egress-required');
   if (String(receipt.providerCredentialScope || '').toUpperCase() !== 'ANTHROPIC_ONLY') reasons.push('anthropic-only-provider-credential-scope-required');
+  if (receipt.hostHomeMounted !== false) reasons.push('host-home-must-not-be-mounted');
+  const ephemeralHome = absoluteNonRoot(receipt.ephemeralHome);
+  if (!ephemeralHome) reasons.push('absolute-ephemeral-home-required');
+  const sandbox = absoluteNonRoot(sandboxRoot);
+  if (ephemeralHome && sandbox && (ephemeralHome === sandbox || ephemeralHome.startsWith(`${sandbox}${path.sep}`))) {
+    reasons.push('ephemeral-home-must-be-outside-git-sandbox');
+  }
   const refs = typedEvidence(receipt.evidenceRefs);
   if (!refs.length || refs.length !== (receipt.evidenceRefs || []).length) reasons.push('typed-isolation-evidence-required');
   return reasons;
 }
 
-function sanitizedEnv(source = process.env) {
-  const names = [
-    'PATH', 'HOME', 'USERPROFILE', 'LANG', 'LC_ALL', 'TMPDIR', 'TEMP', 'TMP',
-    'XDG_CONFIG_HOME', 'CLAUDE_CONFIG_DIR', 'ANTHROPIC_API_KEY', 'ANTHROPIC_BASE_URL'
-  ];
+function sanitizedEnv(source = process.env, isolationReceipt = {}) {
+  // Do not inherit host config roots or custom provider base URLs. The sandbox
+  // gets a dedicated ephemeral HOME/Claude config root and, at most, the one
+  // provider credential needed for the bounded Claude Code call.
+  const names = ['PATH', 'LANG', 'LC_ALL', 'TMPDIR', 'TEMP', 'TMP', 'ANTHROPIC_API_KEY'];
   const env = {};
   for (const name of names) if (source?.[name] != null) env[name] = String(source[name]);
+  const ephemeralHome = absoluteNonRoot(isolationReceipt.ephemeralHome);
+  if (ephemeralHome) {
+    env.HOME = ephemeralHome;
+    env.USERPROFILE = ephemeralHome;
+    env.CLAUDE_CONFIG_DIR = path.join(ephemeralHome, '.claude');
+  }
   return env;
 }
 
@@ -212,7 +235,7 @@ export function createClaudeCodeSandboxExecutor({
         executable,
         args,
         cwd: sandboxRoot,
-        env: sanitizedEnv(env),
+        env: sanitizedEnv(env, isolationReceipt),
         timeoutMs: timeout
       });
     } catch (error) {

@@ -4,6 +4,7 @@
 
 import crypto from 'node:crypto';
 import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
+import { verifyRelayBundleEvidence } from './relay-deployment-eligibility.mjs';
 
 export const RELAY_PREVIEW_PROOF_POLICY_VERSION = 'relay-preview-proof-1.0.0';
 const PROJECT_ID = 'prj_QTPTlb6JpYN8IyBTgyVrlWgq4ePT';
@@ -125,9 +126,7 @@ export function compileRelayPreviewReceipt({
   if (endpointProof?.baseUrl !== String(deployment?.url || '').replace(/\/$/, '')) {
     reasons.push('deployment-endpoint-url-mismatch');
   }
-  if (!testedBundle?.ok || testedBundle.root !== 'relay/'
-    || testedBundle.matchedBlobCount !== testedBundle.expectedBlobCount
-    || testedBundle.failedTests !== 0) {
+  if (!verifyRelayBundleEvidence(testedBundle).ok) {
     reasons.push('byte-for-byte-tested-bundle-required');
   }
   if (reasons.length) return failure(reasons, 'RECEIPT_REJECTED', { observedAt });

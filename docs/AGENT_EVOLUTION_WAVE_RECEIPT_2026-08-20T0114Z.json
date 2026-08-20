@@ -7,6 +7,7 @@
     "branch": "agent/hourly-wave-20260820-0308",
     "pullRequest": 34,
     "baseMainSha": "4dd08a1259a6ce06334b600c3892c288840f13d8",
+    "publishedBranchHeadSha": "83b202360031f518dbfc999c39c9fb9202bce097",
     "litePathModified": false
   },
   "tasksCompleted": [
@@ -100,7 +101,7 @@
     "spendCents": 0
   },
   "controlPlaneWrites": {
-    "repositoryPublication": "PENDING",
+    "repositoryPublication": "COMPLETE_DRAFT_PR_34",
     "libraryReceiptPublication": "COMPLETE"
   },
   "benchmarkLimitations": [

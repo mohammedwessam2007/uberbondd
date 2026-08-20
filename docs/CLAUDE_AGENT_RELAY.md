@@ -1,5 +1,9 @@
 # UberBond Claude Agent Relay
 
+> **Canonical document:** [docs/LIVE_BRIDGE_HANDOFF.md](LIVE_BRIDGE_HANDOFF.md) is the single
+> handoff document for the ChatGPT ↔ Claude Code bridge. This file is narrower
+> or older; where the two disagree, the canonical document wins.
+
 This packet defines the safe handoff boundary for Claude Code and Claude Cowork.
 It does not claim either tool is connected to UberBond.
 

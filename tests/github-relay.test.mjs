@@ -13,9 +13,12 @@ import {
   parseTaskIssueBody,
   pollGithubRelayTasks,
   readGithubRelayTask,
+  githubRelayTaskEnvelope,
   resolveLease,
-  submitGithubRelayResult
+  submitGithubRelayResult,
+  validateRelayReceipt
 } from '../src/github-relay.mjs';
+import { hasSecret } from '../src/cloud-agent-relay.mjs';
 
 // A deterministic stand-in for the GitHub API surface this transport uses.
 // Comment ids increase monotonically exactly as GitHub's do, because
@@ -323,6 +326,111 @@ test('entity decoding is single-pass: a literal &amp;#34; in content is never do
   // unchanged -- the decoder must not fire on the happy path at all.
   const raw = '```uberbond-task\n' + JSON.stringify({ objective: 'A & B', literal: '&amp;#34;' }) + '\n```';
   assert.deepEqual(parseTaskIssueBody(raw), { objective: 'A & B', literal: '&amp;#34;' });
+});
+
+test('the submitted receipt carries every field the relay contract mandates', async () => {
+  const { client } = fakeGithub();
+  await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input(), date: T0 });
+  await claimGithubRelayTask({ client, owner: 'o', repo: 'r', issueNumber: 1, workerId: 'claude-code:test', now: T0 });
+  const submitted = await submitGithubRelayResult({
+    client, owner: 'o', repo: 'r', issueNumber: 1, workerId: 'claude-code:test',
+    status: 'COMPLETED', result: result(), now: T0,
+    sourceCommit: 'abc1234', confidence: 'HIGH',
+    limitations: ['ran only the focused suite'], duration: 1200
+  });
+  assert.equal(submitted.ok, true, JSON.stringify(submitted));
+
+  const read = await readGithubRelayTask({ client, owner: 'o', repo: 'r', issueNumber: 1, now: T0 });
+  const r = read.receipt;
+  assert.ok(r, 'reviewer read path must expose the receipt');
+  for (const field of ['taskId', 'workerId', 'status', 'sourceCommit', 'commands', 'tests', 'artifacts',
+                       'findings', 'limitations', 'confidence', 'externalEffects', 'cost', 'duration', 'submittedAt']) {
+    assert.ok(field in r, `receipt is missing mandated field: ${field}`);
+  }
+  assert.equal(r.taskId, 'gh-task-1', 'receipt must bind to the task it answers');
+  assert.equal(r.sourceCommit, 'abc1234');
+  assert.equal(r.confidence, 'HIGH');
+  assert.deepEqual(r.commands, ['node --test tests/github-relay.test.mjs'], 'commands derive from what actually ran');
+  assert.deepEqual(r.externalEffects, result().externalEffectLedger);
+});
+
+test('a receipt is refused if it invents confidence or claims an external effect', () => {
+  const base = {
+    taskId: 't', workerId: 'w', status: 'COMPLETED', sourceCommit: 'abc',
+    commands: [], tests: [], artifacts: [], findings: [], limitations: [],
+    confidence: 'HIGH', cost: { usdCents: 0, tokens: null }, duration: 1, submittedAt: T0.toISOString(),
+    externalEffects: {
+      providerCalls: 0, messages: 0, purchases: 0, deployments: 0,
+      credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0
+    }
+  };
+  assert.deepEqual(validateRelayReceipt(base), [], JSON.stringify(validateRelayReceipt(base)));
+
+  assert.ok(validateRelayReceipt({ ...base, confidence: 'TOTALLY_SURE' }).includes('receipt-invalid-confidence'));
+  assert.ok(validateRelayReceipt({ ...base, status: 'DEPLOYED' }).includes('receipt-invalid-status'));
+  assert.ok(validateRelayReceipt({ ...base, taskId: '' }).includes('receipt-task-id-required'));
+
+  for (const effect of ['messages', 'spendCents', 'deployments', 'productionMutations']) {
+    const claimed = { ...base, externalEffects: { ...base.externalEffects, [effect]: 1 } };
+    assert.ok(
+      validateRelayReceipt(claimed).includes('receipt-nonzero-external-effects-rejected'),
+      `${effect} must be refused at the receipt layer too, not only in validResult`
+    );
+  }
+
+  const { taskId, ...missingTaskId } = base;
+  assert.ok(validateRelayReceipt(missingTaskId).includes('receipt-missing-taskId'));
+});
+
+test('the shared secret scanner does not false-positive on the relay contract\'s own fields', () => {
+  // Both of these were real rejections of perfectly clean receipts, found by
+  // running the contract rather than by reading it:
+  //   - `cost.tokens` matches the token-shaped key pattern
+  //   - `externalEffects.credentialChanges` matches the credential pattern,
+  //     because only `externalEffectLedger` had the ledger-shape special case
+  const zero = {
+    providerCalls: 0, messages: 0, purchases: 0, deployments: 0,
+    credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0
+  };
+  assert.equal(hasSecret({ cost: { usdCents: 0, tokens: null } }), false);
+  assert.equal(hasSecret({ cost: { usdCents: 0, tokens: 1234 } }), false);
+  assert.equal(hasSecret({ externalEffects: zero }), false);
+  assert.equal(hasSecret({ externalEffectLedger: zero }), false);
+
+  // ...and the exemptions stay narrow. A credential hidden under either key,
+  // or an unrecognised effect smuggled into the ledger, is still caught.
+  assert.equal(hasSecret({ cost: { tokens: 'Bearer abcdefghijkl' } }), true);
+  assert.equal(hasSecret({ cost: { tokens: -5 } }), true);
+  assert.equal(hasSecret({ externalEffects: { ...zero, sneakyEffect: 0 } }), true);
+  assert.equal(hasSecret({ accessToken: 1 }), true);
+  assert.equal(hasSecret({ apiKey: 1 }), true);
+});
+
+test('githubRelayTaskEnvelope derives mutable state from GitHub without duplicating storage', async () => {
+  const { client, issues, comments } = fakeGithub();
+  await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input(), date: T0 });
+
+  const queued = githubRelayTaskEnvelope({ issue: issues.get(1), comments: comments.get(1), now: T0 });
+  assert.equal(queued.status, 'QUEUED');
+  assert.equal(queued.attempts, 0);
+  assert.equal(queued.idempotencyKey, 'github-issue:1', 'the issue itself is the idempotency key');
+  assert.deepEqual(queued.resultRefs, []);
+  assert.equal(queued.parentTaskId, null);
+
+  await claimGithubRelayTask({ client, owner: 'o', repo: 'r', issueNumber: 1, workerId: 'claude-code:test', now: T0 });
+  const claimed = githubRelayTaskEnvelope({ issue: issues.get(1), comments: comments.get(1), now: T0 });
+  assert.equal(claimed.status, 'CLAIMED');
+  assert.equal(claimed.attempts, 1, 'each claim comment is one real attempt');
+  assert.equal(claimed.lease.holder, 'claude-code:test');
+
+  await submitGithubRelayResult({
+    client, owner: 'o', repo: 'r', issueNumber: 1, workerId: 'claude-code:test',
+    result: result(), now: T0, confidence: 'MEDIUM'
+  });
+  const done = githubRelayTaskEnvelope({ issue: issues.get(1), comments: comments.get(1), now: T0 });
+  assert.equal(done.status, 'COMPLETED');
+  assert.equal(done.confidence, 'MEDIUM');
+  assert.equal(done.resultRefs.length, 1);
 });
 
 test('hostile: invalid worker ids and result statuses are refused', async () => {

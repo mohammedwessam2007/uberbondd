@@ -1,5 +1,9 @@
 # UberBond cloud relay: ChatGPT to Claude Code
 
+> **Canonical document:** [docs/LIVE_BRIDGE_HANDOFF.md](LIVE_BRIDGE_HANDOFF.md) is the single
+> handoff document for the ChatGPT ↔ Claude Code bridge. This file is narrower
+> or older; where the two disagree, the canonical document wins.
+
 ## Deployed HTTP ingress
 
 A separate Vercel project now hosts the bounded GitHub-Issues ingress:

@@ -1,5 +1,9 @@
 # Project Argus: ChatGPT <-> UberBond <-> Claude Code relay -- truth reconstruction
 
+> **Canonical document:** [docs/LIVE_BRIDGE_HANDOFF.md](LIVE_BRIDGE_HANDOFF.md) is the single
+> handoff document for the ChatGPT ↔ Claude Code bridge. This file is narrower
+> or older; where the two disagree, the canonical document wins.
+
 > **Deployment addendum — 2026-08-20:** A separate Vercel project named `uberbond-relay` now exists at https://uberbond-relay.vercel.app. Deployment `dpl_9ox6CB71AdLeSHVaEfv8oq1ukBZ9` is READY and the relay function responds. Its unauthenticated health probe currently returns `503 RELAY_NOT_CONFIGURED` because no `UBERBOND_RELAY_TOKEN` or `GITHUB_TOKEN` has been placed in the Vercel secret store. This is intentional fail-closed behavior. The Lite production app remains separate and healthy. No live relay task, external message, spend, deployment mutation, or revenue is claimed by this addendum.
 
 

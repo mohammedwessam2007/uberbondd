@@ -208,7 +208,81 @@ export function buildHeartbeatComment({ workerId, observedAt, leaseSeconds = DEF
   ].join('\n');
 }
 
-export function buildResultComment(result, { workerId, observedAt, status }) {
+export const RELAY_RECEIPT_VERSION = 'uberbond-relay-receipt-1.0.0';
+
+const REQUIRED_RECEIPT_FIELDS = Object.freeze([
+  'taskId', 'workerId', 'status', 'sourceCommit', 'commands', 'tests', 'artifacts',
+  'findings', 'limitations', 'confidence', 'externalEffects', 'cost', 'duration', 'submittedAt'
+]);
+const CONFIDENCE_LEVELS = Object.freeze(['HIGH', 'MEDIUM', 'LOW', 'UNKNOWN']);
+
+/**
+ * Assembles the canonical receipt a reviewer (ChatGPT) reads back.
+ *
+ * `validResult()` from the HTTP relay stays the safety gate -- required fields,
+ * size ceiling, secret scan, zero-effect ledger. This adds the *provenance*
+ * layer on top: which commit was this measured against, what exactly was run,
+ * how confident is the worker, and what did it NOT establish. Without
+ * sourceCommit and limitations a receipt is unfalsifiable, which defeats the
+ * point of having one.
+ *
+ * Every field is derived from the actual result when the caller does not supply
+ * it, and unknowns are recorded as UNKNOWN/null rather than guessed -- a
+ * fabricated confidence or an invented cost would be worse than an absent one.
+ */
+export function buildRelayReceipt({
+  taskId, workerId, status, result,
+  sourceCommit, commands, tests, artifacts, findings, limitations,
+  confidence, cost, duration, submittedAt
+} = {}) {
+  const ran = Array.isArray(result?.testsActuallyRun) ? result.testsActuallyRun : [];
+  return {
+    receiptVersion: RELAY_RECEIPT_VERSION,
+    taskId: String(taskId || ''),
+    workerId: String(workerId || ''),
+    status: String(status || '').toUpperCase(),
+    sourceCommit: String(sourceCommit || 'UNKNOWN'),
+    commands: Array.isArray(commands) && commands.length
+      ? commands
+      : ran.map(entry => entry?.command).filter(Boolean),
+    tests: Array.isArray(tests) && tests.length ? tests : ran,
+    artifacts: Array.isArray(artifacts) ? artifacts : (result?.changedArtifacts || []),
+    findings: Array.isArray(findings) ? findings : [],
+    limitations: Array.isArray(limitations) ? limitations : [],
+    confidence: CONFIDENCE_LEVELS.includes(String(confidence).toUpperCase())
+      ? String(confidence).toUpperCase() : 'UNKNOWN',
+    externalEffects: { ...ZERO_EFFECTS, ...(result?.externalEffectLedger || {}) },
+    // Honest unknown beats an invented number. A worker that cannot measure its
+    // own token spend records null, not zero.
+    cost: cost && typeof cost === 'object' ? cost : { usdCents: 0, tokens: null },
+    duration: duration ?? null,
+    submittedAt: at(submittedAt),
+    result
+  };
+}
+
+/** Structural check for the receipt envelope. Returns reason codes, never throws. */
+export function validateRelayReceipt(receipt) {
+  if (!receipt || typeof receipt !== 'object' || Array.isArray(receipt)) return ['receipt-object-required'];
+  const reasons = [];
+  for (const field of REQUIRED_RECEIPT_FIELDS) {
+    if (!(field in receipt)) reasons.push(`receipt-missing-${field}`);
+  }
+  if (!receipt.taskId) reasons.push('receipt-task-id-required');
+  if (!receipt.workerId) reasons.push('receipt-worker-id-required');
+  if (!['COMPLETED', 'FAILED'].includes(receipt.status)) reasons.push('receipt-invalid-status');
+  if (!CONFIDENCE_LEVELS.includes(receipt.confidence)) reasons.push('receipt-invalid-confidence');
+  // A receipt asserting any nonzero external effect is refused here as well as
+  // in validResult -- the ledger must fail closed at every layer that sees it.
+  const effects = receipt.externalEffects || {};
+  if (Object.entries(ZERO_EFFECTS).some(([key, zero]) => Number(effects[key] || 0) !== zero)) {
+    reasons.push('receipt-nonzero-external-effects-rejected');
+  }
+  if (hasSecret(receipt)) reasons.push('receipt-secret-like-content-rejected');
+  return reasons;
+}
+
+export function buildResultComment(receipt, { workerId, observedAt, status }) {
   return [
     `Result from \`${workerId}\`: **${status}**.`,
     '',
@@ -217,7 +291,10 @@ export function buildResultComment(result, { workerId, observedAt, status }) {
       workerId,
       status,
       submittedAt: at(observedAt),
-      result
+      receipt,
+      // `result` is retained alongside `receipt` so readers written against the
+      // original shape keep working; the two are the same measurement.
+      result: receipt?.result ?? receipt
     })
   ].join('\n');
 }
@@ -409,7 +486,8 @@ export async function heartbeatGithubRelayTask({
  */
 export async function submitGithubRelayResult({
   client, owner, repo, issueNumber, workerId,
-  status = 'COMPLETED', result = {}, now = new Date(), leaseSeconds = DEFAULT_LEASE_SECONDS
+  status = 'COMPLETED', result = {}, now = new Date(), leaseSeconds = DEFAULT_LEASE_SECONDS,
+  taskId, sourceCommit, commands, tests, artifacts, findings, limitations, confidence, cost, duration
 } = {}) {
   if (!client || typeof client.addComment !== 'function') return errorResult(['github-client-required']);
   const worker = normalizeWorkerId(workerId);
@@ -426,9 +504,26 @@ export async function submitGithubRelayResult({
   if (lease.state === 'COMPLETED') return errorResult(['task-already-completed']);
   if (lease.holder !== worker) return errorResult(['lease-owner-mismatch']);
 
+  // Resolve taskId from the issue itself when the caller did not pass one, so a
+  // receipt is always bound to the task it answers rather than floating free.
+  let resolvedTaskId = taskId;
+  if (!resolvedTaskId && typeof client.getIssue === 'function') {
+    const issue = await client.getIssue({ owner, repo, issueNumber });
+    resolvedTaskId = parseTaskIssueBody(issue?.body)?.taskId || '';
+  }
+
+  const receipt = buildRelayReceipt({
+    taskId: resolvedTaskId, workerId: worker, status: outcome, result,
+    sourceCommit, commands, tests, artifacts, findings, limitations, confidence, cost, duration,
+    submittedAt: now
+  });
+  const receiptErrors = validateRelayReceipt(receipt);
+  if (receiptErrors.length) return errorResult(receiptErrors);
+  if (sizeOf(receipt) > MAX_RESULT_BYTES) return errorResult(['result-too-large']);
+
   const comment = await client.addComment({
     owner, repo, issueNumber,
-    body: buildResultComment(result, { workerId: worker, observedAt: now, status: outcome })
+    body: buildResultComment(receipt, { workerId: worker, observedAt: now, status: outcome })
   });
   if (typeof client.addLabels === 'function') {
     await client.addLabels({ owner, repo, issueNumber, labels: [outcome === 'COMPLETED' ? DONE_LABEL : FAILED_LABEL] });
@@ -467,10 +562,58 @@ export async function readGithubRelayTask({ client, owner, repo, issueNumber, no
     issueState: issue.state || null,
     task: parseTaskIssueBody(issue.body),
     lease,
+    // The full provenance receipt is what a reviewer verifies against; `result`
+    // stays exposed for readers written against the original shape.
+    receipt: submitted?.receipt || null,
     result: submitted?.result || null,
     resultStatus: submitted?.status || null,
     submittedBy: submitted?.workerId || null,
     submittedAt: submitted?.submittedAt || null,
     externalEffectLedger: { ...ZERO_EFFECTS }
+  };
+}
+
+/**
+ * Projects one task's full state -- immutable packet plus the mutable fields
+ * the relay contract requires (status, lease, attempts, resultRefs,
+ * idempotencyKey, updatedAt).
+ *
+ * Those mutable fields are DERIVED from the issue and its comments, never
+ * stored a second time. Writing them into the frozen task packet would break
+ * its immutability; keeping them in a parallel record would create exactly the
+ * duplicated authority this codebase has spent several waves removing. GitHub
+ * is the single source of truth and this is a read-only view over it.
+ */
+export function githubRelayTaskEnvelope({ issue, comments = [], now = new Date(), leaseSeconds = DEFAULT_LEASE_SECONDS } = {}) {
+  const task = parseTaskIssueBody(issue?.body);
+  if (!task) return null;
+  const lease = resolveLease(comments, now, leaseSeconds);
+  const labels = (issue?.labels || []).map(label => String(label?.name ?? label));
+  const receipts = (comments || []).map(comment => parseResultComment(comment?.body)).filter(Boolean);
+  const latest = receipts[receipts.length - 1] || null;
+
+  const status = labels.includes(DONE_LABEL) ? 'COMPLETED'
+    : labels.includes(FAILED_LABEL) ? 'FAILED'
+    : lease.state === 'HELD' ? 'CLAIMED'
+    : lease.state === 'EXPIRED' ? 'LEASE_EXPIRED'
+    : 'QUEUED';
+
+  return {
+    ...task,
+    parentTaskId: task.parentTask ?? null,
+    status,
+    lease,
+    // Each claim comment is one attempt; that is the real attempt count, not a
+    // counter someone has to remember to increment.
+    attempts: (comments || []).filter(comment => extractFencedJson(comment?.body, CLAIM_FENCE)).length,
+    resultRefs: receipts.map((_, index) => `${issue.html_url || `#${issue.number}`}#result-${index + 1}`),
+    confidence: latest?.receipt?.confidence || 'UNKNOWN',
+    // The issue number IS the idempotency key for this transport: one task, one
+    // issue, enforced by GitHub itself.
+    idempotencyKey: `github-issue:${issue?.number}`,
+    createdAt: issue?.created_at || task.createdAt || null,
+    updatedAt: issue?.updated_at || null,
+    issueNumber: issue?.number ?? null,
+    issueUrl: issue?.html_url || null
   };
 }

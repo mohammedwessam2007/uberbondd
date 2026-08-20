@@ -78,7 +78,7 @@ function makeExecutionRecord({ claim, provider, model, reservation, executor, us
     model: model || null,
     providerRequestId: text(executor?.providerRequestId, 240) || null,
     executorOutcome: text(executor?.outcome || executor?.status, 80).toUpperCase() || null,
-    usage: usage || null,
+    usage: usage ? { inputUnits: usage.inputTokens, outputUnits: usage.outputTokens, totalUnits: usage.totalTokens, unitType: 'tokens', costCents: usage.costCents } : null,
     result: result || null,
     status,
     createdAt: at,
@@ -226,9 +226,6 @@ export async function runAgentWorkerOnce({
       idempotencyKey: plan.idempotencyKey
     });
   } catch (error) {
-    // A thrown transport/client error is not proof that the provider did not
-    // accept the request. Keep the reservation active so a scheduler cannot
-    // blindly re-spend the same task. Reconciliation decides what happened.
     return fail(['model-executor-threw', 'provider-compute-outcome-uncertain'], 'COMPUTE_OUTCOME_UNCERTAIN', {
       taskId: plan.taskId,
       workerId: plan.workerId,

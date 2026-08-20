@@ -136,9 +136,6 @@ export async function runAgentWorkerTick({
   }
   if (!claim.ok) return fail(claim.reasonCodes || ['relay-task-claim-failed'], 'CLAIM_BLOCKED');
 
-  // Persist the current pre-execution budget snapshot before doing anything.
-  // The runtime will create its task-level reservation next. This snapshot is
-  // not itself proof of reservation; it is a durable recovery anchor.
   const before = await persistBudget(store, loaded.budget, {
     reason: 'worker-pre-execution',
     taskId: claim.taskId,
@@ -159,12 +156,19 @@ export async function runAgentWorkerTick({
     modelExecutor,
     heartbeat: input => heartbeatCloudRelayTask({ store, ...input }),
     submitResult: payload => submitCloudRelayResult({ store, ...payload, date }),
+    persistBudgetState: payload => persistBudget(store, payload.budget, {
+      reason: `runtime-${String(payload.stage || 'state').toLowerCase()}`,
+      taskId: payload.taskId,
+      executionStatus: payload.executionStatus,
+      date: payload.date || date
+    }),
+    persistExecutionRecord: payload => persistExecution(store, payload.executionRecord, payload.date || date),
     date
   });
 
-  // Persist whatever budget state the runtime returns. If the provider outcome
-  // is uncertain, this preserves the active reservation so later work fails
-  // closed rather than blindly spending again.
+  // The runtime persists reservation, commit/release, and ready result at the
+  // exact safety boundaries. These final writes are duplicate-safe audit
+  // reinforcement and make the tick receipt self-contained.
   const budgetPersistence = result.computeBudget?.ok
     ? await persistBudget(store, result.computeBudget, {
       reason: 'worker-post-execution',

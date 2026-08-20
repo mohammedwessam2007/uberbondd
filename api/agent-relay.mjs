@@ -20,7 +20,36 @@ const ZERO_EFFECTS = Object.freeze({
 });
 
 const MAX_BODY_BYTES = 250_000;
+const DEFAULT_GITHUB_TIMEOUT_MS = 10_000;
+const MIN_GITHUB_TIMEOUT_MS = 25;
+const MAX_GITHUB_TIMEOUT_MS = 30_000;
 const JSON_HEADERS = { 'content-type': 'application/json; charset=utf-8' };
+
+function requestError(message, status) {
+  const error = new Error(message);
+  error.status = status;
+  return error;
+}
+
+function assertBodySize(value) {
+  if (Buffer.byteLength(value, 'utf8') > MAX_BODY_BYTES) {
+    throw requestError('request body too large', 413);
+  }
+}
+
+function parseJsonBody(raw) {
+  assertBodySize(raw);
+  if (!raw) return {};
+  try { return JSON.parse(raw); }
+  catch { throw requestError('request body must be valid JSON', 400); }
+}
+
+function boundedInteger(value, fallback, minimum, maximum) {
+  const parsed = Number(value);
+  return Number.isSafeInteger(parsed) && parsed >= minimum && parsed <= maximum
+    ? parsed
+    : fallback;
+}
 
 function safeEqual(left, right) {
   const a = Buffer.from(String(left || ''));
@@ -49,21 +78,29 @@ function bearer(req) {
 }
 
 async function readBody(req) {
-  if (req.body && typeof req.body === 'object') return req.body;
-  if (typeof req.body === 'string') return req.body ? JSON.parse(req.body) : {};
+  const declaredLength = Number(req.headers?.['content-length']);
+  if (Number.isFinite(declaredLength) && declaredLength > MAX_BODY_BYTES) {
+    throw requestError('request body too large', 413);
+  }
+  if (req.body && typeof req.body === 'object') {
+    let serialized;
+    try { serialized = JSON.stringify(req.body); }
+    catch { throw requestError('request body must be serializable JSON', 400); }
+    assertBodySize(serialized);
+    return req.body;
+  }
+  if (typeof req.body === 'string') return parseJsonBody(req.body);
   let raw = '';
+  let rawBytes = 0;
   if (req && typeof req[Symbol.asyncIterator] === 'function') {
     for await (const chunk of req) {
-      raw += chunk;
-      if (Buffer.byteLength(raw, 'utf8') > MAX_BODY_BYTES) {
-        const error = new Error('request body too large');
-        error.status = 413;
-        throw error;
-      }
+      const text = Buffer.isBuffer(chunk) ? chunk.toString('utf8') : String(chunk);
+      rawBytes += Buffer.byteLength(text, 'utf8');
+      if (rawBytes > MAX_BODY_BYTES) throw requestError('request body too large', 413);
+      raw += text;
     }
   }
-  if (!raw) return {};
-  return JSON.parse(raw);
+  return parseJsonBody(raw);
 }
 
 function runtimeConfig(env = process.env) {
@@ -75,7 +112,13 @@ function runtimeConfig(env = process.env) {
     owner: match?.[1] || '',
     repo: match?.[2] || '',
     repositoryConfigured: Boolean(match),
-    githubConfigured: Boolean(env.GITHUB_TOKEN)
+    githubConfigured: Boolean(env.GITHUB_TOKEN),
+    githubTimeoutMs: boundedInteger(
+      env.UBERBOND_RELAY_GITHUB_TIMEOUT_MS,
+      DEFAULT_GITHUB_TIMEOUT_MS,
+      MIN_GITHUB_TIMEOUT_MS,
+      MAX_GITHUB_TIMEOUT_MS
+    )
   };
 }
 
@@ -86,7 +129,7 @@ function authFailure(config) {
   return null;
 }
 
-function githubClient({ token, api = fetch }) {
+function githubClient({ token, api = fetch, timeoutMs = DEFAULT_GITHUB_TIMEOUT_MS }) {
   const base = 'https://api.github.com';
   const headers = {
     accept: 'application/vnd.github+json',
@@ -96,11 +139,22 @@ function githubClient({ token, api = fetch }) {
   };
 
   async function request(method, pathname, body) {
-    const response = await api(`${base}${pathname}`, {
-      method,
-      headers: { ...headers, ...(body === undefined ? {} : { 'content-type': 'application/json' }) },
-      ...(body === undefined ? {} : { body: JSON.stringify(body) })
-    });
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    let response;
+    try {
+      response = await api(`${base}${pathname}`, {
+        method,
+        signal: controller.signal,
+        headers: { ...headers, ...(body === undefined ? {} : { 'content-type': 'application/json' }) },
+        ...(body === undefined ? {} : { body: JSON.stringify(body) })
+      });
+    } catch (error) {
+      if (error?.name === 'AbortError') throw requestError('GitHub relay request timed out', 504);
+      throw error;
+    } finally {
+      clearTimeout(timer);
+    }
     const text = await response.text();
     let parsed = null;
     try { parsed = text ? JSON.parse(text) : null; } catch { parsed = null; }
@@ -156,7 +210,11 @@ export function createHandler(deps = {}) {
       return sendJson(res, 401, { ok: false, status: 'UNAUTHORIZED' });
     }
 
-    const client = deps.client || githubClient({ token: config.githubToken, api });
+    const client = deps.client || githubClient({
+      token: config.githubToken,
+      api,
+      timeoutMs: config.githubTimeoutMs
+    });
     const url = requestUrl(req);
     try {
       if (req.method === 'GET') {

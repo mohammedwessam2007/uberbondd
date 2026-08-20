@@ -46,16 +46,16 @@ The release now records and routes the shared capability set that unlocks the la
 
 ## 6. GitHub status
 
-- Current `main` used as the base: `e62683d91de4cffe5eaef3bf79bb64bb618aa97a` (rechecked after the branch was created; the branch was merged with this newer main without force-push).
+- Current `main` used as the base: `4dd08a1259a6ce06334b600c3892c288840f13d8` (rechecked after publication revealed eight concurrent main commits; the branch was merged with this newer main without force-push).
 - Branch: `agent/omnia-registry-relay`.
-- The reconciled branch contains the newer main relay additions plus the canonical registry, taxonomy, partial adapter, tests, and truth receipt; the merge was non-force and preserved both parents.
+- The reconciled branch contains the newer main relay hardening plus the canonical registry, taxonomy, partial adapter, approved-source rehearsal, tests, and truth receipts; the merge was non-force and preserved both parents. A non-UTF-8 `src/thread-opportunity-universe.mjs` blob found on the pre-merge remote branch was replaced by the tested canonical UTF-8 source; an audit of all remote text artifacts found no second corrupt file.
 - No main-branch mutation, deletion, pull request, or force-push occurred.
 
 ## 7. Tests actually run
 
-- The direct no-network equivalent of `npm run check` (137 package-listed syntax checks followed by the deterministic test command) passed: **1,127 total; 1,085 passing; 0 failing; 42 intentionally skipped**. The package-script invocation itself was blocked by the shell's network-approval guard, so no green result is attributed to that wrapper.
+- The direct no-network equivalent of `npm run check` (137 package-listed syntax checks followed by the deterministic test command) passed after merging current main: **1,130 total; 1,088 passing; 0 failing; 42 intentionally skipped**. The package-script invocation itself was blocked by the shell's network-approval guard, so no green result is attributed to that wrapper.
 - Direct package-listed syntax checks: **137 files passed**, including the tournament, genome-extraction, reconciliation, approved-source rehearsal, and first-payment packet modules. A broader repository scan also syntax-checked **274 JavaScript/module files with 0 failures**.
-- Focused root/partial Vercel-relay syntax and tests (`node --check api/agent-relay.mjs`, `node --check src/github-relay.mjs`, `node --check src/cloud-agent-relay.mjs`, and both relay test files): **9 passing**.
+- Focused root/partial Vercel-relay tests after current-main reconciliation: **12 passing**; combined with the approved-source rehearsal suite: **18 passing**.
 - Focused opportunity tournament tests: **6 passing**; focused genome extraction and handler tests: **10 passing**; focused reconciliation tests: **5 passing**; focused first-payment packet tests: **5 passing**; focused approved-source rehearsal tests: **6 passing**.
 - All eight product archive ZIPs and the three supplemental ZIPs were checksum/integrity tested before implementation; the eight-part master reports 599 manifest entries, 0 missing, 0 repeated, and 0 ZIP CRC failures.
 
@@ -97,7 +97,8 @@ UberBond still has **$0 verified cleared revenue** in the available evidence. Th
 - Connector-reported Vercel team ownership was insufficient for the deployment action's trusted-destination gate; deployment must not be retried through a workaround.
 - A similarly named but unauthorized/unproven `uberbond-relay` project is present; treating it as the requested `uberbondd-relay` would be an unsafe scope error.
 - The Lite project's Git integration automatically previews authorized branch pushes. Future pushes can create preview deployments even when production is protected; this is now an explicit external-effect risk.
-- Current `main` advanced during execution; the branch was explicitly merged with `e62683d…` before the final test run so the registry is not based on a stale remembered SHA.
+- Current `main` advanced twice during execution; the branch was explicitly merged with final observed main `4dd08a1…` before the final test run so the registry is not based on a stale remembered SHA.
+- The prior remote branch carried one non-UTF-8/corrupt source blob even though its Lite preview was `READY`; deployment readiness did not prove full-repository integrity. The canonical source was restored and the complete remote text tree was audited for the same defect.
 - GitHub Actions is independently reported as infrastructure-blocked in the relay truth artifacts; no unattended worker proof was claimed.
 - The durable Postgres worker path remains production-shaped/local, not cloud-proven; the unattended GitHub Actions worker is written but has no current run proof.
 - The canonical product package contains historical/superseded and parser-failure records; the current GitHub `main` and current registry projection were used instead of treating archive filenames as proof.

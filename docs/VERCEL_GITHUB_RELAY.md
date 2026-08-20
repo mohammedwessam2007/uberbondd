@@ -12,11 +12,17 @@ Set these only in the Vercel project secret store:
 UBERBOND_RELAY_TOKEN=<owner-generated bearer token>
 GITHUB_TOKEN=<least-privilege token that can manage issues in the relay repo>
 GITHUB_REPOSITORY=mohammedwessam2007/uberbondd
+UBERBOND_RELAY_GITHUB_TIMEOUT_MS=10000
 ```
 
 The values are never returned by the health endpoint, included in task packets,
 or written to logs. The endpoint fails closed with `RELAY_NOT_CONFIGURED` until
 all three values exist.
+
+The optional GitHub timeout is bounded to 25-30,000 milliseconds and defaults
+to 10,000. Request bodies are capped at 250,000 UTF-8 bytes whether Vercel
+delivers them as a stream, string, or already-parsed object. Oversized and
+malformed bodies are rejected before any GitHub operation.
 
 ## Operations
 
@@ -56,7 +62,8 @@ testing this ingress.
 ## Local evidence
 
 The focused contract suite covers configuration redaction, fail-closed startup,
-bearer authentication, polling delegation, malformed issue rejection, and
-non-zero-effect result rejection. The canonical cloud relay suite remains the
-source of truth for task idempotency, lease ownership, heartbeat, and result
+bearer authentication, polling delegation, malformed issue rejection,
+non-zero-effect result rejection, parsed-body size enforcement, malformed JSON,
+and bounded upstream timeout behavior. The canonical cloud relay suite remains
+the source of truth for task idempotency, lease ownership, heartbeat, and result
 replay behavior.

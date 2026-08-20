@@ -19,6 +19,7 @@ import {
   extractGenomeCandidate,
   logGenomeExtraction
 } from './genome-extraction.mjs';
+import { reconcileCommercialEvidence } from './commercial-reconciliation.mjs';
 import {
   compileCommercialExperiment,
   logCommercialExperiment
@@ -185,6 +186,13 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       const result = extractGenomeCandidate(input);
       if (result.ok) await logGenomeExtraction(store, result);
       return result;
+    },
+    // Reconciles caller-supplied signals through the canonical registry,
+    // BusinessGenome seam, and tournament. Persistence is explicit and still
+    // uses auditLog only; no provider, outbound, payment, or promotion effect.
+    'prometheus.commercial.reconcile': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      return reconcileCommercialEvidence({ ...input, store });
     },
     // Local-only composition task. It requires a caller-supplied signal,
     // candidate, and canonical prospect; it has no provider boundary.

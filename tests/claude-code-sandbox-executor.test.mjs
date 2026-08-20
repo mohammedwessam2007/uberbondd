@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { createClaudeCodeSandboxExecutor } from '../src/claude-code-sandbox-executor.mjs';
 
 const sandboxRoot = '/tmp/uberbond-claude-sandbox-test';
+const ephemeralHome = '/tmp/uberbond-claude-home-test';
 
 function isolation(overrides = {}) {
   return {
@@ -11,7 +12,10 @@ function isolation(overrides = {}) {
     filesystemScope: 'EPHEMERAL_SANDBOX_ONLY',
     businessCredentialsMounted: false,
     productionNetworkReachability: false,
+    networkEgressMode: 'ANTHROPIC_ONLY',
     providerCredentialScope: 'ANTHROPIC_ONLY',
+    hostHomeMounted: false,
+    ephemeralHome,
     evidenceRefs: ['test:os-sandbox-fixture'],
     ...overrides
   };
@@ -63,7 +67,8 @@ function canonicalResult(overrides = {}) {
   };
 }
 
-function stream({ result = canonicalResult(), toolName = 'Read', totalCostUsd = 0.0123, subtype = 'success', isError = false, input = 100, output = 50 } = {}) {
+function stream({ result = canonicalResult(), rawResult = null, toolName = 'Read', totalCostUsd = 0.0123, subtype = 'success', isError = false, input = 100, output = 50 } = {}) {
+  const finalValue = rawResult == null ? JSON.stringify(result) : rawResult;
   const messages = [
     {
       type: 'system',
@@ -93,7 +98,7 @@ function stream({ result = canonicalResult(), toolName = 'Read', totalCostUsd = 
       subtype,
       is_error: isError,
       num_turns: 2,
-      result: JSON.stringify(result),
+      result: finalValue,
       session_id: 'sess_cc_1',
       total_cost_usd: totalCostUsd
     }
@@ -109,7 +114,7 @@ function executor({ enabled = true, isolationReceipt = isolation(), runProcess, 
     defaultModel: 'sonnet',
     maxTurns: 5,
     timeoutMs: 30_000,
-    env: env || { PATH: '/usr/bin', HOME: '/tmp/home', DATABASE_URL: 'postgres://must-not-leak', OPENAI_API_KEY: 'must-not-leak' },
+    env: env || { PATH: '/usr/bin', HOME: '/tmp/host-home', DATABASE_URL: 'postgres://must-not-leak', OPENAI_API_KEY: 'must-not-leak' },
     runProcess
   });
 }
@@ -135,12 +140,28 @@ test('verified OS isolation is mandatory before local edit capability exists', a
   assert.equal(calls, 0);
 });
 
-test('CLI invocation is fixed to noninteractive bounded edit-only profile and strips business secrets from env', async () => {
+test('host HOME isolation and Anthropic-only egress are mandatory', async () => {
+  for (const isolationReceipt of [
+    isolation({ hostHomeMounted: true }),
+    isolation({ networkEgressMode: 'GENERAL_INTERNET' }),
+    isolation({ ephemeralHome: '' }),
+    isolation({ ephemeralHome: `${sandboxRoot}/home` })
+  ]) {
+    let calls = 0;
+    const run = executor({ isolationReceipt, runProcess: async () => { calls += 1; return { stdout: stream() }; } });
+    const out = await run({ task: task(), model: 'sonnet', maxTokens: 1000, costCeilingCents: 10 });
+    assert.equal(out.ok, false);
+    assert.equal(calls, 0);
+  }
+});
+
+test('CLI invocation is fixed to noninteractive bounded edit-only profile and strips business/host config secrets from env', async () => {
   let captured;
   const run = executor({
     env: {
-      PATH: '/usr/bin', HOME: '/tmp/home', LANG: 'C.UTF-8',
-      ANTHROPIC_API_KEY: 'provider-only-secret',
+      PATH: '/usr/bin', HOME: '/tmp/host-home', USERPROFILE: '/tmp/host-user', LANG: 'C.UTF-8',
+      XDG_CONFIG_HOME: '/tmp/host-xdg', CLAUDE_CONFIG_DIR: '/tmp/host-claude',
+      ANTHROPIC_API_KEY: 'provider-only-secret', ANTHROPIC_BASE_URL: 'https://evil.invalid',
       DATABASE_URL: 'postgres://must-not-leak',
       OPENAI_API_KEY: 'must-not-leak',
       VERCEL_TOKEN: 'must-not-leak'
@@ -165,7 +186,12 @@ test('CLI invocation is fixed to noninteractive bounded edit-only profile and st
   assert.equal(captured.env.DATABASE_URL, undefined);
   assert.equal(captured.env.OPENAI_API_KEY, undefined);
   assert.equal(captured.env.VERCEL_TOKEN, undefined);
+  assert.equal(captured.env.ANTHROPIC_BASE_URL, undefined);
+  assert.equal(captured.env.XDG_CONFIG_HOME, undefined);
   assert.equal(captured.env.ANTHROPIC_API_KEY, 'provider-only-secret');
+  assert.equal(captured.env.HOME, ephemeralHome);
+  assert.equal(captured.env.USERPROFILE, ephemeralHome);
+  assert.equal(captured.env.CLAUDE_CONFIG_DIR, `${ephemeralHome}/.claude`);
 });
 
 test('stream usage counts cache tokens and uses CLI total cost for worker ledger', async () => {
@@ -208,11 +234,10 @@ test('process ambiguity is not blindly converted into retryable success', async 
 });
 
 test('invalid final JSON and nonzero external effects are rejected', async () => {
-  const invalidJson = executor({
-    runProcess: async () => ({ stdout: stream().replace(JSON.stringify(JSON.stringify(canonicalResult())), JSON.stringify('not json')) })
-  });
+  const invalidJson = executor({ runProcess: async () => ({ stdout: stream({ rawResult: 'not json' }) }) });
   const a = await invalidJson({ task: task(), model: 'sonnet', maxTokens: 1000, costCeilingCents: 10 });
   assert.equal(a.ok, false);
+  assert.ok(a.reasonCodes.includes('claude-code-canonical-result-json-required'));
 
   const nonzero = canonicalResult({
     externalEffectLedger: {

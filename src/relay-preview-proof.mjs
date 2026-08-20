@@ -3,21 +3,11 @@
 // promote, alias, retry, or mutate a deployment.
 
 import crypto from 'node:crypto';
+import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 
 export const RELAY_PREVIEW_PROOF_POLICY_VERSION = 'relay-preview-proof-1.0.0';
 const PROJECT_ID = 'prj_QTPTlb6JpYN8IyBTgyVrlWgq4ePT';
 const TEAM_ID = 'team_A9LnjIuS5PU0rNetsHMu1N0r';
-const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
-
 function iso(value) {
   const date = value instanceof Date ? value : new Date(value);
   return Number.isNaN(date.getTime()) ? null : date.toISOString();

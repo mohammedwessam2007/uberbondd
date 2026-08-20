@@ -38,7 +38,7 @@ The release now records and routes the shared capability set that unlocks the la
 ## 5. Cloud and Vercel status
 
 - Verified Vercel team listing: `mohammedwessam2007's projects`, slug `mohammedwessam2007s-projects`, ID `team_A9LnjIuS5PU0rNetsHMu1N0r`.
-- `uberbondd-lite-private`: existing project, latest production observed `READY` on current `main` (`e62683d91de4cffe5eaef3bf79bb64bb618aa97a`); production was not changed. The authorized branch push triggered automatic READY preview deployments in this existing project (at least six were observed, all with target `null`). This preview side effect is recorded rather than treated as a production deployment.
+- `uberbondd-lite-private`: existing project, latest production observed `READY` on current `main` (`4dd08a1259a6ce06334b600c3892c288840f13d8`), deployment `dpl_6hWzgZqgpAVjrQvrjcTKtoLrrLFt`. That production deployment was created concurrently by the main merge, not by this execution; this execution did not promote, roll back, or directly mutate production. The final branch publish triggered automatic READY preview `dpl_JBLFTJDgBZs1fCmpXBPfn5icGsgn` at `f49b004adb052de0d41aee68d2c3098458d7ff4e` with target `null`.
 - Failed `uberbondd`: existing project, latest `main` production deployment remains `ERROR` (`dpl_Qgb6UpzobjRd8noBv7phYdgSAoDC`); a branch preview for the reconciled branch is also `ERROR`. No delete or destructive mutation was attempted. The connected toolset exposed no safe pause operation, so it remains present and not claimed paused.
 - `uberbondd-relay`: **not created**. After re-listing the single authenticated team and confirming every visible project belongs to `team_A9LnjIuS5PU0rNetsHMu1N0r`, one exact-name preview creation attempt was made with repository `mohammedwessam2007/uberbondd`, branch `agent/omnia-registry-relay`, and root `relay/`. The action was rejected because its separate trusted ownership channel still could not verify the destination. No workaround was attempted.
 - A separate project named **`uberbond-relay`** (without the requested `d`) is now visible in the verified team and has one `READY` production deployment (`dpl_9ox6CB71AdLeSHVaEfv8oq1ukBZ9`). Its provenance and relationship to this mission are not established, so it was not inspected, mutated, promoted, or treated as the authorized relay project.
@@ -49,7 +49,7 @@ The release now records and routes the shared capability set that unlocks the la
 - Current `main` used as the base: `4dd08a1259a6ce06334b600c3892c288840f13d8` (rechecked after publication revealed eight concurrent main commits; the branch was merged with this newer main without force-push).
 - Branch: `agent/omnia-registry-relay`.
 - The reconciled branch contains the newer main relay hardening plus the canonical registry, taxonomy, partial adapter, approved-source rehearsal, tests, and truth receipts; the merge was non-force and preserved both parents. A non-UTF-8 `src/thread-opportunity-universe.mjs` blob found on the pre-merge remote branch was replaced by the tested canonical UTF-8 source; an audit of all remote text artifacts found no second corrupt file.
-- No main-branch mutation, deletion, pull request, or force-push occurred.
+- Remote branch head: `f49b004adb052de0d41aee68d2c3098458d7ff4e`; tree `8df8bb8c7b1f34a2c8469f361ffc5dd2003eea62` exactly matches the tested local tree. GitHub compare reports **14 ahead, 0 behind** current main. No main-branch mutation, deletion, new pull request, or force-push was performed by this execution.
 
 ## 7. Tests actually run
 
@@ -86,7 +86,7 @@ The release now records and routes the shared capability set that unlocks the la
 
 ## 10. External-effect ledger
 
-For this execution: provider calls 0; messages 0; purchases 0; DNS changes 0; credential/secret changes 0; production mutations 0; spend 0; one rejected `uberbondd-relay` preview-creation attempt created no project or deployment. Existing automatic Vercel preview deployments in the Lite project were observed only; the unrelated `uberbond-relay` production deployment was observed only and not changed. Lite production remained unchanged.
+For this execution: provider calls 0; messages 0; purchases 0; DNS changes 0; credential/secret changes 0; direct production mutations 0; spend 0; one rejected `uberbondd-relay` preview-creation attempt created no project or deployment; the final authorized branch publish caused one observed automatic Lite preview (`dpl_JBLFTJDgBZs1fCmpXBPfn5icGsgn`, `READY`, target `null`). A concurrent main merge caused the separate Lite production deployment `dpl_6hWzgZqgpAVjrQvrjcTKtoLrrLFt`; this execution observed but did not initiate or promote it. The unrelated `uberbond-relay` production deployment was observed only and not changed.
 
 ## 11. Commercial truth
 

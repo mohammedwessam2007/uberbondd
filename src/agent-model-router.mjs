@@ -27,6 +27,45 @@ function fail(reasonCodes, status = 'REJECTED') {
   return { ok: false, policyVersion: AGENT_MODEL_ROUTER_POLICY_VERSION, status, reasonCodes: [...new Set(reasonCodes.filter(Boolean))] };
 }
 
+function normalizedCandidateIdentity(candidate) {
+  if (!candidate || typeof candidate !== 'object') return null;
+  const provider = text(candidate.provider, 80).toLowerCase();
+  const model = text(candidate.model, 120);
+  if (!provider || !model) return null;
+  const candidateId = `model_${hash({ provider, model }).slice(0, 20)}`;
+  return candidate.candidateId === candidateId ? { provider, model, candidateId } : null;
+}
+
+function validateNormalizedBenchmark(input, taskClass) {
+  if (!input || typeof input !== 'object' || input.ok !== true) return null;
+  const identity = normalizedCandidateIdentity(input.candidate);
+  if (!identity || text(input.taskClass, 80).toLowerCase() !== taskClass) return null;
+  const fields = ['quality', 'reliability', 'latencyScore', 'economicImpact', 'evidenceConfidence', 'costEfficiency'];
+  for (const field of fields) {
+    if (finite(input[field], 0, 1) == null) return null;
+  }
+  const observed = new Date(input.observedAt);
+  if (Number.isNaN(observed.getTime())) return null;
+  return {
+    ...input,
+    taskClass,
+    quality: Number(input.quality),
+    reliability: Number(input.reliability),
+    latencyScore: Number(input.latencyScore),
+    economicImpact: Number(input.economicImpact),
+    evidenceConfidence: Number(input.evidenceConfidence),
+    costEfficiency: Number(input.costEfficiency),
+    observedAt: observed.toISOString()
+  };
+}
+
+function safeRandom(random) {
+  if (typeof random !== 'function') return null;
+  const value = Number(random());
+  if (!Number.isFinite(value) || value < 0 || value > 1) return null;
+  return value === 1 ? 1 - Number.EPSILON : value;
+}
+
 export function normalizeModelCandidate(input = {}) {
   const provider = text(input.provider, 80).toLowerCase();
   const model = text(input.model, 120);
@@ -121,8 +160,10 @@ export function routeModel({
 
   const latest = new Map();
   for (const raw of benchmarks) {
-    const benchmark = raw?.ok ? raw : normalizeModelBenchmark(raw);
-    if (!benchmark.ok || benchmark.taskClass !== klass) continue;
+    const benchmark = raw?.ok === true
+      ? validateNormalizedBenchmark(raw, klass)
+      : normalizeModelBenchmark(raw);
+    if (!benchmark?.ok || benchmark.taskClass !== klass) continue;
     const id = benchmark.candidate.candidateId;
     const current = latest.get(id);
     if (!current || String(benchmark.observedAt) > String(current.observedAt)) latest.set(id, benchmark);
@@ -145,8 +186,12 @@ export function routeModel({
 
   let selected;
   let mode = 'EXPLOIT';
-  if (unexplored.length && Number(random()) < explore) {
-    selected = unexplored[Math.min(unexplored.length - 1, Math.floor(Number(random()) * unexplored.length))];
+  const explorationDraw = safeRandom(random);
+  if (explorationDraw == null) return fail(['random-source-must-return-unit-interval'], 'BLOCKED');
+  if (unexplored.length && explorationDraw < explore) {
+    const selectionDraw = safeRandom(random);
+    if (selectionDraw == null) return fail(['random-source-must-return-unit-interval'], 'BLOCKED');
+    selected = unexplored[Math.min(unexplored.length - 1, Math.floor(selectionDraw * unexplored.length))];
     mode = 'EXPLORE';
   } else if (evidenced.length) {
     selected = evidenced[0];

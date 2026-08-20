@@ -17,17 +17,18 @@ Implemented:
 - `tests/autonomy-architecture.test.mjs`
 - `tests/autonomy-durable-pump.test.mjs`
 - `tests/autonomy-job.test.mjs`
+- `tests/autonomy-hardening.test.mjs`
 - `docs/AUTONOMOUS_AGENT_MESH_V1.md`
 
 ## Local verification actually run by this implementation session
 
-The following command was run against the new modules in an isolated local workspace:
+The first focused pass ran:
 
 ```text
 node --test tests/autonomy-architecture.test.mjs tests/autonomy-durable-pump.test.mjs tests/autonomy-job.test.mjs
 ```
 
-Result:
+Result at that point:
 
 ```text
 34 tests
@@ -36,7 +37,16 @@ Result:
 0 skipped
 ```
 
-`node --check` also passed for the scheduler-ready autonomy job module and the new modules were syntax-checked during construction.
+After self-review found three real hardening gaps, `tests/autonomy-hardening.test.mjs` was added and run separately against the corrected modules:
+
+```text
+3 tests
+3 pass
+0 fail
+0 skipped
+```
+
+So the focused architecture coverage represented by this PR is **37 focused tests, all passing in the local implementation workspace**, with the original 34 and the 3 hardening regressions run in the two passes above. `node --check` also passed for the autonomy loop, resumable pump, scheduler-ready job, and other new modules during construction.
 
 ## What the tests prove
 
@@ -55,16 +65,27 @@ The focused suite includes hostile checks for:
 - GPT → Claude → GPT bounded round-trip composition
 - owner-boundary actions being auto-routed
 - non-zero business effects being accepted from an internal result
+- rejection of nonzero canonical `externalEffectLedger` claims
 - duplicate follow-up ping-pong
 - round/task/token exhaustion
 - persistence and reload of immutable autonomy snapshots
 - one-transition-per-tick dispatch semantics
 - no duplicate dispatch while waiting for a result
+- transient relay-queue failure retry without duplicate-state poisoning
+- one-shot runner retry without false task creation
 - durable GPT-result → Claude-follow-up transition
 - terminal-run idempotency
 - scheduler sweep advancing each active run at most once
 - Kilimanjaro readiness being claimed without live external proof
 - morning summaries inferring commercial revenue from internal agent activity
+
+## Real defects found and fixed during self-review
+
+1. **Transient dispatch failure could poison retry state.** The first pump implementation registered the task in session state before the relay queue accepted it. A temporary relay failure could therefore make the next retry look like a duplicate. The pump now treats registration as candidate state and commits it only after `createTask` succeeds.
+2. **The one-shot helper had the same retry hazard.** `runAutonomyLoop()` now also leaves the original session untouched when queue creation fails, so a bounded caller can safely retry.
+3. **Canonical effect-ledger bypass outside the relay contract.** Internal result ingestion enforced its business-effect ledger but did not independently reject a nonzero canonical `externalEffectLedger`. It now fails closed if either ledger claims any external effect.
+
+All three fixes have focused regression coverage.
 
 ## Truth boundary
 

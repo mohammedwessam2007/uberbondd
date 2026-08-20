@@ -46,6 +46,12 @@ function sizeOf(value) {
   return Buffer.byteLength(JSON.stringify(value ?? null), 'utf8');
 }
 
+// A compute counter is a plain non-negative integer, or null meaning "not
+// measured". Nothing that shape can carry a credential.
+function isComputeCount(value) {
+  return value === null || (Number.isSafeInteger(value) && value >= 0);
+}
+
 // Exported for reuse by alternative relay transports. One scanner, one set of
 // patterns -- a second copy would drift and silently weaken over time.
 export function hasSecret(value) {
@@ -61,14 +67,23 @@ export function hasSecret(value) {
     if (key === 'externalEffectLedger' || key === 'externalEffects') {
       return Object.keys(item || {}).some(effect => !Object.hasOwn(ZERO_EFFECTS, effect));
     }
-    // `maxTokens` (AgentTask.budget) and `tokens` (receipt cost accounting) are
-    // compute-unit counters, not authentication tokens -- but both match the
-    // token-shaped key pattern. Exempt them ONLY when the value is actually a
-    // number (or an explicitly-unmeasured null), so a credential hidden under
-    // either key is still caught: a string there falls straight through to the
-    // scanner below. Every other token-shaped key stays blocked outright.
-    if (key === 'maxTokens' && Number.isInteger(item) && item > 0) return false;
-    if (key === 'tokens' && (item === null || (Number.isInteger(item) && item >= 0))) return false;
+    // This codebase counts compute in units it keeps calling tokens: maxTokens
+    // on a task budget, tokens in receipt cost accounting, tokenBudget in a
+    // coordination packet. Every one of them matches the token-shaped key
+    // pattern, and every one of them was a separate false positive that
+    // rejected a legitimate payload. Naming three exceptions was treating the
+    // symptom; the rule is what was wrong.
+    //
+    // An authentication token is a string. A counter is a number. So a
+    // token-shaped key holding a non-negative integer -- or an explicitly
+    // unmeasured null -- is a counter and is allowed through, whatever it is
+    // called. A string under the same key still falls to the scanner below, so
+    // a real credential hidden under `tokenBudget` is caught exactly as before.
+    //
+    // Deliberately narrow to /token/i: `password`, `secret`, `apikey` and
+    // friends have no legitimate counter meaning, so a number under those keys
+    // stays rejected.
+    if (/token/i.test(key) && isComputeCount(item)) return false;
     return SECRET_KEY.test(key) || hasSecret(item);
   });
 }

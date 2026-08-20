@@ -29,6 +29,11 @@ Exactly three tasks were completed:
   503 `RELAY_NOT_CONFIGURED`; no live task was created.
 - Durable Library receipt: `libfile_a3aff53a6e98819188bbabfd64deb836`.
 - Draft PR: `#36` against main `4b385bb484e8947c70f663e1ec0dd9f4b5d634b3`.
+- Git-linked `uberbondd` preview builds are blocked independently of this code:
+  Vercel inspected deployment `dpl_CYKJmA9an5wGGDmFQRm4XvyWuW4R` failed
+  because the project tries to build `/lite` with no recognized entrypoint;
+  subsequent attempts also hit the free daily deployment limit (>100). No
+  successful deployment or production mutation occurred.
 - Claude Code/Cowork execution: `NOT_RUN`.
 - Verified revenue, customers, cleared payments, and accepted deliveries: 0.
 

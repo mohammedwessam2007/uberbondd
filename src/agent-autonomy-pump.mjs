@@ -127,13 +127,15 @@ export async function advanceAutonomyRun({
       const failed = withFailure(next, ['target-agent-create-adapter-required'], date);
       return { ok: false, policyVersion: AGENT_AUTONOMY_PUMP_POLICY_VERSION, status: 'FAILED', transition: 'FAILED', run: failed, reasonCodes: failed.reasonCodes };
     }
+    // Register against a candidate session first, but do not persist that
+    // state until createTask succeeds. A transient queue failure must remain
+    // safely retryable instead of poisoning the session as a duplicate.
     const registered = registerTaskIntent({ session: next.session, intent: next.currentIntent, date });
     if (!registered.ok) {
       const failed = withFailure(next, registered.reasonCodes || ['task-registration-failed'], date);
       return { ok: false, policyVersion: AGENT_AUTONOMY_PUMP_POLICY_VERSION, status: 'FAILED', transition: 'FAILED', run: failed, reasonCodes: failed.reasonCodes };
     }
-    next.session = registered.session;
-    const relayTask = compileRelayTask(next.currentIntent, next.session, date);
+    const relayTask = compileRelayTask(next.currentIntent, registered.session, date);
     if (!relayTask?.ok) {
       const failed = withFailure(next, relayTask?.reasonCodes || ['relay-task-compilation-failed'], date);
       return { ok: false, policyVersion: AGENT_AUTONOMY_PUMP_POLICY_VERSION, status: 'FAILED', transition: 'FAILED', run: failed, reasonCodes: failed.reasonCodes };
@@ -145,6 +147,7 @@ export async function advanceAutonomyRun({
       next.lastError = queued?.reasonCodes || ['relay-task-queue-pending'];
       return { ok: true, policyVersion: AGENT_AUTONOMY_PUMP_POLICY_VERSION, status: 'PENDING', transition: 'DISPATCH_PENDING', run: next };
     }
+    next.session = registered.session;
     next.relayRef = {
       taskId: relayTask.taskId,
       issueNumber: Number(queued.issueNumber) || null,

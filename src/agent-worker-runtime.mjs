@@ -40,6 +40,29 @@ function fail(reasonCodes, status = 'BLOCKED', extra = {}) {
   };
 }
 
+async function runPersistenceHook(hook, payload, failureCode) {
+  if (typeof hook !== 'function') return { ok: true, status: 'NOT_CONFIGURED' };
+  try {
+    const receipt = await hook(payload);
+    if (!receipt?.ok) {
+      return {
+        ok: false,
+        status: 'PERSISTENCE_FAILED',
+        reasonCodes: [failureCode, ...(receipt?.reasonCodes || [])],
+        receipt: receipt || null
+      };
+    }
+    return { ok: true, status: 'PERSISTED', receipt };
+  } catch (error) {
+    return {
+      ok: false,
+      status: 'PERSISTENCE_FAILED',
+      reasonCodes: [failureCode, `${failureCode}-threw`],
+      detail: text(error?.message, 500)
+    };
+  }
+}
+
 function normalizeClaim(claim) {
   if (!claim?.ok || String(claim.status || '').toUpperCase() !== 'CLAIMED') return null;
   const task = claim.task && typeof claim.task === 'object' ? claim.task : null;
@@ -180,6 +203,8 @@ export async function runAgentWorkerOnce({
   modelExecutor,
   heartbeat = null,
   submitResult,
+  persistBudgetState = null,
+  persistExecutionRecord = null,
   date = new Date()
 } = {}) {
   if (typeof modelExecutor !== 'function') return fail(['model-executor-required']);
@@ -197,6 +222,27 @@ export async function runAgentWorkerOnce({
   if (!plan.ok) return plan;
 
   let budget = plan.computeBudget;
+
+  // Persist the reservation before the provider call. If a process dies after
+  // dispatch, the next worker sees the reservation and cannot blindly spend
+  // the same task again. Missing durable persistence is therefore fail-closed.
+  const reservationPersistence = await runPersistenceHook(persistBudgetState, {
+    budget,
+    stage: 'RESERVED',
+    taskId: plan.taskId,
+    executionStatus: 'READY_TO_EXECUTE',
+    date
+  }, 'compute-reservation-persistence-failed');
+  if (!reservationPersistence.ok) {
+    const released = releaseCompute({ budget, taskId: plan.taskId, reason: 'reservation-persistence-failed', date });
+    return fail(reservationPersistence.reasonCodes, 'PERSISTENCE_BLOCKED', {
+      taskId: plan.taskId,
+      workerId: plan.workerId,
+      computeBudget: released.ok ? released.budget : computeBudget,
+      persistence: reservationPersistence
+    });
+  }
+
   if (typeof heartbeat === 'function') {
     let beat;
     try {
@@ -206,11 +252,20 @@ export async function runAgentWorkerOnce({
     }
     if (!beat?.ok) {
       const released = releaseCompute({ budget, taskId: plan.taskId, reason: 'relay-lease-heartbeat-failed', date });
-      return fail(['relay-lease-heartbeat-failed', ...(beat?.reasonCodes || [])], 'LEASE_LOST', {
+      budget = released.ok ? released.budget : budget;
+      const releasePersistence = await runPersistenceHook(persistBudgetState, {
+        budget,
+        stage: 'RELEASED',
+        taskId: plan.taskId,
+        executionStatus: 'LEASE_LOST',
+        date
+      }, 'compute-release-persistence-failed');
+      return fail(['relay-lease-heartbeat-failed', ...(beat?.reasonCodes || []), ...(!releasePersistence.ok ? releasePersistence.reasonCodes : [])], 'LEASE_LOST', {
         taskId: plan.taskId,
         workerId: plan.workerId,
         detail: text(beat?.detail, 500),
-        computeBudget: released.ok ? released.budget : budget
+        computeBudget: budget,
+        persistence: releasePersistence
       });
     }
   }
@@ -230,7 +285,8 @@ export async function runAgentWorkerOnce({
       taskId: plan.taskId,
       workerId: plan.workerId,
       detail: text(error?.message, 500),
-      computeBudget: budget
+      computeBudget: budget,
+      persistence: reservationPersistence
     });
   }
 
@@ -238,6 +294,20 @@ export async function runAgentWorkerOnce({
   if (executorOutcome === 'CONFIRMED_FAILURE') {
     const released = releaseCompute({ budget, taskId: plan.taskId, reason: 'confirmed-provider-failure', date });
     budget = released.ok ? released.budget : budget;
+    const releasePersistence = await runPersistenceHook(persistBudgetState, {
+      budget,
+      stage: 'RELEASED',
+      taskId: plan.taskId,
+      executionStatus: 'CONFIRMED_FAILURE',
+      date
+    }, 'compute-release-persistence-failed');
+    if (!releasePersistence.ok) {
+      return fail(releasePersistence.reasonCodes, 'PERSISTENCE_BLOCKED', {
+        taskId: plan.taskId,
+        workerId: plan.workerId,
+        computeBudget: budget
+      });
+    }
     const result = failureResult(['confirmed-provider-failure']);
     let submitted;
     try {
@@ -283,11 +353,15 @@ export async function runAgentWorkerOnce({
       status: 'COMPUTE_OUTCOME_UNCERTAIN',
       date
     });
-    return fail(['provider-compute-outcome-uncertain'], 'COMPUTE_OUTCOME_UNCERTAIN', {
+    const recordPersistence = record
+      ? await runPersistenceHook(persistExecutionRecord, { executionRecord: record, date }, 'uncertain-execution-persistence-failed')
+      : { ok: true, status: 'NO_RECORD' };
+    return fail(['provider-compute-outcome-uncertain', ...(!recordPersistence.ok ? recordPersistence.reasonCodes : [])], 'COMPUTE_OUTCOME_UNCERTAIN', {
       taskId: plan.taskId,
       workerId: plan.workerId,
       computeBudget: budget,
-      executionRecord: record
+      executionRecord: record,
+      persistence: recordPersistence
     });
   }
 
@@ -319,14 +393,33 @@ export async function runAgentWorkerOnce({
       status: 'COMPUTE_BUDGET_VIOLATION',
       date
     });
+    const recordPersistence = record
+      ? await runPersistenceHook(persistExecutionRecord, { executionRecord: record, date }, 'budget-violation-execution-persistence-failed')
+      : { ok: true, status: 'NO_RECORD' };
     return fail(committed.reasonCodes || ['compute-commit-failed'], 'COMPUTE_BUDGET_VIOLATION', {
       taskId: plan.taskId,
       workerId: plan.workerId,
       computeBudget: budget,
-      executionRecord: record
+      executionRecord: record,
+      persistence: recordPersistence
     });
   }
   budget = committed.budget;
+
+  const committedPersistence = await runPersistenceHook(persistBudgetState, {
+    budget,
+    stage: 'COMMITTED',
+    taskId: plan.taskId,
+    executionStatus: 'MODEL_COMPLETED',
+    date
+  }, 'compute-commit-persistence-failed');
+  if (!committedPersistence.ok) {
+    return fail(committedPersistence.reasonCodes, 'PERSISTENCE_BLOCKED', {
+      taskId: plan.taskId,
+      workerId: plan.workerId,
+      computeBudget: budget
+    });
+  }
 
   const result = executor?.result;
   const resultErrors = validResult(result);
@@ -342,11 +435,15 @@ export async function runAgentWorkerOnce({
       status: 'INVALID_MODEL_RESULT',
       date
     });
-    return fail([...resultErrors, ...(hasSecret(result) ? ['secret-like-model-result-rejected'] : [])], 'INVALID_MODEL_RESULT', {
+    const recordPersistence = record
+      ? await runPersistenceHook(persistExecutionRecord, { executionRecord: record, date }, 'invalid-result-execution-persistence-failed')
+      : { ok: true, status: 'NO_RECORD' };
+    return fail([...resultErrors, ...(hasSecret(result) ? ['secret-like-model-result-rejected'] : []), ...(!recordPersistence.ok ? recordPersistence.reasonCodes : [])], 'INVALID_MODEL_RESULT', {
       taskId: plan.taskId,
       workerId: plan.workerId,
       computeBudget: budget,
-      executionRecord: record
+      executionRecord: record,
+      persistence: recordPersistence
     });
   }
 
@@ -369,6 +466,22 @@ export async function runAgentWorkerOnce({
     });
   }
 
+  // The provider result is persisted before relay completion. Therefore a
+  // crash after a successful model call can resume submission without making
+  // a second model call.
+  const readyPersistence = await runPersistenceHook(persistExecutionRecord, {
+    executionRecord,
+    date
+  }, 'ready-result-persistence-failed');
+  if (!readyPersistence.ok) {
+    return fail(readyPersistence.reasonCodes, 'RESULT_PERSISTENCE_BLOCKED', {
+      taskId: plan.taskId,
+      workerId: plan.workerId,
+      computeBudget: budget,
+      executionRecord
+    });
+  }
+
   let submitted;
   try {
     submitted = await submitResult({
@@ -382,24 +495,36 @@ export async function runAgentWorkerOnce({
     submitted = { ok: false, reasonCodes: ['relay-result-submitter-threw'], detail: text(error?.message, 500) };
   }
   if (!submitted?.ok) {
-    return fail(['relay-result-submit-failed', ...(submitted?.reasonCodes || [])], 'RESULT_SUBMISSION_PENDING', {
+    const pendingRecord = { ...executionRecord, status: 'RESULT_SUBMISSION_PENDING' };
+    const pendingPersistence = await runPersistenceHook(persistExecutionRecord, {
+      executionRecord: pendingRecord,
+      date
+    }, 'pending-result-persistence-failed');
+    return fail(['relay-result-submit-failed', ...(submitted?.reasonCodes || []), ...(!pendingPersistence.ok ? pendingPersistence.reasonCodes : [])], 'RESULT_SUBMISSION_PENDING', {
       taskId: plan.taskId,
       workerId: plan.workerId,
       detail: text(submitted?.detail, 500),
       computeBudget: budget,
-      executionRecord: { ...executionRecord, status: 'RESULT_SUBMISSION_PENDING' }
+      executionRecord: pendingRecord,
+      persistence: pendingPersistence
     });
   }
 
+  const submittedRecord = { ...executionRecord, status: 'RESULT_SUBMITTED' };
+  const submittedPersistence = await runPersistenceHook(persistExecutionRecord, {
+    executionRecord: submittedRecord,
+    date
+  }, 'submitted-result-persistence-failed');
   return {
-    ok: true,
+    ok: submittedPersistence.ok,
     policyVersion: AGENT_WORKER_RUNTIME_POLICY_VERSION,
-    status: 'COMPLETED',
+    status: submittedPersistence.ok ? 'COMPLETED' : 'COMPLETED_WITH_RECEIPT_PERSISTENCE_WARNING',
     taskId: plan.taskId,
     workerId: plan.workerId,
     computeBudget: budget,
-    executionRecord: { ...executionRecord, status: 'RESULT_SUBMITTED' },
+    executionRecord: submittedRecord,
     relayReceipt: submitted,
+    persistence: submittedPersistence,
     externalEffectLedger: { ...ZERO_EFFECTS }
   };
 }
@@ -430,7 +555,7 @@ export async function resumeAgentWorkerSubmission({ executionRecord, submitResul
   if (!submitted?.ok) {
     return fail(['relay-result-submit-failed', ...(submitted?.reasonCodes || [])], 'RESULT_SUBMISSION_PENDING', {
       detail: text(submitted?.detail, 500),
-      executionRecord
+      executionRecord: { ...executionRecord, status: 'RESULT_SUBMISSION_PENDING' }
     });
   }
   return {

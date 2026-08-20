@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import { normalizeCoordination } from './agent-autonomy-loop.mjs';
+import { AGENT_MODEL_ROUTER_POLICY_VERSION } from './agent-model-router.mjs';
 
 export const AGENT_PROVIDER_WORKER_POLICY_VERSION = 'agent-provider-worker-1.0.0';
 
@@ -80,7 +81,8 @@ function typedRefs(values) {
 }
 
 function normalizeRoute(route) {
-  const selected = route?.selected || route;
+  if (!route || route.ok !== true || route.policyVersion !== AGENT_MODEL_ROUTER_POLICY_VERSION || route.status !== 'ROUTED') return null;
+  const selected = route.selected;
   const provider = text(selected?.provider, 80).toLowerCase();
   const model = text(selected?.model, 160);
   if (!provider || !model) return null;

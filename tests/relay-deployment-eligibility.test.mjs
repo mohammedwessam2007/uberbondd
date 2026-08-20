@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   evaluateRelayDeploymentEligibility,
+  EXPECTED_RELAY_BUNDLE_BLOBS,
+  EXPECTED_RELAY_BUNDLE_DIGEST,
   EXPECTED_RELAY_PROJECT_ID,
   EXPECTED_RELAY_PROJECT_NAME,
   EXPECTED_RELAY_TEAM_ID
@@ -19,7 +21,9 @@ const bundle = {
   root: 'relay/',
   matchedBlobCount: 7,
   expectedBlobCount: 7,
-  failedTests: 0
+  failedTests: 0,
+  digest: EXPECTED_RELAY_BUNDLE_DIGEST,
+  blobs: EXPECTED_RELAY_BUNDLE_BLOBS.map(item => ({ ...item }))
 };
 
 test('waits before exact reset', () => {
@@ -82,6 +86,54 @@ test('digest mismatch fails closed', () => {
     resetAt, date: resetAt
   });
   assert.equal(value.status, 'INVALID');
+});
+
+test('count-only evidence cannot impersonate byte-for-byte proof', () => {
+  const value = evaluateRelayDeploymentEligibility({
+    project, deployments: [], testedBundle: { ...bundle, blobs: undefined },
+    resetAt, date: resetAt
+  });
+  assert.equal(value.status, 'INVALID');
+  assert.ok(value.bundleReasonCodes.includes('exact-blob-manifest-required'));
+});
+
+test('one substituted blob hash fails closed despite matching counts', () => {
+  const blobs = bundle.blobs.map((item, index) => index === 0 ? { ...item, sha: '0'.repeat(40) } : item);
+  const value = evaluateRelayDeploymentEligibility({
+    project, deployments: [], testedBundle: { ...bundle, blobs },
+    resetAt, date: resetAt
+  });
+  assert.equal(value.status, 'INVALID');
+  assert.ok(value.bundleReasonCodes.includes('blob-path-or-sha-mismatch'));
+});
+
+test('duplicate path plus missing expected path fails closed', () => {
+  const blobs = bundle.blobs.map(item => ({ ...item }));
+  blobs[1] = { ...blobs[0] };
+  const value = evaluateRelayDeploymentEligibility({
+    project, deployments: [], testedBundle: { ...bundle, blobs },
+    resetAt, date: resetAt
+  });
+  assert.equal(value.status, 'INVALID');
+  assert.ok(value.bundleReasonCodes.includes('duplicate-blob-path'));
+  assert.ok(value.bundleReasonCodes.includes('expected-blob-missing'));
+});
+
+test('claimed digest must equal the canonical manifest digest', () => {
+  const value = evaluateRelayDeploymentEligibility({
+    project, deployments: [], testedBundle: { ...bundle, digest: 'f'.repeat(64) },
+    resetAt, date: resetAt
+  });
+  assert.equal(value.status, 'INVALID');
+  assert.ok(value.bundleReasonCodes.includes('canonical-bundle-digest-required'));
+});
+
+test('manifest order does not affect canonical digest', () => {
+  const value = evaluateRelayDeploymentEligibility({
+    project, deployments: [], testedBundle: { ...bundle, blobs: [...bundle.blobs].reverse() },
+    resetAt, date: resetAt
+  });
+  assert.equal(value.status, 'DEPLOY_PREVIEW_ONCE');
 });
 
 test('test failure fails closed', () => {

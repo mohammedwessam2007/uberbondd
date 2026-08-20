@@ -53,12 +53,22 @@ export function hasSecret(value) {
   if (Array.isArray(value)) return value.some(hasSecret);
   if (!value || typeof value !== 'object') return false;
   return Object.entries(value).some(([key, item]) => {
-    if (key === 'externalEffectLedger') {
+    // Both names carry the identical zero-effect ledger shape (`externalEffects`
+    // is the receipt envelope's spelling, `externalEffectLedger` the task's).
+    // The check is on the shape, so it must cover both -- otherwise the ledger's
+    // own key names (`credentialChanges`) trip the credential pattern and a
+    // perfectly clean receipt is rejected as secret-bearing.
+    if (key === 'externalEffectLedger' || key === 'externalEffects') {
       return Object.keys(item || {}).some(effect => !Object.hasOwn(ZERO_EFFECTS, effect));
     }
-    // `maxTokens` is the canonical bounded-compute field in AgentTask.budget,
-    // not an authentication token. Keep every other token-shaped key blocked.
+    // `maxTokens` (AgentTask.budget) and `tokens` (receipt cost accounting) are
+    // compute-unit counters, not authentication tokens -- but both match the
+    // token-shaped key pattern. Exempt them ONLY when the value is actually a
+    // number (or an explicitly-unmeasured null), so a credential hidden under
+    // either key is still caught: a string there falls straight through to the
+    // scanner below. Every other token-shaped key stays blocked outright.
     if (key === 'maxTokens' && Number.isInteger(item) && item > 0) return false;
+    if (key === 'tokens' && (item === null || (Number.isInteger(item) && item >= 0))) return false;
     return SECRET_KEY.test(key) || hasSecret(item);
   });
 }

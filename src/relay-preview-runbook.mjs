@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 import {
   EXPECTED_RELAY_PROJECT_ID,
   EXPECTED_RELAY_PROJECT_NAME,
@@ -7,10 +8,6 @@ import {
 
 export const RELAY_PREVIEW_RUNBOOK_POLICY_VERSION = 'relay-preview-runbook-1.0.0';
 
-const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0, messages: 0, purchases: 0, deployments: 0,
-  credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0
-});
 const TERMINAL = new Set(['INTERFACE_PROVEN', 'BLOCKED', 'QUARANTINED', 'REPAIR_REQUIRED']);
 
 function iso(value) {

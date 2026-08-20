@@ -8,6 +8,7 @@ Observed 2026-08-20 (Africa/Cairo). This is an evidence receipt, not a claim of 
 - Every registry row is normalized against 34 required economic fields and carries a per-field claim classification (`BUYER_SIGNAL`, `HYPOTHESIS`, `ESTIMATE`, `INFERENCE`, or `UNRESOLVED`).
 - Duplicate thread IDs were removed and the explicit opportunity taxonomy was added to the same registry.
 - A deterministic, zero-effect Vercel-native relay adapter was added under `relay/`. It exposes a health route and explicit `501 NOT_IMPLEMENTED` task routes. It is intentionally not the durable cloud worker.
+- Current main's bounded ChatGPT relay producer client is reconciled into this branch and fail-closed tested; it remains unconfigured and is not proof of a connected ChatGPT/Claude worker.
 - The existing scoring kernel now drives a deterministic tournament across all 438 canonical records; it returns a bounded top slice and writes only a compact `auditLog` receipt.
 - The MarketSignal-to-BusinessGenome bridge is now reachable through `prometheus.genome.extract`; it writes one compact lineage receipt containing signal IDs and populated-field names only, with no raw payloads or external effects.
 - A bounded `prometheus.commercial.reconcile` path now composes MarketSignal ingestion, BusinessGenome extraction, and the 438-row tournament in order, with explicit dry-run/persist modes and four compact auditLog receipts when persistence is requested.
@@ -38,7 +39,7 @@ The release now records and routes the shared capability set that unlocks the la
 ## 5. Cloud and Vercel status
 
 - Verified Vercel team listing: `mohammedwessam2007's projects`, slug `mohammedwessam2007s-projects`, ID `team_A9LnjIuS5PU0rNetsHMu1N0r`.
-- `uberbondd-lite-private`: existing project, latest production observed `READY` on current `main` (`4dd08a1259a6ce06334b600c3892c288840f13d8`), deployment `dpl_6hWzgZqgpAVjrQvrjcTKtoLrrLFt`. That production deployment was created concurrently by the main merge, not by this execution; this execution did not promote, roll back, or directly mutate production. The final branch publish triggered automatic READY preview `dpl_JBLFTJDgBZs1fCmpXBPfn5icGsgn` at `f49b004adb052de0d41aee68d2c3098458d7ff4e` with target `null`.
+- `uberbondd-lite-private`: existing project, latest production observed `READY` on current `main` (`4b385bb484e8947c70f663e1ec0dd9f4b5d634b3`), deployment `dpl_7J2MiepaDKXCFJSYDfdC9LiaDrsb`. That production deployment was created concurrently by the final main PR merge, not by this execution; this execution did not promote, roll back, or directly mutate production. The branch publishes triggered automatic READY previews with target `null`, including `dpl_GmpYv9qM5waXHgxyAbSU4ZTUFCdD` at `1857c3997086852c51440b7e32eff66224b67b50`.
 - Failed `uberbondd`: existing project, latest `main` production deployment remains `ERROR` (`dpl_Qgb6UpzobjRd8noBv7phYdgSAoDC`); a branch preview for the reconciled branch is also `ERROR`. No delete or destructive mutation was attempted. The connected toolset exposed no safe pause operation, so it remains present and not claimed paused.
 - `uberbondd-relay`: **not created**. After re-listing the single authenticated team and confirming every visible project belongs to `team_A9LnjIuS5PU0rNetsHMu1N0r`, one exact-name preview creation attempt was made with repository `mohammedwessam2007/uberbondd`, branch `agent/omnia-registry-relay`, and root `relay/`. The action was rejected because its separate trusted ownership channel still could not verify the destination. No workaround was attempted.
 - A separate project named **`uberbond-relay`** (without the requested `d`) is now visible in the verified team and has one `READY` production deployment (`dpl_9ox6CB71AdLeSHVaEfv8oq1ukBZ9`). Its provenance and relationship to this mission are not established, so it was not inspected, mutated, promoted, or treated as the authorized relay project.
@@ -46,17 +47,18 @@ The release now records and routes the shared capability set that unlocks the la
 
 ## 6. GitHub status
 
-- Current `main` used as the base: `4dd08a1259a6ce06334b600c3892c288840f13d8` (rechecked after publication revealed eight concurrent main commits; the branch was merged with this newer main without force-push).
+- Current `main` used as the final observed base: `4b385bb484e8947c70f663e1ec0dd9f4b5d634b3` (rechecked after the final queued relay-client PR landed; the branch was merged with this newer main without force-push).
 - Branch: `agent/omnia-registry-relay`.
 - The reconciled branch contains the newer main relay hardening plus the canonical registry, taxonomy, partial adapter, approved-source rehearsal, tests, and truth receipts; the merge was non-force and preserved both parents. A non-UTF-8 `src/thread-opportunity-universe.mjs` blob found on the pre-merge remote branch was replaced by the tested canonical UTF-8 source; an audit of all remote text artifacts found no second corrupt file.
-- Remote branch head: `f49b004adb052de0d41aee68d2c3098458d7ff4e`; tree `8df8bb8c7b1f34a2c8469f361ffc5dd2003eea62` exactly matches the tested local tree. GitHub compare reports **14 ahead, 0 behind** current main. No main-branch mutation, deletion, new pull request, or force-push was performed by this execution.
+- Before the last current-main reconciliation, remote branch head `1857c3997086852c51440b7e32eff66224b67b50` exactly matched the tested local tree. The final non-force merge publication is verified separately against current main after this receipt is written, because a Git commit cannot contain its own future SHA. No main-branch mutation, deletion, new pull request, or force-push was performed by this execution.
 
 ## 7. Tests actually run
 
-- The direct no-network equivalent of `npm run check` (137 package-listed syntax checks followed by the deterministic test command) passed after merging current main: **1,130 total; 1,088 passing; 0 failing; 42 intentionally skipped**. The package-script invocation itself was blocked by the shell's network-approval guard, so no green result is attributed to that wrapper.
-- Direct package-listed syntax checks: **137 files passed**, including the tournament, genome-extraction, reconciliation, approved-source rehearsal, and first-payment packet modules. A broader repository scan also syntax-checked **274 JavaScript/module files with 0 failures**.
+- The direct no-network equivalent of `npm run check` (138 package-listed syntax checks followed by the deterministic test command) passed after merging final observed main: **1,146 total; 1,104 passing; 0 failing; 42 intentionally skipped**. The package-script invocation itself was blocked by the shell's network-approval guard, so no green result is attributed to that wrapper.
+- Direct package-listed syntax checks: **138 files passed**, including the tournament, genome-extraction, reconciliation, approved-source rehearsal, first-payment packet, and ChatGPT relay client modules. A broader repository scan also syntax-checked **276 JavaScript/module files with 0 failures**.
 - Focused root/partial Vercel-relay tests after current-main reconciliation: **12 passing**; combined with the approved-source rehearsal suite: **18 passing**.
 - Focused opportunity tournament tests: **6 passing**; focused genome extraction and handler tests: **10 passing**; focused reconciliation tests: **5 passing**; focused first-payment packet tests: **5 passing**; focused approved-source rehearsal tests: **6 passing**.
+- Final focused reconciliation across ChatGPT relay client, Vercel relay, and approved-source rehearsal: **34 passing**.
 - All eight product archive ZIPs and the three supplemental ZIPs were checksum/integrity tested before implementation; the eight-part master reports 599 manifest entries, 0 missing, 0 repeated, and 0 ZIP CRC failures.
 
 ## 8. Hourly execution automation
@@ -86,7 +88,7 @@ The release now records and routes the shared capability set that unlocks the la
 
 ## 10. External-effect ledger
 
-For this execution: provider calls 0; messages 0; purchases 0; DNS changes 0; credential/secret changes 0; direct production mutations 0; spend 0; one rejected `uberbondd-relay` preview-creation attempt created no project or deployment; the final authorized branch publish caused one observed automatic Lite preview (`dpl_JBLFTJDgBZs1fCmpXBPfn5icGsgn`, `READY`, target `null`). A concurrent main merge caused the separate Lite production deployment `dpl_6hWzgZqgpAVjrQvrjcTKtoLrrLFt`; this execution observed but did not initiate or promote it. The unrelated `uberbond-relay` production deployment was observed only and not changed.
+For this execution: provider calls 0; messages 0; purchases 0; DNS changes 0; credential/secret changes 0; direct production mutations 0; spend 0; one rejected `uberbondd-relay` preview-creation attempt created no project or deployment; authorized branch publications caused automatic Lite previews with target `null`. Concurrent main merges caused separate Lite production deployments, most recently `dpl_7J2MiepaDKXCFJSYDfdC9LiaDrsb`; this execution observed but did not initiate or promote them. The unrelated `uberbond-relay` production deployment was observed only and not changed.
 
 ## 11. Commercial truth
 
@@ -97,7 +99,7 @@ UberBond still has **$0 verified cleared revenue** in the available evidence. Th
 - Connector-reported Vercel team ownership was insufficient for the deployment action's trusted-destination gate; deployment must not be retried through a workaround.
 - A similarly named but unauthorized/unproven `uberbond-relay` project is present; treating it as the requested `uberbondd-relay` would be an unsafe scope error.
 - The Lite project's Git integration automatically previews authorized branch pushes. Future pushes can create preview deployments even when production is protected; this is now an explicit external-effect risk.
-- Current `main` advanced twice during execution; the branch was explicitly merged with final observed main `4dd08a1…` before the final test run so the registry is not based on a stale remembered SHA.
+- Current `main` advanced repeatedly during execution; the branch was explicitly merged with final observed main `4b385bb…`, including the last relay-client executable delta, and the complete 1,146-test suite passed afterward.
 - The prior remote branch carried one non-UTF-8/corrupt source blob even though its Lite preview was `READY`; deployment readiness did not prove full-repository integrity. The canonical source was restored and the complete remote text tree was audited for the same defect.
 - GitHub Actions is independently reported as infrastructure-blocked in the relay truth artifacts; no unattended worker proof was claimed.
 - The durable Postgres worker path remains production-shaped/local, not cloud-proven; the unattended GitHub Actions worker is written but has no current run proof.

@@ -1,0 +1,80 @@
+{
+  "receiptVersion": "uberbond-autonomous-relay-client-v1",
+  "observedAt": "2026-08-20T01:03:17Z",
+  "libraryFileId": "libfile_b45a51f187b48191b95ef2140e5c72db",
+  "repository": {
+    "name": "mohammedwessam2007/uberbondd",
+    "branch": "agent/hourly-wave-20260820-0308",
+    "pullRequest": 33,
+    "baseMainSha": "e62683d91de4cffe5eaef3bf79bb64bb618aa97a",
+    "litePathModified": false
+  },
+  "outcome": {
+    "chatgptProducerReviewer": "PASS_LOCAL",
+    "boundedResultPoller": "PASS_LOCAL",
+    "maxTokensSecretScannerDefect": "FIXED_LOCAL",
+    "liveAuthenticatedRelay": "OWNER_REQUIRED",
+    "claudeWorkerExecution": "NOT_RUN"
+  },
+  "changedArtifacts": [
+    "src/chatgpt-relay-client.mjs",
+    "src/cloud-agent-relay.mjs",
+    "tests/chatgpt-relay-client.test.mjs",
+    "docs/CHATGPT_RELAY_CLIENT.md",
+    "docs/OVERNIGHT_HANDOFF.md",
+    "package.json",
+    "docs/AUTONOMOUS_RELAY_CLIENT_RECEIPT_2026-08-20T0103Z.json"
+  ],
+  "tests": {
+    "focused": {
+      "command": "node --check src/chatgpt-relay-client.mjs && node --check src/cloud-agent-relay.mjs && node --test tests/chatgpt-relay-client.test.mjs tests/agent-relay.test.mjs tests/cloud-agent-relay.test.mjs tests/github-relay.test.mjs tests/vercel-agent-relay.test.mjs",
+      "tests": 62,
+      "passed": 62,
+      "failed": 0,
+      "skipped": 0
+    },
+    "full": {
+      "command": "npm run check",
+      "tests": 1108,
+      "passed": 1066,
+      "failed": 0,
+      "skipped": 42,
+      "cancelled": 0,
+      "todo": 0,
+      "durationMs": 38622.798724
+    }
+  },
+  "invariants": {
+    "httpsOnly": true,
+    "credentialReturnedOrLogged": false,
+    "taskConsequenceClass": "LOCAL_PREPARATION",
+    "taskIdentityBound": true,
+    "requestTimeoutBounded": true,
+    "pollCountBounded": true,
+    "workerResultValidated": true,
+    "parallelRegistryCreated": false,
+    "arbitraryExecutionBoundary": false
+  },
+  "commercialState": {
+    "verifiedRevenue": 0,
+    "payingCustomers": 0,
+    "clearedPayments": 0,
+    "acceptedDeliveries": 0
+  },
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  },
+  "limitations": [
+    "No relay bearer credential was read or changed.",
+    "No live authenticated relay request was made.",
+    "No Claude Code or Cowork result receipt was created.",
+    "Forty-two optional real-infrastructure tests remain skipped and are not claimed as passing."
+  ]
+}

@@ -84,7 +84,73 @@ real `SELECT ... FOR UPDATE SKIP LOCKED` proven against a real PostgreSQL
 server, remains the stronger transport and is the one to promote the moment a
 real UberBond host exists.
 
-### Why the status is LIVE_UNPROVEN and not VERIFIED_LIVE
+## UPDATE 2026-08-20: the unattended path has now actually run
+
+The section below (kept for the record) argued the status had to stay
+`LIVE_UNPROVEN` because the one live run was driven by an interactive session.
+**That is no longer true.** `scripts/github-relay-worker.mjs` has now handled a
+real task end to end with no MCP tools, no human, no GitHub Actions, and no
+Vercel — only Bash and the environment credential:
+
+| Step | Evidence |
+|---|---|
+| Task authored by a *different* agent | [issue #32](https://github.com/mohammedwessam2007/uberbondd/issues/32), "Verify Vercel relay ingress" |
+| Worker authenticated | `authenticated as mohammedwessam2007 (via env proxy)` |
+| Polled and claimed | `claimed #32 (chatgpt-vercel-relay-check-20260820)` |
+| Ran real bounded work | `npm run test:deterministic`, allowlisted, to completion |
+| Posted a receipt | result comment, `decision: PROCEED`, strictly-zero effect ledger |
+| Closed | `agent-relay:done`, state `closed` |
+
+The task was not written by the worker and not staged for it. That is the
+device-off path executing, not merely designed.
+
+`src/capability-graph.mjs` is updated to `VERIFIED_LIVE` — and that status had
+to be **added to the enum**, because until this moment nothing in UberBond had
+ever earned it. A regression test now guards it: anything claiming
+`VERIFIED_LIVE` must cite an externally-addressable artifact (an issue number,
+a receipt, a deployment), not just prose.
+
+### Two more defects that only running it could find
+
+**1. Node's `fetch` silently ignores `HTTPS_PROXY`.** `curl` and `git` honour
+proxy environment variables automatically; Node 22's global `fetch` does not
+unless `NODE_USE_ENV_PROXY=1`. In a proxied environment — where the proxy is
+what carries the usable credential — this meant *every* GitHub API call from
+the worker returned `401 Bad credentials`, while the identical `curl` returned
+`201`. Diagnosed by running both side by side:
+
+```
+curl  (via proxy)            -> 201
+curl  --noproxy '*'          -> 401
+node  fetch (default)        -> 401
+node  fetch NODE_USE_ENV_PROXY=1 -> 200
+```
+
+The env `GITHUB_TOKEN` is not itself a valid GitHub credential here; the proxy
+supplies the real one. The worker now re-execs once with the flag when a proxy
+is configured, and is unaffected on an ordinary host where no proxy exists.
+
+**2. The failure would have stranded a real task.** Claim happens *before* the
+work. A credential that fails on first write fails *after* the claim comment
+has already landed — leaving a genuine task locked under a lease held by a
+worker that is already dead, unclaimable by anyone else until the lease
+expires. The worker now runs a `GET /user` credential preflight and refuses to
+claim anything if it fails. One extra request removes an entire class of
+outage.
+
+Neither defect is exotic. Both were invisible to a green test suite, and both
+would have made the "device-off" claim false in practice while every unit test
+still passed.
+
+### What is still not proven
+
+The hourly Claude Routine (`trig_01DJCzu8hnmUPF6iVnQTbQ9b`) that fires this
+worker on a schedule **has not yet fired on its own**. The worker it invokes is
+proven; the scheduler invoking it is not, until its first real firing.
+`.github/workflows/agent-relay-worker.yml` likewise remains unexecuted while
+GitHub Actions is blocked.
+
+### Why the status was LIVE_UNPROVEN and not VERIFIED_LIVE (superseded by the update above)
 
 The one live run was driven by an interactive Claude Code session acting as the
 worker. The **unattended** path -- `.github/workflows/agent-relay-worker.yml`

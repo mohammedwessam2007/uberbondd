@@ -57,6 +57,24 @@ test('the stranded-but-real Canon/V3 lineage is still honestly marked MISSING he
   assert.match(canon.productionReadiness, /PR #7/);
 });
 
+test('VERIFIED_LIVE is reserved for capabilities with a real external receipt, and is not handed out cheaply', () => {
+  // VERIFIED_LIVE outranks TEST_VERIFIED: it asserts a real task crossed the
+  // real system on real infrastructure, not that a suite went green. Guard it
+  // so a future edit cannot quietly promote something that only has tests.
+  const live = listCapabilities({ status: 'VERIFIED_LIVE' });
+  assert.ok(live.length > 0, 'expected at least one genuinely live-proven capability');
+  for (const entry of live) {
+    assert.ok(entry.testRefs.length > 0, `${entry.id} claims VERIFIED_LIVE with no test references`);
+    // A live claim has to point at concrete evidence someone else can go look
+    // at -- an issue number, a deployment, a receipt -- not just prose.
+    assert.match(
+      entry.productionReadiness,
+      /issue #\d+|#\d+|receipt|deployment/i,
+      `${entry.id} claims VERIFIED_LIVE without citing an externally-addressable artifact`
+    );
+  }
+});
+
 test('postgres-store reflects this wave\'s real live-proof result, not the old disclosed gap', () => {
   const entry = getCapability('postgres-store');
   assert.equal(entry.status, 'TEST_VERIFIED');

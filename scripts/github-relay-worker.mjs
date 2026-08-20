@@ -53,6 +53,22 @@ function fail(message) {
   process.exit(1);
 }
 
+// Node's global fetch ignores HTTPS_PROXY unless NODE_USE_ENV_PROXY=1, which
+// curl and git honour automatically. In a sandboxed/proxied environment that
+// difference is invisible until every API call returns 401 -- the proxy is
+// what carries the usable credential, and a direct request never reaches it.
+// Re-exec once with the flag set rather than silently failing. On an ordinary
+// host with no proxy configured this branch never runs.
+const envProxy = process.env.HTTPS_PROXY || process.env.https_proxy || '';
+if (envProxy && process.env.NODE_USE_ENV_PROXY !== '1' && !process.env.UBERBOND_RELAY_REEXEC) {
+  const { spawnSync } = await import('node:child_process');
+  const run = spawnSync(process.execPath, [fileURLToPath(import.meta.url)], {
+    stdio: 'inherit',
+    env: { ...process.env, NODE_USE_ENV_PROXY: '1', UBERBOND_RELAY_REEXEC: '1' }
+  });
+  process.exit(run.status ?? 1);
+}
+
 if (!token) fail('GITHUB_TOKEN is required.');
 if (!/^[^/]+\/[^/]+$/.test(repository)) fail('GITHUB_REPOSITORY must be "owner/repo".');
 const [owner, repo] = repository.split('/');
@@ -137,7 +153,32 @@ function summarize(output, limit = 4000) {
   return tail.slice(-limit);
 }
 
+/**
+ * Proves the credential actually works BEFORE any task is claimed.
+ *
+ * Without this, a bad or unroutable credential fails at the first write --
+ * which, given claim happens before the work, can be *after* the claim
+ * comment lands. That would leave a real task locked under a lease held by a
+ * worker that has already died, blocking it until the lease expires. Failing
+ * fast here costs one request and removes that whole class of outage.
+ */
+async function preflight() {
+  try {
+    const me = await gh('/user');
+    console.log(`[github-relay-worker] authenticated as ${me?.login || 'unknown'}${envProxy ? ' (via env proxy)' : ''}`);
+  } catch (error) {
+    fail([
+      `credential preflight failed, refusing to claim anything: ${error.message}`,
+      envProxy
+        ? 'An HTTPS proxy is configured; this run already retried with NODE_USE_ENV_PROXY=1.'
+        : 'No HTTPS proxy is configured. If this host requires one, set HTTPS_PROXY.',
+      'GITHUB_TOKEN must be a credential with issues:write on the target repository.'
+    ].join(' '));
+  }
+}
+
 async function main() {
+  await preflight();
   const polled = await pollGithubRelayTasks({ client, owner, repo, targetAgent, limit: 20 });
   if (!polled.ok) fail(`poll failed: ${polled.reasonCodes?.join(', ')}`);
   const open = polled.tasks.filter(task => !task.claimed);

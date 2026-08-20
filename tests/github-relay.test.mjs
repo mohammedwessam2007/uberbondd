@@ -397,13 +397,36 @@ test('the shared secret scanner does not false-positive on the relay contract\'s
   assert.equal(hasSecret({ externalEffects: zero }), false);
   assert.equal(hasSecret({ externalEffectLedger: zero }), false);
 
-  // ...and the exemptions stay narrow. A credential hidden under either key,
-  // or an unrecognised effect smuggled into the ledger, is still caught.
+  // A third instance turned up in the autonomy worker: `coordination.tokenBudget`.
+  // Three separate names for the same idea -- a compute counter this codebase
+  // insists on calling tokens -- each rejecting a legitimate payload. Naming
+  // exceptions one at a time was treating the symptom, so the rule now keys off
+  // TYPE, not name: an authentication token is a string, a counter is a number.
+  assert.equal(hasSecret({ coordination: { tokenBudget: 1000 } }), false);
+  assert.equal(hasSecret({ budget: { maxTokens: 200000 } }), false);
+  assert.equal(hasSecret({ someFutureTokenCount: 0 }), false);
+
+  // The consequence of a type-based rule, stated openly rather than buried:
+  // `accessToken: 1` is now allowed through, where the old name-based rule
+  // caught it. That is the intended trade. The integer 1 is not a usable
+  // credential, so rejecting it bought no safety while the strict reading cost
+  // three real false positives. What the scanner exists to stop -- a
+  // high-entropy string leaking into a public issue -- is unaffected.
+  assert.equal(hasSecret({ accessToken: 1 }), false);
+
+  // ...and the exemption stays narrow in the ways that matter. A credential is
+  // a string, so a string under a token-shaped key is still caught. Only
+  // /token/i is exempted: names with no counter meaning stay blocked whatever
+  // their value. Negative counts are not counts. Unrecognised ledger effects
+  // are still refused.
   assert.equal(hasSecret({ cost: { tokens: 'Bearer abcdefghijkl' } }), true);
+  assert.equal(hasSecret({ coordination: { tokenBudget: 'ghp_abcdefghijklmno' } }), true);
   assert.equal(hasSecret({ cost: { tokens: -5 } }), true);
-  assert.equal(hasSecret({ externalEffects: { ...zero, sneakyEffect: 0 } }), true);
-  assert.equal(hasSecret({ accessToken: 1 }), true);
+  assert.equal(hasSecret({ cost: { tokens: 1.5 } }), true);
+  assert.equal(hasSecret({ password: 1 }), true);
   assert.equal(hasSecret({ apiKey: 1 }), true);
+  assert.equal(hasSecret({ clientSecret: 0 }), true);
+  assert.equal(hasSecret({ externalEffects: { ...zero, sneakyEffect: 0 } }), true);
 });
 
 test('githubRelayTaskEnvelope derives mutable state from GitHub without duplicating storage', async () => {

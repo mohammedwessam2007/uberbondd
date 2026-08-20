@@ -46,7 +46,8 @@ export function createComputeBudget({
   allowedProviders = [],
   allowPaidCompute = false,
   reserveFloorCents = 0,
-  date = new Date()
+  date = new Date(),
+  budgetNonce = crypto.randomUUID()
 } = {}) {
   const maxCostCents = int(totalCostCents, 0, MAX_CENTS);
   const maxTokens = int(totalTokens, 0, MAX_TOKENS);
@@ -60,12 +61,17 @@ export function createComputeBudget({
   if (!allowPaidCompute && (maxCostCents ?? 0) > 0) reasons.push('paid-compute-explicit-authorization-required');
   if (reasons.length) return fail(reasons);
 
+  const createdAt = timestamp(date);
+  const nonce = text(budgetNonce, 120);
+  if (!nonce) return fail(['budget-nonce-required']);
   const identity = {
     maxCostCents,
     maxTokens,
     providers,
     allowPaidCompute: Boolean(allowPaidCompute),
-    reserveFloorCents: floor
+    reserveFloorCents: floor,
+    createdAt,
+    nonce
   };
 
   return {
@@ -73,7 +79,8 @@ export function createComputeBudget({
     policyVersion: AI_COMPUTE_BUDGET_POLICY_VERSION,
     budgetId: `compute_${hash(identity).slice(0, 24)}`,
     status: 'ACTIVE',
-    createdAt: timestamp(date),
+    createdAt,
+    budgetNonce: nonce,
     maxCostCents,
     maxTokens,
     reserveFloorCents: floor,
@@ -97,8 +104,78 @@ function cloneBudget(budget) {
   };
 }
 
+export function validateComputeBudget(budget) {
+  const reasons = [];
+  if (!budget || typeof budget !== 'object' || Array.isArray(budget)) return fail(['compute-budget-object-required']);
+  if (budget.ok !== true || budget.policyVersion !== AI_COMPUTE_BUDGET_POLICY_VERSION) reasons.push('compute-budget-policy-mismatch');
+  const maxCostCents = int(budget.maxCostCents, 0, MAX_CENTS);
+  const maxTokens = int(budget.maxTokens, 0, MAX_TOKENS);
+  const floor = int(budget.reserveFloorCents, 0, MAX_CENTS);
+  const reservedCost = int(budget.reservedCostCents, 0, MAX_CENTS);
+  const committedCost = int(budget.committedCostCents, 0, MAX_CENTS);
+  const reservedTokens = int(budget.reservedTokens, 0, MAX_TOKENS);
+  const committedTokens = int(budget.committedTokens, 0, MAX_TOKENS);
+  if ([maxCostCents, maxTokens, floor, reservedCost, committedCost, reservedTokens, committedTokens].some(value => value == null)) reasons.push('compute-budget-counter-invalid');
+  if (floor != null && maxCostCents != null && floor > maxCostCents) reasons.push('reserve-floor-exceeds-budget');
+  if (budget.businessEffectAuthority !== 'NONE') reasons.push('business-effect-authority-must-remain-none');
+  if (typeof budget.allowPaidCompute !== 'boolean') reasons.push('paid-compute-authorization-flag-required');
+  const providers = uniqueStrings(budget.allowedProviders);
+  if (!Array.isArray(budget.allowedProviders) || providers.length !== budget.allowedProviders.length) reasons.push('provider-allowlist-invalid');
+  if (budget.allowPaidCompute && !providers.length) reasons.push('paid-compute-provider-allowlist-required');
+  if (!budget.allowPaidCompute && (maxCostCents ?? 0) > 0) reasons.push('paid-compute-explicit-authorization-required');
+  const createdAt = timestamp(budget.createdAt);
+  const nonce = text(budget.budgetNonce, 120);
+  if (!nonce) reasons.push('budget-nonce-required');
+  const expectedId = `compute_${hash({ maxCostCents, maxTokens, providers, allowPaidCompute: Boolean(budget.allowPaidCompute), reserveFloorCents: floor, createdAt, nonce }).slice(0, 24)}`;
+  if (budget.budgetId !== expectedId) reasons.push('compute-budget-identity-mismatch');
+  if (!budget.reservations || typeof budget.reservations !== 'object' || Array.isArray(budget.reservations)) reasons.push('compute-reservations-object-required');
+
+  let sumReservedCost = 0;
+  let sumCommittedCost = 0;
+  let sumReservedTokens = 0;
+  let sumCommittedTokens = 0;
+  const entries = budget.reservations && typeof budget.reservations === 'object' && !Array.isArray(budget.reservations)
+    ? Object.entries(budget.reservations)
+    : [];
+  if (entries.length > MAX_RESERVATIONS) reasons.push('reservation-count-limit-reached');
+  for (const [key, reservation] of entries) {
+    if (!reservation || typeof reservation !== 'object' || reservation.taskId !== key) {
+      reasons.push('compute-reservation-identity-invalid');
+      continue;
+    }
+    const costCeiling = int(reservation.costCeilingCents, 0, MAX_CENTS);
+    const tokenCeiling = int(reservation.tokenCeiling, 0, MAX_TOKENS);
+    if (costCeiling == null || tokenCeiling == null) {
+      reasons.push('compute-reservation-ceiling-invalid');
+      continue;
+    }
+    if (!['RESERVED', 'COMMITTED', 'RELEASED'].includes(reservation.status)) reasons.push('compute-reservation-status-invalid');
+    if (reservation.status === 'RESERVED') {
+      sumReservedCost += costCeiling;
+      sumReservedTokens += tokenCeiling;
+    }
+    if (reservation.status === 'COMMITTED') {
+      const actualCost = int(reservation.actualCostCents, 0, costCeiling);
+      const actualTokens = int(reservation.actualTokens, 0, tokenCeiling);
+      if (actualCost == null || actualTokens == null) reasons.push('compute-reservation-actual-usage-invalid');
+      else {
+        sumCommittedCost += actualCost;
+        sumCommittedTokens += actualTokens;
+      }
+    }
+  }
+  if (reservedCost != null && reservedCost !== sumReservedCost) reasons.push('reserved-cost-counter-mismatch');
+  if (reservedTokens != null && reservedTokens !== sumReservedTokens) reasons.push('reserved-token-counter-mismatch');
+  if (committedCost != null && committedCost !== sumCommittedCost) reasons.push('committed-cost-counter-mismatch');
+  if (committedTokens != null && committedTokens !== sumCommittedTokens) reasons.push('committed-token-counter-mismatch');
+  if (maxCostCents != null && floor != null && reservedCost != null && committedCost != null && reservedCost + committedCost + floor > maxCostCents) reasons.push('compute-cost-budget-exceeded');
+  if (maxTokens != null && reservedTokens != null && committedTokens != null && reservedTokens + committedTokens > maxTokens) reasons.push('compute-token-budget-exceeded');
+  if (reasons.length) return fail(reasons, 'INVALID');
+  return { ok: true, policyVersion: AI_COMPUTE_BUDGET_POLICY_VERSION, status: 'VALID', budgetId: budget.budgetId };
+}
+
 function validateBudget(budget) {
-  return Boolean(budget?.ok && budget.policyVersion === AI_COMPUTE_BUDGET_POLICY_VERSION && budget.budgetId);
+  return validateComputeBudget(budget).ok;
 }
 
 export function reserveCompute({

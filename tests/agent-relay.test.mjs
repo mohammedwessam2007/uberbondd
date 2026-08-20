@@ -1,3 +1,16 @@
+import './autonomy-architecture.test.mjs';
+import './autonomy-hardening.test.mjs';
+import './autonomy-durable-pump.test.mjs';
+import './autonomy-job.test.mjs';
+import './agent-worker-runtime.test.mjs';
+import './agent-worker-persistence.test.mjs';
+import './agent-compute-store.test.mjs';
+import './provider-worker.test.mjs';
+import './provider-execution.test.mjs';
+import './openai-agent-executor.test.mjs';
+import './anthropic-agent-executor.test.mjs';
+import './agent-mesh-control-plane.test.mjs';
+
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';

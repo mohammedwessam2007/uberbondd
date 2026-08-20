@@ -19,10 +19,16 @@ function fail(reasonCodes) {
 }
 
 function normalizeCapability(name, input = {}) {
+  const evidenceRefs = Array.isArray(input.evidenceRefs)
+    ? [...new Set(input.evidenceRefs.map(value => String(value || '').trim()).filter(Boolean))].slice(0, 50)
+    : [];
+  const typedEvidenceRefs = evidenceRefs.filter(value => /^(receipt|issue|github|deployment|test|audit|payment|delivery|doc):/i.test(value));
   return {
     name,
     status: String(input.status || 'UNKNOWN').toUpperCase(),
-    evidenceRefs: Array.isArray(input.evidenceRefs) ? [...new Set(input.evidenceRefs.map(String).filter(Boolean))].slice(0, 50) : [],
+    evidenceRefs,
+    typedEvidenceRefs,
+    evidenceValid: evidenceRefs.length > 0 && evidenceRefs.length === typedEvidenceRefs.length,
     externallyVerified: input.externallyVerified === true,
     notes: String(input.notes || '').slice(0, 500)
   };
@@ -34,7 +40,7 @@ export function evaluateFounderAbsenceReadiness({ capabilities = {}, targetDays 
   const normalized = REQUIRED.map(name => normalizeCapability(name, capabilities[name]));
   const criticalMissing = normalized.filter(item => !['VERIFIED_LIVE', 'TEST_VERIFIED'].includes(item.status));
   const liveMissing = normalized.filter(item => item.status !== 'VERIFIED_LIVE');
-  const receiptMissing = normalized.filter(item => !item.evidenceRefs.length);
+  const receiptMissing = normalized.filter(item => !item.evidenceValid);
   const externalProofMissing = normalized.filter(item => ['scheduler', 'agentRelay', 'agentWorkers', 'paymentObservation', 'deliveryObservation'].includes(item.name) && !item.externallyVerified);
 
   const architectureScore = Math.round(((REQUIRED.length - criticalMissing.length) / REQUIRED.length) * 100);
@@ -43,7 +49,7 @@ export function evaluateFounderAbsenceReadiness({ capabilities = {}, targetDays 
   const overall = Math.round(architectureScore * 0.45 + liveScore * 0.35 + evidenceScore * 0.20);
 
   let status = 'NOT_READY';
-  if (overall >= 90 && !externalProofMissing.length) status = 'KILIMANJARO_READY';
+  if (overall >= 90 && !liveMissing.length && !receiptMissing.length && !externalProofMissing.length) status = 'KILIMANJARO_READY';
   else if (overall >= 75) status = 'MULTI_DAY_REHEARSAL_READY';
   else if (overall >= 55) status = 'OVERNIGHT_REHEARSAL_READY';
 

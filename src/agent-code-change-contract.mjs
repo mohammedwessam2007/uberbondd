@@ -1,11 +1,14 @@
 import crypto from 'node:crypto';
 import path from 'node:path';
 
-export const AGENT_CODE_CHANGE_POLICY_VERSION = 'agent-code-change-1.0.0';
+export const AGENT_CODE_CHANGE_POLICY_VERSION = 'agent-code-change-1.1.0';
 
 const MAX_CHANGES = 20;
-const MAX_FILE_BYTES = 120_000;
-const MAX_TOTAL_BYTES = 600_000;
+// Keep an entire change-set comfortably below the cloud relay's 250KB result
+// ceiling so verified engineering artifacts can travel through the canonical
+// result path without a second unbounded blob channel.
+const MAX_FILE_BYTES = 80_000;
+const MAX_TOTAL_BYTES = 180_000;
 const MAX_TEXT = 4_000;
 const OPS = new Set(['CREATE', 'UPDATE', 'DELETE']);
 
@@ -62,7 +65,7 @@ function protectedPath(filePath) {
   const lower = filePath.toLowerCase();
   return PROTECTED_PREFIXES.some(prefix => {
     const p = prefix.toLowerCase();
-    if (p === '.env') return lower === '.env' || lower.startsWith('.env.');
+    if (p === '.env') return lower === '.env' || lower.startsWith('.env.') || lower.startsWith('.env/');
     return lower === p || lower.startsWith(`${p}/`);
   });
 }
@@ -194,7 +197,8 @@ export function compileAgentCodeChangeSet({
     verification: tests,
     totals: {
       files: normalizedChanges.length,
-      contentBytes: totalBytes
+      contentBytes: totalBytes,
+      relaySafeEnvelopeBytes: MAX_TOTAL_BYTES
     }
   };
 }

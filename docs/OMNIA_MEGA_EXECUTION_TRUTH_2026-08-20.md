@@ -11,6 +11,7 @@ Observed 2026-08-20 (Africa/Cairo). This is an evidence receipt, not a claim of 
 - The existing scoring kernel now drives a deterministic tournament across all 438 canonical records; it returns a bounded top slice and writes only a compact `auditLog` receipt.
 - The MarketSignal-to-BusinessGenome bridge is now reachable through `prometheus.genome.extract`; it writes one compact lineage receipt containing signal IDs and populated-field names only, with no raw payloads or external effects.
 - A bounded `prometheus.commercial.reconcile` path now composes MarketSignal ingestion, BusinessGenome extraction, and the 438-row tournament in order, with explicit dry-run/persist modes and four compact auditLog receipts when persistence is requested.
+- A `prometheus.commercial.first_payment_packet` path now composes the canonical seven-day experiment with legal-attestation, provider-access, payment-truth, and outcome-lineage gates; it is explicitly no-contact/no-checkout and cannot claim revenue.
 - Focused relay, catalog/registry, and tournament tests were added to the existing deterministic test suite.
 
 ## 2. Opportunity ingestion
@@ -31,7 +32,7 @@ The explicit thread taxonomy contains 435 rows across 64 normalized categories, 
 
 ## 4. Shared capability implementation
 
-The release now records and routes the shared capability set that unlocks the largest number of opportunities: market-signal/evidence kernel; receipt-backed BusinessGenome extraction and signal→genome→tournament reconciliation; mechanism atomization; canonical opportunity registry; opportunity scoring/tournament; bounded commercial-experiment engine; distribution/partner graph; revenue/payment/outcome graph; commercial memory and failure memory; governed self-upgrade proposals; GitHub-mediated relay transport; Vercel ingress boundary; the tested partial adapter; V9 consequence boundary; and durable-queue interface. Existing UberBond models are reused; no hundreds-of-businesses implementation was created.
+The release now records and routes the shared capability set that unlocks the largest number of opportunities: market-signal/evidence kernel; receipt-backed BusinessGenome extraction and signal→genome→tournament reconciliation; mechanism atomization; canonical opportunity registry; opportunity scoring/tournament; bounded commercial-experiment and first-payment gate packet; distribution/partner graph; revenue/payment/outcome graph; commercial memory and failure memory; governed self-upgrade proposals; GitHub-mediated relay transport; Vercel ingress boundary; the tested partial adapter; V9 consequence boundary; and durable-queue interface. Existing UberBond models are reused; no hundreds-of-businesses implementation was created.
 
 ## 5. Cloud and Vercel status
 
@@ -51,10 +52,10 @@ The release now records and routes the shared capability set that unlocks the la
 
 ## 7. Tests actually run
 
-- The direct no-network equivalent of `npm run check` (135 syntax checks followed by the deterministic test command) passed: **1,116 total; 1,074 passing; 0 failing; 42 intentionally skipped**. The package-script invocation itself was blocked by the shell's network-approval guard, so no green result is attributed to that wrapper.
-- Direct syntax checks: **135 files passed**, including the tournament, genome-extraction, and reconciliation modules.
+- The direct no-network equivalent of `npm run check` (136 syntax checks followed by the deterministic test command) passed: **1,121 total; 1,079 passing; 0 failing; 42 intentionally skipped**. The package-script invocation itself was blocked by the shell's network-approval guard, so no green result is attributed to that wrapper.
+- Direct syntax checks: **136 files passed**, including the tournament, genome-extraction, reconciliation, and first-payment packet modules.
 - Focused root/partial Vercel-relay syntax and tests (`node --check api/agent-relay.mjs`, `node --check src/github-relay.mjs`, `node --check src/cloud-agent-relay.mjs`, and both relay test files): **9 passing**.
-- Focused opportunity tournament tests: **6 passing**; focused genome extraction and handler tests: **10 passing**; focused reconciliation tests: **5 passing**.
+- Focused opportunity tournament tests: **6 passing**; focused genome extraction and handler tests: **10 passing**; focused reconciliation tests: **5 passing**; focused first-payment packet tests: **5 passing**.
 - All eight product archive ZIPs and the three supplemental ZIPs were checksum/integrity tested before implementation; the eight-part master reports 599 manifest entries, 0 missing, 0 repeated, and 0 ZIP CRC failures.
 
 ## 8. Hourly execution automation
@@ -69,6 +70,7 @@ The release now records and routes the shared capability set that unlocks the la
 | Claim | Truth classification | Receipt |
 |---|---|---|
 | Opportunity ingestion | `IMPLEMENTED_LOCAL` | 438-record canonical projection and deterministic validation |
+| First-payment experiment packet | `IMPLEMENTED_LOCAL` | Seven-day owner-review packet with legal/provider/payment/outcome gates; no-contact/no-checkout |
 | Buyer demand | `BUYER_SIGNAL` only for the three existing core records | Public buyer-request sources in the catalog; not cleared-payment proof |
 | Pricing, margin, timing, burden, competition | `HYPOTHESIS`/`ESTIMATE`/`INFERENCE` unless explicitly sourced | Field-level claim types |
 | GitHub relay transport | `LIVE_UNPROVEN` | One historical interactive issue proof is documented on current main; unattended Actions worker remains blocked |
@@ -103,7 +105,7 @@ UberBond still has **$0 verified cleared revenue** in the available evidence. Th
 
 1. Obtain trusted Vercel destination verification, then deploy only the tested `relay/` adapter to a new `uberbondd-relay` project and verify its health route.
 2. Run one owner-reviewable dry-run with a non-synthetic, approved-source MarketSignal and verify the full reconciliation receipt chain without contact or spend.
-3. Reconcile first-payment/legal/provider gates into the revenue/outcome graph and produce one owner-reviewable, no-contact seven-day experiment packet.
+3. Obtain owner legal/accounting/provider clearance for one first-payment packet; keep contact, checkout, and spend disabled until explicit approval and external proof exist.
 
 ## 14. Maximum founder actions
 

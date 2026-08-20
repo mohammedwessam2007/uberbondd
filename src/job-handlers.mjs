@@ -21,6 +21,10 @@ import {
 } from './genome-extraction.mjs';
 import { reconcileCommercialEvidence } from './commercial-reconciliation.mjs';
 import {
+  compileCommercialFirstPaymentPacket,
+  logCommercialFirstPaymentPacket
+} from './commercial-first-payment-packet.mjs';
+import {
   compileCommercialExperiment,
   logCommercialExperiment
 } from './commercial-experiment.mjs';
@@ -193,6 +197,15 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
     'prometheus.commercial.reconcile': async payload => {
       const input = payload && typeof payload === 'object' ? payload : {};
       return reconcileCommercialEvidence({ ...input, store });
+    },
+    // Produces one seven-day, owner-reviewable first-payment packet. It only
+    // composes existing payment/outcome/provider gates; contact, checkout,
+    // provider calls, and spend remain disabled.
+    'prometheus.commercial.first_payment_packet': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = compileCommercialFirstPaymentPacket(input);
+      if (result.ok) await logCommercialFirstPaymentPacket(store, result);
+      return result;
     },
     // Local-only composition task. It requires a caller-supplied signal,
     // candidate, and canonical prospect; it has no provider boundary.

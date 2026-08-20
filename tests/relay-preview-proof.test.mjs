@@ -4,6 +4,10 @@ import {
   verifyRelayPreviewEndpoints,
   compileRelayPreviewReceipt
 } from '../src/relay-preview-proof.mjs';
+import {
+  EXPECTED_RELAY_BUNDLE_BLOBS,
+  EXPECTED_RELAY_BUNDLE_DIGEST
+} from '../src/relay-deployment-eligibility.mjs';
 
 const baseUrl = 'https://uberbondd-relay-preview.vercel.app';
 const health = {
@@ -38,7 +42,8 @@ const bundle = {
   matchedBlobCount: 7,
   expectedBlobCount: 7,
   failedTests: 0,
-  digest: 'sha256:test'
+  digest: EXPECTED_RELAY_BUNDLE_DIGEST,
+  blobs: EXPECTED_RELAY_BUNDLE_BLOBS.map(item => ({ ...item }))
 };
 
 test('verifies exactly two fail-closed endpoints', async () => {

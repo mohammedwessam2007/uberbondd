@@ -1,20 +1,10 @@
 import { createHash } from 'node:crypto';
+import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 
 export const RELAY_SHADOW_BINDING_POLICY_VERSION = 'relay-shadow-binding-1.0.0';
 export const RELAY_PROJECT_ID = 'prj_QTPTlb6JpYN8IyBTgyVrlWgq4ePT';
 export const RELAY_TEAM_ID = 'team_A9LnjIuS5PU0rNetsHMu1N0r';
 export const RELAY_JOB_TYPE = 'prometheus.agent.relay';
-
-const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 const READ_OPERATIONS = Object.freeze(['relayHealthSummary', 'listCloudRelayTasks']);
 const FORBIDDEN_OPERATIONS = Object.freeze([

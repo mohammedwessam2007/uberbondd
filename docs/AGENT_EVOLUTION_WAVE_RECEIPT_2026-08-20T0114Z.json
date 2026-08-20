@@ -5,8 +5,9 @@
   "repository": {
     "name": "mohammedwessam2007/uberbondd",
     "branch": "agent/hourly-wave-20260820-0308",
-    "pullRequest": 34,
-    "baseMainSha": "4dd08a1259a6ce06334b600c3892c288840f13d8",
+    "pullRequest": 36,
+    "observedMainSha": "4dd08a1259a6ce06334b600c3892c288840f13d8",
+    "baseMainSha": "4b385bb484e8947c70f663e1ec0dd9f4b5d634b3",
     "publishedBranchHeadSha": "83b202360031f518dbfc999c39c9fb9202bce097",
     "litePathModified": false
   },
@@ -101,13 +102,17 @@
     "spendCents": 0
   },
   "controlPlaneWrites": {
-    "repositoryPublication": "COMPLETE_DRAFT_PR_34",
+    "repositoryPublication": "COMPLETE_DRAFT_PR_36",
     "libraryReceiptPublication": "COMPLETE"
   },
   "benchmarkLimitations": [
     "No competitor benchmark was run in this engineering wave.",
     "This is not a worldwide census and no percentile is asserted.",
     "Local test volume is not commercial superiority evidence."
+  ],
+  "lineageNotes": [
+    "PR 34 was merged by another actor at 2026-08-20T01:14:15Z before this wave was published.",
+    "This wave was therefore isolated in Draft PR 36 against main merge commit 4b385bb484e8947c70f663e1ec0dd9f4b5d634b3."
   ],
   "nextTasks": [
     "Add a claim-side Claude worker wrapper that consumes only canonical LOCAL_PREPARATION tasks and emits the existing result schema.",

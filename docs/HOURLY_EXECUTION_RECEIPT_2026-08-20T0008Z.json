@@ -1,0 +1,122 @@
+{
+  "receiptVersion": "uberbond-hourly-execution-v1",
+  "observedAt": "2026-08-20T00:08:33Z",
+  "sourceState": {
+    "repository": "mohammedwessam2007/uberbondd",
+    "mainSha": "e62683d91de4cffe5eaef3bf79bb64bb618aa97a",
+    "branch": "agent/hourly-wave-20260820-0308",
+    "pullRequest": 33,
+    "litePathModified": false
+  },
+  "tasks": [
+    {
+      "ordinal": 1,
+      "id": "relay-parsed-body-cap",
+      "outcome": "The 250000-byte cap is enforced for parsed, string, and streamed request bodies before GitHub access.",
+      "truth": "PASS_LOCAL"
+    },
+    {
+      "ordinal": 2,
+      "id": "relay-upstream-timeout",
+      "outcome": "GitHub calls abort after a bounded timeout and return 504 without exposing secrets.",
+      "truth": "PASS_LOCAL"
+    },
+    {
+      "ordinal": 3,
+      "id": "canonical-evidence-handoff",
+      "outcome": "Current repository, Library, Vercel, tests, and commercial truth are bound in a machine-readable receipt.",
+      "truth": "PASS_LOCAL"
+    }
+  ],
+  "changedArtifacts": [
+    "api/agent-relay.mjs",
+    "tests/vercel-agent-relay.test.mjs",
+    "docs/VERCEL_GITHUB_RELAY.md",
+    "docs/OVERNIGHT_HANDOFF.md",
+    "docs/HOURLY_EXECUTION_RECEIPT_2026-08-20T0008Z.json"
+  ],
+  "tests": {
+    "focused": {
+      "command": "node --check api/agent-relay.mjs; node --check src/github-relay.mjs; node --check src/cloud-agent-relay.mjs; node --test tests/vercel-agent-relay.test.mjs tests/github-relay.test.mjs tests/cloud-agent-relay.test.mjs",
+      "tests": 37,
+      "passed": 37,
+      "failed": 0,
+      "skipped": 0
+    },
+    "deterministic": {
+      "command": "npm run test:deterministic (executed directly from the package script after clean npm ci)",
+      "tests": 1092,
+      "passed": 1050,
+      "failed": 0,
+      "skipped": 42,
+      "cancelled": 0,
+      "todo": 0,
+      "durationMs": 38194.666485
+    },
+    "environmentRepair": {
+      "initialAttempt": "FAILED_ENVIRONMENT",
+      "reason": "Borrowed node_modules was missing pg and Cedar dependencies.",
+      "repair": "npm ci --ignore-scripts --cache /tmp/uberbond-hourly-npm-cache",
+      "repairResult": "PASS"
+    }
+  },
+  "libraryEvidence": {
+    "executionReceiptFileId": "libfile_517bcc0ccbdc8191b77f40d286df588a",
+    "canonicalDigestFileId": "libfile_0e3a63761ed88191b9a909a8abe4333b",
+    "splitIndexFileId": "libfile_21b88479c8608191bf86cf99c8431572",
+    "splitManifestFileId": "libfile_69493f5b45c881919ac24969942be9b8",
+    "latestCanonicalArchiveFileId": "libfile_8c120c241e448191b28ce2824fdb9524",
+    "latestCanonicalArchiveBytes": 9951872,
+    "splitMasterSha256": "e5d1549e0c0d9cf50ba5639536c806710887ebd3852f44457aeb6e051f4b27b4",
+    "manifestIntegrity": {
+      "entries": 599,
+      "missing": 0,
+      "duplicates": 0,
+      "crcFailures": 0
+    }
+  },
+  "vercelEvidence": {
+    "trustedTeamId": "team_A9LnjIuS5PU0rNetsHMu1N0r",
+    "relayProjectId": "prj_AVI66CObUfN0Tdq0tUmgxIbUZpsa",
+    "relayDeploymentId": "dpl_9ox6CB71AdLeSHVaEfv8oq1ukBZ9",
+    "relayDeploymentState": "READY",
+    "relayHealthHttpStatus": 503,
+    "relayRuntimeTruth": "DEPLOYED_FAIL_CLOSED_NOT_CONFIGURED",
+    "liteProjectId": "prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz",
+    "liteHealthHttpStatus": 200,
+    "liteDatabaseConfigured": true,
+    "liteDatabaseReachable": true
+  },
+  "workerEvidence": {
+    "githubIssue": 32,
+    "taskId": "chatgpt-vercel-relay-check-20260820",
+    "issueState": "OPEN",
+    "comments": 0,
+    "claimed": false,
+    "truth": "NOT_RUN"
+  },
+  "commercialState": {
+    "verifiedRevenue": 0,
+    "payingCustomers": 0,
+    "clearedPayments": 0,
+    "acceptedDeliveries": 0
+  },
+  "externalEffectLedger": {
+    "messages": 0,
+    "sends": 0,
+    "spend": 0,
+    "providerActions": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "paymentChanges": 0,
+    "kycOrIdentityChanges": 0,
+    "deployments": 0,
+    "productionMutations": 0
+  },
+  "limitations": [
+    "Relay credentials were neither read nor changed; the production endpoint remains fail-closed.",
+    "No Claude Code or Cowork receipt exists for issue 32.",
+    "Skipped deterministic tests require optional real infrastructure and are not claimed as passing.",
+    "No revenue, customer, payment, or accepted-delivery evidence was created."
+  ]
+}

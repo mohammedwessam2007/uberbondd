@@ -29,7 +29,8 @@ test('reports configuration without exposing secrets', async () => {
     owner: 'mohammedwessam2007',
     repo: 'uberbondd',
     repositoryConfigured: true,
-    githubConfigured: true
+    githubConfigured: true,
+    githubTimeoutMs: 10_000
   });
   const res = responseCapture();
   await createHandler({ env })(req(), res);
@@ -92,4 +93,45 @@ test('rejects non-zero external effects in submitted results via canonical valid
   }), res);
   assert.equal(res.statusCode, 200);
   assert.match(res.body, /nonzero-external-effect-ledger-rejected/);
+});
+
+test('rejects an oversized already-parsed Vercel body before any GitHub write', async () => {
+  let called = false;
+  const res = responseCapture();
+  const client = { async createIssue() { called = true; return {}; } };
+  await createHandler({ env, client })(req({
+    method: 'POST',
+    body: { operation: 'create', input: { objective: 'x'.repeat(250_000) } }
+  }), res);
+  assert.equal(res.statusCode, 413);
+  assert.equal(called, false);
+  assert.doesNotMatch(res.body, /x{20}/);
+});
+
+test('rejects malformed string JSON as a client error without touching GitHub', async () => {
+  let called = false;
+  const res = responseCapture();
+  const client = { async createIssue() { called = true; return {}; } };
+  await createHandler({ env, client })(req({ method: 'POST', body: '{broken' }), res);
+  assert.equal(res.statusCode, 400);
+  assert.equal(called, false);
+  assert.match(res.body, /RELAY_REQUEST_FAILED/);
+});
+
+test('aborts a hung GitHub request at the configured bounded timeout', async () => {
+  const res = responseCapture();
+  const timedEnv = { ...env, UBERBOND_RELAY_GITHUB_TIMEOUT_MS: '25' };
+  const hangingFetch = async (_url, options) => new Promise((_resolve, reject) => {
+    options.signal.addEventListener('abort', () => {
+      const error = new Error('aborted');
+      error.name = 'AbortError';
+      reject(error);
+    }, { once: true });
+  });
+  await createHandler({ env: timedEnv, fetch: hangingFetch })(req({
+    url: '/api/agent-relay?op=poll&targetAgent=claude-code&limit=1'
+  }), res);
+  assert.equal(res.statusCode, 504);
+  assert.match(res.body, /RELAY_REQUEST_FAILED/);
+  assert.doesNotMatch(res.body, /github-test-token|relay-test-token/);
 });

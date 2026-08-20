@@ -276,6 +276,9 @@ export function ingestAgentResult({ session, taskIntent, result, date = new Date
   if (!taskIntent?.ok || taskIntent.sessionId !== session.sessionId || taskIntent.taskId !== session.currentTaskId) return fail(['current-task-intent-required']);
   if (!result || typeof result !== 'object' || Array.isArray(result)) return fail(['agent-result-object-required']);
   if (!zeroBusinessLedger(result.businessEffectLedger || EXTERNAL_EFFECT_ZERO)) return fail(['nonzero-business-effect-rejected']);
+  if (result.externalEffectLedger && Object.values(result.externalEffectLedger).some(value => Number(value || 0) !== 0)) {
+    return fail(['nonzero-external-effect-rejected']);
+  }
   const coordination = normalizeCoordination(result);
   if (!coordination.ok) return coordination;
 

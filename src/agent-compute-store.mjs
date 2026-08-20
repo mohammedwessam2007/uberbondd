@@ -1,4 +1,5 @@
 import { hasSecret } from './cloud-agent-relay.mjs';
+import { validateComputeBudget } from './ai-compute-budget.mjs';
 
 export const AGENT_COMPUTE_STORE_POLICY_VERSION = 'agent-compute-store-1.0.0';
 
@@ -6,6 +7,8 @@ const SNAPSHOT_TYPE = 'agent_compute_budget_snapshot';
 const EXECUTION_TYPE = 'agent_compute_execution_record';
 const MAX_SCAN = 3000;
 const MAX_EXECUTION_BYTES = 60_000;
+const COMPUTE_SECRET_KEY = /secret|password|credential|privatekey|apikey|authorization/i;
+const SECRET_VALUE = /(?:\bsk-[A-Za-z0-9]{12,}|\bghp_[A-Za-z0-9]{12,}|-----BEGIN|Bearer\s+\S+)/;
 
 function text(value, max = 240) {
   return String(value ?? '').trim().slice(0, max);
@@ -34,21 +37,15 @@ function validStore(store) {
   return Boolean(store && typeof store.log === 'function' && typeof store.list === 'function');
 }
 
-function validBudget(budget) {
-  return Boolean(
-    budget?.ok
-    && budget.budgetId
-    && budget.businessEffectAuthority === 'NONE'
-    && Number.isSafeInteger(Number(budget.maxCostCents))
-    && Number.isSafeInteger(Number(budget.maxTokens))
-    && budget.reservations
-    && typeof budget.reservations === 'object'
-    && !Array.isArray(budget.reservations)
-  );
+function hasComputeSecret(value) {
+  if (typeof value === 'string') return SECRET_VALUE.test(value);
+  if (Array.isArray(value)) return value.some(hasComputeSecret);
+  if (!value || typeof value !== 'object') return false;
+  return Object.entries(value).some(([key, item]) => COMPUTE_SECRET_KEY.test(key) || hasComputeSecret(item));
 }
 
 function safeBudget(budget) {
-  if (!validBudget(budget) || hasSecret(budget)) return null;
+  if (!validateComputeBudget(budget).ok || hasComputeSecret(budget)) return null;
   return structuredClone(budget);
 }
 

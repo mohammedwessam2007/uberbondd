@@ -11,6 +11,7 @@ Observed 2026-08-20 (Africa/Cairo). This is an evidence receipt, not a claim of 
 - The existing scoring kernel now drives a deterministic tournament across all 438 canonical records; it returns a bounded top slice and writes only a compact `auditLog` receipt.
 - The MarketSignal-to-BusinessGenome bridge is now reachable through `prometheus.genome.extract`; it writes one compact lineage receipt containing signal IDs and populated-field names only, with no raw payloads or external effects.
 - A bounded `prometheus.commercial.reconcile` path now composes MarketSignal ingestion, BusinessGenome extraction, and the 438-row tournament in order, with explicit dry-run/persist modes and four compact auditLog receipts when persistence is requested.
+- A `prometheus.commercial.approved_source_rehearsal` path now requires an explicit catalog-source allowlist, preserves `BUYER_SIGNAL` and `UNVERIFIED` truth, and replays two canonical Paid Media Revenue Assurance observations through MarketSignal -> BusinessGenome -> tournament with zero external effects. Its durable dry-run receipt is `docs/APPROVED_SOURCE_REHEARSAL_2026-08-20.json`.
 - A `prometheus.commercial.first_payment_packet` path now composes the canonical seven-day experiment with legal-attestation, provider-access, payment-truth, and outcome-lineage gates; it is explicitly no-contact/no-checkout and cannot claim revenue.
 - Focused relay, catalog/registry, and tournament tests were added to the existing deterministic test suite.
 
@@ -32,14 +33,14 @@ The explicit thread taxonomy contains 435 rows across 64 normalized categories, 
 
 ## 4. Shared capability implementation
 
-The release now records and routes the shared capability set that unlocks the largest number of opportunities: market-signal/evidence kernel; receipt-backed BusinessGenome extraction and signal→genome→tournament reconciliation; mechanism atomization; canonical opportunity registry; opportunity scoring/tournament; bounded commercial-experiment and first-payment gate packet; distribution/partner graph; revenue/payment/outcome graph; commercial memory and failure memory; governed self-upgrade proposals; GitHub-mediated relay transport; Vercel ingress boundary; the tested partial adapter; V9 consequence boundary; and durable-queue interface. Existing UberBond models are reused; no hundreds-of-businesses implementation was created.
+The release now records and routes the shared capability set that unlocks the largest number of opportunities: market-signal/evidence kernel; receipt-backed BusinessGenome extraction and signal→genome→tournament reconciliation; explicit-allowlist catalog-source rehearsal; mechanism atomization; canonical opportunity registry; opportunity scoring/tournament; bounded commercial-experiment and first-payment gate packet; distribution/partner graph; revenue/payment/outcome graph; commercial memory and failure memory; governed self-upgrade proposals; GitHub-mediated relay transport; Vercel ingress boundary; the tested partial adapter; V9 consequence boundary; and durable-queue interface. Existing UberBond models are reused; no hundreds-of-businesses implementation was created. Capability graph: **65 total** (`55 TEST_VERIFIED`, `2 LIVE_UNPROVEN`, `3 PARTIAL`, `2 RESEARCH_ONLY`, `3 MISSING`).
 
 ## 5. Cloud and Vercel status
 
 - Verified Vercel team listing: `mohammedwessam2007's projects`, slug `mohammedwessam2007s-projects`, ID `team_A9LnjIuS5PU0rNetsHMu1N0r`.
 - `uberbondd-lite-private`: existing project, latest production observed `READY` on current `main` (`e62683d91de4cffe5eaef3bf79bb64bb618aa97a`); production was not changed. The authorized branch push triggered automatic READY preview deployments in this existing project (at least six were observed, all with target `null`). This preview side effect is recorded rather than treated as a production deployment.
 - Failed `uberbondd`: existing project, latest `main` production deployment remains `ERROR` (`dpl_Qgb6UpzobjRd8noBv7phYdgSAoDC`); a branch preview for the reconciled branch is also `ERROR`. No delete or destructive mutation was attempted. The connected toolset exposed no safe pause operation, so it remains present and not claimed paused.
-- `uberbondd-relay`: **not created**. The connected deployment action rejected creation because the destination team could not be verified through its trusted ownership channel.
+- `uberbondd-relay`: **not created**. After re-listing the single authenticated team and confirming every visible project belongs to `team_A9LnjIuS5PU0rNetsHMu1N0r`, one exact-name preview creation attempt was made with repository `mohammedwessam2007/uberbondd`, branch `agent/omnia-registry-relay`, and root `relay/`. The action was rejected because its separate trusted ownership channel still could not verify the destination. No workaround was attempted.
 - A separate project named **`uberbond-relay`** (without the requested `d`) is now visible in the verified team and has one `READY` production deployment (`dpl_9ox6CB71AdLeSHVaEfv8oq1ukBZ9`). Its provenance and relationship to this mission are not established, so it was not inspected, mutated, promoted, or treated as the authorized relay project.
 - Root GitHub/Vercel relay code is present on current `main`, and its bounded contract tests pass, but the failed `uberbondd` deployment and absent separate project mean **no independently verified reachable cloud relay**. The new `relay/` surface remains a deliberately partial adapter, not a durable worker. No environment values, credentials, DNS, payment settings, or secrets were changed.
 
@@ -52,10 +53,10 @@ The release now records and routes the shared capability set that unlocks the la
 
 ## 7. Tests actually run
 
-- The direct no-network equivalent of `npm run check` (136 syntax checks followed by the deterministic test command) passed: **1,121 total; 1,079 passing; 0 failing; 42 intentionally skipped**. The package-script invocation itself was blocked by the shell's network-approval guard, so no green result is attributed to that wrapper.
-- Direct syntax checks: **136 files passed**, including the tournament, genome-extraction, reconciliation, and first-payment packet modules.
+- The direct no-network equivalent of `npm run check` (137 package-listed syntax checks followed by the deterministic test command) passed: **1,127 total; 1,085 passing; 0 failing; 42 intentionally skipped**. The package-script invocation itself was blocked by the shell's network-approval guard, so no green result is attributed to that wrapper.
+- Direct package-listed syntax checks: **137 files passed**, including the tournament, genome-extraction, reconciliation, approved-source rehearsal, and first-payment packet modules. A broader repository scan also syntax-checked **274 JavaScript/module files with 0 failures**.
 - Focused root/partial Vercel-relay syntax and tests (`node --check api/agent-relay.mjs`, `node --check src/github-relay.mjs`, `node --check src/cloud-agent-relay.mjs`, and both relay test files): **9 passing**.
-- Focused opportunity tournament tests: **6 passing**; focused genome extraction and handler tests: **10 passing**; focused reconciliation tests: **5 passing**; focused first-payment packet tests: **5 passing**.
+- Focused opportunity tournament tests: **6 passing**; focused genome extraction and handler tests: **10 passing**; focused reconciliation tests: **5 passing**; focused first-payment packet tests: **5 passing**; focused approved-source rehearsal tests: **6 passing**.
 - All eight product archive ZIPs and the three supplemental ZIPs were checksum/integrity tested before implementation; the eight-part master reports 599 manifest entries, 0 missing, 0 repeated, and 0 ZIP CRC failures.
 
 ## 8. Hourly execution automation
@@ -70,6 +71,7 @@ The release now records and routes the shared capability set that unlocks the la
 | Claim | Truth classification | Receipt |
 |---|---|---|
 | Opportunity ingestion | `IMPLEMENTED_LOCAL` | 438-record canonical projection and deterministic validation |
+| Approved-source commercial rehearsal | `IMPLEMENTED_LOCAL` | 2/2 catalog buyer signals accepted; source content remains `UNVERIFIED`; 438/438 tournament rows scored; zero external effects |
 | First-payment experiment packet | `IMPLEMENTED_LOCAL` | Seven-day owner-review packet with legal/provider/payment/outcome gates; no-contact/no-checkout |
 | Buyer demand | `BUYER_SIGNAL` only for the three existing core records | Public buyer-request sources in the catalog; not cleared-payment proof |
 | Pricing, margin, timing, burden, competition | `HYPOTHESIS`/`ESTIMATE`/`INFERENCE` unless explicitly sourced | Field-level claim types |
@@ -84,7 +86,7 @@ The release now records and routes the shared capability set that unlocks the la
 
 ## 10. External-effect ledger
 
-For this execution: provider calls 0; messages 0; purchases 0; DNS changes 0; credential/secret changes 0; production mutations 0; spend 0; **at least seven automatic Vercel preview deployments** were observed in the existing Lite project as a consequence of authorized branch pushes (non-production, target `null`), including the earlier observed `dpl_CNMNVkGBKz5FYN5P7mad2h57NJ8t`; the explicit `uberbondd-relay` deployment was rejected and created no project. The unrelated `uberbond-relay` production deployment was observed only and not changed. Lite production remained unchanged.
+For this execution: provider calls 0; messages 0; purchases 0; DNS changes 0; credential/secret changes 0; production mutations 0; spend 0; one rejected `uberbondd-relay` preview-creation attempt created no project or deployment. Existing automatic Vercel preview deployments in the Lite project were observed only; the unrelated `uberbond-relay` production deployment was observed only and not changed. Lite production remained unchanged.
 
 ## 11. Commercial truth
 
@@ -104,8 +106,8 @@ UberBond still has **$0 verified cleared revenue** in the available evidence. Th
 ## 13. Next three tasks
 
 1. Obtain trusted Vercel destination verification, then deploy only the tested `relay/` adapter to a new `uberbondd-relay` project and verify its health route.
-2. Run one owner-reviewable dry-run with a non-synthetic, approved-source MarketSignal and verify the full reconciliation receipt chain without contact or spend.
-3. Obtain owner legal/accounting/provider clearance for one first-payment packet; keep contact, checkout, and spend disabled until explicit approval and external proof exist.
+2. Attach a fresh independent source-verification receipt to the completed catalog-source rehearsal; do not upgrade `UNVERIFIED` by assertion.
+3. Obtain owner legal/accounting/provider clearance for the existing first-payment packet; keep contact, checkout, and spend disabled until explicit approval and external proof exist.
 
 ## 14. Maximum founder actions
 

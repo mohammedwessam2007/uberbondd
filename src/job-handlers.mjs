@@ -20,6 +20,7 @@ import {
   logGenomeExtraction
 } from './genome-extraction.mjs';
 import { reconcileCommercialEvidence } from './commercial-reconciliation.mjs';
+import { rehearseApprovedCommercialEvidence } from './approved-source-rehearsal.mjs';
 import {
   compileCommercialFirstPaymentPacket,
   logCommercialFirstPaymentPacket
@@ -197,6 +198,13 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
     'prometheus.commercial.reconcile': async payload => {
       const input = payload && typeof payload === 'object' ? payload : {};
       return reconcileCommercialEvidence({ ...input, store });
+    },
+    // Explicitly allowlisted, catalog-only buyer-signal rehearsal. It does
+    // not browse or elevate evidence; source verification stays UNVERIFIED
+    // unless the caller supplies a separate receipt reference.
+    'prometheus.commercial.approved_source_rehearsal': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      return rehearseApprovedCommercialEvidence({ ...input, store });
     },
     // Produces one seven-day, owner-reviewable first-payment packet. It only
     // composes existing payment/outcome/provider gates; contact, checkout,

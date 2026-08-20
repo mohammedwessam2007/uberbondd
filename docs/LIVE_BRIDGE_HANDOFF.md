@@ -212,28 +212,62 @@ dead lease.
 
 ## 9. Proof this is live
 
-Executed against the real repository, not a fixture:
-
-- **Issue:** https://github.com/mohammedwessam2007/uberbondd/issues/39
-- **Task id:** `chatgpt-live-bridge-roundtrip-1787190395958`
-- **Source commit:** `431305b2`
+**You can re-run this yourself.** A claim you cannot reproduce is a claim you
+have to take on faith:
 
 ```
-1 CLAIM      : true CLAIMED
-2 DUP CLAIM  : BLOCKED lease-held-by-another-worker
-3 HEARTBEAT  : true HEARTBEAT_ACCEPTED
-4 WRONG BEAT : BLOCKED lease-owner-mismatch
-5 SUBMIT     : true RECEIVED | comment 5350200287
-6 REPLAY     : BLOCKED task-already-completed
-7 REVIEWER   : status COMPLETED | commit 431305b2 | confidence HIGH | fields 16
-8 ENVELOPE   : status COMPLETED | attempts 1 | idem github-issue:39 | resultRefs 1
+GITHUB_TOKEN=<token> GITHUB_REPOSITORY=mohammedwessam2007/uberbondd \
+  node scripts/github-relay-roundtrip.mjs
 ```
 
-Step 7 is the one that matters: the receipt was read back **through the
-independent reviewer path**, not by the process that wrote it.
+It creates one real issue, drives it around the whole loop, closes it, and
+exits non-zero if any guard fails to fire. It performs no other external
+effect — no send, no spend, no deploy, no credential change.
 
-Five real defects were found and fixed by running this against production
-rather than against tests:
+Last run, against the real repository at the commit this document ships in:
+
+- **Issue:** https://github.com/mohammedwessam2007/uberbondd/issues/43
+- **Source commit:** `bf8b509`
+
+```
+ 0 PREFLIGHT  : authenticated as mohammedwessam2007
+ 1 CREATE     : issue #43
+ 2 CLAIM      : CLAIMED
+ 3 DUP CLAIM  : BLOCKED lease-held-by-another-worker
+ 4 HEARTBEAT  : HEARTBEAT_ACCEPTED
+ 5 WRONG BEAT : BLOCKED lease-owner-mismatch
+ 6 SUBMIT     : RECEIVED comment 5351078931
+ 7 REPLAY     : BLOCKED task-already-completed
+ 8 REVIEWER   : status COMPLETED | commit bf8b509 | confidence HIGH | limitations 1
+ 9 ENVELOPE   : status COMPLETED | attempts 1 | idem github-issue:43 | issue closed
+
+ROUND TRIP PASSED -- the bridge carried a verifiable receipt end to end.
+```
+
+Step 8 is the one that matters: the receipt was read back **through the
+independent reviewer path**, not by the process that wrote it. Step 9 confirms
+the loop closed — labelled `agent-relay:done`, issue closed.
+
+One note on step 7, because the first version of this check passed for the
+wrong reason. A deliberately thin replay payload was rejected with
+`required-result-fields-missing` — schema validation fired *before* the
+completion check, so the replay guard was never actually reached. The harness
+now replays the **exact payload that was just accepted**, which forces
+execution past validation and into the guard; it returns
+`task-already-completed`, and the harness fails the run if it returns anything
+else. The guard is real, but it took a second look to prove it.
+
+Earlier round trips at commits `431305b` (issue
+[#39](https://github.com/mohammedwessam2007/uberbondd/issues/39)) and
+`bf8b509` (issues
+[#41](https://github.com/mohammedwessam2007/uberbondd/issues/41),
+[#42](https://github.com/mohammedwessam2007/uberbondd/issues/42)) proved the
+same loop; all are closed and labelled `agent-relay:done`.
+
+### Five real defects, found by running this against production
+
+Not one of these was caught by the test suite. They were caught by pointing
+the code at the real GitHub API.
 
 1. A double-escaped regex (`\\s` instead of `\s`) meant the `Bearer` secret
    pattern never matched real whitespace — the scanner had a hole in it.
@@ -246,6 +280,9 @@ rather than against tests:
    the word "tokens".
 5. `externalEffects.credentialChanges` tripped it too — the ledger exemption
    only covered one of the two field names.
+
+Defects 4 and 5 are the dangerous kind: they rejected *legitimate* receipts,
+which is exactly how people learn to route around a safety check.
 
 ---
 
@@ -349,6 +386,13 @@ npm run check:syntax        # every module parses
 npm run test:vercel-relay   # focused relay suite
 npm run test:deterministic  # full repository suite
 npm audit
+```
+
+And, when you want to prove the wire itself rather than the code:
+
+```
+GITHUB_TOKEN=<token> GITHUB_REPOSITORY=mohammedwessam2007/uberbondd \
+  node scripts/github-relay-roundtrip.mjs
 ```
 
 Last full run against the code in this document:

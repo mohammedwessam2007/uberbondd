@@ -394,14 +394,17 @@ export async function runAutonomyLoop({
     if (!adapter || typeof adapter.createTask !== 'function' || typeof adapter.waitForResult !== 'function') {
       return { ...fail(['target-agent-adapter-required'], 'BLOCKED'), session: state, receipts };
     }
+    // Register against a candidate state first. If the relay queue itself is
+    // temporarily unavailable, return the original session so a caller can
+    // retry without the task having been falsely recorded as created.
     const registered = registerTaskIntent({ session: state, intent, date });
     if (!registered.ok) return { ...registered, session: state, receipts };
-    state = registered.session;
 
-    const relayTask = compileRelayTask(intent, state);
+    const relayTask = compileRelayTask(intent, registered.session);
     if (!relayTask?.ok) return { ...fail(relayTask?.reasonCodes || ['relay-task-compilation-failed']), session: state, receipts };
     const queued = await adapter.createTask(relayTask, date);
     if (!queued?.ok) return { ...fail(queued?.reasonCodes || ['relay-task-queue-failed'], 'PENDING'), session: state, receipts };
+    state = registered.session;
     const issueNumber = Number(queued.issueNumber);
     const received = await adapter.waitForResult({ issueNumber, expectedTaskId: relayTask.taskId });
     if (!received?.ok || received.status !== 'RESULT_RECEIVED') {

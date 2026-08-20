@@ -1,3 +1,62 @@
+# Hourly execution handoff — 2026-08-20T00:08Z
+
+## Outcome
+
+Completed exactly three bounded, local/repository tasks on branch
+`agent/hourly-wave-20260820-0308`, based on verified `main` SHA
+`e62683d91de4cffe5eaef3bf79bb64bb618aa97a`:
+
+1. Closed the Vercel parsed-body size-limit bypass. The 250,000-byte cap now
+   applies to streamed, string, and already-parsed request bodies before any
+   GitHub operation.
+2. Added a bounded GitHub upstream timeout (10 seconds by default, configurable
+   from 25 to 30,000 milliseconds). A hung request aborts and returns HTTP 504;
+   it cannot consume the function indefinitely.
+3. Reconciled the current GitHub, Library, and Vercel truth into this handoff
+   and `docs/HOURLY_EXECUTION_RECEIPT_2026-08-20T0008Z.json`.
+
+No production deployment or configuration mutation occurred. The trusted-team
+Vercel deployment `dpl_9ox6CB71AdLeSHVaEfv8oq1ukBZ9` is `READY`, but its health
+response is HTTP 503 `RELAY_NOT_CONFIGURED`; therefore the relay is truthfully
+classified as deployed and fail-closed, not operationally configured. Open
+GitHub issue #32 remains unclaimed with zero comments, so no Claude Code worker
+execution is claimed. The private lite project health returned HTTP 200, and
+`lite/` was not modified.
+
+## Evidence and tests
+
+- Focused relay gate: 37 tests, 37 passed, 0 failed, 0 skipped.
+- Full deterministic gate: 1,092 tests; 1,050 passed, 0 failed, 42 intentionally
+  skipped, 0 cancelled, 0 todo.
+- The first full-suite attempt exposed an incomplete borrowed dependency tree
+  (`pg`/Cedar unavailable). A clean `npm ci --ignore-scripts` repaired the local
+  test environment; the completed full-suite result above is the authoritative
+  code result.
+- Library canonical digest: `libfile_0e3a63761ed88191b9a909a8abe4333b`.
+- Library split index: `libfile_21b88479c8608191bf86cf99c8431572`;
+  master SHA-256
+  `e5d1549e0c0d9cf50ba5639536c806710887ebd3852f44457aeb6e051f4b27b4`,
+  599 entries, 0 missing, 0 duplicate, 0 CRC failures.
+- Latest canonical product-library archive observed:
+  `libfile_8c120c241e448191b28ce2824fdb9524` (9,951,872 bytes).
+
+## Truth and commercial state
+
+- Relay hardening: `PASS_LOCAL`.
+- Full repository deterministic verification: `PASS_LOCAL`.
+- Vercel deployment existence: `VERIFIED_EXTERNAL`.
+- Operational relay credentials and worker loop: `OWNER_REQUIRED` /
+  `EXTERNAL_PROOF_REQUIRED`.
+- Claude/Cowork execution for issue #32: `NOT_RUN`.
+- Verified revenue, paying customers, accepted deliveries, and cleared
+  payments: all zero.
+- External-effect ledger: 0 sends, 0 messages, 0 spend, 0 provider actions,
+  0 credential/DNS/payment/KYC changes, 0 deployments, and 0 production
+  mutations. Repository branch/PR publication is recorded separately from the
+  commercial-effect ledger.
+
+---
+
 # Overnight Handoff — 2026-08-17/18 → 08-18 (Prometheus V3 — spine reconciliation wave)
 
 ## Outcome (this wave, V3)

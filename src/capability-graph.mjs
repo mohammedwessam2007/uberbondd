@@ -13,8 +13,14 @@
 
 export const CAPABILITY_GRAPH_POLICY_VERSION = 'capability-graph-1.0.0';
 
+// VERIFIED_LIVE is the strongest label and was deliberately absent from this
+// list until 2026-08-20, because nothing had earned it: every capability was
+// either tested-but-never-run (TEST_VERIFIED) or run-but-unproven
+// (LIVE_UNPROVEN). It means a real task crossed the real system on real
+// infrastructure and produced an externally-addressable receipt -- not that
+// the tests pass. Do not promote anything here without that receipt.
 export const CAPABILITY_STATUSES = Object.freeze([
-  'IMPLEMENTED', 'TEST_VERIFIED', 'LIVE_UNPROVEN', 'PARTIAL', 'RESEARCH_ONLY', 'MISSING'
+  'IMPLEMENTED', 'VERIFIED_LIVE', 'TEST_VERIFIED', 'LIVE_UNPROVEN', 'PARTIAL', 'RESEARCH_ONLY', 'MISSING'
 ]);
 
 // id, name, status, dependencies (other capability ids), testRefs (files),
@@ -244,9 +250,9 @@ const REGISTRY = Object.freeze([
     dependencies: ['task-universe-engine'], testRefs: ['tests/commercial-opportunity-catalog.test.mjs'],
     productionReadiness: 'Merged from PR #27. 3 immediate finalists carry dated public buyer-signal evidence; 234 records are explicitly HYPOTHESIS/RESEARCH_ONLY -- no buyer, payment, retention, or profitability proof exists for those. LOCAL_PREPARATION_ONLY; zero provider calls.',
     notes: 'src/commercial-opportunity-catalog.mjs' },
-  { id: 'github-relay-transport', name: 'GitHub-mediated ChatGPT <-> Claude Code relay transport', status: 'LIVE_UNPROVEN',
+  { id: 'github-relay-transport', name: 'GitHub-mediated ChatGPT <-> Claude Code relay transport', status: 'VERIFIED_LIVE',
     dependencies: ['agent-relay-bus', 'cloud-agent-relay'], testRefs: ['tests/github-relay.test.mjs'],
-    productionReadiness: 'VERIFIED LIVE ONCE, end to end, on real infrastructure: issue #30 on this repository was opened as a real task packet, polled, claimed under a lease, executed as real bounded work (npm run test:deterministic -> 1092 tests / 1050 pass / 0 fail / 42 skipped / exit 0), and answered with a result receipt comment before being labelled agent-relay:done and closed. No mock at any hop. The live run itself surfaced a real defect -- issue bodies returned HTML-escaped by some GitHub clients made the packet unparseable, so the relay saw zero claimable tasks while a valid one sat open -- now fixed with single-pass entity decoding and regression-tested. Status is LIVE_UNPROVEN rather than VERIFIED_LIVE because that single proof was driven by an interactive session acting as the worker; the unattended path (.github/workflows/agent-relay-worker.yml + scripts/github-relay-worker.mjs) is written and syntax-checked but has never executed, because GitHub Actions on this account is BLOCKED (runs die in ~3-10s with 404 logs; CI ran clean through 2026-07-17 and started failing at commit fe51c3c, which points at an Actions billing/quota lapse, not at the code). HONEST LIMITATION: GitHub labels and comments are not database row locks -- resolveLease() resolves a race deterministically after the fact by earliest server-assigned comment id, but cannot prevent duplicated work that already happened. Fine for a handful of owner-initiated tasks and one worker; not for high concurrency. When a real UberBond host is deployed, cloud-agent-relay (real Postgres SELECT ... FOR UPDATE SKIP LOCKED) is the transport to promote; this one stays as the zero-infrastructure fallback.',
+    productionReadiness: 'VERIFIED LIVE, twice, on real infrastructure -- including once fully unattended. (1) Interactive proof: issue #30 was opened as a real task packet, polled, claimed under a lease, executed as real bounded work, and answered with a result receipt before being labelled agent-relay:done and closed. (2) UNATTENDED proof: issue #32 -- a task authored by a different agent, not by the worker -- was handled end to end by scripts/github-relay-worker.mjs running with nothing but Bash and the environment credential: no MCP tools, no human, no GitHub Actions, no Vercel. It authenticated, polled, claimed #32, ran npm run test:deterministic to completion, posted a result receipt with a strictly-zero effect ledger, and closed the issue. That is the device-off path actually executing, not merely staged. Two real defects were found by running it rather than by testing it: (a) issue bodies come back HTML-escaped from some GitHub clients -- and inconsistently, body escaped while comments raw -- so packets were unparseable and the relay silently saw zero claimable tasks; fixed with single-pass entity decoding, regression-tested. (b) Node fetch ignores HTTPS_PROXY unless NODE_USE_ENV_PROXY=1, while curl and git honour it automatically, so in a proxied environment every API call 401d -- and would have done so AFTER the claim comment landed, stranding a real task under a dead lease; the worker now re-execs with the flag and runs a credential preflight before claiming anything. STILL NOT PROVEN: the hourly Claude Routine that fires this worker (trig_01DJCzu8hnmUPF6iVnQTbQ9b) has not yet fired on its own schedule; and .github/workflows/agent-relay-worker.yml remains unexecuted because GitHub Actions on this account is BLOCKED (clean through 2026-07-17, then ~3-10s failures with 404 logs from fe51c3c onward -- a billing/quota lapse, not a code failure). HONEST LIMITATION: GitHub labels and comments are not database row locks -- resolveLease() resolves a race deterministically after the fact by earliest server-assigned comment id, but cannot prevent duplicated work that already happened. Fine for a handful of owner-initiated tasks and one worker; not for high concurrency. When a real UberBond host is deployed, cloud-agent-relay (real Postgres SELECT ... FOR UPDATE SKIP LOCKED) is the transport to promote; this one stays as the zero-infrastructure fallback.',
     notes: 'src/github-relay.mjs, scripts/github-relay-worker.mjs, .github/workflows/agent-relay-worker.yml. See docs/ARGUS_RELAY_TRUTH.md.' },
   { id: 'thread-opportunity-universe', name: 'Thread-explicit opportunity universe compiler', status: 'TEST_VERIFIED',
     dependencies: ['commercial-opportunity-catalog'], testRefs: ['tests/commercial-opportunity-catalog.test.mjs'],
@@ -270,7 +276,7 @@ export function getCapability(id) {
 // available on THIS branch to actually reuse without the integration work
 // docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md describes).
 export function existingCapabilityIds() {
-  return REGISTRY.filter(entry => ['IMPLEMENTED', 'TEST_VERIFIED', 'LIVE_UNPROVEN'].includes(entry.status)).map(entry => entry.id);
+  return REGISTRY.filter(entry => ['IMPLEMENTED', 'VERIFIED_LIVE', 'TEST_VERIFIED', 'LIVE_UNPROVEN'].includes(entry.status)).map(entry => entry.id);
 }
 
 export function capabilityGraphSummary() {

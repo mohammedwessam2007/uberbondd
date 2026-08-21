@@ -1,4 +1,8 @@
-node_modules/
+# No trailing slash: with one, this pattern matches only a directory, and a
+# SYMLINK named node_modules slips past it. That happened -- a self-referential
+# node_modules symlink was committed, and any checkout of it shadows the real
+# dependency tree, so npm and every test fail with module-not-found.
+node_modules
 data/db.json
 data/screenshots/*
 !data/screenshots/.gitkeep

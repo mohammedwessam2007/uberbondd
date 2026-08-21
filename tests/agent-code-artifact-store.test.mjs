@@ -81,7 +81,55 @@ test('tampered persisted content is detected instead of silently served to a rev
   store.rows[0].detail.changeSet.changes[0].content = 'tampered\n';
   const loaded = await loadAgentCodeChangeArtifact(store, saved.artifactRef);
   assert.equal(loaded.ok, false);
-  assert.ok(['CORRUPT'].includes(loaded.status));
+  assert.equal(loaded.status, 'CORRUPT');
+});
+
+test('one corrupt duplicate poisons the artifact identity instead of being ignored by first-row lookup', async () => {
+  const store = storeFixture();
+  const set = changeSet();
+  const saved = await saveAgentCodeChangeArtifact(store, set, { date: new Date('2026-08-20T04:00:00Z') });
+  assert.equal(saved.ok, true);
+
+  const original = store.rows[0];
+  const duplicate = structuredClone(original);
+  duplicate.id = 'audit_hostile_duplicate';
+  duplicate.createdAt = '2026-08-20T04:01:00.000Z';
+  duplicate.detail.createdAt = duplicate.createdAt;
+  duplicate.detail.artifactSha256 = 'f'.repeat(64);
+  store.rows.push(duplicate);
+
+  const loaded = await loadAgentCodeChangeArtifact(store, saved.artifactRef);
+  assert.equal(loaded.ok, false);
+  assert.equal(loaded.status, 'CORRUPT');
+  assert.ok(loaded.reasonCodes.includes('stored-artifact-digest-mismatch'));
+
+  const resaved = await saveAgentCodeChangeArtifact(store, set);
+  assert.equal(resaved.ok, false);
+  assert.equal(resaved.status, 'CORRUPT');
+  assert.ok(resaved.reasonCodes.includes('stored-artifact-digest-mismatch'));
+});
+
+test('duplicate row with modified artifact body cannot create a split-brain artifact history', async () => {
+  const store = storeFixture();
+  const set = changeSet();
+  const saved = await saveAgentCodeChangeArtifact(store, set, { date: new Date('2026-08-20T04:00:00Z') });
+  assert.equal(saved.ok, true);
+
+  const duplicate = structuredClone(store.rows[0]);
+  duplicate.id = 'audit_split_brain';
+  duplicate.createdAt = '2026-08-20T04:02:00.000Z';
+  duplicate.detail.createdAt = duplicate.createdAt;
+  duplicate.detail.changeSet.changes[0].content = 'export const artifact = false;\n';
+  store.rows.push(duplicate);
+
+  const loaded = await loadAgentCodeChangeArtifact(store, saved.artifactRef);
+  assert.equal(loaded.ok, false);
+  assert.equal(loaded.status, 'CORRUPT');
+  assert.ok(
+    loaded.reasonCodes.includes('stored-artifact-corrupt') ||
+    loaded.reasonCodes.includes('stored-artifact-digest-mismatch') ||
+    loaded.reasonCodes.includes('stored-artifact-identity-mismatch')
+  );
 });
 
 test('credential-shaped material is rejected even if a caller attempts to construct a persisted artifact', async () => {

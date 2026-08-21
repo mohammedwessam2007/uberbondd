@@ -12,7 +12,7 @@ import {
 } from './agent-relay.mjs';
 
 export const AGENT_RELAY_JOB_TYPE = 'prometheus.agent.relay';
-export const CLOUD_AGENT_RELAY_POLICY_VERSION = 'cloud-agent-relay-1.0.0';
+export const CLOUD_AGENT_RELAY_POLICY_VERSION = 'cloud-agent-relay-1.1.0';
 
 // Exported so alternative relay transports (see src/github-relay.mjs) reuse
 // the exact same zero-external-effect contract rather than declaring a second,
@@ -50,6 +50,39 @@ function sizeOf(value) {
 // measured". Nothing that shape can carry a credential.
 function isComputeCount(value) {
   return value === null || (Number.isSafeInteger(value) && value >= 0);
+}
+
+function canonicalValue(value) {
+  if (Array.isArray(value)) return value.map(canonicalValue);
+  if (!value || typeof value !== 'object') return value;
+  return Object.fromEntries(
+    Object.keys(value)
+      .sort()
+      .map(key => [key, canonicalValue(value[key])])
+  );
+}
+
+// Exported so other modules compare records the same way. Two copies of
+// "are these the same object?" is how one of them ends up key-order sensitive
+// while the other is not.
+export function sameJson(left, right) {
+  try {
+    return JSON.stringify(canonicalValue(left)) === JSON.stringify(canonicalValue(right));
+  } catch {
+    return false;
+  }
+}
+
+function completedSubmissionMatches(job, { worker, outcome, result, receipt }) {
+  if (job?.status !== 'completed' || outcome !== 'COMPLETED') return false;
+  const stored = job?.result && typeof job.result === 'object' && !Array.isArray(job.result)
+    ? job.result : null;
+  const relayReceipt = stored?.relayReceipt;
+  if (!stored || !relayReceipt) return false;
+  if (relayReceipt.workerId !== worker || relayReceipt.status !== 'COMPLETED') return false;
+  if (!sameJson(relayReceipt.receipt ?? null, receipt ?? null)) return false;
+  const { relayReceipt: _ignoredRelayReceipt, ...storedResult } = stored;
+  return sameJson(storedResult, result);
 }
 
 // Exported for reuse by alternative relay transports. One scanner, one set of
@@ -350,6 +383,29 @@ export async function submitCloudRelayResult({
   }
   const job = await findRelayJob(store, id);
   if (!job) return errorResult(['task-not-found']);
+
+  // A worker may crash after the durable queue transition succeeds but before
+  // its local execution receipt is marked RESULT_SUBMITTED. On restart the
+  // worker replays the persisted MODEL_RESULT_READY record. Treat that replay
+  // as success only when it is byte-semantically the same completed result,
+  // worker, and receipt already stored on the terminal job. Any difference is
+  // a terminal conflict, never permission to rewrite history.
+  if (job.status === 'completed') {
+    if (!completedSubmissionMatches(job, { worker, outcome, result, receipt })) {
+      return errorResult(['terminal-result-conflict']);
+    }
+    return {
+      ok: true,
+      policyVersion: CLOUD_AGENT_RELAY_POLICY_VERSION,
+      status: 'ALREADY_RECEIVED',
+      taskId: id,
+      jobId: job.id,
+      jobStatus: job.status,
+      workerId: worker,
+      externalEffectLedger: { ...ZERO_EFFECTS }
+    };
+  }
+
   if (job.status !== 'active' || job.lockedBy !== worker) return errorResult(['lease-owner-mismatch']);
   const relayReceipt = {
     policyVersion: CLOUD_AGENT_RELAY_POLICY_VERSION,

@@ -52,11 +52,32 @@ test('code change set is deterministic, content-hashed and sandbox-only', () => 
 test('protected paths and traversal are rejected', () => {
   for (const filePath of [
     '.env', '.env.production', 'credentials/key.txt', 'lite/lib/db.mjs',
-    '.git/config', '.github/workflows/deploy.yml', '../escape.mjs', '/tmp/escape.mjs'
+    '.git/config', '.github/workflows/deploy.yml', 'package.json', '.npmrc',
+    '../escape.mjs', '/tmp/escape.mjs'
   ]) {
     const out = compile([baseChange({ path: filePath })]);
     assert.equal(out.ok, false, `expected ${filePath} to be rejected`);
   }
+});
+
+test('verification command provenance cannot be rewritten inside the same autonomous change set', () => {
+  const packageRewrite = compile([baseChange({
+    operation: 'UPDATE',
+    path: 'package.json',
+    beforeSha256: contentSha256('{"scripts":{"check":"node safe.mjs"}}\n'),
+    content: '{"scripts":{"check":"node attacker-controlled.mjs"}}\n',
+    rationale: 'Attempt to replace the verifier command graph.'
+  })]);
+  assert.equal(packageRewrite.ok, false);
+  assert.ok(packageRewrite.reasonCodes.some(code => code.includes('protected-path')));
+
+  const npmPolicyRewrite = compile([baseChange({
+    path: '.npmrc',
+    content: 'script-shell=./attacker-shell\n',
+    rationale: 'Attempt to redirect npm script execution.'
+  })]);
+  assert.equal(npmPolicyRewrite.ok, false);
+  assert.ok(npmPolicyRewrite.reasonCodes.some(code => code.includes('protected-path')));
 });
 
 test('duplicate paths, missing before hashes and direct credential material are rejected', () => {

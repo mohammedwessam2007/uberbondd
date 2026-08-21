@@ -30,6 +30,13 @@ function validRun(run) {
   return Boolean(run?.ok && run.runId && run.session?.sessionId);
 }
 
+// Audit row ids end in the store's monotonic counter. Compare the numeric
+// tail, not the string -- "row-9" sorts after "row-12" lexically.
+function rowAppendOrder(row) {
+  const match = /(\d+)\s*$/.exec(String(row?.id ?? ''));
+  return match ? Number(match[1]) : 0;
+}
+
 export async function saveAutonomyRunSnapshot(store, run, { reason = 'tick', date = new Date() } = {}) {
   if (!validStore(store)) return fail(['store-log-and-list-required']);
   if (!validRun(run)) return fail(['valid-autonomy-run-required']);
@@ -88,7 +95,16 @@ export async function loadLatestAutonomyRun(store, runId) {
   const rows = await auditRows(store, SNAPSHOT_TYPE);
   const matches = rows
     .filter(row => row?.detail?.runId === id && validRun(row?.detail?.run))
-    .sort((a, b) => String(b?.detail?.createdAt || b?.createdAt || '').localeCompare(String(a?.detail?.createdAt || a?.createdAt || '')));
+    // Timestamps alone leave ties unordered, and an unordered tie here means
+    // loading an OLDER run snapshot -- rewinding progress. Two P0s in this
+    // repository were that exact mistake (execution records and compute budget
+    // snapshots, both fixed by ranking on a monotonic quantity). Autonomy runs
+    // declare no monotonic field to rank on, so fall back to the store's own
+    // append order, which is at least defined. Kept local deliberately: a
+    // three-line tiebreak does not justify coupling this module to another.
+    .sort((a, b) =>
+      String(b?.detail?.createdAt || b?.createdAt || '').localeCompare(String(a?.detail?.createdAt || a?.createdAt || ''))
+      || (rowAppendOrder(b) - rowAppendOrder(a)));
   if (!matches.length) {
     return {
       ok: false,

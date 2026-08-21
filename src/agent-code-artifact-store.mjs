@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { validateAgentCodeChangeSet } from './agent-code-change-contract.mjs';
 
-export const AGENT_CODE_ARTIFACT_STORE_POLICY_VERSION = 'agent-code-artifact-store-1.0.0';
+export const AGENT_CODE_ARTIFACT_STORE_POLICY_VERSION = 'agent-code-artifact-store-1.1.0';
 
 const AUDIT_TYPE = 'agent_code_change_artifact';
 const MAX_SCAN = 3000;
@@ -63,6 +63,24 @@ function safeArtifact(value) {
   return structuredClone(value);
 }
 
+function inspectStoredArtifactRow(row, expectedRef = null) {
+  const ref = row?.detail?.artifactRef;
+  if (!ref || (expectedRef && ref !== expectedRef)) {
+    return { ok: false, reasonCodes: ['stored-artifact-reference-invalid'] };
+  }
+  const artifact = safeArtifact(row?.detail?.changeSet);
+  if (!artifact) return { ok: false, reasonCodes: ['stored-artifact-corrupt'] };
+  const actualDigest = digest(artifact);
+  const declaredDigest = text(row?.detail?.artifactSha256, 128).toLowerCase();
+  if (!/^[a-f0-9]{64}$/.test(declaredDigest) || actualDigest !== declaredDigest) {
+    return { ok: false, reasonCodes: ['stored-artifact-digest-mismatch'] };
+  }
+  if (artifactRef(artifact.changeSetId) !== ref) {
+    return { ok: false, reasonCodes: ['stored-artifact-identity-mismatch'] };
+  }
+  return { ok: true, artifact, artifactSha256: actualDigest };
+}
+
 export async function saveAgentCodeChangeArtifact(store, changeSet, { date = new Date() } = {}) {
   if (!validStore(store)) return fail(['store-log-and-list-required']);
   const artifact = safeArtifact(changeSet);
@@ -71,13 +89,20 @@ export async function saveAgentCodeChangeArtifact(store, changeSet, { date = new
   const artifactSha256 = digest(artifact);
 
   const existingRows = await rows(store);
-  const existing = existingRows.find(row => row?.detail?.artifactRef === ref);
-  if (existing) {
-    if (existing?.detail?.artifactSha256 !== artifactSha256) {
-      return fail(['artifact-identity-collision'], 'CONFLICT', { artifactRef: ref });
+  const matching = existingRows.filter(row => row?.detail?.artifactRef === ref);
+  if (matching.length) {
+    const inspected = matching.map(row => ({ row, inspection: inspectStoredArtifactRow(row, ref) }));
+    const corrupt = inspected.find(item => !item.inspection.ok);
+    if (corrupt) {
+      return fail(corrupt.inspection.reasonCodes, 'CORRUPT', { artifactRef: ref, auditId: corrupt.row?.id || null });
     }
-    const recovered = safeArtifact(existing?.detail?.changeSet);
-    if (!recovered) return fail(['existing-artifact-corrupt'], 'CORRUPT', { artifactRef: ref });
+    const conflicting = inspected.find(item => item.inspection.artifactSha256 !== artifactSha256);
+    if (conflicting) {
+      return fail(['artifact-identity-collision'], 'CONFLICT', { artifactRef: ref, auditId: conflicting.row?.id || null });
+    }
+    const canonical = inspected
+      .map(item => item.row)
+      .sort((a, b) => String(b?.detail?.createdAt || b?.createdAt || '').localeCompare(String(a?.detail?.createdAt || a?.createdAt || '')))[0];
     return {
       ok: true,
       policyVersion: AGENT_CODE_ARTIFACT_STORE_POLICY_VERSION,
@@ -85,8 +110,8 @@ export async function saveAgentCodeChangeArtifact(store, changeSet, { date = new
       artifactRef: ref,
       changeSetId: artifact.changeSetId,
       artifactSha256,
-      auditId: existing.id || null,
-      storedAt: existing?.detail?.createdAt || existing?.createdAt || null,
+      auditId: canonical?.id || null,
+      storedAt: canonical?.detail?.createdAt || canonical?.createdAt || null,
       businessEffectAuthority: 'NONE'
     };
   }
@@ -125,21 +150,32 @@ export async function loadAgentCodeChangeArtifact(store, refOrId) {
   const all = await rows(store);
   const matching = all.filter(row => row?.detail?.artifactRef === ref);
   if (!matching.length) return fail(['code-change-artifact-not-found'], 'NOT_FOUND', { artifactRef: ref });
-  matching.sort((a, b) => String(b?.detail?.createdAt || b?.createdAt || '').localeCompare(String(a?.detail?.createdAt || a?.createdAt || '')));
-  const row = matching[0];
-  const artifact = safeArtifact(row?.detail?.changeSet);
-  if (!artifact) return fail(['code-change-artifact-corrupt'], 'CORRUPT', { artifactRef: ref });
-  const actualDigest = digest(artifact);
-  if (actualDigest !== row?.detail?.artifactSha256) return fail(['code-change-artifact-digest-mismatch'], 'CORRUPT', { artifactRef: ref });
+
+  let expectedDigest = null;
+  const inspected = [];
+  for (const row of matching) {
+    const inspection = inspectStoredArtifactRow(row, ref);
+    if (!inspection.ok) {
+      return fail(inspection.reasonCodes, 'CORRUPT', { artifactRef: ref, auditId: row?.id || null });
+    }
+    if (expectedDigest == null) expectedDigest = inspection.artifactSha256;
+    else if (inspection.artifactSha256 !== expectedDigest) {
+      return fail(['duplicate-artifact-digest-conflict'], 'CORRUPT', { artifactRef: ref, auditId: row?.id || null });
+    }
+    inspected.push({ row, inspection });
+  }
+
+  inspected.sort((a, b) => String(b?.row?.detail?.createdAt || b?.row?.createdAt || '').localeCompare(String(a?.row?.detail?.createdAt || a?.row?.createdAt || '')));
+  const selected = inspected[0];
   return {
     ok: true,
     policyVersion: AGENT_CODE_ARTIFACT_STORE_POLICY_VERSION,
     status: 'LOADED',
     artifactRef: ref,
-    artifactSha256: actualDigest,
-    changeSet: artifact,
-    auditId: row?.id || null,
-    storedAt: row?.detail?.createdAt || row?.createdAt || null,
+    artifactSha256: selected.inspection.artifactSha256,
+    changeSet: selected.inspection.artifact,
+    auditId: selected.row?.id || null,
+    storedAt: selected.row?.detail?.createdAt || selected.row?.createdAt || null,
     businessEffectAuthority: 'NONE'
   };
 }

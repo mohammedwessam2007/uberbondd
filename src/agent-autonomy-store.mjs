@@ -1,3 +1,5 @@
+import { sameJson } from './cloud-agent-relay.mjs';
+
 export const AGENT_AUTONOMY_STORE_POLICY_VERSION = 'agent-autonomy-store-1.0.0';
 
 const SNAPSHOT_TYPE = 'agent_autonomy_run_snapshot';
@@ -32,6 +34,11 @@ function validRun(run) {
 
 // Audit row ids end in the store's monotonic counter. Compare the numeric
 // tail, not the string -- "row-9" sorts after "row-12" lexically.
+function runSequence(row) {
+  const value = row?.detail?.sequence ?? row?.detail?.run?.sequence;
+  return Number.isSafeInteger(value) ? value : -1;
+}
+
 function rowAppendOrder(row) {
   const match = /(\d+)\s*$/.exec(String(row?.id ?? ''));
   return match ? Number(match[1]) : 0;
@@ -40,6 +47,43 @@ function rowAppendOrder(row) {
 export async function saveAutonomyRunSnapshot(store, run, { reason = 'tick', date = new Date() } = {}) {
   if (!validStore(store)) return fail(['store-log-and-list-required']);
   if (!validRun(run)) return fail(['valid-autonomy-run-required']);
+
+  // Until now this was a plain append: any snapshot was accepted, including one
+  // that moved a run backwards. Run state was ordered but not protected -- the
+  // same gap that let an execution record and a compute budget be rewound
+  // elsewhere in this repository.
+  //
+  // sequence is strictly monotonic per run (the pump only ever increments it),
+  // so it is the authority on which snapshot came later.
+  const incomingSequence = Number.isSafeInteger(run.sequence) ? run.sequence : 0;
+  const priorRows = (await auditRows(store, SNAPSHOT_TYPE))
+    .filter(row => row?.detail?.runId === run.runId && validRun(row?.detail?.run));
+  if (priorRows.length) {
+    const latest = priorRows
+      .sort((a, b) => (runSequence(b) - runSequence(a)) || (rowAppendOrder(b) - rowAppendOrder(a)))[0];
+    const latestSequence = runSequence(latest);
+    if (incomingSequence < latestSequence) {
+      return fail(['autonomy-run-sequence-regression'], 'CONFLICT');
+    }
+    if (incomingSequence === latestSequence) {
+      // Same point in the run. Identical content is a harmless replay after a
+      // crash; different content at the same sequence means two writers
+      // disagree about what happened, which must not be silently appended.
+      if (!sameJson(latest?.detail?.run ?? null, run)) {
+        return fail(['autonomy-run-snapshot-conflict'], 'CONFLICT');
+      }
+      return {
+        ok: true,
+        policyVersion: AGENT_AUTONOMY_STORE_POLICY_VERSION,
+        status: 'SNAPSHOT_ALREADY_SAVED',
+        runId: run.runId,
+        sessionId: run.session.sessionId,
+        auditId: latest?.id || null,
+        createdAt: latest?.detail?.createdAt || latest?.createdAt || null
+      };
+    }
+  }
+
   const createdAt = timestamp(date);
   const detail = {
     policyVersion: AGENT_AUTONOMY_STORE_POLICY_VERSION,
@@ -102,8 +146,12 @@ export async function loadLatestAutonomyRun(store, runId) {
     // declare no monotonic field to rank on, so fall back to the store's own
     // append order, which is at least defined. Kept local deliberately: a
     // three-line tiebreak does not justify coupling this module to another.
+    // The run carries its own monotonic counter -- the pump only ever does
+    // sequence += 1 -- so rank on that first. Timestamp and append order remain
+    // as tiebreaks for rows written before a sequence existed.
     .sort((a, b) =>
-      String(b?.detail?.createdAt || b?.createdAt || '').localeCompare(String(a?.detail?.createdAt || a?.createdAt || ''))
+      (runSequence(b) - runSequence(a))
+      || String(b?.detail?.createdAt || b?.createdAt || '').localeCompare(String(a?.detail?.createdAt || a?.createdAt || ''))
       || (rowAppendOrder(b) - rowAppendOrder(a)));
   if (!matches.length) {
     return {
@@ -132,10 +180,21 @@ export async function listLatestAutonomyRuns(store, { statuses = [], limit = 50 
   for (const row of rows) {
     const run = row?.detail?.run;
     if (!validRun(run)) continue;
+    // Dedup used to keep whichever row had the strictly greater timestamp, so a
+    // tie kept the FIRST one seen -- the older snapshot. That is not cosmetic
+    // here: agent-autonomy-job reads this listing to choose which runs to
+    // sweep, so a stale status can put a finished run back in the active set
+    // and have its work redone. Rank on the run's monotonic sequence first.
     const current = latest.get(run.runId);
+    if (!current) { latest.set(run.runId, row); continue; }
+    const bySequence = runSequence(row) - runSequence(current);
+    if (bySequence > 0) { latest.set(run.runId, row); continue; }
+    if (bySequence < 0) continue;
     const rowTime = String(row?.detail?.createdAt || row?.createdAt || '');
     const currentTime = String(current?.detail?.createdAt || current?.createdAt || '');
-    if (!current || rowTime > currentTime) latest.set(run.runId, row);
+    if (rowTime > currentTime || (rowTime === currentTime && rowAppendOrder(row) > rowAppendOrder(current))) {
+      latest.set(run.runId, row);
+    }
   }
   const runs = [...latest.values()]
     .map(row => row.detail.run)

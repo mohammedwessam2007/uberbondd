@@ -65,7 +65,10 @@ test('latest-run listing deduplicates historical snapshots', async () => {
   const store = fakeStore();
   const { run } = fixture();
   await saveAutonomyRunSnapshot(store, run, { date: new Date('2026-08-20T01:00:00Z') });
-  await saveAutonomyRunSnapshot(store, { ...run, status: 'PENDING', updatedAt: '2026-08-20T01:01:00Z' }, { date: new Date('2026-08-20T01:01:00Z') });
+  // sequence must advance with the state: the pump only ever emits a new run
+  // via `next.sequence += 1`, and the store now treats two different run
+  // states at one sequence as a conflict rather than a silent overwrite.
+  await saveAutonomyRunSnapshot(store, { ...run, sequence: (run.sequence || 0) + 1, status: 'PENDING', updatedAt: '2026-08-20T01:01:00Z' }, { date: new Date('2026-08-20T01:01:00Z') });
   const listed = await listLatestAutonomyRuns(store);
   assert.equal(listed.count, 1);
   assert.equal(listed.runs[0].status, 'PENDING');
@@ -136,4 +139,53 @@ test('terminal runs are idempotent no-ops', async () => {
   const result = await advanceAutonomyRun({ run: terminal, adapterFactory: async () => null, compileRelayTask: () => ({ ok: true }) });
   assert.equal(result.transition, 'NOOP_TERMINAL');
   assert.equal(result.run.runId, terminal.runId);
+});
+
+test('a run snapshot cannot move backwards, and two states at one sequence conflict', async () => {
+  // Run state used to be append-only: any snapshot was accepted, including one
+  // that rewound a run. That is the same gap that let an execution record and a
+  // compute budget be rewound elsewhere in this repository, and the run carries
+  // a strictly monotonic `sequence` that makes it cheap to close.
+  const store = fakeStore();
+  const { run } = fixture();
+  const at = new Date('2026-08-20T01:00:00Z');
+
+  assert.equal((await saveAutonomyRunSnapshot(store, { ...run, sequence: 1 }, { date: at })).ok, true);
+  assert.equal((await saveAutonomyRunSnapshot(store, { ...run, sequence: 2 }, { date: at })).ok, true);
+
+  // A late write from earlier in the run.
+  const rewind = await saveAutonomyRunSnapshot(store, { ...run, sequence: 1 }, { date: at });
+  assert.equal(rewind.ok, false, 'a lower sequence must not rewind the run');
+  assert.deepEqual(rewind.reasonCodes, ['autonomy-run-sequence-regression']);
+
+  // Same point in the run, identical content: a harmless crash replay.
+  const replay = await saveAutonomyRunSnapshot(store, { ...run, sequence: 2 }, { date: at });
+  assert.equal(replay.ok, true);
+  assert.equal(replay.status, 'SNAPSHOT_ALREADY_SAVED');
+
+  // Same point in the run, different content: two writers disagree.
+  const disagree = await saveAutonomyRunSnapshot(store, { ...run, sequence: 2, status: 'BLOCKED' }, { date: at });
+  assert.equal(disagree.ok, false, 'conflicting states at one sequence must not be silently appended');
+  assert.deepEqual(disagree.reasonCodes, ['autonomy-run-snapshot-conflict']);
+
+  const latest = await loadLatestAutonomyRun(store, run.runId);
+  assert.equal(latest.run.sequence, 2, 'the furthest-along snapshot must remain authoritative');
+});
+
+test('the active-run listing shows the furthest-along snapshot, not the first one written', async () => {
+  // agent-autonomy-job reads this listing to decide which runs to sweep, so a
+  // stale entry puts a finished run back in the active set and has its work
+  // redone. Two snapshots stamped at one instant used to resolve to whichever
+  // was written first.
+  const store = fakeStore();
+  const { run } = fixture();
+  const sameInstant = new Date('2026-08-20T02:00:00Z');
+
+  await saveAutonomyRunSnapshot(store, { ...run, sequence: 1, status: 'ACTIVE' }, { date: sameInstant });
+  await saveAutonomyRunSnapshot(store, { ...run, sequence: 2, status: 'DONE' }, { date: sameInstant });
+
+  const listed = await listLatestAutonomyRuns(store);
+  assert.equal(listed.count, 1);
+  assert.equal(listed.runs[0].sequence, 2, 'the later sequence must win a timestamp tie');
+  assert.equal(listed.runs[0].status, 'DONE', 'a finished run must not still read as active');
 });

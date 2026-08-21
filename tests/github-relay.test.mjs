@@ -16,6 +16,8 @@ import {
   githubRelayTaskEnvelope,
   resolveLease,
   submitGithubRelayResult,
+  summarizeRelayQueue,
+  buildTaskIssueBody,
   validateRelayReceipt
 } from '../src/github-relay.mjs';
 import { hasSecret } from '../src/cloud-agent-relay.mjs';
@@ -473,4 +475,142 @@ test('hostile: invalid worker ids and result statuses are refused', async () => 
   });
   assert.equal(bogusStatus.ok, false);
   assert.ok(bogusStatus.reasonCodes.includes('invalid-result-status'));
+});
+
+// --- queue visibility -------------------------------------------------------
+// A relay nobody can see the state of is a relay nobody trusts. These pin the
+// three situations that are operationally different but look identical on the
+// GitHub issue list.
+
+function queueEntry({ number, taskId, createdAt, labels = [TASK_LABEL], comments = [] }) {
+  return {
+    issue: {
+      number,
+      created_at: createdAt,
+      html_url: `https://github.com/o/r/issues/${number}`,
+      labels: labels.map(name => ({ name })),
+      body: buildTaskIssueBody({ ...input({ taskId }), ok: true, createdAt, status: 'READY_FOR_REVIEW' })
+    },
+    comments
+  };
+}
+
+test('summarizeRelayQueue reports an idle queue as IDLE rather than healthy-looking silence', () => {
+  const summary = summarizeRelayQueue({ tasks: [], now: T0 });
+  assert.equal(summary.verdict, 'IDLE');
+  assert.equal(summary.total, 0);
+  assert.equal(summary.oldestQueuedSeconds, null);
+  assert.deepEqual(summary.stranded, []);
+});
+
+test('summarizeRelayQueue distinguishes waiting work from work in flight', () => {
+  const now = new Date('2026-08-19T10:10:00.000Z');
+  const summary = summarizeRelayQueue({
+    tasks: [
+      queueEntry({ number: 1, taskId: 'waiting', createdAt: '2026-08-19T10:05:00.000Z' }),
+      queueEntry({
+        number: 2, taskId: 'running', createdAt: '2026-08-19T10:00:00.000Z',
+        labels: [TASK_LABEL, CLAIMED_LABEL],
+        comments: [{ id: 10, body: buildClaimComment({ workerId: 'worker-a', observedAt: now, leaseSeconds: 900 }) }]
+      })
+    ],
+    now
+  });
+  assert.equal(summary.verdict, 'ACTIVE');
+  assert.equal(summary.counts.QUEUED, 1);
+  assert.equal(summary.counts.CLAIMED, 1);
+  assert.equal(summary.inFlight[0].holder, 'worker-a');
+  assert.equal(summary.oldestQueuedSeconds, 300);
+});
+
+test('summarizeRelayQueue surfaces a task whose worker claimed it and then died', () => {
+  // This is the failure the transport could never announce: the lease lapsed,
+  // so the task is claimable again, but work may have been done and thrown
+  // away and the issue still reads "claimed". It outranks an idle queue --
+  // idle means nobody started; stranded means someone started and vanished.
+  const claimedAt = new Date('2026-08-19T10:00:00.000Z');
+  const now = new Date('2026-08-19T11:00:00.000Z');
+  const summary = summarizeRelayQueue({
+    tasks: [queueEntry({
+      number: 7, taskId: 'abandoned', createdAt: '2026-08-19T09:55:00.000Z',
+      labels: [TASK_LABEL, CLAIMED_LABEL],
+      comments: [{ id: 20, body: buildClaimComment({ workerId: 'worker-ghost', observedAt: claimedAt, leaseSeconds: 600 }) }]
+    })],
+    now
+  });
+  assert.equal(summary.verdict, 'STRANDED');
+  assert.equal(summary.counts.LEASE_EXPIRED, 1);
+  assert.equal(summary.stranded.length, 1);
+  assert.equal(summary.stranded[0].issueNumber, 7);
+  assert.equal(summary.stranded[0].attempts, 1);
+  // Naming the worker that vanished is the point. Reporting a stranded task
+  // without saying who dropped it leaves the reader nowhere to look.
+  assert.equal(summary.stranded[0].lastHolder, 'worker-ghost');
+  assert.equal(summary.stranded[0].lapsedAt, '2026-08-19T10:10:00.000Z');
+});
+
+test('resolveLease keeps holder null on an expired lease but still names who let it lapse', () => {
+  // holder must stay null -- nobody holds an expired lease and callers branch
+  // on that. lastHolder is a separate field precisely so adding it cannot
+  // change any existing decision.
+  const lease = resolveLease(
+    [{ id: 1, body: buildClaimComment({ workerId: 'worker-ghost', observedAt: T0, leaseSeconds: 600 }) }],
+    new Date('2026-08-19T11:00:00.000Z')
+  );
+  assert.equal(lease.state, 'EXPIRED');
+  assert.equal(lease.holder, null);
+  assert.equal(lease.lastHolder, 'worker-ghost');
+});
+
+test('summarizeRelayQueue calls a long-waiting queue with nothing running STALLED', () => {
+  // Not broken -- nobody is home. Worth saying out loud, because an idle
+  // worker and a crashed one look the same from the issue list.
+  const summary = summarizeRelayQueue({
+    tasks: [queueEntry({ number: 3, taskId: 'ancient', createdAt: '2026-08-19T08:00:00.000Z' })],
+    now: T0,
+    staleQueuedSeconds: 3600
+  });
+  assert.equal(summary.verdict, 'STALLED');
+  assert.equal(summary.oldestQueuedSeconds, 7200);
+});
+
+test('summarizeRelayQueue does not call a queue STALLED while a worker is actually running', () => {
+  const summary = summarizeRelayQueue({
+    tasks: [
+      queueEntry({ number: 3, taskId: 'ancient', createdAt: '2026-08-19T08:00:00.000Z' }),
+      queueEntry({
+        number: 4, taskId: 'running', createdAt: '2026-08-19T09:59:00.000Z',
+        labels: [TASK_LABEL, CLAIMED_LABEL],
+        comments: [{ id: 30, body: buildClaimComment({ workerId: 'worker-a', observedAt: T0, leaseSeconds: 900 }) }]
+      })
+    ],
+    now: T0,
+    staleQueuedSeconds: 3600
+  });
+  assert.equal(summary.verdict, 'ACTIVE');
+});
+
+test('summarizeRelayQueue flags repeatedly-retried tasks, which read as ordinary claims on GitHub', () => {
+  const summary = summarizeRelayQueue({
+    tasks: [queueEntry({
+      number: 9, taskId: 'thrashing', createdAt: '2026-08-19T09:50:00.000Z',
+      labels: [TASK_LABEL, CLAIMED_LABEL],
+      comments: [
+        { id: 40, body: buildClaimComment({ workerId: 'worker-a', observedAt: T0, leaseSeconds: 900 }) },
+        { id: 41, body: buildClaimComment({ workerId: 'worker-b', observedAt: T0, leaseSeconds: 900 }) },
+        { id: 42, body: buildClaimComment({ workerId: 'worker-c', observedAt: T0, leaseSeconds: 900 }) }
+      ]
+    })],
+    now: T0
+  });
+  assert.equal(summary.retried.length, 1);
+  assert.equal(summary.retried[0].attempts, 3);
+});
+
+test('summarizeRelayQueue reports a strictly zero effect ledger -- reading a queue changes nothing', () => {
+  const summary = summarizeRelayQueue({ tasks: [], now: T0 });
+  assert.deepEqual(summary.externalEffectLedger, {
+    providerCalls: 0, messages: 0, purchases: 0, deployments: 0,
+    credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0
+  });
 });

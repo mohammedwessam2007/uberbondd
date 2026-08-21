@@ -2,8 +2,9 @@
 // It does not send, poll, invoke a model, or grant external authority.
 
 import { compileAgentTask } from './agent-relay.mjs';
+import { AUTONOMY_FORBIDDEN_ACTIONS } from './agent-autonomy-loop.mjs';
 
-export const AGENT_AUTONOMY_RELAY_ADAPTER_POLICY_VERSION = 'agent-autonomy-relay-adapter-1.0.0';
+export const AGENT_AUTONOMY_RELAY_ADAPTER_POLICY_VERSION = 'agent-autonomy-relay-adapter-1.1.0';
 
 const REQUIRED_RESULT_FIELDS = Object.freeze([
   'outcome',
@@ -46,11 +47,10 @@ export function compileRelayTaskFromIntent(intent, session, date = new Date()) {
       `autonomy-session:${session.sessionId}`,
       `autonomy-kind:${intent.kind}`
     ],
-    forbiddenActions: [
-      'send', 'spend', 'purchase', 'deploy', 'push', 'merge',
-      'change-credentials', 'change-dns', 'contact-anyone',
-      'use-private-data', 'mutate-production'
-    ],
+    forbiddenActions: [...new Set([
+      ...AUTONOMY_FORBIDDEN_ACTIONS,
+      ...(Array.isArray(intent.forbiddenActions) ? intent.forbiddenActions : [])
+    ])],
     requiredOutputs: [...new Set([...REQUIRED_RESULT_FIELDS, ...(intent.requiredOutputs || [])])],
     acceptanceTests: tests,
     budget: { maxTokens: intent.tokenBudget, maxCostCents: 0 },

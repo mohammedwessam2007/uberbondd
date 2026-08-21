@@ -1,7 +1,7 @@
 import { hasSecret } from './cloud-agent-relay.mjs';
 import { validateComputeBudget } from './ai-compute-budget.mjs';
 
-export const AGENT_COMPUTE_STORE_POLICY_VERSION = 'agent-compute-store-1.1.0';
+export const AGENT_COMPUTE_STORE_POLICY_VERSION = 'agent-compute-store-1.2.0';
 
 const SNAPSHOT_TYPE = 'agent_compute_budget_snapshot';
 const EXECUTION_TYPE = 'agent_compute_execution_record';
@@ -9,6 +9,20 @@ const MAX_SCAN = 3000;
 const MAX_EXECUTION_BYTES = 60_000;
 const COMPUTE_SECRET_KEY = /secret|password|credential|privatekey|apikey|authorization/i;
 const SECRET_VALUE = /(?:\bsk-[A-Za-z0-9]{12,}|\bghp_[A-Za-z0-9]{12,}|-----BEGIN|Bearer\s+\S+)/;
+const EXECUTION_STATUSES = new Set([
+  'COMPUTE_OUTCOME_UNCERTAIN',
+  'COMPUTE_BUDGET_VIOLATION',
+  'INVALID_MODEL_RESULT',
+  'MODEL_RESULT_READY',
+  'RESULT_SUBMISSION_PENDING',
+  'RESULT_SUBMITTED'
+]);
+const TERMINAL_EXECUTION_STATUSES = new Set([
+  'COMPUTE_OUTCOME_UNCERTAIN',
+  'COMPUTE_BUDGET_VIOLATION',
+  'INVALID_MODEL_RESULT',
+  'RESULT_SUBMITTED'
+]);
 
 function text(value, max = 240) {
   return String(value ?? '').trim().slice(0, max);
@@ -81,6 +95,7 @@ function inspectExecutionRow(row, expectedTaskId = null) {
   const recordExecutionId = text(record.executionId, 240);
   const recordTaskId = text(record.taskId, 160);
   const recordStatus = text(record.status, 100).toUpperCase();
+  if (!EXECUTION_STATUSES.has(recordStatus)) return fail(['stored-execution-record-status-invalid'], 'CORRUPT');
   if (detailExecutionId !== recordExecutionId || detailTaskId !== recordTaskId || detailStatus !== recordStatus) {
     return fail(['stored-execution-record-identity-mismatch'], 'CORRUPT');
   }
@@ -97,6 +112,58 @@ async function rows(store, type, limit = MAX_SCAN) {
     limit: Math.max(1, Math.min(MAX_SCAN, Number(limit || MAX_SCAN)))
   });
   return Array.isArray(result) ? result : [];
+}
+
+function executionRowsForTask(allRows, taskId) {
+  return allRows
+    .filter(row => row?.detail?.taskId === taskId || row?.detail?.executionRecord?.taskId === taskId)
+    .sort((a, b) => rowTime(b).localeCompare(rowTime(a)));
+}
+
+function sameExecutionRecord(left, right) {
+  try {
+    return JSON.stringify(left) === JSON.stringify(right);
+  } catch {
+    return false;
+  }
+}
+
+function validateExecutionTransition(previous, next) {
+  if (!previous) return { ok: true, status: 'FIRST_RECORD' };
+  const previousStatus = text(previous.status, 100).toUpperCase();
+  const nextStatus = text(next.status, 100).toUpperCase();
+  if (!EXECUTION_STATUSES.has(previousStatus) || !EXECUTION_STATUSES.has(nextStatus)) {
+    return fail(['execution-status-invalid'], 'CONFLICT');
+  }
+
+  if (TERMINAL_EXECUTION_STATUSES.has(previousStatus)) {
+    if (previousStatus === nextStatus
+      && previous.executionId === next.executionId
+      && sameExecutionRecord(previous, next)) {
+      return { ok: true, status: 'IDEMPOTENT_TERMINAL_REPLAY' };
+    }
+    return fail(['terminal-execution-history-conflict'], 'CONFLICT');
+  }
+
+  if (previous.executionId !== next.executionId) {
+    return fail(['execution-id-changed-within-task-history'], 'CONFLICT');
+  }
+
+  if (previousStatus === 'MODEL_RESULT_READY') {
+    if (!new Set(['MODEL_RESULT_READY', 'RESULT_SUBMISSION_PENDING', 'RESULT_SUBMITTED']).has(nextStatus)) {
+      return fail(['execution-status-regression'], 'CONFLICT');
+    }
+    return { ok: true, status: previousStatus === nextStatus ? 'IDEMPOTENT_STAGE_REPLAY' : 'ADVANCED' };
+  }
+
+  if (previousStatus === 'RESULT_SUBMISSION_PENDING') {
+    if (!new Set(['RESULT_SUBMISSION_PENDING', 'RESULT_SUBMITTED']).has(nextStatus)) {
+      return fail(['execution-status-regression'], 'CONFLICT');
+    }
+    return { ok: true, status: previousStatus === nextStatus ? 'IDEMPOTENT_STAGE_REPLAY' : 'ADVANCED' };
+  }
+
+  return fail(['execution-transition-unrecognized'], 'CONFLICT');
 }
 
 export async function saveComputeBudgetSnapshot(store, budget, {
@@ -160,6 +227,27 @@ export async function saveAgentExecutionRecord(store, executionRecord, { date = 
   if (bytes(executionRecord) > MAX_EXECUTION_BYTES) return fail(['execution-record-too-large']);
   const status = text(executionRecord.status, 100).toUpperCase();
   if (!status) return fail(['execution-status-required']);
+  if (!EXECUTION_STATUSES.has(status)) return fail(['execution-status-invalid']);
+
+  const existingRows = executionRowsForTask(await rows(store, EXECUTION_TYPE), text(executionRecord.taskId, 160));
+  if (existingRows.length) {
+    const inspected = inspectExecutionRow(existingRows[0], text(executionRecord.taskId, 160));
+    if (!inspected.ok) return inspected;
+    const transition = validateExecutionTransition(inspected.executionRecord, executionRecord);
+    if (!transition.ok) return transition;
+    if (transition.status === 'IDEMPOTENT_TERMINAL_REPLAY' || transition.status === 'IDEMPOTENT_STAGE_REPLAY') {
+      return {
+        ok: true,
+        policyVersion: AGENT_COMPUTE_STORE_POLICY_VERSION,
+        status: 'EXECUTION_ALREADY_SAVED',
+        executionId: executionRecord.executionId,
+        taskId: executionRecord.taskId,
+        auditId: existingRows[0]?.id || null,
+        createdAt: existingRows[0]?.detail?.createdAt || existingRows[0]?.createdAt || null
+      };
+    }
+  }
+
   const at = timestamp(date);
   const detail = {
     policyVersion: AGENT_COMPUTE_STORE_POLICY_VERSION,
@@ -186,9 +274,7 @@ export async function loadLatestAgentExecution(store, taskId) {
   const id = text(taskId, 160);
   if (!id) return fail(['task-id-required']);
   const all = await rows(store, EXECUTION_TYPE);
-  const matches = all
-    .filter(row => row?.detail?.taskId === id || row?.detail?.executionRecord?.taskId === id)
-    .sort((a, b) => rowTime(b).localeCompare(rowTime(a)));
+  const matches = executionRowsForTask(all, id);
   if (!matches.length) return fail(['agent-execution-not-found'], 'NOT_FOUND');
   const latest = matches[0];
   const inspected = inspectExecutionRow(latest, id);

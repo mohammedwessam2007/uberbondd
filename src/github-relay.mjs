@@ -344,7 +344,22 @@ export function resolveLease(comments = [], now = new Date(), leaseSeconds = DEF
       };
     }
   }
-  return { holder: null, state: 'EXPIRED', expiresAt: null };
+  // `holder` stays null -- nobody holds an expired lease, and callers branch on
+  // that. But throwing away WHO let it lapse loses the single most useful fact
+  // about a stranded task: which worker vanished mid-run. Report it separately.
+  const last = claims[claims.length - 1];
+  const lastSeen = Date.parse(
+    heartbeats.filter(beat => beat.workerId === last.workerId && beat.id > last.id)
+      .sort((a, b) => b.id - a.id)[0]?.heartbeatAt || last.claimedAt || 0
+  );
+  const lapsedAt = lastSeen + (Number(last.leaseSeconds || leaseSeconds) * 1000);
+  return {
+    holder: null,
+    state: 'EXPIRED',
+    expiresAt: null,
+    lastHolder: last.workerId || null,
+    lapsedAt: Number.isFinite(lapsedAt) ? new Date(lapsedAt).toISOString() : null
+  };
 }
 
 /**
@@ -615,5 +630,83 @@ export function githubRelayTaskEnvelope({ issue, comments = [], now = new Date()
     updatedAt: issue?.updated_at || null,
     issueNumber: issue?.number ?? null,
     issueUrl: issue?.html_url || null
+  };
+}
+
+/**
+ * Aggregate queue health from raw issues and their comments.
+ *
+ * A relay with no visibility is a relay nobody trusts. Three states matter
+ * operationally and none of them are obvious from looking at GitHub:
+ *
+ *   QUEUED for a long time  -- nothing is running. Not broken, just nobody
+ *                              home, which is easy to mistake for broken.
+ *   LEASE_EXPIRED           -- a worker claimed this and then died. The task is
+ *                              claimable again, but work may have been done and
+ *                              thrown away, and nothing announces that.
+ *   attempts > 1            -- something keeps failing and retrying. A single
+ *                              glance at the issue looks identical to a task
+ *                              claimed once.
+ *
+ * Pure over its inputs (including `now`), so it is testable without a network
+ * and cannot drift from what the transport actually reports.
+ */
+export function summarizeRelayQueue({ tasks = [], now = new Date(), staleQueuedSeconds = 3600, leaseSeconds = DEFAULT_LEASE_SECONDS } = {}) {
+  const at = now instanceof Date ? now : new Date(now);
+  const nowMs = at.getTime();
+  const counts = { QUEUED: 0, CLAIMED: 0, LEASE_EXPIRED: 0, COMPLETED: 0, FAILED: 0 };
+  const envelopes = [];
+
+  for (const entry of tasks) {
+    const envelope = githubRelayTaskEnvelope({
+      issue: entry?.issue, comments: entry?.comments || [], now: at, leaseSeconds
+    });
+    if (!envelope) continue;
+    envelopes.push(envelope);
+    if (Object.hasOwn(counts, envelope.status)) counts[envelope.status] += 1;
+  }
+
+  const ageSeconds = envelope => {
+    const created = Date.parse(envelope.createdAt || '');
+    return Number.isFinite(created) ? Math.max(0, Math.round((nowMs - created) / 1000)) : null;
+  };
+
+  const queued = envelopes.filter(e => e.status === 'QUEUED');
+  const stranded = envelopes.filter(e => e.status === 'LEASE_EXPIRED');
+  const inFlight = envelopes.filter(e => e.status === 'CLAIMED');
+  const retried = envelopes.filter(e => e.attempts > 1 && e.status !== 'COMPLETED');
+  const waits = queued.map(ageSeconds).filter(seconds => seconds !== null);
+  const oldestQueuedSeconds = waits.length ? Math.max(...waits) : null;
+
+  // Ordered by how much a person needs to know about it, most urgent first. A
+  // stranded task outranks a merely idle queue: idle means nobody started,
+  // stranded means someone started and vanished.
+  const verdict = stranded.length ? 'STRANDED'
+    : (oldestQueuedSeconds !== null && oldestQueuedSeconds > staleQueuedSeconds && inFlight.length === 0) ? 'STALLED'
+    : (queued.length || inFlight.length) ? 'ACTIVE'
+    : 'IDLE';
+
+  return {
+    ok: true,
+    policyVersion: GITHUB_RELAY_POLICY_VERSION,
+    observedAt: at.toISOString(),
+    verdict,
+    counts,
+    total: envelopes.length,
+    oldestQueuedSeconds,
+    stranded: stranded.map(e => ({
+      issueNumber: e.issueNumber, issueUrl: e.issueUrl, taskId: e.taskId,
+      attempts: e.attempts,
+      // An expired lease has no holder by definition; lastHolder is who let it lapse.
+      lastHolder: e.lease?.lastHolder || null,
+      lapsedAt: e.lease?.lapsedAt || null,
+      ageSeconds: ageSeconds(e)
+    })),
+    inFlight: inFlight.map(e => ({
+      issueNumber: e.issueNumber, taskId: e.taskId,
+      holder: e.lease?.holder || null, expiresAt: e.lease?.expiresAt || null
+    })),
+    retried: retried.map(e => ({ issueNumber: e.issueNumber, taskId: e.taskId, attempts: e.attempts })),
+    externalEffectLedger: { ...ZERO_EFFECTS }
   };
 }

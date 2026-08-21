@@ -850,7 +850,7 @@ const RAW_OPPORTUNITIES = [
     stackability: 'Grant-specific.',
     onePerPerson: false,
     tags: ['anthropic', 'research', 'healthcare', 'grant']
-  })
+  }),
 
   record({
     id: "openai-codex-students-us-canada",

@@ -12,7 +12,7 @@ import {
   listPendingAgentSubmissions
 } from './agent-compute-store.mjs';
 
-export const AGENT_WORKER_JOB_POLICY_VERSION = 'agent-worker-job-1.0.0';
+export const AGENT_WORKER_JOB_POLICY_VERSION = 'agent-worker-job-1.1.0';
 
 function text(value, max = 240) {
   return String(value ?? '').trim().slice(0, max);
@@ -41,6 +41,96 @@ function validStore(store) {
     && typeof store.list === 'function'
     && typeof store.claimJobsByType === 'function'
   );
+}
+
+// A pending provider result is durable economic work. It may only be replayed
+// by the worker configuration that originally produced it. The compute budget
+// itself provides the strongest currently persisted binding: the task must be
+// present as a COMMITTED reservation with the same provider/model and the same
+// measured usage. A different worker is simply foreign work; a record owned by
+// this worker but inconsistent with its current target/provider/model/budget is
+// a scope conflict and fails closed rather than being silently replayed.
+export function evaluatePendingSubmissionScope(record, {
+  budget,
+  budgetId,
+  targetAgent,
+  workerId,
+  provider,
+  model = ''
+} = {}) {
+  const taskId = text(record?.taskId, 160);
+  const recordWorker = text(record?.workerId, 160);
+  const expectedWorker = text(workerId, 160);
+  if (!taskId || !recordWorker || !expectedWorker) {
+    return {
+      ok: false,
+      status: 'SCOPE_CONFLICT',
+      reasonCodes: ['pending-submission-identity-incomplete']
+    };
+  }
+  if (recordWorker !== expectedWorker) {
+    return {
+      ok: false,
+      status: 'FOREIGN',
+      reasonCodes: ['pending-submission-owned-by-another-worker']
+    };
+  }
+
+  const expectedTarget = text(targetAgent, 80).toLowerCase();
+  const expectedProvider = text(provider, 80).toLowerCase();
+  const expectedModel = text(model, 160);
+  const recordTarget = text(record?.targetAgent, 80).toLowerCase();
+  const recordProvider = text(record?.provider, 80).toLowerCase();
+  const recordModel = text(record?.model, 160);
+  const reasons = [];
+  if (!expectedTarget || recordTarget !== expectedTarget) reasons.push('pending-submission-target-agent-mismatch');
+  if (!expectedProvider || recordProvider !== expectedProvider) reasons.push('pending-submission-provider-mismatch');
+  if (recordModel !== expectedModel) reasons.push('pending-submission-model-mismatch');
+
+  const expectedBudgetId = text(budgetId, 160);
+  if (!budget?.ok || !expectedBudgetId || text(budget?.budgetId, 160) !== expectedBudgetId) {
+    reasons.push('pending-submission-budget-context-invalid');
+  }
+  const reservation = budget?.reservations?.[taskId];
+  if (!reservation || String(reservation.status || '').toUpperCase() !== 'COMMITTED') {
+    reasons.push('pending-submission-committed-reservation-required');
+  } else {
+    if (text(reservation.provider, 80).toLowerCase() !== recordProvider) {
+      reasons.push('pending-submission-reservation-provider-mismatch');
+    }
+    if (text(reservation.model, 160) !== recordModel) {
+      reasons.push('pending-submission-reservation-model-mismatch');
+    }
+    const recordCost = Number(record?.usage?.costCents);
+    const recordTokens = Number(record?.usage?.totalUnits);
+    if (!Number.isSafeInteger(recordCost) || recordCost < 0 || recordCost !== Number(reservation.actualCostCents)) {
+      reasons.push('pending-submission-reservation-cost-mismatch');
+    }
+    if (!Number.isSafeInteger(recordTokens) || recordTokens < 0 || recordTokens !== Number(reservation.actualTokens)) {
+      reasons.push('pending-submission-reservation-token-mismatch');
+    }
+  }
+
+  if (reasons.length) {
+    return {
+      ok: false,
+      status: 'SCOPE_CONFLICT',
+      taskId,
+      workerId: recordWorker,
+      reasonCodes: [...new Set(reasons)]
+    };
+  }
+  return {
+    ok: true,
+    status: 'OWNED',
+    taskId,
+    workerId: recordWorker,
+    budgetId: expectedBudgetId,
+    targetAgent: expectedTarget,
+    provider: expectedProvider,
+    model: expectedModel || null,
+    reasonCodes: []
+  };
 }
 
 async function persistBudget(store, budget, detail = {}) {
@@ -97,6 +187,7 @@ export async function runAgentWorkerTick({
   const target = text(targetAgent, 80).toLowerCase();
   const worker = text(workerId, 160);
   const providerName = text(provider, 80).toLowerCase();
+  const normalizedModel = text(model, 160);
   const reasons = [];
   if (!computeId) reasons.push('budget-id-required');
   if (!target) reasons.push('target-agent-required');
@@ -108,13 +199,44 @@ export async function runAgentWorkerTick({
   const loaded = await loadLatestComputeBudget(store, computeId);
   if (!loaded.ok) return fail(loaded.reasonCodes || ['compute-budget-load-failed'], 'BLOCKED');
 
-  // A successfully computed result is more valuable than new work. Replay it
-  // before claiming anything else so a transient relay failure cannot cause a
-  // second provider call for the same economic work.
-  const pending = await listPendingAgentSubmissions(store, { limit: 1 });
+  // A successfully computed result is more valuable than new work. Scan a
+  // bounded pending set, but only replay a result whose immutable worker and
+  // compute context matches this tick. The old `limit: 1` behavior allowed
+  // worker A to submit worker B's result with A's callbacks and budget context.
+  const pending = await listPendingAgentSubmissions(store, { limit: 100 });
   if (!pending.ok) return fail(pending.reasonCodes || ['pending-submission-scan-failed']);
-  if (pending.records.length) {
-    return replayPendingSubmission({ store, record: pending.records[0], date });
+  let ownedPending = null;
+  const conflicts = [];
+  for (const record of pending.records) {
+    const scope = evaluatePendingSubmissionScope(record, {
+      budget: loaded.budget,
+      budgetId: computeId,
+      targetAgent: target,
+      workerId: worker,
+      provider: providerName,
+      model: normalizedModel
+    });
+    if (scope.ok) {
+      ownedPending = record;
+      break;
+    }
+    if (scope.status === 'SCOPE_CONFLICT') conflicts.push(scope);
+  }
+  if (ownedPending) {
+    return replayPendingSubmission({ store, record: ownedPending, date });
+  }
+  if (conflicts.length) {
+    return fail(
+      ['pending-submission-scope-conflict', ...conflicts.flatMap(item => item.reasonCodes || [])],
+      'PENDING_SUBMISSION_SCOPE_CONFLICT',
+      {
+        workerId: worker,
+        targetAgent: target,
+        provider: providerName,
+        model: normalizedModel || null,
+        conflictingTaskIds: [...new Set(conflicts.map(item => item.taskId).filter(Boolean))]
+      }
+    );
   }
 
   const claim = await claimCloudRelayTask({
@@ -150,7 +272,7 @@ export async function runAgentWorkerTick({
     claim,
     computeBudget: loaded.budget,
     provider: providerName,
-    model,
+    model: normalizedModel,
     costCeilingCents,
     tokenCeiling,
     modelExecutor,
@@ -189,7 +311,7 @@ export async function runAgentWorkerTick({
     workerId: worker,
     targetAgent: target,
     provider: providerName,
-    model: text(model, 160) || null,
+    model: normalizedModel || null,
     workerResult: result,
     budgetPersistence,
     executionPersistence,

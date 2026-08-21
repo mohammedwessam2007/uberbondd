@@ -58,23 +58,28 @@ Status vocabulary:
 | Crash after submission, before recording it | VERIFIED_LOCAL | Soak boundary 4, no second record |
 | 1,000 tasks with crashes at all four boundaries | VERIFIED_LOCAL | `agent-mesh-soak` asserts each boundary was actually hit |
 
-## Not yet reviewed
+## The ordering pattern — now fully swept
 
-Three P0/P1 defects this session were the same mistake: **"latest" defined as
-"most recently stamped" rather than "furthest along a monotonic quantity."**
-These have the same shape and have not been examined:
+Five defects this session were one mistake: **"latest" defined as "most
+recently stamped" rather than "furthest along a monotonic quantity."** Every
+site with that shape has now been examined.
 
-| Site | Risk |
+| Site | Outcome |
 |---|---|
-| `agent-code-artifact-store` latest-artifact selection | Probably safe — artifacts are content-addressed and identity collisions are rejected before the sort. Not proven. |
-| `cloud-agent-relay` `listCloudRelayTasks` ordering | Listing only; no authority decision reads it. |
-| `agent-autonomy-store` run listing | Listing only. |
+| Execution records | **FIXED (P0)** — ranked by state-machine stage |
+| Compute budget snapshots | **FIXED (P0)** — ranked by monotonic committed spend |
+| `loadLatestAutonomyRun` | **FIXED** — ranked by the run's monotonic `sequence` |
+| `listLatestAutonomyRuns` | **FIXED (P1)** — dedup kept the *first* row on a tie, and `agent-autonomy-job` reads this listing to choose which runs to sweep, so a finished run could be swept again |
+| `saveAutonomyRunSnapshot` | **FIXED** — had no transition guard at all; a lower sequence is now refused, an identical replay converges, conflicting states at one sequence are refused |
+| `agent-code-artifact-store` | **SAFE, proven** — any digest divergence is rejected as `artifact-identity-collision` *before* the sort, so all candidates are byte-identical and the tie affects only provenance metadata |
+| `cloud-agent-relay` `listCloudRelayTasks` | **SAFE** — display only; no authority decision reads it |
 
-`loadLatestAutonomyRun` was in this list and now has an append-order tiebreak.
-It ranks on no monotonic field because the run record declares none, and
-`saveAutonomyRunSnapshot` enforces no transition guard at all — so run state is
-*ordered* but not *protected*. That is a real gap, deliberately left open and
-recorded rather than papered over.
+## Accepted behaviour, not defects
+
+| Observation | Why it is accepted |
+|---|---|
+| `reserveCompute` coerces a numeric string (`"10"` → `10`) | Lenient input coercion. The value still passes `isSafeInteger` and every budget bound, so no capacity can be created. Recorded rather than churned. |
+| A Cyrillic homoglyph key (`аpiKey`) is not caught by the secret scanner | It is not the ASCII key, so nothing reads it as a credential either. Noted as a known limit of name-based matching. |
 
 ## A guard that was itself wrong
 

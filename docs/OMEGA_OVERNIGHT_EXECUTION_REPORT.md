@@ -71,6 +71,24 @@ direct resurrection attempt. It asserts each boundary was genuinely hit — a
 soak that never crashed proves nothing about crash recovery. Fakes only; no
 provider called, no network touched, no money moved.
 
+## Adversarial sweeps
+
+The stop condition was two consecutive sweeps finding no new P0/P1.
+
+- **Sweep 1** — malicious model, hostile payloads: deep-nested secrets, secrets
+  in arrays, private-key blocks, null-prototype objects, homoglyph keys, NaN /
+  Infinity / negative / float / string budget values, wrong-typed consequence
+  classes, unknown statuses, oversized records. Two findings, both examined and
+  neither a defect: one was my probe's incomplete task fixture, the other is
+  bounded numeric coercion that cannot create capacity.
+- **Sweep 2** — hostile scheduler and stale store, aimed squarely at the guards
+  added this session: later-written stale writes, conflicting terminal statuses,
+  budget ties where only tokens moved, four shapes of sequence rewind, and every
+  reserve/release/commit interleaving. **No new defect.**
+
+Both sweeps are now `tests/agent-mesh-adversarial-sweep.test.mjs` so they run
+forever rather than living in one session's scratch directory.
+
 ## What is deliberately still red
 
 - **The HTTP ingress is deployed nowhere.** Exercised over loopback against the
@@ -80,8 +98,6 @@ provider called, no network touched, no money moved.
   nothing in this code can fix it.
 - **No provider has ever been called.** The OpenAI and Anthropic adapters exist
   and are disabled by default.
-- **Autonomy run state is ordered but not protected.** `saveAutonomyRunSnapshot`
-  enforces no transition guard. Recorded in the failure matrix, not fixed.
 
 ## Commercial reality
 

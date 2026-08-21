@@ -153,7 +153,15 @@ export function compileAgentWorkerPlan({
   if (!normalizedProvider) reasons.push('provider-required');
   if (cost == null) reasons.push('valid-cost-ceiling-required');
   if (tokens == null) reasons.push('valid-token-ceiling-required');
-  if (normalized.task?.consequenceClass && normalized.task.consequenceClass !== 'LOCAL_PREPARATION') {
+  // An absent consequence class is not a quiet "probably local" -- it is
+  // unknown consequential state, and unknown fails closed. The previous guard
+  // only fired when a class was PRESENT and wrong, so a task that simply never
+  // declared one was accepted and went on to spend compute. Require the
+  // declaration explicitly, and say which of the two problems occurred.
+  const declaredConsequence = String(normalized.task?.consequenceClass || '').trim();
+  if (!declaredConsequence) {
+    reasons.push('task-consequence-class-required');
+  } else if (declaredConsequence !== 'LOCAL_PREPARATION') {
     reasons.push('worker-only-accepts-local-preparation');
   }
   if (hasSecret(normalized.task)) reasons.push('secret-like-task-rejected');

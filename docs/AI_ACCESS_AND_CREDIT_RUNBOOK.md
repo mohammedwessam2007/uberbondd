@@ -6,7 +6,7 @@ Truth boundary: this catalog proves only that an official provider route was doc
 
 ## What was added
 
-The catalog is now a 55-route, multi-family universe covering student access, startup/cloud credits, model-provider programs, GPU/inference, research, open source, regional education, partner benefits, and coding tools. The family map is explicit and testable; it is designed for continuous ingestion, not a claim that every internet promotion has been discovered.
+The catalog is now a 54-route, multi-family universe covering student access, startup/cloud credits, model-provider programs, GPU/inference, research, open source, regional education, partner benefits, and coding tools. The family map is explicit and testable; it is designed for continuous ingestion, not a claim that every internet promotion has been discovered.
 
 UberBond now has one governed access catalog connected to the existing opportunity-registry policy rather than a second commercial opportunity database.
 

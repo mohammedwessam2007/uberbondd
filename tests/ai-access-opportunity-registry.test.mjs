@@ -4,10 +4,13 @@ import {
   AI_ACCESS_OPPORTUNITIES,
   AI_ACCESS_OPPORTUNITY_COUNT,
   AI_ACCESS_OPPORTUNITY_POLICY_VERSION,
+  AI_ACCESS_UNIVERSE_FAMILIES,
   buildAIAccessOwnerActionQueue,
   buildAIAccessReceipt,
   evaluateAIAccessOpportunity,
   getAIAccessModelRoutingPlan,
+  getAIAccessUniverseCoverage,
+  validateAIAccessUniverseCoverage,
   getAIAccessOpportunity,
   listAIAccessOpportunities,
   validateAIAccessCatalog,
@@ -221,4 +224,80 @@ test('owner queue exposes only owner decisions and no automatic effects', () => 
     assert.deepEqual(item.automaticActions, []);
     assert.equal(item.externalEffectLedger.messages, 0);
   }
+});
+
+
+test('the expanded catalog covers the major access families without claiming automatic eligibility', () => {
+  assert.ok(AI_ACCESS_OPPORTUNITY_COUNT >= 50);
+  assert.ok(AI_ACCESS_UNIVERSE_FAMILIES.length >= 18);
+  const coverage = getAIAccessUniverseCoverage();
+  assert.equal(coverage.catalogCount, AI_ACCESS_OPPORTUNITY_COUNT);
+  assert.equal(coverage.coveredFamilyCount, coverage.familyCount);
+  assert.deepEqual(coverage.uncoveredFamilies, []);
+  assert.equal(validateAIAccessUniverseCoverage().ok, true);
+});
+
+test('new official routes remain owner or application gated', () => {
+  const codex = evaluateAIAccessOpportunity({
+    opportunityId: 'openai-codex-students-us-canada',
+    context: { country: 'US', verifiedStudent: true },
+    date: referenceDate
+  });
+  const startup = evaluateAIAccessOpportunity({
+    opportunityId: 'google-cloud-ai-startup-program',
+    context: { country: 'EG' },
+    date: referenceDate
+  });
+  const gpu = evaluateAIAccessOpportunity({
+    opportunityId: 'modal-startups',
+    context: {},
+    date: referenceDate
+  });
+  assert.equal(codex.status, 'OWNER_REVIEW_REQUIRED');
+  assert.equal(startup.status, 'APPLICATION_REQUIRED');
+  assert.equal(gpu.status, 'APPLICATION_REQUIRED');
+  for (const decision of [codex, startup, gpu]) {
+    assert.equal(decision.externalEffectLedger.providerCalls, 0);
+    assert.equal(decision.externalEffectLedger.spendCents, 0);
+  }
+});
+
+test('new region-gated routes do not become loopholes for an Egypt context', () => {
+  const singapore = evaluateAIAccessOpportunity({
+    opportunityId: 'aws-kiro-singapore-ihl',
+    context: { country: 'EG', verifiedStudent: true },
+    date: referenceDate
+  });
+  const usOnly = evaluateAIAccessOpportunity({
+    opportunityId: 'openai-codex-students-us-canada',
+    context: { country: 'EG', verifiedStudent: true },
+    date: referenceDate
+  });
+  assert.equal(singapore.status, 'OWNER_REVIEW_REQUIRED');
+  assert.equal(usOnly.status, 'NOT_ELIGIBLE_GIVEN_CONTEXT');
+});
+
+test('access catalogue expansion cannot turn credits into commercial proof', () => {
+  const receipt = buildAIAccessReceipt({
+    context: {},
+    date: referenceDate,
+    selectedOpportunityIds: [
+      'digitalocean-hatch',
+      'together-ai-startup-accelerator',
+      'google-cloud-ai-startup-program'
+    ]
+  });
+  assert.equal(receipt.truthClassification, 'INTERFACE_ONLY');
+  assert.equal(receipt.commercialState.verifiedRevenue, 0);
+  assert.equal(receipt.commercialState.verifiedCustomers, 0);
+  assert.deepEqual(receipt.externalEffectLedger, {
+    providerCalls: 0,
+    messages: 0,
+    purchases: 0,
+    deployments: 0,
+    credentialChanges: 0,
+    dnsChanges: 0,
+    productionMutations: 0,
+    spendCents: 0
+  });
 });

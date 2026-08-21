@@ -5,6 +5,11 @@
 import crypto from 'node:crypto';
 import { compileTaskBlueprint } from './task-universe.mjs';
 import { THREAD_OPPORTUNITY_UNIVERSE } from './thread-opportunity-universe.mjs';
+import {
+  CANONICAL_OPPORTUNITY_REGISTRY_SCHEMA_VERSION,
+  normalizeCanonicalOpportunityRecord,
+  validateCanonicalOpportunityRegistry
+} from './opportunity-registry.mjs';
 
 export const COMMERCIAL_OPPORTUNITY_CATALOG_POLICY_VERSION = 'commercial-opportunity-catalog-1.0.0';
 
@@ -265,6 +270,51 @@ const CORE_CATALOG = [
 // them without pretending that every idea is commercially proven.
 const CATALOG = [...CORE_CATALOG, ...THREAD_OPPORTUNITY_UNIVERSE];
 
+// This is the one canonical opportunity registry projection.  It is derived
+// from the catalog above and is intentionally persisted only through the
+// existing auditLog writer; no parallel opportunities collection is created.
+export function listCanonicalOpportunityRegistry() {
+  return listCommercialOpportunityCatalog()
+    .map((entry, index) => normalizeCanonicalOpportunityRecord(entry, { index }))
+    .filter(Boolean);
+}
+
+export function validateOpportunityRegistry() {
+  const records = listCanonicalOpportunityRegistry();
+  return {
+    ...validateCanonicalOpportunityRegistry(records),
+    policyVersion: COMMERCIAL_OPPORTUNITY_CATALOG_POLICY_VERSION,
+    schemaVersion: CANONICAL_OPPORTUNITY_REGISTRY_SCHEMA_VERSION
+  };
+}
+
+export function canonicalOpportunityRegistrySummary() {
+  const records = listCanonicalOpportunityRegistry();
+  const validation = validateCanonicalOpportunityRegistry(records);
+  const categories = {};
+  const statuses = {};
+  const evidenceClasses = {};
+  for (const record of records) {
+    categories[record.category] = (categories[record.category] || 0) + 1;
+    const status = record.currentStatus?.value || 'UNRESOLVED';
+    statuses[status] = (statuses[status] || 0) + 1;
+    const evidence = record.truthClassification?.value?.evidence || 'UNRESOLVED';
+    evidenceClasses[evidence] = (evidenceClasses[evidence] || 0) + 1;
+  }
+  return {
+    schemaVersion: CANONICAL_OPPORTUNITY_REGISTRY_SCHEMA_VERSION,
+    count: records.length,
+    uniqueIdCount: validation.uniqueIdCount,
+    valid: validation.ok,
+    failureCount: validation.failures.length,
+    categoryCount: Object.keys(categories).length,
+    categories,
+    statuses,
+    evidenceClasses,
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
+  };
+}
+
 function validDate(value) {
   const candidate = value instanceof Date ? value : new Date(value || Date.now());
   return Number.isNaN(candidate.getTime()) ? new Date() : candidate;
@@ -369,6 +419,7 @@ export function compileAllCommercialOpportunities({ date = new Date() } = {}) {
     timestamp: at.toISOString(),
     entries,
     catalogCount: entries.length,
+    registrySummary: canonicalOpportunityRegistrySummary(),
     externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
 }
@@ -380,6 +431,7 @@ export async function logCommercialOpportunityCatalog(store, result) {
     status: result.status,
     timestamp: result.timestamp,
     catalogCount: result.catalogCount,
+    registrySummary: result.registrySummary || canonicalOpportunityRegistrySummary(),
     opportunityIds: result.entries.map(entry => entry.opportunityId),
     statuses: result.entries.map(entry => ({ opportunityId: entry.opportunityId, status: entry.status, verdict: entry.verdict })),
     externalEffectLedger: result.externalEffectLedger

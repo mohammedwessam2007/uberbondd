@@ -12,6 +12,20 @@ import {
   logCommercialOpportunityCatalog
 } from './commercial-opportunity-catalog.mjs';
 import {
+  rankCanonicalOpportunities,
+  logOpportunityTournament
+} from './opportunity-tournament.mjs';
+import {
+  extractGenomeCandidate,
+  logGenomeExtraction
+} from './genome-extraction.mjs';
+import { reconcileCommercialEvidence } from './commercial-reconciliation.mjs';
+import { rehearseApprovedCommercialEvidence } from './approved-source-rehearsal.mjs';
+import {
+  compileCommercialFirstPaymentPacket,
+  logCommercialFirstPaymentPacket
+} from './commercial-first-payment-packet.mjs';
+import {
   compileCommercialExperiment,
   logCommercialExperiment
 } from './commercial-experiment.mjs';
@@ -142,9 +156,10 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       const input = payload && typeof payload === 'object' ? payload : {};
       return ingestMarketSignals({ ...input, store });
     },
-    // Local-only catalog preparation. It compiles the three evidence-labeled
-    // commercial lanes without providers, sends, spend, deployment, or live
-    // payment claims. The stored receipt is an internal research artifact.
+    // Local-only catalog preparation. It compiles the three buyer-signal lanes
+    // plus the explicit taxonomy registry without providers, sends, spend,
+    // deployment, or live payment claims. The stored receipt is an internal
+    // research artifact.
     'prometheus.commercial.catalog': async payload => {
       const input = payload && typeof payload === 'object' ? payload : {};
       const result = compileAllCommercialOpportunities({ date: input.date });
@@ -158,6 +173,47 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
         opportunityId: input.opportunityId,
         date: input.date
       });
+    },
+    // Ranks the one canonical registry through the existing scoring kernel.
+    // This is a local receipt only: it never promotes an opportunity, sends,
+    // spends, deploys, or creates a second registry.
+    'prometheus.commercial.tournament': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = rankCanonicalOpportunities(input);
+      if (result.ok) await logOpportunityTournament(store, result);
+      return result;
+    },
+    // Signal-to-BusinessGenome composition over caller-supplied normalized
+    // signals. This is local-only and persists one compact lineage receipt;
+    // it never fetches, promotes evidence, or mutates an opportunity record.
+    'prometheus.genome.extract': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = extractGenomeCandidate(input);
+      if (result.ok) await logGenomeExtraction(store, result);
+      return result;
+    },
+    // Reconciles caller-supplied signals through the canonical registry,
+    // BusinessGenome seam, and tournament. Persistence is explicit and still
+    // uses auditLog only; no provider, outbound, payment, or promotion effect.
+    'prometheus.commercial.reconcile': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      return reconcileCommercialEvidence({ ...input, store });
+    },
+    // Explicitly allowlisted, catalog-only buyer-signal rehearsal. It does
+    // not browse or elevate evidence; source verification stays UNVERIFIED
+    // unless the caller supplies a separate receipt reference.
+    'prometheus.commercial.approved_source_rehearsal': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      return rehearseApprovedCommercialEvidence({ ...input, store });
+    },
+    // Produces one seven-day, owner-reviewable first-payment packet. It only
+    // composes existing payment/outcome/provider gates; contact, checkout,
+    // provider calls, and spend remain disabled.
+    'prometheus.commercial.first_payment_packet': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = compileCommercialFirstPaymentPacket(input);
+      if (result.ok) await logCommercialFirstPaymentPacket(store, result);
+      return result;
     },
     // Local-only composition task. It requires a caller-supplied signal,
     // candidate, and canonical prospect; it has no provider boundary.

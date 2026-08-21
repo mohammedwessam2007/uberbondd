@@ -8,6 +8,17 @@
 // until the capability/build-distance layer existed to make sense of it.
 export const GENOME_EXTRACTION_POLICY_VERSION = 'genome-extraction-1.0.0';
 
+const ZERO_EXTERNAL_EFFECTS = Object.freeze({
+  providerCalls: 0,
+  messages: 0,
+  purchases: 0,
+  deployments: 0,
+  credentialChanges: 0,
+  dnsChanges: 0,
+  productionMutations: 0,
+  spendCents: 0
+});
+
 // Accepts a signal from either surviving ingestion shape (see
 // docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md -- Pair 1): a raw
 // normalizeMarketSignal() record (`.ok === true`, market-signal.mjs), or a
@@ -35,9 +46,19 @@ function priceFromSignals(signals) {
 // raw payloads this module was never given, to avoid silently trusting
 // unvalidated data).
 export function extractGenomeCandidate({ signals = [], id, name, category = 'UNCATEGORIZED', priceHint } = {}) {
-  if (!id) return { ok: false, reason: 'malformed-input-missing-id', policyVersion: GENOME_EXTRACTION_POLICY_VERSION };
+  if (!id) return {
+    ok: false,
+    reason: 'malformed-input-missing-id',
+    policyVersion: GENOME_EXTRACTION_POLICY_VERSION,
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
+  };
   const okSignals = signals.filter(isAcceptedSignal);
-  if (!okSignals.length) return { ok: false, reason: 'no-usable-signals', policyVersion: GENOME_EXTRACTION_POLICY_VERSION };
+  if (!okSignals.length) return {
+    ok: false,
+    reason: 'no-usable-signals',
+    policyVersion: GENOME_EXTRACTION_POLICY_VERSION,
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
+  };
 
   const evidenceRefs = okSignals.map(s => s.signalId);
   // The candidate's own evidence tier is the WEAKEST tier among its
@@ -56,5 +77,32 @@ export function extractGenomeCandidate({ signals = [], id, name, category = 'UNC
     candidate.price = { value: Number(priceHint), claimType: priceSignal.evidenceClass };
   }
 
-  return { ok: true, policyVersion: GENOME_EXTRACTION_POLICY_VERSION, candidate };
+  return {
+    ok: true,
+    policyVersion: GENOME_EXTRACTION_POLICY_VERSION,
+    candidate,
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
+  };
 }
+
+// Compact append-only receipt over the canonical auditLog. Raw signal payloads
+// never cross this boundary; only identifiers, evidence class, and the fields
+// honestly populated on the candidate are retained for lineage.
+export async function logGenomeExtraction(store, result) {
+  if (!store || typeof store.log !== 'function' || !result?.ok || !result.candidate) return null;
+  const candidate = result.candidate;
+  return store.log('business_genome_extraction', {
+    policyVersion: result.policyVersion,
+    status: 'GENOME_CANDIDATE_EXTRACTED',
+    candidateId: candidate.id,
+    category: candidate.category,
+    evidenceRefs: Array.isArray(candidate.evidenceRefs) ? [...candidate.evidenceRefs] : [],
+    evidenceRefCount: Array.isArray(candidate.evidenceRefs) ? candidate.evidenceRefs.length : 0,
+    signalSourceEvidenceClass: candidate.signalSourceEvidenceClass || null,
+    populatedFieldNames: Object.keys(candidate).sort(),
+    priceClaimType: candidate.price?.claimType || null,
+    externalEffectLedger: result.externalEffectLedger || { ...ZERO_EXTERNAL_EFFECTS }
+  });
+}
+
+export const GENOME_EXTRACTION_EXTERNAL_EFFECTS = ZERO_EXTERNAL_EFFECTS;

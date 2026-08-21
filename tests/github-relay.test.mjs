@@ -13,9 +13,14 @@ import {
   parseTaskIssueBody,
   pollGithubRelayTasks,
   readGithubRelayTask,
+  githubRelayTaskEnvelope,
   resolveLease,
-  submitGithubRelayResult
+  submitGithubRelayResult,
+  summarizeRelayQueue,
+  buildTaskIssueBody,
+  validateRelayReceipt
 } from '../src/github-relay.mjs';
+import { hasSecret } from '../src/cloud-agent-relay.mjs';
 
 // A deterministic stand-in for the GitHub API surface this transport uses.
 // Comment ids increase monotonically exactly as GitHub's do, because
@@ -325,6 +330,134 @@ test('entity decoding is single-pass: a literal &amp;#34; in content is never do
   assert.deepEqual(parseTaskIssueBody(raw), { objective: 'A & B', literal: '&amp;#34;' });
 });
 
+test('the submitted receipt carries every field the relay contract mandates', async () => {
+  const { client } = fakeGithub();
+  await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input(), date: T0 });
+  await claimGithubRelayTask({ client, owner: 'o', repo: 'r', issueNumber: 1, workerId: 'claude-code:test', now: T0 });
+  const submitted = await submitGithubRelayResult({
+    client, owner: 'o', repo: 'r', issueNumber: 1, workerId: 'claude-code:test',
+    status: 'COMPLETED', result: result(), now: T0,
+    sourceCommit: 'abc1234', confidence: 'HIGH',
+    limitations: ['ran only the focused suite'], duration: 1200
+  });
+  assert.equal(submitted.ok, true, JSON.stringify(submitted));
+
+  const read = await readGithubRelayTask({ client, owner: 'o', repo: 'r', issueNumber: 1, now: T0 });
+  const r = read.receipt;
+  assert.ok(r, 'reviewer read path must expose the receipt');
+  for (const field of ['taskId', 'workerId', 'status', 'sourceCommit', 'commands', 'tests', 'artifacts',
+                       'findings', 'limitations', 'confidence', 'externalEffects', 'cost', 'duration', 'submittedAt']) {
+    assert.ok(field in r, `receipt is missing mandated field: ${field}`);
+  }
+  assert.equal(r.taskId, 'gh-task-1', 'receipt must bind to the task it answers');
+  assert.equal(r.sourceCommit, 'abc1234');
+  assert.equal(r.confidence, 'HIGH');
+  assert.deepEqual(r.commands, ['node --test tests/github-relay.test.mjs'], 'commands derive from what actually ran');
+  assert.deepEqual(r.externalEffects, result().externalEffectLedger);
+});
+
+test('a receipt is refused if it invents confidence or claims an external effect', () => {
+  const base = {
+    taskId: 't', workerId: 'w', status: 'COMPLETED', sourceCommit: 'abc',
+    commands: [], tests: [], artifacts: [], findings: [], limitations: [],
+    confidence: 'HIGH', cost: { usdCents: 0, tokens: null }, duration: 1, submittedAt: T0.toISOString(),
+    externalEffects: {
+      providerCalls: 0, messages: 0, purchases: 0, deployments: 0,
+      credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0
+    }
+  };
+  assert.deepEqual(validateRelayReceipt(base), [], JSON.stringify(validateRelayReceipt(base)));
+
+  assert.ok(validateRelayReceipt({ ...base, confidence: 'TOTALLY_SURE' }).includes('receipt-invalid-confidence'));
+  assert.ok(validateRelayReceipt({ ...base, status: 'DEPLOYED' }).includes('receipt-invalid-status'));
+  assert.ok(validateRelayReceipt({ ...base, taskId: '' }).includes('receipt-task-id-required'));
+
+  for (const effect of ['messages', 'spendCents', 'deployments', 'productionMutations']) {
+    const claimed = { ...base, externalEffects: { ...base.externalEffects, [effect]: 1 } };
+    assert.ok(
+      validateRelayReceipt(claimed).includes('receipt-nonzero-external-effects-rejected'),
+      `${effect} must be refused at the receipt layer too, not only in validResult`
+    );
+  }
+
+  const { taskId, ...missingTaskId } = base;
+  assert.ok(validateRelayReceipt(missingTaskId).includes('receipt-missing-taskId'));
+});
+
+test('the shared secret scanner does not false-positive on the relay contract\'s own fields', () => {
+  // Both of these were real rejections of perfectly clean receipts, found by
+  // running the contract rather than by reading it:
+  //   - `cost.tokens` matches the token-shaped key pattern
+  //   - `externalEffects.credentialChanges` matches the credential pattern,
+  //     because only `externalEffectLedger` had the ledger-shape special case
+  const zero = {
+    providerCalls: 0, messages: 0, purchases: 0, deployments: 0,
+    credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0
+  };
+  assert.equal(hasSecret({ cost: { usdCents: 0, tokens: null } }), false);
+  assert.equal(hasSecret({ cost: { usdCents: 0, tokens: 1234 } }), false);
+  assert.equal(hasSecret({ externalEffects: zero }), false);
+  assert.equal(hasSecret({ externalEffectLedger: zero }), false);
+
+  // A third instance turned up in the autonomy worker: `coordination.tokenBudget`.
+  // Three separate names for the same idea -- a compute counter this codebase
+  // insists on calling tokens -- each rejecting a legitimate payload. Naming
+  // exceptions one at a time was treating the symptom, so the rule now keys off
+  // TYPE, not name: an authentication token is a string, a counter is a number.
+  assert.equal(hasSecret({ coordination: { tokenBudget: 1000 } }), false);
+  assert.equal(hasSecret({ budget: { maxTokens: 200000 } }), false);
+  assert.equal(hasSecret({ someFutureTokenCount: 0 }), false);
+
+  // The consequence of a type-based rule, stated openly rather than buried:
+  // `accessToken: 1` is now allowed through, where the old name-based rule
+  // caught it. That is the intended trade. The integer 1 is not a usable
+  // credential, so rejecting it bought no safety while the strict reading cost
+  // three real false positives. What the scanner exists to stop -- a
+  // high-entropy string leaking into a public issue -- is unaffected.
+  assert.equal(hasSecret({ accessToken: 1 }), false);
+
+  // ...and the exemption stays narrow in the ways that matter. A credential is
+  // a string, so a string under a token-shaped key is still caught. Only
+  // /token/i is exempted: names with no counter meaning stay blocked whatever
+  // their value. Negative counts are not counts. Unrecognised ledger effects
+  // are still refused.
+  assert.equal(hasSecret({ cost: { tokens: 'Bearer abcdefghijkl' } }), true);
+  assert.equal(hasSecret({ coordination: { tokenBudget: 'ghp_abcdefghijklmno' } }), true);
+  assert.equal(hasSecret({ cost: { tokens: -5 } }), true);
+  assert.equal(hasSecret({ cost: { tokens: 1.5 } }), true);
+  assert.equal(hasSecret({ password: 1 }), true);
+  assert.equal(hasSecret({ apiKey: 1 }), true);
+  assert.equal(hasSecret({ clientSecret: 0 }), true);
+  assert.equal(hasSecret({ externalEffects: { ...zero, sneakyEffect: 0 } }), true);
+});
+
+test('githubRelayTaskEnvelope derives mutable state from GitHub without duplicating storage', async () => {
+  const { client, issues, comments } = fakeGithub();
+  await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input(), date: T0 });
+
+  const queued = githubRelayTaskEnvelope({ issue: issues.get(1), comments: comments.get(1), now: T0 });
+  assert.equal(queued.status, 'QUEUED');
+  assert.equal(queued.attempts, 0);
+  assert.equal(queued.idempotencyKey, 'github-issue:1', 'the issue itself is the idempotency key');
+  assert.deepEqual(queued.resultRefs, []);
+  assert.equal(queued.parentTaskId, null);
+
+  await claimGithubRelayTask({ client, owner: 'o', repo: 'r', issueNumber: 1, workerId: 'claude-code:test', now: T0 });
+  const claimed = githubRelayTaskEnvelope({ issue: issues.get(1), comments: comments.get(1), now: T0 });
+  assert.equal(claimed.status, 'CLAIMED');
+  assert.equal(claimed.attempts, 1, 'each claim comment is one real attempt');
+  assert.equal(claimed.lease.holder, 'claude-code:test');
+
+  await submitGithubRelayResult({
+    client, owner: 'o', repo: 'r', issueNumber: 1, workerId: 'claude-code:test',
+    result: result(), now: T0, confidence: 'MEDIUM'
+  });
+  const done = githubRelayTaskEnvelope({ issue: issues.get(1), comments: comments.get(1), now: T0 });
+  assert.equal(done.status, 'COMPLETED');
+  assert.equal(done.confidence, 'MEDIUM');
+  assert.equal(done.resultRefs.length, 1);
+});
+
 test('hostile: invalid worker ids and result statuses are refused', async () => {
   const { client } = fakeGithub();
   await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input(), date: T0 });
@@ -342,4 +475,289 @@ test('hostile: invalid worker ids and result statuses are refused', async () => 
   });
   assert.equal(bogusStatus.ok, false);
   assert.ok(bogusStatus.reasonCodes.includes('invalid-result-status'));
+});
+
+// --- queue visibility -------------------------------------------------------
+// A relay nobody can see the state of is a relay nobody trusts. These pin the
+// three situations that are operationally different but look identical on the
+// GitHub issue list.
+
+function queueEntry({ number, taskId, createdAt, labels = [TASK_LABEL], comments = [] }) {
+  return {
+    issue: {
+      number,
+      created_at: createdAt,
+      html_url: `https://github.com/o/r/issues/${number}`,
+      labels: labels.map(name => ({ name })),
+      body: buildTaskIssueBody({ ...input({ taskId }), ok: true, createdAt, status: 'READY_FOR_REVIEW' })
+    },
+    comments
+  };
+}
+
+test('summarizeRelayQueue reports an idle queue as IDLE rather than healthy-looking silence', () => {
+  const summary = summarizeRelayQueue({ tasks: [], now: T0 });
+  assert.equal(summary.verdict, 'IDLE');
+  assert.equal(summary.total, 0);
+  assert.equal(summary.oldestQueuedSeconds, null);
+  assert.deepEqual(summary.stranded, []);
+});
+
+test('summarizeRelayQueue distinguishes waiting work from work in flight', () => {
+  const now = new Date('2026-08-19T10:10:00.000Z');
+  const summary = summarizeRelayQueue({
+    tasks: [
+      queueEntry({ number: 1, taskId: 'waiting', createdAt: '2026-08-19T10:05:00.000Z' }),
+      queueEntry({
+        number: 2, taskId: 'running', createdAt: '2026-08-19T10:00:00.000Z',
+        labels: [TASK_LABEL, CLAIMED_LABEL],
+        comments: [{ id: 10, body: buildClaimComment({ workerId: 'worker-a', observedAt: now, leaseSeconds: 900 }) }]
+      })
+    ],
+    now
+  });
+  assert.equal(summary.verdict, 'ACTIVE');
+  assert.equal(summary.counts.QUEUED, 1);
+  assert.equal(summary.counts.CLAIMED, 1);
+  assert.equal(summary.inFlight[0].holder, 'worker-a');
+  assert.equal(summary.oldestQueuedSeconds, 300);
+});
+
+test('summarizeRelayQueue surfaces a task whose worker claimed it and then died', () => {
+  // This is the failure the transport could never announce: the lease lapsed,
+  // so the task is claimable again, but work may have been done and thrown
+  // away and the issue still reads "claimed". It outranks an idle queue --
+  // idle means nobody started; stranded means someone started and vanished.
+  const claimedAt = new Date('2026-08-19T10:00:00.000Z');
+  const now = new Date('2026-08-19T11:00:00.000Z');
+  const summary = summarizeRelayQueue({
+    tasks: [queueEntry({
+      number: 7, taskId: 'abandoned', createdAt: '2026-08-19T09:55:00.000Z',
+      labels: [TASK_LABEL, CLAIMED_LABEL],
+      comments: [{ id: 20, body: buildClaimComment({ workerId: 'worker-ghost', observedAt: claimedAt, leaseSeconds: 600 }) }]
+    })],
+    now
+  });
+  assert.equal(summary.verdict, 'STRANDED');
+  assert.equal(summary.counts.LEASE_EXPIRED, 1);
+  assert.equal(summary.stranded.length, 1);
+  assert.equal(summary.stranded[0].issueNumber, 7);
+  assert.equal(summary.stranded[0].attempts, 1);
+  // Naming the worker that vanished is the point. Reporting a stranded task
+  // without saying who dropped it leaves the reader nowhere to look.
+  assert.equal(summary.stranded[0].lastHolder, 'worker-ghost');
+  assert.equal(summary.stranded[0].lapsedAt, '2026-08-19T10:10:00.000Z');
+});
+
+test('resolveLease keeps holder null on an expired lease but still names who let it lapse', () => {
+  // holder must stay null -- nobody holds an expired lease and callers branch
+  // on that. lastHolder is a separate field precisely so adding it cannot
+  // change any existing decision.
+  const lease = resolveLease(
+    [{ id: 1, body: buildClaimComment({ workerId: 'worker-ghost', observedAt: T0, leaseSeconds: 600 }) }],
+    new Date('2026-08-19T11:00:00.000Z')
+  );
+  assert.equal(lease.state, 'EXPIRED');
+  assert.equal(lease.holder, null);
+  assert.equal(lease.lastHolder, 'worker-ghost');
+});
+
+test('summarizeRelayQueue calls a long-waiting queue with nothing running STALLED', () => {
+  // Not broken -- nobody is home. Worth saying out loud, because an idle
+  // worker and a crashed one look the same from the issue list.
+  const summary = summarizeRelayQueue({
+    tasks: [queueEntry({ number: 3, taskId: 'ancient', createdAt: '2026-08-19T08:00:00.000Z' })],
+    now: T0,
+    staleQueuedSeconds: 3600
+  });
+  assert.equal(summary.verdict, 'STALLED');
+  assert.equal(summary.oldestQueuedSeconds, 7200);
+});
+
+test('summarizeRelayQueue does not call a queue STALLED while a worker is actually running', () => {
+  const summary = summarizeRelayQueue({
+    tasks: [
+      queueEntry({ number: 3, taskId: 'ancient', createdAt: '2026-08-19T08:00:00.000Z' }),
+      queueEntry({
+        number: 4, taskId: 'running', createdAt: '2026-08-19T09:59:00.000Z',
+        labels: [TASK_LABEL, CLAIMED_LABEL],
+        comments: [{ id: 30, body: buildClaimComment({ workerId: 'worker-a', observedAt: T0, leaseSeconds: 900 }) }]
+      })
+    ],
+    now: T0,
+    staleQueuedSeconds: 3600
+  });
+  assert.equal(summary.verdict, 'ACTIVE');
+});
+
+test('summarizeRelayQueue flags repeatedly-retried tasks, which read as ordinary claims on GitHub', () => {
+  const summary = summarizeRelayQueue({
+    tasks: [queueEntry({
+      number: 9, taskId: 'thrashing', createdAt: '2026-08-19T09:50:00.000Z',
+      labels: [TASK_LABEL, CLAIMED_LABEL],
+      comments: [
+        { id: 40, body: buildClaimComment({ workerId: 'worker-a', observedAt: T0, leaseSeconds: 900 }) },
+        { id: 41, body: buildClaimComment({ workerId: 'worker-b', observedAt: T0, leaseSeconds: 900 }) },
+        { id: 42, body: buildClaimComment({ workerId: 'worker-c', observedAt: T0, leaseSeconds: 900 }) }
+      ]
+    })],
+    now: T0
+  });
+  assert.equal(summary.retried.length, 1);
+  assert.equal(summary.retried[0].attempts, 3);
+});
+
+test('summarizeRelayQueue reports a strictly zero effect ledger -- reading a queue changes nothing', () => {
+  const summary = summarizeRelayQueue({ tasks: [], now: T0 });
+  assert.deepEqual(summary.externalEffectLedger, {
+    providerCalls: 0, messages: 0, purchases: 0, deployments: 0,
+    credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0
+  });
+});
+
+// --- recovering an abandoned lease ------------------------------------------
+// An expired lease is claimable again -- that is recovery, and it is correct.
+// The danger is that it is claimable FOREVER: a task that kills whatever picks
+// it up gets retried until a person notices, burning a worker each time while
+// the issue list shows healthy-looking activity.
+
+test('a worker can take over a task whose previous holder abandoned it', async () => {
+  const { client, comments } = fakeGithub();
+  const created = await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input(), date: T0 });
+  const issueNumber = created.issueNumber;
+
+  await claimGithubRelayTask({ client, owner: 'o', repo: 'r', issueNumber, workerId: 'worker-ghost', now: T0, leaseSeconds: 600 });
+  const later = new Date('2026-08-19T11:00:00.000Z');
+  const takeover = await claimGithubRelayTask({ client, owner: 'o', repo: 'r', issueNumber, workerId: 'worker-rescue', now: later, leaseSeconds: 600 });
+
+  assert.equal(takeover.ok, true);
+  assert.equal(takeover.status, 'CLAIMED_RECOVERED');
+  assert.equal(takeover.recovered.lastHolder, 'worker-ghost');
+  assert.equal(takeover.attempt, 2);
+
+  // The takeover has to be legible in the thread. Silently re-claiming makes
+  // the history read as though the first attempt never happened, which is
+  // exactly what someone debugging a repeatedly-failing task needs to see.
+  const bodies = (comments.get(issueNumber) || []).map(comment => comment.body).join('\n');
+  assert.match(bodies, /recovering an abandoned lease last held by `worker-ghost`/);
+  assert.match(bodies, /"recoveredFrom": "worker-ghost"/);
+});
+
+test('an ordinary first claim records no recovery and says nothing about one', async () => {
+  const { client, comments } = fakeGithub();
+  const created = await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input(), date: T0 });
+  const claim = await claimGithubRelayTask({ client, owner: 'o', repo: 'r', issueNumber: created.issueNumber, workerId: 'worker-a', now: T0 });
+
+  assert.equal(claim.status, 'CLAIMED');
+  assert.equal(claim.recovered, null);
+  assert.equal(claim.attempt, 1);
+  const bodies = (comments.get(created.issueNumber) || []).map(comment => comment.body).join('\n');
+  assert.doesNotMatch(bodies, /recovering an abandoned lease/);
+  assert.doesNotMatch(bodies, /recoveredFrom/);
+});
+
+test('a task that keeps stranding stops being handed to more workers', async () => {
+  // The poison-task case. Without a cap this is an infinite crash loop that
+  // looks like activity: every worker claims it, dies, and the next one tries.
+  const { client } = fakeGithub();
+  const created = await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input(), date: T0 });
+  const issueNumber = created.issueNumber;
+
+  let clock = T0;
+  const strand = async worker => {
+    const result = await claimGithubRelayTask({
+      client, owner: 'o', repo: 'r', issueNumber, workerId: worker, now: clock, leaseSeconds: 60
+    });
+    clock = new Date(clock.getTime() + 3600_000);
+    return result;
+  };
+
+  assert.equal((await strand('worker-1')).ok, true);
+  assert.equal((await strand('worker-2')).ok, true);
+  assert.equal((await strand('worker-3')).ok, true);
+
+  const fourth = await strand('worker-4');
+  assert.equal(fourth.ok, false);
+  assert.deepEqual(fourth.reasonCodes, ['task-exceeded-max-attempts']);
+  assert.match(fourth.detail, /needs a person/);
+});
+
+test('the attempt cap is configurable, because three is a default and not a law', async () => {
+  const { client } = fakeGithub();
+  const created = await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input(), date: T0 });
+  const issueNumber = created.issueNumber;
+
+  const first = await claimGithubRelayTask({ client, owner: 'o', repo: 'r', issueNumber, workerId: 'w1', now: T0, leaseSeconds: 60, maxAttempts: 1 });
+  assert.equal(first.ok, true);
+  assert.equal(first.maxAttempts, 1);
+
+  const second = await claimGithubRelayTask({
+    client, owner: 'o', repo: 'r', issueNumber, workerId: 'w2',
+    now: new Date('2026-08-19T12:00:00.000Z'), leaseSeconds: 60, maxAttempts: 1
+  });
+  assert.equal(second.ok, false);
+  assert.deepEqual(second.reasonCodes, ['task-exceeded-max-attempts']);
+});
+
+test('the attempt cap never overrides the live-lease guard, so a takeover cannot jump a working worker', async () => {
+  // Ordering matters: if the cap were checked first, a task under its limit
+  // would let a second worker barge in on a lease that is still alive.
+  const { client } = fakeGithub();
+  const created = await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input(), date: T0 });
+  await claimGithubRelayTask({ client, owner: 'o', repo: 'r', issueNumber: created.issueNumber, workerId: 'worker-a', now: T0, leaseSeconds: 900 });
+
+  const barge = await claimGithubRelayTask({
+    client, owner: 'o', repo: 'r', issueNumber: created.issueNumber, workerId: 'worker-b',
+    now: new Date('2026-08-19T10:05:00.000Z'), leaseSeconds: 900
+  });
+  assert.equal(barge.ok, false);
+  assert.deepEqual(barge.reasonCodes, ['lease-held-by-another-worker']);
+});
+
+test('summarizeRelayQueue separates a task a worker will retry from one no worker will touch', () => {
+  // Both are LEASE_EXPIRED. Only one of them is fixed by running another
+  // worker, and telling the reader to do the thing that cannot work is worse
+  // than saying nothing.
+  const claimAt = new Date('2026-08-19T09:00:00.000Z');
+  const now = new Date('2026-08-19T12:00:00.000Z');
+  const claims = count => Array.from({ length: count }, (_, index) => ({
+    id: 100 + index,
+    body: buildClaimComment({ workerId: `worker-${index + 1}`, observedAt: claimAt, leaseSeconds: 60 })
+  }));
+
+  const recoverable = summarizeRelayQueue({
+    tasks: [queueEntry({ number: 11, taskId: 'retryable', createdAt: '2026-08-19T08:55:00.000Z', labels: [TASK_LABEL, CLAIMED_LABEL], comments: claims(1) })],
+    now, maxAttempts: 3
+  });
+  assert.equal(recoverable.verdict, 'STRANDED');
+  assert.equal(recoverable.exhausted.length, 0);
+  assert.equal(recoverable.stranded.length, 1);
+
+  const spent = summarizeRelayQueue({
+    tasks: [queueEntry({ number: 12, taskId: 'poison', createdAt: '2026-08-19T08:55:00.000Z', labels: [TASK_LABEL, CLAIMED_LABEL], comments: claims(3) })],
+    now, maxAttempts: 3
+  });
+  assert.equal(spent.verdict, 'EXHAUSTED');
+  assert.equal(spent.exhausted.length, 1);
+  assert.equal(spent.exhausted[0].attempts, 3);
+  assert.equal(spent.stranded.length, 0, 'an exhausted task must not also be reported as merely stranded');
+});
+
+test('EXHAUSTED outranks STRANDED, because the two need different actions', () => {
+  const claimAt = new Date('2026-08-19T09:00:00.000Z');
+  const now = new Date('2026-08-19T12:00:00.000Z');
+  const claims = (count, offset) => Array.from({ length: count }, (_, index) => ({
+    id: offset + index,
+    body: buildClaimComment({ workerId: `worker-${index + 1}`, observedAt: claimAt, leaseSeconds: 60 })
+  }));
+  const summary = summarizeRelayQueue({
+    tasks: [
+      queueEntry({ number: 13, taskId: 'retryable', createdAt: '2026-08-19T08:55:00.000Z', labels: [TASK_LABEL, CLAIMED_LABEL], comments: claims(1, 200) }),
+      queueEntry({ number: 14, taskId: 'poison', createdAt: '2026-08-19T08:55:00.000Z', labels: [TASK_LABEL, CLAIMED_LABEL], comments: claims(3, 300) })
+    ],
+    now, maxAttempts: 3
+  });
+  assert.equal(summary.verdict, 'EXHAUSTED');
+  assert.equal(summary.stranded.length, 1);
+  assert.equal(summary.exhausted.length, 1);
 });

@@ -12,6 +12,22 @@
 
 export const OPPORTUNITY_REGISTRY_POLICY_VERSION = 'opportunity-registry-1.0.0';
 
+// The scoring policy above is intentionally separate from the canonical
+// opportunity-record schema below.  The schema is a projection over the
+// existing catalog and audit log, not a second opportunities database.
+export const CANONICAL_OPPORTUNITY_REGISTRY_SCHEMA_VERSION = 'opportunity-registry-canonical-1.0.0';
+
+export const CANONICAL_OPPORTUNITY_REQUIRED_FIELDS = Object.freeze([
+  'opportunityId', 'mechanismName', 'buyer', 'payer', 'seller', 'painOrTrigger',
+  'existingSpend', 'offer', 'pricingHypothesis', 'paymentTiming', 'acquisitionRoute',
+  'fulfilmentRoute', 'recurringMechanism', 'retentionMechanism', 'expansionMechanism',
+  'grossMarginHypothesis', 'founderBurden', 'automationPotential', 'capitalRequired',
+  'platformDependency', 'regulatoryRisk', 'refundDisputeRisk', 'evidenceTier',
+  'officialSourceOrProvenance', 'buyerEvidence', 'competitiveRisk',
+  'implementationDistance', 'sharedCapabilityReuse', 'expectedTimeToFirstPayment',
+  'killCondition', 'sevenDayExperiment', 'currentStatus', 'truthClassification'
+]);
+
 // Ordered weakest to strongest. Used only to compute confidence, never to
 // infer a fact that wasn't actually supplied.
 export const CLAIM_CLASSIFICATIONS = [
@@ -38,6 +54,22 @@ const GENOME_FIELDS = [
   'grossMargin', 'founderBurden', 'platformDependency', 'capital', 'regulation',
   'moat', 'dataAsset', 'automationPotential', 'failureMode'
 ];
+
+const CANONICAL_SHARED_CAPABILITIES = Object.freeze([
+  'market-signal-registry',
+  'business-genome-extractor',
+  'opportunity-registry',
+  'opportunity-tournament',
+  'commercial-experiment-engine',
+  'distribution-partner-graph',
+  'revenue-outcome-graph',
+  'commercial-memory',
+  'failure-memory',
+  'self-upgrade-pipeline',
+  'cloud-agent-relay',
+  'consequence-boundary',
+  'durable-queue'
+]);
 
 // Money Model Tournament: the 15 criteria the mission specifies. Each maps
 // to one or more genome fields via an explicit, documented heuristic -- not
@@ -115,6 +147,159 @@ export function compileBusinessGenome(candidate = {}) {
     fields,
     completeness: Math.round((populated / GENOME_FIELDS.length) * 100),
     promotionStage: PROMOTION_LADDER_STAGES.includes(candidate.promotionStage) ? candidate.promotionStage : 'DISCOVERED'
+  };
+}
+
+function canonicalClone(value) {
+  return value == null ? value : JSON.parse(JSON.stringify(value));
+}
+
+function canonicalClaim(value, claimType = 'UNRESOLVED') {
+  const normalizedType = CLAIM_CLASSIFICATIONS.includes(claimType) ? claimType : 'UNRESOLVED';
+  const present = value !== undefined && value !== null && value !== ''
+    && !(Array.isArray(value) && value.length === 0);
+  return {
+    value: present ? canonicalClone(value) : 'UNRESOLVED',
+    claimType: present ? normalizedType : 'UNRESOLVED'
+  };
+}
+
+function candidateClaim(entry, key, fallback = 'UNRESOLVED') {
+  const field = entry?.candidate?.[key];
+  if (field && typeof field === 'object' && !Array.isArray(field) && 'value' in field) {
+    return canonicalClaim(field.value, field.claimType);
+  }
+  return canonicalClaim(field ?? fallback, field == null ? 'UNRESOLVED' : 'HYPOTHESIS');
+}
+
+function sourceClaim(entry) {
+  return entry?.evidence?.classification === 'BUYER_SIGNAL' ? 'BUYER_SIGNAL' : 'HYPOTHESIS';
+}
+
+function unresolved(value = 'UNRESOLVED') {
+  return canonicalClaim(value, 'UNRESOLVED');
+}
+
+// Projects one catalog entry into the single canonical registry shape.  All
+// values retain a claim classification; absent economic facts stay explicit
+// UNRESOLVED rather than being filled with a plausible default.
+export function normalizeCanonicalOpportunityRecord(entry, { index = 0 } = {}) {
+  if (!entry || typeof entry !== 'object' || !String(entry.id || '').trim()) return null;
+  const evidenceClaim = sourceClaim(entry);
+  const buyerSegments = Array.isArray(entry.buyerSegments) ? entry.buyerSegments.filter(Boolean) : [];
+  const buyerEvidence = Array.isArray(entry.observedBuyerSignals) ? entry.observedBuyerSignals : [];
+  const existingSpend = buyerEvidence.length
+    ? buyerEvidence.map(signal => ({
+      amountUsd: Number.isFinite(Number(signal?.amountUsd)) ? Number(signal.amountUsd) : null,
+      scope: signal?.scope || 'UNRESOLVED',
+      source: signal?.source || null,
+      claimType: 'BUYER_SIGNAL'
+    }))
+    : 'UNRESOLVED';
+  const constraints = Array.isArray(entry.constraints) ? entry.constraints.filter(Boolean) : [];
+  const regulatory = constraints.filter(item => /consent|jurisdiction|privacy|legal|law|regulat|terms|licens/i.test(String(item)));
+  const refund = constraints.filter(item => /refund|dispute|chargeback|cancellation|credit/i.test(String(item)));
+  const firstPayment = entry.firstRevenueWindowDays && typeof entry.firstRevenueWindowDays === 'object'
+    ? entry.firstRevenueWindowDays
+    : null;
+  const killConditions = entry.taskBlueprint?.evaluator?.killConditions
+    || entry.taskBlueprint?.killConditions
+    || (Array.isArray(entry.sevenDayExperiment) ? entry.sevenDayExperiment.slice(-1) : []);
+  const currentStatus = entry.verdict || 'UNRESOLVED';
+  const commercialTruth = evidenceClaim === 'BUYER_SIGNAL'
+    ? 'BUYER_SIGNAL_ONLY__NOT_PAYMENT_PROOF'
+    : 'THREAD_HYPOTHESIS__NO_BUYER_OR_PAYMENT_PROOF';
+
+  return {
+    schemaVersion: CANONICAL_OPPORTUNITY_REGISTRY_SCHEMA_VERSION,
+    opportunityId: String(entry.id),
+    rank: Number.isInteger(entry.rank) ? entry.rank : 4 + Number(index || 0),
+    mechanismName: canonicalClaim(entry.name || entry.id, 'OPERATOR_CLAIM'),
+    category: entry.category || 'UNCATEGORIZED',
+    buyer: canonicalClaim(buyerSegments, evidenceClaim),
+    payer: canonicalClaim(buyerSegments, 'HYPOTHESIS'),
+    seller: canonicalClaim('UberBond', 'OPERATOR_CLAIM'),
+    painOrTrigger: canonicalClaim(entry.mechanism, evidenceClaim === 'BUYER_SIGNAL' ? 'INFERENCE' : 'HYPOTHESIS'),
+    existingSpend: canonicalClaim(existingSpend, existingSpend === 'UNRESOLVED' ? 'UNRESOLVED' : 'BUYER_SIGNAL'),
+    offer: canonicalClaim({
+      mechanism: entry.mechanism || 'UNRESOLVED',
+      deliverables: Array.isArray(entry.deliverables) ? entry.deliverables : []
+    }, evidenceClaim === 'BUYER_SIGNAL' ? 'HYPOTHESIS' : 'HYPOTHESIS'),
+    pricingHypothesis: canonicalClaim(entry.priceHypotheses || [], 'HYPOTHESIS'),
+    paymentTiming: canonicalClaim(firstPayment || 'UNRESOLVED', firstPayment?.classification || 'UNRESOLVED'),
+    acquisitionRoute: canonicalClaim(entry.candidate?.acquisition?.value || entry.candidate?.acquisition || 'UNRESOLVED', entry.candidate?.acquisition?.claimType || 'UNRESOLVED'),
+    fulfilmentRoute: canonicalClaim({
+      deliverables: Array.isArray(entry.deliverables) ? entry.deliverables : [],
+      taskBlueprint: entry.taskBlueprint?.id || null
+    }, 'OPERATOR_CLAIM'),
+    recurringMechanism: canonicalClaim(entry.recurringRoute || entry.candidate?.recurringTrigger?.value || 'UNRESOLVED', entry.candidate?.recurringTrigger?.claimType || (entry.recurringRoute ? 'HYPOTHESIS' : 'UNRESOLVED')),
+    retentionMechanism: candidateClaim(entry, 'retention', 'Recurring value review remains unverified'),
+    expansionMechanism: unresolved('Expansion path requires accepted delivery and repeat-payment evidence'),
+    grossMarginHypothesis: candidateClaim(entry, 'grossMargin', 'UNRESOLVED'),
+    founderBurden: candidateClaim(entry, 'founderBurden', 'UNRESOLVED'),
+    automationPotential: candidateClaim(entry, 'automationPotential', 'UNRESOLVED'),
+    capitalRequired: canonicalClaim(entry.testCost || entry.candidate?.capital?.value || 'UNRESOLVED', entry.testCost?.classification || entry.candidate?.capital?.claimType || 'UNRESOLVED'),
+    platformDependency: candidateClaim(entry, 'platformDependency', 'UNRESOLVED'),
+    regulatoryRisk: canonicalClaim(regulatory.length ? regulatory : 'UNRESOLVED', regulatory.length ? 'INFERENCE' : 'UNRESOLVED'),
+    refundDisputeRisk: canonicalClaim(refund.length ? refund : 'UNRESOLVED', refund.length ? 'INFERENCE' : 'UNRESOLVED'),
+    evidenceTier: canonicalClaim(evidenceClaim === 'BUYER_SIGNAL' ? 'TIER_1_VISIBLE_OFFER' : 'TIER_0_CREATOR_ASSERTION', evidenceClaim),
+    officialSourceOrProvenance: canonicalClaim(entry.evidence?.sources || [], evidenceClaim),
+    buyerEvidence: canonicalClaim(buyerEvidence, evidenceClaim),
+    competitiveRisk: canonicalClaim(entry.competitiveRisk || 'UNRESOLVED', entry.competitiveRisk ? 'INFERENCE' : 'UNRESOLVED'),
+    implementationDistance: unresolved('UNRESOLVED until the required shared-capability slice is scored'),
+    sharedCapabilityReuse: canonicalClaim(CANONICAL_SHARED_CAPABILITIES, 'OPERATOR_CLAIM'),
+    expectedTimeToFirstPayment: canonicalClaim(firstPayment || 'UNRESOLVED', firstPayment?.classification || 'UNRESOLVED'),
+    killCondition: canonicalClaim(killConditions, 'OPERATOR_CLAIM'),
+    sevenDayExperiment: canonicalClaim(entry.sevenDayExperiment || [], 'OPERATOR_CLAIM'),
+    currentStatus: canonicalClaim(currentStatus, 'OPERATOR_CLAIM'),
+    truthClassification: canonicalClaim({
+      evidence: evidenceClaim,
+      commercial: commercialTruth,
+      payment: 'EXTERNAL_PROOF_REQUIRED',
+      execution: 'LOCAL_PREPARATION_ONLY'
+    }, evidenceClaim),
+    provenance: {
+      origin: entry.origin || 'CORE_CATALOG',
+      evidenceClassification: evidenceClaim,
+      sourceCount: Array.isArray(entry.evidence?.sources) ? entry.evidence.sources.length : 0,
+      catalogEntryDigest: canonicalClone(entry.id),
+      rank: Number.isInteger(entry.rank) ? entry.rank : 4 + Number(index || 0)
+    },
+    externalEffectLedger: {
+      providerCalls: 0, messages: 0, purchases: 0, deployments: 0,
+      credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0
+    }
+  };
+}
+
+export function validateCanonicalOpportunityRegistry(records = []) {
+  const list = Array.isArray(records) ? records : [];
+  const failures = [];
+  const ids = new Set();
+  list.forEach((record, index) => {
+    if (!record || typeof record !== 'object') {
+      failures.push({ index, reason: 'record-object-required' });
+      return;
+    }
+    if (!record.opportunityId) failures.push({ index, reason: 'opportunity-id-required' });
+    if (record.opportunityId && ids.has(record.opportunityId)) failures.push({ index, reason: 'duplicate-opportunity-id', opportunityId: record.opportunityId });
+    if (record.opportunityId) ids.add(record.opportunityId);
+    for (const field of CANONICAL_OPPORTUNITY_REQUIRED_FIELDS) {
+      if (!(field in record)) failures.push({ index, opportunityId: record.opportunityId || null, reason: `required-field-missing:${field}` });
+    }
+    if (!Array.isArray(record.sevenDayExperiment?.value) || record.sevenDayExperiment.value.length < 7) {
+      failures.push({ index, opportunityId: record.opportunityId || null, reason: 'seven-day-experiment-incomplete' });
+    }
+    if (!Array.isArray(record.officialSourceOrProvenance?.value) || record.officialSourceOrProvenance.value.length < 1) {
+      failures.push({ index, opportunityId: record.opportunityId || null, reason: 'provenance-required' });
+    }
+  });
+  return {
+    ok: failures.length === 0,
+    schemaVersion: CANONICAL_OPPORTUNITY_REGISTRY_SCHEMA_VERSION,
+    count: list.length,
+    uniqueIdCount: ids.size,
+    failures
   };
 }
 

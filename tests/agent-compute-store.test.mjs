@@ -50,7 +50,7 @@ function budget() {
 function execution(status = 'MODEL_RESULT_READY', taskId = 'task_1') {
   return {
     policyVersion: 'agent-worker-runtime-1.0.0',
-    executionId: `exec_${taskId}_${status.toLowerCase()}`,
+    executionId: `exec_${taskId}`,
     taskId,
     workerId: 'chatgpt:test',
     targetAgent: 'chatgpt',
@@ -157,7 +157,7 @@ test('ready model result is replayable until a later submitted receipt supersede
   assert.equal(pending.count, 1);
   assert.equal(pending.records[0].taskId, 'task_replay');
 
-  const submitted = { ...ready, executionId: 'exec_submitted', status: 'RESULT_SUBMITTED', createdAt: '2026-08-20T02:01:00.000Z' };
+  const submitted = { ...ready, status: 'RESULT_SUBMITTED', createdAt: '2026-08-20T02:01:00.000Z' };
   await saveAgentExecutionRecord(store, submitted, { date: '2026-08-20T02:01:00.000Z' });
   pending = await listPendingAgentSubmissions(store);
   assert.equal(pending.count, 0);

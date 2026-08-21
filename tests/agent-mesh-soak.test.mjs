@@ -202,3 +202,44 @@ test('a terminal task cannot be resurrected by replaying an earlier stage', asyn
   const latest = await loadLatestAgentExecution(store, 'task-r');
   assert.equal(latest.executionRecord.status, 'RESULT_SUBMITTED', 'the terminal state must survive the stale write');
 });
+
+test('a budget snapshot never rolls back to less spend when timestamps collide', async () => {
+  // The money version of the resurrection bug. Snapshots were ordered by
+  // wall-clock alone, so two saves in one millisecond were indistinguishable
+  // and the loader could restore an older budget -- less spend recorded, more
+  // capacity free. Measured before the fix: 700 committed came back as 0
+  // committed and the full 1000 available.
+  const { createComputeBudget, reserveCompute, commitCompute, computeBudgetSummary } =
+    await import('../src/ai-compute-budget.mjs');
+  const { saveComputeBudgetSnapshot, loadLatestComputeBudget } =
+    await import('../src/agent-compute-store.mjs');
+
+  const store = memoryStore();
+  const sameInstant = new Date('2026-08-21T00:00:00.000Z');
+  let state = createComputeBudget({
+    totalCostCents: 1000, totalTokens: 100_000,
+    allowPaidCompute: true, allowedProviders: ['openai'], budgetNonce: 'rollback'
+  });
+  await saveComputeBudgetSnapshot(store, state, { reason: 'start', date: sameInstant });
+
+  for (const [index, cost] of [[0, 300], [1, 400]]) {
+    const reserved = reserveCompute({
+      budget: state, taskId: `spend-${index}`, provider: 'openai', costCeilingCents: cost, tokenCeiling: 100
+    });
+    const committed = commitCompute({
+      budget: reserved.budget, taskId: `spend-${index}`, actualCostCents: cost, actualTokens: 100
+    });
+    state = committed.budget;
+    // Every snapshot stamped with the identical instant.
+    await saveComputeBudgetSnapshot(store, state, { reason: `after-${index}`, date: sameInstant });
+  }
+
+  const truth = computeBudgetSummary(state);
+  assert.equal(truth.committedCostCents, 700);
+
+  const loaded = await loadLatestComputeBudget(store, state.budgetId);
+  assert.equal(loaded.ok, true, `snapshot must load: ${loaded.reasonCodes}`);
+  const restored = computeBudgetSummary(loaded.budget);
+  assert.equal(restored.committedCostCents, 700, 'recorded spend must not be rewound by a timestamp tie');
+  assert.equal(restored.availableCostCents, truth.availableCostCents, 'capacity must not reappear from nowhere');
+});

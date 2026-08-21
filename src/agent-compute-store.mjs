@@ -133,6 +133,12 @@ function stageRank(row) {
 // Audit rows carry a store-assigned id, and in practice it ends in a
 // monotonic counter. Use it only to break exact ties, and compare the numeric
 // tail rather than the string -- "row-9" sorts after "row-12" lexically.
+// Committed spend recorded in a snapshot row, whichever shape it was stored in.
+function budgetSpend(row, field) {
+  const value = row?.detail?.budget?.[field] ?? row?.detail?.[field];
+  return Number.isSafeInteger(value) ? value : 0;
+}
+
 function rowSequence(row) {
   const match = /(\d+)\s*$/.exec(String(row?.id ?? ''));
   return match ? Number(match[1]) : 0;
@@ -248,9 +254,24 @@ export async function loadLatestComputeBudget(store, budgetId) {
   const id = text(budgetId, 160);
   if (!id) return fail(['budget-id-required']);
   const all = await rows(store, SNAPSHOT_TYPE);
+  // Same resurrection hazard as execution records, except the state being
+  // rewound is money. Sorting snapshots by wall-clock alone means two writes
+  // inside one millisecond are indistinguishable, and the loader can restore
+  // an OLDER budget -- one with less spend recorded and more capacity free.
+  // Measured: a budget with 700 cents committed loaded back as 0 committed
+  // and 1000 available. Seven hundred cents of spend vanished and the same
+  // capacity reappeared from nowhere.
+  //
+  // committedCostCents and committedTokens only ever increase -- commit adds
+  // to them and nothing subtracts -- so they are the monotonic ordering key.
+  // Rank by spend first and the newest snapshot wins regardless of the clock.
   const matches = all
     .filter(row => row?.detail?.budgetId === id || row?.detail?.budget?.budgetId === id)
-    .sort((a, b) => rowTime(b).localeCompare(rowTime(a)));
+    .sort((a, b) =>
+      (budgetSpend(b, 'committedCostCents') - budgetSpend(a, 'committedCostCents'))
+      || (budgetSpend(b, 'committedTokens') - budgetSpend(a, 'committedTokens'))
+      || rowTime(b).localeCompare(rowTime(a))
+      || (rowSequence(b) - rowSequence(a)));
   if (!matches.length) return fail(['compute-budget-not-found'], 'NOT_FOUND');
   const latest = matches[0];
   const inspected = inspectBudgetRow(latest, id);

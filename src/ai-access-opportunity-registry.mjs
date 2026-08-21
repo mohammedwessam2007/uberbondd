@@ -1073,6 +1073,26 @@ const RAW_OPPORTUNITIES = [
     tags: ["together", "startup", "inference", "credits"]
   }),
   record({
+    id: "modal-academics",
+    provider: "Modal",
+    name: "Modal for Academics",
+    kind: "academic_gpu_credits",
+    regions: ["GLOBAL_INSTITUTIONS"],
+    officialUrl: "https://modal.com/academics",
+    lastVerifiedOn: "2026-08-21",
+    expiresOn: null,
+    status: "APPLICATION_REQUIRED",
+    evidenceClass: "VERIFIED_FACT",
+    valueText: "Modal publishes an academic route offering up to $10,000 in credits for graduate students, labs, and researchers, subject to program review.",
+    eligibility: ["Genuine graduate or research affiliation", "Research project fit", "Application and approval"],
+    ownerOnlySteps: ["Confirm actual academic or research status.", "Apply with a real research proposal and institution approvals.", "Keep commercial UberBond work separate unless the award explicitly permits it."],
+    safePreparation: ["Track as a research-only compute route.", "Prepare synthetic benchmarks and reproducible experiments.", "Do not imply student status equals research eligibility."],
+    dataRisk: "Research data and GPU workloads require institution-approved governance.",
+    stackability: "Academic and startup routes are separate.",
+    onePerPerson: false,
+    tags: ["modal", "academic", "gpu", "research"]
+  }),
+  record({
     id: "anthropic-external-researcher-access",
     provider: "Anthropic",
     name: "Anthropic External Researcher Access Program",

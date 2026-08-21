@@ -8,8 +8,12 @@ import {
   buildOpportunityCandidate,
   compileCommercialOpportunity,
   compileAllCommercialOpportunities,
-  logCommercialOpportunityCatalog
+  logCommercialOpportunityCatalog,
+  listCanonicalOpportunityRegistry,
+  validateOpportunityRegistry,
+  canonicalOpportunityRegistrySummary
 } from '../src/commercial-opportunity-catalog.mjs';
+import { CANONICAL_OPPORTUNITY_REQUIRED_FIELDS } from '../src/opportunity-registry.mjs';
 
 const date = new Date('2026-08-19T08:00:00.000Z');
 
@@ -20,13 +24,39 @@ test('catalog contains the three ranked, evidence-labeled opportunities', () => 
     'ai-automation-reliability',
     'conversational-funnel-reliability'
   ]);
-  assert.ok(entries.length >= 200);
+  assert.ok(entries.length >= 400);
   for (const entry of entries) {
     assert.ok(['BUYER_SIGNAL', 'HYPOTHESIS'].includes(entry.evidence.classification));
     assert.ok(entry.evidence.sources.length > 0);
     assert.ok(entry.sevenDayExperiment.length >= 7);
     assert.ok(entry.taskBlueprint.policy.externalEffects.length === 0);
   }
+});
+
+test('canonical registry deduplicates ids and contains every required economic field', () => {
+  const registry = listCanonicalOpportunityRegistry();
+  const validation = validateOpportunityRegistry();
+  assert.equal(validation.ok, true);
+  assert.equal(validation.count, 438);
+  assert.equal(validation.uniqueIdCount, 438);
+  assert.equal(new Set(registry.map(record => record.opportunityId)).size, registry.length);
+  for (const record of registry) {
+    for (const field of CANONICAL_OPPORTUNITY_REQUIRED_FIELDS) assert.ok(field in record, `${record.opportunityId} missing ${field}`);
+    assert.ok(Array.isArray(record.sevenDayExperiment.value));
+    assert.ok(record.sevenDayExperiment.value.length >= 7);
+    assert.ok(Array.isArray(record.officialSourceOrProvenance.value));
+    assert.ok(record.officialSourceOrProvenance.value.length > 0);
+    assert.equal(record.externalEffectLedger.messages, 0);
+    assert.equal(record.truthClassification.value.payment, 'EXTERNAL_PROOF_REQUIRED');
+  }
+});
+
+test('registry summary preserves the three buyer-signal lanes and taxonomy hypotheses', () => {
+  const summary = canonicalOpportunityRegistrySummary();
+  assert.equal(summary.count, 438);
+  assert.ok(summary.categoryCount >= 64);
+  assert.deepEqual(summary.evidenceClasses, { BUYER_SIGNAL: 3, HYPOTHESIS: 435 });
+  assert.equal(summary.valid, true);
 });
 
 test('catalog exposes hypotheses separately from evidence and never calls a provider', async () => {
@@ -95,5 +125,6 @@ test('unknown opportunity fails closed and logging uses one bounded audit receip
   assert.equal(calls.length, 1);
   assert.equal(calls[0].type, 'commercial_opportunity_catalog');
   assert.equal(calls[0].detail.catalogCount, listCommercialOpportunityCatalog().length);
+  assert.equal(calls[0].detail.registrySummary.count, 438);
   assert.equal(Object.prototype.hasOwnProperty.call(calls[0].detail, 'payload'), false);
 });

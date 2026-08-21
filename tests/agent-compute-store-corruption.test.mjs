@@ -42,10 +42,10 @@ function budget() {
   });
 }
 
-function execution(status = 'MODEL_RESULT_READY', taskId = 'task_corrupt') {
+function execution(status = 'MODEL_RESULT_READY', taskId = 'task_corrupt', overrides = {}) {
   return {
     policyVersion: 'agent-worker-runtime-1.0.0',
-    executionId: `exec_${taskId}_${status.toLowerCase()}`,
+    executionId: `exec_${taskId}`,
     taskId,
     workerId: 'chatgpt:test',
     targetAgent: 'chatgpt',
@@ -82,7 +82,8 @@ function execution(status = 'MODEL_RESULT_READY', taskId = 'task_corrupt') {
       dnsChanges: 0,
       productionMutations: 0,
       spendCents: 0
-    }
+    },
+    ...overrides
   };
 }
 
@@ -105,7 +106,7 @@ test('mismatched execution envelope cannot supersede a valid older record', asyn
   const store = storeFixture();
   const ready = execution('MODEL_RESULT_READY');
   await saveAgentExecutionRecord(store, ready, { date: '2026-08-21T01:00:00.000Z' });
-  const submitted = execution('RESULT_SUBMITTED');
+  const submitted = { ...ready, status: 'RESULT_SUBMITTED', createdAt: '2026-08-21T01:01:00.000Z' };
   await saveAgentExecutionRecord(store, submitted, { date: '2026-08-21T01:01:00.000Z' });
 
   const newest = store.auditLog.at(-1);
@@ -121,7 +122,7 @@ test('pending submission scan fails closed on corrupt newest task history instea
   const store = storeFixture();
   const ready = execution('MODEL_RESULT_READY', 'task_pending_corrupt');
   await saveAgentExecutionRecord(store, ready, { date: '2026-08-21T01:00:00.000Z' });
-  const submitted = execution('RESULT_SUBMITTED', 'task_pending_corrupt');
+  const submitted = { ...ready, status: 'RESULT_SUBMITTED', createdAt: '2026-08-21T01:01:00.000Z' };
   await saveAgentExecutionRecord(store, submitted, { date: '2026-08-21T01:01:00.000Z' });
 
   const newest = store.auditLog.at(-1);
@@ -141,4 +142,63 @@ test('execution record without status is rejected before persistence', async () 
   assert.equal(saved.ok, false);
   assert.ok(saved.reasonCodes.includes('execution-status-required'));
   assert.equal(store.auditLog.length, 0);
+});
+
+test('unknown execution statuses are rejected instead of entering durable scheduler history', async () => {
+  const store = storeFixture();
+  const saved = await saveAgentExecutionRecord(store, execution('TOTALLY_NEW_UNREVIEWED_STATE'));
+  assert.equal(saved.ok, false);
+  assert.ok(saved.reasonCodes.includes('execution-status-invalid'));
+  assert.equal(store.auditLog.length, 0);
+});
+
+test('result-submitted is terminal and cannot be resurrected into replayable work', async () => {
+  const store = storeFixture();
+  const ready = execution('MODEL_RESULT_READY', 'task_terminal');
+  const submitted = { ...ready, status: 'RESULT_SUBMITTED' };
+  assert.equal((await saveAgentExecutionRecord(store, ready, { date: '2026-08-21T01:00:00Z' })).ok, true);
+  assert.equal((await saveAgentExecutionRecord(store, submitted, { date: '2026-08-21T01:01:00Z' })).ok, true);
+
+  const resurrect = await saveAgentExecutionRecord(store, { ...ready, status: 'MODEL_RESULT_READY' }, { date: '2026-08-21T01:02:00Z' });
+  assert.equal(resurrect.ok, false);
+  assert.equal(resurrect.status, 'CONFLICT');
+  assert.ok(resurrect.reasonCodes.includes('terminal-execution-history-conflict'));
+
+  const pending = await listPendingAgentSubmissions(store);
+  assert.equal(pending.ok, true);
+  assert.equal(pending.count, 0);
+});
+
+test('replay stages cannot silently switch execution identity within one task', async () => {
+  const store = storeFixture();
+  const ready = execution('MODEL_RESULT_READY', 'task_identity');
+  assert.equal((await saveAgentExecutionRecord(store, ready)).ok, true);
+
+  const foreignPending = execution('RESULT_SUBMISSION_PENDING', 'task_identity', { executionId: 'exec_foreign' });
+  const saved = await saveAgentExecutionRecord(store, foreignPending, { date: '2026-08-21T01:01:00Z' });
+  assert.equal(saved.ok, false);
+  assert.equal(saved.status, 'CONFLICT');
+  assert.ok(saved.reasonCodes.includes('execution-id-changed-within-task-history'));
+});
+
+test('duplicate terminal persistence is idempotent and does not append another audit row', async () => {
+  const store = storeFixture();
+  const submitted = execution('RESULT_SUBMITTED', 'task_terminal_duplicate');
+  const first = await saveAgentExecutionRecord(store, submitted, { date: '2026-08-21T01:00:00Z' });
+  const second = await saveAgentExecutionRecord(store, structuredClone(submitted), { date: '2026-08-21T01:01:00Z' });
+  assert.equal(first.ok, true);
+  assert.equal(second.ok, true);
+  assert.equal(second.status, 'EXECUTION_ALREADY_SAVED');
+  assert.equal(store.auditLog.length, 1);
+});
+
+test('uncertain compute state is terminal for the autonomous worker and requires separate reconciliation', async () => {
+  const store = storeFixture();
+  const uncertain = execution('COMPUTE_OUTCOME_UNCERTAIN', 'task_uncertain');
+  assert.equal((await saveAgentExecutionRecord(store, uncertain)).ok, true);
+  const pretendReady = { ...uncertain, status: 'MODEL_RESULT_READY', result: execution().result };
+  const saved = await saveAgentExecutionRecord(store, pretendReady, { date: '2026-08-21T01:01:00Z' });
+  assert.equal(saved.ok, false);
+  assert.equal(saved.status, 'CONFLICT');
+  assert.ok(saved.reasonCodes.includes('terminal-execution-history-conflict'));
 });

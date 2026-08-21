@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-export const AGENT_AUTONOMY_POLICY_VERSION = 'agent-autonomy-loop-1.0.0';
+export const AGENT_AUTONOMY_POLICY_VERSION = 'agent-autonomy-loop-1.1.0';
 
 const DEFAULT_AGENTS = Object.freeze(['chatgpt', 'claude-code']);
 const MAX_ROUNDS = 32;
@@ -17,6 +17,20 @@ const EXTERNAL_EFFECT_ZERO = Object.freeze({
   productionMutations: 0,
   businessSpendCents: 0
 });
+
+export const AUTONOMY_FORBIDDEN_ACTIONS = Object.freeze([
+  'send',
+  'spend',
+  'purchase',
+  'deploy',
+  'push',
+  'merge',
+  'change-credentials',
+  'change-dns',
+  'contact-anyone',
+  'use-private-data',
+  'mutate-production'
+]);
 
 export const AUTONOMY_ACTIONS = Object.freeze([
   'DONE',
@@ -161,6 +175,7 @@ export function compileTaskIntent({
   acceptanceTests = [],
   requiredOutputs = [],
   constraints = [],
+  forbiddenActions = [],
   tokenBudget = 50_000,
   date = new Date()
 } = {}) {
@@ -193,6 +208,7 @@ export function compileTaskIntent({
     acceptanceTests: strings(acceptanceTests, 40),
     requiredOutputs: strings(requiredOutputs, 40),
     constraints: strings(constraints, 40),
+    forbiddenActions: strings(forbiddenActions, 40),
     tokenBudget: tokens
   };
   const taskId = `mesh_task_${hash(identity).slice(0, 24)}`;
@@ -212,6 +228,7 @@ export function compileTaskIntent({
     acceptanceTests: identity.acceptanceTests,
     requiredOutputs: identity.requiredOutputs.length ? identity.requiredOutputs : ['outcome', 'coordination', 'evidenceRefs'],
     constraints: [...new Set(['local-preparation-only', 'no-business-external-effects', ...identity.constraints])],
+    forbiddenActions: [...new Set([...AUTONOMY_FORBIDDEN_ACTIONS, ...identity.forbiddenActions])],
     tokenBudget: tokens,
     createdAt: timestamp(date),
     consequenceClass: 'LOCAL_PREPARATION',
@@ -266,6 +283,7 @@ export function normalizeCoordination(result = {}) {
     acceptanceTests: strings(raw.acceptanceTests || [], 40),
     requiredOutputs: strings(raw.requiredOutputs || [], 40),
     constraints: strings(raw.constraints || [], 40),
+    forbiddenActions: strings(raw.forbiddenActions || [], 40),
     tokenBudget: int(raw.tokenBudget, 1, 500_000, 50_000),
     confidence: Number.isFinite(confidence) ? confidence : null
   };
@@ -344,6 +362,25 @@ export function ingestAgentResult({ session, taskIntent, result, date = new Date
   next.seenFollowups.push(followupKey);
   next.seenFollowups = next.seenFollowups.slice(-MAX_HISTORY);
 
+  // Authority only attenuates. A child may add restrictions, never erase
+  // restrictions it inherited. The same rule applies to compute: a child may
+  // request less than its parent, but it cannot grow the per-task ceiling just
+  // because the session still has aggregate capacity remaining.
+  const inheritedConstraints = strings([
+    ...(Array.isArray(taskIntent.constraints) ? taskIntent.constraints : []),
+    ...coordination.constraints
+  ], 40);
+  const inheritedForbiddenActions = strings([
+    ...(Array.isArray(taskIntent.forbiddenActions) ? taskIntent.forbiddenActions : []),
+    ...coordination.forbiddenActions
+  ], 40);
+  const parentTokenBudget = int(taskIntent.tokenBudget, 1, Math.min(500_000, next.maxTotalTokens));
+  if (parentTokenBudget == null) {
+    next.status = 'BOUNDED_STOP';
+    return { ok: true, policyVersion: AGENT_AUTONOMY_POLICY_VERSION, status: next.status, session: next, coordination, nextIntent: null, reasonCodes: ['parent-task-token-budget-invalid'] };
+  }
+  const childTokenBudget = Math.min(parentTokenBudget, coordination.tokenBudget);
+
   const intent = compileTaskIntent({
     session: next,
     originAgent: taskIntent.targetAgent,
@@ -355,8 +392,9 @@ export function ingestAgentResult({ session, taskIntent, result, date = new Date
     evidenceRefs: coordination.evidenceRefs,
     acceptanceTests: coordination.acceptanceTests,
     requiredOutputs: coordination.requiredOutputs,
-    constraints: coordination.constraints,
-    tokenBudget: coordination.tokenBudget,
+    constraints: inheritedConstraints,
+    forbiddenActions: inheritedForbiddenActions,
+    tokenBudget: childTokenBudget,
     date
   });
   if (!intent.ok) {

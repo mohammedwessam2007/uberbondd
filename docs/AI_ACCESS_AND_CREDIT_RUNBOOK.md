@@ -6,7 +6,7 @@ Truth boundary: this catalog proves only that an official provider route was doc
 
 ## What was added
 
-The catalog is now a 54-route, multi-family universe covering student access, startup/cloud credits, model-provider programs, GPU/inference, research, open source, regional education, partner benefits, and coding tools. The family map is explicit and testable; it is designed for continuous ingestion, not a claim that every internet promotion has been discovered.
+The catalog is now a 57-route, 22-family universe covering student access, startup/cloud credits, model-provider programs, GPU/inference, research, open source, regional education, partner benefits, and coding tools. The family map is explicit and testable; it is designed for continuous ingestion, not a claim that every internet promotion has been discovered.
 
 UberBond now has one governed access catalog connected to the existing opportunity-registry policy rather than a second commercial opportunity database.
 
@@ -88,6 +88,11 @@ Every record is VERIFIED_FACT only for the existence/description of the provider
 | mongodb-for-startups | MongoDB | Atlas startup credits | APPLICATION_REQUIRED | Startup qualification and current terms |
 | google-cloud-startup-perks | Google Cloud | Startup partner perks | OWNER_REVIEW_REQUIRED | Eligible Google startup membership |
 | google-cloud-ai-startup-program | Google Cloud | AI startup credits | APPLICATION_REQUIRED | AI-first, funding, age, prior-credit criteria |
+
+
+| nvidia-inception | NVIDIA | Inception startup ecosystem | APPLICATION_REQUIRED | Incorporated startup, website, developer, and age criteria |
+| huggingface-spaces-zero-gpu | Hugging Face | Spaces CPU/ZeroGPU access | FREE_TIER_AVAILABLE | Account standing, quota, hosting, and model-license review |
+| huggingface-community-gpu-grant | Hugging Face | Community GPU grant | APPLICATION_REQUIRED | Real innovative public Space and discretionary grant review |
 
 ## What the system may do automatically
 
@@ -176,3 +181,6 @@ The complete official URLs are stored in src/ai-access-opportunity-registry.mjs.
 - MongoDB for Startups: https://www.mongodb.com/startups
 - Google Cloud Startup Perks: https://cloud.google.com/startup/perks
 - Google Cloud AI startup program: https://cloud.google.com/startup/ai
+- NVIDIA Inception: https://www.nvidia.com/en-us/startups/
+- Hugging Face ZeroGPU: https://huggingface.co/docs/hub/main/spaces-zerogpu
+- Hugging Face community GPU grants: https://huggingface.co/docs/hub/spaces-gpus

@@ -11,6 +11,26 @@ function readyRun() { return createRelayPreviewRun({ bundleDigest: digest, reset
 function authorizedRun() { return advanceRelayPreviewRun({ run: readyRun(), event: { type: 'PREFLIGHT_DECIDED', decision: eligibility }, date: '2026-08-21T01:27:01Z' }); }
 function attemptedRun() { return advanceRelayPreviewRun({ run: authorizedRun(), event: { type: 'ATTEMPT_RECORDED', receipt: { attemptsConsumed: 1, secondAttemptAuthorized: false, attemptId: 'attempt:1', externalEffectLedger: { ...zero, deployments: 1 } } }, date: '2026-08-21T01:27:02Z' }); }
 function endpointRun() { return advanceRelayPreviewRun({ run: attemptedRun(), event: { type: 'ATTEMPT_RECONCILED', decision: { status: 'VERIFY_ENDPOINTS', deploymentId: 'dpl_ABC', url: 'https://preview.vercel.app' } }, date: '2026-08-21T01:27:03Z' }); }
+function interfaceReceipt(overrides = {}) {
+  const { deployment: deploymentOverrides = {}, ...receiptOverrides } = overrides;
+  return {
+    status: 'PREVIEW_INTERFACE_PROVEN',
+    truthClassification: 'INTERFACE_ONLY',
+    fullDurableRelay: 'NOT_PROVEN',
+    productionPromotion: 'BLOCKED',
+    receiptId: 'receipt:1',
+    deployment: {
+      id: 'dpl_ABC',
+      projectId: 'prj_QTPTlb6JpYN8IyBTgyVrlWgq4ePT',
+      teamId: 'team_A9LnjIuS5PU0rNetsHMu1N0r',
+      state: 'READY',
+      environment: 'preview',
+      url: 'https://preview.vercel.app',
+      ...deploymentOverrides
+    },
+    ...receiptOverrides
+  };
+}
 
 test('creates deterministic waiting run before reset', () => {
   const a = createRelayPreviewRun({ bundleDigest: digest, resetAt, date: '2026-08-20T20:00:00Z' });
@@ -45,15 +65,16 @@ test('terminal failure requires repair', () => assert.equal(advanceRelayPreviewR
 test('quota block becomes terminal blocked', () => assert.equal(advanceRelayPreviewRun({ run: attemptedRun(), event: { type: 'ATTEMPT_RECONCILED', decision: { status: 'STOP_NO_SECOND_ATTEMPT' } } }).stage, 'BLOCKED'));
 test('uncertain outcome quarantines', () => assert.equal(advanceRelayPreviewRun({ run: attemptedRun(), event: { type: 'ATTEMPT_RECONCILED', decision: { status: 'QUARANTINED' } } }).stage, 'QUARANTINED'));
 test('valid endpoint receipt proves interface only', () => {
-  const run = advanceRelayPreviewRun({ run: endpointRun(), event: { type: 'ENDPOINTS_PROVEN', receipt: { status: 'PREVIEW_INTERFACE_PROVEN', truthClassification: 'INTERFACE_ONLY', deploymentId: 'dpl_ABC', productionPromotion: 'BLOCKED', receiptId: 'receipt:1' } }, date: '2026-08-21T01:27:04Z' });
+  const run = advanceRelayPreviewRun({ run: endpointRun(), event: { type: 'ENDPOINTS_PROVEN', receipt: interfaceReceipt() }, date: '2026-08-21T01:27:04Z' });
   assert.equal(run.stage, 'INTERFACE_PROVEN');
   assert.equal(run.truthClassification, 'INTERFACE_ONLY');
   assert.equal(run.workerExecution, 'BLOCKED');
 });
-test('endpoint deployment mismatch quarantines', () => assert.equal(advanceRelayPreviewRun({ run: endpointRun(), event: { type: 'ENDPOINTS_PROVEN', receipt: { status: 'PREVIEW_INTERFACE_PROVEN', truthClassification: 'INTERFACE_ONLY', deploymentId: 'dpl_OTHER', productionPromotion: 'BLOCKED' } } }).stage, 'QUARANTINED'));
-test('truth inflation quarantines', () => assert.equal(advanceRelayPreviewRun({ run: endpointRun(), event: { type: 'ENDPOINTS_PROVEN', receipt: { status: 'PREVIEW_INTERFACE_PROVEN', truthClassification: 'FULLY_LIVE', deploymentId: 'dpl_ABC', productionPromotion: 'BLOCKED' } } }).stage, 'QUARANTINED'));
+test('endpoint deployment mismatch quarantines', () => assert.equal(advanceRelayPreviewRun({ run: endpointRun(), event: { type: 'ENDPOINTS_PROVEN', receipt: interfaceReceipt({ deployment: { id: 'dpl_OTHER' } }) } }).stage, 'QUARANTINED'));
+test('endpoint URL mismatch quarantines', () => assert.equal(advanceRelayPreviewRun({ run: endpointRun(), event: { type: 'ENDPOINTS_PROVEN', receipt: interfaceReceipt({ deployment: { url: 'https://other.vercel.app' } }) } }).stage, 'QUARANTINED'));
+test('truth inflation quarantines', () => assert.equal(advanceRelayPreviewRun({ run: endpointRun(), event: { type: 'ENDPOINTS_PROVEN', receipt: interfaceReceipt({ truthClassification: 'FULLY_LIVE' }) } }).stage, 'QUARANTINED'));
 test('terminal interface proof cannot advance', () => {
-  const proven = advanceRelayPreviewRun({ run: endpointRun(), event: { type: 'ENDPOINTS_PROVEN', receipt: { status: 'PREVIEW_INTERFACE_PROVEN', truthClassification: 'INTERFACE_ONLY', deploymentId: 'dpl_ABC', productionPromotion: 'BLOCKED' } } });
+  const proven = advanceRelayPreviewRun({ run: endpointRun(), event: { type: 'ENDPOINTS_PROVEN', receipt: interfaceReceipt() } });
   assert.equal(advanceRelayPreviewRun({ run: proven, event: { type: 'PREFLIGHT_DECIDED', decision: eligibility } }).stage, 'QUARANTINED');
 });
 test('source has no external mutation primitive', async () => {

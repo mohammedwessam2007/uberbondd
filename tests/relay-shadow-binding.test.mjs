@@ -13,11 +13,14 @@ const receipt = {
   ok: true,
   status: 'PREVIEW_INTERFACE_PROVEN',
   truthClassification: 'INTERFACE_ONLY',
-  projectId: RELAY_PROJECT_ID,
-  teamId: RELAY_TEAM_ID,
-  deploymentId: 'dpl_123ABC',
-  url: 'https://uberbondd-relay-preview.vercel.app',
-  environment: 'preview',
+  deployment: {
+    projectId: RELAY_PROJECT_ID,
+    teamId: RELAY_TEAM_ID,
+    id: 'dpl_123ABC',
+    url: 'https://uberbondd-relay-preview.vercel.app',
+    state: 'READY',
+    environment: 'preview'
+  },
   productionPromotion: 'BLOCKED',
   fullDurableRelay: 'NOT_PROVEN'
 };
@@ -38,12 +41,13 @@ test('builds deterministic read-only plan from exact live preview receipt', () =
 
 test('rejects absent preview proof', () => assert.equal(plan({ previewReceipt: null }).ok, false));
 test('rejects truth inflation', () => assert.equal(plan({ previewReceipt: { ...receipt, truthClassification: 'FULLY_LIVE' } }).ok, false));
-test('rejects wrong project', () => assert.equal(plan({ previewReceipt: { ...receipt, projectId: 'prj_wrong' } }).ok, false));
-test('rejects wrong team', () => assert.equal(plan({ previewReceipt: { ...receipt, teamId: 'team_wrong' } }).ok, false));
-test('rejects production deployment', () => assert.equal(plan({ previewReceipt: { ...receipt, environment: 'production' } }).ok, false));
+test('rejects wrong project', () => assert.equal(plan({ previewReceipt: { ...receipt, deployment: { ...receipt.deployment, projectId: 'prj_wrong' } } }).ok, false));
+test('rejects wrong team', () => assert.equal(plan({ previewReceipt: { ...receipt, deployment: { ...receipt.deployment, teamId: 'team_wrong' } } }).ok, false));
+test('rejects production deployment', () => assert.equal(plan({ previewReceipt: { ...receipt, deployment: { ...receipt.deployment, environment: 'production' } } }).ok, false));
+test('rejects non-ready deployment', () => assert.equal(plan({ previewReceipt: { ...receipt, deployment: { ...receipt.deployment, state: 'ERROR' } } }).ok, false));
 test('rejects unblocked promotion', () => assert.equal(plan({ previewReceipt: { ...receipt, productionPromotion: 'ALLOWED' } }).ok, false));
-test('rejects invalid deployment identity', () => assert.equal(plan({ previewReceipt: { ...receipt, deploymentId: 'bad' } }).ok, false));
-test('rejects foreign preview host', () => assert.equal(plan({ previewReceipt: { ...receipt, url: 'https://example.com' } }).ok, false));
+test('rejects invalid deployment identity', () => assert.equal(plan({ previewReceipt: { ...receipt, deployment: { ...receipt.deployment, id: 'bad' } } }).ok, false));
+test('rejects foreign preview host', () => assert.equal(plan({ previewReceipt: { ...receipt, deployment: { ...receipt.deployment, url: 'https://example.com' } } }).ok, false));
 test('rejects noncanonical queue job type', () => assert.equal(plan({ queueContract: { ...queueContract, jobType: 'other' } }).ok, false));
 test('rejects write-capable queue contract', () => assert.equal(plan({ queueContract: { ...queueContract, readOnly: false } }).ok, false));
 test('rejects execution authority', () => assert.equal(plan({ queueContract: { ...queueContract, executionAuthority: true } }).ok, false));

@@ -45,15 +45,17 @@ function rejected(reasonCodes) {
 function validPreviewReceipt(receipt) {
   const reasons = [];
   if (!receipt || typeof receipt !== 'object') return ['preview-receipt-required'];
+  const deployment = receipt?.deployment;
   if (receipt.ok !== true || receipt.status !== 'PREVIEW_INTERFACE_PROVEN') reasons.push('preview-interface-not-proven');
   if (receipt.truthClassification !== 'INTERFACE_ONLY') reasons.push('truth-classification-invalid');
-  if (receipt.projectId !== RELAY_PROJECT_ID) reasons.push('project-id-mismatch');
-  if (receipt.teamId !== RELAY_TEAM_ID) reasons.push('team-id-mismatch');
-  if (receipt.environment !== 'preview') reasons.push('preview-environment-required');
+  if (deployment?.projectId !== RELAY_PROJECT_ID) reasons.push('project-id-mismatch');
+  if (deployment?.teamId !== RELAY_TEAM_ID) reasons.push('team-id-mismatch');
+  if (deployment?.state !== 'READY') reasons.push('deployment-ready-required');
+  if (deployment?.environment !== 'preview') reasons.push('preview-environment-required');
   if (receipt.productionPromotion !== 'BLOCKED') reasons.push('production-promotion-not-blocked');
   if (receipt.fullDurableRelay !== 'NOT_PROVEN') reasons.push('durable-relay-truth-inflated');
-  if (!receipt.deploymentId || !/^dpl_[A-Za-z0-9]+$/.test(receipt.deploymentId)) reasons.push('deployment-id-invalid');
-  if (!receipt.url || !/^https:\/\/[a-z0-9-]+\.vercel\.app\/?$/i.test(receipt.url)) reasons.push('preview-url-invalid');
+  if (!deployment?.id || !/^dpl_[A-Za-z0-9]+$/.test(deployment.id)) reasons.push('deployment-id-invalid');
+  if (!deployment?.url || !/^https:\/\/[a-z0-9-]+\.vercel\.app\/?$/i.test(deployment.url)) reasons.push('preview-url-invalid');
   return reasons;
 }
 
@@ -72,8 +74,8 @@ export function compileRelayShadowBindingPlan({ previewReceipt, queueContract = 
     mode: 'SHADOW_READ_ONLY',
     projectId: RELAY_PROJECT_ID,
     teamId: RELAY_TEAM_ID,
-    deploymentId: previewReceipt.deploymentId,
-    previewUrl: previewReceipt.url.replace(/\/$/, ''),
+    deploymentId: previewReceipt.deployment.id,
+    previewUrl: previewReceipt.deployment.url.replace(/\/$/, ''),
     jobType: RELAY_JOB_TYPE,
     allowedOperations: [...READ_OPERATIONS],
     forbiddenOperations: [...FORBIDDEN_OPERATIONS],

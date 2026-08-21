@@ -116,10 +116,19 @@ export function advanceRelayPreviewRun({ run, event, date = new Date() } = {}) {
   if (run.stage === 'ENDPOINT_PROOF_REQUIRED') {
     if (event.type !== 'ENDPOINTS_PROVEN') return reject(run, 'endpoint-proof-required');
     const receipt = event.receipt;
+    const deployment = receipt?.deployment;
     if (receipt?.status !== 'PREVIEW_INTERFACE_PROVEN'
       || receipt?.truthClassification !== 'INTERFACE_ONLY'
-      || receipt?.deploymentId !== run.deploymentId
-      || receipt?.productionPromotion !== 'BLOCKED') return reject(run, 'valid-interface-only-receipt-required');
+      || receipt?.fullDurableRelay !== 'NOT_PROVEN'
+      || receipt?.productionPromotion !== 'BLOCKED'
+      || deployment?.id !== run.deploymentId
+      || deployment?.projectId !== EXPECTED_RELAY_PROJECT_ID
+      || deployment?.teamId !== EXPECTED_RELAY_TEAM_ID
+      || deployment?.state !== 'READY'
+      || deployment?.environment !== 'preview'
+      || deployment?.url !== run.deploymentUrl) {
+      return reject(run, 'valid-interface-only-receipt-required');
+    }
     return output(run, { stage: 'INTERFACE_PROVEN', updatedAt, reasonCodes: [], requiredNextEvent: null, previewReceiptId: receipt.receiptId || null });
   }
   return reject(run, 'unknown-run-stage');

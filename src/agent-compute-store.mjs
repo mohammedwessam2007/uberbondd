@@ -1,4 +1,4 @@
-import { hasSecret } from './cloud-agent-relay.mjs';
+import { hasSecret, sameJson } from './cloud-agent-relay.mjs';
 import { validateComputeBudget } from './ai-compute-budget.mjs';
 
 export const AGENT_COMPUTE_STORE_POLICY_VERSION = 'agent-compute-store-1.2.0';
@@ -120,12 +120,14 @@ function executionRowsForTask(allRows, taskId) {
     .sort((a, b) => rowTime(b).localeCompare(rowTime(a)));
 }
 
+// Key order is not meaning. A crash-recovery path that rebuilds an execution
+// record from persisted pieces produces the same record with its fields in a
+// different order, and a raw JSON.stringify comparison calls that a history
+// conflict -- rejecting the replay on exactly the path terminal idempotency
+// exists to serve. sameJson canonicalises key order first, and lives in
+// cloud-agent-relay so there is one answer to "are these the same record".
 function sameExecutionRecord(left, right) {
-  try {
-    return JSON.stringify(left) === JSON.stringify(right);
-  } catch {
-    return false;
-  }
+  return sameJson(left, right);
 }
 
 function validateExecutionTransition(previous, next) {

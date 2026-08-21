@@ -62,7 +62,10 @@ function canonicalValue(value) {
   );
 }
 
-function sameJson(left, right) {
+// Exported so other modules compare records the same way. Two copies of
+// "are these the same object?" is how one of them ends up key-order sensitive
+// while the other is not.
+export function sameJson(left, right) {
   try {
     return JSON.stringify(canonicalValue(left)) === JSON.stringify(canonicalValue(right));
   } catch {

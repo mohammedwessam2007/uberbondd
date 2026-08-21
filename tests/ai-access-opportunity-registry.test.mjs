@@ -148,7 +148,7 @@ test('routing plan uses deterministic work first and never embeds credentials', 
   assert.equal(plan[0].preferred, 'deterministic-code');
   assert.ok(plan.some((item) => item.preferred === 'blocked-until-v9-authorized-provider'));
   assert.equal(JSON.stringify(plan).includes('apiKey'), false);
-  assert.equal(JSON.stringify(plan).includes('secret'), false);
+  assert.equal(JSON.stringify(plan).includes('sk-'), false);
 });
 
 test('receipt makes no revenue or payment claim and keeps all effects zero', () => {

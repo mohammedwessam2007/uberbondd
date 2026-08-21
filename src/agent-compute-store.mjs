@@ -1,7 +1,7 @@
 import { hasSecret } from './cloud-agent-relay.mjs';
 import { validateComputeBudget } from './ai-compute-budget.mjs';
 
-export const AGENT_COMPUTE_STORE_POLICY_VERSION = 'agent-compute-store-1.0.0';
+export const AGENT_COMPUTE_STORE_POLICY_VERSION = 'agent-compute-store-1.1.0';
 
 const SNAPSHOT_TYPE = 'agent_compute_budget_snapshot';
 const EXECUTION_TYPE = 'agent_compute_execution_record';
@@ -21,6 +21,10 @@ function timestamp(value) {
 
 function bytes(value) {
   return Buffer.byteLength(JSON.stringify(value ?? null), 'utf8');
+}
+
+function rowTime(row) {
+  return String(row?.detail?.createdAt || row?.createdAt || '');
 }
 
 function fail(reasonCodes, status = 'REJECTED', extra = {}) {
@@ -47,6 +51,43 @@ function hasComputeSecret(value) {
 function safeBudget(budget) {
   if (!validateComputeBudget(budget).ok || hasComputeSecret(budget)) return null;
   return structuredClone(budget);
+}
+
+function inspectBudgetRow(row, expectedBudgetId) {
+  const detailId = text(row?.detail?.budgetId, 160);
+  const budget = safeBudget(row?.detail?.budget);
+  const embeddedId = text(budget?.budgetId, 160);
+  if (!detailId || !budget || !embeddedId) return fail(['stored-compute-budget-corrupt'], 'CORRUPT');
+  if (detailId !== embeddedId) return fail(['stored-compute-budget-identity-mismatch'], 'CORRUPT');
+  if (expectedBudgetId && detailId !== expectedBudgetId) return fail(['stored-compute-budget-identity-mismatch'], 'CORRUPT');
+  return { ok: true, budget };
+}
+
+function inspectExecutionRow(row, expectedTaskId = null) {
+  const detail = row?.detail;
+  const record = detail?.executionRecord;
+  if (!record || typeof record !== 'object' || Array.isArray(record)) {
+    return fail(['stored-execution-record-corrupt'], 'CORRUPT');
+  }
+  if (!record.executionId || !record.taskId || !record.status) {
+    return fail(['stored-execution-record-corrupt'], 'CORRUPT');
+  }
+  if (hasSecret(record) || bytes(record) > MAX_EXECUTION_BYTES) {
+    return fail(['stored-execution-record-corrupt'], 'CORRUPT');
+  }
+  const detailExecutionId = text(detail.executionId, 240);
+  const detailTaskId = text(detail.taskId, 160);
+  const detailStatus = text(detail.status, 100).toUpperCase();
+  const recordExecutionId = text(record.executionId, 240);
+  const recordTaskId = text(record.taskId, 160);
+  const recordStatus = text(record.status, 100).toUpperCase();
+  if (detailExecutionId !== recordExecutionId || detailTaskId !== recordTaskId || detailStatus !== recordStatus) {
+    return fail(['stored-execution-record-identity-mismatch'], 'CORRUPT');
+  }
+  if (expectedTaskId && recordTaskId !== expectedTaskId) {
+    return fail(['stored-execution-record-task-mismatch'], 'CORRUPT');
+  }
+  return { ok: true, executionRecord: structuredClone(record) };
 }
 
 async function rows(store, type, limit = MAX_SCAN) {
@@ -94,15 +135,17 @@ export async function loadLatestComputeBudget(store, budgetId) {
   if (!id) return fail(['budget-id-required']);
   const all = await rows(store, SNAPSHOT_TYPE);
   const matches = all
-    .filter(row => row?.detail?.budgetId === id && safeBudget(row?.detail?.budget))
-    .sort((a, b) => String(b?.detail?.createdAt || b?.createdAt || '').localeCompare(String(a?.detail?.createdAt || a?.createdAt || '')));
+    .filter(row => row?.detail?.budgetId === id || row?.detail?.budget?.budgetId === id)
+    .sort((a, b) => rowTime(b).localeCompare(rowTime(a)));
   if (!matches.length) return fail(['compute-budget-not-found'], 'NOT_FOUND');
   const latest = matches[0];
+  const inspected = inspectBudgetRow(latest, id);
+  if (!inspected.ok) return inspected;
   return {
     ok: true,
     policyVersion: AGENT_COMPUTE_STORE_POLICY_VERSION,
     status: 'LOADED',
-    budget: structuredClone(latest.detail.budget),
+    budget: inspected.budget,
     auditId: latest.id || null,
     snapshotAt: latest.detail.createdAt || latest.createdAt || null
   };
@@ -115,12 +158,14 @@ export async function saveAgentExecutionRecord(store, executionRecord, { date = 
   }
   if (hasSecret(executionRecord)) return fail(['secret-like-execution-record-rejected']);
   if (bytes(executionRecord) > MAX_EXECUTION_BYTES) return fail(['execution-record-too-large']);
+  const status = text(executionRecord.status, 100).toUpperCase();
+  if (!status) return fail(['execution-status-required']);
   const at = timestamp(date);
   const detail = {
     policyVersion: AGENT_COMPUTE_STORE_POLICY_VERSION,
     executionId: executionRecord.executionId,
     taskId: executionRecord.taskId,
-    status: text(executionRecord.status, 100).toUpperCase(),
+    status,
     executionRecord: structuredClone(executionRecord),
     createdAt: at
   };
@@ -142,15 +187,17 @@ export async function loadLatestAgentExecution(store, taskId) {
   if (!id) return fail(['task-id-required']);
   const all = await rows(store, EXECUTION_TYPE);
   const matches = all
-    .filter(row => row?.detail?.taskId === id && row?.detail?.executionRecord && !hasSecret(row.detail.executionRecord))
-    .sort((a, b) => String(b?.detail?.createdAt || b?.createdAt || '').localeCompare(String(a?.detail?.createdAt || a?.createdAt || '')));
+    .filter(row => row?.detail?.taskId === id || row?.detail?.executionRecord?.taskId === id)
+    .sort((a, b) => rowTime(b).localeCompare(rowTime(a)));
   if (!matches.length) return fail(['agent-execution-not-found'], 'NOT_FOUND');
   const latest = matches[0];
+  const inspected = inspectExecutionRow(latest, id);
+  if (!inspected.ok) return inspected;
   return {
     ok: true,
     policyVersion: AGENT_COMPUTE_STORE_POLICY_VERSION,
     status: 'LOADED',
-    executionRecord: structuredClone(latest.detail.executionRecord),
+    executionRecord: inspected.executionRecord,
     auditId: latest.id || null,
     savedAt: latest.detail.createdAt || latest.createdAt || null
   };
@@ -161,16 +208,27 @@ export async function listPendingAgentSubmissions(store, { limit = 20 } = {}) {
   const all = await rows(store, EXECUTION_TYPE);
   const latestByTask = new Map();
   for (const row of all) {
-    const record = row?.detail?.executionRecord;
-    if (!record?.taskId || hasSecret(record)) continue;
-    const current = latestByTask.get(record.taskId);
-    const rowTime = String(row?.detail?.createdAt || row?.createdAt || '');
-    const currentTime = String(current?.detail?.createdAt || current?.createdAt || '');
-    if (!current || rowTime > currentTime) latestByTask.set(record.taskId, row);
+    const detailTask = text(row?.detail?.taskId, 160);
+    const recordTask = text(row?.detail?.executionRecord?.taskId, 160);
+    const taskIds = [...new Set([detailTask, recordTask].filter(Boolean))];
+    if (!taskIds.length) return fail(['execution-history-corrupt:missing-task-id'], 'CORRUPT');
+    for (const taskId of taskIds) {
+      const current = latestByTask.get(taskId);
+      if (!current || rowTime(row) > rowTime(current)) latestByTask.set(taskId, row);
+    }
   }
+
+  const records = [];
+  for (const [taskId, row] of latestByTask.entries()) {
+    const inspected = inspectExecutionRow(row, taskId);
+    if (!inspected.ok) {
+      return fail([`execution-history-corrupt:${taskId}`, ...inspected.reasonCodes], 'CORRUPT');
+    }
+    records.push(inspected.executionRecord);
+  }
+
   const replayableStatuses = new Set(['MODEL_RESULT_READY', 'RESULT_SUBMISSION_PENDING']);
-  const records = [...latestByTask.values()]
-    .map(row => row.detail.executionRecord)
+  const pending = records
     .filter(record => replayableStatuses.has(String(record.status || '').toUpperCase()))
     .sort((a, b) => String(a.createdAt || '').localeCompare(String(b.createdAt || '')))
     .slice(0, Math.max(1, Math.min(100, Number(limit || 20))));
@@ -178,8 +236,8 @@ export async function listPendingAgentSubmissions(store, { limit = 20 } = {}) {
     ok: true,
     policyVersion: AGENT_COMPUTE_STORE_POLICY_VERSION,
     status: 'LISTED',
-    count: records.length,
-    records
+    count: pending.length,
+    records: pending
   };
 }
 

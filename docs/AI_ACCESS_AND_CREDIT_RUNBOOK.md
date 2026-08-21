@@ -1,10 +1,12 @@
 # UberBond AI Access, Credits, and Free-Tier Runbook
 
 Reference date: 2026-08-21
-Policy: ai-access-opportunity-registry-1.0.0
+Policy: ai-access-opportunity-registry-1.0.0; universe coverage: ai-access-opportunity-universe-2.0.0
 Truth boundary: this catalog proves only that an official provider route was documented and recorded. It does not prove Mohamed is eligible, that an application was approved, that a key was issued, that credits were granted, or that UberBond has revenue.
 
 ## What was added
+
+The catalog is now a 55-route, multi-family universe covering student access, startup/cloud credits, model-provider programs, GPU/inference, research, open source, regional education, partner benefits, and coding tools. The family map is explicit and testable; it is designed for continuous ingestion, not a claim that every internet promotion has been discovered.
 
 UberBond now has one governed access catalog connected to the existing opportunity-registry policy rather than a second commercial opportunity database.
 
@@ -63,6 +65,29 @@ Every record is VERIFIED_FACT only for the existence/description of the provider
 | openai-researcher-api | OpenAI | Researcher API credits | APPLICATION_REQUIRED | Genuine academic/nonprofit research |
 | openai-academic-researchers | OpenAI | Academic researcher workspace | APPLICATION_REQUIRED | Faculty/postdoc and paper proof |
 | anthropic-rare-disease-grants | Anthropic | Rare-disease research credits | APPLICATION_REQUIRED | Real research, sponsor, ethics |
+
+
+| openai-codex-students-us-canada | OpenAI | Codex for Students | OWNER_REVIEW_REQUIRED | Genuine US/Canada student verification |
+| openai-codex-open-source | OpenAI | Codex for Open Source | APPLICATION_REQUIRED | Real public open-source maintenance |
+| openai-for-startups | OpenAI | OpenAI for Startups | OWNER_REVIEW_REQUIRED | Current startup route and truthful company facts |
+| openai-cybersecurity-grant | OpenAI | Defensive cybersecurity grant | APPLICATION_REQUIRED | Defensive public-benefit project |
+| amd-ai-developer-program | AMD | AI Developer Program | OWNER_REVIEW_REQUIRED | Account, current credit terms, partner review |
+| ona-open-source | Ona | Open-source AI credits | APPLICATION_REQUIRED | Active established open-source contribution |
+| arcee-trinity-builders | Arcee AI | Trinity Builders | APPLICATION_REQUIRED | Builder/research fit and program acceptance |
+| aws-kiro-singapore-ihl | AWS/Kiro | Singapore IHL pilot | OWNER_REVIEW_REQUIRED | Genuine participating institution affiliation |
+| digitalocean-hatch | DigitalOcean | Hatch startup credits | APPLICATION_REQUIRED | Qualified startup and program approval |
+| ibm-bob-global-student | IBM | IBM Bob student access | OWNER_REVIEW_REQUIRED | Participating institution/challenge access |
+| together-ai-startup-accelerator | Together AI | Startup Accelerator | APPLICATION_REQUIRED | AI startup/funding tier and selection |
+| modal-startups | Modal | Startup GPU credits | APPLICATION_REQUIRED | Funding criteria and new-customer rule |
+| modal-academics | Modal | Academic GPU credits | APPLICATION_REQUIRED | Genuine graduate/research affiliation |
+| fireworks-startups | Fireworks | Startup inference credits | APPLICATION_REQUIRED | Registered private company and funding criteria |
+| anthropic-external-researcher-access | Anthropic | Safety/alignment researcher credits | APPLICATION_REQUIRED | Genuine high-priority alignment research |
+| anthropic-vc-partner-program | Anthropic | VC partner route | APPLICATION_REQUIRED | Genuine fund/portfolio relationship |
+| anthropic-ai-for-science-program | Anthropic | AI for Science program | APPLICATION_REQUIRED | Real scientific research and selection |
+| oracle-startup-growth-engine-latam | Oracle | Startup Growth Engine | APPLICATION_REQUIRED | Eligible LATAM market and partner tier |
+| mongodb-for-startups | MongoDB | Atlas startup credits | APPLICATION_REQUIRED | Startup qualification and current terms |
+| google-cloud-startup-perks | Google Cloud | Startup partner perks | OWNER_REVIEW_REQUIRED | Eligible Google startup membership |
+| google-cloud-ai-startup-program | Google Cloud | AI startup credits | APPLICATION_REQUIRED | AI-first, funding, age, prior-credit criteria |
 
 ## What the system may do automatically
 
@@ -133,3 +158,21 @@ The complete official URLs are stored in src/ai-access-opportunity-registry.mjs.
 - JetBrains students: https://lp.jetbrains.com/pycharm-for-students/
 - OpenAI research access: https://help.openai.com/en/articles/10139500
 - Anthropic research grants: https://www.anthropic.com/news/rare-disease-research-grants
+
+- OpenAI developer community: https://developers.openai.com/community
+- OpenAI Cybersecurity Grant: https://openai.com/index/openai-cybersecurity-grant-program/
+- AMD AI Developer Program: https://developer.amd.com/ai-developer-program/
+- Ona for Open Source: https://ona.com/open-source
+- Arcee Trinity Builders: https://www.arcee.ai/blog/introducing-the-trinity-builders-program
+- AWS Kiro Singapore IHL pilot: https://press.aboutamazon.com/aws/2026/5/aws-brings-professional-grade-ai-developer-tool-kiro-to-singapore-ihls-to-build-workforce-ready-software-skills
+- DigitalOcean Hatch: https://www.digitalocean.com/hatch
+- IBM Bob student access: https://newsroom.ibm.com/2026-06-03-IBM-Launches-Global-AI-Builders-Challenge-with-IBM-Bob-for-University-Students,-Expanding-Availability-of-IBM-Bob-to-20,000-Post-Secondary-Institutions-Worldwide
+- Together AI Startup Accelerator: https://www.together.ai/startup-accelerator
+- Modal academics: https://modal.com/academics
+- Anthropic External Researcher Access: https://support.anthropic.com/en/articles/9125743-what-is-the-external-researcher-access-program
+- Anthropic VC partner program: https://www.anthropic.com/contact-sales/vc-partner
+- Anthropic AI for Science: https://www.anthropic.com/ai-for-science-program-rules
+- Oracle Startup Growth Engine: https://www.oracle.com/latam/news/announcement/oracle-expands-oracle-partner-network-with-startup-growth-engine-2026-06-23/
+- MongoDB for Startups: https://www.mongodb.com/startups
+- Google Cloud Startup Perks: https://cloud.google.com/startup/perks
+- Google Cloud AI startup program: https://cloud.google.com/startup/ai

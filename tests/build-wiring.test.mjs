@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
+import { syntaxCheckTargets } from '../scripts/check-syntax.mjs';
+import { deterministicTestFiles, reachableTestFiles, testImportsOf } from '../scripts/run-tests.mjs';
 import { join } from 'node:path';
 
 // A test file that exists but runs in no npm script is worse than no test at
@@ -23,84 +25,78 @@ function walk(dir, out = []) {
   return out;
 }
 
-// A test file runs if an npm script names it, OR if a file that runs imports
-// it. Counting only the names is wrong in both directions, and I got both
-// wrong: it reported 23 files as orphaned when tests/agent-relay.test.mjs
-// imports 19 of them, and "fixing" that by naming them made those 19 execute
-// twice. Follow the import graph.
-function reachableTestFiles() {
-  const named = new Set(
-    Object.entries(scripts)
-      .filter(([name]) => name.startsWith('test'))
-      .flatMap(([, cmd]) => cmd.split(/\s+/))
-      .filter(token => token.endsWith('.test.mjs'))
-  );
-  const seen = new Set();
-  const stack = [...named];
-  while (stack.length) {
-    const file = stack.pop();
-    if (seen.has(file)) continue;
-    seen.add(file);
-    for (const imported of testImportsOf(file)) stack.push(imported);
-  }
-  return { named, reachable: seen };
-}
-
-function testImportsOf(file) {
-  let source = '';
-  try {
-    source = readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
-  } catch {
-    return [];
-  }
-  return [...source.matchAll(/^import\s+["']\.\/([^"']+\.test\.mjs)["']/gm)].map(match => `tests/${match[1]}`);
-}
+// The suites are discovered now rather than listed, because the listed form
+// grew until npm refused to execute it. These guard the discovery instead.
 
 test('every test file on disk actually runs, by name or by import', () => {
-  const { reachable } = reachableTestFiles();
+  const reachable = reachableTestFiles();
+  const excluded = new Set(['tests/browser.test.mjs', 'tests/postgres-store-live.test.mjs']);
   const onDisk = readdirSync(new URL('../tests/', import.meta.url))
     .filter(name => name.endsWith('.test.mjs'))
     .map(name => `tests/${name}`);
 
-  const orphans = onDisk.filter(file => !reachable.has(file));
+  const orphans = onDisk.filter(file => !reachable.has(file) && !excluded.has(file));
   assert.deepEqual(
     orphans, [],
-    `these test files are named by no script and imported by nothing that runs:\n  ${orphans.join('\n  ')}`
+    `these test files never execute:\n  ${orphans.join('\n  ')}`
   );
 });
 
-test('no test file both is named by a script and imported by another test that runs', () => {
-  // The mirror failure, and the one that bit me: a file listed in
-  // test:deterministic AND imported by a file already in test:deterministic
-  // executes twice. That inflates the pass count -- which is exactly the
-  // number a reader trusts -- and doubles the runtime for nothing.
-  const { named } = reachableTestFiles();
-  const importedByNamed = new Set();
-  for (const file of named) {
-    for (const imported of testImportsOf(file)) {
-      if (imported !== file) importedByNamed.add(imported);
-    }
+test('no test file runs twice', () => {
+  // A file handed to `node --test` that another handed file also imports is
+  // loaded twice, and every test inside it is counted twice -- inflating the
+  // number a reader trusts. The runner excludes imported files; this pins it.
+  const handed = deterministicTestFiles();
+  const handedSet = new Set(handed);
+  const doubled = handed.filter(file =>
+    handed.some(other => other !== file && testImportsOf(other).includes(file)));
+  assert.deepEqual(doubled, [], `these would execute twice:\n  ${doubled.join('\n  ')}`);
+  assert.equal(handedSet.size, handed.length, 'the runner handed the same file twice');
+});
+
+test('the deterministic suite excludes the suites that need a browser or a live database', () => {
+  const handed = new Set(deterministicTestFiles());
+  assert.ok(!handed.has('tests/browser.test.mjs'), 'browser tests must not run in the deterministic set');
+  assert.ok(!handed.has('tests/postgres-store-live.test.mjs'), 'live-database tests must not run in the deterministic set');
+});
+
+test('the suites are discovered, not spelled out in a string that can outgrow the shell', () => {
+  // The concrete failure this prevents: npm echoed an 8,674-character
+  // check:syntax and exited 216 having checked nothing, and did the same for
+  // test:deterministic. Both reported failure while providing zero coverage.
+  assert.equal(scripts['test:deterministic'], 'node scripts/run-tests.mjs deterministic');
+  assert.equal(scripts['check:syntax'], 'node scripts/check-syntax.mjs');
+  // A canary, not a proof. The two scripts that actually stopped executing
+  // were 8,674 and 4,496 characters; 2,000 leaves real headroom while still
+  // catching a script drifting back toward the size that breaks. Deliberately
+  // not tighter: test:relay-safety is a legitimate 412-character list and
+  // failing it would be inventing a rule rather than protecting an invariant.
+  for (const [name, command] of Object.entries(scripts)) {
+    assert.ok(
+      command.length < 2000,
+      `script "${name}" is ${command.length} chars and drifting toward the size at which npm stops executing it`
+    );
   }
-  const doubled = [...named].filter(file => importedByNamed.has(file)).sort();
-  assert.deepEqual(
-    doubled, [],
-    `these run twice -- named by a script and imported by another script's file:\n  ${doubled.join('\n  ')}\n` +
-    'Remove them from the script; the importing file already runs them.'
-  );
 });
 
-test('every src module is syntax-checked by check:syntax', () => {
-  // check:syntax is the only gate that runs over modules the deterministic
-  // suite may never import. A module missing from it can carry a syntax error
-  // all the way to a production start.
-  const cmd = scripts['check:syntax'] || '';
-  const checked = new Set([...cmd.matchAll(/node --check (\S+)/g)].map(match => match[1]));
-  const missing = walk('src').filter(file => !checked.has(file));
-
+test('the syntax check still covers every src module', () => {
+  // check:syntax used to be ~186 `node --check` calls chained with `&&`. That
+  // string grew with every merge until npm stopped running it at all -- it
+  // echoed the command and exited 216 having checked nothing, so the gate
+  // reported failure while providing no coverage. It now walks the tree, which
+  // makes "somebody forgot to add the new module" structurally impossible.
+  //
+  // What remains worth guarding is the walk itself: drop 'src' from its roots
+  // and coverage silently vanishes with no other symptom.
+  const covered = new Set(syntaxCheckTargets());
+  const missing = walk('src').filter(file => !covered.has(file));
   assert.deepEqual(
     missing, [],
-    `these src modules are not in check:syntax, so a syntax error in them ships:\n  ${missing.join('\n  ')}`
+    `the syntax checker no longer covers these src modules:\n  ${missing.join('\n  ')}`
   );
+  assert.ok(covered.size > 100, `suspiciously few files covered: ${covered.size}`);
+  assert.equal(scripts['check:syntax'], 'node scripts/check-syntax.mjs',
+    'check:syntax must run the checker rather than an inline chain that can outgrow the shell');
 });
 
 test('the deterministic suite references no test file that has been deleted', () => {

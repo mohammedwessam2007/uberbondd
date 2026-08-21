@@ -103,6 +103,7 @@ async function buildExecutor({
     await fs.mkdir(path.join(sandboxRoot, 'src'), { recursive: true });
     await fs.writeFile(path.join(sandboxRoot, 'src/actual.mjs'), 'export const actual = true;\n');
   },
+  mutateDuringVerification = null,
   status = '?? src/actual.mjs\0',
   verificationExitCode = 0,
   destroyOk = true,
@@ -132,6 +133,9 @@ async function buildExecutor({
     runGit: async input => gitRunner(sandboxRoot, status)(input),
     runVerificationCommand: async () => {
       verificationCalls += 1;
+      if (typeof mutateDuringVerification === 'function') {
+        await mutateDuringVerification(sandboxRoot, verificationCalls);
+      }
       return {
         exitCode: verificationExitCode,
         stdout: verificationExitCode === 0 ? 'pass' : 'fail',
@@ -160,9 +164,32 @@ test('full synthetic engineering roundtrip trusts Git + verifier evidence, not C
   assert.equal(out.result.testsActuallyRun.length, 2);
   assert.equal(out.result.testsActuallyRun.every(item => item.status === 'PASS'), true);
   assert.equal(out.result.codeChangeSet.changes[0].content, 'export const actual = true;\n');
+  assert.equal(out.result.engineeringEvidence.stateBindingStatus, 'BOUND');
+  assert.equal(out.result.engineeringEvidence.postVerificationChangeSetId, out.result.engineeringEvidence.changeSetId);
   assert.equal(fixture.state().verificationCalls, 2);
   assert.equal(fixture.state().destroyed, true);
   await assert.rejects(fs.lstat(fixture.state().sandboxRoot), error => error?.code === 'ENOENT');
+});
+
+test('verification-time source mutation blocks review even when every verifier command reports PASS', async () => {
+  const fixture = await buildExecutor({
+    mutateDuringVerification: async (sandboxRoot, call) => {
+      if (call === 1) {
+        await fs.writeFile(path.join(sandboxRoot, 'src/actual.mjs'), 'export const actual = "mutated-after-capture";\n');
+      }
+    }
+  });
+  const out = await fixture.executor({ task: task(), model: 'sonnet', maxTokens: 1000, costCeilingCents: 10 });
+  assert.equal(out.ok, true);
+  assert.equal(out.result.testsActuallyRun.length, 2);
+  assert.equal(out.result.testsActuallyRun.every(item => item.status === 'PASS'), true);
+  assert.equal(out.result.decision, 'STOP');
+  assert.equal(out.result.coordination.action, 'OWNER_REVIEW_REQUIRED');
+  assert.equal(out.result.engineeringEvidence.stateBindingStatus, 'DRIFT_DETECTED');
+  assert.notEqual(out.result.engineeringEvidence.postVerificationChangeSetId, out.result.engineeringEvidence.changeSetId);
+  assert.ok(out.result.engineeringEvidence.stateBindingReasonCodes.includes('sandbox-change-set-changed-during-verification'));
+  assert.match(out.result.outcome, /tested state is not the same state/i);
+  assert.equal(fixture.state().destroyed, true);
 });
 
 test('verification failure routes to bounded repair and never promotes the patch', async () => {
@@ -173,6 +200,7 @@ test('verification failure routes to bounded repair and never promotes the patch
   assert.equal(out.result.coordination.action, 'REPAIR_REQUIRED');
   assert.equal(out.result.testsActuallyRun.length, 1);
   assert.equal(out.result.testsActuallyRun[0].status, 'FAIL');
+  assert.equal(out.result.engineeringEvidence.stateBindingStatus, 'BOUND');
   assert.equal(fixture.state().destroyed, true);
 });
 

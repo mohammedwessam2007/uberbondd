@@ -89,13 +89,20 @@ if (asJson) {
   for (const task of summary.inFlight) {
     console.log(`  in flight  #${task.issueNumber} ${task.taskId}  held by ${task.holder} until ${task.expiresAt}`);
   }
+  for (const task of summary.exhausted) {
+    console.log(`  EXHAUSTED  #${task.issueNumber} ${task.taskId}  ${task.attempts} attempts, last ${task.lastHolder} -- no worker will retry this`);
+  }
   for (const task of summary.stranded) {
     console.log(`  STRANDED   #${task.issueNumber} ${task.taskId}  last held by ${task.lastHolder}, ${task.attempts} attempt(s)`);
   }
   for (const task of summary.retried) {
     console.log(`  retried    #${task.issueNumber} ${task.taskId}  ${task.attempts} attempts`);
   }
-  if (summary.verdict === 'STRANDED') {
+  if (summary.verdict === 'EXHAUSTED') {
+    console.log('\nA task hit its attempt limit. Workers will refuse it now, so running');
+    console.log('another one changes nothing. Read the claim history on the issue and');
+    console.log('decide whether to fix the task, split it, or close it.');
+  } else if (summary.verdict === 'STRANDED') {
     console.log('\nA worker claimed a task and never finished it. The lease has lapsed so the');
     console.log('task is claimable again, but any work it did was lost. Re-run a worker.');
   } else if (summary.verdict === 'STALLED') {
@@ -105,4 +112,4 @@ if (asJson) {
   console.log('');
 }
 
-process.exit(['STRANDED', 'STALLED'].includes(summary.verdict) ? 1 : 0);
+process.exit(['EXHAUSTED', 'STRANDED', 'STALLED'].includes(summary.verdict) ? 1 : 0);

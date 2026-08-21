@@ -2,7 +2,7 @@ import { validResult, ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 import { collectAgentGitSandboxChanges } from './agent-git-sandbox-collector.mjs';
 import { runSandboxVerification } from './agent-sandbox-verifier.mjs';
 
-export const CLAUDE_ENGINEERING_ORCHESTRATOR_POLICY_VERSION = 'claude-engineering-orchestrator-1.0.0';
+export const CLAUDE_ENGINEERING_ORCHESTRATOR_POLICY_VERSION = 'claude-engineering-orchestrator-1.1.0';
 
 function text(value, max = 1200) {
   return String(value ?? '').trim().slice(0, max);
@@ -45,10 +45,71 @@ function actualTests(verification) {
   }));
 }
 
+function compareCollectedState(before, after) {
+  if (!before?.ok || !after?.ok) {
+    return {
+      ok: false,
+      status: 'UNRESOLVED',
+      reasonCodes: ['post-verification-change-collection-failed', ...(after?.reasonCodes || [])],
+      beforeChangeSetId: before?.changeSet?.changeSetId || null,
+      afterChangeSetId: after?.changeSet?.changeSetId || null
+    };
+  }
+
+  if (before.status !== after.status) {
+    return {
+      ok: false,
+      status: 'DRIFT_DETECTED',
+      reasonCodes: ['sandbox-git-status-changed-during-verification'],
+      beforeStatus: before.status || null,
+      afterStatus: after.status || null,
+      beforeChangeSetId: before?.changeSet?.changeSetId || null,
+      afterChangeSetId: after?.changeSet?.changeSetId || null
+    };
+  }
+
+  if (before.status === 'NO_CHANGES') {
+    return {
+      ok: true,
+      status: 'BOUND',
+      reasonCodes: [],
+      beforeStatus: before.status,
+      afterStatus: after.status,
+      beforeChangeSetId: null,
+      afterChangeSetId: null
+    };
+  }
+
+  const beforeId = text(before?.changeSet?.changeSetId, 240);
+  const afterId = text(after?.changeSet?.changeSetId, 240);
+  if (!beforeId || !afterId || beforeId !== afterId) {
+    return {
+      ok: false,
+      status: 'DRIFT_DETECTED',
+      reasonCodes: ['sandbox-change-set-changed-during-verification'],
+      beforeStatus: before.status || null,
+      afterStatus: after.status || null,
+      beforeChangeSetId: beforeId || null,
+      afterChangeSetId: afterId || null
+    };
+  }
+
+  return {
+    ok: true,
+    status: 'BOUND',
+    reasonCodes: [],
+    beforeStatus: before.status,
+    afterStatus: after.status,
+    beforeChangeSetId: beforeId,
+    afterChangeSetId: afterId
+  };
+}
+
 function resultFor({
   task,
   collected,
   verification,
+  stateBinding,
   artifactRef,
   cleanupOk,
   cleanupRef,
@@ -68,8 +129,10 @@ function resultFor({
 
   const noChanges = collected?.status === 'NO_CHANGES';
   const verificationPass = verification?.ok === true && verification?.status === 'PASS';
-  const fullyVerified = !noChanges && verificationPass && cleanupOk;
-  const needsRepair = !noChanges && !verificationPass && cleanupOk;
+  const stateBindingOk = stateBinding?.ok === true && stateBinding?.status === 'BOUND';
+  const stateDrift = stateBinding?.ok === false;
+  const fullyVerified = !noChanges && verificationPass && stateBindingOk && cleanupOk;
+  const needsRepair = !noChanges && !verificationPass && stateBindingOk && cleanupOk;
   const cleanupFailure = cleanupOk === false;
 
   let decision = 'REPAIR';
@@ -81,8 +144,8 @@ function resultFor({
     decision = 'PROCEED';
     action = 'REVIEW_REQUIRED';
     objective = 'Review the verified Claude engineering change set against the originating task and economic thesis.';
-    summary = 'Actual Git changes were collected from the sandbox and every requested deterministic verification command passed.';
-  } else if (noChanges) {
+    summary = 'Actual Git changes were collected from the sandbox, every requested deterministic verification command passed, and the post-verification Git state matched the reviewed change set.';
+  } else if (noChanges && stateBindingOk) {
     decision = 'REPAIR';
     action = 'REPAIR_REQUIRED';
     objective = 'Produce a material bounded implementation change or explicitly prove why no change is required.';
@@ -92,8 +155,18 @@ function resultFor({
     action = 'OWNER_REVIEW_REQUIRED';
     objective = '';
     summary = 'Engineering evidence exists, but sandbox teardown was not verified. The sandbox must remain quarantined.';
+  } else if (stateDrift) {
+    decision = 'STOP';
+    action = 'OWNER_REVIEW_REQUIRED';
+    objective = '';
+    summary = 'Sandbox Git state changed during or after deterministic verification, so the tested state is not the same state being offered for review.';
   } else if (needsRepair) {
     decision = 'REPAIR';
+  } else if (!stateBindingOk) {
+    decision = 'STOP';
+    action = 'OWNER_REVIEW_REQUIRED';
+    objective = '';
+    summary = 'Post-verification Git state could not be bound to the collected engineering change set.';
   }
 
   const truthTable = [
@@ -106,6 +179,11 @@ function resultFor({
       claim: 'Requested deterministic verification passed in a credential-free, network-disabled verifier sandbox.',
       status: verificationPass ? 'VERIFIED' : 'UNRESOLVED',
       evidenceRefs: verificationRef ? [verificationRef] : []
+    },
+    {
+      claim: 'Post-verification Git state matched the exact change set offered for review.',
+      status: stateBindingOk ? 'VERIFIED' : 'UNRESOLVED',
+      evidenceRefs: [changeRef, verificationRef].filter(Boolean)
     },
     {
       claim: 'Ephemeral engineering sandbox teardown completed.',
@@ -126,7 +204,7 @@ function resultFor({
       objective,
       summary,
       evidenceRefs,
-      confidence: fullyVerified ? 0.96 : (noChanges ? 0.85 : 0.92)
+      confidence: fullyVerified ? 0.97 : (noChanges ? 0.85 : 0.93)
     },
     evidenceRefs,
     engineeringEvidence: {
@@ -135,6 +213,9 @@ function resultFor({
       changeCount: collected?.changeSet?.changes?.length || 0,
       verificationReceiptId: verification?.verificationReceiptId || null,
       verificationRef,
+      stateBindingStatus: stateBinding?.status || 'UNRESOLVED',
+      postVerificationChangeSetId: stateBinding?.afterChangeSetId || null,
+      stateBindingReasonCodes: stateBinding?.reasonCodes || [],
       cleanupRef: cleanupRef || null,
       claudeSessionRef: typedRef('provider', modelResult?.providerRequestId)
     }
@@ -184,6 +265,8 @@ export function createClaudeEngineeringExecutor({
     let sandbox = null;
     let modelResult = null;
     let collected = null;
+    let postVerificationCollected = null;
+    let stateBinding = { ok: false, status: 'UNRESOLVED', reasonCodes: ['post-verification-state-not-collected'] };
     let verification = null;
     let artifact = { ok: true, artifactRef: null };
     let cleanup = { ok: false, receiptRef: null, reasonCodes: ['cleanup-not-attempted'] };
@@ -222,7 +305,7 @@ export function createClaudeEngineeringExecutor({
         };
       }
 
-      collected = await collectChanges({
+      const collectionInput = {
         sandboxRoot: sandbox.sandboxRoot,
         taskId: task.taskId,
         baseRevision: sandbox.baseRevision,
@@ -231,7 +314,9 @@ export function createClaudeEngineeringExecutor({
           : ['npm run check'],
         summary: `Bounded engineering changes for ${task.taskId}`,
         ...(runGit ? { runGit } : {})
-      });
+      };
+
+      collected = await collectChanges(collectionInput);
       if (!collected?.ok) {
         return {
           ok: true,
@@ -311,6 +396,21 @@ export function createClaudeEngineeringExecutor({
           ...(runVerificationCommand ? { runCommand: runVerificationCommand } : {})
         });
       }
+
+      // Verification itself is code execution. Re-derive the sandbox change set
+      // after the verifier has finished and require an exact identity match.
+      // This closes the time-of-check/time-of-use gap where a test or script
+      // could mutate source after the pre-verification artifact was captured.
+      try {
+        postVerificationCollected = await collectChanges(collectionInput);
+      } catch (error) {
+        postVerificationCollected = {
+          ok: false,
+          status: 'COLLECTION_FAILED',
+          reasonCodes: ['post-verification-change-collection-threw', text(error?.message, 500)]
+        };
+      }
+      stateBinding = compareCollectedState(collected, postVerificationCollected);
     } catch (error) {
       // If the Claude provider already returned successfully, compute occurred
       // and is measurable. Convert later orchestration failures into a valid
@@ -364,6 +464,7 @@ export function createClaudeEngineeringExecutor({
       task,
       collected,
       verification,
+      stateBinding,
       artifactRef: artifact.artifactRef || null,
       cleanupOk: cleanup.ok,
       cleanupRef: cleanup.receiptRef,

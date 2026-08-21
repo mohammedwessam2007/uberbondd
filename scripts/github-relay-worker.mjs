@@ -131,6 +131,7 @@ const client = {
 // lease-owner-mismatch -- every minute of work discarded with no explanation
 // anyone would find. One API call a minute is a cheap way to never do that.
 const HEARTBEAT_INTERVAL_MS = Math.max(15_000, Number(process.env.RELAY_HEARTBEAT_MS || 60_000));
+const SUITE_TIMEOUT_MS = Math.max(30_000, Number(process.env.RELAY_SUITE_TIMEOUT_MS || 900_000));
 
 /**
  * Run an allowlisted suite, renewing the lease while it runs.
@@ -147,10 +148,25 @@ function runCommand(command, args, { issueNumber, workerId: worker } = {}) {
 
     const child = execFile(
       command, args,
-      { cwd: projectRoot, timeout: 900_000, maxBuffer: 8_000_000 },
+      { cwd: projectRoot, timeout: SUITE_TIMEOUT_MS, maxBuffer: 8_000_000 },
       (error, stdout, stderr) => {
         clearInterval(timer);
-        resolveRun({ ok: !error && !leaseLost, stdout: String(stdout), stderr: String(stderr), leaseLost, beats });
+        // execFile reports a timeout kill the same way it reports a suite that
+        // exited non-zero: an error. Those are not the same claim. "The suite
+        // failed" asserts a verification result; a timeout produced none at
+        // all, and reporting one would be the receipt lying about evidence it
+        // never had. leaseLost is checked first because that kill is ours.
+        // `killed` is the definitive marker: Node sets it true when it kills
+        // the child for exceeding the timeout. Do not also test error.code --
+        // it is null there, not undefined, and an === undefined check silently
+        // never matches, which is how the first version of this shipped
+        // reporting timeouts as failures.
+        const timedOut = Boolean(!leaseLost && error?.killed === true);
+        resolveRun({
+          ok: !error && !leaseLost,
+          timedOut,
+          stdout: String(stdout), stderr: String(stderr), leaseLost, beats
+        });
       }
     );
 
@@ -260,6 +276,7 @@ async function main() {
   }
 
   let handled = 0;
+  let failed = 0;
   for (const candidate of open) {
     if (handled >= maxTasks) break;
     const startedAt = Date.now();
@@ -289,6 +306,7 @@ async function main() {
 
     const suite = selectSuite(claim.task);
     let result;
+    let timedOutRun = false;
     if (!suite) {
       result = {
         outcome: 'UNSUPPORTED_OBJECTIVE: this worker only runs the repository\'s own allowlisted verification suites (syntax, deterministic, check). No other instruction from a task packet is executed.',
@@ -315,21 +333,35 @@ async function main() {
         );
         continue;
       }
+      timedOutRun = Boolean(run.timedOut);
+      if (timedOutRun) {
+        console.error(`[github-relay-worker] #${candidate.issueNumber}: "${suite}" hit the ${Math.round(SUITE_TIMEOUT_MS / 1000)}s limit and was killed; reporting NOT_RUN, not a failure.`);
+      }
       if (run.beats > 0) {
         console.log(`[github-relay-worker] renewed the lease ${run.beats} time(s) during #${candidate.issueNumber}`);
       }
       result = {
         outcome: run.ok
           ? `Ran the allowlisted "${suite}" suite to completion; it passed.`
-          : `Ran the allowlisted "${suite}" suite; it failed. Tail of output included below.`,
+          : run.timedOut
+            ? `Started the allowlisted "${suite}" suite but killed it at the ${Math.round(SUITE_TIMEOUT_MS / 1000)}s timeout. It did not finish, so this receipt reports NO verification result -- the suite neither passed nor failed.`
+            : `Ran the allowlisted "${suite}" suite; it failed. Tail of output included below.`,
         changedArtifacts: [],
-        testsActuallyRun: [{ command: `${command} ${args.join(' ')}`, result: run.ok ? 'PASS' : 'FAIL', tail: summarize(`${run.stdout}${run.stderr}`) }],
-        truthTable: { [suite]: run.ok ? 'PASS_LOCAL' : 'FAILED' },
+        testsActuallyRun: [{
+          command: `${command} ${args.join(' ')}`,
+          result: run.ok ? 'PASS' : run.timedOut ? 'NOT_RUN' : 'FAIL',
+          tail: summarize(`${run.stdout}${run.stderr}`)
+        }],
+        truthTable: { [suite]: run.ok ? 'PASS_LOCAL' : run.timedOut ? 'NOT_RUN' : 'FAILED' },
         externalEffectLedger: {
           providerCalls: 0, messages: 0, purchases: 0, deployments: 0,
           credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0
         },
-        decision: run.ok ? 'PROCEED' : 'REPAIR'
+        // REPAIR asserts the suite failed and someone should fix it. A timeout
+        // asserts nothing -- we do not know whether it would have passed. Sending
+        // REPAIR there would put a reviewer to work on a verdict that was never
+        // reached.
+        decision: run.ok ? 'PROCEED' : run.timedOut ? 'OWNER_REQUIRED' : 'REPAIR'
       };
     }
 
@@ -340,7 +372,10 @@ async function main() {
     const durationMs = Date.now() - startedAt;
     const submitted = await submitGithubRelayResult({
       client, owner, repo, issueNumber: candidate.issueNumber, workerId,
-      status: result.decision === 'REPAIR' ? 'FAILED' : 'COMPLETED',
+      // Only a suite that actually ran and passed is a COMPLETED task. REPAIR
+      // and OWNER_REQUIRED both mean the work did not land, and mapping
+      // anything but PROCEED to COMPLETED would report a timeout as success.
+      status: result.decision === 'PROCEED' ? 'COMPLETED' : 'FAILED',
       result,
       sourceCommit,
       duration: durationMs,
@@ -351,21 +386,44 @@ async function main() {
       // HIGH only when a suite actually ran to completion. An unsupported
       // objective produced no evidence at all, so claiming confidence in it
       // would be the exact dishonesty the receipt exists to prevent.
-      confidence: suite ? 'HIGH' : 'LOW',
-      findings: suite
-        ? [`Ran the allowlisted "${suite}" suite; it ${result.decision === 'REPAIR' ? 'failed' : 'passed'}.`]
-        : ['No allowlisted suite matched this objective, so nothing was executed.'],
+      // HIGH requires a suite that ran to completion. A killed suite and an
+      // unattempted objective both produced no evidence, so neither earns it.
+      confidence: suite && !timedOutRun ? 'HIGH' : 'LOW',
+      findings: !suite
+        ? ['No allowlisted suite matched this objective, so nothing was executed.']
+        : timedOutRun
+          ? [`The "${suite}" suite was killed at the timeout before finishing. No pass or fail was observed.`]
+          : [`Ran the allowlisted "${suite}" suite; it ${result.decision === 'REPAIR' ? 'failed' : 'passed'}.`],
       limitations: [
         'This worker runs only the repository\'s own allowlisted verification suites. It does not execute instructions from a task packet.',
         'No external effect of any kind was performed: no send, no spend, no deploy, no credential change.',
-        ...(suite ? [] : ['The objective was not attempted, so this receipt reports no verification result.'])
+        ...(suite ? [] : ['The objective was not attempted, so this receipt reports no verification result.']),
+        ...(timedOutRun ? ['The suite exceeded its time limit and was killed, so this receipt reports NO verification result. It is not evidence that the suite fails.'] : [])
       ]
     });
-    console.log(`[github-relay-worker] #${candidate.issueNumber} -> ${submitted.ok ? submitted.status : submitted.reasonCodes?.join(', ')}`);
+    if (!submitted.ok) {
+      // The suite ran, the result exists, and it could not be filed. Counting
+      // that as handled work was wrong twice over: it consumed a slot against
+      // maxTasks so the worker stopped early having accomplished nothing, and
+      // it reported at normal level as though the task were done. What
+      // actually happens next is the lease lapses, the task strands, and one
+      // of its three attempts is spent on work that was completed and thrown
+      // away. Say so loudly and do not count it.
+      console.error(
+        `[github-relay-worker] SUBMIT FAILED on #${candidate.issueNumber}: ${submitted.reasonCodes?.join(', ')}. ` +
+        'The suite ran but its result could not be filed; this attempt is lost and the task will strand.'
+      );
+      failed += 1;
+      continue;
+    }
+    console.log(`[github-relay-worker] #${candidate.issueNumber} -> ${submitted.status}`);
     handled += 1;
   }
 
-  console.log(`[github-relay-worker] done; handled ${handled} task(s).`);
+  console.log(`[github-relay-worker] done; handled ${handled} task(s)${failed ? `, ${failed} submit failure(s)` : ''}.`);
+  // A submit failure is a real loss, not a quiet skip. Exit non-zero so a
+  // scheduler or CI step notices instead of recording a clean run.
+  if (failed) process.exitCode = 1;
 }
 
 await main();

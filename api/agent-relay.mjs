@@ -171,7 +171,13 @@ function githubClient({ token, api = fetch, timeoutMs = DEFAULT_GITHUB_TIMEOUT_M
       return request('POST', `/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/issues`, { title, body, labels });
     },
     async listIssues({ owner, repo, state, labels, perPage }) {
-      const query = new URLSearchParams({ state, per_page: String(perPage) });
+      // GitHub rejects `state=OPEN` with a 422; it wants lowercase. The relay
+      // transport passes 'OPEN', and every fake client in the tests happily
+      // accepted it -- so poll, the operation ChatGPT uses to find work at all,
+      // returned RELAY_REQUEST_FAILED against the real API while the suite was
+      // green. Normalise here, at the boundary that has to speak GitHub's
+      // dialect, rather than making every caller remember.
+      const query = new URLSearchParams({ state: String(state || 'open').toLowerCase(), per_page: String(perPage) });
       if (labels?.length) query.set('labels', labels.join(','));
       return request('GET', `/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/issues?${query}`);
     },
@@ -258,9 +264,25 @@ export function createHandler(deps = {}) {
         return sendJson(res, 200, await heartbeatGithubRelayTask({ client, owner: config.owner, repo: config.repo, issueNumber: number, workerId: body.workerId }));
       }
       if (operation === 'submit') {
+        // Forward the provenance the caller sent. Previously only workerId,
+        // status and result were passed on, so a client that carefully supplied
+        // sourceCommit, confidence, findings and limitations got a receipt
+        // recording UNKNOWN for all of them -- and a 200 RECEIVED saying it had
+        // worked. Silently discarding evidence while reporting success is the
+        // worst failure this contract can have.
         return sendJson(res, 200, await submitGithubRelayResult({
           client, owner: config.owner, repo: config.repo, issueNumber: number,
-          workerId: body.workerId, status: body.status, result: body.result || {}
+          workerId: body.workerId, status: body.status, result: body.result || {},
+          taskId: body.taskId,
+          sourceCommit: body.sourceCommit,
+          confidence: body.confidence,
+          commands: body.commands,
+          tests: body.tests,
+          artifacts: body.artifacts,
+          findings: body.findings,
+          limitations: body.limitations,
+          cost: body.cost,
+          duration: body.duration
         }));
       }
       return sendJson(res, 400, { ok: false, status: 'UNKNOWN_OPERATION', externalEffectLedger: { ...ZERO_EFFECTS } });

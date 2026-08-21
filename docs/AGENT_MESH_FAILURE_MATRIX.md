@@ -76,6 +76,18 @@ It ranks on no monotonic field because the run record declares none, and
 *ordered* but not *protected*. That is a real gap, deliberately left open and
 recorded rather than papered over.
 
+## A guard that was itself wrong
+
+The build-wiring guard originally counted only `package.json` references and
+reported 23 test files as orphaned. 19 of them were imported by
+`tests/agent-relay.test.mjs`, which runs — so they were never orphaned, and
+acting on the report made them run twice.
+
+Recorded here because the failure mode is general: **a verification tool that
+is wrong is worse than no tool, since it manufactures confident action.** The
+guard now resolves the import graph and also fails when a file is both named
+and imported. Both directions were checked by reintroducing each fault.
+
 ## External proof required
 
 | Claim | State |

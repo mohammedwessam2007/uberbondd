@@ -23,25 +23,69 @@ function walk(dir, out = []) {
   return out;
 }
 
-test('every test file on disk is wired into an npm test script', () => {
-  // Any script starting with test: counts. Tests deliberately excluded from the
-  // deterministic suite (browser, live Postgres) still have to run *somewhere*.
-  const referenced = new Set(
+// A test file runs if an npm script names it, OR if a file that runs imports
+// it. Counting only the names is wrong in both directions, and I got both
+// wrong: it reported 23 files as orphaned when tests/agent-relay.test.mjs
+// imports 19 of them, and "fixing" that by naming them made those 19 execute
+// twice. Follow the import graph.
+function reachableTestFiles() {
+  const named = new Set(
     Object.entries(scripts)
       .filter(([name]) => name.startsWith('test'))
       .flatMap(([, cmd]) => cmd.split(/\s+/))
       .filter(token => token.endsWith('.test.mjs'))
   );
+  const seen = new Set();
+  const stack = [...named];
+  while (stack.length) {
+    const file = stack.pop();
+    if (seen.has(file)) continue;
+    seen.add(file);
+    for (const imported of testImportsOf(file)) stack.push(imported);
+  }
+  return { named, reachable: seen };
+}
 
+function testImportsOf(file) {
+  let source = '';
+  try {
+    source = readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
+  } catch {
+    return [];
+  }
+  return [...source.matchAll(/^import\s+["']\.\/([^"']+\.test\.mjs)["']/gm)].map(match => `tests/${match[1]}`);
+}
+
+test('every test file on disk actually runs, by name or by import', () => {
+  const { reachable } = reachableTestFiles();
   const onDisk = readdirSync(new URL('../tests/', import.meta.url))
     .filter(name => name.endsWith('.test.mjs'))
     .map(name => `tests/${name}`);
 
-  const orphans = onDisk.filter(file => !referenced.has(file));
+  const orphans = onDisk.filter(file => !reachable.has(file));
   assert.deepEqual(
     orphans, [],
-    `these test files exist but no npm script runs them, so they never execute:\n  ${orphans.join('\n  ')}\n` +
-    'Add them to test:deterministic (or the appropriate test: script).'
+    `these test files are named by no script and imported by nothing that runs:\n  ${orphans.join('\n  ')}`
+  );
+});
+
+test('no test file both is named by a script and imported by another test that runs', () => {
+  // The mirror failure, and the one that bit me: a file listed in
+  // test:deterministic AND imported by a file already in test:deterministic
+  // executes twice. That inflates the pass count -- which is exactly the
+  // number a reader trusts -- and doubles the runtime for nothing.
+  const { named } = reachableTestFiles();
+  const importedByNamed = new Set();
+  for (const file of named) {
+    for (const imported of testImportsOf(file)) {
+      if (imported !== file) importedByNamed.add(imported);
+    }
+  }
+  const doubled = [...named].filter(file => importedByNamed.has(file)).sort();
+  assert.deepEqual(
+    doubled, [],
+    `these run twice -- named by a script and imported by another script's file:\n  ${doubled.join('\n  ')}\n` +
+    'Remove them from the script; the importing file already runs them.'
   );
 });
 

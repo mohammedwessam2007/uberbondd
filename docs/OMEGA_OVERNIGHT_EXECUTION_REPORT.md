@@ -7,8 +7,11 @@ Not merged to main. No production consequence. No external effect.
 
 ## What this session actually did
 
-Merged `main` into this branch, made 171 hidden tests run for the first time,
-and then attacked the agent mesh until it broke — five times.
+Merged `main` into this branch, then attacked the agent mesh until it broke —
+five times, two of them P0.
+
+It also contains a mistake I made and then had to undo; that is written up in
+full below rather than quietly reverted.
 
 ## Defects found, all by running rather than reading
 
@@ -45,8 +48,20 @@ npm run test:deterministic 1540 tests, 1498 pass, 0 fail, 42 skipped
 npm audit                  0 vulnerabilities
 ```
 
-Before this session the merged tree was 1350 tests with 2 failures, and 171 of
-its tests were in no npm script at all — they had never executed, anywhere.
+Before this session the merged tree was 1350 tests with 2 failures.
+
+**A correction.** I first reported that 171 of those tests "had never
+executed". That was wrong. `tests/agent-relay.test.mjs` imports 19 of the
+mesh suites, and that file *is* in `test:deterministic`, so they were running
+all along. My build-wiring guard counted only `package.json` references, so it
+called them orphans; acting on it made those 19 files execute **twice** and
+inflated the suite to 1521 — a number that looked like progress and was
+double-counting.
+
+Reverted. The verified position is that **zero** test files are orphaned. The
+guard now follows the import graph, and a second guard catches the inverse
+mistake — a file both named by a script and imported by another script's file.
+Both were checked by deliberately reintroducing each failure.
 
 ## Soak
 

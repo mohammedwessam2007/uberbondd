@@ -1365,8 +1365,13 @@ function accountFarmingRequested(context = {}) {
 
 function contextRegionMatches(item, context) {
   const country = String(context.country || '').toUpperCase();
-  if (item.regions.includes('US') && country && country !== 'US') return false;
-  if (item.regions.includes('EG') && country && country !== 'EG') return false;
+  const hasUS = item.regions.includes('US');
+  const hasCA = item.regions.includes('CA');
+  const hasEG = item.regions.includes('EG');
+  if (hasUS && hasCA && country && !['US', 'CA'].includes(country)) return false;
+  if (hasUS && !hasCA && country && country !== 'US') return false;
+  if (hasCA && !hasUS && country && country !== 'CA') return false;
+  if (hasEG && country && country !== 'EG') return false;
   return true;
 }
 

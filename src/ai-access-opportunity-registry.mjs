@@ -24,7 +24,9 @@ export const AI_ACCESS_UNIVERSE_FAMILIES = Object.freeze([
   'academic_gpu_credits',
   'science_grants',
   'model_builder_grants',
-  'startup_partner_credits'
+  'startup_partner_credits',
+  'startup_ecosystem_programs',
+  'open_model_compute'
 ]);
 export const AI_ACCESS_FAMILY_ROUTE_IDS = Object.freeze({
   consumer_student_plans: ['google-ai-pro-us-student-2026'],
@@ -46,7 +48,9 @@ export const AI_ACCESS_FAMILY_ROUTE_IDS = Object.freeze({
   academic_gpu_credits: ['modal-academics'],
   science_grants: ['anthropic-ai-for-science-program', 'anthropic-rare-disease-grants'],
   model_builder_grants: ['arcee-trinity-builders'],
-  startup_partner_credits: ['openai-for-startups', 'anthropic-vc-partner-program']
+  startup_partner_credits: ['openai-for-startups', 'anthropic-vc-partner-program'],
+  startup_ecosystem_programs: ['nvidia-inception'],
+  open_model_compute: ['huggingface-spaces-zero-gpu', 'huggingface-community-gpu-grant']
 });
 
 export const AI_ACCESS_REFERENCE_DATE = '2026-08-21';
@@ -852,6 +856,67 @@ const RAW_OPPORTUNITIES = [
     tags: ['anthropic', 'research', 'healthcare', 'grant']
   }),
 
+
+  record({
+    id: "nvidia-inception",
+    provider: "NVIDIA",
+    name: "NVIDIA Inception for Startups",
+    kind: "startup_ecosystem_program",
+    regions: ["GLOBAL"],
+    officialUrl: "https://www.nvidia.com/en-us/startups/",
+    lastVerifiedOn: "2026-08-21",
+    expiresOn: null,
+    status: "APPLICATION_REQUIRED",
+    evidenceClass: "VERIFIED_FACT",
+    valueText: "NVIDIA publishes Inception as a free startup program with developer tools, training, partner offers, free cloud-credit paths, investor exposure, and other benefits. Membership requires company/product review and published incorporation, website, age, and developer criteria.",
+    eligibility: ["Genuine incorporated technology startup", "Working website and at least one developer", "Published company age and exclusion criteria", "Application and NVIDIA review"],
+    ownerOnlySteps: ["Verify incorporation, website, product, developer, and company-age facts.", "Apply only with accurate funding and product information.", "Review each member benefit separately; membership does not guarantee a specific credit or partner approval."],
+    safePreparation: ["Prepare a truthful startup profile without inventing incorporation, funding, or revenue.", "Add NVIDIA partner credits and training as a future model-routing source.", "Do not deploy GPU workloads or accept partner terms automatically."],
+    dataRisk: "Company and technical information may be reviewed by NVIDIA and partners.",
+    stackability: "Member partner offers have separate eligibility and expiry; do not double-count them.",
+    onePerPerson: false,
+    tags: ["nvidia", "inception", "startup", "gpu", "partner"]
+  }),
+  record({
+    id: "huggingface-spaces-zero-gpu",
+    provider: "Hugging Face",
+    name: "Hugging Face Spaces CPU and ZeroGPU access",
+    kind: "open_model_compute",
+    regions: ["GLOBAL"],
+    officialUrl: "https://huggingface.co/docs/hub/main/spaces-zerogpu",
+    lastVerifiedOn: "2026-08-21",
+    expiresOn: null,
+    status: "FREE_TIER_AVAILABLE",
+    evidenceClass: "VERIFIED_FACT",
+    valueText: "Hugging Face documents free access to existing ZeroGPU Spaces and free account hosting limits for eligible accounts in good standing; quota, hosting, and model licenses remain separate constraints.",
+    eligibility: ["Current Hugging Face account and service availability", "Verified email/account-age rules for hosting", "Gradio/Space compatibility for ZeroGPU hosting"],
+    ownerOnlySteps: ["Review current ZeroGPU quota and account requirements yourself.", "Use only public or owned/licensed models and assets.", "Do not store secrets or customer data in a public Space."],
+    safePreparation: ["Add a Hugging Face benchmark adapter using public or synthetic workloads.", "Keep public demo hosting separate from UberBond production.", "Record quota and license evidence before routing work."],
+    dataRisk: "Public Spaces can expose code, prompts, assets, and outputs; never use customer secrets.",
+    stackability: "Free Spaces, ZeroGPU, and paid PRO quotas are distinct.",
+    onePerPerson: false,
+    tags: ["huggingface", "spaces", "zerogpu", "open-model", "free-tier"]
+  }),
+  record({
+    id: "huggingface-community-gpu-grant",
+    provider: "Hugging Face",
+    name: "Hugging Face community GPU grant",
+    kind: "open_model_compute_grant",
+    regions: ["GLOBAL"],
+    officialUrl: "https://huggingface.co/docs/hub/spaces-gpus",
+    lastVerifiedOn: "2026-08-21",
+    expiresOn: null,
+    status: "APPLICATION_REQUIRED",
+    evidenceClass: "VERIFIED_FACT",
+    valueText: "Hugging Face documents a community GPU-grant path for innovative Spaces that need help covering hardware costs; it is discretionary and project-specific.",
+    eligibility: ["A real innovative public Space/project", "Grant request through the documented Space settings flow", "Hugging Face review and current availability"],
+    ownerOnlySteps: ["Build or identify a genuine public demo without exposing secrets.", "Apply through the Space settings only if the project genuinely fits.", "Review hardware expiry, visibility, and usage rules before accepting."],
+    safePreparation: ["Prepare a public, redacted benchmark Space only if it has an independent product purpose.", "Do not create fake activity or publicize private UberBond code for a grant.", "Keep any grant result separate from commercial revenue proof."],
+    dataRisk: "Public Space code/data/outputs must be safe for public release.",
+    stackability: "A grant is separate from free CPU/ZeroGPU and paid hardware.",
+    onePerPerson: false,
+    tags: ["huggingface", "spaces", "gpu", "grant", "open-model"]
+  }),
   record({
     id: "openai-codex-students-us-canada",
     provider: "OpenAI",

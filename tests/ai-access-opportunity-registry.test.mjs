@@ -243,6 +243,11 @@ test('new official routes remain owner or application gated', () => {
     context: { country: 'US', verifiedStudent: true },
     date: referenceDate
   });
+  const codexCanada = evaluateAIAccessOpportunity({
+    opportunityId: 'openai-codex-students-us-canada',
+    context: { country: 'CA', verifiedStudent: true },
+    date: referenceDate
+  });
   const startup = evaluateAIAccessOpportunity({
     opportunityId: 'google-cloud-ai-startup-program',
     context: { country: 'EG' },
@@ -254,6 +259,7 @@ test('new official routes remain owner or application gated', () => {
     date: referenceDate
   });
   assert.equal(codex.status, 'OWNER_REVIEW_REQUIRED');
+  assert.equal(codexCanada.status, 'OWNER_REVIEW_REQUIRED');
   assert.equal(startup.status, 'APPLICATION_REQUIRED');
   assert.equal(gpu.status, 'APPLICATION_REQUIRED');
   for (const decision of [codex, startup, gpu]) {

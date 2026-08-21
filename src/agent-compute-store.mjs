@@ -114,10 +114,55 @@ async function rows(store, type, limit = MAX_SCAN) {
   return Array.isArray(result) ? result : [];
 }
 
+// How far along the state machine a status is. Terminal statuses share the top
+// rank: reaching any of them ends the execution.
+const EXECUTION_STAGE_RANK = new Map([
+  ['MODEL_RESULT_READY', 1],
+  ['RESULT_SUBMISSION_PENDING', 2],
+  ['RESULT_SUBMITTED', 3],
+  ['COMPUTE_OUTCOME_UNCERTAIN', 3],
+  ['COMPUTE_BUDGET_VIOLATION', 3],
+  ['INVALID_MODEL_RESULT', 3]
+]);
+
+function stageRank(row) {
+  const status = text(row?.detail?.status || row?.detail?.executionRecord?.status, 100).toUpperCase();
+  return EXECUTION_STAGE_RANK.get(status) ?? 0;
+}
+
+// Audit rows carry a store-assigned id, and in practice it ends in a
+// monotonic counter. Use it only to break exact ties, and compare the numeric
+// tail rather than the string -- "row-9" sorts after "row-12" lexically.
+function rowSequence(row) {
+  const match = /(\d+)\s*$/.exec(String(row?.id ?? ''));
+  return match ? Number(match[1]) : 0;
+}
+
+/**
+ * Newest-first, where "newest" means furthest along the state machine -- not
+ * merely most recently stamped.
+ *
+ * Ordering by timestamp alone was a resurrection hole. detail.createdAt is
+ * wall-clock, so two writes for one task inside the same millisecond -- a fast
+ * worker, or any clock coarser than the gap between two saves -- are
+ * indistinguishable, and the guard could end up comparing a new write against
+ * the OLDER record. Measured: MODEL_RESULT_READY then RESULT_SUBMITTED then a
+ * stale MODEL_RESULT_READY, all at one timestamp, reopened the terminal task
+ * and left loadLatestAgentExecution reporting MODEL_RESULT_READY. The terminal
+ * state was simply lost.
+ *
+ * Ranking by stage first encodes the monotonicity invariant in the ordering
+ * itself, so a terminal record wins over an earlier stage no matter what the
+ * clock says -- which also covers skew, rollback, and out-of-order delivery,
+ * none of which a timestamp sort survives.
+ */
 function executionRowsForTask(allRows, taskId) {
   return allRows
     .filter(row => row?.detail?.taskId === taskId || row?.detail?.executionRecord?.taskId === taskId)
-    .sort((a, b) => rowTime(b).localeCompare(rowTime(a)));
+    .sort((a, b) =>
+      (stageRank(b) - stageRank(a))
+      || rowTime(b).localeCompare(rowTime(a))
+      || (rowSequence(b) - rowSequence(a)));
 }
 
 // Key order is not meaning. A crash-recovery path that rebuilds an execution

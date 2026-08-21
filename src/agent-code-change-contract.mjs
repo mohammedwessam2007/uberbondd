@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import path from 'node:path';
 
-export const AGENT_CODE_CHANGE_POLICY_VERSION = 'agent-code-change-1.1.0';
+export const AGENT_CODE_CHANGE_POLICY_VERSION = 'agent-code-change-1.2.0';
 
 const MAX_CHANGES = 20;
 // Keep an entire change-set comfortably below the cloud relay's 250KB result
@@ -18,7 +18,12 @@ const PROTECTED_PREFIXES = Object.freeze([
   'credentials',
   'lite',
   'node_modules',
-  '.github/workflows'
+  '.github/workflows',
+  // The autonomous verifier intentionally invokes root npm scripts. An
+  // untrusted engineering edit must not be able to rewrite the command graph
+  // or project-level npm execution policy immediately before verification.
+  'package.json',
+  '.npmrc'
 ]);
 
 const HIGH_RISK_SECRET_PATTERNS = Object.freeze([

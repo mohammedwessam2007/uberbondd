@@ -1,5 +1,9 @@
 # Vercel GitHub relay ingress
 
+> **Canonical document:** [docs/LIVE_BRIDGE_HANDOFF.md](LIVE_BRIDGE_HANDOFF.md) is the single
+> handoff document for the ChatGPT ↔ Claude Code bridge. This file is narrower
+> or older; where the two disagree, the canonical document wins.
+
 This repository now contains a Vercel-compatible HTTP ingress at
 `/api/agent-relay`. It wraps the canonical `src/github-relay.mjs` transport;
 it does not create a second task schema or an autonomous model loop.

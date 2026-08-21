@@ -199,8 +199,26 @@ export function reserveCompute({
   if (!normalizedProvider) reasons.push('provider-required');
   if (cost == null) reasons.push('valid-cost-ceiling-required');
   if (tokens == null) reasons.push('valid-token-ceiling-required');
-  if (budget.reservations?.[id]) reasons.push('task-compute-already-reserved');
-  if (Object.keys(budget.reservations || {}).length >= MAX_RESERVATIONS) reasons.push('reservation-count-limit-reached');
+  // Blocking every taskId that appears in the map treats three different
+  // situations as one, and only two of them should be refused.
+  //
+  //   RESERVED  -- a reservation is live. Reserving again would let two
+  //                workers spend the same capacity. Refuse.
+  //   COMMITTED -- compute was already bought under this identity. Reserving
+  //                again is how you pay twice for one task. Refuse.
+  //   RELEASED  -- the capacity was handed back and NO provider call happened
+  //                (rate limited, cancelled, aborted before dispatch). There is
+  //                nothing to double-spend. Refusing this makes a safe retry
+  //                impossible: the budget shows full capacity and the task can
+  //                never use it.
+  const existing = budget.reservations?.[id];
+  if (existing && existing.status !== 'RELEASED') reasons.push('task-compute-already-reserved');
+  // The reservation map is the audit trail, so it is bounded for memory. Say
+  // which bound was hit: "too much history" and "too much in flight" need
+  // completely different responses from an operator.
+  if (Object.keys(budget.reservations || {}).length >= MAX_RESERVATIONS) {
+    reasons.push('reservation-history-limit-reached');
+  }
   if (cost > 0 && !budget.allowPaidCompute) reasons.push('paid-compute-not-authorized');
   if (budget.allowPaidCompute && !budget.allowedProviders.includes(normalizedProvider)) reasons.push('provider-not-allowlisted');
 
@@ -211,14 +229,23 @@ export function reserveCompute({
   if (reasons.length) return fail(reasons, 'BLOCKED');
 
   const next = cloneBudget(budget);
+  // A retry replaces the released record, so carry the history forward rather
+  // than letting the earlier attempt vanish. The attempt number also feeds the
+  // reservation id, so two attempts at one task never collide.
+  const attempt = (existing?.attempt || 0) + 1;
+  const priorReservationIds = existing
+    ? [...(existing.priorReservationIds || []), existing.reservationId]
+    : [];
   const reservation = {
-    reservationId: `compute_res_${hash({ budgetId: budget.budgetId, id, normalizedProvider, normalizedModel, cost, tokens }).slice(0, 24)}`,
+    reservationId: `compute_res_${hash({ budgetId: budget.budgetId, id, normalizedProvider, normalizedModel, cost, tokens, attempt }).slice(0, 24)}`,
     taskId: id,
     provider: normalizedProvider,
     model: normalizedModel || null,
     costCeilingCents: cost,
     tokenCeiling: tokens,
     status: 'RESERVED',
+    attempt,
+    priorReservationIds,
     reservedAt: timestamp(date)
   };
   next.reservations[id] = reservation;

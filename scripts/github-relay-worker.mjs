@@ -29,6 +29,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   claimGithubRelayTask,
+  heartbeatGithubRelayTask,
   pollGithubRelayTasks,
   submitGithubRelayResult
 } from '../src/github-relay.mjs';
@@ -124,11 +125,53 @@ const client = {
   }
 };
 
-function runCommand(command, args) {
+// How often to renew the lease while a suite runs. A suite may run for many
+// minutes; the lease is finite. Without renewal it can lapse mid-run, another
+// worker takes the task, and this one finishes, submits, and is told
+// lease-owner-mismatch -- every minute of work discarded with no explanation
+// anyone would find. One API call a minute is a cheap way to never do that.
+const HEARTBEAT_INTERVAL_MS = Math.max(15_000, Number(process.env.RELAY_HEARTBEAT_MS || 60_000));
+
+/**
+ * Run an allowlisted suite, renewing the lease while it runs.
+ *
+ * If a renewal is REFUSED the lease is already gone -- someone else owns the
+ * task now. Carrying on would burn minutes producing a result that cannot be
+ * submitted, so the child is killed and the loss is reported honestly rather
+ * than surfacing later as a confusing submit failure.
+ */
+function runCommand(command, args, { issueNumber, workerId: worker } = {}) {
   return new Promise(resolveRun => {
-    execFile(command, args, { cwd: projectRoot, timeout: 900_000, maxBuffer: 8_000_000 }, (error, stdout, stderr) => {
-      resolveRun({ ok: !error, stdout: String(stdout), stderr: String(stderr) });
-    });
+    let leaseLost = null;
+    let beats = 0;
+
+    const child = execFile(
+      command, args,
+      { cwd: projectRoot, timeout: 900_000, maxBuffer: 8_000_000 },
+      (error, stdout, stderr) => {
+        clearInterval(timer);
+        resolveRun({ ok: !error && !leaseLost, stdout: String(stdout), stderr: String(stderr), leaseLost, beats });
+      }
+    );
+
+    const timer = setInterval(async () => {
+      if (!issueNumber || !worker) return;
+      try {
+        const beat = await heartbeatGithubRelayTask({ client, owner, repo, issueNumber, workerId: worker });
+        if (beat.ok) {
+          beats += 1;
+          return;
+        }
+        leaseLost = beat.reasonCodes || ['heartbeat-refused'];
+        console.error(`[github-relay-worker] lease lost mid-run on #${issueNumber}: ${leaseLost.join(', ')} -- aborting`);
+        clearInterval(timer);
+        child.kill('SIGTERM');
+      } catch (error) {
+        // A transient network failure is not proof the lease is gone. Say so
+        // and keep working; only an explicit refusal means we lost it.
+        console.error(`[github-relay-worker] heartbeat error on #${issueNumber} (continuing): ${String(error.message || error).slice(0, 120)}`);
+      }
+    }, HEARTBEAT_INTERVAL_MS);
   });
 }
 
@@ -260,7 +303,21 @@ async function main() {
       };
     } else {
       const [command, args] = ALLOWED_SUITES.get(suite);
-      const run = await runCommand(command, args);
+      const run = await runCommand(command, args, { issueNumber: candidate.issueNumber, workerId });
+
+      // The lease went to someone else while we were working. Submitting now
+      // would be refused anyway, and re-reporting a task another worker owns
+      // would corrupt its history. Stop here and say what happened.
+      if (run.leaseLost) {
+        console.error(
+          `[github-relay-worker] abandoning #${candidate.issueNumber}: lease lost to another worker mid-run ` +
+          `(${run.leaseLost.join(', ')}). No result submitted; the current owner will report.`
+        );
+        continue;
+      }
+      if (run.beats > 0) {
+        console.log(`[github-relay-worker] renewed the lease ${run.beats} time(s) during #${candidate.issueNumber}`);
+      }
       result = {
         outcome: run.ok
           ? `Ran the allowlisted "${suite}" suite to completion; it passed.`

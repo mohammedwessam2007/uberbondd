@@ -72,6 +72,9 @@ const RESULT_FENCE = 'uberbond-result';
 const MAX_TASK_BYTES = 200_000;
 const MAX_RESULT_BYTES = 250_000;
 const DEFAULT_LEASE_SECONDS = 1800;
+// Three tries, then a person. Two is not enough to survive one unlucky crash;
+// unbounded means a poison task quietly consumes every worker that finds it.
+const DEFAULT_MAX_ATTEMPTS = 3;
 
 function sizeOf(value) {
   return Buffer.byteLength(JSON.stringify(value ?? null), 'utf8');
@@ -181,16 +184,24 @@ export function parseTaskIssueBody(body) {
   return extractFencedJson(body, TASK_FENCE);
 }
 
-export function buildClaimComment({ workerId, observedAt, leaseSeconds = DEFAULT_LEASE_SECONDS }) {
+export function buildClaimComment({ workerId, observedAt, leaseSeconds = DEFAULT_LEASE_SECONDS, recovered = null }) {
+  // When a claim is a takeover, say so in the human line as well as the packet.
+  // Silently re-claiming an abandoned task makes the thread read as though the
+  // first attempt never happened, which is exactly the history someone
+  // debugging a repeatedly-failing task needs to see.
+  const headline = recovered?.lastHolder
+    ? `Claimed by \`${workerId}\`, recovering an abandoned lease last held by \`${recovered.lastHolder}\`.`
+    : `Claimed by \`${workerId}\`.`;
   return [
-    `Claimed by \`${workerId}\`.`,
+    headline,
     '',
     fencedJson(CLAIM_FENCE, {
       policyVersion: GITHUB_RELAY_POLICY_VERSION,
       workerId,
       claimedAt: at(observedAt),
       leaseSeconds,
-      leaseExpiresAt: at(new Date(Date.parse(at(observedAt)) + leaseSeconds * 1000))
+      leaseExpiresAt: at(new Date(Date.parse(at(observedAt)) + leaseSeconds * 1000)),
+      ...(recovered?.lastHolder ? { recoveredFrom: recovered.lastHolder, lapsedAt: recovered.lapsedAt || null } : {})
     })
   ].join('\n');
 }
@@ -344,7 +355,22 @@ export function resolveLease(comments = [], now = new Date(), leaseSeconds = DEF
       };
     }
   }
-  return { holder: null, state: 'EXPIRED', expiresAt: null };
+  // `holder` stays null -- nobody holds an expired lease, and callers branch on
+  // that. But throwing away WHO let it lapse loses the single most useful fact
+  // about a stranded task: which worker vanished mid-run. Report it separately.
+  const last = claims[claims.length - 1];
+  const lastSeen = Date.parse(
+    heartbeats.filter(beat => beat.workerId === last.workerId && beat.id > last.id)
+      .sort((a, b) => b.id - a.id)[0]?.heartbeatAt || last.claimedAt || 0
+  );
+  const lapsedAt = lastSeen + (Number(last.leaseSeconds || leaseSeconds) * 1000);
+  return {
+    holder: null,
+    state: 'EXPIRED',
+    expiresAt: null,
+    lastHolder: last.workerId || null,
+    lapsedAt: Number.isFinite(lapsedAt) ? new Date(lapsedAt).toISOString() : null
+  };
 }
 
 /**
@@ -419,7 +445,7 @@ export async function pollGithubRelayTasks({ client, owner, repo, targetAgent = 
 
 export async function claimGithubRelayTask({
   client, owner, repo, issueNumber, workerId,
-  now = new Date(), leaseSeconds = DEFAULT_LEASE_SECONDS
+  now = new Date(), leaseSeconds = DEFAULT_LEASE_SECONDS, maxAttempts = DEFAULT_MAX_ATTEMPTS
 } = {}) {
   if (!client || typeof client.addComment !== 'function') return errorResult(['github-client-required']);
   const worker = normalizeWorkerId(workerId);
@@ -436,7 +462,27 @@ export async function claimGithubRelayTask({
     return errorResult(['lease-held-by-another-worker'], `Held by ${lease.holder} until ${lease.expiresAt}.`);
   }
 
-  await client.addComment({ owner, repo, issueNumber, body: buildClaimComment({ workerId: worker, observedAt: now, leaseSeconds }) });
+  // An expired lease is claimable again -- that is the recovery path, and it is
+  // the right default. But claimable-forever is a crash loop: a task that kills
+  // whatever picks it up gets retried until someone notices, burning a worker
+  // each time while the issue list shows healthy-looking activity. Cap it, and
+  // fail closed with a reason rather than looping.
+  const priorAttempts = comments.filter(comment => extractFencedJson(comment?.body, CLAIM_FENCE)).length;
+  if (priorAttempts >= maxAttempts) {
+    return errorResult(
+      ['task-exceeded-max-attempts'],
+      `${priorAttempts} attempt(s) already recorded, limit ${maxAttempts}. A task that strands repeatedly needs a person, not another worker.`
+    );
+  }
+
+  const recovered = lease.state === 'EXPIRED' && lease.lastHolder
+    ? { lastHolder: lease.lastHolder, lapsedAt: lease.lapsedAt || null }
+    : null;
+
+  await client.addComment({
+    owner, repo, issueNumber,
+    body: buildClaimComment({ workerId: worker, observedAt: now, leaseSeconds, recovered })
+  });
   if (typeof client.addLabels === 'function') {
     await client.addLabels({ owner, repo, issueNumber, labels: [CLAIMED_LABEL] });
   }
@@ -444,10 +490,13 @@ export async function claimGithubRelayTask({
   return {
     ok: true,
     policyVersion: GITHUB_RELAY_POLICY_VERSION,
-    status: 'CLAIMED',
+    status: recovered ? 'CLAIMED_RECOVERED' : 'CLAIMED',
     taskId: task.taskId || null,
     issueNumber,
     workerId: worker,
+    attempt: priorAttempts + 1,
+    maxAttempts,
+    recovered,
     lease: { leaseSeconds, expiresAt: at(new Date(Date.parse(at(now)) + leaseSeconds * 1000)) },
     task,
     externalEffectLedger: { ...ZERO_EFFECTS }
@@ -615,5 +664,94 @@ export function githubRelayTaskEnvelope({ issue, comments = [], now = new Date()
     updatedAt: issue?.updated_at || null,
     issueNumber: issue?.number ?? null,
     issueUrl: issue?.html_url || null
+  };
+}
+
+/**
+ * Aggregate queue health from raw issues and their comments.
+ *
+ * A relay with no visibility is a relay nobody trusts. Three states matter
+ * operationally and none of them are obvious from looking at GitHub:
+ *
+ *   QUEUED for a long time  -- nothing is running. Not broken, just nobody
+ *                              home, which is easy to mistake for broken.
+ *   LEASE_EXPIRED           -- a worker claimed this and then died. The task is
+ *                              claimable again, but work may have been done and
+ *                              thrown away, and nothing announces that.
+ *   attempts > 1            -- something keeps failing and retrying. A single
+ *                              glance at the issue looks identical to a task
+ *                              claimed once.
+ *
+ * Pure over its inputs (including `now`), so it is testable without a network
+ * and cannot drift from what the transport actually reports.
+ */
+export function summarizeRelayQueue({ tasks = [], now = new Date(), staleQueuedSeconds = 3600, leaseSeconds = DEFAULT_LEASE_SECONDS, maxAttempts = DEFAULT_MAX_ATTEMPTS } = {}) {
+  const at = now instanceof Date ? now : new Date(now);
+  const nowMs = at.getTime();
+  const counts = { QUEUED: 0, CLAIMED: 0, LEASE_EXPIRED: 0, COMPLETED: 0, FAILED: 0 };
+  const envelopes = [];
+
+  for (const entry of tasks) {
+    const envelope = githubRelayTaskEnvelope({
+      issue: entry?.issue, comments: entry?.comments || [], now: at, leaseSeconds
+    });
+    if (!envelope) continue;
+    envelopes.push(envelope);
+    if (Object.hasOwn(counts, envelope.status)) counts[envelope.status] += 1;
+  }
+
+  const ageSeconds = envelope => {
+    const created = Date.parse(envelope.createdAt || '');
+    return Number.isFinite(created) ? Math.max(0, Math.round((nowMs - created) / 1000)) : null;
+  };
+
+  const queued = envelopes.filter(e => e.status === 'QUEUED');
+  const allStranded = envelopes.filter(e => e.status === 'LEASE_EXPIRED');
+  // A stranded task at its attempt limit will never be picked up again: no
+  // worker is allowed to claim it. Reporting that the same way as a task a
+  // worker will happily retry tells the reader to do the one thing that cannot
+  // work -- run another worker.
+  const exhausted = allStranded.filter(e => e.attempts >= maxAttempts);
+  const stranded = allStranded.filter(e => e.attempts < maxAttempts);
+  const inFlight = envelopes.filter(e => e.status === 'CLAIMED');
+  const retried = envelopes.filter(e => e.attempts > 1 && e.status !== 'COMPLETED');
+  const waits = queued.map(ageSeconds).filter(seconds => seconds !== null);
+  const oldestQueuedSeconds = waits.length ? Math.max(...waits) : null;
+
+  // Ordered by how much a person needs to know about it, most urgent first. A
+  // stranded task outranks a merely idle queue: idle means nobody started,
+  // stranded means someone started and vanished.
+  const verdict = exhausted.length ? 'EXHAUSTED'
+    : stranded.length ? 'STRANDED'
+    : (oldestQueuedSeconds !== null && oldestQueuedSeconds > staleQueuedSeconds && inFlight.length === 0) ? 'STALLED'
+    : (queued.length || inFlight.length) ? 'ACTIVE'
+    : 'IDLE';
+
+  return {
+    ok: true,
+    policyVersion: GITHUB_RELAY_POLICY_VERSION,
+    observedAt: at.toISOString(),
+    verdict,
+    counts,
+    total: envelopes.length,
+    oldestQueuedSeconds,
+    exhausted: exhausted.map(e => ({
+      issueNumber: e.issueNumber, issueUrl: e.issueUrl, taskId: e.taskId,
+      attempts: e.attempts, lastHolder: e.lease?.lastHolder || null, ageSeconds: ageSeconds(e)
+    })),
+    stranded: stranded.map(e => ({
+      issueNumber: e.issueNumber, issueUrl: e.issueUrl, taskId: e.taskId,
+      attempts: e.attempts,
+      // An expired lease has no holder by definition; lastHolder is who let it lapse.
+      lastHolder: e.lease?.lastHolder || null,
+      lapsedAt: e.lease?.lapsedAt || null,
+      ageSeconds: ageSeconds(e)
+    })),
+    inFlight: inFlight.map(e => ({
+      issueNumber: e.issueNumber, taskId: e.taskId,
+      holder: e.lease?.holder || null, expiresAt: e.lease?.expiresAt || null
+    })),
+    retried: retried.map(e => ({ issueNumber: e.issueNumber, taskId: e.taskId, attempts: e.attempts })),
+    externalEffectLedger: { ...ZERO_EFFECTS }
   };
 }

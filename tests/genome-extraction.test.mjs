@@ -1,8 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { normalizeMarketSignal } from '../src/market-signal.mjs';
-import { extractGenomeCandidate } from '../src/genome-extraction.mjs';
+import { extractGenomeCandidate, logGenomeExtraction } from '../src/genome-extraction.mjs';
 import { compileBusinessGenome, scoreOpportunity } from '../src/opportunity-registry.mjs';
+import { createJobHandlers } from '../src/job-handlers.mjs';
 
 const monday = new Date('2026-07-13T10:00:00.000Z');
 
@@ -74,4 +75,38 @@ test('an extracted candidate composes directly with compileBusinessGenome/scoreO
 test('non-numeric priceHint is ignored rather than coerced into a fabricated number', () => {
   const result = extractGenomeCandidate({ signals: [priceSignal()], id: 'cand-1', priceHint: 'fifty dollars' });
   assert.equal(result.candidate.price, undefined);
+});
+
+test('genome extraction emits one compact lineage receipt without raw signal payloads', async () => {
+  const signal = priceSignal();
+  const result = extractGenomeCandidate({ signals: [signal], id: 'cand-receipt', name: 'Receipt Candidate', category: 'test', priceHint: 49 });
+  const calls = [];
+  await logGenomeExtraction({ log: async (type, detail) => { calls.push({ type, detail }); return { id: 'audit-genome-1' }; } }, result);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].type, 'business_genome_extraction');
+  assert.equal(calls[0].detail.candidateId, 'cand-receipt');
+  assert.deepEqual(calls[0].detail.evidenceRefs, [signal.signalId]);
+  assert.equal(calls[0].detail.externalEffectLedger.providerCalls, 0);
+  assert.equal('signals' in calls[0].detail, false);
+  assert.equal('payload' in calls[0].detail, false);
+});
+
+test('prometheus.genome.extract handler composes and audits locally', async () => {
+  const calls = [];
+  const handlers = createJobHandlers({
+    cfg: {},
+    store: { log: async (type, detail) => { calls.push({ type, detail }); return { id: 'audit-handler-1' }; } }
+  });
+  const result = await handlers['prometheus.genome.extract']({
+    signals: [priceSignal()],
+    id: 'cand-handler',
+    name: 'Handler Candidate',
+    category: 'test',
+    priceHint: 49
+  });
+  assert.equal(result.ok, true);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].type, 'business_genome_extraction');
+  assert.equal(calls[0].detail.candidateId, 'cand-handler');
+  assert.equal(calls[0].detail.externalEffectLedger.messages, 0);
 });

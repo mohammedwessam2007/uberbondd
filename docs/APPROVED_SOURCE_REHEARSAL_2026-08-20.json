@@ -1,0 +1,68 @@
+{
+  "policyVersion": "approved-source-rehearsal-1.0.0",
+  "status": "REHEARSED_REVIEW_REQUIRED",
+  "mode": "LOCAL_REHEARSAL_ONLY",
+  "timestamp": "2026-08-20T10:00:00.000Z",
+  "rehearsalId": "rehearsal_de00573e05119d4dd72797e7",
+  "opportunityId": "paid-media-revenue-assurance",
+  "selectedSourceCount": 2,
+  "selectedSources": [
+    {
+      "url": "https://www.upwork.com/freelance-jobs/apply/TikTok-Ads-Expert-Needed-Audit-Baby-Products-commerce-Account_~022089708779464665972/",
+      "observedAt": "2026-08-18",
+      "evidenceClass": "BUYER_SIGNAL",
+      "verificationState": "UNVERIFIED",
+      "verificationEvidenceRef": null
+    },
+    {
+      "url": "https://www.upwork.com/freelance-jobs/apply/Google-Ads-GA4-Conversion-Tracking-Audit-for-Local-Service-Business_~022089676068978998930/",
+      "observedAt": "2026-08-18",
+      "evidenceClass": "BUYER_SIGNAL",
+      "verificationState": "UNVERIFIED",
+      "verificationEvidenceRef": null
+    }
+  ],
+  "reconciliation": {
+    "reconciliationId": "9a8c2b88f1de828f7d439b92a8062ebe5d2a73dd031f9a140024e5358d7ed883",
+    "status": "RECONCILED",
+    "inputCount": 2,
+    "acceptedCount": 2,
+    "acceptedSignalIds": [
+      "ff22bf602bcc75c8ffdc5a6655376193064a3e04296b9537920a717ef99435ec",
+      "f29e60157996f747bf4ff2da86e8cb78dceb1ba445a717af8705c9a878b23907"
+    ],
+    "candidateId": "paid-media-revenue-assurance",
+    "signalSourceEvidenceClass": "BUYER_SIGNAL",
+    "tournamentId": "c7c991d0687be8159304461280c872eb694394d4bddf9cd25711e4802460a3bb",
+    "registryCount": 438,
+    "scoredCount": 438,
+    "returnedCount": 15
+  },
+  "reasonCodes": [
+    "source-content-not-reverified"
+  ],
+  "truthClassification": {
+    "rehearsal": "IMPLEMENTED_LOCAL",
+    "buyerEvidence": "BUYER_SIGNAL",
+    "sourceVerification": "UNVERIFIED",
+    "revenue": "UNPROVEN"
+  },
+  "authorization": {
+    "contact": "DISABLED",
+    "checkout": "DISABLED",
+    "providerCalls": "DISABLED",
+    "spend": "DISABLED",
+    "deployment": "DISABLED",
+    "promotion": "DISABLED"
+  },
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  }
+}

@@ -3,9 +3,9 @@
 UberBond now retains two layers in one canonical catalog:
 
 - Immediate finalists: three dated, evidence-backed buyer-signal lanes from the Business Model Radar.
-- Thread opportunity universe: 234 explicit lanes raised across the Prometheus and Master Context thread, preserved as research-only hypotheses.
+- Thread opportunity universe: 435 unique explicit and taxonomy lanes raised across the Prometheus and Master Context thread, preserved as research-only hypotheses. A repeated Agent Reliability Monitoring row was merged rather than counted twice; the explicit software, agent-domain, pricing, commerce, education, licensing, advertising, subscription, local-alert, machine-commerce, and UberBond-organ taxonomy rows are in this same registry.
 
-The catalog contains 237 deduplicated opportunity records at this revision. It is a preparation registry, not a revenue database, scraper, checkout, campaign sender, or provider integration.
+The catalog contains 438 deduplicated opportunity records at this revision (3 buyer-signal lanes plus 435 thread/taxonomy hypotheses). It is a preparation registry, not a revenue database, scraper, checkout, campaign sender, or provider integration.
 
 ## Immediate finalists
 
@@ -40,11 +40,11 @@ Every compiled record is LOCAL_PREPARATION_ONLY. Provider calls, messages, purch
 
 ## Runtime integration
 
-- prometheus.commercial.catalog compiles and logs all 237 records.
+- prometheus.commercial.catalog compiles and logs all 438 records and the canonical field-complete registry summary.
 - prometheus.commercial.opportunity.prepare compiles one named record.
 - The all-lane handler remains behind the existing autopilot and Prometheus scheduling gates and only logs a bounded summary receipt.
 - Existing V9, suppression, deliverability, authorization, and external-effect controls remain authoritative.
 
 ## Implementation rule
 
-The universe is a decision surface, not a 237-project backlog. UberBond should advance only the smallest evidence-backed experiments, then concentrate resources on cleared payment, accepted delivery, repeat payment, contribution margin, and low founder burden.
+The universe is a decision surface, not a 438-project backlog. UberBond should advance only the smallest evidence-backed experiments, then concentrate resources on cleared payment, accepted delivery, repeat payment, contribution margin, and low founder burden.

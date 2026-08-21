@@ -24,7 +24,7 @@
 //   RELAY_MAX_TASKS     optional; defaults to 1 per invocation (bounded by design)
 //   RELAY_DRY_RUN       optional; "true" polls and reports without claiming
 
-import { execFile } from 'node:child_process';
+import { execFile, execFileSync } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -177,12 +177,39 @@ async function preflight() {
   }
 }
 
+// Resolved once: every receipt this run emits describes the same checkout, and
+// a receipt that cannot name its commit cannot be verified by anyone later.
+function resolveSourceCommit() {
+  try {
+    return execFileSync('git', ['rev-parse', '--short', 'HEAD'], { cwd: projectRoot, encoding: 'utf8' }).trim();
+  } catch {
+    return 'UNKNOWN';
+  }
+}
+
 async function main() {
   await preflight();
+  const sourceCommit = resolveSourceCommit();
+  console.log(`[github-relay-worker] source commit ${sourceCommit}`);
   const polled = await pollGithubRelayTasks({ client, owner, repo, targetAgent, limit: 20 });
   if (!polled.ok) fail(`poll failed: ${polled.reasonCodes?.join(', ')}`);
-  const open = polled.tasks.filter(task => !task.claimed);
-  console.log(`[github-relay-worker] ${polled.count} task(s) visible, ${open.length} unclaimed, target=${targetAgent}`);
+
+  // `claimed` here is only "the CLAIMED label is present", and that label stays
+  // on a task whose worker died. Filtering those out -- which this used to do --
+  // made abandoned tasks permanently invisible to the one process able to
+  // rescue them: the recovery path existed and nothing could ever reach it.
+  //
+  // So consider them too, and let claimGithubRelayTask decide. It reads the
+  // real lease from the comments and refuses if one is genuinely live, which is
+  // the only authority on the question. Fresh work still goes first; recovery
+  // is what a worker does when there is nothing new to pick up.
+  const unclaimed = polled.tasks.filter(task => !task.claimed);
+  const maybeAbandoned = polled.tasks.filter(task => task.claimed);
+  const open = [...unclaimed, ...maybeAbandoned];
+  console.log(
+    `[github-relay-worker] ${polled.count} task(s) visible, ${unclaimed.length} unclaimed, ` +
+    `${maybeAbandoned.length} already-claimed (checked for an abandoned lease), target=${targetAgent}`
+  );
 
   if (dryRun) {
     console.log(JSON.stringify({ dryRun: true, tasks: open.map(t => ({ issue: t.issueNumber, taskId: t.taskId })) }, null, 2));
@@ -192,6 +219,7 @@ async function main() {
   let handled = 0;
   for (const candidate of open) {
     if (handled >= maxTasks) break;
+    const startedAt = Date.now();
     const claim = await claimGithubRelayTask({ client, owner, repo, issueNumber: candidate.issueNumber, workerId });
     if (!claim.ok) {
       // A task at its attempt limit is not the same as a task someone else is
@@ -248,9 +276,33 @@ async function main() {
       };
     }
 
+    // The receipt contract has fourteen mandated fields and this worker was
+    // filling in none of them, so the only unattended producer in the system
+    // emitted its weakest receipts: sourceCommit UNKNOWN, confidence UNKNOWN,
+    // no limitations. A receipt nobody can anchor to a commit is not evidence.
+    const durationMs = Date.now() - startedAt;
     const submitted = await submitGithubRelayResult({
       client, owner, repo, issueNumber: candidate.issueNumber, workerId,
-      status: result.decision === 'REPAIR' ? 'FAILED' : 'COMPLETED', result
+      status: result.decision === 'REPAIR' ? 'FAILED' : 'COMPLETED',
+      result,
+      sourceCommit,
+      duration: durationMs,
+      cost: { usdCents: 0, tokens: null },
+      commands: result.testsActuallyRun.map(entry => entry.command).filter(Boolean),
+      tests: result.testsActuallyRun,
+      artifacts: [],
+      // HIGH only when a suite actually ran to completion. An unsupported
+      // objective produced no evidence at all, so claiming confidence in it
+      // would be the exact dishonesty the receipt exists to prevent.
+      confidence: suite ? 'HIGH' : 'LOW',
+      findings: suite
+        ? [`Ran the allowlisted "${suite}" suite; it ${result.decision === 'REPAIR' ? 'failed' : 'passed'}.`]
+        : ['No allowlisted suite matched this objective, so nothing was executed.'],
+      limitations: [
+        'This worker runs only the repository\'s own allowlisted verification suites. It does not execute instructions from a task packet.',
+        'No external effect of any kind was performed: no send, no spend, no deploy, no credential change.',
+        ...(suite ? [] : ['The objective was not attempted, so this receipt reports no verification result.'])
+      ]
     });
     console.log(`[github-relay-worker] #${candidate.issueNumber} -> ${submitted.ok ? submitted.status : submitted.reasonCodes?.join(', ')}`);
     handled += 1;

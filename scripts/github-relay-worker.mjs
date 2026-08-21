@@ -194,10 +194,27 @@ async function main() {
     if (handled >= maxTasks) break;
     const claim = await claimGithubRelayTask({ client, owner, repo, issueNumber: candidate.issueNumber, workerId });
     if (!claim.ok) {
-      console.log(`[github-relay-worker] skipped #${candidate.issueNumber}: ${claim.reasonCodes?.join(', ')}`);
+      // A task at its attempt limit is not the same as a task someone else is
+      // holding: one is routine contention, the other means this task has
+      // killed several workers already and needs a person. Logging both as
+      // "skipped" hides the difference at exactly the moment it matters.
+      if (claim.reasonCodes?.includes('task-exceeded-max-attempts')) {
+        console.error(`[github-relay-worker] GIVING UP on #${candidate.issueNumber}: ${claim.detail}`);
+        console.error('[github-relay-worker] This task has stranded repeatedly. Inspect it before retrying:');
+        console.error(`[github-relay-worker]   ${candidate.issueUrl || `#${candidate.issueNumber}`}`);
+      } else {
+        console.log(`[github-relay-worker] skipped #${candidate.issueNumber}: ${claim.reasonCodes?.join(', ')}`);
+      }
       continue;
     }
-    console.log(`[github-relay-worker] claimed #${candidate.issueNumber} (${claim.taskId})`);
+    if (claim.status === 'CLAIMED_RECOVERED') {
+      console.log(
+        `[github-relay-worker] recovered #${candidate.issueNumber} (${claim.taskId}) -- ` +
+        `previous holder ${claim.recovered.lastHolder} abandoned it, attempt ${claim.attempt}/${claim.maxAttempts}`
+      );
+    } else {
+      console.log(`[github-relay-worker] claimed #${candidate.issueNumber} (${claim.taskId}) attempt ${claim.attempt}/${claim.maxAttempts}`);
+    }
 
     const suite = selectSuite(claim.task);
     let result;

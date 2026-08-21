@@ -7,6 +7,7 @@ import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 import { verifyRelayBundleEvidence } from './relay-deployment-eligibility.mjs';
 
 export const RELAY_PREVIEW_PROOF_POLICY_VERSION = 'relay-preview-proof-1.0.0';
+export const RELAY_PREVIEW_MAX_RESPONSE_BYTES = 8_192;
 const PROJECT_ID = 'prj_QTPTlb6JpYN8IyBTgyVrlWgq4ePT';
 const TEAM_ID = 'team_A9LnjIuS5PU0rNetsHMu1N0r';
 function iso(value) {
@@ -30,19 +31,33 @@ function safeBaseUrl(value) {
   try {
     const url = new URL(value);
     if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash) return null;
-    if (!url.hostname.endsWith('.vercel.app')) return null;
-    url.pathname = url.pathname.replace(/\/$/, '');
+    if (!/^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.vercel\.app$/i.test(url.hostname)) return null;
+    if (url.pathname !== '/' && url.pathname !== '') return null;
+    url.pathname = '/';
     return url;
   } catch {
     return null;
   }
 }
 
-async function readJson(response) {
+async function readBoundedJson(response) {
+  const declared = Number(response?.headers?.get?.('content-length'));
+  if (Number.isFinite(declared) && declared > RELAY_PREVIEW_MAX_RESPONSE_BYTES) {
+    return { body: null, error: 'body-too-large' };
+  }
+  if (typeof response?.text !== 'function') return { body: null, error: 'text-reader-required' };
   try {
-    return await response.json();
+    const raw = await response.text();
+    if (Buffer.byteLength(raw, 'utf8') > RELAY_PREVIEW_MAX_RESPONSE_BYTES) {
+      return { body: null, error: 'body-too-large' };
+    }
+    const body = JSON.parse(raw);
+    if (!body || typeof body !== 'object' || Array.isArray(body)) {
+      return { body: null, error: 'json-object-required' };
+    }
+    return { body, error: null };
   } catch {
-    return null;
+    return { body: null, error: 'invalid-json' };
   }
 }
 
@@ -70,7 +85,8 @@ export async function verifyRelayPreviewEndpoints({
         headers: { accept: 'application/json' },
         signal: AbortSignal.timeout(timeout)
       });
-      return { status: Number(response?.status || 0), body: await readJson(response) };
+      const parsed = await readBoundedJson(response);
+      return { status: Number(response?.status || 0), ...parsed };
     } catch (error) {
       return { status: 0, body: null, error: String(error?.name || 'fetch-failed') };
     }
@@ -79,15 +95,32 @@ export async function verifyRelayPreviewEndpoints({
   const health = await request('/api/agent-relay/health');
   const tasks = await request('/api/agent-relay/tasks');
   const reasons = [];
+  if (health.error) reasons.push(`health-response-${health.error}`);
   if (health.status !== 200) reasons.push('health-http-status-invalid');
   if (health.body?.status !== 'HEALTHY_PARTIAL_ADAPTER') reasons.push('health-contract-invalid');
   if (health.body?.truth?.cloudRelay !== 'INTERFACE_ONLY') reasons.push('health-truth-boundary-invalid');
+  if (tasks.error) reasons.push(`tasks-response-${tasks.error}`);
   if (tasks.status !== 501) reasons.push('tasks-http-status-invalid');
   if (!Array.isArray(tasks.body?.reasonCodes)
     || !tasks.body.reasonCodes.includes('durable-queue-required')) {
     reasons.push('tasks-durable-queue-fail-closed-missing');
   }
   if (tasks.body?.truth?.cloudRelay !== 'INTERFACE_ONLY') reasons.push('tasks-truth-boundary-invalid');
+
+  const healthEvidence = Object.freeze({
+    httpStatus: health.status,
+    healthyPartialAdapter: health.body?.status === 'HEALTHY_PARTIAL_ADAPTER',
+    interfaceOnly: health.body?.truth?.cloudRelay === 'INTERFACE_ONLY',
+    responseAccepted: !health.error
+  });
+  const taskEvidence = Object.freeze({
+    httpStatus: tasks.status,
+    notImplemented: tasks.body?.status === 'NOT_IMPLEMENTED',
+    durableQueueRequired: Array.isArray(tasks.body?.reasonCodes)
+      && tasks.body.reasonCodes.includes('durable-queue-required'),
+    interfaceOnly: tasks.body?.truth?.cloudRelay === 'INTERFACE_ONLY',
+    responseAccepted: !tasks.error
+  });
 
   return {
     ok: reasons.length === 0,
@@ -97,8 +130,8 @@ export async function verifyRelayPreviewEndpoints({
     baseUrl: url.toString().replace(/\/$/, ''),
     calls,
     callCount: calls.length,
-    health,
-    tasks,
+    health: healthEvidence,
+    tasks: taskEvidence,
     truthClassification: reasons.length === 0 ? 'INTERFACE_ONLY' : 'NOT_PROVEN',
     externalEffectLedger: { ...ZERO_EFFECTS }
   };

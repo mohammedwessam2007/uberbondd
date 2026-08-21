@@ -53,7 +53,12 @@ const deployment = {
 };
 
 function response(status, body) {
-  return { status, async json() { return body; } };
+  const raw = JSON.stringify(body);
+  return {
+    status,
+    headers: { get(name) { return String(name).toLowerCase() === 'content-length' ? String(Buffer.byteLength(raw)) : null; } },
+    async text() { return raw; }
+  };
 }
 
 async function verifiedEndpointProof() {
@@ -193,4 +198,3 @@ test('legacy top-level-only receipt cannot bypass canonical nested deployment id
     }
   }).ok, false);
 });
-

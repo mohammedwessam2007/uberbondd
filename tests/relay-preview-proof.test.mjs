@@ -20,7 +20,12 @@ const tasks = {
   truth: { cloudRelay: 'INTERFACE_ONLY' }
 };
 function response(status, body) {
-  return { status, async json() { return body; } };
+  const raw = typeof body === 'string' ? body : JSON.stringify(body);
+  return {
+    status,
+    headers: { get(name) { return String(name).toLowerCase() === 'content-length' ? String(Buffer.byteLength(raw)) : null; } },
+    async text() { return raw; }
+  };
 }
 function goodFetch(calls = []) {
   return async url => {
@@ -63,6 +68,20 @@ test('rejects non-Vercel URL', async () => {
 test('rejects URL credentials', async () => {
   const proof = await verifyRelayPreviewEndpoints({
     fetchFn: goodFetch(), baseUrl: 'https://user:pass@preview.vercel.app'
+  });
+  assert.equal(proof.status, 'INVALID');
+});
+
+test('rejects a non-root preview path', async () => {
+  const proof = await verifyRelayPreviewEndpoints({
+    fetchFn: goodFetch(), baseUrl: `${baseUrl}/unexpected-path`
+  });
+  assert.equal(proof.status, 'INVALID');
+});
+
+test('rejects a nested lookalike Vercel hostname', async () => {
+  const proof = await verifyRelayPreviewEndpoints({
+    fetchFn: goodFetch(), baseUrl: 'https://preview.evil.vercel.app'
   });
   assert.equal(proof.status, 'INVALID');
 });
@@ -124,6 +143,61 @@ test('network exception fails closed after bounded calls', async () => {
   });
   assert.equal(proof.ok, false);
   assert.equal(calls, 2);
+});
+
+test('declared oversized response is rejected without reading its body', async () => {
+  let textReads = 0;
+  const proof = await verifyRelayPreviewEndpoints({
+    baseUrl,
+    fetchFn: async () => ({
+      status: 200,
+      headers: { get() { return '9000'; } },
+      async text() { textReads += 1; return '{}'; }
+    })
+  });
+  assert.equal(proof.ok, false);
+  assert.equal(textReads, 0);
+  assert.ok(proof.reasonCodes.includes('health-response-body-too-large'));
+  assert.ok(proof.reasonCodes.includes('tasks-response-body-too-large'));
+});
+
+test('actual oversized response is rejected when content length is absent', async () => {
+  const proof = await verifyRelayPreviewEndpoints({
+    baseUrl,
+    fetchFn: async () => ({
+      status: 200,
+      headers: { get() { return null; } },
+      async text() { return JSON.stringify({ padding: 'x'.repeat(9_000) }); }
+    })
+  });
+  assert.equal(proof.ok, false);
+  assert.ok(proof.reasonCodes.includes('health-response-body-too-large'));
+});
+
+test('malformed JSON fails closed', async () => {
+  const proof = await verifyRelayPreviewEndpoints({
+    baseUrl,
+    fetchFn: async () => response(200, '{not-json')
+  });
+  assert.equal(proof.ok, false);
+  assert.ok(proof.reasonCodes.includes('health-response-invalid-json'));
+});
+
+test('arbitrary and secret-shaped response fields never survive into proof evidence', async () => {
+  const proof = await verifyRelayPreviewEndpoints({
+    baseUrl,
+    fetchFn: async url => String(url).endsWith('/health')
+      ? response(200, { ...health, apiKey: 'sk-do-not-retain', arbitrary: 'raw-health' })
+      : response(501, { ...tasks, token: 'do-not-retain', arbitrary: 'raw-tasks' })
+  });
+  assert.equal(proof.ok, true);
+  const serialized = JSON.stringify(proof);
+  for (const forbidden of ['sk-do-not-retain', 'do-not-retain', 'raw-health', 'raw-tasks', 'apiKey', 'token']) {
+    assert.equal(serialized.includes(forbidden), false);
+  }
+  assert.deepEqual(Object.keys(proof.health).sort(), [
+    'healthyPartialAdapter', 'httpStatus', 'interfaceOnly', 'responseAccepted'
+  ]);
 });
 
 test('compiles immutable interface-only receipt from complete proof', async () => {

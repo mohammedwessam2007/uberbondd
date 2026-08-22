@@ -1,6 +1,6 @@
 import { listTerminalAgentMeshCycleReceipts } from './agent-mesh-cycle-receipts.mjs';
 
-export const FOUNDER_ABSENCE_POLICY_VERSION = 'founder-absence-readiness-2.1.0';
+export const FOUNDER_ABSENCE_POLICY_VERSION = 'founder-absence-readiness-2.2.0';
 
 const REQUIRED = Object.freeze([
   'durableState',
@@ -26,6 +26,60 @@ const EXTERNAL_PROOF_REQUIRED = new Set([
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const DEFAULT_MAX_PROOF_AGE_MS = 6 * 60 * 60 * 1000;
+const HOUR_MS = 60 * 60 * 1000;
+
+// What the system has actually survived, in order. A tier is earned by durable
+// terminal cycle receipts on the current code/policy identity -- never by a
+// caller asserting it, and never by a fixture.
+//
+// The ladder exists because "is it ready?" and "how long has it run?" are
+// different questions, and answering the first without the second is how a
+// one-hour rehearsal ends up certified for a seven-day absence.
+export const FOUNDER_ABSENCE_TIERS = Object.freeze([
+  { name: 'LOCAL_REHEARSAL', minSpanMs: 0, minSuccessfulTicks: 0 },
+  { name: 'ONE_REAL_TICK', minSpanMs: 0, minSuccessfulTicks: 1 },
+  { name: 'MULTI_TICK', minSpanMs: 0, minSuccessfulTicks: 3 },
+  { name: 'OVERNIGHT', minSpanMs: 8 * HOUR_MS, minSuccessfulTicks: 8 },
+  { name: 'ONE_DAY', minSpanMs: DAY_MS, minSuccessfulTicks: 24 },
+  { name: 'THREE_DAY', minSpanMs: 3 * DAY_MS, minSuccessfulTicks: 72 },
+  { name: 'SEVEN_DAY_KILIMANJARO', minSpanMs: 7 * DAY_MS, minSuccessfulTicks: 168 },
+  { name: 'FOURTEEN_DAY', minSpanMs: 14 * DAY_MS, minSuccessfulTicks: 336 }
+]);
+
+const TIER_INDEX = new Map(FOUNDER_ABSENCE_TIERS.map((tier, index) => [tier.name, index]));
+
+/**
+ * The highest tier the durable history actually supports.
+ *
+ * Any unrecovered failure, any unauthorized effect, or any open dead letter
+ * drops the proof back to LOCAL_REHEARSAL however long the window is: a run
+ * that ended in a state nobody resolved has not been survived, it has been
+ * abandoned.
+ */
+export function classifyObservationTier(proof = {}) {
+  const successfulTicks = Number.isSafeInteger(proof.successfulTicks) ? proof.successfulTicks : 0;
+  const failedTicks = Number.isSafeInteger(proof.failedTicks) ? proof.failedTicks : 0;
+  const recoveredTicks = Number.isSafeInteger(proof.recoveredTicks) ? proof.recoveredTicks : 0;
+  const unauthorizedEffects = Number.isSafeInteger(proof.unauthorizedEffects) ? proof.unauthorizedEffects : 0;
+  const openDeadLetters = Number.isSafeInteger(proof.openDeadLetters) ? proof.openDeadLetters : 0;
+  const spanMs = proof.observedFromMs !== null && proof.observedFromMs !== undefined
+    && proof.observedThroughMs !== null && proof.observedThroughMs !== undefined
+    ? proof.observedThroughMs - proof.observedFromMs
+    : 0;
+
+  const integrityBroken = unauthorizedEffects !== 0 || openDeadLetters !== 0 || recoveredTicks < failedTicks;
+  if (integrityBroken || spanMs < 0) {
+    return { tier: 'LOCAL_REHEARSAL', tierIndex: 0, observedSpanMs: Math.max(spanMs, 0), successfulTicks, integrityBroken: true };
+  }
+
+  let index = 0;
+  for (let candidate = FOUNDER_ABSENCE_TIERS.length - 1; candidate >= 0; candidate -= 1) {
+    const tier = FOUNDER_ABSENCE_TIERS[candidate];
+    if (spanMs >= tier.minSpanMs && successfulTicks >= tier.minSuccessfulTicks) { index = candidate; break; }
+  }
+  return { tier: FOUNDER_ABSENCE_TIERS[index].name, tierIndex: index, observedSpanMs: spanMs, successfulTicks, integrityBroken: false };
+}
+
 const HEALTHY_CYCLE_STATUSES = new Set(['ADVANCED', 'IDLE']);
 const FAILED_CYCLE_STATUSES = new Set(['DEGRADED', 'BLOCKED']);
 
@@ -268,10 +322,19 @@ export function evaluateFounderAbsenceReadiness({
   const evidenceScore = Math.round(((REQUIRED.length - receiptMissing.length) / REQUIRED.length) * 100);
   const overall = Math.round(architectureScore * 0.45 + liveScore * 0.35 + evidenceScore * 0.20);
 
+  const proven = classifyObservationTier(proof);
+
+  // The prospective rungs are capped by the tier actually survived. Claiming
+  // readiness to run unattended for days, having never survived a single
+  // durable cycle, is the exact overclaim this module exists to prevent -- so
+  // a rung may be claimed only one above what the receipts support.
   let status = 'NOT_READY';
   if (overall >= 90 && !liveMissing.length && !receiptMissing.length && !externalProofMissing.length && durationGate.ok) status = 'KILIMANJARO_READY';
-  else if (overall >= 75) status = 'MULTI_DAY_REHEARSAL_READY';
-  else if (overall >= 55) status = 'OVERNIGHT_REHEARSAL_READY';
+  else if (overall >= 75 && proven.tierIndex >= TIER_INDEX.get('OVERNIGHT')) status = 'MULTI_DAY_REHEARSAL_READY';
+  else if (overall >= 55 && proven.tierIndex >= TIER_INDEX.get('MULTI_TICK')) status = 'OVERNIGHT_REHEARSAL_READY';
+  else if (overall >= 55) status = 'ARCHITECTURE_READY_DURATION_UNPROVEN';
+
+  const nextTier = FOUNDER_ABSENCE_TIERS[Math.min(proven.tierIndex + 1, FOUNDER_ABSENCE_TIERS.length - 1)];
 
   return {
     ok: true,
@@ -283,6 +346,12 @@ export function evaluateFounderAbsenceReadiness({
     criticalMissing: criticalMissing.map(item => item.name),
     liveProofMissing: liveMissing.map(item => item.name),
     externalProofMissing: externalProofMissing.map(item => item.name),
+    provenTier: proven.tier,
+    provenTierIndex: proven.tierIndex,
+    nextTier: proven.tier === nextTier.name ? null : nextTier.name,
+    nextTierRequires: proven.tier === nextTier.name
+      ? null
+      : { minSpanMs: nextTier.minSpanMs, minSuccessfulTicks: nextTier.minSuccessfulTicks },
     observationProof: {
       observedFrom: proof.observedFrom,
       observedThrough: proof.observedThrough,
@@ -302,6 +371,7 @@ export function evaluateFounderAbsenceReadiness({
     },
     nextGate: status === 'KILIMANJARO_READY'
       ? 'RUN_OWNER_ABSENCE_CANARY'
-      : durationGate.reasonCodes[0] || externalProofMissing[0] || liveMissing[0] || criticalMissing[0] || 'REVIEW'
+      : durationGate.reasonCodes[0] || externalProofMissing[0] || liveMissing[0] || criticalMissing[0]
+        || (proven.tier === nextTier.name ? 'REVIEW' : `EARN_TIER_${nextTier.name}`)
   };
 }

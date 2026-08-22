@@ -310,15 +310,43 @@ test('morning summary never infers revenue from agent activity', () => {
   assert.equal(summary.claimBoundary.commercialRevenue, 'NOT_INFERRED');
 });
 
-test('founder absence readiness requires live external proof for Kilimanjaro', () => {
+function fullyVerifiedCapabilities() {
   const caps = {};
   for (const name of ['durableState','scheduler','agentRelay','agentWorkers','boundedBudgets','staleRecovery','truthReceipts','killSwitch','paymentObservation','deliveryObservation','ownerEscalationQueue']) {
     caps[name] = { status: 'VERIFIED_LIVE', evidenceRefs: [`receipt:${name}`], externallyVerified: true };
   }
-  const ready = evaluateFounderAbsenceReadiness({ capabilities: caps, targetDays: 7 });
-  assert.equal(ready.status, 'KILIMANJARO_READY');
+  return caps;
+}
+
+test('founder absence readiness requires live external proof for Kilimanjaro', () => {
+  const caps = fullyVerifiedCapabilities();
   caps.scheduler.externallyVerified = false;
   const notReady = evaluateFounderAbsenceReadiness({ capabilities: caps, targetDays: 7 });
   assert.notEqual(notReady.status, 'KILIMANJARO_READY');
   assert.ok(notReady.externalProofMissing.includes('scheduler'));
+});
+
+// This assertion used to read the other way round: eleven booleans set to
+// VERIFIED_LIVE certified a seven-day unattended absence. That is the whole of
+// issue #83 -- a capability checklist is a statement about architecture, and
+// no number of statements about architecture is a statement about time.
+test('a capability checklist alone can never certify a seven-day absence', () => {
+  const ready = evaluateFounderAbsenceReadiness({ capabilities: fullyVerifiedCapabilities(), targetDays: 7 });
+  assert.notEqual(ready.status, 'KILIMANJARO_READY');
+  assert.equal(ready.provenTier, 'LOCAL_REHEARSAL');
+  assert.equal(ready.observationProof.valid, false);
+  assert.ok(ready.observationProof.reasonCodes.includes('observation-start-required'));
+});
+
+test('a prospective rung is capped by the tier the receipts actually support', () => {
+  const caps = fullyVerifiedCapabilities();
+  // Full architecture, zero durable history: the honest answer is that the
+  // architecture is there and the duration is not, not "ready for multi-day".
+  const unproven = evaluateFounderAbsenceReadiness({ capabilities: caps, targetDays: 7 });
+  assert.equal(unproven.status, 'ARCHITECTURE_READY_DURATION_UNPROVEN');
+  assert.equal(unproven.nextTier, 'ONE_REAL_TICK');
+  // The concrete missing evidence outranks the generic tier label when there
+  // is one -- an operator needs "no observation window exists", not "earn the
+  // next tier".
+  assert.equal(unproven.nextGate, 'observation-start-required');
 });

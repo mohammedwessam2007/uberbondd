@@ -15,6 +15,33 @@ const ZERO = {
   businessSpendCents: 0
 };
 
+const ZERO_EXTERNAL = {
+  providerCalls: 0,
+  messages: 0,
+  purchases: 0,
+  deployments: 0,
+  credentialChanges: 0,
+  dnsChanges: 0,
+  productionMutations: 0,
+  spendCents: 0
+};
+
+// A result the terminal-truth contract accepts. The fixture used to be three
+// fields wide, which is exactly the shape a model returns when it has done
+// nothing -- so it now has to carry real evidence to move a run forward.
+function canonicalResult(overrides = {}) {
+  return {
+    outcome: 'supported',
+    changedArtifacts: [],
+    testsActuallyRun: [{ command: 'npm test', status: 'PASS' }],
+    truthTable: [{ claim: 'research supported', status: 'VERIFIED_BY_FIXTURE' }],
+    externalEffectLedger: { ...ZERO_EXTERNAL },
+    decision: 'ENGINEERING_REQUIRED',
+    businessEffectLedger: { ...ZERO },
+    ...overrides
+  };
+}
+
 function fakeStore() {
   const auditLog = [];
   return {
@@ -73,11 +100,9 @@ test('later job tick consumes result and prepares Claude followup durably', asyn
   const adapterFactory = async () => ({
     createTask: async task => ({ ok: true, issueNumber: 89, taskId: task.taskId }),
     readTask: async () => resultReady
-      ? { ok: true, status: 'RESULT_RECEIVED', resultStatus: 'COMPLETED', result: {
-          outcome: 'supported',
-          coordination: { action: 'ENGINEERING_REQUIRED', objective: 'Build bounded implementation', acceptanceTests: ['npm test'] },
-          businessEffectLedger: ZERO
-        } }
+      ? { ok: true, status: 'RESULT_RECEIVED', resultStatus: 'COMPLETED', result: canonicalResult({
+          coordination: { action: 'ENGINEERING_REQUIRED', objective: 'Build bounded implementation', acceptanceTests: ['npm test'] }
+        }) }
       : { ok: false, status: 'PENDING' }
   });
   const first = await tickAutonomyRun({ store, runId: run.runId, adapterFactory, compileRelayTask, date: new Date('2026-08-20T02:01:00Z') });
@@ -88,6 +113,34 @@ test('later job tick consumes result and prepares Claude followup durably', asyn
   const loaded = await loadLatestAutonomyRun(store, run.runId);
   assert.equal(loaded.run.currentIntent.targetAgent, 'claude-code');
   assert.equal(store.auditLog.filter(row => row.type === 'agent_autonomy_execution_receipt').length, 1);
+});
+
+test('a thin worker result cannot advance a durable run through the job path', async () => {
+  const store = fakeStore();
+  const { run } = fixture();
+  await saveAutonomyRunSnapshot(store, run, { date: new Date('2026-08-20T02:00:00Z') });
+  let resultReady = false;
+  const adapterFactory = async () => ({
+    createTask: async task => ({ ok: true, issueNumber: 90, taskId: task.taskId }),
+    readTask: async () => resultReady
+      // Everything a model can assert on its own, and nothing a machine can
+      // check: no tests run, no truth table, no effect ledger, no decision.
+      ? { ok: true, status: 'RESULT_RECEIVED', resultStatus: 'COMPLETED', result: {
+          outcome: 'supported',
+          coordination: { action: 'ENGINEERING_REQUIRED', objective: 'Build bounded implementation', acceptanceTests: ['npm test'] },
+          businessEffectLedger: ZERO
+        } }
+      : { ok: false, status: 'PENDING' }
+  });
+  await tickAutonomyRun({ store, runId: run.runId, adapterFactory, compileRelayTask, date: new Date('2026-08-20T02:01:00Z') });
+  resultReady = true;
+  const second = await tickAutonomyRun({ store, runId: run.runId, adapterFactory, compileRelayTask, date: new Date('2026-08-20T02:02:00Z') });
+  assert.equal(second.ok, false);
+  assert.equal(second.transition, 'FAILED');
+  assert.deepEqual(second.reasonCodes, ['required-result-fields-missing']);
+  const loaded = await loadLatestAutonomyRun(store, run.runId);
+  assert.notEqual(loaded.run.phase, 'FOLLOWUP_READY');
+  assert.equal(loaded.run.currentIntent?.targetAgent, 'chatgpt');
 });
 
 test('active-run sweep advances each run at most once per sweep', async () => {

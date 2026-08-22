@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { ZERO_BUSINESS_EFFECTS } from './effect-ledger.mjs';
 
 export const AGENT_AUTONOMY_POLICY_VERSION = 'agent-autonomy-loop-1.0.0';
 
@@ -9,15 +10,10 @@ const MAX_TOTAL_TOKENS = 10_000_000;
 const MAX_REFS = 100;
 const MAX_HISTORY = 256;
 const MAX_CONSTRAINTS = 64;
-const EXTERNAL_EFFECT_ZERO = Object.freeze({
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  businessSpendCents: 0
-});
+// Named for what it is. The local copy this replaced was called
+// EXTERNAL_EFFECT_ZERO while holding the business shape, which is how the
+// relay's scanner and this module drifted apart in the first place.
+const EXTERNAL_EFFECT_ZERO = ZERO_BUSINESS_EFFECTS;
 
 export const AUTONOMY_ACTIONS = Object.freeze([
   'DONE',

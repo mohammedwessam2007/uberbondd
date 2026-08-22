@@ -102,7 +102,10 @@ test('unknown external-effect ledger key is rejected', async () => {
     externalEffectLedger: { ...ZERO_EXTERNAL, mysteryWrite: 0 }
   }));
   assert.equal(result.ok, false);
-  assert.deepEqual(result.reasonCodes, ['secret-like-result-rejected']);
+  // Named for what it is. This used to surface as `secret-like-result-rejected`,
+  // which sends whoever reads the receipt looking for a leaked credential
+  // instead of for the worker that declared an effect nobody defined.
+  assert.deepEqual(result.reasonCodes, ['unknown-external-effect-key-rejected']);
 });
 
 test('non-zero known external effect is rejected', async () => {

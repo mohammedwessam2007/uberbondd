@@ -10,6 +10,13 @@ import {
   compileAgentTask,
   logAgentRelayReceipt
 } from './agent-relay.mjs';
+import {
+  ZERO_EXTERNAL_EFFECTS,
+  LEDGER_FIELDS,
+  isLedgerField,
+  isLedgerShaped,
+  hasUnknownLedgerKey
+} from './effect-ledger.mjs';
 
 export const AGENT_RELAY_JOB_TYPE = 'prometheus.agent.relay';
 export const CLOUD_AGENT_RELAY_POLICY_VERSION = 'cloud-agent-relay-1.1.0';
@@ -17,16 +24,7 @@ export const CLOUD_AGENT_RELAY_POLICY_VERSION = 'cloud-agent-relay-1.1.0';
 // Exported so alternative relay transports (see src/github-relay.mjs) reuse
 // the exact same zero-external-effect contract rather than declaring a second,
 // driftable copy of it.
-export const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+export const ZERO_EFFECTS = ZERO_EXTERNAL_EFFECTS;
 const MAX_LIST_LIMIT = 50;
 const MAX_TASK_BYTES = 200_000;
 const MAX_RESULT_BYTES = 250_000;
@@ -97,8 +95,20 @@ export function hasSecret(value) {
     // The check is on the shape, so it must cover both -- otherwise the ledger's
     // own key names (`credentialChanges`) trip the credential pattern and a
     // perfectly clean receipt is rejected as secret-bearing.
-    if (key === 'externalEffectLedger' || key === 'externalEffects') {
-      return Object.keys(item || {}).some(effect => !Object.hasOwn(ZERO_EFFECTS, effect));
+    // `businessEffectLedger` belongs here for the same reason the other two
+    // do, and leaving it out was not cosmetic: it carries `credentialChanges`,
+    // so every canonical autonomy result -- which always carries that ledger --
+    // was rejected as secret-bearing. Wiring this scanner into the autonomy
+    // pump would have meant no task could ever reach a terminal state.
+    //
+    // A field only earns the exemption while it actually looks like a ledger:
+    // known keys, numeric values. Anything else falls through to be scanned
+    // normally, so a credential smuggled under `businessEffectLedger.messages`
+    // is still caught by the value scanner below.
+    if (isLedgerField(key)) {
+      const shape = LEDGER_FIELDS[key];
+      if (isLedgerShaped(item, shape)) return false;
+      if (hasUnknownLedgerKey(item, shape)) return true;
     }
     // This codebase counts compute in units it keeps calling tokens: maxTokens
     // on a task budget, tokens in receipt cost accounting, tokenBudget in a
@@ -201,12 +211,34 @@ export function validResult(result) {
   const missing = required.filter(key => !(key in result));
   if (missing.length) return ['required-result-fields-missing'];
   if (sizeOf(result) > MAX_RESULT_BYTES) return ['result-too-large'];
-  if (hasSecret(result)) return ['secret-like-result-rejected'];
+
+  // Ledger structure is checked before the secret scan, and deliberately so.
+  // An undeclared effect key is caught by both, but only one of them names it
+  // honestly: an operator told `secret-like-result-rejected` goes hunting for
+  // a leaked credential that does not exist, when what actually happened is a
+  // worker declaring an effect the contract does not know about.
   const ledger = result.externalEffectLedger && typeof result.externalEffectLedger === 'object'
-    ? result.externalEffectLedger : null;
+    && !Array.isArray(result.externalEffectLedger) ? result.externalEffectLedger : null;
   if (!ledger) return ['external-effect-ledger-required'];
+  if (hasUnknownLedgerKey(ledger, LEDGER_FIELDS.externalEffectLedger)) return ['unknown-external-effect-key-rejected'];
+  // A worker result may also carry the business ledger. When it does, it is
+  // subject to the same rules: this transport grants no authority to message a
+  // customer, move money, change DNS or credentials, or mutate production.
+  const declaresBusiness = 'businessEffectLedger' in result;
+  const business = declaresBusiness ? result.businessEffectLedger : null;
+  if (declaresBusiness) {
+    if (!business || typeof business !== 'object' || Array.isArray(business)) return ['business-effect-ledger-invalid'];
+    if (hasUnknownLedgerKey(business, LEDGER_FIELDS.businessEffectLedger)) return ['unknown-business-effect-key-rejected'];
+  }
+
+  if (hasSecret(result)) return ['secret-like-result-rejected'];
+
   const nonZero = Object.entries(ZERO_EFFECTS).some(([key, zero]) => Number(ledger[key] || 0) !== zero);
   if (nonZero) return ['nonzero-external-effect-ledger-rejected'];
+  if (declaresBusiness
+    && Object.entries(LEDGER_FIELDS.businessEffectLedger).some(([key, zero]) => Number(business[key] || 0) !== zero)) {
+    return ['nonzero-business-effect-ledger-rejected'];
+  }
   return [];
 }
 

@@ -1,29 +1,11 @@
 import crypto from 'node:crypto';
 import { normalizeCoordination } from './agent-autonomy-loop.mjs';
 import { AGENT_MODEL_ROUTER_POLICY_VERSION } from './agent-model-router.mjs';
+import { ZERO_BUSINESS_EFFECTS, ZERO_EXTERNAL_EFFECTS } from './effect-ledger.mjs';
 
 export const AGENT_PROVIDER_WORKER_POLICY_VERSION = 'agent-provider-worker-1.0.0';
 
-const ZERO_BUSINESS_EFFECTS = Object.freeze({
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  businessSpendCents: 0
-});
 
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 const SECRET_KEY = /^(authorization|api[-_]?key|secret|password|credential|access[-_]?token|refresh[-_]?token|private[-_]?key)$/i;
 const SECRET_VALUE = /(?:\bBearer\s+[A-Za-z0-9._~+/=-]{12,}|\bsk-[A-Za-z0-9_-]{12,}|\bgh[pousr]_[A-Za-z0-9_]{12,})/;

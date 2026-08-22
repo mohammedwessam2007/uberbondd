@@ -124,6 +124,23 @@ test('fair selector is deterministic when all runs are equally unserved', async 
   assert.deepEqual(b.runs.map(run => run.runId), expected);
 });
 
+test('served runs with identical selectedAt remain deterministic by append order', async () => {
+  const store = fakeStore();
+  const runs = Array.from({ length: 3 }, (_, index) => runFixture(index + 50));
+  const selectedAt = '2026-08-22T05:30:00.000Z';
+
+  for (const run of runs) {
+    await store.log(AUTONOMY_SCHEDULER_AUDIT_TYPES.selection, {
+      runId: run.runId,
+      sessionId: run.session.sessionId,
+      selectedAt
+    });
+  }
+
+  const selected = await selectFairAutonomyRuns(store, [...runs].reverse(), { limit: 3 });
+  assert.deepEqual(selected.runs.map(run => run.runId), runs.map(run => run.runId));
+});
+
 test('terminal runs are excluded before fairness selection', async () => {
   const store = fakeStore();
   const active = runFixture(60);

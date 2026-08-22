@@ -1,10 +1,16 @@
 import crypto from 'node:crypto';
 import { compileAutonomySession, compileTaskIntent } from './agent-autonomy-loop.mjs';
 
-export const AGENT_AUTONOMY_OCCURRENCE_POLICY_VERSION = 'agent-autonomy-occurrence-1.0.0';
+export const AGENT_AUTONOMY_OCCURRENCE_POLICY_VERSION = 'agent-autonomy-occurrence-1.1.0';
+
+const MAX_IDENTITY_KEY_LENGTH = 240;
 
 function text(value, max = 500) {
   return String(value ?? '').trim().slice(0, max);
+}
+
+function rawText(value) {
+  return String(value ?? '').trim();
 }
 
 function hash(value) {
@@ -34,18 +40,38 @@ function logicalMissionIdentity(session) {
 }
 
 export function compileAutonomyOccurrenceSession({ occurrenceKey, missionKey = null, ...sessionInput } = {}) {
-  const occurrence = text(occurrenceKey, 240);
-  if (!occurrence) return fail(['occurrence-key-required']);
+  const rawOccurrence = rawText(occurrenceKey);
+  if (!rawOccurrence) return fail(['occurrence-key-required']);
+  if (rawOccurrence.length > MAX_IDENTITY_KEY_LENGTH) return fail(['occurrence-key-too-long']);
+
+  const rawMissionKey = missionKey == null ? '' : rawText(missionKey);
+  if (rawMissionKey.length > MAX_IDENTITY_KEY_LENGTH) return fail(['mission-key-too-long']);
+
   const base = compileAutonomySession(sessionInput);
   if (!base?.ok) return base;
   const logicalIdentity = logicalMissionIdentity(base);
-  const stableMissionKey = text(missionKey, 240) || `mission_${hash(logicalIdentity).slice(0, 24)}`;
-  const sessionId = `mesh_occ_${hash({ missionKey: stableMissionKey, occurrenceKey: occurrence }).slice(0, 24)}`;
-  return { ...base, policyVersion: base.policyVersion, sessionId, missionKey: stableMissionKey, occurrenceKey: occurrence, occurrencePolicyVersion: AGENT_AUTONOMY_OCCURRENCE_POLICY_VERSION };
+  const stableMissionKey = rawMissionKey || `mission_${hash(logicalIdentity).slice(0, 24)}`;
+  const sessionId = `mesh_occ_${hash({ missionKey: stableMissionKey, occurrenceKey: rawOccurrence }).slice(0, 24)}`;
+  return {
+    ...base,
+    policyVersion: base.policyVersion,
+    sessionId,
+    missionKey: stableMissionKey,
+    occurrenceKey: rawOccurrence,
+    occurrencePolicyVersion: AGENT_AUTONOMY_OCCURRENCE_POLICY_VERSION
+  };
 }
 
 export function compileAutonomyOccurrenceTaskIntent(input = {}) {
   const session = input?.session;
-  if (!session?.ok || !text(session.occurrenceKey, 240) || !text(session.missionKey, 240)) return fail(['valid-occurrence-session-required']);
+  const occurrenceKey = rawText(session?.occurrenceKey);
+  const missionKey = rawText(session?.missionKey);
+  if (
+    !session?.ok ||
+    !occurrenceKey || occurrenceKey.length > MAX_IDENTITY_KEY_LENGTH ||
+    !missionKey || missionKey.length > MAX_IDENTITY_KEY_LENGTH
+  ) {
+    return fail(['valid-occurrence-session-required']);
+  }
   return compileTaskIntent(input);
 }

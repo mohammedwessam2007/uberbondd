@@ -172,7 +172,7 @@ export async function loadLatestAutonomyRun(store, runId) {
   };
 }
 
-export async function listLatestAutonomyRuns(store, { statuses = [], limit = 50 } = {}) {
+export async function listLatestAutonomyRuns(store, { statuses = [], limit = 50, order = 'newest' } = {}) {
   if (!validStore(store)) return fail(['store-log-and-list-required']);
   const allowedStatuses = new Set((Array.isArray(statuses) ? statuses : []).map(value => text(value, 80).toUpperCase()).filter(Boolean));
   const rows = await auditRows(store, SNAPSHOT_TYPE);
@@ -196,10 +196,24 @@ export async function listLatestAutonomyRuns(store, { statuses = [], limit = 50 
       latest.set(run.runId, row);
     }
   }
+  // Newest-first is right for an operator reading recent activity and wrong for
+  // a scheduler choosing what to work on. Ticking a run refreshes its
+  // updatedAt, so under a bounded scan a newest-first window fills with the
+  // runs that were just served and the least-recently-touched runs fall off the
+  // end and are never seen again. `order: 'oldest'` puts the starved runs in
+  // the window; the fairness ledger then orders within it.
+  const oldestFirst = String(order || 'newest').toLowerCase() === 'oldest';
   const runs = [...latest.values()]
     .map(row => row.detail.run)
     .filter(run => !allowedStatuses.size || allowedStatuses.has(String(run.status || '').toUpperCase()))
-    .sort((a, b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || '')))
+    .sort((a, b) => {
+      const left = String(a.updatedAt || '');
+      const right = String(b.updatedAt || '');
+      const byTime = oldestFirst ? left.localeCompare(right) : right.localeCompare(left);
+      // A tie on a coarse timestamp must not be resolved arbitrarily, or the
+      // same subset can win every cycle. runId is stable and total.
+      return byTime || String(a.runId || '').localeCompare(String(b.runId || ''));
+    })
     .slice(0, Math.max(1, Math.min(200, Number(limit || 50))));
   return {
     ok: true,

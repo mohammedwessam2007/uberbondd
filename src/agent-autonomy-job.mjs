@@ -105,9 +105,16 @@ export async function tickActiveAutonomyRuns({
 
   // Do not ask the store for only the newest N runs. Updating a selected run
   // refreshes its timestamps, so newest-first selection can permanently hide
-  // older active work. Scan the bounded active set, then order it by a durable
-  // scheduler-selection ledger that survives process restarts.
-  const listed = await listLatestAutonomyRuns(store, { statuses: ACTIVE_STATUSES, limit: MAX_ACTIVE_RUN_SCAN });
+  // older active work -- and the scan itself is bounded, so ordering only
+  // *within* the window is not enough: with more active runs than the cap, the
+  // runs past the end never enter it at all. Scan oldest-touched first so the
+  // starved runs are the ones in the window, then order that window by a
+  // durable scheduler-selection ledger that survives process restarts.
+  const listed = await listLatestAutonomyRuns(store, {
+    statuses: ACTIVE_STATUSES,
+    limit: MAX_ACTIVE_RUN_SCAN,
+    order: 'oldest'
+  });
   if (!listed.ok) return fail(listed.reasonCodes || ['autonomy-run-list-failed']);
   const selected = await selectFairAutonomyRuns(store, listed.runs, { limit: boundedLimit });
   if (!selected.ok) return fail(selected.reasonCodes || ['autonomy-run-fair-selection-failed']);

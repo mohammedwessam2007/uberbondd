@@ -85,6 +85,83 @@ test('concurrent terminalization persists exactly one terminal receipt and recov
   assert.deepEqual(first.receipt, second.receipt);
 });
 
+test('concurrent terminalizers with contradictory outcomes fail closed instead of laundering the loser', async () => {
+  const store = racingDeterministicStore();
+  const begun = await beginAgentMeshCycleReceipt({
+    store,
+    occurrenceKey: 'mesh:terminal-truth-race',
+    startedAt: new Date('2026-08-22T13:00:00.000Z'),
+    sourceCommit: 'abc123',
+    policyVersions: ['mesh-policy-1'],
+    workers: []
+  });
+
+  const common = {
+    store,
+    cycleId: begun.cycleId,
+    finishedAt: new Date('2026-08-22T13:01:00.000Z'),
+    sourceCommit: 'abc123',
+    policyVersions: ['mesh-policy-1'],
+    workers: []
+  };
+  const results = await Promise.allSettled([
+    finishAgentMeshCycleReceipt({
+      ...common,
+      status: 'ADVANCED',
+      reasonCodes: ['healthy-cycle'],
+      firstSweep: { ok: true, status: 'OK', runsConsidered: 1, runsTicked: 1, failed: 0 }
+    }),
+    finishAgentMeshCycleReceipt({
+      ...common,
+      status: 'BLOCKED',
+      reasonCodes: ['worker-result-invalid'],
+      firstSweep: { ok: false, status: 'BLOCKED', runsConsidered: 1, runsTicked: 0, failed: 1 }
+    })
+  ]);
+
+  const fulfilled = results.filter(result => result.status === 'fulfilled');
+  const rejected = results.filter(result => result.status === 'rejected');
+  assert.equal(fulfilled.length, 1);
+  assert.equal(rejected.length, 1);
+  assert.match(String(rejected[0].reason?.message), /scheduler-occurrence-terminal-truth-conflict/);
+  assert.equal(store.rows.size, 2);
+});
+
+test('completed occurrence cannot be replayed with rewritten terminal evidence', async () => {
+  const store = racingDeterministicStore();
+  const begun = await beginAgentMeshCycleReceipt({
+    store,
+    occurrenceKey: 'mesh:terminal-truth-replay',
+    sourceCommit: 'abc123',
+    policyVersions: ['mesh-policy-1'],
+    workers: []
+  });
+
+  await finishAgentMeshCycleReceipt({
+    store,
+    cycleId: begun.cycleId,
+    sourceCommit: 'abc123',
+    policyVersions: ['mesh-policy-1'],
+    status: 'DEGRADED',
+    reasonCodes: ['provider-timeout'],
+    workers: [{ targetAgent: 'claude', provider: 'anthropic', workerId: 'w1', status: 'FAILED', ok: false }]
+  });
+
+  await assert.rejects(
+    finishAgentMeshCycleReceipt({
+      store,
+      cycleId: begun.cycleId,
+      sourceCommit: 'abc123',
+      policyVersions: ['mesh-policy-1'],
+      status: 'ADVANCED',
+      reasonCodes: ['healthy-cycle'],
+      workers: [{ targetAgent: 'claude', provider: 'anthropic', workerId: 'w1', status: 'DONE', ok: true }]
+    }),
+    /scheduler-occurrence-terminal-truth-conflict/
+  );
+  assert.equal(store.rows.size, 2);
+});
+
 test('reusing one occurrence key with different source commit fails closed', async () => {
   const store = racingDeterministicStore();
   const occurrenceKey = 'mesh:immutable-source';

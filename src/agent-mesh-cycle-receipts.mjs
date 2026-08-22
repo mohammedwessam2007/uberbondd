@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 
-export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.5.0';
+export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.6.0';
 const START_TYPE = 'agent_mesh_cycle_started';
 const TERMINAL_TYPE = 'agent_mesh_cycle_terminal';
 const TERMINAL_STATUSES = new Set(['ADVANCED', 'IDLE', 'DEGRADED', 'BLOCKED']);
@@ -265,6 +265,14 @@ export async function finishAgentMeshCycleReceipt({
   const terminalIdentity = { identityHash: text(startDetail.identityHash, 80) };
   if (!terminalIdentity.identityHash) throw new Error('scheduler-occurrence-identity-conflict');
 
+  const persistedStartedAt = iso(startDetail.startedAt);
+  const requestedStartedAt = iso(startedAt || startDetail.startedAt);
+  if (requestedStartedAt !== persistedStartedAt) throw new Error('scheduler-occurrence-start-time-conflict');
+  const normalizedFinishedAt = iso(finishedAt);
+  if (Date.parse(normalizedFinishedAt) < Date.parse(persistedStartedAt)) {
+    throw new Error('scheduler-occurrence-finished-before-start');
+  }
+
   const requestedSourceCommit = text(sourceCommit, 80) || text(startDetail.sourceCommit, 80) || null;
   const requestedPolicies = policyVersions?.length
     ? normalizedPolicyVersions(policyVersions)
@@ -279,8 +287,8 @@ export async function finishAgentMeshCycleReceipt({
     cycleId: normalizedCycleId,
     identityHash: terminalIdentity.identityHash,
     phase: 'TERMINAL',
-    startedAt: iso(startedAt || startDetail.startedAt),
-    finishedAt: iso(finishedAt),
+    startedAt: persistedStartedAt,
+    finishedAt: normalizedFinishedAt,
     sourceCommit: requestedSourceCommit,
     policyVersions: requestedPolicies,
     status,

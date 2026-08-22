@@ -4,7 +4,8 @@ import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 import {
   beginAgentMeshCycleReceipt,
   finishAgentMeshCycleReceipt,
-  getAgentMeshCycleReceipt
+  getAgentMeshCycleReceipt,
+  supportsAgentMeshCycleReceipts
 } from './agent-mesh-cycle-receipts.mjs';
 
 export const AGENT_MESH_CONTROL_PLANE_POLICY_VERSION = 'agent-mesh-control-plane-1.1.0';
@@ -93,14 +94,6 @@ function resultFromTerminalReceipt(receipt, { duplicateDelivery = false } = {}) 
   };
 }
 
-// One finite cloud-scheduler cycle for the GPT ↔ UberBond ↔ Claude mesh.
-// Every enabled invocation must carry a scheduler occurrence key. That identity
-// is persisted before any sweep or worker tick, so a killed process leaves a
-// durable STARTED record rather than allowing the absence of a return value to
-// masquerade as "nothing happened". Re-delivery of a terminal occurrence is a
-// read-only replay. Re-delivery of an incomplete STARTED occurrence fails
-// closed because repeating a provider-backed worker after an unknown crash
-// boundary could pay twice.
 export async function runAgentMeshCycle({
   enabled = false,
   store,
@@ -129,14 +122,14 @@ export async function runAgentMeshCycle({
 
   const reasons = [];
   if (!store || typeof store !== 'object') reasons.push('store-required');
-  if (store && (typeof store.get !== 'function' || typeof store.add !== 'function')) reasons.push('durable-cycle-receipt-store-required');
+  if (store && !supportsAgentMeshCycleReceipts(store)) reasons.push('durable-cycle-receipt-store-required');
   if (typeof adapterFactory !== 'function') reasons.push('adapter-factory-required');
   if (typeof compileRelayTask !== 'function') reasons.push('relay-task-compiler-required');
   if (!Array.isArray(workers)) reasons.push('workers-array-required');
   if (typeof tickRuns !== 'function') reasons.push('autonomy-tick-function-required');
   if (typeof workerTick !== 'function') reasons.push('worker-tick-function-required');
-  if (!text(schedulerOccurrenceKey, 300)) reasons.push('scheduler-occurrence-key-required');
   if (reasons.length) return fail(reasons);
+  if (!text(schedulerOccurrenceKey, 300)) return fail(['scheduler-occurrence-key-required']);
 
   const boundedRunLimit = Number.isSafeInteger(Number(autonomyRunLimit))
     ? Math.max(1, Math.min(MAX_AUTONOMY_RUNS_PER_SWEEP, Number(autonomyRunLimit)))
@@ -146,9 +139,7 @@ export async function runAgentMeshCycle({
   if (configuredWorkers.some(worker => !validWorker(worker))) return fail(['invalid-worker-configuration']);
 
   const existing = await getAgentMeshCycleReceipt({ store, occurrenceKey: schedulerOccurrenceKey });
-  if (existing.state === 'TERMINAL') {
-    return resultFromTerminalReceipt(existing.receipt, { duplicateDelivery: true });
-  }
+  if (existing.state === 'TERMINAL') return resultFromTerminalReceipt(existing.receipt, { duplicateDelivery: true });
   if (existing.state === 'STARTED') {
     return fail(['scheduler-occurrence-already-started-incomplete'], 'BLOCKED', {
       cycleId: existing.cycleId,
@@ -170,27 +161,13 @@ export async function runAgentMeshCycle({
   });
   const cycleId = begun.cycleId;
 
-  const firstSweep = await tickRuns({
-    store,
-    adapterFactory,
-    compileRelayTask,
-    limit: boundedRunLimit,
-    date
-  });
+  const firstSweep = await tickRuns({ store, adapterFactory, compileRelayTask, limit: boundedRunLimit, date });
   if (firstSweep?.ok === false) {
     const reasonCodes = firstSweep.reasonCodes || ['initial-autonomy-sweep-failed'];
     const terminal = await finishAgentMeshCycleReceipt({
-      store,
-      cycleId,
-      startedAt,
-      finishedAt: date,
-      sourceCommit,
+      store, cycleId, startedAt, finishedAt: date, sourceCommit,
       policyVersions: [AGENT_MESH_CONTROL_PLANE_POLICY_VERSION],
-      status: 'BLOCKED',
-      reasonCodes,
-      firstSweep,
-      workers: [],
-      secondSweep: null
+      status: 'BLOCKED', reasonCodes, firstSweep, workers: [], secondSweep: null
     });
     return resultFromTerminalReceipt(terminal.receipt);
   }
@@ -213,24 +190,14 @@ export async function runAgentMeshCycle({
         date
       });
     } catch (error) {
-      result = {
-        ok: false,
-        status: 'WORKER_TICK_THREW',
-        reasonCodes: ['worker-tick-threw', text(error?.message, 300)]
-      };
+      result = { ok: false, status: 'WORKER_TICK_THREW', reasonCodes: ['worker-tick-threw', text(error?.message, 300)] };
     }
     workerResults.push(workerReceipt(result, config));
   }
 
   let secondSweep = null;
   if (ingestAfterWorkers) {
-    secondSweep = await tickRuns({
-      store,
-      adapterFactory,
-      compileRelayTask,
-      limit: boundedRunLimit,
-      date
-    });
+    secondSweep = await tickRuns({ store, adapterFactory, compileRelayTask, limit: boundedRunLimit, date });
   }
 
   const status = classifyCycle({ firstSweep, workers: workerResults, secondSweep });
@@ -238,17 +205,9 @@ export async function runAgentMeshCycle({
     ? [...new Set([...(firstSweep?.reasonCodes || []), ...(secondSweep?.reasonCodes || [])])]
     : [];
   const terminal = await finishAgentMeshCycleReceipt({
-    store,
-    cycleId,
-    startedAt,
-    finishedAt: date,
-    sourceCommit,
+    store, cycleId, startedAt, finishedAt: date, sourceCommit,
     policyVersions: [AGENT_MESH_CONTROL_PLANE_POLICY_VERSION],
-    status,
-    reasonCodes,
-    firstSweep,
-    workers: workerResults,
-    secondSweep
+    status, reasonCodes, firstSweep, workers: workerResults, secondSweep
   });
 
   return {

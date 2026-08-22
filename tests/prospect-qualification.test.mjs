@@ -163,10 +163,46 @@ test('an ineligible contact route blocks eligibility even with a strong score', 
   assert.ok(decision.reasonCodes.includes('contact-route-not-send-eligible'));
 });
 
-test('scoring refuses to run on anything but a real evidence bundle', () => {
-  assert.deepEqual(scoreProspect({ bundle: null }).reasonCodes, ['valid-prospect-evidence-bundle-required']);
-  assert.deepEqual(scoreProspect({ bundle: { personId: 'x', contactRoutes: [] } }).reasonCodes, ['valid-prospect-evidence-bundle-required']);
-  assert.deepEqual(decideProspectQualification({ scored: null, bundle: null }).reasonCodes, ['valid-score-and-bundle-required']);
+test('scoring refuses to run on anything but a compiled evidence bundle', () => {
+  assert.deepEqual(scoreProspect({ bundle: null }).reasonCodes, ['compiled-prospect-evidence-bundle-required']);
+  assert.deepEqual(scoreProspect({ bundle: { personId: 'x', contactRoutes: [] } }).reasonCodes, ['compiled-prospect-evidence-bundle-required']);
+  assert.deepEqual(decideProspectQualification({ scored: null, bundle: null }).reasonCodes, ['compiled-prospect-score-required']);
+});
+
+// `{ ok: true }` is two characters, and it used to be the entire admission
+// requirement. Routing everything through an evidence bundle only means
+// anything if a bare object cannot pass as one.
+test('a hand-written object cannot pass as an evidence bundle', () => {
+  const forged = {
+    ok: true,
+    personId: 'person_1',
+    contactRoutes: [{ route: 'buyer@example.com', sendableEvidenceClass: true }],
+    conflicts: [],
+    weakestConfidence: 1,
+    fields: {}
+  };
+  assert.equal(scoreProspect({ bundle: forged, deterministicComponents: STRONG }).ok, false);
+  // Nor with a plausible-looking policy version attached to a bundle that was
+  // never compiled -- the shape check is on the compiler's own contract.
+  const withVersion = { ...forged, policyVersion: 'prospect-intelligence-9.9.9' };
+  assert.equal(scoreProspect({ bundle: withVersion, deterministicComponents: STRONG }).ok, false);
+});
+
+test('a score cannot be paired with a different prospect than it was computed for', () => {
+  const a = bundle();
+  const scored = scoreProspect({ bundle: a, deterministicComponents: STRONG });
+  const b = { ...a, personId: 'person_someone_else' };
+  const decision = decideProspectQualification({ scored, bundle: b, routeEligibility: { eligible: true, state: 'VALID' } });
+  assert.equal(decision.ok, false);
+  assert.deepEqual(decision.reasonCodes, ['score-and-bundle-identity-mismatch']);
+});
+
+test('a hand-written score cannot drive a decision', () => {
+  const b = bundle();
+  const forgedScore = { ok: true, personId: b.personId, score: 1, evidenceConfidence: 1, provenance: {}, components: {} };
+  const decision = decideProspectQualification({ scored: forgedScore, bundle: b, routeEligibility: { eligible: true, state: 'VALID' } });
+  assert.equal(decision.ok, false);
+  assert.deepEqual(decision.reasonCodes, ['compiled-prospect-score-required']);
 });
 
 test('nothing in the qualification path carries an external effect', () => {

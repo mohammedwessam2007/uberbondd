@@ -48,6 +48,33 @@ export const COMPANY_FIELDS = Object.freeze([
 const MAX_OBSERVATIONS = 500;
 const MAX_CANDIDATES = 1000;
 
+// The strongest evidence a given kind of source is capable of producing.
+//
+// Without this, `sourceType` and `evidenceClass` are two independent strings a
+// caller sets, so a search-engine snippet could be filed as
+// FIRST_PARTY_DECLARED -- the class reserved for the subject telling us
+// directly -- and inherit its confidence ceiling and its right to outrank the
+// company's own page. A source cannot know more than its kind allows.
+export const SOURCE_EVIDENCE_CEILING = Object.freeze({
+  SEARCH_ENGINE: 'THIRD_PARTY_UNVERIFIED',
+  COMPANY_WEBSITE: 'FIRST_PARTY_PUBLIC',
+  PUBLIC_REGISTRY: 'PUBLIC_STRUCTURED',
+  LICENSED_ENRICHMENT: 'LICENSED_PROVIDER',
+  PUBLIC_PROFILE_DIRECTORY: 'THIRD_PARTY_UNVERIFIED',
+  PARTNER_REFERRAL: 'THIRD_PARTY_UNVERIFIED',
+  INBOUND_DECLARED: 'FIRST_PARTY_DECLARED',
+  IMPORTED_FILE: 'THIRD_PARTY_UNVERIFIED'
+});
+
+/** The evidence class a claim is entitled to, given where it came from. */
+export function cappedEvidenceClass(sourceType, requested) {
+  const source = text(sourceType, 60).toUpperCase();
+  const ceiling = SOURCE_EVIDENCE_CEILING[source];
+  const asked = text(requested, 60).toUpperCase();
+  if (!ceiling) return asked;
+  return evidenceStrength(asked) > evidenceStrength(ceiling) ? ceiling : asked;
+}
+
 function text(value, max = 300) {
   return String(value ?? '').trim().slice(0, max);
 }
@@ -151,6 +178,7 @@ export function compileCompanyCandidate({
   if (discoveredMs === null) reasons.push('discovered-at-required');
   if (reasons.length) return fail(reasons);
   const identity = { name: text(name, 200).toLowerCase(), domain: normalizedDomain };
+  const effectiveClass = cappedEvidenceClass(normalizedSource, evidenceClass);
   return {
     ok: true,
     policyVersion: PROSPECT_INTELLIGENCE_POLICY_VERSION,
@@ -159,10 +187,11 @@ export function compileCompanyCandidate({
     domain: normalizedDomain || null,
     sourceType: normalizedSource,
     sourceUrl: text(sourceUrl, 500) || null,
-    evidenceClass: text(evidenceClass, 60).toUpperCase(),
+    evidenceClass: effectiveClass,
+    requestedEvidenceClass: text(evidenceClass, 60).toUpperCase(),
     discoveredAt: new Date(discoveredMs).toISOString(),
     expiresAt: parseTime(expiresAt) === null ? null : new Date(parseTime(expiresAt)).toISOString(),
-    confidence: cappedConfidence(evidenceClass, confidence ?? 0),
+    confidence: cappedConfidence(effectiveClass, confidence ?? 0),
     fields: Object.fromEntries(
       Object.entries(fields || {}).filter(([key]) => COMPANY_FIELDS.includes(key)).map(([key, value]) => [key, text(value, 500)])
     ),
@@ -185,6 +214,7 @@ export function compilePersonCandidate({
   if (discoveredMs === null) reasons.push('discovered-at-required');
   if (reasons.length) return fail(reasons);
   const identity = { name: text(name, 200).toLowerCase(), companyId: text(companyId, 120) };
+  const effectiveClass = cappedEvidenceClass(normalizedSource, evidenceClass);
   return {
     ok: true,
     policyVersion: PROSPECT_INTELLIGENCE_POLICY_VERSION,
@@ -197,10 +227,11 @@ export function compilePersonCandidate({
     publicProfileUrl: text(publicProfileUrl, 500) || null,
     sourceType: normalizedSource,
     sourceUrl: text(sourceUrl, 500) || null,
-    evidenceClass: text(evidenceClass, 60).toUpperCase(),
+    evidenceClass: effectiveClass,
+    requestedEvidenceClass: text(evidenceClass, 60).toUpperCase(),
     discoveredAt: new Date(discoveredMs).toISOString(),
     expiresAt: parseTime(expiresAt) === null ? null : new Date(parseTime(expiresAt)).toISOString(),
-    confidence: cappedConfidence(evidenceClass, confidence ?? 0),
+    confidence: cappedConfidence(effectiveClass, confidence ?? 0),
     // Contact routes are never inferred here. A person candidate is a person,
     // not a mailbox; the route needs its own provenance.
     contactRoutes: [],
@@ -230,6 +261,7 @@ export function compileEnrichmentObservation({
   const cost = Number(costCents);
   if (costCents != null && (!Number.isFinite(cost) || cost < 0)) reasons.push('non-negative-cost-required');
   if (reasons.length) return fail(reasons);
+  const effectiveClass = cappedEvidenceClass(normalizedSource, evidenceClass);
   return {
     ok: true,
     policyVersion: PROSPECT_INTELLIGENCE_POLICY_VERSION,
@@ -240,10 +272,11 @@ export function compileEnrichmentObservation({
     provider: text(provider, 120),
     sourceType: normalizedSource,
     sourceUrl: text(sourceUrl, 500) || null,
-    evidenceClass: text(evidenceClass, 60).toUpperCase(),
+    evidenceClass: effectiveClass,
+    requestedEvidenceClass: text(evidenceClass, 60).toUpperCase(),
     observedAt: new Date(observedMs).toISOString(),
     expiresAt: parseTime(expiresAt) === null ? null : new Date(parseTime(expiresAt)).toISOString(),
-    confidence: cappedConfidence(evidenceClass, confidence ?? 0),
+    confidence: cappedConfidence(effectiveClass, confidence ?? 0),
     costCents: costCents == null ? null : cost,
     externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };

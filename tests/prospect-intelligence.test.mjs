@@ -310,6 +310,55 @@ test('a field nobody defined is dropped rather than stored', () => {
   assert.ok(!PERSON_FIELDS.includes('homeAddress'));
 });
 
+// A source cannot know more than its kind allows. Without this, `sourceType`
+// and `evidenceClass` are two independent strings a caller sets, so a search
+// snippet could be filed as FIRST_PARTY_DECLARED and inherit both its
+// confidence ceiling and its right to outrank the company's own page.
+test('a source cannot claim evidence stronger than its kind can produce', () => {
+  const laundered = compileEnrichmentObservation({
+    subjectId: 'person_1', field: 'role', value: 'CEO', provider: 'p',
+    sourceType: 'SEARCH_ENGINE', evidenceClass: 'FIRST_PARTY_DECLARED',
+    observedAt: T0, confidence: 1
+  });
+  assert.equal(laundered.evidenceClass, 'THIRD_PARTY_UNVERIFIED');
+  assert.equal(laundered.requestedEvidenceClass, 'FIRST_PARTY_DECLARED');
+  assert.equal(laundered.confidence, CONFIDENCE_CEILING.THIRD_PARTY_UNVERIFIED);
+});
+
+test('the ceiling is a cap, not an assignment: a weaker claim stays weaker', () => {
+  const modest = compileEnrichmentObservation({
+    subjectId: 'person_1', field: 'role', value: 'CEO', provider: 'p',
+    sourceType: 'COMPANY_WEBSITE', evidenceClass: 'THIRD_PARTY_UNVERIFIED',
+    observedAt: T0, confidence: 1
+  });
+  assert.equal(modest.evidenceClass, 'THIRD_PARTY_UNVERIFIED');
+});
+
+test('the ceiling applies to candidates as well as observations', () => {
+  const person = compilePersonCandidate({
+    name: 'Alex Doe', companyId: 'company_1', sourceType: 'PUBLIC_PROFILE_DIRECTORY',
+    evidenceClass: 'VERIFIED_TRANSACTION', discoveredAt: T0, confidence: 1
+  });
+  assert.equal(person.evidenceClass, 'THIRD_PARTY_UNVERIFIED');
+  const company = compileCompanyCandidate({
+    name: 'Acme', domain: 'acme.test', sourceType: 'SEARCH_ENGINE',
+    evidenceClass: 'FIRST_PARTY_PUBLIC', discoveredAt: T0, confidence: 1
+  });
+  assert.equal(company.evidenceClass, 'THIRD_PARTY_UNVERIFIED');
+});
+
+test('a laundered claim cannot outrank the company page it was trying to beat', () => {
+  const resolved = reconcileEnrichmentField({
+    observations: [
+      obs({ value: 'Head of Operations', evidenceClass: 'FIRST_PARTY_PUBLIC', sourceType: 'COMPANY_WEBSITE', provider: 'their-site' }),
+      obs({ value: 'Janitor', evidenceClass: 'VERIFIED_TRANSACTION', sourceType: 'SEARCH_ENGINE', provider: 'liar', observedAt: T1 })
+    ],
+    now: NOW
+  });
+  assert.equal(resolved.value, 'Head of Operations');
+  assert.equal(resolved.conflict, false);
+});
+
 test('a company candidate normalizes its domain and refuses a bare junk one', () => {
   const good = compileCompanyCandidate({ name: 'Acme', domain: 'https://WWW.Acme.co.uk/about', sourceType: 'COMPANY_WEBSITE', evidenceClass: 'FIRST_PARTY_PUBLIC', discoveredAt: T0 });
   assert.equal(good.domain, 'acme.co.uk');

@@ -17,6 +17,7 @@ import {
   cappedConfidence
 } from './prospect-evidence.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledger.mjs';
+import { PROSPECT_INTELLIGENCE_POLICY_VERSION } from './prospect-intelligence.mjs';
 
 export const PROSPECT_QUALIFICATION_POLICY_VERSION = 'prospect-qualification-1.0.0';
 
@@ -67,6 +68,30 @@ function unitScore(value) {
 
 function text(value, max = 300) {
   return String(value ?? '').trim().slice(0, max);
+}
+
+/**
+ * True only for a bundle this system's own compiler produced.
+ *
+ * `{ ok: true }` is two characters, and without this check that was the entire
+ * admission requirement: a hand-written object with a strong score and a
+ * sendable-looking route reached ELIGIBLE_FOR_EXPERIMENT. The point of routing
+ * everything through an evidence bundle is that scoring cannot see a bare
+ * string and mistake it for a fact -- which fails if scoring will accept a
+ * bare object and mistake it for a bundle.
+ */
+function isCompiledBundle(bundle) {
+  return Boolean(
+    bundle
+    && typeof bundle === 'object'
+    && !Array.isArray(bundle)
+    && bundle.ok === true
+    && bundle.policyVersion === PROSPECT_INTELLIGENCE_POLICY_VERSION
+    && typeof bundle.personId === 'string'
+    && bundle.personId
+    && Array.isArray(bundle.contactRoutes)
+    && bundle.fields && typeof bundle.fields === 'object'
+  );
 }
 
 function fail(reasonCodes) {
@@ -126,7 +151,7 @@ export function scoreProspect({
   deterministicComponents = {},
   advisory = null
 } = {}) {
-  if (!bundle?.ok) return fail(['valid-prospect-evidence-bundle-required']);
+  if (!isCompiledBundle(bundle)) return fail(['compiled-prospect-evidence-bundle-required']);
 
   const components = {};
   const provenance = {};
@@ -193,7 +218,9 @@ export function decideProspectQualification({
   minimumEvidenceConfidence = 0.5,
   requiredComponents = ['icpFit', 'buyerRoleFit', 'offerFit']
 } = {}) {
-  if (!scored?.ok || !bundle?.ok) return fail(['valid-score-and-bundle-required']);
+  if (!scored?.ok || scored.policyVersion !== PROSPECT_QUALIFICATION_POLICY_VERSION) return fail(['compiled-prospect-score-required']);
+  if (!isCompiledBundle(bundle)) return fail(['compiled-prospect-evidence-bundle-required']);
+  if (scored.personId !== bundle.personId) return fail(['score-and-bundle-identity-mismatch']);
   const reasonCodes = [];
 
   if (routeEligibility?.state === 'SUPPRESSED') {

@@ -350,6 +350,7 @@ export async function createEphemeralSandbox({
     status: 'READY',
     sandboxRoot: workspace,
     sandboxContainer: sandboxRoot,
+    tmpRoot: path.resolve(String(tmpRoot)),
     baseRevision: resolvedRevision,
     createdAt: timestamp(new Date()),
     isolationReceipt: isolationReceiptFor({
@@ -410,9 +411,22 @@ export async function destroyEphemeralSandbox({ sandbox, task, idempotencyKey = 
   const container = sandbox.sandboxContainer || sandbox.sandboxRoot;
   const resolved = path.resolve(container);
   // A destroyer that can be pointed at an arbitrary path is a delete primitive
-  // wearing a cleanup label.
+  // wearing a cleanup label, so the target must satisfy both halves of what
+  // makes it a sandbox: the naming scheme AND living under a temp root.
+  //
+  // The name alone is not enough. `/home/user/repo/uberbond-sandbox-x` passes
+  // any basename check while sitting inside the working tree -- so a directory
+  // that merely happens to be named like a sandbox was destroyable wherever it
+  // was. The tmp root is recorded at creation and required here.
+  const tmpRoot = path.resolve(String(sandbox.tmpRoot || os.tmpdir()));
+  const underTmpRoot = resolved === tmpRoot
+    ? false
+    : resolved.startsWith(`${tmpRoot}${path.sep}`) || resolved.startsWith(`${path.resolve(os.tmpdir())}${path.sep}`);
   if (!path.basename(resolved).startsWith('uberbond-sandbox-') || resolved === path.parse(resolved).root) {
     return fail(['refusing-to-destroy-path-outside-sandbox-naming-scheme']);
+  }
+  if (!underTmpRoot) {
+    return fail(['refusing-to-destroy-path-outside-sandbox-temp-root']);
   }
   let removed = true;
   let detail = null;

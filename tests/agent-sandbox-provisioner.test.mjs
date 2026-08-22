@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
-import path from 'node:path';
+import path, { join } from 'node:path';
 import {
   detectSandboxIsolation,
   resetSandboxIsolationCache,
@@ -72,10 +72,37 @@ test('a blocked provisioner exposes no lifecycle functions to call by accident',
 });
 
 test('the destroyer refuses any path outside the sandbox naming scheme', async () => {
-  for (const target of ['/', '/home/user/uberbondd', os.homedir(), '/tmp', '/tmp/something-else']) {
+  for (const target of ['/', REPO_ROOT, os.homedir(), '/tmp', '/tmp/something-else']) {
     const result = await destroyEphemeralSandbox({ sandbox: { sandboxRoot: target, sandboxContainer: target }, task: TASK });
     assert.equal(result.ok, false, `must refuse ${target}`);
     assert.deepEqual(result.reasonCodes, ['refusing-to-destroy-path-outside-sandbox-naming-scheme']);
+  }
+});
+
+// The name alone was the whole guard, and the name alone is cheap: any
+// directory anywhere called uberbond-sandbox-something satisfied it, including
+// one sitting inside the working tree. Both halves are required now.
+test('the destroyer refuses a correctly-named directory outside the temp root', async () => {
+  for (const target of [
+    join(REPO_ROOT, 'uberbond-sandbox-fake'),
+    join(os.homedir(), 'uberbond-sandbox-fake'),
+    '/uberbond-sandbox-fake',
+    '/var/uberbond-sandbox-fake'
+  ]) {
+    const result = await destroyEphemeralSandbox({ sandbox: { sandboxRoot: target, sandboxContainer: target }, task: TASK });
+    assert.equal(result.ok, false, `must refuse ${target}`);
+    assert.deepEqual(result.reasonCodes, ['refusing-to-destroy-path-outside-sandbox-temp-root']);
+  }
+});
+
+test('a real sandbox records the temp root it was created under', { skip }, async () => {
+  const sandbox = await createEphemeralSandbox({ task: TASK, idempotencyKey: 'tmproot', repoRoot: REPO_ROOT, capability });
+  assert.equal(sandbox.ok, true);
+  try {
+    assert.equal(sandbox.tmpRoot, path.resolve(os.tmpdir()));
+    assert.ok(sandbox.sandboxContainer.startsWith(`${sandbox.tmpRoot}${path.sep}`));
+  } finally {
+    await destroyEphemeralSandbox({ sandbox, task: TASK, idempotencyKey: 'tmproot' });
   }
 });
 

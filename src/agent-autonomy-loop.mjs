@@ -98,10 +98,10 @@ function validSession(session) {
 export function inheritTaskConstraints({ parentIntent, requestedConstraints = [] } = {}) {
   const inherited = strings(parentIntent?.constraints || [], MAX_CONSTRAINTS);
   const requested = strings(requestedConstraints, MAX_CONSTRAINTS);
-  const constraints = [...new Set([...inherited, ...requested])].slice(0, MAX_CONSTRAINTS);
+  const union = [...new Set([...inherited, ...requested])];
   return {
-    ok: inherited.every(item => constraints.includes(item)),
-    constraints,
+    ok: union.length <= MAX_CONSTRAINTS,
+    constraints: union.slice(0, MAX_CONSTRAINTS),
     inheritedConstraints: inherited,
     requestedConstraints: requested
   };
@@ -205,7 +205,7 @@ export function compileTaskIntent({
     evidenceRefs: canonicalEvidenceRefs(evidenceRefs).valid,
     acceptanceTests: strings(acceptanceTests, 40),
     requiredOutputs: strings(requiredOutputs, 40),
-    constraints: strings(constraints, MAX_CONSTRAINTS),
+    constraints: strings(constraints, MAX_CONSTRAINTS - 2),
     tokenBudget: tokens
   };
   const taskId = `mesh_task_${hash(identity).slice(0, 24)}`;
@@ -224,7 +224,7 @@ export function compileTaskIntent({
     evidenceRefs: identity.evidenceRefs,
     acceptanceTests: identity.acceptanceTests,
     requiredOutputs: identity.requiredOutputs.length ? identity.requiredOutputs : ['outcome', 'coordination', 'evidenceRefs'],
-    constraints: [...new Set(['local-preparation-only', 'no-business-external-effects', ...identity.constraints])],
+    constraints: strings(['local-preparation-only', 'no-business-external-effects', ...identity.constraints], MAX_CONSTRAINTS),
     tokenBudget: tokens,
     createdAt: timestamp(date),
     consequenceClass: 'LOCAL_PREPARATION',

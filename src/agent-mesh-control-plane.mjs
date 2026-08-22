@@ -8,7 +8,7 @@ import {
   supportsAgentMeshCycleReceipts
 } from './agent-mesh-cycle-receipts.mjs';
 
-export const AGENT_MESH_CONTROL_PLANE_POLICY_VERSION = 'agent-mesh-control-plane-1.1.0';
+export const AGENT_MESH_CONTROL_PLANE_POLICY_VERSION = 'agent-mesh-control-plane-1.2.0';
 
 const MAX_WORKERS_PER_CYCLE = 4;
 const MAX_AUTONOMY_RUNS_PER_SWEEP = 10;
@@ -138,7 +138,32 @@ export async function runAgentMeshCycle({
   if (configuredWorkers.length !== workers.length) return fail(['worker-count-exceeds-cycle-cap']);
   if (configuredWorkers.some(worker => !validWorker(worker))) return fail(['invalid-worker-configuration']);
 
-  const existing = await getAgentMeshCycleReceipt({ store, occurrenceKey: schedulerOccurrenceKey });
+  const occurrenceIdentity = {
+    sourceCommit,
+    policyVersions: [AGENT_MESH_CONTROL_PLANE_POLICY_VERSION],
+    workers: configuredWorkers,
+    configuration: {
+      autonomyRunLimit: boundedRunLimit,
+      ingestAfterWorkers: Boolean(ingestAfterWorkers)
+    }
+  };
+
+  let existing;
+  try {
+    existing = await getAgentMeshCycleReceipt({
+      store,
+      occurrenceKey: schedulerOccurrenceKey,
+      ...occurrenceIdentity
+    });
+  } catch (error) {
+    if (error?.message === 'scheduler-occurrence-identity-conflict') {
+      return fail(['scheduler-occurrence-identity-conflict'], 'BLOCKED', {
+        duplicateDelivery: true,
+        at: timestamp(date)
+      });
+    }
+    throw error;
+  }
   if (existing.state === 'TERMINAL') return resultFromTerminalReceipt(existing.receipt, { duplicateDelivery: true });
   if (existing.state === 'STARTED') {
     return fail(['scheduler-occurrence-already-started-incomplete'], 'BLOCKED', {
@@ -155,11 +180,18 @@ export async function runAgentMeshCycle({
     store,
     occurrenceKey: schedulerOccurrenceKey,
     startedAt,
-    sourceCommit,
-    policyVersions: [AGENT_MESH_CONTROL_PLANE_POLICY_VERSION],
-    workers: configuredWorkers
+    ...occurrenceIdentity
   });
   const cycleId = begun.cycleId;
+  if (begun.duplicate) {
+    return fail(['scheduler-occurrence-already-started-incomplete'], 'BLOCKED', {
+      cycleId,
+      cycleReceiptState: 'STARTED',
+      duplicateDelivery: true,
+      startedAt: begun.receipt?.startedAt || null,
+      at: timestamp(date)
+    });
+  }
 
   const firstSweep = await tickRuns({ store, adapterFactory, compileRelayTask, limit: boundedRunLimit, date });
   if (firstSweep?.ok === false) {

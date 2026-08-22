@@ -53,10 +53,14 @@ function safeWorkers(workers = []) {
   }));
 }
 
+export function supportsAgentMeshCycleReceipts(store) {
+  if (!store || typeof store !== 'object') return false;
+  return (typeof store.get === 'function' && typeof store.add === 'function')
+    || (typeof store.list === 'function' && typeof store.log === 'function');
+}
+
 function requireStore(store) {
-  if (!store || typeof store.get !== 'function' || typeof store.add !== 'function') {
-    throw new Error('cycle-receipt-store-get-add-required');
-  }
+  if (!supportsAgentMeshCycleReceipts(store)) throw new Error('durable-cycle-receipt-store-required');
 }
 
 export function deriveAgentMeshCycleId(occurrenceKey) {
@@ -69,6 +73,25 @@ function recordId(cycleId, phase) {
   return `${cycleId}:${phase}`;
 }
 
+async function lookup(store, type, cycleId, phase) {
+  if (typeof store.get === 'function') {
+    const row = await store.get('auditLog', recordId(cycleId, phase));
+    if (row) return row;
+  }
+  if (typeof store.list === 'function') {
+    const rows = await store.list('auditLog', { filters: { type }, limit: 2000 });
+    return rows.find(row => row?.detail?.cycleId === cycleId) || null;
+  }
+  return null;
+}
+
+async function append(store, type, cycleId, phase, detail, createdAt) {
+  if (typeof store.add === 'function') {
+    return store.add('auditLog', { id: recordId(cycleId, phase), type, detail, createdAt });
+  }
+  return store.log(type, detail);
+}
+
 export async function beginAgentMeshCycleReceipt({
   store,
   occurrenceKey,
@@ -79,11 +102,8 @@ export async function beginAgentMeshCycleReceipt({
 } = {}) {
   requireStore(store);
   const cycleId = deriveAgentMeshCycleId(occurrenceKey);
-  const id = recordId(cycleId, 'started');
-  const existing = await store.get('auditLog', id);
-  if (existing) {
-    return { cycleId, duplicate: true, receipt: structuredClone(existing.detail || {}) };
-  }
+  const existing = await lookup(store, START_TYPE, cycleId, 'started');
+  if (existing) return { cycleId, duplicate: true, receipt: structuredClone(existing.detail || {}) };
 
   const detail = {
     receiptVersion: AGENT_MESH_CYCLE_RECEIPT_VERSION,
@@ -97,7 +117,7 @@ export async function beginAgentMeshCycleReceipt({
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }
   };
-  await store.add('auditLog', { id, type: START_TYPE, detail, createdAt: detail.startedAt });
+  await append(store, START_TYPE, cycleId, 'started', detail, detail.startedAt);
   return { cycleId, duplicate: false, receipt: structuredClone(detail) };
 }
 
@@ -119,11 +139,9 @@ export async function finishAgentMeshCycleReceipt({
   if (!/^meshcycle_[a-f0-9]{32}$/.test(normalizedCycleId)) throw new Error('valid-cycle-id-required');
   if (!TERMINAL_STATUSES.has(status)) throw new Error('terminal-cycle-status-required');
 
-  const id = recordId(normalizedCycleId, 'terminal');
-  const existing = await store.get('auditLog', id);
+  const existing = await lookup(store, TERMINAL_TYPE, normalizedCycleId, 'terminal');
   if (existing) return { duplicate: true, receipt: structuredClone(existing.detail || {}) };
-
-  const startRecord = await store.get('auditLog', recordId(normalizedCycleId, 'started'));
+  const startRecord = await lookup(store, START_TYPE, normalizedCycleId, 'started');
   if (!startRecord) throw new Error('cycle-start-receipt-required-before-terminal');
 
   const detail = {
@@ -142,16 +160,16 @@ export async function finishAgentMeshCycleReceipt({
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }
   };
-  await store.add('auditLog', { id, type: TERMINAL_TYPE, detail, createdAt: detail.finishedAt });
+  await append(store, TERMINAL_TYPE, normalizedCycleId, 'terminal', detail, detail.finishedAt);
   return { duplicate: false, receipt: structuredClone(detail) };
 }
 
 export async function getAgentMeshCycleReceipt({ store, occurrenceKey } = {}) {
   requireStore(store);
   const cycleId = deriveAgentMeshCycleId(occurrenceKey);
-  const terminal = await store.get('auditLog', recordId(cycleId, 'terminal'));
+  const terminal = await lookup(store, TERMINAL_TYPE, cycleId, 'terminal');
   if (terminal) return { cycleId, state: 'TERMINAL', receipt: structuredClone(terminal.detail || {}) };
-  const started = await store.get('auditLog', recordId(cycleId, 'started'));
+  const started = await lookup(store, START_TYPE, cycleId, 'started');
   if (started) return { cycleId, state: 'STARTED', receipt: structuredClone(started.detail || {}) };
   return { cycleId, state: 'ABSENT', receipt: null };
 }

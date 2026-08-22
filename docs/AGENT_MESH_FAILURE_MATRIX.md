@@ -101,3 +101,27 @@ and imported. Both directions were checked by reintroducing each fault.
 | GitHub Actions running the mesh suites | Blocked at the account level; every run dies in 3–10s with 404 job logs. |
 | Real provider (OpenAI/Anthropic) execution | Adapters exist and are disabled by default. No provider has been called. |
 | Any commercial outcome | Zero. No customers, no payments, no deliveries. |
+
+## Crash between dispatch and snapshot
+
+| Failure | Status | Reason code / outcome |
+| --- | --- | --- |
+| Process dies after `createTask`, before the run snapshot persists | RECOVERABLE | next tick returns `ALREADY_QUEUED` and rebinds `relayRef` to the existing issue |
+| Same taskId dispatched with different content | REFUSED | `relay-task-id-reused-with-different-content` |
+| Task already completed and closed, same id dispatched again | ALLOWED | a new issue; deduplication is not a permanent ban |
+| Client cannot list issues, so a retry is indistinguishable from a first dispatch | REFUSED | `github-list-issues-required-for-duplicate-check` |
+| A full page of open relay tasks, so an unscanned page may hold the duplicate | REFUSED | `relay-duplicate-check-inconclusive-too-many-open-tasks` |
+
+`agent-autonomy-pump` dispatches, and only afterwards does `agent-autonomy-job`
+persist the run carrying the `relayRef`. Everything between those two lines is a
+window in which the relay task exists and the run does not know it — a crash, an
+OOM, a container reclaim, or a failed snapshot write all land in it.
+
+Before this was fixed, the next tick re-dispatched the same deterministic taskId
+and a **second GitHub issue appeared for one task**. Two workers claim two
+issues, do the work twice, and with provider-backed workers that is two charges.
+
+`createGithubRelayTask` is now idempotent on taskId against open, not-done relay
+issues. `tests/agent-mesh-entry-point.test.mjs` drops the post-dispatch run on
+the floor exactly as a killed process would and asserts one issue exists after
+two ticks; it fails against the previous code.

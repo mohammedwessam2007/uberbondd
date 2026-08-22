@@ -245,3 +245,49 @@ test('exactly one implementation of the spend transaction is reachable', async (
   assert.deepEqual(importers, [],
     `agent-provider-execution is superseded; extend agent-worker-runtime instead. Wired from: ${importers.join(', ')}`);
 });
+
+test('a crash between dispatch and snapshot recovers instead of dispatching twice', async () => {
+  const { createGithubRelayTask, TASK_LABEL } = await import('../src/github-relay.mjs');
+  const { advanceAutonomyRun } = await import('../src/agent-autonomy-pump.mjs');
+
+  // The real failure: agent-autonomy-pump dispatches, and only afterwards does
+  // agent-autonomy-job persist the run carrying the relayRef. Everything
+  // between those two lines is a window in which the task exists and the run
+  // does not know it. This drops the post-dispatch run on the floor, exactly as
+  // a killed process would, and re-ticks from the last durable state.
+  const issues = new Map();
+  let nextIssue = 1;
+  const client = {
+    async createIssue({ title, body, labels = [] }) {
+      const number = nextIssue += 1;
+      const issue = { number, title, body, state: 'open', labels: labels.map(name => ({ name })), html_url: `https://x/${number}` };
+      issues.set(number, issue);
+      return issue;
+    },
+    async listIssues({ labels = [] }) {
+      return [...issues.values()].filter(issue =>
+        issue.state === 'open' && labels.every(want => issue.labels.some(label => label.name === want)));
+    }
+  };
+  const adapterFactory = () => ({
+    createTask: (task, date) => createGithubRelayTask({ client, owner: 'o', repo: 'r', input: task, date })
+  });
+
+  const store = memoryStore();
+  const { run } = await seedActiveRun(store);
+
+  const first = await advanceAutonomyRun({ run, adapterFactory, compileRelayTask: compileRelayTaskFromIntent });
+  assert.equal(first.transition, 'DISPATCHED');
+  assert.equal(issues.size, 1);
+
+  // Crash here. `first.run` is never persisted; the next tick reloads the run
+  // as it was before the dispatch.
+  const afterCrash = await advanceAutonomyRun({ run, adapterFactory, compileRelayTask: compileRelayTaskFromIntent });
+
+  assert.equal(afterCrash.ok, true);
+  assert.equal(afterCrash.transition, 'DISPATCHED');
+  assert.equal(issues.size, 1, 'the crashed dispatch must be recovered, not repeated');
+  assert.equal(afterCrash.run.relayRef.issueNumber, first.run.relayRef.issueNumber);
+  assert.equal(afterCrash.run.relayRef.taskId, first.run.relayRef.taskId);
+  assert.equal([...issues.values()][0].labels.some(label => label.name === TASK_LABEL), true);
+});

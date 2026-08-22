@@ -183,6 +183,15 @@ export async function runAgentMeshCycle({
     ...occurrenceIdentity
   });
   const cycleId = begun.cycleId;
+  if (begun.duplicate) {
+    return fail(['scheduler-occurrence-already-started-incomplete'], 'BLOCKED', {
+      cycleId,
+      cycleReceiptState: 'STARTED',
+      duplicateDelivery: true,
+      startedAt: begun.receipt?.startedAt || null,
+      at: timestamp(date)
+    });
+  }
 
   const firstSweep = await tickRuns({ store, adapterFactory, compileRelayTask, limit: boundedRunLimit, date });
   if (firstSweep?.ok === false) {

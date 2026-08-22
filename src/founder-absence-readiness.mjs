@@ -1,4 +1,6 @@
-export const FOUNDER_ABSENCE_POLICY_VERSION = 'founder-absence-readiness-2.0.0';
+import { listTerminalAgentMeshCycleReceipts } from './agent-mesh-cycle-receipts.mjs';
+
+export const FOUNDER_ABSENCE_POLICY_VERSION = 'founder-absence-readiness-2.1.0';
 
 const REQUIRED = Object.freeze([
   'durableState',
@@ -24,6 +26,8 @@ const EXTERNAL_PROOF_REQUIRED = new Set([
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const DEFAULT_MAX_PROOF_AGE_MS = 6 * 60 * 60 * 1000;
+const HEALTHY_CYCLE_STATUSES = new Set(['ADVANCED', 'IDLE']);
+const FAILED_CYCLE_STATUSES = new Set(['DEGRADED', 'BLOCKED']);
 
 function fail(reasonCodes) {
   return { ok: false, policyVersion: FOUNDER_ABSENCE_POLICY_VERSION, status: 'NOT_READY', reasonCodes: [...new Set(reasonCodes.filter(Boolean))] };
@@ -123,6 +127,82 @@ function evaluateObservationProof({ proof, targetDays, currentSourceCommit, curr
     requiredSpanMs,
     observedSpanMs: spanMs,
     minimumSuccessfulTicks
+  };
+}
+
+function ledgerHasEffects(ledger) {
+  if (!ledger || typeof ledger !== 'object' || Array.isArray(ledger)) return true;
+  const values = Object.values(ledger);
+  return values.some(value => typeof value !== 'number' || !Number.isFinite(value) || value !== 0);
+}
+
+function commonPolicyVersions(receipts) {
+  if (!receipts.length) return [];
+  const first = new Set(Array.isArray(receipts[0].policyVersions) ? receipts[0].policyVersions : []);
+  return [...first].filter(version => receipts.every(receipt => Array.isArray(receipt.policyVersions) && receipt.policyVersions.includes(version))).slice(0, 20);
+}
+
+export function deriveFounderAbsenceObservationProof({ receipts = [], openDeadLetters = 0 } = {}) {
+  const terminal = (Array.isArray(receipts) ? receipts : [])
+    .filter(receipt => receipt?.phase === 'TERMINAL')
+    .map(receipt => ({ ...receipt, startedAtMs: parseIso(receipt.startedAt), finishedAtMs: parseIso(receipt.finishedAt) }))
+    .filter(receipt => receipt.startedAtMs !== null && receipt.finishedAtMs !== null)
+    .sort((a, b) => a.finishedAtMs - b.finishedAtMs);
+
+  if (!terminal.length) {
+    return {
+      successfulTicks: 0,
+      failedTicks: 0,
+      recoveredTicks: 0,
+      unauthorizedEffects: 0,
+      openDeadLetters: nonNegativeInt(openDeadLetters),
+      sourceCommit: null,
+      policyVersions: []
+    };
+  }
+
+  const healthyIndexes = terminal
+    .map((receipt, index) => HEALTHY_CYCLE_STATUSES.has(String(receipt.status || '').toUpperCase()) ? index : -1)
+    .filter(index => index >= 0);
+  const failedIndexes = terminal
+    .map((receipt, index) => FAILED_CYCLE_STATUSES.has(String(receipt.status || '').toUpperCase()) ? index : -1)
+    .filter(index => index >= 0);
+  const recoveredTicks = failedIndexes.filter(index => healthyIndexes.some(healthyIndex => healthyIndex > index)).length;
+  const sourceCommits = [...new Set(terminal.map(receipt => String(receipt.sourceCommit || '').trim()).filter(Boolean))];
+  const unauthorizedEffects = terminal.filter(receipt => receipt.businessEffectAuthority !== 'NONE' || ledgerHasEffects(receipt.externalEffectLedger)).length;
+
+  return {
+    observedFrom: new Date(Math.min(...terminal.map(receipt => receipt.startedAtMs))).toISOString(),
+    observedThrough: new Date(Math.max(...terminal.map(receipt => receipt.finishedAtMs))).toISOString(),
+    freshnessAt: new Date(Math.max(...terminal.map(receipt => receipt.finishedAtMs))).toISOString(),
+    successfulTicks: healthyIndexes.length,
+    failedTicks: failedIndexes.length,
+    recoveredTicks,
+    unauthorizedEffects,
+    openDeadLetters: nonNegativeInt(openDeadLetters),
+    sourceCommit: sourceCommits.length === 1 ? sourceCommits[0] : null,
+    policyVersions: commonPolicyVersions(terminal)
+  };
+}
+
+export async function evaluateFounderAbsenceReadinessFromDurableHistory({
+  store,
+  historyLimit = 2000,
+  ...options
+} = {}) {
+  if (!store || typeof store.list !== 'function') return fail(['durable-history-list-store-required']);
+  const receipts = await listTerminalAgentMeshCycleReceipts({ store, limit: historyLimit });
+  const jobs = await store.list('jobs', { limit: 10000 });
+  const openDeadLetters = Array.isArray(jobs) ? jobs.filter(job => job?.status === 'dead-letter').length : 0;
+  const observationProof = deriveFounderAbsenceObservationProof({ receipts, openDeadLetters });
+  const result = evaluateFounderAbsenceReadiness({ ...options, observationProof });
+  return {
+    ...result,
+    durableHistory: {
+      terminalReceiptCount: receipts.length,
+      openDeadLetters,
+      source: 'agent_mesh_cycle_terminal'
+    }
   };
 }
 

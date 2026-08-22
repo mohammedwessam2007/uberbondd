@@ -358,7 +358,8 @@ export async function listTerminalAgentMeshCycleReceipts({ store, limit = 2000 }
 export async function countTerminalAgentMeshCycles({ store, occurrenceKeys = [] } = {}) {
   requireStore(store);
   let count = 0;
-  for (const occurrenceKey of [...new Set(occurrenceKeys.map(key => text(key, 300)).filter(Boolean))]) {
+  const uniqueKeys = [...new Set(occurrenceKeys.map(key => strictOccurrenceKey(key)))];
+  for (const occurrenceKey of uniqueKeys) {
     const state = await getAgentMeshCycleReceipt({ store, occurrenceKey });
     if (state.state === 'TERMINAL') count += 1;
   }

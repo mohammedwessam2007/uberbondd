@@ -1,8 +1,13 @@
 import { tickActiveAutonomyRuns } from './agent-autonomy-job.mjs';
 import { runAgentWorkerTick } from './agent-worker-job.mjs';
 import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
+import {
+  beginAgentMeshCycleReceipt,
+  finishAgentMeshCycleReceipt,
+  getAgentMeshCycleReceipt
+} from './agent-mesh-cycle-receipts.mjs';
 
-export const AGENT_MESH_CONTROL_PLANE_POLICY_VERSION = 'agent-mesh-control-plane-1.0.0';
+export const AGENT_MESH_CONTROL_PLANE_POLICY_VERSION = 'agent-mesh-control-plane-1.1.0';
 
 const MAX_WORKERS_PER_CYCLE = 4;
 const MAX_AUTONOMY_RUNS_PER_SWEEP = 10;
@@ -51,6 +56,16 @@ function workerReceipt(result, config) {
   };
 }
 
+function summarizeSweep(sweep) {
+  return sweep ? {
+    status: sweep.status || null,
+    runsConsidered: sweep.runsConsidered ?? null,
+    runsTicked: sweep.runsTicked ?? null,
+    failed: sweep.failed ?? null,
+    ok: sweep.ok !== false
+  } : null;
+}
+
 function classifyCycle({ firstSweep, workers, secondSweep }) {
   const uncertainWorker = workers.some(item => /UNCERTAIN|PENDING|BLOCKED|FAILED|VIOLATION|LOST/i.test(String(item.status || '')) || item.ok === false);
   const failedSweep = firstSweep?.ok === false || secondSweep?.ok === false;
@@ -60,15 +75,32 @@ function classifyCycle({ firstSweep, workers, secondSweep }) {
   return active > 0 ? 'ADVANCED' : 'IDLE';
 }
 
+function resultFromTerminalReceipt(receipt, { duplicateDelivery = false } = {}) {
+  return {
+    ok: receipt.status !== 'BLOCKED',
+    policyVersion: AGENT_MESH_CONTROL_PLANE_POLICY_VERSION,
+    status: receipt.status,
+    reasonCodes: receipt.reasonCodes || [],
+    cycleId: receipt.cycleId,
+    cycleReceiptState: 'TERMINAL',
+    duplicateDelivery,
+    firstSweep: receipt.firstSweep || null,
+    workers: receipt.workers || [],
+    secondSweep: receipt.secondSweep || null,
+    at: receipt.finishedAt || receipt.startedAt,
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EFFECTS }
+  };
+}
+
 // One finite cloud-scheduler cycle for the GPT ↔ UberBond ↔ Claude mesh.
-//
-// Sequence:
-// 1. pump a bounded number of autonomy runs so intents become relay tasks;
-// 2. run each explicitly configured model worker at most once;
-// 3. optionally pump once more so newly submitted results can be ingested.
-//
-// There is no forever loop. The scheduler owns repetition. The cycle is
-// disabled by default and carries no business-world consequence authority.
+// Every enabled invocation must carry a scheduler occurrence key. That identity
+// is persisted before any sweep or worker tick, so a killed process leaves a
+// durable STARTED record rather than allowing the absence of a return value to
+// masquerade as "nothing happened". Re-delivery of a terminal occurrence is a
+// read-only replay. Re-delivery of an incomplete STARTED occurrence fails
+// closed because repeating a provider-backed worker after an unknown crash
+// boundary could pay twice.
 export async function runAgentMeshCycle({
   enabled = false,
   store,
@@ -77,6 +109,8 @@ export async function runAgentMeshCycle({
   workers = [],
   autonomyRunLimit = 5,
   ingestAfterWorkers = true,
+  schedulerOccurrenceKey = '',
+  sourceCommit = null,
   date = new Date(),
   tickRuns = tickActiveAutonomyRuns,
   workerTick = runAgentWorkerTick
@@ -95,11 +129,13 @@ export async function runAgentMeshCycle({
 
   const reasons = [];
   if (!store || typeof store !== 'object') reasons.push('store-required');
+  if (store && (typeof store.get !== 'function' || typeof store.add !== 'function')) reasons.push('durable-cycle-receipt-store-required');
   if (typeof adapterFactory !== 'function') reasons.push('adapter-factory-required');
   if (typeof compileRelayTask !== 'function') reasons.push('relay-task-compiler-required');
   if (!Array.isArray(workers)) reasons.push('workers-array-required');
   if (typeof tickRuns !== 'function') reasons.push('autonomy-tick-function-required');
   if (typeof workerTick !== 'function') reasons.push('worker-tick-function-required');
+  if (!text(schedulerOccurrenceKey, 300)) reasons.push('scheduler-occurrence-key-required');
   if (reasons.length) return fail(reasons);
 
   const boundedRunLimit = Number.isSafeInteger(Number(autonomyRunLimit))
@@ -109,6 +145,31 @@ export async function runAgentMeshCycle({
   if (configuredWorkers.length !== workers.length) return fail(['worker-count-exceeds-cycle-cap']);
   if (configuredWorkers.some(worker => !validWorker(worker))) return fail(['invalid-worker-configuration']);
 
+  const existing = await getAgentMeshCycleReceipt({ store, occurrenceKey: schedulerOccurrenceKey });
+  if (existing.state === 'TERMINAL') {
+    return resultFromTerminalReceipt(existing.receipt, { duplicateDelivery: true });
+  }
+  if (existing.state === 'STARTED') {
+    return fail(['scheduler-occurrence-already-started-incomplete'], 'BLOCKED', {
+      cycleId: existing.cycleId,
+      cycleReceiptState: 'STARTED',
+      duplicateDelivery: true,
+      startedAt: existing.receipt?.startedAt || null,
+      at: timestamp(date)
+    });
+  }
+
+  const startedAt = timestamp(date);
+  const begun = await beginAgentMeshCycleReceipt({
+    store,
+    occurrenceKey: schedulerOccurrenceKey,
+    startedAt,
+    sourceCommit,
+    policyVersions: [AGENT_MESH_CONTROL_PLANE_POLICY_VERSION],
+    workers: configuredWorkers
+  });
+  const cycleId = begun.cycleId;
+
   const firstSweep = await tickRuns({
     store,
     adapterFactory,
@@ -117,12 +178,21 @@ export async function runAgentMeshCycle({
     date
   });
   if (firstSweep?.ok === false) {
-    return fail(firstSweep.reasonCodes || ['initial-autonomy-sweep-failed'], 'BLOCKED', {
+    const reasonCodes = firstSweep.reasonCodes || ['initial-autonomy-sweep-failed'];
+    const terminal = await finishAgentMeshCycleReceipt({
+      store,
+      cycleId,
+      startedAt,
+      finishedAt: date,
+      sourceCommit,
+      policyVersions: [AGENT_MESH_CONTROL_PLANE_POLICY_VERSION],
+      status: 'BLOCKED',
+      reasonCodes,
       firstSweep,
       workers: [],
-      secondSweep: null,
-      at: timestamp(date)
+      secondSweep: null
     });
+    return resultFromTerminalReceipt(terminal.receipt);
   }
 
   const workerResults = [];
@@ -164,25 +234,35 @@ export async function runAgentMeshCycle({
   }
 
   const status = classifyCycle({ firstSweep, workers: workerResults, secondSweep });
+  const reasonCodes = status === 'BLOCKED'
+    ? [...new Set([...(firstSweep?.reasonCodes || []), ...(secondSweep?.reasonCodes || [])])]
+    : [];
+  const terminal = await finishAgentMeshCycleReceipt({
+    store,
+    cycleId,
+    startedAt,
+    finishedAt: date,
+    sourceCommit,
+    policyVersions: [AGENT_MESH_CONTROL_PLANE_POLICY_VERSION],
+    status,
+    reasonCodes,
+    firstSweep,
+    workers: workerResults,
+    secondSweep
+  });
+
   return {
     ok: status !== 'BLOCKED',
     policyVersion: AGENT_MESH_CONTROL_PLANE_POLICY_VERSION,
     status,
-    firstSweep: {
-      status: firstSweep?.status || null,
-      runsConsidered: firstSweep?.runsConsidered ?? null,
-      runsTicked: firstSweep?.runsTicked ?? null,
-      failed: firstSweep?.failed ?? null
-    },
+    reasonCodes,
+    cycleId,
+    cycleReceiptState: 'TERMINAL',
+    duplicateDelivery: false,
+    firstSweep: summarizeSweep(firstSweep),
     workers: workerResults,
-    secondSweep: secondSweep ? {
-      status: secondSweep.status || null,
-      runsConsidered: secondSweep.runsConsidered ?? null,
-      runsTicked: secondSweep.runsTicked ?? null,
-      failed: secondSweep.failed ?? null,
-      ok: secondSweep.ok !== false
-    } : null,
-    at: timestamp(date),
+    secondSweep: summarizeSweep(secondSweep),
+    at: terminal.receipt.finishedAt,
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }
   };

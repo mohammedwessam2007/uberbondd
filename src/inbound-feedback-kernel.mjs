@@ -1,19 +1,11 @@
 import crypto from 'node:crypto';
 import { boundHeaders, parseInboundMime, classifyInboundEvent } from './inbound-classify.mjs';
+import { verifyProviderObservation } from './gmail-inbound.mjs';
+import { ZERO_EXTERNAL_EFFECTS as ZERO_EFFECTS } from './effect-ledger.mjs';
 
 export const INBOUND_FEEDBACK_POLICY_VERSION = 'inbound-feedback-kernel-1.0.0';
 export const INBOUND_EVIDENCE_CLASSES = Object.freeze(['UNVERIFIED_INPUT', 'TEST_FIXTURE', 'PROVIDER_OBSERVED']);
 
-const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 function text(value, max = 500) {
   return String(value ?? '').trim().slice(0, max);
@@ -34,9 +26,23 @@ function extractAddress(value) {
   const bare = source.match(/\b[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9.-]+\.[a-z]{2,}\b/i);
   return bare?.[0] || '';
 }
-function evidenceClass(value) {
+/**
+ * The evidence class an event is actually entitled to.
+ *
+ * PROVIDER_OBSERVED is the only class that earns a DIRECT edge in the causal
+ * graph, so it is the only one worth forging -- and it is therefore the one
+ * class a caller may not simply assert. It requires an attestation that only a
+ * reader which really fetched this message from this provider can mint. A
+ * request for it without that proof fails closed to UNVERIFIED_INPUT: the
+ * observation is still recorded, it just does not get to claim it was watched.
+ */
+function evidenceClass(value, { providerObservation, provider, providerMessageId } = {}) {
   const normalized = text(value, 80).toUpperCase() || 'UNVERIFIED_INPUT';
-  return INBOUND_EVIDENCE_CLASSES.includes(normalized) ? normalized : 'UNVERIFIED_INPUT';
+  const requested = INBOUND_EVIDENCE_CLASSES.includes(normalized) ? normalized : 'UNVERIFIED_INPUT';
+  if (requested !== 'PROVIDER_OBSERVED') return requested;
+  return verifyProviderObservation(providerObservation, { provider, providerMessageId })
+    ? 'PROVIDER_OBSERVED'
+    : 'UNVERIFIED_INPUT';
 }
 function refs(input = {}) {
   return {
@@ -88,7 +94,11 @@ export function compileInboundFeedbackEvent({
     threadId,
     category: classified.category,
     confidence: classified.confidence,
-    evidenceClass: evidenceClass(evidence),
+    evidenceClass: evidenceClass(evidence, {
+      providerObservation: message.providerObservation,
+      provider: normalizedProvider,
+      providerMessageId
+    }),
     routingRefs: route,
     privacy: {
       senderAddressHmac: hmac(fromAddress, privacyHmacKey),

@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { ZERO_EXTERNAL_EFFECTS as ZERO_EFFECTS } from './effect-ledger.mjs';
 
 export const CAUSAL_ATTRIBUTION_POLICY_VERSION = 'causal-attribution-spine-1.0.0';
 
@@ -14,16 +15,6 @@ const MAX_NODES = 1000;
 const MAX_EDGES = 3000;
 const MAX_REFS = 50;
 const MAX_TRACE_DEPTH = 32;
-const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 const EVIDENCE_REF = /^(evidence|audit|test|doc|outcome|signal|task|proposal|mission|receipt|payment|delivery|github|provider|experiment|offer|channel|target|action|response|checkout|retention):/i;
 
@@ -363,6 +354,98 @@ export function traceEconomicAttribution({ graph, economicNodeId, maxDepth = MAX
     traversedEdges: usedEdges.map(edge => ({ edgeId: edge.edgeId, sourceId: edge.sourceId, targetId: edge.targetId, relation: edge.relation, basis: edge.basis, confidence: edge.confidence })),
     attributionWarning: 'Ancestor inclusion does not allocate or causally assign the anchor payment. It records an evidence-backed association path only.',
     allocationAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EFFECTS }
+  };
+}
+
+
+// How an observed inbound reply becomes a node in this graph.
+//
+// The mapping is deliberately lossy in one direction: an inbound event's
+// evidence class caps the edge basis it can produce, and nothing a caller
+// passes can lift that cap. A message the provider actually handed us is
+// DIRECT; a payload somebody typed into a fixture is INFERRED, forever. That
+// is the whole boundary between "a customer replied" and "somebody says a
+// customer replied".
+const INBOUND_EVIDENCE_TO_EDGE_BASIS = Object.freeze({
+  PROVIDER_OBSERVED: 'DIRECT',
+  UNVERIFIED_INPUT: 'ATTRIBUTED',
+  TEST_FIXTURE: 'INFERRED'
+});
+
+// A reply proves someone read a message. It proves nothing about money, so an
+// inbound event may never mint a PAYMENT/RETENTION/ACCEPTANCE node -- those
+// come only from normalized cleared-payment receipts.
+const INBOUND_CATEGORY_TO_NODE_TYPE = Object.freeze({
+  REPLY: 'RESPONSE',
+  OUT_OF_OFFICE: 'RESPONSE',
+  BOUNCE: 'FAILURE',
+  COMPLAINT: 'FAILURE',
+  UNSUBSCRIBE: 'FAILURE',
+  AUTO_REPLY: 'RESPONSE',
+  UNKNOWN: 'RESPONSE'
+});
+
+/**
+ * Turn one compiled inbound feedback event into graph fragments.
+ *
+ * Returns nodes/edges in this module's own normalized shape, so the result can
+ * be handed straight to buildCausalAttributionGraph without a second, drifting
+ * translation living at the call site.
+ */
+export function inboundEventToAttributionFragment(event, { responseNodeId = '', occurredAt = '', evidenceRefs: extraRefs = [] } = {}) {
+  if (!event || typeof event !== 'object' || event.ok !== true || !event.eventId || !event.category) {
+    return failure(['valid-inbound-event-required']);
+  }
+  const basis = INBOUND_EVIDENCE_TO_EDGE_BASIS[text(event.evidenceClass, 80).toUpperCase()];
+  if (!basis) return failure(['known-inbound-evidence-class-required']);
+  const type = INBOUND_CATEGORY_TO_NODE_TYPE[text(event.category, 80).toUpperCase()] || 'RESPONSE';
+  const at = timestamp(occurredAt || event.observedAt);
+  if (!at) return failure(['response-time-required']);
+
+  const nodeId = text(responseNodeId, 240) || `response:${digest({ eventId: event.eventId }).slice(0, 24)}`;
+  // Inbound identifiers are prefixed so they satisfy the same evidence-ref
+  // grammar every other ref in this graph obeys. An unprefixed opaque id would
+  // simply be dropped, and the node would silently lose its provenance.
+  const refs = strings([
+    `response:${event.eventId}`,
+    event.eventDigest ? `evidence:${event.eventDigest}` : '',
+    ...(Array.isArray(extraRefs) ? extraRefs : [])
+  ]);
+
+  const node = normalizeAttributionNode({
+    nodeId,
+    type,
+    occurredAt: at,
+    truthLevel: event.evidenceClass,
+    evidenceRefs: refs,
+    entityRef: event.routingRefs?.prospectRef ? `target:${event.routingRefs.prospectRef}` : null
+  });
+  if (!node.ok) return node;
+
+  const edges = [];
+  const sendRef = text(event.routingRefs?.sendRef, 240);
+  if (sendRef) {
+    const edge = normalizeAttributionEdge({
+      sourceId: sendRef,
+      targetId: nodeId,
+      relation: 'RECEIVED_RESPONSE',
+      basis,
+      confidence: basis === 'DIRECT' ? 1 : basis === 'ATTRIBUTED' ? 0.7 : 0.25,
+      evidenceRefs: refs
+    });
+    if (!edge.ok) return edge;
+    edges.push(edge);
+  }
+
+  return {
+    ok: true,
+    policyVersion: CAUSAL_ATTRIBUTION_POLICY_VERSION,
+    nodes: [node],
+    edges,
+    edgeBasis: basis,
+    suppressionRecommended: ['BOUNCE', 'COMPLAINT', 'UNSUBSCRIBE'].includes(text(event.category, 80).toUpperCase()),
+    authorization: { allocation: 'DISABLED', spend: 'DISABLED', externalActions: 'DISABLED' },
     externalEffectLedger: { ...ZERO_EFFECTS }
   };
 }

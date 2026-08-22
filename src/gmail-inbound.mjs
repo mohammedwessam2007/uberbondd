@@ -1,3 +1,5 @@
+import { randomBytes, createHmac, timingSafeEqual } from 'node:crypto';
+import { Buffer } from 'node:buffer';
 import { encryptJson, decryptJson } from './crypto.mjs';
 
 export const INBOUND_SCOPES = Object.freeze(['https://www.googleapis.com/auth/gmail.readonly']);
@@ -120,6 +122,60 @@ export function boundMessageLimit(maxResults) {
   return Math.max(1, Math.min(500, Math.trunc(n)));
 }
 
+// Provider-observation attestation.
+//
+// Evidence class used to be a string the caller passed in, which meant
+// `evidence: 'PROVIDER_OBSERVED'` next to a hand-written message object was
+// enough to mint a DIRECT edge in the causal graph -- a fabricated reply
+// carrying the same weight as one Gmail actually delivered. Typing a string is
+// not an observation.
+//
+// So the class is now bound to a token only a real read path can produce. The
+// secret is generated per process and never leaves it: this is not a defence
+// against code running inside this process (nothing in-process can be), it is
+// the structural guarantee that PROVIDER_OBSERVED is reachable only by going
+// through a reader that actually fetched the message.
+const OBSERVATION_SECRET = randomBytes(32);
+const OBSERVATION_VERSION = 'gmail-inbound-observation-1';
+
+function observationTag({ provider, providerMessageId, fetchedAt }) {
+  return createHmac('sha256', OBSERVATION_SECRET)
+    .update(JSON.stringify([OBSERVATION_VERSION, provider, providerMessageId, fetchedAt]))
+    .digest('hex');
+}
+
+/** Mint an attestation for a message this process actually fetched. */
+export function attestProviderObservation({ provider = 'gmail', providerMessageId, fetchedAt } = {}) {
+  const id = String(providerMessageId ?? '').trim();
+  const at = fetchedAt instanceof Date ? fetchedAt.toISOString() : String(fetchedAt ?? '').trim();
+  if (!id || !at) return null;
+  const normalizedProvider = String(provider || 'gmail').trim().toLowerCase();
+  return Object.freeze({
+    version: OBSERVATION_VERSION,
+    provider: normalizedProvider,
+    providerMessageId: id,
+    fetchedAt: at,
+    tag: observationTag({ provider: normalizedProvider, providerMessageId: id, fetchedAt: at })
+  });
+}
+
+/** True only for an attestation this process minted for exactly this message. */
+export function verifyProviderObservation(attestation, { provider = 'gmail', providerMessageId } = {}) {
+  if (!attestation || typeof attestation !== 'object' || Array.isArray(attestation)) return false;
+  if (attestation.version !== OBSERVATION_VERSION) return false;
+  const normalizedProvider = String(provider || 'gmail').trim().toLowerCase();
+  if (attestation.provider !== normalizedProvider) return false;
+  if (attestation.providerMessageId !== String(providerMessageId ?? '').trim()) return false;
+  const expected = observationTag({
+    provider: attestation.provider,
+    providerMessageId: attestation.providerMessageId,
+    fetchedAt: attestation.fetchedAt
+  });
+  const actual = String(attestation.tag ?? '');
+  if (actual.length !== expected.length) return false;
+  return timingSafeEqual(Buffer.from(actual), Buffer.from(expected));
+}
+
 export function createGmailInboundReader(cfg = {}) {
   return Object.freeze({
     getProfile: (account, key, options = {}) => inboundGet(cfg, account, key, 'profile', options),
@@ -128,7 +184,20 @@ export function createGmailInboundReader(cfg = {}) {
       if (pageToken) params.pageToken = String(pageToken);
       return inboundGet(cfg, account, key, `messages?${new URLSearchParams(params)}`, options);
     },
-    getMessage: (account, key, id, options = {}) => inboundGet(cfg, account, key, `messages/${encodeURIComponent(id)}?format=full`, options)
+    getMessage: async (account, key, id, options = {}) => {
+      const message = await inboundGet(cfg, account, key, `messages/${encodeURIComponent(id)}?format=full`, options);
+      if (!message || typeof message !== 'object') return message;
+      // The attestation rides with the message it belongs to, so a caller
+      // cannot pair one message's proof with another message's content.
+      return {
+        ...message,
+        providerObservation: attestProviderObservation({
+          provider: 'gmail',
+          providerMessageId: String(message.id ?? id),
+          fetchedAt: new Date()
+        })
+      };
+    }
   });
 }
 

@@ -25,6 +25,7 @@ function proof(overrides = {}) {
     recoveredTicks: 2,
     unauthorizedEffects: 0,
     openDeadLetters: 0,
+    abandonedCycles: 0,
     sourceCommit: 'abc123',
     policyVersions: ['mesh-policy-1'],
     ...overrides
@@ -93,6 +94,12 @@ test('stale proof invalidates otherwise sufficient observation window', () => {
 test('unauthorized effects or unresolved dead letters fail closed regardless of score', () => {
   const effects = evaluateFounderAbsenceReadiness({ ...COMMON, targetDays: 7, observationProof: proof({ unauthorizedEffects: 1 }) });
   const deadLetters = evaluateFounderAbsenceReadiness({ ...COMMON, targetDays: 7, observationProof: proof({ openDeadLetters: 1 }) });
+  const abandoned = evaluateFounderAbsenceReadiness({ ...COMMON, targetDays: 7, observationProof: proof({ abandonedCycles: 1 }) });
+  assert.notEqual(abandoned.status, 'KILIMANJARO_READY');
+  assert.ok(abandoned.observationProof.reasonCodes.includes('abandoned-mesh-cycles-present'));
+  const unstated = evaluateFounderAbsenceReadiness({ ...COMMON, targetDays: 7, observationProof: proof({ abandonedCycles: undefined }) });
+  assert.notEqual(unstated.status, 'KILIMANJARO_READY');
+  assert.ok(unstated.observationProof.reasonCodes.includes('abandoned-cycle-count-required'));
   assert.notEqual(effects.status, 'KILIMANJARO_READY');
   assert.notEqual(deadLetters.status, 'KILIMANJARO_READY');
   assert.ok(effects.observationProof.reasonCodes.includes('unauthorized-effects-observed'));

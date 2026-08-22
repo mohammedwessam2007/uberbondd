@@ -5,10 +5,11 @@ import {
   beginAgentMeshCycleReceipt,
   finishAgentMeshCycleReceipt,
   getAgentMeshCycleReceipt,
+  reconcileAbandonedAgentMeshCycles,
   supportsAgentMeshCycleReceipts
 } from './agent-mesh-cycle-receipts.mjs';
 
-export const AGENT_MESH_CONTROL_PLANE_POLICY_VERSION = 'agent-mesh-control-plane-1.2.0';
+export const AGENT_MESH_CONTROL_PLANE_POLICY_VERSION = 'agent-mesh-control-plane-1.3.0';
 
 const MAX_WORKERS_PER_CYCLE = 4;
 const MAX_AUTONOMY_RUNS_PER_SWEEP = 10;
@@ -76,8 +77,9 @@ function classifyCycle({ firstSweep, workers, secondSweep }) {
   return active > 0 ? 'ADVANCED' : 'IDLE';
 }
 
-function resultFromTerminalReceipt(receipt, { duplicateDelivery = false } = {}) {
+function resultFromTerminalReceipt(receipt, { duplicateDelivery = false, abandonedReconciled = 0 } = {}) {
   return {
+    abandonedCyclesReconciled: abandonedReconciled,
     ok: receipt.status !== 'BLOCKED',
     policyVersion: AGENT_MESH_CONTROL_PLANE_POLICY_VERSION,
     status: receipt.status,
@@ -104,6 +106,7 @@ export async function runAgentMeshCycle({
   ingestAfterWorkers = true,
   schedulerOccurrenceKey = '',
   sourceCommit = null,
+  abandonedCycleAfterMs = 60 * 60 * 1000,
   date = new Date(),
   tickRuns = tickActiveAutonomyRuns,
   workerTick = runAgentWorkerTick
@@ -173,6 +176,28 @@ export async function runAgentMeshCycle({
       startedAt: existing.receipt?.startedAt || null,
       at: timestamp(date)
     });
+  }
+
+  // Before starting a new cycle, write down the ones that died in a previous
+  // one. An abandoned STARTED receipt is a crash nobody recorded, and readiness
+  // refuses to certify while any are outstanding -- so this has to happen on
+  // the scheduler's own path, not on an operator remembering to run it. It
+  // replays no work; it only records that the work never finished.
+  let abandonedReconciliation = { abandonedFound: 0, reconciled: [] };
+  if (typeof store.list === 'function') {
+    try {
+      abandonedReconciliation = await reconcileAbandonedAgentMeshCycles({
+        store,
+        now: date,
+        abandonedAfterMs: abandonedCycleAfterMs
+      });
+    } catch (error) {
+      // A cycle that cannot reconcile old crashes must not silently proceed as
+      // though there were none: the history it is about to add to is unsound.
+      return fail(['abandoned-cycle-reconciliation-failed', text(error?.message, 300)], 'BLOCKED', {
+        at: timestamp(date)
+      });
+    }
   }
 
   const startedAt = timestamp(date);
@@ -250,6 +275,7 @@ export async function runAgentMeshCycle({
     cycleId,
     cycleReceiptState: 'TERMINAL',
     duplicateDelivery: false,
+    abandonedCyclesReconciled: abandonedReconciliation.abandonedFound,
     firstSweep: summarizeSweep(firstSweep),
     workers: workerResults,
     secondSweep: summarizeSweep(secondSweep),

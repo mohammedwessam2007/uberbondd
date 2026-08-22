@@ -363,6 +363,83 @@ export async function listTerminalAgentMeshCycleReceipts({ store, limit = 2000 }
     .sort((a, b) => Date.parse(a.finishedAt || a.startedAt || 0) - Date.parse(b.finishedAt || b.startedAt || 0));
 }
 
+// A cycle that wrote STARTED and never wrote TERMINAL is a cycle the process
+// died inside. Fail-closed already covers the dangerous half: that occurrence
+// can never be re-delivered, so no consequence happens twice. The other half
+// was silent. Founder-absence readiness counts terminal receipts, so a crashed
+// cycle simply was not there -- a mesh that dies every other tick could still
+// present an unbroken run of healthy cycles and certify a seven-day absence.
+//
+// These two functions make the crash legible: one finds abandoned cycles, the
+// other converts them into durable DEGRADED terminal receipts so the history
+// records the failure that actually happened. Terminalizing an abandoned cycle
+// replays no work; it only writes down that the work never finished.
+const DEFAULT_ABANDONED_AFTER_MS = 60 * 60 * 1000;
+
+export async function listStartedAgentMeshCycleReceipts({ store, limit = 2000 } = {}) {
+  requireStore(store);
+  if (typeof store.list !== 'function') throw new Error('cycle-receipt-history-list-required');
+  const boundedLimit = Number.isSafeInteger(limit) ? Math.max(1, Math.min(10000, limit)) : 2000;
+  const rows = await store.list('auditLog', { filters: { type: START_TYPE }, limit: boundedLimit });
+  return rows
+    .filter(row => row?.detail?.phase === 'STARTED' && /^meshcycle_[a-f0-9]{32}$/.test(text(row.detail.cycleId, 80)))
+    .map(row => structuredClone(row.detail))
+    .sort((a, b) => Date.parse(a.startedAt || 0) - Date.parse(b.startedAt || 0));
+}
+
+export async function findAbandonedAgentMeshCycles({
+  store,
+  now = new Date(),
+  abandonedAfterMs = DEFAULT_ABANDONED_AFTER_MS,
+  limit = 2000
+} = {}) {
+  requireStore(store);
+  const horizonMs = Number.isSafeInteger(abandonedAfterMs) && abandonedAfterMs > 0
+    ? abandonedAfterMs
+    : DEFAULT_ABANDONED_AFTER_MS;
+  const nowMs = Date.parse(iso(now));
+  const started = await listStartedAgentMeshCycleReceipts({ store, limit });
+  const terminal = await listTerminalAgentMeshCycleReceipts({ store, limit });
+  const terminalIds = new Set(terminal.map(receipt => text(receipt.cycleId, 80)));
+  return started.filter(receipt => {
+    if (terminalIds.has(text(receipt.cycleId, 80))) return false;
+    const startedAtMs = Date.parse(receipt.startedAt || '');
+    // A cycle still inside its horizon is presumed running, not abandoned.
+    return Number.isFinite(startedAtMs) && nowMs - startedAtMs > horizonMs;
+  });
+}
+
+export async function reconcileAbandonedAgentMeshCycles({
+  store,
+  now = new Date(),
+  abandonedAfterMs = DEFAULT_ABANDONED_AFTER_MS,
+  limit = 2000
+} = {}) {
+  const abandoned = await findAbandonedAgentMeshCycles({ store, now, abandonedAfterMs, limit });
+  const reconciled = [];
+  for (const receipt of abandoned) {
+    const finished = await finishAgentMeshCycleReceipt({
+      store,
+      cycleId: receipt.cycleId,
+      startedAt: receipt.startedAt,
+      finishedAt: now,
+      sourceCommit: receipt.sourceCommit,
+      policyVersions: receipt.policyVersions,
+      status: 'DEGRADED',
+      reasonCodes: ['cycle-abandoned-before-terminal'],
+      firstSweep: null,
+      workers: [],
+      secondSweep: null
+    });
+    reconciled.push({ cycleId: receipt.cycleId, duplicate: finished.duplicate });
+  }
+  return {
+    policyVersion: AGENT_MESH_CYCLE_RECEIPT_VERSION,
+    abandonedFound: abandoned.length,
+    reconciled
+  };
+}
+
 export async function countTerminalAgentMeshCycles({ store, occurrenceKeys = [] } = {}) {
   requireStore(store);
   let count = 0;

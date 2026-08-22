@@ -310,15 +310,104 @@ test('morning summary never infers revenue from agent activity', () => {
   assert.equal(summary.claimBoundary.commercialRevenue, 'NOT_INFERRED');
 });
 
-test('founder absence readiness requires live external proof for Kilimanjaro', () => {
+function absenceCapabilities() {
   const caps = {};
   for (const name of ['durableState','scheduler','agentRelay','agentWorkers','boundedBudgets','staleRecovery','truthReceipts','killSwitch','paymentObservation','deliveryObservation','ownerEscalationQueue']) {
     caps[name] = { status: 'VERIFIED_LIVE', evidenceRefs: [`receipt:${name}`], externallyVerified: true };
   }
-  const ready = evaluateFounderAbsenceReadiness({ capabilities: caps, targetDays: 7 });
+  return caps;
+}
+
+// A seven-day observation window that actually spans seven days, ends now, and
+// was produced by the code and policy currently running.
+function sevenDayProof(now, { sourceCommit = 'deadbee', policyVersions = ['agent-mesh-control-plane-1.2.0'] } = {}) {
+  const end = new Date(now.getTime() - 60_000);
+  return {
+    observedFrom: new Date(end.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+    observedThrough: end.toISOString(),
+    freshnessAt: end.toISOString(),
+    successfulTicks: 20,
+    failedTicks: 0,
+    recoveredTicks: 0,
+    unauthorizedEffects: 0,
+    openDeadLetters: 0,
+    abandonedCycles: 0,
+    sourceCommit,
+    policyVersions
+  };
+}
+
+test('founder absence readiness requires live external proof for Kilimanjaro', () => {
+  const now = new Date('2026-08-23T00:00:00.000Z');
+  const caps = absenceCapabilities();
+  const ready = evaluateFounderAbsenceReadiness({
+    capabilities: caps, targetDays: 7, now,
+    currentSourceCommit: 'deadbee',
+    currentPolicyVersions: ['agent-mesh-control-plane-1.2.0'],
+    observationProof: sevenDayProof(now)
+  });
   assert.equal(ready.status, 'KILIMANJARO_READY');
+
   caps.scheduler.externallyVerified = false;
-  const notReady = evaluateFounderAbsenceReadiness({ capabilities: caps, targetDays: 7 });
+  const notReady = evaluateFounderAbsenceReadiness({
+    capabilities: caps, targetDays: 7, now,
+    currentSourceCommit: 'deadbee',
+    currentPolicyVersions: ['agent-mesh-control-plane-1.2.0'],
+    observationProof: sevenDayProof(now)
+  });
   assert.notEqual(notReady.status, 'KILIMANJARO_READY');
   assert.ok(notReady.externalProofMissing.includes('scheduler'));
+});
+
+test('every capability verified is not by itself a seven-day absence proof', () => {
+  // This is the shape the old assertion had: eleven capability booleans and
+  // nothing else. It used to reach KILIMANJARO_READY, which is how a one-hour
+  // rehearsal could certify a seven-day absence.
+  const readiness = evaluateFounderAbsenceReadiness({
+    capabilities: absenceCapabilities(),
+    targetDays: 7,
+    now: new Date('2026-08-23T00:00:00.000Z')
+  });
+  assert.notEqual(readiness.status, 'KILIMANJARO_READY');
+  assert.equal(readiness.status, 'MULTI_DAY_REHEARSAL_READY');
+  assert.equal(readiness.observationProof.valid, false);
+  assert.ok(readiness.observationProof.reasonCodes.includes('observation-start-required'));
+});
+
+test('a one-hour window cannot certify a seven-day absence', () => {
+  const now = new Date('2026-08-23T00:00:00.000Z');
+  const end = new Date(now.getTime() - 60_000);
+  const readiness = evaluateFounderAbsenceReadiness({
+    capabilities: absenceCapabilities(),
+    targetDays: 7,
+    now,
+    currentSourceCommit: 'deadbee',
+    currentPolicyVersions: ['agent-mesh-control-plane-1.2.0'],
+    observationProof: {
+      ...sevenDayProof(now),
+      observedFrom: new Date(end.getTime() - 60 * 60 * 1000).toISOString()
+    }
+  });
+  assert.notEqual(readiness.status, 'KILIMANJARO_READY');
+  assert.ok(readiness.observationProof.reasonCodes.includes('observation-window-shorter-than-target-days'));
+});
+
+test('raising targetDays invalidates a window that satisfied a smaller target', () => {
+  const now = new Date('2026-08-23T00:00:00.000Z');
+  const proof = sevenDayProof(now);
+  const atSeven = evaluateFounderAbsenceReadiness({
+    capabilities: absenceCapabilities(), targetDays: 7, now,
+    currentSourceCommit: 'deadbee',
+    currentPolicyVersions: ['agent-mesh-control-plane-1.2.0'],
+    observationProof: proof
+  });
+  assert.equal(atSeven.status, 'KILIMANJARO_READY');
+  const atFourteen = evaluateFounderAbsenceReadiness({
+    capabilities: absenceCapabilities(), targetDays: 14, now,
+    currentSourceCommit: 'deadbee',
+    currentPolicyVersions: ['agent-mesh-control-plane-1.2.0'],
+    observationProof: proof
+  });
+  assert.notEqual(atFourteen.status, 'KILIMANJARO_READY');
+  assert.ok(atFourteen.observationProof.reasonCodes.includes('observation-window-shorter-than-target-days'));
 });

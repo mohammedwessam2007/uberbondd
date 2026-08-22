@@ -1,6 +1,9 @@
-import { listTerminalAgentMeshCycleReceipts } from './agent-mesh-cycle-receipts.mjs';
+import {
+  findAbandonedAgentMeshCycles,
+  listTerminalAgentMeshCycleReceipts
+} from './agent-mesh-cycle-receipts.mjs';
 
-export const FOUNDER_ABSENCE_POLICY_VERSION = 'founder-absence-readiness-2.1.0';
+export const FOUNDER_ABSENCE_POLICY_VERSION = 'founder-absence-readiness-2.2.0';
 
 const REQUIRED = Object.freeze([
   'durableState',
@@ -79,6 +82,7 @@ function normalizeObservationProof(input = {}) {
     recoveredTicks: nonNegativeInt(input.recoveredTicks),
     unauthorizedEffects: nonNegativeInt(input.unauthorizedEffects),
     openDeadLetters: nonNegativeInt(input.openDeadLetters),
+    abandonedCycles: nonNegativeInt(input.abandonedCycles),
     sourceCommit,
     policyVersions
   };
@@ -94,6 +98,7 @@ function evaluateObservationProof({ proof, targetDays, currentSourceCommit, curr
   if (proof.recoveredTicks === null) reasonCodes.push('recovered-ticks-required');
   if (proof.unauthorizedEffects === null) reasonCodes.push('unauthorized-effects-required');
   if (proof.openDeadLetters === null) reasonCodes.push('open-dead-letters-required');
+  if (proof.abandonedCycles === null) reasonCodes.push('abandoned-cycle-count-required');
   if (!proof.sourceCommit) reasonCodes.push('proof-source-commit-required');
 
   const requiredSpanMs = targetDays * DAY_MS;
@@ -108,6 +113,10 @@ function evaluateObservationProof({ proof, targetDays, currentSourceCommit, curr
   if (proof.failedTicks !== null && proof.recoveredTicks !== null && proof.recoveredTicks < proof.failedTicks) reasonCodes.push('unrecovered-failed-ticks-present');
   if (proof.unauthorizedEffects !== null && proof.unauthorizedEffects !== 0) reasonCodes.push('unauthorized-effects-observed');
   if (proof.openDeadLetters !== null && proof.openDeadLetters !== 0) reasonCodes.push('open-dead-letters-present');
+  // A cycle that started and never terminalized is a crash nobody wrote down.
+  // Until it is reconciled into a recorded failure it is not evidence of
+  // anything, and it certainly is not evidence of an unbroken run.
+  if (proof.abandonedCycles !== null && proof.abandonedCycles !== 0) reasonCodes.push('abandoned-mesh-cycles-present');
 
   if (proof.freshnessAtMs !== null) {
     if (proof.freshnessAtMs > nowMs + 5 * 60 * 1000) reasonCodes.push('proof-freshness-in-future');
@@ -158,7 +167,7 @@ function currentIdentitySuffix(receipts, currentSourceCommit, currentPolicyVersi
   return receipts.slice(start);
 }
 
-export function deriveFounderAbsenceObservationProof({ receipts = [], openDeadLetters = 0 } = {}) {
+export function deriveFounderAbsenceObservationProof({ receipts = [], openDeadLetters = 0, abandonedCycles = 0 } = {}) {
   const terminal = (Array.isArray(receipts) ? receipts : [])
     .filter(receipt => receipt?.phase === 'TERMINAL')
     .map(receipt => ({ ...receipt, startedAtMs: parseIso(receipt.startedAt), finishedAtMs: parseIso(receipt.finishedAt) }))
@@ -172,6 +181,7 @@ export function deriveFounderAbsenceObservationProof({ receipts = [], openDeadLe
       recoveredTicks: 0,
       unauthorizedEffects: 0,
       openDeadLetters: nonNegativeInt(openDeadLetters),
+      abandonedCycles: nonNegativeInt(abandonedCycles),
       sourceCommit: null,
       policyVersions: []
     };
@@ -196,6 +206,7 @@ export function deriveFounderAbsenceObservationProof({ receipts = [], openDeadLe
     recoveredTicks,
     unauthorizedEffects,
     openDeadLetters: nonNegativeInt(openDeadLetters),
+    abandonedCycles: nonNegativeInt(abandonedCycles),
     sourceCommit: sourceCommits.length === 1 ? sourceCommits[0] : null,
     policyVersions: commonPolicyVersions(terminal)
   };
@@ -206,6 +217,7 @@ export async function evaluateFounderAbsenceReadinessFromDurableHistory({
   historyLimit = 2000,
   currentSourceCommit = null,
   currentPolicyVersions = [],
+  abandonedAfterMs = 60 * 60 * 1000,
   ...options
 } = {}) {
   if (!store || typeof store.list !== 'function') return fail(['durable-history-list-store-required']);
@@ -215,7 +227,17 @@ export async function evaluateFounderAbsenceReadinessFromDurableHistory({
   const qualifyingReceipts = currentIdentitySuffix(receipts, source, currentPolicyVersions);
   const jobs = await store.list('jobs', { limit: 10000 });
   const openDeadLetters = Array.isArray(jobs) ? jobs.filter(job => job?.status === 'dead-letter').length : 0;
-  const observationProof = deriveFounderAbsenceObservationProof({ receipts: qualifyingReceipts, openDeadLetters });
+  const abandoned = await findAbandonedAgentMeshCycles({
+    store,
+    now: options.now || new Date(),
+    abandonedAfterMs,
+    limit: historyLimit
+  });
+  const observationProof = deriveFounderAbsenceObservationProof({
+    receipts: qualifyingReceipts,
+    openDeadLetters,
+    abandonedCycles: abandoned.length
+  });
   const result = evaluateFounderAbsenceReadiness({
     ...options,
     currentSourceCommit: source,
@@ -228,6 +250,8 @@ export async function evaluateFounderAbsenceReadinessFromDurableHistory({
       terminalReceiptCount: receipts.length,
       qualifyingTerminalReceiptCount: qualifyingReceipts.length,
       openDeadLetters,
+      abandonedCycles: abandoned.length,
+      abandonedCycleIds: abandoned.map(receipt => receipt.cycleId).slice(0, 20),
       source: 'agent_mesh_cycle_terminal'
     }
   };
@@ -292,6 +316,7 @@ export function evaluateFounderAbsenceReadiness({
       recoveredTicks: proof.recoveredTicks,
       unauthorizedEffects: proof.unauthorizedEffects,
       openDeadLetters: proof.openDeadLetters,
+      abandonedCycles: proof.abandonedCycles,
       sourceCommit: proof.sourceCommit,
       policyVersions: proof.policyVersions,
       observedSpanMs: durationGate.observedSpanMs,

@@ -76,6 +76,7 @@ test('durable history can certify duration without caller-supplied aggregate pro
   assert.equal(result.status, 'KILIMANJARO_READY');
   assert.equal(result.observationProof.successfulTicks, 8);
   assert.equal(result.durableHistory.terminalReceiptCount, 8);
+  assert.equal(result.durableHistory.qualifyingTerminalReceiptCount, 8);
 });
 
 test('two distant receipts cannot fake seven days without repeated successful cycles', async () => {
@@ -87,18 +88,35 @@ test('two distant receipts cannot fake seven days without repeated successful cy
   assert.ok(result.observationProof.reasonCodes.includes('insufficient-repeated-successful-ticks'));
 });
 
-test('mixed source commits in durable history fail closed instead of picking the newest identity', async () => {
+test('a code upgrade resets the proven absence interval instead of mixing old and current receipts', async () => {
   const store = memoryStore();
-  for (let day = 0; day <= 7; day += 1) {
+  await addTerminal(store, { occurrenceKey: 'old-code', at: '2026-08-15T12:00:00.000Z', sourceCommit: 'old456' });
+  for (let day = 1; day <= 7; day += 1) {
     await addTerminal(store, {
-      occurrenceKey: `mixed:${day}`,
-      at: new Date(Date.UTC(2026, 7, 15 + day, 12, 0, 0)).toISOString(),
-      sourceCommit: day === 0 ? 'old456' : 'abc123'
+      occurrenceKey: `new-code:${day}`,
+      at: new Date(Date.UTC(2026, 7, 15 + day, 12, 0, 0)).toISOString()
     });
   }
   const result = await evaluateFounderAbsenceReadinessFromDurableHistory({ store, ...COMMON });
   assert.notEqual(result.status, 'KILIMANJARO_READY');
-  assert.ok(result.observationProof.reasonCodes.includes('proof-source-commit-required'));
+  assert.equal(result.durableHistory.terminalReceiptCount, 8);
+  assert.equal(result.durableHistory.qualifyingTerminalReceiptCount, 7);
+  assert.ok(result.observationProof.reasonCodes.includes('observation-window-shorter-than-target-days'));
+});
+
+test('old-code history does not poison a complete fresh interval on the current source', async () => {
+  const store = memoryStore();
+  await addTerminal(store, { occurrenceKey: 'old-code', at: '2026-08-14T12:00:00.000Z', sourceCommit: 'old456' });
+  for (let day = 0; day <= 7; day += 1) {
+    await addTerminal(store, {
+      occurrenceKey: `fresh:${day}`,
+      at: new Date(Date.UTC(2026, 7, 15 + day, 12, 0, 0)).toISOString()
+    });
+  }
+  const result = await evaluateFounderAbsenceReadinessFromDurableHistory({ store, ...COMMON });
+  assert.equal(result.status, 'KILIMANJARO_READY');
+  assert.equal(result.durableHistory.terminalReceiptCount, 9);
+  assert.equal(result.durableHistory.qualifyingTerminalReceiptCount, 8);
 });
 
 test('open durable dead-letter jobs block readiness even when cycle history is otherwise healthy', async () => {
@@ -132,6 +150,21 @@ test('tampered non-zero effect ledger in durable history blocks readiness', asyn
   assert.ok(result.observationProof.reasonCodes.includes('unauthorized-effects-observed'));
 });
 
+test('missing effect ledger is treated as unsafe rather than as zero effects', async () => {
+  const store = memoryStore();
+  for (let day = 0; day <= 7; day += 1) {
+    await addTerminal(store, {
+      occurrenceKey: `missing-ledger:${day}`,
+      at: new Date(Date.UTC(2026, 7, 15 + day, 12, 0, 0)).toISOString()
+    });
+  }
+  const terminalRow = store.rows.auditLog.find(row => row.type === 'agent_mesh_cycle_terminal');
+  delete terminalRow.detail.externalEffectLedger;
+  const result = await evaluateFounderAbsenceReadinessFromDurableHistory({ store, ...COMMON });
+  assert.notEqual(result.status, 'KILIMANJARO_READY');
+  assert.equal(result.observationProof.unauthorizedEffects, 1);
+});
+
 test('latest degraded cycle remains unrecovered and blocks readiness', async () => {
   const store = memoryStore();
   for (let day = 0; day < 7; day += 1) {
@@ -146,4 +179,16 @@ test('latest degraded cycle remains unrecovered and blocks readiness', async () 
   assert.equal(result.observationProof.failedTicks, 1);
   assert.equal(result.observationProof.recoveredTicks, 0);
   assert.ok(result.observationProof.reasonCodes.includes('unrecovered-failed-ticks-present'));
+});
+
+test('durable-history path refuses to certify without current source identity', async () => {
+  const store = memoryStore();
+  const result = await evaluateFounderAbsenceReadinessFromDurableHistory({
+    store,
+    capabilities: liveCapabilities(),
+    targetDays: 7,
+    now: COMMON.now
+  });
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('current-source-commit-required-for-durable-history'));
 });

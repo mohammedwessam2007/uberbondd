@@ -91,3 +91,26 @@ test('registered session history persists the immutable constraint snapshot for 
   assert.deepEqual(created.constraints, parent.constraints);
   assert.equal(created.consequenceClass, 'LOCAL_PREPARATION');
 });
+
+test('constraint saturation fails closed instead of silently dropping a new child restriction', () => {
+  const custom = Array.from({ length: 62 }, (_, index) => `restriction:${index}`);
+  const { session, parent } = setup(custom);
+  assert.equal(parent.constraints.length, 64);
+  const ingested = ingestAgentResult({
+    session,
+    taskIntent: parent,
+    result: {
+      businessEffectLedger: ZERO,
+      coordination: {
+        action: 'REPAIR_REQUIRED',
+        objective: 'add one more restriction safely',
+        acceptanceTests: ['node --test'],
+        constraints: ['restriction:novel']
+      }
+    }
+  });
+  assert.equal(ingested.ok, true);
+  assert.equal(ingested.status, 'BLOCKED');
+  assert.equal(ingested.nextIntent, null);
+  assert.ok(ingested.reasonCodes.includes('parent-constraint-inheritance-failed'));
+});

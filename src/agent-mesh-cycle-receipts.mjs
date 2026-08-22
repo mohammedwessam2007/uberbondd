@@ -1,13 +1,21 @@
 import crypto from 'node:crypto';
 import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 
-export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.4.0';
+export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.5.0';
 const START_TYPE = 'agent_mesh_cycle_started';
 const TERMINAL_TYPE = 'agent_mesh_cycle_terminal';
 const TERMINAL_STATUSES = new Set(['ADVANCED', 'IDLE', 'DEGRADED', 'BLOCKED']);
+const MAX_OCCURRENCE_KEY_LENGTH = 300;
 
 function text(value, max = 240) {
   return String(value ?? '').trim().slice(0, max);
+}
+
+function strictOccurrenceKey(value) {
+  const key = String(value ?? '').trim();
+  if (!key) throw new Error('scheduler-occurrence-key-required');
+  if (key.length > MAX_OCCURRENCE_KEY_LENGTH) throw new Error('scheduler-occurrence-key-too-long');
+  return key;
 }
 
 function iso(value) {
@@ -69,7 +77,8 @@ function normalizedConfiguration(configuration = {}) {
 }
 
 function cycleIdentity({ occurrenceKey, sourceCommit = null, policyVersions = [], workers = [], configuration = {} } = {}) {
-  const occurrenceKeyHash = crypto.createHash('sha256').update(text(occurrenceKey, 300)).digest('hex');
+  const normalizedOccurrenceKey = strictOccurrenceKey(occurrenceKey);
+  const occurrenceKeyHash = crypto.createHash('sha256').update(normalizedOccurrenceKey).digest('hex');
   const identity = {
     occurrenceKeyHash,
     sourceCommit: text(sourceCommit, 80) || null,
@@ -134,8 +143,7 @@ function requireStore(store) {
 }
 
 export function deriveAgentMeshCycleId(occurrenceKey) {
-  const key = text(occurrenceKey, 300);
-  if (!key) throw new Error('scheduler-occurrence-key-required');
+  const key = strictOccurrenceKey(occurrenceKey);
   return `meshcycle_${crypto.createHash('sha256').update(key).digest('hex').slice(0, 32)}`;
 }
 
@@ -175,10 +183,6 @@ async function appendOrRecoverDuplicate(store, {
     const row = await append(store, type, cycleId, phase, detail, createdAt);
     return { duplicate: false, row };
   } catch (error) {
-    // Two scheduler deliveries can both observe ABSENT before either writes.
-    // Recover only when the exact deterministic record now exists, belongs to
-    // the same immutable occurrence identity, and (for terminal receipts)
-    // reports the same semantic outcome. Contradictory winners fail closed.
     if (typeof store.get === 'function' && typeof store.add === 'function') {
       const raced = await lookup(store, type, cycleId, phase);
       if (raced) {

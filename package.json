@@ -42,7 +42,8 @@
     "smoke:services": "node scripts/separate-services-smoke.mjs",
     "smoke:outbound": "node scripts/outbound-safety-smoke.mjs",
     "probes:outbound": "node scripts/outbound-probes.mjs",
-    "test:postgres-gate": "node scripts/run-postgres-gate.mjs"
+    "test:postgres-gate": "node scripts/run-postgres-gate.mjs",
+    "reachability": "node scripts/reachability-audit.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

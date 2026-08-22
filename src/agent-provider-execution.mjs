@@ -1,3 +1,19 @@
+// SUPERSEDED. The canonical bounded model-invocation transaction is
+// agent-worker-runtime.mjs (executeAgentWorkerTask), which is what
+// agent-worker-job and therefore the whole mesh actually calls.
+//
+// This module implements the same reserve -> invoke -> commit transaction and
+// the same uncertainty rule, and has no non-test importers. The runtime does
+// everything this does plus durable persistence hooks, relay lease
+// heartbeating, and execution-record writes.
+//
+// It is kept rather than deleted because it is the clearest small statement of
+// the compute-safety rule below, and tests/provider-execution.test.mjs pins
+// that rule independently of the larger runtime. Do not wire it into a running
+// path: two live implementations of "spend money" is precisely the shape that
+// produces a double charge, and tests/agent-mesh-entry-point.test.mjs asserts
+// this one stays unreachable. Extend agent-worker-runtime.mjs instead.
+
 import {
   reserveCompute,
   commitCompute,

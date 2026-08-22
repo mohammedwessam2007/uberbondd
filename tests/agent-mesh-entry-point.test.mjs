@@ -108,7 +108,7 @@ test('readiness descriptions report presence without ever reporting a value', ()
   assert.deepEqual(empty.blockers, ['relay-endpoint-absent', 'relay-credential-absent']);
 
   const providers = describeProviderReadiness({ env: {} });
-  assert.deepEqual(providers.map(item => item.provider), ['openai', 'anthropic']);
+  assert.deepEqual(providers.map(item => item.provider), ['openai', 'anthropic', 'claude-code-sandbox']);
   assert.equal(providers.every(item => item.ready === false), true);
 });
 
@@ -222,4 +222,26 @@ test('importing the tick entry point does not start a cycle', async () => {
   // The module is already imported at the top of this file. If the entry guard
   // were wrong, main() would have run against the real config on import.
   assert.equal(typeof resolveWorkers, 'function');
+});
+
+test('exactly one implementation of the spend transaction is reachable', async () => {
+  const { readdir, readFile } = await import('node:fs/promises');
+  const roots = ['src', 'scripts', 'api'];
+  const importers = [];
+  for (const root of roots) {
+    let names = [];
+    try { names = await readdir(new URL(`../${root}/`, import.meta.url)); } catch { continue; }
+    for (const name of names) {
+      if (!name.endsWith('.mjs') || name === 'agent-provider-execution.mjs') continue;
+      const source = await readFile(new URL(`../${root}/${name}`, import.meta.url), 'utf8');
+      if (/from\s+'[^']*agent-provider-execution\.mjs'/.test(source)) importers.push(`${root}/${name}`);
+    }
+  }
+  // agent-worker-runtime is the canonical reserve -> invoke -> commit path.
+  // agent-provider-execution is an earlier implementation of the same
+  // transaction, kept for its tests and marked SUPERSEDED. Two reachable
+  // implementations of "spend money" is the shape that produces a double
+  // charge, so wiring it in must fail here first.
+  assert.deepEqual(importers, [],
+    `agent-provider-execution is superseded; extend agent-worker-runtime instead. Wired from: ${importers.join(', ')}`);
 });

@@ -24,10 +24,13 @@
 
 import { createOpenAIAgentExecutor } from './openai-agent-executor.mjs';
 import { createAnthropicAgentExecutor } from './anthropic-agent-executor.mjs';
+import { createClaudeCodeSandboxExecutor } from './claude-code-sandbox-executor.mjs';
 
 export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.0.0';
 
-const SUPPORTED_PROVIDERS = Object.freeze(['openai', 'anthropic']);
+const API_PROVIDERS = Object.freeze(['openai', 'anthropic']);
+const SANDBOX_PROVIDER = 'claude-code-sandbox';
+const SUPPORTED_PROVIDERS = Object.freeze([...API_PROVIDERS, SANDBOX_PROVIDER]);
 
 function pricingFrom(env, prefix) {
   const input = Number(env[`${prefix}_INPUT_USD_PER_MILLION`]);
@@ -42,17 +45,41 @@ function pricingFrom(env, prefix) {
 }
 
 /**
- * Build the adapterFactory the control plane expects.
+ * Build the per-worker `modelExecutor` resolver.
  *
  * Returns a function of (worker) -> model executor. It throws for an
  * unconfigured provider rather than returning a no-op, so the failure is
  * attributable instead of appearing as a worker that found nothing to do.
  */
-export function createModelExecutorFactory({ env = process.env } = {}) {
+export function createModelExecutorFactory({ env = process.env, sandboxIsolationReceipt = null } = {}) {
   return function modelExecutorFor(worker = {}) {
     const provider = String(worker.provider || '').trim().toLowerCase();
     if (!SUPPORTED_PROVIDERS.includes(provider)) {
       throw new Error(`unsupported provider "${provider}"; supported: ${SUPPORTED_PROVIDERS.join(', ')}`);
+    }
+
+    if (provider === SANDBOX_PROVIDER) {
+      // The Claude Code CLI reports its own token usage and total cost, so this
+      // provider needs no pricing evidence env: the number comes from the tool
+      // that spent it, which is better evidence than a hand-entered price. The
+      // executor refuses with UNCERTAIN when the CLI reports no cost, so a call
+      // whose spend is unknown never looks like a free one.
+      //
+      // This is a local process, not free compute. It still consumes whatever
+      // Claude Code account it is configured against.
+      const sandboxRoot = String(env.CLAUDE_CODE_SANDBOX_ROOT || '').trim();
+      if (!sandboxRoot) throw new Error('claude-code-sandbox worker configured but CLAUDE_CODE_SANDBOX_ROOT is absent');
+      if (!sandboxIsolationReceipt) {
+        throw new Error('claude-code-sandbox worker configured but no OS isolation receipt was supplied');
+      }
+      return createClaudeCodeSandboxExecutor({
+        enabled: env.CLAUDE_CODE_SANDBOX_ENABLED === 'true',
+        sandboxRoot,
+        isolationReceipt: sandboxIsolationReceipt,
+        env,
+        ...(env.CLAUDE_CODE_EXECUTABLE ? { executable: String(env.CLAUDE_CODE_EXECUTABLE) } : {}),
+        ...(worker.model ? { defaultModel: worker.model } : {})
+      });
     }
 
     if (provider === 'openai') {
@@ -82,8 +109,8 @@ export function createModelExecutorFactory({ env = process.env } = {}) {
 }
 
 /** Which providers this environment could actually drive, and why not if not. */
-export function describeProviderReadiness({ env = process.env } = {}) {
-  return SUPPORTED_PROVIDERS.map(provider => {
+export function describeProviderReadiness({ env = process.env, sandboxIsolationReceipt = null } = {}) {
+  const api = API_PROVIDERS.map(provider => {
     const prefix = provider.toUpperCase();
     const hasKey = Boolean(String(env[`${prefix}_API_KEY`] || ''));
     const pricing = pricingFrom(env, prefix);
@@ -101,4 +128,23 @@ export function describeProviderReadiness({ env = process.env } = {}) {
       pricingEvidencePresent: Boolean(pricing)
     };
   });
+
+  const sandboxRoot = Boolean(String(env.CLAUDE_CODE_SANDBOX_ROOT || '').trim());
+  const isolation = Boolean(sandboxIsolationReceipt);
+  const sandboxEnabled = env.CLAUDE_CODE_SANDBOX_ENABLED === 'true';
+  const sandboxBlockers = [];
+  if (!sandboxRoot) sandboxBlockers.push('sandbox-root-absent');
+  if (!isolation) sandboxBlockers.push('isolation-receipt-absent');
+  if (!sandboxEnabled) sandboxBlockers.push('explicitly-disabled');
+
+  return [...api, {
+    provider: SANDBOX_PROVIDER,
+    ready: sandboxBlockers.length === 0,
+    blockers: sandboxBlockers,
+    // The CLI reports its own spend, so there is no separate pricing evidence
+    // to be present or absent. Saying "true" here would claim a check that was
+    // never made; the field means "cost is attributable", and it is.
+    credentialPresent: sandboxRoot && isolation,
+    pricingEvidencePresent: true
+  }];
 }

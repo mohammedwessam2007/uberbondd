@@ -34,6 +34,7 @@ an entry point existed. A green test suite does not distinguish "works" from
 | `scripts/agent-mesh-tick.mjs` | the entry point; resolves both dependencies from the environment |
 | `src/agent-relay-adapter-factory.mjs` | `adapterFactory` — a memoized `chatgpt-relay-client` per origin/target pair |
 | `src/agent-model-executor-factory.mjs` | each worker's `modelExecutor`, from its declared provider |
+| `src/agent-mesh-activation-evidence.mjs` | the input the activation gate needs to reach a verdict |
 
 Two factories, easily confused, deliberately named apart: the **relay adapter**
 is the wire a compiled task travels over; the **model executor** is the thing
@@ -83,6 +84,10 @@ failure and must not look like one.
 | `{OPENAI,ANTHROPIC}_PRICING_SOURCE` | where that pricing came from |
 | `{OPENAI,ANTHROPIC}_PRICING_VERIFIED_AT` | when it was last checked |
 | `{OPENAI,ANTHROPIC}_AGENT_ENABLED` | must be exactly `true` to call the provider |
+| `CLAUDE_CODE_SANDBOX_ROOT` | sandbox working directory for the local provider |
+| `CLAUDE_CODE_SANDBOX_ENABLED` | must be exactly `true` to run the local CLI |
+| `CLAUDE_CODE_SANDBOX_ISOLATION_FILE` | JSON OS isolation receipt for that sandbox |
+| `CLAUDE_CODE_EXECUTABLE` | override the `claude` binary name |
 
 A worker in `AGENT_MESH_WORKERS` is JSON, so it cannot carry a function. This
 is why the two factories exist: the tick script is where the transport and the
@@ -94,6 +99,87 @@ Example:
 ```sh
 AGENT_MESH_WORKERS='[{"budgetId":"b1","targetAgent":"claude-code","workerId":"w1","provider":"anthropic","model":"..."}]'
 ```
+
+## The activation gate
+
+`src/agent-mesh-activation-gate.mjs` decides whether the mesh may call a model
+provider at all. It was in the same state as everything else here: complete,
+tested, and called by nothing — because nothing built the evidence input it
+takes. An entry point with credentials configured would have called a provider
+with no gate between it and the money.
+
+`src/agent-mesh-activation-evidence.mjs` builds that input from two sources
+that are deliberately kept apart:
+
+- **First-hand** — facts this process checks itself: whether a credential is
+  present, whether pricing evidence is present. Always computed, never read
+  from a file, never overridable.
+- **Attested** — claims it cannot verify: that a kill switch exists, that a
+  capability was externally verified, that a canary receipt was produced.
+  These come from the JSON file named by `AGENT_MESH_EVIDENCE_FILE`.
+
+A file cannot upgrade a first-hand fact. If the file claims a credential is
+present and none is, the process wins — otherwise the evidence file becomes a
+way to talk the gate into opening.
+
+Anything in neither source stays UNKNOWN, and UNKNOWN fails the gate.
+
+| Situation | Result |
+| --- | --- |
+| no `AGENT_MESH_EVIDENCE_FILE` | `ARCHITECTURE_ONLY` / `NO_PROVIDER_CALLS` — the resting state |
+| file named but missing | refused, exit 2 |
+| file malformed or too large | refused, exit 2 |
+
+A named-but-missing file is a refusal rather than a fallback to "no evidence":
+a broken attestation must not produce the same outcome as never having written
+one.
+
+The gate's four modes map onto worker execution, because a worker tick is the
+only thing in a cycle that can call a provider:
+
+| `permittedMode` | Workers run |
+| --- | --- |
+| `NO_PROVIDER_CALLS` | none |
+| `SYNTHETIC_ONLY` | none |
+| `ONE_PROVIDER_CANARY` | one, and only on a canary-ready provider |
+| `BOUNDED_CLOUD_REHEARSAL` | all configured |
+
+Autonomy pumping is unaffected — it compiles and relays `LOCAL_PREPARATION`
+tasks and calls no provider.
+
+Withheld workers exit 3, not 0. A scheduler running happily forever while the
+workers it was configured to drive never run once is the silent-failure shape
+this entry point exists to remove. Remove the workers from the configuration
+to get a clean 0 back.
+
+## Providers
+
+| Provider | Reaches a model by |
+| --- | --- |
+| `openai` | the OpenAI API, with a key and pricing evidence |
+| `anthropic` | the Anthropic API, with a key and pricing evidence |
+| `claude-code-sandbox` | a local Claude Code CLI inside an isolated sandbox |
+
+The sandbox provider needs no pricing evidence, because the CLI reports its own
+token usage and total cost: the number comes from the tool that spent it, which
+is better evidence than a hand-entered price. When the CLI reports no cost the
+executor returns `UNCERTAIN` rather than zero, so a call whose spend is unknown
+never looks like a free one.
+
+It is a local process, not free compute. It consumes whatever Claude Code
+account it is configured against, exactly like any other use of the CLI.
+
+It requires an OS isolation receipt from `CLAUDE_CODE_SANDBOX_ISOLATION_FILE`,
+attesting an ephemeral filesystem, no mounted business credentials, no
+reachable production network, Anthropic-only egress, and a typed evidence
+reference. `claude-code-sandbox-executor` validates every field itself and
+rejects a receipt whose `sandboxRoot` does not match the configured one, so a
+stale or copied receipt cannot open a different sandbox.
+
+The activation gate scores only the two API providers, so a sandbox worker has
+no canary readiness to look up and is never eligible under
+`ONE_PROVIDER_CANARY`. It runs only under `BOUNDED_CLOUD_REHEARSAL`. That is
+the fail-closed reading of an unknown, and it is asserted by a test.
 
 ## Refusals are deliberate
 

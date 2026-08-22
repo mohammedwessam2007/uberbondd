@@ -31,6 +31,10 @@
 //   AGENT_MESH_INGEST_AFTER  "false" to skip the post-worker ingestion pump
 //   UBERBOND_RELAY_ENDPOINT  https .../api/agent-relay -- the transport
 //   UBERBOND_RELAY_TOKEN     bearer credential for that endpoint
+//   AGENT_MESH_EVIDENCE_FILE path to the activation evidence JSON; without it
+//                            the gate permits no provider calls at all
+//   CLAUDE_CODE_SANDBOX_*    ROOT, ENABLED, ISOLATION_FILE for the local
+//                            Claude Code sandbox provider
 //   OPENAI_/ANTHROPIC_*      per-provider credential, pricing evidence, enable
 //   STORE_BACKEND/DATABASE_URL/DATA_DIR  as the rest of the app uses them
 //
@@ -46,6 +50,13 @@ import { runAgentMeshCycle } from '../src/agent-mesh-control-plane.mjs';
 import { compileRelayTaskFromIntent } from '../src/agent-autonomy-relay-adapter.mjs';
 import { createRelayAdapterFactory, describeRelayReadiness } from '../src/agent-relay-adapter-factory.mjs';
 import { createModelExecutorFactory, describeProviderReadiness } from '../src/agent-model-executor-factory.mjs';
+import { evaluateAgentMeshActivation } from '../src/agent-mesh-activation-gate.mjs';
+import {
+  loadActivationEvidenceFile,
+  loadSandboxIsolationReceipt,
+  composeActivationInput,
+  permittedWorkers
+} from '../src/agent-mesh-activation-evidence.mjs';
 
 const RUN_LIMIT_CAP = 25;
 
@@ -85,6 +96,15 @@ function parseWorkers(raw) {
 async function main() {
   const dryRun = process.argv.includes('--dry-run');
   const enabled = process.env.AGENT_MESH_ENABLED === 'true';
+
+  // The gate decides whether a provider may be called. Evaluate it before
+  // anything else so --dry-run reports the same verdict a real tick enforces.
+  const evidence = await loadActivationEvidenceFile(process.env.AGENT_MESH_EVIDENCE_FILE);
+  const isolation = await loadSandboxIsolationReceipt(process.env.CLAUDE_CODE_SANDBOX_ISOLATION_FILE);
+  const activation = evaluateAgentMeshActivation(composeActivationInput({
+    attested: evidence.evidence,
+    sandboxIsolationReceipt: isolation.receipt
+  }));
   const workers = parseWorkers(process.env.AGENT_MESH_WORKERS);
   const autonomyRunLimit = boundedInt(process.env.AGENT_MESH_RUN_LIMIT, 5, 1, RUN_LIMIT_CAP);
   const ingestAfterWorkers = process.env.AGENT_MESH_INGEST_AFTER !== 'false';
@@ -97,7 +117,16 @@ async function main() {
       autonomyRunLimit, ingestAfterWorkers,
       storeBackend: process.env.STORE_BACKEND || 'json (default outside production)',
       relay: describeRelayReadiness(),
-      providers: describeProviderReadiness()
+      providers: describeProviderReadiness({ sandboxIsolationReceipt: isolation.receipt }),
+      activation: {
+        evidenceFile: evidence.present ? 'present' : 'absent',
+        evidenceProblems: evidence.reasonCodes,
+        isolationReceipt: isolation.present ? 'present' : 'absent',
+        isolationProblems: isolation.reasonCodes,
+        status: activation.status,
+        permittedMode: activation.permittedMode,
+        nextGates: activation.nextGates
+      }
     }, null, 2));
     return 0;
   }
@@ -109,16 +138,42 @@ async function main() {
     return 0;
   }
 
+  // A malformed attestation is a refusal, not a shrug. Falling back to "no
+  // evidence" would turn an operator's broken file into the same outcome as
+  // never having written one. Checked first: it is the cheapest refusal and
+  // needs no config.
+  if (!evidence.ok) {
+    console.error(`[agent-mesh-tick] activation evidence refused: ${evidence.reasonCodes.join(', ')}`);
+    return 2;
+  }
+  if (!isolation.ok) {
+    console.error(`[agent-mesh-tick] sandbox isolation receipt refused: ${isolation.reasonCodes.join(', ')}`);
+    return 2;
+  }
+
   // Same startup validation the server and worker use. A misconfigured store
   // must fail here, loudly, rather than half-running a cognitive cycle.
   validateStartupConfig(config);
 
-  // Resolve both function dependencies before the store is opened, so a
+  // Resolve every worker's executor before the store is opened, so a
   // misconfigured mesh costs nothing and leaves no connection behind.
-  const { resolved, blockers } = resolveWorkers(workers, createModelExecutorFactory());
+  const { resolved, blockers } = resolveWorkers(
+    workers,
+    createModelExecutorFactory({ sandboxIsolationReceipt: isolation.receipt })
+  );
   if (blockers.length) {
     console.error(`[agent-mesh-tick] worker configuration refused:\n  ${blockers.join('\n  ')}`);
     return 2;
+  }
+
+  // Only now, with executors attached, does the gate get to withhold workers.
+  const gated = permittedWorkers(resolved, activation);
+  if (gated.withheld.length) {
+    const names = gated.withheld.map(worker => worker.workerId || '(unnamed)').join(', ');
+    console.error(`[agent-mesh-tick] activation gate is ${activation.status} (${gated.mode}); `
+      + `withholding ${gated.withheld.length} worker(s): ${names}`);
+    if (gated.reason) console.error(`[agent-mesh-tick] ${gated.reason}`);
+    for (const gate of activation.nextGates) console.error(`[agent-mesh-tick] next gate: ${gate}`);
   }
 
   const store = createStore(config);
@@ -127,7 +182,7 @@ async function main() {
     store,
     adapterFactory: createRelayAdapterFactory(),
     compileRelayTask: compileRelayTaskFromIntent,
-    workers: resolved,
+    workers: gated.allowed,
     autonomyRunLimit,
     ingestAfterWorkers
   });
@@ -135,7 +190,10 @@ async function main() {
   console.log(JSON.stringify({
     status: cycle.status,
     ok: cycle.ok,
-    workersConfigured: cycle.workersConfigured ?? workers.length,
+    activationStatus: activation.status,
+    permittedMode: gated.mode,
+    workersConfigured: cycle.workersConfigured ?? gated.allowed.length,
+    workersWithheld: gated.withheld.length,
     reasonCodes: cycle.reasonCodes || [],
     businessEffectAuthority: cycle.businessEffectAuthority ?? 'NONE'
   }, null, 2));
@@ -147,6 +205,12 @@ async function main() {
   // hard failure so an operator can tell the two apart.
   if (!cycle.ok) return 2;
   if (cycle.status === 'DEGRADED') return 3;
+  // Workers the operator configured and the gate withheld also exit non-zero.
+  // Exiting 0 here would mean a scheduler runs happily forever while the
+  // workers it was set up to drive never run once -- the silent-failure shape
+  // this whole entry point exists to remove. Remove the workers from the
+  // configuration to get a clean 0 back.
+  if (gated.withheld.length) return 3;
   return 0;
 }
 

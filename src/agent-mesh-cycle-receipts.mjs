@@ -1,13 +1,21 @@
 import crypto from 'node:crypto';
 import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 
-export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.0.0';
+export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.1.0';
 const START_TYPE = 'agent_mesh_cycle_started';
 const TERMINAL_TYPE = 'agent_mesh_cycle_terminal';
 const TERMINAL_STATUSES = new Set(['ADVANCED', 'IDLE', 'DEGRADED', 'BLOCKED']);
+const MAX_OCCURRENCE_KEY_LENGTH = 300;
 
 function text(value, max = 240) {
   return String(value ?? '').trim().slice(0, max);
+}
+
+function strictOccurrenceKey(value) {
+  const key = String(value ?? '').trim();
+  if (!key) throw new Error('scheduler-occurrence-key-required');
+  if (key.length > MAX_OCCURRENCE_KEY_LENGTH) throw new Error('scheduler-occurrence-key-too-long');
+  return key;
 }
 
 function iso(value) {
@@ -53,8 +61,7 @@ function requireStore(store) {
 }
 
 export function deriveAgentMeshCycleId(occurrenceKey) {
-  const key = text(occurrenceKey, 300);
-  if (!key) throw new Error('scheduler-occurrence-key-required');
+  const key = strictOccurrenceKey(occurrenceKey);
   return `meshcycle_${crypto.createHash('sha256').update(key).digest('hex').slice(0, 32)}`;
 }
 
@@ -90,14 +97,15 @@ export async function beginAgentMeshCycleReceipt({
   workers = []
 } = {}) {
   requireStore(store);
-  const cycleId = deriveAgentMeshCycleId(occurrenceKey);
+  const normalizedOccurrenceKey = strictOccurrenceKey(occurrenceKey);
+  const cycleId = deriveAgentMeshCycleId(normalizedOccurrenceKey);
   const existing = await lookup(store, START_TYPE, cycleId, 'started');
   if (existing) return { cycleId, duplicate: true, receipt: structuredClone(existing.detail || {}) };
 
   const detail = {
     receiptVersion: AGENT_MESH_CYCLE_RECEIPT_VERSION,
     cycleId,
-    occurrenceKeyHash: crypto.createHash('sha256').update(text(occurrenceKey, 300)).digest('hex'),
+    occurrenceKeyHash: crypto.createHash('sha256').update(normalizedOccurrenceKey).digest('hex'),
     phase: 'STARTED',
     startedAt: iso(startedAt),
     sourceCommit: text(sourceCommit, 80) || null,
@@ -133,12 +141,20 @@ export async function finishAgentMeshCycleReceipt({
   const startRecord = await lookup(store, START_TYPE, normalizedCycleId, 'started');
   if (!startRecord) throw new Error('cycle-start-receipt-required-before-terminal');
 
+  const persistedStartedAt = iso(startRecord.detail?.startedAt);
+  const requestedStartedAt = iso(startedAt || startRecord.detail?.startedAt);
+  if (requestedStartedAt !== persistedStartedAt) throw new Error('scheduler-occurrence-start-time-conflict');
+  const normalizedFinishedAt = iso(finishedAt);
+  if (Date.parse(normalizedFinishedAt) < Date.parse(persistedStartedAt)) {
+    throw new Error('scheduler-occurrence-finished-before-start');
+  }
+
   const detail = {
     receiptVersion: AGENT_MESH_CYCLE_RECEIPT_VERSION,
     cycleId: normalizedCycleId,
     phase: 'TERMINAL',
-    startedAt: iso(startedAt || startRecord.detail?.startedAt),
-    finishedAt: iso(finishedAt),
+    startedAt: persistedStartedAt,
+    finishedAt: normalizedFinishedAt,
     sourceCommit: text(sourceCommit, 80) || text(startRecord.detail?.sourceCommit, 80) || null,
     policyVersions: [...new Set((policyVersions || startRecord.detail?.policyVersions || []).map(v => text(v, 120)).filter(Boolean))].slice(0, 20),
     status,
@@ -166,7 +182,8 @@ export async function getAgentMeshCycleReceipt({ store, occurrenceKey } = {}) {
 export async function countTerminalAgentMeshCycles({ store, occurrenceKeys = [] } = {}) {
   requireStore(store);
   let count = 0;
-  for (const occurrenceKey of [...new Set(occurrenceKeys.map(key => text(key, 300)).filter(Boolean))]) {
+  const uniqueKeys = [...new Set(occurrenceKeys.map(key => strictOccurrenceKey(key)))];
+  for (const occurrenceKey of uniqueKeys) {
     const state = await getAgentMeshCycleReceipt({ store, occurrenceKey });
     if (state.state === 'TERMINAL') count += 1;
   }

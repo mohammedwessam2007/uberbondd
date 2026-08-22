@@ -85,6 +85,127 @@ test('concurrent terminalization persists exactly one terminal receipt and recov
   assert.deepEqual(first.receipt, second.receipt);
 });
 
+test('reusing one occurrence key with different source commit fails closed', async () => {
+  const store = racingDeterministicStore();
+  const occurrenceKey = 'mesh:immutable-source';
+  await beginAgentMeshCycleReceipt({
+    store,
+    occurrenceKey,
+    sourceCommit: 'commit-a',
+    policyVersions: ['mesh-policy-1'],
+    workers: []
+  });
+
+  await assert.rejects(
+    beginAgentMeshCycleReceipt({
+      store,
+      occurrenceKey,
+      sourceCommit: 'commit-b',
+      policyVersions: ['mesh-policy-1'],
+      workers: []
+    }),
+    /scheduler-occurrence-identity-conflict/
+  );
+  assert.equal(store.rows.size, 1);
+});
+
+test('reusing one occurrence key with different policy or worker config fails closed', async () => {
+  const store = racingDeterministicStore();
+  const occurrenceKey = 'mesh:immutable-config';
+  const workers = [{ targetAgent: 'claude', provider: 'anthropic', model: 'opus', workerId: 'worker-1' }];
+  await beginAgentMeshCycleReceipt({
+    store,
+    occurrenceKey,
+    sourceCommit: 'commit-a',
+    policyVersions: ['mesh-policy-1'],
+    workers
+  });
+
+  await assert.rejects(
+    beginAgentMeshCycleReceipt({
+      store,
+      occurrenceKey,
+      sourceCommit: 'commit-a',
+      policyVersions: ['mesh-policy-2'],
+      workers
+    }),
+    /scheduler-occurrence-identity-conflict/
+  );
+  await assert.rejects(
+    beginAgentMeshCycleReceipt({
+      store,
+      occurrenceKey,
+      sourceCommit: 'commit-a',
+      policyVersions: ['mesh-policy-1'],
+      workers: [{ ...workers[0], model: 'sonnet' }]
+    }),
+    /scheduler-occurrence-identity-conflict/
+  );
+  assert.equal(store.rows.size, 1);
+});
+
+test('semantically identical unordered policies and workers remain idempotent', async () => {
+  const store = racingDeterministicStore();
+  const occurrenceKey = 'mesh:canonical-order';
+  const first = await beginAgentMeshCycleReceipt({
+    store,
+    occurrenceKey,
+    sourceCommit: 'commit-a',
+    policyVersions: ['policy-b', 'policy-a'],
+    workers: [
+      { targetAgent: 'gpt', provider: 'openai', model: 'gpt-5.6', workerId: 'w2' },
+      { targetAgent: 'claude', provider: 'anthropic', model: 'opus', workerId: 'w1' }
+    ]
+  });
+  const second = await beginAgentMeshCycleReceipt({
+    store,
+    occurrenceKey,
+    sourceCommit: 'commit-a',
+    policyVersions: ['policy-a', 'policy-b'],
+    workers: [
+      { targetAgent: 'claude', provider: 'anthropic', model: 'opus', workerId: 'w1' },
+      { targetAgent: 'gpt', provider: 'openai', model: 'gpt-5.6', workerId: 'w2' }
+    ]
+  });
+
+  assert.equal(first.duplicate, false);
+  assert.equal(second.duplicate, true);
+  assert.deepEqual(first.receipt, second.receipt);
+});
+
+test('terminalization cannot change source or policy identity established at STARTED', async () => {
+  const store = racingDeterministicStore();
+  const begun = await beginAgentMeshCycleReceipt({
+    store,
+    occurrenceKey: 'mesh:terminal-identity',
+    sourceCommit: 'commit-a',
+    policyVersions: ['mesh-policy-1'],
+    workers: []
+  });
+
+  await assert.rejects(
+    finishAgentMeshCycleReceipt({
+      store,
+      cycleId: begun.cycleId,
+      sourceCommit: 'commit-b',
+      policyVersions: ['mesh-policy-1'],
+      status: 'ADVANCED'
+    }),
+    /scheduler-occurrence-identity-conflict/
+  );
+  await assert.rejects(
+    finishAgentMeshCycleReceipt({
+      store,
+      cycleId: begun.cycleId,
+      sourceCommit: 'commit-a',
+      policyVersions: ['mesh-policy-2'],
+      status: 'ADVANCED'
+    }),
+    /scheduler-occurrence-identity-conflict/
+  );
+  assert.equal(store.rows.size, 1);
+});
+
 test('an unrelated durable write failure is not laundered into duplicate success', async () => {
   const store = {
     async get() { return null; },

@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 
-export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.3.0';
+export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.4.0';
 const START_TYPE = 'agent_mesh_cycle_started';
 const TERMINAL_TYPE = 'agent_mesh_cycle_terminal';
 const TERMINAL_STATUSES = new Set(['ADVANCED', 'IDLE', 'DEGRADED', 'BLOCKED']);
@@ -90,6 +90,39 @@ function assertSameCycleIdentity(receipt, expected) {
   }
 }
 
+function normalizedTerminalWorkers(workers = []) {
+  return safeWorkers(workers)
+    .map(worker => ({
+      ...worker,
+      reasonCodes: [...new Set(worker.reasonCodes || [])].sort()
+    }))
+    .sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));
+}
+
+function terminalTruth(detail = {}) {
+  return {
+    status: text(detail.status, 80),
+    reasonCodes: [...new Set((detail.reasonCodes || []).map(code => text(code, 180)).filter(Boolean))].sort(),
+    firstSweep: safeSummary(detail.firstSweep),
+    workers: normalizedTerminalWorkers(detail.workers || []),
+    secondSweep: safeSummary(detail.secondSweep),
+    businessEffectAuthority: text(detail.businessEffectAuthority, 80),
+    externalEffectLedger: detail.externalEffectLedger && typeof detail.externalEffectLedger === 'object'
+      ? Object.fromEntries(Object.entries(detail.externalEffectLedger).sort(([a], [b]) => a.localeCompare(b)))
+      : null
+  };
+}
+
+function terminalTruthHash(detail = {}) {
+  return crypto.createHash('sha256').update(JSON.stringify(terminalTruth(detail))).digest('hex');
+}
+
+function assertSameTerminalTruth(receipt, expectedDetail) {
+  if (terminalTruthHash(receipt) !== terminalTruthHash(expectedDetail)) {
+    throw new Error('scheduler-occurrence-terminal-truth-conflict');
+  }
+}
+
 export function supportsAgentMeshCycleReceipts(store) {
   if (!store || typeof store !== 'object') return false;
   return (typeof store.get === 'function' && typeof store.add === 'function')
@@ -129,19 +162,28 @@ async function append(store, type, cycleId, phase, detail, createdAt) {
   return store.log(type, detail);
 }
 
-async function appendOrRecoverDuplicate(store, { type, cycleId, phase, detail, createdAt, expectedIdentity }) {
+async function appendOrRecoverDuplicate(store, {
+  type,
+  cycleId,
+  phase,
+  detail,
+  createdAt,
+  expectedIdentity,
+  requireMatchingTerminalTruth = false
+}) {
   try {
     const row = await append(store, type, cycleId, phase, detail, createdAt);
     return { duplicate: false, row };
   } catch (error) {
     // Two scheduler deliveries can both observe ABSENT before either writes.
-    // Recover only when the exact deterministic record now exists AND belongs
-    // to the exact same immutable scheduler occurrence identity. Never convert
-    // a conflicting occurrence or an unrelated storage failure into success.
+    // Recover only when the exact deterministic record now exists, belongs to
+    // the same immutable occurrence identity, and (for terminal receipts)
+    // reports the same semantic outcome. Contradictory winners fail closed.
     if (typeof store.get === 'function' && typeof store.add === 'function') {
       const raced = await lookup(store, type, cycleId, phase);
       if (raced) {
         if (expectedIdentity) assertSameCycleIdentity(raced.detail, expectedIdentity);
+        if (requireMatchingTerminalTruth) assertSameTerminalTruth(raced.detail, detail);
         return { duplicate: true, row: raced };
       }
     }
@@ -228,12 +270,6 @@ export async function finishAgentMeshCycleReceipt({
     throw new Error('scheduler-occurrence-identity-conflict');
   }
 
-  const existing = await lookup(store, TERMINAL_TYPE, normalizedCycleId, 'terminal');
-  if (existing) {
-    assertSameCycleIdentity(existing.detail, terminalIdentity);
-    return { duplicate: true, receipt: structuredClone(existing.detail || {}) };
-  }
-
   const detail = {
     receiptVersion: AGENT_MESH_CYCLE_RECEIPT_VERSION,
     cycleId: normalizedCycleId,
@@ -251,13 +287,22 @@ export async function finishAgentMeshCycleReceipt({
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }
   };
+
+  const existing = await lookup(store, TERMINAL_TYPE, normalizedCycleId, 'terminal');
+  if (existing) {
+    assertSameCycleIdentity(existing.detail, terminalIdentity);
+    assertSameTerminalTruth(existing.detail, detail);
+    return { duplicate: true, receipt: structuredClone(existing.detail || {}) };
+  }
+
   const appended = await appendOrRecoverDuplicate(store, {
     type: TERMINAL_TYPE,
     cycleId: normalizedCycleId,
     phase: 'terminal',
     detail,
     createdAt: detail.finishedAt,
-    expectedIdentity: terminalIdentity
+    expectedIdentity: terminalIdentity,
+    requireMatchingTerminalTruth: true
   });
   return {
     duplicate: appended.duplicate,

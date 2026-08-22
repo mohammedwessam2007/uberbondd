@@ -133,6 +133,7 @@ function evaluateObservationProof({ proof, targetDays, currentSourceCommit, curr
 function ledgerHasEffects(ledger) {
   if (!ledger || typeof ledger !== 'object' || Array.isArray(ledger)) return true;
   const values = Object.values(ledger);
+  if (!values.length) return true;
   return values.some(value => typeof value !== 'number' || !Number.isFinite(value) || value !== 0);
 }
 
@@ -140,6 +141,21 @@ function commonPolicyVersions(receipts) {
   if (!receipts.length) return [];
   const first = new Set(Array.isArray(receipts[0].policyVersions) ? receipts[0].policyVersions : []);
   return [...first].filter(version => receipts.every(receipt => Array.isArray(receipt.policyVersions) && receipt.policyVersions.includes(version))).slice(0, 20);
+}
+
+function currentIdentitySuffix(receipts, currentSourceCommit, currentPolicyVersions) {
+  const source = String(currentSourceCommit || '').trim();
+  const policies = [...new Set((currentPolicyVersions || []).map(value => String(value || '').trim()).filter(Boolean))];
+  if (!source || !receipts.length) return [];
+  let start = receipts.length;
+  for (let index = receipts.length - 1; index >= 0; index -= 1) {
+    const receipt = receipts[index];
+    const matches = String(receipt?.sourceCommit || '').trim() === source
+      && policies.every(version => Array.isArray(receipt?.policyVersions) && receipt.policyVersions.includes(version));
+    if (!matches) break;
+    start = index;
+  }
+  return receipts.slice(start);
 }
 
 export function deriveFounderAbsenceObservationProof({ receipts = [], openDeadLetters = 0 } = {}) {
@@ -188,18 +204,29 @@ export function deriveFounderAbsenceObservationProof({ receipts = [], openDeadLe
 export async function evaluateFounderAbsenceReadinessFromDurableHistory({
   store,
   historyLimit = 2000,
+  currentSourceCommit = null,
+  currentPolicyVersions = [],
   ...options
 } = {}) {
   if (!store || typeof store.list !== 'function') return fail(['durable-history-list-store-required']);
+  const source = String(currentSourceCommit || '').trim();
+  if (!source) return fail(['current-source-commit-required-for-durable-history']);
   const receipts = await listTerminalAgentMeshCycleReceipts({ store, limit: historyLimit });
+  const qualifyingReceipts = currentIdentitySuffix(receipts, source, currentPolicyVersions);
   const jobs = await store.list('jobs', { limit: 10000 });
   const openDeadLetters = Array.isArray(jobs) ? jobs.filter(job => job?.status === 'dead-letter').length : 0;
-  const observationProof = deriveFounderAbsenceObservationProof({ receipts, openDeadLetters });
-  const result = evaluateFounderAbsenceReadiness({ ...options, observationProof });
+  const observationProof = deriveFounderAbsenceObservationProof({ receipts: qualifyingReceipts, openDeadLetters });
+  const result = evaluateFounderAbsenceReadiness({
+    ...options,
+    currentSourceCommit: source,
+    currentPolicyVersions,
+    observationProof
+  });
   return {
     ...result,
     durableHistory: {
       terminalReceiptCount: receipts.length,
+      qualifyingTerminalReceiptCount: qualifyingReceipts.length,
       openDeadLetters,
       source: 'agent_mesh_cycle_terminal'
     }

@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 
-export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.0.0';
+export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.1.0';
 const START_TYPE = 'agent_mesh_cycle_started';
 const TERMINAL_TYPE = 'agent_mesh_cycle_terminal';
 const TERMINAL_STATUSES = new Set(['ADVANCED', 'IDLE', 'DEGRADED', 'BLOCKED']);
@@ -161,6 +161,17 @@ export async function getAgentMeshCycleReceipt({ store, occurrenceKey } = {}) {
   const started = await lookup(store, START_TYPE, cycleId, 'started');
   if (started) return { cycleId, state: 'STARTED', receipt: structuredClone(started.detail || {}) };
   return { cycleId, state: 'ABSENT', receipt: null };
+}
+
+export async function listTerminalAgentMeshCycleReceipts({ store, limit = 2000 } = {}) {
+  requireStore(store);
+  if (typeof store.list !== 'function') throw new Error('cycle-receipt-history-list-required');
+  const boundedLimit = Number.isSafeInteger(limit) ? Math.max(1, Math.min(10000, limit)) : 2000;
+  const rows = await store.list('auditLog', { filters: { type: TERMINAL_TYPE }, limit: boundedLimit });
+  return rows
+    .filter(row => row?.detail?.phase === 'TERMINAL' && /^meshcycle_[a-f0-9]{32}$/.test(text(row.detail.cycleId, 80)))
+    .map(row => structuredClone(row.detail))
+    .sort((a, b) => Date.parse(a.finishedAt || a.startedAt || 0) - Date.parse(b.finishedAt || b.startedAt || 0));
 }
 
 export async function countTerminalAgentMeshCycles({ store, occurrenceKeys = [] } = {}) {

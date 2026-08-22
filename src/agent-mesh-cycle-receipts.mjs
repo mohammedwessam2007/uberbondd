@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 
-export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.1.0';
+export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.2.0';
 const START_TYPE = 'agent_mesh_cycle_started';
 const TERMINAL_TYPE = 'agent_mesh_cycle_terminal';
 const TERMINAL_STATUSES = new Set(['ADVANCED', 'IDLE', 'DEGRADED', 'BLOCKED']);
@@ -81,6 +81,25 @@ async function append(store, type, cycleId, phase, detail, createdAt) {
   return store.log(type, detail);
 }
 
+async function appendOrRecoverDuplicate(store, { type, cycleId, phase, detail, createdAt }) {
+  try {
+    const row = await append(store, type, cycleId, phase, detail, createdAt);
+    return { duplicate: false, row };
+  } catch (error) {
+    // The canonical durable Store uses deterministic record IDs and rejects a
+    // duplicate add atomically. Two scheduler deliveries can therefore both
+    // observe ABSENT before either writes; the loser of that race must recover
+    // the winner's persisted receipt rather than surface a false cycle failure.
+    // Do not swallow arbitrary write failures: only convert an error into an
+    // idempotent duplicate when the exact deterministic record now exists.
+    if (typeof store.get === 'function' && typeof store.add === 'function') {
+      const raced = await lookup(store, type, cycleId, phase);
+      if (raced) return { duplicate: true, row: raced };
+    }
+    throw error;
+  }
+}
+
 export async function beginAgentMeshCycleReceipt({
   store,
   occurrenceKey,
@@ -106,8 +125,18 @@ export async function beginAgentMeshCycleReceipt({
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }
   };
-  await append(store, START_TYPE, cycleId, 'started', detail, detail.startedAt);
-  return { cycleId, duplicate: false, receipt: structuredClone(detail) };
+  const appended = await appendOrRecoverDuplicate(store, {
+    type: START_TYPE,
+    cycleId,
+    phase: 'started',
+    detail,
+    createdAt: detail.startedAt
+  });
+  return {
+    cycleId,
+    duplicate: appended.duplicate,
+    receipt: structuredClone(appended.row?.detail || detail)
+  };
 }
 
 export async function finishAgentMeshCycleReceipt({
@@ -149,8 +178,17 @@ export async function finishAgentMeshCycleReceipt({
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }
   };
-  await append(store, TERMINAL_TYPE, normalizedCycleId, 'terminal', detail, detail.finishedAt);
-  return { duplicate: false, receipt: structuredClone(detail) };
+  const appended = await appendOrRecoverDuplicate(store, {
+    type: TERMINAL_TYPE,
+    cycleId: normalizedCycleId,
+    phase: 'terminal',
+    detail,
+    createdAt: detail.finishedAt
+  });
+  return {
+    duplicate: appended.duplicate,
+    receipt: structuredClone(appended.row?.detail || detail)
+  };
 }
 
 export async function getAgentMeshCycleReceipt({ store, occurrenceKey } = {}) {

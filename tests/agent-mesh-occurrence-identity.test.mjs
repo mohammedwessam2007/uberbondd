@@ -18,6 +18,23 @@ function memoryStore() {
   };
 }
 
+function racingStore() {
+  const rows = new Map();
+  return {
+    rows,
+    async get(key, id) {
+      return key === 'auditLog' ? structuredClone(rows.get(id) || null) : null;
+    },
+    async add(key, item) {
+      assert.equal(key, 'auditLog');
+      await new Promise(resolve => setImmediate(resolve));
+      if (rows.has(item.id)) throw new Error(`duplicate:${item.id}`);
+      rows.set(item.id, structuredClone(item));
+      return structuredClone(item);
+    }
+  };
+}
+
 function worker(overrides = {}) {
   return {
     budgetId: 'budget-1',
@@ -121,4 +138,30 @@ test('exact same occurrence identity remains read-only idempotent', async () => 
   assert.equal(second.duplicateDelivery, true);
   assert.equal(sweeps, 2);
   assert.equal(workers, 1);
+});
+
+test('concurrent same-occurrence delivery lets only the STARTED winner execute work', async () => {
+  const store = racingStore();
+  let sweeps = 0;
+  let workers = 0;
+  const options = {
+    tickRuns: async () => { sweeps += 1; return idleSweep(); },
+    workerTick: async () => { workers += 1; return idleWorker(); }
+  };
+
+  const results = await Promise.all([
+    run(store, options),
+    run(store, options)
+  ]);
+
+  const winner = results.find(result => result.ok === true);
+  const loser = results.find(result => result.ok === false);
+  assert.ok(winner);
+  assert.ok(loser);
+  assert.equal(loser.duplicateDelivery, true);
+  assert.equal(loser.cycleReceiptState, 'STARTED');
+  assert.ok(loser.reasonCodes.includes('scheduler-occurrence-already-started-incomplete'));
+  assert.equal(sweeps, 2);
+  assert.equal(workers, 1);
+  assert.equal(store.rows.size, 2);
 });

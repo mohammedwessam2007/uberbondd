@@ -19,6 +19,31 @@ const ZERO = {
   businessSpendCents: 0
 };
 
+const ZERO_EXTERNAL = {
+  providerCalls: 0,
+  messages: 0,
+  purchases: 0,
+  deployments: 0,
+  credentialChanges: 0,
+  dnsChanges: 0,
+  productionMutations: 0,
+  spendCents: 0
+};
+
+function completeWorkerResult({ outcome = 'supported', coordination, overrides = {} } = {}) {
+  return {
+    outcome,
+    changedArtifacts: [],
+    testsActuallyRun: [{ command: 'deterministic-fixture', status: 'PASS' }],
+    truthTable: [{ claim: outcome, status: 'VERIFIED_BY_FIXTURE' }],
+    externalEffectLedger: { ...ZERO_EXTERNAL },
+    decision: coordination?.action === 'DONE' ? 'DONE' : 'CONTINUE',
+    coordination,
+    businessEffectLedger: { ...ZERO },
+    ...overrides
+  };
+}
+
 function fakeStore() {
   const auditLog = [];
   return {
@@ -65,9 +90,6 @@ test('latest-run listing deduplicates historical snapshots', async () => {
   const store = fakeStore();
   const { run } = fixture();
   await saveAutonomyRunSnapshot(store, run, { date: new Date('2026-08-20T01:00:00Z') });
-  // sequence must advance with the state: the pump only ever emits a new run
-  // via `next.sequence += 1`, and the store now treats two different run
-  // states at one sequence as a conflict rather than a silent overwrite.
   await saveAutonomyRunSnapshot(store, { ...run, sequence: (run.sequence || 0) + 1, status: 'PENDING', updatedAt: '2026-08-20T01:01:00Z' }, { date: new Date('2026-08-20T01:01:00Z') });
   const listed = await listLatestAutonomyRuns(store);
   assert.equal(listed.count, 1);
@@ -106,7 +128,7 @@ test('pump advances GPT result to Claude follow-up on later tick', async () => {
     readTask: async () => {
       phase += 1;
       return phase === 1
-        ? { ok: true, status: 'RESULT_RECEIVED', resultStatus: 'COMPLETED', result: { outcome: 'supported', coordination: { action: 'ENGINEERING_REQUIRED', objective: 'build it', acceptanceTests: ['tests'] }, businessEffectLedger: ZERO } }
+        ? { ok: true, status: 'RESULT_RECEIVED', resultStatus: 'COMPLETED', result: completeWorkerResult({ coordination: { action: 'ENGINEERING_REQUIRED', objective: 'build it', acceptanceTests: ['tests'] } }) }
         : { ok: false, status: 'PENDING' };
     }
   });
@@ -124,7 +146,7 @@ test('pump stops at owner boundary rather than dispatching consequence action', 
   const compileRelayTask = intent => ({ ok: true, ...intent });
   const adapterFactory = async () => ({
     createTask: async task => ({ ok: true, issueNumber: 12, taskId: task.taskId }),
-    readTask: async () => ({ ok: true, status: 'RESULT_RECEIVED', resultStatus: 'COMPLETED', result: { outcome: 'needs external authority', coordination: { action: 'OWNER_REVIEW_REQUIRED', summary: 'approval required' }, businessEffectLedger: ZERO } })
+    readTask: async () => ({ ok: true, status: 'RESULT_RECEIVED', resultStatus: 'COMPLETED', result: completeWorkerResult({ outcome: 'needs external authority', coordination: { action: 'OWNER_REVIEW_REQUIRED', summary: 'approval required' } }) })
   });
   const sent = await advanceAutonomyRun({ run, adapterFactory, compileRelayTask });
   const stopped = await advanceAutonomyRun({ run: sent.run, adapterFactory, compileRelayTask });
@@ -142,10 +164,6 @@ test('terminal runs are idempotent no-ops', async () => {
 });
 
 test('a run snapshot cannot move backwards, and two states at one sequence conflict', async () => {
-  // Run state used to be append-only: any snapshot was accepted, including one
-  // that rewound a run. That is the same gap that let an execution record and a
-  // compute budget be rewound elsewhere in this repository, and the run carries
-  // a strictly monotonic `sequence` that makes it cheap to close.
   const store = fakeStore();
   const { run } = fixture();
   const at = new Date('2026-08-20T01:00:00Z');
@@ -153,17 +171,14 @@ test('a run snapshot cannot move backwards, and two states at one sequence confl
   assert.equal((await saveAutonomyRunSnapshot(store, { ...run, sequence: 1 }, { date: at })).ok, true);
   assert.equal((await saveAutonomyRunSnapshot(store, { ...run, sequence: 2 }, { date: at })).ok, true);
 
-  // A late write from earlier in the run.
   const rewind = await saveAutonomyRunSnapshot(store, { ...run, sequence: 1 }, { date: at });
   assert.equal(rewind.ok, false, 'a lower sequence must not rewind the run');
   assert.deepEqual(rewind.reasonCodes, ['autonomy-run-sequence-regression']);
 
-  // Same point in the run, identical content: a harmless crash replay.
   const replay = await saveAutonomyRunSnapshot(store, { ...run, sequence: 2 }, { date: at });
   assert.equal(replay.ok, true);
   assert.equal(replay.status, 'SNAPSHOT_ALREADY_SAVED');
 
-  // Same point in the run, different content: two writers disagree.
   const disagree = await saveAutonomyRunSnapshot(store, { ...run, sequence: 2, status: 'BLOCKED' }, { date: at });
   assert.equal(disagree.ok, false, 'conflicting states at one sequence must not be silently appended');
   assert.deepEqual(disagree.reasonCodes, ['autonomy-run-snapshot-conflict']);
@@ -173,10 +188,6 @@ test('a run snapshot cannot move backwards, and two states at one sequence confl
 });
 
 test('the active-run listing shows the furthest-along snapshot, not the first one written', async () => {
-  // agent-autonomy-job reads this listing to decide which runs to sweep, so a
-  // stale entry puts a finished run back in the active set and has its work
-  // redone. Two snapshots stamped at one instant used to resolve to whichever
-  // was written first.
   const store = fakeStore();
   const { run } = fixture();
   const sameInstant = new Date('2026-08-20T02:00:00Z');

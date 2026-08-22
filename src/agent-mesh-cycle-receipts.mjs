@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 
-export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.2.0';
+export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.3.0';
 const START_TYPE = 'agent_mesh_cycle_started';
 const TERMINAL_TYPE = 'agent_mesh_cycle_terminal';
 const TERMINAL_STATUSES = new Set(['ADVANCED', 'IDLE', 'DEGRADED', 'BLOCKED']);
@@ -40,6 +40,42 @@ function safeWorkers(workers = []) {
       ? worker.reasonCodes.slice(0, 20).map(code => text(code, 180)).filter(Boolean)
       : []
   }));
+}
+
+function normalizedPolicyVersions(policyVersions = []) {
+  return [...new Set((policyVersions || []).map(v => text(v, 120)).filter(Boolean))].sort().slice(0, 20);
+}
+
+function normalizedConfiguredWorkers(workers = []) {
+  return safeWorkers((workers || []).map(worker => ({ ...worker, status: 'CONFIGURED', ok: true })))
+    .map(worker => ({
+      targetAgent: worker.targetAgent,
+      provider: worker.provider,
+      model: worker.model,
+      workerId: worker.workerId
+    }))
+    .sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));
+}
+
+function cycleIdentity({ occurrenceKey, sourceCommit = null, policyVersions = [], workers = [] } = {}) {
+  const occurrenceKeyHash = crypto.createHash('sha256').update(text(occurrenceKey, 300)).digest('hex');
+  const identity = {
+    occurrenceKeyHash,
+    sourceCommit: text(sourceCommit, 80) || null,
+    policyVersions: normalizedPolicyVersions(policyVersions),
+    workers: normalizedConfiguredWorkers(workers)
+  };
+  return {
+    ...identity,
+    identityHash: crypto.createHash('sha256').update(JSON.stringify(identity)).digest('hex')
+  };
+}
+
+function assertSameCycleIdentity(receipt, expected) {
+  const persisted = text(receipt?.identityHash, 80);
+  if (!persisted || persisted !== expected.identityHash) {
+    throw new Error('scheduler-occurrence-identity-conflict');
+  }
 }
 
 export function supportsAgentMeshCycleReceipts(store) {
@@ -81,7 +117,7 @@ async function append(store, type, cycleId, phase, detail, createdAt) {
   return store.log(type, detail);
 }
 
-async function appendOrRecoverDuplicate(store, { type, cycleId, phase, detail, createdAt }) {
+async function appendOrRecoverDuplicate(store, { type, cycleId, phase, detail, createdAt, expectedIdentity }) {
   try {
     const row = await append(store, type, cycleId, phase, detail, createdAt);
     return { duplicate: false, row };
@@ -91,10 +127,14 @@ async function appendOrRecoverDuplicate(store, { type, cycleId, phase, detail, c
     // observe ABSENT before either writes; the loser of that race must recover
     // the winner's persisted receipt rather than surface a false cycle failure.
     // Do not swallow arbitrary write failures: only convert an error into an
-    // idempotent duplicate when the exact deterministic record now exists.
+    // idempotent duplicate when the exact deterministic record now exists AND
+    // belongs to the exact same immutable scheduler occurrence identity.
     if (typeof store.get === 'function' && typeof store.add === 'function') {
       const raced = await lookup(store, type, cycleId, phase);
-      if (raced) return { duplicate: true, row: raced };
+      if (raced) {
+        if (expectedIdentity) assertSameCycleIdentity(raced.detail, expectedIdentity);
+        return { duplicate: true, row: raced };
+      }
     }
     throw error;
   }
@@ -110,17 +150,22 @@ export async function beginAgentMeshCycleReceipt({
 } = {}) {
   requireStore(store);
   const cycleId = deriveAgentMeshCycleId(occurrenceKey);
+  const identity = cycleIdentity({ occurrenceKey, sourceCommit, policyVersions, workers });
   const existing = await lookup(store, START_TYPE, cycleId, 'started');
-  if (existing) return { cycleId, duplicate: true, receipt: structuredClone(existing.detail || {}) };
+  if (existing) {
+    assertSameCycleIdentity(existing.detail, identity);
+    return { cycleId, duplicate: true, receipt: structuredClone(existing.detail || {}) };
+  }
 
   const detail = {
     receiptVersion: AGENT_MESH_CYCLE_RECEIPT_VERSION,
     cycleId,
-    occurrenceKeyHash: crypto.createHash('sha256').update(text(occurrenceKey, 300)).digest('hex'),
+    occurrenceKeyHash: identity.occurrenceKeyHash,
+    identityHash: identity.identityHash,
     phase: 'STARTED',
     startedAt: iso(startedAt),
-    sourceCommit: text(sourceCommit, 80) || null,
-    policyVersions: [...new Set((policyVersions || []).map(v => text(v, 120)).filter(Boolean))].slice(0, 20),
+    sourceCommit: identity.sourceCommit,
+    policyVersions: identity.policyVersions,
     workers: safeWorkers(workers.map(worker => ({ ...worker, status: 'CONFIGURED', ok: true }))),
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }
@@ -130,7 +175,8 @@ export async function beginAgentMeshCycleReceipt({
     cycleId,
     phase: 'started',
     detail,
-    createdAt: detail.startedAt
+    createdAt: detail.startedAt,
+    expectedIdentity: identity
   });
   return {
     cycleId,
@@ -157,19 +203,38 @@ export async function finishAgentMeshCycleReceipt({
   if (!/^meshcycle_[a-f0-9]{32}$/.test(normalizedCycleId)) throw new Error('valid-cycle-id-required');
   if (!TERMINAL_STATUSES.has(status)) throw new Error('terminal-cycle-status-required');
 
-  const existing = await lookup(store, TERMINAL_TYPE, normalizedCycleId, 'terminal');
-  if (existing) return { duplicate: true, receipt: structuredClone(existing.detail || {}) };
   const startRecord = await lookup(store, START_TYPE, normalizedCycleId, 'started');
   if (!startRecord) throw new Error('cycle-start-receipt-required-before-terminal');
+  const startDetail = startRecord.detail || {};
+  const terminalIdentity = {
+    identityHash: text(startDetail.identityHash, 80)
+  };
+  if (!terminalIdentity.identityHash) throw new Error('scheduler-occurrence-identity-conflict');
+
+  const requestedSourceCommit = text(sourceCommit, 80) || text(startDetail.sourceCommit, 80) || null;
+  const requestedPolicies = policyVersions?.length
+    ? normalizedPolicyVersions(policyVersions)
+    : normalizedPolicyVersions(startDetail.policyVersions || []);
+  if (requestedSourceCommit !== (text(startDetail.sourceCommit, 80) || null)
+    || JSON.stringify(requestedPolicies) !== JSON.stringify(normalizedPolicyVersions(startDetail.policyVersions || []))) {
+    throw new Error('scheduler-occurrence-identity-conflict');
+  }
+
+  const existing = await lookup(store, TERMINAL_TYPE, normalizedCycleId, 'terminal');
+  if (existing) {
+    assertSameCycleIdentity(existing.detail, terminalIdentity);
+    return { duplicate: true, receipt: structuredClone(existing.detail || {}) };
+  }
 
   const detail = {
     receiptVersion: AGENT_MESH_CYCLE_RECEIPT_VERSION,
     cycleId: normalizedCycleId,
+    identityHash: terminalIdentity.identityHash,
     phase: 'TERMINAL',
-    startedAt: iso(startedAt || startRecord.detail?.startedAt),
+    startedAt: iso(startedAt || startDetail.startedAt),
     finishedAt: iso(finishedAt),
-    sourceCommit: text(sourceCommit, 80) || text(startRecord.detail?.sourceCommit, 80) || null,
-    policyVersions: [...new Set((policyVersions || startRecord.detail?.policyVersions || []).map(v => text(v, 120)).filter(Boolean))].slice(0, 20),
+    sourceCommit: requestedSourceCommit,
+    policyVersions: requestedPolicies,
     status,
     reasonCodes: [...new Set((reasonCodes || []).map(code => text(code, 180)).filter(Boolean))].slice(0, 30),
     firstSweep: safeSummary(firstSweep),
@@ -183,7 +248,8 @@ export async function finishAgentMeshCycleReceipt({
     cycleId: normalizedCycleId,
     phase: 'terminal',
     detail,
-    createdAt: detail.finishedAt
+    createdAt: detail.finishedAt,
+    expectedIdentity: terminalIdentity
   });
   return {
     duplicate: appended.duplicate,

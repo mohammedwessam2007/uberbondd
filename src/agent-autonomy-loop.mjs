@@ -9,6 +9,9 @@ const MAX_TOTAL_TOKENS = 10_000_000;
 const MAX_REFS = 100;
 const MAX_HISTORY = 256;
 const MAX_CONSTRAINTS = 64;
+// Every compiled task carries these two, so they count against the same budget
+// as inherited ones. Naming them keeps the overflow arithmetic honest.
+const MANDATORY_CONSTRAINTS = Object.freeze(['local-preparation-only', 'no-business-external-effects']);
 const EXTERNAL_EFFECT_ZERO = Object.freeze({
   messages: 0,
   purchases: 0,
@@ -192,6 +195,14 @@ export function compileTaskIntent({
   if (tokens == null) reasons.push('bounded-task-token-budget-required');
   if (session.tasksCreated >= session.maxTasks) reasons.push('session-task-limit-reached');
   if (session.reservedTokens + (tokens || 0) > session.maxTotalTokens) reasons.push('session-token-budget-exceeded');
+  // Truncating here would silently drop constraints a parent had already
+  // imposed, which is precisely the monotonicity break this module exists to
+  // prevent. Overflow is a compile failure, not a quiet trim.
+  const fullConstraints = [...new Set([...MANDATORY_CONSTRAINTS, ...strings(constraints, MAX_CONSTRAINTS + 1)])];
+  if (Array.isArray(constraints) && new Set(constraints.map(value => text(value, 500)).filter(Boolean)).size > MAX_CONSTRAINTS) {
+    reasons.push('task-constraint-budget-exceeded');
+  }
+  if (fullConstraints.length > MAX_CONSTRAINTS) reasons.push('task-constraint-budget-exceeded');
   if (reasons.length) return fail(reasons);
 
   const identity = {
@@ -205,7 +216,7 @@ export function compileTaskIntent({
     evidenceRefs: canonicalEvidenceRefs(evidenceRefs).valid,
     acceptanceTests: strings(acceptanceTests, 40),
     requiredOutputs: strings(requiredOutputs, 40),
-    constraints: strings(constraints, MAX_CONSTRAINTS - 2),
+    constraints: fullConstraints,
     tokenBudget: tokens
   };
   const taskId = `mesh_task_${hash(identity).slice(0, 24)}`;
@@ -224,7 +235,7 @@ export function compileTaskIntent({
     evidenceRefs: identity.evidenceRefs,
     acceptanceTests: identity.acceptanceTests,
     requiredOutputs: identity.requiredOutputs.length ? identity.requiredOutputs : ['outcome', 'coordination', 'evidenceRefs'],
-    constraints: strings(['local-preparation-only', 'no-business-external-effects', ...identity.constraints], MAX_CONSTRAINTS),
+    constraints: identity.constraints,
     tokenBudget: tokens,
     createdAt: timestamp(date),
     consequenceClass: 'LOCAL_PREPARATION',

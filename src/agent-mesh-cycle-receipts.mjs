@@ -47,23 +47,35 @@ function normalizedPolicyVersions(policyVersions = []) {
 }
 
 function normalizedConfiguredWorkers(workers = []) {
-  return safeWorkers((workers || []).map(worker => ({ ...worker, status: 'CONFIGURED', ok: true })))
-    .map(worker => ({
-      targetAgent: worker.targetAgent,
-      provider: worker.provider,
-      model: worker.model,
-      workerId: worker.workerId
-    }))
-    .sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));
+  return (workers || []).map(worker => ({
+    targetAgent: text(worker?.targetAgent, 80).toLowerCase(),
+    provider: text(worker?.provider, 80).toLowerCase(),
+    model: text(worker?.model, 160) || null,
+    workerId: text(worker?.workerId, 160),
+    budgetId: text(worker?.budgetId, 160) || null,
+    costCeilingCents: Number.isSafeInteger(worker?.costCeilingCents) ? worker.costCeilingCents : null,
+    tokenCeiling: Number.isSafeInteger(worker?.tokenCeiling) ? worker.tokenCeiling : null,
+    lockTimeoutMs: Number.isSafeInteger(worker?.lockTimeoutMs) ? worker.lockTimeoutMs : null
+  }))
+    .sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)))
+    .slice(0, 8);
 }
 
-function cycleIdentity({ occurrenceKey, sourceCommit = null, policyVersions = [], workers = [] } = {}) {
+function normalizedConfiguration(configuration = {}) {
+  return {
+    autonomyRunLimit: Number.isSafeInteger(configuration?.autonomyRunLimit) ? configuration.autonomyRunLimit : null,
+    ingestAfterWorkers: typeof configuration?.ingestAfterWorkers === 'boolean' ? configuration.ingestAfterWorkers : null
+  };
+}
+
+function cycleIdentity({ occurrenceKey, sourceCommit = null, policyVersions = [], workers = [], configuration = {} } = {}) {
   const occurrenceKeyHash = crypto.createHash('sha256').update(text(occurrenceKey, 300)).digest('hex');
   const identity = {
     occurrenceKeyHash,
     sourceCommit: text(sourceCommit, 80) || null,
     policyVersions: normalizedPolicyVersions(policyVersions),
-    workers: normalizedConfiguredWorkers(workers)
+    workers: normalizedConfiguredWorkers(workers),
+    configuration: normalizedConfiguration(configuration)
   };
   return {
     ...identity,
@@ -122,13 +134,10 @@ async function appendOrRecoverDuplicate(store, { type, cycleId, phase, detail, c
     const row = await append(store, type, cycleId, phase, detail, createdAt);
     return { duplicate: false, row };
   } catch (error) {
-    // The canonical durable Store uses deterministic record IDs and rejects a
-    // duplicate add atomically. Two scheduler deliveries can therefore both
-    // observe ABSENT before either writes; the loser of that race must recover
-    // the winner's persisted receipt rather than surface a false cycle failure.
-    // Do not swallow arbitrary write failures: only convert an error into an
-    // idempotent duplicate when the exact deterministic record now exists AND
-    // belongs to the exact same immutable scheduler occurrence identity.
+    // Two scheduler deliveries can both observe ABSENT before either writes.
+    // Recover only when the exact deterministic record now exists AND belongs
+    // to the exact same immutable scheduler occurrence identity. Never convert
+    // a conflicting occurrence or an unrelated storage failure into success.
     if (typeof store.get === 'function' && typeof store.add === 'function') {
       const raced = await lookup(store, type, cycleId, phase);
       if (raced) {
@@ -146,11 +155,12 @@ export async function beginAgentMeshCycleReceipt({
   startedAt = new Date(),
   sourceCommit = null,
   policyVersions = [],
-  workers = []
+  workers = [],
+  configuration = {}
 } = {}) {
   requireStore(store);
   const cycleId = deriveAgentMeshCycleId(occurrenceKey);
-  const identity = cycleIdentity({ occurrenceKey, sourceCommit, policyVersions, workers });
+  const identity = cycleIdentity({ occurrenceKey, sourceCommit, policyVersions, workers, configuration });
   const existing = await lookup(store, START_TYPE, cycleId, 'started');
   if (existing) {
     assertSameCycleIdentity(existing.detail, identity);
@@ -206,9 +216,7 @@ export async function finishAgentMeshCycleReceipt({
   const startRecord = await lookup(store, START_TYPE, normalizedCycleId, 'started');
   if (!startRecord) throw new Error('cycle-start-receipt-required-before-terminal');
   const startDetail = startRecord.detail || {};
-  const terminalIdentity = {
-    identityHash: text(startDetail.identityHash, 80)
-  };
+  const terminalIdentity = { identityHash: text(startDetail.identityHash, 80) };
   if (!terminalIdentity.identityHash) throw new Error('scheduler-occurrence-identity-conflict');
 
   const requestedSourceCommit = text(sourceCommit, 80) || text(startDetail.sourceCommit, 80) || null;
@@ -257,13 +265,33 @@ export async function finishAgentMeshCycleReceipt({
   };
 }
 
-export async function getAgentMeshCycleReceipt({ store, occurrenceKey } = {}) {
+export async function getAgentMeshCycleReceipt({
+  store,
+  occurrenceKey,
+  sourceCommit,
+  policyVersions,
+  workers,
+  configuration
+} = {}) {
   requireStore(store);
   const cycleId = deriveAgentMeshCycleId(occurrenceKey);
+  const validateIdentity = sourceCommit !== undefined
+    || policyVersions !== undefined
+    || workers !== undefined
+    || configuration !== undefined;
+  const expectedIdentity = validateIdentity
+    ? cycleIdentity({ occurrenceKey, sourceCommit, policyVersions, workers, configuration })
+    : null;
   const terminal = await lookup(store, TERMINAL_TYPE, cycleId, 'terminal');
-  if (terminal) return { cycleId, state: 'TERMINAL', receipt: structuredClone(terminal.detail || {}) };
+  if (terminal) {
+    if (expectedIdentity) assertSameCycleIdentity(terminal.detail, expectedIdentity);
+    return { cycleId, state: 'TERMINAL', receipt: structuredClone(terminal.detail || {}) };
+  }
   const started = await lookup(store, START_TYPE, cycleId, 'started');
-  if (started) return { cycleId, state: 'STARTED', receipt: structuredClone(started.detail || {}) };
+  if (started) {
+    if (expectedIdentity) assertSameCycleIdentity(started.detail, expectedIdentity);
+    return { cycleId, state: 'STARTED', receipt: structuredClone(started.detail || {}) };
+  }
   return { cycleId, state: 'ABSENT', receipt: null };
 }
 

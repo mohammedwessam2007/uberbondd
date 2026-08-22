@@ -8,6 +8,7 @@ const MAX_TASKS = 64;
 const MAX_TOTAL_TOKENS = 10_000_000;
 const MAX_REFS = 100;
 const MAX_HISTORY = 256;
+const MAX_CONSTRAINTS = 64;
 const EXTERNAL_EFFECT_ZERO = Object.freeze({
   messages: 0,
   purchases: 0,
@@ -92,6 +93,18 @@ function cloneSession(session) {
 }
 function validSession(session) {
   return Boolean(session?.ok && session.policyVersion === AGENT_AUTONOMY_POLICY_VERSION && session.sessionId);
+}
+
+export function inheritTaskConstraints({ parentIntent, requestedConstraints = [] } = {}) {
+  const inherited = strings(parentIntent?.constraints || [], MAX_CONSTRAINTS);
+  const requested = strings(requestedConstraints, MAX_CONSTRAINTS);
+  const union = [...new Set([...inherited, ...requested])];
+  return {
+    ok: union.length <= MAX_CONSTRAINTS,
+    constraints: union.slice(0, MAX_CONSTRAINTS),
+    inheritedConstraints: inherited,
+    requestedConstraints: requested
+  };
 }
 
 export function compileAutonomySession({
@@ -192,7 +205,7 @@ export function compileTaskIntent({
     evidenceRefs: canonicalEvidenceRefs(evidenceRefs).valid,
     acceptanceTests: strings(acceptanceTests, 40),
     requiredOutputs: strings(requiredOutputs, 40),
-    constraints: strings(constraints, 40),
+    constraints: strings(constraints, MAX_CONSTRAINTS - 2),
     tokenBudget: tokens
   };
   const taskId = `mesh_task_${hash(identity).slice(0, 24)}`;
@@ -211,7 +224,7 @@ export function compileTaskIntent({
     evidenceRefs: identity.evidenceRefs,
     acceptanceTests: identity.acceptanceTests,
     requiredOutputs: identity.requiredOutputs.length ? identity.requiredOutputs : ['outcome', 'coordination', 'evidenceRefs'],
-    constraints: [...new Set(['local-preparation-only', 'no-business-external-effects', ...identity.constraints])],
+    constraints: strings(['local-preparation-only', 'no-business-external-effects', ...identity.constraints], MAX_CONSTRAINTS),
     tokenBudget: tokens,
     createdAt: timestamp(date),
     consequenceClass: 'LOCAL_PREPARATION',
@@ -238,6 +251,8 @@ export function registerTaskIntent({ session, intent, date = new Date() } = {}) 
     kind: intent.kind,
     objective: intent.objective,
     tokenBudget: intent.tokenBudget,
+    constraints: strings(intent.constraints, MAX_CONSTRAINTS),
+    consequenceClass: intent.consequenceClass,
     at: next.updatedAt
   });
   next.history = next.history.slice(-MAX_HISTORY);
@@ -265,7 +280,7 @@ export function normalizeCoordination(result = {}) {
     contextRefs: strings(raw.contextRefs || []),
     acceptanceTests: strings(raw.acceptanceTests || [], 40),
     requiredOutputs: strings(raw.requiredOutputs || [], 40),
-    constraints: strings(raw.constraints || [], 40),
+    constraints: strings(raw.constraints || [], MAX_CONSTRAINTS),
     tokenBudget: int(raw.tokenBudget, 1, 500_000, 50_000),
     confidence: Number.isFinite(confidence) ? confidence : null
   };
@@ -329,12 +344,19 @@ export function ingestAgentResult({ session, taskIntent, result, date = new Date
     return { ok: true, policyVersion: AGENT_AUTONOMY_POLICY_VERSION, status: next.status, session: next, coordination, nextIntent: null, reasonCodes: ['required-target-agent-not-allowed'] };
   }
 
+  const inherited = inheritTaskConstraints({ parentIntent: taskIntent, requestedConstraints: coordination.constraints });
+  if (!inherited.ok) {
+    next.status = 'BLOCKED';
+    return { ok: true, policyVersion: AGENT_AUTONOMY_POLICY_VERSION, status: next.status, session: next, coordination, nextIntent: null, reasonCodes: ['parent-constraint-inheritance-failed'] };
+  }
+
   const followupIdentity = {
     action: coordination.action,
     targetAgent,
     objective: coordination.objective,
     evidenceRefs: coordination.evidenceRefs,
-    acceptanceTests: coordination.acceptanceTests
+    acceptanceTests: coordination.acceptanceTests,
+    constraints: inherited.constraints
   };
   const followupKey = hash(followupIdentity);
   if (next.seenFollowups.includes(followupKey)) {
@@ -355,7 +377,7 @@ export function ingestAgentResult({ session, taskIntent, result, date = new Date
     evidenceRefs: coordination.evidenceRefs,
     acceptanceTests: coordination.acceptanceTests,
     requiredOutputs: coordination.requiredOutputs,
-    constraints: coordination.constraints,
+    constraints: inherited.constraints,
     tokenBudget: coordination.tokenBudget,
     date
   });

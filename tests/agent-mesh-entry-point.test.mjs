@@ -10,18 +10,9 @@ import { createModelExecutorFactory, describeProviderReadiness } from '../src/ag
 import { ZERO_EFFECTS } from '../src/cloud-agent-relay.mjs';
 import { resolveWorkers } from '../scripts/agent-mesh-tick.mjs';
 
-// These cover the gap that made the whole 26-module mesh unreachable: the
-// control plane needs two functions, and until now the only things in the
-// repository that produced either were stubs inside test files. A green suite
-// said the mesh worked. Nothing could call it.
-
 const ENDPOINT = 'https://relay.example.com/api/agent-relay';
 const TOKEN = 'placeholder-bearer-value-not-a-credential';
 
-// Matches the audit-log contract the real stores expose: log(type, detail)
-// appends to 'auditLog', and list('auditLog', { filters: { type } }) reads it
-// back. Getting this shape wrong makes the run invisible to the pump while
-// every individual module still looks healthy.
 function memoryStore() {
   const rows = [];
   return {
@@ -68,7 +59,6 @@ test('the relay adapter factory produces the shape the autonomy pump requires', 
     fetchImpl: async () => { throw new Error('not called'); }
   });
   const adapter = factory({ originAgent: 'chatgpt', targetAgent: 'claude-code' });
-  // agent-autonomy-pump checks exactly these before it will use an adapter.
   assert.equal(typeof adapter.createTask, 'function');
   assert.equal(typeof adapter.readTask, 'function');
   assert.equal(typeof adapter.waitForResult, 'function');
@@ -124,7 +114,6 @@ test('a provider is only ready with a credential, pricing evidence, and an expli
   const [openai] = describeProviderReadiness({ env });
   assert.equal(openai.ready, true);
 
-  // Pricing without a source is a number the system invented, not evidence.
   const { OPENAI_PRICING_SOURCE, ...noSource } = env;
   assert.equal(describeProviderReadiness({ env: noSource })[0].ready, false);
   assert.equal(describeProviderReadiness({ env: noSource })[0].blockers.includes('pricing-evidence-absent'), true);
@@ -175,8 +164,6 @@ test('the mesh cycle drives a seeded run through the real relay adapter', async 
         taskId: body?.input?.taskId,
         task: body?.input,
         issueNumber: 4242,
-        // The real constant, not a hand-written imitation of it: the client
-        // rejects any ledger whose keys are not exactly these.
         externalEffectLedger: { ...ZERO_EFFECTS }
       })
     };
@@ -192,11 +179,10 @@ test('the mesh cycle drives a seeded run through the real relay adapter', async 
     compileRelayTask: compileRelayTaskFromIntent,
     workers: [],
     autonomyRunLimit: 3,
-    ingestAfterWorkers: false
+    ingestAfterWorkers: false,
+    schedulerOccurrenceKey: 'entry-point-real-relay-occurrence-1'
   });
 
-  // The point of the test: the cycle got past dependency validation, reached
-  // the pump, compiled the intent, and handed it to the transport.
   assert.notEqual(cycle.status, 'BLOCKED', JSON.stringify(cycle.reasonCodes || []));
   assert.equal(cycle.ok, true);
   assert.equal(cycle.firstSweep.runsTicked, 1);
@@ -219,8 +205,6 @@ test('the mesh cycle still fails closed when a dependency is missing', async () 
 });
 
 test('importing the tick entry point does not start a cycle', async () => {
-  // The module is already imported at the top of this file. If the entry guard
-  // were wrong, main() would have run against the real config on import.
   assert.equal(typeof resolveWorkers, 'function');
 });
 
@@ -237,11 +221,6 @@ test('exactly one implementation of the spend transaction is reachable', async (
       if (/from\s+'[^']*agent-provider-execution\.mjs'/.test(source)) importers.push(`${root}/${name}`);
     }
   }
-  // agent-worker-runtime is the canonical reserve -> invoke -> commit path.
-  // agent-provider-execution is an earlier implementation of the same
-  // transaction, kept for its tests and marked SUPERSEDED. Two reachable
-  // implementations of "spend money" is the shape that produces a double
-  // charge, so wiring it in must fail here first.
   assert.deepEqual(importers, [],
     `agent-provider-execution is superseded; extend agent-worker-runtime instead. Wired from: ${importers.join(', ')}`);
 });
@@ -250,11 +229,6 @@ test('a crash between dispatch and snapshot recovers instead of dispatching twic
   const { createGithubRelayTask, TASK_LABEL } = await import('../src/github-relay.mjs');
   const { advanceAutonomyRun } = await import('../src/agent-autonomy-pump.mjs');
 
-  // The real failure: agent-autonomy-pump dispatches, and only afterwards does
-  // agent-autonomy-job persist the run carrying the relayRef. Everything
-  // between those two lines is a window in which the task exists and the run
-  // does not know it. This drops the post-dispatch run on the floor, exactly as
-  // a killed process would, and re-ticks from the last durable state.
   const issues = new Map();
   let nextIssue = 1;
   const client = {
@@ -280,8 +254,6 @@ test('a crash between dispatch and snapshot recovers instead of dispatching twic
   assert.equal(first.transition, 'DISPATCHED');
   assert.equal(issues.size, 1);
 
-  // Crash here. `first.run` is never persisted; the next tick reloads the run
-  // as it was before the dispatch.
   const afterCrash = await advanceAutonomyRun({ run, adapterFactory, compileRelayTask: compileRelayTaskFromIntent });
 
   assert.equal(afterCrash.ok, true);

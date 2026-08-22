@@ -1,7 +1,8 @@
 import crypto from 'node:crypto';
 import { registerTaskIntent, ingestAgentResult } from './agent-autonomy-loop.mjs';
+import { validResult as validateCanonicalWorkerResult } from './cloud-agent-relay.mjs';
 
-export const AGENT_AUTONOMY_PUMP_POLICY_VERSION = 'agent-autonomy-pump-1.0.0';
+export const AGENT_AUTONOMY_PUMP_POLICY_VERSION = 'agent-autonomy-pump-1.1.0';
 
 const MAX_RECEIPTS = 256;
 const TERMINAL = new Set([
@@ -127,9 +128,6 @@ export async function advanceAutonomyRun({
       const failed = withFailure(next, ['target-agent-create-adapter-required'], date);
       return { ok: false, policyVersion: AGENT_AUTONOMY_PUMP_POLICY_VERSION, status: 'FAILED', transition: 'FAILED', run: failed, reasonCodes: failed.reasonCodes };
     }
-    // Register against a candidate session first, but do not persist that
-    // state until createTask succeeds. A transient queue failure must remain
-    // safely retryable instead of poisoning the session as a duplicate.
     const registered = registerTaskIntent({ session: next.session, intent: next.currentIntent, date });
     if (!registered.ok) {
       const failed = withFailure(next, registered.reasonCodes || ['task-registration-failed'], date);
@@ -183,6 +181,18 @@ export async function advanceAutonomyRun({
     if (!result) {
       const failed = withFailure(next, ['agent-result-required'], date);
       return { ok: false, policyVersion: AGENT_AUTONOMY_PUMP_POLICY_VERSION, status: 'FAILED', transition: 'FAILED', run: failed, reasonCodes: failed.reasonCodes };
+    }
+    const resultContractErrors = validateCanonicalWorkerResult(result);
+    if (resultContractErrors.length) {
+      const failed = withFailure(next, resultContractErrors, date);
+      return {
+        ok: false,
+        policyVersion: AGENT_AUTONOMY_PUMP_POLICY_VERSION,
+        status: 'FAILED',
+        transition: 'FAILED',
+        run: failed,
+        reasonCodes: failed.reasonCodes
+      };
     }
     const receipt = {
       runId: next.runId,

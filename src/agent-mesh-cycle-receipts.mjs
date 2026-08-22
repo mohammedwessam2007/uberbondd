@@ -1,21 +1,10 @@
 import crypto from 'node:crypto';
+import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 
 export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.0.0';
 const START_TYPE = 'agent_mesh_cycle_started';
 const TERMINAL_TYPE = 'agent_mesh_cycle_terminal';
 const TERMINAL_STATUSES = new Set(['ADVANCED', 'IDLE', 'DEGRADED', 'BLOCKED']);
-const ZERO_EFFECTS = Object.freeze({
-  customerMessages: 0,
-  providerCalls: 0,
-  spendCents: 0,
-  dnsChanges: 0,
-  credentialChanges: 0,
-  paymentChanges: 0,
-  kycSubmissions: 0,
-  liveOutbound: 0,
-  productionMutations: 0,
-  customerMutations: 0
-});
 
 function text(value, max = 240) {
   return String(value ?? '').trim().slice(0, max);

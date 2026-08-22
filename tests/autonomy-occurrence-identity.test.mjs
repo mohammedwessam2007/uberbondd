@@ -17,7 +17,7 @@ const BASE = Object.freeze({
   date: new Date('2026-08-22T07:00:00.000Z')
 });
 
-function initialIntent(session) {
+function initialIntent(session, date = new Date('2026-08-22T07:00:00.000Z')) {
   return compileAutonomyOccurrenceTaskIntent({
     session,
     originAgent: 'uberbond',
@@ -28,7 +28,7 @@ function initialIntent(session) {
     acceptanceTests: ['current main SHA is recorded'],
     constraints: ['local-preparation-only'],
     tokenBudget: 10_000,
-    date: new Date('2026-08-22T07:00:00.000Z')
+    date
   });
 }
 
@@ -48,13 +48,26 @@ test('different explicit schedule occurrences produce different session and task
   assert.notEqual(firstTask.taskId, secondTask.taskId);
 });
 
-test('recompiling the same occurrence after restart preserves session and task identity', () => {
-  const beforeRestart = compileAutonomyOccurrenceSession({ ...BASE, occurrenceKey: 'github-actions:run-32560000000:attempt-1' });
-  const afterRestart = compileAutonomyOccurrenceSession({ ...BASE, occurrenceKey: 'github-actions:run-32560000000:attempt-1' });
+test('recompiling the same occurrence after a later restart preserves session and task identity', () => {
+  const occurrenceKey = 'github-actions:run-32560000000';
+  const beforeRestart = compileAutonomyOccurrenceSession({
+    ...BASE,
+    occurrenceKey,
+    date: new Date('2026-08-22T07:00:00.000Z')
+  });
+  const afterRestart = compileAutonomyOccurrenceSession({
+    ...BASE,
+    occurrenceKey,
+    date: new Date('2026-08-22T07:37:41.000Z')
+  });
 
+  assert.notEqual(beforeRestart.createdAt, afterRestart.createdAt);
   assert.equal(beforeRestart.sessionId, afterRestart.sessionId);
   assert.equal(beforeRestart.missionKey, afterRestart.missionKey);
-  assert.equal(initialIntent(beforeRestart).taskId, initialIntent(afterRestart).taskId);
+  assert.equal(
+    initialIntent(beforeRestart, new Date('2026-08-22T07:01:00.000Z')).taskId,
+    initialIntent(afterRestart, new Date('2026-08-22T07:38:00.000Z')).taskId
+  );
 });
 
 test('same logical mission may use an explicit stable mission key across different occurrences', () => {

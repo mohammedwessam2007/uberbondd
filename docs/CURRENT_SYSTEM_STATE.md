@@ -35,7 +35,7 @@ session. None of it is inferred from reading code.
 | Gate | Result |
 |---|---|
 | `npm run check:syntax` | 411 files parse |
-| `npm run test:deterministic` | 1909 tests, 1867 pass, 0 fail, 42 skipped |
+| `npm run test:deterministic` | 1920 tests, 1878 pass, 0 fail, 42 skipped |
 | `npm run test:postgres-gate` | 13 suites, 129 tests, 129 pass, 0 fail, **0 skipped** |
 | `npm run test:relay-safety` | 150 tests, 150 pass, 0 fail |
 | `npm audit` | 0 vulnerabilities |
@@ -72,6 +72,28 @@ failure in this repository has been two definitions drifting apart:
 - **`src/ai-compute-budget.mjs`** — the one reserve/invoke/commit transaction.
   A second implementation exists, is marked superseded, and a test fails if
   anything imports it.
+
+### The recurring failure worth naming
+
+Four separate places trusted a claim because it was *well-formed* rather than
+because of *where it came from*, and all four are now bound to provenance:
+
+| Where | What a bare object used to buy |
+|---|---|
+| Inbound evidence class | A `DIRECT` causal edge from a fabricated reply |
+| Prospect evidence bundle | `ELIGIBLE_FOR_EXPERIMENT` from a hand-written object |
+| Prospect score | A decision driven by a score nothing computed |
+| Commercial receipt | A $5,000 economic anchor from a literal |
+
+The shape checks were all real and all insufficient. Each one now requires the
+producing module's own contract — and for receipts, an id that recomputes from
+the receipt's own event id, so a forger has to produce something the compiler
+would have produced rather than something that resembles it.
+
+A sweep of every other `.ok`-based admission on an economic or authority
+boundary found no further instances: the omnia-v9 reconciler cross-checks
+durable rows by digest, tenant and idempotency key, and the relay bundle
+verifier is content-addressed by blob SHA.
 
 ### Authority
 

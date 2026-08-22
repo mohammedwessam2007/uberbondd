@@ -14,13 +14,46 @@
     "7": "economically proven (cleared payment attributable to it)"
   },
   "gates": {
-    "checkSyntax": { "files": 411, "status": "PASS" },
-    "testDeterministic": { "tests": 1909, "pass": 1867, "fail": 0, "skipped": 42, "status": "PASS", "note": "42 skip only without a database; see postgresGate" },
-    "postgresGate": { "suites": 13, "tests": 129, "pass": 129, "fail": 0, "skipped": 0, "status": "PASS", "note": "real PostgreSQL 18, one database per suite" },
-    "testRelaySafety": { "tests": 150, "pass": 150, "fail": 0, "status": "PASS" },
-    "npmAudit": { "vulnerabilities": 0, "status": "PASS" },
-    "githubActions": { "status": "NOT_RUN", "externalBlocker": "CI_ACCOUNT_BLOCKED_OR_UNVERIFIED", "note": "all gates executed on the session runner instead; results above are from real execution, not inspection" },
-    "vercelPreview": { "status": "NOT_ATTEMPTED", "note": "backend/library changes only; deployment proof not required and the free-plan daily limit is not code evidence" }
+    "checkSyntax": {
+      "files": 411,
+      "status": "PASS"
+    },
+    "testDeterministic": {
+      "tests": 1920,
+      "pass": 1878,
+      "fail": 0,
+      "skipped": 42,
+      "status": "PASS",
+      "note": "42 skip only without a database; see postgresGate"
+    },
+    "postgresGate": {
+      "suites": 13,
+      "tests": 129,
+      "pass": 129,
+      "fail": 0,
+      "skipped": 0,
+      "status": "PASS",
+      "note": "real PostgreSQL 18, one database per suite"
+    },
+    "testRelaySafety": {
+      "tests": 150,
+      "pass": 150,
+      "fail": 0,
+      "status": "PASS"
+    },
+    "npmAudit": {
+      "vulnerabilities": 0,
+      "status": "PASS"
+    },
+    "githubActions": {
+      "status": "NOT_RUN",
+      "externalBlocker": "CI_ACCOUNT_BLOCKED_OR_UNVERIFIED",
+      "note": "all gates executed on the session runner instead; results above are from real execution, not inspection"
+    },
+    "vercelPreview": {
+      "status": "NOT_ATTEMPTED",
+      "note": "backend/library changes only; deployment proof not required and the free-plan daily limit is not code evidence"
+    }
   },
   "commercialTruth": {
     "realCustomers": 0,
@@ -34,8 +67,15 @@
     {
       "id": "truth-and-evidence",
       "status": 3,
-      "evidence": ["src/effect-ledger.mjs", "src/secret-patterns.mjs", "tests/effect-ledger-canonical.test.mjs"],
-      "tests": ["tests/effect-ledger-canonical.test.mjs", "tests/hostile-worker-and-provider.test.mjs"],
+      "evidence": [
+        "src/effect-ledger.mjs",
+        "src/secret-patterns.mjs",
+        "tests/effect-ledger-canonical.test.mjs"
+      ],
+      "tests": [
+        "tests/effect-ledger-canonical.test.mjs",
+        "tests/hostile-worker-and-provider.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": null,
@@ -44,8 +84,14 @@
     {
       "id": "queue-and-durable-state",
       "status": 5,
-      "evidence": ["src/queue.mjs", "src/store.mjs"],
-      "tests": ["tests/postgres-store-live.test.mjs", "tests/queue.test.mjs"],
+      "evidence": [
+        "src/queue.mjs",
+        "src/store.mjs"
+      ],
+      "tests": [
+        "tests/postgres-store-live.test.mjs",
+        "tests/queue.test.mjs"
+      ],
       "realWire": true,
       "liveProof": false,
       "externalBlocker": null,
@@ -54,8 +100,13 @@
     {
       "id": "relay",
       "status": 3,
-      "evidence": ["src/cloud-agent-relay.mjs", "src/github-relay.mjs"],
-      "tests": ["npm run test:relay-safety (150 tests)"],
+      "evidence": [
+        "src/cloud-agent-relay.mjs",
+        "src/github-relay.mjs"
+      ],
+      "tests": [
+        "npm run test:relay-safety (150 tests)"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": "no live relay round trip performed this session",
@@ -64,8 +115,14 @@
     {
       "id": "agent-mesh",
       "status": 4,
-      "evidence": ["src/agent-mesh-control-plane.mjs", "src/agent-mesh-cycle-receipts.mjs"],
-      "tests": ["tests/cognitive-loop-end-to-end.test.mjs", "tests/agent-mesh-control-plane.test.mjs"],
+      "evidence": [
+        "src/agent-mesh-control-plane.mjs",
+        "src/agent-mesh-cycle-receipts.mjs"
+      ],
+      "tests": [
+        "tests/cognitive-loop-end-to-end.test.mjs",
+        "tests/agent-mesh-control-plane.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": "no real provider call made",
@@ -74,8 +131,13 @@
     {
       "id": "constraint-authority",
       "status": 3,
-      "evidence": ["src/agent-autonomy-loop.mjs inheritTaskConstraints"],
-      "tests": ["tests/autonomy-constraint-inheritance.test.mjs", "tests/cognitive-loop-end-to-end.test.mjs"],
+      "evidence": [
+        "src/agent-autonomy-loop.mjs inheritTaskConstraints"
+      ],
+      "tests": [
+        "tests/autonomy-constraint-inheritance.test.mjs",
+        "tests/cognitive-loop-end-to-end.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": null,
@@ -84,8 +146,14 @@
     {
       "id": "worker-result-terminal-truth",
       "status": 3,
-      "evidence": ["src/agent-autonomy-pump.mjs", "src/cloud-agent-relay.mjs validResult"],
-      "tests": ["tests/worker-result-terminal-truth.test.mjs", "tests/hostile-worker-and-provider.test.mjs"],
+      "evidence": [
+        "src/agent-autonomy-pump.mjs",
+        "src/cloud-agent-relay.mjs validResult"
+      ],
+      "tests": [
+        "tests/worker-result-terminal-truth.test.mjs",
+        "tests/hostile-worker-and-provider.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": null,
@@ -94,8 +162,14 @@
     {
       "id": "scheduler-occurrence-identity",
       "status": 3,
-      "evidence": ["src/agent-autonomy-occurrence.mjs", "src/agent-autonomy-scheduled-run.mjs"],
-      "tests": ["tests/autonomy-occurrence-identity.test.mjs", "tests/agent-mesh-occurrence-identity.test.mjs"],
+      "evidence": [
+        "src/agent-autonomy-occurrence.mjs",
+        "src/agent-autonomy-scheduled-run.mjs"
+      ],
+      "tests": [
+        "tests/autonomy-occurrence-identity.test.mjs",
+        "tests/agent-mesh-occurrence-identity.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": null,
@@ -104,8 +178,12 @@
     {
       "id": "scheduler-fairness",
       "status": 3,
-      "evidence": ["src/agent-autonomy-scheduler.mjs"],
-      "tests": ["tests/autonomy-scheduler-fairness.test.mjs"],
+      "evidence": [
+        "src/agent-autonomy-scheduler.mjs"
+      ],
+      "tests": [
+        "tests/autonomy-scheduler-fairness.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": null,
@@ -114,8 +192,13 @@
     {
       "id": "durable-cycle-receipts",
       "status": 3,
-      "evidence": ["src/agent-mesh-cycle-receipts.mjs"],
-      "tests": ["tests/agent-mesh-cycle-receipt-concurrency.test.mjs", "tests/agent-mesh-cycle-receipt-time-integrity.test.mjs"],
+      "evidence": [
+        "src/agent-mesh-cycle-receipts.mjs"
+      ],
+      "tests": [
+        "tests/agent-mesh-cycle-receipt-concurrency.test.mjs",
+        "tests/agent-mesh-cycle-receipt-time-integrity.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": null,
@@ -124,8 +207,13 @@
     {
       "id": "founder-absence-duration-proof",
       "status": 3,
-      "evidence": ["src/founder-absence-readiness.mjs FOUNDER_ABSENCE_TIERS"],
-      "tests": ["tests/founder-absence-tier-ladder.test.mjs", "tests/founder-absence-durable-history.test.mjs"],
+      "evidence": [
+        "src/founder-absence-readiness.mjs FOUNDER_ABSENCE_TIERS"
+      ],
+      "tests": [
+        "tests/founder-absence-tier-ladder.test.mjs",
+        "tests/founder-absence-durable-history.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": "no durable cycle history exists yet; proven tier is LOCAL_REHEARSAL",
@@ -134,8 +222,13 @@
     {
       "id": "sandbox-isolation",
       "status": 5,
-      "evidence": ["src/agent-sandbox-provisioner.mjs"],
-      "tests": ["tests/agent-sandbox-escape.test.mjs (17 escape attempts)", "tests/isolated-claude-engineering-executor.test.mjs"],
+      "evidence": [
+        "src/agent-sandbox-provisioner.mjs"
+      ],
+      "tests": [
+        "tests/agent-sandbox-escape.test.mjs (17 escape attempts)",
+        "tests/isolated-claude-engineering-executor.test.mjs"
+      ],
       "realWire": true,
       "liveProof": false,
       "externalBlocker": null,
@@ -144,8 +237,13 @@
     {
       "id": "compute-budget",
       "status": 3,
-      "evidence": ["src/ai-compute-budget.mjs (one canonical reserve/commit/release)"],
-      "tests": ["tests/agent-mesh-adversarial-sweep.test.mjs", "tests/agent-mesh-entry-point.test.mjs"],
+      "evidence": [
+        "src/ai-compute-budget.mjs (one canonical reserve/commit/release)"
+      ],
+      "tests": [
+        "tests/agent-mesh-adversarial-sweep.test.mjs",
+        "tests/agent-mesh-entry-point.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": null,
@@ -154,8 +252,14 @@
     {
       "id": "provider-integration",
       "status": 2,
-      "evidence": ["src/openai-agent-executor.mjs", "src/anthropic-agent-executor.mjs"],
-      "tests": ["tests/openai-agent-executor.test.mjs", "tests/anthropic-agent-executor.test.mjs"],
+      "evidence": [
+        "src/openai-agent-executor.mjs",
+        "src/anthropic-agent-executor.mjs"
+      ],
+      "tests": [
+        "tests/openai-agent-executor.test.mjs",
+        "tests/anthropic-agent-executor.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": "no provider credential, no activation gate, no canary budget",
@@ -164,8 +268,14 @@
     {
       "id": "prospect-intelligence",
       "status": 3,
-      "evidence": ["src/prospect-intelligence.mjs", "src/prospect-evidence.mjs"],
-      "tests": ["tests/prospect-intelligence.test.mjs"],
+      "evidence": [
+        "src/prospect-intelligence.mjs",
+        "src/prospect-evidence.mjs",
+        "SOURCE_EVIDENCE_CEILING"
+      ],
+      "tests": [
+        "tests/prospect-intelligence.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": "no discovery adapter is bound to a real provider",
@@ -174,8 +284,12 @@
     {
       "id": "enrichment-reconciliation",
       "status": 3,
-      "evidence": ["src/prospect-intelligence.mjs reconcileEnrichmentField"],
-      "tests": ["tests/prospect-intelligence.test.mjs"],
+      "evidence": [
+        "src/prospect-intelligence.mjs reconcileEnrichmentField"
+      ],
+      "tests": [
+        "tests/prospect-intelligence.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": null,
@@ -184,8 +298,12 @@
     {
       "id": "contact-verification",
       "status": 3,
-      "evidence": ["src/contact-verification.mjs"],
-      "tests": ["tests/contact-verification.test.mjs"],
+      "evidence": [
+        "src/contact-verification.mjs"
+      ],
+      "tests": [
+        "tests/contact-verification.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": "no verifier adapter bound to a real provider",
@@ -194,8 +312,13 @@
     {
       "id": "suppression-dominance",
       "status": 3,
-      "evidence": ["src/contact-verification.mjs evaluateSendEligibilityForRoute"],
-      "tests": ["tests/contact-verification.test.mjs", "tests/prospect-qualification.test.mjs"],
+      "evidence": [
+        "src/contact-verification.mjs evaluateSendEligibilityForRoute"
+      ],
+      "tests": [
+        "tests/contact-verification.test.mjs",
+        "tests/prospect-qualification.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": null,
@@ -204,8 +327,14 @@
     {
       "id": "inbound-sensing",
       "status": 3,
-      "evidence": ["src/gmail-inbound.mjs (gmail.readonly only)", "src/inbound-feedback-kernel.mjs"],
-      "tests": ["tests/nervous-system-integration.test.mjs", "tests/gmail-inbound.test.mjs"],
+      "evidence": [
+        "src/gmail-inbound.mjs (gmail.readonly only)",
+        "src/inbound-feedback-kernel.mjs"
+      ],
+      "tests": [
+        "tests/nervous-system-integration.test.mjs",
+        "tests/gmail-inbound.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": "no Gmail credential attached",
@@ -214,8 +343,14 @@
     {
       "id": "causal-attribution",
       "status": 3,
-      "evidence": ["src/causal-attribution-spine.mjs"],
-      "tests": ["tests/causal-attribution-spine.test.mjs", "tests/nervous-system-integration.test.mjs"],
+      "evidence": [
+        "src/causal-attribution-spine.mjs",
+        "economic anchors bound to compiled commercial receipts"
+      ],
+      "tests": [
+        "tests/causal-attribution-spine.test.mjs",
+        "tests/nervous-system-integration.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": null,
@@ -224,8 +359,16 @@
     {
       "id": "payment-truth",
       "status": 2,
-      "evidence": ["src/payments.mjs", "src/commercial-outcome.mjs"],
-      "tests": ["tests/payments.test.mjs", "tests/commercial-outcome.test.mjs"],
+      "evidence": [
+        "src/payments.mjs",
+        "src/commercial-outcome.mjs",
+        "src/causal-attribution-spine.mjs isCompiledCommercialOutcome"
+      ],
+      "tests": [
+        "tests/payments.test.mjs",
+        "tests/commercial-outcome.test.mjs",
+        "tests/causal-attribution-spine.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": "no payment provider identity, no KYC, no settled payment has ever occurred",
@@ -234,8 +377,14 @@
     {
       "id": "service-sku-compiler",
       "status": 3,
-      "evidence": ["src/service-sku-compiler.mjs", "src/creator-ai-automation-service-bundle.mjs"],
-      "tests": ["tests/service-sku-compiler.test.mjs", "tests/creator-ai-automation-service-bundle.test.mjs"],
+      "evidence": [
+        "src/service-sku-compiler.mjs",
+        "src/creator-ai-automation-service-bundle.mjs"
+      ],
+      "tests": [
+        "tests/service-sku-compiler.test.mjs",
+        "tests/creator-ai-automation-service-bundle.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": "the ten offers carry CREATOR_CLAIM pricing only; no buyer or transaction evidence exists",
@@ -244,8 +393,12 @@
     {
       "id": "delivery-acceptance-truth",
       "status": 3,
-      "evidence": ["src/delivery-acceptance-truth.mjs"],
-      "tests": ["tests/delivery-acceptance-truth.test.mjs"],
+      "evidence": [
+        "src/delivery-acceptance-truth.mjs"
+      ],
+      "tests": [
+        "tests/delivery-acceptance-truth.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": "customer-origin evidence is still caller-asserted; no external acceptance channel is bound",
@@ -254,8 +407,13 @@
     {
       "id": "test-gate-integrity",
       "status": 3,
-      "evidence": ["scripts/run-tests.mjs", "scripts/run-postgres-gate.mjs"],
-      "tests": ["tests/test-discovery-integrity.test.mjs"],
+      "evidence": [
+        "scripts/run-tests.mjs",
+        "scripts/run-postgres-gate.mjs"
+      ],
+      "tests": [
+        "tests/test-discovery-integrity.test.mjs"
+      ],
       "realWire": true,
       "liveProof": false,
       "externalBlocker": null,
@@ -264,8 +422,12 @@
     {
       "id": "reachability",
       "status": 3,
-      "evidence": ["scripts/reachability-audit.mjs"],
-      "tests": ["tests/reachability-audit.test.mjs"],
+      "evidence": [
+        "scripts/reachability-audit.mjs"
+      ],
+      "tests": [
+        "tests/reachability-audit.test.mjs"
+      ],
       "realWire": true,
       "liveProof": false,
       "externalBlocker": null,
@@ -274,8 +436,12 @@
     {
       "id": "distribution-portfolio",
       "status": 2,
-      "evidence": ["src/distribution-channel.mjs"],
-      "tests": ["tests/distribution-channel.test.mjs"],
+      "evidence": [
+        "src/distribution-channel.mjs"
+      ],
+      "tests": [
+        "tests/distribution-channel.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": "no channel has ever produced a cleared payment to allocate against",
@@ -284,8 +450,12 @@
     {
       "id": "capital-allocation",
       "status": 2,
-      "evidence": ["src/capital-allocator.mjs"],
-      "tests": ["tests/capital-allocator.test.mjs"],
+      "evidence": [
+        "src/capital-allocator.mjs"
+      ],
+      "tests": [
+        "tests/capital-allocator.test.mjs"
+      ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": "the evidence ladder tops out at hypothesis; no payment exists",
@@ -294,8 +464,14 @@
     {
       "id": "self-upgrade-loop",
       "status": 3,
-      "evidence": ["src/self-upgrade.mjs", "src/durable-claude-engineering-executor.mjs"],
-      "tests": ["tests/self-upgrade.test.mjs", "tests/isolated-claude-engineering-executor.test.mjs"],
+      "evidence": [
+        "src/self-upgrade.mjs",
+        "src/durable-claude-engineering-executor.mjs"
+      ],
+      "tests": [
+        "tests/self-upgrade.test.mjs",
+        "tests/isolated-claude-engineering-executor.test.mjs"
+      ],
       "realWire": true,
       "liveProof": false,
       "externalBlocker": "no real model has run inside the sandbox; a provider credential is required",
@@ -304,8 +480,13 @@
     {
       "id": "security-and-secret-hygiene",
       "status": 3,
-      "evidence": ["src/secret-patterns.mjs"],
-      "tests": ["tests/hostile-worker-and-provider.test.mjs", "tests/agent-sandbox-escape.test.mjs"],
+      "evidence": [
+        "src/secret-patterns.mjs"
+      ],
+      "tests": [
+        "tests/hostile-worker-and-provider.test.mjs",
+        "tests/agent-sandbox-escape.test.mjs"
+      ],
       "realWire": true,
       "liveProof": false,
       "externalBlocker": null,
@@ -313,9 +494,37 @@
     }
   ],
   "ownerActions": [
-    { "id": "provider-credential", "description": "A model provider API key plus an explicit spend cap in cents.", "unlocks": ["provider-integration", "agent-mesh live tier", "self-upgrade-loop"], "canSoftwareDoThis": false, "reason": "an API key is an account credential; no software can mint one" },
-    { "id": "payment-identity", "description": "Payment provider identity and KYC.", "unlocks": ["payment-truth", "capital-allocation", "economic tiers"], "canSoftwareDoThis": false, "reason": "KYC is a legal identity check on a person" },
-    { "id": "scheduler-activation", "description": "Turn on the scheduler so durable cycle receipts accumulate. Nothing else is needed for the founder-absence tier ladder to start climbing.", "unlocks": ["founder-absence-duration-proof"], "canSoftwareDoThis": true, "reason": "software can run it; activating a scheduler in a real environment is a deployment decision, so it is left prepared and not activated" }
+    {
+      "id": "provider-credential",
+      "description": "A model provider API key plus an explicit spend cap in cents.",
+      "unlocks": [
+        "provider-integration",
+        "agent-mesh live tier",
+        "self-upgrade-loop"
+      ],
+      "canSoftwareDoThis": false,
+      "reason": "an API key is an account credential; no software can mint one"
+    },
+    {
+      "id": "payment-identity",
+      "description": "Payment provider identity and KYC.",
+      "unlocks": [
+        "payment-truth",
+        "capital-allocation",
+        "economic tiers"
+      ],
+      "canSoftwareDoThis": false,
+      "reason": "KYC is a legal identity check on a person"
+    },
+    {
+      "id": "scheduler-activation",
+      "description": "Turn on the scheduler so durable cycle receipts accumulate. Nothing else is needed for the founder-absence tier ladder to start climbing.",
+      "unlocks": [
+        "founder-absence-duration-proof"
+      ],
+      "canSoftwareDoThis": true,
+      "reason": "software can run it; activating a scheduler in a real environment is a deployment decision, so it is left prepared and not activated"
+    }
   ],
   "externalEffectLedger": {
     "messagesSent": 0,

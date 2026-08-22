@@ -132,7 +132,49 @@ Behind an env var, skipping silently. They run now and all 42 pass.
 tested, not documented. Recorded and ratcheted rather than deleted — removing a
 safety policy is the send path owner's call.
 
-**Totals: 1 P0, 5 P1, 2 P2. All fixed or explicitly recorded.**
+### P1 — four places trusted a claim for being well-formed
+
+Found by attacking this session's own output on the assumption whoever wrote
+it was not careful enough. All four are the same defect wearing different
+clothes:
+
+| Where | What a bare object bought |
+|---|---|
+| Inbound evidence class | A `DIRECT` causal edge from a fabricated reply |
+| Prospect evidence bundle | `ELIGIBLE_FOR_EXPERIMENT` from a hand-written object |
+| Prospect score | A decision driven by a score nothing computed |
+| **Commercial receipt** | **A $5,000 economic anchor from a literal** |
+
+The last one is the worst: `safeEconomicProof` verified truth level, outcome
+type, a positive integer amount, a three-letter currency and a provider event
+id — and every check passed on an object typed by hand. The apparatus that
+exists specifically to stop revenue being invented was verifying that the
+invention was well-formed. Worse, the fixtures asserting economic truth were
+themselves hand-written receipts, which is why it was never caught.
+
+An `outcomeId` is a digest of the policy version and the event id, so it
+recomputes: a forger must now produce a receipt the compiler would have
+produced, not one that resembles it.
+
+### P1 — the sandbox destroyer was a delete primitive
+
+It required the target's basename to start with `uberbond-sandbox-` and
+checked nothing else, so any directory anywhere with that name was
+destroyable, including inside the working tree.
+
+### P1 — a source could claim evidence it could not have
+
+`sourceType` and `evidenceClass` were independent strings, so a search-engine
+snippet could be filed as `FIRST_PARTY_DECLARED` and inherit both its
+confidence ceiling and its right to outrank the company's own team page.
+
+**Totals: 1 P0, 8 P1, 2 P2. All fixed or explicitly recorded.**
+
+A sweep of every other `.ok`-based admission on an economic or authority
+boundary found no further instances of the well-formed-equals-trusted defect:
+the omnia-v9 reconciler cross-checks durable rows by digest, tenant and
+idempotency key, and the relay bundle verifier is content-addressed by blob
+SHA.
 
 ---
 
@@ -141,7 +183,7 @@ safety policy is the send path owner's call.
 | Proof | Result |
 |---|---|
 | Syntax | 411 files parse |
-| Deterministic suite | 1909 tests, 1867 pass, **0 fail**, 42 skipped |
+| Deterministic suite | 1920 tests, 1878 pass, **0 fail**, 42 skipped |
 | **Real PostgreSQL gate** | 13 suites, **129 tests, 129 pass, 0 fail, 0 skipped** |
 | Relay safety | 150 / 150 |
 | `npm audit` | 0 vulnerabilities |

@@ -33,7 +33,24 @@ function allTestFiles() {
     .sort();
 }
 
-/** Test files a given test file imports directly. */
+// Every syntactic way one module can pull in another. The first pattern used
+// to be the only one, and it only matches a bare side-effect import -- so
+// `import { helper } from './a.test.mjs'` was invisible to the exclusion
+// logic, `a.test.mjs` was handed to `node --test` AND loaded again by its
+// importer, and every test inside it was counted twice. A gate that
+// double-counts its own passes is reporting a number nobody can act on.
+const TEST_IMPORT_PATTERNS = Object.freeze([
+  // import './a.test.mjs'
+  /\bimport\s+["']\.\/([^"']+\.test\.mjs)["']/g,
+  // import x from / import { x } from / import * as x from './a.test.mjs'
+  /\bimport\s[\s\S]*?\sfrom\s+["']\.\/([^"']+\.test\.mjs)["']/g,
+  // export { x } from / export * from './a.test.mjs'
+  /\bexport\s[\s\S]*?\sfrom\s+["']\.\/([^"']+\.test\.mjs)["']/g,
+  // await import('./a.test.mjs')
+  /\bimport\s*\(\s*["']\.\/([^"']+\.test\.mjs)["']\s*\)/g
+]);
+
+/** Test files a given test file imports directly, by any import form. */
 export function testImportsOf(file) {
   let source = '';
   try {
@@ -41,7 +58,17 @@ export function testImportsOf(file) {
   } catch {
     return [];
   }
-  return [...source.matchAll(/^import\s+["']\.\/([^"']+\.test\.mjs)["']/gm)].map(match => `tests/${match[1]}`);
+  const found = new Set();
+  for (const pattern of TEST_IMPORT_PATTERNS) {
+    for (const match of source.matchAll(pattern)) found.add(`tests/${match[1]}`);
+  }
+  return [...found];
+}
+
+/** Test files on disk that no suite would execute at all. */
+export function orphanedTestFiles() {
+  const reachable = reachableTestFiles();
+  return allTestFiles().filter(file => !NON_DETERMINISTIC.has(file) && !reachable.has(file));
 }
 
 /**

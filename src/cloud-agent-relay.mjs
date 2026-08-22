@@ -17,6 +17,7 @@ import {
   isLedgerShaped,
   hasUnknownLedgerKey
 } from './effect-ledger.mjs';
+import { looksLikeSecretValue, SECRET_KEY_PATTERN } from './secret-patterns.mjs';
 
 export const AGENT_RELAY_JOB_TYPE = 'prometheus.agent.relay';
 export const CLOUD_AGENT_RELAY_POLICY_VERSION = 'cloud-agent-relay-1.1.0';
@@ -28,12 +29,12 @@ export const ZERO_EFFECTS = ZERO_EXTERNAL_EFFECTS;
 const MAX_LIST_LIMIT = 50;
 const MAX_TASK_BYTES = 200_000;
 const MAX_RESULT_BYTES = 250_000;
-const SECRET_KEY = /token|secret|password|credential|privatekey|apikey|authorization/i;
+const SECRET_KEY = SECRET_KEY_PATTERN;
 // \b before sk-/ghp_ matters: without it, any ordinary identifier that happens
 // to contain "sk-" or "ghp_" as a substring (e.g. a generated taskId like
 // "e2e-task-1787174626471" contains "sk-1787174626471") false-positives as a
 // secret. \b anchors the match to a real token boundary instead.
-const SECRET_VALUE = /(?:\bsk-[A-Za-z0-9]{12,}|\bghp_[A-Za-z0-9]{12,}|-----BEGIN|Bearer\s+\S+)/;
+
 
 function at(value) {
   const date = value instanceof Date ? value : new Date(value || Date.now());
@@ -86,7 +87,7 @@ function completedSubmissionMatches(job, { worker, outcome, result, receipt }) {
 // Exported for reuse by alternative relay transports. One scanner, one set of
 // patterns -- a second copy would drift and silently weaken over time.
 export function hasSecret(value) {
-  if (typeof value === 'string') return SECRET_VALUE.test(value);
+  if (typeof value === 'string') return looksLikeSecretValue(value);
   if (Array.isArray(value)) return value.some(hasSecret);
   if (!value || typeof value !== 'object') return false;
   return Object.entries(value).some(([key, item]) => {

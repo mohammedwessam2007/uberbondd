@@ -7,7 +7,8 @@ import {
   heartbeatCloudRelayTask,
   listCloudRelayTasks,
   relayHealthSummary,
-  submitCloudRelayResult
+  submitCloudRelayResult,
+  ZERO_EFFECTS
 } from '../src/cloud-agent-relay.mjs';
 
 function fixture() {
@@ -252,7 +253,7 @@ test('cloud relay rejects nonzero effects and cannot submit twice', async () => 
     store: f.store,
     taskId: claim.taskId,
     workerId: 'claude-code:test',
-    result: result({ externalEffectLedger: { providerCalls: 1 } })
+    result: result({ externalEffectLedger: { ...ZERO_EFFECTS, providerCalls: 1 } })
   });
   assert.equal(unsafe.ok, false);
   assert.ok(unsafe.reasonCodes.includes('nonzero-external-effect-ledger-rejected'));

@@ -219,7 +219,12 @@ test('submit forwards the provenance the caller sent instead of filing UNKNOWN',
       findings: ['a finding'], limitations: ['a limitation'], duration: 4321,
       result: {
         outcome: 'ok', decision: 'PROCEED', testsActuallyRun: [], truthTable: {},
-        changedArtifacts: [], externalEffectLedger: {}
+        changedArtifacts: [],
+        // A complete signed zero. `{}` no longer passes as proof of no effects.
+        externalEffectLedger: {
+          providerCalls: 0, messages: 0, purchases: 0, deployments: 0,
+          credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0
+        }
       }
     }
   }), res);

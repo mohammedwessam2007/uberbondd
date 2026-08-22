@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { ZERO_BUSINESS_EFFECTS } from './effect-ledgers.mjs';
 
 export const AGENT_AUTONOMY_POLICY_VERSION = 'agent-autonomy-loop-1.0.0';
 
@@ -12,15 +13,7 @@ const MAX_CONSTRAINTS = 64;
 // Every compiled task carries these two, so they count against the same budget
 // as inherited ones. Naming them keeps the overflow arithmetic honest.
 const MANDATORY_CONSTRAINTS = Object.freeze(['local-preparation-only', 'no-business-external-effects']);
-const EXTERNAL_EFFECT_ZERO = Object.freeze({
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  businessSpendCents: 0
-});
+const EXTERNAL_EFFECT_ZERO = ZERO_BUSINESS_EFFECTS;
 
 export const AUTONOMY_ACTIONS = Object.freeze([
   'DONE',

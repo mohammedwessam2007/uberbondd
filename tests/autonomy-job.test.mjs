@@ -4,6 +4,9 @@ import { compileAutonomySession, compileTaskIntent } from '../src/agent-autonomy
 import { createAutonomyRun } from '../src/agent-autonomy-pump.mjs';
 import { saveAutonomyRunSnapshot, loadLatestAutonomyRun } from '../src/agent-autonomy-store.mjs';
 import { tickAutonomyRun, tickActiveAutonomyRuns } from '../src/agent-autonomy-job.mjs';
+// The relay's canonical effect ledger. A worker result must carry every one of
+// these keys as a real zero; an omitted key is no longer read as "no effect".
+import { ZERO_EFFECTS as CANONICAL_ZERO_EFFECTS } from '../src/cloud-agent-relay.mjs';
 
 const ZERO = {
   messages: 0,
@@ -75,6 +78,11 @@ test('later job tick consumes result and prepares Claude followup durably', asyn
     readTask: async () => resultReady
       ? { ok: true, status: 'RESULT_RECEIVED', resultStatus: 'COMPLETED', result: {
           outcome: 'supported',
+          changedArtifacts: [],
+          testsActuallyRun: [],
+          truthTable: [{ claim: 'supported', status: 'RESEARCH_ONLY' }],
+          externalEffectLedger: { ...CANONICAL_ZERO_EFFECTS },
+          decision: 'CONTINUE',
           coordination: { action: 'ENGINEERING_REQUIRED', objective: 'Build bounded implementation', acceptanceTests: ['npm test'] },
           businessEffectLedger: ZERO
         } }

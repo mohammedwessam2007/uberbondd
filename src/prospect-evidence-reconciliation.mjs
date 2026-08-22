@@ -203,10 +203,45 @@ export function normalizeContactVerification(input = {}, { now = new Date() } = 
   };
 }
 
+// Domains where the mailbox provider ignores dots in the local part, so
+// `b.uyer@` and `buyer@` are one person with one inbox and one unsubscribe.
+const DOT_INSENSITIVE_DOMAINS = new Set(['gmail.com', 'googlemail.com']);
+
+// Risk flags that are a person telling us to stop, not a deliverability score.
+const REFUSAL_RISK_FLAGS = new Set([
+  'spam-complaint', 'complaint', 'unsubscribe', 'unsubscribed',
+  'opt-out', 'opted-out', 'do-not-contact', 'dnc', 'abuse-report'
+]);
+
+/**
+ * The address as the receiving mailbox sees it.
+ *
+ * Suppression is matched on this, never on the raw string. Someone who
+ * unsubscribes as `buyer@example.com` has not consented to be contacted at
+ * `buyer+news@example.com`, and an enrichment provider handing back the tagged
+ * form is the ordinary way a suppressed contact gets resurrected. Over-matching
+ * costs a lead; under-matching costs a complaint we were told not to earn, so
+ * this deliberately errs wide.
+ */
+export function canonicalContactRoute(value) {
+  const route = text(value, 320).toLowerCase();
+  const at = route.lastIndexOf('@');
+  if (at <= 0) return route;
+  let local = route.slice(0, at);
+  const domain = route.slice(at + 1);
+  const plus = local.indexOf('+');
+  if (plus > 0) local = local.slice(0, plus);
+  if (DOT_INSENSITIVE_DOMAINS.has(domain)) local = local.replaceAll('.', '');
+  return `${local}@${domain}`;
+}
+
 function suppressionMatches(route, suppression = {}) {
-  const value = text(suppression.value || suppression.email || suppression.route, 320).toLowerCase();
+  const raw = text(suppression.value || suppression.email || suppression.route, 320).toLowerCase();
+  if (!raw) return false;
   const domain = route.split('@')[1] || '';
-  return value === route || value === domain || value === `@${domain}`;
+  // A bare domain entry suppresses the whole domain.
+  if (raw === domain || raw === `@${domain}`) return true;
+  return canonicalContactRoute(raw) === canonicalContactRoute(route);
 }
 
 export function evaluateContactRoute({ route, verifications = [], suppressions = [], now = new Date() } = {}) {
@@ -224,6 +259,34 @@ export function evaluateContactRoute({ route, verifications = [], suppressions =
   const normalized = (verifications || []).map(item => item?.version === PROSPECT_EVIDENCE_VERSION ? { ...item } : normalizeContactVerification({ ...item, route: item.route || email }, { now })).filter(item => item.route === email);
   if (!normalized.length) return { route: email, status: 'NEEDS_VERIFICATION', usableForHandoff: false, reasonCodes: ['no-verification-evidence'], businessEffectAuthority: 'NONE', externalEffects: 0 };
   const ordered = [...normalized].sort((a, b) => String(b.checkedAt).localeCompare(String(a.checkedAt)));
+
+  // Suppression is sticky, and it is not a data point that a later provider
+  // gets to outvote. An unsubscribe recorded as a SUPPRESSED verification used
+  // to be overridden by any fresher VALID check -- which is precisely how an
+  // enrichment run resurrects somebody who asked to be left alone.
+  const everSuppressed = normalized.find(item => item.state === 'SUPPRESSED');
+  if (everSuppressed) {
+    return {
+      route: email, status: 'BLOCKED_SUPPRESSED', usableForHandoff: false,
+      verification: everSuppressed,
+      reasonCodes: ['suppression-dominates-verification'],
+      businessEffectAuthority: 'NONE', externalEffects: 0
+    };
+  }
+
+  // A complaint or opt-out recorded as a risk flag is the same refusal wearing
+  // a different field name.
+  const refusalFlagged = normalized.find(item =>
+    (item.riskFlags || []).some(flag => REFUSAL_RISK_FLAGS.has(text(flag, 100).toLowerCase())));
+  if (refusalFlagged) {
+    return {
+      route: email, status: 'BLOCKED_SUPPRESSED', usableForHandoff: false,
+      verification: refusalFlagged,
+      reasonCodes: ['contact-refusal-flag-present'],
+      businessEffectAuthority: 'NONE', externalEffects: 0
+    };
+  }
+
   const latest = ordered[0];
   const expired = latest.expiresAt && Date.parse(latest.expiresAt) <= new Date(now).getTime();
   if (expired || latest.state === 'STALE') return { route: email, status: 'REVERIFY_REQUIRED', usableForHandoff: false, verification: latest, reasonCodes: ['verification-stale'], businessEffectAuthority: 'NONE', externalEffects: 0 };

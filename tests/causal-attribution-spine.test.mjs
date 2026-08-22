@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { COMMERCIAL_OUTCOME_POLICY_VERSION } from '../src/commercial-outcome.mjs';
 import {
   normalizeAttributionNode,
   normalizeAttributionEdge,
@@ -14,18 +16,73 @@ function node(id, type, minute, extra = {}) {
 function edge(sourceId, targetId, relation, extra = {}) {
   return { sourceId, targetId, relation, basis: 'DIRECT', evidenceRefs: [`test:${sourceId}->${targetId}`], ...extra };
 }
+// A receipt only counts as economic evidence if the commercial-outcome
+// compiler produced it. These fixtures used to be hand-written objects with
+// the right field names, which is precisely the forgery the anchor gate now
+// refuses -- so they mint real ones, and the digest ties the id to the event.
 function clearedOutcome(id = 'out-1', amount = 50000) {
+  const eventId = `evt-${id}`;
   return {
     ok: true,
-    outcomeId: id,
+    policyVersion: COMMERCIAL_OUTCOME_POLICY_VERSION,
+    outcomeId: `out_${createHash('sha256').update(JSON.stringify({ eventId, policyVersion: COMMERCIAL_OUTCOME_POLICY_VERSION })).digest('hex').slice(0, 24)}`,
     status: 'RECORDED_CLEARED_PAYMENT',
     truthLevel: 'CLEARED_PAYMENT',
     outcomeType: 'PAYMENT_CLEARED',
+    eventId,
     occurredAt: '2026-08-22T00:09:00Z',
     lineage: { opportunityId: 'opp-1' },
-    paymentProof: { providerEventId: `evt-${id}`, amountCents: amount, currency: 'USD' }
+    paymentProof: { providerEventId: eventId, amountCents: amount, currency: 'USD' }
   };
 }
+
+function refundOutcome(id = 'refund-1', amount = 12000) {
+  const eventId = `evt-${id}`;
+  return {
+    ok: true,
+    policyVersion: COMMERCIAL_OUTCOME_POLICY_VERSION,
+    outcomeId: `out_${createHash('sha256').update(JSON.stringify({ eventId, policyVersion: COMMERCIAL_OUTCOME_POLICY_VERSION })).digest('hex').slice(0, 24)}`,
+    status: 'RECORDED_REFUND_OR_DISPUTE',
+    truthLevel: 'REFUND_OR_DISPUTE',
+    outcomeType: 'REFUND',
+    eventId,
+    occurredAt: '2026-08-22T00:09:00Z',
+    lineage: { opportunityId: 'opp-1' },
+    paymentProof: { providerEventId: eventId, amountCents: amount, currency: 'USD' }
+  };
+}
+
+test('a hand-written receipt cannot mint an economic anchor', () => {
+  const forgeries = {
+    'inconsistent outcomeId': { ...clearedOutcome('forged-1', 500000), outcomeId: 'out_looks_plausible_enough' },
+    'someone else\'s event': { ...clearedOutcome('forged-3', 500000), eventId: 'evt-somebody-elses-payment' },
+    'invented policy version': { ...clearedOutcome('forged-4', 500000), policyVersion: 'commercial-outcome-9.9.9' }
+  };
+  for (const [label, forged] of Object.entries(forgeries)) {
+    const node = commercialOutcomeToAttributionNode(forged);
+    assert.equal(node.ok, false, `${label} must be refused`);
+    assert.deepEqual(node.reasonCodes, ['normalized-commercial-outcome-required']);
+  }
+  const noVersion = { ...clearedOutcome('forged-2', 500000) };
+  delete noVersion.policyVersion;
+  assert.equal(commercialOutcomeToAttributionNode(noVersion).ok, false);
+  // And a forged receipt attached to an ordinary node carries no money either.
+  const laundered = normalizeAttributionNode({
+    nodeId: 'n-forged', type: 'PAYMENT', occurredAt: '2026-08-22T00:09:00Z',
+    evidenceRefs: ['payment:forged'], commercialOutcome: forgeries['inconsistent outcomeId']
+  });
+  assert.equal(laundered.economicProof, null);
+});
+
+test('a genuine receipt still mints its anchor, so the gate is not always-closed', () => {
+  const node = commercialOutcomeToAttributionNode(clearedOutcome('real-1', 50000));
+  assert.equal(node.ok, true);
+  assert.equal(node.economicProof.amountCents, 50000);
+  assert.equal(node.economicProof.signedCashImpactCents, 50000);
+  const refund = commercialOutcomeToAttributionNode(refundOutcome('real-refund', 12000));
+  assert.equal(refund.ok, true);
+  assert.equal(refund.economicProof.signedCashImpactCents, -12000);
+});
 
 test('normalizes explicit evidence-backed nodes and direct edges', () => {
   assert.equal(normalizeAttributionNode(node('signal:1','SIGNAL',1)).ok, true);
@@ -141,11 +198,7 @@ test('attributed association remains weaker than direct evidence', () => {
 });
 
 test('refund carries negative signed cash impact only from payment proof', () => {
-  const refund = {
-    ok:true, outcomeId:'refund-1', status:'RECORDED_REFUND_OR_DISPUTE', truthLevel:'REFUND_OR_DISPUTE', outcomeType:'REFUND',
-    occurredAt:'2026-08-22T00:10:00Z', lineage:{ opportunityId:'opp-1' },
-    paymentProof:{ providerEventId:'evt-refund', amountCents:12000, currency:'USD' }
-  };
+  const refund = refundOutcome('refund-1', 12000);
   const graph = buildCausalAttributionGraph({ commercialOutcomes:[refund] });
   assert.equal(graph.economicAnchors[0].signedCashImpactCents, -12000);
 });

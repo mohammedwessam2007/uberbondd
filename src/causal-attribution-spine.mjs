@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS as ZERO_EFFECTS } from './effect-ledger.mjs';
+import { COMMERCIAL_OUTCOME_POLICY_VERSION } from './commercial-outcome.mjs';
 
 export const CAUSAL_ATTRIBUTION_POLICY_VERSION = 'causal-attribution-spine-1.0.0';
 
@@ -64,8 +65,32 @@ function failure(reasonCodes, status = 'REJECTED', extra = {}) {
   };
 }
 
+/**
+ * True only for a receipt the commercial-outcome compiler actually produced.
+ *
+ * The shape checks below are necessary and were not sufficient: a hand-written
+ * object with the right field names minted a five-thousand-dollar economic
+ * anchor, which is the precise failure the whole evidence-class apparatus
+ * exists to prevent. An outcomeId is a digest of the policy version and the
+ * event id, so it can be recomputed -- meaning a forger has to produce a
+ * consistent receipt rather than a plausible-looking one, and a receipt that
+ * consistent is one the compiler made.
+ */
+function isCompiledCommercialOutcome(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  if (value.ok !== true) return false;
+  if (value.policyVersion !== COMMERCIAL_OUTCOME_POLICY_VERSION) return false;
+  const eventId = text(value.eventId, 300);
+  const outcomeId = text(value.outcomeId, 300);
+  if (!eventId || !outcomeId) return false;
+  const expected = `out_${crypto.createHash('sha256')
+    .update(JSON.stringify(canonical({ policyVersion: COMMERCIAL_OUTCOME_POLICY_VERSION, eventId })))
+    .digest('hex').slice(0, 24)}`;
+  return outcomeId === expected;
+}
+
 function safeEconomicProof(value) {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+  if (!isCompiledCommercialOutcome(value)) return null;
   const truthLevel = text(value.truthLevel, 80).toUpperCase();
   const outcomeType = text(value.outcomeType, 80).toUpperCase();
   const paymentProof = value.paymentProof && typeof value.paymentProof === 'object' ? value.paymentProof : null;
@@ -130,7 +155,12 @@ export function normalizeAttributionNode(input = {}) {
 }
 
 export function commercialOutcomeToAttributionNode(outcome = {}) {
-  if (!outcome || typeof outcome !== 'object' || outcome.ok !== true || !outcome.outcomeId) {
+  // The adapter's whole job is turning a commercial receipt into a node, so it
+  // takes commercial receipts -- not objects that resemble them. Admitting a
+  // forgery here and merely withholding its economic proof would still put a
+  // node typed PAYMENT into the graph, which reads as a payment to everything
+  // downstream that counts node types.
+  if (!isCompiledCommercialOutcome(outcome)) {
     return failure(['normalized-commercial-outcome-required']);
   }
   const outcomeType = text(outcome.outcomeType, 80).toUpperCase();

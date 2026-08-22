@@ -1,10 +1,55 @@
 #!/usr/bin/env node
 // One finite invocation of the UberBond cognitive bus.
-// Disabled by default. A real enabled scheduler tick must provide a stable
-// AGENT_MESH_OCCURRENCE_KEY for that concrete scheduled delivery. Re-delivery
-// of the same occurrence must reuse the same key; the next scheduled tick must
-// use a different one. This is what makes aggregate cycle evidence durable and
-// idempotent instead of depending on process logs.
+//
+// This exists because the bus had no entry point at all. agent-mesh-control-plane
+// composes the autonomy pump and the model workers into a bounded cycle, and it
+// is the top of the whole mesh -- but nothing imported it outside tests. No
+// scheduler job, no worker handler, no npm script, no workflow. Twenty-six
+// modules and several thousand passing tests, and not one code path could ever
+// reach them in production. "Implemented and tested" is not the same as
+// "runnable", and that gap is invisible from a green suite.
+//
+// Deliberately a script and not a resident process: one invocation pumps a
+// bounded set of runs, ticks each configured worker at most once, optionally
+// pumps again to ingest fresh results, and exits. Anything that can run a
+// command on a timer -- cron, GitHub Actions, a Vercel cron, a container
+// scheduler -- can drive it, and none of them become load-bearing for the
+// cognitive semantics.
+//
+// Disabled by default. AGENT_MESH_ENABLED must be exactly "true"; the control
+// plane also defaults `enabled` to false independently, so importing this
+// module can never start work.
+//
+// A real enabled tick must also provide a stable AGENT_MESH_OCCURRENCE_KEY for
+// that concrete scheduled delivery. Re-delivery of the same occurrence reuses
+// the key; the next scheduled tick uses a different one. That is what makes
+// the cycle evidence durable and idempotent instead of a claim about process
+// logs nobody kept.
+//
+// Usage:
+//   AGENT_MESH_ENABLED=true AGENT_MESH_OCCURRENCE_KEY=... node scripts/agent-mesh-tick.mjs
+//   node scripts/agent-mesh-tick.mjs --dry-run     # report configuration only
+//
+// Env:
+//   AGENT_MESH_ENABLED         required "true" to do anything
+//   AGENT_MESH_OCCURRENCE_KEY  required when enabled; identifies this delivery
+//   AGENT_MESH_RUN_LIMIT       autonomy runs pumped per cycle (default 5, cap 25)
+//   AGENT_MESH_WORKERS         JSON array of worker configs; default none
+//   AGENT_MESH_INGEST_AFTER    "false" to skip the post-worker ingestion pump
+//   AGENT_MESH_SOURCE_COMMIT   commit the cycle receipt is attributed to
+//   UBERBOND_RELAY_ENDPOINT    https .../api/agent-relay -- the transport
+//   UBERBOND_RELAY_TOKEN       bearer credential for that endpoint
+//   AGENT_MESH_EVIDENCE_FILE   path to the activation evidence JSON; without it
+//                              the gate permits no provider calls at all
+//   CLAUDE_CODE_SANDBOX_*      ROOT, ENABLED, ISOLATION_FILE for the local
+//                              Claude Code sandbox provider
+//   OPENAI_/ANTHROPIC_*        per-provider credential, pricing evidence, enable
+//   STORE_BACKEND/DATABASE_URL/DATA_DIR  as the rest of the app uses them
+//
+// A worker in AGENT_MESH_WORKERS is JSON, so it cannot carry the two functions
+// the mesh needs -- the relay transport and the model executor. This script is
+// where those are resolved from the environment and attached, and it is the
+// only reason a worker can be configured from outside the process at all.
 
 import { pathToFileURL } from 'node:url';
 import { config, validateStartupConfig } from '../src/config.mjs';
@@ -23,6 +68,9 @@ import {
 
 const RUN_LIMIT_CAP = 25;
 
+// Attach the executor each declared worker needs. A provider that cannot be
+// driven is reported by name rather than skipped: a worker the operator asked
+// for and did not get is a configuration error, not an empty queue.
 export function resolveWorkers(workers, modelExecutorFor) {
   const resolved = [];
   const blockers = [];
@@ -58,6 +106,8 @@ async function main() {
   const enabled = process.env.AGENT_MESH_ENABLED === 'true';
   const schedulerOccurrenceKey = String(process.env.AGENT_MESH_OCCURRENCE_KEY || '').trim();
 
+  // The gate decides whether a provider may be called. Evaluate it before
+  // anything else so --dry-run reports the same verdict a real tick enforces.
   const evidence = await loadActivationEvidenceFile(process.env.AGENT_MESH_EVIDENCE_FILE);
   const isolation = await loadSandboxIsolationReceipt(process.env.CLAUDE_CODE_SANDBOX_ISOLATION_FILE);
   const activation = evaluateAgentMeshActivation(composeActivationInput({
@@ -69,6 +119,8 @@ async function main() {
   const ingestAfterWorkers = process.env.AGENT_MESH_INGEST_AFTER !== 'false';
 
   if (dryRun) {
+    // Report what a real tick would do without touching the store, so a
+    // scheduler can be validated before it is allowed to act.
     console.log(JSON.stringify({
       dryRun: true, enabled, workersConfigured: workers.length,
       autonomyRunLimit, ingestAfterWorkers,
@@ -90,6 +142,8 @@ async function main() {
   }
 
   if (!enabled) {
+    // Not an error. A scheduler firing against a deliberately disabled mesh is
+    // the normal resting state, and it must not look like a failure.
     console.log('[agent-mesh-tick] AGENT_MESH_ENABLED is not "true"; nothing was run.');
     return 0;
   }
@@ -98,6 +152,9 @@ async function main() {
     console.error('[agent-mesh-tick] AGENT_MESH_OCCURRENCE_KEY is required for an enabled scheduled cycle.');
     return 2;
   }
+  // A malformed attestation is a refusal, not a shrug. Falling back to "no
+  // evidence" would turn an operator's broken file into the same outcome as
+  // never having written one.
   if (!evidence.ok) {
     console.error(`[agent-mesh-tick] activation evidence refused: ${evidence.reasonCodes.join(', ')}`);
     return 2;
@@ -107,6 +164,8 @@ async function main() {
     return 2;
   }
 
+  // Same startup validation the server and worker use. A misconfigured store
+  // must fail here, loudly, rather than half-running a cognitive cycle.
   validateStartupConfig(config);
   const { resolved, blockers } = resolveWorkers(
     workers,

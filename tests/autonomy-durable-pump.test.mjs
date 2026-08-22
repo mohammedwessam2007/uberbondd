@@ -39,7 +39,6 @@ function completeWorkerResult({ outcome = 'supported', coordination, overrides =
     externalEffectLedger: { ...ZERO_EXTERNAL },
     decision: coordination?.action === 'DONE' ? 'DONE' : 'CONTINUE',
     coordination,
-    businessEffectLedger: { ...ZERO },
     ...overrides
   };
 }

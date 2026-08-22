@@ -761,3 +761,77 @@ test('EXHAUSTED outranks STRANDED, because the two need different actions', () =
   assert.equal(summary.stranded.length, 1);
   assert.equal(summary.exhausted.length, 1);
 });
+
+test('a re-dispatch of the same task recovers the existing issue instead of creating a second', async () => {
+  // The window is ordinary, not exotic: agent-autonomy-pump calls createTask
+  // and only then persists the run's relayRef. A crash, an OOM, a container
+  // reclaim, or a failed snapshot write in between leaves the issue created and
+  // the run unaware of it. The next tick re-dispatches the same deterministic
+  // taskId. Before this, that produced a second issue for one task -- two
+  // workers claiming two issues, doing the work twice, and with provider-backed
+  // workers, paying twice.
+  const { client, issues } = fakeGithub();
+  const first = await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input() });
+  assert.equal(first.status, 'QUEUED');
+
+  const retry = await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input() });
+  assert.equal(retry.ok, true);
+  // A distinct status, not a silent QUEUED. Nothing was created, and a receipt
+  // claiming otherwise is a lie an audit trail would carry forever.
+  assert.equal(retry.status, 'ALREADY_QUEUED');
+  assert.equal(retry.recoveredExistingDispatch, true);
+  assert.equal(retry.issueNumber, first.issueNumber);
+  assert.equal(retry.taskId, first.taskId);
+  assert.equal(issues.size, 1);
+});
+
+test('the same task id with different content is refused rather than silently resolved', async () => {
+  const { client, issues } = fakeGithub();
+  await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input() });
+  const conflicting = await createGithubRelayTask({
+    client, owner: 'o', repo: 'r',
+    input: input({ objective: 'A completely different objective under the same task id' })
+  });
+  assert.equal(conflicting.ok, false);
+  assert.deepEqual(conflicting.reasonCodes, ['relay-task-id-reused-with-different-content']);
+  assert.equal(issues.size, 1);
+});
+
+test('a completed task does not block a later dispatch of the same id', async () => {
+  // Deduplication must not become a permanent ban. Re-running the same
+  // objective after the first one finished is legitimate work.
+  const { client, issues } = fakeGithub();
+  const first = await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input() });
+  await client.addLabels({ issueNumber: first.issueNumber, labels: [DONE_LABEL] });
+  await client.closeIssue({ issueNumber: first.issueNumber, stateReason: 'completed' });
+
+  const again = await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input() });
+  assert.equal(again.status, 'QUEUED');
+  assert.notEqual(again.issueNumber, first.issueNumber);
+  assert.equal(issues.size, 2);
+});
+
+test('a client that cannot list issues is refused rather than allowed to duplicate', async () => {
+  // Fail closed: a client that cannot tell a first dispatch from a retry must
+  // not create a task on the assumption that this one is the first.
+  const { client } = fakeGithub();
+  const { listIssues: _omitted, ...blind } = client;
+  const out = await createGithubRelayTask({ client: blind, owner: 'o', repo: 'r', input: input() });
+  assert.equal(out.ok, false);
+  assert.deepEqual(out.reasonCodes, ['github-list-issues-required-for-duplicate-check']);
+});
+
+test('a full page of open tasks makes the duplicate check inconclusive, and that is a refusal', async () => {
+  // "Cannot tell" and "no duplicate found" must not report the same thing. A
+  // full first page means an unscanned second page may hold the duplicate.
+  const { client } = fakeGithub();
+  for (let index = 0; index < 50; index += 1) {
+    await createGithubRelayTask({
+      client, owner: 'o', repo: 'r',
+      input: input({ taskId: `gh-task-filler-${index}`, objective: `Filler objective number ${index}` })
+    });
+  }
+  const out = await createGithubRelayTask({ client, owner: 'o', repo: 'r', input: input({ taskId: 'gh-task-new' }) });
+  assert.equal(out.ok, false);
+  assert.deepEqual(out.reasonCodes, ['relay-duplicate-check-inconclusive-too-many-open-tasks']);
+});

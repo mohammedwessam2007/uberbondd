@@ -132,6 +132,45 @@ independently. A test now fails if anything outside `tests/` imports it. Two
 reachable implementations of "spend money" is the shape that produces a double
 charge.
 
+## The defect the new reachability exposed
+
+Making the mesh reachable made a real bug reachable too, and finding it was
+only possible because the path now exists.
+
+`agent-autonomy-pump` dispatches a task to the relay, and only afterwards does
+`agent-autonomy-job` persist the run carrying the `relayRef`. Everything between
+those two lines is a window in which the relay task exists and the run does not
+know it — a crash, an OOM, a container reclaim, or a failed snapshot write all
+land in it.
+
+`createGithubRelayTask` created a GitHub issue unconditionally. So the next tick
+re-dispatched the same deterministic taskId and **a second issue appeared for
+one task**. Two workers claim two issues, do the work twice, and with
+provider-backed workers that is two charges.
+
+Reproduced directly before fixing: same input twice, two issues, same `taskId`.
+
+The transport is now idempotent on taskId against open, not-done relay issues,
+and returns `ALREADY_QUEUED` — a distinct status, not a silent `QUEUED`, because
+nothing was created and a receipt claiming otherwise is a lie an audit trail
+carries forever. A taskId reused with different content is refused rather than
+resolved to either version. A task that already completed and closed may be
+dispatched again: deduplication must not become a permanent ban. A client that
+cannot list issues is refused outright, because it cannot tell a first dispatch
+from a retry.
+
+One more refusal, for the case that is neither "duplicate" nor "no duplicate":
+if the first page of open relay tasks comes back full, an unscanned page may
+hold the duplicate, and that is *cannot tell*, not *none found*. It refuses with
+`relay-duplicate-check-inconclusive-too-many-open-tasks`. Fifty concurrent open
+relay tasks is far past any expected load, so in practice this never fires — but
+reporting "cannot tell" as "none found" is precisely how a duplicate charge
+would slip through.
+
+The regression test drops the post-dispatch run on the floor exactly as a killed
+process would and asserts one issue exists after two ticks. It fails against the
+previous code — verified by reverting the fix and re-running.
+
 ## Gaps left open, and precisely why
 
 **`durable-claude-engineering-executor.mjs` cannot be wired without new

@@ -55,7 +55,7 @@
 // session, and a deterministic test fake.
 
 import { compileAgentTask } from './agent-relay.mjs';
-import { ZERO_EFFECTS, hasSecret, validResult } from './cloud-agent-relay.mjs';
+import { ZERO_EFFECTS, hasSecret, validResult, sameJson } from './cloud-agent-relay.mjs';
 
 export const GITHUB_RELAY_POLICY_VERSION = 'github-relay-1.0.0';
 
@@ -373,6 +373,57 @@ export function resolveLease(comments = [], now = new Date(), leaseSeconds = DEF
   };
 }
 
+// What makes two dispatches of a taskId the same task. Deliberately excludes
+// createdAt and status: a retry after a crash is by definition a second
+// compilation at a later instant, so comparing whole tasks would report every
+// legitimate recovery as a conflict.
+function taskIdentity(task) {
+  if (!task || typeof task !== 'object') return null;
+  const {
+    createdAt: _createdAt,
+    status: _status,
+    deadline: _deadline,
+    policyVersion: _policyVersion,
+    ok: _ok,
+    ...identity
+  } = task;
+  return identity;
+}
+
+const DUPLICATE_SCAN_PAGE = 50;
+
+// Find an open, not-yet-done relay issue already carrying this taskId.
+//
+// This exists because creating a task was not idempotent, and the window that
+// exposes it is ordinary: the autonomy pump calls createTask and only then
+// persists the run's relayRef. A crash, an OOM, a container reclaim or a failed
+// snapshot write in between leaves the issue created and the run unaware of it.
+// The next tick re-dispatches the same deterministic taskId and a SECOND issue
+// appears for one task -- two workers claim two issues, do the work twice, and
+// with provider-backed workers that is two charges.
+//
+// Deliberately scoped to OPEN issues. A task that already completed and closed
+// is a different situation: re-running the same objective later is legitimate,
+// and blocking it here would turn a deduplication into a permanent ban.
+async function findOpenRelayIssueForTask({ client, owner, repo, taskId }) {
+  const issues = await client.listIssues({
+    owner, repo, state: 'OPEN', labels: [TASK_LABEL], perPage: DUPLICATE_SCAN_PAGE
+  }) || [];
+  for (const issue of issues) {
+    const labels = (issue.labels || []).map(label => String(label?.name ?? label));
+    if (labels.includes(DONE_LABEL)) continue;
+    const existing = parseTaskIssueBody(issue.body);
+    if (existing?.taskId === taskId) return { found: true, issue, task: existing };
+  }
+  // A full page means there may be a second page, and an unscanned page may
+  // hold the duplicate. This is not "no duplicate found" -- it is "cannot
+  // tell", and the two must not report the same thing. Fifty concurrent open
+  // relay tasks is far past any expected load, so in practice this never fires;
+  // if it does, refusing is correct.
+  if (issues.length >= DUPLICATE_SCAN_PAGE) return { found: false, undecidable: true };
+  return { found: false };
+}
+
 /**
  * Opens a bounded relay task as a GitHub Issue. The packet is compiled and
  * secret-scanned before anything is written, so a rejected task never reaches
@@ -380,11 +431,41 @@ export function resolveLease(comments = [], now = new Date(), leaseSeconds = DEF
  */
 export async function createGithubRelayTask({ client, owner, repo, input = {}, date = new Date() } = {}) {
   if (!client || typeof client.createIssue !== 'function') return errorResult(['github-client-required']);
+  // Fail closed rather than skipping the duplicate check when it cannot be
+  // performed. A client that cannot list issues cannot tell a first dispatch
+  // from a retry, and quietly creating a possibly-duplicate task is exactly the
+  // unknown consequential state that must not proceed.
+  if (typeof client.listIssues !== 'function') return errorResult(['github-list-issues-required-for-duplicate-check']);
   if (sizeOf(input) > MAX_TASK_BYTES || hasSecret(input)) return errorResult(['secret-or-oversized-task-rejected']);
   const task = compileAgentTask({ ...input, date });
   if (!task.ok) return task;
   const targetAgent = normalizeTargetAgent(task.targetAgent);
   if (!targetAgent) return errorResult(['valid-target-agent-required']);
+
+  const duplicate = await findOpenRelayIssueForTask({ client, owner, repo, taskId: task.taskId });
+  if (duplicate.undecidable) return errorResult(['relay-duplicate-check-inconclusive-too-many-open-tasks']);
+  if (duplicate.found) {
+    // Same id, different content means two callers disagree about what this
+    // task is. Returning either one would be a guess, so refuse.
+    if (!sameJson(taskIdentity(duplicate.task), taskIdentity(task))) {
+      return errorResult(['relay-task-id-reused-with-different-content']);
+    }
+    return {
+      ok: true,
+      policyVersion: GITHUB_RELAY_POLICY_VERSION,
+      // A distinct status, not a silent QUEUED. The caller has not created
+      // anything, and a receipt that says otherwise is a small lie that becomes
+      // a large one in an audit trail.
+      status: 'ALREADY_QUEUED',
+      taskId: task.taskId,
+      targetAgent,
+      issueNumber: duplicate.issue?.number ?? null,
+      issueUrl: duplicate.issue?.html_url || duplicate.issue?.url || null,
+      task,
+      recoveredExistingDispatch: true,
+      externalEffectLedger: { ...ZERO_EFFECTS }
+    };
+  }
 
   const issue = await client.createIssue({
     owner,

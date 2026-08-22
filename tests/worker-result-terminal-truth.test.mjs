@@ -14,16 +14,6 @@ const ZERO_EXTERNAL = {
   spendCents: 0
 };
 
-const ZERO_BUSINESS = {
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  businessSpendCents: 0
-};
-
 function fixture() {
   const session = compileAutonomySession({
     objective: 'Prove worker terminal truth before autonomy completion',
@@ -49,7 +39,6 @@ function completeResult(overrides = {}) {
     externalEffectLedger: { ...ZERO_EXTERNAL },
     decision: 'DONE',
     coordination: { action: 'DONE', summary: 'complete' },
-    businessEffectLedger: { ...ZERO_BUSINESS },
     ...overrides
   };
 }

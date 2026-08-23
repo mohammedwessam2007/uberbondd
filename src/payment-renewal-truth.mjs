@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const PAYMENT_RENEWAL_TRUTH_VERSION = 'payment-renewal-truth-1.0.1';
+export const PAYMENT_RENEWAL_TRUTH_VERSION = 'payment-renewal-truth-1.1.0';
 
 // The canonical shape plus one declared extension, rather than a fourth
 // independent copy. `paymentMutations` is a real effect this module needs to
@@ -19,6 +19,17 @@ const PAYMENT_TRUTH_EFFECTS = Object.freeze({
 const CLEARED_CLASSIFICATIONS = new Set([
   'CLEARED_ONE_TIME_PAYMENT',
   'CLEARED_SUBSCRIPTION_PAYMENT'
+]);
+
+// Money that came back. src/payments.mjs classifies `order_refunded` as
+// REFUND_OR_DISPUTE with revenueSign -1 and writes a negative ledger row -- and
+// this module read only rows with `amountCents > 0`, so every one of those rows
+// was invisible. A customer who paid $50 and was refunded $50 produced
+// `providerClearedRevenue: 50.00`, `PROVIDER_CLEARED_PAYMENT_PROVEN`,
+// `ok: true`, `contradictions: []`. The money was gone and the ledger said it
+// was there, which is the one thing this module exists to prevent.
+const REVERSAL_CLASSIFICATIONS = new Set([
+  'REFUND_OR_DISPUTE'
 ]);
 
 function text(value, max = 500) {
@@ -64,10 +75,10 @@ function paymentAuditEntries(auditLog, leadId) {
     );
 }
 
-function clearedEvidenceIndex(auditLog, leadId) {
+function classificationIndex(auditLog, leadId, classifications) {
   const index = new Map();
   for (const entry of paymentAuditEntries(auditLog, leadId)) {
-    if (!CLEARED_CLASSIFICATIONS.has(entry?.classification)) continue;
+    if (!classifications.has(entry?.classification)) continue;
     const eventName = text(entry?.eventName, 120);
     const eventId = text(entry?.eventId, 200);
     if (!eventName || !eventId) continue;
@@ -83,6 +94,9 @@ function clearedEvidenceIndex(auditLog, leadId) {
   return index;
 }
 
+const clearedEvidenceIndex = (auditLog, leadId) => classificationIndex(auditLog, leadId, CLEARED_CLASSIFICATIONS);
+const reversalEvidenceIndex = (auditLog, leadId) => classificationIndex(auditLog, leadId, REVERSAL_CLASSIFICATIONS);
+
 function orderEvidenceIndex(orders, leadId) {
   const index = new Map();
   for (const order of orders) {
@@ -96,9 +110,13 @@ function orderEvidenceIndex(orders, leadId) {
   return index;
 }
 
-function verifiedRevenueRows({ revenueEvents, clearedIndex, ordersIndex, leadId }) {
+function verifiedRevenueRows({ revenueEvents, clearedIndex, reversalIndex, ordersIndex, leadId }) {
   const verified = [];
   const unverified = [];
+  const reversals = [];
+  const unverifiedReversals = [];
+  const duplicateReversals = [];
+  const seenReversals = new Map();
   // One provider event is one payment. The witness indexes are keyed maps and
   // therefore deduped, but the revenue ledger is a list: two rows carrying the
   // same providerEventId each matched the same order and the same clearing
@@ -124,12 +142,32 @@ function verifiedRevenueRows({ revenueEvents, clearedIndex, ordersIndex, leadId 
       verified.push(row);
     } else if (positive) {
       unverified.push(event);
+    } else if (cents(event?.amountCents) < 0) {
+      // A negative row is a reversal, and it needs the same three witnesses a
+      // payment needs -- for the opposite reason. An unwitnessed positive row
+      // invents revenue; an unwitnessed negative row erases it. Both are ledger
+      // claims nobody can check, so both are reported rather than applied.
+      const reversal = reversalIndex.get(key);
+      if (reversal && order) {
+        if (seenReversals.has(key)) {
+          duplicateReversals.push({ providerEventId: key, amountCents: cents(event?.amountCents) });
+          continue;
+        }
+        const row = { event, reversal, order };
+        seenReversals.set(key, row);
+        reversals.push(row);
+      } else {
+        unverifiedReversals.push(event);
+      }
     }
   }
   return {
     verified: sorted(verified.map(item => ({ ...item, createdAt: item.event?.createdAt }))),
     unverified: sorted(unverified),
-    duplicates
+    duplicates,
+    reversals: sorted(reversals.map(item => ({ ...item, createdAt: item.event?.createdAt }))),
+    unverifiedReversals: sorted(unverifiedReversals),
+    duplicateReversals
   };
 }
 
@@ -183,10 +221,15 @@ export function reconcilePaymentRenewalTruth({
   const safeRevenue = Array.isArray(revenueEvents) ? revenueEvents : [];
   const safeAudit = Array.isArray(auditLog) ? auditLog : [];
   const clearedIndex = clearedEvidenceIndex(safeAudit, leadId);
+  const reversalIndex = reversalEvidenceIndex(safeAudit, leadId);
   const ordersIndex = orderEvidenceIndex(safeOrders, leadId);
-  const { verified, unverified, duplicates } = verifiedRevenueRows({
+  const {
+    verified, unverified, duplicates,
+    reversals, unverifiedReversals, duplicateReversals
+  } = verifiedRevenueRows({
     revenueEvents: safeRevenue,
     clearedIndex,
+    reversalIndex,
     ordersIndex,
     leadId
   });
@@ -195,6 +238,13 @@ export function reconcilePaymentRenewalTruth({
   const renewals = verified.filter(item => item.clearing.eventName === 'subscription_payment_success');
   const acceptance = acceptanceTruth(fulfillment);
   const clearedRevenueCents = verified.reduce((sum, item) => sum + cents(item.event.amountCents), 0);
+  const reversedRevenueCents = reversals.reduce((sum, item) => sum + Math.abs(cents(item.event.amountCents)), 0);
+  // Net is what the business actually kept. Gross is kept alongside it because
+  // "money that once cleared" is a real and separate fact -- but net is what a
+  // revenue claim has to mean.
+  const netClearedRevenueCents = clearedRevenueCents - reversedRevenueCents;
+  const unverifiedReversalCents = unverifiedReversals.reduce((sum, item) => sum + Math.abs(cents(item.amountCents)), 0);
+  const fullyReversed = clearedRevenueCents > 0 && netClearedRevenueCents <= 0;
   const unverifiedPositiveRevenueCents = unverified.reduce((sum, item) => sum + Math.max(0, cents(item.amountCents)), 0);
 
   const stages = {
@@ -213,6 +263,14 @@ export function reconcilePaymentRenewalTruth({
     SECOND_PAYMENT_OR_RENEWAL: {
       status: renewals.length ? 'PROVEN' : 'NOT_PROVEN',
       evidenceRef: renewals.length ? `payment:${renewals[0].event.providerEventId}` : null
+    },
+    // A separate stage rather than a flag on CLEARED_PAYMENT. The payment did
+    // clear; that is history and stays true. Whether the business still has the
+    // money is a different question, and merging them is how a refunded sale
+    // reads as revenue.
+    PAYMENT_RETAINED: {
+      status: !firstPayment ? 'NOT_PROVEN' : (reversals.length ? (fullyReversed ? 'REVERSED' : 'PARTIALLY_REVERSED') : 'PROVEN'),
+      evidenceRef: reversals.length ? `refund:${reversals[0].event.providerEventId}` : null
     }
   };
 
@@ -222,12 +280,26 @@ export function reconcilePaymentRenewalTruth({
   if (fulfillment?.economicTruth?.acceptedDelivery === true && !acceptance.proven) contradictions.push('accepted-delivery-flag-without-external-customer-proof');
   if (fulfillment?.renewalPaymentRef && !renewals.length) contradictions.push('renewal-reference-without-provider-cleared-renewal-proof');
   if (duplicates.length) contradictions.push('duplicate-revenue-rows-for-one-provider-event');
+  if (duplicateReversals.length) contradictions.push('duplicate-refund-rows-for-one-provider-event');
+  if (unverifiedReversalCents > 0) contradictions.push('negative-revenue-row-without-provider-refund-proof');
+  // Reversing more than ever cleared is not a small refund, it is a ledger that
+  // does not describe any sequence of real events.
+  if (reversedRevenueCents > clearedRevenueCents) contradictions.push('refunds-exceed-provider-cleared-payments');
+  if (fullyReversed && lead?.paymentStatus === 'paid') contradictions.push('lead-marked-paid-after-full-refund');
+  // A refund is the customer's strongest available statement that the delivery
+  // was not what they wanted. Acceptance and a returned payment cannot both be
+  // true without someone looking at it.
+  if (reversals.length && acceptance.proven) contradictions.push('customer-acceptance-claimed-with-reversed-payment');
 
   const result = {
     ok: contradictions.length === 0,
     policyVersion: PAYMENT_RENEWAL_TRUTH_VERSION,
     leadId,
-    status: contradictions.length ? 'REVIEW_REQUIRED' : (firstPayment ? 'PROVIDER_CLEARED_PAYMENT_PROVEN' : 'NO_CLEARED_PAYMENT_PROVEN'),
+    status: contradictions.length
+      ? 'REVIEW_REQUIRED'
+      : (!firstPayment
+        ? 'NO_CLEARED_PAYMENT_PROVEN'
+        : (fullyReversed ? 'PROVIDER_CLEARED_PAYMENT_REVERSED' : 'PROVIDER_CLEARED_PAYMENT_PROVEN')),
     stages,
     economics: {
       providerClearedRevenueCents: clearedRevenueCents,
@@ -237,9 +309,21 @@ export function reconcilePaymentRenewalTruth({
       verifiedPaymentCount: verified.length,
       verifiedRenewalCount: renewals.length,
       duplicateRevenueRowCount: duplicates.length,
-      duplicateRevenueRowCents: duplicates.reduce((sum, item) => sum + item.amountCents, 0)
+      duplicateRevenueRowCents: duplicates.reduce((sum, item) => sum + item.amountCents, 0),
+      // providerClearedRevenueCents stays gross, because callers and tests read
+      // it as "money that cleared the provider" and that remains true of a
+      // payment later refunded. Net is the number a revenue claim must use.
+      reversedRevenueCents,
+      reversedRevenue: reversedRevenueCents / 100,
+      netProviderClearedRevenueCents: netClearedRevenueCents,
+      netProviderClearedRevenue: netClearedRevenueCents / 100,
+      verifiedReversalCount: reversals.length,
+      unverifiedReversalCents,
+      unverifiedReversal: unverifiedReversalCents / 100,
+      duplicateReversalRowCount: duplicateReversals.length
     },
     verifiedProviderEventRefs: verified.map(item => item.event.providerEventId),
+    verifiedReversalEventRefs: reversals.map(item => item.event.providerEventId),
     unverifiedPositiveRevenueEventRefs: unverified.map(item => text(item.providerEventId, 400)).filter(Boolean),
     contradictions,
     claimBoundary: {
@@ -247,7 +331,12 @@ export function reconcilePaymentRenewalTruth({
       revenueEventRow: 'NOT_PAYMENT_PROOF_ALONE',
       clearedPayment: firstPayment ? 'SIGNED_PROVIDER_CALLBACK_PLUS_CLEARED_CLASSIFICATION_PLUS_LEDGER_MATCH' : 'NOT_PROVEN',
       customerAcceptance: acceptance.proven ? 'EXTERNAL_CUSTOMER_EVIDENCE_PRESENT' : 'NOT_PROVEN',
-      renewal: renewals.length ? 'PROVIDER_CLEARED_RENEWAL_PROVEN' : 'NOT_PROVEN'
+      renewal: renewals.length ? 'PROVIDER_CLEARED_RENEWAL_PROVEN' : 'NOT_PROVEN',
+      retainedRevenue: !firstPayment
+        ? 'NOT_PROVEN'
+        : (fullyReversed
+          ? 'CLEARED_THEN_FULLY_REVERSED'
+          : (reversals.length ? 'CLEARED_THEN_PARTIALLY_REVERSED' : 'PROVIDER_CLEARED_AND_NOT_REVERSED'))
     },
     externalEffectLedger: { ...PAYMENT_TRUTH_EFFECTS }
   };

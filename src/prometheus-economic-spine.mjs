@@ -18,6 +18,7 @@ import {
   PROMOTION_LADDER_STAGES
 } from './opportunity-registry.mjs';
 import { compileOfferPacket } from './offer-compiler.mjs';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const PROMETHEUS_ECONOMIC_SPINE_POLICY_VERSION = 'prometheus-economic-spine-1.0.0';
 
@@ -31,16 +32,6 @@ const COMMERCIAL_SIGNAL_MIN_RANK = EVIDENCE_CLASSES.indexOf('BUYER_SIGNAL');
 const DEFAULT_MAX_SIGNAL_AGE_MS = 30 * 24 * 60 * 60 * 1000;
 const DEFAULT_MIN_OPPORTUNITY_CONFIDENCE = 0.3;
 
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 function referenceDate(value) {
   const candidate = value instanceof Date ? value : new Date(value || Date.now());

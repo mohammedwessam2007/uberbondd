@@ -7,19 +7,10 @@ import crypto from 'node:crypto';
 import { ingestMarketSignals } from './market-signal-registry.mjs';
 import { extractGenomeCandidate, logGenomeExtraction } from './genome-extraction.mjs';
 import { rankCanonicalOpportunities, logOpportunityTournament } from './opportunity-tournament.mjs';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const COMMERCIAL_RECONCILIATION_POLICY_VERSION = 'commercial-reconciliation-1.0.0';
 
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 function referenceDate(value) {
   const date = value instanceof Date ? value : new Date(value || Date.now());

@@ -7,19 +7,10 @@ import crypto from 'node:crypto';
 import { compileCommercialOpportunity } from './commercial-opportunity-catalog.mjs';
 import { reconcileCommercialEvidence } from './commercial-reconciliation.mjs';
 import { VERIFICATION_STATES } from './market-signal.mjs';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const APPROVED_SOURCE_REHEARSAL_POLICY_VERSION = 'approved-source-rehearsal-1.0.0';
 
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 function referenceDate(value) {
   const date = value instanceof Date ? value : new Date(value || Date.now());

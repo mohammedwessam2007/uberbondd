@@ -6,21 +6,12 @@
 // Observations remain useful for counts, but never become revenue by inference.
 
 import crypto from 'node:crypto';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const COMMERCIAL_LEARNING_POLICY_VERSION = 'commercial-learning-1.0.0';
 
 const MAX_OUTCOMES = 500;
 const MAX_GROUPS = 100;
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 function referenceDate(value) {
   const candidate = value instanceof Date ? value : new Date(value || Date.now());

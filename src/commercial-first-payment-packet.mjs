@@ -14,19 +14,10 @@ import {
   COMMERCIAL_OUTCOME_POLICY_VERSION,
   COMMERCIAL_OUTCOME_TYPES
 } from './commercial-outcome.mjs';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const COMMERCIAL_FIRST_PAYMENT_PACKET_POLICY_VERSION = 'commercial-first-payment-packet-1.0.0';
 
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 const REQUIRED_PAYMENT_PROOF_FIELDS = Object.freeze([
   'paymentDecision.policyVersion',

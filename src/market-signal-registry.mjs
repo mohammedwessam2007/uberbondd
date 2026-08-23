@@ -6,22 +6,13 @@ import {
   isStaleSignal,
   MARKET_SIGNAL_SCHEMA_VERSION
 } from './market-signal.mjs';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const MARKET_SIGNAL_REGISTRY_POLICY_VERSION = 'market-signal-registry-1.0.0';
 const DEFAULT_MAX_BATCH = 100;
 const DEFAULT_AUDIT_LIMIT = 500;
 const DEFAULT_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
 
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 function referenceDate(value) {
   const candidate = value instanceof Date ? value : new Date(value || Date.now());

@@ -7,6 +7,7 @@
 // creating a second opportunity or offer model.
 import crypto from 'node:crypto';
 import { nextPromotionStage, PROMOTION_LADDER_STAGES } from './opportunity-registry.mjs';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const COMMERCIAL_EXPERIMENT_POLICY_VERSION = 'commercial-experiment-1.0.0';
 
@@ -14,16 +15,6 @@ export const COMMERCIAL_EXPERIMENT_STAGES = Object.freeze([
   'DISCOVER', 'SCREEN', 'PROBE', 'VALIDATE', 'EXPAND', 'SCALE', 'HARVEST', 'KILL'
 ]);
 
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 function referenceDate(value) {
   const candidate = value instanceof Date ? value : new Date(value || Date.now());

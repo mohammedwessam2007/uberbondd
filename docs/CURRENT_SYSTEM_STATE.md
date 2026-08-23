@@ -41,8 +41,8 @@ Every number below was produced by running the command, on this tree.
 
 | Gate | Command | Result |
 |---|---|---|
-| Syntax | `npm run check:syntax` | 432 files parse |
-| Deterministic | `npm run test:deterministic` | 2020 tests, 1978 pass, **0 fail**, 42 skipped |
+| Syntax | `npm run check:syntax` | 435 files parse |
+| Deterministic | `npm run test:deterministic` | 2036 tests, 1994 pass, **0 fail**, 42 skipped |
 | Relay safety | `npm run test:relay-safety` | 150 tests, 150 pass, 0 fail |
 | Real PostgreSQL | `npm run test:postgres-real` | 107 tests, **107 pass, 0 skipped** |
 | Dependencies | `npm audit` | 0 vulnerabilities |
@@ -149,6 +149,21 @@ dimensions with provenance and a deterministic policy decides. A model
 assessment is capped at half weight, can never carry ICP fit, buyer-role fit or
 reachability alone, and a model that includes a decision-shaped field gets the
 prospect quarantined rather than that field ignored.
+
+**Revenue cannot be typed into existence.** A payment node's outcome id must
+recompute as a digest of the commercial-outcome policy version and its own
+provider event id, so a forger has to produce the receipt the compiler would
+have produced rather than one merely shaped like it. Still forgeable by whoever
+controls the provider event id; no longer forgeable from nothing.
+
+**Evidence cannot launder its own provenance.** A declared evidence class is
+clamped to what its source can support, so a search snippet cannot file itself
+as first-party and outrank a company's own team page. The clamp is recorded,
+not silent.
+
+**A cleanup routine is not a delete primitive.** The sandbox destroyer removes
+only workspaces this process actually created; a directory merely *named* like
+a sandbox is refused.
 
 **One secret vocabulary.** Six modules had six different credential regexes with
 six different holes. There is one now, and durable receipts redact free text

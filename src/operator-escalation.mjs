@@ -2,9 +2,17 @@ import crypto from 'node:crypto';
 import { collectAuditRows } from './durable-audit-scan.mjs';
 import { DELIVERY_PROOF, PAGE_AUDIT_TYPE } from './operator-escalation-transport.mjs';
 
-export const OPERATOR_ESCALATION_POLICY_VERSION = 'operator-escalation-1.1.0';
+export const OPERATOR_ESCALATION_POLICY_VERSION = 'operator-escalation-1.2.0';
 
 export const ESCALATION_AUDIT_TYPE = 'operator_escalation';
+
+// An episode ends when the condition stops being observed. Without this row the
+// ledger only ever grows, so `activeFingerprints` meant "every fingerprint ever
+// raised" and a condition that recurred after recovering was suppressed by its
+// own history. Probed: scheduler silent, silent, silent, healthy, healthy,
+// silent, silent produced one durable SCHEDULER_SILENT row for two real
+// episodes -- the second outage was never escalated to anyone.
+export const ESCALATION_RESOLVED_AUDIT_TYPE = 'operator_escalation_resolved';
 
 export const OPERATOR_ESCALATION_EXTERNAL_EFFECTS = Object.freeze({
   providerCalls: 0,
@@ -296,6 +304,7 @@ function undeliveredIncidents(snapshot) {
 export function evaluateOperatorHealth({
   snapshot = {},
   activeFingerprints = [],
+  activeEpisodes = null,
   date = new Date(),
   maxEscalations = MAX_ESCALATIONS
 } = {}) {
@@ -335,9 +344,13 @@ export function evaluateOperatorHealth({
   });
 
   const limit = Math.max(1, Math.min(MAX_ESCALATIONS, nonNegativeInteger(maxEscalations, MAX_ESCALATIONS) || MAX_ESCALATIONS));
+  // Episode sequence, so two outages of the same kind are two escalations with
+  // distinguishable identities rather than one row and a silence.
+  const episodes = activeEpisodes instanceof Map ? activeEpisodes : new Map();
   const selected = candidates.slice(0, limit).map(candidate => ({
     ...candidate,
-    escalationId: `operator_${candidate.fingerprint.slice(0, 24)}`,
+    episodeSequence: (episodes.get(candidate.fingerprint)?.sequence ?? 0) + (active.has(candidate.fingerprint) ? 0 : 1),
+    escalationId: `operator_${candidate.fingerprint.slice(0, 24)}_${(episodes.get(candidate.fingerprint)?.sequence ?? 0) + (active.has(candidate.fingerprint) ? 0 : 1)}`,
     status: active.has(candidate.fingerprint) ? 'SUPPRESSED_DUPLICATE' : 'NEW_ESCALATION',
     ownerRequired: true,
     transportStatus: 'NOT_DISPATCHED',
@@ -352,6 +365,10 @@ export function evaluateOperatorHealth({
     timestamp: now.toISOString(),
     health: candidates.length ? (candidates.some(item => item.severity === 'CRITICAL') ? 'CRITICAL' : 'DEGRADED') : 'HEALTHY',
     candidateCount: candidates.length,
+    // Every condition present on this assessment, not just the three that fit
+    // in the queue. A caller resolves episodes by difference: open episodes
+    // whose fingerprint is absent here have stopped happening.
+    observedFingerprints: [...new Set(candidates.map(candidate => candidate.fingerprint))],
     escalations: selected,
     newEscalationCount: newEscalations.length,
     ownerActionQueue: newEscalations.slice(0, 3).map(item => ({
@@ -391,6 +408,7 @@ export async function persistOperatorEscalations(store, report) {
       evidenceRefs: item.evidenceRefs,
       recommendedAction: item.recommendedAction,
       detail: item.detail,
+      episodeSequence: nonNegativeInteger(item.episodeSequence, 1) || 1,
       ownerRequired: true,
       transportStatus: 'NOT_DISPATCHED',
       businessEffectAuthority: 'NONE',
@@ -440,27 +458,53 @@ export async function readEscalationDeliveryState(store, { date = new Date() } =
     if (detail.ownerReached === true) reachedFingerprints.add(text(detail.fingerprint, 200));
   }
 
-  const raisedAt = new Map();
-  for (const row of escalations.rows) {
-    const fingerprint = text(row?.detail?.fingerprint, 200);
-    if (!fingerprint) continue;
-    const at = String(row?.detail?.createdAt || row?.createdAt || '');
-    const current = raisedAt.get(fingerprint);
-    if (!current || (at && at < current)) raisedAt.set(fingerprint, at);
+  const resolutions = await collectAuditRows(store, { type: ESCALATION_RESOLVED_AUDIT_TYPE });
+  if (!resolutions.ok) {
+    return { ok: false, reasonCodes: resolutions.reasonCodes, activeFingerprints: [], paging: null };
   }
 
-  const undelivered = [...raisedAt.keys()].filter(fingerprint => !reachedFingerprints.has(fingerprint));
+  // Fold escalations and resolutions into one lifecycle per fingerprint. The
+  // last event wins: an escalation opens an episode, a resolution closes it,
+  // and a fingerprint whose latest event is a resolution is not active -- so the
+  // same condition recurring later opens a NEW episode and pages again.
+  const lifecycle = new Map();
+  const rank = row => `${String(row?.detail?.createdAt || row?.createdAt || '')}|${String(row?.id || '')}`;
+  for (const row of [...escalations.rows, ...resolutions.rows]) {
+    const fingerprint = text(row?.detail?.fingerprint, 200);
+    if (!fingerprint) continue;
+    const opened = row.type === ESCALATION_AUDIT_TYPE;
+    const entry = lifecycle.get(fingerprint) || { open: false, sequence: 0, openedAt: null, lastRank: '' };
+    const at = String(row?.detail?.createdAt || row?.createdAt || '');
+    if (opened) {
+      entry.sequence = Math.max(entry.sequence, nonNegativeInteger(row?.detail?.episodeSequence, 0) || entry.sequence + 1);
+      if (!entry.open) entry.openedAt = at;
+      entry.open = true;
+    } else if (rank(row) >= entry.lastRank) {
+      entry.open = false;
+    }
+    entry.lastRank = rank(row) > entry.lastRank ? rank(row) : entry.lastRank;
+    lifecycle.set(fingerprint, entry);
+  }
+
+  const openFingerprints = [...lifecycle.entries()].filter(([, entry]) => entry.open).map(([fingerprint]) => fingerprint);
+  // Only open episodes count as an undelivered gap. A resolved episode nobody
+  // was told about is history worth keeping, not an outstanding action -- and
+  // counting it forever would make OWNER_UNREACHABLE grow without bound.
+  const undelivered = openFingerprints.filter(fingerprint => !reachedFingerprints.has(fingerprint));
   const oldestUndeliveredAt = undelivered
-    .map(fingerprint => raisedAt.get(fingerprint))
+    .map(fingerprint => lifecycle.get(fingerprint)?.openedAt)
     .filter(Boolean)
     .sort()[0] || null;
 
   return {
     ok: true,
     policyVersion: OPERATOR_ESCALATION_POLICY_VERSION,
-    // Every fingerprint already written down is active: raising it again adds a
-    // row and no information.
-    activeFingerprints: [...raisedAt.keys()],
+    // Only fingerprints whose episode is currently open. Raising an open
+    // episode again adds a row and no information; raising a resolved one is a
+    // new outage and must page.
+    activeFingerprints: openFingerprints,
+    activeEpisodes: lifecycle,
+    resolvedEpisodeCount: [...lifecycle.values()].filter(entry => !entry.open).length,
     paging: {
       transport: anyHumanTransportAttempted ? 'HUMAN_REACHABLE_ATTEMPTED' : 'UNCONFIGURED',
       deliveryProof: reachedFingerprints.size
@@ -475,4 +519,47 @@ export async function readEscalationDeliveryState(store, { date = new Date() } =
     scannedRows: (escalations.scannedRows || 0) + (pages.scannedRows || 0),
     assessedAt: parseDate(date)?.toISOString() || new Date().toISOString()
   };
+}
+
+/**
+ * Close every open episode whose condition is no longer observed.
+ *
+ * Resolution is by difference: `evaluateOperatorHealth` reports every condition
+ * present on this assessment, and any open episode absent from that list has
+ * stopped happening. This is what makes recurrence work -- without a resolution
+ * row the ledger only grows, `activeFingerprints` means "ever raised", and a
+ * condition that comes back after recovering is suppressed by its own history.
+ *
+ * Deliberately derived from the two audit types this module already writes
+ * rather than from a separate incident store. An episode is a fold over the
+ * escalation ledger, not a new subsystem with its own truth to keep in sync.
+ *
+ * A report that could not be produced resolves nothing. "We could not assess"
+ * and "the problem went away" are the same silence from the outside, and only
+ * one of them is a reason to stop paging.
+ */
+export async function resolveVanishedEscalations(store, report, deliveryState, { date = new Date() } = {}) {
+  if (!store || typeof store.log !== 'function') return [];
+  if (!report?.ok || !deliveryState?.ok) return [];
+  if (!Array.isArray(report.observedFingerprints)) return [];
+
+  const observed = new Set(report.observedFingerprints);
+  const resolvedAt = parseDate(date)?.toISOString() || new Date().toISOString();
+  const resolved = [];
+
+  for (const fingerprint of deliveryState.activeFingerprints || []) {
+    if (observed.has(fingerprint)) continue;
+    const episode = deliveryState.activeEpisodes?.get?.(fingerprint);
+    resolved.push(await store.log(ESCALATION_RESOLVED_AUDIT_TYPE, {
+      policyVersion: OPERATOR_ESCALATION_POLICY_VERSION,
+      fingerprint,
+      episodeSequence: nonNegativeInteger(episode?.sequence, 1) || 1,
+      openedAt: episode?.openedAt || null,
+      resolvedAt,
+      createdAt: resolvedAt,
+      resolution: 'CONDITION_NO_LONGER_OBSERVED',
+      externalEffectLedger: { ...OPERATOR_ESCALATION_EXTERNAL_EFFECTS }
+    }));
+  }
+  return resolved;
 }

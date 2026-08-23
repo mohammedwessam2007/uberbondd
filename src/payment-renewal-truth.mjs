@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const PAYMENT_RENEWAL_TRUTH_VERSION = 'payment-renewal-truth-1.0.0';
+export const PAYMENT_RENEWAL_TRUTH_VERSION = 'payment-renewal-truth-1.0.1';
 
 // The canonical shape plus one declared extension, rather than a fourth
 // independent copy. `paymentMutations` is a real effect this module needs to
@@ -38,11 +38,30 @@ function sorted(values) {
   return [...values].sort((a, b) => String(a?.createdAt || a?.timestamp || '').localeCompare(String(b?.createdAt || b?.timestamp || '')));
 }
 
+function normalizeAuditEntry(entry) {
+  if (!entry || typeof entry !== 'object') return null;
+  // Store.log(type, detail) persists canonical audit records as
+  // { id, type, detail, createdAt }. Older direct fixtures used a flat shape.
+  // Normalize both without allowing nested detail to override the envelope's
+  // event type. This keeps the reconciler compatible with existing evidence
+  // while making the real store path observable.
+  const detail = entry.detail && typeof entry.detail === 'object' && !Array.isArray(entry.detail)
+    ? entry.detail
+    : entry;
+  return {
+    ...detail,
+    type: entry.type || detail.type || null,
+    createdAt: entry.createdAt || detail.createdAt || null
+  };
+}
+
 function paymentAuditEntries(auditLog, leadId) {
-  return auditLog.filter(entry =>
-    entry?.type === 'payment_classification' &&
-    (!leadId || entry?.leadId === leadId)
-  );
+  return auditLog
+    .map(normalizeAuditEntry)
+    .filter(entry =>
+      entry?.type === 'payment_classification' &&
+      (!leadId || entry?.leadId === leadId)
+    );
 }
 
 function clearedEvidenceIndex(auditLog, leadId) {

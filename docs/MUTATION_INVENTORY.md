@@ -7,8 +7,8 @@ die.
 Run it:
 
 ```
-npm run test:mutation-war                    # 45 mutations
-OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 46
+npm run test:mutation-war                    # 46 mutations
+OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 47
 ```
 
 Each mutation is a literal source edit applied to a copy of the tree, with the
@@ -22,7 +22,7 @@ Mutating arbitrary lines produces mostly equivalent mutants and a number nobody
 can act on; mutating the specific invariants this system's safety rests on
 produces a list an operator can read.
 
-**Current: 46 mutations, 46 killed, 0 survived.**
+**Current: 47 mutations, 47 killed, 0 survived.**
 
 | ID | Guard | File | Killed by |
 |---|---|---|---|
@@ -58,6 +58,7 @@ produces a list an operator can read.
 | `AGENT-07` | The GitHub transport defers to the same check | `src/github-relay.mjs` | `zero-effect-agreement.test.mjs`<br>`github-relay.test.mjs` |
 | `SOV-01` | Sovereignty files cannot be edited by the agent path | `src/agent-code-change-contract.mjs` | `sovereignty-self-modification.test.mjs` |
 | `SOV-02` | The protection list contains itself | `src/agent-code-change-contract.mjs` | `sovereignty-self-modification.test.mjs` |
+| `SOV-03` | The proofs of the guards are inside the boundary too | `src/agent-code-change-contract.mjs` | `sovereignty-proof-closure.test.mjs` |
 | `ESC-01` | A resolved condition recurring is a new episode | `src/operator-escalation.mjs` | `operator-escalation-episodes.test.mjs` |
 | `ESC-02` | An undeliverable escalation is itself escalated | `src/operator-escalation.mjs` | `operator-escalation-transport.test.mjs` |
 | `ESC-03` | A transport that throws is UNKNOWN, not FAILED | `src/operator-escalation-transport.mjs` | `operator-escalation-transport.test.mjs`<br>`recovery-war-boundaries.test.mjs` |

@@ -268,6 +268,13 @@ export const MUTATIONS = [
 
   // ---- Escalation ---------------------------------------------------------
   {
+    id: 'SOV-03', guard: 'The proofs of the guards are inside the boundary too',
+    file: 'src/agent-code-change-contract.mjs',
+    find: "  'scripts/mutation-war.mjs',",
+    replace: "  'scripts/mutation-war.mjs.not-really',",
+    suites: ['tests/sovereignty-proof-closure.test.mjs']
+  },
+  {
     id: 'ESC-01', guard: 'A resolved condition recurring is a new episode',
     file: 'src/operator-escalation.mjs',
     find: '  const openFingerprints = [...lifecycle.entries()].filter(([, entry]) => entry.open).map(([fingerprint]) => fingerprint);',

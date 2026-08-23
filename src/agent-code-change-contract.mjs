@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { containsSecretValue } from './secret-patterns.mjs';
 import path from 'node:path';
 
-export const AGENT_CODE_CHANGE_POLICY_VERSION = 'agent-code-change-1.2.0';
+export const AGENT_CODE_CHANGE_POLICY_VERSION = 'agent-code-change-1.3.0';
 
 const MAX_CHANGES = 20;
 // Keep an entire change-set comfortably below the cloud relay's 250KB result
@@ -76,11 +76,43 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   // The record of what is deliberately unwired, and the test that enforces it.
   'config/reachability-classification.json',
   'tests/reachability-ratchet.test.mjs',
-  // The tests that prove the guards above still guard.
-  'tests/outbound-stale-authorization.test.mjs',
+  // The tests that prove the guards above still guard, and the runner that
+  // decides whether they still do.
+  //
+  // This section existed with four entries and rotted. The four were right when
+  // they were written; every killing test added afterwards was left out, and by
+  // the time a probe checked, fifteen of the twenty suites that prove a
+  // sovereignty guard still guards were editable by the autonomous path -- as
+  // was scripts/mutation-war.mjs, the single artifact that decides whether any
+  // of them still kill. Deleting one entry from its list removes the proof that
+  // a guard works and reports a smaller number that nobody cross-checks.
+  //
+  // Protecting the guard and leaving its proof editable protects nothing on the
+  // second move. So the membership of this section is derived rather than
+  // remembered: `sovereignty-proof-closure.test.mjs` fails if any suite the
+  // mutation war names for a file listed above is missing from it. Adding a
+  // mutation for a sovereignty file now forces its suite in here.
+  'scripts/mutation-war.mjs',
+  'tests/sovereignty-proof-closure.test.mjs',
+  'tests/autonomy-constraint-monotonicity-property.test.mjs',
+  'tests/deliverability-guard.test.mjs',
   'tests/effect-state-vocabulary.test.mjs',
+  'tests/operator-escalation-episodes.test.mjs',
+  'tests/operator-escalation-transport.test.mjs',
+  'tests/outbound-stale-authorization.test.mjs',
+  'tests/payment-currency-truth.test.mjs',
+  'tests/payment-recovery-war.test.mjs',
+  'tests/payment-renewal-truth.test.mjs',
+  'tests/payment-truth-double-count.test.mjs',
+  'tests/payment-truth-lead-scope.test.mjs',
   'tests/payment-truth-reversal.test.mjs',
-  'tests/sovereignty-self-modification.test.mjs'
+  'tests/payment-witness-integrity-mutation.test.mjs',
+  'tests/pipeline-deliverability-guard.test.mjs',
+  'tests/recovery-war-boundaries.test.mjs',
+  'tests/secret-cookie-jwt.test.mjs',
+  'tests/secret-format-coverage.test.mjs',
+  'tests/sovereignty-self-modification.test.mjs',
+  'tests/worker-result-terminal-truth.test.mjs'
 ]);
 
 

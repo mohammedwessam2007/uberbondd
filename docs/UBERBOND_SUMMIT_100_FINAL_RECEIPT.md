@@ -6,12 +6,13 @@ Every number here was produced by running the command on the final tree.
 |---|---|
 | **Start main** | `8e13bc0cd232375b0aad898ea1cea634834c63dc` |
 | **Final main** | `7e1030e80bcdec25d92b1688c7ed321969c02c4a` |
-| **PRs merged** | #112 (fulfillment time gate), #114 (payment witness probe), #116 (recovery race) |
+| **PRs merged** | #112 (fulfillment time gate), #114 (payment witness probe), #116 (recovery race), #120 (reversal symmetry) |
 | **PRs closed** | #110 superseded (its substance is in main); #108 merged in the prior mission |
 | **Issues closed** | #111 (escalation episodes), #115, #117 |
+| **PRs superseded** | #110, #119 — their substance is in main |
 | **Issues open** | #73–#80 — GPT Work research, each with a stated reason |
 | **P0 found** | 0 |
-| **P1 found** | 7 |
+| **P1 found** | 8 |
 | **P2 found** | 0 |
 | **P3 found** | 0 |
 | **Files added** | 12 |
@@ -98,7 +99,18 @@ before the comparison could see them, so only the order and the ledger row were
 ever compared. #114's probe mutated the ledger row, which is why its four tests
 passed against an incomplete fix; mutating the receipt walked straight through.
 
-**19. Recovery could overwrite a newer reservation status.** PR #116. The
+**19. The witness check was applied in one direction only.** Found by PR #120.
+A refund ledger row claiming $5,000 against a provider refund of $50 recorded
+$5,000 reversed and a net of **minus $4,950**. The fixture happened to raise
+`refunds-exceed-provider-cleared-payments`, which makes the gap look smaller
+than it is — that contradiction fired only because the original payment was
+smaller than the forged refund, and with a $6,000 payment the same forgery
+produces no contradiction at all. Erasing revenue that was never refunded is the
+same class of defect as inventing revenue that was never paid, and it is the one
+an operator is less likely to question, because a smaller number rarely looks
+like a lie.
+
+**20. Recovery could overwrite a newer reservation status.** PR #116. The
 comment it removes claimed two sweeps racing on one row were "safe to apply
 twice". They are not: a sender legitimately moving `reserved → dispatching →
 sent` while a sweep held an older snapshot could be overwritten back into a
@@ -167,14 +179,17 @@ a guard nobody had tested.
 
 ## Red-team sweeps
 
-Seven sweeps. Sweeps 1, 2 and 3 each found a P1 and reset the counter. Sweeps 4
-and 5 came back clean. Then two concurrent agents landed PRs #114 and #116, both
-correct, which reset it again — and sweep 6, re-attacking the fix for #114,
-found the receipt-fields hole that #114's own probe had missed.
+Eight sweeps. Sweeps 1, 2 and 3 each found a P1 and reset the counter. Sweeps 4
+and 5 came back clean. Then concurrent agents landed PRs #114, #116 and #120, all
+three correct, which reset it repeatedly — and sweep 6, re-attacking the fix for
+#114, found the receipt-fields hole that #114's own probe had missed. Sweeps 7
+and 8 came back clean on the merged head.
 
 That sequence is the most useful thing in this receipt. A clean sweep is
-evidence about the attacks that were run, not proof that none remain, and an
-independent agent's probe found something five of my own sweeps did not.
+evidence about the attacks that were run, not proof that none remain.
+Independent agents' probes found three things my own sweeps did not, and one of
+my own fixes had a hole that only appeared when I attacked it rather than
+trusting the tests that shipped with it.
 
 Sweep 4 and 5 coverage: nine prompt injections against the outbound authority
 gate (instruction override, fake SYSTEM line, evidence-fence escape, SQL,
@@ -193,10 +208,10 @@ zero.
 | Gate | Result |
 |---|---|
 | `npm run check:syntax` | **465** files parse |
-| `npm run test:deterministic` | **2205** total, **2159** pass, **0** fail, **46** skip |
+| `npm run test:deterministic` | **2210** total, **2164** pass, **0** fail, **46** skip |
 | `npm run test:relay-safety` | **150** total, **150** pass, **0** fail |
 | `npm run test:postgres-real` | **122** total, **122** pass, **0** fail, **0** skip — PostgreSQL 18.4 |
-| `npm run test:mutation-war` | **38** mutations, **38** killed, **0** survived |
+| `npm run test:mutation-war` | **39** mutations, **39** killed, **0** survived |
 | `npm audit` | 0 info, 0 low, 0 moderate, 0 high, 0 critical |
 
 The 46 deterministic skips are the real-PostgreSQL suites that run excludes by
@@ -320,16 +335,16 @@ Against §46:
 Every remaining blocker is a customer, a provider, a credential, a payment rail,
 a human-reachable transport, live production observation, or elapsed real time.
 
-Nineteen defects have been found across two missions in code that was green each
-time — and three of the last four surfaced *after* this receipt was first
-written, two of them from a concurrent agent's probe and one from re-attacking
-my own fix. That is the honest reason this verdict is about *internal* closure
+Twenty defects have been found across two missions in code that was green each
+time — and four of the last five surfaced *after* this receipt was first
+written: three from concurrent agents' probes and one from re-attacking my own
+fix. Two of those four were in code I had written hours earlier. That is the honest reason this verdict is about *internal* closure
 and not about correctness: a twentieth may exist, and the evidence says the rate
 has not reached zero.
 
 What has changed is not that the tree is proven correct. It is that the guards
 are now known to be load-bearing, the crash boundaries are enumerated, and both
 facts are executable rather than asserted — so the next defect has to get past
-38 mutations and a published matrix rather than past an assurance.
+39 mutations and a published matrix rather than past an assurance.
 
 **Stop building. Hand the rest to reality.**

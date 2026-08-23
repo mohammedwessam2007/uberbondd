@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const PAYMENT_RENEWAL_TRUTH_VERSION = 'payment-renewal-truth-1.2.0';
+export const PAYMENT_RENEWAL_TRUTH_VERSION = 'payment-renewal-truth-1.3.0';
 
 // The canonical shape plus one declared extension, rather than a fourth
 // independent copy. `paymentMutations` is a real effect this module needs to
@@ -206,6 +206,22 @@ function verifiedRevenueRows({ revenueEvents, clearedIndex, reversalIndex, order
       if (reversal && order) {
         if (seenReversals.has(key)) {
           duplicateReversals.push({ providerEventId: key, amountCents: cents(event?.amountCents) });
+          continue;
+        }
+        // The same content check the payment branch gets. Applying it to only
+        // one direction left the mirror image open: a refund ledger row claiming
+        // $5,000 against a provider refund of $50 recorded $5,000 reversed and a
+        // net of minus $4,950. It happened to raise
+        // `refunds-exceed-provider-cleared-payments` in that fixture only
+        // because the original payment was smaller -- with a $6,000 payment the
+        // same forgery would have produced no contradiction at all.
+        //
+        // Erasing revenue that was never refunded is the same class of defect as
+        // inventing revenue that was never paid, and it is the one an operator
+        // is less likely to question.
+        const reversalMismatches = witnessContentMismatches({ event, order, clearing: reversal });
+        if (reversalMismatches.length) {
+          contradicted.push({ providerEventId: key, mismatches: reversalMismatches, amountCents: cents(event?.amountCents) });
           continue;
         }
         const row = { event, reversal, order };

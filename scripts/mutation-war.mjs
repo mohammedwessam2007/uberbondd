@@ -103,6 +103,13 @@ export const MUTATIONS = [
     suites: ['tests/payment-witness-integrity-mutation.test.mjs']
   },
   {
+    id: 'MONEY-07', guard: 'Reversal witnesses must agree on content too',
+    file: 'src/payment-renewal-truth.mjs',
+    find: '        const reversalMismatches = witnessContentMismatches({ event, order, clearing: reversal });',
+    replace: '        const reversalMismatches = [];',
+    suites: ['tests/payment-truth-reversal.test.mjs']
+  },
+  {
     id: 'RECOV-01', guard: 'Recovery may not overwrite a newer reservation status',
     file: 'src/reservation-recovery.mjs',
     find: "    if (current.status !== row.status) {",

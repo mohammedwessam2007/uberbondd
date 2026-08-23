@@ -18,14 +18,18 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { reconcilePaymentRenewalTruth } from '../src/payment-renewal-truth.mjs';
 
+// `currency` is set on both sides because the sole writer of these collections
+// always sets it from the provider event. Omitting it made the currency
+// comparison silently skip -- a witness that says nothing cannot disagree -- so
+// the fixture was not testing what it claimed to.
 function order(eventName, eventId, amountCents, at) {
   return {
     id: `o_${eventId}`, provider: 'lemonsqueezy', providerEventId: eventId, eventName,
-    leadId: 'lead1', amountCents, status: amountCents < 0 ? 'refunded' : 'paid', createdAt: at
+    leadId: 'lead1', amountCents, currency: 'USD', status: amountCents < 0 ? 'refunded' : 'paid', createdAt: at
   };
 }
 function revenue(eventName, eventId, amountCents, at, id = `r_${eventId}`) {
-  return { id, providerEventId: `${eventName}:${eventId}`, leadId: 'lead1', amountCents, createdAt: at };
+  return { id, providerEventId: `${eventName}:${eventId}`, leadId: 'lead1', amountCents, currency: 'USD', createdAt: at };
 }
 function receipt(classification, eventName, eventId, at) {
   return { type: 'payment_classification', createdAt: at, detail: { classification, eventName, eventId, leadId: 'lead1', timestamp: at } };
@@ -132,5 +136,78 @@ test('with no refunds at all, nothing about the existing verdict changes', () =>
   assert.equal(result.economics.netProviderClearedRevenueCents, 5000);
   assert.equal(result.economics.reversedRevenueCents, 0);
   assert.equal(result.stages.PAYMENT_RETAINED.status, 'PROVEN');
+  assert.deepEqual(result.contradictions, []);
+});
+
+// Reversal witness symmetry, from PR #120.
+//
+// The content check added for payments was applied to one direction only, which
+// left the mirror image open. A refund ledger row claiming $5,000 against a
+// provider refund of $50 recorded $5,000 reversed and a net of minus $4,950.
+//
+// That fixture happened to raise `refunds-exceed-provider-cleared-payments`,
+// which makes the gap look smaller than it is: the contradiction fired only
+// because the original payment was smaller than the forged refund. With a
+// $6,000 payment the same forgery produces no contradiction at all.
+//
+// Erasing revenue that was never refunded is the same class of defect as
+// inventing revenue that was never paid, and it is the one an operator is less
+// likely to question, because a smaller number rarely looks like a lie.
+
+function ledgers({ paidCents, refundLedgerCents, refundOrderCents = -paidCents, refundCurrency = 'USD', refundProduct = 'full' }) {
+  return {
+    lead: { id: 'lead1', prospectId: 'pros1' },
+    orders: [
+      order('order_created', 'evt_pay', paidCents, '2026-08-01T00:00:00Z'),
+      { ...order('order_refunded', 'evt_ref', refundOrderCents, '2026-08-05T00:00:00Z'), product: 'full', prospectId: 'pros1' }
+    ],
+    auditLog: [
+      receipt('CLEARED_ONE_TIME_PAYMENT', 'order_created', 'evt_pay', '2026-08-01T00:00:30Z'),
+      receipt('REFUND_OR_DISPUTE', 'order_refunded', 'evt_ref', '2026-08-05T00:00:30Z')
+    ],
+    revenueEvents: [
+      { ...revenue('order_created', 'evt_pay', paidCents, '2026-08-01T00:01:00Z'), prospectId: 'pros1', product: 'full' },
+      { ...revenue('order_refunded', 'evt_ref', refundLedgerCents, '2026-08-05T00:01:00Z'), prospectId: 'pros1', product: refundProduct, currency: refundCurrency }
+    ]
+  };
+}
+
+test('a refund ledger row cannot exceed what the provider actually reversed', () => {
+  const { lead, ...rest } = ledgers({ paidCents: 5000, refundLedgerCents: -500000 });
+  const result = reconcilePaymentRenewalTruth({ lead, ...rest });
+  assert.equal(result.economics.reversedRevenueCents, 0, 'a forged reversal must not be applied');
+  assert.equal(result.economics.netProviderClearedRevenueCents, 5000, 'and must not erase real revenue');
+  assert.ok(result.contradictions.includes('provider-payment-witness-amount-mismatch'));
+});
+
+test('the forgery is caught even when it does not exceed the original payment', () => {
+  // The case the amount-based contradiction alone would miss entirely.
+  const { lead, ...rest } = ledgers({ paidCents: 600000, refundLedgerCents: -500000, refundOrderCents: -5000 });
+  const result = reconcilePaymentRenewalTruth({ lead, ...rest });
+  assert.ok(!result.contradictions.includes('refunds-exceed-provider-cleared-payments'),
+    'this forgery is smaller than the payment, so the old guard would say nothing');
+  assert.ok(result.contradictions.includes('provider-payment-witness-amount-mismatch'));
+  assert.equal(result.economics.reversedRevenueCents, 0);
+});
+
+test('a refund in a different currency than the provider order is refused', () => {
+  const { lead, ...rest } = ledgers({ paidCents: 5000, refundLedgerCents: -5000, refundCurrency: 'EUR' });
+  const result = reconcilePaymentRenewalTruth({ lead, ...rest });
+  assert.ok(result.contradictions.includes('provider-payment-witness-currency-mismatch'));
+  assert.equal(result.economics.reversedRevenueCents, 0);
+});
+
+test('a refund attributed to a different product is refused', () => {
+  const { lead, ...rest } = ledgers({ paidCents: 5000, refundLedgerCents: -5000, refundProduct: 'monitoring' });
+  const result = reconcilePaymentRenewalTruth({ lead, ...rest });
+  assert.ok(result.contradictions.includes('provider-payment-witness-product-mismatch'));
+  assert.equal(result.economics.reversedRevenueCents, 0);
+});
+
+test('an honest refund still reverses, exactly once', () => {
+  const { lead, ...rest } = ledgers({ paidCents: 5000, refundLedgerCents: -5000 });
+  const result = reconcilePaymentRenewalTruth({ lead, ...rest });
+  assert.equal(result.economics.reversedRevenueCents, 5000);
+  assert.equal(result.economics.netProviderClearedRevenueCents, 0);
   assert.deepEqual(result.contradictions, []);
 });

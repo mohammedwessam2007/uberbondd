@@ -62,6 +62,52 @@ function normalizeSourceType(value) {
   if (!SOURCE_SET.has(sourceType)) throw new Error(`Unsupported prospect source type: ${sourceType || 'empty'}`);
   return sourceType;
 }
+// The strongest evidence class each source is capable of supporting.
+//
+// sourceType and evidenceClass were two independent strings a caller set, so a
+// search-engine snippet could be filed as DIRECT_FIRST_PARTY -- the class
+// reserved for the subject telling us directly -- and thereby enter the set of
+// direct evidence, outrank a company's own team page, and manufacture a
+// conflict against it. A class is a claim about where something came from, and
+// the source already says where it came from.
+//
+// A caller may still declare a weaker class than the source allows: choosing to
+// trust something less is always permitted. Declaring a stronger one is
+// laundering, and is clamped.
+const MAX_EVIDENCE_CLASS_BY_SOURCE = Object.freeze({
+  first_party: 'DIRECT_FIRST_PARTY',
+  owner_import: 'DIRECT_FIRST_PARTY',
+  public_website: 'DIRECT_PUBLIC',
+  public_profile: 'DIRECT_PUBLIC',
+  licensed_provider: 'LICENSED_PROVIDER',
+  provider_api: 'LICENSED_PROVIDER',
+  search_engine: 'ATTRIBUTED',
+  model_inference: 'MODEL_INFERENCE'
+});
+
+// Weakest to strongest. Position is the whole point: clamping compares here.
+const EVIDENCE_CLASS_STRENGTH = Object.freeze([
+  'MODEL_INFERENCE',
+  'ATTRIBUTED',
+  'LICENSED_PROVIDER',
+  'DIRECT_PUBLIC',
+  'DIRECT_FIRST_PARTY'
+]);
+
+/**
+ * Clamp a declared evidence class to what its source can support.
+ *
+ * @returns {{evidenceClass: string, clamped: boolean, declared: string}}
+ */
+export function clampEvidenceClassToSource(sourceType, declaredClass) {
+  const ceiling = MAX_EVIDENCE_CLASS_BY_SOURCE[sourceType] || 'MODEL_INFERENCE';
+  const declaredIndex = EVIDENCE_CLASS_STRENGTH.indexOf(declaredClass);
+  const ceilingIndex = EVIDENCE_CLASS_STRENGTH.indexOf(ceiling);
+  if (declaredIndex < 0) return { evidenceClass: ceiling, clamped: false, declared: declaredClass };
+  if (declaredIndex <= ceilingIndex) return { evidenceClass: declaredClass, clamped: false, declared: declaredClass };
+  return { evidenceClass: ceiling, clamped: true, declared: declaredClass };
+}
+
 function normalizeEvidenceClass(value) {
   const evidenceClass = text(value, 60).toUpperCase();
   if (!EVIDENCE_SET.has(evidenceClass)) throw new Error(`Unsupported evidence class: ${evidenceClass || 'empty'}`);
@@ -70,7 +116,8 @@ function normalizeEvidenceClass(value) {
 
 export function normalizePersonCandidate(input = {}, { now = new Date() } = {}) {
   const sourceType = normalizeSourceType(input.sourceType || input.source || 'public_website');
-  const evidenceClass = normalizeEvidenceClass(input.evidenceClass || (sourceType === 'model_inference' ? 'MODEL_INFERENCE' : sourceType === 'licensed_provider' || sourceType === 'provider_api' ? 'LICENSED_PROVIDER' : sourceType === 'first_party' ? 'DIRECT_FIRST_PARTY' : 'DIRECT_PUBLIC'));
+  const declaredClass = normalizeEvidenceClass(input.evidenceClass || (sourceType === 'model_inference' ? 'MODEL_INFERENCE' : sourceType === 'licensed_provider' || sourceType === 'provider_api' ? 'LICENSED_PROVIDER' : sourceType === 'first_party' ? 'DIRECT_FIRST_PARTY' : 'DIRECT_PUBLIC'));
+  const { evidenceClass, clamped: evidenceClassClamped } = clampEvidenceClassToSource(sourceType, declaredClass);
   const name = text(input.name || input.fullName, 180);
   const companyId = text(input.companyId || input.accountId, 160);
   const role = text(input.role || input.title, 180);
@@ -90,6 +137,8 @@ export function normalizePersonCandidate(input = {}, { now = new Date() } = {}) 
     sourceType,
     sourceUrl: https(input.sourceUrl || publicProfileUrl),
     evidenceClass,
+    declaredEvidenceClass: declaredClass,
+    evidenceClassClamped,
     confidence: Number(number(input.confidence, 0.5).toFixed(3)),
     observedAt,
     expiresAt,
@@ -105,7 +154,8 @@ export function normalizeEnrichmentObservation(input = {}, { now = new Date() } 
   const field = text(input.field, 100).toLowerCase();
   if (!field) throw new Error('Enrichment observation needs field');
   const sourceType = normalizeSourceType(input.sourceType || input.source || 'provider_api');
-  const evidenceClass = normalizeEvidenceClass(input.evidenceClass || (sourceType === 'model_inference' ? 'MODEL_INFERENCE' : sourceType === 'first_party' ? 'DIRECT_FIRST_PARTY' : sourceType === 'public_website' || sourceType === 'public_profile' ? 'DIRECT_PUBLIC' : 'LICENSED_PROVIDER'));
+  const declaredClass = normalizeEvidenceClass(input.evidenceClass || (sourceType === 'model_inference' ? 'MODEL_INFERENCE' : sourceType === 'first_party' ? 'DIRECT_FIRST_PARTY' : sourceType === 'public_website' || sourceType === 'public_profile' ? 'DIRECT_PUBLIC' : 'LICENSED_PROVIDER'));
+  const { evidenceClass, clamped: evidenceClassClamped } = clampEvidenceClassToSource(sourceType, declaredClass);
   const observedAt = iso(input.observedAt, now);
   const expiresAt = iso(input.expiresAt);
   const value = input.value === undefined ? null : input.value;
@@ -122,6 +172,8 @@ export function normalizeEnrichmentObservation(input = {}, { now = new Date() } 
     sourceUrl: https(input.sourceUrl),
     sourceRecordId: text(input.sourceRecordId, 180),
     evidenceClass,
+    declaredEvidenceClass: declaredClass,
+    evidenceClassClamped,
     confidence: Number(number(input.confidence, 0.5).toFixed(3)),
     exact: input.exact !== false,
     inferred: input.inferred === true || evidenceClass === 'MODEL_INFERENCE',

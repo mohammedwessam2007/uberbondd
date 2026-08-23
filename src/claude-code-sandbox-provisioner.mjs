@@ -180,6 +180,9 @@ export async function createEphemeralGitSandbox({
   }
 
   const workspace = await fs.mkdtemp(path.join(tmpDir, 'uberbond-sandbox-'));
+  // Recorded before anything else can fail, so every path that tears down a
+  // partially built sandbox is allowed to remove the one it just made.
+  provisionedWorkspaces.add(path.resolve(workspace));
   const sandboxRoot = path.join(workspace, 'repo');
   // Outside the git sandbox on purpose: the executor's isolation contract
   // rejects an ephemeral home nested inside the tree the model can edit.
@@ -239,18 +242,35 @@ export async function createEphemeralGitSandbox({
   }
 }
 
+// Workspaces this process actually created. A name is not ownership: the
+// original check required only that the basename start with
+// `uberbond-sandbox-`, which made any directory anywhere with that name
+// destroyable -- including one inside a working tree. A recursive delete
+// guarded by a string prefix is a delete primitive wearing a cleanup label.
+//
+// Membership here is the authority to delete. It is deliberately in-process
+// and therefore lost on restart: a sandbox this process did not create is one
+// it will not remove, and a leaked temp directory is a far smaller problem
+// than a recursive delete pointed at the wrong path.
+const provisionedWorkspaces = new Set();
+
 export async function destroyEphemeralGitSandbox({ sandbox } = {}) {
   const workspace = text(sandbox?.workspace, 1000);
+  const refuse = reason => ({
+    ok: false,
+    policyVersion: CLAUDE_CODE_SANDBOX_PROVISIONER_POLICY_VERSION,
+    reasonCodes: [reason],
+    receiptRef: null
+  });
   if (!workspace || !path.isAbsolute(workspace) || !path.basename(workspace).startsWith('uberbond-sandbox-')) {
-    return {
-      ok: false,
-      policyVersion: CLAUDE_CODE_SANDBOX_PROVISIONER_POLICY_VERSION,
-      reasonCodes: ['refusing-to-remove-a-path-this-provisioner-did-not-create'],
-      receiptRef: null
-    };
+    return refuse('refusing-to-remove-a-path-this-provisioner-did-not-create');
+  }
+  if (!provisionedWorkspaces.has(path.resolve(workspace))) {
+    return refuse('refusing-to-remove-a-workspace-this-process-did-not-provision');
   }
   try {
     await fs.rm(workspace, { recursive: true, force: true });
+    provisionedWorkspaces.delete(path.resolve(workspace));
   } catch (error) {
     return {
       ok: false,

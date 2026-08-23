@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
+import { COMMERCIAL_OUTCOME_POLICY_VERSION } from './commercial-outcome.mjs';
 
-export const CAUSAL_ATTRIBUTION_POLICY_VERSION = 'causal-attribution-spine-1.0.0';
+export const CAUSAL_ATTRIBUTION_POLICY_VERSION = 'causal-attribution-spine-1.1.0';
 export const CAUSAL_NODE_TYPES = Object.freeze([
   'SIGNAL','OPPORTUNITY','EXPERIMENT','OFFER','CHANNEL','TARGET','ACTION','RESPONSE',
   'CHECKOUT','PAYMENT','DELIVERY','ACCEPTANCE','RETENTION','REFUND','DISPUTE','CHURN','FAILURE'
@@ -32,6 +33,18 @@ function iso(value) {
 function unique(values) { return [...new Set(values.filter(Boolean))]; }
 function clone(value) { return JSON.parse(JSON.stringify(value)); }
 
+/**
+ * True when `outcomeId` is the id the commercial-outcome compiler would mint
+ * for this provider event. Mirrors that module's derivation exactly; a drift
+ * between them shows up as an honest refusal rather than a silent acceptance.
+ */
+function recomputableOutcomeId(outcomeId, providerEventId) {
+  const eventId = text(providerEventId, 300);
+  if (!eventId) return false;
+  const expected = `out_${sha({ policyVersion: COMMERCIAL_OUTCOME_POLICY_VERSION, eventId }).slice(0, 24)}`;
+  return text(outcomeId, 220) === expected;
+}
+
 function normalizeNode(node = {}) {
   const nodeId = text(node.nodeId, 220);
   const type = text(node.type, 80).toUpperCase();
@@ -52,6 +65,22 @@ function normalizeNode(node = {}) {
     if (!allowed.includes(economic.truthLevel)) return { ok: false, reason: 'economic-truth-level-not-verified' };
     if (!economic.outcomeId || !economic.providerEventId || economic.amountCents == null || economic.amountCents <= 0 || !/^[A-Z]{3}$/.test(economic.currency || '')) {
       return { ok: false, reason: 'economic-proof-incomplete' };
+    }
+    // Every check above passes on an object typed by hand. Truth level, a
+    // positive integer, a three-letter currency and a plausible event id are all
+    // things a forger supplies for free, so the apparatus built to stop revenue
+    // being invented was only checking whether the invention was well-formed --
+    // a literal with the right field names became a five-thousand-dollar anchor
+    // in the graph.
+    //
+    // A real outcomeId is a digest of the outcome policy version and the
+    // provider event id, so it can be recomputed. Requiring it to recompute
+    // means a forger has to produce the receipt the compiler would have
+    // produced, not merely one shaped like it. Forging the amount is still
+    // possible for whoever controls the provider event id; forging it from
+    // nothing is not.
+    if (!recomputableOutcomeId(economic.outcomeId, economic.providerEventId)) {
+      return { ok: false, reason: 'economic-outcome-id-does-not-recompute' };
     }
   }
   return {

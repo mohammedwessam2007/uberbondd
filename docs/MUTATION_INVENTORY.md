@@ -7,8 +7,8 @@ die.
 Run it:
 
 ```
-npm run test:mutation-war                    # 52 mutations
-OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 53
+npm run test:mutation-war                    # 54 mutations
+OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 55
 ```
 
 Each mutation is a literal source edit applied to a copy of the tree, with the
@@ -22,7 +22,7 @@ Mutating arbitrary lines produces mostly equivalent mutants and a number nobody
 can act on; mutating the specific invariants this system's safety rests on
 produces a list an operator can read.
 
-**Current: 53 mutations, 53 killed, 0 survived.**
+**Current: 55 mutations, 55 killed, 0 survived.**
 
 | ID | Guard | File | Killed by |
 |---|---|---|---|
@@ -39,6 +39,8 @@ produces a list an operator can read.
 | `MONEY-07` | Reversal witnesses must agree on content too | `src/payment-renewal-truth.mjs` | `payment-truth-reversal.test.mjs` |
 | `MONEY-08` | Cents from different currencies are not a total | `src/payment-renewal-truth.mjs` | `payment-currency-truth.test.mjs` |
 | `MONEY-09` | The clearing receipt witnesses the money, not only the identity | `src/payment-renewal-truth.mjs` | `payment-currency-truth.test.mjs` |
+| `MONEY-14` | Each currency is totalled from its own rows only | `src/payment-renewal-truth.mjs` | `payment-currency-truth.test.mjs` |
+| `MONEY-15` | A refund reduces its own currency and no other | `src/payment-renewal-truth.mjs` | `payment-currency-truth.test.mjs` |
 | `MONEY-10` | A failed lead lookup may not widen the scope to every lead | `src/payment-renewal-truth.mjs` | `payment-truth-lead-scope.test.mjs` |
 | `MONEY-11` | A lead nobody can find is unknown, not zero | `src/payment-renewal-truth.mjs` | `payment-truth-lead-scope.test.mjs` |
 | `MONEY-12` | The clearing receipt records the money it classified | `src/revenue.mjs` | `payment-receipt-witnesses-money.test.mjs` |

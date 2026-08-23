@@ -124,6 +124,20 @@ export const MUTATIONS = [
     suites: ['tests/payment-currency-truth.test.mjs']
   },
   {
+    id: 'MONEY-14', guard: 'Each currency is totalled from its own rows only',
+    file: 'src/payment-renewal-truth.mjs',
+    find: "    bucket.clearedCents += cents(item.event.amountCents);",
+    replace: '    bucket.clearedCents += 0;',
+    suites: ['tests/payment-currency-truth.test.mjs']
+  },
+  {
+    id: 'MONEY-15', guard: 'A refund reduces its own currency and no other',
+    file: 'src/payment-renewal-truth.mjs',
+    find: "    bucket.reversedCents += Math.abs(cents(item.event.amountCents));",
+    replace: '    bucket.reversedCents += 0;',
+    suites: ['tests/payment-currency-truth.test.mjs']
+  },
+  {
     id: 'MONEY-10', guard: 'A failed lead lookup may not widen the scope to every lead',
     file: 'src/payment-renewal-truth.mjs',
     find: "  const leadId = text(requestedLeadId, 200) || text(lead?.id, 200) || null;",

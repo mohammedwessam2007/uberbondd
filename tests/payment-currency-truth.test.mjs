@@ -135,3 +135,68 @@ test('a refund receipt may carry the negative sign the order does not', () => {
   assert.ok(!result.contradictions.includes('provider-payment-witness-amount-mismatch'));
   assert.equal(result.economics.netProviderClearedRevenueCents, 0);
 });
+
+// Refusing to total across currencies is correct and, on its own, unhelpful: an
+// operator asking "how much did we make" gets a contradiction and no number.
+// The honest answer exists -- one figure per currency -- so it is reported
+// rather than withheld. Still no conversion: separate figures returned
+// together, not an aggregate.
+test('a mixed-currency book reports one figure per currency', () => {
+  const jpy = { currency: 'JPY' };
+  const eur = { currency: 'EUR' };
+  const result = run(
+    [order('a'), order('b', eur), order('c', jpy)],
+    [receipt('a'), receipt('b', eur), receipt('c', jpy)],
+    [ledger('a'), ledger('b', eur), ledger('c', jpy)]
+  );
+  assert.deepEqual(Object.keys(result.economics.byCurrency).sort(), ['EUR', 'JPY', 'USD']);
+  assert.equal(result.economics.byCurrency.USD.netCents, 5000);
+  assert.equal(result.economics.byCurrency.EUR.netCents, 5000);
+  assert.equal(result.economics.byCurrency.JPY.netCents, 5000);
+  assert.equal(result.economics.byCurrency.USD.paymentCount, 1);
+  // The refusal to total is still in force.
+  assert.equal(result.economics.currency, null);
+  assert.ok(result.contradictions.includes('multi-currency-revenue-cannot-be-summed'));
+});
+
+test('the per-currency breakdown exists in the single-currency case too', () => {
+  // Otherwise a caller has to know which case it is in before reading it.
+  const result = one();
+  assert.deepEqual(Object.keys(result.economics.byCurrency), ['USD']);
+  assert.equal(result.economics.byCurrency.USD.netCents, 5000);
+  assert.equal(result.economics.byCurrency.USD.clearedCents, 5000);
+  assert.equal(result.economics.byCurrency.USD.reversedCents, 0);
+});
+
+test('an empty book has an empty breakdown, not a zero in some default currency', () => {
+  const result = run([], [], []);
+  assert.deepEqual(result.economics.byCurrency, {});
+  assert.equal(result.economics.currency, null);
+});
+
+test('a refund reduces its own currency and no other', () => {
+  const eur = { currency: 'EUR' };
+  const result = run(
+    [order('a'), order('b', eur),
+      order('ra', { eventName: 'refund', providerEventId: 'ra', amountCents: -5000, status: 'refunded' })],
+    [receipt('a'), receipt('b', eur),
+      receipt('ra', { eventName: 'refund', eventId: 'ra', classification: 'REFUND_OR_DISPUTE', amountCents: -5000 })],
+    [ledger('a'), ledger('b', eur),
+      ledger('ra', { providerEventId: 'refund:ra', kind: 'refund', amountCents: -5000 })]
+  );
+  assert.equal(result.economics.byCurrency.USD.netCents, 0);
+  assert.equal(result.economics.byCurrency.USD.reversedCents, 5000);
+  assert.equal(result.economics.byCurrency.EUR.netCents, 5000);
+  assert.equal(result.economics.byCurrency.EUR.reversedCents, 0);
+});
+
+test('no conversion rate is ever invented', () => {
+  const eur = { currency: 'EUR' };
+  const result = run([order('a'), order('b', eur)], [receipt('a'), receipt('b', eur)], [ledger('a'), ledger('b', eur)]);
+  // Every per-currency net must equal that currency's own rows exactly.
+  assert.equal(result.economics.byCurrency.USD.netCents, 5000);
+  assert.equal(result.economics.byCurrency.EUR.netCents, 5000);
+  // And nothing anywhere reports a converted total.
+  assert.equal(result.economics.currency, null);
+  assert.equal(Object.values(result.economics.byCurrency).some(b => b.netCents === 10000), false);
+});

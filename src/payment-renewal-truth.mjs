@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const PAYMENT_RENEWAL_TRUTH_VERSION = 'payment-renewal-truth-1.5.0';
+export const PAYMENT_RENEWAL_TRUTH_VERSION = 'payment-renewal-truth-1.6.0';
 
 // The canonical shape plus one declared extension, rather than a fourth
 // independent copy. `paymentMutations` is a real effect this module needs to
@@ -370,6 +370,35 @@ export function reconcilePaymentRenewalTruth({
   }
   const currencies = [...currencyCounts.keys()].sort();
   const singleCurrency = currencies.length === 1 ? currencies[0] : null;
+  // Refusing to total across currencies is correct and, on its own, unhelpful:
+  // an operator asking "how much did we make" gets a contradiction and no
+  // number. The honest answer exists -- it is one number per currency -- so it
+  // is reported rather than withheld. Still no conversion: these are separate
+  // figures that happen to be returned together, not an aggregate.
+  const byCurrency = {};
+  for (const code of currencies) {
+    byCurrency[code] = { clearedCents: 0, reversedCents: 0, netCents: 0, paymentCount: 0, reversalCount: 0 };
+  }
+  const bucketFor = item => {
+    const code = text(item?.event?.currency, 12).toUpperCase()
+      || text(item?.order?.currency, 12).toUpperCase();
+    return code ? byCurrency[code] : null;
+  };
+  for (const item of verified) {
+    const bucket = bucketFor(item);
+    if (!bucket) continue;
+    bucket.clearedCents += cents(item.event.amountCents);
+    bucket.paymentCount += 1;
+  }
+  for (const item of reversals) {
+    const bucket = bucketFor(item);
+    if (!bucket) continue;
+    bucket.reversedCents += Math.abs(cents(item.event.amountCents));
+    bucket.reversalCount += 1;
+  }
+  for (const bucket of Object.values(byCurrency)) {
+    bucket.netCents = bucket.clearedCents - bucket.reversedCents;
+  }
   const unverifiedReversalCents = unverifiedReversals.reduce((sum, item) => sum + Math.abs(cents(item.amountCents)), 0);
   const fullyReversed = clearedRevenueCents > 0 && netClearedRevenueCents <= 0;
   const unverifiedPositiveRevenueCents = unverified.reduce((sum, item) => sum + Math.max(0, cents(item.amountCents)), 0);
@@ -437,6 +466,10 @@ export function reconcilePaymentRenewalTruth({
       // without reading this is rendering a number with no unit.
       currency: singleCurrency,
       currenciesPresent: currencies,
+      // One entry per currency actually present. Always populated, so a caller
+      // that reads this instead of the scalar is correct in both the
+      // single-currency and the mixed case and never has to know which it is in.
+      byCurrency,
       providerClearedRevenueCents: clearedRevenueCents,
       providerClearedRevenue: clearedRevenueCents / 100,
       unverifiedPositiveRevenueCents,

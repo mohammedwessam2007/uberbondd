@@ -50,6 +50,10 @@ async function connectedStore(inbox = 'A') {
   const store = new Store(dir);
   await store.init();
   await store.add('accounts', { id: `acct-${inbox}`, slot: inbox, connected: true, email: `outreach-${inbox}@uberbond.example`, tokens: 'unused' });
+  // The pipeline loads the campaign from the store before it reaches
+  // maybeSend, and the guard now reads authority back from there. Seeding it
+  // is what makes the fixture match production.
+  await store.upsert('campaigns', baseCampaign());
   return store;
 }
 

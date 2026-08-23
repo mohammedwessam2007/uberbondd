@@ -1,0 +1,237 @@
+{
+  "schema": "uberbond.reachability-classification.v1",
+  "note": "Every src module with no production or operator entry point must appear here with a reason. A module reachable only from tests is not reachable: the suite proves it behaves and proves nothing about whether anything can call it. Three modules were found dead by accident in one session (#88 mesh entry point, #100 occurrence compiler, the operator escalation kernel); this file plus tests/reachability-ratchet.test.mjs make the fourth one fail a gate instead.",
+  "categories": {
+    "AWAITING_ACTIVATION": "Implemented and gated. Deliberately not wired because wiring it without the named external gate would be unsafe or meaningless.",
+    "SUPERSEDED": "Replaced by another module. Kept only until its history is no longer useful.",
+    "UNREACHABLE_BUG": "Should be reachable and is not. This is a defect, not a decision.",
+    "NEEDS_TRIAGE": "Nobody has decided yet. Honest placeholder, not a resting state."
+  },
+  "modules": {
+    "src/claude-engineering-orchestrator.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
+      "reason": "The autonomous engineering path cannot run until something outside this process attests network isolation."
+    },
+    "src/durable-claude-engineering-executor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
+      "reason": "Wraps the orchestrator; blocked by the same attestation."
+    },
+    "src/claude-code-sandbox-provisioner.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
+      "reason": "Provisions a real filesystem sandbox and refuses to claim network isolation it cannot verify."
+    },
+    "src/agent-sandbox-verifier.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
+      "reason": "Runs verification inside a sandbox that cannot yet be attested."
+    },
+    "src/agent-git-sandbox-collector.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
+      "reason": "Collects a change set from a sandbox nothing can currently create."
+    },
+    "src/agent-code-artifact-store.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
+      "reason": "Persists engineering artifacts the blocked path would produce."
+    },
+    "src/agent-code-change-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
+      "reason": "Validates change sets from the blocked engineering path. Its protected-path rules are enforced wherever it is used."
+    },
+    "src/agent-code-change-applier.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
+      "reason": "Applies a verified change set; promotion is separately governed and not automatic."
+    },
+    "src/gmail-inbound.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_GMAIL_READONLY_GRANT",
+      "reason": "Readonly inbound sensing needs an owner-authorised gmail.readonly grant."
+    },
+    "src/inbound-classify.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_GMAIL_READONLY_GRANT",
+      "reason": "Classifies inbound messages that cannot yet be read."
+    },
+    "src/inbound-feedback-kernel.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_GMAIL_READONLY_GRANT",
+      "reason": "Turns inbound observations into privacy-safe events; no inbound source is connected."
+    },
+    "src/causal-attribution-spine.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_COMMERCIAL_EVENTS",
+      "reason": "There are no real signals, sends, payments or deliveries to attribute yet."
+    },
+    "src/prospect-evidence-reconciliation.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_ENRICHMENT_PROVIDER",
+      "reason": "Reconciles evidence from providers none of which are configured or terms-confirmed."
+    },
+    "src/prospect-enrichment-planner.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_ENRICHMENT_PROVIDER",
+      "reason": "Ranks enrichment steps for providers that do not exist yet."
+    },
+    "src/prospect-enrichment-budget-gate.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_ENRICHMENT_PROVIDER",
+      "reason": "Bounds spend on enrichment that cannot currently be purchased."
+    },
+    "src/profile-discovery-provenance.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_DISCOVERY_ADAPTER",
+      "reason": "No licensed discovery adapter is configured to produce candidates."
+    },
+    "src/prospect-qualification.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_DISCOVERY_ADAPTER",
+      "reason": "Scores prospects that nothing currently discovers."
+    },
+    "src/prospect-qualification-gate.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_DISCOVERY_ADAPTER",
+      "reason": "Gates a score for prospects that nothing currently discovers."
+    },
+    "src/prospect-qualification-pipeline.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_DISCOVERY_ADAPTER",
+      "reason": "Composes scorer and gate into one answer; awaits a prospect source."
+    },
+    "src/lead-generation.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Lead scoring feeds outreach, which is consequential and deliberately not wired."
+    },
+    "src/lead-operations.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Operational surface over lead state, feeding the same unauthorised outbound chain."
+    },
+    "src/lead-intelligence-v3.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Lead intake, enrichment and action queue for the same unauthorised outbound chain."
+    },
+    "src/lead-generation-benchmark.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Benchmarks the lead scorer; analysis only."
+    },
+    "src/outreach-automation.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Wiring this without an explicit authorisation path is how a system contacts someone by accident."
+    },
+    "src/outreach-operator.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Operator surface for outbound; same reason."
+    },
+    "src/outreach-workbench.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Composes outbound work; same reason."
+    },
+    "src/outreach-upgrades.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Upgrade proposals for the outbound system; they describe changes to a path that is not authorised to run."
+    },
+    "src/outreach-provider-events.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Consumes provider events from a sender that is not sending."
+    },
+    "src/service-sku.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CUSTOMER",
+      "reason": "Compiles a SKU; there is no customer requirement to compile against."
+    },
+    "src/service-fulfillment.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CUSTOMER",
+      "reason": "ACCEPTED requires customer-origin evidence and there is no customer."
+    },
+    "src/creator-ai-automation-service-bundle.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CUSTOMER",
+      "reason": "Owner-supplied CREATOR_CLAIM catalogue; a reference, not a runtime path."
+    },
+    "src/relay-preview-proof.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "VERCEL_DEPLOYMENT_GATED",
+      "reason": "Preview deployment proof; deployments are deliberately not triggered."
+    },
+    "src/relay-preview-runbook.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "VERCEL_DEPLOYMENT_GATED",
+      "reason": "Describes the steps a preview deployment would take; no deployment is being made."
+    },
+    "src/relay-shadow-binding.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "VERCEL_DEPLOYMENT_GATED",
+      "reason": "Binds a shadow observation to a deployment that is not being created."
+    },
+    "src/relay-deployment-attempt.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "VERCEL_DEPLOYMENT_GATED",
+      "reason": "Records a bounded deployment attempt; deployments stay deliberately untriggered."
+    },
+    "src/relay-deployment-eligibility.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "VERCEL_DEPLOYMENT_GATED",
+      "reason": "Decides whether a deployment may proceed, for deployments nobody is requesting."
+    },
+    "src/relay-vercel-api-request.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "VERCEL_DEPLOYMENT_GATED",
+      "reason": "Compiles an exact-target deployment request that is never dispatched."
+    },
+    "src/relay-vercel-api-executor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "VERCEL_DEPLOYMENT_GATED",
+      "reason": "Executes one bounded deployment request; nothing asks it to."
+    },
+    "src/shadow-canary-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "VERCEL_DEPLOYMENT_GATED",
+      "reason": "Contract for shadow and canary stages that require a deployment target."
+    },
+    "src/pending-relay-reconciliation.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "VERCEL_DEPLOYMENT_GATED",
+      "reason": "Reconciles relay deployments that are not being made."
+    },
+    "src/agent-provider-execution.mjs": {
+      "category": "SUPERSEDED",
+      "gate": null,
+      "reason": "Duplicate provider-execution path. Superseded by the worker runtime; recorded in docs/AGENT_MESH_REACHABILITY_TRIAGE.md and guarded by a test."
+    },
+    "src/agent-provider-worker.mjs": {
+      "category": "SUPERSEDED",
+      "gate": null,
+      "reason": "Reached only from the superseded provider-execution path."
+    },
+    "src/agent-model-router.mjs": {
+      "category": "NEEDS_TRIAGE",
+      "gate": null,
+      "reason": "Model routing is a live capability claim, but the only importer is the superseded provider-execution cluster. Either the mesh should route through it or the claim should be downgraded. Not decided."
+    },
+    "src/agent-evolution-wave.mjs": {
+      "category": "NEEDS_TRIAGE",
+      "gate": null,
+      "reason": "Self-upgrade wave planning. No caller and no named gate; nobody has decided whether it is live architecture or an artifact of an earlier pass."
+    },
+    "src/ai-access-opportunity-registry.mjs": {
+      "category": "NEEDS_TRIAGE",
+      "gate": null,
+      "reason": "AI access catalogue with no caller. Same question as above."
+    }
+  }
+}

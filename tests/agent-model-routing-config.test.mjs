@@ -4,8 +4,13 @@ import { routeActivationPermittedWorkers } from '../src/agent-model-routing-conf
 
 const NOW = new Date('2026-08-23T03:45:00.000Z');
 
-function worker(workerId, provider, model) {
-  return { workerId, provider, model, taskClasses: ['coding'] };
+// Every one of these is a candidate for the SAME target agent: that is what
+// makes choosing between them a routing question at all. `targetAgent` is
+// required on a real mesh worker (`validWorker` in the control plane rejects
+// one without it), and routing groups by it -- workers on different agents
+// drain different queues and are not alternatives to each other.
+function worker(workerId, provider, model, targetAgent = 'claude-code') {
+  return { workerId, targetAgent, provider, model, taskClasses: ['coding'] };
 }
 
 function benchmark(provider, model, score, observedAt = '2026-08-23T03:40:00.000Z') {

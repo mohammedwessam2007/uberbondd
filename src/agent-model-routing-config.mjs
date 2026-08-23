@@ -1,4 +1,4 @@
-import { routePermittedWorkers } from './agent-model-routing-integration.mjs';
+import { routePermittedWorkers, routeWorkersByTargetAgent } from './agent-model-routing-integration.mjs';
 
 export const AGENT_MODEL_ROUTING_CONFIG_POLICY_VERSION = 'agent-model-routing-config-1.0.0';
 
@@ -50,7 +50,10 @@ export function routeActivationPermittedWorkers({
   const parsed = parseBenchmarks(env.AGENT_MODEL_ROUTE_BENCHMARKS);
   if (!parsed.ok) return blocked(parsed.reasonCodes);
 
-  const result = routePermittedWorkers({
+  // Grouped by target agent, not routed across them. Each mesh worker drains a
+  // different agent's queue, so a single-winner route over the whole list takes
+  // every other queue out of service while reporting a routed, successful cycle.
+  const result = routeWorkersByTargetAgent({
     workers,
     benchmarks: parsed.benchmarks,
     taskClass: String(env.AGENT_MODEL_ROUTE_TASK_CLASS || 'general'),

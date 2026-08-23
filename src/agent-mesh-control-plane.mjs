@@ -176,6 +176,10 @@ export async function runAgentMeshCycle({
     });
   }
   const routedWorkers = routing.workers;
+  // A cycle that served some queues and not others is not a cycle that
+  // advanced. Carrying the blocked agents forward keeps a partial run from
+  // reporting itself as a full one.
+  const routingBlockedTargetAgents = Array.isArray(routing.blockedTargetAgents) ? routing.blockedTargetAgents : [];
 
   const occurrenceIdentity = {
     sourceCommit,
@@ -296,10 +300,17 @@ export async function runAgentMeshCycle({
     secondSweep = await tickRuns({ store, adapterFactory, compileRelayTask, limit: boundedRunLimit, date });
   }
 
-  const status = classifyCycle({ firstSweep, workers: workerResults, secondSweep });
-  const reasonCodes = status === 'BLOCKED'
-    ? [...new Set([...(firstSweep?.reasonCodes || []), ...(secondSweep?.reasonCodes || [])])]
-    : [];
+  const classified = classifyCycle({ firstSweep, workers: workerResults, secondSweep });
+  // ADVANCED with a starved queue is the lie this guard exists to prevent.
+  const status = classified === 'ADVANCED' && routingBlockedTargetAgents.length ? 'DEGRADED' : classified;
+  const reasonCodes = [...new Set([
+    ...(status === 'BLOCKED'
+      ? [...(firstSweep?.reasonCodes || []), ...(secondSweep?.reasonCodes || [])]
+      : []),
+    ...(routingBlockedTargetAgents.length
+      ? ['model-routing-withheld-target-agents', ...(routing.reasonCodes || [])]
+      : [])
+  ])];
   const terminal = await finishAgentMeshCycleReceipt({
     store, cycleId, startedAt, finishedAt: date, sourceCommit,
     policyVersions: occurrenceIdentity.policyVersions,
@@ -321,6 +332,9 @@ export async function runAgentMeshCycle({
     routingStatus: routing.status,
     routingMode: routing.mode || null,
     routedWorkerId: routing.selected?.workerId || null,
+    routingSelections: routing.selections || [],
+    routingBlockedTargetAgents,
+    servicedTargetAgents: routing.servicedTargetAgents || [],
     at: terminal.receipt.finishedAt,
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }

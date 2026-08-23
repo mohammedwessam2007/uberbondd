@@ -87,6 +87,13 @@ function classificationIndex(auditLog, leadId, classifications) {
       eventName,
       eventId,
       classification: entry.classification,
+      // Carried so the receipt can take part in the content comparison. It was
+      // dropped here, so a receipt bound to a different prospect or product
+      // reconciled as agreement -- the witness-content check saw only the order
+      // and the ledger row, and PR #114's probe happened to mutate the ledger.
+      leadId: text(entry?.leadId, 200) || null,
+      prospectId: text(entry?.prospectId, 200) || null,
+      product: text(entry?.product, 200) || null,
       policyVersion: text(entry?.policyVersion, 120) || null,
       timestamp: text(entry?.timestamp, 80) || null
     });

@@ -49,19 +49,55 @@ export const SECRET_VALUE_PATTERNS = Object.freeze([
   // JWTs, wherever they appear. Three base64url segments is a distinctive
   // enough shape to match on its own; the Bearer pattern only catches the ones
   // that arrive with their header attached.
-  /\beyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}/
+  /\beyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}/,
+  // GitHub fine-grained personal access tokens. The prefix list above covers
+  // every *classic* GitHub prefix and misses this one entirely -- `github_pat_`
+  // starts with `gh` but the third character is `i`, so `gh[pousr]_` cannot
+  // reach it. Fine-grained is the format GitHub issues by default now, which
+  // made the most likely token in circulation the one shape not detected.
+  /\bgithub_pat_[A-Za-z0-9_]{20,}/,
+  // Stripe secret and restricted keys. `sk-` with a hyphen is the OpenAI shape;
+  // Stripe uses an underscore, so `sk_live_...` matched nothing -- while
+  // STRIPE_SECRET_KEY sat in the assignment list below, meaning the project
+  // already contemplated Stripe credentials existing.
+  /\b[sr]k_(?:live|test)_[A-Za-z0-9]{16,}/,
+  // HTTP Basic credentials. The Bearer form two patterns up was caught and this
+  // one was not, though both are a live credential in the same header, and
+  // base64 of `user:password` is not meaningfully harder to replay.
+  /\bBasic\s+[A-Za-z0-9+/]{16,}={0,2}/,
+  // A credential-named key assigned a long opaque value. Provider-specific
+  // prefixes only catch the providers somebody thought of: this project's own
+  // payment provider was not among them. The key name carries the claim that
+  // the value is a credential, so it is treated as one. The 20-character floor
+  // keeps ordinary fixtures (`apiKey: 'test'`) out of it.
+  // Deliberately not anchored with \b on the left: a provider prefixes its own
+  // name onto the key, and `_` is a word character, so `\bapi_key` cannot match
+  // inside `lemonsqueezy_api_key` -- which is this project's own payment
+  // provider, and was the one key in the probe still walking through.
+  /(?:api[_-]?key|secret[_-]?key|secret[_-]?access[_-]?key|access[_-]?token|auth[_-]?token|client[_-]?secret|refresh[_-]?token)["']?\s*[:=]\s*["']?[A-Za-z0-9_\-./+]{20,}/i
 ]);
 
 /** Key names that have no legitimate non-credential meaning. */
 export const SECRET_KEY_PATTERN = /token|secret|password|passwd|credential|privatekey|private_key|apikey|api_key|authorization/i;
 
 /** Named environment variables worth redacting on sight when they appear as assignments. */
+// Case-insensitive: the names are conventionally uppercase in an environment
+// file and conventionally lowercase in a config file or a shell export, and
+// only the uppercase spelling was matched.
 export const SECRET_ASSIGNMENT_PATTERN =
-  /\b(?:DATABASE_URL|OPENAI_API_KEY|ANTHROPIC_API_KEY|VERCEL_TOKEN|GITHUB_TOKEN|AWS_SECRET_ACCESS_KEY|STRIPE_SECRET_KEY)\s*=\s*\S+/g;
+  /\b(?:DATABASE_URL|OPENAI_API_KEY|ANTHROPIC_API_KEY|VERCEL_TOKEN|GITHUB_TOKEN|AWS_SECRET_ACCESS_KEY|STRIPE_SECRET_KEY)\s*=\s*\S+/gi;
 
 export function containsSecretValue(value) {
   if (typeof value !== 'string' || !value) return false;
-  return SECRET_VALUE_PATTERNS.some(pattern => pattern.test(value));
+  if (SECRET_VALUE_PATTERNS.some(pattern => pattern.test(value))) return true;
+  // The named-variable assignments too. This function is what *blocks* a change
+  // set or a worker result; `redactSecrets` below is what cleans a receipt.
+  // They consulted different rule sets, so the redactor caught named assignments
+  // the blocker let through -- a credential could be refused entry to a receipt
+  // and admitted into durable task history in the same run. A fresh RegExp
+  // because the shared one is global, and `.test` on a global regex carries
+  // `lastIndex` between calls.
+  return new RegExp(SECRET_ASSIGNMENT_PATTERN.source, 'i').test(value);
 }
 
 /** Replace anything credential-shaped with a marker, for logs and receipts. */

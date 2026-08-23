@@ -313,6 +313,27 @@ export const MUTATIONS = [
 
   // ---- Reachability and persistence --------------------------------------
   {
+    id: 'SEC-03', guard: "Today's default GitHub token format is a credential",
+    file: 'src/secret-patterns.mjs',
+    find: '  /\\bgithub_pat_[A-Za-z0-9_]{20,}/,',
+    replace: '  /\\bgithub_pat_NEVER_MATCHES_THIS_SENTINEL/,',
+    suites: ['tests/secret-format-coverage.test.mjs']
+  },
+  {
+    id: 'SEC-04', guard: 'A credential-named key with a long value is a credential',
+    file: 'src/secret-patterns.mjs',
+    find: "  /(?:api[_-]?key|secret[_-]?key|secret[_-]?access[_-]?key|access[_-]?token|auth[_-]?token|client[_-]?secret|refresh[_-]?token)[\"']?\\s*[:=]\\s*[\"']?[A-Za-z0-9_\\-./+]{20,}/i",
+    replace: '  /NEVER_MATCHES_THIS_SENTINEL_EITHER/i',
+    suites: ['tests/secret-format-coverage.test.mjs']
+  },
+  {
+    id: 'SEC-05', guard: 'The blocker is at least as strong as the redactor',
+    file: 'src/secret-patterns.mjs',
+    find: "  return new RegExp(SECRET_ASSIGNMENT_PATTERN.source, 'i').test(value);",
+    replace: '  return false;',
+    suites: ['tests/secret-format-coverage.test.mjs']
+  },
+  {
     id: 'REACH-01', guard: 'A gate must be registered, not invented',
     file: 'tests/reachability-ratchet.test.mjs',
     find: "    .filter(([, entry]) => entry.category === 'AWAITING_ACTIVATION' && !gates[entry.gate])",

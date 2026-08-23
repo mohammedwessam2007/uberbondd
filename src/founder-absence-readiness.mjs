@@ -1,4 +1,4 @@
-export const FOUNDER_ABSENCE_POLICY_VERSION = 'founder-absence-readiness-2.0.0';
+export const FOUNDER_ABSENCE_POLICY_VERSION = 'founder-absence-readiness-2.1.0';
 
 const REQUIRED = Object.freeze([
   'durableState',
@@ -24,6 +24,7 @@ const EXTERNAL_PROOF_REQUIRED = new Set([
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const DEFAULT_MAX_PROOF_AGE_MS = 6 * 60 * 60 * 1000;
+const FUTURE_SKEW_MS = 5 * 60 * 1000;
 
 function fail(reasonCodes) {
   return { ok: false, policyVersion: FOUNDER_ABSENCE_POLICY_VERSION, status: 'NOT_READY', reasonCodes: [...new Set(reasonCodes.filter(Boolean))] };
@@ -91,6 +92,10 @@ function evaluateObservationProof({ proof, targetDays, currentSourceCommit, curr
   if (proof.unauthorizedEffects === null) reasonCodes.push('unauthorized-effects-required');
   if (proof.openDeadLetters === null) reasonCodes.push('open-dead-letters-required');
   if (!proof.sourceCommit) reasonCodes.push('proof-source-commit-required');
+  if (!currentSourceCommit) reasonCodes.push('current-source-commit-required');
+
+  const requiredPolicies = [...new Set((currentPolicyVersions || []).map(value => String(value || '').trim()).filter(Boolean))];
+  if (!requiredPolicies.length) reasonCodes.push('current-policy-versions-required');
 
   const requiredSpanMs = targetDays * DAY_MS;
   const spanMs = proof.observedFromMs !== null && proof.observedThroughMs !== null
@@ -98,6 +103,7 @@ function evaluateObservationProof({ proof, targetDays, currentSourceCommit, curr
     : null;
   if (spanMs !== null && spanMs < requiredSpanMs) reasonCodes.push('observation-window-shorter-than-target-days');
   if (spanMs !== null && spanMs < 0) reasonCodes.push('observation-window-reversed');
+  if (proof.observedThroughMs !== null && proof.observedThroughMs > nowMs + FUTURE_SKEW_MS) reasonCodes.push('observation-end-in-future');
 
   const minimumSuccessfulTicks = targetDays + 1;
   if (proof.successfulTicks !== null && proof.successfulTicks < minimumSuccessfulTicks) reasonCodes.push('insufficient-repeated-successful-ticks');
@@ -106,7 +112,7 @@ function evaluateObservationProof({ proof, targetDays, currentSourceCommit, curr
   if (proof.openDeadLetters !== null && proof.openDeadLetters !== 0) reasonCodes.push('open-dead-letters-present');
 
   if (proof.freshnessAtMs !== null) {
-    if (proof.freshnessAtMs > nowMs + 5 * 60 * 1000) reasonCodes.push('proof-freshness-in-future');
+    if (proof.freshnessAtMs > nowMs + FUTURE_SKEW_MS) reasonCodes.push('proof-freshness-in-future');
     if (nowMs - proof.freshnessAtMs > maxProofAgeMs) reasonCodes.push('proof-stale');
   }
   if (proof.observedThroughMs !== null && proof.freshnessAtMs !== null && proof.freshnessAtMs < proof.observedThroughMs) {
@@ -114,7 +120,6 @@ function evaluateObservationProof({ proof, targetDays, currentSourceCommit, curr
   }
 
   if (currentSourceCommit && proof.sourceCommit !== currentSourceCommit) reasonCodes.push('proof-source-commit-mismatch');
-  const requiredPolicies = [...new Set((currentPolicyVersions || []).map(value => String(value || '').trim()).filter(Boolean))];
   if (requiredPolicies.some(version => !proof.policyVersions.includes(version))) reasonCodes.push('proof-policy-version-mismatch');
 
   return {

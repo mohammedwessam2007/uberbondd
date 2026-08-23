@@ -68,7 +68,8 @@ import { composeOperatorHealthSnapshot } from '../src/operator-health-snapshot.m
 import {
   evaluateOperatorHealth,
   persistOperatorEscalations,
-  readEscalationDeliveryState
+  readEscalationDeliveryState,
+  resolveVanishedEscalations
 } from '../src/operator-escalation.mjs';
 import {
   dispatchOperatorPage,
@@ -260,9 +261,14 @@ async function main() {
     const delivery = await readEscalationDeliveryState(store, { date: new Date() });
     const report = evaluateOperatorHealth({
       snapshot: { ...health.snapshot, paging: delivery.ok ? delivery.paging : undefined },
-      activeFingerprints: delivery.ok ? delivery.activeFingerprints : []
+      activeFingerprints: delivery.ok ? delivery.activeFingerprints : [],
+      activeEpisodes: delivery.ok ? delivery.activeEpisodes : null
     });
     if (report.ok) {
+      // Close episodes whose condition has stopped before opening new ones, so
+      // a condition that recurs after recovering pages again instead of being
+      // suppressed by its own history.
+      const resolved = await resolveVanishedEscalations(store, report, delivery, { date: new Date() });
       const persisted = await persistOperatorEscalations(store, report);
 
       // Attempt delivery for what is genuinely new. Only the durable-audit
@@ -282,6 +288,7 @@ async function main() {
         health: report.health,
         newEscalations: report.newEscalationCount,
         persistedEscalations: persisted.length,
+        resolvedEpisodes: resolved.length,
         ownerActionQueue: report.ownerActionQueue,
         paging: report.paging,
         pagesAttempted: pages.length,

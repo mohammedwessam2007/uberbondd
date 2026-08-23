@@ -316,6 +316,22 @@ export class RevenueEngine {
       reasonCodes: decision.reasonCodes,
       eventName: event?.eventName || null,
       eventId: event?.eventId || null,
+      // The money this classification was made about.
+      //
+      // `payment-renewal-truth` compares amount and currency across all three
+      // witnesses -- order, receipt, ledger -- and treats an absent field as
+      // silence rather than disagreement, so that older receipts keep
+      // reconciling. This writer is the only producer of `payment_classification`
+      // rows, and it never wrote either field, so the receipt was permanently
+      // silent and the "triple witness" was a double witness on money.
+      //
+      // The consequence was not theoretical: corrupt the order and the ledger
+      // to agree with each other at 100x and the reconciliation reported
+      // $4,900.00 PROVIDER_CLEARED_PAYMENT_PROVEN with no contradictions,
+      // because the one witness written by a different code path at a different
+      // moment had nothing to say about the number.
+      amountCents: Number.isSafeInteger(Number(event?.amountCents)) ? Number(event.amountCents) : null,
+      currency: String(event?.currency || '').trim().toUpperCase() || null,
       leadId: lead?.id || event?.custom?.lead_id || null,
       prospectId: lead?.prospectId || event?.custom?.prospect_id || null,
       product: event?.custom?.product || null,

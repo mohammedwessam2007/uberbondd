@@ -138,6 +138,27 @@ export const MUTATIONS = [
     suites: ['tests/payment-truth-lead-scope.test.mjs']
   },
   {
+    id: 'PRIV-01', guard: 'The decoded provider payload is not durable business state',
+    file: 'src/revenue.mjs',
+    find: "        status: event.status, testMode: event.testMode, createdAt: now()",
+    replace: "        status: event.status, testMode: event.testMode, createdAt: now(), raw: payload",
+    suites: ['tests/provider-payload-minimization.test.mjs', 'tests/provider-payload-minimization-source-guard.test.mjs']
+  },
+  {
+    id: 'MONEY-12', guard: 'The clearing receipt records the money it classified',
+    file: 'src/revenue.mjs',
+    find: "      amountCents: Number.isSafeInteger(Number(event?.amountCents)) ? Number(event.amountCents) : null,",
+    replace: '      amountCents: null,',
+    suites: ['tests/payment-receipt-witnesses-money.test.mjs']
+  },
+  {
+    id: 'MONEY-13', guard: 'The clearing receipt records the currency it classified',
+    file: 'src/revenue.mjs',
+    find: "      currency: String(event?.currency || '').trim().toUpperCase() || null,",
+    replace: '      currency: null,',
+    suites: ['tests/payment-receipt-witnesses-money.test.mjs']
+  },
+  {
     id: 'RECOV-01', guard: 'Recovery may not overwrite a newer reservation status',
     file: 'src/reservation-recovery.mjs',
     find: "    if (current.status !== row.status) {",

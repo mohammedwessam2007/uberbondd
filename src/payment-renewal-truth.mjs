@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const PAYMENT_RENEWAL_TRUTH_VERSION = 'payment-renewal-truth-1.2.0';
+export const PAYMENT_RENEWAL_TRUTH_VERSION = 'payment-renewal-truth-1.3.0';
 
 // The canonical shape plus one declared extension, rather than a fourth
 // independent copy. `paymentMutations` is a real effect this module needs to
@@ -206,6 +206,15 @@ function verifiedRevenueRows({ revenueEvents, clearedIndex, reversalIndex, order
       if (reversal && order) {
         if (seenReversals.has(key)) {
           duplicateReversals.push({ providerEventId: key, amountCents: cents(event?.amountCents) });
+          continue;
+        }
+        // Reversal proof must be content-bound too. Before this check, the same
+        // provider event identity plus contradictory amount/currency/product or
+        // entity witnesses could reduce net retained revenue even though the
+        // three durable witnesses did not describe the same refund.
+        const mismatches = witnessContentMismatches({ event, order, clearing: reversal });
+        if (mismatches.length) {
+          contradicted.push({ providerEventId: key, mismatches, amountCents: cents(event?.amountCents), reversal: true });
           continue;
         }
         const row = { event, reversal, order };

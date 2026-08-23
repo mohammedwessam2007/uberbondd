@@ -10,32 +10,21 @@ import {
   compileAgentTask,
   logAgentRelayReceipt
 } from './agent-relay.mjs';
+import { ZERO_EXTERNAL_EFFECTS, EFFECT_LEDGER_FIELDS, isKnownEffectLedgerField } from './effect-ledgers.mjs';
+import { SECRET_KEY_PATTERN as SECRET_KEY, containsSecretValue } from './secret-patterns.mjs';
 
 export const AGENT_RELAY_JOB_TYPE = 'prometheus.agent.relay';
 export const CLOUD_AGENT_RELAY_POLICY_VERSION = 'cloud-agent-relay-1.1.0';
 
 // Exported so alternative relay transports (see src/github-relay.mjs) reuse
 // the exact same zero-external-effect contract rather than declaring a second,
-// driftable copy of it.
-export const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+// driftable copy of it. The shape itself now lives in one module with the
+// autonomy loop's ledger, so the secret scanner has a single list to consult.
+export { ZERO_EXTERNAL_EFFECTS as ZERO_EFFECTS } from './effect-ledgers.mjs';
 const MAX_LIST_LIMIT = 50;
 const MAX_TASK_BYTES = 200_000;
 const MAX_RESULT_BYTES = 250_000;
-const SECRET_KEY = /token|secret|password|credential|privatekey|apikey|authorization/i;
-// \b before sk-/ghp_ matters: without it, any ordinary identifier that happens
-// to contain "sk-" or "ghp_" as a substring (e.g. a generated taskId like
-// "e2e-task-1787174626471" contains "sk-1787174626471") false-positives as a
-// secret. \b anchors the match to a real token boundary instead.
-const SECRET_VALUE = /(?:\bsk-[A-Za-z0-9]{12,}|\bghp_[A-Za-z0-9]{12,}|-----BEGIN|Bearer\s+\S+)/;
+
 
 function at(value) {
   const date = value instanceof Date ? value : new Date(value || Date.now());
@@ -88,17 +77,18 @@ function completedSubmissionMatches(job, { worker, outcome, result, receipt }) {
 // Exported for reuse by alternative relay transports. One scanner, one set of
 // patterns -- a second copy would drift and silently weaken over time.
 export function hasSecret(value) {
-  if (typeof value === 'string') return SECRET_VALUE.test(value);
+  if (typeof value === 'string') return containsSecretValue(value);
   if (Array.isArray(value)) return value.some(hasSecret);
   if (!value || typeof value !== 'object') return false;
   return Object.entries(value).some(([key, item]) => {
-    // Both names carry the identical zero-effect ledger shape (`externalEffects`
-    // is the receipt envelope's spelling, `externalEffectLedger` the task's).
-    // The check is on the shape, so it must cover both -- otherwise the ledger's
-    // own key names (`credentialChanges`) trip the credential pattern and a
-    // perfectly clean receipt is rejected as secret-bearing.
-    if (key === 'externalEffectLedger' || key === 'externalEffects') {
-      return Object.keys(item || {}).some(effect => !Object.hasOwn(ZERO_EFFECTS, effect));
+    // A ledger's own key names (`credentialChanges`) trip the credential
+    // pattern, so a perfectly clean ledger would be rejected as secret-bearing.
+    // Three field names spell a ledger in this codebase and the exemption used
+    // to list two of them; `effect-ledgers.mjs` now holds the whole list, along
+    // with which keys each shape may contain. A ledger carrying a key outside
+    // its shape is not a ledger and falls through to the scanner below.
+    if (Object.hasOwn(EFFECT_LEDGER_FIELDS, key)) {
+      return !isKnownEffectLedgerField(key, item);
     }
     // This codebase counts compute in units it keeps calling tokens: maxTokens
     // on a task budget, tokens in receipt cost accounting, tokenBudget in a
@@ -128,7 +118,7 @@ function errorResult(reasonCodes, detail = '') {
     status: 'REJECTED',
     reasonCodes: [...new Set(reasonCodes.filter(Boolean))],
     detail: String(detail || '').slice(0, 500),
-    externalEffectLedger: { ...ZERO_EFFECTS }
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
 }
 
@@ -195,18 +185,35 @@ function normalizeTargetAgent(value) {
   return /^[a-z0-9][a-z0-9._-]{0,63}$/.test(targetAgent) ? targetAgent : '';
 }
 
+// A zero-effect claim is only worth anything if it is complete. An omitted key
+// used to read as zero here (`Number(undefined || 0)`), so a worker could
+// assert "no effects" by shipping `{}` -- silence scored the same as a signed
+// zero. So did a NaN, and so did an array. Require the exact canonical key set
+// carrying real numeric zeros; anything else is a refusal with its own reason.
+export function canonicalZeroEffectLedger(ledger) {
+  if (!ledger || typeof ledger !== 'object' || Array.isArray(ledger)) return ['external-effect-ledger-required'];
+  const canonical = Object.keys(ZERO_EXTERNAL_EFFECTS);
+  if (canonical.some(key => !Object.hasOwn(ledger, key))) return ['incomplete-external-effect-ledger-rejected'];
+  if (Object.keys(ledger).some(key => !Object.hasOwn(ZERO_EXTERNAL_EFFECTS, key))) return ['unknown-external-effect-key-rejected'];
+  const nonZero = canonical.some(key => {
+    const value = ledger[key];
+    return typeof value !== 'number' || !Number.isFinite(value) || value !== ZERO_EXTERNAL_EFFECTS[key];
+  });
+  return nonZero ? ['nonzero-external-effect-ledger-rejected'] : [];
+}
+
 export function validResult(result) {
   if (!result || typeof result !== 'object' || Array.isArray(result)) return ['result-object-required'];
   const required = ['outcome', 'changedArtifacts', 'testsActuallyRun', 'truthTable', 'externalEffectLedger', 'decision'];
   const missing = required.filter(key => !(key in result));
   if (missing.length) return ['required-result-fields-missing'];
   if (sizeOf(result) > MAX_RESULT_BYTES) return ['result-too-large'];
+  // Ledger shape first: an unknown effect key also trips the secret scanner,
+  // and `secret-like-result-rejected` is a misleading thing to tell an
+  // operator whose worker simply invented a counter.
+  const ledgerErrors = canonicalZeroEffectLedger(result.externalEffectLedger);
+  if (ledgerErrors.length) return ledgerErrors;
   if (hasSecret(result)) return ['secret-like-result-rejected'];
-  const ledger = result.externalEffectLedger && typeof result.externalEffectLedger === 'object'
-    ? result.externalEffectLedger : null;
-  if (!ledger) return ['external-effect-ledger-required'];
-  const nonZero = Object.entries(ZERO_EFFECTS).some(([key, zero]) => Number(ledger[key] || 0) !== zero);
-  if (nonZero) return ['nonzero-external-effect-ledger-rejected'];
   return [];
 }
 
@@ -234,7 +241,7 @@ export async function createCloudRelayTask({ queue, store, input = {}, date = ne
     relayPolicyVersion: CLOUD_AGENT_RELAY_POLICY_VERSION,
     relay: { jobId: job.id, queue: job.queue, status: job.status },
     execution: { ...task.execution, status: 'QUEUED', workerReceipt: null, externalAction: false },
-    externalEffectLedger: { ...ZERO_EFFECTS }
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
   if (store && typeof store.log === 'function') {
     await store.log('cloud_agent_relay_task_created', {
@@ -244,7 +251,7 @@ export async function createCloudRelayTask({ queue, store, input = {}, date = ne
       jobId: job.id,
       targetAgent,
       status: 'QUEUED',
-      externalEffectLedger: { ...ZERO_EFFECTS }
+      externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
     });
   }
   return queued;
@@ -274,7 +281,7 @@ export async function relayHealthSummary({ store, staleLeaseMs = 300000 } = {}) 
     total: rows.length,
     oldestQueuedAt,
     staleLeases,
-    externalEffectLedger: { ...ZERO_EFFECTS }
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
 }
 
@@ -295,7 +302,7 @@ export async function listCloudRelayTasks({ store, targetAgent = '', status = ''
     policyVersion: CLOUD_AGENT_RELAY_POLICY_VERSION,
     count: tasks.length,
     tasks,
-    externalEffectLedger: { ...ZERO_EFFECTS }
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
 }
 
@@ -311,7 +318,7 @@ export async function claimCloudRelayTask({ store, targetAgent = 'claude-code', 
     policyVersion: CLOUD_AGENT_RELAY_POLICY_VERSION,
     status: 'EMPTY',
     reasonCodes: ['no-eligible-task'],
-    externalEffectLedger: { ...ZERO_EFFECTS }
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
   const job = claimed[0];
   return {
@@ -323,7 +330,7 @@ export async function claimCloudRelayTask({ store, targetAgent = 'claude-code', 
     workerId: worker,
     lease: { status: job.status, lockedAt: job.lockedAt, heartbeatAt: job.heartbeatAt },
     task: job.payload,
-    externalEffectLedger: { ...ZERO_EFFECTS }
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
 }
 
@@ -357,7 +364,7 @@ export async function heartbeatCloudRelayTask({ store, taskId, workerId } = {}) 
     workerId: worker,
     heartbeatAt: updated.heartbeatAt || null,
     lease: { status: updated.status, lockedAt: updated.lockedAt, heartbeatAt: updated.heartbeatAt },
-    externalEffectLedger: { ...ZERO_EFFECTS }
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
 }
 
@@ -402,7 +409,7 @@ export async function submitCloudRelayResult({
       jobId: job.id,
       jobStatus: job.status,
       workerId: worker,
-      externalEffectLedger: { ...ZERO_EFFECTS }
+      externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
     };
   }
 
@@ -414,7 +421,7 @@ export async function submitCloudRelayResult({
     status: outcome,
     receivedAt: at(date),
     receipt: receipt || null,
-    externalEffectLedger: { ...ZERO_EFFECTS }
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
   let updated;
   if (outcome === 'COMPLETED') {
@@ -431,7 +438,7 @@ export async function submitCloudRelayResult({
     taskId: id,
     status: outcome,
     execution: { status: outcome, workerReceipt: relayReceipt, externalAction: false },
-    externalEffectLedger: { ...ZERO_EFFECTS }
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   });
   return {
     ok: true,
@@ -441,6 +448,6 @@ export async function submitCloudRelayResult({
     jobId: job.id,
     jobStatus: updated.status,
     workerId: worker,
-    externalEffectLedger: { ...ZERO_EFFECTS }
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
 }

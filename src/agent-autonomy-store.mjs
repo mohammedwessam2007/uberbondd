@@ -56,8 +56,15 @@ export async function saveAutonomyRunSnapshot(store, run, { reason = 'tick', dat
   // sequence is strictly monotonic per run (the pump only ever increments it),
   // so it is the authority on which snapshot came later.
   const incomingSequence = Number.isSafeInteger(run.sequence) ? run.sequence : 0;
-  const priorRows = (await auditRows(store, SNAPSHOT_TYPE))
+  const scannedRows = await auditRows(store, SNAPSHOT_TYPE);
+  const priorRows = scannedRows
     .filter(row => row?.detail?.runId === run.runId && validRun(row?.detail?.run));
+  // Writing without seeing the prior snapshot would let a stale sequence
+  // through as though it were new, which is the regression the check below
+  // exists to stop. If the window was full we cannot know, so we refuse.
+  if (!priorRows.length && scanSaturated(scannedRows)) {
+    return fail(['autonomy-run-snapshot-scan-saturated'], 'CONFLICT');
+  }
   if (priorRows.length) {
     const latest = priorRows
       .sort((a, b) => (runSequence(b) - runSequence(a)) || (rowAppendOrder(b) - rowAppendOrder(a)))[0];
@@ -132,6 +139,25 @@ async function auditRows(store, type, limit = MAX_SCAN) {
   return Array.isArray(rows) ? rows : [];
 }
 
+/**
+ * True when a scan came back exactly full.
+ *
+ * Every read here works by pulling a bounded window of audit rows and picking
+ * the newest match out of it. That is fine until the window is full, at which
+ * point "no matching row" stops meaning "no such run" and starts meaning "the
+ * run may be outside the window" -- and the two are indistinguishable from the
+ * inside. A soak at three hundred concurrent runs hit exactly that: one run's
+ * snapshots fell past the bound, every reload returned a stale snapshot, and
+ * the run simply stopped advancing with nothing anywhere saying why.
+ *
+ * A saturated scan is therefore reported as its own failure rather than
+ * dressed up as an answer. A stalled run that says it is stalled can be fixed;
+ * a stalled run that looks healthy cannot.
+ */
+function scanSaturated(rows) {
+  return Array.isArray(rows) && rows.length >= MAX_SCAN;
+}
+
 export async function loadLatestAutonomyRun(store, runId) {
   if (!validStore(store)) return fail(['store-log-and-list-required']);
   const id = text(runId, 160);
@@ -157,8 +183,9 @@ export async function loadLatestAutonomyRun(store, runId) {
     return {
       ok: false,
       policyVersion: AGENT_AUTONOMY_STORE_POLICY_VERSION,
-      status: 'NOT_FOUND',
-      reasonCodes: ['autonomy-run-not-found']
+      status: scanSaturated(rows) ? 'SCAN_SATURATED' : 'NOT_FOUND',
+      reasonCodes: [scanSaturated(rows) ? 'autonomy-run-snapshot-scan-saturated' : 'autonomy-run-not-found'],
+      scannedRows: rows.length
     };
   }
   const latest = matches[0];
@@ -172,7 +199,7 @@ export async function loadLatestAutonomyRun(store, runId) {
   };
 }
 
-export async function listLatestAutonomyRuns(store, { statuses = [], limit = 50 } = {}) {
+export async function listLatestAutonomyRuns(store, { statuses = [], limit = 50, order = 'newest' } = {}) {
   if (!validStore(store)) return fail(['store-log-and-list-required']);
   const allowedStatuses = new Set((Array.isArray(statuses) ? statuses : []).map(value => text(value, 80).toUpperCase()).filter(Boolean));
   const rows = await auditRows(store, SNAPSHOT_TYPE);
@@ -196,10 +223,24 @@ export async function listLatestAutonomyRuns(store, { statuses = [], limit = 50 
       latest.set(run.runId, row);
     }
   }
+  // Newest-first is right for an operator reading recent activity and wrong for
+  // a scheduler choosing what to work on. Ticking a run refreshes its
+  // updatedAt, so under a bounded scan a newest-first window fills with the
+  // runs that were just served and the least-recently-touched runs fall off the
+  // end and are never seen again. `order: 'oldest'` puts the starved runs in
+  // the window; the fairness ledger then orders within it.
+  const oldestFirst = String(order || 'newest').toLowerCase() === 'oldest';
   const runs = [...latest.values()]
     .map(row => row.detail.run)
     .filter(run => !allowedStatuses.size || allowedStatuses.has(String(run.status || '').toUpperCase()))
-    .sort((a, b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || '')))
+    .sort((a, b) => {
+      const left = String(a.updatedAt || '');
+      const right = String(b.updatedAt || '');
+      const byTime = oldestFirst ? left.localeCompare(right) : right.localeCompare(left);
+      // A tie on a coarse timestamp must not be resolved arbitrarily, or the
+      // same subset can win every cycle. runId is stable and total.
+      return byTime || String(a.runId || '').localeCompare(String(b.runId || ''));
+    })
     .slice(0, Math.max(1, Math.min(200, Number(limit || 50))));
   return {
     ok: true,

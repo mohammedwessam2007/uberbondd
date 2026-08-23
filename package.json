@@ -21,6 +21,7 @@
     "check:relay-api-executor": "node --check src/relay-vercel-api-executor.mjs && node --check tests/relay-vercel-api-executor.test.mjs",
     "test:browser": "node --test tests/browser.test.mjs",
     "test:postgres-live": "node --test tests/postgres-store-live.test.mjs",
+    "test:postgres-real": "node scripts/run-real-postgres-tests.mjs",
     "seed": "node scripts/seed.mjs",
     "db:migrate": "node scripts/migrate.mjs",
     "db:import-json": "node scripts/import-json.mjs",

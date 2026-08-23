@@ -1,0 +1,462 @@
+import crypto from 'node:crypto';
+import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
+import { redactSecrets } from './secret-patterns.mjs';
+
+export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.6.0';
+const START_TYPE = 'agent_mesh_cycle_started';
+const TERMINAL_TYPE = 'agent_mesh_cycle_terminal';
+const TERMINAL_STATUSES = new Set(['ADVANCED', 'IDLE', 'DEGRADED', 'BLOCKED']);
+const MAX_OCCURRENCE_KEY_LENGTH = 300;
+
+function text(value, max = 240) {
+  return String(value ?? '').trim().slice(0, max);
+}
+
+// Reason codes are the one field in a receipt that carries free text a worker
+// or a provider wrote, and receipts are durable forever. A credential quoted
+// into an error message would otherwise be persisted with it. Truncation is
+// not redaction: a 180-character slice of a bearer token is still most of a
+// bearer token.
+function reasonText(value, max = 180) {
+  return redactSecrets(String(value ?? '').trim()).slice(0, max);
+}
+
+function strictOccurrenceKey(value) {
+  const key = String(value ?? '').trim();
+  if (!key) throw new Error('scheduler-occurrence-key-required');
+  if (key.length > MAX_OCCURRENCE_KEY_LENGTH) throw new Error('scheduler-occurrence-key-too-long');
+  return key;
+}
+
+function iso(value) {
+  const d = value instanceof Date ? value : new Date(value || Date.now());
+  if (Number.isNaN(d.getTime())) throw new Error('invalid-cycle-receipt-timestamp');
+  return d.toISOString();
+}
+
+function safeSummary(sweep) {
+  if (!sweep) return null;
+  return {
+    status: text(sweep.status, 80) || null,
+    runsConsidered: Number.isSafeInteger(sweep.runsConsidered) ? sweep.runsConsidered : null,
+    runsTicked: Number.isSafeInteger(sweep.runsTicked) ? sweep.runsTicked : null,
+    failed: Number.isSafeInteger(sweep.failed) ? sweep.failed : null,
+    ok: sweep.ok !== false
+  };
+}
+
+function safeWorkers(workers = []) {
+  return workers.slice(0, 8).map(worker => ({
+    targetAgent: text(worker?.targetAgent, 80).toLowerCase(),
+    provider: text(worker?.provider, 80).toLowerCase(),
+    model: text(worker?.model, 160) || null,
+    workerId: text(worker?.workerId, 160),
+    status: text(worker?.status, 80) || 'UNKNOWN',
+    ok: worker?.ok !== false,
+    taskId: text(worker?.taskId, 180) || null,
+    reasonCodes: Array.isArray(worker?.reasonCodes)
+      ? worker.reasonCodes.slice(0, 20).map(code => reasonText(code)).filter(Boolean)
+      : []
+  }));
+}
+
+function normalizedPolicyVersions(policyVersions = []) {
+  return [...new Set((policyVersions || []).map(v => text(v, 120)).filter(Boolean))].sort().slice(0, 20);
+}
+
+function normalizedConfiguredWorkers(workers = []) {
+  return (workers || []).map(worker => ({
+    targetAgent: text(worker?.targetAgent, 80).toLowerCase(),
+    provider: text(worker?.provider, 80).toLowerCase(),
+    model: text(worker?.model, 160) || null,
+    workerId: text(worker?.workerId, 160),
+    budgetId: text(worker?.budgetId, 160) || null,
+    costCeilingCents: Number.isSafeInteger(worker?.costCeilingCents) ? worker.costCeilingCents : null,
+    tokenCeiling: Number.isSafeInteger(worker?.tokenCeiling) ? worker.tokenCeiling : null,
+    lockTimeoutMs: Number.isSafeInteger(worker?.lockTimeoutMs) ? worker.lockTimeoutMs : null
+  }))
+    .sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)))
+    .slice(0, 8);
+}
+
+function normalizedConfiguration(configuration = {}) {
+  return {
+    autonomyRunLimit: Number.isSafeInteger(configuration?.autonomyRunLimit) ? configuration.autonomyRunLimit : null,
+    ingestAfterWorkers: typeof configuration?.ingestAfterWorkers === 'boolean' ? configuration.ingestAfterWorkers : null
+  };
+}
+
+function cycleIdentity({ occurrenceKey, sourceCommit = null, policyVersions = [], workers = [], configuration = {} } = {}) {
+  const normalizedOccurrenceKey = strictOccurrenceKey(occurrenceKey);
+  const occurrenceKeyHash = crypto.createHash('sha256').update(normalizedOccurrenceKey).digest('hex');
+  const identity = {
+    occurrenceKeyHash,
+    sourceCommit: text(sourceCommit, 80) || null,
+    policyVersions: normalizedPolicyVersions(policyVersions),
+    workers: normalizedConfiguredWorkers(workers),
+    configuration: normalizedConfiguration(configuration)
+  };
+  return {
+    ...identity,
+    identityHash: crypto.createHash('sha256').update(JSON.stringify(identity)).digest('hex')
+  };
+}
+
+function assertSameCycleIdentity(receipt, expected) {
+  const persisted = text(receipt?.identityHash, 80);
+  if (!persisted || persisted !== expected.identityHash) {
+    throw new Error('scheduler-occurrence-identity-conflict');
+  }
+}
+
+function normalizedTerminalWorkers(workers = []) {
+  return safeWorkers(workers)
+    .map(worker => ({
+      ...worker,
+      reasonCodes: [...new Set(worker.reasonCodes || [])].sort()
+    }))
+    .sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));
+}
+
+function terminalTruth(detail = {}) {
+  return {
+    status: text(detail.status, 80),
+    reasonCodes: [...new Set((detail.reasonCodes || []).map(code => reasonText(code)).filter(Boolean))].sort(),
+    firstSweep: safeSummary(detail.firstSweep),
+    workers: normalizedTerminalWorkers(detail.workers || []),
+    secondSweep: safeSummary(detail.secondSweep),
+    businessEffectAuthority: text(detail.businessEffectAuthority, 80),
+    externalEffectLedger: detail.externalEffectLedger && typeof detail.externalEffectLedger === 'object'
+      ? Object.fromEntries(Object.entries(detail.externalEffectLedger).sort(([a], [b]) => a.localeCompare(b)))
+      : null
+  };
+}
+
+function terminalTruthHash(detail = {}) {
+  return crypto.createHash('sha256').update(JSON.stringify(terminalTruth(detail))).digest('hex');
+}
+
+function assertSameTerminalTruth(receipt, expectedDetail) {
+  if (terminalTruthHash(receipt) !== terminalTruthHash(expectedDetail)) {
+    throw new Error('scheduler-occurrence-terminal-truth-conflict');
+  }
+}
+
+export function supportsAgentMeshCycleReceipts(store) {
+  if (!store || typeof store !== 'object') return false;
+  return (typeof store.get === 'function' && typeof store.add === 'function')
+    || (typeof store.list === 'function' && typeof store.log === 'function');
+}
+
+function requireStore(store) {
+  if (!supportsAgentMeshCycleReceipts(store)) throw new Error('durable-cycle-receipt-store-required');
+}
+
+export function deriveAgentMeshCycleId(occurrenceKey) {
+  const key = strictOccurrenceKey(occurrenceKey);
+  return `meshcycle_${crypto.createHash('sha256').update(key).digest('hex').slice(0, 32)}`;
+}
+
+function recordId(cycleId, phase) {
+  return `${cycleId}:${phase}`;
+}
+
+async function lookup(store, type, cycleId, phase) {
+  if (typeof store.get === 'function') {
+    const row = await store.get('auditLog', recordId(cycleId, phase));
+    if (row) return row;
+  }
+  if (typeof store.list === 'function') {
+    const rows = await store.list('auditLog', { filters: { type }, limit: 2000 });
+    return rows.find(row => row?.detail?.cycleId === cycleId) || null;
+  }
+  return null;
+}
+
+async function append(store, type, cycleId, phase, detail, createdAt) {
+  if (typeof store.add === 'function') {
+    return store.add('auditLog', { id: recordId(cycleId, phase), type, detail, createdAt });
+  }
+  return store.log(type, detail);
+}
+
+async function appendOrRecoverDuplicate(store, {
+  type,
+  cycleId,
+  phase,
+  detail,
+  createdAt,
+  expectedIdentity,
+  requireMatchingTerminalTruth = false
+}) {
+  try {
+    const row = await append(store, type, cycleId, phase, detail, createdAt);
+    return { duplicate: false, row };
+  } catch (error) {
+    if (typeof store.get === 'function' && typeof store.add === 'function') {
+      const raced = await lookup(store, type, cycleId, phase);
+      if (raced) {
+        if (expectedIdentity) assertSameCycleIdentity(raced.detail, expectedIdentity);
+        if (requireMatchingTerminalTruth) assertSameTerminalTruth(raced.detail, detail);
+        return { duplicate: true, row: raced };
+      }
+    }
+    throw error;
+  }
+}
+
+export async function beginAgentMeshCycleReceipt({
+  store,
+  occurrenceKey,
+  startedAt = new Date(),
+  sourceCommit = null,
+  policyVersions = [],
+  workers = [],
+  configuration = {}
+} = {}) {
+  requireStore(store);
+  const cycleId = deriveAgentMeshCycleId(occurrenceKey);
+  const identity = cycleIdentity({ occurrenceKey, sourceCommit, policyVersions, workers, configuration });
+  const existing = await lookup(store, START_TYPE, cycleId, 'started');
+  if (existing) {
+    assertSameCycleIdentity(existing.detail, identity);
+    return { cycleId, duplicate: true, receipt: structuredClone(existing.detail || {}) };
+  }
+
+  const detail = {
+    receiptVersion: AGENT_MESH_CYCLE_RECEIPT_VERSION,
+    cycleId,
+    occurrenceKeyHash: identity.occurrenceKeyHash,
+    identityHash: identity.identityHash,
+    phase: 'STARTED',
+    startedAt: iso(startedAt),
+    sourceCommit: identity.sourceCommit,
+    policyVersions: identity.policyVersions,
+    workers: safeWorkers(workers.map(worker => ({ ...worker, status: 'CONFIGURED', ok: true }))),
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EFFECTS }
+  };
+  const appended = await appendOrRecoverDuplicate(store, {
+    type: START_TYPE,
+    cycleId,
+    phase: 'started',
+    detail,
+    createdAt: detail.startedAt,
+    expectedIdentity: identity
+  });
+  return {
+    cycleId,
+    duplicate: appended.duplicate,
+    receipt: structuredClone(appended.row?.detail || detail)
+  };
+}
+
+export async function finishAgentMeshCycleReceipt({
+  store,
+  cycleId,
+  startedAt,
+  finishedAt = new Date(),
+  sourceCommit = null,
+  policyVersions = [],
+  status,
+  reasonCodes = [],
+  firstSweep = null,
+  workers = [],
+  secondSweep = null
+} = {}) {
+  requireStore(store);
+  const normalizedCycleId = text(cycleId, 80);
+  if (!/^meshcycle_[a-f0-9]{32}$/.test(normalizedCycleId)) throw new Error('valid-cycle-id-required');
+  if (!TERMINAL_STATUSES.has(status)) throw new Error('terminal-cycle-status-required');
+
+  const startRecord = await lookup(store, START_TYPE, normalizedCycleId, 'started');
+  if (!startRecord) throw new Error('cycle-start-receipt-required-before-terminal');
+  const startDetail = startRecord.detail || {};
+  const terminalIdentity = { identityHash: text(startDetail.identityHash, 80) };
+  if (!terminalIdentity.identityHash) throw new Error('scheduler-occurrence-identity-conflict');
+
+  const persistedStartedAt = iso(startDetail.startedAt);
+  const requestedStartedAt = iso(startedAt || startDetail.startedAt);
+  if (requestedStartedAt !== persistedStartedAt) throw new Error('scheduler-occurrence-start-time-conflict');
+  const normalizedFinishedAt = iso(finishedAt);
+  if (Date.parse(normalizedFinishedAt) < Date.parse(persistedStartedAt)) {
+    throw new Error('scheduler-occurrence-finished-before-start');
+  }
+
+  const requestedSourceCommit = text(sourceCommit, 80) || text(startDetail.sourceCommit, 80) || null;
+  const requestedPolicies = policyVersions?.length
+    ? normalizedPolicyVersions(policyVersions)
+    : normalizedPolicyVersions(startDetail.policyVersions || []);
+  if (requestedSourceCommit !== (text(startDetail.sourceCommit, 80) || null)
+    || JSON.stringify(requestedPolicies) !== JSON.stringify(normalizedPolicyVersions(startDetail.policyVersions || []))) {
+    throw new Error('scheduler-occurrence-identity-conflict');
+  }
+
+  const detail = {
+    receiptVersion: AGENT_MESH_CYCLE_RECEIPT_VERSION,
+    cycleId: normalizedCycleId,
+    identityHash: terminalIdentity.identityHash,
+    phase: 'TERMINAL',
+    startedAt: persistedStartedAt,
+    finishedAt: normalizedFinishedAt,
+    sourceCommit: requestedSourceCommit,
+    policyVersions: requestedPolicies,
+    status,
+    reasonCodes: [...new Set((reasonCodes || []).map(code => reasonText(code)).filter(Boolean))].slice(0, 30),
+    firstSweep: safeSummary(firstSweep),
+    workers: safeWorkers(workers),
+    secondSweep: safeSummary(secondSweep),
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EFFECTS }
+  };
+
+  const existing = await lookup(store, TERMINAL_TYPE, normalizedCycleId, 'terminal');
+  if (existing) {
+    assertSameCycleIdentity(existing.detail, terminalIdentity);
+    assertSameTerminalTruth(existing.detail, detail);
+    return { duplicate: true, receipt: structuredClone(existing.detail || {}) };
+  }
+
+  const appended = await appendOrRecoverDuplicate(store, {
+    type: TERMINAL_TYPE,
+    cycleId: normalizedCycleId,
+    phase: 'terminal',
+    detail,
+    createdAt: detail.finishedAt,
+    expectedIdentity: terminalIdentity,
+    requireMatchingTerminalTruth: true
+  });
+  return {
+    duplicate: appended.duplicate,
+    receipt: structuredClone(appended.row?.detail || detail)
+  };
+}
+
+export async function getAgentMeshCycleReceipt({
+  store,
+  occurrenceKey,
+  sourceCommit,
+  policyVersions,
+  workers,
+  configuration
+} = {}) {
+  requireStore(store);
+  const cycleId = deriveAgentMeshCycleId(occurrenceKey);
+  const validateIdentity = sourceCommit !== undefined
+    || policyVersions !== undefined
+    || workers !== undefined
+    || configuration !== undefined;
+  const expectedIdentity = validateIdentity
+    ? cycleIdentity({ occurrenceKey, sourceCommit, policyVersions, workers, configuration })
+    : null;
+  const terminal = await lookup(store, TERMINAL_TYPE, cycleId, 'terminal');
+  if (terminal) {
+    if (expectedIdentity) assertSameCycleIdentity(terminal.detail, expectedIdentity);
+    return { cycleId, state: 'TERMINAL', receipt: structuredClone(terminal.detail || {}) };
+  }
+  const started = await lookup(store, START_TYPE, cycleId, 'started');
+  if (started) {
+    if (expectedIdentity) assertSameCycleIdentity(started.detail, expectedIdentity);
+    return { cycleId, state: 'STARTED', receipt: structuredClone(started.detail || {}) };
+  }
+  return { cycleId, state: 'ABSENT', receipt: null };
+}
+
+export async function listTerminalAgentMeshCycleReceipts({ store, limit = 2000 } = {}) {
+  requireStore(store);
+  if (typeof store.list !== 'function') throw new Error('cycle-receipt-history-list-required');
+  const boundedLimit = Number.isSafeInteger(limit) ? Math.max(1, Math.min(10000, limit)) : 2000;
+  const rows = await store.list('auditLog', { filters: { type: TERMINAL_TYPE }, limit: boundedLimit });
+  return rows
+    .filter(row => row?.detail?.phase === 'TERMINAL' && /^meshcycle_[a-f0-9]{32}$/.test(text(row.detail.cycleId, 80)))
+    .map(row => structuredClone(row.detail))
+    .sort((a, b) => Date.parse(a.finishedAt || a.startedAt || 0) - Date.parse(b.finishedAt || b.startedAt || 0));
+}
+
+// A cycle that wrote STARTED and never wrote TERMINAL is a cycle the process
+// died inside. Fail-closed already covers the dangerous half: that occurrence
+// can never be re-delivered, so no consequence happens twice. The other half
+// was silent. Founder-absence readiness counts terminal receipts, so a crashed
+// cycle simply was not there -- a mesh that dies every other tick could still
+// present an unbroken run of healthy cycles and certify a seven-day absence.
+//
+// These two functions make the crash legible: one finds abandoned cycles, the
+// other converts them into durable DEGRADED terminal receipts so the history
+// records the failure that actually happened. Terminalizing an abandoned cycle
+// replays no work; it only writes down that the work never finished.
+const DEFAULT_ABANDONED_AFTER_MS = 60 * 60 * 1000;
+
+export async function listStartedAgentMeshCycleReceipts({ store, limit = 2000 } = {}) {
+  requireStore(store);
+  if (typeof store.list !== 'function') throw new Error('cycle-receipt-history-list-required');
+  const boundedLimit = Number.isSafeInteger(limit) ? Math.max(1, Math.min(10000, limit)) : 2000;
+  const rows = await store.list('auditLog', { filters: { type: START_TYPE }, limit: boundedLimit });
+  return rows
+    .filter(row => row?.detail?.phase === 'STARTED' && /^meshcycle_[a-f0-9]{32}$/.test(text(row.detail.cycleId, 80)))
+    .map(row => structuredClone(row.detail))
+    .sort((a, b) => Date.parse(a.startedAt || 0) - Date.parse(b.startedAt || 0));
+}
+
+export async function findAbandonedAgentMeshCycles({
+  store,
+  now = new Date(),
+  abandonedAfterMs = DEFAULT_ABANDONED_AFTER_MS,
+  limit = 2000
+} = {}) {
+  requireStore(store);
+  const horizonMs = Number.isSafeInteger(abandonedAfterMs) && abandonedAfterMs > 0
+    ? abandonedAfterMs
+    : DEFAULT_ABANDONED_AFTER_MS;
+  const nowMs = Date.parse(iso(now));
+  const started = await listStartedAgentMeshCycleReceipts({ store, limit });
+  const terminal = await listTerminalAgentMeshCycleReceipts({ store, limit });
+  const terminalIds = new Set(terminal.map(receipt => text(receipt.cycleId, 80)));
+  return started.filter(receipt => {
+    if (terminalIds.has(text(receipt.cycleId, 80))) return false;
+    const startedAtMs = Date.parse(receipt.startedAt || '');
+    // A cycle still inside its horizon is presumed running, not abandoned.
+    return Number.isFinite(startedAtMs) && nowMs - startedAtMs > horizonMs;
+  });
+}
+
+export async function reconcileAbandonedAgentMeshCycles({
+  store,
+  now = new Date(),
+  abandonedAfterMs = DEFAULT_ABANDONED_AFTER_MS,
+  limit = 2000
+} = {}) {
+  const abandoned = await findAbandonedAgentMeshCycles({ store, now, abandonedAfterMs, limit });
+  const reconciled = [];
+  for (const receipt of abandoned) {
+    const finished = await finishAgentMeshCycleReceipt({
+      store,
+      cycleId: receipt.cycleId,
+      startedAt: receipt.startedAt,
+      finishedAt: now,
+      sourceCommit: receipt.sourceCommit,
+      policyVersions: receipt.policyVersions,
+      status: 'DEGRADED',
+      reasonCodes: ['cycle-abandoned-before-terminal'],
+      firstSweep: null,
+      workers: [],
+      secondSweep: null
+    });
+    reconciled.push({ cycleId: receipt.cycleId, duplicate: finished.duplicate });
+  }
+  return {
+    policyVersion: AGENT_MESH_CYCLE_RECEIPT_VERSION,
+    abandonedFound: abandoned.length,
+    reconciled
+  };
+}
+
+export async function countTerminalAgentMeshCycles({ store, occurrenceKeys = [] } = {}) {
+  requireStore(store);
+  let count = 0;
+  const uniqueKeys = [...new Set(occurrenceKeys.map(key => strictOccurrenceKey(key)))];
+  for (const occurrenceKey of uniqueKeys) {
+    const state = await getAgentMeshCycleReceipt({ store, occurrenceKey });
+    if (state.state === 'TERMINAL') count += 1;
+  }
+  return count;
+}

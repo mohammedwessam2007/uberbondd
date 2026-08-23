@@ -1,7 +1,8 @@
 import crypto from 'node:crypto';
 import { registerTaskIntent, ingestAgentResult } from './agent-autonomy-loop.mjs';
+import { evaluateWorkerResultTruth } from './agent-worker-result-truth.mjs';
 
-export const AGENT_AUTONOMY_PUMP_POLICY_VERSION = 'agent-autonomy-pump-1.0.0';
+export const AGENT_AUTONOMY_PUMP_POLICY_VERSION = 'agent-autonomy-pump-1.2.0';
 
 const MAX_RECEIPTS = 256;
 const TERMINAL = new Set([
@@ -183,6 +184,29 @@ export async function advanceAutonomyRun({
     if (!result) {
       const failed = withFailure(next, ['agent-result-required'], date);
       return { ok: false, policyVersion: AGENT_AUTONOMY_PUMP_POLICY_VERSION, status: 'FAILED', transition: 'FAILED', run: failed, reasonCodes: failed.reasonCodes };
+    }
+    // A result that claims DONE is asking the system to stop working and
+    // believe it. Check the envelope, the identity it answers with, and -- only
+    // when it claims terminal -- the evidence behind that claim.
+    const truth = evaluateWorkerResultTruth({
+      result,
+      expected: {
+        taskId: next.relayRef.taskId,
+        runId: next.runId,
+        sessionId: next.session.sessionId,
+        workerId: received.workerId || result.workerId || ''
+      }
+    });
+    if (!truth.ok) {
+      const failed = withFailure(next, truth.reasonCodes, date);
+      return {
+        ok: false,
+        policyVersion: AGENT_AUTONOMY_PUMP_POLICY_VERSION,
+        status: 'FAILED',
+        transition: 'FAILED',
+        run: failed,
+        reasonCodes: failed.reasonCodes
+      };
     }
     const receipt = {
       runId: next.runId,

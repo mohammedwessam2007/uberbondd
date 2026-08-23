@@ -1,5 +1,6 @@
 import { hasSecret, sameJson } from './cloud-agent-relay.mjs';
 import { validateComputeBudget } from './ai-compute-budget.mjs';
+import { containsSecretValue } from './secret-patterns.mjs';
 
 export const AGENT_COMPUTE_STORE_POLICY_VERSION = 'agent-compute-store-1.2.0';
 
@@ -8,7 +9,7 @@ const EXECUTION_TYPE = 'agent_compute_execution_record';
 const MAX_SCAN = 3000;
 const MAX_EXECUTION_BYTES = 60_000;
 const COMPUTE_SECRET_KEY = /secret|password|credential|privatekey|apikey|authorization/i;
-const SECRET_VALUE = /(?:\bsk-[A-Za-z0-9]{12,}|\bghp_[A-Za-z0-9]{12,}|-----BEGIN|Bearer\s+\S+)/;
+
 const EXECUTION_STATUSES = new Set([
   'COMPUTE_OUTCOME_UNCERTAIN',
   'COMPUTE_BUDGET_VIOLATION',
@@ -56,7 +57,7 @@ function validStore(store) {
 }
 
 function hasComputeSecret(value) {
-  if (typeof value === 'string') return SECRET_VALUE.test(value);
+  if (typeof value === 'string') return containsSecretValue(value);
   if (Array.isArray(value)) return value.some(hasComputeSecret);
   if (!value || typeof value !== 'object') return false;
   return Object.entries(value).some(([key, item]) => COMPUTE_SECRET_KEY.test(key) || hasComputeSecret(item));

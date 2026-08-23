@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { ZERO_BUSINESS_EFFECTS } from './effect-ledgers.mjs';
 
 export const AGENT_AUTONOMY_POLICY_VERSION = 'agent-autonomy-loop-1.0.0';
 
@@ -8,15 +9,11 @@ const MAX_TASKS = 64;
 const MAX_TOTAL_TOKENS = 10_000_000;
 const MAX_REFS = 100;
 const MAX_HISTORY = 256;
-const EXTERNAL_EFFECT_ZERO = Object.freeze({
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  businessSpendCents: 0
-});
+const MAX_CONSTRAINTS = 64;
+// Every compiled task carries these two, so they count against the same budget
+// as inherited ones. Naming them keeps the overflow arithmetic honest.
+const MANDATORY_CONSTRAINTS = Object.freeze(['local-preparation-only', 'no-business-external-effects']);
+const EXTERNAL_EFFECT_ZERO = ZERO_BUSINESS_EFFECTS;
 
 export const AUTONOMY_ACTIONS = Object.freeze([
   'DONE',
@@ -92,6 +89,18 @@ function cloneSession(session) {
 }
 function validSession(session) {
   return Boolean(session?.ok && session.policyVersion === AGENT_AUTONOMY_POLICY_VERSION && session.sessionId);
+}
+
+export function inheritTaskConstraints({ parentIntent, requestedConstraints = [] } = {}) {
+  const inherited = strings(parentIntent?.constraints || [], MAX_CONSTRAINTS);
+  const requested = strings(requestedConstraints, MAX_CONSTRAINTS);
+  const union = [...new Set([...inherited, ...requested])];
+  return {
+    ok: union.length <= MAX_CONSTRAINTS,
+    constraints: union.slice(0, MAX_CONSTRAINTS),
+    inheritedConstraints: inherited,
+    requestedConstraints: requested
+  };
 }
 
 export function compileAutonomySession({
@@ -179,6 +188,14 @@ export function compileTaskIntent({
   if (tokens == null) reasons.push('bounded-task-token-budget-required');
   if (session.tasksCreated >= session.maxTasks) reasons.push('session-task-limit-reached');
   if (session.reservedTokens + (tokens || 0) > session.maxTotalTokens) reasons.push('session-token-budget-exceeded');
+  // Truncating here would silently drop constraints a parent had already
+  // imposed, which is precisely the monotonicity break this module exists to
+  // prevent. Overflow is a compile failure, not a quiet trim.
+  const fullConstraints = [...new Set([...MANDATORY_CONSTRAINTS, ...strings(constraints, MAX_CONSTRAINTS + 1)])];
+  if (Array.isArray(constraints) && new Set(constraints.map(value => text(value, 500)).filter(Boolean)).size > MAX_CONSTRAINTS) {
+    reasons.push('task-constraint-budget-exceeded');
+  }
+  if (fullConstraints.length > MAX_CONSTRAINTS) reasons.push('task-constraint-budget-exceeded');
   if (reasons.length) return fail(reasons);
 
   const identity = {
@@ -192,7 +209,7 @@ export function compileTaskIntent({
     evidenceRefs: canonicalEvidenceRefs(evidenceRefs).valid,
     acceptanceTests: strings(acceptanceTests, 40),
     requiredOutputs: strings(requiredOutputs, 40),
-    constraints: strings(constraints, 40),
+    constraints: fullConstraints,
     tokenBudget: tokens
   };
   const taskId = `mesh_task_${hash(identity).slice(0, 24)}`;
@@ -211,7 +228,7 @@ export function compileTaskIntent({
     evidenceRefs: identity.evidenceRefs,
     acceptanceTests: identity.acceptanceTests,
     requiredOutputs: identity.requiredOutputs.length ? identity.requiredOutputs : ['outcome', 'coordination', 'evidenceRefs'],
-    constraints: [...new Set(['local-preparation-only', 'no-business-external-effects', ...identity.constraints])],
+    constraints: identity.constraints,
     tokenBudget: tokens,
     createdAt: timestamp(date),
     consequenceClass: 'LOCAL_PREPARATION',
@@ -238,6 +255,8 @@ export function registerTaskIntent({ session, intent, date = new Date() } = {}) 
     kind: intent.kind,
     objective: intent.objective,
     tokenBudget: intent.tokenBudget,
+    constraints: strings(intent.constraints, MAX_CONSTRAINTS),
+    consequenceClass: intent.consequenceClass,
     at: next.updatedAt
   });
   next.history = next.history.slice(-MAX_HISTORY);
@@ -265,7 +284,7 @@ export function normalizeCoordination(result = {}) {
     contextRefs: strings(raw.contextRefs || []),
     acceptanceTests: strings(raw.acceptanceTests || [], 40),
     requiredOutputs: strings(raw.requiredOutputs || [], 40),
-    constraints: strings(raw.constraints || [], 40),
+    constraints: strings(raw.constraints || [], MAX_CONSTRAINTS),
     tokenBudget: int(raw.tokenBudget, 1, 500_000, 50_000),
     confidence: Number.isFinite(confidence) ? confidence : null
   };
@@ -329,12 +348,19 @@ export function ingestAgentResult({ session, taskIntent, result, date = new Date
     return { ok: true, policyVersion: AGENT_AUTONOMY_POLICY_VERSION, status: next.status, session: next, coordination, nextIntent: null, reasonCodes: ['required-target-agent-not-allowed'] };
   }
 
+  const inherited = inheritTaskConstraints({ parentIntent: taskIntent, requestedConstraints: coordination.constraints });
+  if (!inherited.ok) {
+    next.status = 'BLOCKED';
+    return { ok: true, policyVersion: AGENT_AUTONOMY_POLICY_VERSION, status: next.status, session: next, coordination, nextIntent: null, reasonCodes: ['parent-constraint-inheritance-failed'] };
+  }
+
   const followupIdentity = {
     action: coordination.action,
     targetAgent,
     objective: coordination.objective,
     evidenceRefs: coordination.evidenceRefs,
-    acceptanceTests: coordination.acceptanceTests
+    acceptanceTests: coordination.acceptanceTests,
+    constraints: inherited.constraints
   };
   const followupKey = hash(followupIdentity);
   if (next.seenFollowups.includes(followupKey)) {
@@ -355,7 +381,7 @@ export function ingestAgentResult({ session, taskIntent, result, date = new Date
     evidenceRefs: coordination.evidenceRefs,
     acceptanceTests: coordination.acceptanceTests,
     requiredOutputs: coordination.requiredOutputs,
-    constraints: coordination.constraints,
+    constraints: inherited.constraints,
     tokenBudget: coordination.tokenBudget,
     date
   });

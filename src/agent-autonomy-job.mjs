@@ -5,11 +5,16 @@ import {
   logAutonomyExecutionReceipt
 } from './agent-autonomy-store.mjs';
 import { advanceAutonomyRun } from './agent-autonomy-pump.mjs';
+import {
+  logAutonomySchedulerSelection,
+  selectFairAutonomyRuns
+} from './agent-autonomy-scheduler.mjs';
 
-export const AGENT_AUTONOMY_JOB_POLICY_VERSION = 'agent-autonomy-job-1.0.0';
+export const AGENT_AUTONOMY_JOB_POLICY_VERSION = 'agent-autonomy-job-1.1.0';
 
 const ACTIVE_STATUSES = Object.freeze(['ACTIVE', 'PENDING']);
 const MAX_RUNS_PER_TICK = 20;
+const MAX_ACTIVE_RUN_SCAN = 200;
 
 function timestamp(value) {
   const date = value instanceof Date ? value : new Date(value || Date.now());
@@ -98,11 +103,32 @@ export async function tickActiveAutonomyRuns({
     ? Math.max(1, Math.min(MAX_RUNS_PER_TICK, Number(limit)))
     : 5;
 
-  const listed = await listLatestAutonomyRuns(store, { statuses: ACTIVE_STATUSES, limit: boundedLimit });
+  // Do not ask the store for only the newest N runs. Updating a selected run
+  // refreshes its timestamps, so newest-first selection can permanently hide
+  // older active work -- and the scan itself is bounded, so ordering only
+  // *within* the window is not enough: with more active runs than the cap, the
+  // runs past the end never enter it at all. Scan oldest-touched first so the
+  // starved runs are the ones in the window, then order that window by a
+  // durable scheduler-selection ledger that survives process restarts.
+  const listed = await listLatestAutonomyRuns(store, {
+    statuses: ACTIVE_STATUSES,
+    limit: MAX_ACTIVE_RUN_SCAN,
+    order: 'oldest'
+  });
   if (!listed.ok) return fail(listed.reasonCodes || ['autonomy-run-list-failed']);
+  const selected = await selectFairAutonomyRuns(store, listed.runs, { limit: boundedLimit });
+  if (!selected.ok) return fail(selected.reasonCodes || ['autonomy-run-fair-selection-failed']);
 
   const results = [];
-  for (const run of listed.runs.slice(0, boundedLimit)) {
+  for (const run of selected.runs) {
+    // Persist selection BEFORE execution. If the process dies during the tick,
+    // restart will not immediately monopolize the same run again. This ledger
+    // records scheduler service attempts, not business-world success.
+    const selection = await logAutonomySchedulerSelection(store, run, { date });
+    if (!selection.ok) {
+      results.push(fail(selection.reasonCodes || ['autonomy-scheduler-selection-log-failed'], { runId: run.runId }));
+      continue;
+    }
     const result = await tickAutonomyRun({
       store,
       runId: run.runId,

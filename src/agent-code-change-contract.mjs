@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { containsSecretValue } from './secret-patterns.mjs';
 import path from 'node:path';
 
 export const AGENT_CODE_CHANGE_POLICY_VERSION = 'agent-code-change-1.2.0';
@@ -23,14 +24,17 @@ const PROTECTED_PREFIXES = Object.freeze([
   // untrusted engineering edit must not be able to rewrite the command graph
   // or project-level npm execution policy immediately before verification.
   'package.json',
-  '.npmrc'
+  'package-lock.json',
+  '.npmrc',
+  // Protecting package.json alone left the door open one level down: the
+  // scripts it names are what actually decide which tests run and which files
+  // are parsed. An edit that rewrote the discovery script could hide its own
+  // failures from the gate that was about to check it.
+  'scripts/run-tests.mjs',
+  'scripts/check-syntax.mjs'
 ]);
 
-const HIGH_RISK_SECRET_PATTERNS = Object.freeze([
-  /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,
-  /\bAKIA[0-9A-Z]{16}\b/,
-  /\bBearer\s+[A-Za-z0-9._~+/=-]{24,}/
-]);
+
 
 function text(value, max = MAX_TEXT) {
   return String(value ?? '').trim().slice(0, max);
@@ -76,8 +80,7 @@ function protectedPath(filePath) {
 }
 
 function secretMaterial(content) {
-  if (typeof content !== 'string') return false;
-  return HIGH_RISK_SECRET_PATTERNS.some(pattern => pattern.test(content));
+  return containsSecretValue(content);
 }
 
 function sha256(value) {

@@ -2,16 +2,16 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 411,
+      "filesParsed": 412,
       "ranAt": "2026-08-23T00:45:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 1875,
-      "pass": 1833,
+      "tests": 1885,
+      "pass": 1843,
       "fail": 0,
       "skipped": 42,
-      "ranAt": "2026-08-23T01:20:00Z"
+      "ranAt": "2026-08-23T01:55:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",

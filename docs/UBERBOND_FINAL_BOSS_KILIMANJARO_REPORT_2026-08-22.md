@@ -41,9 +41,9 @@ let them become market prices, buyer signals, or revenue.
 | | |
 |---|---|
 | Start main | `07d8ce85472365c9fca1b704e8b0ad91244d8f1e` |
-| Final head | `9d2f91c` + docs (branch, not merged to main) |
-| Commits | 91 |
-| Files added | 57 (18 src, 31 tests, docs, scripts) |
+| Final head | `9039d18` (branch, not merged to main) |
+| Commits | 95 |
+| Files added | 59 (18 src, 33 tests, docs, scripts) |
 | Files deleted | 0 |
 
 **Main was not touched.** All work is on the designated branch. Merging to main
@@ -55,8 +55,8 @@ is an owner decision, not one I took on my own authority.
 
 | Gate | Baseline on main | Final |
 |---|---|---|
-| `check:syntax` | 360 files | **411 files** |
-| `test:deterministic` | 1603 / 1561 pass / 0 fail / 42 skip | **1875 / 1833 pass / 0 fail / 42 skip** |
+| `check:syntax` | 360 files | **412 files** |
+| `test:deterministic` | 1603 / 1561 pass / 0 fail / 42 skip | **1885 / 1843 pass / 0 fail / 42 skip** |
 | `test:relay-safety` | 150 / 150 pass | **150 / 150 pass** |
 | `test:postgres-real` | never executed | **107 / 107 pass / 0 skip** |
 | `npm audit` | 0 vulnerabilities | **0 vulnerabilities** |

@@ -41,8 +41,8 @@ Every number below was produced by running the command, on this tree.
 
 | Gate | Command | Result |
 |---|---|---|
-| Syntax | `npm run check:syntax` | 411 files parse |
-| Deterministic | `npm run test:deterministic` | 1875 tests, 1833 pass, **0 fail**, 42 skipped |
+| Syntax | `npm run check:syntax` | 412 files parse |
+| Deterministic | `npm run test:deterministic` | 1885 tests, 1843 pass, **0 fail**, 42 skipped |
 | Relay safety | `npm run test:relay-safety` | 150 tests, 150 pass, 0 fail |
 | Real PostgreSQL | `npm run test:postgres-real` | 107 tests, **107 pass, 0 skipped** |
 | Dependencies | `npm audit` | 0 vulnerabilities |

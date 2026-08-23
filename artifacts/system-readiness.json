@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-23T01:11:57.547Z",
+  "generatedAt": "2026-08-23T01:21:24.616Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "9d2f91c16b819f9fb31d83e431412a9df104af80",
+    "head": "9039d18ecb4db4cf4d4e7ca3377e93209030f646",
     "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
     "sourceModules": 139,
-    "testSuites": 180,
+    "testSuites": 181,
     "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 411,
+      "filesParsed": 412,
       "ranAt": "2026-08-23T00:45:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 1875,
-      "pass": 1833,
+      "tests": 1885,
+      "pass": 1843,
       "fail": 0,
       "skipped": 42,
-      "ranAt": "2026-08-23T01:20:00Z"
+      "ranAt": "2026-08-23T01:55:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",

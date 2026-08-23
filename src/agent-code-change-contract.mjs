@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { containsSecretValue } from './secret-patterns.mjs';
 import path from 'node:path';
 
-export const AGENT_CODE_CHANGE_POLICY_VERSION = 'agent-code-change-1.3.0';
+export const AGENT_CODE_CHANGE_POLICY_VERSION = 'agent-code-change-1.4.0';
 
 const MAX_CHANGES = 20;
 // Keep an entire change-set comfortably below the cloud relay's 250KB result
@@ -68,8 +68,20 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   // The isolation the engineering path runs inside.
   'src/claude-code-sandbox-provisioner.mjs',
   // What may be claimed about money.
+  //
+  // Three modules, and for a while only two of them. `payments.mjs` decides what
+  // "cleared" means and `payment-renewal-truth.mjs` decides what may be
+  // reconciled from it -- but `revenue.mjs` is what actually writes the order
+  // row, the revenue row and the classification receipt that those two then
+  // read. Protecting the reader and leaving the writer editable is a one-step
+  // bypass, not a two-step one: an autonomous change could not alter what
+  // clearing means, and could put the raw customer payload back into durable
+  // state, or drop `amountCents` from the receipt and blind the third witness
+  // again. Both of those are mutations in the war (PRIV-01, MONEY-12) precisely
+  // because they are the moves worth making.
   'src/payment-renewal-truth.mjs',
   'src/payments.mjs',
+  'src/revenue.mjs',
   // The only path by which the owner learns anything is wrong.
   'src/operator-escalation.mjs',
   'src/operator-escalation-transport.mjs',
@@ -101,6 +113,9 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   'tests/operator-escalation-transport.test.mjs',
   'tests/outbound-stale-authorization.test.mjs',
   'tests/payment-currency-truth.test.mjs',
+  'tests/payment-receipt-witnesses-money.test.mjs',
+  'tests/provider-payload-minimization.test.mjs',
+  'tests/provider-payload-minimization-source-guard.test.mjs',
   'tests/payment-recovery-war.test.mjs',
   'tests/payment-renewal-truth.test.mjs',
   'tests/payment-truth-double-count.test.mjs',

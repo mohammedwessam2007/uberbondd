@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const PAYMENT_RENEWAL_TRUTH_VERSION = 'payment-renewal-truth-1.1.0';
+export const PAYMENT_RENEWAL_TRUTH_VERSION = 'payment-renewal-truth-1.2.0';
 
 // The canonical shape plus one declared extension, rather than a fourth
 // independent copy. `paymentMutations` is a real effect this module needs to
@@ -110,12 +110,53 @@ function orderEvidenceIndex(orders, leadId) {
   return index;
 }
 
+// The three witnesses must agree about the payment, not merely about its name.
+//
+// Identity was bound on `eventName:eventId` and content was never compared, so
+// an order the provider signed for $50 and a ledger row claiming $5,000 were
+// both "the same payment" and the ledger's number won:
+//
+//   provider order says : $50.00
+//   revenue ledger says : $5000.00
+//   reconciled as       : $5000.00   PROVIDER_CLEARED_PAYMENT_PROVEN, no contradiction
+//
+// Found by a mutation probe in PR #114, which shipped the failing tests without
+// a fix. It is the same defect as counting a payment twice, arriving through a
+// field nobody thought to check.
+//
+// Magnitude is compared rather than the signed value: the sign is decided by
+// the classification (a refund is a negative ledger row) and providers differ on
+// whether a refund event carries a negative amount. A field absent from one
+// witness cannot contradict the other -- silence is not disagreement -- which is
+// what lets older receipts that never carried `product` keep reconciling.
+function witnessContentMismatches({ event, order, clearing }) {
+  const mismatches = [];
+  const amountA = Math.abs(cents(event?.amountCents));
+  const amountB = Math.abs(cents(order?.amountCents));
+  if (amountA !== amountB) mismatches.push('provider-payment-witness-amount-mismatch');
+
+  const currencyA = text(event?.currency, 12).toUpperCase();
+  const currencyB = text(order?.currency, 12).toUpperCase();
+  if (currencyA && currencyB && currencyA !== currencyB) mismatches.push('provider-payment-witness-currency-mismatch');
+
+  for (const [field, code] of [['product', 'provider-payment-witness-product-mismatch'],
+    ['prospectId', 'provider-payment-witness-prospect-mismatch'],
+    ['leadId', 'provider-payment-witness-lead-mismatch']]) {
+    const values = [event?.[field], order?.[field], clearing?.[field]]
+      .map(value => text(value, 200))
+      .filter(Boolean);
+    if (new Set(values).size > 1) mismatches.push(code);
+  }
+  return [...new Set(mismatches)];
+}
+
 function verifiedRevenueRows({ revenueEvents, clearedIndex, reversalIndex, ordersIndex, leadId }) {
   const verified = [];
   const unverified = [];
   const reversals = [];
   const unverifiedReversals = [];
   const duplicateReversals = [];
+  const contradicted = [];
   const seenReversals = new Map();
   // One provider event is one payment. The witness indexes are keyed maps and
   // therefore deduped, but the revenue ledger is a list: two rows carrying the
@@ -135,6 +176,13 @@ function verifiedRevenueRows({ revenueEvents, clearedIndex, reversalIndex, order
     if (positive && clearing && order) {
       if (seen.has(key)) {
         duplicates.push({ providerEventId: key, amountCents: cents(event?.amountCents) });
+        continue;
+      }
+      // Agreeing on the event's name is not agreeing on the payment. A row whose
+      // witnesses contradict each other proves nothing and is not counted.
+      const mismatches = witnessContentMismatches({ event, order, clearing });
+      if (mismatches.length) {
+        contradicted.push({ providerEventId: key, mismatches, amountCents: cents(event?.amountCents) });
         continue;
       }
       const row = { event, clearing, order };
@@ -165,6 +213,7 @@ function verifiedRevenueRows({ revenueEvents, clearedIndex, reversalIndex, order
     verified: sorted(verified.map(item => ({ ...item, createdAt: item.event?.createdAt }))),
     unverified: sorted(unverified),
     duplicates,
+    contradicted,
     reversals: sorted(reversals.map(item => ({ ...item, createdAt: item.event?.createdAt }))),
     unverifiedReversals: sorted(unverifiedReversals),
     duplicateReversals
@@ -224,7 +273,7 @@ export function reconcilePaymentRenewalTruth({
   const reversalIndex = reversalEvidenceIndex(safeAudit, leadId);
   const ordersIndex = orderEvidenceIndex(safeOrders, leadId);
   const {
-    verified, unverified, duplicates,
+    verified, unverified, duplicates, contradicted,
     reversals, unverifiedReversals, duplicateReversals
   } = verifiedRevenueRows({
     revenueEvents: safeRevenue,
@@ -280,6 +329,7 @@ export function reconcilePaymentRenewalTruth({
   if (fulfillment?.economicTruth?.acceptedDelivery === true && !acceptance.proven) contradictions.push('accepted-delivery-flag-without-external-customer-proof');
   if (fulfillment?.renewalPaymentRef && !renewals.length) contradictions.push('renewal-reference-without-provider-cleared-renewal-proof');
   if (duplicates.length) contradictions.push('duplicate-revenue-rows-for-one-provider-event');
+  for (const item of contradicted) contradictions.push(...item.mismatches);
   if (duplicateReversals.length) contradictions.push('duplicate-refund-rows-for-one-provider-event');
   if (unverifiedReversalCents > 0) contradictions.push('negative-revenue-row-without-provider-refund-proof');
   // Reversing more than ever cleared is not a small refund, it is a ledger that
@@ -320,7 +370,8 @@ export function reconcilePaymentRenewalTruth({
       verifiedReversalCount: reversals.length,
       unverifiedReversalCents,
       unverifiedReversal: unverifiedReversalCents / 100,
-      duplicateReversalRowCount: duplicateReversals.length
+      duplicateReversalRowCount: duplicateReversals.length,
+      contradictedWitnessRowCount: contradicted.length
     },
     verifiedProviderEventRefs: verified.map(item => item.event.providerEventId),
     verifiedReversalEventRefs: reversals.map(item => item.event.providerEventId),

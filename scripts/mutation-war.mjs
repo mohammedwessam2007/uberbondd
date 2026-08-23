@@ -95,6 +95,21 @@ export const MUTATIONS = [
     suites: ['tests/payment-renewal-truth.test.mjs', 'tests/payment-recovery-war.test.mjs']
   },
 
+  {
+    id: 'MONEY-06', guard: 'Payment witnesses must agree on amount and currency, not only identity',
+    file: 'src/payment-renewal-truth.mjs',
+    find: '      const mismatches = witnessContentMismatches({ event, order, clearing });',
+    replace: '      const mismatches = [];',
+    suites: ['tests/payment-witness-integrity-mutation.test.mjs']
+  },
+  {
+    id: 'RECOV-01', guard: 'Recovery may not overwrite a newer reservation status',
+    file: 'src/reservation-recovery.mjs',
+    find: "    if (current.status !== row.status) {",
+    replace: '    if (false) {',
+    suites: ['tests/reservation-recovery-race.test.mjs']
+  },
+
   // ---- Acceptance and retention ------------------------------------------
   {
     id: 'ACCEPT-01', guard: 'Only external customer evidence accepts a delivery',

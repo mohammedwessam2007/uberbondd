@@ -21,7 +21,15 @@ const KEY = `${EVENT_NAME}:${EVENT_ID}`;
 function witnesses({ leadId = 'lead_1' } = {}) {
   return {
     lead: { id: leadId, paymentStatus: 'paid' },
-    orders: [{ leadId, provider: 'lemonsqueezy', eventName: EVENT_NAME, providerEventId: EVENT_ID }],
+    // The order carries the amount and currency, because the sole writer of
+    // this collection (RevenueEngine, from the provider event) always does. An
+    // order without them is a shape production never produces, and leaving it
+    // out here meant the witnesses were never compared on content -- which is
+    // how a $50 order and a $5,000 ledger row both counted as the same payment.
+    orders: [{
+      leadId, provider: 'lemonsqueezy', eventName: EVENT_NAME, providerEventId: EVENT_ID,
+      amountCents: 5_000, currency: 'USD'
+    }],
     auditLog: [{
       type: 'payment_classification', leadId,
       classification: 'CLEARED_ONE_TIME_PAYMENT',
@@ -78,8 +86,8 @@ test('two genuinely different provider events both clear', () => {
   const result = reconcilePaymentRenewalTruth({
     lead: { id: 'lead_1', paymentStatus: 'paid' },
     orders: [
-      { leadId: 'lead_1', provider: 'lemonsqueezy', eventName: EVENT_NAME, providerEventId: EVENT_ID },
-      { leadId: 'lead_1', provider: 'lemonsqueezy', eventName: secondName, providerEventId: secondId }
+      { leadId: 'lead_1', provider: 'lemonsqueezy', eventName: EVENT_NAME, providerEventId: EVENT_ID, amountCents: 5_000, currency: 'USD' },
+      { leadId: 'lead_1', provider: 'lemonsqueezy', eventName: secondName, providerEventId: secondId, amountCents: 2_500, currency: 'USD' }
     ],
     auditLog: [
       { type: 'payment_classification', leadId: 'lead_1', classification: 'CLEARED_ONE_TIME_PAYMENT', eventName: EVENT_NAME, eventId: EVENT_ID },

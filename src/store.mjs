@@ -299,8 +299,30 @@ export class JsonStore {
   async tx(fn) { return this.transaction(async () => fn(this.data)); }
 
   _listDirect(key, options = {}) {
+    // The same refusal PostgreSQL gives. Without it, `list('sppressions', ...)`
+    // returned [] here and threw INVALID_COLLECTION in production -- so a typo
+    // was a silent empty result in development and a loud error where it is
+    // expensive, which is the wrong way round. An empty list from a suppression
+    // lookup reads as "nobody is suppressed".
+    if (!Object.hasOwn(this.data, key)) {
+      throw new StoreError(`Unknown collection: ${key}`, 'INVALID_COLLECTION');
+    }
     let rows = structuredClone(this.data[key] || []);
-    if (options.filters) rows = rows.filter(row => Object.entries(options.filters).every(([k, v]) => row?.[k] === v));
+    if (options.filters) {
+      // Validated against the same column map PostgreSQL uses, so the two
+      // stores give the same answer. Both key sets are the same 31 collections,
+      // so this applies everywhere; the `def` guard is what keeps it honest if
+      // a JSON-only collection is ever added.
+      const def = Object.hasOwn(MAP, key) ? MAP[key] : null;
+      if (def) {
+        for (const property of Object.keys(options.filters)) {
+          if (property !== 'id' && !Object.hasOwn(def.columns, property)) {
+            throw new StoreError(`Unsupported filter ${property} for ${key}`, 'INVALID_FILTER');
+          }
+        }
+      }
+      rows = rows.filter(row => Object.entries(options.filters).every(([k, v]) => row?.[k] === v));
+    }
     if (options.orderBy) {
       const direction = options.direction === 'asc' ? 1 : -1;
       rows.sort((a, b) => String(a?.[options.orderBy] ?? '').localeCompare(String(b?.[options.orderBy] ?? '')) * direction);

@@ -284,6 +284,13 @@ export const MUTATIONS = [
     suites: ['tests/agent-mesh-routing-starvation.test.mjs']
   },
   {
+    id: 'STORE-02', guard: 'The JSON store refuses what PostgreSQL refuses',
+    file: 'src/store.mjs',
+    find: "    if (!Object.hasOwn(this.data, key)) {\n      throw new StoreError(`Unknown collection: ${key}`, 'INVALID_COLLECTION');\n    }",
+    replace: '',
+    suites: ['tests/store-lookup-allowlist.test.mjs']
+  },
+  {
     id: 'STORE-01', guard: 'Collection and column lookups are real allowlists',
     file: 'src/store.mjs',
     find: '  if (!Object.hasOwn(MAP, key)) throw new StoreError(`Unknown collection: ${key}`, \'INVALID_COLLECTION\');\n  return MAP[key];',

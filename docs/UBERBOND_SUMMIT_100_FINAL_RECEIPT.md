@@ -5,7 +5,7 @@ Every number here was produced by running the command on the final tree.
 | | |
 |---|---|
 | **Start main** | `8e13bc0cd232375b0aad898ea1cea634834c63dc` |
-| **Final main** | see §Final gates — reconciled and pushed |
+| **Final main** | `bfcc56784c6e7515f1e6333e8134aa078d0f1317` |
 | **PRs merged** | #112 (fulfillment time gate) |
 | **PRs closed** | #110 superseded (its substance is in main); #108 merged in the prior mission |
 | **Issues closed** | #111 (escalation episodes) |

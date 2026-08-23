@@ -6,6 +6,7 @@
 // prototype-inherited ledger keys, a terminal decision in unexpected casing,
 // an over-broad suppression match, and a durable readiness path accepting an
 // asserted proof in place of receipts.
+// secret-scanner-fixtures-intentional: this file holds credential-shaped strings on purpose.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { canonicalZeroEffectLedger, ZERO_EFFECTS } from '../src/cloud-agent-relay.mjs';

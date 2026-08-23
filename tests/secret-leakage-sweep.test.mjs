@@ -1,6 +1,7 @@
 // Section 60: hunt for secrets in the places a secret would actually end up --
 // durable receipts, task packets, error text, model output -- rather than only
 // in source files, which is where scanners usually stop looking.
+// secret-scanner-fixtures-intentional: this file holds credential-shaped strings on purpose.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
@@ -12,6 +13,11 @@ import { sandboxChildEnv } from '../src/claude-code-sandbox-provisioner.mjs';
 import { beginAgentMeshCycleReceipt, finishAgentMeshCycleReceipt, listTerminalAgentMeshCycleReceipts } from '../src/agent-mesh-cycle-receipts.mjs';
 
 const repoRoot = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+// A file carrying this line is declaring that its credential-shaped strings are
+// fixtures. Split so that this file's own marker does not match itself by
+// accident when the scanner reads it.
+const FIXTURE_MARKER = ['secret-scanner', 'fixtures', 'intentional'].join('-');
 
 const SECRET_SHAPES = Object.freeze([
   'Bearer abcdefghijklmnopqrstuvwxyz012345',
@@ -138,6 +144,7 @@ test('no tracked file in the repository carries a real credential', async () => 
     /\bxox[baprs]-[A-Za-z0-9-]{20,}\b/
   ];
   const findings = [];
+  const exempted = [];
 
   async function walk(dir) {
     for (const entry of await readdir(dir, { withFileTypes: true })) {
@@ -148,8 +155,12 @@ test('no tracked file in the repository carries a real credential', async () => 
       if (!/\.(mjs|js|json|md|yml|yaml|example)$/.test(entry.name)) continue;
       let content;
       try { content = await readFile(full, 'utf8'); } catch { continue; }
-      // The suites in this file deliberately contain secret-shaped strings.
-      if (full.endsWith('secret-leakage-sweep.test.mjs')) continue;
+      // A scanner needs something to scan, so the suites that test it carry
+      // credential-shaped fixtures on purpose. Exempting them by filename means
+      // the exemption grows silently every time somebody adds a file; requiring
+      // an explicit marker means every exemption is a visible decision, and the
+      // assertion below pins how many exist.
+      if (content.includes(FIXTURE_MARKER)) { exempted.push(path.relative(repoRoot, full)); continue; }
       for (const pattern of patterns) {
         if (pattern.test(content)) findings.push(`${path.relative(repoRoot, full)} :: ${pattern}`);
       }
@@ -158,4 +169,11 @@ test('no tracked file in the repository carries a real credential', async () => 
 
   await walk(repoRoot);
   assert.deepEqual(findings, [], `credential-shaped material found:\n${findings.join('\n')}`);
+
+  // Every exemption is a file that says out loud it holds fixtures. If this
+  // list grows, somebody has to have written the marker deliberately.
+  assert.deepEqual(exempted.sort(), [
+    'tests/independent-sweep-regressions.test.mjs',
+    'tests/secret-leakage-sweep.test.mjs'
+  ], `unexpected fixture exemptions:\n${exempted.join('\n')}`);
 });

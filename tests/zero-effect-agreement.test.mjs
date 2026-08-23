@@ -27,7 +27,7 @@ function codeOnly(path) {
     .filter(line => !line.trimStart().startsWith('//'))
     .join('\n');
 }
-import { ZERO_EXTERNAL_EFFECTS, isProvenZeroEffect } from '../src/effect-ledgers.mjs';
+import { ZERO_EXTERNAL_EFFECTS, isProvenZeroEffect, ZERO_CANONICAL_EFFECTS, ZERO_BUSINESS_EFFECTS } from '../src/effect-ledgers.mjs';
 
 const NOT_PROOF_OF_ZERO = [
   ['an empty object', {}],
@@ -83,4 +83,52 @@ test('a positive effect is refused everywhere, which is the easy half', () => {
     assert.notEqual(canonicalZeroEffectLedger(ledger).length, 0, `${key} > 0 was accepted`);
     assert.equal(isProvenZeroEffect('externalEffectLedger', ledger), false);
   }
+});
+
+// Several modules keep a local `ZERO_EFFECTS` object literal instead of
+// importing one. Nothing they say today is false, and forcing them onto a
+// single vocabulary would be wrong -- there are three legitimate shapes here:
+// the canonical external ledger, the legacy business ledger kept for
+// already-persisted receipts, and service-fulfillment's own spelling.
+//
+// The risk is drift, not disagreement. `agent-provider-worker.mjs` holds a
+// byte-for-byte copy of ZERO_BUSINESS_EFFECTS while importing from the very
+// module that exports it: today the copy is right, and the day the exported
+// constant gains a key the copy silently claims that effect did not happen.
+// That is the omitted-key defect arriving through the calendar rather than
+// through a typo, and it is the same "six modules grew their own copy of this"
+// pattern that produced a scanner with five different holes.
+//
+// So a local copy is allowed to exist and is not allowed to diverge.
+test('a local copy of a canonical ledger may not diverge from it', () => {
+  const CANONICAL = { ZERO_CANONICAL_EFFECTS, ZERO_EXTERNAL_EFFECTS, ZERO_BUSINESS_EFFECTS };
+  const divergent = [];
+
+  for (const name of readdirSync('src').filter(f => f.endsWith('.mjs'))) {
+    if (name === 'effect-ledgers.mjs') continue;
+    const source = codeOnly(`src/${name}`);
+    for (const match of source.matchAll(/const\s+(\w+)\s*=\s*Object\.freeze\(\{([^}]*)\}\)/g)) {
+      const [, localName, body] = match;
+      const canonical = CANONICAL[localName];
+      if (!canonical) continue;
+      const keys = [...body.matchAll(/^\s*(\w+)\s*:/gm)].map(m => m[1]).sort();
+      const expected = Object.keys(canonical).sort();
+      if (JSON.stringify(keys) !== JSON.stringify(expected)) {
+        divergent.push(`${name}: local ${localName} has [${keys}], the exported one has [${expected}]`);
+      }
+    }
+  }
+
+  assert.deepEqual(divergent, [],
+    'a local copy of a canonical ledger has drifted from the constant it copies');
+});
+
+test('a module that reuses a canonical name is reusing the canonical shape', () => {
+  // The check above only fires for a local constant sharing an exported name.
+  // Assert at least one such copy exists, so the check cannot pass vacuously
+  // after somebody renames the local constant and takes the guard with it.
+  const copies = readdirSync('src')
+    .filter(f => f.endsWith('.mjs') && f !== 'effect-ledgers.mjs')
+    .filter(name => /const\s+ZERO_(?:CANONICAL_EFFECTS|EXTERNAL_EFFECTS|BUSINESS_EFFECTS)\s*=\s*Object\.freeze/.test(codeOnly(`src/${name}`)));
+  assert.ok(copies.length > 0, 'no local copy found; the divergence check above now proves nothing');
 });

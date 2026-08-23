@@ -1,6 +1,7 @@
 import { tickActiveAutonomyRuns } from './agent-autonomy-job.mjs';
 import { runAgentWorkerTick } from './agent-worker-job.mjs';
 import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
+import { redactSecrets } from './secret-patterns.mjs';
 import {
   beginAgentMeshCycleReceipt,
   finishAgentMeshCycleReceipt,
@@ -16,6 +17,14 @@ const MAX_AUTONOMY_RUNS_PER_SWEEP = 10;
 
 function text(value, max = 240) {
   return String(value ?? '').trim().slice(0, max);
+}
+
+// A thrown provider or store error carries whatever the library felt like
+// putting in the message, which is regularly a URL with credentials in it.
+// These strings become reason codes on a durable receipt, so they are redacted
+// before they get that far rather than merely truncated.
+function errorText(value, max = 300) {
+  return redactSecrets(String(value ?? '').trim()).slice(0, max);
 }
 
 function timestamp(value) {
@@ -194,7 +203,7 @@ export async function runAgentMeshCycle({
     } catch (error) {
       // A cycle that cannot reconcile old crashes must not silently proceed as
       // though there were none: the history it is about to add to is unsound.
-      return fail(['abandoned-cycle-reconciliation-failed', text(error?.message, 300)], 'BLOCKED', {
+      return fail(['abandoned-cycle-reconciliation-failed', errorText(error?.message)], 'BLOCKED', {
         at: timestamp(date)
       });
     }
@@ -247,7 +256,7 @@ export async function runAgentMeshCycle({
         date
       });
     } catch (error) {
-      result = { ok: false, status: 'WORKER_TICK_THREW', reasonCodes: ['worker-tick-threw', text(error?.message, 300)] };
+      result = { ok: false, status: 'WORKER_TICK_THREW', reasonCodes: ['worker-tick-threw', errorText(error?.message)] };
     }
     workerResults.push(workerReceipt(result, config));
   }

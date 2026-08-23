@@ -1,12 +1,13 @@
 import crypto from 'node:crypto';
 import { validateAgentCodeChangeSet } from './agent-code-change-contract.mjs';
+import { containsSecretValue } from './secret-patterns.mjs';
 
 export const AGENT_CODE_ARTIFACT_STORE_POLICY_VERSION = 'agent-code-artifact-store-1.1.0';
 
 const AUDIT_TYPE = 'agent_code_change_artifact';
 const MAX_SCAN = 3000;
 const MAX_ARTIFACT_BYTES = 220_000;
-const SECRET_VALUE = /(?:-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|\bAKIA[0-9A-Z]{16}\b|\bBearer\s+[A-Za-z0-9._~+/=-]{24,}|\bsk-[A-Za-z0-9_-]{16,}|\bgh[pousr]_[A-Za-z0-9_]{16,})/;
+
 
 function text(value, max = 500) {
   return String(value ?? '').trim().slice(0, max);
@@ -45,7 +46,7 @@ function artifactRef(changeSetId) {
 }
 
 function materialSecret(changeSet) {
-  return (changeSet?.changes || []).some(change => SECRET_VALUE.test(String(change?.content || '')));
+  return (changeSet?.changes || []).some(change => containsSecretValue(String(change?.content || '')));
 }
 
 async function rows(store, limit = MAX_SCAN) {

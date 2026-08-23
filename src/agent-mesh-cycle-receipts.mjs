@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
+import { redactSecrets } from './secret-patterns.mjs';
 
 export const AGENT_MESH_CYCLE_RECEIPT_VERSION = 'agent-mesh-cycle-receipt-1.6.0';
 const START_TYPE = 'agent_mesh_cycle_started';
@@ -9,6 +10,15 @@ const MAX_OCCURRENCE_KEY_LENGTH = 300;
 
 function text(value, max = 240) {
   return String(value ?? '').trim().slice(0, max);
+}
+
+// Reason codes are the one field in a receipt that carries free text a worker
+// or a provider wrote, and receipts are durable forever. A credential quoted
+// into an error message would otherwise be persisted with it. Truncation is
+// not redaction: a 180-character slice of a bearer token is still most of a
+// bearer token.
+function reasonText(value, max = 180) {
+  return redactSecrets(String(value ?? '').trim()).slice(0, max);
 }
 
 function strictOccurrenceKey(value) {
@@ -45,7 +55,7 @@ function safeWorkers(workers = []) {
     ok: worker?.ok !== false,
     taskId: text(worker?.taskId, 180) || null,
     reasonCodes: Array.isArray(worker?.reasonCodes)
-      ? worker.reasonCodes.slice(0, 20).map(code => text(code, 180)).filter(Boolean)
+      ? worker.reasonCodes.slice(0, 20).map(code => reasonText(code)).filter(Boolean)
       : []
   }));
 }
@@ -111,7 +121,7 @@ function normalizedTerminalWorkers(workers = []) {
 function terminalTruth(detail = {}) {
   return {
     status: text(detail.status, 80),
-    reasonCodes: [...new Set((detail.reasonCodes || []).map(code => text(code, 180)).filter(Boolean))].sort(),
+    reasonCodes: [...new Set((detail.reasonCodes || []).map(code => reasonText(code)).filter(Boolean))].sort(),
     firstSweep: safeSummary(detail.firstSweep),
     workers: normalizedTerminalWorkers(detail.workers || []),
     secondSweep: safeSummary(detail.secondSweep),
@@ -292,7 +302,7 @@ export async function finishAgentMeshCycleReceipt({
     sourceCommit: requestedSourceCommit,
     policyVersions: requestedPolicies,
     status,
-    reasonCodes: [...new Set((reasonCodes || []).map(code => text(code, 180)).filter(Boolean))].slice(0, 30),
+    reasonCodes: [...new Set((reasonCodes || []).map(code => reasonText(code)).filter(Boolean))].slice(0, 30),
     firstSweep: safeSummary(firstSweep),
     workers: safeWorkers(workers),
     secondSweep: safeSummary(secondSweep),

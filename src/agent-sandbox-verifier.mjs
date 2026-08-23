@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import { execFile } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { redactSecrets } from './secret-patterns.mjs';
 
 export const AGENT_SANDBOX_VERIFIER_POLICY_VERSION = 'agent-sandbox-verifier-1.0.0';
 
@@ -10,13 +11,7 @@ const MAX_BUFFER = 3_000_000;
 const MAX_EXCERPT = 2_000;
 const MAX_TIMEOUT_MS = 15 * 60 * 1000;
 
-const SECRET_PATTERNS = Object.freeze([
-  /\bBearer\s+[A-Za-z0-9._~+/=-]{8,}/gi,
-  /\bsk-[A-Za-z0-9_-]{8,}/gi,
-  /\bgh[pousr]_[A-Za-z0-9_]{8,}/gi,
-  /-----BEGIN[\s\S]{0,120}?PRIVATE KEY-----/gi,
-  /\b(?:DATABASE_URL|OPENAI_API_KEY|ANTHROPIC_API_KEY|VERCEL_TOKEN|GITHUB_TOKEN)\s*=\s*[^\s]+/gi
-]);
+
 
 function text(value, max = 1000) {
   return String(value ?? '').trim().slice(0, max);
@@ -43,9 +38,7 @@ function fail(reasonCodes, status = 'BLOCKED', extra = {}) {
 }
 
 function redact(value) {
-  let out = String(value ?? '');
-  for (const pattern of SECRET_PATTERNS) out = out.replace(pattern, '[REDACTED]');
-  return out;
+  return redactSecrets(value);
 }
 
 function excerpt(value) {

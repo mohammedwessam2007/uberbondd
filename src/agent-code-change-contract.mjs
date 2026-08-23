@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { containsSecretValue } from './secret-patterns.mjs';
 import path from 'node:path';
 
 export const AGENT_CODE_CHANGE_POLICY_VERSION = 'agent-code-change-1.2.0';
@@ -33,11 +34,7 @@ const PROTECTED_PREFIXES = Object.freeze([
   'scripts/check-syntax.mjs'
 ]);
 
-const HIGH_RISK_SECRET_PATTERNS = Object.freeze([
-  /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,
-  /\bAKIA[0-9A-Z]{16}\b/,
-  /\bBearer\s+[A-Za-z0-9._~+/=-]{24,}/
-]);
+
 
 function text(value, max = MAX_TEXT) {
   return String(value ?? '').trim().slice(0, max);
@@ -83,8 +80,7 @@ function protectedPath(filePath) {
 }
 
 function secretMaterial(content) {
-  if (typeof content !== 'string') return false;
-  return HIGH_RISK_SECRET_PATTERNS.some(pattern => pattern.test(content));
+  return containsSecretValue(content);
 }
 
 function sha256(value) {

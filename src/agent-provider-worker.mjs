@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import { normalizeCoordination } from './agent-autonomy-loop.mjs';
 import { AGENT_MODEL_ROUTER_POLICY_VERSION } from './agent-model-router.mjs';
+import { containsSecretValue } from './secret-patterns.mjs';
 
 export const AGENT_PROVIDER_WORKER_POLICY_VERSION = 'agent-provider-worker-1.0.0';
 
@@ -26,7 +27,7 @@ const ZERO_EXTERNAL_EFFECTS = Object.freeze({
 });
 
 const SECRET_KEY = /^(authorization|api[-_]?key|secret|password|credential|access[-_]?token|refresh[-_]?token|private[-_]?key)$/i;
-const SECRET_VALUE = /(?:\bBearer\s+[A-Za-z0-9._~+/=-]{12,}|\bsk-[A-Za-z0-9_-]{12,}|\bgh[pousr]_[A-Za-z0-9_]{12,})/;
+
 const MAX_TEXT = 8000;
 const MAX_OUTPUTS = 64;
 const MAX_TOOLS = 32;
@@ -56,7 +57,7 @@ function fail(reasonCodes, status = 'REJECTED', extra = {}) {
 
 function hasSecret(value, seen = new Set()) {
   if (value == null) return false;
-  if (typeof value === 'string') return SECRET_VALUE.test(value);
+  if (typeof value === 'string') return containsSecretValue(value);
   if (typeof value !== 'object') return false;
   if (seen.has(value)) return false;
   seen.add(value);

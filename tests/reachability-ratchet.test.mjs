@@ -103,7 +103,7 @@ test('the reachability split is reported, so a regression is visible in the numb
   assert.equal(production.length + operatorOnly.length + unreachable.length, all.length);
   // Production reachability must not silently fall. This is a ratchet, not a
   // target: raise it when modules get wired, and never lower it to go green.
-  assert.ok(production.length >= 98,
+  assert.ok(production.length >= 103,
     `production-reachable modules fell to ${production.length}; something was unwired`);
 });
 

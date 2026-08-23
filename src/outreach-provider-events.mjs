@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 
 import { sha256 } from './omnia-v9/canonical.mjs';
 
-export const OUTREACH_PROVIDER_EVENT_VERSION = 'uberbond.outreach-provider-event.v1';
+export const OUTREACH_PROVIDER_EVENT_VERSION = 'uberbond.outreach-provider-event.v2';
 export const WEBHOOK_SIGNATURE_HEADER = 'x-uberbond-webhook-signature';
 export const WEBHOOK_TIMESTAMP_HEADER = 'x-uberbond-webhook-timestamp';
 export const WEBHOOK_CLOCK_SKEW_SECONDS = 300;
@@ -129,7 +129,7 @@ export function normalizeProviderEvent(input = {}, { provider = 'unknown', rawBo
   const threadId = firstValue(input, ['thread_id', 'threadId'], 500);
   const replyBody = firstValue(input, ['reply_text', 'replyText', 'body', 'text', 'reply_text_snippet'], 20000);
   const replySubject = firstValue(input, ['reply_subject', 'replySubject', 'subject', 'email_subject'], 500);
-  const event = {
+  return {
     schemaVersion: OUTREACH_PROVIDER_EVENT_VERSION,
     provider: normalizedProvider,
     rawType,
@@ -152,15 +152,13 @@ export function normalizeProviderEvent(input = {}, { provider = 'unknown', rawBo
     replyBody,
     replyHtml: firstValue(input, ['reply_html', 'replyHtml', 'email_html'], 30000),
     uniboxUrl: firstValue(input, ['unibox_url', 'uniboxUrl'], 1000),
-    isFirst: input.is_first === true || input.isFirst === true,
-    raw: input
+    isFirst: input.is_first === true || input.isFirst === true
   };
-  return event;
 }
 
 export function internalReplyFromProviderEvent(event, { prospectId, threadId = '' } = {}) {
   if (!event || !['reply', 'automatic'].includes(event.eventType)) return null;
-  const body = stringValue(event.replyBody || event.raw?.reply_text_snippet || '', 20000);
+  const body = stringValue(event.replyBody || '', 20000);
   return {
     id: `reply_${event.providerEventKey.replace(/[^a-z0-9_-]/gi, '').slice(0, 100)}`,
     prospectId: String(prospectId || ''),

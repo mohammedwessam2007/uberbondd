@@ -214,7 +214,7 @@ test('the rehearsal produces no founder-absence certification, and says why', as
   const readiness = await evaluateFounderAbsenceReadinessFromDurableHistory({
     store, capabilities, targetDays: 7, now: NOW,
     currentSourceCommit: COMMIT,
-    currentPolicyVersions: []
+    currentPolicyVersions: ['agent-mesh-control-plane-1.3.0']
   });
 
   // One cycle is one cycle. A seven-day claim needs seven days, and no amount

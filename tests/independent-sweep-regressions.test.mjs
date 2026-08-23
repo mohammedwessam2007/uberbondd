@@ -132,7 +132,7 @@ test('the durable readiness path will not accept an asserted proof over receipts
     targetDays: 7,
     now: NOW,
     currentSourceCommit: 'c',
-    currentPolicyVersions: [],
+    currentPolicyVersions: ['p'],
     // A perfect proof, handed in by the caller, against an empty receipt store.
     observationProof: {
       observedFrom: new Date(end.getTime() - 7 * 24 * 3600 * 1000).toISOString(),
@@ -144,6 +144,26 @@ test('the durable readiness path will not accept an asserted proof over receipts
   });
   assert.notEqual(readiness.status, 'KILIMANJARO_READY');
   assert.equal(readiness.durableHistory.qualifyingTerminalReceiptCount, 0);
+});
+
+test('the durable readiness path refuses to run at all without a current identity', async () => {
+  // Without a current commit and policy set there is nothing to scope the
+  // history to, so every receipt would qualify. That is a refusal, not a
+  // best-effort answer.
+  const store = memoryStore();
+  const noPolicies = await evaluateFounderAbsenceReadinessFromDurableHistory({
+    store, capabilities: liveCapabilities(), targetDays: 7, now: NOW,
+    currentSourceCommit: 'c', currentPolicyVersions: []
+  });
+  assert.equal(noPolicies.ok, false);
+  assert.ok(noPolicies.reasonCodes.includes('current-policy-versions-required-for-durable-history'));
+
+  const noCommit = await evaluateFounderAbsenceReadinessFromDurableHistory({
+    store, capabilities: liveCapabilities(), targetDays: 7, now: NOW,
+    currentSourceCommit: '', currentPolicyVersions: ['p']
+  });
+  assert.equal(noCommit.ok, false);
+  assert.ok(noCommit.reasonCodes.includes('current-source-commit-required-for-durable-history'));
 });
 
 test('a future-dated receipt cannot manufacture an observation window', async () => {

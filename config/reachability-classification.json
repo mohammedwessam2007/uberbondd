@@ -216,12 +216,7 @@
     "src/agent-provider-worker.mjs": {
       "category": "SUPERSEDED",
       "gate": null,
-      "reason": "Reached only from the superseded provider-execution path."
-    },
-    "src/agent-model-router.mjs": {
-      "category": "NEEDS_TRIAGE",
-      "gate": null,
-      "reason": "Model routing is a live capability claim, but the only importer is the superseded provider-execution cluster. Either the mesh should route through it or the claim should be downgraded. Not decided."
+      "reason": "Reached only from the superseded provider-execution path. The model router it imported is now reachable in its own right via scripts/agent-model-route.mjs, which leaves this module as the last resident of that superseded cluster."
     },
     "src/agent-evolution-wave.mjs": {
       "category": "NEEDS_TRIAGE",

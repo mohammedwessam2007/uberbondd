@@ -1,17 +1,19 @@
 import crypto from 'node:crypto';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const PAYMENT_RENEWAL_TRUTH_VERSION = 'payment-renewal-truth-1.0.0';
 
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  paymentMutations: 0,
-  spendCents: 0
+// The canonical shape plus one declared extension, rather than a fourth
+// independent copy. `paymentMutations` is a real effect this module needs to
+// report and the canonical set does not carry -- adding it there would make
+// every existing complete ledger incomplete under the relay's own contract.
+//
+// Spreading rather than retyping is the point: if the canonical set changes,
+// this follows it instead of drifting away from it, which is how six copies of
+// the credential regex ended up with six different holes.
+const PAYMENT_TRUTH_EFFECTS = Object.freeze({
+  ...ZERO_EXTERNAL_EFFECTS,
+  paymentMutations: 0
 });
 
 const CLEARED_CLASSIFICATIONS = new Set([
@@ -78,18 +80,38 @@ function orderEvidenceIndex(orders, leadId) {
 function verifiedRevenueRows({ revenueEvents, clearedIndex, ordersIndex, leadId }) {
   const verified = [];
   const unverified = [];
+  // One provider event is one payment. The witness indexes are keyed maps and
+  // therefore deduped, but the revenue ledger is a list: two rows carrying the
+  // same providerEventId each matched the same order and the same clearing
+  // receipt, and both were counted. A single $50 payment recorded twice
+  // reported $100 cleared, with no contradiction raised.
+  //
+  // A duplicate row is not silently dropped either. It is a ledger integrity
+  // problem in its own right, and the caller is told.
+  const seen = new Map();
+  const duplicates = [];
   for (const event of revenueEvents.filter(row => !leadId || row?.leadId === leadId)) {
     const key = text(event?.providerEventId, 400);
     const positive = cents(event?.amountCents) > 0;
     const clearing = clearedIndex.get(key);
     const order = ordersIndex.get(key);
     if (positive && clearing && order) {
-      verified.push({ event, clearing, order });
+      if (seen.has(key)) {
+        duplicates.push({ providerEventId: key, amountCents: cents(event?.amountCents) });
+        continue;
+      }
+      const row = { event, clearing, order };
+      seen.set(key, row);
+      verified.push(row);
     } else if (positive) {
       unverified.push(event);
     }
   }
-  return { verified: sorted(verified.map(item => ({ ...item, createdAt: item.event?.createdAt }))), unverified: sorted(unverified) };
+  return {
+    verified: sorted(verified.map(item => ({ ...item, createdAt: item.event?.createdAt }))),
+    unverified: sorted(unverified),
+    duplicates
+  };
 }
 
 function acceptanceTruth(fulfillment) {
@@ -143,7 +165,7 @@ export function reconcilePaymentRenewalTruth({
   const safeAudit = Array.isArray(auditLog) ? auditLog : [];
   const clearedIndex = clearedEvidenceIndex(safeAudit, leadId);
   const ordersIndex = orderEvidenceIndex(safeOrders, leadId);
-  const { verified, unverified } = verifiedRevenueRows({
+  const { verified, unverified, duplicates } = verifiedRevenueRows({
     revenueEvents: safeRevenue,
     clearedIndex,
     ordersIndex,
@@ -180,6 +202,7 @@ export function reconcilePaymentRenewalTruth({
   if (unverifiedPositiveRevenueCents > 0) contradictions.push('positive-revenue-row-without-provider-cleared-proof');
   if (fulfillment?.economicTruth?.acceptedDelivery === true && !acceptance.proven) contradictions.push('accepted-delivery-flag-without-external-customer-proof');
   if (fulfillment?.renewalPaymentRef && !renewals.length) contradictions.push('renewal-reference-without-provider-cleared-renewal-proof');
+  if (duplicates.length) contradictions.push('duplicate-revenue-rows-for-one-provider-event');
 
   const result = {
     ok: contradictions.length === 0,
@@ -193,7 +216,9 @@ export function reconcilePaymentRenewalTruth({
       unverifiedPositiveRevenueCents,
       unverifiedPositiveRevenue: unverifiedPositiveRevenueCents / 100,
       verifiedPaymentCount: verified.length,
-      verifiedRenewalCount: renewals.length
+      verifiedRenewalCount: renewals.length,
+      duplicateRevenueRowCount: duplicates.length,
+      duplicateRevenueRowCents: duplicates.reduce((sum, item) => sum + item.amountCents, 0)
     },
     verifiedProviderEventRefs: verified.map(item => item.event.providerEventId),
     unverifiedPositiveRevenueEventRefs: unverified.map(item => text(item.providerEventId, 400)).filter(Boolean),
@@ -205,7 +230,7 @@ export function reconcilePaymentRenewalTruth({
       customerAcceptance: acceptance.proven ? 'EXTERNAL_CUSTOMER_EVIDENCE_PRESENT' : 'NOT_PROVEN',
       renewal: renewals.length ? 'PROVIDER_CLEARED_RENEWAL_PROVEN' : 'NOT_PROVEN'
     },
-    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
+    externalEffectLedger: { ...PAYMENT_TRUTH_EFFECTS }
   };
 
   result.truthDigest = digest({
@@ -231,4 +256,4 @@ export async function reconcilePaymentRenewalTruthFromStore(store, { leadId, ful
   return reconcilePaymentRenewalTruth({ lead, orders, revenueEvents, auditLog, fulfillment });
 }
 
-export const PAYMENT_RENEWAL_TRUTH_EXTERNAL_EFFECTS = ZERO_EXTERNAL_EFFECTS;
+export const PAYMENT_RENEWAL_TRUTH_EXTERNAL_EFFECTS = PAYMENT_TRUTH_EFFECTS;

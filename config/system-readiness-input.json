@@ -2,16 +2,16 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 422,
+      "filesParsed": 424,
       "ranAt": "2026-08-23T00:45:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 1958,
-      "pass": 1916,
+      "tests": 1966,
+      "pass": 1924,
       "fail": 0,
       "skipped": 42,
-      "ranAt": "2026-08-23T03:10:00Z"
+      "ranAt": "2026-08-23T03:35:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -130,13 +130,14 @@
       "level": 3,
       "evidence": [
         "src/agent-autonomy-occurrence.mjs",
-        "src/agent-autonomy-scheduled-run.mjs"
+        "src/agent-autonomy-scheduled-run.mjs",
+        "src/agent-mesh-mission-seed.mjs"
       ],
       "tests": [
         "tests/autonomy-occurrence-identity.test.mjs",
-        "tests/agent-mesh-occurrence-identity.test.mjs"
+        "tests/agent-mesh-mission-seed.test.mjs"
       ],
-      "nextAction": "None internal."
+      "nextAction": "Reachable from scripts/agent-mesh-tick.mjs via AGENT_MESH_MISSION; needs a real scheduler firing it."
     },
     {
       "id": "scheduler-fairness",

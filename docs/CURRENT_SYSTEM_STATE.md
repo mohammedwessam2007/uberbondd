@@ -41,8 +41,8 @@ Every number below was produced by running the command, on this tree.
 
 | Gate | Command | Result |
 |---|---|---|
-| Syntax | `npm run check:syntax` | 422 files parse |
-| Deterministic | `npm run test:deterministic` | 1958 tests, 1916 pass, **0 fail**, 42 skipped |
+| Syntax | `npm run check:syntax` | 424 files parse |
+| Deterministic | `npm run test:deterministic` | 1966 tests, 1924 pass, **0 fail**, 42 skipped |
 | Relay safety | `npm run test:relay-safety` | 150 tests, 150 pass, 0 fail |
 | Real PostgreSQL | `npm run test:postgres-real` | 107 tests, **107 pass, 0 skipped** |
 | Dependencies | `npm audit` | 0 vulnerabilities |
@@ -100,6 +100,14 @@ same as blocking on it. `scoreLeadCandidate` names the route state — invalid,
 suppressed, stale, needs-review, unverified — and an unstated verification
 state is refused, because "we never checked" and "we checked and it is fine"
 must not score the same (issue #99).
+
+**The occurrence layer is reachable, not just implemented.** `compileScheduledAutonomyRun`
+existed and nothing in production called it — a compiler nobody compiled with,
+the same gap #88 recorded for the mesh. `AGENT_MESH_MISSION` declares one
+recurring mission and the tick seeds it before pumping, idempotently: the same
+occurrence finds its run, the next occurrence gets its own. A reachability
+assertion is part of the test, because a green suite says nothing about whether
+a module can be reached.
 
 **Suppression dominates enrichment.** An unsubscribe is sticky and cannot be
 outvoted by a later VALID check. Plus-tagged and dot-variant forms of a
@@ -176,8 +184,9 @@ Three, in order of what unlocks the most:
    from the runtime that enforces the network boundary. Unlocks autonomous
    engineering.
 3. **Activate the scheduler** against `scripts/agent-mesh-tick.mjs` with
-   `AGENT_MESH_OCCURRENCE_KEY` per delivery and zero business effects. Starts
-   the clock on every duration-based tier.
+   `AGENT_MESH_OCCURRENCE_KEY` per delivery, `AGENT_MESH_MISSION` for the
+   recurring mission, and zero business effects. Starts the clock on every
+   duration-based tier.
 
 Everything else the software can do for itself, defer safely, or decide from
 evidence.

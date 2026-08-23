@@ -52,18 +52,28 @@ function pageIdentity(rows) {
 }
 
 /**
- * Find the newest stored snapshots for one run without requiring that run to
- * be present inside one global MAX_SCAN window.
+ * Find the newest stored snapshot rows for one run, without requiring that run
+ * to sit inside one global MAX_SCAN window.
  *
- * Stores already expose bounded offset pagination. We walk newest-first pages
- * until the requested run appears or the filtered audit history is exhausted.
- * Once it appears, later pages are older append history and cannot contain a
- * newer valid sequence because saveAutonomyRunSnapshot rejects sequence
- * regression at write time.
+ * Stores expose bounded offset pagination, so this walks pages until the
+ * filtered audit history is exhausted and keeps every matching row it finds.
  *
- * A store implementation that ignores offset is detected by a repeated full
- * page. We preserve the historical saturation failure in that case instead of
- * looping forever or pretending absence is proven.
+ * It deliberately does NOT stop at the first page containing the run. An
+ * earlier version did, on the reasoning that pages arrive newest-first so the
+ * first hit must be the newest. `src/store.mjs` `_listDirect` applies no
+ * ordering unless a caller passes `orderBy`, so pages actually arrive in
+ * insertion order -- oldest first. Stopping at the first hit therefore returned
+ * the run's OLDEST snapshot: a probe that buried a run under 2500 filler rows
+ * and then wrote a newer snapshot got sequence 0 back instead of 5. That is the
+ * same silent rewind the saturation guard exists to prevent, arriving through
+ * the door built to fix it.
+ *
+ * Scanning to exhaustion costs a full filtered pass. Correctness under an
+ * ordering the store does not promise is worth more than a shorter walk.
+ *
+ * A store that ignores `offset` is detected by a repeated full page, and keeps
+ * the historical saturation failure rather than looping forever or reporting
+ * absence it cannot prove.
  */
 async function auditRowsForRun(store, type, runId) {
   if (!validStore(store)) return { ok: false, reasonCodes: ['store-log-and-list-required'], rows: [], scannedRows: 0 };
@@ -73,6 +83,7 @@ async function auditRowsForRun(store, type, runId) {
   let offset = 0;
   let scannedRows = 0;
   let priorPageIdentity = '';
+  const found = [];
 
   while (true) {
     const page = await store.list('auditLog', {
@@ -96,13 +107,12 @@ async function auditRowsForRun(store, type, runId) {
 
     scannedRows += rows.length;
 
-    const matches = rows.filter(row => row?.detail?.runId === id && validRun(row?.detail?.run));
-    if (matches.length) {
-      return { ok: true, rows: matches, scannedRows, exhausted: rows.length < MAX_SCAN };
+    for (const row of rows) {
+      if (row?.detail?.runId === id && validRun(row?.detail?.run)) found.push(row);
     }
 
     if (rows.length < MAX_SCAN) {
-      return { ok: true, rows: [], scannedRows, exhausted: true };
+      return { ok: true, rows: found, scannedRows, exhausted: true };
     }
 
     if (!identity) {

@@ -35,8 +35,14 @@ function sku(overrides = {}) {
   });
 }
 
+// The plan is pinned to a fixed date and every event carries a matching clock.
+// Without that, the plan is stamped at real now while these events claim
+// 01:00-05:00Z, so the suite passed before 01:00 UTC and failed after it --
+// a clock-of-day dependency, not a property.
+const PLAN_AT = '2026-08-23T00:00:00Z';
+
 function deliveredPlan() {
-  const compiled = compileFulfillmentFromSku({ sku: sku(), customerRef: 'customer_1' });
+  const compiled = compileFulfillmentFromSku({ sku: sku(), customerRef: 'customer_1', date: PLAN_AT });
   assert.equal(compiled.ok, true);
   let state = compiled.fulfillmentPlan;
   const events = [
@@ -47,7 +53,7 @@ function deliveredPlan() {
     { type: 'ACCEPTANCE_REQUESTED', at: '2026-08-23T05:00:00Z', eventId: 'e5' }
   ];
   for (const event of events) {
-    const applied = applyFulfillmentEvent({ state, event });
+    const applied = applyFulfillmentEvent({ state, event, date: event.at });
     assert.equal(applied.ok, true, `${event.type}: ${applied.reasonCodes?.join(',')}`);
     state = applied.state;
   }
@@ -88,7 +94,8 @@ test('model, operator, synthetic and internal evidence can never self-accept a d
   for (const evidenceOrigin of ['MODEL_OUTPUT', 'OPERATOR_ASSERTION', 'SYNTHETIC', 'INTERNAL_DETERMINISTIC']) {
     const attempt = applyFulfillmentEvent({
       state: pending,
-      event: { type: 'CUSTOMER_ACCEPTED', evidenceRef: 'x', evidenceOrigin, at: '2026-08-23T06:00:00Z', eventId: `acc_${evidenceOrigin}` }
+      event: { type: 'CUSTOMER_ACCEPTED', evidenceRef: 'x', evidenceOrigin, at: '2026-08-23T06:00:00Z', eventId: `acc_${evidenceOrigin}` },
+      date: '2026-08-23T06:00:00Z'
     });
     assert.ok(
       !attempt.ok || !['ACCEPTED', 'SUPPORT_ACTIVE'].includes(attempt.state?.status),
@@ -110,15 +117,17 @@ test('every fulfillment transition receipt reports zero external effect', () => 
 });
 
 test('a repeated event id cannot be reused for contradictory content', () => {
-  const compiled = compileFulfillmentFromSku({ sku: sku(), customerRef: 'customer_1' });
+  const compiled = compileFulfillmentFromSku({ sku: sku(), customerRef: 'customer_1', date: PLAN_AT });
   const first = applyFulfillmentEvent({
     state: compiled.fulfillmentPlan,
-    event: { type: 'WORK_STARTED', at: '2026-08-23T01:00:00Z', eventId: 'shared' }
+    event: { type: 'WORK_STARTED', at: '2026-08-23T01:00:00Z', eventId: 'shared' },
+    date: '2026-08-23T01:00:00Z'
   });
   assert.equal(first.ok, true);
   const collision = applyFulfillmentEvent({
     state: first.state,
-    event: { type: 'CANCELLED', at: '2026-08-23T01:00:00Z', eventId: 'shared' }
+    event: { type: 'CANCELLED', at: '2026-08-23T01:00:00Z', eventId: 'shared' },
+    date: '2026-08-23T01:00:00Z'
   });
   assert.ok(!collision.ok || collision.state.status !== 'CANCELLED');
 });

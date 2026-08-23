@@ -141,6 +141,65 @@ Fix 18 closed this hole for the identity fields and left it open for the two
 fields that are the payment itself. That is the third time in this mission a fix
 of mine was correct in what it did and incomplete in what it covered.
 
+**23. A failed lead lookup widened the question to every lead.** Found by sweep
+11. The scope a caller asked about and the record a lookup returned were the
+same field, so a lookup that found nothing collapsed the scope to null — which
+this module reads as "reconcile everything":
+
+```
+ask for "lead-alice" -> $50.00      verified 1  PROVIDER_CLEARED_PAYMENT_PROVEN
+ask for "lead-typo"  -> $9,050.00   verified 2  PROVIDER_CLEARED_PAYMENT_PROVEN
+```
+
+Both leads were honest and internally consistent, so not one of the witness
+checks above catches this — only the scope does. A typo, or a lead deleted since
+the question was asked, turned a per-customer figure into the whole book's
+revenue with a proven status.
+
+An unknown lead now also raises `payment-truth-requested-for-unknown-lead`
+rather than reporting $0.00. A lead nobody can find is not a lead with no
+payments, and reporting zero for it is the unknown-as-zero substitution this
+file exists to refuse. Whole-book reconciliation stays available by naming no
+lead — a decision rather than a failed lookup.
+
+**24. Six credential formats walked through every scanner.** Found by sweep 13.
+Eight modules use `src/secret-patterns.mjs` as their only value-shape check: the
+change-set blocker, the artifact store, the compute store, the provider worker,
+the relay, and the two receipt redactors.
+
+The worst was `github_pat_`. The list covered every *classic* GitHub prefix and
+could not reach the fine-grained one, because `github_pat_` starts with `gh` and
+the third character is `i`, outside `gh[pousr]_`. Fine-grained is what GitHub
+issues by default now, so the most likely token in circulation was the one shape
+not detected. Stripe's underscore spelling, HTTP `Basic`, a lowercase
+`aws_secret_access_key=`, and this project's own payment provider's key were the
+others.
+
+Underneath was an asymmetry: `containsSecretValue` blocks and `redactSecrets`
+cleans, and they consulted different rule sets — so a credential could be
+refused entry to a receipt and admitted into durable task history in the same
+run.
+
+**25. The sovereignty list protected the guards and not their proofs.** Found by
+sweep 14. `SOVEREIGNTY_PREFIXES` had a section for "the tests that prove the
+guards above still guard". It held four entries, correct when written. Every
+killing test added afterwards was left out: fifteen of the twenty suites proving
+a sovereignty guard still guards were editable by the autonomous path — as was
+`scripts/mutation-war.mjs` itself, the single artifact that decides whether any
+of them still kill.
+
+Protecting a guard and leaving its proof editable protects nothing on the second
+move. Delete one entry from the mutation list and the proof that a guard works
+is gone, replaced by a smaller number nobody cross-checks; the move after that
+is the guard.
+
+The root cause was not the four missing names — it was that membership had to be
+remembered, and a list that has to be remembered rots. It is now derived: if a
+mutation targets a sovereignty-protected file, the suite that kills it must be
+protected too, and `sovereignty-proof-closure.test.mjs` fails until it is. The
+same test refuses padding, because the cost of this list is that a person is
+needed to change anything on it.
+
 ## Also closed
 
 **Store parity.** `unknown collection` and `unknown filter` returned `[]` on the
@@ -203,25 +262,43 @@ a guard nobody had tested.
 
 ## Red-team sweeps
 
-Ten sweeps. Sweeps 1, 2 and 3 each found a P1 and reset the counter. Sweeps 4
+Sixteen sweeps. Sweeps 1, 2 and 3 each found a P1 and reset the counter. Sweeps 4
 and 5 came back clean. Then concurrent agents landed PRs #114, #116 and #120, all
 three correct, which reset it repeatedly — and sweep 6, re-attacking the fix for
 #114, found the receipt-fields hole that #114's own probe had missed. Sweeps 7
 and 8 came back clean on the merged head.
 
-**Sweep 9 then found two more** — currency conflation and the receipt's missing
-money fields — at angles none of the previous nine had tried, in the single most
-heavily attacked file in the repository, after eight sweeps had declared it
-clean. Sweep 10 came back clean, and sweeps 10 and 11 are the two consecutive
-clean sweeps this verdict rests on.
+Then the counter reset four more times.
 
-That sequence is the most useful thing in this receipt, and sweep 9 is the
-sharpest part of it. A clean sweep is evidence about the attacks that were run,
-not proof that none remain. Two clean sweeps preceded the discovery that a
-proven-status revenue figure could be denominated in nothing at all. Independent
-agents' probes found three things my own sweeps did not, and two of my own fixes
-had holes that appeared only when I attacked them rather than trusting the tests
-that shipped with them.
+| Sweep | Result |
+|---|---|
+| 9 | **21** currency conflation, **22** receipt witnesses identity but not money |
+| 10 | clean |
+| 11 | **23** a failed lead lookup widens the scope to every lead |
+| 12 | clean |
+| 13 | **24** six credential formats walk through every scanner |
+| 14 | **25** the sovereignty list protects the guards, not their proofs |
+| 15 | clean (one latent drift hardened, no live defect) |
+| 16 | clean |
+
+**Sweeps 15 and 16 are the two consecutive clean sweeps this verdict rests on.**
+
+That table is the most useful thing in this receipt, and sweep 9 is the sharpest
+line in it. A clean sweep is evidence about the attacks that were run, not proof
+that none remain. Sweeps 7 and 8 were clean, and they immediately preceded the
+discovery that a proven-status revenue figure could be denominated in nothing at
+all — a cleared $50.00 and a cleared JPY 5000 reported together as `$100.00`.
+Eight sweeps had declared that file clean; it was the most heavily attacked file
+in the repository; sweep 9 found two defects in it anyway.
+
+Four of the last seven defects were found in code I had written earlier in this
+same mission, and two of them were holes in my own fixes for the defect
+immediately before. Independent agents' probes found three more that none of my
+sweeps did.
+
+That is the honest reason this verdict is about internal closure. The gates are
+green and the attacks that were run are recorded; nobody, including me, has
+grounds to claim the attacks that were not run would also come back clean.
 
 Sweep 4 and 5 coverage: nine prompt injections against the outbound authority
 gate (instruction override, fake SYSTEM line, evidence-fence escape, SQL,
@@ -239,11 +316,11 @@ zero.
 
 | Gate | Result |
 |---|---|
-| `npm run check:syntax` | **466** files parse |
-| `npm run test:deterministic` | **2220** total, **2174** pass, **0** fail, **46** skip |
+| `npm run check:syntax` | **469** files parse |
+| `npm run test:deterministic` | **2277** total, **2231** pass, **0** fail, **46** skip |
 | `npm run test:relay-safety` | **150** total, **150** pass, **0** fail |
 | `npm run test:postgres-real` | **122** total, **122** pass, **0** fail, **0** skip — PostgreSQL 18.4 |
-| `npm run test:mutation-war` | **41** mutations, **41** killed, **0** survived |
+| `npm run test:mutation-war` | **47** mutations, **47** killed, **0** survived |
 | `npm audit` | 0 info, 0 low, 0 moderate, 0 high, 0 critical |
 
 The 46 deterministic skips are the real-PostgreSQL suites that run excludes by
@@ -353,12 +430,12 @@ Against §46:
 - [x] 0 known locally solvable P0
 - [x] 0 known locally solvable P1
 - [x] Wave 18 recovery war complete, matrix published
-- [x] Wave 19 mutation war complete, inventory published, 36/36 killed
+- [x] Wave 19 mutation war complete, inventory published, 47/47 killed
 - [x] #111 closed — the sovereignty protection on `operator-escalation.mjs` was
       not weakened; no entry added, removed or changed, and
       `tests/sovereignty-self-modification.test.mjs` still passes
 - [x] #112 resolved — merged, and the half it left open is closed
-- [x] two consecutive clean independent P0/P1 sweeps (10 and 11)
+- [x] two consecutive clean independent P0/P1 sweeps (15 and 16)
 - [x] full exact-head gates green
 - [x] real PostgreSQL gates green
 - [x] reachability classifications current
@@ -367,16 +444,22 @@ Against §46:
 Every remaining blocker is a customer, a provider, a credential, a payment rail,
 a human-reachable transport, live production observation, or elapsed real time.
 
-Twenty-two defects have been found across two missions in code that was green each
-time — and four of the last five surfaced *after* this receipt was first
-written: three from concurrent agents' probes and one from re-attacking my own
-fix. Two of those four were in code I had written hours earlier. That is the honest reason this verdict is about *internal* closure
-and not about correctness: a twentieth may exist, and the evidence says the rate
-has not reached zero.
+Twenty-five defects have been found across two missions in code that was green
+each time — and **ten of them surfaced after this receipt was first written**,
+in a tree whose gates were already all passing. Three came from concurrent
+agents' probes. Four were in code I had written earlier in this same mission.
+Two were holes in my own fix for the defect immediately before it.
+
+That is the honest reason this verdict is about *internal* closure and not about
+correctness. A twenty-sixth defect probably exists. The evidence in the table
+above is that the rate has not reached zero, only that two consecutive sweeps of
+the attacks I could think of came back clean — and sweeps 7 and 8 also came back
+clean, immediately before sweep 9 found two defects in the most heavily attacked
+file in the repository.
 
 What has changed is not that the tree is proven correct. It is that the guards
 are now known to be load-bearing, the crash boundaries are enumerated, and both
 facts are executable rather than asserted — so the next defect has to get past
-41 mutations and a published matrix rather than past an assurance.
+47 mutations and a published matrix rather than past an assurance.
 
 **Stop building. Hand the rest to reality.**

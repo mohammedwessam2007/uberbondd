@@ -8,18 +8,16 @@ import { ConflictError } from './store.mjs';
 // This module never calls a provider and never mutates anything except a
 // reservation's own status/recovery fields.
 //
-// Concurrency note: markOutboundReservation's underlying patch is applied
-// unconditionally (no compare-and-swap), so two concurrent sweeps racing on
-// the same row both converge on the same final status -- safe to apply
-// twice. The only thing that must not happen twice is the audit receipt and
-// its counted decision, so those are deduplicated via the store's existing
-// deterministic-id uniqueness constraint (the same mechanism already used
-// for suppressions/replies/jobs) rather than a bespoke lock. This avoids
-// nesting a second store.transaction() inside the caller's, which the
-// PostgreSQL backend does not support.
+// Recovery is intentionally compare-and-transition, not list-then-patch.
+// A sender can legitimately move reserved -> dispatching -> sent while a sweep
+// is looking at an older snapshot. Recovery must never overwrite that newer
+// truth. JSON transitions are serialized by JsonStore.transaction(); PostgreSQL
+// transitions additionally lock the selected row FOR UPDATE before verifying
+// its current status. If the status changed, this sweep does nothing and lets a
+// later sweep classify the new state.
 
 // Bump when the recovery policy changes so past receipts stay attributable.
-export const RECOVERY_POLICY_VERSION = 'reservation-recovery-1.0.0';
+export const RECOVERY_POLICY_VERSION = 'reservation-recovery-1.1.0';
 
 const DEFAULT_TIMEOUT_MS = 30 * 60 * 1000;
 const DEFAULT_LIMIT = 200;
@@ -49,6 +47,45 @@ export function classifyStaleReservation(status) {
     return { targetStatus: 'uncertain', bucket: 'quarantined', reason: 'stale-dispatching-unknown-outcome' };
   }
   return null;
+}
+
+// Apply a recovery transition only if the durable row is still in the exact
+// status that was classified from the sweep snapshot. This is the recovery
+// equivalent of compare-and-swap.
+async function transitionIfCurrentStatus({ store, row, classification, timestamp }) {
+  if (typeof store?.transaction !== 'function') {
+    return { applied: false, reason: 'store-transaction-required', currentStatus: null };
+  }
+
+  return store.transaction(async tx => {
+    let current = null;
+
+    // PostgresStore.transaction() scopes tx.pool to one connected client. Lock
+    // the row so a concurrent sender cannot complete it between re-verification
+    // and the recovery patch.
+    if (tx?.pool && typeof tx.pool.query === 'function') {
+      const locked = await tx.pool.query(
+        'SELECT data FROM outbound_reservations WHERE id=$1 FOR UPDATE',
+        [row.id]
+      );
+      current = locked.rows[0]?.data || null;
+    } else if (typeof tx?.get === 'function') {
+      // JsonStore transactions are serialized by the parent queue, so the read
+      // and following write are atomic relative to other JSON-store writers.
+      current = await tx.get('outboundReservations', row.id);
+    }
+
+    if (!current) return { applied: false, reason: 'reservation-missing', currentStatus: null };
+    if (current.status !== row.status) {
+      return { applied: false, reason: 'status-changed-before-recovery', currentStatus: current.status };
+    }
+
+    const updated = await tx.markOutboundReservation(row.id, classification.targetStatus, {
+      recoveredAt: timestamp,
+      recoveryReason: classification.reason
+    });
+    return { applied: Boolean(updated), reason: updated ? 'transition-applied' : 'reservation-missing', currentStatus: updated?.status || null };
+  });
 }
 
 // Side-effect-free preview: identical classification logic, no store writes.
@@ -116,9 +153,25 @@ export async function recoverStaleOutboundReservations({
     try {
       const receipt = buildReceipt({ row, referenceMs, anchorTimestamp, timeoutMs, dryRun, timestamp, classification });
       if (!dryRun) {
-        await store.markOutboundReservation(row.id, classification.targetStatus, {
-          recoveredAt: timestamp, recoveryReason: classification.reason
-        });
+        const transition = await transitionIfCurrentStatus({ store, row, classification, timestamp });
+        if (!transition.applied) {
+          // A newer state always outranks the sweep's stale snapshot. Terminal
+          // states are already resolved; active-state changes are left for the
+          // next sweep so we never guess across a moving provider boundary.
+          if (['sent', 'uncertain', 'cancelled'].includes(transition.currentStatus)) counts.alreadyTerminal += 1;
+          else counts.skipped += 1;
+          decisions.push({
+            reservationId: row.id,
+            fromStatus: originalStatus,
+            observedCurrentStatus: transition.currentStatus,
+            bucket: 'fail-closed-race',
+            reason: transition.reason,
+            dryRun: false,
+            policyVersion: RECOVERY_POLICY_VERSION,
+            timestamp
+          });
+          continue;
+        }
       }
       // Deterministic id: a concurrent or replayed sweep computing the exact
       // same recovery decision for the same row hits the store's existing

@@ -1,6 +1,6 @@
 import { sameJson } from './cloud-agent-relay.mjs';
 
-export const AGENT_AUTONOMY_STORE_POLICY_VERSION = 'agent-autonomy-store-1.0.0';
+export const AGENT_AUTONOMY_STORE_POLICY_VERSION = 'agent-autonomy-store-1.1.0';
 
 const SNAPSHOT_TYPE = 'agent_autonomy_run_snapshot';
 const RECEIPT_TYPE = 'agent_autonomy_execution_receipt';
@@ -44,30 +44,102 @@ function rowAppendOrder(row) {
   return match ? Number(match[1]) : 0;
 }
 
+function pageIdentity(rows) {
+  if (!Array.isArray(rows) || !rows.length) return '';
+  const first = rows[0];
+  const last = rows[rows.length - 1];
+  return `${String(first?.id || '')}|${String(last?.id || '')}|${rows.length}`;
+}
+
+/**
+ * Find the newest stored snapshots for one run without requiring that run to
+ * be present inside one global MAX_SCAN window.
+ *
+ * Stores already expose bounded offset pagination. We walk newest-first pages
+ * until the requested run appears or the filtered audit history is exhausted.
+ * Once it appears, later pages are older append history and cannot contain a
+ * newer valid sequence because saveAutonomyRunSnapshot rejects sequence
+ * regression at write time.
+ *
+ * A store implementation that ignores offset is detected by a repeated full
+ * page. We preserve the historical saturation failure in that case instead of
+ * looping forever or pretending absence is proven.
+ */
+async function auditRowsForRun(store, type, runId) {
+  if (!validStore(store)) return { ok: false, reasonCodes: ['store-log-and-list-required'], rows: [], scannedRows: 0 };
+  const id = text(runId, 160);
+  if (!id) return { ok: false, reasonCodes: ['run-id-required'], rows: [], scannedRows: 0 };
+
+  let offset = 0;
+  let scannedRows = 0;
+  let priorPageIdentity = '';
+
+  while (true) {
+    const page = await store.list('auditLog', {
+      filters: { type },
+      limit: MAX_SCAN,
+      offset
+    });
+    const rows = Array.isArray(page) ? page : [];
+    const identity = pageIdentity(rows);
+
+    // Detect an adapter that ignored offset before counting the repeated page.
+    // scannedRows is evidence about unique traversal progress, not network I/O.
+    if (rows.length >= MAX_SCAN && priorPageIdentity && identity === priorPageIdentity) {
+      return {
+        ok: false,
+        reasonCodes: ['autonomy-run-snapshot-scan-saturated', 'autonomy-run-snapshot-pagination-stalled'],
+        rows: [],
+        scannedRows
+      };
+    }
+
+    scannedRows += rows.length;
+
+    const matches = rows.filter(row => row?.detail?.runId === id && validRun(row?.detail?.run));
+    if (matches.length) {
+      return { ok: true, rows: matches, scannedRows, exhausted: rows.length < MAX_SCAN };
+    }
+
+    if (rows.length < MAX_SCAN) {
+      return { ok: true, rows: [], scannedRows, exhausted: true };
+    }
+
+    if (!identity) {
+      return {
+        ok: false,
+        reasonCodes: ['autonomy-run-snapshot-scan-saturated', 'autonomy-run-snapshot-pagination-stalled'],
+        rows: [],
+        scannedRows
+      };
+    }
+    priorPageIdentity = identity;
+    offset += rows.length;
+  }
+}
+
+function latestRunRow(rows) {
+  return [...rows]
+    .sort((a, b) =>
+      (runSequence(b) - runSequence(a))
+      || String(b?.detail?.createdAt || b?.createdAt || '').localeCompare(String(a?.detail?.createdAt || a?.createdAt || ''))
+      || (rowAppendOrder(b) - rowAppendOrder(a)))[0] || null;
+}
+
 export async function saveAutonomyRunSnapshot(store, run, { reason = 'tick', date = new Date() } = {}) {
   if (!validStore(store)) return fail(['store-log-and-list-required']);
   if (!validRun(run)) return fail(['valid-autonomy-run-required']);
 
-  // Until now this was a plain append: any snapshot was accepted, including one
-  // that moved a run backwards. Run state was ordered but not protected -- the
-  // same gap that let an execution record and a compute budget be rewound
-  // elsewhere in this repository.
-  //
   // sequence is strictly monotonic per run (the pump only ever increments it),
-  // so it is the authority on which snapshot came later.
+  // so it is the authority on which snapshot came later. The read is paged by
+  // audit history rather than capped to one global window; unrelated audit
+  // volume can no longer make an existing run invisible.
   const incomingSequence = Number.isSafeInteger(run.sequence) ? run.sequence : 0;
-  const scannedRows = await auditRows(store, SNAPSHOT_TYPE);
-  const priorRows = scannedRows
-    .filter(row => row?.detail?.runId === run.runId && validRun(row?.detail?.run));
-  // Writing without seeing the prior snapshot would let a stale sequence
-  // through as though it were new, which is the regression the check below
-  // exists to stop. If the window was full we cannot know, so we refuse.
-  if (!priorRows.length && scanSaturated(scannedRows)) {
-    return fail(['autonomy-run-snapshot-scan-saturated'], 'CONFLICT');
-  }
-  if (priorRows.length) {
-    const latest = priorRows
-      .sort((a, b) => (runSequence(b) - runSequence(a)) || (rowAppendOrder(b) - rowAppendOrder(a)))[0];
+  const scanned = await auditRowsForRun(store, SNAPSHOT_TYPE, run.runId);
+  if (!scanned.ok) return fail(scanned.reasonCodes || ['autonomy-run-snapshot-history-unavailable']);
+  const latest = latestRunRow(scanned.rows);
+
+  if (latest) {
     const latestSequence = runSequence(latest);
     if (incomingSequence < latestSequence) {
       return fail(['autonomy-run-sequence-regression'], 'CONFLICT');
@@ -139,63 +211,38 @@ async function auditRows(store, type, limit = MAX_SCAN) {
   return Array.isArray(rows) ? rows : [];
 }
 
-/**
- * True when a scan came back exactly full.
- *
- * Every read here works by pulling a bounded window of audit rows and picking
- * the newest match out of it. That is fine until the window is full, at which
- * point "no matching row" stops meaning "no such run" and starts meaning "the
- * run may be outside the window" -- and the two are indistinguishable from the
- * inside. A soak at three hundred concurrent runs hit exactly that: one run's
- * snapshots fell past the bound, every reload returned a stale snapshot, and
- * the run simply stopped advancing with nothing anywhere saying why.
- *
- * A saturated scan is therefore reported as its own failure rather than
- * dressed up as an answer. A stalled run that says it is stalled can be fixed;
- * a stalled run that looks healthy cannot.
- */
-function scanSaturated(rows) {
-  return Array.isArray(rows) && rows.length >= MAX_SCAN;
-}
-
 export async function loadLatestAutonomyRun(store, runId) {
   if (!validStore(store)) return fail(['store-log-and-list-required']);
   const id = text(runId, 160);
   if (!id) return fail(['run-id-required']);
-  const rows = await auditRows(store, SNAPSHOT_TYPE);
-  const matches = rows
-    .filter(row => row?.detail?.runId === id && validRun(row?.detail?.run))
-    // Timestamps alone leave ties unordered, and an unordered tie here means
-    // loading an OLDER run snapshot -- rewinding progress. Two P0s in this
-    // repository were that exact mistake (execution records and compute budget
-    // snapshots, both fixed by ranking on a monotonic quantity). Autonomy runs
-    // declare no monotonic field to rank on, so fall back to the store's own
-    // append order, which is at least defined. Kept local deliberately: a
-    // three-line tiebreak does not justify coupling this module to another.
-    // The run carries its own monotonic counter -- the pump only ever does
-    // sequence += 1 -- so rank on that first. Timestamp and append order remain
-    // as tiebreaks for rows written before a sequence existed.
-    .sort((a, b) =>
-      (runSequence(b) - runSequence(a))
-      || String(b?.detail?.createdAt || b?.createdAt || '').localeCompare(String(a?.detail?.createdAt || a?.createdAt || ''))
-      || (rowAppendOrder(b) - rowAppendOrder(a)));
-  if (!matches.length) {
+  const scanned = await auditRowsForRun(store, SNAPSHOT_TYPE, id);
+  if (!scanned.ok) {
     return {
       ok: false,
       policyVersion: AGENT_AUTONOMY_STORE_POLICY_VERSION,
-      status: scanSaturated(rows) ? 'SCAN_SATURATED' : 'NOT_FOUND',
-      reasonCodes: [scanSaturated(rows) ? 'autonomy-run-snapshot-scan-saturated' : 'autonomy-run-not-found'],
-      scannedRows: rows.length
+      status: 'SCAN_SATURATED',
+      reasonCodes: scanned.reasonCodes || ['autonomy-run-snapshot-scan-saturated'],
+      scannedRows: scanned.scannedRows || 0
     };
   }
-  const latest = matches[0];
+  if (!scanned.rows.length) {
+    return {
+      ok: false,
+      policyVersion: AGENT_AUTONOMY_STORE_POLICY_VERSION,
+      status: 'NOT_FOUND',
+      reasonCodes: ['autonomy-run-not-found'],
+      scannedRows: scanned.scannedRows
+    };
+  }
+  const latest = latestRunRow(scanned.rows);
   return {
     ok: true,
     policyVersion: AGENT_AUTONOMY_STORE_POLICY_VERSION,
     status: 'LOADED',
     run: latest.detail.run,
     auditId: latest.id || null,
-    snapshotAt: latest.detail.createdAt || latest.createdAt || null
+    snapshotAt: latest.detail.createdAt || latest.createdAt || null,
+    scannedRows: scanned.scannedRows
   };
 }
 

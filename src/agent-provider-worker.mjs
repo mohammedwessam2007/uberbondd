@@ -1,32 +1,16 @@
 import crypto from 'node:crypto';
 import { normalizeCoordination } from './agent-autonomy-loop.mjs';
 import { AGENT_MODEL_ROUTER_POLICY_VERSION } from './agent-model-router.mjs';
-import { containsSecretValue } from './secret-patterns.mjs';
+import {
+  ZERO_BUSINESS_EFFECTS,
+  ZERO_EXTERNAL_EFFECTS,
+  EFFECT_LEDGER_FIELDS,
+  isKnownEffectLedgerField,
+  isZeroEffectLedgerField
+} from './effect-ledgers.mjs';
+import { SECRET_KEY_PATTERN as SECRET_KEY, containsSecretValue } from './secret-patterns.mjs';
 
 export const AGENT_PROVIDER_WORKER_POLICY_VERSION = 'agent-provider-worker-1.0.0';
-
-const ZERO_BUSINESS_EFFECTS = Object.freeze({
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  businessSpendCents: 0
-});
-
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
-
-const SECRET_KEY = /^(authorization|api[-_]?key|secret|password|credential|access[-_]?token|refresh[-_]?token|private[-_]?key)$/i;
 
 const MAX_TEXT = 8000;
 const MAX_OUTPUTS = 64;
@@ -63,15 +47,17 @@ function hasSecret(value, seen = new Set()) {
   seen.add(value);
   if (Array.isArray(value)) return value.some(item => hasSecret(item, seen));
   for (const [key, child] of Object.entries(value)) {
+    // Effect ledgers contain a legitimate counter called credentialChanges.
+    // Only an exact, complete, finite ledger earns this exemption; malformed
+    // or partial ledgers fall through as suspicious rather than being blessed.
+    if (Object.hasOwn(EFFECT_LEDGER_FIELDS, key)) {
+      if (!isKnownEffectLedgerField(key, child)) return true;
+      continue;
+    }
     if (SECRET_KEY.test(key)) return true;
     if (hasSecret(child, seen)) return true;
   }
   return false;
-}
-
-function allZero(value, template) {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
-  return Object.entries(template).every(([key, zero]) => Number(value[key] || 0) === zero);
 }
 
 function typedRefs(values) {
@@ -159,8 +145,8 @@ export function validateProviderWorkResult({ request, result } = {}) {
   if (text(result?.provider, 80).toLowerCase() !== text(request?.provider, 80).toLowerCase()) reasons.push('provider-result-provider-mismatch');
   if (text(result?.model, 160) !== text(request?.model, 160)) reasons.push('provider-result-model-mismatch');
   if (hasSecret(result)) reasons.push('secret-bearing-provider-result-rejected');
-  if (!allZero(result?.businessEffectLedger || ZERO_BUSINESS_EFFECTS, ZERO_BUSINESS_EFFECTS)) reasons.push('nonzero-business-effect-rejected');
-  if (!allZero(result?.externalEffectLedger || ZERO_EXTERNAL_EFFECTS, ZERO_EXTERNAL_EFFECTS)) reasons.push('nonzero-external-effect-rejected');
+  if (!isZeroEffectLedgerField('businessEffectLedger', result?.businessEffectLedger)) reasons.push('nonzero-business-effect-rejected');
+  if (!isZeroEffectLedgerField('externalEffectLedger', result?.externalEffectLedger)) reasons.push('nonzero-external-effect-rejected');
 
   const inputTokens = int(result?.usage?.inputTokens, 0, request?.compute?.tokenCeiling ?? 0);
   const outputTokens = int(result?.usage?.outputTokens, 0, request?.compute?.tokenCeiling ?? 0);

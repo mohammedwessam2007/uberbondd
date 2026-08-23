@@ -41,8 +41,8 @@ Every number below was produced by running the command, on this tree.
 
 | Gate | Command | Result |
 |---|---|---|
-| Syntax | `npm run check:syntax` | 435 files parse |
-| Deterministic | `npm run test:deterministic` | 2036 tests, 1994 pass, **0 fail**, 42 skipped |
+| Syntax | `npm run check:syntax` | 437 files parse |
+| Deterministic | `npm run test:deterministic` | 2044 tests, 2002 pass, **0 fail**, 42 skipped |
 | Relay safety | `npm run test:relay-safety` | 150 tests, 150 pass, 0 fail |
 | Real PostgreSQL | `npm run test:postgres-real` | 107 tests, **107 pass, 0 skipped** |
 | Dependencies | `npm audit` | 0 vulnerabilities |
@@ -61,7 +61,7 @@ than passing vacuously when the URL is absent.
 
 ## 2b. How much of this can actually run
 
-**45 of 146 `src` modules have no entry point at all** — not production, not an
+**46 of 147 `src` modules have no entry point at all** — not production, not an
 operator script. They are reachable only from tests, and a suite proves a module
 behaves while proving nothing about whether anything can call it.
 
@@ -69,7 +69,7 @@ behaves while proving nothing about whether anything can call it.
 |---|---|
 | Reachable from production | 98 |
 | Reachable only via an operator script | 3 |
-| **No entry point at all** | **45** |
+| **No entry point at all** | **46** |
 
 That includes the whole commercial layer — lead scoring, outreach, prospect
 intelligence, inbound sensing, causal attribution, fulfillment — and the whole

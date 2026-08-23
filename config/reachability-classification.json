@@ -232,6 +232,11 @@
       "category": "NEEDS_TRIAGE",
       "gate": null,
       "reason": "AI access catalogue with no caller. Same question as above."
+    },
+    "src/payment-renewal-truth.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PAYMENT_PROVIDER",
+      "reason": "Derives payment-to-renewal economic truth from provider evidence. No payment provider is connected and no provider event has ever arrived, so there is nothing for it to read."
     }
   }
 }

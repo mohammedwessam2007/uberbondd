@@ -4,7 +4,37 @@ Date: 2026-08-23
 
 Canonical main inspected: `cba85a8765d0f0dc50548aca0ed2ef422f2cb3d9`
 
-## Verdict
+## Status: both defects resolved on `7e1030e80bcdec25d92b1688c7ed321969c02c4a`
+
+**The audit below was correct and is preserved unedited from here down.** Both
+P1s it names were real, both are now fixed, and a third that it did not know
+about was found while attacking the first fix. This section records the outcome;
+nothing in the original findings is walked back.
+
+| Finding | Outcome |
+|---|---|
+| #115 payment witness binding | Fixed. Amount, currency, product and prospect must agree across the order, the classification receipt and the ledger row. `MONEY-06` added to the mutation inventory. |
+| #117 stale reservation recovery race | Fixed by merging #116, which replaces the unconditional patch with compare-and-transition and `SELECT ... FOR UPDATE` on PostgreSQL. `RECOV-01` added. |
+| **New**: receipt fields excluded from the comparison | Found by re-attacking the #115 fix with fourteen variations. `clearedEvidenceIndex` dropped `leadId`, `prospectId` and `product`, so only the order and ledger row were ever compared — mutating the *receipt* walked straight through. #114's probe happened to mutate the ledger row, which is why its four tests passed against an incomplete fix. |
+
+The audit's specific criticism of the mutation gate was accurate: the 36/36
+result did not contain witness-binding mutations. It does now — **38 mutations,
+38 killed**, including `MONEY-06` and `RECOV-01`.
+
+Its process point stands and is worth keeping: repository truth outranks a
+pinned receipt, and a receipt is evidence about the tests that were run, not a
+claim that no further defect exists. The SUMMIT 100 receipt has been amended
+rather than reissued, so the count of defects found reads honestly.
+
+Exact-head gates on `7e1030e80bcdec25d92b1688c7ed321969c02c4a`: 465 files parse; 2205 tests, 2159 pass, 0 fail, 46
+skipped; relay-safety 150/150; real PostgreSQL 18.4 122/122, 0 skipped; mutation
+war 38/38.
+
+---
+
+## Original audit (unedited)
+
+### Verdict as recorded
 
 `EVEREST_INTERNAL_CLOSED__REALITY_PROOF_PENDING` is **not currently sufficient evidence of zero known locally-solvable P0/P1 defects**.
 

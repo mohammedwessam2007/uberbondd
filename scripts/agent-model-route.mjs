@@ -9,19 +9,6 @@
 import { pathToFileURL } from 'node:url';
 import { routePermittedWorkers } from '../src/agent-model-routing-integration.mjs';
 
-function parseArray(name) {
-  const raw = String(process.env[name] || '').trim();
-  if (!raw) return [];
-  let parsed;
-  try {
-    parsed = JSON.parse(raw);
-  } catch {
-    throw new Error(`${name} must be valid JSON`);
-  }
-  if (!Array.isArray(parsed)) throw new Error(`${name} must be a JSON array`);
-  return parsed;
-}
-
 export function evaluateConfiguredModelRoute({ env = process.env, random = Math.random, date = new Date() } = {}) {
   const workers = parseArrayFrom(env.AGENT_MODEL_ROUTE_WORKERS, 'AGENT_MODEL_ROUTE_WORKERS');
   const benchmarks = parseArrayFrom(env.AGENT_MODEL_ROUTE_BENCHMARKS, 'AGENT_MODEL_ROUTE_BENCHMARKS');

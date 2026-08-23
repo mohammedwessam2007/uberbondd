@@ -1,6 +1,10 @@
 import crypto from 'node:crypto';
+import { collectAuditRows } from './durable-audit-scan.mjs';
+import { DELIVERY_PROOF, PAGE_AUDIT_TYPE } from './operator-escalation-transport.mjs';
 
-export const OPERATOR_ESCALATION_POLICY_VERSION = 'operator-escalation-1.0.0';
+export const OPERATOR_ESCALATION_POLICY_VERSION = 'operator-escalation-1.1.0';
+
+export const ESCALATION_AUDIT_TYPE = 'operator_escalation';
 
 export const OPERATOR_ESCALATION_EXTERNAL_EFFECTS = Object.freeze({
   providerCalls: 0,
@@ -243,6 +247,52 @@ function commercialIncidents(snapshot) {
   return incidents;
 }
 
+/**
+ * Escalations that were raised and never reached a person.
+ *
+ * A monitoring system that detects a critical condition and cannot tell anyone
+ * has two problems, and this is the second one. It was previously reported as
+ * the string `transport: 'UNCONFIGURED'` inside a report nobody was paged about
+ * -- which is the failure describing itself in a place only a reader who
+ * already knew would look.
+ */
+function undeliveredIncidents(snapshot) {
+  const paging = snapshot?.paging;
+  if (!paging || typeof paging !== 'object') return [];
+  const undelivered = nonNegativeInteger(paging.undeliveredEscalations, 0);
+  if (!undelivered) return [];
+
+  const noTransport = paging.deliveryProof === DELIVERY_PROOF.NO_TRANSPORT_CONFIGURED;
+  return [incident({
+    type: 'OWNER_UNREACHABLE',
+    // Not being able to page is critical regardless of what could not be paged
+    // about: the next condition is the one that matters, and it will be silent
+    // too.
+    severity: 'CRITICAL',
+    reasonCodes: [
+      'operator-escalations-undelivered',
+      noTransport ? 'no-human-reachable-transport-configured' : 'human-reachable-transport-did-not-deliver'
+    ],
+    // Deliberately no evidenceRefs. The fingerprint is computed from type,
+    // severity and reasonCodes plus evidenceRefs, so feeding it a list that
+    // grows with the undelivered count would give this incident a new identity
+    // every cycle -- a fresh escalation, forever, about being unable to send
+    // escalations. The condition is "the owner cannot be reached"; how many
+    // things are queued behind it is a measurement, and measurements belong in
+    // detail, which is not fingerprinted.
+    evidenceRefs: [],
+    recommendedAction: noTransport
+      ? 'Configure a transport that reaches a device the owner carries. Until then every escalation below is written down and nobody is told.'
+      : 'A human-reachable transport is configured and is not delivering. Check it before trusting any quiet period.',
+    detail: {
+      undeliveredEscalations: undelivered,
+      deliveryProof: text(paging.deliveryProof, 60) || null,
+      oldestUndeliveredAt: text(paging.oldestUndeliveredAt, 40) || null,
+      undeliveredRefs: boundedStrings(paging.evidenceRefs, MAX_EVIDENCE_REFS)
+    }
+  })];
+}
+
 export function evaluateOperatorHealth({
   snapshot = {},
   activeFingerprints = [],
@@ -274,7 +324,8 @@ export function evaluateOperatorHealth({
     ...schedulerIncidents(snapshot, now),
     ...queueIncidents(snapshot),
     ...truthIncidents(snapshot),
-    ...commercialIncidents(snapshot)
+    ...commercialIncidents(snapshot),
+    ...undeliveredIncidents(snapshot)
   ];
 
   candidates.sort((a, b) => {
@@ -312,8 +363,13 @@ export function evaluateOperatorHealth({
     })),
     paging: {
       decision: newEscalations.length ? 'PAGE_OWNER_REQUIRED' : 'NO_NEW_PAGE_REQUIRED',
-      transport: 'UNCONFIGURED',
-      deliveryProof: 'NOT_AVAILABLE'
+      // The decision is this module's to make. Whether anyone was reached is
+      // not, and it is no longer asserted here as a literal: the caller
+      // dispatches through src/operator-escalation-transport.mjs and feeds the
+      // observed result back through `snapshot.paging` on the next assessment.
+      transport: text(snapshot?.paging?.transport, 60) || 'UNCONFIGURED',
+      deliveryProof: text(snapshot?.paging?.deliveryProof, 60) || DELIVERY_PROOF.NO_TRANSPORT_CONFIGURED,
+      undeliveredEscalations: nonNegativeInteger(snapshot?.paging?.undeliveredEscalations, 0)
     },
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...OPERATOR_ESCALATION_EXTERNAL_EFFECTS }
@@ -342,4 +398,81 @@ export async function persistOperatorEscalations(store, report) {
     }));
   }
   return persisted;
+}
+
+/**
+ * Read back what has already been escalated, and what of it ever reached a
+ * person.
+ *
+ * `evaluateOperatorHealth` has always accepted `activeFingerprints` to suppress
+ * an escalation it has already raised. Nothing ever passed it. A probe running
+ * ten mesh ticks against one unchanging condition wrote thirty durable
+ * escalation rows for three real problems -- at an hourly cadence, seventy-two
+ * duplicate pages a day for one fact that has not changed. That is not a
+ * cosmetic defect: an alerting channel that repeats itself is one an operator
+ * eventually stops reading, and the suppression this needed was already built
+ * and simply never fed.
+ *
+ * Delivery is read from the page ledger rather than assumed. An escalation with
+ * no page attempt at all counts as undelivered, because it is.
+ */
+export async function readEscalationDeliveryState(store, { date = new Date() } = {}) {
+  if (!store || typeof store.list !== 'function') {
+    return { ok: false, reasonCodes: ['store-list-required'], activeFingerprints: [], paging: null };
+  }
+
+  const escalations = await collectAuditRows(store, { type: ESCALATION_AUDIT_TYPE });
+  if (!escalations.ok) {
+    return { ok: false, reasonCodes: escalations.reasonCodes, activeFingerprints: [], paging: null };
+  }
+  const pages = await collectAuditRows(store, { type: PAGE_AUDIT_TYPE });
+  if (!pages.ok) {
+    return { ok: false, reasonCodes: pages.reasonCodes, activeFingerprints: [], paging: null };
+  }
+
+  const reachedFingerprints = new Set();
+  let anyHumanTransportAttempted = false;
+  for (const row of pages.rows) {
+    const detail = row?.detail || {};
+    if (Array.isArray(detail.attempts) && detail.attempts.some(attempt => attempt?.reachesHuman)) {
+      anyHumanTransportAttempted = true;
+    }
+    if (detail.ownerReached === true) reachedFingerprints.add(text(detail.fingerprint, 200));
+  }
+
+  const raisedAt = new Map();
+  for (const row of escalations.rows) {
+    const fingerprint = text(row?.detail?.fingerprint, 200);
+    if (!fingerprint) continue;
+    const at = String(row?.detail?.createdAt || row?.createdAt || '');
+    const current = raisedAt.get(fingerprint);
+    if (!current || (at && at < current)) raisedAt.set(fingerprint, at);
+  }
+
+  const undelivered = [...raisedAt.keys()].filter(fingerprint => !reachedFingerprints.has(fingerprint));
+  const oldestUndeliveredAt = undelivered
+    .map(fingerprint => raisedAt.get(fingerprint))
+    .filter(Boolean)
+    .sort()[0] || null;
+
+  return {
+    ok: true,
+    policyVersion: OPERATOR_ESCALATION_POLICY_VERSION,
+    // Every fingerprint already written down is active: raising it again adds a
+    // row and no information.
+    activeFingerprints: [...raisedAt.keys()],
+    paging: {
+      transport: anyHumanTransportAttempted ? 'HUMAN_REACHABLE_ATTEMPTED' : 'UNCONFIGURED',
+      deliveryProof: reachedFingerprints.size
+        ? DELIVERY_PROOF.HUMAN_DELIVERY_PROVEN
+        : anyHumanTransportAttempted
+          ? DELIVERY_PROOF.DELIVERY_INDETERMINATE
+          : DELIVERY_PROOF.NO_TRANSPORT_CONFIGURED,
+      undeliveredEscalations: undelivered.length,
+      oldestUndeliveredAt,
+      evidenceRefs: undelivered.slice(0, MAX_EVIDENCE_REFS).map(fingerprint => `escalation:${fingerprint.slice(0, 24)}`)
+    },
+    scannedRows: (escalations.scannedRows || 0) + (pages.scannedRows || 0),
+    assessedAt: parseDate(date)?.toISOString() || new Date().toISOString()
+  };
 }

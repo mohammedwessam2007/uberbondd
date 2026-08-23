@@ -2,16 +2,16 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 430,
+      "filesParsed": 431,
       "ranAt": "2026-08-23T00:45:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 1996,
-      "pass": 1954,
+      "tests": 2003,
+      "pass": 1961,
       "fail": 0,
       "skipped": 42,
-      "ranAt": "2026-08-23T04:20:00Z"
+      "ranAt": "2026-08-23T04:55:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -35,6 +35,15 @@
       "command": "npm audit",
       "vulnerabilities": 0,
       "ranAt": "2026-08-23T01:20:00Z"
+    },
+    "reachability": {
+      "command": "node --test tests/reachability-ratchet.test.mjs",
+      "srcModules": 146,
+      "reachableFromProduction": 98,
+      "reachableFromOperatorScriptsOnly": 3,
+      "noEntryPointAtAll": 45,
+      "allClassified": true,
+      "ranAt": "2026-08-23T04:55:00Z"
     }
   },
   "capabilities": [

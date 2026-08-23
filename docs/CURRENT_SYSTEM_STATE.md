@@ -41,8 +41,8 @@ Every number below was produced by running the command, on this tree.
 
 | Gate | Command | Result |
 |---|---|---|
-| Syntax | `npm run check:syntax` | 430 files parse |
-| Deterministic | `npm run test:deterministic` | 1996 tests, 1954 pass, **0 fail**, 42 skipped |
+| Syntax | `npm run check:syntax` | 431 files parse |
+| Deterministic | `npm run test:deterministic` | 2003 tests, 1961 pass, **0 fail**, 42 skipped |
 | Relay safety | `npm run test:relay-safety` | 150 tests, 150 pass, 0 fail |
 | Real PostgreSQL | `npm run test:postgres-real` | 107 tests, **107 pass, 0 skipped** |
 | Dependencies | `npm audit` | 0 vulnerabilities |
@@ -58,6 +58,34 @@ OMNIA_V9_TEST_DATABASE_URL=postgres://user:pass@host:port/db npm run test:postgr
 That script runs them **serially** on purpose — they share one database and
 interfere when `node --test` runs files in parallel — and exits non-zero rather
 than passing vacuously when the URL is absent.
+
+## 2b. How much of this can actually run
+
+**45 of 146 `src` modules have no entry point at all** — not production, not an
+operator script. They are reachable only from tests, and a suite proves a module
+behaves while proving nothing about whether anything can call it.
+
+| | |
+|---|---|
+| Reachable from production | 98 |
+| Reachable only via an operator script | 3 |
+| **No entry point at all** | **45** |
+
+That includes the whole commercial layer — lead scoring, outreach, prospect
+intelligence, inbound sensing, causal attribution, fulfillment — and the whole
+Claude engineering path.
+
+Most of it is *correctly* unreachable: wiring outreach without an authorisation
+path is how a system contacts someone by accident. But the decision has to be
+written down, so every one of the 45 is classified in
+`config/reachability-classification.json` with a named gate and a real reason,
+and `tests/reachability-ratchet.test.mjs` fails when a new unclassified dead
+module appears. Three are `NEEDS_TRIAGE` — nobody has decided about them, and
+saying so beats a category that sounds settled.
+
+This distinction cost three separate discoveries in one session: the mesh entry
+point, the occurrence compiler, and the escalation kernel. All three were
+implemented, tested, green, and dead.
 
 ## 3. What the architecture now guarantees
 

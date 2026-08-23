@@ -7,6 +7,17 @@ import { Pipeline } from '../src/pipeline.mjs';
 import { Store } from '../src/store.mjs';
 import { evaluateDeliverabilityGuard } from '../src/deliverability-guard.mjs';
 
+// The guard reads authority from durable storage, exactly as production does:
+// the pipeline loads the campaign with store.get before it ever gets here. A
+// fixture that hands over a campaign existing only in memory is modelling a
+// state the system cannot be in, and it is what let a revoked approval pass the
+// final recheck unnoticed.
+async function guardWith(store, args = {}) {
+  if (args.campaign) await store.upsert('campaigns', args.campaign);
+  return evaluateDeliverabilityGuard({ store, ...args });
+}
+
+
 // These tests prove the wiring between Pipeline.maybeSend and
 // evaluateDeliverabilityGuard(). The guard's own hostile scenarios (expired
 // evidence, cost/volume ceilings, sender-health pause, malformed input,
@@ -57,6 +68,10 @@ async function tempStore() {
 async function connectedStore(inbox = 'A') {
   const store = await tempStore();
   await store.add('accounts', { id: `acct-${inbox}`, slot: inbox, connected: true, email: `outreach-${inbox}@uberbond.example`, tokens: 'unused' });
+  // The pipeline loads the campaign from the store before it reaches
+  // maybeSend, and the guard now reads authority back from there. Seeding it
+  // is what makes the fixture match production.
+  await store.upsert('campaigns', baseCampaign());
   return store;
 }
 
@@ -93,7 +108,9 @@ test('admission DENY stops before any reservation and persists a receipt', async
 test('REVIEW_REQUIRED stops before any reservation and persists a receipt', async () => {
   const store = await connectedStore();
   const { pipeline, sends } = spyPipeline(store, baseCfg());
-  const result = await pipeline.maybeSend(baseProspect(), baseCampaign({ autoSend: false }));
+  const campaign = baseCampaign({ autoSend: false });
+  await store.upsert('campaigns', campaign);
+  const result = await pipeline.maybeSend(baseProspect(), campaign);
   assert.equal(result.sent, false);
   assert.equal(result.decision, 'REVIEW_REQUIRED');
   assert.equal(sends(), 0);
@@ -118,7 +135,7 @@ test('ALLOW_LOCAL_PREPARATION alone cannot cause a send while the structural kil
 
 test('a fully eligible action reaches the provider exactly once, with both an admission and a final-recheck receipt', async () => {
   const store = await connectedStore();
-  await store.add('campaigns', baseCampaign());
+  await store.upsert('campaigns', baseCampaign());
   await store.add('prospects', { ...baseProspect(), status: 'ready', createdAt: monday.toISOString() });
   const { pipeline, sends } = spyPipeline(store, baseCfg());
   const result = await pipeline.maybeSend(baseProspect(), baseCampaign());
@@ -130,8 +147,8 @@ test('a fully eligible action reaches the provider exactly once, with both an ad
   assert.ok(decisions.every(d => d.detail.decision === 'ALLOW_LOCAL_PREPARATION'));
   assert.equal(decisions[0].detail.actionIdentity, decisions[1].detail.actionIdentity, 'the same unchanged action must hash to the same action identity across both checkpoints');
 
-  const expected = await evaluateDeliverabilityGuard({
-    store, prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday, followup: 0,
+  const expected = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday, followup: 0,
     body: baseProspect().draft, subject: baseProspect().subject
   });
   assert.equal(decisions[0].detail.actionIdentity, expected.actionIdentity);
@@ -201,10 +218,18 @@ test('final recheck blocks authority that expires between admission and the prov
   let calls = 0;
   const clock = () => { calls += 1; return monday; };
   const campaign = baseCampaign({ expiresAt: new Date(monday.getTime() + 1).toISOString() });
+  await store.upsert('campaigns', campaign);
   const realMark = store.markOutboundReservation.bind(store);
   store.markOutboundReservation = async (id, status, patch) => {
     const result = await realMark(id, status, patch);
-    if (status === 'dispatching') campaign.expiresAt = new Date(monday.getTime() - 1000).toISOString();
+    // The expiry lands in the database, which is where an authority change
+    // actually arrives. This used to mutate the in-memory `campaign` object and
+    // the recheck read it back -- so the test passed while the guard was in
+    // fact trusting whatever the sending process happened to be holding, which
+    // is the defect it was meant to be guarding against.
+    if (status === 'dispatching') {
+      await store.patch('campaigns', campaign.id, { expiresAt: new Date(monday.getTime() - 1000).toISOString() });
+    }
     return result;
   };
   const pipeline = new Pipeline(store, baseCfg(), {

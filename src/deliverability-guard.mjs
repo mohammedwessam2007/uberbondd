@@ -25,6 +25,45 @@ function detectUnsupportedClaims(text = '') {
   return UNSUPPORTED_CLAIM_PATTERNS.filter(({ pattern }) => pattern.test(haystack)).map(({ code }) => code);
 }
 
+// Authority fields whose in-flight value may not be trusted. Caps are included
+// deliberately: a ceiling is authority too, and a stale one authorizes volume
+// the owner has since taken back.
+const DURABLE_AUTHORITY_FIELDS = Object.freeze(['approved', 'autoSend', 'expiresAt', 'dailyCaps', 'allowedCountries']);
+
+function sameAuthorityValue(left, right) {
+  if (left === right) return true;
+  if (left == null && right == null) return true;
+  return JSON.stringify(left ?? null) === JSON.stringify(right ?? null);
+}
+
+/**
+ * Re-read the campaign that authorizes this send.
+ *
+ * Fails closed on every path where the answer is not knowable: no store, no
+ * campaign id, no such row. An authorization this process cannot verify right
+ * now is not an authorization, and the alternative -- falling back to the
+ * caller's object -- is the defect this exists to close.
+ */
+async function readDurableAuthority(store, snapshot) {
+  const campaignId = String(snapshot?.id || '').trim();
+  if (!campaignId) return { ok: false, reasonCodes: ['authority-campaign-id-missing'], drifted: [] };
+  if (!store || typeof store.get !== 'function') {
+    return { ok: false, reasonCodes: ['authority-not-readable-from-durable-store'], drifted: [] };
+  }
+  let durable = null;
+  try {
+    durable = await store.get('campaigns', campaignId);
+  } catch {
+    return { ok: false, reasonCodes: ['authority-not-readable-from-durable-store'], drifted: [] };
+  }
+  if (!durable) return { ok: false, reasonCodes: ['authority-campaign-not-found'], drifted: [] };
+
+  const drifted = DURABLE_AUTHORITY_FIELDS
+    .filter(field => !sameAuthorityValue(snapshot?.[field], durable?.[field]))
+    .sort();
+  return { ok: true, campaign: durable, drifted };
+}
+
 function ownerBurdenDescription(decision) {
   if (decision === 'ALLOW_LOCAL_PREPARATION') return 'No owner action required to prepare this draft locally; live sending remains structurally disabled regardless.';
   if (decision === 'REVIEW_REQUIRED') return 'Owner must review and explicitly approve before this prospect can ever be sent.';
@@ -170,9 +209,32 @@ export async function evaluateDeliverabilityGuard({
   const settings = await store.getSettings();
   if (settings?.outboundPaused) deny.push('global-outbound-paused');
 
-  if (!campaign.approved) deny.push('authority-campaign-not-approved');
-  if (campaign.expiresAt && Date.parse(campaign.expiresAt) < referenceMs) deny.push('authority-campaign-expired');
-  if (campaign.approved && !campaign.autoSend) review.push('owner-review-required-autosend-disabled');
+  // Authority is read from durable storage, never from the caller's snapshot.
+  //
+  // The caller loads a campaign once at the top of a batch and threads the same
+  // object through admission, reservation, and the final recheck before the
+  // provider boundary. That recheck exists precisely because "state
+  // (suppression, evidence, authority, sender health, policy) may have changed
+  // since admission" -- and it re-read suppression, sender health, settings and
+  // the account from the store while evaluating authority from the stale
+  // object. A probe revoked approval in the database mid-batch and the final
+  // recheck returned ALLOW_LOCAL_PREPARATION with zero deny reasons.
+  //
+  // This is the gate immediately before an irreversible message to a real
+  // person. Revoking permission has to stop it.
+  const authority = await readDurableAuthority(store, campaign);
+  if (!authority.ok) {
+    deny.push(...authority.reasonCodes);
+  } else {
+    const durable = authority.campaign;
+    if (!durable.approved) deny.push('authority-campaign-not-approved');
+    if (durable.expiresAt && Date.parse(durable.expiresAt) < referenceMs) deny.push('authority-campaign-expired');
+    if (durable.approved && !durable.autoSend) review.push('owner-review-required-autosend-disabled');
+    // A disagreement is not merely resolved in favour of the durable row: it is
+    // reported, because it means an authority change landed while this send was
+    // in flight and somebody should know the gate caught it.
+    if (authority.drifted.length) deny.push(`authority-snapshot-stale:${authority.drifted.join(',')}`);
+  }
 
   const account = await store.findOne('accounts', { slot: prospect.inbox });
   if (!account?.connected) deny.push('provider-capability-absent');
@@ -207,8 +269,12 @@ export async function evaluateDeliverabilityGuard({
     policyVersion: POLICY_VERSION,
     authorityUsed: {
       campaignId: campaign.id,
-      campaignApproved: Boolean(campaign.approved),
-      campaignAutoSend: Boolean(campaign.autoSend),
+      // Reported from the durable row, so a receipt never records an approval
+      // that only existed in one process's memory.
+      campaignApproved: Boolean(authority.ok ? authority.campaign.approved : false),
+      campaignAutoSend: Boolean(authority.ok ? authority.campaign.autoSend : false),
+      authorityReadFrom: authority.ok ? 'DURABLE_STORE' : 'UNREADABLE',
+      authoritySnapshotDrift: authority.drifted,
       outboundStructurallyEnabled: Boolean(cfg.outbound?.enabled && !cfg.outbound?.dryRun),
       fullSendGate: { ok: fullSendGate.ok, reason: fullSendGate.reason || null }
     },

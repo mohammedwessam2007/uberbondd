@@ -7,6 +7,17 @@ import { Store } from '../src/store.mjs';
 import { evaluateDeliverabilityGuard } from '../src/deliverability-guard.mjs';
 import { outboundVolumeWindow, countActiveOutboundReservations } from '../src/send-safety.mjs';
 
+// The guard reads authority from durable storage, exactly as production does:
+// the pipeline loads the campaign with store.get before it ever gets here. A
+// fixture that hands over a campaign existing only in memory is modelling a
+// state the system cannot be in, and it is what let a revoked approval pass the
+// final recheck unnoticed.
+async function guardWith(store, args = {}) {
+  if (args.campaign) await store.upsert('campaigns', args.campaign);
+  return evaluateDeliverabilityGuard({ store, ...args });
+}
+
+
 // Proves the Deliverability Guard's read-only precheck and the store's
 // authoritative, race-safe reservation transaction agree on volume/quota
 // decisions because they now share one canonical helper
@@ -50,6 +61,10 @@ async function tempStore() {
 async function connectedStore(inbox = 'A') {
   const store = await tempStore();
   await store.add('accounts', { id: `acct-${inbox}`, slot: inbox, connected: true, email: `outreach-${inbox}@uberbond.example`, tokens: 'unused' });
+  // The pipeline loads the campaign from the store before it reaches
+  // maybeSend, and the guard now reads authority back from there. Seeding it
+  // is what makes the fixture match production.
+  await store.upsert('campaigns', baseCampaign());
   return store;
 }
 async function seedReservations(store, count, overrides = {}) {
@@ -74,7 +89,8 @@ test('guard and store agree exactly at the daily cap boundary', async () => {
   const campaign = baseCampaign();
   const cfg = baseCfg();
 
-  const guardResult = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign, cfg, date: monday });
+  const guardResult = await guardWith(store, {
+    prospect: baseProspect(), campaign, cfg, date: monday });
   assert.equal(guardResult.decision, 'DENY');
   assert.ok(guardResult.denyReasonCodes.includes('daily-volume-ceiling-exceeded'));
 
@@ -92,7 +108,8 @@ test('guard and store agree one under the daily cap boundary', async () => {
   const campaign = baseCampaign();
   const cfg = baseCfg();
 
-  const guardResult = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign, cfg, date: monday });
+  const guardResult = await guardWith(store, {
+    prospect: baseProspect(), campaign, cfg, date: monday });
   assert.equal(guardResult.denyReasonCodes.includes('daily-volume-ceiling-exceeded'), false);
 
   const storeResult = await store.reserveOutboundSend({
@@ -105,7 +122,8 @@ test('guard and store agree one under the daily cap boundary', async () => {
 test('caps are scoped by inbox, not by campaign: a different campaign on the same inbox still counts', async () => {
   const store = await connectedStore();
   await seedReservations(store, 2, { campaignId: 'a-different-campaign' });
-  const guardResult = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const guardResult = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.ok(guardResult.denyReasonCodes.includes('daily-volume-ceiling-exceeded'), 'the shared inbox cap must still apply across campaigns');
 });
 
@@ -113,7 +131,8 @@ test('a different inbox never counts toward this inbox\'s cap', async () => {
   const store = await connectedStore('A');
   await store.add('accounts', { id: 'acct-B', slot: 'B', connected: true, email: 'b@uberbond.example', tokens: 'unused' });
   await seedReservations(store, 2, { inbox: 'B' });
-  const guardResult = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const guardResult = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(guardResult.denyReasonCodes.includes('daily-volume-ceiling-exceeded'), false);
 });
 
@@ -121,7 +140,8 @@ test('a reservation from a different day never counts toward today\'s cap', asyn
   const store = await connectedStore();
   const yesterday = new Date(monday.getTime() - 86400000).toISOString();
   await seedReservations(store, 5, { reservedAt: yesterday });
-  const guardResult = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const guardResult = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(guardResult.denyReasonCodes.includes('daily-volume-ceiling-exceeded'), false);
 });
 
@@ -132,7 +152,8 @@ test('cancelled reservations do not count (known outcome: no send occurred)', as
     recipientEmail: 'c@clinic.example', dailyCap: 999, hourlyCap: 999, minGapSeconds: 0, now: monday.toISOString()
   });
   await store.markOutboundReservation(reserved.reservation.id, 'cancelled', { cancelReason: 'test' });
-  const guardResult = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign({ dailyCaps: { A: 1 } }), cfg: (() => { const c = baseCfg(); c.caps = { A: 1 }; return c; })(), date: monday });
+  const guardResult = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign({ dailyCaps: { A: 1 } }), cfg: (() => { const c = baseCfg(); c.caps = { A: 1 }; return c; })(), date: monday });
   assert.equal(guardResult.denyReasonCodes.includes('daily-volume-ceiling-exceeded'), false);
 });
 
@@ -145,7 +166,8 @@ test('uncertain reservations still count (unknown outcome: capacity stays reserv
   await store.markOutboundReservation(reserved.reservation.id, 'uncertain', { error: 'network timeout' });
   const campaign = baseCampaign({ dailyCaps: { A: 1 } });
   const cfg = baseCfg(); cfg.caps = { A: 1 };
-  const guardResult = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign, cfg, date: monday });
+  const guardResult = await guardWith(store, {
+    prospect: baseProspect(), campaign, cfg, date: monday });
   assert.ok(guardResult.denyReasonCodes.includes('daily-volume-ceiling-exceeded'), 'an unresolved provider outcome must keep holding its capacity slot');
 });
 
@@ -186,7 +208,8 @@ test('a malformed reservedAt timestamp is safely excluded from counting rather t
 test('the guard computes day/hour windows from the injected reference date, never real wall-clock time', async () => {
   const store = await connectedStore();
   const longAgo = new Date('2020-01-01T00:00:00.000Z');
-  const guardResult = await evaluateDeliverabilityGuard({ store, prospect: baseProspect({ completedAt: longAgo.toISOString() }), campaign: baseCampaign(), cfg: baseCfg(), date: longAgo });
+  const guardResult = await guardWith(store, {
+    prospect: baseProspect({ completedAt: longAgo.toISOString() }), campaign: baseCampaign(), cfg: baseCfg(), date: longAgo });
   // Evidence age is measured relative to the injected date, so evidence collected
   // "now" (relative to that same injected date) must not be flagged as expired.
   assert.equal(guardResult.denyReasonCodes.includes('evidence-expired'), false);

@@ -7,6 +7,17 @@ import { fileURLToPath } from 'node:url';
 import { evaluateDeliverabilityGuard, POLICY_VERSION } from '../src/deliverability-guard.mjs';
 import { Store } from '../src/store.mjs';
 
+// The guard reads authority from durable storage, exactly as production does:
+// the pipeline loads the campaign with store.get before it ever gets here. A
+// fixture that hands over a campaign existing only in memory is modelling a
+// state the system cannot be in, and it is what let a revoked approval pass the
+// final recheck unnoticed.
+async function guardWith(store, args = {}) {
+  if (args.campaign) await store.upsert('campaigns', args.campaign);
+  return evaluateDeliverabilityGuard({ store, ...args });
+}
+
+
 const monday = new Date('2026-07-13T10:00:00.000Z');
 
 function baseCampaign(overrides = {}) {
@@ -53,7 +64,8 @@ async function connectedStore(inbox = 'A') {
 
 test('normal eligible preparation is ALLOW_LOCAL_PREPARATION with a complete receipt', async () => {
   const store = await connectedStore();
-  const result = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'ALLOW_LOCAL_PREPARATION');
   assert.deepEqual(result.denyReasonCodes, []);
   assert.deepEqual(result.reviewReasonCodes, []);
@@ -70,7 +82,8 @@ test('normal eligible preparation is ALLOW_LOCAL_PREPARATION with a complete rec
 test('missing evidence is denied', async () => {
   const store = await connectedStore();
   const prospect = baseProspect({ issue: { title: 'X', confidence: .9, safeForOutreach: true } });
-  const result = await evaluateDeliverabilityGuard({ store, prospect, campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect, campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.some(r => r.startsWith('evidence:')));
 });
@@ -79,7 +92,8 @@ test('expired evidence is denied', async () => {
   const store = await connectedStore();
   const stale = new Date(monday.getTime() - 90 * 86400000).toISOString();
   const prospect = baseProspect({ completedAt: stale });
-  const result = await evaluateDeliverabilityGuard({ store, prospect, campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect, campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.includes('evidence-expired'));
 });
@@ -87,7 +101,8 @@ test('expired evidence is denied', async () => {
 test('contradictory evidence (domain mismatch) is denied', async () => {
   const store = await connectedStore();
   const prospect = baseProspect({ issue: { title: 'X', confidence: .9, safeForOutreach: true, evidenceUrl: 'https://other.example/x', evidenceExcerpt: 'unrelated' } });
-  const result = await evaluateDeliverabilityGuard({ store, prospect, campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect, campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.includes('evidence:evidence-domain-mismatch'));
 });
@@ -95,7 +110,8 @@ test('contradictory evidence (domain mismatch) is denied', async () => {
 test('suppressed recipient is denied', async () => {
   const store = await connectedStore();
   await store.add('suppressions', { id: 'sup1', value: 'info@clinic.example', reason: 'manual', createdAt: monday.toISOString() });
-  const result = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.equal(result.suppressionResult.suppressed, true);
   assert.ok(result.denyReasonCodes.includes('suppressed:manual'));
@@ -104,7 +120,8 @@ test('suppressed recipient is denied', async () => {
 test('opt-out is denied via the canonical suppression list', async () => {
   const store = await connectedStore();
   await store.add('suppressions', { id: 'sup1', value: 'info@clinic.example', reason: 'optout', createdAt: monday.toISOString() });
-  const result = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.includes('suppressed:optout'));
 });
@@ -112,7 +129,8 @@ test('opt-out is denied via the canonical suppression list', async () => {
 test('complaint is denied via the canonical suppression list', async () => {
   const store = await connectedStore();
   await store.add('suppressions', { id: 'sup1', value: 'info@clinic.example', reason: 'complaint', createdAt: monday.toISOString() });
-  const result = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.includes('suppressed:complaint'));
 });
@@ -120,7 +138,8 @@ test('complaint is denied via the canonical suppression list', async () => {
 test('hard bounce is denied via the canonical suppression list', async () => {
   const store = await connectedStore();
   await store.add('suppressions', { id: 'sup1', value: 'info@clinic.example', reason: 'bounce', createdAt: monday.toISOString() });
-  const result = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.includes('suppressed:bounce'));
 });
@@ -130,7 +149,8 @@ test('prior-contact duplicate (already sent) is denied as a replay', async () =>
   await store.reserveOutboundSend({ idempotencyKey: 'initial:pros', prospectId: 'pros', campaignId: 'camp', inbox: 'A', recipientEmail: 'info@clinic.example', dailyCap: 10, hourlyCap: 10, minGapSeconds: 0, now: monday.toISOString() });
   const reservation = (await store.list('outboundReservations'))[0];
   await store.markOutboundReservation(reservation.id, 'sent', { sentAt: monday.toISOString() });
-  const result = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.includes('replay-idempotency-key:sent'));
   assert.equal(result.deduplicationResult.duplicate, true);
@@ -139,7 +159,8 @@ test('prior-contact duplicate (already sent) is denied as a replay', async () =>
 test('replayed idempotency key that is merely reserved (not stale) is denied as duplicate-in-progress', async () => {
   const store = await connectedStore();
   await store.reserveOutboundSend({ idempotencyKey: 'initial:pros', prospectId: 'pros', campaignId: 'camp', inbox: 'A', recipientEmail: 'info@clinic.example', dailyCap: 10, hourlyCap: 10, minGapSeconds: 0, now: monday.toISOString() });
-  const result = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.includes('duplicate-reservation-in-progress'));
 });
@@ -148,7 +169,8 @@ test('a stale reserved-but-never-completed reservation is REVIEW_REQUIRED, not a
   const store = await connectedStore();
   const reservedAt = new Date(monday.getTime() - 60 * 60000).toISOString();
   await store.reserveOutboundSend({ idempotencyKey: 'initial:pros', prospectId: 'pros', campaignId: 'camp', inbox: 'A', recipientEmail: 'info@clinic.example', dailyCap: 10, hourlyCap: 10, minGapSeconds: 0, now: reservedAt });
-  const result = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'REVIEW_REQUIRED');
   assert.ok(result.reviewReasonCodes.includes('stale-reservation-detected'));
 });
@@ -156,7 +178,8 @@ test('a stale reserved-but-never-completed reservation is REVIEW_REQUIRED, not a
 test('uncertain recipient identity is denied', async () => {
   const store = await connectedStore();
   const prospect = baseProspect({ contact: { email: 'owner@clinic.example', source: 'hunter', verified: 'unknown' } });
-  const result = await evaluateDeliverabilityGuard({ store, prospect, campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect, campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.includes('contact:contact-not-published-or-verified'));
 });
@@ -164,14 +187,16 @@ test('uncertain recipient identity is denied', async () => {
 test('inferred/unsupported contact route (free mail) is denied', async () => {
   const store = await connectedStore();
   const prospect = baseProspect({ contact: { email: 'clinic@gmail.com', source: 'website', verified: 'valid' } });
-  const result = await evaluateDeliverabilityGuard({ store, prospect, campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect, campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.includes('contact:free-mail-contact'));
 });
 
 test('missing owner authority (campaign not approved) is denied', async () => {
   const store = await connectedStore();
-  const result = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign({ approved: false }), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign({ approved: false }), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.includes('authority-campaign-not-approved'));
   assert.equal(result.authorityUsed.campaignApproved, false);
@@ -180,14 +205,16 @@ test('missing owner authority (campaign not approved) is denied', async () => {
 test('expired owner authority is denied', async () => {
   const store = await connectedStore();
   const campaign = baseCampaign({ expiresAt: new Date(monday.getTime() - 86400000).toISOString() });
-  const result = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign, cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect: baseProspect(), campaign, cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.includes('authority-campaign-expired'));
 });
 
 test('campaign approved but autoSend disabled requires owner review, not a hard deny', async () => {
   const store = await connectedStore();
-  const result = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign({ autoSend: false }), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign({ autoSend: false }), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'REVIEW_REQUIRED');
   assert.ok(result.reviewReasonCodes.includes('owner-review-required-autosend-disabled'));
   assert.equal(result.ownerBurden.manualStepsRequired, 1);
@@ -195,7 +222,8 @@ test('campaign approved but autoSend disabled requires owner review, not a hard 
 
 test('unsupported provider (no connected account for the inbox) is denied', async () => {
   const store = await tempStore();
-  const result = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.includes('provider-capability-absent'));
 });
@@ -205,28 +233,32 @@ test('daily volume ceiling exceeded is denied', async () => {
   await store.reserveOutboundSend({ idempotencyKey: 'initial:other', prospectId: 'other', campaignId: 'camp', inbox: 'A', recipientEmail: 'other@clinic.example', dailyCap: 1, hourlyCap: 10, minGapSeconds: 0, now: monday.toISOString() });
   const campaign = baseCampaign({ dailyCaps: { A: 1 } });
   const cfg = baseCfg(); cfg.caps = { A: 1 };
-  const result = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign, cfg, date: monday });
+  const result = await guardWith(store, {
+    prospect: baseProspect(), campaign, cfg, date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.includes('daily-volume-ceiling-exceeded'));
 });
 
 test('cost estimate stays zero because no paid per-send provider is wired up (Gmail API)', async () => {
   const store = await connectedStore();
-  const result = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.deepEqual(result.costEstimate, { amountCents: 0, currency: 'USD', basis: 'gmail-api-no-per-send-fee' });
 });
 
 test('an unsupported/unsubstantiated claim in the draft is denied', async () => {
   const store = await connectedStore();
   const prospect = baseProspect({ draft: 'We guarantee 100% results, best in the world.' });
-  const result = await evaluateDeliverabilityGuard({ store, prospect, campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect, campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.some(r => r.startsWith('unsupported-claims:')));
 });
 
 test('outside the configured safety window is denied', async () => {
   const store = await connectedStore();
-  const result = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: new Date('2026-07-13T02:00:00Z') });
+  const result = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: new Date('2026-07-13T02:00:00Z') });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.includes('outside-safety-window'));
 });
@@ -234,7 +266,8 @@ test('outside the configured safety window is denied', async () => {
 test('cross-campaign (cross-workspace) mismatch is denied', async () => {
   const store = await connectedStore();
   const prospect = baseProspect({ campaignId: 'a-different-campaign' });
-  const result = await evaluateDeliverabilityGuard({ store, prospect, campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const result = await guardWith(store, {
+    prospect, campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(result.decision, 'DENY');
   assert.ok(result.denyReasonCodes.includes('cross-campaign-mismatch'));
 });
@@ -247,15 +280,18 @@ test('malformed input (missing store, prospect, campaign, or config) is denied a
   assert.ok(noStore.timestamp);
   assert.ok(noStore.reversibleNextStep.length > 0);
 
-  const noProspect = await evaluateDeliverabilityGuard({ store, campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  const noProspect = await guardWith(store, {
+    campaign: baseCampaign(), cfg: baseCfg(), date: monday });
   assert.equal(noProspect.decision, 'DENY');
   assert.ok(noProspect.denyReasonCodes.includes('malformed-input-prospect'));
 
-  const noCampaign = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), cfg: baseCfg(), date: monday });
+  const noCampaign = await guardWith(store, {
+    prospect: baseProspect(), cfg: baseCfg(), date: monday });
   assert.equal(noCampaign.decision, 'DENY');
   assert.ok(noCampaign.denyReasonCodes.includes('malformed-input-campaign'));
 
-  const noCfg = await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign(), date: monday });
+  const noCfg = await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign(), date: monday });
   assert.equal(noCfg.decision, 'DENY');
   assert.ok(noCfg.denyReasonCodes.includes('malformed-input-config'));
 });
@@ -270,8 +306,10 @@ test('a full sweep of denied, review, duplicate, replay, and malformed cases nev
   const before = await store.list('outboundReservations');
   assert.equal(before.length, 0);
 
-  await evaluateDeliverabilityGuard({ store, prospect: baseProspect({ contact: { email: 'clinic@gmail.com', source: 'website' } }), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
-  await evaluateDeliverabilityGuard({ store, prospect: baseProspect(), campaign: baseCampaign({ autoSend: false }), cfg: baseCfg(), date: monday });
+  await guardWith(store, {
+    prospect: baseProspect({ contact: { email: 'clinic@gmail.com', source: 'website' } }), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
+  await guardWith(store, {
+    prospect: baseProspect(), campaign: baseCampaign({ autoSend: false }), cfg: baseCfg(), date: monday });
   await evaluateDeliverabilityGuard({ prospect: baseProspect(), campaign: baseCampaign(), cfg: baseCfg(), date: monday });
 
   const after = await store.list('outboundReservations');

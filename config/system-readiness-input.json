@@ -2,16 +2,16 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 424,
+      "filesParsed": 430,
       "ranAt": "2026-08-23T00:45:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 1966,
-      "pass": 1924,
+      "tests": 1996,
+      "pass": 1954,
       "fail": 0,
       "skipped": 42,
-      "ranAt": "2026-08-23T03:35:00Z"
+      "ranAt": "2026-08-23T04:20:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -441,14 +441,17 @@
       "status": "IMPLEMENTED",
       "level": 3,
       "evidence": [
-        "src/agent-mesh-cycle-receipts.mjs",
-        "src/founder-absence-readiness.mjs"
+        "src/operator-escalation.mjs",
+        "src/operator-health-snapshot.mjs",
+        "src/agent-mesh-cycle-receipts.mjs"
       ],
       "tests": [
-        "tests/agent-mesh-abandoned-cycle-reconciliation.test.mjs",
+        "tests/operator-escalation.test.mjs",
+        "tests/operator-health-snapshot.test.mjs",
         "tests/durable-spine-soak.test.mjs"
       ],
-      "nextAction": "No paging path exists: an owner is not woken by anything today."
+      "nextAction": "Owner supplies a delivery channel credential. Detection is done; delivery is not.",
+      "externalBlocker": "No paging channel configured: escalations are queued, never delivered."
     },
     {
       "id": "security",

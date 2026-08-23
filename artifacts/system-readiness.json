@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-23T02:08:18.126Z",
+  "generatedAt": "2026-08-23T02:36:35.384Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "02114aeb2e1a57cbce67989d1c508cd4f2b1b0ac",
+    "head": "f77e6a5e3f33738a383e37ab8e067bcae30cacef",
     "branch": "main",
-    "sourceModules": 144,
-    "testSuites": 188,
+    "sourceModules": 146,
+    "testSuites": 192,
     "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 424,
+      "filesParsed": 430,
       "ranAt": "2026-08-23T00:45:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 1966,
-      "pass": 1924,
+      "tests": 1996,
+      "pass": 1954,
       "fail": 0,
       "skipped": 42,
-      "ranAt": "2026-08-23T03:35:00Z"
+      "ranAt": "2026-08-23T04:20:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -587,17 +587,19 @@
       "declaredLevel": 3,
       "cappedByMissingExternalEvidence": false,
       "evidence": [
-        "src/agent-mesh-cycle-receipts.mjs",
-        "src/founder-absence-readiness.mjs"
+        "src/operator-escalation.mjs",
+        "src/operator-health-snapshot.mjs",
+        "src/agent-mesh-cycle-receipts.mjs"
       ],
       "tests": [
-        "tests/agent-mesh-abandoned-cycle-reconciliation.test.mjs",
+        "tests/operator-escalation.test.mjs",
+        "tests/operator-health-snapshot.test.mjs",
         "tests/durable-spine-soak.test.mjs"
       ],
       "realWire": false,
       "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "No paging path exists: an owner is not woken by anything today."
+      "externalBlocker": "No paging channel configured: escalations are queued, never delivered.",
+      "nextAction": "Owner supplies a delivery channel credential. Detection is done; delivery is not."
     },
     {
       "id": "security",

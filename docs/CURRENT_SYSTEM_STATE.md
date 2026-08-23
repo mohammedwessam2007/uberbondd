@@ -41,8 +41,8 @@ Every number below was produced by running the command, on this tree.
 
 | Gate | Command | Result |
 |---|---|---|
-| Syntax | `npm run check:syntax` | 424 files parse |
-| Deterministic | `npm run test:deterministic` | 1966 tests, 1924 pass, **0 fail**, 42 skipped |
+| Syntax | `npm run check:syntax` | 430 files parse |
+| Deterministic | `npm run test:deterministic` | 1996 tests, 1954 pass, **0 fail**, 42 skipped |
 | Relay safety | `npm run test:relay-safety` | 150 tests, 150 pass, 0 fail |
 | Real PostgreSQL | `npm run test:postgres-real` | 107 tests, **107 pass, 0 skipped** |
 | Dependencies | `npm audit` | 0 vulnerabilities |
@@ -145,11 +145,13 @@ exists to refuse.
 
 ## 5. Known bounds, not yet cured
 
-**Snapshot scan ceiling.** Autonomy run reads pull a bounded window of 2000
-audit rows. Past that the read refuses rather than going stale, which is the
-important half — but it is a ceiling. Curing it needs per-run reads, and the
-store's filters match top-level columns and cannot select on `detail.runId`.
-That is a schema change, deliberately not done tonight.
+**Snapshot scan ceiling — lifted.** Autonomy run reads now page through the
+filtered audit history to exhaustion rather than depending on one 2000-row
+window. The first version of that fix stopped at the page where the run
+appeared, on the assumption that pages arrive newest-first; `_listDirect`
+applies no ordering unless asked, so they arrive oldest-first and it returned
+the run's *oldest* snapshot — sequence 0 instead of 5. It scans every page now.
+A store that ignores `offset` still fails closed rather than looping.
 
 **Real-PostgreSQL suites need serial execution.** Stable serially over three
 consecutive runs; intermittently failing in parallel. The cause is
@@ -170,9 +172,16 @@ calls and cents) and `businessEffectLedger` (7 keys, business spend). Both are
 load-bearing and both are now declared in one module, so the scanner has one
 list to consult — but they have not been unified.
 
-**Nothing pages the owner.** There is no path by which a human is woken when
-the system dies. For a device-off system that is the largest remaining
-operational gap, and no test can close it.
+**Detection exists; delivery does not.** The system now assesses its own health
+after every cycle from durable truth — silent scheduler, abandoned cycles, dead
+letters, stalled and stranded runs, effect-ledger integrity — and persists an
+owner action queue. A dimension the store cannot answer is reported unreadable
+rather than as zero, because "nothing is wrong" and "we did not look" must not
+be the same value.
+
+What is still missing is the last hop: `transport: UNCONFIGURED`,
+`deliveryProof: NOT_AVAILABLE`. Nothing wakes a human. That needs a channel
+credential, which is an owner action.
 
 ## 6. Owner actions
 

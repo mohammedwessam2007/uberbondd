@@ -116,7 +116,14 @@ function isOwned(candidate) {
   );
 }
 function suppressionSet(suppressions = []) {
-  return new Set(suppressions.map(item => text(item?.value, 320).toLowerCase()).filter(Boolean));
+  // Suppression lists arrive as records from the store and as bare strings from
+  // callers holding a list of addresses. Reading only `item.value` meant a
+  // string array produced an empty set -- no error, no warning, simply no
+  // suppression at all. A silently empty suppression list is the worst possible
+  // failure mode for this particular check, so both shapes are accepted.
+  return new Set((Array.isArray(suppressions) ? suppressions : [])
+    .map(item => text(typeof item === 'string' ? item : item?.value, 320).toLowerCase())
+    .filter(Boolean));
 }
 function suppressed(candidate, suppressions) {
   const email = candidateEmail(candidate);
@@ -260,13 +267,67 @@ function intentScore(signals, query, now) {
   return { score, stack, signals: stack.whyNow.map(item => ({ ...item, contribution: Math.min(7, Math.round(item.contribution)) })) };
 }
 
+// Contact states, in the vocabulary the evidence layer already uses. Scoring a
+// route zero is not the same as blocking on it: a candidate with a known-bad
+// address could still clear minScore on fit, evidence and intent alone, and
+// then be advertised as handoff-ready. Qualification truth has to name the
+// route state, not just price it.
+const CONTACT_STATE_BLOCKS = Object.freeze({
+  invalid: 'contact-route-invalid',
+  undeliverable: 'contact-route-invalid',
+  bounced: 'contact-route-invalid',
+  suppressed: 'contact-route-suppressed',
+  unsubscribed: 'contact-route-suppressed',
+  complaint: 'contact-route-suppressed',
+  complained: 'contact-route-suppressed',
+  stale: 'contact-route-reverify-required',
+  expired: 'contact-route-reverify-required',
+  catch_all: 'contact-route-needs-review',
+  'catch-all': 'contact-route-needs-review',
+  risky: 'contact-route-needs-review',
+  unknown: 'contact-route-needs-review',
+  temporary_failure: 'contact-route-needs-review',
+  'temporary-failure': 'contact-route-needs-review',
+  deferred: 'contact-route-needs-review'
+});
+
+const CONTACT_STATE_SATISFIES = new Set(['valid', 'verified', 'deliverable']);
+
+/** The declared verification state of the selected route, normalized. */
+function contactState(candidate) {
+  return String(candidate?.contact?.verified || candidate?.contact?.verificationStatus || '')
+    .trim().toLowerCase().replace(/\s+/g, '_');
+}
+
 function contactScore(candidate) {
   const email = candidateEmail(candidate);
-  if (!email) return { score: 0, label: 'no selected business email' };
-  const verified = String(candidate?.contact?.verified || candidate?.contact?.verificationStatus || '').toLowerCase();
-  if (['valid', 'verified', 'deliverable'].includes(verified)) return { score: 10, label: 'verified business email' };
-  if (['invalid', 'undeliverable', 'bounced'].includes(verified)) return { score: 0, label: 'contact marked invalid' };
-  return { score: 6, label: 'business email selected; verification status unknown' };
+  if (!email) return { score: 0, label: 'no selected business email', state: 'absent' };
+  const verified = contactState(candidate);
+  if (CONTACT_STATE_SATISFIES.has(verified)) return { score: 10, label: 'verified business email', state: verified };
+  if (CONTACT_STATE_BLOCKS[verified] === 'contact-route-invalid') return { score: 0, label: 'contact marked invalid', state: verified };
+  return { score: 6, label: 'business email selected; verification status unknown', state: verified || 'unstated' };
+}
+
+/**
+ * The contact gate for `requireContact`.
+ *
+ * A present string is not a contactable route. An unstated verification state
+ * is treated as needing review rather than as permission, because "we never
+ * checked" and "we checked and it is fine" must not score the same.
+ *
+ * Passing this gate means the route may satisfy qualification. It grants no
+ * send authority: suppression, deliverability and the V9 consequence gates
+ * remain the final word.
+ */
+function contactGateBlocks(candidate, query) {
+  if (!query.requireContact) return [];
+  if (!candidateEmail(candidate)) return ['no-selected-business-contact'];
+  const verified = contactState(candidate);
+  if (CONTACT_STATE_SATISFIES.has(verified)) return [];
+  const named = CONTACT_STATE_BLOCKS[verified];
+  if (named) return [named];
+  // Includes the unstated case: nobody has verified this route.
+  return ['contact-route-unverified'];
 }
 
 function signalTrust(signal) {
@@ -324,7 +385,7 @@ export function scoreLeadCandidate({ candidate = {}, query: rawQuery = {}, signa
   if (isBlockedBySuppression) blocks.push('suppressed');
   if (owned && query.skipOwned) blocks.push('already-owned-or-contacted');
   if (query.requireEvidence && evidence.score < query.minEvidenceScore) blocks.push('evidence-below-threshold');
-  if (query.requireContact && !candidateEmail(candidate)) blocks.push('no-selected-business-contact');
+  for (const block of contactGateBlocks(candidate, query)) blocks.push(block);
   if (query.minIntentScore > intent.score) blocks.push('intent-below-threshold');
   if (query.requireEvidence && query.freshWithinDays < 3650 && evidence.ageDays > query.freshWithinDays) blocks.push('evidence-stale');
   const total = Math.min(100, fit.score + evidence.score + intent.score + contact.score + safety);
@@ -373,7 +434,11 @@ export function searchLocalLeadCorpus({ prospects = [], signals = [], suppressio
     if (score.blocks.includes('suppressed')) { excluded.suppressed = (excluded.suppressed || 0) + 1; continue; }
     if (query.skipOwned && score.blocks.includes('already-owned-or-contacted')) { excluded.already_owned = (excluded.already_owned || 0) + 1; continue; }
     if (query.requireEvidence && score.blocks.includes('evidence-below-threshold')) { excluded.evidence = (excluded.evidence || 0) + 1; continue; }
-    if (query.requireContact && score.blocks.includes('no-selected-business-contact')) { excluded.contact = (excluded.contact || 0) + 1; continue; }
+    // Any contact-gate refusal excludes the candidate, not only the missing-email one.
+    if (query.requireContact && score.blocks.some(block => block === 'no-selected-business-contact' || block.startsWith('contact-route-'))) {
+      excluded.contact = (excluded.contact || 0) + 1;
+      continue;
+    }
     const email = candidateEmail(candidate);
     const domain = candidateDomain(candidate);
     const keys = [email && `email:${email}`, domain && `domain:${domain}`].filter(Boolean);

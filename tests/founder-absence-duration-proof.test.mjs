@@ -26,6 +26,7 @@ function proof(overrides = {}) {
     unauthorizedEffects: 0,
     openDeadLetters: 0,
     abandonedCycles: 0,
+    undeliveredEscalations: 0, // an escalation nobody received is not evidence of a working unattended system
     sourceCommit: 'abc123',
     policyVersions: ['mesh-policy-1'],
     ...overrides

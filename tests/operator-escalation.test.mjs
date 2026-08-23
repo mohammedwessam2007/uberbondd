@@ -6,6 +6,7 @@ import {
   evaluateOperatorHealth,
   persistOperatorEscalations
 } from '../src/operator-escalation.mjs';
+import { DELIVERY_PROOF } from '../src/operator-escalation-transport.mjs';
 
 const NOW = new Date('2026-08-23T02:00:00.000Z');
 
@@ -169,7 +170,13 @@ test('every escalation is local truth with zero external effects and no transpor
   assert.equal(escalation.transportStatus, 'NOT_DISPATCHED');
   assert.deepEqual(escalation.externalEffectLedger, OPERATOR_ESCALATION_EXTERNAL_EFFECTS);
   assert.equal(result.paging.transport, 'UNCONFIGURED');
-  assert.equal(result.paging.deliveryProof, 'NOT_AVAILABLE');
+  // Was the literal 'NOT_AVAILABLE'. The claim is unchanged -- nothing here may
+  // assert a page was delivered -- but the report now says which of the several
+  // ways it was not: no transport exists at all, as opposed to one existing and
+  // failing, or existing and returning an unknowable result.
+  assert.equal(result.paging.deliveryProof, DELIVERY_PROOF.NO_TRANSPORT_CONFIGURED);
+  assert.notEqual(result.paging.deliveryProof, DELIVERY_PROOF.HUMAN_DELIVERY_PROVEN);
+  assert.equal(result.paging.undeliveredEscalations, 0);
 });
 
 test('invalid health snapshot and time fail closed', () => {

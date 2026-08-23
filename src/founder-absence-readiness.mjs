@@ -2,8 +2,9 @@ import {
   findAbandonedAgentMeshCycles,
   listTerminalAgentMeshCycleReceipts
 } from './agent-mesh-cycle-receipts.mjs';
+import { readEscalationDeliveryState } from './operator-escalation.mjs';
 
-export const FOUNDER_ABSENCE_POLICY_VERSION = 'founder-absence-readiness-2.2.0';
+export const FOUNDER_ABSENCE_POLICY_VERSION = 'founder-absence-readiness-2.3.0';
 
 const REQUIRED = Object.freeze([
   'durableState',
@@ -24,7 +25,12 @@ const EXTERNAL_PROOF_REQUIRED = new Set([
   'agentRelay',
   'agentWorkers',
   'paymentObservation',
-  'deliveryObservation'
+  'deliveryObservation',
+  // Whether a page reached a person is the archetypal claim this system cannot
+  // make about itself. `ownerEscalationQueue` used to be satisfiable by the
+  // queue existing, which is how a proof reached KILIMANJARO_READY at 100%
+  // while nothing in the repository could reach the owner at all.
+  'ownerEscalationQueue'
 ]);
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -84,6 +90,7 @@ function normalizeObservationProof(input = {}) {
     unauthorizedEffects: nonNegativeInt(input.unauthorizedEffects),
     openDeadLetters: nonNegativeInt(input.openDeadLetters),
     abandonedCycles: nonNegativeInt(input.abandonedCycles),
+    undeliveredEscalations: nonNegativeInt(input.undeliveredEscalations),
     sourceCommit,
     policyVersions
   };
@@ -100,6 +107,7 @@ function evaluateObservationProof({ proof, targetDays, currentSourceCommit, curr
   if (proof.unauthorizedEffects === null) reasonCodes.push('unauthorized-effects-required');
   if (proof.openDeadLetters === null) reasonCodes.push('open-dead-letters-required');
   if (proof.abandonedCycles === null) reasonCodes.push('abandoned-cycle-count-required');
+  if (proof.undeliveredEscalations === null) reasonCodes.push('undelivered-escalation-count-required');
   if (!proof.sourceCommit) reasonCodes.push('proof-source-commit-required');
   if (!currentSourceCommit) reasonCodes.push('current-source-commit-required');
 
@@ -123,6 +131,12 @@ function evaluateObservationProof({ proof, targetDays, currentSourceCommit, curr
   // Until it is reconciled into a recorded failure it is not evidence of
   // anything, and it certainly is not evidence of an unbroken run.
   if (proof.abandonedCycles !== null && proof.abandonedCycles !== 0) reasonCodes.push('abandoned-mesh-cycles-present');
+  // The premise of founder absence is that if something goes wrong the founder
+  // finds out. An observation window with escalations nobody received is not
+  // evidence of an unattended system working; it is evidence of an unattended
+  // system whose alarms are disconnected, which is the same picture from the
+  // inside and a different one from the outside.
+  if (proof.undeliveredEscalations !== null && proof.undeliveredEscalations !== 0) reasonCodes.push('undelivered-escalations-present');
 
   if (proof.freshnessAtMs !== null) {
     if (proof.freshnessAtMs > nowMs + FUTURE_SKEW_MS) reasonCodes.push('proof-freshness-in-future');
@@ -172,7 +186,7 @@ function currentIdentitySuffix(receipts, currentSourceCommit, currentPolicyVersi
   return receipts.slice(start);
 }
 
-export function deriveFounderAbsenceObservationProof({ receipts = [], openDeadLetters = 0, abandonedCycles = 0 } = {}) {
+export function deriveFounderAbsenceObservationProof({ receipts = [], openDeadLetters = 0, abandonedCycles = 0, undeliveredEscalations = 0 } = {}) {
   const terminal = (Array.isArray(receipts) ? receipts : [])
     .filter(receipt => receipt?.phase === 'TERMINAL')
     .map(receipt => ({ ...receipt, startedAtMs: parseIso(receipt.startedAt), finishedAtMs: parseIso(receipt.finishedAt) }))
@@ -187,6 +201,7 @@ export function deriveFounderAbsenceObservationProof({ receipts = [], openDeadLe
       unauthorizedEffects: 0,
       openDeadLetters: nonNegativeInt(openDeadLetters),
       abandonedCycles: nonNegativeInt(abandonedCycles),
+      undeliveredEscalations: nonNegativeInt(undeliveredEscalations),
       sourceCommit: null,
       policyVersions: []
     };
@@ -212,6 +227,7 @@ export function deriveFounderAbsenceObservationProof({ receipts = [], openDeadLe
     unauthorizedEffects,
     openDeadLetters: nonNegativeInt(openDeadLetters),
     abandonedCycles: nonNegativeInt(abandonedCycles),
+    undeliveredEscalations: nonNegativeInt(undeliveredEscalations),
     sourceCommit: sourceCommits.length === 1 ? sourceCommits[0] : null,
     policyVersions: commonPolicyVersions(terminal)
   };
@@ -240,10 +256,18 @@ export async function evaluateFounderAbsenceReadinessFromDurableHistory({
     abandonedAfterMs,
     limit: historyLimit
   });
+  // Read deliverability from the durable page ledger rather than accepting it
+  // as an assertion. A readiness proof that takes "the owner was reachable" on
+  // trust is proving the wrong thing.
+  const delivery = await readEscalationDeliveryState(store, { date: options.now || new Date() });
   const observationProof = deriveFounderAbsenceObservationProof({
     receipts: qualifyingReceipts,
     openDeadLetters,
-    abandonedCycles: abandoned.length
+    abandonedCycles: abandoned.length,
+    // An unreadable ledger is not zero. Leaving it null makes the proof fail
+    // closed on `undelivered-escalation-count-required` rather than pass on a
+    // number nobody could verify.
+    undeliveredEscalations: delivery.ok ? delivery.paging.undeliveredEscalations : null
   });
   const result = evaluateFounderAbsenceReadiness({
     ...options,
@@ -324,6 +348,7 @@ export function evaluateFounderAbsenceReadiness({
       unauthorizedEffects: proof.unauthorizedEffects,
       openDeadLetters: proof.openDeadLetters,
       abandonedCycles: proof.abandonedCycles,
+      undeliveredEscalations: proof.undeliveredEscalations,
       sourceCommit: proof.sourceCommit,
       policyVersions: proof.policyVersions,
       observedSpanMs: durationGate.observedSpanMs,

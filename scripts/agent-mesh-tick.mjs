@@ -65,7 +65,16 @@ import { createModelExecutorFactory, describeProviderReadiness } from '../src/ag
 import { evaluateAgentMeshActivation } from '../src/agent-mesh-activation-gate.mjs';
 import { parseMissionSpec, seedScheduledMission } from '../src/agent-mesh-mission-seed.mjs';
 import { composeOperatorHealthSnapshot } from '../src/operator-health-snapshot.mjs';
-import { evaluateOperatorHealth, persistOperatorEscalations } from '../src/operator-escalation.mjs';
+import {
+  evaluateOperatorHealth,
+  persistOperatorEscalations,
+  readEscalationDeliveryState
+} from '../src/operator-escalation.mjs';
+import {
+  dispatchOperatorPage,
+  durableAuditTransport,
+  DELIVERY_PROOF
+} from '../src/operator-escalation-transport.mjs';
 import {
   loadActivationEvidenceFile,
   loadSandboxIsolationReceipt,
@@ -244,14 +253,44 @@ async function main() {
       expectedIntervalMinutes: boundedInt(process.env.AGENT_MESH_INTERVAL_MINUTES, null, 1, 10_080),
       date: new Date()
     });
-    const report = evaluateOperatorHealth({ snapshot: health.snapshot });
+    // What has already been raised, and what of it ever reached a person.
+    // Without this the suppression the kernel was built with is never fed: ten
+    // ticks against one unchanging condition wrote thirty durable rows for
+    // three real problems.
+    const delivery = await readEscalationDeliveryState(store, { date: new Date() });
+    const report = evaluateOperatorHealth({
+      snapshot: { ...health.snapshot, paging: delivery.ok ? delivery.paging : undefined },
+      activeFingerprints: delivery.ok ? delivery.activeFingerprints : []
+    });
     if (report.ok) {
-      await persistOperatorEscalations(store, report);
+      const persisted = await persistOperatorEscalations(store, report);
+
+      // Attempt delivery for what is genuinely new. Only the durable-audit
+      // transport is configured, and it reaches nobody -- which is exactly the
+      // condition the next assessment will escalate as OWNER_UNREACHABLE.
+      // Configuring a transport that reaches a device requires owner
+      // authorization this system does not hold, so the honest thing is to try
+      // what exists, record the result, and be loud about the gap.
+      const transports = [durableAuditTransport(store)];
+      const pages = [];
+      for (const item of report.escalations) {
+        if (item.status !== 'NEW_ESCALATION') continue;
+        pages.push(await dispatchOperatorPage(store, { escalation: item, transports, date: new Date() }));
+      }
+
       escalation = {
         health: report.health,
         newEscalations: report.newEscalationCount,
+        persistedEscalations: persisted.length,
         ownerActionQueue: report.ownerActionQueue,
         paging: report.paging,
+        pagesAttempted: pages.length,
+        ownerReached: pages.some(page => page.ownerReached),
+        deliveryProof: pages.length
+          ? (pages.every(page => page.deliveryProof === DELIVERY_PROOF.DURABLE_RECORD_ONLY)
+            ? DELIVERY_PROOF.DURABLE_RECORD_ONLY
+            : DELIVERY_PROOF.DELIVERY_INDETERMINATE)
+          : report.paging.deliveryProof,
         unreadableDimensions: health.unreadable
       };
     }

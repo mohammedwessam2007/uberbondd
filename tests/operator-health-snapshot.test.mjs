@@ -10,6 +10,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { composeOperatorHealthSnapshot } from '../src/operator-health-snapshot.mjs';
 import { evaluateOperatorHealth, persistOperatorEscalations } from '../src/operator-escalation.mjs';
+import { DELIVERY_PROOF } from '../src/operator-escalation-transport.mjs';
 import {
   beginAgentMeshCycleReceipt,
   finishAgentMeshCycleReceipt
@@ -139,7 +140,10 @@ test('the report never claims a page was delivered', async () => {
   const report = evaluateOperatorHealth({ snapshot: health.snapshot, date: NOW });
 
   assert.equal(report.paging.transport, 'UNCONFIGURED');
-  assert.equal(report.paging.deliveryProof, 'NOT_AVAILABLE');
+  // Was the literal 'NOT_AVAILABLE'. Same claim, more information: this is the
+  // "nobody is configured to be told" case, not a failed or unknown delivery.
+  assert.equal(report.paging.deliveryProof, DELIVERY_PROOF.NO_TRANSPORT_CONFIGURED);
+  assert.notEqual(report.paging.deliveryProof, DELIVERY_PROOF.HUMAN_DELIVERY_PROVEN);
   assert.equal(report.businessEffectAuthority, 'NONE');
   for (const value of Object.values(report.externalEffectLedger)) assert.equal(value, 0);
 });

@@ -133,6 +133,20 @@ test('missing durable event id fails closed', () => {
   assert.ok(result.reasonCodes.includes('durable-event-id-required'));
 });
 
+test('invalid explicit event time fails closed instead of falling back to now', () => {
+  const result = applyFulfillmentEvent({ state: plan(), event: { type: 'WORK_STARTED', at: 'not-a-date', eventId: 'evt_bad_time' } });
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('valid-event-time-required'));
+});
+
+test('event time cannot move fulfillment state backward', () => {
+  const p = plan();
+  const first = applyFulfillmentEvent({ state: p, event: { type: 'WORK_STARTED', at: '2026-08-23T02:00:00Z', eventId: 'evt_forward' } });
+  const regressed = applyFulfillmentEvent({ state: first.state, event: { type: 'WORK_COMPLETE', at: '2026-08-23T01:00:00Z', eventId: 'evt_backward' } });
+  assert.equal(regressed.ok, false);
+  assert.ok(regressed.reasonCodes.includes('event-time-regression'));
+});
+
 test('duplicate identical event is idempotent', () => {
   const p = plan();
   const event = { type: 'WORK_STARTED', at: '2026-08-23T01:00:00Z', eventId: 'evt_fixed' };
@@ -162,13 +176,50 @@ test('renewal cannot exist on nonrecurring service', () => {
   assert.equal(apply(s, 'RENEWAL_DUE').ok, false);
 });
 
-test('renewal confirmation requires external payment evidence', () => {
+test('support and renewal cannot be fast-forwarded before their elapsed windows', () => {
+  let s = reachAcceptancePending();
+  s = apply(s, 'CUSTOMER_ACCEPTED', { evidenceClass: 'EXTERNAL_CUSTOMER', evidenceRef: 'customer:time-proof' }).state;
+
+  const earlySupportEnd = apply(s, 'SUPPORT_ENDED', {}, '2026-08-24T01:00:00Z');
+  assert.equal(earlySupportEnd.ok, false);
+  assert.ok(earlySupportEnd.reasonCodes.includes('support-window-not-ended'));
+  assert.equal(s.economicTruth.retainedCustomer, 'NOT_INFERRED');
+
+  const earlyRenewal = apply(s, 'RENEWAL_DUE', {}, '2026-08-24T01:00:00Z');
+  assert.equal(earlyRenewal.ok, false);
+  assert.ok(earlyRenewal.reasonCodes.includes('renewal-not-due'));
+  assert.equal(s.economicTruth.retainedCustomer, 'NOT_INFERRED');
+});
+
+test('support ending before a later renewal due date does not invent renewal due', () => {
+  let s = plan({ supportWindowDays: 1, renewalIntervalDays: 30 });
+  s = apply(s, 'WORK_STARTED').state;
+  s = apply(s, 'WORK_COMPLETE').state;
+  s = apply(s, 'QA_RESULT', { qaPassed: true, evidenceRef: 'qa:short-support' }).state;
+  s = apply(s, 'DELIVERY_RECORDED', { artifactRefs: ['artifact:short-support'] }).state;
+  s = apply(s, 'ACCEPTANCE_REQUESTED').state;
+  s = apply(s, 'CUSTOMER_ACCEPTED', { evidenceClass: 'EXTERNAL_CUSTOMER', evidenceRef: 'customer:short-support' }).state;
+
+  const supportEnded = apply(s, 'SUPPORT_ENDED', {}, '2026-08-24T01:00:00Z');
+  assert.equal(supportEnded.ok, true);
+  assert.equal(supportEnded.status, 'ACCEPTED');
+
+  const earlyDue = apply(supportEnded.state, 'RENEWAL_DUE', {}, '2026-08-25T01:00:00Z');
+  assert.equal(earlyDue.ok, false);
+  assert.ok(earlyDue.reasonCodes.includes('renewal-not-due'));
+
+  const due = apply(supportEnded.state, 'RENEWAL_DUE', {}, '2026-09-22T01:00:00Z');
+  assert.equal(due.ok, true);
+  assert.equal(due.status, 'RENEWAL_DUE');
+});
+
+test('renewal confirmation requires external payment evidence after elapsed due time', () => {
   let s = reachAcceptancePending();
   s = apply(s, 'CUSTOMER_ACCEPTED', { evidenceClass: 'EXTERNAL_CUSTOMER', evidenceRef: 'customer:ok-2' }).state;
-  s = apply(s, 'SUPPORT_ENDED').state;
+  s = apply(s, 'SUPPORT_ENDED', {}, '2026-09-22T01:00:00Z').state;
   assert.equal(s.status, 'RENEWAL_DUE');
-  assert.equal(apply(s, 'RENEWAL_CONFIRMED', { evidenceClass: 'MODEL_OUTPUT', evidenceRef: 'payment:fake' }).ok, false);
-  const renewed = apply(s, 'RENEWAL_CONFIRMED', { evidenceClass: 'EXTERNAL_PAYMENT', evidenceRef: 'payment:settled-1' });
+  assert.equal(apply(s, 'RENEWAL_CONFIRMED', { evidenceClass: 'MODEL_OUTPUT', evidenceRef: 'payment:fake' }, '2026-09-22T02:00:00Z').ok, false);
+  const renewed = apply(s, 'RENEWAL_CONFIRMED', { evidenceClass: 'EXTERNAL_PAYMENT', evidenceRef: 'payment:settled-1' }, '2026-09-22T02:00:00Z');
   assert.equal(renewed.status, 'RENEWED');
   assert.equal(renewed.state.economicTruth.retainedCustomer, true);
   assert.equal(renewed.state.economicTruth.clearedRevenue, 'NOT_INFERRED');

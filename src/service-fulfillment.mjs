@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-export const SERVICE_FULFILLMENT_VERSION = 'uberbond.service-fulfillment.v1';
+export const SERVICE_FULFILLMENT_VERSION = 'uberbond.service-fulfillment.v1.1';
 
 export const FULFILLMENT_STATUSES = Object.freeze([
   'PLANNED',
@@ -53,6 +53,11 @@ function int(value, min, max, fallback = null) {
 function iso(value, fallback = new Date()) {
   const date = value instanceof Date ? value : new Date(value || fallback);
   return Number.isNaN(date.getTime()) ? new Date(fallback).toISOString() : date.toISOString();
+}
+
+function strictDate(value) {
+  const date = value instanceof Date ? value : new Date(value || '');
+  return Number.isNaN(date.getTime()) ? null : date;
 }
 
 function hash(value) {
@@ -180,7 +185,13 @@ export function applyFulfillmentEvent({ state, event, date = new Date() } = {}) 
   }
   if (!event || typeof event !== 'object' || Array.isArray(event)) return fail(['event-object-required'], state);
 
-  const identity = eventIdentity({ ...event, at: event.at || date });
+  const eventAt = strictDate(event.at ?? date);
+  if (!eventAt) return fail(['valid-event-time-required'], state);
+  const updatedAt = strictDate(state.updatedAt);
+  if (!updatedAt) return fail(['valid-state-time-required'], state);
+  if (eventAt.getTime() < updatedAt.getTime()) return fail(['event-time-regression'], state);
+
+  const identity = eventIdentity({ ...event, at: eventAt.toISOString() });
   if (!identity.eventId) return fail(['durable-event-id-required'], state);
   const prior = state.eventLog.find(item => item.eventId === identity.eventId);
   if (prior) {
@@ -204,6 +215,7 @@ export function applyFulfillmentEvent({ state, event, date = new Date() } = {}) 
   const requireStatus = (...allowed) => {
     if (!allowed.includes(next.status)) reasons.push(`invalid-transition:${next.status}->${type}`);
   };
+  const eventMillis = eventAt.getTime();
 
   switch (type) {
     case 'WORK_STARTED':
@@ -273,15 +285,26 @@ export function applyFulfillmentEvent({ state, event, date = new Date() } = {}) 
       requireStatus('REVISION_REQUESTED', 'QA_FAILED');
       transition = 'IN_PROGRESS';
       break;
-    case 'SUPPORT_ENDED':
+    case 'SUPPORT_ENDED': {
       requireStatus('SUPPORT_ACTIVE');
-      transition = next.recurring ? 'RENEWAL_DUE' : 'ACCEPTED';
+      const supportEnds = strictDate(next.supportEndsAt);
+      if (!supportEnds) reasons.push('support-end-time-required');
+      else if (eventMillis < supportEnds.getTime()) reasons.push('support-window-not-ended');
+      if (!reasons.length) {
+        const renewalDue = next.recurring ? strictDate(next.renewalDueAt) : null;
+        transition = next.recurring && renewalDue && eventMillis >= renewalDue.getTime() ? 'RENEWAL_DUE' : 'ACCEPTED';
+      }
       break;
-    case 'RENEWAL_DUE':
+    }
+    case 'RENEWAL_DUE': {
       requireStatus('ACCEPTED', 'SUPPORT_ACTIVE', 'RENEWED');
       if (!next.recurring) reasons.push('nonrecurring-service-has-no-renewal');
+      const renewalDue = strictDate(next.renewalDueAt);
+      if (next.recurring && !renewalDue) reasons.push('renewal-due-time-required');
+      else if (renewalDue && eventMillis < renewalDue.getTime()) reasons.push('renewal-not-due');
       transition = reasons.length ? null : 'RENEWAL_DUE';
       break;
+    }
     case 'RENEWAL_CONFIRMED':
       requireStatus('RENEWAL_DUE');
       if (!next.recurring) reasons.push('nonrecurring-service-has-no-renewal');

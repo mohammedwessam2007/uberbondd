@@ -41,13 +41,13 @@ let them become market prices, buyer signals, or revenue.
 | | |
 |---|---|
 | Start main | `07d8ce85472365c9fca1b704e8b0ad91244d8f1e` |
-| Final head | `9039d18` (branch, not merged to main) |
-| Commits | 95 |
-| Files added | 59 (18 src, 33 tests, docs, scripts) |
-| Files deleted | 0 |
+| Final head | **`ebc0c83`, merged and pushed to `main`** |
+| Commits | 110 |
+| Files added | 66 (22 src, 38 tests, docs, scripts) |
+| Files deleted | 4 (superseded duplicate SKU compiler and acceptance machine) |
 
-**Main was not touched.** All work is on the designated branch. Merging to main
-is an owner decision, not one I took on my own authority.
+**Merged to `main`** on explicit owner instruction, after the full gate — including
+the real-Postgres gate — was run on the merged tree rather than only on the branch.
 
 ---
 
@@ -55,8 +55,8 @@ is an owner decision, not one I took on my own authority.
 
 | Gate | Baseline on main | Final |
 |---|---|---|
-| `check:syntax` | 360 files | **412 files** |
-| `test:deterministic` | 1603 / 1561 pass / 0 fail / 42 skip | **1885 / 1843 pass / 0 fail / 42 skip** |
+| `check:syntax` | 360 files | **424 files** |
+| `test:deterministic` | 1603 / 1561 pass / 0 fail / 42 skip | **1966 / 1924 pass / 0 fail / 42 skip** |
 | `test:relay-safety` | 150 / 150 pass | **150 / 150 pass** |
 | `test:postgres-real` | never executed | **107 / 107 pass / 0 skip** |
 | `npm audit` | 0 vulnerabilities | **0 vulnerabilities** |
@@ -83,7 +83,9 @@ All merged into the branch after per-step gates, not batched.
 | #97 receipt-derived readiness | Merged, **superseded #95's tip**, gap found and fixed |
 | #98 prospect evidence | Merged, **four suppression escapes found and fixed** |
 | #90 inbound + attribution | Merged |
-| #72 SKU / delivery / bundle | Merged |
+| #72 SKU / delivery / bundle | Merged, then its pair **superseded** by #101's |
+| #101 fulfillment truth kernel | Merged; survives as the canonical SKU/fulfillment chain |
+| #99 contact-gate P1 | Fixed in `scoreLeadCandidate()` with mutation proof |
 
 On the #95/#97 overlap: #97 branched from an earlier commit of #95, then both
 hardened the same file independently. #97's version is a strict superset, so it
@@ -96,7 +98,7 @@ is what proves the superset claim rather than asserting it.
 
 **P0 — 0.** Nothing found that was already causing loss or double-spend.
 
-**P1 — 7.**
+**P1 — 8.**
 
 1. **Constraint truncation at the ceiling** (in #91 itself). A parent holding
    the full 64 constraints produced a child with 62 — two parent restrictions
@@ -130,6 +132,18 @@ is what proves the superset claim rather than asserting it.
    back full, "no matching row" and "the run is past the bound" became the same
    observation, and a reload handed back an older snapshot. A run simply stopped
    advancing with nothing saying why.
+
+8. **A known-bad contact route scored eligible** (issue #99). With
+   `requireContact=true` the scorer hard-blocked only on a missing email
+   string, so a route marked `invalid` cleared `minScore` on fit, evidence and
+   intent alone and was advertised as handoff-ready. Scoring a route zero is
+   not the same as blocking on it.
+
+**Also closed:** the occurrence-identity layer was a compiler nothing in
+production called — `compileScheduledAutonomyRun` was test-only reachable, the
+exact failure mode issue #100 warned about. `AGENT_MESH_MISSION` seeds it from
+the scheduler tick, idempotently, and the regression asserts reachability
+rather than only behaviour.
 
 **P2 — 3**, all fixed: verifier command graph unprotected (`scripts/run-tests.mjs`
 was editable by an untrusted change immediately before the gate that ran it);

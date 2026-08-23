@@ -359,12 +359,13 @@
       "status": "IMPLEMENTED",
       "level": 3,
       "evidence": [
-        "src/delivery-acceptance-truth.mjs",
-        "src/service-sku-compiler.mjs"
+        "src/service-fulfillment.mjs",
+        "src/service-sku.mjs"
       ],
       "tests": [
-        "tests/delivery-acceptance-truth.test.mjs",
-        "tests/service-sku-compiler.test.mjs"
+        "tests/service-fulfillment.test.mjs",
+        "tests/service-sku.test.mjs",
+        "tests/superseded-fulfillment-invariants.test.mjs"
       ],
       "nextAction": "Needs a real customer requirement to compile against."
     },
@@ -373,25 +374,26 @@
       "status": "IMPLEMENTED",
       "level": 3,
       "evidence": [
-        "src/delivery-acceptance-truth.mjs"
+        "src/service-fulfillment.mjs"
       ],
       "tests": [
-        "tests/delivery-acceptance-truth.test.mjs"
+        "tests/service-fulfillment.test.mjs",
+        "tests/superseded-fulfillment-invariants.test.mjs"
       ],
       "nextAction": "ACCEPTED requires customer evidence and cannot be reached internally."
     },
     {
       "id": "retention",
-      "status": "PARTIAL",
-      "level": 2,
+      "status": "IMPLEMENTED",
+      "level": 3,
       "evidence": [
-        "src/commercial-learning.mjs",
-        "src/commercial-memory.mjs"
+        "src/service-fulfillment.mjs",
+        "src/commercial-learning.mjs"
       ],
       "tests": [
-        "tests/commercial-learning.test.mjs"
+        "tests/service-fulfillment.test.mjs"
       ],
-      "nextAction": "Needs at least one retained customer to model."
+      "nextAction": "Renewal and churn are modelled; both need a real customer to observe."
     },
     {
       "id": "contribution-economics",

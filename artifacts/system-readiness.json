@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-23T01:21:24.616Z",
+  "generatedAt": "2026-08-23T01:39:30.544Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "9039d18ecb4db4cf4d4e7ca3377e93209030f646",
-    "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "sourceModules": 139,
-    "testSuites": 181,
+    "head": "ab628e5ef86383ca5e9bf8e568e3163fc16ae088",
+    "branch": "main",
+    "sourceModules": 143,
+    "testSuites": 186,
     "workingTreeClean": false
   },
   "measurements": {
@@ -476,12 +476,13 @@
       "declaredLevel": 3,
       "cappedByMissingExternalEvidence": false,
       "evidence": [
-        "src/delivery-acceptance-truth.mjs",
-        "src/service-sku-compiler.mjs"
+        "src/service-fulfillment.mjs",
+        "src/service-sku.mjs"
       ],
       "tests": [
-        "tests/delivery-acceptance-truth.test.mjs",
-        "tests/service-sku-compiler.test.mjs"
+        "tests/service-fulfillment.test.mjs",
+        "tests/service-sku.test.mjs",
+        "tests/superseded-fulfillment-invariants.test.mjs"
       ],
       "realWire": false,
       "liveProof": false,
@@ -495,10 +496,11 @@
       "declaredLevel": 3,
       "cappedByMissingExternalEvidence": false,
       "evidence": [
-        "src/delivery-acceptance-truth.mjs"
+        "src/service-fulfillment.mjs"
       ],
       "tests": [
-        "tests/delivery-acceptance-truth.test.mjs"
+        "tests/service-fulfillment.test.mjs",
+        "tests/superseded-fulfillment-invariants.test.mjs"
       ],
       "realWire": false,
       "liveProof": false,
@@ -507,21 +509,21 @@
     },
     {
       "id": "retention",
-      "status": "PARTIAL",
-      "level": 2,
-      "declaredLevel": 2,
+      "status": "IMPLEMENTED",
+      "level": 3,
+      "declaredLevel": 3,
       "cappedByMissingExternalEvidence": false,
       "evidence": [
-        "src/commercial-learning.mjs",
-        "src/commercial-memory.mjs"
+        "src/service-fulfillment.mjs",
+        "src/commercial-learning.mjs"
       ],
       "tests": [
-        "tests/commercial-learning.test.mjs"
+        "tests/service-fulfillment.test.mjs"
       ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": null,
-      "nextAction": "Needs at least one retained customer to model."
+      "nextAction": "Renewal and churn are modelled; both need a real customer to observe."
     },
     {
       "id": "contribution-economics",

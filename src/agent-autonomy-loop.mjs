@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import { ZERO_BUSINESS_EFFECTS } from './effect-ledgers.mjs';
+import { ZERO_BUSINESS_EFFECTS, isZeroEffectLedgerField } from './effect-ledgers.mjs';
 
 export const AGENT_AUTONOMY_POLICY_VERSION = 'agent-autonomy-loop-1.0.0';
 
@@ -74,10 +74,6 @@ function fail(reasonCodes, status = 'BLOCKED', extra = {}) {
     businessEffectLedger: { ...EXTERNAL_EFFECT_ZERO },
     ...extra
   };
-}
-function zeroBusinessLedger(value) {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
-  return Object.entries(EXTERNAL_EFFECT_ZERO).every(([key, zero]) => Number(value[key] || 0) === zero);
 }
 function cloneSession(session) {
   return {
@@ -294,8 +290,13 @@ export function ingestAgentResult({ session, taskIntent, result, date = new Date
   if (!validSession(session)) return fail(['valid-autonomy-session-required']);
   if (!taskIntent?.ok || taskIntent.sessionId !== session.sessionId || taskIntent.taskId !== session.currentTaskId) return fail(['current-task-intent-required']);
   if (!result || typeof result !== 'object' || Array.isArray(result)) return fail(['agent-result-object-required']);
-  if (!zeroBusinessLedger(result.businessEffectLedger || EXTERNAL_EFFECT_ZERO)) return fail(['nonzero-business-effect-rejected']);
-  if (result.externalEffectLedger && Object.values(result.externalEffectLedger).some(value => Number(value || 0) !== 0)) {
+  // A business ledger is part of the autonomy result contract. Omission,
+  // partial shapes and coercible pseudo-zeroes are not proof of no effects.
+  if (!isZeroEffectLedgerField('businessEffectLedger', result.businessEffectLedger)) return fail(['nonzero-business-effect-rejected']);
+  // Historical direct autonomy adapters did not require the relay ledger, so it
+  // remains optional here. When supplied, however, it must be the exact signed
+  // zero shape. `{}` and missing keys never mean zero.
+  if (result.externalEffectLedger !== undefined && !isZeroEffectLedgerField('externalEffectLedger', result.externalEffectLedger)) {
     return fail(['nonzero-external-effect-rejected']);
   }
   const coordination = normalizeCoordination(result);

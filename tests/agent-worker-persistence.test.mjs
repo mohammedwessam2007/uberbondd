@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createComputeBudget } from '../src/ai-compute-budget.mjs';
+import { createComputeBudget, reserveCompute, commitCompute } from '../src/ai-compute-budget.mjs';
 import { runAgentWorkerOnce } from '../src/agent-worker-runtime.mjs';
+import { evaluatePendingSubmissionScope } from '../src/agent-worker-job.mjs';
 
 function claim() {
   return {
@@ -54,6 +55,60 @@ function result() {
       confidence: 0.9
     },
     evidenceRefs: ['test:persistence-order']
+  };
+}
+
+function committedBudget(taskId = 'task_pending_1') {
+  const initial = budget();
+  const reserved = reserveCompute({
+    budget: initial,
+    taskId,
+    provider: 'openai',
+    model: 'example-model',
+    costCeilingCents: 10,
+    tokenCeiling: 5000,
+    date: new Date('2026-08-21T12:00:00Z')
+  });
+  assert.equal(reserved.ok, true);
+  const committed = commitCompute({
+    budget: reserved.budget,
+    taskId,
+    actualCostCents: 2,
+    actualTokens: 120,
+    date: new Date('2026-08-21T12:01:00Z')
+  });
+  assert.equal(committed.ok, true);
+  return committed.budget;
+}
+
+function pendingRecord(overrides = {}) {
+  return {
+    executionId: 'agent_exec_pending_1',
+    taskId: 'task_pending_1',
+    workerId: 'chatgpt:test-worker',
+    targetAgent: 'chatgpt',
+    provider: 'openai',
+    model: 'example-model',
+    usage: {
+      inputUnits: 100,
+      outputUnits: 20,
+      totalUnits: 120,
+      unitType: 'tokens',
+      costCents: 2
+    },
+    result: result(),
+    status: 'RESULT_SUBMISSION_PENDING',
+    externalEffectLedger: {
+      providerCalls: 0,
+      messages: 0,
+      purchases: 0,
+      deployments: 0,
+      credentialChanges: 0,
+      dnsChanges: 0,
+      productionMutations: 0,
+      spendCents: 0
+    },
+    ...overrides
   };
 }
 
@@ -177,4 +232,90 @@ test('relay submission failure leaves an explicitly replayable pending record', 
   assert.equal(out.status, 'RESULT_SUBMISSION_PENDING');
   assert.deepEqual(records.map(record => record.status), ['MODEL_RESULT_READY', 'RESULT_SUBMISSION_PENDING']);
   assert.equal(out.executionRecord.status, 'RESULT_SUBMISSION_PENDING');
+});
+
+test('pending result replay is accepted only by the owning worker, target, provider, model and committed compute context', () => {
+  const compute = committedBudget();
+  const record = pendingRecord();
+  const scope = evaluatePendingSubmissionScope(record, {
+    budget: compute,
+    budgetId: compute.budgetId,
+    targetAgent: 'chatgpt',
+    workerId: 'chatgpt:test-worker',
+    provider: 'openai',
+    model: 'example-model'
+  });
+  assert.equal(scope.ok, true);
+  assert.equal(scope.status, 'OWNED');
+  assert.equal(scope.taskId, 'task_pending_1');
+});
+
+test('pending result owned by a different worker is foreign and cannot be replayed', () => {
+  const compute = committedBudget();
+  const scope = evaluatePendingSubmissionScope(pendingRecord({ workerId: 'chatgpt:other-worker' }), {
+    budget: compute,
+    budgetId: compute.budgetId,
+    targetAgent: 'chatgpt',
+    workerId: 'chatgpt:test-worker',
+    provider: 'openai',
+    model: 'example-model'
+  });
+  assert.equal(scope.ok, false);
+  assert.equal(scope.status, 'FOREIGN');
+  assert.deepEqual(scope.reasonCodes, ['pending-submission-owned-by-another-worker']);
+});
+
+test('same worker with a different provider or model fails closed as a scope conflict', () => {
+  const compute = committedBudget();
+  const providerConflict = evaluatePendingSubmissionScope(pendingRecord({ provider: 'anthropic' }), {
+    budget: compute,
+    budgetId: compute.budgetId,
+    targetAgent: 'chatgpt',
+    workerId: 'chatgpt:test-worker',
+    provider: 'openai',
+    model: 'example-model'
+  });
+  assert.equal(providerConflict.ok, false);
+  assert.equal(providerConflict.status, 'SCOPE_CONFLICT');
+  assert.ok(providerConflict.reasonCodes.includes('pending-submission-provider-mismatch'));
+
+  const modelConflict = evaluatePendingSubmissionScope(pendingRecord({ model: 'other-model' }), {
+    budget: compute,
+    budgetId: compute.budgetId,
+    targetAgent: 'chatgpt',
+    workerId: 'chatgpt:test-worker',
+    provider: 'openai',
+    model: 'example-model'
+  });
+  assert.equal(modelConflict.ok, false);
+  assert.equal(modelConflict.status, 'SCOPE_CONFLICT');
+  assert.ok(modelConflict.reasonCodes.includes('pending-submission-model-mismatch'));
+});
+
+test('pending result cannot borrow a different budget reservation or falsify committed usage', () => {
+  const compute = committedBudget();
+  const wrongTask = evaluatePendingSubmissionScope(pendingRecord({ taskId: 'task_not_in_budget' }), {
+    budget: compute,
+    budgetId: compute.budgetId,
+    targetAgent: 'chatgpt',
+    workerId: 'chatgpt:test-worker',
+    provider: 'openai',
+    model: 'example-model'
+  });
+  assert.equal(wrongTask.ok, false);
+  assert.equal(wrongTask.status, 'SCOPE_CONFLICT');
+  assert.ok(wrongTask.reasonCodes.includes('pending-submission-committed-reservation-required'));
+
+  const usageConflict = evaluatePendingSubmissionScope(pendingRecord({ usage: { totalUnits: 999, costCents: 77 } }), {
+    budget: compute,
+    budgetId: compute.budgetId,
+    targetAgent: 'chatgpt',
+    workerId: 'chatgpt:test-worker',
+    provider: 'openai',
+    model: 'example-model'
+  });
+  assert.equal(usageConflict.ok, false);
+  assert.equal(usageConflict.status, 'SCOPE_CONFLICT');
+  assert.ok(usageConflict.reasonCodes.includes('pending-submission-reservation-cost-mismatch'));
+  assert.ok(usageConflict.reasonCodes.includes('pending-submission-reservation-token-mismatch'));
 });

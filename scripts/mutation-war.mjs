@@ -185,6 +185,21 @@ export const MUTATIONS = [
     suites: ['tests/worker-result-terminal-truth.test.mjs']
   },
 
+  {
+    id: 'AGENT-06', guard: 'The relay client defers to the canonical zero-effect check',
+    file: 'src/chatgpt-relay-client.mjs',
+    find: '  return canonicalZeroEffectLedger(value).length === 0;',
+    replace: '  if (!value || typeof value !== \'object\' || Array.isArray(value)) return false;\n  return Object.entries(ZERO_EFFECTS).every(([key, zero]) => Number(value[key] || 0) === zero);',
+    suites: ['tests/zero-effect-agreement.test.mjs']
+  },
+  {
+    id: 'AGENT-07', guard: 'The GitHub transport defers to the same check',
+    file: 'src/github-relay.mjs',
+    find: '  const ledgerErrors = canonicalZeroEffectLedger(receipt.externalEffects);',
+    replace: '  const ledgerErrors = Object.entries(ZERO_EFFECTS).some(([key, zero]) => Number((receipt.externalEffects || {})[key] || 0) !== zero) ? [\'x\'] : [];',
+    suites: ['tests/zero-effect-agreement.test.mjs', 'tests/github-relay.test.mjs']
+  },
+
   // ---- Self-improvement governance ---------------------------------------
   {
     id: 'SOV-01', guard: 'Sovereignty files cannot be edited by the agent path',

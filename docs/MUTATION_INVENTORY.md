@@ -7,8 +7,8 @@ die.
 Run it:
 
 ```
-npm run test:mutation-war                    # 30 mutations
-OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 31
+npm run test:mutation-war                    # 32 mutations
+OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 33
 ```
 
 Each mutation is a literal source edit applied to a copy of the tree, with the
@@ -22,7 +22,7 @@ Mutating arbitrary lines produces mostly equivalent mutants and a number nobody
 can act on; mutating the specific invariants this system's safety rests on
 produces a list an operator can read.
 
-**Current: 31 mutations, 31 killed, 0 survived.**
+**Current: 33 mutations, 33 killed, 0 survived.**
 
 | ID | Guard | File | Killed by |
 |---|---|---|---|
@@ -47,6 +47,8 @@ produces a list an operator can read.
 | `AGENT-03` | Unknown effects are not zero effects | `src/effect-ledgers.mjs` | `effect-state-vocabulary.test.mjs` |
 | `AGENT-04` | Changed artifacts with no tests run is not DONE | `src/agent-worker-result-truth.mjs` | `worker-result-terminal-truth.test.mjs` |
 | `AGENT-05` | A terminal claim needs a supported truth table | `src/agent-worker-result-truth.mjs` | `worker-result-terminal-truth.test.mjs` |
+| `AGENT-06` | The relay client defers to the canonical zero-effect check | `src/chatgpt-relay-client.mjs` | `zero-effect-agreement.test.mjs` |
+| `AGENT-07` | The GitHub transport defers to the same check | `src/github-relay.mjs` | `zero-effect-agreement.test.mjs`<br>`github-relay.test.mjs` |
 | `SOV-01` | Sovereignty files cannot be edited by the agent path | `src/agent-code-change-contract.mjs` | `sovereignty-self-modification.test.mjs` |
 | `SOV-02` | The protection list contains itself | `src/agent-code-change-contract.mjs` | `sovereignty-self-modification.test.mjs` |
 | `ESC-01` | A resolved condition recurring is a new episode | `src/operator-escalation.mjs` | `operator-escalation-episodes.test.mjs` |

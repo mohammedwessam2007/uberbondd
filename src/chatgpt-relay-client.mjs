@@ -6,7 +6,7 @@
 // never returned, logged, placed in a task, or included in an error.
 
 import { compileAgentTask } from './agent-relay.mjs';
-import { ZERO_EFFECTS, hasSecret, validResult } from './cloud-agent-relay.mjs';
+import { ZERO_EFFECTS, hasSecret, validResult, canonicalZeroEffectLedger } from './cloud-agent-relay.mjs';
 
 export const CHATGPT_RELAY_CLIENT_POLICY_VERSION = 'chatgpt-relay-client-1.0.0';
 
@@ -39,10 +39,19 @@ function failure(reasonCodes, status = 'REJECTED') {
   };
 }
 
+// The canonical check, not a second copy of it.
+//
+// This used to be `Number(value[key] || 0) === zero`, which is the omitted-key
+// hole that was found and fixed in cloud-agent-relay.mjs and never propagated
+// here. Probed: `{}`, a single key, a missing counter, `null`, `undefined` and
+// the string '0' were every one of them ACCEPTED AS ZERO EFFECTS. Silence
+// scored the same as a signed zero, in the module that reads results back from
+// a relay worker.
+//
+// Two implementations of "did this touch the outside world" is one too many,
+// and which one a caller happens to reach should not change the answer.
 function zeroLedger(value) {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
-  return Object.keys(value).every(key => Object.hasOwn(ZERO_EFFECTS, key))
-    && Object.entries(ZERO_EFFECTS).every(([key, zero]) => Number(value[key] || 0) === zero);
+  return canonicalZeroEffectLedger(value).length === 0;
 }
 
 function normalizeAgent(value, fallback) {

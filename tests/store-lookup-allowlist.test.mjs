@@ -32,7 +32,7 @@ async function tempStore() {
 }
 
 test('a prototype member is not a collection', { skip: !DATABASE_URL && 'set OMNIA_V9_TEST_DATABASE_URL' }, async () => {
-  const store = new PostgresStore({ databaseUrl: DATABASE_URL });
+  const store = new PostgresStore({ databaseUrl: DATABASE_URL, ssl: false });
   try {
     for (const key of PROTOTYPE_KEYS) {
       await assert.rejects(
@@ -45,7 +45,7 @@ test('a prototype member is not a collection', { skip: !DATABASE_URL && 'set OMN
 });
 
 test('a prototype member is not a filterable column', { skip: !DATABASE_URL && 'set OMNIA_V9_TEST_DATABASE_URL' }, async () => {
-  const store = new PostgresStore({ databaseUrl: DATABASE_URL });
+  const store = new PostgresStore({ databaseUrl: DATABASE_URL, ssl: false });
   try {
     for (const key of PROTOTYPE_KEYS) {
       await assert.rejects(
@@ -91,7 +91,7 @@ test('real collections and real filters still work: this is an allowlist, not a 
 });
 
 test('an unknown but ordinary filter name is still refused on the Postgres path', { skip: !DATABASE_URL && 'set OMNIA_V9_TEST_DATABASE_URL' }, async () => {
-  const store = new PostgresStore({ databaseUrl: DATABASE_URL });
+  const store = new PostgresStore({ databaseUrl: DATABASE_URL, ssl: false });
   try {
     await assert.rejects(
       () => store.list('auditLog', { filters: { notAColumn: 'x' } }),

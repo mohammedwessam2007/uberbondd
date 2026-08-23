@@ -87,9 +87,34 @@ export const SECRET_KEY_PATTERN = /token|secret|password|passwd|credential|priva
 export const SECRET_ASSIGNMENT_PATTERN =
   /\b(?:DATABASE_URL|OPENAI_API_KEY|ANTHROPIC_API_KEY|VERCEL_TOKEN|GITHUB_TOKEN|AWS_SECRET_ACCESS_KEY|STRIPE_SECRET_KEY)\s*=\s*\S+/gi;
 
+// A credential that arrives base64-wrapped.
+//
+// Twenty-five of twenty-six shapes were caught directly; this was the one that
+// walked through. Detecting it by shape is impossible -- base64 of a token and
+// base64 of an image are the same alphabet -- so the run is decoded and the
+// existing value patterns are asked about the result. Nothing new is being
+// recognized: the rule is "if it decodes to something we already call a
+// credential, it is one".
+//
+// Precision comes from the two conditions rather than from the alphabet: the
+// decoded bytes must be printable ASCII, and must match a value pattern. Base64
+// of prose, of JSON, of a UUID, of a sha and of raw image bytes all fail one or
+// the other. Only runs of 24+ characters are considered, so ordinary
+// identifiers are never decoded at all.
+function decodesToSecret(value) {
+  for (const match of value.matchAll(/[A-Za-z0-9+/]{24,}={0,2}/g)) {
+    let decoded;
+    try { decoded = Buffer.from(match[0], 'base64').toString('utf8'); } catch { continue; }
+    if (!decoded || !/^[\x20-\x7E\s]+$/.test(decoded)) continue;
+    if (SECRET_VALUE_PATTERNS.some(pattern => pattern.test(decoded))) return true;
+  }
+  return false;
+}
+
 export function containsSecretValue(value) {
   if (typeof value !== 'string' || !value) return false;
   if (SECRET_VALUE_PATTERNS.some(pattern => pattern.test(value))) return true;
+  if (decodesToSecret(value)) return true;
   // The named-variable assignments too. This function is what *blocks* a change
   // set or a worker result; `redactSecrets` below is what cleans a receipt.
   // They consulted different rule sets, so the redactor caught named assignments
@@ -107,5 +132,9 @@ export function redactSecrets(value) {
     out = out.replace(new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`), '[REDACTED]');
   }
   out = out.replace(SECRET_ASSIGNMENT_PATTERN, '[REDACTED]');
+  // The wrapped form too, so the redactor stays at least as strong as the
+  // blocker. The whole run is replaced rather than the decoded fragment,
+  // because a partially rewritten base64 string is still most of a credential.
+  out = out.replace(/[A-Za-z0-9+/]{24,}={0,2}/g, run => (decodesToSecret(run) ? '[REDACTED]' : run));
   return out;
 }

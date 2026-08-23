@@ -376,6 +376,13 @@ export const MUTATIONS = [
     suites: ['tests/secret-format-coverage.test.mjs']
   },
   {
+    id: 'SEC-06', guard: 'A base64-wrapped credential is still a credential',
+    file: 'src/secret-patterns.mjs',
+    find: '  if (decodesToSecret(value)) return true;',
+    replace: '  void decodesToSecret;',
+    suites: ['tests/secret-format-coverage.test.mjs']
+  },
+  {
     id: 'REACH-01', guard: 'A gate must be registered, not invented',
     file: 'tests/reachability-ratchet.test.mjs',
     find: "    .filter(([, entry]) => entry.category === 'AWAITING_ACTIVATION' && !gates[entry.gate])",

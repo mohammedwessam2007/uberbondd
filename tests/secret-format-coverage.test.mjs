@@ -46,7 +46,13 @@ const CREDENTIALS = [
   ['DATABASE_URL without inline creds', j('DATABASE_URL', '=', 'postgres://localhost:5432/uberbond')],
   ['database_url, lowercase name', j('database_url', '=', 'postgres://localhost:5432/uberbond')],
   ['VERCEL_TOKEN with an opaque value', j('VERCEL_TOKEN', '=', 'M'.repeat(24))],
-  ['GITHUB_TOKEN with an opaque value', j('GITHUB_TOKEN', '=', 'N'.repeat(40))]
+  ['GITHUB_TOKEN with an opaque value', j('GITHUB_TOKEN', '=', 'N'.repeat(40))],
+  // The one shape that walked through a 26-format re-attack. Base64 of a token
+  // and base64 of an image are the same alphabet, so the run is decoded and the
+  // existing patterns are asked about the result -- nothing new is recognized.
+  ['base64-wrapped Anthropic key', Buffer.from(j('sk-', 'ant-', 'api03-', 'O'.repeat(40))).toString('base64')],
+  ['base64-wrapped GitHub PAT', Buffer.from(j('github', '_pat_', '11A', 'p'.repeat(40))).toString('base64')],
+  ['base64-wrapped private key header', Buffer.from(j('-----BEGIN ', 'RSA PRIVATE KEY', '-----')).toString('base64')]
 ];
 
 for (const [label, value] of CREDENTIALS) {
@@ -72,7 +78,15 @@ const BENIGN = [
   ['a cookie in prose', 'The cookie is set by the browser, not by us.'],
   ['a long identifier', 'agent_worker_execution_identifier_00000000000000000001'],
   ['a semver', 'payment-renewal-truth-1.5.0'],
-  ['a file path', 'src/agent-code-artifact-store.mjs']
+  ['a file path', 'src/agent-code-artifact-store.mjs'],
+  // The decode rule's precision is the whole reason it is safe to have. These
+  // are all long base64 runs that decode to something ordinary, or to bytes
+  // that are not text at all.
+  ['base64 of prose', Buffer.from('The quick brown fox jumps over the lazy dog repeatedly today.').toString('base64')],
+  ['base64 of business JSON', Buffer.from(JSON.stringify({ id: 'lead-1', status: 'paid', amountCents: 4900 })).toString('base64')],
+  ['base64 of binary bytes', Buffer.from(Uint8Array.from({ length: 64 }, (_, i) => (i * 3) % 256)).toString('base64')],
+  ['a 64-char hex string', 'deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef'],
+  ['a long identifier run', 'UberBondFullWebsiteRevenueAuditAndImplementationPlanForCustomers']
 ];
 
 for (const [label, value] of BENIGN) {

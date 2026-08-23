@@ -7,8 +7,8 @@ die.
 Run it:
 
 ```
-npm run test:mutation-war                    # 51 mutations
-OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 52
+npm run test:mutation-war                    # 52 mutations
+OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 53
 ```
 
 Each mutation is a literal source edit applied to a copy of the tree, with the
@@ -22,7 +22,7 @@ Mutating arbitrary lines produces mostly equivalent mutants and a number nobody
 can act on; mutating the specific invariants this system's safety rests on
 produces a list an operator can read.
 
-**Current: 52 mutations, 52 killed, 0 survived.**
+**Current: 53 mutations, 53 killed, 0 survived.**
 
 | ID | Guard | File | Killed by |
 |---|---|---|---|
@@ -73,6 +73,7 @@ produces a list an operator can read.
 | `SEC-03` | Today's default GitHub token format is a credential | `src/secret-patterns.mjs` | `secret-format-coverage.test.mjs` |
 | `SEC-04` | A credential-named key with a long value is a credential | `src/secret-patterns.mjs` | `secret-format-coverage.test.mjs` |
 | `SEC-05` | The blocker is at least as strong as the redactor | `src/secret-patterns.mjs` | `secret-format-coverage.test.mjs` |
+| `SEC-06` | A base64-wrapped credential is still a credential | `src/secret-patterns.mjs` | `secret-format-coverage.test.mjs` |
 | `REACH-01` | A gate must be registered, not invented | `tests/reachability-ratchet.test.mjs` | `reachability-ratchet.test.mjs` |
 | `SCAN-01` | A truncated read is never a successful read | `src/durable-audit-scan.mjs` | `durable-audit-scan-ceiling.test.mjs` |
 | `ROUTE-01` | Routing groups by target agent and cannot starve a queue | `src/agent-model-routing-config.mjs` | `agent-mesh-routing-starvation.test.mjs` |

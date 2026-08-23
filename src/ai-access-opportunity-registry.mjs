@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import { CANONICAL_OPPORTUNITY_REGISTRY_SCHEMA_VERSION } from './opportunity-registry.mjs';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const AI_ACCESS_OPPORTUNITY_POLICY_VERSION = 'ai-access-opportunity-registry-1.0.0';
 
@@ -77,16 +78,6 @@ export const AI_ACCESS_STATUSES = Object.freeze([
   'UNKNOWN_OPPORTUNITY'
 ]);
 
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 const DEFAULT_OWNER_STEPS = Object.freeze([
   'Verify your own identity, eligibility, institution, company, or research status with the provider.',

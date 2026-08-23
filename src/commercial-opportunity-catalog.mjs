@@ -10,19 +10,10 @@ import {
   normalizeCanonicalOpportunityRecord,
   validateCanonicalOpportunityRegistry
 } from './opportunity-registry.mjs';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const COMMERCIAL_OPPORTUNITY_CATALOG_POLICY_VERSION = 'commercial-opportunity-catalog-1.0.0';
 
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 

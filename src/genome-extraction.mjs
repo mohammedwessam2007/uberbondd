@@ -6,18 +6,10 @@
 // signal layer and the opportunity layer -- see
 // docs/PROMETHEUS_ARCHITECTURE.md for why this composition wasn't wired
 // until the capability/build-distance layer existed to make sense of it.
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+
 export const GENOME_EXTRACTION_POLICY_VERSION = 'genome-extraction-1.0.0';
 
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 // Accepts a signal from either surviving ingestion shape (see
 // docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md -- Pair 1): a raw

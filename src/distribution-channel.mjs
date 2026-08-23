@@ -6,6 +6,8 @@
 // then it returns a preparation plan and never sends, spends, posts, or calls
 // a provider.
 
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+
 export const DISTRIBUTION_CHANNEL_POLICY_VERSION = 'distribution-channel-1.0.0';
 
 export const DISTRIBUTION_CHANNEL_TYPES = Object.freeze([
@@ -15,16 +17,6 @@ export const DISTRIBUTION_CHANNEL_TYPES = Object.freeze([
 ]);
 
 const CHANNEL_STATUSES = new Set(['UNCONFIGURED', 'PREPARATION_ONLY', 'DISABLED']);
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 function referenceDate(value) {
   const candidate = value instanceof Date ? value : new Date(value || Date.now());

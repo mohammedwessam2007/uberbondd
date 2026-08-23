@@ -163,3 +163,139 @@ export function isCanonicalZeroEffectLedger(value) {
   const normalized = normalizeEffectLedger('externalEffectLedger', value);
   return normalized.ok && CANONICAL_EFFECT_KEYS.every(key => normalized.ledger[key] === 0);
 }
+
+// ---------------------------------------------------------------------------
+// Effect state: four answers, not two.
+//
+// A counter set to 0 answers "how many". It does not answer "did anyone look".
+// Those are different claims and the system collapsed them: a worker that
+// genuinely made no provider calls and a worker that crashed mid-dispatch and
+// never found out both shipped `providerCalls: 0`, and both were accepted as
+// proof that nothing reached the outside world. The second one is not proof of
+// anything. It is the exact shape of an effect that already happened.
+//
+//   ZERO_EFFECT         every dimension was observed and every one was zero.
+//                       The only state that may be treated as proof.
+//   EFFECT_OCCURRED     at least one dimension is a positive count.
+//   EFFECT_UNKNOWN      at least one dimension may have happened and cannot be
+//                       determined -- a lost provider response, a crash between
+//                       dispatch and receipt. Never zero.
+//   EFFECT_NOT_OBSERVED at least one dimension was never looked at. Silence.
+//                       Also never zero.
+//
+// A dimension declares non-observation by carrying the sentinel in place of a
+// number, so an incomplete ledger stays a refusal: omitting a key is still a
+// malformed claim, not a way to say "I did not check".
+
+export const EFFECT_OBSERVATION = Object.freeze({
+  NOT_OBSERVED: 'NOT_OBSERVED',
+  UNKNOWN: 'UNKNOWN'
+});
+
+export const EFFECT_STATES = Object.freeze({
+  ZERO_EFFECT: 'ZERO_EFFECT',
+  EFFECT_OCCURRED: 'EFFECT_OCCURRED',
+  EFFECT_UNKNOWN: 'EFFECT_UNKNOWN',
+  EFFECT_NOT_OBSERVED: 'EFFECT_NOT_OBSERVED'
+});
+
+function observationSentinel(value) {
+  return value === EFFECT_OBSERVATION.NOT_OBSERVED || value === EFFECT_OBSERVATION.UNKNOWN;
+}
+
+/**
+ * Classify one complete ledger into an effect state.
+ *
+ * Completeness is enforced exactly as `normalizeEffectLedger` enforces it: the
+ * key set must be exact. What this adds is that a present key may carry an
+ * observation sentinel instead of a count.
+ *
+ * Precedence is EFFECT_OCCURRED > EFFECT_UNKNOWN > EFFECT_NOT_OBSERVED >
+ * ZERO_EFFECT. A positive count is the strongest statement about reality
+ * available, so it names the state -- but `unknownKeys` and `notObservedKeys`
+ * are always returned, so a caller can never lose the fact that the ledger was
+ * also incomplete in a way a single label cannot carry.
+ */
+export function classifyEffectLedger(fieldName, value) {
+  const shape = Object.hasOwn(EFFECT_LEDGER_FIELDS, fieldName) ? EFFECT_LEDGER_FIELDS[fieldName] : null;
+  if (!shape) return { ok: false, reasonCodes: ['unknown-effect-ledger-field'] };
+  if (!isPlainObject(value)) return { ok: false, reasonCodes: ['effect-ledger-object-required'] };
+
+  const expectedKeys = Object.keys(shape);
+  if (!exactOwnKeys(value, expectedKeys)) {
+    const missing = expectedKeys.filter(key => !Object.hasOwn(value, key));
+    const unknown = Object.keys(value).filter(key => !Object.hasOwn(shape, key));
+    return {
+      ok: false,
+      reasonCodes: [
+        ...(missing.length ? ['effect-ledger-missing-keys'] : []),
+        ...(unknown.length ? ['effect-ledger-unknown-keys'] : [])
+      ],
+      missingKeys: missing,
+      unknownKeys: unknown
+    };
+  }
+
+  const invalidKeys = [];
+  const occurredKeys = [];
+  const unknownKeys = [];
+  const notObservedKeys = [];
+  const observedZeroKeys = [];
+
+  for (const key of expectedKeys) {
+    const counter = value[key];
+    if (counter === EFFECT_OBSERVATION.UNKNOWN) { unknownKeys.push(key); continue; }
+    if (counter === EFFECT_OBSERVATION.NOT_OBSERVED) { notObservedKeys.push(key); continue; }
+    if (!validCounter(counter)) { invalidKeys.push(key); continue; }
+    if (counter > 0) occurredKeys.push(key);
+    else observedZeroKeys.push(key);
+  }
+
+  if (invalidKeys.length) {
+    return { ok: false, reasonCodes: ['effect-ledger-invalid-counter'], invalidKeys };
+  }
+
+  const state = occurredKeys.length ? EFFECT_STATES.EFFECT_OCCURRED
+    : unknownKeys.length ? EFFECT_STATES.EFFECT_UNKNOWN
+      : notObservedKeys.length ? EFFECT_STATES.EFFECT_NOT_OBSERVED
+        : EFFECT_STATES.ZERO_EFFECT;
+
+  return {
+    ok: true,
+    state,
+    sourceField: fieldName,
+    ledger: { ...value },
+    occurredKeys,
+    unknownKeys,
+    notObservedKeys,
+    observedZeroKeys,
+    // One predicate for the only question that matters at a safety boundary.
+    provenZero: state === EFFECT_STATES.ZERO_EFFECT
+  };
+}
+
+/**
+ * True only when every dimension was observed and every one was zero.
+ *
+ * Deliberately not `state !== EFFECT_OCCURRED`. Unknown and not-observed are
+ * not weaker versions of zero; they are the absence of the evidence that would
+ * make zero a claim at all.
+ */
+export function isProvenZeroEffect(fieldName, value) {
+  const classified = classifyEffectLedger(fieldName, value);
+  return classified.ok === true && classified.provenZero === true;
+}
+
+/** A ledger asserting that a dimension may have occurred and cannot be determined. */
+export function unknownEffectLedger(keys = CANONICAL_EFFECT_KEYS) {
+  const declared = new Set(keys);
+  return Object.freeze(Object.fromEntries(CANONICAL_EFFECT_KEYS.map(key =>
+    [key, declared.has(key) ? EFFECT_OBSERVATION.UNKNOWN : 0])));
+}
+
+/** A ledger asserting that a dimension was never looked at. */
+export function notObservedEffectLedger(keys = CANONICAL_EFFECT_KEYS) {
+  const declared = new Set(keys);
+  return Object.freeze(Object.fromEntries(CANONICAL_EFFECT_KEYS.map(key =>
+    [key, declared.has(key) ? EFFECT_OBSERVATION.NOT_OBSERVED : 0])));
+}

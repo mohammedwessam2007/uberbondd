@@ -10,7 +10,13 @@ import {
   compileAgentTask,
   logAgentRelayReceipt
 } from './agent-relay.mjs';
-import { ZERO_EXTERNAL_EFFECTS, EFFECT_LEDGER_FIELDS, isKnownEffectLedgerField } from './effect-ledgers.mjs';
+import {
+  ZERO_EXTERNAL_EFFECTS,
+  EFFECT_LEDGER_FIELDS,
+  isKnownEffectLedgerField,
+  classifyEffectLedger,
+  EFFECT_STATES
+} from './effect-ledgers.mjs';
 import { SECRET_KEY_PATTERN as SECRET_KEY, containsSecretValue } from './secret-patterns.mjs';
 
 export const AGENT_RELAY_JOB_TYPE = 'prometheus.agent.relay';
@@ -190,16 +196,28 @@ function normalizeTargetAgent(value) {
 // assert "no effects" by shipping `{}` -- silence scored the same as a signed
 // zero. So did a NaN, and so did an array. Require the exact canonical key set
 // carrying real numeric zeros; anything else is a refusal with its own reason.
+//
+// A worker may also declare that it does not know. `EFFECT_UNKNOWN` and
+// `EFFECT_NOT_OBSERVED` are both refusals here -- neither is proof that nothing
+// happened -- but they are told apart from `EFFECT_OCCURRED`, because the three
+// call for different things from whoever reads the reason. "You made calls you
+// were not allowed to make", "you may have made calls and cannot tell me", and
+// "nobody looked" are not the same incident, and collapsing them into
+// `nonzero-external-effect-ledger-rejected` accused an honest worker of the
+// first while giving an operator no way to see the second.
 export function canonicalZeroEffectLedger(ledger) {
   if (!ledger || typeof ledger !== 'object' || Array.isArray(ledger)) return ['external-effect-ledger-required'];
   const canonical = Object.keys(ZERO_EXTERNAL_EFFECTS);
   if (canonical.some(key => !Object.hasOwn(ledger, key))) return ['incomplete-external-effect-ledger-rejected'];
   if (Object.keys(ledger).some(key => !Object.hasOwn(ZERO_EXTERNAL_EFFECTS, key))) return ['unknown-external-effect-key-rejected'];
-  const nonZero = canonical.some(key => {
-    const value = ledger[key];
-    return typeof value !== 'number' || !Number.isFinite(value) || value !== ZERO_EXTERNAL_EFFECTS[key];
-  });
-  return nonZero ? ['nonzero-external-effect-ledger-rejected'] : [];
+
+  const classified = classifyEffectLedger('externalEffectLedger', ledger);
+  if (classified.ok) {
+    if (classified.state === EFFECT_STATES.ZERO_EFFECT) return [];
+    if (classified.state === EFFECT_STATES.EFFECT_UNKNOWN) return ['unknown-external-effect-ledger-rejected'];
+    if (classified.state === EFFECT_STATES.EFFECT_NOT_OBSERVED) return ['unobserved-external-effect-ledger-rejected'];
+  }
+  return ['nonzero-external-effect-ledger-rejected'];
 }
 
 export function validResult(result) {

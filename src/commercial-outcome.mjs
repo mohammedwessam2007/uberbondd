@@ -7,6 +7,7 @@
 
 import crypto from 'node:crypto';
 import { PAYMENT_TRUTH_POLICY_VERSION } from './payments.mjs';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const COMMERCIAL_OUTCOME_POLICY_VERSION = 'commercial-outcome-1.0.0';
 
@@ -17,16 +18,6 @@ export const COMMERCIAL_OUTCOME_TYPES = Object.freeze([
 ]);
 
 const CLEARED_CLASSIFICATIONS = new Set(['CLEARED_ONE_TIME_PAYMENT', 'CLEARED_SUBSCRIPTION_PAYMENT']);
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 function referenceDate(value) {
   const candidate = value instanceof Date ? value : new Date(value || Date.now());

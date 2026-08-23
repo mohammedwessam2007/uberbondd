@@ -7,6 +7,7 @@
 // existing DurableQueue in a later, explicit integration.
 
 import crypto from 'node:crypto';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const TASK_UNIVERSE_POLICY_VERSION = 'task-universe-1.0.0';
 
@@ -33,16 +34,6 @@ const MAX_RETRY_ATTEMPTS = 20;
 const MAX_REFS = 100;
 const MAX_CONDITIONS = 50;
 const MAX_INSTANCES = 500;
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 function referenceDate(value) {
   const candidate = value instanceof Date ? value : new Date(value || Date.now());

@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-23T01:04:41.240Z",
+  "generatedAt": "2026-08-23T01:11:57.547Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "0bdee6ac4e67a731e4e69946153643f988473c67",
+    "head": "9d2f91c16b819f9fb31d83e431412a9df104af80",
     "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
     "sourceModules": 139,
-    "testSuites": 179,
+    "testSuites": 180,
     "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 409,
+      "filesParsed": 411,
       "ranAt": "2026-08-23T00:45:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 1870,
-      "pass": 1828,
+      "tests": 1875,
+      "pass": 1833,
       "fail": 0,
       "skipped": 42,
-      "ranAt": "2026-08-23T00:45:00Z"
+      "ranAt": "2026-08-23T01:20:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -29,7 +29,7 @@
       "pass": 150,
       "fail": 0,
       "skipped": 0,
-      "ranAt": "2026-08-23T00:45:00Z"
+      "ranAt": "2026-08-23T01:20:00Z"
     },
     "test:postgres-real": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:postgres-real",
@@ -39,12 +39,12 @@
       "skipped": 0,
       "engine": "PostgreSQL 18.4",
       "note": "The 42 suites that skip without a real database. Serial; they interfere in parallel.",
-      "ranAt": "2026-08-23T00:35:00Z"
+      "ranAt": "2026-08-23T01:25:00Z"
     },
     "npm audit": {
       "command": "npm audit",
       "vulnerabilities": 0,
-      "ranAt": "2026-08-23T00:45:00Z"
+      "ranAt": "2026-08-23T01:20:00Z"
     }
   },
   "capabilities": [

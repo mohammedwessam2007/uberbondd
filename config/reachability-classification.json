@@ -5,7 +5,53 @@
     "AWAITING_ACTIVATION": "Implemented and gated. Deliberately not wired because wiring it without the named external gate would be unsafe or meaningless.",
     "SUPERSEDED": "Replaced by another module. Kept only until its history is no longer useful.",
     "UNREACHABLE_BUG": "Should be reachable and is not. This is a defect, not a decision.",
-    "NEEDS_TRIAGE": "Nobody has decided yet. Honest placeholder, not a resting state."
+    "NEEDS_TRIAGE": "Nobody has decided yet. Honest placeholder, not a resting state: an entry may sit here while archaeology is pending, but it may not be moved to AWAITING_ACTIVATION without a registered gate that states what would release it."
+  },
+  "gates": {
+    "SANDBOX_PROVISIONER_EXTERNAL_BLOCK": {
+      "description": "The autonomous engineering path needs an attestation, from outside this process, that the sandbox it runs code in is network-isolated. The provisioner exists and is tested; what is missing is the external attestation, which this process cannot produce about itself.",
+      "releasedBy": "An operator-supplied isolation attestation that the provisioner can verify at construction time, after which the durable executor may be reached from an entry point."
+    },
+    "NO_GMAIL_READONLY_GRANT": {
+      "description": "Inbound sensing reads a real mailbox. No read-only Gmail grant has been issued to this system, so there is no mailbox to read.",
+      "releasedBy": "A read-only Gmail grant recorded as durable authorization evidence, plus at least one real inbound message observed through it."
+    },
+    "NO_COMMERCIAL_EVENTS": {
+      "description": "Causal attribution binds signals, sends, payments and deliveries into outcomes. Every one of those inputs is currently zero, so the spine would attribute nothing to nothing.",
+      "releasedBy": "At least one real commercial event of any kind reaching durable storage."
+    },
+    "NO_ENRICHMENT_PROVIDER": {
+      "description": "Prospect enrichment calls a third-party data provider. No enrichment provider is connected and no enrichment budget is authorized.",
+      "releasedBy": "An authorized enrichment provider with a funded, bounded budget recorded as durable authorization evidence."
+    },
+    "NO_DISCOVERY_ADAPTER": {
+      "description": "Prospect discovery needs a source adapter that produces real, provenance-bearing profiles. Scoring logic exists and is tested; nothing feeds it.",
+      "releasedBy": "A discovery adapter whose output carries source provenance strong enough to clear the evidence-class clamp."
+    },
+    "NO_OUTBOUND_AUTHORIZATION": {
+      "description": "Every module behind this gate can, on its meaningful path, contact a real person. The owner has not authorized outbound contact. This is the gate whose accidental release is the most expensive mistake in the repository.",
+      "releasedBy": "Explicit, current owner authorization for outbound contact, bound to a named channel and audience, and re-checked immediately before each irreversible send."
+    },
+    "NO_CUSTOMER": {
+      "description": "Service definition, fulfillment and retention model a customer relationship. There are zero verified customers, so there is no requirement to compile against and no delivery to accept.",
+      "releasedBy": "One verified customer with a recorded requirement."
+    },
+    "VERCEL_DEPLOYMENT_GATED": {
+      "description": "Deployment tooling is operator-invoked and deliberately never triggered by application code. Reaching these from a production entry point is the failure mode, not the goal.",
+      "releasedBy": "Nothing. This gate is permanent by design: these modules are operator tooling and should stay out of the production import graph."
+    },
+    "NO_PAYMENT_PROVIDER": {
+      "description": "Payment-to-renewal truth derives economics from provider evidence. No payment provider is connected and no provider event has ever arrived.",
+      "releasedBy": "A connected payment provider and at least one real provider event in durable storage."
+    },
+    "MESH_LIVE_OBSERVATION_REQUIRED": {
+      "description": "Self-upgrade composition is wirable, but wiring the mesh's self-modification path in the same pass that first made the mesh runnable is an unsafe ordering. Recorded in docs/AGENT_MESH_REACHABILITY_TRIAGE.md, not invented here.",
+      "releasedBy": "Durable evidence of the agent mesh completing scheduler cycles in production, reviewed by the owner, before any path that can rewrite this repository is reachable."
+    },
+    "NO_AI_ACCESS_EXTERNAL_AUTHORIZATION": {
+      "description": "The AI access catalogue's meaningful execution path creates provider accounts, applications and credit claims. Recorded as out of scope by the external-effect ledger in docs/AGENT_MESH_REACHABILITY_TRIAGE.md.",
+      "releasedBy": "Separate, explicit owner authorization for provider account creation and application submission, which is not covered by any authorization granted to date."
+    }
   },
   "modules": {
     "src/claude-engineering-orchestrator.mjs": {
@@ -219,14 +265,14 @@
       "reason": "Reached only from the superseded provider-execution path. The model router it imported is now reachable in its own right via scripts/agent-model-route.mjs, which leaves this module as the last resident of that superseded cluster."
     },
     "src/agent-evolution-wave.mjs": {
-      "category": "NEEDS_TRIAGE",
-      "gate": null,
-      "reason": "Self-upgrade wave planning. No caller and no named gate; nobody has decided whether it is live architecture or an artifact of an earlier pass."
+      "category": "AWAITING_ACTIVATION",
+      "gate": "MESH_LIVE_OBSERVATION_REQUIRED",
+      "reason": "Self-upgrade composition. Wirable: its relay client now has a factory. Deliberately left because wiring the mesh's self-modification path in the pass that first made the mesh runnable is an unsafe ordering, recorded in docs/AGENT_MESH_REACHABILITY_TRIAGE.md before this classification existed."
     },
     "src/ai-access-opportunity-registry.mjs": {
-      "category": "NEEDS_TRIAGE",
-      "gate": null,
-      "reason": "AI access catalogue with no caller. Same question as above."
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_AI_ACCESS_EXTERNAL_AUTHORIZATION",
+      "reason": "AI access catalogue. Its meaningful execution path creates provider accounts and submits applications, which the external-effect ledger excludes; docs/AGENT_MESH_REACHABILITY_TRIAGE.md lists it under modules left unwired for that reason, not for want of a decision."
     },
     "src/payment-renewal-truth.mjs": {
       "category": "AWAITING_ACTIVATION",

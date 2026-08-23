@@ -1,10 +1,13 @@
 import { sameJson } from './cloud-agent-relay.mjs';
+import { foldAuditRows, collectAuditRows, AUDIT_SCAN_PAGE_SIZE } from './durable-audit-scan.mjs';
 
 export const AGENT_AUTONOMY_STORE_POLICY_VERSION = 'agent-autonomy-store-1.1.0';
 
 const SNAPSHOT_TYPE = 'agent_autonomy_run_snapshot';
 const RECEIPT_TYPE = 'agent_autonomy_execution_receipt';
-const MAX_SCAN = 2000;
+// Page size, not a ceiling. See src/durable-audit-scan.mjs: every read below
+// walks to exhaustion and fails closed rather than returning a short answer.
+const SCAN_PAGE_SIZE = AUDIT_SCAN_PAGE_SIZE;
 
 function text(value, max = 240) {
   return String(value ?? '').trim().slice(0, max);
@@ -44,19 +47,9 @@ function rowAppendOrder(row) {
   return match ? Number(match[1]) : 0;
 }
 
-function pageIdentity(rows) {
-  if (!Array.isArray(rows) || !rows.length) return '';
-  const first = rows[0];
-  const last = rows[rows.length - 1];
-  return `${String(first?.id || '')}|${String(last?.id || '')}|${rows.length}`;
-}
-
 /**
- * Find the newest stored snapshot rows for one run, without requiring that run
- * to sit inside one global MAX_SCAN window.
- *
- * Stores expose bounded offset pagination, so this walks pages until the
- * filtered audit history is exhausted and keeps every matching row it finds.
+ * Every snapshot row for one run, from the whole history rather than from a
+ * window over it.
  *
  * It deliberately does NOT stop at the first page containing the run. An
  * earlier version did, on the reasoning that pages arrive newest-first so the
@@ -70,62 +63,44 @@ function pageIdentity(rows) {
  *
  * Scanning to exhaustion costs a full filtered pass. Correctness under an
  * ordering the store does not promise is worth more than a shorter walk.
- *
- * A store that ignores `offset` is detected by a repeated full page, and keeps
- * the historical saturation failure rather than looping forever or reporting
- * absence it cannot prove.
  */
 async function auditRowsForRun(store, type, runId) {
   if (!validStore(store)) return { ok: false, reasonCodes: ['store-log-and-list-required'], rows: [], scannedRows: 0 };
   const id = text(runId, 160);
   if (!id) return { ok: false, reasonCodes: ['run-id-required'], rows: [], scannedRows: 0 };
 
-  let offset = 0;
-  let scannedRows = 0;
-  let priorPageIdentity = '';
-  const found = [];
-
-  while (true) {
-    const page = await store.list('auditLog', {
-      filters: { type },
-      limit: MAX_SCAN,
-      offset
-    });
-    const rows = Array.isArray(page) ? page : [];
-    const identity = pageIdentity(rows);
-
-    // Detect an adapter that ignored offset before counting the repeated page.
-    // scannedRows is evidence about unique traversal progress, not network I/O.
-    if (rows.length >= MAX_SCAN && priorPageIdentity && identity === priorPageIdentity) {
-      return {
-        ok: false,
-        reasonCodes: ['autonomy-run-snapshot-scan-saturated', 'autonomy-run-snapshot-pagination-stalled'],
-        rows: [],
-        scannedRows
-      };
-    }
-
-    scannedRows += rows.length;
-
-    for (const row of rows) {
-      if (row?.detail?.runId === id && validRun(row?.detail?.run)) found.push(row);
-    }
-
-    if (rows.length < MAX_SCAN) {
-      return { ok: true, rows: found, scannedRows, exhausted: true };
-    }
-
-    if (!identity) {
-      return {
-        ok: false,
-        reasonCodes: ['autonomy-run-snapshot-scan-saturated', 'autonomy-run-snapshot-pagination-stalled'],
-        rows: [],
-        scannedRows
-      };
-    }
-    priorPageIdentity = identity;
-    offset += rows.length;
+  const collected = await collectAuditRows(store, {
+    type,
+    pageSize: SCAN_PAGE_SIZE,
+    match: row => row?.detail?.runId === id && validRun(row?.detail?.run)
+  });
+  if (!collected.ok) {
+    return {
+      ok: false,
+      reasonCodes: scanReasonCodes(collected.reasonCodes),
+      rows: [],
+      scannedRows: collected.scannedRows || 0
+    };
   }
+  return { ok: true, rows: collected.rows, scannedRows: collected.scannedRows, exhausted: true };
+}
+
+// The shared scanner reports failures in its own vocabulary. This module has a
+// published one that callers and tests already match on, so translate rather
+// than leak: a caller should not have to learn the name of the helper the
+// module happens to read its pages with.
+const SCAN_REASON_TRANSLATION = Object.freeze({
+  'audit-scan-pagination-stalled': 'autonomy-run-snapshot-pagination-stalled',
+  'audit-scan-page-budget-exhausted': 'autonomy-run-snapshot-page-budget-exhausted',
+  'store-list-required': 'store-log-and-list-required'
+});
+
+function scanReasonCodes(reasonCodes) {
+  const translated = (reasonCodes || []).flatMap(code => {
+    const local = SCAN_REASON_TRANSLATION[code];
+    return local ? [local, code] : [code];
+  });
+  return [...new Set(['autonomy-run-snapshot-scan-saturated', ...translated])];
 }
 
 function latestRunRow(rows) {
@@ -215,12 +190,6 @@ export async function logAutonomyExecutionReceipt(store, receipt, { date = new D
   };
 }
 
-async function auditRows(store, type, limit = MAX_SCAN) {
-  if (!validStore(store)) return [];
-  const rows = await store.list('auditLog', { filters: { type }, limit: Math.max(1, Math.min(MAX_SCAN, Number(limit || MAX_SCAN))) });
-  return Array.isArray(rows) ? rows : [];
-}
-
 export async function loadLatestAutonomyRun(store, runId) {
   if (!validStore(store)) return fail(['store-log-and-list-required']);
   const id = text(runId, 160);
@@ -259,33 +228,59 @@ export async function loadLatestAutonomyRun(store, runId) {
 export async function listLatestAutonomyRuns(store, { statuses = [], limit = 50, order = 'newest' } = {}) {
   if (!validStore(store)) return fail(['store-log-and-list-required']);
   const allowedStatuses = new Set((Array.isArray(statuses) ? statuses : []).map(value => text(value, 80).toUpperCase()).filter(Boolean));
-  const rows = await auditRows(store, SNAPSHOT_TYPE);
-  const latest = new Map();
-  for (const row of rows) {
-    const run = row?.detail?.run;
-    if (!validRun(run)) continue;
-    // Dedup used to keep whichever row had the strictly greater timestamp, so a
-    // tie kept the FIRST one seen -- the older snapshot. That is not cosmetic
-    // here: agent-autonomy-job reads this listing to choose which runs to
-    // sweep, so a stale status can put a finished run back in the active set
-    // and have its work redone. Rank on the run's monotonic sequence first.
-    const current = latest.get(run.runId);
-    if (!current) { latest.set(run.runId, row); continue; }
-    const bySequence = runSequence(row) - runSequence(current);
-    if (bySequence > 0) { latest.set(run.runId, row); continue; }
-    if (bySequence < 0) continue;
-    const rowTime = String(row?.detail?.createdAt || row?.createdAt || '');
-    const currentTime = String(current?.detail?.createdAt || current?.createdAt || '');
-    if (rowTime > currentTime || (rowTime === currentTime && rowAppendOrder(row) > rowAppendOrder(current))) {
-      latest.set(run.runId, row);
+
+  // Folded as pages arrive, so peak memory is one row per distinct run rather
+  // than one row per snapshot ever written. That is what makes reading the
+  // whole history affordable, and it is why this no longer needs a ceiling:
+  // the previous single `store.list({ limit: 2000 })` returned the OLDEST 2000
+  // rows and still answered `ok: true, status: 'LISTED'`, so a run whose first
+  // snapshot landed after that mark was absent from a reply that claimed to be
+  // the complete listing. A scheduler reading this could never see it.
+  const scan = await foldAuditRows(store, {
+    type: SNAPSHOT_TYPE,
+    pageSize: SCAN_PAGE_SIZE,
+    seed: new Map(),
+    fold: (latest, row) => {
+      const run = row?.detail?.run;
+      if (!validRun(run)) return latest;
+      // Dedup used to keep whichever row had the strictly greater timestamp, so
+      // a tie kept the FIRST one seen -- the older snapshot. That is not
+      // cosmetic here: agent-autonomy-job reads this listing to choose which
+      // runs to sweep, so a stale status can put a finished run back in the
+      // active set and have its work redone. Rank on the run's monotonic
+      // sequence first.
+      const current = latest.get(run.runId);
+      if (!current) { latest.set(run.runId, row); return latest; }
+      const bySequence = runSequence(row) - runSequence(current);
+      if (bySequence > 0) { latest.set(run.runId, row); return latest; }
+      if (bySequence < 0) return latest;
+      const rowTime = String(row?.detail?.createdAt || row?.createdAt || '');
+      const currentTime = String(current?.detail?.createdAt || current?.createdAt || '');
+      if (rowTime > currentTime || (rowTime === currentTime && rowAppendOrder(row) > rowAppendOrder(current))) {
+        latest.set(run.runId, row);
+      }
+      return latest;
     }
+  });
+
+  // A listing that could not read the whole history is not a listing. Report
+  // the refusal rather than a subset wearing the shape of a complete answer.
+  if (!scan.ok) {
+    return {
+      ok: false,
+      policyVersion: AGENT_AUTONOMY_STORE_POLICY_VERSION,
+      status: 'SCAN_SATURATED',
+      reasonCodes: scanReasonCodes(scan.reasonCodes),
+      scannedRows: scan.scannedRows || 0
+    };
   }
+  const latest = scan.value;
   // Newest-first is right for an operator reading recent activity and wrong for
   // a scheduler choosing what to work on. Ticking a run refreshes its
-  // updatedAt, so under a bounded scan a newest-first window fills with the
-  // runs that were just served and the least-recently-touched runs fall off the
-  // end and are never seen again. `order: 'oldest'` puts the starved runs in
-  // the window; the fairness ledger then orders within it.
+  // updatedAt, so a newest-first `limit` window fills with the runs that were
+  // just served and the least-recently-touched runs fall off the end.
+  // `order: 'oldest'` puts the starved runs in the window; the fairness ledger
+  // then orders within it.
   const oldestFirst = String(order || 'newest').toLowerCase() === 'oldest';
   const runs = [...latest.values()]
     .map(row => row.detail.run)
@@ -304,6 +299,7 @@ export async function listLatestAutonomyRuns(store, { statuses = [], limit = 50,
     policyVersion: AGENT_AUTONOMY_STORE_POLICY_VERSION,
     status: 'LISTED',
     count: runs.length,
+    scannedRows: scan.scannedRows,
     runs
   };
 }

@@ -15,7 +15,7 @@ import {
   normalizeOpportunityAssets,
   normalizeOpportunityProfile,
   OpportunityFactoryError,
-  scoreOpportunity,
+  scoreOpportunityFit,
   transitionOpportunityState
 } from '../src/opportunity-factory.mjs';
 
@@ -132,7 +132,7 @@ test('opportunity input is closed, source-bound, and rejects caller-supplied sco
 
 test('transparent score is recomputed from bounded signals', () => {
   const normalized = normalizeOpportunity(opportunity());
-  const score = scoreOpportunity(normalized);
+  const score = scoreOpportunityFit(normalized);
   assert.equal(score.total, 95);
   assert.equal(score.components.qaExplicit, 20);
   assert.equal(score.methodology, 'uberbond.opportunity-score.v1');

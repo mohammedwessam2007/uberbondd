@@ -7,7 +7,7 @@
 // spends, deploys, changes credentials, or records revenue.
 import crypto from 'node:crypto';
 import {
-  EVIDENCE_CLASSES,
+  SIGNAL_EVIDENCE_CLASSES,
   normalizeMarketSignal,
   isStaleSignal
 } from './market-signal.mjs';
@@ -28,7 +28,7 @@ export const ECONOMIC_SPINE_STATUSES = Object.freeze([
   'DENIED'
 ]);
 
-const COMMERCIAL_SIGNAL_MIN_RANK = EVIDENCE_CLASSES.indexOf('BUYER_SIGNAL');
+const COMMERCIAL_SIGNAL_MIN_RANK = SIGNAL_EVIDENCE_CLASSES.indexOf('BUYER_SIGNAL');
 const DEFAULT_MAX_SIGNAL_AGE_MS = 30 * 24 * 60 * 60 * 1000;
 const DEFAULT_MIN_OPPORTUNITY_CONFIDENCE = 0.3;
 
@@ -67,7 +67,7 @@ function denied(reasonCodes, timestamp, extra = {}) {
 
 function signalCommercialGate(signal, maxSignalAgeMs) {
   const reasonCodes = [];
-  const evidenceRank = EVIDENCE_CLASSES.indexOf(signal.evidenceClass);
+  const evidenceRank = SIGNAL_EVIDENCE_CLASSES.indexOf(signal.evidenceClass);
 
   if (signal.evidenceClass === 'SYNTHETIC_TEST_FIXTURE') {
     reasonCodes.push('synthetic-evidence-not-commercial');

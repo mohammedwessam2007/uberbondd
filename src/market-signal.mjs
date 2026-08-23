@@ -25,7 +25,13 @@ export const SIGNAL_TYPES = Object.freeze([
 // Mirrors the evidence-classification vocabulary already established in
 // src/opportunity-registry.mjs -- same claim strength ordering, so a signal's
 // evidenceClass and a genome field's claimType can be compared directly.
-export const EVIDENCE_CLASSES = Object.freeze([
+// Namespaced, like CAUSAL_/PRICING_/INBOUND_EVIDENCE_CLASSES elsewhere. It and
+// the prospect module both exported a bare `EVIDENCE_CLASSES` with entirely
+// disjoint members, so importing the wrong one silently reclassified every
+// value -- and this module coerced anything it did not recognise to
+// 'UNRESOLVED' with ok:true, so a caller who believed they had recorded
+// DIRECT_FIRST_PARTY had recorded nothing and was told the write succeeded.
+export const SIGNAL_EVIDENCE_CLASSES = Object.freeze([
   'SYNTHETIC_TEST_FIXTURE', 'UNRESOLVED', 'HYPOTHESIS', 'ESTIMATE', 'INFERENCE',
   'CREATOR_CLAIM', 'OPERATOR_CLAIM', 'BUYER_SIGNAL', 'COMPANY_CLAIM', 'VERIFIED_FACT'
 ]);
@@ -95,7 +101,22 @@ export function normalizeMarketSignal(input = {}, { date = new Date() } = {}) {
     return { ok: false, reason: 'observedAt-in-the-future', schemaVersion: MARKET_SIGNAL_SCHEMA_VERSION, ingestedAt };
   }
 
-  const evidenceClass = EVIDENCE_CLASSES.includes(input.evidenceClass) ? input.evidenceClass : 'UNRESOLVED';
+  // An unrecognised evidence class used to be coerced to 'UNRESOLVED' with
+  // ok:true. The coercion always erred downward, so nothing was ever
+  // over-claimed -- but a caller who passed DIRECT_FIRST_PARTY (a real, strong
+  // class from the identically-named vocabulary in
+  // src/prospect-evidence-reconciliation.mjs) was told the write succeeded and
+  // had in fact recorded no evidence at all. So was a caller with a typo.
+  // Under-claiming silently is still a wrong answer about what was observed.
+  if (input.evidenceClass != null && !SIGNAL_EVIDENCE_CLASSES.includes(input.evidenceClass)) {
+    return {
+      ok: false,
+      reason: `unknown-evidence-class:${String(input.evidenceClass).slice(0, 60)}`,
+      schemaVersion: MARKET_SIGNAL_SCHEMA_VERSION,
+      ingestedAt
+    };
+  }
+  const evidenceClass = input.evidenceClass ?? 'UNRESOLVED';
   const isSynthetic = evidenceClass === 'SYNTHETIC_TEST_FIXTURE';
 
   if (evidenceClass === 'VERIFIED_FACT' && !isSynthetic && !String(input.sourceUrl || '').trim()) {

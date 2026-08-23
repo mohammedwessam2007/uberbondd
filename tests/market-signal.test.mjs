@@ -90,9 +90,26 @@ test('a SYNTHETIC_TEST_FIXTURE with no sourceUrl normalizes cleanly and provenan
 });
 
 test('an untagged evidenceClass defaults to UNRESOLVED, never a fabricated strong tier', () => {
-  const result = normalizeMarketSignal(baseSignal({ evidenceClass: 'not-a-real-tier', sourceUrl: undefined }), { date: monday });
+  const result = normalizeMarketSignal(baseSignal({ evidenceClass: undefined, sourceUrl: undefined }), { date: monday });
   assert.equal(result.ok, true);
   assert.equal(result.evidenceClass, 'UNRESOLVED');
+});
+
+test('an evidenceClass that is tagged but unrecognised is refused, not quietly downgraded', () => {
+  // This case used to be folded into the test above, which passed
+  // 'not-a-real-tier' while claiming to test the untagged path. Saying nothing
+  // about evidence and saying something unrecognisable about it are different
+  // acts, and only the first is honestly answered by UNRESOLVED.
+  //
+  // It mattered because src/prospect-evidence-reconciliation.mjs exported an
+  // identically-named EVIDENCE_CLASSES with entirely disjoint members: a caller
+  // who passed DIRECT_FIRST_PARTY -- a real, strong class over there -- was told
+  // ok:true and had recorded no evidence at all. So was a caller with a typo.
+  for (const bogus of ['not-a-real-tier', 'DIRECT_FIRST_PARTY', 'LICENSED_PROVIDER', 'verified_fact']) {
+    const result = normalizeMarketSignal(baseSignal({ evidenceClass: bogus, sourceUrl: undefined }), { date: monday });
+    assert.equal(result.ok, false, `${bogus} was accepted`);
+    assert.equal(result.reason, `unknown-evidence-class:${bogus}`);
+  }
 });
 
 test('confidence is clamped into [0,1] and malformed confidence becomes null, not zero', () => {

@@ -3,6 +3,10 @@ import { runAgentWorkerTick } from './agent-worker-job.mjs';
 import { ZERO_EFFECTS } from './cloud-agent-relay.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
 import {
+  AGENT_MODEL_ROUTING_CONFIG_POLICY_VERSION,
+  routeActivationPermittedWorkers
+} from './agent-model-routing-config.mjs';
+import {
   beginAgentMeshCycleReceipt,
   finishAgentMeshCycleReceipt,
   getAgentMeshCycleReceipt,
@@ -10,7 +14,7 @@ import {
   supportsAgentMeshCycleReceipts
 } from './agent-mesh-cycle-receipts.mjs';
 
-export const AGENT_MESH_CONTROL_PLANE_POLICY_VERSION = 'agent-mesh-control-plane-1.3.0';
+export const AGENT_MESH_CONTROL_PLANE_POLICY_VERSION = 'agent-mesh-control-plane-1.4.0';
 
 const MAX_WORKERS_PER_CYCLE = 4;
 const MAX_AUTONOMY_RUNS_PER_SWEEP = 10;
@@ -118,7 +122,9 @@ export async function runAgentMeshCycle({
   abandonedCycleAfterMs = 60 * 60 * 1000,
   date = new Date(),
   tickRuns = tickActiveAutonomyRuns,
-  workerTick = runAgentWorkerTick
+  workerTick = runAgentWorkerTick,
+  routingEnv = process.env,
+  routingRandom = Math.random
 } = {}) {
   if (!enabled) {
     return {
@@ -150,10 +156,34 @@ export async function runAgentMeshCycle({
   if (configuredWorkers.length !== workers.length) return fail(['worker-count-exceeds-cycle-cap']);
   if (configuredWorkers.some(worker => !validWorker(worker))) return fail(['invalid-worker-configuration']);
 
+  // The caller may already have narrowed workers through activation/consequence
+  // authority. Routing is intentionally second: it can choose among that set,
+  // but no benchmark or env configuration can resurrect a worker omitted by
+  // the authority layer. This happens before the durable occurrence identity
+  // is built so a retry that would route to a different worker fails closed as
+  // an identity conflict instead of silently changing provider/model mid-cycle.
+  const routing = routeActivationPermittedWorkers({
+    workers: configuredWorkers,
+    env: routingEnv,
+    random: routingRandom,
+    date
+  });
+  if (!routing.ok) {
+    return fail(routing.reasonCodes || ['model-routing-blocked'], 'BLOCKED', {
+      routingStatus: routing.status || 'BLOCKED',
+      routingMode: routing.mode || null,
+      at: timestamp(date)
+    });
+  }
+  const routedWorkers = routing.workers;
+
   const occurrenceIdentity = {
     sourceCommit,
-    policyVersions: [AGENT_MESH_CONTROL_PLANE_POLICY_VERSION],
-    workers: configuredWorkers,
+    policyVersions: [
+      AGENT_MESH_CONTROL_PLANE_POLICY_VERSION,
+      AGENT_MODEL_ROUTING_CONFIG_POLICY_VERSION
+    ],
+    workers: routedWorkers,
     configuration: {
       autonomyRunLimit: boundedRunLimit,
       ingestAfterWorkers: Boolean(ingestAfterWorkers)
@@ -232,14 +262,14 @@ export async function runAgentMeshCycle({
     const reasonCodes = firstSweep.reasonCodes || ['initial-autonomy-sweep-failed'];
     const terminal = await finishAgentMeshCycleReceipt({
       store, cycleId, startedAt, finishedAt: date, sourceCommit,
-      policyVersions: [AGENT_MESH_CONTROL_PLANE_POLICY_VERSION],
+      policyVersions: occurrenceIdentity.policyVersions,
       status: 'BLOCKED', reasonCodes, firstSweep, workers: [], secondSweep: null
     });
     return resultFromTerminalReceipt(terminal.receipt);
   }
 
   const workerResults = [];
-  for (const config of configuredWorkers) {
+  for (const config of routedWorkers) {
     let result;
     try {
       result = await workerTick({
@@ -272,7 +302,7 @@ export async function runAgentMeshCycle({
     : [];
   const terminal = await finishAgentMeshCycleReceipt({
     store, cycleId, startedAt, finishedAt: date, sourceCommit,
-    policyVersions: [AGENT_MESH_CONTROL_PLANE_POLICY_VERSION],
+    policyVersions: occurrenceIdentity.policyVersions,
     status, reasonCodes, firstSweep, workers: workerResults, secondSweep
   });
 
@@ -288,6 +318,9 @@ export async function runAgentMeshCycle({
     firstSweep: summarizeSweep(firstSweep),
     workers: workerResults,
     secondSweep: summarizeSweep(secondSweep),
+    routingStatus: routing.status,
+    routingMode: routing.mode || null,
+    routedWorkerId: routing.selected?.workerId || null,
     at: terminal.receipt.finishedAt,
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }

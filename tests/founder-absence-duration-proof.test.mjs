@@ -111,3 +111,41 @@ test('proof without explicit bounded counters and identity cannot certify readin
   assert.ok(result.observationProof.reasonCodes.includes('observation-start-required'));
   assert.ok(result.observationProof.reasonCodes.includes('proof-source-commit-required'));
 });
+
+test('caller cannot omit current source identity and still certify Kilimanjaro readiness', () => {
+  const result = evaluateFounderAbsenceReadiness({
+    capabilities: liveCapabilities(),
+    targetDays: 7,
+    observationProof: proof(),
+    currentPolicyVersions: ['mesh-policy-1'],
+    now: COMMON.now
+  });
+  assert.notEqual(result.status, 'KILIMANJARO_READY');
+  assert.ok(result.observationProof.reasonCodes.includes('current-source-commit-required'));
+});
+
+test('caller cannot omit current policy identity and still certify Kilimanjaro readiness', () => {
+  const result = evaluateFounderAbsenceReadiness({
+    capabilities: liveCapabilities(),
+    targetDays: 7,
+    observationProof: proof(),
+    currentSourceCommit: 'abc123',
+    now: COMMON.now
+  });
+  assert.notEqual(result.status, 'KILIMANJARO_READY');
+  assert.ok(result.observationProof.reasonCodes.includes('current-policy-versions-required'));
+});
+
+test('observation window cannot extend materially into the future', () => {
+  const result = evaluateFounderAbsenceReadiness({
+    ...COMMON,
+    targetDays: 7,
+    observationProof: proof({
+      observedFrom: '2026-08-15T13:00:00.000Z',
+      observedThrough: '2026-08-22T13:00:01.000Z',
+      freshnessAt: '2026-08-22T12:30:00.000Z'
+    })
+  });
+  assert.notEqual(result.status, 'KILIMANJARO_READY');
+  assert.ok(result.observationProof.reasonCodes.includes('observation-end-in-future'));
+});

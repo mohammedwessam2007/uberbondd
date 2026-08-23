@@ -187,8 +187,35 @@ test('durable-history path refuses to certify without current source identity', 
     store,
     capabilities: liveCapabilities(),
     targetDays: 7,
+    currentPolicyVersions: ['mesh-policy-1'],
     now: COMMON.now
   });
   assert.equal(result.ok, false);
   assert.ok(result.reasonCodes.includes('current-source-commit-required-for-durable-history'));
+});
+
+test('durable-history path refuses to certify without current policy identity', async () => {
+  const store = memoryStore();
+  const result = await evaluateFounderAbsenceReadinessFromDurableHistory({
+    store,
+    capabilities: liveCapabilities(),
+    targetDays: 7,
+    currentSourceCommit: 'abc123',
+    now: COMMON.now
+  });
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('current-policy-versions-required-for-durable-history'));
+});
+
+test('future-dated durable terminal history cannot certify founder absence', async () => {
+  const store = memoryStore();
+  for (let day = 0; day <= 7; day += 1) {
+    await addTerminal(store, {
+      occurrenceKey: `future:${day}`,
+      at: new Date(Date.UTC(2026, 7, 15 + day, 13, 0, 1)).toISOString()
+    });
+  }
+  const result = await evaluateFounderAbsenceReadinessFromDurableHistory({ store, ...COMMON });
+  assert.notEqual(result.status, 'KILIMANJARO_READY');
+  assert.ok(result.observationProof.reasonCodes.includes('observation-end-in-future'));
 });

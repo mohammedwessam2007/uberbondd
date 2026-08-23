@@ -12,6 +12,8 @@
 // assertions at the end say so explicitly rather than leaving it implied.
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { AGENT_MESH_CONTROL_PLANE_POLICY_VERSION } from '../src/agent-mesh-control-plane.mjs';
+import { AGENT_MODEL_ROUTING_CONFIG_POLICY_VERSION } from '../src/agent-model-routing-config.mjs';
 import { runAgentMeshCycle } from '../src/agent-mesh-control-plane.mjs';
 import { compileScheduledAutonomyRun } from '../src/agent-autonomy-scheduled-run.mjs';
 import { saveAutonomyRunSnapshot, loadLatestAutonomyRun } from '../src/agent-autonomy-store.mjs';
@@ -214,7 +216,12 @@ test('the rehearsal produces no founder-absence certification, and says why', as
   const readiness = await evaluateFounderAbsenceReadinessFromDurableHistory({
     store, capabilities, targetDays: 7, now: NOW,
     currentSourceCommit: COMMIT,
-    currentPolicyVersions: ['agent-mesh-control-plane-1.3.0']
+    // Imported rather than spelled out. This was pinned to a literal
+    // 'agent-mesh-control-plane-1.3.0'; the control plane moved to 1.4.0 and
+    // this test kept asserting against a version no receipt carried, so no
+    // receipt qualified and the reason codes it checked were never reached.
+    // A stale literal here fails as a confusing mismatch rather than as a bump.
+    currentPolicyVersions: [AGENT_MESH_CONTROL_PLANE_POLICY_VERSION, AGENT_MODEL_ROUTING_CONFIG_POLICY_VERSION]
   });
 
   // One cycle is one cycle. A seven-day claim needs seven days, and no amount

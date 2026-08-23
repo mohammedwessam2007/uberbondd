@@ -34,6 +34,55 @@ const PROTECTED_PREFIXES = Object.freeze([
   'scripts/check-syntax.mjs'
 ]);
 
+// Sovereignty: the modules that define what this system is allowed to do.
+//
+// The list above protects the build and verification graph -- how a change gets
+// checked. This one protects the limits themselves. A probe compiled a
+// well-formed change set, with a bland rationale and a passing verification
+// command, that replaced each of these files with a single comment. Every one
+// was ACCEPTED, including src/agent-code-change-contract.mjs itself: the
+// self-improvement path could delete its own guard and then, on the next pass,
+// anything at all.
+//
+// These are deliberately absolute. A module here can never be edited by the
+// autonomous path, only by a person -- which is the whole content of the rule
+// that a system may not widen its own authority. The cost is real: genuine
+// improvements to these files need a human. That is the intended price.
+const SOVEREIGNTY_PREFIXES = Object.freeze([
+  // The rules about changing files, including this list.
+  'src/agent-code-change-contract.mjs',
+  // Whether a message may be sent to a real person, and on whose authority.
+  'src/deliverability-guard.mjs',
+  'src/send-safety.mjs',
+  'src/consequence-boundary.mjs',
+  // The gate that decides whether a provider may be called at all.
+  'src/agent-mesh-activation-gate.mjs',
+  // What an autonomous run may do, and how authority narrows into children.
+  'src/agent-autonomy-loop.mjs',
+  // What may enter and leave the relay, and what counts as no effect at all.
+  'src/cloud-agent-relay.mjs',
+  'src/effect-ledgers.mjs',
+  // What counts as a credential, and what counts as finished work.
+  'src/secret-patterns.mjs',
+  'src/agent-worker-result-truth.mjs',
+  // The isolation the engineering path runs inside.
+  'src/claude-code-sandbox-provisioner.mjs',
+  // What may be claimed about money.
+  'src/payment-renewal-truth.mjs',
+  'src/payments.mjs',
+  // The only path by which the owner learns anything is wrong.
+  'src/operator-escalation.mjs',
+  'src/operator-escalation-transport.mjs',
+  // The record of what is deliberately unwired, and the test that enforces it.
+  'config/reachability-classification.json',
+  'tests/reachability-ratchet.test.mjs',
+  // The tests that prove the guards above still guard.
+  'tests/outbound-stale-authorization.test.mjs',
+  'tests/effect-state-vocabulary.test.mjs',
+  'tests/payment-truth-reversal.test.mjs',
+  'tests/sovereignty-self-modification.test.mjs'
+]);
+
 
 
 function text(value, max = MAX_TEXT) {
@@ -70,13 +119,20 @@ function normalizedRelativePath(value) {
   return normalized;
 }
 
+function matchesPrefix(lower, prefix) {
+  const p = prefix.toLowerCase();
+  if (p === '.env') return lower === '.env' || lower.startsWith('.env.') || lower.startsWith('.env/');
+  return lower === p || lower.startsWith(`${p}/`);
+}
+
 function protectedPath(filePath) {
   const lower = filePath.toLowerCase();
-  return PROTECTED_PREFIXES.some(prefix => {
-    const p = prefix.toLowerCase();
-    if (p === '.env') return lower === '.env' || lower.startsWith('.env.') || lower.startsWith('.env/');
-    return lower === p || lower.startsWith(`${p}/`);
-  });
+  return PROTECTED_PREFIXES.some(prefix => matchesPrefix(lower, prefix));
+}
+
+function sovereigntyPath(filePath) {
+  const lower = filePath.toLowerCase();
+  return SOVEREIGNTY_PREFIXES.some(prefix => matchesPrefix(lower, prefix));
 }
 
 function secretMaterial(content) {
@@ -102,6 +158,11 @@ function normalizeChange(change, index) {
   if (!OPS.has(operation)) reasons.push(`change-${index}-operation-invalid`);
   const filePath = normalizedRelativePath(change.path);
   if (!filePath) reasons.push(`change-${index}-path-invalid`);
+  // A separate reason code from `protected-path`. They are refused for
+  // different reasons and an operator reading a refusal should be able to tell
+  // "you tried to edit the build graph" from "you tried to edit your own
+  // limits", which is a far more serious thing to have attempted.
+  else if (sovereigntyPath(filePath)) reasons.push(`change-${index}-sovereignty-path`);
   else if (protectedPath(filePath)) reasons.push(`change-${index}-protected-path`);
 
   const beforeSha256 = sha256(change.beforeSha256);
@@ -239,6 +300,10 @@ export function validateAgentCodeChangeSet(changeSet) {
     taskId: changeSet.taskId
   };
 }
+
+/** The paths no autonomous change may touch, for tests and for operators. */
+export const SOVEREIGNTY_PROTECTED_PATHS = SOVEREIGNTY_PREFIXES;
+export const BUILD_PROTECTED_PATHS = PROTECTED_PREFIXES;
 
 export function contentSha256(content) {
   return hash(String(content ?? ''));

@@ -2,16 +2,16 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 437,
+      "filesParsed": 438,
       "ranAt": "2026-08-23T00:45:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2044,
-      "pass": 2002,
+      "tests": 2051,
+      "pass": 2009,
       "fail": 0,
       "skipped": 42,
-      "ranAt": "2026-08-23T06:30:00Z"
+      "ranAt": "2026-08-23T07:00:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -356,11 +356,14 @@
       "level": 3,
       "evidence": [
         "src/payment-truth.mjs",
+        "src/payment-renewal-truth.mjs",
         "src/commercial-outcome.mjs"
       ],
       "tests": [
         "tests/payment-truth.test.mjs",
-        "tests/commercial-reconciliation.test.mjs"
+        "tests/payment-renewal-truth.test.mjs",
+        "tests/payment-truth-double-count.test.mjs",
+        "tests/economic-anchor-forgery.test.mjs"
       ],
       "externalBlocker": "No payment provider identity, no KYC.",
       "nextAction": "Owner completes payment provider onboarding."

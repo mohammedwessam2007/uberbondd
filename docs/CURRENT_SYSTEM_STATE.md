@@ -41,8 +41,8 @@ Every number below was produced by running the command, on this tree.
 
 | Gate | Command | Result |
 |---|---|---|
-| Syntax | `npm run check:syntax` | 437 files parse |
-| Deterministic | `npm run test:deterministic` | 2044 tests, 2002 pass, **0 fail**, 42 skipped |
+| Syntax | `npm run check:syntax` | 438 files parse |
+| Deterministic | `npm run test:deterministic` | 2051 tests, 2009 pass, **0 fail**, 42 skipped |
 | Relay safety | `npm run test:relay-safety` | 150 tests, 150 pass, 0 fail |
 | Real PostgreSQL | `npm run test:postgres-real` | 107 tests, **107 pass, 0 skipped** |
 | Dependencies | `npm audit` | 0 vulnerabilities |
@@ -149,6 +149,12 @@ dimensions with provenance and a deterministic policy decides. A model
 assessment is capped at half weight, can never carry ICP fit, buyer-role fit or
 reachability alone, and a model that includes a decision-shaped field gets the
 prospect quarantined rather than that field ignored.
+
+**One provider event is one payment.** Cleared revenue requires three witnesses
+— an order, a classification receipt and a ledger row, all keyed on the same
+provider event. The witness sets were deduped and the ledger rows were not, so
+a $50 payment recorded twice reported $100 cleared. Rows dedupe by event now,
+and a duplicate raises a contradiction rather than being quietly dropped.
 
 **Revenue cannot be typed into existence.** A payment node's outcome id must
 recompute as a digest of the commercial-outcome policy version and its own

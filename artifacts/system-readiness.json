@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-23T03:11:39.670Z",
+  "generatedAt": "2026-08-23T03:24:49.990Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "b113ac2119f5bd76d242365ab43048d778befe01",
+    "head": "effdfd969b7f58d7d8919c984fa86404ed62c451",
     "branch": "main",
     "sourceModules": 147,
-    "testSuites": 198,
+    "testSuites": 199,
     "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 437,
+      "filesParsed": 438,
       "ranAt": "2026-08-23T00:45:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2044,
-      "pass": 2002,
+      "tests": 2051,
+      "pass": 2009,
       "fail": 0,
       "skipped": 42,
-      "ranAt": "2026-08-23T06:30:00Z"
+      "ranAt": "2026-08-23T07:00:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -469,11 +469,14 @@
       "cappedByMissingExternalEvidence": false,
       "evidence": [
         "src/payment-truth.mjs",
+        "src/payment-renewal-truth.mjs",
         "src/commercial-outcome.mjs"
       ],
       "tests": [
         "tests/payment-truth.test.mjs",
-        "tests/commercial-reconciliation.test.mjs"
+        "tests/payment-renewal-truth.test.mjs",
+        "tests/payment-truth-double-count.test.mjs",
+        "tests/economic-anchor-forgery.test.mjs"
       ],
       "realWire": false,
       "liveProof": false,

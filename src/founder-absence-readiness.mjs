@@ -26,6 +26,7 @@ const EXTERNAL_PROOF_REQUIRED = new Set([
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const DEFAULT_MAX_PROOF_AGE_MS = 6 * 60 * 60 * 1000;
+const FUTURE_SKEW_MS = 5 * 60 * 1000;
 const HEALTHY_CYCLE_STATUSES = new Set(['ADVANCED', 'IDLE']);
 const FAILED_CYCLE_STATUSES = new Set(['DEGRADED', 'BLOCKED']);
 
@@ -95,6 +96,10 @@ function evaluateObservationProof({ proof, targetDays, currentSourceCommit, curr
   if (proof.unauthorizedEffects === null) reasonCodes.push('unauthorized-effects-required');
   if (proof.openDeadLetters === null) reasonCodes.push('open-dead-letters-required');
   if (!proof.sourceCommit) reasonCodes.push('proof-source-commit-required');
+  if (!currentSourceCommit) reasonCodes.push('current-source-commit-required');
+
+  const requiredPolicies = [...new Set((currentPolicyVersions || []).map(value => String(value || '').trim()).filter(Boolean))];
+  if (!requiredPolicies.length) reasonCodes.push('current-policy-versions-required');
 
   const requiredSpanMs = targetDays * DAY_MS;
   const spanMs = proof.observedFromMs !== null && proof.observedThroughMs !== null
@@ -102,6 +107,7 @@ function evaluateObservationProof({ proof, targetDays, currentSourceCommit, curr
     : null;
   if (spanMs !== null && spanMs < requiredSpanMs) reasonCodes.push('observation-window-shorter-than-target-days');
   if (spanMs !== null && spanMs < 0) reasonCodes.push('observation-window-reversed');
+  if (proof.observedThroughMs !== null && proof.observedThroughMs > nowMs + FUTURE_SKEW_MS) reasonCodes.push('observation-end-in-future');
 
   const minimumSuccessfulTicks = targetDays + 1;
   if (proof.successfulTicks !== null && proof.successfulTicks < minimumSuccessfulTicks) reasonCodes.push('insufficient-repeated-successful-ticks');
@@ -110,7 +116,7 @@ function evaluateObservationProof({ proof, targetDays, currentSourceCommit, curr
   if (proof.openDeadLetters !== null && proof.openDeadLetters !== 0) reasonCodes.push('open-dead-letters-present');
 
   if (proof.freshnessAtMs !== null) {
-    if (proof.freshnessAtMs > nowMs + 5 * 60 * 1000) reasonCodes.push('proof-freshness-in-future');
+    if (proof.freshnessAtMs > nowMs + FUTURE_SKEW_MS) reasonCodes.push('proof-freshness-in-future');
     if (nowMs - proof.freshnessAtMs > maxProofAgeMs) reasonCodes.push('proof-stale');
   }
   if (proof.observedThroughMs !== null && proof.freshnessAtMs !== null && proof.freshnessAtMs < proof.observedThroughMs) {
@@ -118,7 +124,6 @@ function evaluateObservationProof({ proof, targetDays, currentSourceCommit, curr
   }
 
   if (currentSourceCommit && proof.sourceCommit !== currentSourceCommit) reasonCodes.push('proof-source-commit-mismatch');
-  const requiredPolicies = [...new Set((currentPolicyVersions || []).map(value => String(value || '').trim()).filter(Boolean))];
   if (requiredPolicies.some(version => !proof.policyVersions.includes(version))) reasonCodes.push('proof-policy-version-mismatch');
 
   return {
@@ -146,7 +151,7 @@ function commonPolicyVersions(receipts) {
 function currentIdentitySuffix(receipts, currentSourceCommit, currentPolicyVersions) {
   const source = String(currentSourceCommit || '').trim();
   const policies = [...new Set((currentPolicyVersions || []).map(value => String(value || '').trim()).filter(Boolean))];
-  if (!source || !receipts.length) return [];
+  if (!source || !policies.length || !receipts.length) return [];
   let start = receipts.length;
   for (let index = receipts.length - 1; index >= 0; index -= 1) {
     const receipt = receipts[index];
@@ -211,15 +216,17 @@ export async function evaluateFounderAbsenceReadinessFromDurableHistory({
   if (!store || typeof store.list !== 'function') return fail(['durable-history-list-store-required']);
   const source = String(currentSourceCommit || '').trim();
   if (!source) return fail(['current-source-commit-required-for-durable-history']);
+  const policies = [...new Set((currentPolicyVersions || []).map(value => String(value || '').trim()).filter(Boolean))];
+  if (!policies.length) return fail(['current-policy-versions-required-for-durable-history']);
   const receipts = await listTerminalAgentMeshCycleReceipts({ store, limit: historyLimit });
-  const qualifyingReceipts = currentIdentitySuffix(receipts, source, currentPolicyVersions);
+  const qualifyingReceipts = currentIdentitySuffix(receipts, source, policies);
   const jobs = await store.list('jobs', { limit: 10000 });
   const openDeadLetters = Array.isArray(jobs) ? jobs.filter(job => job?.status === 'dead-letter').length : 0;
   const observationProof = deriveFounderAbsenceObservationProof({ receipts: qualifyingReceipts, openDeadLetters });
   const result = evaluateFounderAbsenceReadiness({
     ...options,
     currentSourceCommit: source,
-    currentPolicyVersions,
+    currentPolicyVersions: policies,
     observationProof
   });
   return {

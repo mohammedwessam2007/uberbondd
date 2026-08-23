@@ -112,3 +112,54 @@ test('the entry points this ratchet trusts actually exist', () => {
     assert.ok(readFileSync(join(repoRoot, entry), 'utf8').length > 0, `${entry} is missing`);
   }
 });
+
+// The gate registry. Before it existed, `AWAITING_ACTIVATION` required only
+// that `gate` be truthy -- `gate: "TODO_FIGURE_THIS_OUT_LATER"` passed all
+// seven tests above. That made AWAITING_ACTIVATION a resting state reachable by
+// typing anything, which is precisely the failure the ratchet exists to
+// prevent: a decision that was never made, wearing the shape of one.
+//
+// Now a gate must be declared in config/reachability-classification.json with
+// what it is and what would release it. Minting a new gate is still allowed --
+// it is a reviewable edit to a registry, not a string typed into one module.
+
+test('every AWAITING_ACTIVATION module names a gate that is actually registered', () => {
+  const { modules, gates } = classification();
+  assert.ok(gates, 'the classification must declare a gates registry');
+  const unregistered = Object.entries(modules)
+    .filter(([, entry]) => entry.category === 'AWAITING_ACTIVATION' && !gates[entry.gate])
+    .map(([file, entry]) => `${file} -> ${entry.gate}`);
+  assert.deepEqual(unregistered, [],
+    `these modules wait on gates that do not exist:\n  ${unregistered.join('\n  ')}\n`
+    + 'Register the gate with a description and a release condition, or use an existing one.');
+});
+
+test('every registered gate is still holding something back', () => {
+  const { modules, gates } = classification();
+  const used = new Set(Object.values(modules).map(entry => entry.gate).filter(Boolean));
+  const stale = Object.keys(gates).filter(gate => !used.has(gate));
+  assert.deepEqual(stale, [],
+    `these gates block nothing and should be removed:\n  ${stale.join('\n  ')}`);
+});
+
+test('every gate states what it is and what would release it', () => {
+  const { gates } = classification();
+  for (const [gate, entry] of Object.entries(gates)) {
+    assert.ok(entry.description && entry.description.length > 40,
+      `${gate}: description is too thin to explain what is blocked`);
+    assert.ok(entry.releasedBy && entry.releasedBy.length > 20,
+      `${gate}: must state the observable condition that releases it`);
+    // A release condition that restates the gate name is not a condition.
+    assert.notEqual(entry.releasedBy.trim().toUpperCase(), gate,
+      `${gate}: releasedBy restates the gate name instead of naming a condition`);
+  }
+});
+
+test('a module may not sit in NEEDS_TRIAGE while also claiming a gate', () => {
+  const { modules } = classification();
+  const confused = Object.entries(modules)
+    .filter(([, entry]) => entry.category === 'NEEDS_TRIAGE' && entry.gate)
+    .map(([file]) => file);
+  assert.deepEqual(confused, [],
+    'NEEDS_TRIAGE means no decision has been made; naming a gate is a decision');
+});

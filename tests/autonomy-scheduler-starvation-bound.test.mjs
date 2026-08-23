@@ -32,10 +32,18 @@ function fakeStore() {
       auditLog.push(row);
       return row;
     },
+    // Newest-first, and it honours `offset`. Both halves matter. `offset` is
+    // part of the store contract -- `src/store.mjs` implements it on the JSON
+    // path (`_listDirect`) and as SQL `OFFSET` on the Postgres path -- and a
+    // fake that drops it is not a smaller store, it is a store that cannot be
+    // paginated. Keeping the reversal is deliberate: the real JSON store hands
+    // back insertion order, so serving pages newest-first here proves the walk
+    // does not depend on an ordering no store promises.
     async list(key, options = {}) {
       let rows = [...auditLog];
       if (options.filters?.type) rows = rows.filter(row => row.type === options.filters.type);
       rows.reverse();
+      if (options.offset) rows = rows.slice(options.offset);
       return rows.slice(0, options.limit || rows.length);
     }
   };

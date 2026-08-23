@@ -41,8 +41,8 @@ Every number below was produced by running the command, on this tree.
 
 | Gate | Command | Result |
 |---|---|---|
-| Syntax | `npm run check:syntax` | 431 files parse |
-| Deterministic | `npm run test:deterministic` | 2003 tests, 1961 pass, **0 fail**, 42 skipped |
+| Syntax | `npm run check:syntax` | 432 files parse |
+| Deterministic | `npm run test:deterministic` | 2014 tests, 1972 pass, **0 fail**, 42 skipped |
 | Relay safety | `npm run test:relay-safety` | 150 tests, 150 pass, 0 fail |
 | Real PostgreSQL | `npm run test:postgres-real` | 107 tests, **107 pass, 0 skipped** |
 | Dependencies | `npm audit` | 0 vulnerabilities |
@@ -195,10 +195,18 @@ are a connected chain and they model support, renewal, retention and churn.
 Every invariant the superseded suites asserted is re-pinned against the
 survivor in `tests/superseded-fulfillment-invariants.test.mjs`.
 
-**Two ledger shapes still exist.** `externalEffectLedger` (8 keys, provider
-calls and cents) and `businessEffectLedger` (7 keys, business spend). Both are
-load-bearing and both are now declared in one module, so the scanner has one
-list to consult — but they have not been unified.
+**Two ledger shapes, now bridged.** `externalEffectLedger` (8 keys) and
+`businessEffectLedger` (7 keys) still answer different questions, but
+`normalizeEffectLedger` maps both onto one canonical key set —
+`businessSpendCents` onto `spendCents` — and refuses missing keys, unknown keys
+and non-integer counters.
+
+The scanner exemption stays deliberately loose, and there is a test explaining
+why: an incomplete ledger is a counter with a missing field, not a credential.
+Making the exemption strict flips `hasSecret({providerCalls: 0})` from false to
+true and remislabels a missing counter as a leaked secret. Completeness is
+enforced by `validResult` and `normalizeEffectLedger`, which name the actual
+problem.
 
 **Detection exists; delivery does not.** The system now assesses its own health
 after every cycle from durable truth — silent scheduler, abandoned cycles, dead

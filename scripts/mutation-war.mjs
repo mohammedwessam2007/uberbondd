@@ -6,8 +6,8 @@
 // parsing.
 //
 // Each mutation below is a literal source edit, applied to a copy of the tree,
-// with the suites that must fail named alongside it. The exit condition is not
-// a percentage: it is that every entry in the inventory kills at least one test.
+// with the suites that must fail named alongside it. The exit condition is not a
+// percentage: it is that every entry in the inventory kills at least one test.
 //
 // This does not require a general mutation score. Mutating arbitrary lines
 // produces mostly equivalent mutants and a number nobody can act on. Mutating
@@ -94,7 +94,6 @@ export const MUTATIONS = [
     replace: '  if (false) contradictions.push(\'lead-marked-paid-without-provider-cleared-proof\');',
     suites: ['tests/payment-renewal-truth.test.mjs', 'tests/payment-recovery-war.test.mjs']
   },
-
   {
     id: 'MONEY-06', guard: 'Payment witnesses must agree on amount and currency, not only identity',
     file: 'src/payment-renewal-truth.mjs',
@@ -137,6 +136,16 @@ export const MUTATIONS = [
     replace: '  void leadResolved;',
     suites: ['tests/payment-truth-lead-scope.test.mjs']
   },
+
+  // ---- Privacy and data minimization -------------------------------------
+  {
+    id: 'PRIV-01', guard: 'Signed provider payloads are minimized before durable payment storage',
+    file: 'src/revenue.mjs',
+    find: '        status: event.status, testMode: event.testMode, createdAt: now()\n',
+    replace: '        status: event.status, testMode: event.testMode, createdAt: now(), raw: payload\n',
+    suites: ['tests/provider-payload-minimization.test.mjs']
+  },
+
   {
     id: 'RECOV-01', guard: 'Recovery may not overwrite a newer reservation status',
     file: 'src/reservation-recovery.mjs',
@@ -234,7 +243,6 @@ export const MUTATIONS = [
     replace: '  if (false) {',
     suites: ['tests/worker-result-terminal-truth.test.mjs']
   },
-
   {
     id: 'AGENT-06', guard: 'The relay client defers to the canonical zero-effect check',
     file: 'src/chatgpt-relay-client.mjs',
@@ -302,7 +310,6 @@ export const MUTATIONS = [
     replace: '  if (false) reasonCodes.push(\'undelivered-escalations-present\');',
     suites: ['tests/founder-absence-deliverability.test.mjs']
   },
-
   {
     id: 'SEC-01', guard: 'A session cookie is a credential',
     file: 'src/secret-patterns.mjs',

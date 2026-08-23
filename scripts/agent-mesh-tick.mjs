@@ -39,6 +39,8 @@
 //   AGENT_MESH_WORKERS         JSON array of worker configs; default none
 //   AGENT_MESH_INGEST_AFTER    "false" to skip the post-worker ingestion pump
 //   AGENT_MESH_SOURCE_COMMIT   commit the cycle receipt is attributed to
+//   AGENT_MESH_INTERVAL_MINUTES  expected gap between ticks; lets the health
+//                              check notice a scheduler that went silent
 //   UBERBOND_RELAY_ENDPOINT    https .../api/agent-relay -- the transport
 //   UBERBOND_RELAY_TOKEN       bearer credential for that endpoint
 //   AGENT_MESH_EVIDENCE_FILE   path to the activation evidence JSON; without it
@@ -62,6 +64,8 @@ import { createRelayAdapterFactory, describeRelayReadiness } from '../src/agent-
 import { createModelExecutorFactory, describeProviderReadiness } from '../src/agent-model-executor-factory.mjs';
 import { evaluateAgentMeshActivation } from '../src/agent-mesh-activation-gate.mjs';
 import { parseMissionSpec, seedScheduledMission } from '../src/agent-mesh-mission-seed.mjs';
+import { composeOperatorHealthSnapshot } from '../src/operator-health-snapshot.mjs';
+import { evaluateOperatorHealth, persistOperatorEscalations } from '../src/operator-escalation.mjs';
 import {
   loadActivationEvidenceFile,
   loadSandboxIsolationReceipt,
@@ -228,9 +232,40 @@ async function main() {
     sourceCommit: process.env.VERCEL_GIT_COMMIT_SHA || process.env.GITHUB_SHA || null
   });
 
+  // Assess health after the cycle, from durable truth only, and write down
+  // anything an owner would need to act on. This is the queue, not the pager:
+  // nothing here delivers a message, and the report says so rather than
+  // implying somebody was told.
+  let escalation = null;
+  try {
+    const health = await composeOperatorHealthSnapshot({
+      store,
+      schedulerEnabled: true,
+      expectedIntervalMinutes: boundedInt(process.env.AGENT_MESH_INTERVAL_MINUTES, null, 1, 10_080),
+      date: new Date()
+    });
+    const report = evaluateOperatorHealth({ snapshot: health.snapshot });
+    if (report.ok) {
+      await persistOperatorEscalations(store, report);
+      escalation = {
+        health: report.health,
+        newEscalations: report.newEscalationCount,
+        ownerActionQueue: report.ownerActionQueue,
+        paging: report.paging,
+        unreadableDimensions: health.unreadable
+      };
+    }
+  } catch (error) {
+    // A health check that cannot run must not take the cycle down with it, but
+    // it must not be silent either: an unreported blind spot is worse than a
+    // reported one.
+    escalation = { health: 'UNKNOWN', error: String(error?.message || '').slice(0, 300) };
+  }
+
   console.log(JSON.stringify({
     status: cycle.status,
     ok: cycle.ok,
+    escalation,
     cycleId: cycle.cycleId || null,
     cycleReceiptState: cycle.cycleReceiptState || null,
     duplicateDelivery: cycle.duplicateDelivery === true,

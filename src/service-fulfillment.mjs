@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-export const SERVICE_FULFILLMENT_VERSION = 'uberbond.service-fulfillment.v1.2';
+export const SERVICE_FULFILLMENT_VERSION = 'uberbond.service-fulfillment.v1.3';
 
 export const FULFILLMENT_STATUSES = Object.freeze([
   'PLANNED',
@@ -92,16 +92,33 @@ function fail(reasonCodes, state = null, extra = {}) {
   };
 }
 
-function validEvidenceRef(value) {
-  return /^(customer|receipt|evidence|artifact|qa|payment|subscription|support|delivery):/i.test(text(value, 500));
+// Every evidence check here was a prefix test and nothing more, so a bare
+// prefix satisfied all of them: `qa:` passed QA, `artifact:` passed delivery,
+// and `customer:` passed external customer acceptance and set
+// `economicTruth.acceptedDelivery = true`. `customer:   ` worked too.
+//
+// A reference with no referent is the acceptance equivalent of an unwitnessed
+// revenue row -- correct shape, no content -- and acceptance is the single gate
+// between "we delivered" and "the customer agreed we delivered".
+//
+// The rule is that the reference must point at something, not that the
+// something must be well-chosen. Judging identifier quality is not this
+// function's job; distinguishing evidence from no-evidence is.
+function evidenceReferent(value, prefixes) {
+  const ref = text(value, 500);
+  const match = new RegExp(`^(?:${prefixes}):(.*)$`, 'i').exec(ref);
+  if (!match) return '';
+  return match[1].trim();
 }
 
 function validCustomerEvidence(event) {
-  return event?.evidenceClass === 'EXTERNAL_CUSTOMER' && validEvidenceRef(event?.evidenceRef) && /^(customer|receipt):/i.test(text(event.evidenceRef, 500));
+  return event?.evidenceClass === 'EXTERNAL_CUSTOMER'
+    && evidenceReferent(event?.evidenceRef, 'customer|receipt').length > 0;
 }
 
 function validPaymentEvidence(event) {
-  return event?.evidenceClass === 'EXTERNAL_PAYMENT' && /^(payment|receipt|subscription):/i.test(text(event?.evidenceRef, 500));
+  return event?.evidenceClass === 'EXTERNAL_PAYMENT'
+    && evidenceReferent(event?.evidenceRef, 'payment|receipt|subscription').length > 0;
 }
 
 function cloneState(state) {
@@ -265,7 +282,7 @@ export function applyFulfillmentEvent({ state, event, date = new Date() } = {}) 
     case 'QA_RESULT': {
       requireStatus('READY_FOR_QA');
       if (typeof event.qaPassed !== 'boolean') reasons.push('qa-pass-boolean-required');
-      if (!validEvidenceRef(event.evidenceRef) || !/^qa:/i.test(text(event.evidenceRef, 500))) reasons.push('qa-evidence-ref-required');
+      if (!evidenceReferent(event.evidenceRef, 'qa')) reasons.push('qa-evidence-ref-required');
       if (!reasons.length) {
         next.qaReceipts.push(text(event.evidenceRef, 500));
         transition = event.qaPassed ? 'READY_FOR_DELIVERY' : 'QA_FAILED';
@@ -275,7 +292,7 @@ export function applyFulfillmentEvent({ state, event, date = new Date() } = {}) 
     case 'DELIVERY_RECORDED': {
       requireStatus('READY_FOR_DELIVERY');
       const artifacts = strings(event.artifactRefs, MAX_ARTIFACTS);
-      if (!artifacts.length || artifacts.some(ref => !/^artifact:/i.test(ref))) reasons.push('delivery-artifact-refs-required');
+      if (!artifacts.length || artifacts.some(ref => !evidenceReferent(ref, 'artifact'))) reasons.push('delivery-artifact-refs-required');
       if (!reasons.length) {
         next.artifactRefs = [...new Set([...next.artifactRefs, ...artifacts])].slice(0, MAX_ARTIFACTS);
         next.deliveredAt = identity.canonical.at;

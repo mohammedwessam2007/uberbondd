@@ -196,6 +196,27 @@ export const MUTATIONS = [
 
   // ---- Acceptance and retention ------------------------------------------
   {
+    id: 'ACCEPT-04', guard: 'A bare qa prefix is not a QA result',
+    file: 'src/service-fulfillment.mjs',
+    find: "      if (!evidenceReferent(event.evidenceRef, 'qa')) reasons.push('qa-evidence-ref-required');",
+    replace: "      if (!/^qa:/i.test(text(event.evidenceRef, 500))) reasons.push('qa-evidence-ref-required');",
+    suites: ['tests/fulfillment-evidence-referent.test.mjs']
+  },
+  {
+    id: 'ACCEPT-06', guard: 'A bare artifact prefix is not a delivery',
+    file: 'src/service-fulfillment.mjs',
+    find: "      if (!artifacts.length || artifacts.some(ref => !evidenceReferent(ref, 'artifact'))) reasons.push('delivery-artifact-refs-required');",
+    replace: "      if (!artifacts.length || artifacts.some(ref => !/^artifact:/i.test(ref))) reasons.push('delivery-artifact-refs-required');",
+    suites: ['tests/fulfillment-evidence-referent.test.mjs']
+  },
+  {
+    id: 'ACCEPT-05', guard: 'A bare customer prefix is not customer acceptance',
+    file: 'src/service-fulfillment.mjs',
+    find: "    && evidenceReferent(event?.evidenceRef, 'customer|receipt').length > 0;",
+    replace: "    && /^(customer|receipt):/i.test(text(event?.evidenceRef, 500));",
+    suites: ['tests/fulfillment-evidence-referent.test.mjs']
+  },
+  {
     id: 'ACCEPT-01', guard: 'Only external customer evidence accepts a delivery',
     file: 'src/service-fulfillment.mjs',
     find: "      if (!validCustomerEvidence(event)) reasons.push('external-customer-acceptance-evidence-required');",

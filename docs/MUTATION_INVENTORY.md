@@ -7,8 +7,8 @@ die.
 Run it:
 
 ```
-npm run test:mutation-war                    # 54 mutations
-OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 55
+npm run test:mutation-war                    # 57 mutations
+OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 58
 ```
 
 Each mutation is a literal source edit applied to a copy of the tree, with the
@@ -22,7 +22,7 @@ Mutating arbitrary lines produces mostly equivalent mutants and a number nobody
 can act on; mutating the specific invariants this system's safety rests on
 produces a list an operator can read.
 
-**Current: 55 mutations, 55 killed, 0 survived.**
+**Current: 58 mutations, 58 killed, 0 survived.**
 
 | ID | Guard | File | Killed by |
 |---|---|---|---|
@@ -49,6 +49,9 @@ produces a list an operator can read.
 | `PRIV-03` | A legacy raw field cannot re-enter the reply body | `src/outreach-provider-events.mjs` | `outreach-provider-events.test.mjs` |
 | `PRIV-01` | The decoded provider payload is not durable business state | `src/revenue.mjs` | `provider-payload-minimization.test.mjs`<br>`provider-payload-minimization-source-guard.test.mjs` |
 | `RECOV-01` | Recovery may not overwrite a newer reservation status | `src/reservation-recovery.mjs` | `reservation-recovery-race.test.mjs` |
+| `ACCEPT-04` | A bare qa prefix is not a QA result | `src/service-fulfillment.mjs` | `fulfillment-evidence-referent.test.mjs` |
+| `ACCEPT-05` | A bare customer prefix is not customer acceptance | `src/service-fulfillment.mjs` | `fulfillment-evidence-referent.test.mjs` |
+| `ACCEPT-06` | A bare artifact prefix is not a delivery | `src/service-fulfillment.mjs` | `fulfillment-evidence-referent.test.mjs` |
 | `ACCEPT-01` | Only external customer evidence accepts a delivery | `src/service-fulfillment.mjs` | `service-fulfillment.test.mjs`<br>`superseded-fulfillment-invariants.test.mjs` |
 | `ACCEPT-02` | Support cannot end before its window elapses | `src/service-fulfillment.mjs` | `service-fulfillment.test.mjs`<br>`recovery-war-boundaries.test.mjs` |
 | `ACCEPT-03` | A renewal cannot be due before its date | `src/service-fulfillment.mjs` | `service-fulfillment.test.mjs` |

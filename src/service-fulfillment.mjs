@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-export const SERVICE_FULFILLMENT_VERSION = 'uberbond.service-fulfillment.v1';
+export const SERVICE_FULFILLMENT_VERSION = 'uberbond.service-fulfillment.v1.2';
 
 export const FULFILLMENT_STATUSES = Object.freeze([
   'PLANNED',
@@ -54,6 +54,26 @@ function iso(value, fallback = new Date()) {
   const date = value instanceof Date ? value : new Date(value || fallback);
   return Number.isNaN(date.getTime()) ? new Date(fallback).toISOString() : date.toISOString();
 }
+
+function strictDate(value) {
+  const date = value instanceof Date ? value : new Date(value || '');
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+// Clock skew between a caller and this process is real; a claim about next year
+// is not skew. Same allowance the rest of the repository uses for
+// `observedAt-in-the-future`.
+const FUTURE_SKEW_MS = 5 * 60 * 1000;
+
+// A second, absolute bound against this process's own clock.
+//
+// `date` is the trusted clock -- injectable so a test can simulate elapsed time,
+// real in production, where no caller supplies it. But a guard that only
+// compares the caller's `at` to the caller's `date` compares a value to itself
+// for anyone who supplies both. This horizon does not: no legitimate
+// fulfillment event is dated a decade out, while a test simulating a 90-day
+// renewal window sits comfortably inside it.
+const ABSOLUTE_FUTURE_HORIZON_MS = 10 * 365 * 86400000;
 
 function hash(value) {
   return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
@@ -180,7 +200,34 @@ export function applyFulfillmentEvent({ state, event, date = new Date() } = {}) 
   }
   if (!event || typeof event !== 'object' || Array.isArray(event)) return fail(['event-object-required'], state);
 
-  const identity = eventIdentity({ ...event, at: event.at || date });
+  const eventAt = strictDate(event.at ?? date);
+  if (!eventAt) return fail(['valid-event-time-required'], state);
+  const updatedAt = strictDate(state.updatedAt);
+  if (!updatedAt) return fail(['valid-state-time-required'], state);
+  if (eventAt.getTime() < updatedAt.getTime()) return fail(['event-time-regression'], state);
+
+  // Forward time travel, which closing backward time travel left wide open.
+  //
+  // `next.updatedAt` is set from the event's own timestamp, so an unbounded
+  // future `at` does two things at once. It satisfies every contractual gate
+  // downstream -- a probe sent SUPPORT_ENDED dated year 3000 against a 30-day
+  // support window and a 90-day renewal interval, and the machine advanced to
+  // RENEWAL_DUE, 974 years early. That is retention proven by fast-forwarding
+  // contractual time. And it freezes the record: state time is now year 3000,
+  // so every subsequent real event fails `event-time-regression` forever.
+  //
+  // A timestamp is a claim about when something happened. A claim about the
+  // future is not one this machine can accept from its caller.
+  const referenceAt = strictDate(date);
+  if (!referenceAt) return fail(['valid-reference-time-required'], state);
+  if (eventAt.getTime() > referenceAt.getTime() + FUTURE_SKEW_MS) {
+    return fail(['event-time-in-future'], state);
+  }
+  if (eventAt.getTime() > Date.now() + ABSOLUTE_FUTURE_HORIZON_MS) {
+    return fail(['event-time-beyond-horizon'], state);
+  }
+
+  const identity = eventIdentity({ ...event, at: eventAt.toISOString() });
   if (!identity.eventId) return fail(['durable-event-id-required'], state);
   const prior = state.eventLog.find(item => item.eventId === identity.eventId);
   if (prior) {
@@ -204,6 +251,7 @@ export function applyFulfillmentEvent({ state, event, date = new Date() } = {}) 
   const requireStatus = (...allowed) => {
     if (!allowed.includes(next.status)) reasons.push(`invalid-transition:${next.status}->${type}`);
   };
+  const eventMillis = eventAt.getTime();
 
   switch (type) {
     case 'WORK_STARTED':
@@ -273,15 +321,26 @@ export function applyFulfillmentEvent({ state, event, date = new Date() } = {}) 
       requireStatus('REVISION_REQUESTED', 'QA_FAILED');
       transition = 'IN_PROGRESS';
       break;
-    case 'SUPPORT_ENDED':
+    case 'SUPPORT_ENDED': {
       requireStatus('SUPPORT_ACTIVE');
-      transition = next.recurring ? 'RENEWAL_DUE' : 'ACCEPTED';
+      const supportEnds = strictDate(next.supportEndsAt);
+      if (!supportEnds) reasons.push('support-end-time-required');
+      else if (eventMillis < supportEnds.getTime()) reasons.push('support-window-not-ended');
+      if (!reasons.length) {
+        const renewalDue = next.recurring ? strictDate(next.renewalDueAt) : null;
+        transition = next.recurring && renewalDue && eventMillis >= renewalDue.getTime() ? 'RENEWAL_DUE' : 'ACCEPTED';
+      }
       break;
-    case 'RENEWAL_DUE':
+    }
+    case 'RENEWAL_DUE': {
       requireStatus('ACCEPTED', 'SUPPORT_ACTIVE', 'RENEWED');
       if (!next.recurring) reasons.push('nonrecurring-service-has-no-renewal');
+      const renewalDue = strictDate(next.renewalDueAt);
+      if (next.recurring && !renewalDue) reasons.push('renewal-due-time-required');
+      else if (renewalDue && eventMillis < renewalDue.getTime()) reasons.push('renewal-not-due');
       transition = reasons.length ? null : 'RENEWAL_DUE';
       break;
+    }
     case 'RENEWAL_CONFIRMED':
       requireStatus('RENEWAL_DUE');
       if (!next.recurring) reasons.push('nonrecurring-service-has-no-renewal');

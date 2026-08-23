@@ -55,7 +55,7 @@
 // session, and a deterministic test fake.
 
 import { compileAgentTask } from './agent-relay.mjs';
-import { ZERO_EFFECTS, hasSecret, validResult, sameJson } from './cloud-agent-relay.mjs';
+import { ZERO_EFFECTS, hasSecret, validResult, sameJson, canonicalZeroEffectLedger } from './cloud-agent-relay.mjs';
 
 export const GITHUB_RELAY_POLICY_VERSION = 'github-relay-1.0.0';
 
@@ -285,9 +285,20 @@ export function validateRelayReceipt(receipt) {
   if (!CONFIDENCE_LEVELS.includes(receipt.confidence)) reasons.push('receipt-invalid-confidence');
   // A receipt asserting any nonzero external effect is refused here as well as
   // in validResult -- the ledger must fail closed at every layer that sees it.
-  const effects = receipt.externalEffects || {};
-  if (Object.entries(ZERO_EFFECTS).some(([key, zero]) => Number(effects[key] || 0) !== zero)) {
-    reasons.push('receipt-nonzero-external-effects-rejected');
+  //
+  // Through the canonical check, not a local re-implementation. The header above
+  // says these two transports "cannot drift apart in what they consider safe"
+  // because they import the same ZERO_EFFECTS. They shared the constant and
+  // re-declared the comparison, and the comparison drifted: `receipt
+  // .externalEffects || {}` followed by `Number(effects[key] || 0)` meant an
+  // absent ledger became an empty object whose every counter read as a signed
+  // zero. A receipt claiming nothing was accepted as a receipt proving nothing
+  // happened.
+  const ledgerErrors = canonicalZeroEffectLedger(receipt.externalEffects);
+  if (ledgerErrors.length) {
+    reasons.push(ledgerErrors[0] === 'incomplete-external-effect-ledger-rejected'
+      ? 'receipt-incomplete-external-effect-ledger-rejected'
+      : 'receipt-nonzero-external-effects-rejected');
   }
   if (hasSecret(receipt)) reasons.push('receipt-secret-like-content-rejected');
   return reasons;

@@ -34,7 +34,22 @@ export const SECRET_VALUE_PATTERNS = Object.freeze([
   // Slack tokens.
   /\bxox[baprs]-[A-Za-z0-9-]{10,}/,
   // A connection string with inline credentials.
-  /\b[a-z][a-z0-9+.-]*:\/\/[^\s/@:]+:[^\s/@]+@/i
+  /\b[a-z][a-z0-9+.-]*:\/\/[^\s/@:]+:[^\s/@]+@/i,
+  // Cookie and Set-Cookie headers. A session cookie is a live credential --
+  // the same kind of thing as the Bearer token two patterns up, which was
+  // caught -- and it was not detected on either the value scanner or the
+  // worker-result scanner, so a worker pasting a request header into its
+  // output wrote it into durable task history.
+  //
+  // Anchored on the header name rather than on the value, because a session
+  // identifier has no distinguishing shape: matching bare `session=...` would
+  // flag ordinary prose and query strings.
+  /\bset-cookie\s*:/i,
+  /\bcookie\s*:\s*\S+=/i,
+  // JWTs, wherever they appear. Three base64url segments is a distinctive
+  // enough shape to match on its own; the Bearer pattern only catches the ones
+  // that arrive with their header attached.
+  /\beyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}/
 ]);
 
 /** Key names that have no legitimate non-credential meaning. */

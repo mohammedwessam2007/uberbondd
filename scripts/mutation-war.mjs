@@ -246,6 +246,21 @@ export const MUTATIONS = [
     suites: ['tests/founder-absence-deliverability.test.mjs']
   },
 
+  {
+    id: 'SEC-01', guard: 'A session cookie is a credential',
+    file: 'src/secret-patterns.mjs',
+    find: '  /\\bcookie\\s*:\\s*\\S+=/i,',
+    replace: '',
+    suites: ['tests/secret-cookie-jwt.test.mjs']
+  },
+  {
+    id: 'SEC-02', guard: 'A bare JWT is a credential',
+    file: 'src/secret-patterns.mjs',
+    find: '  /\\beyJ[A-Za-z0-9_-]{8,}\\.[A-Za-z0-9_-]{8,}\\.[A-Za-z0-9_-]{8,}/',
+    replace: '  /^$a^/',
+    suites: ['tests/secret-cookie-jwt.test.mjs']
+  },
+
   // ---- Reachability and persistence --------------------------------------
   {
     id: 'REACH-01', guard: 'A gate must be registered, not invented',

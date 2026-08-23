@@ -354,7 +354,7 @@ export class RevenueEngine {
         id: id('order'), provider: 'lemonsqueezy', providerEventId: event.eventId,
         eventName: event.eventName, leadId: event.custom.lead_id || '', prospectId: event.custom.prospect_id || '',
         product: event.custom.product || '', amountCents: event.amountCents, currency: event.currency,
-        status: event.status, testMode: event.testMode, createdAt: now(), raw: payload
+        status: event.status, testMode: event.testMode, createdAt: now()
       });
     } catch (error) {
       if (error instanceof ConflictError) {

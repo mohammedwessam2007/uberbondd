@@ -2,16 +2,16 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 438,
+      "filesParsed": 441,
       "ranAt": "2026-08-23T00:45:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2051,
-      "pass": 2009,
+      "tests": 2060,
+      "pass": 2018,
       "fail": 0,
       "skipped": 42,
-      "ranAt": "2026-08-23T07:00:00Z"
+      "ranAt": "2026-08-23T07:25:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -38,10 +38,10 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 147,
-      "reachableFromProduction": 98,
+      "srcModules": 148,
+      "reachableFromProduction": 99,
       "reachableFromOperatorScriptsOnly": 3,
-      "noEntryPointAtAll": 46,
+      "noEntryPointAtAll": 45,
       "allClassified": true,
       "ranAt": "2026-08-23T04:55:00Z"
     }
@@ -236,12 +236,15 @@
       "status": "IMPLEMENTED",
       "level": 3,
       "evidence": [
-        "src/agent-model-router.mjs"
+        "src/agent-model-router.mjs",
+        "src/agent-model-routing-integration.mjs",
+        "scripts/agent-model-route.mjs"
       ],
       "tests": [
+        "tests/agent-model-routing-integration.test.mjs",
         "tests/autonomy-architecture.test.mjs"
       ],
-      "nextAction": "Routing history needs real measured outcomes."
+      "nextAction": "Reachable now. Routing history still needs real measured provider outcomes."
     },
     {
       "id": "sandbox",

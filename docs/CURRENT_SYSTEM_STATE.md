@@ -41,8 +41,8 @@ Every number below was produced by running the command, on this tree.
 
 | Gate | Command | Result |
 |---|---|---|
-| Syntax | `npm run check:syntax` | 438 files parse |
-| Deterministic | `npm run test:deterministic` | 2051 tests, 2009 pass, **0 fail**, 42 skipped |
+| Syntax | `npm run check:syntax` | 441 files parse |
+| Deterministic | `npm run test:deterministic` | 2060 tests, 2018 pass, **0 fail**, 42 skipped |
 | Relay safety | `npm run test:relay-safety` | 150 tests, 150 pass, 0 fail |
 | Real PostgreSQL | `npm run test:postgres-real` | 107 tests, **107 pass, 0 skipped** |
 | Dependencies | `npm audit` | 0 vulnerabilities |
@@ -61,15 +61,15 @@ than passing vacuously when the URL is absent.
 
 ## 2b. How much of this can actually run
 
-**46 of 147 `src` modules have no entry point at all** — not production, not an
+**45 of 148 `src` modules have no entry point at all** — not production, not an
 operator script. They are reachable only from tests, and a suite proves a module
 behaves while proving nothing about whether anything can call it.
 
 | | |
 |---|---|
-| Reachable from production | 98 |
+| Reachable from production | 99 |
 | Reachable only via an operator script | 3 |
-| **No entry point at all** | **46** |
+| **No entry point at all** | **45** |
 
 That includes the whole commercial layer — lead scoring, outreach, prospect
 intelligence, inbound sensing, causal attribution, fulfillment — and the whole
@@ -80,8 +80,10 @@ path is how a system contacts someone by accident. But the decision has to be
 written down, so every one of the 45 is classified in
 `config/reachability-classification.json` with a named gate and a real reason,
 and `tests/reachability-ratchet.test.mjs` fails when a new unclassified dead
-module appears. Three are `NEEDS_TRIAGE` — nobody has decided about them, and
-saying so beats a category that sounds settled.
+module appears. Two are `NEEDS_TRIAGE` — nobody has decided about them, and saying so beats a
+category that sounds settled. A third resolved itself when model routing became
+reachable, and its entry was removed: the ratchet fails on a stale entry too, so
+the file cannot decay into a list of excuses.
 
 This distinction cost three separate discoveries in one session: the mesh entry
 point, the occurrence compiler, and the escalation kernel. All three were

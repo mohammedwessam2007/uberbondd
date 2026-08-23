@@ -110,6 +110,34 @@ export const MUTATIONS = [
     suites: ['tests/payment-truth-reversal.test.mjs']
   },
   {
+    id: 'MONEY-08', guard: 'Cents from different currencies are not a total',
+    file: 'src/payment-renewal-truth.mjs',
+    find: "  if (currencies.length > 1) contradictions.push('multi-currency-revenue-cannot-be-summed');",
+    replace: '  void currencies;',
+    suites: ['tests/payment-currency-truth.test.mjs']
+  },
+  {
+    id: 'MONEY-09', guard: 'The clearing receipt witnesses the money, not only the identity',
+    file: 'src/payment-renewal-truth.mjs',
+    find: "  const amounts = [event?.amountCents, order?.amountCents, clearing?.amountCents]",
+    replace: '  const amounts = [event?.amountCents, order?.amountCents]',
+    suites: ['tests/payment-currency-truth.test.mjs']
+  },
+  {
+    id: 'MONEY-10', guard: 'A failed lead lookup may not widen the scope to every lead',
+    file: 'src/payment-renewal-truth.mjs',
+    find: "  const leadId = text(requestedLeadId, 200) || text(lead?.id, 200) || null;",
+    replace: '  const leadId = text(lead?.id, 200) || null;',
+    suites: ['tests/payment-truth-lead-scope.test.mjs']
+  },
+  {
+    id: 'MONEY-11', guard: 'A lead nobody can find is unknown, not zero',
+    file: 'src/payment-renewal-truth.mjs',
+    find: "  if (leadResolved === false) contradictions.push('payment-truth-requested-for-unknown-lead');",
+    replace: '  void leadResolved;',
+    suites: ['tests/payment-truth-lead-scope.test.mjs']
+  },
+  {
     id: 'RECOV-01', guard: 'Recovery may not overwrite a newer reservation status',
     file: 'src/reservation-recovery.mjs',
     find: "    if (current.status !== row.status) {",

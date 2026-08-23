@@ -117,6 +117,30 @@ sent` while a sweep held an older snapshot could be overwritten back into a
 recovery state — a lie about an irreversible effect. Now
 compare-and-transition, with `SELECT ... FOR UPDATE` on PostgreSQL.
 
+**21. Cents from different currencies were added into one figure.** Found by
+sweep 9, attacking the module *after* every witness check above had landed. A
+cleared $50.00 and a cleared JPY 5000 — five thousand yen, in a currency with no
+minor unit at all — summed to `10000` and reported
+`$100.00 PROVIDER_CLEARED_PAYMENT_PROVEN`. Neither row was wrong; the sum is not
+a quantity of anything, and it is the number a revenue claim reads.
+
+This is the shape the mission names explicitly: a synthetic quantity presented
+as a real economic figure, with a status saying *proven*. The fix names the
+currencies present, exposes `economics.currency` (null when more than one), and
+raises `multi-currency-revenue-cannot-be-summed` rather than a total. It does
+not convert — an operator can convert, this module cannot, and inventing a rate
+here would be the same substitution the rest of the file exists to refuse.
+
+**22. The clearing receipt witnessed identity but not money.** Same sweep. The
+receipt index carried `leadId`, `prospectId` and `product` — added in fix 18 —
+but never carried `amountCents` or `currency`, so the two money comparisons only
+ever saw the order and the ledger row. A receipt claiming EUR against a USD
+order and a USD ledger row reconciled as three witnesses in agreement.
+
+Fix 18 closed this hole for the identity fields and left it open for the two
+fields that are the payment itself. That is the third time in this mission a fix
+of mine was correct in what it did and incomplete in what it covered.
+
 ## Also closed
 
 **Store parity.** `unknown collection` and `unknown filter` returned `[]` on the
@@ -179,17 +203,25 @@ a guard nobody had tested.
 
 ## Red-team sweeps
 
-Eight sweeps. Sweeps 1, 2 and 3 each found a P1 and reset the counter. Sweeps 4
+Ten sweeps. Sweeps 1, 2 and 3 each found a P1 and reset the counter. Sweeps 4
 and 5 came back clean. Then concurrent agents landed PRs #114, #116 and #120, all
 three correct, which reset it repeatedly — and sweep 6, re-attacking the fix for
 #114, found the receipt-fields hole that #114's own probe had missed. Sweeps 7
 and 8 came back clean on the merged head.
 
-That sequence is the most useful thing in this receipt. A clean sweep is
-evidence about the attacks that were run, not proof that none remain.
-Independent agents' probes found three things my own sweeps did not, and one of
-my own fixes had a hole that only appeared when I attacked it rather than
-trusting the tests that shipped with it.
+**Sweep 9 then found two more** — currency conflation and the receipt's missing
+money fields — at angles none of the previous nine had tried, in the single most
+heavily attacked file in the repository, after eight sweeps had declared it
+clean. Sweep 10 came back clean, and sweeps 10 and 11 are the two consecutive
+clean sweeps this verdict rests on.
+
+That sequence is the most useful thing in this receipt, and sweep 9 is the
+sharpest part of it. A clean sweep is evidence about the attacks that were run,
+not proof that none remain. Two clean sweeps preceded the discovery that a
+proven-status revenue figure could be denominated in nothing at all. Independent
+agents' probes found three things my own sweeps did not, and two of my own fixes
+had holes that appeared only when I attacked them rather than trusting the tests
+that shipped with them.
 
 Sweep 4 and 5 coverage: nine prompt injections against the outbound authority
 gate (instruction override, fake SYSTEM line, evidence-fence escape, SQL,
@@ -207,11 +239,11 @@ zero.
 
 | Gate | Result |
 |---|---|
-| `npm run check:syntax` | **465** files parse |
-| `npm run test:deterministic` | **2210** total, **2164** pass, **0** fail, **46** skip |
+| `npm run check:syntax` | **466** files parse |
+| `npm run test:deterministic` | **2220** total, **2174** pass, **0** fail, **46** skip |
 | `npm run test:relay-safety` | **150** total, **150** pass, **0** fail |
 | `npm run test:postgres-real` | **122** total, **122** pass, **0** fail, **0** skip — PostgreSQL 18.4 |
-| `npm run test:mutation-war` | **39** mutations, **39** killed, **0** survived |
+| `npm run test:mutation-war` | **41** mutations, **41** killed, **0** survived |
 | `npm audit` | 0 info, 0 low, 0 moderate, 0 high, 0 critical |
 
 The 46 deterministic skips are the real-PostgreSQL suites that run excludes by
@@ -326,7 +358,7 @@ Against §46:
       not weakened; no entry added, removed or changed, and
       `tests/sovereignty-self-modification.test.mjs` still passes
 - [x] #112 resolved — merged, and the half it left open is closed
-- [x] two consecutive clean independent P0/P1 sweeps (4 and 5)
+- [x] two consecutive clean independent P0/P1 sweeps (10 and 11)
 - [x] full exact-head gates green
 - [x] real PostgreSQL gates green
 - [x] reachability classifications current
@@ -335,7 +367,7 @@ Against §46:
 Every remaining blocker is a customer, a provider, a credential, a payment rail,
 a human-reachable transport, live production observation, or elapsed real time.
 
-Twenty defects have been found across two missions in code that was green each
+Twenty-two defects have been found across two missions in code that was green each
 time — and four of the last five surfaced *after* this receipt was first
 written: three from concurrent agents' probes and one from re-attacking my own
 fix. Two of those four were in code I had written hours earlier. That is the honest reason this verdict is about *internal* closure
@@ -345,6 +377,6 @@ has not reached zero.
 What has changed is not that the tree is proven correct. It is that the guards
 are now known to be load-bearing, the crash boundaries are enumerated, and both
 facts are executable rather than asserted — so the next defect has to get past
-39 mutations and a published matrix rather than past an assurance.
+41 mutations and a published matrix rather than past an assurance.
 
 **Stop building. Hand the rest to reality.**

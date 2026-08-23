@@ -7,8 +7,8 @@ die.
 Run it:
 
 ```
-npm run test:mutation-war                    # 38 mutations
-OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 39
+npm run test:mutation-war                    # 42 mutations
+OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 43
 ```
 
 Each mutation is a literal source edit applied to a copy of the tree, with the
@@ -22,7 +22,7 @@ Mutating arbitrary lines produces mostly equivalent mutants and a number nobody
 can act on; mutating the specific invariants this system's safety rests on
 produces a list an operator can read.
 
-**Current: 39 mutations, 39 killed, 0 survived.**
+**Current: 43 mutations, 43 killed, 0 survived.**
 
 | ID | Guard | File | Killed by |
 |---|---|---|---|
@@ -37,6 +37,10 @@ produces a list an operator can read.
 | `MONEY-05` | A lead flagged paid is not payment proof | `src/payment-renewal-truth.mjs` | `payment-renewal-truth.test.mjs`<br>`payment-recovery-war.test.mjs` |
 | `MONEY-06` | Payment witnesses must agree on amount and currency, not only identity | `src/payment-renewal-truth.mjs` | `payment-witness-integrity-mutation.test.mjs` |
 | `MONEY-07` | Reversal witnesses must agree on content too | `src/payment-renewal-truth.mjs` | `payment-truth-reversal.test.mjs` |
+| `MONEY-08` | Cents from different currencies are not a total | `src/payment-renewal-truth.mjs` | `payment-currency-truth.test.mjs` |
+| `MONEY-09` | The clearing receipt witnesses the money, not only the identity | `src/payment-renewal-truth.mjs` | `payment-currency-truth.test.mjs` |
+| `MONEY-10` | A failed lead lookup may not widen the scope to every lead | `src/payment-renewal-truth.mjs` | `payment-truth-lead-scope.test.mjs` |
+| `MONEY-11` | A lead nobody can find is unknown, not zero | `src/payment-renewal-truth.mjs` | `payment-truth-lead-scope.test.mjs` |
 | `RECOV-01` | Recovery may not overwrite a newer reservation status | `src/reservation-recovery.mjs` | `reservation-recovery-race.test.mjs` |
 | `ACCEPT-01` | Only external customer evidence accepts a delivery | `src/service-fulfillment.mjs` | `service-fulfillment.test.mjs`<br>`superseded-fulfillment-invariants.test.mjs` |
 | `ACCEPT-02` | Support cannot end before its window elapses | `src/service-fulfillment.mjs` | `service-fulfillment.test.mjs`<br>`recovery-war-boundaries.test.mjs` |

@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const PAYMENT_RENEWAL_TRUTH_VERSION = 'payment-renewal-truth-1.3.0';
+export const PAYMENT_RENEWAL_TRUTH_VERSION = 'payment-renewal-truth-1.5.0';
 
 // The canonical shape plus one declared extension, rather than a fourth
 // independent copy. `paymentMutations` is a real effect this module needs to
@@ -94,6 +94,14 @@ function classificationIndex(auditLog, leadId, classifications) {
       leadId: text(entry?.leadId, 200) || null,
       prospectId: text(entry?.prospectId, 200) || null,
       product: text(entry?.product, 200) || null,
+      // The two fields the receipt was carrying least of, and the only two that
+      // are the payment itself. Identity was carried and money was not, so the
+      // receipt witnessed *which* payment cleared while saying nothing about
+      // *how much* -- and the content check could only compare the order
+      // against the ledger row. A receipt claiming EUR against a USD order and
+      // a USD ledger row reconciled as three witnesses in agreement.
+      amountCents: Number.isSafeInteger(Number(entry?.amountCents)) ? Number(entry.amountCents) : null,
+      currency: text(entry?.currency, 12).toUpperCase() || null,
       policyVersion: text(entry?.policyVersion, 120) || null,
       timestamp: text(entry?.timestamp, 80) || null
     });
@@ -138,13 +146,21 @@ function orderEvidenceIndex(orders, leadId) {
 // what lets older receipts that never carried `product` keep reconciling.
 function witnessContentMismatches({ event, order, clearing }) {
   const mismatches = [];
-  const amountA = Math.abs(cents(event?.amountCents));
-  const amountB = Math.abs(cents(order?.amountCents));
-  if (amountA !== amountB) mismatches.push('provider-payment-witness-amount-mismatch');
+  // All three witnesses, not two. The order and the ledger row were compared
+  // and the clearing receipt was left out of both money comparisons, which made
+  // the receipt a witness to which payment cleared and to nothing about its
+  // size. Silence is still not disagreement: a witness that does not carry the
+  // field cannot contradict one that does, which is what lets older receipts --
+  // written before the index carried money at all -- keep reconciling.
+  const amounts = [event?.amountCents, order?.amountCents, clearing?.amountCents]
+    .filter(value => value !== null && value !== undefined && value !== '')
+    .map(value => Math.abs(cents(value)));
+  if (new Set(amounts).size > 1) mismatches.push('provider-payment-witness-amount-mismatch');
 
-  const currencyA = text(event?.currency, 12).toUpperCase();
-  const currencyB = text(order?.currency, 12).toUpperCase();
-  if (currencyA && currencyB && currencyA !== currencyB) mismatches.push('provider-payment-witness-currency-mismatch');
+  const currencies = [event?.currency, order?.currency, clearing?.currency]
+    .map(value => text(value, 12).toUpperCase())
+    .filter(Boolean);
+  if (new Set(currencies).size > 1) mismatches.push('provider-payment-witness-currency-mismatch');
 
   for (const [field, code] of [['product', 'provider-payment-witness-product-mismatch'],
     ['prospectId', 'provider-payment-witness-prospect-mismatch'],
@@ -281,14 +297,32 @@ function acceptanceTruth(fulfillment) {
  *   2. payment_classification audit receipt (classified as genuinely cleared),
  *   3. revenueEvents (economic ledger row bound to eventName:eventId).
  */
+// `leadId` is the scope the caller asked about; `lead` is the record that was
+// found for it. They were the same field, and a lookup that found nothing
+// collapsed the scope to null -- which this module reads as "reconcile
+// everything". Asking for the payment truth of a mistyped or deleted lead
+// therefore returned the whole book's revenue, attributed to that lead, with
+// status PROVIDER_CLEARED_PAYMENT_PROVEN:
+//
+//   ask for "lead-alice" -> $50.00      (correct)
+//   ask for "lead-typo"  -> $9,050.00   (everyone's)
+//
+// The scope now comes from what was asked, not from what the lookup returned,
+// so an unknown lead reconciles to its own empty set. `leadResolved` carries
+// the other half: a lead nobody can find is not a lead with no payments, and
+// reporting $0.00 for it would be exactly the unknown-as-zero this file exists
+// to refuse. Whole-book reconciliation is still available -- by naming no lead,
+// which is a decision rather than a failed lookup.
 export function reconcilePaymentRenewalTruth({
   lead = null,
+  leadId: requestedLeadId = null,
+  leadResolved = null,
   orders = [],
   revenueEvents = [],
   auditLog = [],
   fulfillment = null
 } = {}) {
-  const leadId = text(lead?.id, 200) || null;
+  const leadId = text(requestedLeadId, 200) || text(lead?.id, 200) || null;
   const safeOrders = Array.isArray(orders) ? orders : [];
   const safeRevenue = Array.isArray(revenueEvents) ? revenueEvents : [];
   const safeAudit = Array.isArray(auditLog) ? auditLog : [];
@@ -315,6 +349,27 @@ export function reconcilePaymentRenewalTruth({
   // "money that once cleared" is a real and separate fact -- but net is what a
   // revenue claim has to mean.
   const netClearedRevenueCents = clearedRevenueCents - reversedRevenueCents;
+  // Cents are not a currency. Every verified row contributes its integer minor
+  // unit to one sum, and nothing was checking that those integers denominate
+  // the same money: a cleared $50.00 and a cleared JPY 5000 -- five thousand
+  // yen, in a currency with no minor unit at all -- added to 10000 and were
+  // reported as `$100.00 PROVIDER_CLEARED_PAYMENT_PROVEN`.
+  //
+  // Neither number is wrong on its own. The sum is not a quantity of anything,
+  // and it is the number a revenue claim reads. So the currencies present are
+  // named, and a figure spanning more than one is a contradiction rather than a
+  // total -- an operator can convert them, this module cannot, and inventing a
+  // rate here would be exactly the synthetic-as-real substitution the rest of
+  // this file exists to refuse.
+  const currencyCounts = new Map();
+  for (const item of [...verified, ...reversals]) {
+    const code = text(item?.event?.currency, 12).toUpperCase()
+      || text(item?.order?.currency, 12).toUpperCase();
+    if (!code) continue;
+    currencyCounts.set(code, (currencyCounts.get(code) || 0) + 1);
+  }
+  const currencies = [...currencyCounts.keys()].sort();
+  const singleCurrency = currencies.length === 1 ? currencies[0] : null;
   const unverifiedReversalCents = unverifiedReversals.reduce((sum, item) => sum + Math.abs(cents(item.amountCents)), 0);
   const fullyReversed = clearedRevenueCents > 0 && netClearedRevenueCents <= 0;
   const unverifiedPositiveRevenueCents = unverified.reduce((sum, item) => sum + Math.max(0, cents(item.amountCents)), 0);
@@ -358,6 +413,8 @@ export function reconcilePaymentRenewalTruth({
   // Reversing more than ever cleared is not a small refund, it is a ledger that
   // does not describe any sequence of real events.
   if (reversedRevenueCents > clearedRevenueCents) contradictions.push('refunds-exceed-provider-cleared-payments');
+  if (currencies.length > 1) contradictions.push('multi-currency-revenue-cannot-be-summed');
+  if (leadResolved === false) contradictions.push('payment-truth-requested-for-unknown-lead');
   if (fullyReversed && lead?.paymentStatus === 'paid') contradictions.push('lead-marked-paid-after-full-refund');
   // A refund is the customer's strongest available statement that the delivery
   // was not what they wanted. Acceptance and a returned payment cannot both be
@@ -375,6 +432,11 @@ export function reconcilePaymentRenewalTruth({
         : (fullyReversed ? 'PROVIDER_CLEARED_PAYMENT_REVERSED' : 'PROVIDER_CLEARED_PAYMENT_PROVEN')),
     stages,
     economics: {
+      // The unit the figures below are in, or null when the rows span more than
+      // one and no single figure is meaningful. A caller that renders an amount
+      // without reading this is rendering a number with no unit.
+      currency: singleCurrency,
+      currenciesPresent: currencies,
       providerClearedRevenueCents: clearedRevenueCents,
       providerClearedRevenue: clearedRevenueCents / 100,
       unverifiedPositiveRevenueCents,
@@ -429,13 +491,24 @@ export function reconcilePaymentRenewalTruth({
 
 export async function reconcilePaymentRenewalTruthFromStore(store, { leadId, fulfillment = null } = {}) {
   if (!store || typeof store.list !== 'function') throw new Error('store-required');
-  const lead = leadId && typeof store.get === 'function' ? await store.get('leads', leadId) : null;
+  const requested = text(leadId, 200) || null;
+  const lead = requested && typeof store.get === 'function' ? await store.get('leads', requested) : null;
   const [orders, revenueEvents, auditLog] = await Promise.all([
     store.list('orders'),
     store.list('revenueEvents'),
     store.list('auditLog')
   ]);
-  return reconcilePaymentRenewalTruth({ lead, orders, revenueEvents, auditLog, fulfillment });
+  return reconcilePaymentRenewalTruth({
+    lead,
+    // What was asked, and whether it was found -- kept apart, because a lookup
+    // that returns nothing must not widen the question.
+    leadId: requested,
+    leadResolved: requested ? Boolean(lead) : null,
+    orders,
+    revenueEvents,
+    auditLog,
+    fulfillment
+  });
 }
 
 export const PAYMENT_RENEWAL_TRUTH_EXTERNAL_EFFECTS = PAYMENT_TRUTH_EFFECTS;

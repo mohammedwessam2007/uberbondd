@@ -7,6 +7,7 @@ import {
   ingestAgentResult,
   runAutonomyLoop
 } from '../src/agent-autonomy-loop.mjs';
+import { compileRelayTaskFromIntent } from '../src/agent-autonomy-relay-adapter.mjs';
 import { createAutonomyRun, advanceAutonomyRun } from '../src/agent-autonomy-pump.mjs';
 import { createComputeBudget, reserveCompute, validateComputeBudget } from '../src/ai-compute-budget.mjs';
 import { normalizeModelBenchmark, routeModel } from '../src/agent-model-router.mjs';
@@ -141,4 +142,88 @@ test('Kilimanjaro readiness requires every required capability VERIFIED_LIVE wit
   capabilities.truthReceipts.evidenceRefs = ['untyped-proof'];
   const untyped = evaluateFounderAbsenceReadiness({ capabilities, targetDays: 7 });
   assert.notEqual(untyped.status, 'KILIMANJARO_READY');
+});
+
+test('autonomous child tasks inherit parent constraints and cannot grow their token authority', () => {
+  const session = compileAutonomySession({ objective: 'Repair safely', maxRounds: 4, maxTasks: 4, maxTotalTokens: 10_000 });
+  const parent = compileTaskIntent({
+    session,
+    originAgent: 'chatgpt',
+    targetAgent: 'claude-code',
+    objective: 'Implement a bounded repair.',
+    acceptanceTests: ['test:parent-gate'],
+    constraints: ['parent-scope-only', 'no-package-change'],
+    forbiddenActions: ['delete-file', 'edit-policy'],
+    tokenBudget: 1_000
+  });
+  assert.equal(parent.ok, true);
+  const registered = registerTaskIntent({ session, intent: parent });
+  assert.equal(registered.ok, true);
+
+  const ingested = ingestAgentResult({
+    session: registered.session,
+    taskIntent: parent,
+    result: {
+      outcome: 'Needs independent review.',
+      businessEffectLedger: ZERO,
+      coordination: {
+        action: 'REVIEW_REQUIRED',
+        objective: 'Review the bounded repair.',
+        acceptanceTests: ['test:child-gate'],
+        evidenceRefs: ['test:parent-gate'],
+        constraints: ['child-read-only'],
+        forbiddenActions: ['write-repository'],
+        tokenBudget: 50_000
+      }
+    }
+  });
+
+  assert.equal(ingested.ok, true);
+  assert.equal(ingested.status, 'FOLLOWUP_READY');
+  assert.equal(ingested.nextIntent.tokenBudget, 1_000);
+  assert.equal(ingested.nextIntent.consequenceClass, 'LOCAL_PREPARATION');
+  for (const constraint of ['local-preparation-only', 'no-business-external-effects', 'parent-scope-only', 'no-package-change', 'child-read-only']) {
+    assert.ok(ingested.nextIntent.constraints.includes(constraint), `missing inherited constraint ${constraint}`);
+  }
+  for (const action of ['deploy', 'push', 'merge', 'delete-file', 'edit-policy', 'write-repository']) {
+    assert.ok(ingested.nextIntent.forbiddenActions.includes(action), `missing inherited forbidden action ${action}`);
+  }
+
+  const relayTask = compileRelayTaskFromIntent(ingested.nextIntent, ingested.session);
+  assert.equal(relayTask.ok, true);
+  assert.equal(relayTask.consequenceClass, 'LOCAL_PREPARATION');
+  assert.equal(relayTask.budget.maxTokens, 1_000);
+  for (const action of ['delete-file', 'edit-policy', 'write-repository']) {
+    assert.ok(relayTask.forbiddenActions.includes(action), `relay lost forbidden action ${action}`);
+  }
+});
+
+test('child may request less compute than parent but never more', () => {
+  const session = compileAutonomySession({ objective: 'Research safely', maxRounds: 4, maxTasks: 4, maxTotalTokens: 10_000 });
+  const parent = compileTaskIntent({
+    session,
+    originAgent: 'claude-code',
+    targetAgent: 'chatgpt',
+    objective: 'Research one bounded question.',
+    acceptanceTests: ['test:research-evidence'],
+    tokenBudget: 2_000
+  });
+  const registered = registerTaskIntent({ session, intent: parent });
+  const ingested = ingestAgentResult({
+    session: registered.session,
+    taskIntent: parent,
+    result: {
+      outcome: 'A smaller engineering follow-up is enough.',
+      businessEffectLedger: ZERO,
+      coordination: {
+        action: 'ENGINEERING_REQUIRED',
+        objective: 'Implement the smaller repair.',
+        acceptanceTests: ['test:smaller-repair'],
+        evidenceRefs: ['test:research-evidence'],
+        tokenBudget: 500
+      }
+    }
+  });
+  assert.equal(ingested.ok, true);
+  assert.equal(ingested.nextIntent.tokenBudget, 500);
 });

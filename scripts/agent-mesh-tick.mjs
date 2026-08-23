@@ -34,6 +34,8 @@
 //   AGENT_MESH_ENABLED         required "true" to do anything
 //   AGENT_MESH_OCCURRENCE_KEY  required when enabled; identifies this delivery
 //   AGENT_MESH_RUN_LIMIT       autonomy runs pumped per cycle (default 5, cap 25)
+//   AGENT_MESH_MISSION         JSON mission declaration; without it the tick
+//                              pumps existing runs and seeds nothing
 //   AGENT_MESH_WORKERS         JSON array of worker configs; default none
 //   AGENT_MESH_INGEST_AFTER    "false" to skip the post-worker ingestion pump
 //   AGENT_MESH_SOURCE_COMMIT   commit the cycle receipt is attributed to
@@ -59,6 +61,7 @@ import { compileRelayTaskFromIntent } from '../src/agent-autonomy-relay-adapter.
 import { createRelayAdapterFactory, describeRelayReadiness } from '../src/agent-relay-adapter-factory.mjs';
 import { createModelExecutorFactory, describeProviderReadiness } from '../src/agent-model-executor-factory.mjs';
 import { evaluateAgentMeshActivation } from '../src/agent-mesh-activation-gate.mjs';
+import { parseMissionSpec, seedScheduledMission } from '../src/agent-mesh-mission-seed.mjs';
 import {
   loadActivationEvidenceFile,
   loadSandboxIsolationReceipt,
@@ -117,6 +120,9 @@ async function main() {
   const workers = parseWorkers(process.env.AGENT_MESH_WORKERS);
   const autonomyRunLimit = boundedInt(process.env.AGENT_MESH_RUN_LIMIT, 5, 1, RUN_LIMIT_CAP);
   const ingestAfterWorkers = process.env.AGENT_MESH_INGEST_AFTER !== 'false';
+  // A recurring mission has to enter the store somewhere. Without this the
+  // occurrence-identity layer is a compiler nothing ever calls.
+  const missionSpec = parseMissionSpec(process.env.AGENT_MESH_MISSION);
 
   if (dryRun) {
     // Report what a real tick would do without touching the store, so a
@@ -125,6 +131,8 @@ async function main() {
       dryRun: true, enabled, workersConfigured: workers.length,
       autonomyRunLimit, ingestAfterWorkers,
       occurrenceKeyConfigured: Boolean(schedulerOccurrenceKey),
+      missionConfigured: missionSpec.present,
+      missionProblems: missionSpec.reasonCodes,
       storeBackend: process.env.STORE_BACKEND || 'json (default outside production)',
       relay: describeRelayReadiness(),
       providers: describeProviderReadiness({ sandboxIsolationReceipt: isolation.receipt }),
@@ -163,6 +171,13 @@ async function main() {
     console.error(`[agent-mesh-tick] sandbox isolation receipt refused: ${isolation.reasonCodes.join(', ')}`);
     return 2;
   }
+  // A mission that was configured but cannot be parsed is a refusal. Falling
+  // through to "no mission" would make an operator's broken JSON look the same
+  // as never having written one.
+  if (!missionSpec.ok) {
+    console.error(`[agent-mesh-tick] mission spec refused: ${missionSpec.reasonCodes.join(', ')}`);
+    return 2;
+  }
 
   // Same startup validation the server and worker use. A misconfigured store
   // must fail here, loudly, rather than half-running a cognitive cycle.
@@ -185,6 +200,22 @@ async function main() {
   }
 
   const store = createStore(config);
+
+  // Seed before pumping, so the run this occurrence declares exists to be
+  // pumped in the same tick. Idempotent: the runId is derived from the
+  // occurrence key, so a redelivered tick finds the run rather than making a
+  // second one.
+  const seeded = await seedScheduledMission({
+    store,
+    mission: missionSpec.mission,
+    occurrenceKey: schedulerOccurrenceKey
+  });
+  if (!seeded.ok) {
+    console.error(`[agent-mesh-tick] mission seeding refused: ${seeded.reasonCodes.join(', ')}`);
+    if (typeof store.close === 'function') await store.close();
+    return 2;
+  }
+
   const cycle = await runAgentMeshCycle({
     enabled: true,
     store,
@@ -203,6 +234,7 @@ async function main() {
     cycleId: cycle.cycleId || null,
     cycleReceiptState: cycle.cycleReceiptState || null,
     duplicateDelivery: cycle.duplicateDelivery === true,
+    missionSeed: { status: seeded.status, runId: seeded.runId || null },
     activationStatus: activation.status,
     permittedMode: gated.mode,
     workersConfigured: cycle.workersConfigured ?? gated.allowed.length,

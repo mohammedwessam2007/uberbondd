@@ -399,7 +399,13 @@ function normalizeTombstones(input = []) {
   });
 }
 
-export function scoreOpportunity(opportunity) {
+// Named for what it scores. It used to be `scoreOpportunity`, the same exported
+// name as src/opportunity-registry.mjs's function -- which takes an entirely
+// different argument shape ({candidate, weights, date} rather than a normalized
+// opportunity) and answers a different question. Both fail loudly on the wrong
+// shape, so this was a trap for a reader rather than a live defect, but the
+// repository already namespaces every other evidence and scoring vocabulary.
+export function scoreOpportunityFit(opportunity) {
   const signals = opportunity.fitSignals;
   const components = {
     qaExplicit: signals.qaExplicit ? 20 : 0,
@@ -503,7 +509,7 @@ export function evaluateOpportunity({ opportunity: input, profile: rawProfile, a
     const profile = normalizeOpportunityProfile(rawProfile);
     const assets = normalizeOpportunityAssets(rawAssets);
     const tombstones = normalizeTombstones(rawTombstones);
-    const score = scoreOpportunity(opportunity);
+    const score = scoreOpportunityFit(opportunity);
     const collision = priorContactCollision(opportunity, tombstones);
     const materials = materialState(opportunity, profile, assets);
     const requirements = opportunity.requirements.map(requirement => evaluateRequirement(requirement, profile, materials.assetsById, materials.claimsById));

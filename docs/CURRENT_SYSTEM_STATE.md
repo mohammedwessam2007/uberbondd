@@ -41,8 +41,8 @@ Every number below was produced by running the command, on this tree.
 
 | Gate | Command | Result |
 |---|---|---|
-| Syntax | `npm run check:syntax` | 412 files parse |
-| Deterministic | `npm run test:deterministic` | 1885 tests, 1843 pass, **0 fail**, 42 skipped |
+| Syntax | `npm run check:syntax` | 421 files parse |
+| Deterministic | `npm run test:deterministic` | 1948 tests, 1906 pass, **0 fail**, 42 skipped |
 | Relay safety | `npm run test:relay-safety` | 150 tests, 150 pass, 0 fail |
 | Real PostgreSQL | `npm run test:postgres-real` | 107 tests, **107 pass, 0 skipped** |
 | Dependencies | `npm audit` | 0 vulnerabilities |
@@ -141,6 +141,15 @@ That is a schema change, deliberately not done tonight.
 consecutive runs; intermittently failing in parallel. The cause is
 cross-file interference on a shared database, not the code under test. Encoded
 in the npm script rather than left to memory.
+
+**One SKU compiler, after two arrived.** #72 and #101 each shipped a
+ServiceSKU compiler and an acceptance state machine within a day of each other,
+both exporting `compileServiceSku`. Neither was reachable, so nothing in
+production was affected, but a reader had no way to tell which one the system
+meant. `src/service-sku.mjs` and `src/service-fulfillment.mjs` survive — they
+are a connected chain and they model support, renewal, retention and churn.
+Every invariant the superseded suites asserted is re-pinned against the
+survivor in `tests/superseded-fulfillment-invariants.test.mjs`.
 
 **Two ledger shapes still exist.** `externalEffectLedger` (8 keys, provider
 calls and cents) and `businessEffectLedger` (7 keys, business spend). Both are

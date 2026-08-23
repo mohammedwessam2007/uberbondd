@@ -42,7 +42,7 @@ Every number below was produced by running the command, on this tree.
 | Gate | Command | Result |
 |---|---|---|
 | Syntax | `npm run check:syntax` | 432 files parse |
-| Deterministic | `npm run test:deterministic` | 2014 tests, 1972 pass, **0 fail**, 42 skipped |
+| Deterministic | `npm run test:deterministic` | 2020 tests, 1978 pass, **0 fail**, 42 skipped |
 | Relay safety | `npm run test:relay-safety` | 150 tests, 150 pass, 0 fail |
 | Real PostgreSQL | `npm run test:postgres-real` | 107 tests, **107 pass, 0 skipped** |
 | Dependencies | `npm audit` | 0 vulnerabilities |
@@ -91,10 +91,12 @@ implemented, tested, green, and dead.
 
 Each of these is a property with a test that fails when the property is removed.
 
-**Authority never widens.** A child task carries every constraint its parent
-carried, at any chain depth, including at the constraint ceiling where a silent
-truncation used to drop two of them. Overflow refuses to compile rather than
-trimming.
+**Authority never widens — in all three dimensions.** A child task carries every
+constraint its parent carried, at any chain depth, including at the ceiling
+where a silent truncation used to drop two. It also inherits every forbidden
+action, and its token budget is capped at the parent's: a child asking for
+500,000 tokens against a 40,000-token parent gets 40,000. Overflow refuses to
+compile rather than trimming.
 
 **A claim is not evidence.** A worker result claiming DONE must carry a
 non-empty outcome, a supported truth table, and tests where it changed

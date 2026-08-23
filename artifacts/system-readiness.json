@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-23T02:50:58.446Z",
+  "generatedAt": "2026-08-23T02:57:22.484Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "0df00fc51d60b74e73ef0d10a4dc353df7e510d4",
+    "head": "586d8094d6e7fba06c0a1ddd0488c11ef31d96e7",
     "branch": "main",
     "sourceModules": 146,
     "testSuites": 194,
@@ -17,11 +17,11 @@
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2014,
-      "pass": 1972,
+      "tests": 2020,
+      "pass": 1978,
       "fail": 0,
       "skipped": 42,
-      "ranAt": "2026-08-23T05:20:00Z"
+      "ranAt": "2026-08-23T05:45:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -145,12 +145,13 @@
       ],
       "tests": [
         "tests/autonomy-constraint-monotonicity-property.test.mjs",
+        "tests/autonomy-hardening.test.mjs",
         "tests/autonomy-constraint-inheritance.test.mjs"
       ],
       "realWire": false,
       "liveProof": false,
       "externalBlocker": null,
-      "nextAction": "None internal."
+      "nextAction": "Constraints, forbidden actions and token budgets all attenuate across follow-ups."
     },
     {
       "id": "result-truth",

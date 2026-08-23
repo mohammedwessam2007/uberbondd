@@ -7,11 +7,11 @@
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2014,
-      "pass": 1972,
+      "tests": 2020,
+      "pass": 1978,
       "fail": 0,
       "skipped": 42,
-      "ranAt": "2026-08-23T05:20:00Z"
+      "ranAt": "2026-08-23T05:45:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -116,9 +116,10 @@
       ],
       "tests": [
         "tests/autonomy-constraint-monotonicity-property.test.mjs",
+        "tests/autonomy-hardening.test.mjs",
         "tests/autonomy-constraint-inheritance.test.mjs"
       ],
-      "nextAction": "None internal."
+      "nextAction": "Constraints, forbidden actions and token budgets all attenuate across follow-ups."
     },
     {
       "id": "result-truth",

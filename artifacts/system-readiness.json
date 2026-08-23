@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-23T01:50:07.194Z",
+  "generatedAt": "2026-08-23T01:57:46.028Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "80c16e968aff6b68eccd3b62e4e4428fcfc1a1b1",
+    "head": "dc7bd57a7525025ee58e1c9b2bb6023c041b4c00",
     "branch": "main",
     "sourceModules": 143,
-    "testSuites": 186,
+    "testSuites": 187,
     "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 421,
+      "filesParsed": 422,
       "ranAt": "2026-08-23T00:45:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 1948,
-      "pass": 1906,
+      "tests": 1958,
+      "pass": 1916,
       "fail": 0,
       "skipped": 42,
-      "ranAt": "2026-08-23T02:40:00Z"
+      "ranAt": "2026-08-23T03:10:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",

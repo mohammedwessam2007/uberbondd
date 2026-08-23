@@ -41,8 +41,8 @@ Every number below was produced by running the command, on this tree.
 
 | Gate | Command | Result |
 |---|---|---|
-| Syntax | `npm run check:syntax` | 421 files parse |
-| Deterministic | `npm run test:deterministic` | 1948 tests, 1906 pass, **0 fail**, 42 skipped |
+| Syntax | `npm run check:syntax` | 422 files parse |
+| Deterministic | `npm run test:deterministic` | 1958 tests, 1916 pass, **0 fail**, 42 skipped |
 | Relay safety | `npm run test:relay-safety` | 150 tests, 150 pass, 0 fail |
 | Real PostgreSQL | `npm run test:postgres-real` | 107 tests, **107 pass, 0 skipped** |
 | Dependencies | `npm audit` | 0 vulnerabilities |
@@ -94,6 +94,12 @@ runs against a 200-run scan cap, every run is served; previously 60 never were.
 
 **A stalled run says so.** A bounded scan that comes back full no longer answers
 with a stale snapshot. It reports `autonomy-run-snapshot-scan-saturated`.
+
+**A known-bad route blocks qualification.** Scoring a contact zero is not the
+same as blocking on it. `scoreLeadCandidate` names the route state — invalid,
+suppressed, stale, needs-review, unverified — and an unstated verification
+state is refused, because "we never checked" and "we checked and it is fine"
+must not score the same (issue #99).
 
 **Suppression dominates enrichment.** An unsubscribe is sticky and cannot be
 outvoted by a later VALID check. Plus-tagged and dot-variant forms of a

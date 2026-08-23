@@ -7,8 +7,8 @@ die.
 Run it:
 
 ```
-npm run test:mutation-war                    # 49 mutations
-OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 50
+npm run test:mutation-war                    # 51 mutations
+OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 52
 ```
 
 Each mutation is a literal source edit applied to a copy of the tree, with the
@@ -22,7 +22,7 @@ Mutating arbitrary lines produces mostly equivalent mutants and a number nobody
 can act on; mutating the specific invariants this system's safety rests on
 produces a list an operator can read.
 
-**Current: 50 mutations, 50 killed, 0 survived.**
+**Current: 52 mutations, 52 killed, 0 survived.**
 
 | ID | Guard | File | Killed by |
 |---|---|---|---|
@@ -43,6 +43,8 @@ produces a list an operator can read.
 | `MONEY-11` | A lead nobody can find is unknown, not zero | `src/payment-renewal-truth.mjs` | `payment-truth-lead-scope.test.mjs` |
 | `MONEY-12` | The clearing receipt records the money it classified | `src/revenue.mjs` | `payment-receipt-witnesses-money.test.mjs` |
 | `MONEY-13` | The clearing receipt records the currency it classified | `src/revenue.mjs` | `payment-receipt-witnesses-money.test.mjs` |
+| `PRIV-02` | The outreach normalizer does not retain the provider object | `src/outreach-provider-events.mjs` | `outreach-provider-events.test.mjs` |
+| `PRIV-03` | A legacy raw field cannot re-enter the reply body | `src/outreach-provider-events.mjs` | `outreach-provider-events.test.mjs` |
 | `PRIV-01` | The decoded provider payload is not durable business state | `src/revenue.mjs` | `provider-payload-minimization.test.mjs`<br>`provider-payload-minimization-source-guard.test.mjs` |
 | `RECOV-01` | Recovery may not overwrite a newer reservation status | `src/reservation-recovery.mjs` | `reservation-recovery-race.test.mjs` |
 | `ACCEPT-01` | Only external customer evidence accepts a delivery | `src/service-fulfillment.mjs` | `service-fulfillment.test.mjs`<br>`superseded-fulfillment-invariants.test.mjs` |

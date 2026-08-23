@@ -145,6 +145,20 @@ export const MUTATIONS = [
     suites: ['tests/provider-payload-minimization.test.mjs', 'tests/provider-payload-minimization-source-guard.test.mjs']
   },
   {
+    id: 'PRIV-02', guard: 'The outreach normalizer does not retain the provider object',
+    file: 'src/outreach-provider-events.mjs',
+    find: "    isFirst: input.is_first === true || input.isFirst === true\n  };",
+    replace: "    isFirst: input.is_first === true || input.isFirst === true,\n    raw: input\n  };",
+    suites: ['tests/outreach-provider-events.test.mjs']
+  },
+  {
+    id: 'PRIV-03', guard: 'A legacy raw field cannot re-enter the reply body',
+    file: 'src/outreach-provider-events.mjs',
+    find: "  const body = stringValue(event.replyBody || '', 20000);",
+    replace: "  const body = stringValue(event.replyBody || event.raw?.reply_text_snippet || '', 20000);",
+    suites: ['tests/outreach-provider-events.test.mjs']
+  },
+  {
     id: 'MONEY-12', guard: 'The clearing receipt records the money it classified',
     file: 'src/revenue.mjs',
     find: "      amountCents: Number.isSafeInteger(Number(event?.amountCents)) ? Number(event.amountCents) : null,",

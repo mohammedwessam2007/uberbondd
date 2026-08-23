@@ -42,13 +42,24 @@ function suffix() {
   return `${Date.now()}_${Math.random().toString(16).slice(2)}`;
 }
 
+// The reservation table keys idempotency globally, not per tenant -- which is
+// correct, since an idempotency key is a promise about one action in the world.
+// It also means a fixed key cannot be reused by a later run: the second run's
+// intent digest differs, so every candidate is refused as a conflict and the
+// race resolves to zero executions rather than one.
+//
+// These tests randomise tenantId and approvalId per run but used a fixed
+// `res_${id}`, so they passed exactly once against any given database and
+// failed forever after. Against a shared or persistent Postgres that makes the
+// concurrency gate a one-shot. Deriving the default from the already-unique
+// tenantId keeps each run's keys its own.
 function canaryIntent({ id, evidenceId, tenantId, idempotencyKey }) {
   return createActionIntent({
     missionId: tenantId, tenantId, actorId: 'uberbond-canary-worker', operation: CANARY_NULL_OPERATION,
     resource: `null-sink:${id}`, purpose: CANARY_NULL_PURPOSE, effectClass: CANARY_NULL_EFFECT_CLASS,
     argumentsDigest: sha256(`args-${id}`), evidenceIds: [evidenceId], maxCostUsd: 0, blastRadius: 1,
     rollback: 'NONE', createdAt: NOW.toISOString(), expiresAt: new Date(NOW.getTime() + 300_000).toISOString(),
-    nonce: `nonce:${id}`, idempotencyKey: idempotencyKey || `res_${id}`
+    nonce: `nonce:${id}`, idempotencyKey: idempotencyKey || `res_${tenantId}_${id}`
   }, NOW);
 }
 

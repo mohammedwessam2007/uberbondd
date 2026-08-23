@@ -157,10 +157,24 @@ export class ConflictError extends StoreError {
   constructor(message, cause) { super(message, 'CONFLICT', cause); this.name = 'ConflictError'; }
 }
 
+// Object.hasOwn, not truthiness. `MAP[key]` walks the prototype chain, so
+// `definition('constructor')` returned Object -- truthy, past the guard, and on
+// into `def.table` as undefined. Same for `__proto__`, `toString`,
+// `hasOwnProperty`, `valueOf`. The interpolated text is a SQL syntax error
+// rather than an injection today, but a guard that reads as an allowlist and is
+// in fact a truthiness check is one column rename away from being one.
 function definition(key) {
-  const def = MAP[key];
-  if (!def) throw new StoreError(`Unknown collection: ${key}`, 'INVALID_COLLECTION');
-  return def;
+  if (!Object.hasOwn(MAP, key)) throw new StoreError(`Unknown collection: ${key}`, 'INVALID_COLLECTION');
+  return MAP[key];
+}
+
+/** Resolve a caller-supplied property to a real column, or refuse. */
+function columnFor(def, key, property) {
+  if (property === 'id') return 'id';
+  if (!Object.hasOwn(def.columns, property)) {
+    throw new StoreError(`Unsupported filter ${property} for ${key}`, 'INVALID_FILTER');
+  }
+  return def.columns[property];
 }
 
 function dateOnly(value) {
@@ -655,13 +669,14 @@ export class PostgresStore {
     const values = [];
     const where = [];
     for (const [property, value] of Object.entries(options.filters || {})) {
-      const column = property === 'id' ? 'id' : def.columns[property];
-      if (!column) throw new StoreError(`Unsupported filter ${property} for ${key}`, 'INVALID_FILTER');
+      const column = columnFor(def, key, property);
       values.push(value);
       where.push(`${column} = $${values.length}`);
     }
     const orderProperty = options.orderBy || 'createdAt';
-    const orderColumn = orderProperty === 'id' ? 'id' : (def.columns[orderProperty] || 'created_at');
+    const orderColumn = orderProperty === 'id'
+      ? 'id'
+      : (Object.hasOwn(def.columns, orderProperty) ? def.columns[orderProperty] : 'created_at');
     const direction = options.direction === 'asc' ? 'ASC' : 'DESC';
     let sql = `SELECT data FROM ${def.table}${where.length ? ` WHERE ${where.join(' AND ')}` : ''} ORDER BY ${orderColumn} ${direction} NULLS LAST`;
     if (Number.isInteger(options.limit)) { values.push(Math.max(0, options.limit)); sql += ` LIMIT $${values.length}`; }
@@ -686,8 +701,7 @@ export class PostgresStore {
     const values = [];
     const where = [];
     for (const [property, value] of Object.entries(filters)) {
-      const column = property === 'id' ? 'id' : def.columns[property];
-      if (!column) throw new StoreError(`Unsupported filter ${property} for ${key}`, 'INVALID_FILTER');
+      const column = columnFor(def, key, property);
       values.push(value);
       where.push(`${column} = $${values.length}`);
     }

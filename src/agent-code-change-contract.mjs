@@ -23,7 +23,14 @@ const PROTECTED_PREFIXES = Object.freeze([
   // untrusted engineering edit must not be able to rewrite the command graph
   // or project-level npm execution policy immediately before verification.
   'package.json',
-  '.npmrc'
+  'package-lock.json',
+  '.npmrc',
+  // Protecting package.json alone left the door open one level down: the
+  // scripts it names are what actually decide which tests run and which files
+  // are parsed. An edit that rewrote the discovery script could hide its own
+  // failures from the gate that was about to check it.
+  'scripts/run-tests.mjs',
+  'scripts/check-syntax.mjs'
 ]);
 
 const HIGH_RISK_SECRET_PATTERNS = Object.freeze([

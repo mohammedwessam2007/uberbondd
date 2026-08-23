@@ -219,14 +219,14 @@
       "reason": "Reached only from the superseded provider-execution path. The model router it imported is now reachable in its own right via scripts/agent-model-route.mjs, which leaves this module as the last resident of that superseded cluster."
     },
     "src/agent-evolution-wave.mjs": {
-      "category": "NEEDS_TRIAGE",
-      "gate": null,
-      "reason": "Self-upgrade wave planning. No caller and no named gate; nobody has decided whether it is live architecture or an artifact of an earlier pass."
+      "category": "AWAITING_ACTIVATION",
+      "gate": "MESH_LIVE_OBSERVATION_REQUIRED",
+      "reason": "Self-upgrade composition is intentionally deferred until the newly reachable agent mesh has accumulated real observed scheduler-cycle evidence. Wiring self-modification before that dependency is satisfied would violate the repository's recorded ordering decision."
     },
     "src/ai-access-opportunity-registry.mjs": {
-      "category": "NEEDS_TRIAGE",
-      "gate": null,
-      "reason": "AI access catalogue with no caller. Same question as above."
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_AI_ACCESS_EXTERNAL_AUTHORIZATION",
+      "reason": "AI access opportunities were explicitly left unwired under the zero-external-effect boundary because meaningful execution can involve provider/account/application consequences. Keep this catalogue preparation-only until those external consequences are separately authorised."
     },
     "src/payment-renewal-truth.mjs": {
       "category": "AWAITING_ACTIVATION",

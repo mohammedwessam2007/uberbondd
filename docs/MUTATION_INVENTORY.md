@@ -7,8 +7,8 @@ die.
 Run it:
 
 ```
-npm run test:mutation-war                    # 34 mutations
-OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 35
+npm run test:mutation-war                    # 35 mutations
+OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war   # all 36
 ```
 
 Each mutation is a literal source edit applied to a copy of the tree, with the
@@ -22,7 +22,7 @@ Mutating arbitrary lines produces mostly equivalent mutants and a number nobody
 can act on; mutating the specific invariants this system's safety rests on
 produces a list an operator can read.
 
-**Current: 35 mutations, 35 killed, 0 survived.**
+**Current: 36 mutations, 36 killed, 0 survived.**
 
 | ID | Guard | File | Killed by |
 |---|---|---|---|
@@ -60,6 +60,7 @@ produces a list an operator can read.
 | `REACH-01` | A gate must be registered, not invented | `tests/reachability-ratchet.test.mjs` | `reachability-ratchet.test.mjs` |
 | `SCAN-01` | A truncated read is never a successful read | `src/durable-audit-scan.mjs` | `durable-audit-scan-ceiling.test.mjs` |
 | `ROUTE-01` | Routing groups by target agent and cannot starve a queue | `src/agent-model-routing-config.mjs` | `agent-mesh-routing-starvation.test.mjs` |
+| `STORE-02` | The JSON store refuses what PostgreSQL refuses | `src/store.mjs` | `store-lookup-allowlist.test.mjs` |
 | `STORE-01` | Collection and column lookups are real allowlists | `src/store.mjs` | `store-lookup-allowlist.test.mjs` |
 
 ---

@@ -57,15 +57,18 @@ test('a prototype member is not a filterable column', { skip: !DATABASE_URL && '
   } finally { await store.close?.(); }
 });
 
-test('the JSON path matches no row for a prototype filter, rather than every row', async () => {
+test('the JSON path refuses a prototype filter, exactly as PostgreSQL does', async () => {
   // It filters an array rather than building SQL, so nothing can be injected --
-  // but `row?.[key]` walks the prototype chain too, and a comparison that
-  // accidentally succeeded would return rows the caller never asked for.
+  // but `row?.[key]` walks the prototype chain too, and returning [] silently
+  // is its own problem. It now refuses, matching the SQL path.
   const store = await tempStore();
   await store.log('probe_type', { n: 1 });
   for (const key of PROTOTYPE_KEYS) {
-    const rows = await store.list('auditLog', { filters: { [key]: 'x' } });
-    assert.deepEqual(rows, [], `${key} matched rows`);
+    await assert.rejects(
+      () => store.list('auditLog', { filters: { [key]: 'x' } }),
+      error => /Unsupported filter|INVALID_FILTER/.test(String(error?.message || error?.code)),
+      `${key} was accepted as a filter`
+    );
   }
 });
 
@@ -100,15 +103,31 @@ test('an unknown but ordinary filter name is still refused on the Postgres path'
   } finally { await store.close?.(); }
 });
 
-test('the two stores disagree about an unknown filter, and the divergence is recorded', async () => {
-  // Postgres throws INVALID_FILTER; the JSON path returns []. A typo'd filter
-  // name is therefore a loud error in production and a silent empty result in
-  // development, which is the wrong way round. Pinned rather than changed:
-  // making the JSON path throw would be a behaviour change across every caller
-  // and belongs in its own pass, but the divergence should not be discovered
-  // again from scratch.
+test('the two stores now agree about an unknown filter and an unknown collection', async () => {
+  // They used to disagree: PostgreSQL threw INVALID_FILTER and the JSON path
+  // returned []. A typo was therefore a loud error in production and a silent
+  // empty result in development -- the wrong way round, and an empty list from
+  // a suppression lookup reads as "nobody is suppressed".
+  //
+  // The earlier pass recorded this rather than changing it, on the grounds that
+  // narrowing the JSON path was a behaviour change across every caller. Running
+  // the full suite against the change was the archaeology: the only tests that
+  // failed were the two pinning the divergence itself. No caller depended on it.
   const store = await tempStore();
   await store.log('probe_type', { n: 1 });
-  assert.deepEqual(await store.list('auditLog', { filters: { notAColumn: 'x' } }), [],
-    'the JSON path silently matches nothing where Postgres refuses');
+
+  await assert.rejects(
+    () => store.list('auditLog', { filters: { notAColumn: 'x' } }),
+    error => /Unsupported filter|INVALID_FILTER/.test(String(error?.message || error?.code))
+  );
+  await assert.rejects(
+    () => store.list('sppressions', {}),
+    error => /Unknown collection|INVALID_COLLECTION/.test(String(error?.message || error?.code))
+  );
+
+  // The guard was written to apply only where PostgreSQL also knows the
+  // collection, in case some existed solely in the JSON store. None do: both
+  // key sets are the same 31 collections, so validation is uniform. A mapped
+  // filter still works, which is what keeps this an allowlist and not a wall.
+  assert.equal((await store.list('auditLog', { filters: { type: 'probe_type' } })).length, 1);
 });

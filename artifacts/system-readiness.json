@@ -3,7 +3,7 @@
   "generatedAt": "2026-08-24T22:17:22.069Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "0b2d80a5d21b029914ca25462b00993f5afde072",
+    "head": "24ed488fe9e6a4d56955c758b68d0e5ad0fa705f",
     "branch": "gpt/recovery-report-email-20260825",
     "sourceModules": 151,
     "testSuites": 232,

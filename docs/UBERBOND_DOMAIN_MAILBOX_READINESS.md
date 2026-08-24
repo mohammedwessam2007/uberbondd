@@ -3,11 +3,11 @@
 Live activation mission (nightshift): make UberBond capable of using owned
 sending domains as legitimate outreach infrastructure and, only if a real
 provider account is authorized and connected, start real native mailbox
-warm-up. This wave built the complete readiness system end-to-end. It found
-**zero configured provider credentials and zero registered domains** on this
-branch, so the honest, tested, structurally-enforced result tonight is
-`BLOCKED_PROVIDER_AUTH` — not a website, not a simulation, and not a claim
-of live warm-up.
+warm-up. The owner has now supplied the exact outreach targets
+`uberbond.agency` and `uberbond.cloud`. Those names are owner evidence only;
+there is still no provider/registrar receipt in UberBond, so the honest,
+tested, structurally-enforced result remains blocked — not a website, not a
+simulation, and not a claim of live warm-up.
 
 ## 1. Current-state map (before this wave)
 
@@ -15,7 +15,7 @@ of live warm-up.
 |---|---|
 | SendingDomain / SendingMailbox canonical records | **Missing** — did not exist |
 | DNS verification | **Missing** |
-| Provider adapter contract (Instantly/Google Workspace/Microsoft 365) | **Missing** |
+| Provider adapter contract | **Present as a deny-only 22-capability contract**; no live Maildoso adapter is connected |
 | Warm-up orchestration | **Missing** |
 | Domain/mailbox circuit breakers | **Missing** |
 | Domain/mailbox deny-only gate composing with Deliverability Guard/V9 | **Missing** |
@@ -24,8 +24,8 @@ of live warm-up.
 | `src/send-safety.mjs` | **Already implemented and tested** — contact/evidence/country/business-hour eligibility. Unrelated to domain/mailbox readiness; untouched. |
 | OMNIA/V9 (`src/consequence-boundary.mjs`) | **Already implemented and tested**, off by default. This wave's gate composes with it (deny-only) but does not wire into `Pipeline.maybeSend` — there is no live domain/mailbox-based send path yet to gate. |
 | `accounts` / `senderHealth` collections | **Already implemented**, inbox-slot-scoped (`A`/`B`). Deliberately not reused as the SendingDomain/SendingMailbox model — that model needs to represent an open set of domains/mailboxes across providers, which the 2-slot schema cannot express. Both collections are untouched. |
-| Provider credentials (Instantly API key, Google Workspace OAuth, Microsoft 365 app registration) | **Missing** — confirmed via `env \| grep` and `src/config.mjs` before this wave; zero matches for any of these. |
-| Purchased GoDaddy domain names | **Missing from this repository/environment** — no domain name appears anywhere in source, docs, or environment variables. Per the mission's own rule, none was invented. |
+| Provider credentials | **Missing** — no Maildoso/API, Instantly, Google Workspace, or Microsoft 365 credential is configured. |
+| Purchased GoDaddy domain names | **Owner-supplied: `uberbond.agency`, `uberbond.cloud`** — exact targets are known, but ownership/provider/DNS evidence is not connected. |
 | Real, live DNS resolution capability | **Confirmed real** — `node:dns/promises` was tested against a real public domain in this sandbox this wave (`resolveMx`/`resolveTxt` both returned real records). This is a genuine, live-capable socket, not a simulation — see "Live DNS proof" below. |
 
 ## 2. What this wave built
@@ -72,12 +72,36 @@ Whenever the owner registers a real purchased domain, `verifySendingDomainDns()`
 will check its actual public DNS for real, tonight, with no further
 engineering required.
 
-## 4. Why every path ends in BLOCKED tonight
+## 4. Current external activation decision
+
+The smallest-fit provider candidate for this two-domain canary is Maildoso
+monthly SMTP infrastructure. Its current public product and pricing pages say
+that existing domains can be connected, SPF/DKIM/DMARC can be automated,
+mailboxes can be created, API/MCP access exists, and cold sending is capped at
+15 messages per mailbox per day. These are `CREATOR_CLAIM` inputs until
+UberBond records real provider and DNS evidence. The public standard packages
+start at 30 mailboxes/$75 per month, which is intentionally too large for this
+first canary; the exact custom two-mailbox price must be read inside the
+provider account.
+
+The current owner gate is therefore: exactly two mailboxes, one per supplied
+domain, monthly only, with a hard ceiling of $15 USD/month and no domain
+purchase. No provider credential is currently configured, and no Maildoso
+adapter is live in UberBond.
+
+Google Workspace/Gmail API remains restricted to solicited, consented, or
+requested-information routes by `docs/outreach/PROVIDER_POLICY_BOUNDARY.md`;
+public business contact evidence alone does not unlock generic cold outreach.
+
+Sources reviewed: <https://maildoso.ai/>,
+<https://maildoso.ai/pricing>, and <https://developers.maildoso.com/>.
+
+## 5. Why every path ends in BLOCKED tonight
 
 Every real requirement chain converges on the same true bottleneck:
 
 ```
-domain ownership (MISSING -- no domain registered)
+domain ownership (owner-supplied names; provider/registrar evidence missing)
   -> mailbox provider (MISSING -- no provider credential configured)
   -> MX/SPF/DKIM/DMARC (cannot verify without an exact domain)
   -> warm-up (cannot start without an authenticated provider connection)
@@ -90,25 +114,24 @@ returns `BLOCKED_PROVIDER_AUTH` — proven by
 `tests/domain-mailbox-readiness.test.mjs`'s job-handler end-to-end test, not
 asserted by hand.
 
-## 5. What the owner needs to do (max 3 actions, see final report)
+## 6. What the owner needs to do (max 3 actions, see final report)
 
-1. Choose and connect a real provider (Instantly, Google Workspace, or
-   Microsoft 365) — generate the credential, add it to environment
-   configuration (`INSTANTLY_API_KEY`, `GOOGLE_WORKSPACE_CLIENT_ID`/`SECRET`,
-   or `MICROSOFT_365_CLIENT_ID`/`SECRET`/`TENANT_ID`).
-2. Supply the exact purchased domain name(s) and register them (this wave
-   deliberately builds no discovery/guessing path for domain names).
-3. Once both exist, a real adapter for the chosen provider is the next
-   engineering step (this wave intentionally did not build one against zero
-   available credentials — see `src/provider-adapter-contract.mjs`'s header).
+1. Authorize the bounded Maildoso purchase described above and provide its
+   API credential through the protected deployment secret channel.
+2. Once authenticated, let UberBond connect the two exact domains, read the
+   provider-issued DNS contract, and prepare verification. Never paste a
+   secret into chat or a repository file.
+3. Once provider and DNS evidence exist, the real provider adapter is the next
+   engineering gate; this wave intentionally did not claim a live adapter
+   against zero credentials (see `src/provider-adapter-contract.mjs`).
 
-## 6. What was explicitly NOT done, on purpose
+## 7. What was explicitly NOT done, on purpose
 
 - No website, no Vercel domain attachment, no landing page, no frontend
   hosting change of any kind.
-- No real Instantly/Google Workspace/Microsoft 365 HTTP client — only the
-  interface + fixture, per the mission's own instruction for an unconfigured
-  provider.
+- No real Maildoso/Instantly/Google Workspace/Microsoft 365 HTTP client — only
+  the interface + fixture, per the mission's own instruction for an
+  unconfigured provider.
 - No DNS record was added, changed, or removed — `src/dns-verification.mjs`
   has no write capability at all.
 - No account created, no KYC, no credential change, no money spent, no

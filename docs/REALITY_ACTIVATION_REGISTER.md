@@ -7,13 +7,50 @@ Nothing here is prepared-and-fired. Each packet is built and left unexecuted:
 executing any of them requires an owner action this repository cannot take on
 its own, and several of them spend money or reach a real person.
 
-Read the columns literally. "Status" is about evidence, not effort — a gate is
+Read the columns literally. `Status` is about evidence, not effort — a gate is
 `BLOCKED_EXTERNAL` even when all the code behind it is finished and tested,
 because finished code is not evidence about the world.
 
 ---
 
-## 1. `MODEL_PROVIDER_CANARY`
+## 1. `OUTREACH_DOMAINS_MAILBOXES`
+
+| | |
+|---|---|
+| Status | `BLOCKED_OWNER_AUTHORIZATION` — exact domains are known from the owner, but no provider account or receipt is connected |
+| Targets | `uberbond.agency`; `uberbond.cloud` |
+| Candidate | Maildoso monthly SMTP, exactly two mailboxes, one per domain |
+| Missing evidence | Provider account identity, checkout receipt, API credential, provider-issued DNS requirements, mailbox authentication, warm-up receipt |
+| Owner action | Authorize one monthly two-mailbox purchase with a hard ceiling of **$15 USD/month**, no annual/quarterly commitment; provide the credential through the protected secret channel |
+| Effect class | `PURCHASE` + `CREDENTIAL` + `DNS` — external and reversible only within provider/registrar terms |
+| Expected proof | Redacted provider receipt; exact DNS witness for both domains; authenticated mailbox records; real warm-up status |
+| Rollback | Cancel the monthly plan, revoke the credential, pause mailboxes, remove only provider-issued DNS records after verifying no other mail service depends on them |
+| Kill condition | Checkout exceeds the cap, provider terms conflict with the route, DNS requirements are ambiguous, credential cannot be stored safely, or provider health is unknown |
+| Owner minutes | ~5–10 |
+
+The candidate provider publicly documents bring-your-own-domain setup,
+automated SPF/DKIM/DMARC, API/MCP access, and a 15-cold-message-per-mailbox
+daily limit. These are provider claims and remain `CREATOR_CLAIM` until UberBond
+records actual provider and DNS evidence. The standard public packages begin at
+30 mailboxes/$75 per month; UberBond must not buy that package merely to unblock
+the two-mailbox canary. The exact custom-plan price must be read at checkout and
+must remain at or below the owner gate above.
+
+Sources:
+
+- <https://maildoso.ai/>
+- <https://maildoso.ai/pricing>
+- <https://developers.maildoso.com/>
+
+**What UberBond does next automatically:** connect the exact domains; collect
+the provider's real DNS contract; prepare the minimum GoDaddy changes; verify
+public records; create one mailbox per domain; persist redacted receipts; start
+warm-up; and stop at any unknown/uncertain provider state. It does not send a
+campaign automatically.
+
+---
+
+## 2. `MODEL_PROVIDER_CANARY`
 
 | | |
 |---|---|
@@ -39,7 +76,7 @@ anyone; the loop's output is local artifacts and receipts.
 
 ---
 
-## 2. `SCHEDULER_LIVE_OBSERVATION`
+## 3. `SCHEDULER_LIVE_OBSERVATION`
 
 | | |
 |---|---|
@@ -58,7 +95,7 @@ passing. There is no compression available and none should be invented.
 
 ---
 
-## 3. `SANDBOX_ISOLATION_ATTESTATION`
+## 4. `SANDBOX_ISOLATION_ATTESTATION`
 
 | | |
 |---|---|
@@ -76,7 +113,7 @@ attestation is missing, and it must come from outside.
 
 ---
 
-## 4. `HUMAN_PAGER`
+## 5. `HUMAN_PAGER`
 
 | | |
 |---|---|
@@ -92,13 +129,9 @@ The adapter must distinguish four states and never collapse them:
 `NOT_CONFIGURED` · `ATTEMPTED_FAILED` · `ATTEMPTED_UNKNOWN` ·
 `DELIVERED_VERIFIED`.
 
-A decision to page is not a page. Until this gate opens, every escalation the
-system makes is a decision nobody receives, and `founder-absence-readiness`
-correctly refuses to call the system ready without it.
-
 ---
 
-## 5. `GMAIL_READONLY`
+## 6. `GMAIL_READONLY`
 
 | | |
 |---|---|
@@ -116,7 +149,7 @@ body cannot move authority off `NONE`.
 
 ---
 
-## 6. `PAYMENT_PROVIDER`
+## 7. `PAYMENT_PROVIDER`
 
 | | |
 |---|---|
@@ -129,15 +162,11 @@ body cannot move authority off `NONE`.
 | Kill condition | Any signature that verifies against the wrong secret |
 | Owner minutes | ~60, mostly waiting on the provider |
 
-**This repository must not create the account, submit KYC, or configure payouts.**
-
-Needed before a first payment can clear: seller eligibility, credential, webhook
-secret, a checkout or invoice path, currency, fee and settlement terms, refund
-and dispute handling.
+This repository must not create the account, submit KYC, or configure payouts.
 
 ---
 
-## 7. `FIRST_BUYER`
+## 8. `FIRST_BUYER`
 
 | | |
 |---|---|
@@ -153,58 +182,51 @@ advertisement created. That is a standing constraint, not an oversight.
 
 ---
 
-## 8. `FIRST_CLEARED_PAYMENT`
+## 9. `FIRST_CLEARED_PAYMENT`
 
 | | |
 |---|---|
-| Status | `BLOCKED_EXTERNAL` — depends on 6 and 7 |
+| Status | `BLOCKED_EXTERNAL` — depends on 7 and 8 |
 | Missing evidence | A provider-cleared payment event in durable storage |
 | Expected proof | Three witnesses agreeing on identity **and** money: order, classification receipt, revenue ledger row |
 | Kill condition | Any revenue figure without all three witnesses agreeing |
 
-The reconciliation for this is finished and heavily attacked. It cannot be
-satisfied from inside the repository, which is the point.
-
 ---
 
-## 9. `FIRST_DELIVERY`
+## 10. `FIRST_DELIVERY`
 
 | | |
 |---|---|
-| Status | `BLOCKED_EXTERNAL` — depends on 8 |
+| Status | `BLOCKED_EXTERNAL` — depends on 9 |
 | Missing evidence | Recorded requirements, QA evidence, delivery artifacts |
 | Expected proof | State machine reaching `DELIVERED` on real references |
 | Kill condition | Any evidence reference that points at nothing |
 
 ---
 
-## 10. `FIRST_CUSTOMER_ACCEPTANCE`
+## 11. `FIRST_CUSTOMER_ACCEPTANCE`
 
 | | |
 |---|---|
-| Status | `BLOCKED_EXTERNAL` — depends on 9 |
+| Status | `BLOCKED_EXTERNAL` — depends on 10 |
 | Missing evidence | External customer evidence, from the customer |
 | Expected proof | `CUSTOMER_ACCEPTED` with `evidenceClass: EXTERNAL_CUSTOMER` and a reference that points at something |
 | Kill condition | Acceptance asserted by us about ourselves |
 
-This is the gate the whole economic truth chain hangs on, and the one most
-worth attacking. `customer:` with nothing after it used to satisfy it; it no
-longer does.
-
 ---
 
-## 11. `FIRST_RENEWAL`
+## 12. `FIRST_RENEWAL`
 
 | | |
 |---|---|
-| Status | `BLOCKED_EXTERNAL` — depends on 10 plus elapsed time |
+| Status | `BLOCKED_EXTERNAL` — depends on 11 plus elapsed time |
 | Missing evidence | A second cleared payment on a live subscription |
 | Expected proof | A renewal event bound to the same customer and product |
 | Kill condition | A renewal claimed without its own provider event |
 
 ---
 
-## 12. `KILIMANJARO_DURATION`
+## 13. `KILIMANJARO_DURATION`
 
 | | |
 |---|---|
@@ -214,26 +236,21 @@ longer does.
 | Expected proof | An observation window with matching source commit and policy versions throughout |
 | Kill condition | Any compression of elapsed time |
 
-Seventeen distinct attempts to manufacture this status — synthetic tick counts,
-future dates, mixed source commits, stale proofs, unrecovered failures, reversed
-windows, self-verified capabilities — are all refused, and re-refused on every
-sweep. Only a complete honest proof reaches `KILIMANJARO_READY`.
+Only a complete honest proof reaches `KILIMANJARO_READY`.
 
 ---
 
 ## Owner actions, in order, and why this order
 
-**1. One provider credential and a spend ceiling.** Unlocks gate 1, and with it
-the cognitive loop against a real provider. Smallest action with the largest
-unlock. ~5 minutes.
+**1. Mailbox activation gate.** Authorize the bounded two-mailbox provider
+purchase and provide the credential through the protected secret channel. This
+opens the highest-practical reality lane without buying a large fleet.
 
-**2. A sandbox isolation attestation.** Unlocks gate 3, which is the only gate
-that can never be closed from inside no matter how much code is written.
-~15 minutes.
+**2. One provider credential and a spend ceiling.** Unlocks the model canary,
+with the smallest action that creates measured cognitive evidence.
 
-**3. Point a scheduler at the mesh tick.** Unlocks gate 2 and starts the clock
-on gate 12, which is the longest-duration gate and therefore the one worth
-starting first. ~10 minutes.
+**3. Point a scheduler at the mesh tick.** Unlocks the clock on the longest
+duration gate.
 
 Everything after that is commercial: an account, a buyer, a payment, a
 delivery, an acceptance, a renewal, and thirty days.

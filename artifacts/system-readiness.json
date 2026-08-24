@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-24T23:04:27.709Z",
+  "generatedAt": "2026-08-24T23:26:37.206Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "3dd8d22ee5acd1ddc5c901a08b4a08cfaf8f83ae",
-    "branch": "HEAD",
+    "head": "9e754614b76442705f19370be1226ef52f87e4d5",
+    "branch": "gpt/recovery-report-email-main-20260825",
     "sourceModules": 151,
-    "testSuites": 235,
+    "testSuites": 236,
     "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 480,
-      "ranAt": "2026-08-24T23:02:59Z"
+      "filesParsed": 481,
+      "ranAt": "2026-08-24T23:26:05Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2341,
-      "pass": 2293,
+      "tests": 2344,
+      "pass": 2296,
       "fail": 0,
       "skipped": 48,
-      "ranAt": "2026-08-24T23:02:59Z"
+      "ranAt": "2026-08-24T23:26:05Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -29,7 +29,7 @@
       "pass": 150,
       "fail": 0,
       "skipped": 0,
-      "ranAt": "2026-08-24T23:02:59Z"
+      "ranAt": "2026-08-24T23:26:05Z"
     },
     "test:postgres-real": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:postgres-real",
@@ -39,21 +39,21 @@
       "fail": 0,
       "skipped": 0,
       "note": "OMNIA_V9_TEST_DATABASE_URL was unavailable; the current sovereignty branch has no current real-PostgreSQL proof.",
-      "ranAt": "2026-08-24T23:02:59Z"
+      "ranAt": "2026-08-24T23:26:05Z"
     },
     "npm audit": {
       "command": "npm audit",
       "vulnerabilities": 0,
-      "ranAt": "2026-08-24T23:02:59Z"
+      "ranAt": "2026-08-24T23:26:05Z"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 148,
-      "reachableFromProduction": 99,
+      "srcModules": 151,
+      "reachableFromProduction": 103,
       "reachableFromOperatorScriptsOnly": 3,
       "noEntryPointAtAll": 45,
       "allClassified": true,
-      "ranAt": "2026-08-24T23:02:59Z"
+      "ranAt": "2026-08-24T23:26:05Z"
     }
   },
   "capabilities": [

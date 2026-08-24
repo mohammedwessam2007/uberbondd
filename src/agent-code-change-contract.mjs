@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { containsSecretValue } from './secret-patterns.mjs';
 import path from 'node:path';
 
-export const AGENT_CODE_CHANGE_POLICY_VERSION = 'agent-code-change-1.4.0';
+export const AGENT_CODE_CHANGE_POLICY_VERSION = 'agent-code-change-1.5.0';
 
 const MAX_CHANGES = 20;
 // Keep an entire change-set comfortably below the cloud relay's 250KB result
@@ -67,6 +67,11 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   'src/agent-worker-result-truth.mjs',
   // The isolation the engineering path runs inside.
   'src/claude-code-sandbox-provisioner.mjs',
+  // Customer acceptance, contractual timing and retained-customer truth.
+  // The mutation war already treats this module as sovereignty-critical through
+  // ACCEPT/TIME guards; leaving the file editable would make those protections
+  // detectable-after-the-fact rather than impossible to widen autonomously.
+  'src/service-fulfillment.mjs',
   // What may be claimed about money.
   //
   // Three modules, and for a while only two of them. `payments.mjs` decides what
@@ -109,6 +114,10 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   'tests/autonomy-constraint-monotonicity-property.test.mjs',
   'tests/deliverability-guard.test.mjs',
   'tests/effect-state-vocabulary.test.mjs',
+  'tests/fulfillment-evidence-referent.test.mjs',
+  'tests/fulfillment-forward-time.test.mjs',
+  'tests/service-fulfillment.test.mjs',
+  'tests/superseded-fulfillment-invariants.test.mjs',
   'tests/operator-escalation-episodes.test.mjs',
   'tests/operator-escalation-transport.test.mjs',
   'tests/outbound-stale-authorization.test.mjs',
@@ -129,8 +138,6 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   'tests/sovereignty-self-modification.test.mjs',
   'tests/worker-result-terminal-truth.test.mjs'
 ]);
-
-
 
 function text(value, max = MAX_TEXT) {
   return String(value ?? '').trim().slice(0, max);

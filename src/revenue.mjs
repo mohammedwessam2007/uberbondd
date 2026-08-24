@@ -8,6 +8,53 @@ import { ConflictError } from './store.mjs';
 const DAY = 86400000;
 const sha = value => crypto.createHash('sha256').update(String(value)).digest('hex');
 const validKey = key => /^[a-f0-9]{64}$/i.test(key || '');
+const PAYMENT_RECEIVED = 'received';
+const PAYMENT_APPLIED = 'applied';
+const PAYMENT_TERMINAL = 'terminal';
+const PAYMENT_QUARANTINED = 'quarantined';
+
+function paymentWitness(event) {
+  return {
+    provider: 'lemonsqueezy',
+    providerEventId: event.eventId,
+    eventName: event.eventName,
+    leadId: event.custom?.lead_id || '',
+    prospectId: event.custom?.prospect_id || '',
+    product: event.custom?.product || '',
+    amountCents: event.amountCents,
+    currency: event.currency,
+    status: event.status,
+    testMode: Boolean(event.testMode)
+  };
+}
+
+function witnessMismatches(order, event) {
+  const expected = paymentWitness(event);
+  const mismatches = [];
+  for (const [field, value] of Object.entries(expected)) {
+    // Older order witnesses predate completion-aware recovery. Missing fields
+    // are legacy silence and are allowed to resume; a present field that
+    // disagrees with the signed redelivery is a contradictory provider claim.
+    if (order?.[field] !== undefined && order?.[field] !== null && order[field] !== value) {
+      mismatches.push(field);
+    }
+  }
+  return mismatches;
+}
+
+function paymentRevenueId(event) {
+  return `${event.eventName}:${event.eventId}`;
+}
+
+function revenueWitnessMatches(row, expected) {
+  return row?.providerEventId === expected.providerEventId
+    && row?.leadId === expected.leadId
+    && row?.prospectId === expected.prospectId
+    && row?.product === expected.product
+    && row?.kind === expected.kind
+    && Number(row?.amountCents) === Number(expected.amountCents)
+    && String(row?.currency || '').toUpperCase() === String(expected.currency || '').toUpperCase();
+}
 
 // Bump when the audit decision logic changes so past receipts stay
 // attributable to the policy version that produced them.
@@ -32,6 +79,10 @@ export class RevenueEngine {
     this.pipeline = pipeline;
     this.hooks = hooks;
     this.publicHits = new Map();
+    // This is only a process-local concurrency fence. The durable order
+    // completionStatus remains the source of truth after a crash or restart;
+    // a fresh worker must still be able to resume a `received` witness.
+    this.paymentInflight = new Set();
     this.sendEmailFn = hooks.sendEmail || sendEmail;
     this.clock = hooks.clock || (() => new Date());
   }
@@ -259,29 +310,53 @@ export class RevenueEngine {
   async unlockLead(leadId, product = 'full', detail = {}) {
     const lead = await this.store.get('leads', leadId);
     if (!lead) throw new Error('Lead not found');
-    await this.store.patch('leads', lead.id, {
-      paymentStatus: 'paid', plan: product, paidAt: now(), provider: detail.provider || 'manual'
-    });
     const amount = Number(detail.amountCents || ({
       full: this.cfg.revenue.fullAuditPrice,
       strategy: this.cfg.revenue.strategyAuditPrice,
       monitoring: this.cfg.revenue.monitoringPrice
     }[product] || 0) * 100);
     const eventId = detail.eventId || id('rev');
-    try {
-      await this.store.add('revenueEvents', {
-        id: id('rev'), providerEventId: eventId, leadId: lead.id, prospectId: lead.prospectId,
-        product, kind: product === 'monitoring' ? 'subscription' : 'sale', amountCents: amount,
-        currency: detail.currency || 'USD', createdAt: now()
-      });
-    } catch (error) {
-      if (!(error instanceof ConflictError)) throw error;
+    const kind = product === 'monitoring' ? 'subscription' : 'sale';
+    const expectedRevenue = {
+      providerEventId: eventId, leadId: lead.id, prospectId: lead.prospectId,
+      product, kind, amountCents: amount, currency: detail.currency || 'USD'
+    };
+    const existingRevenue = await this.store.findOne('revenueEvents', { providerEventId: eventId });
+    if (existingRevenue) {
+      if (!revenueWitnessMatches(existingRevenue, expectedRevenue)) {
+        throw new ConflictError(`Contradictory revenue witness for provider event: ${eventId}`);
+      }
+    } else {
+      try {
+        await this.store.add('revenueEvents', { id: id('rev'), ...expectedRevenue, createdAt: now() });
+      } catch (error) {
+        if (!(error instanceof ConflictError)) throw error;
+        const racedRevenue = await this.store.findOne('revenueEvents', { providerEventId: eventId });
+        if (!revenueWitnessMatches(racedRevenue, expectedRevenue)) throw error;
+      }
     }
-    if (product === 'monitoring') await this.activateSubscription(lead, detail);
-    await this.store.add('notifications', {
-      id: id('note'), type: 'payment', leadId: lead.id, prospectId: lead.prospectId,
-      title: `Payment received: ${lead.company} · ${product}`, status: 'unread', createdAt: now()
+    // Materialize the economic witness before mutating lead access state. If
+    // a replay carries a contradictory witness, the operation fails closed
+    // without granting paid access or leaving a misleading paid lead behind.
+    await this.store.patch('leads', lead.id, {
+      paymentStatus: 'paid', plan: product, paidAt: now(), provider: detail.provider || 'manual'
     });
+    if (product === 'monitoring') await this.activateSubscription(lead, detail);
+    const notifications = await this.store.list('notifications');
+    if (!notifications.some(item => item.type === 'payment' && item.paymentEventId === eventId)) {
+      const notification = {
+        id: `note-payment-${sha(eventId)}`, type: 'payment', paymentEventId: eventId,
+        leadId: lead.id, prospectId: lead.prospectId,
+        title: `Payment received: ${lead.company} · ${product}`, status: 'unread', createdAt: now()
+      };
+      try {
+        await this.store.add('notifications', notification);
+      } catch (error) {
+        if (!(error instanceof ConflictError)) throw error;
+        const racedNotification = await this.store.get('notifications', notification.id);
+        if (racedNotification?.paymentEventId !== eventId) throw error;
+      }
+    }
     return this.store.get('leads', lead.id);
   }
 
@@ -345,16 +420,25 @@ export class RevenueEngine {
   }
 
   async recordRevenueEvent(lead, event, decision) {
-    const eventId = `${event.eventName}:${event.eventId}`;
-    try {
-      await this.store.add('revenueEvents', {
-        id: id('rev'), providerEventId: eventId, leadId: lead?.id || null, prospectId: lead?.prospectId || null,
-        product: event.custom?.product || '', kind: decision.revenueKind,
-        amountCents: Number(event.amountCents || 0) * decision.revenueSign,
-        currency: event.currency || 'USD', createdAt: now()
-      });
-    } catch (error) {
-      if (!(error instanceof ConflictError)) throw error;
+    const eventId = paymentRevenueId(event);
+    const expectedRevenue = {
+      providerEventId: eventId, leadId: lead?.id || null, prospectId: lead?.prospectId || null,
+      product: event.custom?.product || '', kind: decision.revenueKind,
+      amountCents: Number(event.amountCents || 0) * decision.revenueSign,
+      currency: event.currency || 'USD'
+    };
+    const existingRevenue = await this.store.findOne('revenueEvents', { providerEventId: eventId });
+    if (existingRevenue && !revenueWitnessMatches(existingRevenue, expectedRevenue)) {
+      throw new ConflictError(`Contradictory revenue witness for provider event: ${eventId}`);
+    }
+    if (!existingRevenue) {
+      try {
+        await this.store.add('revenueEvents', { id: id('rev'), ...expectedRevenue, createdAt: now() });
+      } catch (error) {
+        if (!(error instanceof ConflictError)) throw error;
+        const racedRevenue = await this.store.findOne('revenueEvents', { providerEventId: eventId });
+        if (!revenueWitnessMatches(racedRevenue, expectedRevenue)) throw error;
+      }
     }
     if (decision.revenueKind === 'refund' && lead?.id) {
       await this.store.patch('leads', lead.id, { refundedAt: now() });
@@ -365,52 +449,118 @@ export class RevenueEngine {
     if (!verifyLemonSignature(rawBody, signature, this.cfg.revenue.lemonWebhookSecret)) throw new Error('Invalid webhook signature');
     const payload = JSON.parse(rawBody);
     const event = normalizeLemonEvent(payload);
+    // Keep the durable order witness explicitly bounded to normalized fields;
+    // this shape is also guarded by the provider-payload minimization test.
+    const incomingWitness = {
+      provider: 'lemonsqueezy',
+      providerEventId: event.eventId,
+      eventName: event.eventName,
+      leadId: event.custom.lead_id || '',
+      prospectId: event.custom.prospect_id || '',
+      product: event.custom.product || '',
+      amountCents: event.amountCents,
+      currency: event.currency,
+      status: event.status,
+      testMode: event.testMode
+    };
+    let order;
     try {
-      await this.store.add('orders', {
-        id: id('order'), provider: 'lemonsqueezy', providerEventId: event.eventId,
-        eventName: event.eventName, leadId: event.custom.lead_id || '', prospectId: event.custom.prospect_id || '',
-        product: event.custom.product || '', amountCents: event.amountCents, currency: event.currency,
-        status: event.status, testMode: event.testMode, createdAt: now()
+      order = await this.store.add('orders', {
+        id: id('order'), ...incomingWitness,
+        completionStatus: PAYMENT_RECEIVED, createdAt: now()
       });
     } catch (error) {
       if (error instanceof ConflictError) {
-        await this.logPaymentDecision(event, { classification: 'DUPLICATE', reasonCodes: ['duplicate-provider-event-id'], shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null }, null);
-        return { duplicate: true, event };
+        order = await this.store.findOne('orders', { providerEventId: event.eventId });
+        if (!order) throw error;
+        const mismatches = witnessMismatches(order, event);
+        if (mismatches.length) {
+          await this.store.patch('orders', order.id, {
+            completionStatus: PAYMENT_QUARANTINED,
+            quarantineReason: 'provider-event-witness-mismatch',
+            quarantineFields: mismatches
+          });
+          await this.logPaymentDecision(event, {
+            classification: 'FAIL_CLOSED',
+            reasonCodes: ['provider-event-witness-mismatch', ...mismatches.map(field => `mismatched-${field}`)],
+            shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null
+          }, null);
+          return { duplicate: true, failClosed: true, reason: 'provider-event-witness-mismatch', event };
+        }
+        if (this.paymentInflight.has(event.eventId)) {
+          await this.logPaymentDecision(event, {
+            classification: 'DUPLICATE', reasonCodes: ['provider-event-in-flight'],
+            shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null
+          }, null);
+          return { duplicate: true, replay: 'IN_FLIGHT', reason: 'provider-event-in-flight', event };
+        }
+        if ([PAYMENT_APPLIED, PAYMENT_TERMINAL, PAYMENT_QUARANTINED].includes(order.completionStatus)) {
+          const classification = order.completionStatus === PAYMENT_QUARANTINED ? 'FAIL_CLOSED' : 'DUPLICATE';
+          await this.logPaymentDecision(event, {
+            classification, reasonCodes: [order.completionStatus === PAYMENT_QUARANTINED ? 'provider-event-quarantined' : 'duplicate-provider-event-id'],
+            shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null
+          }, null);
+          return {
+            duplicate: true, failClosed: classification === 'FAIL_CLOSED',
+            replay: classification === 'DUPLICATE' ? 'IDEMPOTENT_REPLAY' : undefined,
+            reason: classification === 'FAIL_CLOSED' ? 'provider-event-quarantined' : 'duplicate-provider-event-id', event
+          };
+        }
+        // The witness exists but its economic consequence did not finish. Do
+        // not call this a duplicate: continue through classification and the
+        // idempotent effect writers so a provider retry can resume the event.
+      } else {
+        throw error;
       }
-      throw error;
     }
 
-    const leadId = event.custom.lead_id || '';
-    const lead = leadId ? await this.store.get('leads', leadId) : null;
-    const decision = classifyPaymentEvent({ event, lead, cfg: this.cfg });
-    await this.logPaymentDecision(event, decision, lead);
-
-    if (decision.shouldUnlock) {
-      // Only a genuinely cleared payment (CLEARED_ONE_TIME_PAYMENT or
-      // CLEARED_SUBSCRIPTION_PAYMENT) ever reaches unlockLead, which is the
-      // only place a revenueEvents row is created for a "sale". A
-      // subscription_updated/resumed/terminal event never lands here.
-      await this.unlockLead(leadId, event.custom.product || 'full', {
-        provider: 'lemonsqueezy', providerId: event.eventId,
-        eventId: `${event.eventName}:${event.eventId}`, amountCents: event.amountCents,
-        currency: event.currency, status: decision.subscriptionStatus || event.status || 'active'
-      });
-    } else if (decision.shouldRecordRevenue) {
-      await this.recordRevenueEvent(lead, event, decision);
+    if (this.paymentInflight.has(event.eventId)) {
+      await this.logPaymentDecision(event, {
+        classification: 'DUPLICATE', reasonCodes: ['provider-event-in-flight'],
+        shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null
+      }, null);
+      return { duplicate: true, replay: 'IN_FLIGHT', reason: 'provider-event-in-flight', event };
     }
+    this.paymentInflight.add(event.eventId);
+    try {
+      const leadId = event.custom.lead_id || '';
+      const lead = leadId ? await this.store.get('leads', leadId) : null;
+      const decision = classifyPaymentEvent({ event, lead, cfg: this.cfg });
+      await this.logPaymentDecision(event, decision, lead);
 
-    if (decision.shouldSyncSubscriptionStatus && !decision.shouldUnlock && leadId) {
-      const subscription = (await this.store.list('subscriptions')).find(item => item.leadId === leadId);
-      if (subscription) {
-        await this.store.patch('subscriptions', subscription.id, {
-          status: decision.subscriptionStatus,
-          nextRunAt: decision.subscriptionStatus === 'active'
-            ? (subscription.nextRunAt || new Date(Date.now() + this.cfg.revenue.monitoringIntervalDays * DAY).toISOString())
-            : null
+      if (decision.shouldUnlock) {
+        // Only a genuinely cleared payment (CLEARED_ONE_TIME_PAYMENT or
+        // CLEARED_SUBSCRIPTION_PAYMENT) ever reaches unlockLead, which is the
+        // only place a revenueEvents row is created for a "sale". A
+        // subscription_updated/resumed/terminal event never lands here.
+        await this.unlockLead(leadId, event.custom.product || 'full', {
+          provider: 'lemonsqueezy', providerId: event.eventId,
+          eventId: paymentRevenueId(event), amountCents: event.amountCents,
+          currency: event.currency, status: decision.subscriptionStatus || event.status || 'active'
         });
+      } else if (decision.shouldRecordRevenue) {
+        await this.recordRevenueEvent(lead, event, decision);
       }
+
+      if (decision.shouldSyncSubscriptionStatus && !decision.shouldUnlock && leadId) {
+        const subscription = (await this.store.list('subscriptions')).find(item => item.leadId === leadId);
+        if (subscription) {
+          await this.store.patch('subscriptions', subscription.id, {
+            status: decision.subscriptionStatus,
+            nextRunAt: decision.subscriptionStatus === 'active'
+              ? (subscription.nextRunAt || new Date(Date.now() + this.cfg.revenue.monitoringIntervalDays * DAY).toISOString())
+              : null
+          });
+        }
+      }
+      await this.store.patch('orders', order.id, {
+        completionStatus: decision.shouldUnlock || decision.shouldRecordRevenue ? PAYMENT_APPLIED : PAYMENT_TERMINAL,
+        completedAt: now(), classification: decision.classification
+      });
+      return { ok: true, event, classification: decision.classification };
+    } finally {
+      this.paymentInflight.delete(event.eventId);
     }
-    return { ok: true, event, classification: decision.classification };
   }
 
   async processMonitoring() {

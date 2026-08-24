@@ -2,16 +2,16 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 441,
-      "ranAt": "2026-08-23T00:45:00Z"
+      "filesParsed": 477,
+      "ranAt": "2026-08-24T21:12:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2060,
-      "pass": 2018,
+      "tests": 2325,
+      "pass": 2277,
       "fail": 0,
-      "skipped": 42,
-      "ranAt": "2026-08-23T07:25:00Z"
+      "skipped": 48,
+      "ranAt": "2026-08-24T21:12:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -19,31 +19,35 @@
       "pass": 150,
       "fail": 0,
       "skipped": 0,
-      "ranAt": "2026-08-23T01:20:00Z"
+      "ranAt": "2026-08-24T21:12:00Z"
     },
     "test:postgres-real": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:postgres-real",
-      "tests": 107,
-      "pass": 107,
-      "fail": 0,
-      "skipped": 0,
-      "engine": "PostgreSQL 18.4",
-      "note": "The 42 suites that skip without a real database. Serial; they interfere in parallel.",
-      "ranAt": "2026-08-23T01:25:00Z"
+      "status": "NOT_RUN_CURRENT_BRANCH",
+      "reason": "OMNIA_V9_TEST_DATABASE_URL was not configured in this verification environment; historical PostgreSQL receipts remain historical evidence only.",
+      "ranAt": null
     },
     "npm audit": {
       "command": "npm audit",
       "vulnerabilities": 0,
-      "ranAt": "2026-08-23T01:20:00Z"
+      "ranAt": "2026-08-24T21:13:00Z"
+    },
+    "test:mutation-war": {
+      "command": "npm run test:mutation-war",
+      "mutations": 58,
+      "killed": 57,
+      "survived": 0,
+      "skippedNeedsPostgres": 1,
+      "ranAt": "2026-08-24T21:21:00Z"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 148,
-      "reachableFromProduction": 99,
+      "srcModules": 151,
+      "reachableFromProduction": 103,
       "reachableFromOperatorScriptsOnly": 3,
       "noEntryPointAtAll": 45,
       "allClassified": true,
-      "ranAt": "2026-08-23T04:55:00Z"
+      "ranAt": "2026-08-24T21:12:00Z"
     }
   },
   "capabilities": [
@@ -74,10 +78,7 @@
         "tests/store.test.mjs",
         "tests/postgres-schema.test.mjs"
       ],
-      "externalEvidence": [
-        "test:postgres-real 107/107 on PostgreSQL 18.4"
-      ],
-      "nextAction": "None internal."
+      "nextAction": "Real PostgreSQL proof must be rerun against the current branch before treating the database path as current evidence."
     },
     {
       "id": "relay",

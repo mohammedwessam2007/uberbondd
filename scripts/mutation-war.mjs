@@ -154,8 +154,8 @@ export const MUTATIONS = [
   {
     id: 'PRIV-01', guard: 'The decoded provider payload is not durable business state',
     file: 'src/revenue.mjs',
-    find: "        status: event.status, testMode: event.testMode, createdAt: now()",
-    replace: "        status: event.status, testMode: event.testMode, createdAt: now(), raw: payload",
+    find: "        status: preparedEvent.status, testMode: preparedEvent.testMode, createdAt: now()",
+    replace: "        status: preparedEvent.status, testMode: preparedEvent.testMode, createdAt: now(), raw: payload",
     suites: ['tests/provider-payload-minimization.test.mjs', 'tests/provider-payload-minimization-source-guard.test.mjs']
   },
   {

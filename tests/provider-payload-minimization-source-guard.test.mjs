@@ -25,15 +25,17 @@ test('PRIV-01: payment webhook writer cannot persist the decoded raw provider pa
 
   for (const normalizedWitness of [
     "provider: 'lemonsqueezy'",
-    'providerEventId: event.eventId',
-    'eventName: event.eventName',
-    'leadId: event.custom.lead_id',
-    'prospectId: event.custom.prospect_id',
-    'product: event.custom.product',
-    'amountCents: event.amountCents',
-    'currency: event.currency',
-    'status: event.status',
-    'testMode: event.testMode'
+    'providerEventId: preparedEvent.eventId',
+    'providerOccurrenceId: preparedEvent.providerOccurrenceId || preparedEvent.eventId',
+    'providerObjectId: preparedEvent.providerObjectId || \'\'',
+    'eventName: preparedEvent.eventName',
+    'leadId: preparedEvent.custom.lead_id',
+    'prospectId: preparedEvent.custom.prospect_id',
+    'product: preparedEvent.custom.product',
+    'amountCents: preparedEvent.amountCents',
+    'currency: preparedEvent.currency',
+    'status: preparedEvent.status',
+    'testMode: preparedEvent.testMode'
   ]) {
     assert.equal(writer.includes(normalizedWitness), true,
       `bounded normalized witness disappeared: ${normalizedWitness}`);

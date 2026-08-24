@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 
 // Bump when the classification policy changes so past receipts stay
 // attributable to the policy version that produced them.
-export const PAYMENT_TRUTH_POLICY_VERSION = 'payment-truth-1.0.0';
+export const PAYMENT_TRUTH_POLICY_VERSION = 'payment-truth-1.1.0';
 
 export const KNOWN_PRODUCTS = ['full', 'strategy', 'monitoring'];
 
@@ -134,18 +134,63 @@ export function checkoutUrl(baseUrl, custom={}) {
   return url.href;
 }
 
+// Lemon Squeezy sends the Order resource for both `order_created` and
+// `order_refunded`. `data.id` identifies that resource, not one webhook
+// occurrence. A stable state digest gives us an occurrence/state identity when
+// the provider does not include a distinct webhook id in the payload, while
+// leaving the provider object id available for refund-state reconciliation.
+const VOLATILE_STATE_KEYS = new Set(['created_at', 'updated_at']);
+
+function canonicalState(value) {
+  if (Array.isArray(value)) return value.map(canonicalState);
+  if (!value || typeof value !== 'object') return value;
+  return Object.fromEntries(
+    Object.keys(value)
+      .filter(key => !VOLATILE_STATE_KEYS.has(key))
+      .sort()
+      .map(key => [key, canonicalState(value[key])])
+  );
+}
+
+function stateDigest(value) {
+  return crypto.createHash('sha256').update(JSON.stringify(canonicalState(value))).digest('hex');
+}
+
 export function normalizeLemonEvent(payload={}) {
   const meta=payload.meta||{};
   const data=payload.data||{};
   const attributes=data.attributes||{};
+  const eventName=String(meta.event_name||'');
+  const providerObjectId=String(data.id||'');
+  const explicitWebhookId=String(meta.webhook_id||'');
+  const snapshotDigest=stateDigest({
+    eventName,
+    objectType:String(data.type||''),
+    providerObjectId,
+    custom:meta.custom_data||{},
+    attributes
+  });
+  // Prefer an explicit provider occurrence id when one is present. The
+  // fallback is deliberately derived from the signed state, not the object
+  // id, so order_created and order_refunded for one Order cannot collide.
+  const eventId=explicitWebhookId || (providerObjectId ? `state:${snapshotDigest}` : '');
+  const refundAmount=attributes.refunded_amount ?? attributes.total ?? attributes.subtotal ?? 0;
+  const amountCents=Number(eventName === 'order_refunded'
+    ? refundAmount
+    : (attributes.total ?? attributes.subtotal ?? attributes.amount ?? 0));
   return {
-    eventName:String(meta.event_name||''),
-    eventId:String(data.id||meta.webhook_id||''),
+    eventName,
+    eventId,
+    providerOccurrenceId:eventId,
+    providerObjectId,
+    snapshotDigest,
     objectType:String(data.type||''),
     custom:meta.custom_data||{},
     attributes,
     testMode:Boolean(meta.test_mode||attributes.test_mode),
-    amountCents:Number(attributes.total||attributes.subtotal||0),
+    amountCents,
+    providerAmountCents:amountCents,
+    cumulativeRefundedAmountCents:eventName === 'order_refunded' ? Number(refundAmount) : Number(attributes.refunded_amount ?? 0),
     currency:String(attributes.currency||attributes.currency_code||'USD'),
     customerEmail:String(attributes.user_email||attributes.customer_email||''),
     status:String(attributes.status||''),

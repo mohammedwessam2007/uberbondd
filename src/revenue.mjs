@@ -24,6 +24,10 @@ function revealToken(record, key) {
 function cleanText(value, max = 300) {
   return String(value || '').trim().replace(/\s+/g, ' ').slice(0, max);
 }
+function safeCents(value, fallback = null) {
+  const number = Number(value);
+  return Number.isSafeInteger(number) ? number : fallback;
+}
 
 export class RevenueEngine {
   constructor(store, cfg, pipeline, hooks = {}) {
@@ -256,10 +260,10 @@ export class RevenueEngine {
     return { sent: true };
   }
 
-  async unlockLead(leadId, product = 'full', detail = {}) {
-    const lead = await this.store.get('leads', leadId);
+  async unlockLead(leadId, product = 'full', detail = {}, store = this.store) {
+    const lead = await store.get('leads', leadId);
     if (!lead) throw new Error('Lead not found');
-    await this.store.patch('leads', lead.id, {
+    await store.patch('leads', lead.id, {
       paymentStatus: 'paid', plan: product, paidAt: now(), provider: detail.provider || 'manual'
     });
     const amount = Number(detail.amountCents || ({
@@ -269,7 +273,7 @@ export class RevenueEngine {
     }[product] || 0) * 100);
     const eventId = detail.eventId || id('rev');
     try {
-      await this.store.add('revenueEvents', {
+      await store.add('revenueEvents', {
         id: id('rev'), providerEventId: eventId, leadId: lead.id, prospectId: lead.prospectId,
         product, kind: product === 'monitoring' ? 'subscription' : 'sale', amountCents: amount,
         currency: detail.currency || 'USD', createdAt: now()
@@ -277,27 +281,27 @@ export class RevenueEngine {
     } catch (error) {
       if (!(error instanceof ConflictError)) throw error;
     }
-    if (product === 'monitoring') await this.activateSubscription(lead, detail);
-    await this.store.add('notifications', {
+    if (product === 'monitoring') await this.activateSubscription(lead, detail, store);
+    await store.add('notifications', {
       id: id('note'), type: 'payment', leadId: lead.id, prospectId: lead.prospectId,
       title: `Payment received: ${lead.company} · ${product}`, status: 'unread', createdAt: now()
     });
-    return this.store.get('leads', lead.id);
+    return store.get('leads', lead.id);
   }
 
-  async activateSubscription(lead, detail = {}) {
-    const subscriptions = await this.store.list('subscriptions');
+  async activateSubscription(lead, detail = {}, store = this.store) {
+    const subscriptions = await store.list('subscriptions');
     let subscription = subscriptions.find(item =>
       item.leadId === lead.id && item.provider === (detail.provider || 'lemonsqueezy') && item.status !== 'expired'
     );
     const nextRunAt = new Date(Date.now() + this.cfg.revenue.monitoringIntervalDays * DAY).toISOString();
     if (subscription) {
-      await this.store.patch('subscriptions', subscription.id, {
+      await store.patch('subscriptions', subscription.id, {
         providerId: String(detail.providerId || subscription.providerId || ''), status: detail.status || 'active',
         amountCents: Number(detail.amountCents || subscription.amountCents || this.cfg.revenue.monitoringPrice * 100),
         currency: detail.currency || subscription.currency || 'USD', nextRunAt
       });
-      return this.store.get('subscriptions', subscription.id);
+      return store.get('subscriptions', subscription.id);
     }
     subscription = {
       id: id('sub'), leadId: lead.id, prospectId: lead.prospectId,
@@ -306,16 +310,19 @@ export class RevenueEngine {
       currency: detail.currency || 'USD', intervalDays: this.cfg.revenue.monitoringIntervalDays,
       nextRunAt, createdAt: now()
     };
-    await this.store.add('subscriptions', subscription);
+    await store.add('subscriptions', subscription);
     return subscription;
   }
 
-  async logPaymentDecision(event, decision, lead) {
-    return this.store.log('payment_classification', {
+  async logPaymentDecision(event, decision, lead, store = this.store) {
+    return store.log('payment_classification', {
       classification: decision.classification,
       reasonCodes: decision.reasonCodes,
       eventName: event?.eventName || null,
       eventId: event?.eventId || null,
+      providerOccurrenceId: event?.providerOccurrenceId || event?.eventId || null,
+      providerObjectId: event?.providerObjectId || null,
+      providerStateDigest: event?.snapshotDigest || null,
       // The money this classification was made about.
       //
       // `payment-renewal-truth` compares amount and currency across all three
@@ -331,6 +338,9 @@ export class RevenueEngine {
       // because the one witness written by a different code path at a different
       // moment had nothing to say about the number.
       amountCents: Number.isSafeInteger(Number(event?.amountCents)) ? Number(event.amountCents) : null,
+      providerAmountCents: safeCents(event?.providerAmountCents),
+      cumulativeRefundedAmountCents: safeCents(event?.cumulativeRefundedAmountCents),
+      refundDeltaCents: safeCents(event?.refundDeltaCents),
       currency: String(event?.currency || '').trim().toUpperCase() || null,
       leadId: lead?.id || event?.custom?.lead_id || null,
       prospectId: lead?.prospectId || event?.custom?.prospect_id || null,
@@ -344,10 +354,10 @@ export class RevenueEngine {
     });
   }
 
-  async recordRevenueEvent(lead, event, decision) {
+  async recordRevenueEvent(lead, event, decision, store = this.store) {
     const eventId = `${event.eventName}:${event.eventId}`;
     try {
-      await this.store.add('revenueEvents', {
+      await store.add('revenueEvents', {
         id: id('rev'), providerEventId: eventId, leadId: lead?.id || null, prospectId: lead?.prospectId || null,
         product: event.custom?.product || '', kind: decision.revenueKind,
         amountCents: Number(event.amountCents || 0) * decision.revenueSign,
@@ -357,7 +367,7 @@ export class RevenueEngine {
       if (!(error instanceof ConflictError)) throw error;
     }
     if (decision.revenueKind === 'refund' && lead?.id) {
-      await this.store.patch('leads', lead.id, { refundedAt: now() });
+      await store.patch('leads', lead.id, { refundedAt: now() });
     }
   }
 
@@ -365,38 +375,177 @@ export class RevenueEngine {
     if (!verifyLemonSignature(rawBody, signature, this.cfg.revenue.lemonWebhookSecret)) throw new Error('Invalid webhook signature');
     const payload = JSON.parse(rawBody);
     const event = normalizeLemonEvent(payload);
-    try {
-      await this.store.add('orders', {
-        id: id('order'), provider: 'lemonsqueezy', providerEventId: event.eventId,
-        eventName: event.eventName, leadId: event.custom.lead_id || '', prospectId: event.custom.prospect_id || '',
-        product: event.custom.product || '', amountCents: event.amountCents, currency: event.currency,
-        status: event.status, testMode: event.testMode, createdAt: now()
-      });
-    } catch (error) {
-      if (error instanceof ConflictError) {
-        await this.logPaymentDecision(event, { classification: 'DUPLICATE', reasonCodes: ['duplicate-provider-event-id'], shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null }, null);
-        return { duplicate: true, event };
+
+    // Serialize state transitions for one Lemon object. A provider object can
+    // emit order_created and then several order_refunded snapshots, all with
+    // the same data.id. The lock is a no-op for JSON (its transaction queue is
+    // already serialized) and a transaction advisory lock for PostgreSQL.
+    // This protects the refund delta calculation without confusing object
+    // identity with webhook occurrence identity.
+    const prepared = await this.store.transaction(async tx => {
+      const lockKey = event.providerObjectId || event.eventId;
+      if (tx.pool?.query && lockKey) {
+        await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`lemon-webhook:${lockKey}`]);
       }
-      throw error;
+
+      const orders = await tx.list('orders');
+      const existing = orders.find(row => row.provider === 'lemonsqueezy' && row.providerEventId === event.eventId);
+      if (existing) {
+        const contradictory = Boolean(
+          existing.providerStateDigest && event.snapshotDigest && existing.providerStateDigest !== event.snapshotDigest
+        );
+        return {
+          kind: contradictory ? 'review' : 'duplicate',
+          event,
+          reasonCodes: contradictory ? ['duplicate-provider-event-contradiction'] : ['duplicate-provider-event-id']
+        };
+      }
+
+      const sameObject = event.providerObjectId
+        ? orders.filter(row => row.provider === 'lemonsqueezy' && (
+            row.providerObjectId === event.providerObjectId
+            // Rows written before object/occurrence separation are still part
+            // of the same provider object when their old event id is data.id.
+            || (!row.providerObjectId && row.providerEventId === event.providerObjectId)
+          ))
+        : [];
+      const stateReasonCodes = [];
+      const nonFatalStateReasonCodes = [];
+      let preparedEvent = { ...event };
+
+      if (event.eventName === 'order_refunded') {
+        const nonNegativeCents = value => {
+          const number = Number(value);
+          return Number.isSafeInteger(number) && number >= 0 ? number : null;
+        };
+        const cumulative = nonNegativeCents(event.cumulativeRefundedAmountCents);
+        // Older stored witnesses and a few provider integrations may not carry
+        // the same object id on the refund. If the signed custom data identifies
+        // exactly one order, use that order as a cautious migration fallback;
+        // the normal path remains provider-object linkage.
+        let relatedOrders = sameObject;
+        if (!relatedOrders.length) {
+          const candidates = orders.filter(row => row.provider === 'lemonsqueezy'
+            && row.eventName === 'order_created'
+            && String(row.leadId || '') === String(event.custom.lead_id || '')
+            && String(row.prospectId || '') === String(event.custom.prospect_id || '')
+            && String(row.product || '') === String(event.custom.product || '')
+            && String(row.currency || '').toUpperCase() === String(event.currency || '').toUpperCase());
+          if (candidates.length === 1) {
+            relatedOrders = candidates;
+            nonFatalStateReasonCodes.push('refund-object-linkage-fallback');
+          }
+        }
+        const refundHistory = sameObject.length
+          ? sameObject
+          : orders.filter(row => row.provider === 'lemonsqueezy'
+            && row.eventName === 'order_refunded'
+            && String(row.leadId || '') === String(event.custom.lead_id || '')
+            && String(row.prospectId || '') === String(event.custom.prospect_id || '')
+            && String(row.product || '') === String(event.custom.product || '')
+            && String(row.currency || '').toUpperCase() === String(event.currency || '').toUpperCase());
+        const revenueEvents = await tx.list('revenueEvents');
+        const clearedRevenue = revenueEvents.filter(row => Number(row.amountCents || 0) > 0
+          && relatedOrders.some(order => {
+            const occurrence = order.providerOccurrenceId || order.providerEventId;
+            return row.providerEventId === `${order.eventName}:${occurrence}`
+              || row.providerEventId === order.providerEventId;
+          }));
+        const priorCumulative = Math.max(0, ...refundHistory
+          .filter(row => row.eventName === 'order_refunded')
+          .map(row => nonNegativeCents(
+            row.providerCumulativeRefundedAmountCents
+              ?? row.cumulativeRefundedAmountCents
+              ?? Math.abs(Number(row.amountCents || 0))
+          ) ?? 0));
+        const originalAmount = Math.max(0, ...clearedRevenue
+          .map(row => nonNegativeCents(row.amountCents) ?? 0));
+
+        if (cumulative === null) stateReasonCodes.push('refund-cumulative-amount-invalid');
+        const currentCumulative = cumulative ?? 0;
+        const delta = currentCumulative - priorCumulative;
+        preparedEvent = {
+          ...preparedEvent,
+          amountCents: delta > 0 ? delta : 0,
+          providerAmountCents: currentCumulative,
+          cumulativeRefundedAmountCents: currentCumulative,
+          refundDeltaCents: delta
+        };
+        if (delta < 0) stateReasonCodes.push('refund-cumulative-regression');
+        else if (delta === 0) stateReasonCodes.push('refund-state-already-applied');
+        if (delta > 0 && originalAmount === 0) stateReasonCodes.push('refund-before-cleared-payment');
+        if (delta > 0 && originalAmount > 0 && currentCumulative > originalAmount) {
+          stateReasonCodes.push('refund-exceeds-cleared-order');
+        }
+      }
+
+      await tx.add('orders', {
+        id: id('order'), provider: 'lemonsqueezy', providerEventId: preparedEvent.eventId,
+        providerOccurrenceId: preparedEvent.providerOccurrenceId || preparedEvent.eventId,
+        providerObjectId: preparedEvent.providerObjectId || '',
+        providerStateDigest: preparedEvent.snapshotDigest || '',
+        eventName: preparedEvent.eventName, leadId: preparedEvent.custom.lead_id || '', prospectId: preparedEvent.custom.prospect_id || '',
+        product: preparedEvent.custom.product || '', amountCents: preparedEvent.amountCents, currency: preparedEvent.currency,
+        providerAmountCents: preparedEvent.providerAmountCents,
+        providerCumulativeRefundedAmountCents: preparedEvent.cumulativeRefundedAmountCents,
+        refundDeltaCents: preparedEvent.refundDeltaCents,
+        status: preparedEvent.status, testMode: preparedEvent.testMode, createdAt: now()
+      });
+      return { kind: 'new', event: preparedEvent, stateReasonCodes, nonFatalStateReasonCodes };
+    });
+
+    if (prepared.kind === 'duplicate' || prepared.kind === 'review') {
+      const decision = {
+        classification: prepared.kind === 'duplicate' ? 'DUPLICATE' : 'REVIEW_REQUIRED',
+        reasonCodes: prepared.reasonCodes,
+        shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null
+      };
+      await this.logPaymentDecision(prepared.event, decision, null);
+      return prepared.kind === 'duplicate'
+        ? { duplicate: true, event: prepared.event }
+        : { review: true, event: prepared.event, classification: decision.classification, reasonCodes: decision.reasonCodes };
     }
 
-    const leadId = event.custom.lead_id || '';
+    const eventToProcess = prepared.event;
+
+    const leadId = eventToProcess.custom.lead_id || '';
     const lead = leadId ? await this.store.get('leads', leadId) : null;
-    const decision = classifyPaymentEvent({ event, lead, cfg: this.cfg });
-    await this.logPaymentDecision(event, decision, lead);
+    let decision = classifyPaymentEvent({ event: eventToProcess, lead, cfg: this.cfg });
+    const hardStateReasonCodes = prepared.stateReasonCodes;
+    const stateReasonCodes = [...new Set([
+      ...prepared.stateReasonCodes,
+      ...(prepared.nonFatalStateReasonCodes || [])
+    ])];
+    if (hardStateReasonCodes.length) {
+      const reasonCodes = [...new Set([...decision.reasonCodes, ...stateReasonCodes])];
+      const noEconomicDelta = hardStateReasonCodes.length === 1
+        && hardStateReasonCodes[0] === 'refund-state-already-applied';
+      decision = {
+        ...decision,
+        reasonCodes,
+        ...(noEconomicDelta ? {
+          shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null, revenueSign: 0
+        } : {
+          classification: 'REVIEW_REQUIRED',
+          shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null, revenueSign: 0,
+          shouldSyncSubscriptionStatus: false, subscriptionStatus: null
+        })
+      };
+    }
+    await this.logPaymentDecision(eventToProcess, decision, lead);
 
     if (decision.shouldUnlock) {
       // Only a genuinely cleared payment (CLEARED_ONE_TIME_PAYMENT or
       // CLEARED_SUBSCRIPTION_PAYMENT) ever reaches unlockLead, which is the
       // only place a revenueEvents row is created for a "sale". A
       // subscription_updated/resumed/terminal event never lands here.
-      await this.unlockLead(leadId, event.custom.product || 'full', {
-        provider: 'lemonsqueezy', providerId: event.eventId,
-        eventId: `${event.eventName}:${event.eventId}`, amountCents: event.amountCents,
-        currency: event.currency, status: decision.subscriptionStatus || event.status || 'active'
+      await this.unlockLead(leadId, eventToProcess.custom.product || 'full', {
+        provider: 'lemonsqueezy', providerId: eventToProcess.providerObjectId || eventToProcess.eventId,
+        eventId: `${eventToProcess.eventName}:${eventToProcess.eventId}`, amountCents: eventToProcess.amountCents,
+        currency: eventToProcess.currency, status: decision.subscriptionStatus || eventToProcess.status || 'active'
       });
     } else if (decision.shouldRecordRevenue) {
-      await this.recordRevenueEvent(lead, event, decision);
+      await this.recordRevenueEvent(lead, eventToProcess, decision);
     }
 
     if (decision.shouldSyncSubscriptionStatus && !decision.shouldUnlock && leadId) {
@@ -409,6 +558,12 @@ export class RevenueEngine {
             : null
         });
       }
+    }
+    if (hardStateReasonCodes.length && decision.classification === 'REVIEW_REQUIRED') {
+      return {
+        review: true, event: eventToProcess, classification: decision.classification,
+        reasonCodes: decision.reasonCodes
+      };
     }
     return { ok: true, event, classification: decision.classification };
   }

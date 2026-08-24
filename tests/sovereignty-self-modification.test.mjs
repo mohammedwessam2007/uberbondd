@@ -157,5 +157,5 @@ test('the guard is load-bearing: removing an entry lets the edit through', () =>
     'both tiers must be non-empty; an empty list refuses nothing');
   // The positive control: a path absent from both lists is accepted, so the
   // refusals above come from membership rather than from a blanket denial.
-  assert.equal(changeSet('src/market-signal.mjs').ok, true);
+  assert.equal(changeSet('src/market-signal-registry.mjs').ok, true);
 });

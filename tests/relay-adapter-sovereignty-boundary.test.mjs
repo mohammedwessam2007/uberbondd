@@ -76,8 +76,8 @@ test('relay sovereignty expansion does not become a blanket freeze', () => {
     baseRevision: 'black-sky-current-main',
     changes: [{
       operation: 'UPDATE',
-      path: 'src/market-signal.mjs',
-      beforeSha256: contentSha256('current market signal source'),
+      path: 'src/market-signal-registry.mjs',
+      beforeSha256: contentSha256('current market signal registry source'),
       content: '// ordinary internal maintenance\n',
       rationale: 'Routine internal maintenance outside sovereignty.'
     }],

@@ -193,6 +193,13 @@ export const MUTATIONS = [
     replace: '    if (false) {',
     suites: ['tests/reservation-recovery-race.test.mjs']
   },
+  {
+    id: 'MESH-01', guard: 'An abandoned same-occurrence STARTED receipt is terminalized before duplicate return',
+    file: 'src/agent-mesh-control-plane.mjs',
+    find: "      if (afterReconciliation.state === 'TERMINAL') {",
+    replace: '      if (false) {',
+    suites: ['tests/agent-mesh-same-occurrence-abandonment.test.mjs']
+  },
 
   // ---- Acceptance and retention ------------------------------------------
   {

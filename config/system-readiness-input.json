@@ -2,16 +2,16 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 441,
-      "ranAt": "2026-08-23T00:45:00Z"
+      "filesParsed": 477,
+      "ranAt": "2026-08-24T22:30:07Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2060,
-      "pass": 2018,
+      "tests": 2321,
+      "pass": 2273,
       "fail": 0,
-      "skipped": 42,
-      "ranAt": "2026-08-23T07:25:00Z"
+      "skipped": 48,
+      "ranAt": "2026-08-24T22:30:07Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -19,31 +19,31 @@
       "pass": 150,
       "fail": 0,
       "skipped": 0,
-      "ranAt": "2026-08-23T01:20:00Z"
+      "ranAt": "2026-08-24T22:30:07Z"
     },
     "test:postgres-real": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:postgres-real",
-      "tests": 107,
-      "pass": 107,
+      "status": "NOT_RUN_CURRENT_BRANCH",
+      "tests": 0,
+      "pass": 0,
       "fail": 0,
       "skipped": 0,
-      "engine": "PostgreSQL 18.4",
-      "note": "The 42 suites that skip without a real database. Serial; they interfere in parallel.",
-      "ranAt": "2026-08-23T01:25:00Z"
+      "note": "Not run on this branch: OMNIA_V9_TEST_DATABASE_URL was not available. Same-occurrence recovery still needs real PostgreSQL proof.",
+      "ranAt": "2026-08-24T22:30:07Z"
     },
     "npm audit": {
       "command": "npm audit",
       "vulnerabilities": 0,
-      "ranAt": "2026-08-23T01:20:00Z"
+      "ranAt": "2026-08-24T22:30:07Z"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 148,
-      "reachableFromProduction": 99,
+      "srcModules": 151,
+      "reachableFromProduction": 103,
       "reachableFromOperatorScriptsOnly": 3,
       "noEntryPointAtAll": 45,
       "allClassified": true,
-      "ranAt": "2026-08-23T04:55:00Z"
+      "ranAt": "2026-08-24T22:30:07Z"
     }
   },
   "capabilities": [

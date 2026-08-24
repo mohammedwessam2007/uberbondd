@@ -5,7 +5,7 @@ import fs from 'node:fs/promises';
 const REVENUE = new URL('../src/revenue.mjs', import.meta.url);
 
 function webhookOrderWriter(source) {
-  const start = source.indexOf('async handleLemonWebhook(rawBody, signature)');
+  const start = source.indexOf('  paymentOrderWitness(event) {');
   assert.notEqual(start, -1, 'handleLemonWebhook must exist');
   const end = source.indexOf('\n  async processMonitoring()', start);
   assert.notEqual(end, -1, 'handleLemonWebhook boundary must remain discoverable');
@@ -26,6 +26,8 @@ test('PRIV-01: payment webhook writer cannot persist the decoded raw provider pa
   for (const normalizedWitness of [
     "provider: 'lemonsqueezy'",
     'providerEventId: event.eventId',
+    'providerOccurrenceId: event.providerOccurrenceId || event.eventId',
+    'providerObjectId: event.providerObjectId || \'\'',
     'eventName: event.eventName',
     'leadId: event.custom.lead_id',
     'prospectId: event.custom.prospect_id',

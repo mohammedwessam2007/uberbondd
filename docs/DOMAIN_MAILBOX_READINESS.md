@@ -32,8 +32,10 @@ wave: 590/590 passing.
 
 ## Real vs claimed, tonight
 
-Zero domains registered, zero mailboxes registered, zero provider
-credentials configured (`instantly`/`googleWorkspace`/`microsoft365` all
-`configured: false` in `src/config.mjs`). Everything in this file describes
-tested, real, *ready* code — not live state. See
+Zero domains are provider-registered, zero mailboxes are verified, and zero
+provider credentials are configured. The owner has supplied the two exact
+outreach targets `uberbond.agency` and `uberbond.cloud`, but that is not a
+provider/registrar receipt. The initial candidate is Maildoso monthly SMTP;
+no Maildoso credential or live adapter exists in `src/config.mjs`. Everything
+in this file describes tested, real, *ready* code — not live state. See
 `docs/OUTREACH_ACTIVATION_CARD.md` for the exact next owner action.

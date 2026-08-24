@@ -528,18 +528,34 @@ export class RevenueEngine {
       const decision = classifyPaymentEvent({ event, lead, cfg: this.cfg });
       await this.logPaymentDecision(event, decision, lead);
 
-      if (decision.shouldUnlock) {
-        // Only a genuinely cleared payment (CLEARED_ONE_TIME_PAYMENT or
-        // CLEARED_SUBSCRIPTION_PAYMENT) ever reaches unlockLead, which is the
-        // only place a revenueEvents row is created for a "sale". A
-        // subscription_updated/resumed/terminal event never lands here.
-        await this.unlockLead(leadId, event.custom.product || 'full', {
-          provider: 'lemonsqueezy', providerId: event.eventId,
-          eventId: paymentRevenueId(event), amountCents: event.amountCents,
-          currency: event.currency, status: decision.subscriptionStatus || event.status || 'active'
+      try {
+        if (decision.shouldUnlock) {
+          // Only a genuinely cleared payment (CLEARED_ONE_TIME_PAYMENT or
+          // CLEARED_SUBSCRIPTION_PAYMENT) ever reaches unlockLead, which is the
+          // only place a revenueEvents row is created for a "sale". A
+          // subscription_updated/resumed/terminal event never lands here.
+          await this.unlockLead(leadId, event.custom.product || 'full', {
+            provider: 'lemonsqueezy', providerId: event.eventId,
+            eventId: paymentRevenueId(event), amountCents: event.amountCents,
+            currency: event.currency, status: decision.subscriptionStatus || event.status || 'active'
+          });
+        } else if (decision.shouldRecordRevenue) {
+          await this.recordRevenueEvent(lead, event, decision);
+        }
+      } catch (error) {
+        // A durable ledger row with a contradictory witness is not a retryable
+        // partial write. Quarantine the provider event before returning so
+        // future deliveries cannot keep retrying a poisoned economic claim.
+        if (!(error instanceof ConflictError)) throw error;
+        await this.store.patch('orders', order.id, {
+          completionStatus: PAYMENT_QUARANTINED,
+          quarantineReason: 'payment-witness-mismatch'
         });
-      } else if (decision.shouldRecordRevenue) {
-        await this.recordRevenueEvent(lead, event, decision);
+        await this.logPaymentDecision(event, {
+          classification: 'FAIL_CLOSED', reasonCodes: ['payment-witness-mismatch'],
+          shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null
+        }, lead);
+        return { failClosed: true, reason: 'payment-witness-mismatch', event };
       }
 
       if (decision.shouldSyncSubscriptionStatus && !decision.shouldUnlock && leadId) {

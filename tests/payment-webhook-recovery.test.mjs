@@ -182,8 +182,10 @@ test('a contradictory ledger witness cannot grant paid access during recovery', 
     amountCents: 9900, currency: 'USD', createdAt: new Date().toISOString()
   });
 
-  await assert.rejects(() => deliver(engine, event), /Contradictory revenue witness/);
+  const result = await deliver(engine, event);
+  assert.equal(result.failClosed, true);
+  assert.equal(result.reason, 'payment-witness-mismatch');
   assert.equal((await store.get('leads', lead.id)).paymentStatus, 'unpaid');
   const [order] = await store.list('orders');
-  assert.equal(order.completionStatus, 'received');
+  assert.equal(order.completionStatus, 'quarantined');
 });

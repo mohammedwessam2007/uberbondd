@@ -80,6 +80,12 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   // history or overwrite a newer irreversible outbound reservation state.
   'src/durable-audit-scan.mjs',
   'src/reservation-recovery.mjs',
+  // Evidence provenance and source clamping decide whether commercial inputs
+  // may be treated as stronger than their witnesses. These remain dormant
+  // until their activation gates open, but the autonomous path must not be
+  // able to weaken the clamps before that happens.
+  'src/prospect-evidence-reconciliation.mjs',
+  'src/market-signal.mjs',
   // What may be claimed about money.
   //
   // Three modules, and for a while only two of them. `payments.mjs` decides what
@@ -131,6 +137,8 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   'tests/github-relay.test.mjs',
   'tests/durable-audit-scan-ceiling.test.mjs',
   'tests/reservation-recovery-race.test.mjs',
+  'tests/evidence-class-laundering.test.mjs',
+  'tests/market-signal.test.mjs',
   'tests/operator-escalation-episodes.test.mjs',
   'tests/operator-escalation-transport.test.mjs',
   'tests/outbound-stale-authorization.test.mjs',

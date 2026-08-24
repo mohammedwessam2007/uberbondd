@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-23T23:40:31.747Z",
+  "generatedAt": "2026-08-24T23:04:27.709Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "fef2313be2a3b4c4479b40be5c02d4fe5864630f",
-    "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
+    "head": "3dd8d22ee5acd1ddc5c901a08b4a08cfaf8f83ae",
+    "branch": "HEAD",
     "sourceModules": 151,
-    "testSuites": 231,
+    "testSuites": 235,
     "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 441,
-      "ranAt": "2026-08-23T00:45:00Z"
+      "filesParsed": 480,
+      "ranAt": "2026-08-24T23:02:59Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2060,
-      "pass": 2018,
+      "tests": 2341,
+      "pass": 2293,
       "fail": 0,
-      "skipped": 42,
-      "ranAt": "2026-08-23T07:25:00Z"
+      "skipped": 48,
+      "ranAt": "2026-08-24T23:02:59Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -29,22 +29,22 @@
       "pass": 150,
       "fail": 0,
       "skipped": 0,
-      "ranAt": "2026-08-23T01:20:00Z"
+      "ranAt": "2026-08-24T23:02:59Z"
     },
     "test:postgres-real": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:postgres-real",
-      "tests": 107,
-      "pass": 107,
+      "status": "NOT_RUN_CURRENT_BRANCH",
+      "tests": 0,
+      "pass": 0,
       "fail": 0,
       "skipped": 0,
-      "engine": "PostgreSQL 18.4",
-      "note": "The 42 suites that skip without a real database. Serial; they interfere in parallel.",
-      "ranAt": "2026-08-23T01:25:00Z"
+      "note": "OMNIA_V9_TEST_DATABASE_URL was unavailable; the current sovereignty branch has no current real-PostgreSQL proof.",
+      "ranAt": "2026-08-24T23:02:59Z"
     },
     "npm audit": {
       "command": "npm audit",
       "vulnerabilities": 0,
-      "ranAt": "2026-08-23T01:20:00Z"
+      "ranAt": "2026-08-24T23:02:59Z"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
@@ -53,7 +53,7 @@
       "reachableFromOperatorScriptsOnly": 3,
       "noEntryPointAtAll": 45,
       "allClassified": true,
-      "ranAt": "2026-08-23T04:55:00Z"
+      "ranAt": "2026-08-24T23:02:59Z"
     }
   },
   "capabilities": [

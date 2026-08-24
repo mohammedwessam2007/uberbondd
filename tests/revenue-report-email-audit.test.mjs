@@ -75,7 +75,8 @@ test('a missing destination address blocks the email and is audited', async () =
   const { store, dir } = await tempStore();
   const config = cfg(dir);
   const { engine, lead, prospect } = await seedLead(store, config);
-  const brokenLead = { ...lead, email: '' };
+  await store.patch('leads', lead.id, { email: '' });
+  const brokenLead = await store.get('leads', lead.id);
   const result = await engine.sendReportEmail(brokenLead, prospect);
   assert.equal(result.sent, false);
   assert.equal(result.reason, 'missing-destination');

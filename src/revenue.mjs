@@ -11,7 +11,7 @@ const validKey = key => /^[a-f0-9]{64}$/i.test(key || '');
 
 // Bump when the audit decision logic changes so past receipts stay
 // attributable to the policy version that produced them.
-export const REPORT_EMAIL_POLICY_VERSION = 'report-email-audit-1.0.0';
+export const REPORT_EMAIL_POLICY_VERSION = 'report-email-recovery-1.1.0';
 
 function protectToken(token, key) {
   return validKey(key) ? { encrypted: true, value: encryptJson({ token }, key) } : { encrypted: false, value: token };
@@ -42,7 +42,11 @@ export class RevenueEngine {
   // kill switch (cfg.revenue.autoEmailReports) and idempotency key
   // (lead.id), never the outreach guard or campaign machinery.
   async logReportEmailDecision(outcome, reason, { lead, prospect } = {}) {
-    return this.store.log('report_email_audit', {
+    return this.logReportEmailDecisionOn(this.store, outcome, reason, { lead, prospect });
+  }
+
+  async logReportEmailDecisionOn(store, outcome, reason, { lead, prospect } = {}) {
+    return store.log('report_email_audit', {
       effectClass: 'transactional-report-email',
       outcome, reason,
       leadId: lead?.id || null,
@@ -193,67 +197,187 @@ export class RevenueEngine {
     }
   }
 
+  async lockReportEmailLead(store, leadId) {
+    if (store?.pool?.query) {
+      const result = await store.pool.query('SELECT data FROM leads WHERE id=$1 FOR UPDATE', [leadId]);
+      return result.rows[0]?.data || null;
+    }
+    return store.get('leads', leadId);
+  }
+
+  async lockReportEmailAccount(store, slot) {
+    if (store?.pool?.query) {
+      const result = await store.pool.query('SELECT data FROM accounts WHERE slot=$1 FOR UPDATE', [slot]);
+      return result.rows[0]?.data || null;
+    }
+    return store.findOne('accounts', { slot });
+  }
+
+  async upsertReportEmailLead(store, current, patch) {
+    // `PostgresStore.patch()` opens its own transaction, which is not valid
+    // while this path is already inside the claim/finalization transaction.
+    // Upsert is the store's direct scoped operation on both backends, so the
+    // caller's row lock and the state transition share one transaction.
+    return store.upsert('leads', { ...current, ...patch, updatedAt: now() });
+  }
+
+  // This is the only admission path to the irreversible report-email provider
+  // call. The caller's lead is deliberately treated as a stale hint: the
+  // durable row is re-read and claimed inside one transaction before the
+  // provider boundary. JSON transactions serialize this naturally; PostgreSQL
+  // locks the lead row for the same invariant across processes.
+  async claimReportEmailAttempt(lead, prospect) {
+    if (!lead?.id) return { ok: false, reason: 'missing-lead', lead, prospect };
+    return this.store.transaction(async tx => {
+      const current = await this.lockReportEmailLead(tx, lead.id);
+      if (!current) return { ok: false, reason: 'missing-lead', lead, prospect };
+      const durableProspect = current.prospectId ? await tx.get('prospects', current.prospectId) : null;
+      const selectedProspect = durableProspect || prospect;
+      const attemptStatus = String(current.reportEmailAttemptStatus || '').toLowerCase();
+
+      if (current.reportEmailSentAt || attemptStatus === 'sent') {
+        return { ok: false, reason: 'already-sent', lead: current, prospect: selectedProspect };
+      }
+      if (attemptStatus === 'uncertain') {
+        // A prior provider effect is unresolved. It requires explicit owner
+        // reconciliation and can never be replayed automatically.
+        return { ok: false, reason: 'unresolved-prior-attempt-requires-owner-review', lead: current, prospect: selectedProspect };
+      }
+      if (attemptStatus === 'dispatching') {
+        return { ok: false, reason: 'report-email-in-flight', lead: current, prospect: selectedProspect };
+      }
+      if (attemptStatus && !['dispatching', 'uncertain'].includes(attemptStatus)) {
+        return { ok: false, reason: 'unrecognized-prior-attempt-state', lead: current, prospect: selectedProspect };
+      }
+      if (current.reportEmailAttemptId && !attemptStatus) {
+        return { ok: false, reason: 'unrecognized-prior-attempt-state', lead: current, prospect: selectedProspect };
+      }
+      if (!selectedProspect) return { ok: false, reason: 'missing-prospect', lead: current, prospect: selectedProspect };
+      if (!isEmail(current.email)) return { ok: false, reason: 'missing-destination', lead: current, prospect: selectedProspect };
+
+      const account = await this.lockReportEmailAccount(tx, this.cfg.revenue.reportDeliveryInbox);
+      if (!account?.connected) return { ok: false, reason: 'provider-capability-absent', lead: current, prospect: selectedProspect };
+      const token = this.tokenForLead(current);
+      if (!token) return { ok: false, reason: 'missing-access-token', lead: current, prospect: selectedProspect };
+
+      const attemptId = id('report-attempt');
+      const claimedAt = this.clock().toISOString();
+      const claimed = await this.upsertReportEmailLead(tx, current, {
+        reportEmailAttemptId: attemptId,
+        reportEmailAttemptStatus: 'dispatching',
+        reportEmailClaimedAt: claimedAt,
+        reportEmailUncertainAt: null,
+        reportEmailUncertainReason: null
+      });
+      return { ok: true, attemptId, lead: claimed || current, prospect: selectedProspect, account, token };
+    });
+  }
+
+  async markReportEmailUncertain({ leadId, attemptId, prospect, reason }) {
+    try {
+      return await this.store.transaction(async tx => {
+        const current = await this.lockReportEmailLead(tx, leadId);
+        if (!current) return { persisted: false, reason: 'missing-lead' };
+        const status = String(current.reportEmailAttemptStatus || '').toLowerCase();
+        if (current.reportEmailSentAt || status === 'sent') return { persisted: false, terminal: 'sent' };
+        if (current.reportEmailAttemptId && current.reportEmailAttemptId !== attemptId) {
+          return { persisted: false, reason: 'claim-replaced' };
+        }
+        const updated = await this.upsertReportEmailLead(tx, current, {
+          reportEmailAttemptStatus: 'uncertain',
+          reportEmailUncertainAt: this.clock().toISOString(),
+          reportEmailUncertainReason: reason
+        });
+        await this.logReportEmailDecisionOn(tx, 'uncertain', reason, { lead: updated || current, prospect });
+        return { persisted: true, lead: updated || current };
+      });
+    } catch {
+      // A failed uncertainty write leaves the durable pre-provider claim in
+      // dispatching. That state is itself a permanent automatic-retry block;
+      // never fall back to replay merely because this repair receipt failed.
+      return { persisted: false, reason: 'uncertainty-persistence-failed' };
+    }
+  }
+
+  async finalizeReportEmailAttempt(claim, result) {
+    const providerId = String(result?.data?.id || '').trim();
+    const providerThreadId = String(result?.data?.threadId || '').trim();
+    if (!providerId || !providerThreadId) throw new Error('provider-result-missing-message-reference');
+
+    return this.store.transaction(async tx => {
+      const current = await this.lockReportEmailLead(tx, claim.lead.id);
+      if (!current) throw new Error('report-email-lead-missing-during-finalization');
+      const status = String(current.reportEmailAttemptStatus || '').toLowerCase();
+      if (current.reportEmailSentAt || status === 'sent') return { sent: false, reason: 'already-sent' };
+      if (status !== 'dispatching' || current.reportEmailAttemptId !== claim.attemptId) {
+        throw new Error('report-email-claim-not-current');
+      }
+
+      const account = await this.lockReportEmailAccount(tx, this.cfg.revenue.reportDeliveryInbox);
+      if (!account) throw new Error('report-email-account-missing-during-finalization');
+      if (result.tokens) {
+        await tx.upsert('accounts', { ...account, tokens: sealTokens(result.tokens, this.cfg.encryptionKey) });
+      }
+
+      const sentAt = this.clock().toISOString();
+      const updated = await this.upsertReportEmailLead(tx, current, {
+        reportEmailSentAt: sentAt,
+        reportEmailAttemptStatus: 'sent',
+        reportEmailProviderId: providerId,
+        reportEmailProviderThreadId: providerThreadId,
+        reportEmailFinalizedAt: sentAt
+      });
+      await tx.add('messages', {
+        id: `report-email:${claim.attemptId}`, kind: 'transactional-report', leadId: current.id,
+        prospectId: claim.prospect.id, inbox: account.slot, to: current.email,
+        subject: `${current.company} digital opportunity report`, gmailId: providerId,
+        threadId: providerThreadId, sentAt
+      });
+      await this.logReportEmailDecisionOn(tx, 'sent', 'sent', { lead: updated || current, prospect: claim.prospect });
+      return { sent: true };
+    });
+  }
+
   async sendReportEmail(lead, prospect) {
     if (!this.cfg.revenue?.autoEmailReports) {
       await this.logReportEmailDecision('blocked', 'kill-switch-disabled', { lead, prospect });
       return { sent: false, reason: 'kill-switch-disabled' };
     }
-    if (lead?.reportEmailSentAt) {
-      await this.logReportEmailDecision('blocked', 'already-sent', { lead, prospect });
-      return { sent: false, reason: 'already-sent' };
+
+    const claim = await this.claimReportEmailAttempt(lead, prospect);
+    if (!claim.ok) {
+      await this.logReportEmailDecision('blocked', claim.reason, { lead: claim.lead || lead, prospect: claim.prospect || prospect });
+      return { sent: false, reason: claim.reason };
     }
-    if (lead?.reportEmailAttemptStatus === 'uncertain') {
-      // A prior attempt's provider outcome is unresolved. Never automatically
-      // retry an action whose external result is unknown; this requires an
-      // explicit owner action to clear before another attempt can happen.
-      await this.logReportEmailDecision('blocked', 'unresolved-prior-attempt-requires-owner-review', { lead, prospect });
-      return { sent: false, reason: 'unresolved-prior-attempt-requires-owner-review' };
-    }
-    if (!isEmail(lead?.email)) {
-      await this.logReportEmailDecision('blocked', 'missing-destination', { lead, prospect });
-      return { sent: false, reason: 'missing-destination' };
-    }
-    const account = await this.store.findOne('accounts', { slot: this.cfg.revenue.reportDeliveryInbox });
-    if (!account?.connected) {
-      await this.logReportEmailDecision('blocked', 'provider-capability-absent', { lead, prospect });
-      return { sent: false, reason: 'provider-capability-absent' };
-    }
-    const token = this.tokenForLead(lead);
-    if (!token) {
-      await this.logReportEmailDecision('blocked', 'missing-access-token', { lead, prospect });
-      return { sent: false, reason: 'missing-access-token' };
-    }
-    const reportUrl = `${this.cfg.baseUrl}/report.html?token=${encodeURIComponent(token)}`;
-    const body = `Hi,\n\nYour UberBond Digital Opportunity Snapshot for ${lead.company} is ready.\n\nScore: ${prospect.score?.total ?? 'ready'}\nView the report: ${reportUrl}\n\nThe free snapshot includes the primary evidence-backed opportunity. The report page also contains options for a full audit, strategy review, and recurring monitoring.\n\nUberBond`;
+
+    const reportUrl = `${this.cfg.baseUrl}/report.html?token=${encodeURIComponent(claim.token)}`;
+    const body = `Hi,\n\nYour UberBond Digital Opportunity Snapshot for ${claim.lead.company} is ready.\n\nScore: ${claim.prospect.score?.total ?? 'ready'}\nView the report: ${reportUrl}\n\nThe free snapshot includes the primary evidence-backed opportunity. The report page also contains options for a full audit, strategy review, and recurring monitoring.\n\nUberBond`;
 
     let result;
     try {
-      result = await this.sendEmailFn(this.cfg.google, account, this.cfg.encryptionKey, {
-        from: `${this.cfg.sender.name} <${account.email}>`, to: lead.email,
-        subject: `${lead.company} digital opportunity report`, body
+      result = await this.sendEmailFn(this.cfg.google, claim.account, this.cfg.encryptionKey, {
+        from: `${this.cfg.sender.name} <${claim.account.email}>`, to: claim.lead.email,
+        subject: `${claim.lead.company} digital opportunity report`, body
       });
-    } catch (error) {
-      // The provider outcome is genuinely unknown -- the request may or may
-      // not have been delivered. Never infer success from the absence of an
-      // earlier error and never infer failure either; record it as unknown
-      // and block automatic retry until an owner reviews it.
-      await this.store.patch('leads', lead.id, { reportEmailAttemptStatus: 'uncertain' });
-      await this.logReportEmailDecision('uncertain', 'provider-result-uncertain', { lead, prospect });
+    } catch {
+      await this.markReportEmailUncertain({
+        leadId: claim.lead.id, attemptId: claim.attemptId, prospect: claim.prospect,
+        reason: 'provider-result-uncertain'
+      });
       return { sent: false, uncertain: true, reason: 'provider-result-uncertain' };
     }
 
-    if (result.tokens) {
-      account.tokens = sealTokens(result.tokens, this.cfg.encryptionKey);
-      await this.store.upsert('accounts', account);
+    try {
+      return await this.finalizeReportEmailAttempt(claim, result);
+    } catch {
+      // The provider has already answered successfully, so every local failure
+      // after this point is an uncertain external effect, never a safe retry.
+      await this.markReportEmailUncertain({
+        leadId: claim.lead.id, attemptId: claim.attemptId, prospect: claim.prospect,
+        reason: 'post-provider-persistence-failed'
+      });
+      return { sent: false, uncertain: true, reason: 'post-provider-persistence-failed' };
     }
-    await this.store.patch('leads', lead.id, { reportEmailSentAt: now(), reportEmailAttemptStatus: 'sent' });
-    await this.store.add('messages', {
-      id: id('msg'), kind: 'transactional-report', leadId: lead.id, prospectId: prospect.id,
-      inbox: account.slot, to: lead.email, subject: `${lead.company} digital opportunity report`,
-      gmailId: result.data.id, threadId: result.data.threadId, sentAt: now()
-    });
-    await this.logReportEmailDecision('sent', 'sent', { lead, prospect });
-    return { sent: true };
   }
 
   async unlockLead(leadId, product = 'full', detail = {}) {

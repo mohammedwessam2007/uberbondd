@@ -36,7 +36,7 @@ async function setup() {
     industry: 'SaaS', consent: true
   }, '127.0.0.1');
   const lead = await store.get('leads', created.leadId);
-  return { store, engine, lead };
+  return { store, engine, lead, dir };
 }
 
 function webhook(lead) {
@@ -63,7 +63,7 @@ function signed(payload) {
 }
 
 test('provider webhook retry resumes after crash between order receipt and economic completion', async () => {
-  const { store, engine, lead } = await setup();
+  const { store, engine, lead, dir } = await setup();
   const { raw, signature } = signed(webhook(lead));
 
   const originalLog = store.log.bind(store);
@@ -85,19 +85,26 @@ test('provider webhook retry resumes after crash between order receipt and econo
   assert.equal((await store.list('orders')).length, 1, 'provider event is already durably marked seen');
   assert.equal((await store.list('revenueEvents')).length, 0, 'economic effect did not complete before the crash');
 
-  // Simulate process restart: no in-memory state survives. The provider retries
-  // the same signed event because the prior request failed.
-  const restarted = new RevenueEngine(store, config(store.dir || ''), { running: true, paused: false, runBatch: async () => {} });
+  // Simulate process restart: no in-memory failure hook survives. The provider
+  // retries the same signed event because the prior request failed.
+  const restartedStore = new Store(dir);
+  await restartedStore.init();
+  const restarted = new RevenueEngine(
+    restartedStore,
+    config(dir),
+    { running: true, paused: false, runBatch: async () => {} }
+  );
   const retry = await restarted.handleLemonWebhook(raw, signature);
 
   assert.notEqual(retry.duplicate, true,
     'a provider event is not safely duplicate until its classification/economic transition is durably complete');
 
-  const paidLead = await store.get('leads', lead.id);
+  const paidLead = await restartedStore.get('leads', lead.id);
   assert.equal(paidLead.paymentStatus, 'paid', 'retry must finish the interrupted cleared-payment transition');
-  assert.equal((await store.list('revenueEvents')).length, 1, 'retry must materialize exactly one economic ledger effect');
+  assert.equal((await restartedStore.list('revenueEvents')).length, 1,
+    'retry must materialize exactly one economic ledger effect');
 
-  const truth = await reconcilePaymentRenewalTruthFromStore(store, { leadId: lead.id });
+  const truth = await reconcilePaymentRenewalTruthFromStore(restartedStore, { leadId: lead.id });
   assert.equal(truth.stages.CLEARED_PAYMENT.status, 'PROVEN');
   assert.equal(truth.economics.netProviderClearedRevenueCents, 4900);
 });

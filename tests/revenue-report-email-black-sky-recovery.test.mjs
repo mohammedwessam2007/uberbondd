@@ -52,7 +52,7 @@ async function fixture() {
   };
 }
 
-test('provider success followed by local persistence failure must not permit automatic duplicate report email after restart', async () => {
+test('provider success followed by account persistence failure must not permit automatic duplicate report email after restart', async () => {
   const { store, config, pipeline, lead, prospect } = await fixture();
   let providerAccepts = 0;
   const provider = async () => {
@@ -69,7 +69,7 @@ test('provider success followed by local persistence failure must not permit aut
   store.upsert = async (...args) => {
     if (injectFailure && args[0] === 'accounts') {
       injectFailure = false;
-      throw new Error('simulated crash after provider acceptance before local commit');
+      throw new Error('simulated crash after provider acceptance before account commit');
     }
     return realUpsert(...args);
   };
@@ -84,13 +84,56 @@ test('provider success followed by local persistence failure must not permit aut
   const durableLeadAfterCrash = await store.get('leads', lead.id);
   assert.ok(
     ['uncertain', 'dispatching'].includes(durableLeadAfterCrash.reportEmailAttemptStatus),
-    'a durable pre-provider or in-flight fence must survive a later local persistence failure'
+    'a durable pre-provider or in-flight fence must survive a later account persistence failure'
   );
 
   const restartedProcess = new RevenueEngine(store, config, pipeline, { sendEmail: provider });
   const retry = await restartedProcess.sendReportEmail(durableLeadAfterCrash, prospect);
   assert.equal(retry.sent, false, 'restart must fail closed while the first attempt is unresolved');
   assert.equal(providerAccepts, 1, 'restart must not blindly repeat an email already accepted by the provider');
+});
+
+test('provider success followed by sent-marker persistence failure must not permit automatic duplicate after restart', async () => {
+  const { store, config, pipeline, lead, prospect } = await fixture();
+  let providerAccepts = 0;
+  const provider = async () => {
+    providerAccepts += 1;
+    return { data: { id: `gmail-${providerAccepts}`, threadId: 'thread-lead-patch' } };
+  };
+
+  const firstProcess = new RevenueEngine(store, config, pipeline, { sendEmail: provider });
+  const realPatch = store.patch.bind(store);
+  let injectFailure = true;
+  store.patch = async (collection, recordId, patch) => {
+    if (
+      injectFailure &&
+      collection === 'leads' &&
+      recordId === lead.id &&
+      patch?.reportEmailAttemptStatus === 'sent'
+    ) {
+      injectFailure = false;
+      throw new Error('simulated crash after provider acceptance before sent marker');
+    }
+    return realPatch(collection, recordId, patch);
+  };
+
+  await assert.rejects(
+    firstProcess.sendReportEmail(lead, prospect),
+    /simulated crash after provider acceptance before sent marker/
+  );
+  assert.equal(providerAccepts, 1, 'the provider accepted exactly once before the sent-marker crash');
+
+  store.patch = realPatch;
+  const durableLeadAfterCrash = await store.get('leads', lead.id);
+  assert.ok(
+    ['uncertain', 'dispatching'].includes(durableLeadAfterCrash.reportEmailAttemptStatus),
+    'provider success with a failed sent-marker commit must remain durably unresolved'
+  );
+
+  const restartedProcess = new RevenueEngine(store, config, pipeline, { sendEmail: provider });
+  const retry = await restartedProcess.sendReportEmail(durableLeadAfterCrash, prospect);
+  assert.equal(retry.sent, false, 'restart must not infer that no provider effect happened');
+  assert.equal(providerAccepts, 1, 'restart must not resend after the provider already accepted the email');
 });
 
 test('two concurrent report-email callers with the same stale lead snapshot must produce at most one provider acceptance', async () => {

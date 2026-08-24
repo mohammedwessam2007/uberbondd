@@ -3,7 +3,7 @@
   "generatedAt": "2026-08-24T22:31:06.181Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "9c8b7aead74283feed423964393ad5b7a97deda5",
+    "head": "bff215707f53a0007d373d813a3bc733210bf448",
     "branch": "gpt/recovery-same-occurrence-abandonment-20260825",
     "sourceModules": 151,
     "testSuites": 232,

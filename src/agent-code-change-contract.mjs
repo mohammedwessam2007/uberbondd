@@ -139,6 +139,7 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   'tests/provider-payload-minimization.test.mjs',
   'tests/provider-payload-minimization-source-guard.test.mjs',
   'tests/payment-recovery-war.test.mjs',
+  'tests/revenue-report-email-recovery.test.mjs',
   'tests/payment-renewal-truth.test.mjs',
   'tests/payment-truth-double-count.test.mjs',
   'tests/payment-truth-lead-scope.test.mjs',

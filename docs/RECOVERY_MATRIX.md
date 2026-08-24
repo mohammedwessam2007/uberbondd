@@ -4,6 +4,8 @@ Wave 18's exit gate. Every persistence boundary where a crash could produce a
 second irreversible effect, with the classification it must produce and the test
 that holds it there.
 
+**Current exception:** post-BLACK-SKY revalidation found the transactional report-email path is not covered by the generic outbound rows below. See the dedicated section under Outbound. Until that P1 is repaired and the hostile regression passes, this matrix is not a complete recovery exit gate.
+
 Classifications:
 
 | | |
@@ -35,6 +37,20 @@ Classifications:
 The checkpoint-C case is the one that matters: a crash after the provider
 accepted but before the local receipt landed must reconcile from provider
 evidence and must never redispatch.
+
+### Transactional report email — open P1 #128
+
+This path is implemented separately in `RevenueEngine.sendReportEmail()` and does **not** currently use the outbound reservation/execution fence above. Direct inspection on BLACK SKY main `2ce97af4bafa05db3dbeec3a83320186ea06a956` shows the irreversible provider call occurs before any durable in-flight state is claimed.
+
+| Boundary | Crash/race point | Required classification | Current proof |
+|---|---|---|---|
+| Report email admission | before provider call | `SAFE_RETRY` only before any durable claim/provider effect | open P1 #128 |
+| Provider accepts, account/token persistence fails | after irreversible accept, before sent marker | `UNCERTAIN` + `QUARANTINE`; never automatic retry | `tests/revenue-report-email-black-sky-recovery.test.mjs` on PR #134 |
+| Two callers share stale unsent lead snapshot | concurrent pre-provider admission | exactly one may cross the provider boundary; loser must `FAIL_CLOSED`/observe in-flight state | same |
+| Restart sees unresolved in-flight attempt | restart | `UNCERTAIN`; never automatic retry | same |
+| Durable sent marker exists | replay | `IDEMPOTENT_REPLAY` / terminal preservation | existing revenue report-email audit coverage |
+
+The current production source does not yet satisfy the middle three rows. `src/revenue.mjs` is sovereignty-protected, so the repair must be human/sovereignty-governed rather than bypassing that boundary. The narrow repair is to atomically re-read the durable lead, claim `dispatching` before the provider call, refuse automatic replay from `dispatching`/`uncertain`, and transition monotonically to `sent` or `uncertain`.
 
 ## Payment — money
 

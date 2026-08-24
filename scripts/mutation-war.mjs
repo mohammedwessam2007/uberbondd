@@ -154,8 +154,8 @@ export const MUTATIONS = [
   {
     id: 'PRIV-01', guard: 'The decoded provider payload is not durable business state',
     file: 'src/revenue.mjs',
-    find: "        status: event.status, testMode: event.testMode, createdAt: now()",
-    replace: "        status: event.status, testMode: event.testMode, createdAt: now(), raw: payload",
+    find: '      const witness = this.paymentOrderWitness(preparedEvent);',
+    replace: '      const witness = { ...this.paymentOrderWitness(preparedEvent), raw: payload };',
     suites: ['tests/provider-payload-minimization.test.mjs', 'tests/provider-payload-minimization-source-guard.test.mjs']
   },
   {
@@ -185,6 +185,13 @@ export const MUTATIONS = [
     find: "      currency: String(event?.currency || '').trim().toUpperCase() || null,",
     replace: '      currency: null,',
     suites: ['tests/payment-receipt-witnesses-money.test.mjs']
+  },
+  {
+    id: 'MONEY-16', guard: 'An incomplete payment witness resumes instead of becoming a duplicate',
+    file: 'src/revenue.mjs',
+    find: "      if (order.processingStatus === 'completed') {",
+    replace: '      if (true) {',
+    suites: ['tests/payment-webhook-recovery.test.mjs']
   },
   {
     id: 'RECOV-01', guard: 'Recovery may not overwrite a newer reservation status',

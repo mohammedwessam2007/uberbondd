@@ -32,7 +32,7 @@ const headSha = () => git(['rev-parse', 'HEAD']);
 const CURRENT_STATE_ARTIFACTS = [
   {
     path: 'docs/CURRENT_SYSTEM_STATE.md',
-    extract: text => (text.match(/Reconciled from main:\s*`([0-9a-f]{7,40})`/) || [])[1]
+    extract: text => (text.match(/Reconciled from (?:main|current head):\s*`([0-9a-f]{7,40})`/) || [])[1]
   },
   {
     path: 'artifacts/system-readiness.json',

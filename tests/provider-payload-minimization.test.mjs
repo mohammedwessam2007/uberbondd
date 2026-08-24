@@ -75,7 +75,10 @@ test('signed provider webhook persists bounded normalized witness and never the 
   }
 
   assert.equal(persisted.provider, 'lemonsqueezy');
-  assert.equal(persisted.providerEventId, 'evt_privacy_current_main');
+  assert.match(persisted.providerEventId, /^state:/,
+    'provider event identity must be an occurrence/state identity, not the Lemon Order object id');
+  assert.equal(persisted.providerOccurrenceId, persisted.providerEventId);
+  assert.equal(persisted.providerObjectId, 'evt_privacy_current_main');
   assert.equal(persisted.eventName, 'order_created');
   assert.equal(persisted.leadId, lead.id);
   assert.equal(persisted.prospectId, lead.prospectId);

@@ -187,6 +187,20 @@ export const MUTATIONS = [
     suites: ['tests/payment-receipt-witnesses-money.test.mjs']
   },
   {
+    id: 'REV-01', guard: 'A concurrent report-email claim blocks the second provider call',
+    file: 'src/revenue.mjs',
+    find: "      if (attemptStatus === 'dispatching') {\n        return { ok: false, reason: 'report-email-in-flight', lead: current, prospect: selectedProspect };\n      }",
+    replace: "      if (false) {\n        return { ok: false, reason: 'report-email-in-flight', lead: current, prospect: selectedProspect };\n      }",
+    suites: ['tests/revenue-report-email-recovery.test.mjs']
+  },
+  {
+    id: 'REV-02', guard: 'An unresolved report-email attempt cannot be replayed automatically',
+    file: 'src/revenue.mjs',
+    find: "      if (attemptStatus === 'uncertain') {",
+    replace: '      if (false) {',
+    suites: ['tests/revenue-report-email-recovery.test.mjs']
+  },
+  {
     id: 'RECOV-01', guard: 'Recovery may not overwrite a newer reservation status',
     file: 'src/reservation-recovery.mjs',
     find: "    if (current.status !== row.status) {",

@@ -35,3 +35,32 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Run Chromium-dependent test separately
         run: npm run test:browser
+
+  postgres:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: uberbond
+        options: >-
+          --health-cmd "pg_isready -U postgres -d uberbond"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Run real PostgreSQL suites serially
+        run: npm run test:postgres-real
+        env:
+          OMNIA_V9_TEST_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/uberbond

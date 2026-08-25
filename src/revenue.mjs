@@ -11,7 +11,7 @@ const validKey = key => /^[a-f0-9]{64}$/i.test(key || '');
 
 // Bump when the audit decision logic changes so past receipts stay
 // attributable to the policy version that produced them.
-export const REPORT_EMAIL_POLICY_VERSION = 'report-email-audit-1.0.0';
+export const REPORT_EMAIL_POLICY_VERSION = 'report-email-recovery-1.1.0';
 
 function protectToken(token, key) {
   return validKey(key) ? { encrypted: true, value: encryptJson({ token }, key) } : { encrypted: false, value: token };
@@ -23,6 +23,10 @@ function revealToken(record, key) {
 }
 function cleanText(value, max = 300) {
   return String(value || '').trim().replace(/\s+/g, ' ').slice(0, max);
+}
+function safeCents(value, fallback = null) {
+  const number = Number(value);
+  return Number.isSafeInteger(number) ? number : fallback;
 }
 
 export class RevenueEngine {
@@ -42,7 +46,11 @@ export class RevenueEngine {
   // kill switch (cfg.revenue.autoEmailReports) and idempotency key
   // (lead.id), never the outreach guard or campaign machinery.
   async logReportEmailDecision(outcome, reason, { lead, prospect } = {}) {
-    return this.store.log('report_email_audit', {
+    return this.logReportEmailDecisionOn(this.store, outcome, reason, { lead, prospect });
+  }
+
+  async logReportEmailDecisionOn(store, outcome, reason, { lead, prospect } = {}) {
+    return store.log('report_email_audit', {
       effectClass: 'transactional-report-email',
       outcome, reason,
       leadId: lead?.id || null,
@@ -193,73 +201,193 @@ export class RevenueEngine {
     }
   }
 
+  async lockReportEmailLead(store, leadId) {
+    if (store?.pool?.query) {
+      const result = await store.pool.query('SELECT data FROM leads WHERE id=$1 FOR UPDATE', [leadId]);
+      return result.rows[0]?.data || null;
+    }
+    return store.get('leads', leadId);
+  }
+
+  async lockReportEmailAccount(store, slot) {
+    if (store?.pool?.query) {
+      const result = await store.pool.query('SELECT data FROM accounts WHERE slot=$1 FOR UPDATE', [slot]);
+      return result.rows[0]?.data || null;
+    }
+    return store.findOne('accounts', { slot });
+  }
+
+  async upsertReportEmailLead(store, current, patch) {
+    // `PostgresStore.patch()` opens its own transaction, which is not valid
+    // while this path is already inside the claim/finalization transaction.
+    // Upsert is the store's direct scoped operation on both backends, so the
+    // caller's row lock and the state transition share one transaction.
+    return store.upsert('leads', { ...current, ...patch, updatedAt: now() });
+  }
+
+  // This is the only admission path to the irreversible report-email provider
+  // call. The caller's lead is deliberately treated as a stale hint: the
+  // durable row is re-read and claimed inside one transaction before the
+  // provider boundary. JSON transactions serialize this naturally; PostgreSQL
+  // locks the lead row for the same invariant across processes.
+  async claimReportEmailAttempt(lead, prospect) {
+    if (!lead?.id) return { ok: false, reason: 'missing-lead', lead, prospect };
+    return this.store.transaction(async tx => {
+      const current = await this.lockReportEmailLead(tx, lead.id);
+      if (!current) return { ok: false, reason: 'missing-lead', lead, prospect };
+      const durableProspect = current.prospectId ? await tx.get('prospects', current.prospectId) : null;
+      const selectedProspect = durableProspect || prospect;
+      const attemptStatus = String(current.reportEmailAttemptStatus || '').toLowerCase();
+
+      if (current.reportEmailSentAt || attemptStatus === 'sent') {
+        return { ok: false, reason: 'already-sent', lead: current, prospect: selectedProspect };
+      }
+      if (attemptStatus === 'uncertain') {
+        // A prior provider effect is unresolved. It requires explicit owner
+        // reconciliation and can never be replayed automatically.
+        return { ok: false, reason: 'unresolved-prior-attempt-requires-owner-review', lead: current, prospect: selectedProspect };
+      }
+      if (attemptStatus === 'dispatching') {
+        return { ok: false, reason: 'report-email-in-flight', lead: current, prospect: selectedProspect };
+      }
+      if (attemptStatus && !['dispatching', 'uncertain'].includes(attemptStatus)) {
+        return { ok: false, reason: 'unrecognized-prior-attempt-state', lead: current, prospect: selectedProspect };
+      }
+      if (current.reportEmailAttemptId && !attemptStatus) {
+        return { ok: false, reason: 'unrecognized-prior-attempt-state', lead: current, prospect: selectedProspect };
+      }
+      if (!selectedProspect) return { ok: false, reason: 'missing-prospect', lead: current, prospect: selectedProspect };
+      if (!isEmail(current.email)) return { ok: false, reason: 'missing-destination', lead: current, prospect: selectedProspect };
+
+      const account = await this.lockReportEmailAccount(tx, this.cfg.revenue.reportDeliveryInbox);
+      if (!account?.connected) return { ok: false, reason: 'provider-capability-absent', lead: current, prospect: selectedProspect };
+      const token = this.tokenForLead(current);
+      if (!token) return { ok: false, reason: 'missing-access-token', lead: current, prospect: selectedProspect };
+
+      const attemptId = id('report-attempt');
+      const claimedAt = this.clock().toISOString();
+      const claimed = await this.upsertReportEmailLead(tx, current, {
+        reportEmailAttemptId: attemptId,
+        reportEmailAttemptStatus: 'dispatching',
+        reportEmailClaimedAt: claimedAt,
+        reportEmailUncertainAt: null,
+        reportEmailUncertainReason: null
+      });
+      return { ok: true, attemptId, lead: claimed || current, prospect: selectedProspect, account, token };
+    });
+  }
+
+  async markReportEmailUncertain({ leadId, attemptId, prospect, reason }) {
+    try {
+      return await this.store.transaction(async tx => {
+        const current = await this.lockReportEmailLead(tx, leadId);
+        if (!current) return { persisted: false, reason: 'missing-lead' };
+        const status = String(current.reportEmailAttemptStatus || '').toLowerCase();
+        if (current.reportEmailSentAt || status === 'sent') return { persisted: false, terminal: 'sent' };
+        if (current.reportEmailAttemptId && current.reportEmailAttemptId !== attemptId) {
+          return { persisted: false, reason: 'claim-replaced' };
+        }
+        const updated = await this.upsertReportEmailLead(tx, current, {
+          reportEmailAttemptStatus: 'uncertain',
+          reportEmailUncertainAt: this.clock().toISOString(),
+          reportEmailUncertainReason: reason
+        });
+        await this.logReportEmailDecisionOn(tx, 'uncertain', reason, { lead: updated || current, prospect });
+        return { persisted: true, lead: updated || current };
+      });
+    } catch {
+      // A failed uncertainty write leaves the durable pre-provider claim in
+      // dispatching. That state is itself a permanent automatic-retry block;
+      // never fall back to replay merely because this repair receipt failed.
+      return { persisted: false, reason: 'uncertainty-persistence-failed' };
+    }
+  }
+
+  async finalizeReportEmailAttempt(claim, result) {
+    const providerId = String(result?.data?.id || '').trim();
+    const providerThreadId = String(result?.data?.threadId || '').trim();
+    if (!providerId || !providerThreadId) throw new Error('provider-result-missing-message-reference');
+
+    return this.store.transaction(async tx => {
+      const current = await this.lockReportEmailLead(tx, claim.lead.id);
+      if (!current) throw new Error('report-email-lead-missing-during-finalization');
+      const status = String(current.reportEmailAttemptStatus || '').toLowerCase();
+      if (current.reportEmailSentAt || status === 'sent') return { sent: false, reason: 'already-sent' };
+      if (status !== 'dispatching' || current.reportEmailAttemptId !== claim.attemptId) {
+        throw new Error('report-email-claim-not-current');
+      }
+
+      const account = await this.lockReportEmailAccount(tx, this.cfg.revenue.reportDeliveryInbox);
+      if (!account) throw new Error('report-email-account-missing-during-finalization');
+      if (result.tokens) {
+        await tx.upsert('accounts', { ...account, tokens: sealTokens(result.tokens, this.cfg.encryptionKey) });
+      }
+
+      const sentAt = this.clock().toISOString();
+      const updated = await this.upsertReportEmailLead(tx, current, {
+        reportEmailSentAt: sentAt,
+        reportEmailAttemptStatus: 'sent',
+        reportEmailProviderId: providerId,
+        reportEmailProviderThreadId: providerThreadId,
+        reportEmailFinalizedAt: sentAt
+      });
+      await tx.add('messages', {
+        id: `report-email:${claim.attemptId}`, kind: 'transactional-report', leadId: current.id,
+        prospectId: claim.prospect.id, inbox: account.slot, to: current.email,
+        subject: `${current.company} digital opportunity report`, gmailId: providerId,
+        threadId: providerThreadId, sentAt
+      });
+      await this.logReportEmailDecisionOn(tx, 'sent', 'sent', { lead: updated || current, prospect: claim.prospect });
+      return { sent: true };
+    });
+  }
+
   async sendReportEmail(lead, prospect) {
     if (!this.cfg.revenue?.autoEmailReports) {
       await this.logReportEmailDecision('blocked', 'kill-switch-disabled', { lead, prospect });
       return { sent: false, reason: 'kill-switch-disabled' };
     }
-    if (lead?.reportEmailSentAt) {
-      await this.logReportEmailDecision('blocked', 'already-sent', { lead, prospect });
-      return { sent: false, reason: 'already-sent' };
+
+    const claim = await this.claimReportEmailAttempt(lead, prospect);
+    if (!claim.ok) {
+      await this.logReportEmailDecision('blocked', claim.reason, { lead: claim.lead || lead, prospect: claim.prospect || prospect });
+      return { sent: false, reason: claim.reason };
     }
-    if (lead?.reportEmailAttemptStatus === 'uncertain') {
-      // A prior attempt's provider outcome is unresolved. Never automatically
-      // retry an action whose external result is unknown; this requires an
-      // explicit owner action to clear before another attempt can happen.
-      await this.logReportEmailDecision('blocked', 'unresolved-prior-attempt-requires-owner-review', { lead, prospect });
-      return { sent: false, reason: 'unresolved-prior-attempt-requires-owner-review' };
-    }
-    if (!isEmail(lead?.email)) {
-      await this.logReportEmailDecision('blocked', 'missing-destination', { lead, prospect });
-      return { sent: false, reason: 'missing-destination' };
-    }
-    const account = await this.store.findOne('accounts', { slot: this.cfg.revenue.reportDeliveryInbox });
-    if (!account?.connected) {
-      await this.logReportEmailDecision('blocked', 'provider-capability-absent', { lead, prospect });
-      return { sent: false, reason: 'provider-capability-absent' };
-    }
-    const token = this.tokenForLead(lead);
-    if (!token) {
-      await this.logReportEmailDecision('blocked', 'missing-access-token', { lead, prospect });
-      return { sent: false, reason: 'missing-access-token' };
-    }
-    const reportUrl = `${this.cfg.baseUrl}/report.html?token=${encodeURIComponent(token)}`;
-    const body = `Hi,\n\nYour UberBond Digital Opportunity Snapshot for ${lead.company} is ready.\n\nScore: ${prospect.score?.total ?? 'ready'}\nView the report: ${reportUrl}\n\nThe free snapshot includes the primary evidence-backed opportunity. The report page also contains options for a full audit, strategy review, and recurring monitoring.\n\nUberBond`;
+
+    const reportUrl = `${this.cfg.baseUrl}/report.html?token=${encodeURIComponent(claim.token)}`;
+    const body = `Hi,\n\nYour UberBond Digital Opportunity Snapshot for ${claim.lead.company} is ready.\n\nScore: ${claim.prospect.score?.total ?? 'ready'}\nView the report: ${reportUrl}\n\nThe free snapshot includes the primary evidence-backed opportunity. The report page also contains options for a full audit, strategy review, and recurring monitoring.\n\nUberBond`;
 
     let result;
     try {
-      result = await this.sendEmailFn(this.cfg.google, account, this.cfg.encryptionKey, {
-        from: `${this.cfg.sender.name} <${account.email}>`, to: lead.email,
-        subject: `${lead.company} digital opportunity report`, body
+      result = await this.sendEmailFn(this.cfg.google, claim.account, this.cfg.encryptionKey, {
+        from: `${this.cfg.sender.name} <${claim.account.email}>`, to: claim.lead.email,
+        subject: `${claim.lead.company} digital opportunity report`, body
       });
-    } catch (error) {
-      // The provider outcome is genuinely unknown -- the request may or may
-      // not have been delivered. Never infer success from the absence of an
-      // earlier error and never infer failure either; record it as unknown
-      // and block automatic retry until an owner reviews it.
-      await this.store.patch('leads', lead.id, { reportEmailAttemptStatus: 'uncertain' });
-      await this.logReportEmailDecision('uncertain', 'provider-result-uncertain', { lead, prospect });
+    } catch {
+      await this.markReportEmailUncertain({
+        leadId: claim.lead.id, attemptId: claim.attemptId, prospect: claim.prospect,
+        reason: 'provider-result-uncertain'
+      });
       return { sent: false, uncertain: true, reason: 'provider-result-uncertain' };
     }
 
-    if (result.tokens) {
-      account.tokens = sealTokens(result.tokens, this.cfg.encryptionKey);
-      await this.store.upsert('accounts', account);
+    try {
+      return await this.finalizeReportEmailAttempt(claim, result);
+    } catch {
+      // The provider has already answered successfully, so every local failure
+      // after this point is an uncertain external effect, never a safe retry.
+      await this.markReportEmailUncertain({
+        leadId: claim.lead.id, attemptId: claim.attemptId, prospect: claim.prospect,
+        reason: 'post-provider-persistence-failed'
+      });
+      return { sent: false, uncertain: true, reason: 'post-provider-persistence-failed' };
     }
-    await this.store.patch('leads', lead.id, { reportEmailSentAt: now(), reportEmailAttemptStatus: 'sent' });
-    await this.store.add('messages', {
-      id: id('msg'), kind: 'transactional-report', leadId: lead.id, prospectId: prospect.id,
-      inbox: account.slot, to: lead.email, subject: `${lead.company} digital opportunity report`,
-      gmailId: result.data.id, threadId: result.data.threadId, sentAt: now()
-    });
-    await this.logReportEmailDecision('sent', 'sent', { lead, prospect });
-    return { sent: true };
   }
 
-  async unlockLead(leadId, product = 'full', detail = {}) {
-    const lead = await this.store.get('leads', leadId);
+  async unlockLead(leadId, product = 'full', detail = {}, store = this.store) {
+    const lead = await store.get('leads', leadId);
     if (!lead) throw new Error('Lead not found');
-    await this.store.patch('leads', lead.id, {
+    await store.patch('leads', lead.id, {
       paymentStatus: 'paid', plan: product, paidAt: now(), provider: detail.provider || 'manual'
     });
     const amount = Number(detail.amountCents || ({
@@ -269,7 +397,7 @@ export class RevenueEngine {
     }[product] || 0) * 100);
     const eventId = detail.eventId || id('rev');
     try {
-      await this.store.add('revenueEvents', {
+      await store.add('revenueEvents', {
         id: id('rev'), providerEventId: eventId, leadId: lead.id, prospectId: lead.prospectId,
         product, kind: product === 'monitoring' ? 'subscription' : 'sale', amountCents: amount,
         currency: detail.currency || 'USD', createdAt: now()
@@ -277,27 +405,27 @@ export class RevenueEngine {
     } catch (error) {
       if (!(error instanceof ConflictError)) throw error;
     }
-    if (product === 'monitoring') await this.activateSubscription(lead, detail);
-    await this.store.add('notifications', {
+    if (product === 'monitoring') await this.activateSubscription(lead, detail, store);
+    await store.add('notifications', {
       id: id('note'), type: 'payment', leadId: lead.id, prospectId: lead.prospectId,
       title: `Payment received: ${lead.company} · ${product}`, status: 'unread', createdAt: now()
     });
-    return this.store.get('leads', lead.id);
+    return store.get('leads', lead.id);
   }
 
-  async activateSubscription(lead, detail = {}) {
-    const subscriptions = await this.store.list('subscriptions');
+  async activateSubscription(lead, detail = {}, store = this.store) {
+    const subscriptions = await store.list('subscriptions');
     let subscription = subscriptions.find(item =>
       item.leadId === lead.id && item.provider === (detail.provider || 'lemonsqueezy') && item.status !== 'expired'
     );
     const nextRunAt = new Date(Date.now() + this.cfg.revenue.monitoringIntervalDays * DAY).toISOString();
     if (subscription) {
-      await this.store.patch('subscriptions', subscription.id, {
+      await store.patch('subscriptions', subscription.id, {
         providerId: String(detail.providerId || subscription.providerId || ''), status: detail.status || 'active',
         amountCents: Number(detail.amountCents || subscription.amountCents || this.cfg.revenue.monitoringPrice * 100),
         currency: detail.currency || subscription.currency || 'USD', nextRunAt
       });
-      return this.store.get('subscriptions', subscription.id);
+      return store.get('subscriptions', subscription.id);
     }
     subscription = {
       id: id('sub'), leadId: lead.id, prospectId: lead.prospectId,
@@ -306,16 +434,19 @@ export class RevenueEngine {
       currency: detail.currency || 'USD', intervalDays: this.cfg.revenue.monitoringIntervalDays,
       nextRunAt, createdAt: now()
     };
-    await this.store.add('subscriptions', subscription);
+    await store.add('subscriptions', subscription);
     return subscription;
   }
 
-  async logPaymentDecision(event, decision, lead) {
-    return this.store.log('payment_classification', {
+  async logPaymentDecision(event, decision, lead, store = this.store) {
+    return store.log('payment_classification', {
       classification: decision.classification,
       reasonCodes: decision.reasonCodes,
       eventName: event?.eventName || null,
       eventId: event?.eventId || null,
+      providerOccurrenceId: event?.providerOccurrenceId || event?.eventId || null,
+      providerObjectId: event?.providerObjectId || null,
+      providerStateDigest: event?.snapshotDigest || null,
       // The money this classification was made about.
       //
       // `payment-renewal-truth` compares amount and currency across all three
@@ -331,6 +462,9 @@ export class RevenueEngine {
       // because the one witness written by a different code path at a different
       // moment had nothing to say about the number.
       amountCents: Number.isSafeInteger(Number(event?.amountCents)) ? Number(event.amountCents) : null,
+      providerAmountCents: safeCents(event?.providerAmountCents),
+      cumulativeRefundedAmountCents: safeCents(event?.cumulativeRefundedAmountCents),
+      refundDeltaCents: safeCents(event?.refundDeltaCents),
       currency: String(event?.currency || '').trim().toUpperCase() || null,
       leadId: lead?.id || event?.custom?.lead_id || null,
       prospectId: lead?.prospectId || event?.custom?.prospect_id || null,
@@ -344,10 +478,10 @@ export class RevenueEngine {
     });
   }
 
-  async recordRevenueEvent(lead, event, decision) {
+  async recordRevenueEvent(lead, event, decision, store = this.store) {
     const eventId = `${event.eventName}:${event.eventId}`;
     try {
-      await this.store.add('revenueEvents', {
+      await store.add('revenueEvents', {
         id: id('rev'), providerEventId: eventId, leadId: lead?.id || null, prospectId: lead?.prospectId || null,
         product: event.custom?.product || '', kind: decision.revenueKind,
         amountCents: Number(event.amountCents || 0) * decision.revenueSign,
@@ -357,52 +491,69 @@ export class RevenueEngine {
       if (!(error instanceof ConflictError)) throw error;
     }
     if (decision.revenueKind === 'refund' && lead?.id) {
-      await this.store.patch('leads', lead.id, { refundedAt: now() });
+      await store.patch('leads', lead.id, { refundedAt: now() });
     }
   }
 
-  async handleLemonWebhook(rawBody, signature) {
-    if (!verifyLemonSignature(rawBody, signature, this.cfg.revenue.lemonWebhookSecret)) throw new Error('Invalid webhook signature');
-    const payload = JSON.parse(rawBody);
-    const event = normalizeLemonEvent(payload);
-    try {
-      await this.store.add('orders', {
-        id: id('order'), provider: 'lemonsqueezy', providerEventId: event.eventId,
-        eventName: event.eventName, leadId: event.custom.lead_id || '', prospectId: event.custom.prospect_id || '',
-        product: event.custom.product || '', amountCents: event.amountCents, currency: event.currency,
-        status: event.status, testMode: event.testMode, createdAt: now()
-      });
-    } catch (error) {
-      if (error instanceof ConflictError) {
-        await this.logPaymentDecision(event, { classification: 'DUPLICATE', reasonCodes: ['duplicate-provider-event-id'], shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null }, null);
-        return { duplicate: true, event };
+  paymentOrderWitness(event) {
+    return {
+      provider: 'lemonsqueezy', providerEventId: event.eventId,
+      providerOccurrenceId: event.providerOccurrenceId || event.eventId,
+      providerObjectId: event.providerObjectId || '',
+      providerStateDigest: event.snapshotDigest || '',
+      eventName: event.eventName, leadId: event.custom.lead_id || '', prospectId: event.custom.prospect_id || '',
+      product: event.custom.product || '', amountCents: event.amountCents, currency: event.currency,
+      providerAmountCents: event.providerAmountCents,
+      providerCumulativeRefundedAmountCents: event.cumulativeRefundedAmountCents,
+      refundDeltaCents: event.refundDeltaCents,
+      status: event.status, testMode: event.testMode
+    };
+  }
+
+  async legacyPaymentEventComplete(store, event, decision, lead) {
+    const classified = (await store.list('auditLog')).some(entry => {
+      const detail = entry?.detail || {};
+      return entry?.type === 'payment_classification'
+        && detail.eventName === event.eventName
+        && detail.eventId === event.eventId
+        && detail.classification === decision.classification;
+    });
+    if (!classified) return false;
+
+    const eventKey = `${event.eventName}:${event.eventId}`;
+    if (decision.shouldUnlock || decision.shouldRecordRevenue) {
+      const revenue = await store.findOne('revenueEvents', { providerEventId: eventKey });
+      if (!revenue) return false;
+      if (decision.shouldUnlock && lead?.paymentStatus !== 'paid') return false;
+      if (decision.revenueKind === 'refund' && lead?.id && !lead.refundedAt) return false;
+      if (decision.shouldUnlock && event.custom?.product === 'monitoring') {
+        const subscriptions = await store.list('subscriptions');
+        if (!subscriptions.some(item => item.leadId === lead?.id && item.provider === 'lemonsqueezy' && item.status !== 'expired')) return false;
       }
-      throw error;
     }
+    if (decision.shouldSyncSubscriptionStatus && lead?.id) {
+      const subscription = (await store.list('subscriptions')).find(item => item.leadId === lead.id);
+      if (subscription && subscription.status !== decision.subscriptionStatus) return false;
+    }
+    return true;
+  }
 
+  async applyLemonDecisionTransaction(store, lead, event, decision) {
     const leadId = event.custom.lead_id || '';
-    const lead = leadId ? await this.store.get('leads', leadId) : null;
-    const decision = classifyPaymentEvent({ event, lead, cfg: this.cfg });
-    await this.logPaymentDecision(event, decision, lead);
-
     if (decision.shouldUnlock) {
-      // Only a genuinely cleared payment (CLEARED_ONE_TIME_PAYMENT or
-      // CLEARED_SUBSCRIPTION_PAYMENT) ever reaches unlockLead, which is the
-      // only place a revenueEvents row is created for a "sale". A
-      // subscription_updated/resumed/terminal event never lands here.
       await this.unlockLead(leadId, event.custom.product || 'full', {
-        provider: 'lemonsqueezy', providerId: event.eventId,
+        provider: 'lemonsqueezy', providerId: event.providerObjectId || event.eventId,
         eventId: `${event.eventName}:${event.eventId}`, amountCents: event.amountCents,
         currency: event.currency, status: decision.subscriptionStatus || event.status || 'active'
-      });
+      }, store);
     } else if (decision.shouldRecordRevenue) {
-      await this.recordRevenueEvent(lead, event, decision);
+      await this.recordRevenueEvent(lead, event, decision, store);
     }
 
     if (decision.shouldSyncSubscriptionStatus && !decision.shouldUnlock && leadId) {
-      const subscription = (await this.store.list('subscriptions')).find(item => item.leadId === leadId);
+      const subscription = (await store.list('subscriptions')).find(item => item.leadId === leadId);
       if (subscription) {
-        await this.store.patch('subscriptions', subscription.id, {
+        await store.patch('subscriptions', subscription.id, {
           status: decision.subscriptionStatus,
           nextRunAt: decision.subscriptionStatus === 'active'
             ? (subscription.nextRunAt || new Date(Date.now() + this.cfg.revenue.monitoringIntervalDays * DAY).toISOString())
@@ -410,7 +561,249 @@ export class RevenueEngine {
         });
       }
     }
-    return { ok: true, event, classification: decision.classification };
+  }
+
+  async handleLemonWebhook(rawBody, signature) {
+    if (!verifyLemonSignature(rawBody, signature, this.cfg.revenue.lemonWebhookSecret)) throw new Error('Invalid webhook signature');
+    const payload = JSON.parse(rawBody);
+    const event = normalizeLemonEvent(payload);
+
+    // Serialize state transitions for one Lemon object. A provider object can
+    // emit order_created and then several order_refunded snapshots, all with
+    // the same data.id. The lock is a no-op for JSON (its transaction queue is
+    // already serialized) and a transaction advisory lock for PostgreSQL.
+    // This protects the refund delta calculation without confusing object
+    // identity with webhook occurrence identity.
+    const prepared = await this.store.transaction(async tx => {
+      const lockKey = event.providerObjectId || event.eventId;
+      if (tx.pool?.query && lockKey) {
+        await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`lemon-webhook:${lockKey}`]);
+      }
+
+      const orders = await tx.list('orders');
+      const existing = orders.find(row => row.provider === 'lemonsqueezy' && row.providerEventId === event.eventId);
+      if (existing) {
+        const contradictory = Boolean(
+          existing.providerStateDigest && event.snapshotDigest && existing.providerStateDigest !== event.snapshotDigest
+        );
+        return {
+          kind: contradictory ? 'review' : 'existing',
+          event,
+          existing,
+          reasonCodes: contradictory ? ['duplicate-provider-event-contradiction'] : ['duplicate-provider-event-id']
+        };
+      }
+
+      const sameObject = event.providerObjectId
+        ? orders.filter(row => row.provider === 'lemonsqueezy' && (
+            row.providerObjectId === event.providerObjectId
+            // Rows written before object/occurrence separation are still part
+            // of the same provider object when their old event id is data.id.
+            || (!row.providerObjectId && row.providerEventId === event.providerObjectId)
+          ))
+        : [];
+      const stateReasonCodes = [];
+      const nonFatalStateReasonCodes = [];
+      let preparedEvent = { ...event };
+
+      if (event.eventName === 'order_refunded') {
+        const nonNegativeCents = value => {
+          const number = Number(value);
+          return Number.isSafeInteger(number) && number >= 0 ? number : null;
+        };
+        const cumulative = nonNegativeCents(event.cumulativeRefundedAmountCents);
+        // Older stored witnesses and a few provider integrations may not carry
+        // the same object id on the refund. If the signed custom data identifies
+        // exactly one order, use that order as a cautious migration fallback;
+        // the normal path remains provider-object linkage.
+        let relatedOrders = sameObject;
+        if (!relatedOrders.length) {
+          const candidates = orders.filter(row => row.provider === 'lemonsqueezy'
+            && row.eventName === 'order_created'
+            && String(row.leadId || '') === String(event.custom.lead_id || '')
+            && String(row.prospectId || '') === String(event.custom.prospect_id || '')
+            && String(row.product || '') === String(event.custom.product || '')
+            && String(row.currency || '').toUpperCase() === String(event.currency || '').toUpperCase());
+          if (candidates.length === 1) {
+            relatedOrders = candidates;
+            nonFatalStateReasonCodes.push('refund-object-linkage-fallback');
+          }
+        }
+        const refundHistory = sameObject.length
+          ? sameObject
+          : orders.filter(row => row.provider === 'lemonsqueezy'
+            && row.eventName === 'order_refunded'
+            && String(row.leadId || '') === String(event.custom.lead_id || '')
+            && String(row.prospectId || '') === String(event.custom.prospect_id || '')
+            && String(row.product || '') === String(event.custom.product || '')
+            && String(row.currency || '').toUpperCase() === String(event.currency || '').toUpperCase());
+        const revenueEvents = await tx.list('revenueEvents');
+        const clearedRevenue = revenueEvents.filter(row => Number(row.amountCents || 0) > 0
+          && relatedOrders.some(order => {
+            const occurrence = order.providerOccurrenceId || order.providerEventId;
+            return row.providerEventId === `${order.eventName}:${occurrence}`
+              || row.providerEventId === order.providerEventId;
+          }));
+        const priorCumulative = Math.max(0, ...refundHistory
+          .filter(row => row.eventName === 'order_refunded')
+          .map(row => nonNegativeCents(
+            row.providerCumulativeRefundedAmountCents
+              ?? row.cumulativeRefundedAmountCents
+              ?? Math.abs(Number(row.amountCents || 0))
+          ) ?? 0));
+        const originalAmount = Math.max(0, ...clearedRevenue
+          .map(row => nonNegativeCents(row.amountCents) ?? 0));
+
+        if (cumulative === null) stateReasonCodes.push('refund-cumulative-amount-invalid');
+        const currentCumulative = cumulative ?? 0;
+        const delta = currentCumulative - priorCumulative;
+        preparedEvent = {
+          ...preparedEvent,
+          amountCents: delta > 0 ? delta : 0,
+          providerAmountCents: currentCumulative,
+          cumulativeRefundedAmountCents: currentCumulative,
+          refundDeltaCents: delta
+        };
+        if (delta < 0) stateReasonCodes.push('refund-cumulative-regression');
+        else if (delta === 0) stateReasonCodes.push('refund-state-already-applied');
+        if (delta > 0 && originalAmount === 0) stateReasonCodes.push('refund-before-cleared-payment');
+        if (delta > 0 && originalAmount > 0 && currentCumulative > originalAmount) {
+          stateReasonCodes.push('refund-exceeds-cleared-order');
+        }
+      }
+
+      const witness = this.paymentOrderWitness(preparedEvent);
+      const order = {
+        id: id('order'), ...witness, processingStatus: 'received',
+        stateReasonCodes, nonFatalStateReasonCodes, createdAt: now()
+      };
+      try {
+        await tx.add('orders', order);
+      } catch (error) {
+        if (!(error instanceof ConflictError)) throw error;
+        const winner = await tx.findOne('orders', { providerEventId: preparedEvent.eventId });
+        if (!winner) throw error;
+        return { kind: 'existing', event: preparedEvent, existing: winner };
+      }
+      return { kind: 'new', event: preparedEvent, stateReasonCodes, nonFatalStateReasonCodes };
+    });
+
+    if (prepared.kind === 'review') {
+      const decision = {
+        classification: 'REVIEW_REQUIRED',
+        reasonCodes: prepared.reasonCodes,
+        shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null
+      };
+      await this.logPaymentDecision(prepared.event, decision, null);
+      return { review: true, event: prepared.event, classification: decision.classification, reasonCodes: decision.reasonCodes };
+    }
+
+    return this.store.transaction(async tx => {
+      const lockKey = event.providerObjectId || event.eventId;
+      if (tx.pool?.query && lockKey) {
+        await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`lemon-webhook:${lockKey}`]);
+      }
+
+      let order = await tx.findOne('orders', { providerEventId: event.eventId });
+      if (!order) throw new Error('Payment witness missing after verified webhook persistence');
+      if (tx.pool?.query) {
+        await tx.pool.query('SELECT data FROM orders WHERE id=$1 FOR UPDATE', [order.id]);
+        order = await tx.get('orders', order.id);
+      }
+
+      const contradictory = Boolean(
+        order.providerStateDigest && event.snapshotDigest && order.providerStateDigest !== event.snapshotDigest
+      );
+      if (contradictory) {
+        const decision = {
+          classification: 'REVIEW_REQUIRED',
+          reasonCodes: ['duplicate-provider-event-contradiction'],
+          shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null
+        };
+        await this.logPaymentDecision(event, decision, null, tx);
+        return { review: true, event, classification: decision.classification, reasonCodes: decision.reasonCodes };
+      }
+
+      if (order.processingStatus === 'completed') {
+        const decision = {
+          classification: 'DUPLICATE', reasonCodes: ['duplicate-provider-event-id'],
+          shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null
+        };
+        await this.logPaymentDecision(event, decision, null, tx);
+        return { duplicate: true, event };
+      }
+
+      const eventToProcess = {
+        ...prepared.event,
+        eventId: order.providerOccurrenceId || order.providerEventId,
+        providerOccurrenceId: order.providerOccurrenceId || order.providerEventId,
+        providerObjectId: order.providerObjectId || prepared.event.providerObjectId,
+        snapshotDigest: order.providerStateDigest || prepared.event.snapshotDigest,
+        amountCents: order.amountCents ?? prepared.event.amountCents,
+        providerAmountCents: order.providerAmountCents ?? prepared.event.providerAmountCents,
+        cumulativeRefundedAmountCents: order.providerCumulativeRefundedAmountCents ?? prepared.event.cumulativeRefundedAmountCents,
+        refundDeltaCents: order.refundDeltaCents,
+        currency: order.currency || prepared.event.currency,
+        status: order.status || prepared.event.status,
+        testMode: order.testMode ?? prepared.event.testMode
+      };
+      const leadId = eventToProcess.custom.lead_id || '';
+      if (tx.pool?.query && leadId) {
+        await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`payment-lead:${leadId}`]);
+        await tx.pool.query('SELECT data FROM leads WHERE id=$1 FOR UPDATE', [leadId]);
+      }
+      const lead = leadId ? await tx.get('leads', leadId) : null;
+      let decision = classifyPaymentEvent({ event: eventToProcess, lead, cfg: this.cfg });
+
+      if (!order.processingStatus && await this.legacyPaymentEventComplete(tx, eventToProcess, decision, lead)) {
+        await tx.upsert('orders', { ...order, processingStatus: 'completed', processedAt: now(), classification: decision.classification, updatedAt: now() });
+        const duplicate = {
+          classification: 'DUPLICATE', reasonCodes: ['duplicate-provider-event-id', 'legacy-event-already-complete'],
+          shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null
+        };
+        await this.logPaymentDecision(eventToProcess, duplicate, lead, tx);
+        return { duplicate: true, event: eventToProcess };
+      }
+
+      const hardStateReasonCodes = Array.isArray(order.stateReasonCodes)
+        ? order.stateReasonCodes
+        : (prepared.stateReasonCodes || []);
+      const nonFatalStateReasonCodes = Array.isArray(order.nonFatalStateReasonCodes)
+        ? order.nonFatalStateReasonCodes
+        : (prepared.nonFatalStateReasonCodes || []);
+      const stateReasonCodes = [...new Set([...hardStateReasonCodes, ...nonFatalStateReasonCodes])];
+      if (hardStateReasonCodes.length) {
+        const reasonCodes = [...new Set([...decision.reasonCodes, ...stateReasonCodes])];
+        const noEconomicDelta = hardStateReasonCodes.length === 1
+          && hardStateReasonCodes[0] === 'refund-state-already-applied';
+        decision = {
+          ...decision,
+          reasonCodes,
+          ...(noEconomicDelta ? {
+            shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null, revenueSign: 0
+          } : {
+            classification: 'REVIEW_REQUIRED',
+            shouldUnlock: false, shouldRecordRevenue: false, revenueKind: null, revenueSign: 0,
+            shouldSyncSubscriptionStatus: false, subscriptionStatus: null
+          })
+        };
+      }
+
+      await this.logPaymentDecision(eventToProcess, decision, lead, tx);
+      await this.applyLemonDecisionTransaction(tx, lead, eventToProcess, decision);
+      await tx.upsert('orders', {
+        ...order, processingStatus: 'completed', processedAt: now(), classification: decision.classification,
+        stateReasonCodes, nonFatalStateReasonCodes, updatedAt: now()
+      });
+
+      if (hardStateReasonCodes.length && decision.classification === 'REVIEW_REQUIRED') {
+        return {
+          review: true, event: eventToProcess, classification: decision.classification,
+          reasonCodes: decision.reasonCodes
+        };
+      }
+      return { ok: true, event: eventToProcess, classification: decision.classification, resumed: prepared.kind === 'existing' };
+    });
   }
 
   async processMonitoring() {

@@ -212,11 +212,47 @@ export async function runAgentMeshCycle({
   }
   if (existing.state === 'TERMINAL') return resultFromTerminalReceipt(existing.receipt, { duplicateDelivery: true });
   if (existing.state === 'STARTED') {
+    // A same-occurrence redelivery is normally an in-flight duplicate. Once
+    // the durable STARTED receipt is older than the abandonment horizon,
+    // however, leaving it here wedges that exact scheduler occurrence forever:
+    // the reconciliation pass below the early-return was unreachable. Re-run
+    // only the receipt reconciliation, never the abandoned work itself, then
+    // re-read the exact occurrence so a concurrent reconciler is idempotent.
+    let abandonedReconciliation = { reconciled: [] };
+    if (typeof store.list === 'function') {
+      try {
+        abandonedReconciliation = await reconcileAbandonedAgentMeshCycles({
+          store,
+          now: date,
+          abandonedAfterMs: abandonedCycleAfterMs
+        });
+      } catch (error) {
+        return fail(['abandoned-cycle-reconciliation-failed', errorText(error?.message)], 'BLOCKED', {
+          cycleId: existing.cycleId,
+          cycleReceiptState: 'STARTED',
+          duplicateDelivery: true,
+          at: timestamp(date)
+        });
+      }
+
+      const afterReconciliation = await getAgentMeshCycleReceipt({
+        store,
+        occurrenceKey: schedulerOccurrenceKey,
+        ...occurrenceIdentity
+      });
+      if (afterReconciliation.state === 'TERMINAL') {
+        return resultFromTerminalReceipt(afterReconciliation.receipt, {
+          duplicateDelivery: true,
+          abandonedReconciled: abandonedReconciliation.reconciled?.length || 0
+        });
+      }
+    }
     return fail(['scheduler-occurrence-already-started-incomplete'], 'BLOCKED', {
       cycleId: existing.cycleId,
       cycleReceiptState: 'STARTED',
       duplicateDelivery: true,
       startedAt: existing.receipt?.startedAt || null,
+      abandonedCyclesReconciled: abandonedReconciliation.reconciled?.length || 0,
       at: timestamp(date)
     });
   }

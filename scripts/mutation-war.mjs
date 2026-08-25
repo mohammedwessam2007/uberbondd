@@ -154,8 +154,8 @@ export const MUTATIONS = [
   {
     id: 'PRIV-01', guard: 'The decoded provider payload is not durable business state',
     file: 'src/revenue.mjs',
-    find: "        status: event.status, testMode: event.testMode, createdAt: now()",
-    replace: "        status: event.status, testMode: event.testMode, createdAt: now(), raw: payload",
+    find: '      const witness = this.paymentOrderWitness(preparedEvent);',
+    replace: '      const witness = { ...this.paymentOrderWitness(preparedEvent), raw: payload };',
     suites: ['tests/provider-payload-minimization.test.mjs', 'tests/provider-payload-minimization-source-guard.test.mjs']
   },
   {
@@ -187,11 +187,39 @@ export const MUTATIONS = [
     suites: ['tests/payment-receipt-witnesses-money.test.mjs']
   },
   {
+    id: 'MONEY-16', guard: 'An incomplete payment witness resumes instead of becoming a duplicate',
+    file: 'src/revenue.mjs',
+    find: "      if (order.processingStatus === 'completed') {",
+    replace: '      if (true) {',
+    suites: ['tests/payment-webhook-recovery.test.mjs']
+  },
+  {
+    id: 'REV-01', guard: 'A concurrent report-email claim blocks the second provider call',
+    file: 'src/revenue.mjs',
+    find: "      if (attemptStatus === 'dispatching') {\n        return { ok: false, reason: 'report-email-in-flight', lead: current, prospect: selectedProspect };\n      }",
+    replace: "      if (false) {\n        return { ok: false, reason: 'report-email-in-flight', lead: current, prospect: selectedProspect };\n      }",
+    suites: ['tests/revenue-report-email-recovery.test.mjs']
+  },
+  {
+    id: 'REV-02', guard: 'An unresolved report-email attempt cannot be replayed automatically',
+    file: 'src/revenue.mjs',
+    find: "      if (attemptStatus === 'uncertain') {",
+    replace: '      if (false) {',
+    suites: ['tests/revenue-report-email-recovery.test.mjs']
+  },
+  {
     id: 'RECOV-01', guard: 'Recovery may not overwrite a newer reservation status',
     file: 'src/reservation-recovery.mjs',
     find: "    if (current.status !== row.status) {",
     replace: '    if (false) {',
     suites: ['tests/reservation-recovery-race.test.mjs']
+  },
+  {
+    id: 'MESH-01', guard: 'An abandoned same-occurrence STARTED receipt is terminalized before duplicate return',
+    file: 'src/agent-mesh-control-plane.mjs',
+    find: "      if (afterReconciliation.state === 'TERMINAL') {",
+    replace: '      if (false) {',
+    suites: ['tests/agent-mesh-same-occurrence-abandonment.test.mjs']
   },
 
   // ---- Acceptance and retention ------------------------------------------

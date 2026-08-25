@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-24T23:52:59.058Z",
+  "generatedAt": "2026-08-25T00:10:25.718Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "9734fc3f4ec17ba8427b479efed8d4940dedda42",
-    "branch": "gpt/preactivation-evidence-sovereignty-20260825",
+    "head": "7ff04954f463f60784ddcbfeb2d7d795b9744832",
+    "branch": "gpt/recovery-report-email-main-20260825",
     "sourceModules": 151,
-    "testSuites": 236,
+    "testSuites": 237,
     "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 481,
-      "ranAt": "2026-08-24T23:52:04Z"
+      "filesParsed": 482,
+      "ranAt": "2026-08-25T00:09:58Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2347,
-      "pass": 2299,
+      "tests": 2350,
+      "pass": 2302,
       "fail": 0,
       "skipped": 48,
-      "ranAt": "2026-08-24T23:52:04Z"
+      "ranAt": "2026-08-25T00:09:58Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -29,7 +29,7 @@
       "pass": 150,
       "fail": 0,
       "skipped": 0,
-      "ranAt": "2026-08-24T23:52:04Z"
+      "ranAt": "2026-08-25T00:09:58Z"
     },
     "test:postgres-real": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:postgres-real",
@@ -39,12 +39,12 @@
       "fail": 0,
       "skipped": 0,
       "note": "OMNIA_V9_TEST_DATABASE_URL was unavailable; the current sovereignty branch has no current real-PostgreSQL proof.",
-      "ranAt": "2026-08-24T23:52:04Z"
+      "ranAt": "2026-08-25T00:09:58Z"
     },
     "npm audit": {
       "command": "npm audit",
       "vulnerabilities": 0,
-      "ranAt": "2026-08-24T23:52:04Z"
+      "ranAt": "2026-08-25T00:09:58Z"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
@@ -53,7 +53,7 @@
       "reachableFromOperatorScriptsOnly": 3,
       "noEntryPointAtAll": 45,
       "allClassified": true,
-      "ranAt": "2026-08-24T23:52:04Z"
+      "ranAt": "2026-08-25T00:09:58Z"
     }
   },
   "capabilities": [

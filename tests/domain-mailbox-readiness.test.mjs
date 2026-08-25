@@ -336,7 +336,7 @@ test('provider adapter: no credential configured -> every capability call report
   assert.equal(capability.status, 'PROVIDER_AUTH_REQUIRED');
 });
 
-test('provider adapter: even a "configured" provider has no live adapter implemented tonight -- reported honestly, not silently treated as live', () => {
+test('provider adapter: configured legacy Instantly has no live infrastructure adapter -- reported honestly', () => {
   const cfg = { providers: { instantly: { configured: true, apiKey: 'present-but-unused' } } };
   const resolution = resolveProviderAdapter(cfg, 'instantly');
   assert.equal(resolution.ok, false);
@@ -740,6 +740,20 @@ test('job handlers: mailbox registration through the handler still rejects a sec
   const result = await handlers['domainMailbox.mailbox.register']({ mailboxId: 'm2', workspaceId: 'w1', address: 'a@example.test', sendingDomainId: 'd1', oauthRefreshToken: 'leak-me-not' });
   assert.equal(result.ok, false);
   assert.ok(result.reasonCodes.some(r => r.startsWith('secret-field-rejected')));
+});
+
+test('job handlers: MailHub provider inspection is read-only and unconfigured by default', async () => {
+  const store = await tempStore();
+  const handlers = createJobHandlers({ store, cfg: { providers: {} }, pipeline: {}, revenue: {}, discoveryRunner: {} });
+  const result = await handlers['domainMailbox.provider.inspect']({ provider: 'icemail', workspaceId: 'ws_1' });
+  assert.equal(result.ok, false);
+  assert.equal(result.state, 'PROVIDER_NOT_READY');
+  const plan = await handlers['domainMailbox.provision.plan']({ provider: 'icemail', workspaceId: 'ws_1', requestedDomains: ['uberbond.cloud'], requestedMailboxes: ['ops@uberbond.cloud'] });
+  assert.equal(plan.ok, true);
+  assert.equal(plan.executionStatus, 'PLAN_ONLY_OWNER_APPROVAL_REQUIRED');
+  const capabilities = await handlers['domainMailbox.mailhub.capabilities']({ providers: ['icemail'] });
+  assert.equal(capabilities.providers.length, 1);
+  assert.equal(capabilities.providers[0].liveSendingAuthority, false);
 });
 
 test('job handlers: no module in this suite performs a real network call other than the injected DNS resolver', async () => {

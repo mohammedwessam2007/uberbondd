@@ -2,16 +2,16 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 507,
-      "ranAt": "2026-08-25T14:50:21Z"
+      "filesParsed": 514,
+      "ranAt": "2026-08-25T19:07:55Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2397,
-      "pass": 2349,
+      "tests": 2417,
+      "pass": 2369,
       "fail": 0,
       "skipped": 48,
-      "ranAt": "2026-08-25T14:50:21Z"
+      "ranAt": "2026-08-25T19:17:11Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -19,7 +19,7 @@
       "pass": 150,
       "fail": 0,
       "skipped": 0,
-      "ranAt": "2026-08-25T14:50:21Z"
+      "ranAt": "2026-08-25T19:07:55Z"
     },
     "test:postgres-real": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:postgres-real",
@@ -29,23 +29,23 @@
       "fail": 0,
       "skipped": 0,
       "note": "OMNIA_V9_TEST_DATABASE_URL was unavailable; the integrated branch has no current real-PostgreSQL proof.",
-      "ranAt": "2026-08-25T14:50:21Z"
+      "ranAt": "2026-08-25T19:07:55Z"
     },
     "npm audit": {
-      "command": "npm audit",
-      "status": "NOT_RUN_CURRENT_INTEGRATION",
-      "vulnerabilities": null,
-      "note": "npm audit was not rerun in this integration environment; the prior exact-main receipt reported 0 vulnerabilities.",
-      "ranAt": "2026-08-25T14:50:21Z"
+      "command": "npm audit --audit-level=high",
+      "status": "PASS_CURRENT_INTEGRATION",
+      "vulnerabilities": 0,
+      "note": "No high-severity or other npm audit vulnerabilities were reported in the current integration environment.",
+      "ranAt": "2026-08-25T19:07:55Z"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 151,
-      "reachableFromProduction": 103,
+      "srcModules": 155,
+      "reachableFromProduction": 107,
       "reachableFromOperatorScriptsOnly": 3,
       "noEntryPointAtAll": 45,
       "allClassified": true,
-      "ranAt": "2026-08-25T14:50:21Z"
+      "ranAt": "2026-08-25T19:07:55Z"
     }
   },
   "capabilities": [
@@ -218,6 +218,25 @@
       ],
       "externalBlocker": "No provider credential, no pricing evidence, no canary budget.",
       "nextAction": "Owner supplies one provider credential and an authorised cap."
+    },
+    {
+      "id": "mailhub-provider-adapters",
+      "status": "TEST_VERIFIED",
+      "level": 3,
+      "evidence": [
+        "src/provider-http-adapters.mjs",
+        "src/provider-adapter-contract.mjs",
+        "src/mailhub-control-plane.mjs",
+        "src/provider-infrastructure-events.mjs",
+        "docs/MAILHUB_PROVIDER_ADAPTERS.md"
+      ],
+      "tests": [
+        "tests/provider-http-adapters.test.mjs",
+        "tests/mailhub-control-plane.test.mjs",
+        "tests/provider-infrastructure-events.test.mjs"
+      ],
+      "externalBlocker": "No Icemail or Mailforge API key, provider account, DNS authority, billing approval or warm-up evidence is configured.",
+      "nextAction": "Owner selects a provider and supplies one server-side API key plus a bounded approval; UberBond begins with read-only inventory reconciliation."
     },
     {
       "id": "compute-budget",

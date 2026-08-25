@@ -44,7 +44,7 @@ function daysSince(startIso, at) {
 // success. Anything short of that returns WARMUP_BLOCKED with the exact
 // missing requirement -- it never starts warm-up "optimistically."
 export async function requestMailboxWarmupStart({
-  domainState, mailboxState, providerAdapter, date = new Date()
+  domainState, mailboxState, providerAdapter, providerPayload = null, date = new Date()
 } = {}) {
   const at = referenceDate(date);
   const timestamp = at.toISOString();
@@ -70,7 +70,7 @@ export async function requestMailboxWarmupStart({
     };
   }
 
-  const started = await providerAdapter.startWarmup({ mailboxId: mailboxState.mailboxId });
+  const started = await providerAdapter.startWarmup({ mailboxId: mailboxState.mailboxId, providerPayload });
   if (!started?.ok) {
     return {
       ok: false, policyVersion: WARMUP_ORCHESTRATOR_POLICY_VERSION, state: 'WARMUP_BLOCKED',

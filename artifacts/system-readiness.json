@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-24T23:52:59.058Z",
+  "generatedAt": "2026-08-25T14:55:51.413Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "9734fc3f4ec17ba8427b479efed8d4940dedda42",
-    "branch": "gpt/preactivation-evidence-sovereignty-20260825",
+    "head": "eab6a1208adbd20921856b9cd000831592804091",
+    "branch": "gpt/final-integration-20260825",
     "sourceModules": 151,
-    "testSuites": 236,
+    "testSuites": 241,
     "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 481,
-      "ranAt": "2026-08-24T23:52:04Z"
+      "filesParsed": 507,
+      "ranAt": "2026-08-25T14:50:21Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2347,
-      "pass": 2299,
+      "tests": 2397,
+      "pass": 2349,
       "fail": 0,
       "skipped": 48,
-      "ranAt": "2026-08-24T23:52:04Z"
+      "ranAt": "2026-08-25T14:50:21Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -29,7 +29,7 @@
       "pass": 150,
       "fail": 0,
       "skipped": 0,
-      "ranAt": "2026-08-24T23:52:04Z"
+      "ranAt": "2026-08-25T14:50:21Z"
     },
     "test:postgres-real": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:postgres-real",
@@ -38,22 +38,24 @@
       "pass": 0,
       "fail": 0,
       "skipped": 0,
-      "note": "OMNIA_V9_TEST_DATABASE_URL was unavailable; the current sovereignty branch has no current real-PostgreSQL proof.",
-      "ranAt": "2026-08-24T23:52:04Z"
+      "note": "OMNIA_V9_TEST_DATABASE_URL was unavailable; the integrated branch has no current real-PostgreSQL proof.",
+      "ranAt": "2026-08-25T14:50:21Z"
     },
     "npm audit": {
       "command": "npm audit",
-      "vulnerabilities": 0,
-      "ranAt": "2026-08-24T23:52:04Z"
+      "status": "NOT_RUN_CURRENT_INTEGRATION",
+      "vulnerabilities": null,
+      "note": "npm audit was not rerun in this integration environment; the prior exact-main receipt reported 0 vulnerabilities.",
+      "ranAt": "2026-08-25T14:50:21Z"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 148,
-      "reachableFromProduction": 99,
+      "srcModules": 151,
+      "reachableFromProduction": 103,
       "reachableFromOperatorScriptsOnly": 3,
       "noEntryPointAtAll": 45,
       "allClassified": true,
-      "ranAt": "2026-08-24T23:52:04Z"
+      "ranAt": "2026-08-25T14:50:21Z"
     }
   },
   "capabilities": [

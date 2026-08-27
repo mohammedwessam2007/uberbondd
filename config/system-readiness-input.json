@@ -3,7 +3,7 @@
     "check:syntax": {
       "command": "npm run check:syntax",
       "filesParsed": 481,
-      "ranAt": "2026-08-24T23:52:04Z"
+      "ranAt": "2026-08-27T22:49:36Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
@@ -11,7 +11,7 @@
       "pass": 2299,
       "fail": 0,
       "skipped": 48,
-      "ranAt": "2026-08-24T23:52:04Z"
+      "ranAt": "2026-08-27T22:49:36Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -19,7 +19,7 @@
       "pass": 150,
       "fail": 0,
       "skipped": 0,
-      "ranAt": "2026-08-24T23:52:04Z"
+      "ranAt": "2026-08-27T22:49:36Z"
     },
     "test:postgres-real": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:postgres-real",
@@ -29,12 +29,20 @@
       "fail": 0,
       "skipped": 0,
       "note": "OMNIA_V9_TEST_DATABASE_URL was unavailable; the current sovereignty branch has no current real-PostgreSQL proof.",
-      "ranAt": "2026-08-24T23:52:04Z"
+      "ranAt": "2026-08-27T22:49:36Z"
     },
     "npm audit": {
       "command": "npm audit",
       "vulnerabilities": 0,
-      "ranAt": "2026-08-24T23:52:04Z"
+      "ranAt": "2026-08-27T22:49:36Z"
+    },
+    "test:browser": {
+      "command": "npm run test:browser",
+      "status": "BLOCKED_EXTERNAL_TEST_RUNTIME",
+      "processExitCode": 1,
+      "runnerReportedFail": 1,
+      "note": "Playwright Chromium is absent. The required Chromium download from cdn.playwright.dev timed out on every retry; no browser assertion ran to completion and no product failure is inferred.",
+      "ranAt": "2026-08-27T22:49:36Z"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",

@@ -43,7 +43,8 @@
     "smoke:services": "node scripts/separate-services-smoke.mjs",
     "smoke:outbound": "node scripts/outbound-safety-smoke.mjs",
     "probes:outbound": "node scripts/outbound-probes.mjs",
-    "test:mutation-war": "node scripts/mutation-war.mjs"
+    "test:mutation-war": "node scripts/mutation-war.mjs",
+    "readiness": "node scripts/system-readiness.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

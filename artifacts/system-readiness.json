@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-24T23:52:59.058Z",
+  "generatedAt": "2026-08-27T22:29:13.394Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "9734fc3f4ec17ba8427b479efed8d4940dedda42",
-    "branch": "gpt/preactivation-evidence-sovereignty-20260825",
+    "head": "2a76f3947a700a89d91d31977c4c6f8703b02f6d",
+    "branch": "gpt/canon-freshness-repair-20260827",
     "sourceModules": 151,
     "testSuites": 236,
-    "workingTreeClean": true
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {

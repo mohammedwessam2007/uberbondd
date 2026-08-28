@@ -15,6 +15,7 @@
   "canonPointers": [
     "AGENTS.md",
     "UBERBOND_CANON.md",
+    "docs/HISTORICAL_PROJECT_LINEAGE.md",
     "docs/CURRENT_SYSTEM_STATE.md",
     "artifacts/system-readiness.json",
     "docs/DISTRIBUTION_OS_CANON.md",
@@ -24,10 +25,12 @@
   ],
   "goals": [
     "One private evidence-first economic operating system rather than a pile of disconnected SaaS clones.",
+    "Preserve the historical many-front-end-offers one-shared-operating-system doctrine while current evidence decides which offers are active now.",
     "Lawfully discover and rank real opportunities by mechanism, evidence quality, downside, unit economics, recurrence, delivery feasibility, and founder minutes.",
     "Turn opportunities into bounded offers, distribution experiments, accepted delivery, cleared payment, renewal, expansion, and trusted learning.",
     "Operate founder-light with a small exact owner-action queue only where external identity, consequence, payment, legal, provider, or customer action is unavoidable.",
     "Build elite multi-channel distribution across governed outbound, partners, referrals, product-led diagnostics, owned content, SEO/AEO, social/public distribution, communities/directories, marketplaces, agent ecosystems, reactivation, retention, renewal, and eventually paid media when measured economics justify it.",
+    "Preserve partner-first and white-label leverage including the historical Agency Revenue Watchtower and related recurring-product lineage without treating any unproven offer as active revenue.",
     "Keep the primary brand protected while acquisition infrastructure, sender health, suppression, consent, provider terms, budget, and attribution remain explicit gates.",
     "Continuously acquire missing capabilities from public software patterns using clean-room abstraction, dedupe, license review, provider-neutral contracts, hostile tests, and no automatic code vendoring.",
     "Route work across deterministic code, tools, models, agents, and humans according to evidence and measured economics while capability never creates authority.",
@@ -64,6 +67,14 @@
     "commercial learning portfolio allocation and self-upgrade",
     "durable agent mesh scheduling routing recovery monitoring and audit"
   ],
+  "productFamilies": [
+    "Partner Revenue Assurance",
+    "AI Reliability and Acceptance",
+    "Evidence and Reconciliation",
+    "White-Label Fulfilment",
+    "GCC Bilingual Operations",
+    "Recovery and Vertical Operations"
+  ],
   "protectedPaths": ["lite/"],
   "externalProofGates": [
     "real provider credentials and any separately authorized provider or model spend",
@@ -79,7 +90,7 @@
   "startupProtocol": [
     "Read AGENTS.md and UBERBOND_CANON.md before using chat memory as project truth.",
     "Refresh live main and inspect open or recently merged shared PRs before selecting work.",
-    "Read UBERBOND_BOOTSTRAP.json and docs/CURRENT_HANDOFF.json.",
+    "Read UBERBOND_BOOTSTRAP.json and every path listed in canonPointers, including HISTORICAL_PROJECT_LINEAGE.md and docs/CURRENT_HANDOFF.json.",
     "Read docs/CURRENT_SYSTEM_STATE.md and artifacts/system-readiness.json for current measured readiness.",
     "Read docs/DISTRIBUTION_OS_CANON.md for distribution missions.",
     "Dedupe requested work against current main and active shared branches.",
@@ -88,7 +99,7 @@
   ],
   "continuity": {
     "handoffPath": "docs/CURRENT_HANDOFF.json",
-    "startupInstruction": "Repository canon outranks chat memory. New sessions resume by refreshing main and loading the bootstrap, canon, current readiness, and durable handoff before acting.",
+    "startupInstruction": "Repository canon outranks chat memory. New sessions resume by refreshing main and loading the bootstrap, every canon pointer, current readiness, and durable handoff before acting.",
     "updateInstruction": "After every material mission, update the durable handoff or another canonical repository receipt so the next session can resume without reconstructing the previous conversation."
   }
 }

@@ -44,19 +44,37 @@ function readJson(filePath, label) {
   }
 }
 
-function resolveSourceCommit(rootDir, explicitCommit = null) {
+function resolveGitCommit(rootDir, args, errorCode, explicitCommit = null) {
   const supplied = text(explicitCommit, 64);
-  if (supplied) return supplied.toLowerCase();
+  if (supplied) {
+    if (!/^[a-f0-9]{7,64}$/i.test(supplied)) throw new Error(`${errorCode}-invalid`);
+    return supplied.toLowerCase();
+  }
   try {
-    return execFileSync('git', ['rev-parse', 'HEAD'], {
+    const commit = execFileSync('git', args, {
       cwd: rootDir,
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'ignore'],
       timeout: 5000
     }).trim().toLowerCase();
+    if (!/^[a-f0-9]{7,64}$/i.test(commit)) throw new Error('invalid-git-commit');
+    return commit;
   } catch {
-    throw new Error('source-commit-unavailable');
+    throw new Error(errorCode);
   }
+}
+
+function resolveSourceCommit(rootDir, explicitCommit = null) {
+  return resolveGitCommit(rootDir, ['rev-parse', 'HEAD'], 'source-commit-unavailable', explicitCommit);
+}
+
+function resolveHandoffFileCommit(rootDir, handoffRelative, explicitCommit = null) {
+  return resolveGitCommit(
+    rootDir,
+    ['log', '-1', '--format=%H', '--', handoffRelative],
+    'handoff-file-commit-unavailable',
+    explicitCommit
+  );
 }
 
 function normalizeHandoff(handoff = {}) {
@@ -98,7 +116,7 @@ function assertSafeRelativePath(relativePath) {
   return value;
 }
 
-export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, now = new Date() } = {}) {
+export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, handoffFileCommit = null, now = new Date() } = {}) {
   const root = path.resolve(rootDir || path.join(path.dirname(fileURLToPath(import.meta.url)), '..'));
   const bootstrapPath = path.join(root, 'UBERBOND_BOOTSTRAP.json');
   const bootstrap = readJson(bootstrapPath, 'bootstrap');
@@ -107,6 +125,7 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
   const memoryIndex = readJson(path.join(root, memoryRelative), 'memory-index');
   const handoff = normalizeHandoff(readJson(path.join(root, handoffRelative), 'handoff'));
   const commit = resolveSourceCommit(root, sourceCommit);
+  const handoffCommit = resolveHandoffFileCommit(root, handoffRelative, handoffFileCommit);
 
   const declaredPaths = [...new Set([
     'UBERBOND_BOOTSTRAP.json',
@@ -132,7 +151,7 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
     throw error;
   }
 
-  const handoffFreshAgainstSource = Boolean(handoff.handoffBasisSha && handoff.handoffBasisSha === commit);
+  const handoffFreshAgainstSource = handoffCommit === commit;
   const packet = {
     schemaVersion: 'uberbond-repository-brain-packet-1.0.0',
     cliVersion: UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION,
@@ -150,6 +169,7 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
     externalProofGates: compiled.context.externalProofGates,
     currentHandoff: {
       ...handoff,
+      handoffFileCommit: handoffCommit,
       freshAgainstSourceCommit: handoffFreshAgainstSource,
       authority: handoffFreshAgainstSource
         ? 'CURRENT_SHORT_HORIZON_HINT_STILL_REQUIRES_GITHUB_DEDUPE'

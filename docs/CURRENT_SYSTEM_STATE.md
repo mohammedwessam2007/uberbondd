@@ -64,13 +64,13 @@ than passing vacuously when the URL is absent.
 
 ## 2b. How much of this can actually run
 
-**45 of 151 `src` modules have no entry point at all** — not production, not an
+**45 of 155 `src` modules have no entry point at all** — not production, not an
 operator script. They are reachable only from tests, and a suite proves a module
 behaves while proving nothing about whether anything can call it.
 
 | | |
 |---|---|
-| Reachable from production | 103 |
+| Reachable from production | 107 |
 | Reachable only via an operator script | 3 |
 | **No entry point at all** | **45** |
 

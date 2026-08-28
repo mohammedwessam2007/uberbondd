@@ -7,6 +7,7 @@
     "AGENTS.md",
     "UBERBOND_CANON.md",
     "UBERBOND_BOOTSTRAP.json",
+    "docs/HISTORICAL_PROJECT_LINEAGE.md",
     "docs/CROSS_CHAT_CONTINUITY.md",
     "docs/DISTRIBUTION_OS_CANON.md",
     "docs/DISTRIBUTION_VENDOR_MAP.md",
@@ -21,13 +22,14 @@
     "Existing distribution-channel.mjs is fail-closed and can rank only channels with verified cleared-payment outcomes."
   ],
   "completedInThisMission": [
-    "Added AGENTS.md startup constitution so repo-aware agents load current main, canon, machine bootstrap, handoff, readiness and shared PR state before acting.",
-    "Added UBERBOND_BOOTSTRAP.json as machine-readable durable mission, truth hierarchy, unified goals, capability families and external-proof gates.",
+    "Added AGENTS.md startup constitution so repo-aware agents load current main, every bootstrap canon pointer, current handoff, readiness and shared PR state before acting.",
+    "Added UBERBOND_BOOTSTRAP.json as machine-readable durable mission, truth hierarchy, unified goals, capability families, historical product families and external-proof gates.",
+    "Recovered retained BRAIN whole-chat and Total Commercial Genome lineage into HISTORICAL_PROJECT_LINEAGE.md, preserving the Brain decision laws, many-front-end-offers one-shared-OS doctrine, six product families, partner-first Watchtower lineage, recurring-product ladder and historical distribution research ambitions without promoting them above current truth.",
     "Added CROSS_CHAT_CONTINUITY.md defining repository-native recovery and the explicit ChatGPT-UI limitation.",
     "Added DISTRIBUTION_VENDOR_MAP.md mapping open/public and proprietary reference surfaces into clean-room UberBond capability decisions without vendoring incompatible code.",
-    "Implemented uberbond-brain-context.mjs with deterministic context digest, bounded mission state, secret refusal, required-canon validation, external-proof preservation and durable handoff compilation.",
+    "Implemented uberbond-brain-context.mjs with deterministic context digest, bounded mission state, secret refusal, required-canon validation, historical product-family preservation, external-proof preservation and durable handoff compilation.",
     "Implemented distribution-control-plane.mjs with commercial-learning bridge, hard 50 percent concentration ceiling, bounded preparation-only exploration, stale and future-dated evidence refusal, explicit blocking of measured non-positive economics, outbound suppression/complaint/sender-health gates, paid-media budget/economics gates and cleared-payment-only referral commission basis.",
-    "Focused exact logic evidence: brain context 9/9 PASS; distribution control plane 15/15 PASS; combined 24/24 PASS; syntax PASS for both modules.",
+    "Focused exact logic evidence: brain context 10/10 PASS; distribution control plane 15/15 PASS; combined 25/25 PASS; syntax PASS for both modules.",
     "Mutation evidence: raising the 50 percent concentration ceiling to 100 percent is killed by the hostile suite; deleting the future-evidence guard is also killed."
   ],
   "blockers": [

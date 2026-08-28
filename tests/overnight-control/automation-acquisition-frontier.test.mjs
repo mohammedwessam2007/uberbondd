@@ -20,7 +20,7 @@ test('extended candidate registry contains scheduling, forms, signatures, invoic
   const keys = new Set(EXTENDED_AUTOMATION_CANDIDATES.map(item => item.capabilityKey));
   for (const key of [
     'calendar-and-booking-execution', 'form-and-feedback-ingestion', 'commercial-document-signature',
-    'invoice-and-receivables-automation', 'social-publishing-and-scheduling', 'marketing-lifecycle-automation'
+    'invoice-and-receivables-automation', 'accounting-ledger-export', 'social-publishing-and-scheduling', 'marketing-lifecycle-automation'
   ]) assert.equal(keys.has(key), true, key);
 });
 
@@ -28,9 +28,12 @@ test('AGPL and unknown-license observations remain immutable metadata rather tha
   const documenso = EXTENDED_AUTOMATION_CANDIDATES.find(item => item.repo === 'documenso/documenso');
   const postiz = EXTENDED_AUTOMATION_CANDIDATES.find(item => item.repo === 'gitroomhq/postiz-app');
   const invoice = EXTENDED_AUTOMATION_CANDIDATES.find(item => item.repo === 'invoiceninja/invoiceninja');
+  const accounting = EXTENDED_AUTOMATION_CANDIDATES.find(item => item.repo === 'bigcapitalhq/bigcapital');
   assert.equal(documenso.licenseSpdx, 'AGPL-3.0');
   assert.equal(postiz.licenseSpdx, 'AGPL-3.0');
   assert.equal(invoice.licenseSpdx, 'NOASSERTION');
+  assert.equal(accounting.licenseSpdx, 'AGPL-3.0');
+  assert.equal(accounting.coverage, 'MISSING');
   assert.equal(postiz.coverage, 'MISSING');
   assert.equal(invoice.coverage, 'MISSING');
 });
@@ -92,7 +95,7 @@ test('branch registry covers every automation contract built on this PR includin
     'voice-reception-and-call-lifecycle', 'browser-action-automation', 'omnichannel-conversation-transport',
     'calendar-and-booking-execution', 'external-crm-sync', 'web-context-extraction-at-scale',
     'invoice-and-receivables-automation', 'form-and-feedback-ingestion', 'commercial-document-signature',
-    'social-publishing-and-scheduling'
+    'accounting-ledger-export', 'social-publishing-and-scheduling'
   ]) assert.equal(keys.includes(key), true, key);
   const social = INTERNAL_AUTOMATION_CAPABILITY_REGISTRY.find(item => item.capabilityKey === 'social-publishing-and-scheduling');
   assert.equal(social.satisfactionClass, 'COMPOSED_INTERNAL_CONTRACT');
@@ -104,10 +107,10 @@ test('branch registry covers every automation contract built on this PR includin
 test('current frontier skips all branch-built capabilities and selects the first genuinely unbuilt gap', () => {
   const built = currentInternalSatisfiedCapabilityKeys().map((key, index) => ranked(key, 1000 - index));
   const result = advanceCurrentAutomationAcquisitionFrontier({
-    loopResult: loop([...built, ranked('accounting-ledger-export', 1)])
+    loopResult: loop([...built, ranked('new-provider-export-gap', 1)])
   });
   assert.equal(result.ok, true);
-  assert.equal(result.selected.candidate.capabilityKey, 'accounting-ledger-export');
+  assert.equal(result.selected.candidate.capabilityKey, 'new-provider-export-gap');
   assert.equal(result.status, 'NEXT_UNSATISFIED_INTERNAL_GAP_SELECTED');
 });
 

@@ -1,52 +1,42 @@
 # Cloud activation contract
 
-What it takes to move UberBond's mesh liveness from "correct in this repository"
-to "running in the cloud on a clock nobody has to start".
+What it takes to move UberBond's mesh liveness from repository-proven behavior to a current production deployment that is actually reached by the cloud scheduler.
 
-Written after the cron route, boundary and zero-external-IO canary landed on
-`main` and were verified against real PostgreSQL.
+The cron route, boundary and zero-external-IO canary are already on `main` and were previously verified against real PostgreSQL. This file now separates those code/runtime proofs from the connected platform state observed on 2026-08-29.
 
 ## Observed deployment truth
 
-**There is no Vercel project.** The account
-(`mohammedwessam2007's projects`, `team_A9LnjIuS5PU0rNetsHMu1N0r`, Hobby plan)
-has zero projects. `vercel.json` declares a cron; nothing is hosting it.
+The previous version of this contract said no Vercel project existed. That is stale and contradicted by connected Vercel inspection.
 
-So the honest status of every §016/§017 deployment check is the same:
+Observed team: `team_A9LnjIuS5PU0rNetsHMu1N0r`.
 
-| Check | Status |
+Observed Git-linked UberBond projects:
+
+- `prj_RWUPf14w1xIz9NK92AbNW5z7qDCg` — `uberbondd` — linked to `mohammedwessam2007/uberbondd`;
+- `prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz` — `uberbondd-lite-private` — linked to the same repository.
+
+`lite/` remains protected. The deployment target for the main system is `uberbondd`.
+
+Connected Vercel also shows READY deployments for `uberbondd`:
+
+| Observation | Evidence |
 |---|---|
-| Current Vercel project resolved | **NONE EXISTS** |
-| Build config verified | n/a — `vercel.json` is correct in-repo, never built |
-| Environment variable contract | declared below, **not set anywhere** |
-| Database connectivity from production | n/a |
-| Health endpoint reachable | n/a |
-| Scheduler configured | declared in `vercel.json`, **not registered with any platform** |
-| Production deployment source SHA | **none** |
-| Rollback path | n/a — nothing to roll back |
+| Project exists | `prj_RWUPf14w1xIz9NK92AbNW5z7qDCg` |
+| Latest observed deployment | `dpl_GxiZJqNGzFctaAjxtcXkAn1EkWda`, READY, preview target, source `59a413da9cd0dde1ca10aabbca79733583c01b36` |
+| Latest observed production deployment in the returned window | `dpl_7JcNGnb3yQecemXo6ncxckNyEfCR`, READY, source main SHA `7e20cec9b4399e73b7f13fa7999dbc05a2f38221` |
+| Production domains | `uberbondd.vercel.app`, project aliases |
+| Runtime errors observed in last 24h | none |
+| Current main exact production SHA proven | **NO** |
+| Current zero-I/O cron liveness proven | **NO** |
 
-This is not a failure of the code. It is the absence of a deployment target.
+The machine-readable observation is `artifacts/live-infrastructure-observation-20260829.json`.
 
-## Why this was not created automatically
+## What is already proven in repository/runtime tests
 
-Creating the project is free and takes minutes, and it was deliberately not
-done, for one reason: the two secrets the route requires cannot be supplied from
-inside this repository.
-
-Without `DATABASE_URL` the route returns `503 store-runtime-not-configured`.
-Without `CRON_SECRET` it returns `503 cron-secret-not-configured`. A project
-deployed now would present a production surface whose daily cron fails every
-time — which is worse than no project, because it *looks* deployed.
-
-A generated `CRON_SECRET` would also have to be handed over in chat to be
-useful, which is the wrong place for a credential.
-
-## What is already proven
-
-Verified against real PostgreSQL 18 through the actual handler, not a fixture:
+Verified previously against real PostgreSQL through the actual handler, not a fixture:
 
 ```
-first authorized firing    -> 200, cycle receipt meshcycle_9d53d3f7…, zero effects, authority NONE
+first authorized firing    -> 200, durable cycle receipt, zero effects, authority NONE
 replay, same occurrence    -> 200, duplicateDelivery: true, SAME cycleId
 replay, different commit   -> 409 scheduler-occurrence-identity-conflict
 next UTC day               -> new occurrence key, runs
@@ -55,67 +45,57 @@ missing schedule header    -> 403, nothing written
 POST instead of GET        -> 405, nothing written
 ```
 
-The replay result is worth reading twice: a **separate process** replaying the
-same occurrence key received the same `cycleId`. Idempotency is durable in the
-database, not in memory.
+The replay result proves durable database idempotency. It does not prove that Vercel's scheduler has executed the current production route.
 
 ## Environment variable contract
 
-| Variable | Required by | Consequence if missing |
+| Variable | Required by | Current connected-platform truth |
 |---|---|---|
-| `CRON_SECRET` | `api/agent-mesh-cron.mjs` | `503 cron-secret-not-configured` — fails closed, never runs |
-| `VERCEL_GIT_COMMIT_SHA` | same | `503 vercel-source-commit-not-configured` — set automatically by Vercel |
-| `DATABASE_URL` | `createStore` | `503 store-runtime-not-configured` |
-| `ENCRYPTION_KEY` | `src/config.mjs` startup validation | startup refuses |
+| `CRON_SECRET` | `api/agent-mesh-cron.mjs` | presence unknown; do not infer absence |
+| `VERCEL_GIT_COMMIT_SHA` | same | injected by Vercel on deployments |
+| `DATABASE_URL` | `createStore` | presence/connectivity for the current production candidate unknown |
+| `ENCRYPTION_KEY` | `src/config.mjs` startup validation | presence unknown |
 
-`VERCEL_GIT_COMMIT_SHA` is injected by the platform. The other three are the
-owner's to set.
+Secrets must never be copied into repository artifacts or chat receipts.
 
-## Activation sequence
+## Correct activation sequence from the observed state
 
-1. `vercel link` (or create the project in the dashboard from this repository).
-2. Set `CRON_SECRET` to a fresh random value, `DATABASE_URL` to a real
-   PostgreSQL connection string, and `ENCRYPTION_KEY`, as production
-   environment variables.
-3. Deploy. Vercel registers the cron from `vercel.json` automatically.
+The project already exists. Do **not** create another project.
 
-## Expected proof after activation
+1. Obtain trustworthy exact-head build/test proof for the candidate being promoted.
+2. Verify the existing `uberbondd` project's required production environment contract without exposing or rotating secret values.
+3. Deploy/promote the verified exact candidate to the existing `uberbondd` project.
+4. Verify the production deployment's exact source SHA, READY state, health/runtime errors and registered cron schedule.
+5. Capture one real authorized scheduler invocation of `/api/agent-mesh-cron` in `ZERO_EXTERNAL_IO_CANARY` mode.
+6. Replay the same occurrence and confirm `duplicateDelivery: true` with the same `cycleId`.
+7. Confirm the returned external-effect ledger remains all zero and `businessEffectAuthority` remains `NONE`.
 
-- `vercel crons ls` lists `/api/agent-mesh-cron` at `17 12 * * *`.
-- The first firing returns 200 with a `cycleId` and
-  `permittedMode: "ZERO_EXTERNAL_IO_CANARY"`.
-- `vercel crons run /api/agent-mesh-cron` on the same UTC day returns
-  `duplicateDelivery: true` with the same `cycleId`.
-- The response's `externalEffectLedger` is all zeros on every firing.
+## Promotion gates
 
-That last one is the point of the canary: it proves the clock reaches the code
-and the code writes a durable receipt, while proving that nothing external
-happened.
+Do not claim `DEPLOYED_HEALTHY` unless the exact candidate SHA is the production source and health/runtime checks support it.
+
+Do not claim `ZERO_IO_LIVENESS` until a real Vercel scheduler invocation produces the expected durable receipt.
+
+Do not claim provider/live-commercial readiness from this canary. It deliberately proves no provider/model/customer/business effects.
 
 ## Kill conditions
 
 Stop and investigate if any of these appear:
 
 - Two different `cycleId` values for one occurrence key.
-- Any non-zero field in a returned `externalEffectLedger`.
+- Any non-zero field in the returned `externalEffectLedger`.
 - `businessEffectAuthority` anything other than `NONE`.
-- A 200 response carrying a `reasonCodes` array that includes a conflict code.
-- Repeated 403 `vercel-cron-schedule-mismatch` — that means `vercel.json` and
-  `VERCEL_AGENT_MESH_CRON_SCHEDULE` have drifted, and the cron is not running at
-  all despite appearing configured. A test binds them precisely to prevent this.
+- A 200 response carrying a conflict reason code.
+- Repeated `vercel-cron-schedule-mismatch` responses.
+- Production source SHA different from the candidate that passed promotion gates.
+- Any unexpected provider/model/customer effect during the zero-I/O canary.
 
 ## Rollback
 
-Remove the `crons` array from `vercel.json` and redeploy, or delete the cron in
-the dashboard. The route stays deployed and inert: with no scheduler calling it
-and a secret required on every request, it has no self-starting path.
+Use the existing Vercel project's previous known-good production deployment as the rollback target, or remove the `crons` array and redeploy if scheduler activation itself is the fault. The route remains fail-closed behind the cron secret.
 
 ## Schedule constraint
 
-`17 12 * * *` is once daily. The occurrence key has day granularity, and the
-boundary now refuses any schedule finer than that rather than silently folding
-288 firings into one — so widening the cadence is a deliberate change that
-requires widening the occurrence identity with it.
+`17 12 * * *` is once daily. The occurrence identity has day granularity, and the boundary refuses finer schedules rather than silently folding multiple firings into one occurrence.
 
-Hobby-plan cron limits were not verified from documentation and are not asserted
-here. A once-daily schedule is the conservative choice under any of them.
+This contract records observed truth, not credentials. Future sessions must refresh connected Vercel state before changing this file again.

@@ -61,16 +61,7 @@ const SOURCE_BACKED_CLASSES = new Set(['DIRECT_FIRST_PARTY', 'DIRECT_PUBLIC', 'L
 // reason we believe somebody is in our ICP.
 const MUST_BE_SOURCE_BACKED = Object.freeze(['icpFit', 'buyerRoleFit', 'reachability']);
 
-const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as ZERO_EFFECTS } from './effect-ledgers.mjs';
 
 // Fields a model result is never allowed to contribute. If one appears the
 // assessment is not merely ignored -- it is reported, because a model asking

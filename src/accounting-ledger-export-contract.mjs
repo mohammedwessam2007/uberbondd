@@ -8,16 +8,7 @@ export const ACCOUNTING_SOURCE_TRUTH_CLASSES = Object.freeze([
   'AUTHORIZED_EXPENSE_CLEARED'
 ]);
 
-const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as ZERO_EFFECTS } from './effect-ledgers.mjs';
 
 const SENSITIVE_KEYS = /(?:customer|email|phone|address|bank|card|iban|routing|accountnumber|taxid|vatid|password|secret|token|authorization|cookie|credential|api[_-]?key|raw(?:payload|body|value)|description|memo|note)/i;
 const FORBIDDEN_TAX_CALC_KEYS = /^(?:taxRate|taxRateBps|taxAmount|taxAmountCents|vatRate|vatAmount|vatAmountCents)$/i;

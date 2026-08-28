@@ -18,16 +18,7 @@ import { evaluateProspectQualification } from './prospect-qualification-gate.mjs
 
 export const PROSPECT_QUALIFICATION_PIPELINE_VERSION = 'uberbond.prospect-qualification-pipeline.v1';
 
-const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as ZERO_EFFECTS } from './effect-ledgers.mjs';
 
 /** Present a disposition in the shape the gate expects to receive a score in. */
 function scoreFromDisposition(decision) {

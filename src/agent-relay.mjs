@@ -11,16 +11,9 @@ export const AGENT_RELAY_POLICY_VERSION = 'agent-relay-1.0.0';
 export const RELAY_STATUSES = Object.freeze([
   'READY_FOR_REVIEW', 'OPEN_REVIEW', 'ROUND_REVIEW', 'RESOLVED', 'ESCALATE_OWNER'
 ]);
-export const RELAY_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as RELAY_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+
+export { RELAY_EXTERNAL_EFFECTS };
 
 const MAX_REFS = 100;
 const MAX_ITEMS = 40;

@@ -29,16 +29,7 @@ export const BOOKING_PROVIDER_CAPABILITIES = Object.freeze([
 const SUCCESS_EVENTS = new Set(['BOOKING_CONFIRMED', 'RESCHEDULE_CONFIRMED', 'BOOKING_CANCELLED']);
 const REJECTION_EVENTS = new Set(['BOOKING_REJECTED', 'RESCHEDULE_REJECTED', 'CANCEL_REJECTED']);
 const SENSITIVE_KEYS = /(?:email|phone|attendee|participant|customername|fullname|address|notes?|description|message|raw(?:payload|body|value)|password|secret|token|authorization|cookie|credential|api[_-]?key)/i;
-const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as ZERO_EFFECTS } from './effect-ledgers.mjs';
 
 function clone(value) { return structuredClone(value); }
 function text(value, max = 240) {

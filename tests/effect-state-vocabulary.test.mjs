@@ -132,3 +132,30 @@ test('every module reads one ledger definition, not its own copy', async () => {
     'fifteen byte-identical copies of the canonical ledger drifted independently once already; '
     + 'import it from src/effect-ledgers.mjs instead');
 });
+
+// The check above matches the canonical *name*, so a copy under any other name
+// walks straight past it -- which is exactly what happened: a new module
+// declared `const ZERO_EFFECTS = Object.freeze({...})` with the same eight keys
+// and was not flagged. A guard that a rename defeats is a guard that will be
+// defeated by a rename.
+//
+// This one matches on the key set instead, so the shape is what is recognized
+// rather than the spelling.
+test('a copy of the canonical ledger under any other name is still a copy', async () => {
+  const { readdirSync, readFileSync } = await import('node:fs');
+  const canonical = [...CANONICAL_EFFECT_KEYS].sort().join(',');
+  const offenders = [];
+
+  for (const name of readdirSync('src').filter(file => file.endsWith('.mjs'))) {
+    if (name === 'effect-ledgers.mjs') continue;
+    const source = readFileSync(`src/${name}`, 'utf8');
+    for (const match of source.matchAll(/const\s+(\w+)\s*=\s*Object\.freeze\(\{([^}]*)\}\)/g)) {
+      const [, constName, body] = match;
+      const keys = [...body.matchAll(/^\s*(\w+)\s*:/gm)].map(entry => entry[1]).sort().join(',');
+      if (keys === canonical) offenders.push(`${name}: ${constName}`);
+    }
+  }
+
+  assert.deepEqual(offenders, [],
+    'these declare the canonical effect key set under a local name; import it from src/effect-ledgers.mjs');
+});

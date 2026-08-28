@@ -8,16 +8,9 @@
 import crypto from 'node:crypto';
 
 export const CAPITAL_ALLOCATOR_POLICY_VERSION = 'capital-allocator-1.0.0';
-export const CAPITAL_ALLOCATOR_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as CAPITAL_ALLOCATOR_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+
+export { CAPITAL_ALLOCATOR_EXTERNAL_EFFECTS };
 
 function atDate(value) {
   const date = value instanceof Date ? value : new Date(value || Date.now());

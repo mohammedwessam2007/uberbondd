@@ -1,15 +1,6 @@
 export const AGENT_MESH_ZERO_IO_CANARY_POLICY_VERSION = 'agent-mesh-zero-io-canary-1.0.0';
 
-const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as ZERO_EFFECTS } from './effect-ledgers.mjs';
 
 function zeroEffects() { return { ...ZERO_EFFECTS }; }
 function iso(value) {

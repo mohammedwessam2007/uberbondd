@@ -20,16 +20,9 @@ export const CREATOR_AI_AUTOMATION_BUNDLE_SOURCE = Object.freeze({
   marketPriceVerification: 'ABSENT'
 });
 
-export const CREATOR_AI_AUTOMATION_ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as CREATOR_AI_AUTOMATION_ZERO_EFFECTS } from './effect-ledgers.mjs';
+
+export { CREATOR_AI_AUTOMATION_ZERO_EFFECTS };
 
 const COMMON_BOUNDARIES = Object.freeze([
   'Client-authorized systems and data only.',

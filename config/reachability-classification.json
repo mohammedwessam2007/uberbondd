@@ -51,6 +51,10 @@
     "NO_AI_ACCESS_EXTERNAL_AUTHORIZATION": {
       "description": "The AI access catalogue's meaningful execution path creates provider accounts, applications and credit claims. Recorded as out of scope by the external-effect ledger in docs/AGENT_MESH_REACHABILITY_TRIAGE.md.",
       "releasedBy": "Separate, explicit owner authorization for provider account creation and application submission, which is not covered by any authorization granted to date."
+    },
+    "NO_PROVIDER_ADAPTER_CONFIGURED": {
+      "description": "These contracts define what a provider integration must prove before it may act -- idempotency key, reconciliation of an uncertain attempt, retry law, and a receipt. Each declares its own *_ADAPTER_NOT_CONFIGURED refusal and there is no configured adapter or credential behind any of them, so the meaningful path cannot execute. Releasing one means connecting that provider's adapter and credential, not writing more contract code.",
+      "releasedBy": "A configured adapter and credential for that provider category, supplied by the owner."
     }
   },
   "modules": {
@@ -278,6 +282,66 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PAYMENT_PROVIDER",
       "reason": "Derives payment-to-renewal economic truth from provider evidence. No payment provider is connected and no provider event has ever arrived, so there is nothing for it to read."
+    },
+    "src/voice-telephony-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Placing a call reaches a real person. No outbound authorization exists, so the meaningful path is refused before an adapter is even needed."
+    },
+    "src/omnichannel-communication-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Every channel here is person-targeted. The contract is written and the authority to send is not granted."
+    },
+    "src/distribution-control-plane.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "The control plane's meaningful path drives person-targeted distribution. It is tested against fixtures and wired to nothing, because the motion it would coordinate is not authorized."
+    },
+    "src/receivables-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PAYMENT_PROVIDER",
+      "reason": "An invoice is a claim about money that canonical payment truth must later confirm. With no payment provider there is nothing for a receivable to reconcile against."
+    },
+    "src/accounting-ledger-export-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PAYMENT_PROVIDER",
+      "reason": "An accounting export exports cleared economics. Net cleared revenue is zero and no provider evidence exists, so an export would be a document about nothing."
+    },
+    "src/commercial-signature-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CUSTOMER",
+      "reason": "A signature is one form external customer acceptance can take. There is no customer to sign."
+    },
+    "src/form-feedback-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CUSTOMER",
+      "reason": "Acceptance requests and delivery feedback are customer surfaces. There are zero verified customers to ask."
+    },
+    "src/booking-calendar-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
+      "reason": "Booking needs a calendar provider. BOOKING_ADAPTER_NOT_CONFIGURED is the contract's own refusal and it is the current state."
+    },
+    "src/external-crm-sync-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
+      "reason": "CRM sync needs a CRM credential. No CRM is connected, and a CRM observation would not be canonical truth even if one were."
+    },
+    "src/browser-action-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
+      "reason": "BROWSER_ADAPTER_NOT_CONFIGURED. The contract also names ACCOUNT_CREATION as a consequence class, which needs authorization separately from an adapter."
+    },
+    "src/web-context-extraction-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
+      "reason": "Extraction needs a fetch/render adapter. The contract explicitly refuses CAPTCHA_BYPASS and AUTH_BYPASS, so releasing it does not widen what it may reach."
+    },
+    "src/social-publication-schedule-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
+      "reason": "Publication needs a platform adapter and, at the due occurrence, fresh authority and current platform policy -- which the contract states as its own precondition."
     }
   }
 }

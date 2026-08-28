@@ -4,16 +4,7 @@ import { boundHeaders, parseInboundMime, classifyInboundEvent } from './inbound-
 export const INBOUND_FEEDBACK_POLICY_VERSION = 'inbound-feedback-kernel-1.0.0';
 export const INBOUND_EVIDENCE_CLASSES = Object.freeze(['UNVERIFIED_INPUT', 'TEST_FIXTURE', 'PROVIDER_OBSERVED']);
 
-const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as ZERO_EFFECTS } from './effect-ledgers.mjs';
 
 function text(value, max = 500) {
   return String(value ?? '').trim().slice(0, max);

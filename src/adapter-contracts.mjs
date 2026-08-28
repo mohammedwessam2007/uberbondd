@@ -7,16 +7,9 @@
 import crypto from 'node:crypto';
 
 export const ADAPTER_CONTRACT_POLICY_VERSION = 'adapter-contract-1.0.0';
-export const ADAPTER_CONTRACT_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as ADAPTER_CONTRACT_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+
+export { ADAPTER_CONTRACT_EXTERNAL_EFFECTS };
 
 const MAX_FIELDS = 100;
 const MAX_CAPABILITIES = 50;

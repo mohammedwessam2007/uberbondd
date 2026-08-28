@@ -3,16 +3,7 @@ import { compileCommunicationCommand } from './omnichannel-communication-contrac
 
 export const SOCIAL_PUBLICATION_SCHEDULE_POLICY_VERSION = 'social-publication-schedule-contract-1.0.0';
 
-const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as ZERO_EFFECTS } from './effect-ledgers.mjs';
 
 const SENSITIVE_KEYS = /(?:message|body|text|caption|raw(?:payload|body|content)|password|secret|token|authorization|cookie|credential|api[_-]?key|recipient|destination|handle|username)/i;
 const SAFE_REFERENCE_KEYS = new Set([

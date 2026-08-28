@@ -14,16 +14,9 @@ export const ESCALATION_AUDIT_TYPE = 'operator_escalation';
 // episodes -- the second outage was never escalated to anyone.
 export const ESCALATION_RESOLVED_AUDIT_TYPE = 'operator_escalation_resolved';
 
-export const OPERATOR_ESCALATION_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as OPERATOR_ESCALATION_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+
+export { OPERATOR_ESCALATION_EXTERNAL_EFFECTS };
 
 const SEVERITY_RANK = Object.freeze({
   INFO: 0,

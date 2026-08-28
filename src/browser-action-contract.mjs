@@ -37,16 +37,7 @@ const FORBIDDEN_BROWSER_PURPOSES = new Set([
   'ACCOUNT_CREATION'
 ]);
 const SENSITIVE_KEYS = /(?:password|passwd|secret|token|authorization|cookie|credential|api[_-]?key|raw(?:value|body|payload)|card(?:number)?|cvv|cvc)/i;
-const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as ZERO_EFFECTS } from './effect-ledgers.mjs';
 
 function clone(value) {
   return structuredClone(value);

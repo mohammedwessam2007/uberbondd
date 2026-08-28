@@ -13,16 +13,9 @@ export const MECHANISM_ATOM_TYPES = Object.freeze([
   'FULFILLMENT', 'RECURRENCE', 'RETENTION', 'EXPANSION', 'PARTNER_LEVERAGE',
   'DATA_MOAT', 'AUTOMATION', 'PLATFORM_DEPENDENCY', 'REGULATION'
 ]);
-export const MECHANISM_LAB_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as MECHANISM_LAB_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+
+export { MECHANISM_LAB_EXTERNAL_EFFECTS };
 
 const MAX_ATOMS = 100;
 const MAX_CANDIDATES = 25;

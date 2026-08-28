@@ -8,16 +8,9 @@
 import crypto from 'node:crypto';
 
 export const BUSINESS_FITNESS_POLICY_VERSION = 'business-fitness-1.0.0';
-export const BUSINESS_FITNESS_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as BUSINESS_FITNESS_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+
+export { BUSINESS_FITNESS_EXTERNAL_EFFECTS };
 
 function atDate(value) {
   const date = value instanceof Date ? value : new Date(value || Date.now());

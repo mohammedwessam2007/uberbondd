@@ -8,16 +8,7 @@ export const CAUSAL_NODE_TYPES = Object.freeze([
 ]);
 export const CAUSAL_EVIDENCE_CLASSES = Object.freeze(['DIRECT','ATTRIBUTED','INFERRED']);
 
-const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as ZERO_EFFECTS } from './effect-ledgers.mjs';
 const MAX_NODES = 1000;
 const MAX_EDGES = 3000;
 const MAX_OUTCOMES = 1000;

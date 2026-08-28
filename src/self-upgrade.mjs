@@ -18,16 +18,9 @@ export const UPGRADE_STATUSES = Object.freeze([
   'PROMOTION_BLOCKED'
 ]);
 
-export const SELF_UPGRADE_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS as SELF_UPGRADE_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+
+export { SELF_UPGRADE_EXTERNAL_EFFECTS };
 
 const MAX_REFS = 100;
 const MAX_SCOPE = 40;

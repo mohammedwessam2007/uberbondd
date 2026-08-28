@@ -1,18 +1,11 @@
 import crypto from 'node:crypto';
 
-export const AGENT_MESH_CRON_BOUNDARY_POLICY_VERSION = 'agent-mesh-cron-boundary-1.0.0';
+export const AGENT_MESH_CRON_BOUNDARY_POLICY_VERSION = 'agent-mesh-cron-boundary-1.1.0';
 export const VERCEL_AGENT_MESH_CRON_SCHEDULE = '17 12 * * *';
 
-export const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+
+export { ZERO_EXTERNAL_EFFECTS };
 
 function cloneZeroEffects() {
   return { ...ZERO_EXTERNAL_EFFECTS };
@@ -74,6 +67,24 @@ export function authorizeVercelCronRequest({
   };
 }
 
+// This occurrence key has day granularity, which is only correct while the
+// schedule fires at most once a day. Edit `vercel.json` to `*\/5 * * * *` and
+// 288 firings share one key: 287 are silently classified as duplicate
+// deliveries, no error is raised anywhere, and the mesh appears to be running
+// daily when it is being asked to run every five minutes.
+//
+// Silence is the problem, not the granularity. A schedule this key cannot
+// represent is refused rather than quietly folded, so the next person to widen
+// the cadence is told that the occurrence identity has to widen with it.
+function firesMoreThanOncePerDay(schedule) {
+  const fields = schedule.split(/\s+/).filter(Boolean);
+  if (fields.length < 5) return true;
+  const [minute, hour] = fields;
+  // A single fixed minute and a single fixed hour is exactly one firing a day.
+  const fixed = value => /^\d+$/.test(value);
+  return !(fixed(minute) && fixed(hour));
+}
+
 export function deriveVercelDailyOccurrence({
   scheduleHeader,
   date = new Date(),
@@ -82,6 +93,9 @@ export function deriveVercelDailyOccurrence({
   const schedule = headerValue(scheduleHeader).trim();
   if (!schedule) return fail(400, ['vercel-cron-schedule-header-required']);
   if (schedule !== expectedSchedule) return fail(400, ['vercel-cron-schedule-mismatch']);
+  if (firesMoreThanOncePerDay(schedule)) {
+    return fail(500, ['cron-schedule-finer-than-occurrence-identity']);
+  }
 
   const instant = date instanceof Date ? new Date(date.getTime()) : new Date(date);
   if (!Number.isFinite(instant.getTime())) return fail(400, ['valid-cron-observed-at-required']);

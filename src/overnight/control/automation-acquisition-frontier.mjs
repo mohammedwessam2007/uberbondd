@@ -87,6 +87,20 @@ export const EXTENDED_AUTOMATION_CANDIDATES = Object.freeze([
     priorities: { economicLeverage: 8, founderMinuteReduction: 10, reuseAcrossOffers: 8, maintenanceBurden: 6, externalEffectRisk: 7 }
   }),
   Object.freeze({
+    repo: 'bigcapitalhq/bigcapital',
+    capabilityKey: 'accounting-ledger-export',
+    capabilityLabel: 'Receipt-bound double-entry accounting export',
+    coverage: 'MISSING',
+    sourceMode: 'PROVIDER_NEUTRAL_PATTERN',
+    licenseSpdx: 'AGPL-3.0',
+    stars: 3868,
+    pushedAt: '2026-08-28T16:08:09.000Z',
+    observedAt: '2026-08-28T16:12:30.000Z',
+    patterns: ['double-entry accounting', 'expense and payment journals', 'currency-separated financial reporting'],
+    existingUberBondModules: ['src/commercial-outcome.mjs', 'src/payment-provider.mjs', 'src/receivables-contract.mjs'],
+    priorities: { economicLeverage: 8, founderMinuteReduction: 8, reuseAcrossOffers: 8, maintenanceBurden: 6, externalEffectRisk: 4 }
+  }),
+  Object.freeze({
     repo: 'knadh/listmonk',
     capabilityKey: 'marketing-lifecycle-automation',
     capabilityLabel: 'Newsletter and mailing-list campaign management',
@@ -112,6 +126,7 @@ export const INTERNAL_AUTOMATION_CAPABILITY_REGISTRY = Object.freeze([
   ['invoice-and-receivables-automation', ['src/receivables-contract.mjs']],
   ['form-and-feedback-ingestion', ['src/form-feedback-contract.mjs']],
   ['commercial-document-signature', ['src/commercial-signature-contract.mjs']],
+  ['accounting-ledger-export', ['src/accounting-ledger-export-contract.mjs']],
   ['social-publishing-and-scheduling', [
     'src/social-publication-schedule-contract.mjs',
     'src/omnichannel-communication-contract.mjs',

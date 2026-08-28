@@ -8,12 +8,12 @@ Before proposing or changing UberBond:
 
 1. Refresh the latest `main`; do not rely on a remembered SHA.
 2. Read `UBERBOND_CANON.md`.
-3. Read `UBERBOND_BOOTSTRAP.json`.
-4. Read `docs/CURRENT_HANDOFF.json`.
+3. Read `UBERBOND_BOOTSTRAP.json` **and every path listed in its `canonPointers` array**. This includes the historical lineage and current handoff, so the session recovers both the long-horizon product dream and the current execution frontier.
+4. Read `docs/CURRENT_HANDOFF.json` again when resuming unfinished work.
 5. Read `docs/CURRENT_SYSTEM_STATE.md` and `artifacts/system-readiness.json` when readiness matters.
 6. For distribution work, read `docs/DISTRIBUTION_OS_CANON.md` and `docs/DISTRIBUTION_VENDOR_MAP.md`.
 7. Inspect open/recent PRs and shared branches before coding so concurrent work is deduped.
-8. Prefer current repository truth over chat recollection, historical ZIPs, screenshots, generated plans, or stale issue text.
+8. Prefer current repository truth over chat recollection, historical ZIPs, screenshots, generated plans, or stale issue text. Historical lineage preserves goals and doctrine; it never overrides current code, receipts, or external evidence.
 
 If the owner says `continue`, `go`, or starts a fresh UberBond chat, resume from those durable artifacts. Do not ask the owner to retell the project merely because prior conversation context is unavailable.
 

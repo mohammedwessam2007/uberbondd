@@ -10,6 +10,7 @@
     "start": "node server.mjs",
     "start:web": "node server.mjs",
     "dev": "node --watch server.mjs",
+    "vercel-build": "npm run check",
     "test": "npm run test:deterministic && npm run test:browser",
     "test:vercel-relay": "node --test tests/vercel-agent-relay.test.mjs tests/vercel-relay-adapter.test.mjs",
     "test:approved-source-rehearsal": "node --test tests/approved-source-rehearsal.test.mjs",

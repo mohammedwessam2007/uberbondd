@@ -1,4 +1,5 @@
 {
+  "buildCommand": "npm run check",
   "functions": {
     "api/agent-relay.mjs": { "maxDuration": 60 }
   },

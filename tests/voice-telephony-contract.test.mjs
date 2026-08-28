@@ -66,15 +66,17 @@ test('UberBond-originated effect truth also requires consequence authorization e
     providerReceiptRef: 'receipt_sms_1'
   }));
   assert.equal(blocked.ok, false);
-  assert.ok(blocked.reasonCodes.includes('authorization-receipt-ref-required-for-uberbond-effect'));
+  assert.ok(blocked.reasonCodes.includes('authority-receipt-ref-required-for-uberbond-effect'));
 
   const proven = normalizeVoiceEvent(event({
     eventType: 'SMS_SENT',
     origin: 'UBERBOND',
     providerReceiptRef: 'receipt_sms_1',
-    authorizationReceiptRef: 'authority_sms_1'
+    authorityReceiptRef: 'authority_sms_1'
   }));
   assert.equal(proven.ok, true);
+  assert.equal(Object.hasOwn(proven.event, 'authorizationReceiptRef'), false);
+  assert.equal(Object.hasOwn(proven.event, 'authorityReceiptRef'), true);
 });
 
 test('future-dated provider events are rejected', () => {

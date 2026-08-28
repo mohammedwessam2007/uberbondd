@@ -27,7 +27,7 @@ function buildFixture(mutator = null) {
 
 test('one-command loader validates actual bootstrap and memory into a zero-effect startup packet', () => {
   const root = buildFixture();
-  const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit, now: '2026-08-28T20:00:00Z' });
+  const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit, handoffFileCommit: sourceCommit, now: '2026-08-28T20:00:00Z' });
   assert.equal(packet.project, 'UberBond');
   assert.equal(packet.sourceCommit, sourceCommit);
   assert.match(packet.contextDigest, /^[a-f0-9]{64}$/);
@@ -39,24 +39,25 @@ test('one-command loader validates actual bootstrap and memory into a zero-effec
   assert.equal(packet.externalEffectLedger.providerCalls, 0);
 });
 
-test('handoff is explicitly downgraded when its source basis differs from current commit', () => {
+test('handoff is explicitly downgraded when its file commit differs from current source', () => {
   const root = buildFixture();
-  const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' });
+  const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', handoffFileCommit: sourceCommit });
   assert.equal(packet.currentHandoff.freshAgainstSourceCommit, false);
   assert.match(packet.currentHandoff.authority, /RECONCILE_AGAINST_LIVE_GITHUB/);
 });
 
-test('matching handoff still remains a hint that requires GitHub dedupe', () => {
-  const root = buildFixture(({ handoff }) => { handoff.sourceMainShaAtMissionStart = sourceCommit; });
-  const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit });
+test('freshness follows the actual handoff file commit rather than its historical source-main basis', () => {
+  const root = buildFixture(({ handoff }) => { handoff.sourceMainShaAtMissionStart = 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'; });
+  const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit, handoffFileCommit: sourceCommit });
   assert.equal(packet.currentHandoff.freshAgainstSourceCommit, true);
+  assert.equal(packet.currentHandoff.handoffFileCommit, sourceCommit);
   assert.match(packet.currentHandoff.authority, /REQUIRES_GITHUB_DEDUPE/);
 });
 
 test('missing declared canon file fails instead of bootstrapping a partial company memory', () => {
   const root = buildFixture();
   fs.unlinkSync(path.join(root, 'docs/UBERBOND_MASTER_MEMORY.md'));
-  assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit }), error => {
+  assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit, handoffFileCommit: sourceCommit }), error => {
     assert.equal(error.message, 'declared-canon-file-missing');
     assert.ok(error.missingPaths.includes('docs/UBERBOND_MASTER_MEMORY.md'));
     return true;
@@ -65,7 +66,7 @@ test('missing declared canon file fails instead of bootstrapping a partial compa
 
 test('memory corruption fails closed through the canonical context validator', () => {
   const root = buildFixture(({ memory }) => { memory.unresolvedNames = []; });
-  assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit }), error => {
+  assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit, handoffFileCommit: sourceCommit }), error => {
     assert.equal(error.message, 'project-context-validation-failed');
     assert.ok(error.reasonCodes.includes('valid-memory-index-required'));
     return true;
@@ -74,17 +75,17 @@ test('memory corruption fails closed through the canonical context validator', (
 
 test('unsafe canon pointers are rejected before filesystem traversal', () => {
   const root = buildFixture(({ bootstrap }) => { bootstrap.canonPointers.push('../outside.md'); });
-  assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit }), /unsafe-canon-pointer/);
+  assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit, handoffFileCommit: sourceCommit }), /unsafe-canon-pointer/);
 });
 
 test('malformed handoff cannot silently become current execution state', () => {
   const root = buildFixture(({ handoff }) => { delete handoff.activeMission; });
-  assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit }), /handoff-core-fields-invalid/);
+  assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit, handoffFileCommit: sourceCommit }), /handoff-core-fields-invalid/);
 });
 
 test('human summary stays bounded and names unresolved memory without dumping the corpus', () => {
   const root = buildFixture();
-  const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit });
+  const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit, handoffFileCommit: sourceCommit });
   const output = formatUberBondBrainPacket(packet);
   assert.match(output, /initiatives: 31/);
   assert.match(output, /unresolved: Everest/);

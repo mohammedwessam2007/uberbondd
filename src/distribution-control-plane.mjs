@@ -54,6 +54,8 @@ function gateMotion(motion, now){
     if(motion.evidence.clearedPaymentCount<3||motion.evidence.quality!=='MEASURED_LOCAL_RECEIPTS'||motion.evidence.contributionProfitPerOwnerMinuteCents==null)reasons.push('paid-media-requires-measured-positive-economics');
     if((motion.evidence.contributionProfitPerOwnerMinuteCents??-1)<=0)reasons.push('paid-media-requires-positive-contribution');
   }
+  if(motion.evidence.measuredAt&&new Date(motion.evidence.measuredAt).getTime()>new Date(now).getTime()+300000)reasons.push('economic-evidence-future-dated');
+  if(motion.evidence.quality==='MEASURED_LOCAL_RECEIPTS'&&motion.evidence.clearedPaymentCount>0&&motion.evidence.contributionProfitPerOwnerMinuteCents!=null&&motion.evidence.contributionProfitPerOwnerMinuteCents<=0)reasons.push('measured-economics-non-positive');
   const age=freshnessDays(motion.evidence.measuredAt,now); if(age!=null&&age>MAX_EVIDENCE_AGE_DAYS)reasons.push('economic-evidence-stale');
   return {eligible:reasons.length===0,reasons,evidenceAgeDays:age};
 }

@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-export const AUTOMATION_ACQUISITION_FRONTIER_POLICY_VERSION = 'automation-acquisition-frontier-1.0.0';
+export const AUTOMATION_ACQUISITION_FRONTIER_POLICY_VERSION = 'automation-acquisition-frontier-1.1.0';
 
 const ZERO_EFFECTS = Object.freeze({
   providerCalls: 0,
@@ -102,6 +102,29 @@ export const EXTENDED_AUTOMATION_CANDIDATES = Object.freeze([
   })
 ]);
 
+export const INTERNAL_AUTOMATION_CAPABILITY_REGISTRY = Object.freeze([
+  ['voice-reception-and-call-lifecycle', ['src/voice-telephony-contract.mjs']],
+  ['browser-action-automation', ['src/browser-action-contract.mjs']],
+  ['omnichannel-conversation-transport', ['src/omnichannel-communication-contract.mjs']],
+  ['calendar-and-booking-execution', ['src/booking-calendar-contract.mjs']],
+  ['external-crm-sync', ['src/external-crm-sync-contract.mjs']],
+  ['web-context-extraction-at-scale', ['src/web-context-extraction-contract.mjs']],
+  ['invoice-and-receivables-automation', ['src/receivables-contract.mjs']],
+  ['form-and-feedback-ingestion', ['src/form-feedback-contract.mjs']],
+  ['commercial-document-signature', ['src/commercial-signature-contract.mjs']],
+  ['social-publishing-and-scheduling', [
+    'src/social-publication-schedule-contract.mjs',
+    'src/omnichannel-communication-contract.mjs',
+    'src/agent-autonomy-scheduled-run.mjs'
+  ]]
+].map(([capabilityKey, contractModules]) => Object.freeze({
+  capabilityKey,
+  contractModules: Object.freeze([...contractModules]),
+  satisfactionClass: contractModules.length > 1 ? 'COMPOSED_INTERNAL_CONTRACT' : 'INTERNAL_CONTRACT',
+  externalActivation: 'EXTERNAL_PROOF_REQUIRED',
+  businessEffectAuthority: 'NONE'
+})));
+
 function clone(value) { return structuredClone(value); }
 function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'); }
 function slug(value) {
@@ -177,6 +200,38 @@ function normalizeSatisfiedCapabilityKeys(values) {
   return { ok: true, values: result };
 }
 
+function validateInternalCapabilityRegistry(registry = INTERNAL_AUTOMATION_CAPABILITY_REGISTRY) {
+  if (!Array.isArray(registry)) return invalid(['internal-capability-registry-array-required']);
+  const seen = new Set();
+  const entries = [];
+  for (const entry of registry) {
+    const capabilityKey = slug(entry?.capabilityKey);
+    const contractModules = Array.isArray(entry?.contractModules)
+      ? [...new Set(entry.contractModules.map(item => String(item ?? '').trim()).filter(Boolean))]
+      : [];
+    if (!capabilityKey) return invalid(['invalid-internal-capability-key']);
+    if (seen.has(capabilityKey)) return invalid(['duplicate-internal-capability-key'], { capabilityKey });
+    if (!contractModules.length || contractModules.some(path => !/^src\/[A-Za-z0-9_./-]+\.mjs$/.test(path))) {
+      return invalid(['valid-internal-contract-module-required'], { capabilityKey });
+    }
+    seen.add(capabilityKey);
+    entries.push({
+      capabilityKey,
+      contractModules,
+      satisfactionClass: String(entry.satisfactionClass || 'INTERNAL_CONTRACT'),
+      externalActivation: 'EXTERNAL_PROOF_REQUIRED',
+      businessEffectAuthority: 'NONE'
+    });
+  }
+  entries.sort((a, b) => a.capabilityKey.localeCompare(b.capabilityKey));
+  return { ok: true, entries };
+}
+
+export function currentInternalSatisfiedCapabilityKeys() {
+  const validated = validateInternalCapabilityRegistry();
+  return validated.ok ? validated.entries.map(entry => entry.capabilityKey) : [];
+}
+
 export function advanceAutomationAcquisitionFrontier({ loopResult, satisfiedCapabilityKeys = [] } = {}) {
   if (!loopResult || loopResult.ok !== true || !Array.isArray(loopResult.ranked)) {
     return invalid(['valid-acquisition-loop-result-required']);
@@ -211,6 +266,42 @@ export function advanceAutomationAcquisitionFrontier({ loopResult, satisfiedCapa
     ranked,
     selected,
     frontierDigest: digest(frontierIdentity),
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: clone(ZERO_EFFECTS)
+  };
+}
+
+export function advanceCurrentAutomationAcquisitionFrontier({ loopResult, extraSatisfiedCapabilityKeys = [] } = {}) {
+  const registry = validateInternalCapabilityRegistry();
+  if (!registry.ok) return registry;
+  const extras = normalizeSatisfiedCapabilityKeys(extraSatisfiedCapabilityKeys);
+  if (!extras.ok) return extras;
+  const satisfiedCapabilityKeys = [...new Set([
+    ...registry.entries.map(entry => entry.capabilityKey),
+    ...extras.values
+  ])].sort();
+  const frontier = advanceAutomationAcquisitionFrontier({ loopResult, satisfiedCapabilityKeys });
+  if (!frontier.ok) return frontier;
+  const evidenceByKey = new Map(registry.entries.map(entry => [entry.capabilityKey, entry]));
+  return {
+    ...frontier,
+    status: frontier.selected ? 'NEXT_UNSATISFIED_INTERNAL_GAP_SELECTED' : 'NO_REMAINING_INTERNAL_BUILD_GAP',
+    satisfactionEvidence: frontier.ranked
+      .filter(item => item.internalStepSatisfied)
+      .map(item => {
+        const evidence = evidenceByKey.get(item.candidate.capabilityKey);
+        return evidence
+          ? { ...clone(evidence), source: 'BRANCH_INTERNAL_CAPABILITY_REGISTRY' }
+          : {
+              capabilityKey: item.candidate.capabilityKey,
+              contractModules: [],
+              satisfactionClass: 'CALLER_ASSERTED_INTERNAL_STEP',
+              externalActivation: 'EXTERNAL_PROOF_REQUIRED',
+              businessEffectAuthority: 'NONE',
+              source: 'CALLER_EXTRA_SATISFIED_CAPABILITY'
+            };
+      }),
+    externalActivationStatus: 'UNPROVEN_PROVIDER_AND_CUSTOMER_EFFECTS',
     businessEffectAuthority: 'NONE',
     externalEffectLedger: clone(ZERO_EFFECTS)
   };

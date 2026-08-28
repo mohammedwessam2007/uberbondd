@@ -8,8 +8,10 @@
 // implemented, tested, green, and dead.
 //
 // This is the ratchet. Every src module with no production or operator entry
-// point must be classified in config/reachability-classification.json with a
-// reason. A new dead module fails this test instead of waiting to be noticed.
+// point must be classified in the base registry or an explicit classification
+// fragment under config/, with a reason and (when activation-gated) a real
+// registered release condition. A new dead module fails this test instead of
+// waiting to be noticed.
 //
 // It does not require everything to be wired. Plenty of modules are correctly
 // unreachable -- wiring outreach without an authorisation path is how a system
@@ -33,8 +35,35 @@ function filesIn(dir, extension = '.mjs') {
   }
 }
 
+function mergeSection(target, source, fragmentName, section) {
+  for (const [key, value] of Object.entries(source || {})) {
+    if (Object.hasOwn(target, key)) {
+      assert.deepEqual(value, target[key], `${fragmentName}: conflicting ${section} entry ${key}`);
+      continue;
+    }
+    target[key] = value;
+  }
+}
+
 function classification() {
-  return JSON.parse(readFileSync(join(repoRoot, 'config', 'reachability-classification.json'), 'utf8'));
+  const configDir = join(repoRoot, 'config');
+  const base = JSON.parse(readFileSync(join(configDir, 'reachability-classification.json'), 'utf8'));
+  const merged = {
+    ...base,
+    categories: structuredClone(base.categories || {}),
+    gates: structuredClone(base.gates || {}),
+    modules: structuredClone(base.modules || {})
+  };
+  const fragments = readdirSync(configDir)
+    .filter(name => /^reachability-classification\..+\.json$/.test(name))
+    .sort();
+  for (const fragmentName of fragments) {
+    const fragment = JSON.parse(readFileSync(join(configDir, fragmentName), 'utf8'));
+    mergeSection(merged.categories, fragment.categories, fragmentName, 'category');
+    mergeSection(merged.gates, fragment.gates, fragmentName, 'gate');
+    mergeSection(merged.modules, fragment.modules, fragmentName, 'module');
+  }
+  return merged;
 }
 
 function partition() {
@@ -58,7 +87,7 @@ test('every unreachable src module is classified with a reason', () => {
   const unclassified = unreachable.filter(file => !modules[file]);
   assert.deepEqual(unclassified, [],
     `these modules have no entry point and no classification:\n  ${unclassified.join('\n  ')}\n`
-    + 'Add them to config/reachability-classification.json, or wire them.');
+    + 'Add them to the canonical reachability registry or an explicit fragment, or wire them.');
 });
 
 test('no classification describes a module that is actually reachable', () => {
@@ -113,16 +142,9 @@ test('the entry points this ratchet trusts actually exist', () => {
   }
 });
 
-// The gate registry. Before it existed, `AWAITING_ACTIVATION` required only
-// that `gate` be truthy -- `gate: "TODO_FIGURE_THIS_OUT_LATER"` passed all
-// seven tests above. That made AWAITING_ACTIVATION a resting state reachable by
-// typing anything, which is precisely the failure the ratchet exists to
-// prevent: a decision that was never made, wearing the shape of one.
-//
-// Now a gate must be declared in config/reachability-classification.json with
-// what it is and what would release it. Minting a new gate is still allowed --
-// it is a reviewable edit to a registry, not a string typed into one module.
-
+// AWAITING_ACTIVATION requires a registered release condition. Minting a new
+// gate is allowed only as a reviewable registry edit; a random truthy string
+// may never turn an unmade decision into an activation policy.
 test('every AWAITING_ACTIVATION module names a gate that is actually registered', () => {
   const { modules, gates } = classification();
   assert.ok(gates, 'the classification must declare a gates registry');
@@ -149,7 +171,6 @@ test('every gate states what it is and what would release it', () => {
       `${gate}: description is too thin to explain what is blocked`);
     assert.ok(entry.releasedBy && entry.releasedBy.length > 20,
       `${gate}: must state the observable condition that releases it`);
-    // A release condition that restates the gate name is not a condition.
     assert.notEqual(entry.releasedBy.trim().toUpperCase(), gate,
       `${gate}: releasedBy restates the gate name instead of naming a condition`);
   }

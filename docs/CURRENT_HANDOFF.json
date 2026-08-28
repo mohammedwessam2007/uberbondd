@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "uberbond-handoff-1.0.0",
+  "lastKnownMainShaAtMissionStart": "ea1d821db8768330912ad4794dd298f6ba67ee4c",
+  "contextBasis": [
+    "UBERBOND_CANON.md",
+    "UBERBOND_BOOTSTRAP.json",
+    "docs/DISTRIBUTION_OS_CANON.md",
+    "docs/CURRENT_SYSTEM_STATE.md",
+    "artifacts/system-readiness.json"
+  ],
+  "activeMission": "Make UberBond cross-chat durable and add an evidence-gated distribution portfolio control plane above the existing channel primitives.",
+  "verifiedBeforeThisMission": [
+    "PR #169 merged the provider-neutral automation acquisition frontier including voice, browser, omnichannel, booking, CRM, web extraction, receivables, forms, signatures, social scheduling, accounting export, and acquisition/frontier contracts.",
+    "PR #170 merged the durable UberBond canon and Distribution OS doctrine.",
+    "Existing commercial-learning.mjs gives economic weight only to validated cleared-payment/refund-dispute receipts and never treats observations as revenue.",
+    "Existing distribution-channel.mjs is fail-closed and can rank only channels with verified cleared-payment outcomes."
+  ],
+  "completedInThisMission": [
+    "Repository-native bootstrap schema designed for new-session recovery.",
+    "Root session constitution designed so repo-aware coding agents load canon and current handoff before acting.",
+    "Executable project-context compiler implemented with deterministic context digest, bounded state, secret refusal, canon-path validation, external-proof preservation, and durable handoff compilation.",
+    "Higher distribution portfolio control plane implemented with commercial-learning bridge, 50 percent concentration ceiling, bounded exploration, stale-evidence refusal, outbound safety gates, paid-media gates, and cleared-payment-only referral commission basis.",
+    "Focused hostile tests pass locally: brain context 9/9 and distribution control plane 13/13."
+  ],
+  "blockers": [
+    "Repository-native continuity cannot force the ChatGPT Project UI itself to inject repository files into a brand-new chat. Project/UI-level context still depends on the product surfaces available to that chat. Repo-aware agents can recover automatically through AGENTS.md and bootstrap files.",
+    "Real provider credentials, live sender infrastructure, customer demand, cleared payment, accepted delivery, renewal, payout/KYC/tax treatment, and sustained unattended production operation remain external proof rather than code facts.",
+    "A claim that UberBond is top 0.00000001 percent at distribution requires a real comparative benchmark and market evidence; architecture alone cannot prove percentile superiority."
+  ],
+  "nextActions": [
+    "Write the executable continuity and distribution-control files to the shared branch.",
+    "Add current clean-room distribution reference map and update canons with executable pointers.",
+    "Run focused hostile tests and mutation tests on exact branch content.",
+    "Review the exact diff, inspect current main for drift, open PR, and merge only if the exact-head evidence is clean.",
+    "After internal merge, move the frontier toward authorized external proof rather than creating duplicate distribution architecture."
+  ],
+  "externalEffectAuthority": "NONE",
+  "externalEffects": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  }
+}

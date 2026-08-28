@@ -45,6 +45,7 @@
     "smoke:outbound": "node scripts/outbound-safety-smoke.mjs",
     "probes:outbound": "node scripts/outbound-probes.mjs",
     "test:mutation-war": "node scripts/mutation-war.mjs",
+    "brain": "node scripts/uberbond-brain-bootstrap.mjs",
     "readiness": "node scripts/system-readiness.mjs"
   },
   "dependencies": {

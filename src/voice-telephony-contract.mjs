@@ -154,7 +154,7 @@ export function normalizeVoiceEvent(input = {}) {
   const observedAt = iso(input.observedAt);
   const receivedAt = iso(input.receivedAt);
   const providerReceiptRef = input.providerReceiptRef == null ? null : cleanText(input.providerReceiptRef, 240);
-  const authorizationReceiptRef = input.authorizationReceiptRef == null ? null : cleanText(input.authorizationReceiptRef, 240);
+  const authorityReceiptRef = input.authorityReceiptRef == null ? null : cleanText(input.authorityReceiptRef, 240);
   const reasonCode = input.reasonCode == null ? null : cleanSlug(input.reasonCode, 120);
   const sensitive = sensitiveKeys(input);
 
@@ -180,8 +180,8 @@ export function normalizeVoiceEvent(input = {}) {
   if (eventType && EXTERNAL_TRUTH_EVENTS.has(eventType) && !providerReceiptRef) {
     reasonCodes.push('provider-receipt-ref-required-for-external-truth');
   }
-  if (eventType && origin === 'UBERBOND' && UBERBOND_EFFECT_EVENTS.has(eventType) && !authorizationReceiptRef) {
-    reasonCodes.push('authorization-receipt-ref-required-for-uberbond-effect');
+  if (eventType && origin === 'UBERBOND' && UBERBOND_EFFECT_EVENTS.has(eventType) && !authorityReceiptRef) {
+    reasonCodes.push('authority-receipt-ref-required-for-uberbond-effect');
   }
 
   const event = {
@@ -199,7 +199,7 @@ export function normalizeVoiceEvent(input = {}) {
     observedAt,
     receivedAt,
     providerReceiptRef,
-    authorizationReceiptRef,
+    authorityReceiptRef,
     reasonCode,
     durablePayloadClass: 'REFERENCE_ONLY_NO_RAW_PHONE_AUDIO_TRANSCRIPT'
   };

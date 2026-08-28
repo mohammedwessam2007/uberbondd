@@ -6,25 +6,39 @@
   "currentMainShaAtFinalRefresh": "e5a25fc656079d4f4f5592451341cc88989881da",
   "currentMainCommitMessage": "Merge gpt/trinity-canonical-ai-employee-prompts-20260828",
   "activeBranch": "gpt/nightfall-sol-research-singularity-20260828",
-  "activePullRequest": null,
+  "activePullRequest": 180,
+  "publishedResearchTreeCommit": "9789c0a695833e9ade42a4ff0b5e24c56e7dc95c",
   "missionIssue": 176,
   "activeMission": "Convert current world intelligence, distribution research, opportunity evidence, economics, AI employee design, and software mechanism research into one canary, one fallback, machine-readable decision artifacts, bounded Claude packets, and a durable handoff without external business effects.",
   "liveGitHubAtFinalRefresh": {
-    "checkedAt": "2026-08-28T22:34:00Z",
+    "checkedAt": "2026-08-28T22:43:05Z",
     "mainSha": "e5a25fc656079d4f4f5592451341cc88989881da",
-    "openPullRequests": [],
+    "openPullRequests": [
+      {
+        "number": 180,
+        "title": "Add Nightfall research and distribution decision layer",
+        "base": "main",
+        "head": "gpt/nightfall-sol-research-singularity-20260828",
+        "publishedResearchTreeCommit": "9789c0a695833e9ade42a4ff0b5e24c56e7dc95c",
+        "status": "OPEN"
+      }
+    ],
     "materialIssues": [
       {"number": 176, "role": "Sol research, distribution, economics lane"},
       {"number": 173, "role": "Claude software-factory lane"}
     ],
     "materialBranches": [
       {"name": "main", "sha": "e5a25fc656079d4f4f5592451341cc88989881da", "status": "CURRENT"},
-      {"name": "gpt/nightfall-sol-research-singularity-20260828", "sha": null, "status": "LOCAL_UNPUBLISHED_AT_HANDOFF_WRITE"}
+      {
+        "name": "gpt/nightfall-sol-research-singularity-20260828",
+        "sha": "9789c0a695833e9ade42a4ff0b5e24c56e7dc95c",
+        "status": "PULL_REQUEST_OPEN_BEFORE_HANDOFF_RECONCILIATION_COMMIT"
+      }
     ]
   },
   "completed": [
     "Refreshed main at mission start, ran the repository brain, read every mandatory canon/memory/readiness/continuity surface, and refreshed main again before handoff.",
-    "Inspected live GitHub issues, pull requests, branches, recent commits, and lane claims; issue #176 is the Sol lane and no pull request was open at final refresh.",
+    "Inspected live GitHub issues, pull requests, branches, recent commits, and lane claims; issue #176 is the Sol lane, and pull request #180 now carries the published Nightfall decision layer.",
     "Rebased onto e5a25fc656079d4f4f5592451341cc88989881da after PR #168 and PR #178 merged, so the Kilimanjaro commercial closure and AI employee charter are canonical inputs.",
     "Researched current primary/official sources across home-service demand, AI research and sales mechanisms, CRM context, agent procedures/evaluation, browser execution, orchestration, licenses, partner programs, marketplaces, SEO/AEO, outbound pricing, sender policies, and regulator guidance.",
     "Adjudicated exactly one recommended canary: White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing, or electrical firms.",

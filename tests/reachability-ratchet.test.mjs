@@ -101,10 +101,34 @@ test('an UNREACHABLE_BUG classification is a defect and fails until it is fixed'
 test('the reachability split is reported, so a regression is visible in the numbers', () => {
   const { all, production, operatorOnly, unreachable } = partition();
   assert.equal(production.length + operatorOnly.length + unreachable.length, all.length);
-  // Production reachability must not silently fall. This is a ratchet, not a
-  // target: raise it when modules get wired, and never lower it to go green.
-  assert.ok(production.length >= 103,
+
+  // Production reachability must not silently fall. The previous floor of 103
+  // was not raised after the integrated graph reached 107, leaving four modules
+  // free to become dead without tripping the ratchet.
+  assert.ok(production.length >= 107,
     `production-reachable modules fell to ${production.length}; something was unwired`);
+
+  // CURRENT_SYSTEM_STATE is the human-readable canonical surface. Its static
+  // prose previously stayed at 151/103 after the machine-readable readiness
+  // artifact had moved to 155/107. Bind the prose to the same live graph so a
+  // docs refresh cannot silently leave contradictory reachability truth behind.
+  const canon = readFileSync(join(repoRoot, 'docs', 'CURRENT_SYSTEM_STATE.md'), 'utf8');
+  const prose = canon.match(/\*\*([0-9]+) of ([0-9]+) `src` modules have no entry point at all\*\*/);
+  const claimedProduction = canon.match(/\| Reachable from production \| ([0-9]+) \|/);
+  const claimedOperatorOnly = canon.match(/\| Reachable only via an operator script \| ([0-9]+) \|/);
+  const claimedUnreachable = canon.match(/\| \*\*No entry point at all\*\* \| \*\*([0-9]+)\*\* \|/);
+  assert.ok(prose && claimedProduction && claimedOperatorOnly && claimedUnreachable,
+    'CURRENT_SYSTEM_STATE reachability claims must remain machine-readable');
+  assert.equal(Number(prose[2]), all.length,
+    `canon claims ${prose[2]} src modules; ${all.length} exist`);
+  assert.equal(Number(prose[1]), unreachable.length,
+    `canon prose claims ${prose[1]} unreachable modules; ${unreachable.length} are unreachable`);
+  assert.equal(Number(claimedProduction[1]), production.length,
+    `canon claims ${claimedProduction[1]} production-reachable modules; ${production.length} are reachable`);
+  assert.equal(Number(claimedOperatorOnly[1]), operatorOnly.length,
+    `canon claims ${claimedOperatorOnly[1]} operator-only modules; ${operatorOnly.length} are operator-only`);
+  assert.equal(Number(claimedUnreachable[1]), unreachable.length,
+    `canon table claims ${claimedUnreachable[1]} unreachable modules; ${unreachable.length} are unreachable`);
 });
 
 test('the entry points this ratchet trusts actually exist', () => {

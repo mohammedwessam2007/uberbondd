@@ -94,8 +94,16 @@ export function buildReadiness({ measurements = {}, capabilities = [], now = new
     generatedAt: (now instanceof Date ? now : new Date(now)).toISOString(),
     generatedBy: 'scripts/system-readiness.mjs',
     repository: {
-      head: git(['rev-parse', 'HEAD']),
-      branch: git(['rev-parse', '--abbrev-ref', 'HEAD']),
+      // The canonical state can be generated for a verified commit that is
+      // about to be promoted remotely. This is intentionally an explicit
+      // release operation, not an inferred ref: absent the override, the
+      // checked-out commit remains the only truth source.
+      head: process.env.UBERBOND_CANONICAL_HEAD || git(['rev-parse', 'HEAD']),
+      // A release candidate is commonly verified on a temporary integration
+      // branch before this exact commit is fast-forwarded to main.  The
+      // readiness document describes its intended canonical ref, not the
+      // disposable checkout name used to earn the evidence.
+      branch: process.env.UBERBOND_CANONICAL_BRANCH || git(['rev-parse', '--abbrev-ref', 'HEAD']),
       sourceModules: sourceFiles().length,
       testSuites: testFiles().length,
       workingTreeClean: git(['status', '--porcelain']) === ''
@@ -109,6 +117,59 @@ export function buildReadiness({ measurements = {}, capabilities = [], now = new
   };
 }
 
+function measurement(input, id) {
+  return input.measurements?.[id] || {};
+}
+
+function replaceRequired(text, pattern, replacement, label) {
+  if (!pattern.test(text)) {
+    throw new Error(`cannot refresh ${label}: expected canonical state marker is absent`);
+  }
+  return text.replace(pattern, replacement);
+}
+
+/**
+ * Refresh only the mechanically measurable portion of the human-facing
+ * current-state document. The explanatory sections beneath it are maintained
+ * policy text; rewriting them during every test run would turn evidence into
+ * churn. Missing markers fail closed instead of silently leaving stale facts.
+ */
+function refreshCurrentStateDocument({ input, readiness }) {
+  const path = join(repoRoot, 'docs', 'CURRENT_SYSTEM_STATE.md');
+  if (!existsSync(path)) return;
+
+  const syntax = measurement(input, 'check:syntax');
+  const deterministic = measurement(input, 'test:deterministic');
+  const relay = measurement(input, 'test:relay-safety');
+  const postgres = measurement(input, 'test:postgres-real');
+  const audit = measurement(input, 'npm audit');
+  const mutation = measurement(input, 'test:mutation-war');
+  const browser = measurement(input, 'test:browser');
+  const date = String(readiness.generatedAt).slice(0, 10);
+  const result = (item, fallback) => item.result || item.note || fallback;
+
+  let text = readFileSync(path, 'utf8');
+  text = replaceRequired(text, /^Last reconciled:.*$/m, `Last reconciled: **${date}**`, 'reconciliation date');
+  text = replaceRequired(text, /^Branch:.*$/m, `Branch: \`${readiness.repository.branch}\``, 'canonical branch');
+  text = replaceRequired(text, /^Reconciled from (?:main|current head):.*$/m,
+    `Reconciled from current head: \`${readiness.repository.head}\``, 'source commit');
+  text = replaceRequired(text, /^\| Syntax \|.*$/m,
+    `| Syntax | \`${syntax.command || 'npm run check:syntax'}\` | ${syntax.filesParsed ?? 'unrecorded'} files parse (${String(syntax.ranAt || date).slice(0, 10)}) |`, 'syntax measurement');
+  text = replaceRequired(text, /^\| Deterministic \|.*$/m,
+    `| Deterministic | \`${deterministic.command || 'npm run test:deterministic'}\` | ${deterministic.tests ?? 'unrecorded'} tests, ${deterministic.pass ?? 'unrecorded'} pass, **${deterministic.fail ?? 'unrecorded'} fail**, ${deterministic.skipped ?? 'unrecorded'} skipped (${String(deterministic.ranAt || date).slice(0, 10)}) |`, 'deterministic measurement');
+  text = replaceRequired(text, /^\| Relay safety \|.*$/m,
+    `| Relay safety | \`${relay.command || 'npm run test:relay-safety'}\` | ${relay.tests ?? 'unrecorded'} tests, ${relay.pass ?? 'unrecorded'} pass, ${relay.fail ?? 'unrecorded'} fail (${String(relay.ranAt || date).slice(0, 10)}) |`, 'relay measurement');
+  text = replaceRequired(text, /^\| Real PostgreSQL \|.*$/m,
+    `| Real PostgreSQL | \`${postgres.command || 'npm run test:postgres-real'}\` | ${result(postgres, 'not recorded')} |`, 'PostgreSQL measurement');
+  text = replaceRequired(text, /^\| Mutation war \|.*$/m,
+    `| Mutation war | \`${mutation.command || 'npm run test:mutation-war'}\` | ${result(mutation, 'not recorded')} |`, 'mutation measurement');
+  text = replaceRequired(text, /^\| Browser \|.*$/m,
+    `| Browser | \`${browser.command || 'npm run test:browser'}\` | ${result(browser, 'not recorded')} |`, 'browser measurement');
+  text = replaceRequired(text, /^\| Dependencies \|.*$/m,
+    `| Dependencies | \`${audit.command || 'npm audit'}\` | ${result(audit, 'not recorded')} |`, 'dependency measurement');
+  writeFileSync(path, text);
+}
+
 if (import.meta.url === `file://${process.argv[1]}`) {
   const inputPath = join(repoRoot, 'config', 'system-readiness-input.json');
   if (!existsSync(inputPath)) {
@@ -120,6 +181,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   mkdirSync(join(repoRoot, 'artifacts'), { recursive: true });
   const out = join(repoRoot, 'artifacts', 'system-readiness.json');
   writeFileSync(out, `${JSON.stringify(readiness, null, 2)}\n`);
+  refreshCurrentStateDocument({ input, readiness });
   const capped = readiness.capabilities.filter(item => item.cappedByMissingExternalEvidence);
   console.log(`system-readiness — ${readiness.capabilities.length} capabilities, ${capped.length} capped for want of external evidence`);
   for (const item of capped) console.log(`  capped ${item.id}: declared ${item.declaredLevel} -> ${item.level}`);

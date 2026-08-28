@@ -1,19 +1,11 @@
-// Versioned provider adapter contract for outreach-sending providers
-// (Instantly, Google Workspace, Microsoft 365, ...). This module defines the
-// CAPABILITY SURFACE only -- what a real adapter must expose -- plus a
-// deterministic "unconfigured" adapter that every capability call reports
-// PROVIDER_AUTH_REQUIRED against, used whenever no real provider credential
-// is present in configuration.
-//
-// No real Instantly/Google/Microsoft HTTP client is implemented here. This
-// repository has zero configured provider credentials as of this wave (see
-// src/config.mjs#providers) and building an unverified client against a live
-// API with nothing to test it against would itself be a fabrication risk --
-// exactly what this mission forbids. When a provider is genuinely
-// configured, its real adapter should be added as a sibling module
-// implementing this same contract; nothing else in this codebase should ever
-// call a provider directly.
-export const PROVIDER_ADAPTER_CONTRACT_POLICY_VERSION = 'provider-adapter-contract-1.0.0';
+// Versioned provider adapter contract for outreach-sending and
+// domain/mailbox-infrastructure providers. Provider-specific HTTP lives in
+// src/provider-http-adapters.mjs. A configured API key makes an adapter
+// available; it does not authorize spending, DNS mutation, mailbox creation or
+// live outreach. Those operations remain individually approval-gated.
+import { createIcemailAdapter, createMailforgeAdapter } from './provider-http-adapters.mjs';
+
+export const PROVIDER_ADAPTER_CONTRACT_POLICY_VERSION = 'provider-adapter-contract-2.0.0';
 
 // Every capability a real adapter must expose. Presence is checked
 // structurally by validateProviderAdapter(); this is the "interface," not an
@@ -23,10 +15,18 @@ export const PROVIDER_CAPABILITIES = Object.freeze([
   'verifyDns', 'warmupCapable', 'startWarmup', 'pauseWarmup', 'warmupStatus',
   'discoverSendingLimit', 'bounceSignal', 'complaintSignal', 'replySignal', 'campaignStatus',
   'rateLimits', 'cancel', 'receipts', 'termsAndAllowedPurposes', 'dryRunSupported',
-  'liveSupported', 'outageState'
+  'liveSupported', 'outageState',
+  'listWorkspaces', 'createWorkspace', 'domainAvailability', 'listDomains', 'domainDns',
+  'provisionDomains', 'provisionMailboxes', 'configureDns', 'configureForwarding',
+  'exportMailboxes', 'prewarmPurchase', 'operationStatus', 'webhookEvents'
 ]);
 
-export const KNOWN_PROVIDERS = Object.freeze(['instantly', 'googleWorkspace', 'microsoft365']);
+export const KNOWN_PROVIDERS = Object.freeze(['instantly', 'googleWorkspace', 'microsoft365', 'icemail', 'mailforge']);
+
+const PROVIDER_FACTORIES = Object.freeze({
+  icemail: createIcemailAdapter,
+  mailforge: createMailforgeAdapter
+});
 
 function unconfiguredResult(providerName, capability) {
   return {
@@ -75,11 +75,27 @@ export function resolveProviderAdapter(cfg, providerName) {
   if (!providerCfg?.configured) {
     return { ok: false, reason: 'provider-not-configured', adapter: createUnconfiguredProviderAdapter(key) };
   }
-  // A real adapter for this provider does not exist in this repository yet
-  // (see module header) -- even a "configured" provider (credential present)
-  // has no live implementation to dispatch to tonight. Report the accurate
-  // capability gap rather than silently falling back to the fixture as if
-  // nothing were configured.
+  const factory = PROVIDER_FACTORIES[key];
+  if (factory) {
+    const adapter = factory(providerCfg);
+    if (!adapter.configured) {
+      return { ok: false, reason: 'provider-auth-required', adapter };
+    }
+    const validation = validateProviderAdapter(adapter);
+    if (!validation.ok) {
+      return {
+        ok: false,
+        reason: `provider-adapter-contract-invalid:${validation.missing.join(',')}`,
+        adapter: createUnconfiguredProviderAdapter(key)
+      };
+    }
+    return { ok: true, reason: 'provider-adapter-ready', adapter };
+  }
+
+  // Instantly, Google Workspace, and Microsoft 365 remain explicit
+  // capability gaps in this provider-dispatch surface. The existing Gmail
+  // OAuth sending path is separate and must not be confused with a mailbox-
+  // provisioning API adapter.
   return {
     ok: false,
     reason: 'provider-configured-but-no-live-adapter-implemented',
@@ -87,26 +103,4 @@ export function resolveProviderAdapter(cfg, providerName) {
   };
 }
 
-// Strips a provider's raw status response down to fields safe to persist:
-// opaque ids, counts, booleans, ISO timestamps, enum-shaped strings. Anything
-// secret-shaped or free-text (which could carry a leaked credential or PII)
-// is dropped, not merely masked.
-const REDACT_KEY_PATTERN = /password|passwd|secret|token|apikey|api_key|refreshtoken|refresh_token|accesstoken|access_token|clientsecret|client_secret|privatekey|private_key|smtp.?pass|authorization|cookie/i;
-const ALLOWED_VALUE_TYPES = new Set(['string', 'number', 'boolean']);
-const MAX_STRING_VALUE_LENGTH = 200;
-
-export function redactProviderReceipt(raw, depth = 0) {
-  if (raw == null || depth > 3) return null;
-  if (Array.isArray(raw)) return raw.slice(0, 50).map(item => redactProviderReceipt(item, depth + 1)).filter(item => item !== undefined);
-  if (typeof raw !== 'object') {
-    if (!ALLOWED_VALUE_TYPES.has(typeof raw)) return undefined;
-    return typeof raw === 'string' ? raw.slice(0, MAX_STRING_VALUE_LENGTH) : raw;
-  }
-  const out = {};
-  for (const [key, value] of Object.entries(raw)) {
-    if (REDACT_KEY_PATTERN.test(key)) continue;
-    const redacted = redactProviderReceipt(value, depth + 1);
-    if (redacted !== undefined) out[key] = redacted;
-  }
-  return out;
-}
+export { redactProviderReceipt } from './provider-receipt-redaction.mjs';

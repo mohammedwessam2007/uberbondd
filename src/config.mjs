@@ -177,6 +177,22 @@ export const config = {
       clientSecret: env.MICROSOFT_365_CLIENT_SECRET || '',
       tenantId: env.MICROSOFT_365_TENANT_ID || '',
       configured: Boolean(env.MICROSOFT_365_CLIENT_ID && env.MICROSOFT_365_CLIENT_SECRET && env.MICROSOFT_365_TENANT_ID)
+    },
+    // Infrastructure adapters are server-side only. A configured API key
+    // enables read/reconciliation calls; purchases, DNS writes, mailbox
+    // creation, pre-warm purchases, exports and deletes still require an
+    // explicit scoped owner approval at the adapter boundary.
+    icemail: {
+      apiKey: env.ICEMAIL_API_KEY || '',
+      baseUrl: env.ICEMAIL_BASE_URL || 'https://app.icemail.ai/api/v1',
+      workspaceId: env.ICEMAIL_WORKSPACE_ID || '',
+      configured: Boolean(env.ICEMAIL_API_KEY)
+    },
+    mailforge: {
+      apiKey: env.MAILFORGE_API_KEY || '',
+      baseUrl: env.MAILFORGE_BASE_URL || 'https://api.mailforge.ai/public',
+      workspaceId: env.MAILFORGE_WORKSPACE_ID || '',
+      configured: Boolean(env.MAILFORGE_API_KEY)
     }
   },
   google: {

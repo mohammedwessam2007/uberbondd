@@ -32,7 +32,7 @@ function blocked(state, missingItem, beginnerSteps, timestamp, extra = {}) {
 // an explicit, caller-supplied fact; this function never infers it.
 export async function evaluateLiveActivation({
   domainState = null, mailboxState = null, providerAdapterResolution = null,
-  ownerAuthorization = null, minWarmupDays = 14, date = new Date()
+  ownerAuthorization = null, providerPayload = null, minWarmupDays = 14, date = new Date()
 } = {}) {
   const at = referenceDate(date);
   const timestamp = at.toISOString();
@@ -129,7 +129,7 @@ export async function evaluateLiveActivation({
     }
   }
 
-  const started = await requestMailboxWarmupStart({ domainState, mailboxState, providerAdapter: providerAdapterResolution.adapter, date: at });
+  const started = await requestMailboxWarmupStart({ domainState, mailboxState, providerAdapter: providerAdapterResolution.adapter, providerPayload, date: at });
   if (!started.ok) {
     return blocked('BLOCKED_PROVIDER_CAPABILITY', 'a successful provider warm-up start response', [`Provider warm-up start failed: ${started.reasonCodes.join(', ')}.`], timestamp, { providerReceipt: started.providerReceipt });
   }

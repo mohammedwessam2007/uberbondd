@@ -98,6 +98,13 @@ import { evaluateCircuitBreaker } from './domain-mailbox-circuit-breaker.mjs';
 import { evaluateDomainMailboxGate } from './domain-mailbox-gate.mjs';
 import { evaluateLiveActivation } from './live-activation-gate.mjs';
 import { buildDomainReadinessCard, buildDomainReadinessDashboard } from './domain-mailbox-control-center.mjs';
+import {
+  buildMailHubCapabilityMatrix,
+  buildMailHubSnapshot,
+  compileProvisioningPlan,
+  inspectProviderInfrastructure
+} from './mailhub-control-plane.mjs';
+import { normalizeInfrastructureEvent } from './provider-infrastructure-events.mjs';
 
 // NOTE (Wave 0 parallel-spine reconciliation -- see
 // docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md): two concurrent
@@ -383,10 +390,10 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
     // success, decision handlers (gate/activation/circuit-breaker) are
     // read-only or persist only the pause/state-change they decide. None of
     // these ever send an outbound message, contact a third party, or spend
-    // money -- warm-up starts only through a real provider adapter response,
-    // and the unconfigured fixture adapter (the only one wired up tonight,
-    // since no provider credential is configured) always reports
-    // PROVIDER_AUTH_REQUIRED.
+    // money -- warm-up starts only through a real provider adapter response.
+    // With no provider credential configured, the unconfigured fixture reports
+    // PROVIDER_AUTH_REQUIRED; configured Icemail/Mailforge reads remain
+    // explicitly invoked and mutations remain approval-gated.
     'domainMailbox.domain.register': async payload => {
       const input = payload && typeof payload === 'object' ? payload : {};
       const result = registerSendingDomain({ ...input, store });
@@ -413,7 +420,7 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       const domainState = input.domainId ? await loadSendingDomain(store, input.domainId) : null;
       const mailboxState = input.mailboxId ? await loadSendingMailbox(store, input.mailboxId) : null;
       const resolution = resolveProviderAdapter(cfg, input.provider);
-      const result = await requestMailboxWarmupStart({ domainState, mailboxState, providerAdapter: resolution.adapter, date: input.date });
+      const result = await requestMailboxWarmupStart({ domainState, mailboxState, providerAdapter: resolution.adapter, providerPayload: input.providerPayload, date: input.date });
       if (mailboxState) {
         const receipt = recordMailboxWarmupStatus({ store, mailboxId: mailboxState.mailboxId, warmupStatus: result.state, warmupStartTime: result.warmupStartTime, date: input.date });
         if (receipt.ok) await logSendingMailboxEvent(store, receipt.event);
@@ -455,8 +462,42 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       const resolution = resolveProviderAdapter(cfg, input.provider);
       return evaluateLiveActivation({
         domainState, mailboxState, providerAdapterResolution: resolution,
-        ownerAuthorization: input.ownerAuthorization, minWarmupDays: cfg.domainMailbox?.minWarmupDays, date: input.date
+        ownerAuthorization: input.ownerAuthorization, providerPayload: input.providerPayload,
+        minWarmupDays: cfg.domainMailbox?.minWarmupDays, date: input.date
       });
+    },
+    // MailHub provider reconciliation is read-only. It may call a real
+    // configured provider adapter when the caller explicitly requests this
+    // handler, but it never provisions, purchases, mutates DNS, retrieves
+    // credentials, starts warm-up, or sends outreach.
+    'domainMailbox.provider.inspect': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const resolution = resolveProviderAdapter(cfg, input.provider);
+      if (!resolution.ok && resolution.reason !== 'provider-adapter-ready') {
+        return { ok: false, state: 'PROVIDER_NOT_READY', provider: input.provider || null, reasonCodes: [resolution.reason], providerReceipt: null };
+      }
+      return inspectProviderInfrastructure({ providerAdapter: resolution.adapter, workspaceId: input.workspaceId || '' });
+    },
+    'domainMailbox.provision.plan': async payload => compileProvisioningPlan(payload && typeof payload === 'object' ? payload : {}),
+    'domainMailbox.mailhub.capabilities': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const names = Array.isArray(input.providers) && input.providers.length ? input.providers : ['icemail', 'mailforge'];
+      const adapters = names.map(name => resolveProviderAdapter(cfg, name).adapter);
+      return buildMailHubCapabilityMatrix({ adapters });
+    },
+    'domainMailbox.mailhub.snapshot': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const domains = await listSendingDomains(store, { minWarmupDays: cfg.domainMailbox?.minWarmupDays });
+      const mailboxes = (await Promise.all(domains.map(domainState => listSendingMailboxesForDomain(store, domainState.domainId)))).flat();
+      return buildMailHubSnapshot({ domainStates: domains, mailboxStates: mailboxes, date: input.date });
+    },
+    // Normalization is intentionally separate from persistence. The caller
+    // must provide provider-specific signature verification; unauthenticated
+    // or unknown events are returned for quarantine and cannot update state.
+    'domainMailbox.provider.event.normalize': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const { rawBody, signatureVerified, provider, receivedAt, ...eventPayload } = input;
+      return normalizeInfrastructureEvent(eventPayload, { provider, rawBody, signatureVerified, receivedAt });
     },
     // Read-only dashboard build. Never mutates state.
     'domainMailbox.dashboard.build': async () => {

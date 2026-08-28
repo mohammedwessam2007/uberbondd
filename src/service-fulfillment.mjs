@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
+import { containsSecretValue } from './secret-patterns.mjs';
 
-export const SERVICE_FULFILLMENT_VERSION = 'uberbond.service-fulfillment.v1.3';
+export const SERVICE_FULFILLMENT_VERSION = 'uberbond.service-fulfillment.v1.4';
 
 export const FULFILLMENT_STATUSES = Object.freeze([
   'PLANNED',
@@ -45,6 +46,10 @@ function strings(values, max) {
   return [...new Set(values.map(value => text(value, 500)).filter(Boolean))].slice(0, max);
 }
 
+function containsAnySecret(values) {
+  return values.some(value => containsSecretValue(value));
+}
+
 function int(value, min, max, fallback = null) {
   const number = Number(value);
   return Number.isSafeInteger(number) && number >= min && number <= max ? number : fallback;
@@ -60,19 +65,7 @@ function strictDate(value) {
   return Number.isNaN(date.getTime()) ? null : date;
 }
 
-// Clock skew between a caller and this process is real; a claim about next year
-// is not skew. Same allowance the rest of the repository uses for
-// `observedAt-in-the-future`.
 const FUTURE_SKEW_MS = 5 * 60 * 1000;
-
-// A second, absolute bound against this process's own clock.
-//
-// `date` is the trusted clock -- injectable so a test can simulate elapsed time,
-// real in production, where no caller supplies it. But a guard that only
-// compares the caller's `at` to the caller's `date` compares a value to itself
-// for anyone who supplies both. This horizon does not: no legitimate
-// fulfillment event is dated a decade out, while a test simulating a 90-day
-// renewal window sits comfortably inside it.
 const ABSOLUTE_FUTURE_HORIZON_MS = 10 * 365 * 86400000;
 
 function hash(value) {
@@ -92,18 +85,6 @@ function fail(reasonCodes, state = null, extra = {}) {
   };
 }
 
-// Every evidence check here was a prefix test and nothing more, so a bare
-// prefix satisfied all of them: `qa:` passed QA, `artifact:` passed delivery,
-// and `customer:` passed external customer acceptance and set
-// `economicTruth.acceptedDelivery = true`. `customer:   ` worked too.
-//
-// A reference with no referent is the acceptance equivalent of an unwitnessed
-// revenue row -- correct shape, no content -- and acceptance is the single gate
-// between "we delivered" and "the customer agreed we delivered".
-//
-// The rule is that the reference must point at something, not that the
-// something must be well-chosen. Judging identifier quality is not this
-// function's job; distinguishing evidence from no-evidence is.
 function evidenceReferent(value, prefixes) {
   const ref = text(value, 500);
   const match = new RegExp(`^(?:${prefixes}):(.*)$`, 'i').exec(ref);
@@ -169,6 +150,9 @@ export function compileFulfillmentPlan({
   if (!customer) reasons.push('customer-ref-required');
   if (!reqs.length) reasons.push('customer-requirements-required');
   if (!criteria.length) reasons.push('acceptance-criteria-required');
+  if (containsSecretValue(customer)) reasons.push('customer-ref-secret-detected');
+  if (containsAnySecret(reqs)) reasons.push('customer-requirements-secret-detected');
+  if (containsAnySecret(criteria)) reasons.push('acceptance-criteria-secret-detected');
   if (revisions == null) reasons.push('bounded-max-revisions-required');
   if (support == null) reasons.push('bounded-support-window-required');
   if (renewalIntervalDays != null && renewal == null) reasons.push('valid-renewal-interval-required');
@@ -223,18 +207,6 @@ export function applyFulfillmentEvent({ state, event, date = new Date() } = {}) 
   if (!updatedAt) return fail(['valid-state-time-required'], state);
   if (eventAt.getTime() < updatedAt.getTime()) return fail(['event-time-regression'], state);
 
-  // Forward time travel, which closing backward time travel left wide open.
-  //
-  // `next.updatedAt` is set from the event's own timestamp, so an unbounded
-  // future `at` does two things at once. It satisfies every contractual gate
-  // downstream -- a probe sent SUPPORT_ENDED dated year 3000 against a 30-day
-  // support window and a 90-day renewal interval, and the machine advanced to
-  // RENEWAL_DUE, 974 years early. That is retention proven by fast-forwarding
-  // contractual time. And it freezes the record: state time is now year 3000,
-  // so every subsequent real event fails `event-time-regression` forever.
-  //
-  // A timestamp is a claim about when something happened. A claim about the
-  // future is not one this machine can accept from its caller.
   const referenceAt = strictDate(date);
   if (!referenceAt) return fail(['valid-reference-time-required'], state);
   if (eventAt.getTime() > referenceAt.getTime() + FUTURE_SKEW_MS) {
@@ -245,6 +217,15 @@ export function applyFulfillmentEvent({ state, event, date = new Date() } = {}) 
   }
 
   const identity = eventIdentity({ ...event, at: eventAt.toISOString() });
+  const eventStrings = [
+    identity.eventId,
+    identity.canonical.evidenceRef,
+    identity.canonical.reason,
+    identity.canonical.paymentRef,
+    ...identity.canonical.artifactRefs
+  ].filter(Boolean);
+  if (containsAnySecret(eventStrings)) return fail(['fulfillment-event-secret-detected'], state);
+
   if (!identity.eventId) return fail(['durable-event-id-required'], state);
   const prior = state.eventLog.find(item => item.eventId === identity.eventId);
   if (prior) {

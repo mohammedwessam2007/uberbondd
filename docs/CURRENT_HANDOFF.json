@@ -1,8 +1,9 @@
 {
   "schemaVersion": "uberbond-handoff-1.0.0",
-  "lastKnownMainShaAtMissionStart": "ea1d821db8768330912ad4794dd298f6ba67ee4c",
-  "activeBranch": "gpt/executable-brain-distribution-control-plane-20260828",
-  "activePullRequest": 171,
+  "currentMainSha": "b894a4cfae8acddd6170095f2373f339ff65f15c",
+  "landedPullRequests": [169, 170, 171],
+  "activeBranch": null,
+  "activePullRequest": null,
   "contextBasis": [
     "AGENTS.md",
     "UBERBOND_CANON.md",
@@ -14,35 +15,48 @@
     "docs/CURRENT_SYSTEM_STATE.md",
     "artifacts/system-readiness.json"
   ],
-  "activeMission": "Land the executable cross-chat brain and evidence-gated distribution portfolio control plane, then stop adding duplicate internal distribution architecture and move the frontier to authorized external proof.",
-  "verifiedBeforeThisMission": [
-    "PR #169 merged the provider-neutral automation acquisition frontier including voice, browser, omnichannel, booking, CRM, web extraction, receivables, forms, signatures, social scheduling, accounting export, and acquisition/frontier contracts.",
-    "PR #170 merged the durable UberBond canon and Distribution OS doctrine.",
-    "Existing commercial-learning.mjs gives economic weight only to validated cleared-payment/refund-dispute receipts and never treats observations as revenue.",
-    "Existing distribution-channel.mjs is fail-closed and can rank only channels with verified cleared-payment outcomes."
+  "activeMission": "Use the landed continuity brain and distribution portfolio control plane to obtain authorized external proof of channel, offer, customer, payment, accepted-delivery, renewal and founder-minute economics. Do not create another generic internal distribution engine unless current main proves a real capability gap.",
+  "verifiedInternalState": [
+    "PR #169 landed the provider-neutral automation acquisition frontier: voice, browser, omnichannel, booking, CRM, web extraction, receivables, forms, signatures, social scheduling, accounting export, and acquisition/frontier contracts.",
+    "PR #170 landed the durable UberBond canon and Distribution OS doctrine.",
+    "PR #171 landed the executable cross-chat brain, machine bootstrap, historical lineage, durable handoff, clean-room distribution reference map, project-context compiler and evidence-gated distribution portfolio control plane.",
+    "Retained historical sources were reconciled into HISTORICAL_PROJECT_LINEAGE.md, preserving the Brain decision laws, many-front-end-offers one-shared-OS doctrine, six product families, partner-first Watchtower lineage, recurring-product ladder and historical distribution ambitions below current repository/external truth.",
+    "Focused executable evidence for PR #171: brain context 10/10 PASS; distribution control plane 15/15 PASS; combined 25/25 PASS; syntax PASS for both modules.",
+    "Mutation evidence for PR #171 killed removal of the 50 percent concentration ceiling and removal of future-evidence refusal.",
+    "Exact-head review found and repaired future-dated measured economics and measured non-positive economics before merge.",
+    "GitHub Actions remained an infrastructure-only failure on the PR head: jobs had zero executable steps. Vercel checks were blocked by the account build-rate limit. These were not treated as source failures or passes."
   ],
-  "completedInThisMission": [
-    "Added AGENTS.md startup constitution so repo-aware agents load current main, every bootstrap canon pointer, current handoff, readiness and shared PR state before acting.",
-    "Added UBERBOND_BOOTSTRAP.json as machine-readable durable mission, truth hierarchy, unified goals, capability families, historical product families and external-proof gates.",
-    "Recovered retained BRAIN whole-chat and Total Commercial Genome lineage into HISTORICAL_PROJECT_LINEAGE.md, preserving the Brain decision laws, many-front-end-offers one-shared-OS doctrine, six product families, partner-first Watchtower lineage, recurring-product ladder and historical distribution research ambitions without promoting them above current truth.",
-    "Added CROSS_CHAT_CONTINUITY.md defining repository-native recovery and the explicit ChatGPT-UI limitation.",
-    "Added DISTRIBUTION_VENDOR_MAP.md mapping open/public and proprietary reference surfaces into clean-room UberBond capability decisions without vendoring incompatible code.",
-    "Implemented uberbond-brain-context.mjs with deterministic context digest, bounded mission state, secret refusal, required-canon validation, historical product-family preservation, external-proof preservation and durable handoff compilation.",
-    "Implemented distribution-control-plane.mjs with commercial-learning bridge, hard 50 percent concentration ceiling, bounded preparation-only exploration, stale and future-dated evidence refusal, explicit blocking of measured non-positive economics, outbound suppression/complaint/sender-health gates, paid-media budget/economics gates and cleared-payment-only referral commission basis.",
-    "Focused exact logic evidence: brain context 10/10 PASS; distribution control plane 15/15 PASS; combined 25/25 PASS; syntax PASS for both modules.",
-    "Mutation evidence: raising the 50 percent concentration ceiling to 100 percent is killed by the hostile suite; deleting the future-evidence guard is also killed."
+  "distributionInternalScope": [
+    "governed outbound email and inbound/reply lifecycle",
+    "partner and referral attribution/control concepts",
+    "product-led diagnostics and owned-content preparation",
+    "social/public scheduling via canonical consequence boundaries",
+    "community/directory/marketplace channel representation",
+    "paid-media representation behind explicit budget and measured-positive-economics gates",
+    "voice, SMS/chat and omnichannel provider-neutral contracts",
+    "booking/calendar, CRM, forms, signatures, receivables and accounting export",
+    "commercial-learning bridge using only measured local cleared-payment receipts for exploitation",
+    "hard portfolio concentration, stale/future evidence, sender-health, complaint, suppression and losing-economics gates",
+    "clean-room external software reference map without automatic incompatible-code vendoring"
   ],
-  "blockers": [
-    "Repository-native continuity cannot force the ChatGPT Project UI itself to inject repository files into a brand-new chat. Project/UI-level context still depends on the product surfaces available to that chat. Repo-aware agents recover through AGENTS.md and bootstrap/handoff files.",
-    "Real provider credentials, live sender infrastructure, customer demand, cleared payment, accepted delivery, renewal, payout/KYC/tax treatment, and sustained unattended production operation remain external proof rather than code facts.",
-    "A claim that UberBond is top 0.00000001 percent at distribution requires a real comparative benchmark and market evidence; architecture alone cannot prove percentile superiority."
+  "externalProofRequired": [
+    "ChatGPT Project UI-level automatic context injection when a new chat lacks repository/file access cannot be forced by repository source code.",
+    "Real provider credentials and any separately authorized provider/model spend.",
+    "Lawful live sender domains/mailboxes and measured sender health before scaled outbound.",
+    "Real audience/customer demand and commercial commitment.",
+    "Provider-origin cleared payment evidence.",
+    "Real delivery and customer acceptance evidence.",
+    "Refund, dispute, retention, renewal, referral and expansion outcomes.",
+    "Payment-provider KYC/payout and exact Egyptian legal/tax treatment.",
+    "Sustained unattended production operation over elapsed time.",
+    "Any claim of global distribution percentile or superiority over named external software requires a real comparative benchmark."
   ],
   "nextActions": [
-    "Refresh PR #171 exact head and current main, inspect CI/review state, and merge only if the exact-head evidence remains clean.",
-    "After merge, refresh CURRENT_HANDOFF.json against the merge SHA so the durable brain points to the landed state rather than the pre-merge branch.",
-    "Do not add another generic distribution engine unless a new capability gap is proven against current main.",
-    "Next economic frontier is an owner-authorized bounded external distribution canary that produces real provider, response, commercial, cleared-payment, delivery/acceptance and renewal evidence.",
-    "Use real receipts to compare channel/offer/segment economics and let the portfolio allocator reallocate only from measured outcomes."
+    "On every new repo-aware session, refresh main and read AGENTS.md, UBERBOND_BOOTSTRAP.json, every canon pointer and this handoff before using chat memory.",
+    "Preserve the internal distribution architecture as complete for its declared current scope unless a concrete missing primitive is proven.",
+    "When the owner explicitly authorizes external consequences, run the smallest bounded distribution canary that can create real response, commercial, payment, delivery/acceptance and renewal evidence without scaling ahead of proof.",
+    "Feed only validated commercial receipts into distribution allocation and compare channels/offers/segments by risk-adjusted cleared contribution profit per founder minute.",
+    "Promote recurring products and additional distribution infrastructure only after repeated paid demand and accepted delivery justify them."
   ],
   "externalEffectAuthority": "NONE",
   "externalEffects": {

@@ -1,7 +1,14 @@
 {
   "functions": {
-    "api/agent-relay.mjs": { "maxDuration": 60 }
+    "api/agent-relay.mjs": { "maxDuration": 60 },
+    "api/agent-mesh-cron.mjs": { "maxDuration": 60 }
   },
+  "crons": [
+    {
+      "path": "/api/agent-mesh-cron",
+      "schedule": "17 12 * * *"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

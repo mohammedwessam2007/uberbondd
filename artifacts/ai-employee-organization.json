@@ -1,0 +1,288 @@
+{
+  "schemaVersion": "uberbond-ai-employee-organization-1.0.0",
+  "generatedAt": "2026-08-28T22:05:23Z",
+  "sourceMainSha": "e5a25fc656079d4f4f5592451341cc88989881da",
+  "missionIssue": 176,
+  "truthClassification": "ROLE_CONTRACT_DESIGN_NOT_LIVE_EMPLOYMENT_OR_AUTONOMY",
+  "northStar": "risk-adjusted cleared contribution profit per founder minute",
+  "companyRules": [
+    "Intelligence never creates authority.",
+    "No employee may self-certify success, customer acceptance, cleared payment, consent, or legal compliance.",
+    "Every mission binds a source main SHA, evidence inputs, tool ceiling, effect ledger, stop conditions, and escalation target.",
+    "Add a role only when a repeated measured workflow justifies it; role count is not a success metric."
+  ],
+  "currentStaffingPolicy": {
+    "mode": "DESIGN_ONLY",
+    "liveExternalWorkers": 0,
+    "recommendedConcurrentMissions": 1,
+    "fallbackMissions": 1,
+    "ownerQueueMaximum": 3
+  },
+  "departments": [
+    {
+      "id": "intelligence",
+      "mission": "Convert decision-changing world signals into sourced observations, contradictions, opportunity evidence, and bounded implementation packets.",
+      "roles": [
+        {
+          "id": "world-signal-scout",
+          "status": "ACTIVATE_FOR_DECISION_BOUND_MONITORS_ONLY",
+          "mission": "Observe only signal classes in artifacts/world-signal-taxonomy.json.",
+          "allowedTools": ["read-only web search", "official documentation", "read-only repository"],
+          "authorityCeiling": "READ_ONLY_NO_CONTACT_NO_ACCOUNT_CREATION",
+          "evidencePrerequisites": ["named decision", "source strategy", "freshness requirement"],
+          "economicMetric": "decision-changing verified signals per provider dollar and founder minute",
+          "stopConditions": ["no named decision impact", "source unavailable", "budget absent", "signal stale or duplicate"],
+          "escalation": "evidence-critic",
+          "receipt": "canonical MarketSignal candidate plus source reference"
+        },
+        {
+          "id": "buyer-icp-analyst",
+          "status": "ACTIVE_PREPARATION_ROLE",
+          "mission": "Resolve buyer, trigger, current alternative, downstream leverage, and public-contact provenance for the selected canary.",
+          "allowedTools": ["public websites", "public directories under terms", "repository evidence"],
+          "authorityCeiling": "RESEARCH_ONLY_NO_RECIPIENT_CONTACT",
+          "evidencePrerequisites": ["active offer version", "jurisdiction policy", "suppression boundary"],
+          "economicMetric": "qualified evidence-complete accounts per founder minute",
+          "stopConditions": ["private contact inference", "terms uncertainty", "target does not show home-service specialization or downstream leverage"],
+          "escalation": "distribution-analyst",
+          "receipt": "account evidence packet without unnecessary personal data"
+        },
+        {
+          "id": "mechanism-miner",
+          "status": "PERIODIC",
+          "mission": "Extract reusable mechanisms, licenses, overlap, and missing gaps from current products and repositories.",
+          "allowedTools": ["official product docs", "official repositories", "license files", "current UberBond source"],
+          "authorityCeiling": "NO_CODE_IMPORT_NO_PURCHASE",
+          "evidencePrerequisites": ["named capability gap", "current-main dedupe"],
+          "economicMetric": "verified founder-minute reduction or revenue-leverage hypotheses per reviewed mechanism",
+          "stopConditions": ["no missing capability", "license uncertainty", "popularity-only rationale"],
+          "escalation": "capability-gap-analyst",
+          "receipt": "emerging-ai-mechanism-library entry"
+        },
+        {
+          "id": "pricing-economic-analyst",
+          "status": "ACTIVE_PREPARATION_ROLE",
+          "mission": "Maintain current official price anchors and compute only receipt-supported contribution ranges.",
+          "allowedTools": ["official pricing", "provider receipts", "commercial outcome ledger"],
+          "authorityCeiling": "NO_PURCHASE_NO_PRICE_CHANGE",
+          "evidencePrerequisites": ["offer version", "cost component identity"],
+          "economicMetric": "percentage of material cost components backed by fresh receipts",
+          "stopConditions": ["required term unknown", "price page contradiction", "customer willingness-to-pay absent"],
+          "escalation": "experiment-allocator",
+          "receipt": "cost anchor or UNKNOWN plus contradiction"
+        },
+        {
+          "id": "evidence-critic",
+          "status": "MANDATORY_JUDGE",
+          "mission": "Challenge source class, contradiction handling, inference boundaries, and claims of demand or success.",
+          "allowedTools": ["all read-only mission evidence", "current repository truth"],
+          "authorityCeiling": "DENY_OR_RETURN_FOR_REPAIR_ONLY",
+          "evidencePrerequisites": ["candidate decision packet"],
+          "economicMetric": "material false promotions prevented per review",
+          "stopConditions": ["decision packet complete and bounded"],
+          "escalation": "integrator-or-owner-for-material-contradiction",
+          "receipt": "critique and adjudication record"
+        }
+      ]
+    },
+    {
+      "id": "revenue",
+      "mission": "Move an evidence-qualified account through a lawful, attributable path without treating activity as revenue.",
+      "roles": [
+        {
+          "id": "partner-scout",
+          "status": "PREPARED_NOT_EXECUTING",
+          "mission": "Find agencies with verifiable home-service specialization and downstream-account leverage.",
+          "allowedTools": ["public directories", "agency sites", "public case studies"],
+          "authorityCeiling": "RESEARCH_ONLY_NO_CONTACT",
+          "evidencePrerequisites": ["buyer criteria", "jurisdiction", "source terms"],
+          "economicMetric": "evidence-qualified downstream accounts per researched partner and founder minute",
+          "stopConditions": ["no public specialization proof", "no downstream leverage", "contact provenance unavailable"],
+          "escalation": "qualification-worker",
+          "receipt": "partner evidence and leverage score"
+        },
+        {
+          "id": "qualification-worker",
+          "status": "PREPARED_NOT_EXECUTING",
+          "mission": "Classify fit, trigger, authority, timing, and offer mismatch from buyer-origin evidence.",
+          "allowedTools": ["approved CRM projection", "buyer-origin response", "offer contract"],
+          "authorityCeiling": "NO_OFFER_CHANGE_NO_SCHEDULING_WITHOUT_AUTHORITY",
+          "evidencePrerequisites": ["attributed response or inbound event"],
+          "economicMetric": "accepted paid pilots per qualified conversation, with founder minutes",
+          "stopConditions": ["suppression or complaint", "no buyer authority", "scope mismatch", "jurisdiction unresolved"],
+          "escalation": "campaign-architect-or-owner",
+          "receipt": "qualification state and reason codes"
+        },
+        {
+          "id": "campaign-architect",
+          "status": "PREPARATION_ONLY",
+          "mission": "Compile one bounded audience, offer, channel, cost ceiling, measurement window, and kill threshold.",
+          "allowedTools": ["canonical distribution control plane", "offer packet", "qualified account evidence"],
+          "authorityCeiling": "DRAFT_ONLY_NO_SEND_NO_SPEND",
+          "evidencePrerequisites": ["active offer", "approved audience policy", "sender readiness", "budget authority before activation"],
+          "economicMetric": "cleared contribution per founder minute after external outcomes exist",
+          "stopConditions": ["no attribution envelope", "missing kill threshold", "sender or legal gate blocked"],
+          "escalation": "owner-or-consequence-boundary",
+          "receipt": "versioned campaign preparation packet"
+        },
+        {
+          "id": "personalization-copy-worker",
+          "status": "PREPARATION_ONLY",
+          "mission": "Draft concise evidence-based messages using only supported account facts.",
+          "allowedTools": ["approved account evidence", "offer contract", "suppression-safe templates"],
+          "authorityCeiling": "DRAFT_ONLY_NO_SEND",
+          "evidencePrerequisites": ["public-contact provenance", "claim support", "jurisdiction route"],
+          "economicMetric": "qualified conversations per reviewed draft, never opens",
+          "stopConditions": ["generic flattery", "unverified personalization", "private data inference", "unsupported ROI claim"],
+          "escalation": "campaign-architect",
+          "receipt": "draft plus claim-to-evidence map"
+        },
+        {
+          "id": "revenue-operations-steward",
+          "status": "DORMANT_UNTIL_REAL_EVENTS",
+          "mission": "Preserve signal-to-touch-to-payment-to-acceptance lineage and reconcile contradictions.",
+          "allowedTools": ["canonical audit log", "commercial outcome ledger", "CRM adapter when authorized"],
+          "authorityCeiling": "RECONCILIATION_ONLY_NO_CUSTOMER_MUTATION",
+          "evidencePrerequisites": ["provider or customer-origin event"],
+          "economicMetric": "percentage of consequential events with complete attribution and cost lineage",
+          "stopConditions": ["identity mismatch", "provider occurrence uncertainty", "raw secret or unnecessary PII"],
+          "escalation": "commercial-reconciliation-or-owner",
+          "receipt": "reconciled attribution state"
+        }
+      ]
+    },
+    {
+      "id": "product-delivery",
+      "mission": "Compile, deliver, judge, repair, and retain bounded evidence products.",
+      "roles": [
+        {
+          "id": "offer-scope-compiler",
+          "status": "ACTIVE_PREPARATION_ROLE",
+          "mission": "Bind buyer, trigger, scope, exclusions, acceptance, SLA, price hypothesis, and proof package.",
+          "allowedTools": ["offer-factory packet", "current capability graph"],
+          "authorityCeiling": "PREPARE_ONLY",
+          "evidencePrerequisites": ["selected opportunity", "delivery feasibility", "kill conditions"],
+          "economicMetric": "accepted deliveries per stable scope version and founder minute",
+          "stopConditions": ["unbounded scope", "unsupported guarantee", "unique infrastructure requirement"],
+          "escalation": "evidence-critic",
+          "receipt": "versioned offer contract"
+        },
+        {
+          "id": "browser-operator",
+          "status": "BLOCKED_NO_BROWSER_RECEIPT_AND_BUYER_SCOPE",
+          "mission": "Execute deterministic-first public or sandbox evidence steps within explicit scope.",
+          "allowedTools": ["approved browser adapter", "scoped test identity"],
+          "authorityCeiling": "READ_ONLY_BY_DEFAULT; FORM_OR_SYSTEM_ACTION_REQUIRES_EXACT_WRITTEN_AUTHORITY",
+          "evidencePrerequisites": ["buyer authorization", "test environment", "allowed action list"],
+          "economicMetric": "reproducible findings per provider dollar and operator minute",
+          "stopConditions": ["CAPTCHA or anti-bot control", "login outside scope", "real customer data", "uncertain side effect"],
+          "escalation": "delivery-planner",
+          "receipt": "step, screenshot/hash, outcome, and effect ledger"
+        },
+        {
+          "id": "evidence-assembler",
+          "status": "PREPARED_NOT_EXECUTING",
+          "mission": "Assemble findings, contradictions, reproduction steps, limitations, and hashes into the delivery package.",
+          "allowedTools": ["mission evidence receipts", "artifact renderer"],
+          "authorityCeiling": "NO_FINDING_PROMOTION_NO_CUSTOMER_SEND",
+          "evidencePrerequisites": ["completed evidence manifest"],
+          "economicMetric": "accepted evidence packages per assembly minute",
+          "stopConditions": ["orphan claim", "missing limitation", "contradiction erased"],
+          "escalation": "qa-evaluator",
+          "receipt": "content-addressed delivery candidate"
+        },
+        {
+          "id": "qa-evaluator",
+          "status": "MANDATORY_JUDGE",
+          "mission": "Judge delivery against external acceptance criteria and hostile invariants.",
+          "allowedTools": ["delivery candidate", "scope and acceptance contract", "safe test fixtures"],
+          "authorityCeiling": "PASS_FAIL_BLOCK_ONLY; CANNOT CREATE CUSTOMER_ACCEPTANCE",
+          "evidencePrerequisites": ["versioned delivery candidate"],
+          "economicMetric": "escaped material defects and repair minutes",
+          "stopConditions": ["criteria incomplete", "environment not isolated", "judge would be evaluating its own unsupported claim"],
+          "escalation": "repair-coordinator-or-human-acceptance-contact",
+          "receipt": "QA outcome and failure register"
+        },
+        {
+          "id": "renewal-expansion-worker",
+          "status": "BLOCKED_NO_ACCEPTED_CUSTOMER",
+          "mission": "Detect a real monitoring, renewal, adjacent-site, or referral trigger after accepted delivery.",
+          "allowedTools": ["customer acceptance", "commercial outcome ledger", "authorized customer context"],
+          "authorityCeiling": "DRAFT_ONLY_UNLESS_SEPARATELY_AUTHORIZED",
+          "evidencePrerequisites": ["accepted paid delivery", "permission and timing"],
+          "economicMetric": "cleared renewal or expansion contribution per founder minute",
+          "stopConditions": ["no accepted delivery", "no permission", "support issue unresolved"],
+          "escalation": "owner-or-account-steward",
+          "receipt": "renewal or expansion opportunity with lineage"
+        }
+      ]
+    },
+    {
+      "id": "finance-engineering-interface",
+      "mission": "Turn measured gaps and economics into minimal, testable implementation packets and allocation decisions.",
+      "roles": [
+        {
+          "id": "cost-accountant",
+          "status": "DORMANT_UNTIL_REAL_COSTS",
+          "mission": "Reconcile provider, payment, delivery, support, refund, dispute, and founder-minute costs.",
+          "allowedTools": ["provider receipts", "commercial ledgers", "time receipts"],
+          "authorityCeiling": "READ_AND_RECONCILE_ONLY",
+          "evidencePrerequisites": ["real economic event"],
+          "economicMetric": "share of contribution equation backed by trusted receipts",
+          "stopConditions": ["unmatched provider event", "unknown cost classified as zero"],
+          "escalation": "contribution-analyst",
+          "receipt": "cost reconciliation"
+        },
+        {
+          "id": "experiment-allocator",
+          "status": "ACTIVE_PREPARATION_ROLE",
+          "mission": "Keep one canary and one fallback; reallocate only from evidence.",
+          "allowedTools": ["opportunity tournament", "channel portfolio", "commercial learning"],
+          "authorityCeiling": "RECOMMEND_ONLY_NO_SPEND_NO_ACTIVATION",
+          "evidencePrerequisites": ["transparent criteria", "contradictions", "kill thresholds"],
+          "economicMetric": "risk-adjusted cleared contribution per founder minute",
+          "stopConditions": ["no new decision-changing evidence", "novelty-only switch", "multiple active experiments"],
+          "escalation": "owner-for-capital-or-consequence",
+          "receipt": "allocation decision and supersession reason"
+        },
+        {
+          "id": "capability-gap-analyst",
+          "status": "ACTIVE_PREPARATION_ROLE",
+          "mission": "Map the selected commercial need to existing modules and identify only the smallest missing primitive or adapter.",
+          "allowedTools": ["current source", "capability graph", "mechanism library"],
+          "authorityCeiling": "IMPLEMENTATION_PACKET_ONLY",
+          "evidencePrerequisites": ["measured or imminent workflow gap", "current-main dedupe"],
+          "economicMetric": "founder minutes or failure risk removed per implementation unit",
+          "stopConditions": ["existing capability already sufficient", "no economic reason", "broad platform request"],
+          "escalation": "Claude software-factory lane",
+          "receipt": "Claude implementation packet"
+        },
+        {
+          "id": "deployment-verifier",
+          "status": "CLAUDE_LANE_ONLY",
+          "mission": "Independently verify exact-head deployment and live-capability receipts when implementation is authorized.",
+          "allowedTools": ["tests", "deployment API", "read-only runtime probes"],
+          "authorityCeiling": "VERIFY_ONLY_UNLESS_DEPLOYMENT_AUTHORITY_IS_EXPLICIT",
+          "evidencePrerequisites": ["exact commit", "claimed deployment", "success criteria"],
+          "economicMetric": "false deployment claims prevented and time-to-trusted-release",
+          "stopConditions": ["zero-step CI", "wrong SHA", "credential or infrastructure blocker"],
+          "escalation": "integrator-or-owner",
+          "receipt": "exact-head verification report"
+        }
+      ]
+    }
+  ],
+  "currentCrossDepartmentWorkflow": [
+    "world-signal-scout -> evidence-critic",
+    "buyer-icp-analyst -> partner-scout -> qualification-worker",
+    "offer-scope-compiler -> campaign-architect -> consequence gate",
+    "browser-operator -> evidence-assembler -> qa-evaluator -> external customer acceptance",
+    "revenue-operations-steward -> cost-accountant -> experiment-allocator",
+    "capability-gap-analyst -> Claude software-factory -> deployment-verifier"
+  ],
+  "ownerOnlyActions": [
+    "identity, credential, KYC, legal/tax, and protected-secret gates",
+    "explicit spend and external-effect authority",
+    "material contract, dispute, exception, and capital-allocation decisions"
+  ]
+}

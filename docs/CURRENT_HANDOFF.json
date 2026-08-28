@@ -1,38 +1,111 @@
 {
   "schemaVersion": "uberbond-handoff-1.1.0",
-  "sourceMainShaAtMissionStart": "b894a4cfae8acddd6170095f2373f339ff65f15c",
-  "sourceMainCommitMessage": "Make UberBond cross-chat brain executable and add distribution control plane (#171)",
-  "activeBranch": "gpt/uberbond-repository-brain-v2-20260828",
-  "activePullRequest": 172,
-  "activeMission": "Upgrade the repository-native UberBond brain so future context-window resets recover the full company goal, named initiative lineage, historical portfolio breadth, recurring/platform ladders, unresolved owner-recalled names, current frontier and truth hierarchy without asking the owner to retell the project.",
+  "sourceMainShaAtMissionStart": "ba1fa7a53b2a6c7672562a30c737b7f553cb5857",
+  "sourceMainCommitMessage": "Add Trinity night-shift coordination protocol",
+  "sourceCommit": "e5a25fc656079d4f4f5592451341cc88989881da",
+  "currentMainShaAtFinalRefresh": "e5a25fc656079d4f4f5592451341cc88989881da",
+  "currentMainCommitMessage": "Merge gpt/trinity-canonical-ai-employee-prompts-20260828",
+  "activeBranch": "gpt/nightfall-sol-research-singularity-20260828",
+  "activePullRequest": null,
+  "missionIssue": 176,
+  "activeMission": "Convert current world intelligence, distribution research, opportunity evidence, economics, AI employee design, and software mechanism research into one canary, one fallback, machine-readable decision artifacts, bounded Claude packets, and a durable handoff without external business effects.",
+  "liveGitHubAtFinalRefresh": {
+    "checkedAt": "2026-08-28T22:34:00Z",
+    "mainSha": "e5a25fc656079d4f4f5592451341cc88989881da",
+    "openPullRequests": [],
+    "materialIssues": [
+      {"number": 176, "role": "Sol research, distribution, economics lane"},
+      {"number": 173, "role": "Claude software-factory lane"}
+    ],
+    "materialBranches": [
+      {"name": "main", "sha": "e5a25fc656079d4f4f5592451341cc88989881da", "status": "CURRENT"},
+      {"name": "gpt/nightfall-sol-research-singularity-20260828", "sha": null, "status": "LOCAL_UNPUBLISHED_AT_HANDOFF_WRITE"}
+    ]
+  },
   "completed": [
-    "PR #171 is already merged into main; the prior handoff instruction to merge it was stale and is superseded.",
-    "Current main was refreshed to b894a4cfae8acddd6170095f2373f339ff65f15c before this mission branch was created.",
-    "Historical/File-Library archaeology recovered the Commercial Genome, First-Cash, World Distribution, Offline Revenue Factory, OMNIA generations, OMNIA V9, Prometheus, Cognitive Bus, Kilimanjaro, Lead OS/outbound and related program lineage.",
-    "Everest is preserved as OWNER_RECALLED_UNRESOLVED because no direct accessible artifact was found in the 2026-08-28 search.",
-    "Master Memory V2 and a machine-readable memory index preserve the final goal, 31 named initiatives, historical corpus snapshots, recurring products, platform ladder, shared operating-system domains, source basis and anti-forgetting rules.",
-    "Brain-context policy 1.1 requires and digests Master Memory for bootstrap 1.1 while preserving legacy 1.0 compatibility.",
-    "A read-only one-command repository loader is available as npm run brain and downgrades stale handoffs instead of treating them as current truth.",
-    "Exact committed brain-context suite passed 17/17; exact committed brain-bootstrap suite passed 8/8; combined focused gate passed 25/25.",
-    "Mutation removing owner-recalled unresolved-name preservation was killed at 16/17; mutation removing declared-canon-file existence enforcement was killed at 7/8."
+    "Refreshed main at mission start, ran the repository brain, read every mandatory canon/memory/readiness/continuity surface, and refreshed main again before handoff.",
+    "Inspected live GitHub issues, pull requests, branches, recent commits, and lane claims; issue #176 is the Sol lane and no pull request was open at final refresh.",
+    "Rebased onto e5a25fc656079d4f4f5592451341cc88989881da after PR #168 and PR #178 merged, so the Kilimanjaro commercial closure and AI employee charter are canonical inputs.",
+    "Researched current primary/official sources across home-service demand, AI research and sales mechanisms, CRM context, agent procedures/evaluation, browser execution, orchestration, licenses, partner programs, marketplaces, SEO/AEO, outbound pricing, sender policies, and regulator guidance.",
+    "Adjudicated exactly one recommended canary: White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing, or electrical firms.",
+    "Adjudicated exactly one fallback: AI Agent Acceptance Evidence Sprint for buyer-authorized sandboxes.",
+    "Rejected generic managed cold outreach as the active offer and rejected generic CRM/dashboard/automation clones; parked RFP and cloud-SLA evidence ideas.",
+    "Created a 52-source contradiction-preserving registry, decision-bound world-signal taxonomy, 18-mechanism acquisition library, opportunity tournament, exact offer packet, cross-channel portfolio, outreach capacity/economics model, bounded AI employee organization, and four Claude implementation packets.",
+    "Made partner/white-label the primary preparation motion, product-led evidence second, and governed outbound third but externally blocked; paid, marketplace, and public MCP/API distribution remain unearned.",
+    "Preserved unknown conversion, contribution, renewal, and founder-minute terms as null rather than convenient zeros; no expected-revenue forecast was manufactured.",
+    "Added machine checks enforcing source resolution, a single canary/fallback, zero live experiment, unknown economics, employee contract completeness, packet dependencies, and zero observed external effects."
   ],
-  "blockers": [
-    "GitHub Actions remains account/runner-infrastructure blocked: browser, deterministic and postgres jobs for PR #172 terminate with zero steps and runner_id 0, so they are not source-test evidence.",
-    "The repository cannot force the ChatGPT UI to attach GitHub/files to a brand-new conversation that has no repository access.",
-    "A shared-chat URL may be inaccessible to a later runtime; durable imports require accessible content/export/upload rather than URL-only memory.",
-    "External commercial/provider/payment/legal/customer/elapsed-time truth remains external and is intentionally not synthesized by memory."
+  "artifactsChanged": [
+    "docs/research/report-source.md",
+    "docs/research/UBERBOND_RESEARCH_SINGULARITY.md",
+    "docs/distribution/UBERBOND_DISTRIBUTION_SINGULARITY.md",
+    "artifacts/research-source-registry.json",
+    "artifacts/world-signal-taxonomy.json",
+    "artifacts/emerging-ai-mechanism-library.json",
+    "artifacts/opportunity-tournament-latest.json",
+    "artifacts/offer-factory-research-packet.json",
+    "artifacts/distribution-channel-portfolio.json",
+    "artifacts/outreach-capacity-economics.json",
+    "artifacts/ai-employee-organization.json",
+    "artifacts/claude-implementation-queue.json",
+    "tests/nightfall-research-artifacts.test.mjs",
+    "docs/CURRENT_HANDOFF.json"
   ],
-  "unresolvedNames": [
+  "verification": [
+    "node --test tests/nightfall-research-artifacts.test.mjs: 5 tests, 5 pass, 0 fail.",
+    "npm run check:syntax: 558 files parse on the final rebased tree.",
+    "npm run test:deterministic was attempted and exited non-zero because this fresh clone has no node_modules, including pg and @cedar-policy/cedar-wasm; it also exposed pre-existing current-state/reachability drift outside this diff.",
+    "npm ci --ignore-scripts --offline was attempted once and failed ENOTCACHED; no dependency or lockfile was changed."
+  ],
+  "contradictions": [
     {
-      "name": "Everest",
-      "status": "OWNER_RECALLED_UNRESOLVED",
-      "next": "Search future exports/packages for an exact source before assigning semantics."
+      "topic": "mailbox canary cost",
+      "state": "UNRESOLVED_EXTERNAL_QUOTE_REQUIRED",
+      "details": "The repository's earlier 15 USD monthly ceiling is not backed by a public quote; Maildoso's public minimum is currently 75 USD monthly for 30 mailboxes."
+    },
+    {
+      "topic": "home-service urgency versus feature commoditization",
+      "state": "ADJUDICATED",
+      "details": "Current seller surveys support urgent response/estimate workflows, while incumbents already automate obvious steps; sell independent evidence/recovery, not generic automation."
+    },
+    {
+      "topic": "agent capability versus repeatable reliability",
+      "state": "ADJUDICATED",
+      "details": "Current vendors expose strong tools, but realistic vendor research still shows substantial task failure; require repeated scenarios, external judges, final-state checks, and authority ceilings."
+    },
+    {
+      "topic": "present-tense readiness drift",
+      "state": "UNRESOLVED_INTEGRATOR_RECONCILIATION",
+      "details": "docs/CURRENT_SYSTEM_STATE.md is reconciled from 008bc148933186ccdcc0fcbd86d0c5a3586e2ce5 and contains internally drifting reachability prose/counts relative to final main; the four commercial zeros remain supported."
     }
   ],
-  "nextActions": [
-    "Review and merge PR #172 when the exact diff remains clean; hosted zero-step runner failures do not count as source failures or source passes.",
-    "After merge, a repo-aware fresh session should run npm run brain, refresh live GitHub main/PR state, then execute from the returned context rather than asking the owner to retell UberBond.",
-    "When new historical chat exports become accessible, ingest them through docs/memory/CHAT_IMPORT_PROTOCOL.md and extend memory rather than rebuilding context in prose."
+  "blockers": [
+    "A real canary requires owner selection plus exact jurisdiction/legal/tax and payment/Merchant-of-Record eligibility; none can be synthesized by repository work.",
+    "Outbound remains blocked by domain ownership/provider receipts, exact mailbox quote, credentials, DNS/authentication, sender history, jurisdiction route, suppression, provider policy, budget, physical-address/unsubscribe readiness, and explicit message authority.",
+    "Browser-assisted delivery remains blocked by Chromium/browser infrastructure and a buyer-authorized target/scope.",
+    "No buyer, cleared payment, delivery, acceptance, renewal, contribution, or founder-minute receipt exists.",
+    "Full deterministic verification in this fresh clone is dependency-blocked; hosted CI history has also been unreliable/zero-step and is not treated as source proof."
+  ],
+  "laneDependencies": {
+    "claude": [
+      "CLAUDE-NIGHT-01 is ready for a fresh claim: bind versioned AI employee role contracts into the existing relay identity with no external effects.",
+      "CLAUDE-NIGHT-02 remains deferred until the owner selects the canary and the productization gate permits one exact SKU/template.",
+      "CLAUDE-NIGHT-03 remains blocked by provider, credential, budget, and decision-bound signal selection.",
+      "CLAUDE-NIGHT-04 remains blocked by browser infrastructure and buyer-authorized scope."
+    ],
+    "sol": [
+      "No dependency-satisfied research/distribution task remains for the current decision; resume only on an external quote, buyer/payment/delivery evidence, or a decision-changing monitored signal."
+    ],
+    "integrator": [
+      "Review this branch for canonical dedupe and reconcile present-tense current-state/readiness drift on current main.",
+      "Before Claude claims CLAUDE-NIGHT-01, recheck live PRs and issue #173 for a concurrent relay-schema implementation."
+    ]
+  },
+  "nextHighestValueMission": "Obtain the founder's select-or-reject decision on the prepared 450 USD white-label evidence-sprint canary; if selected, clear legal/tax/payment eligibility before authorizing one bounded partner/contact probe.",
+  "maximumThreeFounderActions": [
+    "Select or reject the prepared 450 USD White-label Lead-Path Revenue Leak Evidence Sprint canary.",
+    "If selected, obtain exact Egyptian legal/tax and Merchant-of-Record/payment eligibility advice before accepting money.",
+    "Only after those gates, authorize a bounded partner/contact and infrastructure budget; do not buy the 30-mailbox minimum or scale by default."
   ],
   "externalEffectLedger": {
     "providerCalls": 0,

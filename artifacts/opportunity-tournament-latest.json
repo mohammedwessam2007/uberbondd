@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "uberbond-opportunity-tournament-research-1.0.0",
+  "generatedAt": "2026-08-28T22:05:23Z",
+  "sourceMainSha": "e5a25fc656079d4f4f5592451341cc88989881da",
+  "missionIssue": 176,
+  "truthClassification": "RESEARCH_DECISION_NOT_MARKET_PROOF",
+  "scoringLaw": "Scores are transparent decision indices, not demand probabilities, market size, price proof, or expected revenue.",
+  "weights": {
+    "buyerPain": 15,
+    "urgency": 10,
+    "willingnessToPayEvidence": 10,
+    "buyerAccess": 10,
+    "distributionLeverage": 10,
+    "deliveryFeasibility": 10,
+    "contributionEvidence": 10,
+    "recurrence": 10,
+    "lowFounderMinuteBurden": 10,
+    "lowRegulatoryProviderComplexity": 5
+  },
+  "candidates": [
+    {
+      "rank": 1,
+      "id": "white-label-lead-path-revenue-leak-evidence-sprint",
+      "name": "White-label Lead-Path Revenue Leak Evidence Sprint",
+      "buyer": "US or otherwise legally approved agencies serving HVAC, plumbing, or electrical firms",
+      "status": "RECOMMENDED_CANARY_PREPARATION",
+      "score": 71,
+      "scoreBreakdown": {
+        "buyerPain": 13,
+        "urgency": 9,
+        "willingnessToPayEvidence": 4,
+        "buyerAccess": 6,
+        "distributionLeverage": 9,
+        "deliveryFeasibility": 8,
+        "contributionEvidence": 4,
+        "recurrence": 7,
+        "lowFounderMinuteBurden": 7,
+        "lowRegulatoryProviderComplexity": 4
+      },
+      "evidenceConfidence": "LOW_TO_MEDIUM",
+      "sourceIds": ["UB-S01", "UB-S02", "UB-R04", "UB-S44"],
+      "whyItWins": [
+        "Current seller surveys identify response speed, communication, estimates, and repair-trigger timing as material home-service workflows.",
+        "An agency relationship can unlock multiple downstream sites and supports white-label delivery.",
+        "A fixed evidence sprint can be delivered without replacing the buyer's CRM or field-service platform.",
+        "The deliverable can become a shareable proof artifact and later a recurring monitor if paid demand repeats."
+      ],
+      "unproven": ["buyer willingness to pay", "partner acquisition cost", "actual delivery minutes", "cleared contribution", "renewal"],
+      "promotionGate": "At least one real cleared payment and customer-accepted delivery under the exact scope; repeated delivery is required before automation or recurring-product promotion.",
+      "killConditions": [
+        "No qualified buyer conversation after the predeclared bounded audience window.",
+        "No buyer accepts a paid pilot after five qualified conversations.",
+        "Median founder time exceeds the packet ceiling without a reusable repair.",
+        "The evidence sprint cannot identify reproducible decision-relevant findings without unauthorized form, call, CRM, or customer-system actions.",
+        "Measured contribution is negative after provider, delivery, support, refund, and founder-minute costs."
+      ]
+    },
+    {
+      "rank": 2,
+      "id": "ai-agent-acceptance-evidence-sprint",
+      "name": "AI Agent Acceptance Evidence Sprint",
+      "buyer": "AI implementation agencies and software teams preparing customer-facing agents for release",
+      "status": "FALLBACK_PREPARATION",
+      "score": 62,
+      "scoreBreakdown": {
+        "buyerPain": 12,
+        "urgency": 7,
+        "willingnessToPayEvidence": 3,
+        "buyerAccess": 4,
+        "distributionLeverage": 6,
+        "deliveryFeasibility": 8,
+        "contributionEvidence": 4,
+        "recurrence": 8,
+        "lowFounderMinuteBurden": 6,
+        "lowRegulatoryProviderComplexity": 4
+      },
+      "evidenceConfidence": "LOW_TO_MEDIUM",
+      "sourceIds": ["UB-S15", "UB-S16", "UB-S17", "UB-S18"],
+      "whyFallback": [
+        "Current agent vendors emphasize simulations, versioned procedures, diagnostics, traces, and repeated reliability checks.",
+        "Buyer-provided sandboxes and expected outcomes allow a bounded acceptance artifact with zero production actions.",
+        "The workflow can recur per agent version or customer release."
+      ],
+      "unproven": ["reachable buyer density", "buyer price acceptance", "independent differentiation from native vendor testing", "cleared contribution"],
+      "activationCondition": "Promote only if the primary canary fails its declared buyer-access or paid-pilot threshold, or if a qualified AI-agency buyer supplies a sandbox and asks for paid acceptance evidence.",
+      "killConditions": [
+        "Buyer cannot provide a sandbox, expected final states, or safe synthetic data.",
+        "The work duplicates a native test suite without adding independent evidence or hostile scenarios.",
+        "No paid pilot after five qualified conversations.",
+        "Measured contribution is negative."
+      ]
+    },
+    {
+      "rank": 3,
+      "id": "rfp-compliance-evidence-matrix",
+      "name": "RFP Compliance Evidence Matrix",
+      "buyer": "small consultancies responding to evidence-heavy RFPs",
+      "status": "PARKED",
+      "score": 57,
+      "scoreBreakdown": {
+        "buyerPain": 10,
+        "urgency": 9,
+        "willingnessToPayEvidence": 2,
+        "buyerAccess": 4,
+        "distributionLeverage": 5,
+        "deliveryFeasibility": 8,
+        "contributionEvidence": 3,
+        "recurrence": 5,
+        "lowFounderMinuteBurden": 7,
+        "lowRegulatoryProviderComplexity": 4
+      },
+      "evidenceConfidence": "LOW",
+      "sourceIds": ["UB-R04"],
+      "parkingReason": "Strong bounded deliverable but weaker current buyer/distribution evidence than the two selected evidence-sprint offers."
+    },
+    {
+      "rank": 4,
+      "id": "cloud-sla-credit-evidence-desk",
+      "name": "Cloud SLA Credit Evidence Desk",
+      "buyer": "SMBs with material cloud bills and incidents",
+      "status": "PARKED",
+      "score": 52,
+      "scoreBreakdown": {
+        "buyerPain": 9,
+        "urgency": 7,
+        "willingnessToPayEvidence": 2,
+        "buyerAccess": 3,
+        "distributionLeverage": 4,
+        "deliveryFeasibility": 7,
+        "contributionEvidence": 3,
+        "recurrence": 6,
+        "lowFounderMinuteBurden": 7,
+        "lowRegulatoryProviderComplexity": 4
+      },
+      "evidenceConfidence": "LOW",
+      "sourceIds": ["UB-R04"],
+      "parkingReason": "Potentially provable value but requires provider-specific evidence, account access, and buyer discovery not justified by current research."
+    },
+    {
+      "rank": 5,
+      "id": "managed-generic-cold-outreach",
+      "name": "Generic Managed Cold Outreach",
+      "buyer": "broad B2B",
+      "status": "REJECT_AS_ACTIVE_OFFER",
+      "score": 39,
+      "scoreBreakdown": {
+        "buyerPain": 8,
+        "urgency": 6,
+        "willingnessToPayEvidence": 3,
+        "buyerAccess": 6,
+        "distributionLeverage": 4,
+        "deliveryFeasibility": 5,
+        "contributionEvidence": 2,
+        "recurrence": 5,
+        "lowFounderMinuteBurden": 2,
+        "lowRegulatoryProviderComplexity": 1
+      },
+      "evidenceConfidence": "LOW",
+      "sourceIds": ["UB-S30", "UB-S31", "UB-S32", "UB-S34", "UB-S36", "UB-S37", "UB-S38", "UB-S39"],
+      "rejectionReason": "Sequencing infrastructure is inexpensive and crowded, while data, compliance, sender health, provider policy, support, and outcome attribution remain costly and currently unproven. Outbound stays a distribution motion for a specific offer, not the offer itself."
+    }
+  ],
+  "portfolioLaw": {
+    "recommendedCanaryCount": 1,
+    "fallbackCount": 1,
+    "liveExternalExperimentCount": 0,
+    "otherCandidates": "PARKED",
+    "externalEffectAuthority": "NONE"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "uberbond-chat-source-registry-1.0.0",
+  "project": "UberBond",
+  "generatedAt": "2026-08-28T20:20:00.000Z",
+  "truthRule": "A chat/share URL is provenance only until its content is accessible and imported. Inaccessible content contributes zero promoted claims.",
+  "sources": [
+    {
+      "id": "chatgpt-share-6a8f921c",
+      "sourceType": "CHATGPT_SHARE_URL",
+      "locator": "https://chatgpt.com/share/6a8f921c-a1b8-83ea-8024-e08178330b97",
+      "accessStatus": "CONTENT_UNAVAILABLE_TO_IMPORT_RUNTIME",
+      "promotedClaims": [],
+      "recoveredVia": ["repository lineage", "retained project context"],
+      "nextAction": "If an accessible export/transcript becomes available, ingest it through docs/memory/CHAT_IMPORT_PROTOCOL.md and reconcile against current canon."
+    },
+    {
+      "id": "chatgpt-share-6a91df8e",
+      "sourceType": "CHATGPT_SHARE_URL",
+      "locator": "https://chatgpt.com/share/6a91df8e-4834-83ea-897a-4f405a3c6038",
+      "accessStatus": "CONTENT_UNAVAILABLE_TO_IMPORT_RUNTIME",
+      "promotedClaims": [],
+      "recoveredVia": ["repository receipts", "recent merged PR history"],
+      "nextAction": "If an accessible export/transcript becomes available, ingest it through docs/memory/CHAT_IMPORT_PROTOCOL.md and reconcile against current canon."
+    }
+  ]
+}

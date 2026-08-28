@@ -7,30 +7,43 @@
 // nothing, so `npm run test:deterministic` reported failure while zero tests
 // had executed. A gate that cannot run is worse than no gate.
 //
-// Discovering the files also fixes two bookkeeping failures that list had:
-// a new test file was only covered if somebody remembered to append it, and a
-// file could be listed AND imported by another listed file, executing twice
-// and inflating the pass count.
+// Discovery is recursive: a test moved under tests/<domain>/ must not silently
+// disappear from the canonical gate. Non-deterministic suites remain explicit
+// exact-path exclusions and keep their own npm scripts.
 
 import { readdirSync, readFileSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { join, dirname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
+const testsRoot = join(repoRoot, 'tests');
 
-// Suites that must NOT run as part of the deterministic set: they need a
-// browser or a live database. They have their own npm scripts.
 const NON_DETERMINISTIC = new Set([
   'tests/browser.test.mjs',
   'tests/postgres-store-live.test.mjs'
 ]);
 
-function allTestFiles() {
-  return readdirSync(join(repoRoot, 'tests'))
-    .filter(name => name.endsWith('.test.mjs'))
-    .map(name => `tests/${name}`)
-    .sort();
+function portable(path) { return path.replaceAll('\\', '/'); }
+
+function walkTestFiles(dir = testsRoot, out = []) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) walkTestFiles(full, out);
+    else if (entry.name.endsWith('.test.mjs')) out.push(portable(relative(repoRoot, full)));
+  }
+  return out;
+}
+
+export function allTestFiles() {
+  return walkTestFiles().sort();
+}
+
+function importedTestPath(importer, target) {
+  if (!target.startsWith('.') || !target.endsWith('.test.mjs')) return null;
+  const absolute = resolve(repoRoot, dirname(importer), target);
+  const rel = portable(relative(repoRoot, absolute));
+  return rel.startsWith('tests/') && !rel.includes('../') ? rel : null;
 }
 
 /** Test files a given test file imports directly. */
@@ -41,7 +54,12 @@ export function testImportsOf(file) {
   } catch {
     return [];
   }
-  return [...source.matchAll(/^import\s+["']\.\/([^"']+\.test\.mjs)["']/gm)].map(match => `tests/${match[1]}`);
+  const imports = new Set();
+  for (const match of source.matchAll(/^import\s+(?:[^'";]+?\s+from\s+)?["']([^"']+\.test\.mjs)["']/gm)) {
+    const child = importedTestPath(file, match[1]);
+    if (child) imports.add(child);
+  }
+  return [...imports].sort();
 }
 
 /**
@@ -66,7 +84,7 @@ export function deterministicTestFiles() {
   return candidates.filter(file => !imported.has(file));
 }
 
-/** Every test file that will actually execute, directly or by import. */
+/** Every deterministic test file that will actually execute, directly or by import. */
 export function reachableTestFiles() {
   const seen = new Set();
   const stack = [...deterministicTestFiles()];
@@ -77,6 +95,10 @@ export function reachableTestFiles() {
     for (const child of testImportsOf(file)) stack.push(child);
   }
   return seen;
+}
+
+export function nonDeterministicTestFiles() {
+  return new Set(NON_DETERMINISTIC);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

@@ -1,0 +1,71 @@
+{
+  "schema": "uberbond.reachability-classification-fragment.v1",
+  "note": "Post-#169 automation contracts are intentionally not production-reachable. This fragment records the exact external condition that must exist before each contract can be wired; the canonical ratchet merges this fragment with the base registry and rejects conflicts.",
+  "gates": {
+    "NO_BROWSER_ACTION_AUTHORIZATION": {
+      "description": "The browser-action contract can cross arbitrary application boundaries and can create irreversible or uncertain external effects. No scoped browser-action authority or target allowlist is currently active.",
+      "releasedBy": "Explicit current owner authority bound to a named target, action class and consequence ceiling, plus an authenticated adapter that can prove reconciliation for uncertain effects."
+    },
+    "NO_LIVE_VOICE_PROVIDER": {
+      "description": "The voice and telephony contract models real calls, transfers and SMS recovery, but no live telephony provider identity, credential, policy grant or canary receipt exists.",
+      "releasedBy": "A terms-confirmed telephony provider with server-side credentials, bounded owner authority and at least one provider receipt from an explicitly authorized canary."
+    }
+  },
+  "modules": {
+    "src/accounting-ledger-export-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_COMMERCIAL_EVENTS",
+      "reason": "The ledger exporter is derivative of canonical cleared commercial receipts. With no real commercial event to post, wiring it would manufacture bookkeeping activity from synthetic state."
+    },
+    "src/booking-calendar-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CUSTOMER",
+      "reason": "A booking consequence needs a real customer or lead requirement and provider-confirmed calendar truth; there is currently no customer relationship to schedule."
+    },
+    "src/browser-action-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_BROWSER_ACTION_AUTHORIZATION",
+      "reason": "The contract deliberately has no live arbitrary-browser caller until a target-scoped authority and reconciliation-capable adapter exist."
+    },
+    "src/commercial-signature-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CUSTOMER",
+      "reason": "A commercial signature lifecycle requires a real counterparty and signer-evidence context; no verified customer or live signing transaction exists."
+    },
+    "src/external-crm-sync-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CUSTOMER",
+      "reason": "External CRM synchronization is meaningful only for a real commercial relationship and must never become the source of truth before one exists."
+    },
+    "src/form-feedback-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CUSTOMER",
+      "reason": "Form and feedback ingestion is isolated from payment, acceptance, consent and authority truth until a real customer or respondent context exists."
+    },
+    "src/omnichannel-communication-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Person-targeted and public communication consequences remain unreachable until explicit channel-and-audience authority, suppression and consent evidence are present."
+    },
+    "src/receivables-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PAYMENT_PROVIDER",
+      "reason": "Receivables truth depends on real invoice and provider payment evidence. No connected payment provider or real provider event exists to reconcile."
+    },
+    "src/social-publication-schedule-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Scheduled social publication composes the canonical communication consequence boundary and must remain unreachable without explicit current publishing authority."
+    },
+    "src/voice-telephony-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_LIVE_VOICE_PROVIDER",
+      "reason": "Calls, transfers and SMS recovery remain provider-neutral planning and truth contracts until a live telephony provider and authorized canary produce external receipts."
+    },
+    "src/web-context-extraction-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_DISCOVERY_ADAPTER",
+      "reason": "The scale-extraction boundary needs a licensed, policy-compliant discovery adapter with provenance and robots evidence; none is configured for live extraction."
+    }
+  }
+}

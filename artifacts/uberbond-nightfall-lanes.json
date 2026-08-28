@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "uberbond-nightfall-trinity-lanes-1.0.0",
+  "project": "UberBond",
+  "generatedAt": "2026-08-28T21:20:00.000Z",
+  "northStar": "maximize risk-adjusted cleared contribution profit per founder minute",
+  "coordinationDoc": "docs/UBERBOND_TRINITY_NIGHT_SHIFT.md",
+  "lanes": [
+    {
+      "id": "claude-code-opus-max",
+      "primaryRole": "software-factory-merge-deploy",
+      "issue": 173,
+      "writeSurface": "implementation branches and verified PRs",
+      "owns": ["cloud runtime","provider adapters","durable execution","tests","branch archaeology","merge","deployment"],
+      "mustAvoid": ["broad duplicate market research","rebuilding existing canonical subsystems"]
+    },
+    {
+      "id": "chatgpt-work-sol",
+      "primaryRole": "research-distribution-economic-intelligence",
+      "writeSurface": "research artifacts / dedicated issue or PR",
+      "owns": ["world research","emerging AI company pattern extraction","opportunity tournament","distribution research","buyer/partner evidence","pricing/economics","offer portfolio","implementation packets"],
+      "mustAvoid": ["claiming unverified code merges","duplicating Claude implementation work"]
+    },
+    {
+      "id": "chatgpt-integrator",
+      "primaryRole": "architecture-reconciliation-review-mission-control",
+      "writeSurface": "brain/coordination/review plus non-conflicting focused code",
+      "owns": ["continuity","truth architecture","cross-lane dedupe","independent review","live GitHub/Vercel verification","owner-action minimization"],
+      "mustAvoid": ["parallel reimplementation of an actively claimed Claude mission"]
+    }
+  ],
+  "sharedWriteRules": [
+    "refresh main before consequential writes",
+    "search open PRs/issues/branches before claiming a mission",
+    "reuse stronger concurrent work",
+    "one canonical truth system per concern",
+    "every lane leaves durable handoff evidence",
+    "external business effects require their own explicit authority"
+  ],
+  "externalEffectDefault": "NONE"
+}

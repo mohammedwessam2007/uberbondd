@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "uberbond-live-infrastructure-observation-1.0.0",
+  "observedAt": "2026-08-29T00:00:00Z",
+  "source": "connected-vercel-tooling",
+  "teamId": "team_A9LnjIuS5PU0rNetsHMu1N0r",
+  "project": {
+    "id": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
+    "name": "uberbondd",
+    "framework": "node",
+    "git": {
+      "org": "mohammedwessam2007",
+      "repo": "uberbondd"
+    },
+    "domains": [
+      "uberbondd.vercel.app",
+      "uberbondd-mohammedwessam2007s-projects.vercel.app",
+      "uberbondd-git-main-mohammedwessam2007s-projects.vercel.app"
+    ],
+    "latestDeployment": {
+      "id": "dpl_GxiZJqNGzFctaAjxtcXkAn1EkWda",
+      "state": "READY",
+      "target": null,
+      "sourceRef": "claude/uberbond-kilimanjaro-closure-hha0oo",
+      "sourceSha": "59a413da9cd0dde1ca10aabbca79733583c01b36"
+    },
+    "latestObservedProductionDeployment": {
+      "id": "dpl_7JcNGnb3yQecemXo6ncxckNyEfCR",
+      "state": "READY",
+      "target": "production",
+      "sourceRef": "main",
+      "sourceSha": "7e20cec9b4399e73b7f13fa7999dbc05a2f38221"
+    },
+    "runtimeErrorsLast24h": 0
+  },
+  "secondaryProject": {
+    "id": "prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz",
+    "name": "uberbondd-lite-private",
+    "git": {
+      "org": "mohammedwessam2007",
+      "repo": "uberbondd"
+    }
+  },
+  "contradicts": [
+    "docs/CURRENT_HANDOFF.json blocker asserting that the Vercel team has zero projects",
+    "docs/CLOUD_ACTIVATION_CONTRACT.md section asserting that no Vercel project exists"
+  ],
+  "interpretation": {
+    "projectExists": true,
+    "productionDeploymentExists": true,
+    "currentMainExactProductionDeploymentProven": false,
+    "cronLivenessProven": false,
+    "requiredSecretPresenceProven": false,
+    "databaseConnectivityFromCurrentProductionProven": false
+  },
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  }
+}

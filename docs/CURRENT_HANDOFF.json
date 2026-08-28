@@ -1,26 +1,22 @@
 {
   "schemaVersion": "uberbond-handoff-1.1.0",
-  "sourceMainShaAtMissionStart": "b894a4cfae8acddd6170095f2373f339ff65f15c",
-  "sourceMainCommitMessage": "Make UberBond cross-chat brain executable and add distribution control plane (#171)",
-  "activeBranch": "gpt/uberbond-repository-brain-v2-20260828",
-  "activePullRequest": 172,
-  "activeMission": "Upgrade the repository-native UberBond brain so future context-window resets recover the full company goal, named initiative lineage, historical portfolio breadth, recurring/platform ladders, unresolved owner-recalled names, current frontier and truth hierarchy without asking the owner to retell the project.",
+  "sourceMainShaAtMissionStart": "ba1fa7a53b2a6c7672562a30c737b7f553cb5857",
+  "sourceMainCommitMessage": "Add Trinity night-shift coordination protocol",
+  "activeBranch": "claude/uberbond-kilimanjaro-closure-hha0oo",
+  "activePullRequest": null,
+  "activeMission": "NIGHTFALL: reconcile the open PR frontier, put durable zero-external-IO mesh liveness on a cron boundary, and establish what deployment actually exists.",
   "completed": [
-    "PR #171 is already merged into main; the prior handoff instruction to merge it was stale and is superseded.",
-    "Current main was refreshed to b894a4cfae8acddd6170095f2373f339ff65f15c before this mission branch was created.",
-    "Historical/File-Library archaeology recovered the Commercial Genome, First-Cash, World Distribution, Offline Revenue Factory, OMNIA generations, OMNIA V9, Prometheus, Cognitive Bus, Kilimanjaro, Lead OS/outbound and related program lineage.",
-    "Everest is preserved as OWNER_RECALLED_UNRESOLVED because no direct accessible artifact was found in the 2026-08-28 search.",
-    "Master Memory V2 and a machine-readable memory index preserve the final goal, 31 named initiatives, historical corpus snapshots, recurring products, platform ladder, shared operating-system domains, source basis and anti-forgetting rules.",
-    "Brain-context policy 1.1 requires and digests Master Memory for bootstrap 1.1 while preserving legacy 1.0 compatibility.",
-    "A read-only one-command repository loader is available as npm run brain and downgrades stale handoffs instead of treating them as current truth.",
-    "Exact committed brain-context suite passed 17/17; exact committed brain-bootstrap suite passed 8/8; combined focused gate passed 25/25.",
-    "Mutation removing owner-recalled unresolved-name preservation was killed at 16/17; mutation removing declared-canon-file existence enforcement was killed at 7/8."
+    "All five open PRs reconciled and closed: #177 merged with three repairs, #174 closed as a strict subset of it, #167 merged (reachability prose bound to the live graph), #168 and #178 merged as documentation.",
+    "Main was RED before this mission on tests/reachability-ratchet: twelve modules added in the prior thirty commits had no entry point and no classification. All twelve classified against honest gates; one new gate NO_PROVIDER_ADAPTER_CONFIGURED registered.",
+    "Eighteen modules carried a private copy of the canonical effect ledger. The existing single-definition guard matched only the canonical NAME, so seventeen aliased copies had walked past it. Guard now matches the key set; all eighteen import from effect-ledgers.mjs.",
+    "Cron boundary hardened: a schedule finer than the day-granularity occurrence key is refused rather than silently folding 288 firings into one; vercel.json and VERCEL_AGENT_MESH_CRON_SCHEDULE are bound by a test so drift cannot silently 403 every real invocation.",
+    "Zero-external-IO canary verified against REAL PostgreSQL through the real handler: first firing 200 with a durable cycle receipt; replay from a SEPARATE PROCESS returned duplicateDelivery true with the SAME cycleId; a conflicting source commit returned 409 scheduler-occurrence-identity-conflict; unauthorized paths 401/403/405 wrote nothing.",
+    "Reachability prose in CURRENT_SYSTEM_STATE reconciled to the live graph: 170 src modules, 109 production-reachable, 4 operator-only, 57 unreachable."
   ],
   "blockers": [
-    "GitHub Actions remains account/runner-infrastructure blocked: browser, deterministic and postgres jobs for PR #172 terminate with zero steps and runner_id 0, so they are not source-test evidence.",
-    "The repository cannot force the ChatGPT UI to attach GitHub/files to a brand-new conversation that has no repository access.",
-    "A shared-chat URL may be inaccessible to a later runtime; durable imports require accessible content/export/upload rather than URL-only memory.",
-    "External commercial/provider/payment/legal/customer/elapsed-time truth remains external and is intentionally not synthesized by memory."
+    "NO VERCEL PROJECT EXISTS. The account (team_A9LnjIuS5PU0rNetsHMu1N0r, Hobby) has zero projects. vercel.json declares a cron; nothing hosts it. Every deployment and production-health check is therefore n/a, not failing.",
+    "The project was deliberately NOT created: without DATABASE_URL and CRON_SECRET the route returns 503 on every firing, so a project deployed now would present a production surface whose daily cron always fails -- worse than none, because it looks deployed. A generated CRON_SECRET would also have to be handed over in chat, which is the wrong place for a credential.",
+    "GitHub Actions remains account/runner-infrastructure blocked; hosted zero-step runs are neither source failures nor source passes. All gate evidence in this handoff is local execution against real PostgreSQL."
   ],
   "unresolvedNames": [
     {
@@ -30,9 +26,9 @@
     }
   ],
   "nextActions": [
-    "Review and merge PR #172 when the exact diff remains clean; hosted zero-step runner failures do not count as source failures or source passes.",
-    "After merge, a repo-aware fresh session should run npm run brain, refresh live GitHub main/PR state, then execute from the returned context rather than asking the owner to retell UberBond.",
-    "When new historical chat exports become accessible, ingest them through docs/memory/CHAT_IMPORT_PROTOCOL.md and extend memory rather than rebuilding context in prose."
+    "Owner: create the Vercel project and set CRON_SECRET, DATABASE_URL and ENCRYPTION_KEY. docs/CLOUD_ACTIVATION_CONTRACT.md carries the exact sequence, the expected proof, the kill conditions and the rollback.",
+    "After activation, the first real firing is the only remaining piece of \u00a7018: everything except cloud liveness is already proven locally against real PostgreSQL.",
+    "A fresh session should run npm run brain, refresh live GitHub state, then work from docs/CLOUD_ACTIVATION_CONTRACT.md and docs/REALITY_ACTIVATION_REGISTER.md rather than re-deriving the frontier."
   ],
   "externalEffectLedger": {
     "providerCalls": 0,
@@ -44,5 +40,6 @@
     "productionMutations": 0,
     "spendCents": 0
   },
-  "businessEffectAuthority": "NONE"
+  "businessEffectAuthority": "NONE",
+  "headSha": "e5a25fc656079d4f4f5592451341cc88989881da"
 }

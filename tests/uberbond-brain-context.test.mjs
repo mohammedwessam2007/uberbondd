@@ -6,16 +6,17 @@ const bootstrap = {
   schemaVersion: 'uberbond-bootstrap-1.0.0', project: 'UberBond', generatedAt: '2026-08-28T18:31:39.000Z',
   objective: 'Maximize risk-adjusted cleared contribution profit per founder minute without inventing evidence or bypassing consequence controls.',
   truthHierarchy: ['OPERATOR', 'CURRENT_REPOSITORY_CANON', 'EXTERNAL_PROVIDER_OR_CUSTOMER_EVIDENCE', 'LATEST_NON_CONTRADICTED_EVIDENCE', 'PRIOR_CONCLUSIONS', 'SYNTHETIC_OUTPUT'],
-  canonPointers: ['AGENTS.md', 'UBERBOND_CANON.md', 'docs/DISTRIBUTION_OS_CANON.md', 'docs/CURRENT_HANDOFF.json'],
+  canonPointers: ['AGENTS.md', 'UBERBOND_CANON.md', 'docs/HISTORICAL_PROJECT_LINEAGE.md', 'docs/DISTRIBUTION_OS_CANON.md', 'docs/CURRENT_HANDOFF.json'],
   goals: ['founder-light autonomous revenue engine', 'world-class distribution', 'evidence-bound payment delivery renewal learning'],
   architectureSpine: ['CONSTITUTION', 'IDENTITY', 'RIGHTS', 'CONSENT', 'DELEGATION', 'EXECUTION', 'PROOF_DAG', 'VALUE', 'LEARNING', 'REVOCATION'],
   capabilityFamilies: ['opportunity discovery', 'distribution', 'delivery', 'payment', 'commercial learning'],
+  productFamilies: ['Partner Revenue Assurance', 'AI Reliability and Acceptance', 'Evidence and Reconciliation', 'White-Label Fulfilment', 'GCC Bilingual Operations', 'Recovery and Vertical Operations'],
   protectedPaths: ['lite/'],
   externalProofGates: ['real provider credentials and authorized spend', 'real customer demand', 'cleared payment', 'customer acceptance', 'renewal', 'sustained unattended operation'],
-  startupProtocol: ['read AGENTS.md', 'read UBERBOND_CANON.md', 'read UBERBOND_BOOTSTRAP.json', 'read durable handoff', 'inspect latest main before acting', 'dedupe before building'],
+  startupProtocol: ['read AGENTS.md', 'read UBERBOND_CANON.md', 'read UBERBOND_BOOTSTRAP.json', 'read historical lineage', 'read durable handoff', 'inspect latest main before acting', 'dedupe before building'],
   continuity: { handoffPath: 'docs/CURRENT_HANDOFF.json', startupInstruction: 'Load repository canon before using chat memory.', updateInstruction: 'Update durable handoff after every material mission.' }
 };
-const paths = ['AGENTS.md','UBERBOND_CANON.md','UBERBOND_BOOTSTRAP.json','docs/DISTRIBUTION_OS_CANON.md','docs/CURRENT_HANDOFF.json'];
+const paths = ['AGENTS.md','UBERBOND_CANON.md','UBERBOND_BOOTSTRAP.json','docs/HISTORICAL_PROJECT_LINEAGE.md','docs/DISTRIBUTION_OS_CANON.md','docs/CURRENT_HANDOFF.json'];
 
 test('bootstrap validates and stays zero-effect', () => {
   const result = validateUberBondBootstrap(bootstrap);
@@ -52,6 +53,13 @@ test('context preserves external proof gates and never upgrades authority', () =
   assert.equal(result.externalEffectLedger.messages, 0);
   assert.ok(result.context.externalTruthLaw.includes('CANNOT_SYNTHESIZE'));
   assert.deepEqual(result.context.externalProofGates, bootstrap.externalProofGates);
+});
+
+test('historical product-family lineage survives the executable context digest', () => {
+  const result = compileUberBondProjectContext({ bootstrap, sourceCommit:'ea1d821d', availablePaths:paths });
+  assert.equal(result.ok, true);
+  assert.deepEqual(result.context.productFamilies, bootstrap.productFamilies);
+  assert.ok(result.context.canonPointers.includes('docs/HISTORICAL_PROJECT_LINEAGE.md'));
 });
 
 test('truth hierarchy survives compile exactly and keeps operator above synthetic output', () => {

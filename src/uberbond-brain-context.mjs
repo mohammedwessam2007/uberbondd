@@ -78,6 +78,7 @@ export function validateUberBondBootstrap(bootstrap = {}) {
   const externalProofGates = uniqueStrings(bootstrap.externalProofGates, MAX_GATES, 500);
   const startupProtocol = uniqueStrings(bootstrap.startupProtocol, 32, 500);
   const truthHierarchy = uniqueStrings(bootstrap.truthHierarchy, 32, 300);
+  const productFamilies = uniqueStrings(bootstrap.productFamilies || [], 64, 240);
   const reasonCodes = [];
   if (schemaVersion !== 'uberbond-bootstrap-1.0.0') reasonCodes.push('unsupported-bootstrap-schema');
   if (project !== 'UberBond') reasonCodes.push('project-must-be-uberbond');
@@ -88,6 +89,7 @@ export function validateUberBondBootstrap(bootstrap = {}) {
   if (!externalProofGates) reasonCodes.push('bounded-external-proof-gate-array-required');
   if (!startupProtocol || startupProtocol.length === 0) reasonCodes.push('startup-protocol-required');
   if (!truthHierarchy || truthHierarchy.length === 0) reasonCodes.push('truth-hierarchy-required');
+  if (!productFamilies) reasonCodes.push('bounded-product-family-array-required');
   const secrets = inspectSecrets(bootstrap);
   if (secrets.length) reasonCodes.push('secret-like-bootstrap-content-prohibited');
   const normalized = {
@@ -102,6 +104,7 @@ export function validateUberBondBootstrap(bootstrap = {}) {
     truthHierarchy: truthHierarchy || [],
     architectureSpine: uniqueStrings(bootstrap.architectureSpine || [], 64, 300) || [],
     capabilityFamilies: uniqueStrings(bootstrap.capabilityFamilies || [], 128, 240) || [],
+    productFamilies: productFamilies || [],
     protectedPaths: uniqueStrings(bootstrap.protectedPaths || [], 64, 240) || [],
     continuity: bootstrap.continuity && typeof bootstrap.continuity === 'object'
       ? {
@@ -142,6 +145,7 @@ export function compileUberBondProjectContext({ bootstrap, sourceCommit, availab
     goals: clone(validated.bootstrap.goals),
     architectureSpine: clone(validated.bootstrap.architectureSpine),
     capabilityFamilies: clone(validated.bootstrap.capabilityFamilies),
+    productFamilies: clone(validated.bootstrap.productFamilies),
     canonPointers: clone(validated.bootstrap.canonPointers),
     protectedPaths: clone(validated.bootstrap.protectedPaths),
     externalProofGates: clone(validated.bootstrap.externalProofGates),

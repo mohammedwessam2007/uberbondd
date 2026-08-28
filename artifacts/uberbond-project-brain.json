@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "uberbond-project-brain-1.0.0",
+  "baselineMainCommit": "cef9ba4371aba948e72333c672f99f3ab6fcfd23",
+  "generatedAt": "2026-08-28T18:00:00.000Z",
+  "canonicalObjective": "build a private evidence-first economic operating system that maximizes risk-adjusted cleared contribution profit per founder minute",
+  "optimizationTarget": "risk-adjusted cleared contribution profit per founder minute",
+  "nonGoals": ["vanity metrics", "architecture for architecture sake", "lead volume without economics", "messages without commercial evidence", "agents for their own sake", "synthetic revenue or customer proof"],
+  "truthHierarchy": ["live repository state", "durable provider/business receipts", "verified executable test evidence", "canonical project brain", "historical chat exports", "historical prose and creator claims"],
+  "constitutionalLineage": ["identity", "rights", "jurisdiction", "consent", "delegation", "coordination/control plane", "mission market and matching", "execution evidence", "proof/payment/credit", "reputation and economic learning", "immutable audit"],
+  "authorityBoundaries": {
+    "customerMessages": "EXPLICIT_OWNER_AUTHORIZATION_REQUIRED",
+    "providerCalls": "EXPLICIT_OWNER_AUTHORIZATION_REQUIRED",
+    "spend": "EXPLICIT_OWNER_AUTHORIZATION_REQUIRED",
+    "deployments": "EXPLICIT_OWNER_AUTHORIZATION_REQUIRED",
+    "dnsChanges": "EXPLICIT_OWNER_AUTHORIZATION_REQUIRED",
+    "credentialChanges": "EXPLICIT_OWNER_AUTHORIZATION_REQUIRED",
+    "kycPaymentAccountChanges": "EXPLICIT_OWNER_AUTHORIZATION_REQUIRED",
+    "productionCustomerMutations": "EXPLICIT_OWNER_AUTHORIZATION_REQUIRED",
+    "moneyMovement": "EXPLICIT_OWNER_AUTHORIZATION_REQUIRED"
+  },
+  "economicLoop": ["signal", "evidence", "opportunity", "offer", "governed distribution", "response", "booking or conversion", "delivery", "cleared payment", "accepted delivery", "renewal or expansion", "economic learning", "autonomous reallocation"],
+  "capabilityFamilies": ["opportunity discovery and evidence", "commercial evidence and offer design", "prospecting and lead intelligence", "canonical cold outreach and deliverability safety", "partner/referral distribution and attribution", "causal attribution and experiments", "omnichannel communications", "voice and telephony", "social scheduling", "browser actions and web extraction", "booking and calendar", "CRM synchronization", "forms and feedback", "commercial signatures", "receivables and payment truth", "delivery and acceptance truth", "renewal and retention truth", "accounting export", "agent/model routing", "scheduler/recovery/audit", "distribution portfolio optimization"],
+  "distributionDoctrine": {
+    "objective": "allocate attention and bounded experiments across every lawful distribution family using trusted economics per founder minute",
+    "channelFamilies": ["cold outreach", "partner/referral", "affiliate", "lifecycle email", "SMS/WhatsApp", "voice", "organic social", "content/SEO", "communities", "marketplaces", "creator partnerships", "earned media/PR", "paid media planning", "product-led distribution"],
+    "commercialTruth": "cleared payment, accepted delivery and verified renewal outrank reach, clicks, replies and leads",
+    "paidMediaSpendAuthority": "NONE",
+    "coldOutreachRoute": "CANONICAL_OUTREACH_ENGINE",
+    "personTargetedSafety": "authority, policy and suppression/consent gates dominate optimization"
+  },
+  "currentMission": {
+    "missionKey": "uberbond-continuity-and-elite-distribution",
+    "status": "INTERNAL_IMPLEMENTATION_AND_VERIFICATION",
+    "objective": "make new chats continue from durable repo state and add one economic distribution portfolio brain above existing channel engines",
+    "branch": "gpt/uberbond-brain-distribution-os-20260828"
+  },
+  "lastMergedPr": {"number": 169, "mergeCommit": "cef9ba4371aba948e72333c672f99f3ab6fcfd23", "summary": "automation acquisition contracts for voice, browser, omnichannel, booking, CRM, extraction, receivables, forms, signatures, social and accounting"},
+  "openDraftPrs": [167, 168],
+  "externalProofRequired": ["real provider credentials and activation where a provider is needed", "real domain and sender reputation", "real lawful distribution outcomes", "real buyer response", "real cleared payment", "real accepted delivery", "real refund/dispute behavior", "real renewal or expansion", "sustained unattended operation over elapsed time"],
+  "nextMission": {"missionKey": "distribution-commercial-canary", "objective": "after internal merge, bind one owner-authorized distribution lane to real external receipts and use cleared contribution per founder minute to reallocate", "externalAuthorizationRequired": true},
+  "continuationProtocol": {
+    "mustRefreshLiveMain": true,
+    "neverRestartMergedWork": true,
+    "inspectOpenPullRequests": true,
+    "inspectRecentCommits": true,
+    "liveRepoWinsConflicts": true,
+    "preserveHistoricalContradictions": true,
+    "doNotSynthesizeExternalProof": true,
+    "startupFiles": ["START_HERE.md", "artifacts/uberbond-project-brain.json", "UBERBOND_BRAIN.md"]
+  },
+  "sourceProvenance": [
+    {"class": "LIVE_REPOSITORY", "reference": "mohammedwessam2007/uberbondd@cef9ba4371aba948e72333c672f99f3ab6fcfd23", "limitation": "must be refreshed because main can advance after this artifact is committed"},
+    {"class": "HISTORICAL_CHAT_EXPORT", "reference": "Branch · Branch · Branch · Recurring Revenue Hunter.txt", "limitation": "checkpoint summary, not an exhaustive raw project transcript"},
+    {"class": "HISTORICAL_CHAT_EXPORT", "reference": "Claude Code and ChatGPT.txt", "limitation": "checkpoint summary, not an exhaustive raw project transcript"},
+    {"class": "HISTORICAL_CHAT_EXPORT", "reference": "Branch · Branch · Branch · Branch · Branch · Recurring Revenue Hunter.txt", "limitation": "checkpoint summary, not an exhaustive raw project transcript"},
+    {"class": "HISTORICAL_CHAT_EXPORT", "reference": "UberBond Lead OS MVP.txt", "limitation": "checkpoint summary, not an exhaustive raw project transcript"},
+    {"class": "PROJECT_CONTEXT", "reference": "retained UberBond project conversation context", "limitation": "not a guaranteed export of every raw message in every ChatGPT project thread"}
+  ]
+}

@@ -1,51 +1,40 @@
 {
-  "schemaVersion": "uberbond-handoff-1.0.0",
-  "lastKnownMainShaAtMissionStart": "ea1d821db8768330912ad4794dd298f6ba67ee4c",
-  "activeBranch": "gpt/executable-brain-distribution-control-plane-20260828",
-  "activePullRequest": 171,
-  "contextBasis": [
-    "AGENTS.md",
-    "UBERBOND_CANON.md",
-    "UBERBOND_BOOTSTRAP.json",
-    "docs/HISTORICAL_PROJECT_LINEAGE.md",
-    "docs/CROSS_CHAT_CONTINUITY.md",
-    "docs/DISTRIBUTION_OS_CANON.md",
-    "docs/DISTRIBUTION_VENDOR_MAP.md",
-    "docs/CURRENT_SYSTEM_STATE.md",
-    "artifacts/system-readiness.json"
-  ],
-  "activeMission": "Land the executable cross-chat brain and evidence-gated distribution portfolio control plane, then stop adding duplicate internal distribution architecture and move the frontier to authorized external proof.",
-  "verifiedBeforeThisMission": [
-    "PR #169 merged the provider-neutral automation acquisition frontier including voice, browser, omnichannel, booking, CRM, web extraction, receivables, forms, signatures, social scheduling, accounting export, and acquisition/frontier contracts.",
-    "PR #170 merged the durable UberBond canon and Distribution OS doctrine.",
-    "Existing commercial-learning.mjs gives economic weight only to validated cleared-payment/refund-dispute receipts and never treats observations as revenue.",
-    "Existing distribution-channel.mjs is fail-closed and can rank only channels with verified cleared-payment outcomes."
-  ],
-  "completedInThisMission": [
-    "Added AGENTS.md startup constitution so repo-aware agents load current main, every bootstrap canon pointer, current handoff, readiness and shared PR state before acting.",
-    "Added UBERBOND_BOOTSTRAP.json as machine-readable durable mission, truth hierarchy, unified goals, capability families, historical product families and external-proof gates.",
-    "Recovered retained BRAIN whole-chat and Total Commercial Genome lineage into HISTORICAL_PROJECT_LINEAGE.md, preserving the Brain decision laws, many-front-end-offers one-shared-OS doctrine, six product families, partner-first Watchtower lineage, recurring-product ladder and historical distribution research ambitions without promoting them above current truth.",
-    "Added CROSS_CHAT_CONTINUITY.md defining repository-native recovery and the explicit ChatGPT-UI limitation.",
-    "Added DISTRIBUTION_VENDOR_MAP.md mapping open/public and proprietary reference surfaces into clean-room UberBond capability decisions without vendoring incompatible code.",
-    "Implemented uberbond-brain-context.mjs with deterministic context digest, bounded mission state, secret refusal, required-canon validation, historical product-family preservation, external-proof preservation and durable handoff compilation.",
-    "Implemented distribution-control-plane.mjs with commercial-learning bridge, hard 50 percent concentration ceiling, bounded preparation-only exploration, stale and future-dated evidence refusal, explicit blocking of measured non-positive economics, outbound suppression/complaint/sender-health gates, paid-media budget/economics gates and cleared-payment-only referral commission basis.",
-    "Focused exact logic evidence: brain context 10/10 PASS; distribution control plane 15/15 PASS; combined 25/25 PASS; syntax PASS for both modules.",
-    "Mutation evidence: raising the 50 percent concentration ceiling to 100 percent is killed by the hostile suite; deleting the future-evidence guard is also killed."
+  "schemaVersion": "uberbond-handoff-1.1.0",
+  "sourceMainShaAtMissionStart": "b894a4cfae8acddd6170095f2373f339ff65f15c",
+  "sourceMainCommitMessage": "Make UberBond cross-chat brain executable and add distribution control plane (#171)",
+  "activeBranch": "gpt/uberbond-repository-brain-v2-20260828",
+  "activePullRequest": 172,
+  "activeMission": "Upgrade the repository-native UberBond brain so future context-window resets recover the full company goal, named initiative lineage, historical portfolio breadth, recurring/platform ladders, unresolved owner-recalled names, current frontier and truth hierarchy without asking the owner to retell the project.",
+  "completed": [
+    "PR #171 is already merged into main; the prior handoff instruction to merge it was stale and is superseded.",
+    "Current main was refreshed to b894a4cfae8acddd6170095f2373f339ff65f15c before this mission branch was created.",
+    "Historical/File-Library archaeology recovered the Commercial Genome, First-Cash, World Distribution, Offline Revenue Factory, OMNIA generations, OMNIA V9, Prometheus, Cognitive Bus, Kilimanjaro, Lead OS/outbound and related program lineage.",
+    "Everest is preserved as OWNER_RECALLED_UNRESOLVED because no direct accessible artifact was found in the 2026-08-28 search.",
+    "Master Memory V2 and a machine-readable memory index preserve the final goal, 31 named initiatives, historical corpus snapshots, recurring products, platform ladder, shared operating-system domains, source basis and anti-forgetting rules.",
+    "Brain-context policy 1.1 requires and digests Master Memory for bootstrap 1.1 while preserving legacy 1.0 compatibility.",
+    "A read-only one-command repository loader is available as npm run brain and downgrades stale handoffs instead of treating them as current truth.",
+    "Exact committed brain-context suite passed 17/17; exact committed brain-bootstrap suite passed 8/8; combined focused gate passed 25/25.",
+    "Mutation removing owner-recalled unresolved-name preservation was killed at 16/17; mutation removing declared-canon-file existence enforcement was killed at 7/8."
   ],
   "blockers": [
-    "Repository-native continuity cannot force the ChatGPT Project UI itself to inject repository files into a brand-new chat. Project/UI-level context still depends on the product surfaces available to that chat. Repo-aware agents recover through AGENTS.md and bootstrap/handoff files.",
-    "Real provider credentials, live sender infrastructure, customer demand, cleared payment, accepted delivery, renewal, payout/KYC/tax treatment, and sustained unattended production operation remain external proof rather than code facts.",
-    "A claim that UberBond is top 0.00000001 percent at distribution requires a real comparative benchmark and market evidence; architecture alone cannot prove percentile superiority."
+    "GitHub Actions remains account/runner-infrastructure blocked: browser, deterministic and postgres jobs for PR #172 terminate with zero steps and runner_id 0, so they are not source-test evidence.",
+    "The repository cannot force the ChatGPT UI to attach GitHub/files to a brand-new conversation that has no repository access.",
+    "A shared-chat URL may be inaccessible to a later runtime; durable imports require accessible content/export/upload rather than URL-only memory.",
+    "External commercial/provider/payment/legal/customer/elapsed-time truth remains external and is intentionally not synthesized by memory."
+  ],
+  "unresolvedNames": [
+    {
+      "name": "Everest",
+      "status": "OWNER_RECALLED_UNRESOLVED",
+      "next": "Search future exports/packages for an exact source before assigning semantics."
+    }
   ],
   "nextActions": [
-    "Refresh PR #171 exact head and current main, inspect CI/review state, and merge only if the exact-head evidence remains clean.",
-    "After merge, refresh CURRENT_HANDOFF.json against the merge SHA so the durable brain points to the landed state rather than the pre-merge branch.",
-    "Do not add another generic distribution engine unless a new capability gap is proven against current main.",
-    "Next economic frontier is an owner-authorized bounded external distribution canary that produces real provider, response, commercial, cleared-payment, delivery/acceptance and renewal evidence.",
-    "Use real receipts to compare channel/offer/segment economics and let the portfolio allocator reallocate only from measured outcomes."
+    "Review and merge PR #172 when the exact diff remains clean; hosted zero-step runner failures do not count as source failures or source passes.",
+    "After merge, a repo-aware fresh session should run npm run brain, refresh live GitHub main/PR state, then execute from the returned context rather than asking the owner to retell UberBond.",
+    "When new historical chat exports become accessible, ingest them through docs/memory/CHAT_IMPORT_PROTOCOL.md and extend memory rather than rebuilding context in prose."
   ],
-  "externalEffectAuthority": "NONE",
-  "externalEffects": {
+  "externalEffectLedger": {
     "providerCalls": 0,
     "messages": 0,
     "purchases": 0,
@@ -54,5 +43,6 @@
     "dnsChanges": 0,
     "productionMutations": 0,
     "spendCents": 0
-  }
+  },
+  "businessEffectAuthority": "NONE"
 }

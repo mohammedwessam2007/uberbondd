@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-27T22:50:38.865Z",
+  "generatedAt": "2026-08-28T00:39:11.058Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "ee82eac40973df8e1d824b49cd83292f0f7e8e34",
+    "head": "b18c7deb990497447f3019213423663473c067f0",
     "branch": "main",
-    "sourceModules": 151,
-    "testSuites": 236,
+    "sourceModules": 155,
+    "testSuites": 245,
     "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 481,
-      "ranAt": "2026-08-27T22:49:36Z"
+      "filesParsed": 519,
+      "ranAt": "2026-08-28T00:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2347,
-      "pass": 2299,
+      "tests": 2429,
+      "pass": 2381,
       "fail": 0,
       "skipped": 48,
-      "ranAt": "2026-08-27T22:49:36Z"
+      "ranAt": "2026-08-28T00:00:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -29,7 +29,7 @@
       "pass": 150,
       "fail": 0,
       "skipped": 0,
-      "ranAt": "2026-08-27T22:49:36Z"
+      "ranAt": "2026-08-28T00:00:00Z"
     },
     "test:postgres-real": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:postgres-real",
@@ -38,30 +38,35 @@
       "pass": 0,
       "fail": 0,
       "skipped": 0,
-      "note": "OMNIA_V9_TEST_DATABASE_URL was unavailable; the current sovereignty branch has no current real-PostgreSQL proof.",
-      "ranAt": "2026-08-27T22:49:36Z"
+      "note": "OMNIA_V9_TEST_DATABASE_URL was unavailable; the integrated branch has no current real-PostgreSQL proof.",
+      "ranAt": "2026-08-28T00:00:00Z"
     },
     "npm audit": {
-      "command": "npm audit",
+      "command": "npm audit --audit-level=high",
+      "status": "PASS_CURRENT_INTEGRATION",
       "vulnerabilities": 0,
-      "ranAt": "2026-08-27T22:49:36Z"
+      "note": "No high-severity or other npm audit vulnerabilities were reported in the current integration environment.",
+      "ranAt": "2026-08-28T00:00:00Z"
+    },
+    "test:mutation-war": {
+      "command": "npm run test:mutation-war",
+      "result": "62 mutations, 61 killed, 0 not killed, 1 PostgreSQL-dependent skip",
+      "ranAt": "2026-08-28T00:00:00Z"
     },
     "test:browser": {
       "command": "npm run test:browser",
       "status": "BLOCKED_EXTERNAL_TEST_RUNTIME",
-      "processExitCode": 1,
-      "runnerReportedFail": 1,
-      "note": "Playwright Chromium is absent. The required Chromium download from cdn.playwright.dev timed out on every retry; no browser assertion ran to completion and no product failure is inferred.",
-      "ranAt": "2026-08-27T22:49:36Z"
+      "result": "BLOCKED_EXTERNAL_TEST_RUNTIME: required Playwright Chromium is absent and the pinned browser download times out in this runner.",
+      "ranAt": "2026-08-28T00:00:00Z"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 148,
-      "reachableFromProduction": 99,
+      "srcModules": 155,
+      "reachableFromProduction": 107,
       "reachableFromOperatorScriptsOnly": 3,
       "noEntryPointAtAll": 45,
       "allClassified": true,
-      "ranAt": "2026-08-24T23:52:04Z"
+      "ranAt": "2026-08-25T19:07:55Z"
     }
   },
   "capabilities": [
@@ -289,6 +294,29 @@
       "liveProof": false,
       "externalBlocker": "No provider credential, no pricing evidence, no canary budget.",
       "nextAction": "Owner supplies one provider credential and an authorised cap."
+    },
+    {
+      "id": "mailhub-provider-adapters",
+      "status": "TEST_VERIFIED",
+      "level": 3,
+      "declaredLevel": 3,
+      "cappedByMissingExternalEvidence": false,
+      "evidence": [
+        "src/provider-http-adapters.mjs",
+        "src/provider-adapter-contract.mjs",
+        "src/mailhub-control-plane.mjs",
+        "src/provider-infrastructure-events.mjs",
+        "docs/MAILHUB_PROVIDER_ADAPTERS.md"
+      ],
+      "tests": [
+        "tests/provider-http-adapters.test.mjs",
+        "tests/mailhub-control-plane.test.mjs",
+        "tests/provider-infrastructure-events.test.mjs"
+      ],
+      "realWire": false,
+      "liveProof": false,
+      "externalBlocker": "No Icemail or Mailforge API key, provider account, DNS authority, billing approval or warm-up evidence is configured.",
+      "nextAction": "Owner selects a provider and supplies one server-side API key plus a bounded approval; UberBond begins with read-only inventory reconciliation."
     },
     {
       "id": "compute-budget",

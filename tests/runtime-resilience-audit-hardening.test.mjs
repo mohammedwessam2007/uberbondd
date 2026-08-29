@@ -35,6 +35,14 @@ test('browser runtime recycles shared process after bounded contexts', async () 
   const c=await pool.acquire(); assert.equal(launches,2); assert.equal(browserCloses,1); await c.release(); await pool.close();
 });
 
+test('browser runtime stress never exceeds configured context cap',async()=>{
+  const browser={isConnected:()=>true,newContext:async()=>({close:async()=>{}}),close:async()=>{},on:()=>{}};
+  const pool=new BrowserRuntimePool({launchBrowser:async()=>browser,maxConcurrentContexts:3,recycleAfterContexts:100});
+  let maxActive=0;
+  await Promise.all(Array.from({length:50},async()=>{const lease=await pool.acquire();maxActive=Math.max(maxActive,pool.active);await new Promise(r=>setTimeout(r,1));await lease.release();}));
+  assert.equal(maxActive,3); await pool.close();
+});
+
 test('crawler source uses pooled context lease rather than per-crawl browser close', async()=>{
   const source=await fs.readFile(new URL('../src/browser-crawler.mjs',import.meta.url),'utf8');
   assert.match(source,/getSharedBrowserRuntime/);
@@ -53,6 +61,13 @@ test('Overpass 429 honors Retry-After and retries', async()=>{
   const responses=[{ok:false,status:429,headers:{get:k=>k==='retry-after'?'2':null}},{ok:true,status:200,headers:{get:()=>null}}];
   const r=await fetchOverpassWithPolicy(async()=>responses[calls++],'x',{}, {gate,now:()=>0,sleep:async ms=>sleeps.push(ms),maxAttempts:3,minIntervalMs:0,timeoutMs:5000});
   assert.equal(r.status,200); assert.deepEqual(sleeps,[2000]);
+});
+
+test('Overpass gate serializes simultaneous provider calls',async()=>{
+  let inflight=0,maxInflight=0,calls=0; const gate={tail:Promise.resolve(),nextAllowedAt:0};
+  const fetcher=async()=>{calls++;inflight++;maxInflight=Math.max(maxInflight,inflight);await new Promise(r=>setTimeout(r,2));inflight--;return {ok:true,status:200,headers:{get:()=>null}};};
+  await Promise.all(Array.from({length:20},()=>fetchOverpassWithPolicy(fetcher,'x',{}, {gate,minIntervalMs:0,timeoutMs:5000,maxAttempts:1,sleep:async()=>{}})));
+  assert.equal(calls,20); assert.equal(maxInflight,1);
 });
 
 test('Overpass permanent 400 does not retry', async()=>{

@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-29T20:13:01.007Z",
+  "generatedAt": "2026-08-29T20:28:55.161Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "f463ca32ab284ea82b412c1d065a7c44f26ce797",
+    "head": "05e4753e4a6417d83aa94964a617f582ab326fc8",
     "branch": "integration/nightfall-hardening-20260829",
     "sourceModules": 253,
     "testSuites": 284,
-    "workingTreeClean": true
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {

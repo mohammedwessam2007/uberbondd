@@ -265,3 +265,43 @@ Cheap sequencing does not make cheap acquisition. Sender infrastructure, data, v
 ## External-effect receipt
 
 No prospect/customer was contacted. No form, email, SMS, or call was sent. No account, credential, KYC, purchase, DNS change, deployment, customer-system mutation, or spend occurred.
+
+## Nightfall hostile refresh — 2026-08-29
+
+### OBSERVED — the generic `$450` audit is not ready to activate
+
+The canary survives only after narrowing. Its current form is now **Independent Cross-System Lead-Path Failure Evidence Sprint** for a multi-client fractional CMO, coach, or marketing partner serving HVAC, plumbing, or electrical businesses and lacking independent QA. `$450` remains an `INTERNAL_HYPOTHESIS`, not an observed paid price.
+
+The hostile case is strong:
+
+- CyberFunnels lists a closely related Marketing Pipeline Diagnostic at `$197`, including lead-generation audit, CRM/pipeline gap analysis, response-time testing, ROI calculation, and an action plan. This invalidates generic positioning and weakens the `$450` hypothesis. [CyberFunnels](https://www.cyberfunnels.com/)
+- CallRail publishes lead-tracking plans from `$50/month`; its broader plans add conversion and communication capabilities. The sprint cannot merely restate a call-tracking dashboard. [CallRail pricing](https://www.callrail.com/pricing)
+- Jobber now publishes a 24/7 AI call/text receptionist; Housecall Pro documents missed-call text automation; ServiceTitan documents unsold-estimate campaigns. Missed-call recovery and estimate follow-up remain useful test scenarios but are rejected as standalone UberBond canaries. [Jobber Receptionist](https://help.getjobber.com/en/articles/receptionistpowered-by-jobber-ai/), [Housecall Pro missed-call automation](https://help.housecallpro.com/en/articles/6750234-voice-settings-overview), and [ServiceTitan unsold-estimate follow-up](https://help.servicetitan.com/roofing/docs/common-strategies-for-email-campaigns).
+
+The surviving differentiation is independent evidence across boundaries—public site/form, routing, CRM handoff, and follow-up timestamps—where each incumbent may report only its own segment. Acceptance means the buyer confirms that the pack reproducibly proves the tested path and supported failures, or verifies no failure in scope. It does not mean promised recovered revenue.
+
+### PUBLIC_SIGNAL — distribution is one-to-many but not fast
+
+SBE says it has helped more than 1,000 HVAC and plumbing companies and publishes partner relationships. Service Nation says its ecosystem reaches 30,000+ contractors with 100+ vetted partners. These are legitimate partner-normal ecosystems, but they already contain coaching, CRM, lead-conversion, scorecard, and marketing incumbents. They are strategic channels with high credibility friction, not first-payment routes. [SBE](https://sbeodyssey.com/) and [Service Nation Partner Access](https://servicenation.com/services/partner-access-rewards).
+
+The repository's existing top-three agency seeds remain `OWNER_REVIEW_ONLY`: no independent named-client corroboration, white-label willingness, buyer conversation, payment, or acceptance is proven. No private contact data was collected and contact authority remains `NONE`.
+
+### OFFICIAL_SOURCE — payment eligibility is weaker than payout support
+
+Lemon Squeezy lists Egypt for bank payouts, but this does not approve UberBond or the offer. Its store-activation guidance requires KYC/KYB and says services fulfilled outside Lemon Squeezy are typically not approved. The evidence sprint is therefore `EXTERNAL_PROOF_REQUIRED`, not payment-connected. [Supported countries](https://docs.lemonsqueezy.com/help/getting-started/supported-countries) and [store activation](https://docs.lemonsqueezy.com/help/getting-started/activate-your-store).
+
+Current Lemon Squeezy published economics are 5% + `$0.50` base, with applicable adders of 1.5% for international payments, 1.5% for PayPal, and 0.5% for subscriptions. Outside-US bank payouts cost 1%; net sales are held 13 days, payout batches are created twice monthly, and the minimum payout is `$50`. These are provider-policy facts observed 2026-08-29, not an account approval or Egyptian tax conclusion. [Fees](https://docs.lemonsqueezy.com/help/getting-started/fees) and [getting paid](https://docs.lemonsqueezy.com/help/getting-started/getting-paid).
+
+Paddle says it supports software businesses outside its explicit unsupported-country list; Egypt is not listed, and its published pay-as-you-go anchor is 5% + `$0.50`. Exact product/supplier approval remains unknown. Stripe's standard Payments availability page still does not list Egypt; separate recipient/global-payout support must not be misread as an Egypt-based merchant account. [Paddle country support](https://www.paddle.com/help/start/intro-to-paddle/which-countries-are-supported-by-paddle), [Paddle B2B payments](https://www.paddle.com/resources/b2b-payments), and [Stripe global availability](https://stripe.com/global).
+
+Payment readiness therefore remains:
+
+`verified provider event -> durable inbox -> reconciliation lease -> canonical cleared receipt -> fulfillment -> buyer acceptance`
+
+UberBond implements the internal evidence boundary, but no provider, live checkout, cleared receipt, fulfillment, or customer acceptance exists.
+
+### Software allocation
+
+No new Claude packet was created. UberBond already has cache/public evidence tiering, provider-gated enrichment, browser/runtime primitives, payment evidence and reconciliation, and fulfillment planning. PRs #227–#231 already claim the runtime gaps. Building another adapter or executor before one authorized paid delivery would duplicate active work and move architecture ahead of economics.
+
+The machine-readable adjudication is [nightfall-canary-hostile-adjudication-20260829.json](../../artifacts/nightfall-canary-hostile-adjudication-20260829.json).

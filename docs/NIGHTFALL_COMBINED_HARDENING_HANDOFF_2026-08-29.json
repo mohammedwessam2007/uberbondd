@@ -8,9 +8,9 @@
   },
   "candidate": {
     "localBranch": "integration/nightfall-hardening-20260829",
-    "handoffSourceHead": "d2d76803e4e70ce1e784f50acc39c68592e07707",
+    "handoffSourceHead": "05e4753e4a6417d83aa94964a617f582ab326fc8",
     "remoteBackupBranch": "integration/nightfall-hardening-20260829",
-    "remoteBackupCommit": "f4d00096122bac41dc993b1b5de4c64138ed6eab",
+    "remoteBackupCommit": "05e4753e4a6417d83aa94964a617f582ab326fc8",
     "integrationPullRequest": 231,
     "supersededClosedPullRequest": 214,
     "baseIsExactCanonicalMain": true,
@@ -33,20 +33,21 @@
       "pr": 229,
       "publishedHead": "f5bc15f2581aa92107ed2b1e1a93d137c48a1cc8",
       "capability": "Bounded shared Chromium process pool with fresh isolated contexts, single-flight launch, recycle limit and worker shutdown ordering.",
-      "focusedEvidence": "node --test tests/browser-runtime-pool.test.mjs — 8/8 pass"
+      "focusedEvidence": "node --test tests/browser-runtime-pool.test.mjs — 9/9 pass including fail-closed incompatible shared-key configuration reuse"
     }
   },
   "combinedImplementation": [
     "Payment webhook/reconciliation claims are recoverable leases and canonical receipt truth remains mandatory.",
     "Discovery calls use a bounded policy and never rotate around provider blocks.",
     "Crawler calls acquire fresh contexts from a shared bounded browser runtime; worker shutdown closes it before store shutdown.",
+    "A shared runtime key is cryptographically bound to canonical launch, concurrency and recycle configuration; incompatible reuse throws browser-runtime-config-mismatch instead of inheriting an unsafe browser process.",
     "Readiness source census walks nested src modules recursively.",
     "All external-effect, privacy, authority, idempotency and protected-surface contracts remain in force."
   ],
   "exactLocalExecution": {
-    "focusedCombined": "node --test tests/payment-reconciliation-leases.test.mjs tests/browser-runtime-pool.test.mjs tests/discovery.test.mjs tests/overpass-throttle.test.mjs — 28/28 pass",
+    "focusedCombined": "node --test tests/payment-reconciliation-leases.test.mjs tests/browser-runtime-pool.test.mjs tests/discovery.test.mjs tests/overpass-throttle.test.mjs tests/canon-freshness.test.mjs — 35/35 pass",
     "syntax": "npm run check:syntax — 607 files parse",
-    "deterministic": "npm run test:deterministic — 2788 total, 2740 pass, 0 fail, 48 skipped",
+    "deterministic": "npm run test:deterministic — 2789 total, 2741 pass, 0 fail, 48 skipped",
     "relaySafety": "npm run test:relay-safety — 150/150 pass",
     "mutationWar": "npm run test:mutation-war — 75 mutations, 74 killed, 0 not killed; STORE-01 skipped because PostgreSQL runtime is unavailable",
     "reachability": "253 src modules, 126 production-reachable, 9 operator-only, 118 no-entry; ratchet passes",
@@ -69,8 +70,8 @@
     }
   },
   "cloudTruth": {
-    "vercel": "Exact candidate deployment checks remain failed with api-deployments-free-per-day/build-rate-limit. Production remains READY only on older source b156566c69f1d1d0e7e01b015afa474e36041276.",
-    "githubActions": "Run 33267965050 exposes zero executable steps on browser job 99141301142, deterministic job 99141301255 and PostgreSQL job 99141301265; it is infrastructure non-evidence.",
+    "vercel": "Exact repair head 05e4753e4a6417d83aa94964a617f582ab326fc8 has READY full deployment dpl_FcN68Lod5YD3PBxBjoLXdaSL5xHh and READY lite deployment dpl_4A6XPUJXKXGFdPmNt4Y8xD5vLYf9. Full /api/health returns HTTP 500 because preview startup requires a strong ADMIN_TOKEN. Production remains READY only on older source b156566c69f1d1d0e7e01b015afa474e36041276.",
+    "githubActions": "Run 33273184241 exposes zero executable steps on browser job 99155243349, deterministic job 99155243348 and PostgreSQL job 99155243215; it is infrastructure non-evidence.",
     "productionRuntimeErrors": "Connected Vercel runtime-error aggregation for the observed production project found no runtime errors in the selected seven-day window at 2026-08-29T18:27:19Z. This does not prove the combined candidate is deployed.",
     "promotion": "No merge to main, exact-head production deployment or promotion was performed."
   },
@@ -79,7 +80,8 @@
     "clearedRevenueUsd": 0,
     "acceptedDeliveries": 0,
     "retainedCustomers": 0,
-    "activeCanary": "White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing and electrical businesses",
+    "activeCanary": "Independent Cross-System Lead-Path Failure Evidence Sprint for multi-client home-service marketing partners",
+    "canaryStatus": "REVISE_BEFORE_ACTIVATION__PRICE_AND_DEMAND_NOT_PROVEN",
     "liveOutreach": false
   },
   "externalEffectLedger": {
@@ -98,12 +100,12 @@
     "productionDeployments": 0
   },
   "promotionGates": [
-    "Remote backup branch and draft PR #231 are published; the latest full-verification remote contents receipt before this receipt refresh was f4d00096122bac41dc993b1b5de4c64138ed6eab.",
+    "Remote backup branch and draft PR #231 are published at exact repair head 05e4753e4a6417d83aa94964a617f582ab326fc8.",
     "Run the 16 real-PostgreSQL suites against a trustworthy throwaway database.",
     "Run the browser/crawler gate with compatible pinned Chromium.",
-    "Obtain an exact-head full-project Vercel READY build after the build-rate limit clears.",
+    "Restore a preview-scoped strong ADMIN_TOKEN and prove an exact-head full-project health response; READY build status alone is insufficient.",
     "Refresh main and all open PRs immediately before any merge or production promotion.",
     "Keep commercial activation behind jurisdiction, sender readiness, owner authority, payment/KYC and customer-origin acceptance gates."
   ],
-  "nextHighestValueMission": "Remote-backup this exact combined candidate, then wait for or obtain the external PostgreSQL/browser/Vercel runtime evidence; no further architecture work should outrank first lawful buyer/payment evidence once those gates are available."
+  "nextHighestValueMission": "Obtain preview health plus external PostgreSQL/browser runtime evidence for exact PR #231 head. In parallel, validate provider eligibility and one buyer-authorized cross-system evidence sprint; no further architecture work should outrank first lawful buyer/payment/acceptance evidence."
 }

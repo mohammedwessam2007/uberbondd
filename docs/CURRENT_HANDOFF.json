@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond-handoff-1.4.0",
   "sourceMainShaAtMissionStart": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
-  "sourceCommit": "d2d76803e4e70ce1e784f50acc39c68592e07707",
+  "sourceCommit": "05e4753e4a6417d83aa94964a617f582ab326fc8",
   "currentMainShaAtFinalRefresh": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
   "currentMainCommitMessage": "SOL: corroborate top partner canary candidates (#226)",
   "missionIssue": 173,
@@ -33,21 +33,21 @@
     "Focused pure-module audit suite: 9/9 PASS. Independent mutations removing anti-evasion admission, cross-inbox dedupe or billing HMAC each reduced the suite to 8/9 and were killed. Billing Web Request route valid/bad signature harness PASS.",
     "Older PRs #207 and #208 are explicitly marked superseded by merged #209.",
     "PR #227 carries recoverable payment-reconciliation leases and canonical receipt gating; PR #228 carries bounded Overpass pacing/retry policy; PR #229 carries the shared browser runtime pool.",
-    "The three slices were consolidated locally from exact canonical main into integration/nightfall-hardening-20260829 and passed the combined 28-test focused suite, 607-file syntax gate, 2788-test deterministic gate, relay safety, mutation war, reachability and canon gates.",
-    "The exact 22-file combined candidate was published and verified byte-for-byte on the remote integration/nightfall-hardening-20260829 backup branch; its latest full-verification contents-API commit receipt is f4d00096122bac41dc993b1b5de4c64138ed6eab.",
+    "The three slices were consolidated from exact canonical main into integration/nightfall-hardening-20260829. A fresh audit of remote head f463ca32 exposed two stale canon-freshness failures and a shared-browser configuration-reuse gap; the earlier 2740-pass claim is superseded rather than preserved as current proof.",
+    "Exact repair head 05e4753e4a6417d83aa94964a617f582ab326fc8 binds every shared browser key to a canonical launch/concurrency/recycle configuration and fails closed on incompatible reuse. It passes 35/35 focused assertions, 607-file syntax, 2789-test deterministic, relay safety, mutation war, reachability, canon freshness and review probes.",
     "Draft integration PR #231 is the review candidate; stale composite PR #214 was closed as superseded.",
     "The local discovery integration smoke passed with 2 previewed and 2 imported records, and the broader zero-effect review probe passed 33/33 without live provider or outbound effects."
   ],
   "blockers": [
-    "The exact combined candidate in draft PR #231 has no full-project Vercel READY deployment because both Vercel checks report api-deployments-free-per-day/build-rate-limit. No paid upgrade or circumvention was attempted.",
+    "Exact PR #231 head 05e4753e4a6417d83aa94964a617f582ab326fc8 has READY full and lite preview builds, but the full preview /api/health route returns HTTP 500 because the preview environment lacks a strong ADMIN_TOKEN. Build READY is not cloud-runtime proof; no merge or promotion is authorized.",
     "The explicit real-PostgreSQL launcher was re-run and is blocked because OMNIA_V9_TEST_DATABASE_URL is absent; the embedded fallback cannot run under this container's denied user/group switching. The browser gate was re-run and is blocked because this runner has no compatible Chromium executable. Neither skipped/failed runtime gate is treated as proof.",
-    "GitHub Actions run 33267965050 reports browser, deterministic and postgres failures with zero executable steps on all three jobs; it is CI infrastructure non-evidence, not a source regression result.",
+    "GitHub Actions run 33273184241 reports browser, deterministic and postgres failures with zero executable steps on all three jobs; it is CI infrastructure non-evidence, not a source regression result.",
     "No outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Every one of these is an external activation, not an engineering task."
   ],
   "nextActions": [
-    "Keep remote backup branch integration/nightfall-hardening-20260829 and draft PR #231 as the exact review candidate; remote contents receipt at the last full verification was f4d00096122bac41dc993b1b5de4c64138ed6eab.",
-    "Run the 16 serial real-PostgreSQL suites and the browser/crawler gate in a runner with the required runtimes; then obtain exact-head Vercel READY proof before merging or promoting.",
-    "Prioritise lawful distribution and first cleared payment evidence after the dependency-complete runtime slice; current commercial truth remains zero."
+    "Keep draft PR #231 at exact repair head 05e4753e4a6417d83aa94964a617f582ab326fc8; do not merge while its full-project preview health is 500.",
+    "Restore a preview-scoped strong ADMIN_TOKEN, run the 16 serial real-PostgreSQL suites and the browser/crawler gate in compatible runtimes, then re-check exact head before merge or promotion.",
+    "Revise the canary from a generic audit to independent cross-system failure evidence and validate payment-provider eligibility for the exact service before any checkout or buyer effect; current commercial truth remains zero."
   ],
   "production": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
@@ -58,7 +58,7 @@
     "observedProductionState": "READY",
     "currentMainSha": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
     "currentMainExactProduction": false,
-    "latestDeploymentBlocker": "PR_231_EXACT_HEAD_VERCEL_CHECKS_API_DEPLOYMENTS_FREE_PER_DAY",
+    "latestDeploymentBlocker": "PR_231_EXACT_HEAD_READY_BUILD_BUT_FULL_PREVIEW_HEALTH_500_ADMIN_TOKEN",
     "status": "PUBLIC_SITE_LIVE__PRODUCTION_STALE_RELATIVE_TO_MAIN"
   },
   "productionRuntimeTruth": {
@@ -70,8 +70,10 @@
     "note": "This is a read-only error aggregate for the observed older production deployment; it does not prove the combined candidate is deployed."
   },
   "commercialDecision": {
-    "canary": "White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing and electrical businesses",
+    "canary": "Independent Cross-System Lead-Path Failure Evidence Sprint for multi-client home-service marketing partners",
     "priceHypothesisUsd": 450,
+    "status": "REVISE_BEFORE_ACTIVATION__PRICE_AND_DEMAND_NOT_PROVEN",
+    "disconfirmingEvidence": "CyberFunnels lists a closely related pipeline diagnostic at $197; current home-service platforms already automate missed-call and estimate follow-up. UberBond must prove failures across system boundaries that incumbent tools do not independently verify.",
     "fallback": "AI Agent Acceptance Evidence Sprint for AI implementation agencies and software teams operating buyer-authorized sandboxes",
     "liveCommercialExperiment": false,
     "customers": 0,
@@ -80,11 +82,12 @@
     "retainedCustomers": 0
   },
   "verification": {
-    "executedAt": "13c4b0dcb11cf5132659d2f7b7b4be6282de3979",
+    "executedAt": "05e4753e4a6417d83aa94964a617f582ab326fc8",
     "executedBy": "local execution in this session, not hosted CI",
     "gates": {
       "check:syntax": "607 files parse",
-      "test:deterministic": "2788 tests, 2740 pass, 0 fail, 48 skipped",
+      "test:focused": "35/35 including browser configuration mismatch and canon freshness",
+      "test:deterministic": "2789 tests, 2741 pass, 0 fail, 48 skipped",
       "test:relay-safety": "150/150",
       "test:postgres-real": "BLOCKED_RUNTIME: OMNIA_V9_TEST_DATABASE_URL absent; 16 suites not executed",
       "test:browser": "BLOCKED_RUNTIME: Playwright Chromium executable absent",
@@ -96,7 +99,7 @@
   },
   "maximumThreeFounderActions": [
     {
-      "reason": "The payment promotion gate still needs a trustworthy throwaway PostgreSQL runtime for the real lease/concurrency suites; repository code cannot create or authorize that external database.",
+      "reason": "The exact combined candidate's payment lease/concurrency behavior still needs a trustworthy throwaway PostgreSQL runtime; repository code cannot create or authorize that external database.",
       "screen": "https://vercel.com/mohammedwessam2007s-projects",
       "action": "Provide one temporary PostgreSQL test URL for the real-only suites, without production/customer data.",
       "founderMinutes": 3,
@@ -105,22 +108,22 @@
       "defaultRecommendation": "Do this only when convenient; no production database is appropriate."
     },
     {
-      "reason": "Hosted CI reports failure on jobs where no runner was ever assigned and no step ran. It is currently incapable of producing evidence, which means real regressions could hide behind noise everyone has learned to ignore.",
-      "screen": "https://github.com/mohammedwessam2007/uberbondd/settings/actions",
-      "action": "Check whether Actions minutes are exhausted or the runner allowance is disabled for this account.",
+      "reason": "The exact-head full preview build is READY but every application route fails startup because its preview environment lacks the required strong admin secret.",
+      "screen": "Vercel project uberbondd -> Settings -> Environment Variables -> Preview",
+      "action": "Set a new preview-scoped ADMIN_TOKEN of at least 32 random characters without sharing its value, then redeploy only the current PR #231 head.",
       "founderMinutes": 2,
       "costUsd": 0,
-      "evidenceRequired": "Whether the account has Actions minutes remaining.",
-      "defaultRecommendation": "Worth checking, not urgent. Local gates cover the same suites today."
+      "evidenceRequired": "Exact-head preview /api/health returns a structured response instead of FUNCTION_INVOCATION_FAILED; return only status and deployment SHA, never the secret.",
+      "defaultRecommendation": "Do this before any merge; keep the secret preview-scoped until production promotion is separately reviewed."
     },
     {
-      "reason": "vercel.json now registers two cron paths. Vercel Hobby permits two cron jobs, so the system is exactly at the ceiling; a third would be rejected at deploy time rather than at review time.",
-      "screen": "vercel.json in the repository",
-      "action": "No action needed now. Noted so the next cron addition is a decision rather than a deploy failure.",
-      "founderMinutes": 0,
+      "reason": "The selected evidence sprint is an externally fulfilled service, while Lemon Squeezy says such services are typically not approved; only the founder can obtain jurisdiction, tax and provider eligibility decisions and complete KYC if later authorized.",
+      "screen": "Egyptian legal/tax adviser plus Lemon Squeezy or Paddle eligibility/support channel",
+      "action": "Obtain written eligibility for the exact offer, entity/individual structure, payout route and invoice/tax treatment; do not activate live mode or submit KYC until separately choosing that provider.",
+      "founderMinutes": 20,
       "costUsd": 0,
-      "evidenceRequired": "none",
-      "defaultRecommendation": "Do nothing. Recorded for the next lane that wants to add a schedule."
+      "evidenceRequired": "A redacted eligibility decision and adviser/provider requirements; no identity documents or secrets in GitHub.",
+      "defaultRecommendation": "Use provider test mode only; treat Lemon Squeezy and Paddle as candidates, not approved rails."
     }
   ],
   "externalEffectLedger": {
@@ -140,7 +143,7 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE_EXCEPT_EXISTING_PROJECT_DEPLOYMENT_AUTHORIZED_WHEN_VERIFIED",
-  "headSha": "d2d76803e4e70ce1e784f50acc39c68592e07707",
+  "headSha": "05e4753e4a6417d83aa94964a617f582ab326fc8",
   "cloudActivationTruth": {
     "fullProjectExists": "PROVEN_BY_CONNECTED_API",
     "privateLiteProjectExists": "PROVEN_BY_CONNECTED_API",
@@ -176,7 +179,7 @@
         "note": "A 404 on an exact project id is a direct answer, unlike an empty list which could be a scope artifact. It still proves only that the project is unreachable through this connection."
       }
     ],
-      "resolvedBy": "Connected Vercel project/deployment queries on 2026-08-29; the exact combined candidate still needs a fresh deployment receipt."
+    "resolvedBy": "Connected Vercel project/deployment queries on 2026-08-29. Exact PR #231 head 05e4753e has READY full and lite previews, but the full runtime health check fails startup with missing/weak preview ADMIN_TOKEN; production remains on older source."
   },
   "currentOpenCandidates": [
     {
@@ -198,11 +201,11 @@
       "head": "f5bc15f2581aa92107ed2b1e1a93d137c48a1cc8",
       "status": "OPEN_DRAFT_MERGEABLE",
       "mission": "bounded browser runtime pool",
-      "promotionBlockers": ["exact-head Vercel READY proof", "Chromium checkout proof", "real PostgreSQL runtime proof"]
+      "promotionBlockers": ["exact-head full-preview runtime health proof after preview ADMIN_TOKEN repair", "Chromium checkout proof", "real PostgreSQL runtime proof"]
     },
     {
       "pr": 231,
-      "head": "2f2e884a775fd36d4919b3cdd01ed16deb17ca75",
+      "head": "05e4753e4a6417d83aa94964a617f582ab326fc8",
       "status": "OPEN_DRAFT_MERGEABLE",
       "mission": "combined payment, browser and Overpass hardening candidate",
       "promotionBlockers": ["exact-head Vercel READY proof", "Chromium checkout proof", "real PostgreSQL runtime proof"]
@@ -215,7 +218,7 @@
     "issueCommentsPosted": 1,
     "supersededPullRequestsClosed": [214],
     "remoteBackupBranch": "integration/nightfall-hardening-20260829",
-    "remoteBackupCommit": "f4d00096122bac41dc993b1b5de4c64138ed6eab",
+    "remoteBackupCommit": "05e4753e4a6417d83aa94964a617f582ab326fc8",
     "integrationPullRequest": 231,
     "note": "GitHub repository operations are not customer-facing external effects."
   },

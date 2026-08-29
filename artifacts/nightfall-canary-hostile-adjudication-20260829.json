@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "uberbond.nightfall-canary-hostile-adjudication.v1",
+  "observedAt": "2026-08-29",
+  "sourceMainSha": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
+  "candidateHeadSha": "05e4753e4a6417d83aa94964a617f582ab326fc8",
+  "truthLaw": "Public features, prices and partner programs are evidence of alternatives and distribution surfaces, not evidence that UberBond has demand, payment or acceptance.",
+  "decision": {
+    "winner": "independent-cross-system-lead-path-failure-evidence-sprint",
+    "status": "REVISE_BEFORE_ACTIVATION",
+    "buyer": "multi-client fractional CMO, coach or marketing partner serving HVAC, plumbing or electrical businesses and lacking independent cross-system QA",
+    "budgetOwner": "agency or consultancy principal",
+    "priceHypothesisUsd": 450,
+    "priceTruth": "INTERNAL_HYPOTHESIS",
+    "scope": "One buyer-authorized lead path across public website/form/call-routing handoff/CRM/follow-up timestamps, up to five synthetic scenarios, reproducible evidence and severity-ranked remediation backlog.",
+    "acceptance": "Buyer confirms the evidence pack reproduces the tested path and identifies supported failure states or verifies no tested failure; no recovered-revenue promise.",
+    "hostileCounterCase": "A $197 incumbent diagnostic and inexpensive call tracking may be good enough; home-service CRMs already automate missed-call and estimate follow-up; the partner may resist an independent auditor; delivery may exceed the 180-founder-minute ceiling; a payment provider may reject an externally fulfilled service.",
+    "killConditions": [
+      "No authorized partner accepts the cross-system scope or price hypothesis after a separately authorized bounded test.",
+      "The deliverable cannot be completed within 180 founder minutes without private customer data or prohibited actions.",
+      "The output merely repeats CallRail, Jobber, Housecall Pro or ServiceTitan reporting instead of proving a cross-system failure.",
+      "No lawful payment rail approves the exact offer and founder structure.",
+      "Refund, dispute, support and delivery receipts make contribution per founder minute unattractive."
+    ]
+  },
+  "challengers": [
+    {
+      "id": "generic-lead-path-audit",
+      "decision": "REJECT_AS_POSITIONED",
+      "reason": "CyberFunnels lists a closely related Marketing Pipeline Diagnostic for $197; a generic $450 audit lacks a supported differentiation."
+    },
+    {
+      "id": "missed-call-recovery",
+      "decision": "REJECT_STANDALONE_CANARY",
+      "reason": "Jobber, Housecall Pro, ServiceTitan and answering-service alternatives already provide call capture, automated response or follow-up. Preserve missed-call failure as one test scenario, not the product."
+    },
+    {
+      "id": "estimate-follow-up",
+      "decision": "REJECT_STANDALONE_CANARY",
+      "reason": "Current field-service platforms already support quote or unsold-estimate follow-up. Preserve cross-system delivery verification as a test scenario."
+    },
+    {
+      "id": "ai-agent-acceptance-evidence-sprint",
+      "decision": "RETAIN_FALLBACK",
+      "reason": "More defensible evidence need but a less-qualified near-term distribution path and buyer-authorized sandbox dependency."
+    }
+  ],
+  "distribution": {
+    "immediateResearchCohort": "Existing top-three partner seeds remain owner-review-only; no named-client evidence, white-label willingness, conversation or payment is proven.",
+    "strategicChannels": [
+      {
+        "name": "SBE",
+        "classification": "PUBLIC_SIGNAL",
+        "evidence": "Official site says it has helped more than 1,000 HVAC and plumbing companies and publishes partner relationships.",
+        "decision": "STRATEGIC_NOT_FIRST_PAYMENT",
+        "risk": "It already supplies coaching, scorecards and partner solutions, so credibility and channel-conflict friction are high."
+      },
+      {
+        "name": "Service Nation",
+        "classification": "PUBLIC_SIGNAL",
+        "evidence": "Official partner program says 30,000+ contractors and 100+ vetted partners.",
+        "decision": "STRATEGIC_NOT_FIRST_PAYMENT",
+        "risk": "Vetted marketplace incumbents make entry slow and evidence-heavy."
+      }
+    ],
+    "contactAuthority": "NONE"
+  },
+  "paymentReadiness": {
+    "status": "EXTERNAL_PROOF_REQUIRED",
+    "canonicalPath": "verified provider event -> durable inbox -> reconciliation lease -> canonical cleared receipt -> fulfillment plan -> buyer acceptance",
+    "lemonSqueezy": {
+      "classification": "OFFICIAL_SOURCE",
+      "confidence": "HIGH_FOR_POLICY__ZERO_FOR_ACCOUNT_APPROVAL",
+      "facts": [
+        "Egypt appears in the official bank-payout country list.",
+        "Published base platform fee is 5% + $0.50, with +1.5% international, +1.5% PayPal and +0.5% subscription adders where applicable.",
+        "Outside-US bank payout fee is 1%; net sales are held 13 days and payouts are created twice monthly; minimum payout is $50.",
+        "KYC/KYB and store activation are required.",
+        "The provider says externally fulfilled services are typically not approved, so this exact sprint is not an approved rail."
+      ]
+    },
+    "paddle": {
+      "classification": "OFFICIAL_SOURCE",
+      "confidence": "MEDIUM_FOR_COUNTRY_SUPPORT__ZERO_FOR_PRODUCT_APPROVAL",
+      "facts": [
+        "Paddle says it works with software businesses worldwide except its unsupported-country list; Egypt is not listed as unsupported.",
+        "Published pay-as-you-go anchor is 5% + $0.50 per transaction.",
+        "Exact supplier and product eligibility remain unproven for an externally fulfilled evidence service."
+      ]
+    },
+    "stripe": {
+      "classification": "OFFICIAL_SOURCE",
+      "confidence": "HIGH",
+      "facts": [
+        "Egypt is not shown as a standard Stripe Payments account country.",
+        "Stripe Global Payouts recipient availability is not permission for an Egypt-based seller to open a Stripe Payments merchant account."
+      ]
+    }
+  },
+  "providerCostLadder": [
+    "durable repository cache",
+    "official public static source",
+    "public registry/directory or ecosystem page",
+    "bounded static HTTP retrieval",
+    "browser only for necessary rendered evidence",
+    "licensed provider only after current lower-tier exhaustion receipt",
+    "lawful inference with explicit confidence and no private contact generation"
+  ],
+  "softwareDecision": {
+    "newClaudePacket": false,
+    "decision": "DEFER",
+    "reason": "UberBond already has public-evidence tiering, provider-gated enrichment, browser/runtime primitives, payment evidence/reconciliation and fulfillment planning. No repeated paid demand justifies another adapter or offer executor, and PRs 227-231 already claim the current runtime gaps."
+  },
+  "sources": [
+    {"classification": "OFFICIAL_SOURCE", "url": "https://www.callrail.com/pricing", "observedAt": "2026-08-29", "use": "lead-tracking price and feature alternative"},
+    {"classification": "OFFICIAL_SOURCE", "url": "https://www.cyberfunnels.com/", "observedAt": "2026-08-29", "use": "$197 pipeline diagnostic price anchor"},
+    {"classification": "OFFICIAL_SOURCE", "url": "https://help.getjobber.com/en/articles/receptionistpowered-by-jobber-ai/", "observedAt": "2026-08-29", "use": "24/7 call/text booking alternative"},
+    {"classification": "OFFICIAL_SOURCE", "url": "https://help.housecallpro.com/en/articles/6750234-voice-settings-overview", "observedAt": "2026-08-29", "use": "missed-call text automation alternative"},
+    {"classification": "OFFICIAL_SOURCE", "url": "https://help.servicetitan.com/roofing/docs/common-strategies-for-email-campaigns", "observedAt": "2026-08-29", "use": "unsold-estimate follow-up alternative"},
+    {"classification": "OFFICIAL_SOURCE", "url": "https://sbeodyssey.com/", "observedAt": "2026-08-29", "use": "strategic partner reach"},
+    {"classification": "OFFICIAL_SOURCE", "url": "https://servicenation.com/services/partner-access-rewards", "observedAt": "2026-08-29", "use": "strategic partner ecosystem reach"},
+    {"classification": "OFFICIAL_SOURCE", "url": "https://docs.lemonsqueezy.com/help/getting-started/activate-your-store", "observedAt": "2026-08-29", "use": "KYC/KYB and service-eligibility boundary"},
+    {"classification": "OFFICIAL_SOURCE", "url": "https://docs.lemonsqueezy.com/help/getting-started/fees", "observedAt": "2026-08-29", "use": "fees"},
+    {"classification": "OFFICIAL_SOURCE", "url": "https://docs.lemonsqueezy.com/help/getting-started/getting-paid", "observedAt": "2026-08-29", "use": "settlement timing and threshold"},
+    {"classification": "OFFICIAL_SOURCE", "url": "https://www.paddle.com/help/start/intro-to-paddle/which-countries-are-supported-by-paddle", "observedAt": "2026-08-29", "use": "country support boundary"},
+    {"classification": "OFFICIAL_SOURCE", "url": "https://stripe.com/global", "observedAt": "2026-08-29", "use": "standard account availability"}
+  ],
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedDeliveries": 0,
+    "renewals": 0
+  },
+  "externalEffectLedger": {
+    "prospectsContacted": 0,
+    "formsSubmitted": 0,
+    "messagesOrCalls": 0,
+    "providerAccountsCreated": 0,
+    "kycSubmissions": 0,
+    "purchases": 0,
+    "spendCents": 0
+  }
+}

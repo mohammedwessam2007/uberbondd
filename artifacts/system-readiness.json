@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-29T15:20:14.950Z",
+  "generatedAt": "2026-08-29T17:03:48.942Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "333292f",
+    "head": "0eb8eb31a88496ea3209d381bd6c09601a8ac293",
     "branch": "gpt/payment-reconciliation-leases-main-refresh-20260829",
     "sourceModules": 251,
     "testSuites": 282,
@@ -32,14 +32,14 @@
       "ranAt": "2026-08-29T00:00:00Z"
     },
     "test:postgres-real": {
-      "command": "OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real",
-      "status": "PASS_CURRENT_BRANCH",
-      "tests": 127,
-      "pass": 127,
+      "command": "node scripts/run-real-postgres-tests.mjs",
+      "status": "BLOCKED_RUNTIME",
+      "tests": 0,
+      "pass": 0,
       "fail": 0,
-      "skipped": 0,
-      "result": "127 tests, 127 pass, 0 fail (2026-08-29), against embedded PostgreSQL 18",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "result": "BLOCKED_RUNTIME: OMNIA_V9_TEST_DATABASE_URL is not set; 16 real-PostgreSQL suites were not executed",
+      "note": "The launcher was run on 2026-08-29 and exited non-zero rather than treating skipped suites as proof.",
+      "ranAt": "2026-08-29"
     },
     "npm audit": {
       "command": "npm audit --omit=dev",
@@ -49,21 +49,21 @@
       "ranAt": "2026-08-29T00:00:00Z"
     },
     "test:mutation-war": {
-      "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "75 mutations, 75 killed, 0 not killed",
-      "note": "Run with a real PostgreSQL so STORE-01 is executed rather than skipped. Without the database it reports 63 killed and 1 PostgreSQL-dependent skip.",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "command": "node scripts/mutation-war.mjs",
+      "result": "75 mutations, 74 killed, 0 not killed, 1 PostgreSQL-only skip",
+      "note": "Exact current-tree run. STORE-01 remains skipped because no trustworthy real PostgreSQL URL is configured.",
+      "ranAt": "2026-08-29"
     },
     "test:browser": {
-      "command": "CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser",
-      "status": "PASS_CURRENT_BRANCH",
+      "command": "node --test tests/browser.test.mjs",
+      "status": "BLOCKED_RUNTIME",
       "tests": 1,
-      "pass": 1,
-      "fail": 0,
+      "pass": 0,
+      "fail": 1,
       "skipped": 0,
-      "result": "1 test, 1 pass, 0 fail (2026-08-29), against the runner's installed Chromium",
-      "note": "The previous BLOCKED_EXTERNAL_TEST_RUNTIME record said Chromium was absent. It is not: this runner ships chromium-1194 while the pinned Playwright resolves chromium_headless_shell-1228, so the default launch path 404s on a build number rather than on a missing browser. crawlSiteBrowser already accepts CHROMIUM_PATH, which bridges it. The test's site is a loopback HTTP server, so this gate makes no external request.",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "result": "BLOCKED_RUNTIME: Playwright executable missing at /root/.cache/ms-playwright/chromium_headless_shell-1228/chrome-headless-shell-linux64/chrome-headless-shell",
+      "note": "The expected /opt/pw-browsers/chromium-1194/chrome-linux/chrome path is also absent. The loopback browser suite did not execute its assertions.",
+      "ranAt": "2026-08-29"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",

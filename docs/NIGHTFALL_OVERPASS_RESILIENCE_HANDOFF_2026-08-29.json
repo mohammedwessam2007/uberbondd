@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "uberbond.nightfall-overpass-resilience-handoff.v1",
+  "observedAt": "2026-08-29",
+  "mission": "Bound OpenStreetMap Overpass discovery concurrency, pacing, retry and timeout behavior without inheriting stale donor-branch baggage.",
+  "canonicalBase": {
+    "branch": "main",
+    "sha": "dc489024042b7bb930a1c9367a86f2a4cc025f23"
+  },
+  "donor": {
+    "pr": 214,
+    "sha": "ef71b0a9b3e6b4420b44c002a0e828c4c18108f2",
+    "scopeExtracted": [
+      "src/overpass-throttle.mjs policy",
+      "src/discovery.mjs routing through the bounded policy"
+    ],
+    "scopeNotInherited": [
+      "browser pooling",
+      "artifact storage",
+      "payment reconciliation",
+      "unrelated stale-lineage continuity changes"
+    ]
+  },
+  "candidateBranch": "nightfall/overpass-resilience-20260829-v1",
+  "semanticHeadBeforeHandoff": "228239b4caafdc5cfc5de28b33279c1a37760d98",
+  "productionInvariant": [
+    "Concurrent Overpass requests for one endpoint are serialized.",
+    "Minimum request spacing is bounded and configurable.",
+    "Only explicitly retryable HTTP statuses are retried.",
+    "Transport and retryable HTTP failures stop at a bounded attempt cap.",
+    "Retry-After is honored within a bounded ceiling.",
+    "Every attempt is timeout-bounded.",
+    "Discovery parsing, public-source attribution and daily result caps remain unchanged."
+  ],
+  "focusedExecutionEvidence": {
+    "commandClass": "node --test exact committed overpass-throttle semantics copied from the branch",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "covers": [
+      "same-endpoint serialization",
+      "503/429 retry then success",
+      "nonretryable 400 rejection without retry",
+      "retryable status attempt-cap failure",
+      "transport-error attempt-cap failure"
+    ],
+    "notClaimed": [
+      "whole-repository checkout execution",
+      "whole-tree integration proof",
+      "live Overpass provider call",
+      "unattended-duration proof"
+    ]
+  },
+  "promotionGates": [
+    "Refresh main and open PRs for concurrency immediately before promotion.",
+    "Obtain an exact-head Vercel READY build receipt for the candidate.",
+    "Execute focused discovery and Overpass tests from a genuine repository checkout/runtime when infrastructure permits.",
+    "Do not treat zero-step GitHub Actions jobs as source execution evidence.",
+    "Keep lite/ untouched."
+  ],
+  "externalEffectLedger": {
+    "customerContacts": 0,
+    "outboundMessages": 0,
+    "modelProviderExecutions": 0,
+    "paidProviderCalls": 0,
+    "spendCents": 0,
+    "purchases": 0,
+    "dnsChanges": 0,
+    "credentialKycPaymentChanges": 0,
+    "moneyMovement": 0,
+    "customerProductionDataMutations": 0,
+    "productionDeployments": 0,
+    "liveOverpassCalls": 0
+  }
+}

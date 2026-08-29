@@ -27,14 +27,14 @@
     "genuineRepositoryCheckout": "PASS: repository checkout and dependency install completed in this runtime",
     "wholeRepositorySuite": "2775 tests, 2727 pass, 0 fail, 48 skipped; 48 are known runtime-gated skips",
     "postgresIntegration": "BLOCKED_RUNTIME: no OMNIA_V9_TEST_DATABASE_URL; embedded fallback cannot create the postgres system group under the container restriction",
-    "vercelExactHeadBuild": "PARTIAL: full READY preview dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y is predecessor 31dbb897...; private-lite READY preview dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg is receipt ec0dd751...; last observed published branch head 22444462... remains blocked by api-deployments-free-per-day; later handoff-only receipt updates advance the branch. No production deployment performed.",
+    "vercelExactHeadBuild": "PARTIAL: full READY preview dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y is predecessor 31dbb897...; private-lite READY preview dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg is receipt ec0dd751...; last observed published branch head 8678ef2f... remains blocked by api-deployments-free-per-day; later handoff-only receipt updates advance the branch. No production deployment performed.",
     "browserIntegration": "BLOCKED_RUNTIME: pinned Chromium executable absent and Playwright CDN installation timed out",
     "mutationProof": "75 mutations, 74 killed, 0 not killed, 1 PostgreSQL-only mutation skipped (STORE-01)",
     "audit": "0 vulnerabilities"
   },
   "prContinuity": {
     "reason": "GitHub connector markPullRequestReadyForReview mutation fails on obsolete Repository.fullDatabaseId GraphQL field",
-    "action": "PR #223 closed unmerged; non-draft PR #224 carries the reviewed candidate; its last observed published branch head before this receipt update was 22444462..., with runtime code candidate d568766d07cdeae7dc1bb850752324f73521d921",
+    "action": "PR #223 closed unmerged; non-draft PR #224 carries the reviewed candidate; its last observed published branch head before this receipt update was 8678ef2f..., with runtime code candidate d568766d07cdeae7dc1bb850752324f73521d921",
     "semanticRuntimeChangeFromWorkaround": false
   },
   "promotionGate": [

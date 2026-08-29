@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-29T10:35:19.825Z",
+  "generatedAt": "2026-08-29T20:10:22.872Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "59afa558f7d795686b91f57492b6306023716c75",
+    "head": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
     "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "sourceModules": 191,
-    "testSuites": 279,
-    "workingTreeClean": true
+    "sourceModules": 192,
+    "testSuites": 280,
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 598,
-      "ranAt": "2026-08-29T00:00:00Z"
+      "filesParsed": 600,
+      "ranAt": "2026-08-29T20:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2758,
-      "pass": 2710,
+      "tests": 2765,
+      "pass": 2717,
       "fail": 0,
       "skipped": 48,
-      "ranAt": "2026-08-29T00:00:00Z"
+      "ranAt": "2026-08-29T20:00:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -38,8 +38,9 @@
       "pass": 127,
       "fail": 0,
       "skipped": 0,
-      "result": "127 tests, 127 pass, 0 fail (2026-08-29), against embedded PostgreSQL 18",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "result": "127 tests, 127 pass, 0 fail (2026-08-29), against PostgreSQL 16.13",
+      "note": "The runner was rebuilt and no longer ships the PostgreSQL 18 binaries the previous receipt named. A fresh PostgreSQL 16.13 cluster was initialized locally for this gate. Recorded as 16.13 rather than carrying the old version forward, because the version is part of what the evidence means.",
+      "ranAt": "2026-08-29T20:00:00Z"
     },
     "npm audit": {
       "command": "npm audit --omit=dev",
@@ -67,12 +68,12 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 249,
-      "reachableFromProduction": 123,
+      "srcModules": 250,
+      "reachableFromProduction": 124,
       "reachableFromOperatorScriptsOnly": 9,
       "noEntryPointAtAll": 117,
       "allClassified": true,
-      "ranAt": "2026-08-29T00:00:00Z",
+      "ranAt": "2026-08-29T20:00:00Z",
       "note": "src is now walked recursively. The previous 191/117/5/69 figures excluded src/overnight and src/omnia-v9 entirely, which was an accident of a single-level directory read, not a scope decision."
     }
   },

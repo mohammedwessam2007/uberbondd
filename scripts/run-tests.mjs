@@ -86,6 +86,23 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     process.exit(1);
   }
   const files = deterministicTestFiles();
-  const run = spawnSync(process.execPath, ['--test', ...files], { cwd: repoRoot, stdio: 'inherit' });
+  // "Deterministic" has to mean deterministic, including with respect to the
+  // shell it was invoked from.
+  //
+  // Most database suites are not on the exclusion list above; they stay in this
+  // set and skip themselves when OMNIA_V9_TEST_DATABASE_URL is absent. That is
+  // fine until someone exports the variable -- then those suites execute here,
+  // in PARALLEL, sharing one database. `run-real-postgres-tests.mjs` runs them
+  // serially precisely because they interfere otherwise, and the symptom is a
+  // red property test that passes in isolation: a gate failing for a reason
+  // unrelated to the code, which is the most expensive kind of red there is.
+  //
+  // So the variable is dropped for the children. This gate now returns the same
+  // answer on a developer's machine, in CI, and in a shell that happens to have
+  // a database configured. Real database coverage is not lost -- it is what
+  // `npm run test:postgres-real` exists for, serially, where it belongs.
+  const deterministicEnv = { ...process.env };
+  delete deterministicEnv.OMNIA_V9_TEST_DATABASE_URL;
+  const run = spawnSync(process.execPath, ['--test', ...files], { cwd: repoRoot, stdio: 'inherit', env: deterministicEnv });
   process.exit(run.status ?? 1);
 }

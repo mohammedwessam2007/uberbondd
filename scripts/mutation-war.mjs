@@ -399,6 +399,13 @@ export const MUTATIONS = [
     suites: ['tests/browser.test.mjs']
   },
   {
+    id: 'GATE-01', guard: 'The deterministic gate ignores the shell it was invoked from',
+    file: 'scripts/run-tests.mjs',
+    find: '  delete deterministicEnv.OMNIA_V9_TEST_DATABASE_URL;',
+    replace: '  // deleted',
+    suites: ['tests/build-wiring.test.mjs']
+  },
+  {
     id: 'BILL-01', guard: 'Unclaimable payment evidence is visible, not silent',
     file: 'src/system-health-matrix.mjs',
     find: "const billingSevere=billingBlock.state==='NO_WORKER'||billingBlock.state==='BACKLOG_AGEING';",

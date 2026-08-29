@@ -15,6 +15,16 @@ test('generic role-free relay submissions remain backward compatible', () => {
   assert.equal(verdict.bound, false);
 });
 
+test('generic relay task cannot self-assert an ungranted employee role', () => {
+  const verdict = validateEmployeeRoleRelayResultAdmission({
+    task: { taskId: 'generic-claim' },
+    result: roleResult(),
+    receipt: roleReceipt({ result: roleResult() })
+  });
+  assert.equal(verdict.ok, false);
+  assert.ok(verdict.reasonCodes.includes('worker-result-employee-role-not-granted'));
+});
+
 test('incomplete task role identity fails closed', () => {
   const verdict = validateEmployeeRoleRelayResultAdmission({ task: { employeeRoleRef: ROLE_REF }, result: roleResult(), receipt: roleReceipt() });
   assert.equal(verdict.ok, false);

@@ -1,12 +1,12 @@
 {
   "schemaVersion": "uberbond-handoff-1.3.0",
   "sourceMainShaAtMissionStart": "6a6d0bd129afa1e6b17c9593ef9ef10ceb72f69b",
-  "sourceCommit": "42d09245b268c8b6514b176c336d6766afafc534",
+  "sourceCommit": "659f4976859b70bf3578d2b8a59ffdbcbbc8cc4b",
   "currentMainShaAtFinalRefresh": "6a6d0bd129afa1e6b17c9593ef9ef10ceb72f69b",
   "currentMainCommitMessage": "NIGHTFALL: enforce direct relay employee identity (#222)",
   "missionIssue": 173,
   "missionIssueState": "OPEN",
-  "activeMission": "Continue NIGHTFALL MAX with distribution and first economic proof as the priority while maturing current Growth Graph infrastructure. Reuse merged autonomy operations hardening rather than recreating proxy, dedupe, billing, maintenance or telemetry systems.",
+  "activeMission": "NIGHTFALL payment-reconciliation lease continuation: finish the exact-main candidate review, preserve payment truth boundaries, then return to public partner evidence and first economic proof. Do not recreate the already-merged proxy, dedupe, billing intake, maintenance or telemetry foundations.",
   "executiveMissions": {
     "claude": "docs/prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md",
     "sol": "docs/prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md",
@@ -31,20 +31,20 @@
     "Merged private /api/admin/health-check aggregate telemetry for sender health, 24h outbound volume, queue/dead-letter state, DB connection utilization and egress health. It requires ADMIN_HEALTH_SECRET and exposes no recipient list.",
     "Migration 101_autonomy_operations_hygiene.sql adds egress_route_health, prospect_identity_keys, outbound_contact_guard and billing_webhook_inbox.",
     "Focused pure-module audit suite: 9/9 PASS. Independent mutations removing anti-evasion admission, cross-inbox dedupe or billing HMAC each reduced the suite to 8/9 and were killed. Billing Web Request route valid/bad signature harness PASS.",
-    "Older PRs #207 and #208 are explicitly marked superseded by merged #209."
+    "Older PRs #207 and #208 are explicitly marked superseded by merged #209.",
+    "PR #224 is the live non-draft successor for the payment-reconciliation lease slice. Its latest remote head is 42d09245b268c8b6514b176c336d6766afafc534; this continuation adds explicit claim-worker identity, returns the persisted lease owner, makes the PostgreSQL parameter typing portable, and fixes the retry-due/reclaim sequence in the real-PostgreSQL proof.",
+    "Local exact-candidate proof: payment lease/watchdog suite 9/9 PASS, PGlite migration plus lease lifecycle PASS, syntax PASS, deterministic 2775 tests with 2727 pass/0 fail/48 skipped, relay safety 150/150, mutation war 75 mutations with 74 killed/0 not killed/1 PostgreSQL-dependent skip."
   ],
   "blockers": [
-    "The protected lite project has a READY preview for current branch head ec0dd75168e6e6e489395851cc4250729616bf27 (dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg), but the full uberbondd project has no exact-head deployment and its Vercel status still reports the build-rate-limit target (upgradeToPro=build-rate-limit). The lite preview is not production activation or full-project merge proof. Predecessor 31dbb897fa793270cc80928f5d451e90c80cda77 is READY, but is not the current candidate.",
-    "The real PostgreSQL lease proof is not executable in this runtime: OMNIA_V9_TEST_DATABASE_URL is absent, and the embedded fallback cannot create its postgres system group under the container restriction. Do not claim the real-PostgreSQL gate.",
-    "GitHub Actions run 33256756811 reports failure before source execution: all jobs have steps: [] and runner_id 0. This is infrastructure non-evidence, not a source result.",
-    "The browser gate is blocked in this runtime: the pinned Chromium executable is absent and Playwright CDN installation timed out. No browser pass is claimed.",
-    "No outbound authorization, payment provider, enrichment provider, discovery adapter, configured egress routes, or verified customers. These are external activation/economic-proof blockers, not reasons to invent production evidence."
+    "The live Vercel connector now verifies both UberBond projects. Exact current-main/payment-lease head 42d0924... is not deployed; the latest READY preview for PR #224 is predecessor 31dbb897..., and both current PR deployment checks report the free-tier api-deployments-free-per-day limit. Do not upgrade or spend.",
+    "GitHub Actions produces zero-step jobs with no runner assigned, so hosted CI yields no evidence either way. External to this lane; do not treat its red as a source failure or its green as a pass.",
+    "No outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Every one of these is an external activation, not an engineering task."
   ],
   "nextActions": [
-    "PR #224: do not merge until the full uberbondd project obtains a READY deployment for current branch head ec0dd75168e6e6e489395851cc4250729616bf27 and the real PostgreSQL lease suite executes from a trustworthy runtime. The lite exact-head preview is recorded as partial evidence only.",
-    "Commercial lane: keep the canary decision unchanged, but the next economic proof is still an authorized buyer/payment path. No outbound or provider calls are authorized in this slice; prepare only evidence and delivery prerequisites until that boundary changes.",
-    "Engineering lane: retain the payment lease ownership/cap protections and the fail-closed watchdog. Do not add a production reconciliation caller without a real payment provider, canonical receipt path, and activation authority.",
-    "ANY LANE: PRs #207 and #208 remain superseded by the autonomy hardening on main; the decision-consumer sweep remains COMPLETE and must not be reopened without a new import-graph finding."
+    "CLAUDE: review and merge PR #224 only after the exact remote head and its proof receipt are refreshed; the current Vercel rate limit prevents exact-head deployment proof, so do not claim production activation.",
+    "SOL: enrich the existing partner-canary seed universe with public website evidence only, then rank multi-client agency fit. No private-contact inference, contact, outbound, or campaign activation.",
+    "CLAUDE/SOL: once owner-only payment-provider identity/KYC and authorization exist, connect a real reconciliation caller/provider adapter to the lease repository. Until then the inbox remains evidence input and cannot unlock fulfillment.",
+    "ANY LANE: the decision-consumer sweep is COMPLETE across all eight families -- see decisionConsumerSweep. Do not re-run it as though it were open; three derived tests now fail if a new module reopens it."
   ],
   "production": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
@@ -53,20 +53,13 @@
     "observedProductionDeploymentId": "dpl_DVtL6XTs6yWg2DsDHX1LJnB5hDWA",
     "observedProductionSourceSha": "b156566c69f1d1d0e7e01b015afa474e36041276",
     "observedProductionState": "READY",
+    "latestPreviewDeploymentId": "dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y",
+    "latestPreviewSourceSha": "31dbb897fa793270cc80928f5d451e90c80cda77",
+    "latestPreviewState": "READY",
     "currentMainSha": "6a6d0bd129afa1e6b17c9593ef9ef10ceb72f69b",
     "currentMainExactProduction": false,
-    "latestDeploymentBlocker": "VERCEL_BUILD_RATE_LIMIT_RETRY_IN_24_HOURS__FULL_EXACT_HEAD_EC0_NOT_DEPLOYED",
-    "status": "PUBLIC_SITE_LIVE__FULL_PRODUCTION_STALE__LITE_EXACT_HEAD_PREVIEW_READY",
-    "observedCandidatePreview": {
-      "sourceSha": "ec0dd75168e6e6e489395851cc4250729616bf27",
-      "fullProject": "NOT_DEPLOYED_BUILD_RATE_LIMIT",
-      "privateLiteProject": {
-        "deploymentId": "dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg",
-        "state": "READY",
-        "url": "uberbondd-lite-private-g0incgywk-mohammedwessam2007s-projects.vercel.app"
-      },
-      "isProduction": false
-    }
+    "latestDeploymentBlocker": "VERCEL_FREE_DEPLOYMENT_RATE_LIMIT_API_DEPLOYMENTS_FREE_PER_DAY",
+    "status": "PUBLIC_SITE_LIVE__PRODUCTION_STALE_RELATIVE_TO_MAIN"
   },
   "commercialDecision": {
     "canary": "White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing and electrical businesses",
@@ -79,30 +72,29 @@
     "retainedCustomers": 0
   },
   "verification": {
-    "executedAt": "2026-08-29T14:05:06Z",
+    "executedAt": "2026-08-29T14:24:00Z",
     "executedBy": "local execution in this session, not hosted CI",
-    "candidateHead": "42d09245b268c8b6514b176c336d6766afafc534",
-    "publishedBranchHead": "ec0dd75168e6e6e489395851cc4250729616bf27",
-    "focusedProof": "payment lease/repository/watchdog plus billing route and canon/reachability checks: 25/25 PASS; real PostgreSQL proof test was discovered and skipped because OMNIA_V9_TEST_DATABASE_URL is absent",
     "gates": {
       "check:syntax": "603 files parse",
-      "test:deterministic": "2773 tests, 2725 pass, 0 fail, 48 skipped",
+      "test:deterministic": "2775 tests, 2727 pass, 0 fail, 48 skipped",
       "test:relay-safety": "150/150",
-      "test:postgres-real": "BLOCKED_RUNTIME: not run; no OMNIA_V9_TEST_DATABASE_URL and embedded fallback cannot create postgres system group",
-      "test:browser": "BLOCKED_RUNTIME: not run; pinned Chromium absent and Playwright CDN installation timed out",
-      "test:mutation-war": "75 mutations, 74 killed, 0 not killed, 1 PostgreSQL-only mutation skipped (STORE-01)",
+      "payment-reconciliation-leases": "9/9, including PGlite migration and lease lifecycle proof",
+      "test:postgres-real": "NOT RUN: OMNIA_V9_TEST_DATABASE_URL is not set; embedded-postgres fallback is blocked by the container groupadd audit-interface restriction",
+      "test:browser": "BLOCKED: pinned Chromium is absent and the CDN install attempt timed out",
+      "test:mutation-war": "75 mutations, 74 killed, 0 not killed, 1 skipped (STORE-01 requires real PostgreSQL)",
       "npm audit --omit=dev": "0 vulnerabilities"
     }
   },
   "maximumThreeFounderActions": [
     {
-      "reason": "The exact candidate head is blocked by the connected Vercel build-rate limit; a predecessor build is READY but cannot prove the current source.",
-      "screen": "https://vercel.com/mohammedwessam2007s-projects",
-      "action": "No action now. Wait for the existing Vercel build-rate limit to reset, then trigger/observe an exact-head preview without upgrading the plan.",
-      "founderMinutes": 1,
-      "costUsd": 0,
-      "evidenceRequired": "A READY deployment whose source SHA is exactly 42d09245b268c8b6514b176c336d6766afafc534, or a later reviewed head.",
-      "defaultRecommendation": "Do not spend money or upgrade Vercel; retry after the platform limit resets."
+      "reason": "Canonical cleared payment truth and the future payment-to-fulfillment loop remain blocked on owner-only provider identity and onboarding; the repository must not guess KYC, settlement, or payment authority.",
+      "screen": "Lemon Squeezy merchant dashboard",
+      "action": "Complete or verify the merchant account/KYC for the chosen payment provider, without enabling live customer charges until the offer and delivery path are owner-approved.",
+      "founderMinutes": 15,
+      "costUsd": null,
+      "costStatus": "UNKNOWN_UNTIL_PROVIDER_TERMS_ARE_REVIEWED",
+      "evidenceRequired": "Provider account status, supported settlement currency, webhook secret availability, and any KYC/billing requirements.",
+      "defaultRecommendation": "Do this only when ready to authorize the first bounded payment experiment; no spend or live charge is required for the repository work."
     },
     {
       "reason": "Hosted CI reports failure on jobs where no runner was ever assigned and no step ran. It is currently incapable of producing evidence, which means real regressions could hide behind noise everyone has learned to ignore.",
@@ -140,14 +132,14 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE_EXCEPT_EXISTING_PROJECT_DEPLOYMENT_AUTHORIZED_WHEN_VERIFIED",
-  "headSha": "42d09245b268c8b6514b176c336d6766afafc534",
+  "headSha": "659f4976859b70bf3578d2b8a59ffdbcbbc8cc4b",
   "cloudActivationTruth": {
-    "fullProjectExists": "OBSERVED_CONNECTED_VERCEL_API",
-    "privateLiteProjectExists": "OBSERVED_CONNECTED_VERCEL_API",
+    "fullProjectExists": "VERIFIED_EXISTS",
+    "privateLiteProjectExists": "VERIFIED_EXISTS",
     "currentMainExactProductionDeploymentProven": false,
     "cronRegistrationProven": false,
     "cronDeliveryProven": false,
-    "contradiction": "An older handoff preserved a conflicting empty-list/404 Vercel audit. The current connected Vercel API session on 2026-08-29 successfully listed deployments for both known projects, including a READY exact-head preview for the protected lite project and the existing full production deployment. Project reachability is therefore observed, but full exact-head promotion is still blocked: the lite status is success while the full status points to the build-rate-limit upgrade target. The earlier negative observation remains below as historical evidence rather than being silently deleted.",
+    "contradiction": "Historical empty-list/404 observations from an earlier connector path conflicted with deployment receipts. A fresh live Vercel connector re-check on 2026-08-29 resolved the contradiction: both named projects are listed and individually readable on team_A9LnjIuS5PU0rNetsHMu1N0r. The full project latest READY preview is dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y from predecessor 31dbb897..., while production remains the older READY deployment dpl_DVtL6XTs6yWg2DsDHX1LJnB5hDWA from b156566.... The exact current PR #224 head is still not deployed because Vercel reports api-deployments-free-per-day.",
     "observations": [
       {
         "claim": "two projects exist (full + private lite)",
@@ -176,40 +168,32 @@
         "note": "A 404 on an exact project id is a direct answer, unlike an empty list which could be a scope artifact. It still proves only that the project is unreachable through this connection."
       },
       {
-        "claim": "full project and private lite project deployments are readable through the connected Vercel API",
-        "observedVia": "connected Vercel list_deployments for prj_RWUPf14w1xIz9NK92AbNW5z7qDCg and prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz",
+        "claim": "full and private-lite projects are readable and exist on the configured team",
+        "observedVia": "live Vercel connector list_projects plus get_project for prj_RWUPf14w1xIz9NK92AbNW5z7qDCg and prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz",
         "observedAt": "2026-08-29",
-        "result": "known projects and deployments returned; full production READY on b156566c; lite production READY on 6a6d0bd; predecessor 31db READY on both preview surfaces",
-        "evidenceRef": "Vercel connector deployment observations in this execution"
+        "result": "both projects returned; full latest deployment dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y READY; private-lite latest deployment dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg READY",
+        "evidenceRef": "live Vercel connector receipt in current session"
       },
       {
-        "claim": "candidate head 42d09245b268c8b6514b176c336d6766afafc534 has no exact-head Vercel deployment",
-        "observedVia": "connected Vercel list_deployments plus GitHub combined status",
+        "claim": "exact current PR #224 head is not yet deployed",
+        "observedVia": "live Vercel deployment metadata and PR #224 status/comments",
         "observedAt": "2026-08-29",
-        "result": "no deployment with candidate source SHA; both Vercel statuses failed with upgradeToPro=build-rate-limit",
-        "evidenceRef": "github combined status for 42d09245b268c8b6514b176c336d6766afafc534"
-      },
-      {
-        "claim": "current receipt head ec0dd75168e6e6e489395851cc4250729616bf27 has a private-lite READY preview but no full-project READY preview",
-        "observedVia": "connected Vercel list_deployments and GitHub combined status",
-        "observedAt": "2026-08-29",
-        "result": "lite dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg READY; full status failed with upgradeToPro=build-rate-limit and no matching full deployment was listed",
-        "evidenceRef": "Vercel connector deployment observations and GitHub combined status for ec0dd75168e6e6e489395851cc4250729616bf27"
+        "result": "latest READY preview is predecessor 31dbb897...; PR #224 head 42d09245... has deployment checks failed with api-deployments-free-per-day",
+        "evidenceRef": "PR #224 Vercel bot comments 5462828001 and 5462828066"
       }
     ],
-    "resolvedBy": "Project reachability is resolved for this connected session. Full exact-head promotion remains pending the existing Vercel build-rate-limit reset; no plan upgrade or spend is authorized."
+    "resolvedBy": "Live Vercel connector re-check on 2026-08-29; project existence is no longer a blocker."
   },
   "repositoryPublicationEffects": {
     "productionDeploymentsAuthorizedOrPerformedByThisLane": 0,
     "pullRequestsCreated": 1,
     "pullRequestsMerged": 1,
     "issueCommentsPosted": 1,
-    "previewDeploymentsObserved": 1,
     "note": "GitHub repository operations are not customer-facing external effects."
   },
   "lastCompletedSlice": {
-    "mission": "NIGHTFALL MAX: close the relay employee identity seam, then sweep the repository for the defect shape it belongs to.",
-    "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
+    "mission": "NIGHTFALL payment-reconciliation lease continuation: recover crashed claims without widening payment or fulfillment authority.",
+    "branch": "gpt/payment-reconciliation-leases-20260829 (PR #224); local review continuation: continuation-224",
     "pullRequestsMerged": [
       212,
       213,
@@ -219,7 +203,10 @@
       218,
       219
     ],
-    "verdict": "INTERNALLY_EXHAUSTED_UNDER_CURRENT_ATTACK_SURFACE__EXTERNAL_PROOF_PENDING",
+    "verdict": "CANDIDATE_VERIFIED_UNMERGED__EXACT_HEAD_DEPLOYMENT_AND_PROVIDER_PROOF_PENDING",
+    "activePullRequest": 224,
+    "candidateHeadAtRefresh": "42d09245b268c8b6514b176c336d6766afafc534",
+    "candidateReviewContinuation": "659f4976859b70bf3578d2b8a59ffdbcbbc8cc4b",
     "theShape": "One defect class accounts for most of this slice: a guard is protected and the thing that consults it is not. Protecting the reader while leaving the writer editable was already written down for revenue.mjs; it had never been applied to the outbound send loop, and never to the enforcement machinery itself. Both are now closed, and the rules that close them are derived from the import graph rather than from lists maintained by hand -- which caught two things the hand lists missed.",
     "defects": [
       {
@@ -308,8 +295,8 @@
     ]
   },
   "continuousIntegrationTruth": {
-    "workflowRun": 33256756811,
-    "headSha": "42d09245b268c8b6514b176c336d6766afafc534",
+    "workflowRun": 33245240943,
+    "headSha": "cd4b9d8897106dfd83d005cb826210e6ab4c0b76",
     "jobs": [
       "deterministic",
       "postgres",
@@ -320,82 +307,15 @@
     "proof": "runner_id 0, runner_name empty, no steps executed, log download returns HTTP 404, all three jobs completed in 1-3 seconds.",
     "ruling": "Not a pass and not a source failure. These results are not the basis for the merge and were not treated as one; the merge rests on the locally executed gates above."
   },
-  "currentExecutionReceipt": {
-    "mission": "NIGHTFALL continuation: repair payment-reconciliation lease ownership and attempt-cap races, bind the real PostgreSQL proof to the same worker contract, and refresh current-state receipts.",
-    "branch": "gpt/payment-reconciliation-leases-20260829",
-    "pullRequest": 224,
-    "pullRequestState": "OPEN_NON_DRAFT__NOT_MERGED",
-    "candidateHeadSha": "42d09245b268c8b6514b176c336d6766afafc534",
-    "baseMainSha": "6a6d0bd129afa1e6b17c9593ef9ef10ceb72f69b",
-    "filesChangedInSlice": [
-      "artifacts/system-readiness.json",
-      "config/reachability-classification.json",
-      "config/system-readiness-input.json",
-      "docs/CURRENT_SYSTEM_STATE.md",
-      "scripts/system-readiness.mjs",
-      "src/billing-webhook-repository.mjs",
-      "tests/payment-reconciliation-leases.test.mjs",
-      "tests/payment-reconciliation-postgres-real.test.mjs"
-    ],
-    "testsActuallyExecuted": [
-      "npm ci --ignore-scripts",
-      "npm run check:syntax: 603 files parse",
-      "npm run test:deterministic: 2773 tests, 2725 pass, 0 fail, 48 skipped",
-      "npm run test:relay-safety: 150/150",
-      "npm run test:mutation-war: 75 mutations, 74 killed, 0 not killed, 1 PostgreSQL-only mutation skipped",
-      "npm audit --omit=dev: 0 vulnerabilities",
-      "focused payment/billing/canon/reachability suite: 25/25 PASS"
-    ],
-    "mutationEvidence": [
-      "cross-inbox daily guard mutation was killed",
-      "anti-evasion egress guard mutation was killed",
-      "billing HMAC verification mutation was killed",
-      "payment lease owner enforcement and attempt-cap tests pass in the focused suite"
-    ],
-    "externalVerification": {
-      "vercel": "PARTIAL: private-lite exact branch-head preview ec0dd75168e6e6e489395851cc4250729616bf27 is READY as dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg; full uberbondd exact-head deployment remains BLOCKED by build-rate-limit; no production deployment performed",
-      "postgres": "BLOCKED_RUNTIME: no OMNIA_V9_TEST_DATABASE_URL; embedded fallback cannot create postgres system group",
-      "browser": "BLOCKED_RUNTIME: pinned Chromium absent; Playwright CDN install timed out",
-      "githubActions": "INFRASTRUCTURE_NON_EVIDENCE: run 33256756811 has zero steps and runner_id 0"
-    },
-    "deploymentEvidence": {
-      "productionDeploymentsPerformed": 0,
-      "previewDeploymentsObserved": 1,
-      "privateLite": {
-        "deploymentId": "dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg",
-        "sourceSha": "ec0dd75168e6e6e489395851cc4250729616bf27",
-        "state": "READY",
-        "production": false
-      },
-      "full": {
-        "sourceSha": "6bb681152804977496eea1e677dc70c098258890",
-        "state": "NOT_DEPLOYED_BUILD_RATE_LIMIT",
-        "production": false
-      }
-    },
-    "merged": false,
-    "productionDeployment": false,
-    "externalEffects": {
-      "customerContacts": 0,
-      "outboundMessages": 0,
-      "providerCalls": 0,
-      "moneyMovement": 0,
-      "spendCents": 0,
-      "productionDataMutations": 0,
-      "previewDeploymentsObserved": 1,
-      "liteTouched": false
-    },
-    "nextHighestValueMission": "Obtain exact-head build and real PostgreSQL proof when the external runtime/platform blockers clear; until then preserve the commercial canary and prepare for authorized first buyer/payment evidence without outbound execution."
-  },
   "truthRestrictions": [
     "Zero verified customers, zero cleared revenue, zero accepted deliveries, zero retained customers. Unchanged by this slice and preserved as zero.",
     "No claim of production deployment, cron registration or cron delivery for current main.",
     "Nothing in this slice changed what the system may do. It changed what the autonomous path may edit.",
-    "This slice is internally verified to the available runtime and externally blocked on exact-head Vercel proof, real PostgreSQL execution, browser runtime, and commercial/provider activation."
+    "Internally exhausted under the current test and attack surface. External proof pending."
   ],
   "reachability": {
-    "srcModules": 251,
-    "reachableFromProduction": 124,
+    "srcModules": 249,
+    "reachableFromProduction": 123,
     "reachableFromOperatorScriptsOnly": 9,
     "noEntryPointAtAll": 117,
     "note": "src is now walked recursively. Earlier figures excluded src/overnight and src/omnia-v9 entirely."

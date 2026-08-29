@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "uberbond-nightfall-payment-reconciliation-handoff-2.0.0",
+  "baseMainSha": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
+  "branch": "gpt/payment-reconciliation-leases-main-refresh-20260829",
+  "mission": "Recover crashed billing reconciliation claims as bounded leases without upgrading webhook evidence into payment truth.",
+  "sourceDonorPr": 224,
+  "sourceDonorHeadObserved": "22444462cf405edc3f32fd04a61ab84d2611fa18",
+  "dedupe": {
+    "strategy": "fresh-current-main-transplant",
+    "reason": "PR 224 was 26 commits ahead and 2 behind canonical main; only the payment runtime/migration/test slice was transplanted to avoid dragging stale continuity and research lineage.",
+    "liteTouched": false
+  },
+  "runtimeInvariants": [
+    "CLAIMED billing reconciliation work can be reclaimed only after a stale lease threshold and below the bounded attempt cap.",
+    "Attempts at or above the cap move to UNCERTAIN rather than being silently retried or promoted.",
+    "RECONCILED requires a non-empty canonical payment receipt reference.",
+    "Only the worker owning the current CLAIMED lease may finish the event.",
+    "RETRYABLE releases the lease and schedules a bounded next attempt.",
+    "Webhook or reconciliation state never grants fulfillment unlock authority."
+  ],
+  "proofBoundary": {
+    "historicalDonorFocusedSuite": "9/9 PASS recorded on PR 224; not re-executed by this connector-only refresh run",
+    "historicalDonorDeterministic": "2775 tests, 2727 pass, 0 fail, 48 skipped recorded on PR 224",
+    "historicalDonorRelaySafety": "150/150 recorded on PR 224",
+    "historicalDonorMutationWar": "75 mutations, 74 killed, 0 not killed, 1 PostgreSQL-only skip recorded on PR 224",
+    "historicalDonorAudit": "0 vulnerabilities recorded on PR 224",
+    "currentBranchExactHeadBuild": "PENDING",
+    "currentBranchRealPostgresExecution": "PENDING",
+    "modelProviderReceipt": null
+  },
+  "promotionGate": [
+    "refresh canonical main and open PRs immediately before promotion",
+    "obtain exact-head build receipt for this refreshed branch",
+    "execute payment-reconciliation-postgres-real.test.mjs against a trustworthy throwaway PostgreSQL runtime",
+    "merge only if exact-head proof remains clean"
+  ],
+  "productionTruth": {
+    "deploymentAuthorizedOnlyAfterVerifiedBuild": true,
+    "productionDeploymentPerformedByThisRun": false,
+    "customerOrProductionDataMutationPerformed": false
+  },
+  "externalEffectLedger": {
+    "customerProspectContacts": 0,
+    "outboundMessages": 0,
+    "providerCalls": 0,
+    "modelProviderExecutions": 0,
+    "purchases": 0,
+    "spendCents": 0,
+    "dnsChanges": 0,
+    "credentialKycPaymentChanges": 0,
+    "moneyMovement": 0,
+    "customerProductionDataMutations": 0,
+    "productionDeployments": 0
+  }
+}

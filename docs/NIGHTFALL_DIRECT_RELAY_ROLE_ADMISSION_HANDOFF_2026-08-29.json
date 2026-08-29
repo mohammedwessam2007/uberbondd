@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "uberbond-nightfall-handoff-1.0.0",
+  "baseMainSha": "a8a0caa26ec5fdd63f574f28f27f9b376a2589a7",
+  "baseMainMessage": "NIGHTFALL: bind AI employee identity through terminal ingestion",
+  "reconciledPullRequests": {
+    "188": "CLOSED_SUPERSEDED_BY_189",
+    "189": "MERGED_RELAY_TRANSPORT_ROLE_PRESERVATION",
+    "190": "MERGED_TERMINAL_EMPLOYEE_IDENTITY_BINDING"
+  },
+  "claudeNight01": {
+    "canonicalChain": [
+      "scheduled TaskIntent",
+      "deterministic employee role",
+      "role-bound relay task",
+      "cloud queue transport preserving role identity",
+      "worker pre-model role validation",
+      "role-bound worker result and receipt",
+      "autonomy terminal identity verification"
+    ],
+    "canonicalChainStatus": "IMPLEMENTED_ON_MAIN",
+    "remainingReview": "submitCloudRelayResult is a reusable public transport boundary and does not itself independently validate employee role identity before accepting a direct caller submission.",
+    "thisBranchCapability": "Pure fail-closed employee relay-result admission validator plus hostile tests. It is intentionally not yet wired into submitCloudRelayResult because this runtime cannot execute an exact repository checkout and current Vercel preview capacity is rate-limited; no integration-pass claim is made.",
+    "promotionGate": "Wire validateEmployeeRoleRelayResultAdmission immediately after durable job lookup and before replay/lease terminal transition, then execute focused direct-admission tests and existing cloud-relay/worker/autonomy suites on the exact head before merge."
+  },
+  "liveInfrastructureTruth": {
+    "existingVercelProject": "uberbondd",
+    "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
+    "latestObservedProductionDeployment": "dpl_DVtL6XTs6yWg2DsDHX1LJnB5hDWA",
+    "latestObservedProductionSourceSha": "b156566c69f1d1d0e7e01b015afa474e36041276",
+    "currentMainProductionProven": false,
+    "note": "Recent newer previews exist, but the returned production deployment window remains older than current main. Vercel has also reported the free-tier deployment-per-day limit on later PRs."
+  },
+  "verificationTruth": {
+    "localCheckout": "BLOCKED_GITHUB_DNS_RESOLUTION",
+    "newFocusedTestsCommitted": true,
+    "newFocusedTestsExecuted": false,
+    "vercelExactHeadBuild": "NOT_YET_OBSERVED",
+    "githubActionsExactHead": "NOT_YET_OBSERVED"
+  },
+  "externalEffectLedger": {
+    "customerProspectContact": 0,
+    "outboundMessages": 0,
+    "modelExecutions": 0,
+    "providerExecutions": 0,
+    "spendCents": 0,
+    "purchases": 0,
+    "dnsChanges": 0,
+    "credentialKycPaymentChanges": 0,
+    "moneyMovement": 0,
+    "customerProductionDataMutations": 0
+  },
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenue": 0,
+    "acceptedDeliveries": 0,
+    "unattendedDurationProof": false
+  },
+  "protectedSurfaces": {
+    "lite": "UNTOUCHED"
+  }
+}

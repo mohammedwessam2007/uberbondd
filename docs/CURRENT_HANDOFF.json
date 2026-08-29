@@ -1,68 +1,55 @@
 {
   "schemaVersion": "uberbond-handoff-1.1.0",
   "sourceMainShaAtMissionStart": "92fa9adf7ec53c94543f8985fb052143fa7ec39f",
-  "sourceCommit": "dc154ac20a3a3a1736666261bc4a2e952c6ea9dc",
-  "currentMainShaAtFinalRefresh": "dc154ac20a3a3a1736666261bc4a2e952c6ea9dc",
-  "currentMainCommitMessage": "Add Cost Stage Fulfill Learn autonomy spine",
-  "activeBranch": "gpt/handoff-cost-stage-fulfill-learn-20260829",
+  "sourceCommit": "d55337daf2afb66cafdce3881dc48878eabe2538",
+  "currentMainShaAtFinalRefresh": "d55337daf2afb66cafdce3881dc48878eabe2538",
+  "currentMainCommitMessage": "Enforce public evidence before paid enrichment",
+  "activeBranch": "gpt/handoff-paid-enrichment-admission-20260829",
   "activePullRequest": null,
   "missionIssue": 173,
   "missionIssueState": "OPEN",
-  "activeMission": "Continue NIGHTFALL from the unified Growth Graph with distribution and first real economic proof as the top priorities. Reuse the cache-first evidence tier, asynchronous content staging, programmatic fulfillment router and bounded economic allocator rather than creating parallel systems.",
+  "activeMission": "Continue NIGHTFALL from the unified Growth Graph with distribution and first real economic proof as the top priorities. Reuse current Cost -> Stage -> Fulfill -> Learn and paid-enrichment admission primitives rather than creating parallel systems.",
   "completed": [
     "Repository brain bootstraps source-backed Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation lineage and preserves Trinity/Growth Graph continuity across chat resets.",
     "AI employee role identity is preserved end-to-end on the canonical scheduled-worker-terminal path with hostile substitution mutation proof.",
-    "PR #194 merged the bounded Braze/Customer.io-style enterprise journey compiler and compliant Sender Infrastructure Mesh.",
-    "PR #195 merged the unified Growth Graph capability frontier and evidence-to-content compiler.",
-    "PR #197 merged the public partner ecosystem source registry, ten-company research seed universe and bounded partner canary activation packet.",
-    "PR #200 merged as dc154ac20a3a3a1736666261bc4a2e952c6ea9dc and added the Cost -> Stage -> Fulfill -> Learn autonomy spine.",
-    "Cost-aware public evidence now plans fresh cache -> DNS/official public sources -> static HTTP -> browser only after observed static-HTTP insufficiency -> licensed API -> model inference, stopping when sufficient evidence is reached.",
-    "Public-evidence cache entries are provenance/hash/expiry bound and public extraction remains subject to current source-policy, robots, terms/purpose and public-source gates; private/credentialed/CAPTCHA-bypass/personal-data inference remains prohibited.",
-    "Asynchronous staged content now has a Postgres repository with source evidence, policy/version refs, payload hashes, expiry and concurrent FOR UPDATE SKIP LOCKED claiming; staged content grants no send or publication authority.",
-    "Programmatic fulfillment now compiles idempotent provisioning plans only after canonical cleared-payment evidence and requires provider receipts for provisioning truth; uncertain effects block blind retry.",
-    "Programmatic fulfillment prohibits raw long-lived credential/token delivery and unexpected raw token/secret fields. Customer access should use provider invite, expiring magic link or one-time claim mechanisms.",
-    "Economic feedback allocation now proposes bounded business-profile weights using paid-and-accepted outcomes, cleared contribution and founder minutes, with minimum evidence thresholds, shrinkage, exploration floor, max per-cycle deltas and optimistic concurrency.",
-    "Economic allocation rejects sensitive personal targeting dimension keys while allowing legitimate business dimensions such as industry=healthcare; it never changes code, policy or external authority.",
-    "Post-review focused Cost/Stage/Fulfill/Learn suite: 10/10 PASS. Module syntax checks PASS. Earlier hostile mutations removing the browser-cost guard and sensitive-dimension guard were killed."
+    "PR #194 merged bounded enterprise journey orchestration plus the compliant Sender Infrastructure Mesh.",
+    "PR #195 merged the unified Growth Graph frontier plus evidence-to-content compiler.",
+    "PR #197 merged the public partner ecosystem source registry, ten-company research seed universe and partner canary activation packet.",
+    "PR #200 merged the Cost -> Stage -> Fulfill -> Learn autonomy spine: provenance-bound public evidence cache/tiering, asynchronous Postgres staged content, programmatic fulfillment planning/provider receipts, and bounded economic feedback allocation.",
+    "Cost/Stage/Fulfill/Learn post-review focused suite: 10/10 PASS; module syntax checks PASS. Review fixed healthcare-industry false blocking and raw-token-field normalization before merge.",
+    "PR #202 merged as d55337daf2afb66cafdce3881dc48878eabe2538 and composes the cache/public evidence tier with the canonical budgeted enrichment waterfall.",
+    "Paid licensed enrichment is now denied at plan time until a field has a current durable lower-tier exhaustion record with evidence/policy refs and a non-future observation time. Fresh cache skips provider planning and pending DNS/registry/HTTP/browser work keeps paid providers hidden.",
+    "Paid-enrichment composer exact syntax check PASS; admission logic with contract-faithful dependency stubs 4/4 PASS. Forcing unconditional paid admission reduced the mutation run to 1/4, killing the guard. Real-dependency repository test is retained for a full checkout runner."
   ],
   "blockers": [
     "The ten partner seeds still require individual public-site evidence qualification for vertical fit, multi-client operation and relevant lead/conversion services before any contact route is considered.",
-    "Authenticated enrichment execution remains gated by provider selection, credentials, terms and budget even though the provider-neutral waterfall and cache/public evidence tiers exist.",
-    "The new public-evidence tier is a planning/cache primitive; it is not yet fully composed into the live enrichment waterfall and actual web-extraction adapter execution path.",
-    "The staged-content repository is implemented but still needs scheduled batch-generation integration from evidence-to-content output and live Postgres migration/runtime proof on exact current main.",
-    "Programmatic fulfillment provider adapters are not yet connected because the first paid offer/provider provisioning surface is not externally activated.",
-    "The economic allocator has no real commercial observations yet; verified customers remain 0, cleared revenue $0, accepted deliveries 0 and retained customers 0, so no real economic reallocation is proven.",
+    "Actual public-source/web extraction and licensed-provider execution remain externally or adapter gated. The cost-tier composer is plan-only and performs zero network/provider calls.",
+    "Authenticated enrichment provider execution requires provider selection, credentials, terms and budget. Current code now prevents paid planning from bypassing cheaper evidence exhaustion.",
+    "The staged-content repository still needs scheduled batch-generation integration from evidence-to-content output and live Postgres migration/runtime proof on exact current main.",
+    "Programmatic fulfillment provider adapters remain unconnected because the first paid ServiceSKU/provider provisioning surface is not externally activated.",
+    "The economic allocator has no real commercial observations. Customers remain 0, cleared revenue $0, accepted deliveries 0 and retained customers 0, so no real economic reallocation is proven.",
     "Official/authorized social provider adapters remain unconnected; unsupported LinkedIn connection/DM/engagement automation must not be replaced with browser-bot evasion.",
     "Sender Infrastructure Mesh has no real sender/domain/IP telemetry until external infrastructure is configured.",
-    "Latest exact main is not yet proven deployed to Vercel after PR #200; prior Hobby deployment quota constraints must be rechecked rather than assumed resolved.",
+    "Latest exact main is not yet proven deployed to Vercel after PR #202; prior Hobby quota constraints must be rechecked rather than assumed resolved.",
     "Real commercial activation still requires legal/tax/payment eligibility, buyer reality, provider/KYC state and consequence-specific distribution authority."
   ],
   "nextActions": [
-    "Distribution first: qualify the ten partner research seeds using public evidence only, then preserve a ranked research-ready partner universe without collecting private contact data.",
-    "Compose the cache-first public evidence tier into the existing budgeted enrichment waterfall/web-extraction path so lower-cost evidence is actually exhausted before licensed API spend, with measurable cache hit rate, source coverage, browser usage and provider cost.",
-    "Wire evidence-to-content batch output into staged Postgres content and the canonical journey/sender paths; then connect programmatic fulfillment only to the first ServiceSKU/provider that real commercial activation requires.",
-    "Once real paid-and-accepted outcomes exist, feed Growth Graph attribution, costs and founder minutes into the bounded economic allocator; until then do not manufacture learning weights from synthetic data."
-  ],
-  "unresolvedNames": [
-    {
-      "name": "Unreconstructed Owner-Recalled UberBond Programs",
-      "status": "OWNER_RECALLED_UNRESOLVED",
-      "next": "When a specific missing program is recalled, record the exact name and search repository receipts, chat exports and the source registry before assigning semantics."
-    }
+    "Distribution first: qualify the ten partner research seeds using public evidence only and preserve a ranked research-ready universe without collecting private contact data.",
+    "Wire actual evidence acquisition outcomes into lower-tier exhaustion receipts and cache metrics so the cost-tier composer can drive measurable cache hit rate, source coverage, browser usage and provider cost before authenticated paid enrichment is enabled.",
+    "Wire evidence-to-content batch output into staged Postgres content and canonical journey/sender paths; connect programmatic fulfillment only to the first ServiceSKU/provider real commercial activation requires.",
+    "Once real paid-and-accepted outcomes exist, feed Growth Graph attribution, variable costs and founder minutes into bounded economic allocation. Never manufacture learning weights from synthetic data."
   ],
   "growthGraph": {
     "frontierArtifact": "artifacts/growth-graph-capability-frontier.json",
-    "architectureDoc": "docs/UBERBOND_GROWTH_GRAPH_EXPANSION.md",
     "costStageFulfillLearnArtifact": "artifacts/cost-stage-fulfill-learn-frontier.json",
-    "costStageFulfillLearnDoc": "docs/UBERBOND_COST_STAGE_FULFILL_LEARN_SPINE.md",
     "partnerSourceRegistry": "artifacts/partner-distribution-source-registry-20260829.json",
     "partnerSeedUniverse": "artifacts/partner-canary-seed-universe-20260829.json",
-    "partnerActivationPacket": "docs/distribution/NIGHTFALL_PARTNER_CANARY_ACTIVATION_PACKET.md",
     "capabilities": [
       "Clay-class budgeted evidence waterfall",
       "cache-first public evidence acquisition",
+      "durable lower-tier exhaustion before paid enrichment",
       "partner/white-label distribution",
-      "Braze/Customer.io-style bounded enterprise journeys",
+      "bounded enterprise journeys",
       "compliant Sender Infrastructure Mesh",
       "evidence-to-SEO/AEO/social/video content",
       "asynchronous staged-content repository",
@@ -82,16 +69,16 @@
     "retainedCustomers": 0
   },
   "verification": [
-    "Enterprise journey + Sender Infrastructure Mesh isolated exact logic: 7/7 PASS; sender reputation-evasion mutation killed.",
-    "Evidence-to-content isolated exact logic: 5/5 PASS; syntax check PASS.",
-    "Cost/Stage/Fulfill/Learn post-review focused exact logic: 10/10 PASS; syntax checks PASS.",
-    "Cost/Stage/Fulfill/Learn changed-file set on PR #200 was exactly eight additive files; lite/ untouched.",
+    "Enterprise journey + Sender Infrastructure Mesh isolated logic: 7/7 PASS; sender reputation-evasion mutation killed.",
+    "Evidence-to-content isolated logic: 5/5 PASS; syntax PASS.",
+    "Cost/Stage/Fulfill/Learn post-review focused logic: 10/10 PASS; syntax PASS.",
+    "Paid-enrichment composer syntax PASS; contract-faithful admission tests 4/4 PASS; unconditional-paid-admission mutation 1/4.",
     "No latest-main whole-tree green claim is made from hosted zero-step runners or historical receipts."
   ],
   "maximumThreeFounderActions": [
-    "No founder action is required for the newly merged internal Cost/Stage/Fulfill/Learn primitives.",
+    "No founder action is required for these internal distribution-cost, staging, fulfillment and learning primitives.",
     "Before real commercial contact/payment, clear the exact legal/tax/payment route and minimum provider identity/KYC required for the selected canary.",
-    "When live distribution/provider provisioning is desired, provide consequence-specific authorization and configure required credentials through proper secret/configuration surfaces, never chat."
+    "When live distribution/provider execution is desired, provide consequence-specific authorization and configure required credentials through proper secret/configuration surfaces, never chat."
   ],
   "externalEffectLedger": {
     "liveUberBondWebCrawls": 0,
@@ -107,5 +94,5 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE",
-  "headSha": "dc154ac20a3a3a1736666261bc4a2e952c6ea9dc"
+  "headSha": "d55337daf2afb66cafdce3881dc48878eabe2538"
 }

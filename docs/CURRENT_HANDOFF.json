@@ -34,14 +34,14 @@
     "Older PRs #207 and #208 are explicitly marked superseded by merged #209."
   ],
   "blockers": [
-    "The exact candidate head 42d09245b268c8b6514b176c336d6766afafc534 has no Vercel deployment. Both connected commit statuses report the Vercel build-rate-limit target (upgradeToPro=build-rate-limit). Predecessor 31dbb897fa793270cc80928f5d451e90c80cda77 is READY, but is not the current candidate and is not merge proof.",
+    "The protected lite project has a READY preview for current branch head ec0dd75168e6e6e489395851cc4250729616bf27 (dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg), but the full uberbondd project has no exact-head deployment and its Vercel status still reports the build-rate-limit target (upgradeToPro=build-rate-limit). The lite preview is not production activation or full-project merge proof. Predecessor 31dbb897fa793270cc80928f5d451e90c80cda77 is READY, but is not the current candidate.",
     "The real PostgreSQL lease proof is not executable in this runtime: OMNIA_V9_TEST_DATABASE_URL is absent, and the embedded fallback cannot create its postgres system group under the container restriction. Do not claim the real-PostgreSQL gate.",
     "GitHub Actions run 33256756811 reports failure before source execution: all jobs have steps: [] and runner_id 0. This is infrastructure non-evidence, not a source result.",
     "The browser gate is blocked in this runtime: the pinned Chromium executable is absent and Playwright CDN installation timed out. No browser pass is claimed.",
     "No outbound authorization, payment provider, enrichment provider, discovery adapter, configured egress routes, or verified customers. These are external activation/economic-proof blockers, not reasons to invent production evidence."
   ],
   "nextActions": [
-    "PR #224: do not merge until the exact current head obtains a Vercel READY build and the real PostgreSQL lease suite executes from a trustworthy runtime. Refresh main, the branch ref, and status checks immediately before any merge.",
+    "PR #224: do not merge until the full uberbondd project obtains a READY deployment for current branch head ec0dd75168e6e6e489395851cc4250729616bf27 and the real PostgreSQL lease suite executes from a trustworthy runtime. The lite exact-head preview is recorded as partial evidence only.",
     "Commercial lane: keep the canary decision unchanged, but the next economic proof is still an authorized buyer/payment path. No outbound or provider calls are authorized in this slice; prepare only evidence and delivery prerequisites until that boundary changes.",
     "Engineering lane: retain the payment lease ownership/cap protections and the fail-closed watchdog. Do not add a production reconciliation caller without a real payment provider, canonical receipt path, and activation authority.",
     "ANY LANE: PRs #207 and #208 remain superseded by the autonomy hardening on main; the decision-consumer sweep remains COMPLETE and must not be reopened without a new import-graph finding."
@@ -55,8 +55,18 @@
     "observedProductionState": "READY",
     "currentMainSha": "6a6d0bd129afa1e6b17c9593ef9ef10ceb72f69b",
     "currentMainExactProduction": false,
-    "latestDeploymentBlocker": "VERCEL_BUILD_RATE_LIMIT_RETRY_IN_24_HOURS__EXACT_HEAD_42D_NOT_DEPLOYED",
-    "status": "PUBLIC_SITE_LIVE__PRODUCTION_STALE_RELATIVE_TO_MAIN"
+    "latestDeploymentBlocker": "VERCEL_BUILD_RATE_LIMIT_RETRY_IN_24_HOURS__FULL_EXACT_HEAD_EC0_NOT_DEPLOYED",
+    "status": "PUBLIC_SITE_LIVE__FULL_PRODUCTION_STALE__LITE_EXACT_HEAD_PREVIEW_READY",
+    "observedCandidatePreview": {
+      "sourceSha": "ec0dd75168e6e6e489395851cc4250729616bf27",
+      "fullProject": "NOT_DEPLOYED_BUILD_RATE_LIMIT",
+      "privateLiteProject": {
+        "deploymentId": "dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg",
+        "state": "READY",
+        "url": "uberbondd-lite-private-g0incgywk-mohammedwessam2007s-projects.vercel.app"
+      },
+      "isProduction": false
+    }
   },
   "commercialDecision": {
     "canary": "White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing and electrical businesses",
@@ -72,6 +82,7 @@
     "executedAt": "2026-08-29T14:05:06Z",
     "executedBy": "local execution in this session, not hosted CI",
     "candidateHead": "42d09245b268c8b6514b176c336d6766afafc534",
+    "publishedBranchHead": "ec0dd75168e6e6e489395851cc4250729616bf27",
     "focusedProof": "payment lease/repository/watchdog plus billing route and canon/reachability checks: 25/25 PASS; real PostgreSQL proof test was discovered and skipped because OMNIA_V9_TEST_DATABASE_URL is absent",
     "gates": {
       "check:syntax": "603 files parse",
@@ -136,7 +147,7 @@
     "currentMainExactProductionDeploymentProven": false,
     "cronRegistrationProven": false,
     "cronDeliveryProven": false,
-    "contradiction": "An older handoff preserved a conflicting empty-list/404 Vercel audit. The current connected Vercel API session on 2026-08-29 successfully listed deployments for both known projects, including READY predecessor previews and the existing full production deployment. That resolves project reachability for this session, but not exact-head promotion: candidate 42d09245b268c8b6514b176c336d6766afafc534 has no deployment and both GitHub Vercel statuses point to the build-rate-limit upgrade target. The earlier negative observation remains below as historical evidence rather than being silently deleted.",
+    "contradiction": "An older handoff preserved a conflicting empty-list/404 Vercel audit. The current connected Vercel API session on 2026-08-29 successfully listed deployments for both known projects, including a READY exact-head preview for the protected lite project and the existing full production deployment. Project reachability is therefore observed, but full exact-head promotion is still blocked: the lite status is success while the full status points to the build-rate-limit upgrade target. The earlier negative observation remains below as historical evidence rather than being silently deleted.",
     "observations": [
       {
         "claim": "two projects exist (full + private lite)",
@@ -177,9 +188,16 @@
         "observedAt": "2026-08-29",
         "result": "no deployment with candidate source SHA; both Vercel statuses failed with upgradeToPro=build-rate-limit",
         "evidenceRef": "github combined status for 42d09245b268c8b6514b176c336d6766afafc534"
+      },
+      {
+        "claim": "current receipt head ec0dd75168e6e6e489395851cc4250729616bf27 has a private-lite READY preview but no full-project READY preview",
+        "observedVia": "connected Vercel list_deployments and GitHub combined status",
+        "observedAt": "2026-08-29",
+        "result": "lite dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg READY; full status failed with upgradeToPro=build-rate-limit and no matching full deployment was listed",
+        "evidenceRef": "Vercel connector deployment observations and GitHub combined status for ec0dd75168e6e6e489395851cc4250729616bf27"
       }
     ],
-    "resolvedBy": "Project reachability is resolved for this connected session. Exact-head promotion remains pending the existing Vercel build-rate-limit reset; no plan upgrade or spend is authorized."
+    "resolvedBy": "Project reachability is resolved for this connected session. Full exact-head promotion remains pending the existing Vercel build-rate-limit reset; no plan upgrade or spend is authorized."
   },
   "repositoryPublicationEffects": {
     "productionDeploymentsAuthorizedOrPerformedByThisLane": 0,
@@ -334,7 +352,7 @@
       "payment lease owner enforcement and attempt-cap tests pass in the focused suite"
     ],
     "externalVerification": {
-      "vercel": "BLOCKED: no deployment for exact candidate; both Vercel statuses report build-rate-limit; predecessor 31db READY is not current-head proof",
+      "vercel": "PARTIAL: private-lite exact branch-head preview ec0dd75168e6e6e489395851cc4250729616bf27 is READY as dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg; full uberbondd exact-head deployment remains BLOCKED by build-rate-limit; no production deployment performed",
       "postgres": "BLOCKED_RUNTIME: no OMNIA_V9_TEST_DATABASE_URL; embedded fallback cannot create postgres system group",
       "browser": "BLOCKED_RUNTIME: pinned Chromium absent; Playwright CDN install timed out",
       "githubActions": "INFRASTRUCTURE_NON_EVIDENCE: run 33256756811 has zero steps and runner_id 0"

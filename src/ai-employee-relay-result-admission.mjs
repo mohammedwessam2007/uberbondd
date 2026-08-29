@@ -4,7 +4,7 @@ import {
   employeeRoleIdentityErrors
 } from './ai-employee-terminal-identity.mjs';
 
-export const AI_EMPLOYEE_RELAY_RESULT_ADMISSION_POLICY_VERSION = 'ai-employee-relay-result-admission-1.0.0';
+export const AI_EMPLOYEE_RELAY_RESULT_ADMISSION_POLICY_VERSION = 'ai-employee-relay-result-admission-1.0.1';
 
 function text(value, max = 500) {
   return String(value ?? '').trim().slice(0, max);
@@ -42,6 +42,14 @@ export function validateEmployeeRoleRelayResultAdmission({ task, result, receipt
   const identity = employeeRoleIdentityFromTask(task);
   if (!identity.ok) return fail(['relay-task-employee-role-identity-invalid', ...(identity.reasonCodes || [])]);
   if (!identity.bound) {
+    const reasons = [
+      ...employeeRoleIdentityErrors({ result, expected: {} }),
+      ...employeeRoleIdentityErrors({ result: receipt, expected: {} })
+    ];
+    if (receipt?.result != null) {
+      reasons.push(...employeeRoleIdentityErrors({ result: receipt.result, expected: {} }));
+    }
+    if (reasons.length) return fail(reasons);
     return {
       ok: true,
       policyVersion: AI_EMPLOYEE_RELAY_RESULT_ADMISSION_POLICY_VERSION,

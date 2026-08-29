@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.nightfall-combined-hardening-handoff.v1",
-  "observedAt": "2026-08-29T18:08:33Z",
+  "observedAt": "2026-08-29T18:23:39Z",
   "mission": "Consolidate the payment-reconciliation, browser-runtime and Overpass-resilience slices from exact canonical main into one locally verified promotion candidate.",
   "canonicalBase": {
     "branch": "main",
@@ -8,8 +8,11 @@
   },
   "candidate": {
     "localBranch": "integration/nightfall-hardening-20260829",
-    "handoffSourceHead": "09ecb7eb22d61843ffc9d47c0bb2f3264f240f9b",
+    "handoffSourceHead": "d2d76803e4e70ce1e784f50acc39c68592e07707",
     "remoteBackupBranch": "integration/nightfall-hardening-20260829",
+    "remoteBackupCommit": "2f2e884a775fd36d4919b3cdd01ed16deb17ca75",
+    "integrationPullRequest": 231,
+    "supersededClosedPullRequest": 214,
     "baseIsExactCanonicalMain": true,
     "liteProjectTouched": false
   },
@@ -53,19 +56,19 @@
   "blockedRuntimeEvidence": {
     "postgres": {
       "status": "BLOCKED_RUNTIME",
-      "result": "OMNIA_V9_TEST_DATABASE_URL is absent; 16 real-PostgreSQL suites were not executed.",
+      "result": "Re-run at 2026-08-29T18:23:39Z: OMNIA_V9_TEST_DATABASE_URL is absent; 16 real-PostgreSQL suites were not executed.",
       "additionalProbe": "The installed embedded-postgres fallback cannot start in this container: no postgres OS user exists, root user/group creation is denied, and non-root uid switching is denied by the sandbox.",
       "requiredNextEvidence": "Run the serial real-PostgreSQL launcher against a trustworthy throwaway database URL."
     },
     "browser": {
       "status": "BLOCKED_RUNTIME",
-      "result": "Pinned Playwright Chromium is absent at both the package cache path and the runner-provided /opt path; the browser assertion did not execute.",
+      "result": "Re-run at 2026-08-29T18:23:39Z: pinned Playwright Chromium is absent at both the package cache path and the runner-provided /opt path; the browser assertion did not execute.",
       "requiredNextEvidence": "Provide a compatible Chromium executable and rerun npm run test:browser."
     }
   },
   "cloudTruth": {
     "vercel": "Exact candidate deployment checks remain failed with api-deployments-free-per-day/build-rate-limit. Production remains READY only on older source b156566c69f1d1d0e7e01b015afa474e36041276.",
-    "githubActions": "The exact-head hosted run exposes zero executable steps on browser, PostgreSQL and deterministic jobs; it is infrastructure non-evidence.",
+    "githubActions": "Run 33267965050 exposes zero executable steps on browser job 99141301142, deterministic job 99141301255 and PostgreSQL job 99141301265; it is infrastructure non-evidence.",
     "promotion": "No merge to main, exact-head production deployment or promotion was performed."
   },
   "commercialTruth": {
@@ -92,7 +95,7 @@
     "productionDeployments": 0
   },
   "promotionGates": [
-    "Publish this exact combined tree to the backup branch and retain its remote commit receipt.",
+    "Remote backup branch and draft PR #231 are published; retain remote contents receipt 2f2e884a775fd36d4919b3cdd01ed16deb17ca75.",
     "Run the 16 real-PostgreSQL suites against a trustworthy throwaway database.",
     "Run the browser/crawler gate with compatible pinned Chromium.",
     "Obtain an exact-head full-project Vercel READY build after the build-rate limit clears.",

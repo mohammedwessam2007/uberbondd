@@ -48,3 +48,13 @@ test('allocator holds sparse data and bounds mature weight changes',()=>{
   r=proposeProfileWeightUpdates({segments:[{profileKey:'a',dimensions:{industry:'hvac'},exposures:30,qualifiedOutcomes:8,paidAcceptedOutcomes:4,clearedContributionCents:12000,founderMinutes:60,currentWeight:1},{profileKey:'b',dimensions:{industry:'plumbing'},exposures:30,qualifiedOutcomes:6,paidAcceptedOutcomes:3,clearedContributionCents:3000,founderMinutes:60,currentWeight:1}],policy:{maxWeightDeltaPerCycle:.1,minOutcomes:10,minPaidOutcomes:3}});
   assert.equal(r.ok,true); for(const u of r.proposal.updates) assert.ok(Math.abs(u.weightDelta)<=.100001);
 });
+
+test('healthcare industry is allowed while sensitive personal dimension keys remain blocked',()=>{
+  const r=proposeProfileWeightUpdates({segments:[{profileKey:'healthcare-b2b',dimensions:{industry:'healthcare'},exposures:20,qualifiedOutcomes:5,paidAcceptedOutcomes:3,clearedContributionCents:10000,founderMinutes:10,currentWeight:1}]});
+  assert.equal(r.ok,true);
+});
+
+test('fulfillment rejects unexpected raw token fields instead of silently dropping them',()=>{
+  const r=compileProgrammaticFulfillment({paymentTruth:{state:'CLEARED_PAYMENT',providerOccurrenceRef:'pay:1',receiptRef:'receipt:1'},fulfillmentRef:'fulfill:1',customerRef:'customer:1',serviceSkuRef:'sku:1',authorityReceiptRef:'auth:1',occurrenceKey:'occ:1',actions:[{type:'CREATE_DASHBOARD_INVITE',providerRef:'dash:1',configRef:'cfg:1',deliveryMode:'MAGIC_LINK',accessToken:'sk-this-should-never-be-here'}]});
+  assert.equal(r.ok,false); assert.match(r.reasonCodes.join(','),/raw-secret-or-token-field-prohibited/);
+});

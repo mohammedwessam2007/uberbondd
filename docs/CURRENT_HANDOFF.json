@@ -103,7 +103,8 @@
       "screen": "https://vercel.com/mohammedwessam2007s-projects",
       "action": "Provide one temporary PostgreSQL test URL for the real-only suites, without production/customer data.",
       "founderMinutes": 3,
-      "costUsd": 0,
+      "costUsd": null,
+      "costStatus": "UNKNOWN_UNTIL_A_TRUSTWORTHY_THROWAWAY_PROVIDER_IS_SELECTED; prefer an already available free test database",
       "evidenceRequired": "A reachable throwaway PostgreSQL URL and the resulting 16-suite receipt.",
       "defaultRecommendation": "Do this only when convenient; no production database is appropriate."
     },
@@ -121,7 +122,8 @@
       "screen": "Egyptian legal/tax adviser plus Lemon Squeezy or Paddle eligibility/support channel",
       "action": "Obtain written eligibility for the exact offer, entity/individual structure, payout route and invoice/tax treatment; do not activate live mode or submit KYC until separately choosing that provider.",
       "founderMinutes": 20,
-      "costUsd": 0,
+      "costUsd": null,
+      "costStatus": "UNKNOWN; provider eligibility inquiry may be free, professional Egyptian legal/tax advice may not be",
       "evidenceRequired": "A redacted eligibility decision and adviser/provider requirements; no identity documents or secrets in GitHub.",
       "defaultRecommendation": "Use provider test mode only; treat Lemon Squeezy and Paddle as candidates, not approved rails."
     }

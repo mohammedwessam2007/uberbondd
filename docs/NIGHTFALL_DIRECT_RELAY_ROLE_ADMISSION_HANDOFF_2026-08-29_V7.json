@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "uberbond-nightfall-relay-admission-handoff-1.0.1",
+  "createdAt": "2026-08-29T11:03:00Z",
+  "refreshedAt": "2026-08-29T12:01:55Z",
+  "canonicalMainAtBranchCreation": "8aa0e5f5499958652a70d8067bd87026a94c7fbb",
+  "canonicalMainAtRefresh": "8aa0e5f5499958652a70d8067bd87026a94c7fbb",
+  "candidateRuntimeCommit": "b19aac34fff567eba243658924bf13b360c8f1a2",
+  "pr": 221,
+  "supersedesPr": 211,
+  "mission": "Fail closed at direct cloud relay terminal admission when employee identity is missing, substituted, or self-asserted without task authority.",
+  "integration": {
+    "location": "src/cloud-agent-relay.mjs::submitCloudRelayResult",
+    "ordering": "after durable findRelayJob and before completed replay, lease acceptance, or terminal mutation",
+    "liteTouched": false,
+    "currentMainTransportBlobBeforeChange": "1475df98bb17f876cd1d34971e1c8dca2c24183c",
+    "oldCandidateBaseTransportBlob": "1475df98bb17f876cd1d34971e1c8dca2c24183c",
+    "transportConflict": false
+  },
+  "verification": {
+    "focusedAdmissionSemantics": "7/7 PASS against current ai-employee-terminal-identity contract",
+    "wholeTreeExactHead": "NOT_RUN",
+    "githubActionsRun": 33249090651,
+    "githubActionsTruth": "3 jobs completed failure with steps=[] and runner_id=0; no repository source executed",
+    "previousHeadVercelStatus": "FAILURE_BUILD_RATE_LIMIT",
+    "previousHeadVercelStatusContexts": [
+      "Vercel – uberbondd",
+      "Vercel – uberbondd-lite-private"
+    ],
+    "previousHeadVercelTarget": "https://vercel.com/mohammedwessam2007s-projects?upgradeToPro=build-rate-limit",
+    "latestObservedReadyPreview": {
+      "deploymentId": "dpl_4vxPyXA9ycWw8DnKzywHHfjtii32",
+      "pr": 211,
+      "commitSha": "6297284a86859fea7a73684947a9a4114232ba54",
+      "candidateRelationship": "OLDER_SUPERSEDED_CANDIDATE__NOT_EXACT_PR221_PROOF"
+    },
+    "latestObservedProduction": {
+      "deploymentId": "dpl_DVtL6XTs6yWg2DsDHX1LJnB5hDWA",
+      "commitSha": "b156566c69f1d1d0e7e01b015afa474e36041276",
+      "currentMainRelationship": "STALE_RELATIVE_TO_CURRENT_MAIN"
+    },
+    "freshHeadBuildIntent": "This documentation-only refresh intentionally changes no runtime semantics and creates a fresh exact PR head so existing zero-spend Git/Vercel integration may retry build verification when the transient Hobby build-rate window permits."
+  },
+  "promotionGate": [
+    "refresh main and confirm candidate is not behind or conflicting",
+    "execute focused admission plus cloud-relay, terminal-identity, worker-role and autonomy-terminal suites from a genuine checkout/runtime",
+    "obtain an exact-candidate build receipt",
+    "merge only if all gates are clean"
+  ],
+  "concurrency": {
+    "decisionConsumerSweep": "COMPLETE_ON_MAIN_VIA_219_220_DO_NOT_REPEAT",
+    "openPr214": "SEPARATE_RUNTIME_RESILIENCE_BROWSER_OVERPASS_ARTIFACT_PAYMENT_WORK__DIVERGED_FROM_MAIN",
+    "stalePr211": "CLOSED_SUPERSEDED_BY_221",
+    "openPrCountAtRefresh": 2
+  },
+  "externalEffectLedger": {
+    "customerProspectContacts": 0,
+    "outboundMessages": 0,
+    "modelProviderExecutions": 0,
+    "paidProviderCalls": 0,
+    "spendCents": 0,
+    "purchases": 0,
+    "dnsChanges": 0,
+    "credentialKycPaymentChanges": 0,
+    "moneyMovement": 0,
+    "customerProductionDataMutations": 0,
+    "manualProductionDeployments": 0
+  },
+  "claimsNotMade": [
+    "customers",
+    "revenue",
+    "acceptedDelivery",
+    "providerExecution",
+    "unattendedDuration",
+    "currentMainProductionDeployment",
+    "exactHeadBuildProof",
+    "wholeTreeExactHeadTestProof"
+  ]
+}

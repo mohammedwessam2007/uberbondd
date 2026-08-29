@@ -5,6 +5,7 @@ import {
   ZERO_EFFECTS
 } from './cloud-agent-relay.mjs';
 import { runAgentWorkerOnce, resumeAgentWorkerSubmission } from './agent-worker-runtime.mjs';
+import { validateRoleBoundExecution } from './ai-employee-role-contract.mjs';
 import {
   loadLatestComputeBudget,
   saveComputeBudgetSnapshot,
@@ -12,7 +13,7 @@ import {
   listPendingAgentSubmissions
 } from './agent-compute-store.mjs';
 
-export const AGENT_WORKER_JOB_POLICY_VERSION = 'agent-worker-job-1.1.0';
+export const AGENT_WORKER_JOB_POLICY_VERSION = 'agent-worker-job-1.2.0';
 
 function text(value, max = 240) {
   return String(value ?? '').trim().slice(0, max);
@@ -169,6 +170,12 @@ async function replayPendingSubmission({ store, record, date }) {
 // 1) replay one already-computed result that failed to reach the relay, or
 // 2) claim and execute one new relay task.
 // It never loops and never grants business-world consequence authority.
+//
+// New model execution is role-bound by default. A legacy generic relay caller
+// must opt out explicitly with requireEmployeeRole=false; silence can no longer
+// turn a generic task into an AI employee. The gate runs after the durable
+// claim but before compute reservation or modelExecutor, so a malformed,
+// expanded, or digest-tampered role cannot spend provider compute.
 export async function runAgentWorkerTick({
   store,
   budgetId,
@@ -179,6 +186,7 @@ export async function runAgentWorkerTick({
   costCeilingCents = 0,
   tokenCeiling = 50_000,
   modelExecutor,
+  requireEmployeeRole = true,
   lockTimeoutMs = 300000,
   date = new Date()
 } = {}) {
@@ -194,6 +202,7 @@ export async function runAgentWorkerTick({
   if (!worker) reasons.push('worker-id-required');
   if (!providerName) reasons.push('provider-required');
   if (typeof modelExecutor !== 'function') reasons.push('model-executor-required');
+  if (typeof requireEmployeeRole !== 'boolean') reasons.push('require-employee-role-boolean-required');
   if (reasons.length) return fail(reasons);
 
   const loaded = await loadLatestComputeBudget(store, computeId);
@@ -257,6 +266,24 @@ export async function runAgentWorkerTick({
     };
   }
   if (!claim.ok) return fail(claim.reasonCodes || ['relay-task-claim-failed'], 'CLAIM_BLOCKED');
+
+  if (requireEmployeeRole) {
+    const roleEligibility = validateRoleBoundExecution(claim.task);
+    if (!roleEligibility.ok) {
+      return fail(
+        ['employee-role-required-before-model-execution', ...(roleEligibility.reasonCodes || [])],
+        'ROLE_BINDING_BLOCKED',
+        {
+          taskId: claim.taskId || claim.task?.taskId || null,
+          workerId: worker,
+          targetAgent: target,
+          provider: providerName,
+          model: normalizedModel || null,
+          roleBindingRequired: true
+        }
+      );
+    }
+  }
 
   const before = await persistBudget(store, loaded.budget, {
     reason: 'worker-pre-execution',

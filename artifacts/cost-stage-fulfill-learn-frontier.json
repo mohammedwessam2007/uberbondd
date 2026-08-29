@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-cost-stage-fulfill-learn-frontier-1.0.0",
-  "generatedAt": "2026-08-29T07:15:00.000Z",
+  "generatedAt": "2026-08-29T07:20:00.000Z",
   "sourceMainSha": "92fa9adf7ec53c94543f8985fb052143fa7ec39f",
   "classification": "INTERNAL_CAPABILITY_FRONTIER_NO_EXTERNAL_PROOF",
   "northStar": "risk-adjusted cleared contribution profit per founder minute",
@@ -36,7 +36,7 @@
         "src/omnichannel-communication-contract.mjs"
       ],
       "newModule": "src/programmatic-fulfillment-router.mjs",
-      "law": "canonical cleared payment may prepare idempotent provisioning; provider receipts establish provisioning truth; raw long-lived access secrets are never emailed"
+      "law": "canonical cleared payment may prepare idempotent provisioning; provider receipts establish provisioning truth; raw long-lived access secrets are never emailed or silently dropped during normalization"
     },
     {
       "id": "bounded-economic-feedback-allocation",
@@ -47,16 +47,20 @@
         "founder-minute receipts"
       ],
       "newModule": "src/economic-feedback-allocator.mjs",
-      "law": "only sufficiently evidenced paid-and-accepted economic outcomes may move weights; preserve exploration and bounded per-cycle change; never use sensitive personal traits"
+      "law": "only sufficiently evidenced paid-and-accepted economic outcomes may move weights; preserve exploration and bounded per-cycle change; prohibit sensitive personal targeting dimensions without blocking legitimate business industries such as healthcare"
     }
   ],
   "postgresMigration": "migrations/100_cost_stage_fulfill_learn.sql",
   "verification": {
-    "focusedTests": {"passed": 8, "failed": 0},
+    "focusedTests": {"passed": 10, "failed": 0},
     "syntax": "PASS",
+    "postReviewFixes": [
+      "Sensitive-dimension guard was narrowed from scanning arbitrary values to explicit sensitive personal dimension keys so legitimate B2B industry=healthcare remains allowed.",
+      "Programmatic fulfillment now rejects unexpected raw secret/token fields before action normalization instead of silently dropping them."
+    ],
     "mutations": [
-      {"mutation": "remove protected/sensitive profile targeting guard", "result": "7/8; exact hostile test fails", "killed": true},
-      {"mutation": "remove static-HTTP-before-browser guard", "result": "7/8; exact hostile test fails", "killed": true}
+      {"mutation": "remove protected/sensitive profile targeting guard", "result": "hostile test fails", "killed": true},
+      {"mutation": "remove static-HTTP-before-browser guard", "result": "hostile test fails", "killed": true}
     ]
   },
   "externalEffectLedger": {

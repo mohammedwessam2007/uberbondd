@@ -118,15 +118,23 @@ test('Nightfall employee contracts and Claude packets are bounded', async () => 
   }
 
   const queue = await loadJson('artifacts/claude-implementation-queue.json');
-  assert.equal(queue.dependencySatisfiedPackets, 1);
+  assert.equal(queue.dependencySatisfiedPackets, 0);
   assert.ok(queue.packets.length >= 4);
   for (const packet of queue.packets) {
     assert.notEqual(packet.status, 'READY');
-    assert.ok(packet.missingCapabilityOnly);
+    if (packet.status === 'COMPLETED_ON_MAIN_VERIFIED') {
+      assert.equal(packet.missingCapabilityOnly, null);
+      assert.match(packet.resolutionEvidence.sourceMainSha, /^[a-f0-9]{40}$/);
+      assert.ok(packet.resolutionEvidence.implementationPaths.length > 0);
+      assert.ok(packet.resolutionEvidence.verificationPaths.length > 0);
+      assert.equal(packet.dependencies.length, 0);
+    } else {
+      assert.ok(packet.missingCapabilityOnly);
+      assert.ok(Array.isArray(packet.dependencies) && packet.dependencies.length > 0);
+    }
     assert.ok(Array.isArray(packet.reuse) && packet.reuse.length > 0);
     assert.ok(Array.isArray(packet.hostileInvariants) && packet.hostileInvariants.length > 0);
     assert.ok(Array.isArray(packet.testsNeeded) && packet.testsNeeded.length > 0);
-    assert.ok(Array.isArray(packet.dependencies) && packet.dependencies.length > 0);
   }
 });
 
@@ -143,18 +151,18 @@ test('Nightfall artifacts claim zero observed external effects wherever a ledger
 
 test('Nightfall handoff preserves audited Vercel existence without overstating cloud liveness', async () => {
   const handoff = await loadJson('docs/CURRENT_HANDOFF.json');
-  assert.equal(handoff.cloudActivationTruth.fullProject.exists, true);
-  assert.equal(handoff.cloudActivationTruth.privateLiteProject.exists, true);
-  assert.equal(handoff.cloudActivationTruth.fullProject.currentSourceProductionProven, false);
-  assert.equal(handoff.cloudActivationTruth.cronRegistration, 'UNPROVEN');
-  assert.equal(handoff.cloudActivationTruth.cronDelivery, 'UNPROVEN');
+  assert.equal(handoff.cloudActivationTruth.fullProjectExists, true);
+  assert.equal(handoff.cloudActivationTruth.privateLiteProjectExists, true);
+  assert.equal(handoff.cloudActivationTruth.currentMainExactProductionDeploymentProven, false);
+  assert.equal(handoff.cloudActivationTruth.cronRegistrationProven, false);
+  assert.equal(handoff.cloudActivationTruth.cronDeliveryProven, false);
   assert.equal(handoff.repositoryPublicationEffects.productionDeploymentsAuthorizedOrPerformedByThisLane, 0);
 
   const contract = await readFile(
     new URL('../docs/CLOUD_ACTIVATION_CONTRACT.md', import.meta.url),
     'utf8'
   );
-  assert.match(contract, /Projects and older deployments exist/);
-  assert.match(contract, /Current-source full deployment/);
+  assert.match(contract, /The project already exists/);
+  assert.match(contract, /Current main exact production SHA proven \| \*\*NO\*\*/);
   assert.doesNotMatch(contract, /\*\*There is no Vercel project\.\*\*/);
 });

@@ -2,28 +2,34 @@
   "schemaVersion": "uberbond-handoff-1.1.0",
   "sourceMainShaAtMissionStart": "ba1fa7a53b2a6c7672562a30c737b7f553cb5857",
   "sourceMainCommitMessage": "Add Trinity night-shift coordination protocol",
-  "sourceCommit": "2d11d10af3889d65d1a660c4cd611ab2f875c059",
-  "currentMainShaAtFinalRefresh": "2d11d10af3889d65d1a660c4cd611ab2f875c059",
-  "currentMainCommitMessage": "NIGHTFALL: publish the cloud activation contract and refresh the handoff",
+  "sourceCommit": "348f563f614edaa24abd1e5a673e42453ea383b8",
+  "currentMainShaAtFinalRefresh": "348f563f614edaa24abd1e5a673e42453ea383b8",
+  "currentMainCommitMessage": "NIGHTFALL: bind scheduled autonomy tasks to deterministic AI employee roles",
   "activeBranch": "gpt/nightfall-sol-research-singularity-20260828",
   "activePullRequest": 180,
   "missionIssue": 176,
   "publishedResearchTreeCommit": "9789c0a695833e9ade42a4ff0b5e24c56e7dc95c",
-  "remoteBranchHeadBeforeMainReconciliation": "1e8cb0567543a70a8ad4ae14e4ddaedb31028bf5",
   "publishedMainReconciliationCommit": "5aa936bc475a62d44cda3eac0e4f4a8db1b94c9b",
-  "activeMission": "Convert current world intelligence, distribution research, opportunity evidence, economics, AI employee design, and software mechanism research into one canary, one fallback, machine-readable decision artifacts, bounded Claude packets, and a durable handoff without external business effects.",
+  "remoteBranchHeadBeforeFinalMainReconciliation": "c62086a0f7d32f9ebe5e73daa79c32e96457512d",
+  "activeMission": "Convert current world intelligence, distribution research, opportunity evidence, economics, AI employee design, and software mechanism research into one canary, one fallback, machine-readable decision artifacts, bounded implementation packets, and a durable handoff without commercial external effects.",
   "liveGitHubAtFinalRefresh": {
-    "checkedAt": "2026-08-28T22:56:45Z",
-    "mainSha": "2d11d10af3889d65d1a660c4cd611ab2f875c059",
+    "checkedAt": "2026-08-29T04:24:04Z",
+    "mainSha": "348f563f614edaa24abd1e5a673e42453ea383b8",
     "openPullRequests": [
       {
         "number": 180,
         "title": "Add Nightfall research and distribution decision layer",
         "base": "main",
         "head": "gpt/nightfall-sol-research-singularity-20260828",
-        "publishedResearchTreeCommit": "9789c0a695833e9ade42a4ff0b5e24c56e7dc95c",
-        "publishedMainReconciliationCommit": "5aa936bc475a62d44cda3eac0e4f4a8db1b94c9b",
-        "status": "OPEN_MERGEABLE_SOURCE_CHECKS_GREEN_INFRASTRUCTURE_CHECKS_BLOCKED"
+        "remoteHeadBeforeFinalMainReconciliation": "c62086a0f7d32f9ebe5e73daa79c32e96457512d",
+        "status": "OPEN_RECONCILING_CURRENT_MAIN"
+      },
+      {
+        "number": 188,
+        "title": "NIGHTFALL: preserve AI employee identity through cloud relay transport",
+        "baseSha": "348f563f614edaa24abd1e5a673e42453ea383b8",
+        "headShaAtRefresh": "a2b63e7ca5f0b98856c7d4c89ab62790d176421f",
+        "status": "OPEN_CLAUDE_LANE_DO_NOT_DUPLICATE"
       }
     ],
     "materialIssues": [
@@ -33,35 +39,36 @@
       },
       {
         "number": 173,
-        "role": "Claude software-factory lane"
+        "role": "Claude software-factory lane",
+        "state": "OPEN"
       }
     ],
     "materialBranches": [
       {
         "name": "main",
-        "sha": "2d11d10af3889d65d1a660c4cd611ab2f875c059",
+        "sha": "348f563f614edaa24abd1e5a673e42453ea383b8",
         "status": "CURRENT"
       },
       {
         "name": "gpt/nightfall-sol-research-singularity-20260828",
-        "sha": "5aa936bc475a62d44cda3eac0e4f4a8db1b94c9b",
-        "status": "PULL_REQUEST_OPEN_BEFORE_LIVE_CLOUD_TRUTH_RECONCILIATION_COMMIT"
+        "sha": "c62086a0f7d32f9ebe5e73daa79c32e96457512d",
+        "status": "PULL_REQUEST_OPEN_BEFORE_FINAL_MAIN_RECONCILIATION_COMMIT"
       }
     ]
   },
   "completed": [
-    "Refreshed main at mission start, ran the repository brain, read every mandatory canon, memory, readiness, continuity, handoff, Trinity, charter, and executive-prompt surface, and refreshed main repeatedly through final publication.",
-    "Inspected live GitHub issues, pull requests, branches, recent commits, and lane claims; issue #176 is the Sol lane and pull request #180 carries this Nightfall decision layer.",
-    "Reconciled current main 2d11d10af3889d65d1a660c4cd611ab2f875c059 after it advanced during publication, preserving its cron evidence, canonical effect-ledger repair, and reachability reconciliation.",
-    "Audited the authenticated Vercel control plane and corrected current main's false zero-project claim: both uberbondd and uberbondd-lite-private exist, an older production deployment exists, and only the private-lite project has an exact-PR-head READY preview.",
+    "Refreshed main at mission start, ran the repository brain, read every mandatory canon, memory, readiness, continuity, handoff, Trinity, charter, and executive-prompt surface, and refreshed main through each concurrent publication wave.",
+    "Inspected live GitHub issues, pull requests, branches, recent commits, lane claims, exact PR files, Vercel control-plane state, deployment records, and check evidence.",
     "Researched current primary and official sources across home-service demand, AI research and sales mechanisms, CRM context, agent procedures and evaluation, browser execution, orchestration, licenses, partner programs, marketplaces, SEO and AEO, outbound pricing, sender policies, and regulator guidance.",
     "Adjudicated exactly one recommended canary: White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing, or electrical firms.",
     "Adjudicated exactly one fallback: AI Agent Acceptance Evidence Sprint for buyer-authorized sandboxes.",
     "Rejected generic managed cold outreach as the active offer and rejected generic CRM, dashboard, and automation clones; parked RFP and cloud-SLA evidence ideas.",
-    "Created a 52-source contradiction-preserving registry, decision-bound world-signal taxonomy, 18-mechanism acquisition library, opportunity tournament, exact offer packet, cross-channel portfolio, outreach capacity and economics model, bounded AI employee organization, and four Claude implementation packets.",
+    "Created a 52-source contradiction-preserving registry, decision-bound world-signal taxonomy, 18-mechanism acquisition library, opportunity tournament, exact offer packet, cross-channel portfolio, outreach capacity and economics model, bounded AI employee organization, and four implementation packets.",
     "Made partner and white-label distribution the primary preparation motion, product-led evidence second, and governed outbound third but externally blocked; paid, marketplace, and public MCP or API distribution remain unearned.",
     "Preserved unknown conversion, contribution, renewal, and founder-minute terms as null rather than convenient zeros; no expected-revenue forecast was manufactured.",
-    "Added machine checks enforcing source resolution, a single canary and fallback, zero live experiment, unknown economics, employee contract completeness, packet dependencies, and zero observed external effects."
+    "Audited authenticated Vercel state and corrected the stale zero-project claim; current main now carries the canonical live-infrastructure observation and cloud activation contract.",
+    "Reconciled current main's AI employee work: deterministic role contracts, task-origin binding, terminal identity, and worker fail-closed enforcement are canonical; the remaining cloud-transport preservation gap is already claimed by open PR #188.",
+    "Added machine checks enforcing source resolution, one canary and fallback, zero live commercial experiment, unknown economics, employee contract completeness, packet claim state, zero business effects, and honest cloud-liveness labels."
   ],
   "artifactsChanged": [
     "docs/research/report-source.md",
@@ -77,16 +84,15 @@
     "artifacts/ai-employee-organization.json",
     "artifacts/claude-implementation-queue.json",
     "tests/nightfall-research-artifacts.test.mjs",
-    "docs/CLOUD_ACTIVATION_CONTRACT.md",
     "docs/CURRENT_HANDOFF.json"
   ],
   "verification": [
-    "node --test tests/nightfall-research-artifacts.test.mjs: 6 tests, 6 pass, 0 fail after live-cloud-truth reconciliation.",
-    "npm run check:syntax: 558 files parse after final handoff reconciliation.",
-    "git diff --check and jq empty docs/CURRENT_HANDOFF.json: clean after pull-request identity reconciliation.",
-    "npm run test:deterministic was attempted before current-main reconciliation and exited non-zero because this fresh clone has no node_modules, including pg and @cedar-policy/cedar-wasm; no dependency or lockfile was changed.",
-    "Current main separately records a real-PostgreSQL zero-external-IO cron receipt, durable replay identity, conflict rejection, and unauthorized-path rejection; this Sol session did not relabel that inherited receipt as a fresh run.",
-    "GitHub Actions on published head 5aa936bc475a62d44cda3eac0e4f4a8db1b94c9b failed at infrastructure with zero executed steps; Vercel's full-project preview was rate-limited, while private-lite exact-head preview dpl_4vgwAbEsRYkQ6mSH91DsXcg3EGqK reached READY."
+    "node --test tests/nightfall-research-artifacts.test.mjs: 6 tests, 6 pass, 0 fail on the final current-main reconciliation tree.",
+    "npm run check:syntax: 565 files parse on the final current-main reconciliation tree.",
+    "git diff --check and JSON parsing for the handoff and implementation queue: clean on the final current-main reconciliation tree.",
+    "npm run test:deterministic was attempted earlier and exited non-zero because this fresh clone has no node_modules, including pg and @cedar-policy/cedar-wasm; no dependency or lockfile was changed.",
+    "GitHub Actions has repeatedly produced deterministic, postgres, and browser failures with zero executed steps; this is runner or account infrastructure non-evidence, not an exact-head source result.",
+    "Vercel full-project previews remain provider-rate-limited while private-lite previews reached READY; neither is current full-production or scheduler proof."
   ],
   "contradictions": [
     {
@@ -102,22 +108,22 @@
     {
       "topic": "agent capability versus repeatable reliability",
       "state": "ADJUDICATED",
-      "details": "Current vendors expose strong tools, but realistic vendor research still shows substantial task failure; require repeated scenarios, external judges, final-state checks, and authority ceilings."
+      "details": "Strong tools do not establish repeatable task success; require repeated scenarios, external judges, final-state checks, transport integrity, and authority ceilings."
     },
     {
-      "topic": "present-tense reachability drift",
-      "state": "SUPERSEDED_BY_CURRENT_MAIN",
-      "details": "The earlier unresolved drift was reconciled on main 2d11d10af3889d65d1a660c4cd611ab2f875c059 to 170 source modules: 109 production-reachable, 4 operator-only, and 57 unreachable."
+      "topic": "Vercel project existence",
+      "state": "SUPERSEDED_AND_CANONICALLY_RECONCILED_ON_MAIN",
+      "details": "The zero-project claim was false. Current main records both linked projects and an older production deployment while refusing to claim exact-current-main production or cron liveness."
+    },
+    {
+      "topic": "CLAUDE-NIGHT-01 completion",
+      "state": "PARTIAL_ON_MAIN_REMAINDER_CLAIMED_BY_PR_188",
+      "details": "Origin role binding and worker enforcement are canonical, but generic cloud relay transport can still drop role fields. PR #188 owns that exact remaining gap, so this lane neither duplicates it nor calls the packet complete."
     },
     {
       "topic": "cloud liveness versus first-money priority",
       "state": "COEXISTING_GATES",
-      "details": "The zero-external-IO cloud canary is technically ready but owner-credential blocked and is not commercial proof. The evidence-sprint selection remains the first-money decision; cloud activation remains a separate autonomy gate."
-    },
-    {
-      "topic": "Vercel project existence",
-      "state": "CURRENT_MAIN_CLAIM_SUPERSEDED_BY_AUTHENTICATED_CONTROL_PLANE",
-      "details": "Current main 2d11d10af3889d65d1a660c4cd611ab2f875c059 claimed zero Vercel projects. The authenticated project list shows uberbondd and uberbondd-lite-private. Existing deployment records do not prove current-source production or cron liveness."
+      "details": "The zero-business-effect cloud canary is an autonomy gate, not commercial proof. The evidence-sprint selection remains the first-money decision."
     }
   ],
   "blockers": [
@@ -125,41 +131,39 @@
     "Outbound remains blocked by domain ownership and provider receipts, exact mailbox quote, credentials, DNS and authentication, sender history, jurisdiction route, suppression, provider policy, budget, physical-address and unsubscribe readiness, and explicit message authority.",
     "Browser-assisted delivery remains blocked by Chromium or browser infrastructure and a buyer-authorized target and scope.",
     "No buyer, cleared payment, delivery, acceptance, renewal, contribution, or founder-minute receipt exists.",
-    "Vercel projects exist, but the full production deployment is older than current main; full exact-head preview is provider-rate-limited, environment-variable presence was not observable, and live cron registration or delivery remains unproven.",
-    "Full deterministic verification in this fresh clone remains dependency-blocked; hosted GitHub Actions zero-step history is not treated as source proof."
+    "The full Vercel production deployment is older than current main; environment-variable presence, current-source production, cron registration, and scheduler delivery remain unproven.",
+    "Full deterministic verification in this fresh clone remains dependency-blocked; hosted zero-step jobs are not source proof.",
+    "AI employee role continuity through generic cloud relay transport remains open in PR #188."
+  ],
+  "unresolvedNames": [
+    {
+      "name": "Everest",
+      "status": "OWNER_RECALLED_UNRESOLVED",
+      "next": "Search future exports or packages for an exact source before assigning semantics."
+    }
   ],
   "cloudActivationTruth": {
-    "sourceMainSha": "2d11d10af3889d65d1a660c4cd611ab2f875c059",
+    "source": "artifacts/live-infrastructure-observation-20260829.json",
     "contract": "docs/CLOUD_ACTIVATION_CONTRACT.md",
-    "fullProject": {
-      "id": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
-      "name": "uberbondd",
-      "exists": true,
-      "productionSourceSha": "7e20cec9b4399e73b7f13fa7999dbc05a2f38221",
-      "currentSourceProductionProven": false,
-      "exactPullRequestHeadPreview": "RATE_LIMITED"
-    },
-    "privateLiteProject": {
-      "id": "prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz",
-      "name": "uberbondd-lite-private",
-      "exists": true,
-      "exactPullRequestHead": "5aa936bc475a62d44cda3eac0e4f4a8db1b94c9b",
-      "exactPullRequestHeadPreview": "READY",
-      "deploymentId": "dpl_4vgwAbEsRYkQ6mSH91DsXcg3EGqK"
-    },
-    "environmentVariablePresence": "NOT_OBSERVABLE_IN_AVAILABLE_READ_ONLY_CONNECTOR",
-    "cronRegistration": "UNPROVEN",
-    "cronDelivery": "UNPROVEN",
-    "requiredOwnerManagedSecrets": [
-      "CRON_SECRET",
-      "DATABASE_URL",
-      "ENCRYPTION_KEY"
-    ],
+    "fullProjectExists": true,
+    "privateLiteProjectExists": true,
+    "currentMainExactProductionDeploymentProven": false,
+    "requiredSecretPresenceProven": false,
+    "cronRegistrationProven": false,
+    "cronDeliveryProven": false,
     "commercialProof": "NONE"
+  },
+  "aiEmployeeIntegrityTruth": {
+    "sourceMainSha": "348f563f614edaa24abd1e5a673e42453ea383b8",
+    "deterministicRoleContracts": true,
+    "scheduledTaskOriginBinding": true,
+    "workerClaimFailClosedGate": true,
+    "genericCloudRelayTransportPreservation": false,
+    "transportGapOwner": "PR #188"
   },
   "laneDependencies": {
     "claude": [
-      "CLAUDE-NIGHT-01 is ready for a fresh claim: bind versioned AI employee role contracts into the existing relay identity with no external effects.",
+      "CLAUDE-NIGHT-01 is in progress and claimed by PR #188; do not duplicate its cloud-relay transport preservation work.",
       "CLAUDE-NIGHT-02 remains deferred until the owner selects the canary and the productization gate permits one exact SKU or template.",
       "CLAUDE-NIGHT-03 remains blocked by provider, credential, budget, and decision-bound signal selection.",
       "CLAUDE-NIGHT-04 remains blocked by browser infrastructure and buyer-authorized scope."
@@ -168,11 +172,11 @@
       "No dependency-satisfied research or distribution task remains for the current decision; resume only on an external quote, buyer, payment, delivery evidence, or a decision-changing monitored signal."
     ],
     "integrator": [
-      "Review pull request #180 for canonical dedupe against current main 2d11d10af3889d65d1a660c4cd611ab2f875c059.",
-      "Before Claude claims CLAUDE-NIGHT-01, recheck live pull requests and issue #173 for a concurrent relay-schema implementation."
+      "Review PR #180 for canonical dedupe against current main 348f563f614edaa24abd1e5a673e42453ea383b8.",
+      "Let PR #188 finish the already-claimed transport integrity gap, then reconcile CLAUDE-NIGHT-01 to complete only after exact-head evidence and merge."
     ],
     "activation": [
-      "If cloud liveness is authorized, use the existing Vercel project and follow docs/CLOUD_ACTIVATION_CONTRACT.md exactly; do not create a duplicate or promote a stale source."
+      "If cloud liveness is authorized, use the existing Vercel project and follow docs/CLOUD_ACTIVATION_CONTRACT.md exactly; do not create a duplicate, expose secrets, or promote a stale source."
     ]
   },
   "nextHighestValueMission": "Obtain the founder's select-or-reject decision on the prepared 450 USD white-label evidence-sprint canary; if selected, clear legal, tax, and payment eligibility before authorizing one bounded partner or contact probe.",
@@ -183,9 +187,9 @@
   ],
   "repositoryPublicationEffects": {
     "pullRequestsOpened": 1,
-    "remoteBranchUpdates": 5,
-    "automaticPrivateLitePreviewDeploymentsCompleted": 1,
-    "automaticFullPreviewDeploymentsBlockedByRateLimit": 1,
+    "remoteBranchUpdatesIncludingFinalMainReconciliation": 6,
+    "automaticPrivateLitePreviewDeploymentsObservedReadyBeforeFinalReconciliation": 2,
+    "automaticFullPreviewDeploymentsObservedRateLimitedBeforeFinalReconciliation": 2,
     "productionDeploymentsAuthorizedOrPerformedByThisLane": 0
   },
   "externalEffectLedger": {
@@ -199,5 +203,5 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE",
-  "headSha": "2d11d10af3889d65d1a660c4cd611ab2f875c059"
+  "headSha": "348f563f614edaa24abd1e5a673e42453ea383b8"
 }

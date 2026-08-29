@@ -5,15 +5,16 @@
   "missionIssue": 176,
   "laneOwner": "Claude Code / Opus Max software factory",
   "queueLaw": "Packets name the smallest missing capability only. No packet is permission to deploy, spend, contact, or bypass productization gates.",
-  "dependencySatisfiedPackets": 1,
+  "statusReconciledAtMainSha": "348f563f614edaa24abd1e5a673e42453ea383b8",
+  "dependencySatisfiedPackets": 0,
   "packets": [
     {
       "id": "CLAUDE-NIGHT-01",
       "priority": 1,
-      "status": "READY_FOR_CLAUDE_LOCAL_IMPLEMENTATION",
+      "status": "IN_PROGRESS_CLAIMED_BY_PR_188",
       "title": "Bind AI employee role contracts into relay task identity",
       "economicReason": "Repeated research and revenue missions need role-specific evidence, tool, authority, economic, stop, and escalation ceilings without founder re-explaining them or creating new worker systems.",
-      "problem": "The relay task already binds objective, origin/target, parent, context/evidence, constraints, forbidden actions, outputs, tests, budget, deadline, economic objective, and consequence class. It does not yet canonically bind a versioned employee role contract or prove that execution stayed within its allowed capability set.",
+      "problem": "Partially resolved on current main: role identity is bound at scheduled task origin and worker claim fails closed on missing or tampered identity. Open PR #188 addresses the remaining cloud-relay transport path that can otherwise drop the binding before durable queue claim.",
       "reuse": [
         "src/agent-relay.mjs",
         "src/cloud-agent-relay.mjs",
@@ -23,7 +24,32 @@
         "src/effect-ledgers.mjs",
         "docs/AI_EMPLOYEE_COMPANY_CHARTER.md"
       ],
-      "missingCapabilityOnly": "A versioned employeeRoleRef plus role-contract digest covering allowed capabilities, authority ceiling, evidence prerequisites, economic metric, stop conditions, escalation target, and output schema; bind the digest into task identity and terminal receipt.",
+      "missingCapabilityOnly": "Preserve an already-validated AI employee role binding through generic relay compilation and cloud queue transport without inventing roles for generic tasks.",
+      "resolutionEvidence": {
+        "sourceMainSha": "348f563f614edaa24abd1e5a673e42453ea383b8",
+        "state": "PARTIAL_ON_MAIN_REMAINDER_CLAIMED",
+        "openPullRequest": 188,
+        "openPullRequestHeadAtReconciliation": "a2b63e7ca5f0b98856c7d4c89ab62790d176421f",
+        "implementationCommits": [
+          "b156566",
+          "baa3c3b",
+          "348f563"
+        ],
+        "implementationPaths": [
+          "src/ai-employee-role-contract.mjs",
+          "src/ai-employee-relay.mjs",
+          "src/agent-autonomy-relay-adapter.mjs",
+          "src/agent-worker-job.mjs"
+        ],
+        "verificationPaths": [
+          "tests/ai-employee-role-contract.test.mjs",
+          "tests/ai-employee-relay.test.mjs",
+          "tests/ai-employee-role-integrity.test.mjs",
+          "tests/agent-autonomy-role-bound-origin.test.mjs",
+          "tests/agent-worker-role-gate.test.mjs"
+        ],
+        "adjudication": "Origin binding and worker enforcement are canonical; packet completion remains blocked on exact-head verification and merge of PR #188's transport preservation."
+      },
       "sourceEvidence": ["artifacts/ai-employee-organization.json", "docs/AI_EMPLOYEE_COMPANY_CHARTER.md"],
       "desiredStateMachine": ["ROLE_DECLARED", "ROLE_VALIDATED", "TASK_BOUND", "EXECUTING", "STOPPED_OR_ESCALATED", "TERMINAL_JUDGED"],
       "hostileInvariants": [
@@ -45,7 +71,10 @@
       ],
       "successCondition": "A worker task and terminal receipt are cryptographically bound to one validated employee role without introducing a second relay, scheduler, authority system, or employee registry.",
       "authorityBoundary": "LOCAL_PREPARATION_ONLY; no provider or business-world effects.",
-      "dependencies": ["Claude lane claims the packet before editing", "Recheck live pull requests for a new concurrent relay-schema implementation"]
+      "dependencies": [
+        "PR #188 receives trustworthy exact-head focused evidence and merges without weakening generic relay compatibility",
+        "Post-merge main proves TaskIntent to role-bound task to cloud queue to worker claim continuity"
+      ]
     },
     {
       "id": "CLAUDE-NIGHT-02",

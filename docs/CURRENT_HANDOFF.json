@@ -1,9 +1,9 @@
 {
   "schemaVersion": "uberbond-handoff-1.3.0",
   "sourceMainShaAtMissionStart": "d3a0b73c6e9e04cef18f74deaaa0627b9d3460c5",
-  "sourceCommit": "f5c4285fe0f5d17dafb4f49a3a9bc976dc82c1af",
-  "currentMainShaAtFinalRefresh": "f5c4285fe0f5d17dafb4f49a3a9bc976dc82c1af",
-  "currentMainCommitMessage": "Harden autonomy operations: egress, dedupe, billing, hygiene, health",
+  "sourceCommit": "7fed1392aa504cdeabddbf69e5545930e9a955e4",
+  "currentMainShaAtFinalRefresh": "7fed1392aa504cdeabddbf69e5545930e9a955e4",
+  "currentMainCommitMessage": "Refuse an ungranted employee role; fix the reachability blind spot; rebuild the canon (#212)",
   "missionIssue": 173,
   "missionIssueState": "OPEN",
   "activeMission": "Continue NIGHTFALL MAX with distribution and first economic proof as the priority while maturing current Growth Graph infrastructure. Reuse merged autonomy operations hardening rather than recreating proxy, dedupe, billing, maintenance or telemetry systems.",
@@ -34,21 +34,14 @@
     "Older PRs #207 and #208 are explicitly marked superseded by merged #209."
   ],
   "blockers": [
-    "Vercel exact-main deployment is currently platform-rate-limited. Commit status for final candidate and merged main states: Deployment rate limited — retry in 24 hours. Do not treat this as source failure and do not purchase/upgrade a plan without owner authorization.",
-    "Current public production remains the older READY deployment until the Vercel rate limit clears; newest main f5c4285... is not yet production-proven.",
-    "Migration 101 and the new database-backed routes do not yet have live exact-main PostgreSQL migration/runtime proof. Routes fail closed if required runtime state is unavailable.",
-    "BILLING_WEBHOOK_SECRET/LEMONSQUEEZY_WEBHOOK_SECRET and ADMIN_HEALTH_SECRET presence is not proven and must not be guessed, created or rotated from chat.",
-    "MAINTENANCE_ENABLED remains intentionally unconfigured/disabled unless explicitly activated after migration/runtime verification.",
-    "The ten partner research seeds still require source-backed public qualification before any outreach eligibility decision.",
-    "Actual provider/enrichment execution remains credential/terms/budget gated. Paid enrichment cannot bypass lower-cost evidence exhaustion.",
-    "The economic allocator still has no real paid-and-accepted observations. Customers 0, cleared revenue $0, accepted deliveries 0 and retained customers 0 remain the truthful commercial state absent newer provider/customer evidence.",
-    "Real commercial activation still requires exact legal/tax/payment/provider/KYC reality plus consequence-specific distribution authority where applicable."
+    "Vercel project existence is CONTRADICTED and cannot be settled from inside the repository. See cloudActivationTruth. This blocks P0b (exact-head deploy/promote) entirely.",
+    "GitHub Actions produces zero-step jobs with no runner assigned, so hosted CI yields no evidence either way. External to this lane; do not treat its red as a source failure or its green as a pass.",
+    "No outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Every one of these is an external activation, not an engineering task."
   ],
   "nextActions": [
-    "CLAUDE: refresh newest main and continue dependency-complete internal work; when Vercel's rate limit clears, obtain exact-main preview/build, apply/verify migration 101 through the normal migration path, then promote only a verified candidate to the existing uberbondd project and test fail-closed billing/admin/maintenance routes.",
-    "SOL: continue distribution-first work: qualify partner seeds from lawful public business evidence, challenge the active canary, and improve cheapest-evidence/provider economics without duplicating engineering.",
-    "ENGINEERING: wire actual lower-tier evidence acquisition outcomes, staged content and billing reconciliation into canonical paths; do not allow verified webhook events alone to create cleared payment or fulfillment.",
-    "COMMERCIAL: after legal/payment/provider and exact consequence authorization gates are clear, run one bounded external canary and measure cleared payment -> accepted delivery -> contribution rather than vanity funnel metrics."
+    "CLAUDE: continue dependency-satisfied internal engineering from merged main 7fed139. P0b stays blocked until the Vercel contradiction is resolved by the owner.",
+    "CLAUDE: reconcile PR #211 once its author addresses the unbound-path finding reported at https://github.com/mohammedwessam2007/uberbondd/pull/211#issuecomment-5461524823 -- it is complementary to #212 but as drafted it bypasses the fix at the relay entry point.",
+    "ANY LANE: PRs #207 and #208 appear to be superseded by the autonomy hardening already on main. Confirm and close."
   ],
   "production": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
@@ -72,40 +65,71 @@
     "acceptedDeliveries": 0,
     "retainedCustomers": 0
   },
-  "verification": [
-    "Autonomy operations pure-module focused suite: 9/9 PASS.",
-    "Anti-evasion mutation: 8/9; exact hostile test failed, guard killed.",
-    "Cross-inbox dedupe mutation: 8/9; exact hostile test failed, guard killed.",
-    "Billing HMAC mutation: 8/9; exact hostile test failed, guard killed.",
-    "Vercel Web Request raw-body route isolated test: valid signature 200/persisted; bad signature 401.",
-    "GitHub exact-head CI continues to fail before executable steps; jobs with zero steps are infrastructure non-evidence.",
-    "Vercel final exact candidate status explicitly says deployment rate limited, retry in 24 hours; no exact-head build green is claimed.",
-    "No newest-main production, live billing webhook, live maintenance deletion, proxy network traffic, provider calls or customer effects are claimed."
-  ],
+  "verification": {
+    "executedAt": "7fed1392aa504cdeabddbf69e5545930e9a955e4",
+    "executedBy": "local execution in this session, not hosted CI",
+    "note": "Main's tree at this SHA is byte-identical to the branch head every gate below was run on.",
+    "gates": {
+      "check:syntax": "596 files parse",
+      "test:deterministic": "2735 tests, 2687 pass, 0 fail, 48 skipped",
+      "test:relay-safety": "150 tests, 150 pass, 0 fail",
+      "test:postgres-real": "127 tests, 127 pass, 0 fail, against embedded PostgreSQL 18",
+      "test:browser": "1 test, 1 pass, 0 fail, against the runner's installed Chromium, loopback server only",
+      "test:mutation-war": "64 mutations, 64 killed, 0 not killed",
+      "npm audit --omit=dev": "0 vulnerabilities"
+    },
+    "gatesPreviouslyWrittenOffAndNowGreen": [
+      "test:postgres-real was recorded NOT_RUN_CURRENT_BRANCH. It is current-branch proof now.",
+      "test:browser was recorded BLOCKED_EXTERNAL_TEST_RUNTIME for an absent Chromium. Chromium is present; the runner ships chromium-1194 while the pinned Playwright resolves chromium_headless_shell-1228, so the default launch path failed on a build number. CHROMIUM_PATH bridges it and the gate passes."
+    ]
+  },
   "maximumThreeFounderActions": [
-    "No founder action is needed for internal Sol/Claude work while Vercel is rate-limited.",
-    "Do not upgrade Vercel solely for this blocker unless you independently decide the cost is worth accelerating deployment; default is wait for the free-tier build limit to reset.",
-    "Before any real commercial contact/payment/provider consequence, clear the exact owner-only legal/payment/KYC/credential and consequence authorization gates surfaced by the current canary."
+    {
+      "reason": "A committed test asserted two Vercel projects exist; the connected API returns an empty list on two days and 404 for both the exact project id and the slug. No lane can settle this from inside the repository, and it blocks every deployment step.",
+      "screen": "https://vercel.com/mohammedwessam2007s-projects",
+      "action": "Look at the project list and say which projects exist, or paste the output of `vercel projects ls`.",
+      "founderMinutes": 1,
+      "costUsd": 0,
+      "evidenceRequired": "The project names as shown on the dashboard.",
+      "defaultRecommendation": "Do this one. It is the cheapest unblock in the queue and it gates everything else."
+    },
+    {
+      "reason": "Hosted CI reports failure on jobs where no runner was ever assigned and no step ran. It is currently incapable of producing evidence, which means real regressions could hide behind noise everyone has learned to ignore.",
+      "screen": "https://github.com/mohammedwessam2007/uberbondd/settings/actions",
+      "action": "Check whether Actions minutes are exhausted or the runner allowance is disabled for this account.",
+      "founderMinutes": 2,
+      "costUsd": 0,
+      "evidenceRequired": "Whether the account has Actions minutes remaining.",
+      "defaultRecommendation": "Worth checking, not urgent. Local gates cover the same suites today."
+    },
+    {
+      "reason": "vercel.json now registers two cron paths. Vercel Hobby permits two cron jobs, so the system is exactly at the ceiling; a third would be rejected at deploy time rather than at review time.",
+      "screen": "vercel.json in the repository",
+      "action": "No action needed now. Noted so the next cron addition is a decision rather than a deploy failure.",
+      "founderMinutes": 0,
+      "costUsd": 0,
+      "evidenceRequired": "none",
+      "defaultRecommendation": "Do nothing. Recorded for the next lane that wants to add a schedule."
+    }
   ],
   "externalEffectLedger": {
     "customerProspectContacts": 0,
     "messagesCalls": 0,
-    "liveScrapingOrProxyCallsFromNewEgressPool": 0,
-    "licensedProviderCalls": 0,
-    "billingWebhookLiveEventsProcessed": 0,
-    "customerProvisioningEffects": 0,
-    "maintenanceRowsDeleted": 0,
+    "outboundMessages": 0,
+    "providerCalls": 0,
+    "modelProviderExecutions": 0,
     "purchases": 0,
-    "productionDeploymentsPerformedThisSlice": 0,
+    "deployments": 0,
+    "productionDeployments": 0,
     "credentialChanges": 0,
     "dnsChanges": 0,
-    "paymentMutations": 0,
-    "moneyMovement": 0,
+    "productionMutations": 0,
     "customerSystemMutations": 0,
+    "moneyMovement": 0,
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE_EXCEPT_EXISTING_PROJECT_DEPLOYMENT_AUTHORIZED_WHEN_VERIFIED",
-  "headSha": "f5c4285fe0f5d17dafb4f49a3a9bc976dc82c1af",
+  "headSha": "7fed1392aa504cdeabddbf69e5545930e9a955e4",
   "cloudActivationTruth": {
     "fullProjectExists": "CONTRADICTED",
     "privateLiteProjectExists": "CONTRADICTED",
@@ -144,6 +168,108 @@
     "resolvedBy": "Owner opens the Vercel dashboard and states which projects exist, or runs `vercel projects ls`."
   },
   "repositoryPublicationEffects": {
-    "productionDeploymentsAuthorizedOrPerformedByThisLane": 0
-  }
+    "productionDeploymentsAuthorizedOrPerformedByThisLane": 0,
+    "pullRequestsCreated": 1,
+    "pullRequestsMerged": 1,
+    "issueCommentsPosted": 1,
+    "note": "GitHub repository operations are not customer-facing external effects."
+  },
+  "lastCompletedSlice": {
+    "mission": "NIGHTFALL MAX P0a: close or falsify the direct relay employee identity seam, then obtain exact-head gates.",
+    "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
+    "pullRequest": 212,
+    "merged": true,
+    "mergeCommit": "7fed1392aa504cdeabddbf69e5545930e9a955e4",
+    "mergeMethod": "merge",
+    "verdict": "SEAM_CLOSED_AND_PROVEN_BY_MUTATION",
+    "defectsFound": [
+      {
+        "id": "P0a-1",
+        "severity": "P0",
+        "summary": "A worker result could declare an employee role the task never granted.",
+        "mechanism": "employeeRoleIdentityErrors returned [] whenever the task carried no binding, so every mismatch check was blind to an expectation of nothing. bindEmployeeRoleSubmissionPayload then carried the claimed role into the durable submission payload.",
+        "evidenceBefore": "attack output: 3 findings; a generic task admitted a result declaring employee:executive/cfo",
+        "evidenceAfter": "attack output: no finding -- the identity seam holds",
+        "fix": "Refused, not stripped, at all three binders and through a nested result inside a receipt.",
+        "files": [
+          "src/ai-employee-terminal-identity.mjs"
+        ],
+        "mutations": [
+          "AGENT-08",
+          "AGENT-09"
+        ]
+      },
+      {
+        "id": "P0a-2",
+        "severity": "P1",
+        "summary": "The mesh -> relay -> employee task id chain could not be walked backwards.",
+        "mechanism": "Three ids (mesh_task_*, agent_task_*, employee_task_*), each derived from and overwriting the previous, so a run snapshot named a task recoverable only by guessing and recomputing a digest.",
+        "fix": "compileEmployeeAgentTask keeps relayTaskId; relayRef records taskId, relayTaskId and intentTaskId.",
+        "files": [
+          "src/ai-employee-relay.mjs",
+          "src/agent-autonomy-pump.mjs"
+        ]
+      },
+      {
+        "id": "RATCHET-1",
+        "severity": "P1",
+        "summary": "The reachability ratchet could not see nested API routes.",
+        "mechanism": "Single-level readdirSync missed api/webhooks/billing.mjs and api/admin/health-check.mjs, so eight modules were reported unreachable. Four are wired to a live route. The obvious green fix -- classifying all eight as AWAITING_ACTIVATION -- would have recorded in the canonical place that live production code awaits an activation that does not exist.",
+        "fix": "Entry-point discovery recurses. src keeps its single-level scan; its own subtrees (src/overnight, src/omnia-v9) are an uncovered scope question recorded in the test, not widened here.",
+        "files": [
+          "tests/reachability-ratchet.test.mjs",
+          "config/reachability-classification.json"
+        ]
+      },
+      {
+        "id": "CANON-1",
+        "severity": "P1",
+        "summary": "The canon guard accepted a well-formed SHA that was not in this branch's history.",
+        "mechanism": "Reproduced with a real dangling commit: the format check passes it and the staleness check passes it, because git reports nothing changed since a commit still in the object store.",
+        "fix": "merge-base --is-ancestor against HEAD. Reachability, not existence: cat-file -e succeeds on an orphan until it is collected, which is the window in which this goes wrong.",
+        "files": [
+          "tests/canon-freshness.test.mjs"
+        ],
+        "mutationEntry": "none -- the guard lives in the test, not a source file, so the mutation harness has nothing to sabotage. The orphan experiment is the equivalent proof."
+      }
+    ],
+    "inheritedRedTestRepaired": "tests/audit-agent-five-holes.test.mjs asserted /DO NOT RUN VACUUM FULL/ against a constant spelled DO_NOT_RUN_VACUUM_FULL_IN_SERVERLESS_CRON. Behavior right, assertion wrong. Verified red on pristine main before the merge, so it was inherited, not caused.",
+    "filesChanged": [
+      "src/ai-employee-terminal-identity.mjs",
+      "src/ai-employee-relay.mjs",
+      "src/agent-autonomy-pump.mjs",
+      "src/database-hygiene-maintenance.mjs",
+      "tests/ai-employee-terminal-identity.test.mjs",
+      "tests/agent-mesh-entry-point.test.mjs",
+      "tests/nightfall-research-artifacts.test.mjs",
+      "tests/canon-freshness.test.mjs",
+      "tests/reachability-ratchet.test.mjs",
+      "tests/audit-agent-five-holes.test.mjs",
+      "scripts/mutation-war.mjs",
+      "config/reachability-classification.json",
+      "config/system-readiness-input.json",
+      "artifacts/system-readiness.json",
+      "docs/CURRENT_SYSTEM_STATE.md",
+      "docs/CLOUD_ACTIVATION_CONTRACT.md",
+      "docs/CURRENT_HANDOFF.json"
+    ]
+  },
+  "continuousIntegrationTruth": {
+    "workflowRun": 33245240943,
+    "headSha": "cd4b9d8897106dfd83d005cb826210e6ab4c0b76",
+    "jobs": [
+      "deterministic",
+      "postgres",
+      "browser"
+    ],
+    "reportedConclusion": "failure",
+    "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+    "proof": "runner_id 0, runner_name empty, no steps executed, log download returns HTTP 404, all three jobs completed in 1-3 seconds.",
+    "ruling": "Not a pass and not a source failure. These results are not the basis for the merge and were not treated as one; the merge rests on the locally executed gates above."
+  },
+  "truthRestrictions": [
+    "Zero verified customers, zero cleared revenue, zero accepted deliveries, zero retained customers. Unchanged by this slice and preserved as zero.",
+    "No claim of production deployment, cron registration or cron delivery for current main.",
+    "Internally exhausted under the current test and attack surface. External proof pending."
+  ]
 }

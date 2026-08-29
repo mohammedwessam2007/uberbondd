@@ -1,30 +1,28 @@
 {
   "schemaVersion": "uberbond-handoff-1.1.0",
-  "sourceMainShaAtMissionStart": "683a3fd97db6ff7903d1619438932110790791c6",
-  "sourceMainCommitMessage": "NIGHTFALL: reconcile repository brain with live Vercel state",
-  "activeBranch": "gpt/handoff-role-bound-production-20260829",
+  "sourceMainShaAtMissionStart": "783ca8034b07bb17f8b9e7633218ecd2ec0e1814",
+  "sourceMainCommitMessage": "Refresh NIGHTFALL handoff after role-bound production merge (#184)",
+  "activeBranch": "gpt/handoff-role-gate-merged-20260829",
   "activePullRequest": null,
-  "activeMission": "Bind immutable AI employee role identity into the actual scheduled mission and worker execution boundary before any real model/provider call is permitted.",
+  "activeMission": "Bind employee-role identity at autonomy task origin so scheduled TaskIntent compilation produces role-bound relay packets by construction, while preserving the new worker-side fail-closed role gate.",
   "completed": [
-    "Refreshed live repository/Vercel truth and deduped against concurrent Sol distribution/research PR #180.",
-    "Retried GitHub Actions run 33219172864 for stale PR #181; browser, deterministic and postgres again executed zero source steps, so the run remains runner/account infrastructure non-evidence.",
-    "Executed focused Node 22 semantic proof for the role-bound AI employee candidate: role contract, role integrity and employee relay wrapper 12/12 PASS; candidate syntax PASS.",
-    "Mutation proof removed role-digest integrity enforcement and caused both hostile integrity tests to fail, proving the digest guard is exercised.",
-    "Rebased the exact five semantic blobs from #181 onto current main as PR #183 with no lite/ or existing runtime file changes.",
-    "Exact-head Vercel preview dpl_6qykagA9ofydKYEoNRgM326vwaDD cloned c698298677043d80c23433d7c8e3493a76b1ed8e, completed the Node build and reached READY.",
-    "Merged PR #183 to main as b156566c69f1d1d0e7e01b015afa474e36041276; superseded PR #181 was closed with a durable pointer to #183.",
-    "Production deployment dpl_DVtL6XTs6yWg2DsDHX1LJnB5hDWA is READY on exact main b156566c69f1d1d0e7e01b015afa474e36041276.",
-    "Post-deploy /api/health returned HTTP 200 with storeBackend=postgres, processRole=web, autopilot=false and zero active workers/jobs.",
-    "Unauthenticated /api/agent-mesh-cron returns HTTP 401. Current boundary returns 503 before auth when CRON_SECRET is absent, so this is evidence that CRON_SECRET is configured without exposing its value.",
-    "Production health with storeBackend=postgres plus startup invariants proves DATABASE_URL is configured sufficiently for the current production web process.",
-    "Role-bound AI employee contracts are now canonical production code: deterministic role refs/digests, capability and consequence non-expansion, execution-time digest recomputation, and terminal result role identity checks."
+    "Refreshed live main and open PRs; deduped against Sol research/distribution PR #180.",
+    "Confirmed the canonical blocker: role contracts existed in production but runAgentWorkerTick could claim a generic relay task and reach runAgentWorkerOnce/modelExecutor without employee-role validation.",
+    "Created PR #185 on exact base 783ca8034b07bb17f8b9e7633218ecd2ec0e1814 with a worker-side fail-closed role gate.",
+    "agent-worker-job policy advanced to 1.2.0; newly claimed worker tasks now require validateRoleBoundExecution(claim.task) by default before compute persistence or model execution.",
+    "Legacy generic execution is no longer implicit: it requires an explicit requireEmployeeRole=false call-site opt-out.",
+    "Exact-head Vercel preview dpl_6JSqgUDWErcTAjMKjkhf5BawChmY cloned 36c853e3484c15f4191a3da30a9fd067ec9ad0b4, installed dependencies, completed vercel build, deployed outputs and reached READY.",
+    "GitHub CI run 33230254353 again had deterministic/postgres/browser jobs with zero executed steps; classified as runner/account infrastructure non-evidence, not a source failure.",
+    "Reviewed the exact PR patch: 2 files, +78/-1, lite/ untouched.",
+    "Merged PR #185 as baa3c3b0abb4b0be0ca17d8686368b66394e9c83.",
+    "No model/provider execution, customer contact, spend, DNS/credential/KYC/payment change or customer/production-data mutation was performed in this mission."
   ],
   "blockers": [
-    "Role-bound contracts are production code but the scheduled autonomy mission path still compiles generic AgentTask packets by default; role identity is not yet mandatory end-to-end at agent-autonomy-relay-adapter / agent-worker-job before model execution.",
-    "Production autopilot remains false and no model/provider worker is active; do not claim autonomous model execution.",
-    "A real authenticated ZERO_EXTERNAL_IO_CANARY scheduler receipt has not yet been observed in production; the CRON_SECRET value was neither read nor changed.",
-    "TOKEN_ENCRYPTION_KEY presence/validity was not independently observed in this run and remains UNKNOWN where a feature specifically depends on it.",
-    "No customer, payment, accepted delivery, renewal or unattended-duration commercial proof exists."
+    "Worker execution now fails closed on unbound/tampered employee roles, but scheduled autonomy TaskIntent compilation still uses a generic compileRelayTask path; role identity is not yet guaranteed at task origin.",
+    "Production deployment of merged main baa3c3b0abb4b0be0ca17d8686368b66394e9c83 has not yet been independently observed in this handoff commit; do not claim current-main production promotion until Vercel proves it.",
+    "Production autopilot remains false unless separately changed by authorized configuration; no live model/provider worker receipt exists.",
+    "A real authenticated ZERO_EXTERNAL_IO_CANARY scheduler receipt has still not been observed in production.",
+    "No customer, cleared payment, accepted delivery, renewal or unattended-duration commercial proof exists."
   ],
   "unresolvedNames": [
     {
@@ -34,20 +32,21 @@
     }
   ],
   "nextActions": [
-    "Engineering: bind optional/required employee role contracts into scheduled mission TaskIntent -> relay compilation -> durable relay identity -> worker pre-model execution gate; fail closed on role tampering and preserve legacy generic tasks only where explicitly allowed.",
-    "Verification: add hostile tests proving a role-required worker cannot call modelExecutor for unbound, capability-expanded, consequence-expanded or digest-tampered tasks, and that a valid bound task preserves role identity through terminal truth.",
-    "Activation: after exact-head proof and deployment, capture one authenticated production ZERO_EXTERNAL_IO_CANARY scheduler receipt without enabling customer/provider/business effects."
+    "Engineering: inspect agent-autonomy-pump/TaskIntent contracts and bind deterministic employee role selection into compileRelayTask so scheduled tasks are role-bound at origin, not only rejected at execution.",
+    "Verification: add hostile tests proving missing/tampered origin role binding cannot enqueue an executable employee task and valid role identity survives TaskIntent -> relay packet -> worker claim.",
+    "Deployment: independently observe the automatic Vercel production deployment for merged main baa3c3b0abb4b0be0ca17d8686368b66394e9c83 and verify /api/health before claiming production promotion.",
+    "Activation: capture one authenticated production ZERO_EXTERNAL_IO_CANARY scheduler receipt without enabling provider/customer/business effects."
   ],
   "externalEffectLedger": {
     "providerCalls": 0,
     "messages": 0,
     "purchases": 0,
-    "deployments": 2,
+    "deployments": 1,
     "credentialChanges": 0,
     "dnsChanges": 0,
     "productionMutations": 0,
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE",
-  "headSha": "b156566c69f1d1d0e7e01b015afa474e36041276"
+  "headSha": "baa3c3b0abb4b0be0ca17d8686368b66394e9c83"
 }

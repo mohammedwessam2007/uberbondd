@@ -3,9 +3,12 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { compileUberBondProjectContext } from '../src/uberbond-brain-context.mjs';
+import { applyUberBondMemoryReconciliation } from '../src/uberbond-memory-reconciliation.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 
-export const UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION = 'uberbond-brain-bootstrap-cli-1.0.0';
+export const UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION = 'uberbond-brain-bootstrap-cli-1.1.0';
+export const MEMORY_RECONCILIATION_PATH = 'artifacts/uberbond-memory-reconciliation.json';
+export const MASTER_MEMORY_RECONCILIATION_PATH = 'docs/UBERBOND_MASTER_MEMORY_RECONCILIATION_2026-08-29.md';
 
 const MAX_HANDOFF_ITEMS = 120;
 const MAX_HANDOFF_TEXT = 1200;
@@ -104,12 +107,25 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
   const bootstrap = readJson(bootstrapPath, 'bootstrap');
   const memoryRelative = assertSafeRelativePath(bootstrap.memoryIndexPath || 'artifacts/uberbond-memory-index.json');
   const handoffRelative = assertSafeRelativePath(bootstrap?.continuity?.handoffPath || 'docs/CURRENT_HANDOFF.json');
-  const memoryIndex = readJson(path.join(root, memoryRelative), 'memory-index');
+  const rawMemoryIndex = readJson(path.join(root, memoryRelative), 'memory-index');
+  const memoryReconciliation = readJson(path.join(root, MEMORY_RECONCILIATION_PATH), 'memory-reconciliation');
+  const reconciled = applyUberBondMemoryReconciliation({
+    memoryIndex: rawMemoryIndex,
+    reconciliation: memoryReconciliation
+  });
+  if (!reconciled.ok) {
+    const error = new Error('memory-reconciliation-failed');
+    error.reasonCodes = reconciled.reasonCodes;
+    throw error;
+  }
+  const memoryIndex = reconciled.memoryIndex;
   const handoff = normalizeHandoff(readJson(path.join(root, handoffRelative), 'handoff'));
   const commit = resolveSourceCommit(root, sourceCommit);
 
   const declaredPaths = [...new Set([
     'UBERBOND_BOOTSTRAP.json',
+    MEMORY_RECONCILIATION_PATH,
+    MASTER_MEMORY_RECONCILIATION_PATH,
     ...(Array.isArray(bootstrap.canonPointers) ? bootstrap.canonPointers : [])
   ])].map(assertSafeRelativePath);
   const missingPaths = declaredPaths.filter(relative => !fs.existsSync(path.join(root, relative)));
@@ -134,12 +150,14 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
 
   const handoffFreshAgainstSource = Boolean(handoff.handoffBasisSha && handoff.handoffBasisSha === commit);
   const packet = {
-    schemaVersion: 'uberbond-repository-brain-packet-1.0.0',
+    schemaVersion: 'uberbond-repository-brain-packet-1.1.0',
     cliVersion: UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION,
     project: 'UberBond',
     sourceCommit: commit,
     contextDigest: compiled.context.contextDigest,
     memoryDigest: compiled.context.memoryDigest,
+    memoryReconciliationDigest: reconciled.reconciledMemoryDigest,
+    historicalLineageCorrection: reconciled.lineage,
     objective: compiled.context.objective,
     economicNorthStar: compiled.context.finalGoal?.economicNorthStar || null,
     endState: compiled.context.finalGoal?.endState || null,
@@ -157,6 +175,7 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
     },
     startupProtocol: compiled.startupProtocol,
     requiredNextReads: [
+      MASTER_MEMORY_RECONCILIATION_PATH,
       'Inspect live main and open/recent PRs before selecting work.',
       'Read current readiness/state for present-tense software truth.',
       'Dedupe requested work against current code and active shared branches.',
@@ -176,6 +195,7 @@ export function formatUberBondBrainPacket(packet) {
     `context: ${packet.contextDigest}`,
     `memory: ${packet.memoryDigest}`,
     `initiatives: ${packet.namedInitiativeCount}`,
+    `lineage: ${(packet.historicalLineageCorrection || []).join(' -> ') || 'none'}`,
     `unresolved: ${packet.unresolvedNames.map(item => item.name).join(', ') || 'none'}`,
     `handoff: ${packet.currentHandoff.freshAgainstSourceCommit ? 'fresh' : 'reconcile against live GitHub'}`,
     `mission: ${packet.currentHandoff.activeMission}`,

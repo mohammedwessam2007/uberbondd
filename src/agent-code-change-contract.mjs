@@ -101,6 +101,7 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   'src/gmail.mjs',
   'tests/outbound-send-path-sovereignty-boundary.test.mjs',
   'tests/enforcement-surface-sovereignty-boundary.test.mjs',
+  'tests/evidence-sovereignty-boundary.test.mjs',
   // The gate that decides whether a provider may be called at all.
   'src/agent-mesh-activation-gate.mjs',
   // What an autonomous run may do, and how authority narrows into children.
@@ -139,6 +140,22 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   // able to weaken the clamps before that happens.
   'src/prospect-evidence-reconciliation.mjs',
   'src/market-signal.mjs',
+  // The two modules that ask `evaluateContactRoute` whether a route is usable.
+  // That decision is where suppression beats verification -- an unsubscribe is
+  // sticky and no fresher provider check gets to outvote it -- so a caller that
+  // discarded it would hand off a suppressed contact as usable.
+  //
+  // Both are dormant behind NO_ENRICHMENT_PROVIDER, so this closes nothing that
+  // runs today. It closes what the comment above already argues for the guards
+  // themselves: the autonomous path must not be able to weaken a clamp while it
+  // is dormant and have that weakening carried into activation.
+  //
+  // Deliberately NOT extended to the `isStaleSignal` callers. That function
+  // compares a signal's age against a `maxAgeMs` the caller supplies, so a
+  // caller can already choose its own answer without discarding anything.
+  // Protecting those callers would look like a boundary and enforce nothing.
+  'src/overnight/intent/account-intent-ledger.mjs',
+  'src/overnight/intent/budgeted-enrichment-waterfall.mjs',
   // What may be claimed about money.
   //
   // Three modules, and for a while only two of them. `payments.mjs` decides what

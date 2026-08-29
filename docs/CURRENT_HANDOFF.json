@@ -32,18 +32,18 @@
     "Migration 101_autonomy_operations_hygiene.sql adds egress_route_health, prospect_identity_keys, outbound_contact_guard and billing_webhook_inbox.",
     "Focused pure-module audit suite: 9/9 PASS. Independent mutations removing anti-evasion admission, cross-inbox dedupe or billing HMAC each reduced the suite to 8/9 and were killed. Billing Web Request route valid/bad signature harness PASS.",
     "Older PRs #207 and #208 are explicitly marked superseded by merged #209.",
-    "PR #224 is the live non-draft successor for the payment-reconciliation lease slice. Its reviewed runtime candidate is d568766d07cdeae7dc1bb850752324f73521d921; subsequent handoff-only commits currently place the published branch head at 66fd289e.... This continuation adds explicit claim-worker identity, returns the persisted lease owner, makes PostgreSQL parameter typing portable, and fixes the retry-due/reclaim sequence in the real-PostgreSQL proof.",
+    "PR #224 is the live non-draft successor for the payment-reconciliation lease slice. Its reviewed runtime candidate is d568766d07cdeae7dc1bb850752324f73521d921; the last observed published branch head before this handoff-only receipt update was 22444462.... This continuation adds explicit claim-worker identity, returns the persisted lease owner, makes PostgreSQL parameter typing portable, and fixes the retry-due/reclaim sequence in the real-PostgreSQL proof.",
     "Local exact-candidate proof: payment lease/watchdog suite 9/9 PASS, PGlite migration plus lease lifecycle PASS, syntax PASS, deterministic 2775 tests with 2727 pass/0 fail/48 skipped, relay safety 150/150, mutation war 75 mutations with 74 killed/0 not killed/1 PostgreSQL-dependent skip.",
     "PR #225 merged as 2af9b85b790d4b1791fd57f9dbf6641ef3e2d39d: public-only partner qualification receipt for ten seeds; five core candidates passed owner review, two remained adjacent-only and three were held.",
     "PR #226 merged as dc489024042b7bb930a1c9367a86f2a4cc025f23: independent public corroboration challenged Leadhub, BxB Media and Lemon Seed Marketing; the rank held, while demand, white-label willingness and contact authority remained unproven."
   ],
   "blockers": [
-    "The live Vercel connector now verifies both UberBond projects. Exact payment-lease branch head 66fd289e... is not deployed; the full project has a READY predecessor preview 31dbb897..., private-lite has a READY preview for earlier receipt ec0dd751..., and both current PR deployment checks report the free-tier api-deployments-free-per-day limit. Main has since advanced to dc489024... through the research-only PR #225/#226 merges. Do not upgrade or spend.",
+    "The live Vercel connector now verifies both UberBond projects. The last observed payment-lease branch head 22444462... is not deployed; the full project has a READY predecessor preview 31dbb897..., private-lite has a READY preview for earlier receipt ec0dd751..., and both current PR deployment checks report the free-tier api-deployments-free-per-day limit. Main has since advanced to dc489024... through the research-only PR #225/#226 merges. Do not upgrade or spend.",
     "GitHub Actions produces zero-step jobs with no runner assigned, so hosted CI yields no evidence either way. External to this lane; do not treat its red as a source failure or its green as a pass.",
     "No outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Every one of these is an external activation, not an engineering task."
   ],
   "nextActions": [
-    "CLAUDE: refresh/rebase PR #224 against current main dc489024... before any merge review; its current published branch head is 66fd289e..., and the Vercel rate limit plus missing real PostgreSQL runtime still prevent exact-head promotion proof.",
+    "CLAUDE: refresh/rebase PR #224 against current main dc489024... before any merge review; its last observed published branch head before the latest receipt update was 22444462..., and the Vercel rate limit plus missing real PostgreSQL runtime still prevent exact-head promotion proof. Use PR metadata for the exact current tip.",
     "SOL: public qualification and independent corroboration are COMPLETE in PRs #225/#226. Keep the top three owner-review-only; do not infer outreach permission, white-label willingness or demand.",
     "CLAUDE/SOL: once owner-only payment-provider identity/KYC and authorization exist, connect a real reconciliation caller/provider adapter to the lease repository. Until then the inbox remains evidence input and cannot unlock fulfillment.",
     "ANY LANE: the decision-consumer sweep is COMPLETE across all eight families -- see decisionConsumerSweep. Do not re-run it as though it were open; three derived tests now fail if a new module reopens it."
@@ -190,7 +190,7 @@
         "claim": "exact current PR #224 head is not yet deployed",
         "observedVia": "live Vercel deployment metadata and PR #224 status/comments",
         "observedAt": "2026-08-29",
-        "result": "latest READY preview is predecessor 31dbb897...; PR #224 branch head 66fd289e... has deployment checks failed with api-deployments-free-per-day",
+        "result": "latest READY preview is predecessor 31dbb897...; last observed PR #224 branch head 22444462... had deployment checks failed with api-deployments-free-per-day; later handoff-only receipt updates advance the branch",
         "evidenceRef": "PR #224 Vercel bot comments 5462828001 and 5462828066"
       }
     ],
@@ -308,8 +308,8 @@
     ]
   },
   "continuousIntegrationTruth": {
-    "workflowRun": 33258975786,
-    "headSha": "66fd289e5624cdd2c6852f9b396ed1d600e59ef7",
+    "workflowRun": 33259164341,
+    "headSha": "22444462cf405edc3f32fd04a61ab84d2611fa18",
     "jobs": [
       "deterministic",
       "postgres",
@@ -353,10 +353,10 @@
       "RETRYABLE clears the lease; only a later claimed row with a canonical receipt can become RECONCILED"
     ],
     "externalVerification": {
-      "vercel": "PARTIAL: full project READY preview dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y is predecessor 31dbb897...; private-lite READY preview dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg is receipt ec0dd751...; current published branch head 66fd289e... (runtime candidate d568766d...) has Vercel checks failed with api-deployments-free-per-day",
+      "vercel": "PARTIAL: full project READY preview dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y is predecessor 31dbb897...; private-lite READY preview dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg is receipt ec0dd751...; last observed published branch head 22444462... (runtime candidate d568766d...) had Vercel checks failed with api-deployments-free-per-day; later handoff-only receipt updates advance the branch",
       "postgres": "BLOCKED_RUNTIME: no OMNIA_V9_TEST_DATABASE_URL; embedded fallback cannot create postgres system group",
       "browser": "BLOCKED_RUNTIME: pinned Chromium absent; Playwright CDN install timed out",
-      "githubActions": "INFRASTRUCTURE_NON_EVIDENCE: run 33258975786 completed failure but all three jobs returned steps=[]; no source execution is evidenced"
+      "githubActions": "INFRASTRUCTURE_NON_EVIDENCE: run 33259164341 completed failure but all three jobs returned steps=[]; no source execution is evidenced"
     },
     "merged": false,
     "productionDeployment": false,

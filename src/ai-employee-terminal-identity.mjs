@@ -1,4 +1,4 @@
-export const AI_EMPLOYEE_TERMINAL_IDENTITY_POLICY_VERSION = 'ai-employee-terminal-identity-1.0.0';
+export const AI_EMPLOYEE_TERMINAL_IDENTITY_POLICY_VERSION = 'ai-employee-terminal-identity-1.1.0';
 
 function text(value, max = 500) {
   return String(value ?? '').trim().slice(0, max);
@@ -36,10 +36,26 @@ export function employeeRoleIdentityFromTask(task = {}) {
   };
 }
 
+// A declared role on a task that grants none is not a harmless extra field. It
+// is a worker naming an identity nobody gave it, and until now it was accepted
+// silently and carried forward into the durable submission payload -- which is
+// exactly "generic work must never accidentally become privileged employee
+// work", arriving through the one direction the mismatch checks did not cover.
+//
+// It is refused rather than stripped. Stripping would hide the attempt; a
+// worker claiming an authority it was not admitted under is a signal.
+function ungrantedRoleClaim(value, code) {
+  const declaredRef = text(value?.employeeRoleRef, 500);
+  const declaredDigest = text(value?.employeeRoleDigest, 100);
+  return declaredRef || declaredDigest ? [code] : [];
+}
+
 export function employeeRoleIdentityErrors({ result, expected = {} } = {}) {
   const expectedRef = text(expected?.employeeRoleRef, 500);
   const expectedDigest = text(expected?.employeeRoleDigest, 100);
-  if (!expectedRef && !expectedDigest) return [];
+  if (!expectedRef && !expectedDigest) {
+    return ungrantedRoleClaim(result, 'worker-result-employee-role-not-granted');
+  }
   if (!expectedRef || !expectedDigest) return ['expected-employee-role-binding-incomplete'];
   const declaredRef = text(result?.employeeRoleRef, 500);
   const declaredDigest = text(result?.employeeRoleDigest, 100);
@@ -58,6 +74,8 @@ export function bindEmployeeRoleIdentityToResult({ task, result } = {}) {
   const identity = employeeRoleIdentityFromTask(task);
   if (!identity.ok) return identity;
   if (!identity.bound) {
+    const claimed = ungrantedRoleClaim(result, 'model-result-employee-role-not-granted');
+    if (claimed.length) return fail(claimed);
     return {
       ok: true,
       policyVersion: AI_EMPLOYEE_TERMINAL_IDENTITY_POLICY_VERSION,
@@ -87,6 +105,14 @@ export function bindEmployeeRoleIdentityToReceipt({ task, receipt } = {}) {
   const identity = employeeRoleIdentityFromTask(task);
   if (!identity.ok) return identity;
   if (!identity.bound) {
+    const claimed = ungrantedRoleClaim(receipt, 'receipt-employee-role-not-granted');
+    if (claimed.length) return fail(claimed);
+    // A nested result may carry the claim even when the receipt envelope does
+    // not, so the same refusal has to reach through it.
+    if (receipt && typeof receipt === 'object' && !Array.isArray(receipt) && receipt.result != null) {
+      const nested = bindEmployeeRoleIdentityToResult({ task, result: receipt.result });
+      if (!nested.ok) return nested;
+    }
     return {
       ok: true,
       policyVersion: AI_EMPLOYEE_TERMINAL_IDENTITY_POLICY_VERSION,

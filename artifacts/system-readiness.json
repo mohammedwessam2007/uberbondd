@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-28T22:11:35.392Z",
+  "generatedAt": "2026-08-29T09:13:17.451Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "008bc148933186ccdcc0fcbd86d0c5a3586e2ce5",
+    "head": "c058ddb2499ba44e2d0e137210325007c0ee958e",
     "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "sourceModules": 170,
-    "testSuites": 262,
+    "sourceModules": 191,
+    "testSuites": 277,
     "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 519,
-      "ranAt": "2026-08-28T00:00:00Z"
+      "filesParsed": 596,
+      "ranAt": "2026-08-29T00:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2429,
-      "pass": 2381,
+      "tests": 2724,
+      "pass": 2676,
       "fail": 0,
       "skipped": 48,
-      "ranAt": "2026-08-28T00:00:00Z"
+      "ranAt": "2026-08-29T00:00:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -29,44 +29,50 @@
       "pass": 150,
       "fail": 0,
       "skipped": 0,
-      "ranAt": "2026-08-28T00:00:00Z"
+      "ranAt": "2026-08-29T00:00:00Z"
     },
     "test:postgres-real": {
-      "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:postgres-real",
-      "status": "NOT_RUN_CURRENT_BRANCH",
-      "tests": 0,
-      "pass": 0,
+      "command": "OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real",
+      "status": "PASS_CURRENT_BRANCH",
+      "tests": 127,
+      "pass": 127,
       "fail": 0,
       "skipped": 0,
-      "note": "OMNIA_V9_TEST_DATABASE_URL was unavailable; the integrated branch has no current real-PostgreSQL proof.",
-      "ranAt": "2026-08-28T00:00:00Z"
+      "result": "127 tests, 127 pass, 0 fail (2026-08-29), against embedded PostgreSQL 18",
+      "ranAt": "2026-08-29T00:00:00Z"
     },
     "npm audit": {
-      "command": "npm audit --audit-level=high",
+      "command": "npm audit --omit=dev",
       "status": "PASS_CURRENT_INTEGRATION",
       "vulnerabilities": 0,
-      "note": "No high-severity or other npm audit vulnerabilities were reported in the current integration environment.",
-      "ranAt": "2026-08-28T00:00:00Z"
+      "note": "No vulnerabilities reported in the current integration environment.",
+      "ranAt": "2026-08-29T00:00:00Z"
     },
     "test:mutation-war": {
-      "command": "npm run test:mutation-war",
-      "result": "62 mutations, 61 killed, 0 not killed, 1 PostgreSQL-dependent skip",
-      "ranAt": "2026-08-28T00:00:00Z"
+      "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
+      "result": "64 mutations, 64 killed, 0 not killed",
+      "note": "Run with a real PostgreSQL so STORE-01 is executed rather than skipped. Without the database it reports 63 killed and 1 PostgreSQL-dependent skip.",
+      "ranAt": "2026-08-29T00:00:00Z"
     },
     "test:browser": {
-      "command": "npm run test:browser",
-      "status": "BLOCKED_EXTERNAL_TEST_RUNTIME",
-      "result": "BLOCKED_EXTERNAL_TEST_RUNTIME: required Playwright Chromium is absent and the pinned browser download times out in this runner.",
-      "ranAt": "2026-08-28T00:00:00Z"
+      "command": "CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser",
+      "status": "PASS_CURRENT_BRANCH",
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0,
+      "result": "1 test, 1 pass, 0 fail (2026-08-29), against the runner's installed Chromium",
+      "note": "The previous BLOCKED_EXTERNAL_TEST_RUNTIME record said Chromium was absent. It is not: this runner ships chromium-1194 while the pinned Playwright resolves chromium_headless_shell-1228, so the default launch path 404s on a build number rather than on a missing browser. crawlSiteBrowser already accepts CHROMIUM_PATH, which bridges it. The test's site is a loopback HTTP server, so this gate makes no external request.",
+      "ranAt": "2026-08-29T00:00:00Z"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 155,
-      "reachableFromProduction": 107,
-      "reachableFromOperatorScriptsOnly": 3,
-      "noEntryPointAtAll": 45,
+      "srcModules": 191,
+      "reachableFromProduction": 117,
+      "reachableFromOperatorScriptsOnly": 5,
+      "noEntryPointAtAll": 69,
       "allClassified": true,
-      "ranAt": "2026-08-25T19:07:55Z"
+      "ranAt": "2026-08-29T00:00:00Z"
     }
   },
   "capabilities": [

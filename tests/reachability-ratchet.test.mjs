@@ -33,13 +33,47 @@ function filesIn(dir, extension = '.mjs') {
   }
 }
 
+// Entry points have to be found recursively, and this is not a tidiness point.
+//
+// `filesIn` reads one directory level. Every route used to live directly under
+// `api/`, so that was invisibly sufficient -- until `api/webhooks/billing.mjs`
+// and `api/admin/health-check.mjs` landed. Four modules those routes import
+// were then reported as having no entry point at all.
+//
+// The damage is not a red test. It is what a red test of this shape invites: the
+// obvious way to make it green is to add the four modules to the classification
+// file as AWAITING_ACTIVATION behind some gate, which would record, durably and
+// in the canonical place, that production code wired to a live route is waiting
+// on an activation that does not exist. The ratchet exists to stop exactly that
+// kind of false statement, so it must not be the thing that produces one.
+//
+// Only entry-point discovery is recursive here. `src` has subtrees of its own
+// (`src/overnight`, `src/omnia-v9`) that this ratchet has never covered; that is
+// a separate and larger question about what is in scope, and widening it
+// silently as a side effect of a merge would be its own kind of dishonesty.
+function entryPointsIn(dir, extension = '.mjs') {
+  const found = [];
+  const walk = relative => {
+    let entries;
+    try { entries = readdirSync(join(repoRoot, relative), { withFileTypes: true }); }
+    catch { return; }
+    for (const entry of entries) {
+      const child = `${relative}/${entry.name}`;
+      if (entry.isDirectory()) walk(child);
+      else if (entry.name.endsWith(extension)) found.push(child);
+    }
+  };
+  walk(dir);
+  return found;
+}
+
 function classification() {
   return JSON.parse(readFileSync(join(repoRoot, 'config', 'reachability-classification.json'), 'utf8'));
 }
 
 function partition() {
-  const api = filesIn('api');
-  const scripts = filesIn('scripts');
+  const api = entryPointsIn('api');
+  const scripts = entryPointsIn('scripts');
   const production = reachableFromEntryPoints([...PRODUCTION_ENTRY_POINTS, ...api]);
   const anyEntry = reachableFromEntryPoints(['server.mjs', 'worker.mjs', ...scripts, ...api]);
   const all = filesIn('src');

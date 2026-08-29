@@ -46,6 +46,14 @@ export function compileEmployeeAgentTask({ roleContract, allowedCapabilities = [
     ...base,
     policyVersion: AI_EMPLOYEE_RELAY_POLICY_VERSION,
     taskId,
+    // The originating relay task id, kept as a field rather than only as an
+    // input to the digest above. Spreading `...base` and overwriting `taskId`
+    // made the employee task cryptographically bound to its origin and
+    // practically untraceable back to it: given `employee_task_xxx` you could
+    // verify a guess by recomputing the digest, but you could not recover which
+    // intent produced it. An attribution chain you can only verify a guess
+    // against is not an attribution chain.
+    relayTaskId: base.taskId,
     relayPolicyVersion: base.policyVersion,
     employeeRoleRef: bound.employeeRoleRef,
     employeeRoleDigest: bound.employeeRoleDigest,

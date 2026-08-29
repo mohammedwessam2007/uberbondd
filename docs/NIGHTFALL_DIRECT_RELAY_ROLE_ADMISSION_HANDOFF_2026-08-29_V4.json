@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "nightfall-direct-relay-role-admission-handoff-4.0.0",
+  "sourceMainSha": "d3a0b73c6e9e04cef18f74deaaa0627b9d3460c5",
+  "candidateBranch": "gpt/nightfall-direct-relay-admission-d3a0b73-20260829",
+  "candidatePullRequest": 206,
+  "candidateRuntimeHeadBeforeHandoff": "f05b3170e4a1182fde6fea56d1c9150d9561e8d7",
+  "objective": "Fail closed on AI employee identity at direct cloud relay terminal admission before replay, lease acceptance, or terminal queue mutation.",
+  "implemented": [
+    "Added validateEmployeeRoleRelayResultAdmission using the canonical terminal employee identity policy.",
+    "submitCloudRelayResult now validates immutable job.payload employee identity against submitted result and receipt immediately after durable relay-job lookup.",
+    "Generic role-free relay tasks remain backward compatible.",
+    "Six hostile admission tests cover incomplete task binding, missing/substituted result identity, missing/mismatched receipt identity, nested substitution, exact admission, and generic compatibility.",
+    "lite/ is untouched."
+  ],
+  "verification": {
+    "localFocusedSemanticSuite": {
+      "executed": true,
+      "tests": 6,
+      "passed": 6,
+      "failed": 0,
+      "scope": "exact committed admission-module semantics reconstructed from repository blobs plus canonical terminal-identity dependency"
+    },
+    "githubActions": {
+      "runId": 33242318518,
+      "conclusion": "failure",
+      "sourceStepsExecuted": 0,
+      "runnerId": 0,
+      "classification": "runner infrastructure non-evidence"
+    },
+    "vercelExactHead": {
+      "observed": false,
+      "classification": "no exact-head preview/build receipt observed through connected Vercel deployment listing"
+    },
+    "wholeTreeExactHead": false
+  },
+  "promotionDecision": "KEEP_DRAFT_UNTIL_EXACT_HEAD_BUILD_AND_INTEGRATION_EXECUTION",
+  "requiredNextProof": [
+    "Execute tests/ai-employee-relay-result-admission.test.mjs from an actual checkout of PR #206.",
+    "Execute existing cloud relay, AI employee terminal identity, worker role gate, and autonomy terminal ingestion suites on the exact PR head.",
+    "Obtain an exact-head build receipt, preferably Vercel READY or equivalent reproducible repository build.",
+    "Merge only if exact-head proof is clean and main has not introduced conflicting relay semantics."
+  ],
+  "externalEffectLedger": {
+    "customerProspectContacts": 0,
+    "outboundMessages": 0,
+    "modelProviderExecutions": 0,
+    "licensedProviderCalls": 0,
+    "purchases": 0,
+    "spendCents": 0,
+    "dnsChanges": 0,
+    "credentialChanges": 0,
+    "kycPaymentChanges": 0,
+    "moneyMovement": 0,
+    "customerProductionDataMutations": 0,
+    "productionDeployments": 0
+  },
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedDeliveries": 0,
+    "unattendedRuntimeProofClaimed": false
+  }
+}

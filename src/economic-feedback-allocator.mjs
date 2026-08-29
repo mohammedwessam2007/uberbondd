@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 
 export const ECONOMIC_FEEDBACK_ALLOCATOR_POLICY_VERSION='uberbond.economic-feedback-allocator.v1';
-const PROHIBITED=/(?:race|ethnic|religion|disability|medical|health|sexual|gender|pregnan|political|union|biometric|genetic|criminal)/i;
+const PROHIBITED_KEY=/(?:^|_)(?:race|ethnicity|ethnic_origin|religion|disability|medical_condition|health_condition|sexual_orientation|sex_life|gender_identity|pregnancy|political_affiliation|union_membership|biometric|genetic|criminal_history)(?:$|_)/i;
 const text=(v,m=300)=>String(v??'').trim().slice(0,m);
 const sha=v=>crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex');
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
@@ -11,7 +11,7 @@ export function proposeProfileWeightUpdates({segments=[],policy={}}={}){
  const minOutcomes=Math.max(1,Math.round(Number(policy.minOutcomes||10))), minPaid=Math.max(1,Math.round(Number(policy.minPaidOutcomes||3))), explorationFloor=clamp(Number(policy.explorationFloor??0.1),0.01,0.5), maxDelta=clamp(Number(policy.maxWeightDeltaPerCycle??0.15),0.01,0.5), minWeight=clamp(Number(policy.minWeight??0.25),0.01,1), maxWeight=Math.max(1,Number(policy.maxWeight??4));
  const results=[]; const errors=[];
  for(const [index,s] of (Array.isArray(segments)?segments:[]).slice(0,500).entries()){
-  const profileKey=text(s?.profileKey,180), dimensions=s?.dimensions&&typeof s.dimensions==='object'?s.dimensions:{}, dimensionText=Object.keys(dimensions).join(' ')+' '+Object.values(dimensions).join(' '); if(!profileKey){errors.push({index,reason:'profile-key-required'});continue;} if(PROHIBITED.test(dimensionText)){errors.push({index,profileKey,reason:'protected-or-sensitive-profile-dimension-prohibited'});continue;}
+  const profileKey=text(s?.profileKey,180), dimensions=s?.dimensions&&typeof s.dimensions==='object'?s.dimensions:{}; if(!profileKey){errors.push({index,reason:'profile-key-required'});continue;} if(Object.keys(dimensions).some(key=>PROHIBITED_KEY.test(String(key)))){errors.push({index,profileKey,reason:'protected-or-sensitive-profile-dimension-prohibited'});continue;}
   const exposures=Math.max(0,Math.round(Number(s.exposures||0))), outcomes=Math.max(0,Math.round(Number(s.qualifiedOutcomes||0))), paid=Math.max(0,Math.round(Number(s.paidAcceptedOutcomes||0))), clearedContributionCents=Number(s.clearedContributionCents), founderMinutes=Number(s.founderMinutes), currentWeight=clamp(Number(s.currentWeight||1),minWeight,maxWeight);
   if(outcomes>exposures||paid>outcomes){errors.push({index,profileKey,reason:'invalid-outcome-counts'});continue;}
   const enough=exposures>=minOutcomes&&paid>=minPaid&&Number.isFinite(clearedContributionCents)&&Number.isFinite(founderMinutes)&&founderMinutes>0;

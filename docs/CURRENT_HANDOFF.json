@@ -165,7 +165,7 @@
   "currentOpenCandidates": [
     {
       "pr": 227,
-      "head": "bebeac10904d0d8fae2095fde15b62e29c389a66",
+      "head": "74bfff008d7db1ba9f548d33c361d9dc697f1427",
       "status": "OPEN_DRAFT_MERGEABLE",
       "mission": "recoverable payment reconciliation leases",
       "promotionBlockers": ["exact-head Vercel READY proof", "real PostgreSQL lease proof"]

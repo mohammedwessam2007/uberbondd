@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { registerTaskIntent, ingestAgentResult } from './agent-autonomy-loop.mjs';
 import { evaluateWorkerResultTruth } from './agent-worker-result-truth.mjs';
 
-export const AGENT_AUTONOMY_PUMP_POLICY_VERSION = 'agent-autonomy-pump-1.2.0';
+export const AGENT_AUTONOMY_PUMP_POLICY_VERSION = 'agent-autonomy-pump-1.3.0';
 
 const MAX_RECEIPTS = 256;
 const TERMINAL = new Set([
@@ -154,6 +154,8 @@ export async function advanceAutonomyRun({
       issueNumber: Number(queued.issueNumber) || null,
       targetAgent: next.currentIntent.targetAgent,
       originAgent: next.currentIntent.originAgent,
+      employeeRoleRef: text(relayTask.employeeRoleRef, 500) || null,
+      employeeRoleDigest: text(relayTask.employeeRoleDigest, 100) || null,
       queuedAt: next.updatedAt
     };
     next.phase = 'AWAITING_RESULT';
@@ -187,14 +189,18 @@ export async function advanceAutonomyRun({
     }
     // A result that claims DONE is asking the system to stop working and
     // believe it. Check the envelope, the identity it answers with, and -- only
-    // when it claims terminal -- the evidence behind that claim.
+    // when it claims terminal -- the evidence behind that claim. Role-bound
+    // employee runs must also return the exact immutable role ref + digest that
+    // were dispatched; an anonymous or substituted employee cannot end the run.
     const truth = evaluateWorkerResultTruth({
       result,
       expected: {
         taskId: next.relayRef.taskId,
         runId: next.runId,
         sessionId: next.session.sessionId,
-        workerId: received.workerId || result.workerId || ''
+        workerId: received.workerId || result.workerId || '',
+        employeeRoleRef: next.relayRef.employeeRoleRef || '',
+        employeeRoleDigest: next.relayRef.employeeRoleDigest || ''
       }
     });
     if (!truth.ok) {
@@ -215,6 +221,8 @@ export async function advanceAutonomyRun({
       taskId: next.relayRef.taskId,
       originAgent: next.relayRef.originAgent,
       targetAgent: next.relayRef.targetAgent,
+      employeeRoleRef: next.relayRef.employeeRoleRef || null,
+      employeeRoleDigest: next.relayRef.employeeRoleDigest || null,
       issueNumber: next.relayRef.issueNumber,
       resultStatus: received.resultStatus || received.status,
       receivedAt: next.updatedAt

@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "uberbond-partner-canary-public-corroboration-1.0.0",
+  "generatedAt": "2026-08-29T14:56:00Z",
+  "sourceMainSha": "2af9b85b790d4b1791fd57f9dbf6641ef3e2d39d",
+  "sourceFirstPassArtifact": "artifacts/partner-canary-public-evidence-20260829.json",
+  "researchBoundary": "PUBLIC_INDEPENDENT_ECOSYSTEM_AND_PARTNER_SOURCES_ONLY__NO_PRIVATE_CONTACT_DATA__NO_CONTACT__NO_OUTBOUND",
+  "purpose": "Challenge the top three public-only candidate decisions with third-party or ecosystem evidence without upgrading any claim into demand, permission or willingness to pay.",
+  "candidates": [
+    {
+      "rank": 1,
+      "candidateId": "seed-stcp-leadhub",
+      "companyName": "Leadhub",
+      "corroborationStatus": "PARTIAL_PLATFORM_RECOGNITION",
+      "independentEvidence": [
+        {
+          "sourceUrl": "https://business.yelp.com/resources/articles/announcing-winners-of-the-first-ever-yelp-advertising-partner-awards/?domain=partners",
+          "claim": "Yelp's public 2023 Advertising Partner Awards names Leadhub as the Best in Lead Generation winner.",
+          "evidenceClass": "OFFICIAL_PLATFORM_AWARD",
+          "observedAt": "2026-08-29",
+          "supports": ["public lead-generation capability signal", "platform-partner recognition"],
+          "doesNotProve": ["white-label willingness", "current commercial demand", "contact permission", "three named client examples"]
+        }
+      ],
+      "partnerNormEvidence": "PLATFORM_PARTNER_RECOGNITION_ONLY",
+      "namedClientCorroborationCount": 0,
+      "decision": "RETAIN_RANK_1_OWNER_REVIEW_ONLY",
+      "hostileChallenge": "The award strengthens capability credibility but does not show that Leadhub wants a new vendor, would white-label an evidence sprint or would pay for it. Direct overlap remains the key kill risk.",
+      "contactAuthority": "NONE"
+    },
+    {
+      "rank": 2,
+      "candidateId": "seed-stcp-bxb-media",
+      "companyName": "BxB Media",
+      "corroborationStatus": "STRONGER_ECOSYSTEM_IDENTITY_AND_VERTICAL",
+      "independentEvidence": [
+        {
+          "sourceUrl": "https://fieldedge.com/partner/bxb-media/",
+          "claim": "FieldEdge publicly presents BxB Media as a partner and describes its work with HVAC, plumbing and electrical professionals.",
+          "evidenceClass": "OFFICIAL_ECOSYSTEM_PARTNER_PAGE",
+          "observedAt": "2026-08-29",
+          "supports": ["public business identity", "core-trade vertical fit", "ecosystem partnership is a normal motion"],
+          "doesNotProve": ["white-label willingness", "current commercial demand", "contact permission", "payment willingness"]
+        }
+      ],
+      "partnerNormEvidence": "ECOSYSTEM_PARTNER_PRESENCE_CONFIRMED",
+      "namedClientCorroborationCount": 0,
+      "decision": "RETAIN_RANK_2_OWNER_REVIEW_ONLY",
+      "hostileChallenge": "An ecosystem partner page confirms adjacency, not receptivity. BxB's own direct marketing footprint may make an independent evidence offer redundant unless the buyer-visible value is clearly distinct.",
+      "contactAuthority": "NONE"
+    },
+    {
+      "rank": 3,
+      "candidateId": "seed-stcp-lemon-seed",
+      "companyName": "Lemon Seed Marketing",
+      "corroborationStatus": "STRONGER_PARTNERSHIP_NORM",
+      "independentEvidence": [
+        {
+          "sourceUrl": "https://ciwebgroup.com/partners/strategic/lemon-seed-marketing",
+          "claim": "CI Web Group publicly describes Lemon Seed Marketing as a strategic partner, says the relationship began in 2017 and describes joint work serving trades businesses.",
+          "evidenceClass": "INDEPENDENT_PARTNER_WEBSITE",
+          "observedAt": "2026-08-29",
+          "supports": ["public business identity", "core-trade adjacency", "partnership motion is publicly normal in this ecosystem"],
+          "doesNotProve": ["white-label willingness toward UberBond", "current commercial demand", "contact permission", "payment willingness"]
+        }
+      ],
+      "partnerNormEvidence": "STRATEGIC_PARTNERSHIP_PUBLICLY_DOCUMENTED",
+      "namedClientCorroborationCount": 0,
+      "decision": "RETAIN_RANK_3_OWNER_REVIEW_ONLY",
+      "hostileChallenge": "The partnership is strong evidence that ecosystem collaboration happens, but it also surfaces a possible incumbent/technology-partner conflict. Any future offer must prove incremental value rather than generic marketing help.",
+      "contactAuthority": "NONE"
+    }
+  ],
+  "crossCandidateDecision": {
+    "rankingChanged": false,
+    "survivors": ["seed-stcp-leadhub", "seed-stcp-bxb-media", "seed-stcp-lemon-seed"],
+    "independentNamedClientEvidenceFound": 0,
+    "whiteLabelWillingnessProven": false,
+    "buyerDemandProven": false,
+    "paymentProven": false,
+    "nextSafeStep": "Owner review of a non-contact research brief, followed by a separate authority decision. Do not infer permission from partner status or platform recognition.",
+    "commercialConclusion": "The top three remain research-qualified targets, not leads, prospects in an outbound queue or customers."
+  },
+  "externalEffectLedger": {
+    "customerContacts": 0,
+    "outboundMessages": 0,
+    "providerCalls": 0,
+    "privateContactFieldsStored": 0,
+    "customerSystemMutations": 0,
+    "moneyMovement": 0,
+    "spendCents": 0,
+    "publishedOutboundCampaign": false
+  },
+  "status": "CORROBORATION_COMPLETE__TOP_THREE_SURVIVE_WITH_UNCERTAINTY__OUTREACH_BLOCKED"
+}

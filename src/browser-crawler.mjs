@@ -5,6 +5,7 @@ import { chromium } from 'playwright';
 import { getRobots, isAllowed } from './robots.mjs';
 import { normalizeDomain, sleep, uniq } from './utils.mjs';
 import { assertPublicUrl } from './security.mjs';
+import { getSharedBrowserRuntime } from './browser-runtime-pool.mjs';
 
 const PRIORITY = /(about|team|contact|services?|pricing|book|appointment|reserve|research|doctor|clinic|portfolio|work|case)/i;
 const SKIP = /\.(pdf|jpe?g|png|gif|svg|webp|zip|docx?|xlsx?|pptx?|mp4|mp3)(\?|$)/i;
@@ -107,23 +108,30 @@ export async function crawlSiteBrowser(input, options={}) {
   const launchArgs=['--no-sandbox','--disable-dev-shm-usage'];
   if(allowLocal)launchArgs.push('--disable-web-security','--disable-features=BlockInsecurePrivateNetworkRequests,PrivateNetworkAccessSendPreflights');
   await emitProgress('loading_website');
-  const browser=await chromium.launch({headless:true,...(executablePath?{executablePath}:{}),args:launchArgs});
-  const context=await browser.newContext({viewport:{width:1440,height:900},userAgent:'UberBondNightshift/1.0 (+public website quality research)'});
-  const hostChecks=new Map();
-  await context.route('**/*', async route=>{
-    const req=route.request();
-    const url=req.url();
-    if(!/^https?:/i.test(url)) return route.continue();
-    try{
-      const host=new URL(url).hostname;
-      let check=hostChecks.get(host);
-      if(!check){check=assertPublicUrl(url,{allowLocal});hostChecks.set(host,check);}
-      await check;
-      return route.continue();
-    }catch{return route.abort('blockedbyclient');}
+  const runtime=getSharedBrowserRuntime({
+    key:options.browserRuntimeKey||'browser-crawler',
+    launchBrowser:launchOptions=>chromium.launch(launchOptions),
+    launchOptions:{headless:true,...(executablePath?{executablePath}:{}),args:launchArgs},
+    maxConcurrentContexts:options.maxConcurrentContexts,
+    recycleAfterContexts:options.recycleAfterContexts
   });
-  const queue=[{url:start,depth:0,score:100}]; const seen=new Set(); const pages=[]; const errors=[];
+  const runtimeLease=await runtime.acquire({contextOptions:{viewport:{width:1440,height:900},userAgent:'UberBondNightshift/1.0 (+public website quality research)'}});
+  const context=runtimeLease.context;
+  const hostChecks=new Map();
   try{
+    await context.route('**/*', async route=>{
+      const req=route.request();
+      const url=req.url();
+      if(!/^https?:/i.test(url)) return route.continue();
+      try{
+        const host=new URL(url).hostname;
+        let check=hostChecks.get(host);
+        if(!check){check=assertPublicUrl(url,{allowLocal});hostChecks.set(host,check);}
+        await check;
+        return route.continue();
+      }catch{return route.abort('blockedbyclient');}
+    });
+    const queue=[{url:start,depth:0,score:100}]; const seen=new Set(); const pages=[]; const errors=[];
     while(queue.length&&pages.length<maxPages){
       queue.sort((a,b)=>b.score-a.score); const item=queue.shift(); if(!item||seen.has(item.url)) continue;
       seen.add(item.url); if(!isAllowed(item.url,robots)) {errors.push({url:item.url,error:'blocked_by_robots'});continue;}
@@ -185,6 +193,6 @@ export async function crawlSiteBrowser(input, options={}) {
       finally{await page.close();}
       await sleep(Math.max(delayMs,(robots.crawlDelay||0)*1000));
     }
-  } finally { await context.close(); await browser.close(); }
+  } finally { await runtimeLease.release(); }
   return {startUrl:start,domain,robots,pages,errors,emails:uniq(pages.flatMap(p=>p.emails)),combinedText:pages.map(p=>`[${p.url}]\n${p.title}\n${(p.headings||[]).map(h=>h.text).join(' | ')}\n${p.bodyText||''}`).join('\n\n').slice(0,120000),completedAt:new Date().toISOString(),engine:'playwright',summary:{pagesVisited:pages.length,errors:errors.length,desktopScreenshots:pages.filter(p=>p.screenshots?.desktop).length,mobileScreenshots:pages.filter(p=>p.screenshots?.mobile).length}};
 }

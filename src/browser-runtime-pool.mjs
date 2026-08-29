@@ -6,12 +6,13 @@ const boundedInt = (value, fallback, min, max) => {
 };
 
 export class BrowserRuntimePool {
-  constructor({ launchBrowser, launchOptions = {}, maxConcurrentContexts = 2, recycleAfterContexts = 40 } = {}) {
+  constructor({ launchBrowser, launchOptions = {}, maxConcurrentContexts = 2, recycleAfterContexts = 40, autoCloseWhenIdle = false } = {}) {
     if (typeof launchBrowser !== 'function') throw new Error('launch-browser-required');
     this.launchBrowser = launchBrowser;
     this.launchOptions = { ...launchOptions };
     this.maxConcurrentContexts = boundedInt(maxConcurrentContexts, 2, 1, 8);
     this.recycleAfterContexts = boundedInt(recycleAfterContexts, 40, 1, 500);
+    this.autoCloseWhenIdle = Boolean(autoCloseWhenIdle);
     this.browser = null;
     this.browserPromise = null;
     this.active = 0;
@@ -69,7 +70,8 @@ export class BrowserRuntimePool {
         try { await context.close(); } finally {
           this.active = Math.max(0, this.active - 1);
           this.served += 1;
-          if (this.active === 0 && this.served >= this.recycleAfterContexts) await this.recycle();
+          if (this.active === 0 && this.waiters.length === 0 && this.autoCloseWhenIdle) await this.close();
+          else if (this.active === 0 && this.served >= this.recycleAfterContexts) await this.recycle();
           this.wakeNext();
         }
       }
@@ -86,6 +88,7 @@ export class BrowserRuntimePool {
   }
 
   async close() {
+    if (this.closed) return;
     this.closed = true;
     const error = new Error('browser-runtime-closed');
     for (const waiter of this.waiters.splice(0)) waiter.reject(error);
@@ -97,6 +100,10 @@ export class BrowserRuntimePool {
 
 const shared = new Map();
 export function getSharedBrowserRuntime({ key = 'default', launchBrowser, launchOptions = {}, maxConcurrentContexts = 2, recycleAfterContexts = 40 } = {}) {
+  const persistentWorkerRuntime = String(process.env.PROCESS_ROLE || '').toLowerCase() === 'worker';
+  if (!persistentWorkerRuntime) {
+    return new BrowserRuntimePool({ launchBrowser, launchOptions, maxConcurrentContexts, recycleAfterContexts, autoCloseWhenIdle: true });
+  }
   const runtimeKey = String(key || 'default');
   let runtime = shared.get(runtimeKey);
   if (!runtime) {

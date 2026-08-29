@@ -67,6 +67,10 @@
     "NO_PARTNER_OR_REFERRAL_RELATIONSHIP": {
       "description": "Partner fit, account overlap and referral accounting model a distribution relationship with another organization. There are no partners and no referral agreements, so every input to these modules would have to be invented.",
       "releasedBy": "At least one real partner or referral relationship, with terms the owner has agreed to."
+    },
+    "NO_OBJECT_STORAGE_ADAPTER": {
+      "description": "External object storage needs a configured private adapter and a credential path that has been separately reviewed. Neither exists. The contract is deliberately fail-closed: `adapterConfigured` must be literally true, and every other value -- absent, false, the string \"true\", 1, {} -- is refused, so an object write cannot be reached by an accident of truthiness.",
+      "releasedBy": "A configured private object-storage adapter with a reviewed credential path, and an owner decision that artifacts may leave PostgreSQL at all. Configuring an adapter does not by itself authorize what is written through it."
     }
   },
   "modules": {
@@ -659,6 +663,11 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
       "reason": "Drives acquisition of a capability once one is chosen. Acquisition terminates in configuring a provider adapter, and none is configured."
+    },
+    "src/artifact-storage-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OBJECT_STORAGE_ADAPTER",
+      "reason": "Compiles a storage write plan and normalizes a provider receipt. Its postgres path is the behaviour the tree already has; its object path terminates in writing to an external store that does not exist yet, so nothing calls it. Attacked before classification: the object backend is fail-closed on every truthiness variant, a namespace cannot escape its prefix, and a receipt is PRIVATE regardless of what the input claims."
     }
   }
 }

@@ -2,13 +2,13 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 607,
+      "filesParsed": 609,
       "ranAt": "2026-08-29T20:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2790,
-      "pass": 2742,
+      "tests": 2798,
+      "pass": 2750,
       "fail": 0,
       "skipped": 48,
       "ranAt": "2026-08-29T20:00:00Z"
@@ -58,10 +58,10 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 253,
+      "srcModules": 254,
       "reachableFromProduction": 126,
       "reachableFromOperatorScriptsOnly": 9,
-      "noEntryPointAtAll": 118,
+      "noEntryPointAtAll": 119,
       "allClassified": true,
       "ranAt": "2026-08-29T20:00:00Z",
       "note": "src is now walked recursively. The previous 191/117/5/69 figures excluded src/overnight and src/omnia-v9 entirely, which was an accident of a single-level directory read, not a scope decision."

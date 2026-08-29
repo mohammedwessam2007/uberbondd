@@ -1,200 +1,105 @@
 {
   "schemaVersion": "uberbond-handoff-1.1.0",
-  "sourceMainShaAtMissionStart": "ba1fa7a53b2a6c7672562a30c737b7f553cb5857",
-  "sourceMainCommitMessage": "Add Trinity night-shift coordination protocol",
-  "sourceCommit": "c2fc6a99ddb715b3d9d0a2e24b294a334360941b",
-  "currentMainShaAtFinalRefresh": "c2fc6a99ddb715b3d9d0a2e24b294a334360941b",
-  "currentMainCommitMessage": "Record merged Nightfall mission handoff",
-  "activeBranch": "main",
+  "sourceMainShaAtMissionStart": "eef4364498c55790b0f6aedbfdd681e98631d099",
+  "sourceCommit": "a8a0caa26ec5fdd63f574f28f27f9b376a2589a7",
+  "currentMainShaAtFinalRefresh": "a8a0caa26ec5fdd63f574f28f27f9b376a2589a7",
+  "currentMainCommitMessage": "NIGHTFALL: bind AI employee identity through terminal ingestion",
+  "activeBranch": "gpt/repository-brain-reconcile-20260829",
   "activePullRequest": null,
-  "missionIssue": 176,
-  "missionIssueState": "CLOSED_COMPLETED",
-  "publishedResearchTreeCommit": "9789c0a695833e9ade42a4ff0b5e24c56e7dc95c",
-  "publishedMainReconciliationCommit": "5aa936bc475a62d44cda3eac0e4f4a8db1b94c9b",
-  "remoteBranchHeadBeforeFinalMainReconciliation": "c62086a0f7d32f9ebe5e73daa79c32e96457512d",
-  "activeMission": "Convert current world intelligence, distribution research, opportunity evidence, economics, AI employee design, and software mechanism research into one canary, one fallback, machine-readable decision artifacts, bounded implementation packets, and a durable handoff without commercial external effects.",
-  "liveGitHubAtFinalRefresh": {
-    "checkedAt": "2026-08-29T04:32:24Z",
-    "mainSha": "c2fc6a99ddb715b3d9d0a2e24b294a334360941b",
-    "openPullRequests": [
-      {
-        "number": 188,
-        "title": "NIGHTFALL: preserve AI employee identity through cloud relay transport",
-        "baseSha": "348f563f614edaa24abd1e5a673e42453ea383b8",
-        "headShaAtRefresh": "a2b63e7ca5f0b98856c7d4c89ab62790d176421f",
-        "status": "OPEN_DIRTY_AFTER_MAIN_ADVANCE_EXACT_HEAD_SOURCE_VERIFIED"
-      }
-    ],
-    "materialIssues": [
-      {
-        "number": 176,
-        "role": "Sol research, distribution, economics lane",
-        "state": "CLOSED_COMPLETED"
-      },
-      {
-        "number": 173,
-        "role": "Claude software-factory lane",
-        "state": "OPEN"
-      }
-    ],
-    "materialBranches": [
-      {
-        "name": "main",
-        "sha": "c2fc6a99ddb715b3d9d0a2e24b294a334360941b",
-        "status": "CURRENT_AT_HANDOFF_WRITE"
-      },
-      {
-        "name": "gpt/nightfall-sol-research-singularity-20260828",
-        "sha": "95523178926774fd964e832d9f623bcf5073ce3a",
-        "status": "MERGED_VIA_PR_180"
-      }
-    ]
-  },
+  "missionIssue": 173,
+  "missionIssueState": "OPEN",
+  "activeMission": "Preserve the current Nightfall company state in the repository brain, reconcile source-backed historical lineage, then continue the highest-value dependency-satisfied runtime and distribution work without external commercial effects.",
   "completed": [
-    "Refreshed main at mission start, ran the repository brain, read every mandatory canon, memory, readiness, continuity, handoff, Trinity, charter, and executive-prompt surface, and refreshed main through each concurrent publication wave.",
-    "Inspected live GitHub issues, pull requests, branches, recent commits, lane claims, exact PR files, Vercel control-plane state, deployment records, and check evidence.",
-    "Researched current primary and official sources across home-service demand, AI research and sales mechanisms, CRM context, agent procedures and evaluation, browser execution, orchestration, licenses, partner programs, marketplaces, SEO and AEO, outbound pricing, sender policies, and regulator guidance.",
-    "Adjudicated exactly one recommended canary: White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing, or electrical firms.",
-    "Adjudicated exactly one fallback: AI Agent Acceptance Evidence Sprint for buyer-authorized sandboxes.",
-    "Rejected generic managed cold outreach as the active offer and rejected generic CRM, dashboard, and automation clones; parked RFP and cloud-SLA evidence ideas.",
-    "Created a 52-source contradiction-preserving registry, decision-bound world-signal taxonomy, 18-mechanism acquisition library, opportunity tournament, exact offer packet, cross-channel portfolio, outreach capacity and economics model, bounded AI employee organization, and four implementation packets.",
-    "Made partner and white-label distribution the primary preparation motion, product-led evidence second, and governed outbound third but externally blocked; paid, marketplace, and public MCP or API distribution remain unearned.",
-    "Preserved unknown conversion, contribution, renewal, and founder-minute terms as null rather than convenient zeros; no expected-revenue forecast was manufactured.",
-    "Audited authenticated Vercel state and corrected the stale zero-project claim; current main now carries the canonical live-infrastructure observation and cloud activation contract.",
-    "Reconciled current main's AI employee work: deterministic role contracts, task-origin binding, terminal identity, and worker fail-closed enforcement are canonical; the remaining cloud-transport preservation gap is already claimed by open PR #188.",
-    "Merged pull request #180 into main as 11dacd6d10005900f6037f1f5fa21c0e38d237f1; issue #176 closed as completed and the durable decision layer is now canonical.",
-    "Independently verified PR #188 head a2b63e7ca5f0b98856c7d4c89ab62790d176421f: its focused cloud-relay tests pass 3/3, the combined role-integrity set passes 26/26, and syntax parses 565 files; receipt comment 5460346904 is on the PR.",
-    "Added machine checks enforcing source resolution, one canary and fallback, zero live commercial experiment, unknown economics, employee contract completeness, packet claim state, zero business effects, and honest cloud-liveness labels."
-  ],
-  "artifactsChanged": [
-    "docs/research/report-source.md",
-    "docs/research/UBERBOND_RESEARCH_SINGULARITY.md",
-    "docs/distribution/UBERBOND_DISTRIBUTION_SINGULARITY.md",
-    "artifacts/research-source-registry.json",
-    "artifacts/world-signal-taxonomy.json",
-    "artifacts/emerging-ai-mechanism-library.json",
-    "artifacts/opportunity-tournament-latest.json",
-    "artifacts/offer-factory-research-packet.json",
-    "artifacts/distribution-channel-portfolio.json",
-    "artifacts/outreach-capacity-economics.json",
-    "artifacts/ai-employee-organization.json",
-    "artifacts/claude-implementation-queue.json",
-    "tests/nightfall-research-artifacts.test.mjs",
-    "docs/CURRENT_HANDOFF.json"
-  ],
-  "verification": [
-    "node --test tests/nightfall-research-artifacts.test.mjs: 6 tests, 6 pass, 0 fail on the final current-main reconciliation tree.",
-    "npm run check:syntax: 565 files parse on the final current-main reconciliation tree.",
-    "git diff --check and JSON parsing for the handoff and implementation queue: clean on the final current-main reconciliation tree.",
-    "npm run test:deterministic was attempted earlier and exited non-zero because this fresh clone has no node_modules, including pg and @cedar-policy/cedar-wasm; no dependency or lockfile was changed.",
-    "GitHub Actions has repeatedly produced deterministic, postgres, and browser failures with zero executed steps; this is runner or account infrastructure non-evidence, not an exact-head source result.",
-    "Vercel full-project previews remain provider-rate-limited while private-lite previews reached READY; neither is current full-production or scheduler proof.",
-    "PR #188 exact head a2b63e7ca5f0b98856c7d4c89ab62790d176421f: 3/3 focused tests pass, 26/26 combined role-integrity tests pass, and 565 files parse; GitHub marks the PR dirty only after main advanced."
-  ],
-  "contradictions": [
-    {
-      "topic": "mailbox canary cost",
-      "state": "UNRESOLVED_EXTERNAL_QUOTE_REQUIRED",
-      "details": "The repository's earlier 15 USD monthly ceiling is not backed by a public quote; Maildoso's public minimum is currently 75 USD monthly for 30 mailboxes."
-    },
-    {
-      "topic": "home-service urgency versus feature commoditization",
-      "state": "ADJUDICATED",
-      "details": "Current seller surveys support urgent response and estimate workflows, while incumbents already automate obvious steps; sell independent evidence and recovery, not generic automation."
-    },
-    {
-      "topic": "agent capability versus repeatable reliability",
-      "state": "ADJUDICATED",
-      "details": "Strong tools do not establish repeatable task success; require repeated scenarios, external judges, final-state checks, transport integrity, and authority ceilings."
-    },
-    {
-      "topic": "Vercel project existence",
-      "state": "SUPERSEDED_AND_CANONICALLY_RECONCILED_ON_MAIN",
-      "details": "The zero-project claim was false. Current main records both linked projects and an older production deployment while refusing to claim exact-current-main production or cron liveness."
-    },
-    {
-      "topic": "CLAUDE-NIGHT-01 completion",
-      "state": "PARTIAL_ON_MAIN_REMAINDER_CLAIMED_BY_PR_188",
-      "details": "Origin role binding and worker enforcement are canonical, but generic cloud relay transport can still drop role fields. PR #188 owns that exact remaining gap, so this lane neither duplicates it nor calls the packet complete."
-    },
-    {
-      "topic": "cloud liveness versus first-money priority",
-      "state": "COEXISTING_GATES",
-      "details": "The zero-business-effect cloud canary is an autonomy gate, not commercial proof. The evidence-sprint selection remains the first-money decision."
-    }
+    "Merged PR #189 as 6df07870271c02df648aab9af184afd7bfa435e4, preserving already-admitted AI employee role identity through generic cloud relay recompilation while leaving generic role-free tasks backward compatible.",
+    "Merged PR #190 as a8a0caa26ec5fdd63f574f28f27f9b376a2589a7, binding the dispatched employee role ref and digest through worker submission, durable execution receipts and autonomy terminal truth.",
+    "Executed the terminal-identity helper in an isolated Node harness: 7/7 focused tests passed.",
+    "Killed the model role-substitution mutation: deleting the conflict guard changed the focused result from 7/7 to 6/7 with the exact substitution test failing.",
+    "Preserved Sol PR #180 as the current research/distribution decision layer: one preparation canary, one fallback, a 52-source registry, 18 distribution/acquisition mechanisms, opportunity tournament, distribution portfolio, economics model, AI employee organization and four Claude packets.",
+    "Verified live production health at https://uberbondd.vercel.app/api/health: HTTP 200, storeBackend postgres, revenue-engine-1.4.0; at the observation time autopilot was false, the worker was offline and activeJobs was 0.",
+    "Verified the unauthenticated production cron route fails closed with HTTP 401; no credential value was read and no authenticated production canary was attempted.",
+    "Created a source-backed memory reconciliation layer from the repository receipts for Everest, SUMMIT 100 and BLACK SKY and made the one-command brain bootstrap apply that correction before project-context validation.",
+    "Corrected the durable lineage to Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation. Everest is no longer treated as unresolved owner recollection.",
+    "Added a generic unresolved-program bucket so future owner-recalled names remain visible without assigning invented semantics."
   ],
   "blockers": [
-    "A real commercial canary requires owner selection plus exact jurisdiction, legal, tax, and payment or Merchant-of-Record eligibility; none can be synthesized by repository work.",
-    "Outbound remains blocked by domain ownership and provider receipts, exact mailbox quote, credentials, DNS and authentication, sender history, jurisdiction route, suppression, provider policy, budget, physical-address and unsubscribe readiness, and explicit message authority.",
-    "Browser-assisted delivery remains blocked by Chromium or browser infrastructure and a buyer-authorized target and scope.",
-    "No buyer, cleared payment, delivery, acceptance, renewal, contribution, or founder-minute receipt exists.",
-    "The full Vercel production deployment is older than current main; environment-variable presence, current-source production, cron registration, and scheduler delivery remain unproven.",
-    "Full deterministic verification in this fresh clone remains dependency-blocked; hosted zero-step jobs are not source proof.",
-    "AI employee role continuity through generic cloud relay transport remains open in PR #188.",
-    "Even after PR #188 merges, executor result and terminal ingestion must carry and verify the dispatched employee role identity before CLAUDE-NIGHT-01 can be complete."
+    "The low-level cloud relay result admission boundary still needs an independent role-aware check so a future alternate caller cannot bypass the canonical worker submission wrapper.",
+    "Current full production trails current main because the Vercel Hobby account exceeded its daily deployment quota; preview/production failures caused solely by api-deployments-free-per-day are infrastructure non-evidence.",
+    "GitHub hosted deterministic, PostgreSQL and browser jobs have repeatedly terminated with zero executed steps and runner_id 0; they are not source pass or source failure evidence.",
+    "The current container cannot resolve github.com for a full exact-head checkout, so no current-head whole-tree suite is claimed after PR #190.",
+    "Real commercial activation still requires external legal/tax/payment eligibility, an authorized provider/customer path and consequence-specific authority.",
+    "No verified buyer, cleared payment, accepted delivery, renewal, expansion or elapsed founder-absence proof exists."
+  ],
+  "nextActions": [
+    "Harden direct submitCloudRelayResult admission so stored role-bound tasks require the exact immutable employee role identity even when a future caller bypasses the canonical worker wrapper.",
+    "After that runtime seam, refresh main and repository brain again, then consume the next dependency-satisfied Claude implementation packet instead of creating duplicate architecture.",
+    "Keep distribution as the commercial priority: preserve the White-label Lead-Path Revenue Leak Evidence Sprint as the current preparation canary and the AI Agent Acceptance Evidence Sprint as fallback until external evidence changes the tournament."
   ],
   "unresolvedNames": [
     {
-      "name": "Everest",
+      "name": "Unreconstructed Owner-Recalled UberBond Programs",
       "status": "OWNER_RECALLED_UNRESOLVED",
-      "next": "Search future exports or packages for an exact source before assigning semantics."
+      "next": "When a specific forgotten program is recalled, record its exact name and search repository receipts, chat exports and the source registry before assigning semantics."
     }
   ],
+  "historicalLineageCorrection": {
+    "lineage": ["Everest", "SUMMIT 100", "BLACK SKY", "Reality Activation"],
+    "everestReceipt": "docs/UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md",
+    "everestHistoricalVerdict": "EVEREST_PARTIALLY_CLOSED",
+    "summitReceipt": "docs/UBERBOND_SUMMIT_100_FINAL_RECEIPT.md",
+    "summitHistoricalVerdict": "EVEREST_INTERNAL_CLOSED__REALITY_PROOF_PENDING",
+    "blackSkyReceipt": "docs/UBERBOND_BLACK_SKY_FINAL_RECEIPT.md",
+    "blackSkyHistoricalVerdict": "BLACK_SKY_INTERNAL_EXHAUSTED__REALITY_ACTIVATION_NEXT",
+    "truthBoundary": "Historical closure verdicts do not establish current live, provider, customer, payment, delivery, renewal or unattended-operation proof."
+  },
+  "commercialDecision": {
+    "canary": "White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing and electrical businesses",
+    "fallback": "AI Agent Acceptance Evidence Sprint for AI implementation agencies and software teams operating buyer-authorized sandboxes",
+    "liveCommercialExperiment": false,
+    "customers": 0,
+    "clearedRevenue": 0,
+    "acceptedDeliveries": 0,
+    "retainedCustomers": 0
+  },
   "cloudActivationTruth": {
-    "source": "artifacts/live-infrastructure-observation-20260829.json",
-    "contract": "docs/CLOUD_ACTIVATION_CONTRACT.md",
     "fullProjectExists": true,
     "privateLiteProjectExists": true,
+    "productionHealthObserved200": true,
+    "productionStoreBackend": "postgres",
+    "observedAutopilot": false,
+    "observedWorkerOnline": false,
+    "observedActiveJobs": 0,
+    "cronUnauthenticatedRefusalObserved": 401,
     "currentMainExactProductionDeploymentProven": false,
-    "requiredSecretPresenceProven": false,
-    "cronRegistrationProven": false,
-    "cronDeliveryProven": false,
+    "currentDeploymentConstraint": "VERCEL_HOBBY_DAILY_DEPLOYMENT_QUOTA",
+    "authenticatedCronDeliveryProven": false,
     "commercialProof": "NONE"
   },
   "aiEmployeeIntegrityTruth": {
-    "sourceMainSha": "348f563f614edaa24abd1e5a673e42453ea383b8",
+    "sourceMainSha": "a8a0caa26ec5fdd63f574f28f27f9b376a2589a7",
     "deterministicRoleContracts": true,
     "scheduledTaskOriginBinding": true,
+    "genericCloudRelayTransportPreservation": true,
     "workerClaimFailClosedGate": true,
-    "genericCloudRelayTransportPreservation": false,
-    "transportGapOwner": "PR #188",
-    "terminalWorkerResultRoleBindingEndToEnd": false,
-    "terminalGapState": "DEPENDENT_ON_PR_188_MERGE"
+    "workerSubmissionRoleBinding": true,
+    "durableExecutionReceiptRoleBinding": true,
+    "autonomyTerminalWorkerResultRoleBinding": true,
+    "modelRoleSubstitutionMutationKilled": true,
+    "lowLevelRelayAdmissionRoleCheck": false,
+    "claudeNight01State": "CANONICAL_PATH_CLOSED_LOW_LEVEL_DEFENSE_IN_DEPTH_REMAINS"
   },
-  "laneDependencies": {
-    "claude": [
-      "CLAUDE-NIGHT-01 is in progress and claimed by PR #188; its exact head is independently green, but it must reconcile current main before merge.",
-      "After PR #188 merges, the next exact remainder is employee role identity through executor result and terminal ingestion; do not call the packet complete before that hostile path is proven.",
-      "CLAUDE-NIGHT-02 remains deferred until the owner selects the canary and the productization gate permits one exact SKU or template.",
-      "CLAUDE-NIGHT-03 remains blocked by provider, credential, budget, and decision-bound signal selection.",
-      "CLAUDE-NIGHT-04 remains blocked by browser infrastructure and buyer-authorized scope."
-    ],
-    "sol": [
-      "No dependency-satisfied research or distribution task remains for the current decision; resume only on an external quote, buyer, payment, delivery evidence, or a decision-changing monitored signal."
-    ],
-    "integrator": [
-      "Reconcile PR #188's handoff against current main, preserve its verified two-file code/test change, and merge only after confirming the reconciled head.",
-      "After PR #188, claim the terminal result identity remainder as a separate bounded change and close CLAUDE-NIGHT-01 only after end-to-end evidence."
-    ],
-    "activation": [
-      "If cloud liveness is authorized, use the existing Vercel project and follow docs/CLOUD_ACTIVATION_CONTRACT.md exactly; do not create a duplicate, expose secrets, or promote a stale source."
-    ]
-  },
-  "nextHighestValueMission": "Obtain the founder's select-or-reject decision on the prepared 450 USD white-label evidence-sprint canary; if selected, clear legal, tax, and payment eligibility before authorizing one bounded partner or contact probe.",
-  "maximumThreeFounderActions": [
-    "Select or reject the prepared 450 USD White-label Lead-Path Revenue Leak Evidence Sprint canary.",
-    "If selected, obtain exact Egyptian legal, tax, and Merchant-of-Record or payment eligibility advice before accepting money or authorizing contact.",
-    "Separately, if asleep cloud liveness is the current priority, audit the existing uberbondd project's required environment-variable presence and authorize an exact-current-source deployment only under docs/CLOUD_ACTIVATION_CONTRACT.md."
+  "verification": [
+    "PR #188 predecessor exact semantic head previously executed 3/3 focused cloud-relay tests, 26/26 combined role-integrity tests and 565-file syntax; PR #189 rebased the byte-identical runtime/test delta onto current main before merge.",
+    "Terminal identity helper exact logic: 7/7 PASS in isolated Node execution.",
+    "Terminal identity hostile mutation deleting model role-ref substitution protection: 6/7, exact hostile test failed; mutation killed.",
+    "Memory reconciliation helper exact logic: 5/5 PASS in isolated Node execution.",
+    "Updated brain bootstrap script passed node --check before publication.",
+    "No current exact-head whole-tree green claim is made after PR #190 because full checkout and hosted runner execution are unavailable."
   ],
-  "repositoryPublicationEffects": {
-    "pullRequestsOpened": 1,
-    "pullRequestsMerged": 1,
-    "directMainHandoffReconciliationCommits": 2,
-    "remoteBranchUpdatesIncludingFinalMainReconciliation": 6,
-    "automaticPrivateLitePreviewDeploymentsObservedReadyBeforeFinalReconciliation": 2,
-    "automaticFullPreviewDeploymentsObservedRateLimitedBeforeFinalReconciliation": 2,
-    "productionDeploymentsAuthorizedOrPerformedByThisLane": 0
-  },
+  "maximumThreeFounderActions": [
+    "No founder action is needed for the current internal runtime and memory-preservation work.",
+    "Before any real commercial contact or payment: clear the exact Egyptian legal, tax and payment/Merchant-of-Record route for the selected canary.",
+    "When ready to activate real distribution, provide consequence-specific authority and only the minimum required provider/domain credentials through their proper secret/configuration surfaces, never chat."
+  ],
   "externalEffectLedger": {
     "providerCalls": 0,
     "messages": 0,
@@ -206,5 +111,5 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE",
-  "headSha": "c2fc6a99ddb715b3d9d0a2e24b294a334360941b"
+  "headSha": "a8a0caa26ec5fdd63f574f28f27f9b376a2589a7"
 }

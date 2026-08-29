@@ -12,8 +12,9 @@
 // what the relay deliberately does not.
 
 import { validResult } from './cloud-agent-relay.mjs';
+import { employeeRoleIdentityErrors } from './ai-employee-terminal-identity.mjs';
 
-export const WORKER_RESULT_TRUTH_POLICY_VERSION = 'worker-result-truth-1.0.0';
+export const WORKER_RESULT_TRUTH_POLICY_VERSION = 'worker-result-truth-1.1.0';
 
 const TERMINAL_DECISIONS = new Set(['DONE', 'COMPLETE', 'COMPLETED', 'ACCEPTED', 'PASS']);
 const IDENTITY_FIELDS = Object.freeze(['taskId', 'runId', 'sessionId', 'workerId']);
@@ -33,10 +34,11 @@ function declaresTerminal(result) {
  * Identity smuggling check.
  *
  * A worker that answers with somebody else's identifiers is either confused or
- * hostile, and both are the same problem here. Only fields the result actually
- * declares are compared: requiring every worker to echo four identifiers would
- * be a contract change across the whole relay, and an omitted field is already
- * covered by the caller having bound the read to a specific task.
+ * hostile, and both are the same problem here. Generic task/run/session/worker
+ * identifiers remain compare-if-declared for backward compatibility. Employee
+ * role identity is stricter: when the dispatch expected a role-bound employee,
+ * the result must echo the exact immutable role ref and digest before terminal
+ * truth may be admitted.
  */
 export function workerResultIdentityErrors(result, expected = {}) {
   const reasonCodes = [];
@@ -46,7 +48,8 @@ export function workerResultIdentityErrors(result, expected = {}) {
     if (!declared || !wanted) continue;
     if (declared !== wanted) reasonCodes.push(`worker-result-${field.replace(/Id$/, '-id')}-mismatch`);
   }
-  return reasonCodes;
+  reasonCodes.push(...employeeRoleIdentityErrors({ result, expected }));
+  return [...new Set(reasonCodes)];
 }
 
 function terminalEvidenceErrors(result) {

@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond-handoff-1.3.0",
   "sourceMainShaAtMissionStart": "6a6d0bd129afa1e6b17c9593ef9ef10ceb72f69b",
-  "sourceCommit": "8e88aa8055336eaa3c70a1076823f78055f1de60",
+  "sourceCommit": "d568766d07cdeae7dc1bb850752324f73521d921",
   "currentMainShaAtFinalRefresh": "6a6d0bd129afa1e6b17c9593ef9ef10ceb72f69b",
   "currentMainCommitMessage": "NIGHTFALL: enforce direct relay employee identity (#222)",
   "missionIssue": 173,
@@ -32,16 +32,16 @@
     "Migration 101_autonomy_operations_hygiene.sql adds egress_route_health, prospect_identity_keys, outbound_contact_guard and billing_webhook_inbox.",
     "Focused pure-module audit suite: 9/9 PASS. Independent mutations removing anti-evasion admission, cross-inbox dedupe or billing HMAC each reduced the suite to 8/9 and were killed. Billing Web Request route valid/bad signature harness PASS.",
     "Older PRs #207 and #208 are explicitly marked superseded by merged #209.",
-    "PR #224 is the live non-draft successor for the payment-reconciliation lease slice. Its published head is 8e88aa8055336eaa3c70a1076823f78055f1de60; this continuation adds explicit claim-worker identity, returns the persisted lease owner, makes PostgreSQL parameter typing portable, and fixes the retry-due/reclaim sequence in the real-PostgreSQL proof.",
+    "PR #224 is the live non-draft successor for the payment-reconciliation lease slice. Its published head is d568766d07cdeae7dc1bb850752324f73521d921; this continuation adds explicit claim-worker identity, returns the persisted lease owner, makes PostgreSQL parameter typing portable, and fixes the retry-due/reclaim sequence in the real-PostgreSQL proof.",
     "Local exact-candidate proof: payment lease/watchdog suite 9/9 PASS, PGlite migration plus lease lifecycle PASS, syntax PASS, deterministic 2775 tests with 2727 pass/0 fail/48 skipped, relay safety 150/150, mutation war 75 mutations with 74 killed/0 not killed/1 PostgreSQL-dependent skip."
   ],
   "blockers": [
-    "The live Vercel connector now verifies both UberBond projects. Exact current-main/payment-lease head 8e88aa8... is not deployed; the full project has a READY predecessor preview 31dbb897..., private-lite has a READY preview for earlier receipt ec0dd751..., and both current PR deployment checks report the free-tier api-deployments-free-per-day limit. Do not upgrade or spend.",
+    "The live Vercel connector now verifies both UberBond projects. Exact current-main/payment-lease head d568766... is not deployed; the full project has a READY predecessor preview 31dbb897..., private-lite has a READY preview for earlier receipt ec0dd751..., and both current PR deployment checks report the free-tier api-deployments-free-per-day limit. Do not upgrade or spend.",
     "GitHub Actions produces zero-step jobs with no runner assigned, so hosted CI yields no evidence either way. External to this lane; do not treat its red as a source failure or its green as a pass.",
     "No outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Every one of these is an external activation, not an engineering task."
   ],
   "nextActions": [
-    "CLAUDE: review and merge PR #224 only after the exact remote head 8e88aa8... and its proof receipt are refreshed; the current Vercel rate limit prevents exact-head deployment proof, so do not claim production activation.",
+    "CLAUDE: review and merge PR #224 only after the exact remote head d568766... and its proof receipt are refreshed; the current Vercel rate limit prevents exact-head deployment proof, so do not claim production activation.",
     "SOL: enrich the existing partner-canary seed universe with public website evidence only, then rank multi-client agency fit. No private-contact inference, contact, outbound, or campaign activation.",
     "CLAUDE/SOL: once owner-only payment-provider identity/KYC and authorization exist, connect a real reconciliation caller/provider adapter to the lease repository. Until then the inbox remains evidence input and cannot unlock fulfillment.",
     "ANY LANE: the decision-consumer sweep is COMPLETE across all eight families -- see decisionConsumerSweep. Do not re-run it as though it were open; three derived tests now fail if a new module reopens it."
@@ -142,7 +142,7 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE_EXCEPT_EXISTING_PROJECT_DEPLOYMENT_AUTHORIZED_WHEN_VERIFIED",
-  "headSha": "8e88aa8055336eaa3c70a1076823f78055f1de60",
+  "headSha": "d568766d07cdeae7dc1bb850752324f73521d921",
   "cloudActivationTruth": {
     "fullProjectExists": "VERIFIED_EXISTS",
     "privateLiteProjectExists": "VERIFIED_EXISTS",
@@ -188,7 +188,7 @@
         "claim": "exact current PR #224 head is not yet deployed",
         "observedVia": "live Vercel deployment metadata and PR #224 status/comments",
         "observedAt": "2026-08-29",
-        "result": "latest READY preview is predecessor 31dbb897...; PR #224 head 42d09245... has deployment checks failed with api-deployments-free-per-day",
+        "result": "latest READY preview is predecessor 31dbb897...; PR #224 head d568766d... has deployment checks failed with api-deployments-free-per-day",
         "evidenceRef": "PR #224 Vercel bot comments 5462828001 and 5462828066"
       }
     ],
@@ -216,7 +216,7 @@
     ],
     "verdict": "CANDIDATE_VERIFIED_UNMERGED__EXACT_HEAD_DEPLOYMENT_AND_PROVIDER_PROOF_PENDING",
     "activePullRequest": 224,
-    "candidateHeadAtRefresh": "8e88aa8055336eaa3c70a1076823f78055f1de60",
+    "candidateHeadAtRefresh": "d568766d07cdeae7dc1bb850752324f73521d921",
     "candidateReviewContinuation": "11703b3c526ed0043df5305e307bae33614c2c03",
     "theShape": "One defect class accounts for most of this slice: a guard is protected and the thing that consults it is not. Protecting the reader while leaving the writer editable was already written down for revenue.mjs; it had never been applied to the outbound send loop, and never to the enforcement machinery itself. Both are now closed, and the rules that close them are derived from the import graph rather than from lists maintained by hand -- which caught two things the hand lists missed.",
     "defects": [
@@ -306,8 +306,8 @@
     ]
   },
   "continuousIntegrationTruth": {
-    "workflowRun": 33256756811,
-    "headSha": "42d09245b268c8b6514b176c336d6766afafc534",
+    "workflowRun": 33258133033,
+    "headSha": "d568766d07cdeae7dc1bb850752324f73521d921",
     "jobs": [
       "deterministic",
       "postgres",
@@ -323,7 +323,7 @@
     "branch": "gpt/payment-reconciliation-leases-20260829",
     "pullRequest": 224,
     "pullRequestState": "OPEN_NON_DRAFT__NOT_MERGED",
-    "candidateHeadSha": "8e88aa8055336eaa3c70a1076823f78055f1de60",
+    "candidateHeadSha": "d568766d07cdeae7dc1bb850752324f73521d921",
     "baseMainSha": "6a6d0bd129afa1e6b17c9593ef9ef10ceb72f69b",
     "filesChangedInSlice": [
       "src/billing-webhook-repository.mjs",
@@ -351,7 +351,7 @@
       "RETRYABLE clears the lease; only a later claimed row with a canonical receipt can become RECONCILED"
     ],
     "externalVerification": {
-      "vercel": "PARTIAL: full project READY preview dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y is predecessor 31dbb897...; private-lite READY preview dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg is receipt ec0dd751...; current branch head 8e88aa8... has Vercel checks failed with api-deployments-free-per-day",
+      "vercel": "PARTIAL: full project READY preview dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y is predecessor 31dbb897...; private-lite READY preview dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg is receipt ec0dd751...; current branch head d568766d... has Vercel checks failed with api-deployments-free-per-day",
       "postgres": "BLOCKED_RUNTIME: no OMNIA_V9_TEST_DATABASE_URL; embedded fallback cannot create postgres system group",
       "browser": "BLOCKED_RUNTIME: pinned Chromium absent; Playwright CDN install timed out",
       "githubActions": "INFRASTRUCTURE_NON_EVIDENCE: run 33256756811 has zero steps and runner_id 0"

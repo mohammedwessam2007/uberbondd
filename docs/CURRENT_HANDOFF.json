@@ -1,9 +1,9 @@
 {
   "schemaVersion": "uberbond-handoff-1.3.0",
   "sourceMainShaAtMissionStart": "d3a0b73c6e9e04cef18f74deaaa0627b9d3460c5",
-  "sourceCommit": "7fed1392aa504cdeabddbf69e5545930e9a955e4",
-  "currentMainShaAtFinalRefresh": "7fed1392aa504cdeabddbf69e5545930e9a955e4",
-  "currentMainCommitMessage": "Refuse an ungranted employee role; fix the reachability blind spot; rebuild the canon (#212)",
+  "sourceCommit": "eee55697e9d72658b1612ae7193acd067d8df496",
+  "currentMainShaAtFinalRefresh": "eee55697e9d72658b1612ae7193acd067d8df496",
+  "currentMainCommitMessage": "Protect the whole enforcement surface, not just the rules it enforces (#217)",
   "missionIssue": 173,
   "missionIssueState": "OPEN",
   "activeMission": "Continue NIGHTFALL MAX with distribution and first economic proof as the priority while maturing current Growth Graph infrastructure. Reuse merged autonomy operations hardening rather than recreating proxy, dedupe, billing, maintenance or telemetry systems.",
@@ -39,9 +39,10 @@
     "No outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Every one of these is an external activation, not an engineering task."
   ],
   "nextActions": [
-    "CLAUDE: continue dependency-satisfied internal engineering from merged main 7fed139. P0b stays blocked until the Vercel contradiction is resolved by the owner.",
-    "CLAUDE: reconcile PR #211 once its author addresses the unbound-path finding reported at https://github.com/mohammedwessam2007/uberbondd/pull/211#issuecomment-5461524823 -- it is complementary to #212 but as drafted it bypasses the fix at the relay entry point.",
-    "ANY LANE: PRs #207 and #208 appear to be superseded by the autonomy hardening already on main. Confirm and close."
+    "CLAUDE: P0b (exact-head deploy/promote) stays blocked until the Vercel contradiction is resolved by the owner. Everything else on the deployment path is prepared.",
+    "CLAUDE: reconcile PR #211 once its author addresses the unbound-path finding at https://github.com/mohammedwessam2007/uberbondd/pull/211#issuecomment-5461524823 -- complementary to #212 but as drafted it bypasses the fix at the relay entry point.",
+    "ANY LANE: PRs #207 and #208 appear superseded by the autonomy hardening already on main. Confirm and close.",
+    "ANY LANE: the same 'protected decision, unprotected caller' sweep has been run for outbound and enforcement decisions. It has not been run for payment, escalation or recovery decisions. That is the next place the shape would hide."
   ],
   "production": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
@@ -66,22 +67,17 @@
     "retainedCustomers": 0
   },
   "verification": {
-    "executedAt": "7fed1392aa504cdeabddbf69e5545930e9a955e4",
+    "executedAt": "eee55697e9d72658b1612ae7193acd067d8df496",
     "executedBy": "local execution in this session, not hosted CI",
-    "note": "Main's tree at this SHA is byte-identical to the branch head every gate below was run on.",
     "gates": {
-      "check:syntax": "596 files parse",
-      "test:deterministic": "2735 tests, 2687 pass, 0 fail, 48 skipped",
-      "test:relay-safety": "150 tests, 150 pass, 0 fail",
-      "test:postgres-real": "127 tests, 127 pass, 0 fail, against embedded PostgreSQL 18",
-      "test:browser": "1 test, 1 pass, 0 fail, against the runner's installed Chromium, loopback server only",
-      "test:mutation-war": "64 mutations, 64 killed, 0 not killed",
+      "check:syntax": "598 files parse",
+      "test:deterministic": "2754 tests, 2706 pass, 0 fail, 48 skipped",
+      "test:relay-safety": "150/150",
+      "test:postgres-real": "127/127 against embedded PostgreSQL 18",
+      "test:browser": "1/1 against the runner's installed Chromium, loopback only",
+      "test:mutation-war": "73 mutations, 73 killed, 0 not killed",
       "npm audit --omit=dev": "0 vulnerabilities"
-    },
-    "gatesPreviouslyWrittenOffAndNowGreen": [
-      "test:postgres-real was recorded NOT_RUN_CURRENT_BRANCH. It is current-branch proof now.",
-      "test:browser was recorded BLOCKED_EXTERNAL_TEST_RUNTIME for an absent Chromium. Chromium is present; the runner ships chromium-1194 while the pinned Playwright resolves chromium_headless_shell-1228, so the default launch path failed on a build number. CHROMIUM_PATH bridges it and the gate passes."
-    ]
+    }
   },
   "maximumThreeFounderActions": [
     {
@@ -129,7 +125,7 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE_EXCEPT_EXISTING_PROJECT_DEPLOYMENT_AUTHORIZED_WHEN_VERIFIED",
-  "headSha": "7fed1392aa504cdeabddbf69e5545930e9a955e4",
+  "headSha": "eee55697e9d72658b1612ae7193acd067d8df496",
   "cloudActivationTruth": {
     "fullProjectExists": "CONTRADICTED",
     "privateLiteProjectExists": "CONTRADICTED",
@@ -175,83 +171,90 @@
     "note": "GitHub repository operations are not customer-facing external effects."
   },
   "lastCompletedSlice": {
-    "mission": "NIGHTFALL MAX P0a: close or falsify the direct relay employee identity seam, then obtain exact-head gates.",
+    "mission": "NIGHTFALL MAX: close the relay employee identity seam, then sweep the repository for the defect shape it belongs to.",
     "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "pullRequest": 212,
-    "merged": true,
-    "mergeCommit": "7fed1392aa504cdeabddbf69e5545930e9a955e4",
-    "mergeMethod": "merge",
-    "verdict": "SEAM_CLOSED_AND_PROVEN_BY_MUTATION",
-    "defectsFound": [
+    "pullRequestsMerged": [
+      212,
+      213,
+      215,
+      216,
+      217
+    ],
+    "verdict": "INTERNALLY_EXHAUSTED_UNDER_CURRENT_ATTACK_SURFACE__EXTERNAL_PROOF_PENDING",
+    "theShape": "One defect class accounts for most of this slice: a guard is protected and the thing that consults it is not. Protecting the reader while leaving the writer editable was already written down for revenue.mjs; it had never been applied to the outbound send loop, and never to the enforcement machinery itself. Both are now closed, and the rules that close them are derived from the import graph rather than from lists maintained by hand -- which caught two things the hand lists missed.",
+    "defects": [
       {
-        "id": "P0a-1",
+        "id": "P0a",
+        "pr": 212,
         "severity": "P0",
         "summary": "A worker result could declare an employee role the task never granted.",
-        "mechanism": "employeeRoleIdentityErrors returned [] whenever the task carried no binding, so every mismatch check was blind to an expectation of nothing. bindEmployeeRoleSubmissionPayload then carried the claimed role into the durable submission payload.",
-        "evidenceBefore": "attack output: 3 findings; a generic task admitted a result declaring employee:executive/cfo",
-        "evidenceAfter": "attack output: no finding -- the identity seam holds",
-        "fix": "Refused, not stripped, at all three binders and through a nested result inside a receipt.",
-        "files": [
-          "src/ai-employee-terminal-identity.mjs"
-        ],
+        "mechanism": "employeeRoleIdentityErrors returned [] when the task carried no binding, so the one case no mismatch check could see was an expectation of nothing. The claimed role reached the durable submission payload.",
         "mutations": [
           "AGENT-08",
           "AGENT-09"
         ]
       },
       {
-        "id": "P0a-2",
+        "id": "TRACE-1",
+        "pr": 212,
         "severity": "P1",
         "summary": "The mesh -> relay -> employee task id chain could not be walked backwards.",
-        "mechanism": "Three ids (mesh_task_*, agent_task_*, employee_task_*), each derived from and overwriting the previous, so a run snapshot named a task recoverable only by guessing and recomputing a digest.",
-        "fix": "compileEmployeeAgentTask keeps relayTaskId; relayRef records taskId, relayTaskId and intentTaskId.",
-        "files": [
-          "src/ai-employee-relay.mjs",
-          "src/agent-autonomy-pump.mjs"
-        ]
+        "mechanism": "Three ids, each derived from and overwriting the previous. relayRef now records all three joins."
       },
       {
         "id": "RATCHET-1",
+        "pr": 212,
         "severity": "P1",
         "summary": "The reachability ratchet could not see nested API routes.",
-        "mechanism": "Single-level readdirSync missed api/webhooks/billing.mjs and api/admin/health-check.mjs, so eight modules were reported unreachable. Four are wired to a live route. The obvious green fix -- classifying all eight as AWAITING_ACTIVATION -- would have recorded in the canonical place that live production code awaits an activation that does not exist.",
-        "fix": "Entry-point discovery recurses. src keeps its single-level scan; its own subtrees (src/overnight, src/omnia-v9) are an uncovered scope question recorded in the test, not widened here.",
-        "files": [
-          "tests/reachability-ratchet.test.mjs",
-          "config/reachability-classification.json"
-        ]
+        "mechanism": "Single-level readdirSync. Four modules wired to live routes looked unreachable, and the obvious green fix would have recorded them as awaiting an activation that does not exist."
       },
       {
         "id": "CANON-1",
+        "pr": 212,
         "severity": "P1",
-        "summary": "The canon guard accepted a well-formed SHA that was not in this branch's history.",
-        "mechanism": "Reproduced with a real dangling commit: the format check passes it and the staleness check passes it, because git reports nothing changed since a commit still in the object store.",
-        "fix": "merge-base --is-ancestor against HEAD. Reachability, not existence: cat-file -e succeeds on an orphan until it is collected, which is the window in which this goes wrong.",
-        "files": [
-          "tests/canon-freshness.test.mjs"
-        ],
-        "mutationEntry": "none -- the guard lives in the test, not a source file, so the mutation harness has nothing to sabotage. The orphan experiment is the equivalent proof."
+        "summary": "The canon guard accepted a SHA that was well-formed but not in this branch's history.",
+        "mechanism": "Reproduced with a real dangling commit: format and staleness checks both pass it. Now checked with merge-base --is-ancestor."
+      },
+      {
+        "id": "SEND-1",
+        "pr": 215,
+        "severity": "P0",
+        "summary": "The outbound send loop could bypass the guards it calls.",
+        "mechanism": "deliverability-guard, send-safety and consequence-boundary were protected; src/pipeline.mjs, their only caller on the send path, was not. A change set neutering both at the call site with a latency rationale was confirmed accepted. src/gmail.mjs, the transport, was editable too.",
+        "mutations": [
+          "SEND-01",
+          "SEND-02",
+          "SEND-03"
+        ]
+      },
+      {
+        "id": "REACH-2",
+        "pr": 216,
+        "severity": "P1",
+        "summary": "A fifth of the source tree was outside the reachability ratchet.",
+        "mechanism": "src was walked one level deep, leaving src/overnight and src/omnia-v9 (58 modules, 11,210 lines) uncovered. Six are production-reachable; 48 had no entry point and no classification. All 48 now classified against gates that are true.",
+        "mutations": [
+          "REACH-02"
+        ]
+      },
+      {
+        "id": "ENF-1",
+        "pr": 217,
+        "severity": "P0",
+        "summary": "The machinery that enforces the sovereignty rules was editable by the path it governs.",
+        "mechanism": "The rules file was protected; the applier that validates-then-writes, the artifact store that refuses invalid sets, the sandbox collector that first refuses a protected path, and both callers of evaluateWorkerResultTruth were not. Two steps rather than one, but the second step is unbounded.",
+        "mutations": [
+          "ENF-01",
+          "ENF-02",
+          "ENF-03",
+          "ENF-04",
+          "ENF-05"
+        ]
       }
     ],
-    "inheritedRedTestRepaired": "tests/audit-agent-five-holes.test.mjs asserted /DO NOT RUN VACUUM FULL/ against a constant spelled DO_NOT_RUN_VACUUM_FULL_IN_SERVERLESS_CRON. Behavior right, assertion wrong. Verified red on pristine main before the merge, so it was inherited, not caused.",
-    "filesChanged": [
-      "src/ai-employee-terminal-identity.mjs",
-      "src/ai-employee-relay.mjs",
-      "src/agent-autonomy-pump.mjs",
-      "src/database-hygiene-maintenance.mjs",
-      "tests/ai-employee-terminal-identity.test.mjs",
-      "tests/agent-mesh-entry-point.test.mjs",
-      "tests/nightfall-research-artifacts.test.mjs",
-      "tests/canon-freshness.test.mjs",
-      "tests/reachability-ratchet.test.mjs",
-      "tests/audit-agent-five-holes.test.mjs",
-      "scripts/mutation-war.mjs",
-      "config/reachability-classification.json",
-      "config/system-readiness-input.json",
-      "artifacts/system-readiness.json",
-      "docs/CURRENT_SYSTEM_STATE.md",
-      "docs/CLOUD_ACTIVATION_CONTRACT.md",
-      "docs/CURRENT_HANDOFF.json"
+    "inheritedRedTestsRepaired": [
+      "tests/audit-agent-five-holes.test.mjs asserted /DO NOT RUN VACUUM FULL/ against a constant spelled DO_NOT_RUN_VACUUM_FULL_IN_SERVERLESS_CRON. Verified red on pristine main first, so inherited rather than caused.",
+      "SOV-02's mutation anchor was split by an insertion in this slice. The harness reported ANCHOR_NOT_FOUND rather than passing quietly; anchor repaired, meaning unchanged."
     ]
   },
   "continuousIntegrationTruth": {
@@ -270,6 +273,14 @@
   "truthRestrictions": [
     "Zero verified customers, zero cleared revenue, zero accepted deliveries, zero retained customers. Unchanged by this slice and preserved as zero.",
     "No claim of production deployment, cron registration or cron delivery for current main.",
+    "Nothing in this slice changed what the system may do. It changed what the autonomous path may edit.",
     "Internally exhausted under the current test and attack surface. External proof pending."
-  ]
+  ],
+  "reachability": {
+    "srcModules": 249,
+    "reachableFromProduction": 123,
+    "reachableFromOperatorScriptsOnly": 9,
+    "noEntryPointAtAll": 117,
+    "note": "src is now walked recursively. Earlier figures excluded src/overnight and src/omnia-v9 entirely."
+  }
 }

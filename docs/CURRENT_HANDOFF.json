@@ -10,9 +10,10 @@
   "missionIssue": 176,
   "publishedResearchTreeCommit": "9789c0a695833e9ade42a4ff0b5e24c56e7dc95c",
   "remoteBranchHeadBeforeMainReconciliation": "1e8cb0567543a70a8ad4ae14e4ddaedb31028bf5",
+  "publishedMainReconciliationCommit": "5aa936bc475a62d44cda3eac0e4f4a8db1b94c9b",
   "activeMission": "Convert current world intelligence, distribution research, opportunity evidence, economics, AI employee design, and software mechanism research into one canary, one fallback, machine-readable decision artifacts, bounded Claude packets, and a durable handoff without external business effects.",
   "liveGitHubAtFinalRefresh": {
-    "checkedAt": "2026-08-28T22:48:52Z",
+    "checkedAt": "2026-08-28T22:56:45Z",
     "mainSha": "2d11d10af3889d65d1a660c4cd611ab2f875c059",
     "openPullRequests": [
       {
@@ -21,7 +22,8 @@
         "base": "main",
         "head": "gpt/nightfall-sol-research-singularity-20260828",
         "publishedResearchTreeCommit": "9789c0a695833e9ade42a4ff0b5e24c56e7dc95c",
-        "status": "OPEN_RECONCILING_CURRENT_MAIN"
+        "publishedMainReconciliationCommit": "5aa936bc475a62d44cda3eac0e4f4a8db1b94c9b",
+        "status": "OPEN_MERGEABLE_SOURCE_CHECKS_GREEN_INFRASTRUCTURE_CHECKS_BLOCKED"
       }
     ],
     "materialIssues": [
@@ -42,15 +44,16 @@
       },
       {
         "name": "gpt/nightfall-sol-research-singularity-20260828",
-        "sha": "1e8cb0567543a70a8ad4ae14e4ddaedb31028bf5",
-        "status": "PULL_REQUEST_OPEN_BEFORE_CURRENT_MAIN_RECONCILIATION_COMMIT"
+        "sha": "5aa936bc475a62d44cda3eac0e4f4a8db1b94c9b",
+        "status": "PULL_REQUEST_OPEN_BEFORE_LIVE_CLOUD_TRUTH_RECONCILIATION_COMMIT"
       }
     ]
   },
   "completed": [
     "Refreshed main at mission start, ran the repository brain, read every mandatory canon, memory, readiness, continuity, handoff, Trinity, charter, and executive-prompt surface, and refreshed main repeatedly through final publication.",
     "Inspected live GitHub issues, pull requests, branches, recent commits, and lane claims; issue #176 is the Sol lane and pull request #180 carries this Nightfall decision layer.",
-    "Reconciled current main 2d11d10af3889d65d1a660c4cd611ab2f875c059 after it advanced during publication, preserving its cloud activation contract, deployment truth, cron evidence, canonical effect-ledger repair, and reachability reconciliation.",
+    "Reconciled current main 2d11d10af3889d65d1a660c4cd611ab2f875c059 after it advanced during publication, preserving its cron evidence, canonical effect-ledger repair, and reachability reconciliation.",
+    "Audited the authenticated Vercel control plane and corrected current main's false zero-project claim: both uberbondd and uberbondd-lite-private exist, an older production deployment exists, and only the private-lite project has an exact-PR-head READY preview.",
     "Researched current primary and official sources across home-service demand, AI research and sales mechanisms, CRM context, agent procedures and evaluation, browser execution, orchestration, licenses, partner programs, marketplaces, SEO and AEO, outbound pricing, sender policies, and regulator guidance.",
     "Adjudicated exactly one recommended canary: White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing, or electrical firms.",
     "Adjudicated exactly one fallback: AI Agent Acceptance Evidence Sprint for buyer-authorized sandboxes.",
@@ -74,14 +77,16 @@
     "artifacts/ai-employee-organization.json",
     "artifacts/claude-implementation-queue.json",
     "tests/nightfall-research-artifacts.test.mjs",
+    "docs/CLOUD_ACTIVATION_CONTRACT.md",
     "docs/CURRENT_HANDOFF.json"
   ],
   "verification": [
-    "node --test tests/nightfall-research-artifacts.test.mjs: 5 tests, 5 pass, 0 fail after final handoff reconciliation.",
+    "node --test tests/nightfall-research-artifacts.test.mjs: 6 tests, 6 pass, 0 fail after live-cloud-truth reconciliation.",
     "npm run check:syntax: 558 files parse after final handoff reconciliation.",
     "git diff --check and jq empty docs/CURRENT_HANDOFF.json: clean after pull-request identity reconciliation.",
     "npm run test:deterministic was attempted before current-main reconciliation and exited non-zero because this fresh clone has no node_modules, including pg and @cedar-policy/cedar-wasm; no dependency or lockfile was changed.",
-    "Current main separately records a real-PostgreSQL zero-external-IO cron receipt, durable replay identity, conflict rejection, and unauthorized-path rejection; this Sol session did not relabel that inherited receipt as a fresh run."
+    "Current main separately records a real-PostgreSQL zero-external-IO cron receipt, durable replay identity, conflict rejection, and unauthorized-path rejection; this Sol session did not relabel that inherited receipt as a fresh run.",
+    "GitHub Actions on published head 5aa936bc475a62d44cda3eac0e4f4a8db1b94c9b failed at infrastructure with zero executed steps; Vercel's full-project preview was rate-limited, while private-lite exact-head preview dpl_4vgwAbEsRYkQ6mSH91DsXcg3EGqK reached READY."
   ],
   "contradictions": [
     {
@@ -108,6 +113,11 @@
       "topic": "cloud liveness versus first-money priority",
       "state": "COEXISTING_GATES",
       "details": "The zero-external-IO cloud canary is technically ready but owner-credential blocked and is not commercial proof. The evidence-sprint selection remains the first-money decision; cloud activation remains a separate autonomy gate."
+    },
+    {
+      "topic": "Vercel project existence",
+      "state": "CURRENT_MAIN_CLAIM_SUPERSEDED_BY_AUTHENTICATED_CONTROL_PLANE",
+      "details": "Current main 2d11d10af3889d65d1a660c4cd611ab2f875c059 claimed zero Vercel projects. The authenticated project list shows uberbondd and uberbondd-lite-private. Existing deployment records do not prove current-source production or cron liveness."
     }
   ],
   "blockers": [
@@ -115,14 +125,31 @@
     "Outbound remains blocked by domain ownership and provider receipts, exact mailbox quote, credentials, DNS and authentication, sender history, jurisdiction route, suppression, provider policy, budget, physical-address and unsubscribe readiness, and explicit message authority.",
     "Browser-assisted delivery remains blocked by Chromium or browser infrastructure and a buyer-authorized target and scope.",
     "No buyer, cleared payment, delivery, acceptance, renewal, contribution, or founder-minute receipt exists.",
-    "No Vercel project exists. Cloud activation remains blocked by owner-managed CRON_SECRET, DATABASE_URL, and ENCRYPTION_KEY as specified in docs/CLOUD_ACTIVATION_CONTRACT.md.",
+    "Vercel projects exist, but the full production deployment is older than current main; full exact-head preview is provider-rate-limited, environment-variable presence was not observable, and live cron registration or delivery remains unproven.",
     "Full deterministic verification in this fresh clone remains dependency-blocked; hosted GitHub Actions zero-step history is not treated as source proof."
   ],
   "cloudActivationTruth": {
     "sourceMainSha": "2d11d10af3889d65d1a660c4cd611ab2f875c059",
     "contract": "docs/CLOUD_ACTIVATION_CONTRACT.md",
-    "vercelProject": "NONE_EXISTS",
-    "deployment": "NONE",
+    "fullProject": {
+      "id": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
+      "name": "uberbondd",
+      "exists": true,
+      "productionSourceSha": "7e20cec9b4399e73b7f13fa7999dbc05a2f38221",
+      "currentSourceProductionProven": false,
+      "exactPullRequestHeadPreview": "RATE_LIMITED"
+    },
+    "privateLiteProject": {
+      "id": "prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz",
+      "name": "uberbondd-lite-private",
+      "exists": true,
+      "exactPullRequestHead": "5aa936bc475a62d44cda3eac0e4f4a8db1b94c9b",
+      "exactPullRequestHeadPreview": "READY",
+      "deploymentId": "dpl_4vgwAbEsRYkQ6mSH91DsXcg3EGqK"
+    },
+    "environmentVariablePresence": "NOT_OBSERVABLE_IN_AVAILABLE_READ_ONLY_CONNECTOR",
+    "cronRegistration": "UNPROVEN",
+    "cronDelivery": "UNPROVEN",
     "requiredOwnerManagedSecrets": [
       "CRON_SECRET",
       "DATABASE_URL",
@@ -145,15 +172,22 @@
       "Before Claude claims CLAUDE-NIGHT-01, recheck live pull requests and issue #173 for a concurrent relay-schema implementation."
     ],
     "activation": [
-      "If cloud liveness is authorized, follow docs/CLOUD_ACTIVATION_CONTRACT.md exactly; do not create a credentialless deployment surface."
+      "If cloud liveness is authorized, use the existing Vercel project and follow docs/CLOUD_ACTIVATION_CONTRACT.md exactly; do not create a duplicate or promote a stale source."
     ]
   },
   "nextHighestValueMission": "Obtain the founder's select-or-reject decision on the prepared 450 USD white-label evidence-sprint canary; if selected, clear legal, tax, and payment eligibility before authorizing one bounded partner or contact probe.",
   "maximumThreeFounderActions": [
     "Select or reject the prepared 450 USD White-label Lead-Path Revenue Leak Evidence Sprint canary.",
     "If selected, obtain exact Egyptian legal, tax, and Merchant-of-Record or payment eligibility advice before accepting money or authorizing contact.",
-    "Separately, if asleep cloud liveness is the current priority, create the Vercel project and set CRON_SECRET, DATABASE_URL, and ENCRYPTION_KEY exactly as docs/CLOUD_ACTIVATION_CONTRACT.md specifies."
+    "Separately, if asleep cloud liveness is the current priority, audit the existing uberbondd project's required environment-variable presence and authorize an exact-current-source deployment only under docs/CLOUD_ACTIVATION_CONTRACT.md."
   ],
+  "repositoryPublicationEffects": {
+    "pullRequestsOpened": 1,
+    "remoteBranchUpdates": 5,
+    "automaticPrivateLitePreviewDeploymentsCompleted": 1,
+    "automaticFullPreviewDeploymentsBlockedByRateLimit": 1,
+    "productionDeploymentsAuthorizedOrPerformedByThisLane": 0
+  },
   "externalEffectLedger": {
     "providerCalls": 0,
     "messages": 0,

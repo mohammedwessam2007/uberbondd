@@ -140,3 +140,21 @@ test('Nightfall artifacts claim zero observed external effects wherever a ledger
     }
   }
 });
+
+test('Nightfall handoff preserves audited Vercel existence without overstating cloud liveness', async () => {
+  const handoff = await loadJson('docs/CURRENT_HANDOFF.json');
+  assert.equal(handoff.cloudActivationTruth.fullProject.exists, true);
+  assert.equal(handoff.cloudActivationTruth.privateLiteProject.exists, true);
+  assert.equal(handoff.cloudActivationTruth.fullProject.currentSourceProductionProven, false);
+  assert.equal(handoff.cloudActivationTruth.cronRegistration, 'UNPROVEN');
+  assert.equal(handoff.cloudActivationTruth.cronDelivery, 'UNPROVEN');
+  assert.equal(handoff.repositoryPublicationEffects.productionDeploymentsAuthorizedOrPerformedByThisLane, 0);
+
+  const contract = await readFile(
+    new URL('../docs/CLOUD_ACTIVATION_CONTRACT.md', import.meta.url),
+    'utf8'
+  );
+  assert.match(contract, /Projects and older deployments exist/);
+  assert.match(contract, /Current-source full deployment/);
+  assert.doesNotMatch(contract, /\*\*There is no Vercel project\.\*\*/);
+});

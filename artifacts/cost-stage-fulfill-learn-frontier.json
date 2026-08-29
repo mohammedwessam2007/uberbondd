@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "uberbond-cost-stage-fulfill-learn-frontier-1.0.0",
+  "generatedAt": "2026-08-29T07:15:00.000Z",
+  "sourceMainSha": "92fa9adf7ec53c94543f8985fb052143fa7ec39f",
+  "classification": "INTERNAL_CAPABILITY_FRONTIER_NO_EXTERNAL_PROOF",
+  "northStar": "risk-adjusted cleared contribution profit per founder minute",
+  "capabilities": [
+    {
+      "id": "cache-first-public-evidence-tier",
+      "status": "IMPLEMENTED_INTERNAL_POLICY_AND_POSTGRES_CACHE",
+      "reuse": [
+        "src/overnight/intent/budgeted-enrichment-waterfall.mjs",
+        "src/web-context-extraction-contract.mjs",
+        "src/prospect-evidence-reconciliation.mjs"
+      ],
+      "newModule": "src/cost-aware-public-evidence-tier.mjs",
+      "law": "fresh cache then cheap public evidence then static HTTP then browser only when needed then licensed API"
+    },
+    {
+      "id": "asynchronous-staged-content",
+      "status": "IMPLEMENTED_INTERNAL_REPOSITORY_PRIMITIVE",
+      "reuse": [
+        "src/evidence-to-content-compiler.mjs",
+        "src/enterprise-journey-orchestrator.mjs",
+        "src/omnichannel-communication-contract.mjs"
+      ],
+      "newModule": "src/staging-content-repository.mjs",
+      "law": "precompile content asynchronously and serve immutable contentRef records to consequence-gated send/publication paths"
+    },
+    {
+      "id": "programmatic-fulfillment-router",
+      "status": "IMPLEMENTED_PLAN_AND_RECEIPT_CONTRACT_PROVIDER_ADAPTERS_GATED",
+      "reuse": [
+        "src/payment-renewal-truth.mjs",
+        "src/service-fulfillment.mjs",
+        "src/omnichannel-communication-contract.mjs"
+      ],
+      "newModule": "src/programmatic-fulfillment-router.mjs",
+      "law": "canonical cleared payment may prepare idempotent provisioning; provider receipts establish provisioning truth; raw long-lived access secrets are never emailed"
+    },
+    {
+      "id": "bounded-economic-feedback-allocation",
+      "status": "IMPLEMENTED_INTERNAL_PROPOSAL_AND_WEIGHT_PERSISTENCE",
+      "reuse": [
+        "Growth Graph attribution envelope",
+        "cleared contribution receipts",
+        "founder-minute receipts"
+      ],
+      "newModule": "src/economic-feedback-allocator.mjs",
+      "law": "only sufficiently evidenced paid-and-accepted economic outcomes may move weights; preserve exploration and bounded per-cycle change; never use sensitive personal traits"
+    }
+  ],
+  "postgresMigration": "migrations/100_cost_stage_fulfill_learn.sql",
+  "verification": {
+    "focusedTests": {"passed": 8, "failed": 0},
+    "syntax": "PASS",
+    "mutations": [
+      {"mutation": "remove protected/sensitive profile targeting guard", "result": "7/8; exact hostile test fails", "killed": true},
+      {"mutation": "remove static-HTTP-before-browser guard", "result": "7/8; exact hostile test fails", "killed": true}
+    ]
+  },
+  "externalEffectLedger": {
+    "webFetchesFromUberBondRuntime": 0,
+    "licensedProviderCalls": 0,
+    "messages": 0,
+    "customerProvisioningEffects": 0,
+    "spendCents": 0,
+    "paymentMutations": 0,
+    "productionMutations": 0
+  },
+  "businessEffectAuthority": "NONE"
+}

@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond-handoff-1.4.0",
   "sourceMainShaAtMissionStart": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
-  "sourceCommit": "09ecb7eb22d61843ffc9d47c0bb2f3264f240f9b",
+  "sourceCommit": "d2d76803e4e70ce1e784f50acc39c68592e07707",
   "currentMainShaAtFinalRefresh": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
   "currentMainCommitMessage": "SOL: corroborate top partner canary candidates (#226)",
   "missionIssue": 173,
@@ -33,15 +33,18 @@
     "Focused pure-module audit suite: 9/9 PASS. Independent mutations removing anti-evasion admission, cross-inbox dedupe or billing HMAC each reduced the suite to 8/9 and were killed. Billing Web Request route valid/bad signature harness PASS.",
     "Older PRs #207 and #208 are explicitly marked superseded by merged #209.",
     "PR #227 carries recoverable payment-reconciliation leases and canonical receipt gating; PR #228 carries bounded Overpass pacing/retry policy; PR #229 carries the shared browser runtime pool.",
-    "The three slices were consolidated locally from exact canonical main into integration/nightfall-hardening-20260829 and passed the combined 28-test focused suite, 607-file syntax gate, 2788-test deterministic gate, relay safety, mutation war, reachability and canon gates."
+    "The three slices were consolidated locally from exact canonical main into integration/nightfall-hardening-20260829 and passed the combined 28-test focused suite, 607-file syntax gate, 2788-test deterministic gate, relay safety, mutation war, reachability and canon gates.",
+    "The exact 22-file combined candidate was published and verified byte-for-byte on the remote integration/nightfall-hardening-20260829 backup branch; its contents-API commit receipt is 2f2e884a775fd36d4919b3cdd01ed16deb17ca75.",
+    "Draft integration PR #231 is the review candidate; stale composite PR #214 was closed as superseded."
   ],
   "blockers": [
-    "The exact combined candidate has no full-project Vercel READY deployment because the connected project is still build-rate-limited (api-deployments-free-per-day). No paid upgrade or circumvention was attempted.",
-    "The explicit real-PostgreSQL launcher is blocked because OMNIA_V9_TEST_DATABASE_URL is absent; the embedded fallback cannot run under this container's denied user/group switching. The browser gate is blocked because this runner has no compatible Chromium executable. Neither skipped/failed runtime gate is treated as proof.",
+    "The exact combined candidate in draft PR #231 has no full-project Vercel READY deployment because both Vercel checks report api-deployments-free-per-day/build-rate-limit. No paid upgrade or circumvention was attempted.",
+    "The explicit real-PostgreSQL launcher was re-run and is blocked because OMNIA_V9_TEST_DATABASE_URL is absent; the embedded fallback cannot run under this container's denied user/group switching. The browser gate was re-run and is blocked because this runner has no compatible Chromium executable. Neither skipped/failed runtime gate is treated as proof.",
+    "GitHub Actions run 33267965050 reports browser, deterministic and postgres failures with zero executable steps on all three jobs; it is CI infrastructure non-evidence, not a source regression result.",
     "No outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Every one of these is an external activation, not an engineering task."
   ],
   "nextActions": [
-    "Retain the remote integration/nightfall-hardening-20260829 backup branch at the exact combined receipt head; use it as the review candidate after external gates clear.",
+    "Keep remote backup branch integration/nightfall-hardening-20260829 and draft PR #231 as the exact review candidate; remote contents receipt is 2f2e884a775fd36d4919b3cdd01ed16deb17ca75.",
     "Run the 16 serial real-PostgreSQL suites and the browser/crawler gate in a runner with the required runtimes; then obtain exact-head Vercel READY proof before merging or promoting.",
     "Prioritise lawful distribution and first cleared payment evidence after the dependency-complete runtime slice; current commercial truth remains zero."
   ],
@@ -54,7 +57,7 @@
     "observedProductionState": "READY",
     "currentMainSha": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
     "currentMainExactProduction": false,
-    "latestDeploymentBlocker": "PR_227_EXACT_HEAD_VERCEL_CHECKS_API_DEPLOYMENTS_FREE_PER_DAY",
+    "latestDeploymentBlocker": "PR_231_EXACT_HEAD_VERCEL_CHECKS_API_DEPLOYMENTS_FREE_PER_DAY",
     "status": "PUBLIC_SITE_LIVE__PRODUCTION_STALE_RELATIVE_TO_MAIN"
   },
   "commercialDecision": {
@@ -126,7 +129,7 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE_EXCEPT_EXISTING_PROJECT_DEPLOYMENT_AUTHORIZED_WHEN_VERIFIED",
-  "headSha": "09ecb7eb22d61843ffc9d47c0bb2f3264f240f9b",
+  "headSha": "d2d76803e4e70ce1e784f50acc39c68592e07707",
   "cloudActivationTruth": {
     "fullProjectExists": "PROVEN_BY_CONNECTED_API",
     "privateLiteProjectExists": "PROVEN_BY_CONNECTED_API",
@@ -185,6 +188,13 @@
       "status": "OPEN_DRAFT_MERGEABLE",
       "mission": "bounded browser runtime pool",
       "promotionBlockers": ["exact-head Vercel READY proof", "Chromium checkout proof", "real PostgreSQL runtime proof"]
+    },
+    {
+      "pr": 231,
+      "head": "2f2e884a775fd36d4919b3cdd01ed16deb17ca75",
+      "status": "OPEN_DRAFT_MERGEABLE",
+      "mission": "combined payment, browser and Overpass hardening candidate",
+      "promotionBlockers": ["exact-head Vercel READY proof", "Chromium checkout proof", "real PostgreSQL runtime proof"]
     }
   ],
   "repositoryPublicationEffects": {
@@ -192,6 +202,10 @@
     "pullRequestsCreated": 1,
     "pullRequestsMerged": 1,
     "issueCommentsPosted": 1,
+    "supersededPullRequestsClosed": [214],
+    "remoteBackupBranch": "integration/nightfall-hardening-20260829",
+    "remoteBackupCommit": "2f2e884a775fd36d4919b3cdd01ed16deb17ca75",
+    "integrationPullRequest": 231,
     "note": "GitHub repository operations are not customer-facing external effects."
   },
   "lastCompletedSlice": {

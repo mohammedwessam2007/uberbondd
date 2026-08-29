@@ -2,13 +2,13 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 596,
+      "filesParsed": 597,
       "ranAt": "2026-08-29T00:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2724,
-      "pass": 2676,
+      "tests": 2744,
+      "pass": 2695,
       "fail": 0,
       "skipped": 48,
       "ranAt": "2026-08-29T00:00:00Z"

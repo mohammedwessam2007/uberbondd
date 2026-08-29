@@ -204,6 +204,7 @@
     "pullRequestsCreated": 1,
     "pullRequestsMerged": 1,
     "issueCommentsPosted": 1,
+    "previewDeploymentsObserved": 1,
     "note": "GitHub repository operations are not customer-facing external effects."
   },
   "lastCompletedSlice": {
@@ -357,6 +358,21 @@
       "browser": "BLOCKED_RUNTIME: pinned Chromium absent; Playwright CDN install timed out",
       "githubActions": "INFRASTRUCTURE_NON_EVIDENCE: run 33256756811 has zero steps and runner_id 0"
     },
+    "deploymentEvidence": {
+      "productionDeploymentsPerformed": 0,
+      "previewDeploymentsObserved": 1,
+      "privateLite": {
+        "deploymentId": "dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg",
+        "sourceSha": "ec0dd75168e6e6e489395851cc4250729616bf27",
+        "state": "READY",
+        "production": false
+      },
+      "full": {
+        "sourceSha": "6bb681152804977496eea1e677dc70c098258890",
+        "state": "NOT_DEPLOYED_BUILD_RATE_LIMIT",
+        "production": false
+      }
+    },
     "merged": false,
     "productionDeployment": false,
     "externalEffects": {
@@ -366,6 +382,7 @@
       "moneyMovement": 0,
       "spendCents": 0,
       "productionDataMutations": 0,
+      "previewDeploymentsObserved": 1,
       "liteTouched": false
     },
     "nextHighestValueMission": "Obtain exact-head build and real PostgreSQL proof when the external runtime/platform blockers clear; until then preserve the commercial canary and prepare for authorized first buyer/payment evidence without outbound execution."

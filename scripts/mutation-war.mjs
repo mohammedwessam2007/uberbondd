@@ -387,6 +387,27 @@ export const MUTATIONS = [
     suites: ['tests/sovereignty-proof-closure.test.mjs']
   },
   {
+    id: 'SEND-01', guard: 'The send loop cannot escape the guards it calls',
+    file: 'src/agent-code-change-contract.mjs',
+    find: "  'src/pipeline.mjs',",
+    replace: "  'src/pipeline.mjs.not-really',",
+    suites: ['tests/outbound-send-path-sovereignty-boundary.test.mjs']
+  },
+  {
+    id: 'SEND-02', guard: 'The provider transport cannot be rewritten autonomously',
+    file: 'src/agent-code-change-contract.mjs',
+    find: "  'src/gmail.mjs',",
+    replace: "  'src/gmail.mjs.not-really',",
+    suites: ['tests/outbound-send-path-sovereignty-boundary.test.mjs']
+  },
+  {
+    id: 'SEND-03', guard: 'The advisory shadow stays advisory at its call site',
+    file: 'src/pipeline.mjs',
+    find: '    await observeOutboundFinalAdmission({',
+    replace: '    const __v9 = await observeOutboundFinalAdmission({',
+    suites: ['tests/outbound-send-path-sovereignty-boundary.test.mjs']
+  },
+  {
     id: 'ESC-01', guard: 'A resolved condition recurring is a new episode',
     file: 'src/operator-escalation.mjs',
     find: '  const openFingerprints = [...lifecycle.entries()].filter(([, entry]) => entry.open).map(([fingerprint]) => fingerprint);',

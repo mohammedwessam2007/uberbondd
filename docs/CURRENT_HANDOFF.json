@@ -1,39 +1,47 @@
 {
   "schemaVersion": "uberbond-handoff-1.1.0",
-  "sourceMainShaAtMissionStart": "97754332eaebd3559db2e3f0848c2b8bb287964c",
-  "sourceCommit": "1a27fd20ceb1dbd4746c58186781976b5aa2948b",
-  "currentMainShaAtFinalRefresh": "1a27fd20ceb1dbd4746c58186781976b5aa2948b",
-  "currentMainCommitMessage": "Reconcile partner-first distribution activation packet",
-  "activeBranch": "gpt/final-handoff-distribution-20260829",
+  "sourceMainShaAtMissionStart": "92fa9adf7ec53c94543f8985fb052143fa7ec39f",
+  "sourceCommit": "dc154ac20a3a3a1736666261bc4a2e952c6ea9dc",
+  "currentMainShaAtFinalRefresh": "dc154ac20a3a3a1736666261bc4a2e952c6ea9dc",
+  "currentMainCommitMessage": "Add Cost Stage Fulfill Learn autonomy spine",
+  "activeBranch": "gpt/handoff-cost-stage-fulfill-learn-20260829",
   "activePullRequest": null,
   "missionIssue": 173,
   "missionIssueState": "OPEN",
-  "activeMission": "Continue NIGHTFALL from the unified Growth Graph, with distribution as the top commercial priority: qualify the partner seed universe, compose provider-backed enrichment and official social/journey execution when authorized, and preserve truthful economic attribution through payment, delivery and renewal.",
+  "activeMission": "Continue NIGHTFALL from the unified Growth Graph with distribution and first real economic proof as the top priorities. Reuse the cache-first evidence tier, asynchronous content staging, programmatic fulfillment router and bounded economic allocator rather than creating parallel systems.",
   "completed": [
-    "Repository brain reconciliation is canonical and bootstraps source-backed Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation lineage.",
-    "AI employee role identity is preserved end-to-end on the canonical scheduled-worker-terminal path, with hostile substitution mutation proof.",
-    "PR #194 merged as b0993baa0ff3ccec0b64539efbd3c58763f098a4: bounded Braze/Customer.io-style enterprise journey compiler plus compliant Sender Infrastructure Mesh.",
-    "Enterprise journeys compose the existing durable scheduler/omnichannel boundary, enforce entry/message frequency bounds, use reference-only configured webhooks and reject unbounded cycles.",
-    "Sender Infrastructure Mesh supports truthful transactional/marketing separation, warm healthy capacity and reputation-aware allocation while explicitly refusing domain/IP identity or reputation evasion.",
-    "Journey/sender focused suite: 7/7 PASS. Removing the sender evasion guard changed the mutation run to 6/7 with the intended hostile test failing.",
-    "PR #195 merged as c03886d58f631712c0aa6271479d84efb2b604b5: unified Growth Graph frontier plus evidence-to-content compiler.",
-    "Evidence-to-content compiler creates evidence-bound local preparation tasks for SEO/AEO, technical SEO remediation, LinkedIn/social briefs, video scripts, partner sales assets and outbound insights with zero auto-publication authority; focused suite 5/5 PASS.",
-    "PR #197 merged as 1a27fd20ceb1dbd4746c58186781976b5aa2948b: reconciled the partner-first activation packet onto current main instead of leaving the old branch divergent.",
-    "Current partner distribution assets now include a public ecosystem source registry, a 10-company research seed universe and a candidate qualification state machine. The seed set is explicitly not a contact list and all records retain contactAuthority NONE."
+    "Repository brain bootstraps source-backed Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation lineage and preserves Trinity/Growth Graph continuity across chat resets.",
+    "AI employee role identity is preserved end-to-end on the canonical scheduled-worker-terminal path with hostile substitution mutation proof.",
+    "PR #194 merged the bounded Braze/Customer.io-style enterprise journey compiler and compliant Sender Infrastructure Mesh.",
+    "PR #195 merged the unified Growth Graph capability frontier and evidence-to-content compiler.",
+    "PR #197 merged the public partner ecosystem source registry, ten-company research seed universe and bounded partner canary activation packet.",
+    "PR #200 merged as dc154ac20a3a3a1736666261bc4a2e952c6ea9dc and added the Cost -> Stage -> Fulfill -> Learn autonomy spine.",
+    "Cost-aware public evidence now plans fresh cache -> DNS/official public sources -> static HTTP -> browser only after observed static-HTTP insufficiency -> licensed API -> model inference, stopping when sufficient evidence is reached.",
+    "Public-evidence cache entries are provenance/hash/expiry bound and public extraction remains subject to current source-policy, robots, terms/purpose and public-source gates; private/credentialed/CAPTCHA-bypass/personal-data inference remains prohibited.",
+    "Asynchronous staged content now has a Postgres repository with source evidence, policy/version refs, payload hashes, expiry and concurrent FOR UPDATE SKIP LOCKED claiming; staged content grants no send or publication authority.",
+    "Programmatic fulfillment now compiles idempotent provisioning plans only after canonical cleared-payment evidence and requires provider receipts for provisioning truth; uncertain effects block blind retry.",
+    "Programmatic fulfillment prohibits raw long-lived credential/token delivery and unexpected raw token/secret fields. Customer access should use provider invite, expiring magic link or one-time claim mechanisms.",
+    "Economic feedback allocation now proposes bounded business-profile weights using paid-and-accepted outcomes, cleared contribution and founder minutes, with minimum evidence thresholds, shrinkage, exploration floor, max per-cycle deltas and optimistic concurrency.",
+    "Economic allocation rejects sensitive personal targeting dimension keys while allowing legitimate business dimensions such as industry=healthcare; it never changes code, policy or external authority.",
+    "Post-review focused Cost/Stage/Fulfill/Learn suite: 10/10 PASS. Module syntax checks PASS. Earlier hostile mutations removing the browser-cost guard and sensitive-dimension guard were killed."
   ],
   "blockers": [
-    "The ten partner seeds still require individual public-site evidence qualification for home-service vertical fit, multi-client operation and relevant lead/conversion services before any contact route is considered.",
-    "Authenticated enrichment provider execution remains gated by provider selection, credentials, terms and budget despite the existing Clay-class provider-neutral waterfall.",
-    "Official/authorized social provider adapters remain unconnected; unsupported LinkedIn connection/DM/engagement automation must remain manual or officially authorized rather than browser-bot automation.",
-    "Sender Infrastructure Mesh has no real sender/domain/IP telemetry until external sending infrastructure is configured; the merged module is policy/allocation logic only.",
-    "Low-level direct cloud-relay result admission still deserves defense-in-depth employee-role verification for future alternate callers, though the canonical employee path is role-bound end-to-end.",
-    "Latest exact main is not proven deployed to Vercel while the Hobby deployment quota constraint remains unresolved/unchecked at this exact SHA.",
-    "Real commercial activation requires legal/tax/payment eligibility, buyer reality, provider/KYC state and consequence-specific distribution authority. Customers 0; cleared revenue $0; accepted deliveries 0; retained customers 0; elapsed founder-absence proof 0."
+    "The ten partner seeds still require individual public-site evidence qualification for vertical fit, multi-client operation and relevant lead/conversion services before any contact route is considered.",
+    "Authenticated enrichment execution remains gated by provider selection, credentials, terms and budget even though the provider-neutral waterfall and cache/public evidence tiers exist.",
+    "The new public-evidence tier is a planning/cache primitive; it is not yet fully composed into the live enrichment waterfall and actual web-extraction adapter execution path.",
+    "The staged-content repository is implemented but still needs scheduled batch-generation integration from evidence-to-content output and live Postgres migration/runtime proof on exact current main.",
+    "Programmatic fulfillment provider adapters are not yet connected because the first paid offer/provider provisioning surface is not externally activated.",
+    "The economic allocator has no real commercial observations yet; verified customers remain 0, cleared revenue $0, accepted deliveries 0 and retained customers 0, so no real economic reallocation is proven.",
+    "Official/authorized social provider adapters remain unconnected; unsupported LinkedIn connection/DM/engagement automation must not be replaced with browser-bot evasion.",
+    "Sender Infrastructure Mesh has no real sender/domain/IP telemetry until external infrastructure is configured.",
+    "Latest exact main is not yet proven deployed to Vercel after PR #200; prior Hobby deployment quota constraints must be rechecked rather than assumed resolved.",
+    "Real commercial activation still requires legal/tax/payment eligibility, buyer reality, provider/KYC state and consequence-specific distribution authority."
   ],
   "nextActions": [
-    "Qualify the 10 partner research seeds using public evidence only and promote only candidates that satisfy vertical-fit, multi-client and relevant-service gates; do not collect private contact data during this stage.",
-    "After provider/credential/terms/budget gates exist, connect the Clay-class enrichment waterfall to the smallest useful authenticated provider set and benchmark cost, coverage, freshness, conflict rate and downstream contribution.",
-    "Continue the internal Growth Graph by composing journey occurrence expansion, per-profile/channel frequency state, conversion attribution, sender-health telemetry and official social/content adapters into existing canonical systems rather than new standalone clones."
+    "Distribution first: qualify the ten partner research seeds using public evidence only, then preserve a ranked research-ready partner universe without collecting private contact data.",
+    "Compose the cache-first public evidence tier into the existing budgeted enrichment waterfall/web-extraction path so lower-cost evidence is actually exhausted before licensed API spend, with measurable cache hit rate, source coverage, browser usage and provider cost.",
+    "Wire evidence-to-content batch output into staged Postgres content and the canonical journey/sender paths; then connect programmatic fulfillment only to the first ServiceSKU/provider that real commercial activation requires.",
+    "Once real paid-and-accepted outcomes exist, feed Growth Graph attribution, costs and founder minutes into the bounded economic allocator; until then do not manufacture learning weights from synthetic data."
   ],
   "unresolvedNames": [
     {
@@ -45,18 +53,23 @@
   "growthGraph": {
     "frontierArtifact": "artifacts/growth-graph-capability-frontier.json",
     "architectureDoc": "docs/UBERBOND_GROWTH_GRAPH_EXPANSION.md",
+    "costStageFulfillLearnArtifact": "artifacts/cost-stage-fulfill-learn-frontier.json",
+    "costStageFulfillLearnDoc": "docs/UBERBOND_COST_STAGE_FULFILL_LEARN_SPINE.md",
     "partnerSourceRegistry": "artifacts/partner-distribution-source-registry-20260829.json",
     "partnerSeedUniverse": "artifacts/partner-canary-seed-universe-20260829.json",
     "partnerActivationPacket": "docs/distribution/NIGHTFALL_PARTNER_CANARY_ACTIVATION_PACKET.md",
     "capabilities": [
-      "Clay-class evidence waterfall",
+      "Clay-class budgeted evidence waterfall",
+      "cache-first public evidence acquisition",
       "partner/white-label distribution",
-      "Braze/Customer.io-style enterprise journeys",
+      "Braze/Customer.io-style bounded enterprise journeys",
       "compliant Sender Infrastructure Mesh",
-      "official/authorized social orchestration",
-      "evidence-to-SEO/AEO/social/video content"
+      "evidence-to-SEO/AEO/social/video content",
+      "asynchronous staged-content repository",
+      "programmatic fulfillment planning and provider-receipt reconciliation",
+      "bounded economic feedback allocation"
     ],
-    "law": "One governed Growth Graph, not disconnected SaaS clones; distribution allocation must eventually reconcile to cleared payment, accepted delivery, cost, founder minutes, renewal and cleared contribution."
+    "law": "One governed Growth Graph, not disconnected SaaS clones. Distribution and learning allocation must eventually reconcile to real cleared payment, accepted delivery, variable cost, founder minutes, renewal and cleared contribution."
   },
   "commercialDecision": {
     "canary": "White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing and electrical businesses",
@@ -69,27 +82,30 @@
     "retainedCustomers": 0
   },
   "verification": [
-    "Enterprise journey + Sender Infrastructure Mesh isolated exact logic: 7/7 PASS.",
-    "Sender evasion-guard mutation: 6/7 with intended hostile test failure; mutation killed.",
+    "Enterprise journey + Sender Infrastructure Mesh isolated exact logic: 7/7 PASS; sender reputation-evasion mutation killed.",
     "Evidence-to-content isolated exact logic: 5/5 PASS; syntax check PASS.",
-    "PR #197 is additive distribution research only; it contains no contact routes, send logic or external-effect authority.",
+    "Cost/Stage/Fulfill/Learn post-review focused exact logic: 10/10 PASS; syntax checks PASS.",
+    "Cost/Stage/Fulfill/Learn changed-file set on PR #200 was exactly eight additive files; lite/ untouched.",
     "No latest-main whole-tree green claim is made from hosted zero-step runners or historical receipts."
   ],
   "maximumThreeFounderActions": [
-    "No founder action is required for current internal Growth Graph and partner-qualification work.",
+    "No founder action is required for the newly merged internal Cost/Stage/Fulfill/Learn primitives.",
     "Before real commercial contact/payment, clear the exact legal/tax/payment route and minimum provider identity/KYC required for the selected canary.",
-    "When live distribution is desired, provide consequence-specific authorization for the exact bounded audience/channel and configure credentials through secret/configuration surfaces, never chat."
+    "When live distribution/provider provisioning is desired, provide consequence-specific authorization and configure required credentials through proper secret/configuration surfaces, never chat."
   ],
   "externalEffectLedger": {
-    "providerCalls": 0,
+    "liveUberBondWebCrawls": 0,
+    "licensedProviderCalls": 0,
     "messages": 0,
+    "customerProvisioningEffects": 0,
     "purchases": 0,
     "deployments": 0,
     "credentialChanges": 0,
     "dnsChanges": 0,
+    "paymentMutations": 0,
     "productionMutations": 0,
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE",
-  "headSha": "1a27fd20ceb1dbd4746c58186781976b5aa2948b"
+  "headSha": "dc154ac20a3a3a1736666261bc4a2e952c6ea9dc"
 }

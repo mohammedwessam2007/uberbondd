@@ -90,7 +90,8 @@ if (!REAL_URL) {
       providerEventKey: e.providerEventKey,
       status: 'RETRYABLE',
       errorCode: 'provider-temporary',
-      retryAfterMs: 1_000
+      retryAfterMs: 1_000,
+      workerRef: 'proof:retry'
     });
     assert.equal(retry.status, 'RETRYABLE');
     const retryRow = await store.pool.query(
@@ -102,14 +103,15 @@ if (!REAL_URL) {
     assert.ok(retryRow.rows[0].next_attempt_at);
 
     await assert.rejects(
-      () => finishBillingEvent(store.pool, { providerEventKey: e.providerEventKey, status: 'RECONCILED' }),
+      () => finishBillingEvent(store.pool, { providerEventKey: e.providerEventKey, status: 'RECONCILED', workerRef: 'proof:retry' }),
       /canonical-receipt-ref-required/
     );
 
     await finishBillingEvent(store.pool, {
       providerEventKey: e.providerEventKey,
       status: 'RECONCILED',
-      canonicalReceiptRef: `receipt:${crypto.randomUUID()}`
+      canonicalReceiptRef: `receipt:${crypto.randomUUID()}`,
+      workerRef: 'proof:retry'
     });
     const finalRow = await store.pool.query(
       `SELECT status,canonical_receipt_ref,completed_at FROM billing_webhook_inbox WHERE provider_event_key=$1`,

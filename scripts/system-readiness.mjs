@@ -145,8 +145,18 @@ function refreshCurrentStateDocument({ input, readiness }) {
   const audit = measurement(input, 'npm audit');
   const mutation = measurement(input, 'test:mutation-war');
   const browser = measurement(input, 'test:browser');
+  const reachability = measurement(input, 'reachability');
   const date = String(readiness.generatedAt).slice(0, 10);
   const result = (item, fallback) => item.result || item.note || fallback;
+  const reachabilityCount = key => {
+    const value = Number(reachability[key]);
+    if (!Number.isInteger(value) || value < 0) throw new Error('cannot refresh reachability: ' + key + ' is not a measured non-negative integer');
+    return value;
+  };
+  const srcModules = reachabilityCount('srcModules');
+  const productionModules = reachabilityCount('reachableFromProduction');
+  const operatorOnlyModules = reachabilityCount('reachableFromOperatorScriptsOnly');
+  const unreachableModules = reachabilityCount('noEntryPointAtAll');
 
   let text = readFileSync(path, 'utf8');
   text = replaceRequired(text, /^Last reconciled:.*$/m, `Last reconciled: **${date}**`, 'reconciliation date');
@@ -167,6 +177,17 @@ function refreshCurrentStateDocument({ input, readiness }) {
     `| Browser | \`${browser.command || 'npm run test:browser'}\` | ${result(browser, 'not recorded')} |`, 'browser measurement');
   text = replaceRequired(text, /^\| Dependencies \|.*$/m,
     `| Dependencies | \`${audit.command || 'npm audit'}\` | ${result(audit, 'not recorded')} |`, 'dependency measurement');
+  const tick = String.fromCharCode(96);
+  text = replaceRequired(text, new RegExp('^\\*\\*[0-9]+ of [0-9]+ ' + tick + 'src' + tick + ' modules have no entry point at all\\*\\*.*$','m'),
+    '**' + unreachableModules + ' of ' + srcModules + ' ' + tick + 'src' + tick + ' modules have no entry point at all** — not production, not an', 'reachability summary');
+  text = replaceRequired(text, /^\| Reachable from production \| [0-9]+ \|$/m,
+    '| Reachable from production | ' + productionModules + ' |', 'production reachability count');
+  text = replaceRequired(text, /^\| Reachable only via an operator script \| [0-9]+ \|$/m,
+    '| Reachable only via an operator script | ' + operatorOnlyModules + ' |', 'operator reachability count');
+  text = replaceRequired(text, /^\| \*\*No entry point at all\*\* \| \*\*[0-9]+\*\* \|$/m,
+    '| **No entry point at all** | **' + unreachableModules + '** |', 'unreachable reachability count');
+  text = replaceRequired(text, /^written down, so every one of the [0-9]+ is classified in$/m,
+    'written down, so every one of the ' + unreachableModules + ' is classified in', 'reachability classification count');
   writeFileSync(path, text);
 }
 

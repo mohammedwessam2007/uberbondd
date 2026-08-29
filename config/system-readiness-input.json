@@ -2,16 +2,16 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 598,
-      "ranAt": "2026-08-29T00:00:00Z"
+      "filesParsed": 603,
+      "ranAt": "2026-08-29T14:05:06Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2758,
-      "pass": 2710,
+      "tests": 2773,
+      "pass": 2725,
       "fail": 0,
       "skipped": 48,
-      "ranAt": "2026-08-29T00:00:00Z"
+      "ranAt": "2026-08-29T14:05:06Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -19,51 +19,47 @@
       "pass": 150,
       "fail": 0,
       "skipped": 0,
-      "ranAt": "2026-08-29T00:00:00Z"
+      "ranAt": "2026-08-29T14:05:06Z"
     },
     "test:postgres-real": {
-      "command": "OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real",
-      "status": "PASS_CURRENT_BRANCH",
-      "tests": 127,
-      "pass": 127,
-      "fail": 0,
-      "skipped": 0,
-      "result": "127 tests, 127 pass, 0 fail (2026-08-29), against embedded PostgreSQL 18",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "command": "npm run test:postgres-real",
+      "status": "BLOCKED_RUNTIME",
+      "result": "NOT RUN: OMNIA_V9_TEST_DATABASE_URL is not set; local embedded-postgres fallback could not start because the container denied groupadd's audit interface.",
+      "ranAt": "2026-08-29T14:05:06Z"
     },
     "npm audit": {
       "command": "npm audit --omit=dev",
       "status": "PASS_CURRENT_INTEGRATION",
       "vulnerabilities": 0,
       "note": "No vulnerabilities reported in the current integration environment.",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "ranAt": "2026-08-29T14:05:06Z"
     },
     "test:mutation-war": {
-      "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "75 mutations, 75 killed, 0 not killed",
-      "note": "Run with a real PostgreSQL so STORE-01 is executed rather than skipped. Without the database it reports 63 killed and 1 PostgreSQL-dependent skip.",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "command": "npm run test:mutation-war",
+      "result": "75 mutations, 74 killed, 0 not killed, 1 skipped (STORE-01 requires real PostgreSQL)",
+      "note": "The PostgreSQL-dependent STORE-01 mutation could not run because this runner has no OMNIA_V9_TEST_DATABASE_URL and embedded-postgres cannot create its system user here.",
+      "ranAt": "2026-08-29T14:05:06Z"
     },
     "test:browser": {
       "command": "CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser",
-      "status": "PASS_CURRENT_BRANCH",
+      "status": "BLOCKED_RUNTIME",
       "tests": 1,
-      "pass": 1,
-      "fail": 0,
+      "pass": 0,
+      "fail": 1,
       "skipped": 0,
-      "result": "1 test, 1 pass, 0 fail (2026-08-29), against the runner's installed Chromium",
-      "note": "The previous BLOCKED_EXTERNAL_TEST_RUNTIME record said Chromium was absent. It is not: this runner ships chromium-1194 while the pinned Playwright resolves chromium_headless_shell-1228, so the default launch path 404s on a build number rather than on a missing browser. crawlSiteBrowser already accepts CHROMIUM_PATH, which bridges it. The test's site is a loopback HTTP server, so this gate makes no external request.",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "result": "1 test, 0 pass, 1 fail: pinned Playwright Chromium executable is absent; the CDN install attempt timed out.",
+      "note": "The browser test is loopback-only. No browser executable was available in this runner, and npx playwright install chromium timed out against cdn.playwright.dev.",
+      "ranAt": "2026-08-29T14:05:06Z"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 249,
-      "reachableFromProduction": 123,
+      "srcModules": 251,
+      "reachableFromProduction": 124,
       "reachableFromOperatorScriptsOnly": 9,
-      "noEntryPointAtAll": 117,
+      "noEntryPointAtAll": 118,
       "allClassified": true,
-      "ranAt": "2026-08-29T00:00:00Z",
-      "note": "src is now walked recursively. The previous 191/117/5/69 figures excluded src/overnight and src/omnia-v9 entirely, which was an accident of a single-level directory read, not a scope decision."
+      "ranAt": "2026-08-29T14:05:06Z",
+      "note": "src is walked recursively; the new payment-reconciliation watchdog is explicitly classified behind NO_PAYMENT_PROVIDER and the current split is 124 production, 9 operator-only, 118 with no entry point."
     }
   },
   "capabilities": [

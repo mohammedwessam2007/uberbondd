@@ -7,13 +7,17 @@ import {
 import { runAgentWorkerOnce, resumeAgentWorkerSubmission } from './agent-worker-runtime.mjs';
 import { validateRoleBoundExecution } from './ai-employee-role-contract.mjs';
 import {
+  bindEmployeeRoleIdentityToReceipt,
+  bindEmployeeRoleSubmissionPayload
+} from './ai-employee-terminal-identity.mjs';
+import {
   loadLatestComputeBudget,
   saveComputeBudgetSnapshot,
   saveAgentExecutionRecord,
   listPendingAgentSubmissions
 } from './agent-compute-store.mjs';
 
-export const AGENT_WORKER_JOB_POLICY_VERSION = 'agent-worker-job-1.2.0';
+export const AGENT_WORKER_JOB_POLICY_VERSION = 'agent-worker-job-1.3.0';
 
 function text(value, max = 240) {
   return String(value ?? '').trim().slice(0, max);
@@ -295,6 +299,33 @@ export async function runAgentWorkerTick({
     taskId: claim.taskId
   });
 
+  const submitRoleBoundResult = async payload => {
+    const binding = bindEmployeeRoleSubmissionPayload({ task: claim.task, payload });
+    if (!binding.ok) {
+      return fail(
+        ['employee-role-terminal-submission-binding-failed', ...(binding.reasonCodes || [])],
+        'ROLE_BINDING_BLOCKED',
+        { taskId: claim.taskId, workerId: worker }
+      );
+    }
+    return submitCloudRelayResult({ store, ...binding.payload, date });
+  };
+
+  const persistRoleBoundExecution = async payload => {
+    const binding = bindEmployeeRoleIdentityToReceipt({
+      task: claim.task,
+      receipt: payload?.executionRecord || null
+    });
+    if (!binding.ok) {
+      return fail(
+        ['employee-role-execution-record-binding-failed', ...(binding.reasonCodes || [])],
+        'ROLE_BINDING_BLOCKED',
+        { taskId: claim.taskId, workerId: worker }
+      );
+    }
+    return persistExecution(store, binding.receipt, payload?.date || date);
+  };
+
   const result = await runAgentWorkerOnce({
     claim,
     computeBudget: loaded.budget,
@@ -304,42 +335,55 @@ export async function runAgentWorkerTick({
     tokenCeiling,
     modelExecutor,
     heartbeat: input => heartbeatCloudRelayTask({ store, ...input }),
-    submitResult: payload => submitCloudRelayResult({ store, ...payload, date }),
+    submitResult: submitRoleBoundResult,
     persistBudgetState: payload => persistBudget(store, payload.budget, {
       reason: `runtime-${String(payload.stage || 'state').toLowerCase()}`,
       taskId: payload.taskId,
       executionStatus: payload.executionStatus,
       date: payload.date || date
     }),
-    persistExecutionRecord: payload => persistExecution(store, payload.executionRecord, payload.date || date),
+    persistExecutionRecord: persistRoleBoundExecution,
     date
   });
+
+  let workerResult = result;
+  if (result.executionRecord) {
+    const binding = bindEmployeeRoleIdentityToReceipt({ task: claim.task, receipt: result.executionRecord });
+    if (!binding.ok) {
+      return fail(
+        ['employee-role-final-execution-record-binding-failed', ...(binding.reasonCodes || [])],
+        'ROLE_BINDING_BLOCKED',
+        { taskId: claim.taskId, workerId: worker }
+      );
+    }
+    workerResult = { ...result, executionRecord: binding.receipt };
+  }
 
   // The runtime persists reservation, commit/release, and ready result at the
   // exact safety boundaries. These final writes are duplicate-safe audit
   // reinforcement and make the tick receipt self-contained.
-  const budgetPersistence = result.computeBudget?.ok
-    ? await persistBudget(store, result.computeBudget, {
+  const budgetPersistence = workerResult.computeBudget?.ok
+    ? await persistBudget(store, workerResult.computeBudget, {
       reason: 'worker-post-execution',
       taskId: claim.taskId,
-      executionStatus: result.status,
+      executionStatus: workerResult.status,
       date
     })
     : { ok: true, status: 'NO_BUDGET_CHANGE' };
 
-  const executionPersistence = await persistExecution(store, result.executionRecord, date);
+  const executionPersistence = await persistExecution(store, workerResult.executionRecord, date);
   const persistenceOk = budgetPersistence.ok && executionPersistence.ok;
 
   return {
-    ok: result.ok && persistenceOk,
+    ok: workerResult.ok && persistenceOk,
     policyVersion: AGENT_WORKER_JOB_POLICY_VERSION,
-    status: persistenceOk ? result.status : 'PERSISTENCE_BLOCKED',
+    status: persistenceOk ? workerResult.status : 'PERSISTENCE_BLOCKED',
     taskId: claim.taskId,
     workerId: worker,
     targetAgent: target,
     provider: providerName,
     model: normalizedModel || null,
-    workerResult: result,
+    workerResult,
     budgetPersistence,
     executionPersistence,
     at: timestamp(date),

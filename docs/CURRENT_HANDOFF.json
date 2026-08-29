@@ -1,25 +1,30 @@
 {
   "schemaVersion": "uberbond-handoff-1.1.0",
-  "sourceMainShaAtMissionStart": "2d11d10af3889d65d1a660c4cd611ab2f875c059",
-  "sourceMainCommitMessage": "NIGHTFALL: publish the cloud activation contract and refresh the handoff",
-  "activeBranch": "gpt/reconcile-live-vercel-truth-20260829",
+  "sourceMainShaAtMissionStart": "683a3fd97db6ff7903d1619438932110790791c6",
+  "sourceMainCommitMessage": "NIGHTFALL: reconcile repository brain with live Vercel state",
+  "activeBranch": "gpt/handoff-role-bound-production-20260829",
   "activePullRequest": null,
-  "activeMission": "Reconcile repository brain with connected Vercel truth so production activation work is no longer blocked by a false zero-project assumption.",
+  "activeMission": "Bind immutable AI employee role identity into the actual scheduled mission and worker execution boundary before any real model/provider call is permitted.",
   "completed": [
-    "Refreshed live main and open PR frontier: #180 is Sol research/distribution; #181 is the role-bound AI-employee engineering candidate awaiting trustworthy executable proof.",
-    "Connected Vercel inspection proves project prj_RWUPf14w1xIz9NK92AbNW5z7qDCg / uberbondd exists and is Git-linked to mohammedwessam2007/uberbondd.",
-    "Connected Vercel inspection also proves uberbondd-lite-private exists; lite remains protected and was not changed.",
-    "Observed READY deployments for uberbondd, including production deployment dpl_7JcNGnb3yQecemXo6ncxckNyEfCR from main SHA 7e20cec9b4399e73b7f13fa7999dbc05a2f38221.",
-    "Observed latest deployment dpl_GxiZJqNGzFctaAjxtcXkAn1EkWda READY from claude/uberbond-kilimanjaro-closure-hha0oo SHA 59a413da9cd0dde1ca10aabbca79733583c01b36.",
-    "Vercel runtime error aggregation reported zero runtime errors in the last 24 hours for uberbondd.",
-    "Preserved the prior real-PostgreSQL zero-external-IO canary proof: first authorized firing durable, same-occurrence replay idempotent, conflicting source refused, unauthorized paths write nothing.",
-    "Recorded the live infrastructure observation in artifacts/live-infrastructure-observation-20260829.json."
+    "Refreshed live repository/Vercel truth and deduped against concurrent Sol distribution/research PR #180.",
+    "Retried GitHub Actions run 33219172864 for stale PR #181; browser, deterministic and postgres again executed zero source steps, so the run remains runner/account infrastructure non-evidence.",
+    "Executed focused Node 22 semantic proof for the role-bound AI employee candidate: role contract, role integrity and employee relay wrapper 12/12 PASS; candidate syntax PASS.",
+    "Mutation proof removed role-digest integrity enforcement and caused both hostile integrity tests to fail, proving the digest guard is exercised.",
+    "Rebased the exact five semantic blobs from #181 onto current main as PR #183 with no lite/ or existing runtime file changes.",
+    "Exact-head Vercel preview dpl_6qykagA9ofydKYEoNRgM326vwaDD cloned c698298677043d80c23433d7c8e3493a76b1ed8e, completed the Node build and reached READY.",
+    "Merged PR #183 to main as b156566c69f1d1d0e7e01b015afa474e36041276; superseded PR #181 was closed with a durable pointer to #183.",
+    "Production deployment dpl_DVtL6XTs6yWg2DsDHX1LJnB5hDWA is READY on exact main b156566c69f1d1d0e7e01b015afa474e36041276.",
+    "Post-deploy /api/health returned HTTP 200 with storeBackend=postgres, processRole=web, autopilot=false and zero active workers/jobs.",
+    "Unauthenticated /api/agent-mesh-cron returns HTTP 401. Current boundary returns 503 before auth when CRON_SECRET is absent, so this is evidence that CRON_SECRET is configured without exposing its value.",
+    "Production health with storeBackend=postgres plus startup invariants proves DATABASE_URL is configured sufficiently for the current production web process.",
+    "Role-bound AI employee contracts are now canonical production code: deterministic role refs/digests, capability and consequence non-expansion, execution-time digest recomputation, and terminal result role identity checks."
   ],
   "blockers": [
-    "Current main SHA 2d11d10af3889d65d1a660c4cd611ab2f875c059 is not proven deployed to production; the latest observed production deployment is older main SHA 7e20cec9b4399e73b7f13fa7999dbc05a2f38221.",
-    "Presence/validity of CRON_SECRET, DATABASE_URL and ENCRYPTION_KEY in the current production project was not observable with the available connected tooling and is therefore UNKNOWN, not absent.",
-    "Cloud cron liveness for the merged zero-external-IO route is not yet proven by a real scheduler receipt.",
-    "PR #181 has focused tests committed, but GitHub Actions on its exact head executed zero steps; this is infrastructure non-evidence and the PR remains unmerged pending trustworthy executable proof."
+    "Role-bound contracts are production code but the scheduled autonomy mission path still compiles generic AgentTask packets by default; role identity is not yet mandatory end-to-end at agent-autonomy-relay-adapter / agent-worker-job before model execution.",
+    "Production autopilot remains false and no model/provider worker is active; do not claim autonomous model execution.",
+    "A real authenticated ZERO_EXTERNAL_IO_CANARY scheduler receipt has not yet been observed in production; the CRON_SECRET value was neither read nor changed.",
+    "TOKEN_ENCRYPTION_KEY presence/validity was not independently observed in this run and remains UNKNOWN where a feature specifically depends on it.",
+    "No customer, payment, accepted delivery, renewal or unattended-duration commercial proof exists."
   ],
   "unresolvedNames": [
     {
@@ -29,20 +34,20 @@
     }
   ],
   "nextActions": [
-    "Engineering: obtain trustworthy exact-head execution proof for PR #181; merge only if the role-bound AI-employee invariants pass.",
-    "Deployment: after a candidate is verified, deploy/promote the exact current main candidate to the existing uberbondd Vercel project and verify source SHA, health, runtime errors and scheduler registration.",
-    "Activation: prove CRON_SECRET/DATABASE_URL/ENCRYPTION_KEY readiness without exposing or rotating credentials, then capture one real ZERO_EXTERNAL_IO_CANARY scheduler receipt before claiming cloud liveness."
+    "Engineering: bind optional/required employee role contracts into scheduled mission TaskIntent -> relay compilation -> durable relay identity -> worker pre-model execution gate; fail closed on role tampering and preserve legacy generic tasks only where explicitly allowed.",
+    "Verification: add hostile tests proving a role-required worker cannot call modelExecutor for unbound, capability-expanded, consequence-expanded or digest-tampered tasks, and that a valid bound task preserves role identity through terminal truth.",
+    "Activation: after exact-head proof and deployment, capture one authenticated production ZERO_EXTERNAL_IO_CANARY scheduler receipt without enabling customer/provider/business effects."
   ],
   "externalEffectLedger": {
     "providerCalls": 0,
     "messages": 0,
     "purchases": 0,
-    "deployments": 0,
+    "deployments": 2,
     "credentialChanges": 0,
     "dnsChanges": 0,
     "productionMutations": 0,
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE",
-  "headSha": "23e418e4c98b4e23edc01e68c65c70b694a6937f"
+  "headSha": "b156566c69f1d1d0e7e01b015afa474e36041276"
 }

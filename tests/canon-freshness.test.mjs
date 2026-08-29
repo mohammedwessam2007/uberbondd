@@ -21,9 +21,14 @@ import { execFileSync } from 'node:child_process';
 // This test only checks the present-tense artifacts. Historical receipts are
 // deliberately exempt and are listed as such.
 
-const git = args => {
+// `merge-base --is-ancestor` answers only through its exit code and prints
+// nothing either way, so the usual "swallow the error, return empty string"
+// shape cannot express its answer: success and failure are both ''. With
+// allowFailure the caller gets null for a non-zero exit and the string for a
+// zero one, which keeps every existing call site unchanged.
+const git = (args, { allowFailure = false } = {}) => {
   try { return execFileSync('git', args, { cwd: process.cwd(), encoding: 'utf8' }).trim(); }
-  catch { return ''; }
+  catch { return allowFailure ? null : ''; }
 };
 
 const headSha = () => git(['rev-parse', 'HEAD']);
@@ -54,6 +59,33 @@ test('the present-tense canon names the commit it was reconciled from', () => {
     const sha = extract(readFileSync(path, 'utf8'));
     assert.ok(sha && /^[0-9a-f]{7,40}$/.test(String(sha)),
       `${path} must name the commit it describes; a present-tense claim with no SHA cannot be checked`);
+  }
+});
+
+// Naming a SHA is not the same as naming a commit that exists.
+//
+// An amend after a regeneration rewrites the very commit the canon was just
+// reconciled from, and the canon then points at an orphan: a well-formed
+// 40-character hex string that no longer appears in this branch's history. Both
+// checks around this one pass on it -- the format test only wants hex, and the
+// staleness test asks git what changed since that SHA, which for a dangling but
+// still-in-the-object-store commit answers "nothing". The canon reads as
+// perfectly fresh evidence for a commit nobody can check out.
+//
+// Reachability, not existence: `git cat-file -e` succeeds on an orphan until it
+// is garbage collected, which is exactly the window in which this goes wrong.
+test('the commit the canon names is actually in this branch history', () => {
+  const head = headSha();
+  if (!head) return;
+  for (const { path, extract } of CURRENT_STATE_ARTIFACTS) {
+    if (!existsSync(path)) continue;
+    const sha = String(extract(readFileSync(path, 'utf8')) || '');
+    if (!/^[0-9a-f]{7,40}$/.test(sha)) continue;
+    const reachable = git(['merge-base', '--is-ancestor', sha, head], { allowFailure: true });
+    assert.notEqual(reachable, null,
+      `${path} names ${sha.slice(0, 12)}, which is not an ancestor of HEAD -- ` +
+      'the canon describes a commit that is not in this history, so nobody can check out ' +
+      'the tree it claims to describe. Regenerate with the canonical generator (npm run readiness).');
   }
 });
 

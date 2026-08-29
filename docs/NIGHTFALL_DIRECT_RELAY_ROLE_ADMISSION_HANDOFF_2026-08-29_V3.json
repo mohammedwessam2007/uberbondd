@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "uberbond-nightfall-handoff-1.0.0",
+  "baseMainSha": "e3c2f6665db53a82c04beecced9327dc9f2132df",
+  "mission": "Fail closed on direct terminal submissions for role-bound AI employee relay tasks.",
+  "dedupe": {
+    "priorPr193": "STALE_BASE_HELPER_ONLY",
+    "currentBranch": "VALIDATOR_AND_HOSTILE_TESTS_REBASED_ON_LIVE_MAIN",
+    "canonicalEmployeePathAlreadyRoleBoundEndToEnd": true,
+    "directAlternateCallerSeamStillPresent": true
+  },
+  "currentCapability": "Pure validateEmployeeRoleRelayResultAdmission plus hostile tests are present on live-main lineage.",
+  "exactRemainingIntegration": "In src/cloud-agent-relay.mjs import validateEmployeeRoleRelayResultAdmission, then immediately after `const job = await findRelayJob(store, id); if (!job) ...` call it with `{ task: job.payload, result, receipt }`; if verdict.ok is false return errorResult(['employee-role-relay-result-admission-rejected', ...verdict.reasonCodes]); this must occur before completed replay handling and before lease-owner/terminal transition.",
+  "promotionGate": "Do not merge as if the seam is closed until cloud-agent-relay integration is present and exact-head focused/relay tests plus an exact-head build execute successfully.",
+  "verificationTruth": {
+    "localCheckout": "BLOCKED_GITHUB_DNS_RESOLUTION",
+    "focusedTestsCommitted": true,
+    "focusedTestsExecutedOnThisHead": false,
+    "priorSemanticValidatorPreview": "READY on PR #193 commit 4ef6e964b447c5271244d650158fa97ea1e01f86 before main advanced",
+    "exactHeadBuild": "PENDING"
+  },
+  "cloudTruth": {
+    "existingVercelProject": "uberbondd",
+    "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
+    "latestObservedProductionSourceSha": "b156566c69f1d1d0e7e01b015afa474e36041276",
+    "currentMainProductionProven": false,
+    "latestObservedPreview": "dpl_3UfbWNsjDuxbPGrX1U9uLnNaw33T READY for PR #194 commit de43aa7d4dc37680e28cfc4b525f5294abb85d9e"
+  },
+  "externalEffectLedger": {
+    "customerProspectContact": 0,
+    "outboundMessages": 0,
+    "modelExecutions": 0,
+    "providerExecutions": 0,
+    "spendCents": 0,
+    "purchases": 0,
+    "dnsChanges": 0,
+    "credentialKycPaymentChanges": 0,
+    "moneyMovement": 0,
+    "customerProductionDataMutations": 0
+  },
+  "protectedSurfaces": { "lite": "UNTOUCHED" }
+}

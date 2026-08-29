@@ -35,7 +35,16 @@ function git(args) {
 }
 
 function sourceFiles() {
-  return readdirSync(join(repoRoot, 'src')).filter(name => name.endsWith('.mjs'));
+  const files = [];
+  const walk = directory => {
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+      const path = join(directory, entry.name);
+      if (entry.isDirectory()) walk(path);
+      else if (entry.name.endsWith('.mjs')) files.push(path);
+    }
+  };
+  walk(join(repoRoot, 'src'));
+  return files;
 }
 
 function testFiles() {

@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "uberbond.nightfall-combined-hardening-handoff.v1",
+  "observedAt": "2026-08-29T18:23:39Z",
+  "mission": "Consolidate the payment-reconciliation, browser-runtime and Overpass-resilience slices from exact canonical main into one locally verified promotion candidate.",
+  "canonicalBase": {
+    "branch": "main",
+    "sha": "dc489024042b7bb930a1c9367a86f2a4cc025f23"
+  },
+  "candidate": {
+    "localBranch": "integration/nightfall-hardening-20260829",
+    "handoffSourceHead": "d2d76803e4e70ce1e784f50acc39c68592e07707",
+    "remoteBackupBranch": "integration/nightfall-hardening-20260829",
+    "remoteBackupCommit": "f4d00096122bac41dc993b1b5de4c64138ed6eab",
+    "integrationPullRequest": 231,
+    "supersededClosedPullRequest": 214,
+    "baseIsExactCanonicalMain": true,
+    "liteProjectTouched": false
+  },
+  "absorbedLanes": {
+    "payment": {
+      "pr": 227,
+      "publishedHead": "d23c036aa8a5443bf49cca506250717bb3f0ac66",
+      "capability": "Recoverable billing-reconciliation leases with bounded stale-claim recovery, attempt-cap uncertainty, canonical receipt gating and no webhook-to-fulfillment unlock.",
+      "focusedEvidence": "node --test tests/payment-reconciliation-leases.test.mjs — 9/9 pass"
+    },
+    "overpass": {
+      "pr": 228,
+      "publishedHead": "30c63cea3249d3fc8277f11db435f4a63c185a73",
+      "capability": "Serialized per-endpoint Overpass pacing with bounded timeout, retryable-status policy, Retry-After ceiling and transport retry cap.",
+      "focusedEvidence": "node --test tests/discovery.test.mjs tests/overpass-throttle.test.mjs — 11/11 pass"
+    },
+    "browser": {
+      "pr": 229,
+      "publishedHead": "f5bc15f2581aa92107ed2b1e1a93d137c48a1cc8",
+      "capability": "Bounded shared Chromium process pool with fresh isolated contexts, single-flight launch, recycle limit and worker shutdown ordering.",
+      "focusedEvidence": "node --test tests/browser-runtime-pool.test.mjs — 8/8 pass"
+    }
+  },
+  "combinedImplementation": [
+    "Payment webhook/reconciliation claims are recoverable leases and canonical receipt truth remains mandatory.",
+    "Discovery calls use a bounded policy and never rotate around provider blocks.",
+    "Crawler calls acquire fresh contexts from a shared bounded browser runtime; worker shutdown closes it before store shutdown.",
+    "Readiness source census walks nested src modules recursively.",
+    "All external-effect, privacy, authority, idempotency and protected-surface contracts remain in force."
+  ],
+  "exactLocalExecution": {
+    "focusedCombined": "node --test tests/payment-reconciliation-leases.test.mjs tests/browser-runtime-pool.test.mjs tests/discovery.test.mjs tests/overpass-throttle.test.mjs — 28/28 pass",
+    "syntax": "npm run check:syntax — 607 files parse",
+    "deterministic": "npm run test:deterministic — 2788 total, 2740 pass, 0 fail, 48 skipped",
+    "relaySafety": "npm run test:relay-safety — 150/150 pass",
+    "mutationWar": "npm run test:mutation-war — 75 mutations, 74 killed, 0 not killed; STORE-01 skipped because PostgreSQL runtime is unavailable",
+    "reachability": "253 src modules, 126 production-reachable, 9 operator-only, 118 no-entry; ratchet passes",
+    "canonFreshness": "17/17 pass after current-state refresh",
+    "discoverySmoke": "npm run smoke:discovery — PASS: preview 2, imported 2 against local Overpass fixture",
+    "reviewProbes": "npm run probes — PASS: 33/33 zero-effect probes",
+    "dependencyAudit": "npm audit --omit=dev — 0 vulnerabilities"
+  },
+  "blockedRuntimeEvidence": {
+    "postgres": {
+      "status": "BLOCKED_RUNTIME",
+      "result": "Re-run at 2026-08-29T18:23:39Z: OMNIA_V9_TEST_DATABASE_URL is absent; 16 real-PostgreSQL suites were not executed.",
+      "additionalProbe": "The installed embedded-postgres fallback cannot start in this container: no postgres OS user exists, root user/group creation is denied, and non-root uid switching is denied by the sandbox.",
+      "requiredNextEvidence": "Run the serial real-PostgreSQL launcher against a trustworthy throwaway database URL."
+    },
+    "browser": {
+      "status": "BLOCKED_RUNTIME",
+      "result": "Re-run at 2026-08-29T18:23:39Z: pinned Playwright Chromium is absent at both the package cache path and the runner-provided /opt path; the browser assertion did not execute.",
+      "requiredNextEvidence": "Provide a compatible Chromium executable and rerun npm run test:browser."
+    }
+  },
+  "cloudTruth": {
+    "vercel": "Exact candidate deployment checks remain failed with api-deployments-free-per-day/build-rate-limit. Production remains READY only on older source b156566c69f1d1d0e7e01b015afa474e36041276.",
+    "githubActions": "Run 33267965050 exposes zero executable steps on browser job 99141301142, deterministic job 99141301255 and PostgreSQL job 99141301265; it is infrastructure non-evidence.",
+    "productionRuntimeErrors": "Connected Vercel runtime-error aggregation for the observed production project found no runtime errors in the selected seven-day window at 2026-08-29T18:27:19Z. This does not prove the combined candidate is deployed.",
+    "promotion": "No merge to main, exact-head production deployment or promotion was performed."
+  },
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedDeliveries": 0,
+    "retainedCustomers": 0,
+    "activeCanary": "White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing and electrical businesses",
+    "liveOutreach": false
+  },
+  "externalEffectLedger": {
+    "customerProspectContacts": 0,
+    "outboundMessages": 0,
+    "liveBrowserCrawls": 0,
+    "liveOverpassCalls": 0,
+    "modelProviderExecutions": 0,
+    "paidProviderCalls": 0,
+    "spendCents": 0,
+    "purchases": 0,
+    "dnsChanges": 0,
+    "credentialKycPaymentChanges": 0,
+    "moneyMovement": 0,
+    "customerProductionDataMutations": 0,
+    "productionDeployments": 0
+  },
+  "promotionGates": [
+    "Remote backup branch and draft PR #231 are published; the latest full-verification remote contents receipt before this receipt refresh was f4d00096122bac41dc993b1b5de4c64138ed6eab.",
+    "Run the 16 real-PostgreSQL suites against a trustworthy throwaway database.",
+    "Run the browser/crawler gate with compatible pinned Chromium.",
+    "Obtain an exact-head full-project Vercel READY build after the build-rate limit clears.",
+    "Refresh main and all open PRs immediately before any merge or production promotion.",
+    "Keep commercial activation behind jurisdiction, sender readiness, owner authority, payment/KYC and customer-origin acceptance gates."
+  ],
+  "nextHighestValueMission": "Remote-backup this exact combined candidate, then wait for or obtain the external PostgreSQL/browser/Vercel runtime evidence; no further architecture work should outrank first lawful buyer/payment evidence once those gates are available."
+}

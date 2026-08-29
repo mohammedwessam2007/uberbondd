@@ -101,3 +101,33 @@ test('every mutation names at least one suite, so none can hide from this check'
   const naked = MUTATIONS.filter(m => !Array.isArray(m.suites) || !m.suites.length).map(m => m.id);
   assert.deepEqual(naked, []);
 });
+
+// Two mutations shared an id, and nothing said so.
+//
+// Found by adding one: `MONEY-13` and `MONEY-14` were both already taken, so a
+// new entry silently collided twice in a row. The war reports results keyed by
+// id, so a collision makes the output ambiguous in the one place it must not
+// be -- two lines reading `MONEY-13`, and no way to tell from a report which
+// guard survived. Ids are also how a mutation is referenced in a commit, a
+// receipt, and a handoff.
+test('every mutation has a unique id', () => {
+  const seen = new Map();
+  const collisions = [];
+  for (const mutation of MUTATIONS) {
+    if (seen.has(mutation.id)) collisions.push(`${mutation.id}: "${seen.get(mutation.id)}" and "${mutation.guard}"`);
+    else seen.set(mutation.id, mutation.guard);
+  }
+  assert.deepEqual(collisions, [],
+    'two mutations sharing an id make the war report ambiguous about which guard survived');
+});
+
+test('every mutation names a file, a find anchor, and at least one killing suite', () => {
+  const malformed = [];
+  for (const mutation of MUTATIONS) {
+    if (!mutation.file) malformed.push(`${mutation.id}: no file`);
+    if (!mutation.find) malformed.push(`${mutation.id}: no find anchor`);
+    if (!Array.isArray(mutation.suites) || mutation.suites.length === 0) malformed.push(`${mutation.id}: no killing suite`);
+    if (mutation.find === mutation.replace) malformed.push(`${mutation.id}: find and replace are identical, so it mutates nothing`);
+  }
+  assert.deepEqual(malformed, [], 'a malformed mutation cannot kill anything and must not be counted as if it could');
+});

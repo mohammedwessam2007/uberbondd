@@ -391,6 +391,21 @@ export const MUTATIONS = [
     suites: ['tests/sovereignty-proof-closure.test.mjs']
   },
   {
+    id: 'CRAWL-01', guard: 'The crawl result is built from variables that are actually in scope',
+    file: 'src/browser-crawler.mjs',
+    needsBrowser: true,
+    find: "  const queue=[{url:start,depth:0,score:100}]; const seen=new Set(); const pages=[]; const errors=[];\n  try{",
+    replace: "  try{\n    const queue=[{url:start,depth:0,score:100}]; const seen=new Set(); const pages=[]; const errors=[];",
+    suites: ['tests/browser.test.mjs']
+  },
+  {
+    id: 'MONEY-17', guard: 'A duplicate webhook is a duplicate, not a 503',
+    file: 'src/billing-webhook-repository.mjs',
+    find: 'ON CONFLICT DO NOTHING RETURNING provider_event_key',
+    replace: 'ON CONFLICT(provider_event_key) DO NOTHING RETURNING provider_event_key',
+    suites: ['tests/payment-reconciliation-postgres-real.test.mjs']
+  },
+  {
     id: 'EVID-03', guard: 'A suppressed contact route cannot be laundered into usable',
     file: 'src/agent-code-change-contract.mjs',
     find: "  'src/overnight/intent/account-intent-ledger.mjs',",
@@ -598,12 +613,20 @@ export function applyMutation(root, mutation) {
 if (import.meta.url === `file://${process.argv[1]}`) {
   const onlyId = process.argv[2] || '';
   const hasPostgres = Boolean(process.env.OMNIA_V9_TEST_DATABASE_URL);
+  // Same shape as the PostgreSQL gate above. A mutation whose only killing suite
+  // needs a real browser cannot be honestly reported as killed when no browser is
+  // configured, and must not be reported as surviving either.
+  const hasBrowser = Boolean(process.env.CHROMIUM_PATH);
   const selected = MUTATIONS.filter(mutation => !onlyId || mutation.id === onlyId);
   const results = [];
 
   for (const mutation of selected) {
     if (mutation.needsPostgres && !hasPostgres) {
       results.push({ ...mutation, verdict: 'SKIPPED_NEEDS_POSTGRES' });
+      continue;
+    }
+    if (mutation.needsBrowser && !hasBrowser) {
+      results.push({ ...mutation, verdict: 'SKIPPED_NEEDS_BROWSER' });
       continue;
     }
     const root = mkdtempSync(join(tmpdir(), 'uberbond-mutation-'));
@@ -635,7 +658,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     }
   }
 
-  const survived = results.filter(item => item.verdict !== 'KILLED' && item.verdict !== 'SKIPPED_NEEDS_POSTGRES');
+  const survived = results.filter(item => item.verdict !== 'KILLED'
+    && item.verdict !== 'SKIPPED_NEEDS_POSTGRES' && item.verdict !== 'SKIPPED_NEEDS_BROWSER');
   for (const item of results) {
     console.log(`${item.verdict.padEnd(22)} ${item.id.padEnd(10)} ${item.guard}`);
   }

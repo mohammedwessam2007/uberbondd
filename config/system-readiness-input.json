@@ -2,16 +2,16 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 598,
-      "ranAt": "2026-08-29T00:00:00Z"
+      "filesParsed": 609,
+      "ranAt": "2026-08-29T20:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2758,
-      "pass": 2710,
+      "tests": 2798,
+      "pass": 2750,
       "fail": 0,
       "skipped": 48,
-      "ranAt": "2026-08-29T00:00:00Z"
+      "ranAt": "2026-08-29T20:00:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -28,8 +28,9 @@
       "pass": 127,
       "fail": 0,
       "skipped": 0,
-      "result": "127 tests, 127 pass, 0 fail (2026-08-29), against embedded PostgreSQL 18",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "result": "127 tests, 127 pass, 0 fail (2026-08-29), against PostgreSQL 16.13",
+      "note": "The runner was rebuilt and no longer ships the PostgreSQL 18 binaries the previous receipt named. A fresh PostgreSQL 16.13 cluster was initialized locally for this gate. Recorded as 16.13 rather than carrying the old version forward, because the version is part of what the evidence means.",
+      "ranAt": "2026-08-29T20:00:00Z"
     },
     "npm audit": {
       "command": "npm audit --omit=dev",
@@ -39,10 +40,10 @@
       "ranAt": "2026-08-29T00:00:00Z"
     },
     "test:mutation-war": {
-      "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "75 mutations, 75 killed, 0 not killed",
-      "note": "Run with a real PostgreSQL so STORE-01 is executed rather than skipped. Without the database it reports 63 killed and 1 PostgreSQL-dependent skip.",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "command": "CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
+      "result": "77 mutations, 77 killed, 0 not killed",
+      "note": "Run with both a real PostgreSQL and a real Chromium so STORE-01 and CRAWL-01 execute rather than skip. Without them the war honestly reports SKIPPED_NEEDS_POSTGRES / SKIPPED_NEEDS_BROWSER rather than counting them as killed.",
+      "ranAt": "2026-08-29T20:00:00Z"
     },
     "test:browser": {
       "command": "CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser",
@@ -52,17 +53,17 @@
       "fail": 0,
       "skipped": 0,
       "result": "1 test, 1 pass, 0 fail (2026-08-29), against the runner's installed Chromium",
-      "note": "The previous BLOCKED_EXTERNAL_TEST_RUNTIME record said Chromium was absent. It is not: this runner ships chromium-1194 while the pinned Playwright resolves chromium_headless_shell-1228, so the default launch path 404s on a build number rather than on a missing browser. crawlSiteBrowser already accepts CHROMIUM_PATH, which bridges it. The test's site is a loopback HTTP server, so this gate makes no external request.",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "note": "This gate caught a P0 this shift: the browser runtime pool integration moved the crawl result variables inside a try block while the return stayed outside it, so every crawl threw ReferenceError. check:syntax parsed it, the deterministic suite does not cover it, and the pool unit tests mock the browser. Only this gate saw it.",
+      "ranAt": "2026-08-29T20:00:00Z"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 249,
-      "reachableFromProduction": 123,
+      "srcModules": 254,
+      "reachableFromProduction": 126,
       "reachableFromOperatorScriptsOnly": 9,
-      "noEntryPointAtAll": 117,
+      "noEntryPointAtAll": 119,
       "allClassified": true,
-      "ranAt": "2026-08-29T00:00:00Z",
+      "ranAt": "2026-08-29T20:00:00Z",
       "note": "src is now walked recursively. The previous 191/117/5/69 figures excluded src/overnight and src/omnia-v9 entirely, which was an accident of a single-level directory read, not a scope decision."
     }
   },

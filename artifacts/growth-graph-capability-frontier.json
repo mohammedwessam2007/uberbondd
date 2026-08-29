@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "uberbond-growth-graph-frontier-1.0.0",
+  "generatedAt": "2026-08-29T07:05:00Z",
+  "sourceMainSha": "b0993baa0ff3ccec0b64539efbd3c58763f098a4",
+  "objective": "Eliminate avoidable distribution bottlenecks by composing discovery, enrichment, journey orchestration, sender infrastructure, owned content and governed channel execution into one attribution/economic graph.",
+  "economicNorthStar": "risk-adjusted cleared contribution profit per founder minute",
+  "architectureLaw": "Absorb mechanisms into existing canonical systems. Do not build disconnected SaaS clones or duplicate workflow, CRM, payment-truth, scheduler, suppression, or outbound engines.",
+  "capabilities": [
+    {
+      "id": "growth-enrichment-waterfall",
+      "analogue": "Clay",
+      "status": "CORE_EXISTS_PROVIDER_ACTIVATION_GATED",
+      "priority": 1,
+      "existingModules": ["src/overnight/intent/budgeted-enrichment-waterfall.mjs", "src/prospect-enrichment-planner.mjs", "src/prospect-enrichment-budget-gate.mjs", "src/prospect-evidence-reconciliation.mjs"],
+      "nextMissingCapability": "Authenticated provider adapters plus cost/coverage benchmarking and cache/reconciliation receipts.",
+      "truthBoundary": "Provider result is evidence, not permission, consent, demand or revenue. Private contact data may not be guessed."
+    },
+    {
+      "id": "growth-partner-distribution",
+      "analogue": "Partner and ecosystem distribution",
+      "status": "ACTIVE_PREPARATION",
+      "priority": 2,
+      "existingModules": ["src/distribution-control-plane.mjs", "artifacts/distribution-channel-portfolio.json"],
+      "nextMissingCapability": "Complete and merge the bounded public-evidence partner universe for the selected white-label canary.",
+      "truthBoundary": "Directory presence is not demand or contact permission."
+    },
+    {
+      "id": "growth-enterprise-journeys",
+      "analogue": "Braze / Customer.io",
+      "status": "COMPILER_MERGED_EXECUTION_COMPOSITION_NEXT",
+      "priority": 3,
+      "existingModules": ["src/enterprise-journey-orchestrator.mjs", "src/omnichannel-communication-contract.mjs", "src/social-publication-schedule-contract.mjs", "src/durable-scheduler.mjs"],
+      "nextMissingCapability": "Plan-only journey occurrence expansion into the canonical scheduler with per-profile frequency state and conversion attribution.",
+      "truthBoundary": "Journey compilation creates no communication authority."
+    },
+    {
+      "id": "growth-sender-infrastructure-mesh",
+      "analogue": "Enterprise sender pools",
+      "status": "SAFE_ALLOCATOR_MERGED_PROVIDER_TELEMETRY_NEXT",
+      "priority": 4,
+      "existingModules": ["src/sender-infrastructure-mesh.mjs", "src/send-safety.mjs", "src/inbound-feedback-kernel.mjs"],
+      "nextMissingCapability": "Feed real authenticated domain/IP reputation, capacity and warm-up observations into allocation once provider infrastructure is authorized.",
+      "truthBoundary": "No identity, domain or IP rotation to evade reputation, blocks, quotas, complaints, suppression or provider enforcement."
+    },
+    {
+      "id": "growth-social-orchestration",
+      "analogue": "LinkedIn/social distribution suites",
+      "status": "COMPOSE_REQUIRED_OFFICIAL_SURFACES_ONLY",
+      "priority": 5,
+      "existingModules": ["src/social-publication-schedule-contract.mjs", "src/omnichannel-communication-contract.mjs", "src/distribution-control-plane.mjs"],
+      "nextMissingCapability": "Provider-specific official/authorized publication and analytics adapters; human handoff where platform APIs do not authorize the requested action.",
+      "truthBoundary": "No scraping or browser bots used to automate LinkedIn connections, DMs, likes, comments or other actions contrary to platform rules."
+    },
+    {
+      "id": "growth-evidence-to-content",
+      "analogue": "Technical SEO + AI video/content suites",
+      "status": "IMPLEMENTATION_FRONTIER",
+      "priority": 6,
+      "existingModules": ["src/market-signal.mjs", "src/opportunity-registry.mjs", "src/social-publication-schedule-contract.mjs"],
+      "nextMissingCapability": "Evidence-bound content brief compiler producing SEO/AEO briefs, technical remediation packets, social variants and video-script briefs from source-backed evidence without auto-publishing.",
+      "truthBoundary": "No scaled low-value content, fabricated case evidence, fabricated revenue claims or uncontrolled auto-publication."
+    }
+  ],
+  "sharedAttributionChain": ["signal", "accountOrAudience", "enrichmentEvidence", "offer", "journeyOrMotion", "channel", "touchOrExposure", "response", "qualification", "clearedPayment", "delivery", "customerAcceptance", "renewalOrExpansion", "variableCost", "founderMinutes", "clearedContribution"],
+  "externalEffectAuthority": "NONE"
+}

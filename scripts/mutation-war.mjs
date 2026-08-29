@@ -391,6 +391,20 @@ export const MUTATIONS = [
     suites: ['tests/sovereignty-proof-closure.test.mjs']
   },
   {
+    id: 'EVID-03', guard: 'A suppressed contact route cannot be laundered into usable',
+    file: 'src/agent-code-change-contract.mjs',
+    find: "  'src/overnight/intent/account-intent-ledger.mjs',",
+    replace: "  'src/overnight/intent/account-intent-ledger.mjs.not-really',",
+    suites: ['tests/evidence-sovereignty-boundary.test.mjs']
+  },
+  {
+    id: 'EVID-04', guard: 'The enrichment waterfall cannot discard a route verdict',
+    file: 'src/agent-code-change-contract.mjs',
+    find: "  'src/overnight/intent/budgeted-enrichment-waterfall.mjs',",
+    replace: "  'src/overnight/intent/budgeted-enrichment-waterfall.mjs.not-really',",
+    suites: ['tests/evidence-sovereignty-boundary.test.mjs']
+  },
+  {
     id: 'ENF-01', guard: 'The change applier cannot be edited by what it applies',
     file: 'src/agent-code-change-contract.mjs',
     find: "  'src/agent-code-change-applier.mjs',",

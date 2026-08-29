@@ -47,10 +47,13 @@ function filesIn(dir, extension = '.mjs') {
 // on an activation that does not exist. The ratchet exists to stop exactly that
 // kind of false statement, so it must not be the thing that produces one.
 //
-// Only entry-point discovery is recursive here. `src` has subtrees of its own
-// (`src/overnight`, `src/omnia-v9`) that this ratchet has never covered; that is
-// a separate and larger question about what is in scope, and widening it
-// silently as a side effect of a merge would be its own kind of dishonesty.
+// `src` is now walked recursively too. It was not, and that exemption was never
+// a decision -- it was an accident of a single-level `readdirSync` that left
+// `src/overnight` and `src/omnia-v9` (58 modules, 11,210 lines) entirely outside
+// the ratchet. Six of them are production-reachable, including an outbound
+// admission path; 48 had no entry point and no classification, and nothing would
+// ever have said so. That is precisely the condition this file exists to make
+// impossible, applied to a fifth of the source tree.
 function entryPointsIn(dir, extension = '.mjs') {
   const found = [];
   const walk = relative => {
@@ -76,7 +79,7 @@ function partition() {
   const scripts = entryPointsIn('scripts');
   const production = reachableFromEntryPoints([...PRODUCTION_ENTRY_POINTS, ...api]);
   const anyEntry = reachableFromEntryPoints(['server.mjs', 'worker.mjs', ...scripts, ...api]);
-  const all = filesIn('src');
+  const all = entryPointsIn('src');
   return {
     all,
     production: all.filter(file => production.has(file)),

@@ -59,6 +59,14 @@
     "NO_CONFIGURED_EGRESS_ROUTES": {
       "description": "The egress health pool selects among configured outbound routes and quarantines a route/target pair that comes back blocked. No egress routes are configured, so there is nothing to select among and nothing to quarantine. The module deliberately refuses fingerprint spoofing, CAPTCHA bypass and rotation intended to evade blocks, which is the reason it exists and not a reason it is reachable.",
       "releasedBy": "At least one egress route configured for authorized public-evidence traffic, with the owner having authorized the traffic that would flow over it. Configuring a route does not by itself authorize what is sent through it."
+    },
+    "NO_EXTERNAL_EFFECT_AUTHORIZATION": {
+      "description": "The OMNIA-V9 consequence-execution architecture: constitution and policy binding, authority reservation and transition, authorization-bound receipts and their stores, proof storage, the external-effect state machine, dispatcher, adapters and recovery. Every meaningful path through it ends in performing a real external effect and recording proof that it was authorized. No authority to perform an external effect has been issued, so there is nothing for it to execute and nothing to prove. Its lineage and test history are recorded in docs/INSTANTLY_RECONCILIATION.md; this is restored working code held closed, not abandoned code.",
+      "releasedBy": "A live constitution and policy bundle, an issued owner authority for a named effect class, and at least one configured provider adapter. Any one of those alone releases nothing."
+    },
+    "NO_PARTNER_OR_REFERRAL_RELATIONSHIP": {
+      "description": "Partner fit, account overlap and referral accounting model a distribution relationship with another organization. There are no partners and no referral agreements, so every input to these modules would have to be invented.",
+      "releasedBy": "At least one real partner or referral relationship, with terms the owner has agreed to."
     }
   },
   "modules": {
@@ -406,6 +414,246 @@
       "category": "SUPERSEDED",
       "gate": null,
       "reason": "A maintenance-plan compiler that the executing worker does not call. `runSafeDatabaseHygiene`, which the cron route actually invokes, hardcodes deletion from `public_evidence_cache` and terminal `staged_content_repository` rows and never compiles a plan. The executing path is strictly narrower than this one, so nothing unsafe is reachable -- but this module's NEVER_AUTODELETE list (payment receipts, acceptance, audit and renewal evidence) is therefore an unenforced statement of a policy the executing path satisfies by construction rather than by consulting it. Recorded so nobody later cites it as the protection that stops those deletions; the narrow hardcoded path is what stops them."
+    },
+    "src/omnia-v9/authority-transition-ledger.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Records how authority moved between states. No authority has been issued to move."
+    },
+    "src/omnia-v9/authorization-bound-receipt.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Binds a receipt to the authority that permitted the effect."
+    },
+    "src/omnia-v9/authorization-bound-receipt-store.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Durable storage for those receipts."
+    },
+    "src/omnia-v9/cedar-adapter.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Binds policy decisions to a Cedar evaluator. No live policy bundle is configured."
+    },
+    "src/omnia-v9/constitution.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "The canonical role and authority document the kernel binds against."
+    },
+    "src/omnia-v9/execution-receipt-shadow.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Shadow evaluation of execution receipts."
+    },
+    "src/omnia-v9/execution-receipt-store.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Durable storage for execution receipts."
+    },
+    "src/omnia-v9/outbound-shadow.mjs": {
+      "category": "SUPERSEDED",
+      "gate": null,
+      "reason": "The earlier outbound shadow. The wired one is src/omnia-v9/final-admission-shadow.mjs, which is production-reachable from pipeline.mjs; this one is its predecessor and nothing imports it."
+    },
+    "src/omnia-v9/persistent-admission.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Durable admission decisions across process restarts."
+    },
+    "src/omnia-v9/policy-bundle.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Loads and digests the policy bundle the kernel evaluates against."
+    },
+    "src/omnia-v9/pre-effect-authority-reconciler.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Reconciles authority immediately before an effect is performed."
+    },
+    "src/omnia-v9/proof-store.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Stores the proofs an authorized effect must leave behind."
+    },
+    "src/omnia-v9/integrations/canary-approval.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Issues a bounded canary approval for a single effect."
+    },
+    "src/omnia-v9/integrations/canary-null-authority.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "The null-authority canary: proves the dispatch sequence without an effect."
+    },
+    "src/omnia-v9/integrations/canary-receipt-store.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Receipt storage for canary runs."
+    },
+    "src/omnia-v9/integrations/compare.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Classifies a shadow decision against what the legacy path actually did. The wired hook imports it dynamically and only in compare mode, which nothing currently selects, so static analysis correctly reports no entry point."
+    },
+    "src/omnia-v9/integrations/external-effect-adapter.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "The adapter contract an effect provider must satisfy."
+    },
+    "src/omnia-v9/integrations/external-effect-dispatcher.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Runs the safe dispatch sequence after an ALLOW and a successful authority reservation."
+    },
+    "src/omnia-v9/integrations/external-effect-evidence-store.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Evidence storage for performed effects."
+    },
+    "src/omnia-v9/integrations/external-effect-execution-store.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Execution state storage for performed effects."
+    },
+    "src/omnia-v9/integrations/external-effect-recovery.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Recovers an effect whose outcome is uncertain after a crash."
+    },
+    "src/omnia-v9/integrations/external-effect-state-machine.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "The state machine an external effect moves through."
+    },
+    "src/omnia-v9/integrations/metrics.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Aggregates execution metrics over V9 runs. Zero runs have executed, so every metric it could produce would be an aggregate of nothing presented as a measurement."
+    },
+    "src/omnia-v9/integrations/null-consequence-adapter.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "An adapter that performs no consequence, for proving the sequence."
+    },
+    "src/omnia-v9/integrations/null-sink-v2.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "An effect sink that deliberately performs no effect, used to exercise the dispatch sequence end to end without touching anything real. It is only meaningful once there is a real sink to contrast it with, and there is none."
+    },
+    "src/omnia-v9/integrations/outbound-consequence-gate.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "The consequence gate for an outbound send. The pipeline accepts it as an injected hook; nothing wires the real one."
+    },
+    "src/omnia-v9/integrations/outreach-consequence-admission.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Admission for an outreach consequence."
+    },
+    "src/omnia-v9/integrations/owner-review.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Compiles an owner review packet for a decision that needs a human."
+    },
+    "src/omnia-v9/integrations/reality-shadow-cedar.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Cedar binding for reality-shadow evaluation."
+    },
+    "src/omnia-v9/integrations/reality-shadow-dataset.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "The dataset a reality-shadow evaluation runs over."
+    },
+    "src/omnia-v9/integrations/reality-shadow-evaluator.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Evaluates the reality shadow."
+    },
+    "src/omnia-v9/integrations/replay.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Replays recorded admission decisions to check they still evaluate the same way. No decisions have been recorded, so there is nothing to replay."
+    },
+    "src/omnia-v9/integrations/replay-scenarios.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "The scenarios replay runs."
+    },
+    "src/omnia-v9/integrations/shadow-approval.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "Issues a shadow approval for evaluation only."
+    },
+    "src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "The Gmail effect adapter. Its meaningful path sends mail to a real person, which is the one thing no lane may release. The wired send path is src/gmail.mjs behind src/pipeline.mjs; both are inside the sovereignty boundary."
+    },
+    "src/overnight/distribution/account-overlap.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PARTNER_OR_REFERRAL_RELATIONSHIP",
+      "reason": "Detects overlap between a partner's accounts and ours."
+    },
+    "src/overnight/distribution/partner-fit.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PARTNER_OR_REFERRAL_RELATIONSHIP",
+      "reason": "Scores whether an organization is a distribution fit."
+    },
+    "src/overnight/distribution/policy.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PARTNER_OR_REFERRAL_RELATIONSHIP",
+      "reason": "The distribution policy those scores are read under."
+    },
+    "src/overnight/distribution/referral-ledger.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PARTNER_OR_REFERRAL_RELATIONSHIP",
+      "reason": "Accounts for referrals and what is owed on them."
+    },
+    "src/overnight/intent/account-intent-ledger.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_ENRICHMENT_PROVIDER",
+      "reason": "Records observed buying intent per account. Every input is enrichment output."
+    },
+    "src/overnight/intent/budgeted-enrichment-waterfall.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_ENRICHMENT_PROVIDER",
+      "reason": "Ranks described providers and emits bounded enrichment work. Explicitly plan-only: it never calls a provider, performs network I/O, or spends money."
+    },
+    "src/overnight/journey/diagnosis.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_COMMERCIAL_EVENTS",
+      "reason": "Diagnoses where a customer journey failed. There are zero commercial events, so there is no journey to observe."
+    },
+    "src/overnight/journey/epistemic.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_COMMERCIAL_EVENTS",
+      "reason": "Grades how much the journey evidence can support. There are zero commercial events, so there is no journey to observe."
+    },
+    "src/overnight/journey/index.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_COMMERCIAL_EVENTS",
+      "reason": "The journey lane entry surface. There are zero commercial events, so there is no journey to observe."
+    },
+    "src/overnight/journey/observation.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_COMMERCIAL_EVENTS",
+      "reason": "Records a journey observation. There are zero commercial events, so there is no journey to observe."
+    },
+    "src/overnight/journey/offer-compiler.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_COMMERCIAL_EVENTS",
+      "reason": "Compiles an offer from journey findings. There are zero commercial events, so there is no journey to observe."
+    },
+    "src/overnight/control/automation-acquisition-frontier.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
+      "reason": "Ranks which automation capabilities to acquire next. Acquisition terminates in configuring a provider adapter, and none is configured."
+    },
+    "src/overnight/control/automation-acquisition-loop.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
+      "reason": "Drives acquisition of a capability once one is chosen. Acquisition terminates in configuring a provider adapter, and none is configured."
     }
   }
 }

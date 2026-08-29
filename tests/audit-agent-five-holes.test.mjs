@@ -53,7 +53,7 @@ test('maintenance refuses auto-deleting payment and audit truth',()=>{
 });
 test('maintenance allows bounded transient cleanup and avoids VACUUM FULL',()=>{
  const r=compileMaintenancePlan({now:'2026-08-29T08:00:00Z',rules:[{dataClass:'TRANSIENT_JOB_LOG',retentionDays:14,batchSize:250}]});
- assert.equal(r.ok,true); assert.match(r.plan.vacuumLaw,/AUTOVACUUM/); assert.match(r.plan.vacuumLaw,/DO NOT RUN VACUUM FULL/);
+ assert.equal(r.ok,true); assert.match(r.plan.vacuumLaw,/AUTOVACUUM/); assert.match(r.plan.vacuumLaw,/DO_NOT_RUN_VACUUM_FULL/);
 });
 test('health matrix exposes aggregate operational truth without recipient PII',()=>{
  const r=compileSystemHealthMatrix({now:'2026-08-29T08:00:00Z',senderHealth:[{paused:false,complaintsToday:0,hardBouncesToday:1,failureStreak:0}],hourlyOutbound:[{count:12}],jobs:{pending:3,deadLetter:0},database:{activeConnections:2,maxConnections:10},egress:{healthy:2,quarantined:1}});

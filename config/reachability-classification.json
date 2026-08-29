@@ -55,6 +55,10 @@
     "NO_PROVIDER_ADAPTER_CONFIGURED": {
       "description": "These contracts define what a provider integration must prove before it may act -- idempotency key, reconciliation of an uncertain attempt, retry law, and a receipt. Each declares its own *_ADAPTER_NOT_CONFIGURED refusal and there is no configured adapter or credential behind any of them, so the meaningful path cannot execute. Releasing one means connecting that provider's adapter and credential, not writing more contract code.",
       "releasedBy": "A configured adapter and credential for that provider category, supplied by the owner."
+    },
+    "NO_CONFIGURED_EGRESS_ROUTES": {
+      "description": "The egress health pool selects among configured outbound routes and quarantines a route/target pair that comes back blocked. No egress routes are configured, so there is nothing to select among and nothing to quarantine. The module deliberately refuses fingerprint spoofing, CAPTCHA bypass and rotation intended to evade blocks, which is the reason it exists and not a reason it is reachable.",
+      "releasedBy": "At least one egress route configured for authorized public-evidence traffic, with the owner having authorized the traffic that would flow over it. Configuring a route does not by itself authorize what is sent through it."
     }
   },
   "modules": {
@@ -382,6 +386,26 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PAYMENT_PROVIDER",
       "reason": "Routes provisioning for a paid ServiceSKU and takes CLEARED_PAYMENT as its precondition. No payment has ever cleared, so the router has nothing to route."
+    },
+    "src/egress-health-pool.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CONFIGURED_EGRESS_ROUTES",
+      "reason": "Route selection and quarantine logic with no configured routes to select among."
+    },
+    "src/prospect-identity-ledger.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Identity canonicalization and the per-target, per-day outbound guard built on it. Both exist to make outbound contact deduplicable and rate-bounded; with no outbound authorization there is no send for them to guard."
+    },
+    "src/prospect-identity-repository.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Identity canonicalization and the per-target, per-day outbound guard built on it. Both exist to make outbound contact deduplicable and rate-bounded; with no outbound authorization there is no send for them to guard."
+    },
+    "src/database-hygiene-maintenance.mjs": {
+      "category": "SUPERSEDED",
+      "gate": null,
+      "reason": "A maintenance-plan compiler that the executing worker does not call. `runSafeDatabaseHygiene`, which the cron route actually invokes, hardcodes deletion from `public_evidence_cache` and terminal `staged_content_repository` rows and never compiles a plan. The executing path is strictly narrower than this one, so nothing unsafe is reachable -- but this module's NEVER_AUTODELETE list (payment receipts, acceptance, audit and renewal evidence) is therefore an unenforced statement of a policy the executing path satisfies by construction rather than by consulting it. Recorded so nobody later cites it as the protection that stops those deletions; the narrow hardcoded path is what stops them."
     }
   }
 }

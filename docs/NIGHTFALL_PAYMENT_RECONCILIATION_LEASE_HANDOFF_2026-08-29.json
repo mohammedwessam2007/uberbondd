@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "uberbond-nightfall-handoff-1.0",
+  "mission": "Port the highest-value safe slice from stale PR #214 onto current main: recoverable payment reconciliation leases and fail-closed watchdog semantics.",
+  "sourceMainSha": "6a6d0bd129afa1e6b17c9593ef9ef10ceb72f69b",
+  "donorPr": 214,
+  "donorHeadSha": "ef71b0a9b3e6b4420b44c002a0e828c4c18108f2",
+  "branch": "gpt/payment-reconciliation-leases-20260829",
+  "scope": [
+    "billing_webhook_inbox claim attempts, retry scheduling, and stale-claim recovery",
+    "attempt-cap transition to UNCERTAIN instead of blind payment promotion",
+    "canonical receipt reference required before RECONCILED",
+    "pure payment reconciliation watchdog that never authorizes unlock from webhook presence",
+    "focused hostile/behavioral tests"
+  ],
+  "explicitlyNotPortedYet": [
+    "browser process pool",
+    "Overpass throttling",
+    "object storage boundary"
+  ],
+  "verification": {
+    "isolatedExactSourceSemantics": "5/5 PASS via Node test harness reconstructed from exact committed source fetched through GitHub connector",
+    "genuineRepositoryCheckout": "BLOCKED: runtime DNS cannot resolve github.com",
+    "wholeRepositorySuite": "NOT CLAIMED",
+    "postgresIntegration": "NOT CLAIMED",
+    "vercelExactHeadBuild": "PENDING"
+  },
+  "promotionGate": [
+    "obtain exact-head Vercel READY build or equivalent exact-head build receipt",
+    "execute focused test plus existing billing/payment PostgreSQL integration suites from genuine checkout/runtime",
+    "refresh main and open PRs for concurrent changes",
+    "merge only if candidate remains clean and lite/ remains untouched"
+  ],
+  "externalEffectLedger": {
+    "customerProspectContacts": 0,
+    "outboundMessages": 0,
+    "liveProviderCalls": 0,
+    "modelProviderExecutions": 0,
+    "purchases": 0,
+    "spendCents": 0,
+    "dnsChanges": 0,
+    "credentialChanges": 0,
+    "kycChanges": 0,
+    "paymentConfigChanges": 0,
+    "moneyMovement": 0,
+    "customerSystemMutations": 0,
+    "productionDataMutations": 0,
+    "productionDeployments": 0
+  },
+  "truthBoundary": "No customer, revenue, payment, accepted delivery, provider execution, or unattended-duration proof is created by this engineering slice."
+}

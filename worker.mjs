@@ -8,6 +8,7 @@ import { createJobHandlers } from './src/job-handlers.mjs';
 import { startScheduler } from './src/scheduler.mjs';
 import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
+import { closeSharedBrowserRuntimes } from './src/browser-runtime-pool.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -49,6 +50,7 @@ async function shutdown(signal) {
   console.log(`Received ${signal}; worker is draining active jobs.`);
   stopScheduler();
   await queue.stopWorker().catch(error => console.error('Worker stop failed', error));
+  await closeSharedBrowserRuntimes().catch(error => console.error('Browser runtime stop failed', error));
   await store.close();
   process.exit(0);
 }

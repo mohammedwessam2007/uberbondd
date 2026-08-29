@@ -193,7 +193,13 @@ test('the mesh cycle drives a seeded run through the real relay adapter', async 
 
   const snapshots = await store.list('auditLog', { filters: { type: 'agent_autonomy_run_snapshot' } });
   const latest = snapshots.at(-1).detail.run;
-  assert.equal(latest.relayRef?.taskId, intent.taskId);
+  // The mesh cycle now rebinds the task to a deterministic AI employee role,
+  // which mints a new `employee_task_*` id. The originating id must still be
+  // recoverable from the snapshot, or a run cannot be traced back to the intent
+  // that produced it.
+  assert.match(latest.relayRef?.taskId, /^employee_task_/);
+  assert.match(latest.relayRef?.relayTaskId, /^agent_task_/);
+  assert.equal(latest.relayRef?.intentTaskId, intent.taskId);
   assert.equal(latest.relayRef?.issueNumber, 4242);
 });
 

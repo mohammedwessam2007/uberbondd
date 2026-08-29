@@ -298,6 +298,20 @@ export const MUTATIONS = [
 
   // ---- Agent authority ----------------------------------------------------
   {
+    id: 'AGENT-08', guard: 'A result may not declare a role the task never granted',
+    file: 'src/ai-employee-terminal-identity.mjs',
+    find: "    return ungrantedRoleClaim(result, 'worker-result-employee-role-not-granted');",
+    replace: '    return [];',
+    suites: ['tests/ai-employee-terminal-identity.test.mjs']
+  },
+  {
+    id: 'AGENT-09', guard: 'An ungranted role claim cannot be laundered into a submission',
+    file: 'src/ai-employee-terminal-identity.mjs',
+    find: "    const claimed = ungrantedRoleClaim(result, 'model-result-employee-role-not-granted');",
+    replace: '    const claimed = [];',
+    suites: ['tests/ai-employee-terminal-identity.test.mjs']
+  },
+  {
     id: 'AGENT-01', guard: 'A child inherits every parent constraint',
     file: 'src/agent-autonomy-loop.mjs',
     find: '  const fullConstraints = [...new Set([...MANDATORY_CONSTRAINTS, ...strings(constraints, MAX_CONSTRAINTS + 1)])];',

@@ -64,15 +64,15 @@ than passing vacuously when the URL is absent.
 
 ## 2b. How much of this can actually run
 
-**57 of 170 `src` modules have no entry point at all** — not production, not an
+**65 of 182 `src` modules have no entry point at all** — not production, not an
 operator script. They are reachable only from tests, and a suite proves a module
 behaves while proving nothing about whether anything can call it.
 
 | | |
 |---|---|
-| Reachable from production | 109 |
-| Reachable only via an operator script | 4 |
-| **No entry point at all** | **57** |
+| Reachable from production | 112 |
+| Reachable only via an operator script | 5 |
+| **No entry point at all** | **65** |
 
 That includes the whole commercial layer — lead scoring, outreach, prospect
 intelligence, inbound sensing, causal attribution, fulfillment — and the whole

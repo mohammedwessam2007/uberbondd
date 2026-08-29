@@ -342,6 +342,46 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
       "reason": "Publication needs a platform adapter and, at the due occurrence, fresh authority and current platform policy -- which the contract states as its own precondition."
+    },
+    "src/cost-aware-public-evidence-tier.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_ENRICHMENT_PROVIDER",
+      "reason": "Plans the cheap-to-expensive public evidence ladder. Its meaningful path ends at a provider call, and the cheaper tiers it prefers still need an acquisition adapter to execute rather than plan."
+    },
+    "src/enrichment-cost-tier-composer.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_ENRICHMENT_PROVIDER",
+      "reason": "Composes the tier decision that gates paid enrichment. ALLOW_PLAN_ONLY is its current terminal state because no provider exists to escalate to."
+    },
+    "src/economic-feedback-allocator.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_COMMERCIAL_EVENTS",
+      "reason": "Reallocates bounded weights from cleared outcomes. Zero cleared payments, accepted deliveries and renewals exist, so every proposal would be computed from an empty ledger."
+    },
+    "src/enterprise-journey-orchestrator.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Journeys drive person-targeted touches through the omnichannel contract. The orchestration is written; the authority to contact anyone is not granted."
+    },
+    "src/sender-infrastructure-mesh.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Selects and pauses sending capacity. With no outbound authorization there is no send for it to balance, and sender health has nothing to observe."
+    },
+    "src/evidence-to-content-compiler.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Compiles evidence into publishable derivatives. Compilation is local; every output it produces is destined for a channel that requires authorization to reach."
+    },
+    "src/staging-content-repository.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Holds staged content with claim and consumption state. Staging deliberately never grants send authority, so nothing consumes from it until outbound is authorized."
+    },
+    "src/programmatic-fulfillment-router.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PAYMENT_PROVIDER",
+      "reason": "Routes provisioning for a paid ServiceSKU and takes CLEARED_PAYMENT as its precondition. No payment has ever cleared, so the router has nothing to route."
     }
   }
 }

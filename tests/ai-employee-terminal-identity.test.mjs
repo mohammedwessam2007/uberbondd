@@ -80,3 +80,95 @@ test('submission payload binds both result and receipt and preserves generic tas
   assert.equal(generic.bound, false);
   assert.equal('employeeRoleRef' in generic.payload.result, false);
 });
+
+// A declared role on a task that grants none was accepted silently and carried
+// forward into the durable submission payload. The mismatch checks all compared
+// a declaration against an expectation, so the one case they could not see was
+// an expectation of nothing: a generic worker naming itself
+// `employee:executive/cfo` passed every one of them and the claim reached the
+// relay receipt.
+//
+// That is exactly "generic work must never accidentally become privileged
+// employee work", arriving through the only direction nobody was checking.
+//
+// It is refused rather than stripped. Stripping hides the attempt; a worker
+// claiming an authority it was not admitted under is a signal worth keeping.
+
+const PRIVILEGED = { employeeRoleRef: 'employee:executive/cfo', employeeRoleDigest: 'd'.repeat(64) };
+const GENERIC_TASK = { taskId: 't-generic', targetAgent: 'chatgpt' };
+
+test('a result may not declare a role the task never granted', () => {
+  const errors = employeeRoleIdentityErrors({ result: PRIVILEGED, expected: {} });
+  assert.deepEqual(errors, ['worker-result-employee-role-not-granted']);
+});
+
+test('either half of an ungranted claim is enough to refuse it', () => {
+  assert.deepEqual(
+    employeeRoleIdentityErrors({ result: { employeeRoleRef: 'employee:x' }, expected: {} }),
+    ['worker-result-employee-role-not-granted']);
+  assert.deepEqual(
+    employeeRoleIdentityErrors({ result: { employeeRoleDigest: 'a'.repeat(64) }, expected: {} }),
+    ['worker-result-employee-role-not-granted']);
+});
+
+test('a genuinely generic result still passes (positive control)', () => {
+  assert.deepEqual(employeeRoleIdentityErrors({ result: { outcome: 'done' }, expected: {} }), []);
+  assert.deepEqual(employeeRoleIdentityErrors({ result: {}, expected: {} }), []);
+});
+
+test('the result binder refuses an ungranted claim instead of carrying it', () => {
+  const bound = bindEmployeeRoleIdentityToResult({
+    task: GENERIC_TASK,
+    result: { outcome: 'done', ...PRIVILEGED }
+  });
+  assert.equal(bound.ok, false);
+  assert.ok(bound.reasonCodes.includes('model-result-employee-role-not-granted'));
+});
+
+test('the receipt binder refuses an ungranted claim, including a nested one', () => {
+  const envelope = bindEmployeeRoleIdentityToReceipt({ task: GENERIC_TASK, receipt: { ...PRIVILEGED } });
+  assert.equal(envelope.ok, false);
+  assert.ok(envelope.reasonCodes.includes('receipt-employee-role-not-granted'));
+
+  // The claim hiding one level down must not survive either.
+  const nested = bindEmployeeRoleIdentityToReceipt({
+    task: GENERIC_TASK,
+    receipt: { note: 'clean envelope', result: { outcome: 'done', ...PRIVILEGED } }
+  });
+  assert.equal(nested.ok, false);
+  assert.ok(nested.reasonCodes.includes('model-result-employee-role-not-granted'));
+});
+
+test('the submission payload cannot launder an ungranted role to the relay', () => {
+  const payload = bindEmployeeRoleSubmissionPayload({
+    task: GENERIC_TASK,
+    payload: { taskId: 't-generic', workerId: 'w1', status: 'COMPLETED', result: { outcome: 'done', ...PRIVILEGED } }
+  });
+  assert.equal(payload.ok, false);
+  assert.ok(payload.reasonCodes.includes('model-result-employee-role-not-granted'));
+});
+
+test('a generic submission still binds cleanly (positive control)', () => {
+  const payload = bindEmployeeRoleSubmissionPayload({
+    task: GENERIC_TASK,
+    payload: { taskId: 't-generic', workerId: 'w1', status: 'COMPLETED', result: { outcome: 'done' }, receipt: { note: 'fine' } }
+  });
+  assert.equal(payload.ok, true);
+  assert.equal(payload.bound, false);
+  assert.equal(payload.payload.result.employeeRoleRef, undefined);
+});
+
+test('a bound task still overwrites with the admitted identity (positive control)', () => {
+  const task = { taskId: 't-priv', ...PRIVILEGED };
+  const payload = bindEmployeeRoleSubmissionPayload({
+    task,
+    // A bound task requires a receipt: the identity has to be stamped on
+    // something durable, not only on the result body.
+    payload: { taskId: 't-priv', workerId: 'w1', status: 'COMPLETED', result: { outcome: 'done' }, receipt: { note: 'work receipt' } }
+  });
+  assert.equal(payload.ok, true);
+  assert.equal(payload.bound, true);
+  assert.equal(payload.payload.receipt.employeeRoleRef, PRIVILEGED.employeeRoleRef);
+  assert.equal(payload.payload.result.employeeRoleRef, PRIVILEGED.employeeRoleRef);
+  assert.equal(payload.payload.result.employeeRoleDigest, PRIVILEGED.employeeRoleDigest);
+});

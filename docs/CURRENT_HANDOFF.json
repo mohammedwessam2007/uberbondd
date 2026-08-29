@@ -122,5 +122,45 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE_EXCEPT_EXISTING_PROJECT_DEPLOYMENT_AUTHORIZED",
-  "headSha": "d2442c27fa99dc5ea74460f4ad8e01fa1ff307fd"
+  "headSha": "d3a0b73c6e9e04cef18f74deaaa0627b9d3460c5",
+  "cloudActivationTruth": {
+    "fullProjectExists": "CONTRADICTED",
+    "privateLiteProjectExists": "CONTRADICTED",
+    "currentMainExactProductionDeploymentProven": false,
+    "cronRegistrationProven": false,
+    "cronDeliveryProven": false,
+    "contradiction": "One lane audited and recorded that a full project (prj_RWUPf14w1xIz9NK92AbNW5z7qDCg) and a private lite project (prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz) exist, with a READY production deployment. Claude Code queried the Vercel API on the account's only team on 2026-08-28 and twice on 2026-08-29: list_projects returned an empty array every time, and get_project returned 404 Not Found for both the exact project id and the slug 'uberbondd'. The 404 on an exact id is the strongest probe available from here and it is a direct negative, but it proves unreachability through this connection rather than non-existence in the account. Neither lane can settle this from inside the repository; the owner's Vercel dashboard can, in under a minute. Both observations are kept because deleting either would be choosing a side without grounds.",
+    "observations": [
+      {
+        "claim": "two projects exist (full + private lite)",
+        "observedVia": "another lane's recorded audit",
+        "observedAt": "2026-08-28",
+        "evidenceRef": null
+      },
+      {
+        "claim": "zero projects on team_A9LnjIuS5PU0rNetsHMu1N0r",
+        "observedVia": "Vercel API list_projects",
+        "observedAt": "2026-08-28",
+        "evidenceRef": "vercel:list_projects->[]"
+      },
+      {
+        "claim": "zero projects on team_A9LnjIuS5PU0rNetsHMu1N0r",
+        "observedVia": "Vercel API list_projects (re-query)",
+        "observedAt": "2026-08-29",
+        "evidenceRef": "vercel:list_projects->[]"
+      },
+      {
+        "claim": "the named project id and slug are both unreachable on team_A9LnjIuS5PU0rNetsHMu1N0r",
+        "observedVia": "connected Vercel MCP get_project(prj_RWUPf14w1xIz9NK92AbNW5z7qDCg) and get_project(uberbondd) on team_A9LnjIuS5PU0rNetsHMu1N0r",
+        "observedAt": "2026-08-29",
+        "result": "404 Not Found for both the exact project id and the slug",
+        "evidenceRef": "docs/CLOUD_ACTIVATION_CONTRACT.md#observed-deployment-truth--a-contradiction-preserved",
+        "note": "A 404 on an exact project id is a direct answer, unlike an empty list which could be a scope artifact. It still proves only that the project is unreachable through this connection."
+      }
+    ],
+    "resolvedBy": "Owner opens the Vercel dashboard and states which projects exist, or runs `vercel projects ls`."
+  },
+  "repositoryPublicationEffects": {
+    "productionDeploymentsAuthorizedOrPerformedByThisLane": 0
+  }
 }

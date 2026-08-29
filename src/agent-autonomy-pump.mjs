@@ -151,6 +151,14 @@ export async function advanceAutonomyRun({
     next.session = registered.session;
     next.relayRef = {
       taskId: relayTask.taskId,
+      // Three ids exist along this path: the intent's `mesh_task_*`, the relay's
+      // `agent_task_*`, and, once the task is rebound to an AI employee role,
+      // `employee_task_*`. Each is derived from the one before it and each
+      // overwrote it, so a snapshot recorded a task id that could not be traced
+      // back to anything -- you could verify a guess by recomputing a digest,
+      // but not recover the origin. Both joins are recorded now.
+      relayTaskId: text(relayTask.relayTaskId, 200) || null,
+      intentTaskId: text(next.currentIntent?.taskId, 200) || null,
       issueNumber: Number(queued.issueNumber) || null,
       targetAgent: next.currentIntent.targetAgent,
       originAgent: next.currentIntent.originAgent,

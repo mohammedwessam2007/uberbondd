@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { chromium } from 'playwright';
+import { getSharedBrowserRuntime } from './browser-runtime-pool.mjs';
 import { getRobots, isAllowed } from './robots.mjs';
 import { normalizeDomain, sleep, uniq } from './utils.mjs';
 import { assertPublicUrl } from './security.mjs';
@@ -107,8 +108,15 @@ export async function crawlSiteBrowser(input, options={}) {
   const launchArgs=['--no-sandbox','--disable-dev-shm-usage'];
   if(allowLocal)launchArgs.push('--disable-web-security','--disable-features=BlockInsecurePrivateNetworkRequests,PrivateNetworkAccessSendPreflights');
   await emitProgress('loading_website');
-  const browser=await chromium.launch({headless:true,...(executablePath?{executablePath}:{}),args:launchArgs});
-  const context=await browser.newContext({viewport:{width:1440,height:900},userAgent:'UberBondNightshift/1.0 (+public website quality research)'});
+  const runtime=options.browserRuntime||getSharedBrowserRuntime({
+    key:`crawl:${executablePath||'bundled'}:${allowLocal?'local':'public'}`,
+    launchBrowser:launchOptions=>chromium.launch(launchOptions),
+    launchOptions:{headless:true,...(executablePath?{executablePath}:{}),args:launchArgs},
+    maxConcurrentContexts:Math.max(1,Math.min(8,Number(options.browserConcurrency||process.env.BROWSER_CONTEXT_CONCURRENCY||2))),
+    recycleAfterContexts:Math.max(1,Math.min(500,Number(options.browserRecycleAfterContexts||process.env.BROWSER_RECYCLE_CONTEXTS||40)))
+  });
+  const lease=await runtime.acquire({contextOptions:{viewport:{width:1440,height:900},userAgent:'UberBondNightshift/1.0 (+public website quality research)'}});
+  const context=lease.context;
   const hostChecks=new Map();
   await context.route('**/*', async route=>{
     const req=route.request();
@@ -185,6 +193,6 @@ export async function crawlSiteBrowser(input, options={}) {
       finally{await page.close();}
       await sleep(Math.max(delayMs,(robots.crawlDelay||0)*1000));
     }
-  } finally { await context.close(); await browser.close(); }
+  } finally { await lease.release().catch(()=>{}); }
   return {startUrl:start,domain,robots,pages,errors,emails:uniq(pages.flatMap(p=>p.emails)),combinedText:pages.map(p=>`[${p.url}]\n${p.title}\n${(p.headings||[]).map(h=>h.text).join(' | ')}\n${p.bodyText||''}`).join('\n\n').slice(0,120000),completedAt:new Date().toISOString(),engine:'playwright',summary:{pagesVisited:pages.length,errors:errors.length,desktopScreenshots:pages.filter(p=>p.screenshots?.desktop).length,mobileScreenshots:pages.filter(p=>p.screenshots?.mobile).length}};
 }

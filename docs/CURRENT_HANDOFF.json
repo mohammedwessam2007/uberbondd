@@ -1,54 +1,65 @@
 {
   "schemaVersion": "uberbond-handoff-1.1.0",
-  "sourceMainShaAtMissionStart": "eef4364498c55790b0f6aedbfdd681e98631d099",
-  "sourceCommit": "a8a0caa26ec5fdd63f574f28f27f9b376a2589a7",
-  "currentMainShaAtFinalRefresh": "a8a0caa26ec5fdd63f574f28f27f9b376a2589a7",
-  "currentMainCommitMessage": "NIGHTFALL: bind AI employee identity through terminal ingestion",
-  "activeBranch": "gpt/repository-brain-reconcile-20260829",
+  "sourceMainShaAtMissionStart": "97754332eaebd3559db2e3f0848c2b8bb287964c",
+  "sourceCommit": "c03886d58f631712c0aa6271479d84efb2b604b5",
+  "currentMainShaAtFinalRefresh": "c03886d58f631712c0aa6271479d84efb2b604b5",
+  "currentMainCommitMessage": "Persist Growth Graph and add evidence-to-content compiler",
+  "activeBranch": "gpt/growth-graph-handoff-20260829",
   "activePullRequest": null,
   "missionIssue": 173,
   "missionIssueState": "OPEN",
-  "activeMission": "Preserve the current Nightfall company state in the repository brain, reconcile source-backed historical lineage, then continue the highest-value dependency-satisfied runtime and distribution work without external commercial effects.",
+  "activeMission": "Continue NIGHTFALL from the unified Growth Graph: finish dependency-satisfied distribution/provider composition, preserve the repository brain, and move toward real provider and commercial activation without fabricating external proof.",
   "completed": [
-    "Merged PR #189 as 6df07870271c02df648aab9af184afd7bfa435e4, preserving already-admitted AI employee role identity through generic cloud relay recompilation while leaving generic role-free tasks backward compatible.",
-    "Merged PR #190 as a8a0caa26ec5fdd63f574f28f27f9b376a2589a7, binding the dispatched employee role ref and digest through worker submission, durable execution receipts and autonomy terminal truth.",
-    "Executed the terminal-identity helper in an isolated Node harness: 7/7 focused tests passed.",
-    "Killed the model role-substitution mutation: deleting the conflict guard changed the focused result from 7/7 to 6/7 with the exact substitution test failing.",
-    "Preserved Sol PR #180 as the current research/distribution decision layer: one preparation canary, one fallback, a 52-source registry, 18 distribution/acquisition mechanisms, opportunity tournament, distribution portfolio, economics model, AI employee organization and four Claude packets.",
-    "Verified live production health at https://uberbondd.vercel.app/api/health: HTTP 200, storeBackend postgres, revenue-engine-1.4.0; at the observation time autopilot was false, the worker was offline and activeJobs was 0.",
-    "Verified the unauthenticated production cron route fails closed with HTTP 401; no credential value was read and no authenticated production canary was attempted.",
-    "Created a source-backed memory reconciliation layer from the repository receipts for Everest, SUMMIT 100 and BLACK SKY and made the one-command brain bootstrap apply that correction before project-context validation.",
-    "Corrected the durable lineage to Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation. Everest is no longer treated as unresolved owner recollection.",
-    "Added a generic unresolved-program bucket so future owner-recalled names remain visible without assigning invented semantics."
+    "Repository brain reconciliation is canonical on main and bootstraps source-backed Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation lineage instead of the stale unresolved-Everest memory.",
+    "AI employee role identity is preserved from scheduled task origin through generic cloud relay, worker claim, model result envelope, durable execution receipt and autonomy terminal truth; substitution mutation was killed.",
+    "Merged PR #194 as b0993baa0ff3ccec0b64539efbd3c58763f098a4: added a bounded Braze/Customer.io-style enterprise journey compiler and a compliant sender infrastructure mesh.",
+    "Enterprise journey compilation reuses the canonical durable scheduler and omnichannel communication boundary, supports trigger/condition/delay/message/webhook/experiment/exit graphs, requires frequency bounds and rejects unbounded cycles/raw webhook credentials.",
+    "Sender Infrastructure Mesh requires stable organization-linked sender identity, SPF/DKIM/DMARC/rDNS/TLS/alignment, warm state, known reputation and one-click unsubscribe readiness for marketing; it refuses identity/reputation/block/quota evasion and pauses unhealthy infrastructure.",
+    "Focused journey/sender mesh suite executed 7/7 PASS; deleting the sender reputation-evasion guard changed the mutation run to 6/7 with the exact hostile test failing.",
+    "Merged PR #195 as c03886d58f631712c0aa6271479d84efb2b604b5: persisted the unified Growth Graph capability frontier and added an evidence-to-content compiler.",
+    "Evidence-to-content compiler creates source-bound local-preparation tasks for SEO/AEO, technical SEO remediation, LinkedIn/social briefs, video scripts, partner sales assets and outbound insights with no auto-publication authority.",
+    "Focused evidence-to-content suite executed 5/5 PASS and module syntax check passed.",
+    "Growth Graph now durably connects Clay-class enrichment, partner distribution, enterprise journeys, sender infrastructure, official/authorized social orchestration and evidence-to-content around one shared attribution/economic graph."
   ],
   "blockers": [
-    "The low-level cloud relay result admission boundary still needs an independent role-aware check so a future alternate caller cannot bypass the canonical worker submission wrapper.",
-    "Current full production trails current main because the Vercel Hobby account exceeded its daily deployment quota; preview/production failures caused solely by api-deployments-free-per-day are infrastructure non-evidence.",
-    "GitHub hosted deterministic, PostgreSQL and browser jobs have repeatedly terminated with zero executed steps and runner_id 0; they are not source pass or source failure evidence.",
-    "The current container cannot resolve github.com for a full exact-head checkout, so no current-head whole-tree suite is claimed after PR #190.",
-    "Real commercial activation still requires external legal/tax/payment eligibility, an authorized provider/customer path and consequence-specific authority.",
-    "No verified buyer, cleared payment, accepted delivery, renewal, expansion or elapsed founder-absence proof exists."
+    "Authenticated enrichment-provider execution remains externally gated by provider selection, credentials, terms and budget even though the provider-neutral waterfall control plane already exists.",
+    "Social provider adapters remain to be implemented only through official/authorized surfaces; unsupported LinkedIn connection/DM/engagement automation must remain manual/provider-authorized rather than browser-bot evasion.",
+    "Sender mesh has no real domain/IP reputation telemetry yet because external sending infrastructure and credentials are not activated; current allocator is deterministic policy infrastructure only.",
+    "The low-level direct cloud-relay result admission boundary still deserves defense-in-depth role verification for future alternate callers, although the canonical employee path is already role-bound end-to-end.",
+    "Latest exact main is not proven deployed to Vercel while the Hobby daily deployment quota constraint remains; no deployment success is inferred from source merge.",
+    "Real commercial activation still requires the exact legal/tax/payment route, buyer/customer reality, payment provider/KYC, consequence-specific distribution authority and later real acceptance/renewal evidence.",
+    "Verified customers remain 0; cleared revenue $0; accepted deliveries 0; retained customers 0; founder-absence elapsed proof 0."
   ],
   "nextActions": [
-    "Harden direct submitCloudRelayResult admission so stored role-bound tasks require the exact immutable employee role identity even when a future caller bypasses the canonical worker wrapper.",
-    "After that runtime seam, refresh main and repository brain again, then consume the next dependency-satisfied Claude implementation packet instead of creating duplicate architecture.",
-    "Keep distribution as the commercial priority: preserve the White-label Lead-Path Revenue Leak Evidence Sprint as the current preparation canary and the AI Agent Acceptance Evidence Sprint as fallback until external evidence changes the tournament."
+    "Distribution first: complete the public-evidence partner universe for the White-label Lead-Path Revenue Leak Evidence Sprint and keep one canary plus one fallback rather than activating the whole portfolio.",
+    "Compose the existing Clay-class enrichment waterfall into authenticated provider adapters only after provider/credential/terms/budget gates are available; measure cost, coverage, freshness and downstream economics per provider.",
+    "Continue internal Growth Graph work with journey occurrence expansion, per-profile/channel frequency state, conversion attribution, sender-health telemetry integration, and official social/content adapters without creating duplicate orchestration systems."
   ],
   "unresolvedNames": [
     {
       "name": "Unreconstructed Owner-Recalled UberBond Programs",
       "status": "OWNER_RECALLED_UNRESOLVED",
-      "next": "When a specific forgotten program is recalled, record its exact name and search repository receipts, chat exports and the source registry before assigning semantics."
+      "next": "When the owner recalls a specific missing program, record the exact name and search repository receipts, chat exports and the source registry before assigning semantics."
     }
   ],
+  "growthGraph": {
+    "frontierArtifact": "artifacts/growth-graph-capability-frontier.json",
+    "architectureDoc": "docs/UBERBOND_GROWTH_GRAPH_EXPANSION.md",
+    "capabilities": [
+      "Clay-class evidence waterfall",
+      "partner/white-label distribution",
+      "Braze/Customer.io-style enterprise journeys",
+      "compliant Sender Infrastructure Mesh",
+      "official/authorized social orchestration",
+      "evidence-to-SEO/AEO/social/video content"
+    ],
+    "law": "One shared governed Growth Graph, not disconnected SaaS clones; distribution outcomes must eventually reconcile through cleared payment, accepted delivery, variable cost, founder minutes and contribution."
+  },
   "historicalLineageCorrection": {
     "lineage": ["Everest", "SUMMIT 100", "BLACK SKY", "Reality Activation"],
     "everestReceipt": "docs/UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md",
-    "everestHistoricalVerdict": "EVEREST_PARTIALLY_CLOSED",
     "summitReceipt": "docs/UBERBOND_SUMMIT_100_FINAL_RECEIPT.md",
-    "summitHistoricalVerdict": "EVEREST_INTERNAL_CLOSED__REALITY_PROOF_PENDING",
     "blackSkyReceipt": "docs/UBERBOND_BLACK_SKY_FINAL_RECEIPT.md",
-    "blackSkyHistoricalVerdict": "BLACK_SKY_INTERNAL_EXHAUSTED__REALITY_ACTIVATION_NEXT",
     "truthBoundary": "Historical closure verdicts do not establish current live, provider, customer, payment, delivery, renewal or unattended-operation proof."
   },
   "commercialDecision": {
@@ -62,43 +73,26 @@
   },
   "cloudActivationTruth": {
     "fullProjectExists": true,
-    "privateLiteProjectExists": true,
-    "productionHealthObserved200": true,
-    "productionStoreBackend": "postgres",
-    "observedAutopilot": false,
-    "observedWorkerOnline": false,
-    "observedActiveJobs": 0,
-    "cronUnauthenticatedRefusalObserved": 401,
+    "productionHealthObserved200Previously": true,
+    "productionStoreBackendPreviouslyObserved": "postgres",
+    "previousObservedAutopilot": false,
+    "previousObservedWorkerOnline": false,
+    "cronUnauthenticatedRefusalPreviouslyObserved": 401,
     "currentMainExactProductionDeploymentProven": false,
-    "currentDeploymentConstraint": "VERCEL_HOBBY_DAILY_DEPLOYMENT_QUOTA",
+    "currentDeploymentConstraint": "VERCEL_HOBBY_DAILY_DEPLOYMENT_QUOTA_LAST_OBSERVED",
     "authenticatedCronDeliveryProven": false,
     "commercialProof": "NONE"
   },
-  "aiEmployeeIntegrityTruth": {
-    "sourceMainSha": "a8a0caa26ec5fdd63f574f28f27f9b376a2589a7",
-    "deterministicRoleContracts": true,
-    "scheduledTaskOriginBinding": true,
-    "genericCloudRelayTransportPreservation": true,
-    "workerClaimFailClosedGate": true,
-    "workerSubmissionRoleBinding": true,
-    "durableExecutionReceiptRoleBinding": true,
-    "autonomyTerminalWorkerResultRoleBinding": true,
-    "modelRoleSubstitutionMutationKilled": true,
-    "lowLevelRelayAdmissionRoleCheck": false,
-    "claudeNight01State": "CANONICAL_PATH_CLOSED_LOW_LEVEL_DEFENSE_IN_DEPTH_REMAINS"
-  },
   "verification": [
-    "PR #188 predecessor exact semantic head previously executed 3/3 focused cloud-relay tests, 26/26 combined role-integrity tests and 565-file syntax; PR #189 rebased the byte-identical runtime/test delta onto current main before merge.",
-    "Terminal identity helper exact logic: 7/7 PASS in isolated Node execution.",
-    "Terminal identity hostile mutation deleting model role-ref substitution protection: 6/7, exact hostile test failed; mutation killed.",
-    "Memory reconciliation helper exact logic: 5/5 PASS in isolated Node execution.",
-    "Updated brain bootstrap script passed node --check before publication.",
-    "No current exact-head whole-tree green claim is made after PR #190 because full checkout and hosted runner execution are unavailable."
+    "Enterprise journey + sender mesh isolated exact logic: 7/7 PASS.",
+    "Sender-mesh evasion-guard mutation: 6/7 with the intended reputation-bypass hostile test failing; mutation killed.",
+    "Evidence-to-content isolated exact logic: 5/5 PASS; node --check PASS.",
+    "No latest-main whole-tree green claim is made from hosted zero-step GitHub runner results or stale receipts."
   ],
   "maximumThreeFounderActions": [
-    "No founder action is needed for the current internal runtime and memory-preservation work.",
-    "Before any real commercial contact or payment: clear the exact Egyptian legal, tax and payment/Merchant-of-Record route for the selected canary.",
-    "When ready to activate real distribution, provide consequence-specific authority and only the minimum required provider/domain credentials through their proper secret/configuration surfaces, never chat."
+    "No founder action is required for the newly merged internal Growth Graph primitives.",
+    "Before live commercial contact/payment, clear the exact legal/tax/payment route for the selected canary and connect the minimum payment/provider identity needed through proper secret/configuration surfaces.",
+    "When ready for live distribution, provide consequence-specific channel authorization; do not place credentials or private contact data in chat."
   ],
   "externalEffectLedger": {
     "providerCalls": 0,
@@ -111,5 +105,5 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE",
-  "headSha": "a8a0caa26ec5fdd63f574f28f27f9b376a2589a7"
+  "headSha": "c03886d58f631712c0aa6271479d84efb2b604b5"
 }

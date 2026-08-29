@@ -7,7 +7,7 @@
 
 import crypto from 'node:crypto';
 
-export const AGENT_RELAY_POLICY_VERSION = 'agent-relay-1.0.0';
+export const AGENT_RELAY_POLICY_VERSION = 'agent-relay-1.1.0';
 export const RELAY_STATUSES = Object.freeze([
   'READY_FOR_REVIEW', 'OPEN_REVIEW', 'ROUND_REVIEW', 'RESOLVED', 'ESCALATE_OWNER'
 ]);
@@ -71,9 +71,34 @@ function normalizeBudget(value) {
   };
 }
 
+function preservedEmployeeRoleBinding(input = {}) {
+  const employeeRoleRef = text(input.employeeRoleRef, 500);
+  if (!employeeRoleRef) return {};
+  return {
+    employeeRoleRef,
+    employeeRoleDigest: text(input.employeeRoleDigest, 100),
+    employeeRoleAuthorityCeiling: text(input.employeeRoleAuthorityCeiling, 500),
+    employeeRoleConsequenceCeiling: text(input.employeeRoleConsequenceCeiling, 80).toUpperCase(),
+    employeeRoleAllowedCapabilities: strings(input.employeeRoleAllowedCapabilities),
+    employeeRoleEvidencePrerequisites: strings(input.employeeRoleEvidencePrerequisites),
+    employeeRoleEconomicMetric: text(input.employeeRoleEconomicMetric, 500),
+    employeeRoleStopConditions: strings(input.employeeRoleStopConditions),
+    employeeRoleEscalationTarget: text(input.employeeRoleEscalationTarget, 240),
+    employeeRoleOutputSchema: text(input.employeeRoleOutputSchema, 500),
+    parentAllowedCapabilities: strings(input.parentAllowedCapabilities),
+    roleBindingStatus: text(input.roleBindingStatus, 80) || 'TASK_BOUND'
+  };
+}
+
 // Prepare a task for an actual connected worker. The result is not evidence
 // that any worker ran; execution remains NOT_RUN until a separate receipt is
 // received from a real integration.
+//
+// Role-bound tasks are allowed to cross generic relay transports without
+// losing their already-admitted employee identity. The relay does not grant or
+// validate that role here; it only preserves the immutable binding fields so
+// the canonical worker-side validateRoleBoundExecution gate can recompute and
+// enforce them before any provider compute. Generic tasks remain unchanged.
 export function compileAgentTask({
   taskId,
   objective,
@@ -90,6 +115,18 @@ export function compileAgentTask({
   deadline,
   economicObjective,
   consequenceClass = 'LOCAL_PREPARATION',
+  employeeRoleRef,
+  employeeRoleDigest,
+  employeeRoleAuthorityCeiling,
+  employeeRoleConsequenceCeiling,
+  employeeRoleAllowedCapabilities = [],
+  employeeRoleEvidencePrerequisites = [],
+  employeeRoleEconomicMetric,
+  employeeRoleStopConditions = [],
+  employeeRoleEscalationTarget,
+  employeeRoleOutputSchema,
+  parentAllowedCapabilities = [],
+  roleBindingStatus,
   date = new Date()
 } = {}) {
   const at = timestamp(date);
@@ -128,6 +165,20 @@ export function compileAgentTask({
     economicObjective: text(economicObjective, 500) || 'UNKNOWN',
     consequenceClass: String(consequenceClass).toUpperCase()
   };
+  const employeeRoleBinding = preservedEmployeeRoleBinding({
+    employeeRoleRef,
+    employeeRoleDigest,
+    employeeRoleAuthorityCeiling,
+    employeeRoleConsequenceCeiling,
+    employeeRoleAllowedCapabilities,
+    employeeRoleEvidencePrerequisites,
+    employeeRoleEconomicMetric,
+    employeeRoleStopConditions,
+    employeeRoleEscalationTarget,
+    employeeRoleOutputSchema,
+    parentAllowedCapabilities,
+    roleBindingStatus
+  });
 
   return {
     ok: true,
@@ -136,6 +187,7 @@ export function compileAgentTask({
     status: 'READY_FOR_REVIEW',
     createdAt: at,
     ...identity,
+    ...employeeRoleBinding,
     authority: identity.consequenceClass === 'LOCAL_PREPARATION' ? 'LOCAL_PREPARATION' : 'OWNER_REQUIRED',
     execution: { status: 'NOT_RUN', workerReceipt: null, externalAction: false },
     externalEffectLedger: { ...RELAY_EXTERNAL_EFFECTS }

@@ -1,0 +1,65 @@
+{
+  "mission": "browser-runtime-process-reuse",
+  "created_at": "2026-08-29T17:00:00Z",
+  "canonical_base": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
+  "donor_pr": 214,
+  "dedupe": {
+    "payment_reconciliation": "owned by PR #227",
+    "overpass_resilience": "owned by PR #228",
+    "artifact_storage": "remains separate donor slice in PR #214",
+    "browser_runtime_pool": "this branch"
+  },
+  "implemented": [
+    "bounded BrowserRuntimePool with atomic context-slot reservation",
+    "fresh BrowserContext per lease; no session/cookie sharing",
+    "single-flight browser launch",
+    "bounded process recycle after completed contexts",
+    "worker-persistent shared runtime with explicit close hook",
+    "non-worker auto-close when idle",
+    "fail-closed rejection of queued acquisitions during shutdown",
+    "focused concurrency/isolation test suite"
+  ],
+  "focused_execution": {
+    "status": "PASS",
+    "tests": 7,
+    "failures": 0,
+    "scope": "pool semantics only; executed from an equivalent local copy of the committed module and focused tests",
+    "not_claimed": [
+      "repository checkout execution",
+      "Playwright/Chromium integration execution",
+      "crawler integration",
+      "worker shutdown integration",
+      "Vercel build",
+      "production deployment"
+    ]
+  },
+  "integration_blocker": {
+    "status": "BLOCKED_BY_CONNECTOR_POLICY",
+    "detail": "A low-level Git tree operation to transplant the already-reviewed donor blobs for src/browser-crawler.mjs and worker.mjs onto the fresh branch was blocked by the connector safety layer. The current main files are unchanged from donor base across the intervening main comparison, but they were not rewritten wholesale through the connector because that would create avoidable transcription risk.",
+    "donor_browser_crawler_blob": "3ff0b826a8f1fb16879c954dc5985a2eeaec8bc9",
+    "donor_worker_blob": "bf49f87528ac3fb232030b0e46642cc2a259ead6"
+  },
+  "required_next_integration": [
+    "import getSharedBrowserRuntime into src/browser-crawler.mjs",
+    "replace per-crawl chromium.launch/browser.newContext with runtime.acquire using the existing launch options",
+    "release the context lease in finally instead of closing the browser process per crawl",
+    "import closeSharedBrowserRuntimes in worker.mjs and invoke it after queue drain and before store.close",
+    "execute tests/browser-runtime-pool.test.mjs plus repository browser/crawler tests from a genuine checkout with Chromium",
+    "obtain an exact-head full-project build receipt before merge"
+  ],
+  "lite_protected": true,
+  "external_effect_ledger": {
+    "customer_contacts": 0,
+    "outbound_messages": 0,
+    "model_provider_runs": 0,
+    "live_browser_crawls": 0,
+    "paid_provider_calls": 0,
+    "spend_usd": 0,
+    "purchases": 0,
+    "dns_changes": 0,
+    "credential_kyc_payment_changes": 0,
+    "money_movement": 0,
+    "customer_or_production_data_mutations": 0,
+    "production_deployments": 0
+  }
+}

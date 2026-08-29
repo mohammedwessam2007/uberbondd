@@ -12,7 +12,8 @@ export async function claimBillingEvents(pool,{workerRef,limit=10,staleClaimMs=1
  const bounded=Math.max(1,Math.min(50,Number(limit)||10));
  const attempts=boundedInt(maxAttempts,5,1,20);
  const cutoff=new Date(Date.now()-Math.max(60000,Number(staleClaimMs)||15*60*1000));
- const worker=String(workerRef||'billing-worker').slice(0,160);
+ const worker=String(workerRef||'').trim().slice(0,160);
+ if(!worker) throw new Error('billing-worker-required');
  const client=await pool.connect();
  try{
    await client.query('BEGIN');
@@ -28,7 +29,7 @@ export async function claimBillingEvents(pool,{workerRef,limit=10,staleClaimMs=1
    )
    UPDATE billing_webhook_inbox b SET status='CLAIMED',claimed_at=now(),claimed_by=$4,claim_attempts=b.claim_attempts+1,next_attempt_at=NULL,error_code=NULL,updated_at=now()
    FROM picked WHERE b.provider_event_key=picked.provider_event_key
-   RETURNING b.provider_event_key,b.provider,b.event_name,b.object_type,b.object_id,b.payload_hash,b.custom_data,b.received_at,b.claimed_at,b.claim_attempts`,[bounded,cutoff,attempts,worker]);
+   RETURNING b.provider_event_key,b.provider,b.event_name,b.object_type,b.object_id,b.payload_hash,b.custom_data,b.received_at,b.claimed_at,b.claimed_by,b.claim_attempts`,[bounded,cutoff,attempts,worker]);
    await client.query('COMMIT'); return result.rows;
  }catch(error){try{await client.query('ROLLBACK');}catch{} throw error;}finally{client.release();}
 }
@@ -42,7 +43,7 @@ export async function finishBillingEvent(pool,{providerEventKey,status,canonical
  if(!worker) throw new Error('billing-worker-required');
  const retryDelay=Math.max(0,Math.min(24*60*60*1000,Number(retryAfterMs)||0));
  const nextAttemptAt=normalized==='RETRYABLE'?new Date(Date.now()+retryDelay):null;
- const result=await pool.query(`UPDATE billing_webhook_inbox SET status=$2,canonical_receipt_ref=$3,error_code=$4,next_attempt_at=$5,last_error_at=CASE WHEN $4 IS NOT NULL THEN now() ELSE last_error_at END,claimed_at=CASE WHEN $2 IN ('RETRYABLE','UNCERTAIN') THEN NULL ELSE claimed_at END,claimed_by=CASE WHEN $2 IN ('RETRYABLE','UNCERTAIN') THEN NULL ELSE claimed_by END,completed_at=CASE WHEN $2 IN ('RECONCILED','IGNORED','FAILED') THEN now() ELSE completed_at END,updated_at=now() WHERE provider_event_key=$1 AND status='CLAIMED' AND claimed_by=$6`,[providerEventKey,normalized,canonicalReceiptRef,errorCode,nextAttemptAt,worker]);
+ const result=await pool.query(`UPDATE billing_webhook_inbox SET status=$2,canonical_receipt_ref=$3,error_code=$4,next_attempt_at=$5,last_error_at=CASE WHEN $4::text IS NOT NULL THEN now() ELSE last_error_at END,claimed_at=CASE WHEN $2 IN ('RETRYABLE','UNCERTAIN') THEN NULL ELSE claimed_at END,claimed_by=CASE WHEN $2 IN ('RETRYABLE','UNCERTAIN') THEN NULL ELSE claimed_by END,completed_at=CASE WHEN $2 IN ('RECONCILED','IGNORED','FAILED') THEN now() ELSE completed_at END,updated_at=now() WHERE provider_event_key=$1 AND status='CLAIMED' AND claimed_by=$6`,[providerEventKey,normalized,canonicalReceiptRef,errorCode,nextAttemptAt,worker]);
  if(result.rowCount!==1) throw new Error('billing-claim-not-owned-or-missing');
  return {ok:true,status:normalized,providerEventKey,nextAttemptAt:nextAttemptAt?.toISOString()||null};
 }

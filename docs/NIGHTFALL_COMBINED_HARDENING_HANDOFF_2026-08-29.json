@@ -51,6 +51,8 @@
     "mutationWar": "npm run test:mutation-war — 75 mutations, 74 killed, 0 not killed; STORE-01 skipped because PostgreSQL runtime is unavailable",
     "reachability": "253 src modules, 126 production-reachable, 9 operator-only, 118 no-entry; ratchet passes",
     "canonFreshness": "17/17 pass after current-state refresh",
+    "discoverySmoke": "npm run smoke:discovery — PASS: preview 2, imported 2 against local Overpass fixture",
+    "reviewProbes": "npm run probes — PASS: 33/33 zero-effect probes",
     "dependencyAudit": "npm audit --omit=dev — 0 vulnerabilities"
   },
   "blockedRuntimeEvidence": {

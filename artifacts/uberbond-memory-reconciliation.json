@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "uberbond-memory-reconciliation-1.0.0",
+  "project": "UberBond",
+  "generatedAt": "2026-08-29T05:05:00.000Z",
+  "truthRule": "This overlay corrects stale long-horizon memory from repository receipts. It changes memory/lineage only and never upgrades present-tense software, provider, customer, payment, delivery, renewal, commercial, or unattended-operation truth.",
+  "lineage": ["Everest", "SUMMIT 100", "BLACK SKY", "Reality Activation"],
+  "replaceInitiatives": [
+    {
+      "id": "everest",
+      "name": "Everest",
+      "status": "CANONICAL_LINEAGE",
+      "role": "Repository red-team and closure campaign that attacked reachability, effect truth, escalation, founder-absence falsification, model routing, payment truth, authority, sovereignty, security, concurrency and readiness.",
+      "currentReconciliation": "Canonical receipt docs/UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md records EVEREST_PARTIALLY_CLOSED. Preserve Everest as the predecessor to SUMMIT 100; its historical gate counts are not current exact-head proof."
+    }
+  ],
+  "appendInitiatives": [
+    {
+      "id": "summit-100",
+      "name": "SUMMIT 100",
+      "status": "CANONICAL_LINEAGE",
+      "role": "Post-Everest internal-closure campaign covering recovery, mutation assurance, time integrity, escalation episodes, payment witness integrity, store parity, secret scanning and sovereignty proof closure.",
+      "currentReconciliation": "Canonical receipt docs/UBERBOND_SUMMIT_100_FINAL_RECEIPT.md records EVEREST_INTERNAL_CLOSED__REALITY_PROOF_PENDING at its historical head. This is historical internal-closure evidence, never current live/economic proof."
+    },
+    {
+      "id": "black-sky",
+      "name": "BLACK SKY",
+      "status": "CANONICAL_LINEAGE",
+      "role": "Post-SUMMIT adversarial campaign focused on privacy minimization, payment witness completeness, sovereignty closure, evidence referents, recovery and the transition from internal closure to external reality gates.",
+      "currentReconciliation": "Canonical receipt docs/UBERBOND_BLACK_SKY_FINAL_RECEIPT.md records BLACK_SKY_INTERNAL_EXHAUSTED__REALITY_ACTIVATION_NEXT. Its successor frontier is Reality Activation: provider, scheduler, buyer, payment, acceptance, renewal and elapsed-time proof."
+    },
+    {
+      "id": "unreconstructed-owner-programs",
+      "name": "Unreconstructed Owner-Recalled UberBond Programs",
+      "status": "OWNER_RECALLED_UNRESOLVED",
+      "role": "Generic anti-amnesia bucket for specific initiatives the owner may recall later whose exact repository/chat source has not yet been reconstructed.",
+      "currentReconciliation": "Do not assign semantics from memory alone. Register the exact recalled name and search repository receipts, exports and the source registry before promotion."
+    }
+  ],
+  "unresolvedNames": [
+    {
+      "name": "Unreconstructed Owner-Recalled UberBond Programs",
+      "status": "OWNER_RECALLED_UNRESOLVED",
+      "requiredAction": "When the owner recalls a specific missing program, record the exact name, search repository receipts/chat exports/source registry, and only then promote it into named canonical lineage."
+    }
+  ],
+  "appendSourceBasis": [
+    {"id":"everest-receipt","title":"UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md","evidenceClass":"HISTORICAL_REPOSITORY_RECEIPT"},
+    {"id":"summit-100-receipt","title":"UBERBOND_SUMMIT_100_FINAL_RECEIPT.md","evidenceClass":"HISTORICAL_REPOSITORY_RECEIPT"},
+    {"id":"black-sky-receipt","title":"UBERBOND_BLACK_SKY_FINAL_RECEIPT.md","evidenceClass":"HISTORICAL_REPOSITORY_RECEIPT"}
+  ],
+  "appendAntiForgettingRules": [
+    "Everest, SUMMIT 100 and BLACK SKY are source-backed canonical lineage. Never downgrade them to unresolved memory while their repository receipts exist without an explicit contradictory adjudication.",
+    "Reality Activation is the frontier after BLACK SKY, not evidence that provider, customer, payment, acceptance, renewal or elapsed-time gates are already proven."
+  ]
+}

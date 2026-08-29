@@ -1,0 +1,85 @@
+{
+  "mission": "browser-runtime-process-reuse",
+  "created_at": "2026-08-29T17:00:00Z",
+  "canonical_base": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
+  "branch": "integration/browser-runtime-pool",
+  "exact_local_head": "fe999325b5dcde46860b1b897b20abf654265d45",
+  "updated_at": "2026-08-29T17:36:08Z",
+  "donor_pr": 214,
+  "dedupe": {
+    "payment_reconciliation": "owned by PR #227",
+    "overpass_resilience": "owned by PR #228",
+    "artifact_storage": "remains separate donor slice in PR #214",
+    "browser_runtime_pool": "this branch"
+  },
+  "implemented": [
+    "bounded BrowserRuntimePool with atomic context-slot reservation",
+    "fresh BrowserContext per lease; no session/cookie sharing",
+    "single-flight browser launch",
+    "bounded process recycle after completed contexts",
+    "worker-persistent shared runtime with explicit close hook",
+    "non-worker auto-close when idle",
+    "fail-closed rejection of queued acquisitions during shutdown",
+    "focused concurrency/isolation test suite"
+  ],
+  "focused_execution": {
+    "status": "PASS",
+    "tests": 8,
+    "failures": 0,
+    "scope": "exact integration checkout; pool semantics plus crawler/worker lifecycle source guard",
+    "not_claimed": [
+      "Playwright/Chromium integration execution",
+      "Vercel build",
+      "production deployment"
+    ]
+  },
+  "integration": {
+    "status": "COMPLETE_LOCAL",
+    "source_commit": "32a2af4",
+    "files": [
+      "src/browser-crawler.mjs",
+      "worker.mjs",
+      "tests/browser-runtime-pool.test.mjs",
+      "scripts/system-readiness.mjs"
+    ],
+    "invariants": [
+      "crawler acquires a bounded shared runtime lease instead of launching one browser per crawl",
+      "each crawl receives a fresh isolated BrowserContext",
+      "context lease release is guaranteed in the crawler finally path",
+      "worker shutdown closes shared runtimes after queue drain and before store close",
+      "readiness source census walks nested src modules"
+    ]
+  },
+  "local_execution": {
+    "focused_pool_and_lifecycle": "node --test tests/browser-runtime-pool.test.mjs — 8/8 pass",
+    "syntax": "node scripts/check-syntax.mjs — 602 files parse",
+    "deterministic": "node scripts/run-tests.mjs deterministic — 2773 total, 2725 pass, 0 fail, 48 skipped",
+    "relay_safety": "10 relay suites — 150/150 pass",
+    "mutation": "75 mutations, 74 killed, 0 not killed, STORE-01 skipped without PostgreSQL",
+    "reachability": "node --test tests/reachability-ratchet.test.mjs — 11/11 pass",
+    "canon_freshness": "node --test tests/canon-freshness.test.mjs — pass",
+    "postgres": "BLOCKED_RUNTIME — OMNIA_V9_TEST_DATABASE_URL is absent; 15 suites not executed",
+    "browser": "BLOCKED_RUNTIME — pinned Playwright Chromium executable is absent; crawler assertion did not execute"
+  },
+  "remaining_gates": [
+    "run the browser/crawler test with a compatible Chromium executable",
+    "obtain an exact-head full-project READY Vercel build",
+    "run the 15 real-PostgreSQL suites against a trustworthy throwaway database",
+    "review and merge only after those gates are satisfied"
+  ],
+  "lite_protected": true,
+  "external_effect_ledger": {
+    "customer_contacts": 0,
+    "outbound_messages": 0,
+    "model_provider_runs": 0,
+    "live_browser_crawls": 0,
+    "paid_provider_calls": 0,
+    "spend_usd": 0,
+    "purchases": 0,
+    "dns_changes": 0,
+    "credential_kyc_payment_changes": 0,
+    "money_movement": 0,
+    "customer_or_production_data_mutations": 0,
+    "production_deployments": 0
+  }
+}

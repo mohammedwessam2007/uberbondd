@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "uberbond-nightfall-handoff-1.0",
+  "mission": "Extract the remaining artifact/object-storage resilience slice from stale PR #214 onto exact current-main lineage without activating any provider.",
+  "baseMainSha": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
+  "codeAndTestHeadSha": "4b6f144c492ad2157b1764d93dffb5a81863be71",
+  "branch": "nightfall/artifact-storage-boundary-20260829",
+  "donor": {
+    "pullRequest": 214,
+    "status": "STALE_DONOR_ONLY",
+    "dedupe": {
+      "paymentReconciliation": "PR #227",
+      "overpassResilience": "PR #228",
+      "browserRuntimePooling": "PR #229",
+      "artifactStorageBoundary": "THIS_BRANCH"
+    }
+  },
+  "changes": [
+    "Add a provider-neutral fail-closed artifact storage write/receipt contract.",
+    "Keep PostgreSQL byte storage as the default and preserve every legacy row shape.",
+    "Allow future private object-backed rows to carry storage key and provider ETag while retaining SHA-256 and byte-size integrity metadata.",
+    "Prohibit public-by-default object receipts and sensitive metadata keys.",
+    "Do not activate an object-storage vendor, adapter, credential, network call, or automatic backend switch.",
+    "Use migration 103 rather than donor migration 102 because active PR #227 already reserves migration 102 for payment-reconciliation leases."
+  ],
+  "verification": {
+    "focusedContractTests": {
+      "status": "PASS",
+      "count": 8,
+      "executor": "local Node.js v22.16.0 semantic execution in this session",
+      "scope": "src/artifact-storage-contract.mjs + tests/artifact-storage-contract.test.mjs only"
+    },
+    "postgresMigrationExecution": {
+      "status": "NOT_EXECUTED",
+      "reason": "The available runtime exposes Node but no psql/postgres binary and no genuine repository checkout/database harness was available. Do not infer schema proof from contract tests."
+    },
+    "wholeRepositoryTests": {
+      "status": "NOT_EXECUTED",
+      "reason": "No genuine checkout was available in this lane."
+    },
+    "providerReceipt": {
+      "status": "NONE",
+      "reason": "No object-storage provider was called or configured."
+    }
+  },
+  "promotionGate": [
+    "Execute migrations through 103 against the repository's real PostgreSQL test harness and verify legacy Postgres artifact rows remain valid.",
+    "Execute focused artifact-storage tests from a genuine checkout.",
+    "Obtain an exact-head build receipt if the candidate is otherwise merge-ready.",
+    "Refresh main and open PRs immediately before merge and resolve any new migration/schema collision.",
+    "Keep object backend disabled until a separately reviewed private adapter and credential path exists."
+  ],
+  "liteProtected": true,
+  "externalEffectLedger": {
+    "customerProspectContacts": 0,
+    "outboundMessages": 0,
+    "providerCalls": 0,
+    "modelProviderExecutions": 0,
+    "liveObjectStorageCalls": 0,
+    "purchases": 0,
+    "spendCents": 0,
+    "dnsChanges": 0,
+    "credentialKycPaymentChanges": 0,
+    "moneyMovement": 0,
+    "customerProductionDataMutations": 0,
+    "productionDeployments": 0
+  },
+  "truthGuard": "No customer, revenue, payment, accepted delivery, provider execution, or unattended-duration evidence is asserted by this branch."
+}

@@ -1,0 +1,196 @@
+{
+  "schemaVersion": "uberbond-claude-implementation-queue-1.0.0",
+  "generatedAt": "2026-08-28T22:05:23Z",
+  "sourceMainSha": "e5a25fc656079d4f4f5592451341cc88989881da",
+  "missionIssue": 176,
+  "laneOwner": "Claude Code / Opus Max software factory",
+  "queueLaw": "Packets name the smallest missing capability only. No packet is permission to deploy, spend, contact, or bypass productization gates.",
+  "statusReconciledAtMainSha": "348f563f614edaa24abd1e5a673e42453ea383b8",
+  "dependencySatisfiedPackets": 0,
+  "packets": [
+    {
+      "id": "CLAUDE-NIGHT-01",
+      "priority": 1,
+      "status": "IN_PROGRESS_CLAIMED_BY_PR_188",
+      "title": "Bind AI employee role contracts into relay task identity",
+      "economicReason": "Repeated research and revenue missions need role-specific evidence, tool, authority, economic, stop, and escalation ceilings without founder re-explaining them or creating new worker systems.",
+      "problem": "Partially resolved on current main: role identity is bound at scheduled task origin and worker claim fails closed on missing or tampered identity. Open PR #188 addresses the remaining cloud-relay transport path that can otherwise drop the binding before durable queue claim.",
+      "reuse": [
+        "src/agent-relay.mjs",
+        "src/cloud-agent-relay.mjs",
+        "src/agent-worker-runtime.mjs",
+        "src/agent-worker-result-truth.mjs",
+        "src/ai-compute-budget.mjs",
+        "src/effect-ledgers.mjs",
+        "docs/AI_EMPLOYEE_COMPANY_CHARTER.md"
+      ],
+      "missingCapabilityOnly": "Preserve an already-validated AI employee role binding through generic relay compilation and cloud queue transport without inventing roles for generic tasks.",
+      "resolutionEvidence": {
+        "sourceMainSha": "348f563f614edaa24abd1e5a673e42453ea383b8",
+        "state": "PARTIAL_ON_MAIN_REMAINDER_CLAIMED",
+        "openPullRequest": 188,
+        "openPullRequestHeadAtReconciliation": "a2b63e7ca5f0b98856c7d4c89ab62790d176421f",
+        "implementationCommits": [
+          "b156566",
+          "baa3c3b",
+          "348f563"
+        ],
+        "implementationPaths": [
+          "src/ai-employee-role-contract.mjs",
+          "src/ai-employee-relay.mjs",
+          "src/agent-autonomy-relay-adapter.mjs",
+          "src/agent-worker-job.mjs"
+        ],
+        "verificationPaths": [
+          "tests/ai-employee-role-contract.test.mjs",
+          "tests/ai-employee-relay.test.mjs",
+          "tests/ai-employee-role-integrity.test.mjs",
+          "tests/agent-autonomy-role-bound-origin.test.mjs",
+          "tests/agent-worker-role-gate.test.mjs"
+        ],
+        "adjudication": "Origin binding and worker enforcement are canonical; packet completion remains blocked on exact-head verification and merge of PR #188's transport preservation."
+      },
+      "sourceEvidence": ["artifacts/ai-employee-organization.json", "docs/AI_EMPLOYEE_COMPANY_CHARTER.md"],
+      "desiredStateMachine": ["ROLE_DECLARED", "ROLE_VALIDATED", "TASK_BOUND", "EXECUTING", "STOPPED_OR_ESCALATED", "TERMINAL_JUDGED"],
+      "hostileInvariants": [
+        "Unknown or missing role contracts fail closed.",
+        "A role cannot expand tools or consequence class supplied by its parent task.",
+        "Task replay with a changed role digest is an identity collision.",
+        "A model cannot self-promote its authority or declare customer/economic success.",
+        "Raw secrets and unnecessary PII remain prohibited.",
+        "Existing terminal truth and exact zero-effect requirements remain stronger than the role contract."
+      ],
+      "testsNeeded": [
+        "missing and unknown role denial",
+        "role digest replay collision",
+        "tool-set expansion denial",
+        "authority ceiling narrowing and non-expansion",
+        "stop/escalation receipt persistence",
+        "terminal result without role-bound evidence denial",
+        "backward-compatibility decision for existing relay fixtures"
+      ],
+      "successCondition": "A worker task and terminal receipt are cryptographically bound to one validated employee role without introducing a second relay, scheduler, authority system, or employee registry.",
+      "authorityBoundary": "LOCAL_PREPARATION_ONLY; no provider or business-world effects.",
+      "dependencies": [
+        "PR #188 receives trustworthy exact-head focused evidence and merges without weakening generic relay compatibility",
+        "Post-merge main proves TaskIntent to role-bound task to cloud queue to worker claim continuity"
+      ]
+    },
+    {
+      "id": "CLAUDE-NIGHT-02",
+      "priority": 2,
+      "status": "DEFER_UNTIL_OWNER_APPROVES_COMMERCIAL_PROBE",
+      "title": "Compile the selected evidence sprint into canonical offer and fulfillment contracts",
+      "economicReason": "If the canary is approved, a reusable versioned scope can reduce founder setup minutes and make payment-to-delivery-to-acceptance lineage auditable.",
+      "problem": "The research packet defines an exact evidence sprint, but current generic offer templates and catalog entries do not necessarily encode this exact scope, exclusions, founder-minute ceiling, evidence manifest, or partner-brandable acceptance package.",
+      "reuse": [
+        "src/offer-compiler.mjs",
+        "src/commercial-opportunity-catalog.mjs",
+        "src/commercial-first-payment-packet.mjs",
+        "src/service-fulfillment.mjs",
+        "src/commercial-outcome.mjs",
+        "src/commercial-reconciliation.mjs",
+        "src/payment-renewal-truth.mjs"
+      ],
+      "missingCapabilityOnly": "One data-driven ServiceSKU/offer template for offer-white-label-lead-path-evidence-sprint-v1, preserving exact scope, exclusions, acceptance criteria, SLA, revision/support ceilings, evidence artifacts, and founder-minute ceiling.",
+      "sourceEvidence": ["artifacts/offer-factory-research-packet.json", "artifacts/opportunity-tournament-latest.json"],
+      "desiredStateMachine": ["OFFER_PREPARED", "CHECKOUT_AVAILABLE", "PAYMENT_CLEARED", "FULFILLMENT_PLANNED", "QA_PASSED", "DELIVERED", "ACCEPTANCE_PENDING", "ACCEPTED_OR_REJECTED", "RENEWAL_ELIGIBLE"],
+      "hostileInvariants": [
+        "No checkout, payment, delivery, or acceptance state may be created from the research artifact.",
+        "Only provider-origin cleared payment can start paid fulfillment.",
+        "Only external-customer evidence can mark acceptance.",
+        "Unverified revenue exposure cannot appear as recovered or lost revenue.",
+        "Scope expansion requires a new version and price classification.",
+        "No CRM, website, form, call, SMS, email, or production write is implicit in the SKU."
+      ],
+      "testsNeeded": [
+        "exact scope and exclusions persist",
+        "missing buyer authorization blocks consequential test steps",
+        "research artifact cannot advance commercial states",
+        "external customer acceptance required",
+        "founder-minute ceiling preserved",
+        "second downstream site requires new fulfillment identity"
+      ],
+      "successCondition": "An owner-reviewed local first-payment packet can reference the exact SKU with zero external effects; activation remains separately gated.",
+      "authorityBoundary": "Build and tests only; no checkout, messages, provider calls, spend, deployment, or customer-system writes.",
+      "dependencies": ["Owner selects the prepared canary for a real commercial probe", "Integrator confirms productization gate permits one template before first delivery"]
+    },
+    {
+      "id": "CLAUDE-NIGHT-03",
+      "priority": 3,
+      "status": "BLOCKED_PROVIDER_SELECTION_CREDENTIAL_AND_BUDGET",
+      "title": "Add one read-only decision-bound market-signal adapter",
+      "economicReason": "Automating only decision-changing source checks can reduce repeated research minutes and detect price/policy changes before they create loss.",
+      "problem": "UberBond has a canonical MarketSignal kernel and bounded registry but no live provider adapter; adding several providers or a broad crawler before a measured need would create cost and duplicate capability.",
+      "reuse": [
+        "src/market-signal.mjs",
+        "src/market-signal-registry.mjs",
+        "src/provider-adapter-contract.mjs",
+        "src/durable-scheduler.mjs",
+        "src/adapter-capital.mjs"
+      ],
+      "missingCapabilityOnly": "One read-only adapter for the selected provider and one signal class, with source policy, query identity, maximum spend, freshness, idempotency, pagination/webhook reconciliation, and provider receipt.",
+      "sourceEvidence": ["artifacts/world-signal-taxonomy.json", "UB-S06", "UB-S07", "UB-S08", "UB-S09", "UB-S10"],
+      "desiredStateMachine": ["UNCONFIGURED", "AUTHORIZED", "QUERY_RESERVED", "PROVIDER_PENDING", "RECEIPT_RECONCILED", "SIGNALS_INGESTED", "PAUSED_OR_FAILED"],
+      "hostileInvariants": [
+        "Unconfigured adapter yields zero signals and zero provider calls.",
+        "Unknown provider outcome blocks retry until reconciled.",
+        "Provider text never auto-promotes to VERIFIED_FACT.",
+        "Contradictory observations coexist.",
+        "Budget and result limits are enforced before dispatch.",
+        "No source adapter creates distribution or contact authority."
+      ],
+      "testsNeeded": [
+        "unconfigured zero-call path",
+        "budget reservation and uncertain-outcome recovery",
+        "duplicate webhook and pagination replay",
+        "contradictory signal preservation",
+        "source-class downgrade",
+        "secret redaction"
+      ],
+      "successCondition": "One current pricing or provider-policy monitor writes canonical read-only signals under a hard cost ceiling and can be paused without losing state.",
+      "authorityBoundary": "Provider read calls only after explicit credential and budget authority; no contacts, messages, purchases, or production mutations.",
+      "dependencies": ["Owner chooses provider and grants credential/spend boundary", "A measured decision need chooses the first signal class"]
+    },
+    {
+      "id": "CLAUDE-NIGHT-04",
+      "priority": 4,
+      "status": "BLOCKED_BROWSER_INFRASTRUCTURE_AND_BUYER_SCOPE",
+      "title": "Implement deterministic-first read-only browser evidence adapter",
+      "economicReason": "A reusable evidence runner could reduce delivery minutes for the selected sprint while retaining reproducibility and stopping before side effects.",
+      "problem": "Current readiness lacks browser proof because Chromium is unavailable, and no buyer-authorized target or scenario exists. A generic autonomous browser would be premature and unsafe.",
+      "reuse": [
+        "existing browser adapter and consequence-boundary modules after exact-main inspection",
+        "src/durable-scheduler.mjs",
+        "src/effect-ledgers.mjs",
+        "src/service-fulfillment.mjs"
+      ],
+      "missingCapabilityOnly": "A deterministic-first read-only evidence step contract with allowed origins, session isolation, locator/extraction receipt, artifact hash, timeout, retry, and explicit side-effect classification.",
+      "sourceEvidence": ["UB-S19", "UB-S20", "UB-S21", "artifacts/offer-factory-research-packet.json"],
+      "desiredStateMachine": ["UNAVAILABLE", "ENVIRONMENT_VERIFIED", "SCOPE_BOUND", "READ_ONLY_RUNNING", "EVIDENCE_RECORDED", "BLOCKED_SIDE_EFFECT_OR_CONTROL"],
+      "hostileInvariants": [
+        "CAPTCHA, anti-bot, login, or uncertain control stops execution; no bypass behavior.",
+        "Forms, calls, messages, CRM writes, and production mutations are denied by default.",
+        "Adaptive model fallback cannot widen the allowed origin, action, or data scope.",
+        "Every step records whether an external effect was possible and observed.",
+        "Real customer data is prohibited from test fixtures."
+      ],
+      "testsNeeded": [
+        "allowed-origin enforcement",
+        "form and navigation side-effect denial",
+        "CAPTCHA/control stop",
+        "adaptive fallback non-expansion",
+        "retry idempotency",
+        "artifact hash and evidence reference"
+      ],
+      "successCondition": "A local or isolated sandbox run proves the exact read-only contract against a safe fixture and produces a content-addressed evidence receipt.",
+      "authorityBoundary": "No live buyer site until written scope; no form submissions, logins, messages, purchases, or bypass actions.",
+      "dependencies": ["Chromium/browser infrastructure receipt", "Owner-approved canary", "Buyer-authorized scope and safe target"]
+    }
+  ],
+  "noBuildDecisions": [
+    "Do not create a new CRM, workflow engine, scheduler, payment truth system, opportunity registry, or generic agent swarm.",
+    "Do not build marketplace, public MCP, partner portal, recurring monitor, or broad enrichment waterfall before repeated paid demand earns productization.",
+    "Do not implement outbound-provider scale while exact small-canary cost, provider policy, DNS, credentials, sender health, and authority remain blocked."
+  ]
+}

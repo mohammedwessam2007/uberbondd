@@ -1,0 +1,227 @@
+{
+  "schemaVersion": "uberbond-outreach-capacity-economics-1.0.0",
+  "generatedAt": "2026-08-28T22:05:23Z",
+  "sourceMainSha": "e5a25fc656079d4f4f5592451341cc88989881da",
+  "missionIssue": 176,
+  "truthClassification": "CAPACITY_AND_COST_MODEL_NOT_AN_AUTHORIZATION_OR_RETURN_FORECAST",
+  "currentTruth": {
+    "ownerSuppliedDomainNames": ["uberbond.agency", "uberbond.cloud"],
+    "registrarOrOwnershipReceipts": 0,
+    "providerRegisteredDomains": 0,
+    "verifiedSendingMailboxes": 0,
+    "providerCredentials": 0,
+    "senderHistoryDays": 0,
+    "authorizedLiveCampaigns": 0,
+    "verifiedOutboundSales": 0,
+    "sourceRefs": ["docs/DOMAIN_MAILBOX_READINESS.md", "docs/UBERBOND_DOMAIN_MAILBOX_READINESS.md"]
+  },
+  "providerAnchors": [
+    {
+      "id": "COST-01",
+      "provider": "Instantly",
+      "component": "sequencer",
+      "monthlyPriceUsd": 47,
+      "plan": "Growth",
+      "publishedLimit": "5,000 emails per month",
+      "sourceId": "UB-S30",
+      "evidenceClass": "OFFICIAL_PRICING"
+    },
+    {
+      "id": "COST-02",
+      "provider": "Instantly",
+      "component": "sequencer",
+      "monthlyPriceUsd": 97,
+      "plan": "Hypergrowth",
+      "publishedLimit": "100,000 to 125,000 emails per month on the current page variants",
+      "sourceId": "UB-S30",
+      "evidenceClass": "OFFICIAL_PRICING_WITH_PAGE_VARIANT_CONTRADICTION"
+    },
+    {
+      "id": "COST-03",
+      "provider": "Smartlead",
+      "component": "sequencer plus verification allowance",
+      "monthlyPriceUsd": 39,
+      "plan": "Base",
+      "publishedLimit": "6,000 sends and 2,000 verified prospect emails",
+      "sourceId": "UB-S31",
+      "evidenceClass": "OFFICIAL_PRICING"
+    },
+    {
+      "id": "COST-04",
+      "provider": "Smartlead SmartSenders",
+      "component": "mailbox",
+      "monthlyPriceUsdPerMailbox": 4.5,
+      "publishedDomainPriceUsdPerYear": 13,
+      "sourceId": "UB-S31",
+      "evidenceClass": "OFFICIAL_PRICING",
+      "note": "Provider/account policy and suitability require separate verification."
+    },
+    {
+      "id": "COST-05",
+      "provider": "Maildoso",
+      "component": "SMTP mailbox infrastructure",
+      "monthlyPriceUsd": 75,
+      "mailboxes": 30,
+      "publishedDailyColdEmailCapPerMailbox": 15,
+      "publishedDomainPriceUsdPerYear": 12,
+      "sourceId": "UB-S32",
+      "evidenceClass": "OFFICIAL_PRICING",
+      "note": "This is the public minimum plan. Small custom-quantity pricing is not publicly verified."
+    },
+    {
+      "id": "COST-06",
+      "provider": "Maildoso",
+      "component": "SMTP mailbox infrastructure",
+      "monthlyPriceUsd": 225,
+      "mailboxes": 300,
+      "publishedDailyColdEmailCapPerMailbox": 15,
+      "sourceId": "UB-S32",
+      "evidenceClass": "OFFICIAL_PRICING"
+    },
+    {
+      "id": "COST-07",
+      "provider": "Mailforge",
+      "component": "shared mailbox infrastructure",
+      "monthlyPriceUsdPerMailboxAnnualBilling": 3,
+      "minimumMailboxSlots": 10,
+      "sourceId": "UB-S33",
+      "evidenceClass": "OFFICIAL_PRICING",
+      "note": "The vendor recommends higher daily caps than UberBond's proposed canary; vendor guidance is not a safety authorization."
+    },
+    {
+      "id": "COST-08",
+      "provider": "Hunter",
+      "component": "find and verify",
+      "monthlyPriceUsd": 34,
+      "plan": "Starter annualized monthly price",
+      "publishedCreditsPerYear": 24000,
+      "sourceId": "UB-S48",
+      "evidenceClass": "OFFICIAL_PRICING"
+    }
+  ],
+  "contradictions": [
+    {
+      "id": "ECON-C01",
+      "topic": "two-mailbox-canary-cost",
+      "repositoryAssumption": "15 USD monthly ceiling",
+      "publicEvidence": "Maildoso's public minimum is 75 USD monthly for 30 mailboxes; its exact custom two-mailbox price is unavailable publicly.",
+      "decision": "Do not buy or budget against the repository assumption. Require an exact account quote or choose another provider after policy review."
+    },
+    {
+      "id": "ECON-C02",
+      "topic": "sequencer-hypergrowth-limit",
+      "publicEvidence": "The current Instantly pricing page exposes both 100,000 and 125,000 monthly-email variants for Hypergrowth.",
+      "decision": "Treat the limit as contract-time evidence, not a stable planning constant."
+    }
+  ],
+  "capacityScenarios": [
+    {
+      "id": "CAP-00",
+      "name": "Preparation only",
+      "status": "CURRENT",
+      "mailboxes": 0,
+      "proposedDailyCapPerMailbox": 0,
+      "maximumDailyColdEmails": 0,
+      "monthlyInfrastructureCostUsd": 0,
+      "messagesAuthorized": 0,
+      "purpose": "Research, suppression design, offer preparation, and account evidence only."
+    },
+    {
+      "id": "CAP-01",
+      "name": "Two-mailbox canary",
+      "status": "BLOCKED_EXACT_PROVIDER_QUOTE_DNS_AUTH_AND_POLICY",
+      "mailboxes": 2,
+      "domains": 2,
+      "proposedDailyCapPerMailbox": 10,
+      "maximumDailyColdEmails": 20,
+      "businessDaysPerMonth": 20,
+      "maximumMonthlyColdEmails": 400,
+      "monthlyInfrastructureCostUsd": null,
+      "monthlySequencerCostUsd": null,
+      "monthlyResearchVerificationCostUsd": null,
+      "totalKnownMonthlyCostUsd": null,
+      "messagesAuthorized": 0,
+      "purpose": "Smallest reputation-preserving learning probe after all gates pass.",
+      "note": "The 10-per-mailbox cap is a proposed UberBond canary policy, not a provider guarantee."
+    },
+    {
+      "id": "CAP-02",
+      "name": "Published Maildoso minimum",
+      "status": "NOT_RECOMMENDED_BEFORE_CANARY_ECONOMICS",
+      "mailboxes": 30,
+      "minimumDomainsAtEightMailboxesPerDomain": 4,
+      "providerDailyCapPerMailbox": 15,
+      "maximumDailyColdEmails": 450,
+      "businessDaysPerMonth": 20,
+      "maximumMonthlyColdEmails": 9000,
+      "mailboxInfrastructureMonthlyUsd": 75,
+      "sequencerReferenceMonthlyUsd": 47,
+      "knownMonthlySubtotalUsdExcludingDomainsDataAndVerification": 122,
+      "messagesAuthorized": 0,
+      "purpose": "Cost reference only; it overprovisions the first experiment."
+    },
+    {
+      "id": "CAP-03",
+      "name": "1,500-per-day target capacity",
+      "status": "REJECT_SCALE_BEFORE_VERIFIED_ECONOMICS",
+      "mailboxesRequiredAtMaildosoCap": 100,
+      "minimumDomainsAtEightMailboxesPerDomain": 13,
+      "providerDailyCapPerMailbox": 15,
+      "maximumDailyColdEmails": 1500,
+      "businessDaysPerMonth": 20,
+      "maximumMonthlyColdEmails": 30000,
+      "exactMailboxInfrastructureMonthlyUsd": null,
+      "nextPublishedMaildosoTierMonthlyUsd": 225,
+      "nextPublishedMaildosoTierMailboxes": 300,
+      "sequencerReferenceMonthlyUsd": 97,
+      "knownOverprovisionedMonthlySubtotalUsdExcludingDomainsDataAndVerification": 322,
+      "messagesAuthorized": 0,
+      "purpose": "Capacity math only. It is not an operating target until the smaller canary proves positive cleared contribution and sender health."
+    }
+  ],
+  "economicEquation": {
+    "clearedContributionUsd": "clearedPayments - refunds - disputes - paymentFees - mailboxAndSequencerCost - researchAndVerificationCost - modelAndBrowserCost - deliveryProviderCost - supportLaborCost - founderMinuteCost",
+    "contributionPerFounderMinuteUsd": "clearedContributionUsd / founderMinutes",
+    "founderMinuteCost": "founderMinutes * ownerChosenValuePerMinuteUsd",
+    "breakEvenSales": "ceil((all fixed and variable costs excluding delivery-variable-per-sale) / (clearedPricePerSale - paymentFeesPerSale - deliveryVariableCostPerSale - supportVariableCostPerSale))",
+    "rule": "If any required term is unknown, the economic result is UNKNOWN rather than zero."
+  },
+  "canarySensitivity": {
+    "offerPriceHypothesisUsd": 450,
+    "zeroSales": {
+      "clearedPaymentsUsd": 0,
+      "contributionResult": "NEGATIVE_BY_ALL_ACTUAL_INFRASTRUCTURE_RESEARCH_AND_FOUNDER_COSTS"
+    },
+    "oneClearedSale": {
+      "clearedPaymentsBeforeFeesAndDeliveryUsd": 450,
+      "contributionResult": "UNKNOWN_UNTIL_PAYMENT_FEES_DELIVERY_COST_SUPPORT_AND_FOUNDER_MINUTES_ARE_RECEIPTED"
+    },
+    "conversionRate": null,
+    "replyRate": null,
+    "qualifiedConversationRate": null,
+    "expectedRevenue": null
+  },
+  "safetyAndKillPolicy": {
+    "currentCodeComplaintPauseThreshold": 0.001,
+    "currentCodeBouncePauseThreshold": 0.05,
+    "providerComplaintCeiling": 0.003,
+    "providerSourceIds": ["UB-S34", "UB-S35"],
+    "rules": [
+      "The stricter current UberBond complaint threshold wins.",
+      "Any suppression, provenance, provider-policy, DNS, authentication, or uncertain-provider-outcome failure pauses before volume math matters.",
+      "Never buy contacts or infer private addresses.",
+      "Canada and Australia remain disabled without qualified consent evidence; other jurisdictions require exact adjudication.",
+      "Do not scale from replies, opens, meetings, or model scores; require cleared payment, accepted delivery, measured costs, and founder minutes."
+    ]
+  },
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  }
+}

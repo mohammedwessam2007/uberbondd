@@ -1,0 +1,197 @@
+{
+  "schemaVersion": "uberbond-offer-factory-research-packet-1.0.0",
+  "generatedAt": "2026-08-28T22:05:23Z",
+  "sourceMainSha": "e5a25fc656079d4f4f5592451341cc88989881da",
+  "missionIssue": 176,
+  "truthClassification": "PREPARED_OFFER_HYPOTHESES_NOT_LIVE_OFFERS",
+  "activeCommercialExperiment": null,
+  "offers": [
+    {
+      "id": "offer-white-label-lead-path-evidence-sprint-v1",
+      "portfolioRole": "RECOMMENDED_CANARY_PREPARATION",
+      "name": "White-label Lead-Path Revenue Leak Evidence Sprint",
+      "buyer": "A US or otherwise legally approved agency serving HVAC, plumbing, or electrical businesses",
+      "trigger": "The agency needs independent, reproducible evidence that a downstream client's public lead path loses, delays, or obscures qualified demand.",
+      "promise": "Within five business days of complete inputs, deliver a partner-brandable evidence pack showing the tested lead path, reproducible findings, severity, evidence references, remediation backlog, and an explicit list of what could not be verified.",
+      "scope": {
+        "included": [
+          "one downstream home-service website",
+          "one primary public lead path",
+          "public-surface observation",
+          "up to five agency-authorized synthetic scenarios when written authorization and safe test data exist",
+          "response-time evidence only when the buyer supplies receipts or authorizes a controlled test",
+          "evidence hashes and reproduction steps",
+          "severity classification",
+          "partner-brandable summary",
+          "bounded remediation backlog"
+        ],
+        "excluded": [
+          "contacting real leads or customers",
+          "placing calls or sending SMS/email",
+          "submitting forms without explicit written scope and test identity",
+          "CRM, field-service, DNS, website, or production-system writes",
+          "accessing private customer data",
+          "implementing remediation",
+          "legal, tax, security, accessibility, or revenue guarantees",
+          "claiming lost or recovered revenue without buyer-origin transaction evidence"
+        ]
+      },
+      "inputsRequired": [
+        "buyer identity and authority",
+        "target URL and exact path",
+        "written scope",
+        "test-data classification",
+        "systems explicitly in and out of bounds",
+        "acceptance contact",
+        "payment-provider eligibility"
+      ],
+      "acceptanceCriteria": [
+        "Every finding has a timestamp, evidence reference, severity, scope boundary, and reproduction status.",
+        "Contradictory observations are preserved rather than averaged away.",
+        "No claimed revenue amount appears without buyer-origin transaction evidence.",
+        "The pack names untested and unverifiable surfaces.",
+        "The buyer explicitly accepts or rejects the exact versioned delivery."
+      ],
+      "deliverySla": {
+        "durationBusinessDays": 5,
+        "startsWhen": "Cleared payment and all required inputs are present.",
+        "repairWindowBusinessDays": 2,
+        "supportMinuteCeiling": 30,
+        "founderMinuteCeiling": 180
+      },
+      "pricingHypothesis": {
+        "currency": "USD",
+        "amount": 450,
+        "billing": "ONE_TIME_FIXED_SCOPE",
+        "evidenceClass": "HYPOTHESIS",
+        "state": "NOT_OFFERED_NOT_VALIDATED",
+        "rule": "Do not change the price mid-canary; record acceptance, negotiation, or rejection as external evidence."
+      },
+      "distributionRecipe": {
+        "primary": "PARTNER_WHITE_LABEL",
+        "supporting": ["EVIDENCE_LED_DIRECT_OUTBOUND", "PRODUCT_LED_DIAGNOSTIC", "OWNED_CONTENT"],
+        "initialAudienceHypothesis": "Agencies publicly demonstrating home-service specialization and at least three downstream client examples.",
+        "contactRule": "No recipient is contacted until jurisdiction, public-contact provenance, suppression, provider policy, sender health, physical-address, unsubscribe, and owner authority gates all pass.",
+        "partnerCompoundingLoop": "One agency can sponsor multiple downstream sprints; each accepted pack can become a case-specific proof artifact only with buyer permission."
+      },
+      "proofPackage": [
+        "versioned scope",
+        "evidence manifest",
+        "reproduction log",
+        "finding register",
+        "limitations and contradictions",
+        "remediation backlog",
+        "delivery receipt",
+        "customer acceptance or rejection receipt",
+        "founder-minute and provider-cost receipt"
+      ],
+      "recurringGraduation": {
+        "candidate": "Monthly Lead-Path Assurance Monitor",
+        "allowedAfter": "At least three paid, accepted sprints with a repeatable common scope and evidence that buyers value monitoring.",
+        "notAllowedBefore": "Repeated paid demand and measured positive contribution."
+      },
+      "killConditions": [
+        "No qualified buyer conversation in the bounded initial audience.",
+        "No paid pilot after five qualified conversations.",
+        "Founder-minute ceiling is exceeded and the cause is not reusable.",
+        "Delivery requires consequential production actions outside the signed scope.",
+        "Measured contribution is negative."
+      ],
+      "sourceIds": ["UB-S01", "UB-S02", "UB-S44", "UB-R04"]
+    },
+    {
+      "id": "offer-ai-agent-acceptance-evidence-sprint-v1",
+      "portfolioRole": "FALLBACK_PREPARATION",
+      "name": "AI Agent Acceptance Evidence Sprint",
+      "buyer": "An AI implementation agency or software team preparing a customer-facing agent release",
+      "trigger": "The buyer needs independent evidence that a versioned agent follows procedures, reaches expected final states, escalates correctly, and avoids unauthorized extra actions.",
+      "promise": "Within five business days of receiving a safe sandbox and expected outcomes, execute a bounded scenario pack and deliver repeat-run acceptance evidence, failures, traces, and a prioritized repair backlog.",
+      "scope": {
+        "included": [
+          "one versioned agent",
+          "up to 25 buyer-approved scenarios",
+          "up to three repeated runs per scenario when nondeterminism is material",
+          "expected final-state comparison",
+          "procedure and tool-call checks",
+          "unauthorized-extra-action checks",
+          "failure clustering",
+          "versioned acceptance report"
+        ],
+        "excluded": [
+          "production traffic",
+          "real customer data",
+          "live financial, account, identity, or irreversible actions",
+          "penetration testing",
+          "model or vendor guarantees",
+          "agent remediation",
+          "customer acceptance inferred from internal scores"
+        ]
+      },
+      "inputsRequired": [
+        "buyer-authorized sandbox",
+        "synthetic test data",
+        "agent version",
+        "procedure version",
+        "expected final states",
+        "allowed and forbidden action set",
+        "acceptance contact"
+      ],
+      "acceptanceCriteria": [
+        "Every scenario has an expected state, observed state, pass/fail/blocked outcome, trace reference, and run count.",
+        "No production or real-customer effect occurs.",
+        "Unexpected extra actions fail the scenario.",
+        "Nondeterministic results are reported as distributions, not one cherry-picked pass.",
+        "The buyer explicitly accepts or rejects the exact delivery."
+      ],
+      "deliverySla": {
+        "durationBusinessDays": 5,
+        "startsWhen": "Cleared payment, safe sandbox, and complete scenario contract are present.",
+        "repairWindowBusinessDays": 2,
+        "supportMinuteCeiling": 45,
+        "founderMinuteCeiling": 240
+      },
+      "pricingHypothesis": {
+        "currency": "USD",
+        "amount": 900,
+        "billing": "ONE_TIME_FIXED_SCOPE",
+        "evidenceClass": "HYPOTHESIS",
+        "state": "NOT_OFFERED_NOT_VALIDATED"
+      },
+      "distributionRecipe": {
+        "primary": "PARTNER_WHITE_LABEL",
+        "supporting": ["EVIDENCE_LED_WARM_OUTBOUND", "OWNED_TECHNICAL_CONTENT"],
+        "activationCondition": "Primary canary reaches a kill threshold, or a qualified buyer supplies the required sandbox and requests paid independent acceptance evidence."
+      },
+      "proofPackage": [
+        "scenario manifest",
+        "run receipt set",
+        "expected-versus-observed state matrix",
+        "unauthorized-action register",
+        "failure clusters",
+        "limitations",
+        "delivery and customer-acceptance receipt"
+      ],
+      "sourceIds": ["UB-S15", "UB-S16", "UB-S17", "UB-S18"]
+    }
+  ],
+  "activationGates": {
+    "legalJurisdiction": "EXTERNAL_REVIEW_REQUIRED",
+    "merchantOfRecordOrPaymentRoute": "EXTERNAL_PROVIDER_AND_KYC_REQUIRED",
+    "senderInfrastructure": "BLOCKED_PROVIDER_AUTH",
+    "buyerAuthority": "EXTERNAL_PROOF_REQUIRED",
+    "budget": "OWNER_REQUIRED",
+    "liveOutreach": "DISABLED",
+    "checkout": "DISABLED",
+    "productionActions": "DISABLED"
+  },
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  }
+}

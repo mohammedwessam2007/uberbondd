@@ -1,0 +1,559 @@
+{
+  "schemaVersion": "uberbond-research-source-registry-1.0.0",
+  "generatedAt": "2026-08-28T22:05:23Z",
+  "sourceMainSha": "e5a25fc656079d4f4f5592451341cc88989881da",
+  "missionIssue": 176,
+  "truthLaw": "A source supports only the stated observation. Vendor pages do not prove UberBond demand, willingness to pay, contribution, acceptance, or renewal.",
+  "sources": [
+    {
+      "id": "UB-R01",
+      "publisher": "UberBond",
+      "title": "Current System State",
+      "url": "docs/CURRENT_SYSTEM_STATE.md",
+      "sourceType": "REPOSITORY_FACT",
+      "retrievedAt": "2026-08-28T21:24:00Z",
+      "freshness": "CURRENT_AT_SOURCE_MAIN_SHA",
+      "supports": ["zero customers", "zero cleared revenue", "zero accepted deliveries", "external activation blockers"]
+    },
+    {
+      "id": "UB-R02",
+      "publisher": "UberBond",
+      "title": "System Readiness Receipt",
+      "url": "artifacts/system-readiness.json",
+      "sourceType": "REPOSITORY_FACT",
+      "retrievedAt": "2026-08-28T21:24:00Z",
+      "freshness": "STALE_RELATIVE_TO_SOURCE_MAIN_SHA",
+      "supports": ["recorded deterministic test receipt", "missing current real PostgreSQL receipt", "browser verification blocker"]
+    },
+    {
+      "id": "UB-R03",
+      "publisher": "UberBond",
+      "title": "Distribution OS Canon",
+      "url": "docs/DISTRIBUTION_OS_CANON.md",
+      "sourceType": "REPOSITORY_FACT",
+      "retrievedAt": "2026-08-28T21:32:00Z",
+      "freshness": "CURRENT_AT_SOURCE_MAIN_SHA",
+      "supports": ["canonical attribution chain", "cleared-contribution allocation law", "authority and suppression boundaries"]
+    },
+    {
+      "id": "UB-R04",
+      "publisher": "UberBond",
+      "title": "Kilimanjaro Commercial Evidence Closure",
+      "url": "docs/KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md",
+      "sourceType": "REPOSITORY_FACT",
+      "retrievedAt": "2026-08-28T21:38:00Z",
+      "freshness": "CURRENT_AT_SOURCE_MAIN_SHA",
+      "supports": ["home-services wedge baseline", "ten-offer commoditization review", "payment-provider constraints", "partner-led thesis"]
+    },
+    {
+      "id": "UB-S01",
+      "publisher": "Jobber",
+      "title": "2026 Home Service Trends Report",
+      "url": "https://www.getjobber.com/home-service-trends-report/",
+      "sourceType": "SELLER_SURVEY",
+      "retrievedAt": "2026-08-28T21:56:00Z",
+      "freshness": "CURRENT_2026",
+      "supports": ["response-speed buyer signal", "quote and communication workflow burden", "home-service vertical selection"]
+    },
+    {
+      "id": "UB-S02",
+      "publisher": "Housecall Pro",
+      "title": "2026 State of Home Services Spending",
+      "url": "https://www.housecallpro.com/resources/home-service-spending-report/",
+      "sourceType": "SELLER_SURVEY",
+      "retrievedAt": "2026-08-28T22:01:00Z",
+      "freshness": "CURRENT_2026",
+      "supports": ["repair-led HVAC and plumbing demand", "predictable trigger moments", "speed and estimate-friction signal"]
+    },
+    {
+      "id": "UB-S03",
+      "publisher": "Clay",
+      "title": "Claygent and Data Infrastructure",
+      "url": "https://www.clay.com/claygent",
+      "sourceType": "OFFICIAL_PRODUCT_FACT",
+      "retrievedAt": "2026-08-28T22:01:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["provider waterfalls", "signal-driven audiences", "research agents", "audience-to-sequencer workflow"]
+    },
+    {
+      "id": "UB-S04",
+      "publisher": "Attio",
+      "title": "Revenue Agents and Universal Context",
+      "url": "https://attio.com/blog/orchestrate-revenue-agents",
+      "sourceType": "VENDOR_MECHANISM_CLAIM",
+      "retrievedAt": "2026-08-28T22:01:00Z",
+      "freshness": "CURRENT_2026",
+      "supports": ["shared account context", "revenue-agent workflow blocks", "CRM as context plane"]
+    },
+    {
+      "id": "UB-S05",
+      "publisher": "Attio",
+      "title": "Attio MCP Reference",
+      "url": "https://attio.com/help/reference/attio-ai/attio-mcp",
+      "sourceType": "OFFICIAL_PRODUCT_FACT",
+      "retrievedAt": "2026-08-28T21:45:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["permissioned agent access to CRM context and actions", "MCP distribution mechanism"]
+    },
+    {
+      "id": "UB-S06",
+      "publisher": "Parallel",
+      "title": "Monitor API GA",
+      "url": "https://parallel.ai/blog/monitor-api",
+      "sourceType": "VENDOR_MECHANISM_CLAIM",
+      "retrievedAt": "2026-08-28T22:01:00Z",
+      "freshness": "CURRENT_2026",
+      "supports": ["snapshot and event-stream monitoring", "source policies", "structured monitor outputs"]
+    },
+    {
+      "id": "UB-S07",
+      "publisher": "Parallel",
+      "title": "Deep Research Task API Example",
+      "url": "https://docs.parallel.ai/task-api/examples/task-deep-research",
+      "sourceType": "OFFICIAL_PRODUCT_FACT",
+      "retrievedAt": "2026-08-28T21:45:00Z",
+      "freshness": "CURRENT_DOCS",
+      "supports": ["asynchronous research jobs", "webhook completion", "structured cited outputs"]
+    },
+    {
+      "id": "UB-S08",
+      "publisher": "Exa",
+      "title": "Search API Guide",
+      "url": "https://exa.ai/docs/reference/search-api-guide",
+      "sourceType": "OFFICIAL_PRODUCT_FACT",
+      "retrievedAt": "2026-08-28T21:46:00Z",
+      "freshness": "CURRENT_DOCS",
+      "supports": ["search latency modes", "structured outputs", "category filters"]
+    },
+    {
+      "id": "UB-S09",
+      "publisher": "Exa",
+      "title": "Exa Pricing",
+      "url": "https://exa.ai/pricing",
+      "sourceType": "OFFICIAL_PRICING",
+      "retrievedAt": "2026-08-28T21:46:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["research and search cost anchors", "monitor and contents cost anchors"]
+    },
+    {
+      "id": "UB-S10",
+      "publisher": "Exa",
+      "title": "Monitors API Guide",
+      "url": "https://exa.ai/docs/reference/monitors-api-guide",
+      "sourceType": "OFFICIAL_PRODUCT_FACT",
+      "retrievedAt": "2026-08-28T21:46:00Z",
+      "freshness": "CURRENT_DOCS",
+      "supports": ["recurring searches", "webhook delivery", "deduplication"]
+    },
+    {
+      "id": "UB-S11",
+      "publisher": "11x",
+      "title": "11x Digital Workers",
+      "url": "https://www.11x.ai/",
+      "sourceType": "VENDOR_MECHANISM_CLAIM",
+      "retrievedAt": "2026-08-28T21:47:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["inbound and outbound worker packaging", "context memory", "pipeline-wide positioning"]
+    },
+    {
+      "id": "UB-S12",
+      "publisher": "11x",
+      "title": "B2B Sales AI Tools Guide",
+      "url": "https://www.11x.ai/guides/sales-ai-tools-b2b-sales-teams",
+      "sourceType": "VENDOR_PRICING_CLAIM",
+      "retrievedAt": "2026-08-28T21:47:00Z",
+      "freshness": "CURRENT_2026",
+      "supports": ["11x published package price anchors", "managed digital-worker packaging"]
+    },
+    {
+      "id": "UB-S13",
+      "publisher": "Artisan",
+      "title": "AI Sales Agent Approval Gates",
+      "url": "https://www.artisan.co/ai-sales-agent",
+      "sourceType": "VENDOR_MECHANISM_CLAIM",
+      "retrievedAt": "2026-08-28T21:47:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["approval-first autonomy ladder", "enrichment-to-send workflow", "CRM synchronization"]
+    },
+    {
+      "id": "UB-S14",
+      "publisher": "Decagon",
+      "title": "Agent Operating Procedures",
+      "url": "https://decagon.ai/product/aop",
+      "sourceType": "VENDOR_MECHANISM_CLAIM",
+      "retrievedAt": "2026-08-28T21:48:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["natural-language procedures compiled into structured workflow", "versioned agent behavior"]
+    },
+    {
+      "id": "UB-S15",
+      "publisher": "Decagon",
+      "title": "Diagnostic Tools",
+      "url": "https://decagon.ai/blog/diagnostic-tools",
+      "sourceType": "VENDOR_MECHANISM_CLAIM",
+      "retrievedAt": "2026-08-28T21:56:00Z",
+      "freshness": "CURRENT_2026",
+      "supports": ["procedure-version flow analysis", "dropout and escalation diagnostics", "conversation-to-repair loop"]
+    },
+    {
+      "id": "UB-S16",
+      "publisher": "Sierra",
+      "title": "Agent Simulations",
+      "url": "https://sierra.ai/blog/simulations-the-secret-behind-every-great-agent",
+      "sourceType": "VENDOR_MECHANISM_CLAIM",
+      "retrievedAt": "2026-08-28T21:49:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["scenario simulation before production", "acceptance-test mechanism"]
+    },
+    {
+      "id": "UB-S17",
+      "publisher": "Sierra",
+      "title": "Tau Knowledge Benchmark",
+      "url": "https://sierra.ai/blog/tau-knowledge",
+      "sourceType": "VENDOR_RESEARCH",
+      "retrievedAt": "2026-08-28T21:56:00Z",
+      "freshness": "CURRENT_2026",
+      "supports": ["current agent reliability gap on realistic knowledge and tool tasks", "need for acceptance evidence"]
+    },
+    {
+      "id": "UB-S18",
+      "publisher": "Intercom",
+      "title": "Fin Capabilities",
+      "url": "https://www.intercom.com/fin/capabilities",
+      "sourceType": "OFFICIAL_PRODUCT_FACT",
+      "retrievedAt": "2026-08-28T21:49:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["procedures combining natural language and deterministic controls", "data connectors", "system actions"]
+    },
+    {
+      "id": "UB-S19",
+      "publisher": "Browserbase",
+      "title": "Stagehand",
+      "url": "https://www.browserbase.com/stagehand",
+      "sourceType": "OFFICIAL_PRODUCT_FACT",
+      "retrievedAt": "2026-08-28T21:50:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["deterministic scripts plus agent flexibility", "MIT-licensed reference implementation"]
+    },
+    {
+      "id": "UB-S20",
+      "publisher": "Browserbase",
+      "title": "Temporal Integration",
+      "url": "https://docs.browserbase.com/integrations/temporal/introduction",
+      "sourceType": "OFFICIAL_PRODUCT_FACT",
+      "retrievedAt": "2026-08-28T21:50:00Z",
+      "freshness": "CURRENT_DOCS",
+      "supports": ["durable browser-task retries", "state and observability composition"]
+    },
+    {
+      "id": "UB-S21",
+      "publisher": "Lindy",
+      "title": "Testing Agents",
+      "url": "https://docs.lindy.ai/testing/test-panel",
+      "sourceType": "OFFICIAL_PRODUCT_FACT",
+      "retrievedAt": "2026-08-28T21:51:00Z",
+      "freshness": "CURRENT_DOCS",
+      "supports": ["tests can create real external effects", "test-data and effect-isolation requirement"]
+    },
+    {
+      "id": "UB-S22",
+      "publisher": "Lindy",
+      "title": "LLM Call Utility",
+      "url": "https://docs.lindy.ai/skills/lindy-utilities/llm-call",
+      "sourceType": "OFFICIAL_PRODUCT_FACT",
+      "retrievedAt": "2026-08-28T21:51:00Z",
+      "freshness": "CURRENT_DOCS",
+      "supports": ["cheap bounded model call for simple tasks", "full-agent avoidance"]
+    },
+    {
+      "id": "UB-S23",
+      "publisher": "Gumloop",
+      "title": "Agents",
+      "url": "https://docs.gumloop.com/core-concepts/agents",
+      "sourceType": "OFFICIAL_PRODUCT_FACT",
+      "retrievedAt": "2026-08-28T21:51:00Z",
+      "freshness": "CURRENT_DOCS",
+      "supports": ["open-ended agents with bounded tools and triggers", "workflow composition"]
+    },
+    {
+      "id": "UB-S24",
+      "publisher": "Gumloop",
+      "title": "Custom MCP Servers",
+      "url": "https://docs.gumloop.com/nodes/mcp/custom_mcp_servers",
+      "sourceType": "OFFICIAL_PRODUCT_FACT",
+      "retrievedAt": "2026-08-28T21:51:00Z",
+      "freshness": "CURRENT_DOCS",
+      "supports": ["MCP-based embedded capability distribution"]
+    },
+    {
+      "id": "UB-S25",
+      "publisher": "n8n",
+      "title": "Sustainable Use License",
+      "url": "https://docs.n8n.io/privacy-and-security/sustainable-use-license",
+      "sourceType": "OFFICIAL_LICENSE",
+      "retrievedAt": "2026-08-28T21:54:00Z",
+      "freshness": "CURRENT_2026",
+      "supports": ["internal-use and commercial-distribution limitations", "reference-not-embed decision"]
+    },
+    {
+      "id": "UB-S26",
+      "publisher": "Activepieces",
+      "title": "License",
+      "url": "https://www.activepieces.com/docs/about/license",
+      "sourceType": "OFFICIAL_LICENSE",
+      "retrievedAt": "2026-08-28T21:53:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["MIT core", "commercial enterprise features", "selective reference option"]
+    },
+    {
+      "id": "UB-S27",
+      "publisher": "Windmill Labs",
+      "title": "Windmill Repository License",
+      "url": "https://github.com/windmill-labs/windmill/blob/main/LICENSE",
+      "sourceType": "OFFICIAL_LICENSE",
+      "retrievedAt": "2026-08-28T21:53:00Z",
+      "freshness": "CURRENT_MAIN",
+      "supports": ["mixed AGPLv3 and Apache licensing", "license-review-required decision"]
+    },
+    {
+      "id": "UB-S28",
+      "publisher": "Temporal Technologies",
+      "title": "Temporal Repository",
+      "url": "https://github.com/temporalio/temporal",
+      "sourceType": "OFFICIAL_REPOSITORY",
+      "retrievedAt": "2026-08-28T21:53:00Z",
+      "freshness": "ACTIVE_2026",
+      "supports": ["MIT license", "durable execution reference", "active project"]
+    },
+    {
+      "id": "UB-S29",
+      "publisher": "Browserbase",
+      "title": "Stagehand Repository",
+      "url": "https://github.com/browserbase/stagehand",
+      "sourceType": "OFFICIAL_REPOSITORY",
+      "retrievedAt": "2026-08-28T21:53:00Z",
+      "freshness": "ACTIVE_2026",
+      "supports": ["MIT license", "active browser-agent SDK", "adapter/reference option"]
+    },
+    {
+      "id": "UB-S30",
+      "publisher": "Instantly",
+      "title": "Pricing",
+      "url": "https://instantly.ai/pricing",
+      "sourceType": "OFFICIAL_PRICING",
+      "retrievedAt": "2026-08-28T21:52:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["Growth 47 USD monthly", "Hypergrowth 97 USD monthly", "sequencer volume ceilings"]
+    },
+    {
+      "id": "UB-S31",
+      "publisher": "Smartlead",
+      "title": "Pricing",
+      "url": "https://www.smartlead.ai/pricing",
+      "sourceType": "OFFICIAL_PRICING",
+      "retrievedAt": "2026-08-28T21:52:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["39 USD base plan", "mailbox and domain add-on anchors", "verification allowance"]
+    },
+    {
+      "id": "UB-S32",
+      "publisher": "Maildoso",
+      "title": "Pricing",
+      "url": "https://maildoso.ai/pricing",
+      "sourceType": "OFFICIAL_PRICING",
+      "retrievedAt": "2026-08-28T21:52:00Z",
+      "freshness": "CURRENT_2026",
+      "supports": ["75 USD published monthly minimum", "15 cold-email daily mailbox cap", "custom quantity quote remains unverified"]
+    },
+    {
+      "id": "UB-S33",
+      "publisher": "Mailforge",
+      "title": "Pricing",
+      "url": "https://www.mailforge.ai/pricing",
+      "sourceType": "OFFICIAL_PRICING",
+      "retrievedAt": "2026-08-28T21:52:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["minimum mailbox slots", "domain and mailbox cost anchors", "vendor-suggested mailbox caps"]
+    },
+    {
+      "id": "UB-S34",
+      "publisher": "Google",
+      "title": "Email Sender Guidelines",
+      "url": "https://support.google.com/a/answer/81126",
+      "sourceType": "OFFICIAL_POLICY",
+      "retrievedAt": "2026-08-28T21:55:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["SPF or DKIM requirement", "bulk sender SPF DKIM DMARC and unsubscribe requirements", "complaint-rate ceiling"]
+    },
+    {
+      "id": "UB-S35",
+      "publisher": "Yahoo",
+      "title": "Sender Best Practices",
+      "url": "https://senders.yahooinc.com/best-practices/",
+      "sourceType": "OFFICIAL_POLICY",
+      "retrievedAt": "2026-08-28T21:55:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["complaint-rate ceiling", "authentication and unsubscribe requirements"]
+    },
+    {
+      "id": "UB-S36",
+      "publisher": "Federal Trade Commission",
+      "title": "CAN-SPAM Compliance Guide",
+      "url": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business",
+      "sourceType": "REGULATOR_GUIDANCE",
+      "retrievedAt": "2026-08-28T21:55:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["US commercial email identity and opt-out requirements", "physical address requirement"]
+    },
+    {
+      "id": "UB-S37",
+      "publisher": "UK Information Commissioner's Office",
+      "title": "Business-to-business Marketing",
+      "url": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/",
+      "sourceType": "REGULATOR_GUIDANCE",
+      "retrievedAt": "2026-08-28T21:55:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["UK corporate-subscriber distinction", "identity and opt-out duties", "personal-data duties remain"]
+    },
+    {
+      "id": "UB-S38",
+      "publisher": "Government of Canada",
+      "title": "Getting Consent to Send Email",
+      "url": "https://ised-isde.canada.ca/site/canada-anti-spam-legislation/en/getting-consent-send-email",
+      "sourceType": "REGULATOR_GUIDANCE",
+      "retrievedAt": "2026-08-28T21:55:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["CASL consent requirement", "Canada disabled without qualified consent evidence"]
+    },
+    {
+      "id": "UB-S39",
+      "publisher": "Australian Communications and Media Authority",
+      "title": "Avoid Sending Spam",
+      "url": "https://www.acma.gov.au/avoid-sending-spam",
+      "sourceType": "REGULATOR_GUIDANCE",
+      "retrievedAt": "2026-08-28T21:55:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["consent requirement", "unsubscribe timing", "address-harvesting restriction"]
+    },
+    {
+      "id": "UB-S40",
+      "publisher": "Google Search Central",
+      "title": "AI Features and Your Website",
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "sourceType": "OFFICIAL_POLICY",
+      "retrievedAt": "2026-08-28T21:55:00Z",
+      "freshness": "CURRENT_2026",
+      "supports": ["normal SEO remains relevant to AI search", "valuable original content requirement", "no special AI markup requirement"]
+    },
+    {
+      "id": "UB-S41",
+      "publisher": "Google Search Central",
+      "title": "Spam Policies",
+      "url": "https://developers.google.com/search/docs/essentials/spam-policies",
+      "sourceType": "OFFICIAL_POLICY",
+      "retrievedAt": "2026-08-28T21:55:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["scaled-content abuse boundary", "programmatic content quality gate"]
+    },
+    {
+      "id": "UB-S42",
+      "publisher": "OpenAI",
+      "title": "OpenAI Bots",
+      "url": "https://developers.openai.com/api/docs/bots",
+      "sourceType": "OFFICIAL_POLICY",
+      "retrievedAt": "2026-08-28T21:55:00Z",
+      "freshness": "CURRENT_DOCS",
+      "supports": ["OAI-SearchBot controls", "ChatGPT search visibility prerequisite"]
+    },
+    {
+      "id": "UB-S43",
+      "publisher": "HubSpot",
+      "title": "Solutions Partner Program 2026",
+      "url": "https://www.hubspot.com/solutions-partners-tiers-and-benefits-2026",
+      "sourceType": "OFFICIAL_PARTNER_TERMS",
+      "retrievedAt": "2026-08-28T21:54:00Z",
+      "freshness": "CURRENT_2026",
+      "supports": ["partner membership cost", "directory and tier mechanism", "do-not-purchase-yet decision"]
+    },
+    {
+      "id": "UB-S44",
+      "publisher": "Duda",
+      "title": "White-label Website Builder",
+      "url": "https://www.duda.co/website-builder/white-label",
+      "sourceType": "OFFICIAL_PRODUCT_FACT",
+      "retrievedAt": "2026-08-28T21:54:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["agency white-label packaging", "multi-client and API distribution mechanism"]
+    },
+    {
+      "id": "UB-S45",
+      "publisher": "Shopify",
+      "title": "App Store Revenue Share",
+      "url": "https://shopify.dev/docs/apps/launch/distribution/revenue-share",
+      "sourceType": "OFFICIAL_MARKETPLACE_TERMS",
+      "retrievedAt": "2026-08-28T21:54:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["app marketplace economics", "marketplace distribution option after product proof"]
+    },
+    {
+      "id": "UB-S46",
+      "publisher": "Zapier",
+      "title": "Developer Platform Partner Program",
+      "url": "https://zapier.com/developer-platform/partner-program",
+      "sourceType": "OFFICIAL_PARTNER_TERMS",
+      "retrievedAt": "2026-08-28T21:54:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["app directory distribution", "integration partner support", "embedded distribution option"]
+    },
+    {
+      "id": "UB-S47",
+      "publisher": "Model Context Protocol",
+      "title": "Official MCP Registry",
+      "url": "https://registry.modelcontextprotocol.io/",
+      "sourceType": "OFFICIAL_REGISTRY",
+      "retrievedAt": "2026-08-28T21:54:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["MCP server discovery surface", "future read-only diagnostic distribution path"]
+    },
+    {
+      "id": "UB-S48",
+      "publisher": "Hunter",
+      "title": "Plans and Pricing",
+      "url": "https://hunter.io/pricing",
+      "sourceType": "OFFICIAL_PRICING",
+      "retrievedAt": "2026-08-28T21:53:00Z",
+      "freshness": "CURRENT_PAGE",
+      "supports": ["search and verification credit anchors", "managed account cost anchors"]
+    }
+  ],
+  "contradictions": [
+    {
+      "id": "UB-C01",
+      "topic": "maildoso-small-canary-cost",
+      "claimA": "Repository activation card sets a 15 USD monthly ceiling for two mailboxes.",
+      "claimASource": "docs/UBERBOND_DOMAIN_MAILBOX_READINESS.md",
+      "claimB": "The current public plan minimum is 75 USD monthly for 30 mailboxes; custom small-quantity pricing is not publicly quoted.",
+      "claimBSourceIds": ["UB-S32"],
+      "adjudication": "UNRESOLVED_EXTERNAL_QUOTE_REQUIRED",
+      "decisionEffect": "No mailbox purchase or activation recommendation may assume the 15 USD figure."
+    },
+    {
+      "id": "UB-C02",
+      "topic": "home-service-demand-versus-commoditization",
+      "claimA": "Current seller surveys show urgent, response-sensitive home-service workflows.",
+      "claimASourceIds": ["UB-S01", "UB-S02"],
+      "claimB": "Incumbent field-service and CRM products already automate the obvious response, quote, reminder, and review steps.",
+      "claimBSourceIds": ["UB-R04"],
+      "adjudication": "SELL_EVIDENCE_AND_RECOVERY_OVERLAY_NOT_GENERIC_AUTOMATION"
+    },
+    {
+      "id": "UB-C03",
+      "topic": "agent-capability-versus-agent-reliability",
+      "claimA": "Vendors expose powerful research, workflow, browser, CRM, and action capabilities.",
+      "claimASourceIds": ["UB-S03", "UB-S04", "UB-S14", "UB-S18", "UB-S19"],
+      "claimB": "Current vendor research still finds low repeatable success on realistic knowledge-heavy tool tasks.",
+      "claimBSourceIds": ["UB-S17"],
+      "adjudication": "REQUIRE_ACCEPTANCE_TESTS_EXTERNAL_JUDGES_AND_AUTHORITY_CEILINGS"
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "schemaVersion": "uberbond-world-signal-taxonomy-1.0.0",
+  "generatedAt": "2026-08-28T22:05:23Z",
+  "sourceMainSha": "e5a25fc656079d4f4f5592451341cc88989881da",
+  "missionIssue": 176,
+  "purpose": "Monitor only world facts whose change can alter a current commercial, distribution, provider, legal, or capital-allocation decision.",
+  "canonicalIngestion": {
+    "kernel": "src/market-signal.mjs",
+    "registry": "src/market-signal-registry.mjs",
+    "maximumDefaultAgeDays": 30,
+    "rule": "Observation, inference, contradiction, and decision remain separate. A monitor never authorizes an external action."
+  },
+  "signalClasses": [
+    {
+      "id": "WS-01",
+      "name": "active-buyer-pain",
+      "question": "Has the selected buyer's urgent, measurable problem changed?",
+      "examples": ["lead response expectations", "quote delay", "agent reliability failure", "support escalation"],
+      "preferredSources": ["buyer interviews", "customer receipts", "regulator or industry data", "methodology-disclosed seller surveys"],
+      "minimumCorroboration": 2,
+      "freshnessDays": 30,
+      "decisionTrigger": "Re-score the active canary or fallback when urgency, incidence, or buyer alternative changes materially.",
+      "downstream": ["opportunity-tournament", "offer-factory"]
+    },
+    {
+      "id": "WS-02",
+      "name": "buyer-willingness-to-pay",
+      "question": "Is there new external evidence of a buyer accepting, rejecting, or negotiating a bounded price?",
+      "preferredSources": ["cleared payment", "signed/accepted commercial commitment", "buyer rejection reason", "competitive official pricing"],
+      "minimumCorroboration": 1,
+      "freshnessDays": 90,
+      "decisionTrigger": "Update price hypothesis only from named evidence; never infer a market price from a creator screenshot.",
+      "downstream": ["offer-factory", "capital-allocation"]
+    },
+    {
+      "id": "WS-03",
+      "name": "distribution-channel-economics",
+      "question": "Did a channel produce new trusted cost, founder-minute, payment, acceptance, renewal, or complaint evidence?",
+      "preferredSources": ["provider receipts", "commercial outcome ledger", "founder-minute receipt", "customer acceptance"],
+      "minimumCorroboration": 1,
+      "freshnessDays": 30,
+      "decisionTrigger": "Reallocate only when cleared contribution per founder minute can be computed from trusted receipts.",
+      "downstream": ["distribution-control-plane", "capital-allocation"]
+    },
+    {
+      "id": "WS-04",
+      "name": "provider-price-or-limit-change",
+      "question": "Did a model, research, enrichment, browser, mailbox, sequencer, payment, or communications provider change price or limits?",
+      "preferredSources": ["official pricing", "official changelog", "authenticated provider receipt"],
+      "minimumCorroboration": 1,
+      "freshnessDays": 14,
+      "decisionTrigger": "Recompute the affected unit-economics range and block activation if the cost ceiling is exceeded.",
+      "downstream": ["outreach-capacity-economics", "model-routing", "capital-allocation"]
+    },
+    {
+      "id": "WS-05",
+      "name": "provider-policy-or-availability-change",
+      "question": "Did a provider change acceptable use, regional availability, authentication, rate limits, or sender requirements?",
+      "preferredSources": ["official policy", "official developer docs", "provider-origin notice"],
+      "minimumCorroboration": 1,
+      "freshnessDays": 14,
+      "decisionTrigger": "Fail closed for the affected provider/channel until policy compatibility is re-adjudicated.",
+      "downstream": ["provider-adapter-contract", "consequence-boundary", "distribution-control-plane"]
+    },
+    {
+      "id": "WS-06",
+      "name": "legal-or-regulatory-change",
+      "question": "Did a regulator materially change commercial messaging, privacy, tax, invoicing, payment, or AI obligations in an active jurisdiction?",
+      "preferredSources": ["regulator", "legislation", "court or official government publication"],
+      "minimumCorroboration": 1,
+      "freshnessDays": 7,
+      "decisionTrigger": "Pause affected activation; obtain external professional adjudication when the exact UberBond treatment is uncertain.",
+      "downstream": ["legal-gate", "payment-gate", "outbound-eligibility"]
+    },
+    {
+      "id": "WS-07",
+      "name": "competitor-mechanism-change",
+      "question": "Did a current company expose a new reusable mechanism that alters UberBond's capability gap or offer differentiation?",
+      "preferredSources": ["official product docs", "official changelog", "official repository", "methodology-disclosed technical report"],
+      "minimumCorroboration": 1,
+      "freshnessDays": 30,
+      "decisionTrigger": "Update the mechanism library; select build, adapter, compose, reference, defer, or reject after checking current main.",
+      "downstream": ["emerging-ai-mechanism-library", "claude-implementation-queue"]
+    },
+    {
+      "id": "WS-08",
+      "name": "software-license-or-maintenance-change",
+      "question": "Did a reusable repository change license, activity, security posture, or maintenance status?",
+      "preferredSources": ["repository license", "release history", "security advisory", "maintainer notice"],
+      "minimumCorroboration": 1,
+      "freshnessDays": 30,
+      "decisionTrigger": "Re-evaluate reuse and block incorporation when licensing or maintenance is uncertain.",
+      "downstream": ["software-acquisition-decision", "dependency-review"]
+    },
+    {
+      "id": "WS-09",
+      "name": "partner-ecosystem-opening",
+      "question": "Did a directory, platform, agency network, marketplace, referral program, or MCP registry create a lower-cost route to multiple downstream accounts?",
+      "preferredSources": ["official partner terms", "official marketplace docs", "public directory", "verified partner outcome"],
+      "minimumCorroboration": 1,
+      "freshnessDays": 30,
+      "decisionTrigger": "Score downstream account leverage, partner margin, support burden, lock-in, and proof requirements.",
+      "downstream": ["distribution-channel-portfolio", "partner-scout"]
+    },
+    {
+      "id": "WS-10",
+      "name": "owned-distribution-discovery-change",
+      "question": "Did search, answer-engine, crawler, or structured-data guidance change enough to affect owned distribution?",
+      "preferredSources": ["search-engine official guidance", "crawler documentation", "Search Console receipt", "attributed referral receipt"],
+      "minimumCorroboration": 1,
+      "freshnessDays": 30,
+      "decisionTrigger": "Update technical access or measurement; never substitute scaled low-value content for evidence-backed assets.",
+      "downstream": ["owned-content", "seo-aeo"]
+    },
+    {
+      "id": "WS-11",
+      "name": "commercial-failure-or-loss",
+      "question": "Did UberBond lose a deal, fail delivery, receive a complaint, refund, dispute, rejection, or non-renewal?",
+      "preferredSources": ["customer-origin receipt", "provider receipt", "commercial outcome ledger"],
+      "minimumCorroboration": 1,
+      "freshnessDays": 7,
+      "decisionTrigger": "Write a failure mechanism, update kill conditions, and re-score the offer/channel without erasing prior evidence.",
+      "downstream": ["commercial-learning", "opportunity-tournament", "self-improvement"]
+    },
+    {
+      "id": "WS-12",
+      "name": "founder-minute-bottleneck",
+      "question": "Did a repeated workflow consume enough founder time to change economic allocation?",
+      "preferredSources": ["time receipt", "operator queue", "exception log"],
+      "minimumCorroboration": 3,
+      "freshnessDays": 30,
+      "decisionTrigger": "Classify as AUTOMATE, AI_EMPLOYEE, PARTNER, OWNER_ONLY, or DELETE and create only the smallest evidence-backed gap packet.",
+      "downstream": ["ai-employee-organization", "claude-implementation-queue"]
+    }
+  ],
+  "monitoringPolicy": {
+    "neverMonitor": [
+      "generic AI news with no named decision impact",
+      "social engagement without economic lineage",
+      "competitor feature volume",
+      "creator revenue screenshots",
+      "historical opportunity counts"
+    ],
+    "runModes": [
+      {"mode": "EVENT_DRIVEN", "useFor": ["provider notices", "commercial outcomes", "customer acceptance", "security advisories"]},
+      {"mode": "WEEKLY", "useFor": ["active-offer buyer pain", "active provider pricing/policy", "partner openings"]},
+      {"mode": "MONTHLY", "useFor": ["parked opportunity refresh", "software/license scan", "owned-distribution guidance"]}
+    ],
+    "externalEffectAuthority": "NONE"
+  }
+}

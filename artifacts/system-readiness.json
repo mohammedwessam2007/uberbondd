@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-29T10:32:13.674Z",
+  "generatedAt": "2026-08-29T10:35:19.825Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "6d5dc361428cbed2c429122eb582726541961f6f",
+    "head": "59afa558f7d795686b91f57492b6306023716c75",
     "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
     "sourceModules": 191,
     "testSuites": 279,
-    "workingTreeClean": false
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {

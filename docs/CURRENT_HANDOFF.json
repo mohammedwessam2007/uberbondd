@@ -1,47 +1,57 @@
 {
-  "schemaVersion": "uberbond-handoff-1.1.0",
-  "sourceMainShaAtMissionStart": "92fa9adf7ec53c94543f8985fb052143fa7ec39f",
-  "sourceCommit": "d55337daf2afb66cafdce3881dc48878eabe2538",
-  "currentMainShaAtFinalRefresh": "d55337daf2afb66cafdce3881dc48878eabe2538",
-  "currentMainCommitMessage": "Enforce public evidence before paid enrichment",
-  "activeBranch": "gpt/handoff-paid-enrichment-admission-20260829",
+  "schemaVersion": "uberbond-handoff-1.2.0",
+  "sourceMainShaAtMissionStart": "95f7e32d7f6a7fcb7443252c065ebc466b6395cf",
+  "sourceCommit": "d2442c27fa99dc5ea74460f4ad8e01fa1ff307fd",
+  "currentMainShaAtFinalRefresh": "d2442c27fa99dc5ea74460f4ad8e01fa1ff307fd",
+  "currentMainCommitMessage": "Add NIGHTFALL MAX go-live missions for Claude and Sol",
+  "activeBranch": "gpt/handoff-nightfall-max-live-state-20260829",
   "activePullRequest": null,
   "missionIssue": 173,
   "missionIssueState": "OPEN",
-  "activeMission": "Continue NIGHTFALL from the unified Growth Graph with distribution and first real economic proof as the top priorities. Reuse current Cost -> Stage -> Fulfill -> Learn and paid-enrichment admission primitives rather than creating parallel systems.",
+  "activeMission": "Execute NIGHTFALL MAX through the executive Trinity: Claude Code owns dependency-complete engineering, exact-head verification and existing-project production promotion; GPT-5.6 Sol owns world intelligence, economics, partner/distribution qualification and source-backed implementation packets. Continue until only genuine external blockers remain.",
+  "executiveMissions": {
+    "claude": "docs/prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md",
+    "sol": "docs/prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md",
+    "charter": "docs/AI_EMPLOYEE_COMPANY_CHARTER.md"
+  },
   "completed": [
-    "Repository brain bootstraps source-backed Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation lineage and preserves Trinity/Growth Graph continuity across chat resets.",
-    "AI employee role identity is preserved end-to-end on the canonical scheduled-worker-terminal path with hostile substitution mutation proof.",
-    "PR #194 merged bounded enterprise journey orchestration plus the compliant Sender Infrastructure Mesh.",
+    "Repository brain preserves source-backed Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation lineage and current Growth Graph continuity.",
+    "AI employee role identity is fail-closed on the canonical scheduled-worker-terminal path; direct relay-result admission remains an independently reviewable seam recorded by draft PR #199.",
+    "PR #194 merged bounded enterprise journey orchestration plus compliant Sender Infrastructure Mesh.",
     "PR #195 merged the unified Growth Graph frontier plus evidence-to-content compiler.",
-    "PR #197 merged the public partner ecosystem source registry, ten-company research seed universe and partner canary activation packet.",
-    "PR #200 merged the Cost -> Stage -> Fulfill -> Learn autonomy spine: provenance-bound public evidence cache/tiering, asynchronous Postgres staged content, programmatic fulfillment planning/provider receipts, and bounded economic feedback allocation.",
-    "Cost/Stage/Fulfill/Learn post-review focused suite: 10/10 PASS; module syntax checks PASS. Review fixed healthcare-industry false blocking and raw-token-field normalization before merge.",
-    "PR #202 merged as d55337daf2afb66cafdce3881dc48878eabe2538 and composes the cache/public evidence tier with the canonical budgeted enrichment waterfall.",
-    "Paid licensed enrichment is now denied at plan time until a field has a current durable lower-tier exhaustion record with evidence/policy refs and a non-future observation time. Fresh cache skips provider planning and pending DNS/registry/HTTP/browser work keeps paid providers hidden.",
-    "Paid-enrichment composer exact syntax check PASS; admission logic with contract-faithful dependency stubs 4/4 PASS. Forcing unconditional paid admission reduced the mutation run to 1/4, killing the guard. Real-dependency repository test is retained for a full checkout runner."
+    "PR #197 merged the public partner ecosystem source registry, ten-company research seed universe and partner canary packet.",
+    "PR #200 merged the Cost -> Stage -> Fulfill -> Learn spine: provenance-bound public evidence cache/tiering, asynchronous Postgres staged content, programmatic fulfillment planning/provider receipts and bounded economic allocation.",
+    "Cost/Stage/Fulfill/Learn post-review focused suite: 10/10 PASS; syntax PASS; review fixed healthcare-industry false blocking and raw-token-field normalization.",
+    "PR #202 merged lower-cost evidence admission around the canonical Clay-class budgeted waterfall. Paid licensed enrichment is hidden until a current durable lower-tier exhaustion receipt exists.",
+    "Paid-enrichment composer syntax PASS; contract-faithful admission tests 4/4 PASS; unconditional-paid-admission mutation fell to 1/4 and was killed.",
+    "PR #204 merged both NIGHTFALL MAX executive missions to main as d2442c27fa99dc5ea74460f4ad8e01fa1ff307fd.",
+    "Connected Vercel confirms existing main project uberbondd, id prj_RWUPf14w1xIz9NK92AbNW5z7qDCg, team team_A9LnjIuS5PU0rNetsHMu1N0r. No duplicate project is required.",
+    "Public production https://uberbondd.vercel.app/ returned HTTP 200 and served the UberBond Opportunity Audit surface.",
+    "Latest observed production deployment dpl_DVtL6XTs6yWg2DsDHX1LJnB5hDWA is READY but source SHA b156566c69f1d1d0e7e01b015afa474e36041276, so production is live but stale relative to current main.",
+    "Connected Vercel runtime-error query found zero errors in the selected last-24-hour window for the current older production deployment.",
+    "No latest-main deployment appeared after PR #204 merge. The available ChatGPT Vercel deploy action requires a raw file tree and no repository-context CLI/promote action is exposed in this runtime, so this session did not reconstruct or duplicate the project to force a deploy."
   ],
   "blockers": [
-    "The ten partner seeds still require individual public-site evidence qualification for vertical fit, multi-client operation and relevant lead/conversion services before any contact route is considered.",
-    "Actual public-source/web extraction and licensed-provider execution remain externally or adapter gated. The cost-tier composer is plan-only and performs zero network/provider calls.",
-    "Authenticated enrichment provider execution requires provider selection, credentials, terms and budget. Current code now prevents paid planning from bypassing cheaper evidence exhaustion.",
-    "The staged-content repository still needs scheduled batch-generation integration from evidence-to-content output and live Postgres migration/runtime proof on exact current main.",
-    "Programmatic fulfillment provider adapters remain unconnected because the first paid ServiceSKU/provider provisioning surface is not externally activated.",
-    "The economic allocator has no real commercial observations. Customers remain 0, cleared revenue $0, accepted deliveries 0 and retained customers 0, so no real economic reallocation is proven.",
-    "Official/authorized social provider adapters remain unconnected; unsupported LinkedIn connection/DM/engagement automation must not be replaced with browser-bot evasion.",
-    "Sender Infrastructure Mesh has no real sender/domain/IP telemetry until external infrastructure is configured.",
-    "Latest exact main is not yet proven deployed to Vercel after PR #202; prior Hobby quota constraints must be rechecked rather than assumed resolved.",
-    "Real commercial activation still requires legal/tax/payment eligibility, buyer reality, provider/KYC state and consequence-specific distribution authority."
+    "Current main d2442c27fa99dc5ea74460f4ad8e01fa1ff307fd is not yet proven as the production source. Exact-head build, deployment/promotion and post-deploy verification remain Claude's highest production task.",
+    "Draft PR #199 records a possible direct submitCloudRelayResult employee-role admission seam. It must be independently verified on newest main and selectively fixed or superseded; do not merge the stale draft wholesale.",
+    "The ten partner seeds still require source-backed public qualification for vertical fit, multi-client operation and relevant lead/conversion services before route eligibility review.",
+    "Actual public-source acquisition outcomes and licensed-provider execution remain adapter/authority gated. The current cost tier is plan/admission logic and must never manufacture lower-tier exhaustion simply to unlock paid enrichment.",
+    "The staged-content repository still needs canonical batch-generation integration and exact-head Postgres runtime proof.",
+    "Programmatic fulfillment provider adapters should be connected only for the first real paid ServiceSKU that requires automated provisioning.",
+    "The economic allocator has no real commercial observations. Customers 0, canonical cleared revenue $0, accepted deliveries 0 and retained customers 0 remain the current truth unless newer durable external evidence proves otherwise.",
+    "Latest-main Vercel cron liveness is unproven. A real scheduler invocation and replay receipt are required; synthetic elapsed time is not evidence.",
+    "Real commercial activation still requires consequence-specific distribution authority plus exact legal/tax/payment/KYC/provider state where applicable."
   ],
   "nextActions": [
-    "Distribution first: qualify the ten partner research seeds using public evidence only and preserve a ranked research-ready universe without collecting private contact data.",
-    "Wire actual evidence acquisition outcomes into lower-tier exhaustion receipts and cache metrics so the cost-tier composer can drive measurable cache hit rate, source coverage, browser usage and provider cost before authenticated paid enrichment is enabled.",
-    "Wire evidence-to-content batch output into staged Postgres content and canonical journey/sender paths; connect programmatic fulfillment only to the first ServiceSKU/provider real commercial activation requires.",
-    "Once real paid-and-accepted outcomes exist, feed Growth Graph attribution, variable costs and founder minutes into bounded economic allocation. Never manufacture learning weights from synthetic data."
+    "CLAUDE P0: refresh newest main, run the repo brain, independently close or falsify the direct relay employee identity seam, obtain exact-head tests/mutations/build, then deploy/promote to the existing uberbondd Vercel project and verify exact production SHA, READY state, public HTTP, runtime errors and rollback candidate.",
+    "SOL P0: qualify the partner seed universe using lawful public business evidence, research the cheapest legitimate evidence/provider ladder, run the hostile first-payment tournament and issue exact implementation packets without duplicating Claude's code lane.",
+    "CLAUDE P1: compose durable evidence-acquisition outcomes, staged content and the first justified fulfillment adapter into existing canonical paths; preserve no-send/no-publish/no-spend authority until separately authorized.",
+    "AFTER PRODUCTION: capture a real zero-external-I/O cron invocation/replay on current main when elapsed scheduler time permits and record the durable cycle receipt."
   ],
   "growthGraph": {
     "frontierArtifact": "artifacts/growth-graph-capability-frontier.json",
     "costStageFulfillLearnArtifact": "artifacts/cost-stage-fulfill-learn-frontier.json",
+    "liveInfrastructureArtifact": "artifacts/live-infrastructure-observation-20260829.json",
     "partnerSourceRegistry": "artifacts/partner-distribution-source-registry-20260829.json",
     "partnerSeedUniverse": "artifacts/partner-canary-seed-universe-20260829.json",
     "capabilities": [
@@ -56,7 +66,20 @@
       "programmatic fulfillment planning and provider-receipt reconciliation",
       "bounded economic feedback allocation"
     ],
-    "law": "One governed Growth Graph, not disconnected SaaS clones. Distribution and learning allocation must eventually reconcile to real cleared payment, accepted delivery, variable cost, founder minutes, renewal and cleared contribution."
+    "law": "One governed Growth Graph, not disconnected SaaS clones. Distribution and learning must reconcile to real retained payment, accepted delivery, variable cost, founder minutes, renewal and cleared contribution."
+  },
+  "production": {
+    "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
+    "projectName": "uberbondd",
+    "publicUrl": "https://uberbondd.vercel.app/",
+    "publicHttpStatus": 200,
+    "observedProductionDeploymentId": "dpl_DVtL6XTs6yWg2DsDHX1LJnB5hDWA",
+    "observedProductionSourceSha": "b156566c69f1d1d0e7e01b015afa474e36041276",
+    "observedProductionState": "READY",
+    "runtimeErrorsLast24h": 0,
+    "currentMainSha": "d2442c27fa99dc5ea74460f4ad8e01fa1ff307fd",
+    "currentMainExactProduction": false,
+    "status": "PUBLIC_SITE_LIVE__PRODUCTION_STALE_RELATIVE_TO_MAIN"
   },
   "commercialDecision": {
     "canary": "White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing and electrical businesses",
@@ -69,30 +92,35 @@
     "retainedCustomers": 0
   },
   "verification": [
-    "Enterprise journey + Sender Infrastructure Mesh isolated logic: 7/7 PASS; sender reputation-evasion mutation killed.",
+    "Enterprise journey + Sender Infrastructure Mesh isolated logic: 7/7 PASS; reputation-evasion mutation killed.",
     "Evidence-to-content isolated logic: 5/5 PASS; syntax PASS.",
     "Cost/Stage/Fulfill/Learn post-review focused logic: 10/10 PASS; syntax PASS.",
-    "Paid-enrichment composer syntax PASS; contract-faithful admission tests 4/4 PASS; unconditional-paid-admission mutation 1/4.",
-    "No latest-main whole-tree green claim is made from hosted zero-step runners or historical receipts."
+    "Paid-enrichment composer contract-faithful logic: 4/4 PASS; unconditional-paid-admission mutation 1/4.",
+    "Public production HTTP check: 200 on older production.",
+    "Vercel production metadata: READY at b156566c69f1d1d0e7e01b015afa474e36041276, not current main.",
+    "Vercel runtime errors selected last 24h: none.",
+    "No newest-main whole-tree green or production claim is inferred from zero-step GitHub runners, historical receipts or the older live deployment."
   ],
   "maximumThreeFounderActions": [
-    "No founder action is required for these internal distribution-cost, staging, fulfillment and learning primitives.",
-    "Before real commercial contact/payment, clear the exact legal/tax/payment route and minimum provider identity/KYC required for the selected canary.",
-    "When live distribution/provider execution is desired, provide consequence-specific authorization and configure required credentials through proper secret/configuration surfaces, never chat."
+    "No founder action is required for Claude/Sol to continue the internal NIGHTFALL MAX missions or for Claude to attempt the authorized existing-project production deployment from a proper repo/Vercel CLI environment.",
+    "Before real commercial contact/payment, clear the exact legal/tax/payment route and minimum provider identity/KYC required for the selected canary if the current official research still classifies it as owner/professional action.",
+    "When real outbound/provider consequences are desired, authorize the exact bounded audience/channel/provider consequence and configure credentials only through secure configuration surfaces, never chat."
   ],
   "externalEffectLedger": {
-    "liveUberBondWebCrawls": 0,
+    "customerProspectContacts": 0,
+    "messagesCalls": 0,
+    "uberbondRuntimeWebCrawls": 0,
     "licensedProviderCalls": 0,
-    "messages": 0,
     "customerProvisioningEffects": 0,
     "purchases": 0,
-    "deployments": 0,
+    "productionDeploymentsPerformedThisShift": 0,
     "credentialChanges": 0,
     "dnsChanges": 0,
     "paymentMutations": 0,
-    "productionMutations": 0,
+    "moneyMovement": 0,
+    "customerSystemMutations": 0,
     "spendCents": 0
   },
-  "businessEffectAuthority": "NONE",
-  "headSha": "d55337daf2afb66cafdce3881dc48878eabe2538"
+  "businessEffectAuthority": "NONE_EXCEPT_EXISTING_PROJECT_DEPLOYMENT_AUTHORIZED",
+  "headSha": "d2442c27fa99dc5ea74460f4ad8e01fa1ff307fd"
 }

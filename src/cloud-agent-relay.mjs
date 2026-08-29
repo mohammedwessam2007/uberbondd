@@ -18,19 +18,15 @@ import {
   EFFECT_STATES
 } from './effect-ledgers.mjs';
 import { SECRET_KEY_PATTERN as SECRET_KEY, containsSecretValue } from './secret-patterns.mjs';
+import { validateEmployeeRoleRelayResultAdmission } from './ai-employee-relay-result-admission.mjs';
 
 export const AGENT_RELAY_JOB_TYPE = 'prometheus.agent.relay';
 export const CLOUD_AGENT_RELAY_POLICY_VERSION = 'cloud-agent-relay-1.1.0';
 
-// Exported so alternative relay transports (see src/github-relay.mjs) reuse
-// the exact same zero-external-effect contract rather than declaring a second,
-// driftable copy of it. The shape itself now lives in one module with the
-// autonomy loop's ledger, so the secret scanner has a single list to consult.
 export { ZERO_EXTERNAL_EFFECTS as ZERO_EFFECTS } from './effect-ledgers.mjs';
 const MAX_LIST_LIMIT = 50;
 const MAX_TASK_BYTES = 200_000;
 const MAX_RESULT_BYTES = 250_000;
-
 
 function at(value) {
   const date = value instanceof Date ? value : new Date(value || Date.now());
@@ -41,8 +37,6 @@ function sizeOf(value) {
   return Buffer.byteLength(JSON.stringify(value ?? null), 'utf8');
 }
 
-// A compute counter is a plain non-negative integer, or null meaning "not
-// measured". Nothing that shape can carry a credential.
 function isComputeCount(value) {
   return value === null || (Number.isSafeInteger(value) && value >= 0);
 }
@@ -57,9 +51,6 @@ function canonicalValue(value) {
   );
 }
 
-// Exported so other modules compare records the same way. Two copies of
-// "are these the same object?" is how one of them ends up key-order sensitive
-// while the other is not.
 export function sameJson(left, right) {
   try {
     return JSON.stringify(canonicalValue(left)) === JSON.stringify(canonicalValue(right));
@@ -80,38 +71,14 @@ function completedSubmissionMatches(job, { worker, outcome, result, receipt }) {
   return sameJson(storedResult, result);
 }
 
-// Exported for reuse by alternative relay transports. One scanner, one set of
-// patterns -- a second copy would drift and silently weaken over time.
 export function hasSecret(value) {
   if (typeof value === 'string') return containsSecretValue(value);
   if (Array.isArray(value)) return value.some(hasSecret);
   if (!value || typeof value !== 'object') return false;
   return Object.entries(value).some(([key, item]) => {
-    // A ledger's own key names (`credentialChanges`) trip the credential
-    // pattern, so a perfectly clean ledger would be rejected as secret-bearing.
-    // Three field names spell a ledger in this codebase and the exemption used
-    // to list two of them; `effect-ledgers.mjs` now holds the whole list, along
-    // with which keys each shape may contain. A ledger carrying a key outside
-    // its shape is not a ledger and falls through to the scanner below.
     if (Object.hasOwn(EFFECT_LEDGER_FIELDS, key)) {
       return !isKnownEffectLedgerField(key, item);
     }
-    // This codebase counts compute in units it keeps calling tokens: maxTokens
-    // on a task budget, tokens in receipt cost accounting, tokenBudget in a
-    // coordination packet. Every one of them matches the token-shaped key
-    // pattern, and every one of them was a separate false positive that
-    // rejected a legitimate payload. Naming three exceptions was treating the
-    // symptom; the rule is what was wrong.
-    //
-    // An authentication token is a string. A counter is a number. So a
-    // token-shaped key holding a non-negative integer -- or an explicitly
-    // unmeasured null -- is a counter and is allowed through, whatever it is
-    // called. A string under the same key still falls to the scanner below, so
-    // a real credential hidden under `tokenBudget` is caught exactly as before.
-    //
-    // Deliberately narrow to /token/i: `password`, `secret`, `apikey` and
-    // friends have no legitimate counter meaning, so a number under those keys
-    // stays rejected.
     if (/token/i.test(key) && isComputeCount(item)) return false;
     return SECRET_KEY.test(key) || hasSecret(item);
   });
@@ -191,20 +158,6 @@ function normalizeTargetAgent(value) {
   return /^[a-z0-9][a-z0-9._-]{0,63}$/.test(targetAgent) ? targetAgent : '';
 }
 
-// A zero-effect claim is only worth anything if it is complete. An omitted key
-// used to read as zero here (`Number(undefined || 0)`), so a worker could
-// assert "no effects" by shipping `{}` -- silence scored the same as a signed
-// zero. So did a NaN, and so did an array. Require the exact canonical key set
-// carrying real numeric zeros; anything else is a refusal with its own reason.
-//
-// A worker may also declare that it does not know. `EFFECT_UNKNOWN` and
-// `EFFECT_NOT_OBSERVED` are both refusals here -- neither is proof that nothing
-// happened -- but they are told apart from `EFFECT_OCCURRED`, because the three
-// call for different things from whoever reads the reason. "You made calls you
-// were not allowed to make", "you may have made calls and cannot tell me", and
-// "nobody looked" are not the same incident, and collapsing them into
-// `nonzero-external-effect-ledger-rejected` accused an honest worker of the
-// first while giving an operator no way to see the second.
 export function canonicalZeroEffectLedger(ledger) {
   if (!ledger || typeof ledger !== 'object' || Array.isArray(ledger)) return ['external-effect-ledger-required'];
   const canonical = Object.keys(ZERO_EXTERNAL_EFFECTS);
@@ -226,9 +179,6 @@ export function validResult(result) {
   const missing = required.filter(key => !(key in result));
   if (missing.length) return ['required-result-fields-missing'];
   if (sizeOf(result) > MAX_RESULT_BYTES) return ['result-too-large'];
-  // Ledger shape first: an unknown effect key also trips the secret scanner,
-  // and `secret-like-result-rejected` is a misleading thing to tell an
-  // operator whose worker simply invented a counter.
   const ledgerErrors = canonicalZeroEffectLedger(result.externalEffectLedger);
   if (ledgerErrors.length) return ledgerErrors;
   if (hasSecret(result)) return ['secret-like-result-rejected'];
@@ -275,10 +225,6 @@ export async function createCloudRelayTask({ queue, store, input = {}, date = ne
   return queued;
 }
 
-// Compact observability summary for /api/agent-relay/health -- the mission's
-// Wave 9 requires queued/active/completed/dead-letter counts, oldest queued
-// task, and stale-lease visibility without exposing any task payload or
-// secret. Read-only; never mutates a job.
 export async function relayHealthSummary({ store, staleLeaseMs = 300000 } = {}) {
   const rows = await relayJobs(store);
   const counts = { queued: 0, retry: 0, active: 0, completed: 0, 'dead-letter': 0 };
@@ -352,16 +298,6 @@ export async function claimCloudRelayTask({ store, targetAgent = 'claude-code', 
   };
 }
 
-// A relay task's lease has the same lockTimeoutMs as any other queue job
-// (default 300s). A Claude Code task that legitimately runs longer than
-// that must heartbeat or risk recoverStaleJobs() reclaiming it out from
-// under the still-working owner -- the same stale-lease race the mission's
-// hostile-test list calls out explicitly. Ownership is checked twice: once
-// against the fetched job (fails closed as 'lease-owner-mismatch' without
-// ever touching the store), and store.heartbeatJob() re-checks atomically
-// at write time (status==='active' && lockedBy===workerId) so a lease lost
-// between the read and the write is reported as 'lease-lost-before-heartbeat'
-// rather than silently extended.
 export async function heartbeatCloudRelayTask({ store, taskId, workerId } = {}) {
   const id = String(taskId || '').trim();
   const worker = normalizeWorkerId(workerId);
@@ -409,12 +345,13 @@ export async function submitCloudRelayResult({
   const job = await findRelayJob(store, id);
   if (!job) return errorResult(['task-not-found']);
 
-  // A worker may crash after the durable queue transition succeeds but before
-  // its local execution receipt is marked RESULT_SUBMITTED. On restart the
-  // worker replays the persisted MODEL_RESULT_READY record. Treat that replay
-  // as success only when it is byte-semantically the same completed result,
-  // worker, and receipt already stored on the terminal job. Any difference is
-  // a terminal conflict, never permission to rewrite history.
+  const employeeAdmission = validateEmployeeRoleRelayResultAdmission({
+    task: job.payload,
+    result,
+    receipt
+  });
+  if (!employeeAdmission.ok) return errorResult(employeeAdmission.reasonCodes || ['employee-role-result-admission-rejected']);
+
   if (job.status === 'completed') {
     if (!completedSubmissionMatches(job, { worker, outcome, result, receipt })) {
       return errorResult(['terminal-result-conflict']);

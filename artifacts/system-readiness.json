@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-29T10:35:19.825Z",
+  "generatedAt": "2026-08-29T15:20:14.950Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "59afa558f7d795686b91f57492b6306023716c75",
-    "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "sourceModules": 191,
-    "testSuites": 279,
-    "workingTreeClean": true
+    "head": "333292f",
+    "branch": "gpt/payment-reconciliation-leases-main-refresh-20260829",
+    "sourceModules": 251,
+    "testSuites": 282,
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 598,
+      "filesParsed": 603,
       "ranAt": "2026-08-29T00:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2758,
-      "pass": 2710,
+      "tests": 2775,
+      "pass": 2727,
       "fail": 0,
       "skipped": 48,
-      "ranAt": "2026-08-29T00:00:00Z"
+      "ranAt": "2026-08-29T15:17:04Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -67,10 +67,10 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 249,
-      "reachableFromProduction": 123,
+      "srcModules": 251,
+      "reachableFromProduction": 124,
       "reachableFromOperatorScriptsOnly": 9,
-      "noEntryPointAtAll": 117,
+      "noEntryPointAtAll": 118,
       "allClassified": true,
       "ranAt": "2026-08-29T00:00:00Z",
       "note": "src is now walked recursively. The previous 191/117/5/69 figures excluded src/overnight and src/omnia-v9 entirely, which was an accident of a single-level directory read, not a scope decision."

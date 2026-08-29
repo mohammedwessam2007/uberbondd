@@ -5,6 +5,8 @@
   "donorPr": 214,
   "donorHeadSha": "ef71b0a9b3e6b4420b44c002a0e828c4c18108f2",
   "branch": "gpt/payment-reconciliation-leases-20260829",
+  "activePr": 224,
+  "supersededPr": 223,
   "scope": [
     "billing_webhook_inbox claim attempts, retry scheduling, and stale-claim recovery",
     "attempt-cap transition to UNCERTAIN instead of blind payment promotion",
@@ -19,10 +21,16 @@
   ],
   "verification": {
     "isolatedExactSourceSemantics": "5/5 PASS via Node test harness reconstructed from exact committed source fetched through GitHub connector",
+    "schemaCompatibility": "PASS: migration 101 billing_webhook_inbox status CHECK already includes UNCERTAIN",
     "genuineRepositoryCheckout": "BLOCKED: runtime DNS cannot resolve github.com",
     "wholeRepositorySuite": "NOT CLAIMED",
     "postgresIntegration": "NOT CLAIMED",
-    "vercelExactHeadBuild": "PENDING"
+    "vercelExactHeadBuild": "PENDING after continuity-only branch push"
+  },
+  "prContinuity": {
+    "reason": "GitHub connector markPullRequestReadyForReview mutation fails on obsolete Repository.fullDatabaseId GraphQL field",
+    "action": "PR #223 closed unmerged; non-draft PR #224 opened from identical branch/head before this continuity-only update",
+    "semanticRuntimeChangeFromWorkaround": false
   },
   "promotionGate": [
     "obtain exact-head Vercel READY build or equivalent exact-head build receipt",

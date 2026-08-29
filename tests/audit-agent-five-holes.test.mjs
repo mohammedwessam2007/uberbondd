@@ -6,6 +6,7 @@ import { deriveProspectIdentity, deriveOutboundDailyGuard } from '../src/prospec
 import { verifyLemonSqueezyWebhook } from '../src/billing-webhook-boundary.mjs';
 import { compileMaintenancePlan } from '../src/database-hygiene-maintenance.mjs';
 import { compileSystemHealthMatrix } from '../src/system-health-matrix.mjs';
+import { createFetchHandler } from '../api/webhooks/billing.mjs';
 
 test('egress pool chooses healthy policy-bound route',()=>{
  const r=selectEgressRoute({purpose:'PUBLIC_EVIDENCE',targetRef:'site:a',now:'2026-08-29T08:00:00Z',routes:[{routeRef:'p1',policyRef:'policy:1',state:'HEALTHY',allowedPurposes:['PUBLIC_EVIDENCE'],successRate:.9,latencyMs:200,observedAt:'2026-08-29T07:30:00Z'}]});
@@ -35,6 +36,16 @@ test('billing webhook verifies raw-body HMAC and treats event as evidence only',
  const r=verifyLemonSqueezyWebhook({rawBody:raw,signingSecret:secret,signature,eventName:'order_created'});
  assert.equal(r.ok,true); assert.equal(r.event.customData.prospect_id,'p1'); assert.equal('secret' in r.event.customData,false); assert.match(r.event.admissionLaw,/RECONCILE/);
  assert.equal(verifyLemonSqueezyWebhook({rawBody:raw,signingSecret:secret,signature:'bad',eventName:'order_created'}).ok,false);
+});
+test('Vercel Web Request billing route verifies exact raw text before durable persistence',async()=>{
+ const body=JSON.stringify({meta:{event_name:'order_created',custom_data:{prospect_id:'p1'}},data:{type:'orders',id:'42'}});
+ const secret='route-secret'; const signature=crypto.createHmac('sha256',secret).update(body).digest('hex');
+ let persisted=null;
+ const handler=createFetchHandler({env:{LEMONSQUEEZY_WEBHOOK_SECRET:secret,DATABASE_URL:'postgres://fixture'},getPool:()=>({fixture:true}),persistVerifiedBillingEvent:async(_pool,event)=>{persisted=event;return {status:'WEBHOOK_PERSISTED',duplicate:false};},now:()=>new Date('2026-08-29T08:00:00Z')});
+ const response=await handler(new Request('https://example.test/api/webhooks/billing',{method:'POST',headers:{'content-type':'application/json','x-event-name':'order_created','x-signature':signature},body}));
+ const json=await response.json(); assert.equal(response.status,200); assert.equal(json.reconciliationRequired,true); assert.equal(persisted.objectId,'42');
+ const bad=await handler(new Request('https://example.test/api/webhooks/billing',{method:'POST',headers:{'content-type':'application/json','x-event-name':'order_created','x-signature':'bad'},body}));
+ assert.equal(bad.status,401);
 });
 test('maintenance refuses auto-deleting payment and audit truth',()=>{
  const r=compileMaintenancePlan({now:'2026-08-29T08:00:00Z',rules:[{dataClass:'PAYMENT_RECEIPT',retentionDays:14}]});

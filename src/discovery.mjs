@@ -1,4 +1,5 @@
 import { normalizeDomain, uniq } from './utils.mjs';
+import { fetchOverpassWithPolicy } from './overpass-throttle.mjs';
 
 export const DISCOVERY_CATEGORIES = Object.freeze({
   clinic: [
@@ -144,39 +145,32 @@ export async function discoverBusinesses(config, options = {}, fetcher = fetch) 
   const bbox = parseBbox(options.bbox || config.bbox, config.maxBboxSpan);
   const limit = Math.max(1, Math.min(Number(options.limit || config.dailyCap || 50), Number(config.dailyCap || 50)));
   const query = buildOverpassQuery({bbox, categories, timeoutSeconds: Math.ceil(config.timeoutMs / 1000), maxSpan: config.maxBboxSpan});
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), config.timeoutMs);
-  try {
-    const response = await fetcher(config.endpoint, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'accept': 'application/json',
-        'user-agent': config.userAgent
-      },
-      body: `data=${encodeURIComponent(query)}`,
-      signal: controller.signal
-    });
-    if (!response.ok) throw new Error(`OpenStreetMap discovery failed with HTTP ${response.status}`);
-    const payload = await response.json();
-    const prospects = parseOverpassElements(payload.elements, {
-      categories,
-      country: options.country || config.country,
-      city: options.city || config.city
-    });
-    return {
-      provider: 'openstreetmap-overpass',
-      attribution: '© OpenStreetMap contributors',
-      query,
-      bbox,
-      categories,
-      rawCount: Array.isArray(payload.elements) ? payload.elements.length : 0,
-      prospects: prospects.slice(0, limit)
-    };
-  } catch (error) {
-    if (error?.name === 'AbortError') throw new Error(`OpenStreetMap discovery timed out after ${config.timeoutMs}ms`);
-    throw error;
-  } finally {
-    clearTimeout(timeout);
-  }
+  const response = await fetchOverpassWithPolicy(fetcher, config.endpoint, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'accept': 'application/json',
+      'user-agent': config.userAgent
+    },
+    body: `data=${encodeURIComponent(query)}`
+  }, {
+    timeoutMs: config.timeoutMs,
+    maxAttempts: config.retryAttempts || 3,
+    minIntervalMs: config.minIntervalMs ?? 1000
+  });
+  const payload = await response.json();
+  const prospects = parseOverpassElements(payload.elements, {
+    categories,
+    country: options.country || config.country,
+    city: options.city || config.city
+  });
+  return {
+    provider: 'openstreetmap-overpass',
+    attribution: '© OpenStreetMap contributors',
+    query,
+    bbox,
+    categories,
+    rawCount: Array.isArray(payload.elements) ? payload.elements.length : 0,
+    prospects: prospects.slice(0, limit)
+  };
 }

@@ -26,18 +26,18 @@
     "genuineRepositoryCheckout": "PASS: repository checkout and dependency install completed in this runtime",
     "wholeRepositorySuite": "2775 tests, 2727 pass, 0 fail, 48 skipped; 48 are known runtime-gated skips",
     "postgresIntegration": "BLOCKED_RUNTIME: no OMNIA_V9_TEST_DATABASE_URL; embedded fallback cannot create the postgres system group under the container restriction",
-    "vercelExactHeadBuild": "PARTIAL: full READY preview dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y is predecessor 31dbb897...; private-lite READY preview dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg is receipt ec0dd751...; current branch head 8e88aa8... remains blocked by api-deployments-free-per-day. No production deployment performed.",
+    "vercelExactHeadBuild": "PARTIAL: full READY preview dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y is predecessor 31dbb897...; private-lite READY preview dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg is receipt ec0dd751...; current branch head d568766d... remains blocked by api-deployments-free-per-day. No production deployment performed.",
     "browserIntegration": "BLOCKED_RUNTIME: pinned Chromium executable absent and Playwright CDN installation timed out",
     "mutationProof": "75 mutations, 74 killed, 0 not killed, 1 PostgreSQL-only mutation skipped (STORE-01)",
     "audit": "0 vulnerabilities"
   },
   "prContinuity": {
     "reason": "GitHub connector markPullRequestReadyForReview mutation fails on obsolete Repository.fullDatabaseId GraphQL field",
-    "action": "PR #223 closed unmerged; non-draft PR #224 carries the reviewed candidate at published head 8e88aa8055336eaa3c70a1076823f78055f1de60",
+    "action": "PR #223 closed unmerged; non-draft PR #224 carries the reviewed candidate at published head d568766d07cdeae7dc1bb850752324f73521d921",
     "semanticRuntimeChangeFromWorkaround": false
   },
   "promotionGate": [
-    "obtain a full uberbondd READY deployment for current branch head 8e88aa8055336eaa3c70a1076823f78055f1de60 after the current build-rate limit resets; existing previews are partial evidence only",
+    "obtain a full uberbondd READY deployment for current branch head d568766d07cdeae7dc1bb850752324f73521d921 after the current build-rate limit resets; existing previews are partial evidence only",
     "execute the real PostgreSQL payment lease suite from a runtime with OMNIA_V9_TEST_DATABASE_URL",
     "refresh main and open PRs for concurrent changes",
     "merge only if candidate remains clean and lite/ remains untouched"

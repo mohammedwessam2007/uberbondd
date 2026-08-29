@@ -2,6 +2,7 @@
   "schemaVersion": "uberbond-nightfall-handoff-1.0",
   "mission": "Port the highest-value safe slice from stale PR #214 onto current main: recoverable payment reconciliation leases and fail-closed watchdog semantics.",
   "sourceMainSha": "6a6d0bd129afa1e6b17c9593ef9ef10ceb72f69b",
+  "currentMainAfterFollowOnResearch": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
   "donorPr": 214,
   "donorHeadSha": "ef71b0a9b3e6b4420b44c002a0e828c4c18108f2",
   "branch": "gpt/payment-reconciliation-leases-20260829",
@@ -26,22 +27,36 @@
     "genuineRepositoryCheckout": "PASS: repository checkout and dependency install completed in this runtime",
     "wholeRepositorySuite": "2775 tests, 2727 pass, 0 fail, 48 skipped; 48 are known runtime-gated skips",
     "postgresIntegration": "BLOCKED_RUNTIME: no OMNIA_V9_TEST_DATABASE_URL; embedded fallback cannot create the postgres system group under the container restriction",
-    "vercelExactHeadBuild": "PARTIAL: full READY preview dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y is predecessor 31dbb897...; private-lite READY preview dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg is receipt ec0dd751...; current branch head d568766d... remains blocked by api-deployments-free-per-day. No production deployment performed.",
+    "vercelExactHeadBuild": "PARTIAL: full READY preview dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y is predecessor 31dbb897...; private-lite READY preview dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg is receipt ec0dd751...; current published branch head 9b70e400... remains blocked by api-deployments-free-per-day. No production deployment performed.",
     "browserIntegration": "BLOCKED_RUNTIME: pinned Chromium executable absent and Playwright CDN installation timed out",
     "mutationProof": "75 mutations, 74 killed, 0 not killed, 1 PostgreSQL-only mutation skipped (STORE-01)",
     "audit": "0 vulnerabilities"
   },
   "prContinuity": {
     "reason": "GitHub connector markPullRequestReadyForReview mutation fails on obsolete Repository.fullDatabaseId GraphQL field",
-    "action": "PR #223 closed unmerged; non-draft PR #224 carries the reviewed candidate at published head d568766d07cdeae7dc1bb850752324f73521d921",
+    "action": "PR #223 closed unmerged; non-draft PR #224 carries the reviewed candidate at published branch head 9b70e400... with runtime code candidate d568766d07cdeae7dc1bb850752324f73521d921",
     "semanticRuntimeChangeFromWorkaround": false
   },
   "promotionGate": [
-    "obtain a full uberbondd READY deployment for current branch head d568766d07cdeae7dc1bb850752324f73521d921 after the current build-rate limit resets; existing previews are partial evidence only",
+    "refresh/rebase PR #224 against current main dc489024042b7bb930a1c9367a86f2a4cc025f23, then obtain a full uberbondd READY deployment for its exact refreshed head after the current build-rate limit resets; existing previews are partial evidence only",
     "execute the real PostgreSQL payment lease suite from a runtime with OMNIA_V9_TEST_DATABASE_URL",
     "refresh main and open PRs for concurrent changes",
-    "merge only if candidate remains clean and lite/ remains untouched"
+    "merge only if candidate remains clean, exact-head deployment proof exists, real PostgreSQL proof exists and lite/ remains untouched"
   ],
+  "followOnResearch": {
+    "qualificationPr": 225,
+    "qualificationMergeSha": "2af9b85b790d4b1791fd57f9dbf6641ef3e2d39d",
+    "corroborationPr": 226,
+    "corroborationMergeSha": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
+    "receiptPaths": [
+      "artifacts/partner-canary-public-evidence-20260829.json",
+      "artifacts/partner-canary-public-corroboration-20260829.json",
+      "docs/distribution/NIGHTFALL_PARTNER_CANARY_PUBLIC_EVIDENCE_2026-08-29.md",
+      "docs/distribution/NIGHTFALL_PARTNER_CANARY_CORROBORATION_2026-08-29.md"
+    ],
+    "decision": "Top three remain owner-review-only; no outreach, private-contact collection, buyer demand or payment evidence was created.",
+    "nextMission": "Reconcile current main and PR #224; absent owner authority, preserve no-contact boundary and work only on internal readiness or public evidence."
+  },
   "externalEffectLedger": {
     "customerProspectContacts": 0,
     "outboundMessages": 0,

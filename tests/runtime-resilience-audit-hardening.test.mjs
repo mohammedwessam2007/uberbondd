@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import test from 'node:test';
-import { BrowserRuntimePool } from '../src/browser-runtime-pool.mjs';
+import { BrowserRuntimePool, getSharedBrowserRuntime, closeSharedBrowserRuntimes } from '../src/browser-runtime-pool.mjs';
 import { fetchOverpassWithPolicy } from '../src/overpass-throttle.mjs';
 import { compileArtifactStorageWrite, normalizeArtifactObjectReceipt } from '../src/artifact-storage-contract.mjs';
 import { planPaymentReconciliation } from '../src/payment-reconciliation-watchdog.mjs';
@@ -41,6 +41,29 @@ test('browser runtime stress never exceeds configured context cap',async()=>{
   let maxActive=0;
   await Promise.all(Array.from({length:50},async()=>{const lease=await pool.acquire();maxActive=Math.max(maxActive,pool.active);await new Promise(r=>setTimeout(r,1));await lease.release();}));
   assert.equal(maxActive,3); await pool.close();
+});
+
+test('non-worker shared-runtime request auto-closes after its crawl lease',async()=>{
+  const previous=process.env.PROCESS_ROLE; delete process.env.PROCESS_ROLE;
+  let browserCloses=0;
+  const browser={isConnected:()=>true,newContext:async()=>({close:async()=>{}}),close:async()=>{browserCloses++},on:()=>{}};
+  try {
+    const runtime=getSharedBrowserRuntime({key:'test-non-worker',launchBrowser:async()=>browser});
+    const lease=await runtime.acquire(); await lease.release();
+    assert.equal(runtime.closed,true); assert.equal(browserCloses,1);
+  } finally { if(previous===undefined) delete process.env.PROCESS_ROLE; else process.env.PROCESS_ROLE=previous; }
+});
+
+test('worker role keeps browser process reusable until explicit shutdown',async()=>{
+  const previous=process.env.PROCESS_ROLE; process.env.PROCESS_ROLE='worker';
+  let browserCloses=0;
+  const browser={isConnected:()=>true,newContext:async()=>({close:async()=>{}}),close:async()=>{browserCloses++},on:()=>{}};
+  try {
+    const runtime=getSharedBrowserRuntime({key:'test-worker-persistent',launchBrowser:async()=>browser,recycleAfterContexts:100});
+    const lease=await runtime.acquire(); await lease.release();
+    assert.equal(runtime.closed,false); assert.equal(browserCloses,0);
+    await closeSharedBrowserRuntimes(); assert.equal(browserCloses,1);
+  } finally { if(previous===undefined) delete process.env.PROCESS_ROLE; else process.env.PROCESS_ROLE=previous; }
 });
 
 test('crawler source uses pooled context lease rather than per-crawl browser close', async()=>{

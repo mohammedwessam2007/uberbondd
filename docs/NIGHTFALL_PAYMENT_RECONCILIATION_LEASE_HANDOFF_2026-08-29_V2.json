@@ -24,8 +24,13 @@
     "historicalDonorRelaySafety": "150/150 recorded on PR 224",
     "historicalDonorMutationWar": "75 mutations, 74 killed, 0 not killed, 1 PostgreSQL-only skip recorded on PR 224",
     "historicalDonorAudit": "0 vulnerabilities recorded on PR 224",
-    "currentBranchExactHeadBuild": "PENDING",
-    "currentBranchRealPostgresExecution": "PENDING",
+    "exactLocalReviewHead": "b44c5f8",
+    "exactLocalFocusedSuite": "9/9 PASS on the refreshed branch, including PGlite migration and lease lifecycle proof",
+    "exactLocalDeterministic": "2775 tests, 2727 pass, 0 fail, 48 skipped on the refreshed branch; completed in 106.4 seconds",
+    "exactLocalSyntax": "603 files parse",
+    "exactLocalReachability": "11/11 PASS; 251 src modules split 124 production, 9 operator-only, 118 no entry point; payment watchdog classified AWAITING_ACTIVATION behind NO_PAYMENT_PROVIDER",
+    "currentBranchExactHeadBuild": "BLOCKED_EXTERNAL: Vercel checks on the refreshed payment branch report api-deployments-free-per-day; latest READY full-project preview is predecessor 31dbb897...",
+    "currentBranchRealPostgresExecution": "BLOCKED_RUNTIME: OMNIA_V9_TEST_DATABASE_URL is absent; no trustworthy real-PostgreSQL execution is claimed",
     "modelProviderReceipt": null
   },
   "promotionGate": [

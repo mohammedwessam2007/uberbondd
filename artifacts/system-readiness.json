@@ -1,78 +1,77 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-29T10:35:19.825Z",
+  "generatedAt": "2026-08-29T18:14:36.078Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "59afa558f7d795686b91f57492b6306023716c75",
-    "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "sourceModules": 191,
-    "testSuites": 279,
+    "head": "1c02a9b31e432f6e0394ec1cd22025a18092b696",
+    "branch": "integration/nightfall-hardening-20260829",
+    "sourceModules": 253,
+    "testSuites": 284,
     "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 598,
-      "ranAt": "2026-08-29T00:00:00Z"
+      "filesParsed": 607,
+      "ranAt": "2026-08-29T18:08:33Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2758,
-      "pass": 2710,
+      "tests": 2788,
+      "pass": 2740,
       "fail": 0,
       "skipped": 48,
-      "ranAt": "2026-08-29T00:00:00Z"
+      "ranAt": "2026-08-29T18:08:33Z"
     },
     "test:relay-safety": {
-      "command": "npm run test:relay-safety",
+      "command": "node --test tests/pending-relay-reconciliation.test.mjs tests/relay-deployment-eligibility.test.mjs tests/relay-preview-proof.test.mjs tests/relay-shadow-binding.test.mjs tests/relay-deployment-attempt.test.mjs tests/relay-preview-runbook.test.mjs tests/relay-zero-effects-contract.test.mjs tests/relay-preview-integration.test.mjs tests/relay-vercel-api-request.test.mjs tests/relay-vercel-api-executor.test.mjs",
       "tests": 150,
       "pass": 150,
       "fail": 0,
-      "skipped": 0,
-      "ranAt": "2026-08-29T00:00:00Z"
+      "ranAt": "2026-08-29T18:08:33Z"
     },
     "test:postgres-real": {
-      "command": "OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real",
-      "status": "PASS_CURRENT_BRANCH",
-      "tests": 127,
-      "pass": 127,
+      "command": "node scripts/run-real-postgres-tests.mjs",
+      "status": "BLOCKED_RUNTIME",
+      "tests": 0,
+      "pass": 0,
       "fail": 0,
-      "skipped": 0,
-      "result": "127 tests, 127 pass, 0 fail (2026-08-29), against embedded PostgreSQL 18",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "result": "BLOCKED_RUNTIME: OMNIA_V9_TEST_DATABASE_URL is not set; 16 real-PostgreSQL suites were not executed",
+      "note": "The launcher failed closed without a URL. The installed embedded-postgres fallback also cannot run here: the container has no postgres OS user and denies root user/group creation plus non-root uid switching.",
+      "ranAt": "2026-08-29T18:08:33Z"
     },
     "npm audit": {
       "command": "npm audit --omit=dev",
       "status": "PASS_CURRENT_INTEGRATION",
       "vulnerabilities": 0,
       "note": "No vulnerabilities reported in the current integration environment.",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "ranAt": "2026-08-29T18:08:33Z"
     },
     "test:mutation-war": {
-      "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "75 mutations, 75 killed, 0 not killed",
-      "note": "Run with a real PostgreSQL so STORE-01 is executed rather than skipped. Without the database it reports 63 killed and 1 PostgreSQL-dependent skip.",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "command": "node scripts/mutation-war.mjs",
+      "result": "75 mutations, 74 killed, 0 not killed, 1 PostgreSQL-only skip",
+      "note": "Exact current-tree run. STORE-01 remains skipped because no trustworthy real PostgreSQL URL is configured.",
+      "ranAt": "2026-08-29T18:08:33Z"
     },
     "test:browser": {
-      "command": "CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser",
-      "status": "PASS_CURRENT_BRANCH",
+      "command": "node --test tests/browser.test.mjs",
+      "status": "BLOCKED_RUNTIME",
       "tests": 1,
-      "pass": 1,
-      "fail": 0,
+      "pass": 0,
+      "fail": 1,
       "skipped": 0,
-      "result": "1 test, 1 pass, 0 fail (2026-08-29), against the runner's installed Chromium",
-      "note": "The previous BLOCKED_EXTERNAL_TEST_RUNTIME record said Chromium was absent. It is not: this runner ships chromium-1194 while the pinned Playwright resolves chromium_headless_shell-1228, so the default launch path 404s on a build number rather than on a missing browser. crawlSiteBrowser already accepts CHROMIUM_PATH, which bridges it. The test's site is a loopback HTTP server, so this gate makes no external request.",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "result": "BLOCKED_RUNTIME: Playwright executable missing at /root/.cache/ms-playwright/chromium_headless_shell-1228/chrome-headless-shell-linux64/chrome-headless-shell",
+      "note": "The expected /opt/pw-browsers/chromium-1194/chrome-linux/chrome path is also absent. The loopback browser suite did not execute its assertions.",
+      "ranAt": "2026-08-29T18:08:33Z"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 249,
-      "reachableFromProduction": 123,
+      "srcModules": 253,
+      "reachableFromProduction": 126,
       "reachableFromOperatorScriptsOnly": 9,
-      "noEntryPointAtAll": 117,
+      "noEntryPointAtAll": 118,
       "allClassified": true,
-      "ranAt": "2026-08-29T00:00:00Z",
+      "ranAt": "2026-08-29T18:08:33Z",
       "note": "src is now walked recursively. The previous 191/117/5/69 figures excluded src/overnight and src/omnia-v9 entirely, which was an accident of a single-level directory read, not a scope decision."
     }
   },

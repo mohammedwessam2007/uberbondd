@@ -35,7 +35,19 @@ function git(args) {
 }
 
 function sourceFiles() {
-  return readdirSync(join(repoRoot, 'src')).filter(name => name.endsWith('.mjs'));
+  const found = [];
+  const walk = relative => {
+    let entries;
+    try { entries = readdirSync(join(repoRoot, relative), { withFileTypes: true }); }
+    catch { return; }
+    for (const entry of entries) {
+      const child = join(relative, entry.name);
+      if (entry.isDirectory()) walk(child);
+      else if (entry.name.endsWith('.mjs')) found.push(child);
+    }
+  };
+  walk('src');
+  return found;
 }
 
 function testFiles() {

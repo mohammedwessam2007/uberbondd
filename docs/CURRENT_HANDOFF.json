@@ -293,8 +293,8 @@
     ]
   },
   "continuousIntegrationTruth": {
-    "workflowRun": 33260218618,
-    "headSha": "bebeac10904d0d8fae2095fde15b62e29c389a66",
+    "workflowRun": 33265034795,
+    "headSha": "fd2604ca86d0291dce1312b39ae42b323f184739",
     "jobs": [
       "deterministic",
       "postgres",

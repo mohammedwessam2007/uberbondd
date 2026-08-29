@@ -21,6 +21,8 @@
     ]
   },
   "candidateBranch": "nightfall/overpass-resilience-20260829-v1",
+  "localBranch": "integration/overpass-resilience",
+  "exactLocalHead": "9f9dd65b1354ded6c84b74b37034c38d6e6f794a",
   "semanticHeadBeforeHandoff": "228239b4caafdc5cfc5de28b33279c1a37760d98",
   "productionInvariant": [
     "Concurrent Overpass requests for one endpoint are serialized.",
@@ -32,11 +34,12 @@
     "Discovery parsing, public-source attribution and daily result caps remain unchanged."
   ],
   "focusedExecutionEvidence": {
-    "commandClass": "node --test exact committed overpass-throttle semantics copied from the branch",
-    "tests": 5,
-    "passed": 5,
+    "commandClass": "node --test tests/discovery.test.mjs tests/overpass-throttle.test.mjs from the exact integration checkout",
+    "tests": 11,
+    "passed": 11,
     "failed": 0,
     "covers": [
+      "discovery POST routing, parsing and result cap",
       "same-endpoint serialization",
       "503/429 retry then success",
       "nonretryable 400 rejection without retry",
@@ -44,16 +47,28 @@
       "transport-error attempt-cap failure"
     ],
     "notClaimed": [
-      "whole-repository checkout execution",
-      "whole-tree integration proof",
       "live Overpass provider call",
+      "live browser/Chromium proof",
+      "real PostgreSQL proof",
+      "exact-head Vercel build",
       "unattended-duration proof"
     ]
+  },
+  "repositoryExecution": {
+    "syntax": "node scripts/check-syntax.mjs — 602 files parse",
+    "deterministic": "node scripts/run-tests.mjs deterministic — 2770 total, 2722 pass, 0 fail, 48 skipped",
+    "relaySafety": "150/150 pass",
+    "mutationWar": "75 mutations, 74 killed, 0 not killed, STORE-01 skipped without PostgreSQL",
+    "reachability": "11/11 pass; 251 src modules, 125 production-reachable, 9 operator-only, 117 no-entry modules",
+    "canonFreshness": "pass",
+    "dependencyAudit": "0 vulnerabilities",
+    "postgres": "BLOCKED_RUNTIME — OMNIA_V9_TEST_DATABASE_URL absent; 15 suites not executed",
+    "browser": "BLOCKED_RUNTIME — pinned Playwright Chromium executable absent; browser assertion not executed"
   },
   "promotionGates": [
     "Refresh main and open PRs for concurrency immediately before promotion.",
     "Obtain an exact-head Vercel READY build receipt for the candidate.",
-    "Execute focused discovery and Overpass tests from a genuine repository checkout/runtime when infrastructure permits.",
+    "Run browser and real-PostgreSQL gates when their runtimes are available.",
     "Do not treat zero-step GitHub Actions jobs as source execution evidence.",
     "Keep lite/ untouched."
   ],

@@ -2,8 +2,8 @@
   "schemaVersion": "uberbond-handoff-1.4.0",
   "sourceMainShaAtMissionStart": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
   "sourceCommit": "PENDING_MERGE",
-  "currentMainShaAtFinalRefresh": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
-  "currentMainCommitMessage": "SOL: corroborate top partner canary candidates (#226)",
+  "currentMainShaAtFinalRefresh": "a97a5d8fd84f93ac0195391603feb51d143af897",
+  "currentMainCommitMessage": "Integrate #231 and #230, and repair a P0 the browser gate caught (#232)",
   "missionIssue": 173,
   "missionIssueState": "OPEN",
   "activeMission": "Continue NIGHTFALL MAX with distribution and first economic proof as the priority while maturing current Growth Graph infrastructure. Reuse merged autonomy operations hardening rather than recreating proxy, dedupe, billing, maintenance or telemetry systems.",
@@ -45,10 +45,10 @@
     "No outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Every one of these is an external activation, not an engineering task."
   ],
   "nextActions": [
-    "OWNER: resolve the Vercel project-existence contradiction. It has now blocked every deployment step for four probes across two days and no lane can settle it from inside the repository.",
-    "ANY LANE: close #227, #228 and #229 as superseded -- their content is integrated verbatim via #231 and merging them again would be a duplicate.",
-    "CLAUDE: the payment reconciliation worker is still not wired. planPaymentReconciliation and the lease repository are proven against a real database but nothing calls them on a schedule. That is the next dependency-satisfied engineering mission and it needs no external activation.",
-    "ANY LANE: run the browser gate before merging anything that touches src/browser-crawler.mjs. It caught a P0 this shift that every other gate passed."
+    "OWNER: resolve the Vercel project-existence contradiction. Four probes across two days, the latest through a freshly reconnected connector. It blocks every deployment step and no lane can settle it from inside the repository.",
+    "CLAUDE/ANY LANE: the payment reconciliation worker is still unwired, and that is now VISIBLE rather than silent -- the health matrix reports NO_WORKER and DEGRADED. Wiring it needs a payment provider first, so it is blocked on activation, not on engineering.",
+    "ANY LANE: run the browser gate before merging anything touching src/browser-crawler.mjs. It caught a P0 this shift that syntax, the deterministic suite, and the new pool's own unit tests all passed.",
+    "ANY LANE: the artifact contract's sensitive-metadata-key check is top-level only. It leaks nothing today because metadata never reaches the plan, but it screens less deeply than its name suggests."
   ],
   "production": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
@@ -83,12 +83,12 @@
   "verification": {
     "executedBy": "local execution in this session, not hosted CI",
     "gates": {
-      "check:syntax": "609 files parse",
-      "test:deterministic": "2798 tests, 2750 pass, 0 fail, 48 skipped",
+      "check:syntax": "611 files parse",
+      "test:deterministic": "2808 tests, 2760 pass, 0 fail, 48 skipped -- identical with and without a database URL exported",
       "test:relay-safety": "150/150",
-      "test:postgres-real": "132/132 against PostgreSQL 16.13",
+      "test:postgres-real": "145/145 against PostgreSQL 16.13",
       "test:browser": "1/1 against the runner's installed Chromium",
-      "test:mutation-war": "77 mutations, 77 killed, 0 not killed, with both a real database and a real browser",
+      "test:mutation-war": "81 mutations, 81 killed, 0 not killed, with both a real database and a real browser",
       "npm audit --omit=dev": "0 vulnerabilities"
     },
     "runtimeNote": "The runner was rebuilt and no longer ships the PostgreSQL 18 binaries the previous receipt named. A fresh PostgreSQL 16.13 cluster was initialized locally. The receipt says 16.13 rather than carrying 18 forward, because the version is part of what the evidence means."
@@ -277,6 +277,31 @@
         "origin": "pre-existing",
         "summary": "Two mutations shared an id, twice.",
         "mechanism": "MONEY-13 and MONEY-14 were both already taken, so a new entry collided twice in a row and the war printed two lines with one id -- ambiguous about which guard survived. Uniqueness and malformedness tests added."
+      },
+      {
+        "id": "BILL-01",
+        "severity": "P1",
+        "origin": "pre-existing structural gap",
+        "summary": "Verified payment evidence accumulated where nobody could see it.",
+        "mechanism": "The billing webhook route writes a row per verified delivery. Nothing in the tree reads those rows -- claimBillingEvents, finishBillingEvent, billingBacklogSummary and planPaymentReconciliation had no callers anywhere in src, api, scripts, server or worker. Evidence about money arrived, was stored, and was never claimed, retried, timed out, dead-lettered or mentioned to anyone.",
+        "fix": "Not a reconciliation worker -- there is no provider to reconcile against and a worker that resolves nothing would be machinery pretending to be a capability. The operator health matrix now carries a billing dimension with four states, separating NO_WORKER (nothing has ever claimed a row) from BACKLOG_AGEING (a worker exists and is behind). Those look identical in a pending counter and are not the same fact: one resolves itself, the other never will. Today the real query answers NO_WORKER and the system reports DEGRADED for it.",
+        "mutations": [
+          "BILL-01",
+          "BILL-02",
+          "BILL-03"
+        ]
+      },
+      {
+        "id": "GATE-01",
+        "severity": "P2",
+        "origin": "pre-existing",
+        "summary": "The deterministic gate changed its answer based on the invoking shell.",
+        "mechanism": "Most database suites stay in the deterministic set and self-skip when OMNIA_V9_TEST_DATABASE_URL is absent. Exported, they execute there in parallel sharing one database -- the interference run-real-postgres-tests.mjs runs serially to avoid. Symptom: a red property test that passes in isolation.",
+        "fix": "The runner drops the variable for its children. Identical answer with and without it set.",
+        "wrongFirstAttempt": "Deriving the deterministic exclusion from realPostgresTestFiles() dropped ~128 genuinely deterministic tests, because that marker matches any file mentioning the variable. The marker is right for PostgreSQL inclusion and wrong for deterministic exclusion. Two build-wiring tests caught it.",
+        "mutations": [
+          "GATE-01"
+        ]
       }
     ],
     "survivedAttackUnchanged": [

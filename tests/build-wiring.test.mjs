@@ -127,3 +127,20 @@ test('the deterministic suite lists each file once', () => {
   const dupes = referenced.filter(file => (seen.has(file) ? true : (seen.add(file), false)));
   assert.deepEqual([...new Set(dupes)], [], 'test:deterministic lists these files more than once');
 });
+
+// The deterministic gate must not change its answer because of the shell it was
+// invoked from.
+//
+// Most database suites stay in the deterministic set and skip themselves when
+// OMNIA_V9_TEST_DATABASE_URL is absent. Export that variable and they execute
+// here instead -- in parallel, sharing one database, which is the interference
+// `run-real-postgres-tests.mjs` runs serially to avoid. Observed once: a red
+// property test that passed in isolation. A gate that fails for a reason
+// unrelated to the code is worse than a gate that is merely strict.
+test('the deterministic runner drops the database URL for its children', () => {
+  const source = readFileSync(new URL('../scripts/run-tests.mjs', import.meta.url), 'utf8');
+  assert.match(source, /delete\s+\w+\.OMNIA_V9_TEST_DATABASE_URL/,
+    'the deterministic runner must remove OMNIA_V9_TEST_DATABASE_URL from the child environment');
+  assert.match(source, /spawnSync\([^)]*env:/s,
+    'and must actually pass that environment to the child, or deleting it changes nothing');
+});

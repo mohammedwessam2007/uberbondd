@@ -373,8 +373,12 @@ export const MUTATIONS = [
   {
     id: 'SOV-02', guard: 'The protection list contains itself',
     file: 'src/agent-code-change-contract.mjs',
-    find: "  'src/agent-code-change-contract.mjs',\n  // Whether a message may be sent to a real person, and on whose authority.",
-    replace: '  // Whether a message may be sent to a real person, and on whose authority.',
+    // The anchor pairs the entry with the comment that now follows it. Adding the
+    // enforcement-machinery block between the two split the old anchor, and the
+    // harness reported ANCHOR_NOT_FOUND rather than quietly passing -- which is
+    // the whole point of distinguishing "not killed" from "never applied".
+    find: "  'src/agent-code-change-contract.mjs',\n  // ...and the machinery that enforces them.",
+    replace: '  // ...and the machinery that enforces them.',
     suites: ['tests/sovereignty-self-modification.test.mjs']
   },
 
@@ -385,6 +389,41 @@ export const MUTATIONS = [
     find: "  'scripts/mutation-war.mjs',",
     replace: "  'scripts/mutation-war.mjs.not-really',",
     suites: ['tests/sovereignty-proof-closure.test.mjs']
+  },
+  {
+    id: 'ENF-01', guard: 'The change applier cannot be edited by what it applies',
+    file: 'src/agent-code-change-contract.mjs',
+    find: "  'src/agent-code-change-applier.mjs',",
+    replace: "  'src/agent-code-change-applier.mjs.not-really',",
+    suites: ['tests/enforcement-surface-sovereignty-boundary.test.mjs']
+  },
+  {
+    id: 'ENF-02', guard: 'The artifact store cannot stop refusing invalid change sets',
+    file: 'src/agent-code-change-contract.mjs',
+    find: "  'src/agent-code-artifact-store.mjs',",
+    replace: "  'src/agent-code-artifact-store.mjs.not-really',",
+    suites: ['tests/enforcement-surface-sovereignty-boundary.test.mjs']
+  },
+  {
+    id: 'ENF-03', guard: 'The first gate on a sandbox diff cannot be removed',
+    file: 'src/agent-code-change-contract.mjs',
+    find: "  'src/agent-git-sandbox-collector.mjs',",
+    replace: "  'src/agent-git-sandbox-collector.mjs.not-really',",
+    suites: ['tests/enforcement-surface-sovereignty-boundary.test.mjs']
+  },
+  {
+    id: 'ENF-04', guard: 'Neither worker-truth call site can be excused by the other',
+    file: 'src/agent-code-change-contract.mjs',
+    find: "  'src/agent-autonomy-pump.mjs',",
+    replace: "  'src/agent-autonomy-pump.mjs.not-really',",
+    suites: ['tests/enforcement-surface-sovereignty-boundary.test.mjs']
+  },
+  {
+    id: 'ENF-05', guard: 'The relay cannot discard the worker truth decision',
+    file: 'src/agent-code-change-contract.mjs',
+    find: "  'src/ai-employee-relay.mjs',",
+    replace: "  'src/ai-employee-relay.mjs.not-really',",
+    suites: ['tests/enforcement-surface-sovereignty-boundary.test.mjs']
   },
   {
     id: 'SEND-01', guard: 'The send loop cannot escape the guards it calls',

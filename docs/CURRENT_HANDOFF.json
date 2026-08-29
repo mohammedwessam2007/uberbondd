@@ -2,28 +2,21 @@
   "schemaVersion": "uberbond-handoff-1.1.0",
   "sourceMainShaAtMissionStart": "ba1fa7a53b2a6c7672562a30c737b7f553cb5857",
   "sourceMainCommitMessage": "Add Trinity night-shift coordination protocol",
-  "sourceCommit": "348f563f614edaa24abd1e5a673e42453ea383b8",
-  "currentMainShaAtFinalRefresh": "348f563f614edaa24abd1e5a673e42453ea383b8",
-  "currentMainCommitMessage": "NIGHTFALL: bind scheduled autonomy tasks to deterministic AI employee roles",
-  "activeBranch": "gpt/nightfall-sol-research-singularity-20260828",
-  "activePullRequest": 180,
+  "sourceCommit": "11dacd6d10005900f6037f1f5fa21c0e38d237f1",
+  "currentMainShaAtFinalRefresh": "11dacd6d10005900f6037f1f5fa21c0e38d237f1",
+  "currentMainCommitMessage": "Add Nightfall research and distribution decision layer (#180)",
+  "activeBranch": "main",
+  "activePullRequest": null,
   "missionIssue": 176,
+  "missionIssueState": "CLOSED_COMPLETED",
   "publishedResearchTreeCommit": "9789c0a695833e9ade42a4ff0b5e24c56e7dc95c",
   "publishedMainReconciliationCommit": "5aa936bc475a62d44cda3eac0e4f4a8db1b94c9b",
   "remoteBranchHeadBeforeFinalMainReconciliation": "c62086a0f7d32f9ebe5e73daa79c32e96457512d",
   "activeMission": "Convert current world intelligence, distribution research, opportunity evidence, economics, AI employee design, and software mechanism research into one canary, one fallback, machine-readable decision artifacts, bounded implementation packets, and a durable handoff without commercial external effects.",
   "liveGitHubAtFinalRefresh": {
-    "checkedAt": "2026-08-29T04:24:04Z",
-    "mainSha": "348f563f614edaa24abd1e5a673e42453ea383b8",
+    "checkedAt": "2026-08-29T04:28:39Z",
+    "mainSha": "11dacd6d10005900f6037f1f5fa21c0e38d237f1",
     "openPullRequests": [
-      {
-        "number": 180,
-        "title": "Add Nightfall research and distribution decision layer",
-        "base": "main",
-        "head": "gpt/nightfall-sol-research-singularity-20260828",
-        "remoteHeadBeforeFinalMainReconciliation": "c62086a0f7d32f9ebe5e73daa79c32e96457512d",
-        "status": "OPEN_RECONCILING_CURRENT_MAIN"
-      },
       {
         "number": 188,
         "title": "NIGHTFALL: preserve AI employee identity through cloud relay transport",
@@ -35,7 +28,8 @@
     "materialIssues": [
       {
         "number": 176,
-        "role": "Sol research, distribution, economics lane"
+        "role": "Sol research, distribution, economics lane",
+        "state": "CLOSED_COMPLETED"
       },
       {
         "number": 173,
@@ -46,13 +40,13 @@
     "materialBranches": [
       {
         "name": "main",
-        "sha": "348f563f614edaa24abd1e5a673e42453ea383b8",
-        "status": "CURRENT"
+        "sha": "11dacd6d10005900f6037f1f5fa21c0e38d237f1",
+        "status": "CURRENT_AT_HANDOFF_WRITE"
       },
       {
         "name": "gpt/nightfall-sol-research-singularity-20260828",
-        "sha": "c62086a0f7d32f9ebe5e73daa79c32e96457512d",
-        "status": "PULL_REQUEST_OPEN_BEFORE_FINAL_MAIN_RECONCILIATION_COMMIT"
+        "sha": "95523178926774fd964e832d9f623bcf5073ce3a",
+        "status": "MERGED_VIA_PR_180"
       }
     ]
   },
@@ -68,6 +62,7 @@
     "Preserved unknown conversion, contribution, renewal, and founder-minute terms as null rather than convenient zeros; no expected-revenue forecast was manufactured.",
     "Audited authenticated Vercel state and corrected the stale zero-project claim; current main now carries the canonical live-infrastructure observation and cloud activation contract.",
     "Reconciled current main's AI employee work: deterministic role contracts, task-origin binding, terminal identity, and worker fail-closed enforcement are canonical; the remaining cloud-transport preservation gap is already claimed by open PR #188.",
+    "Merged pull request #180 into main as 11dacd6d10005900f6037f1f5fa21c0e38d237f1; issue #176 closed as completed and the durable decision layer is now canonical.",
     "Added machine checks enforcing source resolution, one canary and fallback, zero live commercial experiment, unknown economics, employee contract completeness, packet claim state, zero business effects, and honest cloud-liveness labels."
   ],
   "artifactsChanged": [
@@ -172,7 +167,6 @@
       "No dependency-satisfied research or distribution task remains for the current decision; resume only on an external quote, buyer, payment, delivery evidence, or a decision-changing monitored signal."
     ],
     "integrator": [
-      "Review PR #180 for canonical dedupe against current main 348f563f614edaa24abd1e5a673e42453ea383b8.",
       "Let PR #188 finish the already-claimed transport integrity gap, then reconcile CLAUDE-NIGHT-01 to complete only after exact-head evidence and merge."
     ],
     "activation": [
@@ -187,6 +181,8 @@
   ],
   "repositoryPublicationEffects": {
     "pullRequestsOpened": 1,
+    "pullRequestsMerged": 1,
+    "directMainHandoffReconciliationCommits": 1,
     "remoteBranchUpdatesIncludingFinalMainReconciliation": 6,
     "automaticPrivateLitePreviewDeploymentsObservedReadyBeforeFinalReconciliation": 2,
     "automaticFullPreviewDeploymentsObservedRateLimitedBeforeFinalReconciliation": 2,
@@ -203,5 +199,5 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE",
-  "headSha": "348f563f614edaa24abd1e5a673e42453ea383b8"
+  "headSha": "11dacd6d10005900f6037f1f5fa21c0e38d237f1"
 }

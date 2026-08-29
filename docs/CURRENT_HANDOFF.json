@@ -1,9 +1,9 @@
 {
   "schemaVersion": "uberbond-handoff-1.3.0",
   "sourceMainShaAtMissionStart": "d3a0b73c6e9e04cef18f74deaaa0627b9d3460c5",
-  "sourceCommit": "eee55697e9d72658b1612ae7193acd067d8df496",
-  "currentMainShaAtFinalRefresh": "eee55697e9d72658b1612ae7193acd067d8df496",
-  "currentMainCommitMessage": "Protect the whole enforcement surface, not just the rules it enforces (#217)",
+  "sourceCommit": "13c4b0dcb11cf5132659d2f7b7b4be6282de3979",
+  "currentMainShaAtFinalRefresh": "13c4b0dcb11cf5132659d2f7b7b4be6282de3979",
+  "currentMainCommitMessage": "Finish the decision-consumer sweep: seven families clean, two evidence consumers were not (#219)",
   "missionIssue": 173,
   "missionIssueState": "OPEN",
   "activeMission": "Continue NIGHTFALL MAX with distribution and first economic proof as the priority while maturing current Growth Graph infrastructure. Reuse merged autonomy operations hardening rather than recreating proxy, dedupe, billing, maintenance or telemetry systems.",
@@ -42,7 +42,7 @@
     "CLAUDE: P0b (exact-head deploy/promote) stays blocked until the Vercel contradiction is resolved by the owner. Everything else on the deployment path is prepared.",
     "CLAUDE: reconcile PR #211 once its author addresses the unbound-path finding at https://github.com/mohammedwessam2007/uberbondd/pull/211#issuecomment-5461524823 -- complementary to #212 but as drafted it bypasses the fix at the relay entry point.",
     "ANY LANE: PRs #207 and #208 appear superseded by the autonomy hardening already on main. Confirm and close.",
-    "ANY LANE: the same 'protected decision, unprotected caller' sweep has been run for outbound and enforcement decisions. It has not been run for payment, escalation or recovery decisions. That is the next place the shape would hide."
+    "ANY LANE: the decision-consumer sweep is COMPLETE across all eight families -- see decisionConsumerSweep. Do not re-run it as though it were open; three derived tests now fail if a new module reopens it."
   ],
   "production": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
@@ -67,15 +67,15 @@
     "retainedCustomers": 0
   },
   "verification": {
-    "executedAt": "eee55697e9d72658b1612ae7193acd067d8df496",
+    "executedAt": "13c4b0dcb11cf5132659d2f7b7b4be6282de3979",
     "executedBy": "local execution in this session, not hosted CI",
     "gates": {
       "check:syntax": "598 files parse",
-      "test:deterministic": "2754 tests, 2706 pass, 0 fail, 48 skipped",
+      "test:deterministic": "2758 tests, 2710 pass, 0 fail, 48 skipped",
       "test:relay-safety": "150/150",
       "test:postgres-real": "127/127 against embedded PostgreSQL 18",
       "test:browser": "1/1 against the runner's installed Chromium, loopback only",
-      "test:mutation-war": "73 mutations, 73 killed, 0 not killed",
+      "test:mutation-war": "75 mutations, 75 killed, 0 not killed",
       "npm audit --omit=dev": "0 vulnerabilities"
     }
   },
@@ -125,7 +125,7 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE_EXCEPT_EXISTING_PROJECT_DEPLOYMENT_AUTHORIZED_WHEN_VERIFIED",
-  "headSha": "eee55697e9d72658b1612ae7193acd067d8df496",
+  "headSha": "13c4b0dcb11cf5132659d2f7b7b4be6282de3979",
   "cloudActivationTruth": {
     "fullProjectExists": "CONTRADICTED",
     "privateLiteProjectExists": "CONTRADICTED",
@@ -178,7 +178,9 @@
       213,
       215,
       216,
-      217
+      217,
+      218,
+      219
     ],
     "verdict": "INTERNALLY_EXHAUSTED_UNDER_CURRENT_ATTACK_SURFACE__EXTERNAL_PROOF_PENDING",
     "theShape": "One defect class accounts for most of this slice: a guard is protected and the thing that consults it is not. Protecting the reader while leaving the writer editable was already written down for revenue.mjs; it had never been applied to the outbound send loop, and never to the enforcement machinery itself. Both are now closed, and the rules that close them are derived from the import graph rather than from lists maintained by hand -- which caught two things the hand lists missed.",
@@ -250,6 +252,17 @@
           "ENF-04",
           "ENF-05"
         ]
+      },
+      {
+        "id": "EVID-1",
+        "pr": 219,
+        "severity": "P2",
+        "summary": "Two dormant modules could discard the verdict that suppression beats verification.",
+        "mechanism": "evaluateContactRoute decides whether a contact route is usable for handoff, and an unsubscribe recorded as SUPPRESSED must not be outvoted by a fresher provider check. Both callers were editable. Both are dormant behind NO_ENRICHMENT_PROVIDER, so nothing that runs today was exposed; the risk was a clamp weakened while dormant and carried into activation.",
+        "mutations": [
+          "EVID-03",
+          "EVID-04"
+        ]
       }
     ],
     "inheritedRedTestsRepaired": [
@@ -282,5 +295,28 @@
     "reachableFromOperatorScriptsOnly": 9,
     "noEntryPointAtAll": 117,
     "note": "src is now walked recursively. Earlier figures excluded src/overnight and src/omnia-v9 entirely."
+  },
+  "decisionConsumerSweep": {
+    "status": "COMPLETE",
+    "method": "For every sovereignty-protected module that exports a decision, find modules outside the boundary that import that decision and could therefore discard it. Derived from the import graph, not from a hand-maintained list.",
+    "familiesClean": [
+      "payment",
+      "escalation",
+      "recovery",
+      "fulfillment",
+      "activation",
+      "autonomy",
+      "sandbox"
+    ],
+    "familiesWithFindings": {
+      "outbound": "src/pipeline.mjs and src/gmail.mjs -- the send loop and the transport. PR #215.",
+      "enforcement": "the change applier, artifact store, sandbox collector, and both callers of evaluateWorkerResultTruth. PR #217.",
+      "evidence": "both callers of evaluateContactRoute. PR #219."
+    },
+    "deliberateNonFindings": [
+      "canonicalContactRoute is a string canonicalizer, flagged only because a decision-name heuristic caught its `can` prefix.",
+      "isStaleSignal compares a signal's age against a maxAgeMs the caller supplies, so a caller can already choose its own answer without discarding anything. Protecting its callers would look like a boundary and enforce nothing. A test asserts they stay editable, with that reason, so nobody tidies them in later."
+    ],
+    "whatWouldReopenIt": "A new module that imports a protected decision. Three derived tests fail in that case rather than depending on anyone remembering this sweep: tests/outbound-send-path-sovereignty-boundary.test.mjs, tests/enforcement-surface-sovereignty-boundary.test.mjs, tests/evidence-sovereignty-boundary.test.mjs."
   }
 }

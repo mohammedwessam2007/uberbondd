@@ -1,8 +1,12 @@
 {
-  "schemaVersion": "uberbond-live-infrastructure-observation-1.0.0",
-  "observedAt": "2026-08-29T00:00:00Z",
+  "schemaVersion": "uberbond-live-infrastructure-observation-1.1.0",
+  "observedAt": "2026-08-29T07:45:00Z",
   "source": "connected-vercel-tooling",
-  "teamId": "team_A9LnjIuS5PU0rNetsHMu1N0r",
+  "repositoryMainSha": "d2442c27fa99dc5ea74460f4ad8e01fa1ff307fd",
+  "team": {
+    "id": "team_A9LnjIuS5PU0rNetsHMu1N0r",
+    "plan": "hobby"
+  },
   "project": {
     "id": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
     "name": "uberbondd",
@@ -16,50 +20,78 @@
       "uberbondd-mohammedwessam2007s-projects.vercel.app",
       "uberbondd-git-main-mohammedwessam2007s-projects.vercel.app"
     ],
-    "latestDeployment": {
-      "id": "dpl_GxiZJqNGzFctaAjxtcXkAn1EkWda",
+    "publicProductionHttp": {
+      "url": "https://uberbondd.vercel.app/",
+      "status": 200,
+      "observedSurface": "UberBond Opportunity Audit public UI",
+      "proves": "older production public surface reachable only"
+    },
+    "latestObservedDeployment": {
+      "id": "dpl_3UfbWNsjDuxbPGrX1U9uLnNaw33T",
       "state": "READY",
       "target": null,
-      "sourceRef": "claude/uberbond-kilimanjaro-closure-hha0oo",
-      "sourceSha": "59a413da9cd0dde1ca10aabbca79733583c01b36"
+      "sourceRef": "gpt/enterprise-orchestrator-sender-mesh-20260829",
+      "sourceSha": "de43aa7d4dc37680e28cfc4b525f5294abb85d9e"
     },
     "latestObservedProductionDeployment": {
-      "id": "dpl_7JcNGnb3yQecemXo6ncxckNyEfCR",
+      "id": "dpl_DVtL6XTs6yWg2DsDHX1LJnB5hDWA",
       "state": "READY",
       "target": "production",
       "sourceRef": "main",
-      "sourceSha": "7e20cec9b4399e73b7f13fa7999dbc05a2f38221"
+      "sourceSha": "b156566c69f1d1d0e7e01b015afa474e36041276",
+      "url": "uberbondd-3939ljp3w-mohammedwessam2007s-projects.vercel.app",
+      "rollbackCandidate": true
     },
-    "runtimeErrorsLast24h": 0
+    "runtimeErrorsLast24h": 0,
+    "latestMainDeploymentObservedAfterPromptMerge": false,
+    "deploymentConnectorConstraint": "The connected deploy action requires a raw file tree and exposes no repository-context Vercel CLI/promote action in this ChatGPT runtime. No unsafe duplicate project was created."
   },
   "secondaryProject": {
     "id": "prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz",
     "name": "uberbondd-lite-private",
-    "git": {
-      "org": "mohammedwessam2007",
-      "repo": "uberbondd"
-    }
+    "protected": true,
+    "usedAsWorkaround": false
   },
-  "contradicts": [
-    "docs/CURRENT_HANDOFF.json blocker asserting that the Vercel team has zero projects",
-    "docs/CLOUD_ACTIVATION_CONTRACT.md section asserting that no Vercel project exists"
-  ],
   "interpretation": {
     "projectExists": true,
     "productionDeploymentExists": true,
+    "publicSiteReachable": true,
     "currentMainExactProductionDeploymentProven": false,
-    "cronLivenessProven": false,
+    "productionIsStaleRelativeToMain": true,
+    "cronLivenessOnCurrentMainProven": false,
     "requiredSecretPresenceProven": false,
-    "databaseConnectivityFromCurrentProductionProven": false
+    "databaseConnectivityFromCurrentProductionProven": false,
+    "commercialAutonomyProven": false
+  },
+  "authorizedNextDeployment": {
+    "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
+    "projectName": "uberbondd",
+    "target": "production",
+    "requirements": [
+      "refresh newest main",
+      "exact-head tests/build",
+      "deploy or promote through existing Git/Vercel project",
+      "verify production source SHA and READY state",
+      "verify safe HTTP and runtime errors",
+      "preserve rollback candidate"
+    ],
+    "forbiddenWorkarounds": [
+      "create another Vercel project",
+      "upgrade or purchase a plan without owner spend authorization",
+      "use protected lite project as substitute",
+      "change DNS or secrets to force deployment"
+    ]
   },
   "externalEffectLedger": {
-    "providerCalls": 0,
-    "messages": 0,
+    "customerProspectContacts": 0,
+    "messagesCalls": 0,
+    "uberbondRuntimeProviderCalls": 0,
     "purchases": 0,
-    "deployments": 0,
+    "deploymentsPerformedThisObservation": 0,
     "credentialChanges": 0,
     "dnsChanges": 0,
-    "productionMutations": 0,
+    "paymentMutations": 0,
+    "customerSystemMutations": 0,
     "spendCents": 0
   }
 }

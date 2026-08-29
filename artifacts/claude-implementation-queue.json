@@ -48,7 +48,16 @@
           "tests/agent-autonomy-role-bound-origin.test.mjs",
           "tests/agent-worker-role-gate.test.mjs"
         ],
-        "adjudication": "Origin binding and worker enforcement are canonical; packet completion remains blocked on exact-head verification and merge of PR #188's transport preservation."
+        "independentOpenPullRequestVerification": {
+          "pullRequest": 188,
+          "headSha": "a2b63e7ca5f0b98856c7d4c89ab62790d176421f",
+          "focusedTests": "3/3 PASS",
+          "combinedRoleIntegrityTests": "26/26 PASS",
+          "syntax": "565 files parse",
+          "receiptCommentId": 5460346904
+        },
+        "remainingAfterPr188IfMerged": "Bind dispatched employee role ref and digest into executor result and terminal ingestion, then require the autonomy pump to verify terminal truth against the dispatched role identity.",
+        "adjudication": "Origin binding and worker enforcement are canonical. PR #188's transport path has independent exact-head source evidence but must reconcile current main before merge; terminal result ingestion remains a later exact gap."
       },
       "sourceEvidence": ["artifacts/ai-employee-organization.json", "docs/AI_EMPLOYEE_COMPANY_CHARTER.md"],
       "desiredStateMachine": ["ROLE_DECLARED", "ROLE_VALIDATED", "TASK_BOUND", "EXECUTING", "STOPPED_OR_ESCALATED", "TERMINAL_JUDGED"],
@@ -72,8 +81,9 @@
       "successCondition": "A worker task and terminal receipt are cryptographically bound to one validated employee role without introducing a second relay, scheduler, authority system, or employee registry.",
       "authorityBoundary": "LOCAL_PREPARATION_ONLY; no provider or business-world effects.",
       "dependencies": [
-        "PR #188 receives trustworthy exact-head focused evidence and merges without weakening generic relay compatibility",
-        "Post-merge main proves TaskIntent to role-bound task to cloud queue to worker claim continuity"
+        "PR #188 reconciles current main and merges without weakening generic relay compatibility",
+        "Post-merge main proves TaskIntent to role-bound task to cloud queue to worker claim continuity",
+        "After transport merge, bind and verify role identity through executor result and terminal ingestion"
       ]
     },
     {

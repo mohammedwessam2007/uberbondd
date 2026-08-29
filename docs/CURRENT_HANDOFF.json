@@ -2,9 +2,9 @@
   "schemaVersion": "uberbond-handoff-1.1.0",
   "sourceMainShaAtMissionStart": "ba1fa7a53b2a6c7672562a30c737b7f553cb5857",
   "sourceMainCommitMessage": "Add Trinity night-shift coordination protocol",
-  "sourceCommit": "11dacd6d10005900f6037f1f5fa21c0e38d237f1",
-  "currentMainShaAtFinalRefresh": "11dacd6d10005900f6037f1f5fa21c0e38d237f1",
-  "currentMainCommitMessage": "Add Nightfall research and distribution decision layer (#180)",
+  "sourceCommit": "c2fc6a99ddb715b3d9d0a2e24b294a334360941b",
+  "currentMainShaAtFinalRefresh": "c2fc6a99ddb715b3d9d0a2e24b294a334360941b",
+  "currentMainCommitMessage": "Record merged Nightfall mission handoff",
   "activeBranch": "main",
   "activePullRequest": null,
   "missionIssue": 176,
@@ -14,15 +14,15 @@
   "remoteBranchHeadBeforeFinalMainReconciliation": "c62086a0f7d32f9ebe5e73daa79c32e96457512d",
   "activeMission": "Convert current world intelligence, distribution research, opportunity evidence, economics, AI employee design, and software mechanism research into one canary, one fallback, machine-readable decision artifacts, bounded implementation packets, and a durable handoff without commercial external effects.",
   "liveGitHubAtFinalRefresh": {
-    "checkedAt": "2026-08-29T04:28:39Z",
-    "mainSha": "11dacd6d10005900f6037f1f5fa21c0e38d237f1",
+    "checkedAt": "2026-08-29T04:32:24Z",
+    "mainSha": "c2fc6a99ddb715b3d9d0a2e24b294a334360941b",
     "openPullRequests": [
       {
         "number": 188,
         "title": "NIGHTFALL: preserve AI employee identity through cloud relay transport",
         "baseSha": "348f563f614edaa24abd1e5a673e42453ea383b8",
         "headShaAtRefresh": "a2b63e7ca5f0b98856c7d4c89ab62790d176421f",
-        "status": "OPEN_CLAUDE_LANE_DO_NOT_DUPLICATE"
+        "status": "OPEN_DIRTY_AFTER_MAIN_ADVANCE_EXACT_HEAD_SOURCE_VERIFIED"
       }
     ],
     "materialIssues": [
@@ -40,7 +40,7 @@
     "materialBranches": [
       {
         "name": "main",
-        "sha": "11dacd6d10005900f6037f1f5fa21c0e38d237f1",
+        "sha": "c2fc6a99ddb715b3d9d0a2e24b294a334360941b",
         "status": "CURRENT_AT_HANDOFF_WRITE"
       },
       {
@@ -63,6 +63,7 @@
     "Audited authenticated Vercel state and corrected the stale zero-project claim; current main now carries the canonical live-infrastructure observation and cloud activation contract.",
     "Reconciled current main's AI employee work: deterministic role contracts, task-origin binding, terminal identity, and worker fail-closed enforcement are canonical; the remaining cloud-transport preservation gap is already claimed by open PR #188.",
     "Merged pull request #180 into main as 11dacd6d10005900f6037f1f5fa21c0e38d237f1; issue #176 closed as completed and the durable decision layer is now canonical.",
+    "Independently verified PR #188 head a2b63e7ca5f0b98856c7d4c89ab62790d176421f: its focused cloud-relay tests pass 3/3, the combined role-integrity set passes 26/26, and syntax parses 565 files; receipt comment 5460346904 is on the PR.",
     "Added machine checks enforcing source resolution, one canary and fallback, zero live commercial experiment, unknown economics, employee contract completeness, packet claim state, zero business effects, and honest cloud-liveness labels."
   ],
   "artifactsChanged": [
@@ -87,7 +88,8 @@
     "git diff --check and JSON parsing for the handoff and implementation queue: clean on the final current-main reconciliation tree.",
     "npm run test:deterministic was attempted earlier and exited non-zero because this fresh clone has no node_modules, including pg and @cedar-policy/cedar-wasm; no dependency or lockfile was changed.",
     "GitHub Actions has repeatedly produced deterministic, postgres, and browser failures with zero executed steps; this is runner or account infrastructure non-evidence, not an exact-head source result.",
-    "Vercel full-project previews remain provider-rate-limited while private-lite previews reached READY; neither is current full-production or scheduler proof."
+    "Vercel full-project previews remain provider-rate-limited while private-lite previews reached READY; neither is current full-production or scheduler proof.",
+    "PR #188 exact head a2b63e7ca5f0b98856c7d4c89ab62790d176421f: 3/3 focused tests pass, 26/26 combined role-integrity tests pass, and 565 files parse; GitHub marks the PR dirty only after main advanced."
   ],
   "contradictions": [
     {
@@ -128,7 +130,8 @@
     "No buyer, cleared payment, delivery, acceptance, renewal, contribution, or founder-minute receipt exists.",
     "The full Vercel production deployment is older than current main; environment-variable presence, current-source production, cron registration, and scheduler delivery remain unproven.",
     "Full deterministic verification in this fresh clone remains dependency-blocked; hosted zero-step jobs are not source proof.",
-    "AI employee role continuity through generic cloud relay transport remains open in PR #188."
+    "AI employee role continuity through generic cloud relay transport remains open in PR #188.",
+    "Even after PR #188 merges, executor result and terminal ingestion must carry and verify the dispatched employee role identity before CLAUDE-NIGHT-01 can be complete."
   ],
   "unresolvedNames": [
     {
@@ -154,11 +157,14 @@
     "scheduledTaskOriginBinding": true,
     "workerClaimFailClosedGate": true,
     "genericCloudRelayTransportPreservation": false,
-    "transportGapOwner": "PR #188"
+    "transportGapOwner": "PR #188",
+    "terminalWorkerResultRoleBindingEndToEnd": false,
+    "terminalGapState": "DEPENDENT_ON_PR_188_MERGE"
   },
   "laneDependencies": {
     "claude": [
-      "CLAUDE-NIGHT-01 is in progress and claimed by PR #188; do not duplicate its cloud-relay transport preservation work.",
+      "CLAUDE-NIGHT-01 is in progress and claimed by PR #188; its exact head is independently green, but it must reconcile current main before merge.",
+      "After PR #188 merges, the next exact remainder is employee role identity through executor result and terminal ingestion; do not call the packet complete before that hostile path is proven.",
       "CLAUDE-NIGHT-02 remains deferred until the owner selects the canary and the productization gate permits one exact SKU or template.",
       "CLAUDE-NIGHT-03 remains blocked by provider, credential, budget, and decision-bound signal selection.",
       "CLAUDE-NIGHT-04 remains blocked by browser infrastructure and buyer-authorized scope."
@@ -167,7 +173,8 @@
       "No dependency-satisfied research or distribution task remains for the current decision; resume only on an external quote, buyer, payment, delivery evidence, or a decision-changing monitored signal."
     ],
     "integrator": [
-      "Let PR #188 finish the already-claimed transport integrity gap, then reconcile CLAUDE-NIGHT-01 to complete only after exact-head evidence and merge."
+      "Reconcile PR #188's handoff against current main, preserve its verified two-file code/test change, and merge only after confirming the reconciled head.",
+      "After PR #188, claim the terminal result identity remainder as a separate bounded change and close CLAUDE-NIGHT-01 only after end-to-end evidence."
     ],
     "activation": [
       "If cloud liveness is authorized, use the existing Vercel project and follow docs/CLOUD_ACTIVATION_CONTRACT.md exactly; do not create a duplicate, expose secrets, or promote a stale source."
@@ -182,7 +189,7 @@
   "repositoryPublicationEffects": {
     "pullRequestsOpened": 1,
     "pullRequestsMerged": 1,
-    "directMainHandoffReconciliationCommits": 1,
+    "directMainHandoffReconciliationCommits": 2,
     "remoteBranchUpdatesIncludingFinalMainReconciliation": 6,
     "automaticPrivateLitePreviewDeploymentsObservedReadyBeforeFinalReconciliation": 2,
     "automaticFullPreviewDeploymentsObservedRateLimitedBeforeFinalReconciliation": 2,
@@ -199,5 +206,5 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE",
-  "headSha": "11dacd6d10005900f6037f1f5fa21c0e38d237f1"
+  "headSha": "c2fc6a99ddb715b3d9d0a2e24b294a334360941b"
 }

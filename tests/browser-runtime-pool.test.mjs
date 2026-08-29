@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import { BrowserRuntimePool, getSharedBrowserRuntime, closeSharedBrowserRuntimes } from '../src/browser-runtime-pool.mjs';
 
@@ -95,4 +96,18 @@ test('closing the pool rejects queued waiters fail-closed', async () => {
   await pool.close();
   await assert.rejects(queued,/browser-runtime-closed/);
   await first.release();
+});
+
+test('crawler and worker use the shared runtime lifecycle', async () => {
+  const crawler = await readFile(new URL('../src/browser-crawler.mjs', import.meta.url), 'utf8');
+  const worker = await readFile(new URL('../worker.mjs', import.meta.url), 'utf8');
+  assert.match(crawler, /getSharedBrowserRuntime/);
+  assert.match(crawler, /const runtimeLease=await runtime\.acquire/);
+  assert.match(crawler, /finally \{ await runtimeLease\.release\(\); \}/);
+  assert.doesNotMatch(crawler, /const browser=await chromium\.launch/);
+  assert.doesNotMatch(crawler, /await context\.close\(\); await browser\.close\(\)/);
+  assert.match(worker, /closeSharedBrowserRuntimes/);
+  const closeIndex = worker.indexOf('await closeSharedBrowserRuntimes()');
+  const storeCloseIndex = worker.indexOf('await store.close()');
+  assert.ok(closeIndex >= 0 && storeCloseIndex > closeIndex, 'worker closes browser runtimes before the store');
 });

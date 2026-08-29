@@ -35,21 +35,21 @@ export class BrowserRuntimePool {
     return this.browserPromise;
   }
 
-  async waitForSlot() {
+  async acquireSlot() {
     if (this.closed) throw new Error('browser-runtime-closed');
-    if (this.active < this.maxConcurrentContexts) return;
+    if (this.active < this.maxConcurrentContexts && this.waiters.length === 0) { this.active += 1; return; }
     await new Promise((resolve, reject) => this.waiters.push({ resolve, reject }));
   }
 
   wakeNext() {
+    if (this.active >= this.maxConcurrentContexts) return;
     const next = this.waiters.shift();
-    if (next) next.resolve();
+    if (next) { this.active += 1; next.resolve(); }
   }
 
   async acquire({ contextOptions = {} } = {}) {
-    await this.waitForSlot();
-    if (this.closed) throw new Error('browser-runtime-closed');
-    this.active += 1;
+    await this.acquireSlot();
+    if (this.closed) { this.active = Math.max(0, this.active - 1); throw new Error('browser-runtime-closed'); }
     let context;
     try {
       const browser = await this.ensureBrowser();

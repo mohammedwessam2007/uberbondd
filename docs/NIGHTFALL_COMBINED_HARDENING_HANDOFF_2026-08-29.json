@@ -10,7 +10,7 @@
     "localBranch": "integration/nightfall-hardening-20260829",
     "handoffSourceHead": "d2d76803e4e70ce1e784f50acc39c68592e07707",
     "remoteBackupBranch": "integration/nightfall-hardening-20260829",
-    "remoteBackupCommit": "2f2e884a775fd36d4919b3cdd01ed16deb17ca75",
+    "remoteBackupCommit": "f4d00096122bac41dc993b1b5de4c64138ed6eab",
     "integrationPullRequest": 231,
     "supersededClosedPullRequest": 214,
     "baseIsExactCanonicalMain": true,
@@ -69,6 +69,7 @@
   "cloudTruth": {
     "vercel": "Exact candidate deployment checks remain failed with api-deployments-free-per-day/build-rate-limit. Production remains READY only on older source b156566c69f1d1d0e7e01b015afa474e36041276.",
     "githubActions": "Run 33267965050 exposes zero executable steps on browser job 99141301142, deterministic job 99141301255 and PostgreSQL job 99141301265; it is infrastructure non-evidence.",
+    "productionRuntimeErrors": "Connected Vercel runtime-error aggregation for the observed production project found no runtime errors in the selected seven-day window at 2026-08-29T18:27:19Z. This does not prove the combined candidate is deployed.",
     "promotion": "No merge to main, exact-head production deployment or promotion was performed."
   },
   "commercialTruth": {
@@ -95,7 +96,7 @@
     "productionDeployments": 0
   },
   "promotionGates": [
-    "Remote backup branch and draft PR #231 are published; retain remote contents receipt 2f2e884a775fd36d4919b3cdd01ed16deb17ca75.",
+    "Remote backup branch and draft PR #231 are published; the latest full-verification remote contents receipt before this receipt refresh was f4d00096122bac41dc993b1b5de4c64138ed6eab.",
     "Run the 16 real-PostgreSQL suites against a trustworthy throwaway database.",
     "Run the browser/crawler gate with compatible pinned Chromium.",
     "Obtain an exact-head full-project Vercel READY build after the build-rate limit clears.",

@@ -2,11 +2,11 @@
   "schemaVersion": "uberbond-handoff-1.3.0",
   "sourceMainShaAtMissionStart": "6a6d0bd129afa1e6b17c9593ef9ef10ceb72f69b",
   "sourceCommit": "d568766d07cdeae7dc1bb850752324f73521d921",
-  "currentMainShaAtFinalRefresh": "6a6d0bd129afa1e6b17c9593ef9ef10ceb72f69b",
-  "currentMainCommitMessage": "NIGHTFALL: enforce direct relay employee identity (#222)",
+  "currentMainShaAtFinalRefresh": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
+  "currentMainCommitMessage": "SOL: corroborate top partner canary candidates (#226)",
   "missionIssue": 173,
   "missionIssueState": "OPEN",
-  "activeMission": "NIGHTFALL payment-reconciliation lease continuation: finish the exact-main candidate review, preserve payment truth boundaries, then return to public partner evidence and first economic proof. Do not recreate the already-merged proxy, dedupe, billing intake, maintenance or telemetry foundations.",
+  "activeMission": "NIGHTFALL continuation: preserve payment truth boundaries while the lease candidate awaits exact-head deployment and real PostgreSQL proof; public partner qualification and corroboration are now complete as owner-review-only evidence. Do not recreate the already-merged proxy, dedupe, billing intake, maintenance or telemetry foundations.",
   "executiveMissions": {
     "claude": "docs/prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md",
     "sol": "docs/prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md",
@@ -32,17 +32,19 @@
     "Migration 101_autonomy_operations_hygiene.sql adds egress_route_health, prospect_identity_keys, outbound_contact_guard and billing_webhook_inbox.",
     "Focused pure-module audit suite: 9/9 PASS. Independent mutations removing anti-evasion admission, cross-inbox dedupe or billing HMAC each reduced the suite to 8/9 and were killed. Billing Web Request route valid/bad signature harness PASS.",
     "Older PRs #207 and #208 are explicitly marked superseded by merged #209.",
-    "PR #224 is the live non-draft successor for the payment-reconciliation lease slice. Its published head is d568766d07cdeae7dc1bb850752324f73521d921; this continuation adds explicit claim-worker identity, returns the persisted lease owner, makes PostgreSQL parameter typing portable, and fixes the retry-due/reclaim sequence in the real-PostgreSQL proof.",
-    "Local exact-candidate proof: payment lease/watchdog suite 9/9 PASS, PGlite migration plus lease lifecycle PASS, syntax PASS, deterministic 2775 tests with 2727 pass/0 fail/48 skipped, relay safety 150/150, mutation war 75 mutations with 74 killed/0 not killed/1 PostgreSQL-dependent skip."
+    "PR #224 is the live non-draft successor for the payment-reconciliation lease slice. Its reviewed runtime candidate is d568766d07cdeae7dc1bb850752324f73521d921; subsequent handoff-only commits currently place the published branch head at 9b70e400.... This continuation adds explicit claim-worker identity, returns the persisted lease owner, makes PostgreSQL parameter typing portable, and fixes the retry-due/reclaim sequence in the real-PostgreSQL proof.",
+    "Local exact-candidate proof: payment lease/watchdog suite 9/9 PASS, PGlite migration plus lease lifecycle PASS, syntax PASS, deterministic 2775 tests with 2727 pass/0 fail/48 skipped, relay safety 150/150, mutation war 75 mutations with 74 killed/0 not killed/1 PostgreSQL-dependent skip.",
+    "PR #225 merged as 2af9b85b790d4b1791fd57f9dbf6641ef3e2d39d: public-only partner qualification receipt for ten seeds; five core candidates passed owner review, two remained adjacent-only and three were held.",
+    "PR #226 merged as dc489024042b7bb930a1c9367a86f2a4cc025f23: independent public corroboration challenged Leadhub, BxB Media and Lemon Seed Marketing; the rank held, while demand, white-label willingness and contact authority remained unproven."
   ],
   "blockers": [
-    "The live Vercel connector now verifies both UberBond projects. Exact current-main/payment-lease head d568766... is not deployed; the full project has a READY predecessor preview 31dbb897..., private-lite has a READY preview for earlier receipt ec0dd751..., and both current PR deployment checks report the free-tier api-deployments-free-per-day limit. Do not upgrade or spend.",
+    "The live Vercel connector now verifies both UberBond projects. Exact payment-lease branch head 9b70e400... is not deployed; the full project has a READY predecessor preview 31dbb897..., private-lite has a READY preview for earlier receipt ec0dd751..., and both current PR deployment checks report the free-tier api-deployments-free-per-day limit. Main has since advanced to dc489024... through the research-only PR #225/#226 merges. Do not upgrade or spend.",
     "GitHub Actions produces zero-step jobs with no runner assigned, so hosted CI yields no evidence either way. External to this lane; do not treat its red as a source failure or its green as a pass.",
     "No outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Every one of these is an external activation, not an engineering task."
   ],
   "nextActions": [
-    "CLAUDE: review and merge PR #224 only after the exact remote head d568766... and its proof receipt are refreshed; the current Vercel rate limit prevents exact-head deployment proof, so do not claim production activation.",
-    "SOL: enrich the existing partner-canary seed universe with public website evidence only, then rank multi-client agency fit. No private-contact inference, contact, outbound, or campaign activation.",
+    "CLAUDE: refresh/rebase PR #224 against current main dc489024... before any merge review; its current published branch head is 9b70e400..., and the Vercel rate limit plus missing real PostgreSQL runtime still prevent exact-head promotion proof.",
+    "SOL: public qualification and independent corroboration are COMPLETE in PRs #225/#226. Keep the top three owner-review-only; do not infer outreach permission, white-label willingness or demand.",
     "CLAUDE/SOL: once owner-only payment-provider identity/KYC and authorization exist, connect a real reconciliation caller/provider adapter to the lease repository. Until then the inbox remains evidence input and cannot unlock fulfillment.",
     "ANY LANE: the decision-consumer sweep is COMPLETE across all eight families -- see decisionConsumerSweep. Do not re-run it as though it were open; three derived tests now fail if a new module reopens it."
   ],
@@ -56,7 +58,7 @@
     "latestPreviewDeploymentId": "dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y",
     "latestPreviewSourceSha": "31dbb897fa793270cc80928f5d451e90c80cda77",
     "latestPreviewState": "READY",
-    "currentMainSha": "6a6d0bd129afa1e6b17c9593ef9ef10ceb72f69b",
+    "currentMainSha": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
     "currentMainExactProduction": false,
     "latestDeploymentBlocker": "VERCEL_FREE_DEPLOYMENT_RATE_LIMIT_API_DEPLOYMENTS_FREE_PER_DAY",
     "status": "PUBLIC_SITE_LIVE__FULL_PRODUCTION_STALE__PRIVATE_LITE_PREVIEW_PARTIAL",
@@ -188,7 +190,7 @@
         "claim": "exact current PR #224 head is not yet deployed",
         "observedVia": "live Vercel deployment metadata and PR #224 status/comments",
         "observedAt": "2026-08-29",
-        "result": "latest READY preview is predecessor 31dbb897...; PR #224 head d568766d... has deployment checks failed with api-deployments-free-per-day",
+        "result": "latest READY preview is predecessor 31dbb897...; PR #224 branch head 9b70e400... has deployment checks failed with api-deployments-free-per-day",
         "evidenceRef": "PR #224 Vercel bot comments 5462828001 and 5462828066"
       }
     ],
@@ -196,8 +198,8 @@
   },
   "repositoryPublicationEffects": {
     "productionDeploymentsAuthorizedOrPerformedByThisLane": 0,
-    "pullRequestsCreated": 1,
-    "pullRequestsMerged": 1,
+    "pullRequestsCreated": 3,
+    "pullRequestsMerged": 3,
     "issueCommentsPosted": 1,
     "previewDeploymentsObserved": 2,
     "note": "GitHub repository operations are not customer-facing external effects."
@@ -306,8 +308,8 @@
     ]
   },
   "continuousIntegrationTruth": {
-    "workflowRun": 33258133033,
-    "headSha": "d568766d07cdeae7dc1bb850752324f73521d921",
+    "workflowRun": 33258363099,
+    "headSha": "9b70e4001ec10d98a5ceb6ad96f9606740035c4b",
     "jobs": [
       "deterministic",
       "postgres",
@@ -315,7 +317,7 @@
     ],
     "reportedConclusion": "failure",
     "classification": "INFRASTRUCTURE_NON_EVIDENCE",
-    "proof": "runner_id 0, runner_name empty, no steps executed, log download returns HTTP 404, all three jobs completed in 1-3 seconds.",
+    "proof": "All three jobs returned steps=[] and completed without source execution or usable log evidence; this run is not a source pass/fail receipt.",
     "ruling": "Not a pass and not a source failure. These results are not the basis for the merge and were not treated as one; the merge rests on the locally executed gates above."
   },
   "currentExecutionReceipt": {
@@ -351,10 +353,10 @@
       "RETRYABLE clears the lease; only a later claimed row with a canonical receipt can become RECONCILED"
     ],
     "externalVerification": {
-      "vercel": "PARTIAL: full project READY preview dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y is predecessor 31dbb897...; private-lite READY preview dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg is receipt ec0dd751...; current branch head d568766d... has Vercel checks failed with api-deployments-free-per-day",
+      "vercel": "PARTIAL: full project READY preview dpl_DmsYGtAQF35oNjQEUpEigD3d6m9y is predecessor 31dbb897...; private-lite READY preview dpl_8i4CLSCY2UGVVfxDu1kPx5HEGJrg is receipt ec0dd751...; current published branch head 9b70e400... (runtime candidate d568766d...) has Vercel checks failed with api-deployments-free-per-day",
       "postgres": "BLOCKED_RUNTIME: no OMNIA_V9_TEST_DATABASE_URL; embedded fallback cannot create postgres system group",
       "browser": "BLOCKED_RUNTIME: pinned Chromium absent; Playwright CDN install timed out",
-      "githubActions": "INFRASTRUCTURE_NON_EVIDENCE: run 33256756811 has zero steps and runner_id 0"
+      "githubActions": "INFRASTRUCTURE_NON_EVIDENCE: run 33258363099 completed failure but all three jobs returned steps=[]; no source execution is evidenced"
     },
     "merged": false,
     "productionDeployment": false,
@@ -368,7 +370,47 @@
       "previewDeploymentsObserved": 2,
       "liteTouched": false
     },
-    "nextHighestValueMission": "Enrich the existing partner-canary seed universe with public website evidence only, then qualify multi-client agency fit without contact or outbound activation."
+    "nextHighestValueMission": "Reconcile current main after merged public-evidence receipts and refresh PR #224 against it; while external payment/deployment gates remain blocked, keep outreach disabled and select only another dependency-free internal or public-evidence mission."
+  },
+  "publicPartnerEvidenceExecutionReceipt": {
+    "mission": "SOL continuation: qualify the existing home-service partner canary from public evidence, then challenge the top three with independent ecosystem sources.",
+    "sourceMainShaAtStart": "6a6d0bd129afa1e6b17c9593ef9ef10ceb72f69b",
+    "qualificationPullRequest": 225,
+    "qualificationHeadSha": "2e10548bc472f44b699416cf4eb5e3a1433bb808",
+    "qualificationMergeSha": "2af9b85b790d4b1791fd57f9dbf6641ef3e2d39d",
+    "corroborationPullRequest": 226,
+    "corroborationHeadSha": "b4e60228f027e1d758e704171052b514c2243f3a",
+    "corroborationMergeSha": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
+    "filesChanged": [
+      "artifacts/partner-canary-public-evidence-20260829.json",
+      "docs/distribution/NIGHTFALL_PARTNER_CANARY_PUBLIC_EVIDENCE_2026-08-29.md",
+      "artifacts/partner-canary-public-corroboration-20260829.json",
+      "docs/distribution/NIGHTFALL_PARTNER_CANARY_CORROBORATION_2026-08-29.md"
+    ],
+    "researchSources": [
+      "official ServiceTitan and Jobber ecosystem directories from the existing seed registry",
+      "public company websites and public client/case-study pages for all ten seeds",
+      "Yelp official partner-award page for Leadhub",
+      "FieldEdge official partner page for BxB Media",
+      "CI Web Group public strategic-partner page for Lemon Seed Marketing"
+    ],
+    "testsActuallyExecuted": [
+      "JSON parse and structural assertions: 10 candidates; 5 core owner-review, 2 adjacent, 3 held",
+      "Boundary assertions: every candidate contactAuthority=NONE; no private contact fields stored",
+      "Corroboration assertions: 3/3 top candidates challenged; rank unchanged; buyer demand and white-label willingness remain false"
+    ],
+    "decision": "Five candidates are core public-evidence-qualified for owner review; top three survived corroboration with uncertainty. No candidate is eligible for outreach.",
+    "commercialTruth": "customers=0, clearedRevenue=0, acceptedDeliveries=0, retainedCustomers=0",
+    "externalEffects": {
+      "customerContacts": 0,
+      "outboundMessages": 0,
+      "providerCalls": 0,
+      "privateContactFieldsStored": 0,
+      "customerSystemMutations": 0,
+      "moneyMovement": 0,
+      "spendCents": 0
+    },
+    "nextHighestValueMission": "Reconcile current main and PR #224 after the independent evidence merges; absent owner authority, continue no-contact public research or internal readiness work rather than activating outreach."
   },
   "truthRestrictions": [
     "Zero verified customers, zero cleared revenue, zero accepted deliveries, zero retained customers. Unchanged by this slice and preserved as zero.",

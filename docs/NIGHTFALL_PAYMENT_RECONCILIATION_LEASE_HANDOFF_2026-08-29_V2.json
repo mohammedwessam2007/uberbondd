@@ -25,6 +25,7 @@
     "historicalDonorMutationWar": "75 mutations, 74 killed, 0 not killed, 1 PostgreSQL-only skip recorded on PR 224",
     "historicalDonorAudit": "0 vulnerabilities recorded on PR 224",
     "exactLocalReviewHead": "0eb8eb31a88496ea3209d381bd6c09601a8ac293",
+    "publishedBranchHead": "74bfff008d7db1ba9f548d33c361d9dc697f1427",
     "exactLocalDeterministicProofHead": "6ba5ce3",
     "exactLocalFocusedSuite": "9/9 PASS on the refreshed branch, including PGlite migration and lease lifecycle proof",
     "exactLocalDeterministic": "2775 tests, 2727 pass, 0 fail, 48 skipped on the refreshed branch; completed in 106.4 seconds",
@@ -34,7 +35,7 @@
     "exactLocalReachability": "11/11 PASS; 251 src modules split 124 production, 9 operator-only, 118 no entry point; payment watchdog classified AWAITING_ACTIVATION behind NO_PAYMENT_PROVIDER",
     "exactLocalMutationWar": "75 mutations, 74 killed, 0 not killed, 1 PostgreSQL-only skip on the exact refreshed checkout; STORE-01 was not executed",
     "exactLocalBrowser": "BLOCKED_RUNTIME: node --test tests/browser.test.mjs could not launch because Playwright's chromium_headless_shell-1228 executable and /opt/pw-browsers/chromium-1194/chrome-linux/chrome are absent",
-    "currentBranchExactHeadBuild": "BLOCKED_EXTERNAL: Vercel checks on exact head bebeac10904d0d8fae2095fde15b62e29c389a66 report api-deployments-free-per-day; connected Vercel currently proves the project exists and a READY predecessor preview for source 444efdab...",
+    "currentBranchExactHeadBuild": "BLOCKED_EXTERNAL: Vercel checks on exact head 74bfff008d7db1ba9f548d33c361d9dc697f1427 report api-deployments-free-per-day; connected Vercel currently proves the project exists and a READY predecessor preview for source 444efdab...",
     "currentBranchRealPostgresExecution": "BLOCKED_RUNTIME: node scripts/run-real-postgres-tests.mjs exited 2 because OMNIA_V9_TEST_DATABASE_URL is absent; no trustworthy real-PostgreSQL execution is claimed",
     "modelProviderReceipt": null
   },

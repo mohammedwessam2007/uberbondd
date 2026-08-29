@@ -49,8 +49,30 @@ const PROTECTED_PREFIXES = Object.freeze([
 // that a system may not widen its own authority. The cost is real: genuine
 // improvements to these files need a human. That is the intended price.
 const SOVEREIGNTY_PREFIXES = Object.freeze([
-  // The rules about changing files, including this list.
+  // The rules about changing files, including this list...
   'src/agent-code-change-contract.mjs',
+  // ...and the machinery that enforces them.
+  //
+  // Protecting the rules and leaving the enforcer editable is the same shape as
+  // protecting a guard and leaving its caller editable, one level up. The
+  // applier is what calls `validateAgentCodeChangeSet` and then writes files;
+  // the artifact store is what refuses to persist a change set that does not
+  // validate. Both were editable, and both were confirmed accepted by this
+  // contract before being listed here.
+  //
+  // The bypass is two steps rather than one -- a weakened applier only takes
+  // effect once it is merged and a later run uses it -- but the second step is
+  // unbounded, and self-modification of the enforcement surface is the exact
+  // thing this list exists to prevent.
+  'src/agent-code-change-applier.mjs',
+  'src/agent-code-artifact-store.mjs',
+  // And the first gate of all: the collector turns an agent's sandbox git diff
+  // into a proposed change set, and calls `compileAgentCodeChangeSet` to do it.
+  // That call is where a change naming a protected path is refused, before
+  // anything downstream ever sees it. Found by a test that derives this rule
+  // from the import graph rather than from a list someone maintained by hand,
+  // which is the only reason it was noticed at all.
+  'src/agent-git-sandbox-collector.mjs',
   // Whether a message may be sent to a real person, and on whose authority.
   'src/deliverability-guard.mjs',
   'src/send-safety.mjs',
@@ -78,6 +100,7 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   'src/pipeline.mjs',
   'src/gmail.mjs',
   'tests/outbound-send-path-sovereignty-boundary.test.mjs',
+  'tests/enforcement-surface-sovereignty-boundary.test.mjs',
   // The gate that decides whether a provider may be called at all.
   'src/agent-mesh-activation-gate.mjs',
   // What an autonomous run may do, and how authority narrows into children.
@@ -90,6 +113,13 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   // What counts as a credential, and what counts as finished work.
   'src/secret-patterns.mjs',
   'src/agent-worker-result-truth.mjs',
+  // The two callers that ask it. `evaluateWorkerResultTruth` decides whether a
+  // worker's result may be treated as finished; both call sites act on that
+  // answer, so either could discard it while the evaluator stayed untouched.
+  // A false TERMINAL is not an external effect, but it is the claim every
+  // downstream receipt is built on.
+  'src/agent-autonomy-pump.mjs',
+  'src/ai-employee-relay.mjs',
   // The isolation the engineering path runs inside.
   'src/claude-code-sandbox-provisioner.mjs',
   // Customer acceptance, contractual timing and retained-customer truth.

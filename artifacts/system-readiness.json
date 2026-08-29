@@ -1,24 +1,24 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-29T09:54:50.545Z",
+  "generatedAt": "2026-08-29T10:16:05.759Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "6a7a8401c5a910cedc2b65fd7301f6cb903dabb4",
+    "head": "fbd7a9a9a35e08ded9c245b26560d8afe6585dc9",
     "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
     "sourceModules": 191,
-    "testSuites": 278,
+    "testSuites": 279,
     "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 597,
+      "filesParsed": 598,
       "ranAt": "2026-08-29T00:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2744,
-      "pass": 2695,
+      "tests": 2754,
+      "pass": 2706,
       "fail": 0,
       "skipped": 48,
       "ranAt": "2026-08-29T00:00:00Z"
@@ -50,7 +50,7 @@
     },
     "test:mutation-war": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "68 mutations, 68 killed, 0 not killed",
+      "result": "73 mutations, 73 killed, 0 not killed",
       "note": "Run with a real PostgreSQL so STORE-01 is executed rather than skipped. Without the database it reports 63 killed and 1 PostgreSQL-dependent skip.",
       "ranAt": "2026-08-29T00:00:00Z"
     },

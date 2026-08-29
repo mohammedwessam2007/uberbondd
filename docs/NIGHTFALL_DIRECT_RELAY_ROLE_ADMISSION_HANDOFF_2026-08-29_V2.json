@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "uberbond-nightfall-handoff-1.0.0",
+  "baseMainSha": "97754332eaebd3559db2e3f0848c2b8bb287964c",
+  "mission": "Fail closed on direct terminal submissions for role-bound AI employee relay tasks.",
+  "dedupe": {
+    "priorPr191": "STALE_BASE_HELPER_ONLY",
+    "currentBranch": "REBASed_HELPER_AND_HOSTILE_TESTS_ON_LIVE_MAIN",
+    "transportSeamStillPresent": true
+  },
+  "currentCapability": "Pure validateEmployeeRoleRelayResultAdmission plus hostile tests on current canonical main.",
+  "remainingIntegration": "Wire validator immediately after durable relay job lookup in submitCloudRelayResult and before completed replay or lease terminal transition. Use job.payload as immutable expected task.",
+  "promotionGate": "Do not merge as if the seam is closed until exact-head tests execute and cloud-agent-relay integration itself is present and verified.",
+  "liveInfrastructureTruth": {
+    "existingVercelProject": "uberbondd",
+    "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
+    "latestObservedProductionSourceSha": "b156566c69f1d1d0e7e01b015afa474e36041276",
+    "currentMainProductionProven": false
+  },
+  "verificationTruth": {
+    "localCheckout": "BLOCKED_GITHUB_DNS_RESOLUTION",
+    "focusedTestsCommitted": true,
+    "focusedTestsExecuted": false,
+    "exactHeadBuild": "PENDING"
+  },
+  "externalEffectLedger": {
+    "customerProspectContact": 0,
+    "outboundMessages": 0,
+    "modelExecutions": 0,
+    "providerExecutions": 0,
+    "spendCents": 0,
+    "purchases": 0,
+    "dnsChanges": 0,
+    "credentialKycPaymentChanges": 0,
+    "moneyMovement": 0,
+    "customerProductionDataMutations": 0
+  },
+  "protectedSurfaces": { "lite": "UNTOUCHED" }
+}

@@ -1,10 +1,10 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-29T14:05:49.798Z",
+  "generatedAt": "2026-08-29T14:29:13.441Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "b41d820ddd6da3dd0b03ba9354596868ee3eecef",
-    "branch": "rebase-224",
+    "head": "2217d6884c342d689ee44e3e971ba64cc03b8e42",
+    "branch": "continuation-224",
     "sourceModules": 193,
     "testSuites": 282,
     "workingTreeClean": true
@@ -17,8 +17,8 @@
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2773,
-      "pass": 2725,
+      "tests": 2775,
+      "pass": 2727,
       "fail": 0,
       "skipped": 48,
       "ranAt": "2026-08-29T14:05:06Z"

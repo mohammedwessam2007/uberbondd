@@ -1,22 +1,25 @@
 {
   "schemaVersion": "uberbond-handoff-1.1.0",
-  "sourceMainShaAtMissionStart": "ba1fa7a53b2a6c7672562a30c737b7f553cb5857",
-  "sourceMainCommitMessage": "Add Trinity night-shift coordination protocol",
-  "activeBranch": "claude/uberbond-kilimanjaro-closure-hha0oo",
+  "sourceMainShaAtMissionStart": "2d11d10af3889d65d1a660c4cd611ab2f875c059",
+  "sourceMainCommitMessage": "NIGHTFALL: publish the cloud activation contract and refresh the handoff",
+  "activeBranch": "gpt/reconcile-live-vercel-truth-20260829",
   "activePullRequest": null,
-  "activeMission": "NIGHTFALL: reconcile the open PR frontier, put durable zero-external-IO mesh liveness on a cron boundary, and establish what deployment actually exists.",
+  "activeMission": "Reconcile repository brain with connected Vercel truth so production activation work is no longer blocked by a false zero-project assumption.",
   "completed": [
-    "All five open PRs reconciled and closed: #177 merged with three repairs, #174 closed as a strict subset of it, #167 merged (reachability prose bound to the live graph), #168 and #178 merged as documentation.",
-    "Main was RED before this mission on tests/reachability-ratchet: twelve modules added in the prior thirty commits had no entry point and no classification. All twelve classified against honest gates; one new gate NO_PROVIDER_ADAPTER_CONFIGURED registered.",
-    "Eighteen modules carried a private copy of the canonical effect ledger. The existing single-definition guard matched only the canonical NAME, so seventeen aliased copies had walked past it. Guard now matches the key set; all eighteen import from effect-ledgers.mjs.",
-    "Cron boundary hardened: a schedule finer than the day-granularity occurrence key is refused rather than silently folding 288 firings into one; vercel.json and VERCEL_AGENT_MESH_CRON_SCHEDULE are bound by a test so drift cannot silently 403 every real invocation.",
-    "Zero-external-IO canary verified against REAL PostgreSQL through the real handler: first firing 200 with a durable cycle receipt; replay from a SEPARATE PROCESS returned duplicateDelivery true with the SAME cycleId; a conflicting source commit returned 409 scheduler-occurrence-identity-conflict; unauthorized paths 401/403/405 wrote nothing.",
-    "Reachability prose in CURRENT_SYSTEM_STATE reconciled to the live graph: 170 src modules, 109 production-reachable, 4 operator-only, 57 unreachable."
+    "Refreshed live main and open PR frontier: #180 is Sol research/distribution; #181 is the role-bound AI-employee engineering candidate awaiting trustworthy executable proof.",
+    "Connected Vercel inspection proves project prj_RWUPf14w1xIz9NK92AbNW5z7qDCg / uberbondd exists and is Git-linked to mohammedwessam2007/uberbondd.",
+    "Connected Vercel inspection also proves uberbondd-lite-private exists; lite remains protected and was not changed.",
+    "Observed READY deployments for uberbondd, including production deployment dpl_7JcNGnb3yQecemXo6ncxckNyEfCR from main SHA 7e20cec9b4399e73b7f13fa7999dbc05a2f38221.",
+    "Observed latest deployment dpl_GxiZJqNGzFctaAjxtcXkAn1EkWda READY from claude/uberbond-kilimanjaro-closure-hha0oo SHA 59a413da9cd0dde1ca10aabbca79733583c01b36.",
+    "Vercel runtime error aggregation reported zero runtime errors in the last 24 hours for uberbondd.",
+    "Preserved the prior real-PostgreSQL zero-external-IO canary proof: first authorized firing durable, same-occurrence replay idempotent, conflicting source refused, unauthorized paths write nothing.",
+    "Recorded the live infrastructure observation in artifacts/live-infrastructure-observation-20260829.json."
   ],
   "blockers": [
-    "NO VERCEL PROJECT EXISTS. The account (team_A9LnjIuS5PU0rNetsHMu1N0r, Hobby) has zero projects. vercel.json declares a cron; nothing hosts it. Every deployment and production-health check is therefore n/a, not failing.",
-    "The project was deliberately NOT created: without DATABASE_URL and CRON_SECRET the route returns 503 on every firing, so a project deployed now would present a production surface whose daily cron always fails -- worse than none, because it looks deployed. A generated CRON_SECRET would also have to be handed over in chat, which is the wrong place for a credential.",
-    "GitHub Actions remains account/runner-infrastructure blocked; hosted zero-step runs are neither source failures nor source passes. All gate evidence in this handoff is local execution against real PostgreSQL."
+    "Current main SHA 2d11d10af3889d65d1a660c4cd611ab2f875c059 is not proven deployed to production; the latest observed production deployment is older main SHA 7e20cec9b4399e73b7f13fa7999dbc05a2f38221.",
+    "Presence/validity of CRON_SECRET, DATABASE_URL and ENCRYPTION_KEY in the current production project was not observable with the available connected tooling and is therefore UNKNOWN, not absent.",
+    "Cloud cron liveness for the merged zero-external-IO route is not yet proven by a real scheduler receipt.",
+    "PR #181 has focused tests committed, but GitHub Actions on its exact head executed zero steps; this is infrastructure non-evidence and the PR remains unmerged pending trustworthy executable proof."
   ],
   "unresolvedNames": [
     {
@@ -26,9 +29,9 @@
     }
   ],
   "nextActions": [
-    "Owner: create the Vercel project and set CRON_SECRET, DATABASE_URL and ENCRYPTION_KEY. docs/CLOUD_ACTIVATION_CONTRACT.md carries the exact sequence, the expected proof, the kill conditions and the rollback.",
-    "After activation, the first real firing is the only remaining piece of \u00a7018: everything except cloud liveness is already proven locally against real PostgreSQL.",
-    "A fresh session should run npm run brain, refresh live GitHub state, then work from docs/CLOUD_ACTIVATION_CONTRACT.md and docs/REALITY_ACTIVATION_REGISTER.md rather than re-deriving the frontier."
+    "Engineering: obtain trustworthy exact-head execution proof for PR #181; merge only if the role-bound AI-employee invariants pass.",
+    "Deployment: after a candidate is verified, deploy/promote the exact current main candidate to the existing uberbondd Vercel project and verify source SHA, health, runtime errors and scheduler registration.",
+    "Activation: prove CRON_SECRET/DATABASE_URL/ENCRYPTION_KEY readiness without exposing or rotating credentials, then capture one real ZERO_EXTERNAL_IO_CANARY scheduler receipt before claiming cloud liveness."
   ],
   "externalEffectLedger": {
     "providerCalls": 0,
@@ -41,5 +44,5 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE",
-  "headSha": "e5a25fc656079d4f4f5592451341cc88989881da"
+  "headSha": "23e418e4c98b4e23edc01e68c65c70b694a6937f"
 }

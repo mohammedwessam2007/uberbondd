@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "uberbond-partner-canary-seed-universe-1.0.0",
+  "generatedAt": "2026-08-29T05:22:00.000Z",
+  "sourceMainSha": "97754332eaebd3559db2e3f0848c2b8bb287964c",
+  "offerId": "offer-white-label-lead-path-evidence-sprint-v1",
+  "classification": "PUBLIC_ECOSYSTEM_SEEDS_NOT_CONTACT_LIST",
+  "selectionLaw": "A seed is only a candidate for further public evidence research. It cannot enter outreach until vertical fit, downstream-account evidence, public business contact provenance, jurisdiction, suppression, sender/provider policy and explicit consequence authority are all verified.",
+  "seeds": [
+    {"id":"seed-stcp-bxb-media","name":"BXB Media","sourceId":"PARTNER-SOURCE-STCP","observedSignal":"ServiceTitan Certified Provider directory currently lists Marketing certification.","qualificationState":"NEEDS_PUBLIC_SITE_AND_CLIENT_EVIDENCE","contactAuthority":"NONE"},
+    {"id":"seed-stcp-lemon-seed","name":"Lemon Seed Marketing","sourceId":"PARTNER-SOURCE-STCP","observedSignal":"ServiceTitan Certified Provider directory currently lists Marketing certification.","qualificationState":"NEEDS_PUBLIC_SITE_AND_CLIENT_EVIDENCE","contactAuthority":"NONE"},
+    {"id":"seed-stcp-leadhub","name":"Leadhub","sourceId":"PARTNER-SOURCE-STCP","observedSignal":"ServiceTitan Certified Provider directory currently lists Marketing certification.","qualificationState":"NEEDS_PUBLIC_SITE_AND_CLIENT_EVIDENCE","contactAuthority":"NONE"},
+    {"id":"seed-stcp-1seo","name":"1SEO Digital Agency","sourceId":"PARTNER-SOURCE-STCP","observedSignal":"ServiceTitan Certified Provider directory currently lists Marketing certification.","qualificationState":"NEEDS_PUBLIC_SITE_AND_CLIENT_EVIDENCE","contactAuthority":"NONE"},
+    {"id":"seed-jobber-hibu","name":"Hibu","sourceId":"PARTNER-SOURCE-JOBBER","observedSignal":"Jobber partner directory currently lists this company in Digital Marketing.","qualificationState":"NEEDS_HOME_SERVICE_VERTICAL_AND_CLIENT_EVIDENCE","contactAuthority":"NONE"},
+    {"id":"seed-jobber-artificial-grass-marketing","name":"Artificial Grass Marketing","sourceId":"PARTNER-SOURCE-JOBBER","observedSignal":"Jobber partner directory currently lists this company in Digital Marketing.","qualificationState":"NEEDS_HVAC_PLUMBING_ELECTRICAL_FIT_CHECK","contactAuthority":"NONE"},
+    {"id":"seed-jobber-cyberfunnels","name":"CyberFunnels","sourceId":"PARTNER-SOURCE-JOBBER","observedSignal":"Jobber partner directory currently lists this company in Digital Marketing.","qualificationState":"NEEDS_HOME_SERVICE_VERTICAL_AND_CLIENT_EVIDENCE","contactAuthority":"NONE"},
+    {"id":"seed-jobber-market-adoption","name":"Market Adoption","sourceId":"PARTNER-SOURCE-JOBBER","observedSignal":"Jobber partner directory currently lists this company in Digital Marketing.","qualificationState":"NEEDS_HOME_SERVICE_VERTICAL_AND_CLIENT_EVIDENCE","contactAuthority":"NONE"},
+    {"id":"seed-jobber-green-frog-web-design","name":"Green Frog Web Design","sourceId":"PARTNER-SOURCE-JOBBER","observedSignal":"Jobber partner directory currently lists this company in Digital Marketing.","qualificationState":"NEEDS_HOME_SERVICE_VERTICAL_AND_CLIENT_EVIDENCE","contactAuthority":"NONE"},
+    {"id":"seed-jobber-landscape-writer","name":"The Landscape Writer","sourceId":"PARTNER-SOURCE-JOBBER","observedSignal":"Jobber partner directory currently lists this company in Digital Marketing.","qualificationState":"LOWER_PRIORITY_VERTICAL_MISMATCH_UNLESS_BROADER_TRADES_EVIDENCE_APPEARS","contactAuthority":"NONE"}
+  ],
+  "candidatePromotionGate": {
+    "required": [
+      "public evidence of serving HVAC, plumbing, electrical or closely adjacent trade businesses",
+      "public evidence of at least three downstream client/customer examples or equivalent multi-client agency operation",
+      "service capability relevant to websites, lead generation, paid search, conversion, CRM or revenue operations",
+      "public business identity with stable website",
+      "no evidence of direct conflict making the white-label evidence sprint strategically incoherent"
+    ],
+    "notRequiredForResearchOnly": ["email address", "phone number"],
+    "explicitlyInsufficient": ["directory listing alone", "certification alone", "model inference", "generic agency label"]
+  },
+  "outreachPromotionGate": {
+    "requiredAfterCandidateQualification": [
+      "jurisdiction/legal route cleared",
+      "public business contact provenance",
+      "suppression and complaint state clear",
+      "sender/domain/mailbox/provider readiness",
+      "current provider policy",
+      "physical address and unsubscribe requirements where applicable",
+      "explicit owner consequence authority for the bounded campaign"
+    ],
+    "currentState": "BLOCKED",
+    "contactAuthority": "NONE"
+  },
+  "externalEffectAuthority": "NONE"
+}

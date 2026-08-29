@@ -107,6 +107,14 @@ if (!REAL_URL) {
       /canonical-receipt-ref-required/
     );
 
+    await store.pool.query(
+      `UPDATE billing_webhook_inbox SET next_attempt_at=now()-interval '1 second' WHERE provider_event_key=$1`,
+      [e.providerEventKey]
+    );
+    const reclaimed = await claimBillingEvents(store.pool, { workerRef: 'proof:retry', limit: 1, maxAttempts: 3 });
+    assert.equal(reclaimed.length, 1);
+    assert.equal(reclaimed[0].provider_event_key, e.providerEventKey);
+
     await finishBillingEvent(store.pool, {
       providerEventKey: e.providerEventKey,
       status: 'RECONCILED',

@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "uberbond-nightfall-direct-relay-admission-handoff-1.0.0",
+  "observedMainSha": "7049132171bba3e365e80bd05ba2f96baebc5ce6",
+  "observedMainMessage": "Refresh durable handoff after autonomy operations hardening",
+  "pullRequest": 211,
+  "supersedesDraftPullRequest": 206,
+  "mission": "Fail closed direct submitCloudRelayResult employee terminal admission before replay, lease acceptance, or terminal mutation.",
+  "concurrencyDedupe": {
+    "merged": [207, 208, 209],
+    "notes": [
+      "PR 207 already owns shadow-mode money-loop/operator and egress work.",
+      "PR 208 already owns readiness evidence into capital allocation runtime.",
+      "PR 209 already owns trigger receipt invariants, scheduled worker telemetry, egress health, dedupe, billing webhook, database hygiene and related autonomy operations hardening.",
+      "This packet changes only the remaining direct relay terminal employee-identity trust boundary."
+    ]
+  },
+  "change": {
+    "files": [
+      "src/ai-employee-relay-result-admission.mjs",
+      "src/cloud-agent-relay.mjs",
+      "tests/ai-employee-relay-result-admission.test.mjs"
+    ],
+    "baseDiff": "+134/-0 before this handoff file",
+    "liteTouched": false,
+    "integrationPoint": "Immediately after durable findRelayJob() success and before completed replay handling or lease/terminal mutation."
+  },
+  "verification": {
+    "isolatedNodeSemanticSuite": {
+      "command": "node --test tests/ai-employee-relay-result-admission.test.mjs in an isolated reconstruction using the exact validator/test semantics and canonical current-main terminal-identity dependency",
+      "passed": 6,
+      "failed": 0,
+      "scope": "validator semantics only; not a full repository checkout or integration suite"
+    },
+    "githubActions": {
+      "runId": 33244524722,
+      "sourceStepsExecuted": 0,
+      "runnerId": 0,
+      "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+      "note": "postgres, deterministic and browser jobs each returned steps=[] and runner_id=0"
+    },
+    "vercelExactHeadBuild": {
+      "state": "NOT_OBSERVED_AT_HANDOFF_WRITE",
+      "note": "No exact-head deployment was present in the first post-PR deployment refresh. Do not claim build proof until exact SHA is observed READY."
+    }
+  },
+  "productionTruth": {
+    "project": "uberbondd",
+    "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
+    "latestObservedProductionDeployment": "dpl_DVtL6XTs6yWg2DsDHX1LJnB5hDWA",
+    "latestObservedProductionSourceSha": "b156566c69f1d1d0e7e01b015afa474e36041276",
+    "currentMainProductionProven": false
+  },
+  "promotionGate": [
+    "Obtain trustworthy exact-head build evidence.",
+    "Run the focused admission suite plus existing cloud-relay, terminal-identity, worker-role and autonomy-terminal integration suites from a genuine checkout/runtime.",
+    "Merge only if the exact candidate remains clean and current main has not invalidated the seam."
+  ],
+  "externalEffectLedger": {
+    "customerProspectContacts": 0,
+    "outboundMessages": 0,
+    "modelProviderExecutions": 0,
+    "spendCents": 0,
+    "purchases": 0,
+    "dnsChanges": 0,
+    "credentialKycPaymentChanges": 0,
+    "moneyMovement": 0,
+    "customerProductionDataMutations": 0,
+    "manualProductionDeployments": 0
+  },
+  "truthRestrictions": [
+    "No customer, revenue, payment, accepted delivery, renewal or unattended-duration evidence is claimed by this handoff.",
+    "No Claude/model/provider execution is claimed without an actual receipt."
+  ]
+}

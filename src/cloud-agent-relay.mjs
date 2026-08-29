@@ -18,6 +18,7 @@ import {
   EFFECT_STATES
 } from './effect-ledgers.mjs';
 import { SECRET_KEY_PATTERN as SECRET_KEY, containsSecretValue } from './secret-patterns.mjs';
+import { validateEmployeeRoleRelayResultAdmission } from './ai-employee-relay-result-admission.mjs';
 
 export const AGENT_RELAY_JOB_TYPE = 'prometheus.agent.relay';
 export const CLOUD_AGENT_RELAY_POLICY_VERSION = 'cloud-agent-relay-1.1.0';
@@ -408,6 +409,15 @@ export async function submitCloudRelayResult({
   }
   const job = await findRelayJob(store, id);
   if (!job) return errorResult(['task-not-found']);
+
+  const employeeAdmission = validateEmployeeRoleRelayResultAdmission({
+    task: job.payload,
+    result,
+    receipt
+  });
+  if (!employeeAdmission.ok) {
+    return errorResult(employeeAdmission.reasonCodes || ['employee-role-relay-result-admission-rejected']);
+  }
 
   // A worker may crash after the durable queue transition succeeds but before
   // its local execution receipt is marked RESULT_SUBMITTED. On restart the

@@ -34,7 +34,7 @@
     "Older PRs #207 and #208 are explicitly marked superseded by merged #209.",
     "PR #227 carries recoverable payment-reconciliation leases and canonical receipt gating; PR #228 carries bounded Overpass pacing/retry policy; PR #229 carries the shared browser runtime pool.",
     "The three slices were consolidated locally from exact canonical main into integration/nightfall-hardening-20260829 and passed the combined 28-test focused suite, 607-file syntax gate, 2788-test deterministic gate, relay safety, mutation war, reachability and canon gates.",
-    "The exact 22-file combined candidate was published and verified byte-for-byte on the remote integration/nightfall-hardening-20260829 backup branch; its contents-API commit receipt is 2f2e884a775fd36d4919b3cdd01ed16deb17ca75.",
+    "The exact 22-file combined candidate was published and verified byte-for-byte on the remote integration/nightfall-hardening-20260829 backup branch; its latest full-verification contents-API commit receipt is f4d00096122bac41dc993b1b5de4c64138ed6eab.",
     "Draft integration PR #231 is the review candidate; stale composite PR #214 was closed as superseded."
   ],
   "blockers": [
@@ -44,7 +44,7 @@
     "No outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Every one of these is an external activation, not an engineering task."
   ],
   "nextActions": [
-    "Keep remote backup branch integration/nightfall-hardening-20260829 and draft PR #231 as the exact review candidate; remote contents receipt is 2f2e884a775fd36d4919b3cdd01ed16deb17ca75.",
+    "Keep remote backup branch integration/nightfall-hardening-20260829 and draft PR #231 as the exact review candidate; remote contents receipt at the last full verification was f4d00096122bac41dc993b1b5de4c64138ed6eab.",
     "Run the 16 serial real-PostgreSQL suites and the browser/crawler gate in a runner with the required runtimes; then obtain exact-head Vercel READY proof before merging or promoting.",
     "Prioritise lawful distribution and first cleared payment evidence after the dependency-complete runtime slice; current commercial truth remains zero."
   ],
@@ -59,6 +59,14 @@
     "currentMainExactProduction": false,
     "latestDeploymentBlocker": "PR_231_EXACT_HEAD_VERCEL_CHECKS_API_DEPLOYMENTS_FREE_PER_DAY",
     "status": "PUBLIC_SITE_LIVE__PRODUCTION_STALE_RELATIVE_TO_MAIN"
+  },
+  "productionRuntimeTruth": {
+    "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
+    "observedAt": "2026-08-29T18:27:19Z",
+    "window": "7d",
+    "status": "NO_RUNTIME_ERRORS_FOUND",
+    "source": "Connected Vercel runtime-error aggregation",
+    "note": "This is a read-only error aggregate for the observed older production deployment; it does not prove the combined candidate is deployed."
   },
   "commercialDecision": {
     "canary": "White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing and electrical businesses",
@@ -204,7 +212,7 @@
     "issueCommentsPosted": 1,
     "supersededPullRequestsClosed": [214],
     "remoteBackupBranch": "integration/nightfall-hardening-20260829",
-    "remoteBackupCommit": "2f2e884a775fd36d4919b3cdd01ed16deb17ca75",
+    "remoteBackupCommit": "f4d00096122bac41dc993b1b5de4c64138ed6eab",
     "integrationPullRequest": 231,
     "note": "GitHub repository operations are not customer-facing external effects."
   },

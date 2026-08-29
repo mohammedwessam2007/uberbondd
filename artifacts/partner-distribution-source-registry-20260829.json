@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "uberbond-partner-distribution-source-registry-1.0.0",
+  "generatedAt": "2026-08-29T05:20:00.000Z",
+  "sourceMainSha": "97754332eaebd3559db2e3f0848c2b8bb287964c",
+  "offerId": "offer-white-label-lead-path-evidence-sprint-v1",
+  "purpose": "Current public ecosystem surfaces for identifying evidence-qualified agency/partner candidates for the white-label home-service evidence sprint without treating directory presence as demand, permission, endorsement, or contact authority.",
+  "truthLaw": "A directory or certification entry proves only the public fact represented by that source. It does not prove buyer intent, client count, willingness to pay, contact permission, legal eligibility, deliverability, or commercial fit.",
+  "sources": [
+    {
+      "id": "PARTNER-SOURCE-STCP",
+      "provider": "ServiceTitan",
+      "sourceType": "OFFICIAL_CERTIFIED_PROVIDER_DIRECTORY",
+      "url": "https://www.servicetitan.com/certified-providers",
+      "observedAt": "2026-08-29",
+      "currentObservedFacts": [
+        "ServiceTitan operates a Certified Provider directory.",
+        "ServiceTitan describes Certified Marketers as marketing professionals tailored to the trades who complete ServiceTitan training/testing.",
+        "The current directory exposes providers carrying a Marketing certification, including BXB Media, Lemon Seed Marketing, Leadhub, and 1SEO Digital Agency."
+      ],
+      "decisionUse": "High-signal seed source for agencies already operating in the trades ecosystem.",
+      "doesNotProve": ["buyer demand", "white-label interest", "three downstream client examples", "contact permission", "willingness to pay"],
+      "contactAuthority": "NONE"
+    },
+    {
+      "id": "PARTNER-SOURCE-ST-MARKETPLACE",
+      "provider": "ServiceTitan",
+      "sourceType": "OFFICIAL_PARTNER_MARKETPLACE",
+      "url": "https://marketplace.servicetitan.com/partner",
+      "observedAt": "2026-08-29",
+      "currentObservedFacts": [
+        "ServiceTitan maintains a partner marketplace covering integration and service-provider categories.",
+        "The marketplace includes marketing, leads/bookings and adjacent growth categories."
+      ],
+      "decisionUse": "Secondary evidence for ecosystem adjacency and potential one-to-many partner surfaces; not automatically an agency target list.",
+      "doesNotProve": ["buyer intent", "service quality", "contact permission"],
+      "contactAuthority": "NONE"
+    },
+    {
+      "id": "PARTNER-SOURCE-JOBBER",
+      "provider": "Jobber",
+      "sourceType": "OFFICIAL_PARTNER_DIRECTORY",
+      "url": "https://www.getjobber.com/partner-directory/",
+      "observedAt": "2026-08-29",
+      "currentObservedFacts": [
+        "Jobber maintains a public partner directory for services supporting home-service businesses.",
+        "The current Digital Marketing category includes Hibu, Artificial Grass Marketing, CyberFunnels, Market Adoption, Green Frog Web Design, and The Landscape Writer."
+      ],
+      "decisionUse": "Seed source for agencies/vendors already visible inside a home-service software ecosystem.",
+      "doesNotProve": ["HVAC/plumbing/electrical specialization", "white-label interest", "buyer intent", "contact permission"],
+      "contactAuthority": "NONE"
+    },
+    {
+      "id": "PARTNER-SOURCE-JOBBER-PROGRAM",
+      "provider": "Jobber",
+      "sourceType": "OFFICIAL_PARTNER_PROGRAM",
+      "url": "https://www.getjobber.com/partners/",
+      "observedAt": "2026-08-29",
+      "currentObservedFacts": [
+        "Jobber states its partner program is intended for people and companies that work directly with home-service businesses.",
+        "The program explicitly recognizes consultants, vendors, educators and other community participants as partner types."
+      ],
+      "decisionUse": "Supports the thesis that ecosystem partner channels can aggregate access to multiple home-service businesses.",
+      "doesNotProve": ["UberBond partner eligibility", "demand", "contact permission"],
+      "contactAuthority": "NONE"
+    },
+    {
+      "id": "PARTNER-SOURCE-HIGHLEVEL",
+      "provider": "HighLevel",
+      "sourceType": "OFFICIAL_CERTIFIED_ADMIN_AND_DEVELOPER_PARTNER_DIRECTORY",
+      "url": "https://partners.gohighlevel.com/",
+      "observedAt": "2026-08-29",
+      "currentObservedFacts": [
+        "HighLevel exposes a Certified Admin Directory searchable by services and industries.",
+        "HighLevel exposes a Developer Partner Program for custom integrations, consulting and marketplace deployment."
+      ],
+      "decisionUse": "Potential second ecosystem for agency/operator discovery after candidate-level industry fit is independently verified.",
+      "doesNotProve": ["home-service specialization", "buyer demand", "white-label interest", "contact permission"],
+      "contactAuthority": "NONE"
+    },
+    {
+      "id": "PARTNER-SOURCE-GOOGLE",
+      "provider": "Google",
+      "sourceType": "OFFICIAL_GOOGLE_PARTNERS_DIRECTORY",
+      "url": "https://www.partnersdirectory.withgoogle.com/",
+      "observedAt": "2026-08-29",
+      "currentObservedFacts": [
+        "Google maintains a directory for companies with Google Partner or Premier Partner status.",
+        "The directory can be filtered by region and certification/product areas.",
+        "Google states Premier Partners are recognized among the top 3% of companies participating in the program within a country."
+      ],
+      "decisionUse": "Cross-check advertising-agency capability after home-service vertical fit is independently established.",
+      "doesNotProve": ["home-service specialization", "endorsement of commercial fit", "buyer demand", "contact permission"],
+      "contactAuthority": "NONE"
+    },
+    {
+      "id": "DEMAND-SOURCE-JOBBER-2026",
+      "provider": "Jobber",
+      "sourceType": "CURRENT_VENDOR_SURVEY_REPORT",
+      "url": "https://www.getjobber.com/home-service-trends-report/",
+      "observedAt": "2026-08-29",
+      "currentObservedFacts": [
+        "Jobber's 2026 report says referrals and repeat work remain major lead sources while high-performing businesses use multiple digital channels.",
+        "The report identifies public website gaps and reports response-time differences across home-service businesses, including slower within-hour response among HVAC respondents than some other categories."
+      ],
+      "decisionUse": "Supports continued testing of lead-path evidence and response/follow-up mechanisms, but remains vendor survey evidence rather than UberBond demand or ROI proof.",
+      "doesNotProve": ["UberBond demand", "revenue recovery amount", "specific agency willingness to pay"],
+      "contactAuthority": "NONE"
+    }
+  ],
+  "externalEffectAuthority": "NONE"
+}

@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-29T09:40:30.762Z",
+  "generatedAt": "2026-08-29T09:54:50.545Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "f6ebbb47e36962c25dac14f6fcd2d475da56975a",
+    "head": "6a7a8401c5a910cedc2b65fd7301f6cb903dabb4",
     "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
     "sourceModules": 191,
     "testSuites": 278,
@@ -50,7 +50,7 @@
     },
     "test:mutation-war": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "67 mutations, 67 killed, 0 not killed",
+      "result": "68 mutations, 68 killed, 0 not killed",
       "note": "Run with a real PostgreSQL so STORE-01 is executed rather than skipped. Without the database it reports 63 killed and 1 PostgreSQL-dependent skip.",
       "ranAt": "2026-08-29T00:00:00Z"
     },
@@ -67,12 +67,13 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 191,
-      "reachableFromProduction": 117,
-      "reachableFromOperatorScriptsOnly": 5,
-      "noEntryPointAtAll": 69,
+      "srcModules": 249,
+      "reachableFromProduction": 123,
+      "reachableFromOperatorScriptsOnly": 9,
+      "noEntryPointAtAll": 117,
       "allClassified": true,
-      "ranAt": "2026-08-29T00:00:00Z"
+      "ranAt": "2026-08-29T00:00:00Z",
+      "note": "src is now walked recursively. The previous 191/117/5/69 figures excluded src/overnight and src/omnia-v9 entirely, which was an accident of a single-level directory read, not a scope decision."
     }
   },
   "capabilities": [

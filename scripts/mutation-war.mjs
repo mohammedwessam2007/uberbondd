@@ -488,6 +488,13 @@ export const MUTATIONS = [
     suites: ['tests/reachability-ratchet.test.mjs'], selfMutating: true
   },
   {
+    id: 'REACH-02', guard: 'The ratchet sees the whole src tree, not just its top level',
+    file: 'tests/reachability-ratchet.test.mjs',
+    find: "  const all = entryPointsIn('src');",
+    replace: "  const all = filesIn('src');",
+    suites: ['tests/reachability-ratchet.test.mjs']
+  },
+  {
     id: 'SCAN-01', guard: 'A truncated read is never a successful read',
     file: 'src/durable-audit-scan.mjs',
     find: "    return { ok: false, reasonCodes: ['audit-scan-pagination-stalled'], scannedRows, pages };",

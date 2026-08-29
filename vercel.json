@@ -1,12 +1,19 @@
 {
   "functions": {
     "api/agent-relay.mjs": { "maxDuration": 60 },
-    "api/agent-mesh-cron.mjs": { "maxDuration": 60 }
+    "api/agent-mesh-cron.mjs": { "maxDuration": 60 },
+    "api/database-maintenance.mjs": { "maxDuration": 60 },
+    "api/webhooks/billing.mjs": { "maxDuration": 30 },
+    "api/admin/health-check.mjs": { "maxDuration": 30 }
   },
   "crons": [
     {
       "path": "/api/agent-mesh-cron",
       "schedule": "17 12 * * *"
+    },
+    {
+      "path": "/api/database-maintenance",
+      "schedule": "37 2 * * 0"
     }
   ],
   "headers": [

@@ -99,22 +99,42 @@ export class BrowserRuntimePool {
 }
 
 const shared = new Map();
+
+function canonicalRuntimeConfig(value) {
+  if (Array.isArray(value)) return value.map(canonicalRuntimeConfig);
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(Object.keys(value).sort().map(key => [key, canonicalRuntimeConfig(value[key])]));
+  }
+  return value;
+}
+
+function runtimeConfigSignature({ launchOptions, maxConcurrentContexts, recycleAfterContexts }) {
+  return JSON.stringify(canonicalRuntimeConfig({
+    launchOptions,
+    maxConcurrentContexts: boundedInt(maxConcurrentContexts, 2, 1, 8),
+    recycleAfterContexts: boundedInt(recycleAfterContexts, 40, 1, 500)
+  }));
+}
+
 export function getSharedBrowserRuntime({ key = 'default', launchBrowser, launchOptions = {}, maxConcurrentContexts = 2, recycleAfterContexts = 40 } = {}) {
   const persistentWorkerRuntime = String(process.env.PROCESS_ROLE || '').toLowerCase() === 'worker';
   if (!persistentWorkerRuntime) {
     return new BrowserRuntimePool({ launchBrowser, launchOptions, maxConcurrentContexts, recycleAfterContexts, autoCloseWhenIdle: true });
   }
   const runtimeKey = String(key || 'default');
-  let runtime = shared.get(runtimeKey);
-  if (!runtime) {
-    runtime = new BrowserRuntimePool({ launchBrowser, launchOptions, maxConcurrentContexts, recycleAfterContexts });
-    shared.set(runtimeKey, runtime);
+  const signature = runtimeConfigSignature({ launchOptions, maxConcurrentContexts, recycleAfterContexts });
+  let entry = shared.get(runtimeKey);
+  if (entry && entry.signature !== signature) throw new Error('browser-runtime-config-mismatch');
+  if (!entry) {
+    const runtime = new BrowserRuntimePool({ launchBrowser, launchOptions, maxConcurrentContexts, recycleAfterContexts });
+    entry = { runtime, signature };
+    shared.set(runtimeKey, entry);
   }
-  return runtime;
+  return entry.runtime;
 }
 
 export async function closeSharedBrowserRuntimes() {
-  const runtimes = [...shared.values()];
+  const runtimes = [...shared.values()].map(entry => entry.runtime);
   shared.clear();
   await Promise.all(runtimes.map(runtime => runtime.close()));
 }

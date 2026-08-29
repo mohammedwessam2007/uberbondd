@@ -88,6 +88,22 @@ test('worker runtime persists until explicit shared-runtime shutdown', async () 
   }
 });
 
+test('worker runtime refuses to reuse a key across incompatible launch boundaries', async () => {
+  const previous=process.env.PROCESS_ROLE;
+  process.env.PROCESS_ROLE='worker';
+  const browser={isConnected:()=>true,newContext:async()=>({close:async()=>{}}),close:async()=>{},on:()=>{}};
+  try {
+    getSharedBrowserRuntime({key:'test-config-boundary',launchBrowser:async()=>browser,launchOptions:{args:['--disable-web-security']}});
+    assert.throws(
+      ()=>getSharedBrowserRuntime({key:'test-config-boundary',launchBrowser:async()=>browser,launchOptions:{args:[]}}),
+      /browser-runtime-config-mismatch/
+    );
+  } finally {
+    await closeSharedBrowserRuntimes();
+    if(previous===undefined) delete process.env.PROCESS_ROLE; else process.env.PROCESS_ROLE=previous;
+  }
+});
+
 test('closing the pool rejects queued waiters fail-closed', async () => {
   const browser={isConnected:()=>true,newContext:async()=>({close:async()=>{}}),close:async()=>{},on:()=>{}};
   const pool=new BrowserRuntimePool({launchBrowser:async()=>browser,maxConcurrentContexts:1});

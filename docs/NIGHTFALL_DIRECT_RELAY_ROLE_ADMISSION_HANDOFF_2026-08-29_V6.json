@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "uberbond-nightfall-direct-relay-admission-handoff-1.0.0",
+  "schemaVersion": "uberbond-nightfall-direct-relay-admission-handoff-1.0.1",
   "observedMainSha": "7049132171bba3e365e80bd05ba2f96baebc5ce6",
   "observedMainMessage": "Refresh durable handoff after autonomy operations hardening",
   "pullRequest": 211,
@@ -32,15 +32,19 @@
       "scope": "validator semantics only; not a full repository checkout or integration suite"
     },
     "githubActions": {
-      "runId": 33244524722,
+      "latestObservedRunIdBeforeThisHandoffUpdate": 33244564787,
       "sourceStepsExecuted": 0,
       "runnerId": 0,
       "classification": "INFRASTRUCTURE_NON_EVIDENCE",
       "note": "postgres, deterministic and browser jobs each returned steps=[] and runner_id=0"
     },
     "vercelExactHeadBuild": {
-      "state": "NOT_OBSERVED_AT_HANDOFF_WRITE",
-      "note": "No exact-head deployment was present in the first post-PR deployment refresh. Do not claim build proof until exact SHA is observed READY."
+      "state": "BLOCKED_BUILD_RATE_LIMIT",
+      "contexts": ["Vercel – uberbondd", "Vercel – uberbondd-lite-private"],
+      "status": "failure",
+      "target": "Vercel Hobby build-rate-limit upgrade page",
+      "classification": "TRANSIENT_INFRASTRUCTURE_BLOCKER_NOT_BUILD_EVIDENCE",
+      "note": "No manual deployment was attempted and no spend/plan upgrade was authorized. Do not claim an exact-head build until a later exact SHA reaches READY."
     }
   },
   "productionTruth": {
@@ -51,6 +55,7 @@
     "currentMainProductionProven": false
   },
   "promotionGate": [
+    "Wait for the transient Vercel Hobby build-rate window to clear; do not buy an upgrade for this mission.",
     "Obtain trustworthy exact-head build evidence.",
     "Run the focused admission suite plus existing cloud-relay, terminal-identity, worker-role and autonomy-terminal integration suites from a genuine checkout/runtime.",
     "Merge only if the exact candidate remains clean and current main has not invalidated the seam."

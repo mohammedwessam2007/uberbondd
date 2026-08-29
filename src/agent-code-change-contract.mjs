@@ -55,6 +55,29 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   'src/deliverability-guard.mjs',
   'src/send-safety.mjs',
   'src/consequence-boundary.mjs',
+  // ...and the loop that actually calls them, plus the transport it calls.
+  //
+  // The same one-step reasoning as `revenue.mjs` below, applied to the thing
+  // that sends. Protecting the guards while leaving their only caller editable
+  // does not make the bypass two steps, it makes it one: `pipeline.mjs` is the
+  // sole caller of `evaluateDeliverabilityGuard` and `evaluateConsequenceBoundary`
+  // on the outbound path, so an autonomous change could leave both guard files
+  // untouched, neuter them at the call site with a plausible latency rationale,
+  // and send unguarded. Constructed and confirmed accepted by this contract
+  // before it was protected.
+  //
+  // `gmail.mjs` is the provider transport itself, and is the shorter version of
+  // the same move: reach past every decision about whether to send and change
+  // what goes out.
+  //
+  // The outbound shadow is deliberately NOT here. It is advisory, its result is
+  // discarded at the call site, and tests already prove a DENY or an exception
+  // cannot block, alter or duplicate a send. Protecting it would be protecting
+  // something that has no authority to lose; protecting the caller is what
+  // keeps it that way.
+  'src/pipeline.mjs',
+  'src/gmail.mjs',
+  'tests/outbound-send-path-sovereignty-boundary.test.mjs',
   // The gate that decides whether a provider may be called at all.
   'src/agent-mesh-activation-gate.mjs',
   // What an autonomous run may do, and how authority narrows into children.

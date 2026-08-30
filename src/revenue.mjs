@@ -390,11 +390,17 @@ export class RevenueEngine {
     await store.patch('leads', lead.id, {
       paymentStatus: 'paid', plan: product, paidAt: now(), provider: detail.provider || 'manual'
     });
-    const amount = Number(detail.amountCents || ({
+    // `||` treated a genuine zero as an absent amount and substituted the list
+    // price, so a $0.00 order -- a full discount code -- booked the product's
+    // full price as cleared revenue. Measured: a $0 order booked $299. Zero is
+    // an amount; only an absent or unusable one falls back to the list.
+    const paidCents = Number(detail.amountCents);
+    const listPrice = ({
       full: this.cfg.revenue.fullAuditPrice,
       strategy: this.cfg.revenue.strategyAuditPrice,
       monitoring: this.cfg.revenue.monitoringPrice
-    }[product] || 0) * 100);
+    }[product] || 0) * 100;
+    const amount = Number.isFinite(paidCents) ? paidCents : listPrice;
     const eventId = detail.eventId || id('rev');
     try {
       await store.add('revenueEvents', {

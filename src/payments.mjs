@@ -42,6 +42,34 @@ const FAILED_PAYMENT_EVENTS = new Set(['subscription_payment_failed']);
 function malformedAmount(amountCents) {
   return !Number.isFinite(amountCents) || amountCents < 0;
 }
+
+// What the buyer is meant to be paying for the product they claim.
+//
+// `product` reaches this system as `checkout[custom][product]` -- a query
+// parameter on the checkout link, which the buyer holds and can edit. Nothing
+// compared it to the money, so the link for the $49 audit could be edited to
+// claim `strategy` and unlock the $299 review for $49. Measured: $49 bought
+// strategy, $0.01 bought monitoring, and a $0.00 order bought strategy.
+const PRODUCT_PRICE_FIELDS = { full: 'fullAuditPrice', strategy: 'strategyAuditPrice', monitoring: 'monitoringPrice' };
+
+// The configured prices are plain numbers with no currency attached, and the
+// environment names them FULL_AUDIT_PRICE_USD and so on. So they are USD, and a
+// payment in another currency cannot be compared to them without an exchange
+// rate this system does not have and must not invent -- EUR 30.00 is not "less
+// than" USD 49.00 in any sense worth acting on.
+//
+// A payment in another currency is therefore treated exactly like a product
+// whose price is not configured: not evidence of underpayment, and not blocked.
+// That leaves a non-USD payment unchecked on amount, which is narrower than the
+// hole this closes but is still a hole; closing it needs prices denominated per
+// currency, which is a configuration decision rather than a code one.
+const PRICE_CURRENCY = 'USD';
+
+function listPriceCents(product, currency, cfg) {
+  if (String(currency).toUpperCase() !== PRICE_CURRENCY) return null;
+  const configured = cfg?.revenue?.[PRODUCT_PRICE_FIELDS[product]];
+  return Number.isFinite(Number(configured)) ? Math.round(Number(configured) * 100) : null;
+}
 function malformedCurrency(currency) {
   return !/^[A-Z]{3}$/.test(String(currency || ''));
 }
@@ -87,6 +115,23 @@ export function classifyPaymentEvent({ event, lead, cfg = {} } = {}) {
   if (isPaymentBearing && (malformedAmount(event.amountCents) || malformedCurrency(event.currency))) {
     reasonCodes.push('malformed-amount-or-currency');
     return { ...base, classification: 'REVIEW_REQUIRED' };
+  }
+  // The money must cover the thing being unlocked.
+  //
+  // Not a refusal: a discount code is a real reason to pay less, and silently
+  // discarding a genuine payment is worse than the hole this closes. This is the
+  // one classification an operator is actually shown -- the command center
+  // raises REVIEW_REQUIRED and nothing else -- so an underpayment lands in front
+  // of a person instead of unlocking, or vanishing.
+  //
+  // Overpayment is fine and deliberately not flagged: Lemon Squeezy's `total`
+  // includes tax, so a correct payment routinely exceeds the list price.
+  if (isPaymentBearing) {
+    const expected = listPriceCents(product, event.currency, cfg);
+    if (expected !== null && Number(event.amountCents) < expected) {
+      reasonCodes.push('amount-below-product-price');
+      return { ...base, classification: 'REVIEW_REQUIRED' };
+    }
   }
   if (isPaymentBearing && event.testMode && !cfg.revenue?.allowTestUnlock) {
     reasonCodes.push('test-mode-event-rejected');

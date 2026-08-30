@@ -83,12 +83,12 @@
   "verification": {
     "executedBy": "local execution in this session, not hosted CI",
     "gates": {
-      "check:syntax": "617 files parse",
-      "test:deterministic": "2847 tests, 2799 pass, 0 fail, 48 skipped",
+      "check:syntax": "618 files parse",
+      "test:deterministic": "2853 tests, 2805 pass, 0 fail, 48 skipped",
       "test:relay-safety": "150/150",
       "test:postgres-real": "158/158 against PostgreSQL 16.13",
       "test:browser": "1/1",
-      "test:mutation-war": "89 mutations, 89 killed, 0 not killed",
+      "test:mutation-war": "91 mutations, 91 killed, 0 not killed",
       "npm audit --omit=dev": "0 vulnerabilities"
     },
     "runtimeNote": "The runner was rebuilt and no longer ships the PostgreSQL 18 binaries the previous receipt named. A fresh PostgreSQL 16.13 cluster was initialized locally. The receipt says 16.13 rather than carrying 18 forward, because the version is part of what the evidence means.",
@@ -351,6 +351,19 @@
           "SRV-02",
           "SRV-03"
         ]
+      },
+      {
+        "id": "MONEY-18",
+        "severity": "P1",
+        "origin": "pre-existing",
+        "summary": "The dashboard reported a fabricated payment as cleared revenue.",
+        "mechanism": "RevenueEngine.summary() summed every positive revenue event and called the total clearedRevenue. POST /api/test/unlock writes a revenue event with no order and no provider, so a test unlock read as $49 cleared -- on the operator dashboard and in founder-command-center's paymentTruth.cleared -- while reconcilePaymentRenewalTruthFromStore answered REVIEW_REQUIRED and $0 for the same lead.",
+        "fix": "summary() now requires a witnessing provider order, which is the same match revenue.mjs already used for refund reconciliation. Unwitnessed positive events are still reported under unwitnessedRevenue; gross is unchanged. Verified both directions: a real webhook still clears at $49 and PROVIDER_CLEARED_PAYMENT_PROVEN.",
+        "committedTestChanged": "tests/founder-command-center.test.mjs asserted paymentTruth.cleared === 49 after a test unlock. It encoded the old meaning and passed for the reason that meaning was wrong. Strengthened, not relaxed: it now proves a real payment reaches the field, and a second test proves a fabricated one does not. The justification is the contradiction with the canonical payment truth, which is checkable independently.",
+        "mutations": [
+          "MONEY-18",
+          "MONEY-19"
+        ]
       }
     ],
     "survivedAttackUnchanged": [
@@ -382,9 +395,10 @@
     "ruling": "Not a pass and not a source failure. These results are not the basis for the merge and were not treated as one; the merge rests on the locally executed gates above."
   },
   "truthRestrictions": [
-    "Zero verified customers, zero cleared revenue, zero accepted deliveries, zero retained customers. Unchanged by this slice and preserved as zero.",
+    "Zero verified customers, zero cleared revenue, zero accepted deliveries, zero retained customers. Unchanged and preserved as zero.",
+    "clearedRevenue now means a provider order witnessed the payment, on every surface. It reads zero because it is zero.",
     "No claim of production deployment, cron registration or cron delivery for current main.",
-    "No provider was called, no message sent, no money moved, no credential or DNS changed.",
+    "No provider called, no message sent, no money moved, no credential or DNS changed.",
     "Internally exhausted under the current test and attack surface. External proof pending."
   ],
   "reachability": {

@@ -1,24 +1,24 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-30T07:45:55.609Z",
+  "generatedAt": "2026-08-30T18:00:00.000Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "b09d46d255c98db2017483d1582960aa792d8e3e",
-    "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "sourceModules": 254,
-    "testSuites": 301,
+    "head": "9948f59eeb8cc528be6127e76cf991c6cedda425",
+    "branch": "gpt/payment-operator-attention-20260830",
+    "sourceModules": 255,
+    "testSuites": 302,
     "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 626,
+      "filesParsed": 628,
       "ranAt": "2026-08-30T00:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2889,
-      "pass": 2838,
+      "tests": 2897,
+      "pass": 2846,
       "fail": 0,
       "skipped": 51,
       "ranAt": "2026-08-30T00:00:00Z"
@@ -68,618 +68,48 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 254,
-      "reachableFromProduction": 126,
+      "srcModules": 255,
+      "reachableFromProduction": 127,
       "reachableFromOperatorScriptsOnly": 9,
       "noEntryPointAtAll": 119,
       "allClassified": true,
       "ranAt": "2026-08-30T00:00:00Z",
-      "note": "src is now walked recursively. The previous 191/117/5/69 figures excluded src/overnight and src/omnia-v9 entirely, which was an accident of a single-level directory read, not a scope decision."
+      "note": "src is walked recursively. payment-operator-attention.mjs is production-reachable through founder-command-center -> prometheus-control-tower -> job-handlers, so the production-reachable count increases by one without changing no-entry classifications."
     }
   },
   "capabilities": [
-    {
-      "id": "truth-evidence",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/agent-worker-result-truth.mjs",
-        "src/effect-ledgers.mjs"
-      ],
-      "tests": [
-        "tests/worker-result-terminal-truth.test.mjs",
-        "tests/effect-ledger-vocabulary.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "None internal."
-    },
-    {
-      "id": "queue-state",
-      "status": "IMPLEMENTED",
-      "level": 4,
-      "declaredLevel": 4,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/store.mjs",
-        "src/queue.mjs"
-      ],
-      "tests": [
-        "tests/queue.test.mjs",
-        "tests/store.test.mjs",
-        "tests/postgres-schema.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "None internal."
-    },
-    {
-      "id": "relay",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/cloud-agent-relay.mjs",
-        "src/github-relay.mjs"
-      ],
-      "tests": [
-        "tests/cloud-agent-relay.test.mjs",
-        "npm run test:relay-safety"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "Real transport proof needs a live relay endpoint."
-    },
-    {
-      "id": "agent-mesh",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/agent-mesh-control-plane.mjs",
-        "scripts/agent-mesh-tick.mjs"
-      ],
-      "tests": [
-        "tests/agent-mesh-control-plane.test.mjs",
-        "tests/cognitive-loop-crash-restart.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "Needs a real scheduler firing the tick."
-    },
-    {
-      "id": "constraint-authority",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/agent-autonomy-loop.mjs"
-      ],
-      "tests": [
-        "tests/autonomy-constraint-monotonicity-property.test.mjs",
-        "tests/autonomy-hardening.test.mjs",
-        "tests/autonomy-constraint-inheritance.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "Constraints, forbidden actions and token budgets all attenuate across follow-ups."
-    },
-    {
-      "id": "result-truth",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/agent-worker-result-truth.mjs"
-      ],
-      "tests": [
-        "tests/worker-result-terminal-truth.test.mjs",
-        "tests/hostile-worker-and-provider-sweep.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "None internal."
-    },
-    {
-      "id": "scheduler-identity",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/agent-autonomy-occurrence.mjs",
-        "src/agent-autonomy-scheduled-run.mjs",
-        "src/agent-mesh-mission-seed.mjs"
-      ],
-      "tests": [
-        "tests/autonomy-occurrence-identity.test.mjs",
-        "tests/agent-mesh-mission-seed.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "Reachable from scripts/agent-mesh-tick.mjs via AGENT_MESH_MISSION; needs a real scheduler firing it."
-    },
-    {
-      "id": "scheduler-fairness",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/agent-autonomy-scheduler.mjs",
-        "src/agent-autonomy-store.mjs"
-      ],
-      "tests": [
-        "tests/autonomy-scheduler-starvation-bound.test.mjs",
-        "tests/autonomy-scheduler-fairness.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "None internal."
-    },
-    {
-      "id": "cycle-receipts",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/agent-mesh-cycle-receipts.mjs"
-      ],
-      "tests": [
-        "tests/agent-mesh-cycle-receipt-concurrency.test.mjs",
-        "tests/agent-mesh-abandoned-cycle-reconciliation.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "None internal."
-    },
-    {
-      "id": "duration-proof",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/founder-absence-readiness.mjs"
-      ],
-      "tests": [
-        "tests/founder-absence-duration-proof.test.mjs",
-        "tests/founder-absence-durable-history.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "A seven-day tier needs seven days of real cycles. Time cannot be simulated."
-    },
-    {
-      "id": "founder-absence",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/founder-absence-readiness.mjs"
-      ],
-      "tests": [
-        "tests/founder-absence-durable-history.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": "No real observation window exists yet.",
-      "nextAction": "Run the scheduler with zero business effects and accumulate real terminal receipts."
-    },
-    {
-      "id": "provider-integration",
-      "status": "PARTIAL",
-      "level": 2,
-      "declaredLevel": 2,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/agent-model-executor-factory.mjs",
-        "src/anthropic-agent-executor.mjs"
-      ],
-      "tests": [
-        "tests/anthropic-agent-executor.test.mjs",
-        "tests/openai-agent-executor.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": "No provider credential, no pricing evidence, no canary budget.",
-      "nextAction": "Owner supplies one provider credential and an authorised cap."
-    },
-    {
-      "id": "mailhub-provider-adapters",
-      "status": "TEST_VERIFIED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/provider-http-adapters.mjs",
-        "src/provider-adapter-contract.mjs",
-        "src/mailhub-control-plane.mjs",
-        "src/provider-infrastructure-events.mjs",
-        "docs/MAILHUB_PROVIDER_ADAPTERS.md"
-      ],
-      "tests": [
-        "tests/provider-http-adapters.test.mjs",
-        "tests/mailhub-control-plane.test.mjs",
-        "tests/provider-infrastructure-events.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": "No Icemail or Mailforge API key, provider account, DNS authority, billing approval or warm-up evidence is configured.",
-      "nextAction": "Owner selects a provider and supplies one server-side API key plus a bounded approval; UberBond begins with read-only inventory reconciliation."
-    },
-    {
-      "id": "compute-budget",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/ai-compute-budget.mjs",
-        "src/agent-compute-store.mjs"
-      ],
-      "tests": [
-        "tests/ai-compute-budget-conservation.test.mjs",
-        "tests/agent-compute-store-corruption.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "None internal."
-    },
-    {
-      "id": "model-routing",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/agent-model-router.mjs",
-        "src/agent-model-routing-integration.mjs",
-        "scripts/agent-model-route.mjs"
-      ],
-      "tests": [
-        "tests/agent-model-routing-integration.test.mjs",
-        "tests/autonomy-architecture.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "Reachable now. Routing history still needs real measured provider outcomes."
-    },
-    {
-      "id": "sandbox",
-      "status": "PARTIAL",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/claude-code-sandbox-provisioner.mjs",
-        "src/agent-sandbox-verifier.mjs"
-      ],
-      "tests": [
-        "tests/claude-code-sandbox-provisioner.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK: network isolation cannot be self-attested.",
-      "nextAction": "Supply CLAUDE_CODE_SANDBOX_ISOLATION_FILE from whatever enforces the network boundary."
-    },
-    {
-      "id": "prometheus",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/prometheus-economic-spine.mjs",
-        "src/prometheus-control-tower.mjs"
-      ],
-      "tests": [
-        "tests/prometheus-economic-spine.test.mjs",
-        "tests/prometheus-adversarial.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "None internal."
-    },
-    {
-      "id": "prospect-intelligence",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/prospect-evidence-reconciliation.mjs",
-        "src/prospect-qualification.mjs"
-      ],
-      "tests": [
-        "tests/prospect-qualification.test.mjs",
-        "tests/prospect-evidence-reconciliation.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "Needs a licensed discovery adapter to produce real candidates."
-    },
-    {
-      "id": "enrichment",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/prospect-enrichment-planner.mjs"
-      ],
-      "tests": [
-        "tests/prospect-enrichment-planner.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": "No enrichment provider configured or terms-confirmed.",
-      "nextAction": "Owner selects a provider and confirms terms."
-    },
-    {
-      "id": "email-verification",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/prospect-evidence-reconciliation.mjs"
-      ],
-      "tests": [
-        "tests/prospect-suppression-dominance.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": "No verification provider configured.",
-      "nextAction": "Owner selects a verifier."
-    },
-    {
-      "id": "distribution",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/distribution-channel.mjs"
-      ],
-      "tests": [
-        "tests/distribution-channel.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "Allocation needs real cleared-contribution outcomes."
-    },
-    {
-      "id": "inbound-feedback",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/inbound-feedback-kernel.mjs",
-        "src/gmail-inbound.mjs",
-        "src/inbound-classify.mjs"
-      ],
-      "tests": [
-        "tests/nervous-system-integration.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": "Needs a gmail.readonly grant.",
-      "nextAction": "Owner authorises readonly inbox access."
-    },
-    {
-      "id": "causal-attribution",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/causal-attribution-spine.mjs"
-      ],
-      "tests": [
-        "tests/nervous-system-integration.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "Needs real events to attribute."
-    },
-    {
-      "id": "payments",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/payment-truth.mjs",
-        "src/payment-renewal-truth.mjs",
-        "src/commercial-outcome.mjs"
-      ],
-      "tests": [
-        "tests/payment-truth.test.mjs",
-        "tests/payment-renewal-truth.test.mjs",
-        "tests/payment-truth-double-count.test.mjs",
-        "tests/economic-anchor-forgery.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": "No payment provider identity, no KYC.",
-      "nextAction": "Owner completes payment provider onboarding."
-    },
-    {
-      "id": "fulfillment",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/service-fulfillment.mjs",
-        "src/service-sku.mjs"
-      ],
-      "tests": [
-        "tests/service-fulfillment.test.mjs",
-        "tests/service-sku.test.mjs",
-        "tests/superseded-fulfillment-invariants.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "Needs a real customer requirement to compile against."
-    },
-    {
-      "id": "acceptance",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/service-fulfillment.mjs"
-      ],
-      "tests": [
-        "tests/service-fulfillment.test.mjs",
-        "tests/superseded-fulfillment-invariants.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "ACCEPTED requires customer evidence and cannot be reached internally."
-    },
-    {
-      "id": "retention",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/service-fulfillment.mjs",
-        "src/commercial-learning.mjs"
-      ],
-      "tests": [
-        "tests/service-fulfillment.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "Renewal and churn are modelled; both need a real customer to observe."
-    },
-    {
-      "id": "contribution-economics",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/commercial-outcome.mjs",
-        "src/commercial-reconciliation.mjs"
-      ],
-      "tests": [
-        "tests/commercial-outcome.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "Every cost input is currently unknown, which correctly lowers confidence."
-    },
-    {
-      "id": "capital-allocation",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/capital-allocator.mjs"
-      ],
-      "tests": [
-        "tests/adapter-capital.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "Real spend stays consequence-gated."
-    },
-    {
-      "id": "self-upgrade",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/self-upgrade.mjs",
-        "src/claude-engineering-orchestrator.mjs"
-      ],
-      "tests": [
-        "tests/self-upgrade.test.mjs",
-        "tests/claude-engineering-orchestrator.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": "Depends on the sandbox external block.",
-      "nextAction": "Same as sandbox."
-    },
-    {
-      "id": "observability",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/operator-escalation.mjs",
-        "src/operator-health-snapshot.mjs",
-        "src/agent-mesh-cycle-receipts.mjs"
-      ],
-      "tests": [
-        "tests/operator-escalation.test.mjs",
-        "tests/operator-health-snapshot.test.mjs",
-        "tests/durable-spine-soak.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": "No paging channel configured: escalations are queued, never delivered.",
-      "nextAction": "Owner supplies a delivery channel credential. Detection is done; delivery is not."
-    },
-    {
-      "id": "security",
-      "status": "IMPLEMENTED",
-      "level": 3,
-      "declaredLevel": 3,
-      "cappedByMissingExternalEvidence": false,
-      "evidence": [
-        "src/secret-patterns.mjs",
-        "src/agent-code-change-contract.mjs"
-      ],
-      "tests": [
-        "tests/secret-leakage-sweep.test.mjs",
-        "tests/hostile-worker-and-provider-sweep.test.mjs"
-      ],
-      "realWire": false,
-      "liveProof": false,
-      "externalBlocker": null,
-      "nextAction": "None internal."
-    }
+    {"id":"truth-evidence","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/agent-worker-result-truth.mjs","src/effect-ledgers.mjs"],"tests":["tests/worker-result-terminal-truth.test.mjs","tests/effect-ledger-vocabulary.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"None internal."},
+    {"id":"queue-state","status":"IMPLEMENTED","level":4,"declaredLevel":4,"cappedByMissingExternalEvidence":false,"evidence":["src/store.mjs","src/queue.mjs"],"tests":["tests/queue.test.mjs","tests/store.test.mjs","tests/postgres-schema.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"None internal."},
+    {"id":"relay","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/cloud-agent-relay.mjs","src/github-relay.mjs"],"tests":["tests/cloud-agent-relay.test.mjs","npm run test:relay-safety"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"Real transport proof needs a live relay endpoint."},
+    {"id":"agent-mesh","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/agent-mesh-control-plane.mjs","scripts/agent-mesh-tick.mjs"],"tests":["tests/agent-mesh-control-plane.test.mjs","tests/cognitive-loop-crash-restart.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"Needs a real scheduler firing the tick."},
+    {"id":"constraint-authority","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/agent-autonomy-loop.mjs"],"tests":["tests/autonomy-constraint-monotonicity-property.test.mjs","tests/autonomy-hardening.test.mjs","tests/autonomy-constraint-inheritance.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"Constraints, forbidden actions and token budgets all attenuate across follow-ups."},
+    {"id":"result-truth","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/agent-worker-result-truth.mjs"],"tests":["tests/worker-result-terminal-truth.test.mjs","tests/hostile-worker-and-provider-sweep.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"None internal."},
+    {"id":"scheduler-identity","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/agent-autonomy-occurrence.mjs","src/agent-autonomy-scheduled-run.mjs","src/agent-mesh-mission-seed.mjs"],"tests":["tests/autonomy-occurrence-identity.test.mjs","tests/agent-mesh-mission-seed.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"Reachable from scripts/agent-mesh-tick.mjs via AGENT_MESH_MISSION; needs a real scheduler firing it."},
+    {"id":"scheduler-fairness","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/agent-autonomy-scheduler.mjs","src/agent-autonomy-store.mjs"],"tests":["tests/autonomy-scheduler-starvation-bound.test.mjs","tests/autonomy-scheduler-fairness.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"None internal."},
+    {"id":"cycle-receipts","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/agent-mesh-cycle-receipts.mjs"],"tests":["tests/agent-mesh-cycle-receipt-concurrency.test.mjs","tests/agent-mesh-abandoned-cycle-reconciliation.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"None internal."},
+    {"id":"duration-proof","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/founder-absence-readiness.mjs"],"tests":["tests/founder-absence-duration-proof.test.mjs","tests/founder-absence-durable-history.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"A seven-day tier needs seven days of real cycles. Time cannot be simulated."},
+    {"id":"founder-absence","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/founder-absence-readiness.mjs"],"tests":["tests/founder-absence-durable-history.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":"No real observation window exists yet.","nextAction":"Run the scheduler with zero business effects and accumulate real terminal receipts."},
+    {"id":"provider-integration","status":"PARTIAL","level":2,"declaredLevel":2,"cappedByMissingExternalEvidence":false,"evidence":["src/agent-model-executor-factory.mjs","src/anthropic-agent-executor.mjs"],"tests":["tests/anthropic-agent-executor.test.mjs","tests/openai-agent-executor.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":"No provider credential, no pricing evidence, no canary budget.","nextAction":"Owner supplies one provider credential and an authorised cap."},
+    {"id":"mailhub-provider-adapters","status":"TEST_VERIFIED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/provider-http-adapters.mjs","src/provider-adapter-contract.mjs","src/mailhub-control-plane.mjs","src/provider-infrastructure-events.mjs","docs/MAILHUB_PROVIDER_ADAPTERS.md"],"tests":["tests/provider-http-adapters.test.mjs","tests/mailhub-control-plane.test.mjs","tests/provider-infrastructure-events.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":"No Icemail or Mailforge API key, provider account, DNS authority, billing approval or warm-up evidence is configured.","nextAction":"Owner selects a provider and supplies one server-side API key plus a bounded approval; UberBond begins with read-only inventory reconciliation."},
+    {"id":"compute-budget","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/ai-compute-budget.mjs","src/agent-compute-store.mjs"],"tests":["tests/ai-compute-budget-conservation.test.mjs","tests/agent-compute-store-corruption.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"None internal."},
+    {"id":"model-routing","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/agent-model-router.mjs","src/agent-model-routing-integration.mjs","scripts/agent-model-route.mjs"],"tests":["tests/agent-model-routing-integration.test.mjs","tests/autonomy-architecture.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"Reachable now. Routing history still needs real measured provider outcomes."},
+    {"id":"sandbox","status":"PARTIAL","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/claude-code-sandbox-provisioner.mjs","src/agent-sandbox-verifier.mjs"],"tests":["tests/claude-code-sandbox-provisioner.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":"SANDBOX_PROVISIONER_EXTERNAL_BLOCK: network isolation cannot be self-attested.","nextAction":"Supply CLAUDE_CODE_SANDBOX_ISOLATION_FILE from whatever enforces the network boundary."},
+    {"id":"prometheus","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/prometheus-economic-spine.mjs","src/prometheus-control-tower.mjs"],"tests":["tests/prometheus-economic-spine.test.mjs","tests/prometheus-adversarial.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"None internal."},
+    {"id":"prospect-intelligence","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/prospect-evidence-reconciliation.mjs","src/prospect-qualification.mjs"],"tests":["tests/prospect-qualification.test.mjs","tests/prospect-evidence-reconciliation.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"Needs a licensed discovery adapter to produce real candidates."},
+    {"id":"enrichment","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/prospect-enrichment-planner.mjs"],"tests":["tests/prospect-enrichment-planner.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":"No enrichment provider configured or terms-confirmed.","nextAction":"Owner selects a provider and confirms terms."},
+    {"id":"email-verification","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/prospect-evidence-reconciliation.mjs"],"tests":["tests/prospect-suppression-dominance.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":"No verification provider configured.","nextAction":"Owner selects a verifier."},
+    {"id":"distribution","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/distribution-channel.mjs"],"tests":["tests/distribution-channel.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"Allocation needs real cleared-contribution outcomes."},
+    {"id":"inbound-feedback","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/inbound-feedback-kernel.mjs","src/gmail-inbound.mjs","src/inbound-classify.mjs"],"tests":["tests/nervous-system-integration.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":"Needs a gmail.readonly grant.","nextAction":"Owner authorises readonly inbox access."},
+    {"id":"causal-attribution","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/causal-attribution-spine.mjs"],"tests":["tests/nervous-system-integration.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"Needs real events to attribute."},
+    {"id":"payments","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/payment-truth.mjs","src/payment-renewal-truth.mjs","src/commercial-outcome.mjs"],"tests":["tests/payment-truth.test.mjs","tests/payment-renewal-truth.test.mjs","tests/payment-truth-double-count.test.mjs","tests/economic-anchor-forgery.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":"No payment provider identity, no KYC.","nextAction":"Owner completes payment provider onboarding."},
+    {"id":"fulfillment","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/service-fulfillment.mjs","src/service-sku.mjs"],"tests":["tests/service-fulfillment.test.mjs","tests/service-sku.test.mjs","tests/superseded-fulfillment-invariants.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"Needs a real customer requirement to compile against."},
+    {"id":"acceptance","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/service-fulfillment.mjs"],"tests":["tests/service-fulfillment.test.mjs","tests/superseded-fulfillment-invariants.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"ACCEPTED requires customer evidence and cannot be reached internally."},
+    {"id":"retention","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/service-fulfillment.mjs","src/commercial-learning.mjs"],"tests":["tests/service-fulfillment.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"Renewal and churn are modelled; both need a real customer to observe."},
+    {"id":"contribution-economics","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/commercial-outcome.mjs","src/commercial-reconciliation.mjs"],"tests":["tests/commercial-outcome.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"Every cost input is currently unknown, which correctly lowers confidence."},
+    {"id":"capital-allocation","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/capital-allocator.mjs"],"tests":["tests/adapter-capital.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"Real spend stays consequence-gated."},
+    {"id":"self-upgrade","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/self-upgrade.mjs","src/claude-engineering-orchestrator.mjs"],"tests":["tests/self-upgrade.test.mjs","tests/claude-engineering-orchestrator.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":"Depends on the sandbox external block.","nextAction":"Same as sandbox."},
+    {"id":"observability","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/operator-escalation.mjs","src/operator-health-snapshot.mjs","src/agent-mesh-cycle-receipts.mjs"],"tests":["tests/operator-escalation.test.mjs","tests/operator-health-snapshot.test.mjs","tests/durable-spine-soak.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":"No paging channel configured: escalations are queued, never delivered.","nextAction":"Owner supplies a delivery channel credential. Detection is done; delivery is not."},
+    {"id":"security","status":"IMPLEMENTED","level":3,"declaredLevel":3,"cappedByMissingExternalEvidence":false,"evidence":["src/secret-patterns.mjs","src/agent-code-change-contract.mjs"],"tests":["tests/secret-leakage-sweep.test.mjs","tests/hostile-worker-and-provider-sweep.test.mjs"],"realWire":false,"liveProof":false,"externalBlocker":null,"nextAction":"None internal."}
   ],
   "truthBoundary": {
     "maxLevelProvableFromRepositoryAlone": 4,

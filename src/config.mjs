@@ -241,6 +241,13 @@ export function validateStartupConfig(cfg = config) {
   if (cfg.storeBackend !== 'postgres') throw new Error('Production requires STORE_BACKEND=postgres');
   if (role === 'all') throw new Error('Production requires separate PROCESS_ROLE=web or PROCESS_ROLE=worker');
   if (!cfg.databaseUrl) throw new Error('Production requires DATABASE_URL');
+  // ALLOW_TEST_PAYMENT_UNLOCK arms POST /api/test/unlock, which marks a lead paid
+  // and writes a revenue event with no provider behind it. It is admin-gated, so
+  // this was never remotely reachable -- but there is no version of production
+  // where fabricating a payment is the right thing to have switched on, and an
+  // environment variable set once for a staging run is exactly how it would
+  // arrive there.
+  if (cfg.revenue?.allowTestUnlock) throw new Error('Production must not set ALLOW_TEST_PAYMENT_UNLOCK');
   if (!cfg.adminToken || cfg.adminToken.length < 32) throw new Error('Production requires a strong ADMIN_TOKEN of at least 32 characters');
   if (!String(cfg.baseUrl).startsWith('https://')) throw new Error('Production requires an HTTPS APP_BASE_URL');
   if (cfg.outbound?.enabled && !cfg.outbound?.dryRun) {

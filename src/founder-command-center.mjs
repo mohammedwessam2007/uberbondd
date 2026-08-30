@@ -1,8 +1,9 @@
 import { buildOutboundOperatorSummary } from './outbound-operator-summary.mjs';
 import { compileOfferPacket, OFFER_PRODUCTS } from './offer-compiler.mjs';
+import { summarizePaymentOperatorAttention } from './payment-operator-attention.mjs';
 
 // Bump when the report's shape or derivation logic changes.
-export const COMMAND_CENTER_POLICY_VERSION = 'founder-command-center-1.0.0';
+export const COMMAND_CENTER_POLICY_VERSION = 'founder-command-center-1.1.0';
 
 const SELF_SERVE_PRODUCTS = ['full', 'strategy', 'monitoring'];
 
@@ -41,7 +42,7 @@ async function deliveryReadinessTable({ store }) {
   };
 }
 
-function deriveOwnerActions({ checkoutTable, outbound, reviewRequiredPaymentEvents, revenue }) {
+function deriveOwnerActions({ checkoutTable, outbound, paymentAttention, revenue }) {
   const actions = [];
   const unconfiguredPriced = checkoutTable.filter(row => row.priceUsd != null && !row.configured);
   if (unconfiguredPriced.length) {
@@ -53,13 +54,15 @@ function deriveOwnerActions({ checkoutTable, outbound, reviewRequiredPaymentEven
       completionTest: 'checkoutReadinessTable reports configured:true for each listed product'
     });
   }
-  if (reviewRequiredPaymentEvents > 0) {
+  if (paymentAttention.attentionRequired > 0) {
     actions.push({
-      action: `Review ${reviewRequiredPaymentEvents} REVIEW_REQUIRED payment event(s)`,
-      reason: 'These webhook events did not auto-classify (unknown lead, mismatched prospect, malformed data) and need a human decision.',
-      expectedValue: 'Prevents a real payment from being silently lost or misattributed', timeRequired: '5-10 minutes',
-      cost: 'None', evidence: 'payment_classification audit log entries with classification=REVIEW_REQUIRED', risk: 'A real customer payment could go unfulfilled if ignored',
-      completionTest: 'No REVIEW_REQUIRED payment_classification entries remain unresolved'
+      action: `Review ${paymentAttention.attentionRequired} payment event(s) requiring operator attention`,
+      reason: 'REVIEW_REQUIRED events and unexpected pending/unclear payment states need a human decision. Expected free-trial creation remains quiet.',
+      expectedValue: 'Prevents a real payment or anomalous provider state from being silently lost or misattributed', timeRequired: '5-10 minutes',
+      cost: 'None',
+      evidence: `${paymentAttention.reviewRequired} REVIEW_REQUIRED, ${paymentAttention.anomalousPending} anomalous pending, ${paymentAttention.expectedPending} expected pending`,
+      risk: 'A real customer payment or failed charge could go unfulfilled if ignored',
+      completionTest: 'paymentTruth.operatorAttentionRecently returns to zero'
     });
   }
   if (outbound?.staleRecoveryPreview?.wouldRecover > 0 || outbound?.staleRecoveryPreview?.wouldQuarantine > 0) {
@@ -100,7 +103,7 @@ export async function buildFounderCommandCenter({ store, cfg = {}, revenueEngine
   ]);
 
   const checkoutTable = checkoutReadinessTable(cfg);
-  const reviewRequiredPaymentEvents = recentAudit.filter(entry => entry.type === 'payment_classification' && entry.detail?.classification === 'REVIEW_REQUIRED').length;
+  const paymentAttention = summarizePaymentOperatorAttention(recentAudit);
   const revenue = revenueEngine && typeof revenueEngine.summary === 'function' ? await revenueEngine.summary() : null;
 
   return {
@@ -118,7 +121,10 @@ export async function buildFounderCommandCenter({ store, cfg = {}, revenueEngine
       refunded: revenue?.refundedRevenue ?? 'UNKNOWN',
       pendingOrders: revenue?.pendingOrders ?? 'UNKNOWN',
       activeMrr: revenue?.mrr ?? 'UNKNOWN',
-      reviewRequiredRecently: reviewRequiredPaymentEvents
+      reviewRequiredRecently: paymentAttention.reviewRequired,
+      expectedPendingRecently: paymentAttention.expectedPending,
+      anomalousPendingRecently: paymentAttention.anomalousPending,
+      operatorAttentionRecently: paymentAttention.attentionRequired
     },
     outbound: outbound.ok ? {
       killSwitch: outbound.killSwitch, reservations: outbound.reservations,
@@ -126,8 +132,8 @@ export async function buildFounderCommandCenter({ store, cfg = {}, revenueEngine
     } : null,
     blocked: [
       ...(checkoutTable.filter(row => row.priceUsd != null && !row.configured).map(row => `checkout not configured: ${row.product}`)),
-      ...(reviewRequiredPaymentEvents > 0 ? [`${reviewRequiredPaymentEvents} payment event(s) need review`] : [])
+      ...(paymentAttention.attentionRequired > 0 ? [`${paymentAttention.attentionRequired} payment event(s) need operator review`] : [])
     ],
-    ownerActionQueue: deriveOwnerActions({ checkoutTable, outbound: outbound.ok ? outbound : null, reviewRequiredPaymentEvents, revenue })
+    ownerActionQueue: deriveOwnerActions({ checkoutTable, outbound: outbound.ok ? outbound : null, paymentAttention, revenue })
   };
 }

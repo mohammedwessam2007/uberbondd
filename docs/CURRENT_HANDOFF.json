@@ -1,131 +1,156 @@
 {
   "schemaVersion": "uberbond-handoff-1.4.0",
-  "sourceMainShaAtMissionStart": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
-  "sourceCommit": "8097b47d3661790b40e165fb50def074b30d389b",
-  "currentMainShaAtFinalRefresh": "8097b47d3661790b40e165fb50def074b30d389b",
-  "currentMainCommitMessage": "Make the money cover the product it unlocks, and stop a free order booking list price (#247)",
-  "missionIssue": 173,
-  "missionIssueState": "OPEN",
-  "activeMission": "Continue NIGHTFALL MAX with distribution and first economic proof as the priority while maturing current Growth Graph infrastructure. Reuse merged autonomy operations hardening rather than recreating proxy, dedupe, billing, maintenance or telemetry systems.",
-  "executiveMissions": {
-    "claude": "docs/prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md",
-    "sol": "docs/prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md",
-    "charter": "docs/AI_EMPLOYEE_COMPANY_CHARTER.md"
+  "checkpointedAt": "2026-08-30T18:22:11Z",
+  "sourceMainShaAtMissionStart": "1cf196b72f7d2ad85203efcccdb374f198d8ac52",
+  "currentMainShaAtCheckpoint": "1cf196b72f7d2ad85203efcccdb374f198d8ac52",
+  "currentFrontierBranch": "gpt/payment-operator-attention-20260830",
+  "measuredSourceHead": "9948f59eeb8cc528be6127e76cf991c6cedda425",
+  "checkpointArchiveCommit": "991efdee100616cd6d811a92194d611fa3097a14",
+  "activePullRequest": {
+    "number": 251,
+    "title": "Surface anomalous pending payments without alerting on trials",
+    "stateAtCheckpoint": "OPEN_DRAFT_MERGEABLE",
+    "purpose": "Make expected trials quiet while surfacing every anomalous PENDING_OR_UNCLEAR payment state to the founder command center without changing payment classification or revenue truth."
   },
-  "completed": [
-    "Repository brain preserves source-backed Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation and current Trinity/Growth Graph context across chat resets.",
-    "AI employee role identity is fail-closed on the canonical scheduled-worker-terminal path.",
-    "PR #194 merged bounded enterprise journey orchestration plus compliant Sender Infrastructure Mesh.",
-    "PR #195 merged unified Growth Graph plus evidence-to-content compilation.",
-    "PR #197 merged partner ecosystem source registry, ten-company research seed universe and qualification packet.",
-    "PR #200 merged Cost -> Stage -> Fulfill -> Learn: cache/public evidence tiering, Postgres staged content, programmatic fulfillment planning/provider receipts and bounded economic allocation.",
-    "PR #202 merged paid-enrichment admission: licensed providers stay hidden until current durable lower-tier exhaustion evidence exists.",
-    "PR #204 merged NIGHTFALL MAX Claude and GPT-5.6 Sol executive missions.",
-    "PR #209 merged as f5c4285fe0f5d17dafb4f49a3a9bc976dc82c1af and absorbed the five-part autonomy operations audit without anti-bot evasion.",
-    "Merged safe egress health pool: reliability/capacity routing only; CAPTCHA/BLOCKED/ACCESS_DENIED quarantines and stops. WebGL/canvas/device/screen/browser fingerprint spoofing, CAPTCHA bypass and rotation around blocks are explicitly refused.",
-    "Merged multi-key prospect identity ledger using independently canonicalized DOMAIN/PHONE/EMAIL keys plus a cross-inbox daily outbound contact guard. Existing unique prospect-domain and outbound idempotency infrastructure is reused rather than duplicated.",
-    "Merged Lemon Squeezy billing webhook boundary and durable billing_webhook_inbox. HMAC-SHA256 is verified against exact raw request bytes; verified webhook remains provider evidence input and requires canonical payment reconciliation before programmatic fulfillment.",
-    "Review found Vercel Node JSON auto-parsing would break exact HMAC verification in a classic default handler. Final route uses the Web Request interface and request.text(); isolated valid-signature route test PASS and bad signature returned 401.",
-    "Merged bounded database hygiene: expired public evidence cache and terminal staged content may be deleted in bounded batches; payment, acceptance, authority/security, refund/dispute and renewal truth are protected. Routine VACUUM FULL is prohibited; normal PostgreSQL autovacuum remains the maintenance mechanism.",
-    "Merged weekly /api/database-maintenance cron at 37 2 * * 0. It is fail-closed behind CRON_SECRET and performs zero deletion unless MAINTENANCE_ENABLED=true.",
-    "Merged private /api/admin/health-check aggregate telemetry for sender health, 24h outbound volume, queue/dead-letter state, DB connection utilization and egress health. It requires ADMIN_HEALTH_SECRET and exposes no recipient list.",
-    "Migration 101_autonomy_operations_hygiene.sql adds egress_route_health, prospect_identity_keys, outbound_contact_guard and billing_webhook_inbox.",
-    "Focused pure-module audit suite: 9/9 PASS. Independent mutations removing anti-evasion admission, cross-inbox dedupe or billing HMAC each reduced the suite to 8/9 and were killed. Billing Web Request route valid/bad signature harness PASS.",
-    "Older PRs #207 and #208 are explicitly marked superseded by merged #209.",
-    "PR #227 carries recoverable payment-reconciliation leases and canonical receipt gating; PR #228 carries bounded Overpass pacing/retry policy; PR #229 carries the shared browser runtime pool.",
-    "The three slices were consolidated locally from exact canonical main into integration/nightfall-hardening-20260829 and passed the combined 28-test focused suite, 607-file syntax gate, 2788-test deterministic gate, relay safety, mutation war, reachability and canon gates.",
-    "The exact 22-file combined candidate was published and verified byte-for-byte on the remote integration/nightfall-hardening-20260829 backup branch; its latest full-verification contents-API commit receipt is f4d00096122bac41dc993b1b5de4c64138ed6eab.",
-    "Draft integration PR #231 is the review candidate; stale composite PR #214 was closed as superseded.",
-    "The local discovery integration smoke passed with 2 previewed and 2 imported records, and the broader zero-effect review probe passed 33/33 without live provider or outbound effects."
-  ],
-  "blockers": [
-    "OWNER/EXTERNAL: no full-project Vercel READY deployment is proven for current main. Both Vercel checks on the last candidate reported api-deployments-free-per-day/build-rate-limit. No paid upgrade and no circumvention was attempted.",
-    "CI: hosted GitHub Actions runs report failure on jobs where no runner was assigned and steps were []. INFRASTRUCTURE_NON_EVIDENCE -- neither a pass nor a source failure. Every merge this session rests on locally executed gates.",
-    "EXTERNAL: no outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Each is an external activation, not an engineering task.",
-    "DEPLOYMENT CONFIG: TRUST_PROXY_HOPS is unset in the live environment. Until it matches the deployment's proxy topology (1 behind a single proxy such as Vercel), the public intake rate limit counts all callers as one identity. That is fail-closed -- too strict, never too loose -- but it is not the intended behaviour."
+  "activeMission": "Finish PR #251 without weakening canon, prove its exact head through the real Vercel syntax+deterministic gate, merge only if the exact candidate is green, then continue the highest-value payment/distribution/cloud-autonomy work with zero unauthorized external effects.",
+  "executiveMissions": {
+    "claude": "docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md",
+    "claudeCanonical": "docs/prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md",
+    "sol": "docs/prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md",
+    "charter": "docs/AI_EMPLOYEE_COMPANY_CHARTER.md",
+    "checkpoint": "docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md"
+  },
+  "companyArchitecture": {
+    "companyBrain": "GPT-5.6 Sol: research intelligence, opportunity tournaments, economics, pricing, market sensing, software/company research, portfolio allocation and world-class distribution strategy. Intelligence does not grant consequence authority.",
+    "softwareFactory": "Claude Code / Opus Max: bounded heavy engineering, adapters, cloud/runtime, persistence, tests, hostile mutation, review packets, deployment verification and recovery through the repository's consequence and sandbox contracts.",
+    "missionControl": "ChatGPT integrator: reconcile repository truth, preserve memory, dedupe work, review GitHub/Vercel evidence, enforce economic/truth doctrine and minimize founder actions.",
+    "employeeLaw": "AI employees are bounded roles inside one governed company. Missions, permissions, evidence requirements, receipts, stop conditions and escalation are explicit. Capability never creates authority."
+  },
+  "economicNorthStar": "risk-adjusted cleared contribution profit / founder minute",
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedDeliveries": 0,
+    "retainedCustomers": 0,
+    "note": "Architecture, research catalogs, creator claims, synthetic tests and preview deployments do not manufacture customer or revenue truth."
+  },
+  "currentMeasuredSoftwareTruth": {
+    "syntax": "628 files parse",
+    "deterministic": "2897 tests; 2846 pass; 0 fail; 51 skipped",
+    "relaySafety": "150/150",
+    "realPostgres": "167/167 against PostgreSQL 16.13",
+    "browser": "1/1",
+    "mutationWar": "100 mutations; 100 killed; 0 not killed",
+    "npmAudit": "0 vulnerabilities",
+    "sourceModules": 255,
+    "reachableFromProduction": 127,
+    "reachableFromOperatorScriptsOnly": 9,
+    "noEntryPointAtAll": 119,
+    "measurementBinding": "The source-changing branch state was measured before the later docs/artifact-only checkpoint commits. Canon freshness permits later non-source commits when the relevant source tree is byte-identical."
+  },
+  "paymentAttentionFix": {
+    "reviewRequired": "operator attention",
+    "expectedPending": "PENDING_OR_UNCLEAR with only subscription-status-on_trial is quiet",
+    "anomalousPending": "every other PENDING_OR_UNCLEAR is operator attention",
+    "missingReason": "fail visible",
+    "focusedProof": "9/9 independent cases PASS; hostile expected=true mutation causes 5/9 cases to fail",
+    "authorityChange": "NONE",
+    "revenueTruthChange": "NONE"
+  },
+  "memoryIntegrity": {
+    "preCheckpointArchive": [
+      "docs/archive/2026-08-30-pre-checkpoint/CURRENT_SYSTEM_STATE.md",
+      "docs/archive/2026-08-30-pre-checkpoint/CURRENT_HANDOFF.json",
+      "docs/archive/2026-08-30-pre-checkpoint/UBERBOND_BOOTSTRAP.json"
+    ],
+    "archiveCommit": "991efdee100616cd6d811a92194d611fa3097a14",
+    "readinessIncident": "A manual readiness refresh at d1a75d04... collapsed hundreds of lines of capability evidence. The loss was detected before merge and the full registry was restored in a7d25ab08781307002f663dcfa903983ff5c54b2. Future readiness edits must preserve or regenerate the full capability registry; never treat a smaller generated artifact as harmless formatting.",
+    "everestCorrection": "The older memory index entry saying Everest was unresolved/no artifact is stale. Repository archaeology found docs/UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md with verdict EVEREST_PARTIALLY_CLOSED and source-backed lineage Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation. The checkpoint supersedes the stale index entry until the index is migrated without data loss."
+  },
+  "claudeRuntime": {
+    "status": "MISSION_PACKET_READY__LIVE_EXECUTION_NOT_PROVEN_IN_THIS_RUNTIME",
+    "orchestrator": "src/claude-engineering-orchestrator.mjs",
+    "externalBlocker": "A verified network-isolation attestation and an actual Claude executor/provider runtime are required. The GitHub agent-relay-worker is verification-only and must not be represented as a Claude Code session.",
+    "resumePacket": "docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md"
+  },
+  "cloudTruth": {
+    "vercelTeamId": "team_A9LnjIuS5PU0rNetsHMu1N0r",
+    "fullProjectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
+    "fullProjectName": "uberbondd",
+    "exactHeadPreviewAtPreviousMeasuredCommit": "dpl_5e9AmHsdpxpdikFFfkUbJhzKopa6 was BUILDING when last inspected; its logs were executing the real deterministic suite.",
+    "privateLitePreviousStatus": "exact-head preview success was observed for d1a75d04...",
+    "productionExactCurrentMainProven": false,
+    "note": "Do not equate preview READY/BUILDING with production promotion or commercial proof."
+  },
+  "cloudActivationTruth": {
+    "fullProjectExists": true,
+    "privateLiteProjectExists": true,
+    "currentMainExactProductionDeploymentProven": false,
+    "cronRegistrationProven": false,
+    "cronDeliveryProven": false,
+    "contradiction": "Older repository evidence recorded an account-scope contradiction. The currently connected Vercel API now resolves both project identities, but no exact-current-main production or cron-delivery proof is promoted by this checkpoint.",
+    "observations": [
+      {
+        "observedVia": "connected Vercel API",
+        "observedAt": "2026-08-30T18:38:01Z",
+        "detail": "Full project prj_RWUPf14w1xIz9NK92AbNW5z7qDCg and exact-head preview deployment dpl_HUna25saBLcF3AekpXRnfDqYtRRS were resolved."
+      },
+      {
+        "observedVia": "connected Vercel API",
+        "observedAt": "2026-08-30T18:32:00Z",
+        "detail": "Private-lite exact-head preview deployment dpl_3HzyZWauVqF71jBgFRSywHABayJR was resolved."
+      }
+    ]
+  },
+  "repositoryPublicationEffects": {
+    "productionDeploymentsAuthorizedOrPerformedByThisLane": 0
+  },
+  "ciTruth": {
+    "githubActions": "INFRASTRUCTURE_NON_EVIDENCE",
+    "latestObservedPattern": "deterministic/postgres/browser jobs completed failure with no runner and no steps; this is neither source pass nor source failure.",
+    "mergeEvidenceRule": "Use exact-head executable evidence from a runner that actually executed commands; do not green-light from empty hosted jobs."
+  },
+  "historicalLineageMustNotBeForgotten": [
+    "Brain / Whole Chat Continuity",
+    "First Revenue / First-Cash",
+    "Proven Business Genome / Total Commercial Genome",
+    "World Distribution OS",
+    "Offline Revenue Factory / Demand Recovery Assurance",
+    "Frontier Company OS",
+    "Elite Duo Apex / Fable Fraction / AEGIS-JARVIS",
+    "OMNIA V1 / X10 / X100 / X1M / X8M / X64M V7 / X512M V8 / V9",
+    "Prometheus",
+    "Cognitive Bus",
+    "Kilimanjaro",
+    "Everest",
+    "SUMMIT 100",
+    "BLACK SKY",
+    "Reality Activation",
+    "Lead OS",
+    "Instantly-style Outbound Engine",
+    "Distribution Control Plane",
+    "Automation Capability Acquisition Frontier",
+    "NIGHTFALL / Growth Graph / AI Employee Trinity"
   ],
   "nextActions": [
-    "OWNER: open the deployment link in the founder actions below. It is the only blocker gating every deployment step and it is now one click.",
-    "OWNER: set TRUST_PROXY_HOPS on the deployment (1 behind a single proxy). Until then the public intake limit counts every caller as one identity -- fail-closed, but not intended.",
-    "ANY LANE: a payment refused as PENDING_OR_UNCLEAR is not surfaced anywhere an operator looks; the command center raises only REVIEW_REQUIRED. The right fix distinguishes an expected non-payment (on_trial) from an anomalous one (unpaid at creation), which is a decision worth making deliberately.",
-    "ANY LANE: a payment in a currency other than USD is not amount-checked against the product price, because the configured prices carry no currency. The fix is per-currency prices in configuration, which is an owner decision about what the business sells in.",
-    "ANY LANE: draft PR #234 carries a payment-rail research receipt and six research sources worth keeping. Its handoff and canon edits are superseded and would regress main if merged. Findings are on the PR.",
-    "BLOCKED ON PROVIDER: the payment reconciliation worker is unwired and visibly DEGRADED. Nothing calls claimBillingEvents, so verified webhook evidence accumulates and is never reconciled into canonical cleared truth. Completing it needs a provider to reconcile against, not engineering.",
-    "BLOCKED ON PROVIDER: report delivery is gated on its own kill switch (AUTO_EMAIL_REPORTS) and a configured Gmail account. The path is built, idempotent per lead, and audited; it is switched off."
+    "Regenerate/replace CURRENT_SYSTEM_STATE from the measured source truth without losing archived history.",
+    "Run the exact newest PR #251 head through Vercel's real syntax+deterministic build; inspect final summary rather than status color alone.",
+    "If exact head is green and diff remains bounded, mark #251 ready and squash-merge with expected-head protection.",
+    "After merge, verify new main and exact production/preview state. Do not claim production current until source SHA is observed.",
+    "Then extend the payment frontier through the existing canonical provider-evidence -> payment-reconciliation -> fulfilment chain. PayPal is a candidate because the owner has a legal account, but do not create a second ledger or touch credentials/KYC/money without the required authority.",
+    "Continue distribution and NIGHTFALL cloud-liveness work after the payment truth path, prioritizing real economic evidence over architecture volume."
   ],
-  "production": {
-    "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
-    "projectName": "uberbondd",
-    "publicUrl": "https://uberbondd.vercel.app/",
-    "observedProductionDeploymentId": "dpl_DVtL6XTs6yWg2DsDHX1LJnB5hDWA",
-    "observedProductionSourceSha": "b156566c69f1d1d0e7e01b015afa474e36041276",
-    "observedProductionState": "READY",
-    "currentMainSha": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
-    "currentMainExactProduction": false,
-    "latestDeploymentBlocker": "PR_231_EXACT_HEAD_VERCEL_CHECKS_API_DEPLOYMENTS_FREE_PER_DAY",
-    "status": "PUBLIC_SITE_LIVE__PRODUCTION_STALE_RELATIVE_TO_MAIN"
-  },
-  "productionRuntimeTruth": {
-    "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
-    "observedAt": "2026-08-29T18:27:19Z",
-    "window": "7d",
-    "status": "NO_RUNTIME_ERRORS_FOUND",
-    "source": "Connected Vercel runtime-error aggregation",
-    "note": "This is a read-only error aggregate for the observed older production deployment; it does not prove the combined candidate is deployed."
-  },
-  "commercialDecision": {
-    "canary": "White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing and electrical businesses",
-    "priceHypothesisUsd": 450,
-    "fallback": "AI Agent Acceptance Evidence Sprint for AI implementation agencies and software teams operating buyer-authorized sandboxes",
-    "liveCommercialExperiment": false,
-    "customers": 0,
-    "clearedRevenue": 0,
-    "acceptedDeliveries": 0,
-    "retainedCustomers": 0
-  },
-  "verification": {
-    "executedBy": "local execution in this session, not hosted CI",
-    "gates": {
-      "check:syntax": "625 files parse",
-      "test:deterministic": "2886 tests, 2835 pass, 0 fail, 51 skipped",
-      "test:relay-safety": "150/150",
-      "test:postgres-real": "167/167 against PostgreSQL 16.13",
-      "test:browser": "1/1 against /opt/pw-browsers/chromium-1194/chrome-linux/chrome",
-      "test:mutation-war": "99 mutations, 99 killed, 0 not killed",
-      "npm audit --omit=dev": "0 vulnerabilities"
-    },
-    "runtimeNote": "PostgreSQL 16.13 from a local cluster at /tmp/pgdata16 port 55432, and the runner's installed Chromium. Both gates run; neither is blocked. The mutation war reads its verdicts from what each run reports rather than from exit status, so a suite that skipped for want of a runtime can no longer be counted as either killed or survived.",
-    "productionCoverage": "126 production-reachable src modules, 0 unexercised. All 5 API routes exercised. server.mjs exercised by a spawned-process gate and by the exported-handler gate."
-  },
-  "maximumThreeFounderActions": [
-    {
-      "reason": "Two lanes disagree about whether this project exists. Through this session's connector the only visible team has zero projects, the exact project id and slug 404, and so does dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h -- the deployment another lane recorded as READY from current main with a timestamped 200 from /api/health. One of those views is scoped to the wrong account, and only you can see which.",
-      "screen": "https://vercel.com/mohammedwessam2007s-projects  (and the deployment directly: https://vercel.com/mohammedwessam2007s-projects/uberbondd/BYCthpL4jEo6HAnX3v3UD2PsU42h)",
-      "action": "Open that deployment link. If it loads, the Vercel connection this session uses is scoped to a different account than the project, and reconnecting it under the account that owns the project resolves every deployment step at once. If it 404s for you too, the project genuinely is not there and the deployment claim in PR #234 is wrong.",
-      "founderMinutes": 2,
-      "costUsd": 0,
-      "evidenceRequired": "Whether that deployment page loads for you, and under which account.",
-      "defaultRecommendation": "Do this one first. It is the only blocker gating every remaining deployment step, and it is now a single link rather than an investigation."
-    },
-    {
-      "reason": "Hosted CI reports failure on jobs where no runner was ever assigned and no step ran. It is currently incapable of producing evidence, which means real regressions could hide behind noise everyone has learned to ignore.",
-      "screen": "https://github.com/mohammedwessam2007/uberbondd/settings/actions",
-      "action": "Check whether Actions minutes are exhausted or the runner allowance is disabled for this account.",
-      "founderMinutes": 2,
-      "costUsd": 0,
-      "evidenceRequired": "Whether the account has Actions minutes remaining.",
-      "defaultRecommendation": "Worth checking, not urgent. Local gates cover the same suites today."
-    },
-    {
-      "reason": "vercel.json now registers two cron paths. Vercel Hobby permits two cron jobs, so the system is exactly at the ceiling; a third would be rejected at deploy time rather than at review time.",
-      "screen": "vercel.json in the repository",
-      "action": "No action needed now. Noted so the next cron addition is a decision rather than a deploy failure.",
-      "founderMinutes": 0,
-      "costUsd": 0,
-      "evidenceRequired": "none",
-      "defaultRecommendation": "Do nothing. Recorded for the next lane that wants to add a schedule."
-    }
+  "ownerActions": [
+    "No owner action is required to finish the current source/canon/preview verification lane.",
+    "Future live Claude execution requires the external sandbox-isolation/provider runtime gate.",
+    "Future real payment/outbound/provider activation requires the applicable credentials, KYC/authorization and bounded spend/contact authority."
   ],
+  "operatingConstraints": {
+    "noRecurringChatAutomationsUnlessExplicitlyRequested": true,
+    "protectLiteUnlessExplicitMission": true,
+    "noFakeExternalProof": true,
+    "noAutomaticSpendOrCustomerContact": true
+  },
   "externalEffectLedger": {
     "customerProspectContacts": 0,
     "messagesCalls": 0,
@@ -133,7 +158,6 @@
     "providerCalls": 0,
     "modelProviderExecutions": 0,
     "purchases": 0,
-    "deployments": 0,
     "productionDeployments": 0,
     "credentialChanges": 0,
     "dnsChanges": 0,
@@ -142,209 +166,5 @@
     "moneyMovement": 0,
     "spendCents": 0
   },
-  "businessEffectAuthority": "NONE_EXCEPT_EXISTING_PROJECT_DEPLOYMENT_AUTHORIZED_WHEN_VERIFIED",
-  "headSha": "8097b47d3661790b40e165fb50def074b30d389b",
-  "cloudActivationTruth": {
-    "fullProjectExists": "PROVEN_BY_CONNECTED_API",
-    "privateLiteProjectExists": "PROVEN_BY_CONNECTED_API",
-    "currentMainExactProductionDeploymentProven": false,
-    "cronRegistrationProven": false,
-    "cronDeliveryProven": false,
-    "contradiction": "Unresolved, and now sharper. Five probes through the connected Vercel API return an empty project list for the only team the connector can see, 404 for the exact project id and slug, and 404 for the exact deployment id another lane recorded as READY from current main. That lane's observation names a specific deployment and a timestamped 200 from /api/health, so it is not vague. Both cannot describe the same account scope. The live hostnames cannot be probed from this runner to break the tie, because the environment's network policy denies them. Preserved on both sides with provenance rather than resolved by preferring one lane.",
-    "observations": [
-      {
-        "claim": "two projects exist (full + private lite)",
-        "observedVia": "another lane's recorded audit",
-        "observedAt": "2026-08-28",
-        "evidenceRef": null
-      },
-      {
-        "claim": "zero projects on team_A9LnjIuS5PU0rNetsHMu1N0r",
-        "observedVia": "Vercel API list_projects",
-        "observedAt": "2026-08-28",
-        "evidenceRef": "vercel:list_projects->[]"
-      },
-      {
-        "claim": "zero projects on team_A9LnjIuS5PU0rNetsHMu1N0r",
-        "observedVia": "Vercel API list_projects (re-query)",
-        "observedAt": "2026-08-29",
-        "evidenceRef": "vercel:list_projects->[]"
-      },
-      {
-        "claim": "the named project id and slug are both unreachable on team_A9LnjIuS5PU0rNetsHMu1N0r",
-        "observedVia": "connected Vercel MCP get_project(prj_RWUPf14w1xIz9NK92AbNW5z7qDCg) and get_project(uberbondd) on team_A9LnjIuS5PU0rNetsHMu1N0r",
-        "observedAt": "2026-08-29",
-        "result": "404 Not Found for both the exact project id and the slug",
-        "evidenceRef": "docs/CLOUD_ACTIVATION_CONTRACT.md#observed-deployment-truth--a-contradiction-preserved",
-        "note": "A 404 on an exact project id is a direct answer, unlike an empty list which could be a scope artifact. It still proves only that the project is unreachable through this connection."
-      },
-      {
-        "claim": "zero projects, and 404 on the exact project id, through a freshly reconnected connector",
-        "observedVia": "Vercel MCP (new server instance this session): list_teams, list_projects, get_project(prj_RWUPf14w1xIz9NK92AbNW5z7qDCg)",
-        "observedAt": "2026-08-29 (fourth probe)",
-        "result": "one Hobby team, projects [], 404 for the exact project id",
-        "note": "This instance is a fresh connection, which rules out a stale session as the explanation for the earlier empty results. The repository also contains no .vercel/project.json, so nothing links it to a project from this side -- though a dashboard-created Git link would not require one, so that is context rather than proof."
-      },
-      {
-        "claim": "another lane recorded a READY production deployment from exact main 0b41795, with /api/health 200 at 2026-08-30T06:06:45Z",
-        "observedVia": "draft PR #234 (nightfall/final-reconcile-20260830), docs/CURRENT_SYSTEM_STATE.md at head 0444516",
-        "observedAt": "2026-08-30",
-        "result": "deployment dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h reported READY",
-        "evidenceRef": "github:mohammedwessam2007/uberbondd#234",
-        "note": "Recorded as that lane's observation, not adopted. It is the first Vercel claim naming a specific deployment id, which makes it checkable."
-      },
-      {
-        "claim": "the deployment id that lane named is not reachable through this session's connector",
-        "observedVia": "connected Vercel MCP get_deployment(dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h) and list_projects, on team_A9LnjIuS5PU0rNetsHMu1N0r",
-        "observedAt": "2026-08-30",
-        "result": "404 Deployment not found; list_projects returned [] for the fifth consecutive probe across three days",
-        "evidenceRef": "vercel:get_deployment->404, vercel:list_projects->[]",
-        "note": "A 404 on an exact deployment id is a direct answer rather than a scope artifact, and it is the sharpest form the contradiction has taken: two lanes describe the same named deployment as READY and as absent. Not resolved unilaterally."
-      },
-      {
-        "claim": "the live hostnames cannot be observed from this runner at all",
-        "observedVia": "curl https://uberbondd.vercel.app/api/health and https://uberbond-relay.vercel.app/api/health",
-        "observedAt": "2026-08-30",
-        "result": "CONNECT tunnel failed, gateway answered 403 -- the same denial the environment's proxy returns for www.google.com",
-        "evidenceRef": "agentproxy:/__agentproxy/status recentRelayFailures",
-        "note": "EFFECT_UNKNOWN. This is the environment's outbound network policy, and says nothing about whether the site is up. It is recorded so a later reader does not mistake it for evidence that the deployment is down."
-      }
-    ],
-    "resolvedBy": "Connected Vercel project/deployment queries on 2026-08-29; the exact combined candidate still needs a fresh deployment receipt."
-  },
-  "currentOpenCandidates": [
-    {
-      "pr": 234,
-      "head": "c460e8b1f7583639f7c38a14679a9072d0ab5102",
-      "status": "OPEN_DRAFT",
-      "mission": "reconcile final live and deployment truth",
-      "promotionBlockers": [
-        "not yet reconciled against current main; opened before this session's merges"
-      ]
-    }
-  ],
-  "repositoryPublicationEffects": {
-    "productionDeploymentsAuthorizedOrPerformedByThisLane": 0,
-    "pullRequestsCreated": 1,
-    "pullRequestsMerged": 1,
-    "issueCommentsPosted": 1,
-    "supersededPullRequestsClosed": [
-      214
-    ],
-    "remoteBackupBranch": "integration/nightfall-hardening-20260829",
-    "remoteBackupCommit": "f4d00096122bac41dc993b1b5de4c64138ed6eab",
-    "integrationPullRequest": 231,
-    "note": "GitHub repository operations are not customer-facing external effects."
-  },
-  "lastCompletedSlice": {
-    "mission": "Attack the money path and the verification machinery, and repair what does not survive.",
-    "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "merged": [
-      "#241",
-      "#242",
-      "#243",
-      "#244",
-      "#246",
-      "#247"
-    ],
-    "defectsFound": [
-      {
-        "id": "IDENT-01",
-        "severity": "P1",
-        "pr": 241,
-        "summary": "A caller chose the identity their rate limit was counted against.",
-        "mechanism": "clientIp took the leftmost x-forwarded-for entry, which the client writes. A rotating header bought eight public intake submissions against a cap of three, each creating a lead and queueing research.",
-        "fix": "TRUST_PROXY_HOPS declares how many proxies may be believed, default 0. With N hops the trustworthy address is the Nth from the right, so prepended entries cannot move it."
-      },
-      {
-        "id": "WAR-01/WAR-02",
-        "severity": "P1",
-        "pr": 243,
-        "summary": "The mutation war's own verdicts came from the exit status and were wrong in two opposite directions.",
-        "mechanism": "A suite that skipped for want of a runtime exited 0 and was reported as a surviving guard -- loud but false. A mutant that broke a module at import time exited non-zero and was reported as KILLED -- silent, and it inflated the count that every other guard is judged by.",
-        "fix": "Verdicts are read from what each run reports. SUITE_DID_NOT_RUN and NO_ASSERTIONS_RAN are named separately from real survivors. Four suites that announced an absent database with a passing test now use a real skip, which is why the deterministic run reports 51 skipped rather than 48."
-      },
-      {
-        "id": "ANCHOR/SCAN",
-        "severity": "P2",
-        "pr": 243,
-        "summary": "Two defects found by writing the mutations for the above.",
-        "mechanism": "A mutation anchor appearing both in the code and in the registry entry quoting it mutated the registry instead, ran an unmutated tree, and reported the guard as surviving. Checking every anchor then found SCAN-01 matching two sites, so one branch had never been attacked -- and it turned out to be unreachable.",
-        "fix": "applyMutation refuses an ambiguous anchor; the verdict logic moved to its own module so the registry no longer contains the code it points at; the unreachable branch was removed and the concern it aimed at is now proven rather than assumed."
-      },
-      {
-        "id": "MONEY-22",
-        "severity": "P1",
-        "pr": 246,
-        "summary": "A subscription that had not paid booked cleared revenue.",
-        "mechanism": "subscription_created fires for every subscription state including a free trial. The one-time branch of the classifier has always checked whether the order was paid; the subscription branch did not. Measured: on_trial, past_due, unpaid, cancelled, expired and paused each booked $99 and marked the lead paid -- $594 nobody paid, reconciling as PROVIDER_CLEARED_PAYMENT_PROVEN on every surface.",
-        "note": "Every surface agreed because all three triple-witness views derive from the same signed webhook. Consistency across three views of one event cannot catch a misreading of that event.",
-        "fix": "An allowlist of statuses that mean money moved, applied to subscription_created only. subscription_payment_success is untouched because a recovery payment legitimately arrives with a past_due status."
-      },
-      {
-        "id": "MONEY-23/MONEY-24",
-        "severity": "P1",
-        "pr": 247,
-        "summary": "The money did not have to cover the product it unlocked, and a free order booked list price.",
-        "mechanism": "The product is a query parameter on the checkout link the buyer holds. Measured: $49 bought the $299 review, $0.01 bought monitoring, $0.00 bought strategy. The zero case also revealed `detail.amountCents || listPrice` treating a genuine 0 as absent, so a free order booked $299 of cleared revenue.",
-        "fix": "An underpayment in the pricing currency is REVIEW_REQUIRED -- the only classification an operator is shown -- rather than a refusal, because a discount code is a real reason to pay less."
-      }
-    ],
-    "attackedAndSound": [
-      "The refund path: an over-refund is already caught as refund-exceeds-cleared-order and surfaced for review, a refund with no payment records nothing, and a duplicate refund is deduped. No change made.",
-      "The public report/artifact/checkout surface: tokens leak nothing on any guess, traversal or wildcard; artifact ids refuse traversal; checkout issues nothing without a valid token.",
-      "Webhook signature admission: nine forgery shapes all refused with 401, none creating money."
-    ]
-  },
-  "continuousIntegrationTruth": {
-    "workflowRun": 33265034795,
-    "headSha": "fd2604ca86d0291dce1312b39ae42b323f184739",
-    "jobs": [
-      "deterministic",
-      "postgres",
-      "browser"
-    ],
-    "reportedConclusion": "failure",
-    "classification": "INFRASTRUCTURE_NON_EVIDENCE",
-    "proof": "browser, deterministic and postgres jobs returned steps: [], so hosted CI produced no source execution evidence.",
-    "ruling": "Not a pass and not a source failure. These results are not the basis for the merge and were not treated as one; the merge rests on the locally executed gates above."
-  },
-  "truthRestrictions": [
-    "Zero verified customers, zero cleared revenue, zero accepted deliveries, zero retained customers. Unchanged and preserved as zero.",
-    "clearedRevenue means a provider order witnessed the payment, the subscription had actually paid, and the money covered the product. It reads zero because it is zero.",
-    "No claim of production deployment, cron registration or cron delivery for current main.",
-    "No provider called, no message sent, no money moved, no credential or DNS changed.",
-    "Every gate figure in this file was produced by running the command locally on this tree. None came from hosted CI, and none was carried forward from an older receipt."
-  ],
-  "reachability": {
-    "srcModules": 254,
-    "reachableFromProduction": 126,
-    "reachableFromOperatorScriptsOnly": 9,
-    "noEntryPointAtAll": 119,
-    "allClassified": true,
-    "note": "src is walked recursively. Earlier figures excluded src/overnight and src/omnia-v9 entirely, which was an accident of a single-level directory read, not a scope decision."
-  },
-  "decisionConsumerSweep": {
-    "status": "COMPLETE",
-    "method": "For every sovereignty-protected module that exports a decision, find modules outside the boundary that import that decision and could therefore discard it. Derived from the import graph, not from a hand-maintained list.",
-    "familiesClean": [
-      "payment",
-      "escalation",
-      "recovery",
-      "fulfillment",
-      "activation",
-      "autonomy",
-      "sandbox"
-    ],
-    "familiesWithFindings": {
-      "outbound": "src/pipeline.mjs and src/gmail.mjs -- the send loop and the transport. PR #215.",
-      "enforcement": "the change applier, artifact store, sandbox collector, and both callers of evaluateWorkerResultTruth. PR #217.",
-      "evidence": "both callers of evaluateContactRoute. PR #219."
-    },
-    "deliberateNonFindings": [
-      "canonicalContactRoute is a string canonicalizer, flagged only because a decision-name heuristic caught its `can` prefix.",
-      "isStaleSignal compares a signal's age against a maxAgeMs the caller supplies, so a caller can already choose its own answer without discarding anything. Protecting its callers would look like a boundary and enforce nothing. A test asserts they stay editable, with that reason, so nobody tidies them in later."
-    ],
-    "whatWouldReopenIt": "A new module that imports a protected decision. Three derived tests fail in that case rather than depending on anyone remembering this sweep: tests/outbound-send-path-sovereignty-boundary.test.mjs, tests/enforcement-surface-sovereignty-boundary.test.mjs, tests/evidence-sovereignty-boundary.test.mjs."
-  }
+  "businessEffectAuthority": "NONE_FOR_THIS_CHECKPOINT"
 }

@@ -1,24 +1,24 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-30T07:45:55.609Z",
+  "generatedAt": "2026-08-30T18:00:00.000Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "b09d46d255c98db2017483d1582960aa792d8e3e",
-    "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "sourceModules": 254,
-    "testSuites": 301,
+    "head": "9948f59eeb8cc528be6127e76cf991c6cedda425",
+    "branch": "gpt/payment-operator-attention-20260830",
+    "sourceModules": 255,
+    "testSuites": 302,
     "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 626,
+      "filesParsed": 628,
       "ranAt": "2026-08-30T00:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2889,
-      "pass": 2838,
+      "tests": 2897,
+      "pass": 2846,
       "fail": 0,
       "skipped": 51,
       "ranAt": "2026-08-30T00:00:00Z"
@@ -68,13 +68,13 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 254,
-      "reachableFromProduction": 126,
+      "srcModules": 255,
+      "reachableFromProduction": 127,
       "reachableFromOperatorScriptsOnly": 9,
       "noEntryPointAtAll": 119,
       "allClassified": true,
       "ranAt": "2026-08-30T00:00:00Z",
-      "note": "src is now walked recursively. The previous 191/117/5/69 figures excluded src/overnight and src/omnia-v9 entirely, which was an accident of a single-level directory read, not a scope decision."
+      "note": "src is walked recursively. payment-operator-attention.mjs is production-reachable through founder-command-center -> prometheus-control-tower -> job-handlers, so the production-reachable count increases by one without changing no-entry classifications."
     }
   },
   "capabilities": [

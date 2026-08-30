@@ -82,8 +82,22 @@ const bodyText = async req => {
 const parseBody = async req => {
   const content = await bodyText(req);
   if (!content) return {};
-  try { return JSON.parse(content); }
+  let parsed;
+  try { parsed = JSON.parse(content); }
   catch { throw new HttpError(400, 'Malformed JSON body'); }
+  // `null` is valid JSON, and so are a bare number, string, boolean and array.
+  // Every one of the fifteen call sites below reads named fields off the result,
+  // so a body of `null` used to parse cleanly and then throw a TypeError on the
+  // first property access -- surfacing as 500. That is a caller's mistake
+  // reported as a server fault, and a one-word body could produce as many of
+  // them as anyone wanted.
+  //
+  // Refused here rather than at each call site: there is one contract, and it is
+  // the one every caller already assumes.
+  if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    throw new HttpError(400, 'JSON body must be an object');
+  }
+  return parsed;
 };
 // Constant-time comparison so a valid admin token cannot be recovered byte-by-byte
 // through response-timing analysis. timingSafeEqual throws on length mismatch, so
@@ -245,7 +259,17 @@ function errorStatus(error) {
   return 500;
 }
 
-const server = http.createServer(async (req, res) => {
+// The request handler, named and exported rather than inline.
+//
+// It was an anonymous function passed straight to http.createServer, which meant
+// the only way to reach 87 branches of routing, admission and refusal logic was
+// to bind a port. That is why this file went so long with no gate on it at all.
+//
+// Exporting it does not by itself make importing this module free -- the module
+// scope above still validates config and initializes a store -- but it lets a
+// test drive a request through the real routing without a socket, and it lets
+// the mutation war reach these branches.
+export const requestHandler = async (req, res) => {
   try {
     const url = new URL(req.url, config.baseUrl);
     const method = req.method;
@@ -593,9 +617,17 @@ const server = http.createServer(async (req, res) => {
         : error.message;
     return json(res, status, { error: message });
   }
-});
+};
 
-server.listen(config.port, () => console.log(`UberBond Revenue Engine running on ${config.baseUrl} using ${config.storeBackend}`));
+const server = http.createServer(requestHandler);
+
+// Listening, and the signal handlers below, are what make importing this module
+// expensive. They run only when this file IS the program, using the same idiom
+// scripts/run-tests.mjs and scripts/mutation-war.mjs already use.
+const isEntryPoint = import.meta.url === `file://${process.argv[1]}`;
+if (isEntryPoint) {
+  server.listen(config.port, () => console.log(`UberBond Revenue Engine running on ${config.baseUrl} using ${config.storeBackend}`));
+}
 
 let shuttingDown = false;
 async function shutdown(signal) {
@@ -610,5 +642,7 @@ async function shutdown(signal) {
   });
   setTimeout(() => process.exit(1), 10000).unref();
 }
-process.on('SIGTERM', () => shutdown('SIGTERM'));
-process.on('SIGINT', () => shutdown('SIGINT'));
+if (isEntryPoint) {
+  process.on('SIGTERM', () => shutdown('SIGTERM'));
+  process.on('SIGINT', () => shutdown('SIGINT'));
+}

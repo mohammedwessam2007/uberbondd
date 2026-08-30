@@ -263,22 +263,22 @@
   "currentOpenCandidates": [
     {
       "pr": 245,
-      "head": "a30a9c48cddd19f7577fa8f6876a72de2b72cd6f",
-      "base": "97cf5a0de4ba5e0c3cd63156680c8c36a2f0d2b6",
-      "status": "OPEN_DRAFT_EXACT_BASE_PREVIEW_READY_ROUTE_CONFIG_FAILED",
+      "head": "29da267195e41014a6c656cede90e8caa99bb781",
+      "base": "1cf196b72f7d2ad85203efcccdb374f198d8ac52",
+      "status": "OPEN_DRAFT_CURRENT_HEAD_VERCEL_RATE_LIMITED",
       "mission": "correct Vercel live-scope receipt",
       "promotionBlockers": [
-        "full and lite previews are READY from a30a9c4, but full /api/health returns FUNCTION_INVOCATION_FAILED until ADMIN_TOKEN is present and strong; no review and no production promotion"
+        "final head 29da267 has no new preview because both Vercel checks report api-deployments-free-per-day/build-rate-limit; the prior exact-head a30a9c4 preview was READY but full /api/health returned FUNCTION_INVOCATION_FAILED until ADMIN_TOKEN is present and strong; no review and no production promotion"
       ]
     },
     {
       "pr": 234,
       "head": "c16d356e7b40535d7a6202a1d0515ec8bb84f85b",
       "base": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc",
-      "status": "OPEN_DRAFT",
+      "status": "OPEN_DRAFT_STALE_PAYMENT_RESEARCH_ONLY",
       "mission": "reconcile final live and deployment truth",
       "promotionBlockers": [
-        "not yet reconciled against current main; payment research is preserved but the handoff/canon edits are stale"
+        "not yet reconciled against current main and mergeable_state=dirty; payment-rail research and six sources are preserved for reference, but its handoff/canon edits are stale and must not merge"
       ]
     }
   ],

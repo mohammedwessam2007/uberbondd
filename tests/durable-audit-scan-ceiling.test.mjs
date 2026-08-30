@@ -23,7 +23,7 @@ import { compileAutonomySession, compileTaskIntent } from '../src/agent-autonomy
 import { createAutonomyRun } from '../src/agent-autonomy-pump.mjs';
 import { saveAutonomyRunSnapshot, listLatestAutonomyRuns } from '../src/agent-autonomy-store.mjs';
 import { selectFairAutonomyRuns, logAutonomySchedulerSelection } from '../src/agent-autonomy-scheduler.mjs';
-import { foldAuditRows, collectAuditRows } from '../src/durable-audit-scan.mjs';
+import { foldAuditRows, collectAuditRows, AUDIT_SCAN_PAGE_SIZE } from '../src/durable-audit-scan.mjs';
 
 const OLD_CEILING = 2000;
 const BEYOND = OLD_CEILING + 100;
@@ -165,4 +165,26 @@ test('the scanner never returns a partial fold as success', async () => {
   const collected = await collectAuditRows(stuck, { type: 'probe_type' });
   assert.equal(collected.ok, false);
   assert.deepEqual(collected.rows, []);
+});
+
+// There used to be a second refusal below the short-page return, for a page with
+// no identity. It was unreachable -- by that line a short page has already
+// returned, so `rows.length >= size >= 1`, and `pageIdentity` builds a string
+// that is non-empty for any non-empty page. Instrumenting it with a throw and
+// running every suite that touches this module confirmed nothing reaches it.
+//
+// It was removed rather than kept as reassurance, which leaves one question
+// worth answering with a test instead of an argument: rows with no `id` at all
+// produce the weakest identity the scanner can form ("||500"), so are they still
+// caught when a store stalls? They are, because that identity is stable across
+// repeats, which is exactly what the repeat check looks at.
+test('a stalled store is caught even when no row carries an id', async () => {
+  const page = Array.from({ length: AUDIT_SCAN_PAGE_SIZE }, () => ({ type: 'probe_type', detail: {} }));
+  const idless = { async list() { return page.map(row => ({ ...row })); } };
+
+  const scan = await foldAuditRows(idless, { type: 'probe_type', seed: 0, fold: acc => acc + 1 });
+  assert.equal(scan.ok, false, 'an id-less page repeating forever must not read as a successful walk');
+  assert.deepEqual(scan.reasonCodes, ['audit-scan-pagination-stalled']);
+  assert.equal(scan.value, undefined);
+  assert.ok(scan.pages < 10, `the refusal must be prompt, not after the page budget: ${scan.pages}`);
 });

@@ -14,9 +14,10 @@ const REAL_URL = process.env.OMNIA_V9_TEST_DATABASE_URL || '';
 // distinguishes a worker that has never run, and whether the aggregate drags any
 // event key or payload hash out of the table with it.
 if (!REAL_URL) {
-  test('SKIPPED: set OMNIA_V9_TEST_DATABASE_URL for the billing backlog visibility proof', () => {
-    console.log('OMNIA_V9_TEST_DATABASE_URL not set -- real billing backlog proof skipped.');
-  });
+  // A real skip, not a passing placeholder: a green test named SKIPPED is
+  // indistinguishable from a proof, to a reader and to the mutation harness.
+  test('the billing backlog visibility proof needs OMNIA_V9_TEST_DATABASE_URL',
+    { skip: 'OMNIA_V9_TEST_DATABASE_URL not set -- real billing backlog proof not run' }, () => {});
 } else {
   let store;
 

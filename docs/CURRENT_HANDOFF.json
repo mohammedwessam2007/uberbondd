@@ -46,8 +46,8 @@
   ],
   "nextActions": [
     "OWNER: resolve the Vercel project-existence contradiction. Still the only thing blocking every deployment step.",
-    "ANY LANE: server.mjs's handler is now exported and importing the module no longer binds a port, so its branches are testable individually. tests/server-request-handler.test.mjs covers the authenticated surface; the routing depth beyond that is the obvious next place to add cases.",
-    "ANY LANE: the coverage ratchet is green at 0 uncovered across src, api and entry points, and understands spawned execution as well as imports.",
+    "ANY LANE: the money path has now been attacked end to end -- webhook admission, lease recovery, cleared-revenue meaning, and the test-unlock route. The remaining untested public route is /api/public/checkout.",
+    "ANY LANE: the coverage ratchet is green at 0 uncovered across src, api and entry points.",
     "CLAUDE: the payment reconciliation worker remains unwired and visibly DEGRADED, blocked on a payment provider rather than on engineering."
   ],
   "production": {
@@ -83,12 +83,12 @@
   "verification": {
     "executedBy": "local execution in this session, not hosted CI",
     "gates": {
-      "check:syntax": "618 files parse",
-      "test:deterministic": "2853 tests, 2805 pass, 0 fail, 48 skipped",
+      "check:syntax": "620 files parse",
+      "test:deterministic": "2860 tests, 2812 pass, 0 fail, 48 skipped",
       "test:relay-safety": "150/150",
       "test:postgres-real": "158/158 against PostgreSQL 16.13",
       "test:browser": "1/1",
-      "test:mutation-war": "91 mutations, 91 killed, 0 not killed",
+      "test:mutation-war": "93 mutations, 93 killed, 0 not killed",
       "npm audit --omit=dev": "0 vulnerabilities"
     },
     "runtimeNote": "The runner was rebuilt and no longer ships the PostgreSQL 18 binaries the previous receipt named. A fresh PostgreSQL 16.13 cluster was initialized locally. The receipt says 16.13 rather than carrying 18 forward, because the version is part of what the evidence means.",
@@ -363,6 +363,18 @@
         "mutations": [
           "MONEY-18",
           "MONEY-19"
+        ]
+      },
+      {
+        "id": "MONEY-20/21",
+        "severity": "P2",
+        "origin": "pre-existing",
+        "summary": "A forged payment webhook answered 500, and the acknowledgement echoed the buyer's address.",
+        "mechanism": "The signature check is sound -- nine forgery shapes fail it and none creates money. But an invalid signature threw a plain Error, which mapped to 500. Payment providers retry on 5xx, so a permanently and correctly rejected webhook would be redelivered forever, and providers disable endpoints that keep failing. Separately, the 200 acknowledgement returned the whole normalized event, carrying the provider's attributes verbatim including user_email plus a derived customerEmail.",
+        "fix": "401 with a legible reason, carried as a status property so a module below the HTTP layer can attribute fault without importing an HTTP type. The acknowledgement now says received and whether it was new, and a test asserts no address-shaped value appears on either the accepted or the refused path.",
+        "mutations": [
+          "MONEY-20",
+          "MONEY-21"
         ]
       }
     ],

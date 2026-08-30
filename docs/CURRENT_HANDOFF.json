@@ -44,7 +44,7 @@
     "Connected Vercel proves an exact-current-main READY production deployment at dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h; public health is reachable but autopilot and worker remain off."
   ],
   "blockers": [
-    "BLOCKED — Hosted CI: current main has no GitHub Actions workflow runs; the fresh PR #234 run 33287946432 ended with deterministic, PostgreSQL and browser jobs whose step arrays were empty. This is infrastructure non-evidence, not a source pass.",
+    "BLOCKED — Hosted CI: current main has no GitHub Actions workflow runs; the fresh PR #234 run 33296399759 ended with deterministic, PostgreSQL and browser jobs whose step arrays were empty. This is infrastructure non-evidence, not a source pass.",
     "NOT_PROVEN — Post-hotfix local rerun: the current runner disconnected before a fresh exact-current-main execution. PR #240's metrics are SOURCE_RECEIPT from its controlled runner; this lane does not relabel them as locally rerun.",
     "OBSERVED — Vercel production is exact-main READY at dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h from 0b4179538441d9c52fed3cc40cb268e6e3847218; /api/health is 200 with storeBackend=postgres, autopilot=false, worker.online=false and activeJobs=0. /api/public/config has bookingUrl empty; /privacy.html and /terms.html are 404. Cron registration/delivery is not proven.",
     "BLOCKED — Payment/customer proof: no provider is activated, no money cleared, no accepted delivery or renewal exists, and no contact/outbound authorization is present. Egyptian legal/tax/payment eligibility remains external."
@@ -197,7 +197,6 @@
     {
       "pr": 234,
       "state": "OPEN_DRAFT",
-      "headBeforeRefresh": "4330836a3584be2600020aaab83b0b3722a19b17",
       "base": "main",
       "baseShaAtLastRemoteRead": "0b4179538441d9c52fed3cc40cb268e6e3847218",
       "status": "REFRESHED_ON_CURRENT_MAIN_BY_THIS_RECEIPT",
@@ -206,7 +205,9 @@
         "Hosted CI zero-step failure is non-evidence.",
         "Post-hotfix exact-current-main local rerun is NOT_PROVEN in this runner.",
         "Draft requires current-head review before any merge."
-      ]
+      ],
+      "head": "4ba2500c37c28877a24cd1a6f78d2372144489ef",
+      "headAtLastRemoteRead": "4ba2500c37c28877a24cd1a6f78d2372144489ef"
     }
   ],
   "repositoryPublicationEffects": {
@@ -225,9 +226,10 @@
       "observedAt": "2026-08-30T06:06:45Z",
       "currentMain": "0b4179538441d9c52fed3cc40cb268e6e3847218",
       "openPullRequests": 1,
-      "openPullRequestsDetail": "#234 remains the only open PR, draft; this receipt refreshes its branch onto current main.",
+      "openPullRequestsDetail": "#234 remains the only open PR, draft, at head 4ba2500c37c28877a24cd1a6f78d2372144489ef; this receipt refreshes it onto current main.",
       "decision": "NO_MERGE_YET",
-      "reason": "Docs/metadata only; current exact-main production is healthy, but hosted CI has zero steps and this lane did not independently rerun the post-hotfix tree."
+      "reason": "Docs/metadata only; current exact-main production is healthy, but hosted CI has zero steps and this lane did not independently rerun the post-hotfix tree.",
+      "branchHead": "4ba2500c37c28877a24cd1a6f78d2372144489ef"
     },
     "currentMainAdvance": {
       "pr": 240,
@@ -235,7 +237,8 @@
       "mergeCommit": "0b4179538441d9c52fed3cc40cb268e6e3847218",
       "state": "MERGED",
       "summary": "Forged webhooks now return 401 and acknowledgements omit buyer attributes."
-    }
+    },
+    "currentOpenBranchHead": "4ba2500c37c28877a24cd1a6f78d2372144489ef"
   },
   "lastCompletedSlice": {
     "mission": "Reconcile the five open NIGHTFALL hardening PRs, attack what they add, and repair what does not survive.",
@@ -357,8 +360,8 @@
     }
   },
   "continuousIntegrationTruth": {
-    "workflowRun": 33287946432,
-    "headSha": "fa7ac5bf9c2dd633fc6333bc57e3e0da9942df66",
+    "workflowRun": 33296399759,
+    "headSha": "4ba2500c37c28877a24cd1a6f78d2372144489ef",
     "jobs": [
       "deterministic",
       "postgres",
@@ -366,7 +369,7 @@
     ],
     "reportedConclusion": "failure",
     "classification": "INFRASTRUCTURE_NON_EVIDENCE",
-    "proof": "PR #234's jobs returned steps: [] and current main 0b4179538441d9c52fed3cc40cb268e6e3847218 has no associated Actions workflow runs.",
+    "proof": "PR #234's current run 33296399759 jobs returned steps: [] and current main 0b4179538441d9c52fed3cc40cb268e6e3847218 has no associated Actions workflow runs.",
     "ruling": "Not a pass and not a source failure; Vercel statuses for current main are green, but hosted CI remains non-evidence until steps execute.",
     "currentMainWorkflowRuns": []
   },
@@ -444,9 +447,10 @@
     {
       "pr": 234,
       "state": "OPEN_DRAFT",
-      "headBeforeRefresh": "4330836a3584be2600020aaab83b0b3722a19b17",
       "mergeCommit": null,
-      "note": "docs-only reconciliation branch refreshed onto current main in this receipt"
+      "note": "docs-only reconciliation branch refreshed onto current main in this receipt",
+      "head": "4ba2500c37c28877a24cd1a6f78d2372144489ef",
+      "headAtLastRemoteRead": "4ba2500c37c28877a24cd1a6f78d2372144489ef"
     },
     {
       "pr": 235,

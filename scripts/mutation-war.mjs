@@ -406,6 +406,20 @@ export const MUTATIONS = [
     suites: ['tests/build-wiring.test.mjs']
   },
   {
+    id: 'MONEY-20', guard: 'A forged webhook is refused permanently, not retried forever',
+    file: 'src/revenue.mjs',
+    find: '      error.status = 401;',
+    replace: '',
+    suites: ['tests/webhook-route-truth.test.mjs']
+  },
+  {
+    id: 'MONEY-21', guard: 'The webhook acknowledgement does not echo the buyer',
+    file: 'server.mjs',
+    find: '      const outcome = await revenue.handleLemonWebhook(raw, req.headers[\'x-signature\']);',
+    replace: '      const outcome = await revenue.handleLemonWebhook(raw, req.headers[\'x-signature\']); return json(res, 200, outcome);',
+    suites: ['tests/webhook-route-truth.test.mjs']
+  },
+  {
     id: 'MONEY-18', guard: 'Cleared revenue means a provider witnessed it',
     file: 'src/revenue.mjs',
     find: '    const clearedCents = positiveEvents.filter(witnessedByOrder)',

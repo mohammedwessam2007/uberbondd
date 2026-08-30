@@ -252,6 +252,10 @@ async function staticFile(req, res) {
 
 function errorStatus(error) {
   if (error instanceof HttpError || error instanceof InputError) return error.status;
+  // An error may carry its own status without being one of our error classes --
+  // a module below the HTTP layer should be able to say "this was the caller's
+  // fault" without importing an HTTP type from the server.
+  if (Number.isInteger(error?.status) && error.status >= 400 && error.status < 600) return error.status;
   if (error instanceof ConflictError) return 409;
   if (error instanceof StoreError && error.code === 'FOREIGN_KEY') return 422;
   if (/Too many|cap reached/i.test(error.message)) return 429;
@@ -340,7 +344,23 @@ export const requestHandler = async (req, res) => {
     }
     if (method === 'POST' && url.pathname === '/webhooks/lemonsqueezy') {
       const raw = await bodyText(req);
-      return json(res, 200, await revenue.handleLemonWebhook(raw, req.headers['x-signature']));
+      const outcome = await revenue.handleLemonWebhook(raw, req.headers['x-signature']);
+      // Acknowledge, do not echo.
+      //
+      // This used to return the whole normalized event, which carries the
+      // provider's `attributes` verbatim -- including `user_email` -- plus a
+      // derived `customerEmail`. The recipient is the provider that sent it, so
+      // this was never disclosure to a third party, but it put a buyer's address
+      // into every delivery log and proxy on the path for no reason, and it
+      // undid the payload minimization the durable side already does.
+      //
+      // A webhook acknowledgement needs to say "received, and whether it was new".
+      return json(res, 200, {
+        ok: outcome?.ok !== false,
+        duplicate: outcome?.duplicate === true,
+        eventName: outcome?.event?.eventName || null,
+        providerObjectId: outcome?.event?.providerObjectId || null
+      });
     }
 
     if (url.pathname.startsWith('/api/agent-relay')) {

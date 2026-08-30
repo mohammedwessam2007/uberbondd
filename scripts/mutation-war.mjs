@@ -419,6 +419,14 @@ export const MUTATIONS = [
     replace: '      const outcome = await revenue.handleLemonWebhook(raw, req.headers[\'x-signature\']); return json(res, 200, outcome);',
     suites: ['tests/webhook-route-truth.test.mjs']
   },
+  // ---- Identity: who a rate limit thinks it is counting -------------------
+  {
+    id: 'IDENT-01', guard: 'A caller cannot choose the identity a rate limit counts',
+    file: 'server.mjs',
+    find: '  const hops = Number(config.trustProxyHops) || 0;',
+    replace: "  const hops = Number(config.trustProxyHops) || 0;\n  { const claimed = req.headers['x-forwarded-for']; if (claimed) return String(claimed).split(',')[0].trim(); }",
+    suites: ['tests/client-identity-trust.test.mjs']
+  },
   {
     id: 'MONEY-18', guard: 'Cleared revenue means a provider witnessed it',
     file: 'src/revenue.mjs',

@@ -12,6 +12,19 @@ export const config = {
   port: num(env.PORT, 8080),
   processRole: String(env.PROCESS_ROLE || (production ? 'web' : 'all')).toLowerCase(),
   baseUrl: env.APP_BASE_URL || `http://localhost:${env.PORT || 8080}`,
+  // How many proxies in front of this process may be believed about who the
+  // caller is. Zero by default, which means the socket address and nothing else.
+  //
+  // `x-forwarded-for` is a client-supplied header. Reading its first entry --
+  // which is what this used to do -- hands the choice of rate-limit identity to
+  // the caller: rotating it made eight public intake requests succeed against a
+  // cap of three, and each one creates a lead and queues research.
+  //
+  // Defaulting to 0 fails closed. Behind a proxy that has not been declared, all
+  // callers share one identity and the limit becomes too strict, which is the
+  // safe direction to be wrong in. A deployment behind exactly one proxy (Vercel
+  // is one) sets TRUST_PROXY_HOPS=1.
+  trustProxyHops: Math.max(0, Math.min(10, num(env.TRUST_PROXY_HOPS, 0))),
   dataDir: path.resolve(env.DATA_DIR || './data'),
   screenshotDir: path.resolve(env.SCREENSHOT_DIR || './data/screenshots'),
   storeBackend: String(env.STORE_BACKEND || (production ? 'postgres' : 'json')).toLowerCase(),

@@ -1,12 +1,12 @@
 {
   "schemaVersion": "uberbond-handoff-1.4.0",
   "sourceMainShaAtMissionStart": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
-  "sourceCommit": "ef104ae20497df3ce2a49196e386f147fc41061b",
-  "currentMainShaAtFinalRefresh": "ef104ae20497df3ce2a49196e386f147fc41061b",
-  "currentMainCommitMessage": "Stop a caller choosing the identity their rate limit is counted against (#241)",
+  "sourceCommit": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc",
+  "currentMainShaAtFinalRefresh": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc",
+  "currentMainCommitMessage": "Update the durable handoff and canon at the merged identity-trust head (#242)\n\nThe squash merge of #241 orphaned the commit the canon named; regenerated at\nthe merged head.\n\nTwo stale handoff claims corrected: the blockers list said the real-PostgreSQL\nand browser gates were blocked, when both run clean on this runner (158/158\nand 1/1); and currentOpenCandidates listed four PRs that are all merged or\nclosed. A handoff that under-reports what can be verified is how a real gate\ngets skipped on the next shift.\n\nNew blocker recorded: TRUST_PROXY_HOPS is unset on the deployment, so the\npublic intake limit counts every caller as one identity -- fail-closed, but\nnot the intended behaviour, and an owner action.",
   "missionIssue": 173,
   "missionIssueState": "OPEN",
-  "activeMission": "Continue NIGHTFALL MAX with distribution and first economic proof as the priority while maturing current Growth Graph infrastructure. Reuse merged autonomy operations hardening rather than recreating proxy, dedupe, billing, maintenance or telemetry systems.",
+  "activeMission": "Maintain exact repository/cloud truth and advance toward the first lawful cleared payment; keep the canary concentrated, do not activate external effects, and only add software after repeated accepted demand.",
   "executiveMissions": {
     "claude": "docs/prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md",
     "sol": "docs/prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md",
@@ -32,44 +32,54 @@
     "Migration 101_autonomy_operations_hygiene.sql adds egress_route_health, prospect_identity_keys, outbound_contact_guard and billing_webhook_inbox.",
     "Focused pure-module audit suite: 9/9 PASS. Independent mutations removing anti-evasion admission, cross-inbox dedupe or billing HMAC each reduced the suite to 8/9 and were killed. Billing Web Request route valid/bad signature harness PASS.",
     "Older PRs #207 and #208 are explicitly marked superseded by merged #209.",
-    "PR #227 carries recoverable payment-reconciliation leases and canonical receipt gating; PR #228 carries bounded Overpass pacing/retry policy; PR #229 carries the shared browser runtime pool.",
+    "PRs #227, #228 and #229 are closed, unmerged predecessor branches; their useful code was consolidated through #232/#233 and is present on current main only where those merges carried it.",
     "The three slices were consolidated locally from exact canonical main into integration/nightfall-hardening-20260829 and passed the combined 28-test focused suite, 607-file syntax gate, 2788-test deterministic gate, relay safety, mutation war, reachability and canon gates.",
     "The exact 22-file combined candidate was published and verified byte-for-byte on the remote integration/nightfall-hardening-20260829 backup branch; its latest full-verification contents-API commit receipt is f4d00096122bac41dc993b1b5de4c64138ed6eab.",
-    "Draft integration PR #231 is the review candidate; stale composite PR #214 was closed as superseded.",
-    "The local discovery integration smoke passed with 2 previewed and 2 imported records, and the broader zero-effect review probe passed 33/33 without live provider or outbound effects."
+    "PR #232 merged the #231/#230 integration and repaired the browser-crawler P0; PR #233 merged billing visibility and deterministic-gate repairs; PR #235 merged the production-coverage ratchet and maintenance/discovery hostile tests. PR #214 remains superseded.",
+    "The local discovery integration smoke passed with 2 previewed and 2 imported records, and the broader zero-effect review probe passed 33/33 without live provider or outbound effects.",
+    "PR #236 merged admin/server coverage gates; PR #237 extracted the request handler and rejects non-object JSON bodies.",
+    "PR #238 merged the minimal Vercel root-entrypoint default-export hotfix after a live 500 runtime error; production recovered.",
+    "PR #239 merged provider-witnessed cleared-revenue semantics and production refusal of test unlock.",
+    "PR #240 merged 401 handling for forged webhooks and acknowledgement minimization so buyer data is not echoed.",
+    "Connected Vercel proves an exact-current-main READY production deployment at dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h; public health is reachable but autopilot and worker remain off.",
+    "PR #241 merged proxy-hop-aware caller identity for public rate limits; client-supplied x-forwarded-for is no longer trusted by default.",
+    "PR #242 regenerated the durable handoff/canon at the merged identity-trust head and recorded the unset TRUST_PROXY_HOPS deployment configuration as a blocker."
   ],
   "blockers": [
-    "OWNER/EXTERNAL: no full-project Vercel READY deployment is proven for current main. Both Vercel checks on the last candidate reported api-deployments-free-per-day/build-rate-limit. No paid upgrade and no circumvention was attempted.",
-    "CI: hosted GitHub Actions runs report failure on jobs where no runner was assigned and steps were []. INFRASTRUCTURE_NON_EVIDENCE -- neither a pass nor a source failure. Every merge this session rests on locally executed gates.",
-    "EXTERNAL: no outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Each is an external activation, not an engineering task.",
-    "DEPLOYMENT CONFIG: TRUST_PROXY_HOPS is unset in the live environment. Until it matches the deployment's proxy topology (1 behind a single proxy such as Vercel), the public intake rate limit counts all callers as one identity. That is fail-closed -- too strict, never too loose -- but it is not the intended behaviour."
+    "OBSERVED — Current main is 3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc after merged PR #242; no exact-current-main Vercel production deployment is proven. Production deployment dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h is READY from prior main 0b4179538441d9c52fed3cc40cb268e6e3847218.",
+    "BLOCKED — Hosted GitHub Actions: the latest PR #234 run 33296500069 ended with browser, deterministic and PostgreSQL jobs whose step arrays were absent; current main has no workflow runs. This is infrastructure non-evidence, not a source pass.",
+    "NOT_PROVEN — PR #241 source metrics are SOURCE_RECEIPT only: artifacts/system-readiness.json records branch claude/uberbond-kilimanjaro-closure-hha0oo and workingTreeClean=false. No post-refresh exact-main local rerun exists in this lane.",
+    "OBSERVED — Vercel /api/health is HTTP 200 on the prior production deployment with PostgreSQL, autopilot=false, worker offline and active jobs 0; public config bookingUrl is empty and /api/public/checkout, /privacy.html and /terms.html return 404. Cron delivery is not proven.",
+    "BLOCKED — Payment/customer proof: no provider is activated, no money cleared, no accepted delivery or renewal exists, and no customer contact/outbound authorization is present. Egyptian legal/tax/payment eligibility remains external.",
+    "BLOCKED — Live deployment configuration: TRUST_PROXY_HOPS is unset. PR #242 says the safe intended value is 1 behind a single proxy such as Vercel; until owner verification/configuration, the intake limit is fail-closed but global rather than per-caller.",
+    "BLOCKED — PR #234 preview checks: full/private-lite Vercel statuses are build-rate-limited by api-deployments-free-per-day; no retry loop is authorized."
   ],
   "nextActions": [
-    "OWNER: resolve the Vercel project-existence contradiction. Still the only thing blocking every deployment step.",
-    "OWNER: set TRUST_PROXY_HOPS on the deployment (1 behind a single proxy). Without it the public intake limit is global rather than per-caller.",
-    "ANY LANE: the money path and the whole public surface have now been attacked end to end -- webhook admission and forgery, lease recovery, cleared-revenue meaning, the test-unlock route, report-token guessing and traversal, artifact ID traversal, checkout without a token, and rate-limit identity. The public surface has no known remaining hole.",
-    "ANY LANE: the coverage ratchet is green at 0 uncovered across src, api and entry points; the mutation war is 94/94.",
-    "CLAUDE: the payment reconciliation worker remains unwired and visibly DEGRADED, blocked on a payment provider rather than on engineering."
+    "OWNER — GitHub Actions: inspect repository Settings → Actions/runner capacity and restore non-zero-step execution; 2–5 minutes, $0 unless account plan requires payment. Evidence: a successful non-zero-step run on exact main 3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc or an account-level blocker. Default: do before relying on hosted checks.",
+    "OWNER — Vercel environment: verify proxy topology and set TRUST_PROXY_HOPS=1 only if the deployment has exactly one trusted proxy; 2–3 minutes, $0. Evidence: redacted environment setting plus a fresh exact-main deployment/health read. Default: do before enabling public intake; do not guess.",
+    "OWNER — Egypt payment/legal: confirm service eligibility, KYC/KYB, settlement/refunds/disputes and reviewed privacy/terms, then authorize one provider checkout; 10–20 minutes plus any provider/KYC fees. Evidence: provider-cleared receipt, accepted delivery and renewal. Default: defer until eligibility is confirmed."
   ],
   "production": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
     "projectName": "uberbondd",
     "publicUrl": "https://uberbondd.vercel.app/",
-    "observedProductionDeploymentId": "dpl_DVtL6XTs6yWg2DsDHX1LJnB5hDWA",
-    "observedProductionSourceSha": "b156566c69f1d1d0e7e01b015afa474e36041276",
+    "observedAt": "2026-08-30T06:27:08Z",
+    "observedProductionDeploymentId": "dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h",
+    "observedProductionSourceSha": "0b4179538441d9c52fed3cc40cb268e6e3847218",
     "observedProductionState": "READY",
-    "currentMainSha": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
+    "currentMainSha": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc",
     "currentMainExactProduction": false,
-    "latestDeploymentBlocker": "PR_231_EXACT_HEAD_VERCEL_CHECKS_API_DEPLOYMENTS_FREE_PER_DAY",
-    "status": "PUBLIC_SITE_LIVE__PRODUCTION_STALE_RELATIVE_TO_MAIN"
+    "latestDeploymentBlocker": "CURRENT_MAIN_EXACT_PRODUCTION_NOT_PROVEN__PR_234_PREVIEW_RATE_LIMIT",
+    "status": "PUBLIC_RUNTIME_READY__PRODUCTION_STALE_RELATIVE_TO_CURRENT_MAIN"
   },
   "productionRuntimeTruth": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
-    "observedAt": "2026-08-29T18:27:19Z",
-    "window": "7d",
+    "observedAt": "2026-08-30T06:27:08Z",
+    "window": "2h",
     "status": "NO_RUNTIME_ERRORS_FOUND",
     "source": "Connected Vercel runtime-error aggregation",
-    "note": "This is a read-only error aggregate for the observed older production deployment; it does not prove the combined candidate is deployed."
+    "deploymentId": "dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h",
+    "note": "Health/runtime-error read is current for prior 0b4179538441d9c52fed3cc40cb268e6e3847218 production; current main 3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc has no exact-main deployment receipt and worker/cron liveness is not proven."
   },
   "commercialDecision": {
     "canary": "White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing and electrical businesses",
@@ -79,49 +89,58 @@
     "customers": 0,
     "clearedRevenue": 0,
     "acceptedDeliveries": 0,
-    "retainedCustomers": 0
+    "retainedCustomers": 0,
+    "canaryStatus": "INTERNAL_HYPOTHESIS_NOT_LIVE",
+    "renewals": 0,
+    "disconfirmingEvidence": [
+      "CallRail lists plans around $50/month; home-service CRMs already automate missed-call and estimate follow-up; CyberFunnels publicly advertises a $197 pipeline diagnostic. A generic $450 audit is weak unless it proves independent cross-system failures."
+    ],
+    "strategicChannels": [
+      "SBE publicly reports 1,000+ HVAC/plumbing companies and accepts partner applications; Service Nation reports 30,000+ contractors and 100+ vetted vendors. These are strategic channel signals, not first-payment proof."
+    ],
+    "paymentReadiness": "BLOCKED — Official docs confirm Lemon Squeezy lists Egypt bank payouts and documents fee/settlement/KYC facts; Paddle documents 200+ markets including Egypt. These are provider-policy signals only: no account, KYC, legal/tax clearance, checkout, payment, accepted delivery or renewal is proven."
   },
   "verification": {
-    "executedBy": "local execution in this session, not hosted CI",
+    "executedBy": "SOURCE_RECEIPT from merged PR #241 controlled runner, reconciled by PR #242; its readiness artifact names branch claude/uberbond-kilimanjaro-closure-hha0oo and workingTreeClean=false. Exact-current-main post-refresh local rerun is NOT_PROVEN.",
     "gates": {
-      "check:syntax": "621 files parse",
-      "test:deterministic": "2864 tests, 2816 pass, 0 fail, 48 skipped",
-      "test:relay-safety": "150/150",
-      "test:postgres-real": "158/158 against PostgreSQL 16.13",
-      "test:browser": "1/1 against the runner's Chromium at /opt/pw-browsers/chromium-1194/chrome-linux/chrome",
-      "test:mutation-war": "94 mutations, 94 killed, 0 not killed",
-      "npm audit --omit=dev": "0 vulnerabilities"
+      "check:syntax": "SOURCE_RECEIPT (#241): 621 files parse",
+      "test:deterministic": "SOURCE_RECEIPT (#241): 2864 tests, 2816 pass, 0 fail, 48 skipped",
+      "test:relay-safety": "SOURCE_RECEIPT (#241): 150/150",
+      "test:postgres-real": "SOURCE_RECEIPT (#241): 158/158 against PostgreSQL 16.13",
+      "test:browser": "SOURCE_RECEIPT (#241): 1/1",
+      "test:mutation-war": "SOURCE_RECEIPT (#241): 94 mutations, 94 killed, 0 not killed",
+      "npm audit --omit=dev": "SOURCE_RECEIPT (#241): 0 vulnerabilities"
     },
-    "runtimeNote": "PostgreSQL 16.13, a cluster initialized locally at /tmp/pgdata16 on port 55432 (the runner was rebuilt and no longer ships the PostgreSQL 18 binaries an older receipt named; 16.13 is recorded rather than carrying 18 forward, because the version is part of what the evidence means). Chromium is present and the browser gate runs; it is not blocked.",
-    "productionCoverage": "126 production-reachable src modules, 0 unexercised. All 5 API routes exercised. server.mjs exercised by a spawned-process gate and by the exported-handler gate. worker.mjs exempt as wiring."
+    "runtimeNote": "PR #242 corrected the readiness artifact repository.head to PR #241 (ef104ae) but retained repository.branch=claude/uberbond-kilimanjaro-closure-hha0oo and workingTreeClean=false. These figures are source receipts, not a fresh exact-main run at 3856d3b5. Earlier PR #240 artifact/body PostgreSQL 127/127 vs 158/158 contradiction remains historical context.",
+    "productionCoverage": "SOURCE_RECEIPT (#241): 126 production-reachable src modules, all 5 API routes and server.mjs exercised; worker.mjs exempt as wiring."
   },
   "maximumThreeFounderActions": [
     {
-      "reason": "The payment promotion gate still needs a trustworthy throwaway PostgreSQL runtime for the real lease/concurrency suites; repository code cannot create or authorize that external database.",
-      "screen": "https://vercel.com/mohammedwessam2007s-projects",
-      "action": "Provide one temporary PostgreSQL test URL for the real-only suites, without production/customer data.",
-      "founderMinutes": 3,
-      "costUsd": 0,
-      "evidenceRequired": "A reachable throwaway PostgreSQL URL and the resulting 16-suite receipt.",
-      "defaultRecommendation": "Do this only when convenient; no production database is appropriate."
-    },
-    {
-      "reason": "Hosted CI reports failure on jobs where no runner was ever assigned and no step ran. It is currently incapable of producing evidence, which means real regressions could hide behind noise everyone has learned to ignore.",
-      "screen": "https://github.com/mohammedwessam2007/uberbondd/settings/actions",
-      "action": "Check whether Actions minutes are exhausted or the runner allowance is disabled for this account.",
+      "reason": "Hosted CI is producing zero executable steps, so it cannot provide source evidence.",
+      "screen": "GitHub repository Settings → Actions",
+      "action": "Inspect runner availability, billing/minutes and the failed run's job logs; restore step execution if disabled.",
       "founderMinutes": 2,
       "costUsd": 0,
-      "evidenceRequired": "Whether the account has Actions minutes remaining.",
-      "defaultRecommendation": "Worth checking, not urgent. Local gates cover the same suites today."
+      "evidenceRequired": "Non-zero-step successful run on exact current main 0b4179538441d9c52fed3cc40cb268e6e3847218 or an account-level blocker.",
+      "defaultRecommendation": "DO THIS before treating hosted checks as gates; do not upgrade/spend without separate approval."
     },
     {
-      "reason": "vercel.json now registers two cron paths. Vercel Hobby permits two cron jobs, so the system is exactly at the ceiling; a third would be rejected at deploy time rather than at review time.",
-      "screen": "vercel.json in the repository",
-      "action": "No action needed now. Noted so the next cron addition is a decision rather than a deploy failure.",
-      "founderMinutes": 0,
+      "reason": "A fresh exact-head PostgreSQL/browser receipt is unavailable after the runner disconnected.",
+      "screen": "Controlled test runner / Playwright cache",
+      "action": "Supply an existing throwaway PostgreSQL URL and pinned Chromium executable path; do not use production/customer data.",
+      "founderMinutes": 5,
       "costUsd": 0,
-      "evidenceRequired": "none",
-      "defaultRecommendation": "Do nothing. Recorded for the next lane that wants to add a schedule."
+      "evidenceRequired": "Redacted exact-0b4179538441d9c52fed3cc40cb268e6e3847218 PostgreSQL, browser and mutation receipts with runtime presence/absence explicit.",
+      "defaultRecommendation": "DEFER until it changes a merge or payment decision."
+    },
+    {
+      "reason": "Only the owner can clear Egyptian legal/tax/payment eligibility and authorize provider activation/customer-facing checkout.",
+      "screen": "Egyptian counsel/tax adviser plus chosen payment provider console",
+      "action": "Confirm service eligibility, KYC/KYB, settlement/refunds/disputes and reviewed privacy/terms; then authorize one bounded checkout.",
+      "founderMinutes": 20,
+      "costUsd": 0,
+      "evidenceRequired": "Eligibility decision, provider account state, provider-cleared receipt, accepted delivery and renewal evidence.",
+      "defaultRecommendation": "DEFER; no activation or spend is implied."
     }
   ],
   "externalEffectLedger": {
@@ -141,60 +160,70 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE_EXCEPT_EXISTING_PROJECT_DEPLOYMENT_AUTHORIZED_WHEN_VERIFIED",
-  "headSha": "ef104ae20497df3ce2a49196e386f147fc41061b",
+  "headSha": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc",
   "cloudActivationTruth": {
     "fullProjectExists": "PROVEN_BY_CONNECTED_API",
     "privateLiteProjectExists": "PROVEN_BY_CONNECTED_API",
     "currentMainExactProductionDeploymentProven": false,
+    "productionDeploymentId": "dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h",
+    "productionSourceSha": "0b4179538441d9c52fed3cc40cb268e6e3847218",
+    "productionState": "READY",
     "cronRegistrationProven": false,
     "cronDeliveryProven": false,
-    "contradiction": "Earlier connector observations returned an empty project list/404. The current connected Vercel API resolves both named projects, resolves the full project to a READY production deployment on older main source b156566c..., and resolves a READY preview for PR #227 predecessor source 444efdab.... The earlier negative observations remain historical connector-scope evidence, not current project truth.",
     "observations": [
       {
-        "claim": "two projects exist (full + private lite)",
-        "observedVia": "another lane's recorded audit",
-        "observedAt": "2026-08-28",
-        "evidenceRef": null
+        "label": "OBSERVED",
+        "at": "2026-08-30T06:06:45Z",
+        "source": "Vercel project/deployment API",
+        "fact": "Full uberbondd project exists; latest production deployment is READY and source matches current main."
       },
       {
-        "claim": "zero projects on team_A9LnjIuS5PU0rNetsHMu1N0r",
-        "observedVia": "Vercel API list_projects",
-        "observedAt": "2026-08-28",
-        "evidenceRef": "vercel:list_projects->[]"
+        "label": "OBSERVED",
+        "at": "2026-08-30T06:06:45.341Z",
+        "source": "Vercel public health",
+        "fact": "/api/health returned 200; PostgreSQL configured; autopilot=false; worker offline; activeJobs=0"
       },
       {
-        "claim": "zero projects on team_A9LnjIuS5PU0rNetsHMu1N0r",
-        "observedVia": "Vercel API list_projects (re-query)",
-        "observedAt": "2026-08-29",
-        "evidenceRef": "vercel:list_projects->[]"
+        "label": "OBSERVED",
+        "at": "2026-08-30T05:59:02Z",
+        "source": "Vercel public route",
+        "fact": "/api/public/config returned 200 with bookingUrl empty."
       },
       {
-        "claim": "the named project id and slug are both unreachable on team_A9LnjIuS5PU0rNetsHMu1N0r",
-        "observedVia": "connected Vercel MCP get_project(prj_RWUPf14w1xIz9NK92AbNW5z7qDCg) and get_project(uberbondd) on team_A9LnjIuS5PU0rNetsHMu1N0r",
-        "observedAt": "2026-08-29",
-        "result": "404 Not Found for both the exact project id and the slug",
-        "evidenceRef": "docs/CLOUD_ACTIVATION_CONTRACT.md#observed-deployment-truth--a-contradiction-preserved",
-        "note": "A 404 on an exact project id is a direct answer, unlike an empty list which could be a scope artifact. It still proves only that the project is unreachable through this connection."
+        "label": "OBSERVED",
+        "at": "2026-08-30T05:59:04Z",
+        "source": "Vercel public routes",
+        "fact": "/privacy.html and /terms.html returned 404."
       },
       {
-        "claim": "zero projects, and 404 on the exact project id, through a freshly reconnected connector",
-        "observedVia": "Vercel MCP (new server instance this session): list_teams, list_projects, get_project(prj_RWUPf14w1xIz9NK92AbNW5z7qDCg)",
-        "observedAt": "2026-08-29 (fourth probe)",
-        "result": "one Hobby team, projects [], 404 for the exact project id",
-        "note": "This instance is a fresh connection, which rules out a stale session as the explanation for the earlier empty results. The repository also contains no .vercel/project.json, so nothing links it to a project from this side -- though a dashboard-created Git link would not require one, so that is context rather than proof."
+        "label": "OBSERVED",
+        "at": "2026-08-30T06:27:08Z",
+        "source": "GitHub main ref + connected Vercel deployment API",
+        "fact": "main=3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc after PR #242; production source remains 0b4179538441d9c52fed3cc40cb268e6e3847218, so exact-current-main production is not proven."
       }
     ],
-    "resolvedBy": "Connected Vercel project/deployment queries on 2026-08-29; the exact combined candidate still needs a fresh deployment receipt."
+    "resolvedBy": "Connected Vercel project/deployment queries on 2026-08-30; exact current main 0b4179538441d9c52fed3cc40cb268e6e3847218 is READY. Runtime, payment and customer proof remain external.",
+    "currentMainSha": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc",
+    "status": "PRODUCTION_STALE_RELATIVE_TO_CURRENT_MAIN__PUBLIC_RUNTIME_PARTIAL"
   },
   "currentOpenCandidates": [
     {
       "pr": 234,
-      "head": "c460e8b1f7583639f7c38a14679a9072d0ab5102",
-      "status": "OPEN_DRAFT",
-      "mission": "reconcile final live and deployment truth",
+      "state": "OPEN_DRAFT",
+      "base": "main",
+      "baseShaAtLastRemoteRead": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc",
+      "status": "REFRESHED_ON_CURRENT_MAIN_BY_THIS_RECEIPT",
+      "mission": "Durable Nightfall handoff, payment-policy receipt and MONEY-17 metadata packet; no source/business effects.",
       "promotionBlockers": [
-        "not yet reconciled against current main; opened before this session's merges"
-      ]
+        "Hosted CI zero-step failure is non-evidence.",
+        "PR #241/242 source receipts are not a fresh exact-main rerun; readiness artifact retains Claude branch and workingTreeClean=false.",
+        "Current main has no exact-main Vercel production deployment; production remains on prior 0b417953.",
+        "Draft requires current-head review before any merge.",
+        "Vercel preview statuses are blocked by build-rate-limit/api-deployments-free-per-day."
+      ],
+      "head": "0444516b665c298a85201e9d01f8f7b269bce727",
+      "headAtLastRemoteRead": "0444516b665c298a85201e9d01f8f7b269bce727",
+      "headReceiptLag": "Branch is rebased by this reconciliation merge; GitHub PR metadata is authoritative for the resulting head."
     }
   ],
   "repositoryPublicationEffects": {
@@ -208,47 +237,150 @@
     "remoteBackupBranch": "integration/nightfall-hardening-20260829",
     "remoteBackupCommit": "f4d00096122bac41dc993b1b5de4c64138ed6eab",
     "integrationPullRequest": 231,
-    "note": "GitHub repository operations are not customer-facing external effects."
+    "note": "This lane writes only repository objects/branch metadata; no customer, provider, payment, DNS or credential effects.",
+    "finalReconciliation": {
+      "observedAt": "2026-08-30T06:27:08Z",
+      "currentMain": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc",
+      "openPullRequests": 1,
+      "openPullRequestsDetail": "#234 remains the only open PR, draft, with base 3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc; this two-parent reconciliation preserves PR #241/#242 and the Nightfall docs.",
+      "decision": "NO_MERGE_YET",
+      "reason": "Docs/research only; production is READY but stale relative to main, hosted CI has zero steps, the PR is draft, and no exact-main local rerun or payment/customer proof exists.",
+      "branchHead": "0444516b665c298a85201e9d01f8f7b269bce727",
+      "previewStatus": "BLOCKED_BUILD_RATE_LIMIT"
+    },
+    "currentMainAdvance": {
+      "pr": 242,
+      "head": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc",
+      "mergeCommit": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc",
+      "state": "MERGED",
+      "summary": "Durable handoff and canon regenerated at PR #241 merged identity-trust head; TRUST_PROXY_HOPS unset is recorded as a deployment blocker."
+    },
+    "currentOpenBranchHead": "0444516b665c298a85201e9d01f8f7b269bce727"
   },
   "lastCompletedSlice": {
-    "mission": "Attack the public HTTP surface and repair what does not survive.",
+    "mission": "Reconcile the five open NIGHTFALL hardening PRs, attack what they add, and repair what does not survive.",
     "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "mergedAs": "PR #241, squashed to ef104ae20497df3ce2a49196e386f147fc41061b",
-    "surfaceAttacked": [
-      "/api/public/audit",
-      "/api/public/report/*",
-      "/api/public/artifacts/*",
-      "/api/public/checkout",
-      "/webhooks/lemonsqueezy"
-    ],
-    "heldUp": [
-      "report tokens leaked nothing on any guess, traversal or wildcard -- all 404",
-      "artifact IDs refused traversal -- 400",
-      "checkout issued nothing without a valid token -- all 404",
-      "no PII and no admin token echoed on any path, refused or served",
-      "the rate limit engaged correctly for a fixed client: 202 202 202 429 429 429"
+    "integrated": {
+      "pr231": "Consolidates #227, #228, #229. Verified byte-identical to each individual PR by file hash before merging, so those three are redundant rather than merged again.",
+      "pr230": "Fail-closed external artifact storage boundary. Independent of #231; migration 103 does not collide with #231's 102."
+    },
+    "supersededByIntegration": [
+      227,
+      228,
+      229
     ],
     "defectsFound": [
       {
-        "id": "IDENT-01",
+        "id": "CRAWL-01",
+        "severity": "P0",
+        "origin": "introduced by #229/#231",
+        "summary": "The browser crawler threw ReferenceError on every call.",
+        "mechanism": "The runtime-pool integration moved the crawl result variables inside the try block while the return statement stayed below the finally. `pages is not defined`, every call, total failure of the website-audit path.",
+        "whyItWasInvisible": "check:syntax parses it; the deterministic suite does not cover the browser gate; the pool's own unit tests mock the browser. Only `npm run test:browser` against a real Chromium sees it -- a gate that was recorded as permanently BLOCKED until the previous shift proved Chromium was present all along.",
+        "mutation": "CRAWL-01, needsBrowser"
+      },
+      {
+        "id": "MONEY-17",
         "severity": "P1",
-        "origin": "inherited from main",
-        "summary": "A caller chose the identity their rate limit was counted against.",
-        "mechanism": "clientIp read x-forwarded-for and took .split(',')[0] -- the leftmost entry, which is whatever the client wrote. That value keyed the agent relay's per-minute limit and the public intake's per-hour cap. Rotating the header made eight public intake submissions succeed against a cap of three (202 for every one), and each accepted submission creates a lead and queues research work.",
-        "fix": "TRUST_PROXY_HOPS declares how many proxies may be believed, defaulting to 0: the header is ignored and the socket address answers. With N hops the trustworthy address is the Nth from the right, because each proxy appends the address it received the connection from -- so prepended entries shift the chain rightward and cannot move the answer. Fails closed: behind an undeclared proxy all callers share one identity and the limit is too strict.",
-        "provenBy": "tests/client-identity-trust.test.mjs, four tests, a child process per configuration because config is read once at import",
-        "mutation": "IDENT-01, killed"
+        "origin": "inherited from main, not introduced by #231",
+        "summary": "A duplicate webhook answered 503 and misstated why.",
+        "mechanism": "The insert's ON CONFLICT named provider_event_key, correct when that was the only unique index. Migration 101 added a second on the content (provider, event_name, object_type, object_id, payload_hash); a targeted clause does not cover it, so a redelivery of identical content under a new event id raised 23505. The route catches everything and answers 503 verified-webhook-not-durably-persisted -- an outage, and false: the evidence IS persisted, in the row being duplicated. Providers retry 503s and disable endpoints that keep failing, so a duplicate could cost the future events that are not duplicates.",
+        "mutation": "MONEY-17, source-owned PR #235 receipt says killed by real PostgreSQL; current exact-main local run cannot execute that suite without OMNIA_V9_TEST_DATABASE_URL and reports SURVIVED because the mutation entry lacks needsPostgres:true. This is a gate-inventory defect, not evidence that the webhook guard is absent."
+      },
+      {
+        "id": "REGISTRY",
+        "severity": "P2",
+        "origin": "pre-existing",
+        "summary": "Two mutations shared an id, twice.",
+        "mechanism": "MONEY-13 and MONEY-14 were both already taken, so a new entry collided twice in a row and the war printed two lines with one id -- ambiguous about which guard survived. Uniqueness and malformedness tests added."
+      },
+      {
+        "id": "BILL-01",
+        "severity": "P1",
+        "origin": "pre-existing structural gap",
+        "summary": "Verified payment evidence accumulated where nobody could see it.",
+        "mechanism": "The billing webhook route writes a row per verified delivery. Nothing in the tree reads those rows -- claimBillingEvents, finishBillingEvent, billingBacklogSummary and planPaymentReconciliation had no callers anywhere in src, api, scripts, server or worker. Evidence about money arrived, was stored, and was never claimed, retried, timed out, dead-lettered or mentioned to anyone.",
+        "fix": "Not a reconciliation worker -- there is no provider to reconcile against and a worker that resolves nothing would be machinery pretending to be a capability. The operator health matrix now carries a billing dimension with four states, separating NO_WORKER (nothing has ever claimed a row) from BACKLOG_AGEING (a worker exists and is behind). Those look identical in a pending counter and are not the same fact: one resolves itself, the other never will. Today the real query answers NO_WORKER and the system reports DEGRADED for it.",
+        "mutations": [
+          "BILL-01",
+          "BILL-02",
+          "BILL-03"
+        ]
+      },
+      {
+        "id": "GATE-01",
+        "severity": "P2",
+        "origin": "pre-existing",
+        "summary": "The deterministic gate changed its answer based on the invoking shell.",
+        "mechanism": "Most database suites stay in the deterministic set and self-skip when OMNIA_V9_TEST_DATABASE_URL is absent. Exported, they execute there in parallel sharing one database -- the interference run-real-postgres-tests.mjs runs serially to avoid. Symptom: a red property test that passes in isolation.",
+        "fix": "The runner drops the variable for its children. Identical answer with and without it set.",
+        "wrongFirstAttempt": "Deriving the deterministic exclusion from realPostgresTestFiles() dropped ~128 genuinely deterministic tests, because that marker matches any file mentioning the variable. The marker is right for PostgreSQL inclusion and wrong for deterministic exclusion. Two build-wiring tests caught it.",
+        "mutations": [
+          "GATE-01"
+        ]
+      },
+      {
+        "id": "COVERAGE-01",
+        "severity": "P1",
+        "origin": "structural, pre-existing",
+        "summary": "Two production-reachable modules were executed by no gate at all.",
+        "mechanism": "The reachability ratchet asks whether anything CAN call a module. Nothing asked whether anything CHECKS it. Taking the closure of everything the gates import and subtracting it from the production-reachable set found src/database-hygiene-repository.mjs, which DELETES rows on a weekly cron, and src/discovery-runner.mjs, which decides whether discovery may run. The same combination already cost a P0 this shift: the crawler shipped a ReferenceError because its only real gate had been written off.",
+        "outcome": "Neither module was defective -- both survived every attack unchanged. The defect was that nothing would have noticed if they stopped being right. Both now have suites, and tests/production-coverage-ratchet.test.mjs keeps the uncovered set empty.",
+        "mutations": [
+          "HYG-01",
+          "HYG-02",
+          "HYG-03"
+        ]
+      },
+      {
+        "id": "MONEY-18",
+        "severity": "P1",
+        "origin": "pre-existing, fixed in PR #239",
+        "summary": "Dashboard counted an unwitnessed test unlock as cleared revenue.",
+        "fix": "RevenueEngine.summary now requires a witnessing provider order; unwitnessed revenue is named separately; production refuses ALLOW_TEST_PAYMENT_UNLOCK.",
+        "mutations": [
+          "MONEY-18",
+          "MONEY-19"
+        ]
+      },
+      {
+        "id": "MONEY-20/21",
+        "severity": "P1",
+        "origin": "pre-existing, fixed in PR #240",
+        "summary": "Forged webhooks answered 500 and acknowledgements echoed buyer attributes.",
+        "fix": "Invalid signatures now return 401; webhook acknowledgements contain only receipt status and provider object identity.",
+        "mutations": [
+          "MONEY-20",
+          "MONEY-21"
+        ]
       }
     ],
-    "correctionsToPriorHandoff": [
-      "The previous blockers list said the real-PostgreSQL launcher was blocked for want of OMNIA_V9_TEST_DATABASE_URL and that the browser gate was blocked for want of a compatible Chromium. Both are false on this runner: postgres-real ran 158/158 against a local PostgreSQL 16.13 cluster, and test:browser ran 1/1 against /opt/pw-browsers/chromium-1194/chrome-linux/chrome. The stale claim is removed rather than carried forward.",
-      "currentOpenCandidates listed PRs 227, 228, 229 and 231, all of which are now merged or closed as superseded. Replaced with the one PR actually open."
+    "survivedAttackUnchanged": [
+      "Payment lease, against real PostgreSQL: a crashed worker's lease is reclaimable rather than stranded; a preempted worker cannot finish; the attempt cap lands in UNCERTAIN and never promotes money or sets completed_at; RECONCILED without a canonical receipt throws; concurrent claims never hand one event to two workers; RETRYABLE honours its backoff; the backlog summary carries no key or payload.",
+      "Overpass pacing: 403, 401, 451, 418 and 404 stop at one call. Only 429, 406 and 504 retry. Retry-After is honoured and an absurd value is clamped to 120s. maxAttempts is clamped to 5.",
+      "Browser pool: one process reused, a fresh isolated context per crawl, no slot leaked on launch failure, no double-free on double release, waiters rejected on close rather than hung.",
+      "Artifact storage: object backend fail-closed on absent/false/\"true\"/1/{}/null and open only on literal true; no namespace escape; receipts PRIVATE regardless of input."
     ],
-    "boundaryDecision": "tests/client-identity-trust.test.mjs was briefly added to SOVEREIGNTY_PREFIXES and removed again. tests/sovereignty-proof-closure.test.mjs correctly rejected it: server.mjs is not itself a sovereignty-protected file, so the entry was not earned by any mutation on a protected file. The boundary was left as it is rather than widened to accommodate the change."
+    "observationsNotFixed": [
+      "The artifact contract's sensitive-metadata-key check is top-level only, so {outer:{api_key}} is accepted. It leaks nothing, because metadata never reaches the plan at all -- the check is a refusal signal, not a redaction. Recorded so nobody later relies on it as a filter."
+    ],
+    "harnessGapsFixed": [
+      "The mutation sandbox copied src, tests, scripts, config and migrations but not `api`, so no route could be mutated at all -- a mutation naming one failed with ENOENT rather than reporting a surviving guard. Routes are where admission and enablement checks live. Fixed, and HYG-01 now sabotages the maintenance cron's enablement check."
+    ],
+    "nextGatedRemainder": {
+      "id": "MONEY-17-METADATA",
+      "status": "CLAUDE_PACKET_REQUIRED",
+      "summary": "Add needsPostgres:true to the MONEY-17 mutation (or derive it from the suite manifest) and add a registry regression test so missing PostgreSQL is SKIPPED_NEEDS_POSTGRES, never SURVIVED.",
+      "target": "scripts/mutation-war.mjs and tests/sovereignty-proof-closure.test.mjs",
+      "economicImpact": "Protects merge/gate truth; it does not create customer or payment value by itself.",
+      "externalEffects": "No provider, payment, customer, deployment, DNS or credential effects."
+    },
+    "currentMainSha": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc",
+    "status": "RECONCILED_ON_CURRENT_MAIN__SOURCE_RECEIPTS_QUALIFIED"
   },
   "continuousIntegrationTruth": {
-    "workflowRun": 33265034795,
-    "headSha": "fd2604ca86d0291dce1312b39ae42b323f184739",
+    "workflowRun": 33296500069,
+    "headSha": "0444516b665c298a85201e9d01f8f7b269bce727",
     "jobs": [
       "deterministic",
       "postgres",
@@ -256,23 +388,156 @@
     ],
     "reportedConclusion": "failure",
     "classification": "INFRASTRUCTURE_NON_EVIDENCE",
-    "proof": "browser, deterministic and postgres jobs returned steps: [], so hosted CI produced no source execution evidence.",
-    "ruling": "Not a pass and not a source failure. These results are not the basis for the merge and were not treated as one; the merge rests on the locally executed gates above."
+    "proof": "PR #234 run 33296500069 returned browser, deterministic and postgres jobs with no step arrays; current main has no associated Actions workflow runs.",
+    "ruling": "Not a pass and not a source failure; no hosted execution evidence exists until step arrays are non-empty.",
+    "currentMainWorkflowRuns": []
   },
   "truthRestrictions": [
-    "Zero verified customers, zero cleared revenue, zero accepted deliveries, zero retained customers. Unchanged and preserved as zero.",
-    "clearedRevenue means a provider order witnessed the payment, on every surface. It reads zero because it is zero.",
-    "No claim of production deployment, cron registration or cron delivery for current main.",
-    "No provider called, no message sent, no money moved, no credential or DNS changed.",
-    "Every gate figure in this file was produced by running the command locally on this tree. None came from hosted CI, and none was carried forward from an older receipt."
+    "Zero verified customers, zero cleared revenue, zero accepted deliveries, zero retained customers/renewals. Unchanged and preserved as zero.",
+    "clearedRevenue now means a provider order witnessed the payment, on every surface; the current value is zero because it is zero.",
+    "Exact current-main production deployment dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h is READY and health is 200; this does not prove payment clearance, accepted delivery, renewal, worker liveness or cron delivery.",
+    "No provider called, no message sent, no money moved, no credential or DNS changed by this lane.",
+    "PR #240 source metrics are SOURCE_RECEIPT; post-hotfix exact-current-main local rerun is NOT_PROVEN.",
+    "Current main is 3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc; production still serves prior 0b4179538441d9c52fed3cc40cb268e6e3847218 and no exact-main deployment is proven.",
+    "TRUST_PROXY_HOPS is unset in the live environment; default 0 is fail-closed but globally buckets callers until topology is verified and configured.",
+    "PR #241/242 readiness metrics are SOURCE_RECEIPT only: the committed artifact retains branch claude/uberbond-kilimanjaro-closure-hha0oo and workingTreeClean=false."
+  ],
+  "pullRequestFrontier": [
+    {
+      "pr": 188,
+      "state": "CLOSED_UNMERGED",
+      "head": "a2b63e7ca5f0b98856c7d4c89ab62790d176421f",
+      "mergeCommit": null,
+      "note": "superseded by #189"
+    },
+    {
+      "pr": 189,
+      "state": "MERGED",
+      "head": "5aac97a8699dce328d806b7e691ba3c4f5ee0574",
+      "mergeCommit": "6df07870271c02df648aab9af184afd7bfa435e4",
+      "note": "role-bound relay identity"
+    },
+    {
+      "pr": 227,
+      "state": "CLOSED_UNMERGED_DRAFT",
+      "head": "d23c036aa8a5443bf49cca506250717bb3f0ac66",
+      "mergeCommit": null,
+      "note": "superseded predecessor"
+    },
+    {
+      "pr": 228,
+      "state": "CLOSED_UNMERGED_DRAFT",
+      "head": "30c63cea3249d3fc8277f11db435f4a63c185a73",
+      "mergeCommit": null,
+      "note": "superseded predecessor"
+    },
+    {
+      "pr": 229,
+      "state": "CLOSED_UNMERGED_DRAFT",
+      "head": "f5bc15f2581aa92107ed2b1e1a93d137c48a1cc8",
+      "mergeCommit": null,
+      "note": "superseded predecessor"
+    },
+    {
+      "pr": 230,
+      "state": "MERGED",
+      "head": "4371babe4a1695630610b3f9faa5902d9d719b7e",
+      "mergeCommit": "2351569ee4a087c135943451325680fb30d95637",
+      "note": "fail-closed artifact storage"
+    },
+    {
+      "pr": 231,
+      "state": "CLOSED_UNMERGED_DRAFT",
+      "head": "37f59aee6e99958f872c68de093ddfc9630f9709",
+      "mergeCommit": null,
+      "note": "superseded by #232"
+    },
+    {
+      "pr": 232,
+      "state": "MERGED",
+      "head": "225e76afcd0a8a21833cad77dcec111534095df6",
+      "mergeCommit": "a97a5d8fd84f93ac0195391603feb51d143af897",
+      "note": "integration and browser P0 repair"
+    },
+    {
+      "pr": 233,
+      "state": "MERGED",
+      "head": "5ec9092c74b358924b34ab3cd38326e831403d3a",
+      "mergeCommit": "3d5e3a81e75a2433776ca7b822220d6ea767d1b5",
+      "note": "billing visibility and deterministic gate"
+    },
+    {
+      "pr": 234,
+      "state": "OPEN_DRAFT",
+      "mergeCommit": null,
+      "note": "docs/research reconciliation branch rebased onto current main 3856d3b5; resulting PR head is authoritative in GitHub metadata",
+      "head": "0444516b665c298a85201e9d01f8f7b269bce727",
+      "headAtLastRemoteRead": "0444516b665c298a85201e9d01f8f7b269bce727",
+      "baseSha": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc"
+    },
+    {
+      "pr": 235,
+      "state": "MERGED",
+      "head": "2e0c11baaed3e7664a26ae982f0394cc4ebe5af8",
+      "mergeCommit": "b7b3703e3589b201b741f4d148137d652e291cc6",
+      "note": "production coverage ratchet and hostile tests"
+    },
+    {
+      "pr": 236,
+      "state": "MERGED",
+      "head": "8391608c8d772574bbefe69c712cc817c466ce90",
+      "mergeCommit": "3da29e832701076b4c9b6eeb67ea73c35b4bb735",
+      "note": "admin/server coverage gates"
+    },
+    {
+      "pr": 237,
+      "state": "MERGED",
+      "head": "1f9efc446f7e5137b0a9d90c250d0db7b51d83b4",
+      "mergeCommit": "940afb4c1c5aae84de5e81f97e777d65618d3200",
+      "note": "request-handler extraction and body refusal"
+    },
+    {
+      "pr": 238,
+      "state": "MERGED",
+      "head": "ae9ee3bacde2cd385740a9630c8514fd62003ea4",
+      "mergeCommit": "85f1504d1d4eeaa5df6ff53f2543f3143ec3daa0",
+      "note": "Vercel default-export hotfix"
+    },
+    {
+      "pr": 239,
+      "state": "MERGED",
+      "head": "10ac4cd12f157a21f07df343c09ba4c2efffc348",
+      "mergeCommit": "a3d3403f31831840731c72de5a54643cf7b62a8a",
+      "note": "provider-witnessed cleared-revenue semantics and production test-unlock guard"
+    },
+    {
+      "pr": 240,
+      "state": "MERGED",
+      "head": "63b89cbf2bfd65154d7760c4bb299653cb626df6",
+      "mergeCommit": "0b4179538441d9c52fed3cc40cb268e6e3847218",
+      "note": "forged webhook 401 and acknowledgement minimization"
+    },
+    {
+      "pr": 241,
+      "state": "MERGED",
+      "head": "ef104ae20497df3ce2a49196e386f147fc41061b",
+      "mergeCommit": "ef104ae20497df3ce2a49196e386f147fc41061b",
+      "note": "proxy-hop-aware caller identity and fail-closed trust-proxy configuration"
+    },
+    {
+      "pr": 242,
+      "state": "MERGED",
+      "head": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc",
+      "mergeCommit": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc",
+      "note": "handoff/canon regenerated at merged identity-trust head; unset TRUST_PROXY_HOPS recorded"
+    }
   ],
   "reachability": {
     "srcModules": 254,
     "reachableFromProduction": 126,
     "reachableFromOperatorScriptsOnly": 9,
     "noEntryPointAtAll": 119,
-    "allClassified": true,
-    "note": "src is walked recursively. Earlier figures excluded src/overnight and src/omnia-v9 entirely, which was an accident of a single-level directory read, not a scope decision."
+    "note": "src is walked recursively; current source-owned receipt reports all 126 production-reachable modules exercised by a gate."
   },
   "decisionConsumerSweep": {
     "status": "COMPLETE",
@@ -296,5 +561,6 @@
       "isStaleSignal compares a signal's age against a maxAgeMs the caller supplies, so a caller can already choose its own answer without discarding anything. Protecting its callers would look like a boundary and enforce nothing. A test asserts they stay editable, with that reason, so nobody tidies them in later."
     ],
     "whatWouldReopenIt": "A new module that imports a protected decision. Three derived tests fail in that case rather than depending on anyone remembering this sweep: tests/outbound-send-path-sovereignty-boundary.test.mjs, tests/enforcement-surface-sovereignty-boundary.test.mjs, tests/evidence-sovereignty-boundary.test.mjs."
-  }
+  },
+  "paymentRailReceipt": "artifacts/payment-rail-receipt-2026-08-30.json"
 }

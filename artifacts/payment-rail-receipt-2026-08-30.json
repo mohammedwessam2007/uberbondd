@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "uberbond-payment-rail-receipt-1.0.0",
+  "observedDate": "2026-08-30",
+  "sourceMainSha": "0b4179538441d9c52fed3cc40cb268e6e3847218",
+  "label": "SOURCE_BACKED_PROVIDER_FACTS__NOT_ACTIVATION",
+  "jurisdiction": "Egypt / cross-border digital services",
+  "rails": [
+    {
+      "provider": "Lemon Squeezy",
+      "status": "CANDIDATE_NOT_ACTIVATED",
+      "evidence": [
+        {
+          "label": "OFFICIAL_SOURCE",
+          "fact": "Egypt is listed among supported bank-payout countries.",
+          "source": "https://docs.lemonsqueezy.com/help/getting-started/supported-countries"
+        },
+        {
+          "label": "OFFICIAL_SOURCE",
+          "fact": "The fee page's example is $0.50 + 5% of total order value, with possible +1.5% international, +1.5% PayPal and +0.5% subscription adders; non-US bank payout fee is 1% and non-US PayPal payout fee is 3% capped at $30.",
+          "source": "https://docs.lemonsqueezy.com/help/getting-started/fees"
+        },
+        {
+          "label": "OFFICIAL_SOURCE",
+          "fact": "Payouts are created on the 1st and 15th, held 13 days, generally paid on the 14th and 28th, may take 1-5 days to arrive, and have a $50 minimum threshold; reverse payout invoices are available.",
+          "source": "https://docs.lemonsqueezy.com/help/getting-started/getting-paid"
+        },
+        {
+          "label": "OFFICIAL_SOURCE",
+          "fact": "New merchants must complete identity verification before selling.",
+          "source": "https://docs.lemonsqueezy.com/help/getting-started/verify-your-identity"
+        }
+      ],
+      "unknowns": [
+        "Egyptian legal/tax eligibility for UberBond's actual entity and service",
+        "provider account/product approval",
+        "refund and dispute operating policy for the proposed service",
+        "actual plan/custom pricing and settlement account",
+        "provider-witnessed payment and accepted delivery"
+      ]
+    },
+    {
+      "provider": "Paddle",
+      "status": "CANDIDATE_NOT_ACTIVATED",
+      "evidence": [
+        {
+          "label": "OFFICIAL_SOURCE",
+          "fact": "Paddle describes merchant-of-record coverage across 200+ countries/territories and includes Egypt in its supported-country material.",
+          "source": "https://developer.paddle.com/concepts/sell/supported-countries-locales"
+        },
+        {
+          "label": "OFFICIAL_SOURCE",
+          "fact": "For supported transactions Paddle calculates, collects and remits taxes as merchant of record.",
+          "source": "https://developer.paddle.com/concepts/sell/supported-countries-locales"
+        }
+      ],
+      "unknowns": [
+        "UberBond entity and product approval",
+        "Egypt settlement/withdrawal and fee quote",
+        "refunds/disputes and payout timing for this account",
+        "provider-witnessed payment and accepted delivery"
+      ]
+    },
+    {
+      "provider": "Stripe direct Egypt account",
+      "status": "NOT_PROVEN__NOT_SELECTED",
+      "evidence": [
+        {
+          "label": "OFFICIAL_SOURCE",
+          "fact": "Stripe's current global-availability page publishes a supported-country list; Egypt was not shown in the list returned on 2026-08-30.",
+          "source": "https://stripe.com/global"
+        }
+      ],
+      "unknowns": [
+        "whether an eligible foreign entity or Atlas structure is available and lawful",
+        "account approval, KYC, settlement, fees and tax treatment"
+      ]
+    }
+  ],
+  "fulfillmentGate": {
+    "status": "BLOCKED",
+    "facts": [
+      "Vercel /api/public/checkout returned 404",
+      "public config bookingUrl is empty",
+      "no provider is activated",
+      "customers=0, clearedRevenue=0, acceptedDeliveries=0, renewals=0"
+    ],
+    "requiredSequence": "payment evidence -> verification -> durable event -> reconciliation -> canonical cleared receipt -> fulfillment -> customer acceptance"
+  },
+  "decision": "Keep Lemon Squeezy and Paddle as research candidates only; defer activation until owner clears Egypt legal/tax/KYC and chooses one rail. Do not treat published provider documentation as payment evidence.",
+  "externalEffects": {
+    "providerCalls": 0,
+    "accountsActivated": 0,
+    "kycSubmitted": 0,
+    "purchases": 0,
+    "moneyMovement": 0,
+    "customerContacts": 0
+  },
+  "confidence": {
+    "officialDocumentation": "HIGH",
+    "actualUberBondEligibility": "NOT_PROVEN",
+    "firstClearedPayment": "NOT_PROVEN"
+  },
+  "reconciledAgainstMainSha": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc",
+  "reconciliationNote": "Payment-policy facts were captured on 2026-08-30 and reconciled onto current main 3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc after PR #242; no provider was activated."
+}

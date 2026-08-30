@@ -14,6 +14,26 @@ export const KNOWN_PRODUCTS = ['full', 'strategy', 'monitoring'];
 // represent an actual cleared charge.
 const CLEARED_ONE_TIME_EVENTS = new Set(['order_created']);
 const CLEARED_SUBSCRIPTION_EVENTS = new Set(['subscription_created', 'subscription_payment_success']);
+// A subscription exists in one of several states, and only one of them means a
+// charge has cleared. `subscription_created` fires for every one of them --
+// including a free trial, where the whole point is that no money has moved yet.
+//
+// Measured before the guard existed: six `subscription_created` deliveries at
+// on_trial, past_due, unpaid, cancelled, expired and paused each booked the full
+// $99 as cleared revenue, marked the lead paid, and reconciled as
+// PROVIDER_CLEARED_PAYMENT_PROVEN. $594 of revenue nobody had paid, and a trial
+// signup was worth $99 of it.
+//
+// An allowlist rather than a blocklist of the six above, deliberately. A
+// blocklist of Lemon Squeezy's vocabulary would let another provider's
+// equivalents through -- Stripe and Paddle both say `trialing`, and Stripe adds
+// `incomplete` -- and the failure mode of letting one through is booking money
+// nobody paid, which is silent. The failure mode of the allowlist is refusing a
+// real payment, which a customer reports.
+//
+// `paid` is here because it means what it says on any object, not because a
+// subscription is expected to carry it.
+const CLEARED_SUBSCRIPTION_STATUSES = new Set(['active', 'paid']);
 const LIFECYCLE_UPDATE_EVENTS = new Set(['subscription_updated', 'subscription_resumed', 'subscription_unpaused', 'subscription_plan_changed']);
 const TERMINAL_EVENTS = new Set(['subscription_cancelled', 'subscription_canceled', 'subscription_expired', 'subscription_paused']);
 const REFUND_EVENTS = new Set(['order_refunded']);
@@ -83,6 +103,21 @@ export function classifyPaymentEvent({ event, lead, cfg = {} } = {}) {
   }
 
   if (CLEARED_SUBSCRIPTION_EVENTS.has(event.eventName)) {
+    // The same shape as the one-time branch above, which has always checked
+    // whether the order was actually paid. This branch did not, so the guard
+    // existed on one side of the money and not the other.
+    //
+    // Applied to `subscription_created` only. There the status describes whether
+    // the subscription has been charged, so it decides the question.
+    // `subscription_payment_success` is the provider asserting a charge
+    // succeeded, and its subscription status can legitimately still read
+    // past_due at the moment a recovery payment lands -- refusing that would
+    // discard real money.
+    if (event.eventName === 'subscription_created'
+      && event.status && !CLEARED_SUBSCRIPTION_STATUSES.has(String(event.status).toLowerCase())) {
+      reasonCodes.push(`subscription-status-${event.status}`);
+      return { ...base, classification: 'PENDING_OR_UNCLEAR' };
+    }
     reasonCodes.push('cleared-subscription-payment');
     return {
       ...base, classification: 'CLEARED_SUBSCRIPTION_PAYMENT', shouldUnlock: true, shouldRecordRevenue: true,

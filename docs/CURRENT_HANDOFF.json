@@ -94,7 +94,7 @@
     "strategicChannels": [
       "SBE publicly reports 1,000+ HVAC/plumbing companies and accepts partner applications; Service Nation reports 30,000+ contractors and 100+ vetted vendors. These are strategic channel signals, not first-payment proof."
     ],
-    "paymentReadiness": "BLOCKED — Lemon Squeezy public docs describe Egypt bank payouts, fees, holds and KYC, but external fulfillment eligibility and actual account approval are unproven; no provider activated."
+    "paymentReadiness": "BLOCKED — Official docs now confirm Lemon Squeezy lists Egypt bank payouts and documents fees/13-day hold/$50 threshold; Paddle documents 200+ markets including Egypt. This is provider-policy evidence only: no account, KYC, legal/tax clearance, checkout, payment, accepted delivery or renewal is proven."
   },
   "verification": {
     "executedBy": "SOURCE_RECEIPT from merged PR #240 controlled runner; post-hotfix exact-current-main local rerun is NOT_PROVEN because this runner disconnected",
@@ -527,5 +527,6 @@
       "isStaleSignal compares a signal's age against a maxAgeMs the caller supplies, so a caller can already choose its own answer without discarding anything. Protecting its callers would look like a boundary and enforce nothing. A test asserts they stay editable, with that reason, so nobody tidies them in later."
     ],
     "whatWouldReopenIt": "A new module that imports a protected decision. Three derived tests fail in that case rather than depending on anyone remembering this sweep: tests/outbound-send-path-sovereignty-boundary.test.mjs, tests/enforcement-surface-sovereignty-boundary.test.mjs, tests/evidence-sovereignty-boundary.test.mjs."
-  }
+  },
+  "paymentRailReceipt": "artifacts/payment-rail-receipt-2026-08-30.json"
 }

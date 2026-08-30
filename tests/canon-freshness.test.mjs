@@ -72,8 +72,32 @@ test('the present-tense canon names the commit it was reconciled from', () => {
 // still-in-the-object-store commit answers "nothing". The canon reads as
 // perfectly fresh evidence for a commit nobody can check out.
 //
+// Which paths make canon a claim about source rather than about prose.
+const CANON_RELEVANT = /^(src|scripts|config|migrations)\//;
+
 // Reachability, not existence: `git cat-file -e` succeeds on an orphan until it
 // is garbage collected, which is exactly the window in which this goes wrong.
+//
+// With one exception, which is not a loophole but the same rule stated properly.
+// A squash merge replaces the branch commit the canon was regenerated at with a
+// new one carrying an identical tree, so the canon's SHA stops being an ancestor
+// the moment the pull request lands -- through no change to the source it
+// describes. Enforcing bare ancestry made every merge require a follow-up commit
+// whose only content was a new SHA, four times in one shift, and a check that
+// demands a ritual after every merge is one people learn to route around.
+//
+// The harm this test exists to catch is a canon describing a tree nobody can
+// check out. If the canon-relevant source at the named commit is byte-identical
+// to what is here now, the reader can check that tree out -- it is HEAD. So an
+// unreachable SHA fails only when the source it described actually differs,
+// which is exactly the amend case, and which the staleness test below then
+// explains in terms of the files that moved.
+const canonRelevantSourceMatches = (sha, head) => {
+  const changed = git(['diff', '--name-only', sha, head], { allowFailure: true });
+  if (changed === null) return false;
+  return !changed.split('\n').map(line => line.trim()).filter(Boolean).some(name => CANON_RELEVANT.test(name));
+};
+
 test('the commit the canon names is actually in this branch history', () => {
   const head = headSha();
   if (!head) return;
@@ -81,11 +105,11 @@ test('the commit the canon names is actually in this branch history', () => {
     if (!existsSync(path)) continue;
     const sha = String(extract(readFileSync(path, 'utf8')) || '');
     if (!/^[0-9a-f]{7,40}$/.test(sha)) continue;
-    const reachable = git(['merge-base', '--is-ancestor', sha, head], { allowFailure: true });
-    assert.notEqual(reachable, null,
-      `${path} names ${sha.slice(0, 12)}, which is not an ancestor of HEAD -- ` +
-      'the canon describes a commit that is not in this history, so nobody can check out ' +
-      'the tree it claims to describe. Regenerate with the canonical generator (npm run readiness).');
+    if (git(['merge-base', '--is-ancestor', sha, head], { allowFailure: true }) !== null) continue;
+    assert.ok(canonRelevantSourceMatches(sha, head),
+      `${path} names ${sha.slice(0, 12)}, which is not an ancestor of HEAD and describes ` +
+      'different source than this tree has -- so nobody can check out the tree it claims to ' +
+      'describe. Regenerate with the canonical generator (npm run readiness).');
   }
 });
 
@@ -99,7 +123,6 @@ test('the commit the canon names is actually in this branch history', () => {
 // current source. If only docs moved, canon is old and still accurate. If
 // anything under src/, scripts/, config/ or migrations/ moved, canon is
 // describing a system that no longer exists.
-const CANON_RELEVANT = /^(src|scripts|config|migrations)\//;
 
 test('the present-tense canon describes the source the tree actually has', () => {
   const head = headSha();

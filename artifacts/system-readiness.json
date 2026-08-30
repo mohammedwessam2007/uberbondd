@@ -1,24 +1,24 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-30T05:32:35.499Z",
+  "generatedAt": "2026-08-30T05:47:59.545Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "46d9e6a2088854264e2fbf8ccd675c4b5f69e23b",
+    "head": "ff1ec1e483a9f1049485520f28a861652e947b48",
     "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
     "sourceModules": 254,
-    "testSuites": 293,
+    "testSuites": 294,
     "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 617,
+      "filesParsed": 618,
       "ranAt": "2026-08-29T20:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2847,
-      "pass": 2799,
+      "tests": 2853,
+      "pass": 2805,
       "fail": 0,
       "skipped": 48,
       "ranAt": "2026-08-29T20:00:00Z"
@@ -51,7 +51,7 @@
     },
     "test:mutation-war": {
       "command": "CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "89 mutations, 89 killed, 0 not killed",
+      "result": "91 mutations, 91 killed, 0 not killed",
       "note": "Run with both a real PostgreSQL and a real Chromium so STORE-01 and CRAWL-01 execute rather than skip. Without them the war honestly reports SKIPPED_NEEDS_POSTGRES / SKIPPED_NEEDS_BROWSER rather than counting them as killed.",
       "ranAt": "2026-08-29T20:00:00Z"
     },

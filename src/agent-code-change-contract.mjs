@@ -102,6 +102,7 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   'tests/outbound-send-path-sovereignty-boundary.test.mjs',
   'tests/enforcement-surface-sovereignty-boundary.test.mjs',
   'tests/evidence-sovereignty-boundary.test.mjs',
+  'tests/cleared-revenue-truth.test.mjs',
   // The gate that decides whether a provider may be called at all.
   'src/agent-mesh-activation-gate.mjs',
   // What an autonomous run may do, and how authority narrows into children.

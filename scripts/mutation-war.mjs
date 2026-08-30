@@ -406,6 +406,20 @@ export const MUTATIONS = [
     suites: ['tests/build-wiring.test.mjs']
   },
   {
+    id: 'MONEY-18', guard: 'Cleared revenue means a provider witnessed it',
+    file: 'src/revenue.mjs',
+    find: '    const clearedCents = positiveEvents.filter(witnessedByOrder)',
+    replace: '    const clearedCents = positiveEvents',
+    suites: ['tests/cleared-revenue-truth.test.mjs']
+  },
+  {
+    id: 'MONEY-19', guard: 'Production cannot arm a fabricated payment route',
+    file: 'src/config.mjs',
+    find: "  if (cfg.revenue?.allowTestUnlock) throw new Error('Production must not set ALLOW_TEST_PAYMENT_UNLOCK');",
+    replace: '',
+    suites: ['tests/cleared-revenue-truth.test.mjs']
+  },
+  {
     id: 'SRV-02', guard: 'A non-object JSON body is a client error, not a 500',
     file: 'server.mjs',
     find: "  if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {",

@@ -2,7 +2,7 @@
 
 Status: `READY_FOR_SOFTWARE_FACTORY`  
 Prepared: 2026-08-30  
-Exact current `main`: `0b4179538441d9c52fed3cc40cb268e6e3847218`
+Exact current `main`: `3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc`
 
 ## Decision this affects
 
@@ -57,4 +57,4 @@ npm run test:mutation-war                 # without runtimes: skips, no survival
 OMNIA_V9_TEST_DATABASE_URL=<throwaway> npm run test:mutation-war  # with runtime: MONEY-17 killed
 ```
 
-The final receipt must report the exact tested SHA, runtime presence/absence, counts, and any skip separately, and must not treat the PR #240 source receipt as a fresh local rerun. Merge/deploy only through the repository's current review and exact-head gates; this packet grants no promotion authority.
+PR #241/#242 changed the current main around rate-limit identity and canon freshness; this packet remains scoped to MONEY-17 metadata and must be tested against the exact main above. The final receipt must report the exact tested SHA, runtime presence/absence, counts, and any skip separately, and must not treat the PR #240 source receipt as a fresh local rerun. Merge/deploy only through the repository's current review and exact-head gates; this packet grants no promotion authority.

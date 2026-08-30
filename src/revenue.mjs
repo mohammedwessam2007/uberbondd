@@ -564,7 +564,18 @@ export class RevenueEngine {
   }
 
   async handleLemonWebhook(rawBody, signature) {
-    if (!verifyLemonSignature(rawBody, signature, this.cfg.revenue.lemonWebhookSecret)) throw new Error('Invalid webhook signature');
+    if (!verifyLemonSignature(rawBody, signature, this.cfg.revenue.lemonWebhookSecret)) {
+      // Carried as a status so the router answers 401 rather than 500.
+      //
+      // A bad signature is the caller's problem, and payment providers RETRY on
+      // 5xx. Answering 500 told Lemon Squeezy to redeliver a webhook we had
+      // permanently and correctly rejected -- forever, and providers disable
+      // endpoints that keep failing. A forgery must be refused in a way that
+      // stops it coming back.
+      const error = new Error('Invalid webhook signature');
+      error.status = 401;
+      throw error;
+    }
     const payload = JSON.parse(rawBody);
     const event = normalizeLemonEvent(payload);
 

@@ -41,17 +41,17 @@ Every number below was produced by running the command, on this tree.
 
 | Gate | Command | Result |
 |---|---|---|
-| Syntax | `npm run check:syntax` | 620 files parse (2026-08-29) |
-| Deterministic | `npm run test:deterministic` | 2860 tests, 2812 pass, **0 fail**, 48 skipped (2026-08-29) |
-| Relay safety | `npm run test:relay-safety` | 150 tests, 150 pass, 0 fail (2026-08-29) |
-| Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real` | 127 tests, 127 pass, 0 fail (2026-08-29), against PostgreSQL 16.13 |
-| Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war` | 93 mutations, 93 killed, 0 not killed |
-| Browser | `CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser` | 1 test, 1 pass, 0 fail (2026-08-29), against the runner's installed Chromium |
+| Syntax | `npm run check:syntax` | 621 files parse (2026-08-30) |
+| Deterministic | `npm run test:deterministic` | 2864 tests, 2816 pass, **0 fail**, 48 skipped (2026-08-30) |
+| Relay safety | `npm run test:relay-safety` | 150 tests, 150 pass, 0 fail (2026-08-30) |
+| Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real` | 158 tests, 158 pass, 0 fail (2026-08-30), against PostgreSQL 16.13 |
+| Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war` | 94 mutations, 94 killed, 0 not killed |
+| Browser | `CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser` | 1 test, 1 pass, 0 fail (2026-08-30), against the runner's installed Chromium |
 | Dependencies | `npm audit --omit=dev` | No vulnerabilities reported in the current integration environment. |
 
 The 48 tests still skipped in the deterministic run are the real-PostgreSQL
 suites, which that run deliberately excludes. They are not unproven: they were
-run separately against a real database on this branch, 127/127, and that is the
+run separately against a real database on this branch, 158/158, and that is the
 row in the table above. Run them the same way anywhere a database URL exists:
 
 ```

@@ -20,6 +20,7 @@ behavior.
 | `ADMIN_TOKEN` | — | **Production requires ≥32 chars.** Guards every `/api/*` admin route (constant-time compared). |
 | `APP_BASE_URL` | `http://localhost:8080` | **Production requires `https://`.** Used for absolute links and OAuth redirect. |
 | `PORT` | `8080` | HTTP listen port. |
+| `TRUST_PROXY_HOPS` | `0` | How many proxies in front of this process may be believed about who the caller is. `x-forwarded-for` is written by the client, so at `0` it is ignored entirely and the socket address is the caller's identity. Behind exactly one proxy (Vercel, a single load balancer) set `1`. Set too low, every caller shares one rate-limit bucket and the limit is too strict; set too high, a caller can choose their own identity and the limit stops existing. |
 | `TOKEN_ENCRYPTION_KEY` | — | 64-char hex. Required if Gmail/outbound is configured; encrypts stored OAuth tokens at rest. |
 
 ## Public intake & pricing
@@ -27,7 +28,7 @@ behavior.
 | Variable | Default | Notes |
 |---|---|---|
 | `PUBLIC_AUDIT_ENABLED` | `true` | Enables the public `/api/public/audit` intake. |
-| `PUBLIC_RATE_LIMIT_PER_HOUR` | `8` | Per-IP public audit submissions per hour. |
+| `PUBLIC_RATE_LIMIT_PER_HOUR` | `8` | Public audit submissions per hour, per caller identity as resolved by `TRUST_PROXY_HOPS`. |
 | `FREE_REPORT_FINDINGS` | `1` | Findings shown free before the paywall. |
 | `FULL_AUDIT_PRICE_USD` | `49` | Full report price. |
 | `STRATEGY_AUDIT_PRICE_USD` | `299` | Strategy audit price. |

@@ -140,7 +140,24 @@ const relayRateLimited = req => {
 };
 const pct = (numerator, denominator) => denominator ? Math.round(numerator / denominator * 100) : 0;
 const publicApi = pathname => pathname === '/api/health' || pathname === '/api/public/unsubscribe' || pathname === '/api/public/config' || pathname === '/api/public/audit' || pathname.startsWith('/api/public/report/') || pathname.startsWith('/api/public/artifacts/') || pathname === '/api/public/checkout' || pathname === '/webhooks/lemonsqueezy';
-const clientIp = req => String(req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown').split(',')[0].trim();
+// Who the caller is, for rate limiting -- so it must not be the caller's choice.
+//
+// Each proxy appends the address it received the connection from, so the last
+// entry was written by the nearest proxy and the leftmost is whatever the client
+// claimed. With N declared trusted hops the trustworthy address is the Nth from
+// the right; with none, the header is ignored entirely and the socket answers.
+const clientIp = req => {
+  const hops = Number(config.trustProxyHops) || 0;
+  const socketAddress = String(req.socket?.remoteAddress || 'unknown');
+  if (hops <= 0) return socketAddress;
+  const raw = req.headers['x-forwarded-for'];
+  const chain = String(Array.isArray(raw) ? raw.join(',') : raw || '')
+    .split(',').map(entry => entry.trim()).filter(Boolean);
+  // Fewer entries than declared hops means the chain is not what was declared.
+  // Believing it anyway is how a spoofed header gets treated as a proxy's word.
+  if (chain.length < hops) return socketAddress;
+  return chain[chain.length - hops] || socketAddress;
+};
 
 async function summary() {
   const [prospects, jobs, suppressions, accounts, discoveryRuns, revenueSummary, queueStats, pausedState, workers, settings, senderHealth, outboundReservations] = await Promise.all([

@@ -406,6 +406,20 @@ export const MUTATIONS = [
     suites: ['tests/build-wiring.test.mjs']
   },
   {
+    id: 'ADMIN-01', guard: 'Only a real string bearer reaches the health matrix',
+    file: 'api/admin/health-check.mjs',
+    find: " return typeof value==='string'?value:'';",
+    replace: " return String(value||'');",
+    suites: ['tests/admin-health-route.test.mjs']
+  },
+  {
+    id: 'ADMIN-02', guard: 'Configuration is checked before the secret',
+    file: 'api/admin/health-check.mjs',
+    find: "if(!env.ADMIN_HEALTH_SECRET||!env.DATABASE_URL)return send(res,503,{ok:false,status:'REFUSED',reasonCodes:['admin-health-runtime-not-configured']});",
+    replace: "if(false)return send(res,503,{ok:false,status:'REFUSED',reasonCodes:['admin-health-runtime-not-configured']});",
+    suites: ['tests/admin-health-route.test.mjs']
+  },
+  {
     id: 'HYG-01', guard: 'The maintenance cron deletes nothing unless explicitly enabled',
     file: 'api/database-maintenance.mjs',
     find: "if(String(env.MAINTENANCE_ENABLED||'').toLowerCase()!=='true')",

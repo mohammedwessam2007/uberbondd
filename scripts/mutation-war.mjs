@@ -444,6 +444,13 @@ export const MUTATIONS = [
     replace: '    const amount = paidCents || listPrice;',
     suites: ['tests/paid-amount-buys-what-it-paid-for.test.mjs']
   },
+  {
+    id: 'CANON-01', guard: 'An unreachable canon SHA still fails when the source it described differs',
+    file: 'tests/canon-freshness.test.mjs',
+    find: '    assert.ok(canonRelevantSourceMatches(sha, head),',
+    replace: '    assert.ok(true,',
+    suites: ['tests/canon-freshness-discrimination.test.mjs']
+  },
   // ---- The war's own verdicts --------------------------------------------
   {
     id: 'WAR-01', guard: 'A suite that never ran is not a killed mutant',

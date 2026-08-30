@@ -1,9 +1,9 @@
 {
   "schemaVersion": "uberbond-handoff-1.4.0",
   "sourceMainShaAtMissionStart": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
-  "sourceCommit": "8097b47d3661790b40e165fb50def074b30d389b",
-  "currentMainShaAtFinalRefresh": "8097b47d3661790b40e165fb50def074b30d389b",
-  "currentMainCommitMessage": "Make the money cover the product it unlocks, and stop a free order booking list price (#247)",
+  "sourceCommit": "1cf196b72f7d2ad85203efcccdb374f198d8ac52",
+  "currentMainShaAtFinalRefresh": "1cf196b72f7d2ad85203efcccdb374f198d8ac52",
+  "currentMainCommitMessage": "Ask the canon check the question it means, not a stricter one (#249)",
   "missionIssue": 173,
   "missionIssueState": "OPEN",
   "activeMission": "Continue NIGHTFALL MAX with distribution and first economic proof as the priority while maturing current Growth Graph infrastructure. Reuse merged autonomy operations hardening rather than recreating proxy, dedupe, billing, maintenance or telemetry systems.",
@@ -39,14 +39,13 @@
     "The local discovery integration smoke passed with 2 previewed and 2 imported records, and the broader zero-effect review probe passed 33/33 without live provider or outbound effects."
   ],
   "blockers": [
-    "OWNER/EXTERNAL: no full-project Vercel READY deployment is proven for current main. Both Vercel checks on the last candidate reported api-deployments-free-per-day/build-rate-limit. No paid upgrade and no circumvention was attempted.",
+    "OWNER/EXTERNAL: the connected Vercel account lists the full and private-lite projects and a READY production deployment, but that deployment is from older source 0b417953… rather than current main 1cf196b…. Both current-main Vercel checks report api-deployments-free-per-day/build-rate-limit. No paid upgrade and no circumvention was attempted.",
     "CI: hosted GitHub Actions runs report failure on jobs where no runner was assigned and steps were []. INFRASTRUCTURE_NON_EVIDENCE -- neither a pass nor a source failure. Every merge this session rests on locally executed gates.",
     "EXTERNAL: no outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Each is an external activation, not an engineering task.",
-    "DEPLOYMENT CONFIG: TRUST_PROXY_HOPS is unset in the live environment. Until it matches the deployment's proxy topology (1 behind a single proxy such as Vercel), the public intake rate limit counts all callers as one identity. That is fail-closed -- too strict, never too loose -- but it is not the intended behaviour."
+    "DEPLOYMENT CONFIG: a prior source receipt says TRUST_PROXY_HOPS is unset. This lane cannot read or write environment variables. Confirm the one-proxy topology first; then set production TRUST_PROXY_HOPS=1 only for exactly one trusted proxy. Do not guess or set a higher value."
   ],
   "nextActions": [
-    "OWNER: open the deployment link in the founder actions below. It is the only blocker gating every deployment step and it is now one click.",
-    "OWNER: set TRUST_PROXY_HOPS on the deployment (1 behind a single proxy). Until then the public intake limit counts every caller as one identity -- fail-closed, but not intended.",
+    "OWNER: verify the production topology and set TRUST_PROXY_HOPS=1 only if exactly one trusted proxy fronts the deployment. Until then the public intake limit counts every caller as one identity -- fail-closed, but not intended.",
     "ANY LANE: a payment refused as PENDING_OR_UNCLEAR is not surfaced anywhere an operator looks; the command center raises only REVIEW_REQUIRED. The right fix distinguishes an expected non-payment (on_trial) from an anomalous one (unpaid at creation), which is a decision worth making deliberately.",
     "ANY LANE: a payment in a currency other than USD is not amount-checked against the product price, because the configured prices carry no currency. The fix is per-currency prices in configuration, which is an owner decision about what the business sells in.",
     "ANY LANE: draft PR #234 carries a payment-rail research receipt and six research sources worth keeping. Its handoff and canon edits are superseded and would regress main if merged. Findings are on the PR.",
@@ -57,21 +56,21 @@
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
     "projectName": "uberbondd",
     "publicUrl": "https://uberbondd.vercel.app/",
-    "observedProductionDeploymentId": "dpl_DVtL6XTs6yWg2DsDHX1LJnB5hDWA",
-    "observedProductionSourceSha": "b156566c69f1d1d0e7e01b015afa474e36041276",
+    "observedProductionDeploymentId": "dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h",
+    "observedProductionSourceSha": "0b4179538441d9c52fed3cc40cb268e6e3847218",
     "observedProductionState": "READY",
-    "currentMainSha": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
+    "currentMainSha": "1cf196b72f7d2ad85203efcccdb374f198d8ac52",
     "currentMainExactProduction": false,
-    "latestDeploymentBlocker": "PR_231_EXACT_HEAD_VERCEL_CHECKS_API_DEPLOYMENTS_FREE_PER_DAY",
+    "latestDeploymentBlocker": "API_DEPLOYMENTS_FREE_PER_DAY_ON_CURRENT_MAIN_CHECKS",
     "status": "PUBLIC_SITE_LIVE__PRODUCTION_STALE_RELATIVE_TO_MAIN"
   },
   "productionRuntimeTruth": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
-    "observedAt": "2026-08-29T18:27:19Z",
-    "window": "7d",
+    "observedAt": "2026-08-30T07:20:15Z",
+    "window": "24h",
     "status": "NO_RUNTIME_ERRORS_FOUND",
     "source": "Connected Vercel runtime-error aggregation",
-    "note": "This is a read-only error aggregate for the observed older production deployment; it does not prove the combined candidate is deployed."
+    "note": "Read-only Vercel runtime-error aggregation returned no clusters for the project. It does not prove current-main deployment, cron delivery, worker liveness, checkout, payment or acceptance."
   },
   "commercialDecision": {
     "canary": "White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing and electrical businesses",
@@ -84,28 +83,28 @@
     "retainedCustomers": 0
   },
   "verification": {
-    "executedBy": "local execution in this session, not hosted CI",
+    "executedBy": "SOURCE_RECEIPT from merged implementation work; this Nightfall lane did not independently rerun exact current main",
     "gates": {
-      "check:syntax": "625 files parse",
-      "test:deterministic": "2886 tests, 2835 pass, 0 fail, 51 skipped",
+      "check:syntax": "626 files parse",
+      "test:deterministic": "2889 tests, 2838 pass, 0 fail, 51 skipped",
       "test:relay-safety": "150/150",
       "test:postgres-real": "167/167 against PostgreSQL 16.13",
       "test:browser": "1/1 against /opt/pw-browsers/chromium-1194/chrome-linux/chrome",
-      "test:mutation-war": "99 mutations, 99 killed, 0 not killed",
+      "test:mutation-war": "100 mutations, 100 killed, 0 not killed",
       "npm audit --omit=dev": "0 vulnerabilities"
     },
-    "runtimeNote": "PostgreSQL 16.13 from a local cluster at /tmp/pgdata16 port 55432, and the runner's installed Chromium. Both gates run; neither is blocked. The mutation war reads its verdicts from what each run reports rather than from exit status, so a suite that skipped for want of a runtime can no longer be counted as either killed or survived.",
+    "runtimeNote": "SOURCE_RECEIPT: reported runtimes and gate counts are not current production or cloud evidence.",
     "productionCoverage": "126 production-reachable src modules, 0 unexercised. All 5 API routes exercised. server.mjs exercised by a spawned-process gate and by the exported-handler gate."
   },
   "maximumThreeFounderActions": [
     {
-      "reason": "Two lanes disagree about whether this project exists. Through this session's connector the only visible team has zero projects, the exact project id and slug 404, and so does dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h -- the deployment another lane recorded as READY from current main with a timestamped 200 from /api/health. One of those views is scoped to the wrong account, and only you can see which.",
-      "screen": "https://vercel.com/mohammedwessam2007s-projects  (and the deployment directly: https://vercel.com/mohammedwessam2007s-projects/uberbondd/BYCthpL4jEo6HAnX3v3UD2PsU42h)",
-      "action": "Open that deployment link. If it loads, the Vercel connection this session uses is scoped to a different account than the project, and reconnecting it under the account that owns the project resolves every deployment step at once. If it 404s for you too, the project genuinely is not there and the deployment claim in PR #234 is wrong.",
+      "reason": "The intended public rate-limit identity is not configured until the trusted proxy topology is confirmed, and only the owner can inspect the deployment's environment settings without exposing secrets.",
+      "screen": "Vercel dashboard → uberbondd → Settings → Environment Variables → Production",
+      "action": "Confirm exactly one trusted proxy fronts production. If true, set TRUST_PROXY_HOPS=1 for Production and return only a redacted setting confirmation. If the topology is different, leave it unset and report the topology.",
       "founderMinutes": 2,
       "costUsd": 0,
       "evidenceRequired": "Whether that deployment page loads for you, and under which account.",
-      "defaultRecommendation": "Do this one first. It is the only blocker gating every remaining deployment step, and it is now a single link rather than an investigation."
+      "defaultRecommendation": "Do this before enabling public intake; never guess a higher hop count."
     },
     {
       "reason": "Hosted CI reports failure on jobs where no runner was ever assigned and no step ran. It is currently incapable of producing evidence, which means real regressions could hide behind noise everyone has learned to ignore.",
@@ -143,14 +142,14 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE_EXCEPT_EXISTING_PROJECT_DEPLOYMENT_AUTHORIZED_WHEN_VERIFIED",
-  "headSha": "8097b47d3661790b40e165fb50def074b30d389b",
+  "headSha": "1cf196b72f7d2ad85203efcccdb374f198d8ac52",
   "cloudActivationTruth": {
     "fullProjectExists": "PROVEN_BY_CONNECTED_API",
     "privateLiteProjectExists": "PROVEN_BY_CONNECTED_API",
     "currentMainExactProductionDeploymentProven": false,
     "cronRegistrationProven": false,
     "cronDeliveryProven": false,
-    "contradiction": "Unresolved, and now sharper. Five probes through the connected Vercel API return an empty project list for the only team the connector can see, 404 for the exact project id and slug, and 404 for the exact deployment id another lane recorded as READY from current main. That lane's observation names a specific deployment and a timestamped 200 from /api/health, so it is not vague. Both cannot describe the same account scope. The live hostnames cannot be probed from this runner to break the tie, because the environment's network policy denies them. Preserved on both sides with provenance rather than resolved by preferring one lane.",
+    "contradiction": "RESOLVED_BY_CURRENT_CONNECTED_EVIDENCE. A fresh connected read on 2026-08-30 lists the full and private-lite UberBond projects on team_A9LnjIuS5PU0rNetsHMu1N0r, resolves production deployment dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h as READY from source 0b4179538441d9c52fed3cc40cb268e6e3847218, and fetches https://uberbondd.vercel.app/api/health with HTTP 200. The older empty-list and 404 observations remain historical connector evidence, not current project-existence truth. This does not establish exact-current-main production, payment configuration, worker liveness or cron delivery.",
     "observations": [
       {
         "claim": "two projects exist (full + private lite)",
@@ -208,18 +207,51 @@
         "result": "CONNECT tunnel failed, gateway answered 403 -- the same denial the environment's proxy returns for www.google.com",
         "evidenceRef": "agentproxy:/__agentproxy/status recentRelayFailures",
         "note": "EFFECT_UNKNOWN. This is the environment's outbound network policy, and says nothing about whether the site is up. It is recorded so a later reader does not mistake it for evidence that the deployment is down."
+      },
+      {
+        "claim": "two UberBond Vercel projects are visible in the connected team scope",
+        "observedVia": "connected Vercel list_projects(team_A9LnjIuS5PU0rNetsHMu1N0r)",
+        "observedAt": "2026-08-30T07:20:15Z",
+        "result": "uberbondd/prj_RWUPf14w1xIz9NK92AbNW5z7qDCg and uberbondd-lite-private/prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz",
+        "evidenceRef": "vercel:list_projects->two-projects"
+      },
+      {
+        "claim": "the named production deployment is READY but stale relative to current main",
+        "observedVia": "connected Vercel get_deployment(dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h)",
+        "observedAt": "2026-08-30T07:20:15Z",
+        "result": "READY, target production, source 0b4179538441d9c52fed3cc40cb268e6e3847218",
+        "evidenceRef": "vercel:get_deployment->READY"
+      },
+      {
+        "claim": "the public production health route responds",
+        "observedVia": "connected Vercel web fetch https://uberbondd.vercel.app/api/health",
+        "observedAt": "2026-08-30T07:20:15Z",
+        "result": "HTTP 200; ok=true, storeBackend=postgres, autopilot=false, worker offline, activeJobs=0",
+        "evidenceRef": "vercel:web_fetch->health-200",
+        "note": "This is public runtime evidence for the observed production deployment, not proof of current-main source, scheduled execution, payment or acceptance."
       }
     ],
-    "resolvedBy": "Connected Vercel project/deployment queries on 2026-08-29; the exact combined candidate still needs a fresh deployment receipt."
+    "resolvedBy": "Connected Vercel project/deployment queries and public health fetch on 2026-08-30; exact-current-main production still needs a fresh READY deployment receipt."
   },
   "currentOpenCandidates": [
     {
+      "pr": 245,
+      "head": "15f2e62b70e5a94d7e3ab10c858c663d99213171",
+      "base": "97cf5a0de4ba5e0c3cd63156680c8c36a2f0d2b6",
+      "status": "OPEN_DRAFT_STALE_BASE",
+      "mission": "correct Vercel live-scope receipt",
+      "promotionBlockers": [
+        "base is stale after main advanced to 1cf196b; both Vercel checks report build-rate-limit; no review"
+      ]
+    },
+    {
       "pr": 234,
-      "head": "c460e8b1f7583639f7c38a14679a9072d0ab5102",
+      "head": "c16d356e7b40535d7a6202a1d0515ec8bb84f85b",
+      "base": "3856d3b5f1489eef342ce203bc2b2bcd3fb25cbc",
       "status": "OPEN_DRAFT",
       "mission": "reconcile final live and deployment truth",
       "promotionBlockers": [
-        "not yet reconciled against current main; opened before this session's merges"
+        "not yet reconciled against current main; payment research is preserved but the handoff/canon edits are stale"
       ]
     }
   ],
@@ -245,7 +277,9 @@
       "#243",
       "#244",
       "#246",
-      "#247"
+      "#247",
+      "#248",
+      "#249"
     ],
     "defectsFound": [
       {

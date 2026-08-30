@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond-bootstrap-1.1.0",
   "project": "UberBond",
-  "generatedAt": "2026-08-28T19:14:00.000Z",
+  "generatedAt": "2026-08-30T18:22:11Z",
   "objective": "Maximize risk-adjusted cleared contribution profit per founder minute while compounding evidence, reusable delivery assets, recurring revenue, partner leverage, owner-independent fulfilment, privacy-safe learning, enterprise value, world-class distribution, cloud autonomy, and truthful economic learning without inventing evidence or bypassing consequence controls.",
   "truthHierarchy": [
     "OPERATOR",
@@ -15,6 +15,8 @@
   "canonPointers": [
     "AGENTS.md",
     "UBERBOND_CANON.md",
+    "docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md",
+    "docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md",
     "docs/UBERBOND_MASTER_MEMORY.md",
     "artifacts/uberbond-memory-index.json",
     "docs/HISTORICAL_PROJECT_LINEAGE.md",
@@ -40,7 +42,7 @@
     "Preserve durable identities, proof DAG lineage, crash/replay safety, monotonic constraints, exact external-effect ledgers, contradiction preservation, revocation, and auditability.",
     "Learn only from trusted observed outcomes; internal model prose, synthetic benchmarks, opens, clicks, CRM guesses, creator screenshots, historical mega-test counts, and architecture cannot manufacture revenue or customer truth.",
     "Compound every accepted delivery into reusable rules, templates, monitoring, recovery playbooks, privacy-safe learning, white-label capability, recurring products, partner leverage, and improved distribution allocation.",
-    "Keep historical named initiatives discoverable even when superseded; owner-recalled unresolved programs such as Everest must remain visible until sourced or explicitly retired.",
+    "Keep historical named initiatives discoverable even when superseded and preserve source-backed Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation lineage.",
     "Keep lite/ protected unless a separately justified mission explicitly requires changing it."
   ],
   "architectureSpine": [
@@ -79,7 +81,9 @@
     "GCC Bilingual Operations",
     "Recovery and Vertical Operations"
   ],
-  "protectedPaths": ["lite/"],
+  "protectedPaths": [
+    "lite/"
+  ],
   "externalProofGates": [
     "real provider credentials and any separately authorized provider or model spend",
     "lawful production sender domains mailboxes and measured sender health before scaled outbound",
@@ -95,7 +99,9 @@
     "Read AGENTS.md and UBERBOND_CANON.md before using chat memory as project truth.",
     "Refresh live main and inspect open or recently merged shared PRs before selecting work.",
     "Read UBERBOND_BOOTSTRAP.json, docs/UBERBOND_MASTER_MEMORY.md, artifacts/uberbond-memory-index.json, and every remaining path listed in canonPointers.",
-    "Read docs/CURRENT_HANDOFF.json after master memory so the short-term frontier cannot erase the long-term company dream.",
+    "Read docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md before CURRENT_HANDOFF; the checkpoint explicitly supersedes stale short-term claims and stale memory-index entries it names.",
+    "For Claude engineering work, read docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md plus the canonical Claude executive mission before acting.",
+    "Read docs/CURRENT_HANDOFF.json after master memory and checkpoint so the short-term frontier cannot erase the long-term company dream.",
     "Read docs/CURRENT_SYSTEM_STATE.md and artifacts/system-readiness.json for current measured readiness.",
     "Read docs/DISTRIBUTION_OS_CANON.md for distribution missions.",
     "Search namedInitiatives and unresolvedNames before concluding an older program or feature never existed.",
@@ -106,9 +112,12 @@
   "memoryIndexPath": "artifacts/uberbond-memory-index.json",
   "masterMemoryPath": "docs/UBERBOND_MASTER_MEMORY.md",
   "continuity": {
+    "checkpointPath": "docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md",
+    "claudeResumePath": "docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md",
     "handoffPath": "docs/CURRENT_HANDOFF.json",
-    "startupInstruction": "Repository canon and Master Memory outrank chat recollection. New sessions resume by refreshing main and loading bootstrap, master memory, machine memory index, every canon pointer, current readiness, and durable handoff before acting.",
-    "updateInstruction": "After every material mission, update the durable handoff and, when new durable history appears, update the memory index/master memory or their source ledger so the next session can resume without reconstructing the previous conversation.",
+    "archiveCommit": "991efdee100616cd6d811a92194d611fa3097a14",
+    "startupInstruction": "Repository canon, the newest explicit checkpoint, and Master Memory outrank chat recollection. New sessions resume by refreshing main and loading bootstrap, master memory, machine memory index, checkpoint, every canon pointer, current readiness, and durable handoff before acting.",
+    "updateInstruction": "After every material mission, update the durable handoff and checkpoint pointer; when new durable history appears, update the memory index/master memory or record an explicit supersession so the next session can resume without reconstructing the previous conversation.",
     "chatImportInstruction": "When a material ChatGPT/Claude/Codex chat, share, export, transcript, ZIP, or research package becomes available, digest it into repository-native memory with source title/date, evidence class, named initiatives, durable decisions, contradictions, supersession links, unresolved names, and anti-duplication notes. Never rely on the external share URL alone."
   }
 }

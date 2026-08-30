@@ -82,6 +82,29 @@
     "productionExactCurrentMainProven": false,
     "note": "Do not equate preview READY/BUILDING with production promotion or commercial proof."
   },
+  "cloudActivationTruth": {
+    "fullProjectExists": true,
+    "privateLiteProjectExists": true,
+    "currentMainExactProductionDeploymentProven": false,
+    "cronRegistrationProven": false,
+    "cronDeliveryProven": false,
+    "contradiction": "Older repository evidence recorded an account-scope contradiction. The currently connected Vercel API now resolves both project identities, but no exact-current-main production or cron-delivery proof is promoted by this checkpoint.",
+    "observations": [
+      {
+        "observedVia": "connected Vercel API",
+        "observedAt": "2026-08-30T18:38:01Z",
+        "detail": "Full project prj_RWUPf14w1xIz9NK92AbNW5z7qDCg and exact-head preview deployment dpl_HUna25saBLcF3AekpXRnfDqYtRRS were resolved."
+      },
+      {
+        "observedVia": "connected Vercel API",
+        "observedAt": "2026-08-30T18:32:00Z",
+        "detail": "Private-lite exact-head preview deployment dpl_3HzyZWauVqF71jBgFRSywHABayJR was resolved."
+      }
+    ]
+  },
+  "repositoryPublicationEffects": {
+    "productionDeploymentsAuthorizedOrPerformedByThisLane": 0
+  },
   "ciTruth": {
     "githubActions": "INFRASTRUCTURE_NON_EVIDENCE",
     "latestObservedPattern": "deterministic/postgres/browser jobs completed failure with no runner and no steps; this is neither source pass nor source failure.",

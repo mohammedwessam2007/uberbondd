@@ -1,0 +1,178 @@
+{
+  "schemaVersion": "uberbond-external-skill-plugin-registry-1.0.0",
+  "project": "UberBond",
+  "observedAt": "2026-08-30T20:29:00Z",
+  "policyPath": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+  "northStar": "risk-adjusted cleared contribution profit per founder minute",
+  "truthRule": "External skills, plugins, runtimes, gateways, memories, scanners, and research tools are replaceable suppliers beneath current repository canon and durable external evidence. Capability never creates authority.",
+  "entries": [
+    {
+      "id": "find-skills",
+      "name": "Find Skills",
+      "source": "https://github.com/vercel-labs/skills/blob/main/skills/find-skills/SKILL.md",
+      "upstream": "vercel-labs/skills",
+      "license": "MIT",
+      "class": "PROJECT_SKILL",
+      "role": "Discover candidate agent skills for missing capabilities.",
+      "uberbondUse": "Candidate-generation front end for the existing Automation Capability Acquisition Loop.",
+      "activation": "APPROVED_FOR_DISCOVERY",
+      "authority": "NONE",
+      "risk": "LOW",
+      "notes": [
+        "Popularity and install count are ranking signals only.",
+        "Every candidate must be deduped and reviewed for license, security, data and external-effect risk before activation."
+      ]
+    },
+    {
+      "id": "claude-code-setup",
+      "name": "Claude Code Setup",
+      "source": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-code-setup",
+      "officialPage": "https://claude.com/plugins/claude-code-setup",
+      "upstream": "anthropics/claude-plugins-official",
+      "license": "UPSTREAM_PLUGIN_LICENSE",
+      "class": "CANONICAL_METHOD",
+      "role": "Read-only codebase auditor recommending MCP servers, skills, hooks, subagents and slash commands.",
+      "uberbondUse": "Periodic capability-gap and Claude Code automation audit; recommendations are reconciled against canonical modules.",
+      "activation": "APPROVED_READ_ONLY",
+      "authority": "NONE",
+      "risk": "LOW",
+      "notes": [
+        "Official Anthropic plugin.",
+        "Read-only recommendation does not authorize installation or consequenceful actions."
+      ]
+    },
+    {
+      "id": "task-observer",
+      "name": "Task Observer",
+      "source": "https://github.com/rebelytics/one-skill-to-rule-them-all",
+      "upstream": "rebelytics/one-skill-to-rule-them-all",
+      "license": "CC-BY-4.0",
+      "class": "PROJECT_SKILL",
+      "role": "Observe corrections, repeated manual work and skill gaps; propose skill improvements.",
+      "uberbondUse": "Self-improvement observation layer for the AI employee skill library.",
+      "activation": "APPROVED_RECOMMENDATION_ONLY",
+      "authority": "NONE",
+      "risk": "LOW",
+      "notes": [
+        "Do not silently mutate canonical skills or prompts.",
+        "Observation logs must exclude secrets and unnecessary private data.",
+        "Preserve attribution if adapted or redistributed."
+      ]
+    },
+    {
+      "id": "claude-mem",
+      "name": "Claude-Mem",
+      "source": "https://github.com/thedotmack/claude-mem",
+      "upstream": "thedotmack/claude-mem",
+      "license": "Apache-2.0",
+      "class": "OPTIONAL_RUNTIME",
+      "role": "Persistent compressed working memory for Claude Code sessions.",
+      "uberbondUse": "Developer-session memory cache below repository-native brain and memory hierarchy.",
+      "activation": "APPROVED_OPTIONAL_LOCAL_RUNTIME",
+      "authority": "NONE",
+      "risk": "MEDIUM",
+      "notes": [
+        "May not override npm run brain, current main, Master Memory, current state, handoff or durable external receipts.",
+        "Treat plugin summaries as advisory working memory.",
+        "Review data-retention and local-service behavior before using sensitive inputs."
+      ]
+    },
+    {
+      "id": "headroom",
+      "name": "Headroom",
+      "source": "https://github.com/headroomlabs-ai/headroom",
+      "upstream": "headroomlabs-ai/headroom",
+      "license": "Apache-2.0",
+      "class": "OPTIONAL_RUNTIME",
+      "role": "Context compression, retrieval and token/cost optimization through proxy, SDK or MCP.",
+      "uberbondUse": "Compress high-volume logs/tool outputs while preserving recoverable authoritative originals.",
+      "activation": "APPROVED_BOUNDED_OPTIMIZATION",
+      "authority": "NONE",
+      "risk": "MEDIUM",
+      "notes": [
+        "Never make compressed text the sole copy of canon, receipts, exact diffs, legal evidence, security evidence or customer acceptance.",
+        "Measure quality/cost benefit against an uncompressed baseline.",
+        "Prefer reversible retrieval/passthrough for exact evidence."
+      ]
+    },
+    {
+      "id": "omniroute",
+      "name": "OmniRoute",
+      "source": "https://github.com/diegosouzapw/OmniRoute",
+      "upstream": "diegosouzapw/OmniRoute",
+      "license": "MIT",
+      "class": "OPTIONAL_RUNTIME",
+      "role": "Model/provider gateway with routing, fallback, quota awareness, MCP/A2A and optimization mechanisms.",
+      "uberbondUse": "Optional execution supplier and routing-pattern donor beneath UberBond model admission/routing contracts.",
+      "activation": "APPROVED_ISOLATED_EVALUATION",
+      "authority": "NONE",
+      "risk": "MEDIUM_HIGH",
+      "notes": [
+        "Do not allow a gateway to become a second policy brain.",
+        "Provider/model identity and fallback must remain observable.",
+        "Credentials remain outside the repository.",
+        "Routing/fallback may not weaken evidence, privacy, safety or capability requirements."
+      ]
+    },
+    {
+      "id": "strix",
+      "name": "Strix",
+      "source": "https://github.com/usestrix/strix",
+      "upstream": "usestrix/strix",
+      "license": "Apache-2.0",
+      "class": "PROJECT_SKILL_AND_OPTIONAL_RUNTIME",
+      "role": "Autonomous application security testing and proof-backed vulnerability verification.",
+      "uberbondUse": "Bounded security worker for local/test/preview or explicitly authorized UberBond-owned targets.",
+      "activation": "APPROVED_OWNED_TARGETS_ONLY",
+      "authority": "SECURITY_TEST_ONLY",
+      "risk": "HIGH",
+      "notes": [
+        "Never scan or exploit unrelated third parties.",
+        "Default to local/test/preview scope.",
+        "No credential theft, persistence or destructive action.",
+        "Findings require verification before canonical defect promotion."
+      ]
+    },
+    {
+      "id": "agent-reach",
+      "name": "Agent Reach",
+      "source": "https://github.com/Panniantong/Agent-Reach",
+      "upstream": "Panniantong/Agent-Reach",
+      "license": "MIT",
+      "class": "EXTERNAL_ADAPTER",
+      "role": "Cross-platform public/social/niche web research and diagnostics.",
+      "uberbondUse": "Prometheus/world-sensing supplier for software scouting, buyer-language research, opportunity discovery and competitor research.",
+      "activation": "APPROVED_PUBLIC_AUTHORIZED_READ_ONLY_SURFACES",
+      "authority": "NONE",
+      "risk": "HIGH_POLICY_SENSITIVITY",
+      "notes": [
+        "No CAPTCHA bypass, fingerprint spoofing, access-block evasion or prohibited scraping.",
+        "No private-account/cookie/session use without exact separate authorization and policy review.",
+        "No inferred private contact information.",
+        "Preserve source provenance and distinguish reachability from permission."
+      ]
+    }
+  ],
+  "assimilationOrder": [
+    "Find Skills and Claude Code Setup for discovery/audit",
+    "Task Observer for evidence-backed skill improvement proposals",
+    "Claude-Mem as optional subordinate session memory",
+    "Headroom as reversible context optimizer",
+    "OmniRoute as isolated routing/fallback supplier",
+    "Strix as owned-target security verifier",
+    "Agent Reach as policy-gated world-sensing adapter"
+  ],
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "customerContacts": 0,
+    "messages": 0,
+    "providerModelExecutions": 0,
+    "purchases": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "moneyMovement": 0,
+    "customerSystemMutations": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  }
+}

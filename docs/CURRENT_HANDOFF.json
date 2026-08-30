@@ -1,9 +1,9 @@
 {
   "schemaVersion": "uberbond-handoff-1.4.0",
   "sourceMainShaAtMissionStart": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
-  "sourceCommit": "ef104ae20497df3ce2a49196e386f147fc41061b",
-  "currentMainShaAtFinalRefresh": "ef104ae20497df3ce2a49196e386f147fc41061b",
-  "currentMainCommitMessage": "Stop a caller choosing the identity their rate limit is counted against (#241)",
+  "sourceCommit": "8097b47d3661790b40e165fb50def074b30d389b",
+  "currentMainShaAtFinalRefresh": "8097b47d3661790b40e165fb50def074b30d389b",
+  "currentMainCommitMessage": "Make the money cover the product it unlocks, and stop a free order booking list price (#247)",
   "missionIssue": 173,
   "missionIssueState": "OPEN",
   "activeMission": "Continue NIGHTFALL MAX with distribution and first economic proof as the priority while maturing current Growth Graph infrastructure. Reuse merged autonomy operations hardening rather than recreating proxy, dedupe, billing, maintenance or telemetry systems.",
@@ -45,13 +45,13 @@
     "DEPLOYMENT CONFIG: TRUST_PROXY_HOPS is unset in the live environment. Until it matches the deployment's proxy topology (1 behind a single proxy such as Vercel), the public intake rate limit counts all callers as one identity. That is fail-closed -- too strict, never too loose -- but it is not the intended behaviour."
   ],
   "nextActions": [
-    "ANY LANE: a payment in a currency other than USD is not amount-checked against the product price. The configured prices are plain numbers named FULL_AUDIT_PRICE_USD and friends, so comparing EUR 30.00 to USD 49.00 would need an exchange rate this system does not have and must not invent. Non-USD is therefore treated like an unconfigured price: not blocked. Narrower than the hole it replaced, still a hole. The fix is per-currency prices in configuration, not code, so it is an owner decision about what the business actually sells in.",
-    "ANY LANE: a payment refused as PENDING_OR_UNCLEAR is not surfaced anywhere an operator looks. founder-command-center.mjs raises only REVIEW_REQUIRED. That was already true, and the subscription status guard makes it matter more: a real payment refused because a provider used a status word the allowlist does not know would be invisible. Not fixed in that slice because surfacing every refusal would alert on ordinary trial signups, which is operator noise -- the right fix distinguishes an expected non-payment (on_trial) from an anomalous one (unpaid at creation), and that is a decision worth making deliberately rather than as a side effect.",
-    "OWNER: resolve the Vercel project-existence contradiction. Still the only thing blocking every deployment step.",
-    "OWNER: set TRUST_PROXY_HOPS on the deployment (1 behind a single proxy). Without it the public intake limit is global rather than per-caller.",
-    "ANY LANE: the money path and the whole public surface have now been attacked end to end -- webhook admission and forgery, lease recovery, cleared-revenue meaning, the test-unlock route, report-token guessing and traversal, artifact ID traversal, checkout without a token, and rate-limit identity. The public surface has no known remaining hole.",
-    "ANY LANE: the coverage ratchet is green at 0 uncovered across src, api and entry points; the mutation war is 94/94.",
-    "CLAUDE: the payment reconciliation worker remains unwired and visibly DEGRADED, blocked on a payment provider rather than on engineering."
+    "OWNER: open the deployment link in the founder actions below. It is the only blocker gating every deployment step and it is now one click.",
+    "OWNER: set TRUST_PROXY_HOPS on the deployment (1 behind a single proxy). Until then the public intake limit counts every caller as one identity -- fail-closed, but not intended.",
+    "ANY LANE: a payment refused as PENDING_OR_UNCLEAR is not surfaced anywhere an operator looks; the command center raises only REVIEW_REQUIRED. The right fix distinguishes an expected non-payment (on_trial) from an anomalous one (unpaid at creation), which is a decision worth making deliberately.",
+    "ANY LANE: a payment in a currency other than USD is not amount-checked against the product price, because the configured prices carry no currency. The fix is per-currency prices in configuration, which is an owner decision about what the business sells in.",
+    "ANY LANE: draft PR #234 carries a payment-rail research receipt and six research sources worth keeping. Its handoff and canon edits are superseded and would regress main if merged. Findings are on the PR.",
+    "BLOCKED ON PROVIDER: the payment reconciliation worker is unwired and visibly DEGRADED. Nothing calls claimBillingEvents, so verified webhook evidence accumulates and is never reconciled into canonical cleared truth. Completing it needs a provider to reconcile against, not engineering.",
+    "BLOCKED ON PROVIDER: report delivery is gated on its own kill switch (AUTO_EMAIL_REPORTS) and a configured Gmail account. The path is built, idempotent per lead, and audited; it is switched off."
   ],
   "production": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
@@ -86,16 +86,16 @@
   "verification": {
     "executedBy": "local execution in this session, not hosted CI",
     "gates": {
-      "check:syntax": "621 files parse",
-      "test:deterministic": "2864 tests, 2816 pass, 0 fail, 48 skipped",
+      "check:syntax": "625 files parse",
+      "test:deterministic": "2886 tests, 2835 pass, 0 fail, 51 skipped",
       "test:relay-safety": "150/150",
-      "test:postgres-real": "158/158 against PostgreSQL 16.13",
-      "test:browser": "1/1 against the runner's Chromium at /opt/pw-browsers/chromium-1194/chrome-linux/chrome",
-      "test:mutation-war": "94 mutations, 94 killed, 0 not killed",
+      "test:postgres-real": "167/167 against PostgreSQL 16.13",
+      "test:browser": "1/1 against /opt/pw-browsers/chromium-1194/chrome-linux/chrome",
+      "test:mutation-war": "99 mutations, 99 killed, 0 not killed",
       "npm audit --omit=dev": "0 vulnerabilities"
     },
-    "runtimeNote": "PostgreSQL 16.13, a cluster initialized locally at /tmp/pgdata16 on port 55432 (the runner was rebuilt and no longer ships the PostgreSQL 18 binaries an older receipt named; 16.13 is recorded rather than carrying 18 forward, because the version is part of what the evidence means). Chromium is present and the browser gate runs; it is not blocked.",
-    "productionCoverage": "126 production-reachable src modules, 0 unexercised. All 5 API routes exercised. server.mjs exercised by a spawned-process gate and by the exported-handler gate. worker.mjs exempt as wiring."
+    "runtimeNote": "PostgreSQL 16.13 from a local cluster at /tmp/pgdata16 port 55432, and the runner's installed Chromium. Both gates run; neither is blocked. The mutation war reads its verdicts from what each run reports rather than from exit status, so a suite that skipped for want of a runtime can no longer be counted as either killed or survived.",
+    "productionCoverage": "126 production-reachable src modules, 0 unexercised. All 5 API routes exercised. server.mjs exercised by a spawned-process gate and by the exported-handler gate."
   },
   "maximumThreeFounderActions": [
     {
@@ -143,7 +143,7 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE_EXCEPT_EXISTING_PROJECT_DEPLOYMENT_AUTHORIZED_WHEN_VERIFIED",
-  "headSha": "ef104ae20497df3ce2a49196e386f147fc41061b",
+  "headSha": "8097b47d3661790b40e165fb50def074b30d389b",
   "cloudActivationTruth": {
     "fullProjectExists": "PROVEN_BY_CONNECTED_API",
     "privateLiteProjectExists": "PROVEN_BY_CONNECTED_API",
@@ -237,40 +237,64 @@
     "note": "GitHub repository operations are not customer-facing external effects."
   },
   "lastCompletedSlice": {
-    "mission": "Attack the public HTTP surface and repair what does not survive.",
+    "mission": "Attack the money path and the verification machinery, and repair what does not survive.",
     "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "mergedAs": "PR #241, squashed to ef104ae20497df3ce2a49196e386f147fc41061b",
-    "surfaceAttacked": [
-      "/api/public/audit",
-      "/api/public/report/*",
-      "/api/public/artifacts/*",
-      "/api/public/checkout",
-      "/webhooks/lemonsqueezy"
-    ],
-    "heldUp": [
-      "report tokens leaked nothing on any guess, traversal or wildcard -- all 404",
-      "artifact IDs refused traversal -- 400",
-      "checkout issued nothing without a valid token -- all 404",
-      "no PII and no admin token echoed on any path, refused or served",
-      "the rate limit engaged correctly for a fixed client: 202 202 202 429 429 429"
+    "merged": [
+      "#241",
+      "#242",
+      "#243",
+      "#244",
+      "#246",
+      "#247"
     ],
     "defectsFound": [
       {
         "id": "IDENT-01",
         "severity": "P1",
-        "origin": "inherited from main",
+        "pr": 241,
         "summary": "A caller chose the identity their rate limit was counted against.",
-        "mechanism": "clientIp read x-forwarded-for and took .split(',')[0] -- the leftmost entry, which is whatever the client wrote. That value keyed the agent relay's per-minute limit and the public intake's per-hour cap. Rotating the header made eight public intake submissions succeed against a cap of three (202 for every one), and each accepted submission creates a lead and queues research work.",
-        "fix": "TRUST_PROXY_HOPS declares how many proxies may be believed, defaulting to 0: the header is ignored and the socket address answers. With N hops the trustworthy address is the Nth from the right, because each proxy appends the address it received the connection from -- so prepended entries shift the chain rightward and cannot move the answer. Fails closed: behind an undeclared proxy all callers share one identity and the limit is too strict.",
-        "provenBy": "tests/client-identity-trust.test.mjs, four tests, a child process per configuration because config is read once at import",
-        "mutation": "IDENT-01, killed"
+        "mechanism": "clientIp took the leftmost x-forwarded-for entry, which the client writes. A rotating header bought eight public intake submissions against a cap of three, each creating a lead and queueing research.",
+        "fix": "TRUST_PROXY_HOPS declares how many proxies may be believed, default 0. With N hops the trustworthy address is the Nth from the right, so prepended entries cannot move it."
+      },
+      {
+        "id": "WAR-01/WAR-02",
+        "severity": "P1",
+        "pr": 243,
+        "summary": "The mutation war's own verdicts came from the exit status and were wrong in two opposite directions.",
+        "mechanism": "A suite that skipped for want of a runtime exited 0 and was reported as a surviving guard -- loud but false. A mutant that broke a module at import time exited non-zero and was reported as KILLED -- silent, and it inflated the count that every other guard is judged by.",
+        "fix": "Verdicts are read from what each run reports. SUITE_DID_NOT_RUN and NO_ASSERTIONS_RAN are named separately from real survivors. Four suites that announced an absent database with a passing test now use a real skip, which is why the deterministic run reports 51 skipped rather than 48."
+      },
+      {
+        "id": "ANCHOR/SCAN",
+        "severity": "P2",
+        "pr": 243,
+        "summary": "Two defects found by writing the mutations for the above.",
+        "mechanism": "A mutation anchor appearing both in the code and in the registry entry quoting it mutated the registry instead, ran an unmutated tree, and reported the guard as surviving. Checking every anchor then found SCAN-01 matching two sites, so one branch had never been attacked -- and it turned out to be unreachable.",
+        "fix": "applyMutation refuses an ambiguous anchor; the verdict logic moved to its own module so the registry no longer contains the code it points at; the unreachable branch was removed and the concern it aimed at is now proven rather than assumed."
+      },
+      {
+        "id": "MONEY-22",
+        "severity": "P1",
+        "pr": 246,
+        "summary": "A subscription that had not paid booked cleared revenue.",
+        "mechanism": "subscription_created fires for every subscription state including a free trial. The one-time branch of the classifier has always checked whether the order was paid; the subscription branch did not. Measured: on_trial, past_due, unpaid, cancelled, expired and paused each booked $99 and marked the lead paid -- $594 nobody paid, reconciling as PROVIDER_CLEARED_PAYMENT_PROVEN on every surface.",
+        "note": "Every surface agreed because all three triple-witness views derive from the same signed webhook. Consistency across three views of one event cannot catch a misreading of that event.",
+        "fix": "An allowlist of statuses that mean money moved, applied to subscription_created only. subscription_payment_success is untouched because a recovery payment legitimately arrives with a past_due status."
+      },
+      {
+        "id": "MONEY-23/MONEY-24",
+        "severity": "P1",
+        "pr": 247,
+        "summary": "The money did not have to cover the product it unlocked, and a free order booked list price.",
+        "mechanism": "The product is a query parameter on the checkout link the buyer holds. Measured: $49 bought the $299 review, $0.01 bought monitoring, $0.00 bought strategy. The zero case also revealed `detail.amountCents || listPrice` treating a genuine 0 as absent, so a free order booked $299 of cleared revenue.",
+        "fix": "An underpayment in the pricing currency is REVIEW_REQUIRED -- the only classification an operator is shown -- rather than a refusal, because a discount code is a real reason to pay less."
       }
     ],
-    "correctionsToPriorHandoff": [
-      "The previous blockers list said the real-PostgreSQL launcher was blocked for want of OMNIA_V9_TEST_DATABASE_URL and that the browser gate was blocked for want of a compatible Chromium. Both are false on this runner: postgres-real ran 158/158 against a local PostgreSQL 16.13 cluster, and test:browser ran 1/1 against /opt/pw-browsers/chromium-1194/chrome-linux/chrome. The stale claim is removed rather than carried forward.",
-      "currentOpenCandidates listed PRs 227, 228, 229 and 231, all of which are now merged or closed as superseded. Replaced with the one PR actually open."
-    ],
-    "boundaryDecision": "tests/client-identity-trust.test.mjs was briefly added to SOVEREIGNTY_PREFIXES and removed again. tests/sovereignty-proof-closure.test.mjs correctly rejected it: server.mjs is not itself a sovereignty-protected file, so the entry was not earned by any mutation on a protected file. The boundary was left as it is rather than widened to accommodate the change."
+    "attackedAndSound": [
+      "The refund path: an over-refund is already caught as refund-exceeds-cleared-order and surfaced for review, a refund with no payment records nothing, and a duplicate refund is deduped. No change made.",
+      "The public report/artifact/checkout surface: tokens leak nothing on any guess, traversal or wildcard; artifact ids refuse traversal; checkout issues nothing without a valid token.",
+      "Webhook signature admission: nine forgery shapes all refused with 401, none creating money."
+    ]
   },
   "continuousIntegrationTruth": {
     "workflowRun": 33265034795,
@@ -287,7 +311,7 @@
   },
   "truthRestrictions": [
     "Zero verified customers, zero cleared revenue, zero accepted deliveries, zero retained customers. Unchanged and preserved as zero.",
-    "clearedRevenue means a provider order witnessed the payment, on every surface. It reads zero because it is zero.",
+    "clearedRevenue means a provider order witnessed the payment, the subscription had actually paid, and the money covered the product. It reads zero because it is zero.",
     "No claim of production deployment, cron registration or cron delivery for current main.",
     "No provider called, no message sent, no money moved, no credential or DNS changed.",
     "Every gate figure in this file was produced by running the command locally on this tree. None came from hosted CI, and none was carried forward from an older receipt."

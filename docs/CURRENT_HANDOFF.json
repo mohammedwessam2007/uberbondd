@@ -46,8 +46,8 @@
   ],
   "nextActions": [
     "OWNER: resolve the Vercel project-existence contradiction. Still the only thing blocking every deployment step.",
-    "CLAUDE/ANY LANE: extract server.mjs's handler behind an exported factory so its 87 branches become individually testable rather than only reachable through a socket. The spawned-process gate is now the net to do it under.",
-    "ANY LANE: the coverage ratchet is green at 0 uncovered across src, api and entry points. A new production module or route without a gate now fails rather than shipping unchecked.",
+    "ANY LANE: server.mjs's handler is now exported and importing the module no longer binds a port, so its branches are testable individually. tests/server-request-handler.test.mjs covers the authenticated surface; the routing depth beyond that is the obvious next place to add cases.",
+    "ANY LANE: the coverage ratchet is green at 0 uncovered across src, api and entry points, and understands spawned execution as well as imports.",
     "CLAUDE: the payment reconciliation worker remains unwired and visibly DEGRADED, blocked on a payment provider rather than on engineering."
   ],
   "production": {
@@ -83,12 +83,12 @@
   "verification": {
     "executedBy": "local execution in this session, not hosted CI",
     "gates": {
-      "check:syntax": "616 files parse",
-      "test:deterministic": "2837 tests, 2789 pass, 0 fail, 48 skipped",
+      "check:syntax": "617 files parse",
+      "test:deterministic": "2847 tests, 2799 pass, 0 fail, 48 skipped",
       "test:relay-safety": "150/150",
       "test:postgres-real": "158/158 against PostgreSQL 16.13",
       "test:browser": "1/1",
-      "test:mutation-war": "87 mutations, 87 killed, 0 not killed",
+      "test:mutation-war": "89 mutations, 89 killed, 0 not killed",
       "npm audit --omit=dev": "0 vulnerabilities"
     },
     "runtimeNote": "The runner was rebuilt and no longer ships the PostgreSQL 18 binaries the previous receipt named. A fresh PostgreSQL 16.13 cluster was initialized locally. The receipt says 16.13 rather than carrying 18 forward, because the version is part of what the evidence means.",
@@ -337,6 +337,19 @@
         "fix": "A gate now spawns the real server on loopback with a throwaway JSON store and probes 16 admin routes against 4 bad-credential shapes, the public route list, all five security headers on public/refused/404 responses, and leak-freedom of 404s and refusals. No external request. A smoke gate, not a substitute for extracting the handler -- but the net that extraction should now be done under.",
         "mutations": [
           "SRV-01"
+        ]
+      },
+      {
+        "id": "SRV-02",
+        "severity": "P2",
+        "origin": "pre-existing",
+        "summary": "A four-byte request body produced a 500 on an authenticated route.",
+        "mechanism": "`null` is valid JSON. parseBody parsed it cleanly and returned it, and the first property access threw a TypeError -- a caller's mistake reported as a server fault, producible at will. A bare number, string, boolean or array had the same route in; `[]` avoided the 500 only because `[].name` is undefined, which meant an array body silently created a campaign full of defaults.",
+        "fix": "Refused once in parseBody rather than at each of fifteen call sites: an empty body is still {}, a malformed one still 400, a well-formed non-object now 400 with a message saying so.",
+        "foundBy": "The direct handler suite, which only became possible after extracting the handler.",
+        "mutations": [
+          "SRV-02",
+          "SRV-03"
         ]
       }
     ],

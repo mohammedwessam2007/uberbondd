@@ -1,24 +1,24 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-29T21:17:01.271Z",
+  "generatedAt": "2026-08-30T05:19:36.484Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "871b35deee60d02450b56c47a59a552b8637a5ad",
-    "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
+    "head": "b7b3703e3589b201b741f4d148137d652e291cc6",
+    "branch": "main",
     "sourceModules": 254,
-    "testSuites": 287,
+    "testSuites": 290,
     "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 611,
+      "filesParsed": 614,
       "ranAt": "2026-08-29T20:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2808,
-      "pass": 2760,
+      "tests": 2820,
+      "pass": 2772,
       "fail": 0,
       "skipped": 48,
       "ranAt": "2026-08-29T20:00:00Z"
@@ -32,15 +32,15 @@
       "ranAt": "2026-08-29T00:00:00Z"
     },
     "test:postgres-real": {
-      "command": "OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real",
-      "status": "PASS_CURRENT_BRANCH",
-      "tests": 127,
-      "pass": 127,
+      "command": "npm run test:postgres-real",
+      "status": "BLOCKED_CURRENT_CONTAINER",
+      "tests": 0,
+      "pass": 0,
       "fail": 0,
-      "skipped": 0,
-      "result": "127 tests, 127 pass, 0 fail (2026-08-29), against PostgreSQL 16.13",
-      "note": "The runner was rebuilt and no longer ships the PostgreSQL 18 binaries the previous receipt named. A fresh PostgreSQL 16.13 cluster was initialized locally for this gate. Recorded as 16.13 rather than carrying the old version forward, because the version is part of what the evidence means.",
-      "ranAt": "2026-08-29T20:00:00Z"
+      "skipped": 20,
+      "result": "BLOCKED — OMNIA_V9_TEST_DATABASE_URL is not set; 20 suites were not run",
+      "sourceReceipt": "PR #235 recorded 155/155 against PostgreSQL 16.13 on its controlled runner; not reproduced in this container.",
+      "ranAt": "2026-08-30T05:15:00Z"
     },
     "npm audit": {
       "command": "npm audit --omit=dev",
@@ -50,21 +50,24 @@
       "ranAt": "2026-08-29T00:00:00Z"
     },
     "test:mutation-war": {
-      "command": "CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "81 mutations, 81 killed, 0 not killed",
-      "note": "Run with both a real PostgreSQL and a real Chromium so STORE-01 and CRAWL-01 execute rather than skip. Without them the war honestly reports SKIPPED_NEEDS_POSTGRES / SKIPPED_NEEDS_BROWSER rather than counting them as killed.",
-      "ranAt": "2026-08-29T20:00:00Z"
+      "command": "npm run test:mutation-war",
+      "status": "NOT_PROVEN_CURRENT_CONTAINER",
+      "result": "NOT_PROVEN — 84 mutations, 77 killed, 1 survived (MONEY-17); STORE-01 skipped without PostgreSQL",
+      "sourceReceipt": "PR #235 recorded 84/84 with both a real PostgreSQL and a real Chromium; not reproduced in this container.",
+      "note": "Without runtimes the war must classify runtime-dependent cases as SKIPPED_NEEDS_POSTGRES / SKIPPED_NEEDS_BROWSER; MONEY-17 currently lacks needsPostgres metadata and is reported as a survival, which is the next gate-integrity fix.",
+      "ranAt": "2026-08-30T05:14:00Z"
     },
     "test:browser": {
-      "command": "CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser",
-      "status": "PASS_CURRENT_BRANCH",
-      "tests": 1,
-      "pass": 1,
-      "fail": 0,
+      "command": "npm run test:browser",
+      "status": "BLOCKED_CURRENT_CONTAINER",
+      "tests": 0,
+      "pass": 0,
+      "fail": 1,
       "skipped": 0,
-      "result": "1 test, 1 pass, 0 fail (2026-08-29), against the runner's installed Chromium",
-      "note": "This gate caught a P0 this shift: the browser runtime pool integration moved the crawl result variables inside a try block while the return stayed outside it, so every crawl threw ReferenceError. check:syntax parsed it, the deterministic suite does not cover it, and the pool unit tests mock the browser. Only this gate saw it.",
-      "ranAt": "2026-08-29T20:00:00Z"
+      "result": "BLOCKED — pinned Playwright Chromium executable is absent",
+      "sourceReceipt": "PR #235 recorded 1/1 against its controlled runner; not reproduced in this container.",
+      "note": "The one browser test fails at launch because the pinned Playwright executable is absent. Do not bypass provider controls or use fingerprint spoofing.",
+      "ranAt": "2026-08-30T05:14:00Z"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",

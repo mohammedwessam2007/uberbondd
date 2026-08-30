@@ -406,6 +406,13 @@ export const MUTATIONS = [
     suites: ['tests/build-wiring.test.mjs']
   },
   {
+    id: 'SRV-01', guard: 'Security headers reach every response',
+    file: 'server.mjs',
+    find: "  'x-content-type-options': 'nosniff',",
+    replace: '',
+    suites: ['tests/server-http-surface.test.mjs']
+  },
+  {
     id: 'ADMIN-01', guard: 'Only a real string bearer reaches the health matrix',
     file: 'api/admin/health-check.mjs',
     find: " return typeof value==='string'?value:'';",
@@ -710,6 +717,12 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       // it. Routes are where admission and enablement checks live, which is
       // exactly the kind of guard worth sabotaging.
       cpSync(join(repoRoot, 'api'), join(root, 'api'), { recursive: true });
+      // The process entry points, for the same reason as `api`: a suite that
+      // spawns server.mjs runs it from the sandbox, so a mutation of it only
+      // means anything if the sandbox has it.
+      for (const entry of ['server.mjs', 'worker.mjs']) {
+        try { cpSync(join(repoRoot, entry), join(root, entry)); } catch { /* absent in a trimmed tree */ }
+      }
       cpSync(join(repoRoot, 'package.json'), join(root, 'package.json'));
       cpSync(join(repoRoot, 'node_modules'), join(root, 'node_modules'), { recursive: true, dereference: false });
 

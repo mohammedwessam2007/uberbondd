@@ -115,39 +115,43 @@ test('every API route is executed by some gate', () => {
 // gate that started and stopped processes to assert wiring would be a worse
 // trade than asserting the wiring directly.
 //
-// `server.mjs` is not that. It is 614 lines with 87 `if`/`switch` statements
-// behind one `http.createServer`, and no gate executes any of it. That is the
-// largest remaining coverage hole in the repository and it is recorded here as a
-// hole rather than dressed as an exemption. The handler is an inline anonymous
-// function and `server.listen()` runs at module scope, so nothing can reach it
-// without binding a port -- which is the reason it is untested, not a
-// justification for leaving it that way.
+// `server.mjs` was never that. It is 614 lines with 87 `if`/`switch` statements
+// behind one http.createServer, and for a long time no gate executed any of it:
+// the handler is an inline anonymous function and importing the module runs
+// validateStartupConfig, creates a store and awaits store.init(), so nothing
+// could reach the routing logic without a running process.
 //
-// The bound below is the measured value, not a target. It exists so the hole
-// cannot quietly deepen while the fix is pending: the fix is to extract the
-// handler behind an exported factory, the way scripts/ already guard their entry
-// points, and then to gate it.
-const ENTRY_POINT_BRANCH_CEILING = { 'worker.mjs': 10, 'server.mjs': 90 };
+// So a gate runs the process. `tests/server-http-surface.test.mjs` spawns the
+// real server on loopback with a throwaway JSON store and probes the surface
+// that matters. Executing a module by spawning it is still executing it, which
+// is why "exercised" below means imported OR spawned -- an import closure alone
+// would report this as uncovered and be wrong about it.
+const SPAWN_EXEMPT_ENTRY_POINTS = ['worker.mjs'];
 
-function branchCount(source) {
-  return (source.match(/\bif\s*\(|\bswitch\s*\(/g) || []).length;
+function spawnedByGate(entry) {
+  return gateSuites().some(suite => {
+    let source = '';
+    try { source = readFileSync(join(repoRoot, suite), 'utf8'); } catch { return false; }
+    return source.includes('spawn') && source.includes(entry);
+  });
 }
 
 test('worker.mjs is wiring, which is why it is exempt', () => {
   const source = readFileSync(join(repoRoot, 'worker.mjs'), 'utf8');
-  assert.ok(branchCount(source) <= ENTRY_POINT_BRANCH_CEILING['worker.mjs'],
-    'worker.mjs is exempt from the coverage ratchet because it only wires modules together; ' +
-    'that stops being true once it decides things');
+  const branches = (source.match(/\bif\s*\(|\bswitch\s*\(/g) || []).length;
+  assert.ok(branches <= 10,
+    `worker.mjs has ${branches} branches. It is exempt from this ratchet because it only wires ` +
+    'modules together; that exemption stops being true once it decides things.');
+  assert.deepEqual(SPAWN_EXEMPT_ENTRY_POINTS, ['worker.mjs'],
+    'the exempt list is one entry long on purpose -- adding to it needs the same argument');
 });
 
-test('the server.mjs coverage hole does not deepen while it is open', () => {
-  const source = readFileSync(join(repoRoot, 'server.mjs'), 'utf8');
-  const branches = branchCount(source);
-  assert.ok(branches <= ENTRY_POINT_BRANCH_CEILING['server.mjs'],
-    `server.mjs now has ${branches} branches, above the recorded ceiling of ` +
-    `${ENTRY_POINT_BRANCH_CEILING['server.mjs']}. It is executed by no gate, so every branch ` +
-    'added to it is untested production logic. Extract the handler behind an exported factory ' +
-    'and gate it rather than raising this number.');
+test('server.mjs is executed by a gate, not exempted from one', () => {
+  const exercised = closureOf(gateSuites());
+  assert.ok(exercised.has('server.mjs') || spawnedByGate('server.mjs'),
+    'server.mjs carries hundreds of branches of production routing, admission and refusal logic. ' +
+    'A gate must run it -- by import once the handler is extractable, or by spawning the process ' +
+    'until then. It must not join the exempt list.');
 });
 
 test('the ratchet detects a production module no gate imports', () => {

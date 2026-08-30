@@ -66,14 +66,14 @@
     "latestDeploymentBlocker": "API_DEPLOYMENTS_FREE_PER_DAY_ON_CURRENT_MAIN_CHECKS",
     "status": "PUBLIC_SITE_LIVE__PRODUCTION_STALE_RELATIVE_TO_MAIN",
     "latestExactHeadPreview": {
-      "sourceSha": "85cb685def5d8e81e62420117dbb68811f314f6f",
-      "fullDeploymentId": "dpl_AqCBaSHKs2Noph4W5ThX2fFAMQn9",
+      "sourceSha": "a30a9c48cddd19f7577fa8f6876a72de2b72cd6f",
+      "fullDeploymentId": "dpl_BZNM7ovfmrwmwDCLPjLYBJEZgcZC",
       "fullState": "READY",
       "fullHealth": "HTTP_500_FUNCTION_INVOCATION_FAILED_MISSING_OR_WEAK_ADMIN_TOKEN",
-      "liteDeploymentId": "dpl_BRiFmcBJLJJ6ajfy12QhpcubuVsS",
+      "liteDeploymentId": "dpl_EuivwhuXsnmvreiExRUXoQhYiAtw",
       "liteState": "READY",
       "target": "preview",
-      "observedAt": "2026-08-30T08:33:28Z"
+      "observedAt": "2026-08-30T08:36:18Z"
     }
   },
   "productionRuntimeTruth": {
@@ -244,17 +244,17 @@
       },
       {
         "claim": "exact-head full preview deployment is READY but its health route fails startup validation",
-        "observedVia": "connected Vercel get_deployment and web fetch for PR #245 deployment dpl_AqCBaSHKs2Noph4W5ThX2fFAMQn9",
-        "observedAt": "2026-08-30T08:33:28Z",
-        "result": "READY, source 85cb685def5d8e81e62420117dbb68811f314f6f; /api/health HTTP 500 FUNCTION_INVOCATION_FAILED",
+        "observedVia": "connected Vercel get_deployment and web fetch for PR #245 deployment dpl_BZNM7ovfmrwmwDCLPjLYBJEZgcZC",
+        "observedAt": "2026-08-30T08:36:18Z",
+        "result": "READY, source a30a9c48cddd19f7577fa8f6876a72de2b72cd6f; /api/health HTTP 500 FUNCTION_INVOCATION_FAILED",
         "evidenceRef": "vercel:web_fetch->FUNCTION_INVOCATION_FAILED",
         "note": "Runtime log names validateStartupConfig: Production requires a strong ADMIN_TOKEN of at least 32 characters. No secret value was read or persisted."
       },
       {
         "claim": "exact-head lite preview deployment is READY",
-        "observedVia": "connected Vercel get_deployment for PR #245 deployment dpl_BRiFmcBJLJJ6ajfy12QhpcubuVsS",
-        "observedAt": "2026-08-30T08:33:28Z",
-        "result": "READY, source 85cb685def5d8e81e62420117dbb68811f314f6f; target preview",
+        "observedVia": "connected Vercel get_deployment for PR #245 deployment dpl_EuivwhuXsnmvreiExRUXoQhYiAtw",
+        "observedAt": "2026-08-30T08:36:18Z",
+        "result": "READY, source a30a9c48cddd19f7577fa8f6876a72de2b72cd6f; target preview",
         "evidenceRef": "vercel:get_deployment->READY"
       }
     ],
@@ -263,12 +263,12 @@
   "currentOpenCandidates": [
     {
       "pr": 245,
-      "head": "15f2e62b70e5a94d7e3ab10c858c663d99213171",
+      "head": "a30a9c48cddd19f7577fa8f6876a72de2b72cd6f",
       "base": "97cf5a0de4ba5e0c3cd63156680c8c36a2f0d2b6",
       "status": "OPEN_DRAFT_EXACT_BASE_PREVIEW_READY_ROUTE_CONFIG_FAILED",
       "mission": "correct Vercel live-scope receipt",
       "promotionBlockers": [
-        "full and lite previews are READY from 85cb685, but full /api/health returns FUNCTION_INVOCATION_FAILED until ADMIN_TOKEN is present and strong; no review and no production promotion"
+        "full and lite previews are READY from a30a9c4, but full /api/health returns FUNCTION_INVOCATION_FAILED until ADMIN_TOKEN is present and strong; no review and no production promotion"
       ]
     },
     {

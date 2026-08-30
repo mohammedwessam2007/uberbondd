@@ -369,7 +369,7 @@ or renewal. Current-main Vercel checks report
 `api-deployments-free-per-day/build-rate-limit`; no retry, paid upgrade,
 workaround, promotion, provider activation, or customer effect was attempted.
 
-The exact-head correction preview (`85cb685…`) is `READY` on both projects, but
+The exact-head correction preview (`a30a9c4…`) is `READY` on both projects, but
 the full preview `/api/health` returned HTTP 500
 `FUNCTION_INVOCATION_FAILED`. Its runtime log names
 `validateStartupConfig`: `ADMIN_TOKEN` is missing or shorter than the required

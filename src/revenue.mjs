@@ -564,7 +564,18 @@ export class RevenueEngine {
   }
 
   async handleLemonWebhook(rawBody, signature) {
-    if (!verifyLemonSignature(rawBody, signature, this.cfg.revenue.lemonWebhookSecret)) throw new Error('Invalid webhook signature');
+    if (!verifyLemonSignature(rawBody, signature, this.cfg.revenue.lemonWebhookSecret)) {
+      // Carried as a status so the router answers 401 rather than 500.
+      //
+      // A bad signature is the caller's problem, and payment providers RETRY on
+      // 5xx. Answering 500 told Lemon Squeezy to redeliver a webhook we had
+      // permanently and correctly rejected -- forever, and providers disable
+      // endpoints that keep failing. A forgery must be refused in a way that
+      // stops it coming back.
+      const error = new Error('Invalid webhook signature');
+      error.status = 401;
+      throw error;
+    }
     const payload = JSON.parse(rawBody);
     const event = normalizeLemonEvent(payload);
 
@@ -854,7 +865,30 @@ export class RevenueEngine {
     // Refunds are stored as negative revenueEvents (kind: 'refund'), so a
     // plain sum already nets them out of grossRevenue without special-casing.
     const grossCents = events.reduce((sum, event) => sum + Number(event.amountCents || 0), 0);
-    const clearedCents = events.filter(event => Number(event.amountCents || 0) > 0).reduce((sum, event) => sum + Number(event.amountCents || 0), 0);
+    // "Cleared" means a provider witnessed it. This used to sum every positive
+    // revenue event and call the total clearedRevenue, which made a test unlock
+    // -- `POST /api/test/unlock`, which writes a revenue event and no order --
+    // read as $49 cleared on the operator's main dashboard, while
+    // reconcilePaymentRenewalTruthFromStore correctly reported $0 and
+    // REVIEW_REQUIRED for the same lead. Two surfaces disagreeing about the one
+    // number this company is optimizing.
+    //
+    // The rule below is not new: it is the same order-witness match this file
+    // already uses when it computes cleared revenue for refund reconciliation.
+    // The dashboard simply was not using it.
+    //
+    // Positive events with no witnessing order are still reported, under
+    // `unwitnessedRevenue`, so nothing is hidden -- only renamed to what it is.
+    const witnessedByOrder = event => orders.some(order => {
+      const occurrence = order.providerOccurrenceId || order.providerEventId;
+      return event.providerEventId === `${order.eventName}:${occurrence}`
+        || event.providerEventId === order.providerEventId;
+    });
+    const positiveEvents = events.filter(event => Number(event.amountCents || 0) > 0);
+    const clearedCents = positiveEvents.filter(witnessedByOrder)
+      .reduce((sum, event) => sum + Number(event.amountCents || 0), 0);
+    const unwitnessedCents = positiveEvents.filter(event => !witnessedByOrder(event))
+      .reduce((sum, event) => sum + Number(event.amountCents || 0), 0);
     const refundedCents = Math.abs(events.filter(event => Number(event.amountCents || 0) < 0).reduce((sum, event) => sum + Number(event.amountCents || 0), 0));
     const mrrCents = subscriptions.reduce((sum, subscription) => sum + Number(subscription.amountCents || 0), 0);
     const today = new Date().toISOString().slice(0, 10);
@@ -870,6 +904,7 @@ export class RevenueEngine {
       activeSubscriptions: subscriptions.length,
       grossRevenue: grossCents / 100,
       clearedRevenue: clearedCents / 100,
+      unwitnessedRevenue: unwitnessedCents / 100,
       refundedRevenue: refundedCents / 100,
       pendingOrders,
       mrr: mrrCents / 100,

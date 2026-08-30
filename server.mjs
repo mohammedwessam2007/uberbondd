@@ -82,8 +82,22 @@ const bodyText = async req => {
 const parseBody = async req => {
   const content = await bodyText(req);
   if (!content) return {};
-  try { return JSON.parse(content); }
+  let parsed;
+  try { parsed = JSON.parse(content); }
   catch { throw new HttpError(400, 'Malformed JSON body'); }
+  // `null` is valid JSON, and so are a bare number, string, boolean and array.
+  // Every one of the fifteen call sites below reads named fields off the result,
+  // so a body of `null` used to parse cleanly and then throw a TypeError on the
+  // first property access -- surfacing as 500. That is a caller's mistake
+  // reported as a server fault, and a one-word body could produce as many of
+  // them as anyone wanted.
+  //
+  // Refused here rather than at each call site: there is one contract, and it is
+  // the one every caller already assumes.
+  if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    throw new HttpError(400, 'JSON body must be an object');
+  }
+  return parsed;
 };
 // Constant-time comparison so a valid admin token cannot be recovered byte-by-byte
 // through response-timing analysis. timingSafeEqual throws on length mismatch, so
@@ -238,6 +252,10 @@ async function staticFile(req, res) {
 
 function errorStatus(error) {
   if (error instanceof HttpError || error instanceof InputError) return error.status;
+  // An error may carry its own status without being one of our error classes --
+  // a module below the HTTP layer should be able to say "this was the caller's
+  // fault" without importing an HTTP type from the server.
+  if (Number.isInteger(error?.status) && error.status >= 400 && error.status < 600) return error.status;
   if (error instanceof ConflictError) return 409;
   if (error instanceof StoreError && error.code === 'FOREIGN_KEY') return 422;
   if (/Too many|cap reached/i.test(error.message)) return 429;
@@ -245,7 +263,17 @@ function errorStatus(error) {
   return 500;
 }
 
-const server = http.createServer(async (req, res) => {
+// The request handler, named and exported rather than inline.
+//
+// It was an anonymous function passed straight to http.createServer, which meant
+// the only way to reach 87 branches of routing, admission and refusal logic was
+// to bind a port. That is why this file went so long with no gate on it at all.
+//
+// Exporting it does not by itself make importing this module free -- the module
+// scope above still validates config and initializes a store -- but it lets a
+// test drive a request through the real routing without a socket, and it lets
+// the mutation war reach these branches.
+export const requestHandler = async (req, res) => {
   try {
     const url = new URL(req.url, config.baseUrl);
     const method = req.method;
@@ -316,7 +344,23 @@ const server = http.createServer(async (req, res) => {
     }
     if (method === 'POST' && url.pathname === '/webhooks/lemonsqueezy') {
       const raw = await bodyText(req);
-      return json(res, 200, await revenue.handleLemonWebhook(raw, req.headers['x-signature']));
+      const outcome = await revenue.handleLemonWebhook(raw, req.headers['x-signature']);
+      // Acknowledge, do not echo.
+      //
+      // This used to return the whole normalized event, which carries the
+      // provider's `attributes` verbatim -- including `user_email` -- plus a
+      // derived `customerEmail`. The recipient is the provider that sent it, so
+      // this was never disclosure to a third party, but it put a buyer's address
+      // into every delivery log and proxy on the path for no reason, and it
+      // undid the payload minimization the durable side already does.
+      //
+      // A webhook acknowledgement needs to say "received, and whether it was new".
+      return json(res, 200, {
+        ok: outcome?.ok !== false,
+        duplicate: outcome?.duplicate === true,
+        eventName: outcome?.event?.eventName || null,
+        providerObjectId: outcome?.event?.providerObjectId || null
+      });
     }
 
     if (url.pathname.startsWith('/api/agent-relay')) {
@@ -593,9 +637,19 @@ const server = http.createServer(async (req, res) => {
         : error.message;
     return json(res, status, { error: message });
   }
-});
+};
 
-server.listen(config.port, () => console.log(`UberBond Revenue Engine running on ${config.baseUrl} using ${config.storeBackend}`));
+export default requestHandler;
+
+const server = http.createServer(requestHandler);
+
+// Listening, and the signal handlers below, are what make importing this module
+// expensive. They run only when this file IS the program, using the same idiom
+// scripts/run-tests.mjs and scripts/mutation-war.mjs already use.
+const isEntryPoint = import.meta.url === `file://${process.argv[1]}`;
+if (isEntryPoint) {
+  server.listen(config.port, () => console.log(`UberBond Revenue Engine running on ${config.baseUrl} using ${config.storeBackend}`));
+}
 
 let shuttingDown = false;
 async function shutdown(signal) {
@@ -610,5 +664,7 @@ async function shutdown(signal) {
   });
   setTimeout(() => process.exit(1), 10000).unref();
 }
-process.on('SIGTERM', () => shutdown('SIGTERM'));
-process.on('SIGINT', () => shutdown('SIGINT'));
+if (isEntryPoint) {
+  process.on('SIGTERM', () => shutdown('SIGTERM'));
+  process.on('SIGINT', () => shutdown('SIGINT'));
+}

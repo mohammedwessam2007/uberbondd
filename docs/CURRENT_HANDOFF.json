@@ -1,12 +1,12 @@
 {
   "schemaVersion": "uberbond-handoff-1.4.0",
   "sourceMainShaAtMissionStart": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
-  "sourceCommit": "b7b3703e3589b201b741f4d148137d652e291cc6",
-  "currentMainShaAtFinalRefresh": "b7b3703e3589b201b741f4d148137d652e291cc6",
-  "currentMainCommitMessage": "Close the two production paths no gate executed, and ratchet the gap shut (#235)",
+  "sourceCommit": "0b4179538441d9c52fed3cc40cb268e6e3847218",
+  "currentMainShaAtFinalRefresh": "0b4179538441d9c52fed3cc40cb268e6e3847218",
+  "currentMainCommitMessage": "Stop a forged webhook being retried forever, and stop the receipt echoing the buyer (#240)\n\nVerified by local execution: syntax 620 files parse; deterministic 2860 tests, 2812 pass, 0 fail, 48 skipped; relay-safety 150/150; real PostgreSQL 158/158 on 16.13; browser 1/1; mutation war 93 mutations, 93 killed; npm audit 0 vulnerabilities.\n\nThe signature check itself was sound and is unchanged: nine forgery shapes fail it and none creates money.",
   "missionIssue": 173,
   "missionIssueState": "OPEN",
-  "activeMission": "Continue NIGHTFALL MAX with distribution and first economic proof as the priority while maturing current Growth Graph infrastructure. Reuse merged autonomy operations hardening rather than recreating proxy, dedupe, billing, maintenance or telemetry systems.",
+  "activeMission": "Maintain exact repository/cloud truth and advance toward the first lawful cleared payment; keep the canary concentrated, do not activate external effects, and only add software after repeated accepted demand.",
   "executiveMissions": {
     "claude": "docs/prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md",
     "sol": "docs/prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md",
@@ -36,38 +36,45 @@
     "The three slices were consolidated locally from exact canonical main into integration/nightfall-hardening-20260829 and passed the combined 28-test focused suite, 607-file syntax gate, 2788-test deterministic gate, relay safety, mutation war, reachability and canon gates.",
     "The exact 22-file combined candidate was published and verified byte-for-byte on the remote integration/nightfall-hardening-20260829 backup branch; its latest full-verification contents-API commit receipt is f4d00096122bac41dc993b1b5de4c64138ed6eab.",
     "PR #232 merged the #231/#230 integration and repaired the browser-crawler P0; PR #233 merged billing visibility and deterministic-gate repairs; PR #235 merged the production-coverage ratchet and maintenance/discovery hostile tests. PR #214 remains superseded.",
-    "The local discovery integration smoke passed with 2 previewed and 2 imported records, and the broader zero-effect review probe passed 33/33 without live provider or outbound effects."
+    "The local discovery integration smoke passed with 2 previewed and 2 imported records, and the broader zero-effect review probe passed 33/33 without live provider or outbound effects.",
+    "PR #236 merged admin/server coverage gates; PR #237 extracted the request handler and rejects non-object JSON bodies.",
+    "PR #238 merged the minimal Vercel root-entrypoint default-export hotfix after a live 500 runtime error; production recovered.",
+    "PR #239 merged provider-witnessed cleared-revenue semantics and production refusal of test unlock.",
+    "PR #240 merged 401 handling for forged webhooks and acknowledgement minimization so buyer data is not echoed.",
+    "Connected Vercel proves an exact-current-main READY production deployment at dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h; public health is reachable but autopilot and worker remain off."
   ],
   "blockers": [
-    "BLOCKED — GitHub Actions: current main has no workflow runs; the only fresh hosted run inspected (PR #234, 33287946432) ended failure with browser/postgres/deterministic jobs whose step arrays were empty. Hosted CI is infrastructure non-evidence until a runner executes steps.",
-    "BLOCKED — local runtime gates: this environment has no OMNIA_V9_TEST_DATABASE_URL and no compatible pinned Chromium. The exact current main therefore cannot independently earn real-PostgreSQL or browser evidence here; mutation war reports one surviving MONEY-17 mutation rather than laundering a skipped database test into a kill.",
-    "OBSERVED — public production is exact-main READY but not economically live: deployment dpl_99RKMMiHgExEnmDmqPJC6XQicRkv is source b7b3703e…; /api/health is 200 with autopilot=false, worker.online=false, activeJobs=0; /api/public/config has bookingUrl empty; /privacy.html and /terms.html are 404.",
-    "BLOCKED — payment and customer proof: no provider was activated or called, no payment cleared, no accepted delivery or renewal exists, and no customer contact is authorized. Legal/tax/payment eligibility and buyer acceptance remain external gates."
+    "BLOCKED — Hosted CI: current main has no GitHub Actions workflow runs; the fresh PR #234 run 33287946432 ended with deterministic, PostgreSQL and browser jobs whose step arrays were empty. This is infrastructure non-evidence, not a source pass.",
+    "NOT_PROVEN — Post-hotfix local rerun: the current runner disconnected before a fresh exact-current-main execution. PR #240's metrics are SOURCE_RECEIPT from its controlled runner; this lane does not relabel them as locally rerun.",
+    "OBSERVED — Vercel production is exact-main READY at dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h from 0b4179538441d9c52fed3cc40cb268e6e3847218; /api/health is 200 with storeBackend=postgres, autopilot=false, worker.online=false and activeJobs=0. /api/public/config has bookingUrl empty; /privacy.html and /terms.html are 404. Cron registration/delivery is not proven.",
+    "BLOCKED — Payment/customer proof: no provider is activated, no money cleared, no accepted delivery or renewal exists, and no contact/outbound authorization is present. Egyptian legal/tax/payment eligibility remains external."
   ],
   "nextActions": [
-    "OWNER — CI: inspect GitHub Actions settings/runner capacity and restore step-level execution; 2–5 minutes, $0 unless the account requires a paid plan; evidence is non-zero-step successful logs on the exact current main SHA. Default: do it before treating hosted checks as gates.",
-    "OWNER — payments/site: obtain Egyptian legal/tax/payment eligibility and then authorize one provider plus reviewed privacy/terms and a paid checkout; 10–20 minutes plus provider fees/KYC if applicable; evidence is a provider-cleared receipt, accepted delivery, and renewal—not a webhook alone. Default: defer activation until eligibility is confirmed.",
-    "OWNER — operations: provide only consequence-specific secrets/runtimes when a gate is intentionally activated (throwaway PostgreSQL URL, compatible Chromium path, or approved admin/cron secret); 3–5 minutes, $0 for test runtimes; evidence is a redacted runtime receipt. Default: keep all external effects disabled."
+    "OWNER — CI: inspect GitHub Actions settings/runner capacity and restore step-level execution; 2–5 minutes, $0 unless the account requires a paid plan. Evidence: non-zero-step logs for exact current main 0b4179538441d9c52fed3cc40cb268e6e3847218; default do before relying on hosted checks.",
+    "OWNER — controlled tests: provide a throwaway PostgreSQL URL and existing pinned Chromium path only if a fresh exact-head runtime receipt is worth the setup; 3–5 minutes, $0 for existing runtimes. Evidence: redacted current-head PostgreSQL/browser/mutation receipts; default defer.",
+    "OWNER — Egypt payment/legal: obtain legal/tax/payment eligibility, then authorize one provider and reviewed privacy/terms/checkout; 10–20 minutes plus any provider/KYC fees. Evidence: provider-cleared receipt, accepted delivery and renewal; default defer until eligibility is confirmed."
   ],
   "production": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
     "projectName": "uberbondd",
     "publicUrl": "https://uberbondd.vercel.app/",
-    "observedProductionDeploymentId": "dpl_99RKMMiHgExEnmDmqPJC6XQicRkv",
-    "observedProductionSourceSha": "b7b3703e3589b201b741f4d148137d652e291cc6",
+    "observedAt": "2026-08-30T06:06:45Z",
+    "observedProductionDeploymentId": "dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h",
+    "observedProductionSourceSha": "0b4179538441d9c52fed3cc40cb268e6e3847218",
     "observedProductionState": "READY",
-    "currentMainSha": "b7b3703e3589b201b741f4d148137d652e291cc6",
+    "currentMainSha": "0b4179538441d9c52fed3cc40cb268e6e3847218",
     "currentMainExactProduction": true,
     "latestDeploymentBlocker": null,
     "status": "EXACT_CURRENT_MAIN_PRODUCTION_READY__PUBLIC_RUNTIME_PARTIAL"
   },
   "productionRuntimeTruth": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
-    "observedAt": "2026-08-30T05:04:40Z",
-    "window": "7d",
+    "observedAt": "2026-08-30T06:06:45Z",
+    "window": "2h",
     "status": "NO_RUNTIME_ERRORS_FOUND",
     "source": "Connected Vercel runtime-error aggregation",
-    "note": "Read-only connected Vercel runtime-error aggregate for exact current-main production deployment dpl_99RKMMiHgExEnmDmqPJC6XQicRkv; no runtime error clusters were returned. Runtime health still reports autopilot=false and worker.online=false."
+    "deploymentId": "dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h",
+    "note": "Health and runtime error reads are current and read-only. The worker is offline and no scheduled execution receipt exists."
   },
   "commercialDecision": {
     "canary": "White-label Lead-Path Revenue Leak Evidence Sprint for agencies serving HVAC, plumbing and electrical businesses",
@@ -77,49 +84,58 @@
     "customers": 0,
     "clearedRevenue": 0,
     "acceptedDeliveries": 0,
-    "retainedCustomers": 0
+    "retainedCustomers": 0,
+    "canaryStatus": "INTERNAL_HYPOTHESIS_NOT_LIVE",
+    "renewals": 0,
+    "disconfirmingEvidence": [
+      "CallRail lists plans around $50/month; home-service CRMs already automate missed-call and estimate follow-up; CyberFunnels publicly advertises a $197 pipeline diagnostic. A generic $450 audit is weak unless it proves independent cross-system failures."
+    ],
+    "strategicChannels": [
+      "SBE publicly reports 1,000+ HVAC/plumbing companies and accepts partner applications; Service Nation reports 30,000+ contractors and 100+ vetted vendors. These are strategic channel signals, not first-payment proof."
+    ],
+    "paymentReadiness": "BLOCKED — Lemon Squeezy public docs describe Egypt bank payouts, fees, holds and KYC, but external fulfillment eligibility and actual account approval are unproven; no provider activated."
   },
   "verification": {
-    "executedBy": "local execution in this session, not hosted CI",
+    "executedBy": "SOURCE_RECEIPT from merged PR #240 controlled runner; post-hotfix exact-current-main local rerun is NOT_PROVEN because this runner disconnected",
     "gates": {
-      "check:syntax": "614 files parse (exact b7 main, local 2026-08-30)",
-      "test:deterministic": "2820 tests, 2772 pass, 0 fail, 48 skipped (exact b7 main, local 2026-08-30)",
-      "test:relay-safety": "150/150",
-      "test:postgres-real": "BLOCKED — OMNIA_V9_TEST_DATABASE_URL is not set; 20 real-PostgreSQL suites were not run",
-      "test:browser": "BLOCKED — pinned Playwright Chromium executable is absent",
-      "test:mutation-war": "NOT_PROVEN — 84 mutations, 77 killed, 1 survived (MONEY-17); STORE-01 skipped without PostgreSQL",
-      "npm audit --omit=dev": "0 vulnerabilities"
+      "check:syntax": "SOURCE_RECEIPT (#240): 620 files parse",
+      "test:deterministic": "SOURCE_RECEIPT (#240): 2860 tests, 2812 pass, 0 fail, 48 skipped",
+      "test:relay-safety": "SOURCE_RECEIPT (#240): 150/150",
+      "test:postgres-real": "SOURCE_RECEIPT (#240): 158/158 against PostgreSQL 16.13",
+      "test:browser": "SOURCE_RECEIPT (#240): 1/1",
+      "test:mutation-war": "SOURCE_RECEIPT (#240): 93 mutations, 93 killed, 0 not killed",
+      "npm audit --omit=dev": "SOURCE_RECEIPT (#240): 0 vulnerabilities"
     },
-    "runtimeNote": "Local exact-main verification is authoritative for the commands actually run. PR #235's 155/155 PostgreSQL, 1/1 browser and 84/84 mutation figures were independently produced on its Claude runner and remain source-owned historical evidence; they were not reproducible in this container because the URL and Chromium runtime are absent.",
-    "productionCoverage": "2/2 production-coverage-ratchet tests pass locally; PR #235 source-owned receipt reports 126 production-reachable modules and 0 unexercised."
+    "runtimeNote": "The committed system-readiness artifact on #240 records 127/127 for its PostgreSQL measurement while the PR body records 158/158; this lane preserves that contradiction instead of choosing silently. Neither is relabeled as a fresh local run. Vercel deployment and /api/health were independently read-only verified at the exact 0b4179538441d9c52fed3cc40cb268e6e3847218 head.",
+    "productionCoverage": "SOURCE_RECEIPT (#240): 126 production-reachable src modules, all 5 API routes and server.mjs exercised; worker.mjs exempt as wiring."
   },
   "maximumThreeFounderActions": [
     {
-      "reason": "The real-only PostgreSQL suites cannot run without an external database URL; repository code cannot create or authorize that database.",
-      "screen": "GitHub Actions or a disposable PostgreSQL provider console",
-      "action": "Provide one temporary throwaway PostgreSQL URL to this controlled test runner, never production/customer data.",
-      "founderMinutes": 3,
-      "costUsd": 0,
-      "evidenceRequired": "Redacted URL host plus a 20-suite exact-main receipt; no credential value in chat or Git.",
-      "defaultRecommendation": "Defer until a runtime proof decision is worth the setup; no production database."
-    },
-    {
-      "reason": "Current main has no GitHub Actions workflow run, and PR #234's fresh run failed with zero steps. Hosted CI cannot currently produce evidence.",
-      "screen": "https://github.com/mohammedwessam2007/uberbondd/settings/actions",
-      "action": "Open Actions settings and inspect runner availability, billing/minutes, and the workflow run's job logs; restore a step-executing runner if disabled.",
+      "reason": "Hosted CI is producing zero executable steps, so it cannot provide source evidence.",
+      "screen": "GitHub repository Settings → Actions",
+      "action": "Inspect runner availability, billing/minutes and the failed run's job logs; restore step execution if disabled.",
       "founderMinutes": 2,
       "costUsd": 0,
-      "evidenceRequired": "A non-zero-step successful run on exact b7b3703e… (or a documented account-level blocker).",
-      "defaultRecommendation": "Do this before relying on hosted checks; do not upgrade or spend without a separate decision."
+      "evidenceRequired": "Non-zero-step successful run on exact current main 0b4179538441d9c52fed3cc40cb268e6e3847218 or an account-level blocker.",
+      "defaultRecommendation": "DO THIS before treating hosted checks as gates; do not upgrade/spend without separate approval."
     },
     {
-      "reason": "A compatible pinned Chromium path is required for the browser and full mutation gates; the runner cannot install it through the available network.",
-      "screen": "Controlled test runner / Playwright browser cache",
-      "action": "Supply an existing compatible Chromium executable path or an approved isolated runtime; do not bypass provider controls or use fingerprint spoofing.",
-      "founderMinutes": 3,
+      "reason": "A fresh exact-head PostgreSQL/browser receipt is unavailable after the runner disconnected.",
+      "screen": "Controlled test runner / Playwright cache",
+      "action": "Supply an existing throwaway PostgreSQL URL and pinned Chromium executable path; do not use production/customer data.",
+      "founderMinutes": 5,
       "costUsd": 0,
-      "evidenceRequired": "Executable path plus a redacted 1/1 browser receipt and mutation-war runtime classification.",
-      "defaultRecommendation": "Defer; deployment and deterministic gates are already locally green."
+      "evidenceRequired": "Redacted exact-0b4179538441d9c52fed3cc40cb268e6e3847218 PostgreSQL, browser and mutation receipts with runtime presence/absence explicit.",
+      "defaultRecommendation": "DEFER until it changes a merge or payment decision."
+    },
+    {
+      "reason": "Only the owner can clear Egyptian legal/tax/payment eligibility and authorize provider activation/customer-facing checkout.",
+      "screen": "Egyptian counsel/tax adviser plus chosen payment provider console",
+      "action": "Confirm service eligibility, KYC/KYB, settlement/refunds/disputes and reviewed privacy/terms; then authorize one bounded checkout.",
+      "founderMinutes": 20,
+      "costUsd": 0,
+      "evidenceRequired": "Eligibility decision, provider account state, provider-cleared receipt, accepted delivery and renewal evidence.",
+      "defaultRecommendation": "DEFER; no activation or spend is implied."
     }
   ],
   "externalEffectLedger": {
@@ -139,63 +155,57 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE_EXCEPT_EXISTING_PROJECT_DEPLOYMENT_AUTHORIZED_WHEN_VERIFIED",
-  "headSha": "b7b3703e3589b201b741f4d148137d652e291cc6",
+  "headSha": "0b4179538441d9c52fed3cc40cb268e6e3847218",
   "cloudActivationTruth": {
     "fullProjectExists": "PROVEN_BY_CONNECTED_API",
     "privateLiteProjectExists": "PROVEN_BY_CONNECTED_API",
     "currentMainExactProductionDeploymentProven": true,
+    "productionDeploymentId": "dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h",
+    "productionSourceSha": "0b4179538441d9c52fed3cc40cb268e6e3847218",
+    "productionState": "READY",
     "cronRegistrationProven": false,
     "cronDeliveryProven": false,
-    "contradiction": "Earlier connector observations returned an empty project list/404; current connected Vercel API resolves both named projects. The contradiction is now resolved for production: the full project has a READY exact-main deployment dpl_99RKMMiHgExEnmDmqPJC6XQicRkv from b7b3703e…. Older negative observations remain historical connector-scope evidence, not current project truth.",
     "observations": [
       {
-        "claim": "two projects exist (full + private lite)",
-        "observedVia": "another lane's recorded audit",
-        "observedAt": "2026-08-28",
-        "evidenceRef": null
+        "label": "OBSERVED",
+        "at": "2026-08-30T06:06:45Z",
+        "source": "Vercel project/deployment API",
+        "fact": "Full uberbondd project exists; latest production deployment is READY and source matches current main."
       },
       {
-        "claim": "zero projects on team_A9LnjIuS5PU0rNetsHMu1N0r",
-        "observedVia": "Vercel API list_projects",
-        "observedAt": "2026-08-28",
-        "evidenceRef": "vercel:list_projects->[]"
+        "label": "OBSERVED",
+        "at": "2026-08-30T06:06:45.341Z",
+        "source": "Vercel public health",
+        "fact": "/api/health returned 200; PostgreSQL configured; autopilot=false; worker offline; activeJobs=0"
       },
       {
-        "claim": "zero projects on team_A9LnjIuS5PU0rNetsHMu1N0r",
-        "observedVia": "Vercel API list_projects (re-query)",
-        "observedAt": "2026-08-29",
-        "evidenceRef": "vercel:list_projects->[]"
+        "label": "OBSERVED",
+        "at": "2026-08-30T05:59:02Z",
+        "source": "Vercel public route",
+        "fact": "/api/public/config returned 200 with bookingUrl empty."
       },
       {
-        "claim": "the named project id and slug are both unreachable on team_A9LnjIuS5PU0rNetsHMu1N0r",
-        "observedVia": "connected Vercel MCP get_project(prj_RWUPf14w1xIz9NK92AbNW5z7qDCg) and get_project(uberbondd) on team_A9LnjIuS5PU0rNetsHMu1N0r",
-        "observedAt": "2026-08-29",
-        "result": "404 Not Found for both the exact project id and the slug",
-        "evidenceRef": "docs/CLOUD_ACTIVATION_CONTRACT.md#observed-deployment-truth--a-contradiction-preserved",
-        "note": "A 404 on an exact project id is a direct answer, unlike an empty list which could be a scope artifact. It still proves only that the project is unreachable through this connection."
-      },
-      {
-        "claim": "zero projects, and 404 on the exact project id, through a freshly reconnected connector",
-        "observedVia": "Vercel MCP (new server instance this session): list_teams, list_projects, get_project(prj_RWUPf14w1xIz9NK92AbNW5z7qDCg)",
-        "observedAt": "2026-08-29 (fourth probe)",
-        "result": "one Hobby team, projects [], 404 for the exact project id",
-        "note": "This instance is a fresh connection, which rules out a stale session as the explanation for the earlier empty results. The repository also contains no .vercel/project.json, so nothing links it to a project from this side -- though a dashboard-created Git link would not require one, so that is context rather than proof."
+        "label": "OBSERVED",
+        "at": "2026-08-30T05:59:04Z",
+        "source": "Vercel public routes",
+        "fact": "/privacy.html and /terms.html returned 404."
       }
     ],
-    "resolvedBy": "Connected Vercel project/deployment queries on 2026-08-30; dpl_99RKMMiHgExEnmDmqPJC6XQicRkv is READY production from exact current main b7b3703e…. Route health is reachable, but worker/cron liveness and payment remain unproven."
+    "resolvedBy": "Connected Vercel project/deployment queries on 2026-08-30; exact current main 0b4179538441d9c52fed3cc40cb268e6e3847218 is READY. Runtime, payment and customer proof remain external."
   },
   "currentOpenCandidates": [
     {
       "pr": 234,
-      "head": "fa7ac5bf9c2dd633fc6333bc57e3e0da9942df66",
+      "state": "OPEN_DRAFT",
+      "headBeforeRefresh": "4330836a3584be2600020aaab83b0b3722a19b17",
       "base": "main",
-      "baseShaAtLastRemoteRead": "3d5e3a81e75a2433776ca7b822220d6ea767d1b5",
-      "status": "OPEN_DRAFT_STALE_BASE_BEING_REFRESHED",
-      "mission": "truth-only current-state and deployment reconciliation",
+      "baseShaAtLastRemoteRead": "0b4179538441d9c52fed3cc40cb268e6e3847218",
+      "status": "REFRESHED_ON_CURRENT_MAIN_BY_THIS_RECEIPT",
+      "mission": "Durable Nightfall handoff plus MONEY-17 metadata packet; no source/business effects.",
       "promotionBlockers": [
-        "branch must include current b7b3703e main",
-        "draft has no review",
-        "no merge/deploy authority is needed because production is already exact-main READY"
+        "Hosted CI zero-step failure is non-evidence.",
+        "Post-hotfix exact-current-main local rerun is NOT_PROVEN in this runner.",
+        "Draft requires current-head review before any merge."
       ]
     }
   ],
@@ -210,21 +220,21 @@
     "remoteBackupBranch": "integration/nightfall-hardening-20260829",
     "remoteBackupCommit": "f4d00096122bac41dc993b1b5de4c64138ed6eab",
     "integrationPullRequest": 231,
-    "note": "GitHub repository operations are not customer-facing external effects.",
+    "note": "This lane writes only repository objects/branch metadata; no customer, provider, payment, DNS or credential effects.",
     "finalReconciliation": {
-      "observedAt": "2026-08-30T05:12:00Z",
-      "currentMain": "b7b3703e3589b201b741f4d148137d652e291cc6",
+      "observedAt": "2026-08-30T06:06:45Z",
+      "currentMain": "0b4179538441d9c52fed3cc40cb268e6e3847218",
       "openPullRequests": 1,
-      "openPullRequestsDetail": "#234 draft documentation reconciliation, head fa7ac5bf9c2dd633fc6333bc57e3e0da9942df66 before this merge refresh",
-      "decision": "NO_MERGE_NO_DEPLOY_BY_THIS_LANE",
-      "reason": "PR #235 already advanced main and exact-main production is READY. This lane is preserving a draft, docs-only receipt; it has not merged or deployed anything."
+      "openPullRequestsDetail": "#234 remains the only open PR, draft; this receipt refreshes its branch onto current main.",
+      "decision": "NO_MERGE_YET",
+      "reason": "Docs/metadata only; current exact-main production is healthy, but hosted CI has zero steps and this lane did not independently rerun the post-hotfix tree."
     },
     "currentMainAdvance": {
-      "pr": 235,
-      "head": "2e0c11baaed3e7664a26ae982f0394cc4ebe5af8",
-      "mergeCommit": "b7b3703e3589b201b741f4d148137d652e291cc6",
+      "pr": 240,
+      "head": "63b89cbf2bfd65154d7760c4bb299653cb626df6",
+      "mergeCommit": "0b4179538441d9c52fed3cc40cb268e6e3847218",
       "state": "MERGED",
-      "summary": "Adds production-coverage ratchet, database-hygiene and discovery refusal suites, and route mutations; does not add commercial or provider effects."
+      "summary": "Forged webhooks now return 401 and acknowledgements omit buyer attributes."
     }
   },
   "lastCompletedSlice": {
@@ -301,6 +311,28 @@
           "HYG-02",
           "HYG-03"
         ]
+      },
+      {
+        "id": "MONEY-18",
+        "severity": "P1",
+        "origin": "pre-existing, fixed in PR #239",
+        "summary": "Dashboard counted an unwitnessed test unlock as cleared revenue.",
+        "fix": "RevenueEngine.summary now requires a witnessing provider order; unwitnessed revenue is named separately; production refuses ALLOW_TEST_PAYMENT_UNLOCK.",
+        "mutations": [
+          "MONEY-18",
+          "MONEY-19"
+        ]
+      },
+      {
+        "id": "MONEY-20/21",
+        "severity": "P1",
+        "origin": "pre-existing, fixed in PR #240",
+        "summary": "Forged webhooks answered 500 and acknowledgements echoed buyer attributes.",
+        "fix": "Invalid signatures now return 401; webhook acknowledgements contain only receipt status and provider object identity.",
+        "mutations": [
+          "MONEY-20",
+          "MONEY-21"
+        ]
       }
     ],
     "survivedAttackUnchanged": [
@@ -318,9 +350,9 @@
     "nextGatedRemainder": {
       "id": "MONEY-17-METADATA",
       "status": "CLAUDE_PACKET_REQUIRED",
-      "summary": "Mark the MONEY-17 mutation as needsPostgres:true (or otherwise make the harness classify its real-PostgreSQL suite as SKIPPED_NEEDS_POSTGRES) and add a metadata regression test. Without that, a missing runtime is reported as a survived mutation rather than a blocked gate.",
-      "target": "scripts/mutation-war.mjs and its mutation-registry tests",
-      "economicImpact": "Protects gate truth and merge decisions; it does not create customer or payment value by itself.",
+      "summary": "Add needsPostgres:true to the MONEY-17 mutation (or derive it from the suite manifest) and add a registry regression test so missing PostgreSQL is SKIPPED_NEEDS_POSTGRES, never SURVIVED.",
+      "target": "scripts/mutation-war.mjs and tests/sovereignty-proof-closure.test.mjs",
+      "economicImpact": "Protects merge/gate truth; it does not create customer or payment value by itself.",
       "externalEffects": "No provider, payment, customer, deployment, DNS or credential effects."
     }
   },
@@ -334,33 +366,137 @@
     ],
     "reportedConclusion": "failure",
     "classification": "INFRASTRUCTURE_NON_EVIDENCE",
-    "proof": "PR #234's browser, deterministic and postgres jobs returned steps: [], so hosted CI produced no source execution evidence. Current main b7b3703e has no associated GitHub Actions workflow run in the connected read.",
-    "ruling": "Not a pass and not a source failure. Vercel statuses for exact b7b3703e are green, but hosted GitHub CI remains non-evidence until a runner executes steps."
+    "proof": "PR #234's jobs returned steps: [] and current main 0b4179538441d9c52fed3cc40cb268e6e3847218 has no associated Actions workflow runs.",
+    "ruling": "Not a pass and not a source failure; Vercel statuses for current main are green, but hosted CI remains non-evidence until steps execute.",
+    "currentMainWorkflowRuns": []
   },
   "truthRestrictions": [
-    "Zero verified customers, zero cleared revenue, zero accepted deliveries, zero renewals. Unchanged.",
-    "Exact current-main production deployment is proven READY by connected Vercel deployment dpl_99RKMMiHgExEnmDmqPJC6XQicRkv; this does not prove payment clearance, accepted delivery, renewal, worker liveness or cron delivery.",
-    "No provider was called, no message sent, no money moved, no credential or DNS changed."
+    "Zero verified customers, zero cleared revenue, zero accepted deliveries, zero retained customers/renewals. Unchanged and preserved as zero.",
+    "clearedRevenue now means a provider order witnessed the payment, on every surface; the current value is zero because it is zero.",
+    "Exact current-main production deployment dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h is READY and health is 200; this does not prove payment clearance, accepted delivery, renewal, worker liveness or cron delivery.",
+    "No provider called, no message sent, no money moved, no credential or DNS changed by this lane.",
+    "PR #240 source metrics are SOURCE_RECEIPT; post-hotfix exact-current-main local rerun is NOT_PROVEN."
   ],
   "pullRequestFrontier": [
-    {"pr": 188, "state": "CLOSED_UNMERGED", "head": "a2b63e7ca5f0b98856c7d4c89ab62790d176421f", "mergeCommit": null, "note": "superseded by #189"},
-    {"pr": 189, "state": "MERGED", "head": "5aac97a8699dce328d806b7e691ba3c4f5ee0574", "mergeCommit": "6df07870271c02df648aab9af184afd7bfa435e4", "note": "role-bound relay identity"},
-    {"pr": 227, "state": "CLOSED_UNMERGED_DRAFT", "head": "d23c036aa8a5443bf49cca506250717bb3f0ac66", "mergeCommit": null, "note": "superseded predecessor"},
-    {"pr": 228, "state": "CLOSED_UNMERGED_DRAFT", "head": "30c63cea3249d3fc8277f11db435f4a63c185a73", "mergeCommit": null, "note": "superseded predecessor"},
-    {"pr": 229, "state": "CLOSED_UNMERGED_DRAFT", "head": "f5bc15f2581aa92107ed2b1e1a93d137c48a1cc8", "mergeCommit": null, "note": "superseded predecessor"},
-    {"pr": 230, "state": "MERGED", "head": "4371babe4a1695630610b3f9faa5902d9d719b7e", "mergeCommit": "2351569ee4a087c135943451325680fb30d95637", "note": "fail-closed artifact storage"},
-    {"pr": 231, "state": "CLOSED_UNMERGED_DRAFT", "head": "37f59aee6e99958f872c68de093ddfc9630f9709", "mergeCommit": null, "note": "superseded by #232"},
-    {"pr": 232, "state": "MERGED", "head": "225e76afcd0a8a21833cad77dcec111534095df6", "mergeCommit": "a97a5d8fd84f93ac0195391603feb51d143af897", "note": "integration and browser P0 repair"},
-    {"pr": 233, "state": "MERGED", "head": "5ec9092c74b358924b34ab3cd38326e831403d3a", "mergeCommit": "3d5e3a81e75a2433776ca7b822220d6ea767d1b5", "note": "billing visibility and deterministic gate"},
-    {"pr": 234, "state": "OPEN_DRAFT", "head": "fa7ac5bf9c2dd633fc6333bc57e3e0da9942df66", "mergeCommit": null, "note": "docs-only reconciliation; branch is being refreshed onto b7b3703e"},
-    {"pr": 235, "state": "MERGED", "head": "2e0c11baaed3e7664a26ae982f0394cc4ebe5af8", "mergeCommit": "b7b3703e3589b201b741f4d148137d652e291cc6", "note": "production coverage ratchet and hostile tests"}
+    {
+      "pr": 188,
+      "state": "CLOSED_UNMERGED",
+      "head": "a2b63e7ca5f0b98856c7d4c89ab62790d176421f",
+      "mergeCommit": null,
+      "note": "superseded by #189"
+    },
+    {
+      "pr": 189,
+      "state": "MERGED",
+      "head": "5aac97a8699dce328d806b7e691ba3c4f5ee0574",
+      "mergeCommit": "6df07870271c02df648aab9af184afd7bfa435e4",
+      "note": "role-bound relay identity"
+    },
+    {
+      "pr": 227,
+      "state": "CLOSED_UNMERGED_DRAFT",
+      "head": "d23c036aa8a5443bf49cca506250717bb3f0ac66",
+      "mergeCommit": null,
+      "note": "superseded predecessor"
+    },
+    {
+      "pr": 228,
+      "state": "CLOSED_UNMERGED_DRAFT",
+      "head": "30c63cea3249d3fc8277f11db435f4a63c185a73",
+      "mergeCommit": null,
+      "note": "superseded predecessor"
+    },
+    {
+      "pr": 229,
+      "state": "CLOSED_UNMERGED_DRAFT",
+      "head": "f5bc15f2581aa92107ed2b1e1a93d137c48a1cc8",
+      "mergeCommit": null,
+      "note": "superseded predecessor"
+    },
+    {
+      "pr": 230,
+      "state": "MERGED",
+      "head": "4371babe4a1695630610b3f9faa5902d9d719b7e",
+      "mergeCommit": "2351569ee4a087c135943451325680fb30d95637",
+      "note": "fail-closed artifact storage"
+    },
+    {
+      "pr": 231,
+      "state": "CLOSED_UNMERGED_DRAFT",
+      "head": "37f59aee6e99958f872c68de093ddfc9630f9709",
+      "mergeCommit": null,
+      "note": "superseded by #232"
+    },
+    {
+      "pr": 232,
+      "state": "MERGED",
+      "head": "225e76afcd0a8a21833cad77dcec111534095df6",
+      "mergeCommit": "a97a5d8fd84f93ac0195391603feb51d143af897",
+      "note": "integration and browser P0 repair"
+    },
+    {
+      "pr": 233,
+      "state": "MERGED",
+      "head": "5ec9092c74b358924b34ab3cd38326e831403d3a",
+      "mergeCommit": "3d5e3a81e75a2433776ca7b822220d6ea767d1b5",
+      "note": "billing visibility and deterministic gate"
+    },
+    {
+      "pr": 234,
+      "state": "OPEN_DRAFT",
+      "headBeforeRefresh": "4330836a3584be2600020aaab83b0b3722a19b17",
+      "mergeCommit": null,
+      "note": "docs-only reconciliation branch refreshed onto current main in this receipt"
+    },
+    {
+      "pr": 235,
+      "state": "MERGED",
+      "head": "2e0c11baaed3e7664a26ae982f0394cc4ebe5af8",
+      "mergeCommit": "b7b3703e3589b201b741f4d148137d652e291cc6",
+      "note": "production coverage ratchet and hostile tests"
+    },
+    {
+      "pr": 236,
+      "state": "MERGED",
+      "head": "8391608c8d772574bbefe69c712cc817c466ce90",
+      "mergeCommit": "3da29e832701076b4c9b6eeb67ea73c35b4bb735",
+      "note": "admin/server coverage gates"
+    },
+    {
+      "pr": 237,
+      "state": "MERGED",
+      "head": "1f9efc446f7e5137b0a9d90c250d0db7b51d83b4",
+      "mergeCommit": "940afb4c1c5aae84de5e81f97e777d65618d3200",
+      "note": "request-handler extraction and body refusal"
+    },
+    {
+      "pr": 238,
+      "state": "MERGED",
+      "head": "ae9ee3bacde2cd385740a9630c8514fd62003ea4",
+      "mergeCommit": "85f1504d1d4eeaa5df6ff53f2543f3143ec3daa0",
+      "note": "Vercel default-export hotfix"
+    },
+    {
+      "pr": 239,
+      "state": "MERGED",
+      "head": "10ac4cd12f157a21f07df343c09ba4c2efffc348",
+      "mergeCommit": "a3d3403f31831840731c72de5a54643cf7b62a8a",
+      "note": "provider-witnessed cleared-revenue semantics and production test-unlock guard"
+    },
+    {
+      "pr": 240,
+      "state": "MERGED",
+      "head": "63b89cbf2bfd65154d7760c4bb299653cb626df6",
+      "mergeCommit": "0b4179538441d9c52fed3cc40cb268e6e3847218",
+      "note": "forged webhook 401 and acknowledgement minimization"
+    }
   ],
   "reachability": {
     "srcModules": 254,
     "reachableFromProduction": 126,
     "reachableFromOperatorScriptsOnly": 9,
     "noEntryPointAtAll": 119,
-    "note": "src is walked recursively; PR #235 adds a production-coverage ratchet so all 126 production-reachable modules are exercised by at least one gate in its source-owned receipt."
+    "note": "src is walked recursively; current source-owned receipt reports all 126 production-reachable modules exercised by a gate."
   },
   "decisionConsumerSweep": {
     "status": "COMPLETE",

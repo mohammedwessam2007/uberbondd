@@ -406,6 +406,69 @@ export const MUTATIONS = [
     suites: ['tests/build-wiring.test.mjs']
   },
   {
+    id: 'MONEY-20', guard: 'A forged webhook is refused permanently, not retried forever',
+    file: 'src/revenue.mjs',
+    find: '      error.status = 401;',
+    replace: '',
+    suites: ['tests/webhook-route-truth.test.mjs']
+  },
+  {
+    id: 'MONEY-21', guard: 'The webhook acknowledgement does not echo the buyer',
+    file: 'server.mjs',
+    find: '      const outcome = await revenue.handleLemonWebhook(raw, req.headers[\'x-signature\']);',
+    replace: '      const outcome = await revenue.handleLemonWebhook(raw, req.headers[\'x-signature\']); return json(res, 200, outcome);',
+    suites: ['tests/webhook-route-truth.test.mjs']
+  },
+  {
+    id: 'MONEY-18', guard: 'Cleared revenue means a provider witnessed it',
+    file: 'src/revenue.mjs',
+    find: '    const clearedCents = positiveEvents.filter(witnessedByOrder)',
+    replace: '    const clearedCents = positiveEvents',
+    suites: ['tests/cleared-revenue-truth.test.mjs']
+  },
+  {
+    id: 'MONEY-19', guard: 'Production cannot arm a fabricated payment route',
+    file: 'src/config.mjs',
+    find: "  if (cfg.revenue?.allowTestUnlock) throw new Error('Production must not set ALLOW_TEST_PAYMENT_UNLOCK');",
+    replace: '',
+    suites: ['tests/cleared-revenue-truth.test.mjs']
+  },
+  {
+    id: 'SRV-02', guard: 'A non-object JSON body is a client error, not a 500',
+    file: 'server.mjs',
+    find: "  if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {",
+    replace: '  if (false) {',
+    suites: ['tests/server-request-handler.test.mjs']
+  },
+  {
+    id: 'SRV-03', guard: 'The request handler stays reachable without a socket',
+    file: 'server.mjs',
+    find: 'export const requestHandler = async (req, res) => {',
+    replace: 'const requestHandler = async (req, res) => {',
+    suites: ['tests/server-request-handler.test.mjs']
+  },
+  {
+    id: 'SRV-01', guard: 'Security headers reach every response',
+    file: 'server.mjs',
+    find: "  'x-content-type-options': 'nosniff',",
+    replace: '',
+    suites: ['tests/server-http-surface.test.mjs']
+  },
+  {
+    id: 'ADMIN-01', guard: 'Only a real string bearer reaches the health matrix',
+    file: 'api/admin/health-check.mjs',
+    find: " return typeof value==='string'?value:'';",
+    replace: " return String(value||'');",
+    suites: ['tests/admin-health-route.test.mjs']
+  },
+  {
+    id: 'ADMIN-02', guard: 'Configuration is checked before the secret',
+    file: 'api/admin/health-check.mjs',
+    find: "if(!env.ADMIN_HEALTH_SECRET||!env.DATABASE_URL)return send(res,503,{ok:false,status:'REFUSED',reasonCodes:['admin-health-runtime-not-configured']});",
+    replace: "if(false)return send(res,503,{ok:false,status:'REFUSED',reasonCodes:['admin-health-runtime-not-configured']});",
+    suites: ['tests/admin-health-route.test.mjs']
+  },
+  {
     id: 'HYG-01', guard: 'The maintenance cron deletes nothing unless explicitly enabled',
     file: 'api/database-maintenance.mjs',
     find: "if(String(env.MAINTENANCE_ENABLED||'').toLowerCase()!=='true')",
@@ -696,6 +759,12 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       // it. Routes are where admission and enablement checks live, which is
       // exactly the kind of guard worth sabotaging.
       cpSync(join(repoRoot, 'api'), join(root, 'api'), { recursive: true });
+      // The process entry points, for the same reason as `api`: a suite that
+      // spawns server.mjs runs it from the sandbox, so a mutation of it only
+      // means anything if the sandbox has it.
+      for (const entry of ['server.mjs', 'worker.mjs']) {
+        try { cpSync(join(repoRoot, entry), join(root, entry)); } catch { /* absent in a trimmed tree */ }
+      }
       cpSync(join(repoRoot, 'package.json'), join(root, 'package.json'));
       cpSync(join(repoRoot, 'node_modules'), join(root, 'node_modules'), { recursive: true, dereference: false });
 

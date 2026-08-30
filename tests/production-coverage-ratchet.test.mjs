@@ -94,6 +94,66 @@ test('every production-reachable module is executed by some gate', () => {
 // A ratchet that cannot detect anything protects nothing, and this one is a
 // subtraction over two derived sets -- easy to make vacuously true by widening
 // what counts as a gate.
+// Routes are the actual production entry points, so a route no gate runs is
+// worse than a module no gate runs. Extending the same subtraction to `api/`
+// found `api/admin/health-check.mjs`: the operator's only window into system
+// health, whose bearer check was the only thing between the internet and a map
+// of the system, and which nothing executed.
+test('every API route is executed by some gate', () => {
+  const exercised = closureOf(gateSuites());
+  const unexercised = filesUnder('api').filter(file => !exercised.has(file));
+  assert.deepEqual(unexercised, [],
+    'these routes are production entry points and no gate runs them. A route is where ' +
+    'admission, enablement and refusal live, so an untested one is the worst place for a ' +
+    'defect to hide.');
+});
+
+// The process entry points, and an honest split between them.
+//
+// `worker.mjs` is 60 lines and 3 branches: genuinely wiring, and exempt for the
+// reason entry points usually are -- importing it starts a worker loop, and a
+// gate that started and stopped processes to assert wiring would be a worse
+// trade than asserting the wiring directly.
+//
+// `server.mjs` was never that. It is 614 lines with 87 `if`/`switch` statements
+// behind one http.createServer, and for a long time no gate executed any of it:
+// the handler is an inline anonymous function and importing the module runs
+// validateStartupConfig, creates a store and awaits store.init(), so nothing
+// could reach the routing logic without a running process.
+//
+// So a gate runs the process. `tests/server-http-surface.test.mjs` spawns the
+// real server on loopback with a throwaway JSON store and probes the surface
+// that matters. Executing a module by spawning it is still executing it, which
+// is why "exercised" below means imported OR spawned -- an import closure alone
+// would report this as uncovered and be wrong about it.
+const SPAWN_EXEMPT_ENTRY_POINTS = ['worker.mjs'];
+
+function spawnedByGate(entry) {
+  return gateSuites().some(suite => {
+    let source = '';
+    try { source = readFileSync(join(repoRoot, suite), 'utf8'); } catch { return false; }
+    return source.includes('spawn') && source.includes(entry);
+  });
+}
+
+test('worker.mjs is wiring, which is why it is exempt', () => {
+  const source = readFileSync(join(repoRoot, 'worker.mjs'), 'utf8');
+  const branches = (source.match(/\bif\s*\(|\bswitch\s*\(/g) || []).length;
+  assert.ok(branches <= 10,
+    `worker.mjs has ${branches} branches. It is exempt from this ratchet because it only wires ` +
+    'modules together; that exemption stops being true once it decides things.');
+  assert.deepEqual(SPAWN_EXEMPT_ENTRY_POINTS, ['worker.mjs'],
+    'the exempt list is one entry long on purpose -- adding to it needs the same argument');
+});
+
+test('server.mjs is executed by a gate, not exempted from one', () => {
+  const exercised = closureOf(gateSuites());
+  assert.ok(exercised.has('server.mjs') || spawnedByGate('server.mjs'),
+    'server.mjs carries hundreds of branches of production routing, admission and refusal logic. ' +
+    'A gate must run it -- by import once the handler is extractable, or by spawning the process ' +
+    'until then. It must not join the exempt list.');
+});
+
 test('the ratchet detects a production module no gate imports', () => {
   const exercised = closureOf(gateSuites());
   const invented = 'src/a-module-no-gate-imports.mjs';

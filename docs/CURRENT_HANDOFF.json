@@ -40,12 +40,14 @@
   ],
   "blockers": [
     "OWNER/EXTERNAL: the connected Vercel account lists the full and private-lite projects and a READY production deployment, but that deployment is from older source 0b417953… rather than current main 1cf196b…. Both current-main Vercel checks report api-deployments-free-per-day/build-rate-limit. No paid upgrade and no circumvention was attempted.",
+    "PREVIEW CONFIG: exact-head PR #245 deployments are READY, but the full preview /api/health returned FUNCTION_INVOCATION_FAILED at 2026-08-30T08:33:28Z. Runtime logs identify validateStartupConfig refusing a missing or weak ADMIN_TOKEN (at least 32 characters). This lane cannot read or set secrets; no secret was exposed.",
     "CI: hosted GitHub Actions runs report failure on jobs where no runner was assigned and steps were []. INFRASTRUCTURE_NON_EVIDENCE -- neither a pass nor a source failure. Every merge this session rests on locally executed gates.",
     "EXTERNAL: no outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Each is an external activation, not an engineering task.",
     "DEPLOYMENT CONFIG: a prior source receipt says TRUST_PROXY_HOPS is unset. This lane cannot read or write environment variables. Confirm the one-proxy topology first; then set production TRUST_PROXY_HOPS=1 only for exactly one trusted proxy. Do not guess or set a higher value."
   ],
   "nextActions": [
     "OWNER: verify the production topology and set TRUST_PROXY_HOPS=1 only if exactly one trusted proxy fronts the deployment. Until then the public intake limit counts every caller as one identity -- fail-closed, but not intended.",
+    "OWNER: in Vercel, add or verify a strong ADMIN_TOKEN for the exact project environment (never return the value), then re-check /api/health. The preview failure is configuration, not a reason to promote or retry blindly.",
     "ANY LANE: a payment refused as PENDING_OR_UNCLEAR is not surfaced anywhere an operator looks; the command center raises only REVIEW_REQUIRED. The right fix distinguishes an expected non-payment (on_trial) from an anomalous one (unpaid at creation), which is a decision worth making deliberately.",
     "ANY LANE: a payment in a currency other than USD is not amount-checked against the product price, because the configured prices carry no currency. The fix is per-currency prices in configuration, which is an owner decision about what the business sells in.",
     "ANY LANE: draft PR #234 carries a payment-rail research receipt and six research sources worth keeping. Its handoff and canon edits are superseded and would regress main if merged. Findings are on the PR.",
@@ -62,7 +64,17 @@
     "currentMainSha": "1cf196b72f7d2ad85203efcccdb374f198d8ac52",
     "currentMainExactProduction": false,
     "latestDeploymentBlocker": "API_DEPLOYMENTS_FREE_PER_DAY_ON_CURRENT_MAIN_CHECKS",
-    "status": "PUBLIC_SITE_LIVE__PRODUCTION_STALE_RELATIVE_TO_MAIN"
+    "status": "PUBLIC_SITE_LIVE__PRODUCTION_STALE_RELATIVE_TO_MAIN",
+    "latestExactHeadPreview": {
+      "sourceSha": "85cb685def5d8e81e62420117dbb68811f314f6f",
+      "fullDeploymentId": "dpl_AqCBaSHKs2Noph4W5ThX2fFAMQn9",
+      "fullState": "READY",
+      "fullHealth": "HTTP_500_FUNCTION_INVOCATION_FAILED_MISSING_OR_WEAK_ADMIN_TOKEN",
+      "liteDeploymentId": "dpl_BRiFmcBJLJJ6ajfy12QhpcubuVsS",
+      "liteState": "READY",
+      "target": "preview",
+      "observedAt": "2026-08-30T08:33:28Z"
+    }
   },
   "productionRuntimeTruth": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
@@ -103,7 +115,7 @@
       "action": "Confirm exactly one trusted proxy fronts production. If true, set TRUST_PROXY_HOPS=1 for Production and return only a redacted setting confirmation. If the topology is different, leave it unset and report the topology.",
       "founderMinutes": 2,
       "costUsd": 0,
-      "evidenceRequired": "Whether that deployment page loads for you, and under which account.",
+      "evidenceRequired": "A redacted confirmation of the trusted proxy topology and the resulting TRUST_PROXY_HOPS setting (never the secret value).",
       "defaultRecommendation": "Do this before enabling public intake; never guess a higher hop count."
     },
     {
@@ -116,13 +128,13 @@
       "defaultRecommendation": "Worth checking, not urgent. Local gates cover the same suites today."
     },
     {
-      "reason": "vercel.json now registers two cron paths. Vercel Hobby permits two cron jobs, so the system is exactly at the ceiling; a third would be rejected at deploy time rather than at review time.",
-      "screen": "vercel.json in the repository",
-      "action": "No action needed now. Noted so the next cron addition is a decision rather than a deploy failure.",
-      "founderMinutes": 0,
+      "reason": "The exact-head preview builds but cannot start because Vercel does not currently expose a strong ADMIN_TOKEN to the production validator; only the owner can configure this secret safely.",
+      "screen": "Vercel dashboard → uberbondd → Settings → Environment Variables → Preview/Production",
+      "action": "Create or verify ADMIN_TOKEN for the needed environment with at least 32 characters. Do not paste or return its value. Re-run the exact preview /api/health check after saving.",
+      "founderMinutes": 3,
       "costUsd": 0,
-      "evidenceRequired": "none",
-      "defaultRecommendation": "Do nothing. Recorded for the next lane that wants to add a schedule."
+      "evidenceRequired": "Redacted variable-name/scope confirmation and HTTP result from /api/health; never the secret.",
+      "defaultRecommendation": "Do this before any production promotion; use a random 32+ character secret and keep it out of GitHub."
     }
   ],
   "externalEffectLedger": {
@@ -229,6 +241,21 @@
         "result": "HTTP 200; ok=true, storeBackend=postgres, autopilot=false, worker offline, activeJobs=0",
         "evidenceRef": "vercel:web_fetch->health-200",
         "note": "This is public runtime evidence for the observed production deployment, not proof of current-main source, scheduled execution, payment or acceptance."
+      },
+      {
+        "claim": "exact-head full preview deployment is READY but its health route fails startup validation",
+        "observedVia": "connected Vercel get_deployment and web fetch for PR #245 deployment dpl_AqCBaSHKs2Noph4W5ThX2fFAMQn9",
+        "observedAt": "2026-08-30T08:33:28Z",
+        "result": "READY, source 85cb685def5d8e81e62420117dbb68811f314f6f; /api/health HTTP 500 FUNCTION_INVOCATION_FAILED",
+        "evidenceRef": "vercel:web_fetch->FUNCTION_INVOCATION_FAILED",
+        "note": "Runtime log names validateStartupConfig: Production requires a strong ADMIN_TOKEN of at least 32 characters. No secret value was read or persisted."
+      },
+      {
+        "claim": "exact-head lite preview deployment is READY",
+        "observedVia": "connected Vercel get_deployment for PR #245 deployment dpl_BRiFmcBJLJJ6ajfy12QhpcubuVsS",
+        "observedAt": "2026-08-30T08:33:28Z",
+        "result": "READY, source 85cb685def5d8e81e62420117dbb68811f314f6f; target preview",
+        "evidenceRef": "vercel:get_deployment->READY"
       }
     ],
     "resolvedBy": "Connected Vercel project/deployment queries and public health fetch on 2026-08-30; exact-current-main production still needs a fresh READY deployment receipt."
@@ -238,10 +265,10 @@
       "pr": 245,
       "head": "15f2e62b70e5a94d7e3ab10c858c663d99213171",
       "base": "97cf5a0de4ba5e0c3cd63156680c8c36a2f0d2b6",
-      "status": "OPEN_DRAFT_STALE_BASE",
+      "status": "OPEN_DRAFT_EXACT_BASE_PREVIEW_READY_ROUTE_CONFIG_FAILED",
       "mission": "correct Vercel live-scope receipt",
       "promotionBlockers": [
-        "base is stale after main advanced to 1cf196b; both Vercel checks report build-rate-limit; no review"
+        "full and lite previews are READY from 85cb685, but full /api/health returns FUNCTION_INVOCATION_FAILED until ADMIN_TOKEN is present and strong; no review and no production promotion"
       ]
     },
     {

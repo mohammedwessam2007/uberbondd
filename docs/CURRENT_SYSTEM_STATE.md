@@ -369,6 +369,13 @@ or renewal. Current-main Vercel checks report
 `api-deployments-free-per-day/build-rate-limit`; no retry, paid upgrade,
 workaround, promotion, provider activation, or customer effect was attempted.
 
+The exact-head correction preview (`85cb685…`) is `READY` on both projects, but
+the full preview `/api/health` returned HTTP 500
+`FUNCTION_INVOCATION_FAILED`. Its runtime log names
+`validateStartupConfig`: `ADMIN_TOKEN` is missing or shorter than the required
+32 characters. This is an environment configuration gate, not a source or
+payment proof; the secret was neither read nor written here.
+
 **CONFIGURATION BOUNDARY:** a prior source receipt says `TRUST_PROXY_HOPS` is
 unset. Confirm the one-proxy topology before setting production
 `TRUST_PROXY_HOPS=1`; do not guess a higher value and do not pull secrets into

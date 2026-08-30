@@ -44,10 +44,11 @@
     "Connected Vercel proves an exact-current-main READY production deployment at dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h; public health is reachable but autopilot and worker remain off."
   ],
   "blockers": [
-    "BLOCKED — Hosted CI: current main has no GitHub Actions workflow runs; the fresh PR #234 run 33296399759 ended with deterministic, PostgreSQL and browser jobs whose step arrays were empty. This is infrastructure non-evidence, not a source pass.",
+    "BLOCKED — Hosted CI: current main has no GitHub Actions workflow runs; the fresh PR #234 run 33296461598 ended with deterministic, PostgreSQL and browser jobs whose step arrays were empty. This is infrastructure non-evidence, not a source pass.",
     "NOT_PROVEN — Post-hotfix local rerun: the current runner disconnected before a fresh exact-current-main execution. PR #240's metrics are SOURCE_RECEIPT from its controlled runner; this lane does not relabel them as locally rerun.",
     "OBSERVED — Vercel production is exact-main READY at dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h from 0b4179538441d9c52fed3cc40cb268e6e3847218; /api/health is 200 with storeBackend=postgres, autopilot=false, worker.online=false and activeJobs=0. /api/public/config has bookingUrl empty; /privacy.html and /terms.html are 404. Cron registration/delivery is not proven.",
-    "BLOCKED — Payment/customer proof: no provider is activated, no money cleared, no accepted delivery or renewal exists, and no contact/outbound authorization is present. Egyptian legal/tax/payment eligibility remains external."
+    "BLOCKED — Payment/customer proof: no provider is activated, no money cleared, no accepted delivery or renewal exists, and no contact/outbound authorization is present. Egyptian legal/tax/payment eligibility remains external.",
+    "BLOCKED — PR #234 preview checks: the full and private-lite Vercel statuses returned build-rate-limit/api-deployments-free-per-day, so the preview is not production evidence and no retry loop is authorized."
   ],
   "nextActions": [
     "OWNER — CI: inspect GitHub Actions settings/runner capacity and restore step-level execution; 2–5 minutes, $0 unless the account requires a paid plan. Evidence: non-zero-step logs for exact current main 0b4179538441d9c52fed3cc40cb268e6e3847218; default do before relying on hosted checks.",
@@ -69,7 +70,7 @@
   },
   "productionRuntimeTruth": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
-    "observedAt": "2026-08-30T06:06:45Z",
+    "observedAt": "2026-08-30T06:15:09Z",
     "window": "2h",
     "status": "NO_RUNTIME_ERRORS_FOUND",
     "source": "Connected Vercel runtime-error aggregation",
@@ -204,10 +205,11 @@
       "promotionBlockers": [
         "Hosted CI zero-step failure is non-evidence.",
         "Post-hotfix exact-current-main local rerun is NOT_PROVEN in this runner.",
-        "Draft requires current-head review before any merge."
+        "Draft requires current-head review before any merge.",
+        "Vercel preview statuses are blocked by build-rate-limit/api-deployments-free-per-day."
       ],
-      "head": "4ba2500c37c28877a24cd1a6f78d2372144489ef",
-      "headAtLastRemoteRead": "4ba2500c37c28877a24cd1a6f78d2372144489ef"
+      "head": "7dd9e56e715e8ddd1133bfa5c15b5f1a4cf35440",
+      "headAtLastRemoteRead": "7dd9e56e715e8ddd1133bfa5c15b5f1a4cf35440"
     }
   ],
   "repositoryPublicationEffects": {
@@ -223,13 +225,14 @@
     "integrationPullRequest": 231,
     "note": "This lane writes only repository objects/branch metadata; no customer, provider, payment, DNS or credential effects.",
     "finalReconciliation": {
-      "observedAt": "2026-08-30T06:06:45Z",
+      "observedAt": "2026-08-30T06:15:09Z",
       "currentMain": "0b4179538441d9c52fed3cc40cb268e6e3847218",
       "openPullRequests": 1,
       "openPullRequestsDetail": "#234 remains the only open PR, draft, at head 4ba2500c37c28877a24cd1a6f78d2372144489ef; this receipt refreshes it onto current main.",
       "decision": "NO_MERGE_YET",
       "reason": "Docs/metadata only; current exact-main production is healthy, but hosted CI has zero steps and this lane did not independently rerun the post-hotfix tree.",
-      "branchHead": "4ba2500c37c28877a24cd1a6f78d2372144489ef"
+      "branchHead": "7dd9e56e715e8ddd1133bfa5c15b5f1a4cf35440",
+      "previewStatus": "BLOCKED_BUILD_RATE_LIMIT"
     },
     "currentMainAdvance": {
       "pr": 240,
@@ -360,8 +363,8 @@
     }
   },
   "continuousIntegrationTruth": {
-    "workflowRun": 33296399759,
-    "headSha": "4ba2500c37c28877a24cd1a6f78d2372144489ef",
+    "workflowRun": 33296461598,
+    "headSha": "7dd9e56e715e8ddd1133bfa5c15b5f1a4cf35440",
     "jobs": [
       "deterministic",
       "postgres",
@@ -369,7 +372,7 @@
     ],
     "reportedConclusion": "failure",
     "classification": "INFRASTRUCTURE_NON_EVIDENCE",
-    "proof": "PR #234's current run 33296399759 jobs returned steps: [] and current main 0b4179538441d9c52fed3cc40cb268e6e3847218 has no associated Actions workflow runs.",
+    "proof": "PR #234's current run 33296461598 jobs returned steps: [] and current main 0b4179538441d9c52fed3cc40cb268e6e3847218 has no associated Actions workflow runs.",
     "ruling": "Not a pass and not a source failure; Vercel statuses for current main are green, but hosted CI remains non-evidence until steps execute.",
     "currentMainWorkflowRuns": []
   },

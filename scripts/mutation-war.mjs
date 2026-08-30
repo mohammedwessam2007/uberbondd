@@ -423,6 +423,13 @@ export const MUTATIONS = [
     replace: '      const outcome = await revenue.handleLemonWebhook(raw, req.headers[\'x-signature\']); return json(res, 200, outcome);',
     suites: ['tests/webhook-route-truth.test.mjs']
   },
+  {
+    id: 'MONEY-22', guard: 'A subscription that has not paid is not cleared revenue',
+    file: 'src/payments.mjs',
+    find: "    if (event.eventName === 'subscription_created'\n      && event.status && !CLEARED_SUBSCRIPTION_STATUSES.has(String(event.status).toLowerCase())) {",
+    replace: '    if (false) {',
+    suites: ['tests/subscription-clearing-truth.test.mjs']
+  },
   // ---- The war's own verdicts --------------------------------------------
   {
     id: 'WAR-01', guard: 'A suite that never ran is not a killed mutant',

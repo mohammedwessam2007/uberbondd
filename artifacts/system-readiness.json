@@ -1,24 +1,24 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-30T06:55:14.839Z",
+  "generatedAt": "2026-08-30T07:16:18.465Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "09c978f96f0e32a87fb8ec970557b81c9893f601",
+    "head": "bd44c8e5dabd4bc7f103b72387d2bcf7c2f450bf",
     "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
     "sourceModules": 254,
-    "testSuites": 298,
+    "testSuites": 299,
     "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 623,
+      "filesParsed": 624,
       "ranAt": "2026-08-30T00:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2874,
-      "pass": 2823,
+      "tests": 2878,
+      "pass": 2827,
       "fail": 0,
       "skipped": 51,
       "ranAt": "2026-08-30T00:00:00Z"
@@ -51,7 +51,7 @@
     },
     "test:mutation-war": {
       "command": "CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "96 mutations, 96 killed, 0 not killed",
+      "result": "97 mutations, 97 killed, 0 not killed",
       "note": "Run with both a real PostgreSQL and a real Chromium so STORE-01, MONEY-17 and CRAWL-01 execute rather than skip. Without them the war reports SKIPPED_NEEDS_POSTGRES / SKIPPED_NEEDS_BROWSER rather than counting them as killed. Verdicts are now read from what each run reports rather than from its exit status: a suite that never ran is SUITE_DID_NOT_RUN, not KILLED, and a green run that asserted nothing is NO_ASSERTIONS_RAN, not SURVIVED.",
       "ranAt": "2026-08-30T00:00:00Z"
     },

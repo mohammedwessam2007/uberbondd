@@ -5,6 +5,14 @@ If it disagrees with any dated report in `docs/`, this file wins. If it
 disagrees with the repository, the repository wins and this file is stale.
 
 Last reconciled: **2026-08-29**
+
+## Final reconciliation — 2026-08-30
+
+Exact current main: `3d5e3a81e75a2433776ca7b822220d6ea767d1b5`. No open pull requests. The latest hosted checks for this head are completed failures/non-evidence, so no merge or deployment was authorized. The latest READY preview is from source `5ec9092c74b358924b34ab3cd38326e831403d3a`, not current main; production remains an older READY source.
+
+Public-surface truth: production responds, but `/privacy.html` and `/terms.html` return 404; `/api/health` reports `autopilot=false` and `worker.online=false`; `/api/public/config` has an empty booking URL, and offer CTAs lead to the free-audit form. No form was submitted and no payment/provider call was made.
+
+Commercial truth remains zero: customers 0, cleared revenue $0, accepted deliveries 0, renewals 0. The next highest-EV mission is to restore step-level CI evidence and, separately, obtain one exact-current-main READY deployment proof before changing production.
 Branch: `claude/uberbond-kilimanjaro-closure-hha0oo`
 Reconciled from current head: `871b35deee60d02450b56c47a59a552b8637a5ad`
 

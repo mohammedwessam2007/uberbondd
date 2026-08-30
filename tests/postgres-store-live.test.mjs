@@ -19,9 +19,10 @@ import { PostgresStore, ConflictError } from '../src/store.mjs';
 const LIVE_URL = process.env.LIVE_POSTGRES_TEST_URL || '';
 
 if (!LIVE_URL) {
-  test('SKIPPED: set LIVE_POSTGRES_TEST_URL to a throwaway database to run the live PostgresStore proof suite', () => {
-    console.log('LIVE_POSTGRES_TEST_URL not set -- live PostgresStore tests skipped (this is expected in most environments).');
-  });
+  // A real skip, not a passing placeholder: a green test named SKIPPED is
+  // indistinguishable from a proof, to a reader and to the mutation harness.
+  test('the live PostgresStore proof suite needs LIVE_POSTGRES_TEST_URL',
+    { skip: 'LIVE_POSTGRES_TEST_URL not set -- live PostgresStore proof not run (expected in most environments)' }, () => {});
 } else {
   let store;
   const uid = () => crypto.randomUUID();

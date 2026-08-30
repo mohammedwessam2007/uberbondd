@@ -7,9 +7,12 @@ import { persistVerifiedBillingEvent, claimBillingEvents, finishBillingEvent } f
 const REAL_URL = process.env.OMNIA_V9_TEST_DATABASE_URL || '';
 
 if (!REAL_URL) {
-  test('SKIPPED: set OMNIA_V9_TEST_DATABASE_URL to a throwaway PostgreSQL database for payment reconciliation lease proof', () => {
-    console.log('OMNIA_V9_TEST_DATABASE_URL not set -- real payment reconciliation PostgreSQL proof skipped.');
-  });
+  // A real skip, not a passing placeholder. This suite is the only thing that
+  // kills mutation MONEY-17, and while the absence was reported as a passing
+  // test the harness read "the runtime was not here" as "nothing tests this
+  // guard" -- a false statement about the guard, produced by a green test.
+  test('the payment reconciliation lease proof needs OMNIA_V9_TEST_DATABASE_URL',
+    { skip: 'OMNIA_V9_TEST_DATABASE_URL not set -- real payment reconciliation proof not run' }, () => {});
 } else {
   let store;
 

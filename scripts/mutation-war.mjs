@@ -14,11 +14,15 @@
 // the specific invariants this system's safety rests on produces a list an
 // operator can read.
 
-import { readFileSync, writeFileSync, mkdtempSync, cpSync, rmSync } from 'node:fs';
+import { mkdtempSync, cpSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
+import { classifySuiteRun, applyMutation } from './mutation-verdict.mjs';
+
+// Re-exported so the registry stays the single import point for the war.
+export { classifySuiteRun, applyMutation };
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -419,6 +423,21 @@ export const MUTATIONS = [
     replace: '      const outcome = await revenue.handleLemonWebhook(raw, req.headers[\'x-signature\']); return json(res, 200, outcome);',
     suites: ['tests/webhook-route-truth.test.mjs']
   },
+  // ---- The war's own verdicts --------------------------------------------
+  {
+    id: 'WAR-01', guard: 'A suite that never ran is not a killed mutant',
+    file: 'scripts/mutation-verdict.mjs',
+    find: "    if (failed !== null && failed > 0) return 'KILLED';\n    return 'SUITE_DID_NOT_RUN';",
+    replace: "    return 'KILLED';",
+    suites: ['tests/mutation-verdict-honesty.test.mjs']
+  },
+  {
+    id: 'WAR-02', guard: 'A green run that asserted nothing is not a surviving guard',
+    file: 'scripts/mutation-verdict.mjs',
+    find: "  if (passed === 0 && skipped !== null && skipped > 0) return 'NO_ASSERTIONS_RAN';",
+    replace: '',
+    suites: ['tests/mutation-verdict-honesty.test.mjs']
+  },
   // ---- Identity: who a rate limit thinks it is counting -------------------
   {
     id: 'IDENT-01', guard: 'A caller cannot choose the identity a rate limit counts',
@@ -527,6 +546,11 @@ export const MUTATIONS = [
     file: 'src/billing-webhook-repository.mjs',
     find: 'ON CONFLICT DO NOTHING RETURNING provider_event_key',
     replace: 'ON CONFLICT(provider_event_key) DO NOTHING RETURNING provider_event_key',
+    // Which unique index PostgreSQL raises on is the whole behaviour under test,
+    // so the only suite that kills this needs a real database. Without the
+    // marker the war ran the suite anyway, watched it skip, and reported the
+    // guard as surviving.
+    needsPostgres: true,
     suites: ['tests/payment-reconciliation-postgres-real.test.mjs']
   },
   {
@@ -687,10 +711,15 @@ export const MUTATIONS = [
     suites: ['tests/reachability-ratchet.test.mjs']
   },
   {
-    id: 'SCAN-01', guard: 'A truncated read is never a successful read',
+    id: 'SCAN-01', guard: 'A repeated page is a stalled scan, not a successful read',
     file: 'src/durable-audit-scan.mjs',
-    find: "    return { ok: false, reasonCodes: ['audit-scan-pagination-stalled'], scannedRows, pages };",
-    replace: '    return { ok: true, value: accumulator, scannedRows, pages, exhausted: false };',
+    // Anchored on the condition as well as the return. Two branches in this file
+    // returned exactly the same line, so the bare return matched twice and this
+    // mutation only ever reached the first of them. Attacking the second proved
+    // it was unreachable, and it has been removed; the anchor stays specific so
+    // the ambiguity cannot come back silently.
+    find: "    if (rows.length >= size && priorPageIdentity && identity === priorPageIdentity) {\n      return { ok: false, reasonCodes: ['audit-scan-pagination-stalled'], scannedRows, pages };",
+    replace: "    if (false) {\n      return { ok: false, reasonCodes: ['audit-scan-pagination-stalled'], scannedRows, pages };",
     suites: ['tests/durable-audit-scan-ceiling.test.mjs']
   },
   {
@@ -724,15 +753,6 @@ function runSuites(root, suites) {
   return { status: result.status, output: `${result.stdout || ''}${result.stderr || ''}` };
 }
 
-export function applyMutation(root, mutation) {
-  const target = join(root, mutation.file);
-  const source = readFileSync(target, 'utf8');
-  if (!source.includes(mutation.find)) {
-    return { applied: false, reason: 'anchor-not-found' };
-  }
-  writeFileSync(target, source.replace(mutation.find, mutation.replace));
-  return { applied: true };
-}
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const onlyId = process.argv[2] || '';
@@ -780,7 +800,12 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       // the wrong reason. Confirm the baseline is green first, then mutate.
       const applied = applyMutation(root, mutation);
       if (!applied.applied) {
-        results.push({ ...mutation, verdict: 'ANCHOR_NOT_FOUND' });
+        // An ambiguous anchor and a missing one are different mistakes and need
+        // different repairs, so the report says which.
+        results.push({
+          ...mutation,
+          verdict: applied.reason === 'anchor-ambiguous' ? 'ANCHOR_AMBIGUOUS' : 'ANCHOR_NOT_FOUND'
+        });
         continue;
       }
       const syntax = spawnSync(process.execPath, ['--check', join(root, mutation.file)], { encoding: 'utf8' });
@@ -789,23 +814,34 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         continue;
       }
       const run = runSuites(root, mutation.suites);
-      results.push({ ...mutation, verdict: run.status === 0 ? 'SURVIVED' : 'KILLED' });
+      results.push({ ...mutation, verdict: classifySuiteRun(run) });
     } finally {
       rmSync(root, { recursive: true, force: true });
     }
   }
 
-  const survived = results.filter(item => item.verdict !== 'KILLED'
-    && item.verdict !== 'SKIPPED_NEEDS_POSTGRES' && item.verdict !== 'SKIPPED_NEEDS_BROWSER');
+  const declaredSkip = verdict => verdict === 'SKIPPED_NEEDS_POSTGRES' || verdict === 'SKIPPED_NEEDS_BROWSER';
+  const notKilled = results.filter(item => item.verdict !== 'KILLED' && !declaredSkip(item.verdict));
   for (const item of results) {
     console.log(`${item.verdict.padEnd(22)} ${item.id.padEnd(10)} ${item.guard}`);
   }
   console.log('');
-  console.log(`mutation-war — ${results.length} mutations, ${results.filter(i => i.verdict === 'KILLED').length} killed, ${survived.length} not killed`);
-  if (survived.length) {
+  console.log(`mutation-war — ${results.length} mutations, ${results.filter(i => i.verdict === 'KILLED').length} killed, ${notKilled.length} not killed`);
+  if (notKilled.length) {
     console.log('');
-    console.log('A guard nothing kills is a guard nothing tests:');
-    for (const item of survived) console.log(`  ${item.id} ${item.guard} (${item.verdict})`);
+    // Not all of these mean the same thing, and saying they do is how a missing
+    // runtime gets read as a missing test.
+    const proven = notKilled.filter(item => item.verdict === 'SURVIVED');
+    const unproven = notKilled.filter(item => item.verdict !== 'SURVIVED');
+    if (proven.length) {
+      console.log('A guard nothing kills is a guard nothing tests:');
+      for (const item of proven) console.log(`  ${item.id} ${item.guard}`);
+    }
+    if (unproven.length) {
+      if (proven.length) console.log('');
+      console.log('These were not tested at all, which is not the same as surviving:');
+      for (const item of unproven) console.log(`  ${item.id} ${item.guard} (${item.verdict})`);
+    }
   }
-  process.exit(survived.length ? 1 : 0);
+  process.exit(notKilled.length ? 1 : 0);
 }

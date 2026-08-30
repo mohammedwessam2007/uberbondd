@@ -80,9 +80,15 @@ export async function foldAuditRows(store, { type, fold, seed, pageSize = AUDIT_
     if (rows.length < size) {
       return { ok: true, value: accumulator, scannedRows, pages, exhausted: true };
     }
-    if (!identity) {
-      return { ok: false, reasonCodes: ['audit-scan-pagination-stalled'], scannedRows, pages };
-    }
+    // There was a second refusal here, for a page with no identity. It could not
+    // run: a short page has already returned above, so `rows.length >= size >= 1`
+    // by this line, and `pageIdentity` returns a non-empty string for any
+    // non-empty page -- "||500" for rows with no ids at all, which is truthy.
+    //
+    // Removed rather than left as reassurance. Rows without ids still stall the
+    // scan, because their identity is stable and the repeat check above catches
+    // it; that is proven in tests/durable-audit-scan-ceiling.test.mjs rather
+    // than assumed here.
     priorPageIdentity = identity;
     offset += rows.length;
   }

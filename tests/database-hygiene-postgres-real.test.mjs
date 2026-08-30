@@ -23,9 +23,10 @@ const REAL_URL = process.env.OMNIA_V9_TEST_DATABASE_URL || '';
 // selects, whether a CHECK constraint holds, and what PostgreSQL does with an
 // invalid timestamp. No fake answers any of those.
 if (!REAL_URL) {
-  test('SKIPPED: set OMNIA_V9_TEST_DATABASE_URL for the database hygiene deletion proof', () => {
-    console.log('OMNIA_V9_TEST_DATABASE_URL not set -- real database hygiene proof skipped.');
-  });
+  // A real skip, not a passing placeholder: a green test named SKIPPED is
+  // indistinguishable from a proof, to a reader and to the mutation harness.
+  test('the database hygiene deletion proof needs OMNIA_V9_TEST_DATABASE_URL',
+    { skip: 'OMNIA_V9_TEST_DATABASE_URL not set -- real database hygiene proof not run' }, () => {});
 } else {
   let store;
 

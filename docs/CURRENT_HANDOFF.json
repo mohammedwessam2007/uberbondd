@@ -1,9 +1,9 @@
 {
   "schemaVersion": "uberbond-handoff-1.4.0",
   "sourceMainShaAtMissionStart": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
-  "sourceCommit": "PENDING_MERGE",
-  "currentMainShaAtFinalRefresh": "a97a5d8fd84f93ac0195391603feb51d143af897",
-  "currentMainCommitMessage": "Integrate #231 and #230, and repair a P0 the browser gate caught (#232)",
+  "sourceCommit": "ef104ae20497df3ce2a49196e386f147fc41061b",
+  "currentMainShaAtFinalRefresh": "ef104ae20497df3ce2a49196e386f147fc41061b",
+  "currentMainCommitMessage": "Stop a caller choosing the identity their rate limit is counted against (#241)",
   "missionIssue": 173,
   "missionIssueState": "OPEN",
   "activeMission": "Continue NIGHTFALL MAX with distribution and first economic proof as the priority while maturing current Growth Graph infrastructure. Reuse merged autonomy operations hardening rather than recreating proxy, dedupe, billing, maintenance or telemetry systems.",
@@ -39,15 +39,16 @@
     "The local discovery integration smoke passed with 2 previewed and 2 imported records, and the broader zero-effect review probe passed 33/33 without live provider or outbound effects."
   ],
   "blockers": [
-    "The exact combined candidate in draft PR #231 has no full-project Vercel READY deployment because both Vercel checks report api-deployments-free-per-day/build-rate-limit. No paid upgrade or circumvention was attempted.",
-    "The explicit real-PostgreSQL launcher was re-run and is blocked because OMNIA_V9_TEST_DATABASE_URL is absent; the embedded fallback cannot run under this container's denied user/group switching. The browser gate was re-run and is blocked because this runner has no compatible Chromium executable. Neither skipped/failed runtime gate is treated as proof.",
-    "GitHub Actions run 33267965050 reports browser, deterministic and postgres failures with zero executable steps on all three jobs; it is CI infrastructure non-evidence, not a source regression result.",
-    "No outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Every one of these is an external activation, not an engineering task."
+    "OWNER/EXTERNAL: no full-project Vercel READY deployment is proven for current main. Both Vercel checks on the last candidate reported api-deployments-free-per-day/build-rate-limit. No paid upgrade and no circumvention was attempted.",
+    "CI: hosted GitHub Actions runs report failure on jobs where no runner was assigned and steps were []. INFRASTRUCTURE_NON_EVIDENCE -- neither a pass nor a source failure. Every merge this session rests on locally executed gates.",
+    "EXTERNAL: no outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Each is an external activation, not an engineering task.",
+    "DEPLOYMENT CONFIG: TRUST_PROXY_HOPS is unset in the live environment. Until it matches the deployment's proxy topology (1 behind a single proxy such as Vercel), the public intake rate limit counts all callers as one identity. That is fail-closed -- too strict, never too loose -- but it is not the intended behaviour."
   ],
   "nextActions": [
     "OWNER: resolve the Vercel project-existence contradiction. Still the only thing blocking every deployment step.",
-    "ANY LANE: the money path has now been attacked end to end -- webhook admission, lease recovery, cleared-revenue meaning, and the test-unlock route. The remaining untested public route is /api/public/checkout.",
-    "ANY LANE: the coverage ratchet is green at 0 uncovered across src, api and entry points.",
+    "OWNER: set TRUST_PROXY_HOPS on the deployment (1 behind a single proxy). Without it the public intake limit is global rather than per-caller.",
+    "ANY LANE: the money path and the whole public surface have now been attacked end to end -- webhook admission and forgery, lease recovery, cleared-revenue meaning, the test-unlock route, report-token guessing and traversal, artifact ID traversal, checkout without a token, and rate-limit identity. The public surface has no known remaining hole.",
+    "ANY LANE: the coverage ratchet is green at 0 uncovered across src, api and entry points; the mutation war is 94/94.",
     "CLAUDE: the payment reconciliation worker remains unwired and visibly DEGRADED, blocked on a payment provider rather than on engineering."
   ],
   "production": {
@@ -83,16 +84,16 @@
   "verification": {
     "executedBy": "local execution in this session, not hosted CI",
     "gates": {
-      "check:syntax": "620 files parse",
-      "test:deterministic": "2860 tests, 2812 pass, 0 fail, 48 skipped",
+      "check:syntax": "621 files parse",
+      "test:deterministic": "2864 tests, 2816 pass, 0 fail, 48 skipped",
       "test:relay-safety": "150/150",
       "test:postgres-real": "158/158 against PostgreSQL 16.13",
-      "test:browser": "1/1",
-      "test:mutation-war": "93 mutations, 93 killed, 0 not killed",
+      "test:browser": "1/1 against the runner's Chromium at /opt/pw-browsers/chromium-1194/chrome-linux/chrome",
+      "test:mutation-war": "94 mutations, 94 killed, 0 not killed",
       "npm audit --omit=dev": "0 vulnerabilities"
     },
-    "runtimeNote": "The runner was rebuilt and no longer ships the PostgreSQL 18 binaries the previous receipt named. A fresh PostgreSQL 16.13 cluster was initialized locally. The receipt says 16.13 rather than carrying 18 forward, because the version is part of what the evidence means.",
-    "productionCoverage": "126 production-reachable src modules, 0 unexercised. All 5 API routes exercised. server.mjs exercised by a spawned-process gate. worker.mjs exempt as wiring (60 lines, 3 branches)."
+    "runtimeNote": "PostgreSQL 16.13, a cluster initialized locally at /tmp/pgdata16 on port 55432 (the runner was rebuilt and no longer ships the PostgreSQL 18 binaries an older receipt named; 16.13 is recorded rather than carrying 18 forward, because the version is part of what the evidence means). Chromium is present and the browser gate runs; it is not blocked.",
+    "productionCoverage": "126 production-reachable src modules, 0 unexercised. All 5 API routes exercised. server.mjs exercised by a spawned-process gate and by the exported-handler gate. worker.mjs exempt as wiring."
   },
   "maximumThreeFounderActions": [
     {
@@ -140,7 +141,7 @@
     "spendCents": 0
   },
   "businessEffectAuthority": "NONE_EXCEPT_EXISTING_PROJECT_DEPLOYMENT_AUTHORIZED_WHEN_VERIFIED",
-  "headSha": "d2d76803e4e70ce1e784f50acc39c68592e07707",
+  "headSha": "ef104ae20497df3ce2a49196e386f147fc41061b",
   "cloudActivationTruth": {
     "fullProjectExists": "PROVEN_BY_CONNECTED_API",
     "privateLiteProjectExists": "PROVEN_BY_CONNECTED_API",
@@ -187,45 +188,12 @@
   },
   "currentOpenCandidates": [
     {
-      "pr": 227,
-      "head": "d23c036aa8a5443bf49cca506250717bb3f0ac66",
-      "status": "OPEN_DRAFT_MERGEABLE",
-      "mission": "recoverable payment reconciliation leases",
+      "pr": 234,
+      "head": "c460e8b1f7583639f7c38a14679a9072d0ab5102",
+      "status": "OPEN_DRAFT",
+      "mission": "reconcile final live and deployment truth",
       "promotionBlockers": [
-        "exact-head Vercel READY proof",
-        "real PostgreSQL lease proof"
-      ]
-    },
-    {
-      "pr": 228,
-      "head": "30c63cea3249d3fc8277f11db435f4a63c185a73",
-      "status": "OPEN_DRAFT_MERGEABLE",
-      "mission": "bounded Overpass discovery resilience",
-      "promotionBlockers": [
-        "exact-head Vercel READY proof",
-        "browser and real PostgreSQL runtime proof"
-      ]
-    },
-    {
-      "pr": 229,
-      "head": "f5bc15f2581aa92107ed2b1e1a93d137c48a1cc8",
-      "status": "OPEN_DRAFT_MERGEABLE",
-      "mission": "bounded browser runtime pool",
-      "promotionBlockers": [
-        "exact-head Vercel READY proof",
-        "Chromium checkout proof",
-        "real PostgreSQL runtime proof"
-      ]
-    },
-    {
-      "pr": 231,
-      "head": "2f2e884a775fd36d4919b3cdd01ed16deb17ca75",
-      "status": "OPEN_DRAFT_MERGEABLE",
-      "mission": "combined payment, browser and Overpass hardening candidate",
-      "promotionBlockers": [
-        "exact-head Vercel READY proof",
-        "Chromium checkout proof",
-        "real PostgreSQL runtime proof"
+        "not yet reconciled against current main; opened before this session's merges"
       ]
     }
   ],
@@ -243,155 +211,40 @@
     "note": "GitHub repository operations are not customer-facing external effects."
   },
   "lastCompletedSlice": {
-    "mission": "Reconcile the five open NIGHTFALL hardening PRs, attack what they add, and repair what does not survive.",
+    "mission": "Attack the public HTTP surface and repair what does not survive.",
     "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "integrated": {
-      "pr231": "Consolidates #227, #228, #229. Verified byte-identical to each individual PR by file hash before merging, so those three are redundant rather than merged again.",
-      "pr230": "Fail-closed external artifact storage boundary. Independent of #231; migration 103 does not collide with #231's 102."
-    },
-    "supersededByIntegration": [
-      227,
-      228,
-      229
+    "mergedAs": "PR #241, squashed to ef104ae20497df3ce2a49196e386f147fc41061b",
+    "surfaceAttacked": [
+      "/api/public/audit",
+      "/api/public/report/*",
+      "/api/public/artifacts/*",
+      "/api/public/checkout",
+      "/webhooks/lemonsqueezy"
+    ],
+    "heldUp": [
+      "report tokens leaked nothing on any guess, traversal or wildcard -- all 404",
+      "artifact IDs refused traversal -- 400",
+      "checkout issued nothing without a valid token -- all 404",
+      "no PII and no admin token echoed on any path, refused or served",
+      "the rate limit engaged correctly for a fixed client: 202 202 202 429 429 429"
     ],
     "defectsFound": [
       {
-        "id": "CRAWL-01",
-        "severity": "P0",
-        "origin": "introduced by #229/#231",
-        "summary": "The browser crawler threw ReferenceError on every call.",
-        "mechanism": "The runtime-pool integration moved the crawl result variables inside the try block while the return statement stayed below the finally. `pages is not defined`, every call, total failure of the website-audit path.",
-        "whyItWasInvisible": "check:syntax parses it; the deterministic suite does not cover the browser gate; the pool's own unit tests mock the browser. Only `npm run test:browser` against a real Chromium sees it -- a gate that was recorded as permanently BLOCKED until the previous shift proved Chromium was present all along.",
-        "mutation": "CRAWL-01, needsBrowser"
-      },
-      {
-        "id": "MONEY-17",
+        "id": "IDENT-01",
         "severity": "P1",
-        "origin": "inherited from main, not introduced by #231",
-        "summary": "A duplicate webhook answered 503 and misstated why.",
-        "mechanism": "The insert's ON CONFLICT named provider_event_key, correct when that was the only unique index. Migration 101 added a second on the content (provider, event_name, object_type, object_id, payload_hash); a targeted clause does not cover it, so a redelivery of identical content under a new event id raised 23505. The route catches everything and answers 503 verified-webhook-not-durably-persisted -- an outage, and false: the evidence IS persisted, in the row being duplicated. Providers retry 503s and disable endpoints that keep failing, so a duplicate could cost the future events that are not duplicates.",
-        "mutation": "MONEY-17, killed by a real-PostgreSQL test because which index PostgreSQL raises on cannot be faked"
-      },
-      {
-        "id": "REGISTRY",
-        "severity": "P2",
-        "origin": "pre-existing",
-        "summary": "Two mutations shared an id, twice.",
-        "mechanism": "MONEY-13 and MONEY-14 were both already taken, so a new entry collided twice in a row and the war printed two lines with one id -- ambiguous about which guard survived. Uniqueness and malformedness tests added."
-      },
-      {
-        "id": "BILL-01",
-        "severity": "P1",
-        "origin": "pre-existing structural gap",
-        "summary": "Verified payment evidence accumulated where nobody could see it.",
-        "mechanism": "The billing webhook route writes a row per verified delivery. Nothing in the tree reads those rows -- claimBillingEvents, finishBillingEvent, billingBacklogSummary and planPaymentReconciliation had no callers anywhere in src, api, scripts, server or worker. Evidence about money arrived, was stored, and was never claimed, retried, timed out, dead-lettered or mentioned to anyone.",
-        "fix": "Not a reconciliation worker -- there is no provider to reconcile against and a worker that resolves nothing would be machinery pretending to be a capability. The operator health matrix now carries a billing dimension with four states, separating NO_WORKER (nothing has ever claimed a row) from BACKLOG_AGEING (a worker exists and is behind). Those look identical in a pending counter and are not the same fact: one resolves itself, the other never will. Today the real query answers NO_WORKER and the system reports DEGRADED for it.",
-        "mutations": [
-          "BILL-01",
-          "BILL-02",
-          "BILL-03"
-        ]
-      },
-      {
-        "id": "GATE-01",
-        "severity": "P2",
-        "origin": "pre-existing",
-        "summary": "The deterministic gate changed its answer based on the invoking shell.",
-        "mechanism": "Most database suites stay in the deterministic set and self-skip when OMNIA_V9_TEST_DATABASE_URL is absent. Exported, they execute there in parallel sharing one database -- the interference run-real-postgres-tests.mjs runs serially to avoid. Symptom: a red property test that passes in isolation.",
-        "fix": "The runner drops the variable for its children. Identical answer with and without it set.",
-        "wrongFirstAttempt": "Deriving the deterministic exclusion from realPostgresTestFiles() dropped ~128 genuinely deterministic tests, because that marker matches any file mentioning the variable. The marker is right for PostgreSQL inclusion and wrong for deterministic exclusion. Two build-wiring tests caught it.",
-        "mutations": [
-          "GATE-01"
-        ]
-      },
-      {
-        "id": "COVERAGE-01",
-        "severity": "P1",
-        "origin": "structural, pre-existing",
-        "summary": "Two production-reachable modules were executed by no gate at all.",
-        "mechanism": "The reachability ratchet asks whether anything CAN call a module. Nothing asked whether anything CHECKS it. Taking the closure of everything the gates import and subtracting it from the production-reachable set found src/database-hygiene-repository.mjs, which DELETES rows on a weekly cron, and src/discovery-runner.mjs, which decides whether discovery may run. The same combination already cost a P0 this shift: the crawler shipped a ReferenceError because its only real gate had been written off.",
-        "outcome": "Neither module was defective -- both survived every attack unchanged. The defect was that nothing would have noticed if they stopped being right. Both now have suites, and tests/production-coverage-ratchet.test.mjs keeps the uncovered set empty.",
-        "mutations": [
-          "HYG-01",
-          "HYG-02",
-          "HYG-03"
-        ]
-      },
-      {
-        "id": "ADMIN-01",
-        "severity": "P3",
-        "origin": "pre-existing",
-        "summary": "The admin health route coerced its bearer header with String(), admitting a non-string.",
-        "mechanism": "An object with a toString returning the right bearer was admitted. NOT a live bypass: over HTTP a header is only a string or an array of strings and an attacker cannot supply an object. Fixed because the coercion was doing work nobody asked for, and because src/agent-mesh-cron-boundary.mjs already had the right shape one file over.",
-        "mutations": [
-          "ADMIN-01",
-          "ADMIN-02"
-        ]
-      },
-      {
-        "id": "SRV-01",
-        "severity": "P1",
-        "origin": "structural, pre-existing",
-        "summary": "server.mjs -- 614 lines, 87 branches -- was executed by no gate.",
-        "mechanism": "The handler is an inline anonymous function and importing the module runs validateStartupConfig, creates a store and awaits store.init(), so the routing logic was unreachable without a running process.",
-        "fix": "A gate now spawns the real server on loopback with a throwaway JSON store and probes 16 admin routes against 4 bad-credential shapes, the public route list, all five security headers on public/refused/404 responses, and leak-freedom of 404s and refusals. No external request. A smoke gate, not a substitute for extracting the handler -- but the net that extraction should now be done under.",
-        "mutations": [
-          "SRV-01"
-        ]
-      },
-      {
-        "id": "SRV-02",
-        "severity": "P2",
-        "origin": "pre-existing",
-        "summary": "A four-byte request body produced a 500 on an authenticated route.",
-        "mechanism": "`null` is valid JSON. parseBody parsed it cleanly and returned it, and the first property access threw a TypeError -- a caller's mistake reported as a server fault, producible at will. A bare number, string, boolean or array had the same route in; `[]` avoided the 500 only because `[].name` is undefined, which meant an array body silently created a campaign full of defaults.",
-        "fix": "Refused once in parseBody rather than at each of fifteen call sites: an empty body is still {}, a malformed one still 400, a well-formed non-object now 400 with a message saying so.",
-        "foundBy": "The direct handler suite, which only became possible after extracting the handler.",
-        "mutations": [
-          "SRV-02",
-          "SRV-03"
-        ]
-      },
-      {
-        "id": "MONEY-18",
-        "severity": "P1",
-        "origin": "pre-existing",
-        "summary": "The dashboard reported a fabricated payment as cleared revenue.",
-        "mechanism": "RevenueEngine.summary() summed every positive revenue event and called the total clearedRevenue. POST /api/test/unlock writes a revenue event with no order and no provider, so a test unlock read as $49 cleared -- on the operator dashboard and in founder-command-center's paymentTruth.cleared -- while reconcilePaymentRenewalTruthFromStore answered REVIEW_REQUIRED and $0 for the same lead.",
-        "fix": "summary() now requires a witnessing provider order, which is the same match revenue.mjs already used for refund reconciliation. Unwitnessed positive events are still reported under unwitnessedRevenue; gross is unchanged. Verified both directions: a real webhook still clears at $49 and PROVIDER_CLEARED_PAYMENT_PROVEN.",
-        "committedTestChanged": "tests/founder-command-center.test.mjs asserted paymentTruth.cleared === 49 after a test unlock. It encoded the old meaning and passed for the reason that meaning was wrong. Strengthened, not relaxed: it now proves a real payment reaches the field, and a second test proves a fabricated one does not. The justification is the contradiction with the canonical payment truth, which is checkable independently.",
-        "mutations": [
-          "MONEY-18",
-          "MONEY-19"
-        ]
-      },
-      {
-        "id": "MONEY-20/21",
-        "severity": "P2",
-        "origin": "pre-existing",
-        "summary": "A forged payment webhook answered 500, and the acknowledgement echoed the buyer's address.",
-        "mechanism": "The signature check is sound -- nine forgery shapes fail it and none creates money. But an invalid signature threw a plain Error, which mapped to 500. Payment providers retry on 5xx, so a permanently and correctly rejected webhook would be redelivered forever, and providers disable endpoints that keep failing. Separately, the 200 acknowledgement returned the whole normalized event, carrying the provider's attributes verbatim including user_email plus a derived customerEmail.",
-        "fix": "401 with a legible reason, carried as a status property so a module below the HTTP layer can attribute fault without importing an HTTP type. The acknowledgement now says received and whether it was new, and a test asserts no address-shaped value appears on either the accepted or the refused path.",
-        "mutations": [
-          "MONEY-20",
-          "MONEY-21"
-        ]
+        "origin": "inherited from main",
+        "summary": "A caller chose the identity their rate limit was counted against.",
+        "mechanism": "clientIp read x-forwarded-for and took .split(',')[0] -- the leftmost entry, which is whatever the client wrote. That value keyed the agent relay's per-minute limit and the public intake's per-hour cap. Rotating the header made eight public intake submissions succeed against a cap of three (202 for every one), and each accepted submission creates a lead and queues research work.",
+        "fix": "TRUST_PROXY_HOPS declares how many proxies may be believed, defaulting to 0: the header is ignored and the socket address answers. With N hops the trustworthy address is the Nth from the right, because each proxy appends the address it received the connection from -- so prepended entries shift the chain rightward and cannot move the answer. Fails closed: behind an undeclared proxy all callers share one identity and the limit is too strict.",
+        "provenBy": "tests/client-identity-trust.test.mjs, four tests, a child process per configuration because config is read once at import",
+        "mutation": "IDENT-01, killed"
       }
     ],
-    "survivedAttackUnchanged": [
-      "Payment lease, against real PostgreSQL: a crashed worker's lease is reclaimable rather than stranded; a preempted worker cannot finish; the attempt cap lands in UNCERTAIN and never promotes money or sets completed_at; RECONCILED without a canonical receipt throws; concurrent claims never hand one event to two workers; RETRYABLE honours its backoff; the backlog summary carries no key or payload.",
-      "Overpass pacing: 403, 401, 451, 418 and 404 stop at one call. Only 429, 406 and 504 retry. Retry-After is honoured and an absurd value is clamped to 120s. maxAttempts is clamped to 5.",
-      "Browser pool: one process reused, a fresh isolated context per crawl, no slot leaked on launch failure, no double-free on double release, waiters rejected on close rather than hung.",
-      "Artifact storage: object backend fail-closed on absent/false/\"true\"/1/{}/null and open only on literal true; no namespace escape; receipts PRIVATE regardless of input."
+    "correctionsToPriorHandoff": [
+      "The previous blockers list said the real-PostgreSQL launcher was blocked for want of OMNIA_V9_TEST_DATABASE_URL and that the browser gate was blocked for want of a compatible Chromium. Both are false on this runner: postgres-real ran 158/158 against a local PostgreSQL 16.13 cluster, and test:browser ran 1/1 against /opt/pw-browsers/chromium-1194/chrome-linux/chrome. The stale claim is removed rather than carried forward.",
+      "currentOpenCandidates listed PRs 227, 228, 229 and 231, all of which are now merged or closed as superseded. Replaced with the one PR actually open."
     ],
-    "observationsNotFixed": [
-      "The artifact contract's sensitive-metadata-key check is top-level only, so {outer:{api_key}} is accepted. It leaks nothing, because metadata never reaches the plan at all -- the check is a refusal signal, not a redaction. Recorded so nobody later relies on it as a filter."
-    ],
-    "harnessGapsFixed": [
-      "The mutation sandbox copied src, tests, scripts, config and migrations but not `api`, so no route could be mutated at all -- a mutation naming one failed with ENOENT rather than reporting a surviving guard. Routes are where admission and enablement checks live. Fixed, and HYG-01 now sabotages the maintenance cron's enablement check.",
-      "The mutation sandbox did not copy server.mjs or worker.mjs, so a mutation of either could not mean anything.",
-      "The coverage ratchet counted only imports, which reported a spawned entry point as uncovered. Executing a module by spawning it is still executing it."
-    ]
+    "boundaryDecision": "tests/client-identity-trust.test.mjs was briefly added to SOVEREIGNTY_PREFIXES and removed again. tests/sovereignty-proof-closure.test.mjs correctly rejected it: server.mjs is not itself a sovereignty-protected file, so the entry was not earned by any mutation on a protected file. The boundary was left as it is rather than widened to accommodate the change."
   },
   "continuousIntegrationTruth": {
     "workflowRun": 33265034795,
@@ -408,17 +261,18 @@
   },
   "truthRestrictions": [
     "Zero verified customers, zero cleared revenue, zero accepted deliveries, zero retained customers. Unchanged and preserved as zero.",
-    "clearedRevenue now means a provider order witnessed the payment, on every surface. It reads zero because it is zero.",
+    "clearedRevenue means a provider order witnessed the payment, on every surface. It reads zero because it is zero.",
     "No claim of production deployment, cron registration or cron delivery for current main.",
     "No provider called, no message sent, no money moved, no credential or DNS changed.",
-    "Internally exhausted under the current test and attack surface. External proof pending."
+    "Every gate figure in this file was produced by running the command locally on this tree. None came from hosted CI, and none was carried forward from an older receipt."
   ],
   "reachability": {
-    "srcModules": 251,
-    "reachableFromProduction": 124,
+    "srcModules": 254,
+    "reachableFromProduction": 126,
     "reachableFromOperatorScriptsOnly": 9,
-    "noEntryPointAtAll": 118,
-    "note": "src is now walked recursively. Earlier figures excluded src/overnight and src/omnia-v9 entirely."
+    "noEntryPointAtAll": 119,
+    "allClassified": true,
+    "note": "src is walked recursively. Earlier figures excluded src/overnight and src/omnia-v9 entirely, which was an accident of a single-level directory read, not a scope decision."
   },
   "decisionConsumerSweep": {
     "status": "COMPLETE",

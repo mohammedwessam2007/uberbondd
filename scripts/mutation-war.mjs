@@ -430,6 +430,20 @@ export const MUTATIONS = [
     replace: '    if (false) {',
     suites: ['tests/subscription-clearing-truth.test.mjs']
   },
+  {
+    id: 'MONEY-23', guard: 'The money must cover the product it unlocks',
+    file: 'src/payments.mjs',
+    find: "    if (expected !== null && Number(event.amountCents) < expected) {",
+    replace: '    if (false) {',
+    suites: ['tests/paid-amount-buys-what-it-paid-for.test.mjs']
+  },
+  {
+    id: 'MONEY-24', guard: 'A zero amount is an amount, not an absent one',
+    file: 'src/revenue.mjs',
+    find: '    const amount = Number.isFinite(paidCents) ? paidCents : listPrice;',
+    replace: '    const amount = paidCents || listPrice;',
+    suites: ['tests/paid-amount-buys-what-it-paid-for.test.mjs']
+  },
   // ---- The war's own verdicts --------------------------------------------
   {
     id: 'WAR-01', guard: 'A suite that never ran is not a killed mutant',

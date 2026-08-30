@@ -406,6 +406,20 @@ export const MUTATIONS = [
     suites: ['tests/build-wiring.test.mjs']
   },
   {
+    id: 'SRV-02', guard: 'A non-object JSON body is a client error, not a 500',
+    file: 'server.mjs',
+    find: "  if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {",
+    replace: '  if (false) {',
+    suites: ['tests/server-request-handler.test.mjs']
+  },
+  {
+    id: 'SRV-03', guard: 'The request handler stays reachable without a socket',
+    file: 'server.mjs',
+    find: 'export const requestHandler = async (req, res) => {',
+    replace: 'const requestHandler = async (req, res) => {',
+    suites: ['tests/server-request-handler.test.mjs']
+  },
+  {
     id: 'SRV-01', guard: 'Security headers reach every response',
     file: 'server.mjs',
     find: "  'x-content-type-options': 'nosniff',",

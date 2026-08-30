@@ -45,10 +45,10 @@
     "No outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Every one of these is an external activation, not an engineering task."
   ],
   "nextActions": [
-    "OWNER: resolve the Vercel project-existence contradiction. It is the only thing blocking every deployment step and no lane can settle it from inside the repository.",
-    "ANY LANE: the production coverage ratchet is now green at 0 uncovered. Keep it there -- a new production module without a suite fails tests/production-coverage-ratchet.test.mjs rather than shipping unchecked.",
-    "ANY LANE: run the browser gate before merging anything touching src/browser-crawler.mjs, and note the mutation war now needs CHROMIUM_PATH as well as a database URL to reach 84/84 rather than skipping.",
-    "CLAUDE: the payment reconciliation worker remains unwired and visibly DEGRADED. It is blocked on a payment provider, not on engineering."
+    "OWNER: resolve the Vercel project-existence contradiction. Still the only thing blocking every deployment step.",
+    "CLAUDE/ANY LANE: extract server.mjs's handler behind an exported factory so its 87 branches become individually testable rather than only reachable through a socket. The spawned-process gate is now the net to do it under.",
+    "ANY LANE: the coverage ratchet is green at 0 uncovered across src, api and entry points. A new production module or route without a gate now fails rather than shipping unchecked.",
+    "CLAUDE: the payment reconciliation worker remains unwired and visibly DEGRADED, blocked on a payment provider rather than on engineering."
   ],
   "production": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
@@ -83,16 +83,16 @@
   "verification": {
     "executedBy": "local execution in this session, not hosted CI",
     "gates": {
-      "check:syntax": "614 files parse",
-      "test:deterministic": "2820 tests, 2772 pass, 0 fail, 48 skipped",
+      "check:syntax": "616 files parse",
+      "test:deterministic": "2837 tests, 2789 pass, 0 fail, 48 skipped",
       "test:relay-safety": "150/150",
-      "test:postgres-real": "155/155 against PostgreSQL 16.13",
-      "test:browser": "1/1 against the runner's installed Chromium",
-      "test:mutation-war": "84 mutations, 84 killed, 0 not killed",
+      "test:postgres-real": "158/158 against PostgreSQL 16.13",
+      "test:browser": "1/1",
+      "test:mutation-war": "87 mutations, 87 killed, 0 not killed",
       "npm audit --omit=dev": "0 vulnerabilities"
     },
     "runtimeNote": "The runner was rebuilt and no longer ships the PostgreSQL 18 binaries the previous receipt named. A fresh PostgreSQL 16.13 cluster was initialized locally. The receipt says 16.13 rather than carrying 18 forward, because the version is part of what the evidence means.",
-    "productionCoverage": "126 production-reachable src modules, 0 executed by no gate."
+    "productionCoverage": "126 production-reachable src modules, 0 unexercised. All 5 API routes exercised. server.mjs exercised by a spawned-process gate. worker.mjs exempt as wiring (60 lines, 3 branches)."
   },
   "maximumThreeFounderActions": [
     {
@@ -316,6 +316,28 @@
           "HYG-02",
           "HYG-03"
         ]
+      },
+      {
+        "id": "ADMIN-01",
+        "severity": "P3",
+        "origin": "pre-existing",
+        "summary": "The admin health route coerced its bearer header with String(), admitting a non-string.",
+        "mechanism": "An object with a toString returning the right bearer was admitted. NOT a live bypass: over HTTP a header is only a string or an array of strings and an attacker cannot supply an object. Fixed because the coercion was doing work nobody asked for, and because src/agent-mesh-cron-boundary.mjs already had the right shape one file over.",
+        "mutations": [
+          "ADMIN-01",
+          "ADMIN-02"
+        ]
+      },
+      {
+        "id": "SRV-01",
+        "severity": "P1",
+        "origin": "structural, pre-existing",
+        "summary": "server.mjs -- 614 lines, 87 branches -- was executed by no gate.",
+        "mechanism": "The handler is an inline anonymous function and importing the module runs validateStartupConfig, creates a store and awaits store.init(), so the routing logic was unreachable without a running process.",
+        "fix": "A gate now spawns the real server on loopback with a throwaway JSON store and probes 16 admin routes against 4 bad-credential shapes, the public route list, all five security headers on public/refused/404 responses, and leak-freedom of 404s and refusals. No external request. A smoke gate, not a substitute for extracting the handler -- but the net that extraction should now be done under.",
+        "mutations": [
+          "SRV-01"
+        ]
       }
     ],
     "survivedAttackUnchanged": [
@@ -328,7 +350,9 @@
       "The artifact contract's sensitive-metadata-key check is top-level only, so {outer:{api_key}} is accepted. It leaks nothing, because metadata never reaches the plan at all -- the check is a refusal signal, not a redaction. Recorded so nobody later relies on it as a filter."
     ],
     "harnessGapsFixed": [
-      "The mutation sandbox copied src, tests, scripts, config and migrations but not `api`, so no route could be mutated at all -- a mutation naming one failed with ENOENT rather than reporting a surviving guard. Routes are where admission and enablement checks live. Fixed, and HYG-01 now sabotages the maintenance cron's enablement check."
+      "The mutation sandbox copied src, tests, scripts, config and migrations but not `api`, so no route could be mutated at all -- a mutation naming one failed with ENOENT rather than reporting a surviving guard. Routes are where admission and enablement checks live. Fixed, and HYG-01 now sabotages the maintenance cron's enablement check.",
+      "The mutation sandbox did not copy server.mjs or worker.mjs, so a mutation of either could not mean anything.",
+      "The coverage ratchet counted only imports, which reported a spawned entry point as uncovered. Executing a module by spawning it is still executing it."
     ]
   },
   "continuousIntegrationTruth": {

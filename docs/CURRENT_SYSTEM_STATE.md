@@ -37,11 +37,13 @@ The 51 deterministic skips are the environment-dependent real-PostgreSQL suites 
 
 ## Reachability
 
-There are **255** `src` modules:
+**119 of 255 `src` modules have no entry point at all**.
 
-- **127** reachable from production;
-- **9** reachable only through operator scripts;
-- **119** with no entry point.
+| Reachability class | Modules |
+|---|---:|
+| Reachable from production | 127 |
+| Reachable only via an operator script | 9 |
+| **No entry point at all** | **119** |
 
 The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`.
 

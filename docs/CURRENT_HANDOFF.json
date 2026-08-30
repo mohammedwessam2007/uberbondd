@@ -97,13 +97,13 @@
   },
   "maximumThreeFounderActions": [
     {
-      "reason": "The payment promotion gate still needs a trustworthy throwaway PostgreSQL runtime for the real lease/concurrency suites; repository code cannot create or authorize that external database.",
-      "screen": "https://vercel.com/mohammedwessam2007s-projects",
-      "action": "Provide one temporary PostgreSQL test URL for the real-only suites, without production/customer data.",
-      "founderMinutes": 3,
+      "reason": "Two lanes disagree about whether this project exists. Through this session's connector the only visible team has zero projects, the exact project id and slug 404, and so does dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h -- the deployment another lane recorded as READY from current main with a timestamped 200 from /api/health. One of those views is scoped to the wrong account, and only you can see which.",
+      "screen": "https://vercel.com/mohammedwessam2007s-projects  (and the deployment directly: https://vercel.com/mohammedwessam2007s-projects/uberbondd/BYCthpL4jEo6HAnX3v3UD2PsU42h)",
+      "action": "Open that deployment link. If it loads, the Vercel connection this session uses is scoped to a different account than the project, and reconnecting it under the account that owns the project resolves every deployment step at once. If it 404s for you too, the project genuinely is not there and the deployment claim in PR #234 is wrong.",
+      "founderMinutes": 2,
       "costUsd": 0,
-      "evidenceRequired": "A reachable throwaway PostgreSQL URL and the resulting 16-suite receipt.",
-      "defaultRecommendation": "Do this only when convenient; no production database is appropriate."
+      "evidenceRequired": "Whether that deployment page loads for you, and under which account.",
+      "defaultRecommendation": "Do this one first. It is the only blocker gating every remaining deployment step, and it is now a single link rather than an investigation."
     },
     {
       "reason": "Hosted CI reports failure on jobs where no runner was ever assigned and no step ran. It is currently incapable of producing evidence, which means real regressions could hide behind noise everyone has learned to ignore.",
@@ -148,7 +148,7 @@
     "currentMainExactProductionDeploymentProven": false,
     "cronRegistrationProven": false,
     "cronDeliveryProven": false,
-    "contradiction": "Earlier connector observations returned an empty project list/404. The current connected Vercel API resolves both named projects, resolves the full project to a READY production deployment on older main source b156566c..., and resolves a READY preview for PR #227 predecessor source 444efdab.... The earlier negative observations remain historical connector-scope evidence, not current project truth.",
+    "contradiction": "Unresolved, and now sharper. Five probes through the connected Vercel API return an empty project list for the only team the connector can see, 404 for the exact project id and slug, and 404 for the exact deployment id another lane recorded as READY from current main. That lane's observation names a specific deployment and a timestamped 200 from /api/health, so it is not vague. Both cannot describe the same account scope. The live hostnames cannot be probed from this runner to break the tie, because the environment's network policy denies them. Preserved on both sides with provenance rather than resolved by preferring one lane.",
     "observations": [
       {
         "claim": "two projects exist (full + private lite)",
@@ -182,6 +182,30 @@
         "observedAt": "2026-08-29 (fourth probe)",
         "result": "one Hobby team, projects [], 404 for the exact project id",
         "note": "This instance is a fresh connection, which rules out a stale session as the explanation for the earlier empty results. The repository also contains no .vercel/project.json, so nothing links it to a project from this side -- though a dashboard-created Git link would not require one, so that is context rather than proof."
+      },
+      {
+        "claim": "another lane recorded a READY production deployment from exact main 0b41795, with /api/health 200 at 2026-08-30T06:06:45Z",
+        "observedVia": "draft PR #234 (nightfall/final-reconcile-20260830), docs/CURRENT_SYSTEM_STATE.md at head 0444516",
+        "observedAt": "2026-08-30",
+        "result": "deployment dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h reported READY",
+        "evidenceRef": "github:mohammedwessam2007/uberbondd#234",
+        "note": "Recorded as that lane's observation, not adopted. It is the first Vercel claim naming a specific deployment id, which makes it checkable."
+      },
+      {
+        "claim": "the deployment id that lane named is not reachable through this session's connector",
+        "observedVia": "connected Vercel MCP get_deployment(dpl_BYCthpL4jEo6HAnX3v3UD2PsU42h) and list_projects, on team_A9LnjIuS5PU0rNetsHMu1N0r",
+        "observedAt": "2026-08-30",
+        "result": "404 Deployment not found; list_projects returned [] for the fifth consecutive probe across three days",
+        "evidenceRef": "vercel:get_deployment->404, vercel:list_projects->[]",
+        "note": "A 404 on an exact deployment id is a direct answer rather than a scope artifact, and it is the sharpest form the contradiction has taken: two lanes describe the same named deployment as READY and as absent. Not resolved unilaterally."
+      },
+      {
+        "claim": "the live hostnames cannot be observed from this runner at all",
+        "observedVia": "curl https://uberbondd.vercel.app/api/health and https://uberbond-relay.vercel.app/api/health",
+        "observedAt": "2026-08-30",
+        "result": "CONNECT tunnel failed, gateway answered 403 -- the same denial the environment's proxy returns for www.google.com",
+        "evidenceRef": "agentproxy:/__agentproxy/status recentRelayFailures",
+        "note": "EFFECT_UNKNOWN. This is the environment's outbound network policy, and says nothing about whether the site is up. It is recorded so a later reader does not mistake it for evidence that the deployment is down."
       }
     ],
     "resolvedBy": "Connected Vercel project/deployment queries on 2026-08-29; the exact combined candidate still needs a fresh deployment receipt."

@@ -1,8 +1,8 @@
 {
   "schemaVersion": "uberbond-bootstrap-1.1.0",
   "project": "UberBond",
-  "generatedAt": "2026-08-30T18:22:11Z",
-  "objective": "Maximize risk-adjusted cleared contribution profit per founder minute while compounding evidence, reusable delivery assets, recurring revenue, partner leverage, owner-independent fulfilment, privacy-safe learning, enterprise value, world-class distribution, cloud autonomy, and truthful economic learning without inventing evidence or bypassing consequence controls.",
+  "generatedAt": "2026-08-30T20:35:00Z",
+  "objective": "Maximize risk-adjusted cleared contribution profit per founder minute while compounding evidence, reusable delivery assets, recurring revenue, partner leverage, owner-independent fulfilment, privacy-safe learning, enterprise value, world-class distribution, cloud autonomy, truthful economic learning, and safely assimilated external AI capabilities without inventing evidence or bypassing consequence controls.",
   "truthHierarchy": [
     "OPERATOR",
     "CURRENT_REPOSITORY_CANON",
@@ -24,6 +24,8 @@
     "artifacts/system-readiness.json",
     "docs/DISTRIBUTION_OS_CANON.md",
     "docs/DISTRIBUTION_VENDOR_MAP.md",
+    "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+    "artifacts/external-skill-plugin-registry.json",
     "docs/CROSS_CHAT_CONTINUITY.md",
     "docs/memory/CHAT_IMPORT_PROTOCOL.md",
     "docs/CURRENT_HANDOFF.json"
@@ -38,6 +40,7 @@
     "Preserve partner-first and white-label leverage including the historical Agency Revenue Watchtower and related recurring-product lineage without treating any unproven offer as active revenue.",
     "Keep the primary brand protected while acquisition infrastructure, sender health, suppression, consent, provider terms, budget, attribution, and channel concentration remain explicit gates.",
     "Continuously acquire missing capabilities from public software patterns using clean-room abstraction, dedupe, license review, provider-neutral contracts, hostile tests, and no automatic code vendoring.",
+    "Assimilate useful external AI skills, plugins, memory systems, context optimizers, model gateways, security workers, and research tools as replaceable bounded suppliers beneath UberBond canon, with explicit data, authority, rollback, license, evidence, and economic gates.",
     "Route work across deterministic code, tools, models, agents, providers, partners, and humans according to evidence and measured economics while capability never creates authority.",
     "Preserve durable identities, proof DAG lineage, crash/replay safety, monotonic constraints, exact external-effect ledgers, contradiction preservation, revocation, and auditability.",
     "Learn only from trusted observed outcomes; internal model prose, synthetic benchmarks, opens, clicks, CRM guesses, creator screenshots, historical mega-test counts, and architecture cannot manufacture revenue or customer truth.",
@@ -71,6 +74,7 @@
     "forms feedback and commercial signatures",
     "receivables payment delivery acceptance renewal and accounting export",
     "commercial learning capital allocation capability acquisition and self-upgrade",
+    "external AI skill plugin runtime gateway memory compression security and research assimilation",
     "durable agent mesh cloud scheduling routing recovery monitoring audit and founder-absence proof"
   ],
   "productFamilies": [
@@ -101,6 +105,7 @@
     "Read UBERBOND_BOOTSTRAP.json, docs/UBERBOND_MASTER_MEMORY.md, artifacts/uberbond-memory-index.json, and every remaining path listed in canonPointers.",
     "Read docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md before CURRENT_HANDOFF; the checkpoint explicitly supersedes stale short-term claims and stale memory-index entries it names.",
     "For Claude engineering work, read docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md plus the canonical Claude executive mission before acting.",
+    "Read docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md and artifacts/external-skill-plugin-registry.json before installing or invoking external skills, plugins, gateways, memory systems, compressors, security agents, or research CLIs.",
     "Read docs/CURRENT_HANDOFF.json after master memory and checkpoint so the short-term frontier cannot erase the long-term company dream.",
     "Read docs/CURRENT_SYSTEM_STATE.md and artifacts/system-readiness.json for current measured readiness.",
     "Read docs/DISTRIBUTION_OS_CANON.md for distribution missions.",

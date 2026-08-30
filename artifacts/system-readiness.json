@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-30T06:01:28.620Z",
+  "generatedAt": "2026-08-30T06:23:54.445Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "54ff17f7d5fd3b88303f3a7aedbe42c0825fb018",
+    "head": "b4c01bdfaf21fbee88d87a41828608ae53c35a77",
     "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
     "sourceModules": 254,
-    "testSuites": 296,
-    "workingTreeClean": true
+    "testSuites": 297,
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 620,
-      "ranAt": "2026-08-29T20:00:00Z"
+      "filesParsed": 621,
+      "ranAt": "2026-08-30T00:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2860,
-      "pass": 2812,
+      "tests": 2864,
+      "pass": 2816,
       "fail": 0,
       "skipped": 48,
-      "ranAt": "2026-08-29T20:00:00Z"
+      "ranAt": "2026-08-30T00:00:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -29,18 +29,18 @@
       "pass": 150,
       "fail": 0,
       "skipped": 0,
-      "ranAt": "2026-08-29T00:00:00Z"
+      "ranAt": "2026-08-30T00:00:00Z"
     },
     "test:postgres-real": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real",
       "status": "PASS_CURRENT_BRANCH",
-      "tests": 127,
-      "pass": 127,
+      "tests": 158,
+      "pass": 158,
       "fail": 0,
       "skipped": 0,
-      "result": "127 tests, 127 pass, 0 fail (2026-08-29), against PostgreSQL 16.13",
+      "result": "158 tests, 158 pass, 0 fail (2026-08-30), against PostgreSQL 16.13",
       "note": "The runner was rebuilt and no longer ships the PostgreSQL 18 binaries the previous receipt named. A fresh PostgreSQL 16.13 cluster was initialized locally for this gate. Recorded as 16.13 rather than carrying the old version forward, because the version is part of what the evidence means.",
-      "ranAt": "2026-08-29T20:00:00Z"
+      "ranAt": "2026-08-30T00:00:00Z"
     },
     "npm audit": {
       "command": "npm audit --omit=dev",
@@ -51,9 +51,9 @@
     },
     "test:mutation-war": {
       "command": "CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "93 mutations, 93 killed, 0 not killed",
+      "result": "94 mutations, 94 killed, 0 not killed",
       "note": "Run with both a real PostgreSQL and a real Chromium so STORE-01 and CRAWL-01 execute rather than skip. Without them the war honestly reports SKIPPED_NEEDS_POSTGRES / SKIPPED_NEEDS_BROWSER rather than counting them as killed.",
-      "ranAt": "2026-08-29T20:00:00Z"
+      "ranAt": "2026-08-30T00:00:00Z"
     },
     "test:browser": {
       "command": "CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser",
@@ -62,9 +62,9 @@
       "pass": 1,
       "fail": 0,
       "skipped": 0,
-      "result": "1 test, 1 pass, 0 fail (2026-08-29), against the runner's installed Chromium",
+      "result": "1 test, 1 pass, 0 fail (2026-08-30), against the runner's installed Chromium",
       "note": "This gate caught a P0 this shift: the browser runtime pool integration moved the crawl result variables inside a try block while the return stayed outside it, so every crawl threw ReferenceError. check:syntax parsed it, the deterministic suite does not cover it, and the pool unit tests mock the browser. Only this gate saw it.",
-      "ranAt": "2026-08-29T20:00:00Z"
+      "ranAt": "2026-08-30T00:00:00Z"
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
@@ -73,7 +73,7 @@
       "reachableFromOperatorScriptsOnly": 9,
       "noEntryPointAtAll": 119,
       "allClassified": true,
-      "ranAt": "2026-08-29T20:00:00Z",
+      "ranAt": "2026-08-30T00:00:00Z",
       "note": "src is now walked recursively. The previous 191/117/5/69 figures excluded src/overnight and src/omnia-v9 entirely, which was an accident of a single-level directory read, not a scope decision."
     }
   },

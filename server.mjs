@@ -619,6 +619,8 @@ export const requestHandler = async (req, res) => {
   }
 };
 
+export default requestHandler;
+
 const server = http.createServer(requestHandler);
 
 // Listening, and the signal handlers below, are what make importing this module

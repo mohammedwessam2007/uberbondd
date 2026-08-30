@@ -45,10 +45,10 @@
     "No outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Every one of these is an external activation, not an engineering task."
   ],
   "nextActions": [
-    "OWNER: resolve the Vercel project-existence contradiction. Four probes across two days, the latest through a freshly reconnected connector. It blocks every deployment step and no lane can settle it from inside the repository.",
-    "CLAUDE/ANY LANE: the payment reconciliation worker is still unwired, and that is now VISIBLE rather than silent -- the health matrix reports NO_WORKER and DEGRADED. Wiring it needs a payment provider first, so it is blocked on activation, not on engineering.",
-    "ANY LANE: run the browser gate before merging anything touching src/browser-crawler.mjs. It caught a P0 this shift that syntax, the deterministic suite, and the new pool's own unit tests all passed.",
-    "ANY LANE: the artifact contract's sensitive-metadata-key check is top-level only. It leaks nothing today because metadata never reaches the plan, but it screens less deeply than its name suggests."
+    "OWNER: resolve the Vercel project-existence contradiction. It is the only thing blocking every deployment step and no lane can settle it from inside the repository.",
+    "ANY LANE: the production coverage ratchet is now green at 0 uncovered. Keep it there -- a new production module without a suite fails tests/production-coverage-ratchet.test.mjs rather than shipping unchecked.",
+    "ANY LANE: run the browser gate before merging anything touching src/browser-crawler.mjs, and note the mutation war now needs CHROMIUM_PATH as well as a database URL to reach 84/84 rather than skipping.",
+    "CLAUDE: the payment reconciliation worker remains unwired and visibly DEGRADED. It is blocked on a payment provider, not on engineering."
   ],
   "production": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
@@ -83,15 +83,16 @@
   "verification": {
     "executedBy": "local execution in this session, not hosted CI",
     "gates": {
-      "check:syntax": "611 files parse",
-      "test:deterministic": "2808 tests, 2760 pass, 0 fail, 48 skipped -- identical with and without a database URL exported",
+      "check:syntax": "614 files parse",
+      "test:deterministic": "2820 tests, 2772 pass, 0 fail, 48 skipped",
       "test:relay-safety": "150/150",
-      "test:postgres-real": "145/145 against PostgreSQL 16.13",
+      "test:postgres-real": "155/155 against PostgreSQL 16.13",
       "test:browser": "1/1 against the runner's installed Chromium",
-      "test:mutation-war": "81 mutations, 81 killed, 0 not killed, with both a real database and a real browser",
+      "test:mutation-war": "84 mutations, 84 killed, 0 not killed",
       "npm audit --omit=dev": "0 vulnerabilities"
     },
-    "runtimeNote": "The runner was rebuilt and no longer ships the PostgreSQL 18 binaries the previous receipt named. A fresh PostgreSQL 16.13 cluster was initialized locally. The receipt says 16.13 rather than carrying 18 forward, because the version is part of what the evidence means."
+    "runtimeNote": "The runner was rebuilt and no longer ships the PostgreSQL 18 binaries the previous receipt named. A fresh PostgreSQL 16.13 cluster was initialized locally. The receipt says 16.13 rather than carrying 18 forward, because the version is part of what the evidence means.",
+    "productionCoverage": "126 production-reachable src modules, 0 executed by no gate."
   },
   "maximumThreeFounderActions": [
     {
@@ -302,6 +303,19 @@
         "mutations": [
           "GATE-01"
         ]
+      },
+      {
+        "id": "COVERAGE-01",
+        "severity": "P1",
+        "origin": "structural, pre-existing",
+        "summary": "Two production-reachable modules were executed by no gate at all.",
+        "mechanism": "The reachability ratchet asks whether anything CAN call a module. Nothing asked whether anything CHECKS it. Taking the closure of everything the gates import and subtracting it from the production-reachable set found src/database-hygiene-repository.mjs, which DELETES rows on a weekly cron, and src/discovery-runner.mjs, which decides whether discovery may run. The same combination already cost a P0 this shift: the crawler shipped a ReferenceError because its only real gate had been written off.",
+        "outcome": "Neither module was defective -- both survived every attack unchanged. The defect was that nothing would have noticed if they stopped being right. Both now have suites, and tests/production-coverage-ratchet.test.mjs keeps the uncovered set empty.",
+        "mutations": [
+          "HYG-01",
+          "HYG-02",
+          "HYG-03"
+        ]
       }
     ],
     "survivedAttackUnchanged": [
@@ -312,6 +326,9 @@
     ],
     "observationsNotFixed": [
       "The artifact contract's sensitive-metadata-key check is top-level only, so {outer:{api_key}} is accepted. It leaks nothing, because metadata never reaches the plan at all -- the check is a refusal signal, not a redaction. Recorded so nobody later relies on it as a filter."
+    ],
+    "harnessGapsFixed": [
+      "The mutation sandbox copied src, tests, scripts, config and migrations but not `api`, so no route could be mutated at all -- a mutation naming one failed with ENOENT rather than reporting a surviving guard. Routes are where admission and enablement checks live. Fixed, and HYG-01 now sabotages the maintenance cron's enablement check."
     ]
   },
   "continuousIntegrationTruth": {

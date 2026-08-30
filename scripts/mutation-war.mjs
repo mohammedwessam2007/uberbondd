@@ -406,6 +406,30 @@ export const MUTATIONS = [
     suites: ['tests/build-wiring.test.mjs']
   },
   {
+    id: 'HYG-01', guard: 'The maintenance cron deletes nothing unless explicitly enabled',
+    file: 'api/database-maintenance.mjs',
+    find: "if(String(env.MAINTENANCE_ENABLED||'').toLowerCase()!=='true')",
+    replace: 'if(false)',
+    needsPostgres: true,
+    suites: ['tests/database-hygiene-postgres-real.test.mjs']
+  },
+  {
+    id: 'HYG-02', guard: 'Deletion cannot reach a row that was written recently',
+    file: 'src/database-hygiene-repository.mjs',
+    find: "whereSql:'expires_at < $1 AND updated_at < $2'",
+    replace: "whereSql:'expires_at < $1 AND updated_at <= now()'",
+    needsPostgres: true,
+    suites: ['tests/database-hygiene-postgres-real.test.mjs']
+  },
+  {
+    id: 'HYG-03', guard: 'Only terminal staged content is disposable',
+    file: 'src/database-hygiene-repository.mjs',
+    find: "whereSql:\"status IN ('CONSUMED','FAILED','EXPIRED','SUPERSEDED') AND updated_at < $1\"",
+    replace: "whereSql:'updated_at < $1'",
+    needsPostgres: true,
+    suites: ['tests/database-hygiene-postgres-real.test.mjs']
+  },
+  {
     id: 'BILL-01', guard: 'Unclaimable payment evidence is visible, not silent',
     file: 'src/system-health-matrix.mjs',
     find: "const billingSevere=billingBlock.state==='NO_WORKER'||billingBlock.state==='BACKLOG_AGEING';",
@@ -665,6 +689,13 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       cpSync(join(repoRoot, 'scripts'), join(root, 'scripts'), { recursive: true });
       cpSync(join(repoRoot, 'config'), join(root, 'config'), { recursive: true });
       cpSync(join(repoRoot, 'migrations'), join(root, 'migrations'), { recursive: true });
+      // `api` was missing, which meant no route could be mutated at all -- the
+      // cron routes and the billing webhook among them. A mutation naming a file
+      // the sandbox does not contain fails with ENOENT rather than reporting a
+      // surviving guard, so the gap was invisible until something tried to use
+      // it. Routes are where admission and enablement checks live, which is
+      // exactly the kind of guard worth sabotaging.
+      cpSync(join(repoRoot, 'api'), join(root, 'api'), { recursive: true });
       cpSync(join(repoRoot, 'package.json'), join(root, 'package.json'));
       cpSync(join(repoRoot, 'node_modules'), join(root, 'node_modules'), { recursive: true, dereference: false });
 

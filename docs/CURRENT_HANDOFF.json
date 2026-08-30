@@ -1,9 +1,9 @@
 {
   "schemaVersion": "uberbond-handoff-1.4.0",
   "sourceMainShaAtMissionStart": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
-  "sourceCommit": "PENDING_MERGE",
-  "currentMainShaAtFinalRefresh": "a97a5d8fd84f93ac0195391603feb51d143af897",
-  "currentMainCommitMessage": "Integrate #231 and #230, and repair a P0 the browser gate caught (#232)",
+  "sourceCommit": "3d5e3a81e75a2433776ca7b822220d6ea767d1b5",
+  "currentMainShaAtFinalRefresh": "3d5e3a81e75a2433776ca7b822220d6ea767d1b5",
+  "currentMainCommitMessage": "Make unclaimable payment evidence visible, and the deterministic gate deterministic (#233)",
   "missionIssue": 173,
   "missionIssueState": "OPEN",
   "activeMission": "Continue NIGHTFALL MAX with distribution and first economic proof as the priority while maturing current Growth Graph infrastructure. Reuse merged autonomy operations hardening rather than recreating proxy, dedupe, billing, maintenance or telemetry systems.",
@@ -39,16 +39,15 @@
     "The local discovery integration smoke passed with 2 previewed and 2 imported records, and the broader zero-effect review probe passed 33/33 without live provider or outbound effects."
   ],
   "blockers": [
-    "The exact combined candidate in draft PR #231 has no full-project Vercel READY deployment because both Vercel checks report api-deployments-free-per-day/build-rate-limit. No paid upgrade or circumvention was attempted.",
-    "The explicit real-PostgreSQL launcher was re-run and is blocked because OMNIA_V9_TEST_DATABASE_URL is absent; the embedded fallback cannot run under this container's denied user/group switching. The browser gate was re-run and is blocked because this runner has no compatible Chromium executable. Neither skipped/failed runtime gate is treated as proof.",
-    "GitHub Actions run 33267965050 reports browser, deterministic and postgres failures with zero executable steps on all three jobs; it is CI infrastructure non-evidence, not a source regression result.",
-    "No outbound authorization, no payment provider, no enrichment provider, no discovery adapter, no configured egress routes, and zero verified customers. Every one of these is an external activation, not an engineering task."
+    "Current main's latest hosted GitHub Actions runs for audits and relay are completed with conclusion=failure; the recorded check runs provide no successful gate evidence for this head.",
+    "The exact current-main Vercel deployment is not proven. The latest READY deployment observed is preview source 5ec9092c74b358924b34ab3cd38326e831403d3a, not current main; production remains READY on older source b156566c69f1d1d0e7e01b015afa474e36041276. No deployment retry was made.",
+    "The public production surface is reachable but stale: /privacy.html and /terms.html return 404; /api/health reports autopilot=false and worker.online=false; no paid checkout is exposed (bookingUrl is empty and offer CTAs route to the free audit form).",
+    "No payment provider was called or activated, no PostgreSQL customer/payment runtime was exercised in production, and zero verified customers. These are external activation/proof gates."
   ],
   "nextActions": [
-    "OWNER: resolve the Vercel project-existence contradiction. Four probes across two days, the latest through a freshly reconnected connector. It blocks every deployment step and no lane can settle it from inside the repository.",
-    "CLAUDE/ANY LANE: the payment reconciliation worker is still unwired, and that is now VISIBLE rather than silent -- the health matrix reports NO_WORKER and DEGRADED. Wiring it needs a payment provider first, so it is blocked on activation, not on engineering.",
-    "ANY LANE: run the browser gate before merging anything touching src/browser-crawler.mjs. It caught a P0 this shift that syntax, the deterministic suite, and the new pool's own unit tests all passed.",
-    "ANY LANE: the artifact contract's sensitive-metadata-key check is top-level only. It leaks nothing today because metadata never reaches the plan, but it screens less deeply than its name suggests."
+    "OWNER — Vercel: after quota/connection is resolved, deploy current main once and capture READY plus exact source SHA, route checks, and runtime health; 5–10 minutes, $0 unless provider plan changes; evidence is deployment ID and source match.",
+    "OWNER — GitHub/CI: restore an executing runner or explain the failed zero-evidence checks, then rerun the required gates on exact current main; 2–5 minutes, $0; evidence is step-level successful logs.",
+    "OWNER — Payments/site: authorize one real payment provider and add reviewed privacy/terms plus one paid checkout path; 10–20 minutes plus provider fees/KYC if applicable; evidence is provider-cleared receipt, accepted delivery, and renewal—not a webhook alone."
   ],
   "production": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
@@ -57,10 +56,10 @@
     "observedProductionDeploymentId": "dpl_DVtL6XTs6yWg2DsDHX1LJnB5hDWA",
     "observedProductionSourceSha": "b156566c69f1d1d0e7e01b015afa474e36041276",
     "observedProductionState": "READY",
-    "currentMainSha": "dc489024042b7bb930a1c9367a86f2a4cc025f23",
+    "currentMainSha": "3d5e3a81e75a2433776ca7b822220d6ea767d1b5",
     "currentMainExactProduction": false,
-    "latestDeploymentBlocker": "PR_231_EXACT_HEAD_VERCEL_CHECKS_API_DEPLOYMENTS_FREE_PER_DAY",
-    "status": "PUBLIC_SITE_LIVE__PRODUCTION_STALE_RELATIVE_TO_MAIN"
+    "latestDeploymentBlocker": "CURRENT_MAIN_EXACT_DEPLOYMENT_NOT_PROVEN__LATEST_READY_PREVIEW_IS_5EC9092",
+    "status": "PUBLIC_SITE_LIVE__PRODUCTION_STALE_RELATIVE_TO_CURRENT_MAIN"
   },
   "productionRuntimeTruth": {
     "projectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
@@ -184,50 +183,7 @@
     ],
     "resolvedBy": "Connected Vercel project/deployment queries on 2026-08-29; the exact combined candidate still needs a fresh deployment receipt."
   },
-  "currentOpenCandidates": [
-    {
-      "pr": 227,
-      "head": "d23c036aa8a5443bf49cca506250717bb3f0ac66",
-      "status": "OPEN_DRAFT_MERGEABLE",
-      "mission": "recoverable payment reconciliation leases",
-      "promotionBlockers": [
-        "exact-head Vercel READY proof",
-        "real PostgreSQL lease proof"
-      ]
-    },
-    {
-      "pr": 228,
-      "head": "30c63cea3249d3fc8277f11db435f4a63c185a73",
-      "status": "OPEN_DRAFT_MERGEABLE",
-      "mission": "bounded Overpass discovery resilience",
-      "promotionBlockers": [
-        "exact-head Vercel READY proof",
-        "browser and real PostgreSQL runtime proof"
-      ]
-    },
-    {
-      "pr": 229,
-      "head": "f5bc15f2581aa92107ed2b1e1a93d137c48a1cc8",
-      "status": "OPEN_DRAFT_MERGEABLE",
-      "mission": "bounded browser runtime pool",
-      "promotionBlockers": [
-        "exact-head Vercel READY proof",
-        "Chromium checkout proof",
-        "real PostgreSQL runtime proof"
-      ]
-    },
-    {
-      "pr": 231,
-      "head": "2f2e884a775fd36d4919b3cdd01ed16deb17ca75",
-      "status": "OPEN_DRAFT_MERGEABLE",
-      "mission": "combined payment, browser and Overpass hardening candidate",
-      "promotionBlockers": [
-        "exact-head Vercel READY proof",
-        "Chromium checkout proof",
-        "real PostgreSQL runtime proof"
-      ]
-    }
-  ],
+  "currentOpenCandidates": [],
   "repositoryPublicationEffects": {
     "productionDeploymentsAuthorizedOrPerformedByThisLane": 0,
     "pullRequestsCreated": 1,
@@ -239,7 +195,14 @@
     "remoteBackupBranch": "integration/nightfall-hardening-20260829",
     "remoteBackupCommit": "f4d00096122bac41dc993b1b5de4c64138ed6eab",
     "integrationPullRequest": 231,
-    "note": "GitHub repository operations are not customer-facing external effects."
+    "note": "GitHub repository operations are not customer-facing external effects.",
+    "finalReconciliation": {
+      "observedAt": "2026-08-30T02:22:08Z",
+      "currentMain": "3d5e3a81e75a2433776ca7b822220d6ea767d1b5",
+      "openPullRequests": 0,
+      "decision": "NO_MERGE_NO_DEPLOY",
+      "reason": "No candidate is open; hosted checks on current main are failing/non-evidence and exact-main READY production is not proven."
+    }
   },
   "lastCompletedSlice": {
     "mission": "Reconcile the five open NIGHTFALL hardening PRs, attack what they add, and repair what does not survive.",
@@ -328,10 +291,9 @@
     "ruling": "Not a pass and not a source failure. These results are not the basis for the merge and were not treated as one; the merge rests on the locally executed gates above."
   },
   "truthRestrictions": [
-    "Zero verified customers, zero cleared revenue, zero accepted deliveries, zero retained customers. Unchanged by this slice and preserved as zero.",
-    "No claim of production deployment, cron registration or cron delivery for current main.",
-    "No provider was called, no message sent, no money moved, no credential or DNS changed.",
-    "Internally exhausted under the current test and attack surface. External proof pending."
+    "Zero verified customers, zero cleared revenue, zero accepted deliveries, zero renewals. Unchanged.",
+    "No claim of current-main production deployment, payment clearance, accepted delivery, or renewal.",
+    "No provider was called, no message sent, no money moved, no credential or DNS changed."
   ],
   "reachability": {
     "srcModules": 251,

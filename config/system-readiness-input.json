@@ -2,13 +2,13 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 611,
+      "filesParsed": 614,
       "ranAt": "2026-08-29T20:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2808,
-      "pass": 2760,
+      "tests": 2820,
+      "pass": 2772,
       "fail": 0,
       "skipped": 48,
       "ranAt": "2026-08-29T20:00:00Z"
@@ -41,7 +41,7 @@
     },
     "test:mutation-war": {
       "command": "CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "81 mutations, 81 killed, 0 not killed",
+      "result": "84 mutations, 84 killed, 0 not killed",
       "note": "Run with both a real PostgreSQL and a real Chromium so STORE-01 and CRAWL-01 execute rather than skip. Without them the war honestly reports SKIPPED_NEEDS_POSTGRES / SKIPPED_NEEDS_BROWSER rather than counting them as killed.",
       "ranAt": "2026-08-29T20:00:00Z"
     },

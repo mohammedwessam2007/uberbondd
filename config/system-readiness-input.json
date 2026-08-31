@@ -2,13 +2,13 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 649,
+      "filesParsed": 655,
       "ranAt": "2026-08-31T14:02:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2986,
-      "pass": 2935,
+      "tests": 3003,
+      "pass": 2952,
       "fail": 0,
       "skipped": 51,
       "ranAt": "2026-08-31T14:02:00Z"
@@ -58,13 +58,13 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 264,
+      "srcModules": 266,
       "reachableFromProduction": 132,
-      "reachableFromOperatorScriptsOnly": 13,
+      "reachableFromOperatorScriptsOnly": 15,
       "noEntryPointAtAll": 119,
       "allClassified": true,
       "ranAt": "2026-08-31T14:02:00Z",
-      "note": "src is walked recursively. Wallbreaker is reachable through its operator script and the Capability Genome remains production-reachable through jobs and the repository brain; the no-entry classification count remains 119. agent-model-failover is production-reachable through agent-worker-job, which is what makes the routing order executable rather than merely reported."
+      "note": "src is walked recursively. Wallbreaker is reachable through its operator script and the Capability Genome remains production-reachable through jobs and the repository brain; the no-entry classification count remains 119. agent-model-failover is production-reachable through agent-worker-job, which is what makes the routing order executable rather than merely reported. capability-genome-body-import and body-fetch are reachable from their operator script only: the doctor reads the measured body artifact rather than importing the fetcher, so no production path can trigger a public body read."
     }
   },
   "capabilities": [
@@ -72,89 +72,154 @@
       "id": "truth-evidence",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/agent-worker-result-truth.mjs", "src/effect-ledgers.mjs"],
-      "tests": ["tests/worker-result-terminal-truth.test.mjs", "tests/effect-ledger-vocabulary.test.mjs"],
+      "evidence": [
+        "src/agent-worker-result-truth.mjs",
+        "src/effect-ledgers.mjs"
+      ],
+      "tests": [
+        "tests/worker-result-terminal-truth.test.mjs",
+        "tests/effect-ledger-vocabulary.test.mjs"
+      ],
       "nextAction": "None internal."
     },
     {
       "id": "queue-state",
       "status": "IMPLEMENTED",
       "level": 4,
-      "evidence": ["src/store.mjs", "src/queue.mjs"],
-      "tests": ["tests/queue.test.mjs", "tests/store.test.mjs", "tests/postgres-schema.test.mjs"],
-      "externalEvidence": ["historical test:postgres-real 127/127 on PostgreSQL 18.4; not rerun on this branch"],
+      "evidence": [
+        "src/store.mjs",
+        "src/queue.mjs"
+      ],
+      "tests": [
+        "tests/queue.test.mjs",
+        "tests/store.test.mjs",
+        "tests/postgres-schema.test.mjs"
+      ],
+      "externalEvidence": [
+        "historical test:postgres-real 127/127 on PostgreSQL 18.4; not rerun on this branch"
+      ],
       "nextAction": "None internal."
     },
     {
       "id": "relay",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/cloud-agent-relay.mjs", "src/github-relay.mjs"],
-      "tests": ["tests/cloud-agent-relay.test.mjs", "npm run test:relay-safety"],
+      "evidence": [
+        "src/cloud-agent-relay.mjs",
+        "src/github-relay.mjs"
+      ],
+      "tests": [
+        "tests/cloud-agent-relay.test.mjs",
+        "npm run test:relay-safety"
+      ],
       "nextAction": "Real transport proof needs a live relay endpoint."
     },
     {
       "id": "agent-mesh",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/agent-mesh-control-plane.mjs", "scripts/agent-mesh-tick.mjs"],
-      "tests": ["tests/agent-mesh-control-plane.test.mjs", "tests/cognitive-loop-crash-restart.test.mjs"],
+      "evidence": [
+        "src/agent-mesh-control-plane.mjs",
+        "scripts/agent-mesh-tick.mjs"
+      ],
+      "tests": [
+        "tests/agent-mesh-control-plane.test.mjs",
+        "tests/cognitive-loop-crash-restart.test.mjs"
+      ],
       "nextAction": "Needs a real scheduler firing the tick."
     },
     {
       "id": "constraint-authority",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/agent-autonomy-loop.mjs"],
-      "tests": ["tests/autonomy-constraint-monotonicity-property.test.mjs", "tests/autonomy-hardening.test.mjs", "tests/autonomy-constraint-inheritance.test.mjs"],
+      "evidence": [
+        "src/agent-autonomy-loop.mjs"
+      ],
+      "tests": [
+        "tests/autonomy-constraint-monotonicity-property.test.mjs",
+        "tests/autonomy-hardening.test.mjs",
+        "tests/autonomy-constraint-inheritance.test.mjs"
+      ],
       "nextAction": "Constraints, forbidden actions and token budgets all attenuate across follow-ups."
     },
     {
       "id": "result-truth",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/agent-worker-result-truth.mjs"],
-      "tests": ["tests/worker-result-terminal-truth.test.mjs", "tests/hostile-worker-and-provider-sweep.test.mjs"],
+      "evidence": [
+        "src/agent-worker-result-truth.mjs"
+      ],
+      "tests": [
+        "tests/worker-result-terminal-truth.test.mjs",
+        "tests/hostile-worker-and-provider-sweep.test.mjs"
+      ],
       "nextAction": "None internal."
     },
     {
       "id": "scheduler-identity",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/agent-autonomy-occurrence.mjs", "src/agent-autonomy-scheduled-run.mjs", "src/agent-mesh-mission-seed.mjs"],
-      "tests": ["tests/autonomy-occurrence-identity.test.mjs", "tests/agent-mesh-mission-seed.test.mjs"],
+      "evidence": [
+        "src/agent-autonomy-occurrence.mjs",
+        "src/agent-autonomy-scheduled-run.mjs",
+        "src/agent-mesh-mission-seed.mjs"
+      ],
+      "tests": [
+        "tests/autonomy-occurrence-identity.test.mjs",
+        "tests/agent-mesh-mission-seed.test.mjs"
+      ],
       "nextAction": "Reachable from scripts/agent-mesh-tick.mjs via AGENT_MESH_MISSION; needs a real scheduler firing it."
     },
     {
       "id": "scheduler-fairness",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/agent-autonomy-scheduler.mjs", "src/agent-autonomy-store.mjs"],
-      "tests": ["tests/autonomy-scheduler-starvation-bound.test.mjs", "tests/autonomy-scheduler-fairness.test.mjs"],
+      "evidence": [
+        "src/agent-autonomy-scheduler.mjs",
+        "src/agent-autonomy-store.mjs"
+      ],
+      "tests": [
+        "tests/autonomy-scheduler-starvation-bound.test.mjs",
+        "tests/autonomy-scheduler-fairness.test.mjs"
+      ],
       "nextAction": "None internal."
     },
     {
       "id": "cycle-receipts",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/agent-mesh-cycle-receipts.mjs"],
-      "tests": ["tests/agent-mesh-cycle-receipt-concurrency.test.mjs", "tests/agent-mesh-abandoned-cycle-reconciliation.test.mjs"],
+      "evidence": [
+        "src/agent-mesh-cycle-receipts.mjs"
+      ],
+      "tests": [
+        "tests/agent-mesh-cycle-receipt-concurrency.test.mjs",
+        "tests/agent-mesh-abandoned-cycle-reconciliation.test.mjs"
+      ],
       "nextAction": "None internal."
     },
     {
       "id": "duration-proof",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/founder-absence-readiness.mjs"],
-      "tests": ["tests/founder-absence-duration-proof.test.mjs", "tests/founder-absence-durable-history.test.mjs"],
+      "evidence": [
+        "src/founder-absence-readiness.mjs"
+      ],
+      "tests": [
+        "tests/founder-absence-duration-proof.test.mjs",
+        "tests/founder-absence-durable-history.test.mjs"
+      ],
       "nextAction": "A seven-day tier needs seven days of real cycles. Time cannot be simulated."
     },
     {
       "id": "founder-absence",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/founder-absence-readiness.mjs"],
-      "tests": ["tests/founder-absence-durable-history.test.mjs"],
+      "evidence": [
+        "src/founder-absence-readiness.mjs"
+      ],
+      "tests": [
+        "tests/founder-absence-durable-history.test.mjs"
+      ],
       "externalBlocker": "No real observation window exists yet.",
       "nextAction": "Run the scheduler with zero business effects and accumulate real terminal receipts."
     },
@@ -162,8 +227,14 @@
       "id": "provider-integration",
       "status": "PARTIAL",
       "level": 2,
-      "evidence": ["src/agent-model-executor-factory.mjs", "src/anthropic-agent-executor.mjs"],
-      "tests": ["tests/anthropic-agent-executor.test.mjs", "tests/openai-agent-executor.test.mjs"],
+      "evidence": [
+        "src/agent-model-executor-factory.mjs",
+        "src/anthropic-agent-executor.mjs"
+      ],
+      "tests": [
+        "tests/anthropic-agent-executor.test.mjs",
+        "tests/openai-agent-executor.test.mjs"
+      ],
       "externalBlocker": "No provider credential, no pricing evidence, no canary budget.",
       "nextAction": "Owner supplies one provider credential and an authorised cap."
     },
@@ -171,8 +242,18 @@
       "id": "mailhub-provider-adapters",
       "status": "TEST_VERIFIED",
       "level": 3,
-      "evidence": ["src/provider-http-adapters.mjs", "src/provider-adapter-contract.mjs", "src/mailhub-control-plane.mjs", "src/provider-infrastructure-events.mjs", "docs/MAILHUB_PROVIDER_ADAPTERS.md"],
-      "tests": ["tests/provider-http-adapters.test.mjs", "tests/mailhub-control-plane.test.mjs", "tests/provider-infrastructure-events.test.mjs"],
+      "evidence": [
+        "src/provider-http-adapters.mjs",
+        "src/provider-adapter-contract.mjs",
+        "src/mailhub-control-plane.mjs",
+        "src/provider-infrastructure-events.mjs",
+        "docs/MAILHUB_PROVIDER_ADAPTERS.md"
+      ],
+      "tests": [
+        "tests/provider-http-adapters.test.mjs",
+        "tests/mailhub-control-plane.test.mjs",
+        "tests/provider-infrastructure-events.test.mjs"
+      ],
       "externalBlocker": "No Icemail or Mailforge API key, provider account, DNS authority, billing approval or warm-up evidence is configured.",
       "nextAction": "Owner selects a provider and supplies one server-side API key plus a bounded approval; UberBond begins with read-only inventory reconciliation."
     },
@@ -180,24 +261,42 @@
       "id": "compute-budget",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/ai-compute-budget.mjs", "src/agent-compute-store.mjs"],
-      "tests": ["tests/ai-compute-budget-conservation.test.mjs", "tests/agent-compute-store-corruption.test.mjs"],
+      "evidence": [
+        "src/ai-compute-budget.mjs",
+        "src/agent-compute-store.mjs"
+      ],
+      "tests": [
+        "tests/ai-compute-budget-conservation.test.mjs",
+        "tests/agent-compute-store-corruption.test.mjs"
+      ],
       "nextAction": "None internal."
     },
     {
       "id": "model-routing",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/agent-model-router.mjs", "src/agent-model-routing-integration.mjs", "scripts/agent-model-route.mjs"],
-      "tests": ["tests/agent-model-routing-integration.test.mjs", "tests/autonomy-architecture.test.mjs"],
+      "evidence": [
+        "src/agent-model-router.mjs",
+        "src/agent-model-routing-integration.mjs",
+        "scripts/agent-model-route.mjs"
+      ],
+      "tests": [
+        "tests/agent-model-routing-integration.test.mjs",
+        "tests/autonomy-architecture.test.mjs"
+      ],
       "nextAction": "Reachable now. Routing history still needs real measured provider outcomes."
     },
     {
       "id": "sandbox",
       "status": "PARTIAL",
       "level": 3,
-      "evidence": ["src/claude-code-sandbox-provisioner.mjs", "src/agent-sandbox-verifier.mjs"],
-      "tests": ["tests/claude-code-sandbox-provisioner.test.mjs"],
+      "evidence": [
+        "src/claude-code-sandbox-provisioner.mjs",
+        "src/agent-sandbox-verifier.mjs"
+      ],
+      "tests": [
+        "tests/claude-code-sandbox-provisioner.test.mjs"
+      ],
       "externalBlocker": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK: network isolation cannot be self-attested.",
       "nextAction": "Supply CLAUDE_CODE_SANDBOX_ISOLATION_FILE from whatever enforces the network boundary."
     },
@@ -205,24 +304,40 @@
       "id": "prometheus",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/prometheus-economic-spine.mjs", "src/prometheus-control-tower.mjs"],
-      "tests": ["tests/prometheus-economic-spine.test.mjs", "tests/prometheus-adversarial.test.mjs"],
+      "evidence": [
+        "src/prometheus-economic-spine.mjs",
+        "src/prometheus-control-tower.mjs"
+      ],
+      "tests": [
+        "tests/prometheus-economic-spine.test.mjs",
+        "tests/prometheus-adversarial.test.mjs"
+      ],
       "nextAction": "None internal."
     },
     {
       "id": "prospect-intelligence",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/prospect-evidence-reconciliation.mjs", "src/prospect-qualification.mjs"],
-      "tests": ["tests/prospect-qualification.test.mjs", "tests/prospect-evidence-reconciliation.test.mjs"],
+      "evidence": [
+        "src/prospect-evidence-reconciliation.mjs",
+        "src/prospect-qualification.mjs"
+      ],
+      "tests": [
+        "tests/prospect-qualification.test.mjs",
+        "tests/prospect-evidence-reconciliation.test.mjs"
+      ],
       "nextAction": "Needs a licensed discovery adapter to produce real candidates."
     },
     {
       "id": "enrichment",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/prospect-enrichment-planner.mjs"],
-      "tests": ["tests/prospect-enrichment-planner.test.mjs"],
+      "evidence": [
+        "src/prospect-enrichment-planner.mjs"
+      ],
+      "tests": [
+        "tests/prospect-enrichment-planner.test.mjs"
+      ],
       "externalBlocker": "No enrichment provider configured or terms-confirmed.",
       "nextAction": "Owner selects a provider and confirms terms."
     },
@@ -230,8 +345,12 @@
       "id": "email-verification",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/prospect-evidence-reconciliation.mjs"],
-      "tests": ["tests/prospect-suppression-dominance.test.mjs"],
+      "evidence": [
+        "src/prospect-evidence-reconciliation.mjs"
+      ],
+      "tests": [
+        "tests/prospect-suppression-dominance.test.mjs"
+      ],
       "externalBlocker": "No verification provider configured.",
       "nextAction": "Owner selects a verifier."
     },
@@ -239,16 +358,26 @@
       "id": "distribution",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/distribution-channel.mjs"],
-      "tests": ["tests/distribution-channel.test.mjs"],
+      "evidence": [
+        "src/distribution-channel.mjs"
+      ],
+      "tests": [
+        "tests/distribution-channel.test.mjs"
+      ],
       "nextAction": "Allocation needs real cleared-contribution outcomes."
     },
     {
       "id": "inbound-feedback",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/inbound-feedback-kernel.mjs", "src/gmail-inbound.mjs", "src/inbound-classify.mjs"],
-      "tests": ["tests/nervous-system-integration.test.mjs"],
+      "evidence": [
+        "src/inbound-feedback-kernel.mjs",
+        "src/gmail-inbound.mjs",
+        "src/inbound-classify.mjs"
+      ],
+      "tests": [
+        "tests/nervous-system-integration.test.mjs"
+      ],
       "externalBlocker": "Needs a gmail.readonly grant.",
       "nextAction": "Owner authorises readonly inbox access."
     },
@@ -256,16 +385,29 @@
       "id": "causal-attribution",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/causal-attribution-spine.mjs"],
-      "tests": ["tests/nervous-system-integration.test.mjs"],
+      "evidence": [
+        "src/causal-attribution-spine.mjs"
+      ],
+      "tests": [
+        "tests/nervous-system-integration.test.mjs"
+      ],
       "nextAction": "Needs real events to attribute."
     },
     {
       "id": "payments",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/payment-truth.mjs", "src/payment-renewal-truth.mjs", "src/commercial-outcome.mjs"],
-      "tests": ["tests/payment-truth.test.mjs", "tests/payment-renewal-truth.test.mjs", "tests/payment-truth-double-count.test.mjs", "tests/economic-anchor-forgery.test.mjs"],
+      "evidence": [
+        "src/payment-truth.mjs",
+        "src/payment-renewal-truth.mjs",
+        "src/commercial-outcome.mjs"
+      ],
+      "tests": [
+        "tests/payment-truth.test.mjs",
+        "tests/payment-renewal-truth.test.mjs",
+        "tests/payment-truth-double-count.test.mjs",
+        "tests/economic-anchor-forgery.test.mjs"
+      ],
       "externalBlocker": "No payment provider identity, no KYC.",
       "nextAction": "Owner completes payment provider onboarding."
     },
@@ -273,48 +415,80 @@
       "id": "fulfillment",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/service-fulfillment.mjs", "src/service-sku.mjs"],
-      "tests": ["tests/service-fulfillment.test.mjs", "tests/service-sku.test.mjs", "tests/superseded-fulfillment-invariants.test.mjs"],
+      "evidence": [
+        "src/service-fulfillment.mjs",
+        "src/service-sku.mjs"
+      ],
+      "tests": [
+        "tests/service-fulfillment.test.mjs",
+        "tests/service-sku.test.mjs",
+        "tests/superseded-fulfillment-invariants.test.mjs"
+      ],
       "nextAction": "Needs a real customer requirement to compile against."
     },
     {
       "id": "acceptance",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/service-fulfillment.mjs"],
-      "tests": ["tests/service-fulfillment.test.mjs", "tests/superseded-fulfillment-invariants.test.mjs"],
+      "evidence": [
+        "src/service-fulfillment.mjs"
+      ],
+      "tests": [
+        "tests/service-fulfillment.test.mjs",
+        "tests/superseded-fulfillment-invariants.test.mjs"
+      ],
       "nextAction": "ACCEPTED requires customer evidence and cannot be reached internally."
     },
     {
       "id": "retention",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/service-fulfillment.mjs", "src/commercial-learning.mjs"],
-      "tests": ["tests/service-fulfillment.test.mjs"],
+      "evidence": [
+        "src/service-fulfillment.mjs",
+        "src/commercial-learning.mjs"
+      ],
+      "tests": [
+        "tests/service-fulfillment.test.mjs"
+      ],
       "nextAction": "Renewal and churn are modelled; both need a real customer to observe."
     },
     {
       "id": "contribution-economics",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/commercial-outcome.mjs", "src/commercial-reconciliation.mjs"],
-      "tests": ["tests/commercial-outcome.test.mjs"],
+      "evidence": [
+        "src/commercial-outcome.mjs",
+        "src/commercial-reconciliation.mjs"
+      ],
+      "tests": [
+        "tests/commercial-outcome.test.mjs"
+      ],
       "nextAction": "Every cost input is currently unknown, which correctly lowers confidence."
     },
     {
       "id": "capital-allocation",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/capital-allocator.mjs"],
-      "tests": ["tests/adapter-capital.test.mjs"],
+      "evidence": [
+        "src/capital-allocator.mjs"
+      ],
+      "tests": [
+        "tests/adapter-capital.test.mjs"
+      ],
       "nextAction": "Real spend stays consequence-gated."
     },
     {
       "id": "self-upgrade",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/self-upgrade.mjs", "src/claude-engineering-orchestrator.mjs"],
-      "tests": ["tests/self-upgrade.test.mjs", "tests/claude-engineering-orchestrator.test.mjs"],
+      "evidence": [
+        "src/self-upgrade.mjs",
+        "src/claude-engineering-orchestrator.mjs"
+      ],
+      "tests": [
+        "tests/self-upgrade.test.mjs",
+        "tests/claude-engineering-orchestrator.test.mjs"
+      ],
       "externalBlocker": "Depends on the sandbox external block.",
       "nextAction": "Same as sandbox."
     },
@@ -322,8 +496,16 @@
       "id": "observability",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/operator-escalation.mjs", "src/operator-health-snapshot.mjs", "src/agent-mesh-cycle-receipts.mjs"],
-      "tests": ["tests/operator-escalation.test.mjs", "tests/operator-health-snapshot.test.mjs", "tests/durable-spine-soak.test.mjs"],
+      "evidence": [
+        "src/operator-escalation.mjs",
+        "src/operator-health-snapshot.mjs",
+        "src/agent-mesh-cycle-receipts.mjs"
+      ],
+      "tests": [
+        "tests/operator-escalation.test.mjs",
+        "tests/operator-health-snapshot.test.mjs",
+        "tests/durable-spine-soak.test.mjs"
+      ],
       "nextAction": "Owner supplies a delivery channel credential. Detection is done; delivery is not.",
       "externalBlocker": "No paging channel configured: escalations are queued, never delivered."
     },
@@ -331,8 +513,19 @@
       "id": "capability-genome",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/capability-genome-schema.mjs", "src/capability-genome-admission.mjs", "src/capability-genome-runtime.mjs", "src/capability-genome-discovery.mjs", "src/capability-genome-doctor.mjs", "docs/CAPABILITY_GENOME_CANON.md"],
-      "tests": ["tests/capability-genome.test.mjs", "tests/prometheus-scheduling.test.mjs", "tests/uberbond-brain-bootstrap.test.mjs"],
+      "evidence": [
+        "src/capability-genome-schema.mjs",
+        "src/capability-genome-admission.mjs",
+        "src/capability-genome-runtime.mjs",
+        "src/capability-genome-discovery.mjs",
+        "src/capability-genome-doctor.mjs",
+        "docs/CAPABILITY_GENOME_CANON.md"
+      ],
+      "tests": [
+        "tests/capability-genome.test.mjs",
+        "tests/prometheus-scheduling.test.mjs",
+        "tests/uberbond-brain-bootstrap.test.mjs"
+      ],
       "externalBlocker": "No measured world-corpus import, authorized adapter executor, isolated sandbox fleet, or elapsed unattended refresh evidence exists yet.",
       "nextAction": "Use the zero-effect scheduled plan and acquisition seams for bounded pilots; activate external discovery only after durable corpus storage, source terms, network policy, and sandbox evidence exist."
     },
@@ -340,8 +533,14 @@
       "id": "security",
       "status": "IMPLEMENTED",
       "level": 3,
-      "evidence": ["src/secret-patterns.mjs", "src/agent-code-change-contract.mjs"],
-      "tests": ["tests/secret-leakage-sweep.test.mjs", "tests/hostile-worker-and-provider-sweep.test.mjs"],
+      "evidence": [
+        "src/secret-patterns.mjs",
+        "src/agent-code-change-contract.mjs"
+      ],
+      "tests": [
+        "tests/secret-leakage-sweep.test.mjs",
+        "tests/hostile-worker-and-provider-sweep.test.mjs"
+      ],
       "nextAction": "None internal."
     }
   ]

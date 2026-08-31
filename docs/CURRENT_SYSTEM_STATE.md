@@ -3,8 +3,8 @@
 **This file is the canonical present-tense software/commercial state.** Historical detail from the pre-checkpoint version is preserved byte-for-byte under `docs/archive/2026-08-30-pre-checkpoint/`. Repository code and newer exact external evidence still outrank this prose.
 
 Last reconciled: **2026-08-31**
-Branch: `claude/uberbond-kilimanjaro-closure-hha0oo`
-Reconciled from current head: `32c646f8edef9cc6028323f4a179710710e720a5`
+Branch: `claude/genome-body-import`
+Reconciled from current head: `a2fc8682df4b1fa958fd936d17905268ce6de47d`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
@@ -25,8 +25,8 @@ The source-changing state of this branch was exercised before later documentatio
 
 | Gate | Result |
 |---|---|
-| Syntax | `npm run check:syntax`: 649 files parse (2026-08-31) |
-| Deterministic | `npm run test:deterministic`: 2986 tests, 2935 pass, **0 fail**, 51 skipped (2026-08-31) |
+| Syntax | `npm run check:syntax`: 655 files parse (2026-08-31) |
+| Deterministic | `npm run test:deterministic`: 3003 tests, 2952 pass, **0 fail**, 51 skipped (2026-08-31) |
 | Relay safety | `npm run test:relay-safety`: 150 tests, 150 pass, 0 fail (2026-08-30) |
 | Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real`: 167 tests, 167 pass, 0 fail (2026-08-30), against PostgreSQL 16.13 |
 | Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 105 mutations, 105 killed, 0 not killed |
@@ -37,12 +37,12 @@ The 51 deterministic skips are the environment-dependent real-PostgreSQL suites 
 
 ## Reachability
 
-**119 of 264 `src` modules have no entry point at all**.
+**119 of 266 `src` modules have no entry point at all**.
 
 | Reachability class | Modules |
 |---|---:|
 | Reachable from production | 132 |
-| Reachable only via an operator script | 13 |
+| Reachable only via an operator script | 15 |
 | **No entry point at all** | **119** |
 
 The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`.

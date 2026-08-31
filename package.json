@@ -53,6 +53,7 @@
     "capabilities:doctor": "node scripts/external-capability-doctor.mjs",
     "capabilities:genome:doctor": "node scripts/capability-genome-doctor.mjs",
     "capabilities:genome:harvest": "node scripts/capability-genome-harvest.mjs",
+    "capabilities:genome:body-import": "node scripts/capability-genome-body-import.mjs",
     "capabilities:bootstrap": "node scripts/bootstrap-external-capabilities.mjs",
     "capabilities:bootstrap:apply": "node scripts/bootstrap-external-capabilities.mjs --apply",
     "test:external-capabilities": "node --test tests/external-capability-control-plane.test.mjs",

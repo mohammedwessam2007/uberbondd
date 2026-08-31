@@ -1,11 +1,13 @@
 {
   "schemaVersion": "uberbond.capability-genome.foundation-receipt.v1",
-  "observedAt": "2026-08-31T12:58:00Z",
+  "observedAt": "2026-08-31T13:10:00Z",
   "baseMainSha": "5cb18b852b29b2c90f66869544e58a10531009e9",
   "verifiedCandidateSha": "f742d7f8de458937d3b2eebd5f0d654f8d478a21",
   "branch": "gpt/world-capability-genome-foundation-20260831",
-  "pullRequest": null,
-  "mergeSha": null,
+  "publishedHeadSha": "045223f877147196534f0745d9090c3115fcb125",
+  "pullRequest": 258,
+  "mergeSha": "18c7ec25f21d7a8f2dc20b2da0a506d14e595f49",
+  "mergedTreeMatchesVerifiedCandidate": true,
   "verification": {
     "command": "npm run vercel-build",
     "exitCode": 0,
@@ -32,6 +34,9 @@
     "The scheduled discovery seam compiles a zero-effect plan; it does not execute a world refresh."
   ],
   "externalEffectLedger": {
+    "githubBranchesCreated": 2,
+    "githubPullRequestsOpened": 1,
+    "githubPullRequestsMerged": 1,
     "customerProspectContacts": 0,
     "messagesCalls": 0,
     "purchases": 0,

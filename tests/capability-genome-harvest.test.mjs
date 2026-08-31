@@ -1,0 +1,236 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import {
+  CORPUS_STATE_SCHEMA,
+  normalizeWorldRepositoryCandidate,
+  buildMeasuredRepositoryCorpus,
+  planGithubRepositorySearchPartitions,
+  executeGithubRepositorySearch,
+  writeMeasuredCorpusBatch
+} from '../src/capability-genome-harvest.mjs';
+
+const root = path.resolve(new URL('..', import.meta.url).pathname);
+const repo = (fullName, overrides = {}) => ({
+  id: overrides.id ?? fullName.length,
+  fullName,
+  htmlUrl: `https://github.com/${fullName}`,
+  visibility: 'public',
+  private: false,
+  archived: false,
+  defaultBranch: 'main',
+  ...overrides
+});
+
+function response(status, body, headers = {}) {
+  return {
+    ok: status >= 200 && status < 300,
+    status,
+    headers: { get: key => headers[String(key).toLowerCase()] ?? null },
+    async json() { return body; }
+  };
+}
+
+test('repository candidates are public untrusted discovery metadata only', () => {
+  const result = normalizeWorldRepositoryCandidate(repo('anthropics/skills'), { query: 'agent skills', observedAt: '2026-08-31T15:00:00Z' });
+  assert.equal(result.ok, true);
+  assert.equal(result.candidate.visibility, 'PUBLIC');
+  assert.equal(result.candidate.trustState, 'UNTRUSTED_REPOSITORY_CANDIDATE');
+  assert.equal(result.candidate.skillBodiesImported, 0);
+  assert.equal(result.candidate.promotionAuthority, 'NONE');
+});
+
+test('private repositories are rejected even if a caller supplies a github url', () => {
+  const result = normalizeWorldRepositoryCandidate(repo('secret/private', { visibility: 'private', private: true }));
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('private-repository-not-eligible'));
+});
+
+test('measured corpus dedupes repository identities across queries without inventing skill bodies', () => {
+  const corpus = buildMeasuredRepositoryCorpus({
+    observedAt: '2026-08-31T15:00:00Z',
+    queryReceipts: [
+      { query: 'agent skills', providerCalls: 1, repositories: [repo('anthropics/skills'), repo('vercel-labs/skills')] },
+      { query: 'claude skill', providerCalls: 1, repositories: [repo('anthropics/skills'), repo('simonw/claude-skills')] }
+    ]
+  });
+  assert.equal(corpus.ok, true);
+  assert.equal(corpus.manifest.schemaVersion, CORPUS_STATE_SCHEMA);
+  assert.equal(corpus.manifest.rawRepositoryHits, 4);
+  assert.equal(corpus.manifest.distinctRepositoryCandidates, 3);
+  assert.equal(corpus.manifest.duplicateRepositoryHits, 1);
+  assert.equal(corpus.manifest.skillBodiesImported, 0);
+  assert.equal(corpus.manifest.approvedCapabilities, 0);
+  assert.equal(corpus.externalEffectLedger.providerCalls, 2);
+});
+
+test('partition planner breaks large github search space into bounded date windows', () => {
+  const plan = planGithubRepositorySearchPartitions({
+    baseQueries: ['"agent skills"', '"mcp server"'],
+    startDate: '2026-08-01',
+    endDate: '2026-08-15',
+    partitionDays: 7
+  });
+  assert.equal(plan.ok, true);
+  assert.equal(plan.partitionCount, 6);
+  assert.match(plan.partitions[0].query, /created:2026-08-01\.\.2026-08-07/);
+  assert.match(plan.partitions.at(-1).query, /created:2026-08-15\.\.2026-08-15/);
+  assert.equal(plan.hardSearchCapPerPartition, 1000);
+});
+
+test('default CLI is explicitly plan-only and performs no network reads', () => {
+  const run = spawnSync(process.execPath, [
+    'scripts/capability-genome-harvest.mjs',
+    '--start=2026-08-01',
+    '--end=2026-08-01'
+  ], { cwd: root, encoding: 'utf8' });
+  assert.equal(run.status, 0, run.stderr);
+  const output = JSON.parse(run.stdout);
+  assert.equal(output.status, 'WORLD_HARVEST_PLAN_ONLY');
+  assert.equal(output.networkReadsExecuted, false);
+  assert.equal(output.partitionCount, 3);
+});
+
+test('github executor is read-only, counts provider calls, and surfaces partitions requiring refinement', async () => {
+  const seen = [];
+  const fetchImpl = async (url, options) => {
+    seen.push({ url, options });
+    return response(200, {
+      total_count: 1500,
+      incomplete_results: false,
+      items: [{ id: 1, full_name: 'anthropics/skills', html_url: 'https://github.com/anthropics/skills', visibility: 'public', private: false, archived: false, default_branch: 'main' }]
+    });
+  };
+  const result = await executeGithubRepositorySearch({
+    partitions: [{ id: 'p1', query: '"agent skills" created:2026-08-01..2026-08-07', perPage: 100, maxPages: 1 }],
+    fetchImpl
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.providerCalls, 1);
+  assert.deepEqual(result.partitionsRequiringRefinement, ['p1']);
+  assert.equal(seen[0].options.method, 'GET');
+  assert.equal(Object.hasOwn(seen[0].options.headers, 'Authorization'), false);
+  assert.equal(result.externalEffectLedger.providerCalls, 1);
+});
+
+test('malformed github json fails closed while preserving the provider-call receipt', async () => {
+  const result = await executeGithubRepositorySearch({
+    partitions: [{ id: 'p1', query: 'agent skills', perPage: 100, maxPages: 1 }],
+    fetchImpl: async () => ({ ok: true, status: 200, headers: { get: () => null }, async json() { throw new SyntaxError('bad json'); } })
+  });
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('github-search-json-error'));
+  assert.equal(result.externalEffectLedger.providerCalls, 1);
+  assert.equal(result.queryReceipts.length, 1);
+  assert.equal(result.queryReceipts[0].terminationStatus, 'JSON_ERROR');
+});
+
+test('rate limiting produces a receipt and never blind retries', async () => {
+  let calls = 0;
+  const result = await executeGithubRepositorySearch({
+    partitions: [{ id: 'p1', query: 'agent skills', perPage: 100, maxPages: 10 }],
+    fetchImpl: async () => {
+      calls += 1;
+      return response(429, {}, { 'retry-after': '60' });
+    }
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.status, 'HARVEST_RATE_LIMITED_NO_BLIND_RETRY');
+  assert.equal(calls, 1);
+  assert.equal(result.providerCalls, 1);
+  assert.equal(result.retryAfter, '60');
+  assert.equal(result.queryReceipts.length, 1);
+  assert.equal(result.queryReceipts[0].terminationStatus, 'RATE_LIMITED');
+});
+
+test('rate limiting after a successful page preserves already-read repositories', async () => {
+  let calls = 0;
+  const result = await executeGithubRepositorySearch({
+    partitions: [{ id: 'p1', query: 'agent skills', perPage: 1, maxPages: 2 }],
+    fetchImpl: async () => {
+      calls += 1;
+      if (calls === 1) {
+        return response(200, {
+          total_count: 2,
+          incomplete_results: false,
+          items: [{ id: 1, full_name: 'owner/repo1', html_url: 'https://github.com/owner/repo1', visibility: 'public', private: false, default_branch: 'main' }]
+        });
+      }
+      return response(429, {}, { 'retry-after': '60' });
+    }
+  });
+  assert.equal(result.status, 'HARVEST_RATE_LIMITED_NO_BLIND_RETRY');
+  assert.equal(result.providerCalls, 2);
+  assert.equal(result.queryReceipts.length, 1);
+  assert.equal(result.queryReceipts[0].repositories.length, 1);
+  assert.equal(result.queryReceipts[0].repositories[0].fullName, 'owner/repo1');
+  assert.equal(result.queryReceipts[0].complete, false);
+  assert.equal(result.queryReceipts[0].terminationStatus, 'RATE_LIMITED');
+});
+
+test('provider call ceiling checkpoints partial partition progress instead of dropping it', async () => {
+  let calls = 0;
+  const result = await executeGithubRepositorySearch({
+    partitions: [{ id: 'p1', query: 'agent skills', perPage: 1, maxPages: 2 }],
+    maxProviderCalls: 1,
+    fetchImpl: async () => {
+      calls += 1;
+      return response(200, {
+        total_count: 2,
+        incomplete_results: false,
+        items: [{ id: 1, full_name: 'owner/repo1', html_url: 'https://github.com/owner/repo1', visibility: 'public', private: false, default_branch: 'main' }]
+      });
+    }
+  });
+  assert.equal(result.status, 'HARVEST_PROVIDER_CALL_BUDGET_EXHAUSTED');
+  assert.equal(calls, 1);
+  assert.equal(result.providerCalls, 1);
+  assert.equal(result.queryReceipts.length, 1);
+  assert.equal(result.queryReceipts[0].repositories.length, 1);
+  assert.equal(result.queryReceipts[0].complete, false);
+  assert.equal(result.queryReceipts[0].terminationStatus, 'PROVIDER_CALL_BUDGET_EXHAUSTED');
+});
+
+test('provider call ceiling after a completed partition returns completed progress', async () => {
+  let calls = 0;
+  const result = await executeGithubRepositorySearch({
+    partitions: [
+      { id: 'p1', query: 'agent skills', perPage: 1, maxPages: 1 },
+      { id: 'p2', query: 'mcp server', perPage: 1, maxPages: 1 }
+    ],
+    maxProviderCalls: 1,
+    fetchImpl: async () => {
+      calls += 1;
+      return response(200, { total_count: 1, incomplete_results: false, items: [{ id: calls, full_name: `owner/repo${calls}`, html_url: `https://github.com/owner/repo${calls}`, visibility: 'public', private: false, default_branch: 'main' }] });
+    }
+  });
+  assert.equal(result.status, 'HARVEST_PROVIDER_CALL_BUDGET_EXHAUSTED');
+  assert.equal(calls, 1);
+  assert.equal(result.providerCalls, 1);
+  assert.equal(result.queryReceipts.length, 1);
+  assert.equal(result.queryReceipts[0].complete, true);
+});
+
+test('corpus persistence requires an explicit safe external directory and refuses git storage', () => {
+  const corpus = buildMeasuredRepositoryCorpus({
+    observedAt: '2026-08-31T15:00:00Z',
+    queryReceipts: [{ query: 'agent skills', repositories: [repo('anthropics/skills')] }]
+  });
+  const repositoryRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'uberbond-repo-'));
+  const missing = writeMeasuredCorpusBatch({ corpus, repositoryRoot });
+  assert.equal(missing.ok, false);
+  assert.ok(missing.reasonCodes.includes('safe-corpus-directory-required'));
+
+  const denied = writeMeasuredCorpusBatch({ corpusDir: path.join(repositoryRoot, 'artifacts', 'corpus'), corpus, repositoryRoot });
+  assert.equal(denied.ok, false);
+  assert.ok(denied.reasonCodes.includes('large-corpus-storage-must-live-outside-git'));
+
+  const externalRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'uberbond-corpus-'));
+  const stored = writeMeasuredCorpusBatch({ corpusDir: externalRoot, corpus, repositoryRoot });
+  assert.equal(stored.ok, true);
+  assert.equal(fs.existsSync(stored.manifestPath), true);
+  assert.equal(fs.existsSync(stored.candidatesPath), true);
+});

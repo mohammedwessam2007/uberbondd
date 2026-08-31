@@ -18,6 +18,7 @@ export const MASTER_MEMORY_RECONCILIATION_PATH = 'docs/UBERBOND_MASTER_MEMORY_RE
 export const EXTERNAL_CAPABILITY_REGISTRY_PATH = 'artifacts/external-skill-plugin-registry.json';
 export const CAPABILITY_GENOME_SOURCE_REGISTRY_PATH = 'artifacts/capability-genome/source-registry.json';
 export const CAPABILITY_GENOME_ATOM_TAXONOMY_PATH = 'artifacts/capability-genome/capability-atoms.json';
+export const CAPABILITY_GENOME_CORPUS_STATE_PATH = 'artifacts/capability-genome/pilot/world-repository-candidates-2026-08-31.json';
 export const WALLBREAKER_CANON_PATH = 'docs/WALLBREAKER_CANON.md';
 export const WALLBREAKER_MODULE_PATH = 'src/wallbreaker.mjs';
 
@@ -121,6 +122,7 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
   const capabilityRelative = assertSafeRelativePath(EXTERNAL_CAPABILITY_REGISTRY_PATH);
   const capabilityGenomeSourcesRelative = assertSafeRelativePath(CAPABILITY_GENOME_SOURCE_REGISTRY_PATH);
   const capabilityGenomeAtomsRelative = assertSafeRelativePath(CAPABILITY_GENOME_ATOM_TAXONOMY_PATH);
+  const capabilityGenomeCorpusRelative = assertSafeRelativePath(CAPABILITY_GENOME_CORPUS_STATE_PATH);
   const wallbreakerCanonRelative = assertSafeRelativePath(WALLBREAKER_CANON_PATH);
   const wallbreakerModuleRelative = assertSafeRelativePath(WALLBREAKER_MODULE_PATH);
   const rawMemoryIndex = readJson(path.join(root, memoryRelative), 'memory-index');
@@ -169,11 +171,16 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
     error.reasonCodes = capabilitySummary.reasonCodes;
     throw error;
   }
+  const corpusStatePath = path.join(root, capabilityGenomeCorpusRelative);
+  const corpusState = fs.existsSync(corpusStatePath)
+    ? readJson(corpusStatePath, 'capability-genome-corpus-state')
+    : null;
   const capabilityGenome = inspectCapabilityGenome({
     sourceRegistry: readJson(path.join(root, capabilityGenomeSourcesRelative), 'capability-genome-source-registry'),
     atomTaxonomy: readJson(path.join(root, capabilityGenomeAtomsRelative), 'capability-genome-atom-taxonomy'),
     capabilityRecords: [],
     existingSupplierRegistry: rawCapabilityRegistry,
+    corpusState,
     now
   });
   if (!capabilityGenome.ok) {
@@ -213,7 +220,8 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
       ...capabilityGenome.state,
       capabilityGraphDigest: capabilityGenome.capabilityGraphDigest,
       securityPolicyVersion: capabilityGenome.securityPolicyVersion,
-      doctor: 'npm run capabilities:genome:doctor'
+      doctor: 'npm run capabilities:genome:doctor',
+      harvest: 'npm run capabilities:genome:harvest'
     },
     wallbreaker: {
       status: 'PROJECT_INTEGRATED_PLANNING_PRIMITIVE',
@@ -246,6 +254,7 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
       MASTER_MEMORY_RECONCILIATION_PATH,
       'Run/read npm run capabilities:doctor before relying on optional external runtimes.',
       'Run/read npm run capabilities:genome:doctor before world discovery, acquisition, promotion, or revocation work.',
+      'Use npm run capabilities:genome:harvest for bounded public world-repository discovery; execution requires explicit host network-read enablement and external corpus storage.',
       'Use the Capability Genome progressive retrieval and minimum-bundle control plane; never inject the world corpus into working context.',
       'Read docs/WALLBREAKER_CANON.md and use Wallbreaker before repeating a materially failed mechanism or guessing through a capability/verifier wall.',
       'Capability Genome atom IDs used by Wallbreaker must be explicit or separately verified; human labels are not atom IDs.',
@@ -269,7 +278,7 @@ export function formatUberBondBrainPacket(packet) {
     `context: ${packet.contextDigest}`,
     `memory: ${packet.memoryDigest}`,
     `external capabilities: ${packet.externalCapabilityCount} (${packet.externalCapabilityDigest})`,
-    `capability genome: ${packet.capabilityGenome.health}; sources=${packet.capabilityGenome.sourceCount}; measured-seeds=${packet.capabilityGenome.rawCandidateCount}; active=${packet.capabilityGenome.activeCapabilityCount}; corpus=${packet.capabilityGenome.corpusTruth}`,
+    `capability genome: ${packet.capabilityGenome.health}; sources=${packet.capabilityGenome.sourceCount}; measured-seeds=${packet.capabilityGenome.rawCandidateCount}; world-repos=${packet.capabilityGenome.worldRepositoryCandidateCount}; skill-bodies=${packet.capabilityGenome.worldSkillBodyCount}; active=${packet.capabilityGenome.activeCapabilityCount}; corpus=${packet.capabilityGenome.corpusTruth}`,
     `wallbreaker: ${packet.wallbreaker.status}; ${packet.wallbreaker.policyVersion}; authority=${packet.wallbreaker.businessEffectAuthority}`,
     `initiatives: ${packet.namedInitiativeCount}`,
     `lineage: ${(packet.historicalLineageCorrection || []).join(' -> ') || 'none'}`,

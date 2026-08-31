@@ -3,8 +3,8 @@
 **This file is the canonical present-tense software/commercial state.** Historical detail from the pre-checkpoint version is preserved byte-for-byte under `docs/archive/2026-08-30-pre-checkpoint/`. Repository code and newer exact external evidence still outrank this prose.
 
 Last reconciled: **2026-08-31**
-Branch: `claude/next`
-Reconciled from current head: `2800e44a4336334706de53b23e80b7d5295e0951`
+Branch: `claude/final`
+Reconciled from current head: `4c24670f7330ddd7cca9b346c1e8a477b615b2a8`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 

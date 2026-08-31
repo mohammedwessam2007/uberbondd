@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-08-31**
 Branch: `claude/uberbond-kilimanjaro-closure-hha0oo`
-Reconciled from current head: `fb5e511c3235c4ec5f5abeb3631bf6a0dd345464`
+Reconciled from current head: `2c753ed1d39b9337790cf9678e5af999d2fa20e7`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
@@ -25,8 +25,8 @@ The source-changing state of this branch was exercised before later documentatio
 
 | Gate | Result |
 |---|---|
-| Syntax | `npm run check:syntax`: 645 files parse (2026-08-31) |
-| Deterministic | `npm run test:deterministic`: 2970 tests, 2919 pass, **0 fail**, 51 skipped (2026-08-31) |
+| Syntax | `npm run check:syntax`: 649 files parse (2026-08-31) |
+| Deterministic | `npm run test:deterministic`: 2986 tests, 2935 pass, **0 fail**, 51 skipped (2026-08-31) |
 | Relay safety | `npm run test:relay-safety`: 150 tests, 150 pass, 0 fail (2026-08-30) |
 | Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real`: 167 tests, 167 pass, 0 fail (2026-08-30), against PostgreSQL 16.13 |
 | Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 105 mutations, 105 killed, 0 not killed |
@@ -37,12 +37,12 @@ The 51 deterministic skips are the environment-dependent real-PostgreSQL suites 
 
 ## Reachability
 
-**119 of 263 `src` modules have no entry point at all**.
+**119 of 264 `src` modules have no entry point at all**.
 
 | Reachability class | Modules |
 |---|---:|
 | Reachable from production | 132 |
-| Reachable only via an operator script | 12 |
+| Reachable only via an operator script | 13 |
 | **No entry point at all** | **119** |
 
 The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`.

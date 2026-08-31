@@ -1,24 +1,24 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-31T16:47:43.754Z",
+  "generatedAt": "2026-08-31T17:16:26.356Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "fb5e511c3235c4ec5f5abeb3631bf6a0dd345464",
+    "head": "2c753ed1d39b9337790cf9678e5af999d2fa20e7",
     "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "sourceModules": 263,
-    "testSuites": 307,
+    "sourceModules": 264,
+    "testSuites": 309,
     "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 645,
+      "filesParsed": 649,
       "ranAt": "2026-08-31T14:02:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2970,
-      "pass": 2919,
+      "tests": 2986,
+      "pass": 2935,
       "fail": 0,
       "skipped": 51,
       "ranAt": "2026-08-31T14:02:00Z"
@@ -68,9 +68,9 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 263,
+      "srcModules": 264,
       "reachableFromProduction": 132,
-      "reachableFromOperatorScriptsOnly": 12,
+      "reachableFromOperatorScriptsOnly": 13,
       "noEntryPointAtAll": 119,
       "allClassified": true,
       "ranAt": "2026-08-31T14:02:00Z",

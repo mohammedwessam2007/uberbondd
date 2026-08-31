@@ -1,12 +1,12 @@
 {
   "schemaVersion": "uberbond-handoff-1.6.0",
   "checkpointedAt": "2026-08-31T14:20:00Z",
-  "sourceCommit": "62b59d7bc20ef9ddba0bfa3e3803c2622a1eaa58",
+  "sourceCommit": "2c753ed1d39b9337790cf9678e5af999d2fa20e7",
   "sourceMainShaAtMissionStart": "fb129f8076829c28a8fb299890ac98f8bbcc238b",
-  "currentMainShaAtCheckpoint": "62b59d7bc20ef9ddba0bfa3e3803c2622a1eaa58",
+  "currentMainShaAtCheckpoint": "2c753ed1d39b9337790cf9678e5af999d2fa20e7",
   "activeBranch": "gpt/wallbreaker-continuity-20260831",
   "activePullRequest": null,
-  "activeMission": "Return UberBond to the first lawful buyer -> cleared payment -> accepted delivery frontier without mistaking capability architecture for commercial proof.",
+  "activeMission": "Model failover is implemented, wired into the production worker tick and adversarially tested; it is proven as software and unproven against a live provider because no provider is configured. The next frontier is the World Capability Genome, which is blocked on corpus storage and source access rather than on engineering.",
   "economicNorthStar": "risk-adjusted cleared contribution profit / founder minute",
   "completed": [
     "Refreshed live main at 5cb18b852b29b2c90f66869544e58a10531009e9 and reconciled GitHub, repository brain, canon, startup, existing capability pack, branches, pull requests, Actions, and both Vercel projects.",
@@ -26,43 +26,46 @@
     "Closed superseded Wallbreaker PRs #257 and #260 after their useful work was preserved in verified PR #261."
   ],
   "blockers": [
-    "No measured world-corpus import exists. The only measured Genome records are eight existing approved supplier seeds; directory and paper counts remain non-comparable claims.",
-    "World refresh execution needs durable corpus/object/index storage, authorized source adapters and terms, isolated sandbox capacity, and measured cost evidence.",
-    "Claude-Mem, Headroom, OmniRoute, Strix host runtime, and Agent Reach host runtime remain absent or unproven on this host; repository integration is not runtime health.",
-    "24/7 capability autonomy requires configured providers, scheduler activation, durable runtime evidence, and elapsed unattended operation; a scheduled zero-effect plan is not that proof.",
-    "Both exact-current-main Vercel deployments were rejected before build execution by the daily free deployment cap; this is provider-capacity non-evidence, not source failure.",
-    "GitHub Actions run 33401589143 failed with three jobs exposing zero steps and no logs; exact-tree local tests and Vercel preview evidence are the available source/runtime proof boundary.",
-    "Commercial truth remains zero customers, zero cleared revenue, zero accepted deliveries, and zero retained customers."
+    "NO_CONFIGURED_MODEL_PROVIDER: zero configured providers on this host -- no OPENAI_API_KEY, no ANTHROPIC_API_KEY, no pricing evidence for either. Failover is proven as software and unproven against a live provider. The Claude Code harness's own session OAuth is the agent's credential, not a provider configured for UberBond, and using it as one would be a fabricated provider.",
+    "OMNIROUTE_INSTALL_BLOCKED_BY_HOST_PERMISSION: the sanctioned `npm install -g omniroute` was denied by this environment's permission classifier. The package is real and dependency-satisfied (omniroute 3.8.50, MIT, 452 MB unpacked, 29 GB free). No workaround was attempted.",
+    "REPOSITORY_SCOPE_FORBIDS_THIRD_PARTY_READS: this session's GitHub access is scoped to mohammedwessam2007/uberbondd. api.github.com is network-reachable, but reading the 30 harvested third-party repositories is outside the granted scope, so corpus body ingestion could not proceed here.",
+    "NO_OBJECT_STORAGE_ADAPTER: durable corpus/object storage remains an unreleased gate, so a world corpus has nowhere durable to live.",
+    "Hosted CI and Vercel constraints from the prior checkpoint are unchanged; all evidence in this slice is locally executed.",
+    "Commercial truth remains zero customers, zero cleared revenue, zero accepted deliveries, zero retained customers."
   ],
   "nextActions": [
-    "After Vercel's daily cap resets, inspect an automatically created exact-main deployment once; do not repeat rejected builds or call a preview production proof.",
-    "When branch-deletion tooling exists, delete only the obsolete Genome/Wallbreaker branches whose unique work is proven present on main.",
-    "Do not expand the capability catalog until durable corpus storage, authorized adapters/source terms, isolated sandbox capacity, and a bounded commercial capability gap justify one measured pilot.",
-    "The next external commercial gates are owner payment-provider identity/KYC and explicit lawful first-buyer/contact authority. After they exist, use the canonical provider-evidence -> payment reconciliation -> fulfilment -> customer-origin acceptance chain."
+    "OWNER: supply one model provider credential plus pricing evidence (source reference and verification date) to release failover against a live provider. The executor factory already refuses a provider without both, so nothing runs until this exists.",
+    "OWNER: decide whether to permit `npm install -g omniroute`. It was attempted through the repository's own bootstrap command and denied by this environment's permission classifier as a host mutation; it was not routed around. It would not change behaviour today -- the doctor's own truth boundary says command presence is not proof of configured provider execution, and a gateway with no credential has nothing to gate.",
+    "ANY LANE: the Capability Genome's own routing has the same defect the model router had. routeCapabilityModel ranks `alternatives` and only acquireCapability stores them; nothing walks them. The fix pattern now exists in src/agent-model-failover.mjs. It is blocked behind the same zero-configured-capability gate, so building it now would add an unreachable module.",
+    "ANY LANE: world corpus ingestion beyond metadata is blocked on two separate things -- durable corpus storage (gate NO_OBJECT_STORAGE_ADAPTER, still unreleased) and authorized read access to third-party repositories. A 50K tournament needs both released plus isolated sandbox capacity and measured cost evidence.",
+    "The commercial frontier is unchanged and still ahead of all of this: first lawful buyer -> cleared payment -> accepted delivery."
   ],
   "capabilityGenome": {
-    "version": "1.0.0-foundation",
-    "sourceDefinitions": 10,
-    "measuredSeedRecords": 8,
-    "worldCorpusImported": 0,
-    "dedupedWorldCapabilities": 0,
-    "approvedCapabilities": 0,
-    "activeCapabilities": 0,
-    "revokedCapabilities": 0,
-    "capabilityAtoms": 25,
-    "health": "FOUNDATION_HEALTHY",
-    "runtimeTruth": "CONTROL_PLANE_PROJECT_INTEGRATED__WORLD_REFRESH_RUNTIME_NOT_ACTIVATED"
+    "measuredAt": "2026-08-31",
+    "worldRepositoryCandidateCount": 30,
+    "worldSkillBodyCount": 0,
+    "worldCapabilityRecordsNormalized": 0,
+    "approvedCapabilityCount": 0,
+    "activeCapabilityCount": 0,
+    "approvedSupplierCount": 8,
+    "capabilityAtomCount": 25,
+    "corpusTruth": "MEASURED_WORLD_REPOSITORY_CANDIDATES_PRESENT__SKILL_BODIES_NOT_IMPORTED",
+    "runtimeTruth": "CONTROL_PLANE_PROJECT_INTEGRATED__BOUNDED_WORLD_HARVEST_PROVEN__CONTINUOUS_REFRESH_NOT_ACTIVATED",
+    "note": "A prior lane proved a bounded harvest of 30 repository identities with 3 provider calls. Those are discovery candidates: no body, no license evidence, no security review. Normalizing them into capability records without bodies would move a count without adding truth, which is the counting error this project's canon exists to prevent. The million-skill mission is not claimed and no measured corpus beyond those 30 candidates exists."
   },
   "currentMeasuredSoftwareTruth": {
-    "candidateCommit": "e3dd34fee25503f803da75d128fd529232af9d64",
-    "mergedMainCommit": "62b59d7bc20ef9ddba0bfa3e3803c2622a1eaa58",
-    "syntax": "643 files parse",
-    "deterministic": "2948 tests; 2897 pass; 0 fail; 51 skipped",
-    "vercelEquivalentBuild": "PASS_LOCAL_AND_EXACT_PRIVATE_LITE_PREVIEW",
-    "sourceModules": 262,
-    "reachableFromProduction": 131,
-    "reachableFromOperatorScriptsOnly": 12,
-    "noEntryPointAtAll": 119
+    "check:syntax": "649 files parse",
+    "test:deterministic": "2986 tests, 2935 pass, 0 fail, 51 skipped",
+    "test:relay-safety": "150/150",
+    "test:external-capabilities": "13/13",
+    "test:capability-genome": "17/17",
+    "test:wallbreaker": "16/16",
+    "test:postgres-real": "167/167 against PostgreSQL 16.13",
+    "test:browser": "1/1",
+    "test:mutation-war": "105 mutations, 105 killed, 0 not killed",
+    "npm audit --omit=dev": "0 vulnerabilities",
+    "executedBy": "local execution in this session, not hosted CI",
+    "measuredOn": "the merged head, after another lane's bounded-harvest merge landed under this slice -- not carried forward from the pre-merge branch"
   },
   "cloudTruthAtMissionStart": {
     "fullProject": "uberbondd / prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
@@ -143,5 +146,27 @@
       "next": "Preserve until source-backed reconstruction or explicit owner retirement."
     }
   ],
-  "businessEffectAuthority": "NONE_FOR_THIS_CHECKPOINT"
+  "businessEffectAuthority": "NONE_FOR_THIS_CHECKPOINT",
+  "modelFailoverTruth": {
+    "status": "SOFTWARE_CHAIN_OPERATIONAL__NO_CONFIGURED_PROVIDER",
+    "mergedAs": "PR #264",
+    "receipt": "artifacts/model-failover-activation-receipt-2026-08-31.json",
+    "whatWasWrong": "routeModel has ranked `alternatives` since it was written and nothing ever executed down them. A grep for failover/fallbackProvider/FALLBACK across src/ returned no files: a quota wall failed the run next to a list naming which model should have served it.",
+    "modules": {
+      "src/agent-model-failover.mjs": "walks the order; never ranks, never calls a provider itself",
+      "src/agent-model-routing-integration.mjs": "failoverOrder binds ranked alternatives back to already-authorized workers",
+      "src/agent-worker-runtime.mjs": "deferTerminalSubmission, so exactly one outcome reaches the relay",
+      "src/agent-worker-job.mjs": "runAgentWorkerTick walks the chain; only the ending attempt submits"
+    },
+    "provenBy": "tests/agent-model-failover.test.mjs, 22 tests covering all eleven required scenarios plus six more; mutations ROUTE-02..ROUTE-06 all killed",
+    "hazardFound": "runAgentWorkerOnce submits terminal failures itself, so a naive chain that failed then succeeded would report both outcomes for one task. Fixed and pinned by ROUTE-06.",
+    "decisionsRecordedNotAssumed": [
+      "An uncertain outcome is not retried on another provider unless the caller declares the task idempotent, because the provider may already have done the work. Default is NOT_IDEMPOTENT.",
+      "A rejected credential is terminal: a fallback would keep working while the primary credential stayed broken, and trying identities until one is accepted is forbidden behaviour here. Revisitable in one place.",
+      "An unrecognised failure class is terminal, because failing over on a failure nobody understands turns one broken call into a bill on every provider."
+    ]
+  },
+  "repairedOnMain": [
+    "tests/uberbond-brain-bootstrap.test.mjs asserted the capability-genome summary line as one contiguous string. The bounded-harvest merge added world-repos, skill-bodies and a corpus label between those fields, so main was left red. The anchor now asserts field by field: adding a measurement no longer breaks it, removing one still does, and the summary cannot quietly stop distinguishing measured seeds from an imported world corpus."
+  ]
 }

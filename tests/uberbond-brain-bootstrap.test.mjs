@@ -179,7 +179,19 @@ test('human summary stays bounded and exposes capability assimilation without du
   const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit });
   const output = formatUberBondBrainPacket(packet);
   assert.match(output, /external capabilities: 8 \([a-f0-9]{64}\)/);
-  assert.match(output, /capability genome: FOUNDATION_HEALTHY; sources=10; measured-seeds=8; active=0/);
+  // The genome line gained world-repos, skill-bodies and a corpus label when the
+  // bounded harvest landed, and this anchor still expected the fields to be
+  // adjacent. Asserted field by field now, so adding another measurement does
+  // not break the test while removing one still does -- and so the summary can
+  // never quietly stop distinguishing measured seeds from an imported world
+  // corpus, which is the distinction the whole line exists to carry.
+  assert.match(output, /capability genome: FOUNDATION_HEALTHY;/);
+  assert.match(output, /sources=10;/);
+  assert.match(output, /measured-seeds=8;/);
+  assert.match(output, /world-repos=\d+;/);
+  assert.match(output, /skill-bodies=\d+;/);
+  assert.match(output, /active=0;/);
+  assert.match(output, /corpus=[A-Z_]+/);
   assert.match(output, /initiatives: 34/);
   assert.match(output, /lineage: Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation/);
   assert.match(output, /unresolved: Unreconstructed Owner-Recalled UberBond Programs/);

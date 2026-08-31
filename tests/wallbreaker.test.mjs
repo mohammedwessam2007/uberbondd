@@ -56,14 +56,23 @@ test('problem compilation is deterministic and authority-free', () => {
   assert.deepEqual(first.externalEffectLedger, ZERO_EXTERNAL_EFFECTS);
 });
 
-test('candidate scoring fails closed on hard authority and spend constraints', () => {
+test('candidate scoring fails closed on authority, spend, founder-minute, risk, and mechanism gates', () => {
   const compiled = compileWallProblem(baseProblem);
   const authority = scoreWallCandidate(candidate({ constraintViolations: ['authority:no-unauthorized-action'] }), { problem: compiled.problem });
   const expensive = scoreWallCandidate(candidate({ costCents: 5001 }), { problem: compiled.problem });
+  const founderHeavy = scoreWallCandidate(candidate({ founderMinutes: 61 }), { problem: compiled.problem });
+  const risky = scoreWallCandidate(candidate({ risk: 7 }), { problem: compiled.problem });
+  const mechanismless = scoreWallCandidate(candidate({ mechanism: '' }), { problem: compiled.problem });
   assert.equal(authority.eligible, false);
   assert.ok(authority.reasonCodes.includes('authority-boundary-violation'));
   assert.equal(expensive.eligible, false);
   assert.ok(expensive.reasonCodes.includes('spend-ceiling-violation'));
+  assert.equal(founderHeavy.eligible, false);
+  assert.ok(founderHeavy.reasonCodes.includes('founder-minute-ceiling-violation'));
+  assert.equal(risky.eligible, false);
+  assert.ok(risky.reasonCodes.includes('risk-budget-violation'));
+  assert.equal(mechanismless.eligible, false);
+  assert.ok(mechanismless.reasonCodes.includes('mechanism-unspecified'));
 });
 
 test('failure classification turns quota exhaustion into provider failure, not limit evasion', () => {
@@ -73,6 +82,18 @@ test('failure classification turns quota exhaustion into provider failure, not l
   const counters = deriveCountermoves(failure);
   assert.ok(counters.actions.some(action => action.type === 'switch-provider'));
   assert.ok(!counters.actions.some(action => /bypass|evade/i.test(action.type)));
+});
+
+test('already-classified failures retain their diagnosis across replanning', () => {
+  const first = classifyWallFailure({
+    missingCapability: true,
+    missingCapabilities: ['js-rendering'],
+    evidenceRefs: ['gap-proof']
+  });
+  const second = classifyWallFailure(first);
+  assert.equal(second.failureClass, 'CAPABILITY_GAP');
+  assert.deepEqual(second.missingCapabilities, ['js-rendering']);
+  assert.deepEqual(second.evidenceRefs, ['gap-proof']);
 });
 
 test('authority block produces lawful substitutes and explicit anti-circumvention guardrails', () => {
@@ -96,7 +117,7 @@ test('capability gaps create focused Capability Genome queries', () => {
   assert.deepEqual(counters.capabilityQueries.map(item => item.capability), ['js-rendering', 'invoice-reconciliation']);
 });
 
-test('a failed mechanism is not blindly retried and a different family wins', () => {
+test('a failed mechanism with uncertain external outcome is not blindly retried and a different family wins', () => {
   const compiled = compileWallProblem(baseProblem);
   const failed = candidate({ id: 'failed', family: 'provider-substitution' });
   const failedScore = scoreWallCandidate(failed, { problem: compiled.problem });
@@ -124,6 +145,25 @@ test('a failed mechanism is not blindly retried and a different family wins', ()
   assert.equal(plan.selected.candidate.id, 'alternate');
   const rejected = plan.rejected.find(item => item.candidate.id === 'failed');
   assert.ok(rejected.reasonCodes.includes('failed-mechanism-not-changed'));
+});
+
+test('a known-safe retryable provider failure may keep the same mechanism eligible', () => {
+  const compiled = compileWallProblem(baseProblem);
+  const retry = candidate({ id: 'retry', expectedContributionCents: 12000 });
+  const retryScore = scoreWallCandidate(retry, { problem: compiled.problem });
+  const plan = planWallbreakerCycle({
+    problem: compiled,
+    candidates: [retry],
+    failures: [{
+      rateLimited: true,
+      candidateId: 'retry',
+      failedSignature: retryScore.candidate.signature,
+      outcomeUncertain: false,
+      evidenceRefs: ['provider-definitive-no-execution']
+    }]
+  });
+  assert.equal(plan.selected.candidate.id, 'retry');
+  assert.equal(plan.failures[0].safeToRetrySameMechanism, true);
 });
 
 test('falsified assumptions prune dependent candidates and reopen search', () => {

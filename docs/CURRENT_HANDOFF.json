@@ -1,170 +1,90 @@
 {
-  "schemaVersion": "uberbond-handoff-1.4.0",
-  "checkpointedAt": "2026-08-30T18:22:11Z",
-  "sourceMainShaAtMissionStart": "1cf196b72f7d2ad85203efcccdb374f198d8ac52",
-  "currentMainShaAtCheckpoint": "1cf196b72f7d2ad85203efcccdb374f198d8ac52",
-  "currentFrontierBranch": "gpt/payment-operator-attention-20260830",
-  "measuredSourceHead": "9948f59eeb8cc528be6127e76cf991c6cedda425",
-  "checkpointArchiveCommit": "991efdee100616cd6d811a92194d611fa3097a14",
-  "activePullRequest": {
-    "number": 251,
-    "title": "Surface anomalous pending payments without alerting on trials",
-    "stateAtCheckpoint": "OPEN_DRAFT_MERGEABLE",
-    "purpose": "Make expected trials quiet while surfacing every anomalous PENDING_OR_UNCLEAR payment state to the founder command center without changing payment classification or revenue truth."
-  },
-  "activeMission": "Finish PR #251 without weakening canon, prove its exact head through the real Vercel syntax+deterministic gate, merge only if the exact candidate is green, then continue the highest-value payment/distribution/cloud-autonomy work with zero unauthorized external effects.",
-  "executiveMissions": {
-    "claude": "docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md",
-    "claudeCanonical": "docs/prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md",
-    "sol": "docs/prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md",
-    "charter": "docs/AI_EMPLOYEE_COMPANY_CHARTER.md",
-    "checkpoint": "docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md"
-  },
-  "companyArchitecture": {
-    "companyBrain": "GPT-5.6 Sol: research intelligence, opportunity tournaments, economics, pricing, market sensing, software/company research, portfolio allocation and world-class distribution strategy. Intelligence does not grant consequence authority.",
-    "softwareFactory": "Claude Code / Opus Max: bounded heavy engineering, adapters, cloud/runtime, persistence, tests, hostile mutation, review packets, deployment verification and recovery through the repository's consequence and sandbox contracts.",
-    "missionControl": "ChatGPT integrator: reconcile repository truth, preserve memory, dedupe work, review GitHub/Vercel evidence, enforce economic/truth doctrine and minimize founder actions.",
-    "employeeLaw": "AI employees are bounded roles inside one governed company. Missions, permissions, evidence requirements, receipts, stop conditions and escalation are explicit. Capability never creates authority."
-  },
+  "schemaVersion": "uberbond-handoff-1.5.0",
+  "checkpointedAt": "2026-08-31T12:58:00Z",
+  "sourceCommit": "f742d7f8de458937d3b2eebd5f0d654f8d478a21",
+  "sourceMainShaAtMissionStart": "5cb18b852b29b2c90f66869544e58a10531009e9",
+  "currentMainShaAtCheckpoint": "5cb18b852b29b2c90f66869544e58a10531009e9",
+  "activeBranch": "gpt/world-capability-genome-foundation-20260831",
+  "activePullRequest": null,
+  "activeMission": "Publish the verified World Capability Genome foundation, merge it into current main, verify the exact merged SHA and Vercel consequences, then return UberBond to the highest-value dependency-satisfied commercial frontier.",
   "economicNorthStar": "risk-adjusted cleared contribution profit / founder minute",
+  "completed": [
+    "Refreshed live main at 5cb18b852b29b2c90f66869544e58a10531009e9 and reconciled GitHub, repository brain, canon, startup, existing capability pack, branches, pull requests, Actions, and both Vercel projects.",
+    "Researched current skill, MCP, agent, routing, memory, orchestration, evaluation, provenance, licensing, and security ecosystems with claim classes and primary/peer-reviewed evidence.",
+    "Implemented canonical capability and atom schemas, source registry and discovery plans, immutable provenance, family dedupe, license/security admission, progressive retrieval, minimum-bundle composition, benchmark/economic fitness, model-aware routing, lifecycle/revocation, acquisition decisions, execution receipts, and deterministic doctor health.",
+    "Integrated the foundation into production-reachable job handlers, the existing scheduler as a daily zero-effect plan, UberBond brain/bootstrap, Claude instructions, and the Sol Company Brain without duplicating the eight current suppliers.",
+    "Repaired the stale readiness generator defect that made full-project Vercel production fail at main 5cb18b8; canon and reachability now refresh mechanically.",
+    "Verified npm run vercel-build at f742d7f8de458937d3b2eebd5f0d654f8d478a21: 639 files parsed; 2932 tests; 2881 pass; 0 fail; 51 environment-gated skips."
+  ],
+  "blockers": [
+    "No measured world-corpus import exists. The only measured Genome records are eight existing approved supplier seeds; directory and paper counts remain non-comparable claims.",
+    "World refresh execution needs durable corpus/object/index storage, authorized source adapters and terms, isolated sandbox capacity, and measured cost evidence.",
+    "Claude-Mem, Headroom, OmniRoute, Strix host runtime, and Agent Reach host runtime remain absent or unproven on this host; repository integration is not runtime health.",
+    "24/7 capability autonomy requires configured providers, scheduler activation, durable runtime evidence, and elapsed unattended operation; a scheduled zero-effect plan is not that proof.",
+    "Commercial truth remains zero customers, zero cleared revenue, zero accepted deliveries, and zero retained customers."
+  ],
+  "nextActions": [
+    "Push the exact verified branch, open and inspect the bounded pull request, repair any review/merge conflict, and merge only the verified candidate into current main.",
+    "Refresh live main and record the exact merged SHA.",
+    "Verify the exact merged full-project and private-lite Vercel deployments; distinguish source failure, provider limits, and infrastructure non-evidence.",
+    "Run one bounded Capability Genome pilot against the highest-value commercial capability gap after storage/source/sandbox dependencies are satisfied.",
+    "Return to the current payment/distribution/delivery frontier; capability catalog growth must earn continuation through fewer founder minutes or better real economic evidence."
+  ],
+  "capabilityGenome": {
+    "version": "1.0.0-foundation",
+    "sourceDefinitions": 10,
+    "measuredSeedRecords": 8,
+    "worldCorpusImported": 0,
+    "dedupedWorldCapabilities": 0,
+    "approvedCapabilities": 0,
+    "activeCapabilities": 0,
+    "revokedCapabilities": 0,
+    "capabilityAtoms": 25,
+    "health": "FOUNDATION_HEALTHY",
+    "runtimeTruth": "CONTROL_PLANE_PROJECT_INTEGRATED__WORLD_REFRESH_RUNTIME_NOT_ACTIVATED"
+  },
+  "currentMeasuredSoftwareTruth": {
+    "candidateCommit": "f742d7f8de458937d3b2eebd5f0d654f8d478a21",
+    "syntax": "639 files parse",
+    "deterministic": "2932 tests; 2881 pass; 0 fail; 51 skipped",
+    "vercelEquivalentBuild": "PASS_LOCAL_EXACT_CANDIDATE",
+    "sourceModules": 261,
+    "reachableFromProduction": 131,
+    "reachableFromOperatorScriptsOnly": 11,
+    "noEntryPointAtAll": 119
+  },
+  "cloudTruthAtMissionStart": {
+    "fullProject": "uberbondd / prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
+    "fullExactMainDeployment": "dpl_Aq1K55Dqdkga6DirULYhkBJrWcHY / ERROR / stale readiness canon at 5cb18b852b29b2c90f66869544e58a10531009e9",
+    "liteProject": "uberbondd-lite-private / prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz",
+    "liteExactMainDeployment": "dpl_Hpdk1wEtNRbDt2Nrk95TV7MWBf13 / READY / 5cb18b852b29b2c90f66869544e58a10531009e9"
+  },
   "commercialTruth": {
     "realCustomers": 0,
     "clearedRevenueUsd": 0,
     "acceptedDeliveries": 0,
-    "retainedCustomers": 0,
-    "note": "Architecture, research catalogs, creator claims, synthetic tests and preview deployments do not manufacture customer or revenue truth."
+    "retainedCustomers": 0
   },
-  "currentMeasuredSoftwareTruth": {
-    "syntax": "628 files parse",
-    "deterministic": "2897 tests; 2846 pass; 0 fail; 51 skipped",
-    "relaySafety": "150/150",
-    "realPostgres": "167/167 against PostgreSQL 16.13",
-    "browser": "1/1",
-    "mutationWar": "100 mutations; 100 killed; 0 not killed",
-    "npmAudit": "0 vulnerabilities",
-    "sourceModules": 255,
-    "reachableFromProduction": 127,
-    "reachableFromOperatorScriptsOnly": 9,
-    "noEntryPointAtAll": 119,
-    "measurementBinding": "The source-changing branch state was measured before the later docs/artifact-only checkpoint commits. Canon freshness permits later non-source commits when the relevant source tree is byte-identical."
-  },
-  "paymentAttentionFix": {
-    "reviewRequired": "operator attention",
-    "expectedPending": "PENDING_OR_UNCLEAR with only subscription-status-on_trial is quiet",
-    "anomalousPending": "every other PENDING_OR_UNCLEAR is operator attention",
-    "missingReason": "fail visible",
-    "focusedProof": "9/9 independent cases PASS; hostile expected=true mutation causes 5/9 cases to fail",
-    "authorityChange": "NONE",
-    "revenueTruthChange": "NONE"
-  },
-  "memoryIntegrity": {
-    "preCheckpointArchive": [
-      "docs/archive/2026-08-30-pre-checkpoint/CURRENT_SYSTEM_STATE.md",
-      "docs/archive/2026-08-30-pre-checkpoint/CURRENT_HANDOFF.json",
-      "docs/archive/2026-08-30-pre-checkpoint/UBERBOND_BOOTSTRAP.json"
-    ],
-    "archiveCommit": "991efdee100616cd6d811a92194d611fa3097a14",
-    "readinessIncident": "A manual readiness refresh at d1a75d04... collapsed hundreds of lines of capability evidence. The loss was detected before merge and the full registry was restored in a7d25ab08781307002f663dcfa903983ff5c54b2. Future readiness edits must preserve or regenerate the full capability registry; never treat a smaller generated artifact as harmless formatting.",
-    "everestCorrection": "The older memory index entry saying Everest was unresolved/no artifact is stale. Repository archaeology found docs/UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md with verdict EVEREST_PARTIALLY_CLOSED and source-backed lineage Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation. The checkpoint supersedes the stale index entry until the index is migrated without data loss."
-  },
-  "claudeRuntime": {
-    "status": "MISSION_PACKET_READY__LIVE_EXECUTION_NOT_PROVEN_IN_THIS_RUNTIME",
-    "orchestrator": "src/claude-engineering-orchestrator.mjs",
-    "externalBlocker": "A verified network-isolation attestation and an actual Claude executor/provider runtime are required. The GitHub agent-relay-worker is verification-only and must not be represented as a Claude Code session.",
-    "resumePacket": "docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md"
-  },
-  "cloudTruth": {
-    "vercelTeamId": "team_A9LnjIuS5PU0rNetsHMu1N0r",
-    "fullProjectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
-    "fullProjectName": "uberbondd",
-    "exactHeadPreviewAtPreviousMeasuredCommit": "dpl_5e9AmHsdpxpdikFFfkUbJhzKopa6 was BUILDING when last inspected; its logs were executing the real deterministic suite.",
-    "privateLitePreviousStatus": "exact-head preview success was observed for d1a75d04...",
-    "productionExactCurrentMainProven": false,
-    "note": "Do not equate preview READY/BUILDING with production promotion or commercial proof."
-  },
-  "cloudActivationTruth": {
-    "fullProjectExists": true,
-    "privateLiteProjectExists": true,
-    "currentMainExactProductionDeploymentProven": false,
-    "cronRegistrationProven": false,
-    "cronDeliveryProven": false,
-    "contradiction": "Older repository evidence recorded an account-scope contradiction. The currently connected Vercel API now resolves both project identities, but no exact-current-main production or cron-delivery proof is promoted by this checkpoint.",
-    "observations": [
-      {
-        "observedVia": "connected Vercel API",
-        "observedAt": "2026-08-30T18:38:01Z",
-        "detail": "Full project prj_RWUPf14w1xIz9NK92AbNW5z7qDCg and exact-head preview deployment dpl_HUna25saBLcF3AekpXRnfDqYtRRS were resolved."
-      },
-      {
-        "observedVia": "connected Vercel API",
-        "observedAt": "2026-08-30T18:32:00Z",
-        "detail": "Private-lite exact-head preview deployment dpl_3HzyZWauVqF71jBgFRSywHABayJR was resolved."
-      }
-    ]
-  },
-  "repositoryPublicationEffects": {
-    "productionDeploymentsAuthorizedOrPerformedByThisLane": 0
-  },
-  "ciTruth": {
-    "githubActions": "INFRASTRUCTURE_NON_EVIDENCE",
-    "latestObservedPattern": "deterministic/postgres/browser jobs completed failure with no runner and no steps; this is neither source pass nor source failure.",
-    "mergeEvidenceRule": "Use exact-head executable evidence from a runner that actually executed commands; do not green-light from empty hosted jobs."
-  },
-  "historicalLineageMustNotBeForgotten": [
-    "Brain / Whole Chat Continuity",
-    "First Revenue / First-Cash",
-    "Proven Business Genome / Total Commercial Genome",
-    "World Distribution OS",
-    "Offline Revenue Factory / Demand Recovery Assurance",
-    "Frontier Company OS",
-    "Elite Duo Apex / Fable Fraction / AEGIS-JARVIS",
-    "OMNIA V1 / X10 / X100 / X1M / X8M / X64M V7 / X512M V8 / V9",
-    "Prometheus",
-    "Cognitive Bus",
-    "Kilimanjaro",
-    "Everest",
-    "SUMMIT 100",
-    "BLACK SKY",
-    "Reality Activation",
-    "Lead OS",
-    "Instantly-style Outbound Engine",
-    "Distribution Control Plane",
-    "Automation Capability Acquisition Frontier",
-    "NIGHTFALL / Growth Graph / AI Employee Trinity"
-  ],
-  "nextActions": [
-    "Regenerate/replace CURRENT_SYSTEM_STATE from the measured source truth without losing archived history.",
-    "Run the exact newest PR #251 head through Vercel's real syntax+deterministic build; inspect final summary rather than status color alone.",
-    "If exact head is green and diff remains bounded, mark #251 ready and squash-merge with expected-head protection.",
-    "After merge, verify new main and exact production/preview state. Do not claim production current until source SHA is observed.",
-    "Then extend the payment frontier through the existing canonical provider-evidence -> payment-reconciliation -> fulfilment chain. PayPal is a candidate because the owner has a legal account, but do not create a second ledger or touch credentials/KYC/money without the required authority.",
-    "Continue distribution and NIGHTFALL cloud-liveness work after the payment truth path, prioritizing real economic evidence over architecture volume."
-  ],
-  "ownerActions": [
-    "No owner action is required to finish the current source/canon/preview verification lane.",
-    "Future live Claude execution requires the external sandbox-isolation/provider runtime gate.",
-    "Future real payment/outbound/provider activation requires the applicable credentials, KYC/authorization and bounded spend/contact authority."
-  ],
-  "operatingConstraints": {
-    "noRecurringChatAutomationsUnlessExplicitlyRequested": true,
-    "protectLiteUnlessExplicitMission": true,
-    "noFakeExternalProof": true,
-    "noAutomaticSpendOrCustomerContact": true
-  },
-  "externalEffectLedger": {
+  "externalEffects": {
+    "publicResearch": "READ_ONLY",
+    "githubInspection": "READ_ONLY",
+    "vercelInspection": "READ_ONLY",
     "customerProspectContacts": 0,
     "messagesCalls": 0,
-    "outboundMessages": 0,
-    "providerCalls": 0,
-    "modelProviderExecutions": 0,
     "purchases": 0,
     "productionDeployments": 0,
     "credentialChanges": 0,
     "dnsChanges": 0,
-    "productionMutations": 0,
     "customerSystemMutations": 0,
     "moneyMovement": 0,
     "spendCents": 0
   },
+  "unresolvedNames": [
+    {
+      "name": "Unreconstructed Owner-Recalled UberBond Programs",
+      "status": "OWNER_RECALLED_UNRESOLVED",
+      "next": "Preserve until source-backed reconstruction or explicit owner retirement."
+    }
+  ],
   "businessEffectAuthority": "NONE_FOR_THIS_CHECKPOINT"
 }

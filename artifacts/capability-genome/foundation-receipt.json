@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "uberbond.capability-genome.foundation-receipt.v1",
+  "observedAt": "2026-08-31T12:58:00Z",
+  "baseMainSha": "5cb18b852b29b2c90f66869544e58a10531009e9",
+  "verifiedCandidateSha": "f742d7f8de458937d3b2eebd5f0d654f8d478a21",
+  "branch": "gpt/world-capability-genome-foundation-20260831",
+  "pullRequest": null,
+  "mergeSha": null,
+  "verification": {
+    "command": "npm run vercel-build",
+    "exitCode": 0,
+    "syntaxFilesParsed": 639,
+    "deterministic": { "tests": 2932, "pass": 2881, "fail": 0, "skipped": 51 },
+    "focusedCapabilityGenome": { "tests": 17, "pass": 17, "fail": 0 },
+    "canonAndReachability": { "tests": 17, "pass": 17, "fail": 0 }
+  },
+  "capabilityGenomeState": {
+    "version": "1.0.0-foundation",
+    "sourceDefinitions": 10,
+    "measuredSeedRecords": 8,
+    "worldCorpusImported": 0,
+    "capabilityAtoms": 25,
+    "approvedCapabilities": 0,
+    "activeCapabilities": 0,
+    "revokedCapabilities": 0,
+    "health": "FOUNDATION_HEALTHY"
+  },
+  "truthBoundary": [
+    "Creator and research-corpus counts are non-comparable claims, not UberBond imports.",
+    "Registered suppliers are not installed, configured, healthy, benchmarked, or active unless separately evidenced.",
+    "Benchmarks and economic priors are not revenue, accepted delivery, or customer demand.",
+    "The scheduled discovery seam compiles a zero-effect plan; it does not execute a world refresh."
+  ],
+  "externalEffectLedger": {
+    "customerProspectContacts": 0,
+    "messagesCalls": 0,
+    "purchases": 0,
+    "productionDeployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "customerSystemMutations": 0,
+    "moneyMovement": 0,
+    "spendCents": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "uberbond.capability-genome.atoms.v1",
+  "generatedAt": "2026-08-31T12:00:00.000Z",
+  "atoms": [
+    { "id": "web.crawl", "verb": "crawl", "noun": "webpage", "description": "Traverse permitted public pages within explicit budgets and source policy.", "sideEffectClass": "READ_ONLY_NETWORK" },
+    { "id": "web.render-js", "verb": "render", "noun": "javascript-page", "description": "Render a permitted page in an isolated browser runtime.", "sideEffectClass": "READ_ONLY_NETWORK" },
+    { "id": "data.extract-structured", "verb": "extract", "noun": "structured-records", "description": "Convert evidence into typed records while preserving provenance.", "sideEffectClass": "NONE" },
+    { "id": "http.retry", "verb": "retry", "noun": "http-request", "description": "Retry idempotent HTTP requests with bounded backoff and uncertainty handling.", "sideEffectClass": "READ_ONLY_NETWORK" },
+    { "id": "contact.validate-email", "verb": "validate", "noun": "email", "description": "Validate an authorized email candidate without manufacturing consent.", "sideEffectClass": "READ_ONLY_NETWORK" },
+    { "id": "buyer.classify-intent", "verb": "classify", "noun": "buyer-intent", "description": "Classify buyer-intent evidence without treating it as permission or demand.", "sideEffectClass": "NONE" },
+    { "id": "code.search", "verb": "search", "noun": "source-code", "description": "Search source code and preserve exact file/revision identity.", "sideEffectClass": "NONE" },
+    { "id": "cloud.inspect-deployment", "verb": "inspect", "noun": "deployment", "description": "Inspect deployment state and logs without mutating production.", "sideEffectClass": "READ_ONLY_NETWORK" },
+    { "id": "database.query-postgres", "verb": "query", "noun": "postgresql", "description": "Run bounded authorized PostgreSQL queries with data-class controls.", "sideEffectClass": "READ_ONLY_NETWORK" },
+    { "id": "document.generate-spreadsheet", "verb": "generate", "noun": "spreadsheet", "description": "Create a reproducible spreadsheet artifact from typed inputs.", "sideEffectClass": "LOCAL_WRITE" },
+    { "id": "messaging.send-authorized-email", "verb": "send", "noun": "authorized-email", "description": "Send an email only after canonical consent, suppression, authority, and provider gates.", "sideEffectClass": "MESSAGE" },
+    { "id": "payment.verify-cleared", "verb": "verify", "noun": "cleared-payment", "description": "Reconcile provider-origin evidence into canonical cleared-payment truth.", "sideEffectClass": "READ_ONLY_NETWORK" },
+    { "id": "invoice.parse", "verb": "parse", "noun": "invoice", "description": "Parse invoice data without promoting invoice status into payment truth.", "sideEffectClass": "NONE" },
+    { "id": "document.summarize", "verb": "summarize", "noun": "document", "description": "Summarize a document while preserving access to authoritative originals.", "sideEffectClass": "NONE" },
+    { "id": "model.route-request", "verb": "route", "noun": "llm-request", "description": "Route to an eligible configured model while preserving actual provider/model identity.", "sideEffectClass": "READ_ONLY_NETWORK" },
+    { "id": "context.compress-reversible", "verb": "compress", "noun": "context", "description": "Compress context only when authoritative originals remain recoverable.", "sideEffectClass": "NONE" },
+    { "id": "memory.recover-session", "verb": "recover", "noun": "session-memory", "description": "Recover subordinate working memory without overriding repository truth.", "sideEffectClass": "NONE" },
+    { "id": "sandbox.run-test", "verb": "run", "noun": "sandbox-test", "description": "Execute a bounded test in an isolated environment with observed effects.", "sideEffectClass": "LOCAL_WRITE" },
+    { "id": "code.evaluate-generated", "verb": "evaluate", "noun": "generated-code", "description": "Evaluate generated code with deterministic and hostile tests.", "sideEffectClass": "LOCAL_WRITE" },
+    { "id": "capability.discover", "verb": "discover", "noun": "capability-artifact", "description": "Discover public capability artifacts through permitted registries and APIs.", "sideEffectClass": "READ_ONLY_NETWORK" },
+    { "id": "capability.dedupe", "verb": "dedupe", "noun": "capability-family", "description": "Resolve duplicates, forks, mirrors, wrappers, and behavioral substitutes.", "sideEffectClass": "NONE" },
+    { "id": "capability.security-admit", "verb": "admit", "noun": "capability", "description": "Require independent security and authority evidence before eligibility.", "sideEffectClass": "NONE" },
+    { "id": "capability.retrieve", "verb": "retrieve", "noun": "capability-bundle", "description": "Retrieve the minimum compatible capability set for a mission.", "sideEffectClass": "NONE" },
+    { "id": "capability.benchmark", "verb": "benchmark", "noun": "capability-model-pair", "description": "Compare no-skill, baseline, candidate, and compositions on holdouts.", "sideEffectClass": "LOCAL_WRITE" },
+    { "id": "capability.revoke", "verb": "revoke", "noun": "capability", "description": "Prevent revoked capabilities from selection and preserve revocation evidence.", "sideEffectClass": "NONE" }
+  ]
+}

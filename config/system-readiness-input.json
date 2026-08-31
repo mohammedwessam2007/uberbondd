@@ -2,8 +2,9 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 628,
-      "ranAt": "2026-08-30T00:00:00Z"
+      "filesParsed": 635,
+      "ranAt": "2026-08-31T12:50:52Z",
+      "note": "Observed by the exact-head Vercel gate for Wallbreaker commit 4524918fba7bff58982de8a503ece8c9ae04b6dd. The subsequent adaptive-compute fix changes no file-count boundary, so 635 remains the mechanically current syntax count."
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
@@ -11,7 +12,8 @@
       "pass": 2846,
       "fail": 0,
       "skipped": 51,
-      "ranAt": "2026-08-30T00:00:00Z"
+      "ranAt": "2026-08-30T00:00:00Z",
+      "note": "Historical last fully green deterministic receipt. The 2026-08-31 exact-head Wallbreaker run exposed real defects and is not promoted to a green receipt; a repaired exact-head rerun is required."
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -58,13 +60,13 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 255,
+      "srcModules": 257,
       "reachableFromProduction": 127,
-      "reachableFromOperatorScriptsOnly": 9,
+      "reachableFromOperatorScriptsOnly": 11,
       "noEntryPointAtAll": 119,
       "allClassified": true,
-      "ranAt": "2026-08-30T00:00:00Z",
-      "note": "src is walked recursively. payment-operator-attention.mjs is production-reachable through founder-command-center -> prometheus-control-tower -> job-handlers, so the production-reachable count increases by one without changing no-entry classifications."
+      "ranAt": "2026-08-31T12:50:52Z",
+      "note": "The exact-head deterministic gate established the 257-module tree. external-capability-control-plane.mjs and wallbreaker.mjs are operator-reachable through their scripts, raising operator-only reachability from 9 to 11 while production reachability stays 127 and no-entry modules stay 119."
     }
   },
   "capabilities": [

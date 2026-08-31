@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -12,6 +13,7 @@ import {
   writeMeasuredCorpusBatch
 } from '../src/capability-genome-harvest.mjs';
 
+const root = path.resolve(new URL('..', import.meta.url).pathname);
 const repo = (fullName, overrides = {}) => ({
   id: overrides.id ?? fullName.length,
   fullName,
@@ -79,6 +81,19 @@ test('partition planner breaks large github search space into bounded date windo
   assert.equal(plan.hardSearchCapPerPartition, 1000);
 });
 
+test('default CLI is explicitly plan-only and performs no network reads', () => {
+  const run = spawnSync(process.execPath, [
+    'scripts/capability-genome-harvest.mjs',
+    '--start=2026-08-01',
+    '--end=2026-08-01'
+  ], { cwd: root, encoding: 'utf8' });
+  assert.equal(run.status, 0, run.stderr);
+  const output = JSON.parse(run.stdout);
+  assert.equal(output.status, 'WORLD_HARVEST_PLAN_ONLY');
+  assert.equal(output.networkReadsExecuted, false);
+  assert.equal(output.partitionCount, 3);
+});
+
 test('github executor is read-only, counts provider calls, and surfaces partitions requiring refinement', async () => {
   const seen = [];
   const fetchImpl = async (url, options) => {
@@ -109,6 +124,8 @@ test('malformed github json fails closed while preserving the provider-call rece
   assert.equal(result.ok, false);
   assert.ok(result.reasonCodes.includes('github-search-json-error'));
   assert.equal(result.externalEffectLedger.providerCalls, 1);
+  assert.equal(result.queryReceipts.length, 1);
+  assert.equal(result.queryReceipts[0].terminationStatus, 'JSON_ERROR');
 });
 
 test('rate limiting produces a receipt and never blind retries', async () => {
@@ -125,9 +142,59 @@ test('rate limiting produces a receipt and never blind retries', async () => {
   assert.equal(calls, 1);
   assert.equal(result.providerCalls, 1);
   assert.equal(result.retryAfter, '60');
+  assert.equal(result.queryReceipts.length, 1);
+  assert.equal(result.queryReceipts[0].terminationStatus, 'RATE_LIMITED');
 });
 
-test('provider call ceiling returns partial progress instead of silently exceeding budget', async () => {
+test('rate limiting after a successful page preserves already-read repositories', async () => {
+  let calls = 0;
+  const result = await executeGithubRepositorySearch({
+    partitions: [{ id: 'p1', query: 'agent skills', perPage: 1, maxPages: 2 }],
+    fetchImpl: async () => {
+      calls += 1;
+      if (calls === 1) {
+        return response(200, {
+          total_count: 2,
+          incomplete_results: false,
+          items: [{ id: 1, full_name: 'owner/repo1', html_url: 'https://github.com/owner/repo1', visibility: 'public', private: false, default_branch: 'main' }]
+        });
+      }
+      return response(429, {}, { 'retry-after': '60' });
+    }
+  });
+  assert.equal(result.status, 'HARVEST_RATE_LIMITED_NO_BLIND_RETRY');
+  assert.equal(result.providerCalls, 2);
+  assert.equal(result.queryReceipts.length, 1);
+  assert.equal(result.queryReceipts[0].repositories.length, 1);
+  assert.equal(result.queryReceipts[0].repositories[0].fullName, 'owner/repo1');
+  assert.equal(result.queryReceipts[0].complete, false);
+  assert.equal(result.queryReceipts[0].terminationStatus, 'RATE_LIMITED');
+});
+
+test('provider call ceiling checkpoints partial partition progress instead of dropping it', async () => {
+  let calls = 0;
+  const result = await executeGithubRepositorySearch({
+    partitions: [{ id: 'p1', query: 'agent skills', perPage: 1, maxPages: 2 }],
+    maxProviderCalls: 1,
+    fetchImpl: async () => {
+      calls += 1;
+      return response(200, {
+        total_count: 2,
+        incomplete_results: false,
+        items: [{ id: 1, full_name: 'owner/repo1', html_url: 'https://github.com/owner/repo1', visibility: 'public', private: false, default_branch: 'main' }]
+      });
+    }
+  });
+  assert.equal(result.status, 'HARVEST_PROVIDER_CALL_BUDGET_EXHAUSTED');
+  assert.equal(calls, 1);
+  assert.equal(result.providerCalls, 1);
+  assert.equal(result.queryReceipts.length, 1);
+  assert.equal(result.queryReceipts[0].repositories.length, 1);
+  assert.equal(result.queryReceipts[0].complete, false);
+  assert.equal(result.queryReceipts[0].terminationStatus, 'PROVIDER_CALL_BUDGET_EXHAUSTED');
+});
+
+test('provider call ceiling after a completed partition returns completed progress', async () => {
   let calls = 0;
   const result = await executeGithubRepositorySearch({
     partitions: [
@@ -143,6 +210,8 @@ test('provider call ceiling returns partial progress instead of silently exceedi
   assert.equal(result.status, 'HARVEST_PROVIDER_CALL_BUDGET_EXHAUSTED');
   assert.equal(calls, 1);
   assert.equal(result.providerCalls, 1);
+  assert.equal(result.queryReceipts.length, 1);
+  assert.equal(result.queryReceipts[0].complete, true);
 });
 
 test('corpus persistence requires an explicit safe external directory and refuses git storage', () => {

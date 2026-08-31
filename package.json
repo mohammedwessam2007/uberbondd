@@ -57,7 +57,8 @@
     "capabilities:bootstrap:apply": "node scripts/bootstrap-external-capabilities.mjs --apply",
     "test:external-capabilities": "node --test tests/external-capability-control-plane.test.mjs",
     "test:capability-genome-harvest": "node --test tests/capability-genome-harvest.test.mjs tests/capability-genome-doctor-harvest.test.mjs",
-    "test:capability-genome": "node --test tests/capability-genome.test.mjs tests/capability-genome-harvest.test.mjs tests/capability-genome-doctor-harvest.test.mjs"
+    "test:capability-genome-bodies": "node --test tests/capability-genome-body-import.test.mjs tests/capability-genome-body-fetch.test.mjs tests/capability-genome-doctor-body.test.mjs",
+    "test:capability-genome": "node --test tests/capability-genome.test.mjs tests/capability-genome-harvest.test.mjs tests/capability-genome-doctor-harvest.test.mjs tests/capability-genome-body-import.test.mjs tests/capability-genome-body-fetch.test.mjs tests/capability-genome-doctor-body.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

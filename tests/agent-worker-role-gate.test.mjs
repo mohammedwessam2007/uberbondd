@@ -21,11 +21,22 @@ test('role integrity is evaluated after durable claim but before compute/model e
   const claim = indexOfRequired('const claim = await claimCloudRelayTask');
   const roleGate = indexOfRequired('const roleEligibility = validateRoleBoundExecution(claim.task)');
   const preExecutionPersistence = indexOfRequired("reason: 'worker-pre-execution'");
-  const runtime = indexOfRequired('const result = await runAgentWorkerOnce');
+  // Anchored on the runtime call itself rather than on one statement that used
+  // to wrap it. Failover made the call site a helper invoked from a loop, and an
+  // anchor tied to `const result = await runAgentWorkerOnce` would have gone
+  // quietly missing -- an ordering guard that stops finding its subject reads as
+  // a passing test only because the assertion never runs.
+  const runtime = indexOfRequired('runAgentWorkerOnce({');
 
   assert.ok(claim < roleGate, 'role gate must inspect the claimed immutable task');
   assert.ok(roleGate < preExecutionPersistence, 'role refusal must happen before pre-execution compute persistence');
   assert.ok(roleGate < runtime, 'role refusal must happen before worker runtime/modelExecutor');
+
+  // Every invocation, not merely the first. A failover chain calls the runtime
+  // more than once, and a role gate that only precedes the first attempt would
+  // leave the retries ungated.
+  assert.ok(roleGate < source.lastIndexOf('runAgentWorkerOnce({'),
+    'the role gate must precede every runtime invocation, including failover retries');
 });
 
 test('legacy generic execution can exist only through explicit opt-out', () => {

@@ -451,6 +451,42 @@ export const MUTATIONS = [
     replace: '    assert.ok(true,',
     suites: ['tests/canon-freshness-discrimination.test.mjs']
   },
+  // ---- Model failover: routing that executes, and only where allowed -------
+  {
+    id: 'ROUTE-02', guard: 'An unauthorized provider is never called',
+    file: 'src/agent-model-failover.mjs',
+    find: '    if (!authorized.has(candidate.provider)) {',
+    replace: '    if (false) {',
+    suites: ['tests/agent-model-failover.test.mjs']
+  },
+  {
+    id: 'ROUTE-03', guard: 'An uncertain outcome is not retried on another provider',
+    file: 'src/agent-model-failover.mjs',
+    find: '    const blockedByIdempotency = classification.failoverEligible\n      && classification.requiresIdempotency\n      && !idempotent;',
+    replace: '    const blockedByIdempotency = false;',
+    suites: ['tests/agent-model-failover.test.mjs']
+  },
+  {
+    id: 'ROUTE-04', guard: 'A failure another provider cannot fix is not walked around',
+    file: 'src/agent-model-failover.mjs',
+    find: "    if (!classification.failoverEligible) {\n      reasonCodes.push(`terminal-${String(classification.failureClass).toLowerCase()}`);",
+    replace: "    if (false) {\n      reasonCodes.push(`terminal-${String(classification.failureClass).toLowerCase()}`);",
+    suites: ['tests/agent-model-failover.test.mjs']
+  },
+  {
+    id: 'ROUTE-05', guard: 'An empty authorization list is not permission to use anything',
+    file: 'src/agent-model-failover.mjs',
+    find: "  if (!authorized.size) return fail(['no-authorized-provider-configured']);",
+    replace: '',
+    suites: ['tests/agent-model-failover.test.mjs']
+  },
+  {
+    id: 'ROUTE-06', guard: 'Only the attempt that ends a failover chain submits to the relay',
+    file: 'src/agent-worker-runtime.mjs',
+    find: '    if (deferTerminalSubmission) {',
+    replace: '    if (false) {',
+    suites: ['tests/agent-model-failover.test.mjs']
+  },
   // ---- The war's own verdicts --------------------------------------------
   {
     id: 'WAR-01', guard: 'A suite that never ran is not a killed mutant',

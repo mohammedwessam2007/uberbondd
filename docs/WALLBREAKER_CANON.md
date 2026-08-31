@@ -1,7 +1,7 @@
 # UberBond Wallbreaker Canon
 
 Status: CANONICAL PLANNING PRIMITIVE
-Policy: `wallbreaker-1.1.0`
+Policy: `wallbreaker-1.1.1`
 North star: `risk-adjusted cleared contribution profit / founder minute`
 
 ## Purpose
@@ -83,6 +83,8 @@ Wallbreaker classifies failures as:
 
 A failed mechanism signature is not blindly retried when the external outcome is uncertain. Falsified assumptions prune dependent candidates. A known-safe retryable provider or stochastic failure may remain eligible only when the prior outcome is known not to have caused an ambiguous effect.
 
+Once a failure has been classified, its explicit retry-safety decision is preserved across downstream countermove derivation. Reclassification may not silently turn an uncertain external effect back into an identical-retry permission.
+
 Authority blocks produce lawful-substitute, dependency-redesign, or explicit owner-escalation paths. They never produce circumvention instructions.
 
 Provider quota exhaustion, rate limits, outages, and model unavailability are routing signals. Wallbreaker may select another legitimately configured provider/model, but it may not defeat quotas, rotate unauthorized identities, conceal provider identity, or violate provider terms.
@@ -101,6 +103,8 @@ Wallbreaker must never silently promote a human label into a Genome atom ID. Ato
 When explicit atom IDs are present, Wallbreaker calls the real Genome retrieval and minimum-bundle logic. It can report `CAPABILITY_BUNDLE_READY` only when approved/active, security-admitted, authority-compatible capability records actually satisfy the required atoms and dependencies.
 
 When the corpus is empty or insufficient, the truthful result is a capability gap. That gap may trigger bounded acquisition/discovery planning; it is never converted into fake availability.
+
+A malformed or rejected Genome retrieval is not relabeled as a normal capability gap. It remains a resolution rejection that must be repaired or reconciled before execution readiness can be claimed.
 
 At the 2026-08-31 Genome foundation checkpoint, imported approved/active world capabilities remain `0/0`. The foundation is real; the world corpus is not yet populated.
 

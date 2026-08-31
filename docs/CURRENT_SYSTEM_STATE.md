@@ -4,9 +4,9 @@
 
 Last reconciled: **2026-08-31**
 Branch: `gpt/wallbreaker-kernel-20260831`
-Reconciled from source state through: `46e893c252b94d6d7216fbcf1c7fbb222a9bee06`
+Reconciled from current head: `4aab27cada82b902a0953f8e710fb6c32163e448`
 
-Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json). That generated artifact still represents the 2026-08-30 checkpoint until a fresh readiness run is recorded; this prose is updated narrowly so the live reachability ratchet reflects the current branch rather than silently carrying stale module counts.
+Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json). Present-tense structural measurements are reconciled to the source state above; older full-suite receipts remain explicitly dated rather than being promoted across source changes.
 
 ## Commercial truth
 
@@ -21,21 +21,21 @@ No architecture, creator claim, generated opportunity, model output, preview dep
 
 ## Verified software evidence
 
-The most recent full reconciled source-changing checkpoint before the 2026-08-31 capability/Wallbreaker additions recorded:
+Current mechanically rechecked structure plus the most recent fully green heavyweight receipts are:
 
 | Gate | Result |
 |---|---|
-| Syntax | **628 files parse** |
-| Deterministic | **2897 tests, 2846 pass, 0 fail, 51 skipped** |
-| Relay safety | **150/150** |
-| Real PostgreSQL | **167/167** against PostgreSQL 16.13 |
-| Mutation war | **100 mutations, 100 killed, 0 not killed** |
-| Browser | **1/1** |
-| Dependency audit | **0 vulnerabilities** |
+| Syntax | **635 files parse** on the 2026-08-31 exact-head Wallbreaker gate |
+| Deterministic | **2897 tests, 2846 pass, 0 fail, 51 skipped** at the last fully green 2026-08-30 checkpoint; a repaired Wallbreaker exact-head rerun is still required |
+| Relay safety | **150/150** at the 2026-08-30 checkpoint |
+| Real PostgreSQL | **167/167** against PostgreSQL 16.13 at the 2026-08-30 checkpoint |
+| Mutation war | **100 mutations, 100 killed, 0 not killed** at the 2026-08-30 checkpoint |
+| Browser | **1/1** at the 2026-08-30 checkpoint |
+| Dependency audit | **0 vulnerabilities** at the recorded integration check |
 
 The 51 deterministic skips are the environment-dependent real-PostgreSQL suites excluded from that run; they have separate real-PostgreSQL evidence above. Hosted GitHub Actions jobs that receive no runner and execute zero steps remain `INFRASTRUCTURE_NON_EVIDENCE`.
 
-The 2026-08-31 Wallbreaker branch adds focused hostile tests in `tests/wallbreaker.test.mjs`; they do not become verified evidence until an exact-head deterministic/build gate records the result.
+The first 2026-08-31 exact-head Wallbreaker deterministic run was valuable red evidence, not a pass: it caught stale canon plus an adaptive-compute shadowing defect. The compute defect is repaired at `c46bf84f15ed297c7ea795cc98becac73835304c`; readiness inputs were refreshed at `4aab27cada82b902a0953f8e710fb6c32163e448`. A new exact-head run must pass before merge.
 
 ## Reachability
 
@@ -62,14 +62,16 @@ Wallbreaker v1:
 - preserves strategy-family diversity rather than filling the frontier with near-clones;
 - classifies failures into assumption, evidence, capability, implementation, provider, authority, economics, environment, stochastic, verifier, impossible-constraint, or unknown classes;
 - prunes candidates that rely on falsified assumptions;
-- prevents unchanged failed mechanism signatures from being blindly retried;
+- prevents unchanged failed mechanism signatures from being blindly retried unless the failure is specifically known-safe to retry;
 - emits targeted Capability Genome queries for capability gaps;
 - treats provider quota/outage as a substitution/routing problem without authorizing provider-limit evasion;
 - treats authority blocks as lawful-substitute or escalation problems, never circumvention;
+- enforces risk, spend and founder-minute ceilings and rejects mechanism-less candidates;
+- preserves already-classified failure diagnoses across replanning;
 - emits an adaptive compute tier for downstream model routing;
 - carries `businessEffectAuthority: NONE` and the canonical zero external-effect ledger.
 
-This is a real deterministic orchestration primitive, not evidence that a million-solution search, heterogeneous model swarm, Capability Genome, or autonomous external execution is already live. Those remain later integration layers.
+This is a real deterministic orchestration primitive, not evidence that a million-solution search, heterogeneous model swarm, Capability Genome, or autonomous external execution is already live. A separate World Capability Genome foundation branch appeared on 2026-08-31; it must be independently verified and reconciled before Wallbreaker may treat it as an installed retrieval substrate.
 
 ## PR #251 payment-attention policy
 
@@ -108,7 +110,7 @@ Wallbreaker is subordinate to these existing worker, model-routing, capability, 
 
 The connected Vercel account exposes team `team_A9LnjIuS5PU0rNetsHMu1N0r` and full project `prj_RWUPf14w1xIz9NK92AbNW5z7qDCg` (`uberbondd`).
 
-Exact-current-main production at `5cb18b852b29b2c90f66869544e58a10531009e9` reached the deterministic suite and failed because this file still claimed 255 modules while 256 existed. That is a real stale-canon/reachability failure, not a provider-rate-limit failure. This branch repairs that stale claim while adding Wallbreaker, but exact-head cloud success must still be observed before merge.
+Exact-current-main production at `5cb18b852b29b2c90f66869544e58a10531009e9` previously reached the deterministic suite and exposed stale reachability canon. The first exact Wallbreaker candidate run at `4524918fba7bff58982de8a503ece8c9ae04b6dd` then exposed the stale 628-file syntax claim and the adaptive-compute defect. These are real test failures, not provider-rate-limit failures. The source defect and structural measurements are now repaired, but exact-head cloud success must still be observed before merge.
 
 ## External gates
 
@@ -128,10 +130,11 @@ Wallbreaker must treat these as external/authority constraints when applicable. 
 
 ## Immediate frontier
 
-1. Finish the exact-head Vercel syntax + deterministic gate for the Wallbreaker branch.
-2. Repair any source/test/reachability defect revealed by that gate rather than weakening the guardrail.
-3. If the candidate is green and remains bounded, merge it with expected-head protection and verify new `main` plus exact production deployment state.
-4. Connect Wallbreaker to the Capability Genome once that system actually exists on repository truth; do not pretend retrieval requests are installed capabilities.
-5. Continue the pre-customer frontier through real scheduler/provider/distribution/payment activation, prioritizing real economic proof over architecture volume.
+1. Regenerate the machine readiness companion against source commit `4aab27cada82b902a0953f8e710fb6c32163e448` without erasing historical capability evidence.
+2. Run the exact-head Vercel syntax + deterministic gate for the repaired Wallbreaker branch.
+3. Repair any defect revealed by that gate rather than weakening the guardrail.
+4. If the candidate is green and remains bounded, merge it with expected-head protection and verify new `main` plus exact production deployment state.
+5. Reconcile Wallbreaker with the separately built Capability Genome only after that branch earns its own verification and merge truth.
+6. Continue the pre-customer frontier through real scheduler/provider/distribution/payment activation, prioritizing real economic proof over architecture volume.
 
 Zero customer contact, zero provider/model execution, zero purchases, zero credential/DNS changes, zero money movement, and zero production mutation were authorized or performed by this Wallbreaker implementation branch.

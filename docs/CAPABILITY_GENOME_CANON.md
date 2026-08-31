@@ -1,6 +1,6 @@
 # UberBond Capability Genome Canon
 
-Status: foundation integrated; world corpus import and external runtime activation not proven
+Status: foundation integrated; first measured public repository-candidate harvest proven; skill-body import and continuous world-refresh runtime not proven
 
 Version: 1.0.0-foundation
 
@@ -23,15 +23,18 @@ Current measured state comes from `npm run capabilities:genome:doctor` and the b
 - The ten registered source definitions are discovery policy, not imported records.
 - The eight existing external-capability registry entries are measured supplier seeds, not active world-corpus records and not functioning host runtimes.
 - SkillsMP's 2,872,898 files and GitSkills' 3,797,117 occurrences are non-comparable creator/research claims. They are not added into an UberBond corpus count.
-- No world corpus has been imported by this foundation.
-- No capability is approved, active, benchmarked, security-clean, or commercially proven merely because its source is registered.
-- The scheduler currently compiles a bounded discovery plan only. It makes no network call and imports no artifact.
+- World Harvest v1 executed three actual connected public GitHub repository searches and recorded a bounded sample of **30 distinct public repository metadata candidates** in `artifacts/capability-genome/pilot/world-repository-candidates-2026-08-31.json`.
+- Those 30 records are repository-level discovery candidates only: **0 skill bodies imported, 0 normalized world capability records, 0 approved capabilities, 0 active capabilities**.
+- The measured pilot used three public GitHub provider calls. It did not use credentials, private sessions, CAPTCHA bypass, purchases, messaging, deployment, or customer systems.
+- No capability is approved, active, benchmarked, security-clean, or commercially proven merely because its repository was observed.
+- `npm run capabilities:genome:harvest` is plan-only by default. Public GitHub execution requires explicit host opt-in plus an external corpus directory, and scaled corpus bodies are refused inside the Git repository.
+- Continuous world refresh, full-body extraction, million-scale dedupe, the 50K tournament, security sandboxing at scale, and approved supplier promotion remain unfinished.
 
 ## Architecture
 
 ```text
 permitted source registries and APIs
-  -> bounded incremental discovery plan
+  -> bounded incremental discovery / measured repository harvest
   -> immutable artifact identity + provenance envelope
   -> typed canonical capability + capability atoms
   -> layered family dedupe
@@ -55,6 +58,7 @@ Large raw records, bodies, embeddings, sandbox traces, and runtime telemetry do 
 |---|---|
 | Capability schema and atoms | `src/capability-genome-schema.mjs`, `schemas/capability-genome.schema.json`, `artifacts/capability-genome/capability-atoms.json` |
 | Source registry and adapters | `artifacts/capability-genome/source-registry.json`, `src/capability-genome-discovery.mjs` |
+| World repository harvest | `src/capability-genome-harvest.mjs`, `scripts/capability-genome-harvest.mjs`, measured pilot under `artifacts/capability-genome/pilot/` |
 | Provenance | `normalizeDiscoveryArtifact` and `buildCapabilityProvenance` |
 | Identity and dedupe | `canonicalCapabilityIdentity`, `dedupeCapabilities` |
 | Security/license admission | `src/capability-genome-admission.mjs` |
@@ -69,6 +73,16 @@ Large raw records, bodies, embeddings, sandbox traces, and runtime telemetry do 
 | Host/runtime truth | `npm run capabilities:doctor` |
 
 The prior eight-supplier pack remains authoritative for those suppliers. The Genome wraps it as a seed supplier registry; it does not duplicate or promote Claude-Mem, Headroom, OmniRoute, Strix, Agent Reach, Find Skills, Task Observer, or Claude Code Setup.
+
+## World-harvest law
+
+Public repository metadata is the cheapest discovery layer, not a capability object. The harvest pipeline must preserve separate counters for repository candidates, imported skill/artifact bodies, normalized capability records, approved capabilities, and active capabilities.
+
+GitHub repository search has a practical 1,000-result observable window per query. UberBond therefore partitions searches by bounded date windows and must refine any partition whose reported total exceeds the observable cap or whose API marks results incomplete. It must never call a capped result set complete.
+
+The executor is read-only and counts every provider call. A provider-call ceiling returns partial progress. HTTP 403/429 returns `HARVEST_RATE_LIMITED_NO_BLIND_RETRY`. It does not rotate identities or accounts to defeat limits.
+
+Scaled corpus persistence must live outside Git. `writeMeasuredCorpusBatch` refuses repository-local storage by default and writes immutable manifest plus JSONL candidate records to an explicitly supplied external corpus directory.
 
 ## Identity and dedupe law
 
@@ -143,10 +157,10 @@ No execution trace or plugin memory may silently rewrite an active capability.
 
 ## Automatic acquisition boundary
 
-Automatic promotion may eventually be enabled only for an explicitly pre-authorized class such as project-local, read-only, no-credential, no-network, no-external-side-effect, permissively licensed, immutable, independently scanned, hostile-sandboxed, and hidden-regression-clean capabilities. The current foundation compiles acquisition decisions and discovery plans; it does not auto-install, vendor, execute, or promote world artifacts.
+Automatic promotion may eventually be enabled only for an explicitly pre-authorized class such as project-local, read-only, no-credential, no-network, no-external-side-effect, permissively licensed, immutable, independently scanned, hostile-sandboxed, and hidden-regression-clean capabilities. The current implementation can now perform bounded public repository-metadata discovery and persist measured corpus batches externally; it still does not auto-install, vendor, execute, or promote world artifacts.
 
 ## 24/7 boundary
 
-UberBond already has scheduler, queue, bounded job handlers, agent-mesh routing, retries, idempotency, receipts, and effect controls. The Genome adds a daily zero-effect discovery-plan job behind the existing `autopilot && prometheus.schedulingEnabled` gate. A durable external corpus store, authorized adapter execution, sandbox fleet, provider configuration, and elapsed unattended evidence remain required before claiming continuous world refresh or 24/7 capability autonomy.
+UberBond already has scheduler, queue, bounded job handlers, agent-mesh routing, retries, idempotency, receipts, and effect controls. The Genome has a daily zero-effect discovery-plan job behind the existing `autopilot && prometheus.schedulingEnabled` gate. World Harvest v1 adds a separately guarded read-only executor, but **continuous execution is not activated by this commit**. A durable external corpus store, scheduled authorized adapter execution, body extraction, sandbox fleet, provider configuration, and elapsed unattended evidence remain required before claiming continuous world refresh or 24/7 capability autonomy.
 
-Capability work must return to the commercial frontier after its foundation earns utility. The next use is to reduce founder minutes and improve the evidence quality of the highest-value distribution/payment/delivery mission—not to maximize catalog size.
+Capability work must return to the commercial frontier after its foundation earns utility. The next harvest milestone is real immutable body acquisition and normalization for a bounded subset, followed by layered dedupe and security admission, not catalog-size theater.

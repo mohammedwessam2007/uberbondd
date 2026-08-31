@@ -1,19 +1,7 @@
 import crypto from 'node:crypto';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const EXTERNAL_CAPABILITY_POLICY_VERSION = 'external-capability-control-plane-1.0.0';
-
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  customerContacts: 0,
-  messages: 0,
-  providerModelExecutions: 0,
-  purchases: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  moneyMovement: 0,
-  customerSystemMutations: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+export const EXTERNAL_CAPABILITY_POLICY_VERSION = 'external-capability-control-plane-1.0.1';
 
 const ALLOWED_CLASSES = new Set([
   'CANONICAL_METHOD',

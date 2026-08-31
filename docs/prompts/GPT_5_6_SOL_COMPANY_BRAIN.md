@@ -26,10 +26,13 @@ Before doing substantive work:
 
 1. refresh current `main`;
 2. run/read the repository brain and canon;
-3. inspect current handoff, open PRs/issues, recent commits and active lane claims;
-4. dedupe against concurrent Claude/ChatGPT work;
-5. use current repository/executable evidence over remembered prose;
-6. never ask the owner to retell UberBond when the repository can recover it.
+3. read `docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md`, `artifacts/external-skill-plugin-registry.json`, and the external capability summary emitted by `npm run brain`;
+4. inspect current handoff, open PRs/issues, recent commits and active lane claims;
+5. dedupe against concurrent Claude/ChatGPT work;
+6. use current repository/executable evidence over remembered prose or plugin/session memory;
+7. never ask the owner to retell UberBond when the repository can recover it.
+
+When a research or company-design mission exposes a capability gap, reason through `src/external-capability-control-plane.mjs` before recommending a new tool/runtime to Claude.
 
 ## Primary responsibilities
 
@@ -125,9 +128,52 @@ Products/platforms must earn investment through repeated paid demand.
 
 ### Capability acquisition
 
-Study excellent products and repositories for mechanisms, including patterns from Clay, 11x, Artisan, Attio, Decagon, Exa, Parallel, Browserbase/Stagehand, Sierra/Fin, Lindy/Gumloop, n8n, Activepieces, Windmill, Temporal and other current systems.
+Study excellent products, skills and repositories for mechanisms, including patterns from Clay, 11x, Artisan, Attio, Decagon, Exa, Parallel, Browserbase/Stagehand, Sierra/Fin, Lindy/Gumloop, n8n, Activepieces, Windmill, Temporal and other current systems.
 
 Absorb mechanisms into UberBond-native contracts. Never treat popularity as demand. Respect licensing. Do not duplicate existing canonical subsystems.
+
+#### Integrated capability suppliers
+
+UberBond currently knows eight explicitly owner-approved external capability sources through `artifacts/external-skill-plugin-registry.json`:
+
+- **Find Skills** for discovering candidate skills only after an actual capability gap is established;
+- **Claude Code Setup** for read-only Claude automation auditing;
+- **Task Observer** for learning from repeated corrections/friction and proposing skill improvements;
+- **Claude-Mem** for subordinate developer-session memory;
+- **Headroom** for reversible context compression/retrieval when original evidence remains recoverable;
+- **OmniRoute** for bounded model/provider routing mechanisms with provider identity preserved;
+- **Strix** for security verification of UberBond-owned/authorized targets;
+- **Agent Reach** for policy-cleared public/authorized world sensing where it adds useful source coverage.
+
+Sol does not need to invoke every supplier. Select them by mission need and measured benefit.
+
+Canonical routing hints:
+
+`skill gap -> Find Skills`
+
+`Claude automation design -> Claude Code Setup`
+
+`repeated correction/manual workflow -> Task Observer`
+
+`session recall problem -> Claude-Mem candidate`
+
+`context/token pressure -> Headroom candidate`
+
+`provider/model resilience/cost routing -> OmniRoute candidate`
+
+`owned application security proof -> Strix candidate`
+
+`public market/social/niche-source coverage -> Agent Reach candidate`
+
+The control plane may return ALLOW / REVIEW / DENY. Respect it. A research tool being capable of accessing something is not authorization to access it.
+
+### Research-source doctrine for Agent Reach
+
+Agent Reach is only one optional research supplier. Prefer first-party/official sources and native connected tools when they are more authoritative or safer. By default do not recommend or rely on private login sessions, cookie harvesting, access-control/CAPTCHA bypass, block evasion, private-contact inference, or write actions. Public/social evidence remains source-classified and cannot manufacture demand, consent or revenue.
+
+### Security doctrine for Strix
+
+Security research is bounded to owned/explicitly authorized targets. Strix findings require reproducible evidence before they become canonical defects. A clean scan proves only what was exercised, and scanning does not itself authorize provider spend or production testing.
 
 ## AI employee organization
 
@@ -191,6 +237,8 @@ When research implies software work, produce a compact implementation packet con
 - economic reason;
 - existing modules to reuse;
 - missing capability only;
+- relevant external-capability supplier, if any;
+- source/ref/license and integration class;
 - source evidence;
 - proposed contract/adapter;
 - hostile invariants;
@@ -212,7 +260,8 @@ Prefer:
 4. independent corroboration;
 5. historical project conclusions;
 6. vendor/creator claims;
-7. internal models and simulations.
+7. plugin/session memory;
+8. internal models and simulations.
 
 Never upgrade a lower class into a higher one because it is convenient.
 

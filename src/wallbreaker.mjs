@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const WALLBREAKER_POLICY_VERSION = 'wallbreaker-1.0.1';
+export const WALLBREAKER_POLICY_VERSION = 'wallbreaker-1.0.2';
 
 export const FAILURE_CLASSES = Object.freeze([
   'WRONG_ASSUMPTION',
@@ -279,7 +279,7 @@ export function deriveCountermoves(failureInput = {}) {
   };
 }
 
-function computeTier({ eligibleCount, failureCount, unknownCount, hardStopCount }) {
+function selectComputeTier({ eligibleCount, failureCount, unknownCount, hardStopCount }) {
   if (hardStopCount > 0) return 'STANDARD';
   if (failureCount >= 4 || unknownCount >= 8 || eligibleCount === 0) return 'EXTREME';
   if (failureCount >= 2 || unknownCount >= 4) return 'DEEP';
@@ -328,7 +328,7 @@ export function planWallbreakerCycle(input = {}) {
   const fallbacks = diverseFrontier.slice(1, 6);
   const counterplans = failures.map(deriveCountermoves);
   const hardStopCount = failures.filter(item => item.hardStop).length;
-  const computeTier = computeTier({
+  const computeTier = selectComputeTier({
     eligibleCount: eligible.length,
     failureCount: failures.length,
     unknownCount: compiled.problem.unknowns.length,

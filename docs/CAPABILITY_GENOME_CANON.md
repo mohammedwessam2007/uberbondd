@@ -24,6 +24,7 @@ Current measured state comes from `npm run capabilities:genome:doctor` and the b
 - The eight existing external-capability registry entries are measured supplier seeds, not active world-corpus records and not functioning host runtimes.
 - SkillsMP's 2,872,898 files and GitSkills' 3,797,117 occurrences are non-comparable creator/research claims. They are not added into an UberBond corpus count.
 - World Harvest v1 executed three actual connected public GitHub repository searches and recorded a bounded sample of **30 distinct public repository metadata candidates** in `artifacts/capability-genome/pilot/world-repository-candidates-2026-08-31.json`.
+- The measured pilot was produced by `capability-genome-harvest-1.0.0`; the current hardened executor is `capability-genome-harvest-1.0.1`. Historical receipts retain the version that actually produced them.
 - Those 30 records are repository-level discovery candidates only: **0 skill bodies imported, 0 normalized world capability records, 0 approved capabilities, 0 active capabilities**.
 - The measured pilot used three public GitHub provider calls. It did not use credentials, private sessions, CAPTCHA bypass, purchases, messaging, deployment, or customer systems.
 - No capability is approved, active, benchmarked, security-clean, or commercially proven merely because its repository was observed.
@@ -80,7 +81,7 @@ Public repository metadata is the cheapest discovery layer, not a capability obj
 
 GitHub repository search has a practical 1,000-result observable window per query. UberBond therefore partitions searches by bounded date windows and must refine any partition whose reported total exceeds the observable cap or whose API marks results incomplete. It must never call a capped result set complete.
 
-The executor is read-only and counts every provider call. A provider-call ceiling returns partial progress. HTTP 403/429 returns `HARVEST_RATE_LIMITED_NO_BLIND_RETRY`. It does not rotate identities or accounts to defeat limits.
+The executor is read-only and counts every provider call. A provider-call ceiling returns partial progress. HTTP 403/429 returns `HARVEST_RATE_LIMITED_NO_BLIND_RETRY`. It does not rotate identities or accounts to defeat limits. Partial partitions are checkpointed before stopping so already-read repositories remain resumable evidence rather than disappearing.
 
 Scaled corpus persistence must live outside Git. `writeMeasuredCorpusBatch` refuses repository-local storage by default and writes immutable manifest plus JSONL candidate records to an explicitly supplied external corpus directory.
 

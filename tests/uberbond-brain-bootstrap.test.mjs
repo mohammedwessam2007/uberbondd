@@ -7,7 +7,8 @@ import {
   loadUberBondBrainFromRepository,
   formatUberBondBrainPacket,
   MEMORY_RECONCILIATION_PATH,
-  MASTER_MEMORY_RECONCILIATION_PATH
+  MASTER_MEMORY_RECONCILIATION_PATH,
+  EXTERNAL_CAPABILITY_REGISTRY_PATH
 } from '../scripts/uberbond-brain-bootstrap.mjs';
 
 const sourceRoot = path.resolve(new URL('..', import.meta.url).pathname);
@@ -19,11 +20,13 @@ function buildFixture(mutator = null) {
   const memory = JSON.parse(fs.readFileSync(path.join(sourceRoot, 'artifacts/uberbond-memory-index.json'), 'utf8'));
   const reconciliation = JSON.parse(fs.readFileSync(path.join(sourceRoot, MEMORY_RECONCILIATION_PATH), 'utf8'));
   const handoff = JSON.parse(fs.readFileSync(path.join(sourceRoot, 'docs/CURRENT_HANDOFF.json'), 'utf8'));
-  mutator?.({ bootstrap, memory, reconciliation, handoff });
+  const externalCapabilities = JSON.parse(fs.readFileSync(path.join(sourceRoot, EXTERNAL_CAPABILITY_REGISTRY_PATH), 'utf8'));
+  mutator?.({ bootstrap, memory, reconciliation, handoff, externalCapabilities });
   for (const relative of new Set([
     'UBERBOND_BOOTSTRAP.json',
     MEMORY_RECONCILIATION_PATH,
     MASTER_MEMORY_RECONCILIATION_PATH,
+    EXTERNAL_CAPABILITY_REGISTRY_PATH,
     ...bootstrap.canonPointers
   ])) {
     const absolute = path.join(root, relative);
@@ -33,12 +36,13 @@ function buildFixture(mutator = null) {
     else if (relative === MEMORY_RECONCILIATION_PATH) fs.writeFileSync(absolute, JSON.stringify(reconciliation, null, 2));
     else if (relative === MASTER_MEMORY_RECONCILIATION_PATH) fs.writeFileSync(absolute, 'source-backed Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation reconciliation\n');
     else if (relative === bootstrap.continuity.handoffPath) fs.writeFileSync(absolute, JSON.stringify(handoff, null, 2));
+    else if (relative === EXTERNAL_CAPABILITY_REGISTRY_PATH) fs.writeFileSync(absolute, JSON.stringify(externalCapabilities, null, 2));
     else fs.writeFileSync(absolute, `fixture for ${relative}\n`);
   }
   return root;
 }
 
-test('one-command loader validates actual bootstrap and reconciled memory into a zero-effect startup packet', () => {
+test('one-command loader validates actual bootstrap, reconciled memory, and external capability pack into a zero-effect startup packet', () => {
   const root = buildFixture();
   const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit, now: '2026-08-29T05:05:00Z' });
   assert.equal(packet.project, 'UberBond');
@@ -46,6 +50,18 @@ test('one-command loader validates actual bootstrap and reconciled memory into a
   assert.match(packet.contextDigest, /^[a-f0-9]{64}$/);
   assert.match(packet.memoryDigest, /^[a-f0-9]{64}$/);
   assert.match(packet.memoryReconciliationDigest, /^[a-f0-9]{64}$/);
+  assert.match(packet.externalCapabilityDigest, /^[a-f0-9]{64}$/);
+  assert.equal(packet.externalCapabilityCount, 8);
+  assert.deepEqual(new Set(packet.externalCapabilities.map(item => item.id)), new Set([
+    'find-skills',
+    'claude-code-setup',
+    'task-observer',
+    'claude-mem',
+    'headroom',
+    'omniroute',
+    'strix',
+    'agent-reach'
+  ]));
   assert.equal(packet.namedInitiativeCount, 34);
   assert.ok(packet.namedInitiatives.some(item => item.name === 'Kilimanjaro'));
   assert.equal(packet.namedInitiatives.find(item => item.name === 'Everest')?.status, 'CANONICAL_LINEAGE');
@@ -56,6 +72,27 @@ test('one-command loader validates actual bootstrap and reconciled memory into a
   assert.ok(!packet.unresolvedNames.some(item => item.name === 'Everest'));
   assert.equal(packet.businessEffectAuthority, 'NONE');
   assert.equal(packet.externalEffectLedger.providerCalls, 0);
+});
+
+test('brain fails closed when the external capability registry is corrupted', () => {
+  const root = buildFixture(({ externalCapabilities }) => {
+    externalCapabilities.entries[0].authority = 'DO_WHATEVER';
+  });
+  assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit }), error => {
+    assert.equal(error.message, 'external-capability-registry-invalid');
+    assert.ok(error.reasonCodes.includes('invalid-capability-entry'));
+    return true;
+  });
+});
+
+test('brain fails closed when the declared external capability registry disappears', () => {
+  const root = buildFixture();
+  fs.unlinkSync(path.join(root, EXTERNAL_CAPABILITY_REGISTRY_PATH));
+  assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit }), error => {
+    assert.equal(error.message, 'declared-canon-file-missing');
+    assert.ok(error.missingPaths.includes(EXTERNAL_CAPABILITY_REGISTRY_PATH));
+    return true;
+  });
 });
 
 test('handoff is explicitly downgraded when its source basis differs from current commit', () => {
@@ -110,13 +147,14 @@ test('malformed handoff cannot silently become current execution state', () => {
   assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit }), /handoff-core-fields-invalid/);
 });
 
-test('human summary stays bounded and names corrected lineage without dumping the corpus', () => {
+test('human summary stays bounded and exposes capability assimilation without dumping the corpus', () => {
   const root = buildFixture();
   const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit });
   const output = formatUberBondBrainPacket(packet);
+  assert.match(output, /external capabilities: 8 \([a-f0-9]{64}\)/);
   assert.match(output, /initiatives: 34/);
   assert.match(output, /lineage: Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation/);
   assert.match(output, /unresolved: Unreconstructed Owner-Recalled UberBond Programs/);
-  assert.ok(output.length < 1400);
+  assert.ok(output.length < 1600);
   assert.doesNotMatch(output, /canonicalCommercialOffers/);
 });

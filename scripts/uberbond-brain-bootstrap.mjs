@@ -216,7 +216,7 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
     },
     wallbreaker: {
       status: 'PROJECT_INTEGRATED_PLANNING_PRIMITIVE',
-      policyVersion: 'wallbreaker-1.1.0',
+      policyVersion: 'wallbreaker-1.1.1',
       canon: wallbreakerCanonRelative,
       module: wallbreakerModuleRelative,
       command: 'npm run wallbreaker',

@@ -7,6 +7,7 @@ import {
   summarizeExternalCapabilities,
   validateExternalCapabilityRegistry
 } from '../src/external-capability-control-plane.mjs';
+import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 
 const root = path.resolve(path.join(path.dirname(fileURLToPath(import.meta.url)), '..'));
 const registryPath = path.join(root, 'artifacts/external-skill-plugin-registry.json');
@@ -55,7 +56,8 @@ function main() {
       ok: false,
       status: 'EXTERNAL_CAPABILITY_DOCTOR_FAILED',
       reasonCodes: validated.reasonCodes,
-      businessEffectAuthority: 'NONE'
+      businessEffectAuthority: 'NONE',
+      externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
     }, null, 2)}\n`);
     process.exitCode = 1;
     return;
@@ -111,18 +113,7 @@ function main() {
     runtime,
     truthBoundary: 'COMMAND_PRESENT_OR_PLUGIN_ROOT_PRESENT_IS_NOT_PROOF_OF_CONFIGURED_PROVIDER_EXECUTION',
     businessEffectAuthority: 'NONE',
-    externalEffectLedger: {
-      customerContacts: 0,
-      messages: 0,
-      providerModelExecutions: 0,
-      purchases: 0,
-      credentialChanges: 0,
-      dnsChanges: 0,
-      moneyMovement: 0,
-      customerSystemMutations: 0,
-      productionMutations: 0,
-      spendCents: 0
-    }
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
 
   process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);

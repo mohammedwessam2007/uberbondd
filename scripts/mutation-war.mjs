@@ -451,6 +451,28 @@ export const MUTATIONS = [
     replace: '    assert.ok(true,',
     suites: ['tests/canon-freshness-discrimination.test.mjs']
   },
+  // ---- World skill bodies: screened before they can be counted -------------
+  {
+    id: 'GENOME-01', guard: 'An imported skill body is screened, not merely hashed',
+    file: 'src/capability-genome-body-import.mjs',
+    find: '  const screening = scanCapabilityInstructions({ instructions: content });',
+    replace: "  const screening = { decision: 'STATIC_CLEAR', findings: [], scanDigest: 'x', caveat: 'not runtime safety' };",
+    suites: ['tests/capability-genome-body-security-screening.test.mjs']
+  },
+  {
+    id: 'GENOME-02', guard: 'Security evidence cannot be carried across revisions',
+    file: 'src/capability-genome-body-import.mjs',
+    find: "    if (!evidence.securityScreening?.decision || evidence.securityScreening.screenedContentSha256 !== evidence.contentSha256) {",
+    replace: '    if (false) {',
+    suites: ['tests/capability-genome-body-security-screening.test.mjs']
+  },
+  {
+    id: 'GENOME-03', guard: 'Quarantined bodies are counted apart from clear ones',
+    file: 'src/capability-genome-body-import.mjs',
+    find: "    securityQuarantinedBodies: bodies.filter(item => item.securityScreening.decision === 'QUARANTINE').length,",
+    replace: '    securityQuarantinedBodies: bodies.length,',
+    suites: ['tests/capability-genome-body-security-screening.test.mjs']
+  },
   // ---- Model failover: routing that executes, and only where allowed -------
   {
     id: 'ROUTE-02', guard: 'An unauthorized provider is never called',

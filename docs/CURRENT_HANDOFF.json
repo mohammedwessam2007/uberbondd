@@ -1,12 +1,12 @@
 {
   "schemaVersion": "uberbond-handoff-1.6.0",
-  "checkpointedAt": "2026-08-31T14:20:00Z",
-  "sourceCommit": "4c24670f7330ddd7cca9b346c1e8a477b615b2a8",
-  "sourceMainShaAtMissionStart": "fb129f8076829c28a8fb299890ac98f8bbcc238b",
-  "currentMainShaAtCheckpoint": "4c24670f7330ddd7cca9b346c1e8a477b615b2a8",
-  "activeBranch": "gpt/wallbreaker-continuity-20260831",
+  "checkpointedAt": "2026-08-31T20:00:00Z",
+  "sourceCommit": "8f0de47995e7a408809220cef3deacf721a192c2",
+  "sourceMainShaAtMissionStart": "8f0de47995e7a408809220cef3deacf721a192c2",
+  "currentMainShaAtCheckpoint": "8f0de47995e7a408809220cef3deacf721a192c2",
+  "activeBranch": "gpt/event-horizon-economic-genome-20260831",
   "activePullRequest": null,
-  "activeMission": "Pre-customer engineering: the Capability Genome now imports and screens real skill bodies, payment reconciliation has a driver, and model failover executes. What remains is provider activation and customer reality, not engineering.",
+  "activeMission": "Event Horizon allocation: preserve the single prepared Lead-Path Evidence Sprint as first-cash champion, test whether partner-delivered evidence creates payment and repeat accounts, and keep strategic challengers behind explicit evidence gates.",
   "economicNorthStar": "risk-adjusted cleared contribution profit / founder minute",
   "completed": [
     "Refreshed live main at 5cb18b852b29b2c90f66869544e58a10531009e9 and reconciled GitHub, repository brain, canon, startup, existing capability pack, branches, pull requests, Actions, and both Vercel projects.",
@@ -23,24 +23,29 @@
     "Published the exact verified tree as e3dd34fee25503f803da75d128fd529232af9d64, opened PR #261, proved it one commit ahead and zero behind unchanged main, and observed no review findings.",
     "Verified exact PR head e3dd34fee25503f803da75d128fd529232af9d64 on private-lite deployment dpl_BuifQeJmRo6P3gVbbve1jChu1xG1: READY, successful build, HTTP 200, expected restrictive headers.",
     "Merged PR #261 by expected-head squash into live main at 62b59d7bc20ef9ddba0bfa3e3803c2622a1eaa58 and independently confirmed live main is identical to that SHA.",
-    "Closed superseded Wallbreaker PRs #257 and #260 after their useful work was preserved in verified PR #261."
+    "Closed superseded Wallbreaker PRs #257 and #260 after their useful work was preserved in verified PR #261.",
+    "Refreshed live main, recent commits, PRs, branches, repository brain, Capability Genome, opportunity registry, current distribution canary, GitHub Actions, and connected Vercel project before Event Horizon research.",
+    "Ran a multi-lane economic research court across mandatory reconciliation, partner distribution, GCC e-invoicing, AI acceptance infrastructure, cloud SLA credits, and healthcare prior authorization using 17 durable public sources with explicit claim classes.",
+    "Added GCC Bilingual E-Invoice Exception Evidence as hypothesis 439 in the existing canonical opportunity registry; no parallel registry and no buyer, payment, acceptance, or retention claim was created.",
+    "Implemented Event Horizon policy, deterministic doctor, economic gene library, evidence-weighted tournament, killed-thesis memory, belief updates, narrow Claude handoff, brain/bootstrap integration, and hostile tests.",
+    "Verified 661 syntax files; 3018 deterministic tests with 2966 pass, 0 fail, 52 environment-gated skips; Event Horizon 6/6; npm audit 0 vulnerabilities."
   ],
   "blockers": [
     "NO_CONFIGURED_MODEL_PROVIDER: zero providers configured. No OPENAI_API_KEY, no ANTHROPIC_API_KEY, no pricing evidence. The Claude Code harness's own session OAuth is the agent's credential, not a provider configured for UberBond.",
     "NO_PAYMENT_PROVIDER: no account to verify a payment against. The reconciliation chain is complete and refuses without claiming anything until one exists.",
     "OMNIROUTE_INSTALL_BLOCKED_BY_HOST_PERMISSION: npm install -g omniroute denied by this environment's permission classifier. Not routed around.",
     "BRANCH_DELETION_NOT_PERMITTED: git push --delete returns 403 for every branch including tmp-noop, while pushes succeed. A scoped permission, not a fault.",
-    "VERCEL_PROJECT_NOT_VISIBLE: list_projects returned [] for the sixth consecutive probe across four days, so cloud deployment and cron firing cannot be observed or triggered from here. Not hammered.",
+    "VERCEL_RUNTIME_UNPROVEN: connected Vercel project uberbondd / prj_RWUPf14w1xIz9NK92AbNW5z7qDCg is visible but reports live:false. Recent observed full-project deployments are ERROR and no exact-current-main runtime is proven.",
     "REPOSITORY_SCOPE_FORBIDS_THIRD_PARTY_READS: GitHub access is scoped to this repository, so world corpus expansion beyond the pinned bodies cannot proceed here.",
     "NO_OBJECT_STORAGE_ADAPTER: durable corpus storage remains an unreleased gate.",
     "Commercial truth remains zero customers, zero cleared revenue, zero accepted deliveries, zero retained customers."
   ],
   "nextActions": [
-    "OWNER: supply one model provider credential plus pricing evidence, and one payment provider account. Those two release model failover and payment reconciliation respectively; both refuse cleanly and visibly until they exist.",
-    "ANY LANE: normalize the imported skill bodies into capability records and extract atoms. Two bodies are measured and screened; nothing consumes them yet. This is the next genuine Genome increment and it needs no new external access.",
-    "ANY LANE: the Capability Genome's own routeCapabilityModel has the same ranked-but-never-walked defect the model router had. The fix pattern exists in src/agent-model-failover.mjs. Blocked behind zero configured capabilities.",
-    "ANY LANE: 76 branches are proven to carry no unique work and could not be deleted -- git push --delete returns 403 for this credential. The audited list is in artifacts/branch-hygiene-audit-2026-08-31.json and is directly executable by a session permitted to delete refs.",
-    "The commercial frontier is unchanged and ahead of all of it: first lawful buyer -> cleared payment -> accepted delivery."
+    "COMMERCIAL: activate exactly one owner-authorized $450 white-label Lead-Path Revenue Leak Evidence Sprint using the existing partner canary packet; require cleared payment, accepted delivery, actual founder minutes, partner margin, and a second-account signal.",
+    "CHALLENGER: keep GCC e-invoice exception evidence research-only until a qualified provider supplies a safe sample and stronger payment commitment than the current canary.",
+    "ENGINEERING: defer the AI acceptance evidence-pack compiler until buyer evidence raises it above canary activation; then compose existing modules rather than building a parallel evaluation platform.",
+    "OWNER/PROVIDER: one model provider credential plus pricing evidence and one payment provider account remain necessary for live model failover and payment reconciliation; both software paths fail closed until configured.",
+    "BRANCH HYGIENE: 76 branches are proven to carry no unique work but deletion remains forbidden by the current credential; the exact audited list is artifacts/branch-hygiene-audit-2026-08-31.json."
   ],
   "capabilityGenome": {
     "measuredAt": "2026-08-31",
@@ -57,8 +62,8 @@
     "notClaimed": "No normalized capability records, no approved capabilities, no active capabilities, no 50K tournament. Two measured bodies is two, not a corpus."
   },
   "currentMeasuredSoftwareTruth": {
-    "check:syntax": "658 files parse",
-    "test:deterministic": "3011 tests, 2959 pass, 0 fail, 52 skipped",
+    "check:syntax": "661 files parse",
+    "test:deterministic": "3018 tests, 2966 pass, 0 fail, 52 skipped",
     "test:postgres-real": "178/178 against PostgreSQL 16.13",
     "test:mutation-war": "111 mutations, 111 killed, 0 not killed",
     "test:capability-genome": "50/50",
@@ -121,6 +126,22 @@
     "clearedRevenueUsd": 0,
     "acceptedDeliveries": 0,
     "retainedCustomers": 0
+  },
+  "eventHorizon": {
+    "version": "uberbond-event-horizon-1.0.0",
+    "health": "EVENT_HORIZON_HEALTHY",
+    "champion": "lead-path-evidence-sprint",
+    "championState": "PREPARED_NOT_EXTERNALLY_ACTIVATED",
+    "strongestChallenger": "gcc-einvoice-exception-evidence",
+    "bestOriginalInvention": "Partner Evidence Rail",
+    "canonicalOpportunityCount": 439,
+    "tournamentCandidateCount": 5,
+    "durableSourceCount": 17,
+    "activePreparedExperimentCount": 1,
+    "externalBusinessEffectAuthority": "NONE",
+    "receipt": "artifacts/event-horizon/economic-genome-2026-08-31.json",
+    "doctor": "npm run event-horizon:doctor",
+    "notClaimed": "No customer, buyer commitment, payment, accepted delivery, repeat payment, retention, partner activation, tax conclusion, certification, or production runtime is inferred from the research tournament."
   },
   "externalEffects": {
     "publicResearch": "READ_ONLY",

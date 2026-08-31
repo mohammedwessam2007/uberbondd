@@ -50,6 +50,8 @@
     "readiness": "node scripts/system-readiness.mjs",
     "wallbreaker": "node scripts/wallbreaker-plan.mjs",
     "test:wallbreaker": "node --test tests/wallbreaker.test.mjs tests/wallbreaker-retry-safety.test.mjs",
+    "event-horizon:doctor": "node scripts/event-horizon-doctor.mjs",
+    "test:event-horizon": "node --test tests/event-horizon.test.mjs",
     "capabilities:doctor": "node scripts/external-capability-doctor.mjs",
     "capabilities:genome:doctor": "node scripts/capability-genome-doctor.mjs",
     "capabilities:genome:harvest": "node scripts/capability-genome-harvest.mjs",

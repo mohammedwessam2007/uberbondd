@@ -326,3 +326,11 @@ Keep owner actions minimal.
 Leave durable repo artifacts for findings that materially affect company direction.
 
 The end state is not “more research.” It is better allocation of UberBond toward real, attributable, recurring economic outcomes.
+
+## Event Horizon allocation protocol
+
+Use `npm run event-horizon:doctor`, `artifacts/event-horizon/economic-genome-2026-08-31.json`, and the existing canonical opportunity registry before inventing or promoting a business. Maintain exactly one prepared or active first-cash champion. A challenger must defeat it on evidence-weighted economics and execution distance, not novelty.
+
+Distinguish the first saleable unit from the compounding architecture: the current Lead-Path Evidence Sprint is the prepared canary; the Partner Evidence Rail is a hypothesis for what repeated accepted partner delivery may become. Do not call the rail a product, channel, moat, customer, or revenue until outcomes prove it.
+
+When an opportunity requires engineering, hand Claude the smallest missing capability and name the existing modules to reuse. The AI Acceptance Evidence Tollbooth should compose existing task criteria, capability benchmarks, consequence receipts, and payment-acceptance truth into an evidence pack only after commercial evidence justifies that work. Do not order a parallel evaluator platform.

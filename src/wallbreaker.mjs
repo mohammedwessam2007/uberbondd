@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const WALLBREAKER_POLICY_VERSION = 'wallbreaker-1.0.0';
+export const WALLBREAKER_POLICY_VERSION = 'wallbreaker-1.0.1';
 
 export const FAILURE_CLASSES = Object.freeze([
   'WRONG_ASSUMPTION',
@@ -165,10 +165,17 @@ export function scoreWallCandidate(input = {}, { problem = null, index = 0 } = {
   const hardConstraintSet = new Set(problem?.hardConstraints || []);
   const violatedHardConstraints = candidate.constraintViolations.filter(item => hardConstraintSet.has(item));
   const authorityViolation = candidate.constraintViolations.some(item => /^authority:/i.test(item));
-  const spendViolation = problem && candidate.costCents > Number(problem.maxSpendCents || 0);
-  const riskViolation = problem && candidate.risk > Number(problem.riskBudget || 0);
+  const spendViolation = Boolean(problem) && candidate.costCents > Number(problem.maxSpendCents || 0);
+  const founderMinuteViolation = Boolean(problem) && candidate.founderMinutes > Number(problem.maxFounderMinutes || 0);
+  const riskViolation = Boolean(problem) && candidate.risk > Number(problem.riskBudget || 0);
+  const mechanismMissing = !candidate.mechanism;
 
-  const blocked = violatedHardConstraints.length > 0 || authorityViolation || spendViolation || riskViolation;
+  const blocked = violatedHardConstraints.length > 0
+    || authorityViolation
+    || spendViolation
+    || founderMinuteViolation
+    || riskViolation
+    || mechanismMissing;
 
   const netExpected = candidate.expectedContributionCents * candidate.successProbability - candidate.costCents;
   const founderDenominator = Math.max(1, candidate.founderMinutes + 1);
@@ -184,8 +191,9 @@ export function scoreWallCandidate(input = {}, { problem = null, index = 0 } = {
   if (violatedHardConstraints.length) reasonCodes.push('hard-constraint-violation');
   if (authorityViolation) reasonCodes.push('authority-boundary-violation');
   if (spendViolation) reasonCodes.push('spend-ceiling-violation');
+  if (founderMinuteViolation) reasonCodes.push('founder-minute-ceiling-violation');
   if (riskViolation) reasonCodes.push('risk-budget-violation');
-  if (!candidate.mechanism) reasonCodes.push('mechanism-unspecified');
+  if (mechanismMissing) reasonCodes.push('mechanism-unspecified');
   if (!candidate.evidenceRefs.length) reasonCodes.push('evidence-thin');
 
   return {
@@ -204,18 +212,22 @@ export function classifyWallFailure(input = {}) {
     return invalid(['failure-object-required']);
   }
 
-  let failureClass = 'UNKNOWN';
-  if (input.impossibleConstraint === true) failureClass = 'IMPOSSIBLE_CONSTRAINT';
-  else if (input.authorityDenied === true || input.permissionDenied === true) failureClass = 'AUTHORITY_BLOCK';
-  else if (input.verifierInvalid === true) failureClass = 'VERIFIER_FAILURE';
-  else if (input.environmentChanged === true) failureClass = 'ENVIRONMENT_CHANGE';
-  else if (input.implementationError === true || input.testFailure === true) failureClass = 'IMPLEMENTATION_DEFECT';
-  else if (input.missingCapability === true) failureClass = 'CAPABILITY_GAP';
-  else if (input.providerUnavailable === true || input.rateLimited === true || input.quotaExhausted === true) failureClass = 'PROVIDER_FAILURE';
-  else if (input.assumptionFalsified === true) failureClass = 'WRONG_ASSUMPTION';
-  else if (input.missingEvidence === true) failureClass = 'MISSING_EVIDENCE';
-  else if (input.economicFailure === true) failureClass = 'ECONOMIC_FAILURE';
-  else if (input.stochasticFailure === true) failureClass = 'STOCHASTIC_FAILURE';
+  const suppliedClass = text(input.failureClass, 40).toUpperCase();
+  let failureClass = FAILURE_CLASSES.includes(suppliedClass) ? suppliedClass : 'UNKNOWN';
+
+  if (!FAILURE_CLASSES.includes(suppliedClass)) {
+    if (input.impossibleConstraint === true) failureClass = 'IMPOSSIBLE_CONSTRAINT';
+    else if (input.authorityDenied === true || input.permissionDenied === true) failureClass = 'AUTHORITY_BLOCK';
+    else if (input.verifierInvalid === true) failureClass = 'VERIFIER_FAILURE';
+    else if (input.environmentChanged === true) failureClass = 'ENVIRONMENT_CHANGE';
+    else if (input.implementationError === true || input.testFailure === true) failureClass = 'IMPLEMENTATION_DEFECT';
+    else if (input.missingCapability === true) failureClass = 'CAPABILITY_GAP';
+    else if (input.providerUnavailable === true || input.rateLimited === true || input.quotaExhausted === true) failureClass = 'PROVIDER_FAILURE';
+    else if (input.assumptionFalsified === true) failureClass = 'WRONG_ASSUMPTION';
+    else if (input.missingEvidence === true) failureClass = 'MISSING_EVIDENCE';
+    else if (input.economicFailure === true) failureClass = 'ECONOMIC_FAILURE';
+    else if (input.stochasticFailure === true) failureClass = 'STOCHASTIC_FAILURE';
+  }
 
   return {
     ok: true,
@@ -236,7 +248,7 @@ export function classifyWallFailure(input = {}) {
 }
 
 export function deriveCountermoves(failureInput = {}) {
-  const failure = failureInput?.failureClass ? failureInput : classifyWallFailure(failureInput);
+  const failure = classifyWallFailure(failureInput);
   if (!failure.ok) return failure;
 
   const capabilityQueries = failure.failureClass === 'CAPABILITY_GAP'
@@ -282,7 +294,12 @@ export function planWallbreakerCycle(input = {}) {
   const failures = Array.isArray(input.failures)
     ? input.failures.map(classifyWallFailure).filter(item => item.ok)
     : [];
-  const failedSignatures = new Set(failures.map(item => item.failedSignature).filter(Boolean));
+  const failedSignatures = new Set(
+    failures
+      .filter(item => !item.safeToRetrySameMechanism)
+      .map(item => item.failedSignature)
+      .filter(Boolean)
+  );
   const invalidatedAssumptions = new Set(failures.flatMap(item => item.invalidatedAssumptions));
 
   const scored = (Array.isArray(input.candidates) ? input.candidates : []).map((candidate, index) => {

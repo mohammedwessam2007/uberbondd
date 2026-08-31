@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "uberbond-model-failover-activation-receipt-1.0.0",
+  "observedDate": "2026-08-31",
+  "label": "SOFTWARE_CHAIN_OPERATIONAL__NO_CONFIGURED_PROVIDER",
+  "summary": "UberBond's model-failover architecture was authorized and ranked but never executed. routeModel has returned a ranked `alternatives` list since it was written, agent-model-routing-integration carried it, and a grep for failover/fallbackProvider/FALLBACK across src/ returned nothing: when a provider hit a quota wall the run failed next to a list naming which model should have served it. The execution half now exists, is wired into the production worker tick, and is adversarially tested. No provider is configured on this host, so no live provider call has been made and none is claimed.",
+
+  "whatWasMissing": {
+    "finding": "The fallback ordering was computed, carried, reported -- and never used.",
+    "evidence": [
+      "src/agent-model-router.mjs returns `alternatives` from routeModel",
+      "src/agent-model-routing-integration.mjs:127 passed `alternatives` through",
+      "grep -rln 'failover|fallbackProvider|FALLBACK' src/ returned no files",
+      "src/agent-worker-runtime.mjs called modelExecutor once and returned failure"
+    ]
+  },
+
+  "whatWasBuilt": {
+    "src/agent-model-failover.mjs": "Walks the routing order routeModel already produced. Does not rank, score or choose -- a second component that decided routing would be the second policy brain the external capability registry warns about for gateway runtimes. Never calls a provider itself; the caller supplies `execute`, so the only code reaching the network stays the executors.",
+    "src/agent-model-routing-integration.mjs": "Adds `failoverOrder`, binding the ranked alternatives back to the workers that can run them. Every entry comes from the call's own authorized `workers` input, so routing can still only narrow.",
+    "src/agent-worker-runtime.mjs": "Adds `deferTerminalSubmission`. runAgentWorkerOnce submits a terminal failure to the relay itself, so a chain that failed and then succeeded would report both outcomes for one task. In failover mode the caller owns submission and exactly one outcome reaches the relay.",
+    "src/agent-worker-job.mjs": "runAgentWorkerTick walks the chain. Only the attempt that ends it submits."
+  },
+
+  "designDecisionsRecordedNotAssumed": [
+    {
+      "decision": "An uncertain outcome is not retried on another provider unless the caller declares the task idempotent.",
+      "why": "The executors report UNCERTAIN when a provider may have done the work -- a transport failure after the request was accepted, or a 5xx that could be a lost response rather than a refused request. Failing over on that runs the same task twice. The default is NOT_IDEMPOTENT, which fails closed.",
+      "provenBy": "tests/agent-model-failover.test.mjs 'an uncertain outcome does not run the task twice'; mutation ROUTE-03"
+    },
+    {
+      "decision": "A rejected credential (401/403) is terminal, not failover-eligible.",
+      "why": "Operationally a fallback would keep working while the primary credential stayed broken, so nobody fixes it and the bill quietly moves to another provider. Trying identities until one is accepted is also the shape of behaviour this project forbids outright. If an operator wants a dead credential to fail over, that is a deliberate policy change made in one place, visibly.",
+      "revisitable": true
+    },
+    {
+      "decision": "An unrecognised failure class is terminal.",
+      "why": "Moving to another provider on a failure nobody understands is how one broken call becomes a bill on every provider at once."
+    },
+    {
+      "decision": "An empty authorization list is refused, not treated as permission to use anything.",
+      "provenBy": "mutation ROUTE-05"
+    }
+  ],
+
+  "testedScenarios": {
+    "normalPrimaryRoute": "PASS",
+    "simulatedQuotaExhaustion": "PASS",
+    "simulatedRateLimit": "PASS",
+    "providerOutage": "PASS",
+    "modelUnavailable": "PASS",
+    "fallbackModelSucceeds": "PASS",
+    "fallbackProviderSucceeds": "PASS",
+    "everyProviderExhausted": "PASS",
+    "unauthorizedProviderRejected": "PASS",
+    "providerIdentityPreserved": "PASS",
+    "noSilentFallback": "PASS",
+    "additional": [
+      "an uncertain outcome does not run the task twice",
+      "an executor that throws is uncertain, not a confirmed refusal",
+      "a failure a different provider cannot fix is not walked around",
+      "the attempt budget bounds the walk and says why it stopped",
+      "failover cannot reach a worker the authority layer withheld",
+      "a chain that fails and then succeeds reports one outcome, not both"
+    ],
+    "suite": "tests/agent-model-failover.test.mjs",
+    "count": "22 tests, 22 pass, 0 fail",
+    "note": "The production-tick tests drive the real orchestrator on a real Store, DurableQueue, relay task and compute budget. Only the provider call is stubbed, because a provider call is the one thing this environment has no credential for."
+  },
+
+  "mutations": {
+    "ROUTE-02": "KILLED -- an unauthorized provider is never called",
+    "ROUTE-03": "KILLED -- an uncertain outcome is not retried on another provider",
+    "ROUTE-04": "KILLED -- a failure another provider cannot fix is not walked around",
+    "ROUTE-05": "KILLED -- an empty authorization list is not permission to use anything",
+    "ROUTE-06": "KILLED -- only the attempt that ends a failover chain submits to the relay"
+  },
+
+  "measuredHostState": {
+    "capabilitiesDoctor": {
+      "host.omniroute": false,
+      "runtime.omniroute": "NOT_PRESENT",
+      "truthBoundary": "COMMAND_PRESENT_OR_PLUGIN_ROOT_PRESENT_IS_NOT_PROOF_OF_CONFIGURED_PROVIDER_EXECUTION"
+    },
+    "providerReadiness": {
+      "openai": "NOT_READY -- credential-absent, pricing-evidence-absent, explicitly-disabled",
+      "anthropic": "NOT_READY -- credential-absent, pricing-evidence-absent, explicitly-disabled",
+      "claude-code-sandbox": "NOT_READY -- sandbox-root-absent, isolation-receipt-absent, explicitly-disabled"
+    },
+    "configuredProviderCount": 0
+  },
+
+  "externalBlockers": [
+    {
+      "id": "NO_CONFIGURED_MODEL_PROVIDER",
+      "statement": "There is no configured model provider for UberBond on this host. No OPENAI_API_KEY, no ANTHROPIC_API_KEY, and no pricing evidence for either. Failover is therefore proven as software and unproven against a live provider, and this receipt claims only the former.",
+      "notASubstitute": "The Claude Code harness's own session OAuth is this agent's credential, not a provider configured for UberBond. Routing UberBond's workload through it would be exactly the fabricated provider this mission forbids, and would conceal which identity actually executed.",
+      "releasedBy": "The owner supplying a provider credential plus pricing evidence (source reference and verification date), which the executor factory already requires before any provider is enabled."
+    },
+    {
+      "id": "OMNIROUTE_INSTALL_BLOCKED_BY_HOST_PERMISSION",
+      "statement": "`npm install -g omniroute` was attempted through the repository's own sanctioned bootstrap command and was denied by this environment's permission classifier as a host mutation. The package is real and dependency-satisfied: omniroute 3.8.50, MIT, 452 MB unpacked, and this runner has 29 GB free.",
+      "notCircumvented": "No local-prefix or in-repository install was attempted to route around the denial.",
+      "wouldNotHaveChangedTheResult": "Installing the CLI flips a doctor line from false to true. The doctor's own truth boundary says command presence is not proof of configured provider execution, and OmniRoute with no provider credential is a gateway with nothing to gate. The registry also classes it OPTIONAL_RUNTIME and warns against a gateway becoming a second policy brain, which is why the failover logic was built into UberBond's existing router rather than delegated to it.",
+      "releasedBy": "The owner permitting the global install, if they want the runtime present for isolated routing evaluation."
+    }
+  ],
+
+  "truthBoundary": [
+    "This receipt proves a routing chain, not a provider call.",
+    "Zero provider calls were made. Zero credentials were configured, read, or created.",
+    "A passing failover test is not evidence that any provider would have served the request.",
+    "Automatic model failover is authorized by canon and now implemented and reachable; it becomes operational against real providers only when a provider is configured."
+  ],
+
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  }
+}

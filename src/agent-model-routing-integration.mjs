@@ -125,6 +125,36 @@ export function routePermittedWorkers({
       evidenceStatus: route.evidenceStatus
     },
     alternatives: route.alternatives,
+    // The ranked order, bound back to the workers that can actually run it.
+    //
+    // `alternatives` has been returned since this module was written and there
+    // was no way to act on it: it names candidateIds, and the caller was handed
+    // exactly one worker. So the fallback ordering was computed, carried and
+    // reported, and when a provider hit a quota wall the run failed next to a
+    // list naming which model should have served it. This is the missing link,
+    // and src/agent-model-failover.mjs is what walks it.
+    //
+    // Every entry is a worker from this call's own `workers` input, which is
+    // the set the authority layer already approved. Routing can still only
+    // narrow: a worker withheld by activation evidence is not in `candidates`,
+    // so it cannot appear here, and no failure can promote it. What a fallback
+    // may reach is a worker this router declined to pick first -- never one it
+    // was never allowed to pick at all.
+    failoverOrder: [route.selected, ...route.alternatives]
+      .map(candidate => {
+        const worker = workerByCandidate.get(candidate?.candidateId);
+        return worker
+          ? {
+            workerId: worker.workerId || null,
+            provider: candidate.provider,
+            model: candidate.model,
+            candidateId: candidate.candidateId,
+            score: candidate.score ?? route.score,
+            evidenceStatus: candidate.evidenceStatus || route.evidenceStatus
+          }
+          : null;
+      })
+      .filter(Boolean),
     businessEffectAuthority: 'NONE',
     providerCalls: 0,
     externalEffects: 0

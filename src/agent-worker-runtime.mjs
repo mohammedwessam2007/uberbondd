@@ -213,6 +213,18 @@ export async function runAgentWorkerOnce({
   submitResult,
   persistBudgetState = null,
   persistExecutionRecord = null,
+  // Hand a confirmed provider failure back instead of submitting it.
+  //
+  // This function is one attempt. Failover is several, and a chain that
+  // submitted a terminal failure on its first attempt and then a success on its
+  // second would report both outcomes for one task -- a failure the relay has
+  // already recorded, followed by a result contradicting it.
+  //
+  // So in failover mode the caller owns submission: this releases the compute
+  // reservation and persists the budget exactly as it always did, then returns
+  // the failure rather than sending it. Exactly one outcome reaches the relay,
+  // chosen once the chain is finished.
+  deferTerminalSubmission = false,
   date = new Date()
 } = {}) {
   if (typeof modelExecutor !== 'function') return fail(['model-executor-required']);
@@ -317,6 +329,24 @@ export async function runAgentWorkerOnce({
       });
     }
     const result = failureResult(['confirmed-provider-failure']);
+    if (deferTerminalSubmission) {
+      return {
+        ok: false,
+        policyVersion: AGENT_WORKER_RUNTIME_POLICY_VERSION,
+        status: 'CONFIRMED_FAILURE_NOT_SUBMITTED',
+        taskId: plan.taskId,
+        workerId: plan.workerId,
+        provider: plan.provider,
+        model: plan.model,
+        computeBudget: budget,
+        result,
+        // The provider's own reason codes, so the caller can tell a quota wall
+        // from a malformed request without re-deriving it.
+        reasonCodes: Array.isArray(executor?.reasonCodes) ? executor.reasonCodes.map(code => text(code, 120)) : [],
+        providerOutcome: 'CONFIRMED_FAILURE',
+        submissionDeferred: true
+      };
+    }
     let submitted;
     try {
       submitted = await submitResult({

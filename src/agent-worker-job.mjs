@@ -5,6 +5,7 @@ import {
   ZERO_EFFECTS
 } from './cloud-agent-relay.mjs';
 import { runAgentWorkerOnce, resumeAgentWorkerSubmission } from './agent-worker-runtime.mjs';
+import { classifyRouteFailure } from './agent-model-failover.mjs';
 import { validateRoleBoundExecution } from './ai-employee-role-contract.mjs';
 import {
   bindEmployeeRoleIdentityToReceipt,
@@ -192,6 +193,15 @@ export async function runAgentWorkerTick({
   modelExecutor,
   requireEmployeeRole = true,
   lockTimeoutMs = 300000,
+  // The ranked order routing already produced, from
+  // agent-model-routing-integration's `failoverOrder`. Empty means the single
+  // declared provider/model and nothing else, which is what this always did.
+  //
+  // Every entry is a worker the authority layer already approved: routing can
+  // only narrow. A route that appears here was declined as the first choice,
+  // never one that was refused authorization.
+  failoverOrder = [],
+  taskIdempotency = 'NOT_IDEMPOTENT',
   date = new Date()
 } = {}) {
   if (!validStore(store)) return fail(['relay-capable-store-required']);
@@ -326,11 +336,11 @@ export async function runAgentWorkerTick({
     return persistExecution(store, binding.receipt, payload?.date || date);
   };
 
-  const result = await runAgentWorkerOnce({
+  const attemptOnce = ({ attemptProvider, attemptModel, defer }) => runAgentWorkerOnce({
     claim,
     computeBudget: loaded.budget,
-    provider: providerName,
-    model: normalizedModel,
+    provider: attemptProvider,
+    model: attemptModel,
     costCeilingCents,
     tokenCeiling,
     modelExecutor,
@@ -343,8 +353,75 @@ export async function runAgentWorkerTick({
       date: payload.date || date
     }),
     persistExecutionRecord: persistRoleBoundExecution,
+    deferTerminalSubmission: defer,
     date
   });
+
+  // Walk the routing order the router already produced.
+  //
+  // `routeModel` has ranked alternatives since it was written and nothing ever
+  // executed down them: a quota wall failed the run next to a list naming which
+  // model should have served it. This is the walk.
+  //
+  // Only the final attempt submits. Every earlier one defers, so a chain that
+  // fails and then succeeds reports one outcome rather than a failure the relay
+  // has already recorded followed by a result contradicting it.
+  const chain = Array.isArray(failoverOrder) && failoverOrder.length
+    ? failoverOrder
+      .map(entry => ({
+        provider: text(entry?.provider, 80).toLowerCase(),
+        model: text(entry?.model, 160)
+      }))
+      .filter(entry => entry.provider && entry.model)
+    : [{ provider: providerName, model: normalizedModel }];
+
+  let result;
+  const routeAttempts = [];
+  for (let index = 0; index < chain.length; index += 1) {
+    const route = chain[index];
+    const isLast = index === chain.length - 1;
+    const attempt = await attemptOnce({
+      attemptProvider: route.provider,
+      attemptModel: route.model,
+      defer: !isLast
+    });
+    routeAttempts.push({
+      sequence: index + 1,
+      provider: route.provider,
+      model: route.model,
+      status: attempt?.status || null,
+      submissionDeferred: attempt?.submissionDeferred === true
+    });
+    result = attempt;
+
+    if (!attempt || attempt.submissionDeferred !== true) break;
+
+    const classification = classifyRouteFailure({
+      ok: false,
+      outcome: attempt.providerOutcome || 'CONFIRMED_FAILURE',
+      reasonCodes: attempt.reasonCodes || []
+    });
+    const mayRetry = classification.failoverEligible
+      && (!classification.requiresIdempotency || taskIdempotency === 'IDEMPOTENT');
+    if (!mayRetry) {
+      // A failure a different provider cannot fix, or one whose outcome is
+      // unknown on a task that may not be run twice. Submit it as the answer
+      // instead of touring the remaining providers.
+      result = await attemptOnce({
+        attemptProvider: route.provider,
+        attemptModel: route.model,
+        defer: false
+      });
+      routeAttempts.push({
+        sequence: routeAttempts.length + 1,
+        provider: route.provider,
+        model: route.model,
+        status: result?.status || null,
+        resubmittedTerminalOutcome: true
+      });
+      break;
+    }
+  }
 
   let workerResult = result;
   if (result.executionRecord) {

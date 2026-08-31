@@ -3,8 +3,8 @@
 **This file is the canonical present-tense software/commercial state.** Historical detail from the pre-checkpoint version is preserved byte-for-byte under `docs/archive/2026-08-30-pre-checkpoint/`. Repository code and newer exact external evidence still outrank this prose.
 
 Last reconciled: **2026-08-31**
-Branch: `claude/final`
-Reconciled from current head: `4c24670f7330ddd7cca9b346c1e8a477b615b2a8`
+Branch: `claude/uberbond-kilimanjaro-closure-hha0oo`
+Reconciled from current head: `62e02b78f14ee56de34916d6bded69f0922ce65d`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 

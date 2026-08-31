@@ -1,26 +1,26 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-31T18:49:20.783Z",
+  "generatedAt": "2026-08-31T19:13:12.332Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "f16d2ff19f1c160c551ccaebd90892396c68c821",
-    "branch": "claude/genome-body-security",
-    "sourceModules": 266,
-    "testSuites": 313,
+    "head": "2800e44a4336334706de53b23e80b7d5295e0951",
+    "branch": "claude/next",
+    "sourceModules": 267,
+    "testSuites": 314,
     "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 656,
+      "filesParsed": 658,
       "ranAt": "2026-08-31T14:02:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 3010,
+      "tests": 3011,
       "pass": 2959,
       "fail": 0,
-      "skipped": 51,
+      "skipped": 52,
       "ranAt": "2026-08-31T14:02:00Z"
     },
     "test:relay-safety": {
@@ -34,11 +34,11 @@
     "test:postgres-real": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real",
       "status": "PASS_CURRENT_BRANCH",
-      "tests": 167,
-      "pass": 167,
+      "tests": 178,
+      "pass": 178,
       "fail": 0,
       "skipped": 0,
-      "result": "167 tests, 167 pass, 0 fail (2026-08-30), against PostgreSQL 16.13",
+      "result": "178 tests, 178 pass, 0 fail (2026-08-31), against PostgreSQL 16.13",
       "note": "The runner was rebuilt and no longer ships the PostgreSQL 18 binaries the previous receipt named. A fresh PostgreSQL 16.13 cluster was initialized locally for this gate. Recorded as 16.13 rather than carrying the old version forward, because the version is part of what the evidence means.",
       "ranAt": "2026-08-30T00:00:00Z"
     },
@@ -51,7 +51,7 @@
     },
     "test:mutation-war": {
       "command": "CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "108 mutations, 108 killed, 0 not killed",
+      "result": "111 mutations, 111 killed, 0 not killed",
       "note": "Run with both a real PostgreSQL and a real Chromium so STORE-01, MONEY-17 and CRAWL-01 execute rather than skip. Without them the war reports SKIPPED_NEEDS_POSTGRES / SKIPPED_NEEDS_BROWSER rather than counting them as killed. Verdicts are now read from what each run reports rather than from its exit status: a suite that never ran is SUITE_DID_NOT_RUN, not KILLED, and a green run that asserted nothing is NO_ASSERTIONS_RAN, not SURVIVED.",
       "ranAt": "2026-08-30T00:00:00Z"
     },
@@ -68,10 +68,10 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 266,
-      "reachableFromProduction": 132,
+      "srcModules": 267,
+      "reachableFromProduction": 134,
       "reachableFromOperatorScriptsOnly": 15,
-      "noEntryPointAtAll": 119,
+      "noEntryPointAtAll": 118,
       "allClassified": true,
       "ranAt": "2026-08-31T14:02:00Z",
       "note": "src is walked recursively. Wallbreaker is reachable through its operator script and the Capability Genome remains production-reachable through jobs and the repository brain; the no-entry classification count remains 119. agent-model-failover is production-reachable through agent-worker-job, which is what makes the routing order executable rather than merely reported. capability-genome-body-import and body-fetch are reachable from their operator script only: the doctor reads the measured body artifact rather than importing the fetcher, so no production path can trigger a public body read."

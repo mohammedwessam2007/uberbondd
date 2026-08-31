@@ -451,6 +451,31 @@ export const MUTATIONS = [
     replace: '    assert.ok(true,',
     suites: ['tests/canon-freshness-discrimination.test.mjs']
   },
+  // ---- Payment reconciliation: a driver that cannot damage the evidence ----
+  {
+    id: 'MONEY-25', guard: 'An unconfigured worker claims nothing',
+    file: 'src/payment-reconciliation-worker.mjs',
+    find: "  if (typeof providerVerifier !== 'function') {",
+    replace: '  if (false) {',
+    suites: ['tests/payment-reconciliation-worker-postgres-real.test.mjs'],
+    needsPostgres: true
+  },
+  {
+    id: 'MONEY-26', guard: 'A claim of cleared without a canonical receipt does not clear',
+    file: 'src/payment-reconciliation-worker.mjs',
+    find: '    if (cleared && !receiptRef) {',
+    replace: '    if (false) {',
+    suites: ['tests/payment-reconciliation-worker-postgres-real.test.mjs'],
+    needsPostgres: true
+  },
+  {
+    id: 'MONEY-27', guard: 'An attempt-capped event is escalated, not claimed again',
+    file: 'src/payment-reconciliation-worker.mjs',
+    find: '  if (!claimable) {',
+    replace: '  if (false) {',
+    suites: ['tests/payment-reconciliation-worker-postgres-real.test.mjs'],
+    needsPostgres: true
+  },
   // ---- World skill bodies: screened before they can be counted -------------
   {
     id: 'GENOME-01', guard: 'An imported skill body is screened, not merely hashed',

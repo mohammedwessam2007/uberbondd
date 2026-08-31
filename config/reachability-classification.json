@@ -299,11 +299,6 @@
       "gate": "NO_PAYMENT_PROVIDER",
       "reason": "Derives payment-to-renewal economic truth from provider evidence. No payment provider is connected and no provider event has ever arrived, so there is nothing for it to read."
     },
-    "src/payment-reconciliation-watchdog.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PAYMENT_PROVIDER",
-      "reason": "Plans bounded recovery and escalation for payment reconciliation, but no payment provider is connected and no provider event has arrived. It remains deliberately unwired until a real provider and authorized reconciliation worker path exist; webhook presence never grants fulfillment unlock."
-    },
     "src/voice-telephony-contract.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_OUTBOUND_AUTHORIZATION",

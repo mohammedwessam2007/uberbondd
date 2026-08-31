@@ -20,6 +20,8 @@ import {
   logGenomeExtraction
 } from './genome-extraction.mjs';
 import { reconcileCommercialEvidence } from './commercial-reconciliation.mjs';
+import { runPaymentReconciliationTick } from './payment-reconciliation-worker.mjs';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { rehearseApprovedCommercialEvidence } from './approved-source-rehearsal.mjs';
 import {
   compileCommercialFirstPaymentPacket,
@@ -126,7 +128,7 @@ import { acquireCapability } from './capability-genome-runtime.mjs';
 // module -- `src/self-upgrade.mjs` is the sole surviving implementation of
 // both.
 
-export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunner }) {
+export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunner, paymentProviderVerifier = null }) {
   return {
     'research.batch': async payload => pipeline.runBatch(payload.limit, payload || {}),
     'replies.poll': async () => ({ accountsProcessed: await pipeline.pollReplies() || 0 }),
@@ -250,6 +252,36 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
     // Reconciles caller-supplied signals through the canonical registry,
     // BusinessGenome seam, and tournament. Persistence is explicit and still
     // uses auditLog only; no provider, outbound, payment, or promotion effect.
+    // Turns verified webhook evidence into canonical cleared-payment truth.
+    //
+    // The inbox has been filling since the webhook route was built and nothing
+    // drained it: the health matrix reported the backlog as NO_WORKER because
+    // nothing called claimBillingEvents. This is the seam that makes the
+    // reconciliation worker reachable from the scheduler.
+    //
+    // No provider verifier is configured, and that is the honest current state:
+    // whether money actually moved is the provider's answer, and there is no
+    // provider account to ask. The worker refuses without claiming anything
+    // rather than burning claim attempts on evidence it cannot process, so the
+    // backlog stays intact and visible until a credential exists.
+    'payment.reconciliation.tick': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const pool = store?.pool || null;
+      if (!pool) {
+        return {
+          ok: false,
+          status: 'PAYMENT_RECONCILIATION_REQUIRES_POSTGRES',
+          reasonCodes: ['postgres-store-required'],
+          businessEffectAuthority: 'NONE',
+          externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
+        };
+      }
+      return runPaymentReconciliationTick({
+        pool,
+        providerVerifier: paymentProviderVerifier,
+        limit: Number(input.limit) || 10
+      });
+    },
     'prometheus.commercial.reconcile': async payload => {
       const input = payload && typeof payload === 'object' ? payload : {};
       return reconcileCommercialEvidence({ ...input, store });

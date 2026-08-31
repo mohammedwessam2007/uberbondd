@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "uberbond.capability-genome.corpus-state.v1",
+  "bodyImportVersion": "capability-genome-body-import-1.0.0",
+  "corpusKind": "WORLD_SKILL_BODY_EVIDENCE",
+  "sourceId": "github-public-capability-search",
+  "evidenceClass": "MEASURED_IMPORT",
+  "observedAt": "2026-08-31T16:10:00.000Z",
+  "purpose": "First measured cross-source SKILL.md body pilot using immutable public GitHub commits and Git blob identities. Raw body text is not copied into the UberBond repository.",
+  "providerCalls": 10,
+  "repositoryCount": 2,
+  "skillBodiesImported": 2,
+  "distinctSkillBodyContentCount": 2,
+  "duplicateSkillBodyArtifacts": 0,
+  "capabilityRecordsNormalized": 0,
+  "approvedCapabilities": 0,
+  "activeCapabilities": 0,
+  "storageMode": "SOURCE_PINNED_REFERENCE_ONLY",
+  "bodyEvidenceDigest": "938200cbd632c902b6bf30cfa006f5d2320b0b19517f7fdf9c747e61498472b3",
+  "truthBoundary": "BODY_BYTES_WERE_OBSERVED_HASHED_AND_PINNED__NOT_SECURITY_REVIEWED_NOT_NORMALIZED_CAPABILITY_NOT_APPROVED_NOT_ACTIVE",
+  "bodies": [
+    {
+      "artifactIdentity": "artifact:github-public-capability-search:1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe",
+      "repositoryFullName": "anthropics/skills",
+      "skillPath": "skills/brand-guidelines/SKILL.md",
+      "sourceCommit": "3b3fad96af16a10759d930941b4520ba0c40edae",
+      "gitBlobSha": "47c72c607bdb5dd81bdea5de2b5e4f3992a5fd59",
+      "contentSha256": "1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe",
+      "byteLength": 2235,
+      "sourceUrl": "https://github.com/anthropics/skills/blob/3b3fad96af16a10759d930941b4520ba0c40edae/skills/brand-guidelines/SKILL.md",
+      "declaredLicenseHint": "Complete terms in LICENSE.txt",
+      "trustState": "UNTRUSTED_DISCOVERED",
+      "promotionAuthority": "NONE"
+    },
+    {
+      "artifactIdentity": "artifact:github-public-capability-search:c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
+      "repositoryFullName": "vercel-labs/skills",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "sourceCommit": "435076e78988e1e6ec40d00b0b1d76bdbbc5419a",
+      "gitBlobSha": "a41bdd074bb587afd861332cf2f473f3154de4d7",
+      "contentSha256": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
+      "byteLength": 5472,
+      "sourceUrl": "https://github.com/vercel-labs/skills/blob/435076e78988e1e6ec40d00b0b1d76bdbbc5419a/skills/find-skills/SKILL.md",
+      "declaredLicenseHint": null,
+      "trustState": "UNTRUSTED_DISCOVERED",
+      "promotionAuthority": "NONE"
+    }
+  ]
+}

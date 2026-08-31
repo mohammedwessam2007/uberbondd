@@ -1,12 +1,12 @@
 {
-  "schemaVersion": "uberbond-handoff-1.5.0",
-  "checkpointedAt": "2026-08-31T13:10:00Z",
-  "sourceCommit": "18c7ec25f21d7a8f2dc20b2da0a506d14e595f49",
-  "sourceMainShaAtMissionStart": "5cb18b852b29b2c90f66869544e58a10531009e9",
-  "currentMainShaAtCheckpoint": "18c7ec25f21d7a8f2dc20b2da0a506d14e595f49",
-  "activeBranch": "gpt/world-capability-genome-continuity-20260831",
+  "schemaVersion": "uberbond-handoff-1.6.0",
+  "checkpointedAt": "2026-08-31T14:20:00Z",
+  "sourceCommit": "62b59d7bc20ef9ddba0bfa3e3803c2622a1eaa58",
+  "sourceMainShaAtMissionStart": "fb129f8076829c28a8fb299890ac98f8bbcc238b",
+  "currentMainShaAtCheckpoint": "62b59d7bc20ef9ddba0bfa3e3803c2622a1eaa58",
+  "activeBranch": "gpt/wallbreaker-continuity-20260831",
   "activePullRequest": null,
-  "activeMission": "Finish exact post-merge cloud verification and branch hygiene, then return UberBond to the highest-value dependency-satisfied commercial frontier.",
+  "activeMission": "Return UberBond to the first lawful buyer -> cleared payment -> accepted delivery frontier without mistaking capability architecture for commercial proof.",
   "economicNorthStar": "risk-adjusted cleared contribution profit / founder minute",
   "completed": [
     "Refreshed live main at 5cb18b852b29b2c90f66869544e58a10531009e9 and reconciled GitHub, repository brain, canon, startup, existing capability pack, branches, pull requests, Actions, and both Vercel projects.",
@@ -16,20 +16,29 @@
     "Repaired the stale readiness generator defect that made full-project Vercel production fail at main 5cb18b8; canon and reachability now refresh mechanically.",
     "Verified npm run vercel-build at f742d7f8de458937d3b2eebd5f0d654f8d478a21: 639 files parsed; 2932 tests; 2881 pass; 0 fail; 51 environment-gated skips.",
     "Published the exact verified tree as GitHub commit 045223f877147196534f0745d9090c3115fcb125, opened and inspected PR #258, and verified it was one commit ahead, zero behind, mergeable, with no review findings.",
-    "Merged PR #258 by pinned-head squash into live main at 18c7ec25f21d7a8f2dc20b2da0a506d14e595f49; the merged main tree exactly matches the fully tested candidate tree."
+    "Merged PR #258 by pinned-head squash into live main at 18c7ec25f21d7a8f2dc20b2da0a506d14e595f49; the merged main tree exactly matches the fully tested candidate tree.",
+    "Merged Capability Genome continuity PR #259 into main at fb129f8076829c28a8fb299890ac98f8bbcc238b.",
+    "Reviewed Wallbreaker integration adversarially and repaired forged compiled-envelope acceptance, malformed-envelope handling, policy-version drift, stale readiness evidence, and missing cloud/publication continuity fields.",
+    "Verified the exact Wallbreaker candidate tree locally: 643 syntax files; 2948 deterministic tests; 2897 pass; 0 fail; 51 environment-gated skips.",
+    "Published the exact verified tree as e3dd34fee25503f803da75d128fd529232af9d64, opened PR #261, proved it one commit ahead and zero behind unchanged main, and observed no review findings.",
+    "Verified exact PR head e3dd34fee25503f803da75d128fd529232af9d64 on private-lite deployment dpl_BuifQeJmRo6P3gVbbve1jChu1xG1: READY, successful build, HTTP 200, expected restrictive headers.",
+    "Merged PR #261 by expected-head squash into live main at 62b59d7bc20ef9ddba0bfa3e3803c2622a1eaa58 and independently confirmed live main is identical to that SHA.",
+    "Closed superseded Wallbreaker PRs #257 and #260 after their useful work was preserved in verified PR #261."
   ],
   "blockers": [
     "No measured world-corpus import exists. The only measured Genome records are eight existing approved supplier seeds; directory and paper counts remain non-comparable claims.",
     "World refresh execution needs durable corpus/object/index storage, authorized source adapters and terms, isolated sandbox capacity, and measured cost evidence.",
     "Claude-Mem, Headroom, OmniRoute, Strix host runtime, and Agent Reach host runtime remain absent or unproven on this host; repository integration is not runtime health.",
     "24/7 capability autonomy requires configured providers, scheduler activation, durable runtime evidence, and elapsed unattended operation; a scheduled zero-effect plan is not that proof.",
+    "Both exact-current-main Vercel deployments were rejected before build execution by the daily free deployment cap; this is provider-capacity non-evidence, not source failure.",
+    "GitHub Actions run 33401589143 failed with three jobs exposing zero steps and no logs; exact-tree local tests and Vercel preview evidence are the available source/runtime proof boundary.",
     "Commercial truth remains zero customers, zero cleared revenue, zero accepted deliveries, and zero retained customers."
   ],
   "nextActions": [
-    "Verify the exact merged full-project and private-lite Vercel deployments; distinguish source failure, provider limits, and infrastructure non-evidence.",
-    "Delete the two temporary Genome branches only after continuity lands and their unique work is proven present on main.",
-    "Run one bounded Capability Genome pilot against the highest-value commercial capability gap after storage/source/sandbox dependencies are satisfied.",
-    "Return to the current payment/distribution/delivery frontier; capability catalog growth must earn continuation through fewer founder minutes or better real economic evidence."
+    "After Vercel's daily cap resets, inspect an automatically created exact-main deployment once; do not repeat rejected builds or call a preview production proof.",
+    "When branch-deletion tooling exists, delete only the obsolete Genome/Wallbreaker branches whose unique work is proven present on main.",
+    "Do not expand the capability catalog until durable corpus storage, authorized adapters/source terms, isolated sandbox capacity, and a bounded commercial capability gap justify one measured pilot.",
+    "The next external commercial gates are owner payment-provider identity/KYC and explicit lawful first-buyer/contact authority. After they exist, use the canonical provider-evidence -> payment reconciliation -> fulfilment -> customer-origin acceptance chain."
   ],
   "capabilityGenome": {
     "version": "1.0.0-foundation",
@@ -45,14 +54,14 @@
     "runtimeTruth": "CONTROL_PLANE_PROJECT_INTEGRATED__WORLD_REFRESH_RUNTIME_NOT_ACTIVATED"
   },
   "currentMeasuredSoftwareTruth": {
-    "candidateCommit": "045223f877147196534f0745d9090c3115fcb125",
-    "mergedMainCommit": "18c7ec25f21d7a8f2dc20b2da0a506d14e595f49",
-    "syntax": "639 files parse",
-    "deterministic": "2932 tests; 2881 pass; 0 fail; 51 skipped",
-    "vercelEquivalentBuild": "PASS_LOCAL_EXACT_CANDIDATE",
-    "sourceModules": 261,
+    "candidateCommit": "e3dd34fee25503f803da75d128fd529232af9d64",
+    "mergedMainCommit": "62b59d7bc20ef9ddba0bfa3e3803c2622a1eaa58",
+    "syntax": "643 files parse",
+    "deterministic": "2948 tests; 2897 pass; 0 fail; 51 skipped",
+    "vercelEquivalentBuild": "PASS_LOCAL_AND_EXACT_PRIVATE_LITE_PREVIEW",
+    "sourceModules": 262,
     "reachableFromProduction": 131,
-    "reachableFromOperatorScriptsOnly": 11,
+    "reachableFromOperatorScriptsOnly": 12,
     "noEntryPointAtAll": 119
   },
   "cloudTruthAtMissionStart": {
@@ -62,17 +71,18 @@
     "liteExactMainDeployment": "dpl_Hpdk1wEtNRbDt2Nrk95TV7MWBf13 / READY / 5cb18b852b29b2c90f66869544e58a10531009e9"
   },
   "githubTruthAtCheckpoint": {
-    "capabilityPullRequest": "#258 / MERGED",
-    "publishedHead": "045223f877147196534f0745d9090c3115fcb125",
-    "mergedMain": "18c7ec25f21d7a8f2dc20b2da0a506d14e595f49",
+    "capabilityPullRequest": "#258 / MERGED; continuity #259 / MERGED; Wallbreaker #261 / MERGED",
+    "publishedHead": "e3dd34fee25503f803da75d128fd529232af9d64",
+    "mergedMain": "62b59d7bc20ef9ddba0bfa3e3803c2622a1eaa58",
     "treeEquality": "MERGED_MAIN_TREE_EQUALS_VERIFIED_CANDIDATE_TREE",
-    "githubActions": "INFRASTRUCTURE_NON_EVIDENCE__THREE_JOBS_EXECUTED_ZERO_STEPS_AND_EXPOSED_NO_LOGS"
+    "githubActions": "RUN_33401589143_INFRASTRUCTURE_NON_EVIDENCE__THREE_JOBS_EXPOSED_ZERO_STEPS_AND_NO_LOGS",
+    "supersededPullRequests": "#257 CLOSED; #260 CLOSED"
   },
   "cloudTruthAtCheckpoint": {
-    "fullPreview": "dpl_8FbScBZL6MrEzMUcohV9gVYWtW2e / QUEUED / exact PR head 045223f877147196534f0745d9090c3115fcb125 / no build log events yet",
-    "litePreview": "NOT_CREATED / Vercel build-rate-limit status",
-    "mergedMainProduction": "PENDING_EXACT_POST_MERGE_DISCOVERY",
-    "classification": "CLOUD_CAPACITY_NON_EVIDENCE_UNTIL_A_BUILD_EXECUTES"
+    "fullPreview": "REJECTED_BEFORE_BUILD / api-deployments-free-per-day",
+    "litePreview": "dpl_BuifQeJmRo6P3gVbbve1jChu1xG1 / READY / exact PR head e3dd34fee25503f803da75d128fd529232af9d64 / HTTP 200",
+    "mergedMainProduction": "BOTH_PROJECTS_REJECTED_BEFORE_BUILD / api-deployments-free-per-day",
+    "classification": "EXACT_CANDIDATE_RUNTIME_PROVEN_ON_PRIVATE_LITE__EXACT_MAIN_PRODUCTION_UNPROVEN_DUE_PROVIDER_CAP"
   },
   "cloudActivationTruth": {
     "fullProjectExists": true,
@@ -89,8 +99,13 @@
       },
       {
         "observedVia": "connected Vercel API and authenticated deployment fetch",
-        "observedAt": "2026-08-31T13:14:50Z",
-        "detail": "Private-lite project prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz exists; deployment dpl_Hpdk1wEtNRbDt2Nrk95TV7MWBf13 is READY at 5cb18b852b29b2c90f66869544e58a10531009e9 and returned HTTP 200, but it is not exact current main."
+        "observedAt": "2026-08-31T14:17:36Z",
+        "detail": "Private-lite deployment dpl_BuifQeJmRo6P3gVbbve1jChu1xG1 cloned exact PR head e3dd34fee25503f803da75d128fd529232af9d64, completed its build, reached READY, and returned HTTP 200 with CSP, HSTS, no-sniff, DENY framing, no-referrer, and noindex headers."
+      },
+      {
+        "observedVia": "GitHub commit statuses and connected Vercel API",
+        "observedAt": "2026-08-31T14:18:30Z",
+        "detail": "After PR #261 merged, both full and private-lite exact-main deployment attempts were rejected before build execution by api-deployments-free-per-day. Exact-main production therefore remains unproven; the rejection is provider-capacity non-evidence."
       }
     ]
   },
@@ -107,9 +122,10 @@
     "publicResearch": "READ_ONLY",
     "githubInspection": "READ_ONLY",
     "vercelInspection": "READ_ONLY",
-    "githubBranchesCreated": 2,
-    "githubPullRequestsOpened": 1,
-    "githubPullRequestsMerged": 1,
+    "githubBranchesCreated": 4,
+    "githubPullRequestsOpened": 3,
+    "githubPullRequestsMerged": 3,
+    "githubPullRequestsClosedAsSuperseded": 2,
     "customerProspectContacts": 0,
     "messagesCalls": 0,
     "purchases": 0,

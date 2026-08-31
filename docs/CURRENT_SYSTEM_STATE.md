@@ -100,10 +100,10 @@ Internal software cannot manufacture the following:
 
 ## Immediate frontier
 
-1. Finish the exact-head Vercel syntax + deterministic gate for PR #251.
-2. If the exact candidate is green and remains bounded, merge #251 with expected-head protection.
-3. Verify new `main` and exact deployment state.
-4. Continue the payment frontier through the existing provider-evidence -> canonical reconciliation -> fulfilment chain. A PayPal adapter may be added as a provider rail only if it feeds the same canonical ledger rather than becoming a second money truth.
-5. Continue world-class distribution and NIGHTFALL cloud-liveness, prioritizing real economic proof over architecture volume.
+1. Preserve `62b59d7bc20ef9ddba0bfa3e3803c2622a1eaa58` as the verified Wallbreaker + Capability Genome main truth. PR #261 was exact-tree tested and merged with expected-head protection; superseded PRs #257 and #260 are closed.
+2. Re-verify exact-current-main production only after Vercel's daily deployment cap permits a real build. The exact PR-head private-lite preview built successfully and returned HTTP 200; both post-merge project builds were rejected before execution by `api-deployments-free-per-day`.
+3. Advance the commercial frontier through the existing provider-evidence -> canonical reconciliation -> fulfilment chain. The next real gates are owner payment-provider identity/KYC and lawful first-buyer/contact authority; repository work cannot manufacture either.
+4. Once a provider exists, admit only signed provider evidence into the canonical payment ledger, then require real delivery and customer-origin acceptance before claiming commercial progress. Any additional provider rail must feed the same ledger rather than become a second money truth.
+5. Run a bounded Capability Genome world-corpus pilot only after durable corpus storage, authorized source terms/adapters, and isolated sandbox execution are dependency-satisfied. Catalog size alone is not the frontier.
 
 Zero customer contact, zero provider/model execution, zero purchases, zero credential/DNS changes, zero money movement, and zero production mutation were authorized or performed by this checkpoint.

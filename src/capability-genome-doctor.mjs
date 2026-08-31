@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const CAPABILITY_GENOME_DOCTOR_VERSION = 'capability-genome-doctor-1.1.0';
+export const CAPABILITY_GENOME_DOCTOR_VERSION = 'capability-genome-doctor-1.1.1';
 
 const SOURCE_TYPES = new Set(['OFFICIAL_REGISTRY', 'PUBLIC_INDEX', 'GITHUB_API', 'PACKAGE_REGISTRY', 'ACADEMIC_CORPUS', 'APPROVED_SUPPLIER_REGISTRY']);
 const ACCESS_MODES = new Set(['API', 'PUBLIC_WEB', 'GIT_METADATA', 'LOCAL_FILE']);
@@ -51,6 +51,7 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
     if (corpusState?.evidenceClass !== 'MEASURED_IMPORT') reasons.push('measured-corpus-evidence-required');
     if (corpusState?.sourceId !== 'github-public-capability-search') reasons.push('recognized-corpus-source-required');
     if (corpusState?.corpusKind !== 'WORLD_REPOSITORY_CANDIDATE_METADATA') reasons.push('recognized-corpus-kind-required');
+    if (corpusState?.corpusKind === 'WORLD_REPOSITORY_CANDIDATE_METADATA' && (skillBodies > 0 || normalizedRecords > 0)) reasons.push('repository-metadata-corpus-cannot-claim-body-or-capability-import');
     const observed = new Date(corpusState?.observedAt);
     if (!Number.isFinite(observed.getTime())) reasons.push('valid-corpus-observed-at-required');
     if (reasons.length === 0) {

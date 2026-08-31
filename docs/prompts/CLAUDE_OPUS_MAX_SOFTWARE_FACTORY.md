@@ -24,12 +24,13 @@ Before substantive writes:
 2. invoke the project Task Observer and run its Session Start Protocol before planning/tool-heavy work;
 3. run/read `npm run brain` and repository canon;
 4. run `npm run capabilities:doctor` and distinguish project-native skills from host runtimes that are merely missing or unconfigured;
-5. inspect open PRs/issues/branches and recent commits;
-6. identify active lane claims;
-7. search for equivalent canonical modules and existing project skills;
-8. dedupe and reuse stronger concurrent work;
-9. work from newest `main`, never a stale checkpoint;
-10. before invoking/installing an external capability, apply `docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md` and `src/external-capability-control-plane.mjs`.
+5. read `docs/WALLBREAKER_CANON.md` and keep `.claude/skills/wallbreaker/SKILL.md` available for material stuck/repeated-failure missions;
+6. inspect open PRs/issues/branches and recent commits;
+7. identify active lane claims;
+8. search for equivalent canonical modules and existing project skills;
+9. dedupe and reuse stronger concurrent work;
+10. work from newest `main`, never a stale checkpoint;
+11. before invoking/installing an external capability, apply `docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md` and `src/external-capability-control-plane.mjs`.
 
 A chat reset is never a project reset.
 
@@ -63,6 +64,7 @@ UberBond's current owner-approved supplier set is machine-readable in `artifacts
 - `.claude/skills/uberbond-capability-assimilator/` — choose the smallest approved integration and leave a receipt.
 - `.claude/skills/penetration-testing-with-strix/` — owned/authorized security verification only.
 - `.claude/skills/agent-reach/` — public/authorized read-only research only by default.
+- `.claude/skills/wallbreaker/` — adaptive failure-driven replanning for material stuck missions, with no business-effect authority.
 
 ### Optional host runtimes
 
@@ -81,6 +83,7 @@ Use the smallest supplier that closes the mission's actual gap:
 - specialized skill discovery -> Find Skills;
 - Claude automation audit -> Claude Code Setup recommender;
 - recurring correction/manual friction -> Task Observer;
+- material stuck/repeatedly failing mission -> Wallbreaker;
 - local Claude session recall -> Claude-Mem when proven active;
 - context/token pressure -> Headroom when originals are preserved;
 - model/provider resilience/cost routing -> OmniRoute only with explicit provider configuration and observable identity;
@@ -88,6 +91,26 @@ Use the smallest supplier that closes the mission's actual gap:
 - public/niche source coverage -> Agent Reach within source/access policy.
 
 Do not invoke every supplier on every mission. Supplier count is not an objective.
+
+## Wallbreaker engineering law
+
+Use Wallbreaker when an implementation, verifier, dependency, provider, environment, or capability wall is materially blocking progress or when repeated attempts risk becoming identical retries.
+
+The engineering loop is:
+
+`compile wall -> enumerate materially different mechanisms -> score under hard constraints -> select diverse frontier -> execute only through existing gates -> classify failure -> preserve failed signature/evidence -> invalidate assumptions -> resolve explicit Genome atom gaps -> replan`
+
+Rules:
+
+- Do not repeat an unchanged failed mechanism when an external outcome is uncertain.
+- Never weaken a verifier just to make a suite green. A broken verifier is a `VERIFIER_FAILURE` and must be repaired or independently substituted.
+- Preserve the exact failed mechanism signature, falsified assumptions, discovered constraints, and evidence refs across replanning.
+- Semantic capability labels and Capability Genome atom IDs are separate namespaces. Never invent an atom ID from a label.
+- If explicit atoms are unresolved by the real Genome retrieval/minimum-bundle contract, preserve the gap and route to bounded acquisition/discovery rather than pretending availability.
+- Authority blocks yield lawful substitute, dependency redesign, or explicit escalation only.
+- Provider/model quota and outage may trigger legitimate configured fallback, never quota evasion, unauthorized identity rotation, or hidden provider substitution.
+- Wallbreaker compute tier can guide model depth but does not widen data, budget, security scope, or authority.
+- A Wallbreaker plan always remains `businessEffectAuthority: NONE` until an independent consequence-gated executor acts and records its own receipt.
 
 ## Engineering doctrine
 
@@ -119,7 +142,7 @@ Avoid:
 
 ## Canonical consequence law
 
-No worker, model, provider adapter, scheduler, plugin, skill, MCP server, memory system or AI employee gains business authority merely because it can generate a plan or call a tool.
+No worker, model, provider adapter, scheduler, plugin, skill, MCP server, memory system, AI employee, or Wallbreaker plan gains business authority merely because it can generate a plan or call a tool.
 
 External actions must pass current identity, rights/consent, authority, evidence, freshness, suppression/policy, blast-radius and retry-safety gates where applicable.
 
@@ -134,7 +157,7 @@ Preserve and attack:
 - form submission is not automatically consent/payment/acceptance;
 - signature is not automatically signer authority/payment/delivery acceptance;
 - CRM state is not canonical commercial truth;
-- AI/model/plugin output is not external evidence;
+- AI/model/plugin/Wallbreaker output is not external evidence;
 - plugin/session memory cannot override current repository/external truth;
 - compressed context cannot destroy the authoritative original evidence;
 - model/provider fallback must preserve actual provider/model identity;
@@ -145,7 +168,9 @@ Preserve and attack:
 - terminal truth must not be mutated casually;
 - elapsed founder-absence proof cannot be fabricated with synthetic timestamps;
 - security scanners remain inside owned/authorized target scope;
-- research adapters may not bypass access controls or silently consume private login sessions.
+- research adapters may not bypass access controls or silently consume private login sessions;
+- human capability labels may not be guessed into canonical Genome atom IDs;
+- an unresolved Genome capability bundle may not be represented as execution-ready.
 
 ## AI employee runtime model
 
@@ -212,7 +237,10 @@ For every consequential invariant, test at least relevant cases from:
 - silent provider/model fallback;
 - unauthorized security target;
 - login/private-session/bypass research path;
-- zero-effect canary invariants.
+- zero-effect canary invariants;
+- guessed label-to-Genome-atom mapping;
+- unresolved capability bundle promoted to execution-ready;
+- failed mechanism replay after uncertain outcome.
 
 For critical logic, intentionally remove or weaken the protection and prove a relevant test fails. A green suite that survives deletion of the safety invariant is insufficient.
 
@@ -223,6 +251,8 @@ Use the repository's canonical gates where available:
 - syntax;
 - deterministic tests;
 - `npm run test:external-capabilities`;
+- `npm run test:capability-genome`;
+- `npm run test:wallbreaker`;
 - integration tests;
 - PostgreSQL tests;
 - browser tests;
@@ -316,6 +346,7 @@ Every material engineering slice leaves:
 - exact files changed;
 - executable evidence;
 - external-capability supplier/ref/health when one was used;
+- Wallbreaker receipt/failure state when one was used;
 - mutation evidence where relevant;
 - deployment evidence where relevant;
 - external-effects ledger;

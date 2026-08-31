@@ -1,8 +1,9 @@
 {
-  "schemaVersion": "uberbond-external-skill-plugin-registry-1.0.0",
+  "schemaVersion": "uberbond-external-skill-plugin-registry-1.1.0",
   "project": "UberBond",
-  "observedAt": "2026-08-30T20:29:00Z",
+  "observedAt": "2026-08-31T04:20:00Z",
   "policyPath": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+  "controlPlanePath": "src/external-capability-control-plane.mjs",
   "northStar": "risk-adjusted cleared contribution profit per founder minute",
   "truthRule": "External skills, plugins, runtimes, gateways, memories, scanners, and research tools are replaceable suppliers beneath current repository canon and durable external evidence. Capability never creates authority.",
   "entries": [
@@ -11,6 +12,7 @@
       "name": "Find Skills",
       "source": "https://github.com/vercel-labs/skills/blob/main/skills/find-skills/SKILL.md",
       "upstream": "vercel-labs/skills",
+      "sourceRef": "435076e78988e1e6ec40d00b0b1d76bdbbc5419a",
       "license": "MIT",
       "class": "PROJECT_SKILL",
       "role": "Discover candidate agent skills for missing capabilities.",
@@ -18,6 +20,12 @@
       "activation": "APPROVED_FOR_DISCOVERY",
       "authority": "NONE",
       "risk": "LOW",
+      "projectIntegration": {
+        "status": "PROJECT_SKILL_ADAPTED_AND_PINNED",
+        "path": ".claude/skills/find-skills/SKILL.md",
+        "activationMode": "CLAUDE_PROJECT_SKILL",
+        "runtimeRequired": false
+      },
       "notes": [
         "Popularity and install count are ranking signals only.",
         "Every candidate must be deduped and reviewed for license, security, data and external-effect risk before activation."
@@ -29,15 +37,22 @@
       "source": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-code-setup",
       "officialPage": "https://claude.com/plugins/claude-code-setup",
       "upstream": "anthropics/claude-plugins-official",
-      "license": "UPSTREAM_PLUGIN_LICENSE",
+      "sourceRef": "ed404106fcd80ba98ecb7c851e531dcb626d13b7",
+      "license": "Apache-2.0",
       "class": "CANONICAL_METHOD",
       "role": "Read-only codebase auditor recommending MCP servers, skills, hooks, subagents and slash commands.",
       "uberbondUse": "Periodic capability-gap and Claude Code automation audit; recommendations are reconciled against canonical modules.",
       "activation": "APPROVED_READ_ONLY",
       "authority": "NONE",
       "risk": "LOW",
+      "projectIntegration": {
+        "status": "PROJECT_SKILL_ADAPTED_AND_PINNED",
+        "path": ".claude/skills/claude-automation-recommender/SKILL.md",
+        "activationMode": "CLAUDE_PROJECT_SKILL",
+        "runtimeRequired": false
+      },
       "notes": [
-        "Official Anthropic plugin.",
+        "Official Anthropic plugin method adapted project-locally so the audit capability is available even before marketplace activation.",
         "Read-only recommendation does not authorize installation or consequenceful actions."
       ]
     },
@@ -46,6 +61,7 @@
       "name": "Task Observer",
       "source": "https://github.com/rebelytics/one-skill-to-rule-them-all",
       "upstream": "rebelytics/one-skill-to-rule-them-all",
+      "sourceRef": "510caad26c907793e48306262af216ff9f71c9f7",
       "license": "CC-BY-4.0",
       "class": "PROJECT_SKILL",
       "role": "Observe corrections, repeated manual work and skill gaps; propose skill improvements.",
@@ -53,10 +69,17 @@
       "activation": "APPROVED_RECOMMENDATION_ONLY",
       "authority": "NONE",
       "risk": "LOW",
+      "projectIntegration": {
+        "status": "PROJECT_SKILL_ADAPTED_BUNDLE",
+        "path": ".claude/skills/task-observer/",
+        "observationPath": "skill-observations/",
+        "activationMode": "ALWAYS_OBSERVE_WHEN_CLAUDE_CODE_WORKS",
+        "runtimeRequired": false
+      },
       "notes": [
         "Do not silently mutate canonical skills or prompts.",
         "Observation logs must exclude secrets and unnecessary private data.",
-        "Preserve attribution if adapted or redistributed."
+        "Preserve attribution to Eoghan Henn / rebelytics.com when adapting or redistributing."
       ]
     },
     {
@@ -64,6 +87,7 @@
       "name": "Claude-Mem",
       "source": "https://github.com/thedotmack/claude-mem",
       "upstream": "thedotmack/claude-mem",
+      "sourceRef": "fa6a1e9ec12d23f98326a9b26e243acb0819e105",
       "license": "Apache-2.0",
       "class": "OPTIONAL_RUNTIME",
       "role": "Persistent compressed working memory for Claude Code sessions.",
@@ -71,6 +95,13 @@
       "activation": "APPROVED_OPTIONAL_LOCAL_RUNTIME",
       "authority": "NONE",
       "risk": "MEDIUM",
+      "projectIntegration": {
+        "status": "HOST_BOOTSTRAP_READY",
+        "bootstrap": "npx claude-mem install",
+        "alternative": "/plugin marketplace add thedotmack/claude-mem ; /plugin install claude-mem",
+        "runtimeRequired": true,
+        "runtimeEvidenceRequired": true
+      },
       "notes": [
         "May not override npm run brain, current main, Master Memory, current state, handoff or durable external receipts.",
         "Treat plugin summaries as advisory working memory.",
@@ -82,6 +113,7 @@
       "name": "Headroom",
       "source": "https://github.com/headroomlabs-ai/headroom",
       "upstream": "headroomlabs-ai/headroom",
+      "sourceRef": "a811984ffb62a866274dda2928f78922101c824b",
       "license": "Apache-2.0",
       "class": "OPTIONAL_RUNTIME",
       "role": "Context compression, retrieval and token/cost optimization through proxy, SDK or MCP.",
@@ -89,6 +121,13 @@
       "activation": "APPROVED_BOUNDED_OPTIMIZATION",
       "authority": "NONE",
       "risk": "MEDIUM",
+      "projectIntegration": {
+        "status": "HOST_BOOTSTRAP_READY",
+        "bootstrap": "uv tool install --python 3.13 headroom-ai[all]",
+        "mcpCommand": "headroom mcp serve",
+        "runtimeRequired": true,
+        "runtimeEvidenceRequired": true
+      },
       "notes": [
         "Never make compressed text the sole copy of canon, receipts, exact diffs, legal evidence, security evidence or customer acceptance.",
         "Measure quality/cost benefit against an uncompressed baseline.",
@@ -100,6 +139,7 @@
       "name": "OmniRoute",
       "source": "https://github.com/diegosouzapw/OmniRoute",
       "upstream": "diegosouzapw/OmniRoute",
+      "sourceRef": "78fd3504dd8c8333abbc406bc4cb83443693af06",
       "license": "MIT",
       "class": "OPTIONAL_RUNTIME",
       "role": "Model/provider gateway with routing, fallback, quota awareness, MCP/A2A and optimization mechanisms.",
@@ -107,6 +147,13 @@
       "activation": "APPROVED_ISOLATED_EVALUATION",
       "authority": "NONE",
       "risk": "MEDIUM_HIGH",
+      "projectIntegration": {
+        "status": "HOST_BOOTSTRAP_READY",
+        "bootstrap": "npm install -g omniroute",
+        "startCommand": "omniroute",
+        "runtimeRequired": true,
+        "runtimeEvidenceRequired": true
+      },
       "notes": [
         "Do not allow a gateway to become a second policy brain.",
         "Provider/model identity and fallback must remain observable.",
@@ -119,6 +166,7 @@
       "name": "Strix",
       "source": "https://github.com/usestrix/strix",
       "upstream": "usestrix/strix",
+      "sourceRef": "3c767cdd4750d5e0e4454f58eff279c589889f00",
       "license": "Apache-2.0",
       "class": "PROJECT_SKILL_AND_OPTIONAL_RUNTIME",
       "role": "Autonomous application security testing and proof-backed vulnerability verification.",
@@ -126,6 +174,13 @@
       "activation": "APPROVED_OWNED_TARGETS_ONLY",
       "authority": "SECURITY_TEST_ONLY",
       "risk": "HIGH",
+      "projectIntegration": {
+        "status": "PROJECT_SKILL_ADAPTED_RUNTIME_BOOTSTRAP_READY",
+        "path": ".claude/skills/penetration-testing-with-strix/SKILL.md",
+        "bootstrap": "pipx install strix-agent",
+        "runtimeRequired": true,
+        "runtimeEvidenceRequired": true
+      },
       "notes": [
         "Never scan or exploit unrelated third parties.",
         "Default to local/test/preview scope.",
@@ -138,6 +193,7 @@
       "name": "Agent Reach",
       "source": "https://github.com/Panniantong/Agent-Reach",
       "upstream": "Panniantong/Agent-Reach",
+      "sourceRef": "06c202b03400a7d31886bf4399213706da1a0324",
       "license": "MIT",
       "class": "EXTERNAL_ADAPTER",
       "role": "Cross-platform public/social/niche web research and diagnostics.",
@@ -145,6 +201,14 @@
       "activation": "APPROVED_PUBLIC_AUTHORIZED_READ_ONLY_SURFACES",
       "authority": "NONE",
       "risk": "HIGH_POLICY_SENSITIVITY",
+      "projectIntegration": {
+        "status": "PROJECT_SKILL_ADAPTED_SAFE_HOST_BOOTSTRAP_READY",
+        "path": ".claude/skills/agent-reach/SKILL.md",
+        "bootstrap": "pipx install https://github.com/Panniantong/agent-reach/archive/main.zip && agent-reach install --env=auto",
+        "safeDefault": "CHECK_ONLY_NO_SYSTEM_CHANGES_NO_PRIVATE_CHANNELS",
+        "runtimeRequired": true,
+        "runtimeEvidenceRequired": true
+      },
       "notes": [
         "No CAPTCHA bypass, fingerprint spoofing, access-block evasion or prohibited scraping.",
         "No private-account/cookie/session use without exact separate authorization and policy review.",
@@ -154,24 +218,22 @@
     }
   ],
   "assimilationOrder": [
-    "Find Skills and Claude Code Setup for discovery/audit",
-    "Task Observer for evidence-backed skill improvement proposals",
-    "Claude-Mem as optional subordinate session memory",
-    "Headroom as reversible context optimizer",
-    "OmniRoute as isolated routing/fallback supplier",
-    "Strix as owned-target security verifier",
-    "Agent Reach as policy-gated world-sensing adapter"
+    "Find Skills and Claude Code Setup are project-local adapted skills for discovery and audit.",
+    "Task Observer is a project-local adapted recommendation-only self-improvement observer.",
+    "Claude-Mem is host-bootstrap-ready subordinate working memory.",
+    "Headroom is host-bootstrap-ready reversible context optimization.",
+    "OmniRoute is host-bootstrap-ready isolated routing/fallback evaluation.",
+    "Strix is an adapted project skill plus host-bootstrap-ready owned-target security verifier.",
+    "Agent Reach is an adapted project skill plus safe check-only host bootstrap for policy-cleared public research."
   ],
   "businessEffectAuthority": "NONE",
   "externalEffectLedger": {
-    "customerContacts": 0,
+    "providerCalls": 0,
     "messages": 0,
-    "providerModelExecutions": 0,
     "purchases": 0,
+    "deployments": 0,
     "credentialChanges": 0,
     "dnsChanges": 0,
-    "moneyMovement": 0,
-    "customerSystemMutations": 0,
     "productionMutations": 0,
     "spendCents": 0
   }

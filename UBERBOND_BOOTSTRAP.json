@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond-bootstrap-1.1.0",
   "project": "UberBond",
-  "generatedAt": "2026-08-30T20:35:00Z",
+  "generatedAt": "2026-08-31T04:30:00Z",
   "objective": "Maximize risk-adjusted cleared contribution profit per founder minute while compounding evidence, reusable delivery assets, recurring revenue, partner leverage, owner-independent fulfilment, privacy-safe learning, enterprise value, world-class distribution, cloud autonomy, truthful economic learning, and safely assimilated external AI capabilities without inventing evidence or bypassing consequence controls.",
   "truthHierarchy": [
     "OPERATOR",
@@ -15,6 +15,10 @@
   "canonPointers": [
     "AGENTS.md",
     "UBERBOND_CANON.md",
+    "CLAUDE.md",
+    "docs/AI_EMPLOYEE_COMPANY_CHARTER.md",
+    "docs/prompts/GPT_5_6_SOL_COMPANY_BRAIN.md",
+    "docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md",
     "docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md",
     "docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md",
     "docs/UBERBOND_MASTER_MEMORY.md",
@@ -26,6 +30,7 @@
     "docs/DISTRIBUTION_VENDOR_MAP.md",
     "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
     "artifacts/external-skill-plugin-registry.json",
+    "src/external-capability-control-plane.mjs",
     "docs/CROSS_CHAT_CONTINUITY.md",
     "docs/memory/CHAT_IMPORT_PROTOCOL.md",
     "docs/CURRENT_HANDOFF.json"
@@ -103,9 +108,11 @@
     "Read AGENTS.md and UBERBOND_CANON.md before using chat memory as project truth.",
     "Refresh live main and inspect open or recently merged shared PRs before selecting work.",
     "Read UBERBOND_BOOTSTRAP.json, docs/UBERBOND_MASTER_MEMORY.md, artifacts/uberbond-memory-index.json, and every remaining path listed in canonPointers.",
+    "Load the AI Employee Company Charter plus the Sol Company Brain and Claude Software Factory executive prompts before narrowing the company to a short-term task.",
     "Read docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md before CURRENT_HANDOFF; the checkpoint explicitly supersedes stale short-term claims and stale memory-index entries it names.",
     "For Claude engineering work, read docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md plus the canonical Claude executive mission before acting.",
-    "Read docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md and artifacts/external-skill-plugin-registry.json before installing or invoking external skills, plugins, gateways, memory systems, compressors, security agents, or research CLIs.",
+    "Read docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md, artifacts/external-skill-plugin-registry.json, and src/external-capability-control-plane.mjs before installing or invoking external skills, plugins, gateways, memory systems, compressors, security agents, or research CLIs.",
+    "Run/read npm run capabilities:doctor in a real repository host before relying on optional external runtimes; project-native skill presence and host runtime activation are different evidence classes.",
     "Read docs/CURRENT_HANDOFF.json after master memory and checkpoint so the short-term frontier cannot erase the long-term company dream.",
     "Read docs/CURRENT_SYSTEM_STATE.md and artifacts/system-readiness.json for current measured readiness.",
     "Read docs/DISTRIBUTION_OS_CANON.md for distribution missions.",
@@ -121,7 +128,7 @@
     "claudeResumePath": "docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md",
     "handoffPath": "docs/CURRENT_HANDOFF.json",
     "archiveCommit": "991efdee100616cd6d811a92194d611fa3097a14",
-    "startupInstruction": "Repository canon, the newest explicit checkpoint, and Master Memory outrank chat recollection. New sessions resume by refreshing main and loading bootstrap, master memory, machine memory index, checkpoint, every canon pointer, current readiness, and durable handoff before acting.",
+    "startupInstruction": "Repository canon, the newest explicit checkpoint, Master Memory, AI Employee executive prompts, and the governed external-capability registry/control plane outrank chat recollection or plugin memory. New sessions resume by refreshing main and loading bootstrap, master memory, machine memory index, checkpoint, every canon pointer, current readiness, capability health, and durable handoff before acting.",
     "updateInstruction": "After every material mission, update the durable handoff and checkpoint pointer; when new durable history appears, update the memory index/master memory or record an explicit supersession so the next session can resume without reconstructing the previous conversation.",
     "chatImportInstruction": "When a material ChatGPT/Claude/Codex chat, share, export, transcript, ZIP, or research package becomes available, digest it into repository-native memory with source title/date, evidence class, named initiatives, durable decisions, contradictions, supersession links, unresolved names, and anti-duplication notes. Never rely on the external share URL alone."
   }

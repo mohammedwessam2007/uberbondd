@@ -5,10 +5,15 @@ import { fileURLToPath } from 'node:url';
 import { compileUberBondProjectContext } from '../src/uberbond-brain-context.mjs';
 import { applyUberBondMemoryReconciliation } from '../src/uberbond-memory-reconciliation.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
+import {
+  validateExternalCapabilityRegistry,
+  summarizeExternalCapabilities
+} from '../src/external-capability-control-plane.mjs';
 
-export const UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION = 'uberbond-brain-bootstrap-cli-1.1.0';
+export const UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION = 'uberbond-brain-bootstrap-cli-1.2.0';
 export const MEMORY_RECONCILIATION_PATH = 'artifacts/uberbond-memory-reconciliation.json';
 export const MASTER_MEMORY_RECONCILIATION_PATH = 'docs/UBERBOND_MASTER_MEMORY_RECONCILIATION_2026-08-29.md';
+export const EXTERNAL_CAPABILITY_REGISTRY_PATH = 'artifacts/external-skill-plugin-registry.json';
 
 const MAX_HANDOFF_ITEMS = 120;
 const MAX_HANDOFF_TEXT = 1200;
@@ -107,6 +112,7 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
   const bootstrap = readJson(bootstrapPath, 'bootstrap');
   const memoryRelative = assertSafeRelativePath(bootstrap.memoryIndexPath || 'artifacts/uberbond-memory-index.json');
   const handoffRelative = assertSafeRelativePath(bootstrap?.continuity?.handoffPath || 'docs/CURRENT_HANDOFF.json');
+  const capabilityRelative = assertSafeRelativePath(EXTERNAL_CAPABILITY_REGISTRY_PATH);
   const rawMemoryIndex = readJson(path.join(root, memoryRelative), 'memory-index');
   const memoryReconciliation = readJson(path.join(root, MEMORY_RECONCILIATION_PATH), 'memory-reconciliation');
   const reconciled = applyUberBondMemoryReconciliation({
@@ -126,12 +132,27 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
     'UBERBOND_BOOTSTRAP.json',
     MEMORY_RECONCILIATION_PATH,
     MASTER_MEMORY_RECONCILIATION_PATH,
+    capabilityRelative,
     ...(Array.isArray(bootstrap.canonPointers) ? bootstrap.canonPointers : [])
   ])].map(assertSafeRelativePath);
   const missingPaths = declaredPaths.filter(relative => !fs.existsSync(path.join(root, relative)));
   if (missingPaths.length) {
     const error = new Error('declared-canon-file-missing');
     error.missingPaths = missingPaths;
+    throw error;
+  }
+
+  const rawCapabilityRegistry = readJson(path.join(root, capabilityRelative), 'external-capability-registry');
+  const capabilityValidation = validateExternalCapabilityRegistry(rawCapabilityRegistry);
+  if (!capabilityValidation.ok) {
+    const error = new Error('external-capability-registry-invalid');
+    error.reasonCodes = capabilityValidation.reasonCodes;
+    throw error;
+  }
+  const capabilitySummary = summarizeExternalCapabilities(rawCapabilityRegistry);
+  if (!capabilitySummary.ok) {
+    const error = new Error('external-capability-summary-failed');
+    error.reasonCodes = capabilitySummary.reasonCodes;
     throw error;
   }
 
@@ -150,13 +171,18 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
 
   const handoffFreshAgainstSource = Boolean(handoff.handoffBasisSha && handoff.handoffBasisSha === commit);
   const packet = {
-    schemaVersion: 'uberbond-repository-brain-packet-1.1.0',
+    schemaVersion: 'uberbond-repository-brain-packet-1.2.0',
     cliVersion: UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION,
     project: 'UberBond',
     sourceCommit: commit,
     contextDigest: compiled.context.contextDigest,
     memoryDigest: compiled.context.memoryDigest,
     memoryReconciliationDigest: reconciled.reconciledMemoryDigest,
+    externalCapabilityDigest: capabilitySummary.capabilityDigest,
+    externalCapabilityCount: capabilitySummary.capabilityCount,
+    externalCapabilities: capabilitySummary.capabilities,
+    externalCapabilityControlPlane: 'src/external-capability-control-plane.mjs',
+    externalCapabilityDoctor: 'npm run capabilities:doctor',
     historicalLineageCorrection: reconciled.lineage,
     objective: compiled.context.objective,
     economicNorthStar: compiled.context.finalGoal?.economicNorthStar || null,
@@ -176,6 +202,8 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
     startupProtocol: compiled.startupProtocol,
     requiredNextReads: [
       MASTER_MEMORY_RECONCILIATION_PATH,
+      'Run/read npm run capabilities:doctor before relying on optional external runtimes.',
+      'Use src/external-capability-control-plane.mjs before invoking an external skill/runtime when data, provider, security, or source authority matters.',
       'Inspect live main and open/recent PRs before selecting work.',
       'Read current readiness/state for present-tense software truth.',
       'Dedupe requested work against current code and active shared branches.',
@@ -194,6 +222,7 @@ export function formatUberBondBrainPacket(packet) {
     `UberBond brain ready @ ${packet.sourceCommit}`,
     `context: ${packet.contextDigest}`,
     `memory: ${packet.memoryDigest}`,
+    `external capabilities: ${packet.externalCapabilityCount} (${packet.externalCapabilityDigest})`,
     `initiatives: ${packet.namedInitiativeCount}`,
     `lineage: ${(packet.historicalLineageCorrection || []).join(' -> ') || 'none'}`,
     `unresolved: ${packet.unresolvedNames.map(item => item.name).join(', ') || 'none'}`,

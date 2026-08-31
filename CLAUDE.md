@@ -9,46 +9,58 @@
 
 ## Mandatory startup
 
+Before the first substantive tool call or plan:
+
 1. Refresh current `main` and never trust a remembered SHA.
-2. Run `npm run brain` and read the repository brain packet.
-3. Read `UBERBOND_BOOTSTRAP.json` and every `canonPointers` path.
-4. Inspect open/recent PRs, branches, issues and recent commits before writing.
-5. Read current state/readiness and dedupe against canonical modules.
-6. Apply `docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md` before installing or invoking external skills/plugins/runtimes.
+2. Invoke/read `.claude/skills/task-observer/SKILL.md` and execute its Session Start Protocol using the stable repository `skill-observations/` workspace.
+3. Run `npm run brain` and read the repository brain packet.
+4. Run `npm run capabilities:doctor`; distinguish project-native skills from host runtimes that are merely absent/unconfigured.
+5. Read `UBERBOND_BOOTSTRAP.json` and every `canonPointers` path.
+6. Inspect open/recent PRs, branches, issues and recent commits before writing.
+7. Read current state/readiness and dedupe against canonical modules.
+8. Apply `docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md` plus `src/external-capability-control-plane.mjs` before installing or invoking external skills/plugins/runtimes.
 
-## Approved external capability pack
+At material commit/PR/deploy/deliverable boundaries, flush any genuinely useful Task Observer observations. Do not invent observations to satisfy a quota.
 
-The owner has asked UberBond to assimilate the following capability sources. They are approved for the bounded dispositions in the assimilation canon, not as unrestricted authority:
+## Integrated external capability pack
 
-- Vercel Labs Find Skills
-- Anthropic Claude Code Setup
-- Task Observer
-- Claude-Mem
-- Headroom
-- OmniRoute
-- Strix
-- Agent Reach
+The owner has asked UberBond to integrate and use the following capability sources through one governed control plane:
+
+- **Find Skills**: project skill at `.claude/skills/find-skills/` for candidate discovery.
+- **Claude Code Setup**: project-local read-only automation recommender at `.claude/skills/claude-automation-recommender/`.
+- **Task Observer**: project-local continuous skill-learning observer at `.claude/skills/task-observer/` with durable `skill-observations/` state.
+- **Claude-Mem**: approved host runtime for subordinate session memory when actually installed/configured.
+- **Headroom**: approved host runtime for reversible context compression/retrieval when authoritative originals remain available.
+- **OmniRoute**: approved isolated host runtime for model/provider routing experiments beneath UberBond model admission policy.
+- **Strix**: project skill at `.claude/skills/penetration-testing-with-strix/` plus optional host runtime, limited to owned/authorized targets.
+- **Agent Reach**: project skill at `.claude/skills/agent-reach/` plus optional host runtime, limited by default to public/authorized read-only research.
 
 Machine-readable registry: `artifacts/external-skill-plugin-registry.json`.
+Deterministic policy: `src/external-capability-control-plane.mjs`.
+Host health: `npm run capabilities:doctor`.
+Host package plan: `npm run capabilities:bootstrap`.
+Explicit host package installation: `npm run capabilities:bootstrap:apply`.
 
 Use the smallest capability that improves the current mission. Do not run every tool merely because it exists.
 
-## Claude-specific use law
+## Claude-specific routing law
 
-- Use Find Skills for capability discovery when a genuine missing skill appears.
-- Use Claude Code Setup as a read-only automation audit and reconcile recommendations against existing UberBond capabilities.
-- Use Task Observer to log correction/skill-gap observations and propose versioned improvements; never silently self-edit canon.
-- Claude-Mem may accelerate local session recall but is subordinate to repository brain, current `main`, durable handoffs and external receipts.
-- Headroom may optimize large context/tool outputs only while authoritative originals remain recoverable; do not compress away proof.
-- OmniRoute is an optional model-routing/fallback supplier beneath UberBond policy and model-admission contracts; it never grants authority.
-- Strix is limited to UberBond-owned or explicitly authorized targets, defaulting to local/test/preview.
-- Agent Reach is limited to lawful public/authorized research surfaces and UberBond source policy; no bypass, private-cookie harvesting, private-contact inference or prohibited scraping.
+- Missing specialized skill -> check UberBond first, then **Find Skills**.
+- Need to optimize the Claude setup -> **Claude automation recommender**, read-only first.
+- Repeated correction/manual friction -> **Task Observer**, recommendation-only.
+- Long-session recall -> **Claude-Mem**, subordinate to repo memory.
+- Large tool/log/context pressure -> **Headroom**, only with originals preserved.
+- Provider/model resilience/cost-routing problem -> **OmniRoute**, only with explicit provider configuration and observable provider/model identity.
+- Security verification -> **Strix** only for owned local/test/preview by default; production needs explicit authority.
+- Public market/buyer/software research -> **Agent Reach** when it adds coverage and the source is public/authorized; no private-session or bypass behavior.
 
 ## Installation posture
 
-Prefer project-local, reversible installs. Verify current upstream instructions and exact versions/refs before installation. Do not commit credentials, cookies or API keys. Do not enable paid providers or external consequenceful actions merely to complete setup.
+Project-native skills are part of the repository. Host runtimes remain a separate measured layer because their processes, package managers, Docker, Python, provider keys and services exist outside git.
 
-If a listed capability is unavailable in the current environment, preserve the mission as a durable setup/action packet rather than pretending it executed.
+A real host may run `npm run capabilities:bootstrap:apply` when host package mutation is intended. That script installs packages only: it does not configure LLM/provider credentials, start OmniRoute, run Strix scans, enable Agent Reach `--system`/private channels, spend money or contact anyone.
+
+Never claim a host runtime is installed/configured/healthy until `npm run capabilities:doctor` plus runtime-specific evidence proves it.
 
 ## Truth hierarchy
 

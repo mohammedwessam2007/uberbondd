@@ -47,7 +47,11 @@
     "probes:outbound": "node scripts/outbound-probes.mjs",
     "test:mutation-war": "node scripts/mutation-war.mjs",
     "brain": "node scripts/uberbond-brain-bootstrap.mjs",
-    "readiness": "node scripts/system-readiness.mjs"
+    "readiness": "node scripts/system-readiness.mjs",
+    "capabilities:doctor": "node scripts/external-capability-doctor.mjs",
+    "capabilities:bootstrap": "node scripts/bootstrap-external-capabilities.mjs",
+    "capabilities:bootstrap:apply": "node scripts/bootstrap-external-capabilities.mjs --apply",
+    "test:external-capabilities": "node --test tests/external-capability-control-plane.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

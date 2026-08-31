@@ -240,7 +240,12 @@ export async function executeGithubRepositorySearch({ partitions = [], fetchImpl
         return { ok: true, status: 'HARVEST_RATE_LIMITED_NO_BLIND_RETRY', queryReceipts: receipts, providerCalls, rateLimitedPartitionId: partition.id || null, retryAfter: response.headers?.get?.('retry-after') || null, businessEffectAuthority: 'NONE', externalEffectLedger: readEffects(providerCalls) };
       }
       if (!response.ok) return fail(['github-search-http-error'], { httpStatus: response.status, queryReceipts: receipts, providerCalls, externalEffectLedger: readEffects(providerCalls) });
-      const body = await response.json();
+      let body;
+      try {
+        body = await response.json();
+      } catch (error) {
+        return fail(['github-search-json-error'], { errorClass: error?.name || 'UNKNOWN', queryReceipts: receipts, providerCalls, externalEffectLedger: readEffects(providerCalls) });
+      }
       if (!Array.isArray(body?.items)) return fail(['github-search-items-required'], { providerCalls, externalEffectLedger: readEffects(providerCalls) });
       if (reportedTotalCount == null && Number.isSafeInteger(body.total_count)) reportedTotalCount = body.total_count;
       incompleteResults = incompleteResults || body.incomplete_results === true;
@@ -267,8 +272,10 @@ export async function executeGithubRepositorySearch({ partitions = [], fetchImpl
 
 export function writeMeasuredCorpusBatch({ corpusDir, corpus, repositoryRoot = REPOSITORY_ROOT, allowRepositoryStorageForTests = false } = {}) {
   if (!corpus?.ok || !corpus?.manifest || !Array.isArray(corpus?.candidates)) return fail(['measured-corpus-required']);
-  const targetRoot = path.resolve(clean(corpusDir, 2000));
-  if (!targetRoot || targetRoot === path.parse(targetRoot).root) return fail(['safe-corpus-directory-required']);
+  const requestedDir = clean(corpusDir, 2000);
+  if (!requestedDir) return fail(['safe-corpus-directory-required']);
+  const targetRoot = path.resolve(requestedDir);
+  if (targetRoot === path.parse(targetRoot).root) return fail(['safe-corpus-directory-required']);
   const repoRoot = path.resolve(repositoryRoot);
   const insideRepository = targetRoot === repoRoot || targetRoot.startsWith(`${repoRoot}${path.sep}`);
   if (insideRepository && !allowRepositoryStorageForTests) return fail(['large-corpus-storage-must-live-outside-git']);

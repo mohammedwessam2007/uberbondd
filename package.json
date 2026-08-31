@@ -52,10 +52,12 @@
     "test:wallbreaker": "node --test tests/wallbreaker.test.mjs tests/wallbreaker-retry-safety.test.mjs",
     "capabilities:doctor": "node scripts/external-capability-doctor.mjs",
     "capabilities:genome:doctor": "node scripts/capability-genome-doctor.mjs",
+    "capabilities:genome:harvest": "node scripts/capability-genome-harvest.mjs",
     "capabilities:bootstrap": "node scripts/bootstrap-external-capabilities.mjs",
     "capabilities:bootstrap:apply": "node scripts/bootstrap-external-capabilities.mjs --apply",
     "test:external-capabilities": "node --test tests/external-capability-control-plane.test.mjs",
-    "test:capability-genome": "node --test tests/capability-genome.test.mjs"
+    "test:capability-genome-harvest": "node --test tests/capability-genome-harvest.test.mjs tests/capability-genome-doctor-harvest.test.mjs",
+    "test:capability-genome": "node --test tests/capability-genome.test.mjs tests/capability-genome-harvest.test.mjs tests/capability-genome-doctor-harvest.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

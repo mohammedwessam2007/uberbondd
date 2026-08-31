@@ -42,7 +42,7 @@ test('rehearses canonical buyer signals without promoting source verification or
   assert.equal(result.status, 'REHEARSED_REVIEW_REQUIRED');
   assert.equal(result.selectedSourceCount, 2);
   assert.equal(result.reconciliation.ingestion.acceptedCount, 2);
-  assert.equal(result.reconciliation.tournament.registryCount, 438);
+  assert.equal(result.reconciliation.tournament.registryCount, 439);
   assert.equal(result.truthClassification.buyerEvidence, 'BUYER_SIGNAL');
   assert.equal(result.truthClassification.sourceVerification, 'UNVERIFIED');
   assert.equal(result.truthClassification.revenue, 'UNPROVEN');

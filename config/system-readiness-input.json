@@ -2,13 +2,13 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 655,
+      "filesParsed": 656,
       "ranAt": "2026-08-31T14:02:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 3003,
-      "pass": 2952,
+      "tests": 3010,
+      "pass": 2959,
       "fail": 0,
       "skipped": 51,
       "ranAt": "2026-08-31T14:02:00Z"
@@ -41,7 +41,7 @@
     },
     "test:mutation-war": {
       "command": "CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "105 mutations, 105 killed, 0 not killed",
+      "result": "108 mutations, 108 killed, 0 not killed",
       "note": "Run with both a real PostgreSQL and a real Chromium so STORE-01, MONEY-17 and CRAWL-01 execute rather than skip. Without them the war reports SKIPPED_NEEDS_POSTGRES / SKIPPED_NEEDS_BROWSER rather than counting them as killed. Verdicts are now read from what each run reports rather than from its exit status: a suite that never ran is SUITE_DID_NOT_RUN, not KILLED, and a green run that asserted nothing is NO_ASSERTIONS_RAN, not SURVIVED.",
       "ranAt": "2026-08-30T00:00:00Z"
     },

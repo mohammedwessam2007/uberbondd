@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import path from 'node:path';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { normalizeDiscoveryArtifact } from './capability-genome-discovery.mjs';
+import { scanCapabilityInstructions } from './capability-genome-admission.mjs';
 
 export const CAPABILITY_GENOME_BODY_IMPORT_VERSION = 'capability-genome-body-import-1.0.0';
 export const SKILL_BODY_CORPUS_SCHEMA = 'uberbond.capability-genome.corpus-state.v1';
@@ -63,6 +64,36 @@ export function normalizePublicSkillBody({
 
   const contentHash = digestBody(content);
   const sourceUrl = `https://github.com/${repository}/blob/${pinnedCommit}/${normalizedPath}`;
+
+  // Screen the bytes here, where they are in hand.
+  //
+  // scanCapabilityInstructions already existed and already catches this class
+  // -- a body carrying `curl | bash`, an SSH-key read and an instruction
+  // -hierarchy attack comes back QUARANTINE with four findings. Nothing called
+  // it for an imported body, so the corpus grew carrying no risk signal at all.
+  // This is the wiring, not a second scanner: a second one would drift from the
+  // first and there would be two answers to one question.
+  //
+  // The screening is bound to the exact bytes and the exact commit it was run
+  // against. Security evidence for one revision says nothing about the next, and
+  // a finding that could be carried forward to a body nobody scanned would be
+  // worse than no finding at all.
+  //
+  // Screening never promotes. A quarantined body is still imported as evidence,
+  // because knowing a dangerous skill exists is worth more than pretending it
+  // does not -- it stays UNTRUSTED_DISCOVERED with no authority either way.
+  const screening = scanCapabilityInstructions({ instructions: content });
+  const securityScreening = {
+    decision: screening.decision,
+    findings: clone(screening.findings || []),
+    scanDigest: screening.scanDigest,
+    // What was actually screened, so the evidence cannot be read as covering
+    // any other bytes.
+    screenedContentSha256: contentHash,
+    screenedSourceCommit: pinnedCommit,
+    screenedGitBlobSha: blobSha,
+    caveat: screening.caveat
+  };
   const normalized = normalizeDiscoveryArtifact({
     sourceId,
     artifactType: 'SKILL',
@@ -99,7 +130,8 @@ export function normalizePublicSkillBody({
       declaredLicenseHint: declaredLicenseHint == null ? null : clean(declaredLicenseHint, 500),
       trustState: 'UNTRUSTED_DISCOVERED',
       promotionAuthority: 'NONE',
-      storageMode: 'SOURCE_PINNED_REFERENCE_ONLY'
+      storageMode: 'SOURCE_PINNED_REFERENCE_ONLY',
+      securityScreening
     },
     artifact: normalized.artifact,
     body: content,
@@ -119,6 +151,11 @@ export function buildMeasuredSkillBodyCorpus({ bodyImports = [], observedAt = ne
     if (!item?.ok || !item?.bodyEvidence?.artifactIdentity) return fail(['successful-body-import-required']);
     const evidence = item.bodyEvidence;
     if (evidence.trustState !== 'UNTRUSTED_DISCOVERED' || evidence.promotionAuthority !== 'NONE') return fail(['untrusted-zero-authority-body-evidence-required']);
+    // A body that reached the corpus without being screened would be counted
+    // alongside screened ones and become indistinguishable from them.
+    if (!evidence.securityScreening?.decision || evidence.securityScreening.screenedContentSha256 !== evidence.contentSha256) {
+      return fail(['revision-bound-security-screening-required']);
+    }
     if (byArtifact.has(evidence.artifactIdentity)) duplicateArtifactIdentities.push(evidence.artifactIdentity);
     else byArtifact.set(evidence.artifactIdentity, clone(evidence));
   }
@@ -138,12 +175,18 @@ export function buildMeasuredSkillBodyCorpus({ bodyImports = [], observedAt = ne
     skillBodiesImported: bodies.length,
     distinctSkillBodyContentCount: contentHashes.size,
     duplicateSkillBodyArtifacts: duplicateArtifactIdentities.length,
+    // Counted apart, never summed into one "imported" number. A corpus that
+    // reported only a total would hide whether it was carrying quarantined
+    // instructions.
+    securityQuarantinedBodies: bodies.filter(item => item.securityScreening.decision === 'QUARANTINE').length,
+    securityReviewBodies: bodies.filter(item => item.securityScreening.decision === 'REVIEW').length,
+    securityStaticClearBodies: bodies.filter(item => item.securityScreening.decision === 'STATIC_CLEAR').length,
     capabilityRecordsNormalized: 0,
     approvedCapabilities: 0,
     activeCapabilities: 0,
     storageMode: 'SOURCE_PINNED_REFERENCE_ONLY',
     bodyEvidenceDigest,
-    truthBoundary: 'BODY_BYTES_WERE_OBSERVED_HASHED_AND_PINNED__NOT_SECURITY_REVIEWED_NOT_NORMALIZED_CAPABILITY_NOT_APPROVED_NOT_ACTIVE'
+    truthBoundary: 'BODY_BYTES_WERE_OBSERVED_HASHED_PINNED_AND_STATICALLY_SCREENED__STATIC_CLEAR_IS_NOT_SAFETY_NOT_NORMALIZED_CAPABILITY_NOT_APPROVED_NOT_ACTIVE'
   };
   return {
     ok: true,

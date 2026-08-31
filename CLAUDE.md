@@ -50,9 +50,17 @@ Use the smallest capability that improves the current mission. Do not run every 
 - Repeated correction/manual friction -> **Task Observer**, recommendation-only.
 - Long-session recall -> **Claude-Mem**, subordinate to repo memory.
 - Large tool/log/context pressure -> **Headroom**, only with originals preserved.
-- Provider/model resilience/cost-routing problem -> **OmniRoute**, only with explicit provider configuration and observable provider/model identity.
+- Provider/model resilience/cost-routing problem -> **OmniRoute** with observable provider/model identity.
 - Security verification -> **Strix** only for owned local/test/preview by default; production needs explicit authority.
 - Public market/buyer/software research -> **Agent Reach** when it adds coverage and the source is public/authorized; no private-session or bypass behavior.
+
+### Automatic model-failover law
+
+Once OmniRoute and one or more provider/model connections are legitimately configured on the host, model failover is pre-authorized and should not ask the owner for another approval merely because a model/provider reaches a usage limit, quota, rate limit, temporary outage, capacity ceiling, or becomes unavailable.
+
+Treat quota exhaustion as a routing signal, not a mission blocker. Automatically continue through the best available configured model/provider that satisfies the task's capability, cost, privacy, evidence, and policy requirements. Cross-provider and cross-model-family fallback is allowed. Preserve the actual provider/model identity in receipts so UberBond knows what really executed.
+
+This is permission to **route around an exhausted lane**, not permission to evade or bypass the exhausted provider's limits, create unauthorized accounts, rotate identities to defeat quotas, violate provider terms, or conceal the provider/model used. If every legitimately configured provider/model is exhausted or unavailable, report that external capacity blocker instead of fabricating access.
 
 ## Installation posture
 

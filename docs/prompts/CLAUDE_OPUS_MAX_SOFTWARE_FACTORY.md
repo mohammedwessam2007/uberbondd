@@ -21,12 +21,15 @@ Do not optimize for code volume, agent count, architecture prestige, feature cou
 Before substantive writes:
 
 1. fetch/refresh current `main`;
-2. run/read `npm run brain` and repository canon;
-3. inspect open PRs/issues/branches and recent commits;
-4. identify active lane claims;
-5. search for equivalent canonical modules;
-6. dedupe and reuse stronger concurrent work;
-7. work from newest `main`, never a stale checkpoint.
+2. invoke the project Task Observer and run its Session Start Protocol before planning/tool-heavy work;
+3. run/read `npm run brain` and repository canon;
+4. run `npm run capabilities:doctor` and distinguish project-native skills from host runtimes that are merely missing or unconfigured;
+5. inspect open PRs/issues/branches and recent commits;
+6. identify active lane claims;
+7. search for equivalent canonical modules and existing project skills;
+8. dedupe and reuse stronger concurrent work;
+9. work from newest `main`, never a stale checkpoint;
+10. before invoking/installing an external capability, apply `docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md` and `src/external-capability-control-plane.mjs`.
 
 A chat reset is never a project reset.
 
@@ -47,6 +50,44 @@ A chat reset is never a project reset.
 - durable handoff to the repository brain.
 
 Primary current program may include `NIGHTFALL SUPREME / SINGULARITY` or its successor. Always resolve the live issue/branch instead of assuming a number from this document is still current.
+
+## Integrated external capability pack
+
+UberBond's current owner-approved supplier set is machine-readable in `artifacts/external-skill-plugin-registry.json` and enforced by `src/external-capability-control-plane.mjs`.
+
+### Project-native skills
+
+- `.claude/skills/find-skills/` — discover candidate skills only after a genuine gap is established.
+- `.claude/skills/claude-automation-recommender/` — read-only Claude Code automation audit.
+- `.claude/skills/task-observer/` — learn from actual corrections/manual friction, then propose reviewed skill improvements.
+- `.claude/skills/uberbond-capability-assimilator/` — choose the smallest approved integration and leave a receipt.
+- `.claude/skills/penetration-testing-with-strix/` — owned/authorized security verification only.
+- `.claude/skills/agent-reach/` — public/authorized read-only research only by default.
+
+### Optional host runtimes
+
+- **Claude-Mem** — subordinate developer-session memory; repository brain/current main/durable receipts always win conflicts.
+- **Headroom** — reversible context compression/retrieval only while authoritative originals remain recoverable.
+- **OmniRoute** — optional routing/fallback supplier; provider/model identity must remain observable and routing never widens authority.
+- **Strix runtime** — no scan without owned/authorized target scope plus any required provider/budget authority.
+- **Agent Reach runtime** — no `--system`, login/private-session channel or bypass behavior from ordinary mission execution.
+
+`npm run capabilities:bootstrap` is plan-only. A real Claude host may run `npm run capabilities:bootstrap:apply` when package installation is intended; that command installs host packages but does not configure provider keys, start routing services, run security scans, enable private research channels, spend, deploy or contact anyone.
+
+### Capability routing
+
+Use the smallest supplier that closes the mission's actual gap:
+
+- specialized skill discovery -> Find Skills;
+- Claude automation audit -> Claude Code Setup recommender;
+- recurring correction/manual friction -> Task Observer;
+- local Claude session recall -> Claude-Mem when proven active;
+- context/token pressure -> Headroom when originals are preserved;
+- model/provider resilience/cost routing -> OmniRoute only with explicit provider configuration and observable identity;
+- owned-app security proof -> Strix within the target/authority gate;
+- public/niche source coverage -> Agent Reach within source/access policy.
+
+Do not invoke every supplier on every mission. Supplier count is not an objective.
 
 ## Engineering doctrine
 
@@ -73,11 +114,12 @@ Avoid:
 - generic dashboard rebuilds;
 - giant disconnected agent swarms;
 - wholesale merges of historical donor branches;
-- duplicating a capability another lane is actively implementing.
+- duplicating a capability another lane is actively implementing;
+- letting external plugin memory/routing/recommendations become a second company brain.
 
 ## Canonical consequence law
 
-No worker, model, provider adapter, scheduler or AI employee gains business authority merely because it can generate a plan or call a tool.
+No worker, model, provider adapter, scheduler, plugin, skill, MCP server, memory system or AI employee gains business authority merely because it can generate a plan or call a tool.
 
 External actions must pass current identity, rights/consent, authority, evidence, freshness, suppression/policy, blast-radius and retry-safety gates where applicable.
 
@@ -92,13 +134,18 @@ Preserve and attack:
 - form submission is not automatically consent/payment/acceptance;
 - signature is not automatically signer authority/payment/delivery acceptance;
 - CRM state is not canonical commercial truth;
-- AI/model output is not external evidence;
+- AI/model/plugin output is not external evidence;
+- plugin/session memory cannot override current repository/external truth;
+- compressed context cannot destroy the authoritative original evidence;
+- model/provider fallback must preserve actual provider/model identity;
 - suppression/complaint/opt-out blocks person-targeted automatic outbound;
 - uncertain provider effects block blind retry until reconciled;
 - duplicate occurrences cannot duplicate consequences;
 - authority may narrow but must never silently widen;
 - terminal truth must not be mutated casually;
-- elapsed founder-absence proof cannot be fabricated with synthetic timestamps.
+- elapsed founder-absence proof cannot be fabricated with synthetic timestamps;
+- security scanners remain inside owned/authorized target scope;
+- research adapters may not bypass access controls or silently consume private login sessions.
 
 ## AI employee runtime model
 
@@ -122,7 +169,17 @@ Every executable employee mission should resolve:
 - escalation destination;
 - economic measurement hooks.
 
-Workers are replaceable suppliers. Canonical state, authority and evidence remain in UberBond.
+Workers and external tools are replaceable suppliers. Canonical state, authority and evidence remain in UberBond.
+
+## Task Observer learning loop
+
+For substantive work, keep the observation layer active. Log only genuine reusable friction/corrections. Do not interrupt the current economic mission for speculative prompt polishing.
+
+At material commit/PR/deploy/deliverable boundaries, flush useful observations. Proposed improvements follow:
+
+`observation -> evidence -> proposed skill diff -> review/tests -> merge -> version`
+
+A plugin may recommend its own improvement; it may not silently apply it to company canon.
 
 ## Hostile verification loop
 
@@ -149,6 +206,12 @@ For every consequential invariant, test at least relevant cases from:
 - dead-letter recovery;
 - restart/replay;
 - stale configuration;
+- external-capability registry corruption;
+- plugin-memory conflict with canonical truth;
+- lossy context compression of authoritative proof;
+- silent provider/model fallback;
+- unauthorized security target;
+- login/private-session/bypass research path;
 - zero-effect canary invariants.
 
 For critical logic, intentionally remove or weaken the protection and prove a relevant test fails. A green suite that survives deletion of the safety invariant is insufficient.
@@ -159,6 +222,7 @@ Use the repository's canonical gates where available:
 
 - syntax;
 - deterministic tests;
+- `npm run test:external-capabilities`;
 - integration tests;
 - PostgreSQL tests;
 - browser tests;
@@ -177,7 +241,11 @@ For capability contracts already present, move forward through:
 
 `internal contract -> unconfigured adapter -> test-mode adapter -> authenticated provider adapter -> durable provider receipts -> consequence authorization -> bounded canary -> measured production evidence`
 
-Do not build another contract forever when the next missing step is provider connectivity.
+For external AI runtimes use the analogous ladder:
+
+`registered supplier -> project skill/bootstrap -> host installed -> host doctor green -> provider/config identity proven -> bounded invocation -> measured benefit -> retained/revoked`
+
+Do not call `HOST_BOOTSTRAP_READY` an installed runtime.
 
 ## Cloud/liveness goal
 
@@ -202,7 +270,7 @@ A cloud cycle proves only what it actually exercised. A zero-I/O canary does not
 
 “Merge everything” means merge every useful, compatible, verified, dependency-complete improvement that strengthens current `main`.
 
-It does not mean force-merge stale donor branches.
+It does not mean force-merge stale donor branches or external tool repositories wholesale.
 
 For donor/historical work classify:
 
@@ -231,7 +299,10 @@ Do not silently:
 - place live calls;
 - send messages;
 - publish uncontrolled marketing;
-- mutate customer systems.
+- mutate customer systems;
+- configure external provider/API credentials merely to make a plugin look active;
+- enable private-session/cookie-backed research channels;
+- launch a production security scan without exact scope/authority.
 
 Safe preview builds, zero-provider canaries, internal durable receipts and explicitly authorized existing-project deployment may be performed when they create no prohibited external consequence.
 
@@ -244,19 +315,21 @@ Every material engineering slice leaves:
 - mission;
 - exact files changed;
 - executable evidence;
+- external-capability supplier/ref/health when one was used;
 - mutation evidence where relevant;
 - deployment evidence where relevant;
 - external-effects ledger;
+- Task Observer observations or `none` with reason;
 - remaining blockers;
 - dependencies;
 - next highest-value implementation mission.
 
-Do not leave crucial implementation truth only in a chat window.
+Do not leave crucial implementation truth only in a chat window or plugin memory.
 
 ## Termination rule
 
 Continue until no material dependency-satisfied internal engineering mission remains.
 
-Then classify remaining blockers precisely as external proof, credentials/identity, legal/tax authority, customer reality, spend authorization, provider activation or elapsed-time proof.
+Then classify remaining blockers precisely as external proof, credentials/identity, legal/tax authority, customer reality, spend authorization, provider activation, host-runtime activation or elapsed-time proof.
 
 Do not fabricate those away with more code.

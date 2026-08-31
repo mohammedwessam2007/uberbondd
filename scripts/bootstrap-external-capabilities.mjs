@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { spawnSync } from 'node:child_process';
+import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 
 const APPLY = process.argv.includes('--apply');
 
@@ -81,7 +82,8 @@ if (!APPLY) {
     applyFlag: '--apply',
     warning: 'The apply mode mutates the Claude/host tool environment. It installs packages only. It does not configure credentials, connect providers, start OmniRoute, run Strix scans, enable Agent Reach private/login channels, spend money, or contact anyone.',
     steps,
-    businessEffectAuthority: 'NONE'
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   }, null, 2)}\n`);
   process.exit(0);
 }
@@ -112,18 +114,7 @@ const result = {
     'Run npm run capabilities:doctor after installation and leave an exact host receipt.'
   ],
   businessEffectAuthority: 'NONE',
-  externalEffectLedger: {
-    customerContacts: 0,
-    messages: 0,
-    providerModelExecutions: 0,
-    purchases: 0,
-    credentialChanges: 0,
-    dnsChanges: 0,
-    moneyMovement: 0,
-    customerSystemMutations: 0,
-    productionMutations: 0,
-    spendCents: 0
-  }
+  externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
 };
 process.stdout.write(`\n${JSON.stringify(result, null, 2)}\n`);
 if (!result.ok) process.exitCode = 1;

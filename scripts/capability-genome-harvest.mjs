@@ -31,11 +31,11 @@ if (!plan.ok) {
   process.exitCode = 1;
 } else if (!execute) {
   console.log(JSON.stringify({
+    ...plan,
     ok: true,
     status: 'WORLD_HARVEST_PLAN_ONLY',
     version: CAPABILITY_GENOME_HARVEST_VERSION,
-    networkReadsExecuted: false,
-    ...plan
+    networkReadsExecuted: false
   }, null, 2));
 } else if (process.env.UBERBOND_CAPABILITY_GENOME_NETWORK_READS !== '1') {
   console.log(JSON.stringify({

@@ -206,7 +206,9 @@ test('agent reach permits bounded public research only when the source is author
   });
   assert.equal(allowed.decision, 'ALLOW');
   assert.equal(allowed.status, 'PUBLIC_RESEARCH_ALLOWED');
-  assert.equal(allowed.externalEffectLedger.customerContacts, 0);
+  assert.equal(allowed.externalEffectLedger.providerCalls, 0);
+  assert.equal(allowed.externalEffectLedger.messages, 0);
+  assert.equal(allowed.externalEffectLedger.spendCents, 0);
 });
 
 test('registry corruption fails closed', () => {

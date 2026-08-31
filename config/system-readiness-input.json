@@ -2,13 +2,13 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 645,
+      "filesParsed": 649,
       "ranAt": "2026-08-31T14:02:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2970,
-      "pass": 2919,
+      "tests": 2986,
+      "pass": 2935,
       "fail": 0,
       "skipped": 51,
       "ranAt": "2026-08-31T14:02:00Z"
@@ -58,9 +58,9 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 263,
+      "srcModules": 264,
       "reachableFromProduction": 132,
-      "reachableFromOperatorScriptsOnly": 12,
+      "reachableFromOperatorScriptsOnly": 13,
       "noEntryPointAtAll": 119,
       "allClassified": true,
       "ranAt": "2026-08-31T14:02:00Z",

@@ -2,11 +2,11 @@
 
 **This file is the canonical present-tense software/commercial state.** Historical detail from the pre-checkpoint version is preserved byte-for-byte under `docs/archive/2026-08-30-pre-checkpoint/`. Repository code and newer exact external evidence still outrank this prose.
 
-Last reconciled: **2026-08-30**
-Branch: `gpt/payment-operator-attention-20260830`
-Reconciled from current head: `9948f59eeb8cc528be6127e76cf991c6cedda425`
+Last reconciled: **2026-08-31**
+Branch: `gpt/wallbreaker-kernel-20260831`
+Reconciled from source state through: `46e893c252b94d6d7216fbcf1c7fbb222a9bee06`
 
-Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
+Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json). That generated artifact still represents the 2026-08-30 checkpoint until a fresh readiness run is recorded; this prose is updated narrowly so the live reachability ratchet reflects the current branch rather than silently carrying stale module counts.
 
 ## Commercial truth
 
@@ -21,7 +21,7 @@ No architecture, creator claim, generated opportunity, model output, preview dep
 
 ## Verified software evidence
 
-The source-changing state of this branch was exercised before later documentation/checkpoint-only commits.
+The most recent full reconciled source-changing checkpoint before the 2026-08-31 capability/Wallbreaker additions recorded:
 
 | Gate | Result |
 |---|---|
@@ -35,21 +35,45 @@ The source-changing state of this branch was exercised before later documentatio
 
 The 51 deterministic skips are the environment-dependent real-PostgreSQL suites excluded from that run; they have separate real-PostgreSQL evidence above. Hosted GitHub Actions jobs that receive no runner and execute zero steps remain `INFRASTRUCTURE_NON_EVIDENCE`.
 
+The 2026-08-31 Wallbreaker branch adds focused hostile tests in `tests/wallbreaker.test.mjs`; they do not become verified evidence until an exact-head deterministic/build gate records the result.
+
 ## Reachability
 
-**119 of 255 `src` modules have no entry point at all**.
+**119 of 257 `src` modules have no entry point at all**.
 
 | Reachability class | Modules |
 |---|---:|
 | Reachable from production | 127 |
-| Reachable only via an operator script | 9 |
+| Reachable only via an operator script | 11 |
 | **No entry point at all** | **119** |
 
-The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`.
+The prior 255-module prose became stale after the governed external-capability control plane landed. `src/external-capability-control-plane.mjs` is reachable through operator scripts. `src/wallbreaker.mjs` is likewise operator-reachable through `scripts/wallbreaker-plan.mjs`. Neither file should be counted as a production execution path merely because it exists.
+
+The existing `src/payment-operator-attention.mjs` remains production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`.
+
+## Wallbreaker v1
+
+The branch contains a deterministic Wallbreaker problem-solving kernel in `src/wallbreaker.mjs`, an operator CLI in `scripts/wallbreaker-plan.mjs`, hostile focused tests, and `docs/WALLBREAKER_CANON.md`.
+
+Wallbreaker v1:
+
+- compiles a wall into objective, success criteria, constraints, assumptions, unknowns, capability needs, risk/spend/founder-minute ceilings, and evidence refs;
+- ranks candidate strategies by expected contribution, probability, founder minutes, cost, risk, evidence, reversibility, novelty, and robustness;
+- preserves strategy-family diversity rather than filling the frontier with near-clones;
+- classifies failures into assumption, evidence, capability, implementation, provider, authority, economics, environment, stochastic, verifier, impossible-constraint, or unknown classes;
+- prunes candidates that rely on falsified assumptions;
+- prevents unchanged failed mechanism signatures from being blindly retried;
+- emits targeted Capability Genome queries for capability gaps;
+- treats provider quota/outage as a substitution/routing problem without authorizing provider-limit evasion;
+- treats authority blocks as lawful-substitute or escalation problems, never circumvention;
+- emits an adaptive compute tier for downstream model routing;
+- carries `businessEffectAuthority: NONE` and the canonical zero external-effect ledger.
+
+This is a real deterministic orchestration primitive, not evidence that a million-solution search, heterogeneous model swarm, Capability Genome, or autonomous external execution is already live. Those remain later integration layers.
 
 ## PR #251 payment-attention policy
 
-`classifyPaymentEvent()` remains the payment-truth authority. The founder command center now interprets its already-safe classifications as follows:
+`classifyPaymentEvent()` remains the payment-truth authority. The founder command center interprets its already-safe classifications as follows:
 
 - `REVIEW_REQUIRED` -> operator attention.
 - `PENDING_OR_UNCLEAR` with only `subscription-status-on_trial` -> expected pending, quiet.
@@ -58,13 +82,13 @@ The new `src/payment-operator-attention.mjs` is production-reachable through `fo
 
 This changes **operator visibility only**. It does not clear money, unlock fulfilment, create revenue, mutate provider evidence, call a provider, or widen authority.
 
-Independent focused proof covered nine cases, all passing. A hostile mutation that treats every pending state as expected makes five of the nine protections fail.
+Independent focused proof at the prior checkpoint covered nine cases, all passing. A hostile mutation that treats every pending state as expected makes five of the nine protections fail.
 
 ## Memory integrity
 
 A manual readiness refresh accidentally compacted away hundreds of lines of capability evidence in an intermediate branch commit. It was caught before merge. Commit `a7d25ab08781307002f663dcfa903983ff5c54b2` restored the full capability registry. The old canon, handoff and bootstrap were then archived byte-for-byte at commit `991efdee100616cd6d811a92194d611fa3097a14`.
 
-The current crash checkpoint is `docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md`.
+The current crash checkpoint remains `docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md` until a newer durable checkpoint explicitly supersedes it.
 
 The older machine memory entry that described Everest as unresolved is superseded: repository evidence establishes **Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation**, with the Everest receipt verdict `EVEREST_PARTIALLY_CLOSED`.
 
@@ -78,11 +102,13 @@ AI employees are bounded roles in one governed company. Intelligence and capabil
 
 The repository contains a real Claude engineering orchestrator, but a live Claude Code run still requires the verified isolation/provider runtime defined by that contract. The GitHub relay worker is verification-only and is not evidence that Claude executed.
 
+Wallbreaker is subordinate to these existing worker, model-routing, capability, consequence, and evidence systems. It is not a fourth independent authority layer.
+
 ## Cloud truth
 
 The connected Vercel account exposes team `team_A9LnjIuS5PU0rNetsHMu1N0r` and full project `prj_RWUPf14w1xIz9NK92AbNW5z7qDCg` (`uberbondd`).
 
-The previous exact PR-head full-project preview `dpl_5e9AmHsdpxpdikFFfkUbJhzKopa6` was observed actively executing the real deterministic suite. A preview state does not prove production promotion. **Exact-current-main production is not yet proven by this checkpoint.**
+Exact-current-main production at `5cb18b852b29b2c90f66869544e58a10531009e9` reached the deterministic suite and failed because this file still claimed 255 modules while 256 existed. That is a real stale-canon/reachability failure, not a provider-rate-limit failure. This branch repairs that stale claim while adding Wallbreaker, but exact-head cloud success must still be observed before merge.
 
 ## External gates
 
@@ -98,12 +124,14 @@ Internal software cannot manufacture the following:
 - a human escalation transport;
 - verified isolation plus a real Claude execution runtime.
 
+Wallbreaker must treat these as external/authority constraints when applicable. It may search for lawful substitutes or dependency redesigns, but cannot turn a missing authority or real-world proof gate into permission to bypass it.
+
 ## Immediate frontier
 
-1. Finish the exact-head Vercel syntax + deterministic gate for PR #251.
-2. If the exact candidate is green and remains bounded, merge #251 with expected-head protection.
-3. Verify new `main` and exact deployment state.
-4. Continue the payment frontier through the existing provider-evidence -> canonical reconciliation -> fulfilment chain. A PayPal adapter may be added as a provider rail only if it feeds the same canonical ledger rather than becoming a second money truth.
-5. Continue world-class distribution and NIGHTFALL cloud-liveness, prioritizing real economic proof over architecture volume.
+1. Finish the exact-head Vercel syntax + deterministic gate for the Wallbreaker branch.
+2. Repair any source/test/reachability defect revealed by that gate rather than weakening the guardrail.
+3. If the candidate is green and remains bounded, merge it with expected-head protection and verify new `main` plus exact production deployment state.
+4. Connect Wallbreaker to the Capability Genome once that system actually exists on repository truth; do not pretend retrieval requests are installed capabilities.
+5. Continue the pre-customer frontier through real scheduler/provider/distribution/payment activation, prioritizing real economic proof over architecture volume.
 
-Zero customer contact, zero provider/model execution, zero purchases, zero credential/DNS changes, zero money movement, and zero production mutation were authorized or performed by this checkpoint.
+Zero customer contact, zero provider/model execution, zero purchases, zero credential/DNS changes, zero money movement, and zero production mutation were authorized or performed by this Wallbreaker implementation branch.

@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const CAPABILITY_GENOME_HARVEST_VERSION = 'capability-genome-harvest-1.0.0';
+export const CAPABILITY_GENOME_HARVEST_VERSION = 'capability-genome-harvest-1.0.1';
 export const CORPUS_STATE_SCHEMA = 'uberbond.capability-genome.corpus-state.v1';
 const REPOSITORY_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const GITHUB_API_ORIGIN = 'https://api.github.com';
@@ -221,10 +221,31 @@ export async function executeGithubRepositorySearch({ partitions = [], fetchImpl
     let incompleteResults = false;
     let capped = false;
     let callsForPartition = 0;
+    const partitionReceipt = (extra = {}) => ({
+      partitionId: partition.id || null,
+      query,
+      providerCalls: callsForPartition,
+      reportedTotalCount,
+      incompleteResults,
+      searchCapExceeded: capped,
+      repositories: [...repositories],
+      ...extra
+    });
+    const receiptsWithPartial = extra => callsForPartition > 0 || repositories.length > 0
+      ? [...receipts, partitionReceipt({ complete: false, ...extra })]
+      : [...receipts];
 
     for (let page = 1; page <= maxPages; page += 1) {
       if (providerCalls >= callCap) {
-        return { ok: true, status: 'HARVEST_PROVIDER_CALL_BUDGET_EXHAUSTED', queryReceipts: receipts, providerCalls, remainingPartitionId: partition.id || null, businessEffectAuthority: 'NONE', externalEffectLedger: readEffects(providerCalls) };
+        return {
+          ok: true,
+          status: 'HARVEST_PROVIDER_CALL_BUDGET_EXHAUSTED',
+          queryReceipts: receiptsWithPartial({ terminationStatus: 'PROVIDER_CALL_BUDGET_EXHAUSTED' }),
+          providerCalls,
+          remainingPartitionId: partition.id || null,
+          businessEffectAuthority: 'NONE',
+          externalEffectLedger: readEffects(providerCalls)
+        };
       }
       const params = new URLSearchParams({ q: query, sort: 'updated', order: 'desc', per_page: String(perPage), page: String(page) });
       const url = `${GITHUB_API_ORIGIN}/search/repositories?${params.toString()}`;
@@ -234,19 +255,51 @@ export async function executeGithubRepositorySearch({ partitions = [], fetchImpl
       try {
         response = await fetchImpl(url, { method: 'GET', headers: { Accept: 'application/vnd.github+json', 'User-Agent': userAgent } });
       } catch (error) {
-        return fail(['github-search-network-error'], { errorClass: error?.name || 'UNKNOWN', queryReceipts: receipts, providerCalls, externalEffectLedger: readEffects(providerCalls) });
+        return fail(['github-search-network-error'], {
+          errorClass: error?.name || 'UNKNOWN',
+          queryReceipts: receiptsWithPartial({ terminationStatus: 'NETWORK_ERROR' }),
+          providerCalls,
+          externalEffectLedger: readEffects(providerCalls)
+        });
       }
       if (response.status === 403 || response.status === 429) {
-        return { ok: true, status: 'HARVEST_RATE_LIMITED_NO_BLIND_RETRY', queryReceipts: receipts, providerCalls, rateLimitedPartitionId: partition.id || null, retryAfter: response.headers?.get?.('retry-after') || null, businessEffectAuthority: 'NONE', externalEffectLedger: readEffects(providerCalls) };
+        return {
+          ok: true,
+          status: 'HARVEST_RATE_LIMITED_NO_BLIND_RETRY',
+          queryReceipts: receiptsWithPartial({ terminationStatus: 'RATE_LIMITED' }),
+          providerCalls,
+          rateLimitedPartitionId: partition.id || null,
+          retryAfter: response.headers?.get?.('retry-after') || null,
+          businessEffectAuthority: 'NONE',
+          externalEffectLedger: readEffects(providerCalls)
+        };
       }
-      if (!response.ok) return fail(['github-search-http-error'], { httpStatus: response.status, queryReceipts: receipts, providerCalls, externalEffectLedger: readEffects(providerCalls) });
+      if (!response.ok) {
+        return fail(['github-search-http-error'], {
+          httpStatus: response.status,
+          queryReceipts: receiptsWithPartial({ terminationStatus: 'HTTP_ERROR' }),
+          providerCalls,
+          externalEffectLedger: readEffects(providerCalls)
+        });
+      }
       let body;
       try {
         body = await response.json();
       } catch (error) {
-        return fail(['github-search-json-error'], { errorClass: error?.name || 'UNKNOWN', queryReceipts: receipts, providerCalls, externalEffectLedger: readEffects(providerCalls) });
+        return fail(['github-search-json-error'], {
+          errorClass: error?.name || 'UNKNOWN',
+          queryReceipts: receiptsWithPartial({ terminationStatus: 'JSON_ERROR' }),
+          providerCalls,
+          externalEffectLedger: readEffects(providerCalls)
+        });
       }
-      if (!Array.isArray(body?.items)) return fail(['github-search-items-required'], { providerCalls, externalEffectLedger: readEffects(providerCalls) });
+      if (!Array.isArray(body?.items)) {
+        return fail(['github-search-items-required'], {
+          queryReceipts: receiptsWithPartial({ terminationStatus: 'INVALID_RESPONSE' }),
+          providerCalls,
+          externalEffectLedger: readEffects(providerCalls)
+        });
+      }
       if (reportedTotalCount == null && Number.isSafeInteger(body.total_count)) reportedTotalCount = body.total_count;
       incompleteResults = incompleteResults || body.incomplete_results === true;
       if (reportedTotalCount != null && reportedTotalCount > perPage * maxPages) capped = true;
@@ -256,7 +309,7 @@ export async function executeGithubRepositorySearch({ partitions = [], fetchImpl
       }
       if (body.items.length < perPage) break;
     }
-    receipts.push({ partitionId: partition.id || null, query, providerCalls: callsForPartition, reportedTotalCount, incompleteResults, searchCapExceeded: capped, repositories });
+    receipts.push(partitionReceipt({ complete: true, terminationStatus: null }));
   }
 
   return {

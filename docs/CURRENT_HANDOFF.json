@@ -74,6 +74,29 @@
     "mergedMainProduction": "PENDING_EXACT_POST_MERGE_DISCOVERY",
     "classification": "CLOUD_CAPACITY_NON_EVIDENCE_UNTIL_A_BUILD_EXECUTES"
   },
+  "cloudActivationTruth": {
+    "fullProjectExists": true,
+    "privateLiteProjectExists": true,
+    "currentMainExactProductionDeploymentProven": false,
+    "cronRegistrationProven": false,
+    "cronDeliveryProven": false,
+    "contradiction": "The historical account-scope contradiction is preserved, while the currently connected Vercel API resolves both project identities. Exact-current-main production and cron delivery remain unproven because the daily deployment cap rejected both projects before a build executed.",
+    "observations": [
+      {
+        "observedVia": "connected Vercel API",
+        "observedAt": "2026-08-31T13:14:50Z",
+        "detail": "Full project prj_RWUPf14w1xIz9NK92AbNW5z7qDCg exists; its current production deployment remains ERROR at 5cb18b852b29b2c90f66869544e58a10531009e9, while exact-current-main deployment creation was rejected by api-deployments-free-per-day."
+      },
+      {
+        "observedVia": "connected Vercel API and authenticated deployment fetch",
+        "observedAt": "2026-08-31T13:14:50Z",
+        "detail": "Private-lite project prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz exists; deployment dpl_Hpdk1wEtNRbDt2Nrk95TV7MWBf13 is READY at 5cb18b852b29b2c90f66869544e58a10531009e9 and returned HTTP 200, but it is not exact current main."
+      }
+    ]
+  },
+  "repositoryPublicationEffects": {
+    "productionDeploymentsAuthorizedOrPerformedByThisLane": 0
+  },
   "commercialTruth": {
     "realCustomers": 0,
     "clearedRevenueUsd": 0,

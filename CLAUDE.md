@@ -5,6 +5,7 @@
 @docs/UBERBOND_MASTER_MEMORY.md
 @docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md
 @docs/CAPABILITY_GENOME_CANON.md
+@docs/WALLBREAKER_CANON.md
 @docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md
 @docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md
 
@@ -16,10 +17,11 @@ Before the first substantive tool call or plan:
 2. Invoke/read `.claude/skills/task-observer/SKILL.md` and execute its Session Start Protocol using the stable repository `skill-observations/` workspace.
 3. Run `npm run brain` and read the repository brain packet.
 4. Run `npm run capabilities:doctor` and `npm run capabilities:genome:doctor`; distinguish project-native skills, registered suppliers, corpus records, approved capabilities, and functioning host runtimes.
-5. Read `UBERBOND_BOOTSTRAP.json` and every `canonPointers` path.
+5. Read `UBERBOND_BOOTSTRAP.json` and every `canonPointers` path, including `docs/WALLBREAKER_CANON.md`.
 6. Inspect open/recent PRs, branches, issues and recent commits before writing.
 7. Read current state/readiness and dedupe against canonical modules.
 8. Apply `docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md` plus `src/external-capability-control-plane.mjs` before installing or invoking external skills/plugins/runtimes.
+9. When a material mission is stuck, repeatedly failing, verifier-constrained, capability-constrained, or has multiple materially different solution families, invoke `.claude/skills/wallbreaker/SKILL.md` before repeating the same mechanism.
 
 At material commit/PR/deploy/deliverable boundaries, flush any genuinely useful Task Observer observations. Do not invent observations to satisfy a quota.
 
@@ -59,11 +61,33 @@ When a task exposes a missing capability:
 
 Registry presence, installation, a clean scanner, a benchmark win, and an estimated economic prior are not production proof. Revoked capabilities are never selectable. Large discovery corpora stay outside Claude context; load only the winning evidence bodies.
 
+## Wallbreaker law
+
+Wallbreaker is UberBond's governed adaptive problem-solving primitive, not a new authority layer.
+
+Use it when a high-value mission is stuck, an implementation/verifier/provider path repeatedly fails, an assumption has been falsified, an explicit capability gap blocks progress, or multiple materially different strategy families should be tournamented.
+
+The loop is:
+
+`compile wall -> generate diverse mechanisms -> score under hard constraints -> select frontier -> execute only through existing gates -> classify failure -> preserve evidence -> falsify assumptions -> resolve explicit Genome atom gaps -> replan`
+
+Rules:
+
+- Never blind-retry an unchanged failed mechanism when the external outcome is uncertain.
+- Never weaken a verifier merely to get green output.
+- Semantic capability labels are not Capability Genome atom IDs. Atom IDs must be explicit or separately verified; never guess the mapping.
+- A Genome retrieval gap remains a gap. Discovery, installation, registry presence, or a human label never becomes fake availability.
+- Provider/model quota exhaustion is a legitimate routing/fallback signal, never permission to evade quotas or rotate unauthorized identities.
+- Authority blocks lead to lawful substitute, dependency redesign, or explicit escalation, never circumvention.
+- Wallbreaker compute tier may influence model routing/research depth but cannot widen budget, data, security scope, or consequence authority.
+- Every Wallbreaker result carries `businessEffectAuthority: NONE` and the canonical zero external-effect ledger until an independent consequence-gated execution path actually runs.
+
 ## Claude-specific routing law
 
 - Missing specialized skill -> check UberBond first, then **Find Skills**.
 - Need to optimize the Claude setup -> **Claude automation recommender**, read-only first.
 - Repeated correction/manual friction -> **Task Observer**, recommendation-only.
+- High-value stuck/repeatedly failing mission -> **Wallbreaker**.
 - Long-session recall -> **Claude-Mem**, subordinate to repo memory.
 - Large tool/log/context pressure -> **Headroom**, only with originals preserved.
 - Provider/model resilience/cost-routing problem -> **OmniRoute** with observable provider/model identity.
@@ -90,4 +114,4 @@ Never claim a host runtime is installed/configured/healthy until `npm run capabi
 
 `current repository/executable truth -> durable external provider/customer evidence -> repository canon/master memory/handoffs -> approved working summaries -> plugin/session memory`
 
-Capability never creates authority. A plugin recommendation, memory summary, security score, model route, web result or skill output is not cleared payment, customer acceptance, legal clearance, consent, provider success, demand or renewal.
+Capability never creates authority. A plugin recommendation, Wallbreaker plan, memory summary, security score, model route, web result or skill output is not cleared payment, customer acceptance, legal clearance, consent, provider success, demand or renewal.

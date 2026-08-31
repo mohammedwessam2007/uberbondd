@@ -10,6 +10,7 @@ import {
   summarizeExternalCapabilities
 } from '../src/external-capability-control-plane.mjs';
 import { inspectCapabilityGenome } from '../src/capability-genome-doctor.mjs';
+import { WALLBREAKER_POLICY_VERSION } from '../src/wallbreaker.mjs';
 
 export const UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION = 'uberbond-brain-bootstrap-cli-1.3.0';
 export const MEMORY_RECONCILIATION_PATH = 'artifacts/uberbond-memory-reconciliation.json';
@@ -17,6 +18,8 @@ export const MASTER_MEMORY_RECONCILIATION_PATH = 'docs/UBERBOND_MASTER_MEMORY_RE
 export const EXTERNAL_CAPABILITY_REGISTRY_PATH = 'artifacts/external-skill-plugin-registry.json';
 export const CAPABILITY_GENOME_SOURCE_REGISTRY_PATH = 'artifacts/capability-genome/source-registry.json';
 export const CAPABILITY_GENOME_ATOM_TAXONOMY_PATH = 'artifacts/capability-genome/capability-atoms.json';
+export const WALLBREAKER_CANON_PATH = 'docs/WALLBREAKER_CANON.md';
+export const WALLBREAKER_MODULE_PATH = 'src/wallbreaker.mjs';
 
 const MAX_HANDOFF_ITEMS = 120;
 const MAX_HANDOFF_TEXT = 1200;
@@ -118,6 +121,8 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
   const capabilityRelative = assertSafeRelativePath(EXTERNAL_CAPABILITY_REGISTRY_PATH);
   const capabilityGenomeSourcesRelative = assertSafeRelativePath(CAPABILITY_GENOME_SOURCE_REGISTRY_PATH);
   const capabilityGenomeAtomsRelative = assertSafeRelativePath(CAPABILITY_GENOME_ATOM_TAXONOMY_PATH);
+  const wallbreakerCanonRelative = assertSafeRelativePath(WALLBREAKER_CANON_PATH);
+  const wallbreakerModuleRelative = assertSafeRelativePath(WALLBREAKER_MODULE_PATH);
   const rawMemoryIndex = readJson(path.join(root, memoryRelative), 'memory-index');
   const memoryReconciliation = readJson(path.join(root, MEMORY_RECONCILIATION_PATH), 'memory-reconciliation');
   const reconciled = applyUberBondMemoryReconciliation({
@@ -140,6 +145,8 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
     capabilityRelative,
     capabilityGenomeSourcesRelative,
     capabilityGenomeAtomsRelative,
+    wallbreakerCanonRelative,
+    wallbreakerModuleRelative,
     ...(Array.isArray(bootstrap.canonPointers) ? bootstrap.canonPointers : [])
   ])].map(assertSafeRelativePath);
   const missingPaths = declaredPaths.filter(relative => !fs.existsSync(path.join(root, relative)));
@@ -208,6 +215,16 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
       securityPolicyVersion: capabilityGenome.securityPolicyVersion,
       doctor: 'npm run capabilities:genome:doctor'
     },
+    wallbreaker: {
+      status: 'PROJECT_INTEGRATED_PLANNING_PRIMITIVE',
+      policyVersion: WALLBREAKER_POLICY_VERSION,
+      canon: wallbreakerCanonRelative,
+      module: wallbreakerModuleRelative,
+      command: 'npm run wallbreaker',
+      testCommand: 'npm run test:wallbreaker',
+      businessEffectAuthority: 'NONE',
+      genomeAtomLaw: 'EXPLICIT_OR_SEPARATELY_VERIFIED_MAPPING_ONLY'
+    },
     historicalLineageCorrection: reconciled.lineage,
     objective: compiled.context.objective,
     economicNorthStar: compiled.context.finalGoal?.economicNorthStar || null,
@@ -230,6 +247,8 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
       'Run/read npm run capabilities:doctor before relying on optional external runtimes.',
       'Run/read npm run capabilities:genome:doctor before world discovery, acquisition, promotion, or revocation work.',
       'Use the Capability Genome progressive retrieval and minimum-bundle control plane; never inject the world corpus into working context.',
+      'Read docs/WALLBREAKER_CANON.md and use Wallbreaker before repeating a materially failed mechanism or guessing through a capability/verifier wall.',
+      'Capability Genome atom IDs used by Wallbreaker must be explicit or separately verified; human labels are not atom IDs.',
       'Use src/external-capability-control-plane.mjs before invoking an external skill/runtime when data, provider, security, or source authority matters.',
       'Inspect live main and open/recent PRs before selecting work.',
       'Read current readiness/state for present-tense software truth.',
@@ -251,6 +270,7 @@ export function formatUberBondBrainPacket(packet) {
     `memory: ${packet.memoryDigest}`,
     `external capabilities: ${packet.externalCapabilityCount} (${packet.externalCapabilityDigest})`,
     `capability genome: ${packet.capabilityGenome.health}; sources=${packet.capabilityGenome.sourceCount}; measured-seeds=${packet.capabilityGenome.rawCandidateCount}; active=${packet.capabilityGenome.activeCapabilityCount}; corpus=${packet.capabilityGenome.corpusTruth}`,
+    `wallbreaker: ${packet.wallbreaker.status}; ${packet.wallbreaker.policyVersion}; authority=${packet.wallbreaker.businessEffectAuthority}`,
     `initiatives: ${packet.namedInitiativeCount}`,
     `lineage: ${(packet.historicalLineageCorrection || []).join(' -> ') || 'none'}`,
     `unresolved: ${packet.unresolvedNames.map(item => item.name).join(', ') || 'none'}`,

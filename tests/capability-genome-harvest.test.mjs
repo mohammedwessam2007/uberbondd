@@ -101,6 +101,16 @@ test('github executor is read-only, counts provider calls, and surfaces partitio
   assert.equal(result.externalEffectLedger.providerCalls, 1);
 });
 
+test('malformed github json fails closed while preserving the provider-call receipt', async () => {
+  const result = await executeGithubRepositorySearch({
+    partitions: [{ id: 'p1', query: 'agent skills', perPage: 100, maxPages: 1 }],
+    fetchImpl: async () => ({ ok: true, status: 200, headers: { get: () => null }, async json() { throw new SyntaxError('bad json'); } })
+  });
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('github-search-json-error'));
+  assert.equal(result.externalEffectLedger.providerCalls, 1);
+});
+
 test('rate limiting produces a receipt and never blind retries', async () => {
   let calls = 0;
   const result = await executeGithubRepositorySearch({
@@ -135,12 +145,16 @@ test('provider call ceiling returns partial progress instead of silently exceedi
   assert.equal(result.providerCalls, 1);
 });
 
-test('corpus persistence refuses to dump a scaled corpus into the git repository', () => {
+test('corpus persistence requires an explicit safe external directory and refuses git storage', () => {
   const corpus = buildMeasuredRepositoryCorpus({
     observedAt: '2026-08-31T15:00:00Z',
     queryReceipts: [{ query: 'agent skills', repositories: [repo('anthropics/skills')] }]
   });
   const repositoryRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'uberbond-repo-'));
+  const missing = writeMeasuredCorpusBatch({ corpus, repositoryRoot });
+  assert.equal(missing.ok, false);
+  assert.ok(missing.reasonCodes.includes('safe-corpus-directory-required'));
+
   const denied = writeMeasuredCorpusBatch({ corpusDir: path.join(repositoryRoot, 'artifacts', 'corpus'), corpus, repositoryRoot });
   assert.equal(denied.ok, false);
   assert.ok(denied.reasonCodes.includes('large-corpus-storage-must-live-outside-git'));

@@ -21,7 +21,7 @@
       "authority": "NONE",
       "risk": "LOW",
       "projectIntegration": {
-        "status": "PROJECT_SKILL_VENDORED",
+        "status": "PROJECT_SKILL_ADAPTED_AND_PINNED",
         "path": ".claude/skills/find-skills/SKILL.md",
         "activationMode": "CLAUDE_PROJECT_SKILL",
         "runtimeRequired": false
@@ -46,13 +46,13 @@
       "authority": "NONE",
       "risk": "LOW",
       "projectIntegration": {
-        "status": "PROJECT_SKILL_VENDORED",
+        "status": "PROJECT_SKILL_ADAPTED_AND_PINNED",
         "path": ".claude/skills/claude-automation-recommender/SKILL.md",
         "activationMode": "CLAUDE_PROJECT_SKILL",
         "runtimeRequired": false
       },
       "notes": [
-        "Official Anthropic plugin skill vendored project-locally so the audit method is available even before marketplace activation.",
+        "Official Anthropic plugin method adapted project-locally so the audit capability is available even before marketplace activation.",
         "Read-only recommendation does not authorize installation or consequenceful actions."
       ]
     },
@@ -70,7 +70,7 @@
       "authority": "NONE",
       "risk": "LOW",
       "projectIntegration": {
-        "status": "PROJECT_SKILL_BUNDLE_VENDORED",
+        "status": "PROJECT_SKILL_ADAPTED_BUNDLE",
         "path": ".claude/skills/task-observer/",
         "observationPath": "skill-observations/",
         "activationMode": "ALWAYS_OBSERVE_WHEN_CLAUDE_CODE_WORKS",
@@ -175,7 +175,7 @@
       "authority": "SECURITY_TEST_ONLY",
       "risk": "HIGH",
       "projectIntegration": {
-        "status": "PROJECT_SKILL_VENDORED_RUNTIME_BOOTSTRAP_READY",
+        "status": "PROJECT_SKILL_ADAPTED_RUNTIME_BOOTSTRAP_READY",
         "path": ".claude/skills/penetration-testing-with-strix/SKILL.md",
         "bootstrap": "pipx install strix-agent",
         "runtimeRequired": true,
@@ -202,7 +202,7 @@
       "authority": "NONE",
       "risk": "HIGH_POLICY_SENSITIVITY",
       "projectIntegration": {
-        "status": "PROJECT_SKILL_VENDORED_SAFE_HOST_BOOTSTRAP_READY",
+        "status": "PROJECT_SKILL_ADAPTED_SAFE_HOST_BOOTSTRAP_READY",
         "path": ".claude/skills/agent-reach/SKILL.md",
         "bootstrap": "pipx install https://github.com/Panniantong/agent-reach/archive/main.zip && agent-reach install --env=auto",
         "safeDefault": "CHECK_ONLY_NO_SYSTEM_CHANGES_NO_PRIVATE_CHANNELS",
@@ -218,24 +218,22 @@
     }
   ],
   "assimilationOrder": [
-    "Find Skills and Claude Code Setup are project-local skills for discovery and audit.",
-    "Task Observer is a project-local recommendation-only self-improvement observer.",
+    "Find Skills and Claude Code Setup are project-local adapted skills for discovery and audit.",
+    "Task Observer is a project-local adapted recommendation-only self-improvement observer.",
     "Claude-Mem is host-bootstrap-ready subordinate working memory.",
     "Headroom is host-bootstrap-ready reversible context optimization.",
     "OmniRoute is host-bootstrap-ready isolated routing/fallback evaluation.",
-    "Strix is a vendored skill plus host-bootstrap-ready owned-target security verifier.",
-    "Agent Reach is a vendored skill plus safe check-only host bootstrap for policy-cleared public research."
+    "Strix is an adapted project skill plus host-bootstrap-ready owned-target security verifier.",
+    "Agent Reach is an adapted project skill plus safe check-only host bootstrap for policy-cleared public research."
   ],
   "businessEffectAuthority": "NONE",
   "externalEffectLedger": {
-    "customerContacts": 0,
+    "providerCalls": 0,
     "messages": 0,
-    "providerModelExecutions": 0,
     "purchases": 0,
+    "deployments": 0,
     "credentialChanges": 0,
     "dnsChanges": 0,
-    "moneyMovement": 0,
-    "customerSystemMutations": 0,
     "productionMutations": 0,
     "spendCents": 0
   }

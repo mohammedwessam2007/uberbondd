@@ -33,6 +33,12 @@ test('malformed corpus counts fail closed instead of becoming measured truth', (
   assert.ok(result.reasonCodes.includes('nonnegative-corpus-counts-required'));
 });
 
+test('repository metadata receipts cannot manufacture skill-body or normalized-capability imports', () => {
+  const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: { ...corpusState, skillBodiesImported: 1, capabilityRecordsNormalized: 1 }, capabilityRecords: [] });
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('repository-metadata-corpus-cannot-claim-body-or-capability-import'));
+});
+
 test('approved and active counts come only from lifecycle records, never corpus metadata counters', () => {
   const capabilityRecords = [
     { id: 'a', canonicalIdentity: 'cap:a', sourceHash: 'x', promotionState: 'APPROVED' },

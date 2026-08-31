@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-08-31**
 Branch: `claude/uberbond-kilimanjaro-closure-hha0oo`
-Reconciled from current head: `2c753ed1d39b9337790cf9678e5af999d2fa20e7`
+Reconciled from current head: `32c646f8edef9cc6028323f4a179710710e720a5`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 

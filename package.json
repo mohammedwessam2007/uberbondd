@@ -51,7 +51,9 @@
     "capabilities:doctor": "node scripts/external-capability-doctor.mjs",
     "capabilities:bootstrap": "node scripts/bootstrap-external-capabilities.mjs",
     "capabilities:bootstrap:apply": "node scripts/bootstrap-external-capabilities.mjs --apply",
-    "test:external-capabilities": "node --test tests/external-capability-control-plane.test.mjs"
+    "test:external-capabilities": "node --test tests/external-capability-control-plane.test.mjs",
+    "wallbreaker": "node scripts/wallbreaker-plan.mjs",
+    "test:wallbreaker": "node --test tests/wallbreaker.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

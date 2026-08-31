@@ -2,16 +2,16 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 639,
-      "ranAt": "2026-08-31T12:31:54Z"
+      "filesParsed": 643,
+      "ranAt": "2026-08-31T14:02:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2932,
-      "pass": 2881,
+      "tests": 2948,
+      "pass": 2897,
       "fail": 0,
       "skipped": 51,
-      "ranAt": "2026-08-31T12:52:08Z"
+      "ranAt": "2026-08-31T14:02:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -58,13 +58,13 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 261,
+      "srcModules": 262,
       "reachableFromProduction": 131,
-      "reachableFromOperatorScriptsOnly": 11,
+      "reachableFromOperatorScriptsOnly": 12,
       "noEntryPointAtAll": 119,
       "allClassified": true,
-      "ranAt": "2026-08-31T12:31:54Z",
-      "note": "src is walked recursively. The Capability Genome schema, admission, retrieval, discovery, and doctor modules are reachable through production job handlers and the repository brain; the no-entry classification count remains 119."
+      "ranAt": "2026-08-31T14:02:00Z",
+      "note": "src is walked recursively. Wallbreaker is reachable through its operator script and the Capability Genome remains production-reachable through jobs and the repository brain; the no-entry classification count remains 119."
     }
   },
   "capabilities": [

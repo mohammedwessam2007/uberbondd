@@ -48,6 +48,8 @@
     "test:mutation-war": "node scripts/mutation-war.mjs",
     "brain": "node scripts/uberbond-brain-bootstrap.mjs",
     "readiness": "node scripts/system-readiness.mjs",
+    "wallbreaker": "node scripts/wallbreaker-plan.mjs",
+    "test:wallbreaker": "node --test tests/wallbreaker.test.mjs tests/wallbreaker-retry-safety.test.mjs",
     "capabilities:doctor": "node scripts/external-capability-doctor.mjs",
     "capabilities:genome:doctor": "node scripts/capability-genome-doctor.mjs",
     "capabilities:bootstrap": "node scripts/bootstrap-external-capabilities.mjs",

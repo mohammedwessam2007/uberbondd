@@ -65,6 +65,9 @@ test('one-command loader validates actual bootstrap, reconciled memory, and exte
   assert.equal(packet.capabilityGenome.rawCandidateCount, 8);
   assert.equal(packet.capabilityGenome.activeCapabilityCount, 0);
   assert.equal(packet.capabilityGenome.corpusTruth, 'SEED_SUPPLIER_REGISTRY_ONLY__NO_WORLD_CORPUS_IMPORTED');
+  assert.equal(packet.wallbreaker.status, 'PROJECT_INTEGRATED_PLANNING_PRIMITIVE');
+  assert.equal(packet.wallbreaker.policyVersion, 'wallbreaker-1.1.1');
+  assert.equal(packet.wallbreaker.businessEffectAuthority, 'NONE');
   assert.deepEqual(new Set(packet.externalCapabilities.map(item => item.id)), new Set([
     'find-skills',
     'claude-code-setup',

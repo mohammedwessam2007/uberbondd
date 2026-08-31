@@ -9,11 +9,14 @@ import {
   validateExternalCapabilityRegistry,
   summarizeExternalCapabilities
 } from '../src/external-capability-control-plane.mjs';
+import { inspectCapabilityGenome } from '../src/capability-genome-doctor.mjs';
 
-export const UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION = 'uberbond-brain-bootstrap-cli-1.2.0';
+export const UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION = 'uberbond-brain-bootstrap-cli-1.3.0';
 export const MEMORY_RECONCILIATION_PATH = 'artifacts/uberbond-memory-reconciliation.json';
 export const MASTER_MEMORY_RECONCILIATION_PATH = 'docs/UBERBOND_MASTER_MEMORY_RECONCILIATION_2026-08-29.md';
 export const EXTERNAL_CAPABILITY_REGISTRY_PATH = 'artifacts/external-skill-plugin-registry.json';
+export const CAPABILITY_GENOME_SOURCE_REGISTRY_PATH = 'artifacts/capability-genome/source-registry.json';
+export const CAPABILITY_GENOME_ATOM_TAXONOMY_PATH = 'artifacts/capability-genome/capability-atoms.json';
 
 const MAX_HANDOFF_ITEMS = 120;
 const MAX_HANDOFF_TEXT = 1200;
@@ -113,6 +116,8 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
   const memoryRelative = assertSafeRelativePath(bootstrap.memoryIndexPath || 'artifacts/uberbond-memory-index.json');
   const handoffRelative = assertSafeRelativePath(bootstrap?.continuity?.handoffPath || 'docs/CURRENT_HANDOFF.json');
   const capabilityRelative = assertSafeRelativePath(EXTERNAL_CAPABILITY_REGISTRY_PATH);
+  const capabilityGenomeSourcesRelative = assertSafeRelativePath(CAPABILITY_GENOME_SOURCE_REGISTRY_PATH);
+  const capabilityGenomeAtomsRelative = assertSafeRelativePath(CAPABILITY_GENOME_ATOM_TAXONOMY_PATH);
   const rawMemoryIndex = readJson(path.join(root, memoryRelative), 'memory-index');
   const memoryReconciliation = readJson(path.join(root, MEMORY_RECONCILIATION_PATH), 'memory-reconciliation');
   const reconciled = applyUberBondMemoryReconciliation({
@@ -133,6 +138,8 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
     MEMORY_RECONCILIATION_PATH,
     MASTER_MEMORY_RECONCILIATION_PATH,
     capabilityRelative,
+    capabilityGenomeSourcesRelative,
+    capabilityGenomeAtomsRelative,
     ...(Array.isArray(bootstrap.canonPointers) ? bootstrap.canonPointers : [])
   ])].map(assertSafeRelativePath);
   const missingPaths = declaredPaths.filter(relative => !fs.existsSync(path.join(root, relative)));
@@ -155,6 +162,18 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
     error.reasonCodes = capabilitySummary.reasonCodes;
     throw error;
   }
+  const capabilityGenome = inspectCapabilityGenome({
+    sourceRegistry: readJson(path.join(root, capabilityGenomeSourcesRelative), 'capability-genome-source-registry'),
+    atomTaxonomy: readJson(path.join(root, capabilityGenomeAtomsRelative), 'capability-genome-atom-taxonomy'),
+    capabilityRecords: [],
+    existingSupplierRegistry: rawCapabilityRegistry,
+    now
+  });
+  if (!capabilityGenome.ok) {
+    const error = new Error('capability-genome-health-failed');
+    error.reasonCodes = capabilityGenome.reasonCodes;
+    throw error;
+  }
 
   const compiled = compileUberBondProjectContext({
     bootstrap,
@@ -171,7 +190,7 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
 
   const handoffFreshAgainstSource = Boolean(handoff.handoffBasisSha && handoff.handoffBasisSha === commit);
   const packet = {
-    schemaVersion: 'uberbond-repository-brain-packet-1.2.0',
+    schemaVersion: 'uberbond-repository-brain-packet-1.3.0',
     cliVersion: UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION,
     project: 'UberBond',
     sourceCommit: commit,
@@ -183,6 +202,12 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
     externalCapabilities: capabilitySummary.capabilities,
     externalCapabilityControlPlane: 'src/external-capability-control-plane.mjs',
     externalCapabilityDoctor: 'npm run capabilities:doctor',
+    capabilityGenome: {
+      ...capabilityGenome.state,
+      capabilityGraphDigest: capabilityGenome.capabilityGraphDigest,
+      securityPolicyVersion: capabilityGenome.securityPolicyVersion,
+      doctor: 'npm run capabilities:genome:doctor'
+    },
     historicalLineageCorrection: reconciled.lineage,
     objective: compiled.context.objective,
     economicNorthStar: compiled.context.finalGoal?.economicNorthStar || null,
@@ -203,6 +228,8 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
     requiredNextReads: [
       MASTER_MEMORY_RECONCILIATION_PATH,
       'Run/read npm run capabilities:doctor before relying on optional external runtimes.',
+      'Run/read npm run capabilities:genome:doctor before world discovery, acquisition, promotion, or revocation work.',
+      'Use the Capability Genome progressive retrieval and minimum-bundle control plane; never inject the world corpus into working context.',
       'Use src/external-capability-control-plane.mjs before invoking an external skill/runtime when data, provider, security, or source authority matters.',
       'Inspect live main and open/recent PRs before selecting work.',
       'Read current readiness/state for present-tense software truth.',
@@ -223,6 +250,7 @@ export function formatUberBondBrainPacket(packet) {
     `context: ${packet.contextDigest}`,
     `memory: ${packet.memoryDigest}`,
     `external capabilities: ${packet.externalCapabilityCount} (${packet.externalCapabilityDigest})`,
+    `capability genome: ${packet.capabilityGenome.health}; sources=${packet.capabilityGenome.sourceCount}; measured-seeds=${packet.capabilityGenome.rawCandidateCount}; active=${packet.capabilityGenome.activeCapabilityCount}; corpus=${packet.capabilityGenome.corpusTruth}`,
     `initiatives: ${packet.namedInitiativeCount}`,
     `lineage: ${(packet.historicalLineageCorrection || []).join(' -> ') || 'none'}`,
     `unresolved: ${packet.unresolvedNames.map(item => item.name).join(', ') || 'none'}`,

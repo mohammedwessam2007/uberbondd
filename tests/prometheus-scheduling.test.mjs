@@ -27,6 +27,31 @@ test('prometheus.capability_gap.recompute writes a real snapshot receipt and ret
   assert.equal(receipts[0].detail.total, result.total);
 });
 
+test('prometheus.capability_genome.plan persists a zero-effect bounded plan without importing a corpus', async () => {
+  const store = await tempStore();
+  const handlers = createJobHandlers({ store, cfg: {}, pipeline: {}, revenue: {}, discoveryRunner: {} });
+  const result = await handlers['prometheus.capability_genome.plan']({ sourceIds: ['official-mcp-registry'], budget: { maxRecordsPerSource: 25 } });
+  assert.equal(result.ok, true);
+  assert.equal(result.status, 'DISCOVERY_PLAN_COMPILED_NOT_EXECUTED');
+  assert.equal(result.plans[0].maxRecords, 25);
+  assert.equal(result.externalEffectLedger.providerCalls, 0);
+  const receipts = await store.list('auditLog', { filters: { type: 'capability_genome_discovery_plan' } });
+  assert.equal(receipts.length, 1);
+  assert.equal(receipts[0].detail.planDigest, result.planDigest);
+});
+
+test('prometheus.capability_genome.acquire is a zero-effect local decision seam', async () => {
+  const store = await tempStore();
+  const handlers = createJobHandlers({ store, cfg: {}, pipeline: {}, revenue: {}, discoveryRunner: {} });
+  const result = await handlers['prometheus.capability_genome.acquire']({ mission: 'missing task', requiredAtomIds: ['missing.atom'], capabilities: [] });
+  assert.equal(result.ok, true);
+  assert.equal(result.status, 'WORLD_SEARCH_REQUIRED');
+  assert.equal(result.externalEffectLedger.providerCalls, 0);
+  const receipts = await store.list('auditLog', { filters: { type: 'capability_genome_acquisition_decision' } });
+  assert.equal(receipts.length, 1);
+  assert.deepEqual(receipts[0].detail.missingAtomIds, ['missing.atom']);
+});
+
 test('prometheus.commercial_memory.contradiction_scan finds nothing and writes no receipt when memory is empty', async () => {
   const store = await tempStore();
   const handlers = createJobHandlers({ store, cfg: {}, pipeline: {}, revenue: {}, discoveryRunner: {} });
@@ -54,6 +79,7 @@ test('neither Prometheus job is registered when prometheus.schedulingEnabled is 
   const stop = startScheduler(fakeQueue, { autopilot: true, maxBatch: 10, replyPollMinutes: 10, prometheus: { schedulingEnabled: false } }, { error: () => {} });
   stop();
   assert.ok(!enqueued.includes('prometheus.capability_gap.recompute'));
+  assert.ok(!enqueued.includes('prometheus.capability_genome.plan'));
   assert.ok(!enqueued.includes('prometheus.commercial_memory.contradiction_scan'));
 });
 
@@ -72,6 +98,7 @@ test('both Prometheus jobs ARE registered when autopilot AND prometheus.scheduli
   await new Promise(resolve => setTimeout(resolve, 20)); // let the scheduler's initial (microtask-deferred) enqueue calls settle
   stop();
   assert.ok(enqueued.includes('prometheus.capability_gap.recompute'));
+  assert.ok(enqueued.includes('prometheus.capability_genome.plan'));
   assert.ok(enqueued.includes('prometheus.commercial_memory.contradiction_scan'));
 });
 

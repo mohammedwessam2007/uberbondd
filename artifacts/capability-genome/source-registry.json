@@ -1,0 +1,127 @@
+{
+  "schemaVersion": "uberbond.capability-genome.sources.v1",
+  "generatedAt": "2026-08-31T12:00:00.000Z",
+  "truthBoundary": "Counts are zero unless UberBond itself completed a measured import. Directory page counts remain CREATOR_CLAIM and never become corpus evidence.",
+  "sources": [
+    {
+      "id": "official-mcp-registry",
+      "name": "Official MCP Registry",
+      "sourceClass": "OFFICIAL_REGISTRY",
+      "accessMode": "API",
+      "effectClass": "DISCOVERY_ONLY",
+      "url": "https://registry.modelcontextprotocol.io/",
+      "artifactTypes": ["MCP_SERVER"],
+      "incrementalCursor": true,
+      "countEvidence": { "class": "UNKNOWN", "count": 0 },
+      "prohibited": ["CAPTCHA_BYPASS", "PRIVATE_SESSION", "PROHIBITED_SCRAPING"]
+    },
+    {
+      "id": "github-public-capability-search",
+      "name": "GitHub public repository and code metadata",
+      "sourceClass": "GITHUB_API",
+      "accessMode": "API",
+      "effectClass": "DISCOVERY_ONLY",
+      "url": "https://docs.github.com/en/rest/search/search",
+      "artifactTypes": ["SKILL", "MCP_SERVER", "CLI", "LIBRARY", "SDK", "PLUGIN", "AGENT", "FRAMEWORK_PRIMITIVE", "DOCKER_SERVICE", "WORKFLOW", "GITHUB_ACTION", "RUNTIME"],
+      "incrementalCursor": true,
+      "countEvidence": { "class": "UNKNOWN", "count": 0 },
+      "prohibited": ["CAPTCHA_BYPASS", "PRIVATE_SESSION", "PROHIBITED_SCRAPING"]
+    },
+    {
+      "id": "skills-sh",
+      "name": "skills.sh and vercel-labs/skills",
+      "sourceClass": "PUBLIC_INDEX",
+      "accessMode": "PUBLIC_WEB",
+      "effectClass": "DISCOVERY_ONLY",
+      "url": "https://skills.sh/",
+      "artifactTypes": ["SKILL"],
+      "incrementalCursor": false,
+      "countEvidence": { "class": "UNKNOWN", "count": 0 },
+      "prohibited": ["CAPTCHA_BYPASS", "PRIVATE_SESSION", "PROHIBITED_SCRAPING"]
+    },
+    {
+      "id": "skillsmp",
+      "name": "SkillsMP",
+      "sourceClass": "PUBLIC_INDEX",
+      "accessMode": "PUBLIC_WEB",
+      "effectClass": "DISCOVERY_ONLY",
+      "url": "https://skillsmp.com/",
+      "artifactTypes": ["SKILL"],
+      "incrementalCursor": false,
+      "countEvidence": { "class": "CREATOR_CLAIM", "count": 2872898, "unit": "COLLECTED_FILES", "observedAt": "2026-08-31T12:00:00.000Z", "note": "Homepage creator claim; not independently reproduced and not additive with other directories." },
+      "prohibited": ["CAPTCHA_BYPASS", "PRIVATE_SESSION", "PROHIBITED_SCRAPING"]
+    },
+    {
+      "id": "gitskills-research-corpus",
+      "name": "GitSkills research corpus",
+      "sourceClass": "ACADEMIC_CORPUS",
+      "accessMode": "PUBLIC_WEB",
+      "effectClass": "READ_ONLY",
+      "url": "https://arxiv.org/abs/2608.10906",
+      "artifactTypes": ["SKILL"],
+      "incrementalCursor": false,
+      "countEvidence": { "class": "CREATOR_CLAIM", "count": 3797117, "unit": "SKILL_FILE_OCCURRENCES", "observedAt": "2026-08-31T12:00:00.000Z", "note": "Paper-reported occurrences from 282,200 repositories; 1,877,981 distinct content hashes. Snapshot is not an UberBond import." },
+      "prohibited": ["CAPTCHA_BYPASS", "PRIVATE_SESSION", "PROHIBITED_SCRAPING"]
+    },
+    {
+      "id": "agent-skills-hub",
+      "name": "AgentSkillsHub",
+      "sourceClass": "PUBLIC_INDEX",
+      "accessMode": "PUBLIC_WEB",
+      "effectClass": "DISCOVERY_ONLY",
+      "url": "https://agentskillshub.dev/",
+      "artifactTypes": ["SKILL", "MCP_SERVER"],
+      "incrementalCursor": false,
+      "countEvidence": { "class": "UNKNOWN", "count": 0 },
+      "prohibited": ["CAPTCHA_BYPASS", "PRIVATE_SESSION", "PROHIBITED_SCRAPING"]
+    },
+    {
+      "id": "npm-public-registry",
+      "name": "npm public registry",
+      "sourceClass": "PACKAGE_REGISTRY",
+      "accessMode": "API",
+      "effectClass": "DISCOVERY_ONLY",
+      "url": "https://registry.npmjs.org/",
+      "artifactTypes": ["CLI", "LIBRARY", "SDK", "MCP_SERVER", "RUNTIME"],
+      "incrementalCursor": true,
+      "countEvidence": { "class": "UNKNOWN", "count": 0 },
+      "prohibited": ["CAPTCHA_BYPASS", "PRIVATE_SESSION", "PROHIBITED_SCRAPING"]
+    },
+    {
+      "id": "pypi-public-api",
+      "name": "PyPI public API",
+      "sourceClass": "PACKAGE_REGISTRY",
+      "accessMode": "API",
+      "effectClass": "DISCOVERY_ONLY",
+      "url": "https://docs.pypi.org/api/",
+      "artifactTypes": ["CLI", "LIBRARY", "SDK", "MCP_SERVER", "RUNTIME"],
+      "incrementalCursor": true,
+      "countEvidence": { "class": "UNKNOWN", "count": 0 },
+      "prohibited": ["CAPTCHA_BYPASS", "PRIVATE_SESSION", "PROHIBITED_SCRAPING"]
+    },
+    {
+      "id": "arxiv-agent-capability-research",
+      "name": "arXiv capability, retrieval, composition, and security research",
+      "sourceClass": "ACADEMIC_CORPUS",
+      "accessMode": "API",
+      "effectClass": "READ_ONLY",
+      "url": "https://info.arxiv.org/help/api/index.html",
+      "artifactTypes": ["WORKFLOW", "FRAMEWORK_PRIMITIVE"],
+      "incrementalCursor": true,
+      "countEvidence": { "class": "UNKNOWN", "count": 0 },
+      "prohibited": ["CAPTCHA_BYPASS", "PRIVATE_SESSION", "PROHIBITED_SCRAPING"]
+    },
+    {
+      "id": "uberbond-approved-suppliers",
+      "name": "Existing UberBond governed external supplier registry",
+      "sourceClass": "APPROVED_SUPPLIER_REGISTRY",
+      "accessMode": "LOCAL_FILE",
+      "effectClass": "READ_ONLY",
+      "url": "https://github.com/mohammedwessam2007/uberbondd/blob/main/artifacts/external-skill-plugin-registry.json",
+      "artifactTypes": ["SKILL", "PLUGIN", "RUNTIME", "EXTERNAL_ADAPTER"],
+      "incrementalCursor": false,
+      "countEvidence": { "class": "MEASURED_IMPORT", "scope": "EXISTING_APPROVED_SUPPLIER_SEEDS", "count": 8, "observedAt": "2026-08-31T12:00:00.000Z", "note": "Validated by external-capability-control-plane; supplier registration is not runtime proof." },
+      "prohibited": ["CAPTCHA_BYPASS", "PRIVATE_SESSION", "PROHIBITED_SCRAPING"]
+    }
+  ]
+}

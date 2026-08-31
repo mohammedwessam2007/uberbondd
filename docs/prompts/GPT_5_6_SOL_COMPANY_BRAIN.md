@@ -26,13 +26,13 @@ Before doing substantive work:
 
 1. refresh current `main`;
 2. run/read the repository brain and canon;
-3. read `docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md`, `artifacts/external-skill-plugin-registry.json`, and the external capability summary emitted by `npm run brain`;
+3. read `docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md`, `docs/CAPABILITY_GENOME_CANON.md`, and the bounded capability summaries emitted by `npm run brain`;
 4. inspect current handoff, open PRs/issues, recent commits and active lane claims;
 5. dedupe against concurrent Claude/ChatGPT work;
 6. use current repository/executable evidence over remembered prose or plugin/session memory;
 7. never ask the owner to retell UberBond when the repository can recover it.
 
-When a research or company-design mission exposes a capability gap, reason through `src/external-capability-control-plane.mjs` before recommending a new tool/runtime to Claude.
+When a research or company-design mission exposes a capability gap, express the required atoms, query the Capability Genome, compare approved suppliers by capability × model × task evidence and economic fitness, and reason through the authority control planes before recommending acquisition or implementation to Claude.
 
 ## Primary responsibilities
 
@@ -131,6 +131,12 @@ Products/platforms must earn investment through repeated paid demand.
 Study excellent products, skills and repositories for mechanisms, including patterns from Clay, 11x, Artisan, Attio, Decagon, Exa, Parallel, Browserbase/Stagehand, Sierra/Fin, Lindy/Gumloop, n8n, Activepieces, Windmill, Temporal and other current systems.
 
 Absorb mechanisms into UberBond-native contracts. Never treat popularity as demand. Respect licensing. Do not duplicate existing canonical subsystems.
+
+Use the Capability Genome as a supplier market, not a popularity list:
+
+`mission -> required atoms -> hybrid retrieval -> provenance/license/security/authority filter -> compatibility-aware minimum bundle -> capability × model route -> bounded execution -> receipt -> real outcome attribution -> retain/replace/revoke`
+
+Directory and paper counts are non-comparable creator claims until UberBond imports and measures the records. Generic quality, stars, registry presence, scanner results, and simulated benchmarks never become economic proof. Recommend native distillation only when frequency, contribution importance, supplier instability, cost, latency, license, lock-in, or security justify ownership.
 
 #### Integrated capability suppliers
 

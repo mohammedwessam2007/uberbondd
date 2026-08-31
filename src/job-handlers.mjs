@@ -105,6 +105,11 @@ import {
   inspectProviderInfrastructure
 } from './mailhub-control-plane.mjs';
 import { normalizeInfrastructureEvent } from './provider-infrastructure-events.mjs';
+import {
+  loadCapabilityGenomeSourceRegistry,
+  planIncrementalDiscovery
+} from './capability-genome-discovery.mjs';
+import { acquireCapability } from './capability-genome-runtime.mjs';
 
 // NOTE (Wave 0 parallel-spine reconciliation -- see
 // docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md): two concurrent
@@ -145,6 +150,49 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       const summary = capabilityGraphSummary();
       await store.log('capability_graph_snapshot', summary);
       return summary;
+    },
+    // Compiles the next bounded world-capability refresh tranche from the
+    // canonical source registry. This scheduled seam never calls the network;
+    // an independently authorized adapter must execute a returned plan and
+    // provide immutable observations before any corpus count can increase.
+    'prometheus.capability_genome.plan': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const registry = loadCapabilityGenomeSourceRegistry();
+      if (registry?.ok === false) return registry;
+      const result = planIncrementalDiscovery({
+        sourceRegistry: registry,
+        sourceIds: input.sourceIds,
+        cursors: input.cursors,
+        budget: input.budget
+      });
+      if (result.ok) await store.log('capability_genome_discovery_plan', {
+        status: result.status,
+        planDigest: result.planDigest,
+        sourceIds: result.plans.map(plan => plan.sourceId),
+        externalEffectLedger: result.externalEffectLedger
+      });
+      return result;
+    },
+    // Performs local retrieval, authority filtering, composition, and
+    // capability x model route selection over caller-supplied normalized
+    // records. A ready decision is still only a mission contract: this
+    // handler does not install a package, call a provider, or execute a tool.
+    'prometheus.capability_genome.acquire': async payload => {
+      const input = payload && typeof payload === 'object' ? payload : {};
+      const result = acquireCapability(input);
+      if (result.ok) await store.log('capability_genome_acquisition_decision', {
+        status: result.status,
+        acquisitionDigest: result.acquisitionDigest,
+        selectedCapabilityIds: result.bundle?.selected?.map(item => item.id) || [],
+        missingAtomIds: result.bundle?.uncoveredAtomIds || [],
+        route: result.route?.selected ? {
+          capabilityId: result.route.selected.capabilityId,
+          modelId: result.route.selected.modelId,
+          providerId: result.route.selected.providerId
+        } : null,
+        externalEffectLedger: result.externalEffectLedger
+      });
+      return result;
     },
     // Read-only: scans existing commercial memory for hypotheses with both
     // positive and negative real outcomes on record and logs a receipt if

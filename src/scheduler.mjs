@@ -33,6 +33,7 @@ export function startScheduler(queue, cfg, log = console) {
     if (cfg.prometheus?.schedulingEnabled) {
       recurring.push(
         ['prometheus.capability_gap.recompute', 6 * HOUR, {}, { maxAttempts: 2 }],
+        ['prometheus.capability_genome.plan', 24 * HOUR, { budget: { maxSources: 20, maxRecordsPerSource: 100 } }, { maxAttempts: 2 }],
         ['prometheus.commercial_memory.contradiction_scan', 24 * HOUR, {}, { maxAttempts: 2 }],
         ['prometheus.commercial.catalog', 24 * HOUR, {}, { maxAttempts: 2 }]
       );

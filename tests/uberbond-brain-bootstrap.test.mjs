@@ -8,7 +8,9 @@ import {
   formatUberBondBrainPacket,
   MEMORY_RECONCILIATION_PATH,
   MASTER_MEMORY_RECONCILIATION_PATH,
-  EXTERNAL_CAPABILITY_REGISTRY_PATH
+  EXTERNAL_CAPABILITY_REGISTRY_PATH,
+  CAPABILITY_GENOME_SOURCE_REGISTRY_PATH,
+  CAPABILITY_GENOME_ATOM_TAXONOMY_PATH
 } from '../scripts/uberbond-brain-bootstrap.mjs';
 
 const sourceRoot = path.resolve(new URL('..', import.meta.url).pathname);
@@ -21,12 +23,16 @@ function buildFixture(mutator = null) {
   const reconciliation = JSON.parse(fs.readFileSync(path.join(sourceRoot, MEMORY_RECONCILIATION_PATH), 'utf8'));
   const handoff = JSON.parse(fs.readFileSync(path.join(sourceRoot, 'docs/CURRENT_HANDOFF.json'), 'utf8'));
   const externalCapabilities = JSON.parse(fs.readFileSync(path.join(sourceRoot, EXTERNAL_CAPABILITY_REGISTRY_PATH), 'utf8'));
-  mutator?.({ bootstrap, memory, reconciliation, handoff, externalCapabilities });
+  const capabilityGenomeSources = JSON.parse(fs.readFileSync(path.join(sourceRoot, CAPABILITY_GENOME_SOURCE_REGISTRY_PATH), 'utf8'));
+  const capabilityGenomeAtoms = JSON.parse(fs.readFileSync(path.join(sourceRoot, CAPABILITY_GENOME_ATOM_TAXONOMY_PATH), 'utf8'));
+  mutator?.({ bootstrap, memory, reconciliation, handoff, externalCapabilities, capabilityGenomeSources, capabilityGenomeAtoms });
   for (const relative of new Set([
     'UBERBOND_BOOTSTRAP.json',
     MEMORY_RECONCILIATION_PATH,
     MASTER_MEMORY_RECONCILIATION_PATH,
     EXTERNAL_CAPABILITY_REGISTRY_PATH,
+    CAPABILITY_GENOME_SOURCE_REGISTRY_PATH,
+    CAPABILITY_GENOME_ATOM_TAXONOMY_PATH,
     ...bootstrap.canonPointers
   ])) {
     const absolute = path.join(root, relative);
@@ -37,6 +43,8 @@ function buildFixture(mutator = null) {
     else if (relative === MASTER_MEMORY_RECONCILIATION_PATH) fs.writeFileSync(absolute, 'source-backed Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation reconciliation\n');
     else if (relative === bootstrap.continuity.handoffPath) fs.writeFileSync(absolute, JSON.stringify(handoff, null, 2));
     else if (relative === EXTERNAL_CAPABILITY_REGISTRY_PATH) fs.writeFileSync(absolute, JSON.stringify(externalCapabilities, null, 2));
+    else if (relative === CAPABILITY_GENOME_SOURCE_REGISTRY_PATH) fs.writeFileSync(absolute, JSON.stringify(capabilityGenomeSources, null, 2));
+    else if (relative === CAPABILITY_GENOME_ATOM_TAXONOMY_PATH) fs.writeFileSync(absolute, JSON.stringify(capabilityGenomeAtoms, null, 2));
     else fs.writeFileSync(absolute, `fixture for ${relative}\n`);
   }
   return root;
@@ -52,6 +60,11 @@ test('one-command loader validates actual bootstrap, reconciled memory, and exte
   assert.match(packet.memoryReconciliationDigest, /^[a-f0-9]{64}$/);
   assert.match(packet.externalCapabilityDigest, /^[a-f0-9]{64}$/);
   assert.equal(packet.externalCapabilityCount, 8);
+  assert.equal(packet.capabilityGenome.health, 'FOUNDATION_HEALTHY');
+  assert.equal(packet.capabilityGenome.sourceCount, 10);
+  assert.equal(packet.capabilityGenome.rawCandidateCount, 8);
+  assert.equal(packet.capabilityGenome.activeCapabilityCount, 0);
+  assert.equal(packet.capabilityGenome.corpusTruth, 'SEED_SUPPLIER_REGISTRY_ONLY__NO_WORLD_CORPUS_IMPORTED');
   assert.deepEqual(new Set(packet.externalCapabilities.map(item => item.id)), new Set([
     'find-skills',
     'claude-code-setup',
@@ -81,6 +94,17 @@ test('brain fails closed when the external capability registry is corrupted', ()
   assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit }), error => {
     assert.equal(error.message, 'external-capability-registry-invalid');
     assert.ok(error.reasonCodes.includes('invalid-capability-entry'));
+    return true;
+  });
+});
+
+test('brain fails closed when the capability genome source registry is corrupted', () => {
+  const root = buildFixture(({ capabilityGenomeSources }) => {
+    capabilityGenomeSources.sources[1].id = capabilityGenomeSources.sources[0].id;
+  });
+  assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit }), error => {
+    assert.equal(error.message, 'capability-genome-health-failed');
+    assert.ok(error.reasonCodes.includes('unique-source-id-required'));
     return true;
   });
 });
@@ -152,6 +176,7 @@ test('human summary stays bounded and exposes capability assimilation without du
   const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit });
   const output = formatUberBondBrainPacket(packet);
   assert.match(output, /external capabilities: 8 \([a-f0-9]{64}\)/);
+  assert.match(output, /capability genome: FOUNDATION_HEALTHY; sources=10; measured-seeds=8; active=0/);
   assert.match(output, /initiatives: 34/);
   assert.match(output, /lineage: Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation/);
   assert.match(output, /unresolved: Unreconstructed Owner-Recalled UberBond Programs/);

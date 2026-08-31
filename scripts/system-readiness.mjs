@@ -154,6 +154,7 @@ function refreshCurrentStateDocument({ input, readiness }) {
   const audit = measurement(input, 'npm audit');
   const mutation = measurement(input, 'test:mutation-war');
   const browser = measurement(input, 'test:browser');
+  const reachability = measurement(input, 'reachability');
   const date = String(readiness.generatedAt).slice(0, 10);
   const result = (item, fallback) => item.result || item.note || fallback;
 
@@ -163,19 +164,27 @@ function refreshCurrentStateDocument({ input, readiness }) {
   text = replaceRequired(text, /^Reconciled from (?:main|current head):.*$/m,
     `Reconciled from current head: \`${readiness.repository.head}\``, 'source commit');
   text = replaceRequired(text, /^\| Syntax \|.*$/m,
-    `| Syntax | \`${syntax.command || 'npm run check:syntax'}\` | ${syntax.filesParsed ?? 'unrecorded'} files parse (${String(syntax.ranAt || date).slice(0, 10)}) |`, 'syntax measurement');
+    `| Syntax | \`${syntax.command || 'npm run check:syntax'}\`: ${syntax.filesParsed ?? 'unrecorded'} files parse (${String(syntax.ranAt || date).slice(0, 10)}) |`, 'syntax measurement');
   text = replaceRequired(text, /^\| Deterministic \|.*$/m,
-    `| Deterministic | \`${deterministic.command || 'npm run test:deterministic'}\` | ${deterministic.tests ?? 'unrecorded'} tests, ${deterministic.pass ?? 'unrecorded'} pass, **${deterministic.fail ?? 'unrecorded'} fail**, ${deterministic.skipped ?? 'unrecorded'} skipped (${String(deterministic.ranAt || date).slice(0, 10)}) |`, 'deterministic measurement');
+    `| Deterministic | \`${deterministic.command || 'npm run test:deterministic'}\`: ${deterministic.tests ?? 'unrecorded'} tests, ${deterministic.pass ?? 'unrecorded'} pass, **${deterministic.fail ?? 'unrecorded'} fail**, ${deterministic.skipped ?? 'unrecorded'} skipped (${String(deterministic.ranAt || date).slice(0, 10)}) |`, 'deterministic measurement');
   text = replaceRequired(text, /^\| Relay safety \|.*$/m,
-    `| Relay safety | \`${relay.command || 'npm run test:relay-safety'}\` | ${relay.tests ?? 'unrecorded'} tests, ${relay.pass ?? 'unrecorded'} pass, ${relay.fail ?? 'unrecorded'} fail (${String(relay.ranAt || date).slice(0, 10)}) |`, 'relay measurement');
+    `| Relay safety | \`${relay.command || 'npm run test:relay-safety'}\`: ${relay.tests ?? 'unrecorded'} tests, ${relay.pass ?? 'unrecorded'} pass, ${relay.fail ?? 'unrecorded'} fail (${String(relay.ranAt || date).slice(0, 10)}) |`, 'relay measurement');
   text = replaceRequired(text, /^\| Real PostgreSQL \|.*$/m,
-    `| Real PostgreSQL | \`${postgres.command || 'npm run test:postgres-real'}\` | ${result(postgres, 'not recorded')} |`, 'PostgreSQL measurement');
+    `| Real PostgreSQL | \`${postgres.command || 'npm run test:postgres-real'}\`: ${result(postgres, 'not recorded')} |`, 'PostgreSQL measurement');
   text = replaceRequired(text, /^\| Mutation war \|.*$/m,
-    `| Mutation war | \`${mutation.command || 'npm run test:mutation-war'}\` | ${result(mutation, 'not recorded')} |`, 'mutation measurement');
+    `| Mutation war | \`${mutation.command || 'npm run test:mutation-war'}\`: ${result(mutation, 'not recorded')} |`, 'mutation measurement');
   text = replaceRequired(text, /^\| Browser \|.*$/m,
-    `| Browser | \`${browser.command || 'npm run test:browser'}\` | ${result(browser, 'not recorded')} |`, 'browser measurement');
-  text = replaceRequired(text, /^\| Dependencies \|.*$/m,
-    `| Dependencies | \`${audit.command || 'npm audit'}\` | ${result(audit, 'not recorded')} |`, 'dependency measurement');
+    `| Browser | \`${browser.command || 'npm run test:browser'}\`: ${result(browser, 'not recorded')} |`, 'browser measurement');
+  text = replaceRequired(text, /^\| (?:Dependencies|Dependency audit) \|.*$/m,
+    `| Dependency audit | \`${audit.command || 'npm audit'}\`: ${result(audit, 'not recorded')} |`, 'dependency measurement');
+  text = replaceRequired(text, /^\*\*[0-9]+ of [0-9]+ `src` modules have no entry point at all\*\*\.$/m,
+    `**${reachability.noEntryPointAtAll ?? 'unrecorded'} of ${reachability.srcModules ?? 'unrecorded'} \`src\` modules have no entry point at all**.`, 'reachability prose');
+  text = replaceRequired(text, /^\| Reachable from production \|.*$/m,
+    `| Reachable from production | ${reachability.reachableFromProduction ?? 'unrecorded'} |`, 'production reachability');
+  text = replaceRequired(text, /^\| Reachable only via an operator script \|.*$/m,
+    `| Reachable only via an operator script | ${reachability.reachableFromOperatorScriptsOnly ?? 'unrecorded'} |`, 'operator reachability');
+  text = replaceRequired(text, /^\| \*\*No entry point at all\*\* \|.*$/m,
+    `| **No entry point at all** | **${reachability.noEntryPointAtAll ?? 'unrecorded'}** |`, 'unreachable count');
   writeFileSync(path, text);
 }
 

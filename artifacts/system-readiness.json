@@ -1,24 +1,24 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-31T17:18:30.020Z",
+  "generatedAt": "2026-08-31T18:36:18.888Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "32c646f8edef9cc6028323f4a179710710e720a5",
-    "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "sourceModules": 264,
-    "testSuites": 309,
-    "workingTreeClean": true
+    "head": "a2fc8682df4b1fa958fd936d17905268ce6de47d",
+    "branch": "claude/genome-body-import",
+    "sourceModules": 266,
+    "testSuites": 312,
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 649,
+      "filesParsed": 655,
       "ranAt": "2026-08-31T14:02:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 2986,
-      "pass": 2935,
+      "tests": 3003,
+      "pass": 2952,
       "fail": 0,
       "skipped": 51,
       "ranAt": "2026-08-31T14:02:00Z"
@@ -68,13 +68,13 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 264,
+      "srcModules": 266,
       "reachableFromProduction": 132,
-      "reachableFromOperatorScriptsOnly": 13,
+      "reachableFromOperatorScriptsOnly": 15,
       "noEntryPointAtAll": 119,
       "allClassified": true,
       "ranAt": "2026-08-31T14:02:00Z",
-      "note": "src is walked recursively. Wallbreaker is reachable through its operator script and the Capability Genome remains production-reachable through jobs and the repository brain; the no-entry classification count remains 119. agent-model-failover is production-reachable through agent-worker-job, which is what makes the routing order executable rather than merely reported."
+      "note": "src is walked recursively. Wallbreaker is reachable through its operator script and the Capability Genome remains production-reachable through jobs and the repository brain; the no-entry classification count remains 119. agent-model-failover is production-reachable through agent-worker-job, which is what makes the routing order executable rather than merely reported. capability-genome-body-import and body-fetch are reachable from their operator script only: the doctor reads the measured body artifact rather than importing the fetcher, so no production path can trigger a public body read."
     }
   },
   "capabilities": [

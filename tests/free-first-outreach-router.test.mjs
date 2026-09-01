@@ -44,7 +44,7 @@ test('permissioned traffic selects an actually eligible zero-cost route', () => 
   assert.equal(route.ok, true);
   assert.equal(route.status, 'FREE_ROUTE_SELECTED');
   assert.equal(route.costCents, 0);
-  assert.equal(route.provider, 'sendpulse');
+  assert.equal(route.provider, 'sender-net');
   assert.ok(route.quota.planningDailyRemaining > 0);
 });
 

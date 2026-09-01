@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "uberbond.capability-genome.reviewed-unmapped-needs.v1",
+  "purpose": "Capability a reviewer read in a body and the atom taxonomy has no word for. Recorded as prose on purpose: prose cannot be selected on, so an unmapped need can never be mistaken for a capability the Genome can retrieve or compose.",
+  "law": [
+    "A need here names no atom. The normalizer refuses an entry that matches an existing atom ID, because that is a mapping someone skipped rather than a gap.",
+    "A gap stays a gap. It may justify proposing a new atom through normal review; it never becomes one at extraction time.",
+    "Keyed by artifact identity, so a need is bound to the exact immutable body a reviewer actually read."
+  ],
+  "needs": {
+    "artifact:github-public-capability-search:1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe": [
+      "apply a brand colour palette and typography to a generated document artifact"
+    ],
+    "artifact:github-public-capability-search:c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f": [
+      "install a third-party skill package into an agent runtime",
+      "rank candidate capabilities by public install count and source reputation"
+    ]
+  }
+}

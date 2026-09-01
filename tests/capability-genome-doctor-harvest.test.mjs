@@ -39,12 +39,27 @@ test('repository metadata receipts cannot manufacture skill-body or normalized-c
   assert.ok(result.reasonCodes.includes('repository-metadata-corpus-cannot-claim-body-or-capability-import'));
 });
 
+// Real records, because the doctor revalidates what it is asked to count. The
+// stubs this test used to pass were not capabilities, and counting them proved
+// only that a length was read.
+const capabilityRecord = (id, promotionState) => ({
+  id, canonicalIdentity: `cap:skill:${id}`, aliases: [],
+  source: { url: `https://example.com/${id}` }, sourceType: 'SKILL',
+  sourceRevision: '3b3fad96af16a10759d930941b4520ba0c40edae', sourceHash: id.replace(/[^a-f0-9]/g, 'e').repeat(64).slice(0, 64),
+  maintainer: { name: 'example-org' }, license: 'MIT', licenseConfidence: 0.6,
+  capabilityAtoms: [], taskClasses: [], inputs: [], outputs: [], sideEffects: ['NONE'], dataClasses: ['PUBLIC'],
+  permissions: [], credentialRequirements: [], networkRequirements: [], dependencies: [],
+  supportedAgents: [], supportedModels: [], supportedProviders: [],
+  knownVulnerabilities: [], knownConflicts: [], compatibilityEdges: [], substitutes: [],
+  evidencePointers: [], promotionState, lastEvaluatedAt: '2026-09-01T00:00:00.000Z'
+});
+
 test('approved and active counts come only from lifecycle records, never corpus metadata counters', () => {
-  const capabilityRecords = [
-    { id: 'a', canonicalIdentity: 'cap:a', sourceHash: 'x', promotionState: 'APPROVED' },
-    { id: 'b', canonicalIdentity: 'cap:b', sourceHash: 'y', promotionState: 'ACTIVE' }
-  ];
+  const capabilityRecords = [capabilityRecord('cap-one', 'APPROVED'), capabilityRecord('cap-two', 'ACTIVE')];
   const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState, capabilityRecords });
+  assert.equal(result.ok, true, JSON.stringify(result.reasonCodes));
   assert.equal(result.state.approvedCapabilityCount, 1);
   assert.equal(result.state.activeCapabilityCount, 1);
+  // The corpus metadata beside them says zero of each, and is ignored.
+  assert.equal(corpusState.capabilityRecordsNormalized, 0);
 });

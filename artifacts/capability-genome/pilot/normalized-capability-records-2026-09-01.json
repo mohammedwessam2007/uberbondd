@@ -1,0 +1,367 @@
+{
+  "schemaVersion": "uberbond.capability-genome.normalized-records.v1",
+  "normalizeVersion": "capability-genome-body-normalize-1.0.0",
+  "producedBy": "scripts/capability-genome-normalize-bodies.mjs",
+  "sourcePins": "artifacts/capability-genome/pilot/world-skill-bodies-2026-08-31.json",
+  "atomTaxonomyVersion": "uberbond.capability-genome.atoms.v1",
+  "evidenceTermsVersion": "uberbond.capability-genome.atom-evidence-terms.v1",
+  "observedAt": "2026-09-01T16:55:34.604Z",
+  "providerCalls": 2,
+  "transport": "GITHUB_RAW_PINNED_COMMIT",
+  "readReceipts": [
+    {
+      "requestIndex": 0,
+      "repositoryFullName": "anthropics/skills",
+      "skillPath": "skills/brand-guidelines/SKILL.md",
+      "sourceCommit": "3b3fad96af16a10759d930941b4520ba0c40edae",
+      "gitBlobSha": "47c72c607bdb5dd81bdea5de2b5e4f3992a5fd59",
+      "contentSha256": "1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe",
+      "byteLength": 2235,
+      "transport": "GITHUB_RAW_PINNED_COMMIT",
+      "blobIdentitySource": "COMPUTED_FROM_RECEIVED_BYTES",
+      "status": "PINNED_PUBLIC_SKILL_BODY_READ"
+    },
+    {
+      "requestIndex": 1,
+      "repositoryFullName": "vercel-labs/skills",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "sourceCommit": "435076e78988e1e6ec40d00b0b1d76bdbbc5419a",
+      "gitBlobSha": "a41bdd074bb587afd861332cf2f473f3154de4d7",
+      "contentSha256": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
+      "byteLength": 5472,
+      "transport": "GITHUB_RAW_PINNED_COMMIT",
+      "blobIdentitySource": "COMPUTED_FROM_RECEIVED_BYTES",
+      "status": "PINNED_PUBLIC_SKILL_BODY_READ"
+    }
+  ],
+  "capabilityRecordsNormalized": 2,
+  "recordsWithNoTaxonomyAtomMatch": 1,
+  "distinctClaimedAtomIds": [
+    "capability.discover"
+  ],
+  "unmappedCapabilityNeeds": [
+    "apply a brand colour palette and typography to a generated document artifact",
+    "install a third-party skill package into an agent runtime",
+    "rank candidate capabilities by public install count and source reputation"
+  ],
+  "securityQuarantinedRecords": 0,
+  "securityReviewRecords": 1,
+  "securityStaticClearRecords": 1,
+  "licenseUnknownRecords": 2,
+  "dedupedCapabilities": 0,
+  "securityReviewedCapabilities": 0,
+  "eligibleCapabilities": 0,
+  "approvedCapabilities": 0,
+  "activeCapabilities": 0,
+  "atomClaimEvidence": [
+    {
+      "capabilityId": "capability:skill:anthropics/skills:skills/brand-guidelines/skill.md",
+      "sourceHash": "1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe",
+      "taxonomyCoverage": "NO_TAXONOMY_ATOM_MATCHED",
+      "securityScreeningDecision": "STATIC_CLEAR",
+      "claims": []
+    },
+    {
+      "capabilityId": "capability:skill:vercel-labs/skills:skills/find-skills/skill.md",
+      "sourceHash": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
+      "taxonomyCoverage": "PARTIAL_OR_FULL_MATCH",
+      "securityScreeningDecision": "REVIEW",
+      "claims": [
+        {
+          "atomId": "capability.discover",
+          "sideEffectClass": "READ_ONLY_NETWORK",
+          "claimClass": "CLAIMED_BY_UNTRUSTED_BODY_NOT_VERIFIED",
+          "evidence": [
+            {
+              "phrase": "find a skill",
+              "offset": 128
+            },
+            {
+              "phrase": "discover and install skills",
+              "offset": 380
+            },
+            {
+              "phrase": "skills ecosystem",
+              "offset": 428
+            },
+            {
+              "phrase": "existing skill",
+              "offset": 567
+            },
+            {
+              "phrase": "search for skills",
+              "offset": 1192
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "schemaVersion": "uberbond.capability-genome.capability.v1",
+      "id": "capability:skill:anthropics/skills:skills/brand-guidelines/skill.md",
+      "canonicalIdentity": "cap:skill:6f811b77cb9018ae32239c766e912ce2",
+      "aliases": [
+        "artifact:github-public-capability-search:1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe"
+      ],
+      "source": {
+        "url": "https://github.com/anthropics/skills/blob/3b3fad96af16a10759d930941b4520ba0c40edae/skills/brand-guidelines/SKILL.md",
+        "repositoryFullName": "anthropics/skills",
+        "skillPath": "skills/brand-guidelines/SKILL.md"
+      },
+      "sourceType": "SKILL",
+      "sourceRevision": "3b3fad96af16a10759d930941b4520ba0c40edae",
+      "sourceHash": "1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe",
+      "maintainer": {
+        "name": "anthropics",
+        "source": "GITHUB_REPOSITORY_OWNER",
+        "identityVerified": false
+      },
+      "license": "UNKNOWN",
+      "licenseConfidence": 0,
+      "capabilityAtoms": [],
+      "taskClasses": [],
+      "inputs": [],
+      "outputs": [],
+      "sideEffects": [
+        "NONE"
+      ],
+      "dataClasses": [
+        "PUBLIC"
+      ],
+      "permissions": [],
+      "credentialRequirements": [],
+      "networkRequirements": [],
+      "dependencies": [],
+      "executionEnvironment": {
+        "assessment": "NOT_PERFORMED_AT_NORMALIZATION",
+        "credentialAndNetworkRequirements": "UNASSESSED"
+      },
+      "supportedAgents": [],
+      "supportedModels": [],
+      "supportedProviders": [],
+      "contextCost": {
+        "status": "UNKNOWN"
+      },
+      "tokenCost": {
+        "status": "UNKNOWN"
+      },
+      "monetaryCost": {
+        "status": "UNKNOWN"
+      },
+      "latency": {
+        "status": "UNKNOWN"
+      },
+      "reliability": {
+        "status": "UNKNOWN"
+      },
+      "maintainerHealth": {
+        "status": "UNKNOWN"
+      },
+      "securityEvidence": [
+        {
+          "layer": "STATIC",
+          "passed": true,
+          "decision": "STATIC_CLEAR",
+          "findings": [],
+          "artifactRef": "artifact:github-public-capability-search:1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe",
+          "subjectHash": "1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe",
+          "observedAt": "2026-09-01T16:55:34.597Z",
+          "caveat": "Static and semantic inspection is one layer; absence of findings is not runtime safety."
+        }
+      ],
+      "knownVulnerabilities": [],
+      "knownConflicts": [],
+      "compatibilityEdges": [],
+      "substitutes": [],
+      "benchmarks": [],
+      "realUsageEvidence": [],
+      "economicPrior": {
+        "status": "UNKNOWN"
+      },
+      "founderMinutesSaved": {
+        "status": "UNKNOWN"
+      },
+      "observedOutcomes": [],
+      "versionHistory": [
+        {
+          "from": "DISCOVERED",
+          "to": "NORMALIZED",
+          "at": "2026-09-01T16:55:34.597Z",
+          "reasonCodes": [
+            "skill-body-normalized-from-pinned-source"
+          ],
+          "evidenceRefs": [
+            "artifact:github-public-capability-search:1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe"
+          ]
+        }
+      ],
+      "promotionState": "NORMALIZED",
+      "revocationState": {
+        "revoked": false,
+        "reasonCodes": []
+      },
+      "lastEvaluatedAt": "2026-09-01T16:55:34.597Z",
+      "evidencePointers": [
+        {
+          "type": "PINNED_SKILL_BODY",
+          "ref": "https://github.com/anthropics/skills/blob/3b3fad96af16a10759d930941b4520ba0c40edae/skills/brand-guidelines/SKILL.md",
+          "observedAt": "2026-09-01T16:55:34.289Z",
+          "digest": "1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe",
+          "claimClass": "SOURCE_EVIDENCE"
+        }
+      ]
+    },
+    {
+      "schemaVersion": "uberbond.capability-genome.capability.v1",
+      "id": "capability:skill:vercel-labs/skills:skills/find-skills/skill.md",
+      "canonicalIdentity": "cap:skill:528affb8fdb335850f838565d60ebd98",
+      "aliases": [
+        "artifact:github-public-capability-search:c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f"
+      ],
+      "source": {
+        "url": "https://github.com/vercel-labs/skills/blob/435076e78988e1e6ec40d00b0b1d76bdbbc5419a/skills/find-skills/SKILL.md",
+        "repositoryFullName": "vercel-labs/skills",
+        "skillPath": "skills/find-skills/SKILL.md"
+      },
+      "sourceType": "SKILL",
+      "sourceRevision": "435076e78988e1e6ec40d00b0b1d76bdbbc5419a",
+      "sourceHash": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
+      "maintainer": {
+        "name": "vercel-labs",
+        "source": "GITHUB_REPOSITORY_OWNER",
+        "identityVerified": false
+      },
+      "license": "UNKNOWN",
+      "licenseConfidence": 0,
+      "capabilityAtoms": [
+        {
+          "id": "capability.discover",
+          "verb": "discover",
+          "noun": "capability-artifact",
+          "description": "Discover public capability artifacts through permitted registries and APIs.",
+          "inputs": [],
+          "outputs": [],
+          "sideEffectClass": "READ_ONLY_NETWORK"
+        }
+      ],
+      "taskClasses": [],
+      "inputs": [],
+      "outputs": [],
+      "sideEffects": [
+        "READ_ONLY_NETWORK"
+      ],
+      "dataClasses": [
+        "PUBLIC"
+      ],
+      "permissions": [],
+      "credentialRequirements": [],
+      "networkRequirements": [],
+      "dependencies": [],
+      "executionEnvironment": {
+        "assessment": "NOT_PERFORMED_AT_NORMALIZATION",
+        "credentialAndNetworkRequirements": "UNASSESSED"
+      },
+      "supportedAgents": [],
+      "supportedModels": [],
+      "supportedProviders": [],
+      "contextCost": {
+        "status": "UNKNOWN"
+      },
+      "tokenCost": {
+        "status": "UNKNOWN"
+      },
+      "monetaryCost": {
+        "status": "UNKNOWN"
+      },
+      "latency": {
+        "status": "UNKNOWN"
+      },
+      "reliability": {
+        "status": "UNKNOWN"
+      },
+      "maintainerHealth": {
+        "status": "UNKNOWN"
+      },
+      "securityEvidence": [
+        {
+          "layer": "STATIC",
+          "passed": false,
+          "decision": "REVIEW",
+          "findings": [
+            {
+              "code": "remote-package-execution",
+              "severity": "HIGH"
+            },
+            {
+              "code": "unconfirmed-global-install",
+              "severity": "HIGH"
+            }
+          ],
+          "artifactRef": "artifact:github-public-capability-search:c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
+          "subjectHash": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
+          "observedAt": "2026-09-01T16:55:34.602Z",
+          "caveat": "Static and semantic inspection is one layer; absence of findings is not runtime safety."
+        }
+      ],
+      "knownVulnerabilities": [
+        "remote-package-execution:HIGH",
+        "unconfirmed-global-install:HIGH"
+      ],
+      "knownConflicts": [],
+      "compatibilityEdges": [],
+      "substitutes": [],
+      "benchmarks": [],
+      "realUsageEvidence": [],
+      "economicPrior": {
+        "status": "UNKNOWN"
+      },
+      "founderMinutesSaved": {
+        "status": "UNKNOWN"
+      },
+      "observedOutcomes": [],
+      "versionHistory": [
+        {
+          "from": "DISCOVERED",
+          "to": "NORMALIZED",
+          "at": "2026-09-01T16:55:34.602Z",
+          "reasonCodes": [
+            "skill-body-normalized-from-pinned-source"
+          ],
+          "evidenceRefs": [
+            "artifact:github-public-capability-search:c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f"
+          ]
+        }
+      ],
+      "promotionState": "NORMALIZED",
+      "revocationState": {
+        "revoked": false,
+        "reasonCodes": []
+      },
+      "lastEvaluatedAt": "2026-09-01T16:55:34.602Z",
+      "evidencePointers": [
+        {
+          "type": "PINNED_SKILL_BODY",
+          "ref": "https://github.com/vercel-labs/skills/blob/435076e78988e1e6ec40d00b0b1d76bdbbc5419a/skills/find-skills/SKILL.md",
+          "observedAt": "2026-09-01T16:55:34.289Z",
+          "digest": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
+          "claimClass": "SOURCE_EVIDENCE"
+        }
+      ]
+    }
+  ],
+  "corpusDigest": "244aee85bb7bb366d07367e7b9bea2949ef5e86f4be1b1c90747139df5304e46",
+  "truthBoundary": "A_NORMALIZED_RECORD_IS_A_TYPED_DESCRIPTION_OF_AN_UNTRUSTED_PUBLIC_DOCUMENT__IT_IS_NOT_DEDUPED_SECURITY_REVIEWED_ELIGIBLE_APPROVED_ACTIVE_INSTALLED_OR_ECONOMICALLY_PROVEN",
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "providerCalls": 2,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  }
+}

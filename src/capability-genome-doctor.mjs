@@ -1,12 +1,14 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { normalizeCapability } from './capability-genome-schema.mjs';
 
-export const CAPABILITY_GENOME_DOCTOR_VERSION = 'capability-genome-doctor-1.2.0';
+export const CAPABILITY_GENOME_DOCTOR_VERSION = 'capability-genome-doctor-1.3.0';
 
 const SOURCE_TYPES = new Set(['OFFICIAL_REGISTRY', 'PUBLIC_INDEX', 'GITHUB_API', 'PACKAGE_REGISTRY', 'ACADEMIC_CORPUS', 'APPROVED_SUPPLIER_REGISTRY']);
 const ACCESS_MODES = new Set(['API', 'PUBLIC_WEB', 'GIT_METADATA', 'LOCAL_FILE']);
 const EFFECT_STATES = new Set(['DISCOVERY_ONLY', 'READ_ONLY']);
 const CORPUS_STATE_SCHEMA = 'uberbond.capability-genome.corpus-state.v1';
+const NORMALIZED_RECORD_SCHEMA = 'uberbond.capability-genome.normalized-records.v1';
 
 function clone(value) { return structuredClone(value); }
 function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'); }
@@ -17,7 +19,7 @@ function observedAt(value) {
   return Number.isFinite(date.getTime()) ? date.toISOString() : null;
 }
 
-export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords = [], existingSupplierRegistry = null, corpusState = null, bodyCorpusState = null, now = new Date() } = {}) {
+export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords = [], existingSupplierRegistry = null, corpusState = null, bodyCorpusState = null, normalizedRecordState = null, now = new Date() } = {}) {
   const reasons = [];
   const sources = sourceRegistry?.sources;
   const atoms = atomTaxonomy?.atoms;
@@ -38,6 +40,12 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
     if (!atom?.verb || !atom?.noun || !atom?.description || !atom?.sideEffectClass) reasons.push('typed-atom-fields-required');
   }
   if (!Array.isArray(capabilityRecords)) reasons.push('capability-record-array-required');
+  // Records are re-validated here rather than trusted from whoever assembled
+  // them. The doctor is the thing that reports how many capabilities exist, so
+  // an unvalidated record would let a hand-written object be counted as one.
+  for (const record of capabilityRecords || []) {
+    if (!normalizeCapability(record).ok) { reasons.push('valid-normalized-capability-records-required'); break; }
+  }
 
   let worldRepositoryCandidateCount = 0;
   let worldRepositoryProviderCalls = 0;
@@ -103,6 +111,28 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
     }
   }
 
+  // The manifest that says how many records exist, checked against the records
+  // themselves. The harvest law's whole point is that a declared count and an
+  // actual one are different numbers, and a corpus that reported the declared
+  // one would inflate exactly the way a repository-candidate count inflates.
+  let normalizedRecordCorpusObservedAt = null;
+  if (normalizedRecordState != null) {
+    if (normalizedRecordState?.schemaVersion !== NORMALIZED_RECORD_SCHEMA) reasons.push('valid-normalized-record-state-required');
+    const declared = count(normalizedRecordState?.capabilityRecordsNormalized);
+    if (declared == null) reasons.push('nonnegative-normalized-record-count-required');
+    else if (declared !== capabilityRecords.length) reasons.push('declared-normalized-count-must-match-actual-records');
+    // Normalization is one rung. It cannot report any later one as reached.
+    for (const key of ['dedupedCapabilities', 'securityReviewedCapabilities', 'eligibleCapabilities', 'approvedCapabilities', 'activeCapabilities']) {
+      if (count(normalizedRecordState?.[key]) !== 0) reasons.push('normalized-record-corpus-cannot-claim-later-promotion');
+    }
+    for (const record of capabilityRecords || []) {
+      if (record?.promotionState !== 'NORMALIZED') reasons.push('normalized-record-corpus-records-must-be-normalized');
+    }
+    const observed = observedAt(normalizedRecordState?.observedAt);
+    if (!observed) reasons.push('valid-normalized-record-observed-at-required');
+    else normalizedRecordCorpusObservedAt = observed;
+  }
+
   const measuredRawCount = (sources || []).reduce((sum, source) => sum + (source.countEvidence?.class === 'MEASURED_IMPORT' && Number.isSafeInteger(source.countEvidence.count) ? source.countEvidence.count : 0), 0);
   const worldMeasuredCount = (sources || []).reduce((sum, source) => sum + (source.countEvidence?.class === 'MEASURED_IMPORT' && source.countEvidence?.scope === 'WORLD_CORPUS' && Number.isSafeInteger(source.countEvidence.count) ? source.countEvidence.count : 0), 0);
   const creatorClaims = (sources || []).filter(source => source.countEvidence?.class === 'CREATOR_CLAIM').map(source => ({ sourceId: source.id, count: source.countEvidence.count, unit: source.countEvidence.unit || 'UNSPECIFIED_NONCOMPARABLE', observedAt: source.countEvidence.observedAt }));
@@ -111,23 +141,31 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
 
   const states = new Map();
   for (const record of capabilityRecords) states.set(record.promotionState, (states.get(record.promotionState) || 0) + 1);
-  const worldCapabilityRecordsNormalized = capabilityRecords.length;
+  // Records sitting at NORMALIZED, not every record in the lifecycle. Reading
+  // the length would have reported an APPROVED capability as normalized, which
+  // is the one direction this counter must never round in.
+  const worldCapabilityRecordsNormalized = states.get('NORMALIZED') || 0;
+  const capabilityRecordCount = capabilityRecords.length;
   const approvedCapabilityCount = states.get('APPROVED') || 0;
   const activeCapabilityCount = states.get('ACTIVE') || 0;
   const revokedCapabilityCount = states.get('REVOKED') || 0;
-  const corpusTruth = worldSkillBodyCount > 0
+  const corpusTruth = worldCapabilityRecordsNormalized > 0
+    ? 'MEASURED_WORLD_CAPABILITY_RECORDS_NORMALIZED__NOT_DEDUPED_NOT_SECURITY_REVIEWED_NOT_ELIGIBLE_NOT_PROMOTED'
+    : worldSkillBodyCount > 0
     ? 'MEASURED_WORLD_SKILL_BODY_IMPORT_PRESENT__CAPABILITIES_NOT_AUTO_PROMOTED'
     : worldRepositoryCandidateCount > 0
       ? 'MEASURED_WORLD_REPOSITORY_CANDIDATES_PRESENT__SKILL_BODIES_NOT_IMPORTED'
       : worldMeasuredCount === 0
         ? 'SEED_SUPPLIER_REGISTRY_ONLY__NO_WORLD_CORPUS_IMPORTED'
         : 'MEASURED_WORLD_IMPORT_PRESENT';
-  const runtimeTruth = worldSkillBodyCount > 0
+  const runtimeTruth = worldCapabilityRecordsNormalized > 0
+    ? 'CONTROL_PLANE_PROJECT_INTEGRATED__HARVEST_BODY_IMPORT_AND_NORMALIZATION_PROVEN__CONTINUOUS_REFRESH_NOT_ACTIVATED'
+    : worldSkillBodyCount > 0
     ? 'CONTROL_PLANE_PROJECT_INTEGRATED__BOUNDED_WORLD_HARVEST_AND_BODY_IMPORT_PROVEN__CONTINUOUS_REFRESH_NOT_ACTIVATED'
     : worldRepositoryCandidateCount > 0
       ? 'CONTROL_PLANE_PROJECT_INTEGRATED__BOUNDED_WORLD_HARVEST_PROVEN__CONTINUOUS_REFRESH_NOT_ACTIVATED'
       : 'CONTROL_PLANE_PROJECT_INTEGRATED__WORLD_REFRESH_RUNTIME_NOT_ACTIVATED';
-  const refreshTimes = [repositoryCorpusObservedAt, bodyCorpusObservedAt].filter(Boolean).sort();
+  const refreshTimes = [repositoryCorpusObservedAt, bodyCorpusObservedAt, normalizedRecordCorpusObservedAt].filter(Boolean).sort();
 
   const state = {
     capabilityGenomeVersion: '1.0.0-foundation',
@@ -139,6 +177,7 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
     worldSkillBodyCount,
     distinctSkillBodyContentCount,
     worldCapabilityRecordsNormalized,
+    capabilityRecordCount,
     worldRepositoryProviderCalls,
     worldSkillBodyProviderCalls,
     worldCorpusProviderCalls: worldRepositoryProviderCalls + worldSkillBodyProviderCalls,

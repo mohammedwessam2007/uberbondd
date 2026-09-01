@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "uberbond.capability-genome.atom-evidence-terms.v1",
+  "generatedAt": "2026-09-01T00:00:00.000Z",
+  "purpose": "Reviewed phrase evidence that may map an untrusted capability body onto an existing Capability Genome atom. This table is the only sanctioned label-to-atom mapping. It is repository data under normal review, never derived by a model at extraction time.",
+  "law": [
+    "A phrase in this table maps to an atom that already exists in capability-atoms.json. It never creates one.",
+    "Every phrase is at least two words. Single common verbs such as 'search', 'route' or 'send' match almost any prose and would manufacture atoms out of vocabulary.",
+    "A match is CLAIMED capability, not verified capability. It reflects what a body says about itself.",
+    "The atom's own sideEffectClass in capability-atoms.json is canonical. A phrase match never carries a side-effect claim from the body."
+  ],
+  "terms": {
+    "web.crawl": ["crawl the web", "crawl pages", "web crawler", "scrape a page", "fetch a webpage"],
+    "web.render-js": ["headless browser", "render javascript", "browser automation", "playwright script", "puppeteer script"],
+    "data.extract-structured": ["extract structured data", "structured extraction", "parse into json", "convert to structured"],
+    "http.retry": ["retry with backoff", "exponential backoff", "retry the request"],
+    "contact.validate-email": ["validate an email", "email verification", "verify email address"],
+    "buyer.classify-intent": ["buyer intent", "purchase intent", "intent signal"],
+    "code.search": ["search the codebase", "search source code", "grep the repository", "find references in code"],
+    "cloud.inspect-deployment": ["inspect the deployment", "deployment logs", "check deployment status"],
+    "database.query-postgres": ["query postgres", "postgresql query", "sql query against"],
+    "document.generate-spreadsheet": ["generate a spreadsheet", "create an xlsx", "write a csv file", "excel workbook"],
+    "messaging.send-authorized-email": ["send an email", "send emails", "email campaign", "outbound email"],
+    "payment.verify-cleared": ["verify payment", "payment reconciliation", "cleared payment", "confirm the charge"],
+    "invoice.parse": ["parse an invoice", "invoice data", "read the invoice"],
+    "document.summarize": ["summarize the document", "document summary", "summarize a file"],
+    "model.route-request": ["route the request", "model routing", "provider fallback", "choose a model"],
+    "context.compress-reversible": ["compress context", "context compression", "reduce token usage"],
+    "memory.recover-session": ["session memory", "recall previous sessions", "persist memory across"],
+    "sandbox.run-test": ["run in a sandbox", "isolated environment", "sandboxed execution"],
+    "code.evaluate-generated": ["run the tests", "evaluate generated code", "test the generated"],
+    "capability.discover": ["discover and install skills", "find a skill", "search for skills", "skills ecosystem", "discover skills", "existing skill"],
+    "capability.dedupe": ["deduplicate capabilities", "detect duplicates", "identify forks"],
+    "capability.security-admit": ["security review", "vulnerability scan", "security admission"],
+    "capability.retrieve": ["retrieve a bundle", "minimum bundle", "select capabilities"],
+    "capability.benchmark": ["benchmark against", "compare candidates", "holdout evaluation"],
+    "capability.revoke": ["revoke a capability", "revocation list", "disable a capability"]
+  }
+}

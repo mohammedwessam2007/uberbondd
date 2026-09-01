@@ -316,8 +316,26 @@ function providerEligibility({ provider, purpose, consentEvidence, usage, state,
   };
 }
 
-function resolveProviderStates({ providers, providerStates, activationReceipts, atDate, maxReceiptAgeDays }) {
+function resolveProviderStates({ providers, providerStates, activationReceipts, atDate, maxReceiptAgeDays, mode }) {
   const explicit = providerStates && typeof providerStates === 'object' && !Array.isArray(providerStates);
+
+  // LIVE truth must come from activation receipts. Pre-derived booleans are a
+  // compatibility input for planning/reporting only: accepting them for LIVE
+  // would let a caller manufacture account, credential, DNS and health state.
+  if (mode === 'LIVE') {
+    if (explicit) return { ok: false, reasonCodes: ['live-provider-states-must-be-derived-from-activation-receipts'] };
+    const receipts = activationReceipts == null ? [] : activationReceipts;
+    if (!Array.isArray(receipts)) return { ok: false, reasonCodes: ['activation-receipts-array-required'] };
+    const derivation = deriveProviderStatesFromReceipts({
+      receipts,
+      registryProviders: providers,
+      now: atDate,
+      maxReceiptAgeDays
+    });
+    if (!derivation.ok) return { ok: false, reasonCodes: derivation.reasonCodes };
+    return { ok: true, states: derivation.providerStates, derivation };
+  }
+
   if (activationReceipts == null) return { ok: true, states: explicit ? providerStates : {}, derivation: null };
   if (!Array.isArray(activationReceipts)) return { ok: false, reasonCodes: ['activation-receipts-array-required'] };
   // Two sources for one truth is ambiguity, not redundancy. A caller that has
@@ -357,7 +375,7 @@ export function selectFreeRoute({
   if (!atIso) return fail(['valid-routing-time-required']);
   const atDate = new Date(atIso);
 
-  const resolved = resolveProviderStates({ providers, providerStates, activationReceipts, atDate, maxReceiptAgeDays });
+  const resolved = resolveProviderStates({ providers, providerStates, activationReceipts, atDate, maxReceiptAgeDays, mode: normalizedMode });
   if (!resolved.ok) return fail(resolved.reasonCodes);
 
   const evaluations = [];
@@ -466,9 +484,10 @@ export function liveUsableCapacity({
   const resolved = resolveProviderStates({
     providers,
     providerStates,
-    activationReceipts: providerStates ? null : activationReceipts,
+    activationReceipts,
     atDate,
-    maxReceiptAgeDays
+    maxReceiptAgeDays,
+    mode: 'LIVE'
   });
   if (!resolved.ok) return fail(resolved.reasonCodes);
 

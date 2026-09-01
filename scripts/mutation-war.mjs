@@ -875,6 +875,76 @@ export const MUTATIONS = [
     find: '  if (!Object.hasOwn(MAP, key)) throw new StoreError(`Unknown collection: ${key}`, \'INVALID_COLLECTION\');\n  return MAP[key];',
     replace: '  const def = MAP[key];\n  if (!def) throw new StoreError(`Unknown collection: ${key}`, \'INVALID_COLLECTION\');\n  return def;',
     suites: ['tests/store-lookup-allowlist.test.mjs'], needsPostgres: true
+  },
+  {
+    id: 'NORM-01', guard: 'A body cannot describe itself as quieter than the atom it claims',
+    file: 'src/capability-genome-body-normalize.mjs',
+    find: '      atom: clone(atom),',
+    replace: '      atom: { ...clone(atom), sideEffectClass: String(content.match(/sideEffectClass:\\s*([A-Z_]+)/)?.[1] || atom.sideEffectClass) },',
+    suites: ['tests/capability-genome-body-normalize.test.mjs']
+  },
+  {
+    id: 'NORM-02', guard: 'An evidence phrase cannot name an atom the taxonomy lacks',
+    file: 'src/capability-genome-body-normalize.mjs',
+    find: "    if (!taxonomy.has(atomId)) return fail(['evidence-term-references-unknown-atom'], { offendingAtomId: atomId });",
+    replace: '    if (!taxonomy.has(atomId)) continue;',
+    suites: ['tests/capability-genome-body-normalize.test.mjs']
+  },
+  {
+    id: 'NORM-03', guard: 'One-word evidence phrases cannot mint atoms out of vocabulary',
+    file: 'src/capability-genome-body-normalize.mjs',
+    find: '      if (!value || value.split(/\\s+/).filter(Boolean).length < 2) {',
+    replace: '      if (!value) {',
+    suites: ['tests/capability-genome-body-normalize.test.mjs']
+  },
+  {
+    id: 'NORM-04', guard: 'One static scan yields one security layer, never three',
+    file: 'src/capability-genome-body-normalize.mjs',
+    find: "      layer: 'STATIC',",
+    replace: "      layer: screening.decision === 'STATIC_CLEAR' ? 'SANDBOX' : 'STATIC',",
+    suites: ['tests/capability-genome-body-normalize.test.mjs']
+  },
+  {
+    id: 'NORM-05', guard: 'Normalization refuses bytes the evidence does not pin',
+    file: 'src/capability-genome-body-normalize.mjs',
+    find: "  if (!verified.ok) return fail(['body-content-must-match-pinned-identity', ...(verified.reasonCodes || [])]);",
+    replace: '  void verified;',
+    suites: ['tests/capability-genome-body-normalize.test.mjs']
+  },
+  {
+    id: 'NORM-06', guard: 'A pointer to a licence file is not a licence grant',
+    file: 'src/capability-genome-body-normalize.mjs',
+    find: "  return { license: 'UNKNOWN', licenseConfidence: 0, basis: 'DECLARATION_NOT_AN_SPDX_IDENTIFIER', declaredHint: hint };",
+    replace: "  return { license: 'MIT', licenseConfidence: 0.5, basis: 'DECLARATION_NOT_AN_SPDX_IDENTIFIER', declaredHint: hint };",
+    suites: ['tests/capability-genome-body-normalize.test.mjs']
+  },
+  {
+    id: 'NORM-07', guard: 'A declared unmapped need cannot hide an atom that exists',
+    file: 'src/capability-genome-body-normalize.mjs',
+    find: "    if (taxonomyIds.has(value.toLowerCase())) return fail(['unmapped-need-names-an-existing-atom'], { offendingNeed: value });",
+    replace: '    void taxonomyIds;',
+    suites: ['tests/capability-genome-body-normalize.test.mjs']
+  },
+  {
+    id: 'NORM-08', guard: 'The corpus counts only records actually sitting at NORMALIZED',
+    file: 'src/capability-genome-body-normalize.mjs',
+    find: "    if (item.capability.promotionState !== 'NORMALIZED') return fail(['normalized-promotion-state-required'], { offendingState: item.capability.promotionState });",
+    replace: '    void item;',
+    suites: ['tests/capability-genome-body-normalize.test.mjs']
+  },
+  {
+    id: 'GENOME-04', guard: 'A host under the .sh TLD is not a remote shell script',
+    file: 'src/capability-genome-admission.mjs',
+    find: "  if (/(?:https?:\\/\\/[^\\s/?#]+[/?#][^\\s]*\\.(?:sh|ps1)\\b|git\\+https?:)/i.test(corpus)) findings.push({ code: 'mutable-remote-dependency', severity: 'HIGH' });",
+    replace: "  if (/(?:https?:\\/\\/[^\\s]+\\.(?:sh|ps1)|git\\+https?:)/i.test(corpus)) findings.push({ code: 'mutable-remote-dependency', severity: 'HIGH' });",
+    suites: ['tests/capability-genome-body-normalize.test.mjs']
+  },
+  {
+    id: 'GENOME-05', guard: 'Remote package execution is a finding in its own right',
+    file: 'src/capability-genome-admission.mjs',
+    find: "  if (/(?:^|[\\s`|;&(])(?:npx|bunx|pnpm\\s+dlx|yarn\\s+dlx)\\s+[^\\s`]/im.test(corpus)) findings.push({ code: 'remote-package-execution', severity: 'HIGH' });",
+    replace: '',
+    suites: ['tests/capability-genome-body-normalize.test.mjs']
   }
 ];
 

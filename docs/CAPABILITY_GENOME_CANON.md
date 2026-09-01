@@ -1,10 +1,10 @@
 # UberBond Capability Genome Canon
 
-Status: foundation integrated; first measured public repository-candidate harvest proven; skill-body import and continuous world-refresh runtime not proven
+Status: foundation integrated; measured public repository-candidate harvest proven; measured skill-body import proven; first measured body-to-capability normalization proven; dedupe, security admission, promotion and continuous world-refresh runtime not proven
 
 Version: 1.0.0-foundation
 
-Date: 2026-08-31
+Date: 2026-09-01
 
 ## Purpose
 
@@ -25,11 +25,15 @@ Current measured state comes from `npm run capabilities:genome:doctor` and the b
 - SkillsMP's 2,872,898 files and GitSkills' 3,797,117 occurrences are non-comparable creator/research claims. They are not added into an UberBond corpus count.
 - World Harvest v1 executed three actual connected public GitHub repository searches and recorded a bounded sample of **30 distinct public repository metadata candidates** in `artifacts/capability-genome/pilot/world-repository-candidates-2026-08-31.json`.
 - The measured pilot was produced by `capability-genome-harvest-1.0.0`; the current hardened executor is `capability-genome-harvest-1.0.1`. Historical receipts retain the version that actually produced them.
-- Those 30 records are repository-level discovery candidates only: **0 skill bodies imported, 0 normalized world capability records, 0 approved capabilities, 0 active capabilities**.
-- The measured pilot used three public GitHub provider calls. It did not use credentials, private sessions, CAPTCHA bypass, purchases, messaging, deployment, or customer systems.
+- Those 30 records are repository-level discovery candidates only. Body import and normalization are separately measured layers and are counted separately from them.
+- Body Import v1 read **2 pinned public SKILL.md bodies** at immutable commits and recorded them in `artifacts/capability-genome/pilot/world-skill-bodies-2026-08-31.json` under `SOURCE_PINNED_REFERENCE_ONLY`. The bytes are not copied into this repository.
+- Normalization v1 turned those 2 bodies into **2 canonical capability records** at `NORMALIZED`, in `artifacts/capability-genome/pilot/normalized-capability-records-2026-09-01.json`, reproducible with `npm run capabilities:genome:normalize -- --execute`.
+- Current measured ladder: **30 repository candidates, 2 imported bodies, 2 normalized capability records, 0 deduped, 0 security-reviewed, 0 eligible, 0 approved, 0 active**. Each of those is a separate counter and none of them implies the next.
+- Of the 2 normalized records, **1 matched no atom in the 25-atom taxonomy at all** and **1 claims a single atom**. Both carry `license: UNKNOWN`. One screened `STATIC_CLEAR` and one screened `REVIEW`.
+- The measured runs used 3 repository-search calls, 10 body-read calls and 2 normalization re-read calls against public GitHub. They used no credentials, private sessions, CAPTCHA bypass, purchases, messaging, deployment, or customer systems.
 - No capability is approved, active, benchmarked, security-clean, or commercially proven merely because its repository was observed.
 - `npm run capabilities:genome:harvest` is plan-only by default. Public GitHub execution requires explicit host opt-in plus an external corpus directory, and scaled corpus bodies are refused inside the Git repository.
-- Continuous world refresh, full-body extraction, million-scale dedupe, the 50K tournament, security sandboxing at scale, and approved supplier promotion remain unfinished.
+- Continuous world refresh, million-scale dedupe, the 50K tournament, security sandboxing at scale, and approved supplier promotion remain unfinished.
 
 ## Architecture
 
@@ -60,6 +64,8 @@ Large raw records, bodies, embeddings, sandbox traces, and runtime telemetry do 
 | Capability schema and atoms | `src/capability-genome-schema.mjs`, `schemas/capability-genome.schema.json`, `artifacts/capability-genome/capability-atoms.json` |
 | Source registry and adapters | `artifacts/capability-genome/source-registry.json`, `src/capability-genome-discovery.mjs` |
 | World repository harvest | `src/capability-genome-harvest.mjs`, `scripts/capability-genome-harvest.mjs`, measured pilot under `artifacts/capability-genome/pilot/` |
+| Skill-body read and import | `src/capability-genome-body-fetch.mjs`, `src/capability-genome-body-import.mjs` |
+| Body-to-capability normalization | `src/capability-genome-body-normalize.mjs`, `scripts/capability-genome-normalize-bodies.mjs`, `artifacts/capability-genome/atom-evidence-terms.json`, `artifacts/capability-genome/reviewed-unmapped-needs.json` |
 | Provenance | `normalizeDiscoveryArtifact` and `buildCapabilityProvenance` |
 | Identity and dedupe | `canonicalCapabilityIdentity`, `dedupeCapabilities` |
 | Security/license admission | `src/capability-genome-admission.mjs` |
@@ -84,6 +90,23 @@ GitHub repository search has a practical 1,000-result observable window per quer
 The executor is read-only and counts every provider call. A provider-call ceiling returns partial progress. HTTP 403/429 returns `HARVEST_RATE_LIMITED_NO_BLIND_RETRY`. It does not rotate identities or accounts to defeat limits. Partial partitions are checkpointed before stopping so already-read repositories remain resumable evidence rather than disappearing.
 
 Scaled corpus persistence must live outside Git. `writeMeasuredCorpusBatch` refuses repository-local storage by default and writes immutable manifest plus JSONL candidate records to an explicitly supplied external corpus directory.
+
+## Normalization law
+
+A skill body is a third party's prose about itself. Normalization records what it claims in typed form; it never converts a claim into a capability UberBond can act on.
+
+Four things a body may never decide:
+
+1. **Which atoms exist.** Atom IDs come from `capability-atoms.json`, and a phrase reaches one only through the reviewed table in `artifacts/capability-genome/atom-evidence-terms.json`. Every phrase there is at least two words, enforced in code, because a single common verb would mint atoms out of ordinary vocabulary. Prose matching nothing stays unmapped. Zero matched atoms is a result, not a failure.
+2. **Its own blast radius.** `sideEffectClass` is read from the taxonomy entry for the matched atom. A body claiming `messaging.send-authorized-email` cannot present itself to admission as `NONE`.
+3. **Its license.** Only an explicit SPDX identifier is recognised. A pointer such as "Complete terms in LICENSE.txt" resolves to `UNKNOWN`, which `evaluateLicense` maps to reference-only — blocking exactly the copying a wrong guess would clear.
+4. **Its promotion state.** A record is built at `DISCOVERED` and walked to `NORMALIZED` through `transitionCapability`, so the state has a real history entry. The corpus builder refuses any record not sitting at `NORMALIZED`.
+
+Security evidence from normalization is `STATIC` and nothing else. `admitCapability` requires `STATIC`, `SEMANTIC` and `SANDBOX`, so a single regex pass cannot make a body eligible. Screening is bound to the exact content hash it ran against; a quarantined body is still recorded, because knowing a dangerous skill exists is worth more than pretending it does not.
+
+Declared unmapped needs are prose and stay prose. Prose cannot be selected on, so a gap can never be mistaken for a retrievable capability. A declared need that names an existing atom is refused as a skipped mapping.
+
+A normalized record is a typed description of an untrusted public document. It is not deduped, security-reviewed, eligible, approved, active, installed, or economically proven.
 
 ## Identity and dedupe law
 

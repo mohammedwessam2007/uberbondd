@@ -140,7 +140,27 @@ export function scanCapabilityInstructions({ instructions = '', manifests = [], 
   for (const [code, pattern] of DANGEROUS) {
     if (pattern.test(corpus)) findings.push({ code, severity: ['credential-access', 'exfiltration', 'remote-execution', 'destructive-shell', 'privilege-escalation'].includes(code) ? 'CRITICAL' : 'HIGH' });
   }
-  if (/(?:https?:\/\/[^\s]+\.(?:sh|ps1)|git\+https?:)/i.test(corpus)) findings.push({ code: 'mutable-remote-dependency', severity: 'HIGH' });
+  // The `.sh` has to come after the host, not inside it. Matching it anywhere
+  // in the URL meant a host under the .sh TLD -- skills.sh, deno.sh, bun.sh --
+  // read as a remote shell script, so a body was flagged for citing a website.
+  //
+  // The separator is [/?#] rather than a bare slash so the narrowing gives up
+  // nothing: a script named in a query string, https://x.com?f=install.sh, has
+  // no path and would otherwise have slipped through a path-only rule.
+  if (/(?:https?:\/\/[^\s/?#]+[/?#][^\s]*\.(?:sh|ps1)\b|git\+https?:)/i.test(corpus)) findings.push({ code: 'mutable-remote-dependency', severity: 'HIGH' });
+  // The risk the URL rule was accidentally standing in for. `npx pkg` and its
+  // equivalents fetch and execute a package resolved at run time, which is the
+  // same trust decision as piping a downloaded script -- the earlier pattern
+  // just never described it.
+  if (/(?:^|[\s`|;&(])(?:npx|bunx|pnpm\s+dlx|yarn\s+dlx)\s+[^\s`]/im.test(corpus)) findings.push({ code: 'remote-package-execution', severity: 'HIGH' });
+  // A global install with confirmation suppressed. Auto-confirm is the part
+  // that matters: it removes the human who would otherwise read what is being
+  // installed and where it came from.
+  // Deliberately not anchored to a package manager's name. `npx skills add -g
+  // -y` is the same act as `npm install -g --yes` and naming binaries would
+  // have missed it; an install verb carrying both flags on one line is the
+  // signal.
+  if (/\b(?:install|add)\b[^\n]*(?:\s-g\b|\s--global\b)[^\n]*(?:\s-y\b|\s--yes\b)|\b(?:install|add)\b[^\n]*(?:\s-y\b|\s--yes\b)[^\n]*(?:\s-g\b|\s--global\b)/im.test(corpus)) findings.push({ code: 'unconfirmed-global-install', severity: 'HIGH' });
   if (/docker\s+(?:run|pull).*(?::latest|\s[^@\s]+\s*$)/im.test(corpus)) findings.push({ code: 'unpinned-container', severity: 'HIGH' });
   return {
     ok: findings.length === 0,

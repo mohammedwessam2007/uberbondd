@@ -21,6 +21,7 @@ export const CAPABILITY_GENOME_SOURCE_REGISTRY_PATH = 'artifacts/capability-geno
 export const CAPABILITY_GENOME_ATOM_TAXONOMY_PATH = 'artifacts/capability-genome/capability-atoms.json';
 export const CAPABILITY_GENOME_CORPUS_STATE_PATH = 'artifacts/capability-genome/pilot/world-repository-candidates-2026-08-31.json';
 export const CAPABILITY_GENOME_BODY_CORPUS_STATE_PATH = 'artifacts/capability-genome/pilot/world-skill-bodies-2026-08-31.json';
+export const CAPABILITY_GENOME_NORMALIZED_RECORDS_PATH = 'artifacts/capability-genome/pilot/normalized-capability-records-2026-09-01.json';
 export const WALLBREAKER_CANON_PATH = 'docs/WALLBREAKER_CANON.md';
 export const WALLBREAKER_MODULE_PATH = 'src/wallbreaker.mjs';
 export const EVENT_HORIZON_PATH = 'artifacts/event-horizon/economic-genome-2026-08-31.json';
@@ -127,6 +128,7 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
   const capabilityGenomeAtomsRelative = assertSafeRelativePath(CAPABILITY_GENOME_ATOM_TAXONOMY_PATH);
   const capabilityGenomeCorpusRelative = assertSafeRelativePath(CAPABILITY_GENOME_CORPUS_STATE_PATH);
   const capabilityGenomeBodyCorpusRelative = assertSafeRelativePath(CAPABILITY_GENOME_BODY_CORPUS_STATE_PATH);
+  const capabilityGenomeNormalizedRelative = assertSafeRelativePath(CAPABILITY_GENOME_NORMALIZED_RECORDS_PATH);
   const wallbreakerCanonRelative = assertSafeRelativePath(WALLBREAKER_CANON_PATH);
   const wallbreakerModuleRelative = assertSafeRelativePath(WALLBREAKER_MODULE_PATH);
   const eventHorizonRelative = assertSafeRelativePath(EVENT_HORIZON_PATH);
@@ -185,13 +187,18 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
   const bodyCorpusState = fs.existsSync(bodyCorpusStatePath)
     ? readJson(bodyCorpusStatePath, 'capability-genome-body-corpus-state')
     : null;
+  const normalizedRecordsPath = path.join(root, capabilityGenomeNormalizedRelative);
+  const normalizedRecordState = fs.existsSync(normalizedRecordsPath)
+    ? readJson(normalizedRecordsPath, 'capability-genome-normalized-records')
+    : null;
   const capabilityGenome = inspectCapabilityGenome({
     sourceRegistry: readJson(path.join(root, capabilityGenomeSourcesRelative), 'capability-genome-source-registry'),
     atomTaxonomy: readJson(path.join(root, capabilityGenomeAtomsRelative), 'capability-genome-atom-taxonomy'),
-    capabilityRecords: [],
+    capabilityRecords: normalizedRecordState?.capabilities || [],
     existingSupplierRegistry: rawCapabilityRegistry,
     corpusState,
     bodyCorpusState,
+    normalizedRecordState,
     now
   });
   if (!capabilityGenome.ok) {
@@ -313,7 +320,7 @@ export function formatUberBondBrainPacket(packet) {
     `context: ${packet.contextDigest}`,
     `memory: ${packet.memoryDigest}`,
     `external capabilities: ${packet.externalCapabilityCount} (${packet.externalCapabilityDigest})`,
-    `capability genome: ${packet.capabilityGenome.health}; sources=${packet.capabilityGenome.sourceCount}; measured-seeds=${packet.capabilityGenome.rawCandidateCount}; world-repos=${packet.capabilityGenome.worldRepositoryCandidateCount}; skill-bodies=${packet.capabilityGenome.worldSkillBodyCount}; active=${packet.capabilityGenome.activeCapabilityCount}; corpus=${packet.capabilityGenome.corpusTruth}`,
+    `capability genome: ${packet.capabilityGenome.health}; sources=${packet.capabilityGenome.sourceCount}; measured-seeds=${packet.capabilityGenome.rawCandidateCount}; world-repos=${packet.capabilityGenome.worldRepositoryCandidateCount}; skill-bodies=${packet.capabilityGenome.worldSkillBodyCount}; normalized=${packet.capabilityGenome.worldCapabilityRecordsNormalized}; approved=${packet.capabilityGenome.approvedCapabilityCount}; active=${packet.capabilityGenome.activeCapabilityCount}; corpus=${packet.capabilityGenome.corpusTruth}`,
     `wallbreaker: ${packet.wallbreaker.status}; ${packet.wallbreaker.policyVersion}; authority=${packet.wallbreaker.businessEffectAuthority}`,
     `event horizon: ${packet.eventHorizon.health}; champion=${packet.eventHorizon.champion.id}; challenger=${packet.eventHorizon.strongestChallenger.id}; customers=${packet.eventHorizon.commercialTruth.realCustomers}; cleared-revenue=$${packet.eventHorizon.commercialTruth.clearedRevenueUsd}`,
     `initiatives: ${packet.namedInitiativeCount}`,

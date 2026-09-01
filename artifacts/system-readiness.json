@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-31T20:00:37.333Z",
+  "generatedAt": "2026-09-01T15:44:25.367Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "8f0de47995e7a408809220cef3deacf721a192c2",
-    "branch": "gpt/event-horizon-economic-genome-20260831",
+    "head": "01c2bf68cede0b7f05173046dfabe061192f4439",
+    "branch": "main",
     "sourceModules": 268,
     "testSuites": 315,
-    "workingTreeClean": false
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {

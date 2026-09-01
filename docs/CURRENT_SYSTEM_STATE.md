@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-09-01**
 Branch: `main`
-Reconciled from current head: `4cb387bea7f7d23724d54264b5115f23c2acc21b`
+Reconciled from current head: `3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
@@ -29,8 +29,8 @@ The source-changing state of this branch was exercised before later documentatio
 
 | Gate | Result |
 |---|---|
-| Syntax | `npm run check:syntax`: 677 files parse (2026-09-01) |
-| Deterministic | `npm run test:deterministic`: 3112 tests, 3112 pass, **0 fail**, 52 skipped (2026-09-01) |
+| Syntax | `npm run check:syntax`: 680 files parse (2026-09-01) |
+| Deterministic | `npm run test:deterministic`: 3114 tests, 3062 pass, **0 fail**, 52 skipped (2026-09-01) |
 | Relay safety | `npm run test:relay-safety`: 150 tests, 150 pass, 0 fail (2026-08-30) |
 | Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real`: 178 tests, 178 pass, 0 fail (2026-09-01), against PostgreSQL 16.13 |
 | Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 124 mutations, 124 killed, 0 not killed |
@@ -41,12 +41,12 @@ The 52 deterministic skips are environment-dependent suites excluded from that r
 
 ## Reachability
 
-**119 of 274 `src` modules have no entry point at all**.
+**119 of 275 `src` modules have no entry point at all**.
 
 | Reachability class | Modules |
 |---|---:|
 | Reachable from production | 136 |
-| Reachable only via an operator script | 19 |
+| Reachable only via an operator script | 20 |
 | **No entry point at all** | **119** |
 
 The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`.
@@ -86,17 +86,26 @@ The repository contains a real Claude engineering orchestrator, but a live Claud
 
 The connected Vercel account exposes team `team_A9LnjIuS5PU0rNetsHMu1N0r` and full project `prj_RWUPf14w1xIz9NK92AbNW5z7qDCg` (`uberbondd`).
 
-The previous exact PR-head full-project preview `dpl_5e9AmHsdpxpdikFFfkUbJhzKopa6` was observed actively executing the real deterministic suite. A preview state does not prove production promotion. **Exact-current-main production is not yet proven by this checkpoint.**
+The previous exact PR-head full-project preview `dpl_5e9AmHsdpxpdikFFfkUbJhzKopa6` was observed actively executing the real deterministic suite. The first account-activation deployment for the new integration code (`dpl_GtFzX8u8VRLL5SJ4jD9jm7dtHw1L`) reached the build command but failed its stale reachability-canon assertion; the canon refresh is included in the replacement release candidate. A deployment state is not treated as business or provider proof. **Exact-current-main production remains pending the replacement build.**
+
+## Account activation receipt
+
+The Vercel account-side setup is complete for the existing `uberbondd` project: a dedicated key named `UberBond Runtime Gateway` is stored as the protected Production value of `AI_GATEWAY_API_KEY`. Runtime settings are also present for the Vercel AI Gateway transport: enabled, model `openai/gpt-5.4`, and the recorded pricing evidence used by the compute ledger. No key value is present in this repository or receipt.
+
+The published implementation composes that protected variable through `src/agent-model-executor-factory.mjs` and keeps the Gateway beneath UberBond's activation and consequence gates. The live model request canary is **not run** because the deployed surface has no dedicated protected provider-canary route; the local Gateway contract, failover, activation-gate and zero-effect tests pass. No model spend or business effect is claimed.
+
+PayPal is **not configured**. Cloud Browser auto-review denied access to `https://www.paypal.com` before authentication, so no Sandbox REST application, Client ID, Secret, webhook setting or payment state changed. No PayPal sandbox canary or money movement occurred.
 
 ## External gates
 
 Internal software cannot manufacture the following:
 
-- a real provider credential plus separately authorized spend;
+- separately authorized model spend and a reachable protected model-canary surface;
 - lawful sender infrastructure and measured sender health;
 - real customer demand/commitment;
 - provider-origin cleared payment;
 - accepted delivery, refund/dispute, renewal and expansion evidence;
+- a PayPal Sandbox REST application and credentials (account access is currently blocked at the browser boundary);
 - payment-provider KYC/payout and exact applicable legal/tax treatment;
 - sustained unattended operation over real elapsed time;
 - a human escalation transport;
@@ -110,4 +119,4 @@ Internal software cannot manufacture the following:
 4. Re-verify exact-current-main production only when a real deployment is observed. The connected full Vercel project is `live: false`; recent observed full-project deployments are errors and exact-current-main runtime is unproven.
 5. Preserve the Capability Genome foundation and defer expensive corpus scaling until storage, source access, sandboxing, and economic pull are dependency-satisfied. Catalog size is not the frontier.
 
-Zero customer contact, zero provider/model execution, zero purchases, zero credential/DNS changes, zero money movement, and zero production mutation were authorized or performed by this checkpoint.
+Zero customer contact, zero live provider/model execution, zero purchases, zero PayPal account mutation, zero DNS changes, zero money movement, and zero production business mutation were authorized or performed by this checkpoint. The Vercel Gateway secret was configured in the protected project store; its value is intentionally absent from all repository evidence.

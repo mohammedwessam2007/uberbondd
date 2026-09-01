@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "uberbond.account-activation-receipt.v1",
+  "observedAt": "2026-09-01T23:50:00Z",
+  "project": {
+    "name": "uberbondd",
+    "repository": "mohammedwessam2007/uberbondd",
+    "vercelProjectId": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
+    "vercelTeamId": "team_A9LnjIuS5PU0rNetsHMu1N0r"
+  },
+  "vercelAiGateway": {
+    "configured": true,
+    "providerIdentity": "Vercel AI Gateway",
+    "keyIdentity": "UberBond Runtime Gateway",
+    "environment": "Production",
+    "runtime": {
+      "enabled": true,
+      "model": "openai/gpt-5.4",
+      "inputUsdPerMillion": 2.5,
+      "outputUsdPerMillion": 15,
+      "pricingSource": "https://openai.com/api/",
+      "pricingVerifiedAt": "2026-09-01T00:00:00Z"
+    },
+    "secretValueRecorded": false,
+    "liveCanary": {
+      "status": "NOT_RUN",
+      "result": "No dedicated protected production provider-canary route exists; local transport/failover/activation contract tests passed.",
+      "model": "openai/gpt-5.4",
+      "businessEffectAuthority": "NONE"
+    }
+  },
+  "paypal": {
+    "configured": false,
+    "environment": "Sandbox only",
+    "appIdentity": null,
+    "secretValuesRecorded": false,
+    "accountSetup": {
+      "status": "BLOCKED",
+      "blocker": "Cloud Browser auto-review denied access to https://www.paypal.com before authentication; no PayPal Sandbox REST application or credentials were created.",
+      "moneyMoved": false
+    },
+    "sandboxCanary": {
+      "status": "NOT_RUN",
+      "reconciliationStatus": "NOT_OBSERVED",
+      "businessEffectAuthority": "NONE"
+    }
+  },
+  "deployment": {
+    "status": "REPLACEMENT_BUILD_PENDING",
+    "previousDeploymentId": "dpl_GtFzX8u8VRLL5SJ4jD9jm7dtHw1L",
+    "previousResult": "ERROR",
+    "previousError": "Build command failed because the reachability canon still counted 274 src modules while 275 existed.",
+    "secretValuesRecorded": false
+  },
+  "externalEffects": {
+    "customerContact": 0,
+    "liveProviderRequests": 0,
+    "paypalSandboxEvents": 0,
+    "moneyMovedUsd": 0,
+    "businessEffectAuthority": "NONE"
+  }
+}

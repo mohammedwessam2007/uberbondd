@@ -2,9 +2,9 @@
 
 **This file is the canonical present-tense software/commercial state.** Historical detail from the pre-checkpoint version is preserved byte-for-byte under `docs/archive/2026-08-30-pre-checkpoint/`. Repository code and newer exact external evidence still outrank this prose.
 
-Last reconciled: **2026-08-31**
-Branch: `gpt/event-horizon-economic-genome-20260831`
-Reconciled from current head: `8f0de47995e7a408809220cef3deacf721a192c2`
+Last reconciled: **2026-09-01**
+Branch: `main`
+Reconciled from current head: `01c2bf68cede0b7f05173046dfabe061192f4439`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 

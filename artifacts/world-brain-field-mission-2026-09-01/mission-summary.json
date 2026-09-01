@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "uberbond.world-brain-field-mission.v1",
+  "generatedAt": "2026-09-01T20:45:00Z",
+  "sourceMainShaAtResearchStart": "d42a51fdab5d65d8f224ee6d3b237a0090b776f6",
+  "researchMode": "PUBLIC_READ_ONLY__NO_PROSPECT_CONTACT__NO_SPEND",
+  "northStar": "risk-adjusted cleared contribution profit / founder minute",
+  "commercialTruth": { "realCustomers": 0, "clearedRevenueUsd": 0, "acceptedDeliveries": 0, "retainedCustomers": 0 },
+  "champion": {
+    "id": "lead-path-attribution-integrity-sprint",
+    "name": "White-label Attribution Integrity + Lost-Booking Evidence Sprint",
+    "status": "PREPARED_NOT_EXTERNALLY_ACTIVATED",
+    "priceHypothesisUsd": 450,
+    "decision": "REMAINS_CURRENT_CHAMPION",
+    "why": "It is the only contender with a bounded read-only scope, a fixed first-payment hypothesis, a one-to-many agency channel, and no required customer-system mutation. This is a model prior, not demand or payment evidence."
+  },
+  "canary": {
+    "maximumQualifiedConversations": 5,
+    "externalEffectAuthority": "NONE",
+    "killRule": "No paid pilot after five qualified conversations means kill or rethink before volume expansion.",
+    "deliveryBoundary": "Read-only evidence; no advertising, CRM, booking, payment, or customer-system mutation."
+  },
+  "capabilityCorpus": {
+    "newPreliminaryRows": 93,
+    "dedupedCanonicalRepositories": 92,
+    "deeplyEnrichedCandidateCount": 20,
+    "metadataOnlyCandidateCount": 72,
+    "officialMcpRegistrySampleMetadataEntries": 196,
+    "approvedCapabilityCount": 0,
+    "activeCapabilityCount": 0,
+    "securityCleanCapabilityCount": 0,
+    "truth": "DISCOVERED metadata is not a normalized capability, security admission, installation, benchmark, or production use."
+  },
+  "storage": { "primary": "cloudflare-r2", "fallback": "backblaze-b2", "status": "RESEARCH_ONLY" },
+  "modelGateway": {
+    "candidate": "vercel-ai-gateway",
+    "role": "TRANSPORT_SUPPLIER_BENEATH_UBERBOND_ROUTING_POLICY",
+    "activation": "NOT_CONFIGURED",
+    "invariant": "Preserve exact model/provider/attempt/credential identity; no automatic system-credit fallback until the existing routing and spend policy explicitly permits it."
+  },
+  "paypal": {
+    "country": "EG",
+    "liveMerchantCapability": "NOT_PROVEN",
+    "sandboxAppCreated": false,
+    "activationAttempt": "BLOCKED_BEFORE_AUTHENTICATION_BY_CLOUD_BROWSER_SECURITY_POLICY",
+    "invariant": "A provider account, verified merchant eligibility, provider verification, and canonical reconciliation are all required before revenue is claimed."
+  },
+  "nextCommercialMove": {
+    "id": "owner-authorized-five-conversation-partner-canary",
+    "action": "After sender authentication, physical footer address, and suppression ledger are verified, use the approved public business routes for at most five bespoke partner conversations.",
+    "evidenceRequired": ["qualified conversation", "cleared payment", "accepted delivery", "actual founder minutes", "second-account signal"],
+    "notPerformed": true
+  },
+  "externalEffectLedger": { "messages": 0, "calls": 0, "purchases": 0, "accountCreations": 0, "credentialChanges": 0, "paymentProviderMutations": 0, "productionDeployments": 0, "spendCents": 0 }
+}

@@ -145,6 +145,20 @@
     "doctor": "npm run event-horizon:doctor",
     "notClaimed": "No customer, buyer commitment, payment, accepted delivery, repeat payment, retention, partner activation, tax conclusion, certification, or production runtime is inferred from the research tournament."
   },
+  "worldBrainFieldMission": {
+    "version": "uberbond.world-brain-field-mission.v1",
+    "receiptRoot": "artifacts/world-brain-field-mission-2026-09-01",
+    "doctor": "npm run world-brain:doctor",
+    "champion": "lead-path-attribution-integrity-sprint",
+    "championState": "PREPARED_NOT_EXTERNALLY_ACTIVATED",
+    "partnerPool": "12 ranked public-business candidates; five primary conversation candidates and three replacements; nine rejected/benchmark candidates with reasons.",
+    "capabilityCorpus": "92 deduped public repository identities: 20 revision-pinned and privilege/noted; 72 metadata-only; 0 from this tranche approved/active/security-clean.",
+    "storage": "Cloudflare R2 primary research recommendation; Backblaze B2 fallback; no adapter/account/purchase performed.",
+    "modelGateway": "Vercel AI Gateway researched as a transport supplier beneath UberBond routing; no key/provider/credit configured by this lane.",
+    "paypal": "Egypt sandbox/live activation researched; merchant eligibility remains unproven. Browser login was blocked before authentication, so no app, secret, account mutation or payment action occurred.",
+    "externalEffectAuthority": "NONE",
+    "notClaimed": "No contact, qualified conversation, buyer interest, commitment, payment, accepted delivery, retention, model-provider activation, payment-provider activation, corpus execution, or security clearance."
+  },
   "externalEffects": {
     "publicResearch": "READ_ONLY",
     "githubInspection": "READ_ONLY",

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "uberbond.capability-family-map.v1",
+  "rule": "A family indicates alternatives or composition candidates, never automatic equivalence or approval.",
+  "families": [
+    { "id": "public-evidence", "members": ["tavily-ai/tavily-mcp", "exa-labs/exa-mcp-server", "firecrawl/firecrawl", "unclecode/crawl4ai"], "relation": "Tavily/Exa are search substitutes; Firecrawl/Crawl4AI add crawl/extract behavior." },
+    { "id": "browser-execution", "members": ["browser-use/browser-use", "microsoft/playwright-mcp", "apify/apify-mcp-server"], "relation": "Behavioral substitutes for some missions with distinct runtime/authority models." },
+    { "id": "workflow", "members": ["n8n-io/n8n", "activepieces/activepieces", "Windmill-Labs/windmill", "triggerdotdev/trigger.dev", "inngest/inngest", "temporalio/sdk-typescript"], "relation": "Compare connectors against durable execution; do not install all." },
+    { "id": "crm", "members": ["twentyhq/twenty", "espocrm/espocrm", "erxes/erxes"], "relation": "CRM substitutes; NocoDB/Baserow are stores, not full equivalents." },
+    { "id": "messaging", "members": ["mautic/mautic", "knadh/listmonk", "dittofeed/dittofeed", "axllent/mailpit"], "relation": "Campaign overlap; Mailpit is test sink only." },
+    { "id": "payments", "members": ["stripe/stripe-node", "paypal/PayPal-TypeScript-Server-SDK", "juspay/hyperswitch", "getlago/lago", "openmeterio/openmeter"], "relation": "Provider SDKs, routing, billing and metering are complementary, not one product family." },
+    { "id": "eval-observability", "members": ["langfuse/langfuse", "Arize-ai/phoenix", "Helicone/helicone", "comet-ml/opik", "promptfoo/promptfoo", "UKGovernmentBEIS/inspect_ai"], "relation": "Telemetry and benchmark execution overlap but must remain separate capability atoms." },
+    { "id": "security", "members": ["semgrep/semgrep", "aquasecurity/trivy", "google/osv-scanner", "anchore/syft", "anchore/grype", "woodruffw/zizmor", "open-policy-agent/opa"], "relation": "Defense in depth; no single scanner grants safety." },
+    { "id": "memory", "members": ["mem0ai/mem0", "getzep/zep", "getzep/graphiti", "letta-ai/letta", "thedotmack/claude-mem", "headroomlabs-ai/headroom"], "relation": "Recall, graph, session observation and compression are not identical." },
+    { "id": "model-routing", "members": ["BerriAI/litellm", "Portkey-AI/gateway", "vercel/ai", "lm-sys/RouteLLM"], "relation": "One routing-policy brain remains canonical; external gateways are suppliers." }
+  ],
+  "identityResolutions": [
+    { "canonical": "RYNO", "alias": "Blue Corona", "reason": "Public merger/successor statement", "source": "https://www.bluecorona.com/case-studies/" },
+    { "canonical": "openai/plugins", "state": "ARCHIVED_SOURCE", "reason": "openai/skills points to it as successor while GitHub shows archive; no active successor inferred.", "sources": ["https://github.com/openai/skills", "https://github.com/openai/plugins"] }
+  ]
+}

@@ -11,7 +11,10 @@ import {
   EXTERNAL_CAPABILITY_REGISTRY_PATH,
   CAPABILITY_GENOME_SOURCE_REGISTRY_PATH,
   CAPABILITY_GENOME_ATOM_TAXONOMY_PATH,
-  EVENT_HORIZON_PATH
+  EVENT_HORIZON_PATH,
+  WORLD_BRAIN_FIELD_MISSION_PATH,
+  WORLD_BRAIN_FIELD_PARTNERS_PATH,
+  WORLD_BRAIN_FIELD_CORPUS_PATH
 } from '../scripts/uberbond-brain-bootstrap.mjs';
 
 const sourceRoot = path.resolve(new URL('..', import.meta.url).pathname);
@@ -27,6 +30,9 @@ function buildFixture(mutator = null) {
   const capabilityGenomeSources = JSON.parse(fs.readFileSync(path.join(sourceRoot, CAPABILITY_GENOME_SOURCE_REGISTRY_PATH), 'utf8'));
   const capabilityGenomeAtoms = JSON.parse(fs.readFileSync(path.join(sourceRoot, CAPABILITY_GENOME_ATOM_TAXONOMY_PATH), 'utf8'));
   const eventHorizon = JSON.parse(fs.readFileSync(path.join(sourceRoot, EVENT_HORIZON_PATH), 'utf8'));
+  const worldBrainFieldMission = JSON.parse(fs.readFileSync(path.join(sourceRoot, WORLD_BRAIN_FIELD_MISSION_PATH), 'utf8'));
+  const worldBrainFieldPartners = JSON.parse(fs.readFileSync(path.join(sourceRoot, WORLD_BRAIN_FIELD_PARTNERS_PATH), 'utf8'));
+  const worldBrainFieldCorpus = JSON.parse(fs.readFileSync(path.join(sourceRoot, WORLD_BRAIN_FIELD_CORPUS_PATH), 'utf8'));
   mutator?.({ bootstrap, memory, reconciliation, handoff, externalCapabilities, capabilityGenomeSources, capabilityGenomeAtoms, eventHorizon });
   for (const relative of new Set([
     'UBERBOND_BOOTSTRAP.json',
@@ -35,6 +41,9 @@ function buildFixture(mutator = null) {
     EXTERNAL_CAPABILITY_REGISTRY_PATH,
     CAPABILITY_GENOME_SOURCE_REGISTRY_PATH,
     CAPABILITY_GENOME_ATOM_TAXONOMY_PATH,
+    WORLD_BRAIN_FIELD_MISSION_PATH,
+    WORLD_BRAIN_FIELD_PARTNERS_PATH,
+    WORLD_BRAIN_FIELD_CORPUS_PATH,
     ...bootstrap.canonPointers
   ])) {
     const absolute = path.join(root, relative);
@@ -48,6 +57,9 @@ function buildFixture(mutator = null) {
     else if (relative === CAPABILITY_GENOME_SOURCE_REGISTRY_PATH) fs.writeFileSync(absolute, JSON.stringify(capabilityGenomeSources, null, 2));
     else if (relative === CAPABILITY_GENOME_ATOM_TAXONOMY_PATH) fs.writeFileSync(absolute, JSON.stringify(capabilityGenomeAtoms, null, 2));
     else if (relative === EVENT_HORIZON_PATH) fs.writeFileSync(absolute, JSON.stringify(eventHorizon, null, 2));
+    else if (relative === WORLD_BRAIN_FIELD_MISSION_PATH) fs.writeFileSync(absolute, JSON.stringify(worldBrainFieldMission, null, 2));
+    else if (relative === WORLD_BRAIN_FIELD_PARTNERS_PATH) fs.writeFileSync(absolute, JSON.stringify(worldBrainFieldPartners, null, 2));
+    else if (relative === WORLD_BRAIN_FIELD_CORPUS_PATH) fs.writeFileSync(absolute, JSON.stringify(worldBrainFieldCorpus, null, 2));
     else fs.writeFileSync(absolute, `fixture for ${relative}\n`);
   }
   return root;
@@ -76,6 +88,10 @@ test('one-command loader validates actual bootstrap, reconciled memory, and exte
   assert.equal(packet.eventHorizon.strongestChallenger.id, 'gcc-einvoice-exception-evidence');
   assert.equal(packet.eventHorizon.commercialTruth.clearedRevenueUsd, 0);
   assert.equal(packet.eventHorizon.businessEffectAuthority, 'NONE');
+  assert.equal(packet.worldBrainFieldMission.health, 'WORLD_BRAIN_FIELD_MISSION_HEALTHY');
+  assert.equal(packet.worldBrainFieldMission.champion, 'lead-path-attribution-integrity-sprint');
+  assert.equal(packet.worldBrainFieldMission.corpusCandidateCount, 92);
+  assert.equal(packet.worldBrainFieldMission.businessEffectAuthority, 'NONE');
   assert.deepEqual(new Set(packet.externalCapabilities.map(item => item.id)), new Set([
     'find-skills',
     'claude-code-setup',

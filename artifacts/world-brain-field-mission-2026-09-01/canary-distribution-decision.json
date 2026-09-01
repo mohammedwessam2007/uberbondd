@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "uberbond.canary-distribution.v1",
+  "decision": "ONE_TO_ONE_PUBLIC_BUSINESS_EMAIL_THEN_ONE_MANUAL_B2B_PHONE_FOLLOW_UP",
+  "firstFive": ["kickcharge-creative", "lemon-seed-marketing", "hook-agency", "footbridge-media", "titan-wizards"],
+  "replacements": ["powerhouse-consulting-group", "tradeweave", "free-agency"],
+  "prohibited": ["BULK_PLATFORM", "SEQUENCES", "WARM_UP_NETWORK", "SMS", "LINKEDIN_PITCH_INVITATION", "RESEND_FOR_COLD_OUTREACH"],
+  "preconditions": ["Authenticated human mailbox on an owned domain", "SPF", "DKIM", "DMARC starting at p=none", "valid physical postal footer address", "suppression and opt-out ledger", "owner-authorized external effect"],
+  "fallbackWhenPreconditionsMissing": "MANUAL_PHONE_FIRST",
+  "incrementalProviderCost": "USD_0_IF_EXISTING_MAILBOX_AND_PHONE; no purchase authorized by this mission.",
+  "stopRule": "Stop at five qualified conversations; no paid pilot means kill/rethink.",
+  "sources": [
+    { "claimClass": "OFFICIAL_OBLIGATION", "url": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business", "claim": "Commercial email needs truthful headers/subject, ad identification, postal address, opt-out and timely honor of opt-out." },
+    { "claimClass": "OFFICIAL_OBLIGATION", "url": "https://www.ftc.gov/business-guidance/resources/complying-telemarketing-sales-rule", "claim": "Manual B2B calls are not a license for deception; no robocall, prerecorded or autodial in this plan." },
+    { "claimClass": "OFFICIAL_PROVIDER_RULE", "url": "https://support.google.com/mail/answer/81126", "claim": "Gmail sender authentication and low complaint practice." },
+    { "claimClass": "OFFICIAL_PROVIDER_RULE", "url": "https://senders.yahooinc.com/best-practices/", "claim": "Use 0.3% complaint rate as a ceiling, not a target." },
+    { "claimClass": "OFFICIAL_PROVIDER_RULE", "url": "https://resend.com/legal/acceptable-use", "claim": "Do not use Resend for unsolicited cold outreach." },
+    { "claimClass": "OFFICIAL_PROVIDER_RULE", "url": "https://www.linkedin.com/legal/professional-community-policies", "claim": "Do not use invitations to pitch unknown people." }
+  ],
+  "externalEffectLedger": { "messages": 0, "calls": 0, "spendCents": 0 }
+}

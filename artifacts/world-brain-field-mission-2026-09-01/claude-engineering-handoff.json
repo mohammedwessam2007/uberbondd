@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "uberbond.claude-handoff.v1",
+  "priority": "FIRST_CASH_ENABLEMENT",
+  "problem": "The partner canary requires a deterministic, read-only Attribution Integrity + Lost-Booking Evidence packet before any automation or capability-import expansion is justified.",
+  "economicValue": "A partner can sell one fixed-scope USD 450 diagnostic across a portfolio. If accepted twice, it becomes a monitor/rail; if it fails the five-conversation canary, it is killed cheaply.",
+  "requiredCapability": ["Ingest public/source-authorized evidence into a deterministic lead-source-to-booking-to-job-to-invoice-to-cleared-payment chain", "Emit a client/partner-readable and machine-readable evidence packet", "Clearly separate missing evidence from leaks", "Reuse canonical payment and acceptance truth; do not add a ledger"],
+  "successCriterion": "Synthetic fixtures produce reproducible FOUND, NOT_FOUND and INCONCLUSIVE findings with source IDs, hashes, permission snapshot, no external effects, and a bounded founder-minute receipt.",
+  "boundaries": ["No prospect contact", "No advertising or CRM mutation", "No customer-system writes", "No payment initiation", "No private-session/browser-cookie use", "No legal/tax claim", "No model-only evidence decision", "No external capability body execution"],
+  "whyThisDominates": "It directly tests the current champion and consumes the smallest useful capability bundle. Do not build a generic growth platform, mass crawler or AI Gateway adapter before this packet is fixture-proven.",
+  "followOnOnlyAfterEvidence": ["R2 object-storage adapter behind corpus hash/pointer contract", "Vercel AI Gateway transport adapter beneath existing routing policy", "PayPal sandbox reconciliation adapter with webhook/idempotency tests", "Capability ingestion of one read-only research bundle"],
+  "inputs": ["first-cash-partner-candidates.json", "canary-distribution-decision.json", "capability-atom-proposals.json", "paypal-egypt-activation-report.json", "ai-gateway-provider-report.json"]
+}

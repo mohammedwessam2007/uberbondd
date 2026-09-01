@@ -25,10 +25,11 @@
 import { createOpenAIAgentExecutor } from './openai-agent-executor.mjs';
 import { createAnthropicAgentExecutor } from './anthropic-agent-executor.mjs';
 import { createClaudeCodeSandboxExecutor } from './claude-code-sandbox-executor.mjs';
+import { createVercelAIGatewayExecutor } from './vercel-ai-gateway-executor.mjs';
 
 export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.0.0';
 
-const API_PROVIDERS = Object.freeze(['openai', 'anthropic']);
+const API_PROVIDERS = Object.freeze(['openai', 'anthropic', 'ai-gateway']);
 const SANDBOX_PROVIDER = 'claude-code-sandbox';
 const SUPPORTED_PROVIDERS = Object.freeze([...API_PROVIDERS, SANDBOX_PROVIDER]);
 
@@ -92,6 +93,19 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
         pricing,
         enabled: env.OPENAI_AGENT_ENABLED === 'true',
         ...(worker.model ? { defaultModel: worker.model } : {})
+      });
+    }
+
+    if (provider === 'ai-gateway') {
+      const apiKey = String(env.AI_GATEWAY_API_KEY || '');
+      const pricing = pricingFrom(env, 'AI_GATEWAY');
+      if (!apiKey) throw new Error('ai-gateway worker configured but AI_GATEWAY_API_KEY is absent');
+      if (!pricing) throw new Error('ai-gateway worker configured but pricing evidence is absent or incomplete');
+      return createVercelAIGatewayExecutor({
+        apiKey,
+        pricing,
+        enabled: env.AI_GATEWAY_AGENT_ENABLED === 'true',
+        defaultModel: worker.model || env.AI_GATEWAY_MODEL || 'openai/gpt-5.4'
       });
     }
 

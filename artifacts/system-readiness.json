@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-01T17:35:57.015Z",
+  "generatedAt": "2026-09-01T23:12:02.471Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "60f7f6e512acfb10db6de01f39249f3dabb12ad9",
-    "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "sourceModules": 269,
-    "testSuites": 317,
-    "workingTreeClean": true
+    "head": "4cb387bea7f7d23724d54264b5115f23c2acc21b",
+    "branch": "main",
+    "sourceModules": 274,
+    "testSuites": 323,
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 665,
-      "ranAt": "2026-09-01T17:10:00Z"
+      "filesParsed": 677,
+      "ranAt": "2026-09-01T23:20:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 3057,
-      "pass": 3005,
+      "tests": 3112,
+      "pass": 3112,
       "fail": 0,
       "skipped": 52,
-      "ranAt": "2026-09-01T17:30:00Z"
+      "ranAt": "2026-09-01T23:20:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -68,12 +68,12 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 269,
-      "reachableFromProduction": 134,
-      "reachableFromOperatorScriptsOnly": 17,
-      "noEntryPointAtAll": 118,
+      "srcModules": 274,
+      "reachableFromProduction": 136,
+      "reachableFromOperatorScriptsOnly": 19,
+      "noEntryPointAtAll": 119,
       "allClassified": true,
-      "ranAt": "2026-09-01T17:10:00Z",
+      "ranAt": "2026-09-01T23:20:00Z",
       "note": "src is walked recursively. Event Horizon is operator-reachable through its doctor and repository brain while carrying no business-effect authority. Wallbreaker is operator-reachable and the Capability Genome remains production-reachable through jobs and the repository brain. agent-model-failover is production-reachable through agent-worker-job. capability-genome-body-import, body-fetch and the new body-normalize module remain operator-only: the doctor and brain read the measured normalization receipt rather than triggering public reads."
     }
   },

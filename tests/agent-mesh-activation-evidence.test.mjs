@@ -158,7 +158,7 @@ test('an absent isolation receipt is fine; a named-but-broken one is refused', a
 
 test('the sandbox provider reports its own blockers and is never ready by default', async () => {
   const { describeProviderReadiness } = await import('../src/agent-model-executor-factory.mjs');
-  const [, , sandbox] = describeProviderReadiness({ env: {} });
+  const [, , , sandbox] = describeProviderReadiness({ env: {} });
   assert.equal(sandbox.provider, 'claude-code-sandbox');
   assert.equal(sandbox.ready, false);
   assert.deepEqual(sandbox.blockers, ['sandbox-root-absent', 'isolation-receipt-absent', 'explicitly-disabled']);

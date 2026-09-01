@@ -2,16 +2,16 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 665,
-      "ranAt": "2026-09-01T17:10:00Z"
+      "filesParsed": 677,
+      "ranAt": "2026-09-01T23:20:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 3057,
-      "pass": 3005,
+      "tests": 3112,
+      "pass": 3112,
       "fail": 0,
       "skipped": 52,
-      "ranAt": "2026-09-01T17:30:00Z"
+      "ranAt": "2026-09-01T23:20:00Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -58,12 +58,12 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 269,
-      "reachableFromProduction": 134,
-      "reachableFromOperatorScriptsOnly": 17,
-      "noEntryPointAtAll": 118,
+      "srcModules": 274,
+      "reachableFromProduction": 136,
+      "reachableFromOperatorScriptsOnly": 19,
+      "noEntryPointAtAll": 119,
       "allClassified": true,
-      "ranAt": "2026-09-01T17:10:00Z",
+      "ranAt": "2026-09-01T23:20:00Z",
       "note": "src is walked recursively. Event Horizon is operator-reachable through its doctor and repository brain while carrying no business-effect authority. Wallbreaker is operator-reachable and the Capability Genome remains production-reachable through jobs and the repository brain. agent-model-failover is production-reachable through agent-worker-job. capability-genome-body-import, body-fetch and the new body-normalize module remain operator-only: the doctor and brain read the measured normalization receipt rather than triggering public reads."
     }
   },

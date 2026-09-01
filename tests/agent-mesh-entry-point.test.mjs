@@ -98,7 +98,7 @@ test('readiness descriptions report presence without ever reporting a value', ()
   assert.deepEqual(empty.blockers, ['relay-endpoint-absent', 'relay-credential-absent']);
 
   const providers = describeProviderReadiness({ env: {} });
-  assert.deepEqual(providers.map(item => item.provider), ['openai', 'anthropic', 'claude-code-sandbox']);
+  assert.deepEqual(providers.map(item => item.provider), ['openai', 'anthropic', 'ai-gateway', 'claude-code-sandbox']);
   assert.equal(providers.every(item => item.ready === false), true);
 });
 

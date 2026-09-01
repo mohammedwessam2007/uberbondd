@@ -1,5 +1,7 @@
 import crypto from 'node:crypto';
 
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+
 export const FREE_FIRST_ROUTER_VERSION = 'uberbond.free-first-outreach-router-1.0.0';
 export const MESSAGE_PURPOSES = Object.freeze([
   'TRANSACTIONAL',
@@ -14,16 +16,6 @@ export const MESSAGE_PURPOSES = Object.freeze([
 ]);
 export const PURPOSE_RULES = Object.freeze(['ALLOWED', 'CONSENT_REQUIRED', 'PROHIBITED', 'UNKNOWN']);
 
-const ZERO_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 function clone(value) { return structuredClone(value); }
 function text(value, max = 300) {
@@ -49,7 +41,7 @@ function fail(reasonCodes, extra = {}) {
     status: 'FREE_FIRST_ROUTE_BLOCKED',
     reasonCodes: [...new Set(reasonCodes.filter(Boolean))],
     businessEffectAuthority: 'NONE',
-    externalEffectLedger: clone(ZERO_EFFECTS),
+    externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS),
     ...extra
   };
 }
@@ -109,7 +101,7 @@ export function validateFreeProvider(input = {}) {
     status: 'FREE_PROVIDER_VALIDATED',
     provider,
     businessEffectAuthority: 'NONE',
-    externalEffectLedger: clone(ZERO_EFFECTS)
+    externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS)
   };
 }
 
@@ -131,7 +123,7 @@ export function freeCapacityForDays(providerInput, days = 30) {
     capacity,
     effectiveDaily: capacity / days,
     businessEffectAuthority: 'NONE',
-    externalEffectLedger: clone(ZERO_EFFECTS)
+    externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS)
   };
 }
 
@@ -172,7 +164,7 @@ export function aggregateFreeCapacity({ providers = [], days = 30, purpose = nul
     rows,
     errors,
     businessEffectAuthority: 'NONE',
-    externalEffectLedger: clone(ZERO_EFFECTS)
+    externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS)
   };
 }
 
@@ -321,6 +313,6 @@ export function selectFreeRoute({
     route,
     evaluations,
     businessEffectAuthority: 'NONE',
-    externalEffectLedger: clone(ZERO_EFFECTS)
+    externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS)
   };
 }

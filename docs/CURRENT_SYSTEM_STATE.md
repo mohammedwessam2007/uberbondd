@@ -41,12 +41,12 @@ The 52 deterministic skips are environment-dependent suites excluded from that r
 
 ## Reachability
 
-**118 of 269 `src` modules have no entry point at all**.
+**118 of 271 `src` modules have no entry point at all**.
 
 | Reachability class | Modules |
 |---|---:|
 | Reachable from production | 134 |
-| Reachable only via an operator script | 17 |
+| Reachable only via an operator script | 19 |
 | **No entry point at all** | **118** |
 
 The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`.

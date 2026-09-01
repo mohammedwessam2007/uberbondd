@@ -1,11 +1,11 @@
 {
   "schemaVersion": "uberbond-handoff-1.6.0",
   "checkpointedAt": "2026-09-01T17:35:00Z",
-  "sourceCommit": "ad13e6031802b2c5df291d5aa27c7270284a55ab",
+  "sourceCommit": "60f7f6e512acfb10db6de01f39249f3dabb12ad9",
   "sourceMainShaAtMissionStart": "8f0de47995e7a408809220cef3deacf721a192c2",
-  "currentMainShaAtCheckpoint": "ad13e6031802b2c5df291d5aa27c7270284a55ab",
+  "currentMainShaAtCheckpoint": "60f7f6e512acfb10db6de01f39249f3dabb12ad9",
   "activeBranch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-  "activePullRequest": null,
+  "activePullRequest": "#275 (merged)",
   "activeMission": "Capability Genome consumption: turn the two imported public skill bodies into canonical capability records without letting normalization become approval, then earn the next rung (dedupe plus independent SEMANTIC and SANDBOX security evidence) before anything becomes eligible.",
   "economicNorthStar": "risk-adjusted cleared contribution profit / founder minute",
   "completed": [
@@ -61,7 +61,7 @@
     "notClaimed": "Two normalized records is two typed descriptions. Nothing is deduped, security-reviewed, eligible, approved, active, installed, benchmarked or economically proven. A skill body is not a capability; NORMALIZED is not APPROVED; STATIC_CLEAR is not SAFE."
   },
   "currentMeasuredSoftwareTruth": {
-    "exactHead": "candidate on claude/uberbond-kilimanjaro-closure-hha0oo, based on main ad13e603",
+    "exactHead": "60f7f6e512acfb10db6de01f39249f3dabb12ad9 on main",
     "check:syntax": "665 files parse",
     "test:deterministic": "3057 tests, 3005 pass, 0 fail, 52 skipped",
     "test:postgres-real": "178/178 against PostgreSQL 16.13",

@@ -1,0 +1,121 @@
+{
+  "schemaVersion": "uberbond.first-cash-canary-packet.v1",
+  "generatedAt": "2026-09-02T00:00:00Z",
+  "sourceEvidence": [
+    "artifacts/world-brain-field-mission-2026-09-01/mission-summary.json",
+    "artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json",
+    "artifacts/world-brain-field-mission-2026-09-01/canary-distribution-decision.json"
+  ],
+  "offer": {
+    "name": "White-label Attribution Integrity + Lost-Booking Evidence Sprint",
+    "lineage": "REFINEMENT_OF_LEAD_PATH_NOT_NEW_OFFER",
+    "buyer": "US or otherwise legally approved agencies serving HVAC, plumbing, or electrical businesses",
+    "priceHypothesis": { "currency": "USD", "amount": 450, "scope": "fixed" },
+    "status": "PREPARED_NOT_EXTERNALLY_ACTIVATED"
+  },
+  "canaryDoctrine": {
+    "maximumQualifiedConversations": 5,
+    "qualifiedConversationCount": 0,
+    "paidPilotCount": 0,
+    "decision": "CONTINUE_BOUNDED_CANARY",
+    "killRule": "No paid pilot after five qualified conversations means kill or rethink before volume expansion."
+  },
+  "targets": {
+    "preparedCount": 5,
+    "eligibleToContactCount": 0,
+    "firstFive": [
+      "kickcharge-creative",
+      "lemon-seed-marketing",
+      "hook-agency",
+      "footbridge-media",
+      "titan-wizards"
+    ],
+    "truthBoundary": "Public business qualification/contact routes are evidence, not messaging authority."
+  },
+  "contactGates": {
+    "jurisdictionApproved": false,
+    "providerPurposeAllowed": false,
+    "contactProvenanceApproved": true,
+    "senderReady": false,
+    "authorityGranted": false,
+    "canaryOpen": true,
+    "canContactNow": false,
+    "blockedBy": [
+      "jurisdiction-approval-not-recorded-as-authority",
+      "no-live-cold-capable-provider-route-proven",
+      "authenticated-owned-domain-sender-not-proven-ready",
+      "SPF-DKIM-DMARC-and-footer-preconditions-not-verified",
+      "suppression-opt-out-runtime-not-proven-for-this-sender",
+      "OMNIA-external-effect-authority-not-granted"
+    ]
+  },
+  "distributionDecision": {
+    "preferred": "ONE_TO_ONE_PUBLIC_BUSINESS_EMAIL_THEN_ONE_MANUAL_B2B_PHONE_FOLLOW_UP",
+    "fallbackWhenEmailPreconditionsMissing": "MANUAL_PHONE_FIRST",
+    "prohibited": [
+      "BULK_PLATFORM",
+      "SEQUENCES",
+      "WARM_UP_NETWORK",
+      "SMS",
+      "LINKEDIN_PITCH_INVITATION",
+      "RESEND_FOR_COLD_OUTREACH"
+    ],
+    "preconditions": [
+      "Authenticated human mailbox on an owned domain",
+      "SPF",
+      "DKIM",
+      "DMARC starting at p=none",
+      "valid physical postal footer address",
+      "suppression and opt-out ledger",
+      "owner-authorized external effect"
+    ]
+  },
+  "payment": {
+    "implementedCanonicalRail": "LEMON_SQUEEZY",
+    "paypalRail": "NOT_IMPLEMENTED",
+    "paypalSandboxAppCreated": false,
+    "paypalLiveMerchantCapabilityEgypt": "NOT_PROVEN",
+    "paymentLink": null,
+    "livePaymentReadiness": "NOT_PROVEN"
+  },
+  "fulfillment": {
+    "softwarePath": "lead-path-sprint-fulfillment -> service-fulfillment",
+    "qaRequiredBeforeDelivery": true,
+    "customerAcceptanceRequiresIndependentExternalEvidence": true,
+    "syntheticEvidenceMayIncrementCommercialTruth": false
+  },
+  "runtime": {
+    "vercelAiGateway": "NOT_CONFIGURED",
+    "postalColdTransport": "NOT_LIVE_PROVEN",
+    "freeProviderLiveCapacity": 0,
+    "researchFreeTransportCapacityPer30Days": 75100,
+    "researchFreeTransportIsColdAuthority": false
+  },
+  "capabilityGenome": {
+    "newPreliminaryRows": 93,
+    "dedupedCanonicalRepositories": 92,
+    "deeplyEnrichedCandidateCount": 20,
+    "metadataOnlyCandidateCount": 72,
+    "officialMcpRegistrySampleMetadataEntries": 196,
+    "approvedCapabilityCount": 0,
+    "activeCapabilityCount": 0,
+    "securityCleanCapabilityCount": 0
+  },
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "messages": 0,
+    "calls": 0,
+    "purchases": 0,
+    "accountCreations": 0,
+    "credentialChanges": 0,
+    "paymentProviderMutations": 0,
+    "productionDeployments": 0,
+    "spendCents": 0
+  }
+}

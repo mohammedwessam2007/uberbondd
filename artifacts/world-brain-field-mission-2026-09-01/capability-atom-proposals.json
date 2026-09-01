@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "uberbond.capability-atoms.v1",
+  "proposedAtoms": [
+    "public_web_search", "fetch_public_url", "render_javascript_page", "bounded_site_crawl", "structured_record_extraction", "source_citation_capture", "discover_public_partner", "qualify_multi_client_agency", "validate_public_contact_route", "validate_email_syntax_dns", "enforce_suppression_unsubscribe", "sync_crm_record", "send_policy_authorized_message", "create_invoice", "verify_payment_status", "reconcile_invoice_to_payment", "meter_usage_event", "generate_delivery_receipt", "run_browser_acceptance_test", "run_api_contract_test", "trace_agent_execution", "evaluate_agent_output", "generate_sbom", "scan_dependency_vulnerability", "persist_scoped_memory", "retrieve_scoped_memory", "compress_context_preserving_evidence", "route_model_preserving_provider_identity"
+  ],
+  "directFirstCashBundle": ["public_web_search", "render_javascript_page", "structured_record_extraction", "source_citation_capture", "discover_public_partner", "qualify_multi_client_agency", "validate_public_contact_route"],
+  "admission": "All are taxonomy proposals. None confer authority, select a supplier, or activate a runtime."
+}

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "uberbond.corpus-storage-research.v1",
+  "observedAt": "2026-09-01",
+  "recommendation": { "primary": "Cloudflare R2", "fallback": "Backblaze B2", "notRecommendedForScaledCorpus": "Vercel Blob", "status": "RESEARCH_ONLY_NO_PURCHASE_OR_ACCOUNT_CHANGE" },
+  "options": [
+    { "id": "cloudflare-r2", "storage": "USD 0.015/GB-month", "freeAllowance": "10 GB-month; 1M Class A; 10M Class B monthly", "egress": "free", "requests": "Class A USD 4.50/M; Class B USD 0.36/M", "api": "S3-compatible", "objectLimit": "about 4.995 TiB", "vercelFit": "Good through S3-compatible SDK or signed endpoints", "tradeoff": "New vendor and token/access policy required", "source": "https://developers.cloudflare.com/r2/pricing/" },
+    { "id": "backblaze-b2", "storage": "USD 6.95/TB/30-day", "freeAllowance": "10 GB", "egress": "free up to 3x average monthly stored; then USD 0.01/GB", "requests": "Class A/B/C free; Class D USD 0.004/10k after daily allowance", "api": "S3-compatible", "vercelFit": "Good but egress policy requires monitoring", "tradeoff": "Less simple egress model", "source": "https://www.backblaze.com/cloud-storage/pricing" },
+    { "id": "vercel-blob", "storage": "USD 0.023/GB-month on-demand", "freeAllowance": "Hobby: 1 GB, 10k simple, 2k advanced, 10 GB transfer", "egress": "USD 0.05/GB plus CDN charges on-demand", "api": "native Vercel", "vercelFit": "Best bootstrap ergonomics", "tradeoff": "Higher scaled storage/request cost and hobby access stops at included usage", "source": "https://vercel.com/docs/vercel-blob/usage-and-pricing" },
+    { "id": "aws-s3", "storage": "region/class dependent", "freeAllowance": "varies", "egress": "region/class dependent", "api": "S3-native", "vercelFit": "Mature", "tradeoff": "Most operational and price-comparison complexity for this corpus", "source": "https://aws.amazon.com/s3/pricing/" }
+  ],
+  "design": "Git carries schemas, source pins, indexes, receipts and small samples. R2/B2 carries immutable raw bodies, large evidence snapshots, embeddings and benchmark material. Postgres indexes identities, refs, hash, status and evidence pointers."
+}

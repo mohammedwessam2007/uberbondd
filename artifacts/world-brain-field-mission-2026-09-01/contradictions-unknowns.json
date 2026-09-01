@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "uberbond.world-brain-contradictions.v1",
+  "contradictions": [
+    { "id": "openai-skills-successor", "fact": "openai/skills points to openai/plugins while that repository is archived.", "decision": "ARCHIVED_SOURCE; do not promote an inferred successor.", "sources": ["https://github.com/openai/skills", "https://github.com/openai/plugins"] },
+    { "id": "registry-safety", "fact": "Official MCP Registry publication metadata is not code scanning, durability or safety proof.", "decision": "Registry rows remain untrusted and DISCOVERED.", "source": "https://modelcontextprotocol.io/registry/about" },
+    { "id": "agent-skill-hub-safety-claim", "fact": "AgentSkillsHub claims security scanning/100% safe while independent research finds malicious skills/vulnerabilities in the wider ecosystem.", "decision": "Creator claim only; never admission evidence.", "sources": ["https://agentskillshub.dev/", "https://arxiv.org/abs/2602.06547"] },
+    { "id": "gateway-fallback", "fact": "AI Gateway can use managed credentials if BYOK fails, but UberBond needs explicit spend/provider policy.", "decision": "No automatic fallback activation.", "source": "https://vercel.com/docs/ai-gateway/authentication-and-byok/byok" },
+    { "id": "paypal-access", "fact": "Owner reports PayPal access but account-specific Egyptian receiving/settlement/live credential eligibility is not verified.", "decision": "Do not claim configured payment provider or commercial receiving.", "source": "https://www.paypal.com/eg/cshelp/article/how-do-i-receive-money-through-paypal-help667?locale.x=en_EG" }
+  ],
+  "highestDecisionValueUnknown": "Whether one complementary agency will accept a paid USD 450 independent diagnostic for one downstream account.",
+  "majorUnknowns": ["Actual partner willingness to pay and resell", "Actual founder minutes for accepted delivery", "PayPal live merchant capability in this owner account", "Model-provider pricing/credential activation", "GCC provider sample and liability boundary"],
+  "researchBoundary": "No buyer interest, commitment, payment, delivery, retention, or security safety has been fabricated."
+}

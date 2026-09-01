@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "uberbond.ai-gateway-provider-research.v1",
+  "candidate": "Vercel AI Gateway",
+  "status": "RESEARCHED_NOT_CONFIGURED",
+  "why": "It can provide one OpenAI-compatible/Responses/Anthropic-compatible transport with provider routing, model fallback, cost and request metadata while UberBond retains policy selection.",
+  "officialCapabilities": ["provider order and fallback models", "canonical model slug and provider attempt metadata", "usage and custom reporting", "BYOK plus managed credentials", "per-request or team-level zero data retention controls"],
+  "modelAndProviderTruth": "Gateway-supported providers/models change; resolve current available models at activation rather than hardcoding research-time names.",
+  "requiredReceiptFields": ["missionId", "canonicalSlug", "providerModelId", "modelAttempts", "credentialType", "provider", "latencyMs", "tokenUsage", "cost", "routingPolicyVersion", "permissionSnapshot"],
+  "hardBoundaries": [
+    "Gateway cannot select mission authority or bypass UberBond's existing router.",
+    "Do not allow automatic managed-system-credit fallback without a policy decision, because it can escape internal budget/provider gates.",
+    "No configured provider or credit is currently proven.",
+    "Provider/model identity must be retained across fallback; never label a Gateway success as the originally requested provider."
+  ],
+  "activationOrder": ["Implement transport adapter against existing route decision", "Add deterministic receipts and explicit 402/429/5xx classification", "Configure narrow project-scoped credential/OIDC only after code exists", "Set budget/alert and explicit fallback policy", "Run a bounded no-side-effect test"],
+  "sources": [
+    "https://vercel.com/docs/ai-gateway", "https://vercel.com/docs/ai-gateway/models-and-providers", "https://vercel.com/docs/ai-gateway/models-and-providers/model-fallbacks", "https://vercel.com/docs/ai-gateway/authentication-and-byok/byok", "https://vercel.com/docs/ai-gateway/observability-and-spend/usage", "https://vercel.com/docs/ai-gateway/security-and-compliance/zdr"
+  ]
+}

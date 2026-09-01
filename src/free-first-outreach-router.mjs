@@ -1,6 +1,22 @@
+// Free-first outreach routing: which zero-cost provider, if any, may carry a
+// message of a given purpose.
+//
+// Two things this module deliberately refuses to do. It never turns a
+// researched quota into send authority -- the reviewed pool is transactional,
+// lifecycle and opt-in capacity, and proven free cold-B2B transport across all
+// of it is zero. And it never lets a runtime observation loosen a published
+// policy: an activation receipt can make a provider stricter (a prohibition, an
+// auto-charge risk, a smaller observed quota) and never looser, because the
+// registry is the evidence of what the provider actually published.
+//
+// Every exit is fail-closed. UNKNOWN is not allowed; consent-required without
+// consent evidence is not allowed; a research record is not an activated
+// provider; an activated provider is not a healthy sender; and a healthy sender
+// is not authority to contact anyone.
 import crypto from 'node:crypto';
 
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { deriveProviderStatesFromReceipts, stricterColdRule } from './provider-activation-receipt.mjs';
 
 export const FREE_FIRST_ROUTER_VERSION = 'uberbond.free-first-outreach-router-1.0.0';
 export const MESSAGE_PURPOSES = Object.freeze([
@@ -15,7 +31,6 @@ export const MESSAGE_PURPOSES = Object.freeze([
   'INBOUND_REPLY'
 ]);
 export const PURPOSE_RULES = Object.freeze(['ALLOWED', 'CONSENT_REQUIRED', 'PROHIBITED', 'UNKNOWN']);
-
 
 function clone(value) { return structuredClone(value); }
 function text(value, max = 300) {
@@ -44,6 +59,19 @@ function fail(reasonCodes, extra = {}) {
     externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS),
     ...extra
   };
+}
+
+/**
+ * The tighter of a researched quota and an observed one.
+ *
+ * `null` means unbounded on that axis, so it drops out of the comparison
+ * rather than winning it. This is the only direction observation is allowed to
+ * move a limit: a provider reporting more headroom at runtime than its
+ * published policy does not thereby grant it.
+ */
+function tightest(researched, observed) {
+  const values = [researched, observed].filter(value => value != null);
+  return values.length ? Math.min(...values) : null;
 }
 
 export function normalizeFreeProvider(input = {}) {
@@ -105,15 +133,20 @@ export function validateFreeProvider(input = {}) {
   };
 }
 
+function boundedCapacity({ daily, monthly, days }) {
+  const dailyWindow = daily == null ? Number.POSITIVE_INFINITY : daily * days;
+  const monthlyWindow = monthly == null ? Number.POSITIVE_INFINITY : monthly;
+  const capacity = Math.min(dailyWindow, monthlyWindow);
+  return Number.isFinite(capacity) ? capacity : null;
+}
+
 export function freeCapacityForDays(providerInput, days = 30) {
   const validated = validateFreeProvider(providerInput);
   if (!validated.ok) return validated;
   if (!Number.isSafeInteger(days) || days <= 0 || days > 366) return fail(['valid-capacity-window-days-required']);
   const provider = validated.provider;
-  const dailyWindow = provider.quota.daily == null ? Number.POSITIVE_INFINITY : provider.quota.daily * days;
-  const monthlyWindow = provider.quota.monthly == null ? Number.POSITIVE_INFINITY : provider.quota.monthly;
-  const capacity = Math.min(dailyWindow, monthlyWindow);
-  if (!Number.isFinite(capacity)) return fail(['bounded-free-quota-required']);
+  const capacity = boundedCapacity({ daily: provider.quota.daily, monthly: provider.quota.monthly, days });
+  if (capacity == null) return fail(['bounded-free-quota-required']);
   return {
     ok: true,
     policyVersion: FREE_FIRST_ROUTER_VERSION,
@@ -178,13 +211,30 @@ function usageFor(usageByProvider, providerId) {
   };
 }
 
+/**
+ * The runtime half of a provider's eligibility.
+ *
+ * Every field defaults to the refusing value. A caller that supplies nothing
+ * gets a provider that cannot serve a LIVE route, which is the correct answer
+ * for a provider nobody has activated.
+ */
 function liveStateFor(providerStates, providerId) {
   const raw = providerStates?.[providerId] || {};
+  const quota = raw.observedQuota && typeof raw.observedQuota === 'object' ? raw.observedQuota : null;
+  const coldRule = String(raw.coldB2BRule ?? '').trim().toUpperCase();
   return {
     configured: raw.configured === true,
     active: raw.active === true,
     domainAuthenticated: raw.domainAuthenticated === true,
-    providerHealthy: raw.providerHealthy === true
+    providerHealthy: raw.providerHealthy === true,
+    autoChargeRisk: raw.autoChargeRisk === true,
+    observedQuota: quota ? {
+      daily: nonNegativeInteger(quota.daily),
+      monthly: nonNegativeInteger(quota.monthly),
+      recipientCap: nonNegativeInteger(quota.recipientCap)
+    } : null,
+    coldB2BRule: PURPOSE_RULES.includes(coldRule) ? coldRule : null,
+    receiptState: text(raw.receiptState, 40)
   };
 }
 
@@ -192,9 +242,16 @@ function policyAgeDays(observedAt, at) {
   return Math.floor((at.getTime() - new Date(observedAt).getTime()) / 86_400_000);
 }
 
-function providerEligibility({ provider, purpose, consentEvidence, usage, state, at, mode, maxPolicyAgeDays }) {
+function providerEligibility({ provider, purpose, consentEvidence, usage, state, at, mode, maxPolicyAgeDays, audienceSize }) {
   const reasons = [];
-  const rule = provider.purposeRules[purpose];
+  const registryRule = provider.purposeRules[purpose];
+  // An activation receipt carries exactly one purpose rule -- the cold-B2B one
+  // -- so that is the only rule it can combine with. It combines by taking the
+  // stricter of the two: a receipt claiming a provider allows cold outreach can
+  // never override a registry that says it does not.
+  const rule = purpose === 'COLD_B2B' && state.coldB2BRule
+    ? stricterColdRule(registryRule, state.coldB2BRule)
+    : registryRule;
   if (rule === 'PROHIBITED') reasons.push('provider-purpose-prohibited');
   if (rule === 'UNKNOWN') reasons.push('provider-purpose-not-proven-allowed');
   if (rule === 'CONSENT_REQUIRED' && consentEvidence !== true) reasons.push('consent-evidence-required-for-provider-purpose');
@@ -207,44 +264,101 @@ function providerEligibility({ provider, purpose, consentEvidence, usage, state,
     const expiry = new Date(provider.freePlan.expiresAt);
     if (at.getTime() >= expiry.getTime()) reasons.push('free-trial-expired');
   }
-  if (provider.freePlan.autoChargeAfterExpiry) reasons.push('auto-charge-free-route-prohibited');
+  // A free route that silently becomes a paid one is not a free route. Either
+  // source of that risk -- the reviewed plan or the observed account -- refuses.
+  if (provider.freePlan.autoChargeAfterExpiry || state.autoChargeRisk) reasons.push('auto-charge-free-route-prohibited');
 
   if (usage.uncertainEffects > 0) reasons.push('provider-has-uncertain-external-effects');
+
+  // Observed quotas only tighten, and only in LIVE mode: a PLAN estimate is a
+  // statement about published policy, not about one account's runtime.
+  const observed = mode === 'LIVE' ? state.observedQuota : null;
+  const effectiveDaily = tightest(provider.quota.daily, observed?.daily ?? null);
+  const effectiveMonthly = tightest(provider.quota.monthly, observed?.monthly ?? null);
+  const effectiveRecipientCap = tightest(provider.quota.recipientCap, observed?.recipientCap ?? null);
+
   const usedDaily = usage.dailyUsed + usage.reservedUnsent;
   const usedMonthly = usage.monthlyUsed + usage.reservedUnsent;
-  const remainingDaily = provider.quota.daily == null ? Number.POSITIVE_INFINITY : Math.max(0, provider.quota.daily - usedDaily);
-  const remainingMonthly = provider.quota.monthly == null ? Number.POSITIVE_INFINITY : Math.max(0, provider.quota.monthly - usedMonthly);
+  const remainingDaily = effectiveDaily == null ? Number.POSITIVE_INFINITY : Math.max(0, effectiveDaily - usedDaily);
+  const remainingMonthly = effectiveMonthly == null ? Number.POSITIVE_INFINITY : Math.max(0, effectiveMonthly - usedMonthly);
   const remaining = Math.min(remainingDaily, remainingMonthly);
-  if (!Number.isFinite(remaining) && provider.quota.daily == null && provider.quota.monthly == null) reasons.push('bounded-free-quota-required');
+  if (!Number.isFinite(remaining) && effectiveDaily == null && effectiveMonthly == null) reasons.push('bounded-free-quota-required');
   if (remaining <= 0) reasons.push('provider-free-quota-exhausted');
 
+  // A recipient cap is a limit on how many distinct people one send may reach.
+  // Recording it and never comparing an audience to it is the same as not
+  // having it, so an unknown audience is refused on a capped provider rather
+  // than assumed small.
+  if (effectiveRecipientCap != null) {
+    if (audienceSize != null && audienceSize > effectiveRecipientCap) reasons.push('provider-recipient-cap-exceeded');
+    else if (audienceSize == null && mode === 'LIVE') reasons.push('audience-size-required-for-recipient-capped-provider');
+  }
+
   if (mode === 'LIVE') {
+    if (state.receiptState === 'STALE') reasons.push('provider-activation-receipt-stale');
+    if (state.receiptState === 'MISSING') reasons.push('provider-activation-receipt-missing');
+    if (state.receiptState === 'INVALID') reasons.push('provider-activation-receipt-invalid');
     if (!state.configured) reasons.push('provider-not-configured');
     if (!state.active) reasons.push('provider-not-active');
     if (!state.domainAuthenticated) reasons.push('provider-domain-authentication-not-proven');
     if (!state.providerHealthy) reasons.push('provider-health-not-proven');
   }
-  return { reasons, rule, remaining, remainingDaily, remainingMonthly, policyAgeDays: age };
+  return {
+    reasons,
+    rule,
+    remaining,
+    remainingDaily,
+    remainingMonthly,
+    effectiveDaily,
+    effectiveMonthly,
+    effectiveRecipientCap,
+    policyAgeDays: age
+  };
+}
+
+function resolveProviderStates({ providers, providerStates, activationReceipts, atDate, maxReceiptAgeDays }) {
+  const explicit = providerStates && typeof providerStates === 'object' && !Array.isArray(providerStates);
+  if (activationReceipts == null) return { ok: true, states: explicit ? providerStates : {}, derivation: null };
+  if (!Array.isArray(activationReceipts)) return { ok: false, reasonCodes: ['activation-receipts-array-required'] };
+  // Two sources for one truth is ambiguity, not redundancy. A caller that has
+  // receipts derives from them; a caller that has already derived passes the
+  // states. Accepting both would leave which one won up to argument order.
+  if (explicit) return { ok: false, reasonCodes: ['provider-states-and-activation-receipts-are-mutually-exclusive'] };
+  const derivation = deriveProviderStatesFromReceipts({
+    receipts: activationReceipts,
+    registryProviders: providers,
+    now: atDate,
+    maxReceiptAgeDays
+  });
+  if (!derivation.ok) return { ok: false, reasonCodes: derivation.reasonCodes };
+  return { ok: true, states: derivation.providerStates, derivation };
 }
 
 export function selectFreeRoute({
   purpose,
   providers = [],
   usageByProvider = {},
-  providerStates = {},
+  providerStates = null,
+  activationReceipts = null,
+  audienceSize = null,
   consentEvidence = false,
   at = new Date().toISOString(),
   mode = 'PLAN',
-  maxPolicyAgeDays = 45
+  maxPolicyAgeDays = 45,
+  maxReceiptAgeDays = 45
 } = {}) {
   const normalizedPurpose = String(purpose ?? '').trim().toUpperCase();
   const normalizedMode = String(mode ?? '').trim().toUpperCase();
   if (!MESSAGE_PURPOSES.includes(normalizedPurpose)) return fail(['invalid-message-purpose']);
   if (!['PLAN', 'LIVE'].includes(normalizedMode)) return fail(['invalid-free-first-routing-mode']);
   if (!Number.isSafeInteger(maxPolicyAgeDays) || maxPolicyAgeDays < 1 || maxPolicyAgeDays > 365) return fail(['valid-policy-age-window-required']);
+  if (audienceSize != null && nonNegativeInteger(audienceSize) == null) return fail(['valid-audience-size-required']);
   const atIso = iso(at);
   if (!atIso) return fail(['valid-routing-time-required']);
   const atDate = new Date(atIso);
+
+  const resolved = resolveProviderStates({ providers, providerStates, activationReceipts, atDate, maxReceiptAgeDays });
+  if (!resolved.ok) return fail(resolved.reasonCodes);
 
   const evaluations = [];
   for (const input of Array.isArray(providers) ? providers : []) {
@@ -255,7 +369,7 @@ export function selectFreeRoute({
     }
     const provider = validated.provider;
     const usage = usageFor(usageByProvider, provider.id);
-    const state = liveStateFor(providerStates, provider.id);
+    const state = liveStateFor(resolved.states, provider.id);
     const eligibility = providerEligibility({
       provider,
       purpose: normalizedPurpose,
@@ -264,7 +378,8 @@ export function selectFreeRoute({
       state,
       at: atDate,
       mode: normalizedMode,
-      maxPolicyAgeDays
+      maxPolicyAgeDays,
+      audienceSize
     });
     evaluations.push({
       providerId: provider.id,
@@ -274,6 +389,7 @@ export function selectFreeRoute({
       remaining: eligibility.remaining,
       rule: eligibility.rule,
       policyAgeDays: eligibility.policyAgeDays,
+      receiptState: state.receiptState,
       trialExpiresAt: provider.freePlan.expiresAt
     });
   }
@@ -302,6 +418,7 @@ export function selectFreeRoute({
     mode: normalizedMode,
     remainingFreeCapacity: selected.remaining,
     providerRule: selected.rule,
+    audienceSize,
     costCents: 0,
     executionAuthority: 'NONE',
     sendBoundary: 'CANONICAL_OUTREACH_OR_OMNICHANNEL_ENGINE_REQUIRED'
@@ -312,6 +429,82 @@ export function selectFreeRoute({
     status: 'FREE_ROUTE_SELECTED',
     route,
     evaluations,
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS)
+  };
+}
+
+/**
+ * Capacity that could actually be used right now, as opposed to capacity that
+ * was researched.
+ *
+ * Only providers that clear every LIVE gate contribute. With no activated
+ * provider this is zero, and that zero is the honest headline number: the
+ * reviewed pool's ~75,100 per month is what published policy permits, not what
+ * this company can send.
+ */
+export function liveUsableCapacity({
+  providers = [],
+  activationReceipts = [],
+  usageByProvider = {},
+  providerStates = null,
+  purpose = 'TRANSACTIONAL',
+  consentEvidence = false,
+  audienceSize = null,
+  at = new Date().toISOString(),
+  days = 30,
+  maxPolicyAgeDays = 45,
+  maxReceiptAgeDays = 45
+} = {}) {
+  const normalizedPurpose = String(purpose ?? '').trim().toUpperCase();
+  if (!MESSAGE_PURPOSES.includes(normalizedPurpose)) return fail(['invalid-message-purpose']);
+  if (!Number.isSafeInteger(days) || days <= 0 || days > 366) return fail(['valid-capacity-window-days-required']);
+  const atIso = iso(at);
+  if (!atIso) return fail(['valid-routing-time-required']);
+  const atDate = new Date(atIso);
+
+  const resolved = resolveProviderStates({
+    providers,
+    providerStates,
+    activationReceipts: providerStates ? null : activationReceipts,
+    atDate,
+    maxReceiptAgeDays
+  });
+  if (!resolved.ok) return fail(resolved.reasonCodes);
+
+  const rows = [];
+  let capacity = 0;
+  for (const input of Array.isArray(providers) ? providers : []) {
+    const validated = validateFreeProvider(input);
+    if (!validated.ok) continue;
+    const provider = validated.provider;
+    const state = liveStateFor(resolved.states, provider.id);
+    const eligibility = providerEligibility({
+      provider,
+      purpose: normalizedPurpose,
+      consentEvidence,
+      usage: usageFor(usageByProvider, provider.id),
+      state,
+      at: atDate,
+      mode: 'LIVE',
+      maxPolicyAgeDays,
+      audienceSize
+    });
+    if (eligibility.reasons.length) continue;
+    const bounded = boundedCapacity({ daily: eligibility.effectiveDaily, monthly: eligibility.effectiveMonthly, days });
+    if (bounded == null) continue;
+    capacity += bounded;
+    rows.push({ providerId: provider.id, capacity: bounded });
+  }
+  return {
+    ok: true,
+    policyVersion: FREE_FIRST_ROUTER_VERSION,
+    status: capacity > 0 ? 'LIVE_USABLE_CAPACITY_COMPUTED' : 'NO_LIVE_USABLE_CAPACITY',
+    purpose: normalizedPurpose,
+    days,
+    capacity,
+    effectiveDaily: capacity / days,
+    rows,
     businessEffectAuthority: 'NONE',
     externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS)
   };

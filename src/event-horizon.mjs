@@ -75,10 +75,31 @@ export function validateEventHorizon(record = {}) {
     if (!/^https:\/\//.test(String(source?.url || '')) || !Array.isArray(source?.supports) || source.supports.length === 0) {
       failures.push('invalid-source-evidence');
     }
+    // The host is a declared claim, checked against the URL that is supposed to
+    // support it.
+    //
+    // Requiring only `https://` let a source keep its id, its type and its
+    // supports list while its URL was repointed at an entirely different
+    // domain -- the evidence ledger would still validate while citing somebody
+    // else's page. Nothing in this repository can prove a page says what a
+    // source claims, but a cross-domain repoint can be made a visible semantic
+    // edit rather than a silent one.
+    const declaredHost = String(source?.host || '').trim().toLowerCase();
+    if (!declaredHost) failures.push('source-host-required');
+    else {
+      let actualHost = '';
+      try { actualHost = new URL(String(source?.url || '')).host.toLowerCase(); } catch { actualHost = ''; }
+      if (actualHost !== declaredHost) failures.push('source-url-host-mismatch');
+    }
   }
   if (sourceIds.size < 5) failures.push('insufficient-source-ledger');
 
   const candidateIds = new Set();
+  // Canonical opportunity identity is what stops one opportunity being counted
+  // as two. Without this, the same canonicalOpportunityId could appear twice
+  // under different candidate ids -- inflating the tournament and letting an
+  // opportunity be its own strongest challenger.
+  const canonicalOpportunityIds = new Set();
   let championCount = 0;
   let activeExperimentCount = 0;
   for (const candidate of record.tournament || []) {
@@ -86,6 +107,8 @@ export function validateEventHorizon(record = {}) {
     else candidateIds.add(candidate.id);
     if (!candidate?.canonicalOpportunityId) failures.push('missing-canonical-opportunity-id');
     else if (!getCommercialOpportunity(candidate.canonicalOpportunityId)) failures.push('unknown-canonical-opportunity-id');
+    else if (canonicalOpportunityIds.has(candidate.canonicalOpportunityId)) failures.push('duplicate-canonical-opportunity-mapping');
+    else canonicalOpportunityIds.add(candidate.canonicalOpportunityId);
     if (!EVIDENCE_CLASSES.has(candidate?.evidenceClass)) failures.push('invalid-evidence-class');
     if (candidate.status === 'CURRENT_CHAMPION') championCount += 1;
     if (candidate.activeExperiment === true) activeExperimentCount += 1;

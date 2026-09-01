@@ -3,8 +3,8 @@
 **This file is the canonical present-tense software/commercial state.** Historical detail from the pre-checkpoint version is preserved byte-for-byte under `docs/archive/2026-08-30-pre-checkpoint/`. Repository code and newer exact external evidence still outrank this prose.
 
 Last reconciled: **2026-09-01**
-Branch: `main`
-Reconciled from current head: `01c2bf68cede0b7f05173046dfabe061192f4439`
+Branch: `claude/sept1`
+Reconciled from current head: `d42a51fdab5d65d8f224ee6d3b237a0090b776f6`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
@@ -30,10 +30,10 @@ The source-changing state of this branch was exercised before later documentatio
 | Gate | Result |
 |---|---|
 | Syntax | `npm run check:syntax`: 661 files parse (2026-08-31) |
-| Deterministic | `npm run test:deterministic`: 3018 tests, 2966 pass, **0 fail**, 52 skipped (2026-08-31) |
+| Deterministic | `npm run test:deterministic`: 3023 tests, 2971 pass, **0 fail**, 52 skipped (2026-08-31) |
 | Relay safety | `npm run test:relay-safety`: 150 tests, 150 pass, 0 fail (2026-08-30) |
 | Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real`: 178 tests, 178 pass, 0 fail (2026-08-31), against PostgreSQL 16.13 |
-| Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 111 mutations, 111 killed, 0 not killed |
+| Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 114 mutations, 114 killed, 0 not killed |
 | Browser | `CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser`: 1 test, 1 pass, 0 fail (2026-08-30), against the runner's installed Chromium |
 | Dependency audit | `npm audit --omit=dev`: No vulnerabilities reported in the current integration environment. |
 

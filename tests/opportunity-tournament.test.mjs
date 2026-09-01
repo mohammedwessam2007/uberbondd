@@ -11,25 +11,25 @@ import { createJobHandlers } from '../src/job-handlers.mjs';
 
 const referenceDate = new Date('2026-08-20T09:00:00.000Z');
 
-test('the canonical 438-record registry is fully scored and returned as a bounded deterministic tournament', () => {
+test('the canonical 439-record registry is fully scored and returned as a bounded deterministic tournament', () => {
   const first = rankCanonicalOpportunities({ date: referenceDate, limit: 10 });
   const second = rankCanonicalOpportunities({ date: referenceDate, limit: 10 });
 
   assert.equal(first.ok, true);
   assert.equal(first.status, 'TOURNAMENT_COMPLETE');
   assert.equal(first.policyVersion, OPPORTUNITY_TOURNAMENT_POLICY_VERSION);
-  assert.equal(first.registryCount, 438);
-  assert.equal(first.scoredCount, 438);
+  assert.equal(first.registryCount, 439);
+  assert.equal(first.scoredCount, 439);
   assert.equal(first.returnedCount, 10);
   assert.equal(first.top.length, 10);
-  assert.equal(first.validatedRegistry.uniqueIdCount, 438);
+  assert.equal(first.validatedRegistry.uniqueIdCount, 439);
   assert.deepEqual(first, second);
   assert.equal(first.externalEffectLedger.providerCalls, 0);
   assert.equal(first.externalEffectLedger.spendCents, 0);
 });
 
 test('tournament ordering is score-descending, confidence-descending, and id-stable', () => {
-  const result = rankCanonicalOpportunities({ date: referenceDate, limit: 438 });
+  const result = rankCanonicalOpportunities({ date: referenceDate, limit: 439 });
   for (let index = 1; index < result.top.length; index += 1) {
     const previous = result.top[index - 1];
     const current = result.top[index];
@@ -44,7 +44,7 @@ test('tournament ordering is score-descending, confidence-descending, and id-sta
   }
   assert.equal(result.dataSufficiencyCounts.INSUFFICIENT > 0, true);
   assert.equal(result.evidenceClassCounts.BUYER_SIGNAL, 3);
-  assert.equal(result.evidenceClassCounts.HYPOTHESIS, 435);
+  assert.equal(result.evidenceClassCounts.HYPOTHESIS, 436);
 });
 
 test('build distance is explicit and responds to a missing capability without changing the registry', () => {
@@ -57,7 +57,7 @@ test('build distance is explicit and responds to a missing capability without ch
   assert.equal(result.ok, true);
   assert.equal(result.buildDistance.distance, 0.13);
   assert.deepEqual(result.buildDistance.missing, ['future-capability']);
-  assert.equal(result.registryCount, 438);
+  assert.equal(result.registryCount, 439);
   assert.equal(result.externalEffectLedger.messages, 0);
 });
 
@@ -69,7 +69,7 @@ test('logging uses the existing auditLog writer and records only a compact recei
   assert.deepEqual(receipt, { id: 'audit-tournament-1' });
   assert.equal(calls.length, 1);
   assert.equal(calls[0].type, 'commercial_opportunity_tournament');
-  assert.equal(calls[0].detail.registryCount, 438);
+  assert.equal(calls[0].detail.registryCount, 439);
   assert.equal(Object.prototype.hasOwnProperty.call(calls[0].detail, 'entries'), false);
   assert.equal(calls[0].detail.externalEffectLedger.providerCalls, 0);
 });

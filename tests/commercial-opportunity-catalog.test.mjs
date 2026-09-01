@@ -37,8 +37,8 @@ test('canonical registry deduplicates ids and contains every required economic f
   const registry = listCanonicalOpportunityRegistry();
   const validation = validateOpportunityRegistry();
   assert.equal(validation.ok, true);
-  assert.equal(validation.count, 438);
-  assert.equal(validation.uniqueIdCount, 438);
+  assert.equal(validation.count, 439);
+  assert.equal(validation.uniqueIdCount, 439);
   assert.equal(new Set(registry.map(record => record.opportunityId)).size, registry.length);
   for (const record of registry) {
     for (const field of CANONICAL_OPPORTUNITY_REQUIRED_FIELDS) assert.ok(field in record, `${record.opportunityId} missing ${field}`);
@@ -53,9 +53,9 @@ test('canonical registry deduplicates ids and contains every required economic f
 
 test('registry summary preserves the three buyer-signal lanes and taxonomy hypotheses', () => {
   const summary = canonicalOpportunityRegistrySummary();
-  assert.equal(summary.count, 438);
+  assert.equal(summary.count, 439);
   assert.ok(summary.categoryCount >= 64);
-  assert.deepEqual(summary.evidenceClasses, { BUYER_SIGNAL: 3, HYPOTHESIS: 435 });
+  assert.deepEqual(summary.evidenceClasses, { BUYER_SIGNAL: 3, HYPOTHESIS: 436 });
   assert.equal(summary.valid, true);
 });
 
@@ -125,6 +125,6 @@ test('unknown opportunity fails closed and logging uses one bounded audit receip
   assert.equal(calls.length, 1);
   assert.equal(calls[0].type, 'commercial_opportunity_catalog');
   assert.equal(calls[0].detail.catalogCount, listCommercialOpportunityCatalog().length);
-  assert.equal(calls[0].detail.registrySummary.count, 438);
+  assert.equal(calls[0].detail.registrySummary.count, 439);
   assert.equal(Object.prototype.hasOwnProperty.call(calls[0].detail, 'payload'), false);
 });

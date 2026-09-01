@@ -558,7 +558,7 @@ function makeOpportunity(definition, index) {
   const [id, name, category, buyer, mechanism, monetization, distribution, recurrence, risk] = definition;
   return {
     id,
-    rank: 4 + index,
+    rank: 5 + index,
     name,
     category,
     verdict: 'RESEARCH_ONLY',

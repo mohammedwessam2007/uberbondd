@@ -1,27 +1,27 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-08-31T19:21:16.717Z",
+  "generatedAt": "2026-08-31T20:00:37.333Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "62e02b78f14ee56de34916d6bded69f0922ce65d",
-    "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-    "sourceModules": 267,
-    "testSuites": 314,
-    "workingTreeClean": true
+    "head": "8f0de47995e7a408809220cef3deacf721a192c2",
+    "branch": "gpt/event-horizon-economic-genome-20260831",
+    "sourceModules": 268,
+    "testSuites": 315,
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 658,
-      "ranAt": "2026-08-31T14:02:00Z"
+      "filesParsed": 661,
+      "ranAt": "2026-08-31T19:56:32Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 3011,
-      "pass": 2959,
+      "tests": 3018,
+      "pass": 2966,
       "fail": 0,
       "skipped": 52,
-      "ranAt": "2026-08-31T14:02:00Z"
+      "ranAt": "2026-08-31T19:59:39Z"
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -47,7 +47,7 @@
       "status": "PASS_CURRENT_INTEGRATION",
       "vulnerabilities": 0,
       "note": "No vulnerabilities reported in the current integration environment.",
-      "ranAt": "2026-08-29T00:00:00Z"
+      "ranAt": "2026-08-31T19:59:39Z"
     },
     "test:mutation-war": {
       "command": "CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
@@ -68,13 +68,13 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 267,
+      "srcModules": 268,
       "reachableFromProduction": 134,
-      "reachableFromOperatorScriptsOnly": 15,
+      "reachableFromOperatorScriptsOnly": 16,
       "noEntryPointAtAll": 118,
       "allClassified": true,
-      "ranAt": "2026-08-31T14:02:00Z",
-      "note": "src is walked recursively. Wallbreaker is reachable through its operator script and the Capability Genome remains production-reachable through jobs and the repository brain; the no-entry classification count remains 119. agent-model-failover is production-reachable through agent-worker-job, which is what makes the routing order executable rather than merely reported. capability-genome-body-import and body-fetch are reachable from their operator script only: the doctor reads the measured body artifact rather than importing the fetcher, so no production path can trigger a public body read."
+      "ranAt": "2026-08-31T19:56:32Z",
+      "note": "src is walked recursively. Event Horizon is operator-reachable through its doctor and repository brain while carrying no business-effect authority. Wallbreaker is operator-reachable and the Capability Genome remains production-reachable through jobs and the repository brain. agent-model-failover is production-reachable through agent-worker-job. capability-genome-body-import and body-fetch remain operator-only: the doctor reads measured body evidence rather than triggering public reads."
     }
   },
   "capabilities": [

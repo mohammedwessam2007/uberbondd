@@ -253,6 +253,67 @@ const CORE_CATALOG = [
       outputs: ['funnelStateMachine', 'triggerCoverageMatrix', 'handoffFindings', 'sampleEvidenceReport'],
       killConditions: ['Private or authenticated state is unavailable lawfully.', 'The result would require sending a message.', 'The price hypothesis cannot support bounded delivery.']
     })
+  },
+  {
+    id: 'gcc-einvoice-exception-evidence',
+    rank: 4,
+    name: 'GCC Bilingual E-Invoice Exception Evidence',
+    category: 'gcc-finops',
+    verdict: 'CHALLENGER_RESEARCH_ONLY',
+    buyerSegments: ['UAE Accredited Service Providers', 'GCC accounting and ERP partners', 'Saudi e-invoicing solution providers'],
+    mechanism: 'Give an authorized provider a bilingual, partner-branded exception ledger for schema, field, credit-note, rejection, and reconciliation failures without acting as a tax adviser, filer, or accredited provider.',
+    observedBuyerSignals: [],
+    evidence: {
+      classification: 'HYPOTHESIS',
+      observedTraction: 'Official UAE and Saudi rules create dated machine-readable invoicing obligations and exception workflows. This proves a mandatory workflow, not buyer demand, willingness to pay, provider acceptance, or revenue.',
+      sources: [
+        { url: 'https://mof.gov.ae/en/news/ministry-of-finance-announces-the-issuance-of-two-ministerial-decisions-on-the-scope-of-obligations-and-the-timelines-for-implementing-the-electronic-invoicing-system-2/', title: 'UAE Ministry of Finance e-invoicing obligations and implementation timelines', observedAt: '2026-08-31', claimType: 'VERIFIED_FACT' },
+        { url: 'https://mof.gov.ae/en/about-us/initiatives/einvoicing/pre-approved-einvoicing-service-providers/', title: 'UAE Ministry of Finance pre-approved e-invoicing service providers', observedAt: '2026-08-31', claimType: 'VERIFIED_FACT' },
+        { url: 'https://zatca.gov.sa/en/MediaCenter/News/Pages/Wave25-E-invoicing.aspx', title: 'ZATCA Wave 25 e-invoicing integration notice', observedAt: '2026-08-31', claimType: 'VERIFIED_FACT' },
+        { url: 'https://zatca.gov.sa/en/E-Invoicing/SolutionProviders/Pages/SolutionProvidersDirectory.aspx', title: 'ZATCA solution providers directory and taxpayer-responsibility notice', observedAt: '2026-08-31', claimType: 'VERIFIED_FACT' }
+      ]
+    },
+    candidate: {
+      id: 'gcc-einvoice-exception-evidence',
+      name: 'GCC Bilingual E-Invoice Exception Evidence',
+      category: 'gcc-finops',
+      timeToCashDays: claim(30, 'ESTIMATE'),
+      acquisition: claim('emerging', 'HYPOTHESIS'),
+      capital: claim('low', 'ESTIMATE'),
+      platformDependency: claim('medium', 'INFERENCE'),
+      partnerLeverage: claim('strong', 'HYPOTHESIS'),
+      dataAsset: claim('compounding', 'HYPOTHESIS'),
+      automationPotential: claim(75, 'HYPOTHESIS'),
+      founderBurden: claim(40, 'ESTIMATE'),
+      recurringTrigger: claim('Invoice rejection, credit-note correction, rollout-wave readiness, and ledger reconciliation', 'INFERENCE'),
+      failureMode: claim('Accredited providers already solve the exception workflow sufficiently, or buyers require tax/compliance liability UberBond must not assume.', 'INFERENCE')
+    },
+    priceHypotheses: [
+      { label: 'Bilingual exception readiness sprint', amountUsd: 750, classification: 'HYPOTHESIS' },
+      { label: 'Partner portfolio monitoring', amountUsd: null, classification: 'UNRESOLVED' }
+    ],
+    deliverables: ['Synthetic or de-identified exception matrix', 'Bilingual field and schema findings', 'Credit-note and correction scenarios', 'Partner-branded evidence pack', 'Exception ledger and escalation map'],
+    exclusions: ['Tax or legal advice', 'Invoice filing or transmission', 'Representation as an accredited provider', 'Production credentials', 'Customer data without explicit authorization'],
+    constraints: ['Synthetic, public, de-identified, or customer-authorized evidence only.', 'A qualified provider remains responsible for its solution and the taxpayer remains responsible for compliance.', 'No market-demand claim until a buyer supplies commitment or payment evidence.'],
+    recurringRoute: 'Partner-wholesale exception and reconciliation monitoring after accepted pilots',
+    testCost: { lowUsd: 0, highUsd: 25, classification: 'ESTIMATE' },
+    firstRevenueWindowDays: { low: 14, high: 45, classification: 'ESTIMATE' },
+    competitiveRisk: 'MEDIUM-HIGH: accredited providers own the workflow; UberBond must prove incremental exception evidence and bilingual partner leverage.',
+    sevenDayExperiment: [
+      'Build synthetic UAE and Saudi invoice, credit-note, and rejection fixtures from official public specifications.',
+      'Produce a bilingual exception matrix without customer or production data.',
+      'Compare the packet against public provider validators and document only incremental evidence.',
+      'Prepare a fixed-scope partner-branded readiness sprint with no compliance guarantee.',
+      'Define the minimum authorized sample needed for a paid pilot.',
+      'Measure deterministic coverage, report production time, and founder review minutes.',
+      'Keep the challenger inactive unless a qualified partner supplies a safe sample and stronger commitment than the current canary.'
+    ],
+    taskBlueprint: taskBlueprint({
+      id: 'commercial.gcc-einvoice-exception-evidence.preflight',
+      purpose: 'Prepare a bilingual e-invoice exception evidence packet for an authorized GCC provider.',
+      outputs: ['syntheticFixtureSet', 'bilingualExceptionMatrix', 'providerComparison', 'sampleEvidencePack'],
+      killConditions: ['The packet adds no material evidence beyond provider validators.', 'A buyer requires tax advice, filing authority, or compliance liability.', 'The workflow cannot be standardized without production credentials or sensitive customer data.']
+    })
   }
 ];
 

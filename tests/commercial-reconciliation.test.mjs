@@ -45,7 +45,7 @@ test('dry-run reconciliation composes ingestion, genome, and tournament without 
   assert.equal(result.status, 'RECONCILED');
   assert.equal(result.ingestion.acceptedCount, 1);
   assert.equal(result.genome.candidateId, 'reconcile-candidate');
-  assert.equal(result.tournament.registryCount, 438);
+  assert.equal(result.tournament.registryCount, 439);
   assert.equal(result.tournament.returnedCount, 5);
   assert.equal(result.localAuditWrites, 0);
   assert.equal(result.externalEffectLedger.providerCalls, 0);
@@ -75,7 +75,7 @@ test('persisted reconciliation reuses auditLog for all four compact receipts', a
   ]);
   const reconciliation = calls.at(-1).detail;
   assert.equal(reconciliation.candidateId, 'reconcile-candidate');
-  assert.equal(reconciliation.registryCount, 438);
+  assert.equal(reconciliation.registryCount, 439);
   assert.equal(Object.prototype.hasOwnProperty.call(reconciliation, 'signals'), false);
   assert.equal(Object.prototype.hasOwnProperty.call(reconciliation, 'payload'), false);
   assert.equal(reconciliation.externalEffectLedger.spendCents, 0);

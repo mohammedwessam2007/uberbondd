@@ -82,6 +82,14 @@ Rules:
 - Wallbreaker compute tier may influence model routing/research depth but cannot widen budget, data, security scope, or consequence authority.
 - Every Wallbreaker result carries `businessEffectAuthority: NONE` and the canonical zero external-effect ledger until an independent consequence-gated execution path actually runs.
 
+## Event Horizon commercial-allocation law
+
+Before changing the commercial champion, activating a second experiment, or building opportunity-specific infrastructure, run `npm run event-horizon:doctor` and read `docs/research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md` plus its machine-readable artifact.
+
+Use the current champion as the single first-cash experiment. Treat challengers, decision indices, price ranges, official obligations, and capability handoffs as hypotheses or public proxies until buyer commitment, cleared payment, accepted delivery, repeat payment, retention, or expansion supplies the stronger evidence class. Do not create a parallel opportunity registry.
+
+For the AI Acceptance Evidence Tollbooth, reuse the current task-intent, capability benchmark, consequence receipt, offer, and payment-acceptance modules. Build only the smallest missing evidence-pack compiler after commercial evidence makes it higher-value than activating the prepared canary. Capability never creates contact, production, payment, filing, tax, legal, or certification authority.
+
 ## Claude-specific routing law
 
 - Missing specialized skill -> check UberBond first, then **Find Skills**.

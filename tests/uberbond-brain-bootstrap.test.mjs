@@ -10,7 +10,8 @@ import {
   MASTER_MEMORY_RECONCILIATION_PATH,
   EXTERNAL_CAPABILITY_REGISTRY_PATH,
   CAPABILITY_GENOME_SOURCE_REGISTRY_PATH,
-  CAPABILITY_GENOME_ATOM_TAXONOMY_PATH
+  CAPABILITY_GENOME_ATOM_TAXONOMY_PATH,
+  EVENT_HORIZON_PATH
 } from '../scripts/uberbond-brain-bootstrap.mjs';
 
 const sourceRoot = path.resolve(new URL('..', import.meta.url).pathname);
@@ -25,7 +26,8 @@ function buildFixture(mutator = null) {
   const externalCapabilities = JSON.parse(fs.readFileSync(path.join(sourceRoot, EXTERNAL_CAPABILITY_REGISTRY_PATH), 'utf8'));
   const capabilityGenomeSources = JSON.parse(fs.readFileSync(path.join(sourceRoot, CAPABILITY_GENOME_SOURCE_REGISTRY_PATH), 'utf8'));
   const capabilityGenomeAtoms = JSON.parse(fs.readFileSync(path.join(sourceRoot, CAPABILITY_GENOME_ATOM_TAXONOMY_PATH), 'utf8'));
-  mutator?.({ bootstrap, memory, reconciliation, handoff, externalCapabilities, capabilityGenomeSources, capabilityGenomeAtoms });
+  const eventHorizon = JSON.parse(fs.readFileSync(path.join(sourceRoot, EVENT_HORIZON_PATH), 'utf8'));
+  mutator?.({ bootstrap, memory, reconciliation, handoff, externalCapabilities, capabilityGenomeSources, capabilityGenomeAtoms, eventHorizon });
   for (const relative of new Set([
     'UBERBOND_BOOTSTRAP.json',
     MEMORY_RECONCILIATION_PATH,
@@ -45,6 +47,7 @@ function buildFixture(mutator = null) {
     else if (relative === EXTERNAL_CAPABILITY_REGISTRY_PATH) fs.writeFileSync(absolute, JSON.stringify(externalCapabilities, null, 2));
     else if (relative === CAPABILITY_GENOME_SOURCE_REGISTRY_PATH) fs.writeFileSync(absolute, JSON.stringify(capabilityGenomeSources, null, 2));
     else if (relative === CAPABILITY_GENOME_ATOM_TAXONOMY_PATH) fs.writeFileSync(absolute, JSON.stringify(capabilityGenomeAtoms, null, 2));
+    else if (relative === EVENT_HORIZON_PATH) fs.writeFileSync(absolute, JSON.stringify(eventHorizon, null, 2));
     else fs.writeFileSync(absolute, `fixture for ${relative}\n`);
   }
   return root;
@@ -68,6 +71,11 @@ test('one-command loader validates actual bootstrap, reconciled memory, and exte
   assert.equal(packet.wallbreaker.status, 'PROJECT_INTEGRATED_PLANNING_PRIMITIVE');
   assert.equal(packet.wallbreaker.policyVersion, 'wallbreaker-1.1.1');
   assert.equal(packet.wallbreaker.businessEffectAuthority, 'NONE');
+  assert.equal(packet.eventHorizon.health, 'EVENT_HORIZON_HEALTHY');
+  assert.equal(packet.eventHorizon.champion.id, 'lead-path-evidence-sprint');
+  assert.equal(packet.eventHorizon.strongestChallenger.id, 'gcc-einvoice-exception-evidence');
+  assert.equal(packet.eventHorizon.commercialTruth.clearedRevenueUsd, 0);
+  assert.equal(packet.eventHorizon.businessEffectAuthority, 'NONE');
   assert.deepEqual(new Set(packet.externalCapabilities.map(item => item.id)), new Set([
     'find-skills',
     'claude-code-setup',
@@ -108,6 +116,17 @@ test('brain fails closed when the capability genome source registry is corrupted
   assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit }), error => {
     assert.equal(error.message, 'capability-genome-health-failed');
     assert.ok(error.reasonCodes.includes('unique-source-id-required'));
+    return true;
+  });
+});
+
+test('brain fails closed when Event Horizon invents commercial truth', () => {
+  const root = buildFixture(({ eventHorizon }) => {
+    eventHorizon.commercialTruth.clearedRevenueUsd = 1;
+  });
+  assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit }), error => {
+    assert.equal(error.message, 'event-horizon-health-failed');
+    assert.ok(error.reasonCodes.includes('unsupported-commercial-outcome'));
     return true;
   });
 });

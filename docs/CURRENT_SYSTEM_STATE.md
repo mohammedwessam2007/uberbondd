@@ -3,8 +3,8 @@
 **This file is the canonical present-tense software/commercial state.** Historical detail from the pre-checkpoint version is preserved byte-for-byte under `docs/archive/2026-08-30-pre-checkpoint/`. Repository code and newer exact external evidence still outrank this prose.
 
 Last reconciled: **2026-08-31**
-Branch: `claude/uberbond-kilimanjaro-closure-hha0oo`
-Reconciled from current head: `62e02b78f14ee56de34916d6bded69f0922ce65d`
+Branch: `gpt/event-horizon-economic-genome-20260831`
+Reconciled from current head: `8f0de47995e7a408809220cef3deacf721a192c2`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
@@ -19,30 +19,34 @@ Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/sys
 
 No architecture, creator claim, generated opportunity, model output, preview deployment, internal test, or research ranking may promote those numbers.
 
+## Event Horizon commercial allocation
+
+`npm run event-horizon:doctor` reports `EVENT_HORIZON_HEALTHY`: five evidence-weighted finalists, 17 durable public sources, exactly one prepared experiment, and zero business-effect authority. The current first-cash champion is the **$450 white-label Lead-Path Revenue Leak Evidence Sprint**; it remains prepared and not externally activated. The strongest gated challenger is **GCC Bilingual E-Invoice Exception Evidence**. The **Partner Evidence Rail** is a strategic hypothesis for what repeated accepted partner delivery may become, not a product, channel, moat, customer, or revenue claim.
+
 ## Verified software evidence
 
 The source-changing state of this branch was exercised before later documentation/checkpoint-only commits.
 
 | Gate | Result |
 |---|---|
-| Syntax | `npm run check:syntax`: 658 files parse (2026-08-31) |
-| Deterministic | `npm run test:deterministic`: 3011 tests, 2959 pass, **0 fail**, 52 skipped (2026-08-31) |
+| Syntax | `npm run check:syntax`: 661 files parse (2026-08-31) |
+| Deterministic | `npm run test:deterministic`: 3018 tests, 2966 pass, **0 fail**, 52 skipped (2026-08-31) |
 | Relay safety | `npm run test:relay-safety`: 150 tests, 150 pass, 0 fail (2026-08-30) |
 | Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real`: 178 tests, 178 pass, 0 fail (2026-08-31), against PostgreSQL 16.13 |
 | Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 111 mutations, 111 killed, 0 not killed |
 | Browser | `CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser`: 1 test, 1 pass, 0 fail (2026-08-30), against the runner's installed Chromium |
 | Dependency audit | `npm audit --omit=dev`: No vulnerabilities reported in the current integration environment. |
 
-The 51 deterministic skips are the environment-dependent real-PostgreSQL suites excluded from that run; they have separate real-PostgreSQL evidence above. Hosted GitHub Actions jobs that receive no runner and execute zero steps remain `INFRASTRUCTURE_NON_EVIDENCE`.
+The 52 deterministic skips are environment-dependent suites excluded from that run; real-PostgreSQL behavior has separate evidence above. Hosted GitHub Actions jobs that receive no runner and execute zero steps remain `INFRASTRUCTURE_NON_EVIDENCE`.
 
 ## Reachability
 
-**118 of 267 `src` modules have no entry point at all**.
+**118 of 268 `src` modules have no entry point at all**.
 
 | Reachability class | Modules |
 |---|---:|
 | Reachable from production | 134 |
-| Reachable only via an operator script | 15 |
+| Reachable only via an operator script | 16 |
 | **No entry point at all** | **118** |
 
 The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`.
@@ -100,10 +104,10 @@ Internal software cannot manufacture the following:
 
 ## Immediate frontier
 
-1. Preserve `62b59d7bc20ef9ddba0bfa3e3803c2622a1eaa58` as the verified Wallbreaker + Capability Genome main truth. PR #261 was exact-tree tested and merged with expected-head protection; superseded PRs #257 and #260 are closed.
-2. Re-verify exact-current-main production only after Vercel's daily deployment cap permits a real build. The exact PR-head private-lite preview built successfully and returned HTTP 200; both post-merge project builds were rejected before execution by `api-deployments-free-per-day`.
-3. Advance the commercial frontier through the existing provider-evidence -> canonical reconciliation -> fulfilment chain. The next real gates are owner payment-provider identity/KYC and lawful first-buyer/contact authority; repository work cannot manufacture either.
-4. Once a provider exists, admit only signed provider evidence into the canonical payment ledger, then require real delivery and customer-origin acceptance before claiming commercial progress. Any additional provider rail must feed the same ledger rather than become a second money truth.
-5. Run a bounded Capability Genome world-corpus pilot only after durable corpus storage, authorized source terms/adapters, and isolated sandbox execution are dependency-satisfied. Catalog size alone is not the frontier.
+1. Activate exactly one owner-authorized $450 Lead-Path Revenue Leak Evidence Sprint through the existing partner canary packet. Measure cleared payment, accepted delivery, founder minutes, partner margin, and whether the same partner produces a second downstream account.
+2. Keep `gcc-einvoice-exception-evidence` research-only until a qualified provider supplies a safe sample and a stronger payment commitment than the current canary. Official obligations are not demand proof.
+3. Do not build a parallel AI evaluation platform. The strategic acceptance handoff is limited to composing existing task criteria, capability benchmarks, consequence receipts, and payment-acceptance truth into an evidence pack after buyer evidence justifies it.
+4. Re-verify exact-current-main production only when a real deployment is observed. The connected full Vercel project is `live: false`; recent observed full-project deployments are errors and exact-current-main runtime is unproven.
+5. Preserve the Capability Genome foundation and defer expensive corpus scaling until storage, source access, sandboxing, and economic pull are dependency-satisfied. Catalog size is not the frontier.
 
 Zero customer contact, zero provider/model execution, zero purchases, zero credential/DNS changes, zero money movement, and zero production mutation were authorized or performed by this checkpoint.

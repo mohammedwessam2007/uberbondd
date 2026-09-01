@@ -451,6 +451,28 @@ export const MUTATIONS = [
     replace: '    assert.ok(true,',
     suites: ['tests/canon-freshness-discrimination.test.mjs']
   },
+  // ---- Event Horizon: provenance and opportunity identity -----------------
+  {
+    id: 'HORIZON-01', guard: 'A source cannot be repointed at another domain',
+    file: 'src/event-horizon.mjs',
+    find: "      if (actualHost !== declaredHost) failures.push('source-url-host-mismatch');",
+    replace: '',
+    suites: ['tests/event-horizon.test.mjs']
+  },
+  {
+    id: 'HORIZON-02', guard: 'One canonical opportunity cannot appear twice',
+    file: 'src/event-horizon.mjs',
+    find: "    else if (canonicalOpportunityIds.has(candidate.canonicalOpportunityId)) failures.push('duplicate-canonical-opportunity-mapping');",
+    replace: '',
+    suites: ['tests/event-horizon.test.mjs']
+  },
+  {
+    id: 'HORIZON-03', guard: 'Commercial truth cannot be forged positive',
+    file: 'src/event-horizon.mjs',
+    find: "  if (truth.realCustomers !== 0 || truth.clearedRevenueUsd !== 0 || truth.acceptedDeliveries !== 0 || truth.retainedCustomers !== 0) {",
+    replace: '  if (false) {',
+    suites: ['tests/event-horizon.test.mjs']
+  },
   // ---- Payment reconciliation: a driver that cannot damage the evidence ----
   {
     id: 'MONEY-25', guard: 'An unconfigured worker claims nothing',

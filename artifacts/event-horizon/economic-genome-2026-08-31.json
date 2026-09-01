@@ -28,12 +28,30 @@
     }
   },
   "economicGenes": [
-    { "id": "time-windowed-obligation", "description": "A dated duty or entitlement creates urgency without manufacturing demand." },
-    { "id": "evidence-precondition", "description": "Payment, credit, acceptance, remediation, or release depends on reconstructable proof." },
-    { "id": "portfolio-channel-owner", "description": "One intermediary controls trusted access to many downstream accounts and has room for resale margin." },
-    { "id": "exception-ledger", "description": "Normal flow is automated while exceptions are detected, evidenced, prioritized, and routed." },
-    { "id": "acceptance-mandate", "description": "Buyer-owned acceptance criteria turn delivery quality into a deterministic approve, reject, or inconclusive receipt." },
-    { "id": "service-to-rail", "description": "A bounded evidence sprint becomes a repeatable monitor, then a partner control plane or embedded API only after repeated accepted use." }
+    {
+      "id": "time-windowed-obligation",
+      "description": "A dated duty or entitlement creates urgency without manufacturing demand."
+    },
+    {
+      "id": "evidence-precondition",
+      "description": "Payment, credit, acceptance, remediation, or release depends on reconstructable proof."
+    },
+    {
+      "id": "portfolio-channel-owner",
+      "description": "One intermediary controls trusted access to many downstream accounts and has room for resale margin."
+    },
+    {
+      "id": "exception-ledger",
+      "description": "Normal flow is automated while exceptions are detected, evidenced, prioritized, and routed."
+    },
+    {
+      "id": "acceptance-mandate",
+      "description": "Buyer-owned acceptance criteria turn delivery quality into a deterministic approve, reject, or inconclusive receipt."
+    },
+    {
+      "id": "service-to-rail",
+      "description": "A bounded evidence sprint becomes a repeatable monitor, then a partner control plane or embedded API only after repeated accepted use."
+    }
   ],
   "bestOriginalInvention": {
     "id": "partner-evidence-rail",
@@ -41,7 +59,12 @@
     "truthClassification": "HYPOTHESIS",
     "mechanism": "An authorized intermediary resells client-branded exception, reconciliation, and acceptance evidence across its portfolio; repeated delivery can mature from sprint to monitor to embedded rail.",
     "firstUnit": "White-label Lead-Path Revenue Leak Evidence Sprint",
-    "compoundingPath": ["BOUNDED_SPRINT", "REPEATABLE_MONITOR", "PARTNER_CONTROL_PLANE", "EMBEDDED_API"],
+    "compoundingPath": [
+      "BOUNDED_SPRINT",
+      "REPEATABLE_MONITOR",
+      "PARTNER_CONTROL_PLANE",
+      "EMBEDDED_API"
+    ],
     "promotionGates": [
       "At least two downstream paid accounts activated by one partner within 60 days.",
       "After the third accepted account, fulfilment consumes under two founder hours per account.",
@@ -56,12 +79,27 @@
       "status": "CURRENT_CHAMPION",
       "evidenceClass": "PUBLIC_PROXY",
       "evidenceMultiplier": 0.85,
-      "ratings": { "buyerTrigger": 4, "firstPaymentSpeed": 5, "distributionLeverage": 4, "founderMinuteEfficiency": 4, "proofMeasurability": 5, "recurrence": 3, "grossMarginPotential": 4, "automationPotential": 4, "retentionMoat": 3, "reversibility": 5 },
+      "ratings": {
+        "buyerTrigger": 4,
+        "firstPaymentSpeed": 5,
+        "distributionLeverage": 4,
+        "founderMinuteEfficiency": 4,
+        "proofMeasurability": 5,
+        "recurrence": 3,
+        "grossMarginPotential": 4,
+        "automationPotential": 4,
+        "retentionMoat": 3,
+        "reversibility": 5
+      },
       "decisionScore": 71,
       "activeExperiment": true,
       "experimentState": "PREPARED_NOT_EXTERNALLY_ACTIVATED",
       "why": "The offer, evidence pack, bounded price hypothesis, partner channel, acceptance packet, and zero-effect canary already exist; it has the shortest reversible path to payment evidence.",
-      "killConditions": ["No qualified partner accepts the bounded evidence-only scope.", "Delivery cannot be standardized within the founder-minute ceiling.", "A partner will not preserve permission, evidence, and truthful attribution boundaries."]
+      "killConditions": [
+        "No qualified partner accepts the bounded evidence-only scope.",
+        "Delivery cannot be standardized within the founder-minute ceiling.",
+        "A partner will not preserve permission, evidence, and truthful attribution boundaries."
+      ]
     },
     {
       "id": "gcc-einvoice-exception-evidence",
@@ -69,13 +107,28 @@
       "status": "GATED_CHALLENGER",
       "evidenceClass": "PUBLIC_PROXY",
       "evidenceMultiplier": 0.75,
-      "ratings": { "buyerTrigger": 5, "firstPaymentSpeed": 3, "distributionLeverage": 5, "founderMinuteEfficiency": 3, "proofMeasurability": 5, "recurrence": 5, "grossMarginPotential": 4, "automationPotential": 4, "retentionMoat": 4, "reversibility": 3 },
+      "ratings": {
+        "buyerTrigger": 5,
+        "firstPaymentSpeed": 3,
+        "distributionLeverage": 5,
+        "founderMinuteEfficiency": 3,
+        "proofMeasurability": 5,
+        "recurrence": 5,
+        "grossMarginPotential": 4,
+        "automationPotential": 4,
+        "retentionMoat": 4,
+        "reversibility": 3
+      },
       "decisionScore": 62,
       "activeExperiment": false,
       "experimentState": "RESEARCH_ONLY",
       "why": "Official UAE and Saudi rollout dates create mandatory exception workflows and accredited-provider channels, but no buyer commitment proves UberBond adds value beyond existing validators.",
       "promotionGate": "A qualified provider supplies a safe sample and a stronger payment commitment than the current canary.",
-      "killConditions": ["The pack adds no material evidence beyond provider validators.", "The buyer requires tax advice, filing authority, or compliance liability.", "No paid pilot follows five qualified provider conversations."]
+      "killConditions": [
+        "The pack adds no material evidence beyond provider validators.",
+        "The buyer requires tax advice, filing authority, or compliance liability.",
+        "No paid pilot follows five qualified provider conversations."
+      ]
     },
     {
       "id": "ai-acceptance-evidence-tollbooth",
@@ -83,12 +136,27 @@
       "status": "STRATEGIC_CHALLENGER",
       "evidenceClass": "PUBLIC_PROXY",
       "evidenceMultiplier": 0.72,
-      "ratings": { "buyerTrigger": 4, "firstPaymentSpeed": 3, "distributionLeverage": 4, "founderMinuteEfficiency": 3, "proofMeasurability": 5, "recurrence": 5, "grossMarginPotential": 4, "automationPotential": 4, "retentionMoat": 5, "reversibility": 3 },
+      "ratings": {
+        "buyerTrigger": 4,
+        "firstPaymentSpeed": 3,
+        "distributionLeverage": 4,
+        "founderMinuteEfficiency": 3,
+        "proofMeasurability": 5,
+        "recurrence": 5,
+        "grossMarginPotential": 4,
+        "automationPotential": 4,
+        "retentionMoat": 5,
+        "reversibility": 3
+      },
       "decisionScore": 56,
       "activeExperiment": false,
       "experimentState": "CAPABILITY_HANDOFF_ONLY",
       "why": "Official procurement and risk guidance supports buyer-owned holdout evaluation, reproducibility, thresholds, monitoring, and rollback. It is strategically aligned but has a slower first-sale path than the prepared canary.",
-      "killConditions": ["Agencies will not pay separately or bundle the evidence into a paid engagement.", "Generic observability vendors satisfy buyer acceptance without independent evidence.", "Domain fixture design remains founder-heavy."]
+      "killConditions": [
+        "Agencies will not pay separately or bundle the evidence into a paid engagement.",
+        "Generic observability vendors satisfy buyer acceptance without independent evidence.",
+        "Domain fixture design remains founder-heavy."
+      ]
     },
     {
       "id": "cloud-sla-credit-evidence-desk",
@@ -96,12 +164,27 @@
       "status": "PARKED",
       "evidenceClass": "PUBLIC_PROXY",
       "evidenceMultiplier": 0.68,
-      "ratings": { "buyerTrigger": 4, "firstPaymentSpeed": 2, "distributionLeverage": 4, "founderMinuteEfficiency": 3, "proofMeasurability": 5, "recurrence": 4, "grossMarginPotential": 3, "automationPotential": 4, "retentionMoat": 3, "reversibility": 3 },
+      "ratings": {
+        "buyerTrigger": 4,
+        "firstPaymentSpeed": 2,
+        "distributionLeverage": 4,
+        "founderMinuteEfficiency": 3,
+        "proofMeasurability": 5,
+        "recurrence": 4,
+        "grossMarginPotential": 3,
+        "automationPotential": 4,
+        "retentionMoat": 3,
+        "reversibility": 3
+      },
       "decisionScore": 48,
       "activeExperiment": false,
       "experimentState": "PARKED",
       "why": "Official SLA claim windows create a find-money mechanism, but recovered value is usually a future service credit and access to provider logs and billing data raises friction.",
-      "killConditions": ["Credits are too small or too infrequent to support partner economics.", "Provider-native claim tooling removes the evidence gap.", "The offer requires broad cloud-admin credentials."]
+      "killConditions": [
+        "Credits are too small or too infrequent to support partner economics.",
+        "Provider-native claim tooling removes the evidence gap.",
+        "The offer requires broad cloud-admin credentials."
+      ]
     },
     {
       "id": "healthcare-prior-authorization-evidence",
@@ -109,18 +192,42 @@
       "status": "DEFERRED_HIGH_VALUE_HIGH_RISK",
       "evidenceClass": "PUBLIC_PROXY",
       "evidenceMultiplier": 0.55,
-      "ratings": { "buyerTrigger": 5, "firstPaymentSpeed": 1, "distributionLeverage": 4, "founderMinuteEfficiency": 1, "proofMeasurability": 5, "recurrence": 5, "grossMarginPotential": 4, "automationPotential": 3, "retentionMoat": 5, "reversibility": 1 },
+      "ratings": {
+        "buyerTrigger": 5,
+        "firstPaymentSpeed": 1,
+        "distributionLeverage": 4,
+        "founderMinuteEfficiency": 1,
+        "proofMeasurability": 5,
+        "recurrence": 5,
+        "grossMarginPotential": 4,
+        "automationPotential": 3,
+        "retentionMoat": 5,
+        "reversibility": 1
+      },
       "decisionScore": 36,
       "activeExperiment": false,
       "experimentState": "DEFERRED",
       "why": "The labor and overturned-denial evidence is strong, but HIPAA, BAAs, clinical risk, integration, and liability make it an inferior first-customer path.",
-      "killConditions": ["No low-data partner wedge exists.", "Clinical or legal judgment cannot be separated from evidence preparation.", "Integration and compliance costs dominate the initial contract."]
+      "killConditions": [
+        "No low-data partner wedge exists.",
+        "Clinical or legal judgment cannot be separated from evidence preparation.",
+        "Integration and compliance costs dominate the initial contract."
+      ]
     }
   ],
   "killedTheses": [
-    { "id": "generic-ai-governance-dashboard", "reason": "Crowded, hard to differentiate, and weakly tied to acceptance or payment. Revisit only with buyer-owned acceptance evidence and a channel." },
-    { "id": "standalone-chargeback-recovery", "reason": "Native payment and commerce platforms own distribution and automate much of the workflow. Revisit only as an exception atom inside a broader evidence rail." },
-    { "id": "generic-founder-led-outreach-service", "reason": "Founder-dependent distribution and commodity fulfilment fail the founder-minute objective." }
+    {
+      "id": "generic-ai-governance-dashboard",
+      "reason": "Crowded, hard to differentiate, and weakly tied to acceptance or payment. Revisit only with buyer-owned acceptance evidence and a channel."
+    },
+    {
+      "id": "standalone-chargeback-recovery",
+      "reason": "Native payment and commerce platforms own distribution and automate much of the workflow. Revisit only as an exception atom inside a broader evidence rail."
+    },
+    {
+      "id": "generic-founder-led-outreach-service",
+      "reason": "Founder-dependent distribution and commodity fulfilment fail the founder-minute objective."
+    }
   ],
   "beliefUpdates": [
     {
@@ -149,28 +256,183 @@
     "economicValue": "A compact evidence-pack compiler can help implementation partners close and defend paid AI work, create a recurring regression route, and supply the strategic acceptance atom of the Partner Evidence Rail.",
     "requiredCapability": "Compose existing task-intent acceptance criteria, capability benchmark execution, consequence receipts, and payment-acceptance truth into a deterministic acceptance evidence-pack compiler; do not build a parallel evaluator platform.",
     "successCriterion": "With synthetic fixtures and two candidate systems, reproducibly emit APPROVE, REJECT, or INCONCLUSIVE; detect one seeded regression and one unauthorized side effect; pin hashes, model, provider, tools, permissions, cost, and evidence; emit machine-readable and client-readable reports.",
-    "boundaries": ["No certification or legal advice.", "No fund custody or payment initiation.", "No customer data without consent.", "No production mutation.", "No model-judge-only acceptance decision."],
-    "reuse": ["src/capability-genome-runtime.mjs", "src/task-universe.mjs", "src/service-sku-catalog.mjs", "src/offer-compiler.mjs", "src/payment-renewal-truth.mjs", "src/effect-ledgers.mjs"],
+    "boundaries": [
+      "No certification or legal advice.",
+      "No fund custody or payment initiation.",
+      "No customer data without consent.",
+      "No production mutation.",
+      "No model-judge-only acceptance decision."
+    ],
+    "reuse": [
+      "src/capability-genome-runtime.mjs",
+      "src/task-universe.mjs",
+      "src/service-sku-catalog.mjs",
+      "src/offer-compiler.mjs",
+      "src/payment-renewal-truth.mjs",
+      "src/effect-ledgers.mjs"
+    ],
     "whyThisDominatesOtherEngineeringWork": "It is the smallest missing reusable primitive that links existing evidence, safety, acceptance, and reconciliation systems to a partner-sellable recurring outcome. It remains behind the commercial canary until buyer evidence justifies implementation."
   },
   "sourceLedger": [
-    { "id": "uae-mof-timeline", "type": "OFFICIAL_PRIMARY", "url": "https://mof.gov.ae/en/news/ministry-of-finance-announces-the-issuance-of-two-ministerial-decisions-on-the-scope-of-obligations-and-the-timelines-for-implementing-the-electronic-invoicing-system-2/", "supports": ["gcc-einvoice-exception-evidence"] },
-    { "id": "uae-mof-providers", "type": "OFFICIAL_PRIMARY", "url": "https://mof.gov.ae/en/about-us/initiatives/einvoicing/pre-approved-einvoicing-service-providers/", "supports": ["gcc-einvoice-exception-evidence", "portfolio-channel-owner"] },
-    { "id": "zatca-wave25", "type": "OFFICIAL_PRIMARY", "url": "https://zatca.gov.sa/en/MediaCenter/News/Pages/Wave25-E-invoicing.aspx", "supports": ["gcc-einvoice-exception-evidence"] },
-    { "id": "zatca-provider-directory", "type": "OFFICIAL_PRIMARY", "url": "https://zatca.gov.sa/en/E-Invoicing/SolutionProviders/Pages/SolutionProvidersDirectory.aspx", "supports": ["gcc-einvoice-exception-evidence"] },
-    { "id": "omb-m25-22", "type": "OFFICIAL_PRIMARY", "url": "https://www.whitehouse.gov/wp-content/uploads/2025/02/M-25-22-Driving-Efficient-Acquisition-of-Artificial-Intelligence-in-Government.pdf", "supports": ["ai-acceptance-evidence-tollbooth", "acceptance-mandate"] },
-    { "id": "omb-m25-21", "type": "OFFICIAL_PRIMARY", "url": "https://www.whitehouse.gov/wp-content/uploads/2025/02/M-25-21-Accelerating-Federal-Use-of-AI-through-Innovation-Governance-and-Public-Trust.pdf", "supports": ["ai-acceptance-evidence-tollbooth"] },
-    { "id": "nist-ai-600-1", "type": "OFFICIAL_PRIMARY", "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf", "supports": ["ai-acceptance-evidence-tollbooth"] },
-    { "id": "nist-agent-security", "type": "OFFICIAL_PRIMARY", "url": "https://www.nist.gov/blogs/caisi-research-blog/insights-ai-agent-security-large-scale-red-teaming-competition", "supports": ["ai-acceptance-evidence-tollbooth"] },
-    { "id": "openai-mcp-safety", "type": "OFFICIAL_PRIMARY", "url": "https://developers.openai.com/api/docs/guides/tools-connectors-mcp", "supports": ["ai-acceptance-evidence-tollbooth"] },
-    { "id": "cms-prior-auth", "type": "OFFICIAL_PRIMARY", "url": "https://www.cms.gov/priorities/electronic-prior-authorization/overview", "supports": ["healthcare-prior-authorization-evidence"] },
-    { "id": "hhs-oig-prior-auth", "type": "OFFICIAL_PRIMARY", "url": "https://oig.hhs.gov/reports/all/2026/medicare-advantage-organizations-overturned-nearly-all-appealed-prior-authorization-denials-for-skilled-nursing-facility-admission-raising-concerns-about-initial-denials/", "supports": ["healthcare-prior-authorization-evidence"] },
-    { "id": "google-compute-sla", "type": "VENDOR_PRIMARY", "url": "https://cloud.google.com/compute/sla", "supports": ["cloud-sla-credit-evidence-desk", "time-windowed-obligation", "evidence-precondition"] },
-    { "id": "aws-compute-sla", "type": "VENDOR_PRIMARY", "url": "https://aws.amazon.com/compute/sla/", "supports": ["cloud-sla-credit-evidence-desk", "time-windowed-obligation", "evidence-precondition"] },
-    { "id": "highlevel-pricing", "type": "VENDOR_PRIMARY", "url": "https://www.gohighlevel.com/pricing", "supports": ["portfolio-channel-owner"] },
-    { "id": "hubspot-2025-10k", "type": "REGULATORY_FILING", "url": "https://www.sec.gov/Archives/edgar/data/1404655/000119312526046646/hubs-20251231.htm", "supports": ["portfolio-channel-owner"] },
-    { "id": "xero-partner", "type": "VENDOR_PRIMARY", "url": "https://www.xero.com/partner/", "supports": ["portfolio-channel-owner"] },
-    { "id": "stripe-connect-pricing", "type": "VENDOR_PRIMARY", "url": "https://stripe.com/connect/pricing", "supports": ["service-to-rail"] }
+    {
+      "id": "uae-mof-timeline",
+      "type": "OFFICIAL_PRIMARY",
+      "url": "https://mof.gov.ae/en/news/ministry-of-finance-announces-the-issuance-of-two-ministerial-decisions-on-the-scope-of-obligations-and-the-timelines-for-implementing-the-electronic-invoicing-system-2/",
+      "supports": [
+        "gcc-einvoice-exception-evidence"
+      ],
+      "host": "mof.gov.ae"
+    },
+    {
+      "id": "uae-mof-providers",
+      "type": "OFFICIAL_PRIMARY",
+      "url": "https://mof.gov.ae/en/about-us/initiatives/einvoicing/pre-approved-einvoicing-service-providers/",
+      "supports": [
+        "gcc-einvoice-exception-evidence",
+        "portfolio-channel-owner"
+      ],
+      "host": "mof.gov.ae"
+    },
+    {
+      "id": "zatca-wave25",
+      "type": "OFFICIAL_PRIMARY",
+      "url": "https://zatca.gov.sa/en/MediaCenter/News/Pages/Wave25-E-invoicing.aspx",
+      "supports": [
+        "gcc-einvoice-exception-evidence"
+      ],
+      "host": "zatca.gov.sa"
+    },
+    {
+      "id": "zatca-provider-directory",
+      "type": "OFFICIAL_PRIMARY",
+      "url": "https://zatca.gov.sa/en/E-Invoicing/SolutionProviders/Pages/SolutionProvidersDirectory.aspx",
+      "supports": [
+        "gcc-einvoice-exception-evidence"
+      ],
+      "host": "zatca.gov.sa"
+    },
+    {
+      "id": "omb-m25-22",
+      "type": "OFFICIAL_PRIMARY",
+      "url": "https://www.whitehouse.gov/wp-content/uploads/2025/02/M-25-22-Driving-Efficient-Acquisition-of-Artificial-Intelligence-in-Government.pdf",
+      "supports": [
+        "ai-acceptance-evidence-tollbooth",
+        "acceptance-mandate"
+      ],
+      "host": "www.whitehouse.gov"
+    },
+    {
+      "id": "omb-m25-21",
+      "type": "OFFICIAL_PRIMARY",
+      "url": "https://www.whitehouse.gov/wp-content/uploads/2025/02/M-25-21-Accelerating-Federal-Use-of-AI-through-Innovation-Governance-and-Public-Trust.pdf",
+      "supports": [
+        "ai-acceptance-evidence-tollbooth"
+      ],
+      "host": "www.whitehouse.gov"
+    },
+    {
+      "id": "nist-ai-600-1",
+      "type": "OFFICIAL_PRIMARY",
+      "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf",
+      "supports": [
+        "ai-acceptance-evidence-tollbooth"
+      ],
+      "host": "nvlpubs.nist.gov"
+    },
+    {
+      "id": "nist-agent-security",
+      "type": "OFFICIAL_PRIMARY",
+      "url": "https://www.nist.gov/blogs/caisi-research-blog/insights-ai-agent-security-large-scale-red-teaming-competition",
+      "supports": [
+        "ai-acceptance-evidence-tollbooth"
+      ],
+      "host": "www.nist.gov"
+    },
+    {
+      "id": "openai-mcp-safety",
+      "type": "OFFICIAL_PRIMARY",
+      "url": "https://developers.openai.com/api/docs/guides/tools-connectors-mcp",
+      "supports": [
+        "ai-acceptance-evidence-tollbooth"
+      ],
+      "host": "developers.openai.com"
+    },
+    {
+      "id": "cms-prior-auth",
+      "type": "OFFICIAL_PRIMARY",
+      "url": "https://www.cms.gov/priorities/electronic-prior-authorization/overview",
+      "supports": [
+        "healthcare-prior-authorization-evidence"
+      ],
+      "host": "www.cms.gov"
+    },
+    {
+      "id": "hhs-oig-prior-auth",
+      "type": "OFFICIAL_PRIMARY",
+      "url": "https://oig.hhs.gov/reports/all/2026/medicare-advantage-organizations-overturned-nearly-all-appealed-prior-authorization-denials-for-skilled-nursing-facility-admission-raising-concerns-about-initial-denials/",
+      "supports": [
+        "healthcare-prior-authorization-evidence"
+      ],
+      "host": "oig.hhs.gov"
+    },
+    {
+      "id": "google-compute-sla",
+      "type": "VENDOR_PRIMARY",
+      "url": "https://cloud.google.com/compute/sla",
+      "supports": [
+        "cloud-sla-credit-evidence-desk",
+        "time-windowed-obligation",
+        "evidence-precondition"
+      ],
+      "host": "cloud.google.com"
+    },
+    {
+      "id": "aws-compute-sla",
+      "type": "VENDOR_PRIMARY",
+      "url": "https://aws.amazon.com/compute/sla/",
+      "supports": [
+        "cloud-sla-credit-evidence-desk",
+        "time-windowed-obligation",
+        "evidence-precondition"
+      ],
+      "host": "aws.amazon.com"
+    },
+    {
+      "id": "highlevel-pricing",
+      "type": "VENDOR_PRIMARY",
+      "url": "https://www.gohighlevel.com/pricing",
+      "supports": [
+        "portfolio-channel-owner"
+      ],
+      "host": "www.gohighlevel.com"
+    },
+    {
+      "id": "hubspot-2025-10k",
+      "type": "REGULATORY_FILING",
+      "url": "https://www.sec.gov/Archives/edgar/data/1404655/000119312526046646/hubs-20251231.htm",
+      "supports": [
+        "portfolio-channel-owner"
+      ],
+      "host": "www.sec.gov"
+    },
+    {
+      "id": "xero-partner",
+      "type": "VENDOR_PRIMARY",
+      "url": "https://www.xero.com/partner/",
+      "supports": [
+        "portfolio-channel-owner"
+      ],
+      "host": "www.xero.com"
+    },
+    {
+      "id": "stripe-connect-pricing",
+      "type": "VENDOR_PRIMARY",
+      "url": "https://stripe.com/connect/pricing",
+      "supports": [
+        "service-to-rail"
+      ],
+      "host": "stripe.com"
+    }
   ],
   "remainingUnknowns": [
     "Will an intermediary pay separately for independent evidence and activate at least two downstream accounts, or expect the work bundled for free?",

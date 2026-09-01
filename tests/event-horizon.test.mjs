@@ -98,3 +98,82 @@ test('unsafe capability handoff or invented execution authority fails closed', (
   authority.highestValueExperiment.currentAuthority = 'AUTONOMOUS';
   assert.ok(validateEventHorizon(authority).failures.includes('experiment-authority-must-remain-none'));
 });
+
+// ---------------------------------------------------------------------------
+// Three attacks the validator accepted, found by running the full hostile list
+// against the real artifact rather than against a fixture.
+
+import { readFileSync as readArtifact } from 'node:fs';
+
+const GENOME = JSON.parse(readArtifact(
+  new URL('../artifacts/event-horizon/economic-genome-2026-08-31.json', import.meta.url), 'utf8'));
+const mutated = fn => { const copy = structuredClone(GENOME); fn(copy); return copy; };
+
+test('the real artifact validates, so the attacks below mean what they say', () => {
+  const result = validateEventHorizon(GENOME);
+  assert.equal(result.ok, true, result.failures?.join(','));
+});
+
+// A source kept its id, its type and its supports list while its URL was
+// repointed at a different domain. The ledger still validated while citing
+// somebody else's page.
+//
+// Nothing here can prove a page says what a source claims. What it can do is
+// make a cross-domain repoint a visible semantic edit instead of a silent one.
+test('a source cannot be repointed at another domain while keeping its identity', () => {
+  const repointed = mutated(record => { record.sourceLedger[0].url = 'https://evil.example/forged'; });
+  const result = validateEventHorizon(repointed);
+  assert.equal(result.ok, false);
+  assert.ok(result.failures.includes('source-url-host-mismatch'), result.failures.join(','));
+
+  // Changing both is allowed and that is the point: it is now an edit a reviewer
+  // sees, naming the domain being claimed.
+  const honest = mutated(record => {
+    record.sourceLedger[0].url = 'https://example.gov/page';
+    record.sourceLedger[0].host = 'example.gov';
+  });
+  assert.equal(validateEventHorizon(honest).ok, true);
+});
+
+test('a source with no declared host cannot enter the ledger', () => {
+  const hostless = mutated(record => { delete record.sourceLedger[0].host; });
+  const result = validateEventHorizon(hostless);
+  assert.equal(result.ok, false);
+  assert.ok(result.failures.includes('source-host-required'));
+});
+
+// Canonical opportunity identity is what stops one opportunity being counted as
+// two. Without it the same opportunity could appear twice under different
+// candidate ids, inflating the tournament and letting an opportunity be its own
+// strongest challenger.
+test('one canonical opportunity cannot appear twice in the tournament', () => {
+  const duplicated = mutated(record => {
+    record.tournament[1].canonicalOpportunityId = record.tournament[0].canonicalOpportunityId;
+  });
+  const result = validateEventHorizon(duplicated);
+  assert.equal(result.ok, false);
+  assert.ok(result.failures.includes('duplicate-canonical-opportunity-mapping'), result.failures.join(','));
+});
+
+// The distinctions the whole record exists to hold up, checked together so a
+// future edit cannot quietly relax one of them.
+test('no edit turns preparation into commercial proof', () => {
+  for (const [label, edit, expected] of [
+    ['a forged customer', r => { r.commercialTruth.realCustomers = 1; }, 'unsupported-commercial-outcome'],
+    ['forged cleared revenue', r => { r.commercialTruth.clearedRevenueUsd = 450; }, 'unsupported-commercial-outcome'],
+    ['a string zero', r => { r.commercialTruth.acceptedDeliveries = '0'; }, 'unsupported-commercial-outcome'],
+    ['an unknown effect key', r => { r.externalEffectLedger.somethingNew = 0; }, 'nonzero-external-effect'],
+    ['a second champion', r => { r.tournament[1].status = 'CURRENT_CHAMPION'; }, 'exactly-one-champion-required'],
+    ['a second active experiment', r => { r.tournament[1].activeExperiment = true; }, 'exactly-one-active-experiment-required'],
+    ['widened experiment authority', r => { r.highestValueExperiment.currentAuthority = 'OWNER_AUTHORIZED_EXTERNAL'; }, 'experiment-authority-must-remain-none'],
+    ['a champion claiming activation', r => {
+      r.tournament.find(c => c.status === 'CURRENT_CHAMPION').experimentState = 'EXTERNALLY_ACTIVATED';
+    }, 'champion-state-must-preserve-external-truth'],
+    ['erased killed-thesis memory', r => { r.killedTheses = []; }, 'killed-thesis-memory-missing'],
+    ['erased belief updates', r => { r.beliefUpdates = []; }, 'belief-update-memory-missing']
+  ]) {
+    const result = validateEventHorizon(mutated(edit));
+    assert.equal(result.ok, false, label);
+    assert.ok(result.failures.includes(expected), `${label}: ${result.failures.join(',')}`);
+  }
+});

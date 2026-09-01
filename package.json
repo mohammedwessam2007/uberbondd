@@ -51,6 +51,7 @@
     "wallbreaker": "node scripts/wallbreaker-plan.mjs",
     "test:wallbreaker": "node --test tests/wallbreaker.test.mjs tests/wallbreaker-retry-safety.test.mjs",
     "event-horizon:doctor": "node scripts/event-horizon-doctor.mjs",
+    "outreach:free-first:doctor": "node scripts/free-first-outreach-doctor.mjs",
     "test:event-horizon": "node --test tests/event-horizon.test.mjs",
     "capabilities:doctor": "node scripts/external-capability-doctor.mjs",
     "capabilities:genome:doctor": "node scripts/capability-genome-doctor.mjs",

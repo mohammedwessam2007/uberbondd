@@ -1,0 +1,183 @@
+import crypto from 'node:crypto';
+import { ExternalEffectAdapter, ADAPTER_OUTCOMES } from '../external-effect-adapter.mjs';
+
+export const POSTAL_EFFECT_ADAPTER_VERSION = 'uberbond.postal-effect-adapter-1.0.0';
+const EMAIL_RE = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
+const MAX_SUBJECT = 200;
+const MAX_BODY = 20_000;
+const DEFINITE_REJECTION_STATUSES = new Set([400, 401, 403, 404, 409, 422]);
+
+export class PostalEffectAdapterError extends Error {
+  constructor(message, code = 'POSTAL_EFFECT_ADAPTER_ERROR', detail = {}) {
+    super(message); this.name = 'PostalEffectAdapterError'; this.code = code; this.detail = detail;
+  }
+}
+function hash(value) { return crypto.createHash('sha256').update(String(value), 'utf8').digest('hex'); }
+function text(value, max = 500) { return String(value ?? '').trim().slice(0, max); }
+function safeBaseUrl(value) {
+  try {
+    const url = new URL(String(value || ''));
+    if (url.protocol !== 'https:' || url.username || url.password) return null;
+    return url.toString().replace(/\/$/, '');
+  } catch { return null; }
+}
+function email(value, field) {
+  const out = String(value || '').trim();
+  if (!EMAIL_RE.test(out) || /[\r\n]/.test(out)) throw new PostalEffectAdapterError(`${field} must be a valid email address`, `INVALID_${field.toUpperCase()}`);
+  return out;
+}
+function messageId(executionId, domain) {
+  if (!executionId) throw new PostalEffectAdapterError('executionId is required', 'INVALID_INPUT');
+  const d = String(domain || '').trim().toLowerCase();
+  if (!/^[a-z0-9.-]+\.[a-z]{2,}$/i.test(d)) throw new PostalEffectAdapterError('messageIdDomain must be explicit and valid', 'CONFIG');
+  return `<v9-${hash(executionId)}@${d}>`;
+}
+function effectTag(executionId) { return `v9_${hash(executionId).slice(0, 48)}`; }
+async function readJson(response) {
+  try { return typeof response?.json === 'function' ? await response.json() : null; }
+  catch { return null; }
+}
+function evidence({ businessKey, providerReferenceId = null, lifecycle, acquisitionMethod, detail = {}, observedAt }) {
+  return {
+    businessIdentity: businessKey,
+    providerReferenceId,
+    observedAt,
+    evidenceType: acquisitionMethod.includes('webhook') ? 'RECONCILIATION_LOOKUP' : 'DISPATCH_RESPONSE',
+    acquisitionMethod,
+    reconciliationSource: acquisitionMethod.includes('webhook') ? 'postal-webhook-ledger' : '',
+    lifecycle,
+    detail
+  };
+}
+
+export class PostalEffectAdapter extends ExternalEffectAdapter {
+  constructor({ baseUrl, apiKey, fromAddress, messageIdDomain, fetchImpl = globalThis.fetch, reconciliationLookupFn = null, now = () => new Date() } = {}) {
+    super();
+    this.baseUrl = safeBaseUrl(baseUrl);
+    this.apiKey = String(apiKey || '');
+    this.fromAddress = email(fromAddress, 'from');
+    this.messageIdDomain = String(messageIdDomain || '').trim().toLowerCase();
+    this.fetchImpl = fetchImpl;
+    this.reconciliationLookupFn = reconciliationLookupFn;
+    this.now = now;
+    this.dispatchCallCount = 0;
+    if (!this.baseUrl) throw new PostalEffectAdapterError('Postal baseUrl must be HTTPS without embedded credentials', 'CONFIG');
+    if (!this.apiKey) throw new PostalEffectAdapterError('Postal apiKey is required', 'CONFIG');
+    if (typeof this.fetchImpl !== 'function') throw new PostalEffectAdapterError('fetch implementation is required', 'CONFIG');
+    messageId('configuration-probe', this.messageIdDomain);
+  }
+  get providerName() { return 'postal'; }
+
+  async prepare({ businessKey, providerEffectIdentity, executionId, effectPayload = {} } = {}) {
+    if (!businessKey || !executionId || !providerEffectIdentity) throw new PostalEffectAdapterError('businessKey, providerEffectIdentity, and executionId are required', 'INVALID_INPUT');
+    const to = email(effectPayload.to, 'to');
+    const from = effectPayload.from ? email(effectPayload.from, 'from') : this.fromAddress;
+    if (from.toLowerCase() !== this.fromAddress.toLowerCase()) throw new PostalEffectAdapterError('effectPayload.from does not match approved sender', 'FROM_IDENTITY_MISMATCH');
+    const subject = String(effectPayload.subject || '');
+    const body = String(effectPayload.body || '');
+    if (!subject.trim() || subject.length > MAX_SUBJECT || /[\r\n]/.test(subject)) throw new PostalEffectAdapterError('subject is missing, too long, or header-unsafe', 'INVALID_SUBJECT');
+    if (!body.trim() || body.length > MAX_BODY) throw new PostalEffectAdapterError('body is missing or too long', 'INVALID_BODY');
+    if (effectPayload.cc || effectPayload.bcc || effectPayload.attachments?.length) throw new PostalEffectAdapterError('cc, bcc, and attachments are not supported', 'DISALLOWED_PAYLOAD');
+    const allowed = new Set(['to', 'from', 'subject', 'body']);
+    for (const key of Object.keys(effectPayload)) if (!allowed.has(key)) throw new PostalEffectAdapterError(`unexpected effectPayload field: ${key}`, 'UNEXPECTED_FIELD');
+    const id = messageId(executionId, this.messageIdDomain);
+    if (String(providerEffectIdentity) !== id) throw new PostalEffectAdapterError('providerEffectIdentity does not match deterministic Message-ID', 'PROVIDER_EFFECT_IDENTITY_MISMATCH');
+    return {
+      businessKey, providerEffectIdentity: id, executionId, to, from, subject, body,
+      messageId: id,
+      tag: effectTag(executionId),
+      argumentsDigest: hash(JSON.stringify({ to: to.toLowerCase(), from: from.toLowerCase(), subjectSha256: hash(subject), bodySha256: hash(body), messageId: id }))
+    };
+  }
+
+  async dispatch(prepared) {
+    this.dispatchCallCount += 1;
+    const observedAt = this.now().toISOString();
+    let response;
+    try {
+      response = await this.fetchImpl(`${this.baseUrl}/api/v1/send/message`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Server-API-Key': this.apiKey },
+        body: JSON.stringify({
+          to: [prepared.to],
+          from: prepared.from,
+          subject: prepared.subject,
+          plain_body: prepared.body,
+          tag: prepared.tag,
+          headers: { 'Message-ID': prepared.messageId }
+        })
+      });
+    } catch (error) {
+      return { classification: ADAPTER_OUTCOMES.UNCERTAIN, providerReferenceId: null, evidence: null, dispatchError: text(error?.message || error) };
+    }
+    const statusCode = Number(response?.status || 0);
+    const payload = await readJson(response);
+    const postalStatus = String(payload?.status || '').toLowerCase();
+    if (DEFINITE_REJECTION_STATUSES.has(statusCode)) {
+      return {
+        classification: ADAPTER_OUTCOMES.REJECTED,
+        providerReferenceId: null,
+        evidence: evidence({ businessKey: prepared.businessKey, lifecycle: 'REJECTED', acquisitionMethod: 'postal-effect-adapter:synchronous-send-response', observedAt, detail: { httpStatus: statusCode, responseDigest: hash(JSON.stringify(payload || {})), tag: prepared.tag } })
+      };
+    }
+    if (statusCode === 429 || statusCode >= 500 || statusCode < 200 || statusCode >= 300 || postalStatus !== 'success') {
+      return { classification: ADAPTER_OUTCOMES.UNCERTAIN, providerReferenceId: null, evidence: null, dispatchError: `Postal outcome uncertain (http=${statusCode || 'none'}, status=${postalStatus || 'missing'})` };
+    }
+    const data = payload?.data || {};
+    const recipient = data?.messages?.[prepared.to] || data?.messages?.[prepared.to.toLowerCase()] || null;
+    const providerReferenceId = recipient?.id == null ? null : String(recipient.id);
+    if (!data?.message_id || !providerReferenceId) {
+      return { classification: ADAPTER_OUTCOMES.UNCERTAIN, providerReferenceId: null, evidence: null, dispatchError: 'Postal success response lacked required message identifiers' };
+    }
+    return {
+      classification: ADAPTER_OUTCOMES.ACCEPTED,
+      providerReferenceId,
+      evidence: evidence({
+        businessKey: prepared.businessKey,
+        providerReferenceId,
+        lifecycle: 'ACCEPTED',
+        acquisitionMethod: 'postal-effect-adapter:synchronous-send-response',
+        observedAt,
+        detail: { postalMessageId: String(data.message_id), recipientMessageId: providerReferenceId, tag: prepared.tag, responseDigest: hash(JSON.stringify(data)) }
+      })
+    };
+  }
+
+  async reconcile({ businessKey, providerEffectIdentity, executionId, expectedTo, expectedFrom, expectedSubjectSha256 } = {}) {
+    const observedAt = this.now().toISOString();
+    if (!businessKey || !providerEffectIdentity || !executionId) throw new PostalEffectAdapterError('reconcile requires businessKey, providerEffectIdentity, and executionId', 'INVALID_INPUT');
+    const expectedMessageId = messageId(executionId, this.messageIdDomain);
+    if (providerEffectIdentity !== expectedMessageId) return evidence({ businessKey, lifecycle: 'AMBIGUOUS', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'provider-effect-identity-mismatch' } });
+    if (typeof this.reconciliationLookupFn !== 'function') {
+      return evidence({ businessKey, lifecycle: 'UNCERTAIN', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'postal-reconciliation-ledger-not-configured', tag: effectTag(executionId) } });
+    }
+    let matches;
+    try { matches = await this.reconciliationLookupFn({ tag: effectTag(executionId), messageId: expectedMessageId }); }
+    catch (error) { return evidence({ businessKey, lifecycle: 'UNCERTAIN', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'reconciliation-lookup-failed', error: text(error?.message || error) } }); }
+    if (!Array.isArray(matches) || matches.length === 0) return evidence({ businessKey, lifecycle: 'UNCERTAIN', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'zero-webhook-matches-not-proof-of-non-submission', tag: effectTag(executionId) } });
+    if (matches.length > 1) return evidence({ businessKey, lifecycle: 'AMBIGUOUS', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'multiple-webhook-matches', count: matches.length } });
+    const row = matches[0] || {};
+    if (row.tag !== effectTag(executionId)) return evidence({ businessKey, providerReferenceId: String(row.id || ''), lifecycle: 'AMBIGUOUS', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'tag-mismatch' } });
+    if (expectedTo && String(row.to || '').toLowerCase() !== String(expectedTo).toLowerCase()) return evidence({ businessKey, providerReferenceId: String(row.id || ''), lifecycle: 'AMBIGUOUS', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'recipient-mismatch' } });
+    if (expectedFrom && String(row.from || '').toLowerCase() !== String(expectedFrom).toLowerCase()) return evidence({ businessKey, providerReferenceId: String(row.id || ''), lifecycle: 'AMBIGUOUS', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'sender-mismatch' } });
+    if (expectedSubjectSha256 && hash(String(row.subject || '')) !== expectedSubjectSha256) return evidence({ businessKey, providerReferenceId: String(row.id || ''), lifecycle: 'AMBIGUOUS', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'subject-digest-mismatch' } });
+    const status = String(row.status || row.lifecycle || '').toUpperCase();
+    if (['SENT', 'DELIVERED', 'MESSAGESENT', 'ACCEPTED'].includes(status)) return evidence({ businessKey, providerReferenceId: String(row.id || ''), lifecycle: 'RECONCILED_ACCEPTED', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { tag: row.tag, status } });
+    if (['DELIVERY_FAILED', 'MESSAGEDELIVERYFAILED', 'BOUNCED', 'REJECTED'].includes(status)) return evidence({ businessKey, providerReferenceId: String(row.id || ''), lifecycle: 'RECONCILED_REJECTED', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { tag: row.tag, status } });
+    return evidence({ businessKey, providerReferenceId: String(row.id || ''), lifecycle: 'UNCERTAIN', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { tag: row.tag, status: status || 'UNKNOWN' } });
+  }
+
+  classifyOutcome(providerEvidence) {
+    const lifecycle = providerEvidence?.lifecycle;
+    if (lifecycle === 'ACCEPTED') return ADAPTER_OUTCOMES.ACCEPTED;
+    if (lifecycle === 'REJECTED') return ADAPTER_OUTCOMES.REJECTED;
+    if (lifecycle === 'RECONCILED_ACCEPTED') return ADAPTER_OUTCOMES.RECONCILED_ACCEPTED;
+    if (lifecycle === 'RECONCILED_REJECTED') return ADAPTER_OUTCOMES.RECONCILED_REJECTED;
+    if (lifecycle === 'AMBIGUOUS') return ADAPTER_OUTCOMES.AMBIGUOUS;
+    if (lifecycle === 'NOT_FOUND') return ADAPTER_OUTCOMES.NOT_FOUND;
+    return ADAPTER_OUTCOMES.UNCERTAIN;
+  }
+}
+
+export function postalProviderEffectIdentity(executionId, messageIdDomain) { return messageId(executionId, messageIdDomain); }
+export function postalEffectTag(executionId) { return effectTag(executionId); }

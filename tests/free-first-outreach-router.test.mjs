@@ -52,19 +52,21 @@ test('free route refuses after provider monthly quota is exhausted', () => {
   assert.ok(result.evaluations[0].reasonCodes.includes('provider-free-quota-exhausted'));
 });
 
-test('live mode requires actual provider activation and domain authentication', () => {
+test('live mode requires receipt-derived activation and refuses forged caller booleans', () => {
   const provider = registry.find(row => row.id === 'resend-free');
   const blocked = selectFreeRoute({ purpose: 'TRANSACTIONAL', providers: [provider], mode: 'LIVE', at: '2026-09-01T00:00:00.000Z' });
   assert.equal(blocked.ok, false);
-  assert.ok(blocked.evaluations[0].reasonCodes.includes('provider-not-configured'));
-  const ready = selectFreeRoute({
+  assert.ok(blocked.evaluations[0].reasonCodes.includes('provider-activation-receipt-missing'));
+
+  const forged = selectFreeRoute({
     purpose: 'TRANSACTIONAL',
     providers: [provider],
     mode: 'LIVE',
     providerStates: { 'resend-free': { configured: true, active: true, domainAuthenticated: true, providerHealthy: true } },
     at: '2026-09-01T00:00:00.000Z'
   });
-  assert.equal(ready.ok, true);
+  assert.equal(forged.ok, false);
+  assert.deepEqual(forged.reasonCodes, ['live-provider-states-must-be-derived-from-activation-receipts']);
 });
 
 test('stale policy evidence removes provider from routing without changing application code', () => {
@@ -232,16 +234,24 @@ test('a stale activation receipt blocks live routing by name', () => {
   assert.ok(result.evaluations[0].reasonCodes.includes('provider-activation-receipt-stale'));
 });
 
-test('receipts and pre-derived states are mutually exclusive rather than silently ranked', () => {
+test('LIVE rejects pre-derived states even when receipts are also supplied', () => {
   const provider = registry.find(row => row.id === 'resend-free');
+  const forgedState = { 'resend-free': { configured: true, active: true, domainAuthenticated: true, providerHealthy: true } };
   const result = selectFreeRoute({
     purpose: 'TRANSACTIONAL', providers: [provider], mode: 'LIVE',
     activationReceipts: [activationReceipt()],
-    providerStates: { 'resend-free': { configured: true, active: true, domainAuthenticated: true, providerHealthy: true } },
+    providerStates: forgedState,
     at: AT
   });
   assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('provider-states-and-activation-receipts-are-mutually-exclusive'));
+  assert.deepEqual(result.reasonCodes, ['live-provider-states-must-be-derived-from-activation-receipts']);
+
+  const capacity = liveUsableCapacity({
+    providers: [provider], providerStates: forgedState,
+    activationReceipts: [activationReceipt()], at: AT
+  });
+  assert.equal(capacity.ok, false);
+  assert.deepEqual(capacity.reasonCodes, ['live-provider-states-must-be-derived-from-activation-receipts']);
 });
 
 test('an audience size that is not a whole count is refused before any provider is considered', () => {

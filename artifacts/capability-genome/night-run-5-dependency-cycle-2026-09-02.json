@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "uberbond.capability-genome.night-receipt.v1",
+  "project": "UberBond",
+  "lane": "work/night-genome-20260902",
+  "run": 5,
+  "date": "2026-09-02",
+  "mission": "Capability Genome dependency safety hardening",
+  "truthBoundary": "This receipt records source changes only. It does not promote discovered capabilities, prove external suppliers safe, create runtime authority, or upgrade commercial truth.",
+  "mainBasisSha": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "findings": [
+    {
+      "id": "capability-dependency-cycle-false-closure",
+      "severity": "P1",
+      "before": "A selected bundle could contain a self or circular dependency graph and still report MINIMUM_SUFFICIENT_BUNDLE_SELECTED when every referenced dependency ID was present.",
+      "after": "Selected dependency graphs are cycle-checked. Self and multi-node cycles fail closed as CAPABILITY_DEPENDENCY_CYCLE and acquisition routing is withheld pending dependency resolution."
+    }
+  ],
+  "sourceChanges": [
+    "src/capability-genome-runtime.mjs",
+    "tests/capability-genome-dependency-graph.test.mjs"
+  ],
+  "deterministicCoverageAdded": [
+    "self dependency cycle rejected",
+    "two-node circular dependency rejected even when both IDs are selected",
+    "complete acyclic dependency graph remains eligible"
+  ],
+  "externalCodeExecuted": false,
+  "externalCapabilitiesPromoted": 0,
+  "externalCapabilitiesActivated": 0,
+  "commercialTruthChanged": false,
+  "verification": {
+    "status": "PENDING_EXACT_HEAD_CI",
+    "note": "GitHub Actions exact-head evidence must be inspected separately before calling this run green."
+  }
+}

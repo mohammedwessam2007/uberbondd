@@ -8,6 +8,7 @@ const keys=crypto.generateKeyPairSync('rsa',{modulusLength:2048});
 const publicKeyPem=keys.publicKey.export({type:'spki',format:'pem'});
 const now=()=>new Date('2026-09-02T00:00:05.000Z');
 function body(){return Buffer.from(JSON.stringify({event:'MessageSent',uuid:'evt-route',timestamp:1788300000,payload:{status:'Sent',message:{id:'p1',message_id:'<v9-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@example.test>',tag:'v9_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',to:'buyer@example.com',from:'outreach@example.test',subject:'Evidence sprint',timestamp:1788300000}}}));}
+function dnsBody(){return Buffer.from(JSON.stringify({event:'DomainDNSError',uuid:'dns-route',payload:{domain:'outreach.example.test',dns_checked_at:1788300000,spf_status:'OK',dkim_status:'Invalid',mx_status:'Missing',return_path_status:'OK'}}));}
 function request(raw,{signature256='',legacySignature=''}={}){
   const headers={};
   if(signature256) headers['x-postal-signature-256']=signature256;
@@ -57,11 +58,25 @@ test('valid X-Postal-Signature-256 event returns 200 and replay is idempotent',a
   assert.equal(first.status,200);
   assert.equal(firstJson.status,'PERSISTED');
   assert.equal(firstJson.reconciliationRequired,true);
+  assert.equal(firstJson.senderEvidenceAvailable,false);
   const second=await handler({ledger})(request(raw,{signature256,legacySignature}));
   const secondJson=await second.json();
   assert.equal(second.status,200);
   assert.equal(secondJson.status,'DUPLICATE');
   assert.equal(secondJson.duplicate,true);
+});
+
+test('authenticated DomainDNSError is persisted as sender evidence and never requests message reconciliation',async()=>{
+  const ledger=createMemoryPostalWebhookLedger();
+  const raw=dnsBody();
+  const signature256=crypto.sign('sha256',raw,keys.privateKey).toString('base64');
+  const response=await handler({ledger})(request(raw,{signature256}));
+  const payload=await response.json();
+  assert.equal(response.status,200);
+  assert.equal(payload.status,'PERSISTED');
+  assert.equal(payload.senderEvidenceAvailable,true);
+  assert.equal(payload.reconciliationRequired,false);
+  assert.equal(payload.businessEffectAuthority,'NONE');
 });
 
 test('valid legacy signature plus invalid SHA-256 signature is quarantined',async()=>{

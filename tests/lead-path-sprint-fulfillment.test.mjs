@@ -176,3 +176,25 @@ test('an event with no durable identity is refused, so a replay can be recognise
   assert.equal(anonymous.ok, false);
   assert.ok(anonymous.reasonCodes.includes('durable-sprint-event-id-required'));
 });
+
+test('a stored sprint claiming acceptance without customer-origin evidence counts as nothing', () => {
+  // Not reachable through applySprintEvent, which is the point: this is the
+  // shape a drifted row, an older writer, or a hand-edited record would have.
+  // The count is read from storage, so it defends itself at the point of
+  // counting rather than trusting that everything that ever wrote a row was
+  // this version of the state machine.
+  const forged = {
+    mode: 'COMMERCIAL',
+    state: 'CUSTOMER_ACCEPTED',
+    acceptedDelivery: true,
+    acceptanceEvidenceClass: 'INTERNAL_QA'
+  };
+  assert.equal(commercialDeliveryCount([forged]), 0,
+    'a sprint that accepted itself was counted as a delivered sale');
+
+  const unclassified = { ...forged, acceptanceEvidenceClass: null };
+  assert.equal(commercialDeliveryCount([unclassified]), 0);
+
+  const synthetic = { ...forged, mode: 'SYNTHETIC_CANARY', acceptanceEvidenceClass: 'EXTERNAL_CUSTOMER' };
+  assert.equal(commercialDeliveryCount([synthetic]), 0, 'a rehearsal counted as commerce');
+});

@@ -939,6 +939,113 @@ export const MUTATIONS = [
     replace: "  if (/(?:https?:\\/\\/[^\\s]+\\.(?:sh|ps1)|git\\+https?:)/i.test(corpus)) findings.push({ code: 'mutable-remote-dependency', severity: 'HIGH' });",
     suites: ['tests/capability-genome-body-normalize.test.mjs']
   },
+  // ---- Free-first routing: a research report is not a send plan ----------
+  {
+    id: 'FREE-01', guard: 'A stale activation receipt derives no live flags',
+    file: 'src/provider-activation-receipt.mjs',
+    find: "    return providerState({ receiptState: 'STALE', reasonCodes: ['provider-activation-receipt-stale'], autoChargeRisk: receipt.autoChargeRisk, coldB2BRule: effectiveRule });",
+    replace: '    void 0;',
+    suites: ['tests/provider-activation-receipt.test.mjs', 'tests/free-first-outreach-router.test.mjs']
+  },
+  {
+    id: 'FREE-02', guard: 'A receipt may tighten the registry cold rule and never loosen it',
+    file: 'src/provider-activation-receipt.mjs',
+    find: '  const effectiveRule = stricterColdRule(registryRule, receipt.coldB2BRule);',
+    replace: '  const effectiveRule = receipt.coldB2BRule;',
+    suites: ['tests/provider-activation-receipt.test.mjs', 'tests/free-first-outreach-router.test.mjs']
+  },
+  {
+    id: 'FREE-03', guard: 'An observed quota may only lower a researched quota',
+    file: 'src/free-first-outreach-router.mjs',
+    find: '  const values = [researched, observed].filter(value => value != null);',
+    replace: '  const values = observed != null ? [observed] : [researched];',
+    suites: ['tests/free-first-outreach-router.test.mjs']
+  },
+  {
+    id: 'FREE-04', guard: 'A receipt carrying a credential value is refused whole',
+    file: 'src/provider-activation-receipt.mjs',
+    find: '  if (secretHits.length) return fail(secretHits);',
+    replace: '  if (false) return fail(secretHits);',
+    suites: ['tests/provider-activation-receipt.test.mjs']
+  },
+  {
+    id: 'FREE-05', guard: 'A recipient cap is compared against a real audience',
+    file: 'src/free-first-outreach-router.mjs',
+    find: "    if (audienceSize != null && audienceSize > effectiveRecipientCap) reasons.push('provider-recipient-cap-exceeded');",
+    replace: '    if (false) reasons.push(\'provider-recipient-cap-exceeded\');',
+    suites: ['tests/free-first-outreach-router.test.mjs']
+  },
+  {
+    id: 'FREE-06', guard: 'An observed auto-charge risk refuses the free route',
+    file: 'src/free-first-outreach-router.mjs',
+    find: "  if (provider.freePlan.autoChargeAfterExpiry || state.autoChargeRisk) reasons.push('auto-charge-free-route-prohibited');",
+    replace: "  if (provider.freePlan.autoChargeAfterExpiry) reasons.push('auto-charge-free-route-prohibited');",
+    suites: ['tests/free-first-outreach-router.test.mjs']
+  },
+  {
+    id: 'FREE-07', guard: 'LIVE routing names a missing activation receipt',
+    file: 'src/free-first-outreach-router.mjs',
+    find: "    if (state.receiptState === 'MISSING') reasons.push('provider-activation-receipt-missing');",
+    replace: '    void 0;',
+    suites: ['tests/free-first-outreach-router.test.mjs']
+  },
+
+  // ---- Postal: what the provider actually witnessed --------------------
+  {
+    id: 'POSTAL-01', guard: 'Only an authenticated Postal webhook row can reconcile',
+    file: 'src/omnia-v9/integrations/providers/postal-effect-adapter.mjs',
+    find: '    if (row.provenance !== POSTAL_PROVENANCE.AUTHENTICATED) {',
+    replace: '    if (false) {',
+    suites: ['tests/postal-effect-adapter.test.mjs']
+  },
+  {
+    id: 'POSTAL-02', guard: 'A bounce is acceptance with negative delivery, never provider rejection',
+    file: 'src/omnia-v9/integrations/providers/postal-effect-adapter.mjs',
+    find: "      return evidence({ businessKey, providerReferenceId, lifecycle: 'RECONCILED_ACCEPTED', acquisitionMethod: WEBHOOK_LEDGER_METHOD, observedAt, detail: { tag, postalLifecycle: lifecycle, negativeDeliveryEvidence: true } });",
+    replace: "      return evidence({ businessKey, providerReferenceId, lifecycle: 'RECONCILED_REJECTED', acquisitionMethod: WEBHOOK_LEDGER_METHOD, observedAt, detail: { tag, postalLifecycle: lifecycle } });",
+    suites: ['tests/postal-effect-adapter.test.mjs']
+  },
+
+  // ---- First cash: contact, acceptance and the canary limit -------------
+  {
+    id: 'CASH-01', guard: 'Only an externally accepted commercial sprint is a delivery',
+    file: 'src/lead-path-sprint-fulfillment.mjs',
+    find: "    && sprint?.acceptanceEvidenceClass === 'EXTERNAL_CUSTOMER').length;",
+    replace: '    ).length;',
+    suites: ['tests/lead-path-sprint-fulfillment.test.mjs']
+  },
+  {
+    id: 'CASH-02', guard: 'Contact needs every gate, not any gate',
+    file: 'src/first-cash-canary-packet.mjs',
+    find: '  return FIRST_CASH_CONTACT_GATES.every(id => gates?.[id]?.satisfied === true);',
+    replace: '  return FIRST_CASH_CONTACT_GATES.some(id => gates?.[id]?.satisfied === true);',
+    suites: ['tests/first-cash-canary-packet.test.mjs']
+  },
+
+  // ---- Domain: an expectation is not a reading --------------------------
+  {
+    id: 'DOMAIN-01', guard: 'A record this system generated cannot verify itself',
+    file: 'src/domain-purpose-plan.mjs',
+    find: '  if (obs.provenance !== expectedProvenance) {',
+    replace: '  if (false) {',
+    suites: ['tests/domain-purpose-plan.test.mjs']
+  },
+  {
+    id: 'DOMAIN-02', guard: 'A stale DNS observation stops verifying',
+    file: 'src/domain-purpose-plan.mjs',
+    find: '  if (ageHours > maxObservationAgeHours) {',
+    replace: '  if (false) {',
+    suites: ['tests/domain-purpose-plan.test.mjs']
+  },
+
+  // ---- Model routing: the credential and the identity that served -------
+  {
+    id: 'GATEWAY-01', guard: 'Provider error text is scrubbed before it reaches a receipt',
+    file: 'src/vercel-ai-gateway-executor.mjs',
+    find: "  return text(redactSecrets(String(error?.message ?? error ?? '')), max);",
+    replace: "  return text(String(error?.message ?? error ?? ''), max);",
+    suites: ['tests/vercel-ai-gateway-executor.test.mjs']
+  },
   {
     id: 'GENOME-05', guard: 'Remote package execution is a finding in its own right',
     file: 'src/capability-genome-admission.mjs',

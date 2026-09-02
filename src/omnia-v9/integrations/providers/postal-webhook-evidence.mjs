@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-export const POSTAL_WEBHOOK_EVIDENCE_VERSION = 'uberbond.postal-webhook-evidence-1.0.1';
+export const POSTAL_WEBHOOK_EVIDENCE_VERSION = 'uberbond.postal-webhook-evidence-1.1.0';
 export const POSTAL_QUARANTINE_REASONS = Object.freeze([null, 'UNAUTHENTICATED', 'UNKNOWN_EVENT_TYPE', 'MALFORMED']);
 const EXECUTION_TAG_RE = /^v9_[a-f0-9]{48}$/;
 const EVENT_MAP = Object.freeze({
@@ -13,11 +13,19 @@ const EVENT_MAP = Object.freeze({
   MessageLoaded: 'OPENED',
   DomainDNSError: 'DNS_ERROR'
 });
+const MESSAGE_LIFECYCLE_EVENTS = new Set([
+  'MessageSent',
+  'MessageDelayed',
+  'MessageDeliveryFailed',
+  'MessageHeld',
+  'MessageBounced',
+  'MessageLinkClicked',
+  'MessageLoaded'
+]);
 const RANK = Object.freeze({
   UNKNOWN: 0,
   DELAYED: 10,
   HELD: 20,
-  DNS_ERROR: 25,
   SENT: 30,
   OPENED: 35,
   CLICKED: 40,
@@ -49,6 +57,10 @@ function rawBytes(rawBody) {
   if (typeof rawBody === 'string') return Buffer.from(rawBody, 'utf8');
   return null;
 }
+function dnsStatus(value) {
+  const status = safeText(value, 40)?.toUpperCase() || null;
+  return status && /^[A-Z0-9_-]+$/.test(status) ? status : null;
+}
 
 export function verifyPostalWebhookSignature({ rawBody, signatureBase64, publicKeyPem } = {}) {
   const body = rawBytes(rawBody);
@@ -79,21 +91,41 @@ export function normalizePostalWebhookEvent({
 
   const eventName = safeText(parsed?.event, 120);
   const payload = parsed?.payload && typeof parsed.payload === 'object' ? parsed.payload : {};
+  const isDnsEvent = eventName === 'DomainDNSError';
+  const isMessageLifecycleEvent = Boolean(eventName && MESSAGE_LIFECYCLE_EVENTS.has(eventName));
   const message = payload.message && typeof payload.message === 'object'
     ? payload.message
     : (payload.original_message && typeof payload.original_message === 'object' ? payload.original_message : {});
   const lifecycle = eventName && EVENT_MAP[eventName] ? EVENT_MAP[eventName] : 'UNKNOWN';
-  const occurredAt = parseOccurredAt(parsed?.timestamp ?? message?.timestamp, receivedAt);
-  const uuid = safeText(parsed?.uuid, 200);
+  const occurredAt = parseOccurredAt(
+    isDnsEvent ? payload?.dns_checked_at : (parsed?.timestamp ?? message?.timestamp),
+    receivedAt
+  );
+  const uuid = safeText(parsed?.uuid, 200) || (isDnsEvent ? safeText(payload?.uuid, 200) : null);
   const occurrenceKey = uuid ? `postal:${uuid}` : `postal:${bodySha}`;
   const tag = safeText(message?.tag, 120);
   const executionTagValid = Boolean(tag && EXECUTION_TAG_RE.test(tag));
+  const domain = isDnsEvent ? safeText(payload?.domain, 253)?.toLowerCase() || null : null;
+  const dns = isDnsEvent ? {
+    spfStatus: dnsStatus(payload?.spf_status),
+    dkimStatus: dnsStatus(payload?.dkim_status),
+    mxStatus: dnsStatus(payload?.mx_status),
+    returnPathStatus: dnsStatus(payload?.return_path_status),
+    spfErrorDigest: payload?.spf_error == null ? null : sha256(Buffer.from(String(payload.spf_error), 'utf8')),
+    dkimErrorDigest: payload?.dkim_error == null ? null : sha256(Buffer.from(String(payload.dkim_error), 'utf8')),
+    mxErrorDigest: payload?.mx_error == null ? null : sha256(Buffer.from(String(payload.mx_error), 'utf8')),
+    returnPathErrorDigest: payload?.return_path_error == null ? null : sha256(Buffer.from(String(payload.return_path_error), 'utf8'))
+  } : null;
 
   let quarantineReason = null;
-  if (!parsed || !occurredAt || !safeText(message?.id, 200) || !tag) quarantineReason = 'MALFORMED';
+  if (!parsed || !occurredAt) quarantineReason = 'MALFORMED';
   else if (!authenticated) quarantineReason = 'UNAUTHENTICATED';
   else if (lifecycle === 'UNKNOWN') quarantineReason = 'UNKNOWN_EVENT_TYPE';
-  else if (!executionTagValid) quarantineReason = 'MALFORMED';
+  else if (isDnsEvent && !domain) quarantineReason = 'MALFORMED';
+  else if (isMessageLifecycleEvent && (!safeText(message?.id, 200) || !tag || !executionTagValid)) quarantineReason = 'MALFORMED';
+
+  const eligibleForReconciliation = authenticated && quarantineReason == null && isMessageLifecycleEvent;
+  const eligibleForSenderEvidence = authenticated && quarantineReason == null && isDnsEvent;
 
   return {
     schemaVersion: POSTAL_WEBHOOK_EVIDENCE_VERSION,
@@ -114,12 +146,17 @@ export function normalizePostalWebhookEvent({
     from: safeText(message?.from, 320)?.toLowerCase() || null,
     subjectSha256: message?.subject == null ? null : sha256(Buffer.from(String(message.subject), 'utf8')),
     status: safeText(payload?.status, 120),
+    domain,
+    dns,
     detailsDigest: sha256(Buffer.from(JSON.stringify({
       details: safeText(payload?.details, 1000),
-      output: safeText(payload?.output, 1000)
+      output: safeText(payload?.output, 1000),
+      domain,
+      dns
     }), 'utf8')),
     provenance: authenticated ? 'AUTHENTICATED_POSTAL_WEBHOOK' : 'UNAUTHENTICATED_POSTAL_WEBHOOK',
-    eligibleForReconciliation: authenticated && quarantineReason == null
+    eligibleForReconciliation,
+    eligibleForSenderEvidence
   };
 }
 

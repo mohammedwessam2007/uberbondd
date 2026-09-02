@@ -2,7 +2,7 @@
   "schemaVersion": "uberbond.night-genome.run-receipt.v1",
   "lane": "work/night-genome-20260902",
   "run": 7,
-  "observedAt": "2026-09-02T07:30:00.000Z",
+  "observedAt": "2026-09-02T07:35:00.000Z",
   "latestMainObserved": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
   "sourceHeadBeforeReceipt": "3c40a258c891cce1bcb15c3a0f2c1bd5167d2e1e",
   "mission": "Close revocation propagation across previously selected Capability Genome bundles and routes without executing untrusted external code.",
@@ -52,10 +52,16 @@
   },
   "ci": {
     "sourceHead": "3c40a258c891cce1bcb15c3a0f2c1bd5167d2e1e",
-    "workflowRunsObservedAtReceiptTime": 0,
-    "classification": "CI_NOT_YET_OBSERVED",
+    "workflowRunId": 33604246329,
+    "workflowRunsObserved": 1,
+    "jobsObserved": 3,
+    "jobsWithExecutedSteps": 0,
+    "runnerIds": [0, 0, 0],
+    "jobNames": ["browser", "postgres", "deterministic"],
+    "classification": "ENVIRONMENT_STARTUP_BLOCKED",
     "sourcePassClaimed": false,
-    "sourceFailureClaimed": false
+    "sourceFailureClaimed": false,
+    "reason": "All jobs completed failure with steps=[] and runner_id=0, so no source code or tests executed."
   },
   "remainingHighValueAttacks": [
     "license evidence freshness and ambiguity propagation",

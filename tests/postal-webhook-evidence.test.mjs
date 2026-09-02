@@ -60,3 +60,25 @@ test('out-of-order arrival cannot regress current state and distinct provider id
   assert.equal(conflict.contradictory,true);
   assert.equal(conflict.state,'AMBIGUOUS');
 });
+
+test('later lower-rank lifecycle evidence cannot overwrite stronger submission/delivery evidence',()=>{
+  const base={authenticated:true,quarantineReason:null,eligibleForReconciliation:true,executionTag:'v9_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',postalMessageId:'p1'};
+  const rows=[
+    {...base,lifecycle:'BOUNCED',occurredAt:'2026-09-02T00:00:03.000Z',occurrenceKey:'bounce'},
+    {...base,lifecycle:'DELAYED',occurredAt:'2026-09-02T00:00:10.000Z',occurrenceKey:'late-delay'},
+    {...base,lifecycle:'SENT',occurredAt:'2026-09-02T00:00:11.000Z',occurrenceKey:'late-sent'}
+  ];
+  const state=deriveCurrentPostalState(rows);
+  assert.equal(state.state,'BOUNCED');
+  assert.equal(state.row.occurrenceKey,'bounce');
+});
+
+test('within the same lifecycle rank the newest occurredAt remains the deterministic winner',()=>{
+  const base={authenticated:true,quarantineReason:null,eligibleForReconciliation:true,executionTag:'v9_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',postalMessageId:'p1',lifecycle:'DELAYED'};
+  const state=deriveCurrentPostalState([
+    {...base,occurredAt:'2026-09-02T00:00:01.000Z',occurrenceKey:'older'},
+    {...base,occurredAt:'2026-09-02T00:00:02.000Z',occurrenceKey:'newer'}
+  ]);
+  assert.equal(state.state,'DELAYED');
+  assert.equal(state.row.occurrenceKey,'newer');
+});

@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-09-02**
 Branch: `claude/uberbond-ragnarok-closure-pek0g6`
-Reconciled from current head: `1aa9c501fd9bb208258435a7839a3f8acc452fec`
+Reconciled from current head: `f4a2ef6f811a662ae20a13bebe29acedf2a876de`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 

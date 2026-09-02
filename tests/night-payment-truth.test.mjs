@@ -13,7 +13,10 @@ const baseCanonicalTruth = {
   policyVersion:'payment-renewal-truth-1.6.0',
   leadId:'lead-customer-1',
   status:'PROVIDER_CLEARED_PAYMENT_PROVEN',
-  stages:{ CLEARED_PAYMENT:{ status:'PROVEN' }, PAYMENT_RETAINED:{ status:'PROVEN' } },
+  stages:{
+    CLEARED_PAYMENT:{ status:'PROVEN', evidenceRef:'payment:order_created:evt-450' },
+    PAYMENT_RETAINED:{ status:'PROVEN', evidenceRef:null }
+  },
   verifiedProviderEventRefs:['order_created:evt-450'],
   contradictions:[],
   economics:{
@@ -73,6 +76,33 @@ test('a hand-built or edited object cannot impersonate canonical reconciliation 
   const missing = create({ ...canonicalTruth, truthDigest:null });
   assert.equal(missing.ok, false);
   assert.ok(missing.reasonCodes.includes('canonical-payment-truth-digest-required'));
+});
+
+test('internally re-digested synthetic or cross-field-inconsistent payment summaries cannot unlock first cash', () => {
+  const mutations = [
+    {
+      verifiedProviderEventRefs:['order_created:synthetic-payment-450'],
+      stages:{ ...baseCanonicalTruth.stages, CLEARED_PAYMENT:{ status:'PROVEN', evidenceRef:'payment:order_created:synthetic-payment-450' } }
+    },
+    {
+      verifiedProviderEventRefs:['subscription_payment_success:evt-450'],
+      stages:{ ...baseCanonicalTruth.stages, CLEARED_PAYMENT:{ status:'PROVEN', evidenceRef:'payment:subscription_payment_success:evt-450' } }
+    },
+    {
+      stages:{ ...baseCanonicalTruth.stages, CLEARED_PAYMENT:{ status:'PROVEN', evidenceRef:'payment:order_created:different-event' } }
+    },
+    {
+      claimBoundary:{ ...baseCanonicalTruth.claimBoundary, clearedPayment:'MODEL_ASSERTED_PAYMENT' }
+    },
+    {
+      claimBoundary:{ ...baseCanonicalTruth.claimBoundary, retainedRevenue:'ASSUMED_RETAINED' }
+    }
+  ];
+  for (const mutation of mutations) {
+    const truth = withDigest({ ...baseCanonicalTruth, ...mutation });
+    const result = create(truth);
+    assert.equal(result.ok, false, JSON.stringify(mutation));
+  }
 });
 
 test('pending, contradicted, refunded, wrong amount, wrong currency, unverified, aggregated, renewal, and unbound canonical truth cannot start paid fulfilment even with internally consistent digests', () => {

@@ -49,6 +49,17 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     process.exit(2);
   }
   console.log(`test:postgres-real — ${files.length} suites, serially, against ${url.replace(/:\/\/[^@]*@/, '://***@')}`);
-  const run = spawnSync(process.execPath, ['--test', '--test-concurrency=1', ...files], { cwd: repoRoot, stdio: 'inherit' });
+  // Every test in this gate is bounded, because this gate has hung rather than
+  // failed. A PostgreSQL backend can end up asleep in sock_alloc_send_pskb --
+  // blocked writing results to a client that has stopped draining the socket --
+  // while every Node process in the tree sits idle in ep_poll. Nothing is
+  // burning CPU, nothing holds a lock, and no side times the other out, so the
+  // run simply stops. It happened in at least two unrelated suites, and a stale
+  // runner was found still sitting in one of them ten hours later.
+  //
+  // Two minutes is far longer than any suite here needs and short enough that a
+  // stall is reported the same day. A gate that cannot finish is worth less than
+  // no gate: it looks like evidence and produces none.
+  const run = spawnSync(process.execPath, ['--test', '--test-concurrency=1', '--test-timeout=120000', ...files], { cwd: repoRoot, stdio: 'inherit' });
   process.exit(run.status ?? 1);
 }

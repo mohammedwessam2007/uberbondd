@@ -45,6 +45,19 @@ const postgres = new EmbeddedPostgres({
   port,
   persistent: false,
   createPostgresUser: true,
+  // Durability settings for a database that is deleted when this process ends.
+  //
+  // This instance exists for one run and is torn down in the finally block
+  // below, so an fsync buys nothing: there is no crash it could survive. On a
+  // container with throttled disk I/O the cost is not merely slowness -- a
+  // write can sit in the backend `active`, waiting on no lock and burning no
+  // CPU, for as long as anyone is willing to wait. Test fixtures should not be
+  // paying for durability they cannot use.
+  postgresFlags: [
+    '-c', 'fsync=off',
+    '-c', 'synchronous_commit=off',
+    '-c', 'full_page_writes=off'
+  ],
   onLog: () => {},
   onError: message => process.stderr.write(`[embedded-postgres] ${String(message)}\n`)
 });

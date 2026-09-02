@@ -21,7 +21,7 @@ export const OPEN_MODEL_CAPABILITY_COVERAGE = Object.freeze([
   ['model.specialization', 'Support retrieval, adapters, LoRA, distillation and lawful task-specific tuning after rights and evidence checks.'],
   ['model.frontier-refresh', 'Continuously detect new model families and revisions and retest only where changed evidence can alter routing.'],
   ['model.no-auto-promotion', 'Discovery, popularity and public benchmark prestige never create APPROVED/ACTIVE state or business authority.']
-].map(([id, description]) => Object.freeze({ id, description }));
+].map(([id, description]) => Object.freeze({ id, description })));
 
 export function buildOpenModelSourceCoverageReceipt() {
   const ids = OPEN_MODEL_CAPABILITY_COVERAGE.map(item => item.id);

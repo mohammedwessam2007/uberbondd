@@ -9,9 +9,19 @@ test('mutation guard: HTTP 409 can never be classified as definite rejection', (
   assert.equal(/(^|\D)409(\D|$)/.test(set), false, '409 must remain UNCERTAIN because submission may have occurred');
 });
 
-test('mutation guard: bounce proves submission while retaining negative delivery evidence', () => {
-  assert.match(source, /\['BOUNCED',\s*'MESSAGEBOUNCED'\][\s\S]*?lifecycle:\s*'RECONCILED_ACCEPTED'/);
-  assert.match(source, /negativeDeliveryEvidence:\s*true/);
+test('mutation guard: post-acceptance failure events can never authorize a resend', () => {
+  const submissionSet = source.match(/SUBMISSION_PROOF_STATUSES\s*=\s*new Set\(\[([\s\S]*?)\]\)/)?.[1] || '';
+  for (const required of ['DELIVERY_FAILED','MESSAGEDELIVERYFAILED','BOUNCED','MESSAGEBOUNCED','DNS_ERROR','DOMAINDNSERROR']) {
+    assert.equal(submissionSet.includes(`'${required}'`), true, `${required} must remain submission proof`);
+  }
+  assert.match(source, /lifecycle:\s*'RECONCILED_ACCEPTED'/);
+  assert.match(source, /negativeDeliveryEvidence:\s*NEGATIVE_DELIVERY_STATUSES\.has\(status\)/);
+  assert.doesNotMatch(source, /\['DELIVERY_FAILED'[\s\S]*?lifecycle:\s*'RECONCILED_REJECTED'/);
+});
+
+test('mutation guard: normalized authenticated lifecycle outranks mutable payload status', () => {
+  assert.match(source, /const lifecycleStatus\s*=\s*String\(row\.lifecycle/);
+  assert.match(source, /const status\s*=\s*lifecycleStatus\s*\|\|\s*providerStatus/);
 });
 
 test('mutation guard: reconciliation rejects unauthenticated or caller-asserted webhook rows', () => {

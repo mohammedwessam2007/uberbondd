@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { compileFulfillmentPlan, applyFulfillmentEvent } from './service-fulfillment.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const LEAD_PATH_SPRINT_FULFILLMENT_VERSION = 'uberbond.lead-path-sprint-fulfillment-1.4.0';
+export const LEAD_PATH_SPRINT_FULFILLMENT_VERSION = 'uberbond.lead-path-sprint-fulfillment-1.5.0';
 export const LEAD_PATH_SPRINT_PRICE = Object.freeze({ amountCents: 45000, currency: 'USD' });
 export const LEAD_PATH_SPRINT_STATES = Object.freeze([
   'PAID','INPUT_READY','ANALYSIS_RUNNING','QA_REQUIRED','QA_PASSED','DELIVERY_READY','DELIVERED',
@@ -22,11 +22,6 @@ function apply(state, event) {
   return result.state;
 }
 
-// Mirrors the canonical digest surface emitted by payment-renewal-truth.mjs.
-// This does not reconcile raw payment evidence or create another money truth
-// system; it verifies that a purported reconciler result has not been edited,
-// summarized, or hand-built after reconciliation. A 64-hex-looking string is
-// not proof that the object still matches the canonical receipt that produced it.
 export function canonicalPaymentTruthDigest(truth = {}) {
   return digest({
     policyVersion: truth?.policyVersion,
@@ -39,15 +34,6 @@ export function canonicalPaymentTruthDigest(truth = {}) {
   });
 }
 
-// Consume the existing canonical reconciliation result. Do not reinterpret raw
-// webhooks here and do not create a fourth payment ledger/witness system.
-//
-// First-cash is one fixed-price purchase, not "some collection of rows whose
-// net happens to add to $450". Requiring exactly one verified provider event
-// prevents two $225 payments, nine $50 payments, or a payment plus renewal from
-// being silently reinterpreted as this SKU. The canonical lead id and verified
-// truth digest bind the fulfilment unlock to the exact reconciled scope rather
-// than to a hand-built summary object with the same totals.
 export function validateCanonicalSprintPaymentTruth(truth = {}, { paymentLeadId = null } = {}) {
   const reasons = [];
   const expectedLeadId = text(paymentLeadId, 200);
@@ -95,9 +81,14 @@ export function validateCanonicalSprintPaymentTruth(truth = {}, { paymentLeadId 
   };
 }
 
-function validExternalCustomerEvidence(evidence) {
+function validExternalCustomerEvidence(evidence, expectedCustomerRef) {
+  const expected = text(expectedCustomerRef, 200);
+  const observed = text(evidence?.customerRef, 200);
   return Boolean(
-    evidence
+    expected
+    && observed
+    && observed === expected
+    && evidence
     && evidence.evidenceClass === 'EXTERNAL_CUSTOMER'
     && text(evidence.origin, 40).toUpperCase() === 'CUSTOMER'
     && /^(customer|receipt):/i.test(text(evidence.evidenceRef, 240))
@@ -117,7 +108,7 @@ export function createLeadPathSprint({ customerRef, paymentLeadId, canonicalPaym
     renewalIntervalDays:null,
     date:new Date(at)
   });
-  if (!plan.ok) return fail(plan.reasonCodes || ['fulfillment-plan-failed']);
+  if (!plan.ok) return fail(plan.reasonCodes);
   const sprintId = `sprint_${plan.fulfillmentId}`;
   return {
     ok:true,
@@ -159,7 +150,10 @@ export function advanceLeadPathSprint({ state, to, evidence = null, artifactRefs
     if (['CUSTOMER_ACCEPTED','CUSTOMER_REJECTED','CUSTOMER_SILENT'].includes(target)) {
       fulfillmentState = apply({...state,fulfillmentState},{eventId:nextEventId(state,'acceptance-requested'),type:'ACCEPTANCE_REQUESTED',at});
       if (target === 'CUSTOMER_ACCEPTED' || target === 'CUSTOMER_REJECTED') {
-        if (!validExternalCustomerEvidence(evidence)) return fail([target === 'CUSTOMER_ACCEPTED' ? 'external-customer-acceptance-evidence-required' : 'external-customer-rejection-evidence-required'], state);
+        const expectedCustomerRef = text(state?.fulfillmentState?.customerRef, 200);
+        if (!validExternalCustomerEvidence(evidence, expectedCustomerRef)) {
+          return fail([target === 'CUSTOMER_ACCEPTED' ? 'customer-bound-external-acceptance-evidence-required' : 'customer-bound-external-rejection-evidence-required'], state);
+        }
         fulfillmentState = apply({...state,fulfillmentState},{eventId:nextEventId(state,target === 'CUSTOMER_ACCEPTED' ? 'customer-accepted' : 'customer-rejected'),type:target,evidenceClass:'EXTERNAL_CUSTOMER',evidenceRef:evidence.evidenceRef,at});
       }
     }

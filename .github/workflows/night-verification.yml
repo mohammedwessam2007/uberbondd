@@ -24,6 +24,8 @@ jobs:
         run: node --test tests/reachability-ratchet.test.mjs
       - name: Canonical mutation war
         run: npm run test:mutation-war
+      - name: Night mutation extension
+        run: node scripts/night-verification-mutation-extension.mjs
       - name: Relay safety
         run: npm run test:relay-safety
       - name: Wallbreaker

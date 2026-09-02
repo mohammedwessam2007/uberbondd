@@ -231,3 +231,47 @@ test('LIVE sending capacity cannot be conjured from an assertion', () => {
   const empty = liveUsableCapacity({ providers: [provider], activationReceipts: [], at: AT });
   assert.equal(empty.capacity30d ?? 0, 0, 'unactivated providers reported usable capacity');
 });
+
+test('canon freshness accepts the parent it must name, and nothing else', async () => {
+  const { evaluateFounderAbsenceBlockers } = await import('../src/founder-absence-blocker-doctor.mjs');
+
+  const HEAD = 'a'.repeat(40);
+  const CANON = 'b'.repeat(40);
+  const canonRow = [{
+    id: 'canon-drift', subject: 'CODE', removability: 'SOFTWARE', owner: 'executor',
+    title: 'canon names a SHA the tree no longer has',
+    resolvedWhen: { sourceIncludesCurrentCommit: 'docs/CURRENT_SYSTEM_STATE.md' }
+  }];
+
+  const run = ({ namesHead, unchanged, canonCommit = CANON }) => evaluateFounderAbsenceBlockers({
+    blockers: canonRow,
+    currentSourceCommit: HEAD,
+    canonCommit,
+    probes: {
+      fileExists: () => true,
+      sourceIncludes: (_file, needle) => namesHead && needle === HEAD,
+      sourceUnchangedSince: commit => unchanged && commit === CANON
+    }
+  }).softwareGaps;
+
+  // An artifact committed into the tree it describes cannot name the commit
+  // that contains it, so an exact-match-only rule reports a gap no work can
+  // close -- and a permanently red row is one nobody reads.
+  assert.deepEqual(run({ namesHead: false, unchanged: true }), [],
+    'canon naming its parent, with only canon changed since, was called drifted');
+
+  // Everything else still is drift.
+  assert.deepEqual(run({ namesHead: false, unchanged: false }), ['canon-drift'],
+    'source moved under canon and it was called fresh');
+  assert.deepEqual(run({ namesHead: false, unchanged: true, canonCommit: null }), ['canon-drift'],
+    'canon naming no commit at all was called fresh');
+
+  // And naming the head exactly is fresh regardless of what the diff probe says.
+  assert.deepEqual(run({ namesHead: true, unchanged: false }), []);
+
+  // A caller supplying no probe gets the refusing default, not a free pass.
+  assert.deepEqual(evaluateFounderAbsenceBlockers({
+    blockers: canonRow, currentSourceCommit: HEAD, canonCommit: CANON,
+    probes: { fileExists: () => true, sourceIncludes: () => false }
+  }).softwareGaps, ['canon-drift'], 'a missing probe was treated as evidence of freshness');
+});

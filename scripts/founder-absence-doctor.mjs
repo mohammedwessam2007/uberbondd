@@ -19,11 +19,43 @@ function headSha() {
   catch { return null; }
 }
 
+// The artifacts canon is made of. A change confined to these is canon
+// describing itself, not the source moving underneath it.
+const CANON_ARTIFACTS = new Set([
+  'docs/CURRENT_SYSTEM_STATE.md',
+  'artifacts/system-readiness.json',
+  'config/system-readiness-input.json'
+]);
+
+/** The commit docs/CURRENT_SYSTEM_STATE.md claims to describe. */
+function canonCommit() {
+  try {
+    const text = readFileSync(join(repoRoot, 'docs/CURRENT_SYSTEM_STATE.md'), 'utf8');
+    return text.match(/\b[0-9a-f]{40}\b/)?.[0] || null;
+  } catch { return null; }
+}
+
+/**
+ * Has anything but canon changed between `commit` and HEAD?
+ *
+ * Refuses on any error rather than assuming freshness: an unreadable history is
+ * not evidence that the source stood still.
+ */
+function sourceUnchangedSince(commit) {
+  if (!/^[0-9a-f]{40}$/.test(String(commit || ''))) return false;
+  try {
+    const changed = execFileSync('git', ['diff', '--name-only', `${commit}..HEAD`], { cwd: repoRoot, encoding: 'utf8' })
+      .split('\n').map(line => line.trim()).filter(Boolean);
+    return changed.every(file => CANON_ARTIFACTS.has(file));
+  } catch { return false; }
+}
+
 export function buildFounderAbsenceReport({ env = process.env, now = new Date() } = {}) {
   return evaluateFounderAbsenceBlockers({
     env,
     now,
     currentSourceCommit: headSha(),
+    canonCommit: canonCommit(),
     // Both probes the evaluator declares. Supplying only one silently falls
     // back to the refusing default for the other, and every row whose
     // resolution is a source probe then reports open -- a doctor that says the
@@ -33,7 +65,8 @@ export function buildFounderAbsenceReport({ env = process.env, now = new Date() 
       sourceIncludes: (relative, needle) => {
         try { return readFileSync(join(repoRoot, String(relative || '')), 'utf8').includes(String(needle || '')); }
         catch { return false; }
-      }
+      },
+      sourceUnchangedSince
     }
   });
 }

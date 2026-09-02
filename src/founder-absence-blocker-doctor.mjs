@@ -201,7 +201,8 @@ export function classifyFounderAbsenceBlocker(row = {}) {
 
 const NO_PROBES = Object.freeze({
   fileExists: () => false,
-  sourceIncludes: () => false
+  sourceIncludes: () => false,
+  sourceUnchangedSince: () => false
 });
 
 function resolveProbe(row, context) {
@@ -228,10 +229,31 @@ function resolveProbe(row, context) {
     }
   }
   if (spec.sourceIncludesCurrentCommit) {
+    // Canon cannot name the commit that contains it.
+    //
+    // Regenerating canon produces a commit, and that commit changes the head
+    // the artifact would have had to name. Demanding an exact match therefore
+    // reported a gap that no amount of work could ever close, which is worse
+    // than reporting nothing: a permanently red row teaches its reader to skip
+    // it, and the day canon really does drift the row looks exactly the same.
+    //
+    // The honest question is not "does canon name HEAD" but "does canon still
+    // describe this source". So a canon naming an earlier commit is fresh when
+    // nothing except the canon artifacts has changed since -- the source it
+    // describes is then byte-for-byte the source that is here. Anything else
+    // moving makes it stale, which is the whole point of the row.
     const commit = context.currentSourceCommit;
-    const found = Boolean(commit) && context.probes.sourceIncludes(spec.sourceIncludesCurrentCommit, commit) === true;
+    const namesHead = Boolean(commit) && context.probes.sourceIncludes(spec.sourceIncludesCurrentCommit, commit) === true;
+    const namedCommit = context.canonCommit;
+    const onlyCanonMoved = !namesHead
+      && Boolean(namedCommit)
+      && context.probes.sourceUnchangedSince(namedCommit) === true;
+    const found = namesHead || onlyCanonMoved;
     checks.push(found);
-    evidence.push(`canon:${spec.sourceIncludesCurrentCommit}=${found ? 'NAMES_CURRENT_HEAD' : 'DRIFTED_OR_UNKNOWN'}`);
+    evidence.push(`canon:${spec.sourceIncludesCurrentCommit}=${
+      namesHead ? 'NAMES_CURRENT_HEAD'
+        : onlyCanonMoved ? 'NAMES_PARENT_AND_ONLY_CANON_MOVED'
+          : 'DRIFTED_OR_UNKNOWN'}`);
     if (!commit) reasonCodes.push('current-source-commit-required');
   }
   if (spec.environmentAnyOf) {
@@ -621,6 +643,10 @@ export function evaluateFounderAbsenceBlockers({
   observationProof = {},
   capabilities = {},
   currentSourceCommit = null,
+  // The commit canon claims to describe. Supplied by the caller because only
+  // the caller can read the artifact; absent, the freshness check falls back to
+  // demanding an exact head match and reports drift, which is the safe default.
+  canonCommit = null,
   currentPolicyVersions = [],
   targetDays = 7,
   maxProofAgeMs,
@@ -631,6 +657,7 @@ export function evaluateFounderAbsenceBlockers({
   const environmentPresence = deriveEnvironmentPresence(env);
   const safeProbes = {
     fileExists: typeof probes?.fileExists === 'function' ? probes.fileExists : NO_PROBES.fileExists,
+    sourceUnchangedSince: typeof probes?.sourceUnchangedSince === 'function' ? probes.sourceUnchangedSince : NO_PROBES.sourceUnchangedSince,
     sourceIncludes: typeof probes?.sourceIncludes === 'function' ? probes.sourceIncludes : NO_PROBES.sourceIncludes
   };
   const rows = Array.isArray(blockers) ? blockers : [];
@@ -641,6 +668,7 @@ export function evaluateFounderAbsenceBlockers({
 
   const context = {
     probes: safeProbes,
+    canonCommit: text(canonCommit, 80) || null,
     environmentPresence,
     externalEvidence: externalEvidence && typeof externalEvidence === 'object' ? externalEvidence : {},
     currentSourceCommit: text(currentSourceCommit, 80) || null,

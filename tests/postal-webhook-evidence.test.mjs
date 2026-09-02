@@ -20,6 +20,7 @@ test('authenticated Postal event is reconciliation eligible and strips raw token
   const event=normalizePostalWebhookEvent({rawBody:raw,signatureBase64:signed(raw),publicKeyPem,receivedAt});
   assert.equal(event.authenticated,true);
   assert.equal(event.eligibleForReconciliation,true);
+  assert.equal(event.eligibleForSenderEvidence,false);
   assert.equal(event.lifecycle,'SENT');
   assert.equal(JSON.stringify(event).includes('SECRET_CANARY'),false);
   assert.equal(JSON.stringify(event).includes(raw.toString('utf8')),false);
@@ -34,6 +35,7 @@ test('unauthenticated or wrong-key event is quarantined and never reconciliation
     assert.equal(event.authenticated,false);
     assert.equal(event.quarantineReason,'UNAUTHENTICATED');
     assert.equal(event.eligibleForReconciliation,false);
+    assert.equal(event.eligibleForSenderEvidence,false);
   }
 });
 
@@ -47,6 +49,48 @@ test('unknown event and malformed tag are quarantined even with valid signature'
     const event=normalizePostalWebhookEvent({rawBody:raw,signatureBase64:signed(raw),publicKeyPem,receivedAt});
     assert.equal(event.eligibleForReconciliation,false);
   }
+});
+
+test('authenticated DomainDNSError is preserved as sender evidence without pretending message reconciliation proof',()=>{
+  const raw=Buffer.from(JSON.stringify({
+    event:'DomainDNSError',
+    uuid:'dns-event-1',
+    payload:{
+      domain:'outreach.example.test',
+      uuid:'dns-payload-1',
+      dns_checked_at:1788300000,
+      spf_status:'OK',
+      spf_error:null,
+      dkim_status:'Invalid',
+      dkim_error:'record mismatch SECRET_CANARY',
+      mx_status:'Missing',
+      mx_error:'missing MX',
+      return_path_status:'OK',
+      return_path_error:null,
+      server:{uuid:'server-1',name:'Outbound',permalink:'outbound',organization:'UberBond'}
+    }
+  }));
+  const event=normalizePostalWebhookEvent({rawBody:raw,signatureBase64:signed(raw),publicKeyPem,receivedAt});
+  assert.equal(event.authenticated,true);
+  assert.equal(event.quarantineReason,null);
+  assert.equal(event.lifecycle,'DNS_ERROR');
+  assert.equal(event.domain,'outreach.example.test');
+  assert.equal(event.dns.dkimStatus,'INVALID');
+  assert.equal(event.dns.mxStatus,'MISSING');
+  assert.equal(event.eligibleForSenderEvidence,true);
+  assert.equal(event.eligibleForReconciliation,false);
+  assert.equal(event.executionTag,null);
+  assert.equal(event.postalMessageId,null);
+  assert.equal(JSON.stringify(event).includes('SECRET_CANARY'),false);
+});
+
+test('unauthenticated DomainDNSError cannot become sender evidence',()=>{
+  const raw=Buffer.from(JSON.stringify({event:'DomainDNSError',payload:{domain:'outreach.example.test',dns_checked_at:1788300000,spf_status:'OK',dkim_status:'Invalid',mx_status:'OK',return_path_status:'OK'}}));
+  const event=normalizePostalWebhookEvent({rawBody:raw,signatureBase64:'invalid',publicKeyPem,receivedAt});
+  assert.equal(event.authenticated,false);
+  assert.equal(event.quarantineReason,'UNAUTHENTICATED');
+  assert.equal(event.eligibleForSenderEvidence,false);
+  assert.equal(event.eligibleForReconciliation,false);
 });
 
 test('out-of-order arrival cannot regress current state and distinct provider ids are contradictory',()=>{

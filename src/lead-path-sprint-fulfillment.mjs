@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { compileFulfillmentPlan, applyFulfillmentEvent } from './service-fulfillment.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const LEAD_PATH_SPRINT_FULFILLMENT_VERSION = 'uberbond.lead-path-sprint-fulfillment-1.3.0';
+export const LEAD_PATH_SPRINT_FULFILLMENT_VERSION = 'uberbond.lead-path-sprint-fulfillment-1.4.0';
 export const LEAD_PATH_SPRINT_PRICE = Object.freeze({ amountCents: 45000, currency: 'USD' });
 export const LEAD_PATH_SPRINT_STATES = Object.freeze([
   'PAID','INPUT_READY','ANALYSIS_RUNNING','QA_REQUIRED','QA_PASSED','DELIVERY_READY','DELIVERED',
@@ -22,14 +22,31 @@ function apply(state, event) {
   return result.state;
 }
 
+// Mirrors the canonical digest surface emitted by payment-renewal-truth.mjs.
+// This does not reconcile raw payment evidence or create another money truth
+// system; it verifies that a purported reconciler result has not been edited,
+// summarized, or hand-built after reconciliation. A 64-hex-looking string is
+// not proof that the object still matches the canonical receipt that produced it.
+export function canonicalPaymentTruthDigest(truth = {}) {
+  return digest({
+    policyVersion: truth?.policyVersion,
+    leadId: truth?.leadId,
+    stages: truth?.stages,
+    economics: truth?.economics,
+    verifiedProviderEventRefs: truth?.verifiedProviderEventRefs,
+    contradictions: truth?.contradictions,
+    claimBoundary: truth?.claimBoundary
+  });
+}
+
 // Consume the existing canonical reconciliation result. Do not reinterpret raw
 // webhooks here and do not create a fourth payment ledger/witness system.
 //
 // First-cash is one fixed-price purchase, not "some collection of rows whose
 // net happens to add to $450". Requiring exactly one verified provider event
 // prevents two $225 payments, nine $50 payments, or a payment plus renewal from
-// being silently reinterpreted as this SKU. The canonical lead id and truth
-// digest also bind the fulfilment unlock to the exact reconciled scope rather
+// being silently reinterpreted as this SKU. The canonical lead id and verified
+// truth digest bind the fulfilment unlock to the exact reconciled scope rather
 // than to a hand-built summary object with the same totals.
 export function validateCanonicalSprintPaymentTruth(truth = {}, { paymentLeadId = null } = {}) {
   const reasons = [];
@@ -43,6 +60,7 @@ export function validateCanonicalSprintPaymentTruth(truth = {}, { paymentLeadId 
   if (truth.ok !== true) reasons.push('canonical-payment-truth-not-ok');
   if (text(truth.policyVersion, 120) !== 'payment-renewal-truth-1.6.0') reasons.push('canonical-payment-policy-version-required');
   if (!/^[a-f0-9]{64}$/.test(truthDigest)) reasons.push('canonical-payment-truth-digest-required');
+  else if (truthDigest !== canonicalPaymentTruthDigest(truth)) reasons.push('canonical-payment-truth-digest-mismatch');
   if (!expectedLeadId) reasons.push('payment-lead-id-required');
   if (!canonicalLeadId) reasons.push('canonical-payment-lead-id-required');
   if (expectedLeadId && canonicalLeadId && expectedLeadId !== canonicalLeadId) reasons.push('canonical-payment-lead-scope-mismatch');

@@ -29,9 +29,12 @@ export function createFetchHandler(deps = {}) {
     if (raw.byteLength > 1024 * 1024) {
       return json({ ok: false, status: 'REFUSED', reasonCodes: ['body-too-large'] }, 413);
     }
+    // Postal currently emits both a legacy SHA-1 X-Postal-Signature header and
+    // X-Postal-Signature-256. This verifier is SHA-256, so only the explicit
+    // SHA-256 header is admissible. Never silently reinterpret the legacy header.
     const event = normalizePostalWebhookEvent({
       rawBody: raw,
-      signatureBase64: request.headers.get('x-postal-signature') || '',
+      signatureBase64: request.headers.get('x-postal-signature-256') || '',
       publicKeyPem: env.POSTAL_WEBHOOK_PUBLIC_KEY,
       receivedAt: now().toISOString()
     });

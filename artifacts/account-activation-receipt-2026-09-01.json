@@ -45,10 +45,10 @@
     }
   },
   "deployment": {
-    "status": "REPLACEMENT_BUILD_PENDING",
+    "status": "REPLACEMENT_BUILD_RETRYING",
     "previousDeploymentId": "dpl_GtFzX8u8VRLL5SJ4jD9jm7dtHw1L",
     "previousResult": "ERROR",
-    "previousError": "Build command failed because the reachability canon still counted 274 src modules while 275 existed.",
+    "previousError": "The first build failed on stale reachability counts; the next publication failed because the readiness JSON was truncated at line 521. The complete artifact is being republished.",
     "secretValuesRecorded": false
   },
   "externalEffects": {

@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-09-01**
 Branch: `main`
-Reconciled from current head: `3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84`
+Reconciled from current head: `b803a29de968197c4e76fb258b4b889282f65308`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
@@ -86,7 +86,7 @@ The repository contains a real Claude engineering orchestrator, but a live Claud
 
 The connected Vercel account exposes team `team_A9LnjIuS5PU0rNetsHMu1N0r` and full project `prj_RWUPf14w1xIz9NK92AbNW5z7qDCg` (`uberbondd`).
 
-The previous exact PR-head full-project preview `dpl_5e9AmHsdpxpdikFFfkUbJhzKopa6` was observed actively executing the real deterministic suite. The first account-activation deployment for the new integration code (`dpl_GtFzX8u8VRLL5SJ4jD9jm7dtHw1L`) reached the build command but failed its stale reachability-canon assertion; the canon refresh is included in the replacement release candidate. A deployment state is not treated as business or provider proof. **Exact-current-main production remains pending the replacement build.**
+The previous exact PR-head full-project preview `dpl_5e9AmHsdpxpdikFFfkUbJhzKopa6` was observed actively executing the real deterministic suite. The first account-activation deployment (`dpl_GtFzX8u8VRLL5SJ4jD9jm7dtHw1L`) failed its stale reachability-canon assertion. The next candidate (`dpl_B5Mqc5QJdRCpr9BA2Yy4AFjWk41h`) then exposed a publication packaging error: the readiness JSON was truncated at line 521. The complete artifact is now being republished. A deployment state is not treated as business or provider proof. **Exact-current-main production remains pending the corrected build.**
 
 ## Account activation receipt
 

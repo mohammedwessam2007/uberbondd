@@ -3,7 +3,7 @@
   "generatedAt": "2026-09-01T23:46:47.714Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84",
+    "head": "b803a29de968197c4e76fb258b4b889282f65308",
     "branch": "main",
     "sourceModules": 275,
     "testSuites": 324,
@@ -518,3 +518,209 @@
         "src/payment-truth.mjs",
         "src/payment-renewal-truth.mjs",
         "src/commercial-outcome.mjs"
+      ],
+      "tests": [
+        "tests/payment-truth.test.mjs",
+        "tests/payment-renewal-truth.test.mjs",
+        "tests/payment-truth-double-count.test.mjs",
+        "tests/economic-anchor-forgery.test.mjs"
+      ],
+      "realWire": false,
+      "liveProof": false,
+      "externalBlocker": "No payment provider identity, no KYC.",
+      "nextAction": "Owner completes payment provider onboarding."
+    },
+    {
+      "id": "fulfillment",
+      "status": "IMPLEMENTED",
+      "level": 3,
+      "declaredLevel": 3,
+      "cappedByMissingExternalEvidence": false,
+      "evidence": [
+        "src/service-fulfillment.mjs",
+        "src/service-sku.mjs"
+      ],
+      "tests": [
+        "tests/service-fulfillment.test.mjs",
+        "tests/service-sku.test.mjs",
+        "tests/superseded-fulfillment-invariants.test.mjs"
+      ],
+      "realWire": false,
+      "liveProof": false,
+      "externalBlocker": null,
+      "nextAction": "Needs a real customer requirement to compile against."
+    },
+    {
+      "id": "acceptance",
+      "status": "IMPLEMENTED",
+      "level": 3,
+      "declaredLevel": 3,
+      "cappedByMissingExternalEvidence": false,
+      "evidence": [
+        "src/service-fulfillment.mjs"
+      ],
+      "tests": [
+        "tests/service-fulfillment.test.mjs",
+        "tests/superseded-fulfillment-invariants.test.mjs"
+      ],
+      "realWire": false,
+      "liveProof": false,
+      "externalBlocker": null,
+      "nextAction": "ACCEPTED requires customer evidence and cannot be reached internally."
+    },
+    {
+      "id": "retention",
+      "status": "IMPLEMENTED",
+      "level": 3,
+      "declaredLevel": 3,
+      "cappedByMissingExternalEvidence": false,
+      "evidence": [
+        "src/service-fulfillment.mjs",
+        "src/commercial-learning.mjs"
+      ],
+      "tests": [
+        "tests/service-fulfillment.test.mjs"
+      ],
+      "realWire": false,
+      "liveProof": false,
+      "externalBlocker": null,
+      "nextAction": "Renewal and churn are modelled; both need a real customer to observe."
+    },
+    {
+      "id": "contribution-economics",
+      "status": "IMPLEMENTED",
+      "level": 3,
+      "declaredLevel": 3,
+      "cappedByMissingExternalEvidence": false,
+      "evidence": [
+        "src/commercial-outcome.mjs",
+        "src/commercial-reconciliation.mjs"
+      ],
+      "tests": [
+        "tests/commercial-outcome.test.mjs"
+      ],
+      "realWire": false,
+      "liveProof": false,
+      "externalBlocker": null,
+      "nextAction": "Every cost input is currently unknown, which correctly lowers confidence."
+    },
+    {
+      "id": "capital-allocation",
+      "status": "IMPLEMENTED",
+      "level": 3,
+      "declaredLevel": 3,
+      "cappedByMissingExternalEvidence": false,
+      "evidence": [
+        "src/capital-allocator.mjs"
+      ],
+      "tests": [
+        "tests/adapter-capital.test.mjs"
+      ],
+      "realWire": false,
+      "liveProof": false,
+      "externalBlocker": null,
+      "nextAction": "Real spend stays consequence-gated."
+    },
+    {
+      "id": "self-upgrade",
+      "status": "IMPLEMENTED",
+      "level": 3,
+      "declaredLevel": 3,
+      "cappedByMissingExternalEvidence": false,
+      "evidence": [
+        "src/self-upgrade.mjs",
+        "src/claude-engineering-orchestrator.mjs"
+      ],
+      "tests": [
+        "tests/self-upgrade.test.mjs",
+        "tests/claude-engineering-orchestrator.test.mjs"
+      ],
+      "realWire": false,
+      "liveProof": false,
+      "externalBlocker": "Depends on the sandbox external block.",
+      "nextAction": "Same as sandbox."
+    },
+    {
+      "id": "observability",
+      "status": "IMPLEMENTED",
+      "level": 3,
+      "declaredLevel": 3,
+      "cappedByMissingExternalEvidence": false,
+      "evidence": [
+        "src/operator-escalation.mjs",
+        "src/operator-health-snapshot.mjs",
+        "src/agent-mesh-cycle-receipts.mjs"
+      ],
+      "tests": [
+        "tests/operator-escalation.test.mjs",
+        "tests/operator-health-snapshot.test.mjs",
+        "tests/durable-spine-soak.test.mjs"
+      ],
+      "realWire": false,
+      "liveProof": false,
+      "externalBlocker": "No paging channel configured: escalations are queued, never delivered.",
+      "nextAction": "Owner supplies a delivery channel credential. Detection is done; delivery is not."
+    },
+    {
+      "id": "capability-genome",
+      "status": "IMPLEMENTED",
+      "level": 3,
+      "declaredLevel": 3,
+      "cappedByMissingExternalEvidence": false,
+      "evidence": [
+        "src/capability-genome-schema.mjs",
+        "src/capability-genome-admission.mjs",
+        "src/capability-genome-runtime.mjs",
+        "src/capability-genome-discovery.mjs",
+        "src/capability-genome-harvest.mjs",
+        "src/capability-genome-body-fetch.mjs",
+        "src/capability-genome-body-import.mjs",
+        "src/capability-genome-body-normalize.mjs",
+        "src/capability-genome-doctor.mjs",
+        "artifacts/capability-genome/atom-evidence-terms.json",
+        "artifacts/capability-genome/reviewed-unmapped-needs.json",
+        "artifacts/capability-genome/pilot/normalized-capability-records-2026-09-01.json",
+        "docs/CAPABILITY_GENOME_CANON.md"
+      ],
+      "tests": [
+        "tests/capability-genome.test.mjs",
+        "tests/capability-genome-harvest.test.mjs",
+        "tests/capability-genome-body-import.test.mjs",
+        "tests/capability-genome-body-fetch.test.mjs",
+        "tests/capability-genome-body-normalize.test.mjs",
+        "tests/capability-genome-doctor-body.test.mjs",
+        "tests/capability-genome-doctor-harvest.test.mjs",
+        "tests/capability-genome-doctor-normalized.test.mjs",
+        "tests/prometheus-scheduling.test.mjs",
+        "tests/uberbond-brain-bootstrap.test.mjs"
+      ],
+      "realWire": false,
+      "liveProof": false,
+      "externalBlocker": "The measured ladder is 30 repository candidates, 2 imported bodies and 2 NORMALIZED capability records. Nothing is deduped, security-reviewed, eligible, approved or active, and there is still no authorized adapter executor, isolated sandbox fleet, durable external corpus store, or elapsed unattended refresh evidence.",
+      "nextAction": "Next rung is layered dedupe and independent SEMANTIC/SANDBOX security evidence for the 2 normalized records. Normalization emits STATIC alone by design, so nothing can become eligible until the other two layers exist. Activate continuous discovery only after durable external corpus storage, source terms, network policy and sandbox evidence exist."
+    },
+    {
+      "id": "security",
+      "status": "IMPLEMENTED",
+      "level": 3,
+      "declaredLevel": 3,
+      "cappedByMissingExternalEvidence": false,
+      "evidence": [
+        "src/secret-patterns.mjs",
+        "src/agent-code-change-contract.mjs"
+      ],
+      "tests": [
+        "tests/secret-leakage-sweep.test.mjs",
+        "tests/hostile-worker-and-provider-sweep.test.mjs"
+      ],
+      "realWire": false,
+      "liveProof": false,
+      "externalBlocker": null,
+      "nextAction": "None internal."
+    }
+  ],
+  "truthBoundary": {
+    "maxLevelProvableFromRepositoryAlone": 4,
+    "note": "Levels 5 and above require evidence from outside this repository. Nothing here can witness the outside world, so nothing here may assert them."
+  }
+}

@@ -1,9 +1,9 @@
 {
   "schemaVersion": "uberbond-memory-reconciliation-1.0.0",
   "project": "UberBond",
-  "generatedAt": "2026-08-29T05:05:00.000Z",
-  "truthRule": "This overlay corrects stale long-horizon memory from repository receipts. It changes memory/lineage only and never upgrades present-tense software, provider, customer, payment, delivery, renewal, commercial, or unattended-operation truth.",
-  "lineage": ["Everest", "SUMMIT 100", "BLACK SKY", "Reality Activation"],
+  "generatedAt": "2026-09-02T00:55:00.000Z",
+  "truthRule": "This overlay corrects stale long-horizon memory from repository receipts and explicit owner doctrine. It changes memory/lineage only and never upgrades present-tense software, provider, customer, payment, delivery, renewal, commercial, or unattended-operation truth.",
+  "lineage": ["Everest", "SUMMIT 100", "BLACK SKY", "Reality Activation", "Owner Goals 2026-09-02"],
   "replaceInitiatives": [
     {
       "id": "everest",
@@ -34,6 +34,13 @@
       "status": "OWNER_RECALLED_UNRESOLVED",
       "role": "Generic anti-amnesia bucket for specific initiatives the owner may recall later whose exact repository/chat source has not yet been reconstructed.",
       "currentReconciliation": "Do not assign semantics from memory alone. Register the exact recalled name and search repository receipts, exports and the source registry before promotion."
+    },
+    {
+      "id": "owner-goals-2026-09-02",
+      "name": "Owner Goals and Parallel Economic Self-Improvement Doctrine",
+      "status": "CURRENT_OWNER_DOCTRINE",
+      "role": "Preserves the owner's explicit 2026-09-02 doctrine: UberBond owns customer acquisition and economic proof; revenue generation and self-improvement run in parallel; pre-customer engineering completion is a readiness milestone rather than the end of system evolution; founder effort should collapse toward genuinely human-exclusive gates; free-first operation transitions to measured reinvestment when expected cleared contribution justifies spend.",
+      "currentReconciliation": "Read docs/memory/UBERBOND_OWNER_GOALS_2026-09-02.md and artifacts/uberbond-owner-goals-2026-09-02.json for the detailed human-readable and machine-readable doctrine. These files preserve intent and goals only; current executable and external commercial evidence still outrank them."
     }
   ],
   "unresolvedNames": [
@@ -46,10 +53,15 @@
   "appendSourceBasis": [
     {"id":"everest-receipt","title":"UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md","evidenceClass":"HISTORICAL_REPOSITORY_RECEIPT"},
     {"id":"summit-100-receipt","title":"UBERBOND_SUMMIT_100_FINAL_RECEIPT.md","evidenceClass":"HISTORICAL_REPOSITORY_RECEIPT"},
-    {"id":"black-sky-receipt","title":"UBERBOND_BLACK_SKY_FINAL_RECEIPT.md","evidenceClass":"HISTORICAL_REPOSITORY_RECEIPT"}
+    {"id":"black-sky-receipt","title":"UBERBOND_BLACK_SKY_FINAL_RECEIPT.md","evidenceClass":"HISTORICAL_REPOSITORY_RECEIPT"},
+    {"id":"owner-goals-2026-09-02","title":"UBERBOND_OWNER_GOALS_2026-09-02.md","evidenceClass":"OWNER_EXPLICIT_GOALS_AND_OPERATING_DOCTRINE"}
   ],
   "appendAntiForgettingRules": [
     "Everest, SUMMIT 100 and BLACK SKY are source-backed canonical lineage. Never downgrade them to unresolved memory while their repository receipts exist without an explicit contradictory adjudication.",
-    "Reality Activation is the frontier after BLACK SKY, not evidence that provider, customer, payment, acceptance, renewal or elapsed-time gates are already proven."
+    "Reality Activation is the frontier after BLACK SKY, not evidence that provider, customer, payment, acceptance, renewal or elapsed-time gates are already proven.",
+    "Customer acquisition and economic proof remain UberBond responsibilities; do not reinterpret software readiness as an instruction for the founder to become the permanent manual sales department.",
+    "Revenue generation and self-improvement run in parallel. Pre-customer engineering completion never means UberBond stops evolving.",
+    "The owner should be asked only for genuinely human-exclusive gates where possible, while UberBond continues every independent lawful lane autonomously.",
+    "Every materially useful future conversation should be digested into repository-native memory so a chat reset or context crash cannot erase the company mission."
   ]
 }

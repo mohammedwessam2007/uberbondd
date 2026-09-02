@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "uberbond-night-payment-closure-run-1.0.0",
+  "run": 4,
+  "date": "2026-09-02",
+  "branch": "work/night-payment-20260902",
+  "baseMainShaObserved": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "sourceHeadBeforeReceipt": "e88d7ee0087307f99c4fe40134e82e7b41f55690",
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "externalEffects": {
+    "realMoneyMoved": false,
+    "livePayPalTransactions": 0,
+    "customerContacts": 0
+  },
+  "finding": {
+    "severity": "P1_TRUTH_BOUNDARY",
+    "id": "customer-acceptance-not-bound-to-sprint-customer",
+    "description": "The first-cash wrapper required EXTERNAL_CUSTOMER evidence and a customer/receipt referent but did not bind that evidence to the customerRef on the fulfilment state. A structurally valid receipt from another customer could therefore mark the wrong sprint accepted."
+  },
+  "fix": {
+    "fulfillmentPolicyVersion": "uberbond.lead-path-sprint-fulfillment-1.5.0",
+    "customerEvidenceRequiresExplicitCustomerRef": true,
+    "customerEvidenceMustMatchFulfillmentCustomerRef": true,
+    "wrongCustomerAcceptanceRejected": true,
+    "unboundAcceptanceRejected": true,
+    "wrongCustomerRejectionRejected": true
+  },
+  "hostileTestsAdded": [
+    "acceptance from a different customer cannot prove accepted delivery",
+    "acceptance without explicit customer binding cannot prove accepted delivery",
+    "acceptance bound to the sprint customer can prove accepted delivery",
+    "rejection from a different customer is rejected too"
+  ],
+  "canonicalPaymentTruthPreserved": {
+    "parallelRevenueLedgerCreated": false,
+    "threeWitnessReconciliationStillRequired": true,
+    "exactAmountCents": 45000,
+    "currency": "USD",
+    "exactVerifiedPaymentCount": 1,
+    "refundReversalGuardsStillRequired": true,
+    "truthDigestRecomputationStillRequired": true,
+    "fiveConversationCanaryStillRequired": true
+  },
+  "verification": {
+    "exactHeadWorkflowRunsObserved": 0,
+    "classification": "NO_EXACT_HEAD_CI_EVIDENCE_YET",
+    "note": "Previous CI runner failures do not prove this source head and are not reused as green or red evidence."
+  },
+  "remainingSoftwareEvidenceGap": [
+    "Run focused night-payment tests and canonical repository gates on an actual runner/repository host against the exact current branch head."
+  ],
+  "remainingExternalRealityGates": [
+    "real merchant/KYC readiness",
+    "real buyer commitment",
+    "real provider-cleared USD 450 payment",
+    "real fulfilment",
+    "independent customer-bound acceptance evidence"
+  ]
+}

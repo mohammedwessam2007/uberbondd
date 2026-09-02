@@ -44,7 +44,7 @@ test('dispatch sends one-click unsubscribe and never leaks Postal recipient toke
 
 test('reconciliation works without executionId but requires authenticated webhook provenance',async()=>{
   const prepared=await adapter().prepare(intent());
-  const trusted={id:'12',tag:prepared.tag,messageId:prepared.messageId,to:prepared.to,from:prepared.from,status:'SENT',provenance:'AUTHENTICATED_POSTAL_WEBHOOK'};
+  const trusted={id:'12',tag:prepared.tag,messageId:prepared.messageId,to:prepared.to,from:prepared.from,lifecycle:'SENT',status:'Sent',provenance:'AUTHENTICATED_POSTAL_WEBHOOK'};
   const accepted=await adapter({reconciliationLookupFn:async()=>[trusted]}).reconcile({businessKey:'lead-1',providerEffectIdentity:prepared.providerEffectIdentity,expectedTo:prepared.to,expectedFrom:prepared.from});
   assert.equal(accepted.lifecycle,'RECONCILED_ACCEPTED');
   const untrusted=await adapter({reconciliationLookupFn:async()=>[{...trusted,provenance:'CALLER_ASSERTION'}]}).reconcile({businessKey:'lead-1',providerEffectIdentity:prepared.providerEffectIdentity});
@@ -57,12 +57,26 @@ test('zero reconciliation matches stay UNCERTAIN and never authorize resend',asy
   assert.equal(result.lifecycle,'UNCERTAIN');
 });
 
-test('bounce proves submission while preserving negative delivery evidence',async()=>{
+test('all authenticated Postal lifecycle events prove submission even when delivery later fails',async()=>{
   const prepared=await adapter().prepare(intent());
-  const row={id:'12',tag:prepared.tag,messageId:prepared.messageId,status:'BOUNCED',provenance:'AUTHENTICATED_POSTAL_WEBHOOK'};
+  const cases=[
+    ['SENT',false],['DELAYED',false],['HELD',false],['OPENED',false],['CLICKED',false],
+    ['DELIVERY_FAILED',true],['BOUNCED',true],['DNS_ERROR',true]
+  ];
+  for(const [lifecycle,negativeDeliveryEvidence] of cases) {
+    const row={id:'12',tag:prepared.tag,messageId:prepared.messageId,lifecycle,status:'provider-status-can-differ',provenance:'AUTHENTICATED_POSTAL_WEBHOOK'};
+    const result=await adapter({reconciliationLookupFn:async()=>[row]}).reconcile({businessKey:'lead-1',providerEffectIdentity:prepared.providerEffectIdentity});
+    assert.equal(result.lifecycle,'RECONCILED_ACCEPTED',`${lifecycle} must prove Postal accepted the submission`);
+    assert.equal(result.detail.negativeDeliveryEvidence,negativeDeliveryEvidence);
+    assert.equal(result.detail.status,lifecycle,'normalized authenticated lifecycle must outrank provider payload status');
+  }
+});
+
+test('unknown authenticated lifecycle remains UNCERTAIN rather than fabricating rejection or acceptance',async()=>{
+  const prepared=await adapter().prepare(intent());
+  const row={id:'12',tag:prepared.tag,messageId:prepared.messageId,lifecycle:'UNKNOWN_NEW_EVENT',status:'Rejected',provenance:'AUTHENTICATED_POSTAL_WEBHOOK'};
   const result=await adapter({reconciliationLookupFn:async()=>[row]}).reconcile({businessKey:'lead-1',providerEffectIdentity:prepared.providerEffectIdentity});
-  assert.equal(result.lifecycle,'RECONCILED_ACCEPTED');
-  assert.equal(result.detail.negativeDeliveryEvidence,true);
+  assert.equal(result.lifecycle,'UNCERTAIN');
 });
 
 test('ledger is replay-idempotent and conflicting Postal ids synthesize separate rows',async()=>{

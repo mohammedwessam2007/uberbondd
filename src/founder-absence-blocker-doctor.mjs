@@ -310,16 +310,23 @@ export const RAGNAROK_BLOCKER_LEDGER = Object.freeze([
     id: 'postal-adapter-defects', subject: 'DELIVERABILITY', removability: 'SOFTWARE', owner: 'lane-b',
     title: 'Postal adapter treats 409 as definite rejection, has no dispatch timeout, throws without executionId, accepts unprovenanced rows, and maps a bounce to provider rejection',
     removedBy: 'packet 4.B adapter repairs',
+    // One probe per claim in the title, each naming the exact construct that
+    // would have to go for the defect to come back. The adapter that survived
+    // the convergence merge compares against the provenance literal directly
+    // rather than through a shared constant, so the probe follows the code
+    // rather than the other way round -- a probe that keeps asserting a
+    // spelling the tree no longer uses reports a gap that does not exist.
     resolvedWhen: {
       sourceIncludes: [
         ['src/omnia-v9/integrations/providers/postal-effect-adapter.mjs', 'timeoutMs'],
-        // The adapter reaches the provenance requirement through the shared
-        // constant rather than a literal, so the probe follows it there: the
-        // literal lives in the evidence module and the adapter must compare
-        // against it. Checking for the raw string in the adapter would have
-        // been satisfiable by a comment.
+        // 409 is absent from the definite-rejection set, which is the whole
+        // claim: an ambiguous conflict may not read as a provider refusal.
+        ['src/omnia-v9/integrations/providers/postal-effect-adapter.mjs', 'const DEFINITE_REJECTION_STATUSES = new Set([400, 401, 403, 404, 422]);'],
+        // reconcile requires only the business key and the effect identity, so
+        // the recovery batch that supplies no executionId no longer throws.
+        ['src/omnia-v9/integrations/providers/postal-effect-adapter.mjs', "reconcile requires businessKey and providerEffectIdentity"],
         ['src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs', 'AUTHENTICATED_POSTAL_WEBHOOK'],
-        ['src/omnia-v9/integrations/providers/postal-effect-adapter.mjs', 'POSTAL_PROVENANCE.AUTHENTICATED'],
+        ['src/omnia-v9/integrations/providers/postal-effect-adapter.mjs', "row.provenance !== 'AUTHENTICATED_POSTAL_WEBHOOK'"],
         ['src/omnia-v9/integrations/providers/postal-effect-adapter.mjs', 'negativeDeliveryEvidence']
       ]
     }
@@ -362,7 +369,20 @@ export const RAGNAROK_BLOCKER_LEDGER = Object.freeze([
     id: 'no-paid-to-complete-sprint-machine', subject: 'PAYMENT', removability: 'SOFTWARE', owner: 'lane-d',
     title: 'No PAID to COMPLETE fulfilment state machine composing the existing fulfilment engine',
     removedBy: 'packet 4.D sprint fulfilment layer',
-    resolvedWhen: { filesPresent: ['src/lead-path-sprint-fulfillment.mjs', 'tests/lead-path-sprint-fulfillment.test.mjs'] }
+    // The requirement was a PAID-to-COMPLETE machine that *composes* the
+    // existing fulfilment engine, so the probe checks for the composition
+    // rather than for a file name. A second parallel state machine would
+    // satisfy a filename check and fail the actual requirement, which is what
+    // the Ragnarok branch had built before this merge replaced it.
+    resolvedWhen: {
+      filesPresent: ['src/lead-path-sprint-fulfillment.mjs'],
+      sourceIncludes: [
+        ['src/lead-path-sprint-fulfillment.mjs', "from './service-fulfillment.mjs'"],
+        ['src/lead-path-sprint-fulfillment.mjs', 'COMPLETE'],
+        ['src/lead-path-sprint-fulfillment.mjs', 'validExternalCustomerEvidence'],
+        ['tests/night-payment-customer-binding.test.mjs', 'advanceLeadPathSprint']
+      ]
+    }
   },
   {
     id: 'no-first-cash-canary-packet', subject: 'DISTRIBUTION', removability: 'SOFTWARE', owner: 'lane-d',

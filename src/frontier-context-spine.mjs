@@ -1,6 +1,6 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const FRONTIER_CONTEXT_SPINE_VERSION = 'uberbond.frontier-context-spine-1.0.0';
+export const FRONTIER_CONTEXT_SPINE_VERSION = 'uberbond.frontier-context-spine-1.0.1';
 
 function text(value, max = 5000) {
   const out = String(value ?? '').trim();
@@ -71,11 +71,24 @@ export function buildContextPlan({ taskId, requiredTags = [], artifacts = [], to
     return true;
   }
 
-  for (const item of constitution) includeWithDependencies(item);
+  const unresolvedDependencyRoots = [];
+  for (const item of constitution) {
+    if (!includeWithDependencies(item)) unresolvedDependencyRoots.push(item.id);
+  }
   const candidates = normalized
     .filter(item => item.tags.some(tag => tags.includes(tag)))
     .sort((a, b) => b.priority - a.priority || a.estimatedTokens - b.estimatedTokens || a.id.localeCompare(b.id));
-  for (const item of candidates) includeWithDependencies(item);
+  for (const item of candidates) {
+    if (!includeWithDependencies(item)) unresolvedDependencyRoots.push(item.id);
+  }
+  if (unresolvedDependencyRoots.length) {
+    return envelope({
+      ok: false,
+      status: 'CONTEXT_PLAN_INVALID',
+      reasonCodes: ['dependency-would-be-omitted'],
+      unresolvedDependencyRoots: [...new Set(unresolvedDependencyRoots)]
+    });
+  }
 
   const ordered = [...selected.values()].sort((a, b) => {
     if (a.kind === 'CONSTITUTION' && b.kind !== 'CONSTITUTION') return -1;

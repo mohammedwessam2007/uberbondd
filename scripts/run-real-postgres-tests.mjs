@@ -61,19 +61,31 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 
   const { Client } = await import('pg');
 
-  // FORCE, because a timed-out suite leaves its connection behind.
+  // Cleanup is best effort, and deliberately so.
   //
-  // node:test can abandon a test that overran its timeout, but it cannot close
-  // the PostgreSQL connection that test opened, and a statement still in flight
-  // on that connection keeps running. A plain DROP DATABASE then waits for a
-  // client that will never disconnect -- which put the hang back at the runner
-  // level, one layer above the one the per-test timeout had just fixed. FORCE
-  // terminates the backends first (PostgreSQL 13+), so an overrunning suite
-  // costs its own two minutes and nothing else's.
+  // A suite that overran its timeout can leave a PostgreSQL backend behind that
+  // nothing can stop: it sits `active` writing results to a socket whose client
+  // is gone, so it never reaches a point where a cancel or a terminate is
+  // honoured. DROP DATABASE waits on it; WITH (FORCE) waits on it too, because
+  // FORCE still has to terminate a backend that cannot be terminated. The
+  // runner then hangs one layer above the layer the per-test timeout had just
+  // fixed, which is what happened here twice before this comment existed.
+  //
+  // So the drop gets ten seconds and then gives up. The database it could not
+  // remove lives inside an embedded server that is destroyed when this run
+  // ends, so leaving it costs a few megabytes for a few minutes. Blocking the
+  // whole gate to reclaim them is much the worse trade.
   const dropDatabase = async database => {
-    try { await admin.query(`DROP DATABASE IF EXISTS "${database}" WITH (FORCE)`); }
-    catch { await admin.query(`DROP DATABASE IF EXISTS "${database}"`).catch(() => {}); }
+    try {
+      await admin.query("SET statement_timeout = '10s'");
+      await admin.query(`DROP DATABASE IF EXISTS "${database}" WITH (FORCE)`);
+    } catch {
+      console.error(`test:postgres-real — could not drop ${database}: a suite left a backend that cannot be terminated. Continuing.`);
+    } finally {
+      await admin.query('SET statement_timeout = 0').catch(() => {});
+    }
   };
+
   const admin = new Client({ connectionString: url });
   await admin.connect();
 

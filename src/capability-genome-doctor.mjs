@@ -2,13 +2,14 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { normalizeCapability } from './capability-genome-schema.mjs';
 
-export const CAPABILITY_GENOME_DOCTOR_VERSION = 'capability-genome-doctor-1.3.1';
+export const CAPABILITY_GENOME_DOCTOR_VERSION = 'capability-genome-doctor-1.3.2';
 
 const SOURCE_TYPES = new Set(['OFFICIAL_REGISTRY', 'PUBLIC_INDEX', 'GITHUB_API', 'PACKAGE_REGISTRY', 'ACADEMIC_CORPUS', 'APPROVED_SUPPLIER_REGISTRY']);
 const ACCESS_MODES = new Set(['API', 'PUBLIC_WEB', 'GIT_METADATA', 'LOCAL_FILE']);
 const EFFECT_STATES = new Set(['DISCOVERY_ONLY', 'READ_ONLY']);
 const CORPUS_STATE_SCHEMA = 'uberbond.capability-genome.corpus-state.v1';
 const NORMALIZED_RECORD_SCHEMA = 'uberbond.capability-genome.normalized-records.v1';
+const MAX_CORPUS_AGE_DAYS = 30;
 
 function clone(value) { return structuredClone(value); }
 function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'); }
@@ -17,6 +18,12 @@ function count(value) { return Number.isSafeInteger(value) && value >= 0 ? value
 function observedAt(value) {
   const date = new Date(value);
   return Number.isFinite(date.getTime()) ? date.toISOString() : null;
+}
+function evidenceAgeDays(value, now) {
+  const observed = new Date(value);
+  const current = new Date(now);
+  if (!Number.isFinite(observed.getTime()) || !Number.isFinite(current.getTime())) return Number.POSITIVE_INFINITY;
+  return (current.getTime() - observed.getTime()) / 86_400_000;
 }
 
 export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords = [], existingSupplierRegistry = null, corpusState = null, bodyCorpusState = null, normalizedRecordState = null, now = new Date() } = {}) {
@@ -72,6 +79,10 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
     if (corpusState?.corpusKind === 'WORLD_REPOSITORY_CANDIDATE_METADATA' && (skillBodies > 0 || normalizedRecords > 0)) reasons.push('repository-metadata-corpus-cannot-claim-body-or-capability-import');
     const observed = observedAt(corpusState?.observedAt);
     if (!observed) reasons.push('valid-corpus-observed-at-required');
+    else {
+      const ageDays = evidenceAgeDays(observed, now);
+      if (ageDays < 0 || ageDays > MAX_CORPUS_AGE_DAYS) reasons.push('repository-corpus-stale-or-future-dated');
+    }
     if (reasons.length === 0) {
       worldRepositoryCandidateCount = repositoryCandidates;
       worldRepositoryProviderCalls = providerCalls;
@@ -103,6 +114,10 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
     if (!/^[a-f0-9]{64}$/.test(String(bodyCorpusState?.bodyEvidenceDigest || ''))) reasons.push('body-evidence-digest-required');
     const observed = observedAt(bodyCorpusState?.observedAt);
     if (!observed) reasons.push('valid-body-corpus-observed-at-required');
+    else {
+      const ageDays = evidenceAgeDays(observed, now);
+      if (ageDays < 0 || ageDays > MAX_CORPUS_AGE_DAYS) reasons.push('body-corpus-stale-or-future-dated');
+    }
     if (Array.isArray(bodyCorpusState?.bodies)) {
       if (bodyCorpusState.bodies.length !== skillBodies) reasons.push('body-evidence-list-count-mismatch');
       for (const body of bodyCorpusState.bodies) {
@@ -133,7 +148,11 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
     }
     const observed = observedAt(normalizedRecordState?.observedAt);
     if (!observed) reasons.push('valid-normalized-record-observed-at-required');
-    else normalizedRecordCorpusObservedAt = observed;
+    else {
+      const ageDays = evidenceAgeDays(observed, now);
+      if (ageDays < 0 || ageDays > MAX_CORPUS_AGE_DAYS) reasons.push('normalized-record-corpus-stale-or-future-dated');
+      else normalizedRecordCorpusObservedAt = observed;
+    }
   }
 
   const measuredRawCount = (sources || []).reduce((sum, source) => sum + (source.countEvidence?.class === 'MEASURED_IMPORT' && Number.isSafeInteger(source.countEvidence.count) ? source.countEvidence.count : 0), 0);

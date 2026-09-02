@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "night-payment-closure-run-1.0.0",
+  "run": 6,
+  "date": "2026-09-02",
+  "branch": "work/night-payment-20260902",
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "externalEffects": {
+    "realMoneyMoved": false,
+    "merchantOrKycReadinessClaimed": false,
+    "customerContact": false
+  },
+  "falsification": {
+    "status": "OPEN_P1_TRUTH_BINDING_GAP",
+    "finding": "The canonical payment reconciler compares product identity across the provider order, classification receipt, and revenue ledger, but the public truth summary consumed by the fixed-price Lead-Path sprint does not carry the verified product identity. The fulfilment wrapper currently gates on lead, amount, currency, event count, event type, digest, retained status, reversal state, and claim boundaries, but not on the paid product/SKU. A canonical one-time USD 450 payment for another product could therefore satisfy the wrapper's visible predicates.",
+    "evidence": [
+      "src/payment-renewal-truth.mjs witnessContentMismatches includes product comparison",
+      "src/payment-renewal-truth.mjs public result exposes verifiedProviderEventRefs but no verified product identity",
+      "src/lead-path-sprint-fulfillment.mjs validateCanonicalSprintPaymentTruth has no product/SKU binding predicate"
+    ],
+    "requiredRepair": "Extend the existing canonical payment truth output, not a parallel ledger, with deterministic verified payment product identity bound into truthDigest; then require the Lead-Path sprint SKU/product identity before PAID fulfilment can compile. Add hostile coverage proving a valid USD 450 payment for a different product fails closed.",
+    "promotionGate": "PR #319 must remain draft until this product-binding gap is repaired and exact-head executable tests run on a functioning runner."
+  },
+  "alreadyPreserved": [
+    "PayPal Sandbox is economically ineligible",
+    "three-witness payment truth",
+    "amount/currency agreement",
+    "pending is not cleared",
+    "one provider event is counted once",
+    "refund/reversal/dispute truth",
+    "synthetic evidence rejection",
+    "customer-bound external acceptance",
+    "five-conversation kill-or-rethink canary"
+  ]
+}

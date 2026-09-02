@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { normalizeCapability } from './capability-genome-schema.mjs';
 
-export const CAPABILITY_GENOME_DOCTOR_VERSION = 'capability-genome-doctor-1.3.0';
+export const CAPABILITY_GENOME_DOCTOR_VERSION = 'capability-genome-doctor-1.3.1';
 
 const SOURCE_TYPES = new Set(['OFFICIAL_REGISTRY', 'PUBLIC_INDEX', 'GITHUB_API', 'PACKAGE_REGISTRY', 'ACADEMIC_CORPUS', 'APPROVED_SUPPLIER_REGISTRY']);
 const ACCESS_MODES = new Set(['API', 'PUBLIC_WEB', 'GIT_METADATA', 'LOCAL_FILE']);
@@ -40,11 +40,19 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
     if (!atom?.verb || !atom?.noun || !atom?.description || !atom?.sideEffectClass) reasons.push('typed-atom-fields-required');
   }
   if (!Array.isArray(capabilityRecords)) reasons.push('capability-record-array-required');
+  const capabilityIds = new Set();
+  const canonicalIdentities = new Set();
   // Records are re-validated here rather than trusted from whoever assembled
-  // them. The doctor is the thing that reports how many capabilities exist, so
-  // an unvalidated record would let a hand-written object be counted as one.
+  // them. Collection identity is also a truth boundary: duplicate IDs or
+  // canonical identities must not inflate counts or create ambiguous suppliers.
   for (const record of capabilityRecords || []) {
-    if (!normalizeCapability(record).ok) { reasons.push('valid-normalized-capability-records-required'); break; }
+    const normalized = normalizeCapability(record);
+    if (!normalized.ok) { reasons.push('valid-normalized-capability-records-required'); break; }
+    const capability = normalized.capability;
+    if (capabilityIds.has(capability.id)) reasons.push('unique-capability-id-required');
+    if (canonicalIdentities.has(capability.canonicalIdentity)) reasons.push('unique-canonical-capability-identity-required');
+    capabilityIds.add(capability.id);
+    canonicalIdentities.add(capability.canonicalIdentity);
   }
 
   let worldRepositoryCandidateCount = 0;
@@ -111,17 +119,12 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
     }
   }
 
-  // The manifest that says how many records exist, checked against the records
-  // themselves. The harvest law's whole point is that a declared count and an
-  // actual one are different numbers, and a corpus that reported the declared
-  // one would inflate exactly the way a repository-candidate count inflates.
   let normalizedRecordCorpusObservedAt = null;
   if (normalizedRecordState != null) {
     if (normalizedRecordState?.schemaVersion !== NORMALIZED_RECORD_SCHEMA) reasons.push('valid-normalized-record-state-required');
     const declared = count(normalizedRecordState?.capabilityRecordsNormalized);
     if (declared == null) reasons.push('nonnegative-normalized-record-count-required');
     else if (declared !== capabilityRecords.length) reasons.push('declared-normalized-count-must-match-actual-records');
-    // Normalization is one rung. It cannot report any later one as reached.
     for (const key of ['dedupedCapabilities', 'securityReviewedCapabilities', 'eligibleCapabilities', 'approvedCapabilities', 'activeCapabilities']) {
       if (count(normalizedRecordState?.[key]) !== 0) reasons.push('normalized-record-corpus-cannot-claim-later-promotion');
     }
@@ -141,9 +144,6 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
 
   const states = new Map();
   for (const record of capabilityRecords) states.set(record.promotionState, (states.get(record.promotionState) || 0) + 1);
-  // Records sitting at NORMALIZED, not every record in the lifecycle. Reading
-  // the length would have reported an APPROVED capability as normalized, which
-  // is the one direction this counter must never round in.
   const worldCapabilityRecordsNormalized = states.get('NORMALIZED') || 0;
   const capabilityRecordCount = capabilityRecords.length;
   const approvedCapabilityCount = states.get('APPROVED') || 0;
@@ -183,7 +183,7 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
     worldCorpusProviderCalls: worldRepositoryProviderCalls + worldSkillBodyProviderCalls,
     worldCorpusBatchId,
     bodyEvidenceDigest,
-    dedupedCapabilityCount: new Set(capabilityRecords.map(record => record.canonicalIdentity)).size,
+    dedupedCapabilityCount: canonicalIdentities.size,
     approvedCapabilityCount,
     activeCapabilityCount,
     revokedCapabilityCount,

@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { compileFulfillmentPlan, applyFulfillmentEvent } from './service-fulfillment.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const LEAD_PATH_SPRINT_FULFILLMENT_VERSION = 'uberbond.lead-path-sprint-fulfillment-1.2.0';
+export const LEAD_PATH_SPRINT_FULFILLMENT_VERSION = 'uberbond.lead-path-sprint-fulfillment-1.3.0';
 export const LEAD_PATH_SPRINT_PRICE = Object.freeze({ amountCents: 45000, currency: 'USD' });
 export const LEAD_PATH_SPRINT_STATES = Object.freeze([
   'PAID','INPUT_READY','ANALYSIS_RUNNING','QA_REQUIRED','QA_PASSED','DELIVERY_READY','DELIVERED',
@@ -24,24 +24,53 @@ function apply(state, event) {
 
 // Consume the existing canonical reconciliation result. Do not reinterpret raw
 // webhooks here and do not create a fourth payment ledger/witness system.
-export function validateCanonicalSprintPaymentTruth(truth = {}) {
+//
+// First-cash is one fixed-price purchase, not "some collection of rows whose
+// net happens to add to $450". Requiring exactly one verified provider event
+// prevents two $225 payments, nine $50 payments, or a payment plus renewal from
+// being silently reinterpreted as this SKU. The canonical lead id and truth
+// digest also bind the fulfilment unlock to the exact reconciled scope rather
+// than to a hand-built summary object with the same totals.
+export function validateCanonicalSprintPaymentTruth(truth = {}, { paymentLeadId = null } = {}) {
   const reasons = [];
+  const expectedLeadId = text(paymentLeadId, 200);
+  const canonicalLeadId = text(truth?.leadId, 200);
+  const truthDigest = text(truth?.truthDigest, 128).toLowerCase();
+  const providerRefs = Array.isArray(truth?.verifiedProviderEventRefs)
+    ? truth.verifiedProviderEventRefs.map(value => text(value, 400)).filter(Boolean)
+    : [];
+
   if (truth.ok !== true) reasons.push('canonical-payment-truth-not-ok');
+  if (text(truth.policyVersion, 120) !== 'payment-renewal-truth-1.6.0') reasons.push('canonical-payment-policy-version-required');
+  if (!/^[a-f0-9]{64}$/.test(truthDigest)) reasons.push('canonical-payment-truth-digest-required');
+  if (!expectedLeadId) reasons.push('payment-lead-id-required');
+  if (!canonicalLeadId) reasons.push('canonical-payment-lead-id-required');
+  if (expectedLeadId && canonicalLeadId && expectedLeadId !== canonicalLeadId) reasons.push('canonical-payment-lead-scope-mismatch');
   if (truth.status !== 'PROVIDER_CLEARED_PAYMENT_PROVEN') reasons.push('provider-cleared-payment-not-proven');
   if (truth?.stages?.CLEARED_PAYMENT?.status !== 'PROVEN') reasons.push('canonical-cleared-payment-stage-not-proven');
+  if (truth?.stages?.PAYMENT_RETAINED?.status !== 'PROVEN') reasons.push('canonical-payment-retention-not-proven');
   if (Array.isArray(truth.contradictions) && truth.contradictions.length) reasons.push('canonical-payment-contradictions-present');
   if (Number(truth?.economics?.netProviderClearedRevenueCents) !== LEAD_PATH_SPRINT_PRICE.amountCents) reasons.push('net-provider-cleared-amount-mismatch');
   if (text(truth?.economics?.currency, 12).toUpperCase() !== LEAD_PATH_SPRINT_PRICE.currency) reasons.push('canonical-payment-currency-mismatch');
-  if (Number(truth?.economics?.verifiedPaymentCount) < 1) reasons.push('canonical-verified-payment-required');
+  if (Number(truth?.economics?.verifiedPaymentCount) !== 1) reasons.push('exactly-one-canonical-verified-payment-required');
+  if (Number(truth?.economics?.verifiedRenewalCount) !== 0) reasons.push('renewal-cannot-unlock-first-cash-sprint');
+  if (providerRefs.length !== 1) reasons.push('exactly-one-verified-provider-event-ref-required');
+  if (Number(truth?.economics?.verifiedReversalCount) !== 0) reasons.push('verified-reversal-cannot-unlock-fulfillment');
+  if (Number(truth?.economics?.unverifiedReversalCents) > 0) reasons.push('unverified-reversal-requires-review');
   if (Number(truth?.economics?.reversedRevenueCents) > 0) reasons.push('reversed-payment-cannot-unlock-fulfillment');
   return {
     ok:reasons.length === 0,
     reasonCodes:reasons,
     canonicalTruthRef: reasons.length ? null : `payment-truth:${digest({
+      policyVersion:truth.policyVersion,
+      truthDigest,
+      leadId:canonicalLeadId,
       status:truth.status,
+      providerEventRef:providerRefs[0],
       amountCents:truth?.economics?.netProviderClearedRevenueCents,
       currency:truth?.economics?.currency,
       verifiedPaymentCount:truth?.economics?.verifiedPaymentCount,
+      verifiedRenewalCount:truth?.economics?.verifiedRenewalCount,
       reversedRevenueCents:truth?.economics?.reversedRevenueCents,
       contradictions:truth?.contradictions || []
     })}`
@@ -53,12 +82,12 @@ function validExternalCustomerEvidence(evidence) {
     evidence
     && evidence.evidenceClass === 'EXTERNAL_CUSTOMER'
     && text(evidence.origin, 40).toUpperCase() === 'CUSTOMER'
-    && text(evidence.evidenceRef, 240)
+    && /^(customer|receipt):/i.test(text(evidence.evidenceRef, 240))
   );
 }
 
-export function createLeadPathSprint({ customerRef, canonicalPaymentTruth, at = new Date().toISOString() } = {}) {
-  const payment = validateCanonicalSprintPaymentTruth(canonicalPaymentTruth);
+export function createLeadPathSprint({ customerRef, paymentLeadId, canonicalPaymentTruth, at = new Date().toISOString() } = {}) {
+  const payment = validateCanonicalSprintPaymentTruth(canonicalPaymentTruth, { paymentLeadId });
   if (!payment.ok) return fail(payment.reasonCodes);
   const plan = compileFulfillmentPlan({
     serviceSkuId:'lead-path-revenue-leak-evidence-sprint-usd-450',
@@ -77,6 +106,7 @@ export function createLeadPathSprint({ customerRef, canonicalPaymentTruth, at = 
     policyVersion:LEAD_PATH_SPRINT_FULFILLMENT_VERSION,
     sprintId,
     status:'PAID',
+    paymentLeadId:text(paymentLeadId, 200),
     fulfillmentState:plan,
     canonicalPaymentTruthRef:payment.canonicalTruthRef,
     customerAcceptanceEvidenceRef:null,
@@ -94,7 +124,7 @@ export function advanceLeadPathSprint({ state, to, evidence = null, artifactRefs
   const allowed = {
     PAID:['INPUT_READY'], INPUT_READY:['ANALYSIS_RUNNING'], ANALYSIS_RUNNING:['QA_REQUIRED'], QA_REQUIRED:['QA_PASSED'],
     QA_PASSED:['DELIVERY_READY'], DELIVERY_READY:['DELIVERED'], DELIVERED:['CUSTOMER_ACCEPTED','CUSTOMER_REJECTED','CUSTOMER_SILENT'],
-    CUSTOMER_ACCEPTED:['SUPPORT_WINDOW'], CUSTOMER_REJECTED:[], CUSTOMER_SILENT:['SUPPORT_WINDOW'], SUPPORT_WINDOW:['COMPLETE'], COMPLETE:[]
+    CUSTOMER_ACCEPTED:['SUPPORT_WINDOW'], CUSTOMER_REJECTED:[], CUSTOMER_SILENT:[], SUPPORT_WINDOW:['COMPLETE'], COMPLETE:[]
   };
   if (!allowed[state.status].includes(target)) return fail([`invalid-sprint-transition:${state.status}->${target}`], state);
 

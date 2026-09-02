@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "uberbond-night-postal-run-1.0.0",
+  "run": 3,
+  "date": "2026-09-02",
+  "lane": "postal-free-first-outreach",
+  "sourceCodeHeadBeforeReceipt": "e5dded76ebb1e5857025d2f1ae7116f47aff606a",
+  "baseMainObserved": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "finding": {
+    "severity": "P0_DUPLICATE_EXTERNAL_EFFECT_RISK",
+    "summary": "Authenticated post-submission Postal lifecycle events were incompletely classified. MessageDeliveryFailed could be treated as RECONCILED_REJECTED, and normalized lifecycle could be shadowed by payload.status, allowing a previously accepted submission to be mistaken for a safe-to-resend rejection.",
+    "externalEvidence": {
+      "source": "https://docs.postalserver.io/developer/webhooks/",
+      "observed": "Postal documents MessageDeliveryFailed as a message lifecycle event meaning a message cannot be delivered; MessageBounced applies to a message previously accepted. These events occur after a Postal message exists and therefore are submission evidence, not proof that the original API submission never occurred."
+    }
+  },
+  "changes": [
+    "Postal adapter version raised to 1.2.0.",
+    "Normalized authenticated webhook lifecycle now outranks mutable provider payload status during reconciliation.",
+    "SENT, DELAYED, HELD, DELIVERY_FAILED, BOUNCED, OPENED, CLICKED, DNS_ERROR and aliases are treated as proof that Postal accepted the original submission.",
+    "DELIVERY_FAILED, BOUNCED and DNS_ERROR retain negativeDeliveryEvidence without reopening resend eligibility.",
+    "Unknown authenticated lifecycle remains UNCERTAIN rather than fabricating acceptance or rejection.",
+    "Hostile tests and source mutation guards protect the new invariants.",
+    "Added exact-head focused Postal GitHub Actions workflow requesting syntax, hostile Postal tests, mutation guards, reachability and diff checks."
+  ],
+  "verification": {
+    "focusedWorkflowRequestedAtHead": "e5dded76ebb1e5857025d2f1ae7116f47aff606a",
+    "workflowRunObservedAtReceiptTime": false,
+    "localCleanCloneAttempt": "BLOCKED_ENVIRONMENT_DNS_GITHUB_COM",
+    "classification": "EXECUTION_EVIDENCE_PENDING_ENVIRONMENT",
+    "claim": "No green source claim is made without executed exact-head tests."
+  },
+  "safety": {
+    "realOutreachSent": false,
+    "authorityExpanded": false,
+    "providerPolicyWeakened": false,
+    "senderReadinessFabricated": false
+  },
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "remaining": [
+    "Obtain executed exact-head focused Postal verification in a functioning runner.",
+    "Reconcile this branch onto latest main before merge because main advanced after branch creation.",
+    "Keep real outreach disabled until sender/domain/provider-policy/authority/suppression gates are independently satisfied."
+  ]
+}

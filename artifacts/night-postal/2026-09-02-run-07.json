@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "uberbond-night-postal-run-1.0.0",
+  "run": 7,
+  "recordedAt": "2026-09-02T07:10:00.000Z",
+  "branch": "work/night-postal-20260902",
+  "mainObservedSha": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "sourceHeadBeforeReceipt": "6d16229c4da84385e73aabdacc535f50d661a008",
+  "receiptHeadObserved": "c11a412aba3c5b10c2a794649dd260b1f302beec",
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "externalEffects": {
+    "realOutreachSent": 0,
+    "authorityWidened": false,
+    "senderReadinessFabricated": false
+  },
+  "completed": [
+    "Added postal-sender-evidence-consumer using the existing canonical Store/PostgresStore sender-health APIs rather than a parallel safety model.",
+    "Authenticated, non-quarantined DomainDNSError evidence is one-way negative sender evidence only: it may pause exact-domain matching connected sender slots and can never establish readiness or unpause a sender.",
+    "Webhook route applies sender evidence only after durable ledger persistence and only on the first non-duplicate occurrence.",
+    "Sender-evidence mutation failure fails closed with HTTP 503 after webhook persistence; businessEffectAuthority remains NONE.",
+    "Recorded sender-health audit detail retains normalized DNS statuses and error digests only; raw provider error text/body is not copied into the canonical outbound event.",
+    "Added hostile tests for unauthenticated/quarantined/reconciliation evidence rejection, exact-domain matching, disconnected account exclusion, no-match no-op, one-way pause semantics, route replay idempotency, and fail-closed application.",
+    "Added source-level mutation guards preventing DNS evidence from becoming reconciliation evidence, readiness/unpause authority, or duplicate replay mutation."
+  ],
+  "verification": {
+    "focusedWorkflowRunId": 33601940786,
+    "focusedWorkflowName": "Night Postal Focused Verification",
+    "focusedConclusion": "failure",
+    "focusedJobId": 100157353865,
+    "focusedJobSteps": null,
+    "canonicalCiRunId": 33601940715,
+    "canonicalCiJobs": [
+      {"id":100157353410,"name":"browser","conclusion":"failure","steps":null},
+      {"id":100157353590,"name":"postgres","conclusion":"failure","steps":null},
+      {"id":100157353701,"name":"deterministic","conclusion":"failure","steps":null}
+    ],
+    "classification": "ENVIRONMENT_STARTUP_BLOCKED",
+    "reason": "Focused plus canonical CI all completed without step-level execution evidence; no source pass/fail or mutation kill is claimed."
+  },
+  "mainReconciliation": {
+    "status": "DIVERGED_NO_OBSERVED_CODE_CONFLICT",
+    "branchCommitsAheadOfMergeBase": 32,
+    "mainCommitsAheadOfMergeBase": 2,
+    "mainOnlyFilesObserved": [
+      "artifacts/account-activation-receipt-2026-09-01.json",
+      "docs/CURRENT_SYSTEM_STATE.md"
+    ],
+    "note": "GitHub reports the PR mergeable; available connector actions do not expose a safe branch rebase/update operation."
+  },
+  "remainingBlockers": [
+    "Obtain actual step-level exact-head focused/canonical CI execution; current GitHub runner behavior remains environment-blocked.",
+    "Reconcile branch ancestry with latest main before merge using a safe branch-update/rebase mechanism; observed main-only changes are documentation/account-activation receipt files, not Postal source files.",
+    "Real sender readiness still requires genuine provider/DNS/reputation/policy evidence; authenticated DNS error evidence only pauses and never proves readiness."
+  ],
+  "laneStatus": "SOFTWARE_SEAM_CLOSED__ADVERSARIAL_VERIFICATION_BLOCKED_EXTERNALLY",
+  "mergeReady": false
+}

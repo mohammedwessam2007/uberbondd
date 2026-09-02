@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "uberbond.night-postal-handoff.v1",
+  "lane": "postal-free-first-sender-evidence",
+  "baseMainObserved": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "branch": "work/night-postal-20260902",
+  "pullRequest": 317,
+  "headAfterFix": "0384aff2460cc884e34e3589199e4b7d0e5b8a05",
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "externalEffects": {
+    "realOutreachSentByThisLane": 0,
+    "authorityWidened": false
+  },
+  "adversarialFinding": {
+    "severity": "P0_SAFETY_SEMANTICS_DRIFT",
+    "finding": "The branch hostile tests and prior receipt claimed hardened Postal semantics, but the actual postal-effect-adapter.mjs on the branch still contained the old implementation: HTTP 409 in definite rejection, no bounded dispatch timeout, no one-click unsubscribe support, executionId required for reconciliation, and bounce mapped to reconciled rejection.",
+    "rootCauseClass": "TEST_IMPLEMENTATION_DRIFT",
+    "resolution": "Replaced the stale adapter implementation with the already-reviewed hardened 1.1.0 donor semantics while preserving current-main authority boundaries. Existing source mutation guards now bind directly to the corrected implementation."
+  },
+  "implemented": [
+    "HTTP 409 removed from definite rejection statuses and therefore remains UNCERTAIN.",
+    "Bounded AbortController timeout added with one provider-call site and no hidden retry.",
+    "HTTPS one-click List-Unsubscribe support added with header injection protection.",
+    "Reconciliation can recover deterministic tag/message identity from providerEffectIdentity without requiring executionId, while contradictory supplied executionId remains ambiguous.",
+    "Authenticated Postal webhook provenance is required before reconciliation can settle an uncertain effect.",
+    "Webhook Message-ID mismatch is ambiguous rather than accepted.",
+    "Bounce is RECONCILED_ACCEPTED with negativeDeliveryEvidence=true, preserving proof that submission occurred without pretending delivery succeeded.",
+    "NOT_FOUND classification removed from Postal reconciliation so webhook absence cannot release a resend."
+  ],
+  "verification": {
+    "githubActionsRun": 33581853911,
+    "githubActionsHead": "0384aff2460cc884e34e3589199e4b7d0e5b8a05",
+    "githubActionsConclusion": "FAILURE_BEFORE_JOB_STEPS",
+    "githubActionsJobs": ["browser", "postgres", "deterministic"],
+    "githubActionsJobStepsObserved": 0,
+    "sourceFailureProvenByActions": false,
+    "localCloneAttempt": "BLOCKED_DNS_NO_GITHUB_NETWORK",
+    "greenClaimed": false,
+    "note": "GitHub Actions created three jobs but all failed before executing any steps; the local clean-room fallback could not resolve github.com. These are execution-environment blockers, not passing or failing source-test evidence."
+  },
+  "crossLaneObservation": {
+    "verificationPr": 321,
+    "verificationBranch": "work/night-verification-20260902",
+    "note": "Independent exact-head verification lane exists; this Postal lane does not duplicate or overwrite it."
+  },
+  "remainingSoftwareQuestions": [
+    "Exact-head focused Postal tests and mutation guards still need an execution environment that actually starts test steps.",
+    "Suppression/complaint and sender-health gates exist in current outreach surfaces, but end-to-end Postal production registration should be rechecked once the final integration branch is assembled."
+  ],
+  "externalBlockers": [
+    "GitHub Actions runner/jobs currently fail before step execution.",
+    "This runtime cannot resolve github.com for a clean clone fallback.",
+    "Vercel deployment capacity was previously blocked by build-rate limits."
+  ],
+  "status": "P0_DRIFT_FIXED__EXACT_HEAD_EXECUTION_PROOF_PENDING"
+}

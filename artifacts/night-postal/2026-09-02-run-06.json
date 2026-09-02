@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "uberbond-night-postal-run-1.0.0",
+  "run": 6,
+  "date": "2026-09-02",
+  "lane": "postal-free-first-outreach",
+  "branch": "work/night-postal-20260902",
+  "pullRequest": 317,
+  "baseMainObserved": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "verifiedSourceHeadBeforeReceipt": "e68603fbec6baf32c255b50f0111e78feb74adf1",
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "externalEffects": {
+    "realOutreachSentByThisLane": 0,
+    "authorityWidened": false
+  },
+  "adversarialFinding": {
+    "severity": "P1_SENDER_EVIDENCE_AND_RECONCILIATION_BOUNDARY",
+    "summary": "Postal DomainDNSError is a domain-level webhook carrying SPF/DKIM/MX/return-path status and no message/tag. The prior normalizer required message identity for every mapped event, so authentic DNS failures were quarantined as MALFORMED. At the same time, postal-effect-adapter treated DNS_ERROR as message submission proof, which is the wrong semantic boundary.",
+    "officialEvidence": "Postal webhook documentation defines DomainDNSError as a domain DNS monitoring event with domain, dns_checked_at, SPF/DKIM/MX/return-path fields and no message object; MessageBounced and message status events are separate message lifecycle events."
+  },
+  "implemented": [
+    "DomainDNSError now has a dedicated authenticated domain-level normalization path.",
+    "Authenticated DNS events persist normalized domain plus SPF/DKIM/MX/return-path statuses and digests of error text without retaining raw error content.",
+    "DomainDNSError becomes eligibleForSenderEvidence=true only when SHA-256 authenticated and structurally valid.",
+    "DomainDNSError remains eligibleForReconciliation=false and carries no execution tag or Postal message id.",
+    "DNS_ERROR and DOMAINDNSERROR were removed from message SUBMISSION_PROOF_STATUSES and NEGATIVE_DELIVERY_STATUSES.",
+    "Webhook route exposes senderEvidenceAvailable separately from reconciliationRequired while retaining businessEffectAuthority=NONE.",
+    "Hostile tests cover authenticated and unauthenticated DNS events, no secret leakage, route semantics, and separation from message reconciliation.",
+    "Mutation protection now fails if DNS sender evidence is reintroduced as message submission/delivery proof."
+  ],
+  "verification": {
+    "focusedWorkflowRunId": 33597684056,
+    "canonicalCiRunId": 33597684060,
+    "sourceHead": "e68603fbec6baf32c255b50f0111e78feb74adf1",
+    "focusedJobs": 1,
+    "canonicalJobs": 3,
+    "jobsWithExecutedSteps": 0,
+    "runnerIdsObserved": [0],
+    "classification": "ACTIONS_RUNNER_STARTUP_FAILURE_NOT_SOURCE_RESULT",
+    "greenClaimed": false,
+    "sourceFailureClaimed": false,
+    "note": "Focused Postal, browser, deterministic, and Postgres jobs all completed failure with steps=[] and runner_id=0. No test code executed, so these runs provide neither green nor source-failure evidence."
+  },
+  "branchState": {
+    "aheadOfMain": 26,
+    "behindMain": 2,
+    "mergeableAtObservation": true,
+    "reconciliationNeededBeforeMerge": true
+  },
+  "remainingSoftwareQuestions": [
+    "Wire authenticated DNS sender evidence into the canonical sender-readiness/health consumer on the final integration branch without duplicating the canonical suppression/sender-health model.",
+    "Prove end-to-end Postal bounce/complaint safety feedback reaches canonical suppressions and sender-health counters after final integration.",
+    "Obtain real exact-head test execution in an environment that acquires a runner."
+  ],
+  "externalBlockers": [
+    "GitHub Actions jobs continue to terminate before step execution with runner_id=0.",
+    "Real Postal account activation, sender-domain DNS authentication, provider-policy eligibility, reputation and sender-health evidence remain external proof gates.",
+    "No live outreach authority exists and none was created by this run."
+  ],
+  "status": "SENDER_DNS_EVIDENCE_BOUNDARY_FIXED__EXACT_HEAD_EXECUTION_AND_FINAL_SAFETY_FEEDBACK_INTEGRATION_PENDING"
+}

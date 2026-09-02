@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "uberbond-night-verification-receipt-1.0.0",
+  "generatedAt": "2026-09-02T06:38:47Z",
+  "lane": "work/night-verification-20260902",
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "sourceHeads": {
+    "main": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+    "verification": "0cb06965c16798354be35d0b857d32172a453986",
+    "postal": "11e8037d04863a5159e34a4d55558f3950ed5058",
+    "payment": "26d159ae0c5035c35ade377100303e83d327d798",
+    "genome": "338bbab8063cc3414124f7ef26d51646bdbcd519"
+  },
+  "exactHeadExecution": {
+    "verification": {
+      "head": "0cb06965c16798354be35d0b857d32172a453986",
+      "ordinaryCiWorkflowRun": 33595839883,
+      "nightVerificationWorkflowRun": 33595839923,
+      "jobsObserved": 6,
+      "jobsWithSteps": 0,
+      "sourcePasses": 0,
+      "sourceFailures": 0,
+      "sourceSkips": 0,
+      "mutationKills": 0,
+      "environmentBlockedJobs": 6,
+      "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+    },
+    "postal": {
+      "head": "11e8037d04863a5159e34a4d55558f3950ed5058",
+      "focusedWorkflowRun": 33597782388,
+      "ciWorkflowRun": 33597782277,
+      "jobsObserved": 4,
+      "jobsWithSteps": 0,
+      "sourcePasses": 0,
+      "sourceFailures": 0,
+      "sourceSkips": 0,
+      "mutationKills": 0,
+      "environmentBlockedJobs": 4,
+      "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+    },
+    "payment": {
+      "head": "26d159ae0c5035c35ade377100303e83d327d798",
+      "ciWorkflowRun": 33597751200,
+      "jobsObserved": 3,
+      "jobsWithSteps": 0,
+      "sourcePasses": 0,
+      "sourceFailures": 0,
+      "sourceSkips": 0,
+      "mutationKills": 0,
+      "environmentBlockedJobs": 3,
+      "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+    },
+    "genome": {
+      "head": "338bbab8063cc3414124f7ef26d51646bdbcd519",
+      "ciWorkflowRun": 33599506408,
+      "jobsObserved": 3,
+      "jobsWithSteps": 0,
+      "sourcePasses": 0,
+      "sourceFailures": 0,
+      "sourceSkips": 0,
+      "mutationKills": 0,
+      "environmentBlockedJobs": 3,
+      "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+    }
+  },
+  "aggregateExecution": {
+    "exactHeadsObserved": 4,
+    "jobsObserved": 16,
+    "jobsWithSteps": 0,
+    "sourcePasses": 0,
+    "sourceFailures": 0,
+    "sourceSkips": 0,
+    "mutationKills": 0,
+    "environmentBlockedJobs": 16
+  },
+  "verificationScope": {
+    "requestedGates": [
+      "syntax",
+      "full deterministic",
+      "reachability ratchet",
+      "canonical mutation war",
+      "relay safety",
+      "browser",
+      "real PostgreSQL",
+      "Wallbreaker",
+      "Capability Genome",
+      "Event Horizon",
+      "security/dependency audit",
+      "git diff check",
+      "exact-SHA evidence"
+    ],
+    "executionStatus": "NOT_EXECUTED_DUE_TO_RUNNER_STARTUP_FAILURE"
+  },
+  "canonicalMutationReview": {
+    "registrationPolicy": "Do not count mutants against source absent from the verification head; register after integration and require an executed exact-head kill.",
+    "newNightGuards": {
+      "postal": [
+        "authenticated DomainDNSError is domain-level sender evidence and must not require message or execution-tag identity",
+        "DomainDNSError may be eligible for sender evidence only when authenticated and structurally valid",
+        "DomainDNSError must remain ineligible for message reconciliation and carry no business-effect authority",
+        "DNS_ERROR and DOMAINDNSERROR must never be accepted as message submission proof or negative-delivery proof",
+        "raw DNS error text must not be retained when a digest/minimized representation is sufficient"
+      ],
+      "payment": [
+        "canonical verified product/SKU identity must be exposed by payment truth and bound into truthDigest",
+        "the Lead-Path sprint must require its own canonical product/SKU identity before PAID fulfilment can compile",
+        "a valid one-time USD 450 cleared payment for another product must fail closed",
+        "product identity must agree across provider order, classification receipt, revenue ledger, canonical truth output, and fulfilment consumer"
+      ],
+      "genome": [
+        "taskSuccess, reliability, repeatability, evidenceConfidence, quality-like probability fields outside [0,1] must fail closed rather than clamp",
+        "negative monetary cost must fail closed rather than score as free or beneficial",
+        "negative maintenance, context, or dependency burden must fail closed",
+        "invalid economic priors must return ECONOMIC_PRIOR_REJECTED with no executable fitness score"
+      ]
+    },
+    "classification": "POST_INTEGRATION_CANONICAL_MUTATION_BACKLOG_ADVANCED"
+  },
+  "branchAdvanceReview": {
+    "postal": {
+      "priorHead": "1ab1c55cbe153eeb09f17ecd2387a13027df71b3",
+      "currentHead": "11e8037d04863a5159e34a4d55558f3950ed5058",
+      "commitsAdvanced": 7,
+      "sourceChanged": true
+    },
+    "payment": {
+      "priorHead": "1098e05e7c4c7e75b68c585b196da1b3c86fafa6",
+      "currentHead": "26d159ae0c5035c35ade377100303e83d327d798",
+      "commitsAdvanced": 1,
+      "sourceChanged": false,
+      "newFinding": "OPEN_P1_TRUTH_BINDING_GAP_PRODUCT_IDENTITY"
+    },
+    "genome": {
+      "priorHead": "5bfa31175180de5d17bbe385b1f15cf300d06769",
+      "currentHead": "338bbab8063cc3414124f7ef26d51646bdbcd519",
+      "commitsAdvanced": 3,
+      "sourceChanged": true
+    }
+  },
+  "truthRules": [
+    "Zero-step jobs with runner_id=0 are environment startup failures, not source failures.",
+    "No mutation kill is counted unless mutated source executes and the intended test fails for the intended guard.",
+    "Exact-head proof is SHA-scoped and does not transfer to a later receipt commit.",
+    "Other night branches are inspected read-only and are never overwritten by this lane.",
+    "A defect reported by another lane is a verification target until independently executed; it is not an independent mutation kill.",
+    "No commercial truth changes without durable real external evidence."
+  ],
+  "nextVerificationActions": [
+    "Keep PR #321 draft until real step-level exact-head evidence exists.",
+    "After integration of Postal changes, add and execute canonical mutants for DomainDNSError sender-evidence versus reconciliation/effect separation.",
+    "After repair/integration of Payment product identity, add and execute a wrong-product USD 450 mutant and cross-witness product-binding mutants.",
+    "After integration of Genome run 6, add and execute economic-prior boundary mutants for out-of-range probabilities and negative cost/burden inputs.",
+    "Require exact-head PostgreSQL execution before concurrency claims and exact-head browser execution before browser-path claims.",
+    "Do not treat the open Payment P1 product-binding gap as fixed until a repaired exact head exists and executes its hostile tests."
+  ],
+  "status": "VERIFICATION_ENVIRONMENT_BLOCKED_WITH_RUN06_MUTATION_BACKLOG_AND_PAYMENT_P1_REGISTERED"
+}

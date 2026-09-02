@@ -61,30 +61,22 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 
   const { Client } = await import('pg');
 
-  // Cleanup is best effort, and deliberately so.
+  // No cleanup, deliberately.
   //
-  // A suite that overran its timeout can leave a PostgreSQL backend behind that
-  // nothing can stop: it sits `active` writing results to a socket whose client
-  // is gone, so it never reaches a point where a cancel or a terminate is
-  // honoured. DROP DATABASE waits on it; WITH (FORCE) waits on it too, because
-  // FORCE still has to terminate a backend that cannot be terminated. The
-  // runner then hangs one layer above the layer the per-test timeout had just
-  // fixed, which is what happened here twice before this comment existed.
+  // Two attempts to reclaim each database ended the same way: a suite that
+  // overran its timeout leaves a PostgreSQL backend that cannot be stopped --
+  // it sits `active` writing results to a socket whose client is gone, so it
+  // never reaches a point where a cancel is honoured. DROP DATABASE waits on
+  // it. WITH (FORCE) waits on it too, because FORCE still has to terminate that
+  // backend. And statement_timeout does not govern that wait: a ten-second
+  // budget was observed sitting there for nearly four minutes.
   //
-  // So the drop gets ten seconds and then gives up. The database it could not
-  // remove lives inside an embedded server that is destroyed when this run
-  // ends, so leaving it costs a few megabytes for a few minutes. Blocking the
-  // whole gate to reclaim them is much the worse trade.
-  const dropDatabase = async database => {
-    try {
-      await admin.query("SET statement_timeout = '10s'");
-      await admin.query(`DROP DATABASE IF EXISTS "${database}" WITH (FORCE)`);
-    } catch {
-      console.error(`test:postgres-real — could not drop ${database}: a suite left a backend that cannot be terminated. Continuing.`);
-    } finally {
-      await admin.query('SET statement_timeout = 0').catch(() => {});
-    }
-  };
+  // Each attempt put the hang back one layer above the layer the per-test
+  // timeout had just fixed. These databases live inside an embedded server that
+  // is torn down when this run ends, so there is nothing here worth reclaiming.
+  // A disposable server does not need housekeeping, and paying for it with an
+  // unbounded wait is how a gate stops reporting.
+
 
   const admin = new Client({ connectionString: url });
   await admin.connect();
@@ -95,7 +87,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     // A name derived from the file, so a leftover database after a crash says
     // which suite left it.
     const database = `ubpg_${index}_${file.replace(/[^a-z0-9]+/gi, '_').slice(-40).toLowerCase()}`;
-    await dropDatabase(database);
     await admin.query(`CREATE DATABASE "${database}"`);
     const fileUrl = new URL(url);
     fileUrl.pathname = `/${database}`;
@@ -112,7 +103,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     if (run.status !== 0) { failed += 1; failures.push(file); }
     // Dropped immediately: these accumulate one per suite, and a server left
     // holding forty test databases is a slower server for the next run.
-    await dropDatabase(database);
   }
   await admin.end();
 

@@ -2,9 +2,9 @@
 
 **This file is the canonical present-tense software/commercial state.** Historical detail from the pre-checkpoint version is preserved byte-for-byte under `docs/archive/2026-08-30-pre-checkpoint/`. Repository code and newer exact external evidence still outrank this prose.
 
-Last reconciled: **2026-09-01**
-Branch: `main`
-Reconciled from current head: `3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84`
+Last reconciled: **2026-09-02**
+Branch: `claude/uberbond-ragnarok-closure-pek0g6`
+Reconciled from current head: `2e5b74a1666871c627f8136e7c5c5042d9eb442f`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 

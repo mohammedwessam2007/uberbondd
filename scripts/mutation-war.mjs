@@ -1052,6 +1052,77 @@ export const MUTATIONS = [
     find: "  if (/(?:^|[\\s`|;&(])(?:npx|bunx|pnpm\\s+dlx|yarn\\s+dlx)\\s+[^\\s`]/im.test(corpus)) findings.push({ code: 'remote-package-execution', severity: 'HIGH' });",
     replace: '',
     suites: ['tests/capability-genome-body-normalize.test.mjs']
+  },
+  // ---- Convergence: the rules this merge decided, held down --------------
+  {
+    id: 'CONV-01', guard: 'Caller-asserted provider state cannot open a LIVE route',
+    file: 'src/free-first-outreach-router.mjs',
+    find: "  if (mode === 'LIVE') {\n    if (explicit) {",
+    replace: "  if (mode === 'LIVE') {\n    if (false) {",
+    suites: ['tests/night-convergence-runtime.test.mjs', 'tests/free-first-outreach-router.test.mjs']
+  },
+  {
+    id: 'CONV-02', guard: 'The gateway reads AI_GATEWAY_*, never a prefix derived from its id',
+    file: 'src/agent-model-executor-factory.mjs',
+    find: "    prefix: 'AI_GATEWAY',",
+    replace: "    prefix: 'AI-GATEWAY',",
+    suites: ['tests/night-convergence-runtime.test.mjs']
+  },
+  {
+    id: 'CONV-03', guard: 'Negative pricing is not pricing evidence',
+    file: 'src/agent-model-executor-factory.mjs',
+    find: '  if (!Number.isFinite(input) || input < 0 || !Number.isFinite(output) || output < 0 || !sourceRef || !verifiedAtRaw) return null;',
+    replace: '  if (!Number.isFinite(input) || !Number.isFinite(output) || !sourceRef || !verifiedAtRaw) return null;',
+    suites: ['tests/night-convergence-runtime.test.mjs']
+  },
+  {
+    id: 'CONV-04', guard: 'Pricing verified at an unparseable time is unverified',
+    file: 'src/agent-model-executor-factory.mjs',
+    find: '  if (!Number.isFinite(verifiedAtMs)) return null;',
+    replace: '  if (false) return null;',
+    suites: ['tests/night-convergence-runtime.test.mjs']
+  },
+  {
+    id: 'CONV-05', guard: 'A record this system generated cannot verify itself',
+    file: 'src/domain-purpose-plan.mjs',
+    find: '  const verifiable = observedProvenance && !generated && reasonCodes.length === 0 && !blocked;',
+    replace: '  const verifiable = observedProvenance && reasonCodes.length === 0 && !blocked;',
+    suites: ['tests/night-convergence-runtime.test.mjs']
+  },
+  {
+    id: 'CONV-06', guard: 'The fifth qualified conversation with no paid pilot ends the canary',
+    file: 'src/first-cash-canary-guard.mjs',
+    find: '  if (q === FIRST_CASH_MAX_QUALIFIED_CONVERSATIONS) {',
+    replace: '  if (false) {',
+    suites: ['tests/night-convergence-runtime.test.mjs']
+  },
+  {
+    id: 'CONV-07', guard: 'The first-cash offer stays bound to the canonical Lead-Path SKU',
+    file: 'src/first-cash-canary-packet.mjs',
+    find: "  name: 'White-label Lead-Path Revenue Leak Evidence Sprint',\n  sku: LEAD_PATH_SPRINT_SKU,",
+    replace: "  name: 'White-label Lead-Path Revenue Leak Evidence Sprint',\n  sku: 'some-other-sku',",
+    suites: ['tests/night-convergence-runtime.test.mjs']
+  },
+  {
+    id: 'CONV-08', guard: 'CODE_READY needs observed elapsed operation, not an absence of complaints',
+    file: 'src/founder-absence-blocker-doctor.mjs',
+    find: "    overall = proven && gaps.length === 0 ? 'CODE_READY' : 'ELAPSED_EVIDENCE_PENDING';",
+    replace: "    overall = 'CODE_READY';",
+    suites: ['tests/night-convergence-runtime.test.mjs']
+  },
+  {
+    id: 'POSTAL-409', guard: 'HTTP 409 is an ambiguous outcome, never a definite rejection',
+    file: 'src/omnia-v9/integrations/providers/postal-effect-adapter.mjs',
+    find: 'const DEFINITE_REJECTION_STATUSES = new Set([400, 401, 403, 404, 422]);',
+    replace: 'const DEFINITE_REJECTION_STATUSES = new Set([400, 401, 403, 404, 409, 422]);',
+    suites: ['tests/postal-effect-adapter.test.mjs', 'tests/postal-ragnarok-hardening.test.mjs']
+  },
+  {
+    id: 'POSTAL-ZERO', guard: 'No webhook row is not proof that nothing was submitted',
+    file: 'src/omnia-v9/integrations/providers/postal-effect-adapter.mjs',
+    find: "    if (!Array.isArray(matches) || matches.length === 0) return evidence({ businessKey, lifecycle: 'UNCERTAIN', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'zero-webhook-matches-not-proof-of-non-submission', tag: identity.tag } });",
+    replace: "    if (!Array.isArray(matches) || matches.length === 0) return evidence({ businessKey, lifecycle: 'RECONCILED_NOT_SUBMITTED', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'zero-webhook-matches', tag: identity.tag } });",
+    suites: ['tests/postal-effect-adapter.test.mjs', 'tests/postal-ragnarok-hardening.test.mjs']
   }
 ];
 

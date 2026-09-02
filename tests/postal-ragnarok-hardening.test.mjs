@@ -61,7 +61,7 @@ test('all authenticated Postal lifecycle events prove submission even when deliv
   const prepared=await adapter().prepare(intent());
   const cases=[
     ['SENT',false],['DELAYED',false],['HELD',false],['OPENED',false],['CLICKED',false],
-    ['DELIVERY_FAILED',true],['BOUNCED',true],['DNS_ERROR',true]
+    ['DELIVERY_FAILED',true],['BOUNCED',true]
   ];
   for(const [lifecycle,negativeDeliveryEvidence] of cases) {
     const row={id:'12',tag:prepared.tag,messageId:prepared.messageId,lifecycle,status:'provider-status-can-differ',provenance:'AUTHENTICATED_POSTAL_WEBHOOK'};
@@ -70,6 +70,16 @@ test('all authenticated Postal lifecycle events prove submission even when deliv
     assert.equal(result.detail.negativeDeliveryEvidence,negativeDeliveryEvidence);
     assert.equal(result.detail.status,lifecycle,'normalized authenticated lifecycle must outrank provider payload status');
   }
+
+  // DomainDNSError is not in that list, and must not be. It is an event about
+  // the sending domain's SPF/DKIM/MX records, not about this message: it can
+  // arrive when nothing was ever submitted, and reading it as acceptance would
+  // let a domain-wide misconfiguration certify a send that never happened.
+  // Postal's own payload carries no message under it. It reconciles to
+  // UNCERTAIN, which is what "we still do not know about this message" means.
+  const dnsRow={id:'12',tag:prepared.tag,messageId:prepared.messageId,lifecycle:'DNS_ERROR',status:'provider-status-can-differ',provenance:'AUTHENTICATED_POSTAL_WEBHOOK'};
+  const dns=await adapter({reconciliationLookupFn:async()=>[dnsRow]}).reconcile({businessKey:'lead-1',providerEffectIdentity:prepared.providerEffectIdentity});
+  assert.equal(dns.lifecycle,'UNCERTAIN','a domain DNS error was read as proof this message was accepted');
 });
 
 test('unknown authenticated lifecycle remains UNCERTAIN rather than fabricating rejection or acceptance',async()=>{

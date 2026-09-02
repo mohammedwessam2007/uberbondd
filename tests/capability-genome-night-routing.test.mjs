@@ -12,8 +12,24 @@ const cap = (id, atom, dependencies = []) => ({
   monetaryCost: { cents: 0 }
 });
 
+const routeBase = {
+  taskClass: 'lead-analysis',
+  configured: true,
+  revoked: false,
+  available: true,
+  securityPassed: true,
+  providerIdentityObservable: true,
+  modelId: 'm',
+  providerId: 'p',
+  taskSuccess: 0.8,
+  reliability: 0.9,
+  quality: 0.9,
+  latencyMs: 10,
+  costCents: 1
+};
+
 test('model routing cannot escape the capability bundle selected by admission/retrieval', () => {
-  const common = { taskClass: 'lead-analysis', configured: true, revoked: false, available: true, securityPassed: true, providerIdentityObservable: true, modelId: 'm', providerId: 'p', taskSuccess: 1, reliability: 1, quality: 1, latencyMs: 1, costCents: 0 };
+  const common = { ...routeBase, taskSuccess: 1, reliability: 1, quality: 1, latencyMs: 1, costCents: 0 };
   const result = routeCapabilityModel({
     taskClass: 'lead-analysis',
     allowedCapabilityIds: ['approved-selected'],
@@ -48,4 +64,45 @@ test('a dependency absent from the selected bundle remains a hard execution gap'
   assert.equal(result.ok, false);
   assert.equal(result.status, 'CAPABILITY_DEPENDENCY_GAP');
   assert.deepEqual(result.reasons.filter(x => x.status === 'DEPENDENCY_REQUIRED'), [{ id: 'a', dependency: 'missing', status: 'DEPENDENCY_REQUIRED' }]);
+});
+
+test('negative monetary cost cannot manufacture an artificially dominant route', () => {
+  const result = routeCapabilityModel({
+    taskClass: 'lead-analysis',
+    candidates: [
+      { ...routeBase, capabilityId: 'invalid-negative-cost', costCents: -1000 },
+      { ...routeBase, capabilityId: 'valid' }
+    ]
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.selected.capabilityId, 'valid');
+  assert.equal(result.alternatives.some(x => x.capabilityId === 'invalid-negative-cost'), false);
+});
+
+test('negative latency cannot manufacture an artificially dominant route', () => {
+  const result = routeCapabilityModel({
+    taskClass: 'lead-analysis',
+    candidates: [
+      { ...routeBase, capabilityId: 'invalid-negative-latency', latencyMs: -5000 },
+      { ...routeBase, capabilityId: 'valid' }
+    ]
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.selected.capabilityId, 'valid');
+  assert.equal(result.alternatives.some(x => x.capabilityId === 'invalid-negative-latency'), false);
+});
+
+test('out-of-range success, reliability, and quality metrics are not route-eligible', () => {
+  const result = routeCapabilityModel({
+    taskClass: 'lead-analysis',
+    candidates: [
+      { ...routeBase, capabilityId: 'success-over-one', taskSuccess: 10 },
+      { ...routeBase, capabilityId: 'negative-reliability', reliability: -1 },
+      { ...routeBase, capabilityId: 'quality-over-one', quality: 2 },
+      { ...routeBase, capabilityId: 'valid' }
+    ]
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.selected.capabilityId, 'valid');
+  assert.deepEqual(result.alternatives.map(x => x.capabilityId), []);
 });

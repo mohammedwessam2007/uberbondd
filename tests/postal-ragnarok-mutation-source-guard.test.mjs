@@ -11,14 +11,25 @@ test('mutation guard: HTTP 409 can never be classified as definite rejection', (
   assert.equal(/(^|\D)409(\D|$)/.test(set), false, '409 must remain UNCERTAIN because submission may have occurred');
 });
 
-test('mutation guard: post-acceptance failure events can never authorize a resend', () => {
+test('mutation guard: post-acceptance message failure events can never authorize a resend', () => {
   const submissionSet = source.match(/SUBMISSION_PROOF_STATUSES\s*=\s*new Set\(\[([\s\S]*?)\]\)/)?.[1] || '';
-  for (const required of ['DELIVERY_FAILED','MESSAGEDELIVERYFAILED','BOUNCED','MESSAGEBOUNCED','DNS_ERROR','DOMAINDNSERROR']) {
-    assert.equal(submissionSet.includes(`'${required}'`), true, `${required} must remain submission proof`);
+  for (const required of ['DELIVERY_FAILED','MESSAGEDELIVERYFAILED','BOUNCED','MESSAGEBOUNCED']) {
+    assert.equal(submissionSet.includes(`'${required}'`), true, `${required} must remain message submission proof`);
   }
   assert.match(source, /lifecycle:\s*'RECONCILED_ACCEPTED'/);
   assert.match(source, /negativeDeliveryEvidence:\s*NEGATIVE_DELIVERY_STATUSES\.has\(status\)/);
   assert.doesNotMatch(source, /\['DELIVERY_FAILED'[\s\S]*?lifecycle:\s*'RECONCILED_REJECTED'/);
+});
+
+test('mutation guard: domain DNS events can never be promoted into message submission proof', () => {
+  const submissionSet = source.match(/SUBMISSION_PROOF_STATUSES\s*=\s*new Set\(\[([\s\S]*?)\]\)/)?.[1] || '';
+  const negativeSet = source.match(/NEGATIVE_DELIVERY_STATUSES\s*=\s*new Set\(\[([\s\S]*?)\]\)/)?.[1] || '';
+  for (const forbidden of ['DNS_ERROR','DOMAINDNSERROR']) {
+    assert.equal(submissionSet.includes(`'${forbidden}'`), false, `${forbidden} is domain sender evidence, not message proof`);
+    assert.equal(negativeSet.includes(`'${forbidden}'`), false, `${forbidden} is not recipient delivery evidence`);
+  }
+  assert.match(webhookEvidenceSource, /eligibleForReconciliation\s*=\s*authenticated\s*&&\s*quarantineReason\s*==\s*null\s*&&\s*isMessageLifecycleEvent/);
+  assert.match(webhookEvidenceSource, /eligibleForSenderEvidence\s*=\s*authenticated\s*&&\s*quarantineReason\s*==\s*null\s*&&\s*isDnsEvent/);
 });
 
 test('mutation guard: normalized authenticated lifecycle outranks mutable payload status', () => {

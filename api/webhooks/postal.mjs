@@ -61,6 +61,7 @@ export function createFetchHandler(deps = {}) {
       occurrenceKey: event.occurrenceKey,
       quarantineReason: event.quarantineReason,
       reconciliationRequired: event.eligibleForReconciliation === true,
+      senderEvidenceAvailable: event.eligibleForSenderEvidence === true,
       businessEffectAuthority: 'NONE'
     }, 200);
   };

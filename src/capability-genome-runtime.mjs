@@ -3,7 +3,7 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { normalizeCapability } from './capability-genome-schema.mjs';
 import { admitCapability } from './capability-genome-admission.mjs';
 
-export const CAPABILITY_GENOME_RUNTIME_VERSION = 'capability-genome-runtime-1.0.2';
+export const CAPABILITY_GENOME_RUNTIME_VERSION = 'capability-genome-runtime-1.0.3';
 
 function clone(value) { return structuredClone(value); }
 function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'); }
@@ -63,6 +63,48 @@ function compatibility(capability, selectedIds) {
   return { ok: true };
 }
 
+function dependencyCycles(selected) {
+  const byId = new Map(selected.map(item => [item.capability.id, item.capability]));
+  const visiting = new Set();
+  const visited = new Set();
+  const stack = [];
+  const cycleKeys = new Set();
+  const cycles = [];
+
+  function recordCycle(target) {
+    const start = stack.lastIndexOf(target);
+    const path = start >= 0 ? [...stack.slice(start), target] : [target, target];
+    const members = [...new Set(path.slice(0, -1))].sort();
+    const key = members.join('|');
+    if (!cycleKeys.has(key)) {
+      cycleKeys.add(key);
+      cycles.push({ status: 'DEPENDENCY_CYCLE', members, path });
+    }
+  }
+
+  function visit(id) {
+    if (visited.has(id)) return;
+    if (visiting.has(id)) {
+      recordCycle(id);
+      return;
+    }
+    visiting.add(id);
+    stack.push(id);
+    const capability = byId.get(id);
+    for (const dependency of capability?.dependencies || []) {
+      if (!byId.has(dependency)) continue;
+      if (visiting.has(dependency)) recordCycle(dependency);
+      else visit(dependency);
+    }
+    stack.pop();
+    visiting.delete(id);
+    visited.add(id);
+  }
+
+  for (const id of byId.keys()) visit(id);
+  return cycles.sort((a, b) => a.members.join('|').localeCompare(b.members.join('|')));
+}
+
 export function selectMinimumCapabilityBundle({ requiredAtomIds = [], retrievalResults = [], maxBundleSize = 12 } = {}) {
   const uncovered = new Set(requiredAtomIds.map(String));
   const selected = [];
@@ -95,8 +137,22 @@ export function selectMinimumCapabilityBundle({ requiredAtomIds = [], retrievalR
       if (!selectedIds.has(dependency)) dependencyGaps.push({ id: item.capability.id, dependency, status: 'DEPENDENCY_REQUIRED' });
     }
   }
-  reasons.push(...dependencyGaps);
-  return { ok: uncovered.size === 0 && dependencyGaps.length === 0, status: uncovered.size ? 'CAPABILITY_GAP_REMAINS' : dependencyGaps.length ? 'CAPABILITY_DEPENDENCY_GAP' : 'MINIMUM_SUFFICIENT_BUNDLE_SELECTED', selected: selected.map(item => ({ id: item.capability.id, covers: item.covers, utility: item.utility, burden: item.burden })), uncoveredAtomIds: [...uncovered].sort(), reasons, bundleDigest: digest({ selected: selected.map(item => item.capability.id), uncovered: [...uncovered], dependencyGaps }), businessEffectAuthority: 'NONE', externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS) };
+  // A dependency graph is not executable merely because every referenced ID is
+  // present. Self/circular dependency closures have no valid starting order and
+  // must never be promoted to a runnable bundle.
+  const cycles = dependencyCycles(selected);
+  reasons.push(...dependencyGaps, ...cycles);
+  const dependencyUnsafe = dependencyGaps.length > 0 || cycles.length > 0;
+  return {
+    ok: uncovered.size === 0 && !dependencyUnsafe,
+    status: uncovered.size ? 'CAPABILITY_GAP_REMAINS' : dependencyGaps.length ? 'CAPABILITY_DEPENDENCY_GAP' : cycles.length ? 'CAPABILITY_DEPENDENCY_CYCLE' : 'MINIMUM_SUFFICIENT_BUNDLE_SELECTED',
+    selected: selected.map(item => ({ id: item.capability.id, covers: item.covers, utility: item.utility, burden: item.burden })),
+    uncoveredAtomIds: [...uncovered].sort(),
+    reasons,
+    bundleDigest: digest({ selected: selected.map(item => item.capability.id), uncovered: [...uncovered], dependencyGaps, cycles }),
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS)
+  };
 }
 
 export function capabilityFitness({ expectedContributionProfitCents, taskSuccess, reliability, repeatability, founderMinuteReduction, strategicLeverage, portability, reversibility, securityDownside, failureProbability, monetaryCostCents, maintenanceBurden, contextBurden, dependencyBurden, providerLockIn, licenseRisk, blastRadius, evidenceConfidence = 0 } = {}) {
@@ -167,14 +223,14 @@ export function acquireCapability({ mission, requiredAtomIds = [], capabilities 
   if (!retrieval.ok) return retrieval;
   const bundle = selectMinimumCapabilityBundle({ requiredAtomIds, retrievalResults: retrieval.results });
   const gap = bundle.uncoveredAtomIds;
-  const dependencyGap = bundle.status === 'CAPABILITY_DEPENDENCY_GAP';
+  const dependencyGap = ['CAPABILITY_DEPENDENCY_GAP', 'CAPABILITY_DEPENDENCY_CYCLE'].includes(bundle.status);
   const selectedIds = bundle.selected.map(item => item.id);
   // A model route is not a capability promotion mechanism. Only capabilities
   // that survived retrieval/admission and were actually selected into this
   // mission's minimum bundle may become executable routes.
   const route = gap.length || dependencyGap ? null : routeCapabilityModel({ taskClass: mission, candidates: modelCandidates, allowedCapabilityIds: selectedIds });
   const status = gap.length ? 'WORLD_SEARCH_REQUIRED' : dependencyGap ? 'DEPENDENCY_RESOLUTION_REQUIRED' : route?.ok ? 'ACQUISITION_READY_FOR_BOUNDED_MISSION' : 'CAPABILITY_PRESENT_ROUTE_UNAVAILABLE';
-  return { ok: true, status, retrieval, bundle, route, next: gap.length ? { action: 'SEARCH_APPROVED_SOURCES_THEN_WORLD_CORPUS', missingAtomIds: gap } : dependencyGap ? { action: 'RESOLVE_PINNED_DEPENDENCIES_BEFORE_EXECUTION', dependencies: bundle.reasons.filter(item => item.status === 'DEPENDENCY_REQUIRED') } : route?.ok ? { action: 'EXECUTE_BOUNDED_MISSION_WITH_RECEIPT' } : { action: 'CONFIGURE_OR_SELECT_ELIGIBLE_ROUTE' }, acquisitionDigest: digest({ retrieval: retrieval.retrievalDigest, bundle: bundle.bundleDigest, route: route?.routingDigest || null }), businessEffectAuthority: 'NONE', externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS) };
+  return { ok: true, status, retrieval, bundle, route, next: gap.length ? { action: 'SEARCH_APPROVED_SOURCES_THEN_WORLD_CORPUS', missingAtomIds: gap } : dependencyGap ? { action: 'RESOLVE_PINNED_DEPENDENCIES_BEFORE_EXECUTION', dependencies: bundle.reasons.filter(item => ['DEPENDENCY_REQUIRED', 'DEPENDENCY_CYCLE'].includes(item.status)) } : route?.ok ? { action: 'EXECUTE_BOUNDED_MISSION_WITH_RECEIPT' } : { action: 'CONFIGURE_OR_SELECT_ELIGIBLE_ROUTE' }, acquisitionDigest: digest({ retrieval: retrieval.retrievalDigest, bundle: bundle.bundleDigest, route: route?.routingDigest || null }), businessEffectAuthority: 'NONE', externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS) };
 }
 
 export function capabilityExecutionReceipt({ missionId, capabilityId, capabilityRevision, modelId, providerId, permissionDecisionRef, inputClass, sideEffects = [], costCents = 0, durationMs = 0, resultRef, evidenceRefs = [], founderIntervention = false, economicOutcomeRef = null, now = new Date() } = {}) {

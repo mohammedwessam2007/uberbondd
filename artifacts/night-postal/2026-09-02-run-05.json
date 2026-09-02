@@ -25,10 +25,17 @@
   "verification": {
     "focusedWorkflowRunId": 33593197713,
     "canonicalCiRunId": 33593197707,
-    "statusAtReceipt": "QUEUED",
+    "statusAtReceipt": "ENVIRONMENT_BLOCKED_BEFORE_STEPS",
+    "focusedJob": {
+      "jobId": 100131249629,
+      "headSha": "4abfa2849db9547b08ca6b3c34e3b4d1bb6451de",
+      "runnerId": 0,
+      "stepsExecuted": 0,
+      "conclusion": "failure"
+    },
     "sourcePassesClaimed": 0,
     "sourceFailuresClaimed": 0,
-    "note": "Exact source-head workflows were queued when this receipt was written; no pass/fail is inferred until step-level execution exists."
+    "note": "The exact source-head focused workflow completed as failure without acquiring a runner: runner_id=0 and steps=[]. This is classified as environment/startup blocked, not a source-code test failure. Canonical CI also concluded failure; no source pass/fail is inferred without step-level execution."
   },
   "safety": {
     "realOutreachSent": false,
@@ -44,7 +51,7 @@
   },
   "remainingBlockers": [
     "Reconcile branch onto latest main before merge because the lane remains behind current main.",
-    "Obtain real step-level exact-head test execution; prior Actions attempts repeatedly failed before acquiring a runner.",
+    "Obtain real step-level exact-head test execution; GitHub Actions continues to fail before runner acquisition.",
     "Production sender/DNS/reputation/provider-policy readiness remains external evidence and must not be inferred from source completion."
   ]
 }

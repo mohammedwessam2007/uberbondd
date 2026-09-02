@@ -60,6 +60,20 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   console.log(`test:postgres-real — ${files.length} suites, serially, one database each, on ${url.replace(/:\/\/[^@]*@/, '://***@')}`);
 
   const { Client } = await import('pg');
+
+  // FORCE, because a timed-out suite leaves its connection behind.
+  //
+  // node:test can abandon a test that overran its timeout, but it cannot close
+  // the PostgreSQL connection that test opened, and a statement still in flight
+  // on that connection keeps running. A plain DROP DATABASE then waits for a
+  // client that will never disconnect -- which put the hang back at the runner
+  // level, one layer above the one the per-test timeout had just fixed. FORCE
+  // terminates the backends first (PostgreSQL 13+), so an overrunning suite
+  // costs its own two minutes and nothing else's.
+  const dropDatabase = async database => {
+    try { await admin.query(`DROP DATABASE IF EXISTS "${database}" WITH (FORCE)`); }
+    catch { await admin.query(`DROP DATABASE IF EXISTS "${database}"`).catch(() => {}); }
+  };
   const admin = new Client({ connectionString: url });
   await admin.connect();
 
@@ -69,7 +83,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     // A name derived from the file, so a leftover database after a crash says
     // which suite left it.
     const database = `ubpg_${index}_${file.replace(/[^a-z0-9]+/gi, '_').slice(-40).toLowerCase()}`;
-    await admin.query(`DROP DATABASE IF EXISTS "${database}"`);
+    await dropDatabase(database);
     await admin.query(`CREATE DATABASE "${database}"`);
     const fileUrl = new URL(url);
     fileUrl.pathname = `/${database}`;
@@ -86,7 +100,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     if (run.status !== 0) { failed += 1; failures.push(file); }
     // Dropped immediately: these accumulate one per suite, and a server left
     // holding forty test databases is a slower server for the next run.
-    await admin.query(`DROP DATABASE IF EXISTS "${database}"`).catch(() => {});
+    await dropDatabase(database);
   }
   await admin.end();
 

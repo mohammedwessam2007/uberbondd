@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "uberbond-night-verification-receipt-1.0.0",
+  "generatedAt": "2026-09-02T05:45:00Z",
+  "lane": "work/night-verification-20260902",
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "sourceHeads": {
+    "main": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+    "verification": "d20700f3e50e3371b88302bc1c93fd173c2019b6",
+    "postal": "1ab1c55cbe153eeb09f17ecd2387a13027df71b3",
+    "payment": "1098e05e7c4c7e75b68c585b196da1b3c86fafa6",
+    "genome": "5bfa31175180de5d17bbe385b1f15cf300d06769"
+  },
+  "exactHeadExecution": {
+    "verification": {
+      "head": "d20700f3e50e3371b88302bc1c93fd173c2019b6",
+      "ordinaryCiWorkflowRun": 33591931634,
+      "nightVerificationWorkflowRun": 33591931653,
+      "rerunAttempted": true,
+      "jobsObserved": 6,
+      "jobsWithSteps": 0,
+      "sourcePasses": 0,
+      "sourceFailures": 0,
+      "sourceSkips": 0,
+      "mutationKills": 0,
+      "environmentBlockedJobs": 6,
+      "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+    },
+    "postal": {
+      "head": "1ab1c55cbe153eeb09f17ecd2387a13027df71b3",
+      "focusedWorkflowRun": 33593269778,
+      "ciWorkflowRun": 33593269776,
+      "jobsObserved": 4,
+      "jobsWithSteps": 0,
+      "sourcePasses": 0,
+      "sourceFailures": 0,
+      "sourceSkips": 0,
+      "mutationKills": 0,
+      "environmentBlockedJobs": 4,
+      "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+    },
+    "payment": {
+      "head": "1098e05e7c4c7e75b68c585b196da1b3c86fafa6",
+      "ciWorkflowRun": 33593610658,
+      "jobsObserved": 3,
+      "jobsWithSteps": 0,
+      "sourcePasses": 0,
+      "sourceFailures": 0,
+      "sourceSkips": 0,
+      "mutationKills": 0,
+      "environmentBlockedJobs": 3,
+      "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+    },
+    "genome": {
+      "head": "5bfa31175180de5d17bbe385b1f15cf300d06769",
+      "ciWorkflowRun": 33594978435,
+      "jobsObserved": 3,
+      "jobsWithSteps": 0,
+      "sourcePasses": 0,
+      "sourceFailures": 0,
+      "sourceSkips": 0,
+      "mutationKills": 0,
+      "environmentBlockedJobs": 3,
+      "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+    }
+  },
+  "aggregateExecution": {
+    "exactHeadsObserved": 4,
+    "jobsObserved": 16,
+    "jobsWithSteps": 0,
+    "sourcePasses": 0,
+    "sourceFailures": 0,
+    "sourceSkips": 0,
+    "mutationKills": 0,
+    "environmentBlockedJobs": 16
+  },
+  "verificationScope": {
+    "requestedGates": [
+      "syntax",
+      "full deterministic",
+      "reachability ratchet",
+      "canonical mutation war",
+      "relay safety",
+      "browser",
+      "real PostgreSQL",
+      "Wallbreaker",
+      "Capability Genome",
+      "Event Horizon",
+      "security/dependency audit",
+      "git diff check",
+      "exact-SHA evidence"
+    ],
+    "executionStatus": "NOT_EXECUTED_DUE_TO_RUNNER_STARTUP_FAILURE"
+  },
+  "canonicalMutationReview": {
+    "registrationPolicy": "Do not count mutants against source absent from the verification head; register after integration and require an executed exact-head kill.",
+    "newNightGuards": {
+      "postal": [
+        "only X-Postal-Signature-256 may satisfy the SHA-256 production webhook verifier",
+        "legacy X-Postal-Signature SHA-1 alone cannot authenticate",
+        "a valid legacy signature cannot rescue an invalid SHA-256 signature",
+        "stronger authenticated lifecycle state cannot be overwritten by a later lower-rank event",
+        "BOUNCED cannot regress to DELAYED or SENT"
+      ],
+      "payment": [
+        "canonical payment truth digest must be recomputed rather than trusted from an edited summary",
+        "CLEARED_PAYMENT.evidenceRef must bind to the one canonical verified provider event",
+        "synthetic, sandbox, test-style, or subscription substitution cannot satisfy first-cash proof",
+        "required claim-boundary semantics cannot be forged or cross-bound from another payment summary",
+        "external acceptance or rejection customerRef must match the fulfilment customerRef"
+      ],
+      "genome": [
+        "self dependency cycles fail closed",
+        "multi-node dependency cycles fail closed",
+        "cyclic dependency bundles cannot be routed to execution",
+        "duplicate capability IDs or canonical identities fail health closed",
+        "stale or future-dated corpus evidence fails health closed"
+      ]
+    },
+    "classification": "POST_INTEGRATION_CANONICAL_MUTATION_BACKLOG_ADVANCED"
+  },
+  "truthRules": [
+    "Zero-step jobs are environment startup failures, not source failures.",
+    "No mutation kill is counted unless mutated source executes and the intended test fails for the intended guard.",
+    "Exact-head proof is SHA-scoped and does not transfer to a later receipt commit.",
+    "Other night branches are inspected read-only and are never overwritten by this lane.",
+    "No commercial truth changes without durable real external evidence."
+  ],
+  "nextVerificationActions": [
+    "Keep PR #321 draft until real step-level exact-head evidence exists.",
+    "When Postal, Payment, and Genome changes reach an integration candidate, add the registered high-consequence guards to the canonical mutation inventory and require executed kills.",
+    "Require exact-head PostgreSQL execution before concurrency claims and exact-head browser execution before browser-path claims.",
+    "Re-run only when an exact head advances or runner availability plausibly changes; do not manufacture repeated zero-step noise."
+  ],
+  "status": "VERIFICATION_ENVIRONMENT_BLOCKED_WITH_RUN05_MUTATION_BACKLOG_ADVANCED"
+}

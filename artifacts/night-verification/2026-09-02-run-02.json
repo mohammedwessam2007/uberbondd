@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "uberbond-night-verification-receipt-1.0.0",
+  "generatedAt": "2026-09-02T02:41:00Z",
+  "lane": "work/night-verification-20260902",
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "sourceHeads": {
+    "main": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+    "verification": "b19e82ca03fbcf9a703516fbdf06405e7b09940a",
+    "postal": "465d9faecfa5b3864e79a8b7727ee1f145ae2510",
+    "payment": "a69e3b4c7cfe45ac0bc6ca7292249fea9b9b7c32",
+    "genome": "8b6fb760ba254b213c986360a59cf25d1bdcaff5",
+    "ragnarokDonor": "b9da9939f20051e5cc73d08264fb44257d0ba496",
+    "proposalAcceptance": "19a134bd86d6d9f7acb2f63c195271808f8fbe48",
+    "runtimeNightBranch": null
+  },
+  "branchDiscovery": {
+    "runtimeNightBranchStatus": "ABSENT",
+    "claudeOvernightBranch": {
+      "name": "claude/uberbond-overnight-shift-o73nrs",
+      "head": "2d93b65d0ba881b3ec89edb317c05078bec52655",
+      "classification": "STALE_2026_08_22_NOT_CURRENT_NIGHT_WORK"
+    }
+  },
+  "exactHeadExecution": {
+    "verification": {
+      "head": "b19e82ca03fbcf9a703516fbdf06405e7b09940a",
+      "nightVerificationWorkflowRun": 33580837927,
+      "ordinaryCiWorkflowRun": 33580837969,
+      "jobsObserved": 6,
+      "jobsWithSteps": 0,
+      "jobsWithRunnerId": 0,
+      "sourcePasses": 0,
+      "sourceFailures": 0,
+      "sourceSkips": 0,
+      "mutationKills": 0,
+      "environmentBlockedJobs": 6,
+      "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+    },
+    "payment": {
+      "head": "a69e3b4c7cfe45ac0bc6ca7292249fea9b9b7c32",
+      "ciWorkflowRun": 33582326174,
+      "jobsObserved": 3,
+      "jobsWithSteps": 0,
+      "jobsWithRunnerId": 0,
+      "sourcePasses": 0,
+      "sourceFailures": 0,
+      "sourceSkips": 0,
+      "environmentBlockedJobs": 3,
+      "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+    },
+    "genome": {
+      "head": "8b6fb760ba254b213c986360a59cf25d1bdcaff5",
+      "ciWorkflowRun": 33583737591,
+      "jobsObserved": 3,
+      "jobsWithSteps": 0,
+      "jobsWithRunnerId": 0,
+      "sourcePasses": 0,
+      "sourceFailures": 0,
+      "sourceSkips": 0,
+      "environmentBlockedJobs": 3,
+      "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+    },
+    "postal": {
+      "head": "465d9faecfa5b3864e79a8b7727ee1f145ae2510",
+      "ciWorkflowRun": 33581982317,
+      "jobsObserved": 3,
+      "jobsWithSteps": 0,
+      "jobsWithRunnerId": 0,
+      "sourcePasses": 0,
+      "sourceFailures": 0,
+      "sourceSkips": 0,
+      "environmentBlockedJobs": 3,
+      "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+    }
+  },
+  "verificationScope": {
+    "canonicalWorkflowPresentOnVerificationBranch": true,
+    "requestedGates": [
+      "syntax",
+      "full deterministic",
+      "reachability ratchet",
+      "canonical mutation war",
+      "relay safety",
+      "browser",
+      "real PostgreSQL",
+      "Wallbreaker",
+      "Capability Genome",
+      "Event Horizon",
+      "capability doctors",
+      "brain/readiness",
+      "dependency audit",
+      "git diff check"
+    ],
+    "executionStatus": "NOT_EXECUTED_DUE_TO_RUNNER_STARTUP_FAILURE"
+  },
+  "canonicalMutationReview": {
+    "mainMutationScript": "scripts/mutation-war.mjs",
+    "mainAlreadyContains": [
+      "authority mutations",
+      "three-witness payment truth mutations",
+      "payment amount/currency integrity mutations",
+      "refund/reversal mutations",
+      "customer acceptance evidence mutations",
+      "provider payload minimization mutations",
+      "recovery/concurrency mutations"
+    ],
+    "newNightInvariantsNotYetEligibleForCanonicalRegistration": [
+      {
+        "branch": "work/night-postal-20260902",
+        "reason": "Postal source files and tests are not on main or the verification branch yet",
+        "candidateGuards": [
+          "HTTP 409 remains UNCERTAIN",
+          "authenticated webhook provenance",
+          "Message-ID mismatch remains ambiguous",
+          "bounce is negative delivery evidence rather than successful delivery",
+          "NOT_FOUND cannot auto-release uncertain effect"
+        ]
+      },
+      {
+        "branch": "work/night-payment-20260902",
+        "reason": "First-cash guard and fulfillment source files are not on main or the verification branch yet",
+        "candidateGuards": [
+          "PayPal Sandbox is economically ineligible",
+          "Lead-Path fulfilment requires exact canonical payment truth",
+          "CUSTOMER_SILENT cannot become COMPLETE",
+          "sixth qualified conversation after no paid pilot is blocked"
+        ]
+      },
+      {
+        "branch": "work/night-genome-20260902",
+        "reason": "Night Genome routing changes are not on main or the verification branch yet",
+        "candidateGuards": [
+          "runtime route must be admitted and selected in mission bundle",
+          "dependency closure evaluated after bundle construction",
+          "malformed negative cost or latency cannot dominate routing",
+          "out-of-range quality/reliability/success telemetry cannot manufacture a winner"
+        ]
+      }
+    ],
+    "classification": "MUTATION_BACKLOG_IDENTIFIED_BUT_NOT_REGISTERED_AGAINST_ABSENT_SOURCE"
+  },
+  "activePrSnapshot": [
+    {"pr": 321, "head": "b19e82ca03fbcf9a703516fbdf06405e7b09940a", "role": "verification", "draft": true},
+    {"pr": 320, "head": "8b6fb760ba254b213c986360a59cf25d1bdcaff5", "role": "genome", "draft": true},
+    {"pr": 319, "head": "a69e3b4c7cfe45ac0bc6ca7292249fea9b9b7c32", "role": "payment", "draft": true},
+    {"pr": 318, "head": "19a134bd86d6d9f7acb2f63c195271808f8fbe48", "role": "proposal-acceptance", "draft": true},
+    {"pr": 317, "head": "465d9faecfa5b3864e79a8b7727ee1f145ae2510", "role": "postal", "draft": true},
+    {"pr": 315, "head": "b9da9939f20051e5cc73d08264fb44257d0ba496", "role": "ragnarok-donor", "draft": true}
+  ],
+  "truthRules": [
+    "An environment startup failure is not a source failure.",
+    "A job with zero steps and runner_id 0 does not establish a test pass, test fail, skip count, or mutation kill.",
+    "Branch-local test prose is not exact-head executable proof.",
+    "Mutation guards are not registered against source files absent from the verification head merely to inflate inventory counts.",
+    "No commercial truth changes without real external evidence."
+  ],
+  "nextVerificationActions": [
+    "Retry the exact verification head when GitHub-hosted runner capacity resumes.",
+    "After Postal, Payment, or Genome changes are integrated into a candidate head, register their high-consequence invariants in scripts/mutation-war.mjs and require canonical kills.",
+    "Require exact-head real-PostgreSQL execution before making concurrency claims.",
+    "Keep PR #321 draft until at least one complete exact-head execution produces real step-level evidence."
+  ],
+  "status": "VERIFICATION_ENVIRONMENT_BLOCKED_WITH_FRESH_EXACT_HEAD_RECEIPT"
+}

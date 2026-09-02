@@ -1,0 +1,178 @@
+{
+  "schemaVersion": "uberbond-night-verification-receipt-1.0.0",
+  "run": 7,
+  "recordedAt": "2026-09-02T07:47:00Z",
+  "branch": "work/night-verification-20260902",
+  "mainObserved": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "verificationChange": {
+    "sourceHead": "d23ea412d533eda0b7ed00e6baf4eea3a67ea00c",
+    "scope": "verification-only",
+    "productBehaviorChanged": false,
+    "files": [
+      "scripts/night-verification-mutation-extension.mjs",
+      ".github/workflows/night-verification.yml"
+    ],
+    "mutationExtension": [
+      {
+        "id": "WALL-01",
+        "guard": "An uncertain provider outcome cannot regain identical-retry eligibility",
+        "suite": "tests/wallbreaker-retry-safety.test.mjs",
+        "status": "UNEXECUTED_ENVIRONMENT_BLOCKED"
+      },
+      {
+        "id": "WALL-02",
+        "guard": "Unsafe provider failures explicitly forbid blind identical retry",
+        "suite": "tests/wallbreaker-retry-safety.test.mjs",
+        "status": "UNEXECUTED_ENVIRONMENT_BLOCKED"
+      },
+      {
+        "id": "WALL-03",
+        "guard": "Authority blocks forbid permission circumvention and terms bypass",
+        "suite": "tests/wallbreaker.test.mjs",
+        "status": "UNEXECUTED_ENVIRONMENT_BLOCKED"
+      }
+    ]
+  },
+  "exactHeadEvidence": [
+    {
+      "branch": "work/night-verification-20260902",
+      "headSha": "d23ea412d533eda0b7ed00e6baf4eea3a67ea00c",
+      "workflowRuns": [33605182985, 33605183069],
+      "jobsObserved": 6,
+      "jobsWithExecutedSteps": 0,
+      "environmentBlockedJobs": 6,
+      "sourcePass": 0,
+      "sourceFail": 0,
+      "sourceSkip": 0,
+      "mutationKills": 0,
+      "classification": "ENVIRONMENT_STARTUP_BLOCKED",
+      "evidence": "All six jobs completed with steps=[] and runner_id=0. The new Wallbreaker mutations therefore have no kill/survival verdict."
+    },
+    {
+      "branch": "work/night-postal-20260902",
+      "headSha": "417fcec2f0b144c65ddf7b76cf9cad4c267f574b",
+      "workflowRuns": [33602005895, 33602005720],
+      "jobsObserved": 4,
+      "jobsWithExecutedSteps": 0,
+      "environmentBlockedJobs": 4,
+      "sourcePass": 0,
+      "sourceFail": 0,
+      "sourceSkip": 0,
+      "mutationKills": 0,
+      "classification": "ENVIRONMENT_STARTUP_BLOCKED"
+    },
+    {
+      "branch": "work/night-payment-20260902",
+      "headSha": "998b137aa1b35460d07d9064ea101c0bbe8da1ec",
+      "workflowRuns": [33602882470],
+      "jobsObserved": 3,
+      "jobsWithExecutedSteps": 0,
+      "environmentBlockedJobs": 3,
+      "sourcePass": 0,
+      "sourceFail": 0,
+      "sourceSkip": 0,
+      "mutationKills": 0,
+      "classification": "ENVIRONMENT_STARTUP_BLOCKED",
+      "readOnlyFinding": "Run 07 implements product/SKU binding discovered by verification Run 06, but exact-head execution remains unproven."
+    },
+    {
+      "branch": "work/night-genome-20260902",
+      "headSha": "4e90710266b4b06f38db3d74d34429ea8acdfe97",
+      "workflowRuns": [33604324788],
+      "jobsObserved": 3,
+      "jobsWithExecutedSteps": 0,
+      "environmentBlockedJobs": 3,
+      "sourcePass": 0,
+      "sourceFail": 0,
+      "sourceSkip": 0,
+      "mutationKills": 0,
+      "classification": "ENVIRONMENT_STARTUP_BLOCKED",
+      "readOnlyFinding": "Run 07 adds current-state execution admission, direct/dependency revocation refusal, revision/staleness checks and route binding; none are promoted to verified green."
+    }
+  ],
+  "aggregateObservedNightHeads": {
+    "jobsObserved": 16,
+    "jobsWithExecutedSteps": 0,
+    "environmentBlockedJobs": 16,
+    "sourcePass": 0,
+    "sourceFail": 0,
+    "sourceSkip": 0,
+    "mutationKills": 0
+  },
+  "postIntegrationCanonicalMutationBacklog": [
+    {
+      "id": "MONEY-28",
+      "target": "src/payment-renewal-truth.mjs",
+      "guard": "Verified first-payment product identity must be three-witness bound and included in canonical truthDigest/claim boundary",
+      "requiredKillSuite": "tests/night-payment-truth.test.mjs"
+    },
+    {
+      "id": "MONEY-29",
+      "target": "src/lead-path-sprint-fulfillment.mjs",
+      "guard": "A valid USD 450 cleared payment for the wrong product/SKU must not unlock Lead-Path fulfilment",
+      "requiredKillSuite": "tests/night-payment-truth.test.mjs"
+    },
+    {
+      "id": "GENOME-04",
+      "target": "src/capability-genome-execution-admission.mjs",
+      "guard": "Execution requires fresh current-state capability admission rather than a stale selected bundle",
+      "requiredKillSuite": "tests/capability-genome-execution-admission.test.mjs"
+    },
+    {
+      "id": "GENOME-05",
+      "target": "src/capability-genome-execution-admission.mjs",
+      "guard": "Direct or dependency revocation must fail closed",
+      "requiredKillSuite": "tests/capability-genome-execution-admission.test.mjs"
+    },
+    {
+      "id": "GENOME-06",
+      "target": "src/capability-genome-execution-admission.mjs",
+      "guard": "Revision drift, stale state and route escape must remain execution-ineligible",
+      "requiredKillSuite": "tests/capability-genome-execution-admission.test.mjs"
+    },
+    {
+      "id": "POSTAL-01",
+      "target": "src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs",
+      "guard": "DomainDNSError remains domain-level sender-health evidence only and cannot become message/delivery/business-effect proof",
+      "requiredKillSuite": "tests/postal-sender-evidence-consumer.test.mjs"
+    },
+    {
+      "id": "POSTAL-02",
+      "target": "src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs",
+      "guard": "Authenticated evidence may only pause exact-domain connected sender slots and cannot auto-unpause them",
+      "requiredKillSuite": "tests/postal-sender-evidence-consumer.test.mjs"
+    }
+  ],
+  "gateCoverage": {
+    "syntax": "WIRED_UNEXECUTED",
+    "fullDeterministic": "WIRED_UNEXECUTED",
+    "reachability": "WIRED_UNEXECUTED",
+    "canonicalMutationWar": "WIRED_UNEXECUTED",
+    "wallbreakerMutationExtension": "WIRED_UNEXECUTED",
+    "relaySafety": "WIRED_UNEXECUTED",
+    "wallbreaker": "WIRED_UNEXECUTED",
+    "capabilityGenome": "WIRED_UNEXECUTED",
+    "eventHorizon": "WIRED_UNEXECUTED",
+    "capabilityDoctor": "WIRED_UNEXECUTED",
+    "capabilityGenomeDoctor": "WIRED_UNEXECUTED",
+    "brainBootstrap": "WIRED_UNEXECUTED",
+    "systemReadiness": "WIRED_UNEXECUTED",
+    "securityAudit": "WIRED_UNEXECUTED",
+    "gitDiffCheck": "WIRED_UNEXECUTED",
+    "browser": "WIRED_UNEXECUTED",
+    "realPostgres": "WIRED_UNEXECUTED"
+  },
+  "truthRules": [
+    "Environment startup failures are not source failures.",
+    "A zero-step job cannot kill or prove survival of a mutation.",
+    "Another branch's implementation claim is read-only evidence until its exact head executes the relevant gates.",
+    "Commercial truth is not upgraded by code, tests, sandbox payment, research, or internal receipts."
+  ],
+  "status": "VERIFICATION_ADVANCED_ENVIRONMENT_BLOCKED"
+}

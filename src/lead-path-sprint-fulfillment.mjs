@@ -2,14 +2,16 @@ import crypto from 'node:crypto';
 import { compileFulfillmentPlan, applyFulfillmentEvent } from './service-fulfillment.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const LEAD_PATH_SPRINT_FULFILLMENT_VERSION = 'uberbond.lead-path-sprint-fulfillment-1.6.0';
+export const LEAD_PATH_SPRINT_FULFILLMENT_VERSION = 'uberbond.lead-path-sprint-fulfillment-1.7.0';
 export const LEAD_PATH_SPRINT_PRICE = Object.freeze({ amountCents: 45000, currency: 'USD' });
+export const LEAD_PATH_SPRINT_SKU = 'lead-path-revenue-leak-evidence-sprint-usd-450';
 export const LEAD_PATH_SPRINT_STATES = Object.freeze([
   'PAID','INPUT_READY','ANALYSIS_RUNNING','QA_REQUIRED','QA_PASSED','DELIVERY_READY','DELIVERED',
   'CUSTOMER_ACCEPTED','CUSTOMER_REJECTED','CUSTOMER_SILENT','SUPPORT_WINDOW','COMPLETE'
 ]);
 
 const CANONICAL_CLEARED_PAYMENT_BOUNDARY = 'SIGNED_PROVIDER_CALLBACK_PLUS_CLEARED_CLASSIFICATION_PLUS_LEDGER_MATCH';
+const CANONICAL_PRODUCT_BOUNDARY = 'THREE_WITNESS_PRODUCT_MATCH';
 const CANONICAL_RETAINED_REVENUE_BOUNDARY = 'PROVIDER_CLEARED_AND_NOT_REVERSED';
 const clone = value => structuredClone(value);
 const text = (value, max = 240) => String(value ?? '').trim().slice(0, max);
@@ -38,6 +40,7 @@ export function canonicalPaymentTruthDigest(truth = {}) {
     leadId: truth?.leadId,
     stages: truth?.stages,
     economics: truth?.economics,
+    verifiedFirstPaymentProduct: truth?.verifiedFirstPaymentProduct,
     verifiedProviderEventRefs: truth?.verifiedProviderEventRefs,
     contradictions: truth?.contradictions,
     claimBoundary: truth?.claimBoundary
@@ -48,6 +51,7 @@ export function validateCanonicalSprintPaymentTruth(truth = {}, { paymentLeadId 
   const reasons = [];
   const expectedLeadId = text(paymentLeadId, 200);
   const canonicalLeadId = text(truth?.leadId, 200);
+  const canonicalProduct = text(truth?.verifiedFirstPaymentProduct, 200);
   const truthDigest = text(truth?.truthDigest, 128).toLowerCase();
   const providerRefs = Array.isArray(truth?.verifiedProviderEventRefs)
     ? truth.verifiedProviderEventRefs.map(value => text(value, 400)).filter(Boolean)
@@ -73,7 +77,9 @@ export function validateCanonicalSprintPaymentTruth(truth = {}, { paymentLeadId 
   if (providerRefs.length !== 1) reasons.push('exactly-one-verified-provider-event-ref-required');
   if (providerRef && !validFirstCashProviderEventRef(providerRef)) reasons.push('first-cash-provider-event-must-be-live-one-time-order-created');
   if (providerRef && clearedEvidenceRef !== `payment:${providerRef}`) reasons.push('cleared-payment-stage-ref-must-match-provider-event');
+  if (canonicalProduct !== LEAD_PATH_SPRINT_SKU) reasons.push('canonical-payment-product-mismatch');
   if (text(truth?.claimBoundary?.clearedPayment, 160) !== CANONICAL_CLEARED_PAYMENT_BOUNDARY) reasons.push('canonical-three-witness-claim-boundary-required');
+  if (text(truth?.claimBoundary?.paymentProduct, 160) !== CANONICAL_PRODUCT_BOUNDARY) reasons.push('canonical-three-witness-product-boundary-required');
   if (text(truth?.claimBoundary?.retainedRevenue, 160) !== CANONICAL_RETAINED_REVENUE_BOUNDARY) reasons.push('canonical-retained-revenue-claim-boundary-required');
   if (Number(truth?.economics?.verifiedReversalCount) !== 0) reasons.push('verified-reversal-cannot-unlock-fulfillment');
   if (Number(truth?.economics?.unverifiedReversalCents) > 0) reasons.push('unverified-reversal-requires-review');
@@ -86,6 +92,7 @@ export function validateCanonicalSprintPaymentTruth(truth = {}, { paymentLeadId 
       truthDigest,
       leadId:canonicalLeadId,
       status:truth.status,
+      product:canonicalProduct,
       providerEventRef:providerRefs[0],
       amountCents:truth?.economics?.netProviderClearedRevenueCents,
       currency:truth?.economics?.currency,
@@ -115,7 +122,7 @@ export function createLeadPathSprint({ customerRef, paymentLeadId, canonicalPaym
   const payment = validateCanonicalSprintPaymentTruth(canonicalPaymentTruth, { paymentLeadId });
   if (!payment.ok) return fail(payment.reasonCodes);
   const plan = compileFulfillmentPlan({
-    serviceSkuId:'lead-path-revenue-leak-evidence-sprint-usd-450',
+    serviceSkuId:LEAD_PATH_SPRINT_SKU,
     customerRef,
     requirements:['customer-provided lead-path inputs','agency context and downstream client scope'],
     acceptanceCriteria:['evidence packet delivered','findings traceable to supplied or observed evidence','scope remains fixed'],

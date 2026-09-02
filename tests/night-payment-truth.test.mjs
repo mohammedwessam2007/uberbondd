@@ -4,7 +4,8 @@ import {
   canonicalPaymentTruthDigest,
   validateCanonicalSprintPaymentTruth,
   createLeadPathSprint,
-  advanceLeadPathSprint
+  advanceLeadPathSprint,
+  LEAD_PATH_SPRINT_SKU
 } from '../src/lead-path-sprint-fulfillment.mjs';
 import { evaluateFirstCashCanary } from '../src/first-cash-canary-guard.mjs';
 
@@ -17,6 +18,7 @@ const baseCanonicalTruth = {
     CLEARED_PAYMENT:{ status:'PROVEN', evidenceRef:'payment:order_created:evt-450' },
     PAYMENT_RETAINED:{ status:'PROVEN', evidenceRef:null }
   },
+  verifiedFirstPaymentProduct:LEAD_PATH_SPRINT_SKU,
   verifiedProviderEventRefs:['order_created:evt-450'],
   contradictions:[],
   economics:{
@@ -32,6 +34,7 @@ const baseCanonicalTruth = {
     leadPaidBoolean:'NOT_PAYMENT_PROOF',
     revenueEventRow:'NOT_PAYMENT_PROOF_ALONE',
     clearedPayment:'SIGNED_PROVIDER_CALLBACK_PLUS_CLEARED_CLASSIFICATION_PLUS_LEDGER_MATCH',
+    paymentProduct:'THREE_WITNESS_PRODUCT_MATCH',
     customerAcceptance:'NOT_PROVEN',
     renewal:'NOT_PROVEN',
     retainedRevenue:'PROVIDER_CLEARED_AND_NOT_REVERSED'
@@ -95,6 +98,9 @@ test('internally re-digested synthetic or cross-field-inconsistent payment summa
       claimBoundary:{ ...baseCanonicalTruth.claimBoundary, clearedPayment:'MODEL_ASSERTED_PAYMENT' }
     },
     {
+      claimBoundary:{ ...baseCanonicalTruth.claimBoundary, paymentProduct:'MODEL_ASSERTED_PRODUCT' }
+    },
+    {
       claimBoundary:{ ...baseCanonicalTruth.claimBoundary, retainedRevenue:'ASSUMED_RETAINED' }
     }
   ];
@@ -103,6 +109,26 @@ test('internally re-digested synthetic or cross-field-inconsistent payment summa
     const result = create(truth);
     assert.equal(result.ok, false, JSON.stringify(mutation));
   }
+});
+
+test('valid $450 cleared truth for the wrong or unproven product cannot unlock the Lead-Path sprint', () => {
+  const wrongProduct = withDigest({
+    ...baseCanonicalTruth,
+    verifiedFirstPaymentProduct:'some-other-usd-450-product'
+  });
+  const wrong = create(wrongProduct);
+  assert.equal(wrong.ok, false);
+  assert.ok(wrong.reasonCodes.includes('canonical-payment-product-mismatch'));
+
+  const missingProduct = withDigest({
+    ...baseCanonicalTruth,
+    verifiedFirstPaymentProduct:null,
+    claimBoundary:{ ...baseCanonicalTruth.claimBoundary, paymentProduct:'NOT_PROVEN' }
+  });
+  const missing = create(missingProduct);
+  assert.equal(missing.ok, false);
+  assert.ok(missing.reasonCodes.includes('canonical-payment-product-mismatch'));
+  assert.ok(missing.reasonCodes.includes('canonical-three-witness-product-boundary-required'));
 });
 
 test('pending, contradicted, refunded, wrong amount, wrong currency, unverified, aggregated, renewal, and unbound canonical truth cannot start paid fulfilment even with internally consistent digests', () => {
@@ -136,11 +162,12 @@ test('missing requested lead binding cannot unlock fulfilment even with otherwis
   assert.ok(result.reasonCodes.includes('payment-lead-id-required'));
 });
 
-test('exact one-event canonical $450 USD retained truth can compile paid sprint without creating accepted delivery', () => {
+test('exact one-event canonical $450 USD retained truth for the exact Lead-Path SKU can compile paid sprint without creating accepted delivery', () => {
   const result = create();
   assert.equal(result.ok, true);
   assert.equal(result.status, 'PAID');
   assert.equal(result.paymentLeadId, 'lead-customer-1');
+  assert.equal(result.fulfillmentState.serviceSkuId, LEAD_PATH_SPRINT_SKU);
   assert.equal(result.commercialDeliveryCount, 0);
   assert.match(result.canonicalPaymentTruthRef, /^payment-truth:[a-f0-9]{64}$/);
 });

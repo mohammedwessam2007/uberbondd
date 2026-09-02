@@ -7,12 +7,21 @@
 // them -- they are about what two real connections do to one real row -- so
 // they had never been executed at all.
 //
-// Serially, and deliberately. `node --test` runs files in parallel, and these
-// files share one database, one set of tables and one migration path. Run in
-// parallel they interfere with each other and fail intermittently in ways that
-// have nothing to do with the code under test; run serially they are stable.
-// A gate that is only trustworthy at a particular concurrency should say so in
-// the command rather than in somebody's memory.
+// Serially, and each in its own database.
+//
+// Serial execution alone was not enough. These suites recover *stuck* rows, and
+// they find them by sweeping the shared tables with deliberately broad limits
+// (1000, 500, 50) -- which is right, because in production a recovery worker
+// does not know which rows are its own. Pointed at one shared database, a later
+// suite's recovery worker claims rows an earlier suite left behind, and
+// "two concurrent recovery workers converge on exactly one outcome" fails with
+// neither worker claiming its row. That failure was recorded once before and
+// attributed to file-level parallelism; it reproduces at --test-concurrency=1,
+// so parallelism was not the cause. Sharing the database was.
+//
+// So each file gets a freshly created database on the same server. Suites can
+// then sweep as broadly as production does without seeing anything but their
+// own rows, and a failure means what it says.
 //
 // Usage:
 //   OMNIA_V9_TEST_DATABASE_URL=postgres://user:pass@host:port/db npm run test:postgres-real
@@ -48,18 +57,44 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.error('\nWithout it these suites skip themselves, and a skipped gate proves nothing.');
     process.exit(2);
   }
-  console.log(`test:postgres-real — ${files.length} suites, serially, against ${url.replace(/:\/\/[^@]*@/, '://***@')}`);
-  // Every test in this gate is bounded, because this gate has hung rather than
-  // failed. A PostgreSQL backend can end up asleep in sock_alloc_send_pskb --
-  // blocked writing results to a client that has stopped draining the socket --
-  // while every Node process in the tree sits idle in ep_poll. Nothing is
-  // burning CPU, nothing holds a lock, and no side times the other out, so the
-  // run simply stops. It happened in at least two unrelated suites, and a stale
-  // runner was found still sitting in one of them ten hours later.
-  //
-  // Two minutes is far longer than any suite here needs and short enough that a
-  // stall is reported the same day. A gate that cannot finish is worth less than
-  // no gate: it looks like evidence and produces none.
-  const run = spawnSync(process.execPath, ['--test', '--test-concurrency=1', '--test-timeout=120000', ...files], { cwd: repoRoot, stdio: 'inherit' });
-  process.exit(run.status ?? 1);
+  console.log(`test:postgres-real — ${files.length} suites, serially, one database each, on ${url.replace(/:\/\/[^@]*@/, '://***@')}`);
+
+  const { Client } = await import('pg');
+  const admin = new Client({ connectionString: url });
+  await admin.connect();
+
+  let failed = 0;
+  const failures = [];
+  for (const [index, file] of files.entries()) {
+    // A name derived from the file, so a leftover database after a crash says
+    // which suite left it.
+    const database = `ubpg_${index}_${file.replace(/[^a-z0-9]+/gi, '_').slice(-40).toLowerCase()}`;
+    await admin.query(`DROP DATABASE IF EXISTS "${database}"`);
+    await admin.query(`CREATE DATABASE "${database}"`);
+    const fileUrl = new URL(url);
+    fileUrl.pathname = `/${database}`;
+
+    const run = spawnSync(
+      process.execPath,
+      ['--test', '--test-concurrency=1', '--test-timeout=120000', file],
+      {
+        cwd: repoRoot,
+        stdio: 'inherit',
+        env: { ...process.env, OMNIA_V9_TEST_DATABASE_URL: fileUrl.toString(), DATABASE_URL: fileUrl.toString() }
+      }
+    );
+    if (run.status !== 0) { failed += 1; failures.push(file); }
+    // Dropped immediately: these accumulate one per suite, and a server left
+    // holding forty test databases is a slower server for the next run.
+    await admin.query(`DROP DATABASE IF EXISTS "${database}"`).catch(() => {});
+  }
+  await admin.end();
+
+  if (failures.length) {
+    console.error(`\ntest:postgres-real — ${failures.length} of ${files.length} suites failed:`);
+    for (const file of failures) console.error(`  ${file}`);
+  } else {
+    console.log(`\ntest:postgres-real — ${files.length} suites passed.`);
+  }
+  process.exit(failed ? 1 : 0);
 }

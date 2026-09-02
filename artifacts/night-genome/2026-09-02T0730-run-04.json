@@ -26,6 +26,16 @@
     "economic fitness boundary consistency",
     "license evidence freshness"
   ],
-  "verificationStatus": "SOURCE_CHANGE_COMMITTED__EXACT_HEAD_CI_PENDING",
+  "verificationStatus": "EXACT_HEAD_CI_ENVIRONMENT_STARTUP_FAILURE__NO_SOURCE_TEST_RESULT",
+  "verification": {
+    "headSha": "90ac406570c4fa6dad631420e1b49fc50a76d6cf",
+    "workflowRunId": 33591252226,
+    "jobs": [
+      {"name": "browser", "conclusion": "failure", "stepsRecorded": 0},
+      {"name": "deterministic", "conclusion": "failure", "stepsRecorded": 0},
+      {"name": "postgres", "conclusion": "failure", "stepsRecorded": 0}
+    ],
+    "classification": "ENVIRONMENT_OR_RUNNER_STARTUP_FAILURE_NOT_SOURCE_FAILURE"
+  },
   "businessEffectAuthority": "NONE"
 }

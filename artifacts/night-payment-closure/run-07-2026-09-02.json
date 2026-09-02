@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "uberbond-night-payment-closure-run-07-1.0.0",
+  "project": "UberBond",
+  "lane": "canonical-payment-first-cash",
+  "branch": "work/night-payment-20260902",
+  "sourceHead": "4aa02802f5aae3695d0796b88a8769fdd18b10d5",
+  "latestMainObserved": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "closedDefect": {
+    "severity": "P1",
+    "name": "first-cash payment-to-product binding",
+    "priorFailure": "A canonical USD 450 cleared payment could satisfy amount, currency, lead, retained-payment, provider-event and digest gates without proving that the three payment witnesses bound that payment to the Lead-Path sprint SKU.",
+    "repair": [
+      "The existing canonical payment-renewal reconciler now derives verifiedFirstPaymentProduct only when revenue ledger, provider order and cleared-classification receipt all carry the same non-empty product identity.",
+      "verifiedFirstPaymentProduct is part of canonical truthDigest.",
+      "claimBoundary.paymentProduct reports THREE_WITNESS_PRODUCT_MATCH only when that product binding is proven.",
+      "The first-cash fulfilment validator requires the exact lead-path-revenue-leak-evidence-sprint-usd-450 SKU and the canonical three-witness product boundary.",
+      "The canonical payment-truth reference also binds the verified product identity."
+    ]
+  },
+  "hostileCoverage": [
+    "wrong but internally re-digested USD 450 product cannot unlock fulfilment",
+    "missing product proof cannot unlock fulfilment",
+    "forged product claim boundary cannot unlock fulfilment",
+    "existing sandbox/synthetic provider-ref separation remains enforced",
+    "existing exact amount/currency/one-event/retained-payment/reversal/refund/renewal/lead-scope gates remain enforced",
+    "existing customer-bound acceptance and five-conversation canary gates remain enforced"
+  ],
+  "verification": {
+    "githubActionsRunId": 33602824173,
+    "githubActionsConclusion": "failure",
+    "classification": "ENVIRONMENT_STARTUP_BLOCKED",
+    "jobsObserved": 3,
+    "jobsWithExecutedSteps": 0,
+    "runnerIdObserved": 0,
+    "sourcePassClaimed": false,
+    "sourceFailureClaimed": false,
+    "localCloneAttempt": "BLOCKED_DNS_NO_GITHUB_HOST_RESOLUTION"
+  },
+  "remainingBlockers": [
+    "Execute focused and canonical tests on a functioning repository host/runner; current GitHub jobs fail before step 1 with runner_id 0 and steps=[].",
+    "Real merchant/KYC/payment-provider readiness remains external reality and is not inferred from sandbox/software.",
+    "Real buyer commitment, provider-origin cleared USD 450 payment for the exact SKU, real fulfilment and independent customer acceptance remain external commercial proof gates."
+  ],
+  "externalEffects": {
+    "realMoneyMoved": false,
+    "merchantReadinessFabricated": false,
+    "customerContacted": false,
+    "revenueTruthParallelized": false
+  }
+}

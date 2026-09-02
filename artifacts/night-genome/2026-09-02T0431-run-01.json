@@ -1,0 +1,46 @@
+{
+  "schema": "uberbond.night-genome.receipt.v1",
+  "observedAt": "2026-09-02T01:31:24Z",
+  "baseMainSha": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "lane": "work/night-genome-20260902",
+  "truthBoundary": {
+    "repositoryCandidateIsCapability": false,
+    "bodyIsCapability": false,
+    "normalizedIsApproved": false,
+    "securityClearIsApproved": false,
+    "approvedIsActive": false,
+    "commercialTruthChanged": false
+  },
+  "defectsClosed": [
+    {
+      "code": "ROUTE_BUNDLE_ESCAPE",
+      "severity": "HIGH",
+      "before": "routeCapabilityModel could select any configured model candidate after a valid bundle was chosen, including a capability that had not survived retrieval/admission or been selected for the mission",
+      "after": "acquireCapability binds routing to the IDs in the selected minimum capability bundle"
+    },
+    {
+      "code": "FALSE_DEPENDENCY_GAP",
+      "severity": "MEDIUM",
+      "before": "dependencies were recorded as missing at greedy selection time and remained missing even when selected later in the same bundle",
+      "after": "dependency closure is evaluated against the completed selected bundle"
+    }
+  ],
+  "testsAdded": [
+    "route cannot escape selected bundle",
+    "later-selected dependency resolves",
+    "absent dependency remains hard gap"
+  ],
+  "execution": {
+    "untrustedExternalCodeExecuted": false,
+    "realExternalEffects": 0,
+    "testExecutionAvailableInConnector": false,
+    "verificationStatus": "SOURCE_AND_TESTS_COMMITTED_AWAITING_CI_OR_LOCAL_RUN"
+  },
+  "nextAttack": [
+    "false BENCHMARKED to APPROVED promotion without bound benchmark evidence",
+    "stale security and benchmark evidence at routing time",
+    "duplicate identity across repository forks and package aliases",
+    "revocation propagation into already-built bundles and cached routes",
+    "economic routing that confuses priors with observed contribution profit"
+  ]
+}

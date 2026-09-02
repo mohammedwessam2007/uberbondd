@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "uberbond.night-genome.receipt.v1",
+  "run": 4,
+  "observedAt": "2026-09-02T04:30:00.000Z",
+  "branch": "work/night-genome-20260902",
+  "baseMainSha": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "truthBoundary": "repository candidate != body != normalized capability != security-clean != approved != active",
+  "changes": [
+    {
+      "class": "STALE_EVIDENCE_FAIL_CLOSED",
+      "description": "Capability Genome doctor now rejects repository-candidate, skill-body, and normalized-record corpus evidence older than 30 days or dated in the future instead of allowing stale evidence to contribute to FOUNDATION_HEALTHY."
+    }
+  ],
+  "testsAdded": [
+    "stale repository candidate corpus is unhealthy",
+    "stale skill-body corpus is unhealthy",
+    "future-dated normalized corpus is unhealthy"
+  ],
+  "untrustedExternalCodeExecuted": false,
+  "capabilitiesPromoted": 0,
+  "capabilitiesActivated": 0,
+  "commercialTruthChanged": false,
+  "nextAttackClasses": [
+    "revocation propagation",
+    "transitive and cyclic dependency safety",
+    "economic fitness boundary consistency",
+    "license evidence freshness"
+  ],
+  "verificationStatus": "EXACT_HEAD_CI_ENVIRONMENT_STARTUP_FAILURE__NO_SOURCE_TEST_RESULT",
+  "verification": {
+    "headSha": "90ac406570c4fa6dad631420e1b49fc50a76d6cf",
+    "workflowRunId": 33591252226,
+    "jobs": [
+      {"name": "browser", "conclusion": "failure", "stepsRecorded": 0},
+      {"name": "deterministic", "conclusion": "failure", "stepsRecorded": 0},
+      {"name": "postgres", "conclusion": "failure", "stepsRecorded": 0}
+    ],
+    "classification": "ENVIRONMENT_OR_RUNNER_STARTUP_FAILURE_NOT_SOURCE_FAILURE"
+  },
+  "businessEffectAuthority": "NONE"
+}

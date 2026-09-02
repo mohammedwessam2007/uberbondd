@@ -728,3 +728,81 @@ export function evaluateFounderAbsenceBlockers({
     externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
 }
+
+// ---------------------------------------------------------------------------
+// Convergence-lane API
+// ---------------------------------------------------------------------------
+
+/** The class each supplied blocker group maps to, in the order that decides. */
+const SUPPLIED_GROUP_CLASS = Object.freeze([
+  ['credentials', 'CREDENTIAL_BLOCKED'],
+  ['accounts', 'ACCOUNT_BLOCKED'],
+  ['payment', 'PAYMENT_BLOCKED'],
+  ['distribution', 'DISTRIBUTION_BLOCKED'],
+  ['deliverability', 'DELIVERABILITY_BLOCKED'],
+  ['elapsedEvidence', 'ELAPSED_EVIDENCE_PENDING']
+]);
+
+const strings = value => (Array.isArray(value) ? value.filter(Boolean).map(String) : []);
+
+/**
+ * Classify blocker groups that a caller has already established.
+ *
+ * This is the pure half of the doctor: given groups, which class is blocking,
+ * and is the elapsed-observation proof good enough to say CODE_READY. It does
+ * not look at the tree. `evaluateFounderAbsenceBlockers` is the half that
+ * measures, and it is the one to call when the question is "what is actually
+ * true right now" -- a caller passing this function an empty `softwareGaps`
+ * gets `CODE_READY`, which is an answer about the argument, not about UberBond.
+ *
+ * Two rules that differ from a naive reading:
+ *
+ * An open software gap does not overwrite an external class. A run with a
+ * missing credential and an unfinished module is credential-blocked *and*
+ * unfinished; reporting only the software gap would hide the blocker a person
+ * has to act on, and reporting only the gap as "distribution" would misfile it
+ * entirely. The gaps travel in their own field, where nothing can mask them.
+ *
+ * Absent proof of elapsed observation, the answer is never CODE_READY. Software
+ * that has never been observed running unattended is software nobody has
+ * watched, and the missing evidence is the finding.
+ */
+export function classifyFounderAbsenceBlockers({
+  credentials = [], accounts = [], payment = [], distribution = [], deliverability = [],
+  elapsedEvidence = [], softwareGaps = [], ownerActions = [], observationProof = null
+} = {}) {
+  const groups = {
+    credentials: strings(credentials),
+    accounts: strings(accounts),
+    payment: strings(payment),
+    distribution: strings(distribution),
+    deliverability: strings(deliverability),
+    elapsedEvidence: strings(elapsedEvidence)
+  };
+  const gaps = strings(softwareGaps);
+
+  let overall = null;
+  for (const [group, blockerClass] of SUPPLIED_GROUP_CLASS) {
+    if (groups[group].length) { overall = blockerClass; break; }
+  }
+
+  if (!overall) {
+    const proof = observationProof;
+    const proven = proof?.ok === true
+      && Array.isArray(proof.reasonCodes)
+      && proof.reasonCodes.length === 0
+      && Boolean(proof.observationProof?.sourceCommit);
+    overall = proven && gaps.length === 0 ? 'CODE_READY' : 'ELAPSED_EVIDENCE_PENDING';
+  }
+
+  return {
+    ok: gaps.length === 0,
+    policyVersion: FOUNDER_ABSENCE_BLOCKER_POLICY_VERSION,
+    overall,
+    blockerGroups: groups,
+    softwareGaps: gaps,
+    ownerActionQueue: (Array.isArray(ownerActions) ? ownerActions : []).slice(0, 3),
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
+  };
+}

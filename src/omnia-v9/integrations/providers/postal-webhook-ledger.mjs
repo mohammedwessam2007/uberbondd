@@ -1,231 +1,148 @@
-import {
-  POSTAL_PROVENANCE,
-  POSTAL_EXECUTION_TAG_RE,
-  isReconcilableRow,
-  latestPostalRow,
-  deriveCurrentPostalState
-} from './postal-webhook-evidence.mjs';
+import { deriveCurrentPostalState } from './postal-webhook-evidence.mjs';
 
-/**
- * Durable storage for Postal webhook deliveries, and the one function that
- * turns them into something reconciliation is allowed to read.
- *
- * Two implementations behind one interface: an in-memory ledger for tests and
- * a PostgreSQL ledger for the route. They are deliberately the same shape so a
- * suite proving an invariant against memory is proving it about the code the
- * route runs, not about a second, simpler thing that happens to be nearby.
- *
- * `append` is idempotent on `occurrenceKey`. Postal retries a webhook until it
- * gets a 2xx, so redelivery is the normal case rather than an attack: a second
- * copy of one event must not read as a second event, or a single send would
- * appear to have been sent twice.
- */
+export const POSTAL_WEBHOOK_LEDGER_VERSION = 'uberbond.postal-webhook-ledger-1.0.0';
 
-export const POSTAL_WEBHOOK_LEDGER_VERSION = 'uberbond.postal-webhook-ledger.v1';
-export const POSTAL_WEBHOOK_TABLE = 'postal_webhook_events';
-
-function normalizeMessageId(value) {
-  return String(value ?? '').trim().replace(/^</, '').replace(/>$/, '').toLowerCase();
-}
-
-function matchesLookup(row, { tag, messageId }) {
-  const wantedTag = String(tag ?? '').trim();
-  const wantedMessageId = normalizeMessageId(messageId);
-  if (wantedTag && String(row.tag ?? '').trim() === wantedTag) return true;
-  if (wantedMessageId && normalizeMessageId(row.messageHeaderId) === wantedMessageId) return true;
-  return false;
-}
-
-function requireLookupSelector({ tag, messageId }) {
-  const wantedTag = String(tag ?? '').trim();
-  const wantedMessageId = normalizeMessageId(messageId);
-  // An empty selector would match every row in the table. A reconciliation
-  // lookup that returns the whole ledger is not a lookup -- it would hand the
-  // adapter somebody else's send and let it be finalized under this business
-  // key. Refuse rather than return everything.
-  if (!wantedTag && !wantedMessageId) return null;
-  return { wantedTag, wantedMessageId };
-}
-
-export function createMemoryPostalWebhookLedger() {
-  const byOccurrenceKey = new Map();
-
+function clone(value) { return structuredClone(value); }
+function normalizedRow(event) {
   return {
-    kind: 'memory',
-    version: POSTAL_WEBHOOK_LEDGER_VERSION,
-
-    async append(record) {
-      const occurrenceKey = String(record?.occurrenceKey ?? '').trim();
-      if (!occurrenceKey) throw new Error('postal-webhook-occurrence-key-required');
-      if (byOccurrenceKey.has(occurrenceKey)) return { status: 'DUPLICATE', duplicate: true, occurrenceKey };
-      byOccurrenceKey.set(occurrenceKey, { ...record });
-      return { status: 'PERSISTED', duplicate: false, occurrenceKey };
-    },
-
-    async findByTag(tag) {
-      const wanted = String(tag ?? '').trim();
-      if (!wanted) return [];
-      return [...byOccurrenceKey.values()].filter(row => String(row.tag ?? '').trim() === wanted);
-    },
-
-    /** Matches the RFC Message-ID header this system generated, not Postal's numeric id. */
-    async findByMessageId(messageId) {
-      const wanted = normalizeMessageId(messageId);
-      if (!wanted) return [];
-      return [...byOccurrenceKey.values()].filter(row => normalizeMessageId(row.messageHeaderId) === wanted);
-    },
-
-    async lookupForReconciliation({ tag, messageId } = {}) {
-      if (!requireLookupSelector({ tag, messageId })) return [];
-      return [...byOccurrenceKey.values()].filter(row => isReconcilableRow(row) && matchesLookup(row, { tag, messageId }));
-    },
-
-    async count() { return byOccurrenceKey.size; },
-    async all() { return [...byOccurrenceKey.values()]; }
+    occurrenceKey: event.occurrenceKey,
+    provider: 'postal',
+    eventName: event.eventName,
+    lifecycle: event.lifecycle,
+    occurredAt: event.occurredAt,
+    receivedAt: event.receivedAt,
+    authenticated: event.authenticated === true,
+    quarantineReason: event.quarantineReason || null,
+    executionTagValid: event.executionTagValid === true,
+    executionTag: event.executionTag || null,
+    postalMessageId: event.postalMessageId || null,
+    messageId: event.messageId || null,
+    to: event.to || null,
+    from: event.from || null,
+    subjectSha256: event.subjectSha256 || null,
+    rawBodySha256: event.rawBodySha256,
+    detailsDigest: event.detailsDigest,
+    provenance: event.provenance,
+    eligibleForReconciliation: event.eligibleForReconciliation === true
   };
 }
 
-function rowFromDatabase(row) {
-  if (!row) return null;
+export function createMemoryPostalWebhookLedger(seed = []) {
+  const map = new Map();
+  for (const row of seed) if (row?.occurrenceKey) map.set(row.occurrenceKey, normalizedRow(row));
   return {
-    occurrenceKey: row.occurrence_key,
-    event: row.event,
-    lifecycle: row.lifecycle,
-    postalMessageId: row.postal_message_id,
-    messageHeaderId: row.message_header_id,
-    tag: row.tag,
-    executionTagValid: row.execution_tag_valid === true,
-    to: row.recipient,
-    from: row.sender,
-    subjectSha256: row.subject_sha256,
-    rawBodySha256: row.raw_body_sha256,
-    statusDetail: row.status_detail,
-    occurredAt: row.occurred_at instanceof Date ? row.occurred_at.toISOString() : String(row.occurred_at),
-    receivedAt: row.received_at instanceof Date ? row.received_at.toISOString() : String(row.received_at),
-    authenticated: row.authenticated === true,
-    quarantineReason: row.quarantine_reason ?? null,
-    provenance: row.provenance
-  };
-}
-
-const RECONCILABLE_WHERE = `authenticated = true AND quarantine_reason IS NULL AND provenance = '${POSTAL_PROVENANCE.AUTHENTICATED}'`;
-
-export function createPostgresPostalWebhookLedger(pool) {
-  if (!pool || typeof pool.query !== 'function') throw new Error('postgres-pool-required');
-
-  return {
-    kind: 'postgres',
-    version: POSTAL_WEBHOOK_LEDGER_VERSION,
-
-    async append(record) {
-      const occurrenceKey = String(record?.occurrenceKey ?? '').trim();
-      if (!occurrenceKey) throw new Error('postal-webhook-occurrence-key-required');
-      // Untargeted ON CONFLICT on purpose, exactly as billing-webhook-repository
-      // learned to do: a targeted clause names one index and raises 23505 under
-      // any other, and the caller answering 503 to a duplicate teaches a
-      // provider to disable the endpoint.
-      const result = await pool.query(
-        `INSERT INTO ${POSTAL_WEBHOOK_TABLE}(
-           occurrence_key,event,lifecycle,postal_message_id,message_header_id,tag,execution_tag_valid,
-           recipient,sender,subject_sha256,raw_body_sha256,status_detail,occurred_at,received_at,
-           authenticated,quarantine_reason,provenance
-         ) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)
-         ON CONFLICT DO NOTHING RETURNING occurrence_key`,
-        [
-          occurrenceKey, record.event ?? '', record.lifecycle, record.postalMessageId ?? '', record.messageHeaderId ?? '',
-          record.tag ?? '', record.executionTagValid === true, record.to ?? '', record.from ?? '',
-          record.subjectSha256 ?? '', record.rawBodySha256, record.statusDetail ?? '',
-          record.occurredAt, record.receivedAt, record.authenticated === true,
-          record.quarantineReason ?? null, record.provenance
-        ]
-      );
-      const persisted = result.rowCount === 1;
-      return { status: persisted ? 'PERSISTED' : 'DUPLICATE', duplicate: !persisted, occurrenceKey };
+    async append(event) {
+      if (!event?.occurrenceKey) throw new Error('postal-occurrence-key-required');
+      if (map.has(event.occurrenceKey)) return { ok: true, status: 'DUPLICATE', duplicate: true, occurrenceKey: event.occurrenceKey };
+      map.set(event.occurrenceKey, normalizedRow(event));
+      return { ok: true, status: 'PERSISTED', duplicate: false, occurrenceKey: event.occurrenceKey };
     },
-
     async findByTag(tag) {
-      const wanted = String(tag ?? '').trim();
-      if (!wanted) return [];
-      const result = await pool.query(`SELECT * FROM ${POSTAL_WEBHOOK_TABLE} WHERE tag=$1 ORDER BY occurred_at ASC`, [wanted]);
-      return result.rows.map(rowFromDatabase);
+      return [...map.values()].filter(row => row.executionTag === tag).map(clone);
     },
-
     async findByMessageId(messageId) {
-      const wanted = normalizeMessageId(messageId);
-      if (!wanted) return [];
-      const result = await pool.query(
-        `SELECT * FROM ${POSTAL_WEBHOOK_TABLE} WHERE lower(btrim(message_header_id, '<>'))=$1 ORDER BY occurred_at ASC`,
-        [wanted]
-      );
-      return result.rows.map(rowFromDatabase);
+      return [...map.values()].filter(row => row.messageId === messageId || row.postalMessageId === messageId).map(clone);
     },
-
     async lookupForReconciliation({ tag, messageId } = {}) {
-      const selector = requireLookupSelector({ tag, messageId });
-      if (!selector) return [];
-      const result = await pool.query(
-        `SELECT * FROM ${POSTAL_WEBHOOK_TABLE}
-          WHERE ${RECONCILABLE_WHERE}
-            AND (($1::text <> '' AND tag = $1) OR ($2::text <> '' AND lower(btrim(message_header_id, '<>')) = $2))
-          ORDER BY occurred_at ASC`,
-        [selector.wantedTag, selector.wantedMessageId]
-      );
-      return result.rows.map(rowFromDatabase);
-    },
-
-    async count() {
-      const result = await pool.query(`SELECT count(*)::integer AS count FROM ${POSTAL_WEBHOOK_TABLE}`);
-      return Number(result.rows[0]?.count || 0);
+      let rows = [...map.values()];
+      if (tag) rows = rows.filter(row => row.executionTag === tag);
+      if (messageId) rows = rows.filter(row => !row.messageId || row.messageId === messageId);
+      return rows.map(clone);
     }
   };
 }
 
-/**
- * The adapter's `reconciliationLookupFn`, built over either ledger.
- *
- * One synthesized row per distinct Postal message id, and never one row per
- * webhook. Postal emits several events for a single send and retries each of
- * them, so a lookup returning raw rows would hand the adapter five matches for
- * one message -- and the adapter reads "more than one match" as AMBIGUOUS,
- * which would make every normal, correctly delivered send unreconcilable.
- * Collapsing per message id keeps that signal meaningful: two rows now means
- * two genuinely different provider messages under one execution tag, which is
- * exactly the case that must not be resolved automatically.
- *
- * Every synthesized row carries `provenance: AUTHENTICATED_POSTAL_WEBHOOK`
- * because only reconcilable rows reach here; the adapter re-checks it anyway,
- * so a hand-built lookup function cannot skip the gate this one enforces.
- */
+export function createPostgresPostalWebhookLedger(pool) {
+  if (!pool?.query) throw new Error('postgres-pool-required');
+  return {
+    async append(event) {
+      if (!event?.occurrenceKey) throw new Error('postal-occurrence-key-required');
+      const row = normalizedRow(event);
+      const result = await pool.query(`INSERT INTO postal_webhook_events(
+        occurrence_key,event_name,lifecycle,occurred_at,received_at,authenticated,quarantine_reason,
+        execution_tag_valid,execution_tag,postal_message_id,message_id,recipient,sender,subject_sha256,
+        raw_body_sha256,details_digest,provenance,eligible_for_reconciliation
+      ) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)
+      ON CONFLICT DO NOTHING RETURNING occurrence_key`,[
+        row.occurrenceKey,row.eventName,row.lifecycle,row.occurredAt,row.receivedAt,row.authenticated,row.quarantineReason,
+        row.executionTagValid,row.executionTag,row.postalMessageId,row.messageId,row.to,row.from,row.subjectSha256,
+        row.rawBodySha256,row.detailsDigest,row.provenance,row.eligibleForReconciliation
+      ]);
+      return { ok: true, status: result.rowCount === 1 ? 'PERSISTED' : 'DUPLICATE', duplicate: result.rowCount !== 1, occurrenceKey: row.occurrenceKey };
+    },
+    async findByTag(tag) {
+      const result = await pool.query('SELECT * FROM postal_webhook_events WHERE execution_tag=$1 ORDER BY occurred_at ASC, occurrence_key ASC',[tag]);
+      return result.rows.map(fromDb);
+    },
+    async findByMessageId(messageId) {
+      const result = await pool.query('SELECT * FROM postal_webhook_events WHERE message_id=$1 OR postal_message_id=$1 ORDER BY occurred_at ASC, occurrence_key ASC',[messageId]);
+      return result.rows.map(fromDb);
+    },
+    async lookupForReconciliation({ tag, messageId } = {}) {
+      const result = await pool.query(`SELECT * FROM postal_webhook_events
+        WHERE ($1::text IS NULL OR execution_tag=$1)
+          AND ($2::text IS NULL OR message_id IS NULL OR message_id=$2)
+        ORDER BY occurred_at ASC, occurrence_key ASC`,[tag || null,messageId || null]);
+      return result.rows.map(fromDb);
+    }
+  };
+}
+
+function fromDb(row) {
+  return {
+    occurrenceKey: row.occurrence_key,
+    provider: 'postal',
+    eventName: row.event_name,
+    lifecycle: row.lifecycle,
+    occurredAt: new Date(row.occurred_at).toISOString(),
+    receivedAt: new Date(row.received_at).toISOString(),
+    authenticated: row.authenticated === true,
+    quarantineReason: row.quarantine_reason,
+    executionTagValid: row.execution_tag_valid === true,
+    executionTag: row.execution_tag,
+    postalMessageId: row.postal_message_id,
+    messageId: row.message_id,
+    to: row.recipient,
+    from: row.sender,
+    subjectSha256: row.subject_sha256,
+    rawBodySha256: row.raw_body_sha256,
+    detailsDigest: row.details_digest,
+    provenance: row.provenance,
+    eligibleForReconciliation: row.eligible_for_reconciliation === true
+  };
+}
+
 export function createPostalReconciliationLookup(ledger) {
-  if (!ledger || typeof ledger.lookupForReconciliation !== 'function') throw new Error('postal-webhook-ledger-required');
-
-  return async function postalReconciliationLookup({ tag, messageId } = {}) {
-    const rows = (await ledger.lookupForReconciliation({ tag, messageId })).filter(isReconcilableRow);
-    if (rows.length === 0) return [];
-
-    const distinctMessageIds = [...new Set(rows.map(row => String(row.postalMessageId ?? '').trim()))].sort();
-    const contradictory = distinctMessageIds.length > 1;
-
-    return distinctMessageIds.map(postalMessageId => {
-      const group = rows.filter(row => String(row.postalMessageId ?? '').trim() === postalMessageId);
-      const state = deriveCurrentPostalState(group);
-      const latest = latestPostalRow(group);
-      return {
-        provenance: POSTAL_PROVENANCE.AUTHENTICATED,
-        id: postalMessageId,
-        postalMessageId,
-        tag: String(latest?.tag ?? ''),
-        executionTagValid: POSTAL_EXECUTION_TAG_RE.test(String(latest?.tag ?? '')),
-        messageHeaderId: String(latest?.messageHeaderId ?? ''),
-        to: String(latest?.to ?? ''),
-        from: String(latest?.from ?? ''),
-        subjectSha256: String(latest?.subjectSha256 ?? ''),
-        lifecycle: state.lifecycle,
-        negativeDeliveryEvidence: state.negativeDeliveryEvidence,
-        contradictory,
-        eventCount: state.eventCount,
-        latestOccurredAt: state.latestOccurredAt
-      };
-    });
+  if (!ledger?.lookupForReconciliation) throw new Error('postal-ledger-required');
+  return async ({ tag, messageId } = {}) => {
+    const rows = await ledger.lookupForReconciliation({ tag, messageId });
+    const usable = rows.filter(row => row.authenticated === true && row.quarantineReason == null && row.eligibleForReconciliation === true);
+    const byPostalId = new Map();
+    for (const row of usable) {
+      const key = String(row.postalMessageId || '');
+      if (!key) continue;
+      if (!byPostalId.has(key)) byPostalId.set(key, []);
+      byPostalId.get(key).push(row);
+    }
+    const synthesized = [];
+    for (const [postalId, group] of byPostalId) {
+      const current = deriveCurrentPostalState(group);
+      const row = current.row;
+      if (!row) continue;
+      synthesized.push({
+        id: postalId,
+        postalMessageId: postalId,
+        messageId: row.messageId,
+        tag: row.executionTag,
+        to: row.to,
+        from: row.from,
+        subjectSha256: row.subjectSha256,
+        status: current.state,
+        provenance: row.provenance,
+        contradictory: current.contradictory,
+        occurredAt: row.occurredAt
+      });
+    }
+    return synthesized.sort((a,b) => String(a.id).localeCompare(String(b.id)));
   };
 }

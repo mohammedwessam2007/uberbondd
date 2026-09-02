@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "uberbond-night-genome-run-receipt-1.0.0",
+  "lane": "work/night-genome-20260902",
+  "run": 6,
+  "date": "2026-09-02",
+  "mission": "Harden Capability Genome economic fitness so impossible telemetry cannot manufacture attractive supplier scores.",
+  "truthBoundary": {
+    "repositoryCandidateIsCapability": false,
+    "normalizedIsSecurityClean": false,
+    "securityCleanIsApproved": false,
+    "approvedIsActive": false,
+    "economicPriorIsRevenue": false
+  },
+  "defect": {
+    "class": "ECONOMIC_ROUTING_FALSE_FITNESS",
+    "before": "capabilityFitness silently clamped or zeroed impossible values such as taskSuccess > 1, negative reliability, negative costs/burdens, and evidenceConfidence > 1, allowing malformed telemetry to produce plausible-looking economic scores.",
+    "after": "unit-interval fields outside [0,1] and negative cost/burden fields fail closed as ECONOMIC_PRIOR_REJECTED with score=null; valid inputs remain ESTIMATED_PRIOR_NOT_REVENUE."
+  },
+  "changedPaths": [
+    "src/capability-genome-runtime.mjs",
+    "tests/capability-genome-economic-fitness-boundaries.test.mjs",
+    "artifacts/night-genome/run-6-economic-fitness-boundaries-20260902.json"
+  ],
+  "hostileCases": [
+    "taskSuccess greater than 1",
+    "negative reliability",
+    "repeatability greater than 1",
+    "evidenceConfidence greater than 1",
+    "negative monetary cost",
+    "negative maintenance burden",
+    "negative context burden",
+    "negative dependency burden"
+  ],
+  "externalCodeExecuted": false,
+  "capabilitiesPromoted": 0,
+  "capabilitiesActivated": 0,
+  "commercialTruthChanged": false,
+  "expectedVerification": "Exact-head CI or deterministic local Node test execution must pass before merge readiness is claimed."
+}

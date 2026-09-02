@@ -27,10 +27,7 @@
 // object and returns a report. It never reads, prints, returns or persists a
 // credential value.
 
-import {
-  describeProviderReadiness,
-  describeGatewayProviderReadiness
-} from './agent-model-executor-factory.mjs';
+import { describeProviderReadiness } from './agent-model-executor-factory.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const MODEL_PROVIDER_DOCTOR_POLICY_VERSION = 'model-provider-doctor-1.0.0';
@@ -69,6 +66,8 @@ export const MODEL_ROUTING_AUTHORITY_LAW = Object.freeze({
   routingWidensAuthority: false
 });
 
+const GATEWAY_PROVIDER = 'ai-gateway';
+
 const STATUSES = Object.freeze({
   NO_MODEL_PROVIDER_CONFIGURED: 'NO_MODEL_PROVIDER_CONFIGURED',
   SINGLE_PROVIDER_NO_FAILOVER: 'SINGLE_PROVIDER_NO_FAILOVER',
@@ -87,7 +86,7 @@ const OWNER_ACTIONS = Object.freeze({
     minutes: 5,
     costUsd: 0,
     costNote: 'Key creation is free. Model calls made through it are billed by Vercel at usage rates.',
-    evidenceOfCompletion: 'npm run providers:doctor reports vercel-ai-gateway credentialPresent: true'
+    evidenceOfCompletion: 'npm run providers:doctor reports ai-gateway credentialPresent: true'
   }),
   GATEWAY_PRICING: Object.freeze({
     id: 'RECORD_AI_GATEWAY_PRICING_EVIDENCE',
@@ -96,7 +95,7 @@ const OWNER_ACTIONS = Object.freeze({
     minutes: 5,
     costUsd: 0,
     costNote: 'No spend. Without these the lane refuses rather than reporting an invented cost.',
-    evidenceOfCompletion: 'npm run providers:doctor reports vercel-ai-gateway pricingEvidencePresent: true'
+    evidenceOfCompletion: 'npm run providers:doctor reports ai-gateway pricingEvidencePresent: true'
   }),
   GATEWAY_ENABLE: Object.freeze({
     id: 'ENABLE_AI_GATEWAY_LANE',
@@ -143,8 +142,12 @@ export function ownerActionQueueFor(gateway) {
  * @param {object} [options.sandboxIsolationReceipt]  passed through to the sandbox lane
  */
 export function inspectModelProviders({ env = process.env, sandboxIsolationReceipt = null } = {}) {
-  const rows = describeProviderReadiness({ env, sandboxIsolationReceipt, includeGateway: true }).map(providerRow);
-  const gateway = providerRow(describeGatewayProviderReadiness({ env }));
+  const rows = describeProviderReadiness({ env, sandboxIsolationReceipt }).map(providerRow);
+  // The gateway is one row in that list, not a second readiness call. Asking
+  // twice is how the same credential once produced two provider identities,
+  // one of which reported `credential-absent` while the other reported ready.
+  const gateway = rows.find(row => row.provider === GATEWAY_PROVIDER)
+    ?? { provider: GATEWAY_PROVIDER, ready: false, blockers: ['credential-absent'], credentialPresent: false, pricingEvidencePresent: false };
 
   const ready = rows.filter(row => row.ready);
   // Two ready lanes is the threshold, because one lane cannot fail over to
@@ -166,7 +169,6 @@ export function inspectModelProviders({ env = process.env, sandboxIsolationRecei
     // network, so the zero is an observation rather than a hope.
     externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS },
     providers: rows,
-    gateway,
     configuredProviderCount: ready.length,
     failoverCapable,
     // A configured lane is not a proven one. Nothing in this report was earned
@@ -174,9 +176,20 @@ export function inspectModelProviders({ env = process.env, sandboxIsolationRecei
     // evidence that routing works.
     provenProviderCallCount: 0,
     routingLaw: MODEL_ROUTING_AUTHORITY_LAW,
+    gateway,
+    gatewayReady: gateway.ready === true,
     ownerActionQueue: ownerActionQueueFor(gateway),
     reasonCodes: ready.length === 0
       ? ['no-model-provider-configured', 'model-failover-has-no-destination']
       : failoverCapable ? [] : ['single-provider-cannot-fail-over']
   };
 }
+
+/**
+ * The convergence-lane name for the same inspection.
+ *
+ * Kept as an alias rather than a second implementation so there is exactly one
+ * answer to "can this process route to a model", and so a caller using either
+ * name cannot be told a different story.
+ */
+export const inspectModelProviderReadiness = inspectModelProviders;

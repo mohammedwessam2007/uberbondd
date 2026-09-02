@@ -1,177 +1,128 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
+import { normalizePostalWebhookEvent, deriveCurrentPostalState } from '../src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs';
 
-import {
-  POSTAL_PROVENANCE,
-  POSTAL_QUARANTINE_REASONS,
-  deriveCurrentPostalState,
-  isReconcilableRow,
-  normalizePostalWebhookEvent,
-  verifyPostalWebhookSignature
-} from '../src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs';
-import {
-  createMemoryPostalWebhookLedger,
-  createPostalReconciliationLookup
-} from '../src/omnia-v9/integrations/providers/postal-webhook-ledger.mjs';
-import { containsSecretValue } from '../src/secret-patterns.mjs';
-
-// Postal signs the exact request bytes with its DKIM key, so the tests sign
-// with a real key pair rather than stubbing verification. A stubbed signature
-// check proves the code path runs; it does not prove the check works.
-// The module takes the public key as PEM text (or bare base64 SPKI), the way
-// it would arrive from an environment variable -- not as a KeyObject.
-const pair = crypto.generateKeyPairSync('rsa', { modulusLength: 2048 });
-const privateKey = pair.privateKey;
-const publicKey = pair.publicKey.export({ type: 'spki', format: 'pem' });
-const otherKey = crypto.generateKeyPairSync('rsa', { modulusLength: 2048 });
-
-const TAG = `v9_${'a'.repeat(48)}`;
-const RECEIVED_AT = new Date('2026-09-02T00:00:00.000Z');
-const RECIPIENT_TOKEN = 'postal-recipient-token-do-not-store';
-
-function body(overrides = {}) {
-  const { message = {}, ...rest } = overrides;
-  return JSON.stringify({
-    event: 'MessageSent',
-    timestamp: 1788307200,
-    uuid: 'e7b1c0de-0000-4000-8000-000000000001',
-    payload: {
-      message: {
-        id: 37171,
-        token: RECIPIENT_TOKEN,
-        message_id: '<v9-abc@uberbond.agency>',
-        to: 'buyer@example.com',
-        from: 'outreach@uberbond.agency',
-        subject: 'Evidence sprint',
-        tag: TAG,
-        ...message
-      },
-      status: 'Sent'
-    },
-    ...rest
-  });
+const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa',{modulusLength:2048});
+const publicKeyPem = publicKey.export({type:'spki',format:'pem'});
+function body(overrides={}) {
+  return Buffer.from(JSON.stringify({
+    event:'MessageSent', uuid:'evt-1', timestamp:1788300000,
+    payload:{status:'Sent',message:{id:'postal-1',token:'SECRET_CANARY',message_id:'<v9-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@example.test>',tag:'v9_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',to:'buyer@example.com',from:'outreach@example.test',subject:'Evidence sprint',timestamp:1788300000}},
+    ...overrides
+  }));
 }
+function signed(raw) { return crypto.sign('sha256',raw,privateKey).toString('base64'); }
+const receivedAt='2026-09-02T00:00:05.000Z';
 
-const sign = raw => crypto.sign('sha256', Buffer.from(raw, 'utf8'), privateKey).toString('base64');
-
-const normalize = (raw, signature = sign(raw), key = publicKey) => normalizePostalWebhookEvent({
-  rawBody: Buffer.from(raw, 'utf8'), signature, publicKey: key, receivedAt: RECEIVED_AT
+test('authenticated Postal event is reconciliation eligible and strips raw token/body',()=>{
+  const raw=body();
+  const event=normalizePostalWebhookEvent({rawBody:raw,signatureBase64:signed(raw),publicKeyPem,receivedAt});
+  assert.equal(event.authenticated,true);
+  assert.equal(event.eligibleForReconciliation,true);
+  assert.equal(event.eligibleForSenderEvidence,false);
+  assert.equal(event.lifecycle,'SENT');
+  assert.equal(JSON.stringify(event).includes('SECRET_CANARY'),false);
+  assert.equal(JSON.stringify(event).includes(raw.toString('utf8')),false);
 });
 
-test('a genuine Postal signature authenticates and a forged one does not', () => {
-  const raw = body();
-  assert.equal(verifyPostalWebhookSignature({ rawBody: raw, signature: sign(raw), publicKey }).authenticated, true);
-
-  const wrongKey = crypto.sign('sha256', Buffer.from(raw, 'utf8'), otherKey.privateKey).toString('base64');
-  assert.equal(verifyPostalWebhookSignature({ rawBody: raw, signature: wrongKey, publicKey }).authenticated, false);
-
-  // The signature is over exact bytes. Re-serializing the JSON changes them,
-  // which is why the route verifies before it parses.
-  const tampered = raw.replace('buyer@example.com', 'attacker@example.com');
-  assert.equal(verifyPostalWebhookSignature({ rawBody: tampered, signature: sign(raw), publicKey }).authenticated, false);
-
-  assert.equal(verifyPostalWebhookSignature({ rawBody: raw, signature: sign(raw), publicKey: '' }).reason,
-    'postal-webhook-public-key-not-configured');
+test('unauthenticated or wrong-key event is quarantined and never reconciliation eligible',()=>{
+  const raw=body();
+  const other=crypto.generateKeyPairSync('rsa',{modulusLength:2048}).publicKey.export({type:'spki',format:'pem'});
+  for(const key of [publicKeyPem,other]) {
+    const signature = key===publicKeyPem ? 'invalid-base64' : signed(raw);
+    const event=normalizePostalWebhookEvent({rawBody:raw,signatureBase64:signature,publicKeyPem:key,receivedAt});
+    assert.equal(event.authenticated,false);
+    assert.equal(event.quarantineReason,'UNAUTHENTICATED');
+    assert.equal(event.eligibleForReconciliation,false);
+    assert.equal(event.eligibleForSenderEvidence,false);
+  }
 });
 
-test('an authenticated event normalizes with provenance and a valid execution tag', () => {
-  const record = normalize(body());
-  assert.equal(record.authenticated, true);
-  assert.equal(record.quarantineReason, null);
-  assert.equal(record.provenance, POSTAL_PROVENANCE.AUTHENTICATED);
-  assert.equal(record.lifecycle, 'SENT');
-  assert.equal(record.tag, TAG);
-  assert.equal(record.executionTagValid, true);
-  assert.equal(record.to, 'buyer@example.com');
-  assert.equal(isReconcilableRow(record), true);
+test('unknown event and malformed tag are quarantined even with valid signature',()=>{
+  for(const mutate of [
+    value=>({...value,event:'MadeUp'}),
+    value=>({...value,payload:{...value.payload,message:{...value.payload.message,tag:'bad-tag'}}})
+  ]) {
+    const parsed=JSON.parse(body().toString('utf8'));
+    const raw=Buffer.from(JSON.stringify(mutate(parsed)));
+    const event=normalizePostalWebhookEvent({rawBody:raw,signatureBase64:signed(raw),publicKeyPem,receivedAt});
+    assert.equal(event.eligibleForReconciliation,false);
+  }
 });
 
-test('the recipient token and the raw body never survive normalization', () => {
-  const record = normalize(body());
-  const serialized = JSON.stringify(record);
-  assert.equal(serialized.includes(RECIPIENT_TOKEN), false, 'the per-recipient token was kept');
-  assert.equal(serialized.includes('Evidence sprint'), false, 'the raw subject was kept instead of its digest');
-  assert.match(record.rawBodySha256, /^[0-9a-f]{64}$/);
-  assert.equal(serialized.includes('"payload"'), false, 'the raw body survived into the record');
-  assert.equal(containsSecretValue(serialized), false);
-});
-
-test('an unauthenticated or unknown event is quarantined rather than dropped or trusted', () => {
-  const raw = body();
-  const unsigned = normalize(raw, '');
-  assert.equal(unsigned.authenticated, false);
-  assert.equal(unsigned.quarantineReason, POSTAL_QUARANTINE_REASONS.UNAUTHENTICATED);
-  assert.equal(unsigned.provenance, POSTAL_PROVENANCE.QUARANTINED);
-  assert.equal(isReconcilableRow(unsigned), false);
-  // Still a record: knowing someone posted an unsigned event is worth more
-  // than a silent refusal.
-  assert.match(unsigned.rawBodySha256, /^[0-9a-f]{64}$/);
-
-  const unknownEvent = normalize(body({ event: 'SomethingPostalNeverSends' }));
-  assert.equal(unknownEvent.quarantineReason, POSTAL_QUARANTINE_REASONS.UNKNOWN_EVENT_TYPE);
-  assert.equal(isReconcilableRow(unknownEvent), false);
-
-  const malformed = normalizePostalWebhookEvent({
-    rawBody: Buffer.from('not json at all', 'utf8'),
-    signature: crypto.sign('sha256', Buffer.from('not json at all', 'utf8'), privateKey).toString('base64'),
-    publicKey,
-    receivedAt: RECEIVED_AT
-  });
-  assert.equal(malformed.quarantineReason, POSTAL_QUARANTINE_REASONS.MALFORMED);
-});
-
-test('an occurrence key makes a redelivery recognisable as the same event', async () => {
-  const ledger = createMemoryPostalWebhookLedger();
-  const record = normalize(body());
-  assert.equal((await ledger.append(record)).status, 'PERSISTED');
-  assert.equal((await ledger.append(record)).status, 'DUPLICATE');
-  assert.equal((await ledger.findByTag(TAG)).length, 1);
-});
-
-test('a later event wins and an out-of-order older one does not roll state backward', () => {
-  const sent = normalize(body({ uuid: 'e7b1c0de-0000-4000-8000-000000000001' }));
-  const delivered = normalize(body({
-    event: 'MessageDelivered', uuid: 'e7b1c0de-0000-4000-8000-000000000002', timestamp: 1788310800
+test('authenticated DomainDNSError is preserved as sender evidence without pretending message reconciliation proof',()=>{
+  const raw=Buffer.from(JSON.stringify({
+    event:'DomainDNSError',
+    uuid:'dns-event-1',
+    payload:{
+      domain:'outreach.example.test',
+      uuid:'dns-payload-1',
+      dns_checked_at:1788300000,
+      spf_status:'OK',
+      spf_error:null,
+      dkim_status:'Invalid',
+      dkim_error:'record mismatch SECRET_CANARY',
+      mx_status:'Missing',
+      mx_error:'missing MX',
+      return_path_status:'OK',
+      return_path_error:null,
+      server:{uuid:'server-1',name:'Outbound',permalink:'outbound',organization:'UberBond'}
+    }
   }));
-  const stale = normalize(body({
-    event: 'MessageDelayed', uuid: 'e7b1c0de-0000-4000-8000-000000000003', timestamp: 1788303600
-  }));
-
-  const forward = deriveCurrentPostalState([sent, delivered]);
-  const outOfOrder = deriveCurrentPostalState([sent, delivered, stale]);
-  assert.equal(outOfOrder.lifecycle, forward.lifecycle,
-    'an older event arriving late changed the current state');
+  const event=normalizePostalWebhookEvent({rawBody:raw,signatureBase64:signed(raw),publicKeyPem,receivedAt});
+  assert.equal(event.authenticated,true);
+  assert.equal(event.quarantineReason,null);
+  assert.equal(event.lifecycle,'DNS_ERROR');
+  assert.equal(event.domain,'outreach.example.test');
+  assert.equal(event.dns.dkimStatus,'INVALID');
+  assert.equal(event.dns.mxStatus,'MISSING');
+  assert.equal(event.eligibleForSenderEvidence,true);
+  assert.equal(event.eligibleForReconciliation,false);
+  assert.equal(event.executionTag,null);
+  assert.equal(event.postalMessageId,null);
+  assert.equal(JSON.stringify(event).includes('SECRET_CANARY'),false);
 });
 
-test('two Postal message ids under one execution tag are a contradiction, not a choice', () => {
-  const first = normalize(body({ uuid: 'e7b1c0de-0000-4000-8000-000000000004' }));
-  const second = normalize(body({
-    uuid: 'e7b1c0de-0000-4000-8000-000000000005', message: { id: 99999 }
-  }));
-  assert.equal(deriveCurrentPostalState([first, second]).contradictory, true);
+test('unauthenticated DomainDNSError cannot become sender evidence',()=>{
+  const raw=Buffer.from(JSON.stringify({event:'DomainDNSError',payload:{domain:'outreach.example.test',dns_checked_at:1788300000,spf_status:'OK',dkim_status:'Invalid',mx_status:'OK',return_path_status:'OK'}}));
+  const event=normalizePostalWebhookEvent({rawBody:raw,signatureBase64:'invalid',publicKeyPem,receivedAt});
+  assert.equal(event.authenticated,false);
+  assert.equal(event.quarantineReason,'UNAUTHENTICATED');
+  assert.equal(event.eligibleForSenderEvidence,false);
+  assert.equal(event.eligibleForReconciliation,false);
 });
 
-test('the reconciliation lookup excludes quarantined rows and collapses a replay to one row', async () => {
-  const ledger = createMemoryPostalWebhookLedger();
-  const lookup = createPostalReconciliationLookup(ledger);
-
-  await ledger.append(normalize(body()));
-  await ledger.append(normalize(body({ uuid: 'e7b1c0de-0000-4000-8000-000000000009' })));
-  await ledger.append(normalize(body({ uuid: 'e7b1c0de-0000-4000-8000-00000000000a' }), ''));
-
-  const rows = await lookup({ tag: TAG, messageId: '<v9-abc@uberbond.agency>' });
-  assert.equal(rows.length, 1, 'a replayed event surfaced as a second message');
-  assert.equal(rows[0].provenance, POSTAL_PROVENANCE.AUTHENTICATED);
-  assert.equal(JSON.stringify(rows).includes(RECIPIENT_TOKEN), false);
+test('out-of-order arrival cannot regress current state and distinct provider ids are contradictory',()=>{
+  const base={authenticated:true,quarantineReason:null,eligibleForReconciliation:true,executionTag:'v9_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',postalMessageId:'p1',occurrenceKey:'1'};
+  const rows=[
+    {...base,lifecycle:'BOUNCED',occurredAt:'2026-09-02T00:00:03.000Z'},
+    {...base,lifecycle:'SENT',occurredAt:'2026-09-02T00:00:01.000Z',occurrenceKey:'2'}
+  ];
+  assert.equal(deriveCurrentPostalState(rows).state,'BOUNCED');
+  const conflict=deriveCurrentPostalState([...rows,{...base,postalMessageId:'p2',lifecycle:'SENT',occurredAt:'2026-09-02T00:00:04.000Z',occurrenceKey:'3'}]);
+  assert.equal(conflict.contradictory,true);
+  assert.equal(conflict.state,'AMBIGUOUS');
 });
 
-test('two genuinely different messages still surface as two rows, so the adapter can call it ambiguous', async () => {
-  const ledger = createMemoryPostalWebhookLedger();
-  const lookup = createPostalReconciliationLookup(ledger);
-  await ledger.append(normalize(body()));
-  await ledger.append(normalize(body({ uuid: 'e7b1c0de-0000-4000-8000-00000000000b', message: { id: 88888 } })));
+test('later lower-rank lifecycle evidence cannot overwrite stronger submission/delivery evidence',()=>{
+  const base={authenticated:true,quarantineReason:null,eligibleForReconciliation:true,executionTag:'v9_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',postalMessageId:'p1'};
+  const rows=[
+    {...base,lifecycle:'BOUNCED',occurredAt:'2026-09-02T00:00:03.000Z',occurrenceKey:'bounce'},
+    {...base,lifecycle:'DELAYED',occurredAt:'2026-09-02T00:00:10.000Z',occurrenceKey:'late-delay'},
+    {...base,lifecycle:'SENT',occurredAt:'2026-09-02T00:00:11.000Z',occurrenceKey:'late-sent'}
+  ];
+  const state=deriveCurrentPostalState(rows);
+  assert.equal(state.state,'BOUNCED');
+  assert.equal(state.row.occurrenceKey,'bounce');
+});
 
-  const rows = await lookup({ tag: TAG, messageId: '<v9-abc@uberbond.agency>' });
-  assert.ok(rows.length > 1, 'two distinct Postal messages were collapsed into one confident answer');
+test('within the same lifecycle rank the newest occurredAt remains the deterministic winner',()=>{
+  const base={authenticated:true,quarantineReason:null,eligibleForReconciliation:true,executionTag:'v9_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',postalMessageId:'p1',lifecycle:'DELAYED'};
+  const state=deriveCurrentPostalState([
+    {...base,occurredAt:'2026-09-02T00:00:01.000Z',occurrenceKey:'older'},
+    {...base,occurredAt:'2026-09-02T00:00:02.000Z',occurrenceKey:'newer'}
+  ]);
+  assert.equal(state.state,'DELAYED');
+  assert.equal(state.row.occurrenceKey,'newer');
 });

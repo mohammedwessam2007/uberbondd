@@ -1,0 +1,163 @@
+{
+  "schemaVersion": "uberbond-night-verification-receipt-1.0.0",
+  "generatedAt": "2026-09-02T03:40:00Z",
+  "lane": "work/night-verification-20260902",
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "sourceHeads": {
+    "main": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+    "verificationExecutedHead": "b8a51cf2940c40c50542feddfc0b595e74a90dc3",
+    "postal": "26c9fad746800e713f59525c934ffca099241b11",
+    "payment": "27c5b33a5f76676780066d64cd55547d9123f2bd",
+    "genome": "cd5678dfc1a37b9410a62ec1b176bb2b0d8d943e",
+    "ragnarokDonor": "b9da9939f20051e5cc73d08264fb44257d0ba496",
+    "proposalAcceptance": "19a134bd86d6d9f7acb2f63c195271808f8fbe48",
+    "runtimeNightBranch": null
+  },
+  "branchDiscovery": {
+    "nightBranchesFound": [
+      "work/night-genome-20260902",
+      "work/night-payment-20260902",
+      "work/night-postal-20260902",
+      "work/night-verification-20260902"
+    ],
+    "runtimeNightBranchStatus": "ABSENT"
+  },
+  "exactHeadExecution": {
+    "verification": {
+      "head": "b8a51cf2940c40c50542feddfc0b595e74a90dc3",
+      "nightVerificationWorkflowRun": 33584366990,
+      "ordinaryCiWorkflowRun": 33584367005,
+      "initialAttempt": {
+        "jobsObserved": 6,
+        "jobsWithSteps": 0,
+        "sourcePasses": 0,
+        "sourceFailures": 0,
+        "sourceSkips": 0,
+        "mutationKills": 0,
+        "environmentBlockedJobs": 6,
+        "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+      },
+      "rerunAttempt": {
+        "rerunRequested": true,
+        "jobsObserved": 6,
+        "jobsWithSteps": 0,
+        "sourcePasses": 0,
+        "sourceFailures": 0,
+        "sourceSkips": 0,
+        "mutationKills": 0,
+        "environmentBlockedJobs": 6,
+        "classification": "ENVIRONMENT_STARTUP_FAILURE_REPRODUCED_NO_SOURCE_EXECUTION"
+      }
+    },
+    "postal": {
+      "head": "26c9fad746800e713f59525c934ffca099241b11",
+      "focusedWorkflowRun": 33585660348,
+      "ciWorkflowRun": 33585660274,
+      "jobsObserved": 4,
+      "jobsWithSteps": 0,
+      "sourcePasses": 0,
+      "sourceFailures": 0,
+      "sourceSkips": 0,
+      "environmentBlockedJobs": 4,
+      "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+    },
+    "payment": {
+      "head": "27c5b33a5f76676780066d64cd55547d9123f2bd",
+      "ciWorkflowRun": 33586164102,
+      "jobsObserved": 3,
+      "jobsWithSteps": 0,
+      "sourcePasses": 0,
+      "sourceFailures": 0,
+      "sourceSkips": 0,
+      "environmentBlockedJobs": 3,
+      "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+    },
+    "genome": {
+      "head": "cd5678dfc1a37b9410a62ec1b176bb2b0d8d943e",
+      "ciWorkflowRun": 33587599787,
+      "jobsObserved": 3,
+      "jobsWithSteps": 0,
+      "sourcePasses": 0,
+      "sourceFailures": 0,
+      "sourceSkips": 0,
+      "environmentBlockedJobs": 3,
+      "classification": "ENVIRONMENT_STARTUP_FAILURE_NO_SOURCE_EXECUTION"
+    }
+  },
+  "verificationScope": {
+    "requestedGates": [
+      "syntax",
+      "full deterministic",
+      "reachability ratchet",
+      "canonical mutation war",
+      "relay safety",
+      "browser",
+      "real PostgreSQL",
+      "Wallbreaker",
+      "Capability Genome",
+      "Event Horizon",
+      "capability doctors",
+      "brain/readiness",
+      "dependency audit",
+      "git diff check"
+    ],
+    "executionStatus": "NOT_EXECUTED_DUE_TO_RUNNER_STARTUP_FAILURE"
+  },
+  "canonicalMutationReview": {
+    "canonicalScript": "scripts/mutation-war.mjs",
+    "registrationPolicy": "Do not register mutants against source absent from the verification head. Add them after integration so kills prove the actual merged guard.",
+    "nightCandidateGuards": {
+      "postal": [
+        "HTTP 409 remains UNCERTAIN",
+        "authenticated webhook provenance is required",
+        "Message-ID mismatch remains ambiguous",
+        "authenticated delivery-failed/bounced/DNS lifecycle proves provider acceptance of the original submission and must not reopen resend eligibility",
+        "normalized webhook lifecycle cannot be shadowed by arbitrary payload.status",
+        "NOT_FOUND cannot automatically release an uncertain external effect"
+      ],
+      "payment": [
+        "PayPal Sandbox is economically ineligible",
+        "first-cash fulfilment requires canonical payment reconciliation",
+        "payment truth digest is recomputed and must match canonical reconciliation state",
+        "post-reconciliation edits cannot pass via a merely 64-hex-looking digest",
+        "CUSTOMER_SILENT cannot become COMPLETE",
+        "a sixth qualified conversation after zero paid pilot is blocked by KILL_OR_RETHINK"
+      ],
+      "genome": [
+        "runtime route must be admitted and selected in the mission bundle",
+        "dependency closure is evaluated after bundle construction",
+        "negative cost or latency telemetry cannot dominate routing",
+        "out-of-range quality reliability or success telemetry cannot manufacture a winner",
+        "duplicate capability IDs or canonical capability identities fail the Genome doctor closed"
+      ]
+    },
+    "classification": "POST_INTEGRATION_CANONICAL_MUTATION_BACKLOG_REFRESHED"
+  },
+  "activePrSnapshot": [
+    {"pr": 321, "head": "b8a51cf2940c40c50542feddfc0b595e74a90dc3", "role": "verification", "draft": true, "mergeable": true},
+    {"pr": 320, "head": "cd5678dfc1a37b9410a62ec1b176bb2b0d8d943e", "role": "genome", "draft": true, "mergeable": true},
+    {"pr": 319, "head": "27c5b33a5f76676780066d64cd55547d9123f2bd", "role": "payment", "draft": true, "mergeable": true},
+    {"pr": 318, "head": "19a134bd86d6d9f7acb2f63c195271808f8fbe48", "role": "proposal-acceptance", "draft": true, "mergeable": true},
+    {"pr": 317, "head": "26c9fad746800e713f59525c934ffca099241b11", "role": "postal", "draft": true, "mergeable": true},
+    {"pr": 315, "head": "b9da9939f20051e5cc73d08264fb44257d0ba496", "role": "ragnarok-donor", "draft": true, "mergeable": false}
+  ],
+  "truthRules": [
+    "A zero-step workflow failure is environment evidence, not source failure evidence.",
+    "A retry that also produces zero steps strengthens the environment-startup classification but still proves nothing about source correctness.",
+    "No mutation kill is counted unless the mutated source actually executes and the intended suite fails for the intended reason.",
+    "Exact-head proof is SHA-scoped and expires when the branch advances.",
+    "No commercial truth changes without real external evidence."
+  ],
+  "nextVerificationActions": [
+    "Retry the latest verification head only when runner execution becomes available; avoid manufacturing repeated noise while runner startup is uniformly failing.",
+    "When Postal, Payment, and Genome source reach an integration candidate, add the refreshed high-consequence guards to scripts/mutation-war.mjs and require canonical kills.",
+    "Require exact-head PostgreSQL execution before concurrency claims, and exact-head browser execution before browser-path claims.",
+    "Keep PR #321 draft until real step-level evidence exists."
+  ],
+  "status": "VERIFICATION_ENVIRONMENT_BLOCKED_AFTER_RETRY_WITH_REFRESHED_MUTATION_BACKLOG"
+}

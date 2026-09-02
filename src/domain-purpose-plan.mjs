@@ -585,3 +585,127 @@ export function observationsFromDnsVerification(dnsResult, { observedAt = new Da
   }
   return out;
 }
+
+// ---------------------------------------------------------------------------
+// Convergence-lane API
+//
+// The convergence lane arrived at the same planner through a different door: it
+// names the whole thing a "plan" with `rows`, and asks one question per
+// observation. Both names now reach this module's logic, so a caller cannot get
+// a different answer about a domain depending on which verb it happened to
+// import. These delegate; they do not re-decide anything.
+// ---------------------------------------------------------------------------
+
+/**
+ * Plan an owned root's purposes, refusing a root UberBond does not own.
+ *
+ * The refusal is the point. A planner that will happily emit expected DNS for
+ * `not-uberbond.example` is a planner that will one day be pointed at somebody
+ * else's domain, and the generated records would look exactly as authoritative.
+ */
+export function compileDomainPurposePlan({
+  rootDomain = '',
+  assignments = null,
+  providerRequirements = {},
+  observations = [],
+  now = new Date(),
+  ...rest
+} = {}) {
+  const at = now instanceof Date ? now : new Date(now);
+  const owned = resolveOwnedHost(rootDomain);
+  if (!owned.ok || owned.host !== owned.root) {
+    return {
+      ok: false,
+      policyVersion: DOMAIN_PURPOSE_PLAN_POLICY_VERSION,
+      rows: [],
+      purposes: [],
+      reasonCodes: owned.ok ? ['domain-root-required'] : owned.reasonCodes,
+      businessEffectAuthority: 'NONE',
+      externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
+    };
+  }
+
+  // Every assigned host is checked against the owned roots too, so naming an
+  // owned root at the top cannot smuggle an unowned host into a row.
+  const hosts = {};
+  const rejected = [];
+  for (const [purpose, host] of Object.entries(assignments || DEFAULT_PURPOSE_HOSTS)) {
+    const resolved = resolveOwnedHost(host);
+    if (!resolved.ok) { rejected.push(`assignment-not-owned:${purpose}`); continue; }
+    hosts[purpose] = resolved.host;
+  }
+  if (rejected.length) {
+    return {
+      ok: false,
+      policyVersion: DOMAIN_PURPOSE_PLAN_POLICY_VERSION,
+      rows: [],
+      purposes: [],
+      reasonCodes: rejected,
+      businessEffectAuthority: 'NONE',
+      externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
+    };
+  }
+
+  const plan = buildDomainPurposePlan({ hosts, providerRequirements, observations, now: at, ...rest });
+  return { ...plan, rows: plan.purposes };
+}
+
+/**
+ * Judge one observation against one planned purpose row.
+ *
+ * `generatedExpectedRecords` is the trap this exists to close. A record this
+ * module generated, compared against itself, agrees every time — and that
+ * agreement is worth nothing. It caps the row at CONFIGURED and says so, rather
+ * than letting a self-consistent expectation read as verified DNS.
+ */
+export function evaluateDomainObservation({ planRow, observation = {}, now = new Date() } = {}) {
+  // `now` arrives as a Date from internal callers and as an ISO string from
+  // callers that carry timestamps around as text. Both are legitimate; a
+  // TypeError on the string one is not.
+  const at = now instanceof Date ? now : new Date(now);
+  if (!Number.isFinite(at.getTime())) {
+    return {
+      ok: false,
+      policyVersion: DOMAIN_PURPOSE_PLAN_POLICY_VERSION,
+      purpose: planRow?.purpose ?? null,
+      host: planRow?.host ?? null,
+      state: 'UNKNOWN',
+      reasonCodes: ['evaluation-clock-required'],
+      businessEffectAuthority: 'NONE',
+      externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
+    };
+  }
+  const reasonCodes = [];
+  const generated = observation?.generatedExpectedRecords === true;
+  if (generated) reasonCodes.push('generated-expectations-are-not-observed-proof');
+
+  const provenance = String(observation?.provenance || '');
+  const observedProvenance = Object.values(OBSERVED_PROVENANCE).includes(provenance);
+  if (!observedProvenance) reasonCodes.push('observed-provenance-required-for-verification');
+
+  const observedAt = Date.parse(observation?.observedAt ?? '');
+  if (!Number.isFinite(observedAt)) reasonCodes.push('observation-timestamp-required');
+  else if (observedAt > at.getTime() + 60_000) reasonCodes.push('observation-is-future-dated');
+
+  if (observation?.tlsVerified === false) reasonCodes.push('tls-not-verified');
+
+  // VERIFIED is reachable only through independently observed provenance on a
+  // row that is not blocked. Everything else is at most CONFIGURED: we asked
+  // for it, and nothing outside this process has confirmed it.
+  const blocked = planRow?.state === 'UNKNOWN' && (planRow?.blockedRecordCount ?? 0) > 0;
+  const verifiable = observedProvenance && !generated && reasonCodes.length === 0 && !blocked;
+  const state = verifiable
+    ? 'VERIFIED'
+    : (String(observation?.status || '').toUpperCase() === 'GREEN' ? 'CONFIGURED' : 'UNKNOWN');
+
+  return {
+    ok: true,
+    policyVersion: DOMAIN_PURPOSE_PLAN_POLICY_VERSION,
+    purpose: planRow?.purpose ?? null,
+    host: planRow?.host ?? null,
+    state,
+    reasonCodes,
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
+  };
+}

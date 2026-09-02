@@ -1,0 +1,31 @@
+name: Night Postal Focused Verification
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  postal-focused:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Syntax
+        run: npm run check:syntax
+      - name: Postal hostile and mutation guards
+        run: >-
+          node --test
+          tests/postal-ragnarok-hardening.test.mjs
+          tests/postal-ragnarok-mutation-source-guard.test.mjs
+          tests/postal-webhook-evidence.test.mjs
+          tests/postal-webhook-route.test.mjs
+      - name: Reachability ratchet
+        run: node --test tests/reachability-ratchet.test.mjs
+      - name: Git diff whitespace check
+        run: git diff --check origin/main...HEAD

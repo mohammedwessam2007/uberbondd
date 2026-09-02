@@ -64,10 +64,10 @@ function fail(reasonCodes, extra = {}) {
 /**
  * The tighter of a researched quota and an observed one.
  *
- * `null` means unbounded on that axis, so it drops out of the comparison
- * rather than winning it. This is the only direction observation is allowed to
- * move a limit: a provider reporting more headroom at runtime than its
- * published policy does not thereby grant it.
+ * `null` means unbounded on that axis, so it drops out of the comparison rather
+ * than winning it. This is the only direction observation is allowed to move a
+ * limit: a provider reporting more headroom at runtime than its published
+ * policy does not thereby grant it.
  */
 function tightest(researched, observed) {
   const values = [researched, observed].filter(value => value != null);
@@ -316,13 +316,41 @@ function providerEligibility({ provider, purpose, consentEvidence, usage, state,
   };
 }
 
-function resolveProviderStates({ providers, providerStates, activationReceipts, atDate, maxReceiptAgeDays }) {
+function resolveProviderStates({ providers, providerStates, activationReceipts, atDate, maxReceiptAgeDays, mode }) {
   const explicit = providerStates && typeof providerStates === 'object' && !Array.isArray(providerStates);
+
+  // LIVE is the mode that can put mail in front of a person, so its inputs may
+  // not be assertions. A caller-supplied `{configured: true, active: true,
+  // domainAuthenticated: true}` is four booleans anybody can type; an
+  // activation receipt names the account, the plan and the observation behind
+  // each one. PLAN keeps accepting states, because planning against a
+  // hypothesis is what planning is for.
+  if (mode === 'LIVE') {
+    if (explicit) {
+      const reasonCodes = ['live-provider-states-must-be-derived-from-activation-receipts'];
+      // Supplying both is a second, distinct mistake: two sources for one truth
+      // is ambiguity, not redundancy, and which one wins would come down to
+      // argument order. Say so as well, rather than letting the LIVE rule hide
+      // an error the caller would still make in PLAN.
+      if (Array.isArray(activationReceipts) && activationReceipts.length) {
+        reasonCodes.push('provider-states-and-activation-receipts-are-mutually-exclusive');
+      }
+      return { ok: false, reasonCodes };
+    }
+    const receipts = activationReceipts == null ? [] : activationReceipts;
+    if (!Array.isArray(receipts)) return { ok: false, reasonCodes: ['activation-receipts-array-required'] };
+    const derivation = deriveProviderStatesFromReceipts({
+      receipts,
+      registryProviders: providers,
+      now: atDate,
+      maxReceiptAgeDays
+    });
+    if (!derivation.ok) return { ok: false, reasonCodes: derivation.reasonCodes };
+    return { ok: true, states: derivation.providerStates, derivation };
+  }
+
   if (activationReceipts == null) return { ok: true, states: explicit ? providerStates : {}, derivation: null };
   if (!Array.isArray(activationReceipts)) return { ok: false, reasonCodes: ['activation-receipts-array-required'] };
-  // Two sources for one truth is ambiguity, not redundancy. A caller that has
-  // receipts derives from them; a caller that has already derived passes the
-  // states. Accepting both would leave which one won up to argument order.
   if (explicit) return { ok: false, reasonCodes: ['provider-states-and-activation-receipts-are-mutually-exclusive'] };
   const derivation = deriveProviderStatesFromReceipts({
     receipts: activationReceipts,
@@ -357,7 +385,7 @@ export function selectFreeRoute({
   if (!atIso) return fail(['valid-routing-time-required']);
   const atDate = new Date(atIso);
 
-  const resolved = resolveProviderStates({ providers, providerStates, activationReceipts, atDate, maxReceiptAgeDays });
+  const resolved = resolveProviderStates({ providers, providerStates, activationReceipts, atDate, maxReceiptAgeDays, mode: normalizedMode });
   if (!resolved.ok) return fail(resolved.reasonCodes);
 
   const evaluations = [];
@@ -466,9 +494,10 @@ export function liveUsableCapacity({
   const resolved = resolveProviderStates({
     providers,
     providerStates,
-    activationReceipts: providerStates ? null : activationReceipts,
+    activationReceipts,
     atDate,
-    maxReceiptAgeDays
+    maxReceiptAgeDays,
+    mode: 'LIVE'
   });
   if (!resolved.ok) return fail(resolved.reasonCodes);
 

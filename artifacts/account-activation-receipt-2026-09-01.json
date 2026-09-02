@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.account-activation-receipt.v1",
-  "observedAt": "2026-09-01T23:50:00Z",
+  "observedAt": "2026-09-02T01:09:10Z",
   "project": {
     "name": "uberbondd",
     "repository": "mohammedwessam2007/uberbondd",
@@ -45,10 +45,15 @@
     }
   },
   "deployment": {
-    "status": "REPLACEMENT_BUILD_RETRYING",
-    "previousDeploymentId": "dpl_GtFzX8u8VRLL5SJ4jD9jm7dtHw1L",
+    "status": "BLOCKED_RATE_LIMIT",
+    "currentMainCommit": "5436eeb111a17f012ea7dc307f295703da391bc6",
+    "triggerReceiptCommit": "6b969fb7aaf77da1922cd69658ca8b5a4393fbb6",
+    "attemptedVia": "Vercel Create Deployment",
+    "deploymentCreated": false,
+    "blocker": "Resource is limited - try again in 24 hours (more than 100, code: \"api-deployments-free-per-day\").",
+    "previousDeploymentId": "dpl_ZusvtM5aWa63JMZ5JyB1TZRxRYV7",
     "previousResult": "ERROR",
-    "previousError": "The first build failed on stale reachability counts; the next publication failed because the readiness JSON was truncated at line 521. The complete artifact is being republished.",
+    "previousError": "The stale queued build failed because its canon referenced a local-only SHA. The corrected main tree was verified, but the production deployment request was blocked before a new build was created.",
     "secretValuesRecorded": false
   },
   "externalEffects": {

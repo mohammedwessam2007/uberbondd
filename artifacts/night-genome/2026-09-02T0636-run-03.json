@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "uberbond.night-genome.receipt.v1",
+  "run": 3,
+  "observedAt": "2026-09-02T03:36:00.000Z",
+  "branch": "work/night-genome-20260902",
+  "mission": "Attack duplicate identity and false-health claims in Capability Genome doctor.",
+  "truthBoundary": {
+    "repositoryCandidateIsCapability": false,
+    "bodyIsNormalizedCapability": false,
+    "normalizedIsSecurityClean": false,
+    "securityCleanIsApproved": false,
+    "approvedIsActive": false,
+    "untrustedExternalCodeExecuted": false,
+    "commercialTruthChanged": false
+  },
+  "finding": {
+    "class": "DUPLICATE_IDENTITY_FALSE_HEALTH",
+    "severity": "HIGH",
+    "before": "The doctor revalidated each record but did not require collection-level unique capability ids or canonical identities. Duplicate canonical records could reduce dedupedCapabilityCount while the same collection still reported FOUNDATION_HEALTHY.",
+    "after": "The doctor now fails closed on duplicate capability ids and duplicate canonical capability identities before emitting a healthy state or counts."
+  },
+  "changes": [
+    "Bumped capability-genome-doctor runtime policy to 1.3.1.",
+    "Added collection-level unique capability-id guard.",
+    "Added collection-level unique canonical-identity guard.",
+    "Bound dedupedCapabilityCount to the already validated canonical identity set.",
+    "Added deterministic hostile tests for canonical collision and exact id duplication."
+  ],
+  "testsAdded": [
+    "tests/capability-genome-night-identity.test.mjs"
+  ],
+  "verification": {
+    "localExecutionAvailable": false,
+    "exactHeadCiRequested": true,
+    "status": "PENDING_EXACT_HEAD_CI",
+    "note": "Connector permits repository mutation and CI inspection but does not provide an authenticated local checkout/runtime. Source is not claimed green until exact-head CI evidence exists."
+  },
+  "nextAttack": [
+    "stale provenance and lifecycle evidence",
+    "revocation propagation across replacement/dependency relationships",
+    "unsafe cyclic or transitive dependency trees",
+    "economic-fitness boundary consistency"
+  ],
+  "businessEffectAuthority": "NONE"
+}

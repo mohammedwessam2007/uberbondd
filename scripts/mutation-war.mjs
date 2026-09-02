@@ -994,25 +994,25 @@ export const MUTATIONS = [
   {
     id: 'POSTAL-01', guard: 'Only an authenticated Postal webhook row can reconcile',
     file: 'src/omnia-v9/integrations/providers/postal-effect-adapter.mjs',
-    find: '    if (row.provenance !== POSTAL_PROVENANCE.AUTHENTICATED) {',
-    replace: '    if (false) {',
+    find: "    if (row.provenance !== 'AUTHENTICATED_POSTAL_WEBHOOK') return evidence({ businessKey, providerReferenceId, lifecycle: 'AMBIGUOUS', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'unauthenticated-or-unproven-reconciliation-row' } });",
+    replace: '',
     suites: ['tests/postal-effect-adapter.test.mjs']
   },
   {
     id: 'POSTAL-02', guard: 'A bounce is acceptance with negative delivery, never provider rejection',
     file: 'src/omnia-v9/integrations/providers/postal-effect-adapter.mjs',
-    find: "      return evidence({ businessKey, providerReferenceId, lifecycle: 'RECONCILED_ACCEPTED', acquisitionMethod: WEBHOOK_LEDGER_METHOD, observedAt, detail: { tag, postalLifecycle: lifecycle, negativeDeliveryEvidence: true } });",
-    replace: "      return evidence({ businessKey, providerReferenceId, lifecycle: 'RECONCILED_REJECTED', acquisitionMethod: WEBHOOK_LEDGER_METHOD, observedAt, detail: { tag, postalLifecycle: lifecycle } });",
+    find: "          negativeDeliveryEvidence: NEGATIVE_DELIVERY_STATUSES.has(status)",
+    replace: "          negativeDeliveryEvidence: false",
     suites: ['tests/postal-effect-adapter.test.mjs']
   },
 
   // ---- First cash: contact, acceptance and the canary limit -------------
   {
-    id: 'CASH-01', guard: 'Only an externally accepted commercial sprint is a delivery',
+    id: 'CASH-01', guard: 'Only customer-bound external evidence can accept a delivery',
     file: 'src/lead-path-sprint-fulfillment.mjs',
-    find: "    && sprint?.acceptanceEvidenceClass === 'EXTERNAL_CUSTOMER').length;",
-    replace: '    ).length;',
-    suites: ['tests/lead-path-sprint-fulfillment.test.mjs']
+    find: "        if (!validExternalCustomerEvidence(evidence, expectedCustomerRef)) {",
+    replace: '        if (false) {',
+    suites: ['tests/night-payment-customer-binding.test.mjs']
   },
   {
     id: 'CASH-02', guard: 'Contact needs every gate, not any gate',

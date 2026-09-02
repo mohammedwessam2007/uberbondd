@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "uberbond-night-postal-run-receipt-1.0.0",
+  "run": 4,
+  "date": "2026-09-02",
+  "branch": "work/night-postal-20260902",
+  "baseMainObserved": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "sourceHeadVerifiedAttempt": "d32ab01043e244040643b053ce6d897bba1c4120",
+  "changes": [
+    "Postal webhook lifecycle aggregation now orders by evidence strength before occurredAt, preventing later lower-rank lifecycle events from regressing stronger authenticated evidence.",
+    "Added hostile tests proving BOUNCED cannot be overwritten by later DELAYED or SENT rows for the same provider message.",
+    "Added same-rank timestamp tie-breaker coverage.",
+    "Added source mutation guard asserting lifecycle rank comparison occurs before timestamp comparison."
+  ],
+  "safetyInvariants": {
+    "realOutreachSent": false,
+    "authorityExpanded": false,
+    "senderReadinessFabricated": false,
+    "commercialTruth": {
+      "customers": 0,
+      "clearedRevenueUsd": 0,
+      "acceptedPaidDeliveries": 0,
+      "retainedCustomers": 0
+    }
+  },
+  "verification": {
+    "canonicalCiRunId": 33589137873,
+    "focusedRunId": 33589137874,
+    "headSha": "d32ab01043e244040643b053ce6d897bba1c4120",
+    "resultClass": "ENVIRONMENT_STARTUP_FAILURE",
+    "sourcePassClaim": false,
+    "sourceFailClaim": false,
+    "evidence": [
+      "Canonical CI created deterministic, postgres, and browser jobs; every job had runner_id=0 and steps=[].",
+      "Night Postal Focused Verification created postal-focused job; it had runner_id=0 and steps=[].",
+      "No test process executed, so these failures are not source-test evidence."
+    ]
+  },
+  "remainingBlockers": [
+    "A functioning GitHub Actions runner or equivalent repository host must execute the focused Postal tests on exact source head.",
+    "PR branch remains based on an older main and must be reconciled onto current main before merge."
+  ],
+  "status": "SOFTWARE_HARDENING_ADVANCED_VERIFICATION_EXTERNALLY_BLOCKED"
+}

@@ -33,9 +33,15 @@ import {
   UNIMPLEMENTED_PAYMENT_RAILS
 } from './payment-rail-doctor.mjs';
 import {
-  runSyntheticFulfillmentCanary,
-  SPRINT_STATES,
-  LEAD_PATH_SPRINT_VERSION
+  evaluateFirstCashCanary,
+  FIRST_CASH_MAX_QUALIFIED_CONVERSATIONS
+} from './first-cash-canary-guard.mjs';
+import {
+  createLeadPathSprint,
+  LEAD_PATH_SPRINT_FULFILLMENT_VERSION,
+  LEAD_PATH_SPRINT_PRICE,
+  LEAD_PATH_SPRINT_SKU,
+  LEAD_PATH_SPRINT_STATES
 } from './lead-path-sprint-fulfillment.mjs';
 
 export const FIRST_CASH_CANARY_PACKET_VERSION = 'uberbond.first-cash-canary-packet-1.0.0';
@@ -108,10 +114,11 @@ export const FIRST_CASH_QUESTIONS = Object.freeze([
 
 export const FIRST_CASH_OFFER = Object.freeze({
   offerId: 'lead-path-revenue-leak-evidence-sprint',
-  name: 'Lead-Path Revenue Leak Evidence Sprint',
+  name: 'White-label Lead-Path Revenue Leak Evidence Sprint',
+  sku: LEAD_PATH_SPRINT_SKU,
   deliveryModel: 'WHITE_LABEL_FIXED_SCOPE',
-  priceCents: 45000,
-  currency: 'USD',
+  priceCents: LEAD_PATH_SPRINT_PRICE.amountCents,
+  currency: LEAD_PATH_SPRINT_PRICE.currency,
   priceModel: 'FIXED_ONE_TIME',
   paymentTiming: 'PAYMENT_BEFORE_FULFILMENT',
   buyer: 'US or otherwise legally approved agencies serving HVAC, plumbing and electrical contractors',
@@ -119,7 +126,7 @@ export const FIRST_CASH_OFFER = Object.freeze({
 });
 
 export const FIRST_CASH_CANARY_DOCTRINE = Object.freeze({
-  maxQualifiedConversations: 5,
+  maxQualifiedConversations: FIRST_CASH_MAX_QUALIFIED_CONVERSATIONS,
   decisionAfterLimit: Object.freeze(['KILL', 'RETHINK']),
   rule: 'At most five qualified conversations. A sixth may never read CONTINUE.'
 });
@@ -390,7 +397,7 @@ export function compileFirstCashCanaryPacket({
       ['payment-provider-verifier-not-configured'], 'src/payment-reconciliation-worker.mjs'),
 
     question('HOW_DELIVERED',
-      `A ${SPRINT_STATES.length}-state sprint composing the canonical fulfilment engine: ${SPRINT_STATES.join(' -> ')}.`,
+      `A ${LEAD_PATH_SPRINT_STATES.length}-state sprint composing the canonical fulfilment engine: ${LEAD_PATH_SPRINT_STATES.join(' -> ')}.`,
       'ANSWERED', 'INTERNAL_CODE', ['zero-deliveries-have-occurred'], 'src/lead-path-sprint-fulfillment.mjs'),
 
     question('HOW_ACCEPTED',
@@ -453,7 +460,7 @@ export function compileFirstCashCanaryPacket({
       firstCashPacket: FIRST_CASH_CANARY_PACKET_VERSION,
       freeFirstRouter: FREE_FIRST_ROUTER_VERSION,
       paymentRailDoctor: PAYMENT_RAIL_DOCTOR_VERSION,
-      leadPathSprint: LEAD_PATH_SPRINT_VERSION,
+      leadPathSprint: LEAD_PATH_SPRINT_FULFILLMENT_VERSION,
       paymentTruth: PAYMENT_TRUTH_POLICY_VERSION
     },
     // The four numbers this packet exists to protect. Nothing in it can move
@@ -470,23 +477,121 @@ export function compileFirstCashCanaryPacket({
 }
 
 /**
- * The packet plus the synthetic fulfilment walk, which is how the delivery half
- * of the answer is demonstrated without a customer.
+ * The packet plus proof that the delivery machine will not open without money.
+ *
+ * The earlier version of this walked a rehearsal sprint through every state to
+ * show the delivery half worked. That rehearsal is no longer possible, and the
+ * reason it is impossible is worth more than the walk was: the canonical sprint
+ * refuses to open without a payment truth whose digest recomputes, whose
+ * provider event reads as a live one-time order, and whose reference is not
+ * marked sandbox, synthetic, fixture, fake or test.
+ *
+ * So the rehearsal now demonstrates the refusal. It hands the machine exactly
+ * the evidence an internal process can manufacture, and records that the door
+ * stayed shut. A canary that could open it would be reporting that anybody
+ * could.
  */
 export function compileFirstCashCanaryArtifact({ providers = [], date = new Date() } = {}) {
   const packet = compileFirstCashCanaryPacket({ providers, date });
-  const canary = runSyntheticFulfillmentCanary({ date });
+
+  const syntheticAttempt = createLeadPathSprint({
+    customerRef: 'canary:no-such-customer',
+    paymentLeadId: 'canary-lead',
+    canonicalPaymentTruth: {
+      ok: true,
+      policyVersion: 'payment-renewal-truth-1.6.0',
+      leadId: 'canary-lead',
+      status: 'PROVIDER_CLEARED_PAYMENT_PROVEN',
+      verifiedFirstPaymentProduct: LEAD_PATH_SPRINT_SKU,
+      verifiedProviderEventRefs: ['order_created:synthetic-canary'],
+      economics: {
+        netProviderClearedRevenueCents: LEAD_PATH_SPRINT_PRICE.amountCents,
+        currency: LEAD_PATH_SPRINT_PRICE.currency,
+        verifiedPaymentCount: 1,
+        verifiedRenewalCount: 0,
+        verifiedReversalCount: 0
+      }
+    },
+    at: date.toISOString()
+  });
+
   return {
     ...packet,
-    syntheticFulfillmentCanary: {
-      ok: canary.ok,
-      status: canary.status,
-      statesVisited: canary.statesVisited,
-      unvisitedStates: canary.unvisitedStates,
-      branches: canary.branches,
-      commercialDeliveryCount: canary.commercialDeliveryCount,
-      acceptedDeliveryCount: canary.acceptedDeliveryCount,
-      truthBoundary: canary.truthBoundary
-    }
+    canonicalDeliveryRefusal: {
+      // The whole assertion. `ok: false` here is the healthy reading.
+      sprintOpened: syntheticAttempt.ok === true,
+      refused: syntheticAttempt.ok !== true,
+      reasonCodes: Array.isArray(syntheticAttempt.reasonCodes) ? [...syntheticAttempt.reasonCodes] : [],
+      declaredStates: [...LEAD_PATH_SPRINT_STATES],
+      fulfillmentPolicyVersion: LEAD_PATH_SPRINT_FULFILLMENT_VERSION,
+      truthBoundary: 'A refused synthetic sprint proves the gate holds. It proves nothing about demand, payment or delivery.'
+    },
+    commercialDeliveryCount: 0,
+    acceptedDeliveryCount: 0
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Convergence-lane API
+// ---------------------------------------------------------------------------
+
+/** The canonical champion offer name, as the research canon recorded it. */
+export const CURRENT_CHAMPION_OFFER = FIRST_CASH_OFFER.name;
+
+/**
+ * The canary decision for a conversation/pilot count.
+ *
+ * `INVALID` covers the two shapes that cannot have happened: a negative count,
+ * and a paid pilot with no qualified conversation behind it. Neither is a
+ * cautious reading of a real number -- both mean the number is wrong, and a
+ * decision derived from a wrong number is worse than no decision.
+ */
+export function canaryDecision({ qualifiedConversationCount = 0, paidPilotCount = 0 } = {}) {
+  // The cap itself lives in first-cash-canary-guard.mjs and is evaluated there.
+  // Two modules each holding "at most five" is two places to change it and one
+  // of them to forget, so this maps the guard's status onto the decision word
+  // rather than re-deciding.
+  const verdict = evaluateFirstCashCanary({
+    qualifiedConversations: qualifiedConversationCount,
+    paidPilots: paidPilotCount
+  });
+  if (verdict.status === 'INVALID') return 'INVALID';
+  if (verdict.status === 'CANARY_VIOLATION' || verdict.status === 'KILL_OR_RETHINK') return 'KILL_OR_RETHINK';
+  return 'CONTINUE';
+}
+
+/**
+ * The convergence-lane name for the packet, with the fields that lane reads.
+ *
+ * `commercialTruth` is restated in its vocabulary and stays all zeroes, because
+ * nothing in this process can move it.
+ */
+export function buildFirstCashCanaryPacket({
+  gates = {},
+  qualifiedConversationCount = 0,
+  paidPilotCount = 0,
+  providers = [],
+  date = new Date()
+} = {}) {
+  const packet = compileFirstCashCanaryPacket({ providers, date, gates });
+  const decision = canaryDecision({ qualifiedConversationCount, paidPilotCount });
+  const gateValues = FIRST_CASH_CONTACT_GATES.map(gate => gates?.[gate.id ?? gate] === true);
+  return {
+    ...packet,
+    offer: FIRST_CASH_OFFER.name,
+    sku: LEAD_PATH_SPRINT_SKU,
+    // Every gate must hold. A single false is a refusal, and the packet's own
+    // derivation is used when the caller supplied no gates at all.
+    canContact: gateValues.length > 0 ? gateValues.every(Boolean) : packet.canContact === true,
+    canaryDecision: decision,
+    qualifiedConversationCount,
+    paidPilotCount,
+    commercialTruth: {
+      realCustomers: 0,
+      clearedRevenueUsd: 0,
+      acceptedPaidDeliveries: 0,
+      retainedCustomers: 0
+    },
+    businessEffectAuthority: 'NONE'
   };
 }

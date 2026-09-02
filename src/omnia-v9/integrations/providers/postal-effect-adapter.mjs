@@ -1,12 +1,25 @@
 import crypto from 'node:crypto';
 import { ExternalEffectAdapter, ADAPTER_OUTCOMES } from '../external-effect-adapter.mjs';
 
-export const POSTAL_EFFECT_ADAPTER_VERSION = 'uberbond.postal-effect-adapter-1.1.0';
+export const POSTAL_EFFECT_ADAPTER_VERSION = 'uberbond.postal-effect-adapter-1.2.0';
 const EMAIL_RE = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
 const MAX_SUBJECT = 200;
 const MAX_BODY = 20_000;
 const DEFINITE_REJECTION_STATUSES = new Set([400, 401, 403, 404, 422]);
 const MESSAGE_ID_RE = /^<v9-([a-f0-9]{64})@([a-z0-9.-]+\.[a-z]{2,})>$/i;
+const SUBMISSION_PROOF_STATUSES = new Set([
+  'SENT', 'DELIVERED', 'MESSAGESENT', 'ACCEPTED',
+  'DELAYED', 'MESSAGEDELAYED', 'HELD', 'MESSAGEHELD',
+  'DELIVERY_FAILED', 'MESSAGEDELIVERYFAILED',
+  'BOUNCED', 'MESSAGEBOUNCED',
+  'OPENED', 'MESSAGELOADED', 'CLICKED', 'MESSAGELINKCLICKED',
+  'DNS_ERROR', 'DOMAINDNSERROR'
+]);
+const NEGATIVE_DELIVERY_STATUSES = new Set([
+  'DELIVERY_FAILED', 'MESSAGEDELIVERYFAILED',
+  'BOUNCED', 'MESSAGEBOUNCED',
+  'DNS_ERROR', 'DOMAINDNSERROR'
+]);
 
 export class PostalEffectAdapterError extends Error {
   constructor(message, code = 'POSTAL_EFFECT_ADAPTER_ERROR', detail = {}) {
@@ -203,11 +216,26 @@ export class PostalEffectAdapter extends ExternalEffectAdapter {
     if (expectedTo && String(row.to || '').toLowerCase() !== String(expectedTo).toLowerCase()) return evidence({ businessKey, providerReferenceId, lifecycle: 'AMBIGUOUS', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'recipient-mismatch' } });
     if (expectedFrom && String(row.from || '').toLowerCase() !== String(expectedFrom).toLowerCase()) return evidence({ businessKey, providerReferenceId, lifecycle: 'AMBIGUOUS', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'sender-mismatch' } });
     if (expectedSubjectSha256 && row.subjectSha256 && String(row.subjectSha256) !== expectedSubjectSha256) return evidence({ businessKey, providerReferenceId, lifecycle: 'AMBIGUOUS', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'subject-digest-mismatch' } });
-    const status = String(row.status || row.lifecycle || '').toUpperCase();
-    if (['SENT', 'DELIVERED', 'MESSAGESENT', 'ACCEPTED'].includes(status)) return evidence({ businessKey, providerReferenceId, lifecycle: 'RECONCILED_ACCEPTED', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { tag: row.tag, status, provenance: row.provenance } });
-    if (['BOUNCED', 'MESSAGEBOUNCED'].includes(status)) return evidence({ businessKey, providerReferenceId, lifecycle: 'RECONCILED_ACCEPTED', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { tag: row.tag, status, provenance: row.provenance, negativeDeliveryEvidence: true } });
-    if (['DELIVERY_FAILED', 'MESSAGEDELIVERYFAILED', 'REJECTED'].includes(status)) return evidence({ businessKey, providerReferenceId, lifecycle: 'RECONCILED_REJECTED', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { tag: row.tag, status, provenance: row.provenance } });
-    return evidence({ businessKey, providerReferenceId, lifecycle: 'UNCERTAIN', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { tag: row.tag, status: status || 'UNKNOWN', provenance: row.provenance } });
+    const lifecycleStatus = String(row.lifecycle || '').toUpperCase();
+    const providerStatus = String(row.status || '').toUpperCase();
+    const status = lifecycleStatus || providerStatus;
+    if (SUBMISSION_PROOF_STATUSES.has(status)) {
+      return evidence({
+        businessKey,
+        providerReferenceId,
+        lifecycle: 'RECONCILED_ACCEPTED',
+        acquisitionMethod: 'postal-effect-adapter:webhook-ledger',
+        observedAt,
+        detail: {
+          tag: row.tag,
+          status,
+          providerStatus: providerStatus || null,
+          provenance: row.provenance,
+          negativeDeliveryEvidence: NEGATIVE_DELIVERY_STATUSES.has(status)
+        }
+      });
+    }
+    return evidence({ businessKey, providerReferenceId, lifecycle: 'UNCERTAIN', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { tag: row.tag, status: status || 'UNKNOWN', providerStatus: providerStatus || null, provenance: row.provenance } });
   }
 
   classifyOutcome(providerEvidence) {

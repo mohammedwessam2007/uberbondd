@@ -1,0 +1,90 @@
+name: Night Verification War
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  core-verification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Syntax
+        run: npm run check:syntax
+      - name: Deterministic
+        run: npm run test:deterministic
+      - name: Reachability ratchet
+        run: node --test tests/reachability-ratchet.test.mjs
+      - name: Canonical mutation war
+        run: npm run test:mutation-war
+      - name: Relay safety
+        run: npm run test:relay-safety
+      - name: Wallbreaker
+        run: npm run test:wallbreaker
+      - name: Capability Genome
+        run: npm run test:capability-genome
+      - name: Event Horizon
+        run: npm run test:event-horizon
+      - name: Capability doctor
+        run: npm run capabilities:doctor
+      - name: Capability Genome doctor
+        run: npm run capabilities:genome:doctor
+      - name: Brain bootstrap
+        run: npm run brain
+      - name: System readiness
+        run: npm run readiness
+      - name: Production dependency audit
+        run: npm audit --omit=dev
+      - name: Git diff whitespace check
+        run: git diff --check origin/main...HEAD
+
+  browser-verification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+
+  postgres-verification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: uberbond
+        options: >-
+          --health-cmd "pg_isready -U postgres -d uberbond"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Real PostgreSQL suites
+        run: npm run test:postgres-real
+        env:
+          OMNIA_V9_TEST_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/uberbond

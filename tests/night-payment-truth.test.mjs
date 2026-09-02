@@ -1,12 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { validateCanonicalSprintPaymentTruth, createLeadPathSprint, advanceLeadPathSprint } from '../src/lead-path-sprint-fulfillment.mjs';
+import {
+  canonicalPaymentTruthDigest,
+  validateCanonicalSprintPaymentTruth,
+  createLeadPathSprint,
+  advanceLeadPathSprint
+} from '../src/lead-path-sprint-fulfillment.mjs';
 import { evaluateFirstCashCanary } from '../src/first-cash-canary-guard.mjs';
 
-const canonicalTruth = {
+const baseCanonicalTruth = {
   ok:true,
   policyVersion:'payment-renewal-truth-1.6.0',
-  truthDigest:'a'.repeat(64),
   leadId:'lead-customer-1',
   status:'PROVIDER_CLEARED_PAYMENT_PROVEN',
   stages:{ CLEARED_PAYMENT:{ status:'PROVEN' }, PAYMENT_RETAINED:{ status:'PROVEN' } },
@@ -20,8 +24,19 @@ const canonicalTruth = {
     verifiedReversalCount:0,
     unverifiedReversalCents:0,
     reversedRevenueCents:0
+  },
+  claimBoundary:{
+    leadPaidBoolean:'NOT_PAYMENT_PROOF',
+    revenueEventRow:'NOT_PAYMENT_PROOF_ALONE',
+    clearedPayment:'SIGNED_PROVIDER_CALLBACK_PLUS_CLEARED_CLASSIFICATION_PLUS_LEDGER_MATCH',
+    customerAcceptance:'NOT_PROVEN',
+    renewal:'NOT_PROVEN',
+    retainedRevenue:'PROVIDER_CLEARED_AND_NOT_REVERSED'
   }
 };
+
+const withDigest = truth => ({ ...truth, truthDigest:canonicalPaymentTruthDigest(truth) });
+const canonicalTruth = withDigest(baseCanonicalTruth);
 
 const create = (truth = canonicalTruth, overrides = {}) => createLeadPathSprint({
   customerRef:'customer-1',
@@ -37,7 +52,31 @@ test('first-cash fulfilment consumes one exact canonical three-witness payment r
   assert.match(out.canonicalTruthRef, /^payment-truth:[a-f0-9]{64}$/);
 });
 
-test('pending, contradicted, refunded, wrong amount, wrong currency, unverified, aggregated, renewal, and unbound canonical truth cannot start paid fulfilment', () => {
+test('a hand-built or edited object cannot impersonate canonical reconciliation merely by carrying a 64-hex digest', () => {
+  const forged = {
+    ...canonicalTruth,
+    economics:{ ...canonicalTruth.economics, netProviderClearedRevenueCents:999999 },
+    truthDigest:'b'.repeat(64)
+  };
+  const forgedResult = create(forged);
+  assert.equal(forgedResult.ok, false);
+  assert.ok(forgedResult.reasonCodes.includes('canonical-payment-truth-digest-mismatch'));
+
+  const editedAfterReconciliation = {
+    ...canonicalTruth,
+    leadId:'lead-someone-else'
+    // deliberately leaves the original digest in place
+  };
+  const editedResult = create(editedAfterReconciliation);
+  assert.equal(editedResult.ok, false);
+  assert.ok(editedResult.reasonCodes.includes('canonical-payment-truth-digest-mismatch'));
+
+  const missing = create({ ...canonicalTruth, truthDigest:null });
+  assert.equal(missing.ok, false);
+  assert.ok(missing.reasonCodes.includes('canonical-payment-truth-digest-required'));
+});
+
+test('pending, contradicted, refunded, wrong amount, wrong currency, unverified, aggregated, renewal, and unbound canonical truth cannot start paid fulfilment even with internally consistent digests', () => {
   const mutations = [
     { status:'NO_CLEARED_PAYMENT_PROVEN' },
     { contradictions:['provider-payment-witness-amount-mismatch'] },
@@ -45,16 +84,14 @@ test('pending, contradicted, refunded, wrong amount, wrong currency, unverified,
     { economics:{ ...canonicalTruth.economics, netProviderClearedRevenueCents:44999 } },
     { economics:{ ...canonicalTruth.economics, currency:'EUR' } },
     { economics:{ ...canonicalTruth.economics, verifiedPaymentCount:0 }, verifiedProviderEventRefs:[] },
-    // Previously this was accepted because only the net total and >=1 count were checked.
     { economics:{ ...canonicalTruth.economics, verifiedPaymentCount:2 }, verifiedProviderEventRefs:['order_created:a','order_created:b'] },
     { economics:{ ...canonicalTruth.economics, verifiedPaymentCount:2, verifiedRenewalCount:1 }, verifiedProviderEventRefs:['order_created:a','subscription_payment_success:b'] },
     { leadId:'lead-someone-else' },
-    { truthDigest:null },
     { policyVersion:'synthetic-payment-summary-v1' },
     { stages:{ ...canonicalTruth.stages, PAYMENT_RETAINED:{ status:'PARTIALLY_REVERSED' } } }
   ];
   for (const mutation of mutations) {
-    const truth = { ...canonicalTruth, ...mutation };
+    const truth = withDigest({ ...baseCanonicalTruth, ...mutation });
     const result = create(truth);
     assert.equal(result.ok, false, JSON.stringify(mutation));
   }

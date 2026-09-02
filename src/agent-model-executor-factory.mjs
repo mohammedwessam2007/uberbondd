@@ -10,8 +10,9 @@ import { createOpenAIAgentExecutor } from './openai-agent-executor.mjs';
 import { createAnthropicAgentExecutor } from './anthropic-agent-executor.mjs';
 import { createClaudeCodeSandboxExecutor } from './claude-code-sandbox-executor.mjs';
 import { createVercelAIGatewayExecutor } from './vercel-ai-gateway-executor.mjs';
+import { createOpenModelRuntimeExecutor } from './open-model-runtime-executor.mjs';
 
-export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.1.0';
+export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.2.0';
 
 const API_PROVIDER_CONFIG = Object.freeze({
   openai: Object.freeze({
@@ -32,8 +33,9 @@ const API_PROVIDER_CONFIG = Object.freeze({
 });
 
 const API_PROVIDERS = Object.freeze(Object.keys(API_PROVIDER_CONFIG));
+const OPEN_MODEL_PROVIDER = 'open-model';
 const SANDBOX_PROVIDER = 'claude-code-sandbox';
-const SUPPORTED_PROVIDERS = Object.freeze([...API_PROVIDERS, SANDBOX_PROVIDER]);
+const SUPPORTED_PROVIDERS = Object.freeze([...API_PROVIDERS, OPEN_MODEL_PROVIDER, SANDBOX_PROVIDER]);
 
 export function pricingFrom(env = {}, prefix = '') {
   const input = Number(env[`${prefix}_INPUT_USD_PER_MILLION`]);
@@ -51,6 +53,13 @@ export function pricingFrom(env = {}, prefix = '') {
   };
 }
 
+function openModelPricingFrom(env = {}) {
+  const base = pricingFrom(env, 'OPEN_MODEL');
+  const infrastructureUsdPerRequest = Number(env.OPEN_MODEL_INFRASTRUCTURE_USD_PER_REQUEST ?? 0);
+  if (!base || !Number.isFinite(infrastructureUsdPerRequest) || infrastructureUsdPerRequest < 0) return null;
+  return { ...base, infrastructureUsdPerRequest };
+}
+
 function apiProviderConfig(env, provider) {
   const mapping = API_PROVIDER_CONFIG[provider];
   if (!mapping) return null;
@@ -58,6 +67,18 @@ function apiProviderConfig(env, provider) {
     apiKey: String(env[mapping.apiKeyEnv] || ''),
     pricing: pricingFrom(env, mapping.prefix),
     enabled: env[mapping.enabledEnv] === 'true'
+  };
+}
+
+function openModelProviderConfig(env, worker = {}) {
+  return {
+    runtime: String(env.OPEN_MODEL_RUNTIME || '').trim().toUpperCase(),
+    model: String(worker.model || env.OPEN_MODEL_MODEL || '').trim(),
+    endpoint: String(env.OPEN_MODEL_ENDPOINT || '').trim(),
+    apiStyle: String(env.OPEN_MODEL_API_STYLE || 'CHAT_COMPLETIONS').trim().toUpperCase(),
+    apiKey: String(env.OPEN_MODEL_API_KEY || ''),
+    pricing: openModelPricingFrom(env),
+    enabled: env.OPEN_MODEL_AGENT_ENABLED === 'true'
   };
 }
 
@@ -80,6 +101,23 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
         env,
         ...(env.CLAUDE_CODE_EXECUTABLE ? { executable: String(env.CLAUDE_CODE_EXECUTABLE) } : {}),
         ...(worker.model ? { defaultModel: worker.model } : {})
+      });
+    }
+
+    if (provider === OPEN_MODEL_PROVIDER) {
+      const config = openModelProviderConfig(env, worker);
+      if (!config.runtime) throw new Error('open-model worker configured but OPEN_MODEL_RUNTIME is absent');
+      if (!config.model) throw new Error('open-model worker configured but model identity is absent');
+      if (!config.endpoint) throw new Error('open-model worker configured but OPEN_MODEL_ENDPOINT is absent');
+      if (!config.pricing) throw new Error('open-model worker configured but pricing evidence is absent or incomplete');
+      return createOpenModelRuntimeExecutor({
+        runtime: config.runtime,
+        model: config.model,
+        endpoint: config.endpoint,
+        apiStyle: config.apiStyle,
+        apiKey: config.apiKey,
+        pricing: config.pricing,
+        enabled: config.enabled
       });
     }
 
@@ -131,6 +169,14 @@ export function describeProviderReadiness({ env = process.env, sandboxIsolationR
     };
   });
 
+  const openModel = openModelProviderConfig(env);
+  const openModelBlockers = [];
+  if (!openModel.runtime) openModelBlockers.push('runtime-absent');
+  if (!openModel.model) openModelBlockers.push('model-identity-absent');
+  if (!openModel.endpoint) openModelBlockers.push('runtime-endpoint-absent');
+  if (!openModel.pricing) openModelBlockers.push('pricing-evidence-absent');
+  if (!openModel.enabled) openModelBlockers.push('explicitly-disabled');
+
   const sandboxRoot = Boolean(String(env.CLAUDE_CODE_SANDBOX_ROOT || '').trim());
   const isolation = Boolean(sandboxIsolationReceipt);
   const sandboxEnabled = env.CLAUDE_CODE_SANDBOX_ENABLED === 'true';
@@ -140,6 +186,16 @@ export function describeProviderReadiness({ env = process.env, sandboxIsolationR
   if (!sandboxEnabled) sandboxBlockers.push('explicitly-disabled');
 
   return [...api, {
+    provider: OPEN_MODEL_PROVIDER,
+    ready: openModelBlockers.length === 0,
+    blockers: openModelBlockers,
+    credentialPresent: Boolean(openModel.apiKey),
+    credentialRequired: false,
+    pricingEvidencePresent: Boolean(openModel.pricing),
+    runtimePresent: Boolean(openModel.runtime),
+    modelIdentityPresent: Boolean(openModel.model),
+    endpointPresent: Boolean(openModel.endpoint)
+  }, {
     provider: SANDBOX_PROVIDER,
     ready: sandboxBlockers.length === 0,
     blockers: sandboxBlockers,

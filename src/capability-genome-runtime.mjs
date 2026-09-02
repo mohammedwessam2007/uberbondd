@@ -3,7 +3,7 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { normalizeCapability } from './capability-genome-schema.mjs';
 import { admitCapability } from './capability-genome-admission.mjs';
 
-export const CAPABILITY_GENOME_RUNTIME_VERSION = 'capability-genome-runtime-1.0.0';
+export const CAPABILITY_GENOME_RUNTIME_VERSION = 'capability-genome-runtime-1.0.1';
 
 function clone(value) { return structuredClone(value); }
 function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'); }
@@ -30,14 +30,7 @@ function normalizeAll(capabilities) {
   return output;
 }
 
-export function retrieveCapabilities({
-  mission,
-  requiredAtomIds = [],
-  capabilities = [],
-  authorizedPermissions = [],
-  securityEvidenceByCapability = {},
-  limit = 25
-} = {}) {
+export function retrieveCapabilities({ mission, requiredAtomIds = [], capabilities = [], authorizedPermissions = [], securityEvidenceByCapability = {}, limit = 25 } = {}) {
   const normalized = normalizeAll(capabilities);
   if (!normalized || !String(mission || '').trim()) return fail(['mission-and-valid-capabilities-required']);
   const missionTokens = tokens(mission);
@@ -46,12 +39,7 @@ export function retrieveCapabilities({
   for (const capability of normalized) {
     if (capability.promotionState === 'REVOKED' || capability.revocationState?.revoked) continue;
     if (!['APPROVED', 'ACTIVE'].includes(capability.promotionState)) continue;
-    const admission = admitCapability(capability, {
-      securityEvidence: securityEvidenceByCapability[capability.id] || [],
-      requestedPermissions: capability.permissions,
-      authorizedPermissions,
-      intendedUse: 'EXTERNAL_INVOCATION'
-    });
+    const admission = admitCapability(capability, { securityEvidence: securityEvidenceByCapability[capability.id] || [], requestedPermissions: capability.permissions, authorizedPermissions, intendedUse: 'EXTERNAL_INVOCATION' });
     if (!admission.ok || admission.decision !== 'ELIGIBLE') continue;
     const atomIds = new Set(capability.capabilityAtoms.map(atom => atom.id));
     const atomCoverage = required.size ? [...required].filter(atom => atomIds.has(atom)).length / required.size : 0;
@@ -71,9 +59,7 @@ function compatibility(capability, selectedIds) {
   const conflicts = new Set(capability.knownConflicts);
   const edges = capability.compatibilityEdges || [];
   for (const id of selectedIds) if (conflicts.has(id)) return { ok: false, reason: `conflicts:${id}` };
-  for (const edge of edges) {
-    if (edge?.type === 'CONFLICTS_WITH' && selectedIds.has(edge.target)) return { ok: false, reason: `conflicts:${edge.target}` };
-  }
+  for (const edge of edges) if (edge?.type === 'CONFLICTS_WITH' && selectedIds.has(edge.target)) return { ok: false, reason: `conflicts:${edge.target}` };
   return { ok: true };
 }
 
@@ -99,42 +85,21 @@ export function selectMinimumCapabilityBundle({ requiredAtomIds = [], retrievalR
     selected.push(winner);
     selectedIds.add(winner.capability.id);
     winner.covers.forEach(atom => uncovered.delete(atom));
-    for (const dependency of winner.capability.dependencies) {
-      if (!selectedIds.has(dependency)) reasons.push({ id: winner.capability.id, dependency, status: 'DEPENDENCY_REQUIRED' });
+  }
+  // Dependencies are evaluated after bundle construction. Recording a gap while
+  // greedily selecting caused a dependency chosen later in the same bundle to
+  // remain falsely unresolved forever.
+  const dependencyGaps = [];
+  for (const item of selected) {
+    for (const dependency of item.capability.dependencies) {
+      if (!selectedIds.has(dependency)) dependencyGaps.push({ id: item.capability.id, dependency, status: 'DEPENDENCY_REQUIRED' });
     }
   }
-  const dependencyGaps = reasons.filter(item => item.status === 'DEPENDENCY_REQUIRED');
-  return {
-    ok: uncovered.size === 0 && dependencyGaps.length === 0,
-    status: uncovered.size ? 'CAPABILITY_GAP_REMAINS' : dependencyGaps.length ? 'CAPABILITY_DEPENDENCY_GAP' : 'MINIMUM_SUFFICIENT_BUNDLE_SELECTED',
-    selected: selected.map(item => ({ id: item.capability.id, covers: item.covers, utility: item.utility, burden: item.burden })),
-    uncoveredAtomIds: [...uncovered].sort(),
-    reasons,
-    bundleDigest: digest({ selected: selected.map(item => item.capability.id), uncovered: [...uncovered] }),
-    businessEffectAuthority: 'NONE', externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS)
-  };
+  reasons.push(...dependencyGaps);
+  return { ok: uncovered.size === 0 && dependencyGaps.length === 0, status: uncovered.size ? 'CAPABILITY_GAP_REMAINS' : dependencyGaps.length ? 'CAPABILITY_DEPENDENCY_GAP' : 'MINIMUM_SUFFICIENT_BUNDLE_SELECTED', selected: selected.map(item => ({ id: item.capability.id, covers: item.covers, utility: item.utility, burden: item.burden })), uncoveredAtomIds: [...uncovered].sort(), reasons, bundleDigest: digest({ selected: selected.map(item => item.capability.id), uncovered: [...uncovered], dependencyGaps }), businessEffectAuthority: 'NONE', externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS) };
 }
 
-export function capabilityFitness({
-  expectedContributionProfitCents,
-  taskSuccess,
-  reliability,
-  repeatability,
-  founderMinuteReduction,
-  strategicLeverage,
-  portability,
-  reversibility,
-  securityDownside,
-  failureProbability,
-  monetaryCostCents,
-  maintenanceBurden,
-  contextBurden,
-  dependencyBurden,
-  providerLockIn,
-  licenseRisk,
-  blastRadius,
-  evidenceConfidence = 0
-} = {}) {
+export function capabilityFitness({ expectedContributionProfitCents, taskSuccess, reliability, repeatability, founderMinuteReduction, strategicLeverage, portability, reversibility, securityDownside, failureProbability, monetaryCostCents, maintenanceBurden, contextBurden, dependencyBurden, providerLockIn, licenseRisk, blastRadius, evidenceConfidence = 0 } = {}) {
   const fields = { expectedContributionProfitCents, taskSuccess, reliability, repeatability, founderMinuteReduction, strategicLeverage, portability, reversibility, securityDownside, failureProbability, monetaryCostCents, maintenanceBurden, contextBurden, dependencyBurden, providerLockIn, licenseRisk, blastRadius, evidenceConfidence };
   const unknown = Object.entries(fields).filter(([, value]) => finite(value) == null).map(([key]) => key);
   if (unknown.length) return { ok: true, status: 'ECONOMIC_PRIOR_INCOMPLETE', score: null, unknownFields: unknown, evidenceClass: 'ESTIMATED_PRIOR_NOT_REVENUE' };
@@ -161,8 +126,9 @@ export function evaluateBenchmark({ capabilityId, modelId, taskClass, baseline =
   return { ok: true, status: reasons.length || !nonRegressing ? 'BENCHMARK_REJECTED' : 'BENCHMARK_ELIGIBLE', record, benchmarkDigest: digest(record), businessEffectAuthority: 'NONE', externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS) };
 }
 
-export function routeCapabilityModel({ taskClass, candidates = [] } = {}) {
-  const eligible = candidates.filter(item => item?.taskClass === taskClass && item.configured === true && item.revoked !== true && item.available === true && item.securityPassed === true && item.providerIdentityObservable === true && String(item.capabilityId || '').trim() && String(item.modelId || '').trim() && String(item.providerId || '').trim() && finite(item.taskSuccess) != null && finite(item.costCents) != null);
+export function routeCapabilityModel({ taskClass, candidates = [], allowedCapabilityIds = null } = {}) {
+  const allowed = allowedCapabilityIds == null ? null : new Set(allowedCapabilityIds.map(String));
+  const eligible = candidates.filter(item => item?.taskClass === taskClass && (allowed == null || allowed.has(String(item.capabilityId))) && item.configured === true && item.revoked !== true && item.available === true && item.securityPassed === true && item.providerIdentityObservable === true && String(item.capabilityId || '').trim() && String(item.modelId || '').trim() && String(item.providerId || '').trim() && finite(item.taskSuccess) != null && finite(item.costCents) != null);
   const ranked = eligible.map(item => ({ ...clone(item), routeScore: item.taskSuccess * (item.reliability ?? 0.5) * (item.quality ?? 0.5) / (1 + item.costCents + (item.latencyMs ?? 0) / 1000) })).sort((a, b) => b.routeScore - a.routeScore || String(a.capabilityId).localeCompare(String(b.capabilityId)));
   return { ok: ranked.length > 0, status: ranked.length ? 'MODEL_CAPABILITY_ROUTE_SELECTED' : 'NO_CONFIGURED_ELIGIBLE_ROUTE', selected: ranked[0] || null, alternatives: ranked.slice(1), routingDigest: digest(ranked.map(item => ({ capabilityId: item.capabilityId, modelId: item.modelId, providerId: item.providerId, score: item.routeScore }))), businessEffectAuthority: 'NONE', externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS) };
 }
@@ -173,7 +139,11 @@ export function acquireCapability({ mission, requiredAtomIds = [], capabilities 
   const bundle = selectMinimumCapabilityBundle({ requiredAtomIds, retrievalResults: retrieval.results });
   const gap = bundle.uncoveredAtomIds;
   const dependencyGap = bundle.status === 'CAPABILITY_DEPENDENCY_GAP';
-  const route = gap.length || dependencyGap ? null : routeCapabilityModel({ taskClass: mission, candidates: modelCandidates });
+  const selectedIds = bundle.selected.map(item => item.id);
+  // A model route is not a capability promotion mechanism. Only capabilities
+  // that survived retrieval/admission and were actually selected into this
+  // mission's minimum bundle may become executable routes.
+  const route = gap.length || dependencyGap ? null : routeCapabilityModel({ taskClass: mission, candidates: modelCandidates, allowedCapabilityIds: selectedIds });
   const status = gap.length ? 'WORLD_SEARCH_REQUIRED' : dependencyGap ? 'DEPENDENCY_RESOLUTION_REQUIRED' : route?.ok ? 'ACQUISITION_READY_FOR_BOUNDED_MISSION' : 'CAPABILITY_PRESENT_ROUTE_UNAVAILABLE';
   return { ok: true, status, retrieval, bundle, route, next: gap.length ? { action: 'SEARCH_APPROVED_SOURCES_THEN_WORLD_CORPUS', missingAtomIds: gap } : dependencyGap ? { action: 'RESOLVE_PINNED_DEPENDENCIES_BEFORE_EXECUTION', dependencies: bundle.reasons.filter(item => item.status === 'DEPENDENCY_REQUIRED') } : route?.ok ? { action: 'EXECUTE_BOUNDED_MISSION_WITH_RECEIPT' } : { action: 'CONFIGURE_OR_SELECT_ELIGIBLE_ROUTE' }, acquisitionDigest: digest({ retrieval: retrieval.retrievalDigest, bundle: bundle.bundleDigest, route: route?.routingDigest || null }), businessEffectAuthority: 'NONE', externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS) };
 }

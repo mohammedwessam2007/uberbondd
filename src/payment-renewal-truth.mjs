@@ -51,11 +51,6 @@ function sorted(values) {
 
 function normalizeAuditEntry(entry) {
   if (!entry || typeof entry !== 'object') return null;
-  // Store.log(type, detail) persists canonical audit records as
-  // { id, type, detail, createdAt }. Older direct fixtures used a flat shape.
-  // Normalize both without allowing nested detail to override the envelope's
-  // event type. This keeps the reconciler compatible with existing evidence
-  // while making the real store path observable.
   const detail = entry.detail && typeof entry.detail === 'object' && !Array.isArray(entry.detail)
     ? entry.detail
     : entry;
@@ -87,19 +82,9 @@ function classificationIndex(auditLog, leadId, classifications) {
       eventName,
       eventId,
       classification: entry.classification,
-      // Carried so the receipt can take part in the content comparison. It was
-      // dropped here, so a receipt bound to a different prospect or product
-      // reconciled as agreement -- the witness-content check saw only the order
-      // and the ledger row, and PR #114's probe happened to mutate the ledger.
       leadId: text(entry?.leadId, 200) || null,
       prospectId: text(entry?.prospectId, 200) || null,
       product: text(entry?.product, 200) || null,
-      // The two fields the receipt was carrying least of, and the only two that
-      // are the payment itself. Identity was carried and money was not, so the
-      // receipt witnessed *which* payment cleared while saying nothing about
-      // *how much* -- and the content check could only compare the order
-      // against the ledger row. A receipt claiming EUR against a USD order and
-      // a USD ledger row reconciled as three witnesses in agreement.
       amountCents: Number.isSafeInteger(Number(entry?.amountCents)) ? Number(entry.amountCents) : null,
       currency: text(entry?.currency, 12).toUpperCase() || null,
       policyVersion: text(entry?.policyVersion, 120) || null,
@@ -125,33 +110,8 @@ function orderEvidenceIndex(orders, leadId) {
   return index;
 }
 
-// The three witnesses must agree about the payment, not merely about its name.
-//
-// Identity was bound on `eventName:eventId` and content was never compared, so
-// an order the provider signed for $50 and a ledger row claiming $5,000 were
-// both "the same payment" and the ledger's number won:
-//
-//   provider order says : $50.00
-//   revenue ledger says : $5000.00
-//   reconciled as       : $5000.00   PROVIDER_CLEARED_PAYMENT_PROVEN, no contradiction
-//
-// Found by a mutation probe in PR #114, which shipped the failing tests without
-// a fix. It is the same defect as counting a payment twice, arriving through a
-// field nobody thought to check.
-//
-// Magnitude is compared rather than the signed value: the sign is decided by
-// the classification (a refund is a negative ledger row) and providers differ on
-// whether a refund event carries a negative amount. A field absent from one
-// witness cannot contradict the other -- silence is not disagreement -- which is
-// what lets older receipts that never carried `product` keep reconciling.
 function witnessContentMismatches({ event, order, clearing }) {
   const mismatches = [];
-  // All three witnesses, not two. The order and the ledger row were compared
-  // and the clearing receipt was left out of both money comparisons, which made
-  // the receipt a witness to which payment cleared and to nothing about its
-  // size. Silence is still not disagreement: a witness that does not carry the
-  // field cannot contradict one that does, which is what lets older receipts --
-  // written before the index carried money at all -- keep reconciling.
   const amounts = [event?.amountCents, order?.amountCents, clearing?.amountCents]
     .filter(value => value !== null && value !== undefined && value !== '')
     .map(value => Math.abs(cents(value)));
@@ -173,6 +133,14 @@ function witnessContentMismatches({ event, order, clearing }) {
   return [...new Set(mismatches)];
 }
 
+function verifiedProductBinding(row) {
+  if (!row) return null;
+  const values = [row?.event?.product, row?.order?.product, row?.clearing?.product]
+    .map(value => text(value, 200))
+    .filter(Boolean);
+  return values.length === 3 && new Set(values).size === 1 ? values[0] : null;
+}
+
 function verifiedRevenueRows({ revenueEvents, clearedIndex, reversalIndex, ordersIndex, leadId }) {
   const verified = [];
   const unverified = [];
@@ -181,14 +149,6 @@ function verifiedRevenueRows({ revenueEvents, clearedIndex, reversalIndex, order
   const duplicateReversals = [];
   const contradicted = [];
   const seenReversals = new Map();
-  // One provider event is one payment. The witness indexes are keyed maps and
-  // therefore deduped, but the revenue ledger is a list: two rows carrying the
-  // same providerEventId each matched the same order and the same clearing
-  // receipt, and both were counted. A single $50 payment recorded twice
-  // reported $100 cleared, with no contradiction raised.
-  //
-  // A duplicate row is not silently dropped either. It is a ledger integrity
-  // problem in its own right, and the caller is told.
   const seen = new Map();
   const duplicates = [];
   for (const event of revenueEvents.filter(row => !leadId || row?.leadId === leadId)) {
@@ -201,8 +161,6 @@ function verifiedRevenueRows({ revenueEvents, clearedIndex, reversalIndex, order
         duplicates.push({ providerEventId: key, amountCents: cents(event?.amountCents) });
         continue;
       }
-      // Agreeing on the event's name is not agreeing on the payment. A row whose
-      // witnesses contradict each other proves nothing and is not counted.
       const mismatches = witnessContentMismatches({ event, order, clearing });
       if (mismatches.length) {
         contradicted.push({ providerEventId: key, mismatches, amountCents: cents(event?.amountCents) });
@@ -214,27 +172,12 @@ function verifiedRevenueRows({ revenueEvents, clearedIndex, reversalIndex, order
     } else if (positive) {
       unverified.push(event);
     } else if (cents(event?.amountCents) < 0) {
-      // A negative row is a reversal, and it needs the same three witnesses a
-      // payment needs -- for the opposite reason. An unwitnessed positive row
-      // invents revenue; an unwitnessed negative row erases it. Both are ledger
-      // claims nobody can check, so both are reported rather than applied.
       const reversal = reversalIndex.get(key);
       if (reversal && order) {
         if (seenReversals.has(key)) {
           duplicateReversals.push({ providerEventId: key, amountCents: cents(event?.amountCents) });
           continue;
         }
-        // The same content check the payment branch gets. Applying it to only
-        // one direction left the mirror image open: a refund ledger row claiming
-        // $5,000 against a provider refund of $50 recorded $5,000 reversed and a
-        // net of minus $4,950. It happened to raise
-        // `refunds-exceed-provider-cleared-payments` in that fixture only
-        // because the original payment was smaller -- with a $6,000 payment the
-        // same forgery would have produced no contradiction at all.
-        //
-        // Erasing revenue that was never refunded is the same class of defect as
-        // inventing revenue that was never paid, and it is the one an operator
-        // is less likely to question.
         const reversalMismatches = witnessContentMismatches({ event, order, clearing: reversal });
         if (reversalMismatches.length) {
           contradicted.push({ providerEventId: key, mismatches: reversalMismatches, amountCents: cents(event?.amountCents) });
@@ -286,33 +229,6 @@ function acceptanceTruth(fulfillment) {
   };
 }
 
-/**
- * Reconciles the persisted economic spine without performing any external action.
- *
- * Critical invariant: `lead.paymentStatus === "paid"`, a manual unlock, or a
- * positive `revenueEvents` row is never sufficient to prove cleared revenue.
- * A payment is proven only when the same provider event is present in all three
- * durable views produced by the signed Lemon Squeezy webhook path:
- *   1. orders (provider callback persisted after signature verification),
- *   2. payment_classification audit receipt (classified as genuinely cleared),
- *   3. revenueEvents (economic ledger row bound to eventName:eventId).
- */
-// `leadId` is the scope the caller asked about; `lead` is the record that was
-// found for it. They were the same field, and a lookup that found nothing
-// collapsed the scope to null -- which this module reads as "reconcile
-// everything". Asking for the payment truth of a mistyped or deleted lead
-// therefore returned the whole book's revenue, attributed to that lead, with
-// status PROVIDER_CLEARED_PAYMENT_PROVEN:
-//
-//   ask for "lead-alice" -> $50.00      (correct)
-//   ask for "lead-typo"  -> $9,050.00   (everyone's)
-//
-// The scope now comes from what was asked, not from what the lookup returned,
-// so an unknown lead reconciles to its own empty set. `leadResolved` carries
-// the other half: a lead nobody can find is not a lead with no payments, and
-// reporting $0.00 for it would be exactly the unknown-as-zero this file exists
-// to refuse. Whole-book reconciliation is still available -- by naming no lead,
-// which is a decision rather than a failed lookup.
 export function reconcilePaymentRenewalTruth({
   lead = null,
   leadId: requestedLeadId = null,
@@ -341,26 +257,13 @@ export function reconcilePaymentRenewalTruth({
   });
 
   const firstPayment = verified[0] || null;
+  const verifiedFirstPaymentProduct = verifiedProductBinding(firstPayment);
   const renewals = verified.filter(item => item.clearing.eventName === 'subscription_payment_success');
   const acceptance = acceptanceTruth(fulfillment);
   const clearedRevenueCents = verified.reduce((sum, item) => sum + cents(item.event.amountCents), 0);
   const reversedRevenueCents = reversals.reduce((sum, item) => sum + Math.abs(cents(item.event.amountCents)), 0);
-  // Net is what the business actually kept. Gross is kept alongside it because
-  // "money that once cleared" is a real and separate fact -- but net is what a
-  // revenue claim has to mean.
   const netClearedRevenueCents = clearedRevenueCents - reversedRevenueCents;
-  // Cents are not a currency. Every verified row contributes its integer minor
-  // unit to one sum, and nothing was checking that those integers denominate
-  // the same money: a cleared $50.00 and a cleared JPY 5000 -- five thousand
-  // yen, in a currency with no minor unit at all -- added to 10000 and were
-  // reported as `$100.00 PROVIDER_CLEARED_PAYMENT_PROVEN`.
-  //
-  // Neither number is wrong on its own. The sum is not a quantity of anything,
-  // and it is the number a revenue claim reads. So the currencies present are
-  // named, and a figure spanning more than one is a contradiction rather than a
-  // total -- an operator can convert them, this module cannot, and inventing a
-  // rate here would be exactly the synthetic-as-real substitution the rest of
-  // this file exists to refuse.
+
   const currencyCounts = new Map();
   for (const item of [...verified, ...reversals]) {
     const code = text(item?.event?.currency, 12).toUpperCase()
@@ -370,11 +273,6 @@ export function reconcilePaymentRenewalTruth({
   }
   const currencies = [...currencyCounts.keys()].sort();
   const singleCurrency = currencies.length === 1 ? currencies[0] : null;
-  // Refusing to total across currencies is correct and, on its own, unhelpful:
-  // an operator asking "how much did we make" gets a contradiction and no
-  // number. The honest answer exists -- it is one number per currency -- so it
-  // is reported rather than withheld. Still no conversion: these are separate
-  // figures that happen to be returned together, not an aggregate.
   const byCurrency = {};
   for (const code of currencies) {
     byCurrency[code] = { clearedCents: 0, reversedCents: 0, netCents: 0, paymentCount: 0, reversalCount: 0 };
@@ -420,10 +318,6 @@ export function reconcilePaymentRenewalTruth({
       status: renewals.length ? 'PROVEN' : 'NOT_PROVEN',
       evidenceRef: renewals.length ? `payment:${renewals[0].event.providerEventId}` : null
     },
-    // A separate stage rather than a flag on CLEARED_PAYMENT. The payment did
-    // clear; that is history and stays true. Whether the business still has the
-    // money is a different question, and merging them is how a refunded sale
-    // reads as revenue.
     PAYMENT_RETAINED: {
       status: !firstPayment ? 'NOT_PROVEN' : (reversals.length ? (fullyReversed ? 'REVERSED' : 'PARTIALLY_REVERSED') : 'PROVEN'),
       evidenceRef: reversals.length ? `refund:${reversals[0].event.providerEventId}` : null
@@ -439,15 +333,10 @@ export function reconcilePaymentRenewalTruth({
   for (const item of contradicted) contradictions.push(...item.mismatches);
   if (duplicateReversals.length) contradictions.push('duplicate-refund-rows-for-one-provider-event');
   if (unverifiedReversalCents > 0) contradictions.push('negative-revenue-row-without-provider-refund-proof');
-  // Reversing more than ever cleared is not a small refund, it is a ledger that
-  // does not describe any sequence of real events.
   if (reversedRevenueCents > clearedRevenueCents) contradictions.push('refunds-exceed-provider-cleared-payments');
   if (currencies.length > 1) contradictions.push('multi-currency-revenue-cannot-be-summed');
   if (leadResolved === false) contradictions.push('payment-truth-requested-for-unknown-lead');
   if (fullyReversed && lead?.paymentStatus === 'paid') contradictions.push('lead-marked-paid-after-full-refund');
-  // A refund is the customer's strongest available statement that the delivery
-  // was not what they wanted. Acceptance and a returned payment cannot both be
-  // true without someone looking at it.
   if (reversals.length && acceptance.proven) contradictions.push('customer-acceptance-claimed-with-reversed-payment');
 
   const result = {
@@ -461,14 +350,8 @@ export function reconcilePaymentRenewalTruth({
         : (fullyReversed ? 'PROVIDER_CLEARED_PAYMENT_REVERSED' : 'PROVIDER_CLEARED_PAYMENT_PROVEN')),
     stages,
     economics: {
-      // The unit the figures below are in, or null when the rows span more than
-      // one and no single figure is meaningful. A caller that renders an amount
-      // without reading this is rendering a number with no unit.
       currency: singleCurrency,
       currenciesPresent: currencies,
-      // One entry per currency actually present. Always populated, so a caller
-      // that reads this instead of the scalar is correct in both the
-      // single-currency and the mixed case and never has to know which it is in.
       byCurrency,
       providerClearedRevenueCents: clearedRevenueCents,
       providerClearedRevenue: clearedRevenueCents / 100,
@@ -478,9 +361,6 @@ export function reconcilePaymentRenewalTruth({
       verifiedRenewalCount: renewals.length,
       duplicateRevenueRowCount: duplicates.length,
       duplicateRevenueRowCents: duplicates.reduce((sum, item) => sum + item.amountCents, 0),
-      // providerClearedRevenueCents stays gross, because callers and tests read
-      // it as "money that cleared the provider" and that remains true of a
-      // payment later refunded. Net is the number a revenue claim must use.
       reversedRevenueCents,
       reversedRevenue: reversedRevenueCents / 100,
       netProviderClearedRevenueCents: netClearedRevenueCents,
@@ -491,6 +371,7 @@ export function reconcilePaymentRenewalTruth({
       duplicateReversalRowCount: duplicateReversals.length,
       contradictedWitnessRowCount: contradicted.length
     },
+    verifiedFirstPaymentProduct,
     verifiedProviderEventRefs: verified.map(item => item.event.providerEventId),
     verifiedReversalEventRefs: reversals.map(item => item.event.providerEventId),
     unverifiedPositiveRevenueEventRefs: unverified.map(item => text(item.providerEventId, 400)).filter(Boolean),
@@ -499,6 +380,7 @@ export function reconcilePaymentRenewalTruth({
       leadPaidBoolean: 'NOT_PAYMENT_PROOF',
       revenueEventRow: 'NOT_PAYMENT_PROOF_ALONE',
       clearedPayment: firstPayment ? 'SIGNED_PROVIDER_CALLBACK_PLUS_CLEARED_CLASSIFICATION_PLUS_LEDGER_MATCH' : 'NOT_PROVEN',
+      paymentProduct: verifiedFirstPaymentProduct ? 'THREE_WITNESS_PRODUCT_MATCH' : 'NOT_PROVEN',
       customerAcceptance: acceptance.proven ? 'EXTERNAL_CUSTOMER_EVIDENCE_PRESENT' : 'NOT_PROVEN',
       renewal: renewals.length ? 'PROVIDER_CLEARED_RENEWAL_PROVEN' : 'NOT_PROVEN',
       retainedRevenue: !firstPayment
@@ -515,6 +397,7 @@ export function reconcilePaymentRenewalTruth({
     leadId: result.leadId,
     stages: result.stages,
     economics: result.economics,
+    verifiedFirstPaymentProduct: result.verifiedFirstPaymentProduct,
     verifiedProviderEventRefs: result.verifiedProviderEventRefs,
     contradictions: result.contradictions,
     claimBoundary: result.claimBoundary
@@ -533,8 +416,6 @@ export async function reconcilePaymentRenewalTruthFromStore(store, { leadId, ful
   ]);
   return reconcilePaymentRenewalTruth({
     lead,
-    // What was asked, and whether it was found -- kept apart, because a lookup
-    // that returns nothing must not widen the question.
     leadId: requested,
     leadResolved: requested ? Boolean(lead) : null,
     orders,

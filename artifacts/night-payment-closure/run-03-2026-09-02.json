@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "uberbond-night-payment-closure-run-3.0.0",
+  "project": "UberBond",
+  "lane": "canonical-payment-first-cash",
+  "sourceHeadSha": "863882653fd87be1fe7314c715a478c0ed2a9560",
+  "mainObservedSha": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "status": "SOFTWARE_GAP_CLOSED__RUNNER_EXECUTION_STILL_BLOCKED",
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "newFinding": "The first-cash wrapper previously checked only that truthDigest had a 64-hex shape. It did not recompute the canonical digest from the payment truth fields, so an edited summary could retain a stale-looking digest.",
+  "changes": [
+    "Added canonicalPaymentTruthDigest matching the canonical payment-renewal-truth digest surface.",
+    "Canonical sprint validation now rejects missing, malformed, or mismatched truth digests.",
+    "Hostile tests reject arbitrary 64-hex digests and edited canonical summaries while independently exercising amount, currency, reversal, count, renewal, and scope guards."
+  ],
+  "truthBoundariesPreserved": [
+    "No real money moved.",
+    "No Sandbox result promoted to commercial revenue.",
+    "No parallel revenue ledger created.",
+    "Customer acceptance remains independent external-customer evidence.",
+    "The five-conversation canary remains bounded with KILL_OR_RETHINK after five without a paid pilot."
+  ],
+  "exactHeadCi": {
+    "workflowRunId": 33586119995,
+    "headSha": "863882653fd87be1fe7314c715a478c0ed2a9560",
+    "jobs": [
+      {"name":"deterministic","conclusion":"failure","runnerId":0,"stepsExecuted":0},
+      {"name":"postgres","conclusion":"failure","runnerId":0,"stepsExecuted":0},
+      {"name":"browser","conclusion":"failure","runnerId":0,"stepsExecuted":0}
+    ],
+    "classification": "RUNNER_FAILURE_BEFORE_EXECUTION__NOT_SOURCE_FAILURE__NOT_GREEN"
+  },
+  "remainingSoftwareEvidenceGap": "Run focused payment tests and canonical gates on an execution host that actually starts jobs. Current GitHub Actions jobs receive runner_id 0 and execute zero steps.",
+  "remainingExternalRealityGates": [
+    "real merchant/KYC readiness",
+    "real qualified buyer commitment",
+    "real provider-cleared USD 450 payment",
+    "real fulfilment",
+    "independent customer-origin acceptance"
+  ]
+}

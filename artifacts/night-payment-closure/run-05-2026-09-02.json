@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "uberbond-night-payment-closure-run-1.0.0",
+  "run": 5,
+  "date": "2026-09-02",
+  "repository": "mohammedwessam2007/uberbondd",
+  "branch": "work/night-payment-20260902",
+  "baseMainSha": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "verifiedSourceHeadBeforeReceipt": "38501475888549ffdbef33e79d99e750a4226904",
+  "pullRequest": 319,
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "moneyMoved": false,
+  "merchantKycReadinessClaimed": false,
+  "finding": {
+    "severity": "P1",
+    "class": "CROSS_FIELD_PAYMENT_PROOF_BINDING",
+    "summary": "A re-digested payment summary could carry internally inconsistent cleared-stage/provider-event/claim-boundary fields. Digest integrity alone proves that fields were not edited after the digest was computed; it does not prove those fields describe one coherent canonical payment event.",
+    "closed": true
+  },
+  "changes": [
+    "First-cash unlock now requires its single verified provider event to be a one-time order_created event and rejects synthetic/sandbox/fixture/fake/test-style event refs.",
+    "CLEARED_PAYMENT.evidenceRef must equal payment:<verifiedProviderEventRef>.",
+    "claimBoundary.clearedPayment must preserve the canonical three-witness signed-provider/classification/ledger boundary.",
+    "claimBoundary.retainedRevenue must preserve the canonical provider-cleared-and-not-reversed boundary.",
+    "Hostile tests cover internally re-digested synthetic provider refs, subscription-as-first-cash substitution, mismatched stage refs, and forged claim-boundary semantics."
+  ],
+  "preservedInvariants": [
+    "PayPal Sandbox remains economically ineligible and cannot create commercial cleared revenue.",
+    "The existing payment-renewal truth ledger/reconciliation pipeline remains canonical; no parallel revenue truth was created.",
+    "Exact net USD 450.00 and exactly one verified payment are required.",
+    "Pending/unverified/contradicted/refunded/reversed money cannot unlock fulfilment.",
+    "Customer acceptance remains independently customer-origin and customer-bound.",
+    "Five qualified conversations without a paid pilot forces KILL_OR_RETHINK; conversation six is a violation."
+  ],
+  "verification": {
+    "githubWorkflowRunId": 33593580635,
+    "workflowName": "CI",
+    "workflowStatusAtReceipt": "queued",
+    "workflowConclusionAtReceipt": null,
+    "claim": "NOT_GREEN_YET",
+    "note": "The workflow is attached to verifiedSourceHeadBeforeReceipt. No queued or prior run is treated as passing evidence."
+  },
+  "remainingSoftwareBlocker": "Execute focused and canonical gates on a functioning runner and obtain exact-head green evidence.",
+  "remainingExternalRealityGates": [
+    "real merchant/KYC readiness",
+    "real buyer commitment",
+    "real provider-cleared USD 450 payment",
+    "real fulfilment",
+    "independent customer acceptance"
+  ]
+}

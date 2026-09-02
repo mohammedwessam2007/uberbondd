@@ -2,16 +2,17 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 680,
-      "ranAt": "2026-09-01T23:43:49Z"
+      "filesParsed": 724,
+      "ranAt": "2026-09-02T22:30:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 3114,
-      "pass": 3062,
+      "tests": 3270,
+      "pass": 3217,
       "fail": 0,
-      "skipped": 52,
-      "ranAt": "2026-09-01T23:43:49Z"
+      "skipped": 53,
+      "ranAt": "2026-09-02T22:30:00Z",
+      "note": "Measured 3270 tests, 3214 pass, 3 fail, 53 skipped immediately before this regeneration. All three failures were the canon-figure tests themselves, which compare this artifact against the tree and therefore cannot pass until it is regenerated. The recorded pass count includes them."
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -23,13 +24,13 @@
     },
     "test:postgres-real": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real",
-      "status": "PASS_CURRENT_BRANCH",
-      "tests": 178,
-      "pass": 178,
-      "fail": 0,
+      "status": "FAILS_CURRENT_BRANCH__RUNNER_REPAIRED",
+      "tests": 171,
+      "pass": 167,
+      "fail": 1,
       "skipped": 0,
-      "result": "178 tests, 178 pass, 0 fail (2026-09-01), against PostgreSQL 16.13",
-      "note": "The runner was rebuilt and no longer ships the PostgreSQL 18 binaries the previous receipt named. A fresh PostgreSQL 16.13 cluster was initialized locally for this gate. Recorded as 16.13 rather than carrying the old version forward, because the version is part of what the evidence means. Observed once at 177/178 while three suites were deliberately pointed at one shared long-lived database: \"two concurrent recovery workers ... converge on exactly one outcome\" failed with neither worker claiming its row. Root cause is cross-test interference, not a source defect -- three test files sweep the shared omnia_v9_external_effect_executions table with broad limits (1000, 500, 50) and node --test runs files in parallel, so another file's sweep can claim this test's row first. FOR UPDATE SKIP LOCKED makes the \"both claimed\" branch impossible, so the failure can only be \"neither\". The suite's documented convention is a disposable per-run database; under it the gate is 178/178, and the same contention on unmodified main also passed. No changed module in this shift appears anywhere in that test's 12-module import graph.",
+      "result": "171 tests, 167 pass, 1 fail, 3 suite-level timeouts (2026-09-02), PostgreSQL 17 embedded",
+      "note": "This gate had never completed. It ran tests/omnia-v9-external-effect-state-machine, stopped inside it and waited, so roughly 180 real-database tests scheduled after that file had never executed and no run ever said so. A runner from a previous session was found still sitting in the same place after ten hours. Mechanism, measured rather than assumed: a PostgreSQL backend ends up asleep in sock_alloc_send_pskb, blocked writing results to a socket whose client is gone, burning zero CPU, holding no lock and blocked by no session, while every Node process in the tree sits idle in ep_poll. Ruled out: lock contention (pg_blocking_pids empty), a runaway trigger (zero utime and stime over a six-second sample), and fsync on throttled storage (still stalls with fsync, synchronous_commit and full_page_writes off). Not a production defect: each stalling statement was replayed on a fresh connection and completed correctly in under a tenth of a second. The runner is repaired rather than the finding hidden: --test-timeout=120000 bounds every suite, the state-machine suite unrefs its socket so an abandoned query cannot pin the event loop, its connection leak is fixed (await query().catch() does not catch the synchronous throw a dead client raises, so release() was skipped), each suite gets its own freshly created database, and the databases are no longer dropped -- DROP DATABASE and even WITH (FORCE) wait on the unstoppable backend, and statement_timeout does not govern that wait. The gate now always terminates and always reports. The 167/171 figure is from the last complete run. One genuine assertion failure remains (Gmail concurrent recovery workers), which passes 4/4 when its suite runs alone. Three suites hit the timeout. Classified INFRASTRUCTURE, not source.",
       "ranAt": "2026-09-01T17:45:00Z"
     },
     "npm audit": {
@@ -41,9 +42,9 @@
     },
     "test:mutation-war": {
       "command": "CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "124 mutations, 124 killed, 0 not killed",
-      "note": "Run with both a real PostgreSQL and a real Chromium so STORE-01, MONEY-17 and CRAWL-01 execute rather than skip; nothing was skipped in this run. The ten new NORM-*/GENOME-04/GENOME-05 mutations cover body-to-capability normalization and the narrowed instruction scanner. Without them the war reports SKIPPED_NEEDS_POSTGRES / SKIPPED_NEEDS_BROWSER rather than counting them as killed. Verdicts are now read from what each run reports rather than from its exit status: a suite that never ran is SUITE_DID_NOT_RUN, not KILLED, and a green run that asserted nothing is NO_ASSERTIONS_RAN, not SURVIVED.",
-      "ranAt": "2026-09-01T17:10:00Z"
+      "result": "151 mutations registered; full run not completed this session",
+      "note": "138 mutations became 151. New: CONV-01..CONV-08 for the rules this convergence merge decided, POSTAL-409 and POSTAL-ZERO, POSTAL-QUARANTINE, and PROPOSAL-01/02. Every anchor resolves to exactly one site, enforced by tests/mutation-verdict-honesty. Individually verified KILLED this session: POSTAL-QUARANTINE, PROPOSAL-01, PROPOSAL-02. The full 151-mutation run was started three times and each time lost to a container restart under load; it is NOT claimed as green. POSTAL-QUARANTINE is worth recording: anchored first on the ledger wrapper's quarantine filter it SURVIVED, because deriveCurrentPostalState filters the same three fields immediately afterwards, so removing the wrapper's copy changes no output for any input. A redundant guard is unfalsifiable. Re-anchored on the filter that decides, it kills.",
+      "ranAt": "2026-09-02T22:30:00Z"
     },
     "test:browser": {
       "command": "CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser",
@@ -58,13 +59,13 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 275,
-      "reachableFromProduction": 136,
-      "reachableFromOperatorScriptsOnly": 20,
-      "noEntryPointAtAll": 119,
+      "srcModules": 288,
+      "reachableFromProduction": 139,
+      "reachableFromOperatorScriptsOnly": 28,
+      "noEntryPointAtAll": 121,
       "allClassified": true,
-      "ranAt": "2026-09-01T23:43:49Z",
-      "note": "src is walked recursively. Event Horizon is operator-reachable through its doctor and repository brain while carrying no business-effect authority. Wallbreaker is operator-reachable and the Capability Genome remains production-reachable through jobs and the repository brain. agent-model-failover is production-reachable through agent-worker-job. capability-genome-body-import, body-fetch and the new body-normalize module remain operator-only: the doctor and brain read the measured normalization receipt rather than triggering public reads."
+      "ranAt": "2026-09-02T22:30:00Z",
+      "note": "Computed from the reachability ratchet's own partition at this head. The three modules main merged with no entry point are resolved: first-cash-canary-guard is now wired (the first-cash packet delegates its five-conversation cap to it rather than restating the number), and capability-genome-execution-admission and proposal-acceptance-engine are classified against gates that state what would release them."
     }
   },
   "capabilities": [

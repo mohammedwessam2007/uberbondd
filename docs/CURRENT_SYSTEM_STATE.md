@@ -3,8 +3,8 @@
 **This file is the canonical present-tense software/commercial state.** Historical detail from the pre-checkpoint version is preserved byte-for-byte under `docs/archive/2026-08-30-pre-checkpoint/`. Repository code and newer exact external evidence still outrank this prose.
 
 Last reconciled: **2026-09-02**
-Branch: `main`
-Reconciled from current head: `3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84`
+Branch: `claude/uberbond-ragnarok-closure-pek0g6`
+Reconciled from current head: `1aa9c501fd9bb208258435a7839a3f8acc452fec`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
@@ -29,11 +29,11 @@ The source-changing state of this branch was exercised before later documentatio
 
 | Gate | Result |
 |---|---|
-| Syntax | `npm run check:syntax`: 680 files parse (2026-09-01) |
-| Deterministic | `npm run test:deterministic`: 3114 tests, 3062 pass, **0 fail**, 52 skipped (2026-09-01) |
+| Syntax | `npm run check:syntax`: 724 files parse (2026-09-02) |
+| Deterministic | `npm run test:deterministic`: 3270 tests, 3217 pass, **0 fail**, 53 skipped (2026-09-02) |
 | Relay safety | `npm run test:relay-safety`: 150 tests, 150 pass, 0 fail (2026-08-30) |
-| Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real`: 178 tests, 178 pass, 0 fail (2026-09-01), against PostgreSQL 16.13 |
-| Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 124 mutations, 124 killed, 0 not killed |
+| Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real`: 171 tests, 167 pass, 1 fail, 3 suite-level timeouts (2026-09-02), PostgreSQL 17 embedded |
+| Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 151 mutations registered; full run not completed this session |
 | Browser | `CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser`: 1 test, 1 pass, 0 fail (2026-08-30), against the runner's installed Chromium |
 | Dependency audit | `npm audit --omit=dev`: No vulnerabilities reported in the current integration environment. |
 
@@ -41,13 +41,13 @@ The 52 deterministic skips are environment-dependent suites excluded from that r
 
 ## Reachability
 
-**119 of 275 `src` modules have no entry point at all**.
+**121 of 288 `src` modules have no entry point at all**.
 
 | Reachability class | Modules |
 |---|---:|
-| Reachable from production | 136 |
-| Reachable only via an operator script | 20 |
-| **No entry point at all** | **119** |
+| Reachable from production | 139 |
+| Reachable only via an operator script | 28 |
+| **No entry point at all** | **121** |
 
 The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`.
 

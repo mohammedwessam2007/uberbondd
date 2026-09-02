@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ExternalEffectAdapter, ADAPTER_OUTCOMES } from '../external-effect-adapter.mjs';
 
-export const POSTAL_EFFECT_ADAPTER_VERSION = 'uberbond.postal-effect-adapter-1.2.0';
+export const POSTAL_EFFECT_ADAPTER_VERSION = 'uberbond.postal-effect-adapter-1.3.0';
 const EMAIL_RE = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
 const MAX_SUBJECT = 200;
 const MAX_BODY = 20_000;
@@ -12,13 +12,11 @@ const SUBMISSION_PROOF_STATUSES = new Set([
   'DELAYED', 'MESSAGEDELAYED', 'HELD', 'MESSAGEHELD',
   'DELIVERY_FAILED', 'MESSAGEDELIVERYFAILED',
   'BOUNCED', 'MESSAGEBOUNCED',
-  'OPENED', 'MESSAGELOADED', 'CLICKED', 'MESSAGELINKCLICKED',
-  'DNS_ERROR', 'DOMAINDNSERROR'
+  'OPENED', 'MESSAGELOADED', 'CLICKED', 'MESSAGELINKCLICKED'
 ]);
 const NEGATIVE_DELIVERY_STATUSES = new Set([
   'DELIVERY_FAILED', 'MESSAGEDELIVERYFAILED',
-  'BOUNCED', 'MESSAGEBOUNCED',
-  'DNS_ERROR', 'DOMAINDNSERROR'
+  'BOUNCED', 'MESSAGEBOUNCED'
 ]);
 
 export class PostalEffectAdapterError extends Error {

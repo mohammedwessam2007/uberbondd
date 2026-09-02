@@ -1123,6 +1123,18 @@ export const MUTATIONS = [
     find: "    if (!Array.isArray(matches) || matches.length === 0) return evidence({ businessKey, lifecycle: 'UNCERTAIN', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'zero-webhook-matches-not-proof-of-non-submission', tag: identity.tag } });",
     replace: "    if (!Array.isArray(matches) || matches.length === 0) return evidence({ businessKey, lifecycle: 'RECONCILED_NOT_SUBMITTED', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'zero-webhook-matches', tag: identity.tag } });",
     suites: ['tests/postal-effect-adapter.test.mjs', 'tests/postal-ragnarok-hardening.test.mjs']
+  },
+  {
+    // Anchored in the evidence module rather than the ledger wrapper. Both
+    // filter the same three fields, and because the wrapper's result is fed
+    // straight into deriveCurrentPostalState, removing the wrapper's copy alone
+    // changes no output at all -- it survives every test, not because nothing
+    // tests it but because nothing can. This is the one that decides.
+    id: 'POSTAL-QUARANTINE', guard: 'A quarantined webhook row is never reconcilable',
+    file: 'src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs',
+    find: "    .filter(row => row?.authenticated === true && row?.quarantineReason == null && row?.eligibleForReconciliation === true)",
+    replace: '',
+    suites: ['tests/postal-ragnarok-hardening.test.mjs']
   }
 ];
 

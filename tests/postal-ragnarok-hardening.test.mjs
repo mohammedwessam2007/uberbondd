@@ -99,3 +99,50 @@ test('ledger is replay-idempotent and conflicting Postal ids synthesize separate
   const rows=await createPostalReconciliationLookup(ledger)({tag,messageId:base.messageId});
   assert.equal(rows.length,2);
 });
+
+test('a quarantined row is never offered to reconciliation, whatever else it claims', async () => {
+  const { createMemoryPostalWebhookLedger: memory } = await import('../src/omnia-v9/integrations/providers/postal-webhook-ledger.mjs');
+  const tag = `v9_${'d'.repeat(48)}`;
+  const messageId = postalProviderEffectIdentity('exec-quarantine', 'example.test');
+  const ledger = memory();
+
+  // Every shape a row can be inadmissible in, each one otherwise complete and
+  // each one claiming the fields reconciliation reads. An unsigned event that
+  // fills in `provenance: 'AUTHENTICATED_POSTAL_WEBHOOK'` and
+  // `eligibleForReconciliation: true` is exactly what a forged delivery would
+  // look like after it was recorded.
+  const base = {
+    eventName: 'MessageSent', lifecycle: 'SENT',
+    occurredAt: '2026-09-02T00:00:00.000Z', receivedAt: '2026-09-02T00:00:01.000Z',
+    executionTagValid: true, executionTag: tag, postalMessageId: 'p-quarantine', messageId,
+    to: 'buyer@example.com', from: 'outreach@example.test',
+    subjectSha256: 'a'.repeat(64), rawBodySha256: 'b'.repeat(64), detailsDigest: 'c'.repeat(64),
+    provenance: 'AUTHENTICATED_POSTAL_WEBHOOK', eligibleForReconciliation: true
+  };
+  const inadmissible = [
+    { ...base, occurrenceKey: 'postal:q1', authenticated: false, quarantineReason: 'UNAUTHENTICATED' },
+    { ...base, occurrenceKey: 'postal:q2', authenticated: true, quarantineReason: 'MALFORMED' },
+    { ...base, occurrenceKey: 'postal:q3', authenticated: true, quarantineReason: 'UNKNOWN_EVENT_TYPE' },
+    { ...base, occurrenceKey: 'postal:q4', authenticated: false, quarantineReason: null },
+    { ...base, occurrenceKey: 'postal:q5', authenticated: true, quarantineReason: null, eligibleForReconciliation: false }
+  ];
+  for (const row of inadmissible) await ledger.append(row);
+
+  const rows = await createPostalReconciliationLookup(ledger)({ tag, messageId });
+  assert.equal(rows.length, 0, 'an inadmissible row reached reconciliation');
+
+  // Directly against the function that decides. The ledger wrapper filters the
+  // same three fields before calling this, so going through the wrapper alone
+  // cannot show which of the two is doing the work -- and the answer matters,
+  // because only this one changes an output.
+  const { deriveCurrentPostalState } = await import('../src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs');
+  const derived = deriveCurrentPostalState(inadmissible);
+  assert.equal(derived.row, null, 'a quarantined row became the current state');
+  assert.equal(derived.state, 'UNKNOWN');
+  assert.equal(derived.contradictory, false, 'quarantined rows manufactured a contradiction');
+
+  // And the admissible one does come through, or the filter would just be a way
+  // of reconciling nothing.
+  await ledger.append({ ...base, occurrenceKey: 'postal:good', authenticated: true, quarantineReason: null });
+  assert.equal((await createPostalReconciliationLookup(ledger)({ tag, messageId })).length, 1);
+});

@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "uberbond.night-genome.run-receipt.v1",
+  "lane": "work/night-genome-20260902",
+  "run": 7,
+  "observedAt": "2026-09-02T07:30:00.000Z",
+  "latestMainObserved": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "sourceHeadBeforeReceipt": "3c40a258c891cce1bcb15c3a0f2c1bd5167d2e1e",
+  "mission": "Close revocation propagation across previously selected Capability Genome bundles and routes without executing untrusted external code.",
+  "truthLayersPreserved": [
+    "REPOSITORY_CANDIDATE",
+    "BODY",
+    "NORMALIZED_CAPABILITY",
+    "SECURITY_CLEAN",
+    "APPROVED",
+    "ACTIVE"
+  ],
+  "changes": [
+    {
+      "path": "src/capability-genome-execution-admission.mjs",
+      "kind": "DETERMINISTIC_EXECUTION_ADMISSION",
+      "claims": [
+        "Execution state is revalidated against current normalized capability records at execution time.",
+        "A revoked selected capability fails closed.",
+        "A revoked or missing dependency fails closed.",
+        "Capability source-revision drift invalidates a stale selected route.",
+        "Stale capability-state evidence cannot authorize execution indefinitely.",
+        "The selected route must remain bound to the selected bundle and observable provider/model identity.",
+        "A guarded execution receipt embeds the fresh execution-admission digest as evidence."
+      ]
+    },
+    {
+      "path": "tests/capability-genome-execution-admission.test.mjs",
+      "kind": "HOSTILE_DETERMINISTIC_TESTS",
+      "cases": [
+        "fresh active dependency-closed bundle accepted",
+        "selected capability revoked after selection rejected",
+        "dependency revoked after selection rejected",
+        "source revision drift rejected",
+        "stale state rejected",
+        "route capability escape rejected"
+      ]
+    }
+  ],
+  "externalCodeExecution": "NONE",
+  "externalCapabilityPromotion": "NONE",
+  "commercialTruthChanged": false,
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "ci": {
+    "sourceHead": "3c40a258c891cce1bcb15c3a0f2c1bd5167d2e1e",
+    "workflowRunsObservedAtReceiptTime": 0,
+    "classification": "CI_NOT_YET_OBSERVED",
+    "sourcePassClaimed": false,
+    "sourceFailureClaimed": false
+  },
+  "remainingHighValueAttacks": [
+    "license evidence freshness and ambiguity propagation",
+    "security evidence freshness and subject-hash binding",
+    "replacement propagation so REPLACED suppliers cannot remain routable",
+    "transitive revocation through dependency closure",
+    "economic routing consistency between benchmark and runtime telemetry"
+  ]
+}

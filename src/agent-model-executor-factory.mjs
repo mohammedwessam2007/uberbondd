@@ -29,8 +29,24 @@ import { createVercelAIGatewayExecutor } from './vercel-ai-gateway-executor.mjs'
 
 export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.0.0';
 
-const API_PROVIDERS = Object.freeze(['openai', 'anthropic']);
+const API_PROVIDERS = Object.freeze(['openai', 'anthropic', 'ai-gateway']);
 const SANDBOX_PROVIDER = 'claude-code-sandbox';
+
+/**
+ * Where each provider's credential and pricing evidence actually live.
+ *
+ * Was `provider.toUpperCase()`, which is right for two of the three and wrong
+ * for the gateway: it produces `AI-GATEWAY_API_KEY`, a variable nobody sets. So
+ * a fully configured gateway reported `credential-absent` here while the
+ * factory below happily built an executor from `AI_GATEWAY_API_KEY`. Readiness
+ * and execution disagreeing about the same credential is the kind of gap that
+ * makes a lane look unavailable until someone runs it by hand.
+ */
+const PROVIDER_ENV_PREFIX = Object.freeze({
+  openai: 'OPENAI',
+  anthropic: 'ANTHROPIC',
+  'ai-gateway': 'AI_GATEWAY'
+});
 
 // The gateway is a fourth lane, added rather than substituted.
 //
@@ -45,6 +61,11 @@ const SANDBOX_PROVIDER = 'claude-code-sandbox';
 // is Vercel's `AI_GATEWAY_API_KEY`, and inventing `VERCEL_AI_GATEWAY_API_KEY`
 // to match a naming rule would name a variable that does not exist.
 const GATEWAY_PROVIDER = 'vercel-ai-gateway';
+// One gateway, one identity. `vercel-ai-gateway` and `ai-gateway` name the same
+// credential and the same executor, so a worker configured with either reaches
+// the same lane rather than being counted as two.
+const GATEWAY_CANONICAL_PROVIDER = 'ai-gateway';
+const GATEWAY_PROVIDER_ALIASES = Object.freeze([GATEWAY_PROVIDER, GATEWAY_CANONICAL_PROVIDER]);
 const GATEWAY_ENV_PREFIX = 'AI_GATEWAY';
 const SUPPORTED_PROVIDERS = Object.freeze([...API_PROVIDERS, SANDBOX_PROVIDER, GATEWAY_PROVIDER]);
 
@@ -98,7 +119,7 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
       });
     }
 
-    if (provider === GATEWAY_PROVIDER) {
+    if (GATEWAY_PROVIDER_ALIASES.includes(provider)) {
       // One credential in front of many providers. That is the point -- it is
       // the smallest thing that gives `executeWithFailover` somewhere to fail
       // over TO -- and it is also the hazard, because a lane that fronts many
@@ -178,7 +199,7 @@ export function describeGatewayProviderReadiness({ env = process.env } = {}) {
 /** Which providers this environment could actually drive, and why not if not. */
 export function describeProviderReadiness({ env = process.env, sandboxIsolationReceipt = null, includeGateway = false } = {}) {
   const api = API_PROVIDERS.map(provider => {
-    const prefix = provider.toUpperCase();
+    const prefix = PROVIDER_ENV_PREFIX[provider] || provider.toUpperCase();
     const hasKey = Boolean(String(env[`${prefix}_API_KEY`] || ''));
     const pricing = pricingFrom(env, prefix);
     const enabled = env[`${prefix}_AGENT_ENABLED`] === 'true';
@@ -216,5 +237,11 @@ export function describeProviderReadiness({ env = process.env, sandboxIsolationR
   },
   // Appended last, and only on request, so the three historical rows keep their
   // positions for every caller that reads them by index.
-  ...(includeGateway ? [describeGatewayProviderReadiness({ env })] : [])];
+  //
+  // Skipped when the gateway is already one of the API providers. It was added
+  // to that list separately, and appending the dedicated row on top produced
+  // two rows for one credential -- which `executeWithFailover` would read as
+  // two destinations, so an exhausted gateway looked like a chain with
+  // somewhere left to go.
+  ...(includeGateway && !API_PROVIDERS.includes(GATEWAY_CANONICAL_PROVIDER) ? [describeGatewayProviderReadiness({ env })] : [])];
 }

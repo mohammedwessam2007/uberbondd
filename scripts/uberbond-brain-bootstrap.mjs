@@ -12,6 +12,7 @@ import {
 import { inspectCapabilityGenome } from '../src/capability-genome-doctor.mjs';
 import { WALLBREAKER_POLICY_VERSION } from '../src/wallbreaker.mjs';
 import { summarizeEventHorizon } from '../src/event-horizon.mjs';
+import { summarizeWorldBrainFieldMission } from '../src/world-brain-field-mission.mjs';
 
 export const UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION = 'uberbond-brain-bootstrap-cli-1.4.0';
 export const MEMORY_RECONCILIATION_PATH = 'artifacts/uberbond-memory-reconciliation.json';
@@ -25,6 +26,10 @@ export const CAPABILITY_GENOME_NORMALIZED_RECORDS_PATH = 'artifacts/capability-g
 export const WALLBREAKER_CANON_PATH = 'docs/WALLBREAKER_CANON.md';
 export const WALLBREAKER_MODULE_PATH = 'src/wallbreaker.mjs';
 export const EVENT_HORIZON_PATH = 'artifacts/event-horizon/economic-genome-2026-08-31.json';
+export const WORLD_BRAIN_FIELD_MISSION_ROOT = 'artifacts/world-brain-field-mission-2026-09-01';
+export const WORLD_BRAIN_FIELD_MISSION_PATH = `${WORLD_BRAIN_FIELD_MISSION_ROOT}/mission-summary.json`;
+export const WORLD_BRAIN_FIELD_PARTNERS_PATH = `${WORLD_BRAIN_FIELD_MISSION_ROOT}/first-cash-partner-candidates.json`;
+export const WORLD_BRAIN_FIELD_CORPUS_PATH = `${WORLD_BRAIN_FIELD_MISSION_ROOT}/capability-genome-candidates.json`;
 
 const MAX_HANDOFF_ITEMS = 120;
 const MAX_HANDOFF_TEXT = 1200;
@@ -132,6 +137,9 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
   const wallbreakerCanonRelative = assertSafeRelativePath(WALLBREAKER_CANON_PATH);
   const wallbreakerModuleRelative = assertSafeRelativePath(WALLBREAKER_MODULE_PATH);
   const eventHorizonRelative = assertSafeRelativePath(EVENT_HORIZON_PATH);
+  const worldBrainFieldMissionRelative = assertSafeRelativePath(WORLD_BRAIN_FIELD_MISSION_PATH);
+  const worldBrainFieldPartnersRelative = assertSafeRelativePath(WORLD_BRAIN_FIELD_PARTNERS_PATH);
+  const worldBrainFieldCorpusRelative = assertSafeRelativePath(WORLD_BRAIN_FIELD_CORPUS_PATH);
   const rawMemoryIndex = readJson(path.join(root, memoryRelative), 'memory-index');
   const memoryReconciliation = readJson(path.join(root, MEMORY_RECONCILIATION_PATH), 'memory-reconciliation');
   const reconciled = applyUberBondMemoryReconciliation({
@@ -157,6 +165,9 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
     wallbreakerCanonRelative,
     wallbreakerModuleRelative,
     eventHorizonRelative,
+    worldBrainFieldMissionRelative,
+    worldBrainFieldPartnersRelative,
+    worldBrainFieldCorpusRelative,
     ...(Array.isArray(bootstrap.canonPointers) ? bootstrap.canonPointers : [])
   ])].map(assertSafeRelativePath);
   const missingPaths = declaredPaths.filter(relative => !fs.existsSync(path.join(root, relative)));
@@ -211,6 +222,18 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
   if (!eventHorizon.ok) {
     const error = new Error('event-horizon-health-failed');
     error.reasonCodes = eventHorizon.failures;
+    throw error;
+  }
+  const worldBrainFieldMission = summarizeWorldBrainFieldMission(
+    readJson(path.join(root, worldBrainFieldMissionRelative), 'world-brain-field-mission'),
+    {
+      partners: readJson(path.join(root, worldBrainFieldPartnersRelative), 'world-brain-field-partners'),
+      corpus: readJson(path.join(root, worldBrainFieldCorpusRelative), 'world-brain-field-corpus')
+    }
+  );
+  if (!worldBrainFieldMission.ok) {
+    const error = new Error('world-brain-field-mission-health-failed');
+    error.reasonCodes = worldBrainFieldMission.failures;
     throw error;
   }
 
@@ -273,6 +296,20 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
       doctor: 'npm run event-horizon:doctor',
       businessEffectAuthority: 'NONE'
     },
+    worldBrainFieldMission: {
+      health: worldBrainFieldMission.health,
+      digest: worldBrainFieldMission.digest,
+      champion: worldBrainFieldMission.champion,
+      corpusCandidateCount: worldBrainFieldMission.corpusCandidateCount,
+      canary: worldBrainFieldMission.canary,
+      nextCommercialMove: worldBrainFieldMission.nextCommercialMove,
+      storage: worldBrainFieldMission.storage,
+      modelGateway: worldBrainFieldMission.modelGateway,
+      paypal: worldBrainFieldMission.paypal,
+      receipt: worldBrainFieldMissionRelative,
+      doctor: 'npm run world-brain:doctor',
+      businessEffectAuthority: 'NONE'
+    },
     historicalLineageCorrection: reconciled.lineage,
     objective: compiled.context.objective,
     economicNorthStar: compiled.context.finalGoal?.economicNorthStar || null,
@@ -299,6 +336,7 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
       'Use the Capability Genome progressive retrieval and minimum-bundle control plane; never inject the world corpus into working context.',
       'Read docs/WALLBREAKER_CANON.md and use Wallbreaker before repeating a materially failed mechanism or guessing through a capability/verifier wall.',
       'Run/read npm run event-horizon:doctor before changing the commercial champion, activating a second experiment, or building a strategic opportunity capability.',
+      'Run/read npm run world-brain:doctor before consuming the 2026-09-01 public partner/capability research tranche; it is evidence-only and creates no contact or payment authority.',
       'Capability Genome atom IDs used by Wallbreaker must be explicit or separately verified; human labels are not atom IDs.',
       'Use src/external-capability-control-plane.mjs before invoking an external skill/runtime when data, provider, security, or source authority matters.',
       'Inspect live main and open/recent PRs before selecting work.',
@@ -323,6 +361,7 @@ export function formatUberBondBrainPacket(packet) {
     `capability genome: ${packet.capabilityGenome.health}; sources=${packet.capabilityGenome.sourceCount}; measured-seeds=${packet.capabilityGenome.rawCandidateCount}; world-repos=${packet.capabilityGenome.worldRepositoryCandidateCount}; skill-bodies=${packet.capabilityGenome.worldSkillBodyCount}; normalized=${packet.capabilityGenome.worldCapabilityRecordsNormalized}; approved=${packet.capabilityGenome.approvedCapabilityCount}; active=${packet.capabilityGenome.activeCapabilityCount}; corpus=${packet.capabilityGenome.corpusTruth}`,
     `wallbreaker: ${packet.wallbreaker.status}; ${packet.wallbreaker.policyVersion}; authority=${packet.wallbreaker.businessEffectAuthority}`,
     `event horizon: ${packet.eventHorizon.health}; champion=${packet.eventHorizon.champion.id}; challenger=${packet.eventHorizon.strongestChallenger.id}; customers=${packet.eventHorizon.commercialTruth.realCustomers}; cleared-revenue=$${packet.eventHorizon.commercialTruth.clearedRevenueUsd}`,
+    `world brain: ${packet.worldBrainFieldMission.health}; champion=${packet.worldBrainFieldMission.champion}; corpus-candidates=${packet.worldBrainFieldMission.corpusCandidateCount}; authority=${packet.worldBrainFieldMission.businessEffectAuthority}`,
     `initiatives: ${packet.namedInitiativeCount}`,
     `lineage: ${(packet.historicalLineageCorrection || []).join(' -> ') || 'none'}`,
     `unresolved: ${packet.unresolvedNames.map(item => item.name).join(', ') || 'none'}`,

@@ -1042,8 +1042,8 @@ export const MUTATIONS = [
   {
     id: 'GATEWAY-01', guard: 'Provider error text is scrubbed before it reaches a receipt',
     file: 'src/vercel-ai-gateway-executor.mjs',
-    find: "  return text(redactSecrets(String(error?.message ?? error ?? '')), max);",
-    replace: "  return text(String(error?.message ?? error ?? ''), max);",
+    find: "const safeDetail = (error, max = 500) => text(redactSecrets(String(error?.message ?? error ?? '')), max);",
+    replace: "const safeDetail = (error, max = 500) => text(String(error?.message ?? error ?? ''), max);",
     suites: ['tests/vercel-ai-gateway-executor.test.mjs']
   },
   {

@@ -206,6 +206,12 @@ export const config = {
       baseUrl: env.MAILFORGE_BASE_URL || 'https://api.mailforge.ai/public',
       workspaceId: env.MAILFORGE_WORKSPACE_ID || '',
       configured: Boolean(env.MAILFORGE_API_KEY)
+    },
+    paypal: {
+      clientId: env.PAYPAL_SANDBOX_CLIENT_ID || '',
+      clientSecret: env.PAYPAL_SANDBOX_CLIENT_SECRET || '',
+      webhookId: env.PAYPAL_SANDBOX_WEBHOOK_ID || '',
+      configured: Boolean(env.PAYPAL_SANDBOX_CLIENT_ID && env.PAYPAL_SANDBOX_CLIENT_SECRET)
     }
   },
   google: {

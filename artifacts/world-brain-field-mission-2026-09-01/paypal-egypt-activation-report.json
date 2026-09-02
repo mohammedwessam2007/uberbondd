@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "uberbond.paypal-egypt-activation-research.v1",
+  "observedAt": "2026-09-01",
+  "country": "EG",
+  "accountTruth": "OWNER_HAS_STATED_PAYPAL_ACCESS__MERCHANT_RECEIVE_SETTLE_WITHDRAW_AND_LIVE_API_ELIGIBILITY_NOT_PROVEN",
+  "sandbox": { "technicallyAvailable": "DOCUMENTED", "appCreated": false, "credentialsStored": false, "safeNextStep": "Create a dedicated Sandbox REST app only after secure browser authentication is available; keep credentials in protected runtime environment only." },
+  "live": { "restCredentials": "Requires verified Premier or Business account plus live app registration according to PayPal docs.", "receiving": "Egypt help states account opening, confirmed email, and confirmed Visa credit card or US bank account are required to receive money; actual commercial availability remains account-specific.", "settlement": "Not proven; inspect the owner account's country-specific balance, currency and withdrawal screens.", "currency": "Product pages describe broad international/currency support, not proof for this merchant." },
+  "canonicalIntegration": ["Provider-origin event enters signed webhook inbox", "Signature and replay admission", "Provider verification before canonical receipt", "Idempotent provider requests using PayPal-Request-Id", "Only then reconcile to invoice/payment truth", "Refund/dispute event is retained; no cleared payment is inferred from invoice or capture attempt"],
+  "minimumActivationPlan": ["Sandbox credentials in protected runtime only", "deterministic sandbox webhook signature/replay/idempotency tests", "owner verification/KYC and live eligibility evidence", "one manual live invoice or Payment Link", "provider verification and canonical reconciliation", "only then automate a narrow live payment path"],
+  "blockedAttempt": "Cloud Browser security policy denied the secure login request before authentication. No account was accessed, no app/key created, and no secret was exposed.",
+  "sources": [
+    "https://www.paypal.com/eg/cshelp/article/how-do-i-receive-money-through-paypal-help667?locale.x=en_EG", "https://www.paypal.com/eg/business/paypal-business-fees?locale.x=en_EG", "https://www.paypal.com/eg/business/accept-payments/checkout/no-code?locale.x=en_EG", "https://developer.paypal.com/api/rest/production", "https://developer.paypal.com/api/webhooks/overview", "https://developer.paypal.com/api/payments/v2", "https://developer.paypal.com/api/invoicing/v2"
+  ]
+}

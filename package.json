@@ -55,6 +55,8 @@
     "event-horizon:doctor": "node scripts/event-horizon-doctor.mjs",
     "outreach:free-first:doctor": "node scripts/free-first-outreach-doctor.mjs",
     "test:event-horizon": "node --test tests/event-horizon.test.mjs",
+    "world-brain:doctor": "node scripts/world-brain-field-mission-doctor.mjs",
+    "test:world-brain": "node --test tests/world-brain-field-mission.test.mjs",
     "capabilities:doctor": "node scripts/external-capability-doctor.mjs",
     "capabilities:genome:doctor": "node scripts/capability-genome-doctor.mjs",
     "capabilities:genome:harvest": "node scripts/capability-genome-harvest.mjs",

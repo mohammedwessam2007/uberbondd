@@ -21,6 +21,7 @@ import {
 } from './genome-extraction.mjs';
 import { reconcileCommercialEvidence } from './commercial-reconciliation.mjs';
 import { runPaymentReconciliationTick } from './payment-reconciliation-worker.mjs';
+import { createPayPalSandboxVerifier } from './paypal-sandbox-adapter.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { rehearseApprovedCommercialEvidence } from './approved-source-rehearsal.mjs';
 import {
@@ -129,6 +130,9 @@ import { acquireCapability } from './capability-genome-runtime.mjs';
 // both.
 
 export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunner, paymentProviderVerifier = null }) {
+  const configuredPaymentVerifier = paymentProviderVerifier || (cfg?.providers?.paypal?.configured
+    ? createPayPalSandboxVerifier({ clientId: cfg.providers.paypal.clientId, clientSecret: cfg.providers.paypal.clientSecret })
+    : null);
   return {
     'research.batch': async payload => pipeline.runBatch(payload.limit, payload || {}),
     'replies.poll': async () => ({ accountsProcessed: await pipeline.pollReplies() || 0 }),
@@ -278,7 +282,7 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       }
       return runPaymentReconciliationTick({
         pool,
-        providerVerifier: paymentProviderVerifier,
+        providerVerifier: configuredPaymentVerifier,
         limit: Number(input.limit) || 10
       });
     },

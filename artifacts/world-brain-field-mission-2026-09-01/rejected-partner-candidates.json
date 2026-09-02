@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "uberbond.rejected-partners.v1",
+  "observedAt": "2026-09-01",
+  "candidates": [
+    { "id": "blue-corona", "reason": "Canonical duplicate/successor: its public case page says it merged into RYNO.", "source": "https://www.bluecorona.com/case-studies/" },
+    { "id": "scorpion", "reason": "RevenueMAX directly attributes booked jobs and revenue; inseparable overlap.", "source": "https://marketplace.servicetitan.com/partner/scorpion" },
+    { "id": "searchlight", "reason": "Direct campaign-to-booking/revenue attribution competitor.", "source": "https://marketplace.servicetitan.com/partner/searchlight" },
+    { "id": "upsmith", "reason": "Direct unsold-estimate/missed-opportunity/SMS recovery competitor with side-effect surface.", "source": "https://marketplace.servicetitan.com/partner/upsmith" },
+    { "id": "on-purpose-media", "reason": "SearchLight partnership and closed-loop attribution make independent diagnostic insufficiently separable.", "source": "https://onpurposemedia.com/searchlight-partnership/" },
+    { "id": "ryno", "reason": "First-five reject: RYNOtrax, CSR coaching, call intelligence, and attribution overlap. Retain as benchmark.", "source": "https://marketplace.servicetitan.com/partner/ryno" },
+    { "id": "nexstar-network", "reason": "Large gatekeeper with long partner cycle; poor $450 canary economics.", "source": "https://marketplace.servicetitan.com/partner/nexstar-network" },
+    { "id": "hibu", "reason": "Jobber listing alone is target evidence, not sufficient vertical/multi-client/case proof.", "source": "https://www.getjobber.com/partner-directory/" },
+    { "id": "rival-digital", "reason": "Named and quantified public case proof remains insufficient.", "source": "https://watsonco.marketing/blog/2026/07/best-home-services-marketing-agencies/" }
+  ]
+}

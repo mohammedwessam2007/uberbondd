@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "uberbond-owner-goals-1.0.0",
+  "asOf": "2026-09-02",
+  "evidenceClass": "OWNER_EXPLICIT_GOALS_AND_OPERATING_DOCTRINE",
+  "truthBoundary": "This preserves owner intent and strategic doctrine. It does not create present-tense capability, demand, customers, revenue, payment, delivery, retention, legal clearance, provider readiness, or deployment proof.",
+  "economicNorthStar": "risk-adjusted cleared contribution profit per founder minute",
+  "ultimateGoal": "A private, cloud-operated, evidence-first autonomous economic operating system that increasingly performs the work of the company itself, acquires customers, proves economics, fulfils, retains, learns, and self-improves while minimizing founder effort.",
+  "commercialResponsibility": {
+    "ownerManualSalesIsDefault": false,
+    "uberbondOwnsCustomerAcquisition": true,
+    "uberbondOwnsEconomicProof": true,
+    "uberbondOwnsOfferAdaptation": true,
+    "uberbondOwnsPaymentReconciliation": true,
+    "uberbondOwnsFulfilment": true,
+    "uberbondOwnsRetentionAndExpansion": true,
+    "founderRoleTarget": "Only genuinely human-exclusive gates such as MFA, KYC, identity confirmation, new paid commitments, or legally required personal decisions."
+  },
+  "parallelLoops": {
+    "economicLoop": ["discover", "verify", "select opportunity", "prepare bounded experiment", "distribute when authorized", "qualify conversations", "collect and reconcile payment", "fulfil", "obtain external acceptance", "retain/referral/expand", "learn"],
+    "evolutionLoop": ["observe outcomes", "identify bottleneck or opportunity", "propose improvement", "sandbox or isolated branch", "tests and hostile falsification", "economic comparison", "authority gate", "bounded canary", "promote", "monitor", "rollback if worse"],
+    "law": "Revenue generation and self-improvement run continuously in parallel. Pre-customer engineering completion never freezes system evolution."
+  },
+  "currentChampion": {
+    "name": "White-label Attribution Integrity + Lost-Booking Evidence Sprint",
+    "buyerHypothesis": "US or otherwise legally approved agencies serving HVAC, plumbing, or electrical companies",
+    "priceHypothesis": {"currency": "USD", "amount": 450, "scope": "fixed"},
+    "status": "PREPARED_NOT_EXTERNALLY_ACTIVATED",
+    "canary": {"maxQualifiedConversationsBeforeReview": 5, "ifNoPaidPilotAfterFive": "KILL_OR_RETHINK"},
+    "portfolioBoundary": "The champion is one current experiment, not the permanent definition of UberBond."
+  },
+  "preparedTargets": ["KickCharge Creative", "Lemon Seed Marketing", "Hook Agency", "Footbridge Media", "Titan Wizards"],
+  "preparedTargetBoundary": "Prepared targets are not contact authority, contacted leads, qualified conversations, customers, or revenue.",
+  "distributionGoal": ["partner and white-label", "governed direct outbound", "referral and expansion", "product-led diagnostics", "owned content", "SEO/AEO", "social/public distribution", "communities/directories", "marketplaces", "API/agent/MCP/embedded surfaces", "reactivation/retention/renewal", "paid media only after positive measured economics"],
+  "freeFirstDoctrine": {
+    "rule": "Before paying for a provider or capability, search for an approved zero-cost or lower-cost eligible route with sufficient quality, authority, reliability, security, policy compatibility and switching economics.",
+    "reinvestmentRule": "Once positive economics are proven, spend legitimately and aggressively where incremental expected risk-adjusted cleared contribution exceeds marginal cost.",
+    "forbidden": ["quota evasion", "account farming", "fake organizations", "identity rotation to defeat limits", "misusing opt-in or transactional providers for prohibited cold outreach"]
+  },
+  "capabilityGenomeGoal": {
+    "truthLayers": ["candidate repository", "fetched body", "normalized capability", "security-clean capability", "approved supplier", "active runtime capability"],
+    "law": "Never collapse these layers or install random large counts for vanity. Discover broadly, activate narrowly, benchmark continuously, revoke or replace when evidence changes."
+  },
+  "wallbreakerGoal": "Failures must create information. Compile the wall, diversify solution families, falsify assumptions, execute bounded attempts, classify failure, acquire missing capabilities if warranted, and avoid blind identical retries.",
+  "modelProviderGoal": "Route across legitimately configured models/providers by capability, cost, latency, privacy, health and task requirements without hiding actual serving identity, bypassing terms, or duplicating uncertain non-idempotent effects.",
+  "founderAbsenceGoal": "Operate through durable cloud scheduling, queues, leases, checkpoints, receipts, reconciliation, recovery, health, circuit breakers, bounded budgets and exact exception reporting. Founder absence requires observed elapsed operation.",
+  "truthLaws": [
+    "architecture is not revenue",
+    "research is not demand",
+    "prepared targets are not customers",
+    "sandbox transactions are not revenue",
+    "pending is not cleared",
+    "an invoice is not money",
+    "payment is not accepted delivery",
+    "internal QA is not customer acceptance",
+    "capability never creates authority"
+  ],
+  "antiAmnesiaLaws": [
+    "Never redefine UberBond as the latest offer.",
+    "Never make the founder the permanent manual sales department after engineering completion.",
+    "Customer acquisition and economic proof remain UberBond responsibilities.",
+    "Revenue generation and self-improvement run in parallel.",
+    "Pre-customer engineering completion never means self-improvement stops.",
+    "Every material future conversation should be digested into repository-native memory.",
+    "A new repo-aware session should recover these goals without asking the owner to reconstruct them."
+  ],
+  "commercialTruthAtCapture": {"realCustomers": 0, "clearedRevenueUsd": 0, "acceptedPaidDeliveries": 0, "retainedCustomers": 0}
+}

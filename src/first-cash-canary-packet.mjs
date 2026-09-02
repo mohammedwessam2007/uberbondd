@@ -1,7 +1,8 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { LEAD_PATH_SPRINT_SKU } from './lead-path-sprint-fulfillment.mjs';
 
-export const FIRST_CASH_CANARY_PACKET_VERSION = 'uberbond.first-cash-canary-packet-1.0.1';
-export const CURRENT_CHAMPION_OFFER = 'White-label Attribution Integrity + Lost-Booking Evidence Sprint';
+export const FIRST_CASH_CANARY_PACKET_VERSION = 'uberbond.first-cash-canary-packet-1.1.0';
+export const CURRENT_CHAMPION_OFFER = 'White-label Lead-Path Revenue Leak Evidence Sprint';
 export const REQUIRED_CONTACT_GATES = Object.freeze([
   'jurisdictionApproved','providerPurposeAllowed','contactProvenanceApproved','senderReady','authorityGranted','canaryOpen'
 ]);
@@ -12,6 +13,7 @@ export function canContactFromGates(gates = {}) {
 
 export function canaryDecision({ qualifiedConversationCount = 0, paidPilotCount = 0 } = {}) {
   if (!Number.isSafeInteger(qualifiedConversationCount) || qualifiedConversationCount < 0) return 'INVALID';
+  if (!Number.isSafeInteger(paidPilotCount) || paidPilotCount < 0 || paidPilotCount > qualifiedConversationCount) return 'INVALID';
   if (qualifiedConversationCount >= 5 && paidPilotCount < 1) return 'KILL_OR_RETHINK';
   if (qualifiedConversationCount >= 5) return 'REVIEW_BEFORE_ANY_EXPANSION';
   return 'CONTINUE_BOUNDED_CANARY';
@@ -40,17 +42,17 @@ export function buildFirstCashCanaryPacket({
   const qs = [
     qa('CAN WE CONTACT?', canContact ? 'YES' : 'NO', canContact?'READY':'BLOCKED', 'RUNTIME_GATES', blocked, 'first-cash-canary-packet'),
     qa('WHO?', {segment:'US or otherwise legally approved agencies serving HVAC, plumbing, or electrical businesses',targetIds}, targetCount>0?'PREPARED':'NEEDS_EXTERNAL_TARGETS','PUBLIC_EVIDENCE',targetCount>0?[]:['qualified-targets-required'],'opportunity-engine'),
-    qa('WHY?', 'One qualified agency may represent multiple downstream contractor accounts; independently verify attribution integrity and lost-booking evidence without mutating customer systems.', 'PREPARED','OFFER_HYPOTHESIS',[],'event-horizon-economic-genome'),
+    qa('WHY?', 'One qualified agency may represent multiple downstream contractor accounts; the sprint gathers bounded evidence of lead-path revenue leakage without mutating customer systems.', 'PREPARED','OFFER_HYPOTHESIS',[],'event-horizon-economic-genome'),
     qa('WHICH SENDER?', sender || 'NONE_PROVEN', sender?'PREPARED':'BLOCKED','SENDER_HEALTH',sender?[]:['sender-readiness-not-proven'],'sender-mesh'),
     qa('WHICH PROVIDER?', provider || 'NONE_PROVEN', provider?'PREPARED':'BLOCKED','PROVIDER_ACTIVATION',provider?[]:['provider-route-not-proven'],'free-first-outreach-router'),
     qa('WHICH POLICY EVIDENCE?', policyEvidence, policyEvidence.length?'PREPARED':'BLOCKED','PROVIDER_POLICY',policyEvidence.length?[]:['provider-policy-evidence-required'],'provider-activation-receipt'),
     qa('WHICH AUTHORITY?', authorityEvidence, gates.authorityGranted?'PREPARED':'BLOCKED','OMNIA_AUTHORITY',gates.authorityGranted?[]:['omnia-authority-not-granted'],'omnia-v9'),
-    qa('WHAT OFFER?', CURRENT_CHAMPION_OFFER, 'PREPARED','CANONICAL_OFFER',[],'world-brain-field-mission'),
+    qa('WHAT OFFER?', {name:CURRENT_CHAMPION_OFFER,sku:LEAD_PATH_SPRINT_SKU}, 'PREPARED','CANONICAL_OFFER',[],'lead-path-sprint-fulfillment'),
     qa('WHAT PRICE?', {currency:'USD',amount:450,scope:'fixed'}, 'HYPOTHESIS','PRICE_HYPOTHESIS',[],'world-brain-field-mission'),
-    qa('WHAT PAYMENT LINK?', paymentLink || null, paymentLink?'PREPARED':'BLOCKED','PAYMENT_RUNTIME',paymentLink?[]:['payment-link-not-configured'],'payment-rail-doctor'),
-    qa('HOW RECONCILED?', 'Signed provider webhook -> durable inbox -> provider verification -> canonical payment receipt -> RECONCILED.', 'IMPLEMENTED','PAYMENT_TRUTH',[],'billing-webhook-repository'),
-    qa('HOW DELIVERED?', 'Lead-Path/Attribution Sprint fulfillment state machine composes service-fulfillment and requires QA before delivery.', 'IMPLEMENTED','FULFILLMENT_CODE',[],'lead-path-sprint-fulfillment'),
-    qa('HOW ACCEPTED?', 'Only independent EXTERNAL_CUSTOMER evidence may set customer acceptance.', 'IMPLEMENTED','CUSTOMER_WITNESS',[],'lead-path-sprint-fulfillment'),
+    qa('WHAT PAYMENT LINK?', paymentLink || null, paymentLink?'PREPARED':'BLOCKED','PAYMENT_RUNTIME',paymentLink?[]:['payment-link-not-configured'],'payment-runtime'),
+    qa('HOW RECONCILED?', 'Verified provider webhook -> durable payment evidence -> canonical payment truth -> fulfilment payment binding.', 'IMPLEMENTED','PAYMENT_TRUTH',[],'payment-runtime'),
+    qa('HOW DELIVERED?', 'Lead-Path Sprint fulfilment state machine composes service-fulfillment and requires QA before delivery.', 'IMPLEMENTED','FULFILLMENT_CODE',[],'lead-path-sprint-fulfillment'),
+    qa('HOW ACCEPTED?', 'Only independent EXTERNAL_CUSTOMER evidence bound to the correct customer may set customer acceptance.', 'IMPLEMENTED','CUSTOMER_WITNESS',[],'lead-path-sprint-fulfillment'),
     qa('ON REPLY?', 'Stop automated follow-up, classify reply, and route qualification/objection to canonical reply handling.', 'IMPLEMENTED','OUTREACH_CONTROL',[],'reply-intelligence'),
     qa('ON BOUNCE?', 'Quarantine sender/recipient evidence, suppress as appropriate, and treat bounce as proof of send with negative delivery evidence.', 'IMPLEMENTED','DELIVERABILITY',[],'postal-effect-adapter'),
     qa('ON COMPLAINT?', 'Suppress recipient, pause affected sender/provider as required, and raise deliverability circuit breaker.', 'IMPLEMENTED','DELIVERABILITY',[],'sender-mesh'),
@@ -61,7 +63,8 @@ export function buildFirstCashCanaryPacket({
   return {
     schemaVersion:FIRST_CASH_CANARY_PACKET_VERSION,
     offer:CURRENT_CHAMPION_OFFER,
-    offerLineage:'REFINEMENT_OF_LEAD_PATH_NOT_NEW_OFFER',
+    sku:LEAD_PATH_SPRINT_SKU,
+    offerLineage:'CANONICAL_LEAD_PATH_CHAMPION',
     price:{currency:'USD',amount:450,scope:'fixed'},
     buyer:'US or otherwise legally approved agencies serving HVAC, plumbing, or electrical businesses',
     canContact,

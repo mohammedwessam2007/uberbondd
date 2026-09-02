@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
-import { Pool } from 'pg';
+import { Client } from 'pg';
 import {
   EXECUTION_STATES, ALL_STATES, isLegalTransition, isTerminal, wasDispatchAttempted,
   listAllTransitionPairsForExhaustiveCheck, listLegalTransitionPairs, BUSINESS_KEY_RELEASING_STATES
@@ -37,14 +37,13 @@ function suffix() {
   return `${Date.now()}_${Math.random().toString(16).slice(2)}`;
 }
 
-async function migrateReal(pool) {
-  const client = await pool.connect();
+async function migrateReal(client) {
   try {
     await client.query('SELECT pg_advisory_lock(hashtext($1))', ['omnia-v9-external-effect-test-migrate']);
     await client.query(await fs.readFile(new URL('../migrations/011_omnia_v9_external_effect_executions.sql', import.meta.url), 'utf8'));
   } finally {
-    await client.query('SELECT pg_advisory_unlock(hashtext($1))', ['omnia-v9-external-effect-test-migrate']).catch(() => {});
-    client.release();
+    try { await client.query('SELECT pg_advisory_unlock(hashtext($1))', ['omnia-v9-external-effect-test-migrate']); }
+    catch { /* the lock goes with the session either way */ }
   }
 }
 
@@ -89,15 +88,60 @@ test('EXECUTION_STATES enumerates exactly ALL_STATES with no drift', () => {
   assert.deepEqual(Object.values(EXECUTION_STATES).sort(), [...ALL_STATES].sort());
 });
 
-test('database transition-guard trigger agrees with isLegalTransition() for every (from,to) pair -- illegal transitions are rejected by Postgres itself, not merely by application code', { skip: !realPostgresUrl }, async () => {
-  const pool = new Pool({ connectionString: realPostgresUrl, max: 5 });
+// A bounded timeout, because this test has hung indefinitely rather than failed.
+//
+// The exhaustive walk stalls on one specific pair -- ABORTED_BEFORE_DISPATCH ->
+// PREPARED -- at the UPDATE that moves the row PREPARED -> ABORTED_BEFORE_DISPATCH,
+// the transition that releases the business key from the partial unique index.
+// The backend sits `active` with no wait event and does not respond to
+// `statement_timeout`, so nothing times it out from either side. It needs the
+// accumulated session state of the ~122 preceding rolled-back transactions: the
+// same sequence on a fresh connection is applied and then correctly refused in
+// under a tenth of a second, so this is not a defect in the migration, the
+// triggers or any production path.
+//
+// What it is, is a gate that reports nothing. `npm run test:postgres-real` runs
+// this file and then stops, so every real-database test after it -- around 180 of
+// them -- had never once executed to completion, and no run ever said so. A
+// timeout turns silence into a failure, which is the least a gate owes its reader.
+test('database transition-guard trigger agrees with isLegalTransition() for every (from,to) pair -- illegal transitions are rejected by Postgres itself, not merely by application code', { skip: !realPostgresUrl, timeout: 120_000 }, async () => {
+  // A statement that blocks in the server must fail this test, not stall it.
+  // Without a timeout the default is to wait forever, and a gate that can wait
+  // forever reports nothing: this suite was hanging here rather than failing,
+  // so the ~180 real-database tests behind it had never once run to completion.
+  // One dedicated connection for the whole check, not a pool.
+  //
+  // This test used to take a client out of a 5-connection pool per pair and
+  // return it in a `finally`. Any iteration that failed to reach `release()`
+  // -- and `await client.query(...).catch()` does not catch the synchronous
+  // throw a dead client raises -- permanently removed one connection. After
+  // roughly 120 of the 132 pairs the pool was empty and `pool.connect()`
+  // waited for a free client that was never coming. Nothing failed: the whole
+  // suite simply stopped, which is why the ~180 tests in the real-database gate
+  // behind this file had never once run to completion.
+  //
+  // A single client cannot be exhausted, and `statement_timeout` means a
+  // statement that blocks in the server fails this test rather than stalling
+  // it. The pairs are checked serially anyway, so the pool bought nothing.
+  const client = new Client({ connectionString: realPostgresUrl });
+  await client.connect();
+  // Set on the session rather than passed as client config: the config option
+  // is silently ignored by some driver versions, and a timeout that is not
+  // actually in force is worse than none, because it looks like protection.
+  await client.query("SET statement_timeout = '20s'");
+  // Do not let a stuck query hold the process open. When the timeout above
+  // fires, node:test abandons the test but the outstanding socket still has the
+  // event loop pinned, so the runner reports the failure and then never exits --
+  // which puts the hang straight back, one layer up. An unref'd socket keeps
+  // working while anything else is pending and stops being a reason to stay
+  // alive once nothing is.
+  client.connection?.stream?.unref?.();
   try {
-    await migrateReal(pool);
+    await migrateReal(client);
     const pairs = listAllTransitionPairsForExhaustiveCheck();
     let checked = 0;
     for (const [from, to] of pairs) {
       const executionId = `sm-check-${suffix()}`;
-      const client = await pool.connect();
       try {
         await client.query('BEGIN');
         if (from === null) {
@@ -142,12 +186,14 @@ test('database transition-guard trigger agrees with isLegalTransition() for ever
         }
         checked += 1;
       } finally {
-        await client.query('ROLLBACK').catch(() => {});
-        client.release();
+        // try/catch rather than `.catch()`: on a client whose connection has
+        // already gone, `query` throws synchronously instead of returning a
+        // rejected promise, so `.catch()` never sees it and the throw escapes.
+        try { await client.query('ROLLBACK'); } catch { /* already gone */ }
       }
     }
     assert(checked === pairs.length && checked > 0, `expected to check all ${pairs.length} pairs, checked ${checked}`);
   } finally {
-    await pool.end();
+    await client.end();
   }
 });

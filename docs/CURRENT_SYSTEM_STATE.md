@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-09-01**
 Branch: `main`
-Reconciled from current head: `b803a29de968197c4e76fb258b4b889282f65308`
+Reconciled from current head: `3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 

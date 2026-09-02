@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-export const POSTAL_WEBHOOK_EVIDENCE_VERSION = 'uberbond.postal-webhook-evidence-1.0.0';
+export const POSTAL_WEBHOOK_EVIDENCE_VERSION = 'uberbond.postal-webhook-evidence-1.0.1';
 export const POSTAL_QUARANTINE_REASONS = Object.freeze([null, 'UNAUTHENTICATED', 'UNKNOWN_EVENT_TYPE', 'MALFORMED']);
 const EXECUTION_TAG_RE = /^v9_[a-f0-9]{48}$/;
 const EVENT_MAP = Object.freeze({
@@ -132,10 +132,13 @@ export function deriveCurrentPostalState(rows = []) {
   const ids = [...new Set(usable.map(row => String(row.postalMessageId)))].sort();
   const contradictory = ids.length > 1;
   const sorted = usable.slice().sort((a, b) => {
-    const time = new Date(b.occurredAt).getTime() - new Date(a.occurredAt).getTime();
-    if (time !== 0) return time;
+    // Lifecycle evidence is monotonic: stronger proof must not be overwritten by a
+    // later lower-rank provider event or out-of-order webhook delivery. Timestamps
+    // are only a tie-breaker within the same evidence rank.
     const rank = (RANK[b.lifecycle] ?? 0) - (RANK[a.lifecycle] ?? 0);
     if (rank !== 0) return rank;
+    const time = new Date(b.occurredAt).getTime() - new Date(a.occurredAt).getTime();
+    if (time !== 0) return time;
     return String(a.occurrenceKey).localeCompare(String(b.occurrenceKey));
   });
   return {

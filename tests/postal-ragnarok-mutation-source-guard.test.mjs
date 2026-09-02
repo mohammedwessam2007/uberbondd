@@ -4,6 +4,7 @@ import fs from 'node:fs';
 
 const source = fs.readFileSync(new URL('../src/omnia-v9/integrations/providers/postal-effect-adapter.mjs', import.meta.url), 'utf8');
 const webhookEvidenceSource = fs.readFileSync(new URL('../src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs', import.meta.url), 'utf8');
+const webhookRouteSource = fs.readFileSync(new URL('../api/webhooks/postal.mjs', import.meta.url), 'utf8');
 
 test('mutation guard: HTTP 409 can never be classified as definite rejection', () => {
   const set = source.match(/DEFINITE_REJECTION_STATUSES\s*=\s*new Set\(\[([^\]]*)\]\)/)?.[1] || '';
@@ -44,4 +45,9 @@ test('mutation guard: webhook lifecycle aggregation ranks evidence before timest
   assert.notEqual(rankIndex, -1, 'lifecycle rank comparison must exist');
   assert.notEqual(timeIndex, -1, 'timestamp tie-breaker must exist');
   assert.ok(rankIndex < timeIndex, 'rank must be evaluated before timestamp so later weak events cannot regress stronger proof');
+});
+
+test('mutation guard: webhook route verifies only Postal SHA-256 signature header', () => {
+  assert.match(webhookRouteSource, /headers\.get\('x-postal-signature-256'\)/);
+  assert.doesNotMatch(webhookRouteSource, /signatureBase64:\s*request\.headers\.get\('x-postal-signature'\)/);
 });

@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "uberbond-night-payment-closure-run-1.0.0",
+  "run": 2,
+  "evidenceDate": "2026-09-02",
+  "sourceHeadBeforeReceipt": "8b7262b9a03a66310184f7a5d5f3fe55f58a7602",
+  "mainObserved": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "branch": "work/night-payment-20260902",
+  "pullRequest": 319,
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "closedSoftwareGaps": [
+    "A net total of USD 450 can no longer be formed by multiple verified payment events to unlock the fixed-price first-cash sprint; exactly one canonical verified provider payment event is required.",
+    "A renewal event cannot be repurposed as the first-cash payment.",
+    "The fulfilment unlock is bound to the requested canonical lead scope instead of accepting an unrelated lead's valid payment truth.",
+    "The wrapper now requires the canonical payment reconciliation policy version, canonical truth digest, retained-payment stage, one verified provider event reference, and zero verified/unverified reversal evidence.",
+    "Customer evidence must use a canonical customer or receipt referent; arbitrary synthetic acceptance strings are rejected.",
+    "CUSTOMER_SILENT is terminal for this fixed-scope wrapper and can no longer advance through SUPPORT_WINDOW to COMPLETE while accepted-delivery truth remains false."
+  ],
+  "hostileMutationsAdded": [
+    "two payments summing to USD 450",
+    "payment plus renewal summing to USD 450",
+    "unrelated lead scope",
+    "missing canonical truth digest",
+    "synthetic policy version",
+    "payment retained stage not proven",
+    "customer silence promoted toward completion",
+    "synthetic customer acceptance referent"
+  ],
+  "ci": {
+    "workflowRunId": 33582285829,
+    "headSha": "8b7262b9a03a66310184f7a5d5f3fe55f58a7602",
+    "conclusion": "failure",
+    "classification": "ENVIRONMENT_RUNNER_FAILURE_BEFORE_EXECUTION",
+    "jobs": [
+      {"name": "postgres", "stepsExecuted": 0, "runnerId": 0, "conclusion": "failure"},
+      {"name": "deterministic", "stepsExecuted": 0, "runnerId": 0, "conclusion": "failure"},
+      {"name": "browser", "stepsExecuted": 0, "runnerId": 0, "conclusion": "failure"}
+    ],
+    "sourceFailureProven": false,
+    "greenClaimAllowed": false
+  },
+  "remainingSoftwareEvidenceGap": "The new exact-head tests have not executed because GitHub Actions assigned no runner and executed zero steps. A real repository host or restored Actions runner must run the focused tests and canonical gates before merge.",
+  "remainingExternalRealityGates": [
+    "real PayPal merchant/KYC and payout readiness",
+    "secure real payment-provider credentials where authorized",
+    "real buyer commitment",
+    "real provider-origin cleared USD 450 payment",
+    "real fulfilment",
+    "independent customer-origin acceptance",
+    "refund/dispute/retention outcomes over real elapsed time"
+  ],
+  "safety": {
+    "realMoneyMoved": false,
+    "merchantReadinessFabricated": false,
+    "parallelRevenueTruthCreated": false,
+    "externalEffectAuthorityGranted": false
+  }
+}

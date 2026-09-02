@@ -102,12 +102,15 @@ test('one-command loader validates actual bootstrap, reconciled memory, and exte
     'strix',
     'agent-reach'
   ]));
-  assert.equal(packet.namedInitiativeCount, 34);
+  // 35 since the owner-doctrine record was added to the reconciliation overlay
+  // on 2026-09-02. A measured count, pinned so a silent loss of memory shows up
+  // as a failing figure rather than as a smaller packet nobody notices.
+  assert.equal(packet.namedInitiativeCount, 35);
   assert.ok(packet.namedInitiatives.some(item => item.name === 'Kilimanjaro'));
   assert.equal(packet.namedInitiatives.find(item => item.name === 'Everest')?.status, 'CANONICAL_LINEAGE');
   assert.ok(packet.namedInitiatives.some(item => item.name === 'SUMMIT 100'));
   assert.ok(packet.namedInitiatives.some(item => item.name === 'BLACK SKY'));
-  assert.deepEqual(packet.historicalLineageCorrection, ['Everest', 'SUMMIT 100', 'BLACK SKY', 'Reality Activation']);
+  assert.deepEqual(packet.historicalLineageCorrection, ['Everest', 'SUMMIT 100', 'BLACK SKY', 'Reality Activation', 'Owner Goals 2026-09-02']);
   assert.ok(packet.unresolvedNames.some(item => item.name === 'Unreconstructed Owner-Recalled UberBond Programs'));
   assert.ok(!packet.unresolvedNames.some(item => item.name === 'Everest'));
   assert.equal(packet.businessEffectAuthority, 'NONE');
@@ -227,7 +230,7 @@ test('human summary stays bounded and exposes capability assimilation without du
   assert.match(output, /skill-bodies=\d+;/);
   assert.match(output, /active=0;/);
   assert.match(output, /corpus=[A-Z_]+/);
-  assert.match(output, /initiatives: 34/);
+  assert.match(output, /initiatives: 35/);
   assert.match(output, /lineage: Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation/);
   assert.match(output, /unresolved: Unreconstructed Owner-Recalled UberBond Programs/);
   assert.ok(output.length < 1600);

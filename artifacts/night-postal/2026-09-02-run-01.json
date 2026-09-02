@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "uberbond.night-postal-handoff.v1",
+  "lane": "postal-free-first-sender-evidence",
+  "baseMainSha": "5436eeb111a17f012ea7dc307f295703da391bc6",
+  "verifiedSourceHeadBeforeHandoff": "f6322bfcffec472c6362d951e3bda463f2e43bbc",
+  "branch": "work/night-postal-20260902",
+  "pullRequest": 317,
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "externalEffects": {
+    "realOutreachSentByThisLane": 0,
+    "authorityWidened": false
+  },
+  "completed": [
+    "Removed HTTP 409 from definite Postal rejection semantics; 409 remains UNCERTAIN.",
+    "Added bounded AbortController timeout with no hidden retry path.",
+    "Added HTTPS one-click List-Unsubscribe headers when explicitly supplied.",
+    "Added authenticated Postal webhook normalization and cryptographic signature verification.",
+    "Added append-only replay-idempotent memory/PostgreSQL Postal webhook ledger and reconciliation lookup.",
+    "Required AUTHENTICATED_POSTAL_WEBHOOK provenance before reconciliation evidence may settle an uncertain send.",
+    "Changed bounce semantics to RECONCILED_ACCEPTED with negativeDeliveryEvidence=true rather than falsely claiming synchronous submission rejection.",
+    "Added focused hostile tests for 409/429/5xx uncertainty, timeout, one-click unsubscribe, provenance, zero-match uncertainty, bounce semantics, replay, route, evidence and PostgreSQL behavior.",
+    "Added mutation-style source guards for 409, bounce semantics, webhook provenance and single provider-call site.",
+    "Confirmed reachability ratchet treats recursively discovered api/ routes as production entry points, so the new webhook modules are reachable through api/webhooks/postal.mjs rather than dead-classified."
+  ],
+  "verification": {
+    "sourceHead": "f6322bfcffec472c6362d951e3bda463f2e43bbc",
+    "vercelUberbondd": "BLOCKED_BUILD_RATE_LIMIT",
+    "vercelLitePrivate": "BLOCKED_BUILD_RATE_LIMIT",
+    "sourceFailureObserved": false,
+    "greenClaimed": false,
+    "note": "Both Vercel checks failed before build execution because the account hit its build-rate limit. This is an external platform quota blocker, not source-code evidence. Exact-head syntax/deterministic execution remains required on a later run."
+  },
+  "next": [
+    "Refresh main and PR 317; if main advanced, compare before rebasing.",
+    "Retry exact-head syntax and deterministic gates when build capacity returns.",
+    "Run the focused Postal tests and reachability ratchet on the exact branch head.",
+    "If green, inspect suppression/complaint integration and canonical mutation-war registration for remaining software gaps before considering merge."
+  ],
+  "status": "DURABLE_PROGRESS_UNVERIFIED_BY_EXECUTION_ENVIRONMENT"
+}

@@ -25,12 +25,28 @@
 import { createOpenAIAgentExecutor } from './openai-agent-executor.mjs';
 import { createAnthropicAgentExecutor } from './anthropic-agent-executor.mjs';
 import { createClaudeCodeSandboxExecutor } from './claude-code-sandbox-executor.mjs';
+import { createVercelAIGatewayExecutor } from './vercel-ai-gateway-executor.mjs';
 
 export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.0.0';
 
 const API_PROVIDERS = Object.freeze(['openai', 'anthropic']);
 const SANDBOX_PROVIDER = 'claude-code-sandbox';
-const SUPPORTED_PROVIDERS = Object.freeze([...API_PROVIDERS, SANDBOX_PROVIDER]);
+
+// The gateway is a fourth lane, added rather than substituted.
+//
+// It is deliberately NOT in API_PROVIDERS. That list is read by
+// `describeProviderReadiness`, whose output feeds `composeActivationInput` and
+// therefore the activation gate's provider map. Silently growing it would
+// change what the gate scores without anyone deciding to, which is the shape of
+// change this project treats as a widening. The gateway row is opt-in, and the
+// default readiness answer is byte-identical to what it has always been.
+//
+// Its env prefix is AI_GATEWAY, not the provider id upper-cased: the credential
+// is Vercel's `AI_GATEWAY_API_KEY`, and inventing `VERCEL_AI_GATEWAY_API_KEY`
+// to match a naming rule would name a variable that does not exist.
+const GATEWAY_PROVIDER = 'vercel-ai-gateway';
+const GATEWAY_ENV_PREFIX = 'AI_GATEWAY';
+const SUPPORTED_PROVIDERS = Object.freeze([...API_PROVIDERS, SANDBOX_PROVIDER, GATEWAY_PROVIDER]);
 
 function pricingFrom(env, prefix) {
   const input = Number(env[`${prefix}_INPUT_USD_PER_MILLION`]);
@@ -82,6 +98,27 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
       });
     }
 
+    if (provider === GATEWAY_PROVIDER) {
+      // One credential in front of many providers. That is the point -- it is
+      // the smallest thing that gives `executeWithFailover` somewhere to fail
+      // over TO -- and it is also the hazard, because a lane that fronts many
+      // models makes "the model I asked for answered" an assumption. The
+      // executor refuses to claim that without response evidence.
+      const apiKey = String(env.AI_GATEWAY_API_KEY || '');
+      const pricing = pricingFrom(env, GATEWAY_ENV_PREFIX);
+      if (!apiKey) throw new Error('vercel-ai-gateway worker configured but AI_GATEWAY_API_KEY is absent');
+      if (!pricing) throw new Error('vercel-ai-gateway worker configured but pricing evidence is absent or incomplete');
+      const timeoutMs = Number(env.AI_GATEWAY_TIMEOUT_MS);
+      return createVercelAIGatewayExecutor({
+        apiKey,
+        pricing,
+        enabled: env.AI_GATEWAY_AGENT_ENABLED === 'true',
+        gatewayProvider: String(env.AI_GATEWAY_DEFAULT_PROVIDER || '').trim(),
+        ...(Number.isSafeInteger(timeoutMs) && timeoutMs > 0 ? { timeoutMs } : {}),
+        ...(worker.model ? { defaultModel: worker.model } : {})
+      });
+    }
+
     if (provider === 'openai') {
       const apiKey = String(env.OPENAI_API_KEY || '');
       const pricing = pricingFrom(env, 'OPENAI');
@@ -108,8 +145,38 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
   };
 }
 
+/**
+ * The gateway lane's readiness, on its own.
+ *
+ * Separate from `describeProviderReadiness` on purpose. That function's array
+ * is consumed positionally by existing tests and, more importantly, is turned
+ * into the activation gate's provider map by `composeActivationInput`. Appending
+ * a row by default would change what the gate scores as a side effect of adding
+ * a lane, so the gateway is asked for explicitly or not at all.
+ */
+export function describeGatewayProviderReadiness({ env = process.env } = {}) {
+  const hasKey = Boolean(String(env.AI_GATEWAY_API_KEY || ''));
+  const pricing = pricingFrom(env, GATEWAY_ENV_PREFIX);
+  const enabled = env.AI_GATEWAY_AGENT_ENABLED === 'true';
+  const blockers = [];
+  if (!hasKey) blockers.push('credential-absent');
+  if (!pricing) blockers.push('pricing-evidence-absent');
+  if (!enabled) blockers.push('explicitly-disabled');
+  return {
+    provider: GATEWAY_PROVIDER,
+    ready: blockers.length === 0,
+    blockers,
+    // Presence only. The value never leaves the environment it was read from.
+    credentialPresent: hasKey,
+    pricingEvidencePresent: Boolean(pricing),
+    // Which providers sit behind the one credential is a Vercel dashboard fact,
+    // not a repository fact. Claiming a list here would be inventing coverage.
+    fanOutProvidersKnownToThisProcess: false
+  };
+}
+
 /** Which providers this environment could actually drive, and why not if not. */
-export function describeProviderReadiness({ env = process.env, sandboxIsolationReceipt = null } = {}) {
+export function describeProviderReadiness({ env = process.env, sandboxIsolationReceipt = null, includeGateway = false } = {}) {
   const api = API_PROVIDERS.map(provider => {
     const prefix = provider.toUpperCase();
     const hasKey = Boolean(String(env[`${prefix}_API_KEY`] || ''));
@@ -146,5 +213,8 @@ export function describeProviderReadiness({ env = process.env, sandboxIsolationR
     // never made; the field means "cost is attributable", and it is.
     credentialPresent: sandboxRoot && isolation,
     pricingEvidencePresent: true
-  }];
+  },
+  // Appended last, and only on request, so the three historical rows keep their
+  // positions for every caller that reads them by index.
+  ...(includeGateway ? [describeGatewayProviderReadiness({ env })] : [])];
 }

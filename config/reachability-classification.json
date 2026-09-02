@@ -219,11 +219,6 @@
       "gate": "NO_CUSTOMER",
       "reason": "Compiles a SKU; there is no customer requirement to compile against."
     },
-    "src/service-fulfillment.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_CUSTOMER",
-      "reason": "ACCEPTED requires customer-origin evidence and there is no customer."
-    },
     "src/creator-ai-automation-service-bundle.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_CUSTOMER",
@@ -664,20 +659,15 @@
       "gate": "NO_OBJECT_STORAGE_ADAPTER",
       "reason": "Compiles a storage write plan and normalizes a provider receipt. Its postgres path is the behaviour the tree already has; its object path terminates in writing to an external store that does not exist yet, so nothing calls it. Attacked before classification: the object backend is fail-closed on every truthiness variant, a namespace cannot escape its prefix, and a receipt is PRIVATE regardless of what the input claims."
     },
-    "src/free-first-outreach-router.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Selects which zero-cost provider may carry a given message purpose. Reaching it from a production entry point before outbound authorization exists would place a routing decision in front of a send nobody has approved."
-    },
     "src/omnia-v9/integrations/providers/postal-effect-adapter.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_OUTBOUND_AUTHORIZATION",
       "reason": "A real external-effect adapter for a self-hosted mail server, deliberately unregistered in every dispatcher until outbound SMTP permission, PTR/rDNS, SPF/DKIM/DMARC/TLS alignment and seed placement are proven."
     },
-    "src/provider-activation-receipt.mjs": {
+    "src/omnia-v9/integrations/providers/email-effect-primitives.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Converts external provider account-activation receipts into LIVE routing state. Nothing may consume it until at least one provider account actually exists to produce a receipt."
+      "reason": "Address, header and Message-ID rules shared by the Gmail and Postal effect adapters. It is reachable exactly when one of those adapters is, so it waits on the same gate rather than on one of its own."
     }
   }
 }

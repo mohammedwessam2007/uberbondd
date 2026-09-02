@@ -1,8 +1,9 @@
+import crypto from 'node:crypto';
 import { compileFulfillmentPlan, applyFulfillmentEvent } from './service-fulfillment.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const LEAD_PATH_SPRINT_FULFILLMENT_VERSION = 'uberbond.lead-path-sprint-fulfillment-1.1.0';
-export const LEAD_PATH_SPRINT_PRICE = Object.freeze({ amount: '450.00', currency: 'USD' });
+export const LEAD_PATH_SPRINT_FULFILLMENT_VERSION = 'uberbond.lead-path-sprint-fulfillment-1.2.0';
+export const LEAD_PATH_SPRINT_PRICE = Object.freeze({ amountCents: 45000, currency: 'USD' });
 export const LEAD_PATH_SPRINT_STATES = Object.freeze([
   'PAID','INPUT_READY','ANALYSIS_RUNNING','QA_REQUIRED','QA_PASSED','DELIVERY_READY','DELIVERED',
   'CUSTOMER_ACCEPTED','CUSTOMER_REJECTED','CUSTOMER_SILENT','SUPPORT_WINDOW','COMPLETE'
@@ -10,6 +11,7 @@ export const LEAD_PATH_SPRINT_STATES = Object.freeze([
 
 const clone = value => structuredClone(value);
 const text = (value, max = 240) => String(value ?? '').trim().slice(0, max);
+const digest = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 function fail(reasonCodes, state = null) {
   return { ok:false, policyVersion:LEAD_PATH_SPRINT_FULFILLMENT_VERSION, status:'BLOCKED', reasonCodes:[...new Set(reasonCodes.filter(Boolean))], state, businessEffectAuthority:'NONE', externalEffectLedger:clone(ZERO_EXTERNAL_EFFECTS) };
 }
@@ -20,21 +22,30 @@ function apply(state, event) {
   return result.state;
 }
 
-export function validateLiveSprintPaymentEvidence(evidence = {}) {
+// Consume the existing canonical reconciliation result. Do not reinterpret raw
+// webhooks here and do not create a fourth payment ledger/witness system.
+export function validateCanonicalSprintPaymentTruth(truth = {}) {
   const reasons = [];
-  if (evidence.evidenceClass !== 'EXTERNAL_PAYMENT') reasons.push('external-payment-evidence-required');
-  if (text(evidence.origin, 40).toUpperCase() !== 'PROVIDER') reasons.push('provider-origin-payment-evidence-required');
-  if (text(evidence.environment, 20).toUpperCase() !== 'LIVE') reasons.push('live-payment-environment-required');
-  if (evidence.cleared !== true) reasons.push('cleared-payment-required');
-  if (evidence.economicEligible !== true) reasons.push('economically-eligible-payment-required');
-  if (text(evidence.amount, 40) !== LEAD_PATH_SPRINT_PRICE.amount) reasons.push('payment-amount-mismatch');
-  if (text(evidence.currency, 12).toUpperCase() !== LEAD_PATH_SPRINT_PRICE.currency) reasons.push('payment-currency-mismatch');
-  if (!text(evidence.evidenceRef, 240)) reasons.push('payment-evidence-ref-required');
-  if (!text(evidence.provider, 80)) reasons.push('payment-provider-required');
-  const witnesses = [evidence.providerEventRef, evidence.orderRef, evidence.settlementRef].map(value => text(value, 240)).filter(Boolean);
-  if (witnesses.length !== 3) reasons.push('three-payment-witnesses-required');
-  if (new Set(witnesses).size !== 3) reasons.push('payment-witnesses-must-be-distinct');
-  return { ok:reasons.length === 0, reasonCodes:reasons, witnessCount:witnesses.length };
+  if (truth.ok !== true) reasons.push('canonical-payment-truth-not-ok');
+  if (truth.status !== 'PROVIDER_CLEARED_PAYMENT_PROVEN') reasons.push('provider-cleared-payment-not-proven');
+  if (truth?.stages?.CLEARED_PAYMENT?.status !== 'PROVEN') reasons.push('canonical-cleared-payment-stage-not-proven');
+  if (Array.isArray(truth.contradictions) && truth.contradictions.length) reasons.push('canonical-payment-contradictions-present');
+  if (Number(truth?.economics?.netProviderClearedRevenueCents) !== LEAD_PATH_SPRINT_PRICE.amountCents) reasons.push('net-provider-cleared-amount-mismatch');
+  if (text(truth?.economics?.currency, 12).toUpperCase() !== LEAD_PATH_SPRINT_PRICE.currency) reasons.push('canonical-payment-currency-mismatch');
+  if (Number(truth?.economics?.verifiedPaymentCount) < 1) reasons.push('canonical-verified-payment-required');
+  if (Number(truth?.economics?.reversedRevenueCents) > 0) reasons.push('reversed-payment-cannot-unlock-fulfillment');
+  return {
+    ok:reasons.length === 0,
+    reasonCodes:reasons,
+    canonicalTruthRef: reasons.length ? null : `payment-truth:${digest({
+      status:truth.status,
+      amountCents:truth?.economics?.netProviderClearedRevenueCents,
+      currency:truth?.economics?.currency,
+      verifiedPaymentCount:truth?.economics?.verifiedPaymentCount,
+      reversedRevenueCents:truth?.economics?.reversedRevenueCents,
+      contradictions:truth?.contradictions || []
+    })}`
+  };
 }
 
 function validExternalCustomerEvidence(evidence) {
@@ -46,8 +57,8 @@ function validExternalCustomerEvidence(evidence) {
   );
 }
 
-export function createLeadPathSprint({ customerRef, paymentEvidence, at = new Date().toISOString() } = {}) {
-  const payment = validateLiveSprintPaymentEvidence(paymentEvidence);
+export function createLeadPathSprint({ customerRef, canonicalPaymentTruth, at = new Date().toISOString() } = {}) {
+  const payment = validateCanonicalSprintPaymentTruth(canonicalPaymentTruth);
   if (!payment.ok) return fail(payment.reasonCodes);
   const plan = compileFulfillmentPlan({
     serviceSkuId:'lead-path-revenue-leak-evidence-sprint-usd-450',
@@ -67,11 +78,10 @@ export function createLeadPathSprint({ customerRef, paymentEvidence, at = new Da
     sprintId,
     status:'PAID',
     fulfillmentState:plan,
-    paymentEvidenceRef:paymentEvidence.evidenceRef,
-    paymentWitnessRefs:[paymentEvidence.providerEventRef,paymentEvidence.orderRef,paymentEvidence.settlementRef],
+    canonicalPaymentTruthRef:payment.canonicalTruthRef,
     customerAcceptanceEvidenceRef:null,
     commercialDeliveryCount:0,
-    history:[{from:null,to:'PAID',at,evidenceClass:'EXTERNAL_PAYMENT',evidenceRef:paymentEvidence.evidenceRef}],
+    history:[{from:null,to:'PAID',at,evidenceClass:'CANONICAL_PAYMENT_TRUTH',evidenceRef:payment.canonicalTruthRef}],
     businessEffectAuthority:'NONE',
     externalEffectLedger:clone(ZERO_EXTERNAL_EFFECTS)
   };

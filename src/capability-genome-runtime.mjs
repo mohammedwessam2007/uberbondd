@@ -3,7 +3,7 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { normalizeCapability } from './capability-genome-schema.mjs';
 import { admitCapability } from './capability-genome-admission.mjs';
 
-export const CAPABILITY_GENOME_RUNTIME_VERSION = 'capability-genome-runtime-1.0.1';
+export const CAPABILITY_GENOME_RUNTIME_VERSION = 'capability-genome-runtime-1.0.2';
 
 function clone(value) { return structuredClone(value); }
 function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'); }
@@ -128,8 +128,37 @@ export function evaluateBenchmark({ capabilityId, modelId, taskClass, baseline =
 
 export function routeCapabilityModel({ taskClass, candidates = [], allowedCapabilityIds = null } = {}) {
   const allowed = allowedCapabilityIds == null ? null : new Set(allowedCapabilityIds.map(String));
-  const eligible = candidates.filter(item => item?.taskClass === taskClass && (allowed == null || allowed.has(String(item.capabilityId))) && item.configured === true && item.revoked !== true && item.available === true && item.securityPassed === true && item.providerIdentityObservable === true && String(item.capabilityId || '').trim() && String(item.modelId || '').trim() && String(item.providerId || '').trim() && finite(item.taskSuccess) != null && finite(item.costCents) != null);
-  const ranked = eligible.map(item => ({ ...clone(item), routeScore: item.taskSuccess * (item.reliability ?? 0.5) * (item.quality ?? 0.5) / (1 + item.costCents + (item.latencyMs ?? 0) / 1000) })).sort((a, b) => b.routeScore - a.routeScore || String(a.capabilityId).localeCompare(String(b.capabilityId)));
+  const eligible = candidates.filter(item => {
+    const taskSuccess = finite(item?.taskSuccess);
+    const reliability = item?.reliability == null ? 0.5 : finite(item.reliability);
+    const quality = item?.quality == null ? 0.5 : finite(item.quality);
+    const costCents = finite(item?.costCents);
+    const latencyMs = item?.latencyMs == null ? 0 : finite(item.latencyMs);
+    const metricsValid = taskSuccess != null && taskSuccess >= 0 && taskSuccess <= 1
+      && reliability != null && reliability >= 0 && reliability <= 1
+      && quality != null && quality >= 0 && quality <= 1
+      && costCents != null && costCents >= 0
+      && latencyMs != null && latencyMs >= 0;
+    return item?.taskClass === taskClass
+      && (allowed == null || allowed.has(String(item.capabilityId)))
+      && item.configured === true
+      && item.revoked !== true
+      && item.available === true
+      && item.securityPassed === true
+      && item.providerIdentityObservable === true
+      && String(item.capabilityId || '').trim()
+      && String(item.modelId || '').trim()
+      && String(item.providerId || '').trim()
+      && metricsValid;
+  });
+  const ranked = eligible.map(item => {
+    const taskSuccess = finite(item.taskSuccess);
+    const reliability = item.reliability == null ? 0.5 : finite(item.reliability);
+    const quality = item.quality == null ? 0.5 : finite(item.quality);
+    const costCents = finite(item.costCents);
+    const latencyMs = item.latencyMs == null ? 0 : finite(item.latencyMs);
+    return { ...clone(item), routeScore: taskSuccess * reliability * quality / (1 + costCents + latencyMs / 1000) };
+  }).sort((a, b) => b.routeScore - a.routeScore || String(a.capabilityId).localeCompare(String(b.capabilityId)));
   return { ok: ranked.length > 0, status: ranked.length ? 'MODEL_CAPABILITY_ROUTE_SELECTED' : 'NO_CONFIGURED_ELIGIBLE_ROUTE', selected: ranked[0] || null, alternatives: ranked.slice(1), routingDigest: digest(ranked.map(item => ({ capabilityId: item.capabilityId, modelId: item.modelId, providerId: item.providerId, score: item.routeScore }))), businessEffectAuthority: 'NONE', externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS) };
 }
 

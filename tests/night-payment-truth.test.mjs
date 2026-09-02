@@ -1,55 +1,49 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { validateLiveSprintPaymentEvidence, createLeadPathSprint } from '../src/lead-path-sprint-fulfillment.mjs';
+import { validateCanonicalSprintPaymentTruth, createLeadPathSprint } from '../src/lead-path-sprint-fulfillment.mjs';
 import { evaluateFirstCashCanary } from '../src/first-cash-canary-guard.mjs';
 
-const livePayment = {
-  evidenceClass:'EXTERNAL_PAYMENT',
-  origin:'PROVIDER',
-  environment:'LIVE',
-  cleared:true,
-  economicEligible:true,
-  amount:'450.00',
-  currency:'USD',
-  evidenceRef:'payment:provider:receipt-1',
-  provider:'paypal',
-  providerEventRef:'provider-event:1',
-  orderRef:'order:1',
-  settlementRef:'settlement:1'
+const canonicalTruth = {
+  ok:true,
+  status:'PROVIDER_CLEARED_PAYMENT_PROVEN',
+  stages:{ CLEARED_PAYMENT:{ status:'PROVEN' } },
+  contradictions:[],
+  economics:{
+    netProviderClearedRevenueCents:45000,
+    currency:'USD',
+    verifiedPaymentCount:1,
+    reversedRevenueCents:0
+  }
 };
 
-test('live $450 USD payment requires three distinct provider witnesses', () => {
-  assert.equal(validateLiveSprintPaymentEvidence(livePayment).ok, true);
-  const missing = validateLiveSprintPaymentEvidence({ ...livePayment, settlementRef:'' });
-  assert.equal(missing.ok, false);
-  assert.ok(missing.reasonCodes.includes('three-payment-witnesses-required'));
-  const duplicate = validateLiveSprintPaymentEvidence({ ...livePayment, settlementRef:'order:1' });
-  assert.equal(duplicate.ok, false);
-  assert.ok(duplicate.reasonCodes.includes('payment-witnesses-must-be-distinct'));
+test('first-cash fulfilment consumes canonical three-witness payment reconciliation instead of parallel raw evidence', () => {
+  const out = validateCanonicalSprintPaymentTruth(canonicalTruth);
+  assert.equal(out.ok, true);
+  assert.match(out.canonicalTruthRef, /^payment-truth:[a-f0-9]{64}$/);
 });
 
-test('sandbox, synthetic, fixtures, pending, wrong amount, and wrong currency cannot start paid fulfilment', () => {
+test('pending, contradicted, refunded, wrong amount, wrong currency, and unverified canonical truth cannot start paid fulfilment', () => {
   const mutations = [
-    { environment:'SANDBOX' },
-    { origin:'SYNTHETIC' },
-    { origin:'TEST_FIXTURE' },
-    { cleared:false },
-    { amount:'449.99' },
-    { currency:'EUR' },
-    { economicEligible:false }
+    { status:'NO_CLEARED_PAYMENT_PROVEN' },
+    { contradictions:['provider-payment-witness-amount-mismatch'] },
+    { economics:{ ...canonicalTruth.economics, reversedRevenueCents:45000, netProviderClearedRevenueCents:0 } },
+    { economics:{ ...canonicalTruth.economics, netProviderClearedRevenueCents:44999 } },
+    { economics:{ ...canonicalTruth.economics, currency:'EUR' } },
+    { economics:{ ...canonicalTruth.economics, verifiedPaymentCount:0 } }
   ];
   for (const mutation of mutations) {
-    const result = createLeadPathSprint({ customerRef:'customer-1', paymentEvidence:{ ...livePayment, ...mutation }, at:'2026-09-02T01:10:00.000Z' });
+    const truth = { ...canonicalTruth, ...mutation };
+    const result = createLeadPathSprint({ customerRef:'customer-1', canonicalPaymentTruth:truth, at:'2026-09-02T01:10:00.000Z' });
     assert.equal(result.ok, false, JSON.stringify(mutation));
   }
 });
 
-test('valid provider-origin live payment can compile paid sprint without creating accepted delivery', () => {
-  const result = createLeadPathSprint({ customerRef:'customer-1', paymentEvidence:livePayment, at:'2026-09-02T01:10:00.000Z' });
+test('exact canonical $450 USD cleared truth can compile paid sprint without creating accepted delivery', () => {
+  const result = createLeadPathSprint({ customerRef:'customer-1', canonicalPaymentTruth:canonicalTruth, at:'2026-09-02T01:10:00.000Z' });
   assert.equal(result.ok, true);
   assert.equal(result.status, 'PAID');
   assert.equal(result.commercialDeliveryCount, 0);
-  assert.deepEqual(result.paymentWitnessRefs, ['provider-event:1','order:1','settlement:1']);
+  assert.match(result.canonicalPaymentTruthRef, /^payment-truth:[a-f0-9]{64}$/);
 });
 
 test('five qualified conversations without paid pilot forces kill-or-rethink and sixth is violation', () => {

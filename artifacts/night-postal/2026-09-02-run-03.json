@@ -23,11 +23,18 @@
     "Added exact-head focused Postal GitHub Actions workflow requesting syntax, hostile Postal tests, mutation guards, reachability and diff checks."
   ],
   "verification": {
-    "focusedWorkflowRequestedAtHead": "e5dded76ebb1e5857025d2f1ae7116f47aff606a",
-    "workflowRunObservedAtReceiptTime": false,
+    "focusedWorkflowHead": "e5dded76ebb1e5857025d2f1ae7116f47aff606a",
+    "focusedWorkflowRunId": 33585552147,
+    "focusedWorkflowConclusion": "failure-before-execution",
+    "focusedWorkflowSteps": 0,
+    "focusedWorkflowRunnerId": 0,
+    "canonicalCiRunId": 33585552105,
+    "canonicalCiJobs": ["browser", "deterministic", "postgres"],
+    "canonicalCiConclusion": "all-failed-before-execution",
+    "canonicalCiRecordedStepsPerJob": 0,
     "localCleanCloneAttempt": "BLOCKED_ENVIRONMENT_DNS_GITHUB_COM",
-    "classification": "EXECUTION_EVIDENCE_PENDING_ENVIRONMENT",
-    "claim": "No green source claim is made without executed exact-head tests."
+    "classification": "RUNNER_ENVIRONMENT_FAILURE_NOT_SOURCE_TEST_RESULT",
+    "claim": "No source failure and no green source claim are inferred because every GitHub job terminated with zero steps and no runner, while the fallback host could not resolve github.com."
   },
   "safety": {
     "realOutreachSent": false,

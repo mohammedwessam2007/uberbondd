@@ -1135,6 +1135,20 @@ export const MUTATIONS = [
     find: "    .filter(row => row?.authenticated === true && row?.quarantineReason == null && row?.eligibleForReconciliation === true)",
     replace: '',
     suites: ['tests/postal-ragnarok-hardening.test.mjs']
+  },
+  {
+    id: 'PROPOSAL-01', guard: 'A self-reported win cannot make itself eligible for commercial truth',
+    file: 'src/proposal-acceptance-engine.mjs',
+    find: "  if (!externalPayment) eligibilityBlockers.push('external-payment-evidence-required');",
+    replace: '',
+    suites: ['tests/proposal-acceptance-engine.test.mjs']
+  },
+  {
+    id: 'PROPOSAL-02', guard: 'A sandbox payment reference is not external payment evidence',
+    file: 'src/proposal-acceptance-engine.mjs',
+    find: "    && !/(?:^|[-_:])(sandbox|synthetic|fixture|fake|test)(?:[-_:]|$)/i.test(ref);",
+    replace: '    ;',
+    suites: ['tests/proposal-acceptance-engine.test.mjs']
   }
 ];
 

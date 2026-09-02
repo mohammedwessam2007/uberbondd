@@ -2,13 +2,15 @@ import crypto from 'node:crypto';
 import { compileFulfillmentPlan, applyFulfillmentEvent } from './service-fulfillment.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const LEAD_PATH_SPRINT_FULFILLMENT_VERSION = 'uberbond.lead-path-sprint-fulfillment-1.5.0';
+export const LEAD_PATH_SPRINT_FULFILLMENT_VERSION = 'uberbond.lead-path-sprint-fulfillment-1.6.0';
 export const LEAD_PATH_SPRINT_PRICE = Object.freeze({ amountCents: 45000, currency: 'USD' });
 export const LEAD_PATH_SPRINT_STATES = Object.freeze([
   'PAID','INPUT_READY','ANALYSIS_RUNNING','QA_REQUIRED','QA_PASSED','DELIVERY_READY','DELIVERED',
   'CUSTOMER_ACCEPTED','CUSTOMER_REJECTED','CUSTOMER_SILENT','SUPPORT_WINDOW','COMPLETE'
 ]);
 
+const CANONICAL_CLEARED_PAYMENT_BOUNDARY = 'SIGNED_PROVIDER_CALLBACK_PLUS_CLEARED_CLASSIFICATION_PLUS_LEDGER_MATCH';
+const CANONICAL_RETAINED_REVENUE_BOUNDARY = 'PROVIDER_CLEARED_AND_NOT_REVERSED';
 const clone = value => structuredClone(value);
 const text = (value, max = 240) => String(value ?? '').trim().slice(0, max);
 const digest = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
@@ -20,6 +22,14 @@ function apply(state, event) {
   const result = applyFulfillmentEvent({ state:state.fulfillmentState, event, date:new Date(event.at) });
   if (!result.ok) return result;
   return result.state;
+}
+
+function validFirstCashProviderEventRef(value) {
+  const ref = text(value, 400);
+  return Boolean(
+    /^order_created:[^\s:][^\s]*$/i.test(ref)
+    && !/(?:^|[-_:])(sandbox|synthetic|fixture|fake|test)(?:[-_:]|$)/i.test(ref)
+  );
 }
 
 export function canonicalPaymentTruthDigest(truth = {}) {
@@ -42,6 +52,8 @@ export function validateCanonicalSprintPaymentTruth(truth = {}, { paymentLeadId 
   const providerRefs = Array.isArray(truth?.verifiedProviderEventRefs)
     ? truth.verifiedProviderEventRefs.map(value => text(value, 400)).filter(Boolean)
     : [];
+  const providerRef = providerRefs.length === 1 ? providerRefs[0] : null;
+  const clearedEvidenceRef = text(truth?.stages?.CLEARED_PAYMENT?.evidenceRef, 500);
 
   if (truth.ok !== true) reasons.push('canonical-payment-truth-not-ok');
   if (text(truth.policyVersion, 120) !== 'payment-renewal-truth-1.6.0') reasons.push('canonical-payment-policy-version-required');
@@ -59,6 +71,10 @@ export function validateCanonicalSprintPaymentTruth(truth = {}, { paymentLeadId 
   if (Number(truth?.economics?.verifiedPaymentCount) !== 1) reasons.push('exactly-one-canonical-verified-payment-required');
   if (Number(truth?.economics?.verifiedRenewalCount) !== 0) reasons.push('renewal-cannot-unlock-first-cash-sprint');
   if (providerRefs.length !== 1) reasons.push('exactly-one-verified-provider-event-ref-required');
+  if (providerRef && !validFirstCashProviderEventRef(providerRef)) reasons.push('first-cash-provider-event-must-be-live-one-time-order-created');
+  if (providerRef && clearedEvidenceRef !== `payment:${providerRef}`) reasons.push('cleared-payment-stage-ref-must-match-provider-event');
+  if (text(truth?.claimBoundary?.clearedPayment, 160) !== CANONICAL_CLEARED_PAYMENT_BOUNDARY) reasons.push('canonical-three-witness-claim-boundary-required');
+  if (text(truth?.claimBoundary?.retainedRevenue, 160) !== CANONICAL_RETAINED_REVENUE_BOUNDARY) reasons.push('canonical-retained-revenue-claim-boundary-required');
   if (Number(truth?.economics?.verifiedReversalCount) !== 0) reasons.push('verified-reversal-cannot-unlock-fulfillment');
   if (Number(truth?.economics?.unverifiedReversalCents) > 0) reasons.push('unverified-reversal-requires-review');
   if (Number(truth?.economics?.reversedRevenueCents) > 0) reasons.push('reversed-payment-cannot-unlock-fulfillment');

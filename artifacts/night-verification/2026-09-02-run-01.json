@@ -1,0 +1,162 @@
+{
+  "schemaVersion": "uberbond.night-verification.receipt.v1",
+  "observedAt": "2026-09-02T01:46:00Z",
+  "lane": "work/night-verification-20260902",
+  "baseMainSha": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "verificationSourceHead": "9bfd9cdfde8e297a3a498e2782d49a6ece33d12d",
+  "pullRequest": 321,
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "verificationInfrastructureAdded": {
+    "workflow": ".github/workflows/night-verification.yml",
+    "productBehaviorChanged": false,
+    "jobs": [
+      "core-verification",
+      "browser-verification",
+      "postgres-verification"
+    ],
+    "coreCommands": [
+      "npm run check:syntax",
+      "npm run test:deterministic",
+      "node --test tests/reachability-ratchet.test.mjs",
+      "npm run test:mutation-war",
+      "npm run test:relay-safety",
+      "npm run test:wallbreaker",
+      "npm run test:capability-genome",
+      "npm run test:event-horizon",
+      "npm run capabilities:doctor",
+      "npm run capabilities:genome:doctor",
+      "npm run brain",
+      "npm run readiness",
+      "npm audit --omit=dev",
+      "git diff --check origin/main...HEAD"
+    ],
+    "browserCommand": "npm run test:browser",
+    "postgresCommand": "npm run test:postgres-real"
+  },
+  "exactHeadExecution": {
+    "workflowRunId": 33580613396,
+    "status": "ENVIRONMENT_BLOCKED_BEFORE_TEST_STEPS",
+    "jobs": {
+      "core-verification": {
+        "jobId": 100093912698,
+        "conclusion": "failure",
+        "stepsMaterialized": 0,
+        "sourceTestsExecuted": 0,
+        "sourceTestsPassed": 0,
+        "sourceTestsFailed": 0,
+        "sourceTestsSkipped": 0,
+        "mutationKills": 0,
+        "classification": "ENVIRONMENT_FAILURE_NOT_SOURCE_FAILURE"
+      },
+      "browser-verification": {
+        "jobId": 100093912685,
+        "conclusion": "failure",
+        "stepsMaterialized": 0,
+        "sourceTestsExecuted": 0,
+        "sourceTestsPassed": 0,
+        "sourceTestsFailed": 0,
+        "sourceTestsSkipped": 0,
+        "classification": "ENVIRONMENT_FAILURE_NOT_SOURCE_FAILURE"
+      },
+      "postgres-verification": {
+        "jobId": 100093912546,
+        "conclusion": "failure",
+        "stepsMaterialized": 0,
+        "sourceTestsExecuted": 0,
+        "sourceTestsPassed": 0,
+        "sourceTestsFailed": 0,
+        "sourceTestsSkipped": 0,
+        "classification": "ENVIRONMENT_FAILURE_NOT_SOURCE_FAILURE"
+      }
+    },
+    "totals": {
+      "verificationJobs": 3,
+      "jobsPassed": 0,
+      "jobsSourceFailed": 0,
+      "jobsEnvironmentBlocked": 3,
+      "sourceTestsExecuted": 0,
+      "sourceTestsPassed": 0,
+      "sourceTestsFailed": 0,
+      "sourceTestsSkipped": 0,
+      "mutationKills": 0
+    }
+  },
+  "mainEnvironmentEvidence": {
+    "mainSha": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+    "vercelStatuses": 2,
+    "vercelFailures": 2,
+    "classification": "EXTERNAL_BUILD_RATE_LIMIT",
+    "description": "Both Vercel project statuses report deployment rate limited and retry in 24 hours. This is not source-code failure evidence."
+  },
+  "nightBranchReadOnlyReview": {
+    "postal": {
+      "pr": 317,
+      "headSha": "dea49c55197a07307f2c0eaae57af7be1c36ab2d",
+      "mergeable": true,
+      "changedFiles": 10,
+      "ciRunId": 33577967087,
+      "ciJobs": 3,
+      "ciJobsSourceFailed": 0,
+      "ciJobsEnvironmentBlocked": 3,
+      "receiptEvidence": "DURABLE_PROGRESS_UNVERIFIED_BY_EXECUTION_ENVIRONMENT",
+      "receiptSourceHead": "f6322bfcffec472c6362d951e3bda463f2e43bbc",
+      "receiptIsExactCurrentHead": false,
+      "canonicalMutationRegistrationVerified": false
+    },
+    "payment": {
+      "pr": 319,
+      "headSha": "63f0a47dae6c0fd3a8db281f33e9bf744eda1c13",
+      "mergeable": true,
+      "changedFiles": 5,
+      "durableRunReceiptInChangedFiles": false,
+      "exactHeadExecutionVerified": false,
+      "canonicalMutationRegistrationVerified": false
+    },
+    "genome": {
+      "pr": 320,
+      "headSha": "b822c30abc0a155ae5fe4ffe511891979e1177b0",
+      "mergeable": true,
+      "changedFiles": 3,
+      "receiptEvidence": "SOURCE_AND_TESTS_COMMITTED_AWAITING_CI_OR_LOCAL_RUN",
+      "receiptIsExactCurrentHead": true,
+      "exactHeadExecutionVerified": false,
+      "canonicalMutationRegistrationVerified": false
+    }
+  },
+  "findings": [
+    {
+      "code": "VERIFICATION_RUNNER_UNAVAILABLE",
+      "severity": "ENVIRONMENT",
+      "finding": "All verification CI jobs terminated before any steps materialized; no source verdict can be inferred."
+    },
+    {
+      "code": "NIGHT_BRANCH_EXECUTION_PROOF_GAP",
+      "severity": "HIGH",
+      "finding": "Postal, Payment, and Genome night changes do not yet have exact-current-head executed green evidence."
+    },
+    {
+      "code": "CANONICAL_MUTATION_INTEGRATION_PENDING",
+      "severity": "HIGH",
+      "finding": "Branch-local hostile/source guards are not evidence that the canonical scripts/mutation-war.mjs inventory covers the new high-consequence Postal, payment-canary, and Genome invariants."
+    },
+    {
+      "code": "POSTAL_RECEIPT_HEAD_DRIFT",
+      "severity": "MEDIUM",
+      "finding": "Postal durable receipt verifies an earlier source head than PR 317 current head, so it must not be treated as exact-head evidence."
+    }
+  ],
+  "nextRun": [
+    "Refresh main and all night PR heads before testing.",
+    "Retry PR 321 exact-head verification when GitHub Actions can allocate runners.",
+    "Do not count runner/platform failures as source failures or mutation kills.",
+    "If source gates execute, record exact Node test pass/fail/skip counts from logs for every job.",
+    "After Postal/Payment/Genome converge into an integration candidate, add their high-consequence invariants to canonical mutation-war inventory and prove every applicable mutant is killed.",
+    "Verify exact integration head, not stale donor or branch receipts."
+  ],
+  "status": "VERIFICATION_INFRASTRUCTURE_READY_EXECUTION_ENVIRONMENT_BLOCKED"
+}

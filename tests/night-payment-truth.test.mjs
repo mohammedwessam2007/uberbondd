@@ -65,7 +65,6 @@ test('a hand-built or edited object cannot impersonate canonical reconciliation 
   const editedAfterReconciliation = {
     ...canonicalTruth,
     leadId:'lead-someone-else'
-    // deliberately leaves the original digest in place
   };
   const editedResult = create(editedAfterReconciliation);
   assert.equal(editedResult.ok, false);
@@ -139,7 +138,7 @@ test('customer silence cannot be promoted through support to COMPLETE or accepte
   assert.equal(sprint.fulfillmentState.economicTruth.acceptedDelivery, false);
 });
 
-test('customer acceptance requires customer-origin evidence with canonical referent', () => {
+test('customer acceptance requires customer-origin evidence with canonical referent and matching customer binding', () => {
   let sprint = create();
   for (const [to, extra] of [
     ['INPUT_READY',{}], ['ANALYSIS_RUNNING',{}], ['QA_REQUIRED',{}], ['QA_PASSED',{qaEvidenceRef:'qa:pass'}],
@@ -152,7 +151,7 @@ test('customer acceptance requires customer-origin evidence with canonical refer
   const fake = advanceLeadPathSprint({
     state:sprint,
     to:'CUSTOMER_ACCEPTED',
-    evidence:{ evidenceClass:'EXTERNAL_CUSTOMER', origin:'CUSTOMER', evidenceRef:'synthetic-acceptance' },
+    evidence:{ evidenceClass:'EXTERNAL_CUSTOMER', origin:'CUSTOMER', customerRef:'customer-1', evidenceRef:'synthetic-acceptance' },
     at:'2026-09-02T01:10:00.000Z'
   });
   assert.equal(fake.ok, false);
@@ -161,7 +160,7 @@ test('customer acceptance requires customer-origin evidence with canonical refer
   const real = advanceLeadPathSprint({
     state:sprint,
     to:'CUSTOMER_ACCEPTED',
-    evidence:{ evidenceClass:'EXTERNAL_CUSTOMER', origin:'CUSTOMER', evidenceRef:'customer:acceptance-1' },
+    evidence:{ evidenceClass:'EXTERNAL_CUSTOMER', origin:'CUSTOMER', customerRef:'customer-1', evidenceRef:'customer:acceptance-1' },
     at:'2026-09-02T01:10:00.000Z'
   });
   assert.equal(real.ok, true);

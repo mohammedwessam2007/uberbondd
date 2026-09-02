@@ -2,7 +2,7 @@
 
 **This file is the canonical present-tense software/commercial state.** Historical detail from the pre-checkpoint version is preserved byte-for-byte under `docs/archive/2026-08-30-pre-checkpoint/`. Repository code and newer exact external evidence still outrank this prose.
 
-Last reconciled: **2026-09-01**
+Last reconciled: **2026-09-02**
 Branch: `main`
 Reconciled from current head: `3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84`
 
@@ -86,7 +86,7 @@ The repository contains a real Claude engineering orchestrator, but a live Claud
 
 The connected Vercel account exposes team `team_A9LnjIuS5PU0rNetsHMu1N0r` and full project `prj_RWUPf14w1xIz9NK92AbNW5z7qDCg` (`uberbondd`).
 
-The previous exact PR-head full-project preview `dpl_5e9AmHsdpxpdikFFfkUbJhzKopa6` was observed actively executing the real deterministic suite. The first account-activation deployment (`dpl_GtFzX8u8VRLL5SJ4jD9jm7dtHw1L`) failed its stale reachability-canon assertion. The next candidate (`dpl_B5Mqc5QJdRCpr9BA2Yy4AFjWk41h`) then exposed a publication packaging error: the readiness JSON was truncated at line 521. The complete artifact is now being republished. A deployment state is not treated as business or provider proof. **Exact-current-main production remains pending the corrected build.**
+The previous exact PR-head full-project preview `dpl_5e9AmHsdpxpdikFFfkUbJhzKopa6` was observed actively executing the real deterministic suite. The first account-activation deployment (`dpl_GtFzX8u8VRLL5SJ4jD9jm7dtHw1L`) failed its stale reachability-canon assertion. The next candidate (`dpl_B5Mqc5QJdRCpr9BA2Yy4AFjWk41h`) then exposed a publication packaging error: the readiness JSON was truncated at line 521. The complete artifact was republished and the corrected remote tree was verified. The stale queued full-project build (`dpl_ZusvtM5aWa63JMZ5JyB1TZRxRYV7`) then failed because it referenced a local-only canon SHA. Vercel Create Deployment resolved `main` to `5436eeb111a17f012ea7dc307f295703da391bc6` but refused to create the corrected production build with: `Resource is limited - try again in 24 hours (more than 100, code: "api-deployments-free-per-day").` A deployment state is not treated as business or provider proof. **Exact-current-main production is blocked by this Vercel quota until the platform permits another deployment.**
 
 ## Account activation receipt
 

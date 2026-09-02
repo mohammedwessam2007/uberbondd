@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "uberbond-night-postal-run-1.0.0",
+  "run": 5,
+  "date": "2026-09-02",
+  "lane": "postal-free-first-outreach",
+  "branch": "work/night-postal-20260902",
+  "observedMainSha": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "sourceHeadSha": "4abfa2849db9547b08ca6b3c34e3b4d1bb6451de",
+  "finding": {
+    "severity": "P1",
+    "id": "POSTAL_WEBHOOK_SIGNATURE_HEADER_ALGORITHM_MISMATCH",
+    "summary": "Postal upstream currently emits X-Postal-Signature using legacy SHA-1 and X-Postal-Signature-256 using SHA-256. UberBond's route supplied the legacy header to a SHA-256 verifier, which would quarantine authentic Postal webhooks and prevent reliable uncertain-effect reconciliation.",
+    "upstreamEvidence": {
+      "repository": "postalserver/postal",
+      "path": "lib/postal/http.rb",
+      "observedUpstreamCommit": "d038eaa8c763d3cafa797ccd6f773d53470bd336",
+      "fact": "X-Postal-Signature uses sha1_sign64; X-Postal-Signature-256 uses sign64."
+    }
+  },
+  "changes": [
+    "api/webhooks/postal.mjs now supplies only x-postal-signature-256 to the SHA-256 verifier.",
+    "tests/postal-webhook-route.test.mjs proves a valid legacy SHA-1 header alone cannot authenticate, a valid SHA-256 header can, and a valid legacy header cannot rescue an invalid SHA-256 header.",
+    "tests/postal-ragnarok-mutation-source-guard.test.mjs prevents regression to x-postal-signature for SHA-256 verification."
+  ],
+  "verification": {
+    "focusedWorkflowRunId": 33593197713,
+    "canonicalCiRunId": 33593197707,
+    "statusAtReceipt": "QUEUED",
+    "sourcePassesClaimed": 0,
+    "sourceFailuresClaimed": 0,
+    "note": "Exact source-head workflows were queued when this receipt was written; no pass/fail is inferred until step-level execution exists."
+  },
+  "safety": {
+    "realOutreachSent": false,
+    "authorityExpanded": false,
+    "senderReadinessFabricated": false,
+    "providerPolicyWeakened": false
+  },
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "remainingBlockers": [
+    "Reconcile branch onto latest main before merge because the lane remains behind current main.",
+    "Obtain real step-level exact-head test execution; prior Actions attempts repeatedly failed before acquiring a runner.",
+    "Production sender/DNS/reputation/provider-policy readiness remains external evidence and must not be inferred from source completion."
+  ]
+}

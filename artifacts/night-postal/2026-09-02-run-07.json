@@ -5,6 +5,7 @@
   "branch": "work/night-postal-20260902",
   "mainObservedSha": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
   "sourceHeadBeforeReceipt": "6d16229c4da84385e73aabdacc535f50d661a008",
+  "receiptHeadObserved": "c11a412aba3c5b10c2a794649dd260b1f302beec",
   "commercialTruth": {
     "customers": 0,
     "clearedRevenueUsd": 0,
@@ -26,14 +27,19 @@
     "Added source-level mutation guards preventing DNS evidence from becoming reconciliation evidence, readiness/unpause authority, or duplicate replay mutation."
   ],
   "verification": {
-    "focusedWorkflowRunId": 33601824135,
+    "focusedWorkflowRunId": 33601940786,
     "focusedWorkflowName": "Night Postal Focused Verification",
     "focusedConclusion": "failure",
-    "focusedJobId": 100156983896,
+    "focusedJobId": 100157353865,
     "focusedJobSteps": null,
+    "canonicalCiRunId": 33601940715,
+    "canonicalCiJobs": [
+      {"id":100157353410,"name":"browser","conclusion":"failure","steps":null},
+      {"id":100157353590,"name":"postgres","conclusion":"failure","steps":null},
+      {"id":100157353701,"name":"deterministic","conclusion":"failure","steps":null}
+    ],
     "classification": "ENVIRONMENT_STARTUP_BLOCKED",
-    "reason": "GitHub reported the exact source head but the focused job completed without step-level execution evidence; no source pass/fail or mutation kill is claimed.",
-    "canonicalCiClaim": "NONE"
+    "reason": "Focused plus canonical CI all completed without step-level execution evidence; no source pass/fail or mutation kill is claimed."
   },
   "mainReconciliation": {
     "status": "DIVERGED_NO_OBSERVED_CODE_CONFLICT",

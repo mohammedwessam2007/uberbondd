@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 
 const source = fs.readFileSync(new URL('../src/omnia-v9/integrations/providers/postal-effect-adapter.mjs', import.meta.url), 'utf8');
+const webhookEvidenceSource = fs.readFileSync(new URL('../src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs', import.meta.url), 'utf8');
 
 test('mutation guard: HTTP 409 can never be classified as definite rejection', () => {
   const set = source.match(/DEFINITE_REJECTION_STATUSES\s*=\s*new Set\(\[([^\]]*)\]\)/)?.[1] || '';
@@ -34,4 +35,13 @@ test('mutation guard: dispatch has a bounded AbortController timeout and exactly
   assert.match(source, /setTimeout\(\(\)\s*=>\s*controller\.abort/);
   const fetchCalls = source.match(/await this\.fetchImpl\(/g) || [];
   assert.equal(fetchCalls.length, 1, 'dispatch must have one provider-call site and no hidden retry');
+});
+
+test('mutation guard: webhook lifecycle aggregation ranks evidence before timestamps', () => {
+  const sortBody = webhookEvidenceSource.match(/const sorted\s*=\s*usable\.slice\(\)\.sort\(\(a, b\) => \{([\s\S]*?)\n\s*\}\);/)?.[1] || '';
+  const rankIndex = sortBody.indexOf('const rank');
+  const timeIndex = sortBody.indexOf('const time');
+  assert.notEqual(rankIndex, -1, 'lifecycle rank comparison must exist');
+  assert.notEqual(timeIndex, -1, 'timestamp tie-breaker must exist');
+  assert.ok(rankIndex < timeIndex, 'rank must be evaluated before timestamp so later weak events cannot regress stronger proof');
 });

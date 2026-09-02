@@ -15,8 +15,8 @@ function request(raw,{signature256='',legacySignature=''}={}){
   if(legacySignature) headers['x-postal-signature']=legacySignature;
   return new Request('https://example.test/api/webhooks/postal',{method:'POST',headers,body:raw});
 }
-function handler({env={DATABASE_URL:'postgres://unused',POSTAL_WEBHOOK_PUBLIC_KEY:publicKeyPem},ledger=createMemoryPostalWebhookLedger()}={}) {
-  return createFetchHandler({env,getPool:()=>({}),createLedger:()=>ledger,now});
+function handler({env={DATABASE_URL:'postgres://unused',POSTAL_WEBHOOK_PUBLIC_KEY:publicKeyPem},ledger=createMemoryPostalWebhookLedger(),consumeSenderEvidence=async()=>({ok:true,status:'NO_MATCHING_SENDER',pausedInboxes:[]})}={}) {
+  return createFetchHandler({env,getPool:()=>({}),createLedger:()=>ledger,consumeSenderEvidence,createStore:()=>({}),now});
 }
 
 test('missing public key or database refuses before trust is possible',async()=>{
@@ -66,16 +66,35 @@ test('valid X-Postal-Signature-256 event returns 200 and replay is idempotent',a
   assert.equal(secondJson.duplicate,true);
 });
 
-test('authenticated DomainDNSError is persisted as sender evidence and never requests message reconciliation',async()=>{
+test('authenticated DomainDNSError is applied once as sender evidence and never requests message reconciliation',async()=>{
   const ledger=createMemoryPostalWebhookLedger();
   const raw=dnsBody();
   const signature256=crypto.sign('sha256',raw,keys.privateKey).toString('base64');
-  const response=await handler({ledger})(request(raw,{signature256}));
+  let consumed=0;
+  const consumeSenderEvidence=async()=>{consumed+=1;return {ok:true,status:'SENDERS_PAUSED_FROM_AUTHENTICATED_DNS_ERROR',pausedInboxes:['A']};};
+  const first=await handler({ledger,consumeSenderEvidence})(request(raw,{signature256}));
+  const firstPayload=await first.json();
+  assert.equal(first.status,200);
+  assert.equal(firstPayload.status,'PERSISTED');
+  assert.equal(firstPayload.senderEvidenceAvailable,true);
+  assert.equal(firstPayload.reconciliationRequired,false);
+  assert.equal(firstPayload.senderEvidenceStatus,'SENDERS_PAUSED_FROM_AUTHENTICATED_DNS_ERROR');
+  assert.deepEqual(firstPayload.senderPausedInboxes,['A']);
+  assert.equal(firstPayload.businessEffectAuthority,'NONE');
+  const second=await handler({ledger,consumeSenderEvidence})(request(raw,{signature256}));
+  const secondPayload=await second.json();
+  assert.equal(secondPayload.duplicate,true);
+  assert.equal(consumed,1);
+});
+
+test('sender-evidence application failure fails closed after durable webhook persistence',async()=>{
+  const ledger=createMemoryPostalWebhookLedger();
+  const raw=dnsBody();
+  const signature256=crypto.sign('sha256',raw,keys.privateKey).toString('base64');
+  const response=await handler({ledger,consumeSenderEvidence:async()=>{throw new Error('store unavailable');}})(request(raw,{signature256}));
   const payload=await response.json();
-  assert.equal(response.status,200);
-  assert.equal(payload.status,'PERSISTED');
-  assert.equal(payload.senderEvidenceAvailable,true);
-  assert.equal(payload.reconciliationRequired,false);
+  assert.equal(response.status,503);
+  assert.deepEqual(payload.reasonCodes,['postal-sender-evidence-not-applied']);
   assert.equal(payload.businessEffectAuthority,'NONE');
 });
 

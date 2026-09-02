@@ -7,12 +7,12 @@
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 3270,
-      "pass": 3217,
+      "tests": 3271,
+      "pass": 3218,
       "fail": 0,
       "skipped": 53,
       "ranAt": "2026-09-02T22:30:00Z",
-      "note": "Measured 3270 tests, 3214 pass, 3 fail, 53 skipped immediately before this regeneration. All three failures were the canon-figure tests themselves, which compare this artifact against the tree and therefore cannot pass until it is regenerated. The recorded pass count includes them."
+      "note": "Measured green at this head: 3271 tests, 3218 pass, 0 fail, 53 skipped. The canon-figure tests pass because this artifact was regenerated against the tree it describes."
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",

@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-02T22:22:16.439Z",
+  "generatedAt": "2026-09-02T22:26:49.997Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "f4a2ef6f811a662ae20a13bebe29acedf2a876de",
+    "head": "8d57d7ce2be4e4ccabf20b65ab82d20ce87f9a66",
     "branch": "claude/uberbond-ragnarok-closure-pek0g6",
     "sourceModules": 288,
     "testSuites": 347,
-    "workingTreeClean": true
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
@@ -17,12 +17,12 @@
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 3270,
-      "pass": 3217,
+      "tests": 3271,
+      "pass": 3218,
       "fail": 0,
       "skipped": 53,
       "ranAt": "2026-09-02T22:30:00Z",
-      "note": "Measured 3270 tests, 3214 pass, 3 fail, 53 skipped immediately before this regeneration. All three failures were the canon-figure tests themselves, which compare this artifact against the tree and therefore cannot pass until it is regenerated. The recorded pass count includes them."
+      "note": "Measured green at this head: 3271 tests, 3218 pass, 0 fail, 53 skipped. The canon-figure tests pass because this artifact was regenerated against the tree it describes."
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",

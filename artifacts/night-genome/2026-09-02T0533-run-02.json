@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "uberbond-night-genome-receipt-1.0.0",
+  "lane": "World Capability Genome / SaaS Cannibal",
+  "run": 2,
+  "observedAt": "2026-09-02T02:33:20Z",
+  "baseMainSha": "34d5b99b01f9e4b1dfe16b70a1c042d70dd624eb",
+  "branch": "work/night-genome-20260902",
+  "testedHeadSha": "9e9da30088df8763311befdec8863a5e76b69edf",
+  "changes": [
+    {
+      "class": "ECONOMIC_ROUTING_TRUTH",
+      "finding": "routeCapabilityModel accepted negative monetary cost or latency and out-of-range success/reliability/quality values, allowing malformed telemetry to manufacture a dominant route score",
+      "fix": "route eligibility now requires taskSuccess/reliability/quality in [0,1], costCents >= 0, latencyMs >= 0, finite values, while preserving defaults only for omitted reliability/quality/latency",
+      "sourceCommit": "b50a3b2a5a5ada59caa931b0912103133d285d68"
+    },
+    {
+      "class": "HOSTILE_TESTS",
+      "finding": "economic route telemetry lacked explicit adversarial regression coverage",
+      "fix": "added hostile tests for negative cost, negative latency, success > 1, reliability < 0, and quality > 1",
+      "sourceCommit": "9e9da30088df8763311befdec8863a5e76b69edf"
+    }
+  ],
+  "truthLayersPreserved": [
+    "repository candidate != fetched body",
+    "fetched body != normalized capability",
+    "normalized capability != security-clean capability",
+    "security-clean capability != approved capability",
+    "approved capability != active capability",
+    "route telemetry != commercial outcome"
+  ],
+  "externalCodeExecuted": false,
+  "capabilitiesPromoted": 0,
+  "capabilitiesActivated": 0,
+  "commercialTruthChanged": false,
+  "ci": {
+    "workflowRunId": 33583632560,
+    "headSha": "9e9da30088df8763311befdec8863a5e76b69edf",
+    "status": "completed",
+    "conclusion": "failure",
+    "classification": "ENVIRONMENT_OR_GITHUB_ACTIONS_STARTUP_FAILURE_NOT_SOURCE_PROOF",
+    "evidence": "browser, postgres, and deterministic jobs all terminated with zero recorded steps; no source-test assertion output was produced",
+    "sourceFailureClaimed": false,
+    "verifiedGreenClaimed": false
+  },
+  "nextAttacks": [
+    "revocation propagation across selected bundles and configured routes",
+    "stale security/provenance evidence admission",
+    "duplicate canonical identity and alias collision",
+    "unsafe or cyclic dependency trees",
+    "economic fitness unit/boundary consistency"
+  ],
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "attempted": 0,
+    "confirmed": 0,
+    "uncertain": 0
+  }
+}

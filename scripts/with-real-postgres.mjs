@@ -62,8 +62,11 @@ try {
     env: {
       ...process.env,
       OMNIA_V9_TEST_DATABASE_URL: databaseUrl,
-      // Some suites read DATABASE_URL instead; both point at the same
-      // disposable instance so neither silently falls back to a fixture store.
+      // DATABASE_URL as well, so `npm run db:migrate` and `npm run db:import-json`
+      // work through this harness -- both read that variable and nothing else.
+      // It does not switch the store backend: config.storeBackend defaults to
+      // json outside production regardless of whether a database URL is set, so
+      // no suite silently changes backend by being run through here.
       DATABASE_URL: databaseUrl,
       DATABASE_SSL: 'false'
     }

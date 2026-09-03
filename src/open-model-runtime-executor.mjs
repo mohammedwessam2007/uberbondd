@@ -200,6 +200,13 @@ export function createOpenModelRuntimeExecutor({
         identityVerification: 'MISMATCH'
       });
     }
+    if (!observedModel) {
+      return failure(['open-model-runtime-model-identity-unverified'], 'CONFIRMED_FAILURE', {
+        configuredModel: model,
+        observedModel: null,
+        identityVerification: 'UNVERIFIED'
+      });
+    }
 
     const usage = meteredUsage(raw, pricing);
     if (!usage) return failure(['open-model-runtime-usage-invalid']);
@@ -216,7 +223,7 @@ export function createOpenModelRuntimeExecutor({
       runtime: runtime.toUpperCase(),
       configuredModel: model,
       observedModel,
-      identityVerification: observedModel ? 'MATCHED' : 'UNVERIFIED',
+      identityVerification: 'MATCHED',
       providerRequestId: text(raw?.id, 240) || null,
       usage,
       pricingEvidence: {

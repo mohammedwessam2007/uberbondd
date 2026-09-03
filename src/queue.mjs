@@ -58,10 +58,6 @@ export class DurableQueue {
     if (Number.isNaN(runAt.getTime())) throw new Error('Invalid queue runAt value');
     const recoveryPolicy = normalizeRecoveryPolicy(options);
     const requestedMaxAttempts = Math.max(1, Number(options.maxAttempts || this.cfg.queue.maxAttempts || 5));
-    // A reconcile job may have caused an external side effect before its worker dies.
-    // Persisting maxAttempts=1 makes the Store's existing stale-recovery transaction
-    // fail closed to dead-letter after the first claim instead of auto-requeueing it.
-    // Replay-safe jobs retain their configured retry budget.
     const maxAttempts = recoveryPolicy === 'reconcile' ? 1 : requestedMaxAttempts;
     const job = {
       id: id('job'), type: String(type), queue: String(options.queue || type), status: 'queued',
@@ -128,23 +124,28 @@ export class DurableQueue {
 
   async quarantineUncertainStaleJobs(lockTimeoutMs = this.cfg.queue.lockTimeoutMs || 300000) {
     const cutoff = Date.now() - Math.max(1000, Number(lockTimeoutMs || 300000));
-    let quarantined = 0;
-    const jobs = await this.store.list('jobs');
-    for (const job of jobs) {
-      if (job.status !== 'active' || job.recoveryPolicy !== 'reconcile') continue;
+    const candidates = (await this.store.list('jobs')).filter(job => {
+      if (job.status !== 'active' || job.recoveryPolicy !== 'reconcile') return false;
       const stamp = Date.parse(job.heartbeatAt || job.lockedAt || job.startedAt || 0);
-      if (!Number.isFinite(stamp) || stamp > cutoff) continue;
-      const current = await this.store.get('jobs', job.id);
-      if (!current || current.status !== 'active' || current.lockedBy !== job.lockedBy) continue;
-      const currentStamp = Date.parse(current.heartbeatAt || current.lockedAt || current.startedAt || 0);
-      if (!Number.isFinite(currentStamp) || currentStamp > cutoff) continue;
-      const deadLetteredAt = now();
-      const patched = await this.store.patch('jobs', job.id, {
-        status: 'dead-letter', deadLetteredAt,
-        lastError: 'Worker lease expired while execution outcome may be non-idempotent; reconciliation required before replay',
-        lockedAt: null, lockedBy: null, heartbeatAt: null,
+      return Number.isFinite(stamp) && stamp <= cutoff;
+    }).map(job => ({ id: job.id, type: job.type, lockedBy: job.lockedBy, recoveryPolicy: job.recoveryPolicy }));
+
+    if (!candidates.length) return { quarantined: 0 };
+
+    // Delegate the state transition to the Store's stale-recovery transaction.
+    // Reconcile jobs persist maxAttempts=1, so a truly stale first claim is
+    // atomically dead-lettered there. This removes the previous list/get/patch
+    // TOCTOU window that could overwrite a heartbeat refreshed after our read.
+    await this.store.recoverStaleJobs(lockTimeoutMs);
+
+    let quarantined = 0;
+    for (const candidate of candidates) {
+      const current = await this.store.get('jobs', candidate.id);
+      if (!current || current.status !== 'dead-letter' || current.recoveryPolicy !== 'reconcile') continue;
+      const patched = await this.store.patch('jobs', candidate.id, {
+        lastError: current.lastError || 'Worker lease expired while execution outcome may be non-idempotent; reconciliation required before replay',
         uncertainExecution: true,
-        uncertainReasonCode: 'JOB_STALE_NON_IDEMPOTENT_UNCERTAIN',
+        uncertainReasonCode: current.uncertainReasonCode || 'JOB_STALE_NON_IDEMPOTENT_UNCERTAIN',
         reconciliationRequired: true,
         reconciledAt: null,
         reconciliationReceipt: null
@@ -152,8 +153,8 @@ export class DurableQueue {
       if (!patched || patched.status !== 'dead-letter') continue;
       quarantined += 1;
       await this.store.log('queue_job_stale_execution_quarantined', {
-        jobId: job.id, type: job.type, previousWorkerId: job.lockedBy,
-        recoveryPolicy: job.recoveryPolicy,
+        jobId: candidate.id, type: candidate.type, previousWorkerId: candidate.lockedBy,
+        recoveryPolicy: candidate.recoveryPolicy,
         uncertainExecution: true,
         errorCode: 'JOB_STALE_NON_IDEMPOTENT_UNCERTAIN'
       });

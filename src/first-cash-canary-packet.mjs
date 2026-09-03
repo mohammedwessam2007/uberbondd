@@ -1,7 +1,7 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { LEAD_PATH_SPRINT_SKU } from './lead-path-sprint-fulfillment.mjs';
 
-export const FIRST_CASH_CANARY_PACKET_VERSION = 'uberbond.first-cash-canary-packet-1.3.0';
+export const FIRST_CASH_CANARY_PACKET_VERSION = 'uberbond.first-cash-canary-packet-1.4.0';
 export const CANONICAL_FIRST_CASH_OFFER = Object.freeze({
   name: 'White-label Lead-Path Revenue Leak Evidence Sprint',
   sku: LEAD_PATH_SPRINT_SKU,
@@ -9,12 +9,20 @@ export const CANONICAL_FIRST_CASH_OFFER = Object.freeze({
 export const CURRENT_CHAMPION_OFFER = CANONICAL_FIRST_CASH_OFFER.name;
 export const DEFAULT_FIRST_CASH_PAYMENT_LINK = 'https://paypal.me/Sarawessam';
 export const PAYMENT_LINK_TRUTH_BOUNDARY = 'PAYMENT_LINK_IS_NOT_CLEARED_PAYMENT_PROOF';
-export const REQUIRED_CONTACT_GATES = Object.freeze([
+export const FIRST_CASH_CONTACT_GATES = Object.freeze([
   'jurisdictionApproved','providerPurposeAllowed','contactProvenanceApproved','senderReady','authorityGranted','canaryOpen'
 ]);
+export const REQUIRED_CONTACT_GATES = FIRST_CASH_CONTACT_GATES;
 
-export function canContactFromGates(gates = {}) {
-  return REQUIRED_CONTACT_GATES.every(key => gates?.[key] === true);
+function structuredContactGates(input = {}) {
+  return Object.fromEntries(FIRST_CASH_CONTACT_GATES.map(id => [id, {
+    satisfied: input?.[id] === true || input?.[id]?.satisfied === true
+  }]));
+}
+
+export function canContactFromGates(input = {}) {
+  const gates = structuredContactGates(input);
+  return FIRST_CASH_CONTACT_GATES.every(id => gates?.[id]?.satisfied === true);
 }
 
 export function canaryDecision({ qualifiedConversationCount = 0, paidPilotCount = 0 } = {}) {
@@ -55,7 +63,8 @@ export function buildFirstCashCanaryPacket({
 } = {}) {
   const canContact = canContactFromGates(gates);
   const decision = canaryDecision({ qualifiedConversationCount, paidPilotCount });
-  const blocked = REQUIRED_CONTACT_GATES.filter(key => gates?.[key] !== true);
+  const normalizedGates = structuredContactGates(gates);
+  const blocked = FIRST_CASH_CONTACT_GATES.filter(id => normalizedGates?.[id]?.satisfied !== true);
   const normalizedPaymentLink = normalizeHttpsPaymentLink(paymentLink);
   const paymentLinkEvidenceClass = normalizedPaymentLink === DEFAULT_FIRST_CASH_PAYMENT_LINK
     ? 'OWNER_SUPPLIED_PUBLIC_PAYPAL_ME_LINK'
@@ -69,7 +78,7 @@ export function buildFirstCashCanaryPacket({
     qa('WHICH SENDER?', sender || 'NONE_PROVEN', sender?'PREPARED':'BLOCKED','SENDER_HEALTH',sender?[]:['sender-readiness-not-proven'],'sender-mesh'),
     qa('WHICH PROVIDER?', provider || 'NONE_PROVEN', provider?'PREPARED':'BLOCKED','PROVIDER_ACTIVATION',provider?[]:['provider-route-not-proven'],'free-first-outreach-router'),
     qa('WHICH POLICY EVIDENCE?', policyEvidence, policyEvidence.length?'PREPARED':'BLOCKED','PROVIDER_POLICY',policyEvidence.length?[]:['provider-policy-evidence-required'],'provider-activation-receipt'),
-    qa('WHICH AUTHORITY?', authorityEvidence, gates.authorityGranted?'PREPARED':'BLOCKED','OMNIA_AUTHORITY',gates.authorityGranted?[]:['omnia-authority-not-granted'],'omnia-v9'),
+    qa('WHICH AUTHORITY?', authorityEvidence, normalizedGates.authorityGranted.satisfied?'PREPARED':'BLOCKED','OMNIA_AUTHORITY',normalizedGates.authorityGranted.satisfied?[]:['omnia-authority-not-granted'],'omnia-v9'),
     qa('WHAT OFFER?', {name:CANONICAL_FIRST_CASH_OFFER.name,sku:CANONICAL_FIRST_CASH_OFFER.sku}, 'PREPARED','CANONICAL_OFFER',[],'lead-path-sprint-fulfillment'),
     qa('WHAT PRICE?', {currency:'USD',amount:450,scope:'fixed'}, 'HYPOTHESIS','PRICE_HYPOTHESIS',[],'world-brain-field-mission'),
     qa('WHAT PAYMENT LINK?', normalizedPaymentLink, normalizedPaymentLink?'PREPARED':'BLOCKED',paymentLinkEvidenceClass,normalizedPaymentLink?[]:['valid-https-payment-link-required'],'payment-runtime'),

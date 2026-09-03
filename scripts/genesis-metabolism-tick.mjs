@@ -5,12 +5,19 @@ import { fileURLToPath } from 'node:url';
 import { buildGenesisMetabolism } from '../src/genesis-metabolism.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const args = new Map();
+for (let i = 2; i < process.argv.length; i += 1) {
+  const arg = process.argv[i];
+  if (!arg.startsWith('--')) continue;
+  args.set(arg, process.argv[i + 1]?.startsWith('--') ? true : process.argv[++i] ?? true);
+}
+const relativeOrAbsolute = (value, fallback) => resolve(root, String(value || fallback));
 const paths = {
-  gamechanger: resolve(root, 'artifacts/gamechanger-mesh-latest.json'),
-  evolution: resolve(root, 'artifacts/genesis-evolution-latest.json'),
-  scientist: resolve(root, 'artifacts/genesis-scientist-latest.json'),
-  ontology: resolve(root, 'artifacts/genesis-ontology-latest.json'),
-  output: resolve(root, 'artifacts/genesis-metabolism-latest.json')
+  gamechanger: relativeOrAbsolute(args.get('--gamechanger'), 'artifacts/gamechanger-mesh-latest.json'),
+  evolution: relativeOrAbsolute(args.get('--evolution'), 'artifacts/genesis-evolution-latest.json'),
+  scientist: relativeOrAbsolute(args.get('--scientist'), 'artifacts/genesis-scientist-latest.json'),
+  ontology: relativeOrAbsolute(args.get('--ontology'), 'artifacts/genesis-ontology-latest.json'),
+  output: relativeOrAbsolute(args.get('--output'), 'artifacts/genesis-metabolism-latest.json')
 };
 
 async function readJson(path) {
@@ -30,10 +37,10 @@ const receipt = {
   schemaVersion: 'uberbond.genesis-metabolism.tick.v1',
   generatedAt: new Date().toISOString(),
   inputs: {
-    gamechanger: 'artifacts/gamechanger-mesh-latest.json',
-    evolution: 'artifacts/genesis-evolution-latest.json',
-    scientist: 'artifacts/genesis-scientist-latest.json',
-    ontology: 'artifacts/genesis-ontology-latest.json'
+    gamechanger: paths.gamechanger,
+    evolution: paths.evolution,
+    scientist: paths.scientist,
+    ontology: paths.ontology
   },
   ...metabolism
 };

@@ -49,6 +49,91 @@ function reconcileReplayFenceError(job) {
   return error;
 }
 
+export const QUEUE_RECONCILIATION_RECEIPT_VERSION = 'uberbond.queue-reconciliation.v1';
+const RECONCILIATION_SOURCE_CLASSES = new Set([
+  'PROVIDER_READBACK',
+  'INDEPENDENT_EXTERNAL_EVIDENCE',
+  'DETERMINISTIC_NO_EFFECT_RECEIPT'
+]);
+
+function reconciliationReceiptInvalidError(jobId, reasonCodes = []) {
+  const error = new Error(`Job ${jobId} reconciliation receipt is invalid: ${reasonCodes.join(', ')}`);
+  error.name = 'JobReconciliationReceiptInvalidError';
+  error.code = 'JOB_RECONCILIATION_RECEIPT_INVALID';
+  error.retryable = false;
+  error.reasonCodes = [...new Set(reasonCodes.filter(Boolean))];
+  return error;
+}
+
+function queueText(value, max = 1000) {
+  const out = String(value ?? '').trim();
+  return out && out.length <= max ? out : null;
+}
+
+function reconciliationReasonCode(job = {}) {
+  return queueText(job.uncertainReasonCode, 200)
+    || (job.recoveryPolicy === 'reconcile' ? 'RECOVERY_POLICY_RECONCILE' : null);
+}
+
+export function validateQueueReconciliationReceipt(job = {}, receipt = null, { date = new Date() } = {}) {
+  const reasons = [];
+  if (!job?.id || job.status !== 'dead-letter') reasons.push('dead-letter-job-required');
+  if (!receipt || typeof receipt !== 'object' || Array.isArray(receipt)) {
+    return { ok: false, reasonCodes: ['structured-reconciliation-receipt-required'], receipt: null };
+  }
+
+  const schemaVersion = queueText(receipt.schemaVersion, 120);
+  const receiptJobId = queueText(receipt.jobId, 180);
+  const outcome = queueText(receipt.outcome, 120)?.toUpperCase();
+  const sourceClass = queueText(receipt.sourceClass, 120)?.toUpperCase();
+  const evidenceRef = queueText(receipt.evidenceRef, 2000);
+  const reasonCode = queueText(receipt.uncertainReasonCode, 200);
+  const attempts = Number(receipt.attempts);
+  const observedAt = new Date(receipt.observedAt || '');
+  const receiptDeadLetteredAt = new Date(receipt.deadLetteredAt || '');
+  const jobDeadLetteredAt = new Date(job.deadLetteredAt || '');
+  const reference = date instanceof Date ? date : new Date(date);
+  const expectedReasonCode = reconciliationReasonCode(job);
+
+  if (schemaVersion !== QUEUE_RECONCILIATION_RECEIPT_VERSION) reasons.push('reconciliation-schema-version-required');
+  if (receiptJobId !== String(job.id || '')) reasons.push('reconciliation-job-id-mismatch');
+  if (outcome !== 'VERIFIED_NO_EXTERNAL_EFFECT') reasons.push('verified-no-external-effect-required');
+  if (!RECONCILIATION_SOURCE_CLASSES.has(sourceClass)) reasons.push('recognized-reconciliation-source-class-required');
+  if (!evidenceRef) reasons.push('reconciliation-evidence-ref-required');
+  if (!Number.isSafeInteger(attempts) || attempts !== Number(job.attempts)) reasons.push('reconciliation-attempt-mismatch');
+  if (!expectedReasonCode || reasonCode !== expectedReasonCode) reasons.push('reconciliation-reason-code-mismatch');
+  if (!Number.isFinite(jobDeadLetteredAt.getTime()) || !Number.isFinite(receiptDeadLetteredAt.getTime())
+      || receiptDeadLetteredAt.getTime() !== jobDeadLetteredAt.getTime()) {
+    reasons.push('reconciliation-dead-letter-occurrence-mismatch');
+  }
+  if (!Number.isFinite(observedAt.getTime()) || !Number.isFinite(reference.getTime())) {
+    reasons.push('valid-reconciliation-observation-time-required');
+  } else {
+    if (Number.isFinite(jobDeadLetteredAt.getTime()) && observedAt.getTime() < jobDeadLetteredAt.getTime()) {
+      reasons.push('reconciliation-cannot-predate-dead-letter');
+    }
+    if (observedAt.getTime() > reference.getTime() + 60_000) reasons.push('future-reconciliation-evidence-rejected');
+  }
+
+  if (reasons.length) return { ok: false, reasonCodes: [...new Set(reasons)], receipt: null };
+  return {
+    ok: true,
+    reasonCodes: [],
+    receipt: {
+      schemaVersion: QUEUE_RECONCILIATION_RECEIPT_VERSION,
+      jobId: receiptJobId,
+      deadLetteredAt: jobDeadLetteredAt.toISOString(),
+      attempts,
+      uncertainReasonCode: expectedReasonCode,
+      outcome,
+      sourceClass,
+      evidenceRef,
+      observedAt: observedAt.toISOString(),
+      reconciledBy: queueText(receipt.reconciledBy, 240) || null
+    }
+  };
+}
+
 export class DurableQueue {
   constructor(store, cfg, log = console) {
     this.store = store;
@@ -326,18 +411,31 @@ export class DurableQueue {
     if (!job || job.status !== 'dead-letter') return null;
     const requiresReconciliation = job.reconciliationRequired || job.recoveryPolicy === 'reconcile';
     if (requiresReconciliation) {
-      const receipt = options.reconciliationReceipt;
-      if (!receipt || typeof receipt !== 'object' || !Object.keys(receipt).length) throw reconciliationRequiredError(jobId);
-      await this.store.patch('jobs', jobId, {
-        reconciliationRequired: false,
-        reconciledAt: now(),
-        reconciliationReceipt: structuredClone(receipt)
-      });
-      await this.store.log('queue_job_uncertain_execution_reconciled', {
-        jobId: job.id, type: job.type, workerId: this.workerId,
-        uncertainReasonCode: job.uncertainReasonCode || (job.recoveryPolicy === 'reconcile' ? 'RECOVERY_POLICY_RECONCILE' : null),
-        receipt: structuredClone(receipt)
-      });
+      const suppliedReceipt = options.reconciliationReceipt;
+      const durableReceipt = job.reconciliationRequired === false ? job.reconciliationReceipt : null;
+      const candidateReceipt = suppliedReceipt || durableReceipt;
+      if (!candidateReceipt) throw reconciliationRequiredError(jobId);
+      const validation = validateQueueReconciliationReceipt(job, candidateReceipt, { date: options.date || new Date() });
+      if (!validation.ok) throw reconciliationReceiptInvalidError(jobId, validation.reasonCodes);
+      const receipt = validation.receipt;
+
+      if (durableReceipt) {
+        const durableValidation = validateQueueReconciliationReceipt(job, durableReceipt, { date: options.date || new Date() });
+        if (!durableValidation.ok || JSON.stringify(durableValidation.receipt) !== JSON.stringify(receipt)) {
+          throw reconciliationReceiptInvalidError(jobId, ['reconciliation-receipt-conflict']);
+        }
+      } else {
+        await this.store.patch('jobs', jobId, {
+          reconciliationRequired: false,
+          reconciledAt: now(),
+          reconciliationReceipt: structuredClone(receipt)
+        });
+        await this.store.log('queue_job_uncertain_execution_reconciled', {
+          jobId: job.id, type: job.type, workerId: this.workerId,
+          uncertainReasonCode: reconciliationReasonCode(job),
+          receipt: structuredClone(receipt)
+        });
+      }
     }
     if (job.singletonKey) {
       const existing = (await this.store.list('jobs')).find(item => item.id !== job.id && item.singletonKey === job.singletonKey && ['queued', 'retry', 'active'].includes(item.status));

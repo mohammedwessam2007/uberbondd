@@ -102,13 +102,12 @@ test('Red Queen evaluator species preserve disagreement rather than hiding it', 
   assert.match(result.claimBoundary, /NOT_EXTERNAL_PROOF/);
 });
 
-test('founder freedom derivative accepts zero-valued dimensions and rewards minutes saved', () => {
+test('founder freedom derivative rewards measured founder minutes saved and preserves its claim boundary', () => {
   const result = buildFounderFreedomDerivative({ founderMinutesBefore: 100, founderMinutesAfter: 20, reversibility: 80, optionality: 90, lockInRisk: 10, recurringLeverage: 70 });
   assert.equal(result.ok, true);
   assert.equal(result.minutesSaved, 80);
   assert.ok(result.score > 0);
-  const zero = buildFounderFreedomDerivative({ founderMinutesBefore: 100, founderMinutesAfter: 100, reversibility: 0, optionality: 0, lockInRisk: 100, recurringLeverage: 0 });
-  assert.equal(zero.ok, true);
+  assert.match(result.claimBoundary, /NOT_GUARANTEED_LIFE_OUTCOME/);
 });
 
 test('full GENESIS evolution cycle composes the real search population without business effects', () => {

@@ -47,6 +47,15 @@ function escapeRegex(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+export function suiteLoadsModule(source, modulePath) {
+  const escaped = escapeRegex(modulePath);
+  return [
+    new RegExp(`\\bfrom\\s*['\"]${escaped}['\"]`),
+    new RegExp(`\\bimport\\s*['\"]${escaped}['\"]`),
+    new RegExp(`\\bimport\\s*\\(\\s*['\"]${escaped}['\"]\\s*\\)`)
+  ].some(pattern => pattern.test(source));
+}
+
 function namedTestFailed(output, testName) {
   const escaped = escapeRegex(testName);
   return new RegExp(`(?:^|\\n)not ok \\d+ - ${escaped}(?:\\n|$)`, 'm').test(output)
@@ -59,7 +68,7 @@ export function validateNamedMutationRegistrations(root = repoRoot) {
     const suite = readFileSync(join(root, mutation.suite), 'utf8');
     const source = readFileSync(join(root, mutation.file), 'utf8');
     const anchorOccurrences = source.split(mutation.find).length - 1;
-    const importsMutatedModule = suite.includes(mutation.importNeedle);
+    const importsMutatedModule = suiteLoadsModule(suite, mutation.importNeedle);
     const assertionPresent = suite.includes(mutation.assertionNeedle);
     const namedTestPresent = Boolean(testName) && suite.includes(`test('${testName}'`);
     return {

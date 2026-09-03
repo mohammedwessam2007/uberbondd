@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "uberbond.night-verification-receipt.v1",
+  "run": 6,
+  "branch": "work/night-verification-20260903",
+  "baseMainSha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "verificationSourceHeadBeforeReceipt": "2fc4f159f45906e0487af82b37dc1819272f8d33",
+  "integrationPr": {"number":331,"head":"40e25ff90db6b2e0bcf1d780dfefae9e9fe02ff1","classification":"DISPUTE_UNEXECUTED"},
+  "frontierPr": {"number":334,"head":"bde6a178195fa2aadcfd82efa9fd85cabf911852","classification":"FAIL_FOCUSED_RECONSTRUCTION_P1"},
+  "runtimePr": {"number":335,"head":"153203e43bbadbd73f00c084ca4e2ec493300d29","classification":"DISPUTE_UNEXECUTED"},
+  "ci": {
+    "verificationHead": {"jobsObserved":3,"jobsWithExecutedSteps":0,"sourcePass":0,"sourceFail":0,"sourceSkip":0,"classification":"INFRASTRUCTURE_NON_EVIDENCE"},
+    "frontierHead": {"jobsObserved":3,"jobsWithExecutedSteps":0,"sourcePass":0,"sourceFail":0,"sourceSkip":0,"classification":"INFRASTRUCTURE_NON_EVIDENCE"}
+  },
+  "mutationInventory": {
+    "strictRegistered":14,
+    "killed":0,
+    "survived":0,
+    "invalid":0,
+    "unexecuted":14,
+    "delta":0,
+    "newPeerMutationTargetsPendingRegistration":[
+      "FRONTIER-08 current admission proof must bind exact current model identity",
+      "FRONTIER-09 current admission proof must bind exact task class"
+    ]
+  },
+  "findings": [
+    {
+      "id":"VERIFY-P1-FRONTIER-ADMISSION-PROOF-SUBSTITUTION",
+      "severity":"P1",
+      "verdict":"FAIL",
+      "evidenceClass":"SOURCE_INSPECTION_PLUS_FOCUSED_RECONSTRUCTION",
+      "exactPeerHead":"bde6a178195fa2aadcfd82efa9fd85cabf911852",
+      "detail":"verifyFrontierRoutingAtExecution accepts any admission proof with the expected status/authority flags and does not compare admissionProof.model or admissionProof.taskClass with currentSupplier identity. A valid proof for another model/task can be substituted without changing the current routing-basis digest.",
+      "peerCodeModified":false,
+      "reviewFiled":5098820858
+    }
+  ],
+  "claimVerdicts": {
+    "frontierRoutingIdentityBinding":"FAIL",
+    "frontierExactHeadHostedVerification":"INFRASTRUCTURE_NON_EVIDENCE",
+    "verificationExactHeadHostedVerification":"INFRASTRUCTURE_NON_EVIDENCE",
+    "existing14MutationKillClaims":"DISPUTE_UNEXECUTED",
+    "commercialTruth":"PASS"
+  },
+  "residuals": {
+    "P0":[],
+    "P1":[
+      "Frontier execution-time admission proof is not identity-bound to current supplier/model/revision/task class",
+      "14 strict mutations remain unexecuted with no trustworthy kill/survival evidence",
+      "OPENMODEL-07 and absent-provider-identity fix remain executable-proof pending"
+    ],
+    "P2":[
+      "syntax/deterministic/relay/reachability/browser/real-Postgres gates remain unproven on current exact heads",
+      "runtime PR 335 lease/reconciliation changes require trustworthy real-Postgres execution",
+      "canon/readiness regeneration must wait for settled source truth",
+      "elapsed-time/provider canaries remain external/runtime-time evidence"
+    ]
+  },
+  "zeroEffectLedger": {
+    "customerContacts":0,"messages":0,"providerCalls":0,"deployments":0,"spendUsd":0,"moneyMovementUsd":0,"paymentStateMutations":0,"customerStateMutations":0,"credentialChanges":0,"authorityWidening":0,"peerProductFilesModified":0
+  },
+  "commercialTruth": {"customers":0,"clearedRevenueUsd":0,"acceptedPaidDeliveries":0,"retainedCustomers":0},
+  "nextFalsificationTarget":"On the exact Frontier head, substitute a valid admission proof from a different model and task while keeping the winner/current routing basis unchanged. Require routing to fail closed; then register causal FRONTIER-08/09 mutations only after the hostile suite exists on the verification candidate."
+}

@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "uberbond-night-verification-receipt-2.2.0",
+  "recordedAt": "2026-09-03T04:08:00Z",
+  "branch": "work/night-verification-20260903",
+  "verificationPr": 333,
+  "sourceHeadBeforeReceipt": "ea82414b98361da360eceaaf654401975aad0a9a",
+  "mainSha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "integrationHeads": {
+    "pr329": "7ea2abd7246166a346203b79670748630c55b808",
+    "successorPr331": "3c11b699757bf647b7ed6689b434d1b735eff3ae"
+  },
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "inventoryDelta": {
+    "strictMutations": 13,
+    "newMutationIds": [],
+    "newHostileTests": 1,
+    "newHostileTestClaim": "Provider response with absent model identity must not be accepted as verified completion.",
+    "verifierHardening": "Mutation kill classification now requires the exact named test bound to the mutant to be observed failing; suite-red alone becomes UNRELATED_SUITE_FAILURE.",
+    "productFilesChanged": 0
+  },
+  "mutationEvidence": {
+    "killed": 0,
+    "survived": 0,
+    "invalid": 0,
+    "unexecuted": 13,
+    "rule": "KILLED requires unique anchor, direct module load, named assertion, exact named test, green baseline, parseable single mutation, and observed failure of that named test."
+  },
+  "ci": {
+    "exactSourceHead": "ea82414b98361da360eceaaf654401975aad0a9a",
+    "workflowRunId": 33713687516,
+    "jobsObserved": 3,
+    "jobsWithExecutedSteps": 0,
+    "sourcePass": 0,
+    "sourceFail": 0,
+    "sourceSkip": 0,
+    "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+    "reason": "deterministic/browser/postgres all completed failure with steps=null and logs_url=null. A manual rerun probe on the preceding head reproduced the same zero-step startup failure."
+  },
+  "successorAudit": {
+    "pr": 331,
+    "headSha": "3c11b699757bf647b7ed6689b434d1b735eff3ae",
+    "mismatchIdentityClaim": {
+      "verdict": "PASS_SOURCE_INSPECTION_ONLY",
+      "reason": "Successor runtime now returns failure(open-model-runtime-model-identity-mismatch) before success when an observed model differs from configured model. Hosted execution remains zero-step."
+    },
+    "absentIdentityClaim": {
+      "verdict": "FAIL_SOURCE_INSPECTION_P1",
+      "reason": "Successor computes observedModel=null when provider omits model and still returns ok=true/COMPLETED with identityVerification=UNVERIFIED. The verification branch now contains a hostile test requiring fail-closed behavior for this case."
+    },
+    "mutationBindingClaim": {
+      "verdict": "PARTIAL_PASS_SOURCE_INSPECTION",
+      "reason": "PR331 documents hardened mutation binding against path/comment decoys, but its Frontier/Open-Model auxiliary mutation runner still uses suite-red as KILLED without green-baseline/named-test causal proof. Verification v3 remains stricter and must be used for independent kill evidence."
+    }
+  },
+  "peerHeadsReadOnly": {
+    "nightFrontier": "92432c5d17b76ceaea180c187b3e7241a32ddd3d",
+    "nightRuntime": "4ccc851719b76565cb4978a3c0a8d78774ee977f",
+    "nightGenome": "4e90710266b4b06f38db3d74d34429ea8acdfe97",
+    "nightPayment": "998b137aa1b35460d07d9064ea101c0bbe8da1ec",
+    "nightPostal": "417fcec2f0b144c65ddf7b76cf9cad4c267f574b",
+    "nightPaymentDistributionPr332": "1cca3ee35321e5eb5b286d77371b0abbfde9dfb9",
+    "nightIntegrationPr331": "3c11b699757bf647b7ed6689b434d1b735eff3ae"
+  },
+  "claimVerdicts": [
+    {
+      "claim": "Hosted CI proves source red or green",
+      "verdict": "INFRASTRUCTURE_NON_EVIDENCE"
+    },
+    {
+      "claim": "PR331 closes mismatched provider model identity",
+      "verdict": "PASS_SOURCE_INSPECTION_ONLY"
+    },
+    {
+      "claim": "PR331 enforces verified model identity before completion",
+      "verdict": "FAIL_SOURCE_INSPECTION_P1",
+      "reason": "Absent provider model identity remains accepted as COMPLETED/UNVERIFIED."
+    },
+    {
+      "claim": "Current verification mutation kills are proven",
+      "verdict": "DISPUTE",
+      "reason": "13 strict mutations remain unexecuted due zero-step CI; no KILLED/SURVIVED claims are promoted."
+    },
+    {
+      "claim": "Night Frontier CLONED proof is complete",
+      "verdict": "DISPUTE",
+      "reason": "Peer receipt still identifies behavior-equivalence and duplicate-evidence gaps."
+    }
+  ],
+  "residual": {
+    "P0": [],
+    "P1": [
+      "Successor PR331 still accepts provider responses that omit model identity as ok=true/COMPLETED with identityVerification=UNVERIFIED.",
+      "Thirteen Frontier/Open-Model strict mutations remain without executable kill/survival evidence.",
+      "Night Frontier CLONED behavior-equivalence/duplicate-evidence gap remains peer-owned and unresolved in its current receipt."
+    ],
+    "P2": [
+      "Exact-head syntax/deterministic/relay/reachability/real-Postgres/browser evidence remains blocked by zero-step GitHub Actions startup.",
+      "Night Runtime lease-loss/reconciliation changes still need real PostgreSQL execution.",
+      "Canonical readiness/current-system-state regeneration must wait until successor integration source settles and trustworthy execution exists.",
+      "Elapsed-time/provider canaries remain genuine runtime-time blockers."
+    ]
+  },
+  "defects": {
+    "reproducedOrInspected": [
+      "PR329 model mismatch fail-open defect remains present on stale integration head.",
+      "PR331 fixes mismatch but retains absent-model identity fail-open behavior."
+    ],
+    "fixedByVerificationLane": [
+      "False mutation kill path where any red target suite could be counted as causal; v3 now requires the intended named test to fail."
+    ],
+    "productDefectsFixed": 0
+  },
+  "zeroEffectLedger": {
+    "customersContacted": 0,
+    "messagesSent": 0,
+    "providerCalls": 0,
+    "deployments": 0,
+    "moneyMovements": 0,
+    "paymentMutations": 0,
+    "customerStateChanges": 0,
+    "credentialsChanged": 0,
+    "peerProductFilesModified": 0,
+    "productFilesModifiedOnVerificationBranch": 0
+  },
+  "nextFalsificationTarget": "Verify PR331 exact head against the new absent-model hostile case. If the named test executes and fails, require the smallest fail-closed UNVERIFIED identity fix plus a successor-only OPENMODEL identity mutation that must be killed by that exact named test."
+}

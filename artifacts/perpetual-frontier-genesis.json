@@ -69,14 +69,25 @@
   "firstExecutableLayer": {
     "module": "src/perpetual-frontier-genesis.mjs",
     "doctor": "scripts/perpetual-frontier-genesis-doctor.mjs",
+    "tick": "scripts/perpetual-frontier-genesis-tick.mjs",
     "test": "tests/perpetual-frontier-genesis.test.mjs",
+    "tickTest": "tests/perpetual-frontier-genesis-tick.test.mjs",
+    "hourlyWorkflow": ".github/workflows/gamechanger-mesh-hourly.yml",
+    "commands": [
+      "npm run genesis:doctor",
+      "npm run test:genesis",
+      "npm run genesis:tick",
+      "npm run frontier:tick"
+    ],
     "capabilities": [
       "registry validation",
       "frontier shockwave compilation",
       "dormant opportunity resurrection planning",
       "unknown-unknown and anomaly agenda compilation",
       "frontier latency accounting",
-      "zero-effect GENESIS cycle planning"
+      "zero-effect GENESIS cycle planning",
+      "automatic conversion of Gamechanger frontier signals into GENESIS cycle receipts",
+      "hourly public-frontier sensing to GENESIS receipt path when the GitHub Actions runner actually executes"
     ]
   }
 }

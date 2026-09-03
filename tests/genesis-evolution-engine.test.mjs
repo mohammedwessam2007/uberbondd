@@ -135,12 +135,13 @@ test('275-item evidence ledger keeps canon-only ideas distinct and binds every i
   const result = buildGenesisEvidenceLedger({ canonicalMarkdown: markdown, availablePaths, observedRuntimeReceipts: [] });
   assert.equal(result.ok, true);
   assert.equal(result.ideaCount, 275);
-  assert.equal(result.implementedOrPartialCount, 17);
-  assert.equal(result.canonOnlyCount, 258);
+  assert.equal(result.implementedOrPartialCount, 30);
+  assert.equal(result.canonOnlyCount, 245);
   assert.equal(result.counts.OBSERVED_INTERNAL_RUNTIME_RECEIPT || 0, 0);
   assert.equal(result.entries.find(item => item.id === 2).status, 'SOURCE_AND_TEST_PRESENT');
   assert.equal(result.entries.find(item => item.id === 2).maturity, 'IMPLEMENTED_PRIMITIVE');
   assert.equal(result.entries.find(item => item.id === 103).maturity, 'PARTIAL_PRIMITIVE');
+  assert.equal(result.entries.find(item => item.id === 216).maturity, 'PARTIAL_PRIMITIVE');
   assert.equal(result.entries.find(item => item.id === 275).status, 'CANON_ONLY');
   assert.match(result.truthBoundary, /CANON_ONLY_MUST_NOT_BE_CALLED_IMPLEMENTED/);
 });

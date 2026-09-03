@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "uberbond-night-verification-receipt-2.1.0",
+  "recordedAt": "2026-09-03T03:10:00Z",
+  "branch": "work/night-verification-20260903",
+  "verificationPr": 333,
+  "baseIntegration": {
+    "pr": 329,
+    "branch": "sol/frontier-convergence-open-model-20260903",
+    "headSha": "7ea2abd7246166a346203b79670748630c55b808",
+    "mainSha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da"
+  },
+  "testedHeadSha": "13456d0968048f29aa50104feba7b927419b2b2a",
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "inventoryDelta": {
+    "priorVerificationMutations": 9,
+    "currentStrictMutations": 13,
+    "netNewMutations": 4,
+    "newMutationIds": ["FRONTIER-04", "FRONTIER-05", "FRONTIER-06", "FRONTIER-07"],
+    "newHostileTestFiles": [
+      "tests/frontier-context-dependency-hostile.test.mjs",
+      "tests/night-verification-mutation-war-v2.test.mjs"
+    ],
+    "productFilesChanged": 0,
+    "verificationFilesChangedAgainstPr329": 6
+  },
+  "strictMutationEvidenceRule": {
+    "requirements": [
+      "unique-source-anchor",
+      "target-suite-directly-imports-mutated-module",
+      "named-assertion-present",
+      "baseline-target-suite-green",
+      "mutant-remains-parseable",
+      "single-intended-mutation-applied",
+      "same-target-suite-red-after-mutation"
+    ],
+    "falseKillDefectFixed": "The previous verification runner could label a mutant KILLED without first proving its target suite was green. The v2 runner refuses such kills as BASELINE_NOT_GREEN.",
+    "contextMutationCorrection": "An initially broad Context Spine assertion could have been satisfied by a redundant downstream dependency guard. A dedicated hostile suite now requires the early unresolvedDependencyRoots result, making FRONTIER-04 causally discriminating."
+  },
+  "mutationCounts": {
+    "killed": 0,
+    "survived": 0,
+    "invalidFinalRegistrations": 0,
+    "unexecutedInfrastructureBlocked": 13,
+    "note": "No mutation outcome is promoted because the exact-head hosted jobs executed zero steps and the chat runtime could not clone GitHub due DNS failure."
+  },
+  "focusedIndependentReconstruction": {
+    "claim": "Open Model runtime must fail closed when provider-reported model differs from configured model",
+    "sourceHead": "13456d0968048f29aa50104feba7b927419b2b2a",
+    "method": "Focused reconstruction of the exact decision fragment from src/open-model-runtime-executor.mjs; not whole-repo execution.",
+    "observed": {
+      "configuredModel": "trusted/model-a",
+      "providerModel": "different/model-b",
+      "ok": true,
+      "outcome": "COMPLETED",
+      "identityVerification": "MISMATCH"
+    },
+    "verdict": "FAIL_FOCUSED_REPRODUCTION",
+    "scopeBoundary": "This reproduces the source decision defect only. It is not whole-module or whole-repository proof, so the product source was not modified in this run."
+  },
+  "ci": {
+    "workflowRunId": 33710328685,
+    "jobsObserved": 3,
+    "jobsWithExposedSteps": 0,
+    "jobs": ["deterministic", "browser", "postgres"],
+    "sourcePass": 0,
+    "sourceFail": 0,
+    "sourceSkip": 0,
+    "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+    "reason": "All jobs completed failure with steps=null and logs_url=null; no command or assertion is evidenced as executed."
+  },
+  "peerHeadsReadOnly": {
+    "nightFrontier": "92432c5d17b76ceaea180c187b3e7241a32ddd3d",
+    "nightRuntime": "4ccc851719b76565cb4978a3c0a8d78774ee977f",
+    "nightGenome": "4e90710266b4b06f38db3d74d34429ea8acdfe97",
+    "nightPayment": "998b137aa1b35460d07d9064ea101c0bbe8da1ec",
+    "nightPostal": "417fcec2f0b144c65ddf7b76cf9cad4c267f574b"
+  },
+  "peerEvidence": {
+    "nightFrontier": "DISPUTE: its receipt identifies a remaining CLONED-claim behavior-equivalence/duplicate-evidence defect; no verification-lane overwrite performed.",
+    "nightRuntime": "PARTIAL_PASS_FOCUSED_ONLY: prior local hostile harness 2/2 passed for timeout/lease takeover; newer heartbeat-loss and reconciliation changes remain hosted-unexecuted and require real PostgreSQL.",
+    "vercel": "INFRASTRUCTURE_NON_EVIDENCE: peer PR #334 records free deployment quota exhaustion (>100 deployments/day), not source failure."
+  },
+  "claimVerdicts": [
+    {
+      "claim": "Frontier/Open Model mutations can only count killed after a green baseline and causal target-suite failure",
+      "verdict": "PASS_SOURCE_IMPLEMENTATION_UNEXECUTED",
+      "reason": "v2 runner encodes the rule and is reachable through deterministic test discovery, but hosted execution is zero-step."
+    },
+    {
+      "claim": "Context Spine dependency inclusion has a causally specific hostile mutation target",
+      "verdict": "PASS_SOURCE_INSPECTION_ONLY",
+      "reason": "FRONTIER-04 now targets a dedicated suite requiring unresolvedDependencyRoots=['contract']; runtime kill remains unexecuted."
+    },
+    {
+      "claim": "Artifact uncertainty and uncovered visual dimensions cannot become proof",
+      "verdict": "PASS_SOURCE_INSPECTION_ONLY",
+      "reason": "FRONTIER-05/06 bind existing direct-import assertions; mutation execution remains blocked."
+    },
+    {
+      "claim": "Compiled workers cannot self-certify across provider targets",
+      "verdict": "PASS_SOURCE_INSPECTION_ONLY",
+      "reason": "FRONTIER-07 mutates selfCertificationAllowed and binds the provider-neutral compiler assertion; execution remains blocked."
+    },
+    {
+      "claim": "Open Model runtime enforces configured model identity",
+      "verdict": "FAIL_FOCUSED_REPRODUCTION_P1",
+      "reason": "Exact source logic permits ok=true/COMPLETED while recording identityVerification=MISMATCH. Full module execution is still required before a product mutation in this lane."
+    },
+    {
+      "claim": "Current GitHub Actions failure proves source red",
+      "verdict": "INFRASTRUCTURE_NON_EVIDENCE",
+      "reason": "3/3 jobs expose zero steps and no logs."
+    }
+  ],
+  "residual": {
+    "P0": [],
+    "P1": [
+      "Open Model runtime model-identity mismatch remains fail-open at the inspected decision boundary; execute the committed hostile test against the exact module, then apply the smallest fail-closed fix if reproduced.",
+      "Thirteen Frontier/Open-Model verification mutations are registered with stricter causal rules but have no executable kill/survival evidence yet.",
+      "Night Frontier peer reports CLONED behavior-equivalence and duplicate-evidence gaps; these are not present on PR329 and remain peer-owned/unintegrated."
+    ],
+    "P2": [
+      "Exact-head syntax/deterministic/relay/reachability/real-Postgres/browser gates remain unexecuted because hosted jobs start with zero steps.",
+      "Night Runtime heartbeat-loss/reconciliation changes require real Store/PostgreSQL verification and stale-recovery replacement-worker testing.",
+      "Sustained founder-absence/elapsed-time soak and live provider canaries remain genuine external/runtime-time blockers."
+    ]
+  },
+  "zeroEffectLedger": {
+    "customersContacted": 0,
+    "messagesSent": 0,
+    "providerCalls": 0,
+    "deployments": 0,
+    "moneyMovements": 0,
+    "paymentMutations": 0,
+    "customerStateChanges": 0,
+    "credentialsChanged": 0,
+    "peerProductFilesModified": 0,
+    "productFilesModifiedOnVerificationBranch": 0
+  },
+  "nextFalsificationTarget": "Execute tests/night-verification-frontier-open-model.test.mjs against the exact Open Model runtime module in a trustworthy Node runtime. If the mismatch assertion fails as the focused reconstruction predicts, make the smallest fail-closed model-identity change on the verification branch, add OPENMODEL-07 to the strict mutation war, and rerun the identity, factory integration, provider-neutral runtime, syntax and mutation gates."
+}

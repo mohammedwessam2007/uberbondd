@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "uberbond-night-runtime-receipt-1.0.0",
+  "run": "2026-09-04-run-11",
+  "scope": "admin reconciliation retry operator surface",
+  "testedHead": "70508eb65bfb6ff9b6bf84044fc1d459ef6cfc26",
+  "sourceTruth": {
+    "queueReconciliationContract": {
+      "status": "FOCUSED_TEST_VERIFIED",
+      "notes": "Prior run in this lane proved the job/dead-letter-occurrence/attempt/reason-bound VERIFIED_NO_EXTERNAL_EFFECT contract, arbitrary-object rejection, and crash-after-reconciliation-persistence resume behavior with 5/5 focused hostile tests."
+    },
+    "adminRoute": {
+      "path": "api/admin/retry-dead-letter.mjs",
+      "gitBlobSha": "b476fb5b5427854de3ba322f235d0f181c5fb23e",
+      "localReconstructedGitBlobSha": "b476fb5b5427854de3ba322f235d0f181c5fb23e",
+      "byteIdentical": true
+    },
+    "adminRouteTest": {
+      "path": "tests/night-runtime-admin-retry-route.test.mjs",
+      "gitBlobSha": "8caaeb83e47ca8827d0adbd2c2a868d671eca310",
+      "localReconstructedGitBlobSha": "8caaeb83e47ca8827d0adbd2c2a868d671eca310",
+      "byteIdentical": true
+    }
+  },
+  "verification": {
+    "syntax": {
+      "command": "node --check api/admin/retry-dead-letter.mjs && node --check tests/night-runtime-admin-retry-route.test.mjs",
+      "result": "PASS"
+    },
+    "focusedRouteSuite": {
+      "command": "node --test tests/night-runtime-admin-retry-route.test.mjs",
+      "environment": "exact target/test Git blobs with only unused default config/store/queue imports stubbed; every test injects requeueDeadLetter",
+      "tests": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    },
+    "mutation": {
+      "id": "RUNTIME-ADMIN-AUTH-01",
+      "target": "api/admin/retry-dead-letter.mjs",
+      "anchor": "if (!equalBearer(req?.headers?.authorization, adminSecret))",
+      "anchorOccurrences": 1,
+      "mutation": "replace authorization condition with false",
+      "baseline": "9/9 PASS",
+      "mutantExit": 1,
+      "verdict": "KILLED",
+      "killingTest": "admin retry route refuses wrong or ambiguous bearer authorization",
+      "causalBasis": "BASELINE_GREEN_SINGLE_MUTATION_NAMED_TEST_RED"
+    }
+  },
+  "behavior": {
+    "legacyDeadLetterRetry": "PRESERVED",
+    "uncertainRetryWithoutProof": "HTTP_409_RECONCILIATION_REQUIRED",
+    "invalidBoundProof": "HTTP_422_WITH_QUEUE_REASON_CODES",
+    "validBoundProof": "REQUEUED_WITH_MINIMAL_PUBLIC_RECEIPT",
+    "jobPayloadOrReconciliationEvidenceEcho": false,
+    "adminAuth": "ADMIN_TOKEN_CONSTANT_TIME_BEARER"
+  },
+  "truthBoundary": {
+    "fullRepositoryExactHeadGreen": false,
+    "realPostgresRouteExecution": false,
+    "productionDeployment": false,
+    "customerContact": 0,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "productionMutations": 0
+  },
+  "remaining": [
+    "reconcile this runtime branch against live main",
+    "run full deterministic and real-Postgres exact-head gates when an executable full-repository runner is available",
+    "independent Mutation War registration and verification"
+  ]
+}

@@ -4,127 +4,17 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildGenesisEvolutionCycle } from '../src/genesis-evolution-engine.mjs';
-import { buildGenesisEvidenceLedger, GENESIS_IMPLEMENTATION_EVIDENCE } from '../src/genesis-implementation-evidence.mjs';
-
-const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const args = new Map();
-for (let i = 2; i < process.argv.length; i += 1) {
-  const arg = process.argv[i];
-  if (!arg.startsWith('--')) continue;
-  args.set(arg, process.argv[i + 1]?.startsWith('--') ? true : process.argv[++i] ?? true);
-}
-
-const inputPath = resolve(root, String(args.get('--input') || 'artifacts/gamechanger-mesh-latest.json'));
-const taskPath = resolve(root, String(args.get('--tasks') || 'data/genesis/impossible-tasks.json'));
-const assumptionsPath = resolve(root, String(args.get('--assumptions') || 'data/genesis/architecture-assumptions.json'));
-const canonPath = resolve(root, 'docs/PERPETUAL_FRONTIER_GENESIS_CANON.md');
-const outputRelative = String(args.get('--output') || 'artifacts/genesis-evolution-latest.json');
-const ledgerRelative = String(args.get('--ledger-output') || 'artifacts/perpetual-frontier-implementation-ledger.json');
-const outputPath = resolve(root, outputRelative);
-const ledgerPath = resolve(root, ledgerRelative);
-const generatedAt = new Date().toISOString();
-
-async function readJson(path, fallback = null) {
-  try { return JSON.parse(await readFile(path, 'utf8')); } catch { return fallback; }
-}
-
-const [gamechanger, tasksDoc, assumptionsDoc, canonicalMarkdown] = await Promise.all([
-  readJson(inputPath),
-  readJson(taskPath, { tasks: [] }),
-  readJson(assumptionsPath, { assumptions: [] }),
-  readFile(canonPath, 'utf8')
-]);
-
-if (!gamechanger || typeof gamechanger !== 'object') {
-  console.error(JSON.stringify({ ok: false, status: 'GENESIS_EVOLUTION_GAMECHANGER_INPUT_REQUIRED', inputPath }, null, 2));
-  process.exit(1);
-}
-
-const signals = Array.isArray(gamechanger.frontierSignals) ? gamechanger.frontierSignals.slice(0, 100) : [];
-const cycles = [];
-for (const signal of signals) {
-  const changedPrimitives = Array.isArray(signal?.claims) && signal.claims.length
-    ? signal.claims
-    : Array.isArray(signal?.changedPrimitives) && signal.changedPrimitives.length
-      ? signal.changedPrimitives
-      : signal?.summary ? [signal.summary] : [];
-  const domains = Array.isArray(signal?.domains) ? signal.domains : [];
-  const currentMetrics = signal?.scores && typeof signal.scores === 'object'
-    ? Object.fromEntries(Object.entries(signal.scores).filter(([, value]) => Number.isFinite(Number(value))).map(([key, value]) => [key, Number(value)]))
-    : {};
-  const cycle = buildGenesisEvolutionCycle({
-    signal: { summary: signal?.summary, changedPrimitives, domains },
-    impossibleTasks: Array.isArray(tasksDoc?.tasks) ? tasksDoc.tasks : [],
-    assumptions: Array.isArray(assumptionsDoc?.assumptions) ? assumptionsDoc.assumptions : [],
-    priorMetrics: {},
-    currentMetrics,
-    maxSerendipityPairs: 16,
-    curiosityBudget: 0.2
-  });
-  cycles.push({ signalId: signal?.id || null, source: signal?.source || null, observedAt: signal?.observedAt || null, ...cycle });
-}
-
-const receipt = {
-  schemaVersion: 'uberbond.genesis-evolution.tick.v1',
-  generatedAt,
-  source: {
-    gamechangerInput: inputPath,
-    gamechangerSchemaVersion: gamechanger.schemaVersion || null,
-    gamechangerGeneratedAt: gamechanger.generatedAt || null,
-    frontierSignalCount: signals.length
-  },
-  cycles,
-  summary: {
-    cycles: cycles.length,
-    successful: cycles.filter(cycle => cycle.ok).length,
-    invalid: cycles.filter(cycle => !cycle.ok).length,
-    generatedHypotheses: cycles.reduce((sum, cycle) => sum + (cycle.serendipity?.hypotheses?.length || 0), 0),
-    impossibleTasksReopenedForReview: cycles.reduce((sum, cycle) => sum + (cycle.impossible?.revalidationQueue?.length || 0), 0),
-    antiUberBondChallenges: cycles.reduce((sum, cycle) => sum + (cycle.antiUberBond?.challenges?.length || 0), 0)
-  },
-  businessEffectAuthority: 'NONE',
-  externalEffectAuthority: 'NONE',
-  externalEffectLedger: { messages: 0, moneyMovements: 0, purchases: 0, deployments: 0, customerStateMutations: 0, providerCalls: 0 },
-  truthBoundary: 'EVOLUTION_RECEIPT_IS_INTERNAL_SEARCH_AND_FALSIFICATION_EVIDENCE_NOT_MARKET_CUSTOMER_REVENUE_OR_CAPABILITY_PROMOTION_PROOF'
-};
-
-await mkdir(dirname(outputPath), { recursive: true });
-await writeFile(outputPath, `${JSON.stringify(receipt, null, 2)}\n`, 'utf8');
-
-const declaredEvidencePaths = [...new Set(Object.values(GENESIS_IMPLEMENTATION_EVIDENCE).flatMap(evidence => [...evidence.sources, ...evidence.tests]))];
-const availablePaths = declaredEvidencePaths.filter(relative => existsSync(resolve(root, relative)));
-const observedRuntimeReceipts = [...new Set(Object.values(GENESIS_IMPLEMENTATION_EVIDENCE).flatMap(evidence => evidence.runtimeReceipts))]
-  .filter(relative => existsSync(resolve(root, relative)));
-if (outputRelative === 'artifacts/genesis-evolution-latest.json' && !observedRuntimeReceipts.includes(outputRelative)) observedRuntimeReceipts.push(outputRelative);
-
-const ledger = buildGenesisEvidenceLedger({ canonicalMarkdown, availablePaths, observedRuntimeReceipts });
-if (!ledger.ok) {
-  console.error(JSON.stringify(ledger, null, 2));
-  process.exit(1);
-}
-const durableLedger = {
-  schemaVersion: 'uberbond.perpetual-frontier-implementation-ledger.v1',
-  generatedAt,
-  sourceCommit: process.env.GITHUB_SHA || null,
-  ...ledger,
-  warning: 'SOURCE_AND_TEST_PRESENT does not mean tests passed. OBSERVED_INTERNAL_RUNTIME_RECEIPT means an internal receipt file was produced or observed, not that the idea is commercially valuable, externally correct, or production-promoted.'
-};
-await mkdir(dirname(ledgerPath), { recursive: true });
-await writeFile(ledgerPath, `${JSON.stringify(durableLedger, null, 2)}\n`, 'utf8');
-
-console.log(JSON.stringify({
-  status: 'GENESIS_EVOLUTION_TICK_COMPLETE',
-  frontierSignals: signals.length,
-  cycles: receipt.summary.cycles,
-  successful: receipt.summary.successful,
-  generatedHypotheses: receipt.summary.generatedHypotheses,
-  revalidationCandidates: receipt.summary.impossibleTasksReopenedForReview,
-  antiUberBondChallenges: receipt.summary.antiUberBondChallenges,
-  implementationCounts: ledger.counts,
-  maturityCounts: ledger.maturityCounts,
-  implementedOrPartialCount: ledger.implementedOrPartialCount,
-  canonOnlyCount: ledger.canonOnlyCount,
-  output: outputPath,
-  implementationLedger: ledgerPath,
-  businessEffectAuthority: 'NONE'
-}, null, 2));
+import { buildGenesisEvidenceLedger, GENESIS_IMPLEMENTATION_EVIDENCE } from '../src/genesis-implementation-evidence-v2.mjs';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),args=new Map();for(let i=2;i<process.argv.length;i++){const arg=process.argv[i];if(!arg.startsWith('--'))continue;args.set(arg,process.argv[i+1]?.startsWith('--')?true:process.argv[++i]??true);}
+const inputPath=resolve(root,String(args.get('--input')||'artifacts/gamechanger-mesh-latest.json')),taskPath=resolve(root,String(args.get('--tasks')||'data/genesis/impossible-tasks.json')),assumptionsPath=resolve(root,String(args.get('--assumptions')||'data/genesis/architecture-assumptions.json')),canonPath=resolve(root,'docs/PERPETUAL_FRONTIER_GENESIS_CANON.md'),outputRelative=String(args.get('--output')||'artifacts/genesis-evolution-latest.json'),ledgerRelative=String(args.get('--ledger-output')||'artifacts/perpetual-frontier-implementation-ledger.json'),outputPath=resolve(root,outputRelative),ledgerPath=resolve(root,ledgerRelative),generatedAt=new Date().toISOString();
+async function readJson(path,fallback=null){try{return JSON.parse(await readFile(path,'utf8'));}catch{return fallback;}}
+const [gamechanger,tasksDoc,assumptionsDoc,canonicalMarkdown]=await Promise.all([readJson(inputPath),readJson(taskPath,{tasks:[]}),readJson(assumptionsPath,{assumptions:[]}),readFile(canonPath,'utf8')]);
+if(!gamechanger||typeof gamechanger!=='object'){console.error(JSON.stringify({ok:false,status:'GENESIS_EVOLUTION_GAMECHANGER_INPUT_REQUIRED',inputPath},null,2));process.exit(1);}
+const signals=Array.isArray(gamechanger.frontierSignals)?gamechanger.frontierSignals.slice(0,100):[],cycles=[];
+for(const signal of signals){const changedPrimitives=Array.isArray(signal?.claims)&&signal.claims.length?signal.claims:Array.isArray(signal?.changedPrimitives)&&signal.changedPrimitives.length?signal.changedPrimitives:signal?.summary?[signal.summary]:[],domains=Array.isArray(signal?.domains)?signal.domains:[],currentMetrics=signal?.scores&&typeof signal.scores==='object'?Object.fromEntries(Object.entries(signal.scores).filter(([,v])=>Number.isFinite(Number(v))).map(([k,v])=>[k,Number(v)])):{};const cycle=buildGenesisEvolutionCycle({signal:{summary:signal?.summary,changedPrimitives,domains},impossibleTasks:Array.isArray(tasksDoc?.tasks)?tasksDoc.tasks:[],assumptions:Array.isArray(assumptionsDoc?.assumptions)?assumptionsDoc.assumptions:[],priorMetrics:{},currentMetrics,maxSerendipityPairs:16,curiosityBudget:.2});cycles.push({signalId:signal?.id||null,source:signal?.source||null,observedAt:signal?.observedAt||null,...cycle});}
+const receipt={schemaVersion:'uberbond.genesis-evolution.tick.v2',generatedAt,source:{gamechangerInput:inputPath,gamechangerSchemaVersion:gamechanger.schemaVersion||null,gamechangerGeneratedAt:gamechanger.generatedAt||null,frontierSignalCount:signals.length},cycles,summary:{cycles:cycles.length,successful:cycles.filter(c=>c.ok).length,invalid:cycles.filter(c=>!c.ok).length,generatedHypotheses:cycles.reduce((s,c)=>s+(c.serendipity?.hypotheses?.length||0),0),impossibleTasksReopenedForReview:cycles.reduce((s,c)=>s+(c.impossible?.revalidationQueue?.length||0),0),antiUberBondChallenges:cycles.reduce((s,c)=>s+(c.antiUberBond?.challenges?.length||0),0)},businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:{messages:0,moneyMovements:0,purchases:0,deployments:0,customerStateMutations:0,providerCalls:0},truthBoundary:'EVOLUTION_RECEIPT_IS_INTERNAL_SEARCH_AND_FALSIFICATION_EVIDENCE_NOT_MARKET_CUSTOMER_REVENUE_OR_CAPABILITY_PROMOTION_PROOF'};
+await mkdir(dirname(outputPath),{recursive:true});await writeFile(outputPath,`${JSON.stringify(receipt,null,2)}\n`,'utf8');
+const declared=[...new Set(Object.values(GENESIS_IMPLEMENTATION_EVIDENCE).flatMap(e=>[...e.sources,...e.tests]))],availablePaths=declared.filter(r=>existsSync(resolve(root,r))),observedRuntimeReceipts=[...new Set(Object.values(GENESIS_IMPLEMENTATION_EVIDENCE).flatMap(e=>e.runtimeReceipts))].filter(r=>existsSync(resolve(root,r)));if(outputRelative==='artifacts/genesis-evolution-latest.json'&&!observedRuntimeReceipts.includes(outputRelative))observedRuntimeReceipts.push(outputRelative);
+const ledger=buildGenesisEvidenceLedger({canonicalMarkdown,availablePaths,observedRuntimeReceipts});if(!ledger.ok||ledger.implementedOrPartialCount!==275||ledger.canonOnlyCount!==0){console.error(JSON.stringify(ledger,null,2));process.exit(1);}
+const durableLedger={schemaVersion:'uberbond.perpetual-frontier-implementation-ledger.v2',generatedAt,sourceCommit:process.env.GITHUB_SHA||null,...ledger,warning:'275/275 means every canonical idea has declared source+test artifacts. It does not mean tests passed, runtime proof exists for every idea, market value is proven, or the system is production-authorized.'};await mkdir(dirname(ledgerPath),{recursive:true});await writeFile(ledgerPath,`${JSON.stringify(durableLedger,null,2)}\n`,'utf8');
+console.log(JSON.stringify({status:'GENESIS_EVOLUTION_TICK_COMPLETE',frontierSignals:signals.length,cycles:receipt.summary.cycles,successful:receipt.summary.successful,generatedHypotheses:receipt.summary.generatedHypotheses,revalidationCandidates:receipt.summary.impossibleTasksReopenedForReview,antiUberBondChallenges:receipt.summary.antiUberBondChallenges,implementationCounts:ledger.counts,maturityCounts:ledger.maturityCounts,implementedOrPartialCount:ledger.implementedOrPartialCount,canonOnlyCount:ledger.canonOnlyCount,output:outputPath,implementationLedger:ledgerPath,businessEffectAuthority:'NONE'},null,2));

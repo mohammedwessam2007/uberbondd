@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-09-03**
 Branch: `claude/uberbond-ragnarok-closure-pek0g6`
-Reconciled from current head: `e7af38f21c8c8f1ae39cefe2a98306787692f3bf`
+Reconciled from current head: `b59e51743fd37f0a6f4fea607fbdb73390b671ae`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
@@ -30,10 +30,10 @@ The source-changing state of this branch was exercised before later documentatio
 | Gate | Result |
 |---|---|
 | Syntax | `npm run check:syntax`: 724 files parse (2026-09-03) |
-| Deterministic | `npm run test:deterministic`: 3274 tests, 3221 pass, **0 fail**, 53 skipped (2026-09-03) |
+| Deterministic | `npm run test:deterministic`: 3277 tests, 3224 pass, **0 fail**, 53 skipped (2026-09-03) |
 | Relay safety | `npm run test:relay-safety`: 150 tests, 150 pass, 0 fail (2026-08-30) |
 | Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real`: 171 tests, 167 pass, 1 fail, 3 suite-level timeouts (2026-09-02), PostgreSQL 17 embedded |
-| Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 152 mutations registered; full run not completed this session |
+| Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 154 mutations registered; full run not completed this session |
 | Browser | `CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser`: 1 test, 1 pass, 0 fail (2026-08-30), against the runner's installed Chromium |
 | Dependency audit | `npm audit --omit=dev`: No vulnerabilities reported in the current integration environment. |
 

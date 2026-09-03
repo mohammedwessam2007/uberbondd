@@ -133,9 +133,9 @@ Figures are in `config/system-readiness-input.json` and regenerated canon; the
 notes there carry the caveats rather than being smoothed away. Two gates are
 explicitly not claimed green:
 
-- **Mutation war**: 152 mutations registered, every anchor resolving to exactly
+- **Mutation war**: 154 mutations registered, every anchor resolving to exactly
   one site. Individually verified KILLED this session: `POSTAL-QUARANTINE`,
-  `PROPOSAL-01`, `PROPOSAL-02`, `CANON-01`, `CANON-02`. The full run was started
+  `PROPOSAL-01`, `PROPOSAL-02` and `CANON-01` through `CANON-04`. The full run was started
   three times and each time lost to a container restart under load. It is NOT
   claimed as passing.
 - **Real PostgreSQL**: last complete run 167/171 with one genuine assertion

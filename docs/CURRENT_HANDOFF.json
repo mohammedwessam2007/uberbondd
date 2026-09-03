@@ -26,7 +26,7 @@
     "VERCEL_RUNTIME_UNPROVEN: the connected project reports live:false and no exact-current-main runtime is proven.",
     "BRANCH_DELETION_NOT_PERMITTED: git push --delete returns 403 for every branch while pushes succeed. A scoped permission, not a fault.",
     "FOUNDER_ABSENCE_DURATION_UNPROVEN: provable only by elapsed real time.",
-    "MUTATION_WAR_NOT_RUN_TO_COMPLETION: 152 registered, five individually verified KILLED this session. The full run was started three times and each time lost to a container restart under load. Not claimed as passing.",
+    "MUTATION_WAR_NOT_RUN_TO_COMPLETION: 154 registered, seven individually verified KILLED this session. The full run was started three times and each time lost to a container restart under load. Not claimed as passing.",
     "POSTGRES_REAL_GATE_INFRASTRUCTURE: the runner now always terminates and reports. Last complete run 167/171, one genuine assertion failure (Gmail concurrent recovery workers, 4/4 when its suite runs alone) and three suite-level timeouts.",
     "Commercial truth remains zero customers, zero cleared revenue, zero accepted deliveries, zero retained customers."
   ],
@@ -59,8 +59,8 @@
   },
   "currentMeasuredSoftwareTruth": {
     "exactHead": "5770d6256685bbaeca79d491a8a03c451b251c63 on claude/uberbond-ragnarok-closure-pek0g6",
-    "test:deterministic": "3274 tests, 3221 pass, 0 fail, 53 skipped",
-    "test:mutation-war": "152 mutations registered, every anchor resolving to exactly one site; full run NOT completed this session (three container restarts). Individually verified KILLED: POSTAL-QUARANTINE, PROPOSAL-01, PROPOSAL-02, CANON-01, CANON-02.",
+    "test:deterministic": "3277 tests, 3224 pass, 0 fail, 53 skipped",
+    "test:mutation-war": "154 mutations registered, every anchor resolving to exactly one site; full run NOT completed this session (three container restarts). Individually verified KILLED: POSTAL-QUARANTINE, PROPOSAL-01, PROPOSAL-02, CANON-01, CANON-02, CANON-03, CANON-04.",
     "test:postgres-real": "runner repaired to always terminate and report; last complete run 167/171 with one genuine assertion failure and three suite-level timeouts. Classified INFRASTRUCTURE with the mechanism written down, not hidden behind a badge.",
     "reachability": "288 src modules: 139 production-reachable, 28 operator-only, 121 no entry point, all classified",
     "npm audit --omit=dev": "0 vulnerabilities",
@@ -198,7 +198,8 @@
   "repairedOnMain": [
     "src/proposal-acceptance-engine.mjs derived commercialTruthEligible from the payload's own origin field, so a caller-supplied \"EXTERNAL\" laundered a fixture into payment eligibility.",
     "The founder-absence canon-drift probe demanded canon name the commit that contains it, which no regeneration can satisfy, so the row was permanently red.",
-    "tests/canon-freshness.test.mjs counted config/system-readiness-input.json -- the readiness generator's own input -- as source under a config/ prefix, so every correct regeneration reported itself stale."
+    "tests/canon-freshness.test.mjs counted config/system-readiness-input.json -- the readiness generator's own input -- as source under a config/ prefix, so every correct regeneration reported itself stale.",
+    "The founder-absence canon probe and tests/canon-freshness.test.mjs partitioned the tree differently, so the doctor read a committed handoff document as canon drift while the suite stayed green. Both now use the same partition and a test asserts they always will."
   ],
   "paymentReadiness": {
     "status": "TECHNICALLY_READY__NO_PROVIDER_TO_VERIFY_AGAINST",

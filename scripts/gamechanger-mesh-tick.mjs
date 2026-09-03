@@ -3,6 +3,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildCoverageReceipt, buildSourceFetchPlan, buildGamechangerTournament, buildFrontierSignalFromGamechanger } from '../src/gamechanger-mesh.mjs';
+import { normalizeFrontierSignal, buildIdeaAtomizationPacket, buildFrontierThinkerSwarm } from '../src/autonomous-frontier-intelligence.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const args=new Map();for(let i=2;i<process.argv.length;i++){const a=process.argv[i];if(a.startsWith('--'))args.set(a,process.argv[i+1]?.startsWith('--')?true:process.argv[++i]??true);}
@@ -28,6 +29,13 @@ if(!dryRun){for(const source of plan.directReads){try{const items=await fetchSou
 let knownFingerprints=[];if(knownPath){try{const known=JSON.parse(await readFile(knownPath,'utf8'));knownFingerprints=Array.isArray(known)?known:Array.isArray(known.fingerprints)?known.fingerprints:[];}catch{}}
 const tournament=buildGamechangerTournament({observations,knownFingerprints,maxEscalations:25});
 const frontierSignals=tournament.ok?tournament.escalations.map(buildFrontierSignalFromGamechanger).filter(x=>x.ok).map(x=>x.signal):[];
-const receipt={schemaVersion:'uberbond.gamechanger-mesh.tick.v1',generatedAt:observedAt,dryRun,coverage,sourcePlan:{status:plan.status,directReads:plan.directReads.map(x=>({id:x.id,url:x.url,domains:x.domains})),searchLanes:plan.searchLanes,invalid:plan.invalid},fetchReceipts,tournament,frontierSignals,businessEffectAuthority:'NONE',externalEffectLedger:{messages:0,moneyMovements:0,providerCalls:0},truthBoundary:'PUBLIC_SIGNAL_IS_NOT_OPPORTUNITY_PROOF_OR_COMMERCIAL_PROOF'};
+const intelligencePackets=frontierSignals.map(signal=>{
+  const normalized=normalizeFrontierSignal(signal);
+  if(!normalized.ok)return {signalId:signal.id,status:'FRONTIER_NORMALIZATION_FAILED',reasonCodes:normalized.reasonCodes||[]};
+  const atomization=buildIdeaAtomizationPacket({signal:normalized.signal,knownCapabilities:[],knownOpportunityMechanisms:[]});
+  const thinkerSwarm=buildFrontierThinkerSwarm({missionId:`gamechanger-${signal.id.replace(/[^a-z0-9-]+/gi,'-').slice(0,120)}`,objective:`Determine what ${normalized.signal.summary} newly makes possible for UberBond; separate capability improvement, economic mechanism, distribution leverage, cost-curve shift, risks, substitutes and evidence gaps. Preserve disagreement and do not self-promote.`});
+  return {signalId:signal.id,status:atomization.ok&&thinkerSwarm.ok?'FRONTIER_INTELLIGENCE_PACKET_READY':'FRONTIER_INTELLIGENCE_PACKET_PARTIAL',normalizedSignal:normalized.signal,atomization:atomization.ok?atomization.packet:null,thinkerSwarm:thinkerSwarm.ok?{missionId:thinkerSwarm.missionId,lanes:thinkerSwarm.lanes,synthesisRule:thinkerSwarm.synthesisRule}:null,reasonCodes:[...(atomization.reasonCodes||[]),...(thinkerSwarm.reasonCodes||[])],promotionAuthority:'NONE'};
+});
+const receipt={schemaVersion:'uberbond.gamechanger-mesh.tick.v1',generatedAt:observedAt,dryRun,coverage,sourcePlan:{status:plan.status,directReads:plan.directReads.map(x=>({id:x.id,url:x.url,domains:x.domains})),searchLanes:plan.searchLanes,invalid:plan.invalid},fetchReceipts,tournament,frontierSignals,intelligencePackets,businessEffectAuthority:'NONE',externalEffectLedger:{messages:0,moneyMovements:0,providerCalls:0},truthBoundary:'PUBLIC_SIGNAL_IS_NOT_OPPORTUNITY_PROOF_OR_COMMERCIAL_PROOF'};
 await mkdir(dirname(outputPath),{recursive:true});await writeFile(outputPath,JSON.stringify(receipt,null,2)+'\n','utf8');
-console.log(JSON.stringify({status:receipt.tournament.status,observations:observations.length,escalations:receipt.tournament.escalations?.length||0,coverage:coverage.coverageRatio,coverageGaps:coverage.gaps?.length||0,searchLanes:plan.searchLanes.length,fetchFailures:fetchReceipts.filter(x=>x.status==='READ_FAILED').length,output:outputPath,businessEffectAuthority:'NONE'},null,2));
+console.log(JSON.stringify({status:receipt.tournament.status,observations:observations.length,escalations:receipt.tournament.escalations?.length||0,intelligencePackets:intelligencePackets.length,coverage:coverage.coverageRatio,coverageGaps:coverage.gaps?.length||0,searchLanes:plan.searchLanes.length,fetchFailures:fetchReceipts.filter(x=>x.status==='READ_FAILED').length,output:outputPath,businessEffectAuthority:'NONE'},null,2));

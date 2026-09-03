@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "uberbond-perpetual-frontier-genesis-1.0.0",
+  "status": "CHAT_SPEC_GOAL_WITH_EXECUTABLE_ZERO_EFFECT_FOUNDATION",
+  "generatedAt": "2026-09-03T20:09:00+03:00",
+  "canonicalDoc": "docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
+  "ideaCount": 275,
+  "ideaRanges": [
+    {"start": 1, "end": 30, "label": "open-ended economic imagination and meta-improvement"},
+    {"start": 31, "end": 75, "label": "science-to-market, economic dark matter and company evolution"},
+    {"start": 76, "end": 175, "label": "sensors, cognition, market physics, simulations, agent economies and resilience"},
+    {"start": 176, "end": 275, "label": "reality theory, measurement, institution compilers, founder freedom and ontogenesis"}
+  ],
+  "frontierMechanisms": [
+    "Zero-Day Frontier Radar",
+    "Future Primitive Extractor",
+    "Opportunity Shockwave",
+    "Resurrection Engine",
+    "Frontier Assimilation Tournament",
+    "Frontier Latency Ledger",
+    "Pre-Future Research",
+    "N+1 Rule",
+    "Anti-UberBond",
+    "Red Queen Evaluators",
+    "Future Capital Reserve",
+    "Competitor Catch-Up Radar",
+    "Multi-Generation Architecture",
+    "Technology-to-Money Translation",
+    "Artificial Imagination"
+  ],
+  "coreLoop": [
+    "WORLD",
+    "SIGNALS",
+    "IGNORANCE_MAP",
+    "QUESTIONS",
+    "THEORIES",
+    "MEASUREMENTS",
+    "CAUSAL_MECHANISMS",
+    "CONCEPTS",
+    "CAPABILITIES",
+    "ALGORITHMS",
+    "INSTITUTIONS",
+    "BUSINESSES",
+    "BOUNDED_EXECUTION",
+    "ECONOMIC_TRUTH",
+    "CAUSAL_MEMORY",
+    "CAPITAL_ALLOCATION",
+    "SELF_IMPROVEMENT",
+    "EVALUATOR_EVOLUTION",
+    "SEARCH_ALGORITHM_EVOLUTION",
+    "ONTOLOGY_EVOLUTION",
+    "GENESIS",
+    "GENESIS_SQUARED",
+    "ONTOGENESIS"
+  ],
+  "northStar": "risk-adjusted cleared contribution profit / founder minute",
+  "founderFreedomDimensions": [
+    "time sovereignty",
+    "geographic freedom",
+    "financial independence",
+    "health and safety",
+    "artistic freedom",
+    "intellectual and polymath freedom",
+    "relationships and human experience",
+    "reversibility and optionality"
+  ],
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "truthBoundary": "IDEAS_AND_INTERNAL_PLANS_ARE_NOT_CUSTOMER_DEMAND_REVENUE_PROVIDER_PROOF_OR_EXTERNAL_EFFECTS",
+  "firstExecutableLayer": {
+    "module": "src/perpetual-frontier-genesis.mjs",
+    "doctor": "scripts/perpetual-frontier-genesis-doctor.mjs",
+    "test": "tests/perpetual-frontier-genesis.test.mjs",
+    "capabilities": [
+      "registry validation",
+      "frontier shockwave compilation",
+      "dormant opportunity resurrection planning",
+      "unknown-unknown and anomaly agenda compilation",
+      "frontier latency accounting",
+      "zero-effect GENESIS cycle planning"
+    ]
+  }
+}

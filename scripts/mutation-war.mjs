@@ -451,6 +451,13 @@ export const MUTATIONS = [
     replace: '    assert.ok(true,',
     suites: ['tests/canon-freshness-discrimination.test.mjs']
   },
+  {
+    id: 'CANON-02', guard: 'The canon self-description exemption is three named files, not a directory',
+    file: 'tests/canon-freshness.test.mjs',
+    find: '  test: name => CANON_RELEVANT_PREFIX.test(name) && !CANON_ARTIFACT_PATHS.has(name)',
+    replace: "  test: name => CANON_RELEVANT_PREFIX.test(name) && !name.startsWith('config/')",
+    suites: ['tests/canon-freshness-discrimination.test.mjs']
+  },
   // ---- Event Horizon: provenance and opportunity identity -----------------
   {
     id: 'HORIZON-01', guard: 'A source cannot be repointed at another domain',

@@ -1,0 +1,58 @@
+{
+  "run": 8,
+  "date": "2026-09-03",
+  "baseMainSha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "branch": "work/night-payment-distribution-20260903",
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueCents": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "paymentDestination": {
+    "provider": "PAYPAL",
+    "surface": "PAYPAL_ME",
+    "url": "https://paypal.me/Sarawessam",
+    "offerSku": "lead-path-revenue-leak-evidence-sprint-usd-450",
+    "amountCents": 45000,
+    "currency": "USD",
+    "status": "BOUND_AS_DESTINATION_ONLY",
+    "truthBoundary": "PAYMENT_DESTINATION_ONLY_NOT_PAYMENT_EVIDENCE"
+  },
+  "paymentTruth": {
+    "canonicalLedgerOnly": true,
+    "parallelRevenueTruthCreated": false,
+    "fulfillmentRequiresCanonicalThreeWitnessTruth": true,
+    "productBinding": "lead-path-revenue-leak-evidence-sprint-usd-450",
+    "refundReversalAmbiguityFailClosed": true
+  },
+  "paypalApiSandbox": {
+    "status": "EXTERNAL_ACCOUNT_ACTIVATION_REQUIRED",
+    "credentialsInvented": false,
+    "merchantKycReadinessClaimed": false,
+    "paymentLinkDoesNotSatisfyApiReadiness": true
+  },
+  "distribution": {
+    "liveOutreach": false,
+    "senderReadiness": "NOT_PROVEN",
+    "providerReadiness": "NOT_PROVEN",
+    "domainReadiness": "NOT_PROVEN_FOR_CANARY",
+    "fiveQualifiedConversationLaw": "PRESERVED"
+  },
+  "verification": {
+    "testsAdded": ["test/first-cash-payment-destination.test.mjs"],
+    "testsExecuted": [],
+    "reasonNotExecuted": "GitHub Actions runner startup has repeatedly produced zero-step jobs; this connector does not expose a local repository execution runtime. No green claim made."
+  },
+  "externalGates": [
+    "PayPal Developer Sandbox app/client credentials securely activated in account",
+    "merchant/KYC readiness independently proven before any live-money claim",
+    "sender/provider/domain readiness proven under canonical doctors",
+    "owner consequence-specific outreach authority",
+    "qualified buyer conversation",
+    "canonical three-witness provider-cleared USD 450 payment for exact SKU",
+    "accepted delivery from bound external customer evidence"
+  ],
+  "nextCommercialRuntimeBlocker": "prove sender/provider/domain readiness and PayPal Sandbox/API activation without converting destination presence into payment truth",
+  "zeroEffectLedger": true
+}

@@ -30,18 +30,24 @@ jobs:
           key: gamechanger-mesh-state-${{ github.run_id }}
           restore-keys: |
             gamechanger-mesh-state-
-      - name: Verify mesh contracts
-        run: npm run test:gamechanger
+      - name: Verify mesh and GENESIS contracts
+        run: |
+          npm run test:gamechanger
+          npm run test:genesis
+          npm run genesis:doctor
       - name: Read and search public frontier sources
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: npm run gamechanger:tick
+      - name: Compile frontier shockwaves, resurrection review, unknown-unknowns and latency
+        run: npm run genesis:tick
       - name: Upload evidence receipt and state
         uses: actions/upload-artifact@v4
         with:
           name: gamechanger-mesh-${{ github.run_id }}
           path: |
             artifacts/gamechanger-mesh-latest.json
+            artifacts/perpetual-frontier-genesis-latest.json
             .cache/gamechanger-mesh-state.json
           retention-days: 14
           if-no-files-found: error

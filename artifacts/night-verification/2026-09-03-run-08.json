@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "uberbond.night-verification-receipt.v1",
+  "run": 8,
+  "branch": "work/night-verification-20260903",
+  "liveMainSha": "33303ffdd88c021de838be25da4dcd3d910cbae4",
+  "successorIntegration": {
+    "pr": 331,
+    "finalHead": "39e6f09248890616baf6605455bece1f8f23e888",
+    "mergeCommit": "33303ffdd88c021de838be25da4dcd3d910cbae4",
+    "status": "MERGED_TO_MAIN"
+  },
+  "verificationPr": {
+    "number": 333,
+    "oldBase": "work/night-integration-20260903",
+    "newBase": "main",
+    "headBeforeReconcile": "b86737280a83e0235550c6207972c6876363df31",
+    "sourceHeadAfterReconcile": "0d591086cace12b7debf7173014032a7d63a99db",
+    "mergeableAfterReconcile": true
+  },
+  "reconciliation": {
+    "integrationDeltaAfterPriorVerificationBase": {
+      "sourceFilesChanged": 0,
+      "receiptFilesAdded": [
+        "artifacts/night-integration/2026-09-03-run-11.json",
+        "artifacts/night-integration/2026-09-03-run-12.json"
+      ]
+    },
+    "method": "Retarget PR333 to main, then create a true merge commit with verification head first and merged main as second parent while importing only the two final integration receipts.",
+    "peerProductSourceOverwrites": 0,
+    "verificationDeliveryReachability": "RESTORED_TO_MAIN"
+  },
+  "peerHeadsReadOnly": {
+    "frontierPr334": "4c6c763e9978767a46e7e17478667ddaba4f3c45",
+    "runtimePr335": "3c621fd395b7f26ef236b9441ab0ee99a1445d2b",
+    "paymentDistributionPr332": "1cca3ee35321e5eb5b286d77371b0abbfde9dfb9"
+  },
+  "frontierAdjudication": {
+    "defectId": "VERIFY-P1-FRONTIER-ADMISSION-PROOF-SUBSTITUTION",
+    "status": "OPEN",
+    "verdict": "FAIL",
+    "latestHead": "4c6c763e9978767a46e7e17478667ddaba4f3c45",
+    "latestDeltaReviewed": "Run-14 replacement-tournament proof only; no change to the previously falsified execution-time admission-proof identity/task binding boundary.",
+    "pendingMutationTargets": [
+      "FRONTIER-08 exact admission proof must bind current provider/model/revision identity",
+      "FRONTIER-09 exact admission proof must bind current task class"
+    ]
+  },
+  "mutationInventory": {
+    "strictRegistered": 14,
+    "delta": 0,
+    "killed": 0,
+    "survived": 0,
+    "invalid": 0,
+    "unexecuted": 14,
+    "registrationRule": "FRONTIER-08/09 remain pending until the real production fix/anchors and exact hostile named suites exist on the verification candidate."
+  },
+  "testInventoryDelta": {
+    "newHostileTests": 0,
+    "newMutationRegistrations": 0,
+    "productFilesModifiedThisRun": 0,
+    "verificationInfrastructureChanges": 1
+  },
+  "exactHeadCi": {
+    "head": "0d591086cace12b7debf7173014032a7d63a99db",
+    "workflowRuns": [33736710832, 33736710792, 33736710752],
+    "jobsObserved": 7,
+    "jobsWithExecutedSteps": 0,
+    "sourcePass": 0,
+    "sourceFail": 0,
+    "sourceSkip": 0,
+    "mutationKillsProven": 0,
+    "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+    "reason": "CI deterministic/browser/postgres, Night Verification core/browser/postgres, and Postal focused all completed failure with steps=null and no job logs."
+  },
+  "claimVerdicts": {
+    "successorIntegrationIsOnMain": "PASS",
+    "verificationChangesHaveLiveMainMergePath": "PASS_AFTER_FIX",
+    "frontierAdmissionProofIdentityAndTaskBinding": "FAIL",
+    "currentExactHeadHostedVerification": "INFRASTRUCTURE_NON_EVIDENCE",
+    "all14StrictMutationsKilled": "DISPUTE_UNEXECUTED",
+    "openModelAbsentIdentityFixExecutableProof": "DISPUTE_UNEXECUTED",
+    "commercialTruthPreserved": "PASS"
+  },
+  "defects": {
+    "reproduced": [
+      "VERIFY-P1-FRONTIER-ADMISSION-PROOF-SUBSTITUTION"
+    ],
+    "fixed": [
+      "VERIFY-P1-DEAD-SUCCESSOR-BASE: PR333 targeted a completed integration branch after PR331 merged; retargeted to main and reconciled ancestry without source overwrite."
+    ],
+    "peerProductFilesModified": 0,
+    "authorityWidening": 0
+  },
+  "residuals": {
+    "P0": [],
+    "P1": [
+      "Frontier execution-time admission proof remains substitutable across model/provider/revision/task identity at latest reviewed head.",
+      "Fourteen strict Frontier/Open-Model mutations still have no trustworthy causal kill/survival execution.",
+      "OPENMODEL-07 absent-provider-identity closure remains source-complete but executable-proof pending."
+    ],
+    "P2": [
+      "Syntax/deterministic/relay/reachability/browser/real-Postgres gates remain unproven because exact-head hosted jobs still execute zero steps.",
+      "Runtime PR335 current lease/reconciliation work requires trustworthy real-Postgres execution.",
+      "Payment-distribution PR332 is still based on stale pre-merge main and remains payment-link candidate evidence only.",
+      "Canon/readiness regeneration must follow settled source and executable verification, not precede it.",
+      "Elapsed-time/provider canaries remain genuine external/runtime-time blockers."
+    ]
+  },
+  "zeroEffectLedger": {
+    "customerContacts": 0,
+    "messages": 0,
+    "providerCalls": 0,
+    "deployments": 0,
+    "spendUsd": 0,
+    "moneyMovementUsd": 0,
+    "paymentStateMutations": 0,
+    "customerStateMutations": 0,
+    "credentialChanges": 0,
+    "authorityWidening": 0,
+    "peerProductFilesModified": 0
+  },
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "nextFalsificationTarget": "Attack Frontier PR334 exact head after the admission-proof identity binding lands: substitute valid proofs from a different model/revision and task class, require fail-closed behavior, then register FRONTIER-08/09 only against the real production anchors with exact named causal tests."
+}

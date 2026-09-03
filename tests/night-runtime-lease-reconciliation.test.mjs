@@ -105,3 +105,58 @@ test('uncertain timeout dead letter cannot be manually replayed without a reconc
   const events = await store.list('auditLog');
   assert.equal(events.some(event => event.type === 'queue_job_uncertain_execution_reconciled' && event.detail?.jobId === job.id), true);
 });
+
+test('stale non-idempotent job is quarantined instead of being automatically replayed after a crash', async () => {
+  const { store, queue } = await setup({ lockTimeoutMs: 1000 });
+  const job = await queue.enqueue('test.external-effect', { action: 'charge-or-send' }, {
+    maxAttempts: 5,
+    recoveryPolicy: 'reconcile'
+  });
+  const [claimed] = await store.claimJobs('crashed-worker', 1, 1000);
+  assert.equal(claimed.id, job.id);
+  const stale = new Date(Date.now() - 10000).toISOString();
+  await store.patch('jobs', job.id, {
+    status: 'active', lockedBy: 'crashed-worker', lockedAt: stale, heartbeatAt: stale
+  });
+
+  const result = await queue.quarantineUncertainStaleJobs(1000);
+  assert.equal(result.quarantined, 1);
+  const state = await store.get('jobs', job.id);
+  assert.equal(state.status, 'dead-letter');
+  assert.equal(state.uncertainExecution, true);
+  assert.equal(state.uncertainReasonCode, 'JOB_STALE_NON_IDEMPOTENT_UNCERTAIN');
+  assert.equal(state.reconciliationRequired, true);
+  assert.equal(state.lockedBy, null);
+
+  const recovery = await store.recoverStaleJobs(1000);
+  assert.equal(recovery.recovered, 0);
+  const replacementClaim = await store.claimJobs('replacement-worker', 1, 1000);
+  assert.equal(replacementClaim.length, 0);
+  await assert.rejects(
+    () => queue.requeueDeadLetter(job.id),
+    error => error?.code === 'JOB_RECONCILIATION_REQUIRED'
+  );
+  const events = await store.list('auditLog');
+  assert.equal(events.some(event => event.type === 'queue_job_stale_execution_quarantined' && event.detail?.jobId === job.id), true);
+});
+
+test('explicit replay-safe stale job still recovers automatically', async () => {
+  const { store, queue } = await setup({ lockTimeoutMs: 1000 });
+  const job = await queue.enqueue('test.replay-safe', {}, {
+    maxAttempts: 5,
+    recoveryPolicy: 'replay-safe'
+  });
+  await store.claimJobs('crashed-worker', 1, 1000);
+  const stale = new Date(Date.now() - 10000).toISOString();
+  await store.patch('jobs', job.id, {
+    status: 'active', lockedBy: 'crashed-worker', lockedAt: stale, heartbeatAt: stale
+  });
+
+  const quarantine = await queue.quarantineUncertainStaleJobs(1000);
+  assert.equal(quarantine.quarantined, 0);
+  const recovery = await store.recoverStaleJobs(1000);
+  assert.equal(recovery.recovered, 1);
+  const state = await store.get('jobs', job.id);
+  assert.equal(state.status, 'queued');
+  assert.equal(state.recoveryPolicy, 'replay-safe');
+});

@@ -1,0 +1,36 @@
+name: UberBond Gamechanger Mesh
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gamechanger-mesh-hourly
+  cancel-in-progress: false
+
+jobs:
+  gamechanger-mesh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Verify mesh contracts
+        run: node --test tests/gamechanger-mesh.test.mjs
+      - name: Read public frontier sources
+        run: node scripts/gamechanger-mesh-tick.mjs --output artifacts/gamechanger-mesh-latest.json
+      - name: Upload evidence receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: gamechanger-mesh-${{ github.run_id }}
+          path: artifacts/gamechanger-mesh-latest.json
+          retention-days: 7
+          if-no-files-found: error

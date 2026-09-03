@@ -111,8 +111,8 @@ export class DurableQueue {
       try {
         const timeoutPromise = new Promise((_, reject) => {
           runtimeTimer = setTimeout(() => {
-            abortController.abort(new Error('queue-runtime-timeout'));
             reject(uncertainTimeoutError(maxRuntimeMs));
+            abortController.abort(new Error('queue-runtime-timeout'));
           }, maxRuntimeMs);
           runtimeTimer.unref?.();
         });

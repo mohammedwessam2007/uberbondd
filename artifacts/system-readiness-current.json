@@ -5,7 +5,10 @@
     "sourceCommit": "4905e7896589f83eb94e0f755007e576193f9674",
     "branch": "gpt/genesis-evolution-engine-20260903",
     "sourceModules": 318,
-    "syntaxTargetFiles": 788
+    "syntaxTargetFiles": 789,
+    "verifierOnlyFilesAddedAfterSourceReconciliation": [
+      "tests/genesis-evidence-filesystem.test.mjs"
+    ]
   },
   "verification": {
     "status": "EXACT_HEAD_EXECUTION_PENDING_INFRASTRUCTURE",
@@ -21,6 +24,8 @@
     "currentHeadEvidence": {
       "sourceDefectsFromLastRealRunRepaired": true,
       "exactHeadFullSuiteExecuted": false,
+      "filesystemBackedGenesisEvidenceGateAdded": true,
+      "perpetualGenesisZeroEffectScanAdded": true,
       "githubActions": "INFRASTRUCTURE_NON_EVIDENCE_ZERO_STEP_NO_LOG",
       "vercelPrimary": "BLOCKED_BY_HOBBY_BUILD_RATE_LIMIT",
       "vercelSecondary": "PACKAGING_ONLY_NOT_DETERMINISTIC_VERIFIER",

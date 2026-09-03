@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "uberbond.genesis-impossible-tasks.v1",
+  "truthBoundary": "DORMANT_TECHNICAL_OR_ECONOMIC_HYPOTHESES_NOT_PROVEN_OPPORTUNITIES",
+  "tasks": [
+    {
+      "id": "long-horizon-browser-operator",
+      "objective": "Reliably execute long multi-step browser workflows with bounded recovery and proof.",
+      "blockers": ["long-horizon browser reliability is not yet proven for the required task class"],
+      "unlockConditions": ["reliable-long-horizon-tool-use", "durable-browser-state", "browser-recovery-proof"]
+    },
+    {
+      "id": "near-zero-cost-local-cognition",
+      "objective": "Route broad company cognition to local or open models when they become sufficiently capable and economical.",
+      "blockers": ["task-specific quality or hardware economics may be insufficient"],
+      "unlockConditions": ["cheap-local-inference", "open-model-quality-jump", "local-tool-use-parity"]
+    },
+    {
+      "id": "autonomous-frontier-software-factory",
+      "objective": "Allow frontier discoveries to compile provider-neutral implementation proposals with trustworthy verification and bounded promotion.",
+      "blockers": ["verification and promotion must remain stronger than generation"],
+      "unlockConditions": ["proof-carrying-code-generation", "reliable-agentic-verification", "sandboxed-long-horizon-coding"]
+    },
+    {
+      "id": "physical-world-fulfilment-bridge",
+      "objective": "Coordinate lawful physical-world fulfilment through replaceable human, robotic, logistics, or partner interfaces.",
+      "blockers": ["physical consequence authority and reliable provider interfaces are not generally available"],
+      "unlockConditions": ["safe-robotic-api", "verified-physical-agent-provider", "bounded-physical-action-protocol"]
+    },
+    {
+      "id": "machine-native-b2b-market",
+      "objective": "Sell and buy bounded machine-readable services directly between authorized software agents.",
+      "blockers": ["identity, authorization, settlement, dispute, and acceptance standards are immature"],
+      "unlockConditions": ["agent-commerce-standard", "machine-payment-identity", "agent-contract-protocol"]
+    }
+  ]
+}

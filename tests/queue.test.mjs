@@ -6,11 +6,13 @@ import path from 'node:path';
 import { Store } from '../src/store.mjs';
 import { DurableQueue } from '../src/queue.mjs';
 
-async function setup() {
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+async function setup(overrides = {}) {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'uberbond-queue-'));
   const store = new Store(dir);
   await store.init();
-  const cfg = { version: 'test', queue: { concurrency: 2, maxAttempts: 3, retryBaseMs: 1000, retryMaxMs: 10000, lockTimeoutMs: 1000, jobHeartbeatMs: 1000, workerHeartbeatMs: 1000, workerStaleMs: 5000, maxRuntimeMs: 5000, pollMs: 10 } };
+  const cfg = { version: 'test', queue: { concurrency: 2, maxAttempts: 3, retryBaseMs: 1000, retryMaxMs: 10000, lockTimeoutMs: 1000, jobHeartbeatMs: 1000, workerHeartbeatMs: 1000, workerStaleMs: 5000, maxRuntimeMs: 5000, pollMs: 10, ...overrides } };
   return { store, queue: new DurableQueue(store, cfg, { error() {} }) };
 }
 
@@ -98,4 +100,49 @@ test('non-retryable errors dead-letter immediately even when the job allows retr
   assert.equal(state.status, 'dead-letter');
   assert.equal(state.attempts, 1);
   assert.match(state.lastError, /permanent validation failure/);
+});
+
+test('runtime timeout aborts cooperatively and dead-letters uncertain execution instead of retrying', async () => {
+  const { store, queue } = await setup({ maxRuntimeMs: 1000 });
+  const job = await queue.enqueue('test.timeout', {}, { maxAttempts: 5 });
+  let observedAbort = false;
+  await queue.runOnce({
+    'test.timeout': async (_payload, _job, context) => {
+      await new Promise(resolve => {
+        context.signal.addEventListener('abort', () => {
+          observedAbort = true;
+          resolve();
+        }, { once: true });
+      });
+      return { shouldNotCommit: true };
+    }
+  });
+  const state = await store.get('jobs', job.id);
+  assert.equal(observedAbort, true);
+  assert.equal(state.status, 'dead-letter');
+  assert.equal(state.attempts, 1);
+  assert.match(state.lastError, /outcome is uncertain/);
+  assert.equal(state.runAt, job.runAt);
+});
+
+test('a stale worker cannot complete a job after its lease ownership changes', async () => {
+  const { store, queue } = await setup();
+  const job = await queue.enqueue('test.lease-fence', {}, { maxAttempts: 3 });
+  await queue.runOnce({
+    'test.lease-fence': async () => {
+      await store.patch('jobs', job.id, {
+        status: 'active',
+        lockedBy: 'replacement-worker',
+        lockedAt: new Date().toISOString(),
+        heartbeatAt: new Date().toISOString()
+      });
+      return { staleWorkerResult: true };
+    }
+  });
+  const state = await store.get('jobs', job.id);
+  assert.equal(state.status, 'active');
+  assert.equal(state.lockedBy, 'replacement-worker');
+  assert.notDeepEqual(state.result, { staleWorkerResult: true });
+  const events = await store.list('auditLog');
+  assert.equal(events.some(event => event.type === 'queue_job_lease_lost_before_completion' && event.detail?.jobId === job.id), true);
 });

@@ -14,6 +14,23 @@ function uncertainTimeoutError(maxRuntimeMs) {
   return error;
 }
 
+function leaseLostError() {
+  const error = new Error('Job lease ownership was lost while the handler was still running');
+  error.name = 'JobLeaseLostError';
+  error.code = 'JOB_LEASE_LOST';
+  error.retryable = false;
+  error.uncertainExecution = true;
+  return error;
+}
+
+function reconciliationRequiredError(jobId) {
+  const error = new Error(`Job ${jobId} has uncertain execution and requires an explicit reconciliation receipt before requeue`);
+  error.name = 'JobReconciliationRequiredError';
+  error.code = 'JOB_RECONCILIATION_REQUIRED';
+  error.retryable = false;
+  return error;
+}
+
 export class DurableQueue {
   constructor(store, cfg, log = console) {
     this.store = store;
@@ -99,20 +116,31 @@ export class DurableQueue {
       return;
     }
     this.active += 1;
+    const abortController = new AbortController();
     const heartbeatEvery = Math.max(1000, Number(this.cfg.queue.jobHeartbeatMs || 15000));
     const heartbeat = setInterval(() => {
-      this.store.heartbeatJob(job.id, this.workerId).catch(error => this.log.error('job heartbeat failed', error));
+      this.store.heartbeatJob(job.id, this.workerId)
+        .then(async owned => {
+          if (owned || abortController.signal.aborted) return;
+          const error = leaseLostError();
+          abortController.abort(error);
+          await this.store.log('queue_job_lease_lost_during_execution', {
+            jobId: job.id, type: job.type, workerId: this.workerId, attempts: job.attempts,
+            uncertainExecution: true, errorCode: error.code
+          }).catch(() => {});
+        })
+        .catch(error => this.log.error('job heartbeat failed', error));
     }, heartbeatEvery);
     heartbeat.unref?.();
-    const abortController = new AbortController();
     try {
       const maxRuntimeMs = Math.max(1000, Number(this.cfg.queue.maxRuntimeMs || 900000));
       let runtimeTimer;
       try {
         const timeoutPromise = new Promise((_, reject) => {
           runtimeTimer = setTimeout(() => {
-            reject(uncertainTimeoutError(maxRuntimeMs));
-            abortController.abort(new Error('queue-runtime-timeout'));
+            const error = uncertainTimeoutError(maxRuntimeMs);
+            reject(error);
+            abortController.abort(error);
           }, maxRuntimeMs);
         });
         const result = await Promise.race([
@@ -148,6 +176,15 @@ export class DurableQueue {
         });
         this.log.error(`Queue job ${job.type} ${job.id} lost lease before failure could be recorded`, error);
         return;
+      }
+      if (error?.uncertainExecution && failed.status === 'dead-letter') {
+        await this.store.patch('jobs', job.id, {
+          uncertainExecution: true,
+          uncertainReasonCode: error?.code || 'UNCERTAIN_EXECUTION',
+          reconciliationRequired: true,
+          reconciledAt: null,
+          reconciliationReceipt: null
+        });
       }
       await this.store.log(failed.status === 'dead-letter' ? 'queue_job_dead_lettered' : 'queue_job_retry_scheduled', {
         jobId: job.id, type: job.type, workerId: this.workerId, attempts: job.attempts,
@@ -206,9 +243,23 @@ export class DurableQueue {
     this.loopPromise = null;
   }
 
-  async requeueDeadLetter(jobId) {
+  async requeueDeadLetter(jobId, options = {}) {
     const job = await this.store.get('jobs', jobId);
     if (!job || job.status !== 'dead-letter') return null;
+    if (job.reconciliationRequired) {
+      const receipt = options.reconciliationReceipt;
+      if (!receipt || typeof receipt !== 'object' || !Object.keys(receipt).length) throw reconciliationRequiredError(jobId);
+      await this.store.patch('jobs', jobId, {
+        reconciliationRequired: false,
+        reconciledAt: now(),
+        reconciliationReceipt: structuredClone(receipt)
+      });
+      await this.store.log('queue_job_uncertain_execution_reconciled', {
+        jobId: job.id, type: job.type, workerId: this.workerId,
+        uncertainReasonCode: job.uncertainReasonCode || null,
+        receipt: structuredClone(receipt)
+      });
+    }
     if (job.singletonKey) {
       const existing = (await this.store.list('jobs')).find(item => item.id !== job.id && item.singletonKey === job.singletonKey && ['queued', 'retry', 'active'].includes(item.status));
       if (existing) return existing;

@@ -15,7 +15,7 @@ concurrency:
 jobs:
   gamechanger-mesh:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,14 +23,25 @@ jobs:
           node-version: '20'
           cache: npm
       - run: npm ci
+      - name: Restore and persist mesh memory
+        uses: actions/cache@v4
+        with:
+          path: .cache/gamechanger-mesh-state.json
+          key: gamechanger-mesh-state-${{ github.run_id }}
+          restore-keys: |
+            gamechanger-mesh-state-
       - name: Verify mesh contracts
-        run: node --test tests/gamechanger-mesh.test.mjs
-      - name: Read public frontier sources
-        run: node scripts/gamechanger-mesh-tick.mjs --output artifacts/gamechanger-mesh-latest.json
-      - name: Upload evidence receipt
+        run: npm run test:gamechanger
+      - name: Read and search public frontier sources
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: npm run gamechanger:tick
+      - name: Upload evidence receipt and state
         uses: actions/upload-artifact@v4
         with:
           name: gamechanger-mesh-${{ github.run_id }}
-          path: artifacts/gamechanger-mesh-latest.json
-          retention-days: 7
+          path: |
+            artifacts/gamechanger-mesh-latest.json
+            .cache/gamechanger-mesh-state.json
+          retention-days: 14
           if-no-files-found: error

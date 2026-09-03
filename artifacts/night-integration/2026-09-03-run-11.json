@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "uberbond-night-integration-receipt-1.1.0",
+  "recordedAt": "2026-09-03T06:05:00Z",
+  "branch": "work/night-integration-20260903",
+  "liveMainSha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "sourceHeadTested": "9f12ad4cfcc85786da5879158e250e6ef7af4cea",
+  "integrationPr": 331,
+  "changes": {
+    "mutationCausalityHardening": true,
+    "frontierOpenModelMutations": 9,
+    "rule": "KILLED requires a green target-suite baseline, one parseable intended mutation, a red mutated suite, and observed failure of the exact intended named test. Suite-red alone is UNRELATED_SUITE_FAILURE.",
+    "registrationGuard": "Each Frontier/Open-Model registration must preserve its exact intended named test and assertion metadata."
+  },
+  "exactHeadExecution": {
+    "head": "9f12ad4cfcc85786da5879158e250e6ef7af4cea",
+    "workflowFamilies": 3,
+    "jobsObserved": 7,
+    "jobsWithExecutedSteps": 0,
+    "runnerIdZero": 7,
+    "testsExecuted": 0,
+    "assertionsExecuted": 0,
+    "mutationKillsProven": 0,
+    "classification": "INFRASTRUCTURE_NON_EVIDENCE"
+  },
+  "peerHeads": {
+    "verificationPr333": "ea4507c77c982ec4b022d02dcf77a9105c3d3baf",
+    "frontierPr334": "61d921a0f2ea9b499bba429954c8858f3f966cd5",
+    "runtimePr335": "153203e43bbadbd73f00c084ca4e2ec493300d29",
+    "paymentDistributionPr332": "1cca3ee35321e5eb5b286d77371b0abbfde9dfb9"
+  },
+  "peerAdjudication": {
+    "verificationPr333": "ACCEPT source inspection that PR331 absent provider model identity remains fail-open; ACCEPT source-level fail-closed patch exists on peer branch; REJECT green/mutation-kill proof because exact-head CI executed zero steps; not absorbed pending executable proof.",
+    "frontierPr334": "ACCEPT source presence only; current exact-head hosted proof remains unearned pending step-level execution.",
+    "runtimePr335": "ACCEPT previously reported focused local harness only at its stated narrow scope; current exact-head whole-repo/PostgreSQL proof remains unearned.",
+    "paymentDistributionPr332": "ACCEPT owner-supplied PayPal.me destination as payment-link candidate only; REJECT as payment occurrence or clearing evidence."
+  },
+  "canon": {
+    "currentSystemStateReconciledHead": "3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84",
+    "systemReadinessHead": "3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84",
+    "refreshDeferred": true,
+    "reason": "Final convergence source is not step-level verified."
+  },
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "zeroEffectLedger": {
+    "outreachSent": 0,
+    "moneyMoved": 0,
+    "purchases": 0,
+    "dnsChanges": 0,
+    "kycSubmissions": 0,
+    "secretsExposed": 0,
+    "productionDeployments": 0,
+    "customerStateMutations": 0
+  },
+  "blockers": {
+    "P0": ["Trustworthy step-level execution on the exact integration source head."],
+    "P1": ["Prove then absorb the PR333 absent-model-identity fail-closed fix and settled non-overlapping peer heads.", "Regenerate CURRENT_SYSTEM_STATE/readiness/brain pointers only after final source truth settles."],
+    "P2": ["Close superseded PR lineage after convergence.", "Attempt exact-main deployment only after source verification and quota availability."]
+  },
+  "singleNextIntegrationDependency": "Obtain real step-level exact-head execution for the integration source and causality-hardened mutation runner; then prove/absorb PR333 absent-identity closure before canon regeneration or merge."
+}

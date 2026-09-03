@@ -1,8 +1,12 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { LEAD_PATH_SPRINT_SKU } from './lead-path-sprint-fulfillment.mjs';
 
-export const FIRST_CASH_CANARY_PACKET_VERSION = 'uberbond.first-cash-canary-packet-1.2.0';
-export const CURRENT_CHAMPION_OFFER = 'White-label Lead-Path Revenue Leak Evidence Sprint';
+export const FIRST_CASH_CANARY_PACKET_VERSION = 'uberbond.first-cash-canary-packet-1.3.0';
+export const CANONICAL_FIRST_CASH_OFFER = Object.freeze({
+  name: 'White-label Lead-Path Revenue Leak Evidence Sprint',
+  sku: LEAD_PATH_SPRINT_SKU,
+});
+export const CURRENT_CHAMPION_OFFER = CANONICAL_FIRST_CASH_OFFER.name;
 export const DEFAULT_FIRST_CASH_PAYMENT_LINK = 'https://paypal.me/Sarawessam';
 export const PAYMENT_LINK_TRUTH_BOUNDARY = 'PAYMENT_LINK_IS_NOT_CLEARED_PAYMENT_PROOF';
 export const REQUIRED_CONTACT_GATES = Object.freeze([
@@ -66,7 +70,7 @@ export function buildFirstCashCanaryPacket({
     qa('WHICH PROVIDER?', provider || 'NONE_PROVEN', provider?'PREPARED':'BLOCKED','PROVIDER_ACTIVATION',provider?[]:['provider-route-not-proven'],'free-first-outreach-router'),
     qa('WHICH POLICY EVIDENCE?', policyEvidence, policyEvidence.length?'PREPARED':'BLOCKED','PROVIDER_POLICY',policyEvidence.length?[]:['provider-policy-evidence-required'],'provider-activation-receipt'),
     qa('WHICH AUTHORITY?', authorityEvidence, gates.authorityGranted?'PREPARED':'BLOCKED','OMNIA_AUTHORITY',gates.authorityGranted?[]:['omnia-authority-not-granted'],'omnia-v9'),
-    qa('WHAT OFFER?', {name:CURRENT_CHAMPION_OFFER,sku:LEAD_PATH_SPRINT_SKU}, 'PREPARED','CANONICAL_OFFER',[],'lead-path-sprint-fulfillment'),
+    qa('WHAT OFFER?', {name:CANONICAL_FIRST_CASH_OFFER.name,sku:CANONICAL_FIRST_CASH_OFFER.sku}, 'PREPARED','CANONICAL_OFFER',[],'lead-path-sprint-fulfillment'),
     qa('WHAT PRICE?', {currency:'USD',amount:450,scope:'fixed'}, 'HYPOTHESIS','PRICE_HYPOTHESIS',[],'world-brain-field-mission'),
     qa('WHAT PAYMENT LINK?', normalizedPaymentLink, normalizedPaymentLink?'PREPARED':'BLOCKED',paymentLinkEvidenceClass,normalizedPaymentLink?[]:['valid-https-payment-link-required'],'payment-runtime'),
     qa('HOW RECONCILED?', 'Provider-origin payment evidence -> durable payment evidence -> canonical payment truth -> fulfilment payment binding. A payment-link visit or owner-visible balance is not cleared-payment proof by itself.', 'IMPLEMENTED','PAYMENT_TRUTH',[],'payment-runtime'),
@@ -81,8 +85,8 @@ export function buildFirstCashCanaryPacket({
   ];
   return {
     schemaVersion:FIRST_CASH_CANARY_PACKET_VERSION,
-    offer:CURRENT_CHAMPION_OFFER,
-    sku:LEAD_PATH_SPRINT_SKU,
+    offer:CANONICAL_FIRST_CASH_OFFER.name,
+    sku:CANONICAL_FIRST_CASH_OFFER.sku,
     offerLineage:'CANONICAL_LEAD_PATH_CHAMPION',
     price:{currency:'USD',amount:450,scope:'fixed'},
     buyer:'US or otherwise legally approved agencies serving HVAC, plumbing, or electrical businesses',

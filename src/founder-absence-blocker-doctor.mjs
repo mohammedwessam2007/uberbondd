@@ -1,6 +1,6 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const FOUNDER_ABSENCE_BLOCKER_DOCTOR_VERSION = 'uberbond.founder-absence-blocker-doctor-1.0.0';
+export const FOUNDER_ABSENCE_BLOCKER_DOCTOR_VERSION = 'uberbond.founder-absence-blocker-doctor-1.0.1';
 export const FOUNDER_ABSENCE_CLASSES = Object.freeze([
   'CODE_READY','CREDENTIAL_BLOCKED','ACCOUNT_BLOCKED','PAYMENT_BLOCKED','DISTRIBUTION_BLOCKED','DELIVERABILITY_BLOCKED','ELAPSED_EVIDENCE_PENDING'
 ]);
@@ -43,11 +43,11 @@ export function classifyFounderAbsenceBlockers({
   if (removable.length) overall = 'DISTRIBUTION_BLOCKED';
 
   if (overall === 'CODE_READY') {
-    const proofOk = observationProof?.ok === true
-      && Array.isArray(observationProof?.reasonCodes)
-      && observationProof.reasonCodes.length === 0
-      && observationProof?.observationProof?.sourceCommit;
-    if (!proofOk) overall = 'ELAPSED_EVIDENCE_PENDING';
+    const gaps = Array.isArray(observationProof?.reasonCodes) ? observationProof.reasonCodes : ['observation-proof-missing'];
+    const proven = observationProof?.ok === true
+      && gaps.length === 0
+      && Boolean(observationProof?.observationProof?.sourceCommit);
+    overall = proven && gaps.length === 0 ? 'CODE_READY' : 'ELAPSED_EVIDENCE_PENDING';
   }
 
   const queue = (Array.isArray(ownerActions) ? ownerActions : []).slice(0,3).map(action);

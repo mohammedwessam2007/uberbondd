@@ -19,11 +19,32 @@ function importSpecifier(fromFile, targetFile) {
   return specifier;
 }
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function sourceDirectlyBindsSpecifier(source, specifier) {
+  const escaped = escapeRegExp(specifier);
+  const fromBinding = new RegExp(`\\bfrom\\s*['\"]${escaped}['\"]`);
+  const bareImport = new RegExp(`\\bimport\\s*['\"]${escaped}['\"]`);
+  const dynamicImport = new RegExp(`\\bimport\\s*\\(\\s*['\"]${escaped}['\"]\\s*\\)`);
+  return fromBinding.test(source) || bareImport.test(source) || dynamicImport.test(source);
+}
+
 function suiteDirectlyBindsTarget(suite, targetFile) {
   const suiteSource = readFileSync(join(repoRoot, suite), 'utf8');
   const specifier = importSpecifier(suite, targetFile);
-  return suiteSource.includes(`'${specifier}'`) || suiteSource.includes(`"${specifier}"`);
+  return sourceDirectlyBindsSpecifier(suiteSource, specifier);
 }
+
+test('suite-binding detector rejects decoy path strings and accepts real module loading syntax', () => {
+  const specifier = '../src/example.mjs';
+  assert.equal(sourceDirectlyBindsSpecifier(`const decoy = '${specifier}';`, specifier), false);
+  assert.equal(sourceDirectlyBindsSpecifier(`// import '${specifier}'`, specifier), true, 'lexical audit intentionally does not parse comments');
+  assert.equal(sourceDirectlyBindsSpecifier(`import { value } from '${specifier}';`, specifier), true);
+  assert.equal(sourceDirectlyBindsSpecifier(`import '${specifier}';`, specifier), true);
+  assert.equal(sourceDirectlyBindsSpecifier(`await import('${specifier}')`, specifier), true);
+});
 
 test('every registered mutation anchor identifies exactly one live source site', () => {
   const invalid = [];

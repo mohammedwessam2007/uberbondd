@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const GENESIS_SCIENTIST_VERSION = 'uberbond.genesis-scientist-1.0.0';
+export const GENESIS_SCIENTIST_VERSION = 'uberbond.genesis-scientist-1.0.1';
 
 function envelope(extra = {}) {
   return { businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE', externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS), ...extra };
@@ -59,7 +59,13 @@ export function buildCounterfactualWorlds({ axes = {}, maxWorlds = 64 } = {}) {
   let worlds = [{}];
   for (const [key, values] of entries) {
     const next = [];
-    for (const world of worlds) for (const value of values) { next.push({ ...world, [key]: value }); if (next.length >= cap) break; }
+    worldExpansion:
+    for (const world of worlds) {
+      for (const value of values) {
+        if (next.length >= cap) break worldExpansion;
+        next.push({ ...world, [key]: value });
+      }
+    }
     worlds = next;
     if (worlds.length >= cap) break;
   }
@@ -179,7 +185,7 @@ export function compileInstitutionGenome({ identity, rights = [], consent = [], 
   const id = text(identity,240), rs=list(rights,256,1000), cs=list(consent,256,1000), ds=list(delegation,256,1000), dec=list(decisions,256,1000), set=list(settlement,256,1000), rev=list(revocation,256,1000);
   if (!id || !rs || !cs || !ds || !dec || !set || !rev) return envelope({ ok:false,status:'INSTITUTION_GENOME_INVALID',reasonCodes:['bounded-institution-fields-required'] });
   const genome = { identity:id, rights:rs, consent:cs, delegation:ds, decisions:dec, settlement:set, revocation:rev };
-  return envelope({ ok:true,status:'INSTITUTION_GENOME_READY',genome,genomeDigest:digest(genome),completeness:{identity:Boolean(id),rights:rs.length>0,consent:cs.length>0,delegation:ds.length>0,decisions:dec.length>0,settlement:set.length>0,revocation:rev.length>0},claimBoundary:'INSTITUTION_GENOME_IS_A_DESIGN_OBJECT_NOT_LEGAL_ENTITY_OR_AUTHORITY' });
+  return envelope({ok:true,status:'INSTITUTION_GENOME_READY',genome,genomeDigest:digest(genome),completeness:{identity:Boolean(id),rights:rs.length>0,consent:cs.length>0,delegation:ds.length>0,decisions:dec.length>0,settlement:set.length>0,revocation:rev.length>0},claimBoundary:'INSTITUTION_GENOME_IS_A_DESIGN_OBJECT_NOT_LEGAL_ENTITY_OR_AUTHORITY'});
 }
 
 export function assessMachineEconomyReadiness(input = {}) {
@@ -195,7 +201,7 @@ export function guardMetaObjective({ baseline, candidate, authorizedMutation = f
   const protectedKeys=['economicNorthStar','authorityLaw','truthLaw','founderFreedomLaw'];
   const changes=protectedKeys.filter(key=>JSON.stringify(baseline[key]??null)!==JSON.stringify(candidate[key]??null)).map(key=>({key,before:baseline[key]??null,after:candidate[key]??null}));
   const allowed = changes.length===0 || authorizedMutation===true;
-  return envelope({ok:true,status:allowed?'META_OBJECTIVE_ACCEPTED':'META_OBJECTIVE_MUTATION_BLOCKED',changes,authorizedMutation:Boolean(authorizedMutation),baselineDigest:digest(baseline),candidateDigest:digest(candidate),decision:allowed?'ALLOW_PROPOSAL':'DENY_SELF_MUTATION',claimBoundary:'AUTHORIZED_MUTATION_FLAG_IS_AN_INPUT_TO_POLICY_REVIEW_NOT_A SUBSTITUTE_FOR_REAL_OWNER_OR_CONSTITUTIONAL_AUTHORITY'});
+  return envelope({ok:true,status:allowed?'META_OBJECTIVE_ACCEPTED':'META_OBJECTIVE_MUTATION_BLOCKED',changes,authorizedMutation:Boolean(authorizedMutation),baselineDigest:digest(baseline),candidateDigest:digest(candidate),decision:allowed?'ALLOW_PROPOSAL':'DENY_SELF_MUTATION',claimBoundary:'AUTHORIZED_MUTATION_FLAG_IS_AN_INPUT_TO_POLICY_REVIEW_NOT_A_SUBSTITUTE_FOR_REAL_OWNER_OR_CONSTITUTIONAL_AUTHORITY'});
 }
 
 export function buildFutureCalibrationLedger({ predictions = [], outcomes = {} } = {}) {

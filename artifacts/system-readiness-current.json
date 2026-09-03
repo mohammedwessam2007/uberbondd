@@ -1,0 +1,51 @@
+{
+  "schema": "uberbond.system-readiness-current.v1",
+  "reconciledAt": "2026-09-04T00:08:00+03:00",
+  "repository": {
+    "sourceCommit": "4905e7896589f83eb94e0f755007e576193f9674",
+    "branch": "gpt/genesis-evolution-engine-20260903",
+    "sourceModules": 318,
+    "syntaxTargetFiles": 788
+  },
+  "verification": {
+    "status": "EXACT_HEAD_EXECUTION_PENDING_INFRASTRUCTURE",
+    "greenClaimAllowed": false,
+    "requiredCommand": "npm run check:syntax && npm run test:deterministic",
+    "lastRealFullRun": {
+      "commit": "27711f0d8b86c2434ef0f506098e34f8944e1c87",
+      "runner": "Vercel full project",
+      "outcome": "FAIL",
+      "syntaxTargetsObserved": 779,
+      "note": "This run executed repository code and exposed stale canon, routing, GENESIS, mutation-anchor, first-cash, Postal, reachability, and memory-bootstrap failures. Those failures became the repair map; this historical failing run is not promoted into proof for the current head."
+    },
+    "currentHeadEvidence": {
+      "sourceDefectsFromLastRealRunRepaired": true,
+      "exactHeadFullSuiteExecuted": false,
+      "githubActions": "INFRASTRUCTURE_NON_EVIDENCE_ZERO_STEP_NO_LOG",
+      "vercelPrimary": "BLOCKED_BY_HOBBY_BUILD_RATE_LIMIT",
+      "vercelSecondary": "PACKAGING_ONLY_NOT_DETERMINISTIC_VERIFIER",
+      "replit": "UNAVAILABLE_REQUIRES_ACTIVE_SUBSCRIPTION",
+      "claudeCode": "OWNER_REPORTS_AVAILABLE_BUT_NOT_CONNECTED_TO_THIS_CHAT_EXECUTION_SURFACE"
+    }
+  },
+  "reachability": {
+    "source": "tests/reachability-ratchet.test.mjs",
+    "mode": "LIVE_COMPUTED",
+    "generator": "scripts/system-readiness.mjs#measureReachability",
+    "staticHumanCountsProhibited": true,
+    "residualFrontierPlanningSurface": "OPERATOR_REACHABLE_VIA_scripts/frontier-surface-doctor.mjs",
+    "claimBoundary": "REACHABILITY_IS_NOT_ACTIVATION_OR_CONSEQUENCE_AUTHORITY"
+  },
+  "historicalEvidence": {
+    "fullReadinessArtifact": "artifacts/system-readiness.json",
+    "classification": "HISTORICAL_RECEIPT",
+    "note": "Preserved with its original September 1 measurements and capability rows. It must not be read as current exact-head verification."
+  },
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "truthBoundary": "PENDING_MEANS_PENDING. SOURCE_REPAIRS_AND_DERIVED_TREE_COUNTS_DO_NOT_EQUAL_AN_EXECUTED_GREEN_EXACT_HEAD_SUITE."
+}

@@ -54,21 +54,49 @@ test('concurrent replay of one execution receipt creates exactly one durable row
   assert.equal(a.auditId, b.auditId);
 });
 
-test('restart after receipt write reuses the durable receipt instead of double-counting it', async () => {
+test('restart after receipt write tolerates a later local observation time and reuses the durable receipt', async () => {
   const store = fakeStore();
-  const first = await logIdempotentAutonomyExecutionReceipt(store, receipt(), { date: new Date('2026-09-03T09:10:01Z') });
-  const restarted = await logIdempotentAutonomyExecutionReceipt(store, receipt(), { date: new Date('2026-09-03T09:15:01Z') });
+  const first = await logIdempotentAutonomyExecutionReceipt(
+    store,
+    receipt({ receivedAt: '2026-09-03T09:10:00.000Z' }),
+    { date: new Date('2026-09-03T09:10:01Z') }
+  );
+  // This is what the real autonomy pump does after receipt-before-snapshot
+  // process death: it re-enters the same run/sequence/task, sees the same
+  // provider result, but stamps the new tick's local observation time.
+  const restarted = await logIdempotentAutonomyExecutionReceipt(
+    store,
+    receipt({ receivedAt: '2026-09-03T09:15:00.000Z' }),
+    { date: new Date('2026-09-03T09:15:01Z') }
+  );
 
   assert.equal(first.status, 'RECEIPT_LOGGED');
   assert.equal(restarted.status, 'RECEIPT_ALREADY_LOGGED');
   assert.equal(restarted.duplicate, true);
+  assert.equal(restarted.firstReceivedAt, '2026-09-03T09:10:00.000Z');
   assert.equal(store.rows.size, 1);
+  const persisted = [...store.rows.values()][0];
+  assert.equal(persisted.detail.receivedAt, '2026-09-03T09:10:00.000Z', 'first observation time stays immutable');
 });
 
-test('same durable receipt identity with conflicting truth fails closed', async () => {
+test('same durable receipt identity with conflicting worker truth fails closed', async () => {
   const store = fakeStore();
   const first = await logIdempotentAutonomyExecutionReceipt(store, receipt());
   const conflict = await logIdempotentAutonomyExecutionReceipt(store, receipt({ targetAgent: 'different-worker' }));
+
+  assert.equal(first.ok, true);
+  assert.equal(conflict.ok, false);
+  assert.deepEqual(conflict.reasonCodes, ['autonomy-execution-receipt-conflict']);
+  assert.equal(store.rows.size, 1);
+});
+
+test('same durable receipt identity with conflicting result status still fails closed', async () => {
+  const store = fakeStore();
+  const first = await logIdempotentAutonomyExecutionReceipt(store, receipt({ resultStatus: 'COMPLETED' }));
+  const conflict = await logIdempotentAutonomyExecutionReceipt(
+    store,
+    receipt({ resultStatus: 'FAILED', receivedAt: '2026-09-03T09:20:00.000Z' })
+  );
 
   assert.equal(first.ok, true);
   assert.equal(conflict.ok, false);

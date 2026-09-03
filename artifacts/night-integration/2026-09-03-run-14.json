@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "uberbond.night-integration-handoff.v1",
+  "run": 14,
+  "branch": "work/night-integration-20260903",
+  "liveMainSha": "33303ffdd88c021de838be25da4dcd3d910cbae4",
+  "integrationPr": 331,
+  "integrationPrMerged": true,
+  "integrationPrMergedHead": "39e6f09248890616baf6605455bece1f8f23e888",
+  "integrationMergeSha": "33303ffdd88c021de838be25da4dcd3d910cbae4",
+  "primaryConvergencePr": 329,
+  "primaryConvergencePrMerged": true,
+  "findings": [
+    {
+      "severity": "P0",
+      "id": "MERGE_OCCURRED_WITHOUT_TRUSTWORTHY_EXACT_HEAD_EXECUTION",
+      "finding": "PR #331 merged to main even though its recorded exact-head hosted workflows were zero-step infrastructure non-evidence and the PR body explicitly said not to merge until trustworthy step-level execution occurred.",
+      "resolution": "Do not fabricate a rollback without source-failure evidence. Freeze further integration merges, canon regeneration, and production release until trustworthy exact-main or exact-peer execution exists."
+    },
+    {
+      "severity": "P0",
+      "id": "EXACT_MAIN_CI_ZERO_STEP",
+      "finding": "Exact main 33303ffdd88c021de838be25da4dcd3d910cbae4 CI run 33735951122 exposed 3 jobs (postgres, deterministic, browser), all runner_id=0 and steps=[], so 0 tests/assertions executed.",
+      "classification": "INFRASTRUCTURE_NON_EVIDENCE"
+    },
+    {
+      "severity": "P1",
+      "id": "CANON_STALE_AFTER_CONVERGENCE_MERGE",
+      "finding": "docs/CURRENT_SYSTEM_STATE.md still reconciles from 3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84 while live main is 33303ffdd88c021de838be25da4dcd3d910cbae4.",
+      "resolution": "Hold canon/readiness regeneration until peer source settles and executable verification is earned."
+    }
+  ],
+  "peerClaims": {
+    "frontier": {
+      "pr": 334,
+      "head": "4c6c763e9978767a46e7e17478667ddaba4f3c45",
+      "mergeable": true,
+      "refreshedOntoCurrentMain": true,
+      "hostedExactHeadEvidence": "INFRASTRUCTURE_NON_EVIDENCE",
+      "observedCiJobs": 3,
+      "observedCiJobsWithSteps": 0,
+      "integrationVerdict": "SOURCE_PRESENT_AND_REFRESHED; DO_NOT_MERGE YET"
+    },
+    "runtime": {
+      "pr": 335,
+      "head": "3c621fd395b7f26ef236b9441ab0ee99a1445d2b",
+      "mergeable": true,
+      "refreshedOntoCurrentMain": true,
+      "peerLocalHarnessClaim": "2/2 focused hostile cases pass",
+      "integrationVerdict": "PEER_LOCAL_EVIDENCE RECORDED; WHOLE-REPO PROOF NOT INDEPENDENTLY EARNED"
+    },
+    "verification": {
+      "pr": 333,
+      "head": "b86737280a83e0235550c6207972c6876363df31",
+      "mergeable": true,
+      "integrationVerdict": "FOCUSED DEFECT REPRODUCTION ACCEPTED; MUTATION/HOSTED GREEN CLAIMS NOT PROMOTED"
+    },
+    "paymentDestination": {
+      "pr": 332,
+      "candidate": "https://paypal.me/Sarawessam",
+      "countsAsClearedPaymentProof": false,
+      "integrationVerdict": "PAYMENT DESTINATION CANDIDATE ONLY"
+    }
+  },
+  "verification": {
+    "exactMainCiRun": 33735951122,
+    "jobsObserved": 3,
+    "jobsWithExecutedSteps": 0,
+    "testsActuallyExecuted": 0,
+    "assertionsActuallyExecuted": 0,
+    "sourcePassesProven": 0,
+    "sourceFailuresProven": 0,
+    "mutationKillsProven": 0,
+    "classification": "INFRASTRUCTURE_NON_EVIDENCE"
+  },
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "zeroEffectLedger": {
+    "outreachSent": 0,
+    "moneyMoved": 0,
+    "purchases": 0,
+    "dnsChanges": 0,
+    "kycSubmissions": 0,
+    "secretsExposed": 0,
+    "productionDeployments": 0,
+    "customerStateMutations": 0
+  },
+  "blockers": {
+    "P0": [
+      "Trustworthy step-level execution for exact main and candidate peer heads is absent.",
+      "Main contains convergence source merged without the commanded executable evidence threshold."
+    ],
+    "P1": [
+      "Adjudicate Frontier PR #334, Runtime PR #335, Verification PR #333, and payment-destination PR #332 only after trustworthy exact-head execution.",
+      "Regenerate CURRENT_SYSTEM_STATE/readiness/brain pointers only after final source convergence settles and executable proof exists."
+    ],
+    "P2": [
+      "Clean superseded/stale PR lineage after peer convergence.",
+      "Attempt at most one Vercel deployment only after exact-main verification and quota availability."
+    ]
+  },
+  "singleNextIntegrationDependency": "Obtain trustworthy step-level execution against exact main 33303ffdd88c021de838be25da4dcd3d910cbae4 or a current peer head; until then no further merge, canon refresh, or deployment is eligible."
+}

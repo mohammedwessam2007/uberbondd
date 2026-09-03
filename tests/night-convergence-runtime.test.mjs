@@ -15,6 +15,7 @@ import {
   canaryDecision,
   CURRENT_CHAMPION_OFFER
 } from '../src/first-cash-canary-packet.mjs';
+import { evaluateFirstCashCanary } from '../src/first-cash-canary-guard.mjs';
 import { LEAD_PATH_SPRINT_SKU } from '../src/lead-path-sprint-fulfillment.mjs';
 import providerRegistry from '../artifacts/outreach/free-first-provider-registry-2026-09-01.json' with { type: 'json' };
 
@@ -185,6 +186,21 @@ test('first-cash packet is bound to canonical Lead-Path name and SKU and stays a
     acceptedPaidDeliveries: 0,
     retainedCustomers: 0
   });
+});
+
+test('canonical first-cash guard closes exactly at the fifth qualified conversation without a paid pilot', () => {
+  const four = evaluateFirstCashCanary({ qualifiedConversations: 4, paidPilots: 0 });
+  assert.equal(four.status, 'CANARY_OPEN');
+  assert.equal(four.mayOpenAnotherQualifiedConversation, true);
+
+  const five = evaluateFirstCashCanary({ qualifiedConversations: 5, paidPilots: 0 });
+  assert.equal(five.status, 'KILL_OR_RETHINK');
+  assert.equal(five.mayOpenAnotherQualifiedConversation, false);
+  assert.equal(five.requiredAction, 'KILL_OR_RETHINK');
+
+  const six = evaluateFirstCashCanary({ qualifiedConversations: 6, paidPilots: 0 });
+  assert.equal(six.ok, false);
+  assert.equal(six.status, 'CANARY_VIOLATION');
 });
 
 test('first-cash canary rejects impossible payment/conversation counts', () => {

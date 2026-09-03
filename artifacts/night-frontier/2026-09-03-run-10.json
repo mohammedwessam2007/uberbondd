@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "uberbond.night-frontier-receipt.v1",
+  "run": 10,
+  "observedAt": "2026-09-03T04:01:49.000Z",
+  "branch": "work/night-frontier-20260903",
+  "baseMainSha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "sourcePr": 329,
+  "integrationPr": 331,
+  "frontierPr": 334,
+  "truth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "implemented": [
+    {
+      "capability": "behavior-level absorption integrity",
+      "status": "IMPLEMENTED_UNVERIFIED_HOSTED",
+      "guards": [
+        "CLONED requires candidate behavior to reproduce baseline behavior",
+        "baseline and candidate revisions must differ",
+        "behavior evidence references must be unique",
+        "SUPERIOR metric evidence cannot reuse behavior evidence references"
+      ]
+    },
+    {
+      "capability": "provider-neutral model admission proof",
+      "status": "IMPLEMENTED_UNVERIFIED_HOSTED",
+      "guards": [
+        "exact model revision",
+        "provenance evidence",
+        "classified license decision",
+        "explicit permission eligibility",
+        "security-clean evidence",
+        "runtime compatibility evidence",
+        "hardware-fit evidence",
+        "known runtime cost",
+        "task-specific benchmark evidence",
+        "consistent attempt/success counts",
+        "cost per successful result",
+        "fresh non-future evidence"
+      ],
+      "promotionAuthority": "NONE",
+      "workerCompilationAuthority": "ELIGIBLE_FOR_INTEGRATION_REVIEW_ONLY"
+    }
+  ],
+  "benchmarkClaims": {
+    "newHostedBenchmarksExecuted": 0,
+    "parityOrSuperiorPromotions": 0,
+    "modelPromotions": 0
+  },
+  "modelUniverseDelta": {
+    "admittedModels": 0,
+    "newProofObjects": 1,
+    "doctrine": "token price alone is insufficient; compare task-specific cost per successful result"
+  },
+  "frontierSignals": [
+    {
+      "signal": "Open-model adoption is increasing among US businesses as lower-cost customizable models improve",
+      "classification": "PUBLIC_FRONTIER_SIGNAL_ONLY"
+    },
+    {
+      "signal": "Recent public reporting emphasizes cost-per-task over token price for real AI ROI",
+      "classification": "ECONOMIC_ROUTING_SIGNAL_ONLY"
+    },
+    {
+      "signal": "A recent model-evaluation security incident reinforces that model artifacts and evaluation environments require explicit security evidence",
+      "classification": "SECURITY_ADMISSION_SIGNAL_ONLY"
+    }
+  ],
+  "integrationFeed": {
+    "dependencyReady": true,
+    "recommendation": "Integration may import the proof layer after trustworthy exact-head tests execute; do not merge peer-owned Open Model Universe or worker compiler changes from this lane."
+  },
+  "zeroEffectLedger": {
+    "customerContacts": 0,
+    "spendUsd": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "kycChanges": 0,
+    "untrustedExternalCodeExecutions": 0,
+    "modelPromotions": 0,
+    "businessEffectAuthority": "NONE"
+  },
+  "nextFrontier": "Bind fresh model-admission proof to a task tournament that compares closed API, hosted open-weight, and local runtime suppliers by successful-task cost, latency, reliability, and founder-minute burden before worker routing."
+}

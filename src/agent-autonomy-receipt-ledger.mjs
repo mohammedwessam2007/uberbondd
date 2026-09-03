@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { sameJson } from './cloud-agent-relay.mjs';
 import { AGENT_AUTONOMY_STORE_POLICY_VERSION } from './agent-autonomy-store.mjs';
 
-export const AGENT_AUTONOMY_RECEIPT_LEDGER_POLICY_VERSION = 'agent-autonomy-receipt-ledger-1.0.0';
+export const AGENT_AUTONOMY_RECEIPT_LEDGER_POLICY_VERSION = 'agent-autonomy-receipt-ledger-1.1.0';
 const RECEIPT_TYPE = 'agent_autonomy_execution_receipt';
 
 function text(value, max = 240) {
@@ -41,6 +41,18 @@ function stableReceipt(receipt = {}) {
   };
 }
 
+function semanticReceipt(receipt = {}) {
+  const normalized = stableReceipt(receipt);
+  // receivedAt is the local observation time assigned by the autonomy pump.
+  // A process can persist the execution receipt, die before its run snapshot,
+  // then observe the exact same durable provider result at a later local time.
+  // That later clock value is not contradictory execution truth and therefore
+  // must not turn a legitimate crash replay into a ledger conflict. The first
+  // persisted receivedAt remains immutable evidence of first observation.
+  const { receivedAt: _firstObservationTime, ...semantic } = normalized;
+  return semantic;
+}
+
 function validStableReceipt(receipt) {
   return Boolean(receipt.runId && receipt.taskId && receipt.sessionId && Number.isSafeInteger(receipt.sequence) && receipt.sequence >= 0);
 }
@@ -58,7 +70,7 @@ function deterministicAuditId(receipt) {
 function equivalentPersisted(row, expected) {
   const detail = row?.detail || {};
   return row?.type === RECEIPT_TYPE
-    && sameJson(stableReceipt(detail), expected);
+    && sameJson(semanticReceipt(detail), semanticReceipt(expected));
 }
 
 export async function logIdempotentAutonomyExecutionReceipt(store, receipt, { date = new Date() } = {}) {
@@ -107,7 +119,8 @@ export async function logIdempotentAutonomyExecutionReceipt(store, receipt, { da
       status: 'RECEIPT_ALREADY_LOGGED',
       duplicate: true,
       auditId: id,
-      createdAt: existing?.detail?.createdAt || existing?.createdAt || null
+      createdAt: existing?.detail?.createdAt || existing?.createdAt || null,
+      firstReceivedAt: existing?.detail?.receivedAt || null
     };
   }
 }

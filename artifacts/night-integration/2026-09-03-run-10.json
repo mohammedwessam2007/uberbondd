@@ -1,0 +1,94 @@
+{
+  "schema": "uberbond.night-integration-run.v1",
+  "run": 10,
+  "observedAt": "2026-09-03T03:58:24Z",
+  "repository": {
+    "main": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+    "integrationBranch": "work/night-integration-20260903",
+    "sourceHeadBeforeReceipt": "4289b44bc67cae16c48e286aa4e1f9b0b395bf0e",
+    "pr": 331,
+    "pr329Head": "7ea2abd7246166a346203b79670748630c55b808"
+  },
+  "changes": [
+    {
+      "type": "integration-audit-hardening",
+      "file": "tests/mutation-registry-anchor-integrity.test.mjs",
+      "detail": "Suite-to-mutant binding no longer accepts arbitrary quoted path strings or comment-only import decoys; it requires static from-import, bare import, or dynamic import syntax. Hostile self-test added."
+    }
+  ],
+  "hostedVerification": {
+    "exactSourceHead": "4289b44bc67cae16c48e286aa4e1f9b0b395bf0e",
+    "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+    "runs": [
+      {"workflow": "CI", "runId": 33713435562, "jobsObserved": 3, "jobsWithSteps": 0},
+      {"workflow": "Night Verification War", "runId": 33713435555, "jobsObserved": 3, "jobsWithSteps": 0},
+      {"workflow": "Night Postal Focused Verification", "runId": 33713435571, "statusAtReceipt": "in_progress"}
+    ],
+    "testsActuallyExecuted": 0,
+    "sourcePasses": 0,
+    "sourceFailures": 0,
+    "mutationKills": 0
+  },
+  "peerAdjudication": [
+    {
+      "pr": 334,
+      "head": "92432c5d17b76ceaea180c187b3e7241a32ddd3d",
+      "claim": "Frontier proof gates",
+      "sourcePresence": "ACCEPTED",
+      "hostedGreen": "REJECTED_UNPROVEN",
+      "reason": "Canonical CI on exact head exposed three zero-step jobs; peer remains active and non-overlapping, so integration did not race its files."
+    },
+    {
+      "pr": 335,
+      "head": "4ccc851719b76565cb4978a3c0a8d78774ee977f",
+      "claim": "lease fencing, timeout uncertainty, watchdog liveness; local hostile harness 2/2",
+      "sourcePresence": "ACCEPTED",
+      "localFocusedEvidence": "ACCEPTED_AS_PEER_REPORTED_NOT_INDEPENDENTLY_REEXECUTED",
+      "hostedGreen": "REJECTED_UNPROVEN",
+      "reason": "Hosted workflows exist but remain infrastructure-non-evidence; runtime lane is active and owns queue files."
+    },
+    {
+      "pr": 332,
+      "head": "1cca3ee35321e5eb5b286d77371b0abbfde9dfb9",
+      "claim": "owner-supplied PayPal.me destination is a payment-link candidate only",
+      "truthBoundary": "ACCEPTED",
+      "clearedPaymentProof": "REJECTED"
+    }
+  ],
+  "canon": {
+    "currentSystemStateHead": "3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84",
+    "systemReadinessHead": "3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84",
+    "regenerated": false,
+    "reason": "Final integration source has not earned executable exact-head proof and active peer lanes have not settled."
+  },
+  "blockers": {
+    "P0": [
+      "Trustworthy step-level exact-head execution for PR 331, including mutation registry integrity and Frontier/Open-Model mutation suites."
+    ],
+    "P1": [
+      "Adjudicate and integrate proven non-overlapping peer PRs 334/335/332 only after their active lanes settle and exact bytes are current.",
+      "Regenerate CURRENT_SYSTEM_STATE/system-readiness/brain pointers only after final source truth settles."
+    ],
+    "P2": [
+      "Close superseded PR lineage after final integration vehicle is established.",
+      "Attempt at most one Vercel deployment only after exact-main verification and quota availability."
+    ]
+  },
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "zeroEffectLedger": {
+    "outreachSent": 0,
+    "moneyMoved": 0,
+    "purchases": 0,
+    "dnsChanges": 0,
+    "kycSubmissions": 0,
+    "secretsExposed": 0,
+    "deployments": 0,
+    "customerStateMutations": 0
+  },
+  "singleNextIntegrationDependency": "Obtain real step-level exact-head execution on PR 331 source after the mutation-binding hardening; then re-evaluate settled peer heads for non-overlapping integration."
+}

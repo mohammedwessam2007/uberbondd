@@ -75,6 +75,14 @@
     "NO_APPROVED_GENOME_CAPABILITY": {
       "description": "Execution admission decides whether an approved Capability Genome capability may run a bounded mission. The corpus currently holds 30 repository candidates, 2 imported bodies and 2 normalized records, and zero approved or active capabilities, so there is nothing it could admit. Wiring it to an entry point would advertise a capability-execution path that has no capability behind it.",
       "releasedBy": "At least one capability reaching APPROVED through dedupe, independent STATIC, SEMANTIC and SANDBOX security evidence, and benchmark promotion -- after which the admission step is the gate that decides whether it may execute."
+    },
+    "NO_FRONTIER_OPERATOR_HOST": {
+      "description": "The Frontier Operator family compiles bounded worker missions, verifies artifacts, absorbs observed mechanisms and scores its own coverage. Every module carries the zero external-effect ledger and none of them is scheduled: no entry point turns a Goal Contract into a running mission. Wiring them now would create an orchestrator with nothing to orchestrate, and an orchestrator that runs is exactly the thing that must not be switched on before its consequence path is decided.",
+      "releasedBy": "An entry point that drives a Goal Contract through the operator under the existing OMNIA authority, budget and consequence gates, plus at least one recorded bounded mission receipt produced by it."
+    },
+    "NO_CONFIGURED_OPEN_MODEL_RUNTIME": {
+      "description": "The Open Model Universe discovers, normalizes and screens public model supply. The executor it feeds is already reachable through the model factory and reports runtime-absent, model-identity-absent, runtime-endpoint-absent, pricing-evidence-absent and explicitly-disabled, so no open model can execute. Discovery without a runtime is a catalogue: real, useful to read, and unable to route anything.",
+      "releasedBy": "A configured open-model runtime endpoint with an exact model identity and pricing evidence, after which screened supply can be routed and the discovery layer has somewhere to send its output."
     }
   },
   "modules": {
@@ -132,6 +140,11 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_OBJECT_STORAGE_ADAPTER",
       "reason": "Compiles a storage write plan and normalizes a provider receipt. Its postgres path is the behaviour the tree already has; its object path terminates in writing to an external store that does not exist yet, so nothing calls it. Attacked before classification: the object backend is fail-closed on every truthiness variant, a namespace cannot escape its prefix, and a receipt is PRIVATE regardless of what the input claims."
+    },
+    "src/autonomous-frontier-intelligence.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FRONTIER_OPERATOR_HOST",
+      "reason": "The explorer/critic loop over the operator. Furthest from an entry point of anything here."
     },
     "src/booking-calendar-contract.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -227,6 +240,41 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_CUSTOMER",
       "reason": "Acceptance requests and delivery feedback are customer surfaces. There are zero verified customers to ask."
+    },
+    "src/frontier-absorption-engine.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FRONTIER_OPERATOR_HOST",
+      "reason": "Tracks observed external mechanisms from DISCOVERED through parity. Reference-only until a mission actually absorbs one."
+    },
+    "src/frontier-artifact-verifier.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FRONTIER_OPERATOR_HOST",
+      "reason": "Checks that a claimed artifact exists and matches what was promised. Verifies output the unscheduled path would produce."
+    },
+    "src/frontier-capability-harvest.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FRONTIER_OPERATOR_HOST",
+      "reason": "Records capability claims read from public sources, with provenance. A reading list, not a runtime."
+    },
+    "src/frontier-context-spine.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FRONTIER_OPERATOR_HOST",
+      "reason": "Resolves mission context dependencies and fails closed on unresolved ones. Nothing calls it because nothing compiles a mission yet."
+    },
+    "src/frontier-operator.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FRONTIER_OPERATOR_HOST",
+      "reason": "Compiles and scores bounded operator missions across LEADER/WORKER/VERIFIER/ADVERSARY/JUDGE roles. The kernel of the family; nothing schedules it."
+    },
+    "src/frontier-source-coverage.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FRONTIER_OPERATOR_HOST",
+      "reason": "Maps the family's capability claims to the modules that implement them. A coverage receipt about the unscheduled path."
+    },
+    "src/frontier-worker-compiler.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FRONTIER_OPERATOR_HOST",
+      "reason": "Turns a mission into a worker brief with an explicit permission set. Only useful once a host exists to run the brief."
     },
     "src/gmail-inbound.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -452,6 +500,26 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_OUTBOUND_AUTHORIZATION",
       "reason": "Every channel here is person-targeted. The contract is written and the authority to send is not granted."
+    },
+    "src/open-model-foundry.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
+      "reason": "Normalizes one model supply record and walks its promotion states. No record reaches APPROVED without evidence this host cannot yet produce."
+    },
+    "src/open-model-registry-crawler.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
+      "reason": "Bounded read-only registry discovery. Would populate the catalogue; the catalogue has nowhere to route to."
+    },
+    "src/open-model-source-coverage.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
+      "reason": "Maps open-model capability claims to implementing modules. A coverage receipt about the unrouted path."
+    },
+    "src/open-model-universe.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
+      "reason": "Normalizes public model-registry pages into typed supply records. The catalogue itself."
     },
     "src/outreach-automation.mjs": {
       "category": "AWAITING_ACTIVATION",

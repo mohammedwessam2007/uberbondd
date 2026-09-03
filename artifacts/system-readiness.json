@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-03T00:50:52.190Z",
+  "generatedAt": "2026-09-03T02:11:17.107Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "b59e51743fd37f0a6f4fea607fbdb73390b671ae",
+    "head": "d87f6c3a2661495477965fea41796d16dc582c60",
     "branch": "claude/uberbond-ragnarok-closure-pek0g6",
-    "sourceModules": 288,
-    "testSuites": 347,
+    "sourceModules": 301,
+    "testSuites": 354,
     "workingTreeClean": false
   },
   "measurements": {

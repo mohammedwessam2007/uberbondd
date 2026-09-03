@@ -158,7 +158,11 @@ test('an absent isolation receipt is fine; a named-but-broken one is refused', a
 
 test('the sandbox provider reports its own blockers and is never ready by default', async () => {
   const { describeProviderReadiness } = await import('../src/agent-model-executor-factory.mjs');
-  const [, , , sandbox] = describeProviderReadiness({ env: {} });
+  // Found by name, not by index. This read position 3 and broke when a fifth
+  // provider was added ahead of it -- reporting a defect in the sandbox gate
+  // that did not exist, and which would equally have hidden one that did.
+  const sandbox = describeProviderReadiness({ env: {} }).find(row => row.provider === 'claude-code-sandbox');
+  assert.ok(sandbox, 'the sandbox provider must still be described');
   assert.equal(sandbox.provider, 'claude-code-sandbox');
   assert.equal(sandbox.ready, false);
   assert.deepEqual(sandbox.blockers, ['sandbox-root-absent', 'isolation-receipt-absent', 'explicitly-disabled']);

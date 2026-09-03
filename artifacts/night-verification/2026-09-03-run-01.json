@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "uberbond-night-verification-receipt-2.0.0",
+  "recordedAt": "2026-09-03T02:04:30Z",
+  "branch": "work/night-verification-20260903",
+  "baseIntegration": {
+    "pr": 329,
+    "branch": "sol/frontier-convergence-open-model-20260903",
+    "headSha": "7ea2abd7246166a346203b79670748630c55b808",
+    "mainSha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da"
+  },
+  "verificationPr": 333,
+  "testedHeadSha": "9f40c01aa2272fcfb48596d125608cc01155c34b",
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "inventoryDelta": {
+    "newMutationRegistrations": 9,
+    "newHostileTests": 2,
+    "productFilesChanged": 0,
+    "mutations": [
+      "FRONTIER-01",
+      "FRONTIER-02",
+      "FRONTIER-03",
+      "OPENMODEL-01",
+      "OPENMODEL-02",
+      "OPENMODEL-03",
+      "OPENMODEL-04",
+      "OPENMODEL-05",
+      "OPENMODEL-06"
+    ]
+  },
+  "mutationEvidence": {
+    "killed": 0,
+    "survived": 0,
+    "invalid": 0,
+    "unexecutedInfrastructureBlocked": 9,
+    "staticRegistrationStatus": "SOURCE_INSPECTION_PASS_EXECUTION_UNPROVEN",
+    "rule": "No mutant is counted killed or survived until the intended mutation applies, remains parseable, and the named suite executes assertions with causal failure evidence."
+  },
+  "ci": {
+    "workflowRunId": 33706134412,
+    "jobsObserved": 3,
+    "jobsWithExposedSteps": 0,
+    "jobs": ["deterministic", "browser", "postgres"],
+    "sourcePass": 0,
+    "sourceFail": 0,
+    "sourceSkip": 0,
+    "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+    "reason": "All three jobs completed failure while the Actions API exposed steps=null; no source command or assertion is evidenced as executed."
+  },
+  "claimVerdicts": [
+    {
+      "claim": "PR329 has Frontier/Open-Model mutation coverage",
+      "verdict": "DISPUTE",
+      "reason": "PR329 canonical mutation inventory contains convergence and Postal additions but no Frontier/Open-Model mutants. Verification branch registers nine, not yet executed."
+    },
+    {
+      "claim": "Named killing suites touch the registered mutated behavior",
+      "verdict": "PASS_SOURCE_INSPECTION_ONLY",
+      "reason": "Each registration has a unique source anchor and names an existing assertion needle in the target suite; runtime execution is still required before kill claims."
+    },
+    {
+      "claim": "Open Model runtime enforces configured model identity",
+      "verdict": "DISPUTE_P1",
+      "reason": "Source returns ok=true/COMPLETED when provider raw.model differs, merely emitting identityVerification=MISMATCH. A hostile fail-closed test was added but has not executed due CI startup failure."
+    },
+    {
+      "claim": "Hosted exact-head CI proves source failure or success",
+      "verdict": "INFRASTRUCTURE_NON_EVIDENCE",
+      "reason": "Zero exposed steps across deterministic/browser/postgres jobs."
+    }
+  ],
+  "peerHeadsReadOnly": {
+    "postal": "417fcec2f0b144c65ddf7b76cf9cad4c267f574b",
+    "payment": "998b137aa1b35460d07d9064ea101c0bbe8da1ec",
+    "genome": "4e90710266b4b06f38db3d74d34429ea8acdfe97"
+  },
+  "residual": {
+    "P0": [],
+    "P1": [
+      "Open Model runtime model-identity mismatch currently appears compatible with ok=true/COMPLETED; requires executed hostile reproduction before tightly scoped product fix.",
+      "PR329 Frontier/Open-Model mutation registrations remain outside canonical scripts/mutation-war.mjs until execution validates the extension and integration is reconciled."
+    ],
+    "P2": [
+      "Exact-head syntax/deterministic/browser/Postgres and mutation execution remain blocked by Actions jobs that expose no executed steps.",
+      "Context Spine/artifact/worker/provider-neutral claims still require executable exact-head gate evidence beyond source inspection."
+    ]
+  },
+  "zeroEffectLedger": {
+    "messagesSent": 0,
+    "deployments": 0,
+    "moneyMovements": 0,
+    "customerStateChanges": 0,
+    "peerProductFilesModified": 0
+  },
+  "nextFalsificationTarget": "Execute the model-identity mismatch hostile test and OPENMODEL-01..06/FRONTIER-01..03 mutations in any trustworthy exact-head runtime; if identity mismatch reproduces, apply the smallest fail-closed source fix and rerun the same test plus factory/provider integration suites."
+}

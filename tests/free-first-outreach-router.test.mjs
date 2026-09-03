@@ -57,12 +57,21 @@ test('live mode requires actual provider activation and domain authentication', 
   const blocked = selectFreeRoute({ purpose: 'TRANSACTIONAL', providers: [provider], mode: 'LIVE', at: '2026-09-01T00:00:00.000Z' });
   assert.equal(blocked.ok, false);
   assert.ok(blocked.evaluations[0].reasonCodes.includes('provider-not-configured'));
-  const ready = selectFreeRoute({
+  const callerAsserted = selectFreeRoute({
     purpose: 'TRANSACTIONAL',
     providers: [provider],
     mode: 'LIVE',
     providerStates: { 'resend-free': { configured: true, active: true, domainAuthenticated: true, providerHealthy: true } },
-    at: '2026-09-01T00:00:00.000Z'
+    at: AT
+  });
+  assert.equal(callerAsserted.ok, false);
+  assert.ok(callerAsserted.reasonCodes.includes('live-provider-states-must-be-derived-from-activation-receipts'));
+  const ready = selectFreeRoute({
+    purpose: 'TRANSACTIONAL',
+    providers: [provider],
+    mode: 'LIVE',
+    activationReceipts: [activationReceipt()],
+    at: AT
   });
   assert.equal(ready.ok, true);
 });
@@ -133,7 +142,6 @@ test('the committed NOT_STARTED receipts permit no live route and no live capaci
   assert.equal(capacity.capacity, 0);
   assert.equal(capacity.status, 'NO_LIVE_USABLE_CAPACITY');
 
-  // The same providers still plan fine: activation gates LIVE, not research.
   assert.equal(selectFreeRoute({ purpose: 'TRANSACTIONAL', providers: registry, at: AT }).ok, true);
 });
 
@@ -159,13 +167,10 @@ test('an observed quota may lower the researched quota and may never raise it', 
     usageByProvider: { 'resend-free': { monthlyUsed } }, at: AT
   });
 
-  // Researched 3000/month with 600 used still routes.
   assert.equal(route({}, 600).ok, true);
-  // An observed 500/month with 600 used does not: observation tightened it.
   const lowered = route({ monthly: 500 }, 600);
   assert.equal(lowered.ok, false);
   assert.ok(lowered.evaluations[0].reasonCodes.includes('provider-free-quota-exhausted'));
-  // An observed 9999/month cannot resurrect an exhausted researched quota.
   const raised = route({ monthly: 9999 }, 3000);
   assert.equal(raised.ok, false, 'an observed quota raised the researched limit');
   assert.ok(raised.evaluations[0].reasonCodes.includes('provider-free-quota-exhausted'));

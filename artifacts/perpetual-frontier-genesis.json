@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "uberbond-perpetual-frontier-genesis-1.0.0",
-  "status": "CHAT_SPEC_GOAL_WITH_EXECUTABLE_ZERO_EFFECT_FOUNDATION",
-  "generatedAt": "2026-09-03T20:09:00+03:00",
+  "schemaVersion": "uberbond-perpetual-frontier-genesis-1.1.0",
+  "status": "CHAT_SPEC_GOAL_WITH_EXECUTABLE_ZERO_EFFECT_FOUNDATION_AND_EVOLUTION_LAYER",
+  "generatedAt": "2026-09-03T21:20:00+03:00",
   "canonicalDoc": "docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
   "ideaCount": 275,
   "ideaRanges": [
@@ -89,5 +89,44 @@
       "automatic conversion of Gamechanger frontier signals into GENESIS cycle receipts",
       "hourly public-frontier sensing to GENESIS receipt path when the GitHub Actions runner actually executes"
     ]
+  },
+  "evolutionLayer": {
+    "module": "src/genesis-evolution-engine.mjs",
+    "evidenceRegistry": "src/genesis-implementation-evidence.mjs",
+    "doctor": "scripts/genesis-evolution-doctor.mjs",
+    "tick": "scripts/genesis-evolution-tick.mjs",
+    "tests": [
+      "tests/genesis-evolution-engine.test.mjs",
+      "tests/genesis-evolution-tick.test.mjs"
+    ],
+    "memory": [
+      "data/genesis/impossible-tasks.json",
+      "data/genesis/architecture-assumptions.json"
+    ],
+    "runtimeReceipt": "artifacts/genesis-evolution-latest.json",
+    "implementationLedger": "artifacts/perpetual-frontier-implementation-ledger.json",
+    "commands": [
+      "npm run genesis:evolution:doctor",
+      "npm run genesis:evolve",
+      "npm run test:genesis",
+      "npm run frontier:tick"
+    ],
+    "capabilities": [
+      "artificial serendipity over the real stored opportunity population",
+      "surprise and novelty scoring",
+      "world-discontinuity detection",
+      "capability multiplication scoring",
+      "impossible-task blocker and unlock memory",
+      "future-option portfolio allocation with bounded curiosity",
+      "Anti-UberBond assumption mutation and counter-theory generation",
+      "competing Red Queen evaluator species",
+      "founder-freedom derivative scoring",
+      "exact per-idea source/test/runtime evidence ledger"
+    ]
+  },
+  "implementationTruthAtSourceDeclaration": {
+    "implementedOrPartialPrimitiveCount": 17,
+    "canonOnlyCount": 258,
+    "law": "Counts are derived from exact per-idea evidence declarations. SOURCE_AND_TEST_PRESENT does not mean tests passed. Runtime receipt presence does not mean external economic value. CANON_ONLY must never be called implemented."
   }
 }

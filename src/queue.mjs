@@ -57,10 +57,16 @@ export class DurableQueue {
     const runAt = options.runAt ? new Date(options.runAt) : new Date(Date.now() + Math.max(0, Number(options.delayMs || 0)));
     if (Number.isNaN(runAt.getTime())) throw new Error('Invalid queue runAt value');
     const recoveryPolicy = normalizeRecoveryPolicy(options);
+    const requestedMaxAttempts = Math.max(1, Number(options.maxAttempts || this.cfg.queue.maxAttempts || 5));
+    // A reconcile job may have caused an external side effect before its worker dies.
+    // Persisting maxAttempts=1 makes the Store's existing stale-recovery transaction
+    // fail closed to dead-letter after the first claim instead of auto-requeueing it.
+    // Replay-safe jobs retain their configured retry budget.
+    const maxAttempts = recoveryPolicy === 'reconcile' ? 1 : requestedMaxAttempts;
     const job = {
       id: id('job'), type: String(type), queue: String(options.queue || type), status: 'queued',
       payload: structuredClone(payload || {}), priority: Number(options.priority || 0), attempts: 0,
-      maxAttempts: Math.max(1, Number(options.maxAttempts || this.cfg.queue.maxAttempts || 5)),
+      maxAttempts,
       runAt: runAt.toISOString(), scheduledAt: runAt.toISOString(), dedupeKey: options.dedupeKey ? String(options.dedupeKey) : null,
       singletonKey: options.singletonKey ? String(options.singletonKey) : null,
       recoveryPolicy,
@@ -294,7 +300,8 @@ export class DurableQueue {
   async requeueDeadLetter(jobId, options = {}) {
     const job = await this.store.get('jobs', jobId);
     if (!job || job.status !== 'dead-letter') return null;
-    if (job.reconciliationRequired) {
+    const requiresReconciliation = job.reconciliationRequired || job.recoveryPolicy === 'reconcile';
+    if (requiresReconciliation) {
       const receipt = options.reconciliationReceipt;
       if (!receipt || typeof receipt !== 'object' || !Object.keys(receipt).length) throw reconciliationRequiredError(jobId);
       await this.store.patch('jobs', jobId, {
@@ -304,7 +311,7 @@ export class DurableQueue {
       });
       await this.store.log('queue_job_uncertain_execution_reconciled', {
         jobId: job.id, type: job.type, workerId: this.workerId,
-        uncertainReasonCode: job.uncertainReasonCode || null,
+        uncertainReasonCode: job.uncertainReasonCode || (job.recoveryPolicy === 'reconcile' ? 'RECOVERY_POLICY_RECONCILE' : null),
         receipt: structuredClone(receipt)
       });
     }

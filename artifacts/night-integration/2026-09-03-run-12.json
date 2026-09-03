@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "uberbond-night-integration-receipt-1.0.0",
+  "recordedAt": "2026-09-03T07:01:38Z",
+  "branch": "work/night-integration-20260903",
+  "liveMainSha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "integrationPr": 331,
+  "integrationHeadAtRefresh": "40e25ff90db6b2e0bcf1d780dfefae9e9fe02ff1",
+  "successorOf": 329,
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "exactHeadExecution": {
+    "headSha": "40e25ff90db6b2e0bcf1d780dfefae9e9fe02ff1",
+    "workflowRuns": [33721594851, 33721594902, 33721595017],
+    "workflowFamilies": ["CI", "Night Postal Focused Verification", "Night Verification War"],
+    "jobsObserved": 7,
+    "jobsWithExecutedSteps": 0,
+    "testsActuallyExecuted": 0,
+    "assertionsActuallyExecuted": 0,
+    "mutationKillsProven": 0,
+    "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+    "reason": "Observed jobs expose steps=[] and runner_id=0; no source command or assertion is evidenced as executed."
+  },
+  "peerAdjudication": {
+    "pr333": {
+      "headSha": "2fc4f159f45906e0487af82b37dc1819272f8d33",
+      "accepted": [
+        "Source inspection identifies absent provider model identity as a fail-open P1 on PR331.",
+        "Peer branch contains a tightly scoped fail-closed source fix and OPENMODEL-07 hostile mutation registration.",
+        "Verification mutation registrar hardening against comment/inert-string import decoys is source-present."
+      ],
+      "rejectedOrUnproven": [
+        "No hosted green claim is accepted.",
+        "No OPENMODEL-07 kill is accepted.",
+        "No strict Frontier/Open-Model mutation kill is accepted."
+      ],
+      "execution": {
+        "workflowRunId": 33721968390,
+        "jobsObserved": 3,
+        "jobsWithExecutedSteps": 0,
+        "classification": "INFRASTRUCTURE_NON_EVIDENCE"
+      }
+    },
+    "pr334": {
+      "headSha": "bde6a178195fa2aadcfd82efa9fd85cabf911852",
+      "status": "ACTIVE_PEER_OWNED_SOURCE_CLAIMS_UNVERIFIED_HOSTED"
+    },
+    "pr335": {
+      "headSha": "153203e43bbadbd73f00c084ca4e2ec493300d29",
+      "status": "ACTIVE_PEER_OWNED_LOCAL_HARNESS_RECORDED_NOT_INDEPENDENTLY_REEXECUTED"
+    },
+    "pr332": {
+      "headSha": "1cca3ee35321e5eb5b286d77371b0abbfde9dfb9",
+      "status": "PAYMENT_LINK_CANDIDATE_ONLY",
+      "clearedPaymentProof": false
+    }
+  },
+  "integrationDecision": {
+    "mergedToMain": false,
+    "absorbedPeerHead": false,
+    "canonRegenerated": false,
+    "deploymentAttempted": false,
+    "reason": "Evidence threshold is not earned because exact-head jobs still execute zero steps. Unproven peer source is not promoted into the final integration head merely to create apparent convergence."
+  },
+  "blockers": {
+    "P0": [
+      "Obtain trustworthy step-level execution on exact PR331 source, including syntax/deterministic/focused and mutation gates."
+    ],
+    "P1": [
+      "Execute and prove PR333 absent-model-identity closure plus OPENMODEL-07 named-test causal kill before absorption.",
+      "Adjudicate settled non-overlapping PR334/PR335 heads with executable evidence before final convergence.",
+      "Regenerate CURRENT_SYSTEM_STATE/readiness/brain pointers only after source truth settles."
+    ],
+    "P2": [
+      "Clean superseded/stale PR lineage after convergence.",
+      "Attempt at most one exact-main Vercel deployment only after exact-main verification and quota availability."
+    ]
+  },
+  "zeroEffectLedger": {
+    "outreachSent": 0,
+    "moneyMoved": 0,
+    "purchases": 0,
+    "dnsChanges": 0,
+    "kycSubmissions": 0,
+    "secretsExposed": 0,
+    "productionDeployments": 0,
+    "customerStateMutations": 0
+  },
+  "singleNextIntegrationDependency": "Trustworthy real step-level execution on exact PR331 source; then executable proof of PR333 absent-identity closure before absorption."
+}

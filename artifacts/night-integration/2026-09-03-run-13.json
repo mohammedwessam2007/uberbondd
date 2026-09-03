@@ -1,0 +1,71 @@
+{
+  "lane": "night-integration",
+  "run": 13,
+  "date": "2026-09-03",
+  "mainSha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "integrationPr": 331,
+  "integrationHeadBeforeReceipt": "b0df90e9fa125400361a3959ce7d77be3d45afed",
+  "integrationBranch": "work/night-integration-20260903",
+  "integrationMergeable": true,
+  "integrationDraft": true,
+  "exactHeadVerification": {
+    "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+    "workflowRuns": [33726146915, 33726146705, 33726146920],
+    "jobsObserved": 7,
+    "jobsWithRunnerIdZero": 7,
+    "jobsWithZeroSteps": 7,
+    "testsExecuted": 0,
+    "assertionsExecuted": 0,
+    "sourcePassesProven": 0,
+    "sourceFailuresProven": 0,
+    "mutationKillsProven": 0
+  },
+  "peerHeads": {
+    "verificationPr333": "b86737280a83e0235550c6207972c6876363df31",
+    "frontierPr334": "5ac77f3840a34d28f63d6fc3b05c75b3a2ec79f3",
+    "runtimePr335": "ad65999ea127d8ed5141513d0bf130e35c214aea"
+  },
+  "peerClaims": {
+    "verificationFrontierAdmissionProofIdentityFinding": "ACCEPTED_AS_FOCUSED_PEER_EVIDENCE_NOT_WHOLE_REPO_PROOF",
+    "verificationMutationInventory": "ACCEPTED_AS_REPORTED_INVENTORY_0_KILLED_14_UNEXECUTED",
+    "frontierSourcePresence": "ACCEPTED",
+    "frontierHostedGreen": "REJECTED_UNPROVEN_ZERO_STEP",
+    "runtimeSourcePresence": "ACCEPTED",
+    "runtimeLocalHarness2Of2": "RECORDED_PEER_EVIDENCE_NOT_INDEPENDENTLY_REEXECUTED",
+    "paymentLinkCandidate": "ACCEPTED_AS_DESTINATION_CANDIDATE_ONLY_NEVER_CLEARED_PAYMENT_PROOF"
+  },
+  "canon": {
+    "currentSystemStateReconciledSha": "3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84",
+    "liveMainSha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+    "regenerated": false,
+    "reason": "source convergence lacks trustworthy exact-head execution"
+  },
+  "mergeDelta": {
+    "mergedToMain": 0,
+    "peerHeadsAbsorbed": 0,
+    "sourceChangesThisRun": 0,
+    "receiptOnly": true
+  },
+  "blockers": {
+    "P0": ["trustworthy step-level exact-head execution for PR 331"],
+    "P1": ["settle and independently prove peer Frontier/runtime fixes before absorption", "regenerate CURRENT_SYSTEM_STATE/readiness/brain only after final source truth settles"],
+    "P2": ["clean superseded stale PR lineage", "attempt at most one exact-main Vercel deployment only after exact-main verification and quota availability"]
+  },
+  "zeroEffectLedger": {
+    "outreach": 0,
+    "moneyMoved": 0,
+    "purchases": 0,
+    "dnsChanges": 0,
+    "kycSubmissions": 0,
+    "secretsExposed": 0,
+    "productionDeployments": 0,
+    "customerStateMutations": 0
+  },
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "nextIntegrationDependency": "Obtain real step-level exact-head execution for PR 331; until then no merge, canon refresh, or release deployment is eligible."
+}

@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "uberbond-night-integration-receipt-1.0.0",
+  "recordedAt": "2026-09-03T03:10:00Z",
+  "branch": "work/night-integration-20260903",
+  "pr": 331,
+  "liveMainSha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "sourceHeadBeforeReceipt": "ba73df8b3de43b962f399df76f3ac13a1362feee",
+  "convergence": {
+    "sourcePr": 329,
+    "sourcePrHead": "7ea2abd7246166a346203b79670748630c55b808",
+    "verificationPeerPr": 333,
+    "verificationPeerHead": "71bad423dc7cf8f549478dc8d0df3937d41a5680",
+    "peerClaimAccepted": [
+      "PR333 correctly identified that Open Model runtime could return ok=true/COMPLETED when provider raw.model mismatched the configured model.",
+      "PR333 contributes nine Frontier/Open-Model mutation registrations and an identity-mismatch hostile test as source-inspection evidence only.",
+      "PR333 CI is INFRASTRUCTURE_NON_EVIDENCE because deterministic/browser/postgres jobs exposed steps=null."
+    ],
+    "peerClaimRejectedOrUnproven": [
+      "No Frontier/Open-Model mutant is counted killed or survived because no trustworthy step-level mutation execution was observed.",
+      "Static assertion-needle presence alone is not accepted as suite-to-mutant binding or kill evidence."
+    ]
+  },
+  "integrationDelta": {
+    "added": [
+      "scripts/night-verification-frontier-open-model-mutations.mjs",
+      "tests/night-verification-frontier-open-model.test.mjs"
+    ],
+    "changed": [
+      "src/open-model-runtime-executor.mjs",
+      "tests/mutation-registry-anchor-integrity.test.mjs"
+    ],
+    "behavior": [
+      "Open Model runtime now fails closed with open-model-runtime-model-identity-mismatch when provider model identity differs from configured model.",
+      "Frontier/Open-Model mutation registrations are included in the integration anchor-integrity audit.",
+      "Frontier/Open-Model mutations must name at least one readable suite that directly imports the mutated module."
+    ],
+    "authorityDelta": "NONE"
+  },
+  "verification": {
+    "testedHeadSha": "ba73df8b3de43b962f399df76f3ac13a1362feee",
+    "workflowRuns": [33710124435, 33710124416, 33710124420],
+    "jobsObserved": 7,
+    "jobsWithExposedSteps": 0,
+    "testsActuallyExecuted": 0,
+    "sourcePass": 0,
+    "sourceFail": 0,
+    "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+    "fallbackRuntime": "BLOCKED_DNS_GITHUB_UNRESOLVABLE"
+  },
+  "canon": {
+    "currentSystemStateHeadPointer": "3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84",
+    "systemReadinessHeadPointer": "3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84",
+    "liveMainHead": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+    "status": "STALE_BUT_INTENTIONALLY_NOT_REGENERATED_UNTIL_SOURCE_TRUTH_SETTLES"
+  },
+  "paymentLinkCandidate": {
+    "url": "https://paypal.me/Sarawessam",
+    "evidenceClass": "OWNER_SUPPLIED_PUBLIC_PAYMENT_LINK_CANDIDATE",
+    "clearedPaymentProof": false,
+    "repositoryCanonicalizedThisRun": false,
+    "reason": "Canon regeneration is intentionally deferred until exact integration source verification is earned."
+  },
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "deployment": {
+    "attempted": false,
+    "reasonCodes": [
+      "exact-main-not-verified",
+      "vercel-api-deployments-free-per-day-quota-observed-on-pr333"
+    ]
+  },
+  "remainingBlockers": {
+    "P0": [
+      "Obtain trustworthy step-level exact-head syntax/deterministic/focused/mutation execution for the integration head."
+    ],
+    "P1": [
+      "Regenerate CURRENT_SYSTEM_STATE/readiness/brain pointers only after exact source truth settles.",
+      "Reconcile PR329/PR333 supersession and stale PR cleanup after PR331 earns verification."
+    ],
+    "P2": [
+      "Exact-main production identity remains unverified and Vercel free deployment quota is still externally blocked."
+    ]
+  },
+  "zeroEffectLedger": {
+    "outreachSent": 0,
+    "moneyMoved": 0,
+    "purchases": 0,
+    "dnsChanges": 0,
+    "kycSubmissions": 0,
+    "secretsExposed": 0,
+    "productionDeployments": 0,
+    "customerStateChanges": 0
+  },
+  "singleNextIntegrationDependency": "Run real step-level exact-head focused tests plus the nine Frontier/Open-Model mutants on the current PR331 head; only then settle PR supersession, regenerate canon and consider merge-to-main."
+}

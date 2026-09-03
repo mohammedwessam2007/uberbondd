@@ -939,12 +939,190 @@ export const MUTATIONS = [
     replace: "  if (/(?:https?:\\/\\/[^\\s]+\\.(?:sh|ps1)|git\\+https?:)/i.test(corpus)) findings.push({ code: 'mutable-remote-dependency', severity: 'HIGH' });",
     suites: ['tests/capability-genome-body-normalize.test.mjs']
   },
+  // ---- Free-first routing: a research report is not a send plan ----------
+  {
+    id: 'FREE-01', guard: 'A stale activation receipt derives no live flags',
+    file: 'src/provider-activation-receipt.mjs',
+    find: "    return providerState({ receiptState: 'STALE', reasonCodes: ['provider-activation-receipt-stale'], autoChargeRisk: receipt.autoChargeRisk, coldB2BRule: effectiveRule });",
+    replace: '    void 0;',
+    suites: ['tests/provider-activation-receipt.test.mjs', 'tests/free-first-outreach-router.test.mjs']
+  },
+  {
+    id: 'FREE-02', guard: 'A receipt may tighten the registry cold rule and never loosen it',
+    file: 'src/provider-activation-receipt.mjs',
+    find: '  const effectiveRule = stricterColdRule(registryRule, receipt.coldB2BRule);',
+    replace: '  const effectiveRule = receipt.coldB2BRule;',
+    suites: ['tests/provider-activation-receipt.test.mjs', 'tests/free-first-outreach-router.test.mjs']
+  },
+  {
+    id: 'FREE-03', guard: 'An observed quota may only lower a researched quota',
+    file: 'src/free-first-outreach-router.mjs',
+    find: '  const values = [researched, observed].filter(value => value != null);',
+    replace: '  const values = observed != null ? [observed] : [researched];',
+    suites: ['tests/free-first-outreach-router.test.mjs']
+  },
+  {
+    id: 'FREE-04', guard: 'A receipt carrying a credential value is refused whole',
+    file: 'src/provider-activation-receipt.mjs',
+    find: '  if (secretHits.length) return fail(secretHits);',
+    replace: '  if (false) return fail(secretHits);',
+    suites: ['tests/provider-activation-receipt.test.mjs']
+  },
+  {
+    id: 'FREE-05', guard: 'A recipient cap is compared against a real audience',
+    file: 'src/free-first-outreach-router.mjs',
+    find: "    if (audienceSize != null && audienceSize > effectiveRecipientCap) reasons.push('provider-recipient-cap-exceeded');",
+    replace: '    if (false) reasons.push(\'provider-recipient-cap-exceeded\');',
+    suites: ['tests/free-first-outreach-router.test.mjs']
+  },
+  {
+    id: 'FREE-06', guard: 'An observed auto-charge risk refuses the free route',
+    file: 'src/free-first-outreach-router.mjs',
+    find: "  if (provider.freePlan.autoChargeAfterExpiry || state.autoChargeRisk) reasons.push('auto-charge-free-route-prohibited');",
+    replace: "  if (provider.freePlan.autoChargeAfterExpiry) reasons.push('auto-charge-free-route-prohibited');",
+    suites: ['tests/free-first-outreach-router.test.mjs']
+  },
+  {
+    id: 'FREE-07', guard: 'LIVE routing names a missing activation receipt',
+    file: 'src/free-first-outreach-router.mjs',
+    find: "    if (state.receiptState === 'MISSING') reasons.push('provider-activation-receipt-missing');",
+    replace: '    void 0;',
+    suites: ['tests/free-first-outreach-router.test.mjs']
+  },
+
+  // ---- Postal: what the provider actually witnessed --------------------
+  {
+    id: 'POSTAL-01', guard: 'Only an authenticated Postal webhook row can reconcile',
+    file: 'src/omnia-v9/integrations/providers/postal-effect-adapter.mjs',
+    find: "    if (row.provenance !== 'AUTHENTICATED_POSTAL_WEBHOOK') return evidence({ businessKey, providerReferenceId, lifecycle: 'AMBIGUOUS', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'unauthenticated-or-unproven-reconciliation-row' } });",
+    replace: '',
+    suites: ['tests/postal-effect-adapter.test.mjs']
+  },
+  {
+    id: 'POSTAL-02', guard: 'A bounce is acceptance with negative delivery, never provider rejection',
+    file: 'src/omnia-v9/integrations/providers/postal-effect-adapter.mjs',
+    find: "          negativeDeliveryEvidence: NEGATIVE_DELIVERY_STATUSES.has(status)",
+    replace: "          negativeDeliveryEvidence: false",
+    suites: ['tests/postal-effect-adapter.test.mjs']
+  },
+
+  // ---- First cash: contact, acceptance and the canary limit -------------
+  {
+    id: 'CASH-01', guard: 'Only customer-bound external evidence can accept a delivery',
+    file: 'src/lead-path-sprint-fulfillment.mjs',
+    find: "        if (!validExternalCustomerEvidence(evidence, expectedCustomerRef)) {",
+    replace: '        if (false) {',
+    suites: ['tests/night-payment-customer-binding.test.mjs']
+  },
+  {
+    id: 'CASH-02', guard: 'Contact needs every gate, not any gate',
+    file: 'src/first-cash-canary-packet.mjs',
+    find: '  return FIRST_CASH_CONTACT_GATES.every(id => gates?.[id]?.satisfied === true);',
+    replace: '  return FIRST_CASH_CONTACT_GATES.some(id => gates?.[id]?.satisfied === true);',
+    suites: ['tests/first-cash-canary-packet.test.mjs']
+  },
+
+  // ---- Domain: an expectation is not a reading --------------------------
+  {
+    id: 'DOMAIN-01', guard: 'A record this system generated cannot verify itself',
+    file: 'src/domain-purpose-plan.mjs',
+    find: '  if (obs.provenance !== expectedProvenance) {',
+    replace: '  if (false) {',
+    suites: ['tests/domain-purpose-plan.test.mjs']
+  },
+  {
+    id: 'DOMAIN-02', guard: 'A stale DNS observation stops verifying',
+    file: 'src/domain-purpose-plan.mjs',
+    find: '  if (ageHours > maxObservationAgeHours) {',
+    replace: '  if (false) {',
+    suites: ['tests/domain-purpose-plan.test.mjs']
+  },
+
+  // ---- Model routing: the credential and the identity that served -------
+  {
+    id: 'GATEWAY-01', guard: 'Provider error text is scrubbed before it reaches a receipt',
+    file: 'src/vercel-ai-gateway-executor.mjs',
+    find: "const safeDetail = (error, max = 500) => text(redactSecrets(String(error?.message ?? error ?? '')), max);",
+    replace: "const safeDetail = (error, max = 500) => text(String(error?.message ?? error ?? ''), max);",
+    suites: ['tests/vercel-ai-gateway-executor.test.mjs']
+  },
   {
     id: 'GENOME-05', guard: 'Remote package execution is a finding in its own right',
     file: 'src/capability-genome-admission.mjs',
     find: "  if (/(?:^|[\\s`|;&(])(?:npx|bunx|pnpm\\s+dlx|yarn\\s+dlx)\\s+[^\\s`]/im.test(corpus)) findings.push({ code: 'remote-package-execution', severity: 'HIGH' });",
     replace: '',
     suites: ['tests/capability-genome-body-normalize.test.mjs']
+  },
+  // ---- Convergence: the rules this merge decided, held down --------------
+  {
+    id: 'CONV-01', guard: 'Caller-asserted provider state cannot open a LIVE route',
+    file: 'src/free-first-outreach-router.mjs',
+    find: "  if (mode === 'LIVE') {\n    if (explicit) {",
+    replace: "  if (mode === 'LIVE') {\n    if (false) {",
+    suites: ['tests/night-convergence-runtime.test.mjs', 'tests/free-first-outreach-router.test.mjs']
+  },
+  {
+    id: 'CONV-02', guard: 'The gateway reads AI_GATEWAY_*, never a prefix derived from its id',
+    file: 'src/agent-model-executor-factory.mjs',
+    find: "    prefix: 'AI_GATEWAY',",
+    replace: "    prefix: 'AI-GATEWAY',",
+    suites: ['tests/night-convergence-runtime.test.mjs']
+  },
+  {
+    id: 'CONV-03', guard: 'Negative pricing is not pricing evidence',
+    file: 'src/agent-model-executor-factory.mjs',
+    find: '  if (!Number.isFinite(input) || input < 0 || !Number.isFinite(output) || output < 0 || !sourceRef || !verifiedAtRaw) return null;',
+    replace: '  if (!Number.isFinite(input) || !Number.isFinite(output) || !sourceRef || !verifiedAtRaw) return null;',
+    suites: ['tests/night-convergence-runtime.test.mjs']
+  },
+  {
+    id: 'CONV-04', guard: 'Pricing verified at an unparseable time is unverified',
+    file: 'src/agent-model-executor-factory.mjs',
+    find: '  if (!Number.isFinite(verifiedAtMs)) return null;',
+    replace: '  if (false) return null;',
+    suites: ['tests/night-convergence-runtime.test.mjs']
+  },
+  {
+    id: 'CONV-05', guard: 'A record this system generated cannot verify itself',
+    file: 'src/domain-purpose-plan.mjs',
+    find: '  const verifiable = observedProvenance && !generated && reasonCodes.length === 0 && !blocked;',
+    replace: '  const verifiable = observedProvenance && reasonCodes.length === 0 && !blocked;',
+    suites: ['tests/night-convergence-runtime.test.mjs']
+  },
+  {
+    id: 'CONV-06', guard: 'The fifth qualified conversation with no paid pilot ends the canary',
+    file: 'src/first-cash-canary-guard.mjs',
+    find: '  if (q === FIRST_CASH_MAX_QUALIFIED_CONVERSATIONS) {',
+    replace: '  if (false) {',
+    suites: ['tests/night-convergence-runtime.test.mjs']
+  },
+  {
+    id: 'CONV-07', guard: 'The first-cash offer stays bound to the canonical Lead-Path SKU',
+    file: 'src/first-cash-canary-packet.mjs',
+    find: "  name: 'White-label Lead-Path Revenue Leak Evidence Sprint',\n  sku: LEAD_PATH_SPRINT_SKU,",
+    replace: "  name: 'White-label Lead-Path Revenue Leak Evidence Sprint',\n  sku: 'some-other-sku',",
+    suites: ['tests/night-convergence-runtime.test.mjs']
+  },
+  {
+    id: 'CONV-08', guard: 'CODE_READY needs observed elapsed operation, not an absence of complaints',
+    file: 'src/founder-absence-blocker-doctor.mjs',
+    find: "    overall = proven && gaps.length === 0 ? 'CODE_READY' : 'ELAPSED_EVIDENCE_PENDING';",
+    replace: "    overall = 'CODE_READY';",
+    suites: ['tests/night-convergence-runtime.test.mjs']
+  },
+  {
+    id: 'POSTAL-409', guard: 'HTTP 409 is an ambiguous outcome, never a definite rejection',
+    file: 'src/omnia-v9/integrations/providers/postal-effect-adapter.mjs',
+    find: 'const DEFINITE_REJECTION_STATUSES = new Set([400, 401, 403, 404, 422]);',
+    replace: 'const DEFINITE_REJECTION_STATUSES = new Set([400, 401, 403, 404, 409, 422]);',
+    suites: ['tests/postal-effect-adapter.test.mjs', 'tests/postal-ragnarok-hardening.test.mjs']
+  },
+  {
+    id: 'POSTAL-ZERO', guard: 'No webhook row is not proof that nothing was submitted',
+    file: 'src/omnia-v9/integrations/providers/postal-effect-adapter.mjs',
+    find: "    if (!Array.isArray(matches) || matches.length === 0) return evidence({ businessKey, lifecycle: 'UNCERTAIN', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'zero-webhook-matches-not-proof-of-non-submission', tag: identity.tag } });",
+    replace: "    if (!Array.isArray(matches) || matches.length === 0) return evidence({ businessKey, lifecycle: 'RECONCILED_NOT_SUBMITTED', acquisitionMethod: 'postal-effect-adapter:webhook-ledger', observedAt, detail: { reason: 'zero-webhook-matches', tag: identity.tag } });",
+    suites: ['tests/postal-effect-adapter.test.mjs', 'tests/postal-ragnarok-hardening.test.mjs']
   }
 ];
 

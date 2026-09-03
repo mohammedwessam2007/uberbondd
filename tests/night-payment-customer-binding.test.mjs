@@ -11,7 +11,11 @@ const baseTruth = {
   policyVersion:'payment-renewal-truth-1.6.0',
   leadId:'lead-customer-1',
   status:'PROVIDER_CLEARED_PAYMENT_PROVEN',
-  stages:{ CLEARED_PAYMENT:{ status:'PROVEN' }, PAYMENT_RETAINED:{ status:'PROVEN' } },
+  stages:{
+    CLEARED_PAYMENT:{ status:'PROVEN', evidenceRef:'payment:order_created:evt-450' },
+    PAYMENT_RETAINED:{ status:'PROVEN' }
+  },
+  verifiedFirstPaymentProduct:'lead-path-revenue-leak-evidence-sprint-usd-450',
   verifiedProviderEventRefs:['order_created:evt-450'],
   contradictions:[],
   economics:{
@@ -27,6 +31,7 @@ const baseTruth = {
     leadPaidBoolean:'NOT_PAYMENT_PROOF',
     revenueEventRow:'NOT_PAYMENT_PROOF_ALONE',
     clearedPayment:'SIGNED_PROVIDER_CALLBACK_PLUS_CLEARED_CLASSIFICATION_PLUS_LEDGER_MATCH',
+    paymentProduct:'THREE_WITNESS_PRODUCT_MATCH',
     customerAcceptance:'NOT_PROVEN',
     renewal:'NOT_PROVEN',
     retainedRevenue:'PROVIDER_CLEARED_AND_NOT_REVERSED'

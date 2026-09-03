@@ -13,7 +13,9 @@ import { classifyFounderAbsenceBlockers } from '../src/founder-absence-blocker-d
 import {
   buildFirstCashCanaryPacket,
   canaryDecision,
-  CURRENT_CHAMPION_OFFER
+  CURRENT_CHAMPION_OFFER,
+  DEFAULT_FIRST_CASH_PAYMENT_LINK,
+  PAYMENT_LINK_TRUTH_BOUNDARY
 } from '../src/first-cash-canary-packet.mjs';
 import { evaluateFirstCashCanary } from '../src/first-cash-canary-guard.mjs';
 import { LEAD_PATH_SPRINT_SKU } from '../src/lead-path-sprint-fulfillment.mjs';
@@ -161,7 +163,7 @@ test('founder absence doctor distinguishes software readiness from external and 
   assert.equal(proven.overall, 'CODE_READY');
 });
 
-test('first-cash packet is bound to canonical Lead-Path name and SKU and stays authority-free', () => {
+test('first-cash packet is bound to canonical Lead-Path name, SKU and owner PayPal.me without promoting link to payment truth', () => {
   const packet = buildFirstCashCanaryPacket({
     gates: {
       jurisdictionApproved: true,
@@ -177,6 +179,13 @@ test('first-cash packet is bound to canonical Lead-Path name and SKU and stays a
   assert.equal(CURRENT_CHAMPION_OFFER, 'White-label Lead-Path Revenue Leak Evidence Sprint');
   assert.equal(packet.offer, CURRENT_CHAMPION_OFFER);
   assert.equal(packet.sku, LEAD_PATH_SPRINT_SKU);
+  assert.equal(packet.paymentLink, DEFAULT_FIRST_CASH_PAYMENT_LINK);
+  assert.equal(packet.paymentLink, 'https://paypal.me/Sarawessam');
+  assert.equal(packet.paymentLinkEvidenceClass, 'OWNER_SUPPLIED_PUBLIC_PAYPAL_ME_LINK');
+  assert.equal(packet.paymentTruthBoundary, PAYMENT_LINK_TRUTH_BOUNDARY);
+  const paymentQuestion = packet.questions.find(row => row.question === 'WHAT PAYMENT LINK?');
+  assert.equal(paymentQuestion.status, 'PREPARED');
+  assert.equal(paymentQuestion.evidenceClass, 'OWNER_SUPPLIED_PUBLIC_PAYPAL_ME_LINK');
   assert.equal(packet.canContact, false);
   assert.equal(packet.canaryDecision, 'KILL_OR_RETHINK');
   assert.equal(packet.businessEffectAuthority, 'NONE');
@@ -186,6 +195,15 @@ test('first-cash packet is bound to canonical Lead-Path name and SKU and stays a
     acceptedPaidDeliveries: 0,
     retainedCustomers: 0
   });
+});
+
+test('first-cash packet refuses non-HTTPS payment links', () => {
+  const packet = buildFirstCashCanaryPacket({ paymentLink: 'http://example.com/pay' });
+  assert.equal(packet.paymentLink, null);
+  assert.equal(packet.paymentLinkEvidenceClass, 'PAYMENT_LINK_NOT_CONFIGURED');
+  const paymentQuestion = packet.questions.find(row => row.question === 'WHAT PAYMENT LINK?');
+  assert.equal(paymentQuestion.status, 'BLOCKED');
+  assert.ok(paymentQuestion.reasonCodes.includes('valid-https-payment-link-required'));
 });
 
 test('canonical first-cash guard closes exactly at the fifth qualified conversation without a paid pilot', () => {

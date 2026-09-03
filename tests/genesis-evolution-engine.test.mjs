@@ -8,13 +8,13 @@ import {
   buildFounderFreedomDerivative,
   buildFutureOptionPortfolio,
   buildGenesisEvolutionCycle,
-  buildGenesisImplementationLedger,
   buildImpossibleTaskLedger,
   buildRedQueenEvaluatorTournament,
   buildSurpriseScore,
   detectWorldDiscontinuity,
   scoreCapabilityMultiplication
 } from '../src/genesis-evolution-engine.mjs';
+import { buildGenesisEvidenceLedger, GENESIS_IMPLEMENTATION_EVIDENCE } from '../src/genesis-implementation-evidence.mjs';
 
 const canonUrl = new URL('../docs/PERPETUAL_FRONTIER_GENESIS_CANON.md', import.meta.url);
 
@@ -125,25 +125,30 @@ test('full GENESIS evolution cycle composes the real search population without b
   assert.equal(result.status, 'GENESIS_EVOLUTION_CYCLE_READY');
   assert.ok(result.serendipity.hypotheses.length > 0);
   assert.equal(result.impossible.revalidationQueue.length, 1);
-  assert.ok(result.implementedIdeaIds.includes(2));
-  assert.ok(result.implementedIdeaIds.includes(175));
   assert.equal(result.businessEffectAuthority, 'NONE');
   assert.match(result.executionRule, /EXTERNAL_PROOF_GATES/);
 });
 
-test('275-item implementation ledger distinguishes source/test presence from runtime proof', async () => {
+test('275-item evidence ledger keeps canon-only ideas distinct and binds every implemented claim to exact paths', async () => {
   const markdown = await readFile(canonUrl, 'utf8');
-  const result = buildGenesisImplementationLedger({
-    canonicalMarkdown: markdown,
-    sourcePaths: ['src/genesis-evolution-engine.mjs'],
-    testPaths: ['tests/genesis-evolution-engine.test.mjs'],
-    runtimeReceiptPaths: []
-  });
+  const availablePaths = [...new Set(Object.values(GENESIS_IMPLEMENTATION_EVIDENCE).flatMap(evidence => [...evidence.sources, ...evidence.tests]))];
+  const result = buildGenesisEvidenceLedger({ canonicalMarkdown: markdown, availablePaths, observedRuntimeReceipts: [] });
   assert.equal(result.ok, true);
   assert.equal(result.ideaCount, 275);
-  assert.equal(result.counts.RUNTIME_RECEIPT_PRESENT || 0, 0);
-  assert.ok((result.counts.SOURCE_AND_TEST_PRESENT || 0) >= 20);
+  assert.equal(result.implementedOrPartialCount, 17);
+  assert.equal(result.canonOnlyCount, 258);
+  assert.equal(result.counts.OBSERVED_INTERNAL_RUNTIME_RECEIPT || 0, 0);
   assert.equal(result.entries.find(item => item.id === 2).status, 'SOURCE_AND_TEST_PRESENT');
+  assert.equal(result.entries.find(item => item.id === 2).maturity, 'IMPLEMENTED_PRIMITIVE');
+  assert.equal(result.entries.find(item => item.id === 103).maturity, 'PARTIAL_PRIMITIVE');
   assert.equal(result.entries.find(item => item.id === 275).status, 'CANON_ONLY');
-  assert.match(result.truthBoundary, /NOT_TEST_PASS_OR_RUNTIME_SUCCESS/);
+  assert.match(result.truthBoundary, /CANON_ONLY_MUST_NOT_BE_CALLED_IMPLEMENTED/);
+});
+
+test('evidence ledger fails closed when a declared source or test path is absent', async () => {
+  const markdown = await readFile(canonUrl, 'utf8');
+  const result = buildGenesisEvidenceLedger({ canonicalMarkdown: markdown, availablePaths: [], observedRuntimeReceipts: [] });
+  assert.equal(result.ok, true);
+  assert.equal(result.entries.find(item => item.id === 2).status, 'DECLARED_EVIDENCE_MISSING');
+  assert.ok(result.entries.find(item => item.id === 2).missingPaths.includes('src/genesis-evolution-engine.mjs'));
 });

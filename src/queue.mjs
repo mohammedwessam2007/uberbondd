@@ -5,6 +5,15 @@ import { ConflictError } from './store.mjs';
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+function uncertainTimeoutError(maxRuntimeMs) {
+  const error = new Error(`Job exceeded ${maxRuntimeMs}ms runtime limit; execution outcome is uncertain and automatic retry is blocked`);
+  error.name = 'JobRuntimeTimeoutError';
+  error.code = 'JOB_RUNTIME_TIMEOUT_UNCERTAIN';
+  error.retryable = false;
+  error.uncertainExecution = true;
+  return error;
+}
+
 export class DurableQueue {
   constructor(store, cfg, log = console) {
     this.store = store;
@@ -86,7 +95,7 @@ export class DurableQueue {
   async runJob(job, handlers) {
     const handler = handlers[job.type] || handlers[job.queue];
     if (!handler) {
-      await this.store.failJob(job.id, new Error(`No handler registered for ${job.type}`), { maxAttempts: 1, baseDelayMs: 1000 });
+      await this.store.failJobIfOwned(job.id, this.workerId, new Error(`No handler registered for ${job.type}`), { maxAttempts: 1, baseDelayMs: 1000 });
       return;
     }
     this.active += 1;
@@ -95,35 +104,60 @@ export class DurableQueue {
       this.store.heartbeatJob(job.id, this.workerId).catch(error => this.log.error('job heartbeat failed', error));
     }, heartbeatEvery);
     heartbeat.unref?.();
+    const abortController = new AbortController();
     try {
       const maxRuntimeMs = Math.max(1000, Number(this.cfg.queue.maxRuntimeMs || 900000));
       let runtimeTimer;
       try {
         const timeoutPromise = new Promise((_, reject) => {
-          runtimeTimer = setTimeout(() => reject(new Error(`Job exceeded ${maxRuntimeMs}ms runtime limit`)), maxRuntimeMs);
+          runtimeTimer = setTimeout(() => {
+            abortController.abort(new Error('queue-runtime-timeout'));
+            reject(uncertainTimeoutError(maxRuntimeMs));
+          }, maxRuntimeMs);
           runtimeTimer.unref?.();
         });
         const result = await Promise.race([
-          Promise.resolve(handler(job.payload || {}, job)),
+          Promise.resolve(handler(job.payload || {}, job, {
+            signal: abortController.signal,
+            workerId: this.workerId,
+            leaseOwned: async () => Boolean(await this.store.heartbeatJob(job.id, this.workerId))
+          })),
           timeoutPromise
         ]);
-        await this.store.completeJob(job.id, result ?? {});
+        const completed = await this.store.completeJobIfOwned(job.id, this.workerId, result ?? {});
+        if (!completed) {
+          await this.store.log('queue_job_lease_lost_before_completion', {
+            jobId: job.id, type: job.type, workerId: this.workerId, attempts: job.attempts
+          });
+          return;
+        }
       } finally {
         if (runtimeTimer) clearTimeout(runtimeTimer);
       }
       await this.store.log('queue_job_completed', { jobId: job.id, type: job.type, workerId: this.workerId, attempts: job.attempts });
     } catch (error) {
-      const failed = await this.store.failJob(job.id, error, {
+      const failed = await this.store.failJobIfOwned(job.id, this.workerId, error, {
         baseDelayMs: this.cfg.queue.retryBaseMs,
         maxDelayMs: this.cfg.queue.retryMaxMs,
         maxAttempts: error?.retryable === false ? 1 : job.maxAttempts
       });
-      await this.store.log(failed?.status === 'dead-letter' ? 'queue_job_dead_lettered' : 'queue_job_retry_scheduled', {
+      if (!failed) {
+        await this.store.log('queue_job_lease_lost_before_failure', {
+          jobId: job.id, type: job.type, workerId: this.workerId, attempts: job.attempts,
+          error: String(error?.message || error).slice(0, 1000),
+          uncertainExecution: Boolean(error?.uncertainExecution)
+        });
+        this.log.error(`Queue job ${job.type} ${job.id} lost lease before failure could be recorded`, error);
+        return;
+      }
+      await this.store.log(failed.status === 'dead-letter' ? 'queue_job_dead_lettered' : 'queue_job_retry_scheduled', {
         jobId: job.id, type: job.type, workerId: this.workerId, attempts: job.attempts,
-        error: String(error?.message || error).slice(0, 1000), nextRunAt: failed?.runAt || null
+        error: String(error?.message || error).slice(0, 1000), nextRunAt: failed.runAt || null,
+        uncertainExecution: Boolean(error?.uncertainExecution), errorCode: error?.code || null
       });
       this.log.error(`Queue job ${job.type} ${job.id} failed`, error);
     } finally {
+      abortController.abort(new Error('queue-job-finished'));
       clearInterval(heartbeat);
       this.active -= 1;
     }

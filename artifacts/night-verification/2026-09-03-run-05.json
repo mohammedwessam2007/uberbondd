@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "uberbond-night-verification-receipt-1.1.0",
+  "recordedAt": "2026-09-03T06:10:00Z",
+  "branch": "work/night-verification-20260903",
+  "liveMainSha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "successorIntegration": {
+    "pr": 331,
+    "headAtRefresh": "40e25ff90db6b2e0bcf1d780dfefae9e9fe02ff1",
+    "mergedIntoVerification": true
+  },
+  "sourceHead": "ae397cd3933a770deaf9fa83c2888d36f77ab119",
+  "peerHeads": {
+    "frontierPr334": "61d921a0f2ea9b499bba429954c8858f3f966cd5",
+    "runtimePr335": "153203e43bbadbd73f00c084ca4e2ec493300d29",
+    "paymentDistributionPr332": "1cca3ee35321e5eb5b286d77371b0abbfde9dfb9",
+    "payment20260902": "998b137aa1b35460d07d9064ea101c0bbe8da1ec",
+    "postal20260902": "417fcec2f0b144c65ddf7b76cf9cad4c267f574b",
+    "genome20260902": "4e90710266b4b06f38db3d74d34429ea8acdfe97"
+  },
+  "verificationChanges": {
+    "productFilesModified": 0,
+    "verificationFilesModified": 2,
+    "testsAdded": 1,
+    "mutationInventoryBefore": 14,
+    "mutationInventoryAfter": 14,
+    "newMutationIds": [],
+    "causalityHardeningImportedFromIntegration": true,
+    "directImportEvidenceHardened": true,
+    "hostileDecoyImportTestAdded": true,
+    "staleBaseReconciled": true
+  },
+  "defects": [
+    {
+      "id": "VERIFY-P1-DECOY-IMPORT-EVIDENCE",
+      "severity": "P1",
+      "claim": "A killing suite directly imports the mutated module",
+      "before": "V3 accepted suite.includes(modulePath), so a comment or inert string could satisfy reachability registration.",
+      "fix": "Registration now requires static, bare, or dynamic import syntax for the exact module path; hostile comment and inert-string decoys are rejected.",
+      "status": "FIXED_SOURCE_UNEXECUTED"
+    },
+    {
+      "id": "VERIFY-P1-STALE-SUCCESSOR-BASE",
+      "severity": "P1",
+      "claim": "PR333 verifies the current successor integration head",
+      "before": "PR333 was based on integration 3c11b699 while PR331 advanced through 990cda11 and receipt head 40e25ff9, producing a non-mergeable stale verification branch.",
+      "fix": "Imported the successor mutation-causality blob, created a true merge parent at 990cda11, then merged the receipt-only 40e25ff9 head without overwriting peer source.",
+      "status": "FIXED"
+    }
+  ],
+  "importantClaims": [
+    {
+      "claim": "PR333 is reconciled with current PR331 successor head",
+      "verdict": "PASS",
+      "basis": "Verification ancestry now includes 40e25ff90db6b2e0bcf1d780dfefae9e9fe02ff1 and PR333 returned mergeable after the source merge."
+    },
+    {
+      "claim": "Mutation registration cannot be satisfied by comment/string module-path decoys",
+      "verdict": "PASS_SOURCE_INSPECTION_UNEXECUTED",
+      "basis": "suiteLoadsModule requires import syntax and a hostile decoy test is committed; exact-head runtime execution has not occurred."
+    },
+    {
+      "claim": "All 14 Frontier/Open-Model mutations are killed",
+      "verdict": "DISPUTE",
+      "basis": "No trustworthy exact-head execution exists."
+    },
+    {
+      "claim": "Current exact source head is CI-green",
+      "verdict": "INFRASTRUCTURE_NON_EVIDENCE",
+      "basis": "The closest exact merged source head 0c850617 produced CI jobs browser/postgres/deterministic with steps=null; later source heads have no workflow run yet."
+    },
+    {
+      "claim": "Absent provider model identity is fail-closed",
+      "verdict": "PASS_SOURCE_INSPECTION_UNEXECUTED",
+      "basis": "The verification branch contains the fail-closed OPENMODEL-07 target and hostile test, but named assertions have not executed in a trustworthy runtime."
+    },
+    {
+      "claim": "Commercial/customer truth advanced",
+      "verdict": "FAIL",
+      "basis": "Commercial truth remains zero; no research, model, payment-link, or verification evidence is accepted as customer/payment/delivery/retention proof."
+    }
+  ],
+  "executionEvidence": {
+    "closestExactMergedHeadWithCi": "0c8506179fe219ef444db601f8beb3a2ef42b3f0",
+    "workflowRunsObserved": 1,
+    "jobsObserved": 3,
+    "jobsWithExecutedSteps": 0,
+    "sourcePasses": 0,
+    "sourceFailures": 0,
+    "sourceSkips": 0,
+    "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+    "currentSourceHeadWorkflowRuns": 0
+  },
+  "mutationAccounting": {
+    "registered": 14,
+    "killed": 0,
+    "survived": 0,
+    "invalid": 0,
+    "unexecuted": 14,
+    "rule": "No mutant counts KILLED without a green baseline, one applied parseable intended mutation, execution of the exact named test, and causal named-test failure."
+  },
+  "residual": {
+    "P0": [],
+    "P1": [
+      "Execute all 14 strict mutations on the exact current source head with named-test causal evidence.",
+      "Execute the absent-provider-model-identity hostile test and OPENMODEL-07 in a trustworthy Node runtime.",
+      "Execute the new decoy-import registrar hostile test so source-inspection PASS becomes executable PASS."
+    ],
+    "P2": [
+      "Obtain syntax/full deterministic/relay/reachability/browser/real-Postgres evidence on settled exact head.",
+      "Adjudicate PR334 Frontier proof and PR335 runtime lease/reconciliation heads at their exact SHAs without overwriting them.",
+      "Regenerate canon/readiness only after final source truth and executable proof settle.",
+      "Run genuine elapsed-time/provider canaries when environment and authority permit."
+    ]
+  },
+  "zeroEffectLedger": {
+    "customerContacts": 0,
+    "messagesSent": 0,
+    "providerCalls": 0,
+    "deployments": 0,
+    "moneyMovedUsd": 0,
+    "paymentStateMutations": 0,
+    "customerStateMutations": 0,
+    "credentialChanges": 0,
+    "authorityWidening": 0,
+    "peerProductFilesModified": 0
+  },
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "nextFalsificationTarget": "Run the exact current verification source in a trustworthy Node environment, first requiring the registrar hostile decoy test and absent-identity baseline to pass, then require OPENMODEL-07 and each of the 13 V3 mutations to fail only their intended named invariant before counting any KILLED."
+}

@@ -10,14 +10,16 @@ Before proposing or changing UberBond:
 2. Read `UBERBOND_CANON.md`.
 3. Read `UBERBOND_BOOTSTRAP.json`.
 4. Read `docs/UBERBOND_TOTAL_BRAIN.md` and `artifacts/uberbond-total-brain.json` **before narrowing UberBond to the current handoff or latest implementation wave**. These are the no-amputation superset memory: they preserve current, draft/branch, historical-donor, research-asset, chat-spec/goal, externally blocked, superseded-truth and unresolved context without promoting it into present-tense proof.
-5. Read `docs/UBERBOND_MASTER_MEMORY.md` and `artifacts/uberbond-memory-index.json` **before narrowing the project to the current handoff**. The master memory preserves the final goal, named-program lineage, portfolio breadth, recurring/platform ladders, historical contradictions, and unresolved owner-recalled names.
-6. Read **every path** listed in the bootstrap `canonPointers` array.
-7. Read `docs/CURRENT_HANDOFF.json` again when resuming unfinished work. A short-term handoff must never erase the long-horizon memory.
-8. Read `docs/CURRENT_SYSTEM_STATE.md` and `artifacts/system-readiness.json` when readiness matters.
-9. For distribution work, read `docs/DISTRIBUTION_OS_CANON.md` and `docs/DISTRIBUTION_VENDOR_MAP.md`.
-10. Inspect open/recent PRs and shared branches before coding so concurrent work is deduped.
-11. Search Total Brain, `namedInitiatives`, lineage/reconciliation artifacts and unresolved names before concluding that an older program, feature, offer family, architecture, Singularity, Kilimanjaro/Ragnarok/Night mission, crawler, idea generator, clone/cannibal mechanism or model capability never existed.
-12. Prefer current repository truth over chat recollection, historical ZIPs, screenshots, generated plans, or stale issue text. Historical/superset memory prevents forgetting; it never overrides current code, exact-head receipts, or durable external evidence.
+5. Read `docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`, `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`, and `artifacts/perpetual-frontier-genesis.json`. These preserve the Perpetual Frontier, Artificial Imagination, Opportunity Shockwave/Resurrection, GENESIS/GENESIS²/ONTOGENESIS, founder-freedom doctrine and the complete 275-idea open-ended search-space registry. The registry is a goal/search-space inventory, not a claim that every idea is implemented or externally proven.
+6. Read `docs/UBERBOND_MASTER_MEMORY.md` and `artifacts/uberbond-memory-index.json` **before narrowing the project to the current handoff**. The master memory preserves the final goal, named-program lineage, portfolio breadth, recurring/platform ladders, historical contradictions, and unresolved owner-recalled names.
+7. Read **every path** listed in the bootstrap `canonPointers` array.
+8. Run/read `npm run genesis:doctor` in a real repository host before relying on the Perpetual Frontier registry or GENESIS execution foundation. Registry health is internal evidence only.
+9. Read `docs/CURRENT_HANDOFF.json` again when resuming unfinished work. A short-term handoff must never erase the long-horizon memory.
+10. Read `docs/CURRENT_SYSTEM_STATE.md` and `artifacts/system-readiness.json` when readiness matters.
+11. For distribution work, read `docs/DISTRIBUTION_OS_CANON.md` and `docs/DISTRIBUTION_VENDOR_MAP.md`.
+12. Inspect open/recent PRs and shared branches before coding so concurrent work is deduped.
+13. Search Total Brain, all overlays, Perpetual Frontier/GENESIS, `namedInitiatives`, lineage/reconciliation artifacts and unresolved names before concluding that an older program, feature, offer family, architecture, Singularity, Kilimanjaro/Ragnarok/Night mission, crawler, idea generator, clone/cannibal mechanism or model capability never existed.
+14. Prefer current repository truth over chat recollection, historical ZIPs, screenshots, generated plans, or stale issue text. Historical/superset memory prevents forgetting; it never overrides current code, exact-head receipts, or durable external evidence.
 
 If the owner says `continue`, `go`, or starts a fresh UberBond chat, resume from those durable artifacts. Do not ask the owner to retell the project merely because prior conversation context is unavailable.
 
@@ -32,10 +34,11 @@ UberBond is the accumulated organism, not the newest offer, PR, branch, model or
 - Research breadth remains a `RESEARCH_ASSET`, not customers/revenue.
 - External/account/customer/payment/legal/time blockers remain explicit rather than being hidden by more architecture.
 - When a materially useful old or new source is recovered, digest it into repository-native Total Brain/memory with provenance, truth class, contradictions and supersession links.
+- The 275 Perpetual Frontier ideas are a durable search-space floor, not a ceiling; GENESIS/GENESIS²/ONTOGENESIS exist to create idea 276+ and new categories without requiring a static 2026 ontology.
 
 ## Objective
 
-Optimize **risk-adjusted cleared contribution profit per founder minute** while moving toward a founder-light, globally distributed, cloud-runnable economic operating system.
+Optimize **risk-adjusted cleared contribution profit per founder minute** while moving toward a founder-light, globally distributed, cloud-runnable economic operating system that can continuously assimilate future technology, invent new opportunity/business/institution forms, improve its own search/evaluation/ontology mechanisms, and preserve founder freedom.
 
 Do not optimize code volume, agent count, send volume, impressions, lead count, vanity dashboards, architecture complexity, historical corpus size, synthetic test-count scale, or synthetic revenue.
 
@@ -43,15 +46,25 @@ Do not optimize code volume, agent count, send volume, impressions, lead count, 
 
 UberBond is not the latest active offer. It is a multi-offer operating system with a large historical opportunity/offer universe. Exactly one active commercial experiment may be a good capital-allocation rule without redefining the company into one service.
 
-Do not mistake historical counts such as opportunity IDs, offer rows, combinations, company rows, partner rows, or generated OMNIA spaces for current customers, active SKUs, revenue, or capability maturity.
+Do not mistake historical counts such as opportunity IDs, offer rows, combinations, company rows, partner rows, generated OMNIA spaces or the 275 Perpetual Frontier ideas for current customers, active SKUs, revenue, or capability maturity.
+
+Dormant/rejected opportunities should preserve explicit blockers and resurrection conditions where useful. A changed blocker creates a revalidation candidate, not proof that the business is viable.
+
+## Perpetual Frontier law
+
+UberBond must seek the earliest lawful public signals of emerging capability, extract the actual changed primitive, minimize frontier latency, propagate material changes through Capability Genome and the opportunity universe, challenge current architectures through N+1/Anti-UberBond mechanisms, preserve evaluator/adversary evolution, and translate newly possible capabilities into bounded economic hypotheses.
+
+A frontier signal is not proof. Simulation is not demand. A model release is not permission. Capability never creates authority.
+
+Artificial Imagination may generate distant, low-similarity and counterfactual hypotheses internally. Wild imagination and disciplined real-world execution are separate stages.
 
 ## Truth and authority
 
-Capability never creates authority. Internal code, model output, tests, documents, simulations, vendor claims, opens, clicks, CRM observations, historical research counts, or remembered chat text cannot manufacture customer acceptance, cleared payment, legal clearance, provider state, market success, renewal, or founder-absence duration.
+Capability never creates authority. Internal code, model output, tests, documents, simulations, vendor claims, opens, clicks, CRM observations, historical research counts, remembered chat text, generated opportunities, frontier signals or synthetic worlds cannot manufacture customer acceptance, cleared payment, legal clearance, provider state, market success, renewal, or founder-absence duration.
 
 Unknown remains unknown. Contradictions are preserved.
 
-Without explicit consequence authority, do not perform customer messages/calls, provider/model calls, spend/purchases, public publishing, deployments, DNS/credential changes, KYC/payment-account changes, money movement, or production/customer mutations.
+Without explicit consequence authority, do not perform customer messages/calls, provider/model calls, spend/purchases, public publishing, deployments, DNS/credential changes, KYC/payment-account changes, money movement, physical-device actions, or production/customer mutations.
 
 Do not infer private contact information, bypass CAPTCHA/platform controls, evade provider policy, or weaken suppression/consent/safety gates.
 
@@ -67,6 +80,7 @@ Do not infer private contact information, bypass CAPTCHA/platform controls, evad
 - Run syntax plus focused hostile tests and broader trustworthy gates when available.
 - Distinguish source failure from CI/infrastructure failure.
 - Merge only when evidence is appropriate for the exact head.
+- Self-improvement must remain proof-carrying, bounded, reversible where possible, and unable to widen consequence authority by itself.
 
 ## Distribution law
 

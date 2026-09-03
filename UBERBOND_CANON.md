@@ -1,10 +1,10 @@
 # UberBond Canon
 
-This file is the durable cross-chat bootstrap for UberBond. A new ChatGPT/Claude session must read this file, `docs/UBERBOND_TOTAL_BRAIN.md`, `artifacts/uberbond-total-brain.json`, `docs/CURRENT_SYSTEM_STATE.md`, `artifacts/system-readiness.json`, current `main`, open/draft/recent PRs/issues, and recent merged PRs before proposing or executing work.
+This file is the durable cross-chat bootstrap for UberBond. A new ChatGPT/Claude session must read this file, `docs/UBERBOND_TOTAL_BRAIN.md`, `artifacts/uberbond-total-brain.json`, `docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`, `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`, `artifacts/perpetual-frontier-genesis.json`, `docs/CURRENT_SYSTEM_STATE.md`, `artifacts/system-readiness.json`, current `main`, open/draft/recent PRs/issues, and recent merged PRs before proposing or executing work.
 
 ## Constitutional objective
 
-Build a private, evidence-first economic operating system that lawfully discovers opportunities, understands and recombines their economic mechanisms, registers viable opportunities, assembles/acquires shared capabilities, routes work across deterministic software and replaceable local/cloud intelligence suppliers, runs bounded experiments, creates offers and distribution, prepares delivery, tracks cleared payment/acceptance/retention, learns from verified outcomes, continuously upgrades itself, and minimizes founder work.
+Build a private, evidence-first economic operating system that lawfully discovers opportunities, understands and recombines their economic mechanisms, registers viable opportunities, assembles/acquires shared capabilities, routes work across deterministic software and replaceable local/cloud intelligence suppliers, runs bounded experiments, creates offers and distribution, prepares delivery, tracks cleared payment/acceptance/retention, learns from verified outcomes, continuously upgrades itself, minimizes founder work, and remains capable of evolving its own sensors, search methods, evaluators, ontologies, institutions and architectures as technology and the world change.
 
 Optimize **risk-adjusted cleared contribution profit per founder minute**. Do not optimize code volume, agent count, impressions, messages, leads, architecture complexity, skill/model count, historical corpus size, synthetic test-count scale, or synthetic revenue.
 
@@ -20,11 +20,11 @@ The second line constrains the first. Capability never creates authority.
 
 ## No-amputation continuity law
 
-`docs/UBERBOND_TOTAL_BRAIN.md` and `artifacts/uberbond-total-brain.json` are the long-horizon **superset memory**. They preserve the entire accumulated UberBond organism across live current capability, draft/branch work, historical donors, chat-only specs/goals, research assets, external blockers, superseded truth and unresolved names.
+`docs/UBERBOND_TOTAL_BRAIN.md` and `artifacts/uberbond-total-brain.json` are the long-horizon **superset memory**. `docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`, `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`, and `artifacts/perpetual-frontier-genesis.json` extend that superset with the Perpetual Frontier / GENESIS doctrine and the complete 275-idea open-ended search-space registry. They preserve the entire accumulated UberBond organism across live current capability, draft/branch work, historical donors, chat-only specs/goals, research assets, external blockers, superseded truth and unresolved names.
 
 A newer mission does not erase an older mission. A superseded implementation may be removed, but its unique goal, mechanism, constraint, experiment, failure lesson, opportunity asset or capability donation must remain discoverable until deliberately reconciled.
 
-Silence is not deletion. Before saying a feature/program never existed, search Total Brain, Master Memory, memory reconciliation, historical lineage, open/draft/closed/merged PRs, branches/issues, imported chat/artifact sources and relevant code/docs.
+Silence is not deletion. Before saying a feature/program never existed, search Total Brain, all Total Brain overlays, Perpetual Frontier/GENESIS, Master Memory, memory reconciliation, historical lineage, open/draft/closed/merged PRs, branches/issues, imported chat/artifact sources and relevant code/docs.
 
 Current repository/external truth always outranks superset memory for present-tense claims.
 
@@ -36,7 +36,7 @@ Every fresh session must:
 
 1. refresh `main` and never assume an old SHA;
 2. inspect open/draft/recent/merged PRs and shared branches before coding;
-3. read this canon plus Total Brain before narrowing to the current handoff;
+3. read this canon plus Total Brain and its overlays before narrowing to the current handoff;
 4. read current system/readiness truth;
 5. reconcile the requested mission against already-merged capability before adding code;
 6. preserve unresolved external gates rather than inventing completion;
@@ -57,6 +57,28 @@ UberBond should behave as one machine rather than a pile of SaaS clones. Externa
 - Invisible Money Plumbing / money-flow and under-publicized spend research;
 - explicit external-proof router when code cannot establish market/customer/provider truth;
 - continuous Gamechanger sensing for model/runtime/software/protocol/distribution/payment/pricing/policy/security/research/vertical/business-model shifts.
+
+### Perpetual Frontier / Artificial Imagination / GENESIS
+
+UberBond is not a static autonomous company or a frozen 2026 technology stack. The canonical frontier doctrine is defined in `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`.
+
+Permanent requirements include:
+- minimize frontier latency from first lawful public signal through understanding, normalization, verification, sandboxing and economically useful capture;
+- extract newly available primitives rather than merely summarize releases;
+- propagate material capability changes through the full opportunity universe as capability and opportunity shockwaves;
+- preserve dormant/rejected opportunities with explicit blockers and resurrection conditions;
+- allocate bounded compute to artificial imagination, distant mechanism recombination, counterfactual worlds and low-similarity hypotheses;
+- maintain N+1 and Anti-UberBond challengers trying to make current architectures obsolete;
+- evolve generators, evaluators, falsifiers and adversaries rather than optimizing forever against a frozen test;
+- evolve sensors, memory, reasoning strategies, search algorithms, ontologies, organizations, institutions and self-improvement methods where evidence supports improvement;
+- maintain competing theories of reality and design observations/experiments capable of distinguishing them;
+- translate scientific/technical advances into provider-neutral capability primitives and bounded economic hypotheses;
+- preserve GENESIS, GENESIS² and ONTOGENESIS so today's 275-idea registry is a seed rather than a ceiling;
+- keep models, providers, protocols, languages and even today's definition of UberBond replaceable.
+
+The 275 ideas are durable `CHAT_SPEC_GOAL` / search-space memory. Their presence in canon is not evidence that all 275 are implemented, viable, safe, profitable or externally proven.
+
+The first executable layer, `src/perpetual-frontier-genesis.mjs`, is proposal-only and zero-business-effect. It validates the registry, compiles frontier shockwave plans, identifies dormant opportunities whose explicit blockers may warrant revalidation, builds unknown-unknown/anomaly agendas and accounts for frontier latency. It cannot self-promote a capability, contact customers, spend, deploy, move money, mutate credentials, operate physical devices or manufacture external proof.
 
 ### Distribution OS
 UberBond should provide a provider-neutral distribution control plane over existing acquisition, enrichment, outbound, CRM, inbound, booking, delivery and learning modules. Desired capability families include:
@@ -128,7 +150,8 @@ Preserve the OMNIA V1 -> X10 -> X100 -> X1M -> X8M -> X64M -> X512M -> V9 lineag
 - beginner-friendly surfaces where owner action is unavoidable;
 - at most a small, exact owner-action queue with time/cost/evidence/default;
 - alerts/escalation only for meaningful exceptions;
-- founder-absence readiness proven by observed durable operation, never asserted from architecture.
+- founder-absence readiness proven by observed durable operation, never asserted from architecture;
+- long-horizon portfolio allocation should increase founder time sovereignty, geographic freedom, financial independence, artistic/intellectual freedom and reversible optionality rather than maximize money by turning the founder into a permanent operator.
 
 ## Named-program lineage is part of canon memory
 
@@ -145,7 +168,8 @@ At minimum keep discoverable:
 - Prometheus / World Brain / Cognitive Bus / Business Genome / Commercial Genome / Opportunity Factory / Mechanism Lab / Event Horizon / Invisible Money Plumbing / AI Money Hunt;
 - World Distribution OS / Lead OS / Instantly-style outbound / Distribution Control Plane / Postal / Proposal Acceptance;
 - Offline Revenue Factory / Demand Recovery Assurance;
-- Automation Capability Acquisition Frontier / Capability Genome / SaaS Cannibal / Frontier Company OS / Frontier Engine / Frontier Operator / Autonomous Frontier Intelligence / Gamechanger Mesh / Open Model Universe / Wallbreaker / Mutation War / AEGIS-JARVIS / Elite Duo / Fable.
+- Automation Capability Acquisition Frontier / Capability Genome / SaaS Cannibal / Frontier Company OS / Frontier Engine / Frontier Operator / Autonomous Frontier Intelligence / Gamechanger Mesh / Open Model Universe / Wallbreaker / Mutation War / AEGIS-JARVIS / Elite Duo / Fable;
+- Perpetual Frontier / Artificial Imagination / Zero-Day Frontier Radar / Future Primitive Extractor / Opportunity Shockwave / Resurrection Engine / Anti-UberBond / N+1 / Red Queen Evaluators / GENESIS / GENESIS² / ONTOGENESIS and the 275-idea frontier registry.
 
 This list is a floor. Future source-backed names are appended rather than forced into an existing label.
 
@@ -185,9 +209,11 @@ Unknown remains unknown. Contradictions are preserved. No customer/revenue/ROI c
 
 Without explicit owner authorization, do not perform customer messages/outbound, provider/model calls, spend/purchases, deployments, DNS/credential changes, KYC/payment-account changes, or production/customer mutations. Tests use fakes/stubs and exact zero-effect ledgers.
 
+Perpetual Frontier discovery and GENESIS intelligence never create consequence authority merely because a new capability appears promising.
+
 ## Current commercial truth boundary
 
-Architecture and readiness are not revenue. Unless current canonical receipts prove otherwise, do not infer verified customers, cleared revenue, accepted deliveries or retained customers from code, screenshots, vendor claims, research catalogs, payment links, sandbox events, model output, generated opportunities or simulations.
+Architecture and readiness are not revenue. Unless current canonical receipts prove otherwise, do not infer verified customers, cleared revenue, accepted deliveries or retained customers from code, screenshots, vendor claims, research catalogs, payment links, sandbox events, model output, generated opportunities, frontier signals or simulations.
 
 ## Engineering closure law
 
@@ -206,6 +232,6 @@ Before declaring an internal increment complete:
 
 When a user says `continue`, `go`, or starts a new UberBond chat, interpret it as:
 
-> Refresh live `main`; read `AGENTS.md`, `UBERBOND_CANON.md`, `UBERBOND_BOOTSTRAP.json`, `docs/UBERBOND_TOTAL_BRAIN.md`, `artifacts/uberbond-total-brain.json`, Master Memory/reconciliation/checkpoints, current system/readiness, and current/open/draft/recent PRs/issues; reconstruct the whole UberBond organism before narrowing to the short-term frontier; reconcile shared work; select the highest-value unfinished dependency-satisfied mission that advances risk-adjusted cleared contribution profit per founder minute; execute it within the authority charter; test/review/PR/merge when justified; report verified facts only.
+> Refresh live `main`; read `AGENTS.md`, `UBERBOND_CANON.md`, `UBERBOND_BOOTSTRAP.json`, `docs/UBERBOND_TOTAL_BRAIN.md`, all Total Brain overlays, `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`, `artifacts/perpetual-frontier-genesis.json`, Master Memory/reconciliation/checkpoints, current system/readiness, and current/open/draft/recent PRs/issues; run/read the relevant capability and GENESIS doctors before relying on those layers; reconstruct the whole UberBond organism before narrowing to the short-term frontier; reconcile shared work; select the highest-value unfinished dependency-satisfied mission that advances risk-adjusted cleared contribution profit per founder minute; execute it within the authority charter; test/review/PR/merge when justified; report verified facts only.
 
 Do not ask the owner to restate the project merely because the previous conversation ended.

@@ -52,3 +52,32 @@ test('Open Model runtime must not report successful completion when provider mod
   assert.ok(result.reasonCodes.includes('open-model-runtime-model-identity-mismatch'));
   assert.equal(result.businessEffectAuthority, 'NONE');
 });
+
+test('Open Model runtime must not report successful completion when provider model identity is absent', async () => {
+  const executor = createOpenModelRuntimeExecutor({
+    runtime: 'VLLM',
+    model: 'trusted/model-a',
+    endpoint: 'http://127.0.0.1:8000',
+    pricing,
+    enabled: true,
+    fetchImpl: async () => ({
+      ok: true,
+      status: 200,
+      text: async () => JSON.stringify({
+        id: 'req-identity-absent',
+        usage: { prompt_tokens: 3, completion_tokens: 2, total_tokens: 5 },
+        choices: [{ message: { content: JSON.stringify({ answer: 42 }) } }]
+      })
+    })
+  });
+
+  const result = await executor({
+    task: { taskId: 'identity-unverified', objective: 'return structured json', consequenceClass: 'LOCAL_PREPARATION' },
+    maxTokens: 16,
+    costCeilingCents: 1
+  });
+
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('open-model-runtime-model-identity-unverified'));
+  assert.equal(result.businessEffectAuthority, 'NONE');
+});

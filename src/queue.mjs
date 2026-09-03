@@ -114,7 +114,6 @@ export class DurableQueue {
             reject(uncertainTimeoutError(maxRuntimeMs));
             abortController.abort(new Error('queue-runtime-timeout'));
           }, maxRuntimeMs);
-          runtimeTimer.unref?.();
         });
         const result = await Promise.race([
           Promise.resolve(handler(job.payload || {}, job, {

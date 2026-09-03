@@ -34,14 +34,16 @@ jobs:
         run: |
           npm run test:gamechanger
           npm run test:genesis
-          node --test tests/perpetual-frontier-genesis-tick.test.mjs
           npm run genesis:doctor
+          npm run genesis:evolution:doctor
       - name: Read and search public frontier sources
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: npm run gamechanger:tick
       - name: Compile frontier shockwaves, resurrection review, unknown-unknowns and latency
         run: npm run genesis:tick
+      - name: Evolve hypotheses, challenge assumptions, reopen impossible tasks and refresh implementation truth
+        run: npm run genesis:evolve
       - name: Upload evidence receipt and state
         uses: actions/upload-artifact@v4
         with:
@@ -49,6 +51,8 @@ jobs:
           path: |
             artifacts/gamechanger-mesh-latest.json
             artifacts/perpetual-frontier-genesis-latest.json
+            artifacts/genesis-evolution-latest.json
+            artifacts/perpetual-frontier-implementation-ledger.json
             .cache/gamechanger-mesh-state.json
           retention-days: 14
           if-no-files-found: error

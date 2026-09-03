@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 
-import { DurableQueue } from '../src/queue.mjs';
+import { DurableQueue, QUEUE_RECONCILIATION_RECEIPT_VERSION } from '../src/queue.mjs';
 import { JsonStore } from '../src/store.mjs';
 
 const cfg = {
@@ -42,6 +42,21 @@ async function makeClaimStale(store, jobId, workerId = 'dead-worker') {
   await store.patch('jobs', jobId, { lockedAt: staleAt, heartbeatAt: staleAt, startedAt: staleAt });
 }
 
+function reconciliationReceipt(state) {
+  return {
+    schemaVersion: QUEUE_RECONCILIATION_RECEIPT_VERSION,
+    jobId: state.id,
+    deadLetteredAt: state.deadLetteredAt,
+    attempts: state.attempts,
+    uncertainReasonCode: state.uncertainReasonCode || 'RECOVERY_POLICY_RECONCILE',
+    outcome: 'VERIFIED_NO_EXTERNAL_EFFECT',
+    sourceClass: 'DETERMINISTIC_NO_EFFECT_RECEIPT',
+    evidenceRef: 'audit:hostile-test-safe-to-retry',
+    observedAt: new Date().toISOString(),
+    reconciledBy: 'hostile-test'
+  };
+}
+
 test('reconcile jobs persist one-attempt crash fuse and stale Store recovery dead-letters instead of replaying', async () => {
   const fx = await fixture();
   try {
@@ -61,7 +76,7 @@ test('reconcile jobs persist one-attempt crash fuse and stale Store recovery dea
   }
 });
 
-test('reconcile dead letter cannot be replayed without a durable reconciliation receipt', async () => {
+test('reconcile dead letter cannot be replayed without a job-bound no-effect reconciliation receipt', async () => {
   const fx = await fixture();
   try {
     const job = await fx.queue.enqueue('external.side.effect', {}, { recoveryPolicy: 'reconcile', maxAttempts: 4 });
@@ -73,15 +88,17 @@ test('reconcile dead letter cannot be replayed without a durable reconciliation 
       error => error?.code === 'JOB_RECONCILIATION_REQUIRED'
     );
 
+    const deadLetter = await fx.store.get('jobs', job.id);
     const requeued = await fx.queue.requeueDeadLetter(job.id, {
-      reconciliationReceipt: { checkedBy: 'hostile-test', outcome: 'safe-to-retry' }
+      reconciliationReceipt: reconciliationReceipt(deadLetter)
     });
     assert.equal(requeued.status, 'queued');
     assert.equal(requeued.attempts, 0);
 
     const persisted = await fx.store.get('jobs', job.id);
     assert.equal(persisted.reconciliationRequired, false);
-    assert.equal(persisted.reconciliationReceipt.outcome, 'safe-to-retry');
+    assert.equal(persisted.reconciliationReceipt.outcome, 'VERIFIED_NO_EXTERNAL_EFFECT');
+    assert.equal(persisted.reconciliationReceipt.jobId, job.id);
   } finally {
     await fx.close();
   }

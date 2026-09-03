@@ -7,7 +7,8 @@
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, statSync, accessSync, constants, mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -378,4 +379,54 @@ test('the canon probe reads git, and a real source change still makes canon stal
   assert.equal(sourceUnchangedSince(null), false);
   assert.equal(sourceUnchangedSince('0'.repeat(40)), false,
     'a well-formed SHA naming no commit must refuse, not exempt');
+});
+
+// A skip is a refusal to claim, and it is only honest while it is unavoidable.
+//
+// The mutation war reported SKIPPED_NEEDS_BROWSER for CRAWL-01 on a machine with
+// Chromium installed, because it read CHROMIUM_PATH and nothing in this
+// repository sets it. In the summary line that skip was indistinguishable from
+// one nothing could fix, so a guard went unexercised on hardware that could
+// exercise it -- and the run still printed a clean "0 not killed".
+//
+// Detection closes that, and detection is exactly the kind of convenience that
+// turns a refusal into a fabrication if it guesses.
+test('the browser gate looks for a browser, and refuses to invent one', async () => {
+  const { resolveChromium } = await import('../scripts/resolve-chromium.mjs');
+
+  // A declared path is authoritative and still checked. A variable pointing at
+  // nothing is a misconfiguration; treating it as proof of a browser would let
+  // a skip be reported as a kill.
+  assert.equal(resolveChromium({ CHROMIUM_PATH: '/nonexistent/chrome' }), '',
+    'a declared path that is not an executable file must not count as a browser');
+  assert.equal(resolveChromium({ CHROMIUM_PATH: '   ' }), resolveChromium({}),
+    'a blank declaration is no declaration');
+
+  // A directory is not an executable, and neither is a text file.
+  assert.equal(resolveChromium({ CHROMIUM_PATH: repoRoot }), '',
+    'a directory is not a browser');
+  assert.equal(resolveChromium({ CHROMIUM_PATH: join(repoRoot, 'package.json') }), '',
+    'a readable file that cannot be executed is not a browser');
+
+  // Searching an empty tree finds nothing and says so, rather than falling back
+  // to a plausible-looking path.
+  const empty = mkdtempSync(join(tmpdir(), 'no-browser-'));
+  try {
+    const found = resolveChromium({ PLAYWRIGHT_BROWSERS_PATH: empty });
+    // Only a genuinely installed system browser may answer here.
+    if (found) {
+      assert.ok(statSync(found).isFile(), 'anything returned must be a real file');
+      assert.match(found, /^\/usr\/bin\//, 'an empty search tree may only fall through to a system path');
+    }
+  } finally {
+    rmSync(empty, { recursive: true, force: true });
+  }
+
+  // And whatever it does return is executable, because the next thing that
+  // happens to it is being handed to a test suite as CHROMIUM_PATH.
+  const resolved = resolveChromium({});
+  if (resolved) {
+    assert.doesNotThrow(() => accessSync(resolved, constants.X_OK),
+      'a resolved browser must be executable');
+  }
 });

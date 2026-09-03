@@ -20,6 +20,7 @@ import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { classifySuiteRun, applyMutation } from './mutation-verdict.mjs';
+import { resolveChromium } from './resolve-chromium.mjs';
 
 // Re-exported so the registry stays the single import point for the war.
 export { classifySuiteRun, applyMutation };
@@ -450,6 +451,20 @@ export const MUTATIONS = [
     find: '    assert.ok(canonRelevantSourceMatches(sha, head),',
     replace: '    assert.ok(true,',
     suites: ['tests/canon-freshness-discrimination.test.mjs']
+  },
+  {
+    id: 'BROWSER-01', guard: 'A declared browser path that is not an executable is not a browser',
+    file: 'scripts/resolve-chromium.mjs',
+    find: "  if (declared) return isExecutableFile(declared) ? declared : '';",
+    replace: '  if (declared) return declared;',
+    suites: ['tests/omega-closure-hostile.test.mjs']
+  },
+  {
+    id: 'BROWSER-02', guard: 'Browser detection returns a real executable rather than a plausible path',
+    file: 'scripts/resolve-chromium.mjs',
+    find: "  ].find(isExecutableFile) || '';",
+    replace: "  ][0] || '';",
+    suites: ['tests/omega-closure-hostile.test.mjs']
   },
   {
     id: 'CANON-03', guard: 'The absence doctor judges the source canon describes, not the whole tree',
@@ -1188,7 +1203,17 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   // Same shape as the PostgreSQL gate above. A mutation whose only killing suite
   // needs a real browser cannot be honestly reported as killed when no browser is
   // configured, and must not be reported as surviving either.
-  const hasBrowser = Boolean(process.env.CHROMIUM_PATH);
+  //
+  // But an installed browser nobody named is still a browser. This gate read
+  // CHROMIUM_PATH and nothing else, and nothing in this repository sets it, so on
+  // a machine with Chromium sitting on disk the war reported
+  // SKIPPED_NEEDS_BROWSER for a guard it could have exercised -- and in the
+  // summary line a skip that could not be helped looks exactly like a skip that
+  // could. So it looks first, and only reports the skip when there is genuinely
+  // nothing to drive.
+  const chromium = resolveChromium();
+  if (chromium) process.env.CHROMIUM_PATH = chromium;
+  const hasBrowser = Boolean(chromium);
   const selected = MUTATIONS.filter(mutation => !onlyId || mutation.id === onlyId);
   const results = [];
 

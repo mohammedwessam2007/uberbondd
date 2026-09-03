@@ -44,7 +44,38 @@ import {
   LEAD_PATH_SPRINT_STATES
 } from './lead-path-sprint-fulfillment.mjs';
 
-export const FIRST_CASH_CANARY_PACKET_VERSION = 'uberbond.first-cash-canary-packet-1.0.0';
+export const FIRST_CASH_CANARY_PACKET_VERSION = 'uberbond.first-cash-canary-packet-1.4.0';
+
+/**
+ * The owner's public payment destination.
+ *
+ * A place a buyer could send money. That is all it is, and the constant beside
+ * it exists so the distinction cannot be lost in a summary: a link is a
+ * destination, cleared payment is a provider-origin reconciled receipt, and no
+ * amount of link configuration moves the second one. UberBond has been wrong in
+ * this exact direction before -- an invoice is not payment, a form submission is
+ * not consent -- so the boundary travels as a field rather than a comment.
+ */
+export const DEFAULT_FIRST_CASH_PAYMENT_LINK = 'https://paypal.me/Sarawessam';
+export const PAYMENT_LINK_TRUTH_BOUNDARY = 'PAYMENT_LINK_IS_NOT_CLEARED_PAYMENT_PROOF';
+
+/**
+ * Whether a payment link is one this packet will publish.
+ *
+ * HTTPS with a real host, or nothing. Fails closed to `null` rather than
+ * passing a malformed or plaintext link through: a buyer following a link this
+ * packet printed is the one moment where a wrong string costs real money, and a
+ * broken link that reads as configured is worse than an absent one.
+ */
+export function normalizeFirstCashPaymentLink(link) {
+  const blocked = { link: null, evidenceClass: 'PAYMENT_LINK_NOT_CONFIGURED', reasonCodes: ['valid-https-payment-link-required'] };
+  const raw = String(link ?? '').trim();
+  if (!raw) return blocked;
+  let parsed;
+  try { parsed = new URL(raw); } catch { return blocked; }
+  if (parsed.protocol !== 'https:' || !parsed.hostname) return blocked;
+  return { link: parsed.toString().replace(/\/$/, ''), evidenceClass: 'OWNER_SUPPLIED_PUBLIC_PAYPAL_ME_LINK', reasonCodes: [] };
+}
 
 /**
  * The six gates `canContact` is the conjunction of.
@@ -63,6 +94,11 @@ export const FIRST_CASH_CONTACT_GATES = Object.freeze([
 
 export const QUESTION_STATUSES = Object.freeze([
   'ANSWERED',
+  // Ready on our side and doing nothing on its own. A payment destination
+  // exists; no buyer has followed it. Distinct from ANSWERED, which would read
+  // as the question being finished, and from BLOCKED, which would read as work
+  // remaining here when the remaining work is somebody else's.
+  'PREPARED',
   'BLOCKED',
   'OWNER_ACTION_REQUIRED',
   'EXTERNAL_PROOF_REQUIRED'
@@ -70,6 +106,8 @@ export const QUESTION_STATUSES = Object.freeze([
 
 export const QUESTION_EVIDENCE_CLASSES = Object.freeze([
   'INTERNAL_CODE',
+  'OWNER_SUPPLIED_PUBLIC_PAYPAL_ME_LINK',
+  'PAYMENT_LINK_NOT_CONFIGURED',
   'PROVIDER_POLICY_RESEARCH',
   'HYPOTHESIS',
   'OWNER_DECISION',
@@ -259,6 +297,7 @@ export function compileFirstCashCanaryPacket({
   consentEvidence = null,
   legalClearance = null,
   paymentRail = null,
+  paymentLink = DEFAULT_FIRST_CASH_PAYMENT_LINK,
   date = new Date()
 } = {}) {
   const at = strictDate(date);
@@ -341,6 +380,7 @@ export function compileFirstCashCanaryPacket({
     })
   };
 
+  const link = normalizeFirstCashPaymentLink(paymentLink);
   const canContact = deriveCanContact(gates);
   const blockingGates = FIRST_CASH_CONTACT_GATES.filter(id => gates[id].satisfied !== true);
 
@@ -387,9 +427,18 @@ export function compileFirstCashCanaryPacket({
       `${FIRST_CASH_OFFER.currency} ${(FIRST_CASH_OFFER.priceCents / 100).toFixed(2)} fixed, one-time, payment before fulfilment.`,
       'ANSWERED', 'OWNER_DECISION', ['price-is-a-decision-not-a-measured-willingness-to-pay'], 'src/lead-path-sprint-fulfillment.mjs'),
 
+    // A destination and a rail are different facts, and answering this from the
+    // rail's state confused them: it reported no payment link while the owner
+    // had supplied a public one. The link is prepared. What remains missing is
+    // reconciliation, which HOW_RECONCILED answers, and which is why
+    // paymentRailLiveReady stays false and canContact with it.
     question('WHAT_PAYMENT_LINK',
-      `None yet. The only implemented rail is Lemon Squeezy; the rail doctor reports ${rail.state}. ${UNIMPLEMENTED_PAYMENT_RAILS.paypal}.`,
-      'BLOCKED', 'INTERNAL_CODE', gates.paymentRailLiveReady.reasonCodes, 'src/payment-rail-doctor.mjs'),
+      link.link
+        ? `${link.link}. A destination, not proof: ${PAYMENT_LINK_TRUTH_BOUNDARY}. Cleared payment still requires a provider-origin reconciled receipt, and the rail doctor reports ${rail.state}. ${UNIMPLEMENTED_PAYMENT_RAILS.paypal}.`
+        : `None usable. ${UNIMPLEMENTED_PAYMENT_RAILS.paypal}.`,
+      link.link ? 'PREPARED' : 'BLOCKED', link.evidenceClass,
+      link.link ? gates.paymentRailLiveReady.reasonCodes : link.reasonCodes,
+      'src/payment-rail-doctor.mjs'),
 
     question('HOW_RECONCILED',
       'Signed provider webhook -> signature admission -> durable inbox -> planner -> claim lease -> provider verification -> canonical receipt -> RECONCILED. Without a configured provider verifier the worker claims nothing at all.',
@@ -435,7 +484,7 @@ export function compileFirstCashCanaryPacket({
   return {
     ok: missingQuestions.length === 0 && unexpectedQuestions.length === 0,
     policyVersion: FIRST_CASH_CANARY_PACKET_VERSION,
-    schemaVersion: 'uberbond-first-cash-canary-packet-1.0.0',
+    schemaVersion: 'uberbond-first-cash-canary-packet-1.4.0',
     generatedAt: atIso,
     packetId: `firstcash_${digest({ version: FIRST_CASH_CANARY_PACKET_VERSION, atIso, gates }).slice(0, 24)}`,
     status: canContact ? 'CONTACT_PERMITTED_WITHIN_SCOPE' : 'NO_CONTACT_PERMITTED',
@@ -536,6 +585,7 @@ export function compileFirstCashCanaryArtifact({ providers = [], date = new Date
 // ---------------------------------------------------------------------------
 
 /** The canonical champion offer name, as the research canon recorded it. */
+export const CANONICAL_FIRST_CASH_OFFER = FIRST_CASH_OFFER;
 export const CURRENT_CHAMPION_OFFER = FIRST_CASH_OFFER.name;
 
 /**
@@ -571,15 +621,22 @@ export function buildFirstCashCanaryPacket({
   qualifiedConversationCount = 0,
   paidPilotCount = 0,
   providers = [],
+  paymentLink = DEFAULT_FIRST_CASH_PAYMENT_LINK,
   date = new Date()
 } = {}) {
-  const packet = compileFirstCashCanaryPacket({ providers, date, gates });
+  const packet = compileFirstCashCanaryPacket({ providers, date, gates, paymentLink });
+  const link = normalizeFirstCashPaymentLink(paymentLink);
   const decision = canaryDecision({ qualifiedConversationCount, paidPilotCount });
   const gateValues = FIRST_CASH_CONTACT_GATES.map(gate => gates?.[gate.id ?? gate] === true);
   return {
     ...packet,
     offer: FIRST_CASH_OFFER.name,
     sku: LEAD_PATH_SPRINT_SKU,
+    paymentLink: link.link,
+    paymentLinkEvidenceClass: link.evidenceClass,
+    // Carried on every packet, not only when a link is present. The moment this
+    // field is absent is the moment somebody reads `paymentLink` as revenue.
+    paymentTruthBoundary: PAYMENT_LINK_TRUTH_BOUNDARY,
     // Every gate must hold. A single false is a refusal, and the packet's own
     // derivation is used when the caller supplied no gates at all.
     canContact: gateValues.length > 0 ? gateValues.every(Boolean) : packet.canContact === true,

@@ -1,8 +1,10 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { LEAD_PATH_SPRINT_SKU } from './lead-path-sprint-fulfillment.mjs';
 
-export const FIRST_CASH_CANARY_PACKET_VERSION = 'uberbond.first-cash-canary-packet-1.1.0';
+export const FIRST_CASH_CANARY_PACKET_VERSION = 'uberbond.first-cash-canary-packet-1.2.0';
 export const CURRENT_CHAMPION_OFFER = 'White-label Lead-Path Revenue Leak Evidence Sprint';
+export const DEFAULT_FIRST_CASH_PAYMENT_LINK = 'https://paypal.me/Sarawessam';
+export const PAYMENT_LINK_TRUTH_BOUNDARY = 'PAYMENT_LINK_IS_NOT_CLEARED_PAYMENT_PROOF';
 export const REQUIRED_CONTACT_GATES = Object.freeze([
   'jurisdictionApproved','providerPurposeAllowed','contactProvenanceApproved','senderReady','authorityGranted','canaryOpen'
 ]);
@@ -23,6 +25,17 @@ function qa(question, answer, status, evidenceClass, reasonCodes, module) {
   return { question, answer, status, evidenceClass, reasonCodes, module };
 }
 
+function normalizeHttpsPaymentLink(value) {
+  const raw = String(value ?? '').trim();
+  if (!raw) return null;
+  try {
+    const url = new URL(raw);
+    return url.protocol === 'https:' ? url.toString().replace(/\/$/, '') : null;
+  } catch {
+    return null;
+  }
+}
+
 export function buildFirstCashCanaryPacket({
   gates = {},
   qualifiedConversationCount = 0,
@@ -31,7 +44,7 @@ export function buildFirstCashCanaryPacket({
   provider = null,
   policyEvidence = [],
   authorityEvidence = [],
-  paymentLink = null,
+  paymentLink = DEFAULT_FIRST_CASH_PAYMENT_LINK,
   targetCount = 0,
   eligibleTargetCount = 0,
   targetIds = []
@@ -39,6 +52,12 @@ export function buildFirstCashCanaryPacket({
   const canContact = canContactFromGates(gates);
   const decision = canaryDecision({ qualifiedConversationCount, paidPilotCount });
   const blocked = REQUIRED_CONTACT_GATES.filter(key => gates?.[key] !== true);
+  const normalizedPaymentLink = normalizeHttpsPaymentLink(paymentLink);
+  const paymentLinkEvidenceClass = normalizedPaymentLink === DEFAULT_FIRST_CASH_PAYMENT_LINK
+    ? 'OWNER_SUPPLIED_PUBLIC_PAYPAL_ME_LINK'
+    : normalizedPaymentLink
+      ? 'CALLER_SUPPLIED_PUBLIC_HTTPS_LINK'
+      : 'PAYMENT_LINK_NOT_CONFIGURED';
   const qs = [
     qa('CAN WE CONTACT?', canContact ? 'YES' : 'NO', canContact?'READY':'BLOCKED', 'RUNTIME_GATES', blocked, 'first-cash-canary-packet'),
     qa('WHO?', {segment:'US or otherwise legally approved agencies serving HVAC, plumbing, or electrical businesses',targetIds}, targetCount>0?'PREPARED':'NEEDS_EXTERNAL_TARGETS','PUBLIC_EVIDENCE',targetCount>0?[]:['qualified-targets-required'],'opportunity-engine'),
@@ -49,8 +68,8 @@ export function buildFirstCashCanaryPacket({
     qa('WHICH AUTHORITY?', authorityEvidence, gates.authorityGranted?'PREPARED':'BLOCKED','OMNIA_AUTHORITY',gates.authorityGranted?[]:['omnia-authority-not-granted'],'omnia-v9'),
     qa('WHAT OFFER?', {name:CURRENT_CHAMPION_OFFER,sku:LEAD_PATH_SPRINT_SKU}, 'PREPARED','CANONICAL_OFFER',[],'lead-path-sprint-fulfillment'),
     qa('WHAT PRICE?', {currency:'USD',amount:450,scope:'fixed'}, 'HYPOTHESIS','PRICE_HYPOTHESIS',[],'world-brain-field-mission'),
-    qa('WHAT PAYMENT LINK?', paymentLink || null, paymentLink?'PREPARED':'BLOCKED','PAYMENT_RUNTIME',paymentLink?[]:['payment-link-not-configured'],'payment-runtime'),
-    qa('HOW RECONCILED?', 'Verified provider webhook -> durable payment evidence -> canonical payment truth -> fulfilment payment binding.', 'IMPLEMENTED','PAYMENT_TRUTH',[],'payment-runtime'),
+    qa('WHAT PAYMENT LINK?', normalizedPaymentLink, normalizedPaymentLink?'PREPARED':'BLOCKED',paymentLinkEvidenceClass,normalizedPaymentLink?[]:['valid-https-payment-link-required'],'payment-runtime'),
+    qa('HOW RECONCILED?', 'Provider-origin payment evidence -> durable payment evidence -> canonical payment truth -> fulfilment payment binding. A payment-link visit or owner-visible balance is not cleared-payment proof by itself.', 'IMPLEMENTED','PAYMENT_TRUTH',[],'payment-runtime'),
     qa('HOW DELIVERED?', 'Lead-Path Sprint fulfilment state machine composes service-fulfillment and requires QA before delivery.', 'IMPLEMENTED','FULFILLMENT_CODE',[],'lead-path-sprint-fulfillment'),
     qa('HOW ACCEPTED?', 'Only independent EXTERNAL_CUSTOMER evidence bound to the correct customer may set customer acceptance.', 'IMPLEMENTED','CUSTOMER_WITNESS',[],'lead-path-sprint-fulfillment'),
     qa('ON REPLY?', 'Stop automated follow-up, classify reply, and route qualification/objection to canonical reply handling.', 'IMPLEMENTED','OUTREACH_CONTROL',[],'reply-intelligence'),
@@ -67,6 +86,9 @@ export function buildFirstCashCanaryPacket({
     offerLineage:'CANONICAL_LEAD_PATH_CHAMPION',
     price:{currency:'USD',amount:450,scope:'fixed'},
     buyer:'US or otherwise legally approved agencies serving HVAC, plumbing, or electrical businesses',
+    paymentLink:normalizedPaymentLink,
+    paymentLinkEvidenceClass,
+    paymentTruthBoundary:PAYMENT_LINK_TRUTH_BOUNDARY,
     canContact,
     blockedGates:blocked,
     targetCount,

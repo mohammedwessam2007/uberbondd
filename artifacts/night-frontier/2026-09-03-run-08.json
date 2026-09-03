@@ -1,0 +1,17 @@
+{
+  "run": 8,
+  "branch": "work/night-frontier-20260903",
+  "base_main_sha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "peer_pr": 329,
+  "frontier_loop": ["WORLD_SENSING","MECHANISM_EXTRACTION","NOVELTY_ANALYSIS","THINKER_SWARM","HYPOTHESIS_FORMATION","BENCHMARK_OR_EXPERIMENT","REALITY_JUDGE","LEARNING"],
+  "implemented": ["ordered-frontier-loop-proof", "behavior-level-absorption-proof"],
+  "tests_added": 5,
+  "truth_boundary": "CLONED/PARITY/SUPERIOR require behavior-level evidence; no catalog or discovery claim is promotion evidence",
+  "model_universe_delta": "READ_ONLY_INSPECTION_OF_PR_329; NO DUPLICATE MODEL REGISTRY IMPLEMENTATION",
+  "brain_canon_state": "MACHINE_READABLE_RECEIPT_PERSISTED; PEER_CANON_LEFT_UNMODIFIED",
+  "frontier_signal": "PR_329_ALREADY_CONTAINS_AUTONOMOUS_FRONTIER_INTELLIGENCE_AND_OPEN_MODEL_UNIVERSE; THIS_LANE_ADDS_NON_DUPLICATIVE_PROOF_GATES",
+  "zero_effect_ledger": {"customers_contacted":0,"spend":0,"deployments":0,"credentials_changed":0,"dns_changed":0,"untrusted_code_executed":0},
+  "implementation_status": "SOURCE_AND_DETERMINISTIC_TESTS_COMMITTED; HOSTED_TEST_EXECUTION_NOT_YET_PROVEN",
+  "promotion_authority": "NONE",
+  "next_frontier": "provider-neutral admission receipt that binds exact revision provenance runtime cost benchmark class and permission before worker compilation"
+}

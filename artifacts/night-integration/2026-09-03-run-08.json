@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "uberbond.night-integration-handoff.v1",
+  "run": 8,
+  "branch": "work/night-integration-20260903",
+  "liveMainSha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "primaryConvergencePr": 329,
+  "primaryConvergenceHead": "7ea2abd7246166a346203b79670748630c55b808",
+  "integrationPr": 331,
+  "integrationHeadBeforeReceipt": "436843fdfe4f1fa0e43a8302a8ec88825ea5a5d6",
+  "integrationConstruction": {
+    "base": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+    "fastForwardedThroughPr329ExactHead": true,
+    "sourceHead": "7ea2abd7246166a346203b79670748630c55b808",
+    "integrationOnlyCommit": "436843fdfe4f1fa0e43a8302a8ec88825ea5a5d6"
+  },
+  "findings": [
+    {
+      "severity": "P1",
+      "id": "MUTATION_SUITE_BINDING_UNPROVEN",
+      "finding": "The mutation registry anchor-integrity test proved unique live anchors but did not prove that a declared killing suite directly binds the mutated module.",
+      "resolution": "Added an integration-owned static registration guard for CONV-* and POSTAL-* mutations requiring at least one readable declared suite to directly import the mutated module. This is registration evidence only and never substitutes for an observed mutation kill."
+    },
+    {
+      "severity": "P1",
+      "id": "CANON_HEAD_STALE",
+      "finding": "Live main is acc7d132b5752b131af2eb6d44052bfb8e92f0da while docs/CURRENT_SYSTEM_STATE.md and artifacts/system-readiness.json still name 3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84.",
+      "resolution": "Deferred canon regeneration until source truth settles and exact-head verification is earned, per release-coordination policy."
+    }
+  ],
+  "peerClaims": {
+    "postal": {
+      "branch": "work/night-postal-20260902",
+      "head": "417fcec2f0b144c65ddf7b76cf9cad4c267f574b",
+      "originalPr": 317,
+      "mergeVehiclePr": 322,
+      "mainIntegrationStatus": "MERGED_VIA_PR_322",
+      "exactHeadExecutionClaim": "NOT_EARNED_HOSTED_ZERO_STEP",
+      "integrationVerdict": "SOURCE_PRESENT_ON_MAIN_BUT_GREEN_CLAIM_NOT_ACCEPTED"
+    },
+    "payment": {
+      "head": "998b137aa1b35460d07d9064ea101c0bbe8da1ec",
+      "mergeVehiclePr": 323,
+      "mainIntegrationStatus": "MERGED",
+      "exactHeadExecutionClaim": "NOT_EARNED_HOSTED_ZERO_STEP",
+      "integrationVerdict": "SOURCE_PRESENT_ON_MAIN_BUT_GREEN_CLAIM_NOT_ACCEPTED"
+    },
+    "genome": {
+      "head": "4e90710266b4b06f38db3d74d34429ea8acdfe97",
+      "mergeVehiclePr": 324,
+      "mainIntegrationStatus": "MERGED",
+      "exactHeadExecutionClaim": "NOT_EARNED_HOSTED_ZERO_STEP",
+      "integrationVerdict": "SOURCE_PRESENT_ON_MAIN_BUT_GREEN_CLAIM_NOT_ACCEPTED"
+    },
+    "verification": {
+      "head": "8de24d542cc835be792fa20fdebb3f0c51e6de79",
+      "mergeVehiclePr": 325,
+      "mainIntegrationStatus": "MERGED",
+      "claim": "zero-step GitHub Actions are infrastructure non-evidence",
+      "integrationVerdict": "ACCEPTED"
+    }
+  },
+  "verification": {
+    "pr329LatestObservedCiRun": 33705856147,
+    "pr329LatestObservedJobs": 3,
+    "pr329JobsWithExecutedSteps": 0,
+    "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+    "integrationHeadWorkflowRunsObservedAtReceiptTime": 0,
+    "testsActuallyExecutedByThisRun": 0,
+    "testsPassedByThisRun": 0,
+    "testsFailedByThisRun": 0,
+    "mutationKillsObservedByThisRun": 0,
+    "greenClaimed": false
+  },
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0,
+    "paypalMeCandidate": "https://paypal.me/Sarawessam",
+    "paypalMeCountsAsClearedPaymentProof": false
+  },
+  "zeroEffectLedger": {
+    "outreachSent": 0,
+    "moneyMoved": 0,
+    "purchases": 0,
+    "dnsChanges": 0,
+    "kycSubmissions": 0,
+    "credentialExposures": 0,
+    "productionDeployments": 0,
+    "providerActivations": 0
+  },
+  "blockers": [
+    {
+      "priority": "P0",
+      "id": "EXACT_HEAD_EXECUTION_MISSING",
+      "detail": "No step-level exact-head syntax/deterministic/focused/mutation evidence has executed for the integration head. Do not merge PR 331 or PR 329."
+    },
+    {
+      "priority": "P1",
+      "id": "CANON_STALE_UNTIL_SOURCE_SETTLES",
+      "detail": "Canonical present-state artifacts lag live main and must be regenerated only after the final verified integration source is settled."
+    },
+    {
+      "priority": "P1",
+      "id": "VERCEL_DEPLOYMENT_QUOTA",
+      "detail": "Prior canonical evidence records the Vercel free deployment quota as exhausted; no deployment attempt is justified before exact-main verification and quota availability."
+    },
+    {
+      "priority": "P2",
+      "id": "SUPERSEDED_OPEN_PRS",
+      "detail": "PR 327 is logically subsumed by PR 329 but remains open; PR 315 is stale and non-mergeable. Close/retire only after exact integration lineage is settled."
+    }
+  ],
+  "singleNextIntegrationDependency": "Obtain real step-level exact-head execution on PR 331 head, including the new mutation-registry binding test plus canonical deterministic/focused/mutation gates; only then consider replacing PR 329 with the audited integration head and regenerating canon."
+}

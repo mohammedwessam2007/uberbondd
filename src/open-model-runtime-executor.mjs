@@ -1,6 +1,6 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const OPEN_MODEL_RUNTIME_EXECUTOR_VERSION = 'uberbond.open-model-runtime-executor-1.0.0';
+export const OPEN_MODEL_RUNTIME_EXECUTOR_VERSION = 'uberbond.open-model-runtime-executor-1.0.1';
 export const OPEN_MODEL_RUNTIMES = Object.freeze([
   'VLLM', 'SGLANG', 'LLAMA_CPP', 'OLLAMA', 'MLX_LM', 'TGI',
   'TRANSFORMERS_HTTP', 'DIFFUSERS_HTTP', 'SENTENCE_TRANSFORMERS_HTTP',
@@ -192,6 +192,15 @@ export function createOpenModelRuntimeExecutor({
       return failure(['open-model-runtime-response-json-invalid'], 'CONFIRMED_FAILURE', { detail: text(error?.message, 500) });
     }
 
+    const observedModel = text(raw?.model, 400) || null;
+    if (observedModel && observedModel !== model) {
+      return failure(['open-model-runtime-model-identity-mismatch'], 'CONFIRMED_FAILURE', {
+        configuredModel: model,
+        observedModel,
+        identityVerification: 'MISMATCH'
+      });
+    }
+
     const usage = meteredUsage(raw, pricing);
     if (!usage) return failure(['open-model-runtime-usage-invalid']);
     if (usage.costCents > costLimit) return failure(['actual-cost-exceeds-reserved-ceiling'], 'CONFIRMED_FAILURE', { usage });
@@ -206,8 +215,8 @@ export function createOpenModelRuntimeExecutor({
       outcome: 'COMPLETED',
       runtime: runtime.toUpperCase(),
       configuredModel: model,
-      observedModel: text(raw?.model, 400) || null,
-      identityVerification: raw?.model ? (text(raw.model, 400) === model ? 'MATCHED' : 'MISMATCH') : 'UNVERIFIED',
+      observedModel,
+      identityVerification: observedModel ? 'MATCHED' : 'UNVERIFIED',
       providerRequestId: text(raw?.id, 240) || null,
       usage,
       pricingEvidence: {

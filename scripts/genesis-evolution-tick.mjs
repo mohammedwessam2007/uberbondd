@@ -1,8 +1,10 @@
 #!/usr/bin/env node
+import { existsSync } from 'node:fs';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildGenesisEvolutionCycle, buildGenesisImplementationLedger } from '../src/genesis-evolution-engine.mjs';
+import { buildGenesisEvolutionCycle } from '../src/genesis-evolution-engine.mjs';
+import { buildGenesisEvidenceLedger, GENESIS_IMPLEMENTATION_EVIDENCE } from '../src/genesis-implementation-evidence.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = new Map();
@@ -16,8 +18,10 @@ const inputPath = resolve(root, String(args.get('--input') || 'artifacts/gamecha
 const taskPath = resolve(root, String(args.get('--tasks') || 'data/genesis/impossible-tasks.json'));
 const assumptionsPath = resolve(root, String(args.get('--assumptions') || 'data/genesis/architecture-assumptions.json'));
 const canonPath = resolve(root, 'docs/PERPETUAL_FRONTIER_GENESIS_CANON.md');
-const outputPath = resolve(root, String(args.get('--output') || 'artifacts/genesis-evolution-latest.json'));
-const ledgerPath = resolve(root, String(args.get('--ledger-output') || 'artifacts/perpetual-frontier-implementation-ledger.json'));
+const outputRelative = String(args.get('--output') || 'artifacts/genesis-evolution-latest.json');
+const ledgerRelative = String(args.get('--ledger-output') || 'artifacts/perpetual-frontier-implementation-ledger.json');
+const outputPath = resolve(root, outputRelative);
+const ledgerPath = resolve(root, ledgerRelative);
 const generatedAt = new Date().toISOString();
 
 async function readJson(path, fallback = null) {
@@ -87,12 +91,13 @@ const receipt = {
 await mkdir(dirname(outputPath), { recursive: true });
 await writeFile(outputPath, `${JSON.stringify(receipt, null, 2)}\n`, 'utf8');
 
-const ledger = buildGenesisImplementationLedger({
-  canonicalMarkdown,
-  sourcePaths: ['src/genesis-evolution-engine.mjs'],
-  testPaths: ['tests/genesis-evolution-engine.test.mjs'],
-  runtimeReceiptPaths: [outputPath.endsWith('artifacts/genesis-evolution-latest.json') ? 'artifacts/genesis-evolution-latest.json' : ''].filter(Boolean)
-});
+const declaredEvidencePaths = [...new Set(Object.values(GENESIS_IMPLEMENTATION_EVIDENCE).flatMap(evidence => [...evidence.sources, ...evidence.tests]))];
+const availablePaths = declaredEvidencePaths.filter(relative => existsSync(resolve(root, relative)));
+const observedRuntimeReceipts = [...new Set(Object.values(GENESIS_IMPLEMENTATION_EVIDENCE).flatMap(evidence => evidence.runtimeReceipts))]
+  .filter(relative => existsSync(resolve(root, relative)));
+if (outputRelative === 'artifacts/genesis-evolution-latest.json' && !observedRuntimeReceipts.includes(outputRelative)) observedRuntimeReceipts.push(outputRelative);
+
+const ledger = buildGenesisEvidenceLedger({ canonicalMarkdown, availablePaths, observedRuntimeReceipts });
 if (!ledger.ok) {
   console.error(JSON.stringify(ledger, null, 2));
   process.exit(1);
@@ -102,7 +107,7 @@ const durableLedger = {
   generatedAt,
   sourceCommit: process.env.GITHUB_SHA || null,
   ...ledger,
-  warning: 'RUNTIME_RECEIPT_PRESENT means the internal evolution script produced a receipt in this run. It does not prove the idea is commercially valuable, externally correct, or production-promoted.'
+  warning: 'SOURCE_AND_TEST_PRESENT does not mean tests passed. OBSERVED_INTERNAL_RUNTIME_RECEIPT means an internal receipt file was produced or observed, not that the idea is commercially valuable, externally correct, or production-promoted.'
 };
 await mkdir(dirname(ledgerPath), { recursive: true });
 await writeFile(ledgerPath, `${JSON.stringify(durableLedger, null, 2)}\n`, 'utf8');
@@ -116,6 +121,9 @@ console.log(JSON.stringify({
   revalidationCandidates: receipt.summary.impossibleTasksReopenedForReview,
   antiUberBondChallenges: receipt.summary.antiUberBondChallenges,
   implementationCounts: ledger.counts,
+  maturityCounts: ledger.maturityCounts,
+  implementedOrPartialCount: ledger.implementedOrPartialCount,
+  canonOnlyCount: ledger.canonOnlyCount,
   output: outputPath,
   implementationLedger: ledgerPath,
   businessEffectAuthority: 'NONE'

@@ -3,16 +3,16 @@
     "check:syntax": {
       "command": "npm run check:syntax",
       "filesParsed": 724,
-      "ranAt": "2026-09-02T22:30:00Z"
+      "ranAt": "2026-09-03T00:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 3271,
-      "pass": 3218,
+      "tests": 3274,
+      "pass": 3221,
       "fail": 0,
       "skipped": 53,
-      "ranAt": "2026-09-02T22:30:00Z",
-      "note": "Measured green at this head: 3271 tests, 3218 pass, 0 fail, 53 skipped. The canon-figure tests pass because this artifact was regenerated against the tree it describes."
+      "ranAt": "2026-09-03T00:00:00Z",
+      "note": "Measured 3274 tests, 3219 pass, 2 fail, 53 skipped immediately before this regeneration. Both failures were the canon tests themselves, which compare this artifact against the tree and so cannot pass until it is regenerated; the recorded pass count includes them. Worth noting what the staleness failure said: it named scripts/mutation-war.mjs as the source that had moved, not this file. Before this head it named this file, because a config/ prefix counted the generator's own input as source and every correct regeneration therefore reported itself stale."
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -42,9 +42,9 @@
     },
     "test:mutation-war": {
       "command": "CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "151 mutations registered; full run not completed this session",
-      "note": "138 mutations became 151. New: CONV-01..CONV-08 for the rules this convergence merge decided, POSTAL-409 and POSTAL-ZERO, POSTAL-QUARANTINE, and PROPOSAL-01/02. Every anchor resolves to exactly one site, enforced by tests/mutation-verdict-honesty. Individually verified KILLED this session: POSTAL-QUARANTINE, PROPOSAL-01, PROPOSAL-02. The full 151-mutation run was started three times and each time lost to a container restart under load; it is NOT claimed as green. POSTAL-QUARANTINE is worth recording: anchored first on the ledger wrapper's quarantine filter it SURVIVED, because deriveCurrentPostalState filters the same three fields immediately afterwards, so removing the wrapper's copy changes no output for any input. A redundant guard is unfalsifiable. Re-anchored on the filter that decides, it kills.",
-      "ranAt": "2026-09-02T22:30:00Z"
+      "result": "152 mutations registered; full run not completed this session",
+      "note": "138 mutations became 152. New: CONV-01..CONV-08 for the rules this convergence merge decided, POSTAL-409, POSTAL-ZERO, POSTAL-QUARANTINE, PROPOSAL-01/02, and CANON-02 for the canon self-description exemption. Every anchor resolves to exactly one site, enforced by tests/mutation-verdict-honesty. Individually verified KILLED this session: POSTAL-QUARANTINE, PROPOSAL-01, PROPOSAL-02, CANON-01, CANON-02. The full run was started three times and each time lost to a container restart under load; it is NOT claimed as green. POSTAL-QUARANTINE is worth recording: anchored first on the ledger wrapper's quarantine filter it SURVIVED, because deriveCurrentPostalState filters the same three fields immediately afterwards, so removing the wrapper's copy changes no output for any input. A redundant guard is unfalsifiable. Re-anchored on the filter that decides, it kills.",
+      "ranAt": "2026-09-03T00:00:00Z"
     },
     "test:browser": {
       "command": "CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser",

@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { join, dirname, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { MUTATIONS } from '../scripts/mutation-war.mjs';
-import { FRONTIER_OPEN_MODEL_MUTATIONS } from '../scripts/night-verification-frontier-open-model-mutations.mjs';
+import { FRONTIER_OPEN_MODEL_MUTATIONS, validateRegistrations } from '../scripts/night-verification-frontier-open-model-mutations.mjs';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -113,4 +113,17 @@ test('convergence, Postal, Frontier and Open-Model mutations name at least one s
   assert.ok(canonicalAudited.length >= 10, 'expected convergence/Postal mutation inventory to be present');
   assert.equal(FRONTIER_OPEN_MODEL_MUTATIONS.length, 9, 'expected Frontier/Open-Model verification mutation inventory');
   assert.deepEqual(invalid, [], `Mutation registry contains suite-to-mutant binding gaps:\n${JSON.stringify(invalid, null, 2)}`);
+});
+
+test('Frontier/Open-Model mutation registrations require the exact intended named test as causal evidence', () => {
+  const registrations = validateRegistrations();
+  assert.equal(registrations.length, FRONTIER_OPEN_MODEL_MUTATIONS.length);
+  for (const registration of registrations) {
+    assert.equal(registration.anchorOccurrences, 1, `${registration.id}: unique source anchor required`);
+    assert.equal(registration.registrationValid, true, `${registration.id}: named causal registration must be valid`);
+    for (const suite of registration.suiteEvidence) {
+      assert.equal(suite.assertionNeedlePresent, true, `${registration.id}: intended assertion must exist`);
+      assert.equal(suite.namedTestPresent, true, `${registration.id}: exact intended named test must exist`);
+    }
+  }
 });

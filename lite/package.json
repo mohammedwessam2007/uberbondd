@@ -6,6 +6,9 @@
   "engines": {
     "node": ">=20"
   },
+  "scripts": {
+    "postinstall": "node reachability-diagnostic-print.mjs"
+  },
   "dependencies": {
     "pg": "^8.22.0"
   }

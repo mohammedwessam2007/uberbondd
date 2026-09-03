@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "uberbond.night-frontier-receipt.v1",
+  "run": 12,
+  "observedAt": "2026-09-03T06:58:12Z",
+  "branch": "work/night-frontier-20260903",
+  "baseMainSha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "sourcePr": 329,
+  "integrationPr": 331,
+  "frontierPr": 334,
+  "implemented": [
+    {
+      "capability": "tournament routing-basis binding",
+      "status": "IMPLEMENTED_HOSTED_UNVERIFIED",
+      "guards": [
+        "winner persists provider price evidence",
+        "winner persists runtime evidence",
+        "winner persists hardware evidence",
+        "winner persists permission evidence",
+        "winner persists benchmark evidence",
+        "winner persists admission evidence",
+        "canonical routing basis digest binds exact provider/model/revision/task class"
+      ]
+    },
+    {
+      "capability": "execution-time routing revalidation",
+      "status": "IMPLEMENTED_HOSTED_UNVERIFIED",
+      "guards": [
+        "fresh evidenced tournament required",
+        "exact winner identity required",
+        "current admission must still be valid",
+        "price/runtime/hardware/permission/benchmark/admission drift blocks routing",
+        "selection basis integrity is rechecked",
+        "stale selection blocks routing",
+        "no promotion or business-effect authority"
+      ]
+    }
+  ],
+  "deterministicTestsAddedOrStrengthened": 9,
+  "benchmarkClaims": {
+    "newHostedBenchmarksExecuted": 0,
+    "parityOrSuperiorPromotions": 0,
+    "modelPromotions": 0
+  },
+  "modelUniverseDelta": {
+    "admittedModels": 0,
+    "promotedModels": 0,
+    "routingProofObjectsAdded": 1,
+    "doctrine": "a tournament winner is not routable merely because it won once; exact economic, runtime, hardware, permission, benchmark and admission basis must still match at execution review"
+  },
+  "brainCanonState": "Frontier loop, absorption proof, model admission proof and successful-task tournament remain durable on PR 334; peer-owned canon and Open Model Universe files untouched; this receipt persists the execution-time routing law.",
+  "publicFrontierSignals": [
+    {
+      "signal": "Gemini 3.8 Flash reporting says unchanged per-token pricing may still raise completed-task cost through increased token use and agentic work.",
+      "classification": "ECONOMIC_ROUTING_SIGNAL_ONLY"
+    },
+    {
+      "signal": "Recent reporting on restricted high-capability cyber models reinforces that provider/model permission state can change independently of raw model capability.",
+      "classification": "PERMISSION_ADMISSION_SIGNAL_ONLY"
+    },
+    {
+      "signal": "OpenAI publicly lists Apache-2.0 open-weight gpt-oss models, supporting provider-neutral discovery while still requiring runtime/hardware/economic admission.",
+      "classification": "MODEL_DISCOVERY_ONLY"
+    }
+  ],
+  "integrationFeed": {
+    "dependencyReady": true,
+    "recommendation": "Integration may import the isolated routing revalidation proof only after trustworthy exact-head deterministic execution; do not grant production routing or business effects from this receipt."
+  },
+  "zeroEffectLedger": {
+    "customerContacts": 0,
+    "spendUsd": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "kycChanges": 0,
+    "untrustedExternalCodeExecutions": 0,
+    "modelPromotions": 0,
+    "businessEffectAuthority": "NONE"
+  },
+  "nextFrontier": "Bind winner revalidation to an explicit fallback/re-tournament policy so any drift automatically de-authorizes the stale winner and selects no replacement until fresh comparable evidence exists."
+}

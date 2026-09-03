@@ -1,0 +1,18 @@
+{
+  "run": 9,
+  "lane": "night-frontier",
+  "baseMain": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "priorHead": "c43f3525c3352ef9c6a5546a58b6afd3abb7f9e1",
+  "truth": {
+    "promotions": 0,
+    "externalEffects": 0,
+    "untrustedCodeExecuted": false
+  },
+  "audit": {
+    "frontierLoopProofPresent": true,
+    "absorptionProofPresent": true,
+    "defectFound": "CLONED claims currently require complete behavior evidence but do not require candidate behavior to reproduce baseline behavior; duplicate evidence references are also not rejected.",
+    "implementationStatus": "BLOCKED_BY_GITHUB_WRITE_SAFETY_GATE"
+  },
+  "nextFrontier": "Fail closed on CLONED behavior mismatch and duplicate evidence before any absorption claim can be accepted."
+}

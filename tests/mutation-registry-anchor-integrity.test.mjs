@@ -23,12 +23,21 @@ function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+function removeCommentOnlyBindings(source) {
+  const withoutLineComments = source
+    .split('\n')
+    .filter(line => !line.trimStart().startsWith('//'))
+    .join('\n');
+  return withoutLineComments.replace(/\/\*[\s\S]*?\*\//g, '');
+}
+
 function sourceDirectlyBindsSpecifier(source, specifier) {
+  const executableSource = removeCommentOnlyBindings(source);
   const escaped = escapeRegExp(specifier);
   const fromBinding = new RegExp(`\\bfrom\\s*['\"]${escaped}['\"]`);
   const bareImport = new RegExp(`\\bimport\\s*['\"]${escaped}['\"]`);
   const dynamicImport = new RegExp(`\\bimport\\s*\\(\\s*['\"]${escaped}['\"]\\s*\\)`);
-  return fromBinding.test(source) || bareImport.test(source) || dynamicImport.test(source);
+  return fromBinding.test(executableSource) || bareImport.test(executableSource) || dynamicImport.test(executableSource);
 }
 
 function suiteDirectlyBindsTarget(suite, targetFile) {
@@ -37,10 +46,11 @@ function suiteDirectlyBindsTarget(suite, targetFile) {
   return sourceDirectlyBindsSpecifier(suiteSource, specifier);
 }
 
-test('suite-binding detector rejects decoy path strings and accepts real module loading syntax', () => {
+test('suite-binding detector rejects decoy path strings/comments and accepts real module loading syntax', () => {
   const specifier = '../src/example.mjs';
   assert.equal(sourceDirectlyBindsSpecifier(`const decoy = '${specifier}';`, specifier), false);
-  assert.equal(sourceDirectlyBindsSpecifier(`// import '${specifier}'`, specifier), true, 'lexical audit intentionally does not parse comments');
+  assert.equal(sourceDirectlyBindsSpecifier(`// import '${specifier}'`, specifier), false);
+  assert.equal(sourceDirectlyBindsSpecifier(`/* import '${specifier}' */`, specifier), false);
   assert.equal(sourceDirectlyBindsSpecifier(`import { value } from '${specifier}';`, specifier), true);
   assert.equal(sourceDirectlyBindsSpecifier(`import '${specifier}';`, specifier), true);
   assert.equal(sourceDirectlyBindsSpecifier(`await import('${specifier}')`, specifier), true);

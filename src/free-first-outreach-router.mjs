@@ -18,7 +18,7 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { deriveProviderStatesFromReceipts, stricterColdRule } from './provider-activation-receipt.mjs';
 
-export const FREE_FIRST_ROUTER_VERSION = 'uberbond.free-first-outreach-router-1.0.0';
+export const FREE_FIRST_ROUTER_VERSION = 'uberbond.free-first-outreach-router-1.0.1';
 export const MESSAGE_PURPOSES = Object.freeze([
   'TRANSACTIONAL',
   'CUSTOMER_OPERATIONAL',
@@ -292,7 +292,10 @@ function resolveProviderStates({ providers, providerStates, activationReceipts, 
   const explicit = providerStates && typeof providerStates === 'object' && !Array.isArray(providerStates);
 
   if (mode === 'LIVE') {
-    if (explicit) return { ok: false, reasonCodes: ['live-provider-states-must-be-derived-from-activation-receipts'] };
+    if (explicit) {
+      if (activationReceipts != null) return { ok: false, reasonCodes: ['provider-states-and-activation-receipts-are-mutually-exclusive'] };
+      return { ok: false, reasonCodes: ['live-provider-states-must-be-derived-from-activation-receipts'] };
+    }
     const receipts = activationReceipts == null ? [] : activationReceipts;
     if (!Array.isArray(receipts)) return { ok: false, reasonCodes: ['activation-receipts-array-required'] };
     const derivation = deriveProviderStatesFromReceipts({

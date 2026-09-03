@@ -34,6 +34,7 @@ jobs:
         run: |
           npm run test:gamechanger
           npm run test:genesis
+          node --test tests/perpetual-frontier-genesis-tick.test.mjs
           npm run genesis:doctor
       - name: Read and search public frontier sources
         env:

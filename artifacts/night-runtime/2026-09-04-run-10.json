@@ -1,0 +1,63 @@
+{
+  "schema": "uberbond.night-runtime.focused-proof.v1",
+  "mission": "Close receipt-before-snapshot restart clock-drift wedge",
+  "branch": "work/night-runtime-20260903",
+  "testedHead": "3af08f2bad2eb8f7ffe97e31ba7f6eebedb6c986",
+  "finding": {
+    "class": "P1_CRASH_REPLAY_IDEMPOTENCY",
+    "rootCause": "the autonomy pump derives receipt.receivedAt from the current tick time; after a process dies after receipt persistence but before run-snapshot persistence, restart re-enters the same run/session/task/sequence at a later local time. The ledger previously compared receivedAt as semantic execution truth, turning this legitimate replay into autonomy-execution-receipt-conflict and preventing the snapshot from ever advancing.",
+    "repair": "receivedAt is now first-observation metadata excluded from semantic conflict comparison. The first persisted receivedAt remains immutable. Provider/worker/task/result-status truth remains conflict-sensitive."
+  },
+  "changedCommits": [
+    "153e71de30c8dd8fd2c334ee20cdf2f86c293778",
+    "3af08f2bad2eb8f7ffe97e31ba7f6eebedb6c986"
+  ],
+  "exactBlobBindings": [
+    {
+      "path": "src/agent-autonomy-receipt-ledger.mjs",
+      "gitBlobSha": "c089631f4dc26fb91f128a282856e530d5b1c5c5"
+    },
+    {
+      "path": "tests/night-runtime-autonomy-receipt-restart.test.mjs",
+      "gitBlobSha": "2ca7436e6636199e6c959611afdf0392833d36c0"
+    }
+  ],
+  "execution": {
+    "environment": "isolated local Node focused reconstruction",
+    "targetAndTestBytes": "EXACT_GIT_BLOB_MATCH",
+    "dependencyMode": "MINIMUM_CONTRACT_RECONSTRUCTION_FOR_sameJson_AND_STORE_POLICY_CONSTANT",
+    "command": "node --test tests/night-runtime-autonomy-receipt-restart.test.mjs",
+    "tests": 4,
+    "pass": 4,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "durationMs": 108.074638,
+    "classification": "FOCUSED_TARGET_BYTE_EXECUTION_GREEN_WITH_RECONSTRUCTED_IMPORT_CONTRACTS"
+  },
+  "hostileCasesProven": [
+    "concurrent duplicate execution receipt creates one durable row",
+    "restart replay with later local receivedAt reuses the first durable receipt",
+    "first receivedAt observation remains immutable",
+    "same receipt identity with different worker truth fails closed",
+    "same receipt identity with different result status fails closed"
+  ],
+  "newlyDiscoveredOpenRisk": {
+    "id": "RUNTIME_RECONCILIATION_RECEIPT_CONTRACT_WEAK",
+    "status": "OPEN_SOURCE_P1",
+    "finding": "queue requeueDeadLetter currently accepts any non-empty reconciliationReceipt object for uncertain/reconcile work, while the server retry route does not expose a body for supplying a structured receipt. This should be hardened into a job/dead-letter-occurrence-bound SAFE_TO_RETRY evidence contract and wired through the operator route before runtime closure.",
+    "reasonNotPatchedInThisCommit": "queue.mjs and server.mjs were only available through truncated source views in this execution surface; rewriting either from an incomplete view would risk source amputation."
+  },
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  },
+  "truthBoundary": "This receipt proves the focused receipt-ledger crash replay behavior under exact target/test bytes with reconstructed import contracts. It is not full-repository green, real-PostgreSQL proof, hosted exact-head verification, or external/commercial evidence."
+}

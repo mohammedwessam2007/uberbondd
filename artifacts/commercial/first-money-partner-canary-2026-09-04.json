@@ -1,0 +1,83 @@
+{
+  "schema": "uberbond.commercial-canary.v1",
+  "recordedAt": "2026-09-04T02:47:00+03:00",
+  "experimentId": "white-label-lead-path-revenue-leak-evidence-sprint-partner-canary-20260904",
+  "northStar": "risk-adjusted cleared contribution profit / founder minute",
+  "offer": {
+    "name": "White-label Lead-Path Revenue Leak Evidence Sprint",
+    "priceHypothesisUsd": 450,
+    "scope": "One home-service client, evidence-backed review of public inquiry/booking path and observable handoff/attribution points, agency-brandable report, explicit acceptance checklist.",
+    "claimsBoundary": [
+      "no recovered-revenue guarantee",
+      "no customer or payment claim without external evidence",
+      "does not replace agency SEO, ads, branding, CRM, booking or attribution systems"
+    ]
+  },
+  "canaryPolicy": {
+    "maxQualifiedConversationsBeforeReview": 5,
+    "expansionAllowedNow": false,
+    "reason": "Hold the experiment bounded until reply evidence arrives."
+  },
+  "messages": [
+    {
+      "recipientOrganization": "Lemon Seed Marketing",
+      "recipientRoute": "hello@lemonseedmarketing.com",
+      "routeClass": "PUBLIC_VENDOR_GENERAL_CONTACT",
+      "publicEvidenceUrl": "https://www.lemonseedmarketing.com/contact/",
+      "gmailMessageId": "1a069ab262bbd3f1",
+      "subject": "Vendor idea: white-label lead-path evidence sprint for one home-service client",
+      "state": "SENT_UNREPLIED",
+      "sentAtObserved": "2026-09-04T02:45:00+03:00"
+    },
+    {
+      "recipientOrganization": "Moovsoon",
+      "recipientRoute": "info@moovsoon.com",
+      "routeClass": "PUBLIC_AGENCY_PARTNERSHIP_CONTACT",
+      "publicEvidenceUrl": "https://www.moovsoon.com/agency-partnership/",
+      "gmailMessageId": "1a069ab4e640deaf",
+      "subject": "Agency partnership add-on: lead-path evidence before more spend",
+      "state": "SENT_UNREPLIED",
+      "sentAtObserved": "2026-09-04T02:45:00+03:00"
+    },
+    {
+      "recipientOrganization": "Driive",
+      "recipientRoute": "nick@getdriive.com",
+      "routeClass": "PUBLIC_AGENCY_PRODUCT_DIRECT_CONTACT",
+      "publicEvidenceUrl": "https://getdriive.com/for/agencies",
+      "gmailMessageId": "1a069ab731ba7d32",
+      "subject": "Possible agency add-on beside Driive: evidence for where the handoff leaks",
+      "state": "SENT_UNREPLIED",
+      "sentAtObserved": "2026-09-04T02:45:00+03:00"
+    }
+  ],
+  "observedOutcome": {
+    "messagesSent": 3,
+    "bounces": 0,
+    "replies": 0,
+    "positiveInterest": 0,
+    "qualifiedConversations": 0,
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "externalEffectLedger": {
+    "emailsSent": 3,
+    "calls": 0,
+    "publicPosts": 0,
+    "purchases": 0,
+    "spendCents": 0,
+    "moneyMovement": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionCustomerMutations": 0
+  },
+  "nextEvidence": [
+    "reply classification",
+    "qualified-conversation evidence if a reply warrants it",
+    "scope acceptance",
+    "provider-origin cleared-payment evidence",
+    "customer-origin delivery acceptance"
+  ],
+  "truthLaw": "SENT is not DELIVERED, REPLY, QUALIFIED_CONVERSATION, CUSTOMER, CLEARED_PAYMENT, ACCEPTED_DELIVERY or RETENTION."
+}

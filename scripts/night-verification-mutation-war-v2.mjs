@@ -31,8 +31,8 @@ export const NIGHT_VERIFICATION_MUTATIONS_V2 = Object.freeze([
     id: 'FRONTIER-04', file: 'src/frontier-context-spine.mjs',
     find: '      if (!dependency || !includeWithDependencies(dependency, nextTrail)) return false;',
     replace: '      if (dependency && !includeWithDependencies(dependency, nextTrail)) return false;',
-    suite: 'tests/frontier-parity-autonomy.test.mjs', importNeedle: "../src/frontier-context-spine.mjs",
-    assertionNeedle: 'assert.equal(result.ok, false);'
+    suite: 'tests/frontier-context-dependency-hostile.test.mjs', importNeedle: "../src/frontier-context-spine.mjs",
+    assertionNeedle: "assert.deepEqual(result.unresolvedDependencyRoots, ['contract']);"
   },
   {
     id: 'FRONTIER-05', file: 'src/frontier-artifact-verifier.mjs',

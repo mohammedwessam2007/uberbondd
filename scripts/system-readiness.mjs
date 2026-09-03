@@ -5,8 +5,8 @@
 // learned the hard way when a hand-written receipt minted five thousand
 // dollars: a readiness artifact that a person types is a wish. Everything here
 // is either read off the repository or supplied as a measurement with the
-// command that produced it, and a capability may not claim a proof level it
-// has no evidence for.
+// command that produced it, and a capability may not claim a proof level it has
+// no evidence for.
 //
 // Levels (section 63):
 //   0 absent   1 design   2 implemented   3 deterministic proof
@@ -25,6 +25,7 @@ import { execFileSync } from 'node:child_process';
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const MAX_REPOSITORY_PROVEN_LEVEL = 4;
+const PRODUCTION_ENTRY_POINTS = ['server.mjs', 'worker.mjs', 'scripts/agent-mesh-tick.mjs'];
 
 function git(args) {
   try {
@@ -51,8 +52,24 @@ function testFiles() {
   return readdirSync(join(repoRoot, 'tests')).filter(name => name.endsWith('.test.mjs'));
 }
 
+function entryPointsIn(dir, extension = '.mjs') {
+  const found = [];
+  const walk = relative => {
+    let entries;
+    try { entries = readdirSync(join(repoRoot, relative), { withFileTypes: true }); }
+    catch { return; }
+    for (const entry of entries) {
+      const child = `${relative}/${entry.name}`;
+      if (entry.isDirectory()) walk(child);
+      else if (entry.name.endsWith(extension)) found.push(child);
+    }
+  };
+  walk(dir);
+  return found;
+}
+
 /** Modules reachable from a production entry point, by following static imports. */
-export function reachableFromEntryPoints(entryPoints = ['server.mjs', 'worker.mjs', 'scripts/agent-mesh-tick.mjs']) {
+export function reachableFromEntryPoints(entryPoints = PRODUCTION_ENTRY_POINTS) {
   const seen = new Set();
   const stack = [...entryPoints];
   while (stack.length) {
@@ -69,6 +86,42 @@ export function reachableFromEntryPoints(entryPoints = ['server.mjs', 'worker.mj
     }
   }
   return seen;
+}
+
+/**
+ * Reachability is repository structure, not a manually recorded measurement.
+ * Compute it every time readiness is generated so the machine artifact can
+ * never inherit a count copied from an older tree.
+ */
+export function measureReachability() {
+  const api = entryPointsIn('api');
+  const scripts = entryPointsIn('scripts');
+  const all = entryPointsIn('src');
+  const productionSet = reachableFromEntryPoints([...PRODUCTION_ENTRY_POINTS, ...api]);
+  const anyEntrySet = reachableFromEntryPoints(['server.mjs', 'worker.mjs', ...scripts, ...api]);
+  const production = all.filter(file => productionSet.has(file));
+  const operatorOnly = all.filter(file => !productionSet.has(file) && anyEntrySet.has(file));
+  const unreachable = all.filter(file => !anyEntrySet.has(file));
+  let classified = [];
+  try {
+    classified = Object.keys(JSON.parse(readFileSync(join(repoRoot, 'config', 'reachability-classification.json'), 'utf8')).modules || {});
+  } catch {
+    classified = [];
+  }
+  const classifiedSet = new Set(classified);
+  const unclassified = unreachable.filter(file => !classifiedSet.has(file));
+  const staleClassifications = classified.filter(file => anyEntrySet.has(file));
+  return {
+    command: 'node --test tests/reachability-ratchet.test.mjs',
+    measurementMode: 'LIVE_COMPUTED_FROM_IMPORT_GRAPH',
+    srcModules: all.length,
+    reachableFromProduction: production.length,
+    reachableFromOperatorScriptsOnly: operatorOnly.length,
+    noEntryPointAtAll: unreachable.length,
+    allClassified: unclassified.length === 0 && staleClassifications.length === 0,
+    unclassified,
+    staleClassifications
+  };
 }
 
 /**
@@ -109,7 +162,7 @@ export function buildReadiness({ measurements = {}, capabilities = [], now = new
       // checked-out commit remains the only truth source.
       head: process.env.UBERBOND_CANONICAL_HEAD || git(['rev-parse', 'HEAD']),
       // A release candidate is commonly verified on a temporary integration
-      // branch before this exact commit is fast-forwarded to main.  The
+      // branch before this exact commit is fast-forwarded to main. The
       // readiness document describes its intended canonical ref, not the
       // disposable checkout name used to earn the evidence.
       branch: process.env.UBERBOND_CANONICAL_BRANCH || git(['rev-parse', '--abbrev-ref', 'HEAD']),
@@ -117,7 +170,10 @@ export function buildReadiness({ measurements = {}, capabilities = [], now = new
       testSuites: testFiles().length,
       workingTreeClean: git(['status', '--porcelain']) === ''
     },
-    measurements,
+    measurements: {
+      ...measurements,
+      reachability: measureReachability()
+    },
     capabilities: entries,
     truthBoundary: {
       maxLevelProvableFromRepositoryAlone: MAX_REPOSITORY_PROVEN_LEVEL,
@@ -142,6 +198,10 @@ function replaceRequired(text, pattern, replacement, label) {
  * current-state document. The explanatory sections beneath it are maintained
  * policy text; rewriting them during every test run would turn evidence into
  * churn. Missing markers fail closed instead of silently leaving stale facts.
+ *
+ * Reachability counts deliberately live only in the generated JSON artifact.
+ * Human prose points to the executable graph gate so there is one authority,
+ * not a second set of numbers waiting to drift.
  */
 function refreshCurrentStateDocument({ input, readiness }) {
   const path = join(repoRoot, 'docs', 'CURRENT_SYSTEM_STATE.md');
@@ -154,7 +214,6 @@ function refreshCurrentStateDocument({ input, readiness }) {
   const audit = measurement(input, 'npm audit');
   const mutation = measurement(input, 'test:mutation-war');
   const browser = measurement(input, 'test:browser');
-  const reachability = measurement(input, 'reachability');
   const date = String(readiness.generatedAt).slice(0, 10);
   const result = (item, fallback) => item.result || item.note || fallback;
 
@@ -177,14 +236,8 @@ function refreshCurrentStateDocument({ input, readiness }) {
     `| Browser | \`${browser.command || 'npm run test:browser'}\`: ${result(browser, 'not recorded')} |`, 'browser measurement');
   text = replaceRequired(text, /^\| (?:Dependencies|Dependency audit) \|.*$/m,
     `| Dependency audit | \`${audit.command || 'npm audit'}\`: ${result(audit, 'not recorded')} |`, 'dependency measurement');
-  text = replaceRequired(text, /^\*\*[0-9]+ of [0-9]+ `src` modules have no entry point at all\*\*\.$/m,
-    `**${reachability.noEntryPointAtAll ?? 'unrecorded'} of ${reachability.srcModules ?? 'unrecorded'} \`src\` modules have no entry point at all**.`, 'reachability prose');
-  text = replaceRequired(text, /^\| Reachable from production \|.*$/m,
-    `| Reachable from production | ${reachability.reachableFromProduction ?? 'unrecorded'} |`, 'production reachability');
-  text = replaceRequired(text, /^\| Reachable only via an operator script \|.*$/m,
-    `| Reachable only via an operator script | ${reachability.reachableFromOperatorScriptsOnly ?? 'unrecorded'} |`, 'operator reachability');
-  text = replaceRequired(text, /^\| \*\*No entry point at all\*\* \|.*$/m,
-    `| **No entry point at all** | **${reachability.noEntryPointAtAll ?? 'unrecorded'}** |`, 'unreachable count');
+  text = replaceRequired(text, /^Reachability source:.*$/m,
+    'Reachability source: `tests/reachability-ratchet.test.mjs` (LIVE_COMPUTED)', 'reachability source');
   writeFileSync(path, text);
 }
 

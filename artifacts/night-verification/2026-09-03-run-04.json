@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "uberbond-night-verification-receipt-2.3.0",
+  "recordedAt": "2026-09-03T05:06:00Z",
+  "branch": "work/night-verification-20260903",
+  "verificationPr": 333,
+  "liveMainSha": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "successorIntegration": {
+    "pr": 331,
+    "branch": "work/night-integration-20260903",
+    "headShaAtRefresh": "3c11b699757bf647b7ed6689b434d1b735eff3ae",
+    "absorbedReadOnlyAsSecondParent": true
+  },
+  "testedSourceHeadSha": "39e3f8a90ce2a945dd14da84475e8f79e33b51fb",
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "inventoryDelta": {
+    "priorStrictMutations": 13,
+    "newMutationRegistrations": 1,
+    "newMutationIds": ["OPENMODEL-07"],
+    "strictMutationsNow": 14,
+    "newHostileTests": 1,
+    "newHostileTestFiles": ["tests/night-verification-successor-open-model-mutation.test.mjs"],
+    "tightlyScopedVerificationFixFiles": ["src/open-model-runtime-executor.mjs"],
+    "peerOwnedFilesOtherwiseModified": 0
+  },
+  "defect": {
+    "id": "OPEN_MODEL_ABSENT_IDENTITY_FAIL_OPEN",
+    "severity": "P1",
+    "successorSourceBeforeFix": "3c11b699757bf647b7ed6689b434d1b735eff3ae",
+    "reproduction": {
+      "method": "focused exact decision reconstruction from successor src/open-model-runtime-executor.mjs; not whole-repository proof",
+      "configuredModel": "trusted/model-a",
+      "observedModel": null,
+      "observedOutcome": "COMPLETED",
+      "observedOk": true,
+      "identityVerification": "UNVERIFIED",
+      "verdict": "FAIL_FOCUSED_REPRODUCTION"
+    },
+    "fix": {
+      "scope": "single fail-closed identity guard plus normalization of successful identity state to MATCHED",
+      "reasonCode": "open-model-runtime-model-identity-unverified",
+      "businessEffectAuthorityOnFailure": "NONE",
+      "sourceStatus": "FIXED_SOURCE_UNEXECUTED"
+    }
+  },
+  "mutationEvidence": {
+    "killed": 0,
+    "survived": 0,
+    "invalid": 0,
+    "unexecuted": 14,
+    "openModel07Rule": "OPENMODEL-07 removes only the new absent-identity guard, remains syntactically executable, requires a green baseline, and can count KILLED only if the exact named absent-identity hostile test is observed red.",
+    "verdict": "DISPUTE_EXECUTION_MISSING"
+  },
+  "ciEvidence": {
+    "workflow": "CI",
+    "runId": 33717240896,
+    "headSha": "39e3f8a90ce2a945dd14da84475e8f79e33b51fb",
+    "jobsObserved": 3,
+    "jobs": ["postgres", "browser", "deterministic"],
+    "jobsWithExecutedSteps": 0,
+    "runnerIds": [0, 0, 0],
+    "sourcePass": 0,
+    "sourceFail": 0,
+    "sourceSkip": 0,
+    "classification": "INFRASTRUCTURE_NON_EVIDENCE"
+  },
+  "claimVerdicts": [
+    {
+      "claim": "PR331 fails closed on a provider-reported mismatching model identity",
+      "verdict": "PASS_SOURCE_INSPECTION_ONLY"
+    },
+    {
+      "claim": "PR331 fails closed when provider model identity is absent",
+      "verdict": "FAIL_FOCUSED_REPRODUCTION_THEN_FIXED_SOURCE_UNEXECUTED"
+    },
+    {
+      "claim": "OPENMODEL-07 has a unique executable mutation anchor and a named causal killing suite",
+      "verdict": "PASS_SOURCE_REGISTRATION_ONLY"
+    },
+    {
+      "claim": "OPENMODEL-07 is killed",
+      "verdict": "DISPUTE",
+      "reason": "No trustworthy exact-head suite execution occurred; hosted CI exposed zero steps."
+    },
+    {
+      "claim": "Hosted CI failure proves source failure",
+      "verdict": "INFRASTRUCTURE_NON_EVIDENCE"
+    },
+    {
+      "claim": "Current commercial truth changed",
+      "verdict": "PASS_NO_CHANGE"
+    }
+  ],
+  "peerHeadsReadOnly": {
+    "frontierPr334": "8a8f0c70908cafa7e3796ca5f70c16e86fc01173",
+    "runtimePr335": "e382c5d2f6e3f18539d7b5abe4a65f0988dc9cdd",
+    "paymentDistributionPr332": "1cca3ee35321e5eb5b286d77371b0abbfde9dfb9"
+  },
+  "residual": {
+    "P0": [],
+    "P1": [
+      "Fourteen strict Frontier/Open-Model mutations, including OPENMODEL-07, still lack trustworthy killed/survived evidence.",
+      "The absent-identity fail-closed fix is source-complete but not yet proven by executable exact-head hostile/factory/provider-neutral tests."
+    ],
+    "P2": [
+      "Exact-head syntax/deterministic/relay/reachability/real-Postgres/browser proof remains unavailable because Actions jobs start with zero steps and runner_id=0.",
+      "Night Frontier PR334 and Night Runtime PR335 advanced and remain peer-owned; their hosted green claims remain unearned until step-level execution exists.",
+      "CURRENT_SYSTEM_STATE/readiness canon remains intentionally stale until integration source truth settles.",
+      "Elapsed-time unattended/provider canaries remain genuine external/runtime-time blockers."
+    ]
+  },
+  "zeroEffectLedger": {
+    "customersContacted": 0,
+    "messagesSent": 0,
+    "providerCalls": 0,
+    "deployments": 0,
+    "moneyMovements": 0,
+    "paymentMutations": 0,
+    "customerStateChanges": 0,
+    "credentialsChanged": 0,
+    "authorityWidening": 0
+  },
+  "nextFalsificationTarget": "Obtain trustworthy Node execution of the exact verification head and require: absent-identity hostile test green on baseline, OPENMODEL-07 named test red on mutant, then model-factory/provider-neutral integration green. Only after that promote OPENMODEL-07 to KILLED and reconcile the fix into successor integration."
+}

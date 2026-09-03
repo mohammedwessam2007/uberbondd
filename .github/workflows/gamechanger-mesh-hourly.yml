@@ -44,6 +44,8 @@ jobs:
         run: npm run genesis:tick
       - name: Evolve hypotheses, challenge assumptions, reopen impossible tasks and refresh implementation truth
         run: npm run genesis:evolve
+      - name: Compile causal theories, counterfactual worlds and falsifiable scientist protocols
+        run: npm run genesis:scientist
       - name: Upload evidence receipt and state
         uses: actions/upload-artifact@v4
         with:
@@ -52,6 +54,7 @@ jobs:
             artifacts/gamechanger-mesh-latest.json
             artifacts/perpetual-frontier-genesis-latest.json
             artifacts/genesis-evolution-latest.json
+            artifacts/genesis-scientist-latest.json
             artifacts/perpetual-frontier-implementation-ledger.json
             .cache/gamechanger-mesh-state.json
           retention-days: 14

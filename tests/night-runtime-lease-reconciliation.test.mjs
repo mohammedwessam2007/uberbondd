@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { Store } from '../src/store.mjs';
-import { DurableQueue } from '../src/queue.mjs';
+import { DurableQueue, QUEUE_RECONCILIATION_RECEIPT_VERSION } from '../src/queue.mjs';
 
 async function setup(overrides = {}) {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'uberbond-night-runtime-'));
@@ -27,6 +27,21 @@ async function setup(overrides = {}) {
     }
   };
   return { store, queue: new DurableQueue(store, cfg, { error() {} }) };
+}
+
+function reconciliationReceipt(state, evidenceRef = 'audit:hostile-test-fixture') {
+  return {
+    schemaVersion: QUEUE_RECONCILIATION_RECEIPT_VERSION,
+    jobId: state.id,
+    deadLetteredAt: state.deadLetteredAt,
+    attempts: state.attempts,
+    uncertainReasonCode: state.uncertainReasonCode || 'RECOVERY_POLICY_RECONCILE',
+    outcome: 'VERIFIED_NO_EXTERNAL_EFFECT',
+    sourceClass: 'DETERMINISTIC_NO_EFFECT_RECEIPT',
+    evidenceRef,
+    observedAt: new Date().toISOString(),
+    reconciledBy: 'hostile-test'
+  };
 }
 
 test('heartbeat ownership loss aborts a still-running cooperative handler before stale completion', async () => {
@@ -90,17 +105,14 @@ test('uncertain timeout dead letter cannot be manually replayed without a reconc
   );
   assert.equal((await store.get('jobs', job.id)).status, 'dead-letter');
 
-  const receipt = {
-    outcome: 'verified-no-external-effect',
-    evidence: 'hostile-test-fixture',
-    reconciledBy: 'test'
-  };
+  const receipt = reconciliationReceipt(state);
   const requeued = await queue.requeueDeadLetter(job.id, { reconciliationReceipt: receipt });
   assert.equal(requeued.status, 'queued');
   assert.equal(requeued.attempts, 0);
   state = await store.get('jobs', job.id);
   assert.equal(state.reconciliationRequired, false);
-  assert.deepEqual(state.reconciliationReceipt, receipt);
+  assert.equal(state.reconciliationReceipt.jobId, job.id);
+  assert.equal(state.reconciliationReceipt.outcome, 'VERIFIED_NO_EXTERNAL_EFFECT');
   assert.ok(state.reconciledAt);
   const events = await store.list('auditLog');
   assert.equal(events.some(event => event.type === 'queue_job_uncertain_execution_reconciled' && event.detail?.jobId === job.id), true);

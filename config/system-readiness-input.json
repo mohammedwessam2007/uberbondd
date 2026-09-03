@@ -2,17 +2,17 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 724,
-      "ranAt": "2026-09-03T00:55:00Z"
+      "filesParsed": 745,
+      "ranAt": "2026-09-03T02:30:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 3277,
-      "pass": 3224,
+      "tests": 3340,
+      "pass": 3287,
       "fail": 0,
       "skipped": 53,
-      "ranAt": "2026-09-03T00:55:00Z",
-      "note": "Measured 3277 tests, 3222 pass, 2 fail, 53 skipped immediately before this regeneration. Both failures were the canon tests, which compare this artifact against the tree and cannot pass until it is regenerated; the recorded pass count includes them. The staleness failure named scripts/founder-absence-doctor.mjs and scripts/mutation-war.mjs -- real source changes -- rather than this file, which is the repair: before this branch a config/ prefix counted the generator's own input as source, so every correct regeneration reported itself stale."
+      "ranAt": "2026-09-03T02:30:00Z",
+      "note": "Measured 3340 tests, 3284 pass, 3 fail, 53 skipped immediately before this regeneration. All three failures were the canon-figure tests, which compare this artifact against the tree and cannot pass until it is regenerated; the recorded pass count includes them. The run before it had six: the other three were real and were fixed rather than recorded -- twelve unclassified modules from the PR #329 merge, and two provider-list tests that broke when a fifth provider was added."
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -42,9 +42,9 @@
     },
     "test:mutation-war": {
       "command": "CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "154 mutations registered; full run not completed this session",
-      "note": "138 mutations became 154. New: CONV-01..CONV-08 for the rules this convergence merge decided, POSTAL-409, POSTAL-ZERO, POSTAL-QUARANTINE, PROPOSAL-01/02, and CANON-02..04 for the canon-freshness partition, the doctor's copy of it, and the probe that reads git. Every anchor resolves to exactly one site, enforced by tests/mutation-verdict-honesty. Individually verified KILLED this session: POSTAL-QUARANTINE, PROPOSAL-01, PROPOSAL-02, CANON-01, CANON-02, CANON-03, CANON-04. The full run was started three times and each time lost to a container restart under load; it is NOT claimed as green. POSTAL-QUARANTINE is worth recording: anchored first on the ledger wrapper's quarantine filter it SURVIVED, because deriveCurrentPostalState filters the same three fields immediately afterwards, so removing the wrapper's copy changes no output for any input. A redundant guard is unfalsifiable. Re-anchored on the filter that decides, it kills.",
-      "ranAt": "2026-09-03T00:55:00Z"
+      "result": "156 mutations registered; 154-mutation run completed 144 killed / 0 not killed / 10 skipped",
+      "note": "The war ran to completion for the first time this session: 154 mutations, 144 killed, 0 not killed, 10 skipped (9 needing PostgreSQL, 1 needing a browser). It is now 156 after the PR #329 merge and two new browser-detection guards; the 156-mutation run has NOT been executed, and the 154 figure is not claimed for it. The ten skips exposed a defect in the gate itself. Both runtimes are present on this host, but the war read CHROMIUM_PATH and nothing sets it, so it reported SKIPPED_NEEDS_BROWSER for a guard it could have exercised -- and in the summary line a skip that cannot be helped is indistinguishable from one that can. CRAWL-01 is KILLED once a browser is pointed at, and now resolves one by itself through scripts/resolve-chromium.mjs, which accepts only executable files and returns nothing rather than a plausible path, so an honest skip survives. Individually verified KILLED this session: POSTAL-QUARANTINE, PROPOSAL-01, PROPOSAL-02, CANON-01 through CANON-04, BROWSER-01, BROWSER-02 and CRAWL-01. POSTAL-QUARANTINE is worth recording: anchored first on the ledger wrapper's quarantine filter it SURVIVED, because deriveCurrentPostalState filters the same three fields immediately afterwards, so removing the wrapper's copy changes no output for any input. A redundant guard is unfalsifiable. Re-anchored on the filter that decides, it kills.",
+      "ranAt": "2026-09-03T02:30:00Z"
     },
     "test:browser": {
       "command": "CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser",
@@ -59,13 +59,13 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 288,
-      "reachableFromProduction": 139,
+      "srcModules": 301,
+      "reachableFromProduction": 140,
       "reachableFromOperatorScriptsOnly": 28,
-      "noEntryPointAtAll": 121,
+      "noEntryPointAtAll": 133,
       "allClassified": true,
-      "ranAt": "2026-09-02T22:30:00Z",
-      "note": "Computed from the reachability ratchet's own partition at this head. The three modules main merged with no entry point are resolved: first-cash-canary-guard is now wired (the first-cash packet delegates its five-conversation cap to it rather than restating the number), and capability-genome-execution-admission and proposal-acceptance-engine are classified against gates that state what would release them."
+      "ranAt": "2026-09-03T02:30:00Z",
+      "note": "Computed from the ratchet's own partition at this head. The PR #329 merge added thirteen modules: open-model-runtime-executor is wired through the model factory (which is why production reachability rose 139 -> 140), and the other twelve are classified AWAITING_ACTIVATION behind two registered gates -- no Frontier Operator host, and no configured open-model runtime. They arrived implemented, tested, green and unreachable, which is the condition this ratchet exists to catch."
     }
   },
   "capabilities": [

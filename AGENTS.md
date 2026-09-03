@@ -9,16 +9,29 @@ Before proposing or changing UberBond:
 1. Refresh the latest `main`; do not rely on a remembered SHA.
 2. Read `UBERBOND_CANON.md`.
 3. Read `UBERBOND_BOOTSTRAP.json`.
-4. Read `docs/UBERBOND_MASTER_MEMORY.md` and `artifacts/uberbond-memory-index.json` **before narrowing the project to the current handoff**. The master memory preserves the final goal, named-program lineage, portfolio breadth, recurring/platform ladders, historical contradictions, and unresolved owner-recalled names.
-5. Read **every path** listed in the bootstrap `canonPointers` array.
-6. Read `docs/CURRENT_HANDOFF.json` again when resuming unfinished work. A short-term handoff must never erase the long-horizon memory.
-7. Read `docs/CURRENT_SYSTEM_STATE.md` and `artifacts/system-readiness.json` when readiness matters.
-8. For distribution work, read `docs/DISTRIBUTION_OS_CANON.md` and `docs/DISTRIBUTION_VENDOR_MAP.md`.
-9. Inspect open/recent PRs and shared branches before coding so concurrent work is deduped.
-10. Search `namedInitiatives` and `unresolvedNames` in the memory index before concluding that an older program, feature, offer family, or architecture never existed.
-11. Prefer current repository truth over chat recollection, historical ZIPs, screenshots, generated plans, or stale issue text. Historical memory prevents forgetting; it never overrides current code, exact-head receipts, or durable external evidence.
+4. Read `docs/UBERBOND_TOTAL_BRAIN.md` and `artifacts/uberbond-total-brain.json` **before narrowing UberBond to the current handoff or latest implementation wave**. These are the no-amputation superset memory: they preserve current, draft/branch, historical-donor, research-asset, chat-spec/goal, externally blocked, superseded-truth and unresolved context without promoting it into present-tense proof.
+5. Read `docs/UBERBOND_MASTER_MEMORY.md` and `artifacts/uberbond-memory-index.json` **before narrowing the project to the current handoff**. The master memory preserves the final goal, named-program lineage, portfolio breadth, recurring/platform ladders, historical contradictions, and unresolved owner-recalled names.
+6. Read **every path** listed in the bootstrap `canonPointers` array.
+7. Read `docs/CURRENT_HANDOFF.json` again when resuming unfinished work. A short-term handoff must never erase the long-horizon memory.
+8. Read `docs/CURRENT_SYSTEM_STATE.md` and `artifacts/system-readiness.json` when readiness matters.
+9. For distribution work, read `docs/DISTRIBUTION_OS_CANON.md` and `docs/DISTRIBUTION_VENDOR_MAP.md`.
+10. Inspect open/recent PRs and shared branches before coding so concurrent work is deduped.
+11. Search Total Brain, `namedInitiatives`, lineage/reconciliation artifacts and unresolved names before concluding that an older program, feature, offer family, architecture, Singularity, Kilimanjaro/Ragnarok/Night mission, crawler, idea generator, clone/cannibal mechanism or model capability never existed.
+12. Prefer current repository truth over chat recollection, historical ZIPs, screenshots, generated plans, or stale issue text. Historical/superset memory prevents forgetting; it never overrides current code, exact-head receipts, or durable external evidence.
 
 If the owner says `continue`, `go`, or starts a fresh UberBond chat, resume from those durable artifacts. Do not ask the owner to retell the project merely because prior conversation context is unavailable.
+
+## No-amputation law
+
+UberBond is the accumulated organism, not the newest offer, PR, branch, model or named mission.
+
+- Superseded implementation does not erase the goal/mechanism/capability it donated.
+- Silence is not deletion.
+- A draft/branch idea remains discoverable without becoming canonical current truth.
+- A chat-only goal remains a `CHAT_SPEC_GOAL` until reconciled.
+- Research breadth remains a `RESEARCH_ASSET`, not customers/revenue.
+- External/account/customer/payment/legal/time blockers remain explicit rather than being hidden by more architecture.
+- When a materially useful old or new source is recovered, digest it into repository-native Total Brain/memory with provenance, truth class, contradictions and supersession links.
 
 ## Objective
 
@@ -65,7 +78,7 @@ Measured exploitation may use only trusted commercial receipts. Unproven channel
 
 ## Chat/source import law
 
-A shared-chat URL is not durable project memory. Another runtime may be unable to open it. When a material conversation, export, transcript, research package, or ZIP becomes available, follow `docs/memory/CHAT_IMPORT_PROTOCOL.md`: preserve provenance, durable decisions, named initiatives, contradictions, supersession links, and unresolved names in repository-native memory. Do not dump raw secrets/private data into the repository.
+A shared-chat URL is not durable project memory. Another runtime may be unable to open it. When a material conversation, export, transcript, research package, or ZIP becomes available, follow `docs/memory/CHAT_IMPORT_PROTOCOL.md`: preserve provenance, durable decisions, named initiatives, contradictions, supersession links, unresolved names and applicable Total Brain truth class in repository-native memory. Do not dump raw secrets/private data into the repository.
 
 ## Durable handoff
 

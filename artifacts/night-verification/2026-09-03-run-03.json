@@ -1,6 +1,6 @@
 {
-  "schemaVersion": "uberbond-night-verification-receipt-2.2.0",
-  "recordedAt": "2026-09-03T04:08:00Z",
+  "schemaVersion": "uberbond-night-verification-receipt-2.2.1",
+  "recordedAt": "2026-09-03T04:10:00Z",
   "branch": "work/night-verification-20260903",
   "verificationPr": 333,
   "sourceHeadBeforeReceipt": "ea82414b98361da360eceaaf654401975aad0a9a",
@@ -58,7 +58,7 @@
     }
   },
   "peerHeadsReadOnly": {
-    "nightFrontier": "92432c5d17b76ceaea180c187b3e7241a32ddd3d",
+    "nightFrontier": "22873ea7bfde97a4b458816423b7524001595fd0",
     "nightRuntime": "4ccc851719b76565cb4978a3c0a8d78774ee977f",
     "nightGenome": "4e90710266b4b06f38db3d74d34429ea8acdfe97",
     "nightPayment": "998b137aa1b35460d07d9064ea101c0bbe8da1ec",
@@ -86,19 +86,19 @@
       "reason": "13 strict mutations remain unexecuted due zero-step CI; no KILLED/SURVIVED claims are promoted."
     },
     {
-      "claim": "Night Frontier CLONED proof is complete",
-      "verdict": "DISPUTE",
-      "reason": "Peer receipt still identifies behavior-equivalence and duplicate-evidence gaps."
+      "claim": "Night Frontier CLONED/evidence-integrity guards are present",
+      "verdict": "PASS_SOURCE_RECEIPT_UNVERIFIED_HOSTED",
+      "reason": "Latest peer head 22873ea7 records implemented guards for behavior reproduction, distinct revisions and unique evidence references, while explicitly marking them IMPLEMENTED_UNVERIFIED_HOSTED."
     }
   ],
   "residual": {
     "P0": [],
     "P1": [
       "Successor PR331 still accepts provider responses that omit model identity as ok=true/COMPLETED with identityVerification=UNVERIFIED.",
-      "Thirteen Frontier/Open-Model strict mutations remain without executable kill/survival evidence.",
-      "Night Frontier CLONED behavior-equivalence/duplicate-evidence gap remains peer-owned and unresolved in its current receipt."
+      "Thirteen Frontier/Open-Model strict mutations remain without executable kill/survival evidence."
     ],
     "P2": [
+      "Night Frontier behavior-equivalence/duplicate-evidence guards are implemented on 22873ea7 but still lack trustworthy hosted execution.",
       "Exact-head syntax/deterministic/relay/reachability/real-Postgres/browser evidence remains blocked by zero-step GitHub Actions startup.",
       "Night Runtime lease-loss/reconciliation changes still need real PostgreSQL execution.",
       "Canonical readiness/current-system-state regeneration must wait until successor integration source settles and trustworthy execution exists.",

@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { join, dirname, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { MUTATIONS } from '../scripts/mutation-war.mjs';
+import { FRONTIER_OPEN_MODEL_MUTATIONS } from '../scripts/night-verification-frontier-open-model-mutations.mjs';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -28,7 +29,7 @@ test('every registered mutation anchor identifies exactly one live source site',
   const invalid = [];
   const ids = new Set();
 
-  for (const mutation of MUTATIONS) {
+  for (const mutation of [...MUTATIONS, ...FRONTIER_OPEN_MODEL_MUTATIONS]) {
     if (ids.has(mutation.id)) {
       invalid.push({ id: mutation.id, reason: 'duplicate-mutation-id' });
       continue;
@@ -45,20 +46,16 @@ test('every registered mutation anchor identifies exactly one live source site',
 
     const occurrences = occurrenceCount(source, mutation.find);
     if (occurrences !== 1) {
-      invalid.push({
-        id: mutation.id,
-        file: mutation.file,
-        reason: occurrences === 0 ? 'anchor-not-found' : 'anchor-ambiguous',
-        occurrences
-      });
+      invalid.push({ id: mutation.id, file: mutation.file, reason: occurrences === 0 ? 'anchor-not-found' : 'anchor-ambiguous', occurrences });
     }
   }
 
   assert.deepEqual(invalid, [], `Mutation registry contains invalid live anchors:\n${JSON.stringify(invalid, null, 2)}`);
 });
 
-test('convergence and Postal mutations name at least one suite directly bound to the mutated module', () => {
-  const audited = MUTATIONS.filter(mutation => mutation.id.startsWith('CONV-') || mutation.id.startsWith('POSTAL-'));
+test('convergence, Postal, Frontier and Open-Model mutations name at least one suite directly bound to the mutated module', () => {
+  const canonicalAudited = MUTATIONS.filter(mutation => mutation.id.startsWith('CONV-') || mutation.id.startsWith('POSTAL-'));
+  const audited = [...canonicalAudited, ...FRONTIER_OPEN_MODEL_MUTATIONS];
   const invalid = [];
 
   for (const mutation of audited) {
@@ -71,26 +68,18 @@ test('convergence and Postal mutations name at least one suite directly bound to
         readableSuites.push(suite);
         if (suiteDirectlyBindsTarget(suite, mutation.file)) boundSuites.push(suite);
       } catch (error) {
-        invalid.push({
-          id: mutation.id,
-          file: mutation.file,
-          suite,
-          reason: 'declared-suite-unreadable',
-          detail: error?.code || error?.message
-        });
+        invalid.push({ id: mutation.id, file: mutation.file, suite, reason: 'declared-suite-unreadable', detail: error?.code || error?.message });
       }
     }
 
-    if (readableSuites.length > 0 && boundSuites.length === 0) {
-      invalid.push({
-        id: mutation.id,
-        file: mutation.file,
-        reason: 'no-declared-suite-directly-binds-mutated-module',
-        suites: mutation.suites
-      });
+    if (readableSuites.length === 0) {
+      invalid.push({ id: mutation.id, file: mutation.file, reason: 'no-readable-declared-suite', suites: mutation.suites || [] });
+    } else if (boundSuites.length === 0) {
+      invalid.push({ id: mutation.id, file: mutation.file, reason: 'no-declared-suite-directly-binds-mutated-module', suites: mutation.suites });
     }
   }
 
-  assert.ok(audited.length >= 10, 'expected convergence/Postal mutation inventory to be present');
+  assert.ok(canonicalAudited.length >= 10, 'expected convergence/Postal mutation inventory to be present');
+  assert.equal(FRONTIER_OPEN_MODEL_MUTATIONS.length, 9, 'expected Frontier/Open-Model verification mutation inventory');
   assert.deepEqual(invalid, [], `Mutation registry contains suite-to-mutant binding gaps:\n${JSON.stringify(invalid, null, 2)}`);
 });

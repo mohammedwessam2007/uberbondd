@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "uberbond.gamechanger-structured-sources.v2",
+  "coverageObjective": "Add structured public registries and first-party release surfaces to the Gamechanger Mesh without weakening source provenance or granting business-effect authority.",
+  "sources": [
+    {
+      "id": "github-ai-agent-repositories",
+      "mode": "DIRECT_PUBLIC_READ",
+      "url": "https://api.github.com/search/repositories?q=topic%3Aai-agent+stars%3A%3E100&sort=updated&order=desc&per_page=50",
+      "parser": "JSON_GITHUB",
+      "cadenceMinutes": 120,
+      "sourceTier": "OPEN_SOURCE_ORIGINAL",
+      "domains": ["OPEN_SOURCE", "AGENT_RUNTIME", "AUTOMATION", "DEVTOOLS"]
+    },
+    {
+      "id": "github-mcp-repositories",
+      "mode": "DIRECT_PUBLIC_READ",
+      "url": "https://api.github.com/search/repositories?q=topic%3Amcp+stars%3A%3E25&sort=updated&order=desc&per_page=50",
+      "parser": "JSON_GITHUB",
+      "cadenceMinutes": 120,
+      "sourceTier": "OPEN_SOURCE_ORIGINAL",
+      "domains": ["OPEN_SOURCE", "PROTOCOLS", "AGENT_RUNTIME", "AUTOMATION"]
+    },
+    {
+      "id": "github-automation-repositories",
+      "mode": "DIRECT_PUBLIC_READ",
+      "url": "https://api.github.com/search/repositories?q=topic%3Aautomation+stars%3A%3E100&sort=updated&order=desc&per_page=50",
+      "parser": "JSON_GITHUB",
+      "cadenceMinutes": 180,
+      "sourceTier": "OPEN_SOURCE_ORIGINAL",
+      "domains": ["OPEN_SOURCE", "AUTOMATION", "DEVTOOLS", "INFRASTRUCTURE"]
+    },
+    {
+      "id": "github-llm-repositories",
+      "mode": "DIRECT_PUBLIC_READ",
+      "url": "https://api.github.com/search/repositories?q=topic%3Allm+stars%3A%3E500&sort=updated&order=desc&per_page=50",
+      "parser": "JSON_GITHUB",
+      "cadenceMinutes": 180,
+      "sourceTier": "OPEN_SOURCE_ORIGINAL",
+      "domains": ["OPEN_SOURCE", "AI_MODELS", "DEVTOOLS", "INFRASTRUCTURE"]
+    },
+    {
+      "id": "huggingface-recent-models-api",
+      "mode": "DIRECT_PUBLIC_READ",
+      "url": "https://huggingface.co/api/models?sort=lastModified&direction=-1&limit=80",
+      "parser": "JSON_HF",
+      "cadenceMinutes": 120,
+      "sourceTier": "OPEN_SOURCE_ORIGINAL",
+      "domains": ["AI_MODELS", "OPEN_SOURCE", "RESEARCH"]
+    },
+    {
+      "id": "openai-news",
+      "mode": "DIRECT_PUBLIC_READ",
+      "url": "https://openai.com/news/",
+      "parser": "HTML",
+      "cadenceMinutes": 180,
+      "sourceTier": "PRIMARY_OFFICIAL",
+      "domains": ["AI_MODELS", "AGENT_RUNTIME", "AUTOMATION", "DEVTOOLS"]
+    },
+    {
+      "id": "anthropic-news",
+      "mode": "DIRECT_PUBLIC_READ",
+      "url": "https://www.anthropic.com/news",
+      "parser": "HTML",
+      "cadenceMinutes": 180,
+      "sourceTier": "PRIMARY_OFFICIAL",
+      "domains": ["AI_MODELS", "AGENT_RUNTIME", "AUTOMATION", "DEVTOOLS"]
+    }
+  ]
+}

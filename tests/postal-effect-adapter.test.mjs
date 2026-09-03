@@ -68,7 +68,7 @@ test('reconcile fails closed when webhook ledger is absent or empty', async () =
 
 test('reconcile uses independent webhook evidence and rejects ambiguity/mismatch', async () => {
   const prepared = await adapter().prepare(intent());
-  const base = { id: 12, tag: prepared.tag, to: prepared.to, from: prepared.from, subject: prepared.subject, status: 'Sent' };
+  const base = { id: 12, tag: prepared.tag, to: prepared.to, from: prepared.from, subject: prepared.subject, status: 'Sent', provenance: 'AUTHENTICATED_POSTAL_WEBHOOK' };
   const accepted = await adapter({ reconciliationLookupFn: async () => [base] }).reconcile({ businessKey: 'lead_1', providerEffectIdentity: prepared.providerEffectIdentity, executionId: 'exec_123', expectedTo: prepared.to, expectedFrom: prepared.from });
   assert.equal(accepted.lifecycle, 'RECONCILED_ACCEPTED');
   assert.equal(adapter().classifyOutcome(accepted), 'RECONCILED_ACCEPTED');

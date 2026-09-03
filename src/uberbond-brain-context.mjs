@@ -15,7 +15,7 @@ export const MEMORY_V2_REQUIRED_PATHS = Object.freeze([
 const MAX_POINTERS = 160;
 const MAX_GOALS = 160;
 const MAX_GATES = 160;
-const MAX_INITIATIVES = 512;
+const MAX_INITIATIVES = 160;
 const MAX_MEMORY_LIST = 256;
 const MEMORY_STATUSES = new Set([
   'CURRENT_PROGRAM',

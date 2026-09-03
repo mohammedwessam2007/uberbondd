@@ -171,6 +171,6 @@ test('legacy v1.0 bootstrap remains readable for historical handoffs', () => {
 
 test('oversized memory arrays fail closed instead of truncating project history', () => {
   const oversized = structuredClone(memory);
-  oversized.namedInitiatives = Array.from({length:513},(_,i)=>({id:`i-${i}`,name:`Initiative ${i}`,status:'HISTORICAL_DONOR',role:'role',currentReconciliation:'history'}));
+  oversized.namedInitiatives = Array.from({length:161},(_,i)=>({id:`i-${i}`,name:`Initiative ${i}`,status:'HISTORICAL_DONOR',role:'role',currentReconciliation:'history'}));
   assert.equal(validateUberBondMemoryIndex(oversized).ok, false);
 });

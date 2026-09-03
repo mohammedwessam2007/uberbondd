@@ -20,10 +20,12 @@
     "exactSourceHead": "4289b44bc67cae16c48e286aa4e1f9b0b395bf0e",
     "classification": "INFRASTRUCTURE_NON_EVIDENCE",
     "runs": [
-      {"workflow": "CI", "runId": 33713435562, "jobsObserved": 3, "jobsWithSteps": 0},
-      {"workflow": "Night Verification War", "runId": 33713435555, "jobsObserved": 3, "jobsWithSteps": 0},
-      {"workflow": "Night Postal Focused Verification", "runId": 33713435571, "statusAtReceipt": "in_progress"}
+      {"workflow": "CI", "runId": 33713435562, "jobsObserved": 3, "jobsWithSteps": 0, "status": "completed", "conclusion": "failure"},
+      {"workflow": "Night Verification War", "runId": 33713435555, "jobsObserved": 3, "jobsWithSteps": 0, "status": "completed", "conclusion": "failure"},
+      {"workflow": "Night Postal Focused Verification", "runId": 33713435571, "jobsObserved": 1, "jobsWithSteps": 0, "status": "completed", "conclusion": "failure"}
     ],
+    "jobsObserved": 7,
+    "jobsWithExecutedSteps": 0,
     "testsActuallyExecuted": 0,
     "sourcePasses": 0,
     "sourceFailures": 0,

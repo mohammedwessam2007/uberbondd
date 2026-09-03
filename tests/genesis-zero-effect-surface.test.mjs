@@ -9,7 +9,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const primitiveSources = [...new Set([
   ...Object.values(GENESIS_IMPLEMENTATION_EVIDENCE).flatMap(item => item.sources || []),
   'src/genesis-metabolism.mjs'
-])].filter(relative => relative.startsWith('src/genesis-'));
+])].filter(relative => relative === 'src/perpetual-frontier-genesis.mjs' || relative.startsWith('src/genesis-'));
 
 const forbidden = [
   /from\s+['"]node:child_process['"]/,
@@ -23,7 +23,7 @@ const forbidden = [
 ];
 
 test('all GENESIS primitive source modules remain zero-effect computation surfaces', () => {
-  assert.ok(primitiveSources.length >= 8);
+  assert.ok(primitiveSources.length >= 9);
   for (const relative of primitiveSources) {
     const source = fs.readFileSync(path.join(root, relative), 'utf8');
     for (const pattern of forbidden) {

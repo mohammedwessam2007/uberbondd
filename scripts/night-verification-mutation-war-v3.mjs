@@ -12,7 +12,7 @@ export const MUTATION_TEST_NAMES = Object.freeze({
   'FRONTIER-01': 'uncertain proof cannot become goal success',
   'FRONTIER-02': 'overlapping worker ownership requires serialization',
   'FRONTIER-03': 'persistent loop requires bounded stop conditions and stays plan-only',
-  'FRONTIER-04': 'context spine rejects a selected root whose declared dependency is absent',
+  'FRONTIER-04': 'Context Spine identifies the tagged artifact as the unresolved root when its dependency is absent',
   'FRONTIER-05': 'artifact completion refuses missing and uncertain checks',
   'FRONTIER-06': 'visual verification cannot pass with an uncovered dimension',
   'FRONTIER-07': 'canonical worker compiler keeps providers interchangeable and forbids self certification',

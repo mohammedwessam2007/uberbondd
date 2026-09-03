@@ -15,9 +15,6 @@ export const MEMORY_V2_REQUIRED_PATHS = Object.freeze([
 const MAX_POINTERS = 160;
 const MAX_GOALS = 160;
 const MAX_GATES = 160;
-// No-amputation memory now carries a much larger named-program lineage than the
-// original 160-item prototype allowed. Keep the index bounded and fail-closed,
-// but size the bound for the durable project brain rather than truncating history.
 const MAX_INITIATIVES = 512;
 const MAX_MEMORY_LIST = 256;
 const MEMORY_STATUSES = new Set([
@@ -166,90 +163,30 @@ function normalizeUnresolvedNames(value) {
   return out;
 }
 
-export function validateUberBondBootstrap(value) {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return fail(['bootstrap-object-required']);
-  const reasonCodes = [];
-  const schemaVersion = text(value.schemaVersion, 80);
-  if (!['uberbond-bootstrap-1.0.0', 'uberbond-bootstrap-1.1.0'].includes(schemaVersion)) reasonCodes.push('supported-bootstrap-schema-required');
-  const project = text(value.project, 120);
-  const generatedAt = iso(value.generatedAt);
-  const objective = text(value.objective, 1200);
-  const truthHierarchy = uniqueStrings(value.truthHierarchy, 32, 200);
-  const canonPointers = uniqueStrings(value.canonPointers, MAX_POINTERS, 500);
-  const goals = uniqueStrings(value.goals, MAX_GOALS, 1200);
-  const architectureSpine = uniqueStrings(value.architectureSpine, 80, 300);
-  const capabilityFamilies = uniqueStrings(value.capabilityFamilies, 160, 500);
-  const productFamilies = uniqueStrings(value.productFamilies, 160, 500);
-  const protectedPaths = uniqueStrings(value.protectedPaths, 80, 500);
-  const externalProofGates = uniqueStrings(value.externalProofGates, MAX_GATES, 1200);
-  const startupProtocol = uniqueStrings(value.startupProtocol, 80, 1200);
-  if (project !== 'UberBond') reasonCodes.push('uberbond-project-required');
-  if (!generatedAt) reasonCodes.push('bootstrap-generated-at-required');
-  if (!objective) reasonCodes.push('bootstrap-objective-required');
-  if (!truthHierarchy?.length) reasonCodes.push('truth-hierarchy-required');
-  if (!canonPointers?.length) reasonCodes.push('canon-pointers-required');
-  if (!goals?.length) reasonCodes.push('goals-required');
-  if (!architectureSpine?.length) reasonCodes.push('architecture-spine-required');
-  if (!capabilityFamilies?.length) reasonCodes.push('capability-families-required');
-  if (!productFamilies?.length) reasonCodes.push('product-families-required');
-  if (!protectedPaths) reasonCodes.push('protected-paths-required');
-  if (!externalProofGates?.length) reasonCodes.push('external-proof-gates-required');
-  if (!startupProtocol?.length) reasonCodes.push('startup-protocol-required');
-  const secrets = inspectSecrets(value);
-  if (secrets.length) reasonCodes.push('secret-like-bootstrap-content-prohibited');
-  let memoryIndexPath = null;
-  let masterMemoryPath = null;
-  let continuity = null;
-  if (schemaVersion === 'uberbond-bootstrap-1.1.0') {
-    memoryIndexPath = text(value.memoryIndexPath, 500);
-    masterMemoryPath = text(value.masterMemoryPath, 500);
-    const raw = value.continuity;
-    if (!memoryIndexPath) reasonCodes.push('memory-index-path-required');
-    if (!masterMemoryPath) reasonCodes.push('master-memory-path-required');
-    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) reasonCodes.push('continuity-object-required');
-    else {
-      continuity = {
-        handoffPath: text(raw.handoffPath, 500),
-        startupInstruction: text(raw.startupInstruction, 500),
-        updateInstruction: text(raw.updateInstruction, 500),
-        chatImportInstruction: text(raw.chatImportInstruction, 1000)
-      };
-      if (!continuity.handoffPath || !continuity.startupInstruction || !continuity.updateInstruction || !continuity.chatImportInstruction) reasonCodes.push('complete-continuity-instructions-required');
-    }
+export function validateUberBondMemoryIndex(memoryIndex = {}) {
+  if (!memoryIndex || typeof memoryIndex !== 'object' || Array.isArray(memoryIndex)) {
+    return fail(['memory-index-object-required']);
   }
-  if (reasonCodes.length) return fail(reasonCodes, { secretPaths: secrets });
-  return {
-    ok: true,
-    policyVersion: UBERBOND_BRAIN_CONTEXT_POLICY_VERSION,
-    status: 'BOOTSTRAP_VALID',
-    bootstrap: { schemaVersion, project, generatedAt, objective, truthHierarchy, canonPointers, goals, architectureSpine, capabilityFamilies, productFamilies, protectedPaths, externalProofGates, startupProtocol, memoryIndexPath, masterMemoryPath, continuity },
-    businessEffectAuthority: 'NONE',
-    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
-  };
-}
-
-export function validateUberBondMemoryIndex(value) {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return fail(['memory-index-object-required']);
+  const schemaVersion = text(memoryIndex.schemaVersion, 80);
+  const project = text(memoryIndex.project, 80);
+  const generatedAt = iso(memoryIndex.generatedAt);
+  const purpose = text(memoryIndex.purpose, 1200);
+  const truthRule = text(memoryIndex.truthRule, 1600);
+  const finalGoal = normalizeFinalGoal(memoryIndex.finalGoal);
+  const namedInitiatives = normalizeInitiatives(memoryIndex.namedInitiatives);
+  const productFamilies = uniqueStrings(memoryIndex.productFamilies, 64, 240);
+  const recurringProducts = uniqueStrings(memoryIndex.recurringProducts, 128, 240);
+  const longTermPlatforms = uniqueStrings(memoryIndex.longTermPlatforms, 64, 300);
+  const partnerGatedOfferLineage = uniqueStrings(memoryIndex.partnerGatedOfferLineage || [], 128, 300);
+  const strategicStages = uniqueStrings(memoryIndex.strategicStages, 128, 500);
+  const sharedOperatingSystemDomains = uniqueStrings(memoryIndex.sharedOperatingSystemDomains, MAX_MEMORY_LIST, 700);
+  const antiForgettingRules = uniqueStrings(memoryIndex.antiForgettingRules, 128, 1000);
+  const sourceBasis = normalizeSourceBasis(memoryIndex.sourceBasis);
+  const historicalCorpusSnapshots = normalizeHistoricalSnapshots(memoryIndex.historicalCorpusSnapshots || []);
+  const unresolvedNames = normalizeUnresolvedNames(memoryIndex.unresolvedNames || []);
   const reasonCodes = [];
-  const schemaVersion = text(value.schemaVersion, 80);
-  const project = text(value.project, 120);
-  const generatedAt = iso(value.generatedAt);
-  const purpose = text(value.purpose, 1600);
-  const truthRule = text(value.truthRule, 1600);
-  const finalGoal = normalizeFinalGoal(value.finalGoal);
-  const historicalCorpusSnapshots = normalizeHistoricalSnapshots(value.historicalCorpusSnapshots);
-  const namedInitiatives = normalizeInitiatives(value.namedInitiatives);
-  const productFamilies = uniqueStrings(value.productFamilies, MAX_MEMORY_LIST, 500);
-  const recurringProducts = uniqueStrings(value.recurringProducts, MAX_MEMORY_LIST, 500);
-  const longTermPlatforms = uniqueStrings(value.longTermPlatforms, MAX_MEMORY_LIST, 500);
-  const singularities = uniqueStrings(value.singularities, MAX_MEMORY_LIST, 500);
-  const productProgression = uniqueStrings(value.productProgression, MAX_MEMORY_LIST, 800);
-  const distributionMoats = uniqueStrings(value.distributionMoats, MAX_MEMORY_LIST, 800);
-  const ownerConstraints = uniqueStrings(value.ownerConstraints, MAX_MEMORY_LIST, 1000);
-  const sourceBasis = normalizeSourceBasis(value.sourceBasis);
-  const unresolvedNames = normalizeUnresolvedNames(value.unresolvedNames);
-  if (schemaVersion !== 'uberbond-memory-index-1.0.0') reasonCodes.push('memory-index-schema-required');
-  if (project !== 'UberBond') reasonCodes.push('memory-index-project-required');
+  if (schemaVersion !== 'uberbond-memory-index-1.0.0') reasonCodes.push('unsupported-memory-index-schema');
+  if (project !== 'UberBond') reasonCodes.push('memory-index-project-must-be-uberbond');
   if (!generatedAt) reasonCodes.push('memory-index-generated-at-required');
   if (!purpose) reasonCodes.push('memory-index-purpose-required');
   if (!truthRule) reasonCodes.push('memory-index-truth-rule-required');
@@ -258,107 +195,232 @@ export function validateUberBondMemoryIndex(value) {
   if (!productFamilies || productFamilies.length === 0) reasonCodes.push('memory-product-families-required');
   if (!recurringProducts) reasonCodes.push('bounded-recurring-products-required');
   if (!longTermPlatforms) reasonCodes.push('bounded-long-term-platforms-required');
-  if (!singularities) reasonCodes.push('bounded-singularities-required');
-  if (!productProgression) reasonCodes.push('bounded-product-progression-required');
-  if (!distributionMoats) reasonCodes.push('bounded-distribution-moats-required');
-  if (!ownerConstraints) reasonCodes.push('bounded-owner-constraints-required');
+  if (!partnerGatedOfferLineage) reasonCodes.push('bounded-partner-gated-offers-required');
+  if (!strategicStages || strategicStages.length === 0) reasonCodes.push('strategic-stages-required');
+  if (!sharedOperatingSystemDomains || sharedOperatingSystemDomains.length === 0) reasonCodes.push('shared-operating-system-domains-required');
+  if (!antiForgettingRules || antiForgettingRules.length === 0) reasonCodes.push('anti-forgetting-rules-required');
   if (!sourceBasis) reasonCodes.push('source-basis-required');
-  if (!historicalCorpusSnapshots) reasonCodes.push('historical-corpus-snapshots-required');
-  if (!unresolvedNames) reasonCodes.push('unresolved-names-required');
-  if (namedInitiatives && unresolvedNames) {
-    const unresolved = new Set(unresolvedNames.map(item => item.name.toLowerCase()));
-    for (const initiative of namedInitiatives.filter(item => item.status === 'OWNER_RECALLED_UNRESOLVED')) {
-      if (!unresolved.has(initiative.name.toLowerCase())) reasonCodes.push('owner-recalled-unresolved-initiative-missing-from-unresolved-names');
-    }
-  }
-  const secrets = inspectSecrets(value);
+  if (!historicalCorpusSnapshots) reasonCodes.push('bounded-historical-corpus-snapshots-required');
+  if (!unresolvedNames) reasonCodes.push('bounded-unresolved-name-array-required');
+  const secrets = inspectSecrets(memoryIndex);
   if (secrets.length) reasonCodes.push('secret-like-memory-content-prohibited');
-  if (reasonCodes.length) return fail(reasonCodes, { secretPaths: secrets });
-  const normalized = { schemaVersion, project, generatedAt, purpose, truthRule, finalGoal, historicalCorpusSnapshots, namedInitiatives, productFamilies, recurringProducts, longTermPlatforms, singularities, productProgression, distributionMoats, ownerConstraints, sourceBasis, unresolvedNames };
+
+  const normalized = {
+    schemaVersion,
+    project,
+    generatedAt,
+    purpose,
+    truthRule,
+    finalGoal,
+    historicalCorpusSnapshots: historicalCorpusSnapshots || [],
+    namedInitiatives: namedInitiatives || [],
+    productFamilies: productFamilies || [],
+    recurringProducts: recurringProducts || [],
+    longTermPlatforms: longTermPlatforms || [],
+    partnerGatedOfferLineage: partnerGatedOfferLineage || [],
+    strategicStages: strategicStages || [],
+    sharedOperatingSystemDomains: sharedOperatingSystemDomains || [],
+    antiForgettingRules: antiForgettingRules || [],
+    sourceBasis: sourceBasis || [],
+    unresolvedNames: unresolvedNames || []
+  };
+
+  if (namedInitiatives && unresolvedNames) {
+    const unresolvedInitiatives = new Set(namedInitiatives.filter(item => item.status === 'OWNER_RECALLED_UNRESOLVED').map(item => item.name.toLowerCase()));
+    const unresolvedIndex = new Set(unresolvedNames.map(item => item.name.toLowerCase()));
+    const missing = [...unresolvedInitiatives].filter(name => !unresolvedIndex.has(name));
+    const orphaned = [...unresolvedIndex].filter(name => !unresolvedInitiatives.has(name));
+    if (missing.length) reasonCodes.push('owner-recalled-unresolved-initiative-missing-from-unresolved-names');
+    if (orphaned.length) reasonCodes.push('unresolved-name-missing-owner-recalled-initiative');
+  }
+
+  if (reasonCodes.length) {
+    return fail(reasonCodes, { prohibitedSecretPaths: secrets, memoryIndex: normalized });
+  }
+  const identity = clone(normalized);
+  const memoryDigest = digest(identity);
   return {
     ok: true,
     policyVersion: UBERBOND_BRAIN_CONTEXT_POLICY_VERSION,
-    status: 'MEMORY_INDEX_VALID',
+    status: 'PROJECT_MEMORY_READY',
     memoryIndex: normalized,
-    memoryDigest: digest(normalized),
+    memoryDigest,
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
 }
 
-export function compileUberBondProjectContext({ bootstrap, memoryIndex, sourceCommit, availablePaths = [], now = new Date() } = {}) {
-  const bootstrapResult = validateUberBondBootstrap(bootstrap);
-  if (!bootstrapResult.ok) return bootstrapResult;
-  const version = bootstrapResult.bootstrap.schemaVersion;
-  const memoryResult = version === 'uberbond-bootstrap-1.1.0' ? validateUberBondMemoryIndex(memoryIndex) : null;
-  const normalizedMemory = memoryResult?.ok ? memoryResult.memoryIndex : null;
+export function validateUberBondBootstrap(bootstrap = {}) {
+  if (!bootstrap || typeof bootstrap !== 'object' || Array.isArray(bootstrap)) {
+    return fail(['bootstrap-object-required']);
+  }
+  const schemaVersion = text(bootstrap.schemaVersion, 80);
+  const project = text(bootstrap.project, 80);
+  const objective = text(bootstrap.objective, 1000);
+  const generatedAt = iso(bootstrap.generatedAt);
+  const canonPointers = uniqueStrings(bootstrap.canonPointers, MAX_POINTERS, 240);
+  const goals = uniqueStrings(bootstrap.goals, MAX_GOALS, 500);
+  const externalProofGates = uniqueStrings(bootstrap.externalProofGates, MAX_GATES, 500);
+  const startupProtocol = uniqueStrings(bootstrap.startupProtocol, 40, 500);
+  const truthHierarchy = uniqueStrings(bootstrap.truthHierarchy, 32, 300);
+  const productFamilies = uniqueStrings(bootstrap.productFamilies || [], 64, 240);
+  const memoryIndexPath = bootstrap.memoryIndexPath == null ? null : text(bootstrap.memoryIndexPath, 240);
+  const masterMemoryPath = bootstrap.masterMemoryPath == null ? null : text(bootstrap.masterMemoryPath, 240);
   const reasonCodes = [];
-  if (version === 'uberbond-bootstrap-1.1.0' && !normalizedMemory) reasonCodes.push('valid-memory-index-required');
-  const required = [...REQUIRED_CANON_PATHS, ...(version === 'uberbond-bootstrap-1.1.0' ? MEMORY_V2_REQUIRED_PATHS : [])];
-  const declared = uniqueStrings(availablePaths, MAX_POINTERS, 500) || [];
-  const missingPaths = required.filter(item => !declared.includes(item));
-  if (missingPaths.length) reasonCodes.push('required-canon-path-missing');
-  if (normalizedMemory && JSON.stringify(bootstrapResult.bootstrap.productFamilies) !== JSON.stringify(normalizedMemory.productFamilies)) reasonCodes.push('bootstrap-memory-product-family-mismatch');
-  if (reasonCodes.length) return fail(reasonCodes, { missingPaths, memoryReasonCodes: memoryResult?.reasonCodes || [] });
-  const compiledAt = iso(now) || new Date().toISOString();
-  const baseContext = {
-    schemaVersion: version === 'uberbond-bootstrap-1.1.0' ? 'uberbond-project-context-1.1.0' : 'uberbond-project-context-1.0.0',
-    policyVersion: UBERBOND_BRAIN_CONTEXT_POLICY_VERSION,
+  if (!['uberbond-bootstrap-1.0.0', 'uberbond-bootstrap-1.1.0'].includes(schemaVersion)) reasonCodes.push('unsupported-bootstrap-schema');
+  if (project !== 'UberBond') reasonCodes.push('project-must-be-uberbond');
+  if (!objective) reasonCodes.push('objective-required');
+  if (!generatedAt) reasonCodes.push('generated-at-required');
+  if (!canonPointers) reasonCodes.push('bounded-canon-pointer-array-required');
+  if (!goals) reasonCodes.push('bounded-goal-array-required');
+  if (!externalProofGates) reasonCodes.push('bounded-external-proof-gate-array-required');
+  if (!startupProtocol || startupProtocol.length === 0) reasonCodes.push('startup-protocol-required');
+  if (!truthHierarchy || truthHierarchy.length === 0) reasonCodes.push('truth-hierarchy-required');
+  if (!productFamilies) reasonCodes.push('bounded-product-family-array-required');
+  if (schemaVersion === 'uberbond-bootstrap-1.1.0') {
+    if (memoryIndexPath !== 'artifacts/uberbond-memory-index.json') reasonCodes.push('canonical-memory-index-path-required');
+    if (masterMemoryPath !== 'docs/UBERBOND_MASTER_MEMORY.md') reasonCodes.push('canonical-master-memory-path-required');
+    if (!canonPointers?.includes(memoryIndexPath)) reasonCodes.push('memory-index-must-be-canon-pointer');
+    if (!canonPointers?.includes(masterMemoryPath)) reasonCodes.push('master-memory-must-be-canon-pointer');
+  }
+  const secrets = inspectSecrets(bootstrap);
+  if (secrets.length) reasonCodes.push('secret-like-bootstrap-content-prohibited');
+  const normalized = {
+    schemaVersion,
+    project,
+    objective,
+    generatedAt,
+    canonPointers: canonPointers || [],
+    goals: goals || [],
+    externalProofGates: externalProofGates || [],
+    startupProtocol: startupProtocol || [],
+    truthHierarchy: truthHierarchy || [],
+    architectureSpine: uniqueStrings(bootstrap.architectureSpine || [], 64, 300) || [],
+    capabilityFamilies: uniqueStrings(bootstrap.capabilityFamilies || [], 128, 240) || [],
+    productFamilies: productFamilies || [],
+    protectedPaths: uniqueStrings(bootstrap.protectedPaths || [], 64, 240) || [],
+    memoryIndexPath,
+    masterMemoryPath,
+    continuity: bootstrap.continuity && typeof bootstrap.continuity === 'object'
+      ? {
+          handoffPath: text(bootstrap.continuity.handoffPath, 240),
+          startupInstruction: text(bootstrap.continuity.startupInstruction, 500),
+          updateInstruction: text(bootstrap.continuity.updateInstruction, 500),
+          chatImportInstruction: bootstrap.continuity.chatImportInstruction == null ? null : text(bootstrap.continuity.chatImportInstruction, 800)
+        }
+      : null
+  };
+  if (!normalized.continuity?.handoffPath || !normalized.continuity?.startupInstruction || !normalized.continuity?.updateInstruction) {
+    reasonCodes.push('continuity-contract-required');
+  }
+  if (schemaVersion === 'uberbond-bootstrap-1.1.0' && !normalized.continuity?.chatImportInstruction) {
+    reasonCodes.push('chat-import-instruction-required');
+  }
+  return reasonCodes.length
+    ? fail(reasonCodes, { prohibitedSecretPaths: secrets, bootstrap: normalized })
+    : { ok: true, policyVersion: UBERBOND_BRAIN_CONTEXT_POLICY_VERSION, bootstrap: normalized };
+}
+
+export function compileUberBondProjectContext({ bootstrap, memoryIndex = null, sourceCommit, availablePaths = [], now = new Date() } = {}) {
+  const validated = validateUberBondBootstrap(bootstrap);
+  if (!validated.ok) return validated;
+  const commit = text(sourceCommit, 64);
+  const timestamp = iso(now);
+  if (!commit || !/^[a-f0-9]{7,64}$/i.test(commit)) return fail(['valid-source-commit-required']);
+  if (!timestamp) return fail(['valid-now-required']);
+  if (!Array.isArray(availablePaths) || availablePaths.length > 5000) return fail(['bounded-available-paths-array-required']);
+  const pathSet = new Set(availablePaths.map(path => String(path || '').trim()).filter(Boolean));
+  const required = [...new Set([
+    ...REQUIRED_CANON_PATHS,
+    ...(validated.bootstrap.schemaVersion === 'uberbond-bootstrap-1.1.0' ? MEMORY_V2_REQUIRED_PATHS : []),
+    ...validated.bootstrap.canonPointers
+  ])];
+  const missing = required.filter(path => !pathSet.has(path));
+  if (missing.length) return fail(['required-canon-path-missing'], { missingPaths: missing });
+
+  let memory = null;
+  if (validated.bootstrap.schemaVersion === 'uberbond-bootstrap-1.1.0') {
+    const checkedMemory = validateUberBondMemoryIndex(memoryIndex);
+    if (!checkedMemory.ok) return fail(['valid-memory-index-required', ...checkedMemory.reasonCodes], { memoryValidation: checkedMemory });
+    if (JSON.stringify(checkedMemory.memoryIndex.productFamilies) !== JSON.stringify(validated.bootstrap.productFamilies)) {
+      return fail(['bootstrap-memory-product-family-mismatch']);
+    }
+    memory = checkedMemory;
+  } else if (memoryIndex != null) {
+    const checkedMemory = validateUberBondMemoryIndex(memoryIndex);
+    if (!checkedMemory.ok) return checkedMemory;
+    memory = checkedMemory;
+  }
+
+  const context = {
+    schemaVersion: memory ? 'uberbond-project-context-1.1.0' : 'uberbond-project-context-1.0.0',
     project: 'UberBond',
-    sourceCommit: text(sourceCommit, 120),
-    objective: bootstrapResult.bootstrap.objective,
-    truthHierarchy: clone(bootstrapResult.bootstrap.truthHierarchy),
-    canonPointers: clone(bootstrapResult.bootstrap.canonPointers),
-    goals: clone(bootstrapResult.bootstrap.goals),
-    architectureSpine: clone(bootstrapResult.bootstrap.architectureSpine),
-    capabilityFamilies: clone(bootstrapResult.bootstrap.capabilityFamilies),
-    productFamilies: clone(bootstrapResult.bootstrap.productFamilies),
-    protectedPaths: clone(bootstrapResult.bootstrap.protectedPaths),
-    externalProofGates: clone(bootstrapResult.bootstrap.externalProofGates),
-    startupProtocol: clone(bootstrapResult.bootstrap.startupProtocol),
-    finalGoal: normalizedMemory ? clone(normalizedMemory.finalGoal) : null,
-    namedInitiatives: normalizedMemory ? clone(normalizedMemory.namedInitiatives) : [],
-    recurringProducts: normalizedMemory ? clone(normalizedMemory.recurringProducts) : [],
-    longTermPlatforms: normalizedMemory ? clone(normalizedMemory.longTermPlatforms) : [],
-    singularities: normalizedMemory ? clone(normalizedMemory.singularities) : [],
-    productProgression: normalizedMemory ? clone(normalizedMemory.productProgression) : [],
-    distributionMoats: normalizedMemory ? clone(normalizedMemory.distributionMoats) : [],
-    ownerConstraints: normalizedMemory ? clone(normalizedMemory.ownerConstraints) : [],
-    sourceBasis: normalizedMemory ? clone(normalizedMemory.sourceBasis) : [],
-    historicalCorpusSnapshots: normalizedMemory ? clone(normalizedMemory.historicalCorpusSnapshots) : [],
-    unresolvedNames: normalizedMemory ? clone(normalizedMemory.unresolvedNames) : [],
-    memoryDigest: memoryResult?.memoryDigest || null,
-    externalTruthLaw: 'PREPARED_PROSPECT_SENT_DELIVERED_PAYMENT_LINK_SANDBOX_OR_SILENCE_CANNOT_SYNTHESIZE_CUSTOMER_CLEARED_PAYMENT_ACCEPTED_DELIVERY_RETENTION_OR_PROVIDER_READINESS',
+    sourceCommit: commit.toLowerCase(),
+    compiledAt: timestamp,
+    objective: validated.bootstrap.objective,
+    truthHierarchy: clone(validated.bootstrap.truthHierarchy),
+    goals: clone(validated.bootstrap.goals),
+    architectureSpine: clone(validated.bootstrap.architectureSpine),
+    capabilityFamilies: clone(validated.bootstrap.capabilityFamilies),
+    productFamilies: clone(validated.bootstrap.productFamilies),
+    canonPointers: clone(validated.bootstrap.canonPointers),
+    protectedPaths: clone(validated.bootstrap.protectedPaths),
+    externalProofGates: clone(validated.bootstrap.externalProofGates),
+    continuity: clone(validated.bootstrap.continuity),
+    memoryDigest: memory?.memoryDigest || null,
+    finalGoal: memory ? clone(memory.memoryIndex.finalGoal) : null,
+    namedInitiatives: memory ? clone(memory.memoryIndex.namedInitiatives) : [],
+    historicalCorpusSnapshots: memory ? clone(memory.memoryIndex.historicalCorpusSnapshots) : [],
+    recurringProducts: memory ? clone(memory.memoryIndex.recurringProducts) : [],
+    longTermPlatforms: memory ? clone(memory.memoryIndex.longTermPlatforms) : [],
+    partnerGatedOfferLineage: memory ? clone(memory.memoryIndex.partnerGatedOfferLineage) : [],
+    strategicStages: memory ? clone(memory.memoryIndex.strategicStages) : [],
+    sharedOperatingSystemDomains: memory ? clone(memory.memoryIndex.sharedOperatingSystemDomains) : [],
+    antiForgettingRules: memory ? clone(memory.memoryIndex.antiForgettingRules) : [],
+    unresolvedNames: memory ? clone(memory.memoryIndex.unresolvedNames) : [],
+    continuityLaw: 'REPOSITORY_CANON_OUTRANKS_CHAT_MEMORY_AND_EVERY_MATERIAL_SESSION_MUST_LEAVE_A_DURABLE_HANDOFF',
+    memoryLaw: 'HISTORICAL_MEMORY_PREVENTS_FORGETTING_BUT_NEVER_PROMOTES_ITSELF_ABOVE_CURRENT_CODE_RECEIPTS_OR_EXTERNAL_TRUTH',
+    externalTruthLaw: 'INTERNAL_CODE_MODEL_OR_DOCUMENT_OUTPUT_CANNOT_SYNTHESIZE_CUSTOMER_PAYMENT_ACCEPTANCE_LEGAL_PROVIDER_OR_MARKET_TRUTH',
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
-  const contextDigest = digest(baseContext);
-  return { ok: true, policyVersion: UBERBOND_BRAIN_CONTEXT_POLICY_VERSION, status: 'PROJECT_CONTEXT_READY', compiledAt, context: { ...baseContext, contextDigest }, externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS } };
+  const identity = { ...context };
+  delete identity.compiledAt;
+  context.contextDigest = digest(identity);
+  return {
+    ok: true,
+    policyVersion: UBERBOND_BRAIN_CONTEXT_POLICY_VERSION,
+    status: 'PROJECT_CONTEXT_READY',
+    context,
+    startupProtocol: clone(validated.bootstrap.startupProtocol),
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
+  };
 }
 
 export function compileUberBondHandoff({ projectContext, activeMission, completed = [], blockers = [], nextActions = [] } = {}) {
-  if (!projectContext || !projectContext.contextDigest || !projectContext.sourceCommit) return fail(['valid-project-context-required']);
-  const active = text(activeMission, 1600);
-  const done = uniqueStrings(completed, 80, 1200);
-  const blocked = uniqueStrings(blockers, 80, 1200);
-  const next = uniqueStrings(nextActions, 80, 1200);
-  if (!active) return fail(['active-mission-required']);
+  if (!projectContext?.contextDigest || projectContext.project !== 'UberBond') return fail(['valid-project-context-required']);
+  const mission = text(activeMission, 1000);
+  const done = uniqueStrings(completed, 100, 500);
+  const blocked = uniqueStrings(blockers, 100, 500);
+  const next = uniqueStrings(nextActions, 100, 500);
+  if (!mission) return fail(['active-mission-required']);
   if (!done || !blocked || !next) return fail(['bounded-handoff-arrays-required']);
   const handoff = {
-    schemaVersion: 'uberbond-durable-handoff-1.1.0',
-    project: 'UberBond',
+    schemaVersion: projectContext.memoryDigest ? 'uberbond-handoff-1.1.0' : 'uberbond-handoff-1.0.0',
     sourceCommit: projectContext.sourceCommit,
     contextDigest: projectContext.contextDigest,
     memoryDigest: projectContext.memoryDigest || null,
-    activeMission: active,
+    activeMission: mission,
     completed: done,
     blockers: blocked,
     nextActions: next,
     unresolvedNames: clone(projectContext.unresolvedNames || []),
-    finalGoal: clone(projectContext.finalGoal || null),
-    externalProofGates: clone(projectContext.externalProofGates || []),
+    externalProofGates: clone(projectContext.externalProofGates),
+    truthLaw: projectContext.externalTruthLaw,
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
-  return { ok: true, policyVersion: UBERBOND_BRAIN_CONTEXT_POLICY_VERSION, status: 'DURABLE_HANDOFF_READY', handoff: { ...handoff, handoffDigest: digest(handoff) }, externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS } };
+  handoff.handoffDigest = digest(handoff);
+  return { ok: true, policyVersion: UBERBOND_BRAIN_CONTEXT_POLICY_VERSION, status: 'DURABLE_HANDOFF_READY', handoff };
 }

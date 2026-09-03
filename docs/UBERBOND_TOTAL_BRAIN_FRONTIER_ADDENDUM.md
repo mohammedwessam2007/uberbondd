@@ -7,8 +7,11 @@ Source: owner/assistant design conversation on 2026-09-03, promoted into reposit
 Canonical detailed doctrine: `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`
 Machine index: `artifacts/perpetual-frontier-genesis.json`
 Executable zero-effect foundation: `src/perpetual-frontier-genesis.mjs`
+Gamechanger -> GENESIS bridge: `scripts/perpetual-frontier-genesis-tick.mjs`
+Hourly workflow: `.github/workflows/gamechanger-mesh-hourly.yml`
 Doctor: `npm run genesis:doctor`
-Focused tests: `npm run test:genesis`
+Focused tests: `npm run test:genesis` plus `tests/perpetual-frontier-genesis-tick.test.mjs`
+Composite public-frontier command: `npm run frontier:tick`
 
 This addendum prevents future sessions from narrowing UberBond to a static autonomous company or to the technology frontier of 2026.
 
@@ -35,8 +38,19 @@ The complete named 275-idea conceptual registry is preserved in `docs/PERPETUAL_
 Truth class at import:
 
 - doctrine/ideas: `CHAT_SPEC_GOAL` promoted into durable canon;
-- executable GENESIS foundation: repository implementation evidence on its exact branch/head until merged;
+- executable GENESIS foundation and Gamechanger bridge: repository implementation evidence on the exact branch/head until merged;
+- scheduled hourly path: wired in repository workflow, but a scheduled or triggered run counts only if a real GitHub Actions runner executes steps and produces the expected receipts;
 - customers/revenue/accepted delivery/retention: unchanged unless newer external receipts establish otherwise.
+
+## Executable frontier path
+
+The existing Gamechanger Mesh remains the lawful public-signal sensor. On the hourly workflow, after Gamechanger contracts and GENESIS contracts pass, the workflow is intended to:
+
+`public frontier reads/search -> Gamechanger tournament -> frontier signals -> Autonomous Frontier Intelligence packets -> GENESIS cycle compilation -> persisted Gamechanger + GENESIS receipts`
+
+GENESIS automatically converts eligible frontier signals into proposal-only shockwave plans, frontier-latency receipts and review-only resurrection/unknown-unknown work. This wiring does not promote a capability, activate a dormant business, contact a buyer, spend money or convert a public claim into commercial proof.
+
+At integration time the repository's hosted CI/Night jobs repeatedly completed with `steps: null` and no logs. That state is `INFRASTRUCTURE_NON_EVIDENCE`. The code path is wired, but hosted execution must not be claimed until a later run actually executes steps and emits receipts.
 
 ## Permanent anti-freeze law
 

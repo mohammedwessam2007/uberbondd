@@ -4,6 +4,15 @@ import { id, now } from './utils.mjs';
 import { ConflictError } from './store.mjs';
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const RECOVERY_POLICIES = new Set(['legacy', 'replay-safe', 'reconcile']);
+
+function normalizeRecoveryPolicy(options = {}) {
+  const requested = options.recoveryPolicy
+    ?? (options.nonIdempotent === true ? 'reconcile' : options.idempotent === true ? 'replay-safe' : 'legacy');
+  const policy = String(requested || 'legacy');
+  if (!RECOVERY_POLICIES.has(policy)) throw new Error(`Invalid queue recoveryPolicy: ${policy}`);
+  return policy;
+}
 
 function uncertainTimeoutError(maxRuntimeMs) {
   const error = new Error(`Job exceeded ${maxRuntimeMs}ms runtime limit; execution outcome is uncertain and automatic retry is blocked`);
@@ -47,12 +56,14 @@ export class DurableQueue {
   async enqueue(type, payload = {}, options = {}) {
     const runAt = options.runAt ? new Date(options.runAt) : new Date(Date.now() + Math.max(0, Number(options.delayMs || 0)));
     if (Number.isNaN(runAt.getTime())) throw new Error('Invalid queue runAt value');
+    const recoveryPolicy = normalizeRecoveryPolicy(options);
     const job = {
       id: id('job'), type: String(type), queue: String(options.queue || type), status: 'queued',
       payload: structuredClone(payload || {}), priority: Number(options.priority || 0), attempts: 0,
       maxAttempts: Math.max(1, Number(options.maxAttempts || this.cfg.queue.maxAttempts || 5)),
       runAt: runAt.toISOString(), scheduledAt: runAt.toISOString(), dedupeKey: options.dedupeKey ? String(options.dedupeKey) : null,
       singletonKey: options.singletonKey ? String(options.singletonKey) : null,
+      recoveryPolicy,
       createdAt: now(), lastError: ''
     };
     try {
@@ -107,6 +118,41 @@ export class DurableQueue {
   async liveWorkers(maxAgeMs = this.cfg.queue.workerStaleMs || 90000) {
     const cutoff = Date.now() - Number(maxAgeMs);
     return (await this.store.list('workerHeartbeats')).filter(worker => Date.parse(worker.heartbeatAt || 0) >= cutoff);
+  }
+
+  async quarantineUncertainStaleJobs(lockTimeoutMs = this.cfg.queue.lockTimeoutMs || 300000) {
+    const cutoff = Date.now() - Math.max(1000, Number(lockTimeoutMs || 300000));
+    let quarantined = 0;
+    const jobs = await this.store.list('jobs');
+    for (const job of jobs) {
+      if (job.status !== 'active' || job.recoveryPolicy !== 'reconcile') continue;
+      const stamp = Date.parse(job.heartbeatAt || job.lockedAt || job.startedAt || 0);
+      if (!Number.isFinite(stamp) || stamp > cutoff) continue;
+      const current = await this.store.get('jobs', job.id);
+      if (!current || current.status !== 'active' || current.lockedBy !== job.lockedBy) continue;
+      const currentStamp = Date.parse(current.heartbeatAt || current.lockedAt || current.startedAt || 0);
+      if (!Number.isFinite(currentStamp) || currentStamp > cutoff) continue;
+      const deadLetteredAt = now();
+      const patched = await this.store.patch('jobs', job.id, {
+        status: 'dead-letter', deadLetteredAt,
+        lastError: 'Worker lease expired while execution outcome may be non-idempotent; reconciliation required before replay',
+        lockedAt: null, lockedBy: null, heartbeatAt: null,
+        uncertainExecution: true,
+        uncertainReasonCode: 'JOB_STALE_NON_IDEMPOTENT_UNCERTAIN',
+        reconciliationRequired: true,
+        reconciledAt: null,
+        reconciliationReceipt: null
+      });
+      if (!patched || patched.status !== 'dead-letter') continue;
+      quarantined += 1;
+      await this.store.log('queue_job_stale_execution_quarantined', {
+        jobId: job.id, type: job.type, previousWorkerId: job.lockedBy,
+        recoveryPolicy: job.recoveryPolicy,
+        uncertainExecution: true,
+        errorCode: 'JOB_STALE_NON_IDEMPOTENT_UNCERTAIN'
+      });
+    }
+    return { quarantined };
   }
 
   async runJob(job, handlers) {
@@ -201,6 +247,7 @@ export class DurableQueue {
 
   async runOnce(handlers, options = {}) {
     if (await this.isPaused()) return { paused: true, claimed: 0 };
+    await this.quarantineUncertainStaleJobs(this.cfg.queue.lockTimeoutMs);
     const concurrency = Math.max(1, Number(options.concurrency || this.cfg.queue.concurrency || 2));
     const available = Math.max(0, concurrency - this.active);
     if (!available) return { paused: false, claimed: 0 };
@@ -213,6 +260,7 @@ export class DurableQueue {
   async startWorker(handlers, options = {}) {
     if (this.loopPromise) return this.loopPromise;
     this.stopping = false;
+    await this.quarantineUncertainStaleJobs(this.cfg.queue.lockTimeoutMs);
     await this.store.recoverStaleJobs(this.cfg.queue.lockTimeoutMs);
     await this.recordWorkerHeartbeat({ state: 'starting' });
     this.heartbeatTimer = setInterval(() => {

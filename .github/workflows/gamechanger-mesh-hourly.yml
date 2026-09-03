@@ -30,7 +30,7 @@ jobs:
           key: gamechanger-mesh-state-${{ github.run_id }}
           restore-keys: |
             gamechanger-mesh-state-
-      - name: Verify mesh and GENESIS contracts
+      - name: Verify mesh and all 275 GENESIS source/test contracts
         run: |
           npm run test:gamechanger
           npm run test:genesis
@@ -46,6 +46,8 @@ jobs:
         run: npm run genesis:evolve
       - name: Compile causal theories, counterfactual worlds and falsifiable scientist protocols
         run: npm run genesis:scientist
+      - name: Evolve candidate vocabulary and ontology from unresolved frontier material
+        run: npm run genesis:ontology
       - name: Upload evidence receipt and state
         uses: actions/upload-artifact@v4
         with:
@@ -55,6 +57,7 @@ jobs:
             artifacts/perpetual-frontier-genesis-latest.json
             artifacts/genesis-evolution-latest.json
             artifacts/genesis-scientist-latest.json
+            artifacts/genesis-ontology-latest.json
             artifacts/perpetual-frontier-implementation-ledger.json
             .cache/gamechanger-mesh-state.json
           retention-days: 14

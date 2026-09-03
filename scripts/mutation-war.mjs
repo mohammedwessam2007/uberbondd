@@ -452,6 +452,20 @@ export const MUTATIONS = [
     suites: ['tests/canon-freshness-discrimination.test.mjs']
   },
   {
+    id: 'CANON-03', guard: 'The absence doctor judges the source canon describes, not the whole tree',
+    file: 'scripts/founder-absence-doctor.mjs',
+    find: "export const describesSource = file => CANON_RELEVANT_PREFIX.test(file) && !CANON_ARTIFACTS.has(file);",
+    replace: "export const describesSource = file => CANON_RELEVANT_PREFIX.test(file) && !file.startsWith('config/');",
+    suites: ['tests/omega-closure-hostile.test.mjs']
+  },
+  {
+    id: 'CANON-04', guard: 'The canon freshness probe actually reads git rather than assuming freshness',
+    file: 'scripts/founder-absence-doctor.mjs',
+    find: '    return !changed.some(describesSource);',
+    replace: '    return true;',
+    suites: ['tests/omega-closure-hostile.test.mjs']
+  },
+  {
     id: 'CANON-02', guard: 'The canon self-description exemption is three named files, not a directory',
     file: 'tests/canon-freshness.test.mjs',
     find: '  test: name => CANON_RELEVANT_PREFIX.test(name) && !CANON_ARTIFACT_PATHS.has(name)',

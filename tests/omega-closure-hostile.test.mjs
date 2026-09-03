@@ -7,6 +7,10 @@
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { classifyFounderAbsenceBlockers } from '../src/founder-absence-blocker-doctor.mjs';
 import {
@@ -20,6 +24,8 @@ import { inspectModelProviderReadiness } from '../src/model-provider-doctor.mjs'
 import { selectFreeRoute, liveUsableCapacity } from '../src/free-first-outreach-router.mjs';
 import { LEAD_PATH_SPRINT_SKU } from '../src/lead-path-sprint-fulfillment.mjs';
 import providerRegistry from '../artifacts/outreach/free-first-provider-registry-2026-09-01.json' with { type: 'json' };
+
+const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const AT = '2026-09-02T00:00:00.000Z';
 const GATEWAY_KEY = 'gateway-secret-do-not-print-8f3a91c4e7';
@@ -274,4 +280,102 @@ test('canon freshness accepts the parent it must name, and nothing else', async 
     blockers: canonRow, currentSourceCommit: HEAD, canonCommit: CANON,
     probes: { fileExists: () => true, sourceIncludes: () => false }
   }).softwareGaps, ['canon-drift'], 'a missing probe was treated as evidence of freshness');
+});
+
+// The evaluator tests above prove canon-drift reacts correctly to the probe's
+// answer. They cannot prove the probe answers correctly, and the probe is where
+// this row has now been loosened twice: first to accept canon naming its parent,
+// then to ignore changes outside the source canon describes.
+//
+// The second loosening is the dangerous one. "Only canon moved" and "nothing
+// that matters moved" are different rules, and the gap between them is every
+// file in the repository that is not under src/, scripts/, config/ or
+// migrations/. If the partition drifted wider, canon could sit stale across a
+// real source change and the row would stay quiet.
+test('the canon probe judges the source canon describes, and not the rest of the tree', async () => {
+  const { describesSource } = await import('../scripts/founder-absence-doctor.mjs');
+
+  for (const file of [
+    'src/revenue.mjs',
+    'scripts/mutation-war.mjs',
+    'config/reachability-classification.json',
+    'migrations/001_init.sql'
+  ]) {
+    assert.equal(describesSource(file), true,
+      `${file} moving means canon describes a system that is no longer here`);
+  }
+
+  // Canon describing itself. Regenerating rewrites all three in one commit, so
+  // counting them made the row impossible to satisfy.
+  for (const file of [
+    'docs/CURRENT_SYSTEM_STATE.md',
+    'artifacts/system-readiness.json',
+    'config/system-readiness-input.json'
+  ]) {
+    assert.equal(describesSource(file), false, `${file} is canon, not the source canon describes`);
+  }
+
+  // Prose. Canon makes no claim about it, so it cannot make canon false -- and
+  // demanding it stand still made every documentation commit report drift.
+  for (const file of ['docs/handoffs/anything.md', 'README.md', 'AGENTS.md']) {
+    assert.equal(describesSource(file), false, `${file} is prose; canon does not describe it`);
+  }
+
+  // The exemption is exact paths inside the prefix, not the prefix itself.
+  assert.equal(describesSource('config/system-readiness-input.json.bak'), true,
+    'the exemption is three named files; nothing may extend one of them into a new one');
+  assert.equal(describesSource('src/CURRENT_SYSTEM_STATE.md'), true,
+    'a canon filename in a source directory is a source file');
+});
+
+test('the two canon checks cannot disagree about what counts as source', () => {
+  // tests/canon-freshness.test.mjs and the absence doctor ask the same question
+  // of the same tree. Two answers to one question is how a row goes quiet: the
+  // suite stays green while the doctor reports a gap nobody can close, or worse,
+  // the reverse.
+  const doctor = readFileSync(join(repoRoot, 'scripts/founder-absence-doctor.mjs'), 'utf8');
+  const freshness = readFileSync(join(repoRoot, 'tests/canon-freshness.test.mjs'), 'utf8');
+  const prefix = /const CANON_RELEVANT_PREFIX = (\/\^\([^;]+\/);/;
+
+  const inDoctor = doctor.match(prefix);
+  const inFreshness = freshness.match(prefix);
+  assert.ok(inDoctor && inFreshness, 'both must state the partition where it can be compared');
+  assert.equal(inDoctor[1], inFreshness[1],
+    'the doctor and the freshness test must partition the tree identically');
+});
+
+// And the probe itself, against real history. The partition test above proves
+// the doctor knows which files matter; it says nothing about whether the probe
+// consults it. A probe hardcoded to `true` would pass every test written so far
+// and report canon fresh forever.
+test('the canon probe reads git, and a real source change still makes canon stale', async () => {
+  const { sourceUnchangedSince } = await import('../scripts/founder-absence-doctor.mjs');
+  const git = args => {
+    try {
+      return execFileSync('git', args, { cwd: repoRoot, encoding: 'utf8' }).trim();
+    } catch { return null; }
+  };
+
+  const head = git(['rev-parse', 'HEAD']);
+  if (!head) return; // no git here; the refusal cases below still hold
+
+  assert.equal(sourceUnchangedSince(head), true,
+    'nothing has changed between HEAD and itself, and the probe said otherwise');
+
+  // The last commit that touched src/, minus one. Source demonstrably moved
+  // between that commit and HEAD, so canon named there must read as stale.
+  const lastSourceCommit = git(['log', '-n', '1', '--format=%H', '--', 'src/']);
+  const before = lastSourceCommit && git(['rev-parse', '--verify', `${lastSourceCommit}^`]);
+  if (before) {
+    assert.equal(sourceUnchangedSince(before), false,
+      'src/ changed between that commit and HEAD, and the probe called canon fresh');
+  }
+
+  // Refuses rather than assumes. An unreadable or malformed history is not
+  // evidence that the source stood still.
+  assert.equal(sourceUnchangedSince('not-a-sha'), false);
+  assert.equal(sourceUnchangedSince(''), false);
+  assert.equal(sourceUnchangedSince(null), false);
+  assert.equal(sourceUnchangedSince('0'.repeat(40)), false,
+    'a well-formed SHA naming no commit must refuse, not exempt');
 });

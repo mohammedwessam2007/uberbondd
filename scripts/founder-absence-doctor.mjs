@@ -27,6 +27,18 @@ const CANON_ARTIFACTS = new Set([
   'config/system-readiness-input.json'
 ]);
 
+// Which paths make canon a claim about source rather than about prose. The same
+// partition tests/canon-freshness.test.mjs uses, and deliberately so: two checks
+// asking the same question of the same tree must not be able to disagree.
+//
+// Everything outside it -- a handoff, a receipt, a comment in a document -- can
+// move without making canon false, because canon does not describe those. Asking
+// instead that *nothing at all* changed made every documentation commit report
+// canon drift, which is the same always-red failure this row was just repaired
+// for, arriving from the other side.
+const CANON_RELEVANT_PREFIX = /^(src|scripts|config|migrations)\//;
+export const describesSource = file => CANON_RELEVANT_PREFIX.test(file) && !CANON_ARTIFACTS.has(file);
+
 /** The commit docs/CURRENT_SYSTEM_STATE.md claims to describe. */
 function canonCommit() {
   try {
@@ -36,17 +48,17 @@ function canonCommit() {
 }
 
 /**
- * Has anything but canon changed between `commit` and HEAD?
+ * Has any source canon describes changed between `commit` and HEAD?
  *
  * Refuses on any error rather than assuming freshness: an unreadable history is
  * not evidence that the source stood still.
  */
-function sourceUnchangedSince(commit) {
+export function sourceUnchangedSince(commit) {
   if (!/^[0-9a-f]{40}$/.test(String(commit || ''))) return false;
   try {
     const changed = execFileSync('git', ['diff', '--name-only', `${commit}..HEAD`], { cwd: repoRoot, encoding: 'utf8' })
       .split('\n').map(line => line.trim()).filter(Boolean);
-    return changed.every(file => CANON_ARTIFACTS.has(file));
+    return !changed.some(describesSource);
   } catch { return false; }
 }
 

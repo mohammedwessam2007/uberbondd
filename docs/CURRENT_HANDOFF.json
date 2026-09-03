@@ -1,43 +1,40 @@
 {
   "schemaVersion": "uberbond-handoff-1.6.0",
-  "checkpointedAt": "2026-09-01T17:35:00Z",
-  "sourceCommit": "60f7f6e512acfb10db6de01f39249f3dabb12ad9",
-  "sourceMainShaAtMissionStart": "8f0de47995e7a408809220cef3deacf721a192c2",
-  "currentMainShaAtCheckpoint": "60f7f6e512acfb10db6de01f39249f3dabb12ad9",
-  "activeBranch": "claude/uberbond-kilimanjaro-closure-hha0oo",
-  "activePullRequest": "#275 (merged)",
-  "activeMission": "Capability Genome consumption: turn the two imported public skill bodies into canonical capability records without letting normalization become approval, then earn the next rung (dedupe plus independent SEMANTIC and SANDBOX security evidence) before anything becomes eligible.",
+  "checkpointedAt": "2026-09-03T00:00:00Z",
+  "sourceCommit": "5770d6256685bbaeca79d491a8a03c451b251c63",
+  "sourceMainShaAtMissionStart": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "currentMainShaAtCheckpoint": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "activeBranch": "claude/uberbond-ragnarok-closure-pek0g6",
+  "activePullRequest": "NONE_OPENED__NOT_REQUESTED",
+  "activeMission": "Omega closure: drive the founder-absence doctor's softwareGaps to zero so that every remaining blocker is a credential, an account, an external party or elapsed time. Reached. The next thing that moves the north star is one owner-authorized first sprint, not more engineering.",
   "economicNorthStar": "risk-adjusted cleared contribution profit / founder minute",
   "completed": [
-    "Merged PR #274: closed three Event Horizon provenance gaps (cross-domain source repointing, duplicate canonical opportunity mapping, a well-formed research SHA naming no commit) found by running the full 28-item attack list against the real artifact.",
-    "Established that the gpt/event-horizon-economic-genome-20260831 branch is superseded, not stranded: its two-dot diff against main is empty on every Event Horizon file and its only remaining difference is stale generated canon. Merging it would have regressed main, so it was deliberately not merged.",
-    "Verified the earlier byte-corruption repair rather than trusting that the files read cleanly: 0 non-UTF-8 files, 0 files containing control bytes, 0 malformed JSON, git diff --check clean.",
-    "Built src/capability-genome-body-normalize.mjs, the missing link from imported body evidence to a canonical capability record. normalizeCapability existed and nothing built one from a body, so the corpus reported capabilityRecordsNormalized: 0 as an absence of any path rather than a backlog.",
-    "Normalized the two pinned public skill bodies into 2 NORMALIZED capability records with a reproducible script and a committed receipt carrying no copied body prose.",
-    "Repaired the instruction scanner's precision (a .sh TLD is not a remote shell script) and added the two findings it was accidentally standing in for: remote-package-execution and unconfirmed-global-install.",
-    "Repaired the body fetcher's diagnosis: a bare 403 is an access decision, not a rate limit, and reporting it as one sent an operator to wait out a clock that would never help them.",
-    "Added executePinnedRawSkillBodyReads, a second transport that computes the Git blob identity from the received bytes instead of trusting a provider's metadata, and refuses any read it cannot bind to a pinned identity.",
-    "Wired the doctor and the repository brain to the normalization receipt. Both previously passed capabilityRecords: [] and so reported zero while the records sat beside them.",
-    "Made worldCapabilityRecordsNormalized count records actually at NORMALIZED rather than the list length, so a promoted record can never be reported at the rung it left behind.",
-    "Ten new mutations (NORM-01..08, GENOME-04, GENOME-05). Full war: 124 mutations, 124 killed, nothing skipped."
+    "Drove founder-absence softwareGaps from 3 to 0. The two probes that could never be satisfied were repaired rather than deleted: one pointed at code the merge had replaced, and one asked canon to name the commit that contains it.",
+    "Fixed a real defect main is shipping: src/proposal-acceptance-engine.mjs set commercialTruthEligible from the proposal's own paymentEvidence.origin, so any caller-supplied \"EXTERNAL\" string laundered a fixture into payment eligibility. The evidence reference must now survive inspection, and the field is renamed ELIGIBLE_FOR_CANONICAL_PAYMENT_VALIDATION_NOT_CLEARED_REVENUE.",
+    "Fixed a second, subtler defect: the canon-drift row and tests/canon-freshness.test.mjs both treated a canon regeneration as evidence of drift -- the doctor because canon cannot name the commit containing it, the test because it counted config/system-readiness-input.json (the generator's own input) as source. Both were permanently red, which is the failure mode that teaches a reader to skip the row.",
+    "Repaired the real-database gate, which had never once completed. It ran tests/omnia-v9-external-effect-state-machine, stopped inside it, and waited; roughly 180 tests scheduled after it had never executed and no run said so. Four attempts, each moving the hang one layer up, ended at: bounded per-test timeout, a fresh database per suite, a fixed connection leak, and no cleanup at all -- a disposable embedded server does not need housekeeping, and paying for it with an unbounded DROP DATABASE wait is how a gate stops reporting.",
+    "Merged sixteen commits of sol/night-convergence-runtime-harvest-20260902 against nine of newly advanced main. Two collisions resolved by verified semantics, not branch preference: lead-path-sprint-fulfillment.mjs resolved to main's because the branch version reimplemented a parallel state machine instead of composing service-fulfillment.mjs, and Postal resolved to main's evidence layer because this lane's adapter hardening was already present in v1.3.0.",
+    "Rebound src/first-cash-canary-packet.mjs to the canonical fulfilment module and rebuilt its canary around proving the canonical machine refuses synthetic payment evidence, rather than simulating a delivery.",
+    "Added compileDomainPurposePlan and evaluateDomainObservation (refuses unowned roots and unowned assignment hosts; a generated expectation is not observed proof), single-gateway identity in the model provider doctor, and receipt-derived LIVE routing that refuses caller-supplied state.",
+    "Mutation library 138 -> 152, every anchor resolving to exactly one site. POSTAL-QUARANTINE is the finding worth keeping: anchored on the ledger wrapper's quarantine filter it SURVIVED, because deriveCurrentPostalState filters the same three fields immediately afterwards. A redundant guard is unfalsifiable. Re-anchored on the filter that decides, it kills.",
+    "tests/omega-closure-hostile.test.mjs: ten attacks on software-gap masking, CODE_READY without observation proof, canary arithmetic, gate conjunction, delivery-machine refusal, unowned domains, generated DNS, credential leaks, LIVE capacity conjuring and canon freshness."
   ],
   "blockers": [
-    "NO_CONFIGURED_MODEL_PROVIDER: zero providers configured. No OPENAI_API_KEY, no ANTHROPIC_API_KEY, no pricing evidence. The Claude Code harness's own session OAuth is the agent's credential, not a provider configured for UberBond.",
+    "NO_CONFIGURED_MODEL_PROVIDER: zero providers configured, no pricing evidence. The Claude Code harness session OAuth is the agent's credential, not a provider configured for UberBond.",
     "NO_PAYMENT_PROVIDER: no account to verify a payment against. The reconciliation chain is complete and refuses without claiming anything until one exists.",
-    "OMNIROUTE_INSTALL_BLOCKED_BY_HOST_PERMISSION: npm install -g omniroute denied by this environment's permission classifier. Not routed around.",
-    "BRANCH_DELETION_NOT_PERMITTED: git push --delete returns 403 for every branch including tmp-noop, while pushes succeed. A scoped permission, not a fault.",
-    "VERCEL_RUNTIME_UNPROVEN: connected Vercel project uberbondd / prj_RWUPf14w1xIz9NK92AbNW5z7qDCg is visible but reports live:false. Recent observed full-project deployments are ERROR and no exact-current-main runtime is proven.",
-    "REPOSITORY_SCOPE_FORBIDS_THIRD_PARTY_READS: GitHub access is scoped to this repository, so world corpus expansion beyond the pinned bodies cannot proceed here.",
-    "NO_OBJECT_STORAGE_ADAPTER: durable corpus storage remains an unreleased gate.",
+    "NO_OWNER_AUTHORIZED_FIRST_SPRINT: the first-cash canary packet is built and gated. Activation is an owner decision with money in it and was not taken.",
+    "VERCEL_RUNTIME_UNPROVEN: the connected project reports live:false and no exact-current-main runtime is proven.",
+    "BRANCH_DELETION_NOT_PERMITTED: git push --delete returns 403 for every branch while pushes succeed. A scoped permission, not a fault.",
+    "FOUNDER_ABSENCE_DURATION_UNPROVEN: provable only by elapsed real time.",
+    "MUTATION_WAR_NOT_RUN_TO_COMPLETION: 152 registered, five individually verified KILLED this session. The full run was started three times and each time lost to a container restart under load. Not claimed as passing.",
+    "POSTGRES_REAL_GATE_INFRASTRUCTURE: the runner now always terminates and reports. Last complete run 167/171, one genuine assertion failure (Gmail concurrent recovery workers, 4/4 when its suite runs alone) and three suite-level timeouts.",
     "Commercial truth remains zero customers, zero cleared revenue, zero accepted deliveries, zero retained customers."
   ],
   "nextActions": [
-    "CAPABILITY GENOME: the next rung is layered dedupe plus independent SEMANTIC and SANDBOX security evidence for the 2 normalized records. Normalization emits STATIC alone by design, so nothing can reach ELIGIBLE until the other two layers exist. Do not add a scaled normalized-record store until there is a scaled corpus: writeMeasuredCorpusBatch already refuses repository-local storage for candidates and the same discipline will apply to records when volume justifies it.",
-    "COMMERCIAL: activate exactly one owner-authorized $450 white-label Lead-Path Revenue Leak Evidence Sprint using the existing partner canary packet; require cleared payment, accepted delivery, actual founder minutes, partner margin, and a second-account signal.",
-    "CHALLENGER: keep GCC e-invoice exception evidence research-only until a qualified provider supplies a safe sample and stronger payment commitment than the current canary.",
-    "ENGINEERING: defer the AI acceptance evidence-pack compiler until buyer evidence raises it above canary activation; then compose existing modules rather than building a parallel evaluation platform.",
-    "OWNER/PROVIDER: one model provider credential plus pricing evidence and one payment provider account remain necessary for live model failover and payment reconciliation; both software paths fail closed until configured.",
-    "BRANCH HYGIENE: 76 branches are proven to carry no unique work but deletion remains forbidden by the current credential; the exact audited list is artifacts/branch-hygiene-audit-2026-08-31.json."
+    "COMMERCIAL: one owner-authorized $450 white-label Lead-Path Revenue Leak Evidence Sprint through the existing canary packet, requiring cleared payment, accepted delivery, actual founder minutes and partner margin. Nothing in the repository can manufacture those four, and no further engineering moves the north star before them.",
+    "ENGINEERING (only if engineering time is spent first): finish the two gates that are now capable of completing but have not been observed doing so -- one uninterrupted 152-mutation war, and one clean npm run test:postgres-real with the repaired runner.",
+    "CAPABILITY GENOME: unchanged. The next rung is layered dedupe plus independent SEMANTIC and SANDBOX evidence for the 2 normalized records. Normalization emits STATIC alone by design, so nothing reaches ELIGIBLE until the other two layers exist.",
+    "OWNER/PROVIDER: one model provider credential with pricing evidence, and one payment provider account. Both software paths fail closed until configured."
   ],
   "capabilityGenome": {
     "measuredAt": "2026-09-01",
@@ -61,18 +58,13 @@
     "notClaimed": "Two normalized records is two typed descriptions. Nothing is deduped, security-reviewed, eligible, approved, active, installed, benchmarked or economically proven. A skill body is not a capability; NORMALIZED is not APPROVED; STATIC_CLEAR is not SAFE."
   },
   "currentMeasuredSoftwareTruth": {
-    "exactHead": "60f7f6e512acfb10db6de01f39249f3dabb12ad9 on main",
-    "check:syntax": "665 files parse",
-    "test:deterministic": "3057 tests, 3005 pass, 0 fail, 52 skipped",
-    "test:postgres-real": "178/178 against PostgreSQL 16.13",
-    "test:mutation-war": "124 mutations, 124 killed, 0 not killed, 0 skipped (real PostgreSQL and real Chromium both present)",
-    "test:capability-genome": "84/84",
-    "test:relay-safety": "150/150",
-    "test:wallbreaker": "16/16",
-    "test:external-capabilities": "13/13",
-    "test:browser": "1/1",
+    "exactHead": "5770d6256685bbaeca79d491a8a03c451b251c63 on claude/uberbond-ragnarok-closure-pek0g6",
+    "test:deterministic": "3274 tests, 3221 pass, 0 fail, 53 skipped",
+    "test:mutation-war": "152 mutations registered, every anchor resolving to exactly one site; full run NOT completed this session (three container restarts). Individually verified KILLED: POSTAL-QUARANTINE, PROPOSAL-01, PROPOSAL-02, CANON-01, CANON-02.",
+    "test:postgres-real": "runner repaired to always terminate and report; last complete run 167/171 with one genuine assertion failure and three suite-level timeouts. Classified INFRASTRUCTURE with the mechanism written down, not hidden behind a badge.",
+    "reachability": "288 src modules: 139 production-reachable, 28 operator-only, 121 no entry point, all classified",
     "npm audit --omit=dev": "0 vulnerabilities",
-    "reachability": "269 src modules: 134 production-reachable, 17 operator-only, 118 no entry point",
+    "founderAbsenceSoftwareGaps": 0,
     "executedBy": "local execution in this session, not hosted CI"
   },
   "cloudTruthAtMissionStart": {
@@ -162,11 +154,10 @@
   "externalEffects": {
     "publicResearch": "READ_ONLY",
     "githubInspection": "READ_ONLY",
-    "vercelInspection": "READ_ONLY",
-    "githubBranchesCreated": 4,
-    "githubPullRequestsOpened": 3,
-    "githubPullRequestsMerged": 3,
-    "githubPullRequestsClosedAsSuperseded": 2,
+    "vercelInspection": "NONE_THIS_SESSION",
+    "githubBranchesCreated": 0,
+    "githubPullRequestsOpened": 0,
+    "githubPullRequestsMerged": 0,
     "customerProspectContacts": 0,
     "messagesCalls": 0,
     "purchases": 0,
@@ -205,7 +196,9 @@
     ]
   },
   "repairedOnMain": [
-    "tests/uberbond-brain-bootstrap.test.mjs asserted the capability-genome summary line as one contiguous string. The bounded-harvest merge added world-repos, skill-bodies and a corpus label between those fields, so main was left red. The anchor now asserts field by field: adding a measurement no longer breaks it, removing one still does, and the summary cannot quietly stop distinguishing measured seeds from an imported world corpus."
+    "src/proposal-acceptance-engine.mjs derived commercialTruthEligible from the payload's own origin field, so a caller-supplied \"EXTERNAL\" laundered a fixture into payment eligibility.",
+    "The founder-absence canon-drift probe demanded canon name the commit that contains it, which no regeneration can satisfy, so the row was permanently red.",
+    "tests/canon-freshness.test.mjs counted config/system-readiness-input.json -- the readiness generator's own input -- as source under a config/ prefix, so every correct regeneration reported itself stale."
   ],
   "paymentReadiness": {
     "status": "TECHNICALLY_READY__NO_PROVIDER_TO_VERIFY_AGAINST",
@@ -229,5 +222,6 @@
     "classification": "SUITE_ISOLATION_ARTIFACT_UNDER_AN_UNSUPPORTED_SHARED_DATABASE__NOT_A_SOURCE_DEFECT",
     "notFixed": "The test was left alone rather than weakened. The real fix is test-level isolation -- the disposable per-run database the suite's own comments already name as its convention -- not a filter added to production recovery code to suit tests.",
     "reproduce": "Run test:deterministic, test:browser and test:postgres-real concurrently against one OMNIA_V9_TEST_DATABASE_URL."
-  }
+  },
+  "handoffDocument": "docs/handoffs/CLAUDE_OMEGA_CLOSURE_2026-09-03.md"
 }

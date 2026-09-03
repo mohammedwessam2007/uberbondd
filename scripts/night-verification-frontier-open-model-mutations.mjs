@@ -9,87 +9,75 @@ const repoRoot = resolve(here, '..');
 
 export const FRONTIER_OPEN_MODEL_MUTATIONS = Object.freeze([
   {
-    id: 'FRONTIER-01',
-    guard: 'Uncertain proof cannot complete a goal',
-    file: 'src/frontier-operator.mjs',
+    id: 'FRONTIER-01', guard: 'Uncertain proof cannot complete a goal', file: 'src/frontier-operator.mjs',
     find: '  const complete = missing.length === 0 && failed.length === 0 && uncertain.length === 0;',
-    replace: '  const complete = missing.length === 0 && failed.length === 0;',
-    suites: ['tests/frontier-expansion.test.mjs'],
-    assertionNeedle: "assert.equal(result.complete, false);"
+    replace: '  const complete = missing.length === 0 && failed.length === 0;', suites: ['tests/frontier-expansion.test.mjs'],
+    assertionNeedle: "assert.equal(result.complete, false);",
+    testName: 'uncertain proof cannot become goal success'
   },
   {
-    id: 'FRONTIER-02',
-    guard: 'Overlapping ownership never authorizes parallel execution',
-    file: 'src/frontier-operator.mjs',
-    find: '    parallelExecutionAuthorized: false',
-    replace: '    parallelExecutionAuthorized: true',
-    suites: ['tests/frontier-expansion.test.mjs'],
-    assertionNeedle: 'assert.equal(result.parallelExecutionAuthorized, false);'
+    id: 'FRONTIER-02', guard: 'Overlapping ownership never authorizes parallel execution', file: 'src/frontier-operator.mjs',
+    find: '    parallelExecutionAuthorized: false', replace: '    parallelExecutionAuthorized: true', suites: ['tests/frontier-expansion.test.mjs'],
+    assertionNeedle: 'assert.equal(result.parallelExecutionAuthorized, false);',
+    testName: 'overlapping worker ownership requires serialization'
   },
   {
-    id: 'FRONTIER-03',
-    guard: 'A persistent-loop plan grants no scheduling authority',
-    file: 'src/frontier-operator.mjs',
-    find: "    schedulingAuthority: 'NONE'",
-    replace: "    schedulingAuthority: 'SCHEDULE'",
-    suites: ['tests/frontier-expansion.test.mjs'],
-    assertionNeedle: "assert.equal(valid.schedulingAuthority, 'NONE');"
+    id: 'FRONTIER-03', guard: 'A persistent-loop plan grants no scheduling authority', file: 'src/frontier-operator.mjs',
+    find: "    schedulingAuthority: 'NONE'", replace: "    schedulingAuthority: 'SCHEDULE'", suites: ['tests/frontier-expansion.test.mjs'],
+    assertionNeedle: "assert.equal(valid.schedulingAuthority, 'NONE');",
+    testName: 'persistent loop requires bounded stop conditions and stays plan-only'
   },
   {
-    id: 'OPENMODEL-01',
-    guard: 'A permissive license never creates automatic commercial eligibility',
-    file: 'src/open-model-universe.mjs',
+    id: 'OPENMODEL-01', guard: 'A permissive license never creates automatic commercial eligibility', file: 'src/open-model-universe.mjs',
     find: "  if (PERMISSIVE_LICENSES.has(license)) return { license, class: 'PERMISSIVE', automaticCommercialEligibility: false };",
-    replace: "  if (PERMISSIVE_LICENSES.has(license)) return { license, class: 'PERMISSIVE', automaticCommercialEligibility: true };",
-    suites: ['tests/open-model-universe-runtime.test.mjs'],
-    assertionNeedle: 'assert.equal(result.automaticCommercialEligibility, false);'
+    replace: "  if (PERMISSIVE_LICENSES.has(license)) return { license, class: 'PERMISSIVE', automaticCommercialEligibility: true };", suites: ['tests/open-model-universe-runtime.test.mjs'],
+    assertionNeedle: 'assert.equal(result.automaticCommercialEligibility, false);',
+    testName: 'open-model classification never treats license text as automatic commercial authority'
   },
   {
-    id: 'OPENMODEL-02',
-    guard: 'Private models remain rejected discovery candidates',
-    file: 'src/open-model-universe.mjs',
+    id: 'OPENMODEL-02', guard: 'Private models remain rejected discovery candidates', file: 'src/open-model-universe.mjs',
     find: "      admissionState: privateModel ? 'REJECT_PRIVATE_DISCOVERY' : gated ? 'GATED_REVIEW_REQUIRED' : 'DISCOVERED_UNSCREENED',",
-    replace: "      admissionState: gated ? 'GATED_REVIEW_REQUIRED' : 'DISCOVERED_UNSCREENED',",
-    suites: ['tests/open-model-universe-runtime.test.mjs'],
-    assertionNeedle: "assert.equal(result.discovery.admissionState, 'REJECT_PRIVATE_DISCOVERY');"
+    replace: "      admissionState: gated ? 'GATED_REVIEW_REQUIRED' : 'DISCOVERED_UNSCREENED',", suites: ['tests/open-model-universe-runtime.test.mjs'],
+    assertionNeedle: "assert.equal(result.discovery.admissionState, 'REJECT_PRIVATE_DISCOVERY');",
+    testName: 'private models are discovered as rejected candidates rather than runnable supplies'
   },
   {
-    id: 'OPENMODEL-03',
-    guard: 'Foundry admission requires observed runtime cost',
-    file: 'src/open-model-universe.mjs',
-    find: '  const runtimeCostKnown = runtimeObservation.runtimeCostKnown === true;',
-    replace: '  const runtimeCostKnown = true;',
-    suites: ['tests/open-model-universe-runtime.test.mjs'],
-    assertionNeedle: "assert.ok(result.reasonCodes.includes('runtime-cost-observation-required'));"
+    id: 'OPENMODEL-03', guard: 'Foundry admission requires observed runtime cost', file: 'src/open-model-universe.mjs',
+    find: '  const runtimeCostKnown = runtimeObservation.runtimeCostKnown === true;', replace: '  const runtimeCostKnown = true;', suites: ['tests/open-model-universe-runtime.test.mjs'],
+    assertionNeedle: "assert.ok(result.reasonCodes.includes('runtime-cost-observation-required'));",
+    testName: 'foundry admission blocks missing license, revision, runtime cost, or observed weights'
   },
   {
-    id: 'OPENMODEL-04',
-    guard: 'Open or local model supply with unknown runtime cost is invalid',
-    file: 'src/open-model-foundry.mjs',
+    id: 'OPENMODEL-04', guard: 'Open or local model supply with unknown runtime cost is invalid', file: 'src/open-model-foundry.mjs',
     find: "  if (['OPEN_WEIGHT', 'LOCAL_RUNTIME', 'HOSTED_OPEN_WEIGHT'].includes(supplyType) && !runtimeCostKnown) reasonCodes.push('open-or-local-runtime-cost-must-be-known');",
-    replace: "  if (false) reasonCodes.push('open-or-local-runtime-cost-must-be-known');",
-    suites: ['tests/frontier-expansion.test.mjs'],
-    assertionNeedle: "assert.ok(result.reasonCodes.includes('open-or-local-runtime-cost-must-be-known'));"
+    replace: "  if (false) reasonCodes.push('open-or-local-runtime-cost-must-be-known');", suites: ['tests/frontier-expansion.test.mjs'],
+    assertionNeedle: "assert.ok(result.reasonCodes.includes('open-or-local-runtime-cost-must-be-known'));",
+    testName: 'open weights are rejected when runtime cost is unknown'
   },
   {
-    id: 'OPENMODEL-05',
-    guard: 'Permission-ineligible model supplies cannot enter ranking',
-    file: 'src/open-model-foundry.mjs',
-    find: "    if (!supply.permissionEligible) reasons.push('permission-not-eligible');",
-    replace: "    if (false) reasons.push('permission-not-eligible');",
-    suites: ['tests/frontier-expansion.test.mjs'],
-    assertionNeedle: 'assert.equal(result.rejected.length, 2);'
+    id: 'OPENMODEL-05', guard: 'Permission-ineligible model supplies cannot enter ranking', file: 'src/open-model-foundry.mjs',
+    find: "    if (!supply.permissionEligible) reasons.push('permission-not-eligible');", replace: "    if (false) reasons.push('permission-not-eligible');", suites: ['tests/frontier-expansion.test.mjs'],
+    assertionNeedle: 'assert.equal(result.rejected.length, 2);',
+    testName: 'model ranking excludes revoked and permission-ineligible suppliers'
   },
   {
-    id: 'OPENMODEL-06',
-    guard: 'Open-model workers remain local-preparation only',
-    file: 'src/open-model-runtime-executor.mjs',
+    id: 'OPENMODEL-06', guard: 'Open-model workers remain local-preparation only', file: 'src/open-model-runtime-executor.mjs',
     find: "    if (task.consequenceClass && task.consequenceClass !== 'LOCAL_PREPARATION') return failure(['open-model-worker-only-accepts-local-preparation']);",
-    replace: "    if (false) return failure(['open-model-worker-only-accepts-local-preparation']);",
-    suites: ['tests/open-model-universe-runtime.test.mjs'],
-    assertionNeedle: "assert.ok(result.reasonCodes.includes('open-model-worker-only-accepts-local-preparation'));"
+    replace: "    if (false) return failure(['open-model-worker-only-accepts-local-preparation']);", suites: ['tests/open-model-universe-runtime.test.mjs'],
+    assertionNeedle: "assert.ok(result.reasonCodes.includes('open-model-worker-only-accepts-local-preparation'));",
+    testName: 'open-model executor enforces local-preparation consequence class'
   }
 ]);
+
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function namedTestFailed(output, testName) {
+  const escaped = escapeRegex(testName);
+  return new RegExp(`(?:^|\\n)not ok \\d+ - ${escaped}(?:\\n|$)`, 'm').test(output)
+    || new RegExp(`(?:^|\\n)not ok \\d+ - ${escaped}\\b`, 'm').test(output);
+}
 
 function apply(root, mutation) {
   const path = join(root, mutation.file);
@@ -110,14 +98,18 @@ export function validateRegistrations(root = repoRoot) {
     const source = readFileSync(join(root, mutation.file), 'utf8');
     const occurrences = source.split(mutation.find).length - 1;
     const suiteEvidence = mutation.suites.map(suite => {
-      const text = readFileSync(join(root, suite), 'utf8');
-      return { suite, assertionNeedlePresent: text.includes(mutation.assertionNeedle) };
+      const suiteText = readFileSync(join(root, suite), 'utf8');
+      return {
+        suite,
+        assertionNeedlePresent: suiteText.includes(mutation.assertionNeedle),
+        namedTestPresent: suiteText.includes(`test('${mutation.testName}'`)
+      };
     });
     return {
       id: mutation.id,
       anchorOccurrences: occurrences,
       suiteEvidence,
-      registrationValid: occurrences === 1 && suiteEvidence.every(item => item.assertionNeedlePresent)
+      registrationValid: occurrences === 1 && suiteEvidence.every(item => item.assertionNeedlePresent && item.namedTestPresent)
     };
   });
 }
@@ -130,23 +122,48 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     process.exit(2);
   }
 
+  const baselineBySuites = new Map();
+  for (const mutation of FRONTIER_OPEN_MODEL_MUTATIONS) {
+    const key = mutation.suites.join('\u0000');
+    if (!baselineBySuites.has(key)) baselineBySuites.set(key, run(repoRoot, mutation.suites));
+  }
+
   const results = [];
   for (const mutation of FRONTIER_OPEN_MODEL_MUTATIONS) {
+    const baseline = baselineBySuites.get(mutation.suites.join('\u0000'));
+    if (baseline.status !== 0) {
+      results.push({ id: mutation.id, verdict: 'BASELINE_NOT_GREEN', baselineStatus: baseline.status, testName: mutation.testName });
+      continue;
+    }
+
     const root = mkdtempSync(join(tmpdir(), 'uberbond-frontier-open-model-mutant-'));
     try {
       for (const item of ['src', 'tests', 'scripts', 'config', 'api']) {
-        try { cpSync(join(repoRoot, item), join(root, item), { recursive: true }); } catch { /* optional in trimmed trees */ }
+        try { cpSync(join(repoRoot, item), join(root, item), { recursive: true }); } catch { }
       }
       for (const file of ['package.json', 'package-lock.json', 'server.mjs', 'worker.mjs']) {
-        try { cpSync(join(repoRoot, file), join(root, file)); } catch { /* optional */ }
+        try { cpSync(join(repoRoot, file), join(root, file)); } catch { }
       }
-      try { cpSync(join(repoRoot, 'node_modules'), join(root, 'node_modules'), { recursive: true, dereference: false }); } catch { /* npm ci may be the execution environment */ }
+      try { cpSync(join(repoRoot, 'node_modules'), join(root, 'node_modules'), { recursive: true, dereference: false }); } catch { }
       const applied = apply(root, mutation);
-      if (!applied.ok) { results.push({ id: mutation.id, verdict: applied.verdict }); continue; }
+      if (!applied.ok) { results.push({ id: mutation.id, verdict: applied.verdict, testName: mutation.testName }); continue; }
       const syntax = spawnSync(process.execPath, ['--check', join(root, mutation.file)], { encoding: 'utf8' });
-      if (syntax.status !== 0) { results.push({ id: mutation.id, verdict: 'MUTANT_DID_NOT_PARSE' }); continue; }
+      if (syntax.status !== 0) { results.push({ id: mutation.id, verdict: 'MUTANT_DID_NOT_PARSE', testName: mutation.testName }); continue; }
       const testRun = run(root, mutation.suites);
-      results.push({ id: mutation.id, verdict: testRun.status === 0 ? 'SURVIVED' : 'KILLED', suiteStatus: testRun.status });
+      if (testRun.status === 0) {
+        results.push({ id: mutation.id, verdict: 'SURVIVED', baselineStatus: 0, suiteStatus: 0, testName: mutation.testName });
+        continue;
+      }
+      const intendedTestFailed = namedTestFailed(testRun.output, mutation.testName);
+      results.push({
+        id: mutation.id,
+        verdict: intendedTestFailed ? 'KILLED' : 'UNRELATED_SUITE_FAILURE',
+        baselineStatus: 0,
+        suiteStatus: testRun.status,
+        testName: mutation.testName,
+        intendedTestFailed,
+        causalBasis: intendedTestFailed ? 'BASELINE_GREEN_SINGLE_MUTATION_NAMED_TEST_RED' : 'SUITE_RED_BUT_NAMED_TEST_FAILURE_NOT_EVIDENCED'
+      });
     } finally {
       rmSync(root, { recursive: true, force: true });
     }

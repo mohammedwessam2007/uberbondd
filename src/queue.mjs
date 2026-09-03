@@ -40,6 +40,15 @@ function reconciliationRequiredError(jobId) {
   return error;
 }
 
+function reconcileReplayFenceError(job) {
+  const error = new Error(`Reconcile job ${job.id} reached execution on attempt ${job.attempts}; possible prior external effect must be reconciled before any replay`);
+  error.name = 'JobReconcileReplayFenceError';
+  error.code = 'JOB_RECONCILE_REPLAY_BLOCKED';
+  error.retryable = false;
+  error.uncertainExecution = true;
+  return error;
+}
+
 export class DurableQueue {
   constructor(store, cfg, log = console) {
     this.store = store;
@@ -132,10 +141,6 @@ export class DurableQueue {
 
     if (!candidates.length) return { quarantined: 0 };
 
-    // Delegate the state transition to the Store's stale-recovery transaction.
-    // Reconcile jobs persist maxAttempts=1, so a truly stale first claim is
-    // atomically dead-lettered there. This removes the previous list/get/patch
-    // TOCTOU window that could overwrite a heartbeat refreshed after our read.
     await this.store.recoverStaleJobs(lockTimeoutMs);
 
     let quarantined = 0;
@@ -166,6 +171,24 @@ export class DurableQueue {
     const handler = handlers[job.type] || handlers[job.queue];
     if (!handler) {
       await this.store.failJobIfOwned(job.id, this.workerId, new Error(`No handler registered for ${job.type}`), { maxAttempts: 1, baseDelayMs: 1000 });
+      return;
+    }
+    if (job.recoveryPolicy === 'reconcile' && Number(job.attempts || 0) > 1) {
+      const error = reconcileReplayFenceError(job);
+      const failed = await this.store.failJobIfOwned(job.id, this.workerId, error, { maxAttempts: 1, baseDelayMs: 1000 });
+      if (failed?.status === 'dead-letter') {
+        await this.store.patch('jobs', job.id, {
+          uncertainExecution: true,
+          uncertainReasonCode: error.code,
+          reconciliationRequired: true,
+          reconciledAt: null,
+          reconciliationReceipt: null
+        });
+      }
+      await this.store.log('queue_job_reconcile_replay_blocked', {
+        jobId: job.id, type: job.type, workerId: this.workerId, attempts: job.attempts,
+        recoveryPolicy: job.recoveryPolicy, uncertainExecution: true, errorCode: error.code
+      });
       return;
     }
     this.active += 1;

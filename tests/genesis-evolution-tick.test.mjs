@@ -52,6 +52,8 @@ test('Gamechanger frontier signals reach the GENESIS evolution engine and produc
   assert.equal(implementation.ideaCount, 275);
   assert.equal(implementation.entries.length, 275);
   assert.equal(implementation.entries.find(item => item.id === 2).status, 'SOURCE_AND_TEST_PRESENT');
-  assert.equal(implementation.entries.find(item => item.id === 275).status, 'CANON_ONLY');
+  assert.equal(implementation.entries.find(item => item.id === 275).status, 'SOURCE_AND_TEST_PRESENT');
+  assert.equal(implementation.implementedOrPartialCount, 275);
+  assert.equal(implementation.canonOnlyCount, 0);
   assert.match(implementation.warning, /does not prove/);
 });

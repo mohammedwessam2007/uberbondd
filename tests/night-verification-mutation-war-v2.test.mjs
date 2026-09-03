@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { NIGHT_VERIFICATION_MUTATIONS_V2 } from '../scripts/night-verification-mutation-war-v2.mjs';
-import { validateNamedMutationRegistrations, executeMutationWarV3 } from '../scripts/night-verification-mutation-war-v3.mjs';
+import { validateNamedMutationRegistrations, executeMutationWarV3, suiteLoadsModule } from '../scripts/night-verification-mutation-war-v3.mjs';
 
 test('strict Frontier/Open Model mutation registrations bind unique anchors to direct named importing assertions', () => {
   const registrations = validateNamedMutationRegistrations();
@@ -13,6 +13,14 @@ test('strict Frontier/Open Model mutation registrations bind unique anchors to d
     assert.equal(item.namedTestPresent, true, `${item.id}: exact named test must exist`);
     assert.equal(item.registrationValid, true, `${item.id}: registration must be valid`);
   }
+});
+
+test('mutation registration rejects comment and inert-string module-path decoys', () => {
+  const target = '../src/frontier-operator.mjs';
+  assert.equal(suiteLoadsModule(`// import x from '${target}'`, target), false);
+  assert.equal(suiteLoadsModule(`const decoy = "${target}";`, target), false);
+  assert.equal(suiteLoadsModule(`import { evaluateGoal } from '${target}';`, target), true);
+  assert.equal(suiteLoadsModule(`await import('${target}')`, target), true);
 });
 
 test('strict mutation war only counts a kill when the intended named test itself fails', () => {

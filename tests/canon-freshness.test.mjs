@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { MUTATIONS } from '../scripts/mutation-war.mjs';
 import { execFileSync } from 'node:child_process';
 
@@ -12,14 +12,11 @@ import { execFileSync } from 'node:child_process';
 // would destroy the only thing it is for.
 //
 // A statement of *current* state is a different claim. `docs/CURRENT_SYSTEM_STATE.md`
-// and `artifacts/system-readiness.json` both say "this is what the system is",
-// present tense, and both name the commit they were reconciled from. When main
-// moves and they do not, they are not stale evidence -- they are a false
-// present-tense claim, and one that automation could read as permission to skip
-// verification.
-//
-// This test only checks the present-tense artifacts. Historical receipts are
-// deliberately exempt and are listed as such.
+// and `artifacts/system-readiness-current.json` say what can presently be
+// asserted about this source tree. The larger `artifacts/system-readiness.json`
+// is preserved as a historical measurement receipt until a real exact-head run
+// regenerates it; keeping old capability rows is not permission to call old
+// verification current.
 
 // `merge-base --is-ancestor` answers only through its exit code and prints
 // nothing either way, so the usual "swallow the error, return empty string"
@@ -33,21 +30,22 @@ const git = (args, { allowFailure = false } = {}) => {
 
 const headSha = () => git(['rev-parse', 'HEAD']);
 
-// Present-tense canon: must match the current head.
+// Present-tense canon: must describe the current source tree.
 const CURRENT_STATE_ARTIFACTS = [
   {
     path: 'docs/CURRENT_SYSTEM_STATE.md',
     extract: text => (text.match(/Reconciled from (?:main|current head):\s*`([0-9a-f]{7,40})`/) || [])[1]
   },
   {
-    path: 'artifacts/system-readiness.json',
-    extract: text => JSON.parse(text)?.repository?.head ?? JSON.parse(text)?.head
+    path: 'artifacts/system-readiness-current.json',
+    extract: text => JSON.parse(text)?.repository?.sourceCommit
   }
 ];
 
 // Historical receipts: immutable, exempt by design. Listed so the exemption is
 // a decision on the record rather than an omission.
 const HISTORICAL_RECEIPTS = [
+  'artifacts/system-readiness.json',
   'docs/UBERBOND_SUMMIT_100_FINAL_RECEIPT.md',
   'docs/UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md',
   'docs/UBERBOND_BLACK_SKY_FINAL_RECEIPT.md'
@@ -66,32 +64,15 @@ test('the present-tense canon names the commit it was reconciled from', () => {
 //
 // An amend after a regeneration rewrites the very commit the canon was just
 // reconciled from, and the canon then points at an orphan: a well-formed
-// 40-character hex string that no longer appears in this branch's history. Both
-// checks around this one pass on it -- the format test only wants hex, and the
-// staleness test asks git what changed since that SHA, which for a dangling but
-// still-in-the-object-store commit answers "nothing". The canon reads as
-// perfectly fresh evidence for a commit nobody can check out.
+// 40-character hex string that no longer appears in this branch's history.
 //
 // Which paths make canon a claim about source rather than about prose.
 const CANON_RELEVANT = /^(src|scripts|config|migrations)\//;
 
 // Reachability, not existence: `git cat-file -e` succeeds on an orphan until it
-// is garbage collected, which is exactly the window in which this goes wrong.
-//
-// With one exception, which is not a loophole but the same rule stated properly.
-// A squash merge replaces the branch commit the canon was regenerated at with a
-// new one carrying an identical tree, so the canon's SHA stops being an ancestor
-// the moment the pull request lands -- through no change to the source it
-// describes. Enforcing bare ancestry made every merge require a follow-up commit
-// whose only content was a new SHA, four times in one shift, and a check that
-// demands a ritual after every merge is one people learn to route around.
-//
-// The harm this test exists to catch is a canon describing a tree nobody can
-// check out. If the canon-relevant source at the named commit is byte-identical
-// to what is here now, the reader can check that tree out -- it is HEAD. So an
-// unreachable SHA fails only when the source it described actually differs,
-// which is exactly the amend case, and which the staleness test below then
-// explains in terms of the files that moved.
+// is garbage collected. A squash merge is allowed when canon-relevant source is
+// byte-identical, because the new merge commit then describes the same source
+// tree even though the pre-merge SHA is no longer an ancestor.
 const canonRelevantSourceMatches = (sha, head) => {
   const changed = git(['diff', '--name-only', sha, head], { allowFailure: true });
   if (changed === null) return false;
@@ -114,16 +95,9 @@ test('the commit the canon names is actually in this branch history', () => {
 });
 
 // Deliberately not "canon must name the current head". That rule is stricter
-// than the truth and would be red on every working commit, including
-// documentation-only ones -- and a check that is always red is a check people
-// turn off.
-//
-// What actually makes canon false is a claim about a tree that has since
-// changed underneath it. So: the commit canon names must still describe the
-// current source. If only docs moved, canon is old and still accurate. If
-// anything under src/, scripts/, config/ or migrations/ moved, canon is
-// describing a system that no longer exists.
-
+// than the truth and would be red on every documentation-only commit.
+// What matters is whether src/scripts/config/migrations changed underneath the
+// source commit the current-state envelope names.
 test('the present-tense canon describes the source the tree actually has', () => {
   const head = headSha();
   if (!head) assert.fail('git head unavailable; this check cannot pass without it');
@@ -155,17 +129,13 @@ test('the present-tense canon describes the source the tree actually has', () =>
     'a present-tense claim about a tree that has since changed is false, not merely old -- regenerate with the canonical generator (npm run readiness), never by hand');
 });
 
-// The SHA check above is necessary and not sufficient: canon can name the right
-// commit and still state figures that were true three hundred tests ago. Two of
-// those figures are exactly measurable without running anything, so they are
-// checked rather than trusted. Test counts are not -- they need the suite -- and
-// are deliberately left to the receipt discipline instead of half-checked here.
-test('the figures in the present-tense canon are the figures that are true', () => {
+// Current prose may contain a measured syntax or mutation count only after an
+// execution actually established it. Pending prose intentionally avoids those
+// claim phrases, so an inferred target count cannot masquerade as a passing run.
+test('any measured figures in present-tense canon are actually true', () => {
   const path = 'docs/CURRENT_SYSTEM_STATE.md';
   if (!existsSync(path)) return;
   const text = readFileSync(path, 'utf8');
-
-  const parseCount = dir => readdirSync(dir).filter(name => name.endsWith('.mjs')).length;
 
   const claimedFiles = Number((text.match(/([0-9]+) files parse/) || [])[1]);
   if (Number.isFinite(claimedFiles)) {
@@ -185,18 +155,23 @@ test('the figures in the present-tense canon are the figures that are true', () 
 });
 
 test('historical receipts are exempt, and the exemption is explicit', () => {
-  // Guards against the opposite failure: someone "fixing" a stale receipt by
-  // rewriting the SHA it was created under, which turns evidence into fiction.
   for (const path of HISTORICAL_RECEIPTS) {
     assert.equal(CURRENT_STATE_ARTIFACTS.some(a => a.path === path), false,
       `${path} is a historical receipt and must never be required to match the current head`);
   }
 });
 
+test('current readiness overlay cannot silently claim green while exact-head execution is pending', () => {
+  const path = 'artifacts/system-readiness-current.json';
+  if (!existsSync(path)) return;
+  const current = JSON.parse(readFileSync(path, 'utf8'));
+  if (current?.verification?.status === 'EXACT_HEAD_EXECUTION_PENDING_INFRASTRUCTURE') {
+    assert.equal(current.verification.greenClaimAllowed, false);
+    assert.equal(current.verification.currentHeadEvidence?.exactHeadFullSuiteExecuted, false);
+  }
+});
+
 test('a receipt does not license skipping current verification', () => {
-  // The operational half of the same rule. A receipt proves what was observed;
-  // it does not prove no defect exists now. Nothing in the repository may treat
-  // the presence of a CLOSED receipt as a reason not to run a gate.
   const files = ['scripts/mutation-war.mjs', 'scripts/run-real-postgres-tests.mjs', 'scripts/check-syntax.mjs'];
   for (const file of files) {
     if (!existsSync(file)) continue;

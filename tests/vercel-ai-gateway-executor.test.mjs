@@ -18,6 +18,20 @@ test('gateway sends the allowlisted endpoint and provider/model slug', async () 
   assert.equal(JSON.stringify(out).includes('gateway-test-secret'), false);
 });
 
+test('transport error detail is scrubbed before entering a receipt', async () => {
+  const executor = createVercelAIGatewayExecutor({
+    enabled: true,
+    apiKey: 'gateway-test-secret-123456',
+    pricing,
+    fetchImpl: async () => { throw new Error('provider secret=supersecretvalue'); }
+  });
+  const out = await executor({ task: task(), maxTokens: 10, costCeilingCents: 50 });
+  assert.equal(out.ok, false);
+  assert.equal(out.outcome, 'UNCERTAIN');
+  assert.equal(JSON.stringify(out).includes('supersecretvalue'), false);
+  assert.match(out.detail, /REDACTED/);
+});
+
 test('429 is failover eligible and auth rejection is terminal', async () => {
   const base = { enabled: true, apiKey: 'gateway-test-secret-123456', pricing, fetchImpl: async () => response(429) };
   const quota = await createVercelAIGatewayExecutor(base)({ task: task(), maxTokens: 10, costCeilingCents: 50 });

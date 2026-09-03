@@ -47,7 +47,8 @@
     "genesis:evolve": "node scripts/genesis-evolution-tick.mjs",
     "genesis:scientist": "node scripts/genesis-scientist-tick.mjs",
     "genesis:ontology": "node scripts/genesis-ontology-tick.mjs",
-    "frontier:tick": "npm run gamechanger:tick && npm run genesis:tick && npm run genesis:evolve && npm run genesis:scientist && npm run genesis:ontology",
+    "genesis:metabolize": "node scripts/genesis-metabolism-tick.mjs",
+    "frontier:tick": "npm run gamechanger:tick && npm run genesis:tick && npm run genesis:evolve && npm run genesis:scientist && npm run genesis:ontology && npm run genesis:metabolize",
     "frontier:plan": "npm run gamechanger:plan && node scripts/perpetual-frontier-genesis-tick.mjs --dry-run",
     "test:genesis": "node --test tests/perpetual-frontier-genesis*.test.mjs tests/genesis-*.test.mjs",
     "overnight:plan": "node scripts/overnight-upgrade-plan.mjs",
@@ -76,7 +77,7 @@
     "capabilities:bootstrap:apply": "node scripts/bootstrap-external-capabilities.mjs --apply",
     "test:external-capabilities": "node --test tests/external-capability-control-plane.test.mjs",
     "test:capability-genome-harvest": "node --test tests/capability-genome-harvest.test.mjs tests/capability-genome-doctor-harvest.test.mjs",
-    "test:capability-genome-bodies": "node --test tests/capability-genome-body-import.test.mjs tests/capability-genome-body-fetch.test.mjs tests/capability-genome-doctor-body.test.mjs tests/capability-genome-body-normalize.test.mjs tests/capability-genome-doctor-normalized.test.mjs",
+    "test:capability-genome-bodies": "node --test tests/capability-genome-body-import.test.mjs tests/capability-genome-body-fetch.test.mjs tests/capability-genome-doctor-body.test.mjs tests/capability-genome-doctor-normalized.test.mjs tests/capability-genome-body-normalize.test.mjs",
     "test:capability-genome": "node --test tests/capability-genome.test.mjs tests/capability-genome-harvest.test.mjs tests/capability-genome-doctor-harvest.test.mjs tests/capability-genome-body-import.test.mjs tests/capability-genome-body-fetch.test.mjs tests/capability-genome-doctor-body.test.mjs tests/capability-genome-body-normalize.test.mjs tests/capability-genome-doctor-normalized.test.mjs"
   },
   "dependencies": {

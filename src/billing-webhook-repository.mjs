@@ -1,6 +1,13 @@
-export const BILLING_WEBHOOK_REPOSITORY_VERSION='uberbond.billing-webhook-repository.v2';
+export const BILLING_WEBHOOK_REPOSITORY_VERSION='uberbond.billing-webhook-repository.v2.1';
 
 const boundedInt=(value,fallback,min,max)=>{const n=Math.floor(Number(value));return Number.isFinite(n)?Math.max(min,Math.min(max,n)):fallback;};
+const providerScope=value=>{
+ if(value==null)return null;
+ if(!Array.isArray(value))throw new Error('billing-provider-scope-must-be-array');
+ const normalized=[...new Set(value.map(item=>String(item||'').trim().toLowerCase()).filter(Boolean))];
+ if(!normalized.length)throw new Error('billing-provider-scope-empty');
+ return normalized;
+};
 
 // The conflict target is deliberately absent, and that is the whole point.
 //
@@ -25,28 +32,29 @@ export async function persistVerifiedBillingEvent(pool,event,{receivedAt=new Dat
  return {ok:true,status:result.rowCount===1?'WEBHOOK_PERSISTED':'WEBHOOK_DUPLICATE',duplicate:result.rowCount!==1,providerEventKey:event.providerEventKey};
 }
 
-export async function claimBillingEvents(pool,{workerRef,limit=10,staleClaimMs=15*60*1000,maxAttempts=5}={}){
+export async function claimBillingEvents(pool,{workerRef,limit=10,staleClaimMs=15*60*1000,maxAttempts=5,providers=null}={}){
  const bounded=Math.max(1,Math.min(50,Number(limit)||10));
  const attempts=boundedInt(maxAttempts,5,1,20);
  const cutoff=new Date(Date.now()-Math.max(60000,Number(staleClaimMs)||15*60*1000));
  const worker=String(workerRef||'').trim().slice(0,160);
+ const scope=providerScope(providers);
  if(!worker) throw new Error('billing-worker-required');
  const client=await pool.connect();
  try{
    await client.query('BEGIN');
-   await client.query(`UPDATE billing_webhook_inbox SET status='UNCERTAIN',error_code='claim-attempt-cap-reached',last_error_at=now(),claimed_at=NULL,claimed_by=NULL,updated_at=now() WHERE status='CLAIMED' AND claimed_at<=$1 AND claim_attempts>=$2`,[cutoff,attempts]);
-   await client.query(`UPDATE billing_webhook_inbox SET status='UNCERTAIN',error_code='claim-attempt-cap-reached',last_error_at=now(),claimed_at=NULL,claimed_by=NULL,next_attempt_at=NULL,updated_at=now() WHERE status IN ('RECEIVED','RETRYABLE') AND claim_attempts>=$1`,[attempts]);
+   await client.query(`UPDATE billing_webhook_inbox SET status='UNCERTAIN',error_code='claim-attempt-cap-reached',last_error_at=now(),claimed_at=NULL,claimed_by=NULL,updated_at=now() WHERE status='CLAIMED' AND claimed_at<=$1 AND claim_attempts>=$2 AND ($3::text[] IS NULL OR provider=ANY($3::text[]))`,[cutoff,attempts,scope]);
+   await client.query(`UPDATE billing_webhook_inbox SET status='UNCERTAIN',error_code='claim-attempt-cap-reached',last_error_at=now(),claimed_at=NULL,claimed_by=NULL,next_attempt_at=NULL,updated_at=now() WHERE status IN ('RECEIVED','RETRYABLE') AND claim_attempts>=$1 AND ($2::text[] IS NULL OR provider=ANY($2::text[]))`,[attempts,scope]);
    const result=await client.query(`WITH picked AS (
      SELECT provider_event_key FROM billing_webhook_inbox
      WHERE (
        (status IN ('RECEIVED','RETRYABLE') AND claim_attempts<$3 AND (next_attempt_at IS NULL OR next_attempt_at<=now()))
        OR (status='CLAIMED' AND claimed_at<=$2 AND claim_attempts<$3)
-     )
+     ) AND ($5::text[] IS NULL OR provider=ANY($5::text[]))
      ORDER BY received_at ASC FOR UPDATE SKIP LOCKED LIMIT $1
    )
    UPDATE billing_webhook_inbox b SET status='CLAIMED',claimed_at=now(),claimed_by=$4,claim_attempts=b.claim_attempts+1,next_attempt_at=NULL,error_code=NULL,updated_at=now()
    FROM picked WHERE b.provider_event_key=picked.provider_event_key
-   RETURNING b.provider_event_key,b.provider,b.event_name,b.object_type,b.object_id,b.payload_hash,b.custom_data,b.received_at,b.claimed_at,b.claimed_by,b.claim_attempts`,[bounded,cutoff,attempts,worker]);
+   RETURNING b.provider_event_key,b.provider,b.event_name,b.object_type,b.object_id,b.payload_hash,b.custom_data,b.received_at,b.claimed_at,b.claimed_by,b.claim_attempts`,[bounded,cutoff,attempts,worker,scope]);
    await client.query('COMMIT'); return result.rows;
  }catch(error){try{await client.query('ROLLBACK');}catch{} throw error;}finally{client.release();}
 }

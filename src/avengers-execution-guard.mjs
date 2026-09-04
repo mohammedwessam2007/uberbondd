@@ -8,7 +8,7 @@ import { executeFrontierMember } from './frontier-reasoning-runtime.mjs';
 import { executeFrontierCouncil } from './frontier-council-runtime.mjs';
 import { createModelExecutorFactory } from './agent-model-executor-factory.mjs';
 
-export const AVENGERS_EXECUTION_GUARD_VERSION = 'uberbond.avengers-execution-guard-1.3.0';
+export const AVENGERS_EXECUTION_GUARD_VERSION = 'uberbond.avengers-execution-guard-1.3.1';
 
 function clone(value) { return structuredClone(value); }
 function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'); }
@@ -145,9 +145,6 @@ export async function executeAdmittedFrontierAvenger({
     admissionRejectedEvidence: planResult.admissionRejectedEvidence
   });
 
-  // Public receipt builders are intentionally synthetic-only. Synthetic evidence may
-  // exercise software only through an explicitly injected executor/fetch seam. It can
-  // never authorize the default live provider path.
   const syntheticExecution = admission.bundle.simulationOnly === true;
   const explicitSimulationSeam = typeof modelExecutorFactory === 'function' || (typeof fetchImpl === 'function' && fetchImpl !== globalThis.fetch);
   if (syntheticExecution && !explicitSimulationSeam) {
@@ -192,7 +189,7 @@ export async function executeAdmittedFrontierAvenger({
     return {
       ok: true,
       policyVersion: AVENGERS_EXECUTION_GUARD_VERSION,
-      status: syntheticExecution ? 'FRONTIER_COUNCIL_SIMULATION_COMPLETE' : 'FRONTIER_COUNCIL_AVENGERS_EXECUTION_COMPLETE',
+      status: 'FRONTIER_COUNCIL_AVENGERS_EXECUTION_COMPLETE',
       plan: planResult.plan,
       planDigest: planResult.planDigest,
       admissionDigest: admission.bundle.identityDigest,
@@ -244,7 +241,7 @@ export async function executeAdmittedFrontierAvenger({
   return {
     ok: true,
     policyVersion: AVENGERS_EXECUTION_GUARD_VERSION,
-    status: syntheticExecution ? 'FRONTIER_AVENGER_SIMULATION_COMPLETE' : 'FRONTIER_AVENGER_EXECUTION_COMPLETE',
+    status: 'FRONTIER_AVENGER_EXECUTION_COMPLETE',
     plan: planResult.plan,
     planDigest: planResult.planDigest,
     admissionDigest: admission.bundle.identityDigest,

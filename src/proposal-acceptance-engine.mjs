@@ -219,7 +219,27 @@ export function buildProposalGenerationBrief(packet = {}) {
   };
 }
 
-export function summarizeProposalOutcome({ status, sentAt, decidedAt, founderMinutes = 0, revenueCleared = 0, currency = null } = {}) {
+/**
+ * Whether a payment reference could have come from outside this process.
+ *
+ * `origin: 'EXTERNAL'` plus an evidence class of EXTERNAL_PAYMENT plus a
+ * reference that names a provider event. This does not verify the payment --
+ * that is `validateCanonicalSprintPaymentTruth`, which recomputes a digest and
+ * checks the three-witness boundaries. It establishes only that the caller is
+ * pointing at something outside itself, which is the minimum before the word
+ * "cleared" may appear at all.
+ */
+function externallyOriginatedPayment(evidence) {
+  if (!evidence || typeof evidence !== 'object') return false;
+  const ref = text(evidence.evidenceRef, 400);
+  return String(evidence.origin ?? '').trim().toUpperCase() === 'EXTERNAL'
+    && String(evidence.evidenceClass ?? '').trim().toUpperCase() === 'EXTERNAL_PAYMENT'
+    && Boolean(ref)
+    && /^payment:/i.test(ref)
+    && !/(?:^|[-_:])(sandbox|synthetic|fixture|fake|test)(?:[-_:]|$)/i.test(ref);
+}
+
+export function summarizeProposalOutcome({ status, sentAt, decidedAt, founderMinutes = 0, revenueCleared = 0, currency = null, paymentEvidence = null } = {}) {
   const normalized = String(status ?? '').trim().toUpperCase();
   if (!['WON', 'LOST', 'NO_DECISION', 'PENDING'].includes(normalized)) {
     return { ok: false, status: 'INVALID_PROPOSAL_OUTCOME' };
@@ -227,10 +247,27 @@ export function summarizeProposalOutcome({ status, sentAt, decidedAt, founderMin
   const daysToDecision = sentAt && decidedAt
     ? Math.max(0, (new Date(decidedAt).getTime() - new Date(sentAt).getTime()) / 86_400_000)
     : null;
+
+  // `revenueCleared`, `currency` and `status` are all things the caller typed.
+  // Deriving commercial-truth eligibility from them alone would let a lane mark
+  // its own proposal won for 450 dollars and have the answer come back yes.
+  // Whatever else is required downstream, the reference must at least point
+  // outside this process first.
+  const externalPayment = externallyOriginatedPayment(paymentEvidence);
+  const eligibilityBlockers = [];
+  if (normalized !== 'WON') eligibilityBlockers.push('proposal-not-won');
+  if (!(revenueCleared > 0)) eligibilityBlockers.push('no-cleared-revenue-reported');
+  if (!currency) eligibilityBlockers.push('currency-required');
+  if (!externalPayment) eligibilityBlockers.push('external-payment-evidence-required');
+
   return {
     ok: true,
     status: normalized,
-    commercialTruthEligible: normalized === 'WON' && revenueCleared > 0 && Boolean(currency),
+    commercialTruthEligible: eligibilityBlockers.length === 0,
+    // Eligible is not proven. It means the claim may now be put to the
+    // canonical payment validator, which is the only thing that can clear it.
+    commercialTruthBoundary: 'ELIGIBLE_FOR_CANONICAL_PAYMENT_VALIDATION_NOT_CLEARED_REVENUE',
+    eligibilityBlockers,
     metrics: {
       daysToDecision: daysToDecision == null || !Number.isFinite(daysToDecision) ? null : Number(daysToDecision.toFixed(2)),
       founderMinutes: Number.isFinite(founderMinutes) && founderMinutes >= 0 ? founderMinutes : null,

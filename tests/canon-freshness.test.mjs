@@ -73,7 +73,29 @@ test('the present-tense canon names the commit it was reconciled from', () => {
 // perfectly fresh evidence for a commit nobody can check out.
 //
 // Which paths make canon a claim about source rather than about prose.
-const CANON_RELEVANT = /^(src|scripts|config|migrations)\//;
+const CANON_RELEVANT_PREFIX = /^(src|scripts|config|migrations)\//;
+
+// ...minus the input canon is generated from, which lives under config/ but is
+// canon, not source. Regenerating canon rewrites it in the same commit as the
+// two artifacts below, so counting it as source made every correct regeneration
+// report itself stale: the generator cannot produce a tree in which its own
+// input has not just moved. That is the always-red failure the comment below
+// this block warns about, arriving through the back door.
+//
+// The exclusion is safe in the direction that matters. This file states what
+// was measured, not how the system behaves, so it cannot make canon describe a
+// system that no longer exists -- and a figure recorded here that does not match
+// the tree is caught by the figures test further down, which reads the tree
+// rather than trusting either artifact.
+const CANON_ARTIFACT_PATHS = new Set([
+  'docs/CURRENT_SYSTEM_STATE.md',
+  'artifacts/system-readiness.json',
+  'config/system-readiness-input.json'
+]);
+
+const CANON_RELEVANT = {
+  test: name => CANON_RELEVANT_PREFIX.test(name) && !CANON_ARTIFACT_PATHS.has(name)
+};
 
 // Reachability, not existence: `git cat-file -e` succeeds on an orphan until it
 // is garbage collected, which is exactly the window in which this goes wrong.

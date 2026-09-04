@@ -57,3 +57,58 @@ test('a failure to run git is not read as a passing comparison', () => {
   assert.match(helper, /if \(changed === null\) return false;/,
     'an unanswerable comparison must fail closed, not exempt the canon');
 });
+
+// A second refinement, with the same failure mode and so the same duty of proof.
+//
+// `config/system-readiness-input.json` is the file the canon generator reads.
+// It lives under config/, so the path prefix counted it as source -- and since
+// regenerating canon rewrites it in the same commit as the two artifacts it
+// produces, every correct regeneration reported itself stale. No generator can
+// produce a tree in which its own input has not just moved, so that was the
+// always-red check arriving by the back door.
+//
+// Excluding it is right and is also exactly the shape of an exclusion that could
+// hollow the check out. These tests exercise the predicate the shipped file
+// actually defines, not a copy of it, so widening the exclusion breaks them.
+
+const canonRelevant = (() => {
+  const block = source.match(/const CANON_RELEVANT_PREFIX = [\s\S]*?const CANON_RELEVANT = \{[\s\S]*?\n\};/);
+  assert.ok(block, 'the canon-relevant predicate must remain a readable, extractable definition');
+  return new Function(`${block[0]}\nreturn CANON_RELEVANT;`)();
+})();
+
+test('real source still makes canon a claim that can go stale', () => {
+  for (const path of [
+    'src/revenue.mjs',
+    'scripts/mutation-war.mjs',
+    'migrations/001_init.sql',
+    'config/reachability-classification.json'
+  ]) {
+    assert.equal(canonRelevant.test(path), true,
+      `${path} changing means canon describes a system that no longer exists`);
+  }
+});
+
+test('the exclusion covers canon describing itself and nothing else', () => {
+  // Three named paths, not a prefix. `config/` as a whole would exempt the
+  // reachability classification and every policy file that sits beside it.
+  assert.equal(canonRelevant.test('config/system-readiness-input.json'), false,
+    'the generator input is canon, not the source canon describes');
+  assert.equal(canonRelevant.test('config/system-readiness-input.json.bak'), true,
+    'the exemption is a set of exact paths, not a prefix anything can extend');
+  assert.equal(canonRelevant.test('config/anything-else.json'), true,
+    'excluding one file may not quietly exclude the directory it sits in');
+});
+
+test('the exclusion cannot be widened into a way of never being stale', () => {
+  const block = source.match(/const CANON_ARTIFACT_PATHS = new Set\(\[[\s\S]*?\]\);/);
+  assert.ok(block, 'the exempted paths must be enumerated where they can be read');
+  const paths = [...block[0].matchAll(/'([^']+)'/g)].map(match => match[1]);
+  assert.deepEqual(paths, [
+    'docs/CURRENT_SYSTEM_STATE.md',
+    'artifacts/system-readiness.json',
+    'config/system-readiness-input.json'
+  ], 'only the artifacts canon is made of are exempt; adding a fourth is a decision, not a tidy-up');
+  assert.equal(/\.\*|\/\^|test\(|RegExp/.test(block[0]), false,
+    'a pattern here would exempt files nobody listed');
+});

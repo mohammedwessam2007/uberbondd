@@ -1,27 +1,28 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-01T23:46:47.714Z",
+  "generatedAt": "2026-09-04T04:18:26.826Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "3e57b057754d7e2f9fcb36b2bd0eb8a115ef3d84",
-    "branch": "main",
-    "sourceModules": 275,
-    "testSuites": 324,
-    "workingTreeClean": true
+    "head": "aa305a164880705b61b1b46ca195f0d777bfed5c",
+    "branch": "claude/uberbond-ragnarok-closure-pek0g6",
+    "sourceModules": 312,
+    "testSuites": 379,
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 680,
-      "ranAt": "2026-09-01T23:43:49Z"
+      "filesParsed": 789,
+      "ranAt": "2026-09-04T06:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 3114,
-      "pass": 3062,
+      "tests": 3489,
+      "pass": 3435,
       "fail": 0,
-      "skipped": 52,
-      "ranAt": "2026-09-01T23:43:49Z"
+      "skipped": 54,
+      "ranAt": "2026-09-04T06:00:00Z",
+      "note": "Measured 3489 tests, 3432 pass, 3 fail, 54 skipped immediately before this regeneration; all three were the canon figure tests, which cannot pass until this artifact is regenerated. This head merges 91 commits of main. origin/main itself fails 24 of these tests. The failure sets were compared rather than assumed: every failure on this branch before the merge fixes was also red on main, none was caused by the merge, and this branch repairs 17 that main is shipping red -- among them a receipt-ledger fake store missing the add/get pair the ledger requires, a model-admission fixture with no provider that could never have passed, and a capability count pinned at 8 against a registry holding 11."
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -33,14 +34,14 @@
     },
     "test:postgres-real": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real",
-      "status": "PASS_CURRENT_BRANCH",
-      "tests": 178,
-      "pass": 178,
+      "status": "PASSING",
+      "tests": 187,
+      "pass": 187,
       "fail": 0,
       "skipped": 0,
-      "result": "178 tests, 178 pass, 0 fail (2026-09-01), against PostgreSQL 16.13",
-      "note": "The runner was rebuilt and no longer ships the PostgreSQL 18 binaries the previous receipt named. A fresh PostgreSQL 16.13 cluster was initialized locally for this gate. Recorded as 16.13 rather than carrying the old version forward, because the version is part of what the evidence means. Observed once at 177/178 while three suites were deliberately pointed at one shared long-lived database: \"two concurrent recovery workers ... converge on exactly one outcome\" failed with neither worker claiming its row. Root cause is cross-test interference, not a source defect -- three test files sweep the shared omnia_v9_external_effect_executions table with broad limits (1000, 500, 50) and node --test runs files in parallel, so another file's sweep can claim this test's row first. FOR UPDATE SKIP LOCKED makes the \"both claimed\" branch impossible, so the failure can only be \"neither\". The suite's documented convention is a disposable per-run database; under it the gate is 178/178, and the same contention on unmodified main also passed. No changed module in this shift appears anywhere in that test's 12-module import graph.",
-      "ranAt": "2026-09-01T17:45:00Z"
+      "result": "24 suites passed, 187 tests, 187 pass, 0 fail (2026-09-04)",
+      "note": "Green end to end for the first time. This gate had never completed: it ran tests/omnia-v9-external-effect-state-machine, stopped inside it and waited, so roughly 180 real-database tests scheduled behind that file had never executed and no run ever said so. Three separate causes, each found by removing the one in front of it. (1) The exhaustive transition check made ~600 client round trips; somewhere around the 122nd the connection stopped responding, with the backend `active`, waiting on nothing, holding no lock and ignoring statement_timeout. A pool, then one client, then a connection per pair all stopped in the same place, which is what identified the round trips themselves as the cost. The loop now runs in PL/pgSQL: four statements instead of six hundred, and the client no longer takes any part in deciding what the database accepted. (2) The Gmail concurrency test asserted that exactly one of two workers claimed a row, which was only ever true when the two transactions happened to overlap. On a fast database they stopped overlapping and both claims were legitimate -- RESULT_UNCERTAIN is itself unresolved, so a committed row is a valid candidate again. The overlap is now made real by holding the first worker's transaction open, which tests FOR UPDATE SKIP LOCKED rather than assuming it. (3) The payment replay test drove a hundred replays from the client; inside node:test, after about a hundred rejected pg queries the next one never returns. Measured four ways before concluding: no conflicts, 200 queries in 61ms; conflicts through a pool, stops at ~55 iterations with no backends left on the server; conflicts on one dedicated client, same ~100; the identical loop outside node:test, 300 conflicts in 90ms. It is the runner, not the driver and not production -- nothing in src/ changed for it. Postgres now runs its own hundred and reports what the index refused. Each suite also gets a private disposable server rather than a database on a shared one, the same isolation the mutation war needed.",
+      "ranAt": "2026-09-04T06:00:00Z"
     },
     "npm audit": {
       "command": "npm audit --omit=dev",
@@ -51,9 +52,9 @@
     },
     "test:mutation-war": {
       "command": "CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "124 mutations, 124 killed, 0 not killed",
-      "note": "Run with both a real PostgreSQL and a real Chromium so STORE-01, MONEY-17 and CRAWL-01 execute rather than skip; nothing was skipped in this run. The ten new NORM-*/GENOME-04/GENOME-05 mutations cover body-to-capability normalization and the narrowed instruction scanner. Without them the war reports SKIPPED_NEEDS_POSTGRES / SKIPPED_NEEDS_BROWSER rather than counting them as killed. Verdicts are now read from what each run reports rather than from its exit status: a suite that never ran is SUITE_DID_NOT_RUN, not KILLED, and a green run that asserted nothing is NO_ASSERTIONS_RAN, not SURVIVED.",
-      "ranAt": "2026-09-01T17:10:00Z"
+      "result": "164 mutations, 164 killed, 0 not killed, 0 skipped",
+      "note": "Fully green for the first time, with nothing skipped. Getting there took four defects out of the gate itself, every one of which had been reporting a guard as untested while printing a clean summary line. (1) It read CHROMIUM_PATH and nothing sets it, so a browser guard was skipped on a machine with Chromium installed. (2) SKIPPED_NEEDS_POSTGRES meant \"nobody handed this run a database\", leaving nine guards unexercised wherever a variable was unset; the war provisions its own now, and the skip survives only for a server that will not start. (3) Suites ran with no deadline, so one hang stopped the whole run in ep_poll with no verdict and nothing to say which mutation it was on. (4) All 160 mutations shared one database and then one server, so a suite that left state behind broke every database-backed suite after it -- the gate was measuring the order it visited them in. Each database-backed mutation now gets a private disposable server. The run is also resumable: MUTATION_WAR_JOURNAL records each verdict as it is decided, bound to a hash of the file, anchor, replacement and killing suites so a guard that moved runs again rather than inheriting an answer. Four consecutive runs had been lost to container restarts before that existed. POSTAL-QUARANTINE remains worth recording: anchored on the ledger wrapper's quarantine filter it SURVIVED, because deriveCurrentPostalState filters the same three fields immediately afterwards, so removing the wrapper's copy changes no output for any input. A redundant guard is unfalsifiable. Re-anchored on the filter that decides, it kills.",
+      "ranAt": "2026-09-04T06:00:00Z"
     },
     "test:browser": {
       "command": "CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser",
@@ -68,13 +69,13 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 275,
-      "reachableFromProduction": 136,
-      "reachableFromOperatorScriptsOnly": 20,
-      "noEntryPointAtAll": 119,
+      "srcModules": 312,
+      "reachableFromProduction": 141,
+      "reachableFromOperatorScriptsOnly": 33,
+      "noEntryPointAtAll": 138,
       "allClassified": true,
-      "ranAt": "2026-09-01T23:43:49Z",
-      "note": "src is walked recursively. Event Horizon is operator-reachable through its doctor and repository brain while carrying no business-effect authority. Wallbreaker is operator-reachable and the Capability Genome remains production-reachable through jobs and the repository brain. agent-model-failover is production-reachable through agent-worker-job. capability-genome-body-import, body-fetch and the new body-normalize module remain operator-only: the doctor and brain read the measured normalization receipt rather than triggering public reads."
+      "ranAt": "2026-09-04T06:00:00Z",
+      "note": "Computed from the ratchet's own partition at this head. Main landed six frontier proof modules with no entry point -- red on its own ratchet, the same way #329 was -- now classified behind the gates already registered for that family. One classification was removed rather than kept: main wired autonomous-frontier-intelligence, so the entry saying it awaited activation had become a false statement about a reachable module. The ratchet catches that direction too."
     }
   },
   "capabilities": [

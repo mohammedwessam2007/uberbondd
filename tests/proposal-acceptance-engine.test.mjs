@@ -74,15 +74,45 @@ test('a won proposal without cleared money cannot manufacture commercial truth',
   assert.equal(result.commercialTruthEligible, false);
 });
 
-test('commercial truth eligibility requires won plus cleared revenue and currency', () => {
-  const result = summarizeProposalOutcome({
+test('a self-reported win cannot make itself eligible for commercial truth', () => {
+  const base = {
     status: 'WON',
     sentAt: '2026-09-01T00:00:00Z',
     decidedAt: '2026-09-03T00:00:00Z',
     founderMinutes: 5,
     revenueCleared: 450,
     currency: 'USD'
+  };
+
+  // Everything a lane can produce about its own proposal, and nothing pointing
+  // outside this process.
+  const selfReported = summarizeProposalOutcome(base);
+  assert.equal(selfReported.commercialTruthEligible, false,
+    'a caller marked its own proposal won for 450 dollars and was believed');
+  assert.ok(selfReported.eligibilityBlockers.includes('external-payment-evidence-required'));
+  assert.equal(selfReported.metrics.daysToDecision, 2);
+
+  // Near-misses: internal origin, the wrong evidence class, a reference that
+  // does not name a payment, and one that names a sandbox payment.
+  const nearMisses = [
+    { origin: 'INTERNAL', evidenceClass: 'EXTERNAL_PAYMENT', evidenceRef: 'payment:order_created:evt-1' },
+    { origin: 'EXTERNAL', evidenceClass: 'INTERNAL_QA', evidenceRef: 'payment:order_created:evt-1' },
+    { origin: 'EXTERNAL', evidenceClass: 'EXTERNAL_PAYMENT', evidenceRef: 'crm:deal-won' },
+    { origin: 'EXTERNAL', evidenceClass: 'EXTERNAL_PAYMENT', evidenceRef: 'payment:sandbox:evt-1' }
+  ];
+  for (const paymentEvidence of nearMisses) {
+    assert.equal(summarizeProposalOutcome({ ...base, paymentEvidence }).commercialTruthEligible, false,
+      `accepted ${JSON.stringify(paymentEvidence)} as external payment evidence`);
+  }
+
+  const referenced = summarizeProposalOutcome({
+    ...base,
+    paymentEvidence: { origin: 'EXTERNAL', evidenceClass: 'EXTERNAL_PAYMENT', evidenceRef: 'payment:order_created:evt-450' }
   });
-  assert.equal(result.commercialTruthEligible, true);
-  assert.equal(result.metrics.daysToDecision, 2);
+  assert.equal(referenced.commercialTruthEligible, true);
+  assert.deepEqual(referenced.eligibilityBlockers, []);
+  // Eligible still is not cleared. The canonical validator is the only thing
+  // that can turn this into revenue, and it recomputes a digest to do it.
+  assert.equal(referenced.commercialTruthBoundary,
+    'ELIGIBLE_FOR_CANONICAL_PAYMENT_VALIDATION_NOT_CLEARED_REVENUE');
 });

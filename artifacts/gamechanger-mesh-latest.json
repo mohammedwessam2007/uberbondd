@@ -1,0 +1,566 @@
+{
+  "schemaVersion": "uberbond.gamechanger-mesh.tick.v2",
+  "generatedAt": "2026-09-04T15:36:10.609Z",
+  "dryRun": false,
+  "coverage": {
+    "businessEffectAuthority": "NONE",
+    "externalEffectAuthority": "PUBLIC_READ_ONLY",
+    "commercialTruthAuthority": "NONE",
+    "ok": true,
+    "status": "GAMECHANGER_COVERAGE_COMPLETE",
+    "byDomain": {
+      "AI_MODELS": 13,
+      "AGENT_RUNTIME": 17,
+      "OPEN_SOURCE": 13,
+      "PROTOCOLS": 4,
+      "AUTOMATION": 16,
+      "DEVTOOLS": 14,
+      "INFRASTRUCTURE": 8,
+      "DATA": 6,
+      "DISTRIBUTION": 8,
+      "PAYMENTS": 3,
+      "PRICING_FREE_TIERS": 4,
+      "POLICY_REGULATION": 2,
+      "SECURITY": 6,
+      "RESEARCH": 5,
+      "VERTICAL_MARKETS": 4,
+      "BUSINESS_MODELS": 8
+    },
+    "gaps": [],
+    "coverageRatio": 1,
+    "minimumIndependentSourcesPerDomain": 2
+  },
+  "sourcePlan": {
+    "status": "GAMECHANGER_SOURCE_PLAN_READY",
+    "directReads": [
+      {
+        "id": "hn-recent",
+        "url": "https://hn.algolia.com/api/v1/search_by_date?tags=story&hitsPerPage=50",
+        "domains": [
+          "AI_MODELS",
+          "AGENT_RUNTIME",
+          "OPEN_SOURCE",
+          "AUTOMATION",
+          "DEVTOOLS",
+          "INFRASTRUCTURE",
+          "DATA",
+          "BUSINESS_MODELS"
+        ]
+      },
+      {
+        "id": "arxiv-ai",
+        "url": "https://export.arxiv.org/rss/cs.AI",
+        "domains": [
+          "AI_MODELS",
+          "AGENT_RUNTIME",
+          "RESEARCH"
+        ]
+      },
+      {
+        "id": "arxiv-ml",
+        "url": "https://export.arxiv.org/rss/cs.LG",
+        "domains": [
+          "AI_MODELS",
+          "RESEARCH"
+        ]
+      },
+      {
+        "id": "huggingface-trending-models",
+        "url": "https://huggingface.co/models?sort=trending",
+        "domains": [
+          "AI_MODELS",
+          "OPEN_SOURCE"
+        ]
+      },
+      {
+        "id": "vercel-changelog",
+        "url": "https://vercel.com/changelog",
+        "domains": [
+          "AGENT_RUNTIME",
+          "AUTOMATION",
+          "DEVTOOLS",
+          "INFRASTRUCTURE"
+        ]
+      },
+      {
+        "id": "github-changelog",
+        "url": "https://github.blog/changelog",
+        "domains": [
+          "DEVTOOLS",
+          "AUTOMATION",
+          "OPEN_SOURCE",
+          "SECURITY"
+        ]
+      },
+      {
+        "id": "cloudflare-changelog",
+        "url": "https://developers.cloudflare.com/changelog",
+        "domains": [
+          "INFRASTRUCTURE",
+          "DISTRIBUTION",
+          "SECURITY",
+          "DATA"
+        ]
+      },
+      {
+        "id": "a2a-official",
+        "url": "https://a2a-protocol.org/latest",
+        "domains": [
+          "PROTOCOLS",
+          "AGENT_RUNTIME",
+          "AUTOMATION"
+        ]
+      },
+      {
+        "id": "github-ai-agent-repositories",
+        "url": "https://api.github.com/search/repositories?q=topic%3Aai-agent+stars%3A%3E100&sort=updated&order=desc&per_page=50",
+        "domains": [
+          "OPEN_SOURCE",
+          "AGENT_RUNTIME",
+          "AUTOMATION",
+          "DEVTOOLS"
+        ]
+      },
+      {
+        "id": "github-mcp-repositories",
+        "url": "https://api.github.com/search/repositories?q=topic%3Amcp+stars%3A%3E25&sort=updated&order=desc&per_page=50",
+        "domains": [
+          "OPEN_SOURCE",
+          "PROTOCOLS",
+          "AGENT_RUNTIME",
+          "AUTOMATION"
+        ]
+      },
+      {
+        "id": "github-automation-repositories",
+        "url": "https://api.github.com/search/repositories?q=topic%3Aautomation+stars%3A%3E100&sort=updated&order=desc&per_page=50",
+        "domains": [
+          "OPEN_SOURCE",
+          "AUTOMATION",
+          "DEVTOOLS",
+          "INFRASTRUCTURE"
+        ]
+      },
+      {
+        "id": "github-llm-repositories",
+        "url": "https://api.github.com/search/repositories?q=topic%3Allm+stars%3A%3E500&sort=updated&order=desc&per_page=50",
+        "domains": [
+          "OPEN_SOURCE",
+          "AI_MODELS",
+          "DEVTOOLS",
+          "INFRASTRUCTURE"
+        ]
+      },
+      {
+        "id": "huggingface-recent-models-api",
+        "url": "https://huggingface.co/api/models?sort=lastModified&direction=-1&limit=80",
+        "domains": [
+          "AI_MODELS",
+          "OPEN_SOURCE",
+          "RESEARCH"
+        ]
+      },
+      {
+        "id": "openai-news",
+        "url": "https://openai.com/news",
+        "domains": [
+          "AI_MODELS",
+          "AGENT_RUNTIME",
+          "AUTOMATION",
+          "DEVTOOLS"
+        ]
+      },
+      {
+        "id": "anthropic-news",
+        "url": "https://www.anthropic.com/news",
+        "domains": [
+          "AI_MODELS",
+          "AGENT_RUNTIME",
+          "AUTOMATION",
+          "DEVTOOLS"
+        ]
+      }
+    ],
+    "searchLanes": [
+      {
+        "id": "search-frontier-model-releases",
+        "query": "latest major AI model releases new capabilities pricing context windows coding computer use multimodal open weights official sources",
+        "domains": [
+          "AI_MODELS",
+          "PRICING_FREE_TIERS"
+        ]
+      },
+      {
+        "id": "search-open-model-breakthroughs",
+        "query": "new open source open weight models inference runtimes quantization serving vLLM SGLang llama.cpp Ollama MLX TGI Hugging Face releases",
+        "domains": [
+          "AI_MODELS",
+          "OPEN_SOURCE",
+          "INFRASTRUCTURE"
+        ]
+      },
+      {
+        "id": "search-agentic-runtime-breakthroughs",
+        "query": "new agent orchestration long horizon autonomous coding browser computer use memory context scheduling checkpoint resume verification releases",
+        "domains": [
+          "AGENT_RUNTIME",
+          "AUTOMATION",
+          "DEVTOOLS"
+        ]
+      },
+      {
+        "id": "search-orchestration-skills-frontier",
+        "query": "new Claude Code Codex Gemini agent orchestration skills plugins planner worker DAG subagents worktrees recursive swarm cross-model review TDD verification durable task state context recovery self-improving orchestration GitHub",
+        "domains": [
+          "AGENT_RUNTIME",
+          "AUTOMATION",
+          "DEVTOOLS",
+          "OPEN_SOURCE"
+        ]
+      },
+      {
+        "id": "search-free-tier-pricing-shifts",
+        "query": "new free tier free credits startup credits student credits API pricing cuts compute database email hosting AI inference changed pricing official",
+        "domains": [
+          "PRICING_FREE_TIERS",
+          "INFRASTRUCTURE",
+          "AI_MODELS",
+          "DISTRIBUTION"
+        ]
+      },
+      {
+        "id": "search-distribution-gamechangers",
+        "query": "new B2B distribution sales outbound email deliverability CRM prospecting search social partner marketplace channel features policy changes official",
+        "domains": [
+          "DISTRIBUTION",
+          "BUSINESS_MODELS"
+        ]
+      },
+      {
+        "id": "search-payment-commerce-shifts",
+        "query": "new payment provider APIs merchant tools PayPal Stripe Paddle LemonSqueezy checkout reconciliation invoicing pricing policy changes official",
+        "domains": [
+          "PAYMENTS",
+          "BUSINESS_MODELS",
+          "PRICING_FREE_TIERS"
+        ]
+      },
+      {
+        "id": "search-policy-regulation-shifts",
+        "query": "new AI automation privacy data email marketing payments platform policy regulation compliance changes affecting software businesses official regulator provider",
+        "domains": [
+          "POLICY_REGULATION",
+          "SECURITY",
+          "DISTRIBUTION",
+          "PAYMENTS"
+        ]
+      },
+      {
+        "id": "search-security-breakthroughs",
+        "query": "new agent security prompt injection sandbox supply chain MCP security capability permissions secrets exfiltration research tools",
+        "domains": [
+          "SECURITY",
+          "AGENT_RUNTIME",
+          "PROTOCOLS"
+        ]
+      },
+      {
+        "id": "search-data-research-tools",
+        "query": "new web research crawling extraction search databases vector graph memory data APIs open source breakthroughs",
+        "domains": [
+          "DATA",
+          "RESEARCH",
+          "OPEN_SOURCE"
+        ]
+      },
+      {
+        "id": "search-business-model-mechanisms",
+        "query": "new underused B2B monetization procurement marketplace white label revenue assurance managed service compliance arbitrage workflow business model evidence",
+        "domains": [
+          "BUSINESS_MODELS",
+          "VERTICAL_MARKETS",
+          "DISTRIBUTION"
+        ]
+      },
+      {
+        "id": "search-vertical-operational-fractures",
+        "query": "new regulations outages procurement changes reimbursement changes workflow pain points healthcare GCC agencies home services logistics finance software opportunities",
+        "domains": [
+          "VERTICAL_MARKETS",
+          "POLICY_REGULATION",
+          "BUSINESS_MODELS"
+        ]
+      },
+      {
+        "id": "search-community-weak-signals",
+        "query": "recent Hacker News Reddit X YouTube practitioner discussions showing surprising new AI agent automation coding sales research or business workflows; identify original source and require primary-source follow-up before promotion",
+        "domains": [
+          "AI_MODELS",
+          "AGENT_RUNTIME",
+          "AUTOMATION",
+          "DEVTOOLS",
+          "DISTRIBUTION",
+          "BUSINESS_MODELS"
+        ]
+      },
+      {
+        "id": "search-github-breakout-projects",
+        "query": "fast-rising GitHub repositories and new releases in agents coding automation browser computer use MCP A2A inference memory evals security scraping data sales payments; prefer original repository and release evidence",
+        "domains": [
+          "OPEN_SOURCE",
+          "AGENT_RUNTIME",
+          "AUTOMATION",
+          "DEVTOOLS",
+          "DATA",
+          "SECURITY"
+        ]
+      },
+      {
+        "id": "search-product-changelog-mechanisms",
+        "query": "major product changelog features from AI developer automation sales research collaboration cloud payment and productivity companies that expose reusable mechanisms UberBond could independently reproduce provider-neutrally",
+        "domains": [
+          "AGENT_RUNTIME",
+          "AUTOMATION",
+          "DEVTOOLS",
+          "DISTRIBUTION",
+          "PAYMENTS",
+          "BUSINESS_MODELS"
+        ]
+      },
+      {
+        "id": "search-procurement-grants-programs",
+        "query": "new official public procurement portals tenders innovation grants startup credits partner programs vendor programs and government incentives relevant to software automation AI agencies healthcare GCC or US B2B",
+        "domains": [
+          "BUSINESS_MODELS",
+          "VERTICAL_MARKETS",
+          "PRICING_FREE_TIERS",
+          "DISTRIBUTION"
+        ]
+      },
+      {
+        "id": "search-research-commercialization",
+        "query": "recent primary research with practical commercialization potential in agents reasoning memory inference retrieval computer use automation optimization security operations sales healthcare or workflow intelligence",
+        "domains": [
+          "RESEARCH",
+          "AI_MODELS",
+          "AGENT_RUNTIME",
+          "DATA",
+          "SECURITY",
+          "VERTICAL_MARKETS"
+        ]
+      }
+    ],
+    "invalid": []
+  },
+  "fetchReceipts": [
+    {
+      "sourceId": "hn-recent",
+      "status": "READ_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "arxiv-ai",
+      "status": "READ_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "arxiv-ml",
+      "status": "READ_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "huggingface-trending-models",
+      "status": "READ_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "vercel-changelog",
+      "status": "READ_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "github-changelog",
+      "status": "READ_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "cloudflare-changelog",
+      "status": "READ_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "a2a-official",
+      "status": "READ_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "github-ai-agent-repositories",
+      "status": "READ_FAILED",
+      "reason": "http-401"
+    },
+    {
+      "sourceId": "github-mcp-repositories",
+      "status": "READ_FAILED",
+      "reason": "http-401"
+    },
+    {
+      "sourceId": "github-automation-repositories",
+      "status": "READ_FAILED",
+      "reason": "http-401"
+    },
+    {
+      "sourceId": "github-llm-repositories",
+      "status": "READ_FAILED",
+      "reason": "http-401"
+    },
+    {
+      "sourceId": "huggingface-recent-models-api",
+      "status": "READ_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "openai-news",
+      "status": "READ_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "anthropic-news",
+      "status": "READ_FAILED",
+      "reason": "http-403"
+    }
+  ],
+  "searchReceipts": [
+    {
+      "sourceId": "search-frontier-model-releases",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-open-model-breakthroughs",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-agentic-runtime-breakthroughs",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-orchestration-skills-frontier",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-free-tier-pricing-shifts",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-distribution-gamechangers",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-payment-commerce-shifts",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-policy-regulation-shifts",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-security-breakthroughs",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-data-research-tools",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-business-model-mechanisms",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-vertical-operational-fractures",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-community-weak-signals",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-github-breakout-projects",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-product-changelog-mechanisms",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-procurement-grants-programs",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    },
+    {
+      "sourceId": "search-research-commercialization",
+      "status": "SEARCH_FAILED",
+      "reason": "http-403"
+    }
+  ],
+  "tournament": {
+    "businessEffectAuthority": "NONE",
+    "externalEffectAuthority": "PUBLIC_READ_ONLY",
+    "commercialTruthAuthority": "NONE",
+    "ok": true,
+    "status": "GAMECHANGER_TOURNAMENT_READY",
+    "version": "uberbond.gamechanger-mesh-1.0.0",
+    "inputCount": 0,
+    "uniqueCount": 0,
+    "invalid": [],
+    "ranked": [],
+    "escalations": [],
+    "ignoredKnownCount": 0,
+    "escalationAuthority": "RESEARCH_AND_PROPOSAL_ONLY",
+    "forbiddenEscalationEffects": [
+      "MESSAGE",
+      "MONEY_MOVEMENT",
+      "PURCHASE",
+      "DEPLOYMENT",
+      "CUSTOMER_STATE_MUTATION",
+      "AUTHORITY_WIDENING"
+    ]
+  },
+  "frontierSignals": [],
+  "intelligencePackets": [],
+  "state": {
+    "path": "/home/user/uberbondd/.cache/gamechanger-mesh-state.json",
+    "previousFingerprints": 2,
+    "currentFingerprints": 2,
+    "rememberedSources": 2
+  },
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "messages": 0,
+    "moneyMovements": 0,
+    "providerCalls": 32
+  },
+  "networkReadAuthority": "PUBLIC_RESEARCH_ONLY",
+  "prohibitedEffects": [
+    "MESSAGE",
+    "MONEY_MOVEMENT",
+    "PURCHASE",
+    "DEPLOYMENT",
+    "CUSTOMER_STATE_MUTATION",
+    "AUTHORITY_WIDENING"
+  ],
+  "truthBoundary": "PUBLIC_SIGNAL_OR_SEARCH_RANK_IS_NOT_OPPORTUNITY_PROOF_COMMERCIAL_PROOF_OR_IMPLEMENTATION_PROOF"
+}

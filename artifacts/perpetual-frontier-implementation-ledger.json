@@ -1,0 +1,4215 @@
+{
+  "schemaVersion": "uberbond.perpetual-frontier-implementation-ledger.v2",
+  "generatedAt": "2026-09-04T15:36:11.692Z",
+  "sourceCommit": null,
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  },
+  "ok": true,
+  "status": "GENESIS_EVIDENCE_LEDGER_READY",
+  "evidenceVersion": "uberbond.genesis-implementation-evidence-v2-2.0.0",
+  "ideaCount": 275,
+  "counts": {
+    "OBSERVED_INTERNAL_RUNTIME_RECEIPT": 20,
+    "SOURCE_AND_TEST_PRESENT": 255
+  },
+  "maturityCounts": {
+    "PARTIAL_PRIMITIVE": 74,
+    "IMPLEMENTED_PRIMITIVE": 201
+  },
+  "entries": [
+    {
+      "id": 1,
+      "name": "Unknown-Unknown Engine",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/perpetual-frontier-genesis.mjs"
+      ],
+      "tests": [
+        "tests/perpetual-frontier-genesis.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/perpetual-frontier-genesis-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Compiles anomalies, contradictions, blind spots and disagreements into bounded research questions."
+    },
+    {
+      "id": 2,
+      "name": "Artificial Serendipity Engine",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-evolution-engine.mjs"
+      ],
+      "tests": [
+        "tests/genesis-evolution-engine.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-evolution-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Deterministically recombines distant cross-category opportunity mechanisms into explicitly unproven hypotheses."
+    },
+    {
+      "id": 3,
+      "name": "Counterfactual Civilization Engine",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-scientist.mjs"
+      ],
+      "tests": [
+        "tests/genesis-scientist.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Generates bounded factorial counterfactual worlds across supplied axes; full civilization dynamics are not yet implemented."
+    },
+    {
+      "id": 4,
+      "name": "Future-Option Portfolio",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-evolution-engine.mjs"
+      ],
+      "tests": [
+        "tests/genesis-evolution-engine.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-evolution-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Ranks bounded research options using exploitation, exploration, reversibility, evidence and curiosity allocation."
+    },
+    {
+      "id": 5,
+      "name": "Causal Economic Genome",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-scientist.mjs"
+      ],
+      "tests": [
+        "tests/genesis-scientist.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Compiles evidence-referenced acyclic causal economic graphs with outcomes and candidate intervention nodes."
+    },
+    {
+      "id": 6,
+      "name": "Automated Economic Scientist",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-scientist.mjs"
+      ],
+      "tests": [
+        "tests/genesis-scientist.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Compiles theory, predictions, falsifiers, observations and interventions, then updates from evidence-backed outcomes."
+    },
+    {
+      "id": 7,
+      "name": "Search-Algorithm Evolution",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-scientist.mjs"
+      ],
+      "tests": [
+        "tests/genesis-scientist.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Mutates weighted search policies against holdout benchmark cases and emits a non-self-promoting challenger."
+    },
+    {
+      "id": 8,
+      "name": "Evaluator Evolution",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 9,
+      "name": "Internal Prediction Society",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-scientist.mjs"
+      ],
+      "tests": [
+        "tests/genesis-scientist.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Scores forecasters with Brier error and preserves aggregate forecasts as internal forecasts, not facts."
+    },
+    {
+      "id": 10,
+      "name": "Disagreement Mining",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/perpetual-frontier-genesis.mjs"
+      ],
+      "tests": [
+        "tests/perpetual-frontier-genesis.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/perpetual-frontier-genesis-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Preserves model/source disagreement as a research agenda instead of averaging it away."
+    },
+    {
+      "id": 11,
+      "name": "Reality-Anomaly Mining",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/perpetual-frontier-genesis.mjs"
+      ],
+      "tests": [
+        "tests/perpetual-frontier-genesis.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/perpetual-frontier-genesis-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Preserves anomalies as explicit uncertainty-reduction questions."
+    },
+    {
+      "id": 12,
+      "name": "Impossible-Task Ledger",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-evolution-engine.mjs",
+        "data/genesis/impossible-tasks.json"
+      ],
+      "tests": [
+        "tests/genesis-evolution-engine.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-evolution-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Stores blocker and unlock conditions and reopens only research review when explicit conditions change."
+    },
+    {
+      "id": 13,
+      "name": "Capability Multiplication Score",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-evolution-engine.mjs",
+        "src/thread-opportunity-universe.mjs"
+      ],
+      "tests": [
+        "tests/genesis-evolution-engine.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-evolution-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Measures how broadly a new primitive touches the real stored opportunity population and category surface."
+    },
+    {
+      "id": 14,
+      "name": "World Discontinuity Detector",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-evolution-engine.mjs"
+      ],
+      "tests": [
+        "tests/genesis-evolution-engine.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-evolution-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Detects threshold-crossing metric changes while explicitly refusing causal claims."
+    },
+    {
+      "id": 15,
+      "name": "Institution Genome",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-scientist.mjs"
+      ],
+      "tests": [
+        "tests/genesis-scientist.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Compiles identity, rights, consent, delegation, decisions, settlement and revocation into a bounded institution design object."
+    },
+    {
+      "id": 16,
+      "name": "Company Morphogenesis",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 17,
+      "name": "Autonomous Company Reproduction",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 18,
+      "name": "Economic Natural Selection",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 19,
+      "name": "Knowledge Compound Interest",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 20,
+      "name": "Counterfactual Self-Reconstruction",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 21,
+      "name": "Alien Board of Directors",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 22,
+      "name": "Machine Curiosity Budget",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-evolution-engine.mjs"
+      ],
+      "tests": [
+        "tests/genesis-evolution-engine.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-evolution-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Allocates a bounded fraction of internal ranking weight to exploration and novelty without granting spend authority."
+    },
+    {
+      "id": 23,
+      "name": "Dream Mode",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 24,
+      "name": "Synthetic Future Memories",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-scientist.mjs"
+      ],
+      "tests": [
+        "tests/genesis-scientist.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Creates explicitly synthetic counterfactual memory objects that are prohibited from being recalled as observed history."
+    },
+    {
+      "id": 25,
+      "name": "Civilization-Scale Trend Graph",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 26,
+      "name": "Autonomous Field Formation",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 27,
+      "name": "Machine-to-Machine Economy Readiness",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-scientist.mjs"
+      ],
+      "tests": [
+        "tests/genesis-scientist.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Scores identity, authorization, contract, settlement, dispute, acceptance and audit readiness without creating authority."
+    },
+    {
+      "id": 28,
+      "name": "Founder-Life Optimizer",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 29,
+      "name": "Meta-Objective Guardian",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-scientist.mjs"
+      ],
+      "tests": [
+        "tests/genesis-scientist.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Detects protected north-star, authority, truth and founder-freedom mutations and denies silent self-mutation."
+    },
+    {
+      "id": 30,
+      "name": "UBERBOND GENESIS",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/perpetual-frontier-genesis.mjs",
+        "scripts/perpetual-frontier-genesis-tick.mjs"
+      ],
+      "tests": [
+        "tests/perpetual-frontier-genesis.test.mjs",
+        "tests/perpetual-frontier-genesis-tick.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/perpetual-frontier-genesis-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Composes shockwave, resurrection, unknown-unknown and frontier-latency planning from frontier signals."
+    },
+    {
+      "id": 31,
+      "name": "World -> Discovery -> Company Pipeline",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 32,
+      "name": "Autonomous Science-to-Market Laboratory",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 33,
+      "name": "Problem Dark Matter Telescope",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 34,
+      "name": "Latent Demand Inference",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 35,
+      "name": "Human-Labor Archaeologist",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 36,
+      "name": "Economic Periodic Table",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 37,
+      "name": "Economic Theorem Prover",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 38,
+      "name": "Business Proof DAG",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 39,
+      "name": "Company Compiler",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 40,
+      "name": "Ephemeral Companies",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 41,
+      "name": "Seasonal Organisms",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 42,
+      "name": "Geographic Mutation Engine",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 43,
+      "name": "Time-Arbitrage Engine",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 44,
+      "name": "Technology Half-Life Predictor",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 45,
+      "name": "Obsolescence Forecasting",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 46,
+      "name": "Competitor Future Simulator",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 47,
+      "name": "Synthetic Entrepreneur Population",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 48,
+      "name": "Cognitive Speciation",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 49,
+      "name": "Idea Phylogenetic Tree",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Builds parent-child idea lineage with missing-parent and cycle rejection."
+    },
+    {
+      "id": 50,
+      "name": "Evolutionary Niches",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 51,
+      "name": "Invention Market",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 52,
+      "name": "Proof Market",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 53,
+      "name": "Failure Bounty System",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 54,
+      "name": "Frontier Bounty System",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 55,
+      "name": "Economic Attention Engine",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 56,
+      "name": "Adaptive Intelligence Depth",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 57,
+      "name": "Sleep Consolidation for Machines",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 58,
+      "name": "Memory Evolution",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 59,
+      "name": "Self-Evolving Ontology",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-ontology.mjs",
+        "scripts/genesis-ontology-tick.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs",
+        "tests/genesis-ontology-tick.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-ontology-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Proposes concept promotion/archive changes from candidate utility; autonomous canonical rewrite remains intentionally disabled."
+    },
+    {
+      "id": 60,
+      "name": "Ontology Death",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Allows archive candidacy only with zero usage, zero dependents, replacement and evidence, preserving history."
+    },
+    {
+      "id": 61,
+      "name": "Language Invention",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Creates bounded ontology DSL grammars for economic, causal, authority and company-genome vocabulary; general language invention remains future work."
+    },
+    {
+      "id": 62,
+      "name": "Economic Microscope + Telescope",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 63,
+      "name": "Temporal Causal Replay",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 64,
+      "name": "Historical Blind-Spot Tournament",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 65,
+      "name": "Future-Calibration Ledger",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-scientist.mjs"
+      ],
+      "tests": [
+        "tests/genesis-scientist.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Tracks historical forecast Brier performance and calibration classes without promising future accuracy."
+    },
+    {
+      "id": 66,
+      "name": "Surprise Score",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-evolution-engine.mjs"
+      ],
+      "tests": [
+        "tests/genesis-evolution-engine.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-evolution-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Measures distance from known concepts and primitive diversity as search-priority evidence only."
+    },
+    {
+      "id": 67,
+      "name": "Autonomous Scientific Commercialization Agents",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 68,
+      "name": "Physical-World Frontier Bridge",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 69,
+      "name": "Autonomous Procurement Intelligence",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 70,
+      "name": "Reverse-Vendor Engine",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 71,
+      "name": "Resource Alchemy",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 72,
+      "name": "Opportunity Symbiosis",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 73,
+      "name": "Portfolio Autocatalysis",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 74,
+      "name": "Compounding Learning Rate as Supreme Meta-Metric",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 75,
+      "name": "Frontier of Frontiers",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-venture-organism.mjs"
+      ],
+      "tests": [
+        "tests/genesis-venture-organism.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Evidence-bound internal primitive; external activation and economic proof remain separate."
+    },
+    {
+      "id": 76,
+      "name": "Sensor Genesis Engine",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 77,
+      "name": "Precursor Graph",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 78,
+      "name": "Weak-Signal Fusion Reactor",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 79,
+      "name": "Missing-Variable Hunter",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 80,
+      "name": "Epistemic Topography",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 81,
+      "name": "Information Half-Life Engine",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 82,
+      "name": "Truth Triangulation Mesh",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 83,
+      "name": "Surprise Autopsy",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 84,
+      "name": "Causal Anomaly Telescope",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 85,
+      "name": "Signal Provenance Genome",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 86,
+      "name": "Metacognitive Compiler",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 87,
+      "name": "Assumption Mutator",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-evolution-engine.mjs",
+        "data/genesis/architecture-assumptions.json"
+      ],
+      "tests": [
+        "tests/genesis-evolution-engine.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-evolution-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Anti-UberBond generates explicit opposite-assumption counter-theories and falsification questions."
+    },
+    {
+      "id": 88,
+      "name": "Reasoning Species Garden",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 89,
+      "name": "Cognitive Merger Laboratory",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 90,
+      "name": "Conceptual Wormhole Search",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 91,
+      "name": "Abstraction Ladder",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Structures observation to mechanism to pattern to principle to meta-principle with overgeneralization warnings."
+    },
+    {
+      "id": 92,
+      "name": "Inverse Problem Generator",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Turns desired outcomes, observables, controls and constraints into falsifiable inverse-problem questions without inventing a solution."
+    },
+    {
+      "id": 93,
+      "name": "Question Genome",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Compiles question identities, parent lineage and causal, counterfactual, predictive, decision or falsification classes."
+    },
+    {
+      "id": 94,
+      "name": "Insight Compression Engine",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-ontology-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Compresses evidence-bound insights with uncertainty, contradictions and a rule that compressed memory never outranks sources."
+    },
+    {
+      "id": 95,
+      "name": "Cognitive Opportunity-Cost Router",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 96,
+      "name": "Self-Generated Curriculum",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 97,
+      "name": "Architecture Embryos",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 98,
+      "name": "Shadow-Fork Darwinism",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 99,
+      "name": "Algorithm Foundry",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 100,
+      "name": "Tool Genesis",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 101,
+      "name": "Memory Genotype Evolution",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 102,
+      "name": "Ontology Genetic Programming",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 103,
+      "name": "Evaluator Predator-Prey Ecology",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-evolution-engine.mjs"
+      ],
+      "tests": [
+        "tests/genesis-evolution-engine.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-evolution-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Implements competing evaluator species and preserves evaluator disagreement; full co-evolution is not yet implemented."
+    },
+    {
+      "id": 104,
+      "name": "Anti-Local-Maximum Launcher",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 105,
+      "name": "Proof-Carrying Self-Modification",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-sensing-cognition.mjs"
+      ],
+      "tests": [
+        "tests/genesis-sensing-cognition.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Internal zero-effect sensing/cognition primitive; independent evidence and promotion gates remain required."
+    },
+    {
+      "id": 106,
+      "name": "Deadweight-Loss Telescope",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Estimates unrealized structured surplus while refusing welfare or causal proof."
+    },
+    {
+      "id": 107,
+      "name": "Transaction-Cost Atlas",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Maps money, time, failure and coordination burden across transaction stages."
+    },
+    {
+      "id": 108,
+      "name": "Trust Friction Scanner",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Scores evidence, reversibility, reputation, stakes and ambiguity as an explicit trust-friction heuristic."
+    },
+    {
+      "id": 109,
+      "name": "Coordination Entropy Map",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Measures normalized handoff-network entropy as a coordination complexity proxy."
+    },
+    {
+      "id": 110,
+      "name": "Margin Migration Radar",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Tracks contribution and margin movement across supplied verified periods."
+    },
+    {
+      "id": 111,
+      "name": "Invisible Subsidy Detector",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Exposes hidden founder labor and market-cost subsidy assumptions."
+    },
+    {
+      "id": 112,
+      "name": "Incentive Fracture Mapper",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Finds metric, reward and externality divergence without inferring actor intent."
+    },
+    {
+      "id": 113,
+      "name": "Value-Leakage Tomography",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Maps structured value loss between ordered economic stages."
+    },
+    {
+      "id": 114,
+      "name": "Market-Boundary Detector",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Measures buyer/seller graph connectivity while refusing legal market-definition claims."
+    },
+    {
+      "id": 115,
+      "name": "Economic Phase-Change Detector",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Flags threshold-crossing regime changes in numeric economic series."
+    },
+    {
+      "id": 116,
+      "name": "Business Meiosis",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 117,
+      "name": "Business Metamorphosis",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 118,
+      "name": "Business Apoptosis",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 119,
+      "name": "Symbiosis Compiler",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Finds reciprocal provide/need structures as non-commercial complementarity hypotheses."
+    },
+    {
+      "id": 120,
+      "name": "Ecosystem Keystone Finder",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Ranks graph nodes by bounded topological centrality."
+    },
+    {
+      "id": 121,
+      "name": "Category Genesis Engine",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Creates evidence-referenced category candidates from pain, mechanism and buyer; establishment still requires market evidence."
+    },
+    {
+      "id": 122,
+      "name": "Protocol-Native Company Generator",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 123,
+      "name": "Agent-Native Economy Designer",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 124,
+      "name": "Jurisdiction Morphogenesis",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 125,
+      "name": "Temporary Coalition Companies",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 126,
+      "name": "Frontier Residue Miner",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Extracts reusable capabilities and artifacts from negative primary outcomes."
+    },
+    {
+      "id": 127,
+      "name": "Negative-Result Arbitrage",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Ranks negative results by replication confidence, avoided waste and cross-domain transfer as learning priority."
+    },
+    {
+      "id": 128,
+      "name": "Reproducibility-Risk Genome",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 129,
+      "name": "Scientific Bottleneck Exchange",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 130,
+      "name": "Instrumentation Gap Hunter",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 131,
+      "name": "Technology-Readiness Causal Estimator",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 132,
+      "name": "Discovery Derivative Graph",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 133,
+      "name": "Paper-to-Primitive Compiler",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 134,
+      "name": "Patent Mechanism Distiller",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 135,
+      "name": "Autonomous Research-Portfolio Scientist",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 136,
+      "name": "Synthetic Civilization Laboratory",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 137,
+      "name": "Regulatory Counterfactual Twin",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 138,
+      "name": "Competitor Coevolution Arena",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 139,
+      "name": "Buyer Population Ecology",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 140,
+      "name": "Infrastructure-Shock Universe",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 141,
+      "name": "Cultural Phase Simulator",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 142,
+      "name": "Future-Fork Tournament",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 143,
+      "name": "Historical Reality Replay",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 144,
+      "name": "Simulation Calibration Court",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 145,
+      "name": "Synthetic-World Diversity Archive",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 146,
+      "name": "Economy-of-Minds Kernel",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 147,
+      "name": "Agent Labor Market",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 148,
+      "name": "Compute Currency",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 149,
+      "name": "Reputation Capital",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 150,
+      "name": "Coalition Formation Market",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 151,
+      "name": "Internal Insurance",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 152,
+      "name": "Epistemic Bonds",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 153,
+      "name": "Anti-Collusion Court",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 154,
+      "name": "Decentralized Org Morphogenesis",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 155,
+      "name": "Cognitive Bankruptcy and Rebirth",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 156,
+      "name": "Provider-Extinction Drills",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 157,
+      "name": "Capability Escrow",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 158,
+      "name": "Infrastructure DNA",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 159,
+      "name": "Forensic Time Machine",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 160,
+      "name": "Semantic Rollback",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 161,
+      "name": "Blast-Radius Cellular Architecture",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 162,
+      "name": "Data-Sovereignty Shards",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 163,
+      "name": "Supplier Trust Minimizer",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 164,
+      "name": "Graceful-Degradation Evolution",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 165,
+      "name": "Catastrophe-to-Capability Converter",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 166,
+      "name": "Impossible Benchmark Factory",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 167,
+      "name": "Future Rival Generator",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-evolution-engine.mjs",
+        "data/genesis/architecture-assumptions.json"
+      ],
+      "tests": [
+        "tests/genesis-evolution-engine.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-evolution-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Anti-UberBond generates architecture challengers from changed primitives; autonomous rival implementation is not yet present."
+    },
+    {
+      "id": 168,
+      "name": "Paradigm Escape Hatch",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 169,
+      "name": "Moonshot Seed Vault",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 170,
+      "name": "Frontier-Slope Predictor",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 171,
+      "name": "Research-Agenda Autogenesis",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-ontology.mjs",
+        "scripts/genesis-ontology-tick.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs",
+        "tests/genesis-ontology-tick.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-ontology-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Turns unknowns, anomalies and contradictions into machine-generated research questions and falsification priorities."
+    },
+    {
+      "id": 172,
+      "name": "Novelty Debt Meter",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 173,
+      "name": "Civilization Opportunity Compass",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-world-resilience.mjs"
+      ],
+      "tests": [
+        "tests/genesis-world-resilience.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Zero-effect simulation/resilience primitive; synthetic state and internal markets never become external proof or authority."
+    },
+    {
+      "id": 174,
+      "name": "Founder Freedom Derivative",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-evolution-engine.mjs"
+      ],
+      "tests": [
+        "tests/genesis-evolution-engine.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Scores founder-minute reduction, reversibility, optionality, lock-in risk and recurring leverage as decision support."
+    },
+    {
+      "id": 175,
+      "name": "GENESIS²",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-evolution-engine.mjs",
+        "scripts/genesis-evolution-tick.mjs"
+      ],
+      "tests": [
+        "tests/genesis-evolution-engine.test.mjs",
+        "tests/genesis-evolution-tick.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-evolution-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Adds a second evolution layer over GENESIS; self-rewriting evolution algorithms are not yet implemented."
+    },
+    {
+      "id": 176,
+      "name": "Reality Theory Engine",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-scientist.mjs"
+      ],
+      "tests": [
+        "tests/genesis-scientist.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Represents and evaluates explicit economic theories; general world-model theory formation remains incomplete."
+    },
+    {
+      "id": 177,
+      "name": "Theory Tournament",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 178,
+      "name": "Theory Mutation",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 179,
+      "name": "Missing-Law Detector",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 180,
+      "name": "Economic Invariant Miner",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 181,
+      "name": "Regime Physics",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 182,
+      "name": "Reality Compression Contest",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 183,
+      "name": "Counter-Theory Generator",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-evolution-engine.mjs",
+        "data/genesis/architecture-assumptions.json"
+      ],
+      "tests": [
+        "tests/genesis-evolution-engine.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-evolution-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Generates explicit counter-theories against registered architecture assumptions."
+    },
+    {
+      "id": 184,
+      "name": "Causal Witness Engine",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-scientist.mjs"
+      ],
+      "tests": [
+        "tests/genesis-scientist.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Binds theory prediction outcomes to evidence references and preserves contradicted or unresolved status; stronger causal identification remains future work."
+    },
+    {
+      "id": 185,
+      "name": "Theory-to-Business Compiler",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 186,
+      "name": "Observation Designer",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 187,
+      "name": "Sensor Inventor",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 188,
+      "name": "Information Gain Market",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 189,
+      "name": "Blindness Ledger",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 190,
+      "name": "Sensor Evolution",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 191,
+      "name": "Measurement Arbitrage",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 192,
+      "name": "Proxy Decay Detector",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 193,
+      "name": "Observation Bias Genome",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 194,
+      "name": "Reality Feedback Bandwidth Optimizer",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 195,
+      "name": "Experiment Compression",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 196,
+      "name": "Preference Formation Engine",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Updates explicitly supplied preference dimensions from evidence-weighted touches without private psychology inference."
+    },
+    {
+      "id": 197,
+      "name": "Non-Consumption Telescope",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Ranks supplied segments by need, access difficulty, population and low adoption without demand claims."
+    },
+    {
+      "id": 198,
+      "name": "Market Creation Simulator",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Produces explicitly synthetic adoption scenarios from friction/value counterfactuals."
+    },
+    {
+      "id": 199,
+      "name": "Problem Formation Engine",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Aggregates supplied problem severity, frequency and workaround-cost signals."
+    },
+    {
+      "id": 200,
+      "name": "Pain-to-Budget Transition Detector",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Classifies pain, workaround, budget and authority signals without claiming verified budget."
+    },
+    {
+      "id": 201,
+      "name": "Demand Phase-Change Detector",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Detects phase shifts in supplied independent buyer, budget and paid-commitment signals; real demand still needs external evidence."
+    },
+    {
+      "id": 202,
+      "name": "Category Vocabulary Generator",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Generates candidate buyer/mechanism/outcome labels without claiming established buyer language."
+    },
+    {
+      "id": 203,
+      "name": "Buyer Mental-Model Genome",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Compiles explicitly supplied beliefs, rules, proof preferences and risks as a research hypothesis only."
+    },
+    {
+      "id": 204,
+      "name": "Cultural Adoption Physics",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 205,
+      "name": "Social Proof Causal Model",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 206,
+      "name": "Universal Surplus Graph",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Builds directed supplied-surplus graphs with truth dependent on verified input values."
+    },
+    {
+      "id": 207,
+      "name": "Friction Conservation Analysis",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Compares total measured friction across before/after stage boundaries."
+    },
+    {
+      "id": 208,
+      "name": "Constraint Shadow Pricing",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Calculates a local objective delta per relaxation unit as a counterfactual shadow-price estimate."
+    },
+    {
+      "id": 209,
+      "name": "Bottleneck Centrality",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Ranks flow-over-capacity graph nodes as bottleneck heuristics."
+    },
+    {
+      "id": 210,
+      "name": "Scarcity Migration Engine",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Tracks the highest supplied scarcity score across periods and detects migration."
+    },
+    {
+      "id": 211,
+      "name": "Abundance Consequence Engine",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Detects supplied resource abundance/scarcity changes while refusing causal consequence claims."
+    },
+    {
+      "id": 212,
+      "name": "Zero-Marginal-Cost Shockwave",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Propagates a marginal-cost reduction mechanically across supplied dependency cost shares."
+    },
+    {
+      "id": 213,
+      "name": "Value-Chain Phase Mapper",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Classifies supplied stages as value creation, transfer or destruction from explicit value/cost inputs."
+    },
+    {
+      "id": 214,
+      "name": "Hidden Complement Detector",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Finds structural require/enable complements without bundling or cross-sell proof."
+    },
+    {
+      "id": 215,
+      "name": "Constraint Inversion",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-economic-physics.mjs"
+      ],
+      "tests": [
+        "tests/genesis-economic-physics.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Creates an explicit inverted-constraint counterfactual with falsification questions."
+    },
+    {
+      "id": 216,
+      "name": "Institution Compiler",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-scientist.mjs"
+      ],
+      "tests": [
+        "tests/genesis-scientist.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Compiles an institution genome design object; executable legal or market institutions are not created by software alone."
+    },
+    {
+      "id": 217,
+      "name": "Contract Genome",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 218,
+      "name": "Trust Protocol Generator",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 219,
+      "name": "Market Mechanism Foundry",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 220,
+      "name": "Governance Genome",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 221,
+      "name": "Minimum Organization Search",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 222,
+      "name": "Companyless Business Mode",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 223,
+      "name": "Organization Shape-Shifting",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 224,
+      "name": "Institutional Evolution Arena",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 225,
+      "name": "Coordination Primitive Discovery",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 226,
+      "name": "Self-Invented Programming Language",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 227,
+      "name": "Economic DSL",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Provides a bounded machine-readable economic ontology grammar and relation model; richer economic semantics remain future work."
+    },
+    {
+      "id": 228,
+      "name": "Causal DSL",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Provides a bounded causal ontology grammar for concepts, relations, evidence and lifecycle status."
+    },
+    {
+      "id": 229,
+      "name": "Authority DSL",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Provides a bounded authority vocabulary grammar but cannot create or widen real authority."
+    },
+    {
+      "id": 230,
+      "name": "Company Genome Language",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Provides a company-genome vocabulary mode for machine-readable concepts and relations; full company compiler semantics remain broader."
+    },
+    {
+      "id": 231,
+      "name": "Executable Ontology",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Compiles validated machine-queryable concepts and relations with lookup, traversal and mutation-proposal operations but no arbitrary execution."
+    },
+    {
+      "id": 232,
+      "name": "Concept Compiler",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Validates canonical concept identity, definition, lineage, aliases, evidence pointers and lifecycle state."
+    },
+    {
+      "id": 233,
+      "name": "Concept Fitness",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Scores explanatory gain, usage, contradiction reduction, opportunity reach, stability and novelty as internal utility only."
+    },
+    {
+      "id": 234,
+      "name": "Concept Fusion",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Fuses two evidence-bound concepts into a lineage-preserving candidate concept."
+    },
+    {
+      "id": 235,
+      "name": "Conceptual Speciation",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-ontology.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Specializes a parent concept along explicit dimensions while keeping children as candidate distinctions."
+    },
+    {
+      "id": 236,
+      "name": "Algorithm Archaeology",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 237,
+      "name": "Tacit-Process Extractor",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 238,
+      "name": "Workflow Theorem Miner",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 239,
+      "name": "Strategy Compiler",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 240,
+      "name": "Strategy Counterexample Library",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 241,
+      "name": "Success Decomposition Engine",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 242,
+      "name": "Failure Causality Engine",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 243,
+      "name": "Latent Skill Crystallizer",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 244,
+      "name": "Capability Exaptation",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 245,
+      "name": "Algorithm Exaptation",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 246,
+      "name": "Scientific Translation Layer",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 247,
+      "name": "Cross-Lab Discovery Graph",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 248,
+      "name": "Replication Economy",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 249,
+      "name": "Scientific Negative-Space Engine",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 250,
+      "name": "Research Adoption-Lag Arbitrage",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 251,
+      "name": "Standards Precursor Radar",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 252,
+      "name": "Pre-Standard Architecture Mode",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 253,
+      "name": "Science-to-Supply-Chain Compiler",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 254,
+      "name": "Physical Bottleneck Genome",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 255,
+      "name": "Autonomous Tech-Transfer Engine",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 256,
+      "name": "Future-Self Parliament",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 257,
+      "name": "Preference Uncertainty Ledger",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 258,
+      "name": "Freedom Frontier",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 259,
+      "name": "Time Sovereignty Ledger",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 260,
+      "name": "Optionality Balance Sheet",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 261,
+      "name": "Life Lock-In Detector",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 262,
+      "name": "Reversibility Premium",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 263,
+      "name": "Freedom Compounder",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 264,
+      "name": "Human-Capital Autonomy Split",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 265,
+      "name": "Renaissance Portfolio Engine",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 266,
+      "name": "Anti-Deception Observatory",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 267,
+      "name": "Incentive Corruption Detector",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 268,
+      "name": "Objective Mutation Court",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 269,
+      "name": "Reversible-First Intelligence",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 270,
+      "name": "Consequence Thermodynamics",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 271,
+      "name": "Epistemic Immune Memory",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 272,
+      "name": "Civilization Dependency Graph",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 273,
+      "name": "Civilization Leverage Finder",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 274,
+      "name": "Meta-Paradigm Evolution",
+      "maturity": "IMPLEMENTED_PRIMITIVE",
+      "status": "SOURCE_AND_TEST_PRESENT",
+      "sources": [
+        "src/genesis-final-frontier.mjs"
+      ],
+      "tests": [
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "runtimeReceipts": [],
+      "missingPaths": [],
+      "note": "Final frontier zero-effect primitive. Source/test presence is not proof of correctness, runtime success, market truth, or authority."
+    },
+    {
+      "id": 275,
+      "name": "UBERBOND ONTOGENESIS",
+      "maturity": "PARTIAL_PRIMITIVE",
+      "status": "OBSERVED_INTERNAL_RUNTIME_RECEIPT",
+      "sources": [
+        "src/genesis-ontology.mjs",
+        "scripts/genesis-ontology-tick.mjs"
+      ],
+      "tests": [
+        "tests/genesis-ontology.test.mjs",
+        "tests/genesis-ontology-tick.test.mjs"
+      ],
+      "runtimeReceipts": [
+        "artifacts/genesis-ontology-latest.json"
+      ],
+      "missingPaths": [],
+      "note": "Transforms unresolved frontier material into research agendas, emergent candidate concepts, fitness proposals and machine-readable ontology. Repeated evidence-driven canonical evolution remains intentionally gated."
+    }
+  ],
+  "implementedOrPartialCount": 275,
+  "canonOnlyCount": 0,
+  "truthBoundary": "SOURCE_AND_TEST_PRESENT_DOES_NOT_MEAN_TESTS_PASSED; OBSERVED_INTERNAL_RUNTIME_RECEIPT_DOES_NOT_MEAN_EXTERNAL_VALUE_PROOF; CANON_ONLY_MUST_NOT_BE_CALLED_IMPLEMENTED",
+  "warning": "275/275 means every canonical idea has declared source+test artifacts. It does not prove tests passed, runtime proof exists for every idea, market value is proven, or the system is production-authorized."
+}

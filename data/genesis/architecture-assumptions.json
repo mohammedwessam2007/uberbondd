@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "uberbond.genesis-architecture-assumptions.v1",
+  "truthBoundary": "ASSUMPTIONS_EXIST_TO_BE_FALSIFIED_AND_ARE_NOT_CONSTITUTIONAL_TRUTH",
+  "assumptions": [
+    "frontier cognition often requires hosted frontier models",
+    "web and API software remain the dominant economic execution surfaces",
+    "human buyers remain the primary commercial decision makers",
+    "current capability ontologies are sufficient to describe economically useful software work",
+    "current evaluators are strong enough to reject unsafe or economically weak self-improvements",
+    "the current opportunity universe contains most high-value near-term commercial mechanism families",
+    "cloud scheduling and queue runtimes remain the default substrate for unattended operation",
+    "existing payment rails remain the dominant settlement path for small B2B software and services",
+    "distribution continues to require recognizable human channels such as search, email, partners, communities, or marketplaces",
+    "provider-neutral software adapters remain a better long-term abstraction than provider-specific architectures"
+  ]
+}

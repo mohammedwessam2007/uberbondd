@@ -504,6 +504,42 @@ export const MUTATIONS = [
     suites: ['tests/mutation-journal-integrity.test.mjs']
   },
   {
+    // The ledger's runtime-receipt scan must stay rooted where the caller
+    // said, or the same commit produces different ledgers depending on what
+    // somebody ran locally.
+    id: 'GENESIS-LEDGER-01', guard: 'Runtime-receipt evidence is scanned where the caller rooted it, not always the repository',
+    file: 'scripts/genesis-evolution-tick.mjs',
+    find: '.filter(r=>existsSync(resolve(runtimeReceiptRoot,r)));',
+    replace: '.filter(r=>existsSync(resolve(root,r)));',
+    suites: ['tests/genesis-evolution-tick.test.mjs']
+  },
+  {
+    id: 'GENESIS-CHAIN-01', guard: 'A GENESIS refusal names the step that produces what it is missing',
+    file: 'scripts/genesis-evolution-tick.mjs',
+    find: "producedBy:'npm run gamechanger:plan',",
+    replace: '',
+    suites: ['tests/genesis-chain-refusal.test.mjs']
+  },
+  {
+    id: 'AVENGERS-INPUT-01', guard: 'A missing arsenal artifact names the step that has not run, not a crash',
+    file: 'src/avengers-artifact-input.mjs',
+    find: "    if (error?.code === 'ENOENT') {",
+    replace: '    if (false) {',
+    suites: ['tests/avengers-artifact-input.test.mjs']
+  },
+  {
+    // Anchored on the refusal, not on the parse. The first attempt mutated
+    // `JSON.parse(text)` to `JSON.parse(text) || {}`, which changes no output
+    // for any valid object and so survived every test -- unfalsifiable rather
+    // than untested. This is the branch that decides whether a half-written
+    // artifact reaches the caller.
+    id: 'AVENGERS-INPUT-02', guard: 'A half-written arsenal artifact is refused rather than partly believed',
+    file: 'src/avengers-artifact-input.mjs',
+    find: "      status: `AVENGERS_${kind}_MALFORMED`,",
+    replace: '      ok: true,',
+    suites: ['tests/avengers-artifact-input.test.mjs']
+  },
+  {
     id: 'BROWSER-01', guard: 'A declared browser path that is not an executable is not a browser',
     file: 'src/resolve-chromium.mjs',
     find: "  if (declared) return isExecutableFile(declared) ? declared : '';",

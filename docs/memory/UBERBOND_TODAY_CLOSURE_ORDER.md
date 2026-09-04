@@ -19,8 +19,11 @@ Do not restart architecture. Execute in this order:
 - active GENESIS PR #342 head: `c7f048a418fc340ecf7caac125824e5d63bac082`, mergeable; exact current-head final gate still required after Avengers settles
 - Claude issue #351 remains an active heavy factory/verifier lane; no independent `UBERBOND_AVENGERS_CLAUDE_RECEIPT` observed at this refresh
 - commercial truth: `3` bounded partnership sends, `0` replies observed, `0` qualified conversations, `0` customers, `USD 0` cleared revenue, `0` accepted paid deliveries, `0` retained customers
+- only these two implementation PRs are the current software finish line; always refresh live truth before acting
 
 ## Claude monster-lane ownership
+
+Claude Code is not to be used for tiny tickets today.
 
 ### Monster Lane A — issue #351
 
@@ -42,6 +45,7 @@ Own GENESIS #342 plus whole-repo software closure and first-money internal-readi
 - New sessions refresh main/PRs, read the current checkpoint pointer and checkpoint, then continue from the first unfinished dependency.
 - Completed work must be merged to main or preserved as explicit historical donor truth.
 - Important results must not live only in chat, a temporary worktree, or an unmerged branch.
+- Claude comments/prompts are not proof of Claude execution; require actual commits/test receipts.
 - A blocked runner is infrastructure non-evidence, not source failure or pass.
 - If one verifier/provider is blocked, switch lanes instead of stopping.
 - Do not let `95% complete` become a resting state.

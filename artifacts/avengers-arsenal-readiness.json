@@ -1,0 +1,440 @@
+{
+  "schemaVersion": "uberbond.avengers-arsenal-readiness.v1",
+  "generatedAt": "2026-09-04T15:25:07.175Z",
+  "registryDigest": "41271d7184df848bcce0183e527c10872ea69995af23c20c9a4a758b40bced38",
+  "profiles": [],
+  "tools": [
+    {
+      "id": "find-skills",
+      "name": "Find Skills",
+      "kind": "PROJECT_SKILL",
+      "roles": [
+        "researcher"
+      ],
+      "status": "PROJECT_SURFACE_DECLARED",
+      "callableNow": true,
+      "runtimeRequired": false,
+      "path": ".claude/skills/find-skills/SKILL.md",
+      "sourceRef": "435076e78988e1e6ec40d00b0b1d76bdbbc5419a"
+    },
+    {
+      "id": "claude-code-setup",
+      "name": "Claude Code Setup",
+      "kind": "METHOD_ONLY",
+      "roles": [
+        "planner"
+      ],
+      "status": "CALLABLE_VIA_UBERBOND_METHOD",
+      "callableNow": true,
+      "runtimeRequired": false,
+      "path": ".claude/skills/claude-automation-recommender/SKILL.md",
+      "sourceRef": "ed404106fcd80ba98ecb7c851e531dcb626d13b7"
+    },
+    {
+      "id": "task-observer",
+      "name": "Task Observer",
+      "kind": "PROJECT_SKILL",
+      "roles": [
+        "critic"
+      ],
+      "status": "PROJECT_SURFACE_DECLARED",
+      "callableNow": true,
+      "runtimeRequired": false,
+      "path": ".claude/skills/task-observer/",
+      "sourceRef": "510caad26c907793e48306262af216ff9f71c9f7"
+    },
+    {
+      "id": "claude-mem",
+      "name": "Claude-Mem",
+      "kind": "OPTIONAL_RUNTIME",
+      "roles": [
+        "general"
+      ],
+      "status": "RUNTIME_PROOF_REQUIRED",
+      "callableNow": false,
+      "runtimeRequired": true,
+      "path": null,
+      "sourceRef": "fa6a1e9ec12d23f98326a9b26e243acb0819e105"
+    },
+    {
+      "id": "headroom",
+      "name": "Headroom",
+      "kind": "OPTIONAL_RUNTIME",
+      "roles": [
+        "general"
+      ],
+      "status": "RUNTIME_PROOF_REQUIRED",
+      "callableNow": false,
+      "runtimeRequired": true,
+      "path": null,
+      "sourceRef": "a811984ffb62a866274dda2928f78922101c824b"
+    },
+    {
+      "id": "omniroute",
+      "name": "OmniRoute",
+      "kind": "OPTIONAL_RUNTIME",
+      "roles": [
+        "planner"
+      ],
+      "status": "RUNTIME_PROOF_REQUIRED",
+      "callableNow": false,
+      "runtimeRequired": true,
+      "path": null,
+      "sourceRef": "78fd3504dd8c8333abbc406bc4cb83443693af06"
+    },
+    {
+      "id": "strix",
+      "name": "Strix",
+      "kind": "PROJECT_SKILL",
+      "roles": [
+        "verifier"
+      ],
+      "status": "RUNTIME_PROOF_REQUIRED",
+      "callableNow": false,
+      "runtimeRequired": true,
+      "path": ".claude/skills/penetration-testing-with-strix/SKILL.md",
+      "sourceRef": "3c767cdd4750d5e0e4454f58eff279c589889f00"
+    },
+    {
+      "id": "agent-reach",
+      "name": "Agent Reach",
+      "kind": "EXTERNAL_ADAPTER",
+      "roles": [
+        "researcher"
+      ],
+      "status": "RUNTIME_PROOF_REQUIRED",
+      "callableNow": false,
+      "runtimeRequired": true,
+      "path": ".claude/skills/agent-reach/SKILL.md",
+      "sourceRef": "06c202b03400a7d31886bf4399213706da1a0324"
+    },
+    {
+      "id": "fable-orchestrator",
+      "name": "Fable Orchestrator",
+      "kind": "PROJECT_SKILL",
+      "roles": [
+        "planner",
+        "adjudicator"
+      ],
+      "status": "PROJECT_SURFACE_DECLARED",
+      "callableNow": true,
+      "runtimeRequired": false,
+      "path": ".claude/skills/uberbond-orchestrator/SKILL.md",
+      "sourceRef": "3b653701d48095a488c350f7a9d5b1fca4d37183"
+    },
+    {
+      "id": "metaswarm",
+      "name": "Metaswarm",
+      "kind": "METHOD_ONLY",
+      "roles": [
+        "planner",
+        "adjudicator"
+      ],
+      "status": "CALLABLE_VIA_UBERBOND_METHOD",
+      "callableNow": true,
+      "runtimeRequired": false,
+      "path": "docs/ORCHESTRATION_CAPABILITY_CANON.md",
+      "sourceRef": "33d39f776f7fe29098dcf048955756a237e8cb40"
+    },
+    {
+      "id": "superpowers",
+      "name": "Superpowers",
+      "kind": "METHOD_ONLY",
+      "roles": [
+        "builder",
+        "verifier"
+      ],
+      "status": "CALLABLE_VIA_UBERBOND_METHOD",
+      "callableNow": true,
+      "runtimeRequired": false,
+      "path": "docs/ORCHESTRATION_CAPABILITY_CANON.md",
+      "sourceRef": "b36e0829c6d0140e93cfef2ca599b1b07d4a7797"
+    }
+  ],
+  "callableModelCount": 0,
+  "callableToolSurfaceCount": 6,
+  "truthBoundary": "DISCOVERED_OR_CONFIGURED_IS_NOT_CALLABLE; MODEL_LISTED_IS_NOT_INFERENCE_PROVEN; METHOD_DONOR_IS_NOT_OPTIONAL_RUNTIME_PROOF",
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  },
+  "resolvedRegistry": {
+    "schemaVersion": "uberbond.avengers-arsenal-registry.v1",
+    "profiles": [],
+    "tools": [
+      {
+        "id": "find-skills",
+        "name": "Find Skills",
+        "kind": "PROJECT_SKILL",
+        "path": ".claude/skills/find-skills/SKILL.md",
+        "sourceRef": "435076e78988e1e6ec40d00b0b1d76bdbbc5419a",
+        "roles": [
+          "researcher"
+        ],
+        "runtimeRequired": false,
+        "notes": [
+          "external-class:PROJECT_SKILL",
+          "activation:APPROVED_FOR_DISCOVERY",
+          "integration-status:PROJECT_SKILL_ADAPTED_AND_PINNED",
+          "declared-project-surface-present"
+        ]
+      },
+      {
+        "id": "claude-code-setup",
+        "name": "Claude Code Setup",
+        "kind": "METHOD_ONLY",
+        "path": ".claude/skills/claude-automation-recommender/SKILL.md",
+        "sourceRef": "ed404106fcd80ba98ecb7c851e531dcb626d13b7",
+        "roles": [
+          "planner"
+        ],
+        "runtimeRequired": false,
+        "notes": [
+          "external-class:CANONICAL_METHOD",
+          "activation:APPROVED_READ_ONLY",
+          "integration-status:PROJECT_SKILL_ADAPTED_AND_PINNED",
+          "declared-project-surface-present"
+        ]
+      },
+      {
+        "id": "task-observer",
+        "name": "Task Observer",
+        "kind": "PROJECT_SKILL",
+        "path": ".claude/skills/task-observer/",
+        "sourceRef": "510caad26c907793e48306262af216ff9f71c9f7",
+        "roles": [
+          "critic"
+        ],
+        "runtimeRequired": false,
+        "notes": [
+          "external-class:PROJECT_SKILL",
+          "activation:APPROVED_RECOMMENDATION_ONLY",
+          "integration-status:PROJECT_SKILL_ADAPTED_BUNDLE",
+          "declared-project-surface-present"
+        ]
+      },
+      {
+        "id": "claude-mem",
+        "name": "Claude-Mem",
+        "kind": "OPTIONAL_RUNTIME",
+        "path": null,
+        "sourceRef": "fa6a1e9ec12d23f98326a9b26e243acb0819e105",
+        "roles": [
+          "general"
+        ],
+        "runtimeRequired": true,
+        "notes": [
+          "external-class:OPTIONAL_RUNTIME",
+          "activation:APPROVED_OPTIONAL_LOCAL_RUNTIME",
+          "integration-status:HOST_BOOTSTRAP_READY",
+          "declared-project-surface-not-observed"
+        ]
+      },
+      {
+        "id": "headroom",
+        "name": "Headroom",
+        "kind": "OPTIONAL_RUNTIME",
+        "path": null,
+        "sourceRef": "a811984ffb62a866274dda2928f78922101c824b",
+        "roles": [
+          "general"
+        ],
+        "runtimeRequired": true,
+        "notes": [
+          "external-class:OPTIONAL_RUNTIME",
+          "activation:APPROVED_BOUNDED_OPTIMIZATION",
+          "integration-status:HOST_BOOTSTRAP_READY",
+          "declared-project-surface-not-observed"
+        ]
+      },
+      {
+        "id": "omniroute",
+        "name": "OmniRoute",
+        "kind": "OPTIONAL_RUNTIME",
+        "path": null,
+        "sourceRef": "78fd3504dd8c8333abbc406bc4cb83443693af06",
+        "roles": [
+          "planner"
+        ],
+        "runtimeRequired": true,
+        "notes": [
+          "external-class:OPTIONAL_RUNTIME",
+          "activation:APPROVED_ISOLATED_EVALUATION",
+          "integration-status:HOST_BOOTSTRAP_READY",
+          "declared-project-surface-not-observed"
+        ]
+      },
+      {
+        "id": "strix",
+        "name": "Strix",
+        "kind": "PROJECT_SKILL",
+        "path": ".claude/skills/penetration-testing-with-strix/SKILL.md",
+        "sourceRef": "3c767cdd4750d5e0e4454f58eff279c589889f00",
+        "roles": [
+          "verifier"
+        ],
+        "runtimeRequired": true,
+        "notes": [
+          "external-class:PROJECT_SKILL_AND_OPTIONAL_RUNTIME",
+          "activation:APPROVED_OWNED_TARGETS_ONLY",
+          "integration-status:PROJECT_SKILL_ADAPTED_RUNTIME_BOOTSTRAP_READY",
+          "declared-project-surface-present"
+        ]
+      },
+      {
+        "id": "agent-reach",
+        "name": "Agent Reach",
+        "kind": "EXTERNAL_ADAPTER",
+        "path": ".claude/skills/agent-reach/SKILL.md",
+        "sourceRef": "06c202b03400a7d31886bf4399213706da1a0324",
+        "roles": [
+          "researcher"
+        ],
+        "runtimeRequired": true,
+        "notes": [
+          "external-class:EXTERNAL_ADAPTER",
+          "activation:APPROVED_PUBLIC_AUTHORIZED_READ_ONLY_SURFACES",
+          "integration-status:PROJECT_SKILL_ADAPTED_SAFE_HOST_BOOTSTRAP_READY",
+          "declared-project-surface-present"
+        ]
+      },
+      {
+        "id": "fable-orchestrator",
+        "name": "Fable Orchestrator",
+        "kind": "PROJECT_SKILL",
+        "path": ".claude/skills/uberbond-orchestrator/SKILL.md",
+        "sourceRef": "3b653701d48095a488c350f7a9d5b1fca4d37183",
+        "roles": [
+          "planner",
+          "adjudicator"
+        ],
+        "runtimeRequired": false,
+        "notes": [
+          "external-class:PROJECT_SKILL_AND_OPTIONAL_RUNTIME",
+          "activation:APPROVED_PROJECT_PROTOCOL_RUNTIME_EVIDENCE_GATED",
+          "integration-status:UBERBOND_NATIVE_PROTOCOL_AND_PROJECT_SKILLS_ADAPTED",
+          "declared-project-surface-present"
+        ]
+      },
+      {
+        "id": "metaswarm",
+        "name": "Metaswarm",
+        "kind": "METHOD_ONLY",
+        "path": "docs/ORCHESTRATION_CAPABILITY_CANON.md",
+        "sourceRef": "33d39f776f7fe29098dcf048955756a237e8cb40",
+        "roles": [
+          "planner",
+          "adjudicator"
+        ],
+        "runtimeRequired": false,
+        "notes": [
+          "external-class:CANONICAL_METHOD",
+          "activation:APPROVED_METHOD_DONOR",
+          "integration-status:MECHANISMS_COMPOSED_INTO_UBERBOND_ORCHESTRATION_CANON",
+          "declared-project-surface-present"
+        ]
+      },
+      {
+        "id": "superpowers",
+        "name": "Superpowers",
+        "kind": "METHOD_ONLY",
+        "path": "docs/ORCHESTRATION_CAPABILITY_CANON.md",
+        "sourceRef": "b36e0829c6d0140e93cfef2ca599b1b07d4a7797",
+        "roles": [
+          "builder",
+          "verifier"
+        ],
+        "runtimeRequired": false,
+        "notes": [
+          "external-class:CANONICAL_METHOD",
+          "activation:APPROVED_METHOD_DONOR",
+          "integration-status:MECHANISMS_COMPOSED_INTO_UBERBOND_ORCHESTRATION_CANON",
+          "declared-project-surface-present"
+        ]
+      }
+    ]
+  },
+  "localDiscovery": {
+    "schemaVersion": "uberbond.avengers-local-discovery.v1",
+    "version": "uberbond.avengers-local-discovery-1.0.1",
+    "generatedAt": "2026-09-04T15:25:07.175Z",
+    "runtimes": [
+      {
+        "runtime": "OLLAMA",
+        "endpoint": "http://127.0.0.1:11434",
+        "status": "NOT_REACHABLE",
+        "reason": "fetch failed",
+        "models": []
+      },
+      {
+        "runtime": "VLLM",
+        "endpoint": "http://127.0.0.1:8000",
+        "status": "NOT_REACHABLE",
+        "reason": "fetch failed",
+        "models": []
+      },
+      {
+        "runtime": "LLAMA_CPP",
+        "endpoint": "http://127.0.0.1:8080",
+        "status": "NOT_REACHABLE",
+        "reason": "fetch failed",
+        "models": []
+      },
+      {
+        "runtime": "SGLANG",
+        "endpoint": "http://127.0.0.1:30000",
+        "status": "NOT_REACHABLE",
+        "reason": "fetch failed",
+        "models": []
+      },
+      {
+        "runtime": "MLX_LM",
+        "endpoint": "http://127.0.0.1:8081",
+        "status": "NOT_REACHABLE",
+        "reason": "fetch failed",
+        "models": []
+      },
+      {
+        "runtime": "TGI",
+        "endpoint": "http://127.0.0.1:8082",
+        "status": "NOT_REACHABLE",
+        "reason": "fetch failed",
+        "models": []
+      }
+    ],
+    "candidateProfiles": [],
+    "visibleRuntimeCount": 0,
+    "visibleModelCount": 0,
+    "candidateProfileCount": 0,
+    "nextStage": "RECONCILE_WITH_OPEN_MODEL_UNIVERSE_AND_CAPABILITY_GENOME_THEN_BENCHMARK_BEFORE_ACTIVATION",
+    "truthBoundary": "RUNTIME_VISIBILITY_AND_MODEL_LISTING_DO_NOT_PROVE_INFERENCE_CALLABILITY_REVISION_LICENSE_BENCHMARK_QUALITY_OR_ACTIVATION",
+    "automaticDownload": false,
+    "automaticActivation": false,
+    "arbitraryModelCodeExecution": false,
+    "businessEffectAuthority": "NONE",
+    "externalEffectLedger": {
+      "providerCalls": 0,
+      "messages": 0,
+      "purchases": 0,
+      "deployments": 0,
+      "credentialChanges": 0,
+      "dnsChanges": 0,
+      "productionMutations": 0,
+      "spendCents": 0
+    }
+  },
+  "localDiscoveryStatus": "LOCAL_DISCOVERY_COMPLETE",
+  "exactTruth": {
+    "callableModelCount": 0,
+    "callableToolSurfaceCount": 6,
+    "inferenceProbeRequested": true,
+    "localDiscoveryRequested": true
+  }
+}

@@ -1,0 +1,246 @@
+{
+  "schemaVersion": "uberbond.genesis-metabolism.tick.v1",
+  "generatedAt": "2026-09-04T15:36:12.269Z",
+  "inputs": {
+    "gamechanger": "/home/user/uberbondd/artifacts/gamechanger-mesh-latest.json",
+    "evolution": "/home/user/uberbondd/artifacts/genesis-evolution-latest.json",
+    "scientist": "/home/user/uberbondd/artifacts/genesis-scientist-latest.json",
+    "ontology": "/home/user/uberbondd/artifacts/genesis-ontology-latest.json"
+  },
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  },
+  "ok": true,
+  "status": "GENESIS_METABOLISM_READY",
+  "version": "uberbond.genesis-metabolism-1.0.0",
+  "inputCounts": {
+    "frontierSignals": 0,
+    "evolutionCycles": 0,
+    "scientistLabs": 0,
+    "ontologyCandidates": 2
+  },
+  "organs": {
+    "sensing": {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      },
+      "ok": true,
+      "status": "WEAK_SIGNAL_FUSION_READY",
+      "combinedScore": 0,
+      "independentOrigins": 0,
+      "claimBoundary": "FUSED_WEAK_SIGNALS_ARE_NOT_FACT"
+    },
+    "epistemic": {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      },
+      "ok": true,
+      "status": "EPISTEMIC_TOPOGRAPHY_READY",
+      "zones": {
+        "KNOWN": [],
+        "UNCERTAIN": [],
+        "CONTRADICTED": [],
+        "BLIND": []
+      }
+    },
+    "trust": {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      },
+      "ok": true,
+      "status": "TRUST_FRICTION_SCAN_READY",
+      "rows": [],
+      "claimBoundary": "TRUST_FRICTION_IS_HEURISTIC_AND_REQUIRES_BUYER_EVIDENCE"
+    },
+    "phase": {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      },
+      "ok": true,
+      "status": "NO_ECONOMIC_PHASE_CHANGE",
+      "changes": [],
+      "claimBoundary": "THRESHOLD_CHANGE_IS_REGIME_SIGNAL_NOT_CAUSAL_OR_MARKET_PROOF"
+    },
+    "darkMatter": {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      },
+      "ok": true,
+      "status": "PROBLEM_DARK_MATTER_SCORE_READY",
+      "hiddenEconomicCost": 0,
+      "visibilityRatio": 0
+    },
+    "venture": {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      },
+      "ok": false,
+      "status": "MORPHOGENESIS_BLOCKED",
+      "companyId": "company_e061bf5ca476b7162d79",
+      "genome": {
+        "buyer": null,
+        "mechanism": null,
+        "offer": null,
+        "pricing": null,
+        "distribution": null,
+        "fulfillment": null,
+        "capabilities": [],
+        "constraints": []
+      },
+      "missing": [
+        "buyer",
+        "mechanism"
+      ],
+      "activationAuthority": "NONE"
+    },
+    "shocks": {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      },
+      "ok": true,
+      "status": "INFRASTRUCTURE_SHOCK_UNIVERSE_READY",
+      "worlds": []
+    },
+    "extinction": {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      },
+      "ok": true,
+      "status": "PROVIDER_EXTINCTION_DRILL_READY",
+      "removed": null,
+      "survivors": [],
+      "gaps": [],
+      "synthetic": true
+    },
+    "theoryTournament": {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      },
+      "ok": true,
+      "status": "THEORY_TOURNAMENT_READY",
+      "ranked": [],
+      "truthClaim": false
+    },
+    "blindness": {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      },
+      "ok": true,
+      "status": "BLINDNESS_LEDGER_READY",
+      "blindSpots": [
+        {
+          "domain": "missing concept, mechanism, measurement, or theory would explain this unknown",
+          "observability": 0,
+          "consequence": 0
+        },
+        {
+          "domain": "observation would most efficiently falsify the leading explanation for",
+          "observability": 0,
+          "consequence": 0
+        }
+      ]
+    }
+  },
+  "activationAuthority": "NONE",
+  "promotionAuthority": "NONE",
+  "truthBoundary": "METABOLISM_COMPOSES_INTERNAL_EVIDENCE_AND_HYPOTHESES_ONLY; IT_CANNOT_CREATE_MARKET_DEMAND_CUSTOMERS_PAYMENT_ACCEPTANCE_CAUSAL_TRUTH_OR_PRODUCTION_AUTHORITY"
+}

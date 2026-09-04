@@ -67,7 +67,7 @@ test('plain JSON shaped like an admission bundle cannot bypass the process admis
   const out = compileAdmittedFrontierPlan({ task: task(), admissionBundle: forged, now: NOW });
   assert.equal(out.ok, false);
   assert.equal(out.status, 'FRONTIER_PLAN_ADMISSION_BLOCKED');
-  assert.ok(out.reasonCodes.includes('process-validated-frontier-admission-bundle-required'));
+  assert.ok(out.reasonCodes.includes('process-validated-untampered-frontier-admission-bundle-required'));
 });
 
 test('callability with model or revision drift is discarded before the lower compiler sees it', () => {
@@ -109,6 +109,7 @@ test('valid admission produces a tamper-evident digest and an admitted frontier 
   assert.equal(admission.ok, true);
   assert.match(admission.bundle.identityDigest, /^[a-f0-9]{64}$/);
   assert.match(admission.bundle.callabilityProvenance.receiptDigest, /^[a-f0-9]{64}$/);
+  assert.equal(admission.bundle.simulationOnly, true);
   const plan = compileAdmittedFrontierPlan({ task: task(), admissionBundle: admission.bundle, now: NOW });
   assert.equal(plan.ok, true);
   assert.equal(plan.plan.selected.profileId, 'elite');

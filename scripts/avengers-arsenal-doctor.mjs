@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateAvengersRegistry, buildAvengersReadiness } from '../src/avengers-arsenal.mjs';
 import { discoverLocalRuntimeModels } from '../src/avengers-local-discovery.mjs';
+import { composeAvengersRegistry } from '../src/avengers-arsenal-config.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -23,65 +24,6 @@ function readJson(file) {
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 
-function externalRole(id) {
-  const roles = {
-    'find-skills': ['researcher'],
-    'claude-code-setup': ['planner'],
-    'task-observer': ['critic'],
-    'claude-mem': ['general'],
-    headroom: ['general'],
-    omniroute: ['planner'],
-    strix: ['verifier'],
-    'agent-reach': ['researcher'],
-    'fable-orchestrator': ['planner', 'adjudicator'],
-    metaswarm: ['planner', 'adjudicator'],
-    superpowers: ['builder', 'verifier']
-  };
-  return roles[id] || ['general'];
-}
-
-function capabilityToTool(entry) {
-  const integration = entry?.projectIntegration || {};
-  const declaredPath = integration.path || integration.claudeSkillPath || integration.controlPlanePath || integration.canonPath || null;
-  const resolved = declaredPath ? path.resolve(root, declaredPath) : null;
-  const pathExists = Boolean(resolved && fs.existsSync(resolved));
-  const runtimeRequired = integration.runtimeRequired === true
-    || integration.runtimeEvidenceRequired === true
-    || (integration.upstreamRuntimeOptional === true && integration.runtimeRequiredForProtocol !== false);
-  let kind = 'METHOD_ONLY';
-  if (entry.class === 'PROJECT_SKILL') kind = 'PROJECT_SKILL';
-  else if (entry.class === 'OPTIONAL_RUNTIME') kind = 'OPTIONAL_RUNTIME';
-  else if (entry.class === 'EXTERNAL_ADAPTER') kind = 'EXTERNAL_ADAPTER';
-  else if (entry.class === 'PROJECT_SKILL_AND_OPTIONAL_RUNTIME') kind = pathExists ? 'PROJECT_SKILL' : 'OPTIONAL_RUNTIME';
-  const callableSurfaceRuntimeRequired = entry.id === 'fable-orchestrator'
-    ? false
-    : runtimeRequired;
-  return {
-    id: entry.id,
-    name: entry.name,
-    kind,
-    path: pathExists ? declaredPath : null,
-    sourceRef: entry.sourceRef || entry.source || null,
-    roles: externalRole(entry.id),
-    runtimeRequired: callableSurfaceRuntimeRequired,
-    notes: [
-      `external-class:${entry.class}`,
-      `activation:${entry.activation}`,
-      `integration-status:${integration.status || 'UNDECLARED'}`,
-      pathExists ? 'declared-project-surface-present' : 'declared-project-surface-not-observed'
-    ]
-  };
-}
-
-function mergeProfiles(base, rawEnv) {
-  if (!rawEnv || !String(rawEnv).trim()) return base;
-  const parsed = JSON.parse(String(rawEnv));
-  if (!Array.isArray(parsed)) throw new Error('AVENGERS_MODEL_PROFILES_JSON must be a JSON array');
-  const byId = new Map((base || []).map(item => [String(item.id || '').toLowerCase(), item]));
-  for (const item of parsed) byId.set(String(item?.id || '').toLowerCase(), item);
-  return [...byId.values()];
-}
-
 export async function runDoctor({
   registryPath = path.join(root, 'config/avengers-arsenal.json'),
   outputPath = path.join(root, 'artifacts/avengers-arsenal-readiness.json'),
@@ -92,16 +34,12 @@ export async function runDoctor({
   fetchImpl = globalThis.fetch,
   date = new Date()
 } = {}) {
-  const base = readJson(registryPath);
-  const external = readJson(externalRegistryPath);
-  const registry = {
-    ...base,
-    profiles: mergeProfiles(base.profiles || [], profileJson),
-    tools: [
-      ...(base.tools || []),
-      ...(Array.isArray(external.entries) ? external.entries.map(capabilityToTool) : [])
-    ]
-  };
+  const registry = composeAvengersRegistry({
+    baseRegistry: readJson(registryPath),
+    externalCapabilityRegistry: readJson(externalRegistryPath),
+    profileOverrides: profileJson,
+    root
+  });
   const registryCheck = validateAvengersRegistry(registry);
   if (!registryCheck.ok) return { ok: false, status: registryCheck.status, reasonCodes: registryCheck.reasonCodes };
   const readiness = await buildAvengersReadiness(registryCheck.registry, { fetchImpl, probeInference, date });
@@ -111,6 +49,7 @@ export async function runDoctor({
     : null;
   const receipt = {
     ...readiness.receipt,
+    resolvedRegistry: registryCheck.registry,
     localDiscovery: localDiscovery?.receipt || null,
     localDiscoveryStatus: localDiscovery?.status || 'NOT_REQUESTED',
     exactTruth: {

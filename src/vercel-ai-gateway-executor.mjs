@@ -2,20 +2,12 @@
 // The gateway is OpenAI-compatible, but its provider/model identity is kept
 // observable so routing cannot silently disguise a fallback.
 
-export const VERCEL_AI_GATEWAY_EXECUTOR_POLICY_VERSION = 'vercel-ai-gateway-executor-1.1.0';
+export const VERCEL_AI_GATEWAY_EXECUTOR_POLICY_VERSION = 'vercel-ai-gateway-executor-1.2.0';
 export const VERCEL_AI_GATEWAY_ENDPOINT = 'https://ai-gateway.vercel.sh/v1/chat/completions';
 
 import { redactSecrets } from './secret-patterns.mjs';
 
-/**
- * A transport or provider error message is written by someone else and lands in
- * a durable receipt. A client that echoes the request it failed on -- ordinary
- * behaviour -- puts the Authorization header into that string, so copying it
- * verbatim writes the gateway key into task history. The success path was
- * already checked for the key; the failure paths are where it actually appears.
- */
 const safeDetail = (error, max = 500) => text(redactSecrets(String(error?.message ?? error ?? '')), max);
-
 const MAX_BODY_BYTES = 300_000;
 const MAX_RESPONSE_BYTES = 1_000_000;
 const REASONING_EFFORTS = new Set(['none', 'minimal', 'low', 'medium', 'high', 'xhigh']);
@@ -125,6 +117,7 @@ export function createVercelAIGatewayExecutor({
     }
     const providerRequestId = text(raw?.id, 240) || null;
     const observedModel = text(raw?.model, 160) || null;
+    const observedRevision = text(raw?.model_revision, 240) || null;
     if (observedModel && observedModel !== selectedModel) {
       return failure(['ai-gateway-model-identity-mismatch'], 'CONFIRMED_FAILURE', {
         providerRequestId,
@@ -145,6 +138,7 @@ export function createVercelAIGatewayExecutor({
       providerRequestId,
       providerStatus: text(raw?.choices?.[0]?.finish_reason, 80) || 'stop',
       model: observedModel,
+      observedRevision,
       identityVerification: observedModel ? 'OBSERVED' : 'UNVERIFIED',
       appliedReasoningEffort: requestedReasoningEffort,
       appliedReasoningEvidence: requestedReasoningEffort ? 'REQUEST_BODY_ATTESTED' : 'NOT_REQUESTED',

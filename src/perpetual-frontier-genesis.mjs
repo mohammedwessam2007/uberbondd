@@ -48,9 +48,9 @@ function cleanList(value, max = 512, itemMax = 1000) {
 }
 
 function parseIso(value) {
-  const text = cleanText(value, 100);
-  if (!text) return null;
-  const date = new Date(text);
+  const parsedText = cleanText(value, 100);
+  if (!parsedText) return null;
+  const date = new Date(parsedText);
   return Number.isFinite(date.getTime()) ? date.toISOString() : null;
 }
 
@@ -63,8 +63,7 @@ export function extractGenesisIdeaRegistry(markdown) {
   const source = typeof markdown === 'string' ? markdown : '';
   const ideas = [];
   const regex = /^(\d+)\.\s+(.+)$/gm;
-  let match;
-  while ((match = regex.exec(source)) !== null) {
+  for (const match of source.matchAll(regex)) {
     ideas.push({ id: Number(match[1]), name: match[2].trim() });
   }
   return ideas;
@@ -113,7 +112,6 @@ export function buildFrontierShockwave({ signal, changedPrimitives = [], affecte
   if (!domains) reasonCodes.push('bounded-domains-required');
   if (!opportunities) reasonCodes.push('bounded-opportunity-ids-required');
   if (reasonCodes.length) return envelope({ ok: false, status: 'FRONTIER_SHOCKWAVE_INVALID', reasonCodes });
-
   return envelope({
     ok: true,
     status: 'FRONTIER_SHOCKWAVE_PLAN_READY',
@@ -228,7 +226,6 @@ export function buildFrontierLatencyReceipt(timestamps = {}) {
     lastTime = parsed;
   }
   if (reasonCodes.length) return envelope({ ok: false, status: 'FRONTIER_LATENCY_INVALID', reasonCodes, timestamps: normalized });
-  const t0 = normalized.t0;
   const metrics = {
     awarenessLagMs: durationMs(normalized.t0, normalized.t1),
     understandingLagMs: durationMs(normalized.t1, normalized.t2),
@@ -237,7 +234,7 @@ export function buildFrontierLatencyReceipt(timestamps = {}) {
     sandboxLagMs: durationMs(normalized.t4, normalized.t5),
     promotionLagMs: durationMs(normalized.t5, normalized.t6),
     economicCaptureLagMs: durationMs(normalized.t6, normalized.t7),
-    totalDiscoveryToCaptureMs: durationMs(t0, normalized.t7)
+    totalDiscoveryToCaptureMs: durationMs(normalized.t0, normalized.t7)
   };
   return envelope({ ok: true, status: 'FRONTIER_LATENCY_RECEIPT_READY', timestamps: normalized, metrics });
 }

@@ -5,7 +5,7 @@ import { validateOrchestrationGraph } from './orchestration-frontier.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
 
-export const FRONTIER_COGNITIVE_FABRIC_VERSION = 'uberbond.frontier-cognitive-fabric-1.1.0';
+export const FRONTIER_COGNITIVE_FABRIC_VERSION = 'uberbond.frontier-cognitive-fabric-1.1.1';
 export const FRONTIER_COGNITIVE_PLAN_SCHEMA = 'uberbond.frontier-cognitive-plan.v1';
 export const FRONTIER_COGNITIVE_RECEIPT_SCHEMA = 'uberbond.frontier-cognitive-receipt.v1';
 export const FRONTIER_REASONING_TIERS = Object.freeze(['FAST', 'STANDARD', 'DEEP', 'FRONTIER_MAX', 'COUNCIL_MAX']);
@@ -379,7 +379,7 @@ function compileCouncilGraph(responders, adjudicator, task, contextPacket) {
     mode: 'FABLE_GRAPH',
     parentAuthority: 'LOCAL_PREPARATION',
     dataClass: task.dataClass,
-    maxDepth: 3,
+    maxDepth: 1,
     maxIterations: 3,
     nodes: [...independent, critique, adjudication]
   });

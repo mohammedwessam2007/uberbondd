@@ -21,6 +21,7 @@ import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { classifySuiteRun, applyMutation } from './mutation-verdict.mjs';
 import { resolveChromium } from './resolve-chromium.mjs';
+import { loadJournal, appendVerdict } from './mutation-journal.mjs';
 
 // Re-exported so the registry stays the single import point for the war.
 export { classifySuiteRun, applyMutation };
@@ -451,6 +452,20 @@ export const MUTATIONS = [
     find: '    assert.ok(canonRelevantSourceMatches(sha, head),',
     replace: '    assert.ok(true,',
     suites: ['tests/canon-freshness-discrimination.test.mjs']
+  },
+  {
+    id: 'JOURNAL-01', guard: 'A replayed verdict must belong to the mutation that earned it',
+    file: 'scripts/mutation-journal.mjs',
+    find: '    if (row.fingerprint !== expected.get(row.id)) continue;',
+    replace: '',
+    suites: ['tests/mutation-journal-integrity.test.mjs']
+  },
+  {
+    id: 'JOURNAL-02', guard: 'A journal entry is bound to the anchor and suites, not only the id',
+    file: 'scripts/mutation-journal.mjs',
+    find: '    [...(mutation.suites || [])].sort()',
+    replace: '    []',
+    suites: ['tests/mutation-journal-integrity.test.mjs']
   },
   {
     id: 'BROWSER-01', guard: 'A declared browser path that is not an executable is not a browser',
@@ -1217,13 +1232,29 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const selected = MUTATIONS.filter(mutation => !onlyId || mutation.id === onlyId);
   const results = [];
 
+  // MUTATION_WAR_JOURNAL makes the run resumable. Verdicts are appended as they
+  // are decided and replayed on the next run, but only for mutations whose
+  // registration still hashes the same -- see scripts/mutation-journal.mjs for
+  // why that binding is the whole point rather than a detail.
+  const journalPath = String(process.env.MUTATION_WAR_JOURNAL || '').trim();
+  const journal = journalPath ? loadJournal(journalPath, selected) : new Map();
+  const record = (mutation, verdict) => {
+    results.push({ ...mutation, verdict });
+    if (journalPath) appendVerdict(journalPath, mutation, verdict);
+  };
+
   for (const mutation of selected) {
+    const remembered = journal.get(mutation.id);
+    if (remembered) {
+      results.push({ ...mutation, verdict: remembered, fromJournal: true });
+      continue;
+    }
     if (mutation.needsPostgres && !hasPostgres) {
-      results.push({ ...mutation, verdict: 'SKIPPED_NEEDS_POSTGRES' });
+      record(mutation, 'SKIPPED_NEEDS_POSTGRES');
       continue;
     }
     if (mutation.needsBrowser && !hasBrowser) {
-      results.push({ ...mutation, verdict: 'SKIPPED_NEEDS_BROWSER' });
+      record(mutation, 'SKIPPED_NEEDS_BROWSER');
       continue;
     }
     const root = mkdtempSync(join(tmpdir(), 'uberbond-mutation-'));
@@ -1255,19 +1286,16 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       if (!applied.applied) {
         // An ambiguous anchor and a missing one are different mistakes and need
         // different repairs, so the report says which.
-        results.push({
-          ...mutation,
-          verdict: applied.reason === 'anchor-ambiguous' ? 'ANCHOR_AMBIGUOUS' : 'ANCHOR_NOT_FOUND'
-        });
+        record(mutation, applied.reason === 'anchor-ambiguous' ? 'ANCHOR_AMBIGUOUS' : 'ANCHOR_NOT_FOUND');
         continue;
       }
       const syntax = spawnSync(process.execPath, ['--check', join(root, mutation.file)], { encoding: 'utf8' });
       if (syntax.status !== 0) {
-        results.push({ ...mutation, verdict: 'MUTANT_DID_NOT_PARSE' });
+        record(mutation, 'MUTANT_DID_NOT_PARSE');
         continue;
       }
       const run = runSuites(root, mutation.suites);
-      results.push({ ...mutation, verdict: classifySuiteRun(run) });
+      record(mutation, classifySuiteRun(run));
     } finally {
       rmSync(root, { recursive: true, force: true });
     }
@@ -1276,7 +1304,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const declaredSkip = verdict => verdict === 'SKIPPED_NEEDS_POSTGRES' || verdict === 'SKIPPED_NEEDS_BROWSER';
   const notKilled = results.filter(item => item.verdict !== 'KILLED' && !declaredSkip(item.verdict));
   for (const item of results) {
-    console.log(`${item.verdict.padEnd(22)} ${item.id.padEnd(10)} ${item.guard}`);
+    console.log(`${item.verdict.padEnd(22)} ${item.id.padEnd(10)} ${item.guard}${item.fromJournal ? ' (replayed)' : ''}`);
   }
   console.log('');
   console.log(`mutation-war — ${results.length} mutations, ${results.filter(i => i.verdict === 'KILLED').length} killed, ${notKilled.length} not killed`);

@@ -1,6 +1,7 @@
+import crypto from 'node:crypto';
 import { CLOUD_WAKE_PLAN_POLICY_VERSION } from './scheduler.mjs';
 
-export const CLOUD_WAKE_TRANSPORT_POLICY_VERSION = 'uberbond-cloud-wake-transport-1.0.0';
+export const CLOUD_WAKE_TRANSPORT_POLICY_VERSION = 'uberbond-cloud-wake-transport-1.1.0';
 
 const ZERO_BUSINESS_EFFECTS = Object.freeze({
   messages: 0,
@@ -14,6 +15,7 @@ const ZERO_BUSINESS_EFFECTS = Object.freeze({
 
 const MISSION_RE = /^[a-z0-9][a-z0-9._-]{1,79}$/i;
 const OCCURRENCE_RE = /^cloud-wake:([a-z0-9][a-z0-9._-]{1,79}):(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z)$/i;
+const SHA256_RE = /^[a-f0-9]{64}$/;
 
 function boundedText(value, max = 300) {
   const text = String(value ?? '').trim();
@@ -52,6 +54,10 @@ function normalizeEntry(entry = {}) {
   };
 }
 
+function digestEntries(entries) {
+  return crypto.createHash('sha256').update(JSON.stringify(entries)).digest('hex');
+}
+
 /**
  * Compile provider request objects from a verified cloud-wake plan.
  * This function performs no provider I/O.
@@ -68,6 +74,7 @@ export function compileCloudWakePublishBatch(plan = {}) {
     ok: true,
     policyVersion: CLOUD_WAKE_TRANSPORT_POLICY_VERSION,
     status: 'CLOUD_WAKE_PROVIDER_BATCH_PREPARED_NOT_PUBLISHED',
+    batchDigest: digestEntries(entries),
     entries,
     providerCallAuthority: 'NONE',
     businessEffectAuthority: 'NONE',
@@ -75,17 +82,37 @@ export function compileCloudWakePublishBatch(plan = {}) {
   };
 }
 
+function validatePublishAuthorization(batch, authorization, date) {
+  const reasons = [];
+  if (authorization?.authority !== 'CLOUD_WAKE_PROVIDER_PUBLISH' || authorization?.approved !== true) reasons.push('separate-cloud-publish-authorization-required');
+  const approvedDigest = boundedText(authorization?.batchDigest, 64).toLowerCase();
+  if (!SHA256_RE.test(approvedDigest) || approvedDigest !== batch.batchDigest) reasons.push('cloud-publish-batch-digest-mismatch');
+  const expiresAt = new Date(authorization?.expiresAt || '');
+  const now = date instanceof Date ? date : new Date(date);
+  if (!Number.isFinite(expiresAt.getTime()) || !Number.isFinite(now.getTime())) reasons.push('valid-cloud-publish-expiry-required');
+  else {
+    if (expiresAt.getTime() < now.getTime()) reasons.push('cloud-publish-authorization-expired');
+    if (expiresAt.getTime() > now.getTime() + 24 * 60 * 60 * 1000) reasons.push('cloud-publish-authorization-too-long');
+  }
+  return [...new Set(reasons)];
+}
+
 /**
  * Actual queue publication seam. It is deliberately impossible to invoke by
- * merely compiling a plan: the caller must present a separate authorization
- * receipt and inject the provider-specific publisher.
+ * merely compiling a plan: the caller must present a separate, short-lived
+ * authorization receipt bound to the exact batch digest and inject the
+ * provider-specific publisher.
  */
-export async function publishCloudWakeBatch({ batch, authorization, publish } = {}) {
+export async function publishCloudWakeBatch({ batch, authorization, publish, date = new Date() } = {}) {
   if (batch?.policyVersion !== CLOUD_WAKE_TRANSPORT_POLICY_VERSION || batch?.status !== 'CLOUD_WAKE_PROVIDER_BATCH_PREPARED_NOT_PUBLISHED') {
     throw new TypeError('prepared cloud wake provider batch required');
   }
-  if (authorization?.authority !== 'CLOUD_WAKE_PROVIDER_PUBLISH' || authorization?.approved !== true) {
-    return { ok: false, status: 'CLOUD_WAKE_PROVIDER_PUBLISH_BLOCKED', reasonCodes: ['separate-cloud-publish-authorization-required'], providerCalls: 0, externalEffectLedger: { providerCalls: 0, ...ZERO_BUSINESS_EFFECTS } };
+  if (!SHA256_RE.test(String(batch?.batchDigest || '')) || batch.batchDigest !== digestEntries(batch.entries || [])) {
+    throw new TypeError('cloud wake batch integrity mismatch');
+  }
+  const reasonCodes = validatePublishAuthorization(batch, authorization, date);
+  if (reasonCodes.length) {
+    return { ok: false, status: 'CLOUD_WAKE_PROVIDER_PUBLISH_BLOCKED', reasonCodes, providerCalls: 0, externalEffectLedger: { providerCalls: 0, ...ZERO_BUSINESS_EFFECTS } };
   }
   if (typeof publish !== 'function') throw new TypeError('provider publish function required');
   const receipts = [];
@@ -101,10 +128,10 @@ export async function publishCloudWakeBatch({ batch, authorization, publish } = 
     calls += 1;
     receipts.push({ occurrenceKey: entry.occurrenceKey, accepted: result?.accepted === true, providerMessageId: boundedText(result?.providerMessageId, 240) || null });
     if (result?.accepted !== true) {
-      return { ok: false, status: 'CLOUD_WAKE_PROVIDER_PUBLISH_PARTIAL', receipts, providerCalls: calls, externalEffectLedger: { providerCalls: calls, ...ZERO_BUSINESS_EFFECTS } };
+      return { ok: false, status: 'CLOUD_WAKE_PROVIDER_PUBLISH_PARTIAL', batchDigest: batch.batchDigest, receipts, providerCalls: calls, externalEffectLedger: { providerCalls: calls, ...ZERO_BUSINESS_EFFECTS } };
     }
   }
-  return { ok: true, status: 'CLOUD_WAKE_PROVIDER_PUBLISHED', receipts, providerCalls: calls, externalEffectLedger: { providerCalls: calls, ...ZERO_BUSINESS_EFFECTS } };
+  return { ok: true, status: 'CLOUD_WAKE_PROVIDER_PUBLISHED', batchDigest: batch.batchDigest, receipts, providerCalls: calls, externalEffectLedger: { providerCalls: calls, ...ZERO_BUSINESS_EFFECTS } };
 }
 
 /**

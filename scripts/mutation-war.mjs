@@ -1233,12 +1233,16 @@ export const MUTATIONS = [
 const SUITE_TEST_TIMEOUT_MS = 120_000;
 const SUITE_WALL_TIMEOUT_MS = 600_000;
 
-function runSuites(root, suites) {
+function runSuites(root, suites, databaseUrl = null) {
   const result = spawnSync(process.execPath, ['--test', `--test-timeout=${SUITE_TEST_TIMEOUT_MS}`, ...suites], {
     cwd: root, encoding: 'utf8',
     timeout: SUITE_WALL_TIMEOUT_MS,
     killSignal: 'SIGKILL',
-    env: { ...process.env, NODE_OPTIONS: '' }
+    env: {
+      ...process.env,
+      NODE_OPTIONS: '',
+      ...(databaseUrl ? { OMNIA_V9_TEST_DATABASE_URL: databaseUrl, DATABASE_URL: databaseUrl } : {})
+    }
   });
   return {
     status: result.status,
@@ -1266,6 +1270,34 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   // summary line a skip that could not be helped looks exactly like a skip that
   // could. So it looks first, and only reports the skip when there is genuinely
   // nothing to drive.
+  // A database per mutation, for the same reason the postgres-real runner needs
+  // one per suite.
+  //
+  // All 160 mutations shared one database, so a suite that left rows behind
+  // broke the setup of every Postgres suite after it. Five guards reported
+  // SUITE_DID_NOT_RUN in a full run and KILLED when run alone -- the gate was
+  // measuring the order it happened to visit them in, not the guards.
+  //
+  // Not dropped afterwards: these live inside a disposable embedded server that
+  // is torn down when the run ends, and reclaiming them is how the postgres-real
+  // runner acquired an unbounded wait on a backend that cannot be stopped.
+  let admin = null;
+  const freshDatabase = async id => {
+    const base = process.env.OMNIA_V9_TEST_DATABASE_URL;
+    if (!base) return null;
+    if (!admin) {
+      const { Client } = await import('pg');
+      admin = new Client({ connectionString: base });
+      await admin.connect();
+    }
+    const name = `ubmut_${id.replace(/[^a-z0-9]+/gi, '_').toLowerCase()}`.slice(0, 60);
+    await admin.query(`DROP DATABASE IF EXISTS "${name}"`);
+    await admin.query(`CREATE DATABASE "${name}"`);
+    const url = new URL(base);
+    url.pathname = `/${name}`;
+    return url.toString();
+  };
+
   const chromium = resolveChromium();
   if (chromium) process.env.CHROMIUM_PATH = chromium;
   const hasBrowser = Boolean(chromium);
@@ -1336,7 +1368,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         record(mutation, 'MUTANT_DID_NOT_PARSE');
         continue;
       }
-      const run = runSuites(root, mutation.suites);
+      const run = runSuites(root, mutation.suites, mutation.needsPostgres ? await freshDatabase(mutation.id) : null);
       record(mutation, classifySuiteRun(run));
     } finally {
       rmSync(root, { recursive: true, force: true });
@@ -1365,5 +1397,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       for (const item of unproven) console.log(`  ${item.id} ${item.guard} (${item.verdict})`);
     }
   }
+  if (admin) await admin.end();
   process.exit(notKilled.length ? 1 : 0);
 }

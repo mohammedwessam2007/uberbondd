@@ -9,7 +9,8 @@ import { executeFrontierCouncil } from './frontier-council-runtime.mjs';
 import { createModelExecutorFactory } from './agent-model-executor-factory.mjs';
 import { isFrontierSimulationExecutorFactory } from './frontier-simulation-executor.mjs';
 
-export const AVENGERS_EXECUTION_GUARD_VERSION = 'uberbond.avengers-execution-guard-1.4.0';
+export const AVENGERS_EXECUTION_GUARD_VERSION = 'uberbond.avengers-execution-guard-1.4.1';
+const nativeFetch = globalThis.fetch;
 
 function clone(value) { return structuredClone(value); }
 function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'); }
@@ -121,7 +122,7 @@ export async function executeAdmittedFrontierAvenger({
   callabilityProvenance = null,
   env = process.env,
   sandboxIsolationReceipt = null,
-  fetchImpl = globalThis.fetch,
+  fetchImpl = nativeFetch,
   modelExecutorFactory = null,
   maxTokens = 2_000,
   costCeilingCents = 100,
@@ -154,7 +155,7 @@ export async function executeAdmittedFrontierAvenger({
       simulationOnly: true
     });
   }
-  if (syntheticExecution && fetchImpl !== globalThis.fetch) {
+  if (syntheticExecution && fetchImpl !== nativeFetch) {
     return fail(['synthetic-frontier-execution-prohibits-network-transport-injection'], {
       admissionDigest: admission.bundle.identityDigest,
       simulationOnly: true
@@ -172,7 +173,7 @@ export async function executeAdmittedFrontierAvenger({
       simulationOnly: false
     });
   }
-  if (!syntheticExecution && fetchImpl !== globalThis.fetch) {
+  if (!syntheticExecution && fetchImpl !== nativeFetch) {
     return fail(['live-frontier-execution-requires-native-provider-transport'], {
       admissionDigest: admission.bundle.identityDigest,
       simulationOnly: false
@@ -186,7 +187,7 @@ export async function executeAdmittedFrontierAvenger({
   } else {
     const countingFetch = async (...args) => {
       providerCalls += 1;
-      return globalThis.fetch(...args);
+      return nativeFetch(...args);
     };
     factory = createModelExecutorFactory({ env, sandboxIsolationReceipt, fetchImpl: countingFetch });
   }

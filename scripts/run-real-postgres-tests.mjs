@@ -101,8 +101,9 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       }
     );
     if (run.status !== 0) { failed += 1; failures.push(file); }
-    // Dropped immediately: these accumulate one per suite, and a server left
-    // holding forty test databases is a slower server for the next run.
+    // Not dropped -- see the note above the loop. A comment claiming otherwise
+    // survived the repair that removed the drop, which is how a reader learns
+    // to stop believing the comments.
   }
   await admin.end();
 

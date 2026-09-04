@@ -110,3 +110,33 @@ test('the fingerprint does not depend on how the suites were ordered', () => {
   );
   assert.notEqual(mutationFingerprint(MUTATION), mutationFingerprint({ ...MUTATION, id: 'TEST-02' }));
 });
+
+test('a skip is never journaled, because it describes the host and not the guard', () => {
+  // SKIPPED_NEEDS_POSTGRES means this machine had no database. Replaying that
+  // into a later run on a machine that does would report a capability gap that
+  // no longer exists, and quietly stop testing the guard for good -- the exact
+  // shape of the CRAWL-01 problem the browser resolver was written to end.
+  withJournal(path => {
+    for (const verdict of ['SKIPPED_NEEDS_POSTGRES', 'SKIPPED_NEEDS_BROWSER']) {
+      assert.equal(appendVerdict(path, MUTATION, verdict), false,
+        `${verdict} was written to the journal`);
+    }
+    assert.equal(loadJournal(path, [MUTATION]).size, 0, 'a skip reached the journal');
+
+    // Everything else is a judgement about the mutation and must survive --
+    // including the bad news, which is the half a silent filter would eat.
+    for (const verdict of ['KILLED', 'SURVIVED', 'SUITE_TIMED_OUT', 'SUITE_DID_NOT_RUN', 'NO_ASSERTIONS_RAN', 'ANCHOR_AMBIGUOUS']) {
+      assert.equal(appendVerdict(path, MUTATION, verdict), true, `${verdict} was refused`);
+      assert.equal(loadJournal(path, [MUTATION]).get('TEST-01'), verdict);
+    }
+  });
+
+  // The refusal must cover exactly the skip verdicts the war can produce. A
+  // narrower set here would let a third skip kind be remembered.
+  const war = readFileSync(new URL('../scripts/mutation-war.mjs', import.meta.url), 'utf8');
+  const produced = [...new Set([...war.matchAll(/'(SKIPPED_NEEDS_[A-Z]+)'/g)].map(match => match[1]))].sort();
+  const journal = readFileSync(new URL('../scripts/mutation-journal.mjs', import.meta.url), 'utf8');
+  const refused = [...new Set([...journal.matchAll(/'(SKIPPED_NEEDS_[A-Z]+)'/g)].map(match => match[1]))].sort();
+  assert.deepEqual(refused, produced,
+    'every skip the war can produce must be one the journal refuses to remember');
+});

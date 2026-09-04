@@ -36,10 +36,18 @@ const tapCount = (output, field) => {
 // So the verdict is read from what the run reports rather than from its exit
 // code, and the two cases that prove nothing get their own names instead of
 // being absorbed into the two that do.
-export function classifySuiteRun({ status, output }) {
+export function classifySuiteRun({ status, output, timedOut = false }) {
   const failed = tapCount(output, 'fail');
   const passed = tapCount(output, 'pass');
   const skipped = tapCount(output, 'skipped');
+
+  // A suite that never finished is the third thing an exit code cannot express,
+  // and it is the one that stops the gate rather than misreporting it. A run
+  // killed at its deadline exits non-zero with no reported failures, which the
+  // branch below would call SUITE_DID_NOT_RUN -- true, but it hides why, and
+  // "did not run" reads like a broken import rather than a hang somebody has to
+  // go and find.
+  if (timedOut) return 'SUITE_TIMED_OUT';
 
   if (status !== 0) {
     // A failing assertion is what kills a mutant. A suite that could not run at

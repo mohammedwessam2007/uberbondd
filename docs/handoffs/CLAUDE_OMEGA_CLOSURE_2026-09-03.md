@@ -184,3 +184,91 @@ partner margin — the four things no repository can manufacture.
 If engineering time is spent first, spend it finishing the two gates above:
 one uninterrupted mutation war and one clean real-database run. Both are now
 capable of completing; neither has been observed doing so.
+
+---
+
+# Continuation — 2026-09-04: convergence with PR #329
+
+## What changed
+
+Two lanes had harvested `sol/night-convergence-runtime-harvest-20260902` and
+diverged. Neither head carried the other's work, and both were open against the
+same unmoved `main`:
+
+- **#329** had Frontier Operator, the Open Model Universe, the mutation-registry
+  anchor-integrity test, and the owner's PayPal.me binding.
+- **This branch** had the proposal-eligibility fix, the canon-freshness
+  partition, the repaired real-database runner, and six more mutations.
+
+Merged rather than picked. Two collisions:
+
+**`first-cash-canary-packet.mjs`** resolved to this branch's implementation as
+the base — 597 lines against 118, bound to the payment-rail doctor, the canary
+guard and the canonical fulfilment machine — with #329's payment-link semantics
+absorbed into it.
+
+That absorption fixed a conflation of my own. `WHAT_PAYMENT_LINK` answered out
+of the rail doctor's state, so the packet reported no payment link while the
+owner had supplied a public one. A destination and a rail are different facts.
+The link is `PREPARED`; reconciliation stays `EXTERNAL_PROOF_REQUIRED`;
+`paymentRailLiveReady` stays false and `canContact` with it.
+`PAYMENT_LINK_IS_NOT_CLEARED_PAYMENT_PROOF` rides on every packet whether or not
+a link is present, because the moment that field goes missing is the moment
+`paymentLink` reads as revenue. Non-HTTPS and unparseable links fail closed.
+
+**`mutation-war.mjs`** resolved to the union, verified by set comparison rather
+than by reading the diff: nothing in #329's 148 was dropped.
+
+## PR #329 was red on main's own ratchet
+
+It landed twelve modules — Frontier Operator (eight) and Open Model Universe
+(four) — implemented, tested, green and unreachable. That is exactly the
+condition the reachability ratchet exists to catch, and it caught it on the
+merge rather than because of it.
+
+Classified, not wired, behind two registered gates. Wiring an orchestrator that
+nothing schedules would create an orchestrator with nothing to orchestrate, and
+an orchestrator that runs is the last thing to switch on before its consequence
+path is decided.
+
+`open-model-runtime-executor` is the exception: already reachable through the
+model factory, which is why production reachability rose 139 → 140 rather than
+staying flat. It reports five blockers, so the new provider is live in the graph
+and unable to execute anything, which is the correct shape.
+
+Two provider-list tests broke on the fifth provider, and they broke differently.
+One pinned the exact list — updated, not loosened, because adding a provider
+should arrive as a failing test. One read the sandbox by array position, found
+the wrong row, and reported a defect in the sandbox gate that did not exist; it
+would equally have hidden one that did. Now found by name.
+
+## Two gates that had never reported
+
+**The browser gate skipped a guard it could have run.** The mutation war read
+`CHROMIUM_PATH`, nothing in this repository sets it, and Chromium is installed
+on this host — so it printed `SKIPPED_NEEDS_BROWSER` for `CRAWL-01` while also
+printing "0 not killed". In a summary line, a skip that cannot be helped and a
+skip that could are indistinguishable.
+
+Detection is the kind of convenience that becomes a fabrication if it guesses,
+so `scripts/resolve-chromium.mjs` accepts only paths that exist and are
+executable, respects a declared install root instead of also scanning `/opt`
+behind it, and returns nothing rather than a plausible path — an honest skip
+survives. A declared `CHROMIUM_PATH` stays authoritative and is still checked: a
+variable pointing at nothing is a misconfiguration, not a browser.
+
+It lives in its own module because the registry stores anchors as literal source
+strings, so a mutation of a function in that same file matches its own
+registration and resolves `ANCHOR_AMBIGUOUS`.
+
+**The war could not survive being interrupted.** It takes over an hour against a
+real database and this host restarts its container under load; four consecutive
+runs were killed in flight, each discarding every verdict it had earned.
+
+`MUTATION_WAR_JOURNAL` appends each verdict as it is decided and replays it next
+run, labelled as replayed. The binding is the feature: every entry hashes the
+file, anchor, replacement and killing suites, so a guard that moved runs again
+rather than inheriting an answer. Suite order is deliberately excluded — a
+cosmetic reordering should not discard an hour of real evidence, or the resume
+is one nobody uses. Five tests hold it down, because the failure mode here is a
+green summary line, and a green lie is not something a later run corrects.

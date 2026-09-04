@@ -183,3 +183,28 @@ test('every registered mutation anchor identifies exactly one site', () => {
   assert.deepEqual(ambiguous, [], 'an ambiguous anchor produces a verdict about the wrong code');
   assert.deepEqual(missing, [], 'a mutation whose anchor is gone verifies nothing');
 });
+
+// A hang is the third thing an exit code cannot express, and the only one that
+// stops the gate instead of misreporting it.
+//
+// The war ran suites with no deadline. One suite that never returned -- and a
+// real database makes that reachable, as the postgres-real runner found -- left
+// the whole run in ep_poll with no output and no verdict, on a mutation nobody
+// could name without reading /proc. Thirteen minutes of one run went that way.
+test('a suite killed at its deadline is named as such, not read as a verdict', () => {
+  // spawnSync reports a timeout kill through `error`, not through the status,
+  // so a caller that only looks at the exit code sees an ordinary failure.
+  assert.equal(classifySuiteRun({ status: null, output: '', timedOut: true }), 'SUITE_TIMED_OUT');
+
+  // And it must dominate. A partial TAP stream from a suite that was killed
+  // mid-run can carry a failure count, which would otherwise read as a mutant
+  // that died when in fact nothing finished.
+  assert.equal(
+    classifySuiteRun({ status: 1, output: '# fail 1\n# pass 3\n', timedOut: true }),
+    'SUITE_TIMED_OUT',
+    'a killed suite must not be reported as a kill because it printed a failure on the way out');
+
+  // Without the flag, nothing changes: the ordinary verdicts still apply.
+  assert.equal(classifySuiteRun({ status: 1, output: '# fail 1\n# pass 3\n' }), 'KILLED');
+  assert.equal(classifySuiteRun({ status: 0, output: '# fail 0\n# pass 3\n# skipped 0\n' }), 'SURVIVED');
+});

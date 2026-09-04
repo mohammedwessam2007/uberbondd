@@ -454,6 +454,20 @@ export const MUTATIONS = [
     suites: ['tests/canon-freshness-discrimination.test.mjs']
   },
   {
+    id: 'TIMEOUT-01', guard: 'A suite killed at its deadline is not read as a mutant that died',
+    file: 'scripts/mutation-verdict.mjs',
+    find: "  if (timedOut) return 'SUITE_TIMED_OUT';",
+    replace: '',
+    suites: ['tests/mutation-verdict-honesty.test.mjs']
+  },
+  {
+    id: 'JOURNAL-03', guard: 'A skip is never journaled, so a missing runtime cannot become permanent',
+    file: 'scripts/mutation-journal.mjs',
+    find: "  if (NEVER_JOURNALED.has(verdict)) return false;",
+    replace: '',
+    suites: ['tests/mutation-journal-integrity.test.mjs']
+  },
+  {
     id: 'JOURNAL-01', guard: 'A replayed verdict must belong to the mutation that earned it',
     file: 'scripts/mutation-journal.mjs',
     find: '    if (row.fingerprint !== expected.get(row.id)) continue;',
@@ -1203,14 +1217,40 @@ export const MUTATIONS = [
   }
 ];
 
+// Two deadlines, because a hang here stops the gate rather than failing it.
+//
+// The war had neither. One suite that never returns -- and a real database
+// makes that reachable, as the postgres-real runner found the hard way -- left
+// the whole run sitting in ep_poll with no output, no verdict, and nothing to
+// say which mutation it was on. Thirteen minutes of a run were spent that way
+// before anyone looked at /proc.
+//
+// --test-timeout bounds each individual test so most hangs surface as an
+// ordinary failure. The spawn timeout is the backstop for the ones that do not:
+// a suite wedged before the runner starts counting, or a child that ignores it.
+// A killed suite gets its own verdict rather than being read as a mutant that
+// died or a guard that held.
+const SUITE_TEST_TIMEOUT_MS = 120_000;
+const SUITE_WALL_TIMEOUT_MS = 600_000;
+
 function runSuites(root, suites) {
-  const result = spawnSync(process.execPath, ['--test', ...suites], {
+  const result = spawnSync(process.execPath, ['--test', `--test-timeout=${SUITE_TEST_TIMEOUT_MS}`, ...suites], {
     cwd: root, encoding: 'utf8',
+    timeout: SUITE_WALL_TIMEOUT_MS,
+    killSignal: 'SIGKILL',
     env: { ...process.env, NODE_OPTIONS: '' }
   });
-  return { status: result.status, output: `${result.stdout || ''}${result.stderr || ''}` };
+  return {
+    status: result.status,
+    // spawnSync reports a timeout kill as an ETIMEDOUT error rather than in the
+    // status, so the caller cannot tell it from an ordinary non-zero exit.
+    timedOut: result.error?.code === 'ETIMEDOUT',
+    output: `${result.stdout || ''}${result.stderr || ''}`
+  };
 }
 
+
+const declaredSkip = verdict => verdict === 'SKIPPED_NEEDS_POSTGRES' || verdict === 'SKIPPED_NEEDS_BROWSER';
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const onlyId = process.argv[2] || '';
@@ -1240,6 +1280,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const journal = journalPath ? loadJournal(journalPath, selected) : new Map();
   const record = (mutation, verdict) => {
     results.push({ ...mutation, verdict });
+    // appendVerdict refuses skip verdicts itself -- see mutation-journal.mjs
+    // for why that rule belongs to the journal rather than to its callers.
     if (journalPath) appendVerdict(journalPath, mutation, verdict);
   };
 
@@ -1301,7 +1343,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     }
   }
 
-  const declaredSkip = verdict => verdict === 'SKIPPED_NEEDS_POSTGRES' || verdict === 'SKIPPED_NEEDS_BROWSER';
   const notKilled = results.filter(item => item.verdict !== 'KILLED' && !declaredSkip(item.verdict));
   for (const item of results) {
     console.log(`${item.verdict.padEnd(22)} ${item.id.padEnd(10)} ${item.guard}${item.fromJournal ? ' (replayed)' : ''}`);

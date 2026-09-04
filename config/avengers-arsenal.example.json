@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "uberbond.avengers-arsenal-registry.v1",
+  "profiles": [
+    {
+      "id": "example-ollama-local",
+      "runtime": "OLLAMA",
+      "model": "replace-with-exact-served-model-id",
+      "endpoint": "http://127.0.0.1:11434",
+      "apiStyle": "CHAT_COMPLETIONS",
+      "revision": "replace-with-exact-model-revision-or-digest",
+      "taskClasses": ["general"],
+      "roles": ["general"],
+      "pricing": {
+        "inputUsdPerMillion": 0,
+        "outputUsdPerMillion": 0,
+        "infrastructureUsdPerRequest": 0,
+        "sourceRef": "operator-measured-local-runtime-cost",
+        "verifiedAt": "2026-09-04T00:00:00Z"
+      },
+      "rights": {
+        "licenseClass": "UNKNOWN",
+        "sourceRef": "replace-with-license-evidence",
+        "verifiedAt": "2026-09-04T00:00:00Z",
+        "executionAllowed": false,
+        "commercialUseAllowed": false
+      },
+      "benchmark": {
+        "quality": 50,
+        "reliability": 50,
+        "latencyMs": 60000,
+        "observedCostCents": 0,
+        "sampleSize": 0,
+        "verifiedAt": "2026-09-04T00:00:00Z"
+      },
+      "enabled": false,
+      "activationApproved": false,
+      "inferenceProbeApproved": false,
+      "notes": [
+        "Example only. Do not activate until model identity, revision, rights, benchmark and runtime callability are actually evidenced."
+      ]
+    }
+  ],
+  "tools": []
+}

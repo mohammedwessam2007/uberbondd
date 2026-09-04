@@ -2,17 +2,17 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 789,
-      "ranAt": "2026-09-04T06:00:00Z"
+      "filesParsed": 792,
+      "ranAt": "2026-09-04T10:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 3489,
-      "pass": 3435,
+      "tests": 3494,
+      "pass": 3440,
       "fail": 0,
       "skipped": 54,
-      "ranAt": "2026-09-04T07:00:00Z",
-      "note": "Measured 3489 tests, 3434 pass, 1 fail, 54 skipped immediately before this regeneration; the one failure was the canon figure test, which cannot pass until this artifact is regenerated. The browser suite is included and passing: the Playwright crawler had been failing because nothing sets CHROMIUM_PATH, so it fell through to Playwright's own default, which names the exact build its package was published against. On a host carrying a different build that is a launch failure telling you to install browsers, on a machine that already has a working one next to the one it wants. The crawler now resolves an installed Chromium when nobody named one -- only paths that exist and are executable, and nothing rather than a guess, so an explicit executablePath still wins and a host with no browser fails exactly as before."
+      "ranAt": "2026-09-04T10:00:00Z",
+      "note": "Measured 3494 tests, 3438 pass, 2 fail, 54 skipped immediately before this regeneration; both failures were the canon figure tests, which cannot pass until this artifact is regenerated. Every other gate was green on this head with no source change needed: 15 commits of main arrived since the last regeneration and none of them broke anything measured here."
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -31,7 +31,7 @@
       "skipped": 0,
       "result": "24 suites passed, 187 tests, 187 pass, 0 fail (2026-09-04)",
       "note": "Green end to end for the first time. This gate had never completed: it ran tests/omnia-v9-external-effect-state-machine, stopped inside it and waited, so roughly 180 real-database tests scheduled behind that file had never executed and no run ever said so. Three separate causes, each found by removing the one in front of it. (1) The exhaustive transition check made ~600 client round trips; somewhere around the 122nd the connection stopped responding, with the backend `active`, waiting on nothing, holding no lock and ignoring statement_timeout. A pool, then one client, then a connection per pair all stopped in the same place, which is what identified the round trips themselves as the cost. The loop now runs in PL/pgSQL: four statements instead of six hundred, and the client no longer takes any part in deciding what the database accepted. (2) The Gmail concurrency test asserted that exactly one of two workers claimed a row, which was only ever true when the two transactions happened to overlap. On a fast database they stopped overlapping and both claims were legitimate -- RESULT_UNCERTAIN is itself unresolved, so a committed row is a valid candidate again. The overlap is now made real by holding the first worker's transaction open, which tests FOR UPDATE SKIP LOCKED rather than assuming it. (3) The payment replay test drove a hundred replays from the client; inside node:test, after about a hundred rejected pg queries the next one never returns. Measured four ways before concluding: no conflicts, 200 queries in 61ms; conflicts through a pool, stops at ~55 iterations with no backends left on the server; conflicts on one dedicated client, same ~100; the identical loop outside node:test, 300 conflicts in 90ms. It is the runner, not the driver and not production -- nothing in src/ changed for it. Postgres now runs its own hundred and reports what the index refused. Each suite also gets a private disposable server rather than a database on a shared one, the same isolation the mutation war needed.",
-      "ranAt": "2026-09-04T06:00:00Z"
+      "ranAt": "2026-09-04T10:00:00Z"
     },
     "npm audit": {
       "command": "npm audit --omit=dev",
@@ -44,7 +44,7 @@
       "command": "CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
       "result": "164 mutations, 164 killed, 0 not killed, 0 skipped",
       "note": "Fully green for the first time, with nothing skipped. Getting there took four defects out of the gate itself, every one of which had been reporting a guard as untested while printing a clean summary line. (1) It read CHROMIUM_PATH and nothing sets it, so a browser guard was skipped on a machine with Chromium installed. (2) SKIPPED_NEEDS_POSTGRES meant \"nobody handed this run a database\", leaving nine guards unexercised wherever a variable was unset; the war provisions its own now, and the skip survives only for a server that will not start. (3) Suites ran with no deadline, so one hang stopped the whole run in ep_poll with no verdict and nothing to say which mutation it was on. (4) All 160 mutations shared one database and then one server, so a suite that left state behind broke every database-backed suite after it -- the gate was measuring the order it visited them in. Each database-backed mutation now gets a private disposable server. The run is also resumable: MUTATION_WAR_JOURNAL records each verdict as it is decided, bound to a hash of the file, anchor, replacement and killing suites so a guard that moved runs again rather than inheriting an answer. Four consecutive runs had been lost to container restarts before that existed. POSTAL-QUARANTINE remains worth recording: anchored on the ledger wrapper's quarantine filter it SURVIVED, because deriveCurrentPostalState filters the same three fields immediately afterwards, so removing the wrapper's copy changes no output for any input. A redundant guard is unfalsifiable. Re-anchored on the filter that decides, it kills.",
-      "ranAt": "2026-09-04T06:00:00Z"
+      "ranAt": "2026-09-04T10:00:00Z"
     },
     "test:browser": {
       "command": "CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser",
@@ -59,12 +59,12 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 313,
-      "reachableFromProduction": 142,
+      "srcModules": 314,
+      "reachableFromProduction": 143,
       "reachableFromOperatorScriptsOnly": 33,
       "noEntryPointAtAll": 138,
       "allClassified": true,
-      "ranAt": "2026-09-04T07:00:00Z",
+      "ranAt": "2026-09-04T10:00:00Z",
       "note": "Computed from the ratchet's own partition at this head. Main landed six frontier proof modules with no entry point -- red on its own ratchet, the same way #329 was -- now classified behind the gates already registered for that family. One classification was removed rather than kept: main wired autonomous-frontier-intelligence, so the entry saying it awaited activation had become a false statement about a reachable module. The ratchet catches that direction too."
     }
   },

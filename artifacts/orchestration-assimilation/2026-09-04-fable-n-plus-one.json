@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "uberbond.orchestration-assimilation-receipt.v1",
+  "date": "2026-09-04",
+  "branch": "gpt/fable-orchestrator-assimilation-20260904",
+  "baseMain": "2f2abc3cced22059cb8f619f022219bdc9aebf2f",
+  "objective": "Assimilate Fable Orchestrator into UberBond across the repository-native ChatGPT/Company Brain, Claude Code project skills, Codex/OpenAI project skills, capability control plane and continuous frontier discovery while preserving authority, truth and replaceability.",
+  "referencePack": [
+    {
+      "id": "fable-orchestrator",
+      "upstream": "codejunkie99/fable-orchestrator",
+      "sourceRef": "3b653701d48095a488c350f7a9d5b1fca4d37183",
+      "license": "MIT",
+      "decision": "PROJECT_SKILL_AND_OPTIONAL_RUNTIME_DONOR"
+    },
+    {
+      "id": "metaswarm",
+      "upstream": "dsifry/metaswarm",
+      "sourceRef": "33d39f776f7fe29098dcf048955756a237e8cb40",
+      "license": "MIT",
+      "decision": "CANONICAL_METHOD_REFERENCE_DONOR"
+    },
+    {
+      "id": "superpowers",
+      "upstream": "obra/superpowers",
+      "sourceRef": "b36e0829c6d0140e93cfef2ca599b1b07d4a7797",
+      "license": "MIT",
+      "decision": "CANONICAL_METHOD_REFERENCE_DONOR"
+    }
+  ],
+  "implemented": [
+    "docs/ORCHESTRATION_CAPABILITY_CANON.md",
+    ".claude/skills/uberbond-orchestrator/SKILL.md",
+    ".codex/skills/uberbond-orchestrator/SKILL.md",
+    "src/orchestration-frontier.mjs",
+    "scripts/orchestration-frontier-tick.mjs",
+    "tests/orchestration-frontier.test.mjs",
+    "tests/orchestration-frontier-tick.test.mjs",
+    "tests/orchestration-gamechanger-source.test.mjs",
+    "src/external-capability-control-plane.mjs",
+    "tests/external-capability-control-plane.test.mjs",
+    "scripts/external-capability-doctor.mjs",
+    "artifacts/external-skill-plugin-registry.json",
+    "data/gamechanger-mesh/sources.json",
+    ".github/workflows/gamechanger-mesh-hourly.yml",
+    ".claude/skills/uberbond-capability-assimilator/SKILL.md"
+  ],
+  "focusedEvidence": {
+    "orchestrationGraphSuite": {
+      "command": "node --check src/orchestration-frontier.mjs && node --check tests/orchestration-frontier.test.mjs && node --test tests/orchestration-frontier.test.mjs",
+      "tests": 12,
+      "pass": 12,
+      "fail": 0,
+      "sourceGitBlob": "300d67d3e4e3815b6cc922519258a52633c264b3",
+      "testGitBlob": "91ee87d3387902814391c49b69c3be65f801a5dd",
+      "exactBranchBytes": true,
+      "dependencyBoundary": "The focused harness reproduced the canonical ZERO_EXTERNAL_EFFECTS export used by this module; the full repository dependency/test graph was not executed in this local slice."
+    },
+    "candidateTickSuite": {
+      "command": "node --check scripts/orchestration-frontier-tick.mjs && node --check tests/orchestration-frontier-tick.test.mjs && node --test tests/orchestration-frontier-tick.test.mjs",
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "scriptGitBlob": "ed36d8b229399c7ccf97bec7a015e12c66f358e5",
+      "testGitBlob": "24f89d340ff1ddc56e84c0e7b6109e85b428f0d6",
+      "exactBranchBytes": true
+    },
+    "externalCapabilityPolicyProbe": {
+      "sourceGitBlob": "07d280446dc35d11755736814ae8fa7c22f219cb",
+      "exactBranchSourceBytes": true,
+      "result": "PASS",
+      "assertions": [
+        "11-supplier registry contract validates",
+        "orchestration-planning defaults to fable-orchestrator",
+        "provider-neutral Fable protocol does not claim a live runtime",
+        "live Fable runtime requires runtime + observable planner identity + verified callable worker menu",
+        "secret-bearing Fable packets are denied",
+        "registry can expand beyond current supplier count",
+        "removing an original core supplier fails closed",
+        "new supplier without capability-specific policy is denied"
+      ],
+      "limitation": "This probe used a minimal in-memory valid 11-supplier registry. The exact repository registry and external-capability doctor still require independent branch/full-repository execution."
+    }
+  },
+  "continuousDiscovery": {
+    "gamechangerSourceId": "search-orchestration-skills-frontier",
+    "cadenceMinutes": 120,
+    "candidateArtifact": "artifacts/orchestration-frontier-candidates-latest.json",
+    "candidateState": "DISCOVERED_RESEARCH_REQUIRED",
+    "automaticInstallation": false,
+    "automaticPromotion": false,
+    "nextStages": [
+      "provenance",
+      "exact revision",
+      "license",
+      "security/data/effect review",
+      "dedupe",
+      "mechanism extraction",
+      "Fable N+1 tournament",
+      "held-out behavioral comparison",
+      "founder-minute/economic comparison",
+      "review",
+      "compose/promote/reject"
+    ]
+  },
+  "truthBoundary": {
+    "liveFableRuntimeExecuted": false,
+    "metaswarmRuntimeInstalled": false,
+    "superpowersRuntimeInstalled": false,
+    "fullRepositoryGreenClaimed": false,
+    "gamechangerSearchLaneExecutedOnHostedScheduler": false,
+    "sourceTestContractsAreNotEconomicProof": true,
+    "discoveredSupplierIsNotCallableSupplier": true
+  },
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  },
+  "nextVerification": "Run the exact branch external-capability tests, orchestration tests, capabilities:doctor and broader deterministic suite in a real repository host; independently review via Claude issue #346 before merge when available."
+}

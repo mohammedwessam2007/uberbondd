@@ -1,6 +1,6 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const FRONTIER_REASONING_RUNTIME_VERSION = 'uberbond.frontier-reasoning-runtime-1.1.1';
+export const FRONTIER_REASONING_RUNTIME_VERSION = 'uberbond.frontier-reasoning-runtime-1.1.2';
 
 const GATEWAY_EFFORTS = new Set(['none', 'minimal', 'low', 'medium', 'high', 'xhigh']);
 
@@ -33,8 +33,6 @@ export function compileFrontierExecutorWorker(member = {}) {
   const model = text(member.model, 120);
   const revision = text(member.revision, 240);
   const transportProvider = text(member.transportProvider, 80)?.toLowerCase();
-  // Canonical AI Gateway executor accepts a provider/model slug no longer than 160 chars.
-  // Reject wider identities here rather than allowing the transport adapter to truncate them.
   const transportModel = text(member.transportModel, 160);
   const reasoningTier = text(member.reasoningTier, 80)?.toUpperCase();
   const reasoningSettingRef = text(member.reasoningSettingRef, 500);
@@ -164,10 +162,17 @@ export async function executeFrontierMember({
   if (!executorResult?.ok) return failure(executorResult?.reasonCodes ?? ['frontier-executor-failed'], executorResult?.outcome === 'UNCERTAIN' ? 'FRONTIER_EXECUTION_UNCERTAIN' : 'FRONTIER_EXECUTION_FAILED');
 
   const latencyMs = Math.round(end - start);
-  return attestFrontierExecution({
+  const attested = attestFrontierExecution({
     member,
     workerBinding: binding,
     executorResult: { ...executorResult, latencyMs },
     callabilityEvidence
   });
+  if (!attested.ok) return attested;
+  return {
+    ...attested,
+    ephemeralResult: executorResult.result ?? null,
+    ephemeralResultCanonical: false,
+    truthBoundary: `${attested.truthBoundary}; EPHEMERAL_RESULT_EXISTS_ONLY_FOR_BOUNDED_IN_PROCESS_COUNCIL_COMPOSITION_AND_IS_NOT_CANONICAL_MEMORY`
+  };
 }

@@ -36,10 +36,42 @@ const tapCount = (output, field) => {
 // So the verdict is read from what the run reports rather than from its exit
 // code, and the two cases that prove nothing get their own names instead of
 // being absorbed into the two that do.
-export function classifySuiteRun({ status, output }) {
+export function classifySuiteRun({ status, output, timedOut = false }) {
   const failed = tapCount(output, 'fail');
   const passed = tapCount(output, 'pass');
   const skipped = tapCount(output, 'skipped');
+
+  // A suite that never finished is the third thing an exit code cannot express,
+  // and it is the one that stops the gate rather than misreporting it. A run
+  // killed at its deadline exits non-zero with no reported failures, which the
+  // branch below would call SUITE_DID_NOT_RUN -- true, but it hides why, and
+  // "did not run" reads like a broken import rather than a hang somebody has to
+  // go and find.
+  // We killed the suite ourselves at the wall clock, so whatever output exists
+  // was cut at an arbitrary point and cannot be reasoned about.
+  if (timedOut) return 'SUITE_TIMED_OUT';
+
+  const text = output || '';
+  const assertionFailed = /code: 'ERR_ASSERTION'/.test(text);
+  const testTimedOut = /test timed out after \d+ms/.test(text);
+
+  // An assertion that failed is the evidence this whole file is looking for: a
+  // named invariant broke when the guard was removed. A different test in the
+  // same file hanging does not undo that, and letting it would discard real
+  // kills -- MONEY-05 and HYG-03 both reported the exact assertion the mutation
+  // was meant to break, in a file where another test stalled, and were recorded
+  // as untested.
+  //
+  // The order matters only in that direction. A hang with no assertion behind it
+  // is still never a kill.
+  if (assertionFailed) return 'KILLED';
+
+  // Node's own per-test deadline is a hang arriving by a different route from
+  // our wall-clock kill. It reaches here as an ordinary failure whose TAP
+  // summary may never have been written, which the branch below would read as
+  // SUITE_DID_NOT_RUN -- true but unhelpful, since "did not run" sends a reader
+  // looking for a broken import rather than a stall.
+  if (testTimedOut) return 'SUITE_TIMED_OUT';
 
   if (status !== 0) {
     // A failing assertion is what kills a mutant. A suite that could not run at
@@ -52,6 +84,13 @@ export function classifySuiteRun({ status, output }) {
 }
 
 export function applyMutation(root, mutation) {
+  // The sandbox shares the real node_modules by symlink rather than copying it,
+  // so a mutation pointed inside it would edit the actual dependency tree of the
+  // repository it is supposed to be testing a copy of. No registered mutation
+  // does; this is here so none ever can.
+  if (/(^|[\\/])node_modules([\\/]|$)/.test(mutation.file)) {
+    return { applied: false, reason: 'anchor-outside-sandbox' };
+  }
   const target = join(root, mutation.file);
   const source = readFileSync(target, 'utf8');
   const occurrences = source.split(mutation.find).length - 1;

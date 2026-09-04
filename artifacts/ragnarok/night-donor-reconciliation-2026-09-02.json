@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "uberbond-night-donor-reconciliation-1.0.0",
+  "generatedAt": "2026-09-02T00:00:00.000Z",
+  "integratorBranch": "claude/uberbond-ragnarok-closure-pek0g6",
+  "mainShaAtReconciliation": "5436eeb111a17f012ea7dc307f295703da391bc6",
+  "truthBoundary": "A classification of overlapping work between this branch, current main and the concurrent night branches. It records what was compared and what was decided. It is not a merge, not an approval, and it upgrades no commercial, provider, payment, delivery or runtime truth.",
+  "method": "Every overlapping path was compared on behaviour rather than on size. A longer file is not stronger evidence than a shorter one, and a newer file on main outranks an older one on a branch unless the branch closes a defect main still carries.",
+  "inheritedRedsFoundOnMain": [
+    {
+      "id": "brain-bootstrap-failed",
+      "severity": "P0",
+      "finding": "npm run brain returns UBERBOND_BRAIN_BOOTSTRAP_FAILED on origin/main. It is the mandatory first command of every session, so every worker starting from main gets a refusal instead of the project's memory.",
+      "cause": "The 2026-09-02 owner-goals commit added an initiative with status CURRENT_OWNER_DOCTRINE, which was not in the closed MEMORY_STATUSES vocabulary. normalizeInitiatives rejects the whole array when any row carries an unrecognised status, so one string took the entire memory index down.",
+      "verifiedOn": "a clean worktree of origin/main, before any change was made here",
+      "resolution": "Status added to the vocabulary rather than the record relabelled; owner doctrine is not a program. Pinned initiative count moved 34 -> 35 and the lineage extended, both as measured figures.",
+      "note": "The four tests that catch this already existed and were already failing. main was merged red."
+    },
+    {
+      "id": "readiness-input-truncated",
+      "severity": "P0",
+      "finding": "config/system-readiness-input.json on origin/main is not valid JSON. It ends mid-array, so npm run readiness exits with SyntaxError and canon cannot be regenerated at all.",
+      "cause": "A truncated write in the readiness-refresh commit. 21 of 33 capability entries were lost and nothing was added; the three measurement refreshes the commit was actually for did survive.",
+      "resolution": "Capability entries restored from the last valid version at 60f7f6e5 and the intended measurement refresh kept. Comparison first proved the commit changed no capability entry, so restoring them loses nothing it meant to do.",
+      "note": "This is the same failure mode the resume packet already warns about at d1a75d04: a readiness artifact that silently gets smaller."
+    }
+  ],
+  "crossLaneGap": {
+    "id": "postal-adapter-defects-remain-open-if-317-merges-alone",
+    "severity": "P1",
+    "finding": "PR #317 (work/night-postal-20260902) adds the Postal webhook evidence module, ledger, route and migration, but does not modify src/omnia-v9/integrations/providers/postal-effect-adapter.mjs. main still carries the PR #277-era adapter.",
+    "verifiedOnMain": {
+      "409TreatedAsDefiniteRejection": true,
+      "dispatchHasNoTimeout": true,
+      "reconcileThrowsWithoutExecutionId": true,
+      "reconciliationRowsHaveNoProvenanceRequirement": true
+    },
+    "whyItMatters": "external-effect-recovery.mjs calls adapter.reconcile({ businessKey, providerEffectIdentity, expectedTo }) with no executionId. The adapter on main throws on that shape, which does not fail one execution -- it aborts the whole recovery batch. And a 409 recorded as a definite rejection is a durable claim that Postal refused a message it may have accepted.",
+    "consequence": "Merging PR #317 alone delivers the evidence half while leaving the adapter that consumes it unhardened.",
+    "closedBy": "this branch, with the adapter repairs plus mutations POSTAL-01 and POSTAL-02"
+  },
+  "classifications": [
+    {
+      "path": "src/free-first-outreach-router.mjs",
+      "verdict": "IDENTICAL_OR_EQUIVALENT",
+      "detail": "Byte-identical to origin/main. This branch's work had already landed there; nothing to reconcile."
+    },
+    {
+      "path": "src/provider-activation-receipt.mjs",
+      "verdict": "IDENTICAL_OR_EQUIVALENT",
+      "detail": "Byte-identical to origin/main."
+    },
+    {
+      "path": "src/vercel-ai-gateway-executor.mjs",
+      "verdict": "SUPERSEDED_BY_MAIN",
+      "detail": "main's 121-line implementation replaced this branch's 639-line one. Newer and on main; the longer file was not better evidence. main's version carried the same credential-leak defect on its three error paths, which was fixed on top rather than used as an argument for the discarded version.",
+      "portedForward": ["error-text redaction before it reaches a durable receipt", "a test driving the three failure paths that actually carry a provider message"]
+    },
+    {
+      "path": "src/agent-model-executor-factory.mjs",
+      "verdict": "MANUAL_RECONCILIATION_REQUIRED",
+      "detail": "The merge produced a defect neither side had alone: ai-gateway (main) and vercel-ai-gateway (this branch) named one credential and one executor as two providers. describeProviderReadiness returned two rows, and main's row derived its env prefix by upper-casing the id, yielding AI-GATEWAY_API_KEY. Measured with a configured gateway: one row said credential-absent while the other said ready.",
+      "resolution": "One canonical id with the other as an alias, an explicit env-prefix map, and the duplicate branch removed. Both spellings still build an executor.",
+      "whyItMattered": "executeWithFailover reads a provider list as destinations, so an exhausted gateway looked like a chain with somewhere left to go, and routing around it would have retried the same provider under another name."
+    },
+    {
+      "path": "src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs",
+      "verdict": "MANUAL_RECONCILIATION_REQUIRED",
+      "detail": "Independently implemented on both this branch and work/night-postal-20260902. Close in shape: both quarantine rather than drop, both keep only a digest of the raw body, neither persists the per-recipient token.",
+      "openDecision": "One implementation must be chosen before either merges. They cannot both land."
+    },
+    {
+      "path": "src/omnia-v9/integrations/providers/postal-webhook-ledger.mjs",
+      "verdict": "MANUAL_RECONCILIATION_REQUIRED",
+      "detail": "Both provide memory and PostgreSQL ledgers with a reconciliation lookup and ON CONFLICT replay safety."
+    },
+    {
+      "path": "migrations/104_postal_webhook_events.sql",
+      "verdict": "MANUAL_RECONCILIATION_REQUIRED",
+      "detail": "Same migration number on both branches, which is a hard conflict rather than a merge. This branch's version carries partial indexes restricted to authenticated, non-quarantined rows, so a quarantined row is unreachable from a reconciliation lookup at the index level and not only in application code; the night branch's indexes are unconditional. Both carry the append-only trigger.",
+      "verifiedAgainstRealPostgres": "migration applies, redelivery lands on DUPLICATE, quarantined rows are excluded from lookupForReconciliation, and UPDATE is refused by the trigger"
+    },
+    {
+      "path": "api/webhooks/postal.mjs",
+      "verdict": "MANUAL_RECONCILIATION_REQUIRED",
+      "detail": "Same path on both branches."
+    }
+  ],
+  "notMerged": {
+    "sol/ragnarok-final-closure-20260902": "PR #315, inspected as a donor only. Not merged here.",
+    "sol/ragnarok-final-closure-current-main-20260902": "Inspected only.",
+    "work/night-postal-20260902": "PR #317, inspected only. Overlaps this branch on six paths; see classifications.",
+    "work/night-payment-20260902": "Does not exist at reconciliation time.",
+    "work/night-runtime-20260902": "Does not exist at reconciliation time.",
+    "work/night-genome-20260902": "Does not exist at reconciliation time.",
+    "work/night-verification-20260902": "Does not exist at reconciliation time."
+  },
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  }
+}

@@ -68,7 +68,10 @@ test('reconcile fails closed when webhook ledger is absent or empty', async () =
 
 test('reconcile uses independent webhook evidence and rejects ambiguity/mismatch', async () => {
   const prepared = await adapter().prepare(intent());
-  const base = { id: 12, tag: prepared.tag, to: prepared.to, from: prepared.from, subject: prepared.subject, status: 'Sent' };
+  // Provenance is part of the row now. A correctly shaped row from an unknown
+  // source used to reconcile as accepted, which made the reconciliation ledger
+  // trusted by shape rather than by who wrote it.
+  const base = { id: 12, tag: prepared.tag, to: prepared.to, from: prepared.from, subject: prepared.subject, lifecycle: 'SENT', provenance: 'AUTHENTICATED_POSTAL_WEBHOOK' };
   const accepted = await adapter({ reconciliationLookupFn: async () => [base] }).reconcile({ businessKey: 'lead_1', providerEffectIdentity: prepared.providerEffectIdentity, executionId: 'exec_123', expectedTo: prepared.to, expectedFrom: prepared.from });
   assert.equal(accepted.lifecycle, 'RECONCILED_ACCEPTED');
   assert.equal(adapter().classifyOutcome(accepted), 'RECONCILED_ACCEPTED');
@@ -82,4 +85,57 @@ test('adapter refuses unsafe base URL, missing secret, and payload expansion', a
   assert.throws(() => new PostalEffectAdapter({ baseUrl: 'http://postal.example.test', apiKey: 'x', fromAddress: 'a@example.test', messageIdDomain: 'example.test' }), /HTTPS/);
   assert.throws(() => new PostalEffectAdapter({ baseUrl: 'https://postal.example.test', apiKey: '', fromAddress: 'a@example.test', messageIdDomain: 'example.test' }), /apiKey/);
   await assert.rejects(() => adapter().prepare({ ...intent(), effectPayload: { ...intent().effectPayload, bcc: 'x@example.com' } }), /not supported/);
+});
+
+test('a reconciliation row that cannot say where it came from is ambiguous, not accepted', async () => {
+  const prepared = await adapter().prepare(intent());
+  const authentic = { id: 12, tag: prepared.tag, to: prepared.to, from: prepared.from, subject: prepared.subject, lifecycle: 'SENT', provenance: 'AUTHENTICATED_POSTAL_WEBHOOK' };
+  const { provenance, ...unsourced } = authentic;
+  void provenance;
+
+  for (const row of [unsourced, { ...authentic, provenance: 'OPERATOR_ASSERTED' }, { ...authentic, provenance: '' }]) {
+    const result = await adapter({ reconciliationLookupFn: async () => [row] }).reconcile({
+      businessKey: 'lead_1',
+      providerEffectIdentity: prepared.providerEffectIdentity,
+      executionId: 'exec_123',
+      expectedTo: prepared.to
+    });
+    assert.equal(result.lifecycle, 'AMBIGUOUS',
+      `a row with provenance ${JSON.stringify(row.provenance)} reconciled as if Postal had witnessed it`);
+  }
+});
+
+test('reconcile works at the arity the recovery worker actually calls it with', async () => {
+  // external-effect-recovery.mjs calls reconcile({ businessKey,
+  // providerEffectIdentity, expectedTo }) with no executionId. Throwing here
+  // does not fail one execution -- it aborts the whole recovery batch.
+  const prepared = await adapter().prepare(intent());
+  const row = { id: 12, tag: prepared.tag, to: prepared.to, from: prepared.from, subject: prepared.subject, lifecycle: 'SENT', provenance: 'AUTHENTICATED_POSTAL_WEBHOOK' };
+  const result = await adapter({ reconciliationLookupFn: async () => [row] }).reconcile({
+    businessKey: 'lead_1',
+    providerEffectIdentity: prepared.providerEffectIdentity,
+    expectedTo: prepared.to
+  });
+  assert.equal(result.lifecycle, 'RECONCILED_ACCEPTED');
+});
+
+test('a conflict is uncertain, because a conflict does not prove the message was refused', async () => {
+  const conflicted = adapter({ fetchImpl: async () => ({ status: 409, json: async () => ({ status: 'error' }) }) });
+  const result = await conflicted.dispatch(await conflicted.prepare(intent()));
+  assert.equal(result.classification, 'UNCERTAIN');
+  assert.equal(conflicted.dispatchCallCount, 1);
+});
+
+test('a bounce proves the send happened and is recorded as negative delivery, never as non-submission', async () => {
+  const prepared = await adapter().prepare(intent());
+  const bounced = { id: 12, tag: prepared.tag, to: prepared.to, from: prepared.from, subject: prepared.subject, lifecycle: 'BOUNCED', provenance: 'AUTHENTICATED_POSTAL_WEBHOOK' };
+  const result = await adapter({ reconciliationLookupFn: async () => [bounced] }).reconcile({
+    businessKey: 'lead_1',
+    providerEffectIdentity: prepared.providerEffectIdentity,
+    executionId: 'exec_123',
+    expectedTo: prepared.to
+  });
+  assert.notEqual(result.lifecycle, 'NOT_FOUND',
+    'NOT_FOUND releases the business key for a resend; a bounce is the opposite of evidence for that');
+  assert.equal(result.detail.negativeDeliveryEvidence, true);
 });

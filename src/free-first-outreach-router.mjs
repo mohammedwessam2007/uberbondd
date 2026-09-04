@@ -61,6 +61,14 @@ function fail(reasonCodes, extra = {}) {
   };
 }
 
+/**
+ * The tighter of a researched quota and an observed one.
+ *
+ * `null` means unbounded on that axis, so it drops out of the comparison rather
+ * than winning it. This is the only direction observation is allowed to move a
+ * limit: a provider reporting more headroom at runtime than its published
+ * policy does not thereby grant it.
+ */
 function tightest(researched, observed) {
   const values = [researched, observed].filter(value => value != null);
   return values.length ? Math.min(...values) : null;
@@ -203,6 +211,13 @@ function usageFor(usageByProvider, providerId) {
   };
 }
 
+/**
+ * The runtime half of a provider's eligibility.
+ *
+ * Every field defaults to the refusing value. A caller that supplies nothing
+ * gets a provider that cannot serve a LIVE route, which is the correct answer
+ * for a provider nobody has activated.
+ */
 function liveStateFor(providerStates, providerId) {
   const raw = providerStates?.[providerId] || {};
   const quota = raw.observedQuota && typeof raw.observedQuota === 'object' ? raw.observedQuota : null;
@@ -230,6 +245,10 @@ function policyAgeDays(observedAt, at) {
 function providerEligibility({ provider, purpose, consentEvidence, usage, state, at, mode, maxPolicyAgeDays, audienceSize }) {
   const reasons = [];
   const registryRule = provider.purposeRules[purpose];
+  // An activation receipt carries exactly one purpose rule -- the cold-B2B one
+  // -- so that is the only rule it can combine with. It combines by taking the
+  // stricter of the two: a receipt claiming a provider allows cold outreach can
+  // never override a registry that says it does not.
   const rule = purpose === 'COLD_B2B' && state.coldB2BRule
     ? stricterColdRule(registryRule, state.coldB2BRule)
     : registryRule;
@@ -245,9 +264,14 @@ function providerEligibility({ provider, purpose, consentEvidence, usage, state,
     const expiry = new Date(provider.freePlan.expiresAt);
     if (at.getTime() >= expiry.getTime()) reasons.push('free-trial-expired');
   }
+  // A free route that silently becomes a paid one is not a free route. Either
+  // source of that risk -- the reviewed plan or the observed account -- refuses.
   if (provider.freePlan.autoChargeAfterExpiry || state.autoChargeRisk) reasons.push('auto-charge-free-route-prohibited');
+
   if (usage.uncertainEffects > 0) reasons.push('provider-has-uncertain-external-effects');
 
+  // Observed quotas only tighten, and only in LIVE mode: a PLAN estimate is a
+  // statement about published policy, not about one account's runtime.
   const observed = mode === 'LIVE' ? state.observedQuota : null;
   const effectiveDaily = tightest(provider.quota.daily, observed?.daily ?? null);
   const effectiveMonthly = tightest(provider.quota.monthly, observed?.monthly ?? null);
@@ -261,6 +285,10 @@ function providerEligibility({ provider, purpose, consentEvidence, usage, state,
   if (!Number.isFinite(remaining) && effectiveDaily == null && effectiveMonthly == null) reasons.push('bounded-free-quota-required');
   if (remaining <= 0) reasons.push('provider-free-quota-exhausted');
 
+  // A recipient cap is a limit on how many distinct people one send may reach.
+  // Recording it and never comparing an audience to it is the same as not
+  // having it, so an unknown audience is refused on a capped provider rather
+  // than assumed small.
   if (effectiveRecipientCap != null) {
     if (audienceSize != null && audienceSize > effectiveRecipientCap) reasons.push('provider-recipient-cap-exceeded');
     else if (audienceSize == null && mode === 'LIVE') reasons.push('audience-size-required-for-recipient-capped-provider');
@@ -291,8 +319,24 @@ function providerEligibility({ provider, purpose, consentEvidence, usage, state,
 function resolveProviderStates({ providers, providerStates, activationReceipts, atDate, maxReceiptAgeDays, mode }) {
   const explicit = providerStates && typeof providerStates === 'object' && !Array.isArray(providerStates);
 
+  // LIVE is the mode that can put mail in front of a person, so its inputs may
+  // not be assertions. A caller-supplied `{configured: true, active: true,
+  // domainAuthenticated: true}` is four booleans anybody can type; an
+  // activation receipt names the account, the plan and the observation behind
+  // each one. PLAN keeps accepting states, because planning against a
+  // hypothesis is what planning is for.
   if (mode === 'LIVE') {
-    if (explicit) return { ok: false, reasonCodes: ['live-provider-states-must-be-derived-from-activation-receipts'] };
+    if (explicit) {
+      const reasonCodes = ['live-provider-states-must-be-derived-from-activation-receipts'];
+      // Supplying both is a second, distinct mistake: two sources for one truth
+      // is ambiguity, not redundancy, and which one wins would come down to
+      // argument order. Say so as well, rather than letting the LIVE rule hide
+      // an error the caller would still make in PLAN.
+      if (Array.isArray(activationReceipts) && activationReceipts.length) {
+        reasonCodes.push('provider-states-and-activation-receipts-are-mutually-exclusive');
+      }
+      return { ok: false, reasonCodes };
+    }
     const receipts = activationReceipts == null ? [] : activationReceipts;
     if (!Array.isArray(receipts)) return { ok: false, reasonCodes: ['activation-receipts-array-required'] };
     const derivation = deriveProviderStatesFromReceipts({
@@ -418,6 +462,15 @@ export function selectFreeRoute({
   };
 }
 
+/**
+ * Capacity that could actually be used right now, as opposed to capacity that
+ * was researched.
+ *
+ * Only providers that clear every LIVE gate contribute. With no activated
+ * provider this is zero, and that zero is the honest headline number: the
+ * reviewed pool's ~75,100 per month is what published policy permits, not what
+ * this company can send.
+ */
 export function liveUsableCapacity({
   providers = [],
   activationReceipts = [],

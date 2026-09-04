@@ -2,6 +2,14 @@ import crypto from 'node:crypto';
 import { sendEmail, listMessages, getMessage, parseGmailMessage } from '../../../gmail.mjs';
 import { ExternalEffectAdapter, ADAPTER_OUTCOMES } from '../external-effect-adapter.mjs';
 import { sha256 } from '../../canonical.mjs';
+import {
+  DEFINITE_REJECTION_HTTP_STATUSES,
+  deterministicV9MessageId,
+  validateRecipientAddress,
+  validateFromAddress as validateFromAddressPrimitive,
+  validateSubjectAndBody as validateSubjectAndBodyPrimitive,
+  validateListUnsubscribeUrl
+} from './email-effect-primitives.mjs';
 
 /**
  * The real Gmail implementation of the provider-neutral external-effect
@@ -21,16 +29,11 @@ import { sha256 } from '../../canonical.mjs';
  * not been empirically verified about Gmail's actual behavior.
  */
 
-const EMAIL_RE = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
-const MAX_SUBJECT_LENGTH = 200;
-const MAX_BODY_LENGTH = 20000;
-// Definite-rejection HTTP statuses: Gmail processed the request and
-// explicitly refused it (malformed payload, invalid recipient it rejects
-// server-side, permission/scope errors). 429 and 5xx are excluded on
-// purpose -- those mean "the provider could not confirm anything," not "the
-// provider rejected the message," per this mission's explicit instruction
-// never to convert an unknown/transient provider result into REJECTED.
-const DEFINITE_REJECTION_STATUSES = new Set([400, 401, 403, 404, 422]);
+// The address, subject/body, unsubscribe-header and Message-ID rules, and the
+// definite-rejection HTTP set, now live in ./email-effect-primitives.mjs so
+// Gmail and Postal share one copy. Behaviour here is unchanged: every
+// primitive is handed `gmailError` below, so the class, code and message of
+// every refusal are byte-identical to what this adapter raised before.
 
 export class GmailEffectAdapterError extends Error {
   constructor(message, code = 'GMAIL_EFFECT_ADAPTER_ERROR', detail = {}) {
@@ -46,6 +49,17 @@ function sha256Hex(value) {
 }
 
 /**
+ * The error identity this adapter has always raised. Handed to every shared
+ * primitive so extracting them changed no observable behaviour -- the static
+ * safety suites assert `error instanceof GmailEffectAdapterError` as well as
+ * the code, and a shared module throwing its own class would have quietly
+ * broken that.
+ */
+function gmailError(message, code, detail) {
+  return new GmailEffectAdapterError(message, code, detail);
+}
+
+/**
  * Deterministic, opaque, PII-free Message-ID: `<v9-{sha256(executionId)}@{messageIdDomain}>`.
  * Deliberately does NOT embed the recipient, business key, or any raw
  * internal identifier -- only a one-way digest of the execution ID, so the
@@ -56,38 +70,19 @@ function sha256Hex(value) {
  * caller-supplied domain, not an assumed one, is required.
  */
 export function generateMessageId(executionId, messageIdDomain) {
-  if (!executionId) throw new GmailEffectAdapterError('executionId is required to generate a Message-ID', 'INVALID_INPUT');
-  if (!messageIdDomain || typeof messageIdDomain !== 'string' || !/^[a-z0-9.-]+\.[a-z]{2,}$/i.test(messageIdDomain)) {
-    throw new GmailEffectAdapterError('a valid messageIdDomain must be explicitly supplied (no guessed/default domain)', 'INVALID_INPUT');
-  }
-  return `<v9-${sha256Hex(executionId)}@${messageIdDomain}>`;
+  return deterministicV9MessageId(executionId, messageIdDomain, gmailError);
 }
 
 function validateRecipient(to) {
-  if (!to || typeof to !== 'string' || !to.trim()) throw new GmailEffectAdapterError('recipient is required', 'INVALID_RECIPIENT');
-  if (!EMAIL_RE.test(to.trim())) throw new GmailEffectAdapterError(`recipient is not a valid email address: ${to}`, 'INVALID_RECIPIENT');
-  return to.trim();
+  return validateRecipientAddress(to, gmailError);
 }
 
 function validateFromAddress(value) {
-  const text = String(value || '').trim();
-  if (!text || /[\r\n]/.test(text)) {
-    throw new GmailEffectAdapterError('fromAddress is required and must not contain CR/LF', 'INVALID_FROM');
-  }
-  if (EMAIL_RE.test(text)) return text;
-  const match = text.match(/^([^<>\r\n]{1,160})\s*<([^<>\s@]+@[^<>\s@]+)>$/);
-  if (!match || /[,;:"\\]/.test(match[1]) || !EMAIL_RE.test(match[2])) {
-    throw new GmailEffectAdapterError('fromAddress must be an email or safe display-name email', 'INVALID_FROM');
-  }
-  return text;
+  return validateFromAddressPrimitive(value, gmailError, { allowDisplayName: true });
 }
 
 function validateSubjectAndBody(subject, body) {
-  if (!subject || typeof subject !== 'string' || !subject.trim()) throw new GmailEffectAdapterError('subject is required', 'INVALID_SUBJECT');
-  if (subject.length > MAX_SUBJECT_LENGTH) throw new GmailEffectAdapterError(`subject exceeds ${MAX_SUBJECT_LENGTH} characters`, 'INVALID_SUBJECT');
-  if (/[\r\n]/.test(subject)) throw new GmailEffectAdapterError('subject must not contain raw CR/LF (header injection)', 'INVALID_SUBJECT');
-  if (typeof body !== 'string' || !body.trim()) throw new GmailEffectAdapterError('body is required', 'INVALID_BODY');
-  if (body.length > MAX_BODY_LENGTH) throw new GmailEffectAdapterError(`body exceeds ${MAX_BODY_LENGTH} characters`, 'INVALID_BODY');
+  return validateSubjectAndBodyPrimitive(subject, body, gmailError);
 }
 
 function stripAngleBrackets(messageId) {
@@ -116,18 +111,7 @@ function validateMessageIdHeader(value, field = 'replyToId') {
 }
 
 function validateListUnsubscribe(value) {
-  if (value == null || value === '') return undefined;
-  const text = String(value);
-  if (text.length > 2048 || /[\r\n<>]/.test(text)) {
-    throw new GmailEffectAdapterError('listUnsubscribe contains unsafe header characters', 'INVALID_HEADER', { field: 'listUnsubscribe' });
-  }
-  let parsed;
-  try { parsed = new URL(text); }
-  catch { throw new GmailEffectAdapterError('listUnsubscribe must be a valid HTTPS URL', 'INVALID_HEADER', { field: 'listUnsubscribe' }); }
-  if (parsed.protocol !== 'https:' || parsed.username || parsed.password) {
-    throw new GmailEffectAdapterError('listUnsubscribe must be an HTTPS URL without embedded credentials', 'INVALID_HEADER', { field: 'listUnsubscribe' });
-  }
-  return parsed.href;
+  return validateListUnsubscribeUrl(value, gmailError);
 }
 
 function validateThreadId(value) {
@@ -249,7 +233,7 @@ export class GmailEffectAdapter extends ExternalEffectAdapter {
       response = await this.sendEmailFn(this.cfg, this.account, this.encryptionKey, { to, from, subject, body, messageId, threadId, replyToId, listUnsubscribe });
     } catch (error) {
       const status = error?.status;
-      if (typeof status === 'number' && DEFINITE_REJECTION_STATUSES.has(status)) {
+      if (typeof status === 'number' && DEFINITE_REJECTION_HTTP_STATUSES.has(status)) {
         return {
           classification: ADAPTER_OUTCOMES.REJECTED,
           providerReferenceId: null,

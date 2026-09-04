@@ -5,6 +5,17 @@
 export const VERCEL_AI_GATEWAY_EXECUTOR_POLICY_VERSION = 'vercel-ai-gateway-executor-1.0.0';
 export const VERCEL_AI_GATEWAY_ENDPOINT = 'https://ai-gateway.vercel.sh/v1/chat/completions';
 
+import { redactSecrets } from './secret-patterns.mjs';
+
+/**
+ * A transport or provider error message is written by someone else and lands in
+ * a durable receipt. A client that echoes the request it failed on -- ordinary
+ * behaviour -- puts the Authorization header into that string, so copying it
+ * verbatim writes the gateway key into task history. The success path was
+ * already checked for the key; the failure paths are where it actually appears.
+ */
+const safeDetail = (error, max = 500) => text(redactSecrets(String(error?.message ?? error ?? '')), max);
+
 const MAX_BODY_BYTES = 300_000;
 const MAX_RESPONSE_BYTES = 1_000_000;
 const text = (v, max = 1000) => String(v ?? '').trim().slice(0, max);
@@ -84,7 +95,7 @@ export function createVercelAIGatewayExecutor({
         new Promise((_, reject) => { timeoutHandle = setTimeout(() => reject(Object.assign(new Error('request timeout'), { name: 'AbortError' })), timeoutMs); })
       ]);
     } catch (error) {
-      return failure([error?.name === 'AbortError' ? 'ai-gateway-timeout-uncertain' : 'ai-gateway-transport-uncertain'], 'UNCERTAIN', { uncertain: true, detail: text(error?.message, 500) });
+      return failure([error?.name === 'AbortError' ? 'ai-gateway-timeout-uncertain' : 'ai-gateway-transport-uncertain'], 'UNCERTAIN', { uncertain: true, detail: safeDetail(error) });
     } finally {
       if (timeoutHandle) clearTimeout(timeoutHandle);
     }
@@ -101,7 +112,7 @@ export function createVercelAIGatewayExecutor({
       if (bytes(rawText) > MAX_RESPONSE_BYTES) return failure(['ai-gateway-response-too-large'], 'UNCERTAIN', { uncertain: true });
       raw = JSON.parse(rawText);
     } catch (error) {
-      return failure(['ai-gateway-response-parse-uncertain'], 'UNCERTAIN', { uncertain: true, detail: text(error?.message, 500) });
+      return failure(['ai-gateway-response-parse-uncertain'], 'UNCERTAIN', { uncertain: true, detail: safeDetail(error) });
     }
     const providerRequestId = text(raw?.id, 240) || null;
     const metered = usage(raw, pricing);
@@ -110,7 +121,7 @@ export function createVercelAIGatewayExecutor({
     const bodyText = resultText(raw);
     if (!bodyText) return failure(['ai-gateway-structured-output-missing'], 'UNCERTAIN', { uncertain: true, providerRequestId, usage: metered });
     let result;
-    try { result = JSON.parse(bodyText); } catch (error) { return failure(['ai-gateway-structured-output-json-invalid'], 'UNCERTAIN', { uncertain: true, providerRequestId, usage: metered, detail: text(error?.message, 500) }); }
+    try { result = JSON.parse(bodyText); } catch (error) { return failure(['ai-gateway-structured-output-json-invalid'], 'UNCERTAIN', { uncertain: true, providerRequestId, usage: metered, detail: safeDetail(error) }); }
     return {
       ok: true, outcome: 'COMPLETED', providerRequestId, providerStatus: text(raw?.choices?.[0]?.finish_reason, 80) || 'stop',
       model: text(raw?.model, 160) || null, identityVerification: raw?.model ? 'OBSERVED' : 'UNVERIFIED', usage: metered,

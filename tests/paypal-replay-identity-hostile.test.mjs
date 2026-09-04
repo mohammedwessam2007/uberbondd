@@ -170,6 +170,17 @@ async function postWebhook(store, paypal, event) {
   return res.json();
 }
 
+async function onePayment(eventId = 'WH-STABLE') {
+  const store = new MemoryStore();
+  await store.add('leads', { id: 'lead-1', prospectId: 'prospect-1' });
+  const paypal = provider({ orderId: 'ORDER-A', captureId: 'CAPTURE-A' });
+  await prepareAndCapture(store, paypal, 'stable-attempt', new Date('2026-09-04T18:00:00.000Z'));
+  const event = completionEvent(paypal, eventId);
+  const first = await postWebhook(store, paypal, event);
+  assert.equal(first.ok, true);
+  return { store, paypal, event, first };
+}
+
 test('same PayPal webhook event id cannot certify a different capture/order even when economics and lead match', async () => {
   const store = new MemoryStore();
   await store.add('leads', { id: 'lead-1', prospectId: 'prospect-1' });
@@ -188,12 +199,30 @@ test('same PayPal webhook event id cannot certify a different capture/order even
   assert.equal(second.ok, false,
     'one provider occurrence id was allowed to authenticate a different provider object');
   assert.equal(second.status, 'REVIEW_REQUIRED');
-  assert.ok(
-    (second.reasonCodes || []).some(code => /duplicate|contradiction|identity|triad|provider/i.test(code)),
-    `expected a replay/identity contradiction, got ${JSON.stringify(second.reasonCodes)}`
-  );
-  assert.equal((await store.list('revenueEvents')).length, 1,
-    'contradictory replay created another revenue witness');
-  assert.equal((await store.list('orders')).filter(row => row.eventName === 'order_created').length, 1,
-    'contradictory replay created another cleared-payment order witness');
+  assert.ok((second.reasonCodes || []).some(code => /duplicate|contradiction|identity|triad|provider/i.test(code)));
+  assert.equal((await store.list('revenueEvents')).length, 1);
+  assert.equal((await store.list('orders')).filter(row => row.eventName === 'order_created').length, 1);
+});
+
+test('identical PayPal webhook replay is idempotent only when the complete witness triad still agrees', async () => {
+  const { store, paypal, event } = await onePayment('WH-IDEMPOTENT');
+  const replay = await postWebhook(store, paypal, event);
+  assert.equal(replay.ok, true);
+  assert.equal(replay.status, 'PAYPAL_PAYMENT_ALREADY_RECONCILED');
+  assert.equal((await store.list('revenueEvents')).length, 1);
+  assert.equal((await store.list('auditLog')).filter(row => row.type === 'payment_classification').length, 1);
+  assert.equal((await store.list('orders')).filter(row => row.eventName === 'order_created').length, 1);
+});
+
+test('partial durable PayPal witness triad fails closed on replay instead of acknowledging cleared payment', async () => {
+  const { store, paypal, event } = await onePayment('WH-PARTIAL-TRIAD');
+  store.db.auditLog = store.db.auditLog.filter(row => row.type !== 'payment_classification');
+  store.db.revenueEvents = [];
+
+  const replay = await postWebhook(store, paypal, event);
+  assert.equal(replay.ok, false);
+  assert.equal(replay.status, 'REVIEW_REQUIRED');
+  assert.ok(replay.reasonCodes.includes('paypal-canonical-witness-triad-incomplete-or-duplicated'));
+  assert.equal((await store.list('orders')).filter(row => row.eventName === 'order_created').length, 1);
+  assert.equal((await store.list('revenueEvents')).length, 0);
 });

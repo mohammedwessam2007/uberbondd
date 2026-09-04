@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "uberbond.avengers-proof-boundary.v1",
+  "generatedAt": "2026-09-04T01:33:00Z",
+  "claimsAllowed": [
+    "Avengers runtime code exists on the integration branch",
+    "multi-profile roster, doctor, planner, tick and focused tests are implemented",
+    "planner is wired to UberBond's canonical model router",
+    "current code preserves businessEffectAuthority NONE"
+  ],
+  "claimsNotYetAllowed": [
+    "the full repository is green on this branch",
+    "the owner's machine currently exposes any specific local model",
+    "any discovered local model is production-approved",
+    "Claude issue #351 has executed unless a durable Claude receipt appears",
+    "Avengers produced revenue or customer effects"
+  ],
+  "mergeGate": "exact-head focused Avengers execution plus appropriate broader trustworthy gates; infrastructure non-evidence is not source failure and is not green",
+  "businessEffectAuthority": "NONE"
+}

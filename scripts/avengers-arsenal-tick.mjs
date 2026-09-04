@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { executeAvengersPlan } from '../src/avengers-arsenal.mjs';
+import { executeCanonicallyVerifiedAvengersPlan } from '../src/avengers-execution-guard.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -22,8 +22,9 @@ function readJson(file) { return JSON.parse(fs.readFileSync(file, 'utf8')); }
 
 export async function runTick({ readiness, plan, fetchImpl = globalThis.fetch, secretResolver = name => process.env[name] || '', maxTokensPerNode = 2000, costCeilingCentsPerNode = 100, date = new Date() } = {}) {
   if (!readiness?.resolvedRegistry) return { ok: false, status: 'AVENGERS_EXECUTION_BLOCKED', reasonCodes: ['doctor-resolved-registry-required'] };
-  return executeAvengersPlan({
+  return executeCanonicallyVerifiedAvengersPlan({
     registry: readiness.resolvedRegistry,
+    readiness,
     plan,
     fetchImpl,
     secretResolver,
@@ -47,6 +48,7 @@ async function main() {
       missionId: plan?.mission?.id || null,
       callableModelCount: readiness.callableModelCount ?? 0,
       assignments: plan?.assignments || [],
+      routingPolicy: plan?.routing?.policy || null,
       providerCalls: 0,
       businessEffectAuthority: 'NONE'
     }, null, 2));

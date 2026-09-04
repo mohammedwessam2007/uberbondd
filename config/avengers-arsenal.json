@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "uberbond.avengers-arsenal-registry.v1",
+  "profiles": [],
+  "tools": [],
+  "notes": [
+    "Model profiles are intentionally empty in repository canon until a concrete runtime/model/revision/rights/pricing tuple is observed and approved.",
+    "Use AVENGERS_MODEL_PROFILES_JSON or a protected local registry file to add runtime profiles without storing credentials.",
+    "External capability tools are merged by scripts/avengers-arsenal-doctor.mjs from artifacts/external-skill-plugin-registry.json.",
+    "Discovery never creates activation. No model is downloaded or arbitrary model code executed by this registry."
+  ]
+}

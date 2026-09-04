@@ -1,0 +1,56 @@
+{
+  "id": "avengers-default-engineering-cycle",
+  "objective": "Use the best currently callable, evidence-backed UberBond squad to research one bounded engineering question, implement or prepare the smallest justified change, independently review it, and adjudicate the result without external business effects.",
+  "dataClass": "SOURCE_CODE",
+  "consequenceClass": "LOCAL_PREPARATION",
+  "nodes": [
+    {
+      "id": "research",
+      "purpose": "Inspect the evidence and identify the smallest justified implementation path.",
+      "taskClass": "research",
+      "role": "researcher",
+      "dependencies": [],
+      "toolIds": ["find-skills", "fable-orchestrator"],
+      "acceptanceTests": [
+        "recommendation is evidence-bound",
+        "no external action is claimed"
+      ]
+    },
+    {
+      "id": "build",
+      "purpose": "Produce the bounded implementation or preparation result using the research output.",
+      "taskClass": "coding",
+      "role": "builder",
+      "dependencies": ["research"],
+      "toolIds": ["superpowers"],
+      "acceptanceTests": [
+        "result directly addresses the bounded objective",
+        "authority remains LOCAL_PREPARATION or lower"
+      ]
+    },
+    {
+      "id": "review",
+      "purpose": "Independently attack the implementation for correctness, evidence gaps, security regressions, and unsupported claims.",
+      "taskClass": "review",
+      "role": "verifier",
+      "dependencies": ["build"],
+      "toolIds": ["superpowers"],
+      "acceptanceTests": [
+        "review names causal defects or states no defect found",
+        "review does not manufacture green evidence"
+      ]
+    },
+    {
+      "id": "adjudicate",
+      "purpose": "Reconcile research, implementation, and review into a final bounded decision and next action.",
+      "taskClass": "strategy",
+      "role": "adjudicator",
+      "dependencies": ["research", "build", "review"],
+      "toolIds": ["fable-orchestrator", "metaswarm"],
+      "acceptanceTests": [
+        "decision cites the prior node evidence",
+        "remaining uncertainty stays explicit"
+      ]
+    }
+  ]
+}

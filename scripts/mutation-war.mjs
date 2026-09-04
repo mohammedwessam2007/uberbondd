@@ -504,6 +504,25 @@ export const MUTATIONS = [
     suites: ['tests/mutation-journal-integrity.test.mjs']
   },
   {
+    id: 'AVENGERS-INPUT-01', guard: 'A missing arsenal artifact names the step that has not run, not a crash',
+    file: 'src/avengers-artifact-input.mjs',
+    find: "    if (error?.code === 'ENOENT') {",
+    replace: '    if (false) {',
+    suites: ['tests/avengers-artifact-input.test.mjs']
+  },
+  {
+    // Anchored on the refusal, not on the parse. The first attempt mutated
+    // `JSON.parse(text)` to `JSON.parse(text) || {}`, which changes no output
+    // for any valid object and so survived every test -- unfalsifiable rather
+    // than untested. This is the branch that decides whether a half-written
+    // artifact reaches the caller.
+    id: 'AVENGERS-INPUT-02', guard: 'A half-written arsenal artifact is refused rather than partly believed',
+    file: 'src/avengers-artifact-input.mjs',
+    find: "      status: `AVENGERS_${kind}_MALFORMED`,",
+    replace: '      ok: true,',
+    suites: ['tests/avengers-artifact-input.test.mjs']
+  },
+  {
     id: 'BROWSER-01', guard: 'A declared browser path that is not an executable is not a browser',
     file: 'src/resolve-chromium.mjs',
     find: "  if (declared) return isExecutableFile(declared) ? declared : '';",

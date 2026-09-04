@@ -1,0 +1,6 @@
+{
+  "schemaVersion": "uberbond.avengers-branch-head.v1",
+  "branch": "gpt/avengers-arsenal-runtime-20260904",
+  "purpose": "Marker artifact for overnight exact-head verification. Live Git truth outranks this file if the branch advances after it is written.",
+  "businessEffectAuthority": "NONE"
+}

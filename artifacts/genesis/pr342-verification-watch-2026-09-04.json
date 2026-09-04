@@ -1,13 +1,12 @@
 {
   "schema": "uberbond.pr342-verification-watch.v1",
   "pr": 342,
-  "observedAt": "2026-09-04T01:48:00Z",
-  "preTriggerHead": "dfc11f2dcb1bba1082a74a053809415e3b821754",
+  "observedAt": "2026-09-04T02:16:00Z",
+  "preTriggerHead": "f8d7a3648b7bac363c67e840222106b842656e38",
   "currentMainAtObservation": "bc50a54302069cf1901a0d8962a1d152abf50108",
   "github": {
-    "exactHeadWorkflowRunIds": [33819308093, 33819308072, 33819308094],
     "classification": "INFRASTRUCTURE_NON_EVIDENCE",
-    "reason": "All observed exact-head jobs completed as failure with steps=null and no job logs."
+    "reason": "No usable exact-head workflow run was available at observation time; prior observed exact-head jobs had steps=null and no logs."
   },
   "vercel": {
     "runnerAvailableNow": true,
@@ -26,12 +25,11 @@
         "reachability static source-count assertion",
         "brain bootstrap initiative-count assertions"
       ],
-      "note": "The current PR head is 25 commits ahead and contains source repairs for these classes; this is not an exact-head green claim."
-    }
+      "note": "Later PR342 commits contain repairs for these failure classes; this receipt does not claim they pass until a real exact-head run proves it."
+    },
+    "triggerIntent": "This commit exists only to cause the Git-integrated full uberbondd Vercel project to execute npm run check:syntax && npm run test:deterministic on the resulting exact PR head. Packaging-only lite previews remain non-evidence."
   },
   "branchState": {
-    "aheadOfMainByCommits": 113,
-    "behindMainByCommits": 21,
     "status": "DIVERGED",
     "mergeabilityAtObservation": false,
     "exactHeadGreenClaimAllowed": false
@@ -42,5 +40,5 @@
     "acceptedPaidDeliveries": 0,
     "retainedCustomers": 0
   },
-  "purpose": "Truthful verification receipt and Git/Vercel trigger. This file does not claim test success, commercial proof, or authority. The resulting commit must itself be treated as the new exact PR head and verified before merge."
+  "purpose": "Truthful verification retrigger receipt. This file does not claim test success, commercial proof, or authority. The resulting commit is the new exact PR head and must itself be verified before merge."
 }

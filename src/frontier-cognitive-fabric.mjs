@@ -4,8 +4,9 @@ import { normalizeModelCandidate, normalizeModelBenchmark, routeModel } from './
 import { validateOrchestrationGraph } from './orchestration-frontier.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
+import { validateFrontierCallabilityProbeReceipt } from './frontier-callability-provenance.mjs';
 
-export const FRONTIER_COGNITIVE_FABRIC_VERSION = 'uberbond.frontier-cognitive-fabric-1.1.2';
+export const FRONTIER_COGNITIVE_FABRIC_VERSION = 'uberbond.frontier-cognitive-fabric-1.2.0';
 export const FRONTIER_COGNITIVE_PLAN_SCHEMA = 'uberbond.frontier-cognitive-plan.v1';
 export const FRONTIER_COGNITIVE_RECEIPT_SCHEMA = 'uberbond.frontier-cognitive-receipt.v1';
 export const FRONTIER_REASONING_TIERS = Object.freeze(['FAST', 'STANDARD', 'DEEP', 'FRONTIER_MAX', 'COUNCIL_MAX']);
@@ -147,7 +148,22 @@ function normalizeProfile(raw = {}, index = 0) {
   };
 }
 
-function normalizeCallability(raw = {}, profileMap, now, maxAgeMs) {
+function probeMatches(raw, probe) {
+  if (!raw || !probe) return false;
+  return text(raw.profileId, 120)?.toLowerCase() === probe.profileId
+    && text(raw.status, 80)?.toUpperCase() === probe.status
+    && text(raw.observedProvider, 80)?.toLowerCase() === probe.observedProvider
+    && text(raw.observedModel, 120) === probe.observedModel
+    && text(raw.observedRevision, 240) === probe.observedRevision
+    && text(raw.observedTransportProvider, 80)?.toLowerCase() === probe.observedTransportProvider
+    && text(raw.observedTransportModel, 160) === probe.observedTransportModel
+    && timestamp(raw.observedAt) === probe.observedAt
+    && text(raw.sourceRef, 1000) === probe.sourceRef
+    && text(raw.evidenceClass, 80)?.toUpperCase() === probe.evidenceClass
+    && text(raw.identityVerification, 80)?.toUpperCase() === probe.identityVerification;
+}
+
+function normalizeCallability(raw = {}, profileMap, now, maxAgeMs, trustedProbeByProfileId = new Map()) {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
   const profileId = text(raw.profileId, 120)?.toLowerCase();
   const profile = profileMap.get(profileId);
@@ -169,10 +185,11 @@ function normalizeCallability(raw = {}, profileMap, now, maxAgeMs) {
     && observedTransportProvider === profile.transportProvider
     && observedTransportModel === profile.transportModel;
   const observedEvidence = klass === 'OBSERVED_RUNTIME' && identityVerification === 'OBSERVED';
+  const provenanceMatches = probeMatches(raw, trustedProbeByProfileId.get(profileId));
   return {
     profileId,
     status: status || 'CONFIGURED_NOT_PROVEN',
-    callableNow: status === 'CALLABLE_NOW' && Boolean(sourceRef) && fresh && identityMatches && observedEvidence,
+    callableNow: status === 'CALLABLE_NOW' && Boolean(sourceRef) && fresh && identityMatches && observedEvidence && provenanceMatches,
     sourceRef,
     observedAt,
     observedProvider,
@@ -182,7 +199,8 @@ function normalizeCallability(raw = {}, profileMap, now, maxAgeMs) {
     observedTransportModel,
     fresh,
     identityMatches,
-    observedEvidence
+    observedEvidence,
+    provenanceMatches
   };
 }
 
@@ -268,6 +286,7 @@ function profileEligibility(profile, task, callability, now, evidenceMaxAgeMs) {
   if (!evidenceFresh(profile.transportVerifiedAt, now, evidenceMaxAgeMs)) reasons.push('transport-evidence-stale');
   if (!callability?.callableNow) {
     if (!callability) reasons.push('callability-evidence-absent');
+    else if (!callability.provenanceMatches) reasons.push('callability-provenance-not-trusted');
     else if (!callability.observedEvidence) reasons.push('callability-not-observed-runtime-evidence');
     else if (!callability.identityMatches) reasons.push('callability-identity-mismatch');
     else reasons.push('callability-evidence-stale-or-incomplete');
@@ -408,6 +427,7 @@ export function compileFrontierCognitivePlan({
   task,
   profiles = [],
   callability = [],
+  callabilityProvenance = null,
   benchmarks = [],
   contextArtifacts = [],
   minimumEvidenceConfidence = 0.6,
@@ -431,6 +451,9 @@ export function compileFrontierCognitivePlan({
   if (allowDegradedCouncil && !text(degradationPolicyRef, 1000)) return failure(['degradation-policy-ref-required'], 'FRONTIER_POLICY_INVALID');
   if (!Array.isArray(profiles) || profiles.length === 0 || profiles.length > MAX_PROFILES) return failure(['bounded-profile-list-required'], 'FRONTIER_PROFILE_SET_INVALID');
 
+  const provenance = validateFrontierCallabilityProbeReceipt(callabilityProvenance ?? {});
+  const trustedProbeByProfileId = provenance.ok ? provenance.observationByProfileId : new Map();
+
   const profileList = [];
   const reasons = [];
   const ids = new Set();
@@ -453,7 +476,7 @@ export function compileFrontierCognitivePlan({
   const profileMap = new Map(profileList.map(profile => [profile.id, profile]));
   const callabilityMap = new Map();
   for (const raw of callability) {
-    const normalized = normalizeCallability(raw, profileMap, current, callabilityAge);
+    const normalized = normalizeCallability(raw, profileMap, current, callabilityAge, trustedProbeByProfileId);
     if (normalized) callabilityMap.set(normalized.profileId, normalized);
   }
   const context = compileContext(normalizedTask.task, contextArtifacts);
@@ -466,7 +489,7 @@ export function compileFrontierCognitivePlan({
     if (eligibility.ok) eligible.push({ profile, eligibility });
     else blocked.push({ profileId: profile.id, reasonCodes: eligibility.reasons });
   }
-  if (!eligible.length) return failure(['no-eligible-callable-frontier-profile'], 'CAPACITY_BLOCKED', { blocked, contextPacket: context.contextPacket });
+  if (!eligible.length) return failure(['no-eligible-callable-frontier-profile'], 'CAPACITY_BLOCKED', { blocked, contextPacket: context.contextPacket, callabilityProvenanceValid: provenance.ok === true });
   const ranked = rankEligible({ eligible, latest, task: normalizedTask.task, minimumEvidenceConfidence: confidence, frontierQualityDelta: qualityDelta, random });
   if (!ranked.ok) return { ...ranked, blocked, contextPacket: context.contextPacket };
 
@@ -476,6 +499,7 @@ export function compileFrontierCognitivePlan({
     task: normalizedTask.task,
     contextPacket: context.contextPacket,
     blockedProfiles: blocked,
+    callabilityProvenanceDigest: provenance.ok ? provenance.receiptDigest : null,
     candidateEvidence: ranked.ranked.map(item => ({
       profileId: item.profile.id,
       provider: item.profile.provider,
@@ -507,14 +531,10 @@ export function compileFrontierCognitivePlan({
       responderProviders.add(candidate.profile.provider);
     }
   }
-  if (responders.length < normalizedTask.task.minCouncilSize) {
-    return failure(['council-minimum-cardinality-unavailable'], 'CAPACITY_BLOCKED', { available: responders.length, required: normalizedTask.task.minCouncilSize, blocked, contextPacket: context.contextPacket });
-  }
+  if (responders.length < normalizedTask.task.minCouncilSize) return failure(['council-minimum-cardinality-unavailable'], 'CAPACITY_BLOCKED', { available: responders.length, required: normalizedTask.task.minCouncilSize, blocked, contextPacket: context.contextPacket });
   const providerDiversity = new Set(responders.map(item => item.profile.provider)).size;
   const diversityDegraded = providerDiversity < 2;
-  if (diversityDegraded && !allowDegradedCouncil) {
-    return failure(['council-provider-diversity-unavailable'], 'CAPACITY_BLOCKED', { responderProfiles: responders.map(item => item.profile.id), providerDiversity, blocked, contextPacket: context.contextPacket });
-  }
+  if (diversityDegraded && !allowDegradedCouncil) return failure(['council-provider-diversity-unavailable'], 'CAPACITY_BLOCKED', { responderProfiles: responders.map(item => item.profile.id), providerDiversity, blocked, contextPacket: context.contextPacket });
 
   const responderIds = new Set(responders.map(item => item.profile.id));
   let adjudicator = ranked.ranked.find(item => !responderIds.has(item.profile.id)) ?? null;
@@ -591,21 +611,7 @@ export function buildFrontierCognitiveReceipt({ planResult, executions = [], con
     const latencyMs = integer(raw?.latencyMs ?? 0, 0, 86_400_000);
     const costCents = integer(raw?.costCents ?? 0, 0, 100_000_000);
     if (latencyMs == null || costCents == null) reasons.push(`valid-latency-cost-required:${profileId}`);
-    normalizedExecutions.push({
-      profileId,
-      ok: raw?.ok === true,
-      observedProvider,
-      observedModel,
-      observedRevision,
-      observedTransportProvider,
-      observedTransportModel,
-      identityVerification,
-      appliedReasoningSettingRef,
-      latencyMs,
-      costCents,
-      resultRef,
-      claims
-    });
+    normalizedExecutions.push({ profileId, ok: raw?.ok === true, observedProvider, observedModel, observedRevision, observedTransportProvider, observedTransportModel, identityVerification, appliedReasoningSettingRef, latencyMs, costCents, resultRef, claims });
   }
 
   for (const profileId of expected.keys()) if (!seen.has(profileId)) reasons.push(`missing-execution-profile:${profileId}`);

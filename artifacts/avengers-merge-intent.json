@@ -1,0 +1,7 @@
+{
+  "schemaVersion": "uberbond.avengers-merge-intent.v1",
+  "branch": "gpt/avengers-arsenal-runtime-20260904",
+  "target": "main",
+  "policy": "merge only after exact-head focused Avengers evidence and appropriate broader gates; no test weakening",
+  "businessEffectAuthority": "NONE"
+}

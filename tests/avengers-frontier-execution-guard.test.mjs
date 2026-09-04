@@ -134,7 +134,7 @@ test('even a branded synthetic simulation factory cannot be paired with injected
   assert.ok(out.reasonCodes.includes('synthetic-frontier-execution-prohibits-network-transport-injection'));
 });
 
-test('COUNCIL_MAX executes independent responders, critique and distinct adjudication with one shared zero-effect budget', async () => {
+test('COUNCIL_MAX executes sealed first passes, responder cross-critiques and distinct adjudication under one shared budget', async () => {
   const profiles = [
     profile({ id: 'google', provider: 'google', model: 'gemini-frontier', quality: 0.99 }),
     profile({ id: 'openai', provider: 'openai', model: 'gpt-frontier', quality: 0.98 }),
@@ -145,7 +145,8 @@ test('COUNCIL_MAX executes independent responders, critique and distinct adjudic
     responses: [
       { taskId: 'avengers-frontier-guard:independent-google', model: 'google/gemini-frontier', costCents: 7, result: { answer: 'independent-google' } },
       { taskId: 'avengers-frontier-guard:independent-openai', model: 'openai/gpt-frontier', costCents: 7, result: { answer: 'independent-openai' } },
-      { taskId: 'avengers-frontier-guard:cross-critique', model: 'anthropic/claude-frontier', costCents: 6, result: { contradictions: ['bounded contradiction'] } },
+      { taskId: 'avengers-frontier-guard:cross-critique-google', model: 'google/gemini-frontier', costCents: 6, result: { contradictions: ['google contradiction'] } },
+      { taskId: 'avengers-frontier-guard:cross-critique-openai', model: 'openai/gpt-frontier', costCents: 6, result: { contradictions: ['openai contradiction'] } },
       { taskId: 'avengers-frontier-guard:independent-adjudication', model: 'anthropic/claude-frontier', costCents: 5, result: { decision: 'bounded-synthesis', unresolved: ['bounded uncertainty'] } }
     ]
   });
@@ -156,14 +157,19 @@ test('COUNCIL_MAX executes independent responders, critique and distinct adjudic
   assert.equal(out.ok, true);
   assert.equal(out.status, 'FRONTIER_COUNCIL_AVENGERS_EXECUTION_COMPLETE');
   assert.equal(out.simulationOnly, true);
-  assert.equal(out.executionCount, 4);
+  assert.equal(out.executionCount, 5);
   assert.equal(out.providerCalls, 0);
   assert.equal(out.receipt.mode, 'COUNCIL_MAX');
-  assert.equal(out.receipt.executions.length, 3);
+  assert.equal(out.receipt.executions.length, 3); // 2 sealed first passes + 1 distinct adjudicator; critiques remain process evidence.
+  assert.equal(out.critiqueExecutions?.length ?? out.receipt.crossCritiqueProfiles?.length, 2);
+  assert.deepEqual(new Set(out.receipt.crossCritiqueProfiles), new Set(['google', 'openai']));
+  assert.deepEqual(new Set(out.receipt.contradictions), new Set(['google contradiction', 'openai contradiction']));
   assert.equal(out.receipt.adjudication.decisionBasis, 'EVIDENCE_WEIGHTED');
+  assert.equal(out.receipt.adjudication.adjudicatorProfileId, 'anthropic');
   assert.equal(out.receipt.adjudication.independentFromResponders, true);
   assert.equal(out.receipt.councilBudgetCents, 100);
-  assert.equal(out.receipt.councilSpentCents, 25);
-  assert.equal(out.spentCents, 25);
+  assert.equal(out.receipt.councilSpentCents, 31);
+  assert.equal(out.spentCents, 31);
   assert.match(out.processVerifierRef, /^frontier-process-proof:\/\/[a-f0-9]{64}$/);
+  assert.equal(out.receipt.semanticClaimAuthority, 'NONE');
 });

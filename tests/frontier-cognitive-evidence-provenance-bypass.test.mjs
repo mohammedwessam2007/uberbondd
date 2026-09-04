@@ -60,11 +60,9 @@ test('caller-authored source labels and CALLABLE_NOW-shaped objects cannot manuf
     source: { kind: 'RUNTIME_PROBE_LEDGER', ref: 'proof://caller-typed-string', observedAt: FRESH }
   });
 
-  // A caller can describe evidence, but description is not provenance. Admission
-  // may validate harmless profile/benchmark structure, but it must not promote
-  // this caller-shaped object into callable runtime truth.
   assert.equal(result.ok, true);
   assert.equal(result.bundle.callability.length, 0);
   assert.equal(result.bundle.rejectedCallability.length, 1);
   assert.match(result.bundle.rejectedCallability[0].reason, /trusted|canonical|provenance|producer|receipt/i);
+  assert.equal(result.bundle.callabilityProvenance.receiptDigest, null);
 });

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { normalizeModelBenchmark } from '../src/agent-model-router.mjs';
-import { compileFrontierCognitivePlan } from '../src/frontier-cognitive-fabric.mjs';
+import { buildFrontierAdmissionBundle, compileAdmittedFrontierPlan } from '../src/frontier-cognitive-admission.mjs';
 
 const NOW = new Date('2026-09-04T20:00:00.000Z');
 const FRESH = '2026-09-04T19:00:00.000Z';
@@ -56,6 +56,24 @@ function callability(p) {
   };
 }
 
+function benchmark(p, quality = 0.99) {
+  const out = normalizeModelBenchmark({
+    provider: p.provider,
+    model: p.model,
+    taskClasses: p.taskClasses,
+    taskClass: 'general',
+    quality,
+    reliability: 0.99,
+    latencyScore: 0.9,
+    economicImpact: 0.9,
+    evidenceConfidence: 0.99,
+    costEfficiency: 0.7
+  }, new Date(FRESH));
+  out.observedRevision = p.revision;
+  out.evidenceRef = `benchmark://${p.id}`;
+  return out;
+}
+
 function contextArtifacts() {
   return [{
     id: 'constitution', kind: 'CONSTITUTION', contentRef: 'repo://constitution',
@@ -71,31 +89,46 @@ function task() {
   };
 }
 
+function admitted({ profiles, callability: calls, benchmarks }) {
+  return buildFrontierAdmissionBundle({
+    profiles,
+    callability: calls,
+    benchmarks,
+    contextArtifacts: contextArtifacts(),
+    source: { kind: 'RUNTIME_PROBE_LEDGER', ref: 'proof://revision-binding-fixture', observedAt: FRESH }
+  });
+}
+
 test('FRONTIER_MAX refuses a benchmark whose evidence belongs to another revision of the same provider/model identity', () => {
   const old = profile('rev-old');
   const current = profile('rev-current');
-  const oldBenchmark = normalizeModelBenchmark({
-    provider: old.provider,
-    model: old.model,
-    taskClasses: old.taskClasses,
-    taskClass: 'general',
-    quality: 0.99,
-    reliability: 0.99,
-    latencyScore: 0.9,
-    economicImpact: 0.9,
-    evidenceConfidence: 0.99,
-    costEfficiency: 0.7,
-    observedRevision: old.revision
-  }, new Date(FRESH));
-  // Frontier evidence must carry revision identity outside the legacy router's provider/model candidate id.
-  oldBenchmark.observedRevision = old.revision;
+  const admission = admitted({ profiles: [current], callability: [callability(current)], benchmarks: [benchmark(old)] });
+  assert.equal(admission.ok, true);
+  assert.equal(admission.bundle.benchmarks.length, 0);
+  assert.equal(admission.bundle.rejectedBenchmarks.length, 1);
 
-  const out = compileFrontierCognitivePlan({
-    task: task(), profiles: [current], callability: [callability(current)], benchmarks: [oldBenchmark],
-    contextArtifacts: contextArtifacts(), now: NOW
-  });
-
+  const out = compileAdmittedFrontierPlan({ task: task(), admissionBundle: admission.bundle, now: NOW });
   assert.equal(out.ok, false);
   assert.equal(out.status, 'CAPACITY_BLOCKED');
   assert.ok(out.reasonCodes.includes('frontier-tier-requires-fresh-quality-evidence'));
+});
+
+test('FRONTIER_MAX admits a fresh benchmark only when provider model and exact revision all match', () => {
+  const current = profile('rev-current');
+  const admission = admitted({ profiles: [current], callability: [callability(current)], benchmarks: [benchmark(current)] });
+  assert.equal(admission.ok, true);
+  assert.equal(admission.bundle.benchmarks.length, 1);
+  const out = compileAdmittedFrontierPlan({ task: task(), admissionBundle: admission.bundle, now: NOW });
+  assert.equal(out.ok, true);
+  assert.equal(out.plan.selected.revision, 'rev-current');
+  assert.match(out.admissionDigest, /^[a-f0-9]{64}$/);
+});
+
+test('same provider/model at two revisions cannot enter one admission bundle until the lower router becomes revision-native', () => {
+  const old = profile('rev-old');
+  const current = profile('rev-current');
+  const admission = admitted({ profiles: [old, current], callability: [callability(old), callability(current)], benchmarks: [benchmark(old), benchmark(current)] });
+  assert.equal(admission.ok, false);
+  assert.equal(admission.status, 'FRONTIER_ADMISSION_PROFILE_INVALID');
+  assert.ok(admission.reasonCodes.includes('ambiguous-provider-model-multi-revision-profile-set:openai:same-marketing-name'));
 });

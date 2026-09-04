@@ -762,6 +762,14 @@ export const MUTATIONS = [
     suites: ['tests/billing-backlog-postgres-real.test.mjs']
   },
   {
+    id: 'RECOVERY-LOCK-01', guard: 'Two recovery workers partition the unresolved set instead of racing on the same row',
+    file: 'src/omnia-v9/integrations/external-effect-execution-store.mjs',
+    find: '       FOR UPDATE SKIP LOCKED`,',
+    replace: '       `,',
+    needsPostgres: true,
+    suites: ['tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs']
+  },
+  {
     id: 'MONEY-17', guard: 'A duplicate webhook is a duplicate, not a 503',
     file: 'src/billing-webhook-repository.mjs',
     find: 'ON CONFLICT DO NOTHING RETURNING provider_event_key',

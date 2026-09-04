@@ -155,8 +155,37 @@ test('Gmail adapter: zero search matches remain uncertain and never free the bus
   } finally { await pool.end(); }
 });
 
-test('Gmail adapter: two concurrent recovery workers on the same stuck Gmail-bound execution converge on exactly one outcome', { skip: !realPostgresUrl }, async () => {
+test('Gmail adapter: a second recovery worker cannot claim an execution the first is holding', { skip: !realPostgresUrl }, async () => {
+  // This used to start two workers with Promise.all and assert that exactly one
+  // of them claimed the row. That is not a test of the locking primitive, it is
+  // a test of whether the two transactions happened to overlap -- and on a fast
+  // disposable database they stopped overlapping, so both workers claimed the
+  // row and the assertion failed.
+  //
+  // Both claims were legitimate. RESULT_UNCERTAIN is itself an unresolved
+  // status, so once the first worker has committed the row back to
+  // RESULT_UNCERTAIN it is a valid candidate again. Nothing was double-dispatched
+  // -- the adapter call count below is the invariant that actually matters --
+  // but "exactly one worker claims it" was never true of sequential runs, and a
+  // concurrency test that depends on losing a race proves nothing on the days it
+  // wins one.
+  //
+  // So the overlap is made real instead of hoped for: the first worker's
+  // transaction is held open, and the second must find nothing to claim while it
+  // is. That is FOR UPDATE SKIP LOCKED being tested rather than assumed.
+  // lock_timeout, so that a regression fails instead of hanging.
+  //
+  // The second worker below must find nothing to claim. If FOR UPDATE SKIP
+  // LOCKED were ever dropped from the claim query it would instead wait on the
+  // held row -- forever, since the holder waits for it -- and the suite would
+  // stall rather than report. Verified in both directions: with SKIP LOCKED
+  // removed this test fails on the timeout; with it present nothing waits.
   const pool = new Pool({ connectionString: realPostgresUrl, max: 10 });
+  // Set per connection rather than through the `options` connection parameter,
+  // which was tried first and silently did nothing: the suite still stalled with
+  // SKIP LOCKED removed instead of failing. A timeout that is not actually in
+  // force is worse than none, because it looks like protection.
+  pool.on('connect', client => { client.query("SET lock_timeout = '5s'; SET statement_timeout = '15s'").catch(() => {}); });
   try {
     await migrateReal(pool);
     const store = new ExternalEffectExecutionStore({ pool });
@@ -166,25 +195,55 @@ test('Gmail adapter: two concurrent recovery workers on the same stuck Gmail-bou
     const id = `gmail-race-${suffix()}`;
     const intent = baseIntent({ id });
     await dispatchAuthorized({ store, evidenceStore, adapter, effectIntent: intent });
-
-    const workerA = makeAdapter(transport);
-    const workerB = makeAdapter(transport);
-    // A generous limit (not just enough for this one row) keeps this assertion robust
-    // against unrelated unresolved rows a long-lived local database may carry from other
-    // tests/dev iterations -- a disposable per-run database (the CI/final-regression
-    // convention for this suite) would never have this pollution; see the identical
-    // reasoning in tests/omnia-v9-external-effect-crash-recovery.test.mjs's batch-worker test.
-    const [resultsA, resultsB] = await Promise.all([
-      recoverUnresolvedExecutions({ store, adapter: workerA, limit: 1000 }),
-      recoverUnresolvedExecutions({ store, adapter: workerB, limit: 1000 })
-    ]);
     const executionId = `exec-${id}`;
-    const claimedByA = resultsA.some(r => r.executionId === executionId);
-    const claimedByB = resultsB.some(r => r.executionId === executionId);
-    assert.equal(claimedByA !== claimedByB, true, 'exactly one worker claims this Gmail-bound execution, never both, never neither');
+
+    const unresolved = ['PREPARED', 'DISPATCHING', 'RESULT_UNCERTAIN', 'RECONCILING'];
+    let signalClaimed;
+    const claimTaken = new Promise(resolve => { signalClaimed = resolve; });
+    let releaseHolder;
+    const holderMayFinish = new Promise(resolve => { releaseHolder = resolve; });
+
+    const holder = store.withTransaction(async scopedStore => {
+      const claimed = await scopedStore.claimUnresolvedForRecovery({ statuses: unresolved, limit: 1000 });
+      signalClaimed(claimed.map(row => row.executionId));
+      // The lock lives until this transaction commits, which is what the second
+      // worker below has to run into.
+      await holderMayFinish;
+      return claimed;
+    });
+
+    const heldIds = await claimTaken;
+    assert.ok(heldIds.includes(executionId), 'the first worker did not claim the execution it was supposed to hold');
+
+    const workerB = makeAdapter(transport);
+    let resultsB;
+    try {
+      resultsB = await recoverUnresolvedExecutions({ store, adapter: workerB, limit: 1000 });
+    } finally {
+      // Released here, not after the assertion.
+      //
+      // The holder's transaction is parked on this promise, and pool.end() in
+      // the outer finally waits for that client. So anything that leaves the
+      // holder parked -- a failed assertion, or the second worker erroring
+      // because it waited on a lock it should have skipped -- deadlocks the
+      // cleanup and the suite stalls instead of reporting. That is exactly what
+      // happened while proving this test can fail.
+      releaseHolder();
+      await holder.catch(() => { /* the assertion below is the finding, not this */ });
+    }
+
+    assert.equal(resultsB.some(row => row.executionId === executionId), false,
+      'a second worker claimed a row the first was still holding -- FOR UPDATE SKIP LOCKED is not partitioning the unresolved set');
 
     const finalExecution = await store.getById(executionId);
     assert.equal(finalExecution.status, 'RESULT_UNCERTAIN');
-    assert.equal(workerA.dispatchCallCount + workerB.dispatchCallCount, 0, 'no recovery worker ever calls Gmail send');
+    // The invariant the whole test exists for. Whatever a worker claims, a
+    // recovery sweep must never send anything.
+    //
+    // Counted on the recovery worker only. `adapter` above performed the
+    // original authorized dispatch, so its count is 1 by design, and folding it
+    // in would make this assertion pass or fail for the wrong reason.
+    assert.equal(workerB.dispatchCallCount, 0, 'a recovery worker called Gmail send');
+    assert.equal(adapter.dispatchCallCount, 1, 'the original authorized dispatch should have happened exactly once');
   } finally { await pool.end(); }
 });

@@ -2,9 +2,9 @@
 // Operator surface for UberBond's already-existing bounded self-improvement wave.
 //
 // This file deliberately creates no new autonomy engine. It composes the
-// canonical self-upgrade proposal, agent-evolution wave and relay-adapter
-// factory. Default mode is a zero-I/O doctor. `--execute` may perform exactly
-// the one bounded LOCAL_PREPARATION relay cycle already enforced by
+// canonical self-upgrade proposal, agent-evolution wave and existing relay
+// transports. Default mode is a zero-I/O doctor. `--execute` may perform
+// exactly the one bounded LOCAL_PREPARATION relay cycle already enforced by
 // runBoundedAgentEvolutionWave; it never grants promotion authority.
 
 import { compileUpgradeProposal } from '../src/self-upgrade.mjs';
@@ -16,8 +16,12 @@ import {
   createRelayAdapterFactory,
   describeRelayReadiness
 } from '../src/agent-relay-adapter-factory.mjs';
+import {
+  createGithubIssuesRelayClient,
+  describeGithubIssuesRelayReadiness
+} from '../src/github-issues-relay-client.mjs';
 
-export const AGENT_EVOLUTION_OPERATOR_POLICY_VERSION = 'agent-evolution-operator-1.0.0';
+export const AGENT_EVOLUTION_OPERATOR_POLICY_VERSION = 'agent-evolution-operator-1.1.0';
 
 const ZERO = Object.freeze({
   providerCalls: 0,
@@ -40,6 +44,7 @@ function buildProposal(date) {
     problem: 'Prove the bounded UberBond self-improvement relay and independent-review path without production or business effects.',
     evidenceRefs: [
       'src:agent-evolution-wave',
+      'src:github-issues-relay-client',
       'src:agent-relay-adapter-factory',
       'docs:LIVE_BRIDGE_HANDOFF'
     ],
@@ -75,26 +80,48 @@ export function compileAgentEvolutionOperatorBundle({ date = new Date() } = {}) 
   });
 }
 
+function selectRelayTransport(githubIssues, httpIngress) {
+  if (githubIssues.ready) return 'GITHUB_ISSUES';
+  if (httpIngress.ready) return 'HTTP_INGRESS';
+  return null;
+}
+
 export function describeAgentEvolutionOperator({ env = process.env, date = new Date() } = {}) {
-  const relay = describeRelayReadiness({ env });
+  const githubIssues = describeGithubIssuesRelayReadiness({ env });
+  const httpIngress = describeRelayReadiness({ env });
+  const selectedTransport = selectRelayTransport(githubIssues, httpIngress);
   const bundle = compileAgentEvolutionOperatorBundle({ date });
   const sandboxIsolationAttestationPresent = Boolean(String(env.CLAUDE_CODE_SANDBOX_ISOLATION_FILE || '').trim());
+  const transportBlockers = selectedTransport ? [] : [
+    ...githubIssues.blockers,
+    ...httpIngress.blockers.map(code => `http-ingress:${code}`)
+  ];
   const reasonCodes = [
     ...(bundle?.ok ? [] : (bundle?.reasonCodes || ['operator-bundle-invalid'])),
-    ...(relay.ready ? [] : relay.blockers)
+    ...transportBlockers
   ];
   return {
     ok: bundle?.ok === true,
     policyVersion: AGENT_EVOLUTION_OPERATOR_POLICY_VERSION,
     status: bundle?.ok !== true
       ? 'OPERATOR_INVALID'
-      : relay.ready ? 'READY_FOR_BOUNDED_RELAY' : 'BLOCKED_EXTERNAL_RELAY_CONFIG',
+      : selectedTransport ? 'READY_FOR_BOUNDED_RELAY' : 'BLOCKED_EXTERNAL_RELAY_CONFIG',
     reasonCodes: [...new Set(reasonCodes)],
     relay: {
-      ready: relay.ready,
-      endpointPresent: relay.endpointPresent,
-      credentialPresent: relay.credentialPresent,
-      blockers: relay.blockers
+      ready: Boolean(selectedTransport),
+      selectedTransport,
+      githubIssues: {
+        ready: githubIssues.ready,
+        repositoryPresent: githubIssues.repositoryPresent,
+        credentialPresent: githubIssues.credentialPresent,
+        blockers: githubIssues.blockers
+      },
+      httpIngress: {
+        ready: httpIngress.ready,
+        endpointPresent: httpIngress.endpointPresent,
+        credentialPresent: httpIngress.credentialPresent,
+        blockers: httpIngress.blockers
+      }
     },
     sandbox: {
       isolationAttestationPresent: sandboxIsolationAttestationPresent,
@@ -126,24 +153,29 @@ export async function executeAgentEvolutionOperator({
   if (!doctor.ok) return doctor;
 
   let client = relayClient;
+  let transportUsed = relayClient ? 'INJECTED_TEST_OR_OPERATOR_CLIENT' : doctor.relay.selectedTransport;
   if (!client) {
     if (!doctor.relay.ready) return doctor;
     try {
-      const factory = createRelayAdapterFactory({
-        env,
-        fetchImpl,
-        defaultOriginAgent: 'chatgpt',
-        defaultTargetAgent: 'claude-code'
-      });
-      client = factory({ originAgent: 'chatgpt', targetAgent: 'claude-code' });
-    } catch (error) {
+      if (doctor.relay.selectedTransport === 'GITHUB_ISSUES') {
+        client = createGithubIssuesRelayClient({ env, fetchImpl });
+      } else {
+        const factory = createRelayAdapterFactory({
+          env,
+          fetchImpl,
+          defaultOriginAgent: 'chatgpt',
+          defaultTargetAgent: 'claude-code'
+        });
+        client = factory({ originAgent: 'chatgpt', targetAgent: 'claude-code' });
+      }
+    } catch {
       return {
         ...doctor,
         status: 'BLOCKED_EXTERNAL_RELAY_CONFIG',
         reasonCodes: [...new Set([...doctor.reasonCodes, 'relay-adapter-not-configured'])],
-        errorClass: String(error?.message || '').includes('endpoint')
-          ? 'RELAY_ENDPOINT_CONFIG'
-          : 'RELAY_CREDENTIAL_OR_SHAPE_CONFIG'
+        errorClass: doctor.relay.selectedTransport === 'GITHUB_ISSUES'
+          ? 'GITHUB_ISSUES_RELAY_CONFIG'
+          : 'HTTP_RELAY_CONFIG'
       };
     }
   }
@@ -166,6 +198,7 @@ export async function executeAgentEvolutionOperator({
   return {
     ...result,
     operatorPolicyVersion: AGENT_EVOLUTION_OPERATOR_POLICY_VERSION,
+    transportUsed,
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO },
     completionBoundary: result?.status === 'SHADOW_READY'

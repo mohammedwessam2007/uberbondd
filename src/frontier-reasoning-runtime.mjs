@@ -1,6 +1,6 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const FRONTIER_REASONING_RUNTIME_VERSION = 'uberbond.frontier-reasoning-runtime-1.2.0';
+export const FRONTIER_REASONING_RUNTIME_VERSION = 'uberbond.frontier-reasoning-runtime-1.2.1';
 
 const GATEWAY_EFFORTS = new Set(['none', 'minimal', 'low', 'medium', 'high', 'xhigh']);
 
@@ -164,6 +164,9 @@ export async function executeFrontierMember({
   const end = Number(clock());
   if (!Number.isFinite(end) || end < start) return failure(['valid-runtime-clock-required'], 'FRONTIER_EXECUTION_BLOCKED');
   if (!executorResult?.ok) return failure(executorResult?.reasonCodes ?? ['frontier-executor-failed'], executorResult?.outcome === 'UNCERTAIN' ? 'FRONTIER_EXECUTION_UNCERTAIN' : 'FRONTIER_EXECUTION_FAILED');
+  const reportedCost = integer(executorResult?.usage?.costCents, 0, 100_000_000);
+  if (reportedCost == null) return failure(['metered-cost-required'], 'FRONTIER_EXECUTION_ATTESTATION_BLOCKED');
+  if (reportedCost > costLimit) return failure(['actual-cost-exceeds-frontier-reservation'], 'FRONTIER_EXECUTION_BUDGET_EXCEEDED', { costCeilingCents: costLimit, reportedCostCents: reportedCost });
 
   const latencyMs = Math.round(end - start);
   const attested = attestFrontierExecution({

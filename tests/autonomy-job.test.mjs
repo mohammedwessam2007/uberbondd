@@ -27,6 +27,18 @@ function fakeStore() {
       auditLog.push(row);
       return row;
     },
+    async add(key, row) {
+      assert.equal(key, 'auditLog');
+      if (auditLog.some(existing => existing.id === row.id)) throw new Error('duplicate-audit-row');
+      const stored = structuredClone(row);
+      auditLog.push(stored);
+      return stored;
+    },
+    async get(key, id) {
+      assert.equal(key, 'auditLog');
+      const row = auditLog.find(existing => existing.id === id);
+      return row ? structuredClone(row) : null;
+    },
     async list(key, options = {}) {
       assert.equal(key, 'auditLog');
       let rows = [...auditLog];

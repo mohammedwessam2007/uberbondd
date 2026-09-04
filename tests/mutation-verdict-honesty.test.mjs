@@ -271,3 +271,24 @@ test('a real assertion failure is a kill even when another test in the file hung
   // output at an arbitrary point and nothing in it can be trusted.
   assert.equal(classifySuiteRun({ status: null, output: both, timedOut: true }), 'SUITE_TIMED_OUT');
 });
+
+test('the second attempt is bounded to hangs, and its verdict is final', () => {
+  // A retry loop is how a mutation gate stops meaning anything, so the shape of
+  // this one is asserted rather than trusted to review.
+  const war = readFileSync(new URL('../scripts/mutation-war.mjs', import.meta.url), 'utf8');
+
+  // It fires only on a hang -- the verdict that means no measurement was taken.
+  // A SURVIVED or a KILLED is a measurement and must stand on the first run.
+  assert.match(war, /if \(verdict === 'SUITE_TIMED_OUT'\) \{/,
+    'the second attempt must be reachable only from SUITE_TIMED_OUT');
+  assert.equal(/while \(verdict/.test(war), false, 'a loop here would retry until the answer is convenient');
+  assert.equal((war.match(/retried\.add\(/g) || []).length, 1,
+    'more than one place marking a retry means more than one retry path');
+
+  // And whatever it says is recorded. A second hang stays a hang.
+  const attempt = war.slice(war.indexOf("if (verdict === 'SUITE_TIMED_OUT')"));
+  assert.match(attempt.slice(0, 600), /verdict = classifySuiteRun\(run\);/,
+    'the second attempt must overwrite the verdict with what it actually found');
+  assert.equal(/verdict = 'KILLED'/.test(attempt.slice(0, 600)), false,
+    'the second attempt must not be able to assert a verdict of its own');
+});

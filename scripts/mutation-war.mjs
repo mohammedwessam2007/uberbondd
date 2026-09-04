@@ -1303,6 +1303,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   // is torn down when the run ends, and reclaiming them is how the postgres-real
   // runner acquired an unbounded wait on a backend that cannot be stopped.
   const diagnostics = new Map();
+  const retried = new Set();
   let admin = null;
 
   const freshDatabase = async id => {
@@ -1313,8 +1314,24 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       admin = new Client({ connectionString: base });
       await admin.connect();
     }
+    // Reclaim what earlier mutations left behind first.
+    //
+    // A suite killed at its deadline can leave a backend that never notices its
+    // client is gone -- the stall the postgres-real runner documents. Each one
+    // holds a connection and keeps working, so the first hang in a run makes the
+    // next hang likelier, and the failing set drifts later and later. That is a
+    // cascade, not three flaky guards.
+    //
+    // These clients are provably gone: the process that opened them was killed
+    // by the runner above. Terminating them reclaims the connection rather than
+    // interrupting anything still doing work.
+    await admin.query(`
+      SELECT pg_terminate_backend(pid) FROM pg_stat_activity
+      WHERE datname LIKE 'ubmut\\_%' AND pid <> pg_backend_pid()
+    `).catch(() => { /* nothing to reclaim, or the backend will not go: proceed */ });
+
     const name = `ubmut_${id.replace(/[^a-z0-9]+/gi, '_').toLowerCase()}`.slice(0, 60);
-    await admin.query(`DROP DATABASE IF EXISTS "${name}"`);
+    await admin.query(`DROP DATABASE IF EXISTS "${name}"`).catch(() => { /* a wedged backend can hold it; the CREATE below will say so */ });
     await admin.query(`CREATE DATABASE "${name}"`);
     const url = new URL(base);
     url.pathname = `/${name}`;
@@ -1403,8 +1420,25 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         record(mutation, 'MUTANT_DID_NOT_PARSE');
         continue;
       }
-      const run = runSuites(root, mutation.suites, mutation.needsPostgres ? await freshDatabase(mutation.id) : null);
-      const verdict = classifySuiteRun(run);
+      let run = runSuites(root, mutation.suites, mutation.needsPostgres ? await freshDatabase(mutation.id) : null);
+      let verdict = classifySuiteRun(run);
+
+      // One second attempt, and only for a hang.
+      //
+      // This is not retrying a failure until it passes. SUITE_TIMED_OUT is the
+      // verdict for "no measurement was taken", and a guard that was never
+      // tested is the one thing this file must not leave standing. The first
+      // attempt's own stuck backend is reclaimed above before the second runs,
+      // so the retry is against a materially different state rather than a
+      // repeat of an unchanged mechanism.
+      //
+      // Whatever the second attempt says is final, including another hang. It is
+      // recorded and marked, so nothing here can be read as a clean first pass.
+      if (verdict === 'SUITE_TIMED_OUT') {
+        run = runSuites(root, mutation.suites, mutation.needsPostgres ? await freshDatabase(`${mutation.id}_r2`) : null);
+        verdict = classifySuiteRun(run);
+        retried.add(mutation.id);
+      }
       // A verdict that does not say why is a dead end for whoever reads it.
       // SUITE_DID_NOT_RUN and SUITE_TIMED_OUT both mean "go and find out", and
       // the run that knows the answer is the one being thrown away here -- so
@@ -1424,7 +1458,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 
   const notKilled = results.filter(item => item.verdict !== 'KILLED' && !declaredSkip(item.verdict));
   for (const item of results) {
-    console.log(`${item.verdict.padEnd(22)} ${item.id.padEnd(10)} ${item.guard}${item.fromJournal ? ' (replayed)' : ''}`);
+    console.log(`${item.verdict.padEnd(22)} ${item.id.padEnd(10)} ${item.guard}${item.fromJournal ? ' (replayed)' : retried.has(item.id) ? ' (second attempt after a hang)' : ''}`);
   }
   console.log('');
   console.log(`mutation-war — ${results.length} mutations, ${results.filter(i => i.verdict === 'KILLED').length} killed, ${notKilled.length} not killed`);

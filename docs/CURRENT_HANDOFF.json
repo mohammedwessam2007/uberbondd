@@ -1,12 +1,12 @@
 {
   "schemaVersion": "uberbond-handoff-1.6.0",
-  "checkpointedAt": "2026-09-04T00:00:00Z",
-  "sourceCommit": "56a91dc93823f8531878ae73661f231c77807e96",
+  "checkpointedAt": "2026-09-04T08:00:00Z",
+  "sourceCommit": "b6598429da7df0bb91c33dddeb3e034ec324ee56",
   "sourceMainShaAtMissionStart": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
-  "currentMainShaAtCheckpoint": "bc50a54302069cf1901a0d8962a1d152abf50108",
+  "currentMainShaAtCheckpoint": "b6598429da7df0bb91c33dddeb3e034ec324ee56",
   "activeBranch": "claude/uberbond-ragnarok-closure-pek0g6",
-  "activePullRequest": "NONE_OPENED__NOT_REQUESTED; PR #329 converged into this branch rather than merged separately",
-  "activeMission": "Omega closure: drive the founder-absence doctor's softwareGaps to zero so that every remaining blocker is a credential, an account, an external party or elapsed time. Reached. The next thing that moves the north star is one owner-authorized first sprint, not more engineering.",
+  "activePullRequest": "PRs #354, #359 and #360 MERGED to main; branch and main are the same commit",
+  "activeMission": "Merged to main and main is green. The two gates that had never completed in this repository -- the mutation war and the real-database suite -- both run to completion with nothing skipped. Every remaining blocker is a credential, an account, an external party or elapsed time. The next thing that moves the north star is one owner-authorized first sprint, not more engineering.",
   "economicNorthStar": "risk-adjusted cleared contribution profit / founder minute",
   "completed": [
     "Drove founder-absence softwareGaps from 3 to 0. The two probes that could never be satisfied were repaired rather than deleted: one pointed at code the merge had replaced, and one asked canon to name the commit that contains it.",
@@ -31,7 +31,9 @@
     "Falsified every rewritten check before believing it: claiming all transitions legal fails with Postgres's own message, removing FOR UPDATE SKIP LOCKED fails the lock test, and dropping UNIQUE from provider_event_id fails the replay test.",
     "Merged 91 commits of main (Fable N+1 orchestration frontier, orchestration graph, no-evaporation startup memory) and reconciled it. Compared failure sets rather than assuming: origin/main fails 24 of its own tests, this branch failed 7, every one of those 7 was also red on main, none was caused by the merge, and this branch repairs 17 that main is shipping red.",
     "Fixed the four inherited non-canon failures: a receipt-ledger fake store missing the add/get pair the ledger requires (the refusal was correct -- a store that cannot refuse a duplicate cannot provide idempotency), a model-admission fixture with no provider that could never have passed (requirement kept, gap given its own test), and a capability count pinned at 8 against a registry holding 11 (updated, not loosened, with the three new supplier ids named individually).",
-    "Classified the six frontier proof modules main landed with no entry point, and removed one of my own classifications that main had made false by wiring autonomous-frontier-intelligence."
+    "Classified the six frontier proof modules main landed with no entry point, and removed one of my own classifications that main had made false by wiring autonomous-frontier-intelligence.",
+    "Merged to main through PRs #354, #359 and #360, and verified main green on a clean worktree afterwards rather than assuming the merge inherited the branch result: 3663 tests, 3608 pass, 0 fail, 55 skipped. Main had 24 failures before this work.",
+    "Fixed the last two on main after the first merge: the Playwright crawler fell through to Playwright's own default browser path, which names the exact build its package was published against, so it failed on a host carrying a different build while a working browser sat beside it; and canon named a commit three source files behind, because a regeneration had been committed together with source changes. A regeneration is now its own commit, which is what makes the freshness rule exact."
   ],
   "blockers": [
     "NO_CONFIGURED_MODEL_PROVIDER: zero providers configured, no pricing evidence. The Claude Code harness session OAuth is the agent's credential, not a provider configured for UberBond.",
@@ -69,9 +71,9 @@
     "notClaimed": "Two normalized records is two typed descriptions. Nothing is deduped, security-reviewed, eligible, approved, active, installed, benchmarked or economically proven. A skill body is not a capability; NORMALIZED is not APPROVED; STATIC_CLEAR is not SAFE."
   },
   "currentMeasuredSoftwareTruth": {
-    "exactHead": "56a91dc93823f8531878ae73661f231c77807e96 on claude/uberbond-ragnarok-closure-pek0g6",
+    "exactHead": "b6598429da7df0bb91c33dddeb3e034ec324ee56 on main",
     "check:syntax": "789 files parse",
-    "test:deterministic": "3489 tests, 3435 pass, 0 fail, 54 skipped",
+    "test:deterministic": "3663 tests, 3608 pass, 0 fail, 55 skipped (measured on a clean worktree of main)",
     "test:mutation-war": "164 mutations, 164 killed, 0 not killed, 0 skipped",
     "test:postgres-real": "24 suites, 187 tests, 187 pass, 0 fail",
     "reachability": "312 src modules: 141 production-reachable, 33 operator-only, 138 classified with a registered gate",

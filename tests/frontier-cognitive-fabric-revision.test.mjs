@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { normalizeModelBenchmark } from '../src/agent-model-router.mjs';
 import { buildFrontierAdmissionBundle, compileAdmittedFrontierPlan } from '../src/frontier-cognitive-admission.mjs';
+import { buildFrontierCallabilityProbeReceipt } from '../src/frontier-callability-provenance.mjs';
 
 const NOW = new Date('2026-09-04T20:00:00.000Z');
 const FRESH = '2026-09-04T19:00:00.000Z';
@@ -89,13 +90,24 @@ function task() {
   };
 }
 
+function provenance(calls) {
+  const built = buildFrontierCallabilityProbeReceipt({
+    observations: calls.map(item => ({ ...item, providerRequestId: `req-${item.profileId}` })),
+    sourceRef: 'runtime-probe://revision-binding-fixture',
+    observedAt: FRESH
+  });
+  assert.equal(built.ok, true);
+  return { receipt: built.receipt, receiptDigest: built.receiptDigest };
+}
+
 function admitted({ profiles, callability: calls, benchmarks }) {
   return buildFrontierAdmissionBundle({
     profiles,
     callability: calls,
     benchmarks,
     contextArtifacts: contextArtifacts(),
-    source: { kind: 'RUNTIME_PROBE_LEDGER', ref: 'proof://revision-binding-fixture', observedAt: FRESH }
+    source: { kind: 'RUNTIME_PROBE_LEDGER', ref: 'proof://revision-binding-fixture', observedAt: FRESH },
+    callabilityProvenance: provenance(calls)
   });
 }
 
@@ -127,7 +139,8 @@ test('FRONTIER_MAX admits a fresh benchmark only when provider model and exact r
 test('same provider/model at two revisions cannot enter one admission bundle until the lower router becomes revision-native', () => {
   const old = profile('rev-old');
   const current = profile('rev-current');
-  const admission = admitted({ profiles: [old, current], callability: [callability(old), callability(current)], benchmarks: [benchmark(old), benchmark(current)] });
+  const calls = [callability(old), callability(current)];
+  const admission = admitted({ profiles: [old, current], callability: calls, benchmarks: [benchmark(old), benchmark(current)] });
   assert.equal(admission.ok, false);
   assert.equal(admission.status, 'FRONTIER_ADMISSION_PROFILE_INVALID');
   assert.ok(admission.reasonCodes.includes('ambiguous-provider-model-multi-revision-profile-set:openai:same-marketing-name'));

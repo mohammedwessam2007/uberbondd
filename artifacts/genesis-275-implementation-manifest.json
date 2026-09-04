@@ -1,0 +1,17 @@
+{
+  "schemaVersion":"uberbond.genesis-275-implementation-manifest.v1",
+  "canonicalIdeaCount":275,
+  "requiredCanonOnlyCount":0,
+  "evidenceRegistry":"src/genesis-implementation-evidence-v2.mjs",
+  "doctor":"npm run genesis:evolution:doctor",
+  "filesystemBackedEvidenceTest":"tests/genesis-evidence-filesystem.test.mjs",
+  "focusedTest":"npm run test:genesis",
+  "deterministicGate":"npm run test:deterministic",
+  "buildGate":"npm run check:syntax && npm run test:deterministic",
+  "hourlyWorkflow":".github/workflows/gamechanger-mesh-hourly.yml",
+  "hourlyStages":["GAMECHANGER","PERPETUAL_FRONTIER","GENESIS_EVOLUTION","ECONOMIC_SCIENTIST","ONTOGENESIS","GENESIS_METABOLISM"],
+  "businessEffectAuthority":"NONE",
+  "externalEffectAuthority":"NONE",
+  "truthBoundary":"275 source/test mappings plus filesystem presence do not prove test pass, production runtime, external economic value, commercial outcomes, or statistical rarity.",
+  "commercialTruth":{"customers":0,"clearedRevenueUsd":0,"acceptedPaidDeliveries":0,"retainedCustomers":0}
+}

@@ -118,12 +118,13 @@ function provider({ orderId, captureId }) {
   };
 }
 
-async function prepareAndCapture(store, paypal, date) {
+async function prepareAndCapture(store, paypal, attemptKey, date) {
   const prepared = await preparePayPalFirstCashOrder({
     store,
     leadId: 'lead-1',
     env: ENV,
     fetchImpl: paypal.fetch,
+    attemptKey,
     date
   });
   assert.equal(prepared.ok, true);
@@ -158,10 +159,14 @@ test('same PayPal webhook event id cannot certify a different capture/order even
   const store = new MemoryStore();
   await store.add('leads', { id: 'lead-1', prospectId: 'prospect-1' });
 
+  // Distinct attempt keys are part of the canonical PayPal intent identity. Using
+  // only different timestamps here would silently reuse the first deterministic
+  // intent and fail during setup, never reaching the replay attack this test is
+  // supposed to exercise.
   const firstProvider = provider({ orderId: 'ORDER-A', captureId: 'CAPTURE-A' });
   const secondProvider = provider({ orderId: 'ORDER-B', captureId: 'CAPTURE-B' });
-  await prepareAndCapture(store, firstProvider, new Date('2026-09-04T18:00:00.000Z'));
-  await prepareAndCapture(store, secondProvider, new Date('2026-09-04T18:01:00.000Z'));
+  await prepareAndCapture(store, firstProvider, 'replay-attempt-a', new Date('2026-09-04T18:00:00.000Z'));
+  await prepareAndCapture(store, secondProvider, 'replay-attempt-b', new Date('2026-09-04T18:01:00.000Z'));
 
   const eventId = 'WH-REUSED-PROVIDER-EVENT-ID';
   const first = await processPayPalWebhook({

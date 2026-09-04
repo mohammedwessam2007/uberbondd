@@ -44,7 +44,7 @@
     "avengers:tick": "node scripts/avengers-arsenal-tick.mjs",
     "avengers:tick:dry": "node scripts/avengers-arsenal-tick.mjs --dry-run",
     "avengers:dry-run": "npm run avengers:tick:dry",
-    "test:avengers": "node --test tests/avengers-arsenal.test.mjs tests/avengers-local-discovery.test.mjs tests/avengers-arsenal-scripts.test.mjs",
+    "test:avengers": "node --test tests/avengers-arsenal.test.mjs tests/avengers-local-discovery.test.mjs tests/avengers-arsenal-scripts.test.mjs tests/avengers-execution-guard.test.mjs",
     "gamechanger:tick": "node scripts/gamechanger-mesh-tick.mjs --state .cache/gamechanger-mesh-state.json",
     "gamechanger:plan": "node scripts/gamechanger-mesh-tick.mjs --dry-run --state .cache/gamechanger-mesh-state.json",
     "test:gamechanger": "node --test tests/gamechanger-mesh.test.mjs tests/gamechanger-search-adapters.test.mjs",

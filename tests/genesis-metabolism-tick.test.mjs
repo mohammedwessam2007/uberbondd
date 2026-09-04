@@ -5,6 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -58,12 +59,5 @@ test('hourly GENESIS metabolism tick consumes upstream receipts and persists a z
   assert.equal(receipt.organs.shocks.status, 'INFRASTRUCTURE_SHOCK_UNIVERSE_READY');
   assert.equal(receipt.businessEffectAuthority, 'NONE');
   assert.equal(receipt.externalEffectAuthority, 'NONE');
-  assert.deepEqual(receipt.externalEffectLedger, {
-    messages: 0,
-    moneyMovements: 0,
-    purchases: 0,
-    deployments: 0,
-    customerStateMutations: 0,
-    providerCalls: 0
-  });
+  assert.deepEqual(receipt.externalEffectLedger, ZERO_EXTERNAL_EFFECTS);
 });

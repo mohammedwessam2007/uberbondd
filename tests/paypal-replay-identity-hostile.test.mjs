@@ -6,6 +6,7 @@ import {
   preparePayPalFirstCashOrder,
   processPayPalWebhook
 } from '../src/paypal-payment-truth.mjs';
+import { createFetchHandler } from '../api/webhooks/paypal.mjs';
 
 class MemoryStore {
   constructor() { this.db = { leads: [], orders: [], auditLog: [], revenueEvents: [] }; }
@@ -155,42 +156,40 @@ function completionEvent(paypal, eventId) {
   };
 }
 
+async function postWebhook(store, paypal, event) {
+  const handler = createFetchHandler({
+    env: ENV,
+    getStore: async () => store,
+    processPayPalWebhook: args => processPayPalWebhook({ ...args, fetchImpl: paypal.fetch })
+  });
+  const res = await handler(new Request('https://app.uberbond.test/api/webhooks/paypal', {
+    method: 'POST',
+    headers: HEADERS,
+    body: JSON.stringify(event)
+  }));
+  return res.json();
+}
+
 test('same PayPal webhook event id cannot certify a different capture/order even when economics and lead match', async () => {
   const store = new MemoryStore();
   await store.add('leads', { id: 'lead-1', prospectId: 'prospect-1' });
 
-  // Distinct attempt keys are part of the canonical PayPal intent identity. Using
-  // only different timestamps here would silently reuse the first deterministic
-  // intent and fail during setup, never reaching the replay attack this test is
-  // supposed to exercise.
   const firstProvider = provider({ orderId: 'ORDER-A', captureId: 'CAPTURE-A' });
   const secondProvider = provider({ orderId: 'ORDER-B', captureId: 'CAPTURE-B' });
   await prepareAndCapture(store, firstProvider, 'replay-attempt-a', new Date('2026-09-04T18:00:00.000Z'));
   await prepareAndCapture(store, secondProvider, 'replay-attempt-b', new Date('2026-09-04T18:01:00.000Z'));
 
   const eventId = 'WH-REUSED-PROVIDER-EVENT-ID';
-  const first = await processPayPalWebhook({
-    store,
-    env: ENV,
-    rawBody: JSON.stringify(completionEvent(firstProvider, eventId)),
-    headers: HEADERS,
-    fetchImpl: firstProvider.fetch
-  });
+  const first = await postWebhook(store, firstProvider, completionEvent(firstProvider, eventId));
   assert.equal(first.ok, true);
   assert.equal(first.status, 'PAYPAL_PROVIDER_CLEARED_WITNESSES_PERSISTED');
 
-  const second = await processPayPalWebhook({
-    store,
-    env: ENV,
-    rawBody: JSON.stringify(completionEvent(secondProvider, eventId)),
-    headers: HEADERS,
-    fetchImpl: secondProvider.fetch
-  });
-
+  const second = await postWebhook(store, secondProvider, completionEvent(secondProvider, eventId));
   assert.equal(second.ok, false,
     'one provider occurrence id was allowed to authenticate a different provider object');
+  assert.equal(second.status, 'REVIEW_REQUIRED');
   assert.ok(
-    (second.reasonCodes || []).some(code => /duplicate|contradiction|identity|provider/i.test(code)),
+    (second.reasonCodes || []).some(code => /duplicate|contradiction|identity|triad|provider/i.test(code)),
     `expected a replay/identity contradiction, got ${JSON.stringify(second.reasonCodes)}`
   );
   assert.equal((await store.list('revenueEvents')).length, 1,

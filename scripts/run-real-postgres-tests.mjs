@@ -48,64 +48,50 @@ export function realPostgresTestFiles() {
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const url = process.env.OMNIA_V9_TEST_DATABASE_URL || '';
   const files = realPostgresTestFiles();
-  if (!url) {
-    console.error('test:postgres-real — OMNIA_V9_TEST_DATABASE_URL is not set.');
-    console.error(`Would have run ${files.length} suites against a real PostgreSQL:`);
-    for (const file of files) console.error(`  ${file}`);
-    console.error('\nWithout it these suites skip themselves, and a skipped gate proves nothing.');
-    process.exit(2);
-  }
-  console.log(`test:postgres-real — ${files.length} suites, serially, one database each, on ${url.replace(/:\/\/[^@]*@/, '://***@')}`);
 
-  const { Client } = await import('pg');
-
-  // No cleanup, deliberately.
+  // No external database required.
   //
-  // Two attempts to reclaim each database ended the same way: a suite that
-  // overran its timeout leaves a PostgreSQL backend that cannot be stopped --
-  // it sits `active` writing results to a socket whose client is gone, so it
-  // never reaches a point where a cancel is honoured. DROP DATABASE waits on
-  // it. WITH (FORCE) waits on it too, because FORCE still has to terminate that
-  // backend. And statement_timeout does not govern that wait: a ten-second
-  // budget was observed sitting there for nearly four minutes.
+  // This gate used to refuse without OMNIA_V9_TEST_DATABASE_URL, which was the
+  // honest thing to do while it could not make one -- a suite that skips itself
+  // proves nothing. But it meant roughly 180 tests about what two real
+  // connections do to one real row ran only where somebody had already set a
+  // variable, and the mutation war carried the identical defect for nine of its
+  // guards. It provisions what it needs now, and so does this.
   //
-  // Each attempt put the hang back one layer above the layer the per-test
-  // timeout had just fixed. These databases live inside an embedded server that
-  // is torn down when this run ends, so there is nothing here worth reclaiming.
-  // A disposable server does not need housekeeping, and paying for it with an
-  // unbounded wait is how a gate stops reporting.
+  // An externally supplied URL is no longer consulted at all: sharing one server
+  // across suites is the thing being removed, so honouring a handed-in one would
+  // reintroduce it.
+  console.log(`test:postgres-real — ${files.length} suites, serially, each on its own disposable PostgreSQL`);
 
-
-  const admin = new Client({ connectionString: url });
-  await admin.connect();
+  // A private server per suite, not a database on a shared one.
+  //
+  // Per-suite databases were not enough. Three suites still stalled -- one
+  // cancelled with "Promise resolution is still pending but the event loop has
+  // already resolved", two cut off at 120s -- while every one of them passes
+  // alone. That is the backend stall documented above, and a fresh database does
+  // not reset whatever in the shared server carries it between suites.
+  //
+  // The mutation war had exactly this symptom and exactly this fix: three
+  // database-backed guards that hung in a full run and killed in isolation went
+  // to 163/163 the moment each got its own server. Twenty-three servers at a
+  // couple of seconds each is a cheaper price than a gate that cannot finish.
+  const { withDisposablePostgres } = await import('./disposable-postgres.mjs');
 
   let failed = 0;
   const failures = [];
-  for (const [index, file] of files.entries()) {
-    // A name derived from the file, so a leftover database after a crash says
-    // which suite left it.
-    const database = `ubpg_${index}_${file.replace(/[^a-z0-9]+/gi, '_').slice(-40).toLowerCase()}`;
-    await admin.query(`CREATE DATABASE "${database}"`);
-    const fileUrl = new URL(url);
-    fileUrl.pathname = `/${database}`;
-
-    const run = spawnSync(
+  for (const file of files) {
+    const status = await withDisposablePostgres(fileUrl => spawnSync(
       process.execPath,
       ['--test', '--test-concurrency=1', '--test-timeout=120000', file],
       {
         cwd: repoRoot,
         stdio: 'inherit',
-        env: { ...process.env, OMNIA_V9_TEST_DATABASE_URL: fileUrl.toString(), DATABASE_URL: fileUrl.toString() }
+        env: { ...process.env, OMNIA_V9_TEST_DATABASE_URL: fileUrl, DATABASE_URL: fileUrl }
       }
-    );
-    if (run.status !== 0) { failed += 1; failures.push(file); }
-    // Not dropped -- see the note above the loop. A comment claiming otherwise
-    // survived the repair that removed the drop, which is how a reader learns
-    // to stop believing the comments.
+    ).status);
+    if (status !== 0) { failed += 1; failures.push(file); }
   }
-  await admin.end();
 
   if (failures.length) {
     console.error(`\ntest:postgres-real — ${failures.length} of ${files.length} suites failed:`);

@@ -105,95 +105,132 @@ test('EXECUTION_STATES enumerates exactly ALL_STATES with no drift', () => {
 // them -- had never once executed to completion, and no run ever said so. A
 // timeout turns silence into a failure, which is the least a gate owes its reader.
 test('database transition-guard trigger agrees with isLegalTransition() for every (from,to) pair -- illegal transitions are rejected by Postgres itself, not merely by application code', { skip: !realPostgresUrl, timeout: 120_000 }, async () => {
-  // A statement that blocks in the server must fail this test, not stall it.
-  // Without a timeout the default is to wait forever, and a gate that can wait
-  // forever reports nothing: this suite was hanging here rather than failing,
-  // so the ~180 real-database tests behind it had never once run to completion.
-  // One dedicated connection for the whole check, not a pool.
+  // The whole check runs inside the server, in four statements.
   //
-  // This test used to take a client out of a 5-connection pool per pair and
-  // return it in a `finally`. Any iteration that failed to reach `release()`
-  // -- and `await client.query(...).catch()` does not catch the synchronous
-  // throw a dead client raises -- permanently removed one connection. After
-  // roughly 120 of the 132 pairs the pool was empty and `pool.connect()`
-  // waited for a free client that was never coming. Nothing failed: the whole
-  // suite simply stopped, which is why the ~180 tests in the real-database gate
-  // behind this file had never once run to completion.
+  // It used to walk 132 pairs from the client: BEGIN, an insert, a few updates,
+  // ROLLBACK -- roughly six hundred round trips. On this container that is not
+  // merely slow. Somewhere around the 122nd transaction the connection stops
+  // responding: the backend sits `active`, waits on nothing, holds no lock, and
+  // ignores statement_timeout, because it is blocked writing a result to a
+  // socket. Nothing times it out from either side, so the suite stopped rather
+  // than failed, and the ~180 real-database tests scheduled behind this file had
+  // never once run to completion.
   //
-  // A single client cannot be exhausted, and `statement_timeout` means a
-  // statement that blocks in the server fails this test rather than stalling
-  // it. The pairs are checked serially anyway, so the pool bought nothing.
+  // Three isolation fixes were tried against that and none of them moved it: a
+  // connection pool, then one dedicated client, then a fresh connection per
+  // pair. Each stopped in the same place, which is what finally identified the
+  // cost as the round trips themselves rather than anything held in a session or
+  // a pool.
+  //
+  // So the loop moves to where the data is, and the trigger is exercised more
+  // directly than before: the client no longer takes any part in deciding what
+  // the database accepted.
   const client = new Client({ connectionString: realPostgresUrl });
   await client.connect();
-  // Set on the session rather than passed as client config: the config option
-  // is silently ignored by some driver versions, and a timeout that is not
-  // actually in force is worse than none, because it looks like protection.
-  await client.query("SET statement_timeout = '20s'");
-  // Do not let a stuck query hold the process open. When the timeout above
-  // fires, node:test abandons the test but the outstanding socket still has the
-  // event loop pinned, so the runner reports the failure and then never exits --
-  // which puts the hang straight back, one layer up. An unref'd socket keeps
-  // working while anything else is pending and stops being a reason to stay
-  // alive once nothing is.
-  client.connection?.stream?.unref?.();
+  // On the session rather than in the client config: the config option is
+  // silently ignored by some driver versions, and a timeout that is not actually
+  // in force is worse than none, because it looks like protection.
+  await client.query("SET statement_timeout = '60s'");
   try {
     await migrateReal(client);
     const pairs = listAllTransitionPairsForExhaustiveCheck();
-    let checked = 0;
-    for (const [from, to] of pairs) {
-      const executionId = `sm-check-${suffix()}`;
-      try {
-        await client.query('BEGIN');
-        if (from === null) {
-          let dbAccepted = true;
-          let dbError = null;
-          try {
-            await client.query(
-              `INSERT INTO omnia_v9_external_effect_executions(
-                 execution_id,action_intent_digest,authorization_digest,tenant_id,operation,resource,
-                 business_key,provider,provider_effect_identity,status,constitution_digest,policy_digest,approval_id,consequence_class
-               ) VALUES ($1,$2,'auth','tenant','op','res',$3,'null-sink-v2','peid',$4,'cd','pd','ap','WRITE_EXTERNAL')`,
-              [executionId, 'a'.repeat(64), `bk-${executionId}`, to]
-            );
-          } catch (error) {
-            dbAccepted = false;
-            dbError = error;
-          }
-          assert.equal(dbAccepted, isLegalTransition(from, to), `creation with status=${to}: DB accepted=${dbAccepted} (${dbError?.message || ''}) but isLegalTransition=${isLegalTransition(from, to)}`);
-        } else {
+    assert(pairs.length > 0, 'there are no transition pairs to check');
+
+    await client.query(`
+      CREATE TEMP TABLE sm_spec(idx int, from_status text, to_status text, path jsonb);
+      CREATE TEMP TABLE sm_result(idx int, accepted boolean, err text);
+    `);
+
+    await client.query(
+      `INSERT INTO sm_spec(idx, from_status, to_status, path)
+       SELECT * FROM unnest($1::int[], $2::text[], $3::text[], $4::jsonb[])`,
+      [
+        pairs.map((_, index) => index),
+        pairs.map(([from]) => from),
+        pairs.map(([, to]) => to),
+        pairs.map(([from]) => {
+          if (from === null) return JSON.stringify([]);
           const path = shortestPathToStatus(from);
           assert(path, `no legal path exists from PREPARED to ${from} -- test setup cannot reach this state; check the JS graph`);
-          await client.query(
-            `INSERT INTO omnia_v9_external_effect_executions(
-               execution_id,action_intent_digest,authorization_digest,tenant_id,operation,resource,
-               business_key,provider,provider_effect_identity,status,constitution_digest,policy_digest,approval_id,consequence_class
-             ) VALUES ($1,$2,'auth','tenant','op','res',$3,'null-sink-v2','peid','PREPARED','cd','pd','ap','WRITE_EXTERNAL')`,
-            [executionId, 'a'.repeat(64), `bk-${executionId}`]
-          );
-          for (let step = 1; step < path.length; step += 1) {
-            await client.query(`UPDATE omnia_v9_external_effect_executions SET status=$2 WHERE execution_id=$1`, [executionId, path[step]]);
-          }
-          let dbAccepted = true;
-          let dbError = null;
-          try {
-            await client.query(`UPDATE omnia_v9_external_effect_executions SET status=$2 WHERE execution_id=$1`, [executionId, to]);
-          } catch (error) {
-            dbAccepted = false;
-            dbError = error;
-          }
-          const expected = from === to ? true : isLegalTransition(from, to);
-          assert.equal(dbAccepted, expected, `${from} -> ${to}: DB accepted=${dbAccepted} (${dbError?.message || ''}) but expected=${expected}`);
-        }
-        checked += 1;
-      } finally {
-        // try/catch rather than `.catch()`: on a client whose connection has
-        // already gone, `query` throws synchronously instead of returning a
-        // rejected promise, so `.catch()` never sees it and the throw escapes.
-        try { await client.query('ROLLBACK'); } catch { /* already gone */ }
-      }
+          return JSON.stringify(path);
+        })
+      ]
+    );
+
+    // Each attempt gets its own PL/pgSQL subtransaction, so a rejection rolls
+    // that pair back and leaves the next one a clean table. An accepted row is
+    // deleted for the same reason: the partial unique index on business_key is
+    // part of what is under test and must not meet leftovers.
+    //
+    // Only the attempt itself is guarded. A failure while walking the legal
+    // setup path is a broken fixture rather than a verdict about the transition,
+    // so it propagates and fails the test loudly instead of being recorded as a
+    // rejection the database never made.
+    await client.query(`
+      DO $sm$
+      DECLARE
+        spec record;
+        eid text;
+        step text;
+        accepted boolean;
+        failure text;
+      BEGIN
+        FOR spec IN SELECT * FROM sm_spec ORDER BY idx LOOP
+          eid := 'sm-check-' || spec.idx;
+          accepted := true;
+          failure := NULL;
+
+          IF spec.from_status IS NULL THEN
+            BEGIN
+              INSERT INTO omnia_v9_external_effect_executions(
+                execution_id,action_intent_digest,authorization_digest,tenant_id,operation,resource,
+                business_key,provider,provider_effect_identity,status,constitution_digest,policy_digest,approval_id,consequence_class
+              ) VALUES (eid, repeat('a', 64), 'auth','tenant','op','res','bk-' || eid,'null-sink-v2','peid', spec.to_status,'cd','pd','ap','WRITE_EXTERNAL');
+            EXCEPTION WHEN OTHERS THEN
+              accepted := false;
+              failure := SQLERRM;
+            END;
+          ELSE
+            INSERT INTO omnia_v9_external_effect_executions(
+              execution_id,action_intent_digest,authorization_digest,tenant_id,operation,resource,
+              business_key,provider,provider_effect_identity,status,constitution_digest,policy_digest,approval_id,consequence_class
+            ) VALUES (eid, repeat('a', 64), 'auth','tenant','op','res','bk-' || eid,'null-sink-v2','peid','PREPARED','cd','pd','ap','WRITE_EXTERNAL');
+
+            FOR step IN
+              SELECT value #>> '{}' FROM jsonb_array_elements(spec.path) WITH ORDINALITY AS t(value, ord) WHERE ord > 1 ORDER BY ord
+            LOOP
+              UPDATE omnia_v9_external_effect_executions SET status = step WHERE execution_id = eid;
+            END LOOP;
+
+            BEGIN
+              UPDATE omnia_v9_external_effect_executions SET status = spec.to_status WHERE execution_id = eid;
+            EXCEPTION WHEN OTHERS THEN
+              accepted := false;
+              failure := SQLERRM;
+            END;
+          END IF;
+
+          INSERT INTO sm_result(idx, accepted, err) VALUES (spec.idx, accepted, failure);
+          DELETE FROM omnia_v9_external_effect_executions WHERE execution_id = eid;
+        END LOOP;
+      END
+      $sm$;
+    `);
+
+    const { rows } = await client.query('SELECT idx, accepted, err FROM sm_result ORDER BY idx');
+    assert.equal(rows.length, pairs.length, `expected a verdict for all ${pairs.length} pairs, got ${rows.length}`);
+
+    for (const row of rows) {
+      const [from, to] = pairs[row.idx];
+      const expected = from !== null && from === to ? true : isLegalTransition(from, to);
+      assert.equal(row.accepted, expected,
+        `${from} -> ${to}: DB accepted=${row.accepted} (${row.err || ''}) but expected=${expected}`);
     }
-    assert(checked === pairs.length && checked > 0, `expected to check all ${pairs.length} pairs, checked ${checked}`);
   } finally {
-    await client.end();
+    // end() for the graceful path, destroy whether or not it returns. A stuck
+    // query has to stop pinning the event loop or node:test reports the failure
+    // and then never exits, which puts the hang back one layer up.
+    await client.end().catch(() => { /* wedged; the destroy is the point */ });
+    client.connection?.stream?.destroy?.();
   }
 });

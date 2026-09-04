@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { normalizeModelBenchmark } from '../src/agent-model-router.mjs';
 import { buildFrontierAdmissionBundle, compileAdmittedFrontierPlan } from '../src/frontier-cognitive-admission.mjs';
+import { buildFrontierCallabilityProbeReceipt } from '../src/frontier-callability-provenance.mjs';
 
 const NOW = new Date('2026-09-04T20:00:00.000Z');
 const FRESH = '2026-09-04T19:00:00.000Z';
@@ -42,10 +43,21 @@ function contextArtifacts() {
 function task() {
   return { missionId: 'admission', taskId: 'admission', objective: 'Prove admission.', taskClass: 'general', role: 'general', dataClass: 'INTERNAL_NON_SECRET', reasoningTier: 'FRONTIER_MAX', requiredTags: ['frontier'], contextTokenBudget: 1000, minCouncilSize: 2, maxCouncilSize: 2 };
 }
+function provenance(calls) {
+  const built = buildFrontierCallabilityProbeReceipt({
+    observations: calls.map(item => ({ ...item, providerRequestId: `req-${item.profileId}` })),
+    sourceRef: 'runtime-probe://admission-suite',
+    observedAt: FRESH
+  });
+  assert.equal(built.ok, true);
+  return { receipt: built.receipt, receiptDigest: built.receiptDigest };
+}
 function build({ p = profile(), calls, benchmarks } = {}) {
+  const selectedCalls = calls ?? [callability(p)];
   return buildFrontierAdmissionBundle({
-    profiles: [p], callability: calls ?? [callability(p)], benchmarks: benchmarks ?? [benchmark(p)], contextArtifacts: contextArtifacts(),
-    source: { kind: 'RUNTIME_PROBE_LEDGER', ref: 'proof://admission-suite', observedAt: FRESH }
+    profiles: [p], callability: selectedCalls, benchmarks: benchmarks ?? [benchmark(p)], contextArtifacts: contextArtifacts(),
+    source: { kind: 'RUNTIME_PROBE_LEDGER', ref: 'proof://admission-suite', observedAt: FRESH },
+    callabilityProvenance: provenance(selectedCalls)
   });
 }
 
@@ -96,6 +108,7 @@ test('valid admission produces a tamper-evident digest and an admitted frontier 
   const admission = build();
   assert.equal(admission.ok, true);
   assert.match(admission.bundle.identityDigest, /^[a-f0-9]{64}$/);
+  assert.match(admission.bundle.callabilityProvenance.receiptDigest, /^[a-f0-9]{64}$/);
   const plan = compileAdmittedFrontierPlan({ task: task(), admissionBundle: admission.bundle, now: NOW });
   assert.equal(plan.ok, true);
   assert.equal(plan.plan.selected.profileId, 'elite');

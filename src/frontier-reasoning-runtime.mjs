@@ -1,12 +1,16 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const FRONTIER_REASONING_RUNTIME_VERSION = 'uberbond.frontier-reasoning-runtime-1.0.0';
+export const FRONTIER_REASONING_RUNTIME_VERSION = 'uberbond.frontier-reasoning-runtime-1.1.0';
 
 const GATEWAY_EFFORTS = new Set(['none', 'minimal', 'low', 'medium', 'high', 'xhigh']);
 
 function text(value, max = 1000) {
   const out = String(value ?? '').trim();
   return out && out.length <= max ? out : null;
+}
+function integer(value, min = 0, max = Number.MAX_SAFE_INTEGER) {
+  const n = Number(value);
+  return Number.isSafeInteger(n) && n >= min && n <= max ? n : null;
 }
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
 function envelope(extra = {}) {
@@ -70,9 +74,15 @@ export function attestFrontierExecution({ member, workerBinding, executorResult,
   const identityVerification = text(executorResult.identityVerification, 80)?.toUpperCase();
   const appliedReasoningEffort = text(executorResult.appliedReasoningEffort, 40)?.toLowerCase();
   const appliedReasoningEvidence = text(executorResult.appliedReasoningEvidence, 80)?.toUpperCase();
+  const providerRequestId = text(executorResult.providerRequestId, 1000);
+  const latencyMs = integer(executorResult.latencyMs, 0, 86_400_000);
+  const costCents = integer(executorResult?.usage?.costCents, 0, 100_000_000);
   const reasons = [];
   if (!observedTransportModel || observedTransportModel !== workerBinding.worker.model || identityVerification !== 'OBSERVED') reasons.push('transport-model-identity-not-observed-as-planned');
   if (appliedReasoningEffort !== workerBinding.worker.reasoningEffort || appliedReasoningEvidence !== 'REQUEST_BODY_ATTESTED') reasons.push('planned-reasoning-setting-not-attested-by-executor');
+  if (!providerRequestId) reasons.push('provider-request-id-required');
+  if (latencyMs == null) reasons.push('measured-latency-required');
+  if (costCents == null) reasons.push('metered-cost-required');
 
   const evidence = callabilityEvidence && typeof callabilityEvidence === 'object' && !Array.isArray(callabilityEvidence) ? callabilityEvidence : null;
   if (!evidence) reasons.push('runtime-callability-revision-evidence-required');
@@ -104,12 +114,58 @@ export function attestFrontierExecution({ member, workerBinding, executorResult,
       identityVerification: 'OBSERVED',
       appliedReasoningSettingRef: workerBinding.appliedSettingExpectation.reasoningSettingRef,
       appliedReasoningEffort,
-      resultRef: text(executorResult.providerRequestId, 1000) ? `provider-request://${text(executorResult.providerRequestId, 1000)}` : null,
-      latencyMs: null,
-      costCents: Number.isSafeInteger(Number(executorResult?.usage?.costCents)) ? Number(executorResult.usage.costCents) : null,
+      resultRef: `provider-request://${providerRequestId}`,
+      latencyMs,
+      costCents,
       claims: []
     },
     evidenceRefs: [text(evidence.sourceRef, 1000)].filter(Boolean),
     truthBoundary: 'REVISION_IDENTITY_COMES_FROM_SEPARATE_OBSERVED_RUNTIME_CALLABILITY_EVIDENCE; REQUEST_BODY_ATTESTATION_PROVES_REQUESTED_REASONING_SETTING_NOT_PROVIDER_INTERNAL_COMPUTE'
+  });
+}
+
+export async function executeFrontierMember({
+  member,
+  task,
+  modelExecutorFactory,
+  callabilityEvidence,
+  maxTokens,
+  costCeilingCents,
+  clock = () => Date.now()
+} = {}) {
+  const binding = compileFrontierExecutorWorker(member);
+  if (!binding.ok) return binding;
+  if (typeof modelExecutorFactory !== 'function') return failure(['canonical-model-executor-factory-required'], 'FRONTIER_EXECUTION_BLOCKED');
+  if (!task?.taskId || !task?.objective || (task.consequenceClass && task.consequenceClass !== 'LOCAL_PREPARATION')) return failure(['bounded-local-preparation-task-required'], 'FRONTIER_EXECUTION_BLOCKED');
+  const outputLimit = integer(maxTokens, 1, 128_000);
+  const costLimit = integer(costCeilingCents, 0, 10_000_000);
+  if (outputLimit == null || costLimit == null) return failure(['bounded-output-and-cost-required'], 'FRONTIER_EXECUTION_BLOCKED');
+
+  let executor;
+  try {
+    executor = modelExecutorFactory(binding.worker);
+  } catch (error) {
+    return failure(['frontier-executor-construction-failed'], 'FRONTIER_EXECUTION_BLOCKED', { detail: text(error?.message, 300) });
+  }
+  if (typeof executor !== 'function') return failure(['callable-frontier-executor-required'], 'FRONTIER_EXECUTION_BLOCKED');
+
+  const start = Number(clock());
+  if (!Number.isFinite(start)) return failure(['valid-runtime-clock-required'], 'FRONTIER_EXECUTION_BLOCKED');
+  let executorResult;
+  try {
+    executorResult = await executor({ task, model: binding.worker.model, maxTokens: outputLimit, costCeilingCents: costLimit });
+  } catch (error) {
+    return failure(['frontier-executor-threw'], 'FRONTIER_EXECUTION_UNCERTAIN', { detail: text(error?.message, 300) });
+  }
+  const end = Number(clock());
+  if (!Number.isFinite(end) || end < start) return failure(['valid-runtime-clock-required'], 'FRONTIER_EXECUTION_BLOCKED');
+  if (!executorResult?.ok) return failure(executorResult?.reasonCodes ?? ['frontier-executor-failed'], executorResult?.outcome === 'UNCERTAIN' ? 'FRONTIER_EXECUTION_UNCERTAIN' : 'FRONTIER_EXECUTION_FAILED');
+
+  const latencyMs = Math.round(end - start);
+  return attestFrontierExecution({
+    member,
+    workerBinding: binding,
+    executorResult: { ...executorResult, latencyMs },
+    callabilityEvidence
   });
 }

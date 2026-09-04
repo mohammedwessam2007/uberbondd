@@ -1,8 +1,8 @@
 {
   "schema": "uberbond.system-readiness-current.v1",
-  "reconciledAt": "2026-09-04T00:08:00+03:00",
+  "reconciledAt": "2026-09-04T07:40:00Z",
   "repository": {
-    "sourceCommit": "4905e7896589f83eb94e0f755007e576193f9674",
+    "sourceCommit": "b841a0689a1d4307db5d24955403b75498700472",
     "branch": "gpt/genesis-evolution-engine-20260903",
     "sourceModules": 318,
     "syntaxTargetFiles": 789,
@@ -11,26 +11,25 @@
     ]
   },
   "verification": {
-    "status": "EXACT_HEAD_EXECUTION_PENDING_INFRASTRUCTURE",
+    "status": "EXACT_HEAD_EXECUTED_FAILED_REPAIR_IN_PROGRESS",
     "greenClaimAllowed": false,
     "requiredCommand": "npm run check:syntax && npm run test:deterministic",
     "lastRealFullRun": {
-      "commit": "27711f0d8b86c2434ef0f506098e34f8944e1c87",
+      "commit": "b841a0689a1d4307db5d24955403b75498700472",
       "runner": "Vercel full project",
       "outcome": "FAIL",
-      "syntaxTargetsObserved": 779,
-      "note": "This run executed repository code and exposed stale canon, routing, GENESIS, mutation-anchor, first-cash, Postal, reachability, and memory-bootstrap failures. Those failures became the repair map; this historical failing run is not promoted into proof for the current head."
+      "note": "This exact-head run executed the repository command and exposed real causal failures plus drift from the current main line. The branch is being repaired and reconciled; this failing run is evidence, not green proof."
     },
     "currentHeadEvidence": {
-      "sourceDefectsFromLastRealRunRepaired": true,
+      "sourceDefectsFromLastRealRunRepaired": false,
       "exactHeadFullSuiteExecuted": false,
       "filesystemBackedGenesisEvidenceGateAdded": true,
       "perpetualGenesisZeroEffectScanAdded": true,
       "githubActions": "INFRASTRUCTURE_NON_EVIDENCE_ZERO_STEP_NO_LOG",
-      "vercelPrimary": "BLOCKED_BY_HOBBY_BUILD_RATE_LIMIT",
+      "vercelPrimary": "REAL_RUNNER_OBSERVED_ON_B841A068__NEW_HEAD_REVERIFICATION_REQUIRED",
       "vercelSecondary": "PACKAGING_ONLY_NOT_DETERMINISTIC_VERIFIER",
       "replit": "UNAVAILABLE_REQUIRES_ACTIVE_SUBSCRIPTION",
-      "claudeCode": "OWNER_REPORTS_AVAILABLE_BUT_NOT_CONNECTED_TO_THIS_CHAT_EXECUTION_SURFACE"
+      "claudeCode": "NO_DURABLE_EXACT_HEAD_RECEIPT_OBSERVED_IN_THIS_RUN"
     }
   },
   "reachability": {
@@ -44,7 +43,7 @@
   "historicalEvidence": {
     "fullReadinessArtifact": "artifacts/system-readiness.json",
     "classification": "HISTORICAL_RECEIPT",
-    "note": "Preserved with its original September 1 measurements and capability rows. It must not be read as current exact-head verification."
+    "note": "Preserved with its original measurements and capability rows. It must not be read as current exact-head verification."
   },
   "commercialTruth": {
     "customers": 0,
@@ -52,5 +51,5 @@
     "acceptedPaidDeliveries": 0,
     "retainedCustomers": 0
   },
-  "truthBoundary": "PENDING_MEANS_PENDING. SOURCE_REPAIRS_AND_DERIVED_TREE_COUNTS_DO_NOT_EQUAL_AN_EXECUTED_GREEN_EXACT_HEAD_SUITE."
+  "truthBoundary": "FAILED_MEANS_FAILED. REPAIRS_REQUIRE_A_NEW_EXACT_HEAD_RUN_BEFORE_GREEN_OR_MERGE."
 }

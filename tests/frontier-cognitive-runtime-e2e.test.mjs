@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { normalizeModelBenchmark } from '../src/agent-model-router.mjs';
 import { buildFrontierCognitiveReceipt } from '../src/frontier-cognitive-fabric.mjs';
 import { buildFrontierAdmissionBundle, compileAdmittedFrontierPlan } from '../src/frontier-cognitive-admission.mjs';
+import { buildFrontierCallabilityProbeReceipt } from '../src/frontier-callability-provenance.mjs';
 import { executeFrontierMember } from '../src/frontier-reasoning-runtime.mjs';
 
 const NOW = new Date('2026-09-04T20:00:00.000Z');
@@ -12,9 +13,7 @@ const profile = {
   transportProvider: 'ai-gateway', transportModel: 'google/gemini-frontier',
   transportSourceRef: 'official://gateway', transportVerifiedAt: FRESH, transportEvidenceClass: 'OFFICIAL_SOURCE',
   taskClasses: ['general'], roles: ['general'], allowedDataClasses: ['INTERNAL_NON_SECRET'],
-  reasoningBindings: {
-    FRONTIER_MAX: { settingRef: 'ai-gateway:reasoning=xhigh', sourceRef: 'official://gateway-reasoning', verifiedAt: FRESH, evidenceClass: 'OFFICIAL_SOURCE' }
-  },
+  reasoningBindings: { FRONTIER_MAX: { settingRef: 'ai-gateway:reasoning=xhigh', sourceRef: 'official://gateway-reasoning', verifiedAt: FRESH, evidenceClass: 'OFFICIAL_SOURCE' } },
   pricingVerifiedAt: FRESH, pricingSourceRef: 'official://pricing', pricingEvidenceClass: 'OFFICIAL_SOURCE',
   maxContextTokens: 200000, maxOutputTokens: 32000, centsPerMillionInputTokens: 100, centsPerMillionOutputTokens: 500,
   identityAliases: ['gemini-frontier'], enabled: true
@@ -41,49 +40,45 @@ const contextArtifacts = [
   { id: 'frontier-evidence', kind: 'EVIDENCE', contentRef: 'repo://frontier-evidence', tags: ['frontier'], dependencies: ['constitution'], estimatedTokens: 700, priority: 90 }
 ];
 
+function provenance() {
+  const built = buildFrontierCallabilityProbeReceipt({
+    observations: [{ ...callability, providerRequestId: 'probe-req-google-gemini-frontier' }],
+    sourceRef: 'runtime-probe://frontier-e2e', observedAt: FRESH
+  });
+  assert.equal(built.ok, true);
+  return { receipt: built.receipt, receiptDigest: built.receiptDigest };
+}
+
 test('admitted frontier plan executes through canonical runtime and produces an exact-revision reasoning/cost/latency chain', async () => {
   const admission = buildFrontierAdmissionBundle({
-    profiles: [profile],
-    callability: [callability],
-    benchmarks: [benchmark],
-    contextArtifacts,
-    source: { kind: 'RUNTIME_PROBE_LEDGER', ref: 'proof://frontier-e2e-admission', observedAt: FRESH }
+    profiles: [profile], callability: [callability], benchmarks: [benchmark], contextArtifacts,
+    source: { kind: 'RUNTIME_PROBE_LEDGER', ref: 'proof://frontier-e2e-admission', observedAt: FRESH },
+    callabilityProvenance: provenance()
   });
   assert.equal(admission.ok, true);
+  assert.equal(admission.bundle.callability.length, 1);
   const plan = compileAdmittedFrontierPlan({ task, admissionBundle: admission.bundle, now: NOW });
   assert.equal(plan.ok, true);
   assert.equal(plan.plan.selected.profileId, profile.id);
   assert.equal(plan.plan.selected.reasoningSettingRef, 'ai-gateway:reasoning=xhigh');
   assert.match(plan.admissionDigest, /^[a-f0-9]{64}$/);
 
-  const workerTask = {
-    taskId: task.taskId,
-    objective: task.objective,
-    consequenceClass: 'LOCAL_PREPARATION',
-    contextRefs: plan.plan.contextPacket.contextRefs,
-    evidenceRefs: ['runtime://probe-google-gemini-frontier', plan.admissionDigest]
-  };
+  const workerTask = { taskId: task.taskId, objective: task.objective, consequenceClass: 'LOCAL_PREPARATION', contextRefs: plan.plan.contextPacket.contextRefs, evidenceRefs: ['runtime://probe-google-gemini-frontier', plan.admissionDigest] };
   const factory = worker => async args => {
     assert.deepEqual(worker, { provider: 'ai-gateway', model: profile.transportModel, reasoningEffort: 'xhigh' });
     assert.equal(args.model, profile.transportModel);
     return {
       ok: true, providerRequestId: 'req_e2e', model: profile.transportModel, identityVerification: 'OBSERVED',
-      appliedReasoningEffort: 'xhigh', appliedReasoningEvidence: 'REQUEST_BODY_ATTESTED', usage: { costCents: 4 }
+      appliedReasoningEffort: 'xhigh', appliedReasoningEvidence: 'REQUEST_BODY_ATTESTED', usage: { costCents: 4 }, result: { outcome: 'bounded-result' }
     };
   };
   const times = [100, 131];
-  const execution = await executeFrontierMember({
-    member: plan.plan.selected,
-    task: workerTask,
-    modelExecutorFactory: factory,
-    callabilityEvidence: callability,
-    maxTokens: 1000,
-    costCeilingCents: 50,
-    clock: () => times.shift()
-  });
+  const execution = await executeFrontierMember({ member: plan.plan.selected, task: workerTask, modelExecutorFactory: factory, callabilityEvidence: callability, maxTokens: 1000, costCeilingCents: 50, clock: () => times.shift() });
   assert.equal(execution.ok, true);
   assert.equal(execution.execution.latencyMs, 31);
   assert.equal(execution.execution.appliedReasoningSettingRef, 'ai-gateway:reasoning=xhigh');
+  assert.deepEqual(execution.ephemeralResult, { outcome: 'bounded-result' });
+  assert.equal(execution.ephemeralResultCanonical, false);
 
   const receipt = buildFrontierCognitiveReceipt({ planResult: plan, executions: [execution.execution], now: NOW });
   assert.equal(receipt.ok, true);

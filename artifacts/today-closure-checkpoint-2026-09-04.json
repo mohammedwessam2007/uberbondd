@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "uberbond.today-closure-checkpoint.v1",
+  "observedAt": "2026-09-04T17:53:00+03:00",
+  "main": "7b3c5cdaa419907ffd965f23f49550d9c1ce80f8",
+  "latestMergedVerificationPr": 372,
+  "mainMeasured": {
+    "syntaxFiles": 792,
+    "deterministic": {"tests": 3494, "pass": 3440, "fail": 0, "skipped": 54},
+    "mutationWar": {"killed": 164, "notKilled": 0, "skipped": 0},
+    "postgresReal": {"tests": 187, "pass": 187, "fail": 0},
+    "relaySafety": {"pass": 150, "fail": 0},
+    "reachability": {"srcModules": 314, "production": 143, "operatorOnly": 33, "gated": 138, "allClassified": true},
+    "productionDependencyVulnerabilities": 0
+  },
+  "activeSoftwareFinishLine": [
+    {
+      "pr": 364,
+      "name": "Avengers runtime",
+      "head": "93241815b08fc729541d2e9d8f362af2da83f09e",
+      "mergeable": true,
+      "closureGate": "exact-head executable green required",
+      "currentRunnerState": "VERCEL_RATE_LIMITED_BEFORE_EXECUTION__INFRASTRUCTURE_NON_EVIDENCE"
+    },
+    {
+      "pr": 342,
+      "name": "GENESIS 275",
+      "head": "c7f048a418fc340ecf7caac125824e5d63bac082",
+      "mergeable": true,
+      "closureGate": "reconcile post-Avengers main then exact-head syntax + deterministic + genesis:evolution:doctor"
+    }
+  ],
+  "claude": {
+    "avengersIssue": 351,
+    "independentAvengersReceiptObserved": false
+  },
+  "commercialTruth": {
+    "partnershipCanarySends": 3,
+    "repliesObserved": 0,
+    "qualifiedConversations": 0,
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "finishOrder": ["PR_364_AVENGERS", "PR_342_GENESIS", "EXACT_MAIN_CANON_READINESS_HANDOFF", "REALITY_ACTIVATION"],
+  "truthBoundary": "A blocked hosted runner is infrastructure non-evidence. Internal software evidence does not create customer, payment, acceptance, retention or elapsed-time proof."
+}

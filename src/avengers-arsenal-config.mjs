@@ -18,6 +18,27 @@ function roleForCapability(id) {
   return roles[id] || ['general'];
 }
 
+function endpointClass(value) {
+  try {
+    const url = new URL(String(value || ''));
+    const loopback = ['127.0.0.1', 'localhost', '::1', '[::1]'].includes(url.hostname);
+    if (loopback && url.protocol === 'http:') return 'LOOPBACK';
+    if (url.protocol === 'https:') return 'REMOTE_HTTPS';
+    return 'UNSAFE';
+  } catch {
+    return 'UNSAFE';
+  }
+}
+
+function remoteApprovalValid(profile = {}) {
+  if (endpointClass(profile.endpoint) !== 'REMOTE_HTTPS') return true;
+  const ref = String(profile.remoteApprovalRef || '').trim();
+  const verifiedAt = String(profile.remoteApprovalVerifiedAt || '').trim();
+  return profile.remoteApproved === true
+    && ref.length > 0
+    && Number.isFinite(Date.parse(verifiedAt));
+}
+
 export function capabilityEntryToAvengersTool(entry, { root = process.cwd(), fileExists = fs.existsSync } = {}) {
   const integration = entry?.projectIntegration || {};
   const declaredPath = integration.path || integration.claudeSkillPath || integration.controlPlanePath || integration.canonPath || null;
@@ -53,7 +74,11 @@ export function mergeAvengersProfileOverrides(base = [], raw = '') {
   const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw;
   if (!Array.isArray(parsed)) throw new Error('AVENGERS_MODEL_PROFILES_JSON must be a JSON array');
   const byId = new Map((base || []).map(item => [String(item?.id || '').toLowerCase(), item]));
-  for (const item of parsed) byId.set(String(item?.id || '').toLowerCase(), item);
+  for (const item of parsed) {
+    if (endpointClass(item?.endpoint) === 'UNSAFE') throw new Error(`unsafe Avengers profile endpoint: ${String(item?.id || '(unnamed)')}`);
+    if (!remoteApprovalValid(item)) throw new Error(`remote Avengers profile requires explicit approval evidence: ${String(item?.id || '(unnamed)')}`);
+    byId.set(String(item?.id || '').toLowerCase(), item);
+  }
   return [...byId.values()];
 }
 
@@ -66,9 +91,14 @@ export function composeAvengersRegistry({ baseRegistry, externalCapabilityRegist
     const tool = capabilityEntryToAvengersTool(entry, { root, fileExists });
     mergedTools.set(String(tool.id || '').toLowerCase(), tool);
   }
+  const profiles = mergeAvengersProfileOverrides(baseRegistry.profiles || [], profileOverrides);
+  for (const profile of profiles) {
+    if (endpointClass(profile?.endpoint) === 'UNSAFE') throw new Error(`unsafe Avengers profile endpoint: ${String(profile?.id || '(unnamed)')}`);
+    if (!remoteApprovalValid(profile)) throw new Error(`remote Avengers profile requires explicit approval evidence: ${String(profile?.id || '(unnamed)')}`);
+  }
   return {
     ...baseRegistry,
-    profiles: mergeAvengersProfileOverrides(baseRegistry.profiles || [], profileOverrides),
+    profiles,
     tools: [...mergedTools.values()]
   };
 }

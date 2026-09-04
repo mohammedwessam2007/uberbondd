@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { compileAvengersSquad } from '../src/avengers-arsenal.mjs';
+import { compileEvidenceRoutedAvengersSquad } from '../src/avengers-squad-planner.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -20,9 +20,17 @@ function args(argv = process.argv.slice(2)) {
 
 function readJson(file) { return JSON.parse(fs.readFileSync(file, 'utf8')); }
 
-export function runPlanner({ readiness, mission, maxFallbacks = 2 } = {}) {
+export function runPlanner({ readiness, mission, maxFallbacks = 2, maxBenchmarkAgeDays = 30, minimumEvidenceConfidence = 0.5, date = new Date() } = {}) {
   if (!readiness?.resolvedRegistry) return { ok: false, status: 'AVENGERS_PLAN_BLOCKED', reasonCodes: ['doctor-resolved-registry-required'] };
-  return compileAvengersSquad({ registry: readiness.resolvedRegistry, readiness, mission, maxFallbacks });
+  return compileEvidenceRoutedAvengersSquad({
+    registry: readiness.resolvedRegistry,
+    readiness,
+    mission,
+    maxFallbacks,
+    maxBenchmarkAgeDays,
+    minimumEvidenceConfidence,
+    date
+  });
 }
 
 async function main() {
@@ -33,7 +41,13 @@ async function main() {
   const mission = map.get('--mission-json')
     ? JSON.parse(String(map.get('--mission-json')))
     : readJson(path.resolve(root, String(map.get('--mission') || 'config/avengers-mission.json')));
-  const result = runPlanner({ readiness, mission, maxFallbacks: Number(map.get('--fallbacks') ?? 2) });
+  const result = runPlanner({
+    readiness,
+    mission,
+    maxFallbacks: Number(map.get('--fallbacks') ?? 2),
+    maxBenchmarkAgeDays: Number(map.get('--benchmark-max-age-days') ?? 30),
+    minimumEvidenceConfidence: Number(map.get('--minimum-evidence-confidence') ?? 0.5)
+  });
   if (!result.ok) {
     console.error(JSON.stringify({ status: result.status, reasonCodes: result.reasonCodes || [], assignments: result.assignments || [] }, null, 2));
     return 2;
@@ -44,6 +58,7 @@ async function main() {
     status: result.status,
     missionId: result.plan.mission.id,
     graphDigest: result.plan.graphDigest,
+    router: result.plan.routing,
     assignments: result.plan.assignments.map(item => ({
       nodeId: item.nodeId,
       primary: item.primary?.profileId || null,

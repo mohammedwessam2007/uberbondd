@@ -2,7 +2,7 @@
 // for provider configuration and sandbox behavior, never evidence of real money.
 // The existing canonical billing/payment pipeline remains the only revenue truth.
 
-export const PAYPAL_SANDBOX_ADAPTER_VERSION = 'paypal-sandbox-adapter-1.1.0';
+export const PAYPAL_SANDBOX_ADAPTER_VERSION = 'paypal-sandbox-adapter-1.2.0';
 export const PAYPAL_SANDBOX_API = 'https://api-m.sandbox.paypal.com';
 const text = (v, max = 240) => String(v ?? '').trim().slice(0, max);
 
@@ -23,7 +23,11 @@ function sandboxResult(extra = {}) {
 export function createPayPalSandboxVerifier({ clientId, clientSecret, fetchImpl = globalThis.fetch, apiBase = PAYPAL_SANDBOX_API, timeoutMs = 15_000 } = {}) {
   const id = String(clientId || '');
   const secret = String(clientSecret || '');
-  return async function verifyPayPalSandboxEvent({ objectId, eventName } = {}) {
+  const verifier = async function verifyPayPalSandboxEvent({ provider, objectId, eventName } = {}) {
+    const normalizedProvider = text(provider, 80).toLowerCase();
+    if (normalizedProvider && normalizedProvider !== 'paypal') {
+      return sandboxResult({ terminal: false, errorCode: 'payment-provider-outside-verifier-scope', provider: normalizedProvider });
+    }
     if (!id || !secret) return sandboxResult({ terminal: true, errorCode: 'paypal-sandbox-credentials-not-configured' });
     if (typeof fetchImpl !== 'function') return sandboxResult({ errorCode: 'fetch-implementation-required' });
     const orderId = text(objectId, 80);
@@ -84,4 +88,11 @@ export function createPayPalSandboxVerifier({ clientId, clientSecret, fetchImpl 
       if (timer) clearTimeout(timer);
     }
   };
+  Object.defineProperty(verifier, 'supportedProviders', {
+    value: Object.freeze(['paypal']),
+    writable: false,
+    enumerable: true,
+    configurable: false
+  });
+  return verifier;
 }

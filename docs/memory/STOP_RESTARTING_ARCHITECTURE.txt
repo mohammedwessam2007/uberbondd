@@ -1,0 +1,1 @@
+Do not restart architecture while #364 Avengers and #342 GENESIS are named unfinished dependencies. Finish them, regenerate exact-main truth, then move to reality activation.

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "uberbond-night-frontier-receipt-1.0.0",
+  "run": "2026-09-04-run-15",
+  "scope": "frontier admission-proof identity binding closure",
+  "sourceHeadBeforeReceipt": "34ba317fbe7d6caa83632071d1717c60cf131814",
+  "focus": {
+    "defect": "A MODEL_ADMISSION_EVIDENCED proof could be attached to a different provider/model/revision/taskClass candidate because tournament admission checked proof state but not exact proof identity. Execution-time revalidation had the same intended binding, but the positive fixture itself used an identity-less proof and could not demonstrate the stricter path.",
+    "closure": [
+      "frontier task tournament admission now requires proof.identity to match exact provider + model id + revision + taskClass before scoring",
+      "execution-time routing revalidation preserves the same exact identity binding",
+      "focused fixtures carry the exact identity they claim",
+      "hostile cases reject borrowed model proof, provider substitution, revision substitution and taskClass substitution"
+    ]
+  },
+  "verification": {
+    "class": "FOCUSED_EXACT_BYTE_NODE_RECONSTRUCTION",
+    "command": "node --check src/frontier-task-tournament.mjs && node --check src/frontier-routing-revalidation-proof.mjs && node --test tests/frontier-task-tournament.test.mjs tests/frontier-routing-revalidation-proof.test.mjs",
+    "testsActuallyRun": 22,
+    "passed": 22,
+    "failed": 0,
+    "skipped": 0,
+    "files": [
+      {
+        "path": "src/frontier-task-tournament.mjs",
+        "gitBlobSha": "5b46259fe62908816f50bde86b50c9ebf93b008c"
+      },
+      {
+        "path": "src/frontier-routing-revalidation-proof.mjs",
+        "gitBlobSha": "16e6fafa35a6c873fe1a0b4cf692dc1eaebed75b"
+      },
+      {
+        "path": "tests/frontier-task-tournament.test.mjs",
+        "gitBlobSha": "9217bbb8f02a24e6f84d547dec0238a07592619e"
+      },
+      {
+        "path": "tests/frontier-routing-revalidation-proof.test.mjs",
+        "gitBlobSha": "638c59f2b3a835a72250cc56bec3cc19b380426d"
+      }
+    ],
+    "byteIdentity": "All four reconstructed files matched their Git blob identities before execution."
+  },
+  "truthBoundary": {
+    "fullRepositoryExactHeadGreen": false,
+    "hostedCiGreen": false,
+    "productionPromotionAuthority": "NONE",
+    "businessEffectAuthority": "NONE",
+    "commercialTruth": {
+      "customers": 0,
+      "clearedRevenueUsd": 0,
+      "acceptedPaidDeliveries": 0,
+      "retainedCustomers": 0
+    }
+  },
+  "rebase": {
+    "status": "CLEAN_TREE_COMPOSITION_ON_CURRENT_MAIN",
+    "baseMain": "7429443edc2cfdfe107743e223795e33207b1c42",
+    "reconciledCommit": "f018dfe6459f625d07076aa683fe695f858f714c",
+    "method": "The 19 Night Frontier files were additive relative to current main. Their exact existing Git blobs were overlaid onto the current-main tree, preserving all newer main files and avoiding stale-history merge semantics.",
+    "verificationRequiredAfterReceiptCommit": true
+  },
+  "limitations": [
+    "Focused proof does not substitute for npm run check:syntax && npm run test:deterministic on the exact final head.",
+    "Hosted zero-step/no-log jobs remain INFRASTRUCTURE_NON_EVIDENCE.",
+    "No provider/model call, production routing, deployment, customer contact or spend occurred."
+  ]
+}

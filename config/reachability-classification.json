@@ -141,11 +141,6 @@
       "gate": "NO_OBJECT_STORAGE_ADAPTER",
       "reason": "Compiles a storage write plan and normalizes a provider receipt. Its postgres path is the behaviour the tree already has; its object path terminates in writing to an external store that does not exist yet, so nothing calls it. Attacked before classification: the object backend is fail-closed on every truthiness variant, a namespace cannot escape its prefix, and a receipt is PRIVATE regardless of what the input claims."
     },
-    "src/autonomous-frontier-intelligence.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FRONTIER_OPERATOR_HOST",
-      "reason": "The explorer/critic loop over the operator. Furthest from an entry point of anything here."
-    },
     "src/booking-calendar-contract.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
@@ -246,6 +241,11 @@
       "gate": "NO_FRONTIER_OPERATOR_HOST",
       "reason": "Tracks observed external mechanisms from DISCOVERED through parity. Reference-only until a mission actually absorbs one."
     },
+    "src/frontier-absorption-proof.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FRONTIER_OPERATOR_HOST",
+      "reason": "Grades an absorbed external mechanism CLONED, PARITY or SUPERIOR. Absorption itself is unscheduled, so nothing yet produces the evidence this grades."
+    },
     "src/frontier-artifact-verifier.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_FRONTIER_OPERATOR_HOST",
@@ -261,15 +261,40 @@
       "gate": "NO_FRONTIER_OPERATOR_HOST",
       "reason": "Resolves mission context dependencies and fails closed on unresolved ones. Nothing calls it because nothing compiles a mission yet."
     },
+    "src/frontier-loop-proof.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FRONTIER_OPERATOR_HOST",
+      "reason": "Stages and checks the world-sensing to replanning loop the operator would run. Proof helper for a path nothing schedules."
+    },
+    "src/frontier-model-admission-proof.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
+      "reason": "Checks a model's licence class and admission evidence before the operator may route to it. Waits on the same runtime the open-model catalogue waits on."
+    },
     "src/frontier-operator.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_FRONTIER_OPERATOR_HOST",
       "reason": "Compiles and scores bounded operator missions across LEADER/WORKER/VERIFIER/ADVERSARY/JUDGE roles. The kernel of the family; nothing schedules it."
     },
+    "src/frontier-replacement-tournament-proof.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FRONTIER_OPERATOR_HOST",
+      "reason": "Proves a replacement supplier beat the one it replaces. No supplier is routed through the operator yet, so there is nothing to replace."
+    },
+    "src/frontier-routing-revalidation-proof.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FRONTIER_OPERATOR_HOST",
+      "reason": "Re-checks a routing decision against current evidence rather than the evidence it was made on. Nothing routes yet."
+    },
     "src/frontier-source-coverage.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_FRONTIER_OPERATOR_HOST",
       "reason": "Maps the family's capability claims to the modules that implement them. A coverage receipt about the unscheduled path."
+    },
+    "src/frontier-task-tournament.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FRONTIER_OPERATOR_HOST",
+      "reason": "Scores candidate task decompositions against each other. Only meaningful once a host is compiling missions to decompose."
     },
     "src/frontier-worker-compiler.mjs": {
       "category": "AWAITING_ACTIVATION",

@@ -1,16 +1,16 @@
 import {
   loadLatestAutonomyRun,
   listLatestAutonomyRuns,
-  saveAutonomyRunSnapshot,
-  logAutonomyExecutionReceipt
+  saveAutonomyRunSnapshot
 } from './agent-autonomy-store.mjs';
+import { logIdempotentAutonomyExecutionReceipt } from './agent-autonomy-receipt-ledger.mjs';
 import { advanceAutonomyRun } from './agent-autonomy-pump.mjs';
 import {
   logAutonomySchedulerSelection,
   selectFairAutonomyRuns
 } from './agent-autonomy-scheduler.mjs';
 
-export const AGENT_AUTONOMY_JOB_POLICY_VERSION = 'agent-autonomy-job-1.1.0';
+export const AGENT_AUTONOMY_JOB_POLICY_VERSION = 'agent-autonomy-job-1.2.0';
 
 const ACTIVE_STATUSES = Object.freeze(['ACTIVE', 'PENDING']);
 const MAX_RUNS_PER_TICK = 20;
@@ -63,8 +63,21 @@ export async function tickAutonomyRun({
   });
 
   const resultingRun = advanced.run || loaded.run;
+  let receiptWrite = null;
   if (advanced.receipt) {
-    await logAutonomyExecutionReceipt(store, advanced.receipt, { date });
+    // Receipt persistence precedes the run snapshot because the snapshot is the
+    // state transition that lets the scheduler move on. A process can die after
+    // the receipt write and before that snapshot; the deterministic audit id
+    // makes the restart a harmless replay instead of double-counting the same
+    // worker result in spend / liveness / long-horizon evidence.
+    receiptWrite = await logIdempotentAutonomyExecutionReceipt(store, advanced.receipt, { date });
+    if (!receiptWrite.ok) {
+      return fail(receiptWrite.reasonCodes || ['autonomy-execution-receipt-log-failed'], {
+        run: loaded.run,
+        resultingRun,
+        receiptAuditId: receiptWrite.auditId || null
+      });
+    }
   }
   const snapshot = await saveAutonomyRunSnapshot(store, resultingRun, {
     reason: advanced.transition || 'tick',
@@ -83,6 +96,8 @@ export async function tickAutonomyRun({
     taskId: resultingRun.currentIntent?.taskId || resultingRun.relayRef?.taskId || null,
     targetAgent: resultingRun.currentIntent?.targetAgent || resultingRun.relayRef?.targetAgent || null,
     receiptLogged: Boolean(advanced.receipt),
+    receiptDuplicate: receiptWrite?.duplicate === true,
+    receiptAuditId: receiptWrite?.auditId || null,
     snapshotAuditId: snapshot.auditId,
     reasonCodes: advanced.reasonCodes || [],
     updatedAt: resultingRun.updatedAt || timestamp(date)

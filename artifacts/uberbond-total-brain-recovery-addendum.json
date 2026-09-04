@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "uberbond-total-brain-recovery-addendum-1.0.0",
+  "project": "UberBond",
+  "generatedAt": "2026-09-03T14:45:00+03:00",
+  "purpose": "Source-backed anti-amputation overlay for durable lineages and owner laws recovered after the initial Total Brain draft.",
+  "authority": "MEMORY_ONLY__NO_BUSINESS_EFFECT_AUTHORITY",
+  "entries": [
+    {
+      "name": "UberBond Growth Graph Expansion",
+      "truthClass": "VERIFIED_CURRENT",
+      "donation": "Compose discovery, enrichment, channel, content, attribution, payment, delivery and economic learning into one growth graph; prevent disconnected clone systems."
+    },
+    {
+      "name": "Cost -> Stage -> Fulfill -> Learn Spine",
+      "truthClass": "VERIFIED_CURRENT",
+      "donation": "Bind evidence acquisition cost, staged assets, fulfilment, cleared-contribution/founder-minute receipts and bounded economic learning."
+    },
+    {
+      "name": "Autonomous Agent Mesh V1",
+      "truthClass": "VERIFIED_CURRENT",
+      "donation": "Bounded multi-model work graph and control plane for replaceable workers, durable tasks, evidence refs, permissions, replay safety and unattended execution."
+    },
+    {
+      "name": "Agent Relay Bus",
+      "truthClass": "HISTORICAL_DONOR",
+      "donation": "GPT <-> UberBond <-> Claude provider-neutral typed task bus with shared memory/evidence, permission/result contracts, routing and disagreement/arbiter semantics."
+    },
+    {
+      "name": "V5 Evidence Kernel / SLIM_TO_V5",
+      "truthClass": "HISTORICAL_DONOR",
+      "donation": "Small sufficient context plus retrieval, deterministic policy/tiny instructions, evidence contracts, external-gate boundaries and held-out promotion discipline."
+    },
+    {
+      "name": "Cloneable Market Feature Inventory",
+      "truthClass": "RESEARCH_ASSET",
+      "donation": "Decompose observable market software into reusable workflow/capability atoms rather than building one clone per competitor."
+    },
+    {
+      "name": "Sender Infrastructure Mesh",
+      "truthClass": "VERIFIED_CURRENT",
+      "donation": "Sender/domain/provider-purpose, authentication, reputation, suppression, uncertainty/reconciliation, idempotency and concentration controls."
+    },
+    {
+      "name": "Evidence-to-Content Compiler",
+      "truthClass": "VERIFIED_CURRENT",
+      "donation": "Turn source-backed evidence into provenance-preserving, limitation-aware distribution/content assets tied to offers and routes."
+    },
+    {
+      "name": "World Brain Field Mission",
+      "truthClass": "VERIFIED_CURRENT",
+      "donation": "Source-backed public opportunity, partner, capability and first-cash research beyond repository-local context with zero business-effect authority until promoted."
+    }
+  ],
+  "ownerLaws": [
+    "Customer acquisition and economic proof are UberBond responsibilities; pre-customer engineering completion must not make the founder the permanent manual salesperson/operator.",
+    "Revenue generation and self-improvement run in parallel: operate -> earn -> observe -> learn -> improve -> operate better -> earn more.",
+    "Founder work should collapse toward genuinely human-exclusive actions such as MFA, KYC/identity confirmation, new paid commitments and legally required personal decisions.",
+    "Maintain separate engineering-readiness, commercial-proof, autonomy/founder-minute and self-improvement/economic-lift scoreboards rather than one vanity completion percentage."
+  ],
+  "sourcePointers": [
+    "docs/UBERBOND_GROWTH_GRAPH_EXPANSION.md",
+    "artifacts/growth-graph-capability-frontier.json",
+    "docs/UBERBOND_COST_STAGE_FULFILL_LEARN_SPINE.md",
+    "artifacts/cost-stage-fulfill-learn-frontier.json",
+    "docs/AUTONOMOUS_AGENT_MESH_V1.md",
+    "docs/AGENT_MESH_ENTRY_POINT.md",
+    "docs/memory/UBERBOND_OWNER_GOALS_2026-09-02.md",
+    "File Library: V5 Evidence Kernel / SLIM_TO_V5 architecture source",
+    "File Library: UBERBOND_CLONEABLE_MARKET_FEATURE_INVENTORY_2026-08-25.md"
+  ],
+  "notClaimed": "This overlay does not promote historical/chat/research material into present-tense implementation, customer, payment, acceptance, retention, legality or production truth.",
+  "humanReadableCompanion": "docs/UBERBOND_TOTAL_BRAIN_RECOVERY_ADDENDUM.md"
+}

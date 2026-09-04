@@ -1,0 +1,16 @@
+{
+  "schemaVersion":"uberbond.night-frontier-receipt.v1",
+  "run":11,
+  "branch":"work/night-frontier-20260903",
+  "baseMainSha":"acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "frontierPr":334,
+  "integrationPr":331,
+  "implemented":[{"capability":"provider-neutral successful-task tournament","status":"IMPLEMENTED_UNVERIFIED_HOSTED","guards":["fresh admission proof required","exact supplier identity dedupe","same task class required","successful trials required","bounded cost latency reliability hardware and founder-minute evidence","zero-success candidates rejected","no business-effect authority"]}],
+  "benchmarkClaims":{"hostedBenchmarksExecuted":0,"parityOrSuperiorPromotions":0,"modelPromotions":0},
+  "modelUniverseDelta":{"admittedModels":0,"newRoutingProofObjects":1,"doctrine":"rank task suppliers by successful-task economics rather than token price"},
+  "brainCanonState":"frontier loop and admission proofs remain durable on PR 334; run-11 tournament receipt persisted; peer canon untouched",
+  "frontierSignals":[{"signal":"2026-09-02 industry analysis emphasizes cost per task rather than token price","classification":"ECONOMIC_ROUTING_SIGNAL_ONLY"},{"signal":"2026-09-03 reporting on Gemini 3.8 Flash says unchanged token pricing can still raise per-task cost through higher token use and agentic steps","classification":"COST_CURVE_SIGNAL_ONLY"},{"signal":"GLM-5.3-Flash public pricing and open-weight claims remain discovery evidence only until exact admission and UberBond-task benchmarking","classification":"MODEL_DISCOVERY_ONLY"}],
+  "integrationFeed":{"dependencyReady":true,"recommendation":"Integration may absorb the isolated tournament proof after trustworthy exact-head execution; do not grant worker routing or business effects from this receipt alone."},
+  "zeroEffectLedger":{"customerContacts":0,"spendUsd":0,"deployments":0,"credentialChanges":0,"dnsChanges":0,"kycChanges":0,"untrustedExternalCodeExecutions":0,"modelPromotions":0,"businessEffectAuthority":"NONE"},
+  "nextFrontier":"Add benchmark freshness and evidence-independence binding to tournament entries so stale or recycled evidence cannot keep a former winner routed after provider/model/runtime drift."
+}

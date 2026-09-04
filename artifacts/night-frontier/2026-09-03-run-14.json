@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "uberbond.night-frontier-receipt.v1",
+  "run": 14,
+  "observedAt": "2026-09-03T09:00:00Z",
+  "branch": "work/night-frontier-20260903",
+  "baseMainShaObserved": "bf9640a282aa2131687e76d44a4ae4c586887608",
+  "frontierPr": 334,
+  "convergencePr": 329,
+  "implementation": {
+    "capability": "fresh replacement tournament proof",
+    "status": "IMPLEMENTED_HOSTED_UNVERIFIED",
+    "guards": [
+      "prior route must already be fail-closed and authority-free",
+      "replacement requires an evidenced re-tournament trigger",
+      "replacement tournament must postdate the trigger",
+      "replacement tournament must be fresh and evidenced",
+      "drifted winner cannot silently retain authority",
+      "replacement grants review eligibility only, never promotion or business effects"
+    ],
+    "hostileTestsAdded": 6
+  },
+  "parityEvidence": {"newClonedClaims":0,"newParityClaims":0,"newSuperiorClaims":0},
+  "modelUniverseDelta": {"admittedModels":0,"promotedModels":0,"replacementProofObjectsAdded":1},
+  "brainCanonState": "Existing ordered Frontier Intelligence Loop, absorption proof, admission proof, successful-task tournament and execution revalidation remain durable; this receipt adds the revoke-to-fresh-replace law without modifying peer-owned Frontier/Open Model files.",
+  "frontierSignals": [
+    {"signal":"Gemini 3.8 Flash reporting indicates unchanged token rates can still increase completed-task cost through higher token/agentic consumption.","classification":"ECONOMIC_ROUTING_SIGNAL_ONLY"},
+    {"signal":"Public inference indexes show rapid price movement across hosted open-weight models, increasing the value of freshness-bound re-tournaments.","classification":"COST_CURVE_SIGNAL_ONLY"}
+  ],
+  "integrationFeed": {"dependencyReady":false,"reason":"exact-head hosted deterministic verification still required before Integration import"},
+  "zeroEffectLedger": {"customerContacts":0,"spendUsd":0,"deployments":0,"credentialChanges":0,"dnsChanges":0,"kycChanges":0,"untrustedExternalCodeExecutions":0,"modelPromotions":0,"businessEffectAuthority":"NONE"},
+  "nextFrontier": "Bind replacement proof to evidence-lineage independence so a re-tournament cannot recycle the invalidated winner's benchmark, price, permission, runtime, or admission receipts under a different supplier identity."
+}

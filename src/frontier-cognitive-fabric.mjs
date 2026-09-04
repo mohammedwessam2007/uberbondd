@@ -5,7 +5,7 @@ import { validateOrchestrationGraph } from './orchestration-frontier.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
 
-export const FRONTIER_COGNITIVE_FABRIC_VERSION = 'uberbond.frontier-cognitive-fabric-1.1.1';
+export const FRONTIER_COGNITIVE_FABRIC_VERSION = 'uberbond.frontier-cognitive-fabric-1.1.2';
 export const FRONTIER_COGNITIVE_PLAN_SCHEMA = 'uberbond.frontier-cognitive-plan.v1';
 export const FRONTIER_COGNITIVE_RECEIPT_SCHEMA = 'uberbond.frontier-cognitive-receipt.v1';
 export const FRONTIER_REASONING_TIERS = Object.freeze(['FAST', 'STANDARD', 'DEEP', 'FRONTIER_MAX', 'COUNCIL_MAX']);
@@ -51,6 +51,7 @@ function timestamp(value) {
   return Number.isFinite(date.getTime()) ? date.toISOString() : null;
 }
 function sha256(value) { return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'); }
+function benchmarkKey(provider, model, revision) { return `${provider}\u0000${model}\u0000${revision}`; }
 function envelope(extra = {}) {
   return { policyVersion: FRONTIER_COGNITIVE_FABRIC_VERSION, businessEffectAuthority: 'NONE', externalEffectLedger: zeroEffects(), ...extra };
 }
@@ -90,10 +91,10 @@ function normalizeProfile(raw = {}, index = 0) {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return { ok: false, reasonCodes: [`invalid-profile:${index}`] };
   const id = text(raw.id, 120)?.toLowerCase();
   const provider = text(raw.provider, 80)?.toLowerCase();
-  const model = text(raw.model, 240);
+  const model = text(raw.model, 120);
   const revision = text(raw.revision, 240);
   const transportProvider = text(raw.transportProvider, 80)?.toLowerCase();
-  const transportModel = text(raw.transportModel ?? model, 240);
+  const transportModel = text(raw.transportModel ?? model, 160);
   const transportSourceRef = text(raw.transportSourceRef, 1000);
   const transportVerifiedAt = timestamp(raw.transportVerifiedAt);
   const transportEvidenceClass = evidenceClass(raw.transportEvidenceClass);
@@ -108,11 +109,11 @@ function normalizeProfile(raw = {}, index = 0) {
   const maxOutputTokens = integer(raw.maxOutputTokens ?? 1, 1, 1_000_000);
   const centsPerMillionInputTokens = finite(raw.centsPerMillionInputTokens ?? 0, 0, 100_000_000);
   const centsPerMillionOutputTokens = finite(raw.centsPerMillionOutputTokens ?? 0, 0, 100_000_000);
-  const identityAliases = list(raw.identityAliases ?? [model], 16, 240);
+  const identityAliases = list(raw.identityAliases ?? [model], 16, 120);
   const reasons = [];
   if (!id || !/^[a-z0-9][a-z0-9._-]*$/.test(id)) reasons.push(`profile-id-invalid:${index}`);
   if (!provider) reasons.push(`provider-required:${id ?? index}`);
-  if (!model) reasons.push(`model-required:${id ?? index}`);
+  if (!model) reasons.push(`model-identity-exceeds-canonical-router-boundary-or-is-missing:${id ?? index}`);
   if (!revision) reasons.push(`revision-required:${id ?? index}`);
   if (!transportProvider || !TRANSPORT_PROVIDERS.has(transportProvider)) reasons.push(`transport-provider-unsupported:${id ?? index}`);
   if (!transportModel || !transportSourceRef || !transportVerifiedAt || !transportEvidenceClass) reasons.push(`transport-evidence-required:${id ?? index}`);
@@ -153,10 +154,10 @@ function normalizeCallability(raw = {}, profileMap, now, maxAgeMs) {
   if (!profile) return null;
   const status = text(raw.status, 80)?.toUpperCase();
   const observedProvider = text(raw.observedProvider, 80)?.toLowerCase();
-  const observedModel = text(raw.observedModel, 240);
+  const observedModel = text(raw.observedModel, 120);
   const observedRevision = text(raw.observedRevision, 240);
   const observedTransportProvider = text(raw.observedTransportProvider, 80)?.toLowerCase();
-  const observedTransportModel = text(raw.observedTransportModel, 240);
+  const observedTransportModel = text(raw.observedTransportModel, 160);
   const observedAt = timestamp(raw.observedAt);
   const sourceRef = text(raw.sourceRef, 1000);
   const klass = text(raw.evidenceClass, 80)?.toUpperCase();
@@ -208,6 +209,8 @@ function normalizeTask(raw = {}) {
 }
 
 function renormalizeBenchmark(raw, taskClass, now, maxAgeMs) {
+  const observedRevision = text(raw?.observedRevision ?? raw?.revision, 240);
+  const evidenceRef = text(raw?.evidenceRef ?? raw?.sourceRef, 1000);
   const source = raw?.ok === true ? {
     provider: raw.candidate?.provider,
     model: raw.candidate?.model,
@@ -221,10 +224,10 @@ function renormalizeBenchmark(raw, taskClass, now, maxAgeMs) {
     costEfficiency: raw.costEfficiency
   } : raw;
   const observedAt = timestamp(raw?.observedAt ?? now);
-  if (!observedAt) return null;
+  if (!observedAt || !observedRevision || !evidenceRef) return null;
   const benchmark = normalizeModelBenchmark(source, new Date(observedAt));
   if (!benchmark?.ok || benchmark.taskClass !== taskClass || !evidenceFresh(benchmark.observedAt, now, maxAgeMs)) return null;
-  return benchmark;
+  return { ...benchmark, observedRevision, evidenceRef };
 }
 
 function latestBenchmarks(benchmarks, taskClass, now, maxAgeMs) {
@@ -232,8 +235,9 @@ function latestBenchmarks(benchmarks, taskClass, now, maxAgeMs) {
   for (const raw of Array.isArray(benchmarks) ? benchmarks : []) {
     const benchmark = renormalizeBenchmark(raw, taskClass, now, maxAgeMs);
     if (!benchmark) continue;
-    const current = latest.get(benchmark.candidate.candidateId);
-    if (!current || benchmark.observedAt > current.observedAt) latest.set(benchmark.candidate.candidateId, benchmark);
+    const key = benchmarkKey(benchmark.candidate.provider, benchmark.candidate.model, benchmark.observedRevision);
+    const current = latest.get(key);
+    if (!current || benchmark.observedAt > current.observedAt) latest.set(key, benchmark);
   }
   return latest;
 }
@@ -276,7 +280,7 @@ function executorWorker(profile) { return { provider: profile.transportProvider,
 function rankEligible({ eligible, latest, task, minimumEvidenceConfidence, frontierQualityDelta, random }) {
   const enriched = eligible.map(item => {
     const candidate = candidateFor(item.profile);
-    const benchmark = candidate.ok ? latest.get(candidate.candidateId) ?? null : null;
+    const benchmark = candidate.ok ? latest.get(benchmarkKey(item.profile.provider, item.profile.model, item.profile.revision)) ?? null : null;
     return { ...item, candidate, benchmark };
   }).filter(item => item.candidate.ok);
   if (!enriched.length) return failure(['no-eligible-candidate'], 'CAPACITY_BLOCKED');
@@ -480,6 +484,8 @@ export function compileFrontierCognitivePlan({
       transportProvider: item.profile.transportProvider,
       transportModel: item.profile.transportModel,
       benchmarkId: item.benchmark?.benchmarkId ?? null,
+      benchmarkRevision: item.benchmark?.observedRevision ?? null,
+      benchmarkEvidenceRef: item.benchmark?.evidenceRef ?? null,
       quality: item.benchmark?.quality ?? null,
       reliability: item.benchmark?.reliability ?? null,
       reasoningSettingRef: item.eligibility.binding.settingRef
@@ -564,10 +570,10 @@ export function buildFrontierCognitiveReceipt({ planResult, executions = [], con
     seen.add(profileId);
     if (raw?.ok !== true) reasons.push(`execution-not-successful:${profileId}`);
     const observedProvider = text(raw?.observedProvider, 80)?.toLowerCase();
-    const observedModel = text(raw?.observedModel, 240);
+    const observedModel = text(raw?.observedModel, 120);
     const observedRevision = text(raw?.observedRevision, 240);
     const observedTransportProvider = text(raw?.observedTransportProvider, 80)?.toLowerCase();
-    const observedTransportModel = text(raw?.observedTransportModel, 240);
+    const observedTransportModel = text(raw?.observedTransportModel, 160);
     const identityVerification = text(raw?.identityVerification, 80)?.toUpperCase();
     const appliedReasoningSettingRef = text(raw?.appliedReasoningSettingRef, 500);
     const identityOk = observedProvider === chosen.provider

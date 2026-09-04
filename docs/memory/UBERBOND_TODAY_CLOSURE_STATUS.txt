@@ -1,0 +1,5 @@
+MAIN 7b3c5cdaa419907ffd965f23f49550d9c1ce80f8
+NEXT #364 Avengers
+THEN #342 GENESIS
+THEN exact-main canon/readiness/handoff
+THEN reality activation

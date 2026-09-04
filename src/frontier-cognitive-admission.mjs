@@ -3,7 +3,7 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { compileFrontierCognitivePlan } from './frontier-cognitive-fabric.mjs';
 import { validateFrontierCallabilityProbeReceipt } from './frontier-callability-provenance.mjs';
 
-export const FRONTIER_COGNITIVE_ADMISSION_VERSION = 'uberbond.frontier-cognitive-admission-1.2.0';
+export const FRONTIER_COGNITIVE_ADMISSION_VERSION = 'uberbond.frontier-cognitive-admission-1.2.1';
 export const FRONTIER_ADMISSION_SCHEMA = 'uberbond.frontier-admission-bundle.v1';
 
 const admittedBundles = new WeakMap();
@@ -214,6 +214,7 @@ export function buildFrontierAdmissionBundle({
     rejectedBenchmarks,
     identityDigest,
     simulationOnly: provenance.simulationOnly === true,
+    trustedForLiveExecution: provenance.trustedForLiveExecution === true,
     truthBoundary: 'CALLER_LABELS_ARE_NOT_PROVENANCE; CALLABLE_NOW_ENTERS_ONLY_WHEN_BOUND_TO_A_VALID_PRODUCER_RECEIPT; SYNTHETIC_PROVENANCE_MAY_PLAN_TESTS_BUT_CAN_NEVER_AUTHORIZE_LIVE_EXECUTION; BENCHMARKS_BIND_EXACT_PROVIDER_MODEL_REVISION'
   };
   admittedBundles.set(bundle, { digest: sha256(bundle), callabilityProvenance });
@@ -234,13 +235,23 @@ export function compileAdmittedFrontierPlan({ task, admissionBundle, ...policy }
     benchmarks: admissionBundle.benchmarks,
     contextArtifacts: admissionBundle.contextArtifacts
   });
-  if (!result.ok) return envelope({ ...result, admissionDigest: admissionBundle.identityDigest, admissionRejectedEvidence: { callability: admissionBundle.rejectedCallability, benchmarks: admissionBundle.rejectedBenchmarks } });
+  const simulationOnly = admissionBundle.simulationOnly === true;
+  const trustedForLiveExecution = !simulationOnly && admissionBundle.trustedForLiveExecution === true;
+  if (!result.ok) return envelope({
+    ...result,
+    simulationOnly,
+    trustedForLiveExecution,
+    admissionDigest: admissionBundle.identityDigest,
+    admissionRejectedEvidence: { callability: admissionBundle.rejectedCallability, benchmarks: admissionBundle.rejectedBenchmarks }
+  });
   return envelope({
     ...result,
+    simulationOnly,
+    trustedForLiveExecution,
     admissionDigest: admissionBundle.identityDigest,
     admissionSource: admissionBundle.source,
     callabilityProvenance: admissionBundle.callabilityProvenance,
     admissionRejectedEvidence: { callability: admissionBundle.rejectedCallability, benchmarks: admissionBundle.rejectedBenchmarks },
-    truthBoundary: `${result.plan?.truthBoundary ? `${result.plan.truthBoundary}; ` : ''}PLAN_WAS_COMPILED_ONLY_FROM_PROCESS_VALIDATED_UNTAMPERED_EXACT_REVISION_ADMISSION_EVIDENCE`
+    truthBoundary: `${result.plan?.truthBoundary ? `${result.plan.truthBoundary}; ` : ''}${simulationOnly ? 'SYNTHETIC_PROVENANCE_TEST_PLAN_NOT_LIVE_AUTHORITY; ' : ''}PLAN_WAS_COMPILED_ONLY_FROM_PROCESS_VALIDATED_UNTAMPERED_EXACT_REVISION_ADMISSION_EVIDENCE`
   });
 }

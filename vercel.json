@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run check:syntax && npm run test:deterministic",
+  "buildCommand": "node .github/avengers-canon-refresh.mjs && npm run check:syntax && npm run test:deterministic",
   "functions": {
     "api/agent-relay.mjs": { "maxDuration": 60 },
     "api/agent-mesh-cron.mjs": { "maxDuration": 60 },

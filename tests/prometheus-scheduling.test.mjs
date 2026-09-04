@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { Store } from '../src/store.mjs';
 import { createJobHandlers } from '../src/job-handlers.mjs';
-import { startScheduler } from '../src/scheduler.mjs';
+import { startScheduler, compileCloudWakePlan } from '../src/scheduler.mjs';
 import { recordCommercialMemory } from '../src/commercial-memory.mjs';
 
 const monday = new Date('2026-07-13T10:00:00.000Z');
@@ -106,4 +106,30 @@ test('the two new job types never appear anywhere near an external-action worker
   const source = await fs.readFile(new URL('../src/job-handlers.mjs', import.meta.url), 'utf8');
   const prometheusSection = source.slice(source.indexOf("'prometheus.capability_gap.recompute'"));
   assert.doesNotMatch(prometheusSection, /gmail\.mjs|sendEmail|fetch\(|http\.request|https\.request/);
+});
+
+test('cloud wake compiler expands a daily seed into deterministic hourly at-least-once occurrence keys', () => {
+  const plan = compileCloudWakePlan({
+    anchor: '2026-09-05T00:00:00.000Z',
+    intervalMinutes: 60,
+    horizonHours: 24,
+    missionTypes: ['agent-mesh.tick', 'frontier.scan']
+  });
+  assert.equal(plan.ok, true);
+  assert.equal(plan.status, 'CLOUD_WAKE_PLAN_COMPILED_NOT_PUBLISHED');
+  assert.equal(plan.entries.length, 48);
+  assert.equal(plan.entries[0].delaySeconds, 0);
+  assert.equal(plan.entries[2].delaySeconds, 3600);
+  assert.equal(plan.entries[0].idempotencyKey, 'cloud-wake:agent-mesh.tick:2026-09-05T00:00:00.000Z');
+  assert.equal(plan.entries.at(-1).delaySeconds, 23 * 3600);
+  assert.equal(new Set(plan.entries.map(entry => entry.occurrenceKey)).size, 48);
+  assert.equal(plan.canonicalJobTruth, 'UBERBOND_DURABLE_QUEUE');
+  assert.equal(plan.cloudPublishAuthority, 'NONE');
+  assert.deepEqual(plan.externalEffectLedger, { providerCalls: 0, messages: 0, purchases: 0, deployments: 0, credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0 });
+});
+
+test('cloud wake compiler rejects duplicate missions, invalid anchors, and plans beyond the seven-day delayed-delivery horizon', () => {
+  assert.throws(() => compileCloudWakePlan({ anchor: 'bad-date' }), /valid anchor/);
+  assert.throws(() => compileCloudWakePlan({ anchor: '2026-09-05T00:00:00Z', horizonHours: 169 }), /horizonHours/);
+  assert.throws(() => compileCloudWakePlan({ anchor: '2026-09-05T00:00:00Z', missionTypes: ['agent-mesh.tick', 'agent-mesh.tick'] }), /unique/);
 });

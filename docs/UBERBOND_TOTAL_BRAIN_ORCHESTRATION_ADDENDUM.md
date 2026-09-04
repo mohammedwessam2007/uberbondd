@@ -132,6 +132,21 @@ The focused branch evidence recorded before merge included:
 
 That evidence is not a claim that upstream Fable executed live, not a full-repository green claim, and not external commercial proof.
 
+## Cloud fabric continuity chain — 2026-09-05
+
+This mandatory startup addendum now explicitly chains into:
+- `docs/UBERBOND_TOTAL_BRAIN_CLOUD_FABRIC_ADDENDUM.md`
+- `docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-05.md`
+
+Future sessions reading this startup memory must also read those two files before declaring the current closure frontier, device-independence architecture, prompt-cache economics, browser-secret persistence policy, or current open-PR state.
+
+The chained cloud-fabric doctrine preserves three owner-supplied mechanisms in corrected form:
+1. durable provider-neutral cloud wake/retry infrastructure rather than pretending a serverless function is an immortal daemon;
+2. measured shared-context prompt caching rather than assuming a universal 90% discount;
+3. an ephemeral protected-client contract that removes application-side persistent admin secrets while refusing the impossible claim that browsers/operating systems/network infrastructure leave literally zero traces.
+
+The closure checkpoint also fixes the anti-loop rule: new optional frontier capabilities may grow in parallel but may not continually move the fixed Core Completion finish line unless they expose a concrete existing-core defect.
+
 ## Supersession rule
 
 This addendum may be extended or superseded only by a newer repository-native memory artifact that explicitly names what changed, what remains durable, what was revoked, and what evidence supports the new state. Silence is not deletion.

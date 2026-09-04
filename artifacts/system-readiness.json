@@ -1,11 +1,11 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-04T04:18:26.826Z",
+  "generatedAt": "2026-09-04T04:33:50.596Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "aa305a164880705b61b1b46ca195f0d777bfed5c",
+    "head": "9e46a5411fbf0e7c604965d4a16e8376b3a27c97",
     "branch": "claude/uberbond-ragnarok-closure-pek0g6",
-    "sourceModules": 312,
+    "sourceModules": 313,
     "testSuites": 379,
     "workingTreeClean": false
   },
@@ -21,8 +21,8 @@
       "pass": 3435,
       "fail": 0,
       "skipped": 54,
-      "ranAt": "2026-09-04T06:00:00Z",
-      "note": "Measured 3489 tests, 3432 pass, 3 fail, 54 skipped immediately before this regeneration; all three were the canon figure tests, which cannot pass until this artifact is regenerated. This head merges 91 commits of main. origin/main itself fails 24 of these tests. The failure sets were compared rather than assumed: every failure on this branch before the merge fixes was also red on main, none was caused by the merge, and this branch repairs 17 that main is shipping red -- among them a receipt-ledger fake store missing the add/get pair the ledger requires, a model-admission fixture with no provider that could never have passed, and a capability count pinned at 8 against a registry holding 11."
+      "ranAt": "2026-09-04T07:00:00Z",
+      "note": "Measured 3489 tests, 3434 pass, 1 fail, 54 skipped immediately before this regeneration; the one failure was the canon figure test, which cannot pass until this artifact is regenerated. The browser suite is included and passing: the Playwright crawler had been failing because nothing sets CHROMIUM_PATH, so it fell through to Playwright's own default, which names the exact build its package was published against. On a host carrying a different build that is a launch failure telling you to install browsers, on a machine that already has a working one next to the one it wants. The crawler now resolves an installed Chromium when nobody named one -- only paths that exist and are executable, and nothing rather than a guess, so an explicit executablePath still wins and a host with no browser fails exactly as before."
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -69,12 +69,12 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 312,
-      "reachableFromProduction": 141,
+      "srcModules": 313,
+      "reachableFromProduction": 142,
       "reachableFromOperatorScriptsOnly": 33,
       "noEntryPointAtAll": 138,
       "allClassified": true,
-      "ranAt": "2026-09-04T06:00:00Z",
+      "ranAt": "2026-09-04T07:00:00Z",
       "note": "Computed from the ratchet's own partition at this head. Main landed six frontier proof modules with no entry point -- red on its own ratchet, the same way #329 was -- now classified behind the gates already registered for that family. One classification was removed rather than kept: main wired autonomous-frontier-intelligence, so the entry saying it awaited activation had become a false statement about a reachable module. The ratchet catches that direction too."
     }
   },

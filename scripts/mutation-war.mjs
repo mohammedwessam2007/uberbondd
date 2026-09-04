@@ -20,7 +20,7 @@ import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { classifySuiteRun, applyMutation } from './mutation-verdict.mjs';
-import { resolveChromium } from './resolve-chromium.mjs';
+import { resolveChromium } from '../src/resolve-chromium.mjs';
 import { loadJournal, appendVerdict } from './mutation-journal.mjs';
 import { withDisposablePostgres } from './disposable-postgres.mjs';
 
@@ -505,14 +505,14 @@ export const MUTATIONS = [
   },
   {
     id: 'BROWSER-01', guard: 'A declared browser path that is not an executable is not a browser',
-    file: 'scripts/resolve-chromium.mjs',
+    file: 'src/resolve-chromium.mjs',
     find: "  if (declared) return isExecutableFile(declared) ? declared : '';",
     replace: '  if (declared) return declared;',
     suites: ['tests/omega-closure-hostile.test.mjs']
   },
   {
     id: 'BROWSER-02', guard: 'Browser detection returns a real executable rather than a plausible path',
-    file: 'scripts/resolve-chromium.mjs',
+    file: 'src/resolve-chromium.mjs',
     find: "  ].find(isExecutableFile) || '';",
     replace: "  ][0] || '';",
     suites: ['tests/omega-closure-hostile.test.mjs']

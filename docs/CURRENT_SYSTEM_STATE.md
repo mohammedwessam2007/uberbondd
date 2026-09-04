@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-09-04**
 Branch: `claude/uberbond-ragnarok-closure-pek0g6`
-Reconciled from current head: `aa305a164880705b61b1b46ca195f0d777bfed5c`
+Reconciled from current head: `9e46a5411fbf0e7c604965d4a16e8376b3a27c97`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
@@ -41,11 +41,11 @@ The 52 deterministic skips are environment-dependent suites excluded from that r
 
 ## Reachability
 
-**138 of 312 `src` modules have no entry point at all**.
+**138 of 313 `src` modules have no entry point at all**.
 
 | Reachability class | Modules |
 |---|---:|
-| Reachable from production | 141 |
+| Reachable from production | 142 |
 | Reachable only via an operator script | 33 |
 | **No entry point at all** | **138** |
 

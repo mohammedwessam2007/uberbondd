@@ -1,11 +1,12 @@
 {
-  "schemaVersion": "uberbond-external-skill-plugin-registry-1.1.0",
+  "schemaVersion": "uberbond-external-skill-plugin-registry-1.2.0",
   "project": "UberBond",
-  "observedAt": "2026-08-31T04:20:00Z",
+  "observedAt": "2026-09-04T00:00:00Z",
   "policyPath": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
   "controlPlanePath": "src/external-capability-control-plane.mjs",
+  "orchestrationCanonPath": "docs/ORCHESTRATION_CAPABILITY_CANON.md",
   "northStar": "risk-adjusted cleared contribution profit per founder minute",
-  "truthRule": "External skills, plugins, runtimes, gateways, memories, scanners, and research tools are replaceable suppliers beneath current repository canon and durable external evidence. Capability never creates authority.",
+  "truthRule": "External skills, plugins, runtimes, gateways, memories, scanners, research tools, and orchestrators are replaceable suppliers beneath current repository canon and durable external evidence. Capability never creates authority.",
   "entries": [
     {
       "id": "find-skills",
@@ -215,16 +216,97 @@
         "No inferred private contact information.",
         "Preserve source provenance and distinguish reachability from permission."
       ]
+    },
+    {
+      "id": "fable-orchestrator",
+      "name": "Fable Orchestrator",
+      "source": "https://github.com/codejunkie99/fable-orchestrator",
+      "upstream": "codejunkie99/fable-orchestrator",
+      "sourceRef": "3b653701d48095a488c350f7a9d5b1fca4d37183",
+      "license": "MIT",
+      "class": "PROJECT_SKILL_AND_OPTIONAL_RUNTIME",
+      "role": "Planner/adjudicator separation, bounded task-graph construction, callable-worker validation and evidence-based integration.",
+      "uberbondUse": "Reference baseline for UberBond's provider-neutral FABLE_GRAPH orchestration protocol across ChatGPT mission control, Claude Code and Codex-style runtimes.",
+      "activation": "APPROVED_PROJECT_PROTOCOL_RUNTIME_EVIDENCE_GATED",
+      "authority": "NONE",
+      "risk": "MEDIUM",
+      "projectIntegration": {
+        "status": "UBERBOND_NATIVE_PROTOCOL_AND_PROJECT_SKILLS_ADAPTED",
+        "canonPath": "docs/ORCHESTRATION_CAPABILITY_CANON.md",
+        "claudeSkillPath": ".claude/skills/uberbond-orchestrator/SKILL.md",
+        "codexSkillPath": ".codex/skills/uberbond-orchestrator/SKILL.md",
+        "controlPlanePath": "src/orchestration-frontier.mjs",
+        "runtimeRequiredForProtocol": false,
+        "upstreamRuntimeOptional": true,
+        "upstreamRuntimeEvidenceRequired": true
+      },
+      "notes": [
+        "The upstream repository is a mechanism donor and optional local runtime, not a new company brain.",
+        "Do not copy its user-specific local paths or assume GPT-5.6 Luna / DeepSeek routes are callable in another host.",
+        "Live planner use requires observable planner identity plus a verified callable-worker menu.",
+        "Never place credentials or private secrets in orchestration packets."
+      ]
+    },
+    {
+      "id": "metaswarm",
+      "name": "Metaswarm",
+      "source": "https://github.com/dsifry/metaswarm",
+      "upstream": "dsifry/metaswarm",
+      "sourceRef": "33d39f776f7fe29098dcf048955756a237e8cb40",
+      "license": "MIT",
+      "class": "CANONICAL_METHOD",
+      "role": "Recursive multi-agent orchestration, independent adversarial review, durable task state, selective knowledge priming and PR lifecycle donor.",
+      "uberbondUse": "Mechanism donor for SWARM / RECURSIVE_SWARM operation without importing a second task-truth or memory authority.",
+      "activation": "APPROVED_METHOD_DONOR",
+      "authority": "NONE",
+      "risk": "MEDIUM",
+      "projectIntegration": {
+        "status": "MECHANISMS_COMPOSED_INTO_UBERBOND_ORCHESTRATION_CANON",
+        "canonPath": "docs/ORCHESTRATION_CAPABILITY_CANON.md",
+        "runtimeRequired": false,
+        "wholesaleRuntimeInstalled": false
+      },
+      "notes": [
+        "Do not make BEADS or the full Metaswarm plugin a second canonical task/memory system without a separate benchmark and migration case.",
+        "Adopt recursive orchestration only with depth/iteration caps and authority attenuation.",
+        "Independent verification and cross-model review are evidence mechanisms, not authority."
+      ]
+    },
+    {
+      "id": "superpowers",
+      "name": "Superpowers",
+      "source": "https://github.com/obra/superpowers",
+      "upstream": "obra/superpowers",
+      "sourceRef": "b36e0829c6d0140e93cfef2ca599b1b07d4a7797",
+      "license": "MIT",
+      "class": "CANONICAL_METHOD",
+      "role": "Test-driven development, systematic debugging, behavioral verification, worktree isolation, planning and subagent review methodology.",
+      "uberbondUse": "Engineering-discipline donor strengthening Claude/Codex execution beneath existing UberBond test, Mutation War and no-amputation law.",
+      "activation": "APPROVED_METHOD_DONOR",
+      "authority": "NONE",
+      "risk": "LOW_MEDIUM",
+      "projectIntegration": {
+        "status": "MECHANISMS_COMPOSED_INTO_UBERBOND_ORCHESTRATION_CANON",
+        "canonPath": "docs/ORCHESTRATION_CAPABILITY_CANON.md",
+        "runtimeRequired": false,
+        "harnessRuntimeOptional": true
+      },
+      "notes": [
+        "Behavioral falsifiability outranks grep/text-presence test theater.",
+        "UberBond's current Mutation War, payment truth, consequence gates and repository memory win any methodological conflict.",
+        "Full plugin installation is optional per host and is not required for UberBond truth."
+      ]
     }
   ],
   "assimilationOrder": [
-    "Find Skills and Claude Code Setup are project-local adapted skills for discovery and audit.",
-    "Task Observer is a project-local adapted recommendation-only self-improvement observer.",
-    "Claude-Mem is host-bootstrap-ready subordinate working memory.",
-    "Headroom is host-bootstrap-ready reversible context optimization.",
-    "OmniRoute is host-bootstrap-ready isolated routing/fallback evaluation.",
-    "Strix is an adapted project skill plus host-bootstrap-ready owned-target security verifier.",
-    "Agent Reach is an adapted project skill plus safe check-only host bootstrap for policy-cleared public research."
+    "Find Skills and Claude Code Setup remain project-local discovery/audit suppliers.",
+    "Task Observer remains the recommendation-only skill-improvement observer.",
+    "Claude-Mem, Headroom and OmniRoute remain optional bounded developer/runtime suppliers.",
+    "Strix and Agent Reach remain bounded security/research suppliers under explicit source/target rules.",
+    "Fable Orchestrator supplies the current planner/adjudicator and bounded-graph reference baseline through UberBond-native Claude and Codex project skills; live upstream planner execution is separately runtime-evidence gated.",
+    "Metaswarm contributes recursive orchestration, adversarial review and durable coordination mechanisms without becoming a second task-truth system.",
+    "Superpowers contributes TDD, debugging, behavioral verification, worktree and subagent-review discipline without becoming a second engineering constitution.",
+    "Gamechanger Mesh plus the orchestration frontier continuously search for Fable N+1 challengers and promote only after evidence-backed comparison."
   ],
   "businessEffectAuthority": "NONE",
   "externalEffectLedger": {

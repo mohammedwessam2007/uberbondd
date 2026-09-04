@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const EXTERNAL_CAPABILITY_POLICY_VERSION = 'external-capability-control-plane-1.0.1';
+export const EXTERNAL_CAPABILITY_POLICY_VERSION = 'external-capability-control-plane-1.1.0';
 
 const ALLOWED_CLASSES = new Set([
   'CANONICAL_METHOD',
@@ -15,6 +15,18 @@ const ALLOWED_CLASSES = new Set([
 const ALLOWED_AUTHORITIES = new Set(['NONE', 'SECURITY_TEST_ONLY']);
 const SAFE_DATA_CLASSES = new Set(['PUBLIC', 'INTERNAL_NON_SECRET', 'SOURCE_CODE']);
 const SENSITIVE_DATA_CLASSES = new Set(['SECRET', 'CREDENTIAL', 'AUTH_COOKIE', 'PRIVATE_CUSTOMER_RAW', 'PAYMENT_RAW']);
+const CORE_REQUIRED_CAPABILITIES = Object.freeze([
+  'find-skills',
+  'claude-code-setup',
+  'task-observer',
+  'claude-mem',
+  'headroom',
+  'omniroute',
+  'strix',
+  'agent-reach'
+]);
+const MIN_CAPABILITIES = CORE_REQUIRED_CAPABILITIES.length;
+const MAX_CAPABILITIES = 64;
 
 const TASK_DEFAULTS = Object.freeze({
   'skill-discovery': 'find-skills',
@@ -24,7 +36,8 @@ const TASK_DEFAULTS = Object.freeze({
   'context-compression': 'headroom',
   'model-routing': 'omniroute',
   'security-verification': 'strix',
-  'world-sensing': 'agent-reach'
+  'world-sensing': 'agent-reach',
+  'orchestration-planning': 'fable-orchestrator'
 });
 
 function clone(value) {
@@ -103,10 +116,14 @@ export function validateExternalCapabilityRegistry(registry = {}) {
   const policyPath = boundedText(registry.policyPath, 300);
   const entries = Array.isArray(registry.entries) ? registry.entries : null;
   const reasonCodes = [];
-  if (!['uberbond-external-skill-plugin-registry-1.0.0', 'uberbond-external-skill-plugin-registry-1.1.0'].includes(schemaVersion)) reasonCodes.push('unsupported-registry-schema');
+  if (![
+    'uberbond-external-skill-plugin-registry-1.0.0',
+    'uberbond-external-skill-plugin-registry-1.1.0',
+    'uberbond-external-skill-plugin-registry-1.2.0'
+  ].includes(schemaVersion)) reasonCodes.push('unsupported-registry-schema');
   if (project !== 'UberBond') reasonCodes.push('registry-project-must-be-uberbond');
   if (policyPath !== 'docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md') reasonCodes.push('canonical-policy-path-required');
-  if (!entries || entries.length !== 8) reasonCodes.push('exact-eight-owner-provided-capabilities-required');
+  if (!entries || entries.length < MIN_CAPABILITIES || entries.length > MAX_CAPABILITIES) reasonCodes.push('bounded-expandable-capability-registry-required');
 
   const normalizedEntries = [];
   const ids = new Set();
@@ -123,6 +140,9 @@ export function validateExternalCapabilityRegistry(registry = {}) {
     }
   }
 
+  for (const required of CORE_REQUIRED_CAPABILITIES) {
+    if (!ids.has(required)) reasonCodes.push(`missing-core-capability:${required}`);
+  }
   for (const required of Object.values(TASK_DEFAULTS)) {
     if (!ids.has(required)) reasonCodes.push(`missing-required-capability:${required}`);
   }
@@ -219,7 +239,10 @@ export function planExternalCapabilityUse({
   sourceAuthorized = false,
   requiresLogin = false,
   requiresPrivateSession = false,
-  bypassRequired = false
+  bypassRequired = false,
+  liveRuntimeRequested = false,
+  plannerIdentityObservable = false,
+  callableWorkerMenuVerified = false
 } = {}) {
   const validated = validateExternalCapabilityRegistry(registry);
   if (!validated.ok) return validated;
@@ -285,6 +308,29 @@ export function planExternalCapabilityUse({
     }
     if (!runtimeAvailable) return planBase(entry, 'REVIEW', 'RUNTIME_NOT_ACTIVE', ['live-agent-reach-runtime-required']);
     return planBase(entry, 'ALLOW', 'PUBLIC_RESEARCH_ALLOWED', ['read-only-public-authorized-research']);
+  }
+
+  if (entry.id === 'fable-orchestrator') {
+    if (!liveRuntimeRequested) {
+      return planBase(entry, 'ALLOW', 'ORCHESTRATION_PROTOCOL_READY', ['provider-neutral-fable-graph-method'], {
+        liveRuntimeProven: false,
+        requiredCanon: 'docs/ORCHESTRATION_CAPABILITY_CANON.md'
+      });
+    }
+    if (!runtimeAvailable) return planBase(entry, 'REVIEW', 'FABLE_RUNTIME_NOT_ACTIVE', ['live-fable-runtime-required']);
+    if (!plannerIdentityObservable) return planBase(entry, 'REVIEW', 'PLANNER_IDENTITY_REQUIRED', ['planner-provider-model-identity-must-be-observable']);
+    if (!callableWorkerMenuVerified) return planBase(entry, 'REVIEW', 'CALLABLE_WORKER_MENU_REQUIRED', ['discovered-workers-are-not-callable-workers']);
+    return planBase(entry, 'ALLOW', 'BOUNDED_FABLE_RUNTIME_ALLOWED', ['planner-only-no-authority-expansion', 'callable-workers-verified'], {
+      plannerAuthority: 'PLAN_AND_ADJUDICATE_ONLY',
+      implementationAuthority: 'UNCHANGED_FROM_PARENT_TASK'
+    });
+  }
+
+  if (entry.id === 'metaswarm' || entry.id === 'superpowers') {
+    return planBase(entry, 'ALLOW', 'CANONICAL_METHOD_DONOR_READY', ['mechanism-composition-only-no-wholesale-runtime-promotion'], {
+      installationAuthority: 'NONE',
+      requiredCanon: 'docs/ORCHESTRATION_CAPABILITY_CANON.md'
+    });
   }
 
   return planBase(entry, 'DENY', 'NO_CAPABILITY_POLICY', ['capability-specific-policy-required']);

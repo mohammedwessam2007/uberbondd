@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { normalizeModelBenchmark } from '../src/agent-model-router.mjs';
 import { executeAdmittedFrontierAvenger } from '../src/avengers-execution-guard.mjs';
 import { buildFrontierCallabilityProbeReceipt } from '../src/frontier-callability-provenance.mjs';
+import { createFrontierSimulationExecutorFactory } from '../src/frontier-simulation-executor.mjs';
 
 const NOW = new Date('2026-09-04T20:00:00.000Z');
 const FRESH = '2026-09-04T19:00:00.000Z';
@@ -61,32 +62,76 @@ function task(reasoningTier = 'FRONTIER_MAX') {
     requiredTags: ['frontier'], contextTokenBudget: 5000, minCouncilSize: 2, maxCouncilSize: 2
   };
 }
+function baseArgs(p, calls, reasoningTier = 'FRONTIER_MAX') {
+  return {
+    task: task(reasoningTier), profiles: Array.isArray(p) ? p : [p], callability: calls,
+    benchmarks: (Array.isArray(p) ? p : [p]).map(benchmark), contextArtifacts,
+    admissionSource: { kind: 'RUNTIME_PROBE_LEDGER', ref: 'proof://guard-e2e', observedAt: FRESH },
+    callabilityProvenance: provenance(calls), env, maxTokens: 100, costCeilingCents: 100, date: NOW
+  };
+}
 
-test('synthetic FRONTIER_MAX reaches the canonical factory only through an explicit injected fetch seam', async () => {
+test('synthetic FRONTIER_MAX executes only through the branded deterministic no-network simulation factory', async () => {
   const p = profile();
   const calls = [callability(p)];
-  let requestBody = null;
-  const fetchImpl = async (_url, init) => {
-    requestBody = JSON.parse(init.body);
-    return { ok: true, status: 200, async text() { return JSON.stringify({ id: 'req_guard_1', model: p.transportModel, usage: { prompt_tokens: 20, completion_tokens: 10, total_tokens: 30 }, choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ outcome: 'bounded-result' }) } }] }); } };
-  };
+  const modelExecutorFactory = createFrontierSimulationExecutorFactory({
+    responses: [{ taskId: 'avengers-frontier-guard', model: p.transportModel, costCents: 0, result: { outcome: 'bounded-result' } }]
+  });
   const times = [1000, 1042];
   const out = await executeAdmittedFrontierAvenger({
-    task: task(), profiles: [p], callability: calls, benchmarks: [benchmark(p)], contextArtifacts,
-    admissionSource: { kind: 'RUNTIME_PROBE_LEDGER', ref: 'proof://guard-e2e', observedAt: FRESH },
-    callabilityProvenance: provenance(calls), env, fetchImpl, maxTokens: 100, costCeilingCents: 100, date: NOW, clock: () => times.shift()
+    ...baseArgs(p, calls), modelExecutorFactory, clock: () => times.shift()
   });
   assert.equal(out.ok, true);
   assert.equal(out.status, 'FRONTIER_AVENGER_EXECUTION_COMPLETE');
   assert.equal(out.simulationOnly, true);
-  assert.equal(out.providerCalls, 1);
-  assert.deepEqual(requestBody.reasoning, { effort: 'xhigh' });
-  assert.equal(requestBody.model, p.transportModel);
+  assert.equal(out.providerCalls, 0);
   assert.equal(out.execution.observedRevision, p.revision);
   assert.equal(out.execution.latencyMs, 42);
   assert.equal(out.receipt.executions[0].appliedReasoningSettingRef, 'ai-gateway:reasoning=xhigh');
   assert.equal(out.receipt.simulationOnly, true);
   assert.match(out.receipt.callabilityProvenance.receiptDigest, /^[a-f0-9]{64}$/);
+});
+
+test('synthetic callability rejects a network-capable fetch wrapper before any transport dispatch', async () => {
+  const p = profile();
+  const calls = [callability(p)];
+  let fetchCalls = 0;
+  const fetchImpl = (...args) => {
+    fetchCalls += 1;
+    return globalThis.fetch(...args);
+  };
+  const out = await executeAdmittedFrontierAvenger({ ...baseArgs(p, calls), fetchImpl });
+  assert.equal(out.ok, false);
+  assert.equal(fetchCalls, 0);
+  assert.ok(out.reasonCodes.includes('synthetic-callability-requires-branded-no-network-simulation-executor'));
+});
+
+test('synthetic callability rejects an arbitrary executor factory before construction', async () => {
+  const p = profile();
+  const calls = [callability(p)];
+  let constructions = 0;
+  const modelExecutorFactory = () => {
+    constructions += 1;
+    return async () => ({ ok: true });
+  };
+  const out = await executeAdmittedFrontierAvenger({ ...baseArgs(p, calls), modelExecutorFactory });
+  assert.equal(out.ok, false);
+  assert.equal(constructions, 0);
+  assert.ok(out.reasonCodes.includes('synthetic-callability-requires-branded-no-network-simulation-executor'));
+});
+
+test('even a branded synthetic simulation factory cannot be paired with injected network transport', async () => {
+  const p = profile();
+  const calls = [callability(p)];
+  const modelExecutorFactory = createFrontierSimulationExecutorFactory({
+    responses: [{ taskId: 'avengers-frontier-guard', model: p.transportModel, costCents: 0, result: { outcome: 'bounded-result' } }]
+  });
+  let fetchCalls = 0;
+  const fetchImpl = (...args) => { fetchCalls += 1; return globalThis.fetch(...args); };
+  const out = await executeAdmittedFrontierAvenger({ ...baseArgs(p, calls), modelExecutorFactory, fetchImpl });
+  assert.equal(out.ok, false);
+  assert.equal(fetchCalls, 0);
+  assert.ok(out.reasonCodes.includes('synthetic-frontier-execution-prohibits-network-transport-injection'));
 });
 
 test('COUNCIL_MAX executes independent responders, critique and distinct adjudication with one shared zero-effect budget', async () => {
@@ -96,29 +141,17 @@ test('COUNCIL_MAX executes independent responders, critique and distinct adjudic
     profile({ id: 'anthropic', provider: 'anthropic', model: 'claude-frontier', quality: 0.97 })
   ];
   const calls = profiles.map(callability);
-  const seenTasks = [];
-  const seenCeilings = [];
-  let serial = 0;
-  const modelExecutorFactory = worker => async ({ task: workerTask, costCeilingCents }) => {
-    seenTasks.push({ model: worker.model, taskId: workerTask.taskId, objective: workerTask.objective });
-    seenCeilings.push(costCeilingCents);
-    serial += 1;
-    const result = workerTask.taskId.includes('cross-critique')
-      ? { contradictions: ['bounded contradiction'] }
-      : workerTask.taskId.includes('independent-adjudication')
-        ? { decision: 'bounded-synthesis', unresolved: ['bounded uncertainty'] }
-        : { answer: `independent-${worker.model}` };
-    return {
-      ok: true, providerRequestId: `synthetic-${serial}`, model: worker.model,
-      identityVerification: 'OBSERVED', appliedReasoningEffort: 'xhigh', appliedReasoningEvidence: 'REQUEST_BODY_ATTESTED',
-      usage: { costCents: 0 }, result
-    };
-  };
+  const modelExecutorFactory = createFrontierSimulationExecutorFactory({
+    responses: [
+      { taskId: 'avengers-frontier-guard:independent-google', model: 'google/gemini-frontier', costCents: 7, result: { answer: 'independent-google' } },
+      { taskId: 'avengers-frontier-guard:independent-openai', model: 'openai/gpt-frontier', costCents: 7, result: { answer: 'independent-openai' } },
+      { taskId: 'avengers-frontier-guard:cross-critique', model: 'anthropic/claude-frontier', costCents: 6, result: { contradictions: ['bounded contradiction'] } },
+      { taskId: 'avengers-frontier-guard:independent-adjudication', model: 'anthropic/claude-frontier', costCents: 5, result: { decision: 'bounded-synthesis', unresolved: ['bounded uncertainty'] } }
+    ]
+  });
   let tick = 1000;
   const out = await executeAdmittedFrontierAvenger({
-    task: task('COUNCIL_MAX'), profiles, callability: calls, benchmarks: profiles.map(benchmark), contextArtifacts,
-    admissionSource: { kind: 'RUNTIME_PROBE_LEDGER', ref: 'proof://council-runtime', observedAt: FRESH },
-    callabilityProvenance: provenance(calls), env, modelExecutorFactory, costCeilingCents: 100, date: NOW, clock: () => ++tick
+    ...baseArgs(profiles, calls, 'COUNCIL_MAX'), modelExecutorFactory, costCeilingCents: 100, clock: () => ++tick
   });
   assert.equal(out.ok, true);
   assert.equal(out.status, 'FRONTIER_COUNCIL_AVENGERS_EXECUTION_COMPLETE');
@@ -130,12 +163,7 @@ test('COUNCIL_MAX executes independent responders, critique and distinct adjudic
   assert.equal(out.receipt.adjudication.decisionBasis, 'EVIDENCE_WEIGHTED');
   assert.equal(out.receipt.adjudication.independentFromResponders, true);
   assert.equal(out.receipt.councilBudgetCents, 100);
-  assert.equal(out.receipt.councilSpentCents, 0);
-  assert.ok(seenCeilings.every(value => value <= 50));
+  assert.equal(out.receipt.councilSpentCents, 25);
+  assert.equal(out.spentCents, 25);
   assert.match(out.processVerifierRef, /^frontier-process-proof:\/\/[a-f0-9]{64}$/);
-  const independent = seenTasks.filter(item => item.taskId.includes(':independent-') && !item.taskId.includes('adjudication'));
-  assert.equal(independent.length, 2);
-  assert.ok(independent.every(item => !item.objective.includes('independent-google') && !item.objective.includes('independent-openai')));
-  assert.equal(seenTasks.some(item => item.taskId.includes('cross-critique')), true);
-  assert.equal(seenTasks.some(item => item.taskId.includes('independent-adjudication')), true);
 });

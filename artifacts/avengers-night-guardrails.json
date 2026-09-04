@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "uberbond.avengers-night-guardrails.v1",
+  "guardrails": [
+    "capability-never-creates-authority",
+    "no-secret-values-in-durable-artifacts",
+    "no-arbitrary-downloaded-model-code-execution",
+    "no-task-supplied-endpoint-or-credential",
+    "discovery-does-not-equal-callability",
+    "model-listing-does-not-equal-inference-proof",
+    "stale-benchmark-does-not-equal-routing-proof",
+    "fallback-cannot-widen-authority",
+    "method-donor-does-not-equal-runtime",
+    "provider-call-does-not-equal-business-effect",
+    "no-fake-green-or-commercial-proof"
+  ],
+  "businessEffectAuthority": "NONE"
+}

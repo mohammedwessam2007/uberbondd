@@ -2,10 +2,11 @@
 // The gateway is OpenAI-compatible, but its provider/model identity is kept
 // observable so routing cannot silently disguise a fallback.
 
-export const VERCEL_AI_GATEWAY_EXECUTOR_POLICY_VERSION = 'vercel-ai-gateway-executor-1.0.0';
-export const VERCEL_AI_GATEWAY_ENDPOINT = 'https://ai-gateway.vercel.sh/v1/chat/completions';
-
+import crypto from 'node:crypto';
 import { redactSecrets } from './secret-patterns.mjs';
+
+export const VERCEL_AI_GATEWAY_EXECUTOR_POLICY_VERSION = 'vercel-ai-gateway-executor-1.1.0';
+export const VERCEL_AI_GATEWAY_ENDPOINT = 'https://ai-gateway.vercel.sh/v1/chat/completions';
 
 /**
  * A transport or provider error message is written by someone else and lands in
@@ -17,6 +18,7 @@ import { redactSecrets } from './secret-patterns.mjs';
 const safeDetail = (error, max = 500) => text(redactSecrets(String(error?.message ?? error ?? '')), max);
 
 const MAX_BODY_BYTES = 300_000;
+const MAX_CACHEABLE_CONTEXT_BYTES = 200_000;
 const MAX_RESPONSE_BYTES = 1_000_000;
 const text = (v, max = 1000) => String(v ?? '').trim().slice(0, max);
 const integer = (v, min = 0, max = Number.MAX_SAFE_INTEGER) => Number.isSafeInteger(Number(v)) && Number(v) >= min && Number(v) <= max ? Number(v) : null;
@@ -39,8 +41,48 @@ function usage(payload, pricing) {
   const inputRate = finite(pricing?.inputUsdPerMillion, 0, 1_000_000);
   const outputRate = finite(pricing?.outputUsdPerMillion, 0, 1_000_000);
   if (inputRate == null || outputRate == null) return null;
+  // Deliberately conservative. Cache savings are not subtracted unless a
+  // separately verified cache-read price is supplied by a future pricing
+  // contract. A cache hit may make the provider bill smaller than this receipt,
+  // never larger because we assumed a discount that did not exist.
   const costCents = Math.ceil(((inputTokens * inputRate + outputTokens * outputRate) / 1_000_000) * 100 - 1e-12);
-  return { inputTokens, outputTokens, totalTokens, costCents, costBasis: 'CONFIGURED_CONSERVATIVE_ESTIMATE' };
+  return { inputTokens, outputTokens, totalTokens, costCents, costBasis: 'CONFIGURED_CONSERVATIVE_ESTIMATE_CACHE_SAVINGS_NOT_ASSUMED' };
+}
+
+function observedInteger(candidates) {
+  for (const candidate of candidates) {
+    if (candidate !== undefined && candidate !== null) {
+      const value = integer(candidate, 0, 100_000_000);
+      return { observed: value != null, value: value ?? 0 };
+    }
+  }
+  return { observed: false, value: 0 };
+}
+
+function cacheEvidence(payload, prefix) {
+  const read = observedInteger([
+    payload?.usage?.inputTokenDetails?.cacheReadTokens,
+    payload?.usage?.prompt_tokens_details?.cached_tokens,
+    payload?.usage?.cache_read_input_tokens,
+    payload?.usage?.cacheReadInputTokens
+  ]);
+  const write = observedInteger([
+    payload?.usage?.inputTokenDetails?.cacheWriteTokens,
+    payload?.usage?.cache_creation_input_tokens,
+    payload?.usage?.cacheWriteInputTokens
+  ]);
+  const cacheObserved = read.observed || write.observed;
+  return {
+    requested: true,
+    mode: 'auto',
+    prefixBytes: bytes(prefix),
+    prefixSha256: prefix ? crypto.createHash('sha256').update(prefix).digest('hex') : null,
+    cacheReadTokens: read.value,
+    cacheWriteTokens: write.value,
+    status: read.observed && read.value > 0 ? 'OBSERVED_CACHE_HIT'
+      : cacheObserved ? 'OBSERVED_NO_CACHE_READ' : 'CACHE_USAGE_FIELDS_NOT_OBSERVED',
+    savingsClaim: 'NOT_COMPUTED_WITHOUT_VERIFIED_CACHE_PRICING'
+  };
 }
 
 function resultText(payload) {
@@ -50,15 +92,24 @@ function resultText(payload) {
   return '';
 }
 
-function requestBody({ task, model, maxTokens }) {
+function requestBody({ task, model, maxTokens, cacheableContext }) {
+  const messages = [
+    { role: 'system', content: 'You are a bounded UberBond worker. Do only local preparation. Never claim external effects, revenue, deployment, sending, purchases, DNS changes, or credential changes. Return only the required structured JSON result.' }
+  ];
+  // Stable heavy context goes before request-specific task material so providers
+  // that cache exact prefixes can reuse it. No timestamp/task id is inserted
+  // before this block. The context itself is never copied into the receipt.
+  if (cacheableContext) messages.push({ role: 'system', content: cacheableContext });
+  messages.push({
+    role: 'user',
+    content: JSON.stringify({ taskId: task.taskId, objective: task.objective, originAgent: task.originAgent, targetAgent: task.targetAgent, parentTask: task.parentTask || null, contextRefs: task.contextRefs || [], evidenceRefs: task.evidenceRefs || [], constraints: task.constraints || [], forbiddenActions: task.forbiddenActions || [], requiredOutputs: task.requiredOutputs || [], acceptanceTests: task.acceptanceTests || [], economicObjective: task.economicObjective || '', consequenceClass: task.consequenceClass || 'LOCAL_PREPARATION' })
+  });
   return {
     model,
     temperature: 0,
     max_tokens: maxTokens,
-    messages: [
-      { role: 'system', content: 'You are a bounded UberBond worker. Do only local preparation. Never claim external effects, revenue, deployment, sending, purchases, DNS changes, or credential changes. Return only the required structured JSON result.' },
-      { role: 'user', content: JSON.stringify({ taskId: task.taskId, objective: task.objective, originAgent: task.originAgent, targetAgent: task.targetAgent, parentTask: task.parentTask || null, contextRefs: task.contextRefs || [], evidenceRefs: task.evidenceRefs || [], constraints: task.constraints || [], forbiddenActions: task.forbiddenActions || [], requiredOutputs: task.requiredOutputs || [], acceptanceTests: task.acceptanceTests || [], economicObjective: task.economicObjective || '', consequenceClass: task.consequenceClass || 'LOCAL_PREPARATION' }) }
-    ],
+    messages,
+    providerOptions: { gateway: { caching: 'auto' } },
     response_format: { type: 'json_object' }
   };
 }
@@ -68,7 +119,7 @@ export function createVercelAIGatewayExecutor({
   fetchImpl = globalThis.fetch, endpoint = VERCEL_AI_GATEWAY_ENDPOINT, timeoutMs = 60_000
 } = {}) {
   const key = String(apiKey || '');
-  return async function vercelAIGatewayExecutor({ task, model, maxTokens, costCeilingCents } = {}) {
+  return async function vercelAIGatewayExecutor({ task, model, maxTokens, costCeilingCents, cacheableContext = '' } = {}) {
     if (!enabled) return failure(['ai-gateway-executor-disabled']);
     if (!key || key.length < 12) return failure(['ai-gateway-api-key-required']);
     if (endpoint !== VERCEL_AI_GATEWAY_ENDPOINT) return failure(['ai-gateway-endpoint-not-allowlisted']);
@@ -82,10 +133,13 @@ export function createVercelAIGatewayExecutor({
     if (costLimit == null) return failure(['valid-cost-ceiling-required']);
     const selectedModel = text(model || defaultModel, 160);
     if (!selectedModel || !selectedModel.includes('/')) return failure(['gateway-provider-model-slug-required']);
-    const estimatedInputTokens = Math.ceil(bytes(task) / 4);
+    if (typeof cacheableContext !== 'string') return failure(['cacheable-context-must-be-string']);
+    const stablePrefix = cacheableContext.trim();
+    if (bytes(stablePrefix) > MAX_CACHEABLE_CONTEXT_BYTES) return failure(['ai-gateway-cacheable-context-too-large']);
+    const estimatedInputTokens = Math.ceil((bytes(task) + bytes(stablePrefix)) / 4);
     const estimatedCostCents = Math.ceil(((estimatedInputTokens * Number(pricing.inputUsdPerMillion) + outputLimit * Number(pricing.outputUsdPerMillion)) / 1_000_000) * 100 - 1e-12);
     if (estimatedCostCents > costLimit) return failure(['estimated-cost-exceeds-reserved-ceiling']);
-    const body = requestBody({ task, model: selectedModel, maxTokens: outputLimit });
+    const body = requestBody({ task, model: selectedModel, maxTokens: outputLimit, cacheableContext: stablePrefix });
     if (bytes(body) > MAX_BODY_BYTES) return failure(['ai-gateway-request-body-too-large']);
     let response;
     let timeoutHandle;
@@ -125,6 +179,7 @@ export function createVercelAIGatewayExecutor({
     return {
       ok: true, outcome: 'COMPLETED', providerRequestId, providerStatus: text(raw?.choices?.[0]?.finish_reason, 80) || 'stop',
       model: text(raw?.model, 160) || null, identityVerification: raw?.model ? 'OBSERVED' : 'UNVERIFIED', usage: metered,
+      cacheEvidence: cacheEvidence(raw, stablePrefix),
       pricingEvidence: { sourceRef: text(pricing.sourceRef, 500), verifiedAt: text(pricing.verifiedAt, 80), inputUsdPerMillion: Number(pricing.inputUsdPerMillion), outputUsdPerMillion: Number(pricing.outputUsdPerMillion), costBasis: metered.costBasis },
       result
     };

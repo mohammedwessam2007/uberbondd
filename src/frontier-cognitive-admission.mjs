@@ -1,8 +1,9 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { compileFrontierCognitivePlan } from './frontier-cognitive-fabric.mjs';
+import { validateFrontierCallabilityProbeReceipt } from './frontier-callability-provenance.mjs';
 
-export const FRONTIER_COGNITIVE_ADMISSION_VERSION = 'uberbond.frontier-cognitive-admission-1.0.0';
+export const FRONTIER_COGNITIVE_ADMISSION_VERSION = 'uberbond.frontier-cognitive-admission-1.1.0';
 export const FRONTIER_ADMISSION_SCHEMA = 'uberbond.frontier-admission-bundle.v1';
 
 const BRAND = Symbol('uberbond.frontier-admission-bundle');
@@ -64,11 +65,35 @@ function callabilityIdentity(raw = {}) {
   const status = text(raw?.status, 80)?.toUpperCase();
   const evidenceClass = text(raw?.evidenceClass, 80)?.toUpperCase();
   const identityVerification = text(raw?.identityVerification, 80)?.toUpperCase();
-  if (!profileId || !provider || !model || !revision || !observedAt || !sourceRef) return null;
-  return { profileId, provider, model, revision, observedAt, sourceRef, status, evidenceClass, identityVerification };
+  const transportProvider = text(raw?.observedTransportProvider, 80)?.toLowerCase();
+  const transportModel = text(raw?.observedTransportModel, 160);
+  if (!profileId || !provider || !model || !revision || !observedAt || !sourceRef || !transportProvider || !transportModel) return null;
+  return { profileId, provider, model, revision, observedAt, sourceRef, status, evidenceClass, identityVerification, transportProvider, transportModel };
 }
 
-export function buildFrontierAdmissionBundle({ profiles = [], callability = [], benchmarks = [], contextArtifacts = [], source = {} } = {}) {
+function sameProbeObservation(identity, probe) {
+  if (!identity || !probe) return false;
+  return identity.profileId === probe.profileId
+    && identity.status === probe.status
+    && identity.provider === probe.observedProvider
+    && identity.model === probe.observedModel
+    && identity.revision === probe.observedRevision
+    && identity.transportProvider === probe.observedTransportProvider
+    && identity.transportModel === probe.observedTransportModel
+    && identity.observedAt === probe.observedAt
+    && identity.sourceRef === probe.sourceRef
+    && identity.evidenceClass === probe.evidenceClass
+    && identity.identityVerification === probe.identityVerification;
+}
+
+export function buildFrontierAdmissionBundle({
+  profiles = [],
+  callability = [],
+  benchmarks = [],
+  contextArtifacts = [],
+  source = {},
+  callabilityProvenance = null
+} = {}) {
   if (!Array.isArray(profiles) || profiles.length === 0 || profiles.length > MAX_PROFILES) return failure(['bounded-profile-list-required']);
   if (!Array.isArray(callability) || callability.length > MAX_CALLABILITY) return failure(['bounded-callability-list-required']);
   if (!Array.isArray(benchmarks) || benchmarks.length > MAX_BENCHMARKS) return failure(['bounded-benchmark-list-required']);
@@ -78,6 +103,9 @@ export function buildFrontierAdmissionBundle({ profiles = [], callability = [], 
   const sourceRef = text(source?.ref, 1000);
   const sourceObservedAt = timestamp(source?.observedAt);
   if (!sourceKind || !sourceRef || !sourceObservedAt) return failure(['admission-source-kind-ref-and-time-required']);
+
+  const provenance = validateFrontierCallabilityProbeReceipt(callabilityProvenance ?? {});
+  const trustedProbeByProfileId = provenance.ok ? provenance.observationByProfileId : new Map();
 
   const identities = [];
   const profileById = new Map();
@@ -92,9 +120,7 @@ export function buildFrontierAdmissionBundle({ profiles = [], callability = [], 
     if (profileByRevision.has(rKey)) reasons.push(`duplicate-cognitive-revision:${identity.provider}:${identity.model}:${identity.revision}`);
     const cKey = cognitiveKey(identity.provider, identity.model);
     const priorRevision = cognitiveNames.get(cKey);
-    if (priorRevision && priorRevision !== identity.revision) {
-      reasons.push(`ambiguous-provider-model-multi-revision-profile-set:${identity.provider}:${identity.model}`);
-    }
+    if (priorRevision && priorRevision !== identity.revision) reasons.push(`ambiguous-provider-model-multi-revision-profile-set:${identity.provider}:${identity.model}`);
     cognitiveNames.set(cKey, identity.revision);
     profileById.set(identity.id, identity);
     profileByRevision.set(rKey, identity);
@@ -118,6 +144,11 @@ export function buildFrontierAdmissionBundle({ profiles = [], callability = [], 
       rejectedCallability.push({ profileId: identity?.profileId ?? null, reason: 'callability-not-exact-observed-runtime-profile-revision' });
       continue;
     }
+    const trustedObservation = trustedProbeByProfileId.get(identity.profileId);
+    if (!provenance.ok || !sameProbeObservation(identity, trustedObservation)) {
+      rejectedCallability.push({ profileId: identity.profileId, reason: 'trusted-canonical-probe-receipt-required-for-callability' });
+      continue;
+    }
     admittedCallability.push(raw);
   }
 
@@ -138,8 +169,12 @@ export function buildFrontierAdmissionBundle({ profiles = [], callability = [], 
     admittedBenchmarks.push({ ...raw, observedRevision: identity.revision, evidenceRef: identity.evidenceRef });
   }
 
+  const provenanceMetadata = provenance.ok
+    ? { receiptDigest: provenance.receiptDigest, sourceRef: provenance.sourceRef, generatedAt: provenance.generatedAt }
+    : { receiptDigest: null, sourceRef: null, generatedAt: null };
   const identityDigest = sha256({
     source: { kind: sourceKind, ref: sourceRef, observedAt: sourceObservedAt },
+    callabilityProvenance: provenanceMetadata,
     profiles: identities,
     callability: admittedCallability.map(item => ({
       profileId: item.profileId,
@@ -164,6 +199,7 @@ export function buildFrontierAdmissionBundle({ profiles = [], callability = [], 
   const bundle = {
     schemaVersion: FRONTIER_ADMISSION_SCHEMA,
     source: { kind: sourceKind, ref: sourceRef, observedAt: sourceObservedAt },
+    callabilityProvenance: provenanceMetadata,
     profiles: structuredClone(profiles),
     callability: structuredClone(admittedCallability),
     benchmarks: structuredClone(admittedBenchmarks),
@@ -171,7 +207,7 @@ export function buildFrontierAdmissionBundle({ profiles = [], callability = [], 
     rejectedCallability,
     rejectedBenchmarks,
     identityDigest,
-    truthBoundary: 'ADMISSION_VALIDATES_STRUCTURE_EXACT_REVISION_AND_OBSERVED_RUNTIME_IDENTITY; IT_DOES_NOT_TURN_A_SOURCE_STRING_INTO_EXTERNAL_TRUTH'
+    truthBoundary: 'CALLER_LABELS_ARE_NOT_PROVENANCE; CALLABLE_NOW_ENTERS_ONLY_WHEN_BOUND_TO_A_VALID_CANONICAL_RUNTIME_PROBE_RECEIPT; BENCHMARKS_BIND_EXACT_PROVIDER_MODEL_REVISION'
   };
   Object.defineProperty(bundle, BRAND, { value: true, enumerable: false, configurable: false, writable: false });
   return envelope({ ok: true, status: 'FRONTIER_ADMISSION_READY', bundle });
@@ -194,7 +230,8 @@ export function compileAdmittedFrontierPlan({ task, admissionBundle, ...policy }
     ...result,
     admissionDigest: admissionBundle.identityDigest,
     admissionSource: admissionBundle.source,
+    callabilityProvenance: admissionBundle.callabilityProvenance,
     admissionRejectedEvidence: { callability: admissionBundle.rejectedCallability, benchmarks: admissionBundle.rejectedBenchmarks },
-    truthBoundary: `${result.plan?.truthBoundary ? `${result.plan.truthBoundary}; ` : ''}PLAN_WAS_COMPILED_ONLY_FROM_PROCESS_VALIDATED_EXACT_REVISION_ADMISSION_EVIDENCE`
+    truthBoundary: `${result.plan?.truthBoundary ? `${result.plan.truthBoundary}; ` : ''}PLAN_WAS_COMPILED_ONLY_FROM_PROCESS_VALIDATED_EXACT_REVISION_ADMISSION_EVIDENCE_WITH_CANONICAL_CALLABILITY_PROVENANCE`
   });
 }

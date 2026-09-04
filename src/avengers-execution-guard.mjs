@@ -7,8 +7,9 @@ import { buildFrontierCognitiveReceipt } from './frontier-cognitive-fabric.mjs';
 import { executeFrontierMember } from './frontier-reasoning-runtime.mjs';
 import { executeFrontierCouncil } from './frontier-council-runtime.mjs';
 import { createModelExecutorFactory } from './agent-model-executor-factory.mjs';
+import { isFrontierSimulationExecutorFactory } from './frontier-simulation-executor.mjs';
 
-export const AVENGERS_EXECUTION_GUARD_VERSION = 'uberbond.avengers-execution-guard-1.3.1';
+export const AVENGERS_EXECUTION_GUARD_VERSION = 'uberbond.avengers-execution-guard-1.4.0';
 
 function clone(value) { return structuredClone(value); }
 function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'); }
@@ -146,19 +147,49 @@ export async function executeAdmittedFrontierAvenger({
   });
 
   const syntheticExecution = admission.bundle.simulationOnly === true;
-  const explicitSimulationSeam = typeof modelExecutorFactory === 'function' || (typeof fetchImpl === 'function' && fetchImpl !== globalThis.fetch);
-  if (syntheticExecution && !explicitSimulationSeam) {
-    return fail(['synthetic-callability-cannot-authorize-live-frontier-execution'], {
+  const simulationFactory = isFrontierSimulationExecutorFactory(modelExecutorFactory);
+  if (syntheticExecution && !simulationFactory) {
+    return fail(['synthetic-callability-requires-branded-no-network-simulation-executor'], {
       admissionDigest: admission.bundle.identityDigest,
       simulationOnly: true
     });
   }
+  if (syntheticExecution && fetchImpl !== globalThis.fetch) {
+    return fail(['synthetic-frontier-execution-prohibits-network-transport-injection'], {
+      admissionDigest: admission.bundle.identityDigest,
+      simulationOnly: true
+    });
+  }
+  if (!syntheticExecution && simulationFactory) {
+    return fail(['live-callability-cannot-use-simulation-executor'], {
+      admissionDigest: admission.bundle.identityDigest,
+      simulationOnly: false
+    });
+  }
+  if (!syntheticExecution && typeof modelExecutorFactory === 'function') {
+    return fail(['live-frontier-execution-requires-canonical-model-executor-factory'], {
+      admissionDigest: admission.bundle.identityDigest,
+      simulationOnly: false
+    });
+  }
+  if (!syntheticExecution && fetchImpl !== globalThis.fetch) {
+    return fail(['live-frontier-execution-requires-native-provider-transport'], {
+      admissionDigest: admission.bundle.identityDigest,
+      simulationOnly: false
+    });
+  }
 
   let providerCalls = 0;
-  const countingFetch = typeof fetchImpl === 'function'
-    ? async (...args) => { providerCalls += 1; return fetchImpl(...args); }
-    : fetchImpl;
-  const factory = modelExecutorFactory || createModelExecutorFactory({ env, sandboxIsolationReceipt, fetchImpl: countingFetch });
+  let factory;
+  if (syntheticExecution) {
+    factory = modelExecutorFactory;
+  } else {
+    const countingFetch = async (...args) => {
+      providerCalls += 1;
+      return globalThis.fetch(...args);
+    };
+    factory = createModelExecutorFactory({ env, sandboxIsolationReceipt, fetchImpl: countingFetch });
+  }
 
   if (planResult.plan.mode === 'COUNCIL_MAX') {
     const council = await executeFrontierCouncil({

@@ -34,3 +34,24 @@ test('pre-call cost ceiling blocks the network', async () => {
   assert.equal(calls, 0);
   assert.ok(out.reasonCodes.includes('estimated-cost-exceeds-reserved-ceiling'));
 });
+
+test('the key never reaches a receipt, including on the paths that carry an error message', async () => {
+  // A client that echoes the request it failed on puts the Authorization
+  // header in its error message. The success path above already proves the key
+  // is absent when nothing went wrong; these are the paths where it appears.
+  const apiKey = 'gateway-test-secret-123456';
+  const leaks = [
+    async () => { throw new Error(`connect ECONNREFUSED using Bearer ${apiKey}`); },
+    async () => ({ ok: true, status: 200, async text() { throw new Error(`stream aborted for Bearer ${apiKey}`); } }),
+    async () => ({ ok: true, status: 200, async text() { return `not json, sent with Bearer ${apiKey}`; } })
+  ];
+
+  for (const [index, fetchImpl] of leaks.entries()) {
+    const out = await createVercelAIGatewayExecutor({ enabled: true, apiKey, pricing, fetchImpl })({
+      task: task(), maxTokens: 10, costCeilingCents: 50
+    });
+    const serialized = JSON.stringify(out);
+    assert.equal(serialized.includes(apiKey), false, `failure path ${index} wrote the gateway key into its result`);
+    assert.equal(serialized.includes('Bearer gateway-test'), false, `failure path ${index} leaked a credential header`);
+  }
+});

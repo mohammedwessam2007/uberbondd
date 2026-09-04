@@ -46,8 +46,18 @@ test('ai-gateway readiness uses AI_GATEWAY env mapping and never leaks credentia
   assert.equal(JSON.stringify(rows).includes(env.AI_GATEWAY_API_KEY), false);
 
   const doctor = inspectModelProviderReadiness({ env });
-  assert.equal(doctor.status, 'SINGLE_ROUTE_READY');
+  // One configured lane is not a route that can fail over: a provider cannot
+  // fall back to itself. The status says so rather than reading "ready", which
+  // is why it is asserted here alongside the two derived facts -- a single-lane
+  // environment that reported readiness is exactly how an exhausted gateway
+  // once looked like a chain with somewhere left to go.
+  assert.equal(doctor.status, 'SINGLE_PROVIDER_NO_FAILOVER');
+  assert.equal(doctor.failoverCapable, false);
+  assert.deepEqual(doctor.reasonCodes, ['single-provider-cannot-fail-over']);
   assert.equal(doctor.gatewayReady, true);
+  assert.equal(doctor.configuredProviderCount, 1);
+  // A configured lane is not a proven one; nothing here was earned by a call.
+  assert.equal(doctor.provenProviderCallCount, 0);
   assert.equal(JSON.stringify(doctor).includes(env.AI_GATEWAY_API_KEY), false);
 });
 
@@ -183,7 +193,7 @@ test('first-cash packet is bound to canonical Lead-Path name, SKU and owner PayP
   assert.equal(packet.paymentLink, 'https://paypal.me/Sarawessam');
   assert.equal(packet.paymentLinkEvidenceClass, 'OWNER_SUPPLIED_PUBLIC_PAYPAL_ME_LINK');
   assert.equal(packet.paymentTruthBoundary, PAYMENT_LINK_TRUTH_BOUNDARY);
-  const paymentQuestion = packet.questions.find(row => row.question === 'WHAT PAYMENT LINK?');
+  const paymentQuestion = packet.questions.find(row => row.question === 'WHAT_PAYMENT_LINK');
   assert.equal(paymentQuestion.status, 'PREPARED');
   assert.equal(paymentQuestion.evidenceClass, 'OWNER_SUPPLIED_PUBLIC_PAYPAL_ME_LINK');
   assert.equal(packet.canContact, false);
@@ -201,7 +211,7 @@ test('first-cash packet refuses non-HTTPS payment links', () => {
   const packet = buildFirstCashCanaryPacket({ paymentLink: 'http://example.com/pay' });
   assert.equal(packet.paymentLink, null);
   assert.equal(packet.paymentLinkEvidenceClass, 'PAYMENT_LINK_NOT_CONFIGURED');
-  const paymentQuestion = packet.questions.find(row => row.question === 'WHAT PAYMENT LINK?');
+  const paymentQuestion = packet.questions.find(row => row.question === 'WHAT_PAYMENT_LINK');
   assert.equal(paymentQuestion.status, 'BLOCKED');
   assert.ok(paymentQuestion.reasonCodes.includes('valid-https-payment-link-required'));
 });

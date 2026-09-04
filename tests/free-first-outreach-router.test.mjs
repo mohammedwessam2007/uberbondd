@@ -57,14 +57,29 @@ test('live mode requires actual provider activation and domain authentication', 
   const blocked = selectFreeRoute({ purpose: 'TRANSACTIONAL', providers: [provider], mode: 'LIVE', at: '2026-09-01T00:00:00.000Z' });
   assert.equal(blocked.ok, false);
   assert.ok(blocked.evaluations[0].reasonCodes.includes('provider-not-configured'));
-  const ready = selectFreeRoute({
+  // Four booleans a caller typed are not an activation. This used to be the
+  // path that opened LIVE, and it is exactly the shape an over-eager caller
+  // would reach for, so it is now a refusal with its own reason code.
+  const asserted = selectFreeRoute({
     purpose: 'TRANSACTIONAL',
     providers: [provider],
     mode: 'LIVE',
     providerStates: { 'resend-free': { configured: true, active: true, domainAuthenticated: true, providerHealthy: true } },
     at: '2026-09-01T00:00:00.000Z'
   });
-  assert.equal(ready.ok, true);
+  assert.equal(asserted.ok, false);
+  assert.ok(asserted.reasonCodes.includes('live-provider-states-must-be-derived-from-activation-receipts'));
+
+  // The legitimate door still opens, or the rule above would be a way of
+  // proving nothing can ever send.
+  const ready = selectFreeRoute({
+    purpose: 'TRANSACTIONAL',
+    providers: [provider],
+    mode: 'LIVE',
+    activationReceipts: [activationReceipt()],
+    at: AT
+  });
+  assert.equal(ready.ok, true, `receipt-derived LIVE route refused: ${ready.reasonCodes}`);
 });
 
 test('stale policy evidence removes provider from routing without changing application code', () => {

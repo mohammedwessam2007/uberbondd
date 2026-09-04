@@ -17,8 +17,24 @@ const MAX_GOALS = 160;
 const MAX_GATES = 160;
 const MAX_INITIATIVES = 160;
 const MAX_MEMORY_LIST = 256;
+// A closed vocabulary, and the closure is the point: an initiative carrying a
+// status nobody defined is memory nobody can reason about, so normalization
+// refuses the whole index rather than accepting one row it cannot classify.
+//
+// That strictness is also how it failed. An owner-doctrine record was added to
+// the reconciliation overlay with status CURRENT_OWNER_DOCTRINE, which was not
+// in this set, so the entire memory index refused to normalize and `npm run
+// brain` -- the mandatory first command of every session, on main -- returned
+// UBERBOND_BRAIN_BOOTSTRAP_FAILED. One unrecognised string took the company
+// brain offline for every worker.
+//
+// The status is added rather than the record relabelled. Owner doctrine is
+// genuinely not a program, a donor, a generated artifact or an unresolved name,
+// and squeezing it into CURRENT_PROGRAM to satisfy a validator would have
+// recorded something the owner did not say.
 const MEMORY_STATUSES = new Set([
   'CURRENT_PROGRAM',
+  'CURRENT_OWNER_DOCTRINE',
   'CANONICAL_LINEAGE',
   'HISTORICAL_DONOR',
   'HISTORICAL_CAPABILITY_SOURCE',

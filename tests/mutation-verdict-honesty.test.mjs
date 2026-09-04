@@ -183,3 +183,112 @@ test('every registered mutation anchor identifies exactly one site', () => {
   assert.deepEqual(ambiguous, [], 'an ambiguous anchor produces a verdict about the wrong code');
   assert.deepEqual(missing, [], 'a mutation whose anchor is gone verifies nothing');
 });
+
+// A hang is the third thing an exit code cannot express, and the only one that
+// stops the gate instead of misreporting it.
+//
+// The war ran suites with no deadline. One suite that never returned -- and a
+// real database makes that reachable, as the postgres-real runner found -- left
+// the whole run in ep_poll with no output and no verdict, on a mutation nobody
+// could name without reading /proc. Thirteen minutes of one run went that way.
+test('a suite killed at its deadline is named as such, not read as a verdict', () => {
+  // spawnSync reports a timeout kill through `error`, not through the status,
+  // so a caller that only looks at the exit code sees an ordinary failure.
+  assert.equal(classifySuiteRun({ status: null, output: '', timedOut: true }), 'SUITE_TIMED_OUT');
+
+  // And it must dominate. A partial TAP stream from a suite that was killed
+  // mid-run can carry a failure count, which would otherwise read as a mutant
+  // that died when in fact nothing finished.
+  assert.equal(
+    classifySuiteRun({ status: 1, output: '# fail 1\n# pass 3\n', timedOut: true }),
+    'SUITE_TIMED_OUT',
+    'a killed suite must not be reported as a kill because it printed a failure on the way out');
+
+  // Without the flag, nothing changes: the ordinary verdicts still apply.
+  assert.equal(classifySuiteRun({ status: 1, output: '# fail 1\n# pass 3\n' }), 'KILLED');
+  assert.equal(classifySuiteRun({ status: 0, output: '# fail 0\n# pass 3\n# skipped 0\n' }), 'SURVIVED');
+});
+
+test('a mutation may not reach outside the sandbox into the real dependency tree', () => {
+  // The sandbox shares node_modules by symlink rather than copying 116MB per
+  // mutation, which is what stopped three database-backed suites from timing
+  // out inside a full run. The cost of sharing is that a mutation pointed into
+  // node_modules would edit the actual dependencies of the repository it is
+  // supposed to be testing a copy of.
+  for (const file of [
+    'node_modules/pg/lib/client.js',
+    'src/../node_modules/pg/index.js',
+    'node_modules/@embedded-postgres/linux-x64/index.js'
+  ]) {
+    const result = applyMutation('/tmp', { file, find: 'x', replace: 'y' });
+    assert.equal(result.applied, false, `${file} was allowed to be mutated`);
+    assert.equal(result.reason, 'anchor-outside-sandbox');
+  }
+
+  // And a path that merely mentions the name is still an ordinary source file.
+  // It gets as far as trying to read it, which is the proof it was not refused.
+  assert.throws(
+    () => applyMutation('/tmp', { file: 'src/node_modules_report.mjs', find: 'x', replace: 'y' }),
+    error => error.code === 'ENOENT',
+    'a source file whose name contains node_modules was refused as a dependency');
+});
+
+test("node's own test deadline is a hang, not a suite that failed to load", () => {
+  // The war's wall-clock kill sets timedOut. Node's per-test deadline does not:
+  // it arrives as an ordinary non-zero exit whose TAP summary may never have
+  // been written, which reads as SUITE_DID_NOT_RUN -- true, but it sends a
+  // reader looking for a broken import instead of a stall.
+  const timedOutput = 'not ok 1 - tests/x.test.mjs\n  error: \'test timed out after 120000ms\'\n';
+  assert.equal(classifySuiteRun({ status: 1, output: timedOutput }), 'SUITE_TIMED_OUT');
+
+  // A real assertion failure still kills, including one that mentions time.
+  assert.equal(
+    classifySuiteRun({ status: 1, output: '# fail 1\n# pass 0\nexpected the request to time out after 5ms\n' }),
+    'KILLED');
+});
+
+test('a real assertion failure is a kill even when another test in the file hung', () => {
+  // Both halves of this were observed in one run. A file where the mutation
+  // broke exactly the assertion it names, and a different test in the same file
+  // stalled, was recorded as untested -- discarding a genuine kill because of
+  // unrelated noise beside it.
+  const both = [
+    "not ok 1 - tests/database-hygiene-postgres-real.test.mjs",
+    "  error: 'test timed out after 120000ms'",
+    "not ok 1 - a real run deletes only genuinely disposable rows",
+    "  error: 'READY content is not terminal and must survive'",
+    "  code: 'ERR_ASSERTION'"
+  ].join('\n');
+  assert.equal(classifySuiteRun({ status: 1, output: both }), 'KILLED');
+
+  // The concession runs one way only. A hang with no assertion behind it is
+  // still never a kill, which is the property that stops a loaded machine from
+  // manufacturing evidence.
+  const hangOnly = "not ok 1 - tests/x.test.mjs\n  error: 'test timed out after 120000ms'\n  code: 'ERR_TEST_FAILURE'\n";
+  assert.equal(classifySuiteRun({ status: 1, output: hangOnly }), 'SUITE_TIMED_OUT');
+
+  // And our own wall-clock kill still dominates everything, because it cuts the
+  // output at an arbitrary point and nothing in it can be trusted.
+  assert.equal(classifySuiteRun({ status: null, output: both, timedOut: true }), 'SUITE_TIMED_OUT');
+});
+
+test('the second attempt is bounded to hangs, and its verdict is final', () => {
+  // A retry loop is how a mutation gate stops meaning anything, so the shape of
+  // this one is asserted rather than trusted to review.
+  const war = readFileSync(new URL('../scripts/mutation-war.mjs', import.meta.url), 'utf8');
+
+  // It fires only on a hang -- the verdict that means no measurement was taken.
+  // A SURVIVED or a KILLED is a measurement and must stand on the first run.
+  assert.match(war, /if \(verdict === 'SUITE_TIMED_OUT'\) \{/,
+    'the second attempt must be reachable only from SUITE_TIMED_OUT');
+  assert.equal(/while \(verdict/.test(war), false, 'a loop here would retry until the answer is convenient');
+  assert.equal((war.match(/retried\.add\(/g) || []).length, 1,
+    'more than one place marking a retry means more than one retry path');
+
+  // And whatever it says is recorded. A second hang stays a hang.
+  const attempt = war.slice(war.indexOf("if (verdict === 'SUITE_TIMED_OUT')"));
+  assert.match(attempt.slice(0, 600), /verdict = classifySuiteRun\(run\);/,
+    'the second attempt must overwrite the verdict with what it actually found');
+  assert.equal(/verdict = 'KILLED'/.test(attempt.slice(0, 600)), false,
+    'the second attempt must not be able to assert a verdict of its own');
+});

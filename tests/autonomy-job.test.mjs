@@ -32,6 +32,32 @@ function fakeStore() {
       let rows = [...auditLog];
       if (options.filters?.type) rows = rows.filter(row => row.type === options.filters.type);
       return rows.slice(0, options.limit || rows.length);
+    },
+    // add/get, because the receipt ledger needs them and this fake did not have
+    // them -- so the job refused with store-atomic-add-and-get-required and the
+    // followup test could never pass. The refusal is correct: an execution
+    // receipt is written under a deterministic id precisely so a duplicate tick
+    // cannot write a second one, and a store that cannot refuse the duplicate
+    // cannot provide that.
+    //
+    // Modelled on the real store rather than made permissive: add throws on a
+    // repeated id and get returns what is already there, which is the pair the
+    // ledger's duplicate path actually depends on. A fake that accepted every
+    // add would let a double-write pass here and fail in production.
+    async add(key, row) {
+      assert.equal(key, 'auditLog');
+      if (auditLog.some(existing => existing.id === row.id)) {
+        const error = new Error(`Duplicate auditLog record rejected: ${row.id}`);
+        error.code = 'CONFLICT';
+        throw error;
+      }
+      const stored = structuredClone(row);
+      auditLog.push(stored);
+      return stored;
+    },
+    async get(key, id) {
+      assert.equal(key, 'auditLog');
+      return auditLog.find(row => row.id === id) || null;
     }
   };
 }

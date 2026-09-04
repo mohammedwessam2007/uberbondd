@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-09-04**
 Branch: `claude/uberbond-ragnarok-closure-pek0g6`
-Reconciled from current head: `56a91dc93823f8531878ae73661f231c77807e96`
+Reconciled from current head: `aa305a164880705b61b1b46ca195f0d777bfed5c`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
@@ -29,10 +29,10 @@ The source-changing state of this branch was exercised before later documentatio
 
 | Gate | Result |
 |---|---|
-| Syntax | `npm run check:syntax`: 748 files parse (2026-09-04) |
-| Deterministic | `npm run test:deterministic`: 3351 tests, 3298 pass, **0 fail**, 53 skipped (2026-09-04) |
+| Syntax | `npm run check:syntax`: 789 files parse (2026-09-04) |
+| Deterministic | `npm run test:deterministic`: 3489 tests, 3435 pass, **0 fail**, 54 skipped (2026-09-04) |
 | Relay safety | `npm run test:relay-safety`: 150 tests, 150 pass, 0 fail (2026-08-30) |
-| Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real`: 23 suites passed, 184 tests, 184 pass, 0 fail (2026-09-04) |
+| Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real`: 24 suites passed, 187 tests, 187 pass, 0 fail (2026-09-04) |
 | Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 164 mutations, 164 killed, 0 not killed, 0 skipped |
 | Browser | `CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser`: 1 test, 1 pass, 0 fail (2026-08-30), against the runner's installed Chromium |
 | Dependency audit | `npm audit --omit=dev`: No vulnerabilities reported in the current integration environment. |
@@ -41,13 +41,13 @@ The 52 deterministic skips are environment-dependent suites excluded from that r
 
 ## Reachability
 
-**133 of 301 `src` modules have no entry point at all**.
+**138 of 312 `src` modules have no entry point at all**.
 
 | Reachability class | Modules |
 |---|---:|
-| Reachable from production | 140 |
-| Reachable only via an operator script | 28 |
-| **No entry point at all** | **133** |
+| Reachable from production | 141 |
+| Reachable only via an operator script | 33 |
+| **No entry point at all** | **138** |
 
 The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`.
 

@@ -3,7 +3,7 @@
   "checkpointedAt": "2026-09-04T00:00:00Z",
   "sourceCommit": "56a91dc93823f8531878ae73661f231c77807e96",
   "sourceMainShaAtMissionStart": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
-  "currentMainShaAtCheckpoint": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
+  "currentMainShaAtCheckpoint": "bc50a54302069cf1901a0d8962a1d152abf50108",
   "activeBranch": "claude/uberbond-ragnarok-closure-pek0g6",
   "activePullRequest": "NONE_OPENED__NOT_REQUESTED; PR #329 converged into this branch rather than merged separately",
   "activeMission": "Omega closure: drive the founder-absence doctor's softwareGaps to zero so that every remaining blocker is a credential, an account, an external party or elapsed time. Reached. The next thing that moves the north star is one owner-authorized first sprint, not more engineering.",
@@ -28,7 +28,10 @@
     "Made the war resumable after four consecutive runs were lost to container restarts, each discarding every verdict earned. Verdicts are journaled as decided and bound to a hash of the file, anchor, replacement and killing suites, so a guard that moved runs again rather than inheriting an answer. Skips are never journaled, because a skip describes the host rather than the guard.",
     "Drove test:postgres-real to 23 suites / 184 tests / 184 pass. It had never completed: it stopped inside the state-machine suite and waited, so ~180 tests behind that file had never executed and no run said so. Three causes: ~600 client round trips (now four PL/pgSQL statements), a concurrency test that only passed when two transactions happened to overlap (now holds the first transaction open and actually tests FOR UPDATE SKIP LOCKED), and a hundred client-side replays that wedge node:test after ~100 rejected pg queries (now counted server-side).",
     "Established that the replay wedge is the test runner and not production, by measuring four ways before concluding: 200 clean queries in 61ms, conflicts through a pool stopping at ~55 iterations with no backends left, conflicts on one dedicated client stopping at the same ~100, and the identical loop outside node:test doing 300 conflicts in 90ms. No production module was changed for any of it.",
-    "Falsified every rewritten check before believing it: claiming all transitions legal fails with Postgres's own message, removing FOR UPDATE SKIP LOCKED fails the lock test, and dropping UNIQUE from provider_event_id fails the replay test."
+    "Falsified every rewritten check before believing it: claiming all transitions legal fails with Postgres's own message, removing FOR UPDATE SKIP LOCKED fails the lock test, and dropping UNIQUE from provider_event_id fails the replay test.",
+    "Merged 91 commits of main (Fable N+1 orchestration frontier, orchestration graph, no-evaporation startup memory) and reconciled it. Compared failure sets rather than assuming: origin/main fails 24 of its own tests, this branch failed 7, every one of those 7 was also red on main, none was caused by the merge, and this branch repairs 17 that main is shipping red.",
+    "Fixed the four inherited non-canon failures: a receipt-ledger fake store missing the add/get pair the ledger requires (the refusal was correct -- a store that cannot refuse a duplicate cannot provide idempotency), a model-admission fixture with no provider that could never have passed (requirement kept, gap given its own test), and a capability count pinned at 8 against a registry holding 11 (updated, not loosened, with the three new supplier ids named individually).",
+    "Classified the six frontier proof modules main landed with no entry point, and removed one of my own classifications that main had made false by wiring autonomous-frontier-intelligence."
   ],
   "blockers": [
     "NO_CONFIGURED_MODEL_PROVIDER: zero providers configured, no pricing evidence. The Claude Code harness session OAuth is the agent's credential, not a provider configured for UberBond.",
@@ -67,11 +70,11 @@
   },
   "currentMeasuredSoftwareTruth": {
     "exactHead": "56a91dc93823f8531878ae73661f231c77807e96 on claude/uberbond-ragnarok-closure-pek0g6",
-    "check:syntax": "748 files parse",
-    "test:deterministic": "3351 tests, 3298 pass, 0 fail, 53 skipped",
-    "test:mutation-war": "164 mutations, 164 killed, 0 not killed, 0 skipped -- fully green for the first time, with nothing skipped",
-    "test:postgres-real": "23 suites, 184 tests, 184 pass, 0 fail -- green end to end for the first time; this gate had never completed",
-    "reachability": "301 src modules: 140 production-reachable, 28 operator-only, 133 classified with a registered gate",
+    "check:syntax": "789 files parse",
+    "test:deterministic": "3489 tests, 3435 pass, 0 fail, 54 skipped",
+    "test:mutation-war": "164 mutations, 164 killed, 0 not killed, 0 skipped",
+    "test:postgres-real": "24 suites, 187 tests, 187 pass, 0 fail",
+    "reachability": "312 src modules: 141 production-reachable, 33 operator-only, 138 classified with a registered gate",
     "test:relay-safety": "150/150",
     "test:capability-genome": "84/84",
     "test:wallbreaker": "16/16",

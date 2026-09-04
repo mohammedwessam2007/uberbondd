@@ -1,0 +1,1 @@
+Important completed work must be on main or explicit donor history. Important active work must have a durable PR/issue/checkpoint/receipt. Chat-only progress is not durable project truth.

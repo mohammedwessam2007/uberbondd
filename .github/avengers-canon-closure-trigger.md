@@ -1,1 +1,0 @@
-Temporary Stage B trigger. No runtime semantics. The configured Vercel build must run the fail-closed canonical readiness generator plus exact Avengers/deterministic/doctor gates before exporting canon.

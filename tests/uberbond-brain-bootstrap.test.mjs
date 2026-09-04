@@ -74,7 +74,11 @@ test('one-command loader validates actual bootstrap, reconciled memory, and exte
   assert.match(packet.memoryDigest, /^[a-f0-9]{64}$/);
   assert.match(packet.memoryReconciliationDigest, /^[a-f0-9]{64}$/);
   assert.match(packet.externalCapabilityDigest, /^[a-f0-9]{64}$/);
-  assert.equal(packet.externalCapabilityCount, 8);
+  // Pinned exactly, so registering a supplier arrives as a failing test rather
+  // than as three more capabilities nobody decided on. It went 8 -> 11 when the
+  // Fable orchestrator, Metaswarm and Superpowers landed; this assertion is what
+  // said so, and updating it is the act of accepting them.
+  assert.equal(packet.externalCapabilityCount, 11);
   assert.equal(packet.capabilityGenome.health, 'FOUNDATION_HEALTHY');
   assert.equal(packet.capabilityGenome.sourceCount, 10);
   assert.equal(packet.capabilityGenome.rawCandidateCount, 8);
@@ -100,7 +104,12 @@ test('one-command loader validates actual bootstrap, reconciled memory, and exte
     'headroom',
     'omniroute',
     'strix',
-    'agent-reach'
+    'agent-reach',
+    // The Fable N+1 orchestration suppliers. Named individually rather than
+    // counted, so a supplier cannot be swapped for another without saying so.
+    'fable-orchestrator',
+    'metaswarm',
+    'superpowers'
   ]));
   // 35 since the owner-doctrine record was added to the reconciliation overlay
   // on 2026-09-02. A measured count, pinned so a silent loss of memory shows up
@@ -216,7 +225,7 @@ test('human summary stays bounded and exposes capability assimilation without du
   const root = buildFixture();
   const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit });
   const output = formatUberBondBrainPacket(packet);
-  assert.match(output, /external capabilities: 8 \([a-f0-9]{64}\)/);
+  assert.match(output, /external capabilities: 11 \([a-f0-9]{64}\)/);
   // The genome line gained world-repos, skill-bodies and a corpus label when the
   // bounded harvest landed, and this anchor still expected the fields to be
   // adjacent. Asserted field by field now, so adding another measurement does

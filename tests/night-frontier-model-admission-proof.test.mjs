@@ -8,6 +8,12 @@ function validAdmission(overrides = {}) {
   return {
     modelId: 'example/model',
     revision: 'abc123',
+    // The fixture had no provider and the module requires one, so the happy-path
+    // test could never pass -- it arrived red and stayed red. The requirement is
+    // right and is the half worth keeping: a model admission that cannot name
+    // who served it is exactly the shape the routing law exists to refuse, since
+    // fallback must preserve the actual provider identity in receipts.
+    provider: 'self-hosted-vllm',
     provenanceRef: 'registry:huggingface:example/model@abc123',
     licenseId: 'apache-2.0',
     licenseClass: 'PERMISSIVE',
@@ -84,4 +90,18 @@ test('stale or future evidence cannot be admitted', () => {
   const future = verifyFrontierModelAdmission(validAdmission({ observedAt: '2026-09-04T00:00:00.000Z' }), { now });
   assert.equal(future.ok, false);
   assert.ok(future.reasons.includes('future-evidence-rejected'));
+});
+
+test('an admission that cannot name who served the model fails closed', () => {
+  // The gap the happy path was hiding. Named as its own case so the requirement
+  // is held up by a test that asserts it rather than by a fixture that happened
+  // to omit it.
+  for (const provider of [undefined, '', '   ', null]) {
+    const result = verifyFrontierModelAdmission(validAdmission({ provider }), { now });
+    assert.equal(result.ok, false, `provider=${JSON.stringify(provider)} was admitted`);
+    assert.ok(result.reasons.includes('provider-identity-required'));
+    assert.equal(result.identity, null, 'a refused admission must not still publish an identity');
+    assert.equal(result.workerCompilationAuthority, 'NONE');
+    assert.equal(result.promotionAuthority, 'NONE');
+  }
 });

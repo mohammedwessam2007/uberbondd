@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { buildGenesisMetabolism } from '../src/genesis-metabolism.mjs';
+import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 
 test('metabolism reaches sensing, economic, venture, resilience and final-frontier organs without external authority', () => {
   const result = buildGenesisMetabolism({
@@ -36,14 +37,7 @@ test('metabolism reaches sensing, economic, venture, resilience and final-fronti
   assert.equal(result.status, 'GENESIS_METABOLISM_READY');
   assert.equal(result.businessEffectAuthority, 'NONE');
   assert.equal(result.externalEffectAuthority, 'NONE');
-  assert.deepEqual(result.externalEffectLedger, {
-    messages: 0,
-    moneyMovements: 0,
-    purchases: 0,
-    deployments: 0,
-    customerStateMutations: 0,
-    providerCalls: 0
-  });
+  assert.deepEqual(result.externalEffectLedger, ZERO_EXTERNAL_EFFECTS);
   assert.equal(result.organs.sensing.status, 'WEAK_SIGNAL_FUSION_READY');
   assert.equal(result.organs.trust.status, 'TRUST_FRICTION_SCAN_READY');
   assert.equal(result.organs.venture.status, 'COMPANY_PHENOTYPE_COMPILED');

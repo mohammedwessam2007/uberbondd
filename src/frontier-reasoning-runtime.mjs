@@ -1,6 +1,6 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const FRONTIER_REASONING_RUNTIME_VERSION = 'uberbond.frontier-reasoning-runtime-1.1.0';
+export const FRONTIER_REASONING_RUNTIME_VERSION = 'uberbond.frontier-reasoning-runtime-1.1.1';
 
 const GATEWAY_EFFORTS = new Set(['none', 'minimal', 'low', 'medium', 'high', 'xhigh']);
 
@@ -33,7 +33,9 @@ export function compileFrontierExecutorWorker(member = {}) {
   const model = text(member.model, 120);
   const revision = text(member.revision, 240);
   const transportProvider = text(member.transportProvider, 80)?.toLowerCase();
-  const transportModel = text(member.transportModel, 240);
+  // Canonical AI Gateway executor accepts a provider/model slug no longer than 160 chars.
+  // Reject wider identities here rather than allowing the transport adapter to truncate them.
+  const transportModel = text(member.transportModel, 160);
   const reasoningTier = text(member.reasoningTier, 80)?.toUpperCase();
   const reasoningSettingRef = text(member.reasoningSettingRef, 500);
   const reasons = [];
@@ -42,14 +44,14 @@ export function compileFrontierExecutorWorker(member = {}) {
   if (!reasoningTier || !reasoningSettingRef) reasons.push('reasoning-tier-and-setting-required');
 
   let reasoningEffort = null;
-  if (transportProvider === 'ai-gateway') {
+  if (transportProvider === 'ai-gateway' && transportModel) {
     reasoningEffort = parseGatewaySetting(reasoningSettingRef);
     if (!reasoningEffort) reasons.push('ai-gateway-reasoning-setting-unrecognized');
     const creator = transportModel.includes('/') ? transportModel.split('/')[0].toLowerCase() : null;
     if (!creator) reasons.push('ai-gateway-provider-model-slug-required');
     else if (creator !== provider) reasons.push('cognitive-provider-and-gateway-model-creator-mismatch');
-  } else {
-    reasons.push(`frontier-reasoning-transport-not-yet-proven:${transportProvider || 'unknown'}`);
+  } else if (transportProvider && transportProvider !== 'ai-gateway') {
+    reasons.push(`frontier-reasoning-transport-not-yet-proven:${transportProvider}`);
   }
 
   if (reasons.length) return failure(reasons);
@@ -70,7 +72,7 @@ export function attestFrontierExecution({ member, workerBinding, executorResult,
   const profileId = text(member?.profileId, 120)?.toLowerCase();
   if (!profileId || profileId !== workerBinding.profileId) return failure(['profile-binding-mismatch'], 'FRONTIER_EXECUTION_ATTESTATION_BLOCKED');
 
-  const observedTransportModel = text(executorResult.model, 240);
+  const observedTransportModel = text(executorResult.model, 160);
   const identityVerification = text(executorResult.identityVerification, 80)?.toUpperCase();
   const appliedReasoningEffort = text(executorResult.appliedReasoningEffort, 40)?.toLowerCase();
   const appliedReasoningEvidence = text(executorResult.appliedReasoningEvidence, 80)?.toUpperCase();
@@ -95,7 +97,7 @@ export function attestFrontierExecution({ member, workerBinding, executorResult,
     if (text(evidence.observedModel, 120) !== workerBinding.cognitiveIdentity.model) reasons.push('callability-model-mismatch');
     if (text(evidence.observedRevision, 240) !== workerBinding.cognitiveIdentity.revision) reasons.push('callability-revision-mismatch');
     if (text(evidence.observedTransportProvider, 80)?.toLowerCase() !== workerBinding.worker.provider) reasons.push('callability-transport-provider-mismatch');
-    if (text(evidence.observedTransportModel, 240) !== workerBinding.worker.model) reasons.push('callability-transport-model-mismatch');
+    if (text(evidence.observedTransportModel, 160) !== workerBinding.worker.model) reasons.push('callability-transport-model-mismatch');
     if (!text(evidence.sourceRef, 1000) || !text(evidence.observedAt, 80)) reasons.push('callability-evidence-pointer-and-time-required');
   }
   if (reasons.length) return failure(reasons, 'FRONTIER_EXECUTION_ATTESTATION_BLOCKED');

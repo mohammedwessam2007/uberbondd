@@ -18,6 +18,11 @@ const observation = {
   identityVerification: 'OBSERVED', evidenceClass: 'OBSERVED_RUNTIME'
 };
 const profile = { id: 'elite', provider: 'google', model: 'elite', revision: 'r1' };
+const member = {
+  profileId: 'elite', provider: 'google', model: 'elite', revision: 'r1',
+  transportProvider: 'ai-gateway', transportModel: 'google/elite',
+  reasoningTier: 'FRONTIER_MAX', reasoningSettingRef: 'ai-gateway:reasoning=xhigh'
+};
 const sha256 = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 function syntheticReceipt() {
   return buildFrontierCallabilityProbeReceipt({ observations: [observation], sourceRef: 'synthetic://producer-origin-test', observedAt: AT });
@@ -65,11 +70,7 @@ test('admission bundle loses process authority after caller mutation', () => {
 test('invalid callability is rejected before executor construction or any provider call', async () => {
   let constructions = 0;
   const result = await executeFrontierMember({
-    member: {
-      profileId: 'elite', provider: 'google', model: 'elite', revision: 'r1',
-      transportProvider: 'ai-gateway', transportModel: 'google/elite',
-      reasoningTier: 'FRONTIER_MAX', reasoningSettingRef: 'ai-gateway:reasoning=xhigh'
-    },
+    member,
     task: { taskId: 'preflight', objective: 'must not dispatch', consequenceClass: 'LOCAL_PREPARATION' },
     callabilityEvidence: { ...observation, observedRevision: 'wrong-revision' },
     modelExecutorFactory: () => { constructions += 1; return async () => ({ ok: true }); },
@@ -78,6 +79,35 @@ test('invalid callability is rejected before executor construction or any provid
   assert.equal(result.ok, false);
   assert.equal(constructions, 0);
   assert.ok(result.reasonCodes.includes('callability-revision-mismatch'));
+});
+
+test('executor cannot report a cost above its reserved member ceiling', async () => {
+  let calls = 0;
+  const result = await executeFrontierMember({
+    member,
+    task: { taskId: 'budget', objective: 'stay inside reservation', consequenceClass: 'LOCAL_PREPARATION' },
+    callabilityEvidence: observation,
+    modelExecutorFactory: () => async () => {
+      calls += 1;
+      return {
+        ok: true,
+        providerRequestId: 'budget-req',
+        model: 'google/elite',
+        identityVerification: 'OBSERVED',
+        appliedReasoningEffort: 'xhigh',
+        appliedReasoningEvidence: 'REQUEST_BODY_ATTESTED',
+        usage: { costCents: 6 },
+        result: { answer: 'too expensive' }
+      };
+    },
+    maxTokens: 16,
+    costCeilingCents: 5,
+    clock: (() => { let t = 0; return () => ++t; })()
+  });
+  assert.equal(calls, 1);
+  assert.equal(result.ok, false);
+  assert.equal(result.status, 'FRONTIER_EXECUTION_BUDGET_EXCEEDED');
+  assert.ok(result.reasonCodes.includes('actual-cost-exceeds-frontier-reservation'));
 });
 
 test('canonical live probe refuses to touch a provider without explicit approval and bounded inputs', async () => {

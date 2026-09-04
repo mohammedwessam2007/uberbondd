@@ -19,16 +19,15 @@
 // Refusing means claiming nothing at all, which is the part worth being careful
 // about. A worker that claims events it cannot process still burns
 // `claim_attempts` on every pass, and the repository moves an event to UNCERTAIN
-// once the cap is reached -- so an unconfigured worker left running would walk
-// real payment evidence into an uncertain state without ever contacting a
-// provider. The configuration check therefore happens before the claim, not
-// inside the loop.
+// once the cap is reached. Verifier provider scope is therefore enforced before
+// backlog planning and again inside the atomic claim query.
 
 import { claimBillingEvents, finishBillingEvent, billingBacklogSummary } from './billing-webhook-repository.mjs';
 import { planPaymentReconciliation } from './payment-reconciliation-watchdog.mjs';
+import { supportedPaymentProviders } from './payment-provider-verifier-dispatch.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const PAYMENT_RECONCILIATION_WORKER_VERSION = 'uberbond.payment-reconciliation-worker.v1';
+export const PAYMENT_RECONCILIATION_WORKER_VERSION = 'uberbond.payment-reconciliation-worker.v1.1';
 
 const clone = value => structuredClone(value);
 const text = (value, max = 240) => String(value ?? '').trim().slice(0, max);
@@ -50,11 +49,10 @@ function refuse(reasonCodes, extra = {}) {
 /**
  * Reconcile one bounded batch of verified billing events.
  *
- * @param {object}   options
- * @param {object}   options.pool              a PostgreSQL pool
- * @param {Function} options.providerVerifier  async (event) => provider truth; absent means unconfigured
- * @param {string}   options.workerRef
- * @param {number}  [options.limit]
+ * A verifier may expose `supportedProviders` as a bounded array. When it does,
+ * every backlog read and durable claim is restricted to that provider set. An
+ * explicitly injected legacy verifier without this property retains the prior
+ * provider-agnostic contract for backwards compatibility.
  */
 export async function runPaymentReconciliationTick({
   pool,
@@ -69,42 +67,35 @@ export async function runPaymentReconciliationTick({
   const worker = text(workerRef, 120);
   if (!worker) return refuse(['worker-ref-required']);
 
-  // Before the claim, deliberately. See the note at the top of this file: an
-  // unconfigured worker that claims first would push real payment evidence to
-  // UNCERTAIN by exhausting its attempts, having contacted nobody.
   if (typeof providerVerifier !== 'function') {
     let backlog = null;
     try { backlog = await billingBacklogSummary(pool); } catch { backlog = null; }
     return refuse(['payment-provider-verifier-not-configured'], {
       status: 'PAYMENT_PROVIDER_ADAPTER_NOT_CONFIGURED',
-      // Reported so the absence is visible as a backlog with a known cause,
-      // rather than as a worker that appears to be keeping up.
       backlog
     });
   }
 
-  const batch = Math.max(1, Math.min(100, Number(limit) || 10));
+  const providerScope = supportedPaymentProviders(providerVerifier);
+  if (Array.isArray(providerScope) && providerScope.length === 0) {
+    return refuse(['payment-provider-verifier-scope-empty'], {
+      status: 'PAYMENT_PROVIDER_ADAPTER_NOT_CONFIGURED'
+    });
+  }
 
-  // Plan over the backlog before claiming anything.
-  //
-  // Two things decide the same question here and they are not duplicates. The
-  // repository's claim query selects atomically, which is the only way to be
-  // safe against a second worker. `planPaymentReconciliation` decides policy
-  // over the whole backlog, including the events the claim query deliberately
-  // will not take -- an event stuck UNCERTAIN, or one that has exhausted its
-  // attempts, needs a person rather than another pass.
-  //
-  // Running the planner after the claim was the first thing tried and it is
-  // simply wrong: by then the row reads CLAIMED, which the planner correctly
-  // refuses as a status it was never asked about. It belongs in front.
+  const batch = Math.max(1, Math.min(100, Number(limit) || 10));
   let backlogRows = [];
   try {
+    const scopeClause = providerScope === null ? '' : ' AND provider=ANY($2::text[])';
+    const params = providerScope === null
+      ? [Math.min(500, batch * 10)]
+      : [Math.min(500, batch * 10), providerScope];
     const { rows } = await pool.query(
-      `SELECT provider_event_key, status, claim_attempts, claimed_at, updated_at
+      `SELECT provider_event_key, provider, status, claim_attempts, claimed_at, updated_at
          FROM billing_webhook_inbox
-        WHERE status NOT IN ('RECONCILED','IGNORED','FAILED')
+        WHERE status NOT IN ('RECONCILED','IGNORED','FAILED')${scopeClause}
         ORDER BY received_at ASC
-        LIMIT $1`, [Math.min(500, batch * 10)]);
+        LIMIT $1`, params);
     backlogRows = rows || [];
   } catch (error) {
     return refuse(['billing-backlog-read-failed'], { detail: text(error?.message, 300) });
@@ -123,14 +114,13 @@ export async function runPaymentReconciliationTick({
     if (plan.action === 'ESCALATE_REVIEW') {
       escalations.push({
         providerEventKey: row.provider_event_key,
+        provider: row.provider || null,
         status: row.status,
         reasonCodes: plan.reasonCodes || []
       });
     }
   }
 
-  // Nothing the planner would act on means no claim at all, rather than a claim
-  // that finds nothing and costs an attempt on the way.
   if (!claimable) {
     return {
       ok: true,
@@ -140,6 +130,7 @@ export async function runPaymentReconciliationTick({
       processed: [],
       escalations,
       backlogInspected: backlogRows.length,
+      supportedProviders: providerScope,
       businessEffectAuthority: 'NONE',
       externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS)
     };
@@ -147,9 +138,15 @@ export async function runPaymentReconciliationTick({
 
   let claimed;
   try {
-    claimed = await claimBillingEvents(pool, { workerRef: worker, limit: batch, staleClaimMs, maxAttempts });
+    claimed = await claimBillingEvents(pool, {
+      workerRef: worker,
+      limit: batch,
+      staleClaimMs,
+      maxAttempts,
+      providers: providerScope
+    });
   } catch (error) {
-    return refuse(['billing-claim-failed'], { detail: text(error?.message, 300) });
+    return refuse(['billing-claim-failed'], { detail: text(error?.message, 300), supportedProviders: providerScope });
   }
 
   const processed = [];
@@ -167,10 +164,6 @@ export async function runPaymentReconciliationTick({
         providerEventKey: row.provider_event_key
       });
     } catch (error) {
-      // The provider may or may not have been reached. That is exactly the
-      // uncertain case, and it is finished as UNCERTAIN rather than retried,
-      // because a retry against an unknown outcome is the blind retry this
-      // repository refuses everywhere else.
       await finishBillingEvent(pool, {
         providerEventKey: row.provider_event_key,
         status: 'UNCERTAIN',
@@ -179,6 +172,7 @@ export async function runPaymentReconciliationTick({
       }).catch(() => {});
       processed.push({
         providerEventKey: row.provider_event_key,
+        provider: row.provider,
         outcome: 'UNCERTAIN',
         reasonCodes: ['provider-verification-threw'],
         detail: text(error?.message, 200)
@@ -188,10 +182,6 @@ export async function runPaymentReconciliationTick({
 
     const cleared = verdict?.cleared === true;
     const receiptRef = text(verdict?.canonicalReceiptRef, 200);
-
-    // A verifier saying "cleared" is not sufficient on its own. The repository
-    // requires a canonical receipt reference for RECONCILED, and that rule is
-    // the whole difference between provider evidence and a claim about it.
     if (cleared && !receiptRef) {
       await finishBillingEvent(pool, {
         providerEventKey: row.provider_event_key,
@@ -201,6 +191,7 @@ export async function runPaymentReconciliationTick({
       }).catch(() => {});
       processed.push({
         providerEventKey: row.provider_event_key,
+        provider: row.provider,
         outcome: 'UNCERTAIN',
         reasonCodes: ['canonical-receipt-ref-missing-from-verifier']
       });
@@ -224,7 +215,6 @@ export async function runPaymentReconciliationTick({
     processed.push({
       providerEventKey: row.provider_event_key,
       outcome: status,
-      // The provider that actually answered, preserved rather than inferred.
       provider: row.provider,
       canonicalReceiptRef: cleared ? receiptRef : null,
       finished: finished?.ok === true
@@ -239,9 +229,8 @@ export async function runPaymentReconciliationTick({
     processed,
     escalations,
     backlogInspected: backlogRows.length,
+    supportedProviders: providerScope,
     businessEffectAuthority: 'NONE',
-    // Provider verification reads provider state. It moves no money, so the
-    // money-moving counters stay zero and only the call count is real.
     externalEffectLedger: { ...clone(ZERO_EXTERNAL_EFFECTS), providerCalls }
   };
 }

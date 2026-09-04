@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "uberbond.avengers-integration-receipt.v1",
+  "observedAt": "2026-09-04T01:26:00Z",
+  "baseMain": "bc50a54302069cf1901a0d8962a1d152abf50108",
+  "branch": "gpt/avengers-arsenal-runtime-20260904",
+  "truthClass": "DRAFT_BRANCH",
+  "purpose": "Convert UberBond's model/tool/orchestration arsenal into a bounded executable squad with multi-profile callability, canonical routing, bounded parallel execution and failover.",
+  "implemented": [
+    "multi-profile open-model roster instead of one global OPEN_MODEL socket",
+    "exact model/runtime/revision/rights/pricing/benchmark profile contracts",
+    "secret-free environment variable references",
+    "loopback local runtime discovery without auto-activation or downloads",
+    "approved inference callability probes",
+    "remote HTTPS profile approval evidence gate",
+    "external capability registry classification into method/project/runtime truth classes",
+    "canonical agent-model-router reuse for squad assignments",
+    "fresh benchmark and evidence-confidence routing gates",
+    "Fable-style bounded orchestration graph compilation",
+    "dependency-ready bounded parallel batches",
+    "pre-authorized evidence-backed fallback execution",
+    "doctor -> plan -> tick command chain",
+    "focused hostile and end-to-end tests"
+  ],
+  "commands": [
+    "npm run avengers:doctor",
+    "npm run avengers:plan",
+    "npm run avengers:tick",
+    "npm run avengers:tick:dry",
+    "npm run test:avengers"
+  ],
+  "verificationState": "FOCUSED_TESTS_COMMITTED_EXECUTION_RECEIPT_PENDING",
+  "commercialTruth": {
+    "customersCreated": 0,
+    "clearedRevenueUsdCreated": 0,
+    "acceptedDeliveriesCreated": 0,
+    "retainedCustomersCreated": 0
+  },
+  "authority": {
+    "businessEffectAuthority": "NONE",
+    "providerCallAuthority": "LOCAL_PREPARATION_ONLY_AFTER_PROFILE_ACTIVATION_AND_CALLABILITY_GATES",
+    "automaticModelDownload": false,
+    "arbitraryDownloadedModelCodeExecution": false
+  },
+  "nextGate": "Execute focused Avengers tests on exact branch head, repair causal failures, reconcile with current main, merge only with appropriate exact-head evidence, then add no-evaporation startup memory."
+}

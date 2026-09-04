@@ -49,6 +49,13 @@ export function classifySuiteRun({ status, output, timedOut = false }) {
   // go and find.
   if (timedOut) return 'SUITE_TIMED_OUT';
 
+  // Node's own per-test deadline is the same fact arriving by a different route:
+  // the suite hung and was cut off. It reaches here as an ordinary failure whose
+  // summary may not have been written, which the branch below would read as
+  // SUITE_DID_NOT_RUN -- true but unhelpful, since "did not run" sends a reader
+  // looking for a broken import rather than a stall.
+  if (/test timed out after \d+ms/.test(output || '')) return 'SUITE_TIMED_OUT';
+
   if (status !== 0) {
     // A failing assertion is what kills a mutant. A suite that could not run at
     // all reports no failures, and proves nothing either way.
@@ -60,6 +67,13 @@ export function classifySuiteRun({ status, output, timedOut = false }) {
 }
 
 export function applyMutation(root, mutation) {
+  // The sandbox shares the real node_modules by symlink rather than copying it,
+  // so a mutation pointed inside it would edit the actual dependency tree of the
+  // repository it is supposed to be testing a copy of. No registered mutation
+  // does; this is here so none ever can.
+  if (/(^|[\\/])node_modules([\\/]|$)/.test(mutation.file)) {
+    return { applied: false, reason: 'anchor-outside-sandbox' };
+  }
   const target = join(root, mutation.file);
   const source = readFileSync(target, 'utf8');
   const occurrences = source.split(mutation.find).length - 1;

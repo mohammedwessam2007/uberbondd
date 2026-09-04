@@ -14,7 +14,7 @@
 // the specific invariants this system's safety rests on produces a list an
 // operator can read.
 
-import { mkdtempSync, cpSync, rmSync } from 'node:fs';
+import { mkdtempSync, cpSync, rmSync, symlinkSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
@@ -452,6 +452,20 @@ export const MUTATIONS = [
     find: '    assert.ok(canonRelevantSourceMatches(sha, head),',
     replace: '    assert.ok(true,',
     suites: ['tests/canon-freshness-discrimination.test.mjs']
+  },
+  {
+    id: 'SANDBOX-01', guard: 'A mutation cannot reach out of the sandbox into the real dependency tree',
+    file: 'scripts/mutation-verdict.mjs',
+    find: "    return { applied: false, reason: 'anchor-outside-sandbox' };",
+    replace: '',
+    suites: ['tests/mutation-verdict-honesty.test.mjs']
+  },
+  {
+    id: 'TIMEOUT-02', guard: "Node's own test deadline is reported as a hang, not as a suite that failed to load",
+    file: 'scripts/mutation-verdict.mjs',
+    find: "  if (/test timed out after \\d+ms/.test(output || '')) return 'SUITE_TIMED_OUT';",
+    replace: '',
+    suites: ['tests/mutation-verdict-honesty.test.mjs']
   },
   {
     id: 'TIMEOUT-01', guard: 'A suite killed at its deadline is not read as a mutant that died',
@@ -1281,7 +1295,9 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   // Not dropped afterwards: these live inside a disposable embedded server that
   // is torn down when the run ends, and reclaiming them is how the postgres-real
   // runner acquired an unbounded wait on a backend that cannot be stopped.
+  const diagnostics = new Map();
   let admin = null;
+
   const freshDatabase = async id => {
     const base = process.env.OMNIA_V9_TEST_DATABASE_URL;
     if (!base) return null;
@@ -1352,7 +1368,19 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         try { cpSync(join(repoRoot, entry), join(root, entry)); } catch { /* absent in a trimmed tree */ }
       }
       cpSync(join(repoRoot, 'package.json'), join(root, 'package.json'));
-      cpSync(join(repoRoot, 'node_modules'), join(root, 'node_modules'), { recursive: true, dereference: false });
+      // Linked, not copied.
+      //
+      // Copying 116MB of node_modules for each of 160 mutations is ~18GB of I/O
+      // per run, and that load is not free: three database-backed suites that
+      // finish in under a second alone were timing out at 120s inside a full
+      // run, hitting the same stall the postgres-real runner was repaired for --
+      // a backend asleep writing to a socket nobody is reading. The gate was
+      // reporting "not tested" about guards it had made untestable.
+      //
+      // Nothing mutates a dependency, and applyMutation refuses to try, so the
+      // tree can be shared. Node resolves through a symlinked node_modules the
+      // same way it does for npm link.
+      symlinkSync(join(repoRoot, 'node_modules'), join(root, 'node_modules'), 'dir');
 
       // A mutant that does not parse proves nothing: the suite would fail for
       // the wrong reason. Confirm the baseline is green first, then mutate.
@@ -1369,7 +1397,19 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         continue;
       }
       const run = runSuites(root, mutation.suites, mutation.needsPostgres ? await freshDatabase(mutation.id) : null);
-      record(mutation, classifySuiteRun(run));
+      const verdict = classifySuiteRun(run);
+      // A verdict that does not say why is a dead end for whoever reads it.
+      // SUITE_DID_NOT_RUN and SUITE_TIMED_OUT both mean "go and find out", and
+      // the run that knows the answer is the one being thrown away here -- so
+      // the lines that look like a cause are kept with the verdict rather than
+      // left to a reproduction that may not reproduce.
+      if (verdict !== 'KILLED' && verdict !== 'SURVIVED') {
+        diagnostics.set(mutation.id, run.output
+          .split('\n')
+          .filter(line => /error|Error|ERR_|ECONN|not ok|refus|denied|too many|timeout|cannot|Cannot/.test(line))
+          .slice(0, 8));
+      }
+      record(mutation, verdict);
     } finally {
       rmSync(root, { recursive: true, force: true });
     }
@@ -1394,7 +1434,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     if (unproven.length) {
       if (proven.length) console.log('');
       console.log('These were not tested at all, which is not the same as surviving:');
-      for (const item of unproven) console.log(`  ${item.id} ${item.guard} (${item.verdict})`);
+      for (const item of unproven) {
+        console.log(`  ${item.id} ${item.guard} (${item.verdict})`);
+        for (const line of diagnostics.get(item.id) || []) console.log(`      ${line.trim().slice(0, 160)}`);
+      }
     }
   }
   if (admin) await admin.end();

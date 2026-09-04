@@ -208,3 +208,41 @@ test('a suite killed at its deadline is named as such, not read as a verdict', (
   assert.equal(classifySuiteRun({ status: 1, output: '# fail 1\n# pass 3\n' }), 'KILLED');
   assert.equal(classifySuiteRun({ status: 0, output: '# fail 0\n# pass 3\n# skipped 0\n' }), 'SURVIVED');
 });
+
+test('a mutation may not reach outside the sandbox into the real dependency tree', () => {
+  // The sandbox shares node_modules by symlink rather than copying 116MB per
+  // mutation, which is what stopped three database-backed suites from timing
+  // out inside a full run. The cost of sharing is that a mutation pointed into
+  // node_modules would edit the actual dependencies of the repository it is
+  // supposed to be testing a copy of.
+  for (const file of [
+    'node_modules/pg/lib/client.js',
+    'src/../node_modules/pg/index.js',
+    'node_modules/@embedded-postgres/linux-x64/index.js'
+  ]) {
+    const result = applyMutation('/tmp', { file, find: 'x', replace: 'y' });
+    assert.equal(result.applied, false, `${file} was allowed to be mutated`);
+    assert.equal(result.reason, 'anchor-outside-sandbox');
+  }
+
+  // And a path that merely mentions the name is still an ordinary source file.
+  // It gets as far as trying to read it, which is the proof it was not refused.
+  assert.throws(
+    () => applyMutation('/tmp', { file: 'src/node_modules_report.mjs', find: 'x', replace: 'y' }),
+    error => error.code === 'ENOENT',
+    'a source file whose name contains node_modules was refused as a dependency');
+});
+
+test("node's own test deadline is a hang, not a suite that failed to load", () => {
+  // The war's wall-clock kill sets timedOut. Node's per-test deadline does not:
+  // it arrives as an ordinary non-zero exit whose TAP summary may never have
+  // been written, which reads as SUITE_DID_NOT_RUN -- true, but it sends a
+  // reader looking for a broken import instead of a stall.
+  const timedOutput = 'not ok 1 - tests/x.test.mjs\n  error: \'test timed out after 120000ms\'\n';
+  assert.equal(classifySuiteRun({ status: 1, output: timedOutput }), 'SUITE_TIMED_OUT');
+
+  // A real assertion failure still kills, including one that mentions time.
+  assert.equal(
+    classifySuiteRun({ status: 1, output: '# fail 1\n# pass 0\nexpected the request to time out after 5ms\n' }),
+    'KILLED');
+});

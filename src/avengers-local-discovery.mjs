@@ -1,13 +1,17 @@
+import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { buildDefaultLocalDiscoveryCandidates } from './avengers-arsenal.mjs';
 
-export const AVENGERS_LOCAL_DISCOVERY_VERSION = 'uberbond.avengers-local-discovery-1.0.0';
+export const AVENGERS_LOCAL_DISCOVERY_VERSION = 'uberbond.avengers-local-discovery-1.0.1';
 const MAX_RESPONSE_BYTES = 1_000_000;
 
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
 function text(value, max = 500) {
   const out = String(value ?? '').trim();
   return out && out.length <= max ? out : null;
+}
+function shortHash(value) {
+  return crypto.createHash('sha256').update(String(value)).digest('hex').slice(0, 14);
 }
 function safeLoopbackEndpoint(value) {
   try {
@@ -36,6 +40,30 @@ function extractModels(payload, runtime) {
   return Array.isArray(payload?.data)
     ? payload.data.map(item => text(item?.id)).filter(Boolean)
     : null;
+}
+function candidateProfile(runtime) {
+  return runtime.models.map(model => ({
+    candidateId: `local-${runtime.runtime.toLowerCase().replace(/_/g, '-')}-${shortHash(`${runtime.endpoint}|${model}`)}`,
+    runtime: runtime.runtime,
+    model,
+    endpoint: runtime.endpoint,
+    modelListPath: runtime.runtime === 'OLLAMA' ? '/api/tags' : '/v1/models',
+    state: 'DISCOVERED_REQUIRES_EVIDENCE',
+    enabled: false,
+    activationApproved: false,
+    inferenceProbeApproved: false,
+    revision: null,
+    pricing: null,
+    rights: null,
+    benchmark: null,
+    missingEvidence: [
+      'exact-model-revision-or-content-digest',
+      'license-and-commercial-use-rights',
+      'runtime-pricing-or-local-infrastructure-cost-basis',
+      'held-out-task-benchmark',
+      'inference-callability-and-model-identity-proof'
+    ]
+  }));
 }
 
 export async function discoverLocalRuntimeModels({
@@ -93,13 +121,18 @@ export async function discoverLocalRuntimeModels({
       if (timer) clearTimeout(timer);
     }
   }
+  const visible = runtimes.filter(item => item.status === 'RUNTIME_VISIBLE_MODELS_DISCOVERED');
+  const candidateProfiles = visible.flatMap(candidateProfile);
   const receipt = {
     schemaVersion: 'uberbond.avengers-local-discovery.v1',
     version: AVENGERS_LOCAL_DISCOVERY_VERSION,
     generatedAt: new Date(date).toISOString(),
     runtimes,
-    visibleRuntimeCount: runtimes.filter(item => item.status === 'RUNTIME_VISIBLE_MODELS_DISCOVERED').length,
+    candidateProfiles,
+    visibleRuntimeCount: visible.length,
     visibleModelCount: runtimes.reduce((sum, item) => sum + (item.models?.length || 0), 0),
+    candidateProfileCount: candidateProfiles.length,
+    nextStage: 'RECONCILE_WITH_OPEN_MODEL_UNIVERSE_AND_CAPABILITY_GENOME_THEN_BENCHMARK_BEFORE_ACTIVATION',
     truthBoundary: 'RUNTIME_VISIBILITY_AND_MODEL_LISTING_DO_NOT_PROVE_INFERENCE_CALLABILITY_REVISION_LICENSE_BENCHMARK_QUALITY_OR_ACTIVATION',
     automaticDownload: false,
     automaticActivation: false,

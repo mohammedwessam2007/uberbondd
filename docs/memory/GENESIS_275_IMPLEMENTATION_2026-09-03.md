@@ -14,7 +14,7 @@ The current commercial truth remains **0 customers, USD 0 cleared revenue, 0 acc
 
 ## Memory diagnosis preserved
 
-During reconciliation, the original hypothesis that the failure came from the **160 named-initiative ceiling was falsified**. The actual defect was the ad-hoc `CURRENT_OWNER_DOCTRINE` status introduced by a reconciliation overlay. The mature status taxonomy was preserved: the owner-goals reconciliation entry uses `CURRENT_PROGRAM`, and the **160-item/no-truncation validator bound was restored unchanged**. The fix did not raise the named-initiative ceiling and did not weaken no-amputation validation.
+During reconciliation, the original hypothesis that the failure came from the 160 named-initiative ceiling was falsified. The actual defect was the ad-hoc `CURRENT_OWNER_DOCTRINE` status introduced by a reconciliation overlay. The mature status taxonomy was preserved: the owner-goals reconciliation entry uses `CURRENT_PROGRAM`, and the **160-item/no-truncation validator bound was restored unchanged**. The fix did not raise the named-initiative ceiling and did not weaken no-amputation validation.
 
 ## Intended autonomous internal path
 

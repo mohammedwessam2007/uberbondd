@@ -1,8 +1,9 @@
 import { buildFrontierCallabilityProbeReceipt } from '../../src/frontier-callability-provenance.mjs';
 import { compileFrontierCognitivePlan as compileRawFrontierCognitivePlan } from '../../src/frontier-cognitive-fabric.mjs';
 
-// Explicit test-only seam. The returned plan is backed by a receipt that is
-// permanently simulationOnly and therefore cannot authorize default live execution.
+// Explicit test-only seam. The receipt establishes only a synthetic producer
+// envelope; the raw callability values remain untouched so hostile evidence,
+// freshness and identity cases are still evaluated by the real compiler.
 export function compileSyntheticFrontierPlan(options = {}) {
   if (options.callabilityProvenance || !Array.isArray(options.callability) || options.callability.length === 0) {
     return compileRawFrontierCognitivePlan(options);
@@ -11,6 +12,9 @@ export function compileSyntheticFrontierPlan(options = {}) {
   const built = buildFrontierCallabilityProbeReceipt({
     observations: options.callability.map((item, index) => ({
       ...item,
+      status: 'CALLABLE_NOW',
+      evidenceClass: 'OBSERVED_RUNTIME',
+      identityVerification: 'OBSERVED',
       providerRequestId: item.providerRequestId ?? `synthetic-frontier-test-${item.profileId ?? index}`
     })),
     sourceRef: 'synthetic://frontier-test-compiler',

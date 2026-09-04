@@ -1,6 +1,6 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const FRONTIER_REASONING_RUNTIME_VERSION = 'uberbond.frontier-reasoning-runtime-1.1.2';
+export const FRONTIER_REASONING_RUNTIME_VERSION = 'uberbond.frontier-reasoning-runtime-1.2.0';
 
 const GATEWAY_EFFORTS = new Set(['none', 'minimal', 'low', 'medium', 'high', 'xhigh']);
 
@@ -17,7 +17,7 @@ function envelope(extra = {}) {
   return { policyVersion: FRONTIER_REASONING_RUNTIME_VERSION, businessEffectAuthority: 'NONE', externalEffectLedger: zeroEffects(), ...extra };
 }
 function failure(reasonCodes, status = 'FRONTIER_REASONING_RUNTIME_BLOCKED', extra = {}) {
-  return envelope({ ok: false, status, reasonCodes: [...new Set(reasonCodes.filter(Boolean))], ...extra });
+  return envelope({ ok: false, status, reasonCodes: [...new Set((reasonCodes || []).filter(Boolean))], ...extra });
 }
 
 function parseGatewaySetting(ref) {
@@ -64,6 +64,23 @@ export function compileFrontierExecutorWorker(member = {}) {
   });
 }
 
+function callabilityReasons(workerBinding, profileId, callabilityEvidence) {
+  const reasons = [];
+  const evidence = callabilityEvidence && typeof callabilityEvidence === 'object' && !Array.isArray(callabilityEvidence) ? callabilityEvidence : null;
+  if (!evidence) return ['runtime-callability-revision-evidence-required'];
+  if (text(evidence.profileId, 120)?.toLowerCase() !== profileId) reasons.push('callability-profile-mismatch');
+  if (text(evidence.status, 80)?.toUpperCase() !== 'CALLABLE_NOW') reasons.push('callability-not-callable-now');
+  if (text(evidence.evidenceClass, 80)?.toUpperCase() !== 'OBSERVED_RUNTIME') reasons.push('callability-not-observed-runtime-evidence');
+  if (text(evidence.identityVerification, 80)?.toUpperCase() !== 'OBSERVED') reasons.push('callability-identity-not-observed');
+  if (text(evidence.observedProvider, 80)?.toLowerCase() !== workerBinding.cognitiveIdentity.provider) reasons.push('callability-provider-mismatch');
+  if (text(evidence.observedModel, 120) !== workerBinding.cognitiveIdentity.model) reasons.push('callability-model-mismatch');
+  if (text(evidence.observedRevision, 240) !== workerBinding.cognitiveIdentity.revision) reasons.push('callability-revision-mismatch');
+  if (text(evidence.observedTransportProvider, 80)?.toLowerCase() !== workerBinding.worker.provider) reasons.push('callability-transport-provider-mismatch');
+  if (text(evidence.observedTransportModel, 160) !== workerBinding.worker.model) reasons.push('callability-transport-model-mismatch');
+  if (!text(evidence.sourceRef, 1000) || !text(evidence.observedAt, 80)) reasons.push('callability-evidence-pointer-and-time-required');
+  return reasons;
+}
+
 export function attestFrontierExecution({ member, workerBinding, executorResult, callabilityEvidence } = {}) {
   if (!workerBinding?.ok || !workerBinding.worker || !workerBinding.appliedSettingExpectation) return failure(['verified-worker-binding-required'], 'FRONTIER_EXECUTION_ATTESTATION_BLOCKED');
   if (!executorResult?.ok) return failure(['successful-executor-result-required'], 'FRONTIER_EXECUTION_ATTESTATION_BLOCKED');
@@ -77,27 +94,12 @@ export function attestFrontierExecution({ member, workerBinding, executorResult,
   const providerRequestId = text(executorResult.providerRequestId, 1000);
   const latencyMs = integer(executorResult.latencyMs, 0, 86_400_000);
   const costCents = integer(executorResult?.usage?.costCents, 0, 100_000_000);
-  const reasons = [];
+  const reasons = callabilityReasons(workerBinding, profileId, callabilityEvidence);
   if (!observedTransportModel || observedTransportModel !== workerBinding.worker.model || identityVerification !== 'OBSERVED') reasons.push('transport-model-identity-not-observed-as-planned');
   if (appliedReasoningEffort !== workerBinding.worker.reasoningEffort || appliedReasoningEvidence !== 'REQUEST_BODY_ATTESTED') reasons.push('planned-reasoning-setting-not-attested-by-executor');
   if (!providerRequestId) reasons.push('provider-request-id-required');
   if (latencyMs == null) reasons.push('measured-latency-required');
   if (costCents == null) reasons.push('metered-cost-required');
-
-  const evidence = callabilityEvidence && typeof callabilityEvidence === 'object' && !Array.isArray(callabilityEvidence) ? callabilityEvidence : null;
-  if (!evidence) reasons.push('runtime-callability-revision-evidence-required');
-  else {
-    if (text(evidence.profileId, 120)?.toLowerCase() !== profileId) reasons.push('callability-profile-mismatch');
-    if (text(evidence.status, 80)?.toUpperCase() !== 'CALLABLE_NOW') reasons.push('callability-not-callable-now');
-    if (text(evidence.evidenceClass, 80)?.toUpperCase() !== 'OBSERVED_RUNTIME') reasons.push('callability-not-observed-runtime-evidence');
-    if (text(evidence.identityVerification, 80)?.toUpperCase() !== 'OBSERVED') reasons.push('callability-identity-not-observed');
-    if (text(evidence.observedProvider, 80)?.toLowerCase() !== workerBinding.cognitiveIdentity.provider) reasons.push('callability-provider-mismatch');
-    if (text(evidence.observedModel, 120) !== workerBinding.cognitiveIdentity.model) reasons.push('callability-model-mismatch');
-    if (text(evidence.observedRevision, 240) !== workerBinding.cognitiveIdentity.revision) reasons.push('callability-revision-mismatch');
-    if (text(evidence.observedTransportProvider, 80)?.toLowerCase() !== workerBinding.worker.provider) reasons.push('callability-transport-provider-mismatch');
-    if (text(evidence.observedTransportModel, 160) !== workerBinding.worker.model) reasons.push('callability-transport-model-mismatch');
-    if (!text(evidence.sourceRef, 1000) || !text(evidence.observedAt, 80)) reasons.push('callability-evidence-pointer-and-time-required');
-  }
   if (reasons.length) return failure(reasons, 'FRONTIER_EXECUTION_ATTESTATION_BLOCKED');
 
   return envelope({
@@ -119,7 +121,7 @@ export function attestFrontierExecution({ member, workerBinding, executorResult,
       costCents,
       claims: []
     },
-    evidenceRefs: [text(evidence.sourceRef, 1000)].filter(Boolean),
+    evidenceRefs: [text(callabilityEvidence?.sourceRef, 1000)].filter(Boolean),
     truthBoundary: 'REVISION_IDENTITY_COMES_FROM_SEPARATE_OBSERVED_RUNTIME_CALLABILITY_EVIDENCE; REQUEST_BODY_ATTESTATION_PROVES_REQUESTED_REASONING_SETTING_NOT_PROVIDER_INTERNAL_COMPUTE'
   });
 }
@@ -135,6 +137,8 @@ export async function executeFrontierMember({
 } = {}) {
   const binding = compileFrontierExecutorWorker(member);
   if (!binding.ok) return binding;
+  const preflight = callabilityReasons(binding, binding.profileId, callabilityEvidence);
+  if (preflight.length) return failure(preflight, 'FRONTIER_EXECUTION_BLOCKED');
   if (typeof modelExecutorFactory !== 'function') return failure(['canonical-model-executor-factory-required'], 'FRONTIER_EXECUTION_BLOCKED');
   if (!task?.taskId || !task?.objective || (task.consequenceClass && task.consequenceClass !== 'LOCAL_PREPARATION')) return failure(['bounded-local-preparation-task-required'], 'FRONTIER_EXECUTION_BLOCKED');
   const outputLimit = integer(maxTokens, 1, 128_000);

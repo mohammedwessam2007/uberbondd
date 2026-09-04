@@ -3,8 +3,8 @@
 **This file is the canonical present-tense software/commercial state.** Historical detail from the pre-checkpoint version is preserved byte-for-byte under `docs/archive/2026-08-30-pre-checkpoint/`. Repository code and newer exact external evidence still outrank this prose.
 
 Last reconciled: **2026-09-04**
-Branch: `claude/uberbond-ragnarok-closure-pek0g6`
-Reconciled from current head: `c9ce1e61dc781b3e5288385ade02cbf3922ffe4a`
+Branch: `main`
+Reconciled from current head: `845ad3f0f09132bc2e2e55ffd1f7fabebb709668`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
@@ -29,8 +29,8 @@ The source-changing state of this branch was exercised before later documentatio
 
 | Gate | Result |
 |---|---|
-| Syntax | `npm run check:syntax`: 792 files parse (2026-09-04) |
-| Deterministic | `npm run test:deterministic`: 3494 tests, 3440 pass, **0 fail**, 54 skipped (2026-09-04) |
+| Syntax | `npm run check:syntax`: 804 files parse (2026-09-04) |
+| Deterministic | `npm run test:deterministic`: 3515 tests, 3461 pass, **0 fail**, 54 skipped (2026-09-04) |
 | Relay safety | `npm run test:relay-safety`: 150 tests, 150 pass, 0 fail (2026-08-30) |
 | Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real`: 24 suites passed, 187 tests, 187 pass, 0 fail (2026-09-04) |
 | Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 164 mutations, 164 killed, 0 not killed, 0 skipped |

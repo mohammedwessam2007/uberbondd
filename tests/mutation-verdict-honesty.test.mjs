@@ -246,3 +246,28 @@ test("node's own test deadline is a hang, not a suite that failed to load", () =
     classifySuiteRun({ status: 1, output: '# fail 1\n# pass 0\nexpected the request to time out after 5ms\n' }),
     'KILLED');
 });
+
+test('a real assertion failure is a kill even when another test in the file hung', () => {
+  // Both halves of this were observed in one run. A file where the mutation
+  // broke exactly the assertion it names, and a different test in the same file
+  // stalled, was recorded as untested -- discarding a genuine kill because of
+  // unrelated noise beside it.
+  const both = [
+    "not ok 1 - tests/database-hygiene-postgres-real.test.mjs",
+    "  error: 'test timed out after 120000ms'",
+    "not ok 1 - a real run deletes only genuinely disposable rows",
+    "  error: 'READY content is not terminal and must survive'",
+    "  code: 'ERR_ASSERTION'"
+  ].join('\n');
+  assert.equal(classifySuiteRun({ status: 1, output: both }), 'KILLED');
+
+  // The concession runs one way only. A hang with no assertion behind it is
+  // still never a kill, which is the property that stops a loaded machine from
+  // manufacturing evidence.
+  const hangOnly = "not ok 1 - tests/x.test.mjs\n  error: 'test timed out after 120000ms'\n  code: 'ERR_TEST_FAILURE'\n";
+  assert.equal(classifySuiteRun({ status: 1, output: hangOnly }), 'SUITE_TIMED_OUT');
+
+  // And our own wall-clock kill still dominates everything, because it cuts the
+  // output at an arbitrary point and nothing in it can be trusted.
+  assert.equal(classifySuiteRun({ status: null, output: both, timedOut: true }), 'SUITE_TIMED_OUT');
+});

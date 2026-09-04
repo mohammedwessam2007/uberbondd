@@ -47,14 +47,31 @@ export function classifySuiteRun({ status, output, timedOut = false }) {
   // branch below would call SUITE_DID_NOT_RUN -- true, but it hides why, and
   // "did not run" reads like a broken import rather than a hang somebody has to
   // go and find.
+  // We killed the suite ourselves at the wall clock, so whatever output exists
+  // was cut at an arbitrary point and cannot be reasoned about.
   if (timedOut) return 'SUITE_TIMED_OUT';
 
-  // Node's own per-test deadline is the same fact arriving by a different route:
-  // the suite hung and was cut off. It reaches here as an ordinary failure whose
-  // summary may not have been written, which the branch below would read as
+  const text = output || '';
+  const assertionFailed = /code: 'ERR_ASSERTION'/.test(text);
+  const testTimedOut = /test timed out after \d+ms/.test(text);
+
+  // An assertion that failed is the evidence this whole file is looking for: a
+  // named invariant broke when the guard was removed. A different test in the
+  // same file hanging does not undo that, and letting it would discard real
+  // kills -- MONEY-05 and HYG-03 both reported the exact assertion the mutation
+  // was meant to break, in a file where another test stalled, and were recorded
+  // as untested.
+  //
+  // The order matters only in that direction. A hang with no assertion behind it
+  // is still never a kill.
+  if (assertionFailed) return 'KILLED';
+
+  // Node's own per-test deadline is a hang arriving by a different route from
+  // our wall-clock kill. It reaches here as an ordinary failure whose TAP
+  // summary may never have been written, which the branch below would read as
   // SUITE_DID_NOT_RUN -- true but unhelpful, since "did not run" sends a reader
   // looking for a broken import rather than a stall.
-  if (/test timed out after \d+ms/.test(output || '')) return 'SUITE_TIMED_OUT';
+  if (testTimedOut) return 'SUITE_TIMED_OUT';
 
   if (status !== 0) {
     // A failing assertion is what kills a mutant. A suite that could not run at

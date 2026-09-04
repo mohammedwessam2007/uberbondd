@@ -454,6 +454,13 @@ export const MUTATIONS = [
     suites: ['tests/canon-freshness-discrimination.test.mjs']
   },
   {
+    id: 'TIMEOUT-03', guard: 'A hang with no assertion behind it is never recorded as a kill',
+    file: 'scripts/mutation-verdict.mjs',
+    find: "  if (assertionFailed) return 'KILLED';",
+    replace: "  if (assertionFailed || testTimedOut) return 'KILLED';",
+    suites: ['tests/mutation-verdict-honesty.test.mjs']
+  },
+  {
     id: 'SANDBOX-01', guard: 'A mutation cannot reach out of the sandbox into the real dependency tree',
     file: 'scripts/mutation-verdict.mjs',
     find: "    return { applied: false, reason: 'anchor-outside-sandbox' };",
@@ -463,7 +470,7 @@ export const MUTATIONS = [
   {
     id: 'TIMEOUT-02', guard: "Node's own test deadline is reported as a hang, not as a suite that failed to load",
     file: 'scripts/mutation-verdict.mjs',
-    find: "  if (/test timed out after \\d+ms/.test(output || '')) return 'SUITE_TIMED_OUT';",
+    find: "  if (testTimedOut) return 'SUITE_TIMED_OUT';",
     replace: '',
     suites: ['tests/mutation-verdict-honesty.test.mjs']
   },

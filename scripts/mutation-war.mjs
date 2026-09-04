@@ -22,6 +22,7 @@ import { spawnSync } from 'node:child_process';
 import { classifySuiteRun, applyMutation } from './mutation-verdict.mjs';
 import { resolveChromium } from './resolve-chromium.mjs';
 import { loadJournal, appendVerdict } from './mutation-journal.mjs';
+import { withDisposablePostgres } from './disposable-postgres.mjs';
 
 // Re-exported so the registry stays the single import point for the war.
 export { classifySuiteRun, applyMutation };
@@ -1279,7 +1280,6 @@ const declaredSkip = verdict => verdict === 'SKIPPED_NEEDS_POSTGRES' || verdict 
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const onlyId = process.argv[2] || '';
-  const hasPostgres = Boolean(process.env.OMNIA_V9_TEST_DATABASE_URL);
   // Same shape as the PostgreSQL gate above. A mutation whose only killing suite
   // needs a real browser cannot be honestly reported as killed when no browser is
   // configured, and must not be reported as surviving either.
@@ -1291,52 +1291,11 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   // summary line a skip that could not be helped looks exactly like a skip that
   // could. So it looks first, and only reports the skip when there is genuinely
   // nothing to drive.
-  // A database per mutation, for the same reason the postgres-real runner needs
-  // one per suite.
-  //
-  // All 160 mutations shared one database, so a suite that left rows behind
-  // broke the setup of every Postgres suite after it. Five guards reported
-  // SUITE_DID_NOT_RUN in a full run and KILLED when run alone -- the gate was
-  // measuring the order it happened to visit them in, not the guards.
-  //
-  // Not dropped afterwards: these live inside a disposable embedded server that
-  // is torn down when the run ends, and reclaiming them is how the postgres-real
-  // runner acquired an unbounded wait on a backend that cannot be stopped.
+  // Why a verdict that is not a verdict happened, kept with the verdict. A gate
+  // that says SUITE_TIMED_OUT and nothing else sends its reader to a
+  // reproduction that may not reproduce.
   const diagnostics = new Map();
   const retried = new Set();
-  let admin = null;
-
-  const freshDatabase = async id => {
-    const base = process.env.OMNIA_V9_TEST_DATABASE_URL;
-    if (!base) return null;
-    if (!admin) {
-      const { Client } = await import('pg');
-      admin = new Client({ connectionString: base });
-      await admin.connect();
-    }
-    // Reclaim what earlier mutations left behind first.
-    //
-    // A suite killed at its deadline can leave a backend that never notices its
-    // client is gone -- the stall the postgres-real runner documents. Each one
-    // holds a connection and keeps working, so the first hang in a run makes the
-    // next hang likelier, and the failing set drifts later and later. That is a
-    // cascade, not three flaky guards.
-    //
-    // These clients are provably gone: the process that opened them was killed
-    // by the runner above. Terminating them reclaims the connection rather than
-    // interrupting anything still doing work.
-    await admin.query(`
-      SELECT pg_terminate_backend(pid) FROM pg_stat_activity
-      WHERE datname LIKE 'ubmut\\_%' AND pid <> pg_backend_pid()
-    `).catch(() => { /* nothing to reclaim, or the backend will not go: proceed */ });
-
-    const name = `ubmut_${id.replace(/[^a-z0-9]+/gi, '_').toLowerCase()}`.slice(0, 60);
-    await admin.query(`DROP DATABASE IF EXISTS "${name}"`).catch(() => { /* a wedged backend can hold it; the CREATE below will say so */ });
-    await admin.query(`CREATE DATABASE "${name}"`);
-    const url = new URL(base);
-    url.pathname = `/${name}`;
-    return url.toString();
-  };
 
   const chromium = resolveChromium();
   if (chromium) process.env.CHROMIUM_PATH = chromium;
@@ -1361,10 +1320,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     const remembered = journal.get(mutation.id);
     if (remembered) {
       results.push({ ...mutation, verdict: remembered, fromJournal: true });
-      continue;
-    }
-    if (mutation.needsPostgres && !hasPostgres) {
-      record(mutation, 'SKIPPED_NEEDS_POSTGRES');
       continue;
     }
     if (mutation.needsBrowser && !hasBrowser) {
@@ -1420,7 +1375,28 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         record(mutation, 'MUTANT_DID_NOT_PARSE');
         continue;
       }
-      let run = runSuites(root, mutation.suites, mutation.needsPostgres ? await freshDatabase(mutation.id) : null);
+      // A private server for anything that needs a database, rather than a
+      // database on a shared one -- see scripts/disposable-postgres.mjs for what
+      // sharing cost and why the sharing went rather than one more theory about
+      // which shared thing it was.
+      const attempt = () => (mutation.needsPostgres
+        ? withDisposablePostgres(url => runSuites(root, mutation.suites, url))
+        : Promise.resolve(runSuites(root, mutation.suites)));
+
+      // The war starts its own database now, so a database-backed guard is no
+      // longer skipped for want of one being handed to it -- which is what
+      // SKIPPED_NEEDS_POSTGRES used to mean, and what quietly left nine guards
+      // unexercised on any machine nobody had configured. The skip survives only
+      // for a server that will not start, because that is a real absence rather
+      // than an unset variable.
+      let run;
+      try {
+        run = await attempt();
+      } catch (error) {
+        record(mutation, 'SKIPPED_NEEDS_POSTGRES');
+        diagnostics.set(mutation.id, [`embedded PostgreSQL would not start: ${error?.message || error}`]);
+        continue;
+      }
       let verdict = classifySuiteRun(run);
 
       // One second attempt, and only for a hang.
@@ -1435,7 +1411,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       // Whatever the second attempt says is final, including another hang. It is
       // recorded and marked, so nothing here can be read as a clean first pass.
       if (verdict === 'SUITE_TIMED_OUT') {
-        run = runSuites(root, mutation.suites, mutation.needsPostgres ? await freshDatabase(`${mutation.id}_r2`) : null);
+        run = await attempt().catch(() => run);
         verdict = classifySuiteRun(run);
         retried.add(mutation.id);
       }
@@ -1481,6 +1457,5 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       }
     }
   }
-  if (admin) await admin.end();
   process.exit(notKilled.length ? 1 : 0);
 }

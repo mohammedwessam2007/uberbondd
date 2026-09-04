@@ -33,6 +33,7 @@ function provenance(calls) {
     sourceRef: 'runtime-probe://avengers-frontier-guard', observedAt: FRESH
   });
   assert.equal(built.ok, true);
+  assert.equal(built.simulationOnly, true);
   return { receipt: built.receipt, receiptDigest: built.receiptDigest };
 }
 function benchmark(p) {
@@ -61,7 +62,7 @@ function task(reasoningTier = 'FRONTIER_MAX') {
   };
 }
 
-test('existing Avengers execution guard reaches admitted FRONTIER_MAX through canonical factory with one identity-bound provider call', async () => {
+test('synthetic FRONTIER_MAX reaches the canonical factory only through an explicit injected fetch seam', async () => {
   const p = profile();
   const calls = [callability(p)];
   let requestBody = null;
@@ -76,17 +77,19 @@ test('existing Avengers execution guard reaches admitted FRONTIER_MAX through ca
     callabilityProvenance: provenance(calls), env, fetchImpl, maxTokens: 100, costCeilingCents: 100, date: NOW, clock: () => times.shift()
   });
   assert.equal(out.ok, true);
-  assert.equal(out.status, 'FRONTIER_AVENGER_EXECUTION_COMPLETE');
+  assert.equal(out.status, 'FRONTIER_AVENGER_SIMULATION_COMPLETE');
+  assert.equal(out.simulationOnly, true);
   assert.equal(out.providerCalls, 1);
   assert.deepEqual(requestBody.reasoning, { effort: 'xhigh' });
   assert.equal(requestBody.model, p.transportModel);
   assert.equal(out.execution.observedRevision, p.revision);
   assert.equal(out.execution.latencyMs, 42);
   assert.equal(out.receipt.executions[0].appliedReasoningSettingRef, 'ai-gateway:reasoning=xhigh');
+  assert.equal(out.receipt.simulationOnly, true);
   assert.match(out.receipt.callabilityProvenance.receiptDigest, /^[a-f0-9]{64}$/);
 });
 
-test('COUNCIL_MAX executes independent responders, critique and distinct adjudication without a live paid call', async () => {
+test('COUNCIL_MAX executes independent responders, critique and distinct adjudication with one shared zero-effect budget', async () => {
   const profiles = [
     profile({ id: 'google', provider: 'google', model: 'gemini-frontier', quality: 0.99 }),
     profile({ id: 'openai', provider: 'openai', model: 'gpt-frontier', quality: 0.98 }),
@@ -94,9 +97,11 @@ test('COUNCIL_MAX executes independent responders, critique and distinct adjudic
   ];
   const calls = profiles.map(callability);
   const seenTasks = [];
+  const seenCeilings = [];
   let serial = 0;
-  const modelExecutorFactory = worker => async ({ task: workerTask }) => {
+  const modelExecutorFactory = worker => async ({ task: workerTask, costCeilingCents }) => {
     seenTasks.push({ model: worker.model, taskId: workerTask.taskId, objective: workerTask.objective });
+    seenCeilings.push(costCeilingCents);
     serial += 1;
     const result = workerTask.taskId.includes('cross-critique')
       ? { contradictions: ['bounded contradiction'] }
@@ -113,16 +118,20 @@ test('COUNCIL_MAX executes independent responders, critique and distinct adjudic
   const out = await executeAdmittedFrontierAvenger({
     task: task('COUNCIL_MAX'), profiles, callability: calls, benchmarks: profiles.map(benchmark), contextArtifacts,
     admissionSource: { kind: 'RUNTIME_PROBE_LEDGER', ref: 'proof://council-runtime', observedAt: FRESH },
-    callabilityProvenance: provenance(calls), env, modelExecutorFactory, date: NOW, clock: () => ++tick
+    callabilityProvenance: provenance(calls), env, modelExecutorFactory, costCeilingCents: 100, date: NOW, clock: () => ++tick
   });
   assert.equal(out.ok, true);
-  assert.equal(out.status, 'FRONTIER_COUNCIL_AVENGERS_EXECUTION_COMPLETE');
+  assert.equal(out.status, 'FRONTIER_COUNCIL_SIMULATION_COMPLETE');
+  assert.equal(out.simulationOnly, true);
   assert.equal(out.executionCount, 4);
-  assert.equal(out.providerCalls, 0); // synthetic executor fixture performed no network calls
+  assert.equal(out.providerCalls, 0);
   assert.equal(out.receipt.mode, 'COUNCIL_MAX');
-  assert.equal(out.receipt.executions.length, 3); // two responders + one final adjudicator execution
+  assert.equal(out.receipt.executions.length, 3);
   assert.equal(out.receipt.adjudication.decisionBasis, 'EVIDENCE_WEIGHTED');
   assert.equal(out.receipt.adjudication.independentFromResponders, true);
+  assert.equal(out.receipt.councilBudgetCents, 100);
+  assert.equal(out.receipt.councilSpentCents, 0);
+  assert.ok(seenCeilings.every(value => value <= 50));
   assert.match(out.processVerifierRef, /^frontier-process-proof:\/\/[a-f0-9]{64}$/);
   const independent = seenTasks.filter(item => item.taskId.includes(':independent-') && !item.taskId.includes('adjudication'));
   assert.equal(independent.length, 2);

@@ -41,15 +41,15 @@ The 52 deterministic skips are environment-dependent suites excluded from that r
 
 ## Reachability
 
-**138 of 313 `src` modules have no entry point at all**.
+**138 of 314 `src` modules have no entry point at all**.
 
 | Reachability class | Modules |
 |---|---:|
-| Reachable from production | 142 |
+| Reachable from production | 143 |
 | Reachable only via an operator script | 33 |
 | **No entry point at all** | **138** |
 
-The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`.
+The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`. The newly merged `src/payment-provider-verifier-dispatch.mjs` is production-reachable through `payment-reconciliation-worker` and increases the production-reachable partition by one without changing the gated partition.
 
 ## PR #251 payment-attention policy
 

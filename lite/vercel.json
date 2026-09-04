@@ -1,5 +1,4 @@
 {
-  "buildCommand": "bash paypal-root-verifier.sh",
   "headers": [
     {
       "source": "/(.*)",

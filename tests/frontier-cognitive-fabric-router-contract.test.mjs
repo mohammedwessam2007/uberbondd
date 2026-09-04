@@ -1,17 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compileFrontierCognitivePlan } from '../src/frontier-cognitive-fabric.mjs';
+import { buildFrontierAdmissionBundle } from '../src/frontier-cognitive-admission.mjs';
 
-const NOW = new Date('2026-09-04T20:00:00.000Z');
 const FRESH = '2026-09-04T19:00:00.000Z';
 
 function contextArtifacts() {
   return [{ id: 'constitution', kind: 'CONSTITUTION', contentRef: 'repo://constitution', tags: ['frontier'], dependencies: [], estimatedTokens: 100, priority: 100, immutable: true }];
 }
 
-// The inherited canonical router accepts model identity up to 120 chars. The frontier profile must
-// reject a wider identity at normalization time instead of admitting it and later failing mysteriously.
-test('frontier profile fails closed at the canonical router model identity boundary', () => {
+test('frontier admission fails closed at the canonical router model identity boundary', () => {
   const longModel = 'm'.repeat(121);
   const p = {
     id: 'too-long-model', provider: 'openai', model: longModel, revision: 'rev-1',
@@ -23,11 +20,14 @@ test('frontier profile fails closed at the canonical router model identity bound
     maxContextTokens: 200000, maxOutputTokens: 32000, centsPerMillionInputTokens: 100, centsPerMillionOutputTokens: 500,
     identityAliases: [longModel], enabled: true
   };
-  const out = compileFrontierCognitivePlan({
-    task: { missionId: 'router-boundary', taskId: 'router-boundary', objective: 'Prove normalization boundary.', taskClass: 'general', role: 'general', dataClass: 'INTERNAL_NON_SECRET', reasoningTier: 'FRONTIER_MAX', requiredTags: ['frontier'], contextTokenBudget: 1000, minCouncilSize: 2, maxCouncilSize: 2 },
-    profiles: [p], callability: [], benchmarks: [], contextArtifacts: contextArtifacts(), now: NOW
+  const out = buildFrontierAdmissionBundle({
+    profiles: [p],
+    callability: [],
+    benchmarks: [],
+    contextArtifacts: contextArtifacts(),
+    source: { kind: 'RUNTIME_PROBE_LEDGER', ref: 'proof://router-boundary', observedAt: FRESH }
   });
   assert.equal(out.ok, false);
-  assert.equal(out.status, 'FRONTIER_PROFILE_SET_INVALID');
-  assert.ok(out.reasonCodes.some(code => code.includes('model-required') || code.includes('model-identity')));
+  assert.equal(out.status, 'FRONTIER_ADMISSION_PROFILE_INVALID');
+  assert.ok(out.reasonCodes.includes('model-identity-exceeds-canonical-router-boundary-or-is-missing:too-long-model'));
 });

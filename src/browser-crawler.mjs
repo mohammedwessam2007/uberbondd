@@ -1,3 +1,4 @@
+import { resolveChromium } from './resolve-chromium.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
@@ -103,7 +104,19 @@ export async function crawlSiteBrowser(input, options={}) {
   const screenshotDir=path.resolve(options.screenshotDir||'./data/screenshots');
   await fs.mkdir(screenshotDir,{recursive:true});
   const robots=await getRobots(start);
-  let executablePath=options.executablePath||process.env.CHROMIUM_PATH||'';
+  // Fall back to whatever Chromium is actually installed.
+  //
+  // CHROMIUM_PATH is how this repository names a browser and nothing sets it, so
+  // the crawler fell through to Playwright's own default -- which points at the
+  // exact build its package was published against. On a host carrying a
+  // different build that is a launch failure telling you to run `npx playwright
+  // install`, on a machine that already has a working browser sitting next to
+  // the one it wants.
+  //
+  // resolveChromium only returns paths that exist and are executable, and
+  // returns nothing rather than a guess, so an explicit executablePath still
+  // wins and a host with no browser still fails the same way it did before.
+  let executablePath=options.executablePath||process.env.CHROMIUM_PATH||resolveChromium()||'';
   if(executablePath){try{await fs.access(executablePath);}catch{executablePath='';}}
   const launchArgs=['--no-sandbox','--disable-dev-shm-usage'];
   if(allowLocal)launchArgs.push('--disable-web-security','--disable-features=BlockInsecurePrivateNetworkRequests,PrivateNetworkAccessSendPreflights');

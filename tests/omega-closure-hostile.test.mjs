@@ -392,7 +392,7 @@ test('the canon probe reads git, and a real source change still makes canon stal
 // Detection closes that, and detection is exactly the kind of convenience that
 // turns a refusal into a fabrication if it guesses.
 test('the browser gate looks for a browser, and refuses to invent one', async () => {
-  const { resolveChromium } = await import('../scripts/resolve-chromium.mjs');
+  const { resolveChromium } = await import('../src/resolve-chromium.mjs');
 
   // A declared path is authoritative and still checked. A variable pointing at
   // nothing is a misconfiguration; treating it as proof of a browser would let

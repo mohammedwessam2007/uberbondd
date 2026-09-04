@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "uberbond.avengers-night-mission-state.v1",
+  "generatedAt": "2026-09-04T01:30:00Z",
+  "mission": "Activate the full UberBond arsenal as a measured multi-model/tool squad while preserving truth, authority and no-amputation memory.",
+  "currentBranch": "gpt/avengers-arsenal-runtime-20260904",
+  "parallelClaudeIssue": 351,
+  "baseMainAtMissionStart": "bc50a54302069cf1901a0d8962a1d152abf50108",
+  "currentState": "IMPLEMENTATION_COMPLETE_ENOUGH_FOR_EXACT_HEAD_VERIFICATION",
+  "internallyImplemented": [
+    "multi-profile model roster",
+    "loopback runtime discovery",
+    "callability probe",
+    "rights/revision/pricing/benchmark binding",
+    "canonical router reuse",
+    "bounded Fable-style DAG planning",
+    "parallel dependency-ready execution",
+    "pre-authorized fallback",
+    "tool/runtime truth classification",
+    "doctor-plan-tick command chain",
+    "hostile and end-to-end tests",
+    "operator documentation",
+    "repository memory addendum"
+  ],
+  "nextActions": [
+    "open integration PR against live main",
+    "execute focused Avengers tests on exact PR head",
+    "repair causal failures only",
+    "run broader trustworthy deterministic/syntax gates if runner executes",
+    "inspect Claude issue #351 for independent receipt",
+    "merge exact-head clean work",
+    "promote Avengers memory into mandatory startup pointers",
+    "continue overnight into next highest-value first-money/autonomy blocker"
+  ],
+  "truthBoundary": {
+    "actualLocalModelsObservedByThisChatRuntime": 0,
+    "actualLocalModelsInferenceProvenByThisChatRuntime": 0,
+    "note": "The code can probe the host on which it executes. This ChatGPT connector runtime does not itself expose the owner's local model sockets. Claude/local runners may provide that evidence separately."
+  },
+  "businessEffectAuthority": "NONE"
+}

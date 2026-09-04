@@ -31,6 +31,11 @@ export const ENVIRONMENT_PRESENCE_GROUPS = Object.freeze({
 });
 
 function providerPaymentPresence(env = {}) {
+  const keys = ENVIRONMENT_PRESENCE_GROUPS.paymentProvider.map(name => ({
+    name,
+    present: present(env, name)
+  }));
+  const presentCount = keys.filter(entry => entry.present).length;
   const durableInboxPresent = present(env, 'DATABASE_URL');
   const lemonWebhookPresent = present(env, 'LEMONSQUEEZY_WEBHOOK_SECRET');
   const lemonCheckoutPresent = CHECKOUT_ENV.some(name => present(env, name));
@@ -44,7 +49,20 @@ function providerPaymentPresence(env = {}) {
     && paypalSandboxWebhookIdPresent
     && durableInboxPresent;
 
+  const anyProviderFragmentPresent = lemonWebhookPresent
+    || lemonCheckoutPresent
+    || paypalSandboxClientIdPresent
+    || paypalSandboxClientSecretPresent
+    || paypalSandboxWebhookIdPresent;
+
   return {
+    // Preserve the mature generic presence-report shape for existing consumers.
+    keys,
+    anyPresent: anyProviderFragmentPresent,
+    allPresent: lemonSqueezyComplete || paypalSandboxComplete,
+    presentCount,
+
+    // Add provider-specific completeness without leaking credential values.
     providers: {
       lemon_squeezy: {
         webhookSigningSecretPresent: lemonWebhookPresent,
@@ -64,12 +82,6 @@ function providerPaymentPresence(env = {}) {
     lemonSqueezyComplete,
     paypalSandboxComplete,
     anyCompleteBundle: lemonSqueezyComplete || paypalSandboxComplete,
-    anyPresent: lemonWebhookPresent
-      || lemonCheckoutPresent
-      || paypalSandboxClientIdPresent
-      || paypalSandboxClientSecretPresent
-      || paypalSandboxWebhookIdPresent,
-    allPresent: lemonSqueezyComplete || paypalSandboxComplete,
     livePaymentCapable: false
   };
 }

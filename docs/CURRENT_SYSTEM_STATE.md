@@ -3,8 +3,8 @@
 **This file is the canonical present-tense software/commercial state.** Historical detail from the pre-checkpoint version is preserved byte-for-byte under `docs/archive/2026-08-30-pre-checkpoint/`. Repository code and newer exact external evidence still outrank this prose.
 
 Last reconciled: **2026-09-04**
-Branch: `claude/uberbond-ragnarok-closure-pek0g6`
-Reconciled from current head: `c9ce1e61dc781b3e5288385ade02cbf3922ffe4a`
+Branch: `debug/avengers`
+Reconciled from current head: `ede4ec192e52faa235f986727a72198c05aac878`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
@@ -29,11 +29,11 @@ The source-changing state of this branch was exercised before later documentatio
 
 | Gate | Result |
 |---|---|
-| Syntax | `npm run check:syntax`: 792 files parse (2026-09-04) |
-| Deterministic | `npm run test:deterministic`: 3494 tests, 3440 pass, **0 fail**, 54 skipped (2026-09-04) |
+| Syntax | `npm run check:syntax`: 848 files parse (2026-09-04) |
+| Deterministic | `npm run test:deterministic`: 3623 tests, 3569 pass, **0 fail**, 54 skipped (2026-09-04) |
 | Relay safety | `npm run test:relay-safety`: 150 tests, 150 pass, 0 fail (2026-08-30) |
 | Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real`: 24 suites passed, 187 tests, 187 pass, 0 fail (2026-09-04) |
-| Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 164 mutations, 164 killed, 0 not killed, 0 skipped |
+| Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 168 mutations, 168 killed, 0 not killed, 0 skipped |
 | Browser | `CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser`: 1 test, 1 pass, 0 fail (2026-08-30), against the runner's installed Chromium |
 | Dependency audit | `npm audit --omit=dev`: No vulnerabilities reported in the current integration environment. |
 
@@ -41,12 +41,12 @@ The 52 deterministic skips are environment-dependent suites excluded from that r
 
 ## Reachability
 
-**138 of 319 `src` modules have no entry point at all**.
+**138 of 336 `src` modules have no entry point at all**.
 
 | Reachability class | Modules |
 |---|---:|
 | Reachable from production | 143 |
-| Reachable only via an operator script | 38 |
+| Reachable only via an operator script | 55 |
 | **No entry point at all** | **138** |
 
 The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`. The newly merged `src/payment-provider-verifier-dispatch.mjs` is production-reachable through `payment-reconciliation-worker` and increases the production-reachable partition by one without changing the gated partition. The Avengers runtime adds five source modules, all intentionally operator-only through `scripts/avengers-arsenal-doctor.mjs`, `scripts/avengers-arsenal-plan.mjs`, and `scripts/avengers-arsenal-tick.mjs`; it does not create a production scheduler or widen business-effect authority.

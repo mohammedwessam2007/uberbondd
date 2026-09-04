@@ -1,9 +1,9 @@
 {
   "schemaVersion": "uberbond-handoff-1.6.0",
-  "checkpointedAt": "2026-09-04T08:00:00Z",
-  "sourceCommit": "b6598429da7df0bb91c33dddeb3e034ec324ee56",
+  "checkpointedAt": "2026-09-04T10:00:00Z",
+  "sourceCommit": "c9ce1e61dc781b3e5288385ade02cbf3922ffe4a",
   "sourceMainShaAtMissionStart": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
-  "currentMainShaAtCheckpoint": "b6598429da7df0bb91c33dddeb3e034ec324ee56",
+  "currentMainShaAtCheckpoint": "c9ce1e61dc781b3e5288385ade02cbf3922ffe4a",
   "activeBranch": "claude/uberbond-ragnarok-closure-pek0g6",
   "activePullRequest": "PRs #354, #359 and #360 MERGED to main; branch and main are the same commit",
   "activeMission": "Merged to main and main is green. The two gates that had never completed in this repository -- the mutation war and the real-database suite -- both run to completion with nothing skipped. Every remaining blocker is a credential, an account, an external party or elapsed time. The next thing that moves the north star is one owner-authorized first sprint, not more engineering.",
@@ -33,7 +33,9 @@
     "Fixed the four inherited non-canon failures: a receipt-ledger fake store missing the add/get pair the ledger requires (the refusal was correct -- a store that cannot refuse a duplicate cannot provide idempotency), a model-admission fixture with no provider that could never have passed (requirement kept, gap given its own test), and a capability count pinned at 8 against a registry holding 11 (updated, not loosened, with the three new supplier ids named individually).",
     "Classified the six frontier proof modules main landed with no entry point, and removed one of my own classifications that main had made false by wiring autonomous-frontier-intelligence.",
     "Merged to main through PRs #354, #359 and #360, and verified main green on a clean worktree afterwards rather than assuming the merge inherited the branch result: 3663 tests, 3608 pass, 0 fail, 55 skipped. Main had 24 failures before this work.",
-    "Fixed the last two on main after the first merge: the Playwright crawler fell through to Playwright's own default browser path, which names the exact build its package was published against, so it failed on a host carrying a different build while a working browser sat beside it; and canon named a commit three source files behind, because a regeneration had been committed together with source changes. A regeneration is now its own commit, which is what makes the freshness rule exact."
+    "Fixed the last two on main after the first merge: the Playwright crawler fell through to Playwright's own default browser path, which names the exact build its package was published against, so it failed on a host carrying a different build while a working browser sat beside it; and canon named a commit three source files behind, because a regeneration had been committed together with source changes. A regeneration is now its own commit, which is what makes the freshness rule exact.",
+    "Re-verified every gate against 15 further commits of main (payment verifier module, September 4 closure checkpoints, orchestration ownership records) and found nothing broken: deterministic, mutation war, real-database, relay safety, wallbreaker, external capabilities, capability genome, browser and the dependency audit were all green with no source change needed. Only canon needed regenerating, which is the expected consequence of main moving.",
+    "Ran the startup layers the updated constitution now requires: genesis:doctor reports PERPETUAL_FRONTIER_GENESIS_HEALTHY with all 275 registry ideas present and zero missing pointers or files, and every other doctor is healthy."
   ],
   "blockers": [
     "NO_CONFIGURED_MODEL_PROVIDER: zero providers configured, no pricing evidence. The Claude Code harness session OAuth is the agent's credential, not a provider configured for UberBond.",
@@ -71,16 +73,16 @@
     "notClaimed": "Two normalized records is two typed descriptions. Nothing is deduped, security-reviewed, eligible, approved, active, installed, benchmarked or economically proven. A skill body is not a capability; NORMALIZED is not APPROVED; STATIC_CLEAR is not SAFE."
   },
   "currentMeasuredSoftwareTruth": {
-    "exactHead": "b6598429da7df0bb91c33dddeb3e034ec324ee56 on main",
-    "check:syntax": "789 files parse",
-    "test:deterministic": "3663 tests, 3608 pass, 0 fail, 55 skipped (measured on a clean worktree of main)",
+    "exactHead": "c9ce1e61dc781b3e5288385ade02cbf3922ffe4a on main",
+    "check:syntax": "792 files parse",
+    "test:deterministic": "3494 tests, 3440 pass, 0 fail, 54 skipped",
     "test:mutation-war": "164 mutations, 164 killed, 0 not killed, 0 skipped",
     "test:postgres-real": "24 suites, 187 tests, 187 pass, 0 fail",
-    "reachability": "312 src modules: 141 production-reachable, 33 operator-only, 138 classified with a registered gate",
+    "reachability": "314 src modules: 143 production-reachable, 33 operator-only, 138 classified with a registered gate",
     "test:relay-safety": "150/150",
     "test:capability-genome": "84/84",
     "test:wallbreaker": "16/16",
-    "test:external-capabilities": "13/13",
+    "test:external-capabilities": "20/20",
     "npm audit --omit=dev": "0 vulnerabilities",
     "founderAbsenceSoftwareGaps": 0,
     "executedBy": "local execution in this session, not hosted CI"

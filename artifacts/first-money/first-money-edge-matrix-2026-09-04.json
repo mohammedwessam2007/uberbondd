@@ -1,0 +1,174 @@
+{
+  "schemaVersion": "uberbond.first-money-edge-matrix.v1",
+  "generatedAt": "2026-09-04T16:12:00.000Z",
+  "northStar": "risk-adjusted cleared contribution profit / founder minute",
+  "sourceBehaviorMain": "6c2df40e41de8323a1c76d071dfb9d39947b72e4",
+  "checkpointMainBeforeArtifact": "8ac1b64c44f6199ba991fe7138d414196db2178a",
+  "verificationBasis": {
+    "integrationPr": 379,
+    "integrationHead": "aa7789ff09e5b840f336b741bf3e3b8137fcecfa",
+    "vercelDeployment": "dpl_BiuGWmm8Tyz5cpVeL9bsS1QreHCh",
+    "syntaxFiles": 848,
+    "deterministic": { "tests": 3623, "pass": 3569, "fail": 0, "skipped": 54 },
+    "mutationWar": { "mutations": 168, "killed": 168, "skipped": 0 },
+    "postgresReal": { "suites": 24, "tests": 187, "pass": 187, "fail": 0 },
+    "reachability": { "srcModules": 336, "production": 143, "operatorOnly": 55, "gated": 138 },
+    "auditVulnerabilities": 0,
+    "founderAbsenceSoftwareGaps": []
+  },
+  "classificationVocabulary": [
+    "VERIFIED_READY",
+    "INTERNAL_REPAIR_REQUIRED",
+    "PROVIDER_ACCOUNT_REQUIRED",
+    "OWNER_IDENTITY_REQUIRED",
+    "EXTERNAL_CUSTOMER_PROOF_REQUIRED",
+    "ELAPSED_TIME_REQUIRED",
+    "LEGAL_TAX_GATE"
+  ],
+  "edges": [
+    {
+      "id": "opportunity-to-evidence",
+      "from": "opportunity",
+      "to": "evidence",
+      "classification": "VERIFIED_READY",
+      "evidenceRefs": ["src/event-horizon.mjs", "tests/event-horizon.test.mjs"],
+      "note": "Event Horizon is an evidence-weighted tournament and cannot create commercial truth."
+    },
+    {
+      "id": "evidence-to-economic-ranking",
+      "from": "evidence",
+      "to": "economic ranking",
+      "classification": "VERIFIED_READY",
+      "evidenceRefs": ["src/event-horizon.mjs", "src/commercial-outcome.mjs"],
+      "note": "Current champion remains an evidence-weighted hypothesis, not demand proof."
+    },
+    {
+      "id": "ranking-to-offer-sku",
+      "from": "economic ranking",
+      "to": "offer/SKU",
+      "classification": "VERIFIED_READY",
+      "evidenceRefs": ["src/first-cash-canary-packet.mjs", "src/service-sku.mjs", "src/lead-path-sprint-fulfillment.mjs"],
+      "note": "Champion is bound to the fixed $450 white-label Lead-Path Revenue Leak Evidence Sprint."
+    },
+    {
+      "id": "offer-to-target-eligibility",
+      "from": "offer/SKU",
+      "to": "target eligibility",
+      "classification": "VERIFIED_READY",
+      "evidenceRefs": ["src/prospect-qualification.mjs", "src/prospect-evidence-reconciliation.mjs", "tests/prospect-qualification.test.mjs"],
+      "note": "Qualification and evidence reconciliation are implemented; candidate evidence is not consent."
+    },
+    {
+      "id": "target-to-distribution-eligibility",
+      "from": "target eligibility",
+      "to": "distribution eligibility",
+      "classification": "PROVIDER_ACCOUNT_REQUIRED",
+      "secondaryGates": ["OWNER_IDENTITY_REQUIRED", "LEGAL_TAX_GATE"],
+      "evidenceRefs": ["src/distribution-channel.mjs", "src/free-first-outreach-router.mjs", "src/first-cash-canary-packet.mjs"],
+      "note": "Software fails closed until transport policy, observed sender identity, suppression/consent, owner authority and legal clearance are evidenced. This is not an internal code gap."
+    },
+    {
+      "id": "distribution-to-response",
+      "from": "distribution eligibility",
+      "to": "response state",
+      "classification": "EXTERNAL_CUSTOMER_PROOF_REQUIRED",
+      "evidenceRefs": ["src/inbound-feedback-kernel.mjs", "src/gmail-inbound.mjs", "src/inbound-classify.mjs"],
+      "note": "Three bounded partner canaries exist; no reply has been observed. Buyer response cannot be manufactured internally."
+    },
+    {
+      "id": "response-to-scope",
+      "from": "response state",
+      "to": "scope",
+      "classification": "VERIFIED_READY",
+      "evidenceRefs": ["src/service-sku.mjs", "src/lead-path-sprint-fulfillment.mjs", "src/first-cash-canary-packet.mjs"],
+      "note": "Bounded scope, exclusions, price and fulfillment identity are deterministic once qualified external evidence exists."
+    },
+    {
+      "id": "scope-to-payment-route",
+      "from": "scope",
+      "to": "payment route",
+      "classification": "PROVIDER_ACCOUNT_REQUIRED",
+      "secondaryGates": ["OWNER_IDENTITY_REQUIRED"],
+      "evidenceRefs": ["src/payment-truth.mjs", "src/payment-provider-verifier-dispatch.mjs", "src/first-cash-canary-packet.mjs"],
+      "note": "A public PayPal payment destination is prepared but is explicitly not cleared-payment proof. PayPal sandbox/live provider identity remains account-side."
+    },
+    {
+      "id": "payment-route-to-cleared-payment",
+      "from": "payment route",
+      "to": "provider-origin cleared payment",
+      "classification": "PROVIDER_ACCOUNT_REQUIRED",
+      "secondaryGates": ["EXTERNAL_CUSTOMER_PROOF_REQUIRED"],
+      "evidenceRefs": ["src/payment-truth.mjs", "src/payment-reconciliation-worker.mjs", "src/payment-provider-verifier-dispatch.mjs", "tests/payment-truth.test.mjs"],
+      "note": "Only authenticated/reconciled provider evidence may create cleared payment. No owner checkbox, link, invoice or fixture can do so."
+    },
+    {
+      "id": "cleared-payment-to-fulfillment",
+      "from": "provider-origin cleared payment",
+      "to": "fulfilment",
+      "classification": "VERIFIED_READY",
+      "evidenceRefs": ["src/service-fulfillment.mjs", "src/lead-path-sprint-fulfillment.mjs", "tests/service-fulfillment.test.mjs"],
+      "note": "Fulfilment is consequence-gated and cannot start from synthetic, pending or mismatched payment truth."
+    },
+    {
+      "id": "fulfillment-to-acceptance",
+      "from": "fulfilment",
+      "to": "external acceptance",
+      "classification": "EXTERNAL_CUSTOMER_PROOF_REQUIRED",
+      "evidenceRefs": ["src/service-fulfillment.mjs", "tests/service-fulfillment.test.mjs", "tests/superseded-fulfillment-invariants.test.mjs"],
+      "note": "Internal QA cannot self-issue customer acceptance."
+    },
+    {
+      "id": "acceptance-to-repair-retest",
+      "from": "external acceptance/rejection",
+      "to": "repair/retest",
+      "classification": "VERIFIED_READY",
+      "evidenceRefs": ["src/service-fulfillment.mjs", "src/lead-path-sprint-fulfillment.mjs"],
+      "note": "Repair/retest and conflict handling are modeled; activation waits for real buyer evidence."
+    },
+    {
+      "id": "acceptance-to-renewal-expansion",
+      "from": "external acceptance",
+      "to": "renewal/expansion",
+      "classification": "EXTERNAL_CUSTOMER_PROOF_REQUIRED",
+      "evidenceRefs": ["src/payment-renewal-truth.mjs", "src/commercial-learning.mjs", "src/service-fulfillment.mjs"],
+      "note": "Renewal/recurring product truth requires real repeated paid accepted demand; code existence does not activate recurring revenue."
+    },
+    {
+      "id": "outcome-to-contribution-learning",
+      "from": "renewal/expansion outcome",
+      "to": "contribution/founder-minute learning",
+      "classification": "VERIFIED_READY",
+      "evidenceRefs": ["src/commercial-outcome.mjs", "src/commercial-reconciliation.mjs", "src/commercial-learning.mjs"],
+      "note": "Economic learning derives only from durable cleared outcomes, costs, acceptance and founder-minute evidence."
+    },
+    {
+      "id": "learning-to-next-allocation",
+      "from": "contribution/founder-minute learning",
+      "to": "next allocation",
+      "classification": "VERIFIED_READY",
+      "evidenceRefs": ["src/capital-allocator.mjs", "src/distribution-channel.mjs"],
+      "note": "Allocation is consequence-gated; absent real economics lowers confidence rather than fabricating a winner."
+    }
+  ],
+  "summary": {
+    "edgeCount": 15,
+    "internalRepairRequiredCount": 0,
+    "verifiedReadyCount": 9,
+    "providerAccountRequiredCount": 3,
+    "externalCustomerProofRequiredCount": 3,
+    "ownerIdentityPrimaryCount": 0,
+    "legalTaxPrimaryCount": 0,
+    "elapsedTimePrimaryCount": 0,
+    "verdict": "ZERO_INTERNAL_REPAIR_REQUIRED__REALITY_GATED"
+  },
+  "commercialTruth": {
+    "boundedPartnerCanarySends": 3,
+    "repliesObserved": 0,
+    "qualifiedConversations": 0,
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "truthBoundary": "INTERNAL_READINESS_IS_NOT_CUSTOMER_DEMAND; PAYMENT_DESTINATION_IS_NOT_CLEARED_PAYMENT; INTERNAL_QA_IS_NOT_CUSTOMER_ACCEPTANCE; CODED_RENEWAL_IS_NOT_RETAINED_REVENUE"
+}

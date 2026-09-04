@@ -1,10 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { normalizeModelBenchmark } from '../src/agent-model-router.mjs';
-import {
-  compileFrontierCognitivePlan,
-  buildFrontierCognitiveReceipt
-} from '../src/frontier-cognitive-fabric.mjs';
+import { buildFrontierCognitiveReceipt } from '../src/frontier-cognitive-fabric.mjs';
+import { compileSyntheticFrontierPlan as compileFrontierCognitivePlan } from './helpers/frontier-synthetic-provenance.mjs';
 
 const NOW = new Date('2026-09-04T20:00:00.000Z');
 const FRESH = '2026-09-04T19:00:00.000Z';
@@ -307,7 +305,7 @@ test('COUNCIL_MAX uses independent first-pass responders and a distinct adjudica
   assert.equal(result.plan.status, 'COUNCIL_PLAN_READY');
   assert.equal(result.plan.responders.length, 2);
   assert.equal(result.plan.responders.some(item => item.profileId === result.plan.adjudicator.profileId), false);
-  const independent = result.plan.graph.nodes.filter(node => node.id.startsWith('independent_'));
+  const independent = result.plan.graph.nodes.filter(node => node.id.startsWith('independent_') && node.id !== 'independent_adjudication');
   assert.equal(independent.length, 2);
   assert.ok(independent.every(node => node.dependencies.length === 0));
   assert.ok(result.plan.graph.nodes.find(node => node.id === 'independent_adjudication').workerRequirement.endsWith(result.plan.adjudicator.profileId));

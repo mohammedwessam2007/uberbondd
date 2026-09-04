@@ -1,13 +1,12 @@
 # UberBond — Current System State
 
-**This file is the canonical present-tense software/commercial state.** Historical receipts remain immutable evidence. Repository code and newer exact external evidence outrank prose.
+**This file is the canonical present-tense software/commercial state.** Historical detail from the pre-checkpoint version is preserved byte-for-byte under `docs/archive/2026-08-30-pre-checkpoint/`. Repository code and newer exact external evidence still outrank this prose.
 
 Last reconciled: **2026-09-04**
-Branch: `gpt/genesis-evolution-engine-20260903`
-Reconciled from current head: `4905e7896589f83eb94e0f755007e576193f9674`
+Branch: `claude/uberbond-ragnarok-closure-pek0g6`
+Reconciled from current head: `dd3c8db9b9b6943e41d0da95872207a5ec80857e`
 
-Machine-readable current overlay: [`artifacts/system-readiness-current.json`](../artifacts/system-readiness-current.json).
-Historical full readiness receipt: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json). The historical artifact retains its original September 1 measurements and capability rows and is **not** current exact-head proof.
+Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
 ## Commercial truth
 
@@ -15,118 +14,109 @@ Historical full readiness receipt: [`artifacts/system-readiness.json`](../artifa
 |---|---:|
 | Real customers | **0** |
 | Cleared revenue | **$0.00** |
-| Accepted paid deliveries | **0** |
+| Accepted deliveries | **0** |
 | Retained customers | **0** |
 
-No architecture, source/test mapping, generated opportunity, model output, preview deployment, internal test, research ranking, payment link, sandbox event, or configuration may promote those numbers.
-
-## PR #342 / GENESIS 275
-
-The current integration candidate implements the Perpetual Frontier / GENESIS research architecture while keeping business and external-effect authority at `NONE`.
-
-The 275-item truth ledger now maps every canonical GENESIS item to source and focused/hostile test paths. That means **275 source/test contracts**, not 275 mature production systems and not evidence of demand, payment, customer acceptance, retention, rarity, or profitability.
-
-The active internal path is:
-
-`public frontier sensing -> Gamechanger shockwave -> GENESIS evolution -> Economic Scientist -> ONTOGENESIS -> GENESIS metabolism -> persisted zero-effect receipts`
-
-GENESIS Metabolism composes sensing, epistemic, economic, venture, resilience, theory, and blindness organs. It cannot create market demand, customers, cleared payment, customer acceptance, causal truth, or production authority.
-
-## Verification state
-
-**Exact-head verification status: `PENDING_INFRASTRUCTURE`.** This is not green.
-
-The last real full hosted execution was Vercel on commit `27711f0d8b86c2434ef0f506098e34f8944e1c87`. It actually ran the repository verification command and failed. Its failures became the repair map. The current source tree contains repairs for those causal failures, but no available runner has yet executed the full deterministic suite on this exact source head.
-
-| Gate | Present truth |
-|---|---|
-| Syntax | Exact-head execution pending; the current syntax-check target set is 788 files by exact tree delta, **not** a parse-pass claim |
-| Deterministic | Exact-head execution pending; no current pass total is asserted |
-| Relay safety | Historical receipt preserved; current-head rerun not claimed |
-| Real PostgreSQL | Historical receipt preserved; current-head rerun not claimed |
-| Mutation war | Historical receipt preserved; current-head rerun not claimed |
-| Browser | Historical receipt preserved; current-head rerun not claimed |
-| Dependency audit | Historical receipt preserved; current-head rerun not claimed |
-
-GitHub Actions remains `INFRASTRUCTURE_NON_EVIDENCE`: the current jobs receive no runner steps and expose no logs. Re-running the deterministic job created new job IDs but again produced zero executed steps.
-
-The primary Vercel project is blocked by the Hobby build-rate limit. The secondary Vercel project can package previews but does not execute the repository deterministic build command, so its `READY` state is not accepted as verification. A disposable Replit verifier was refused because the connected Replit account requires an active subscription. No paid upgrade was authorized or purchased.
-
-The owner reports Claude Code is available again. The repository contains Claude Code and Anthropic execution contracts, but this ChatGPT session does not expose a connected Claude Code execution tool. Therefore no Claude run is fabricated or claimed here.
-
-## Failures repaired from the last real full run
-
-The current candidate repairs the causal red lanes exposed by the real Vercel run:
-
-- memory reconciliation uses the mature `CURRENT_PROGRAM` taxonomy instead of the invalid ad-hoc owner-doctrine status;
-- GENESIS counterfactual worlds obey the requested cap;
-- the 275-item implementation assertion reflects the actual source/test-present ledger;
-- LIVE free-first routing derives state from activation receipts and refuses caller-asserted activation;
-- first-cash customer-binding fixtures satisfy the stricter canonical payment witness contract;
-- Postal reconciliation requires authenticated webhook provenance and treats DNS failure as accepted submission plus negative delivery evidence;
-- six dead Mutation War anchors were restored as live behavioral guards rather than decorative anchors;
-- AI Gateway error details regain secret redaction with hostile coverage;
-- GENESIS Metabolism gives the new research organs a bounded zero-effect operating path;
-- the residual frontier/open-model/first-cash planning surface is operator-reachable through a zero-effect surface doctor rather than existing only in tests;
-- readiness generation now computes reachability from the live import graph instead of inheriting hand-entered counts.
-
-These repairs are source facts. They are **not** substitutes for an executed exact-head suite.
-
-## Reachability
-
-Reachability source: `tests/reachability-ratchet.test.mjs` (LIVE_COMPUTED)
-
-The executable ratchet recursively walks `src`, production/API entry points, and operator scripts. It fails on unclassified unreachable modules, stale classifications, deleted classified modules, unknown categories, unresolved `UNREACHABLE_BUG` entries, unregistered activation gates, stale unused gates, thin gate rationale, and production-reachability regression.
-
-Human prose deliberately does not duplicate the production/operator/unreachable counts anymore. Machine counts are generated by `scripts/system-readiness.mjs#measureReachability`. Reachability proves a caller exists; it never creates activation or consequence authority.
+No architecture, creator claim, generated opportunity, model output, preview deployment, internal test, or research ranking may promote those numbers.
 
 ## Event Horizon commercial allocation
 
-The prepared first-cash champion remains the **$450 white-label Lead-Path Revenue Leak Evidence Sprint**. It is an experiment, not UberBond’s definition. The canary remains bounded to five qualified conversations, with `KILL_OR_RETHINK` after five qualified conversations and no paid pilot.
+`npm run event-horizon:doctor` reports `EVENT_HORIZON_HEALTHY`: five evidence-weighted finalists, 17 durable public sources, exactly one prepared experiment, and zero business-effect authority. The current first-cash champion is the **$450 white-label Lead-Path Revenue Leak Evidence Sprint**; it remains prepared and not externally activated. The strongest gated challenger is **GCC Bilingual E-Invoice Exception Evidence**. The **Partner Evidence Rail** is a strategic hypothesis for what repeated accepted partner delivery may become, not a product, channel, moat, customer, or revenue claim.
 
-No candidate prospect is promoted into contacted, qualified, paid, delivered, accepted, or retained status without external receipts.
+## Verified software evidence
+
+The source-changing state of this branch was exercised before later documentation/checkpoint-only commits.
+
+| Gate | Result |
+|---|---|
+| Syntax | `npm run check:syntax`: 789 files parse (2026-09-04) |
+| Deterministic | `npm run test:deterministic`: 3489 tests, 3435 pass, **0 fail**, 54 skipped (2026-09-04) |
+| Relay safety | `npm run test:relay-safety`: 150 tests, 150 pass, 0 fail (2026-08-30) |
+| Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real`: 24 suites passed, 187 tests, 187 pass, 0 fail (2026-09-04) |
+| Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 164 mutations, 164 killed, 0 not killed, 0 skipped |
+| Browser | `CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser`: 1 test, 1 pass, 0 fail (2026-08-30), against the runner's installed Chromium |
+| Dependency audit | `npm audit --omit=dev`: No vulnerabilities reported in the current integration environment. |
+
+The 52 deterministic skips are environment-dependent suites excluded from that run; real-PostgreSQL behavior has separate evidence above. Hosted GitHub Actions jobs that receive no runner and execute zero steps remain `INFRASTRUCTURE_NON_EVIDENCE`.
+
+## Reachability
+
+**138 of 314 `src` modules have no entry point at all**.
+
+| Reachability class | Modules |
+|---|---:|
+| Reachable from production | 143 |
+| Reachable only via an operator script | 33 |
+| **No entry point at all** | **138** |
+
+The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`. The newly merged `src/payment-provider-verifier-dispatch.mjs` is production-reachable through `payment-reconciliation-worker` and increases the production-reachable partition by one without changing the gated partition.
+
+## PR #251 payment-attention policy
+
+`classifyPaymentEvent()` remains the payment-truth authority. The founder command center now interprets its already-safe classifications as follows:
+
+- `REVIEW_REQUIRED` -> operator attention.
+- `PENDING_OR_UNCLEAR` with only `subscription-status-on_trial` -> expected pending, quiet.
+- Every other `PENDING_OR_UNCLEAR` -> anomalous pending, operator attention.
+- Pending with no reason -> fail visible.
+
+This changes **operator visibility only**. It does not clear money, unlock fulfilment, create revenue, mutate provider evidence, call a provider, or widen authority.
+
+Independent focused proof covered nine cases, all passing. A hostile mutation that treats every pending state as expected makes five of the nine protections fail.
+
+## Memory integrity
+
+A manual readiness refresh accidentally compacted away hundreds of lines of capability evidence in an intermediate branch commit. It was caught before merge. Commit `a7d25ab08781307002f663dcfa903983ff5c54b2` restored the full capability registry. The old canon, handoff and bootstrap were then archived byte-for-byte at commit `991efdee100616cd6d811a92194d611fa3097a14`.
+
+The current crash checkpoint is `docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md`.
+
+The older machine memory entry that described Everest as unresolved is superseded: repository evidence establishes **Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation**, with the Everest receipt verdict `EVEREST_PARTIALLY_CLOSED`.
 
 ## AI company / Trinity
 
-- **GPT-5.6 Sol, Company Brain:** market sensing, opportunity research/tournaments, economics, pricing, competitor/company research, portfolio allocation and distribution strategy.
-- **Claude Code / software factory:** bounded engineering, adapters, runtime, persistence, tests, hostile verification, recovery and deployment evidence when actually connected and executed.
+- **GPT-5.6 Sol, Company Brain:** market sensing, opportunity research/tournaments, economics, pricing, competitor/company research, portfolio allocation and world-class distribution strategy.
+- **Claude Code / Opus Max, Software Factory:** bounded engineering, adapters, cloud/runtime, persistence, tests, hostile verification, recovery and deployment evidence.
 - **Mission Control:** repository continuity, contradiction reconciliation, review, deployment truth, consequence gates and founder-minute minimization.
 
 AI employees are bounded roles in one governed company. Intelligence and capability never create consequence authority.
 
+The repository contains a real Claude engineering orchestrator, but a live Claude Code run still requires the verified isolation/provider runtime defined by that contract. The GitHub relay worker is verification-only and is not evidence that Claude executed.
+
 ## Cloud truth
 
-The connected Vercel account exposes the full `uberbondd` project and the secondary `uberbondd-lite-private` project. The full project previously supplied the only recent hosted run that demonstrably executed the real deterministic command. New full builds are currently rate-limited.
+The connected Vercel account exposes team `team_A9LnjIuS5PU0rNetsHMu1N0r` and full project `prj_RWUPf14w1xIz9NK92AbNW5z7qDCg` (`uberbondd`).
 
-The secondary project has produced exact-commit preview packages, but its observed build logs complete in roughly two seconds without running the deterministic repository suite. Its green deployment badge is therefore packaging evidence only.
+The previous exact PR-head full-project preview `dpl_5e9AmHsdpxpdikFFfkUbJhzKopa6` was observed actively executing the real deterministic suite. The first account-activation deployment (`dpl_GtFzX8u8VRLL5SJ4jD9jm7dtHw1L`) failed its stale reachability-canon assertion. The next candidate (`dpl_B5Mqc5QJdRCpr9BA2Yy4AFjWk41h`) then exposed a publication packaging error: the readiness JSON was truncated at line 521. The complete artifact was republished and the corrected remote tree was verified. The stale queued full-project build (`dpl_ZusvtM5aWa63JMZ5JyB1TZRxRYV7`) then failed because it referenced a local-only canon SHA. Vercel Create Deployment resolved `main` to `5436eeb111a17f012ea7dc307f295703da391bc6` but refused to create the corrected production build with: `Resource is limited - try again in 24 hours (more than 100, code: "api-deployments-free-per-day").` A deployment state is not treated as business or provider proof. **Exact-current-main production is blocked by this Vercel quota until the platform permits another deployment.**
 
-No deployment state is business proof.
+## Account activation receipt
 
-## Account activation truth
+The Vercel account-side setup is complete for the existing `uberbondd` project: a dedicated key named `UberBond Runtime Gateway` is stored as the protected Production value of `AI_GATEWAY_API_KEY`. Runtime settings are also present for the Vercel AI Gateway transport: enabled, model `openai/gpt-5.4`, and the recorded pricing evidence used by the compute ledger. No key value is present in this repository or receipt.
 
-A dedicated Vercel AI Gateway key named `UberBond Runtime Gateway` was previously stored in the protected Production environment as `AI_GATEWAY_API_KEY`. Its secret value is intentionally absent from repository evidence and chat.
+The published implementation composes that protected variable through `src/agent-model-executor-factory.mjs` and keeps the Gateway beneath UberBond's activation and consequence gates. The live model request canary is **not run** because the deployed surface has no dedicated protected provider-canary route; the local Gateway contract, failover, activation-gate and zero-effect tests pass. No model spend or business effect is claimed.
 
-A live model request canary is still not claimed by this checkpoint.
-
-PayPal remains not configured in verified runtime truth. No Sandbox REST application, Client ID, Secret, webhook setting, payment event, or money movement is claimed here.
+PayPal is **not configured**. Cloud Browser auto-review denied access to `https://www.paypal.com` before authentication, so no Sandbox REST application, Client ID, Secret, webhook setting or payment state changed. No PayPal sandbox canary or money movement occurred.
 
 ## External gates
 
-Internal software cannot manufacture:
+Internal software cannot manufacture the following:
 
-- a real hosted exact-head verifier when every available runner refuses execution;
-- separately authorized model spend and provider-origin model receipts;
+- separately authorized model spend and a reachable protected model-canary surface;
 - lawful sender infrastructure and measured sender health;
-- real customer demand or commitment;
+- real customer demand/commitment;
 - provider-origin cleared payment;
-- accepted delivery, refund/dispute, renewal, expansion, or retained-customer evidence;
+- accepted delivery, refund/dispute, renewal and expansion evidence;
+- a PayPal Sandbox REST application and credentials (account access is currently blocked at the browser boundary);
 - payment-provider KYC/payout and exact applicable legal/tax treatment;
 - sustained unattended operation over real elapsed time;
 - a human escalation transport;
-- verified isolation plus an actually executed Claude Code runtime.
+- verified isolation plus a real Claude execution runtime.
 
-## Immediate closure rule
+## Immediate frontier
 
-PR #342 may merge only after its final source head receives real execution evidence strong enough to establish the repository gates required by the PR. Zero-step/no-log Actions, packaging-only Vercel previews, derived file counts, source inspection, and historical receipts cannot satisfy that condition.
+1. Activate exactly one owner-authorized $450 Lead-Path Revenue Leak Evidence Sprint through the existing partner canary packet. Measure cleared payment, accepted delivery, founder minutes, partner margin, and whether the same partner produces a second downstream account.
+2. Keep `gcc-einvoice-exception-evidence` research-only until a qualified provider supplies a safe sample and a stronger payment commitment than the current canary. Official obligations are not demand proof.
+3. Do not build a parallel AI evaluation platform. The strategic acceptance handoff is limited to composing existing task criteria, capability benchmarks, consequence receipts, and payment-acceptance truth into an evidence pack after buyer evidence justifies it.
+4. Re-verify exact-current-main production only when a real deployment is observed. The connected full Vercel project is `live: false`; recent observed full-project deployments are errors and exact-current-main runtime is unproven.
+5. Preserve the Capability Genome foundation and defer expensive corpus scaling until storage, source access, sandboxing, and economic pull are dependency-satisfied. Catalog size is not the frontier.
 
-Until then, the correct current statement is **software repairs prepared, exact-head verification pending**.
+Zero customer contact, zero live provider/model execution, zero purchases, zero PayPal account mutation, zero DNS changes, zero money movement, and zero production business mutation were authorized or performed by this checkpoint. The Vercel Gateway secret was configured in the protected project store; its value is intentionally absent from all repository evidence.

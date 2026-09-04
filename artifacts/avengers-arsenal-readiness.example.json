@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "uberbond.avengers-arsenal-readiness.v1",
+  "generatedAt": "2026-09-04T00:00:00Z",
+  "registryDigest": "EXAMPLE_ONLY",
+  "profiles": [],
+  "tools": [],
+  "callableModelCount": 0,
+  "callableToolSurfaceCount": 0,
+  "truthBoundary": "DISCOVERED_OR_CONFIGURED_IS_NOT_CALLABLE; MODEL_LISTED_IS_NOT_INFERENCE_PROVEN; METHOD_DONOR_IS_NOT_OPTIONAL_RUNTIME_PROOF",
+  "resolvedRegistry": {
+    "schemaVersion": "uberbond.avengers-arsenal-registry.v1",
+    "profiles": [],
+    "tools": []
+  },
+  "localDiscovery": null,
+  "localDiscoveryStatus": "NOT_REQUESTED",
+  "exactTruth": {
+    "callableModelCount": 0,
+    "callableToolSurfaceCount": 0,
+    "inferenceProbeRequested": false,
+    "localDiscoveryRequested": false
+  },
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {}
+}

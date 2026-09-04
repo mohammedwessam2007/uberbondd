@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node .github/paypal-core-closure-foundry.mjs",
+  "buildCommand": "npm run check:syntax && npm run test:deterministic",
   "functions": {
     "api/agent-relay.mjs": { "maxDuration": 60 },
     "api/agent-mesh-cron.mjs": { "maxDuration": 60 },

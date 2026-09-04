@@ -3,10 +3,10 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { compileFrontierCognitivePlan } from './frontier-cognitive-fabric.mjs';
 import { validateFrontierCallabilityProbeReceipt } from './frontier-callability-provenance.mjs';
 
-export const FRONTIER_COGNITIVE_ADMISSION_VERSION = 'uberbond.frontier-cognitive-admission-1.1.0';
+export const FRONTIER_COGNITIVE_ADMISSION_VERSION = 'uberbond.frontier-cognitive-admission-1.2.0';
 export const FRONTIER_ADMISSION_SCHEMA = 'uberbond.frontier-admission-bundle.v1';
 
-const BRAND = Symbol('uberbond.frontier-admission-bundle');
+const admittedBundles = new WeakMap();
 const MAX_PROFILES = 64;
 const MAX_BENCHMARKS = 1000;
 const MAX_CALLABILITY = 256;
@@ -104,7 +104,7 @@ export function buildFrontierAdmissionBundle({
   const sourceObservedAt = timestamp(source?.observedAt);
   if (!sourceKind || !sourceRef || !sourceObservedAt) return failure(['admission-source-kind-ref-and-time-required']);
 
-  const provenance = validateFrontierCallabilityProbeReceipt(callabilityProvenance ?? {});
+  const provenance = validateFrontierCallabilityProbeReceipt({ ...(callabilityProvenance ?? {}), allowSynthetic: true });
   const trustedProbeByProfileId = provenance.ok ? provenance.observationByProfileId : new Map();
 
   const identities = [];
@@ -170,8 +170,14 @@ export function buildFrontierAdmissionBundle({
   }
 
   const provenanceMetadata = provenance.ok
-    ? { receiptDigest: provenance.receiptDigest, sourceRef: provenance.sourceRef, generatedAt: provenance.generatedAt }
-    : { receiptDigest: null, sourceRef: null, generatedAt: null };
+    ? {
+        receiptDigest: provenance.receiptDigest,
+        sourceRef: provenance.sourceRef,
+        generatedAt: provenance.generatedAt,
+        simulationOnly: provenance.simulationOnly === true,
+        trustedForLiveExecution: provenance.trustedForLiveExecution === true
+      }
+    : { receiptDigest: null, sourceRef: null, generatedAt: null, simulationOnly: false, trustedForLiveExecution: false };
   const identityDigest = sha256({
     source: { kind: sourceKind, ref: sourceRef, observedAt: sourceObservedAt },
     callabilityProvenance: provenanceMetadata,
@@ -207,23 +213,26 @@ export function buildFrontierAdmissionBundle({
     rejectedCallability,
     rejectedBenchmarks,
     identityDigest,
-    truthBoundary: 'CALLER_LABELS_ARE_NOT_PROVENANCE; CALLABLE_NOW_ENTERS_ONLY_WHEN_BOUND_TO_A_VALID_CANONICAL_RUNTIME_PROBE_RECEIPT; BENCHMARKS_BIND_EXACT_PROVIDER_MODEL_REVISION'
+    simulationOnly: provenance.simulationOnly === true,
+    truthBoundary: 'CALLER_LABELS_ARE_NOT_PROVENANCE; CALLABLE_NOW_ENTERS_ONLY_WHEN_BOUND_TO_A_VALID_PRODUCER_RECEIPT; SYNTHETIC_PROVENANCE_MAY_PLAN_TESTS_BUT_CAN_NEVER_AUTHORIZE_LIVE_EXECUTION; BENCHMARKS_BIND_EXACT_PROVIDER_MODEL_REVISION'
   };
-  Object.defineProperty(bundle, BRAND, { value: true, enumerable: false, configurable: false, writable: false });
+  admittedBundles.set(bundle, { digest: sha256(bundle), callabilityProvenance });
   return envelope({ ok: true, status: 'FRONTIER_ADMISSION_READY', bundle });
 }
 
 export function compileAdmittedFrontierPlan({ task, admissionBundle, ...policy } = {}) {
-  if (!admissionBundle || admissionBundle[BRAND] !== true || admissionBundle.schemaVersion !== FRONTIER_ADMISSION_SCHEMA) {
-    return failure(['process-validated-frontier-admission-bundle-required'], 'FRONTIER_PLAN_ADMISSION_BLOCKED');
+  const trusted = admissionBundle && typeof admissionBundle === 'object' ? admittedBundles.get(admissionBundle) : null;
+  if (!admissionBundle || admissionBundle.schemaVersion !== FRONTIER_ADMISSION_SCHEMA || !trusted || trusted.digest !== sha256(admissionBundle)) {
+    return failure(['process-validated-untampered-frontier-admission-bundle-required'], 'FRONTIER_PLAN_ADMISSION_BLOCKED');
   }
   const result = compileFrontierCognitivePlan({
+    ...policy,
     task,
     profiles: admissionBundle.profiles,
     callability: admissionBundle.callability,
+    callabilityProvenance: trusted.callabilityProvenance,
     benchmarks: admissionBundle.benchmarks,
-    contextArtifacts: admissionBundle.contextArtifacts,
-    ...policy
+    contextArtifacts: admissionBundle.contextArtifacts
   });
   if (!result.ok) return envelope({ ...result, admissionDigest: admissionBundle.identityDigest, admissionRejectedEvidence: { callability: admissionBundle.rejectedCallability, benchmarks: admissionBundle.rejectedBenchmarks } });
   return envelope({
@@ -232,6 +241,6 @@ export function compileAdmittedFrontierPlan({ task, admissionBundle, ...policy }
     admissionSource: admissionBundle.source,
     callabilityProvenance: admissionBundle.callabilityProvenance,
     admissionRejectedEvidence: { callability: admissionBundle.rejectedCallability, benchmarks: admissionBundle.rejectedBenchmarks },
-    truthBoundary: `${result.plan?.truthBoundary ? `${result.plan.truthBoundary}; ` : ''}PLAN_WAS_COMPILED_ONLY_FROM_PROCESS_VALIDATED_EXACT_REVISION_ADMISSION_EVIDENCE_WITH_CANONICAL_CALLABILITY_PROVENANCE`
+    truthBoundary: `${result.plan?.truthBoundary ? `${result.plan.truthBoundary}; ` : ''}PLAN_WAS_COMPILED_ONLY_FROM_PROCESS_VALIDATED_UNTAMPERED_EXACT_REVISION_ADMISSION_EVIDENCE`
   });
 }

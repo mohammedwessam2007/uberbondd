@@ -13,7 +13,7 @@ export const PAYPAL_MUTATIONS = Object.freeze([
   Object.freeze({
     id: 'PAYPAL-01',
     guard: 'Sandbox PayPal can never create commercial payment truth',
-    file: 'src/paypal-payment-truth.mjs',
+    file: 'src/paypal-payment-truth-core.mjs',
     find: "  if (cfg.environment === 'sandbox') {",
     replace: '  if (false) {',
     suites: ['tests/paypal-payment-truth.test.mjs']
@@ -21,7 +21,7 @@ export const PAYPAL_MUTATIONS = Object.freeze([
   Object.freeze({
     id: 'PAYPAL-02',
     guard: 'PayPal webhook authenticity requires verification_status SUCCESS',
-    file: 'src/paypal-payment-truth.mjs',
+    file: 'src/paypal-payment-truth-core.mjs',
     find: "  if (text(verification.payload?.verification_status, 40).toUpperCase() !== 'SUCCESS') {",
     replace: '  if (false) {',
     suites: ['tests/paypal-webhook-auth-hostile.test.mjs']
@@ -29,18 +29,18 @@ export const PAYPAL_MUTATIONS = Object.freeze([
   Object.freeze({
     id: 'PAYPAL-03',
     guard: 'PayPal signature verification is bound to the configured webhook identity',
-    file: 'src/paypal-payment-truth.mjs',
+    file: 'src/paypal-payment-truth-core.mjs',
     find: '      webhook_id: cfg.webhookId,',
     replace: "      webhook_id: 'mutation-wrong-webhook-id',",
     suites: ['tests/paypal-webhook-auth-hostile.test.mjs']
   }),
   Object.freeze({
     id: 'PAYPAL-04',
-    guard: 'A repeated PayPal event id cannot certify a different provider object or incomplete witness triad',
-    file: 'api/webhooks/paypal.mjs',
+    guard: 'Canonical PayPal module rejects replay identity drift and incomplete witness triads',
+    file: 'src/paypal-payment-truth.mjs',
     find: '  if (!exactProviderIdentity || !exactEconomics || !exactTriadBinding) {',
     replace: '  if (false) {',
-    suites: ['tests/paypal-replay-identity-hostile.test.mjs']
+    suites: ['tests/paypal-module-replay-identity-hostile.test.mjs']
   }),
   Object.freeze({
     id: 'PAYPAL-05',

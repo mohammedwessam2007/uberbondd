@@ -1,0 +1,1 @@
+Refresh main/open PRs, then read docs/memory/UBERBOND_CHECKPOINT_CURRENT.md before doing anything else.

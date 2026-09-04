@@ -77,7 +77,7 @@ test('synthetic FRONTIER_MAX reaches the canonical factory only through an expli
     callabilityProvenance: provenance(calls), env, fetchImpl, maxTokens: 100, costCeilingCents: 100, date: NOW, clock: () => times.shift()
   });
   assert.equal(out.ok, true);
-  assert.equal(out.status, 'FRONTIER_AVENGER_SIMULATION_COMPLETE');
+  assert.equal(out.status, 'FRONTIER_AVENGER_EXECUTION_COMPLETE');
   assert.equal(out.simulationOnly, true);
   assert.equal(out.providerCalls, 1);
   assert.deepEqual(requestBody.reasoning, { effort: 'xhigh' });
@@ -121,7 +121,7 @@ test('COUNCIL_MAX executes independent responders, critique and distinct adjudic
     callabilityProvenance: provenance(calls), env, modelExecutorFactory, costCeilingCents: 100, date: NOW, clock: () => ++tick
   });
   assert.equal(out.ok, true);
-  assert.equal(out.status, 'FRONTIER_COUNCIL_SIMULATION_COMPLETE');
+  assert.equal(out.status, 'FRONTIER_COUNCIL_AVENGERS_EXECUTION_COMPLETE');
   assert.equal(out.simulationOnly, true);
   assert.equal(out.executionCount, 4);
   assert.equal(out.providerCalls, 0);

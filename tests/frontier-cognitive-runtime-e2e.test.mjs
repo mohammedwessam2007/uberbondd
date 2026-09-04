@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { normalizeModelBenchmark } from '../src/agent-model-router.mjs';
-import { compileFrontierCognitivePlan, buildFrontierCognitiveReceipt } from '../src/frontier-cognitive-fabric.mjs';
+import { buildFrontierCognitiveReceipt } from '../src/frontier-cognitive-fabric.mjs';
+import { buildFrontierAdmissionBundle, compileAdmittedFrontierPlan } from '../src/frontier-cognitive-admission.mjs';
 import { executeFrontierMember } from '../src/frontier-reasoning-runtime.mjs';
 
 const NOW = new Date('2026-09-04T20:00:00.000Z');
@@ -26,10 +27,10 @@ const callability = {
 };
 const benchmark = normalizeModelBenchmark({
   provider: profile.provider, model: profile.model, taskClasses: profile.taskClasses, taskClass: 'general',
-  quality: 0.98, reliability: 0.97, latencyScore: 0.8, economicImpact: 0.9, evidenceConfidence: 0.99, costEfficiency: 0.7,
-  observedRevision: profile.revision
+  quality: 0.98, reliability: 0.97, latencyScore: 0.8, economicImpact: 0.9, evidenceConfidence: 0.99, costEfficiency: 0.7
 }, new Date(FRESH));
 benchmark.observedRevision = profile.revision;
+benchmark.evidenceRef = 'benchmark://google-gemini-frontier-rev-2026-09';
 const task = {
   missionId: 'frontier-e2e', taskId: 'frontier-e2e', objective: 'Solve one bounded frontier task.',
   taskClass: 'general', role: 'general', dataClass: 'INTERNAL_NON_SECRET', reasoningTier: 'FRONTIER_MAX',
@@ -40,18 +41,27 @@ const contextArtifacts = [
   { id: 'frontier-evidence', kind: 'EVIDENCE', contentRef: 'repo://frontier-evidence', tags: ['frontier'], dependencies: ['constitution'], estimatedTokens: 700, priority: 90 }
 ];
 
-test('frontier plan executes through canonical runtime and produces a receipt-ready identity/reasoning/cost/latency chain', async () => {
-  const plan = compileFrontierCognitivePlan({ task, profiles: [profile], callability: [callability], benchmarks: [benchmark], contextArtifacts, now: NOW });
+test('admitted frontier plan executes through canonical runtime and produces an exact-revision reasoning/cost/latency chain', async () => {
+  const admission = buildFrontierAdmissionBundle({
+    profiles: [profile],
+    callability: [callability],
+    benchmarks: [benchmark],
+    contextArtifacts,
+    source: { kind: 'RUNTIME_PROBE_LEDGER', ref: 'proof://frontier-e2e-admission', observedAt: FRESH }
+  });
+  assert.equal(admission.ok, true);
+  const plan = compileAdmittedFrontierPlan({ task, admissionBundle: admission.bundle, now: NOW });
   assert.equal(plan.ok, true);
   assert.equal(plan.plan.selected.profileId, profile.id);
   assert.equal(plan.plan.selected.reasoningSettingRef, 'ai-gateway:reasoning=xhigh');
+  assert.match(plan.admissionDigest, /^[a-f0-9]{64}$/);
 
   const workerTask = {
     taskId: task.taskId,
     objective: task.objective,
     consequenceClass: 'LOCAL_PREPARATION',
     contextRefs: plan.plan.contextPacket.contextRefs,
-    evidenceRefs: ['runtime://probe-google-gemini-frontier']
+    evidenceRefs: ['runtime://probe-google-gemini-frontier', plan.admissionDigest]
   };
   const factory = worker => async args => {
     assert.deepEqual(worker, { provider: 'ai-gateway', model: profile.transportModel, reasoningEffort: 'xhigh' });

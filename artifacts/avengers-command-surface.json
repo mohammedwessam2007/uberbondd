@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "uberbond.avengers-command-surface.v1",
+  "commands": {
+    "doctor": "npm run avengers:doctor",
+    "plan": "npm run avengers:plan",
+    "tick": "npm run avengers:tick",
+    "dryRun": "npm run avengers:tick:dry",
+    "focusedTests": "npm run test:avengers"
+  },
+  "currentAuthority": "LOCAL_PREPARATION_ONLY",
+  "businessEffectAuthority": "NONE"
+}

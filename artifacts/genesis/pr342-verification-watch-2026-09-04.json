@@ -1,0 +1,44 @@
+{
+  "schema": "uberbond.pr342-verification-watch.v1",
+  "pr": 342,
+  "observedAt": "2026-09-04T02:16:00Z",
+  "preTriggerHead": "f8d7a3648b7bac363c67e840222106b842656e38",
+  "currentMainAtObservation": "bc50a54302069cf1901a0d8962a1d152abf50108",
+  "github": {
+    "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+    "reason": "No usable exact-head workflow run was available at observation time; prior observed exact-head jobs had steps=null and no logs."
+  },
+  "vercel": {
+    "runnerAvailableNow": true,
+    "latestObservedRealRunner": {
+      "deploymentId": "dpl_6SYgutHtqmeai4w9NN5iekNHsA8D",
+      "sourceCommit": "a325a7796b6b7fcc10dcf8f0e75f627fd0fa789c",
+      "command": "npm run check:syntax && npm run test:deterministic",
+      "classification": "REAL_EXECUTION_OTHER_BRANCH"
+    },
+    "latestPriorPr342RealRunner": {
+      "deploymentId": "dpl_6cdq2XqQnDNPvM2ZFhUkEcSgTe58",
+      "sourceCommit": "aff6437632147b069fa306e55243c2f0e8a0a73b",
+      "classification": "REAL_EXECUTION_STALE_PR342_HEAD",
+      "observedFailureClasses": [
+        "reachability-ratchet residual test-only frontier modules",
+        "reachability static source-count assertion",
+        "brain bootstrap initiative-count assertions"
+      ],
+      "note": "Later PR342 commits contain repairs for these failure classes; this receipt does not claim they pass until a real exact-head run proves it."
+    },
+    "triggerIntent": "This commit exists only to cause the Git-integrated full uberbondd Vercel project to execute npm run check:syntax && npm run test:deterministic on the resulting exact PR head. Packaging-only lite previews remain non-evidence."
+  },
+  "branchState": {
+    "status": "DIVERGED",
+    "mergeabilityAtObservation": false,
+    "exactHeadGreenClaimAllowed": false
+  },
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "purpose": "Truthful verification retrigger receipt. This file does not claim test success, commercial proof, or authority. The resulting commit is the new exact PR head and must itself be verified before merge."
+}

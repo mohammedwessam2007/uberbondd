@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "uberbond.gamechanger-mesh-state.v2",
+  "updatedAt": "2026-09-04T15:36:10.609Z",
+  "fingerprints": [
+    "0e54a05919af889804d326aecbd395b4418dd48ad62ef8865dd621d0d0ed4e14",
+    "dc85d440f1a0589d0509b19afe94697656ef46f3bafc24a469ad17476f843f11"
+  ],
+  "lastCheckedAtBySource": {
+    "github-trending": "2026-09-04T15:32:11.319Z",
+    "mcp-official": "2026-09-04T15:32:11.319Z"
+  }
+}

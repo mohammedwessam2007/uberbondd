@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "uberbond.perpetual-frontier-genesis.tick.v1",
+  "generatedAt": "2026-09-04T15:36:11.502Z",
+  "dryRun": false,
+  "source": {
+    "gamechangerInput": "/home/user/uberbondd/artifacts/gamechanger-mesh-latest.json",
+    "gamechangerGeneratedAt": "2026-09-04T15:36:10.609Z",
+    "gamechangerSchemaVersion": "uberbond.gamechanger-mesh.tick.v2",
+    "frontierSignalCount": 0
+  },
+  "dormantOpportunityInput": null,
+  "dormantOpportunityCount": 0,
+  "cycles": [],
+  "summary": {
+    "cycles": 0,
+    "successful": 0,
+    "invalid": 0,
+    "resurrectionReviewCandidates": 0
+  },
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "messages": 0,
+    "moneyMovements": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "customerStateMutations": 0,
+    "providerCalls": 0
+  },
+  "truthBoundary": "GENESIS_CYCLES_ARE_INTERNAL_RESEARCH_AND_PROPOSAL_RECEIPTS_NOT_TECHNOLOGY_MARKET_CUSTOMER_OR_REVENUE_PROOF"
+}

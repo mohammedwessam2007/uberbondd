@@ -504,6 +504,23 @@ export const MUTATIONS = [
     suites: ['tests/mutation-journal-integrity.test.mjs']
   },
   {
+    // The ledger's runtime-receipt scan must stay rooted where the caller
+    // said, or the same commit produces different ledgers depending on what
+    // somebody ran locally.
+    id: 'GENESIS-LEDGER-01', guard: 'Runtime-receipt evidence is scanned where the caller rooted it, not always the repository',
+    file: 'scripts/genesis-evolution-tick.mjs',
+    find: '.filter(r=>existsSync(resolve(runtimeReceiptRoot,r)));',
+    replace: '.filter(r=>existsSync(resolve(root,r)));',
+    suites: ['tests/genesis-evolution-tick.test.mjs']
+  },
+  {
+    id: 'GENESIS-CHAIN-01', guard: 'A GENESIS refusal names the step that produces what it is missing',
+    file: 'scripts/genesis-evolution-tick.mjs',
+    find: "producedBy:'npm run gamechanger:plan',",
+    replace: '',
+    suites: ['tests/genesis-chain-refusal.test.mjs']
+  },
+  {
     id: 'AVENGERS-INPUT-01', guard: 'A missing arsenal artifact names the step that has not run, not a crash',
     file: 'src/avengers-artifact-input.mjs',
     find: "    if (error?.code === 'ENOENT') {",

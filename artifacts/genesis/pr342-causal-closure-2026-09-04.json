@@ -1,0 +1,198 @@
+{
+  "schema": "uberbond.pr342-causal-closure.v1",
+  "mission": "PR #342 GENESIS 275 exact failure-to-repair reconciliation",
+  "baselineRealExecution": {
+    "commit": "27711f0d8b86c2434ef0f506098e34f8944e1c87",
+    "runner": "Vercel primary full project",
+    "command": "npm run check:syntax && npm run test:deterministic",
+    "tests": 3403,
+    "pass": 3327,
+    "fail": 23,
+    "skipped": 53,
+    "syntaxTargetsObserved": 779,
+    "classification": "REAL_EXECUTION_FAILING_RECEIPT"
+  },
+  "reconciledSourceCommit": "4905e7896589f83eb94e0f755007e576193f9674",
+  "verificationBoundary": {
+    "sourceCausalClosureClaimAllowed": true,
+    "exactHeadGreenClaimAllowed": false,
+    "exactHeadFullSuiteExecuted": false,
+    "reason": "Every causal red lane from the last real full run has a corresponding repair in the reconciled tree, but current hosted execution is blocked by external runner/quota failures. Source closure is not an executed pass."
+  },
+  "failures": [
+    {
+      "id": "F01_AGENT_MESH_SANDBOX_INDEX",
+      "baselineFailure": "sandbox provider assertion relied on a positional array index that became stale after the open-model provider was added",
+      "repairEvidence": ["tests/agent-mesh-activation-evidence.test.mjs", "src/agent-model-executor-factory.mjs"],
+      "repair": "sandbox readiness is now selected by provider identity and remains fail-closed by default",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F02_AGENT_MESH_PROVIDER_SET",
+      "baselineFailure": "provider list expected four providers and omitted the new open-model provider",
+      "repairEvidence": ["tests/agent-mesh-entry-point.test.mjs", "src/agent-model-executor-factory.mjs"],
+      "repair": "provider contract explicitly includes open-model while preserving claude-code-sandbox",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F03_CANON_SOURCE_SHA_STALE",
+      "baselineFailure": "CURRENT_SYSTEM_STATE described an older source tree",
+      "repairEvidence": ["docs/CURRENT_SYSTEM_STATE.md", "tests/canon-freshness.test.mjs"],
+      "repair": "current-state canon names the reconciled source commit and distinguishes documentation-only descendants from source drift",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F04_READINESS_RECEIPT_STALE",
+      "baselineFailure": "historical full readiness receipt was being read as present-tense truth",
+      "repairEvidence": ["artifacts/system-readiness-current.json", "scripts/system-readiness.mjs", "tests/canon-freshness.test.mjs"],
+      "repair": "historical readiness remains immutable while a separate current overlay carries exact pending/current-source truth",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F05_CANON_SYNTAX_COUNT_STALE",
+      "baselineFailure": "human canon claimed an obsolete syntax-pass file count",
+      "repairEvidence": ["docs/CURRENT_SYSTEM_STATE.md", "tests/canon-freshness.test.mjs"],
+      "repair": "pending canon no longer phrases the derived target count as a parse-pass measurement; measured claims remain mechanically checked",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F06_FREE_FIRST_LIVE_ACTIVATION",
+      "baselineFailure": "caller-supplied booleans could satisfy LIVE activation expectations",
+      "repairEvidence": ["src/free-first-outreach-router.mjs", "tests/free-first-outreach-router.test.mjs"],
+      "repair": "LIVE state derives from evidence receipts and cannot be opened by caller assertion alone",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F07_FREE_FIRST_STATE_RECEIPT_CONFLICT",
+      "baselineFailure": "conflicting pre-derived state and receipt evidence was not handled under the expected fail-closed contract",
+      "repairEvidence": ["src/free-first-outreach-router.mjs", "tests/free-first-outreach-router.test.mjs"],
+      "repair": "state/receipt contradiction is explicit and fail-closed",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F08_GENESIS_LEDGER_STALE_ASSERTION",
+      "baselineFailure": "test still expected CANON_ONLY after the implementation ledger reached source/test presence",
+      "repairEvidence": ["src/genesis-implementation-evidence-v2.mjs", "tests/genesis-evolution-engine.test.mjs", "tests/genesis-evidence-ledger-v2.test.mjs"],
+      "repair": "assertions now bind to the 275/275 source/test ledger without promoting primitives to mature production systems",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F09_COUNTERFACTUAL_WORLD_CAP",
+      "baselineFailure": "counterfactual generator returned six worlds when maxWorlds was five",
+      "repairEvidence": ["src/genesis-scientist.mjs", "tests/genesis-scientist.test.mjs"],
+      "repair": "generation is bounded by the requested world cap",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F10_MUTATION_ANCHOR_INDEX",
+      "baselineFailure": "Mutation War reported six stale/missing guard anchors",
+      "repairEvidence": ["src/domain-purpose-plan.mjs", "src/founder-absence-blocker-doctor.mjs", "src/free-first-outreach-router.mjs", "src/vercel-ai-gateway-executor.mjs", "tests/domain-purpose-plan.test.mjs", "tests/vercel-ai-gateway-executor.test.mjs"],
+      "repair": "DOMAIN-01, DOMAIN-02, GATEWAY-01, CONV-01, CONV-05 and CONV-08 anchors were restored as executable behavioral guards rather than comments",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F11_MUTATION_KILL_SEMANTICS",
+      "baselineFailure": "the stale anchors could not support intended mutation-to-assertion kill semantics",
+      "repairEvidence": ["src/domain-purpose-plan.mjs", "src/founder-absence-blocker-doctor.mjs", "src/free-first-outreach-router.mjs", "src/vercel-ai-gateway-executor.mjs", "tests/vercel-ai-gateway-executor.test.mjs"],
+      "repair": "restored guards are tied to behavioral assertions including hostile secret-redaction coverage",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F12_PAYMENT_CUSTOMER_BINDING_A",
+      "baselineFailure": "first-cash delivered-sprint fixture no longer satisfied canonical payment witness requirements",
+      "repairEvidence": ["tests/night-payment-customer-binding.test.mjs", "src/lead-path-sprint-fulfillment.mjs"],
+      "repair": "fixture is bound to the stricter canonical payment truth contract",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F13_PAYMENT_CUSTOMER_BINDING_B",
+      "baselineFailure": "customer acceptance path fixture was inconsistent with customer-bound external evidence requirements",
+      "repairEvidence": ["tests/night-payment-customer-binding.test.mjs", "src/lead-path-sprint-fulfillment.mjs"],
+      "repair": "acceptance remains bound to matching EXTERNAL_CUSTOMER evidence",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F14_PAYMENT_CUSTOMER_BINDING_C",
+      "baselineFailure": "rejection/acceptance test setup drifted behind tightened canonical payment semantics",
+      "repairEvidence": ["tests/night-payment-customer-binding.test.mjs", "src/lead-path-sprint-fulfillment.mjs"],
+      "repair": "test setup now enters fulfillment only through valid canonical payment truth",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F15_PAYMENT_CUSTOMER_BINDING_D",
+      "baselineFailure": "commercial-delivery/customer-binding assertion used a stale fixture shape",
+      "repairEvidence": ["tests/night-payment-customer-binding.test.mjs", "src/lead-path-sprint-fulfillment.mjs"],
+      "repair": "fixture reflects current payment, delivery and customer-origin acceptance boundaries",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F16_POSTAL_WEBHOOK_PROVENANCE",
+      "baselineFailure": "independent Postal reconciliation fixture lacked authenticated provider-event provenance",
+      "repairEvidence": ["src/omnia-v9/integrations/providers/postal-effect-adapter.mjs", "tests/postal-effect-adapter.test.mjs"],
+      "repair": "reconciliation now requires authenticated lifecycle provenance",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F17_POSTAL_DNS_LIFECYCLE",
+      "baselineFailure": "authenticated DNS failure conflated provider submission acceptance with negative delivery",
+      "repairEvidence": ["src/omnia-v9/integrations/providers/postal-effect-adapter.mjs", "tests/postal-effect-adapter.test.mjs"],
+      "repair": "submission acceptance and downstream delivery failure are represented as separate facts",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F18_REACHABILITY_UNCLASSIFIED",
+      "baselineFailure": "24 source modules were test-only and unclassified in the executable reachability graph",
+      "repairEvidence": ["scripts/frontier-surface-doctor.mjs", "src/genesis-metabolism.mjs", "tests/frontier-surface-doctor.test.mjs", "tests/reachability-ratchet.test.mjs"],
+      "repair": "five GENESIS organs enter the metabolism path and the residual nineteen safe frontier/planning modules enter an operator-only zero-effect surface; unsafe modules remain classification-gated",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F19_REACHABILITY_STATIC_COUNTS",
+      "baselineFailure": "CURRENT_SYSTEM_STATE duplicated stale static reachability counts",
+      "repairEvidence": ["tests/reachability-ratchet.test.mjs", "scripts/system-readiness.mjs", "docs/CURRENT_SYSTEM_STATE.md"],
+      "repair": "reachability is live-computed; human canon points at the executable ratchet and no longer duplicates production/operator counts",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F20_BRAIN_OWNER_DOCTRINE_STATUS_A",
+      "baselineFailure": "memory reconciliation introduced unsupported CURRENT_OWNER_DOCTRINE status",
+      "repairEvidence": ["artifacts/uberbond-memory-reconciliation.json", "tests/uberbond-owner-doctrine-reconciliation.test.mjs"],
+      "repair": "owner doctrine uses the mature CURRENT_PROGRAM taxonomy without changing doctrine content",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F21_BRAIN_OWNER_DOCTRINE_STATUS_B",
+      "baselineFailure": "bootstrap validation rejected reconciled named initiatives because of the ad-hoc status",
+      "repairEvidence": ["artifacts/uberbond-memory-reconciliation.json", "tests/uberbond-owner-doctrine-reconciliation.test.mjs"],
+      "repair": "reconciled initiatives remain inside the mature status set",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F22_BRAIN_OWNER_DOCTRINE_STATUS_C",
+      "baselineFailure": "owner-goal overlay could not survive mature project-context validation",
+      "repairEvidence": ["artifacts/uberbond-memory-reconciliation.json", "tests/uberbond-owner-doctrine-reconciliation.test.mjs"],
+      "repair": "real reconciliation overlay is exercised against the mature validator with owner doctrine preserved",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    },
+    {
+      "id": "F23_BRAIN_OWNER_DOCTRINE_STATUS_D",
+      "baselineFailure": "brain bootstrap remained red under the unsupported owner-doctrine taxonomy",
+      "repairEvidence": ["artifacts/uberbond-memory-reconciliation.json", "tests/uberbond-owner-doctrine-reconciliation.test.mjs", "tests/uberbond-brain-no-amputation-capacity.test.mjs"],
+      "repair": "validator semantics and 160-item no-truncation bound remain unchanged while the overlay uses a supported classification",
+      "status": "SOURCE_CAUSAL_REPAIR_PRESENT"
+    }
+  ],
+  "counts": {
+    "baselineFailures": 23,
+    "sourceCausalRepairsPresent": 23,
+    "unmappedBaselineFailures": 0,
+    "exactHeadExecutedPasses": 0
+  },
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "finalBoundary": "23_OF_23_CAUSAL_REPAIRS_PRESENT_IS_STRONG_SOURCE_EVIDENCE. IT IS NOT AN EXACT_HEAD_GREEN_TEST RECEIPT AND DOES NOT CREATE COMMERCIAL PROOF OR EXTERNAL AUTHORITY."
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "uberbond.genesis-scientist.tick.v1",
+  "generatedAt": "2026-09-04T15:36:11.891Z",
+  "input": "/home/user/uberbondd/artifacts/genesis-evolution-latest.json",
+  "laboratories": [],
+  "summary": {
+    "laboratories": 0,
+    "ready": 0,
+    "syntheticWorlds": 0,
+    "syntheticFutureMemories": 0
+  },
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "messages": 0,
+    "moneyMovements": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "customerStateMutations": 0,
+    "providerCalls": 0
+  },
+  "truthBoundary": "SCIENTIST_LABS_ARE_COUNTERFACTUAL_AND_HYPOTHESIS_DESIGN_RECEIPTS; THEY_ARE_NOT_CAUSAL_MARKET_CUSTOMER_OR_REVENUE_PROOF"
+}

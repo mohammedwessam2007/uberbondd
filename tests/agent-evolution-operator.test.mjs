@@ -67,35 +67,60 @@ test('operator bundle composes the existing bounded wave and never grants promot
   }
 });
 
-test('doctor fails visibly on missing relay configuration without reading or exposing secret values', () => {
+test('doctor fails visibly when neither relay transport is configured and performs no I/O', () => {
   const doctor = describeAgentEvolutionOperator({ env: {}, date: DATE });
   assert.equal(doctor.ok, true);
   assert.equal(doctor.status, 'BLOCKED_EXTERNAL_RELAY_CONFIG');
-  assert.equal(doctor.relay.endpointPresent, false);
-  assert.equal(doctor.relay.credentialPresent, false);
-  assert.ok(doctor.reasonCodes.includes('relay-endpoint-absent'));
-  assert.ok(doctor.reasonCodes.includes('relay-credential-absent'));
-  assert.equal(JSON.stringify(doctor).includes('super-secret'), false);
+  assert.equal(doctor.relay.ready, false);
+  assert.equal(doctor.relay.selectedTransport, null);
+  assert.equal(doctor.relay.githubIssues.repositoryPresent, false);
+  assert.equal(doctor.relay.githubIssues.credentialPresent, false);
+  assert.equal(doctor.relay.httpIngress.endpointPresent, false);
+  assert.equal(doctor.relay.httpIngress.credentialPresent, false);
+  assert.ok(doctor.reasonCodes.includes('github-repository-absent-or-invalid'));
+  assert.ok(doctor.reasonCodes.includes('github-credential-absent'));
+  assert.ok(doctor.reasonCodes.includes('http-ingress:relay-endpoint-absent'));
+  assert.ok(doctor.reasonCodes.includes('http-ingress:relay-credential-absent'));
   assert.equal(doctor.businessEffectAuthority, 'NONE');
   assert.deepEqual(doctor.externalEffectLedger, ZERO);
 });
 
-test('doctor reports only presence booleans for configured relay and sandbox attestation', () => {
+test('doctor prefers the already-proven direct GitHub Issues relay when both transports are configured', () => {
+  const env = {
+    GITHUB_REPOSITORY: 'mohammedwessam2007/uberbondd',
+    GITHUB_TOKEN: 'github-secret-that-must-not-leak',
+    UBERBOND_RELAY_ENDPOINT: 'https://relay.example.test/api/agent-relay',
+    UBERBOND_RELAY_TOKEN: 'http-secret-that-must-not-leak',
+    CLAUDE_CODE_SANDBOX_ISOLATION_FILE: '/safe/attestation.json'
+  };
+  const doctor = describeAgentEvolutionOperator({ env, date: DATE });
+  assert.equal(doctor.status, 'READY_FOR_BOUNDED_RELAY');
+  assert.equal(doctor.relay.ready, true);
+  assert.equal(doctor.relay.selectedTransport, 'GITHUB_ISSUES');
+  assert.equal(doctor.relay.githubIssues.ready, true);
+  assert.equal(doctor.relay.httpIngress.ready, true);
+  assert.equal(doctor.sandbox.isolationAttestationPresent, true);
+  assert.deepEqual(doctor.reasonCodes, []);
+  const serialized = JSON.stringify(doctor);
+  assert.equal(serialized.includes(env.GITHUB_TOKEN), false);
+  assert.equal(serialized.includes(env.UBERBOND_RELAY_TOKEN), false);
+  assert.equal(serialized.includes(env.CLAUDE_CODE_SANDBOX_ISOLATION_FILE), false);
+});
+
+test('doctor falls back to the optional HTTP ingress only when direct GitHub relay is unavailable', () => {
   const doctor = describeAgentEvolutionOperator({
     env: {
       UBERBOND_RELAY_ENDPOINT: 'https://relay.example.test/api/agent-relay',
-      UBERBOND_RELAY_TOKEN: 'super-secret-token-value',
-      CLAUDE_CODE_SANDBOX_ISOLATION_FILE: '/safe/attestation.json'
+      UBERBOND_RELAY_TOKEN: 'super-secret-token-value'
     },
     date: DATE
   });
   assert.equal(doctor.status, 'READY_FOR_BOUNDED_RELAY');
-  assert.equal(doctor.relay.endpointPresent, true);
-  assert.equal(doctor.relay.credentialPresent, true);
-  assert.equal(doctor.sandbox.isolationAttestationPresent, true);
-  const serialized = JSON.stringify(doctor);
-  assert.equal(serialized.includes('super-secret-token-value'), false);
-  assert.equal(serialized.includes('/safe/attestation.json'), false);
+  assert.equal(doctor.relay.selectedTransport, 'HTTP_INGRESS');
+  assert.equal(doctor.relay.githubIssues.ready, false);
+  assert.equal(doctor.relay.httpIngress.ready, true);
+  assert.deepEqual(doctor.reasonCodes, []);
+  assert.equal(JSON.stringify(doctor).includes('super-secret-token-value'), false);
 });
 
 test('execute refuses an unconfigured relay before any network call', async () => {
@@ -115,13 +140,14 @@ test('execute performs exactly one health, enqueue and bounded wait with an inje
   const result = await executeAgentEvolutionOperator({ relayClient: relay, env: {}, date: DATE });
   assert.deepEqual(relay.calls, ['health', 'create', 'wait']);
   assert.equal(result.status, 'SHADOW_READY');
+  assert.equal(result.transportUsed, 'INJECTED_TEST_OR_OPERATOR_CLIENT');
   assert.equal(result.completionBoundary, 'BOUNDED_REVIEW_COMPLETE__PROMOTION_STILL_BLOCKED');
   assert.equal(result.review.promotion.status, 'PROMOTION_BLOCKED');
   assert.equal(result.review.promotion.authority, 'OWNER_REQUIRED');
   assert.deepEqual(result.externalEffectLedger, ZERO);
 });
 
-test('non-ready relay cannot enqueue a task', async () => {
+test('non-ready injected relay cannot enqueue a task', async () => {
   let creates = 0;
   const result = await executeAgentEvolutionOperator({
     relayClient: {

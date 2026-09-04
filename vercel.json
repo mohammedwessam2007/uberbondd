@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node .github/avengers-stage-a-export.mjs",
+  "buildCommand": "node .github/avengers-canon-closure.cjs",
   "functions": {
     "api/agent-relay.mjs": { "maxDuration": 60 },
     "api/agent-mesh-cron.mjs": { "maxDuration": 60 },

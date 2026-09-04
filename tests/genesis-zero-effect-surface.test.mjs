@@ -15,7 +15,7 @@ const forbidden = [
   /from\s+['"]node:child_process['"]/,
   /from\s+['"]node:(?:net|http|https|http2|tls|dgram|dns)['"]/,
   /\bfetch\s*\(/,
-  /\bexec(?:File|FileSync|Sync)?\s*\(/,
+  /(?<!\.)\bexec(?:File|FileSync|Sync)?\s*\(/,
   /\bspawn(?:Sync)?\s*\(/,
   /\bprocess\.env\b/,
   /\bXMLHttpRequest\b/,

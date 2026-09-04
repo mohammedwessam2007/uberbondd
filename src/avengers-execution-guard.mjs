@@ -2,8 +2,12 @@ import crypto from 'node:crypto';
 import { compileEvidenceRoutedAvengersSquad } from './avengers-squad-planner.mjs';
 import { executeAvengersPlan } from './avengers-arsenal.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { buildFrontierAdmissionBundle, compileAdmittedFrontierPlan } from './frontier-cognitive-admission.mjs';
+import { buildFrontierCognitiveReceipt } from './frontier-cognitive-fabric.mjs';
+import { executeFrontierMember } from './frontier-reasoning-runtime.mjs';
+import { createModelExecutorFactory } from './agent-model-executor-factory.mjs';
 
-export const AVENGERS_EXECUTION_GUARD_VERSION = 'uberbond.avengers-execution-guard-1.0.0';
+export const AVENGERS_EXECUTION_GUARD_VERSION = 'uberbond.avengers-execution-guard-1.1.0';
 
 function clone(value) { return structuredClone(value); }
 function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'); }
@@ -123,5 +127,132 @@ export async function executeCanonicallyVerifiedAvengersPlan({
     providerCalls,
     businessEffectAuthority: 'NONE',
     externalEffectLedger
+  };
+}
+
+/**
+ * Frontier-first single-member execution through the existing Avengers guard.
+ * This deliberately reuses the canonical model executor factory and lower model
+ * router. COUNCIL_MAX is not silently flattened into a single call: until the
+ * explicit independent council runtime is verified, council execution blocks.
+ */
+export async function executeAdmittedFrontierAvenger({
+  task,
+  profiles = [],
+  callability = [],
+  benchmarks = [],
+  contextArtifacts = [],
+  admissionSource,
+  env = process.env,
+  sandboxIsolationReceipt = null,
+  fetchImpl = globalThis.fetch,
+  modelExecutorFactory = null,
+  maxTokens = 2_000,
+  costCeilingCents = 100,
+  date = new Date(),
+  clock = () => Date.now(),
+  policy = {}
+} = {}) {
+  const admission = buildFrontierAdmissionBundle({
+    profiles,
+    callability,
+    benchmarks,
+    contextArtifacts,
+    source: admissionSource
+  });
+  if (!admission.ok) return fail(['frontier-admission-failed', ...(admission.reasonCodes || [])], { admissionStatus: admission.status });
+
+  const planResult = compileAdmittedFrontierPlan({
+    task,
+    admissionBundle: admission.bundle,
+    now: date,
+    ...policy
+  });
+  if (!planResult.ok) return fail(['frontier-plan-failed', ...(planResult.reasonCodes || [])], {
+    frontierStatus: planResult.status,
+    admissionDigest: admission.bundle.identityDigest,
+    admissionRejectedEvidence: planResult.admissionRejectedEvidence
+  });
+  if (planResult.plan.mode === 'COUNCIL_MAX') {
+    return fail(['frontier-council-execution-requires-verified-council-runner'], {
+      frontierStatus: 'COUNCIL_EXECUTION_BLOCKED',
+      admissionDigest: admission.bundle.identityDigest,
+      planDigest: planResult.planDigest
+    });
+  }
+
+  let providerCalls = 0;
+  const countingFetch = typeof fetchImpl === 'function'
+    ? async (...args) => { providerCalls += 1; return fetchImpl(...args); }
+    : fetchImpl;
+  const factory = modelExecutorFactory || createModelExecutorFactory({
+    env,
+    sandboxIsolationReceipt,
+    fetchImpl: countingFetch
+  });
+  const selectedCallability = admission.bundle.callability.find(item => item.profileId === planResult.plan.selected.profileId);
+  if (!selectedCallability) return fail(['selected-frontier-profile-lacks-admitted-callability-evidence']);
+
+  const workerTask = {
+    taskId: planResult.plan.task.taskId,
+    objective: planResult.plan.task.objective,
+    consequenceClass: 'LOCAL_PREPARATION',
+    contextRefs: planResult.plan.contextPacket.contextRefs,
+    evidenceRefs: [selectedCallability.sourceRef, `admission://${admission.bundle.identityDigest}`]
+  };
+  const execution = await executeFrontierMember({
+    member: planResult.plan.selected,
+    task: workerTask,
+    modelExecutorFactory: factory,
+    callabilityEvidence: selectedCallability,
+    maxTokens,
+    costCeilingCents,
+    clock
+  });
+  if (!execution.ok) return fail(['frontier-execution-failed', ...(execution.reasonCodes || [])], {
+    frontierStatus: execution.status,
+    providerCalls,
+    admissionDigest: admission.bundle.identityDigest,
+    planDigest: planResult.planDigest
+  });
+
+  const receiptResult = buildFrontierCognitiveReceipt({
+    planResult,
+    executions: [execution.execution],
+    now: date
+  });
+  if (!receiptResult.ok) return fail(['frontier-receipt-failed', ...(receiptResult.reasonCodes || [])], {
+    providerCalls,
+    admissionDigest: admission.bundle.identityDigest,
+    planDigest: planResult.planDigest
+  });
+
+  const receipt = {
+    ...receiptResult.receipt,
+    admissionDigest: admission.bundle.identityDigest,
+    admissionSource: admission.bundle.source,
+    providerCalls,
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: {
+      ...clone(receiptResult.receipt.externalEffectLedger || ZERO_EXTERNAL_EFFECTS),
+      providerCalls
+    }
+  };
+  return {
+    ok: true,
+    policyVersion: AVENGERS_EXECUTION_GUARD_VERSION,
+    status: 'FRONTIER_AVENGER_EXECUTION_COMPLETE',
+    plan: planResult.plan,
+    planDigest: planResult.planDigest,
+    admissionDigest: admission.bundle.identityDigest,
+    execution: execution.execution,
+    receipt,
+    receiptDigest: digest(receipt),
+    providerCalls,
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: {
+      ...clone(ZERO_EXTERNAL_EFFECTS),
+      providerCalls
+    }
   };
 }

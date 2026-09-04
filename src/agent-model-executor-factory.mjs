@@ -12,7 +12,7 @@ import { createClaudeCodeSandboxExecutor } from './claude-code-sandbox-executor.
 import { createVercelAIGatewayExecutor } from './vercel-ai-gateway-executor.mjs';
 import { createOpenModelRuntimeExecutor } from './open-model-runtime-executor.mjs';
 
-export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.2.0';
+export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.3.0';
 
 const API_PROVIDER_CONFIG = Object.freeze({
   openai: Object.freeze({
@@ -82,15 +82,22 @@ function openModelProviderConfig(env, worker = {}) {
   };
 }
 
+function workerReasoningEffort(worker = {}) {
+  const raw = String(worker.reasoningEffort || '').trim().toLowerCase();
+  return raw || null;
+}
+
 /** Build the per-worker model executor resolver. */
-export function createModelExecutorFactory({ env = process.env, sandboxIsolationReceipt = null } = {}) {
+export function createModelExecutorFactory({ env = process.env, sandboxIsolationReceipt = null, fetchImpl = globalThis.fetch } = {}) {
   return function modelExecutorFor(worker = {}) {
     const provider = String(worker.provider || '').trim().toLowerCase();
+    const reasoningEffort = workerReasoningEffort(worker);
     if (!SUPPORTED_PROVIDERS.includes(provider)) {
       throw new Error(`unsupported provider "${provider}"; supported: ${SUPPORTED_PROVIDERS.join(', ')}`);
     }
 
     if (provider === SANDBOX_PROVIDER) {
+      if (reasoningEffort) throw new Error('reasoning setting not supported by canonical claude-code-sandbox executor');
       const sandboxRoot = String(env.CLAUDE_CODE_SANDBOX_ROOT || '').trim();
       if (!sandboxRoot) throw new Error('claude-code-sandbox worker configured but CLAUDE_CODE_SANDBOX_ROOT is absent');
       if (!sandboxIsolationReceipt) throw new Error('claude-code-sandbox worker configured but no OS isolation receipt was supplied');
@@ -105,6 +112,7 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
     }
 
     if (provider === OPEN_MODEL_PROVIDER) {
+      if (reasoningEffort) throw new Error('reasoning setting not supported by canonical open-model executor');
       const config = openModelProviderConfig(env, worker);
       if (!config.runtime) throw new Error('open-model worker configured but OPEN_MODEL_RUNTIME is absent');
       if (!config.model) throw new Error('open-model worker configured but model identity is absent');
@@ -117,7 +125,8 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
         apiStyle: config.apiStyle,
         apiKey: config.apiKey,
         pricing: config.pricing,
-        enabled: config.enabled
+        enabled: config.enabled,
+        fetchImpl
       });
     }
 
@@ -130,15 +139,19 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
         apiKey: config.apiKey,
         pricing: config.pricing,
         enabled: config.enabled,
-        ...(worker.model ? { defaultModel: worker.model } : {})
+        fetchImpl,
+        ...(worker.model ? { defaultModel: worker.model } : {}),
+        ...(reasoningEffort ? { reasoningEffort } : {})
       });
     }
 
     if (provider === 'anthropic') {
+      if (reasoningEffort) throw new Error('reasoning setting not supported by canonical anthropic executor');
       return createAnthropicAgentExecutor({
         apiKey: config.apiKey,
         pricing: config.pricing,
         enabled: config.enabled,
+        fetchImpl,
         ...(worker.model ? { defaultModel: worker.model } : {})
       });
     }
@@ -147,7 +160,9 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
       apiKey: config.apiKey,
       pricing: config.pricing,
       enabled: config.enabled,
-      defaultModel: worker.model || env.AI_GATEWAY_MODEL || 'openai/gpt-5.4'
+      fetchImpl,
+      defaultModel: worker.model || env.AI_GATEWAY_MODEL || 'openai/gpt-5.4',
+      ...(reasoningEffort ? { reasoningEffort } : {})
     });
   };
 }

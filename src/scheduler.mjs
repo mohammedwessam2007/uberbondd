@@ -1,7 +1,104 @@
 const MINUTE = 60000;
 const HOUR = 60 * MINUTE;
+const DAY = 24 * HOUR;
+const MAX_CLOUD_WAKE_HORIZON_HOURS = 7 * 24;
+const MAX_CLOUD_WAKE_ITEMS = 512;
+
+export const CLOUD_WAKE_PLAN_POLICY_VERSION = 'uberbond-cloud-wake-plan-1.0.0';
+
+const ZERO_EFFECTS = Object.freeze({
+  providerCalls: 0,
+  messages: 0,
+  purchases: 0,
+  deployments: 0,
+  credentialChanges: 0,
+  dnsChanges: 0,
+  productionMutations: 0,
+  spendCents: 0
+});
 
 function bucket(intervalMs) { return Math.floor(Date.now() / intervalMs); }
+
+function boundedInteger(value, min, max) {
+  const number = Number(value);
+  return Number.isSafeInteger(number) && number >= min && number <= max ? number : null;
+}
+
+function missionName(value) {
+  const name = String(value || '').trim();
+  return /^[a-z0-9][a-z0-9._-]{1,79}$/i.test(name) ? name : '';
+}
+
+/**
+ * Compile a rolling cloud wake plan without publishing anything.
+ *
+ * UberBond's durable queue remains the source of job truth. A cloud queue is
+ * only a wake-up transport, so every delayed delivery carries a deterministic
+ * occurrence key that the canonical queue can dedupe after at-least-once
+ * redelivery. This keeps Vercel Queue/Workflow replaceable rather than creating
+ * a second scheduler ledger.
+ */
+export function compileCloudWakePlan({
+  anchor,
+  intervalMinutes = 60,
+  horizonHours = 24,
+  missionTypes = ['agent-mesh.tick'],
+  topic = 'uberbond-background-wake'
+} = {}) {
+  const anchorMs = Date.parse(String(anchor || ''));
+  if (!Number.isFinite(anchorMs)) throw new TypeError('valid anchor ISO timestamp required');
+  const interval = boundedInteger(intervalMinutes, 1, 24 * 60);
+  const horizon = boundedInteger(horizonHours, 1, MAX_CLOUD_WAKE_HORIZON_HOURS);
+  if (interval == null) throw new TypeError('intervalMinutes must be an integer from 1 to 1440');
+  if (horizon == null) throw new TypeError(`horizonHours must be an integer from 1 to ${MAX_CLOUD_WAKE_HORIZON_HOURS}`);
+  if (!Array.isArray(missionTypes) || missionTypes.length < 1 || missionTypes.length > 16) throw new TypeError('missionTypes must contain 1..16 entries');
+  const missions = [...new Set(missionTypes.map(missionName))];
+  if (missions.length !== missionTypes.length || missions.some(name => !name)) throw new TypeError('missionTypes must be unique bounded identifiers');
+  const topicName = missionName(topic);
+  if (!topicName) throw new TypeError('valid cloud wake topic required');
+
+  const intervalMs = interval * MINUTE;
+  const horizonMs = horizon * HOUR;
+  const entries = [];
+  for (let offsetMs = 0; offsetMs < horizonMs; offsetMs += intervalMs) {
+    const scheduledFor = new Date(anchorMs + offsetMs).toISOString();
+    for (const missionType of missions) {
+      const occurrenceKey = `cloud-wake:${missionType}:${scheduledFor}`;
+      entries.push({
+        occurrenceKey,
+        topic: topicName,
+        missionType,
+        scheduledFor,
+        delaySeconds: Math.floor(offsetMs / 1000),
+        retentionSeconds: Math.min(7 * 24 * 60 * 60, Math.max(24 * 60 * 60, Math.floor((horizonMs - offsetMs) / 1000) + 3600)),
+        idempotencyKey: occurrenceKey,
+        payload: {
+          occurrenceKey,
+          missionType,
+          scheduledFor,
+          consequenceClass: 'LOCAL_PREPARATION'
+        }
+      });
+      if (entries.length > MAX_CLOUD_WAKE_ITEMS) throw new RangeError(`cloud wake plan exceeds ${MAX_CLOUD_WAKE_ITEMS} items`);
+    }
+  }
+
+  return {
+    ok: true,
+    policyVersion: CLOUD_WAKE_PLAN_POLICY_VERSION,
+    status: 'CLOUD_WAKE_PLAN_COMPILED_NOT_PUBLISHED',
+    anchor: new Date(anchorMs).toISOString(),
+    intervalMinutes: interval,
+    horizonHours: horizon,
+    topic: topicName,
+    entries,
+    canonicalJobTruth: 'UBERBOND_DURABLE_QUEUE',
+    deliverySemanticsExpected: 'AT_LEAST_ONCE_TRANSPORT_DEDUPED_BY_OCCURRENCE_KEY',
+    cloudPublishAuthority: 'NONE',
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EFFECTS }
+  };
+}
 
 export function startScheduler(queue, cfg, log = console) {
   const timers = [];

@@ -2,17 +2,17 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 745,
-      "ranAt": "2026-09-03T02:30:00Z"
+      "filesParsed": 748,
+      "ranAt": "2026-09-04T04:00:00Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 3340,
-      "pass": 3287,
+      "tests": 3351,
+      "pass": 3298,
       "fail": 0,
       "skipped": 53,
-      "ranAt": "2026-09-03T02:30:00Z",
-      "note": "Measured 3340 tests, 3284 pass, 3 fail, 53 skipped immediately before this regeneration. All three failures were the canon-figure tests, which compare this artifact against the tree and cannot pass until it is regenerated; the recorded pass count includes them. The run before it had six: the other three were real and were fixed rather than recorded -- twelve unclassified modules from the PR #329 merge, and two provider-list tests that broke when a fifth provider was added."
+      "ranAt": "2026-09-04T04:00:00Z",
+      "note": "Measured 3351 tests, 3296 pass, 2 fail, 53 skipped immediately before this regeneration. Both failures were the canon tests, which compare this artifact against the tree and cannot pass until it is regenerated; the recorded pass count includes them."
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -24,14 +24,14 @@
     },
     "test:postgres-real": {
       "command": "OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real",
-      "status": "FAILS_CURRENT_BRANCH__RUNNER_REPAIRED",
-      "tests": 171,
-      "pass": 167,
-      "fail": 1,
+      "status": "PASSING",
+      "tests": 184,
+      "pass": 184,
+      "fail": 0,
       "skipped": 0,
-      "result": "171 tests, 167 pass, 1 fail, 3 suite-level timeouts (2026-09-02), PostgreSQL 17 embedded",
-      "note": "This gate had never completed. It ran tests/omnia-v9-external-effect-state-machine, stopped inside it and waited, so roughly 180 real-database tests scheduled after that file had never executed and no run ever said so. A runner from a previous session was found still sitting in the same place after ten hours. Mechanism, measured rather than assumed: a PostgreSQL backend ends up asleep in sock_alloc_send_pskb, blocked writing results to a socket whose client is gone, burning zero CPU, holding no lock and blocked by no session, while every Node process in the tree sits idle in ep_poll. Ruled out: lock contention (pg_blocking_pids empty), a runaway trigger (zero utime and stime over a six-second sample), and fsync on throttled storage (still stalls with fsync, synchronous_commit and full_page_writes off). Not a production defect: each stalling statement was replayed on a fresh connection and completed correctly in under a tenth of a second. The runner is repaired rather than the finding hidden: --test-timeout=120000 bounds every suite, the state-machine suite unrefs its socket so an abandoned query cannot pin the event loop, its connection leak is fixed (await query().catch() does not catch the synchronous throw a dead client raises, so release() was skipped), each suite gets its own freshly created database, and the databases are no longer dropped -- DROP DATABASE and even WITH (FORCE) wait on the unstoppable backend, and statement_timeout does not govern that wait. The gate now always terminates and always reports. The 167/171 figure is from the last complete run. One genuine assertion failure remains (Gmail concurrent recovery workers), which passes 4/4 when its suite runs alone. Three suites hit the timeout. Classified INFRASTRUCTURE, not source.",
-      "ranAt": "2026-09-01T17:45:00Z"
+      "result": "23 suites passed, 184 tests, 184 pass, 0 fail (2026-09-04)",
+      "note": "Green end to end for the first time. This gate had never completed: it ran tests/omnia-v9-external-effect-state-machine, stopped inside it and waited, so roughly 180 real-database tests scheduled behind that file had never executed and no run ever said so. Three separate causes, each found by removing the one in front of it. (1) The exhaustive transition check made ~600 client round trips; somewhere around the 122nd the connection stopped responding, with the backend `active`, waiting on nothing, holding no lock and ignoring statement_timeout. A pool, then one client, then a connection per pair all stopped in the same place, which is what identified the round trips themselves as the cost. The loop now runs in PL/pgSQL: four statements instead of six hundred, and the client no longer takes any part in deciding what the database accepted. (2) The Gmail concurrency test asserted that exactly one of two workers claimed a row, which was only ever true when the two transactions happened to overlap. On a fast database they stopped overlapping and both claims were legitimate -- RESULT_UNCERTAIN is itself unresolved, so a committed row is a valid candidate again. The overlap is now made real by holding the first worker's transaction open, which tests FOR UPDATE SKIP LOCKED rather than assuming it. (3) The payment replay test drove a hundred replays from the client; inside node:test, after about a hundred rejected pg queries the next one never returns. Measured four ways before concluding: no conflicts, 200 queries in 61ms; conflicts through a pool, stops at ~55 iterations with no backends left on the server; conflicts on one dedicated client, same ~100; the identical loop outside node:test, 300 conflicts in 90ms. It is the runner, not the driver and not production -- nothing in src/ changed for it. Postgres now runs its own hundred and reports what the index refused. Each suite also gets a private disposable server rather than a database on a shared one, the same isolation the mutation war needed.",
+      "ranAt": "2026-09-04T04:00:00Z"
     },
     "npm audit": {
       "command": "npm audit --omit=dev",
@@ -42,9 +42,9 @@
     },
     "test:mutation-war": {
       "command": "CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war",
-      "result": "156 mutations registered; 154-mutation run completed 144 killed / 0 not killed / 10 skipped",
-      "note": "The war ran to completion for the first time this session: 154 mutations, 144 killed, 0 not killed, 10 skipped (9 needing PostgreSQL, 1 needing a browser). It is now 156 after the PR #329 merge and two new browser-detection guards; the 156-mutation run has NOT been executed, and the 154 figure is not claimed for it. The ten skips exposed a defect in the gate itself. Both runtimes are present on this host, but the war read CHROMIUM_PATH and nothing sets it, so it reported SKIPPED_NEEDS_BROWSER for a guard it could have exercised -- and in the summary line a skip that cannot be helped is indistinguishable from one that can. CRAWL-01 is KILLED once a browser is pointed at, and now resolves one by itself through scripts/resolve-chromium.mjs, which accepts only executable files and returns nothing rather than a plausible path, so an honest skip survives. Individually verified KILLED this session: POSTAL-QUARANTINE, PROPOSAL-01, PROPOSAL-02, CANON-01 through CANON-04, BROWSER-01, BROWSER-02 and CRAWL-01. POSTAL-QUARANTINE is worth recording: anchored first on the ledger wrapper's quarantine filter it SURVIVED, because deriveCurrentPostalState filters the same three fields immediately afterwards, so removing the wrapper's copy changes no output for any input. A redundant guard is unfalsifiable. Re-anchored on the filter that decides, it kills.",
-      "ranAt": "2026-09-03T02:30:00Z"
+      "result": "164 mutations, 164 killed, 0 not killed, 0 skipped",
+      "note": "Fully green for the first time, with nothing skipped. Getting there took four defects out of the gate itself, every one of which had been reporting a guard as untested while printing a clean summary line. (1) It read CHROMIUM_PATH and nothing sets it, so a browser guard was skipped on a machine with Chromium installed. (2) SKIPPED_NEEDS_POSTGRES meant \"nobody handed this run a database\", leaving nine guards unexercised wherever a variable was unset; the war provisions its own now, and the skip survives only for a server that will not start. (3) Suites ran with no deadline, so one hang stopped the whole run in ep_poll with no verdict and nothing to say which mutation it was on. (4) All 160 mutations shared one database and then one server, so a suite that left state behind broke every database-backed suite after it -- the gate was measuring the order it visited them in. Each database-backed mutation now gets a private disposable server. The run is also resumable: MUTATION_WAR_JOURNAL records each verdict as it is decided, bound to a hash of the file, anchor, replacement and killing suites so a guard that moved runs again rather than inheriting an answer. Four consecutive runs had been lost to container restarts before that existed. POSTAL-QUARANTINE remains worth recording: anchored on the ledger wrapper's quarantine filter it SURVIVED, because deriveCurrentPostalState filters the same three fields immediately afterwards, so removing the wrapper's copy changes no output for any input. A redundant guard is unfalsifiable. Re-anchored on the filter that decides, it kills.",
+      "ranAt": "2026-09-04T04:00:00Z"
     },
     "test:browser": {
       "command": "CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser",
@@ -64,7 +64,7 @@
       "reachableFromOperatorScriptsOnly": 28,
       "noEntryPointAtAll": 133,
       "allClassified": true,
-      "ranAt": "2026-09-03T02:30:00Z",
+      "ranAt": "2026-09-04T04:00:00Z",
       "note": "Computed from the ratchet's own partition at this head. The PR #329 merge added thirteen modules: open-model-runtime-executor is wired through the model factory (which is why production reachability rose 139 -> 140), and the other twelve are classified AWAITING_ACTIVATION behind two registered gates -- no Frontier Operator host, and no configured open-model runtime. They arrived implemented, tested, green and unreachable, which is the condition this ratchet exists to catch."
     }
   },

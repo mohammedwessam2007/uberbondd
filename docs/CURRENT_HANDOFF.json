@@ -1,11 +1,11 @@
 {
   "schemaVersion": "uberbond-handoff-1.6.0",
-  "checkpointedAt": "2026-09-03T00:00:00Z",
-  "sourceCommit": "5770d6256685bbaeca79d491a8a03c451b251c63",
+  "checkpointedAt": "2026-09-04T00:00:00Z",
+  "sourceCommit": "56a91dc93823f8531878ae73661f231c77807e96",
   "sourceMainShaAtMissionStart": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
   "currentMainShaAtCheckpoint": "acc7d132b5752b131af2eb6d44052bfb8e92f0da",
   "activeBranch": "claude/uberbond-ragnarok-closure-pek0g6",
-  "activePullRequest": "NONE_OPENED__NOT_REQUESTED",
+  "activePullRequest": "NONE_OPENED__NOT_REQUESTED; PR #329 converged into this branch rather than merged separately",
   "activeMission": "Omega closure: drive the founder-absence doctor's softwareGaps to zero so that every remaining blocker is a credential, an account, an external party or elapsed time. Reached. The next thing that moves the north star is one owner-authorized first sprint, not more engineering.",
   "economicNorthStar": "risk-adjusted cleared contribution profit / founder minute",
   "completed": [
@@ -17,7 +17,18 @@
     "Rebound src/first-cash-canary-packet.mjs to the canonical fulfilment module and rebuilt its canary around proving the canonical machine refuses synthetic payment evidence, rather than simulating a delivery.",
     "Added compileDomainPurposePlan and evaluateDomainObservation (refuses unowned roots and unowned assignment hosts; a generated expectation is not observed proof), single-gateway identity in the model provider doctor, and receipt-derived LIVE routing that refuses caller-supplied state.",
     "Mutation library 138 -> 152, every anchor resolving to exactly one site. POSTAL-QUARANTINE is the finding worth keeping: anchored on the ledger wrapper's quarantine filter it SURVIVED, because deriveCurrentPostalState filters the same three fields immediately afterwards. A redundant guard is unfalsifiable. Re-anchored on the filter that decides, it kills.",
-    "tests/omega-closure-hostile.test.mjs: ten attacks on software-gap masking, CODE_READY without observation proof, canary arithmetic, gate conjunction, delivery-machine refusal, unowned domains, generated DNS, credential leaks, LIVE capacity conjuring and canon freshness."
+    "tests/omega-closure-hostile.test.mjs: ten attacks on software-gap masking, CODE_READY without observation proof, canary arithmetic, gate conjunction, delivery-machine refusal, unowned domains, generated DNS, credential leaks, LIVE capacity conjuring and canon freshness.",
+    "Converged PR #329 (Frontier Operator, Open Model Universe, mutation-registry anchor integrity, owner PayPal.me binding) into this branch. Two lanes had harvested the same night branch and diverged; neither head carried the other's work. Collisions resolved on evidence: this branch's 597-line first-cash implementation over #329's 118, with #329's payment-link semantics absorbed into it, and the mutation registry taken as a set union verified by comparison rather than by reading the diff.",
+    "Found and fixed a conflation of my own in the process: WHAT_PAYMENT_LINK answered out of the payment-rail doctor's state, so the packet reported no payment link while the owner had supplied a public one. A destination and a rail are different facts. The link is PREPARED at https://paypal.me/Sarawessam; reconciliation stays EXTERNAL_PROOF_REQUIRED; paymentRailLiveReady stays false and canContact with it. PAYMENT_LINK_IS_NOT_CLEARED_PAYMENT_PROOF rides on every packet whether or not a link is present. Non-HTTPS and unparseable links fail closed to null.",
+    "PR #329 was red on main's own reachability ratchet before this merge: twelve modules landed implemented, tested, green and unreachable. Classified behind two registered gates rather than wired, because an orchestrator that runs is the last thing to switch on before its consequence path is decided. open-model-runtime-executor is the exception and is already wired, which is why production reachability rose 139 -> 140.",
+    "Fixed two provider-list tests that broke on the fifth provider, and they broke differently: one pinned the exact list (updated, not loosened, so adding a provider stays a visible act) and one read the sandbox by array position, finding the wrong row and reporting a defect that did not exist. Verified independently that all five providers fail closed by default.",
+    "Made the mutation war find an installed browser. It read CHROMIUM_PATH, nothing sets it, and Chromium is on this host, so it printed SKIPPED_NEEDS_BROWSER for a guard it could exercise while also printing \"0 not killed\". scripts/resolve-chromium.mjs accepts only executable files, respects a declared install root, and returns nothing rather than a plausible path, so an honest skip survives.",
+    "Made the mutation war survive interruption. Four consecutive runs were killed by container restarts, each discarding every verdict earned, so the summary line the readiness artifact quotes had never been produced for the current registry. MUTATION_WAR_JOURNAL appends verdicts as they are decided and replays them, bound to a hash of the file, anchor, replacement and killing suites so a guard that moved runs again rather than inheriting an answer. It proved itself the same session: a restart mid-run cost nothing.",
+    "Drove test:mutation-war to 164/164 with nothing skipped. Seven defects came out of the gate itself, each of which had been reporting a guard as untested while printing a clean summary line: it read CHROMIUM_PATH and nothing sets it; SKIPPED_NEEDS_POSTGRES meant nobody had handed the run a database; suites ran with no deadline so one hang stopped everything with no verdict; 160 mutations shared one database and then one server, so the gate measured the order it visited them in; and a hang beside a kill erased the kill.",
+    "Made the war resumable after four consecutive runs were lost to container restarts, each discarding every verdict earned. Verdicts are journaled as decided and bound to a hash of the file, anchor, replacement and killing suites, so a guard that moved runs again rather than inheriting an answer. Skips are never journaled, because a skip describes the host rather than the guard.",
+    "Drove test:postgres-real to 23 suites / 184 tests / 184 pass. It had never completed: it stopped inside the state-machine suite and waited, so ~180 tests behind that file had never executed and no run said so. Three causes: ~600 client round trips (now four PL/pgSQL statements), a concurrency test that only passed when two transactions happened to overlap (now holds the first transaction open and actually tests FOR UPDATE SKIP LOCKED), and a hundred client-side replays that wedge node:test after ~100 rejected pg queries (now counted server-side).",
+    "Established that the replay wedge is the test runner and not production, by measuring four ways before concluding: 200 clean queries in 61ms, conflicts through a pool stopping at ~55 iterations with no backends left, conflicts on one dedicated client stopping at the same ~100, and the identical loop outside node:test doing 300 conflicts in 90ms. No production module was changed for any of it.",
+    "Falsified every rewritten check before believing it: claiming all transitions legal fails with Postgres's own message, removing FOR UPDATE SKIP LOCKED fails the lock test, and dropping UNIQUE from provider_event_id fails the replay test."
   ],
   "blockers": [
     "NO_CONFIGURED_MODEL_PROVIDER: zero providers configured, no pricing evidence. The Claude Code harness session OAuth is the agent's credential, not a provider configured for UberBond.",
@@ -26,13 +37,10 @@
     "VERCEL_RUNTIME_UNPROVEN: the connected project reports live:false and no exact-current-main runtime is proven.",
     "BRANCH_DELETION_NOT_PERMITTED: git push --delete returns 403 for every branch while pushes succeed. A scoped permission, not a fault.",
     "FOUNDER_ABSENCE_DURATION_UNPROVEN: provable only by elapsed real time.",
-    "MUTATION_WAR_NOT_RUN_TO_COMPLETION: 154 registered, seven individually verified KILLED this session. The full run was started three times and each time lost to a container restart under load. Not claimed as passing.",
-    "POSTGRES_REAL_GATE_INFRASTRUCTURE: the runner now always terminates and reports. Last complete run 167/171, one genuine assertion failure (Gmail concurrent recovery workers, 4/4 when its suite runs alone) and three suite-level timeouts.",
     "Commercial truth remains zero customers, zero cleared revenue, zero accepted deliveries, zero retained customers."
   ],
   "nextActions": [
     "COMMERCIAL: one owner-authorized $450 white-label Lead-Path Revenue Leak Evidence Sprint through the existing canary packet, requiring cleared payment, accepted delivery, actual founder minutes and partner margin. Nothing in the repository can manufacture those four, and no further engineering moves the north star before them.",
-    "ENGINEERING (only if engineering time is spent first): finish the two gates that are now capable of completing but have not been observed doing so -- one uninterrupted 152-mutation war, and one clean npm run test:postgres-real with the repaired runner.",
     "CAPABILITY GENOME: unchanged. The next rung is layered dedupe plus independent SEMANTIC and SANDBOX evidence for the 2 normalized records. Normalization emits STATIC alone by design, so nothing reaches ELIGIBLE until the other two layers exist.",
     "OWNER/PROVIDER: one model provider credential with pricing evidence, and one payment provider account. Both software paths fail closed until configured."
   ],
@@ -58,11 +66,16 @@
     "notClaimed": "Two normalized records is two typed descriptions. Nothing is deduped, security-reviewed, eligible, approved, active, installed, benchmarked or economically proven. A skill body is not a capability; NORMALIZED is not APPROVED; STATIC_CLEAR is not SAFE."
   },
   "currentMeasuredSoftwareTruth": {
-    "exactHead": "5770d6256685bbaeca79d491a8a03c451b251c63 on claude/uberbond-ragnarok-closure-pek0g6",
-    "test:deterministic": "3277 tests, 3224 pass, 0 fail, 53 skipped",
-    "test:mutation-war": "154 mutations registered, every anchor resolving to exactly one site; full run NOT completed this session (three container restarts). Individually verified KILLED: POSTAL-QUARANTINE, PROPOSAL-01, PROPOSAL-02, CANON-01, CANON-02, CANON-03, CANON-04.",
-    "test:postgres-real": "runner repaired to always terminate and report; last complete run 167/171 with one genuine assertion failure and three suite-level timeouts. Classified INFRASTRUCTURE with the mechanism written down, not hidden behind a badge.",
-    "reachability": "288 src modules: 139 production-reachable, 28 operator-only, 121 no entry point, all classified",
+    "exactHead": "56a91dc93823f8531878ae73661f231c77807e96 on claude/uberbond-ragnarok-closure-pek0g6",
+    "check:syntax": "748 files parse",
+    "test:deterministic": "3351 tests, 3298 pass, 0 fail, 53 skipped",
+    "test:mutation-war": "164 mutations, 164 killed, 0 not killed, 0 skipped -- fully green for the first time, with nothing skipped",
+    "test:postgres-real": "23 suites, 184 tests, 184 pass, 0 fail -- green end to end for the first time; this gate had never completed",
+    "reachability": "301 src modules: 140 production-reachable, 28 operator-only, 133 classified with a registered gate",
+    "test:relay-safety": "150/150",
+    "test:capability-genome": "84/84",
+    "test:wallbreaker": "16/16",
+    "test:external-capabilities": "13/13",
     "npm audit --omit=dev": "0 vulnerabilities",
     "founderAbsenceSoftwareGaps": 0,
     "executedBy": "local execution in this session, not hosted CI"

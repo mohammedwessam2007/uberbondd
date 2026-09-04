@@ -272,3 +272,95 @@ rather than inheriting an answer. Suite order is deliberately excluded — a
 cosmetic reordering should not discard an hour of real evidence, or the resume
 is one nobody uses. Five tests hold it down, because the failure mode here is a
 green summary line, and a green lie is not something a later run corrects.
+
+---
+
+# Continuation — 2026-09-04: both blocking gates green
+
+Two gates had never once completed in this repository's history. Both are green
+now, and getting there was seven defects **in the gates themselves** — every one
+of which had been reporting a guard as untested while printing a clean summary.
+
+## `test:mutation-war` — 164 mutations, 164 killed, 0 skipped
+
+1. **It read `CHROMIUM_PATH` and nothing sets it**, so a browser guard was
+   skipped on a machine with Chromium installed. In a summary line a skip that
+   cannot be helped and a skip that could are indistinguishable.
+2. **`SKIPPED_NEEDS_POSTGRES` meant "nobody handed this run a database"**,
+   leaving nine guards unexercised wherever a variable was unset — the same
+   defect as the browser skip, one layer down. The war provisions its own
+   database now; the skip survives only for a server that will not start.
+3. **Suites ran with no deadline.** One hang stopped the whole run in `ep_poll`
+   with no verdict and nothing to say which mutation it was on. Thirteen minutes
+   of a run went that way before anyone read `/proc`.
+4. **All 160 mutations shared one database, then one server.** A suite that left
+   state behind broke every database-backed suite after it, so the gate was
+   measuring the order it happened to visit them in. Each database-backed
+   mutation now gets a private disposable server.
+5. **A hang beside a kill erased the kill.** Two guards reported the exact
+   assertion the mutation was written to break, in a file where another test
+   stalled, and were recorded as untested. An `ERR_ASSERTION` failure now wins
+   over a co-occurring hang — one way only, so a loaded machine still cannot
+   manufacture evidence.
+
+It is also resumable. Four consecutive runs had been lost to container restarts,
+each discarding every verdict it had earned. `MUTATION_WAR_JOURNAL` records each
+verdict as it is decided, bound to a hash of the file, anchor, replacement and
+killing suites, so a guard that moved runs again rather than inheriting an
+answer. It proved itself the same session: a restart mid-run cost nothing.
+
+## `test:postgres-real` — 23 suites, 184 tests, 184 pass
+
+It ran `omnia-v9-external-effect-state-machine`, stopped inside it, and waited,
+so roughly 180 tests scheduled behind that file had never executed and no run
+ever said so. Three causes, each found by removing the one in front of it.
+
+**The exhaustive transition check made ~600 client round trips.** Around the
+122nd the connection stopped responding — backend `active`, waiting on nothing,
+holding no lock, ignoring `statement_timeout`. A pool, then one dedicated client,
+then a connection per pair all stopped in the same place, which is what
+identified the round trips themselves as the cost rather than anything held in a
+session. The loop now runs in PL/pgSQL: four statements instead of six hundred,
+and the client no longer takes any part in deciding what the database accepted.
+
+An `unref` was masking this. It stopped a stuck socket pinning the event loop,
+but with nothing else pending the loop drained mid-query and the runner cancelled
+the test deterministically. A socket must be a reason to stay alive while the
+test runs and stop being one when it ends: a destroy in the `finally`, not an
+unref at the top.
+
+**The Gmail concurrency test asserted that exactly one of two workers claimed a
+row.** That was only ever true when the two transactions happened to overlap. On
+a fast database they stopped overlapping and both claims were legitimate —
+`RESULT_UNCERTAIN` is itself an unresolved status, so a committed row is a valid
+candidate again. Nothing was double-dispatched, which is the invariant that
+matters. The overlap is now made real by holding the first worker's transaction
+open, which tests `FOR UPDATE SKIP LOCKED` rather than assuming it.
+
+**The payment replay test drove a hundred replays from the client.** Inside
+`node:test`, after about a hundred rejected pg queries the next one never
+returns. Measured four ways before concluding anything, because "the database is
+slow" was the convenient answer and it was wrong:
+
+| condition | result |
+|---|---|
+| no conflicts, 200 queries | 61 ms |
+| conflicts through a pool | stops at ~55 iterations, no backends left on the server |
+| conflicts on one dedicated client | same ~100 errors |
+| identical loop outside `node:test` | 300 conflicts in 90 ms |
+
+It is the test runner, not the driver and not production — **nothing in `src/`
+changed for it**. Postgres now runs its own hundred in PL/pgSQL and reports what
+the index refused, which tests the constraint more directly than counting
+exceptions in JavaScript did.
+
+Every rewritten check was falsified before being believed: claiming all
+transitions legal fails with Postgres's own message; removing `FOR UPDATE SKIP
+LOCKED` fails the lock test; dropping `UNIQUE` from `provider_event_id` fails the
+replay test.
+
+## What did not change
+
+No production module was modified for any of this. Commercial truth is
+unchanged: zero customers, zero cleared revenue, zero accepted deliveries, zero
+retained customers. No outreach, no payment, no credential, no deployment.

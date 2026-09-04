@@ -6,6 +6,8 @@ This receipt preserves the truth boundary for the GENESIS 275 expansion. The bra
 
 Exact-head green execution of `npm run check:syntax && npm run test:deterministic` is still required before merge. Hosted jobs with zero steps/no logs and packaging-only previews remain infrastructure non-evidence.
 
+The latest trustworthy executable checkpoint before this receipt refresh was Vercel on `b448c4c35c223617c56cbc5c8350b0dd33a08a50`: 3,592 deterministic tests, 3,533 pass, 5 fail, 54 skipped. Two failures were subsequently repaired on-branch: the frontier-surface doctor expectation now matches the intentionally gated six operator-eligible surfaces, and the missing GENESIS implementation receipt now exists. The remaining failures from that historical checkpoint were generated present-tense canon/readiness drift and must be remeasured on the current exact head rather than inferred as green.
+
 ## Commercial truth
 
 The current commercial truth remains **0 customers, USD 0 cleared revenue, 0 accepted paid deliveries, 0 retained customers** unless independent external receipts change it. No GENESIS output can manufacture those facts.

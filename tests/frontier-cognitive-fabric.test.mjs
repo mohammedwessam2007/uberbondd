@@ -65,7 +65,7 @@ function callability(p, overrides = {}) {
 }
 
 function benchmark(p, overrides = {}) {
-  return normalizeModelBenchmark({
+  const out = normalizeModelBenchmark({
     provider: p.provider,
     model: p.model,
     taskClasses: p.taskClasses,
@@ -77,6 +77,9 @@ function benchmark(p, overrides = {}) {
     evidenceConfidence: overrides.evidenceConfidence ?? 0.95,
     costEfficiency: overrides.costEfficiency ?? 0.5
   }, new Date(overrides.observedAt ?? FRESH));
+  out.observedRevision = overrides.observedRevision ?? p.revision;
+  out.evidenceRef = overrides.evidenceRef ?? `benchmark://${p.id}`;
+  return out;
 }
 
 function contextArtifacts() {
@@ -261,6 +264,8 @@ test('normalized benchmark objects are revalidated instead of trusted because ok
     evidenceConfidence: 1,
     costEfficiency: 1,
     observedAt: FRESH,
+    observedRevision: p.revision,
+    evidenceRef: 'benchmark://forged-revalidated',
     benchmarkId: 'forged'
   };
   const result = compileFrontierCognitivePlan({ task: task(), profiles: [p], callability: [callability(p)], benchmarks: [forged], contextArtifacts: contextArtifacts(), now: NOW });

@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-export const GITHUB_ACTIONS_OIDC_VERIFIER_POLICY_VERSION = 'github-actions-oidc-verifier-1.0.0';
+export const GITHUB_ACTIONS_OIDC_VERIFIER_POLICY_VERSION = 'github-actions-oidc-verifier-1.1.0';
 export const GITHUB_ACTIONS_OIDC_ISSUER = 'https://token.actions.githubusercontent.com';
 export const GITHUB_ACTIONS_OIDC_JWKS = 'https://token.actions.githubusercontent.com/.well-known/jwks';
 export const SELF_MAINTAINER_OIDC_AUDIENCE = 'uberbond-self-maintainer-proposer-v1';
@@ -47,14 +47,75 @@ function parseJwt(token) {
   }
 }
 
+async function boundedResponseText(response, maxBytes, errorPrefix) {
+  const declared = Number(response?.headers?.get?.('content-length'));
+  if (Number.isFinite(declared) && declared > maxBytes) throw new Error(`${errorPrefix}-too-large`);
+  const raw = await response.text();
+  if (Buffer.byteLength(raw, 'utf8') > maxBytes) throw new Error(`${errorPrefix}-too-large`);
+  return raw;
+}
+
+/**
+ * Ask GitHub Actions for the short-lived OIDC identity of the current job.
+ * The request token is consumed only as an Authorization header and never
+ * appears in the returned receipt. `id-token: write` is required on the
+ * dedicated workflow or this fails closed.
+ */
+export async function requestGithubActionsOidcToken({ env = process.env, fetchImpl = globalThis.fetch } = {}) {
+  if (typeof fetchImpl !== 'function') return fail(['fetch-implementation-required'], 'OIDC_REQUEST_BLOCKED');
+  const requestUrl = text(env.ACTIONS_ID_TOKEN_REQUEST_URL, 4000);
+  const requestToken = String(env.ACTIONS_ID_TOKEN_REQUEST_TOKEN || '');
+  const reasons = [];
+  if (!requestUrl) reasons.push('github-oidc-request-url-required');
+  if (!requestToken) reasons.push('github-oidc-request-token-required');
+  let target = null;
+  try {
+    target = new URL(requestUrl || '');
+    if (target.protocol !== 'https:' || !target.hostname.endsWith('.actions.githubusercontent.com')) reasons.push('github-oidc-request-origin-invalid');
+    target.searchParams.set('audience', SELF_MAINTAINER_OIDC_AUDIENCE);
+  } catch {
+    reasons.push('github-oidc-request-url-invalid');
+  }
+  if (reasons.length) return fail(reasons, 'OIDC_REQUEST_BLOCKED');
+
+  let response;
+  try {
+    response = await fetchImpl(target, {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        authorization: `Bearer ${requestToken}`,
+        'user-agent': 'UberBond-Self-Maintainer-OIDC'
+      }
+    });
+  } catch {
+    return fail(['github-oidc-request-unavailable'], 'OIDC_REQUEST_BLOCKED');
+  }
+  if (!response?.ok) return fail([`github-oidc-request-http-${Number(response?.status || 0) || 'unknown'}`], 'OIDC_REQUEST_BLOCKED');
+  let payload;
+  try {
+    const raw = await boundedResponseText(response, MAX_TOKEN_BYTES * 2, 'github-oidc-response');
+    payload = JSON.parse(raw);
+  } catch {
+    return fail(['github-oidc-response-invalid'], 'OIDC_REQUEST_BLOCKED');
+  }
+  const token = String(payload?.value || '');
+  if (!token || Buffer.byteLength(token, 'utf8') > MAX_TOKEN_BYTES) return fail(['github-oidc-token-missing-or-too-large'], 'OIDC_REQUEST_BLOCKED');
+  return {
+    ok: true,
+    policyVersion: GITHUB_ACTIONS_OIDC_VERIFIER_POLICY_VERSION,
+    status: 'OIDC_TOKEN_ACQUIRED',
+    token
+  };
+}
+
 async function loadJwks(fetchImpl) {
   const response = await fetchImpl(GITHUB_ACTIONS_OIDC_JWKS, {
     method: 'GET',
     headers: { accept: 'application/json', 'user-agent': 'UberBond-OIDC-Verifier' }
   });
   if (!response?.ok) throw new Error(`github-oidc-jwks-http-${Number(response?.status || 0) || 'unknown'}`);
-  const raw = await response.text();
-  if (Buffer.byteLength(raw, 'utf8') > MAX_JWKS_BYTES) throw new Error('github-oidc-jwks-too-large');
+  const raw = await boundedResponseText(response, MAX_JWKS_BYTES, 'github-oidc-jwks');
   const parsed = JSON.parse(raw);
   if (!Array.isArray(parsed?.keys)) throw new Error('github-oidc-jwks-invalid');
   return parsed.keys;

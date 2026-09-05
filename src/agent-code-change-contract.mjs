@@ -61,7 +61,7 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   // contract before being listed here.
   //
   // The bypass is two steps rather than one -- a weakened applier only takes
-  // effect once it is merged and a later run uses it -- but the second step is
+  // effect once merged and used by a later run -- but the second step is
   // unbounded, and self-modification of the enforcement surface is the exact
   // thing this list exists to prevent.
   'src/agent-code-change-applier.mjs',
@@ -73,6 +73,22 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   // from the import graph rather than from a list someone maintained by hand,
   // which is the only reason it was noticed at all.
   'src/agent-git-sandbox-collector.mjs',
+  // Self-maintenance is an enforcement surface in its own right. These modules
+  // issue or validate write authority, prove isolation/verification, or carry a
+  // verified change into Git objects. If the autonomous path could edit any of
+  // them, it could weaken its own cage in one cycle and exploit that weakening
+  // in the next. The workflow file is already build-protected; the executable
+  // tick and every trusted enforcement organ it invokes are sovereignty too.
+  'src/agent-sandbox-verifier.mjs',
+  'src/github-actions-self-maintainer-authority.mjs',
+  'src/github-issues-relay-client.mjs',
+  'src/github-self-maintainer-promotion.mjs',
+  'src/github-self-maintainer-trusted-promotion.mjs',
+  'src/linux-self-maintainer-sandbox.mjs',
+  'src/self-maintenance-receipt-provenance.mjs',
+  'src/uberbond-self-maintainer.mjs',
+  'src/uberbond-self-maintainer-trusted-runtime.mjs',
+  'scripts/uberbond-self-maintainer-tick.mjs',
   // Whether a message may be sent to a real person, and on whose authority.
   'src/deliverability-guard.mjs',
   'src/send-safety.mjs',

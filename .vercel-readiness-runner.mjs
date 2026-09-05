@@ -41,7 +41,12 @@ function run(command, args, { env = process.env, allowFailure = false } = {}) {
   if (!allowFailure && status !== 0) {
     throw new Error(`${command} ${args.join(' ')} exited ${status}`);
   }
-  return { status, output: `${result.stdout || ''}\n${result.stderr || ''}` };
+  return {
+    status,
+    stdout: result.stdout || '',
+    stderr: result.stderr || '',
+    output: `${result.stdout || ''}\n${result.stderr || ''}`
+  };
 }
 
 function parseNodeTestSummary(output) {
@@ -65,6 +70,18 @@ function parseNodeTestSummary(output) {
   return summary;
 }
 
+function parseMutationWarSummary(output) {
+  const clean = String(output).replace(/\u001b\[[0-9;]*m/g, '');
+  const match = clean.match(/mutation-war\s+[—-]\s+(\d+)\s+mutations,\s+(\d+)\s+killed,\s+(\d+)\s+not killed,\s+(\d+)\s+skipped/i);
+  if (!match) throw new Error('unable to parse mutation-war summary');
+  return {
+    mutations: Number(match[1]),
+    killed: Number(match[2]),
+    notKilled: Number(match[3]),
+    skipped: Number(match[4])
+  };
+}
+
 function runReadiness() {
   run('npm', ['run', 'readiness'], { env: canonicalEnv });
 }
@@ -81,6 +98,40 @@ function runDeterministic(label) {
     throw new Error(`deterministic ${label} is red: exit=${result.status} summary=${JSON.stringify(summary)}`);
   }
   return summary;
+}
+
+function runMutationWar() {
+  console.log('READINESS_CLOSURE_MUTATION_WAR_BEGIN');
+  const result = run('npm', ['run', 'test:mutation-war'], {
+    env: zeroNetworkEnv,
+    allowFailure: true
+  });
+  const summary = parseMutationWarSummary(result.output);
+  console.log(`READINESS_CLOSURE_MUTATION_WAR_SUMMARY ${JSON.stringify(summary)}`);
+  if (result.status !== 0 || summary.notKilled !== 0 || summary.skipped !== 0 || summary.killed !== summary.mutations) {
+    throw new Error(`mutation war is not fully green: exit=${result.status} summary=${JSON.stringify(summary)}`);
+  }
+  return summary;
+}
+
+function runAudit() {
+  console.log('READINESS_CLOSURE_DEPENDENCY_AUDIT_BEGIN');
+  const result = run('npm', ['audit', '--omit=dev', '--json'], {
+    env: zeroNetworkEnv,
+    allowFailure: true
+  });
+  let report;
+  try {
+    report = JSON.parse(result.stdout);
+  } catch {
+    throw new Error(`dependency audit did not emit parseable JSON: exit=${result.status}`);
+  }
+  const vulnerabilities = Number(report?.metadata?.vulnerabilities?.total);
+  if (result.status !== 0 || !Number.isSafeInteger(vulnerabilities) || vulnerabilities !== 0) {
+    throw new Error(`dependency audit is not green: exit=${result.status} vulnerabilities=${vulnerabilities}`);
+  }
+  console.log(`READINESS_CLOSURE_DEPENDENCY_AUDIT_PASS ${JSON.stringify({ vulnerabilities })}`);
+  return { vulnerabilities };
 }
 
 function runHostileGate(label, command, args) {
@@ -125,6 +176,8 @@ commitLocal([inputPath], 'TEMP local pre-readiness measured inputs');
 runReadiness();
 
 const firstDeterministic = runDeterministic('POST_FIRST_REGEN');
+const mutationWar = runMutationWar();
+const dependencyAudit = runAudit();
 const measuredAt = new Date().toISOString();
 const measuredInput = JSON.parse(readFileSync(inputPath, 'utf8'));
 measuredInput.measurements['test:deterministic'] = {
@@ -137,11 +190,26 @@ measuredInput.measurements['test:deterministic'] = {
   ranAt: measuredAt,
   note: `Measured on the real Vercel checkout after first canonical readiness regeneration for source candidate ${canonicalHead}; final second regeneration and verification rerun required before certification.`
 };
+measuredInput.measurements['test:mutation-war'] = {
+  ...measuredInput.measurements['test:mutation-war'],
+  command: 'npm run test:mutation-war',
+  result: `${mutationWar.mutations} mutations, ${mutationWar.killed} killed, ${mutationWar.notKilled} not killed, ${mutationWar.skipped} skipped`,
+  note: `Fresh exact-candidate Mutation War on the closure runner; every registered mutation killed and none skipped for source candidate ${canonicalHead}.`,
+  ranAt: measuredAt
+};
+measuredInput.measurements['npm audit'] = {
+  ...measuredInput.measurements['npm audit'],
+  command: 'npm audit --omit=dev',
+  status: 'PASS_EXACT_CANDIDATE',
+  vulnerabilities: dependencyAudit.vulnerabilities,
+  note: `Fresh production-dependency npm audit on the closure runner for source candidate ${canonicalHead}.`,
+  ranAt: measuredAt
+};
 writeFileSync(inputPath, `${JSON.stringify(measuredInput, null, 2)}\n`);
 
 commitLocal(
   [inputPath, 'docs/CURRENT_SYSTEM_STATE.md', 'artifacts/system-readiness.json'],
-  'TEMP local bind actual deterministic measurement'
+  'TEMP local bind exact closure measurements'
 );
 runReadiness();
 
@@ -168,8 +236,7 @@ const hostileGates = [
       'tests/frontier-cognitive-raw-compiler-bypass.test.mjs',
       'tests/frontier-producer-origin.test.mjs'
     ]
-  ),
-  runHostileGate('DEPENDENCY_AUDIT', 'npm', ['audit', '--omit=dev'])
+  )
 ];
 
 const files = ['config/system-readiness-input.json', 'docs/CURRENT_SYSTEM_STATE.md', 'artifacts/system-readiness.json'];
@@ -183,4 +250,4 @@ for (const path of files) {
   }
   console.log(`READINESS_ARTIFACT_END ${path}`);
 }
-console.log(`READINESS_CLOSURE_PHASE_COMPLETE ${JSON.stringify({ canonicalHead, firstDeterministic, finalDeterministic, hostileGates, mutationWar: 'PENDING_SEPARATE_EXACT_HEAD_GATE' })}`);
+console.log(`READINESS_CLOSURE_PHASE_COMPLETE ${JSON.stringify({ canonicalHead, firstDeterministic, mutationWar, dependencyAudit, finalDeterministic, hostileGates })}`);

@@ -50,6 +50,100 @@ test('changing a synthetic receipt to live and recomputing its digest still lack
   assert.ok(result.reasonCodes.includes('canonical-probe-producer-origin-required'));
 });
 
+test('producer-authoritative live receipt loses authority after clone or JSON round-trip', async () => {
+  const originalFetch = globalThis.fetch;
+  const priorEnv = {};
+  const envPatch = {
+    AI_GATEWAY_API_KEY: 'zero-network-test-key-123456',
+    AI_GATEWAY_AGENT_ENABLED: 'true',
+    AI_GATEWAY_INPUT_USD_PER_MILLION: '0',
+    AI_GATEWAY_OUTPUT_USD_PER_MILLION: '0',
+    AI_GATEWAY_PRICING_SOURCE: 'test://zero-network-pricing',
+    AI_GATEWAY_PRICING_VERIFIED_AT: '2026-09-05T00:00:00.000Z'
+  };
+  for (const [key, value] of Object.entries(envPatch)) {
+    priorEnv[key] = process.env[key];
+    process.env[key] = value;
+  }
+
+  let fakeProviderCalls = 0;
+  globalThis.fetch = async () => {
+    fakeProviderCalls += 1;
+    return {
+      ok: true,
+      status: 200,
+      async text() {
+        return JSON.stringify({
+          id: 'zero-network-live-probe-1',
+          model: 'google/elite',
+          model_revision: 'r1',
+          usage: { prompt_tokens: 1, completion_tokens: 1, total_tokens: 2 },
+          choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ status: 'AVENGER_READY' }) } }]
+        });
+      }
+    };
+  };
+
+  try {
+    const liveModule = await import(`../src/frontier-callability-provenance.mjs?clone-authority-test=${Date.now()}`);
+    const produced = await liveModule.probeFrontierCallability({
+      approved: true,
+      profiles: [{
+        id: 'elite', provider: 'google', model: 'elite', revision: 'r1',
+        transportProvider: 'ai-gateway', transportModel: 'google/elite', enabled: true
+      }],
+      costCeilingCents: 0,
+      maxTokens: 16
+    });
+    assert.equal(produced.ok, true);
+    assert.equal(produced.simulationOnly, false);
+    assert.equal(fakeProviderCalls, 1);
+
+    const original = liveModule.validateFrontierCallabilityProbeReceipt({
+      receipt: produced.receipt,
+      receiptDigest: produced.receiptDigest,
+      allowSynthetic: false
+    });
+    assert.equal(original.ok, true);
+    assert.equal(original.trustedForLiveExecution, true);
+
+    const clones = [
+      structuredClone(produced.receipt),
+      JSON.parse(JSON.stringify(produced.receipt))
+    ];
+    for (const copy of clones) {
+      const rejected = liveModule.validateFrontierCallabilityProbeReceipt({
+        receipt: copy,
+        receiptDigest: produced.receiptDigest,
+        allowSynthetic: false
+      });
+      assert.equal(rejected.ok, false);
+      assert.ok(rejected.reasonCodes.includes('canonical-probe-producer-origin-required'));
+
+      const admission = buildFrontierAdmissionBundle({
+        profiles: [profile],
+        callability: [{ ...produced.receipt.observations[0], providerRequestId: undefined }],
+        benchmarks: [],
+        contextArtifacts: [],
+        source: { kind: 'TEST', ref: 'test://clone-admission', observedAt: produced.receipt.generatedAt },
+        callabilityProvenance: { receipt: copy, receiptDigest: produced.receiptDigest }
+      });
+      assert.equal(admission.ok, true);
+      assert.equal(admission.bundle.callability.length, 0);
+      assert.equal(admission.bundle.trustedForLiveExecution, false);
+      assert.equal(admission.bundle.rejectedCallability.length, 1);
+      assert.match(admission.bundle.rejectedCallability[0].reason, /trusted-canonical-probe-receipt-required/);
+      assert.equal(fakeProviderCalls, 1);
+    }
+  } finally {
+    globalThis.fetch = originalFetch;
+    for (const key of Object.keys(envPatch)) {
+      if (priorEnv[key] === undefined) delete process.env[key];
+      else process.env[key] = priorEnv[key];
+    }
+  }
+});
+
 test('admission bundle loses process authority after caller mutation', () => {
   const built = syntheticReceipt();
   const admission = buildFrontierAdmissionBundle({

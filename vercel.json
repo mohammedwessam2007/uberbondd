@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run readiness && node scripts/emit-readiness-artifacts.mjs && npm run check:syntax && npm run test:deterministic",
+  "buildCommand": "node scripts/emit-readiness-artifacts.mjs && npm run check:syntax && npm run test:deterministic",
   "functions": {
     "api/agent-relay.mjs": { "maxDuration": 60 },
     "api/agent-mesh-cron.mjs": { "maxDuration": 60 },

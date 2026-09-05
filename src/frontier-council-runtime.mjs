@@ -4,7 +4,7 @@ import { redactSecrets } from './secret-patterns.mjs';
 import { executeFrontierMember } from './frontier-reasoning-runtime.mjs';
 import { buildFrontierCognitiveReceipt } from './frontier-cognitive-fabric.mjs';
 
-export const FRONTIER_COUNCIL_RUNTIME_VERSION = 'uberbond.frontier-council-runtime-1.2.1';
+export const FRONTIER_COUNCIL_RUNTIME_VERSION = 'uberbond.frontier-council-runtime-1.2.2';
 const MAX_PHASE_TEXT = 20_000;
 const MAX_UNRESOLVED = 32;
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
@@ -41,7 +41,8 @@ export async function executeFrontierCouncil({ planResult, callability = [], mod
   if (!planResult?.ok || planResult?.plan?.mode !== 'COUNCIL_MAX') return failure(['verified-council-plan-required']);
   const plan = planResult.plan;
   if (!Array.isArray(plan.responders) || plan.responders.length < 2 || !plan.adjudicator) return failure(['bounded-responders-and-adjudicator-required']);
-  if (plan.status !== 'COUNCIL_DEGRADED' && plan.responders.some(item => item.profileId === plan.adjudicator.profileId)) return failure(['independent-adjudicator-required']);
+  const adjudicatorIsResponder = plan.responders.some(item => item.profileId === plan.adjudicator.profileId);
+  if (plan.status !== 'COUNCIL_DEGRADED' && adjudicatorIsResponder) return failure(['independent-adjudicator-required']);
   const totalBudget = integer(costCeilingCents, 0, 10_000_000);
   if (totalBudget == null) return failure(['bounded-shared-council-budget-required']);
   const responderCount = plan.responders.length;
@@ -102,12 +103,14 @@ export async function executeFrontierCouncil({ planResult, callability = [], mod
   const critiquePacketText = safeText(critiquePacket);
   if (!critiquePacketText) return failure(['cross-critique-response-packet-invalid']);
 
-  // Phase 3: a distinct adjudicator sees the sealed answers and all cross-critiques.
+  // Phase 3: the adjudicator sees the sealed answers and all cross-critiques.
+  // Reuse is allowed only when the plan is explicitly COUNCIL_DEGRADED.
   const adjudicatorEvidence = evidenceByProfile.get(plan.adjudicator.profileId);
   const finalObjective = [
-    'Act as the final independent adjudicator for a frontier council.',
+    'Act as the final adjudicator for a frontier council.',
     'Return an evidence-weighted decision, preserve dissent and unresolved uncertainty, and never use majority as proof.',
     'Treat responder critiques as process evidence, not external truth.',
+    ...(adjudicatorIsResponder ? ['This is an explicitly degraded council: your earlier responder work is not independent adjudication evidence. Preserve that degradation in the result.'] : ['You are distinct from all responders.']),
     `Original objective: ${plan.task.objective}`,
     `Independent responses: ${packetText}`,
     `Responder cross-critiques: ${critiquePacketText}`
@@ -140,32 +143,42 @@ export async function executeFrontierCouncil({ planResult, callability = [], mod
     adjudicationResultRef: finalRun.execution.resultRef,
     responderProfiles: plan.responders.map(item => item.profileId),
     adjudicatorProfile: plan.adjudicator.profileId,
+    adjudicatorIsResponder,
     costCeilingCents: totalBudget,
     spentCents
   });
   const processVerifierRef = `frontier-process-proof://${processDigest}`;
+  // Canonical cognitive executions are one per selected profile. When an explicit
+  // degraded council reuses a responder as adjudicator, keep the extra phase
+  // execution separately instead of forging a duplicate canonical profile entry.
+  const cognitiveExecutions = adjudicatorIsResponder
+    ? independentRuns.map(item => item.execution)
+    : [...independentRuns.map(item => item.execution), finalRun.execution];
   const receiptResult = buildFrontierCognitiveReceipt({
     planResult,
-    executions: [...independentRuns.map(item => item.execution), finalRun.execution],
+    executions: cognitiveExecutions,
     contradictions,
     verifierEvidenceRefs: [...critiqueResultRefs, processVerifierRef],
     adjudication: {
       decision,
       decisionBasis: 'EVIDENCE_WEIGHTED',
       adjudicatorProfileId: plan.adjudicator.profileId,
-      independentFromResponders: !plan.responders.some(item => item.profileId === plan.adjudicator.profileId),
+      independentFromResponders: !adjudicatorIsResponder,
       unresolved
     },
     now
   });
   if (!receiptResult.ok) return failure(['council-receipt-failed', ...(receiptResult.reasonCodes || [])], 'FRONTIER_COUNCIL_RECEIPT_BLOCKED');
   const critiqueExecutions = critiqueRuns.map(item => structuredClone(item.execution));
+  const adjudicationExecution = structuredClone(finalRun.execution);
   const receipt = {
     ...receiptResult.receipt,
     councilBudgetCents: totalBudget,
     councilSpentCents: spentCents,
     crossCritiqueProfiles: plan.responders.map(item => item.profileId),
     critiqueExecutions,
+    adjudicationExecution,
+    adjudicatorReusedFromResponders: adjudicatorIsResponder,
     budgetInvariant: 'ONE_SHARED_COUNCIL_BUDGET_COVERS_ALL_FIRST_PASSES_CROSS_CRITIQUES_AND_ADJUDICATION; NO_CALL_RECEIVES_THE_FULL_MISSION_CEILING'
   };
   return envelope({
@@ -175,12 +188,12 @@ export async function executeFrontierCouncil({ planResult, callability = [], mod
     executionCount: independentRuns.length + critiqueRuns.length + 1,
     responderExecutions: independentRuns.map(item => item.execution),
     critiqueExecutions,
-    adjudicationExecution: finalRun.execution,
+    adjudicationExecution,
     processVerifierRef,
     costCeilingCents: totalBudget,
     spentCents,
     receipt,
     receiptDigest: digest(receipt),
-    truthBoundary: 'COUNCIL_PROCESS_IS_DETERMINISTICALLY_VERIFIED_BUT_MODEL_SEMANTICS_ARE_NOT_EXTERNAL_TRUTH; FIRST_PASSES_ARE_INDEPENDENT; RESPONDERS_CROSS_CRITIQUE_ONLY_AFTER_ALL_FIRST_PASSES; ADJUDICATOR_IS_DISTINCT; MAJORITY_IS_NOT_PROOF; ONE_SHARED_BUDGET_GOVERNS_ALL_COUNCIL_CALLS'
+    truthBoundary: `COUNCIL_PROCESS_IS_DETERMINISTICALLY_VERIFIED_BUT_MODEL_SEMANTICS_ARE_NOT_EXTERNAL_TRUTH; FIRST_PASSES_ARE_INDEPENDENT; RESPONDERS_CROSS_CRITIQUE_ONLY_AFTER_ALL_FIRST_PASSES; ${adjudicatorIsResponder ? 'ADJUDICATOR_REUSE_IS_EXPLICITLY_DEGRADED_AND_NOT_INDEPENDENT; ' : 'ADJUDICATOR_IS_DISTINCT; '}MAJORITY_IS_NOT_PROOF; ONE_SHARED_BUDGET_GOVERNS_ALL_COUNCIL_CALLS`
   });
 }

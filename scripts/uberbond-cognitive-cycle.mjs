@@ -9,6 +9,7 @@ import { compileCognitiveEventsFromArtifacts } from '../src/uberbond-cognitive-a
 import { eventFromEventHorizonDoctor } from '../src/event-horizon-cognitive-adapter.mjs';
 import { compileGenesisLobeEvents } from '../src/genesis-cognitive-adapters.mjs';
 import { compileWallbreakerReflexes } from '../src/wallbreaker-cognitive-reflex.mjs';
+import { eventFromFeatureGenome, eventFromFrontierModelTeamDoctor } from '../src/whole-brain-cognitive-adapters.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = new Map();
@@ -35,16 +36,20 @@ const paths = {
   lineage: optionalPath('--lineage', 'config/uberbond-cognitive-lineage.json'),
   capabilityGenome: args.get('--capability-genome') ? resolve(root, String(args.get('--capability-genome'))) : null,
   eventHorizon: args.get('--event-horizon') ? resolve(root, String(args.get('--event-horizon'))) : null,
+  featureGenome: args.get('--feature-genome') ? resolve(root, String(args.get('--feature-genome'))) : null,
+  frontierModelTeam: args.get('--frontier-model-team') ? resolve(root, String(args.get('--frontier-model-team'))) : null,
   selfMaintenance: args.get('--self-maintenance') ? resolve(root, String(args.get('--self-maintenance'))) : null,
   commercialOutcome: args.get('--commercial-outcome') ? resolve(root, String(args.get('--commercial-outcome'))) : null,
   output: optionalPath('--output', 'artifacts/uberbond-cognitive-cycle-latest.json')
 };
 
-const [gamechanger, genesis, evolution, scientist, ontology, metabolism, lineage, capabilityGenome, eventHorizon, selfMaintenance, commercialOutcome] = await Promise.all([
+const [gamechanger, genesis, evolution, scientist, ontology, metabolism, lineage, capabilityGenome, eventHorizon, featureGenome, frontierModelTeam, selfMaintenance, commercialOutcome] = await Promise.all([
   readJson(paths.gamechanger), readJson(paths.genesis), readJson(paths.evolution), readJson(paths.scientist),
   readJson(paths.ontology), readJson(paths.metabolism), readJson(paths.lineage),
   paths.capabilityGenome ? readJson(paths.capabilityGenome) : null,
   paths.eventHorizon ? readJson(paths.eventHorizon) : null,
+  paths.featureGenome ? readJson(paths.featureGenome) : null,
+  paths.frontierModelTeam ? readJson(paths.frontierModelTeam) : null,
   paths.selfMaintenance ? readJson(paths.selfMaintenance) : null,
   paths.commercialOutcome ? readJson(paths.commercialOutcome) : null
 ]);
@@ -96,7 +101,23 @@ if (eventHorizonEvent && !eventHorizonEvent.ok) {
   process.stderr.write(`${JSON.stringify(eventHorizonEvent, null, 2)}\n`);
   process.exit(2);
 }
-const events = [...adapted.events, ...genesisLobes.events, ...(eventHorizonEvent ? [eventHorizonEvent] : [])];
+const featureGenomeEvent = featureGenome ? eventFromFeatureGenome(featureGenome, { ref: `artifact:${paths.featureGenome}` }) : null;
+if (featureGenomeEvent && !featureGenomeEvent.ok) {
+  process.stderr.write(`${JSON.stringify(featureGenomeEvent, null, 2)}\n`);
+  process.exit(2);
+}
+const frontierModelEvent = frontierModelTeam ? eventFromFrontierModelTeamDoctor(frontierModelTeam, { ref: `artifact:${paths.frontierModelTeam}` }) : null;
+if (frontierModelEvent && !frontierModelEvent.ok) {
+  process.stderr.write(`${JSON.stringify(frontierModelEvent, null, 2)}\n`);
+  process.exit(2);
+}
+const events = [
+  ...adapted.events,
+  ...genesisLobes.events,
+  ...(eventHorizonEvent ? [eventHorizonEvent] : []),
+  ...(featureGenomeEvent ? [featureGenomeEvent] : []),
+  ...(frontierModelEvent ? [frontierModelEvent] : [])
+];
 const wallbreaker = compileWallbreakerReflexes(events);
 if (!wallbreaker.ok) {
   process.stderr.write(`${JSON.stringify(wallbreaker, null, 2)}\n`);
@@ -130,8 +151,25 @@ const receipt = {
     gamechanger: Boolean(gamechanger), genesis: Boolean(genesis), genesisEvolution: Boolean(evolution),
     genesisScientist: Boolean(scientist), genesisOntology: Boolean(ontology), genesisMetabolism: Boolean(metabolism),
     capabilityGenome: Boolean(capabilityGenome), eventHorizon: Boolean(eventHorizon),
+    featureGenome: Boolean(featureGenome), frontierModelTeam: Boolean(frontierModelTeam),
     selfMaintenance: Boolean(selfMaintenance), commercialOutcome: Boolean(commercialOutcome)
   },
+  featureGenome: featureGenome ? {
+    genomeDigest: featureGenome.genomeDigest || null,
+    repositoryArtifactCount: featureGenome.repositoryArtifactCount || 0,
+    sourceDependencyEdgeCount: featureGenome.sourceDependencyEdgeCount || 0,
+    readinessCapabilityCount: featureGenome.readinessCapabilityCount || 0,
+    genesisIdeaCount: featureGenome.genesisIdeaCount || 0,
+    donorLineageCount: featureGenome.donorLineageCount || 0,
+    semanticReviewQueueCount: featureGenome.fallbackArtifactCount || 0
+  } : null,
+  frontierModelTeam: frontierModelTeam ? {
+    status: frontierModelTeam.status || null,
+    candidateCount: frontierModelTeam?.candidateRegistry?.candidateCount || 0,
+    configuredCandidateCount: frontierModelTeam.configuredCandidateCount || 0,
+    callableCandidateCount: frontierModelTeam.callableCandidateCount || 0,
+    missionDigest: frontierModelTeam?.teamMission?.missionDigest || null
+  } : null,
   events,
   activationSummary: { eventCount: cycle.eventCount, activationCount: cycle.activationCount, targetCounts: cycle.targetCounts },
   wallbreaker: {
@@ -143,7 +181,7 @@ const receipt = {
   routes: cycle.routes,
   businessEffectAuthority: 'NONE',
   externalEffectAuthority: 'NONE',
-  truthBoundary: 'THIS_RECEIPT_IS_A COGNITIVE ROUTING, LINEAGE AND RECOVERY-REFLEX MAP. ACTIVATION AND WALLBREAKER COUNTERMOVES ARE ATTENTION/PLANNING ONLY. HISTORICAL DONOR NAMES DO NOT BECOME LIVE RUNTIMES, ALLOCATION SCORES DO NOT BECOME DEMAND, COUNTERFACTUAL GENESIS OUTPUT DOES NOT BECOME EXTERNAL FACT, AND NO EDGE OR RECOVERY REFLEX CREATES EXTERNAL CONSEQUENCE AUTHORITY.'
+  truthBoundary: 'THIS RECEIPT IS A COGNITIVE ROUTING, FEATURE-COVERAGE, MODEL-ROSTER, LINEAGE AND RECOVERY-REFLEX MAP. ACTIVATION AND WALLBREAKER COUNTERMOVES ARE ATTENTION/PLANNING ONLY. FEATURE CLASSIFICATION DOES NOT PROVE BEHAVIOR, MODEL CATALOG PRESENCE DOES NOT PROVE CALLABILITY, HISTORICAL DONOR NAMES DO NOT BECOME LIVE RUNTIMES, ALLOCATION SCORES DO NOT BECOME DEMAND, COUNTERFACTUAL GENESIS OUTPUT DOES NOT BECOME EXTERNAL FACT, AND NO EDGE OR RECOVERY REFLEX CREATES EXTERNAL CONSEQUENCE AUTHORITY.'
 };
 
 await mkdir(dirname(paths.output), { recursive: true });
@@ -152,6 +190,8 @@ process.stdout.write(`${JSON.stringify({
   ok: true, status: 'UBERBOND_COGNITIVE_CYCLE_COMPILED', graphDigest: graph.graphDigest,
   nodes: integrity.nodeCount, edges: integrity.edgeCount, lineages: lineage.lineages.length,
   donorNames: receipt.lineage.donorNameCount, events: cycle.eventCount, activations: cycle.activationCount,
+  featureArtifacts: receipt.featureGenome?.repositoryArtifactCount || 0,
+  frontierModelCandidates: receipt.frontierModelTeam?.candidateCount || 0,
   wallbreakerReflexes: wallbreaker.reflexCount, targetCounts: cycle.targetCounts, output: paths.output,
   businessEffectAuthority: 'NONE'
 }, null, 2)}\n`);

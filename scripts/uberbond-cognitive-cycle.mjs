@@ -9,7 +9,11 @@ import { compileCognitiveEventsFromArtifacts } from '../src/uberbond-cognitive-a
 import { eventFromEventHorizonDoctor } from '../src/event-horizon-cognitive-adapter.mjs';
 import { compileGenesisLobeEvents } from '../src/genesis-cognitive-adapters.mjs';
 import { compileWallbreakerReflexes } from '../src/wallbreaker-cognitive-reflex.mjs';
-import { eventFromFeatureGenome, eventFromFrontierModelTeamDoctor } from '../src/whole-brain-cognitive-adapters.mjs';
+import {
+  eventFromFeatureGenome,
+  eventFromFrontierModelTeamDoctor,
+  eventFromComputeSovereignty
+} from '../src/whole-brain-cognitive-adapters.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = new Map();
@@ -45,6 +49,7 @@ const paths = {
   eventHorizon: selectedPath('--event-horizon'),
   featureGenome: selectedPath('--feature-genome'),
   frontierModelTeam: selectedPath('--frontier-model-team'),
+  computeSovereignty: selectedPath('--compute-sovereignty'),
   metacognitiveSynthesis: selectedPath('--metacognitive-synthesis'),
   genesisReactivation: selectedPath('--genesis-reactivation'),
   selfMaintenance: selectedPath('--self-maintenance'),
@@ -52,13 +57,18 @@ const paths = {
   output: optionalPath('--output', 'artifacts/uberbond-cognitive-cycle-latest.json')
 };
 
-const [gamechanger, genesis, evolution, scientist, ontology, metabolism, lineage, capabilityGenome, eventHorizon, featureGenome, frontierModelTeam, metacognitiveSynthesis, genesisReactivation, selfMaintenance, commercialOutcome] = await Promise.all([
+const [
+  gamechanger, genesis, evolution, scientist, ontology, metabolism, lineage,
+  capabilityGenome, eventHorizon, featureGenome, frontierModelTeam, computeSovereignty,
+  metacognitiveSynthesis, genesisReactivation, selfMaintenance, commercialOutcome
+] = await Promise.all([
   readJson(paths.gamechanger), readJson(paths.genesis), readJson(paths.evolution), readJson(paths.scientist),
   readJson(paths.ontology), readJson(paths.metabolism), readJson(paths.lineage),
   paths.capabilityGenome ? readJson(paths.capabilityGenome) : null,
   paths.eventHorizon ? readJson(paths.eventHorizon) : null,
   paths.featureGenome ? readJson(paths.featureGenome) : null,
   paths.frontierModelTeam ? readJson(paths.frontierModelTeam) : null,
+  paths.computeSovereignty ? readJson(paths.computeSovereignty) : null,
   paths.metacognitiveSynthesis ? readJson(paths.metacognitiveSynthesis) : null,
   paths.genesisReactivation ? readJson(paths.genesisReactivation) : null,
   paths.selfMaintenance ? readJson(paths.selfMaintenance) : null,
@@ -122,6 +132,11 @@ if (frontierModelEvent && !frontierModelEvent.ok) {
   process.stderr.write(`${JSON.stringify(frontierModelEvent, null, 2)}\n`);
   process.exit(2);
 }
+const computeSovereigntyEvent = computeSovereignty ? eventFromComputeSovereignty(computeSovereignty, { ref: `artifact:${paths.computeSovereignty}` }) : null;
+if (computeSovereigntyEvent && !computeSovereigntyEvent.ok) {
+  process.stderr.write(`${JSON.stringify(computeSovereigntyEvent, null, 2)}\n`);
+  process.exit(2);
+}
 const metaEvents = receiptEvents(metacognitiveSynthesis, 'metacognitive-synthesis');
 const reactivationEvents = receiptEvents(genesisReactivation, 'genesis-reactivation');
 if (!metaEvents.ok || !reactivationEvents.ok) {
@@ -135,6 +150,7 @@ const events = [
   ...(eventHorizonEvent ? [eventHorizonEvent] : []),
   ...(featureGenomeEvent ? [featureGenomeEvent] : []),
   ...(frontierModelEvent ? [frontierModelEvent] : []),
+  ...(computeSovereigntyEvent ? [computeSovereigntyEvent] : []),
   ...metaEvents.events,
   ...reactivationEvents.events
 ];
@@ -171,7 +187,7 @@ const receipt = {
     gamechanger: Boolean(gamechanger), genesis: Boolean(genesis), genesisEvolution: Boolean(evolution),
     genesisScientist: Boolean(scientist), genesisOntology: Boolean(ontology), genesisMetabolism: Boolean(metabolism),
     capabilityGenome: Boolean(capabilityGenome), eventHorizon: Boolean(eventHorizon),
-    featureGenome: Boolean(featureGenome), frontierModelTeam: Boolean(frontierModelTeam),
+    featureGenome: Boolean(featureGenome), frontierModelTeam: Boolean(frontierModelTeam), computeSovereignty: Boolean(computeSovereignty),
     metacognitiveSynthesis: Boolean(metacognitiveSynthesis), genesisReactivation: Boolean(genesisReactivation),
     selfMaintenance: Boolean(selfMaintenance), commercialOutcome: Boolean(commercialOutcome)
   },
@@ -190,6 +206,15 @@ const receipt = {
     configuredCandidateCount: frontierModelTeam.configuredCandidateCount || 0,
     callableCandidateCount: frontierModelTeam.callableCandidateCount || 0,
     missionDigest: frontierModelTeam?.teamMission?.missionDigest || null
+  } : null,
+  computeSovereignty: computeSovereignty ? {
+    status: computeSovereignty.status || null,
+    offerCount: computeSovereignty.offerCount || 0,
+    admissibleOfferCount: computeSovereignty.admissibleOfferCount || 0,
+    rejectedOfferCount: computeSovereignty.rejectedOfferCount || 0,
+    zeroCostTokens: computeSovereignty.zeroCostTokens || 0,
+    paidTokens: computeSovereignty.paidTokens || 0,
+    allocationStatus: computeSovereignty?.allocationProbe?.status || null
   } : null,
   metacognition: metacognitiveSynthesis ? {
     synthesisDigest: metacognitiveSynthesis.synthesisDigest || null,
@@ -216,7 +241,7 @@ const receipt = {
   routes: cycle.routes,
   businessEffectAuthority: 'NONE',
   externalEffectAuthority: 'NONE',
-  truthBoundary: 'THIS RECEIPT IS A COGNITIVE ROUTING, FEATURE-COVERAGE, MODEL-ROSTER, METACOGNITIVE-SEARCH, ASSOCIATIVE-RECALL, LINEAGE AND RECOVERY-REFLEX MAP. ACTIVATION, IDEA RECOMBINATION, GENESIS REACTIVATION AND WALLBREAKER COUNTERMOVES ARE ATTENTION/RESEARCH/PLANNING ONLY. FEATURE CLASSIFICATION DOES NOT PROVE BEHAVIOR, TOKEN ASSOCIATION DOES NOT PROVE IDEA RELEVANCE, MODEL CATALOG PRESENCE DOES NOT PROVE CALLABILITY, HISTORICAL DONOR NAMES DO NOT BECOME LIVE RUNTIMES, ALLOCATION SCORES DO NOT BECOME DEMAND, COUNTERFACTUAL GENESIS OUTPUT DOES NOT BECOME EXTERNAL FACT, AND NO EDGE OR RECOVERY REFLEX CREATES EXTERNAL CONSEQUENCE AUTHORITY.'
+  truthBoundary: 'THIS RECEIPT IS A COGNITIVE ROUTING, FEATURE-COVERAGE, MODEL-ROSTER, COMPUTE-SUPPLY, METACOGNITIVE-SEARCH, ASSOCIATIVE-RECALL, LINEAGE AND RECOVERY-REFLEX MAP. ACTIVATION, IDEA RECOMBINATION, GENESIS REACTIVATION AND WALLBREAKER COUNTERMOVES ARE ATTENTION/RESEARCH/PLANNING ONLY. FEATURE CLASSIFICATION DOES NOT PROVE BEHAVIOR, TOKEN ASSOCIATION DOES NOT PROVE IDEA RELEVANCE, MODEL CATALOG PRESENCE DOES NOT PROVE CALLABILITY, COMPUTE CATALOG PRESENCE DOES NOT CREATE QUOTA OR ENTITLEMENT, HISTORICAL DONOR NAMES DO NOT BECOME LIVE RUNTIMES, ALLOCATION SCORES DO NOT BECOME DEMAND, COUNTERFACTUAL GENESIS OUTPUT DOES NOT BECOME EXTERNAL FACT, AND NO EDGE OR RECOVERY REFLEX CREATES EXTERNAL CONSEQUENCE AUTHORITY.'
 };
 
 await mkdir(dirname(paths.output), { recursive: true });
@@ -227,6 +252,7 @@ process.stdout.write(`${JSON.stringify({
   donorNames: receipt.lineage.donorNameCount, events: cycle.eventCount, activations: cycle.activationCount,
   featureArtifacts: receipt.featureGenome?.repositoryArtifactCount || 0,
   frontierModelCandidates: receipt.frontierModelTeam?.candidateCount || 0,
+  zeroCostComputeTokens: receipt.computeSovereignty?.zeroCostTokens || 0,
   metacognitiveIdeas: receipt.metacognition?.ideaCandidateCount || 0,
   reactivatedGenesisIdeas: receipt.genesisReactivation?.candidateCount || 0,
   wallbreakerReflexes: wallbreaker.reflexCount, targetCounts: cycle.targetCounts, output: paths.output,

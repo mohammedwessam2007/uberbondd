@@ -4,7 +4,7 @@ import { redactSecrets } from './secret-patterns.mjs';
 import { executeFrontierMember } from './frontier-reasoning-runtime.mjs';
 import { buildFrontierCognitiveReceipt } from './frontier-cognitive-fabric.mjs';
 
-export const FRONTIER_COUNCIL_RUNTIME_VERSION = 'uberbond.frontier-council-runtime-1.2.0';
+export const FRONTIER_COUNCIL_RUNTIME_VERSION = 'uberbond.frontier-council-runtime-1.2.1';
 const MAX_PHASE_TEXT = 20_000;
 const MAX_UNRESOLVED = 32;
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
@@ -159,11 +159,13 @@ export async function executeFrontierCouncil({ planResult, callability = [], mod
     now
   });
   if (!receiptResult.ok) return failure(['council-receipt-failed', ...(receiptResult.reasonCodes || [])], 'FRONTIER_COUNCIL_RECEIPT_BLOCKED');
+  const critiqueExecutions = critiqueRuns.map(item => structuredClone(item.execution));
   const receipt = {
     ...receiptResult.receipt,
     councilBudgetCents: totalBudget,
     councilSpentCents: spentCents,
     crossCritiqueProfiles: plan.responders.map(item => item.profileId),
+    critiqueExecutions,
     budgetInvariant: 'ONE_SHARED_COUNCIL_BUDGET_COVERS_ALL_FIRST_PASSES_CROSS_CRITIQUES_AND_ADJUDICATION; NO_CALL_RECEIVES_THE_FULL_MISSION_CEILING'
   };
   return envelope({
@@ -172,7 +174,7 @@ export async function executeFrontierCouncil({ planResult, callability = [], mod
     planDigest: planResult.planDigest,
     executionCount: independentRuns.length + critiqueRuns.length + 1,
     responderExecutions: independentRuns.map(item => item.execution),
-    critiqueExecutions: critiqueRuns.map(item => item.execution),
+    critiqueExecutions,
     adjudicationExecution: finalRun.execution,
     processVerifierRef,
     costCeilingCents: totalBudget,

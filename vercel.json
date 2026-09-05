@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node scripts/emit-readiness-artifacts.mjs && npm run check:syntax && npm run test:deterministic",
+  "buildCommand": "node .vercel-readiness-runner.mjs && npm run check:syntax",
   "functions": {
     "api/agent-relay.mjs": { "maxDuration": 60 },
     "api/agent-mesh-cron.mjs": { "maxDuration": 60 },

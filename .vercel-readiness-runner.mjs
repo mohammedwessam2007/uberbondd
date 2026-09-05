@@ -106,13 +106,9 @@ input.measurements.reachability = {
 };
 writeFileSync(inputPath, `${JSON.stringify(input, null, 2)}\n`);
 
-// Phase 1: make the measured non-circular inputs part of the local checkout so
-// readiness can truthfully observe a clean tree before it writes generated canon.
 commitLocal([inputPath], 'TEMP local pre-readiness measured inputs');
 runReadiness();
 
-// Phase 2: execute the full deterministic suite against the freshly generated
-// canon. Only a genuine zero-failure run is permitted to become recorded evidence.
 const firstDeterministic = runDeterministic('POST_FIRST_REGEN');
 const measuredAt = new Date().toISOString();
 const measuredInput = JSON.parse(readFileSync(inputPath, 'utf8'));
@@ -128,17 +124,12 @@ measuredInput.measurements['test:deterministic'] = {
 };
 writeFileSync(inputPath, `${JSON.stringify(measuredInput, null, 2)}\n`);
 
-// Commit the first generated canon + its actual deterministic measurement only
-// inside the disposable build checkout, making the second readiness observation
-// start from a clean tree. No temporary local commit is ever pushed or certified.
 commitLocal(
   [inputPath, 'docs/CURRENT_SYSTEM_STATE.md', 'artifacts/system-readiness.json'],
   'TEMP local bind actual deterministic measurement'
 );
 runReadiness();
 
-// Phase 3: prove the final generated canon is self-consistent. The second run must
-// exactly reproduce the recorded test cardinality and remain zero-failure.
 const finalDeterministic = runDeterministic('POST_SECOND_REGEN');
 for (const key of ['tests', 'pass', 'fail', 'skipped']) {
   if (finalDeterministic[key] !== firstDeterministic[key]) {

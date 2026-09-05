@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { compileUberBondCognitiveGraph, cognitiveGraphIntegrity } from '../src/uberbond-cognitive-graph.mjs';
 import { compileClosedLoopActivation } from '../src/uberbond-cognitive-bus.mjs';
 import { compileCognitiveEventsFromArtifacts } from '../src/uberbond-cognitive-adapters.mjs';
+import { eventFromEventHorizonDoctor } from '../src/event-horizon-cognitive-adapter.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = new Map();
@@ -26,16 +27,18 @@ const paths = {
   genesis: resolve(root, String(args.get('--genesis') || 'artifacts/perpetual-frontier-genesis-latest.json')),
   lineage: resolve(root, String(args.get('--lineage') || 'config/uberbond-cognitive-lineage.json')),
   capabilityGenome: args.get('--capability-genome') ? resolve(root, String(args.get('--capability-genome'))) : null,
+  eventHorizon: args.get('--event-horizon') ? resolve(root, String(args.get('--event-horizon'))) : null,
   selfMaintenance: args.get('--self-maintenance') ? resolve(root, String(args.get('--self-maintenance'))) : null,
   commercialOutcome: args.get('--commercial-outcome') ? resolve(root, String(args.get('--commercial-outcome'))) : null,
   output: resolve(root, String(args.get('--output') || 'artifacts/uberbond-cognitive-cycle-latest.json'))
 };
 
-const [gamechanger, genesis, lineage, capabilityGenome, selfMaintenance, commercialOutcome] = await Promise.all([
+const [gamechanger, genesis, lineage, capabilityGenome, eventHorizon, selfMaintenance, commercialOutcome] = await Promise.all([
   readJson(paths.gamechanger),
   readJson(paths.genesis),
   readJson(paths.lineage),
   paths.capabilityGenome ? readJson(paths.capabilityGenome) : null,
+  paths.eventHorizon ? readJson(paths.eventHorizon) : null,
   paths.selfMaintenance ? readJson(paths.selfMaintenance) : null,
   paths.commercialOutcome ? readJson(paths.commercialOutcome) : null
 ]);
@@ -76,7 +79,15 @@ if (!adapted.ok) {
   process.exit(2);
 }
 
-const cycle = compileClosedLoopActivation({ graph, events: adapted.events });
+const eventHorizonEvent = eventHorizon
+  ? eventFromEventHorizonDoctor(eventHorizon, { ref: `artifact:${paths.eventHorizon}` })
+  : null;
+if (eventHorizonEvent && !eventHorizonEvent.ok) {
+  process.stderr.write(`${JSON.stringify(eventHorizonEvent, null, 2)}\n`);
+  process.exit(2);
+}
+const events = [...adapted.events, ...(eventHorizonEvent ? [eventHorizonEvent] : [])];
+const cycle = compileClosedLoopActivation({ graph, events });
 if (!cycle.ok) {
   process.stderr.write(`${JSON.stringify(cycle, null, 2)}\n`);
   process.exit(2);
@@ -102,10 +113,11 @@ const receipt = {
     gamechanger: Boolean(gamechanger),
     genesis: Boolean(genesis),
     capabilityGenome: Boolean(capabilityGenome),
+    eventHorizon: Boolean(eventHorizon),
     selfMaintenance: Boolean(selfMaintenance),
     commercialOutcome: Boolean(commercialOutcome)
   },
-  events: adapted.events,
+  events,
   activationSummary: {
     eventCount: cycle.eventCount,
     activationCount: cycle.activationCount,
@@ -114,7 +126,7 @@ const receipt = {
   routes: cycle.routes,
   businessEffectAuthority: 'NONE',
   externalEffectAuthority: 'NONE',
-  truthBoundary: 'THIS_RECEIPT_IS_A COGNITIVE ROUTING AND LINEAGE MAP. ACTIVATION MEANS ATTENTION/CONTEXT FLOW ONLY. HISTORICAL DONOR NAMES DO NOT BECOME LIVE RUNTIMES, AND NO EDGE CREATES EXTERNAL CONSEQUENCE AUTHORITY.'
+  truthBoundary: 'THIS_RECEIPT_IS_A COGNITIVE ROUTING AND LINEAGE MAP. ACTIVATION MEANS ATTENTION/CONTEXT FLOW ONLY. HISTORICAL DONOR NAMES DO NOT BECOME LIVE RUNTIMES, ALLOCATION SCORES DO NOT BECOME DEMAND, AND NO EDGE CREATES EXTERNAL CONSEQUENCE AUTHORITY.'
 };
 
 await mkdir(dirname(paths.output), { recursive: true });

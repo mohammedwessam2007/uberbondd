@@ -5,7 +5,7 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { extractGenesisIdeaRegistry } from './perpetual-frontier-genesis.mjs';
 
 export const UBERBOND_FEATURE_ATOM_ATLAS_SCHEMA = 'uberbond.feature-atom-atlas.v1';
-export const UBERBOND_FEATURE_ATOM_ATLAS_POLICY_VERSION = 'uberbond-feature-atom-atlas-1.0.0';
+export const UBERBOND_FEATURE_ATOM_ATLAS_POLICY_VERSION = 'uberbond-feature-atom-atlas-1.1.0';
 
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
 function stable(value) {
@@ -16,12 +16,13 @@ function stable(value) {
 function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(stable(value))).digest('hex'); }
 function clean(value, max = 2000) { return String(value ?? '').trim().slice(0, max); }
 function safeRead(file) { try { return fs.readFileSync(file, 'utf8'); } catch { return ''; } }
+function safeJson(file) { try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return null; } }
 
 export function deriveExportedFeatureSymbols(sourceText = '') {
   const symbols = new Map();
   const push = (name, kind) => {
     const id = clean(name, 240);
-    if (id && /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(id) && !symbols.has(id)) symbols.set(id, kind);
+    if (id && (/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(id) || id === 'default') && !symbols.has(id)) symbols.set(id, kind);
   };
   const declarationPatterns = [
     [/\bexport\s+(?:async\s+)?function\s+([A-Za-z_$][A-Za-z0-9_$]*)/g, 'FUNCTION'],
@@ -69,15 +70,29 @@ function sourceFeatureAtoms(root, featureGenome) {
 
 function genesisIdeaAtoms(root) {
   const markdown = safeRead(path.join(root, 'docs/PERPETUAL_FRONTIER_GENESIS_CANON.md'));
-  return extractGenesisIdeaRegistry(markdown).map(idea => ({
-    id: `genesis-idea:${idea.id}`,
-    class: 'GENESIS_IDEA',
-    ordinal: idea.id,
-    name: idea.name,
-    sourcePath: 'docs/PERPETUAL_FRONTIER_GENESIS_CANON.md',
-    organs: ['genesis', 'genesis-evolution', 'genesis-ontology', 'idea-generator'],
-    truthClass: 'CHAT_SPEC_GOAL_OR_INTERNAL_RESEARCH'
-  }));
+  const ledger = safeJson(path.join(root, 'artifacts/perpetual-frontier-implementation-ledger.json'));
+  const ledgerById = new Map((Array.isArray(ledger?.entries) ? ledger.entries : []).map(entry => [Number(entry.id), entry]));
+  return extractGenesisIdeaRegistry(markdown).map(idea => {
+    const evidence = ledgerById.get(idea.id) || null;
+    const identityMatches = !evidence || String(evidence.name || '').trim() === idea.name;
+    return {
+      id: `genesis-idea:${idea.id}`,
+      class: 'GENESIS_IDEA',
+      ordinal: idea.id,
+      name: idea.name,
+      sourcePath: 'docs/PERPETUAL_FRONTIER_GENESIS_CANON.md',
+      organs: ['genesis', 'genesis-evolution', 'genesis-ontology', 'idea-generator'],
+      maturity: identityMatches ? evidence?.maturity || null : null,
+      implementationStatus: identityMatches ? evidence?.status || null : null,
+      implementationSources: identityMatches && Array.isArray(evidence?.sources) ? evidence.sources : [],
+      implementationTests: identityMatches && Array.isArray(evidence?.tests) ? evidence.tests : [],
+      runtimeReceipts: identityMatches && Array.isArray(evidence?.runtimeReceipts) ? evidence.runtimeReceipts : [],
+      missingPaths: identityMatches && Array.isArray(evidence?.missingPaths) ? evidence.missingPaths : [],
+      implementationNote: identityMatches ? evidence?.note || null : null,
+      ledgerIdentityMatches: identityMatches,
+      truthClass: 'CHAT_SPEC_GOAL_OR_INTERNAL_RESEARCH'
+    };
+  });
 }
 
 function operatorAtoms(featureGenome) {
@@ -166,12 +181,24 @@ export function buildUberBondFeatureAtomAtlas({ root = process.cwd(), featureGen
     ids.add(atom.id);
   }
   if (duplicates.length) return { ok: false, status: 'FEATURE_ATOM_ATLAS_INVALID', reasonCodes: duplicates.map(id => `duplicate-feature-atom:${id}`), businessEffectAuthority: 'NONE', externalEffectLedger: zeroEffects() };
+  const genesisLedgerIdentityMismatches = classes.genesisIdeas.filter(atom => atom.ledgerIdentityMatches === false).map(atom => atom.id);
+  if (genesisLedgerIdentityMismatches.length) return { ok: false, status: 'FEATURE_ATOM_ATLAS_INVALID', reasonCodes: genesisLedgerIdentityMismatches.map(id => `genesis-ledger-identity-mismatch:${id}`), businessEffectAuthority: 'NONE', externalEffectLedger: zeroEffects() };
   const classCounts = Object.fromEntries(Object.entries(classes).map(([key, value]) => [key, value.length]));
+  const genesisMaturityCounts = {};
+  const genesisImplementationStatusCounts = {};
+  for (const atom of classes.genesisIdeas) {
+    const maturity = atom.maturity || 'NO_LEDGER_EVIDENCE';
+    const status = atom.implementationStatus || 'NO_LEDGER_EVIDENCE';
+    genesisMaturityCounts[maturity] = (genesisMaturityCounts[maturity] || 0) + 1;
+    genesisImplementationStatusCounts[status] = (genesisImplementationStatusCounts[status] || 0) + 1;
+  }
   const core = {
     schemaVersion: UBERBOND_FEATURE_ATOM_ATLAS_SCHEMA,
     featureGenomeDigest: featureGenome.genomeDigest,
     atomCount: allAtoms.length,
     classCounts,
+    genesisMaturityCounts,
+    genesisImplementationStatusCounts,
     classes,
     allAtoms
   };
@@ -183,7 +210,7 @@ export function buildUberBondFeatureAtomAtlas({ root = process.cwd(), featureGen
     atlasDigest: digest(core),
     businessEffectAuthority: 'NONE',
     externalEffectLedger: zeroEffects(),
-    truthBoundary: 'FEATURE ATOMS ARE ADDRESSABLE REPOSITORY DECLARATIONS, CANON CLAIMS, GENESIS IDEAS, GATES OR MEMORY. AN EXPORTED SYMBOL IS NOT PROOF IT IS REACHABLE OR CORRECT; A GENESIS IDEA OR TOTAL-BRAIN MEMORY ATOM IS NOT PRESENT-TENSE IMPLEMENTATION OR COMMERCIAL TRUTH.'
+    truthBoundary: 'FEATURE ATOMS ARE ADDRESSABLE REPOSITORY DECLARATIONS, CANON CLAIMS, GENESIS IDEAS, GATES OR MEMORY. AN EXPORTED SYMBOL IS NOT PROOF IT IS REACHABLE OR CORRECT; GENESIS SOURCE+TEST OR RUNTIME-RECEIPT STATUS IS INTERNAL EVIDENCE ONLY, NOT MARKET VALUE OR PRODUCTION AUTHORITY; A TOTAL-BRAIN MEMORY ATOM IS NOT PRESENT-TENSE IMPLEMENTATION.'
   };
 }
 

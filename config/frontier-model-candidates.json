@@ -1,0 +1,125 @@
+{
+  "schemaVersion": "uberbond.frontier-model-candidates.v1",
+  "observedAt": "2026-09-05T00:00:00Z",
+  "truthClass": "PUBLIC_OFFICIAL_SOURCE_CANDIDATE_CATALOG_NOT_RUNTIME_PROOF",
+  "candidates": [
+    {
+      "id": "openai-gpt-6-astra",
+      "provider": "openai",
+      "canonicalModel": "gpt-6-astra",
+      "label": "GPT-6 Astra",
+      "rolePriors": ["planner", "researcher", "builder", "critic", "verifier", "adjudicator"],
+      "taskClassPriors": ["complex-reasoning", "coding", "computer-use", "research", "documents"],
+      "contextTokens": 1050000,
+      "maxOutputTokens": 128000,
+      "reasoningEfforts": ["low", "medium", "high", "xhigh", "max"],
+      "officialEvidenceRefs": [
+        "https://developers.openai.com/api/docs/models/gpt-6-astra",
+        "https://openai.com/research/"
+      ],
+      "availabilityTruth": "ROLLING_OR_ACCOUNT_DEPENDENT__VERIFY_BEFORE_RUNTIME",
+      "configured": false
+    },
+    {
+      "id": "anthropic-claude-fable-5-1",
+      "provider": "anthropic",
+      "canonicalModel": "claude-fable-5-1",
+      "label": "Claude Fable 5.1",
+      "rolePriors": ["planner", "researcher", "builder", "critic", "verifier", "adjudicator"],
+      "taskClassPriors": ["long-horizon-agentic-work", "coding", "research", "knowledge-work", "documents"],
+      "contextTokens": 1000000,
+      "maxOutputTokens": 128000,
+      "officialEvidenceRefs": [
+        "https://platform.claude.com/docs/en/models/fable-5-1/overview",
+        "https://www.anthropic.com/news"
+      ],
+      "availabilityTruth": "API_OR_ACCOUNT_DEPENDENT__VERIFY_BEFORE_RUNTIME",
+      "configured": false
+    },
+    {
+      "id": "openai-gpt-5-6-sol",
+      "provider": "openai",
+      "canonicalModel": "gpt-5.6-sol",
+      "label": "GPT-5.6 Sol",
+      "rolePriors": ["planner", "builder", "critic", "verifier", "adjudicator"],
+      "taskClassPriors": ["coding", "knowledge-work", "cybersecurity", "science", "general"],
+      "contextTokens": null,
+      "maxOutputTokens": null,
+      "officialEvidenceRefs": ["https://openai.com/index/gpt-5-6/"],
+      "availabilityTruth": "GENERAL_AVAILABILITY_REPORTED__RUNTIME_STILL_REQUIRES_PROFILE_PROOF",
+      "configured": false
+    },
+    {
+      "id": "google-gemini-3-8-flash",
+      "provider": "google",
+      "canonicalModel": "gemini-3.8-flash",
+      "label": "Gemini 3.8 Flash",
+      "rolePriors": ["researcher", "builder", "critic", "general"],
+      "taskClassPriors": ["high-volume-agents", "software-engineering", "multimodal", "search-grounding", "knowledge-work"],
+      "contextTokens": 1048576,
+      "maxOutputTokens": 65536,
+      "reasoningEfforts": ["low", "medium", "high"],
+      "officialEvidenceRefs": [
+        "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash",
+        "https://deepmind.google/models/model-cards/gemini-3-8-flash/"
+      ],
+      "availabilityTruth": "GA_REPORTED__TRANSPORT_AND_RUNTIME_PROFILE_REQUIRED",
+      "configured": false
+    },
+    {
+      "id": "xai-grok-4-6",
+      "provider": "xai",
+      "canonicalModel": "grok-4.6",
+      "label": "Grok 4.6",
+      "rolePriors": ["researcher", "builder", "critic", "general"],
+      "taskClassPriors": ["long-running-agents", "coding", "interactive-work", "visual-work", "knowledge-work"],
+      "contextTokens": null,
+      "maxOutputTokens": null,
+      "officialEvidenceRefs": ["https://x.ai/news/grok-4-6"],
+      "availabilityTruth": "PUBLIC_RELEASE_REPORTED__TRANSPORT_AND_RUNTIME_PROFILE_REQUIRED",
+      "configured": false
+    },
+    {
+      "id": "deepseek-v4-pro",
+      "provider": "deepseek",
+      "canonicalModel": "deepseek-v4-pro",
+      "label": "DeepSeek V4 Pro",
+      "rolePriors": ["builder", "critic", "general"],
+      "taskClassPriors": ["coding", "agents", "repository-work", "tool-use"],
+      "contextTokens": null,
+      "maxOutputTokens": null,
+      "reasoningEfforts": ["low", "high", "max"],
+      "officialEvidenceRefs": [
+        "https://api-docs.deepseek.com/news/news260813/",
+        "https://api-docs.deepseek.com/updates/"
+      ],
+      "availabilityTruth": "API_GA_REPORTED__TRANSPORT_AND_RUNTIME_PROFILE_REQUIRED",
+      "configured": false
+    },
+    {
+      "id": "moonshot-kimi-k3",
+      "provider": "moonshot",
+      "canonicalModel": "kimi-k3",
+      "label": "Kimi K3",
+      "rolePriors": ["researcher", "builder", "general"],
+      "taskClassPriors": ["long-context", "repository-work", "coding", "knowledge-work", "reasoning"],
+      "contextTokens": 1000000,
+      "maxOutputTokens": null,
+      "reasoningEfforts": ["low", "high", "max"],
+      "officialEvidenceRefs": ["https://www.moonshot.ai/"],
+      "availabilityTruth": "PUBLIC_API_REPORTED__TRANSPORT_AND_RUNTIME_PROFILE_REQUIRED",
+      "configured": false
+    }
+  ],
+  "admissionLaw": [
+    "Catalog presence is discovery evidence only.",
+    "A model becomes routable only through an exact Frontier Cognitive Fabric profile with model/revision/transport/pricing evidence and a fresh callability receipt.",
+    "Models never inherit repository, deployment, customer, payment, DNS, credential, spend or production authority.",
+    "Council agreement is process evidence, never external truth.",
+    "Prefer provider and model-family diversity when quality is near the frontier threshold.",
+    "Measure task-specific quality, reliability, latency, economics and founder minutes; update routing from observed outcomes rather than brand reputation."
+  ],
+  "discoveryLoop": "Gamechanger detects new model -> candidate catalog -> zero-effect benchmark design -> observed runtime profile -> callability proof -> task-specific benchmark -> Avengers/Frontier Cognitive Fabric routing -> MAX Council -> outcome feedback -> replace/degrade/revoke",
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE"
+}

@@ -4,6 +4,7 @@ import {
   runUberBondSelfMaintenance,
   validateSelfMaintainerIsolation
 } from '../src/uberbond-self-maintainer.mjs';
+import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 
 const BASE = 'a'.repeat(40);
 const NOW = new Date('2026-09-05T12:00:00.000Z');
@@ -93,8 +94,10 @@ test('verified candidate can be promoted to a branch/PR only after exact tested-
   assert.equal(result.ok, true);
   assert.equal(result.status, 'VERIFIED_CHANGESET_PROMOTED_TO_REVIEW');
   assert.equal(result.verifiedReceipt.modelProviderCallsInsideWriteSandbox, 0);
-  assert.equal(result.externalEffectLedger.repositoryBranchesCreated, 1);
-  assert.equal(result.externalEffectLedger.repositoryPullRequestsCreated, 1);
+  assert.deepEqual(result.externalEffectLedger, ZERO_EXTERNAL_EFFECTS);
+  assert.equal(result.promotion.repositoryBranchesCreated, 1);
+  assert.equal(result.promotion.repositoryPullRequestsCreated, 1);
+  assert.match(result.truthBoundary, /REPOSITORY_BRANCH_AND_PR_EFFECTS_ARE_REPORTED_SEPARATELY_IN_PROMOTION/);
   assert.deepEqual(input.calls, { apply: 1, verify: 1, collect: 1, destroy: 1, promote: 1 });
   assert.equal(result.cleanup.ok, true);
 });

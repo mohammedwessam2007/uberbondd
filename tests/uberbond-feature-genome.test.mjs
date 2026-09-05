@@ -37,6 +37,15 @@ test('feature classifier maps concrete feature names to cognitive families', () 
   assert.ok(payment.organs.includes('payment-reconciliation'));
 });
 
+test('compute sovereignty and compute budgets remain first-class rather than generic runtime', () => {
+  for (const feature of ['src/compute-sovereignty.mjs', 'src/ai-compute-budget.mjs', 'scripts/compute-sovereignty-doctor.mjs']) {
+    const classified = classifyFeaturePath(feature);
+    assert.ok(classified.families.includes('compute-sovereignty'), JSON.stringify({ feature, classified }));
+    assert.notEqual(classified.primaryFamily, 'general-runtime');
+    assert.ok(classified.organs.includes('open-model-universe') || classified.organs.includes('avengers'));
+  }
+});
+
 test('module dependency derivation preserves real relative import edges only', () => {
   const files = new Set(['src/a.mjs', 'src/b.mjs']);
   const edges = deriveModuleEdgesFromText('src/a.mjs', "import './b.mjs'; import 'node:fs';", files);

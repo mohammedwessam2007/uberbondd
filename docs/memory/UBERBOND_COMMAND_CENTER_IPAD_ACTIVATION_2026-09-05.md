@@ -33,7 +33,7 @@ The command-center API is GET-only and protected by the existing `ADMIN_TOKEN` b
 
 The source status compiler reads only fixed allowlisted receipts/sources. Its truth boundary is:
 
-`DISPLAYED_COUNTS_AND_STATES_COME_FROM SOURCE_COMPILED_GRAPH_OR_FIXED_ALLOWLISTED_RECEIPTS. MISSING_STALE_OR_INVALID_EVIDENCE IS NEVER REPLACED WITH A DEMO VALUE.`
+`DISPLAYED_COUNTS_AND_STATES_COME_FROM_SOURCE_COMPILED_GRAPH_OR_FIXED_ALLOWLISTED_RECEIPTS. MISSING_STALE_OR_INVALID_EVIDENCE_IS_NEVER_REPLACED_WITH_A_DEMO_VALUE.`
 
 ## GENESIS reactivation repair
 
@@ -81,11 +81,7 @@ Deployment host:
 
 Build evidence: Vercel cloned the exact PR #400 branch commit, completed the build, deployed outputs, and marked the deployment READY. This deployment is the direct parent of the subsequent Vercel configuration-only fix, not the latest branch head.
 
-A temporary Vercel protected-preview access URL was generated specifically for `/uberbond`:
-
-`https://uberbondd-lite-private-bsdhirkkh-mohammedwessam2007s-projects.vercel.app/uberbond?_vercel_share=SbyR8b1GRIZJnlJ3JqqXSo4ZlTxhyAOd`
-
-Vercel reported that this share URL expires on 2026-09-06 at approximately 21:00 account-reported time.
+A temporary Vercel protected-preview share URL was generated specifically for `/uberbond`, but the ephemeral `_vercel_share` token is intentionally **not persisted in repository memory**. Keep temporary access tokens in the private owner conversation only. Vercel reported that the generated share access expires roughly 23 hours after creation.
 
 ## Truth about access verification
 

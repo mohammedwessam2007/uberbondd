@@ -12,7 +12,7 @@ import { createClaudeCodeSandboxExecutor } from './claude-code-sandbox-executor.
 import { createVercelAIGatewayExecutor } from './vercel-ai-gateway-executor.mjs';
 import { createOpenModelRuntimeExecutor } from './open-model-runtime-executor.mjs';
 
-export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.3.0';
+export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.4.0';
 
 const API_PROVIDER_CONFIG = Object.freeze({
   openai: Object.freeze({
@@ -63,8 +63,17 @@ function openModelPricingFrom(env = {}) {
 function apiProviderConfig(env, provider) {
   const mapping = API_PROVIDER_CONFIG[provider];
   if (!mapping) return null;
+  const staticCredential = String(env[mapping.apiKeyEnv] || '');
+  // Vercel injects a short-lived OIDC identity into deployed workloads. AI
+  // Gateway accepts that bearer in place of a static API key, so the canonical
+  // runtime can stay keyless in production while preserving the exact same
+  // provider/model/revision and spend-evidence gates. Never use OIDC as a
+  // fallback for OpenAI/Anthropic direct adapters; it is Vercel-scoped only.
+  const vercelOidcCredential = provider === 'ai-gateway'
+    ? String(env.VERCEL_OIDC_TOKEN || '')
+    : '';
   return {
-    apiKey: String(env[mapping.apiKeyEnv] || ''),
+    apiKey: staticCredential || vercelOidcCredential,
     pricing: pricingFrom(env, mapping.prefix),
     enabled: env[mapping.enabledEnv] === 'true'
   };

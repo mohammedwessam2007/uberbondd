@@ -7,6 +7,7 @@ import { compileUberBondCognitiveGraph, cognitiveGraphIntegrity } from '../src/u
 import { compileClosedLoopActivation } from '../src/uberbond-cognitive-bus.mjs';
 import { compileCognitiveEventsFromArtifacts } from '../src/uberbond-cognitive-adapters.mjs';
 import { eventFromEventHorizonDoctor } from '../src/event-horizon-cognitive-adapter.mjs';
+import { compileGenesisLobeEvents } from '../src/genesis-cognitive-adapters.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = new Map();
@@ -21,21 +22,33 @@ async function readJson(path) {
   try { return JSON.parse(await readFile(path, 'utf8')); }
   catch { return null; }
 }
+const optionalPath = (flag, fallback) => {
+  const configured = args.get(flag);
+  return resolve(root, String(configured || fallback));
+};
 
 const paths = {
-  gamechanger: resolve(root, String(args.get('--gamechanger') || 'artifacts/gamechanger-mesh-latest.json')),
-  genesis: resolve(root, String(args.get('--genesis') || 'artifacts/perpetual-frontier-genesis-latest.json')),
-  lineage: resolve(root, String(args.get('--lineage') || 'config/uberbond-cognitive-lineage.json')),
+  gamechanger: optionalPath('--gamechanger', 'artifacts/gamechanger-mesh-latest.json'),
+  genesis: optionalPath('--genesis', 'artifacts/perpetual-frontier-genesis-latest.json'),
+  evolution: optionalPath('--genesis-evolution', 'artifacts/genesis-evolution-latest.json'),
+  scientist: optionalPath('--genesis-scientist', 'artifacts/genesis-scientist-latest.json'),
+  ontology: optionalPath('--genesis-ontology', 'artifacts/genesis-ontology-latest.json'),
+  metabolism: optionalPath('--genesis-metabolism', 'artifacts/genesis-metabolism-latest.json'),
+  lineage: optionalPath('--lineage', 'config/uberbond-cognitive-lineage.json'),
   capabilityGenome: args.get('--capability-genome') ? resolve(root, String(args.get('--capability-genome'))) : null,
   eventHorizon: args.get('--event-horizon') ? resolve(root, String(args.get('--event-horizon'))) : null,
   selfMaintenance: args.get('--self-maintenance') ? resolve(root, String(args.get('--self-maintenance'))) : null,
   commercialOutcome: args.get('--commercial-outcome') ? resolve(root, String(args.get('--commercial-outcome'))) : null,
-  output: resolve(root, String(args.get('--output') || 'artifacts/uberbond-cognitive-cycle-latest.json'))
+  output: optionalPath('--output', 'artifacts/uberbond-cognitive-cycle-latest.json')
 };
 
-const [gamechanger, genesis, lineage, capabilityGenome, eventHorizon, selfMaintenance, commercialOutcome] = await Promise.all([
+const [gamechanger, genesis, evolution, scientist, ontology, metabolism, lineage, capabilityGenome, eventHorizon, selfMaintenance, commercialOutcome] = await Promise.all([
   readJson(paths.gamechanger),
   readJson(paths.genesis),
+  readJson(paths.evolution),
+  readJson(paths.scientist),
+  readJson(paths.ontology),
+  readJson(paths.metabolism),
   readJson(paths.lineage),
   paths.capabilityGenome ? readJson(paths.capabilityGenome) : null,
   paths.eventHorizon ? readJson(paths.eventHorizon) : null,
@@ -78,7 +91,22 @@ if (!adapted.ok) {
   process.stderr.write(`${JSON.stringify(adapted, null, 2)}\n`);
   process.exit(2);
 }
-
+const genesisLobes = compileGenesisLobeEvents({
+  evolution,
+  scientist,
+  ontology,
+  metabolism,
+  refs: {
+    evolution: 'artifact:genesis-evolution-latest',
+    scientist: 'artifact:genesis-scientist-latest',
+    ontology: 'artifact:genesis-ontology-latest',
+    metabolism: 'artifact:genesis-metabolism-latest'
+  }
+});
+if (!genesisLobes.ok) {
+  process.stderr.write(`${JSON.stringify(genesisLobes, null, 2)}\n`);
+  process.exit(2);
+}
 const eventHorizonEvent = eventHorizon
   ? eventFromEventHorizonDoctor(eventHorizon, { ref: `artifact:${paths.eventHorizon}` })
   : null;
@@ -86,7 +114,7 @@ if (eventHorizonEvent && !eventHorizonEvent.ok) {
   process.stderr.write(`${JSON.stringify(eventHorizonEvent, null, 2)}\n`);
   process.exit(2);
 }
-const events = [...adapted.events, ...(eventHorizonEvent ? [eventHorizonEvent] : [])];
+const events = [...adapted.events, ...genesisLobes.events, ...(eventHorizonEvent ? [eventHorizonEvent] : [])];
 const cycle = compileClosedLoopActivation({ graph, events });
 if (!cycle.ok) {
   process.stderr.write(`${JSON.stringify(cycle, null, 2)}\n`);
@@ -112,6 +140,10 @@ const receipt = {
   sources: {
     gamechanger: Boolean(gamechanger),
     genesis: Boolean(genesis),
+    genesisEvolution: Boolean(evolution),
+    genesisScientist: Boolean(scientist),
+    genesisOntology: Boolean(ontology),
+    genesisMetabolism: Boolean(metabolism),
     capabilityGenome: Boolean(capabilityGenome),
     eventHorizon: Boolean(eventHorizon),
     selfMaintenance: Boolean(selfMaintenance),
@@ -126,7 +158,7 @@ const receipt = {
   routes: cycle.routes,
   businessEffectAuthority: 'NONE',
   externalEffectAuthority: 'NONE',
-  truthBoundary: 'THIS_RECEIPT_IS_A COGNITIVE ROUTING AND LINEAGE MAP. ACTIVATION MEANS ATTENTION/CONTEXT FLOW ONLY. HISTORICAL DONOR NAMES DO NOT BECOME LIVE RUNTIMES, ALLOCATION SCORES DO NOT BECOME DEMAND, AND NO EDGE CREATES EXTERNAL CONSEQUENCE AUTHORITY.'
+  truthBoundary: 'THIS_RECEIPT_IS_A COGNITIVE ROUTING AND LINEAGE MAP. ACTIVATION MEANS ATTENTION/CONTEXT FLOW ONLY. HISTORICAL DONOR NAMES DO NOT BECOME LIVE RUNTIMES, ALLOCATION SCORES DO NOT BECOME DEMAND, COUNTERFACTUAL GENESIS OUTPUT DOES NOT BECOME EXTERNAL FACT, AND NO EDGE CREATES EXTERNAL CONSEQUENCE AUTHORITY.'
 };
 
 await mkdir(dirname(paths.output), { recursive: true });

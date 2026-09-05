@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const FRONTIER_MODEL_TEAM_POLICY_VERSION = 'uberbond.frontier-model-team-1.0.1';
+export const FRONTIER_MODEL_TEAM_POLICY_VERSION = 'uberbond.frontier-model-team-1.1.0';
 export const FRONTIER_MODEL_CANDIDATE_SCHEMA = 'uberbond.frontier-model-candidates.v1';
 
 const ROLES = Object.freeze(['researcher', 'planner', 'builder', 'critic', 'verifier', 'adjudicator', 'general']);
@@ -10,6 +10,8 @@ const REASONING_TIERS = new Set(['FAST', 'STANDARD', 'DEEP', 'FRONTIER_MAX', 'CO
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
 function text(value, max = 5000) { const out = String(value ?? '').trim(); return out && out.length <= max ? out : null; }
 function integer(value, fallback, min, max) { const n = Number(value); return Number.isSafeInteger(n) && n >= min && n <= max ? n : fallback; }
+function finite(value) { const n = Number(value); return Number.isFinite(n) && n >= 0 ? n : null; }
+function timestamp(value) { const date = new Date(value); return Number.isFinite(date.getTime()) ? date.toISOString() : null; }
 function stable(value) {
   if (Array.isArray(value)) return value.map(stable);
   if (!value || typeof value !== 'object') return value;
@@ -20,12 +22,27 @@ function fail(reasonCodes, status = 'FRONTIER_MODEL_TEAM_BLOCKED', extra = {}) {
   return { ok: false, policyVersion: FRONTIER_MODEL_TEAM_POLICY_VERSION, status, reasonCodes: [...new Set(reasonCodes.filter(Boolean))], businessEffectAuthority: 'NONE', externalEffectLedger: zeroEffects(), ...extra };
 }
 
+function validateGatewayTransport(candidate, id) {
+  const transport = candidate?.gatewayTransport;
+  if (!transport || typeof transport !== 'object' || Array.isArray(transport)) return [`gateway-transport-required:${id || 'unknown'}`];
+  const reasons = [];
+  if (transport.transportProvider !== 'ai-gateway') reasons.push(`gateway-transport-provider-must-be-ai-gateway:${id || 'unknown'}`);
+  if (!text(transport.transportModel, 240)?.includes('/')) reasons.push(`gateway-provider-model-slug-required:${id || 'unknown'}`);
+  if (!String(transport.sourceRef || '').startsWith('https://vercel.com/ai-gateway/models/')) reasons.push(`gateway-official-model-source-required:${id || 'unknown'}`);
+  if (!timestamp(transport.observedAt)) reasons.push(`gateway-observed-at-required:${id || 'unknown'}`);
+  if (transport.evidenceClass !== 'OFFICIAL_SOURCE') reasons.push(`gateway-official-source-class-required:${id || 'unknown'}`);
+  const pricing = transport.pricingHintUsdPerMillion;
+  if (!pricing || finite(pricing.input) == null || finite(pricing.output) == null || !/NOT_PROFILE_PRICING_EVIDENCE/.test(String(pricing.truth || ''))) reasons.push(`gateway-pricing-hint-truth-boundary-required:${id || 'unknown'}`);
+  return reasons;
+}
+
 export function validateFrontierModelCandidateRegistry(registry = {}) {
   const reasons = [];
   if (registry?.schemaVersion !== FRONTIER_MODEL_CANDIDATE_SCHEMA) reasons.push('candidate-registry-schema-invalid');
   if (!Array.isArray(registry?.candidates) || registry.candidates.length === 0 || registry.candidates.length > 256) reasons.push('bounded-candidate-list-required');
   const ids = new Set();
   const identities = new Set();
+  const transportIdentities = new Set();
   for (const candidate of registry?.candidates || []) {
     const id = text(candidate?.id, 160)?.toLowerCase();
     const provider = text(candidate?.provider, 120)?.toLowerCase();
@@ -39,12 +56,19 @@ export function validateFrontierModelCandidateRegistry(registry = {}) {
     if (!Array.isArray(candidate?.taskClassPriors) || !candidate.taskClassPriors.length) reasons.push(`task-class-priors-required:${id || 'unknown'}`);
     if (!Array.isArray(candidate?.officialEvidenceRefs) || !candidate.officialEvidenceRefs.length || candidate.officialEvidenceRefs.some(ref => !String(ref).startsWith('https://'))) reasons.push(`official-evidence-required:${id || 'unknown'}`);
     if (candidate?.configured !== false) reasons.push(`catalog-candidate-must-not-self-claim-configured:${id || 'unknown'}`);
+    reasons.push(...validateGatewayTransport(candidate, id));
+    const gatewaySlug = text(candidate?.gatewayTransport?.transportModel, 240);
+    if (gatewaySlug) {
+      if (transportIdentities.has(gatewaySlug)) reasons.push(`unique-gateway-transport-model-required:${id || 'unknown'}`);
+      transportIdentities.add(gatewaySlug);
+    }
   }
   return {
     ok: reasons.length === 0,
     status: reasons.length ? 'FRONTIER_MODEL_CANDIDATE_REGISTRY_INVALID' : 'FRONTIER_MODEL_CANDIDATE_REGISTRY_VALID',
     reasonCodes: [...new Set(reasons)],
     candidateCount: registry?.candidates?.length || 0,
+    gatewayTransportCandidateCount: (registry?.candidates || []).filter(candidate => candidate?.gatewayTransport?.transportProvider === 'ai-gateway').length,
     businessEffectAuthority: 'NONE',
     externalEffectLedger: zeroEffects()
   };
@@ -86,6 +110,8 @@ export function matchObservedProfilesToCandidates({ registry = {}, profiles = []
       model,
       revision: profile?.revision || null,
       transportProvider: profile?.transportProvider || null,
+      transportModel: profile?.transportModel || null,
+      gatewayTransportMatches: profile?.transportProvider === candidate.gatewayTransport.transportProvider && profile?.transportModel === candidate.gatewayTransport.transportModel,
       enabled: profile?.enabled !== false
     });
   }
@@ -94,8 +120,8 @@ export function matchObservedProfilesToCandidates({ registry = {}, profiles = []
     status: 'FRONTIER_PROFILE_CANDIDATE_MATCH_COMPLETE',
     matches,
     unmatchedProfiles,
-    configuredCandidateIds: [...new Set(matches.filter(item => item.enabled).map(item => item.candidateId))],
-    truthBoundary: 'A PROFILE MATCH IS IDENTITY ASSOCIATION ONLY. CALLABILITY, PRICING, BENCHMARK AND EXECUTION AUTHORITY REMAIN FRONTIER COGNITIVE FABRIC RESPONSIBILITIES.',
+    configuredCandidateIds: [...new Set(matches.filter(item => item.enabled && item.gatewayTransportMatches).map(item => item.candidateId))],
+    truthBoundary: 'A PROFILE MATCH IS IDENTITY AND DECLARED TRANSPORT ASSOCIATION ONLY. CALLABILITY, PRICING, BENCHMARK AND EXECUTION AUTHORITY REMAIN FRONTIER COGNITIVE FABRIC RESPONSIBILITIES.',
     businessEffectAuthority: 'NONE',
     externalEffectLedger: zeroEffects()
   };

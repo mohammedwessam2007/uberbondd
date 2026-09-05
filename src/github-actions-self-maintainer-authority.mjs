@@ -1,4 +1,9 @@
-export const GITHUB_ACTIONS_SELF_MAINTAINER_AUTHORITY_POLICY_VERSION = 'github-actions-self-maintainer-authority-1.0.0';
+import {
+  requestGithubActionsOidcToken,
+  verifyGithubActionsOidcToken
+} from './github-actions-oidc-verifier.mjs';
+
+export const GITHUB_ACTIONS_SELF_MAINTAINER_AUTHORITY_POLICY_VERSION = 'github-actions-self-maintainer-authority-1.1.0';
 
 const issued = new WeakMap();
 const WORKFLOW_PATH = '.github/workflows/uberbond-self-maintainer.yml';
@@ -21,10 +26,10 @@ function fail(reasonCodes) {
  * Mint BRANCH_AND_PR_ONLY authority only inside the dedicated workflow running
  * from main at the exact base revision it is about to maintain.
  *
- * The autonomous change contract already forbids editing .github/workflows, so
- * candidate code cannot rewrite the authority root that will execute it on the
- * next run. The returned object is additionally process-local branded: copying
- * or reconstructing its fields does not preserve authority.
+ * This low-level issuer is retained for deterministic unit tests and trusted
+ * callers that already possess an independently verified workflow identity.
+ * The live controller uses issueVerifiedGithubActionsSelfMaintainerAuthority,
+ * which cryptographically verifies GitHub Actions OIDC first.
  */
 export function issueGithubActionsSelfMaintainerAuthority({ env = process.env, baseRevision, date = new Date() } = {}) {
   const repository = text(env.GITHUB_REPOSITORY, 300);
@@ -63,6 +68,36 @@ export function issueGithubActionsSelfMaintainerAuthority({ env = process.env, b
     policyVersion: GITHUB_ACTIONS_SELF_MAINTAINER_AUTHORITY_POLICY_VERSION,
     status: 'AUTHORITY_ISSUED',
     authority
+  };
+}
+
+/**
+ * Live authority root. The GitHub environment is necessary but no longer
+ * sufficient: a signed GitHub-hosted OIDC identity must prove repository,
+ * owner, dedicated workflow, event and exact SHA before the process-local
+ * authority can exist.
+ */
+export async function issueVerifiedGithubActionsSelfMaintainerAuthority({
+  env = process.env,
+  baseRevision,
+  date = new Date(),
+  fetchImpl = globalThis.fetch
+} = {}) {
+  const requested = await requestGithubActionsOidcToken({ env, fetchImpl });
+  if (!requested?.ok || !requested.token) return fail(requested?.reasonCodes || ['github-oidc-token-acquisition-required']);
+  const verified = await verifyGithubActionsOidcToken({
+    token: requested.token,
+    expectedSha: baseRevision,
+    fetchImpl,
+    date
+  });
+  if (!verified?.ok) return fail(verified?.reasonCodes || ['verified-github-actions-oidc-required']);
+  const issuedAuthority = issueGithubActionsSelfMaintainerAuthority({ env, baseRevision, date });
+  if (!issuedAuthority?.ok || !issuedAuthority.authority) return issuedAuthority;
+  return {
+    ...issuedAuthority,
+    status: 'OIDC_ROOTED_AUTHORITY_ISSUED',
+    oidcIdentity: verified.identity
   };
 }
 

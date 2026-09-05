@@ -15,7 +15,7 @@ concurrency:
 jobs:
   gamechanger-mesh:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -37,13 +37,13 @@ jobs:
           key: uberbond-self-maintenance-${{ github.run_id }}
           restore-keys: |
             uberbond-self-maintenance-
-      - name: Verify mesh, orchestration frontier, GENESIS and cognitive graph contracts
+      - name: Verify mesh, opportunity allocation, GENESIS and cognitive contracts
         run: |
           npm run test:gamechanger
           node --test tests/orchestration-frontier.test.mjs tests/orchestration-frontier-tick.test.mjs tests/orchestration-gamechanger-source.test.mjs tests/external-capability-control-plane.test.mjs
           npm run test:genesis
           node --test tests/perpetual-frontier-genesis-tick.test.mjs
-          node --test tests/uberbond-cognitive-graph.test.mjs tests/uberbond-cognitive-bus.test.mjs tests/uberbond-cognitive-adapters.test.mjs
+          node --test tests/uberbond-cognitive-graph.test.mjs tests/uberbond-cognitive-bus.test.mjs tests/uberbond-cognitive-adapters.test.mjs tests/genesis-cognitive-adapters.test.mjs tests/event-horizon-cognitive-adapter.test.mjs
           npm run capabilities:doctor
           npm run genesis:doctor
       - name: Snapshot Capability Genome truth for cognitive routing
@@ -57,19 +57,36 @@ jobs:
           set -e
           node -e "const fs=require('node:fs'); const p='artifacts/cognitive/capability-genome-doctor-latest.json'; const v=JSON.parse(fs.readFileSync(p,'utf8')); if(!v || typeof v.status!=='string') process.exit(2)"
           echo "doctor_status=$doctor_status" >> "$GITHUB_OUTPUT"
+      - name: Snapshot Event Horizon allocation truth for cognitive routing
+        id: event-horizon-doctor
+        shell: bash
+        run: |
+          mkdir -p artifacts/cognitive
+          set +e
+          node scripts/event-horizon-doctor.mjs > artifacts/cognitive/event-horizon-doctor-latest.json
+          doctor_status=$?
+          set -e
+          node -e "const fs=require('node:fs'); const p='artifacts/cognitive/event-horizon-doctor-latest.json'; const v=JSON.parse(fs.readFileSync(p,'utf8')); if(!v || typeof v.health!=='string') process.exit(2)"
+          echo "doctor_status=$doctor_status" >> "$GITHUB_OUTPUT"
       - name: Read and search public frontier sources
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: npm run gamechanger:tick
       - name: Compile Fable N+1 orchestration candidates
         run: node scripts/orchestration-frontier-tick.mjs
-      - name: Compile frontier shockwaves, resurrection review, unknown-unknowns and latency
-        run: npm run genesis:tick
+      - name: Run complete GENESIS cognitive cascade
+        run: |
+          npm run genesis:tick
+          npm run genesis:evolve
+          npm run genesis:scientist
+          npm run genesis:ontology
+          npm run genesis:metabolize
       - name: Route all available evidence across the UberBond cognitive graph
         shell: bash
         run: |
           args=(
             --capability-genome artifacts/cognitive/capability-genome-doctor-latest.json
+            --event-horizon artifacts/cognitive/event-horizon-doctor-latest.json
           )
           if [ -s artifacts/cognitive/self-maintainer-latest.json ]; then
             args+=(--self-maintenance artifacts/cognitive/self-maintainer-latest.json)
@@ -88,12 +105,17 @@ jobs:
             artifacts/gamechanger-mesh-latest.json
             artifacts/orchestration-frontier-candidates-latest.json
             artifacts/perpetual-frontier-genesis-latest.json
+            artifacts/genesis-evolution-latest.json
+            artifacts/genesis-scientist-latest.json
+            artifacts/genesis-ontology-latest.json
+            artifacts/genesis-metabolism-latest.json
             artifacts/cognitive/capability-genome-doctor-latest.json
+            artifacts/cognitive/event-horizon-doctor-latest.json
             artifacts/cognitive/self-maintainer-latest.json
             artifacts/uberbond-cognitive-cycle-latest.json
             .cache/gamechanger-mesh-state.json
           retention-days: 14
           if-no-files-found: warn
-      - name: Preserve unhealthy Capability Genome as a visible workflow failure after routing its evidence
-        if: steps.capability-doctor.outputs.doctor_status != '0'
+      - name: Preserve unhealthy cognitive organs as visible workflow failures after routing their evidence
+        if: steps.capability-doctor.outputs.doctor_status != '0' || steps.event-horizon-doctor.outputs.doctor_status != '0'
         run: exit 1

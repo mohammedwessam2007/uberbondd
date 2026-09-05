@@ -49,6 +49,11 @@ jobs:
         run: npm run genesis:tick
       - name: Route frontier evidence across the UberBond cognitive graph
         run: node scripts/uberbond-cognitive-cycle.mjs
+      - name: Save latest whole-brain cognitive memory
+        uses: actions/cache/save@v4
+        with:
+          path: artifacts/uberbond-cognitive-cycle-latest.json
+          key: uberbond-cognitive-cycle-${{ github.run_id }}
       - name: Upload evidence receipt and state
         uses: actions/upload-artifact@v4
         with:

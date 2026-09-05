@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const UBERBOND_COGNITIVE_GRAPH_SCHEMA = 'uberbond.cognitive-graph.v1';
-export const UBERBOND_COGNITIVE_GRAPH_POLICY_VERSION = 'uberbond-cognitive-graph-1.0.1';
+export const UBERBOND_COGNITIVE_GRAPH_POLICY_VERSION = 'uberbond-cognitive-graph-1.1.0';
 
 const EDGE_TYPES = new Set([
   'FEEDS', 'SENSES_FOR', 'ATOMIZES_FOR', 'RECOMBINES_FOR', 'CHALLENGES',
@@ -13,7 +13,9 @@ const EDGE_TYPES = new Set([
 
 const CORE_NODES = Object.freeze([
   ['world-sensing', 'SENSORIUM', 'World Sensing / Public Intelligence', 'VERIFIED_CURRENT'],
+  ['truth-evidence', 'EVIDENCE_TRUTH', 'Truth & Evidence Kernel', 'VERIFIED_CURRENT'],
   ['gamechanger', 'INTELLIGENCE', 'Gamechanger Intelligence Mesh', 'VERIFIED_CURRENT'],
+  ['context-spine', 'CONTEXT_MEMORY', 'Frontier Context Spine', 'VERIFIED_CURRENT'],
   ['genesis', 'IMAGINATION', 'Perpetual Frontier GENESIS', 'VERIFIED_CURRENT'],
   ['genesis-evolution', 'EVOLUTION', 'Genesis Evolution Engine', 'VERIFIED_CURRENT'],
   ['genesis-scientist', 'SCIENCE', 'Genesis Scientist / Prediction Society', 'VERIFIED_CURRENT'],
@@ -27,6 +29,7 @@ const CORE_NODES = Object.freeze([
   ['saas-cannibal', 'CAPABILITY_ECONOMICS', 'SaaS Cannibal', 'CHAT_SPEC_GOAL'],
   ['open-model-universe', 'MODEL_MARKET', 'Open Model Universe', 'VERIFIED_CURRENT'],
   ['world-brain', 'COGNITIVE_SPINE', 'Prometheus / World Brain / Cognitive Bus', 'CHAT_SPEC_GOAL'],
+  ['agent-mesh', 'COORDINATION', 'Agent Mesh / Trinity Coordination', 'VERIFIED_CURRENT'],
   ['avengers', 'SPECIALIST_ORCHESTRATION', 'Avengers Arsenal', 'VERIFIED_CURRENT'],
   ['max-council', 'ADVERSARIAL_COUNCIL', 'Frontier MAX Council', 'VERIFIED_CURRENT'],
   ['wallbreaker', 'PROBLEM_SOLVING', 'Wallbreaker', 'VERIFIED_CURRENT'],
@@ -41,9 +44,14 @@ const CORE_NODES = Object.freeze([
 ].map(([id, kind, label, truthClass]) => Object.freeze({ id, kind, label, truthClass })));
 
 const CORE_EDGES = Object.freeze([
+  ['world-sensing', 'truth-evidence', 'FEEDS'],
   ['world-sensing', 'gamechanger', 'FEEDS'],
+  ['truth-evidence', 'gamechanger', 'SUPPLIES'],
+  ['truth-evidence', 'context-spine', 'SUPPLIES'],
+  ['gamechanger', 'context-spine', 'FEEDS'],
   ['gamechanger', 'genesis', 'FEEDS'],
   ['gamechanger', 'business-genome', 'ATOMIZES_FOR'],
+  ['genesis', 'context-spine', 'FEEDS'],
   ['genesis', 'genesis-evolution', 'FEEDS'],
   ['genesis', 'genesis-ontology', 'FEEDS'],
   ['genesis', 'genesis-metabolism', 'FEEDS'],
@@ -62,18 +70,28 @@ const CORE_EDGES = Object.freeze([
   ['saas-cannibal', 'capability-genome', 'FEEDBACK_TO'],
   ['capability-genome', 'avengers', 'SUPPLIES'],
   ['open-model-universe', 'avengers', 'SUPPLIES'],
+  ['context-spine', 'world-brain', 'SUPPLIES'],
+  ['context-spine', 'agent-mesh', 'SUPPLIES'],
+  ['world-brain', 'agent-mesh', 'ALLOCATES'],
   ['world-brain', 'avengers', 'ALLOCATES'],
+  ['agent-mesh', 'avengers', 'EXECUTES_FOR'],
+  ['agent-mesh', 'max-council', 'SUPPLIES'],
   ['avengers', 'max-council', 'SUPPLIES'],
   ['world-brain', 'max-council', 'FEEDS'],
   ['max-council', 'wallbreaker', 'ESCALATES_TO'],
   ['wallbreaker', 'max-council', 'FEEDBACK_TO'],
   ['max-council', 'self-maintainer', 'PROMOTES'],
+  ['self-maintainer', 'truth-evidence', 'PROVES_FOR'],
   ['self-maintainer', 'genesis-scientist', 'PROVES_FOR'],
   ['self-maintainer', 'economic-memory', 'FEEDS'],
   ['distribution-os', 'payment-reconciliation', 'FEEDS'],
+  ['payment-reconciliation', 'truth-evidence', 'PROVES_FOR'],
   ['payment-reconciliation', 'fulfilment-qa', 'FEEDS'],
+  ['fulfilment-qa', 'truth-evidence', 'PROVES_FOR'],
   ['fulfilment-qa', 'retention-learning', 'FEEDS'],
   ['retention-learning', 'economic-memory', 'FEEDS'],
+  ['truth-evidence', 'economic-memory', 'FEEDS'],
+  ['economic-memory', 'context-spine', 'FEEDBACK_TO'],
   ['economic-memory', 'gamechanger', 'FEEDBACK_TO'],
   ['economic-memory', 'genesis', 'FEEDBACK_TO'],
   ['economic-memory', 'business-genome', 'FEEDBACK_TO'],
@@ -152,7 +170,7 @@ export function compileUberBondCognitiveGraph({ extraNodes = [], extraEdges = []
     graphDigest: hash(graphCore),
     businessEffectAuthority: 'NONE',
     externalEffectLedger: zeroEffects(),
-    truthBoundary: 'THE_COGNITIVE_GRAPH_CONNECTS_INFORMATION_EVIDENCE_HYPOTHESES_CAPABILITIES_AND_FEEDBACK_BUT_NEVER_GRANTS_CONSEQUENCE_AUTHORITY'
+    truthBoundary: 'THE_COGNITIVE_GRAPH_CONNECTS_INFORMATION_EVIDENCE_HYPOTHESES_CAPABILITIES_CONTEXT_COORDINATION_AND_FEEDBACK_BUT_NEVER_GRANTS_CONSEQUENCE_AUTHORITY'
   };
 }
 

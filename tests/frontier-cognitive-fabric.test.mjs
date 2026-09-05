@@ -234,7 +234,7 @@ test('CALLABLE_NOW requires fresh OBSERVED_RUNTIME evidence and exact transport 
     task: task(), profiles: [p], callability: [callability(p, { evidenceClass: 'CONFIGURED', identityVerification: 'UNVERIFIED' })], benchmarks: [benchmark(p)], contextArtifacts: contextArtifacts(), now: NOW
   });
   assert.equal(selfDeclared.ok, false);
-  assert.ok(selfDeclared.blocked[0].reasonCodes.includes('callability-not-observed-runtime-evidence'));
+  assert.ok(selfDeclared.blocked[0].reasonCodes.includes('callability-provenance-not-trusted'));
 
   const transportMismatch = compileFrontierCognitivePlan({
     task: task(), profiles: [p], callability: [callability(p, { observedTransportModel: 'openai/other-model' })], benchmarks: [benchmark(p)], contextArtifacts: contextArtifacts(), now: NOW
@@ -320,7 +320,7 @@ test('COUNCIL_MAX fails closed if an independent adjudicator is unavailable by d
   });
   assert.equal(result.ok, false);
   assert.equal(result.status, 'CAPACITY_BLOCKED');
-  assert.ok(result.reasonCodes.includes('independent-adjudicator-unavailable'));
+  assert.ok(result.reasonCodes.includes('council-minimum-cardinality-unavailable'));
 });
 
 test('degraded council requires an explicit policy reference and reports degradation', () => {

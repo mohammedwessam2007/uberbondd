@@ -6,6 +6,9 @@ import { issueGithubActionsSelfMaintainerAuthority } from '../src/github-actions
 import { createTrustedGithubSelfMaintainerPromotionAdapter } from '../src/github-self-maintainer-trusted-promotion.mjs';
 
 const BASE = 'a'.repeat(40);
+const BASE_TREE = 'b'.repeat(40);
+const CANDIDATE_TREE = 'c'.repeat(40);
+const CANDIDATE_COMMIT = 'd'.repeat(40);
 const BEFORE = 'export const value = 1;\n';
 const AFTER = 'export const value = 2;\n';
 const NOW = new Date('2026-09-05T12:00:00.000Z');
@@ -37,19 +40,91 @@ function trustedInputs(changeSet) {
 function github() {
   const calls = [];
   const files = new Map([['src/example.mjs', BEFORE]]);
+  const blobs = new Map();
+  let branchSha = null;
+
+  function filePayload(path) {
+    if (!files.has(path)) return { ok: true, status: 'NOT_FOUND', payload: null };
+    return {
+      ok: true,
+      status: 'OK',
+      payload: {
+        type: 'file',
+        sha: '1'.repeat(40),
+        encoding: 'base64',
+        content: Buffer.from(files.get(path), 'utf8').toString('base64')
+      }
+    };
+  }
+
   return {
     calls,
     client: {
-      async getBranch() { calls.push('getBranch'); return { ok: true, payload: { commit: { sha: BASE } } }; },
-      async createBranch() { calls.push('createBranch'); return { ok: true, payload: {} }; },
+      async getBranch({ branch }) {
+        calls.push('getBranch');
+        if (branch === 'main') return { ok: true, status: 'OK', payload: { commit: { sha: BASE } } };
+        return branchSha
+          ? { ok: true, status: 'OK', payload: { commit: { sha: branchSha } } }
+          : { ok: true, status: 'NOT_FOUND', payload: null };
+      },
+      async getCommit() {
+        calls.push('getCommit');
+        return { ok: true, payload: { tree: { sha: BASE_TREE } } };
+      },
+      async getTree() {
+        calls.push('getTree');
+        return {
+          ok: true,
+          payload: {
+            truncated: false,
+            tree: [{ path: 'src/example.mjs', mode: '100644', type: 'blob', sha: '1'.repeat(40) }]
+          }
+        };
+      },
       async getFile({ path }) {
         calls.push('getFile');
-        if (!files.has(path)) return { ok: true, status: 'NOT_FOUND', payload: null };
-        return { ok: true, status: 'OK', payload: { type: 'file', sha: 'blob', content: Buffer.from(files.get(path)).toString('base64') } };
+        return filePayload(path);
       },
-      async putFile({ path, content }) { calls.push('putFile'); files.set(path, content); return { ok: true, payload: {} }; },
-      async deleteFile({ path }) { calls.push('deleteFile'); files.delete(path); return { ok: true, payload: {} }; },
-      async createPullRequest() { calls.push('createPullRequest'); return { ok: true, payload: { number: 1, html_url: 'https://example.invalid/pr/1' } }; }
+      async createBlob({ content }) {
+        calls.push('createBlob');
+        const sha = '2'.repeat(40);
+        blobs.set(sha, content);
+        return { ok: true, payload: { sha } };
+      },
+      async createTree({ entries }) {
+        calls.push('createTree');
+        for (const entry of entries) {
+          if (entry.sha == null) files.delete(entry.path);
+          else files.set(entry.path, blobs.get(entry.sha));
+        }
+        return { ok: true, payload: { sha: CANDIDATE_TREE } };
+      },
+      async createCommit() {
+        calls.push('createCommit');
+        return { ok: true, payload: { sha: CANDIDATE_COMMIT } };
+      },
+      async createBranch({ sha }) {
+        calls.push('createBranch');
+        branchSha = sha;
+        return { ok: true, payload: {} };
+      },
+      async listPullRequests() {
+        calls.push('listPullRequests');
+        return { ok: true, payload: [] };
+      },
+      async createPullRequest({ head, base }) {
+        calls.push('createPullRequest');
+        return {
+          ok: true,
+          payload: {
+            number: 1,
+            state: 'open',
+            head: { ref: head },
+            base: { ref: base },
+            html_url: 'https://example.invalid/pr/1'
+          }
+        };
+      }
     }
   };
 }
@@ -64,6 +139,11 @@ test('trusted process-local receipt + trusted workflow authority can open review
   });
   assert.equal(result.ok, true);
   assert.equal(result.status, 'PR_OPENED_REVIEW_REQUIRED');
+  assert.ok(gh.calls.includes('getCommit'));
+  assert.ok(gh.calls.includes('getTree'));
+  assert.ok(gh.calls.includes('createBlob'));
+  assert.ok(gh.calls.includes('createTree'));
+  assert.ok(gh.calls.includes('createCommit'));
   assert.ok(gh.calls.includes('createPullRequest'));
 });
 

@@ -160,7 +160,7 @@ test('COUNCIL_MAX executes sealed first passes, responder cross-critiques and di
   assert.equal(out.executionCount, 5);
   assert.equal(out.providerCalls, 0);
   assert.equal(out.receipt.mode, 'COUNCIL_MAX');
-  assert.equal(out.receipt.executions.length, 3); // 2 sealed first passes + 1 distinct adjudicator; critiques remain process evidence.
+  assert.equal(out.receipt.executions.length, 3);
   assert.equal(out.critiqueExecutions?.length, 2);
   assert.equal(out.receipt.critiqueExecutions?.length, 2);
   const critiqueByProfile = new Map(out.receipt.critiqueExecutions.map(item => [item.profileId, item]));
@@ -178,9 +178,49 @@ test('COUNCIL_MAX executes sealed first passes, responder cross-critiques and di
   assert.equal(out.receipt.adjudication.decisionBasis, 'EVIDENCE_WEIGHTED');
   assert.equal(out.receipt.adjudication.adjudicatorProfileId, 'anthropic');
   assert.equal(out.receipt.adjudication.independentFromResponders, true);
+  assert.equal(out.receipt.adjudicatorReusedFromResponders, false);
+  assert.equal(out.receipt.adjudicationExecution.profileId, 'anthropic');
   assert.equal(out.receipt.councilBudgetCents, 100);
   assert.equal(out.receipt.councilSpentCents, 31);
   assert.equal(out.spentCents, 31);
   assert.match(out.processVerifierRef, /^frontier-process-proof:\/\/[a-f0-9]{64}$/);
   assert.equal(out.receipt.semanticClaimAuthority, 'NONE');
+});
+
+test('explicit COUNCIL_DEGRADED can reuse a responder as adjudicator without forging duplicate canonical execution identity', async () => {
+  const profiles = [
+    profile({ id: 'google', provider: 'google', model: 'gemini-frontier', quality: 0.99 }),
+    profile({ id: 'openai', provider: 'openai', model: 'gpt-frontier', quality: 0.98 })
+  ];
+  const calls = profiles.map(callability);
+  const modelExecutorFactory = createFrontierSimulationExecutorFactory({
+    responses: [
+      { taskId: 'avengers-frontier-guard:independent-google', model: 'google/gemini-frontier', costCents: 0, result: { answer: 'independent-google' } },
+      { taskId: 'avengers-frontier-guard:independent-openai', model: 'openai/gpt-frontier', costCents: 0, result: { answer: 'independent-openai' } },
+      { taskId: 'avengers-frontier-guard:cross-critique-google', model: 'google/gemini-frontier', costCents: 0, result: { contradictions: ['degraded-google-critique'] } },
+      { taskId: 'avengers-frontier-guard:cross-critique-openai', model: 'openai/gpt-frontier', costCents: 0, result: { contradictions: ['degraded-openai-critique'] } },
+      { taskId: 'avengers-frontier-guard:independent-adjudication', model: 'google/gemini-frontier', costCents: 0, result: { decision: 'explicit-degraded-synthesis', unresolved: ['adjudicator-reused'] } }
+    ]
+  });
+  let tick = 2000;
+  const out = await executeAdmittedFrontierAvenger({
+    ...baseArgs(profiles, calls, 'COUNCIL_MAX'),
+    modelExecutorFactory,
+    policy: { allowDegradedCouncil: true, degradationPolicyRef: 'policy://explicit-two-profile-council' },
+    clock: () => ++tick
+  });
+  assert.equal(out.ok, true);
+  assert.equal(out.plan.status, 'COUNCIL_DEGRADED');
+  assert.ok(out.plan.degradationReasonCodes.includes('adjudicator-not-independent'));
+  assert.equal(out.executionCount, 5);
+  assert.equal(out.providerCalls, 0);
+  assert.equal(out.receipt.executions.length, 2);
+  assert.deepEqual(out.receipt.executions.map(item => item.profileId).sort(), ['google', 'openai']);
+  assert.equal(out.receipt.adjudication.independentFromResponders, false);
+  assert.equal(out.receipt.adjudicatorReusedFromResponders, true);
+  assert.equal(out.receipt.adjudicationExecution.profileId, 'google');
+  assert.equal(out.receipt.critiqueExecutions.length, 2);
+  assert.equal(out.receipt.semanticClaimAuthority, 'NONE');
+  assert.equal(out.receipt.businessEffectAuthority, 'NONE');
+  assert.equal(out.receipt.externalEffectLedger.providerCalls ?? 0, 0);
 });

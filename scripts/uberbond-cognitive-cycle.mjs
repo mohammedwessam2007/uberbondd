@@ -111,7 +111,15 @@ if (!cycle.ok) {
 const receipt = {
   schemaVersion: 'uberbond.cognitive-cycle.v1',
   generatedAt: new Date().toISOString(),
-  graph: { schemaVersion: graph.schemaVersion, graphDigest: graph.graphDigest, nodeCount: integrity.nodeCount, edgeCount: integrity.edgeCount, integrityStatus: integrity.status },
+  graph: {
+    schemaVersion: graph.schemaVersion,
+    graphDigest: graph.graphDigest,
+    nodeCount: integrity.nodeCount,
+    edgeCount: integrity.edgeCount,
+    integrityStatus: integrity.status,
+    nodes: graph.nodes,
+    edges: graph.edges
+  },
   lineage: {
     schemaVersion: lineage.schemaVersion,
     lineageCount: lineage.lineages.length,

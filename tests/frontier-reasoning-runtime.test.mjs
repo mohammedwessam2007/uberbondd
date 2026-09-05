@@ -38,6 +38,7 @@ function executorResult(overrides = {}) {
     identityVerification: 'OBSERVED',
     appliedReasoningEffort: 'xhigh',
     appliedReasoningEvidence: 'REQUEST_BODY_ATTESTED',
+    latencyMs: 42,
     usage: { costCents: 2 },
     ...overrides
   };

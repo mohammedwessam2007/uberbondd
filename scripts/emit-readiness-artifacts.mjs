@@ -1,13 +1,101 @@
 #!/usr/bin/env node
 import { readFileSync, writeFileSync } from 'node:fs';
-import { execFileSync } from 'node:child_process';
+import { spawnSync, execFileSync } from 'node:child_process';
 
 const inputPath = 'config/system-readiness-input.json';
+const canonicalHead = '219edaf5038e98ba3f3115b7095004308f2ad056';
+const canonicalBranch = 'gpt/frontier-council-max-clean-closure-20260905';
+const canonicalEnv = {
+  ...process.env,
+  UBERBOND_CANONICAL_HEAD: canonicalHead,
+  UBERBOND_CANONICAL_BRANCH: canonicalBranch
+};
+const deterministicEnv = { ...process.env };
+for (const key of [
+  'AI_GATEWAY_API_KEY',
+  'OPENAI_API_KEY',
+  'ANTHROPIC_API_KEY',
+  'GOOGLE_API_KEY',
+  'GEMINI_API_KEY'
+]) delete deterministicEnv[key];
+
+function git(args, options = {}) {
+  return execFileSync('git', args, { stdio: 'inherit', ...options });
+}
+
+function run(command, args, { env = process.env, allowFailure = false } = {}) {
+  const result = spawnSync(command, args, {
+    encoding: 'utf8',
+    env,
+    maxBuffer: 64 * 1024 * 1024
+  });
+  if (result.stdout) process.stdout.write(result.stdout);
+  if (result.stderr) process.stderr.write(result.stderr);
+  if (result.error) throw result.error;
+  const status = result.status ?? 1;
+  if (!allowFailure && status !== 0) {
+    throw new Error(`${command} ${args.join(' ')} exited ${status}`);
+  }
+  return { status, output: `${result.stdout || ''}\n${result.stderr || ''}` };
+}
+
+function parseNodeTestSummary(output) {
+  const clean = String(output).replace(/\u001b\[[0-9;]*m/g, '');
+  const read = label => {
+    const match = clean.match(new RegExp(`^\\s*(?:ℹ\\s*)?${label}\\s+(\\d+)\\s*$`, 'mi'));
+    return match ? Number(match[1]) : null;
+  };
+  const summary = {
+    tests: read('tests'),
+    pass: read('pass'),
+    fail: read('fail'),
+    skipped: read('skipped')
+  };
+  if (Object.values(summary).some(value => !Number.isSafeInteger(value) || value < 0)) {
+    throw new Error(`unable to parse deterministic summary: ${JSON.stringify(summary)}`);
+  }
+  if (summary.pass + summary.fail + summary.skipped !== summary.tests) {
+    throw new Error(`deterministic summary arithmetic mismatch: ${JSON.stringify(summary)}`);
+  }
+  return summary;
+}
+
+function runReadiness() {
+  run('npm', ['run', 'readiness'], { env: canonicalEnv });
+}
+
+function runDeterministic(label) {
+  console.log(`READINESS_CLOSURE_DETERMINISTIC_BEGIN ${label}`);
+  const result = run('npm', ['run', 'test:deterministic'], {
+    env: deterministicEnv,
+    allowFailure: true
+  });
+  const summary = parseNodeTestSummary(result.output);
+  console.log(`READINESS_CLOSURE_DETERMINISTIC_SUMMARY ${label} ${JSON.stringify(summary)}`);
+  if (result.status !== 0 || summary.fail !== 0) {
+    throw new Error(`deterministic ${label} is red: exit=${result.status} summary=${JSON.stringify(summary)}`);
+  }
+  return summary;
+}
+
+function commitLocal(paths, message) {
+  git(['add', ...paths]);
+  const status = spawnSync('git', ['diff', '--cached', '--quiet'], { encoding: 'utf8' });
+  if (status.status === 0) return;
+  if (status.status !== 1) throw new Error(`git diff --cached --quiet exited ${status.status}`);
+  git(['-c', 'user.name=UberBond Canon Runner', '-c', 'user.email=canon@invalid.local', 'commit', '-m', message]);
+}
+
 const input = JSON.parse(readFileSync(inputPath, 'utf8'));
-input.measurements['check:syntax'].filesParsed = 871;
-input.measurements['check:syntax'].ranAt = '2026-09-05T12:00:33Z';
+input.measurements['check:syntax'] = {
+  ...input.measurements['check:syntax'],
+  command: 'npm run check:syntax',
+  filesParsed: 871,
+  ranAt: '2026-09-05T12:00:33Z'
+};
 input.measurements.reachability = {
   ...input.measurements.reachability,
+  command: 'node --test tests/reachability-ratchet.test.mjs',
   srcModules: 342,
   reachableFromProduction: 143,
   reachableFromOperatorScriptsOnly: 62,
@@ -18,17 +106,45 @@ input.measurements.reachability = {
 };
 writeFileSync(inputPath, `${JSON.stringify(input, null, 2)}\n`);
 
-execFileSync('git', ['add', inputPath]);
-execFileSync('git', ['-c', 'user.name=UberBond Canon Runner', '-c', 'user.email=canon@invalid.local', 'commit', '-m', 'TEMP local readiness input'], { stdio: 'inherit' });
+// Phase 1: make the measured non-circular inputs part of the local checkout so
+// readiness can truthfully observe a clean tree before it writes generated canon.
+commitLocal([inputPath], 'TEMP local pre-readiness measured inputs');
+runReadiness();
 
-execFileSync('npm', ['run', 'readiness'], {
-  stdio: 'inherit',
-  env: {
-    ...process.env,
-    UBERBOND_CANONICAL_HEAD: '219edaf5038e98ba3f3115b7095004308f2ad056',
-    UBERBOND_CANONICAL_BRANCH: 'gpt/frontier-council-max-clean-closure-20260905'
+// Phase 2: execute the full deterministic suite against the freshly generated
+// canon. Only a genuine zero-failure run is permitted to become recorded evidence.
+const firstDeterministic = runDeterministic('POST_FIRST_REGEN');
+const measuredAt = new Date().toISOString();
+const measuredInput = JSON.parse(readFileSync(inputPath, 'utf8'));
+measuredInput.measurements['test:deterministic'] = {
+  ...measuredInput.measurements['test:deterministic'],
+  command: 'npm run test:deterministic',
+  tests: firstDeterministic.tests,
+  pass: firstDeterministic.pass,
+  fail: firstDeterministic.fail,
+  skipped: firstDeterministic.skipped,
+  ranAt: measuredAt,
+  note: `Measured on the real Vercel checkout after first canonical readiness regeneration for source candidate ${canonicalHead}; final second regeneration and verification rerun required before certification.`
+};
+writeFileSync(inputPath, `${JSON.stringify(measuredInput, null, 2)}\n`);
+
+// Commit the first generated canon + its actual deterministic measurement only
+// inside the disposable build checkout, making the second readiness observation
+// start from a clean tree. No temporary local commit is ever pushed or certified.
+commitLocal(
+  [inputPath, 'docs/CURRENT_SYSTEM_STATE.md', 'artifacts/system-readiness.json'],
+  'TEMP local bind actual deterministic measurement'
+);
+runReadiness();
+
+// Phase 3: prove the final generated canon is self-consistent. The second run must
+// exactly reproduce the recorded test cardinality and remain zero-failure.
+const finalDeterministic = runDeterministic('POST_SECOND_REGEN');
+for (const key of ['tests', 'pass', 'fail', 'skipped']) {
+  if (finalDeterministic[key] !== firstDeterministic[key]) {
+    throw new Error(`deterministic result drift after second readiness regeneration: ${key} ${firstDeterministic[key]} -> ${finalDeterministic[key]}`);
   }
-});
+}
 
 const files = ['config/system-readiness-input.json', 'docs/CURRENT_SYSTEM_STATE.md', 'artifacts/system-readiness.json'];
 for (const path of files) {
@@ -41,3 +157,4 @@ for (const path of files) {
   }
   console.log(`READINESS_ARTIFACT_END ${path}`);
 }
+console.log(`READINESS_CLOSURE_PHASE_COMPLETE ${JSON.stringify({ canonicalHead, firstDeterministic, finalDeterministic })}`);

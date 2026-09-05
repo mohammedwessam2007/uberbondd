@@ -6,12 +6,12 @@ import { createGithubIssuesRelayClient } from '../src/github-issues-relay-client
 import { TASK_LABEL, parseTaskIssueBody, extractFencedJson } from '../src/github-relay.mjs';
 import { validateAgentCodeChangeSet } from '../src/agent-code-change-contract.mjs';
 import { createLinuxSelfMaintainerSandboxHost } from '../src/linux-self-maintainer-sandbox.mjs';
-import { issueGithubActionsSelfMaintainerAuthority } from '../src/github-actions-self-maintainer-authority.mjs';
+import { issueVerifiedGithubActionsSelfMaintainerAuthority } from '../src/github-actions-self-maintainer-authority.mjs';
 import { createTrustedGithubSelfMaintainerPromotionAdapter } from '../src/github-self-maintainer-trusted-promotion.mjs';
 import { runTrustedUberBondSelfMaintenance } from '../src/uberbond-self-maintainer-trusted-runtime.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 
-export const UBERBOND_SELF_MAINTAINER_TICK_POLICY_VERSION = 'uberbond-self-maintainer-tick-1.1.0';
+export const UBERBOND_SELF_MAINTAINER_TICK_POLICY_VERSION = 'uberbond-self-maintainer-tick-1.2.0';
 
 const PROMOTION_FENCE = 'uberbond-self-maintainer-promotion';
 const MAX_GITHUB_RESPONSE_BYTES = 500_000;
@@ -364,9 +364,9 @@ export async function runSelfMaintainerTick({ env = process.env, repoRoot = proc
     };
   }
 
-  const authorityResult = issueGithubActionsSelfMaintainerAuthority({ env, baseRevision, date });
+  const authorityResult = await issueVerifiedGithubActionsSelfMaintainerAuthority({ env, baseRevision, date });
   if (!authorityResult?.ok || !authorityResult.authority) {
-    return fail(authorityResult?.reasonCodes || ['trusted-workflow-authority-unavailable'], 'PROMOTION_BLOCKED');
+    return fail(authorityResult?.reasonCodes || ['oidc-rooted-workflow-authority-unavailable'], 'PROMOTION_BLOCKED');
   }
 
   const sandboxHost = createLinuxSelfMaintainerSandboxHost({ repoRoot, env });
@@ -394,6 +394,7 @@ export async function runSelfMaintainerTick({ env = process.env, repoRoot = proc
     taskId: task.taskId,
     issueNumber,
     promotionMarker: marker,
+    workflowIdentity: authorityResult.oidcIdentity || null,
     cognitiveContextStatus: cognitiveContext.status,
     businessEffectAuthority: 'NONE',
     externalEffectLedger: zeroEffects()

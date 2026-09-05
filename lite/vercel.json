@@ -1,5 +1,4 @@
 {
-  "buildCommand": "cd .. && npm ci && node .vercel-readiness-runner.mjs && node .vercel-max-council-mutation-war.mjs && npm run check:syntax",
   "headers": [
     {
       "source": "/(.*)",

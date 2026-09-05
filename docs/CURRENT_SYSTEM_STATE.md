@@ -3,8 +3,8 @@
 **This file is the canonical present-tense software/commercial state.** Historical detail from the pre-checkpoint version is preserved byte-for-byte under `docs/archive/2026-08-30-pre-checkpoint/`. Repository code and newer exact external evidence still outrank this prose.
 
 Last reconciled: **2026-09-05**
-Branch: `gpt/frontier-cognitive-fabric-20260904`
-Reconciled from current head: `b0ad6feba503e95eaf6baf957ef1791e999b0e58`
+Branch: `gpt/frontier-council-max-clean-closure-20260905`
+Reconciled from current head: `219edaf5038e98ba3f3115b7095004308f2ad056`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
@@ -29,27 +29,27 @@ The source-changing state of this branch was exercised before later documentatio
 
 | Gate | Result |
 |---|---|
-| Syntax | `npm run check:syntax`: **871 files parse** on exact head `b0ad6feba503e95eaf6baf957ef1791e999b0e58` (Vercel preview, 2026-09-05) |
-| Deterministic | `npm run test:deterministic`: 3623 tests, 3569 pass, **0 fail**, 54 skipped (2026-09-04) |
+| Syntax | `npm run check:syntax`: **871 files parse** (real Vercel checkout of `219edaf5038e98ba3f3115b7095004308f2ad056`, 2026-09-05) |
+| Deterministic | `npm run test:deterministic`: **3683 tests, 3626 pass, 3 fail, 54 skipped** on `219edaf5038e98ba3f3115b7095004308f2ad056` (2026-09-05); all 3 failures were generated canon/readiness drift fixed by this reconciliation. No post-regeneration whole-tree pass is claimed. |
 | Relay safety | `npm run test:relay-safety`: 150 tests, 150 pass, 0 fail (2026-08-30) |
 | Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real`: 24 suites passed, 187 tests, 187 pass, 0 fail (2026-09-04) |
 | Mutation war | `CHROMIUM_PATH=... OMNIA_V9_TEST_DATABASE_URL=... npm run test:mutation-war`: 168 mutations, 168 killed, 0 not killed, 0 skipped |
 | Browser | `CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser`: 1 test, 1 pass, 0 fail (2026-08-30), against the runner's installed Chromium |
 | Dependency audit | `npm audit --omit=dev`: No vulnerabilities reported in the current integration environment. |
 
-The historical deterministic skip count above is environment-dependent; real-PostgreSQL behavior has separate evidence above. Hosted GitHub Actions jobs that receive no runner and execute zero steps remain `INFRASTRUCTURE_NON_EVIDENCE`. The exact `b0ad6fe...` deterministic Vercel run reached the frontier and broader regression suites with the new frontier tests green, then failed only because this reachability canon still named the pre-frontier 336-module tree; that generated-canon freshness defect is repaired by this reconciliation commit and is not recorded as a green deterministic run.
+The deterministic skip count above is environment-dependent; real-PostgreSQL behavior has separate historical evidence above. Hosted GitHub Actions jobs that receive no runner and execute zero steps remain `INFRASTRUCTURE_NON_EVIDENCE`. The exact `219edaf...` Vercel run executed 3,683 tests and isolated its three failures to generated present-tense canon: stale canonical commit/source identity plus the 138 -> 137 reachability drift. MAX Council behavior and its focused Council/provenance/simulation paths were green in that executed tree. This reconciliation fixes those generated claims, but it deliberately does not rewrite the executed result into a fictional post-regeneration green run.
 
 ## Reachability
 
-**138 of 342 `src` modules have no entry point at all**.
+**137 of 342 `src` modules have no entry point at all**.
 
 | Reachability class | Modules |
 |---|---:|
 | Reachable from production | 143 |
-| Reachable only via an operator script | 61 |
-| **No entry point at all** | **138** |
+| Reachable only via an operator script | 62 |
+| **No entry point at all** | **137** |
 
-The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`. The newly merged `src/payment-provider-verifier-dispatch.mjs` is production-reachable through `payment-reconciliation-worker` and increases the production-reachable partition by one without changing the gated partition. The earlier Avengers runtime added five source modules, all intentionally operator-only through `scripts/avengers-arsenal-doctor.mjs`, `scripts/avengers-arsenal-plan.mjs`, and `scripts/avengers-arsenal-tick.mjs`. The frontier cognitive fabric adds six more source modules transitively reachable through the same operator-only Avengers execution path; it does not create a production scheduler or widen business-effect authority.
+The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`. The newly merged `src/payment-provider-verifier-dispatch.mjs` is production-reachable through `payment-reconciliation-worker` and increases the production-reachable partition by one without changing the gated partition. The earlier Avengers runtime added five source modules, all intentionally operator-only through `scripts/avengers-arsenal-doctor.mjs`, `scripts/avengers-arsenal-plan.mjs`, and `scripts/avengers-arsenal-tick.mjs`. The frontier cognitive fabric adds six source modules. After the stale Context Spine classification was removed, `src/frontier-context-spine.mjs` is correctly counted as operator-reachable through the Avengers/frontier path, yielding the measured 143 production / 62 operator-only / 137 gated split. This does not create a production scheduler or widen business-effect authority.
 
 ## PR #251 payment-attention policy
 
@@ -86,7 +86,7 @@ The repository contains a real Claude engineering orchestrator, but a live Claud
 
 The connected Vercel account exposes team `team_A9LnjIuS5PU0rNetsHMu1N0r` and full project `prj_RWUPf14w1xIz9NK92AbNW5z7qDCg` (`uberbondd`).
 
-The exact PR #388 preview deployment for `b0ad6feba503e95eaf6baf957ef1791e999b0e58` cloned that commit and ran the repository-native `vercel-build` contract. Syntax passed with 871 files. The deterministic tree exercised the new frontier council/provenance/simulation paths successfully and continued through broad core regression coverage, but the build exited 1 at `tests/reachability-ratchet.test.mjs` because this document still claimed 336 source modules while 342 existed. That was a stale generated-canon assertion, not a frontier behavioral failure; this commit reconciles the exact 143 production / 61 operator-only / 138 unreachable split. A deployment state is not treated as business or provider proof.
+The exact PR #397 Vercel checkout for `219edaf5038e98ba3f3115b7095004308f2ad056` parsed 871 files and executed the 3,683-test deterministic tree. It reached the MAX Council, provenance, branded simulation and broader regression surfaces; the only three failures were generated present-tense canon/readiness drift. The measured reachability split is 342 modules = 143 production / 62 operator-only / 137 gated. Later #397 commits changed only verification shell/canon files, not product `src/` behavior. A deployment state is not treated as business or provider proof.
 
 ## Account activation receipt
 

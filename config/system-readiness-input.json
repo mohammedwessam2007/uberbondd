@@ -2,17 +2,17 @@
   "measurements": {
     "check:syntax": {
       "command": "npm run check:syntax",
-      "filesParsed": 848,
-      "ranAt": "2026-09-04T16:30:00Z"
+      "filesParsed": 871,
+      "ranAt": "2026-09-05T12:00:33Z"
     },
     "test:deterministic": {
       "command": "npm run test:deterministic",
-      "tests": 3623,
-      "pass": 3569,
-      "fail": 0,
+      "tests": 3683,
+      "pass": 3626,
+      "fail": 3,
       "skipped": 54,
-      "ranAt": "2026-09-04T16:30:00Z",
-      "note": "Measured 3623 tests, 3566 pass, 3 fail, 54 skipped immediately before this regeneration; all three were canon and reachability figure tests, which cannot pass until this artifact is regenerated. This head merges the Avengers arsenal (PR #364) and the full GENESIS 275 frontier surface (PR #342), both whole, with two reporting defects repaired in each."
+      "ranAt": "2026-09-05T12:00:08Z",
+      "note": "Measured on the real Vercel checkout at source candidate 219edaf5038e98ba3f3115b7095004308f2ad056 before canonical regeneration: 3683 tests, 3626 pass, 3 fail, 54 skipped. All three failures were generated present-tense canon/readiness drift: stale canonical commit/source identity plus the 138 -> 137 reachability figure. MAX Council behavior and the focused Council/provenance/simulation paths were green in that run. This regeneration records the measured tree without inventing a post-regeneration whole-tree pass; subsequent GitHub hosted jobs received no runner and current Vercel capacity did not provide a trustworthy exact-head rerun."
     },
     "test:relay-safety": {
       "command": "npm run test:relay-safety",
@@ -59,13 +59,13 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 336,
+      "srcModules": 342,
       "reachableFromProduction": 143,
-      "reachableFromOperatorScriptsOnly": 55,
-      "noEntryPointAtAll": 138,
+      "reachableFromOperatorScriptsOnly": 62,
+      "noEntryPointAtAll": 137,
       "allClassified": true,
-      "ranAt": "2026-09-04T16:30:00Z",
-      "note": "Avengers and GENESIS together add 22 src modules, all reachable from their own operator scripts, which is why operator-only rose 33 -> 55 while the gated count did not move. Both PRs classified or wired everything they landed; nothing arrived unreachable."
+      "ranAt": "2026-09-05T12:08:06Z",
+      "note": "Frontier Cognitive Fabric makes the previously classified frontier-context-spine operator-reachable. Exact graph: 342 src modules = 143 production + 62 operator-only + 137 gated/unreachable."
     }
   },
   "capabilities": [

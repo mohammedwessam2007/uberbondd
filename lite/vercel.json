@@ -1,7 +1,4 @@
 {
-  "installCommand": "cd .. && npm ci",
-  "buildCommand": "cd .. && node .vercel-readiness-runner.mjs && npm run check:syntax && mkdir -p lite/verification-output && echo verification-complete > lite/verification-output/index.html",
-  "outputDirectory": "verification-output",
   "headers": [
     {
       "source": "/(.*)",

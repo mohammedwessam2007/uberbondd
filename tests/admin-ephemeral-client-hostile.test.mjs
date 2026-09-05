@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 
 const admin = readFileSync(new URL('../public/admin.js', import.meta.url), 'utf8');
 const server = readFileSync(new URL('../server.mjs', import.meta.url), 'utf8');
+const serverCore = readFileSync(new URL('../server-core.mjs', import.meta.url), 'utf8');
 
 function assertAbsent(source, pattern, message) {
   assert.equal(pattern.test(source), false, message);
@@ -27,7 +28,18 @@ test('server admin auth accepts bearer header only, never query-token fallback',
   assert.match(server, /headers\.authorization/);
   assert.match(server, /startsWith\(['"]Bearer ['"]\)/);
   assertAbsent(server, /searchParams\.get\(['"]token['"]\)/,
-    'server still accepts privileged admin token from query string');
+    'server facade still accepts privileged admin token from query string');
+});
+
+test('canonical server core cannot resurrect privileged query-token authentication', () => {
+  assert.match(serverCore, /headers\.authorization/,
+    'canonical server core must retain Authorization bearer handling');
+  assert.match(serverCore, /startsWith\(['"]Bearer ['"]\)/,
+    'canonical server core must parse Bearer authorization');
+  assertAbsent(serverCore, /const\s+queryToken\s*=\s*new URL\([^\n]+searchParams\.get\(['"]token['"]\)/,
+    'canonical server core still accepts the privileged admin bearer from a query string');
+  assertAbsent(serverCore, /return\s+safeEqual\(queryToken\s*,\s*config\.adminToken\)/,
+    'canonical server core still authenticates privileged requests with the query token');
 });
 
 test('admin exports are implemented as authenticated fetch rather than token-bearing navigation', () => {

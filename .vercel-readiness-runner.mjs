@@ -19,6 +19,10 @@ for (const key of [
   'GOOGLE_API_KEY',
   'GEMINI_API_KEY'
 ]) delete deterministicEnv[key];
+const zeroNetworkEnv = {
+  ...deterministicEnv,
+  UBERBOND_POSTGRES_MODE: 'off'
+};
 
 function git(args, options = {}) {
   return execFileSync('git', args, { stdio: 'inherit', ...options });
@@ -77,6 +81,16 @@ function runDeterministic(label) {
     throw new Error(`deterministic ${label} is red: exit=${result.status} summary=${JSON.stringify(summary)}`);
   }
   return summary;
+}
+
+function runHostileGate(label, command, args) {
+  console.log(`READINESS_CLOSURE_HOSTILE_GATE_BEGIN ${label}`);
+  const result = run(command, args, { env: zeroNetworkEnv, allowFailure: true });
+  if (result.status !== 0) {
+    throw new Error(`hostile gate ${label} is red: ${command} ${args.join(' ')} exited ${result.status}`);
+  }
+  console.log(`READINESS_CLOSURE_HOSTILE_GATE_PASS ${label}`);
+  return { label, command: `${command} ${args.join(' ')}`, exit: result.status };
 }
 
 function commitLocal(paths, message) {
@@ -138,6 +152,26 @@ for (const key of ['tests', 'pass', 'fail', 'skipped']) {
   }
 }
 
+const hostileGates = [
+  runHostileGate(
+    'ZERO_NETWORK_COUNCIL_STANDARD_AND_DEGRADED',
+    'node',
+    ['--test', '--test-concurrency=1', 'tests/avengers-frontier-execution-guard.test.mjs']
+  ),
+  runHostileGate(
+    'FRONTIER_PROVENANCE_AND_RAW_COMPILER_BYPASS',
+    'node',
+    [
+      '--test',
+      '--test-concurrency=1',
+      'tests/frontier-cognitive-evidence-provenance-bypass.test.mjs',
+      'tests/frontier-cognitive-raw-compiler-bypass.test.mjs',
+      'tests/frontier-producer-origin.test.mjs'
+    ]
+  ),
+  runHostileGate('LOCAL_DEPENDENCY_AUDIT', 'npm', ['run', 'audit:deps'])
+];
+
 const files = ['config/system-readiness-input.json', 'docs/CURRENT_SYSTEM_STATE.md', 'artifacts/system-readiness.json'];
 for (const path of files) {
   const encoded = Buffer.from(readFileSync(path, 'utf8'), 'utf8').toString('base64');
@@ -149,4 +183,4 @@ for (const path of files) {
   }
   console.log(`READINESS_ARTIFACT_END ${path}`);
 }
-console.log(`READINESS_CLOSURE_PHASE_COMPLETE ${JSON.stringify({ canonicalHead, firstDeterministic, finalDeterministic })}`);
+console.log(`READINESS_CLOSURE_PHASE_COMPLETE ${JSON.stringify({ canonicalHead, firstDeterministic, finalDeterministic, hostileGates, mutationWar: 'PENDING_SEPARATE_EXACT_HEAD_GATE' })}`);

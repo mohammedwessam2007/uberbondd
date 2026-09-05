@@ -30,12 +30,13 @@ jobs:
           key: gamechanger-mesh-state-${{ github.run_id }}
           restore-keys: |
             gamechanger-mesh-state-
-      - name: Verify mesh, orchestration frontier and GENESIS contracts
+      - name: Verify mesh, orchestration frontier, GENESIS and cognitive graph contracts
         run: |
           npm run test:gamechanger
           node --test tests/orchestration-frontier.test.mjs tests/orchestration-frontier-tick.test.mjs tests/orchestration-gamechanger-source.test.mjs tests/external-capability-control-plane.test.mjs
           npm run test:genesis
           node --test tests/perpetual-frontier-genesis-tick.test.mjs
+          node --test tests/uberbond-cognitive-graph.test.mjs tests/uberbond-cognitive-bus.test.mjs
           npm run capabilities:doctor
           npm run genesis:doctor
       - name: Read and search public frontier sources
@@ -46,6 +47,8 @@ jobs:
         run: node scripts/orchestration-frontier-tick.mjs
       - name: Compile frontier shockwaves, resurrection review, unknown-unknowns and latency
         run: npm run genesis:tick
+      - name: Route frontier evidence across the UberBond cognitive graph
+        run: node scripts/uberbond-cognitive-cycle.mjs
       - name: Upload evidence receipt and state
         uses: actions/upload-artifact@v4
         with:
@@ -54,6 +57,7 @@ jobs:
             artifacts/gamechanger-mesh-latest.json
             artifacts/orchestration-frontier-candidates-latest.json
             artifacts/perpetual-frontier-genesis-latest.json
+            artifacts/uberbond-cognitive-cycle-latest.json
             .cache/gamechanger-mesh-state.json
           retention-days: 14
           if-no-files-found: error

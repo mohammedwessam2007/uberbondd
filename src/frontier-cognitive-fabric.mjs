@@ -6,7 +6,7 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
 import { validateFrontierCallabilityProbeReceipt } from './frontier-callability-provenance.mjs';
 
-export const FRONTIER_COGNITIVE_FABRIC_VERSION = 'uberbond.frontier-cognitive-fabric-1.3.0';
+export const FRONTIER_COGNITIVE_FABRIC_VERSION = 'uberbond.frontier-cognitive-fabric-1.3.1';
 export const FRONTIER_COGNITIVE_PLAN_SCHEMA = 'uberbond.frontier-cognitive-plan.v1';
 export const FRONTIER_COGNITIVE_RECEIPT_SCHEMA = 'uberbond.frontier-cognitive-receipt.v1';
 export const FRONTIER_REASONING_TIERS = Object.freeze(['FAST', 'STANDARD', 'DEEP', 'FRONTIER_MAX', 'COUNCIL_MAX']);
@@ -370,29 +370,30 @@ function independentNode(profile, task, contextPacket, index) {
 function compileCouncilGraph(responders, adjudicator, task, contextPacket) {
   const independent = responders.map((item, index) => independentNode(item.profile, task, contextPacket, index));
   const independentIds = independent.map(node => node.id);
-  const critique = {
-    id: 'cross_critique',
-    purpose: 'Compare independent frontier answers and extract contradictions, unsupported claims and unique useful insights.',
-    dependencies: independentIds,
-    workerRequirement: `frontier-profile:${adjudicator.profile.id}`,
-    ownedFilesOrResponsibility: ['frontier-cross-critique'],
+  const critiques = responders.map(item => ({
+    id: `cross_critique_${item.profile.id}`,
+    purpose: `Critique the sealed independent frontier answers after every first pass is complete as ${item.profile.id}.`,
+    dependencies: [...independentIds],
+    workerRequirement: `frontier-profile:${item.profile.id}`,
+    ownedFilesOrResponsibility: [`frontier-cross-critique:${item.profile.id}`],
     inputs: independentIds.map(id => `dependency-output:${id}`),
-    expectedOutput: 'Structured contradiction and evidence-quality map.',
-    verification: ['Majority agreement is not proof.', 'Unsupported claims remain unresolved.'],
-    stopCondition: 'Contradictions and evidence gaps are classified.',
+    expectedOutput: `Structured contradiction and evidence-quality map from ${item.profile.id}.`,
+    verification: ['All first-pass answers were sealed before critique.', 'Majority agreement is not proof.', 'Unsupported claims remain unresolved.'],
+    stopCondition: 'Contradictions and evidence gaps are classified without producing the final decision.',
     authorityCeiling: 'LOCAL_PREPARATION',
     implementation: true,
     callableWorkerVerified: true
-  };
+  }));
+  const critiqueIds = critiques.map(node => node.id);
   const adjudication = {
     id: 'independent_adjudication',
-    purpose: 'Produce the canonical bounded recommendation from independent responses and critique.',
-    dependencies: [...independentIds, critique.id],
+    purpose: 'Produce the canonical bounded recommendation from sealed independent responses and all responder critiques.',
+    dependencies: [...independentIds, ...critiqueIds],
     workerRequirement: `frontier-profile:${adjudicator.profile.id}`,
     ownedFilesOrResponsibility: ['frontier-adjudication'],
-    inputs: [...independentIds.map(id => `dependency-output:${id}`), `dependency-output:${critique.id}`],
+    inputs: [...independentIds, ...critiqueIds].map(id => `dependency-output:${id}`),
     expectedOutput: 'Evidence-bound adjudication with unresolved uncertainty and explicit dissent.',
-    verification: ['Adjudicator did not author a first-pass response.', 'No claim becomes true solely because most models repeated it.'],
+    verification: ['Adjudicator did not author a first-pass response or responder critique in the non-degraded path.', 'No claim becomes true solely because most models repeated it.'],
     stopCondition: 'Canonical recommendation or explicit unresolved state.',
     authorityCeiling: 'LOCAL_PREPARATION',
     implementation: true,
@@ -404,7 +405,7 @@ function compileCouncilGraph(responders, adjudicator, task, contextPacket) {
     dataClass: task.dataClass,
     maxDepth: 1,
     maxIterations: 3,
-    nodes: [...independent, critique, adjudication]
+    nodes: [...independent, ...critiques, adjudication]
   });
 }
 
@@ -529,22 +530,40 @@ export function compileFrontierCognitivePlan({
     return envelope({ ok: true, status: plan.status, plan, planDigest: sha256(plan), simulationOnly, trustedForLiveExecution });
   }
 
-  const responders = [];
-  const responderProviders = new Set();
-  for (const candidate of ranked.ranked) {
-    if (responders.length >= normalizedTask.task.maxCouncilSize) break;
-    if (!responderProviders.has(candidate.profile.provider) || ranked.ranked.length <= normalizedTask.task.minCouncilSize + 1) {
-      responders.push(candidate);
-      responderProviders.add(candidate.profile.provider);
-    }
+  const rankedCouncil = ranked.ranked;
+  const responderLimit = Math.min(
+    normalizedTask.task.maxCouncilSize,
+    allowDegradedCouncil ? rankedCouncil.length : Math.max(0, rankedCouncil.length - 1)
+  );
+  if (responderLimit < normalizedTask.task.minCouncilSize) {
+    return failure(['council-minimum-cardinality-unavailable'], 'CAPACITY_BLOCKED', { available: responderLimit, required: normalizedTask.task.minCouncilSize, blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
   }
+
+  const responders = [];
+  const responderIdsMutable = new Set();
+  const responderProviders = new Set();
+  for (const candidate of rankedCouncil) {
+    if (responders.length >= responderLimit) break;
+    if (responderProviders.has(candidate.profile.provider)) continue;
+    responders.push(candidate);
+    responderIdsMutable.add(candidate.profile.id);
+    responderProviders.add(candidate.profile.provider);
+  }
+  for (const candidate of rankedCouncil) {
+    if (responders.length >= responderLimit) break;
+    if (responderIdsMutable.has(candidate.profile.id)) continue;
+    responders.push(candidate);
+    responderIdsMutable.add(candidate.profile.id);
+    responderProviders.add(candidate.profile.provider);
+  }
+
   if (responders.length < normalizedTask.task.minCouncilSize) return failure(['council-minimum-cardinality-unavailable'], 'CAPACITY_BLOCKED', { available: responders.length, required: normalizedTask.task.minCouncilSize, blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
-  const providerDiversity = new Set(responders.map(item => item.profile.provider)).size;
+  const providerDiversity = responderProviders.size;
   const diversityDegraded = providerDiversity < 2;
   if (diversityDegraded && !allowDegradedCouncil) return failure(['council-provider-diversity-unavailable'], 'CAPACITY_BLOCKED', { responderProfiles: responders.map(item => item.profile.id), providerDiversity, blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
 
   const responderIds = new Set(responders.map(item => item.profile.id));
-  let adjudicator = ranked.ranked.find(item => !responderIds.has(item.profile.id)) ?? null;
+  let adjudicator = rankedCouncil.find(item => !responderIds.has(item.profile.id)) ?? null;
   let adjudicatorDegraded = false;
   if (!adjudicator) {
     if (!allowDegradedCouncil) return failure(['independent-adjudicator-unavailable'], 'CAPACITY_BLOCKED', { responderProfiles: [...responderIds], blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
@@ -569,7 +588,7 @@ export function compileFrontierCognitivePlan({
     members: [...responders, ...(responderIds.has(adjudicator.profile.id) ? [] : [adjudicator])].map(planMember),
     graph: graphResult.graph,
     graphDigest: graphResult.graphDigest,
-    independenceInvariant: 'first-pass responders have zero council-result dependencies; adjudicator is distinct from responders unless an explicit degradation policy is recorded'
+    independenceInvariant: 'first-pass responders have zero council-result dependencies; responder cross-critique begins only after all first passes; adjudicator is distinct from responders unless an explicit degradation policy is recorded'
   };
   return envelope({ ok: true, status: plan.status, plan, planDigest: sha256(plan), simulationOnly, trustedForLiveExecution });
 }

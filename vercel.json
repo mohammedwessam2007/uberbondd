@@ -8,7 +8,7 @@
     "api/admin/health-check.mjs": { "maxDuration": 30 },
     "api/pr388-closure-artifacts.mjs": {
       "maxDuration": 30,
-      "includeFiles": ["docs/**", "artifacts/**", "config/reachability-classification.json"]
+      "includeFiles": "{docs/**,artifacts/**,config/reachability-classification.json}"
     }
   },
   "crons": [

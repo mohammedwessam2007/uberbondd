@@ -45,11 +45,13 @@ jobs:
           node --test tests/orchestration-frontier.test.mjs tests/orchestration-frontier-tick.test.mjs tests/orchestration-gamechanger-source.test.mjs tests/external-capability-control-plane.test.mjs
           npm run test:genesis
           node --test tests/perpetual-frontier-genesis-tick.test.mjs
-          node --test tests/uberbond-cognitive-graph.test.mjs tests/uberbond-cognitive-bus.test.mjs tests/uberbond-cognitive-adapters.test.mjs tests/genesis-cognitive-adapters.test.mjs tests/event-horizon-cognitive-adapter.test.mjs tests/wallbreaker-cognitive-reflex.test.mjs tests/uberbond-feature-genome.test.mjs tests/frontier-model-team.test.mjs tests/whole-brain-cognitive-adapters.test.mjs
+          node --test tests/uberbond-cognitive-graph.test.mjs tests/uberbond-cognitive-bus.test.mjs tests/uberbond-cognitive-adapters.test.mjs tests/genesis-cognitive-adapters.test.mjs tests/event-horizon-cognitive-adapter.test.mjs tests/wallbreaker-cognitive-reflex.test.mjs tests/uberbond-feature-genome.test.mjs tests/uberbond-feature-atom-atlas.test.mjs tests/frontier-model-team.test.mjs tests/whole-brain-cognitive-adapters.test.mjs tests/uberbond-metacognitive-synthesis.test.mjs tests/uberbond-genesis-reactivation.test.mjs
           npm run capabilities:doctor
           npm run genesis:doctor
       - name: Compile repository-complete Feature Genome
         run: node scripts/uberbond-feature-genome.mjs
+      - name: Compile addressable Feature Atom Atlas
+        run: node scripts/uberbond-feature-atom-atlas.mjs
       - name: Snapshot frontier model candidate team truth
         run: |
           mkdir -p artifacts/cognitive
@@ -89,6 +91,10 @@ jobs:
           npm run genesis:scientist
           npm run genesis:ontology
           npm run genesis:metabolize
+      - name: Synthesize unknown-unknowns, mechanism ideas and missing-law research
+        run: node scripts/uberbond-metacognitive-synthesis.mjs
+      - name: Reactivate relevant GENESIS ideas from associative memory
+        run: node scripts/uberbond-genesis-reactivation.mjs
       - name: Route all available evidence across the UberBond cognitive graph
         shell: bash
         run: |
@@ -97,6 +103,8 @@ jobs:
             --event-horizon artifacts/cognitive/event-horizon-doctor-latest.json
             --feature-genome artifacts/uberbond-feature-genome-latest.json
             --frontier-model-team artifacts/cognitive/frontier-model-team-doctor-latest.json
+            --metacognitive-synthesis artifacts/uberbond-metacognitive-synthesis-latest.json
+            --genesis-reactivation artifacts/uberbond-genesis-reactivation-latest.json
           )
           if [ -s artifacts/cognitive/self-maintainer-latest.json ]; then
             args+=(--self-maintenance artifacts/cognitive/self-maintainer-latest.json)
@@ -120,6 +128,9 @@ jobs:
             artifacts/genesis-ontology-latest.json
             artifacts/genesis-metabolism-latest.json
             artifacts/uberbond-feature-genome-latest.json
+            artifacts/uberbond-feature-atom-atlas-latest.json
+            artifacts/uberbond-metacognitive-synthesis-latest.json
+            artifacts/uberbond-genesis-reactivation-latest.json
             artifacts/cognitive/frontier-model-team-doctor-latest.json
             artifacts/cognitive/capability-genome-doctor-latest.json
             artifacts/cognitive/event-horizon-doctor-latest.json

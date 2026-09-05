@@ -37,11 +37,13 @@ env:
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
 
 jobs:
-  deterministic:
-    runs-on: ubuntu-slim
-    timeout-minutes: 15
+  macos-exact-proof:
+    runs-on: macos-15
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -49,41 +51,6 @@ jobs:
       - run: npm ci
       - run: npm run check:syntax
       - run: npm run test:deterministic
-
-  max-causal-mutations:
-    runs-on: ubuntu-slim
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: node .vercel-max-council-mutation-war.mjs
-
-  generic-mutation-war:
-    runs-on: ubuntu-slim
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run test:mutation-war
-
-  focused-council:
-    runs-on: ubuntu-slim
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
       - name: Run Council topology, provenance, runtime and no-network guards
         run: >-
           node --test --test-concurrency=1
@@ -94,29 +61,36 @@ jobs:
           tests/agent-model-executor-factory-reasoning.test.mjs
           tests/frontier-cognitive-evidence-provenance-bypass.test.mjs
           tests/frontier-cognitive-raw-compiler-bypass.test.mjs
+      - run: node .vercel-max-council-mutation-war.mjs
+      - run: npm run test:mutation-war
       - run: npm audit --omit=dev
-
-  readiness-closure:
-    runs-on: ubuntu-slim
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
       - name: Run two-phase canonical closure harness
         run: node .vercel-readiness-runner.mjs
       - name: Preserve generated readiness files
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: max-council-readiness-${{ github.sha }}
+          name: max-council-readiness-${{ github.sha }}-macos
           if-no-files-found: error
           path: |
             config/system-readiness-input.json
             docs/CURRENT_SYSTEM_STATE.md
             artifacts/system-readiness.json
+
+  windows-proof-fallback:
+    runs-on: windows-2025
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check:syntax
+      - run: npm run test:deterministic
+      - name: Run focused Council guards
+        shell: pwsh
+        run: node --test --test-concurrency=1 tests/frontier-cognitive-fabric.test.mjs tests/frontier-council-topology.test.mjs tests/frontier-producer-origin.test.mjs tests/avengers-frontier-execution-guard.test.mjs tests/agent-model-executor-factory-reasoning.test.mjs tests/frontier-cognitive-evidence-provenance-bypass.test.mjs tests/frontier-cognitive-raw-compiler-bypass.test.mjs
+      - run: node .vercel-max-council-mutation-war.mjs
+      - run: npm audit --omit=dev

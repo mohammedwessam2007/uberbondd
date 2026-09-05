@@ -3,15 +3,16 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { compileUberBondCognitiveGraph } from './uberbond-cognitive-graph.mjs';
 
 export const UBERBOND_COGNITIVE_EVENT_SCHEMA = 'uberbond.cognitive-event.v1';
-export const UBERBOND_COGNITIVE_BUS_POLICY_VERSION = 'uberbond-cognitive-bus-1.1.0';
+export const UBERBOND_COGNITIVE_BUS_POLICY_VERSION = 'uberbond-cognitive-bus-1.2.0';
 
 const EVENT_KINDS = new Set([
   'WORLD_SIGNAL', 'GAMECHANGER_CANDIDATE', 'GENESIS_HYPOTHESIS', 'GENESIS_SCIENTIST_AGENDA',
   'ONTOLOGY_CANDIDATE', 'METABOLISM_UPDATE', 'MECHANISM_ATOM', 'IDEA_CANDIDATE',
   'OPPORTUNITY_CANDIDATE', 'CAPABILITY_GAP', 'CAPABILITY_CANDIDATE', 'MODEL_CANDIDATE',
-  'EXPERIMENT_RESULT', 'CONTRADICTION', 'BLOCKER', 'CODE_DEFECT', 'CODE_CHANGE_CANDIDATE',
-  'VERIFICATION_RESULT', 'DISTRIBUTION_RESULT', 'PAYMENT_RESULT', 'DELIVERY_RESULT',
-  'RETENTION_RESULT', 'COMMERCIAL_OUTCOME', 'ECONOMIC_LEARNING', 'REVOCATION'
+  'FEATURE_COVERAGE', 'FRONTIER_MODEL_ROSTER', 'EXPERIMENT_RESULT', 'CONTRADICTION', 'BLOCKER',
+  'CODE_DEFECT', 'CODE_CHANGE_CANDIDATE', 'VERIFICATION_RESULT', 'DISTRIBUTION_RESULT',
+  'PAYMENT_RESULT', 'DELIVERY_RESULT', 'RETENTION_RESULT', 'COMMERCIAL_OUTCOME',
+  'ECONOMIC_LEARNING', 'REVOCATION'
 ]);
 
 const EVENT_TARGET_HINTS = Object.freeze({
@@ -27,6 +28,8 @@ const EVENT_TARGET_HINTS = Object.freeze({
   CAPABILITY_GAP: ['capability-genome', 'saas-cannibal', 'wallbreaker'],
   CAPABILITY_CANDIDATE: ['capability-genome', 'avengers', 'max-council'],
   MODEL_CANDIDATE: ['open-model-universe', 'avengers'],
+  FEATURE_COVERAGE: ['context-spine', 'world-brain', 'max-council', 'wallbreaker'],
+  FRONTIER_MODEL_ROSTER: ['open-model-universe', 'avengers', 'max-council', 'capability-genome'],
   EXPERIMENT_RESULT: ['genesis-scientist', 'event-horizon', 'economic-memory'],
   CONTRADICTION: ['genesis', 'genesis-scientist', 'max-council'],
   BLOCKER: ['wallbreaker', 'max-council'],

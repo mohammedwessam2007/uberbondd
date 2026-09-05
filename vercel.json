@@ -5,8 +5,12 @@
     "api/agent-mesh-cron.mjs": { "maxDuration": 60 },
     "api/database-maintenance.mjs": { "maxDuration": 60 },
     "api/webhooks/billing.mjs": { "maxDuration": 30 },
-    "api/admin/health-check.mjs": { "maxDuration": 30 }
+    "api/admin/health-check.mjs": { "maxDuration": 30 },
+    "api/command-center.mjs": { "maxDuration": 30 }
   },
+  "rewrites": [
+    { "source": "/uberbond", "destination": "/uberbond.html" }
+  ],
   "crons": [
     {
       "path": "/api/agent-mesh-cron",

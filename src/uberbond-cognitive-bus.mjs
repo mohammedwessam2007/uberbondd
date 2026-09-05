@@ -3,20 +3,24 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { compileUberBondCognitiveGraph } from './uberbond-cognitive-graph.mjs';
 
 export const UBERBOND_COGNITIVE_EVENT_SCHEMA = 'uberbond.cognitive-event.v1';
-export const UBERBOND_COGNITIVE_BUS_POLICY_VERSION = 'uberbond-cognitive-bus-1.0.0';
+export const UBERBOND_COGNITIVE_BUS_POLICY_VERSION = 'uberbond-cognitive-bus-1.1.0';
 
 const EVENT_KINDS = new Set([
-  'WORLD_SIGNAL', 'GAMECHANGER_CANDIDATE', 'GENESIS_HYPOTHESIS', 'MECHANISM_ATOM',
-  'IDEA_CANDIDATE', 'OPPORTUNITY_CANDIDATE', 'CAPABILITY_GAP', 'CAPABILITY_CANDIDATE',
-  'MODEL_CANDIDATE', 'EXPERIMENT_RESULT', 'CONTRADICTION', 'BLOCKER', 'CODE_DEFECT',
-  'CODE_CHANGE_CANDIDATE', 'VERIFICATION_RESULT', 'DISTRIBUTION_RESULT', 'PAYMENT_RESULT',
-  'DELIVERY_RESULT', 'RETENTION_RESULT', 'COMMERCIAL_OUTCOME', 'ECONOMIC_LEARNING', 'REVOCATION'
+  'WORLD_SIGNAL', 'GAMECHANGER_CANDIDATE', 'GENESIS_HYPOTHESIS', 'GENESIS_SCIENTIST_AGENDA',
+  'ONTOLOGY_CANDIDATE', 'METABOLISM_UPDATE', 'MECHANISM_ATOM', 'IDEA_CANDIDATE',
+  'OPPORTUNITY_CANDIDATE', 'CAPABILITY_GAP', 'CAPABILITY_CANDIDATE', 'MODEL_CANDIDATE',
+  'EXPERIMENT_RESULT', 'CONTRADICTION', 'BLOCKER', 'CODE_DEFECT', 'CODE_CHANGE_CANDIDATE',
+  'VERIFICATION_RESULT', 'DISTRIBUTION_RESULT', 'PAYMENT_RESULT', 'DELIVERY_RESULT',
+  'RETENTION_RESULT', 'COMMERCIAL_OUTCOME', 'ECONOMIC_LEARNING', 'REVOCATION'
 ]);
 
 const EVENT_TARGET_HINTS = Object.freeze({
   WORLD_SIGNAL: ['gamechanger'],
   GAMECHANGER_CANDIDATE: ['genesis', 'business-genome'],
   GENESIS_HYPOTHESIS: ['genesis-evolution', 'idea-generator', 'opportunity-factory'],
+  GENESIS_SCIENTIST_AGENDA: ['genesis-scientist', 'event-horizon', 'max-council'],
+  ONTOLOGY_CANDIDATE: ['genesis-ontology', 'world-brain', 'gamechanger'],
+  METABOLISM_UPDATE: ['genesis-metabolism', 'economic-memory', 'gamechanger', 'genesis'],
   MECHANISM_ATOM: ['business-genome', 'idea-generator'],
   IDEA_CANDIDATE: ['opportunity-factory', 'event-horizon', 'max-council'],
   OPPORTUNITY_CANDIDATE: ['event-horizon', 'capability-genome', 'max-council'],

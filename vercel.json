@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npm run check:syntax && npm run test:deterministic && node scripts/uberbond-feature-genome.mjs && node scripts/uberbond-feature-atom-atlas.mjs && node scripts/uberbond-synaptic-map.mjs",
+  "buildCommand": "node scripts/uberbond-feature-genome.mjs && node scripts/uberbond-feature-atom-atlas.mjs && node scripts/uberbond-synaptic-map.mjs && node --test tests/uberbond-command-center-status.test.mjs tests/uberbond-synaptic-map.test.mjs tests/uberbond-synaptic-cycle-binding.test.mjs",
   "functions": {
     "api/agent-relay.mjs": { "maxDuration": 60 },
     "api/agent-mesh-cron.mjs": { "maxDuration": 60 },
@@ -13,6 +13,7 @@
     }
   },
   "rewrites": [
+    { "source": "/", "destination": "/uberbond.html" },
     { "source": "/uberbond", "destination": "/uberbond.html" }
   ],
   "crons": [

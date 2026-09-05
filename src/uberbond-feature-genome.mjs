@@ -5,7 +5,7 @@ import { compileUberBondCognitiveGraph } from './uberbond-cognitive-graph.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const UBERBOND_FEATURE_GENOME_SCHEMA = 'uberbond.feature-genome.v1';
-export const UBERBOND_FEATURE_GENOME_POLICY_VERSION = 'uberbond-feature-genome-1.0.0';
+export const UBERBOND_FEATURE_GENOME_POLICY_VERSION = 'uberbond-feature-genome-1.1.0';
 
 const EXCLUDED_DIRS = new Set(['.git', 'node_modules', '.vercel', 'coverage', 'dist', 'build']);
 const CODE_EXTENSIONS = new Set(['.mjs', '.js', '.cjs']);
@@ -19,6 +19,7 @@ export const FEATURE_FAMILIES = Object.freeze([
   { id: 'business-opportunity-economics', organs: ['business-genome', 'idea-generator', 'opportunity-factory', 'event-horizon', 'economic-memory'], tokens: ['event-horizon', 'opportun', 'business-genome', 'mechanism', 'money-model', 'commercial', 'offer', 'pricing', 'first-cash', 'revenue', 'profit', 'econom', 'sku', 'canary'] },
   { id: 'capability-market', organs: ['capability-genome', 'saas-cannibal'], tokens: ['capability-genome', 'external-capability', 'skill', 'plugin', 'capability-', 'supplier', 'assimilat', 'harvest'] },
   { id: 'model-intelligence', organs: ['open-model-universe', 'avengers', 'max-council'], tokens: ['model-', 'open-model', 'avengers', 'executor', 'anthropic', 'openai', 'ai-gateway', 'claude', 'inference', 'reasoning'] },
+  { id: 'compute-sovereignty', organs: ['open-model-universe', 'avengers', 'world-brain', 'economic-memory'], tokens: ['compute-sovereignty', 'ai-compute', 'compute-budget', 'token-budget', 'inference-budget', 'prompt-cache', 'context-cache', 'free-tier', 'sponsored-grant', 'purchased-credit', 'batch-inference', 'off-peak'] },
   { id: 'adversarial-problem-solving', organs: ['max-council', 'wallbreaker', 'genesis-scientist'], tokens: ['wallbreaker', 'council', 'adversar', 'mutation-war', 'verifier', 'falsif', 'hostile', 'contradiction', 'failure-class'] },
   { id: 'world-sensing-research', organs: ['world-sensing', 'gamechanger'], tokens: ['browser', 'crawl', 'search', 'public-evidence', 'discovery', 'market-signal', 'source-', 'research', 'scrap', 'web-', 'website'] },
   { id: 'distribution-leads-outreach', organs: ['distribution-os'], tokens: ['lead', 'prospect', 'outreach', 'email', 'gmail', 'mail', 'sender', 'campaign', 'crm', 'booking', 'channel', 'referral', 'partner', 'inbound', 'unsubscribe', 'deliverability'] },

@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { compileCognitiveEvent } from './uberbond-cognitive-bus.mjs';
 
-export const UBERBOND_GENESIS_REACTIVATION_POLICY_VERSION = 'uberbond-genesis-reactivation-1.0.0';
+export const UBERBOND_GENESIS_REACTIVATION_POLICY_VERSION = 'uberbond-genesis-reactivation-1.0.1';
 
 const STOP = new Set(['about','after','again','against','because','before','being','between','could','current','determine','feature','genesis','into','might','other','should','their','there','these','this','through','under','until','using','what','when','where','which','with','without','would']);
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
@@ -45,7 +45,10 @@ export function rankGenesisIdeasForCurrentGaps({ featureAtlas, featureGenome = {
     const partialBonus = idea.maturity === 'PARTIAL_PRIMITIVE' ? 2 : 0;
     const noRuntimeBonus = list(idea.runtimeReceipts, 32).length === 0 ? 1 : 0;
     const missingPathPenalty = list(idea.missingPaths, 32).length > 0 ? -2 : 0;
-    const score = overlap * 5 + partialBonus + noRuntimeBonus + missingPathPenalty;
+    // Maturity is only a prior among semantically relevant ideas. It must never
+    // create a candidate by itself, otherwise unrelated partial primitives can
+    // look active merely because they are unfinished or lack runtime receipts.
+    const score = overlap > 0 ? Math.max(1, overlap * 5 + partialBonus + noRuntimeBonus + missingPathPenalty) : 0;
     return {
       id: idea.id,
       ordinal: idea.ordinal,
@@ -73,7 +76,7 @@ export function rankGenesisIdeasForCurrentGaps({ featureAtlas, featureGenome = {
     candidateCount: ranked.length,
     businessEffectAuthority: 'NONE',
     externalEffectLedger: zeroEffects(),
-    truthBoundary: 'REACTIVATION RANKS CANONICAL GENESIS IDEAS AGAINST CURRENT INTERNAL GAPS BY TOKEN ASSOCIATION PLUS MATURITY PRIORS. IT IS A SEARCH HEURISTIC, NOT EVIDENCE OF CAUSAL RELEVANCE, IMPLEMENTATION VALUE, MARKET DEMAND OR EXECUTION AUTHORITY.'
+    truthBoundary: 'REACTIVATION REQUIRES TOKEN ASSOCIATION TO A CURRENT INTERNAL GAP; MATURITY AND RUNTIME-RECEIPT STATE ONLY RANK ALREADY-MATCHED IDEAS. IT IS A SEARCH HEURISTIC, NOT EVIDENCE OF CAUSAL RELEVANCE, IMPLEMENTATION VALUE, MARKET DEMAND OR EXECUTION AUTHORITY.'
   };
 }
 

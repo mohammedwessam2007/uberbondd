@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "uberbond.cognitive-lineage.v1",
+  "truthBoundary": "Historical program names are donors and aliases unless separately proven live. Mapping a donor to a living organ preserves ideas without manufacturing runtime reachability or authority.",
+  "lineages": [
+    {
+      "id": "brain-continuity-lineage",
+      "names": ["UberBond Brain", "Whole Chat Continuity", "Persistent Brain", "Brain V2", "Context Spine", "crash-safe checkpoints", "continuity packs", "chat import protocol", "Evidence Kernel", "truth-reconciliation mesh", "strategic-coherence kernel", "ambiguity resolver", "causal-learning governor", "cost/compute governor"],
+      "livingOrgans": ["world-brain", "economic-memory", "omnia"]
+    },
+    {
+      "id": "first-money-singularities",
+      "names": ["First Revenue System", "First-Cash Singularity", "Research Singularity", "Distribution Singularity", "Software Singularity", "Night Singularity", "World Capability Genome Singularity", "NIGHTFALL SUPREME", "SINGULARITY"],
+      "livingOrgans": ["event-horizon", "distribution-os", "payment-reconciliation", "capability-genome", "self-maintainer"]
+    },
+    {
+      "id": "everest-chain",
+      "names": ["Everest", "SUMMIT 100", "BLACK SKY", "Reality Activation"],
+      "livingOrgans": ["kilimanjaro", "max-council", "omnia", "economic-memory"]
+    },
+    {
+      "id": "kilimanjaro-family",
+      "names": ["Kilimanjaro Architecture", "Final Boss Kilimanjaro", "Kilimanjaro Overnight Taskforce", "Kilimanjaro Zero-Gap Overnight", "Kilimanjaro Vertical Tournament", "Kilimanjaro Payment to Delivery to Acceptance to Renewal Truth", "Kilimanjaro Distribution Portfolio", "Kilimanjaro Commercial Evidence Closure", "Kilimanjaro Master-Two Capability Frontier", "Kilimanjaro AI Automation Commercial Truth", "founder-absence device-off runtime"],
+      "livingOrgans": ["kilimanjaro", "event-horizon", "distribution-os", "payment-reconciliation", "fulfilment-qa", "retention-learning", "self-maintainer"]
+    },
+    {
+      "id": "ragnarok-lineage",
+      "names": ["Ragnarok", "Ragnarok final closure", "Ragnarok execution closure"],
+      "livingOrgans": ["wallbreaker", "max-council", "self-maintainer", "kilimanjaro"]
+    },
+    {
+      "id": "night-trinity-lineage",
+      "names": ["Night Shift", "Nightfall", "Nightfall Max", "Nightfall Supreme", "Trinity Night Shift", "Night Runtime", "Night Frontier", "Night Verification", "Night Postal", "Night Integration", "Night Capability Genome", "Night SaaS Cannibal", "Night Payment", "Night Distribution", "Claude Work Luna Fable integration"],
+      "livingOrgans": ["world-brain", "avengers", "max-council", "self-maintainer", "distribution-os", "capability-genome"]
+    },
+    {
+      "id": "omnia-lineage",
+      "names": ["OMNIA Total Automation OS V1", "OMNIA X10", "OMNIA X100", "OMNIA X1M Hypercube", "OMNIA X8M Citadel", "OMNIA X64M Sovereign Mesh V7", "OMNIA X512M HELIOS V8", "OMNIA V9 Policy-Evidence-Execution Admission Kernel"],
+      "livingOrgans": ["omnia"]
+    },
+    {
+      "id": "prometheus-opportunity-lineage",
+      "names": ["Project Prometheus", "World Brain", "Cognitive Bus", "Business Genome", "Total Commercial Genome", "Proven Business Genome", "Opportunity Factory", "Mechanism Lab", "Idea Generator", "Event Horizon", "Invisible Money Plumbing", "Asymmetric Edge", "AI Money Hunt", "Total AI Revenue Frontier", "Opportunity Genome", "economic genome", "commercial learning", "Money Model Tournament", "White Space research"],
+      "livingOrgans": ["world-brain", "business-genome", "idea-generator", "opportunity-factory", "event-horizon", "economic-memory"]
+    },
+    {
+      "id": "distribution-revenue-lineage",
+      "names": ["World Distribution and Company OS", "Lead OS", "Instantly-style outbound", "Distribution Control Plane", "Agency Revenue Watchtower", "partner white-label distribution", "free-first outreach provider mesh", "Postal", "Proposal Acceptance", "reply intelligence", "first-cash canary"],
+      "livingOrgans": ["distribution-os", "payment-reconciliation", "retention-learning", "economic-memory"]
+    },
+    {
+      "id": "capability-frontier-lineage",
+      "names": ["Automation Capability Acquisition Frontier", "Capability Genome", "World Capability Genome", "SaaS Cannibal", "Frontier Company OS", "Frontier Engine", "Frontier Operator", "Autonomous Frontier Intelligence", "Gamechanger Intelligence Mesh", "Open Model Universe", "Open Model Foundry", "Wallbreaker", "Mutation War", "reachability war", "Elite Duo Apex", "Fable Fraction", "AEGIS", "JARVIS"],
+      "livingOrgans": ["gamechanger", "capability-genome", "saas-cannibal", "open-model-universe", "world-brain", "avengers", "max-council", "wallbreaker", "self-maintainer", "kilimanjaro"]
+    },
+    {
+      "id": "genesis-lineage",
+      "names": ["Perpetual Frontier GENESIS", "Unknown-Unknown Engine", "Artificial Imagination", "Artificial Serendipity Engine", "Internal Prediction Society", "Disagreement Mining", "Economic Theorem Prover", "Business Proof DAG", "Company Compiler", "Genesis Evolution", "Genesis Scientist", "Genesis Ontology", "Genesis Metabolism"],
+      "livingOrgans": ["genesis", "genesis-evolution", "genesis-scientist", "genesis-ontology", "genesis-metabolism", "idea-generator", "opportunity-factory"]
+    },
+    {
+      "id": "fulfilment-recovery-lineage",
+      "names": ["Offline Revenue Factory", "Demand Recovery Assurance", "evidence factory", "QA factory", "packaging factory", "acceptance factory", "partner-gated recovery", "vertical operations"],
+      "livingOrgans": ["fulfilment-qa", "retention-learning", "economic-memory"]
+    },
+    {
+      "id": "vendor-mechanism-absorption",
+      "names": ["Apollo", "Clay", "Instantly", "Smartlead", "6sense", "Common Room", "HubSpot", "Ocean.io", "Hunter", "ZeroBounce", "Cognism", "UserGems", "Bombora", "RB2B", "Warmly", "Vendasta", "Duda", "HighLevel", "ManyRequests", "AgencyAnalytics", "WhatConverts", "Checkly", "BrowserStack", "LangSmith", "Braintrust", "Langfuse", "Vanta", "Drata", "BlackLine", "NexHealth", "Weave", "Luma Health", "Zenoti"],
+      "livingOrgans": ["business-genome", "capability-genome", "saas-cannibal", "distribution-os"]
+    }
+  ],
+  "businessEffectAuthority": "NONE"
+}

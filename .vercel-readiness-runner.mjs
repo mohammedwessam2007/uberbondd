@@ -11,16 +11,41 @@ const canonicalEnv = {
   UBERBOND_CANONICAL_HEAD: canonicalHead,
   UBERBOND_CANONICAL_BRANCH: canonicalBranch
 };
-const deterministicEnv = { ...process.env };
+const verificationEnv = {
+  ...process.env,
+  AI_PROVIDER: 'rules',
+  AI_GATEWAY_AGENT_ENABLED: 'false',
+  OUTBOUND_ENABLED: 'false',
+  OUTBOUND_DRY_RUN: 'true',
+  AUTO_EMAIL_REPORTS: 'false',
+  DISCOVERY_ENABLED: 'false',
+  DISCOVERY_DRY_RUN: 'true',
+  ALLOW_TEST_PAYMENT_UNLOCK: 'false'
+};
 for (const key of [
   'AI_GATEWAY_API_KEY',
   'OPENAI_API_KEY',
   'ANTHROPIC_API_KEY',
   'GOOGLE_API_KEY',
-  'GEMINI_API_KEY'
-]) delete deterministicEnv[key];
+  'GEMINI_API_KEY',
+  'PAYPAL_SANDBOX_CLIENT_ID',
+  'PAYPAL_SANDBOX_CLIENT_SECRET',
+  'PAYPAL_SANDBOX_WEBHOOK_ID',
+  'HUNTER_API_KEY',
+  'GOOGLE_CLIENT_ID',
+  'GOOGLE_CLIENT_SECRET',
+  'OUTREACH_APPROVAL_SECRET',
+  'OUTREACH_WEBHOOK_SECRET',
+  'LEMONSQUEEZY_WEBHOOK_SECRET',
+  'FULL_AUDIT_CHECKOUT_URL',
+  'STRATEGY_AUDIT_CHECKOUT_URL',
+  'MONITORING_CHECKOUT_URL',
+  'BOOKING_URL',
+  'DATABASE_URL',
+  'OMNIA_V9_TEST_DATABASE_URL'
+]) delete verificationEnv[key];
 const zeroNetworkEnv = {
-  ...deterministicEnv,
+  ...verificationEnv,
   UBERBOND_POSTGRES_MODE: 'off'
 };
 
@@ -89,7 +114,7 @@ function runReadiness() {
 function runDeterministic(label) {
   console.log(`READINESS_CLOSURE_DETERMINISTIC_BEGIN ${label}`);
   const result = run('npm', ['run', 'test:deterministic'], {
-    env: deterministicEnv,
+    env: verificationEnv,
     allowFailure: true
   });
   const summary = parseNodeTestSummary(result.output);
@@ -250,4 +275,4 @@ for (const path of files) {
   }
   console.log(`READINESS_ARTIFACT_END ${path}`);
 }
-console.log(`READINESS_CLOSURE_PHASE_COMPLETE ${JSON.stringify({ canonicalHead, firstDeterministic, mutationWar, dependencyAudit, finalDeterministic, hostileGates })}`);
+console.log(`READINESS_CLOSURE_PHASE_COMPLETE ${JSON.stringify({ canonicalHead, firstDeterministic, mutationWar, dependencyAudit, finalDeterministic, hostileGates, externalEffects: 'DISABLED_BY_ENVIRONMENT' })}`);

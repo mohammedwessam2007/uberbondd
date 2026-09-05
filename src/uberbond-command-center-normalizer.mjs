@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
-export const UBERBOND_COMMAND_CENTER_NORMALIZER_POLICY_VERSION = 'uberbond-command-center-normalizer-1.0.0';
+export const UBERBOND_COMMAND_CENTER_NORMALIZER_POLICY_VERSION = 'uberbond-command-center-normalizer-1.0.1';
 
 const scalar = value => ['string', 'number', 'boolean'].includes(typeof value) ? value : null;
 
@@ -21,21 +21,22 @@ export async function normalizeUberBondCommandCenterStatus(status, { root = proc
 
   // The implementation ledger names two independent dimensions differently
   // from Feature Atom Atlas: `maturity` is primitive completeness while
-  // `status` is evidence maturity. Give the UI explicit semantic names instead
-  // of making it infer which vocabulary produced the receipt.
+  // `status` is evidence maturity. Preserve explicit semantic names and also
+  // expose the aliases the first command-center UI expects.
   const ledger = out.genesisImplementationLedger;
   if (ledger && typeof ledger === 'object') {
-    ledger.primitiveMaturityCounts = ledger.maturityCounts && typeof ledger.maturityCounts === 'object'
+    const primitiveMaturityCounts = ledger.maturityCounts && typeof ledger.maturityCounts === 'object'
       ? ledger.maturityCounts : {};
-    ledger.evidenceStatusCounts = ledger.implementationStatusCounts && typeof ledger.implementationStatusCounts === 'object'
+    const evidenceStatusCounts = ledger.implementationStatusCounts && typeof ledger.implementationStatusCounts === 'object'
       ? ledger.implementationStatusCounts : {};
+    ledger.primitiveMaturityCounts = primitiveMaturityCounts;
+    ledger.evidenceStatusCounts = evidenceStatusCounts;
+    ledger.maturityCounts = evidenceStatusCounts;
+    ledger.implementationStatusCounts = primitiveMaturityCounts;
   }
 
-  // Candidate catalog truth uses `canonicalModel`. The first status compiler
-  // deliberately emitted a tiny subset and did not retain that field. Rejoin it
-  // by stable candidate id from the fixed repository source so the command
-  // center shows the exact catalog model id without turning catalog presence
-  // into callability proof.
+  // Candidate catalog truth uses `canonicalModel`. Rejoin that exact field by
+  // stable candidate id without turning catalog presence into callability proof.
   const registry = await readFrontierRegistry(root);
   const byId = new Map(registry.map(candidate => [candidate?.id, candidate]));
   if (Array.isArray(out.frontierModelRegistry?.candidates)) {

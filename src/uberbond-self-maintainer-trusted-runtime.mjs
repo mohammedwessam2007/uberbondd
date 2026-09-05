@@ -1,18 +1,12 @@
 import { runUberBondSelfMaintenance } from './uberbond-self-maintainer.mjs';
 import { issueVerifiedSelfMaintenanceReceipt } from './self-maintenance-receipt-provenance.mjs';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const TRUSTED_UBERBOND_SELF_MAINTAINER_RUNTIME_POLICY_VERSION = 'trusted-uberbond-self-maintainer-runtime-1.0.0';
 
-const ZERO = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
+function zeroEffects() {
+  return structuredClone(ZERO_EXTERNAL_EFFECTS);
+}
 
 function fail(reasonCodes, status = 'BLOCKED', extra = {}) {
   return {
@@ -21,7 +15,7 @@ function fail(reasonCodes, status = 'BLOCKED', extra = {}) {
     status,
     reasonCodes: [...new Set((reasonCodes || []).filter(Boolean))],
     businessEffectAuthority: 'NONE',
-    externalEffectLedger: { ...ZERO },
+    externalEffectLedger: zeroEffects(),
     ...extra
   };
 }
@@ -58,7 +52,8 @@ export async function runTrustedUberBondSelfMaintenance({
       ...verified,
       policyVersion: TRUSTED_UBERBOND_SELF_MAINTAINER_RUNTIME_POLICY_VERSION,
       verifiedReceipt: issued.receipt,
-      status: 'VERIFIED_CHANGESET_READY_FOR_TRUSTED_PROMOTION'
+      status: 'VERIFIED_CHANGESET_READY_FOR_TRUSTED_PROMOTION',
+      externalEffectLedger: zeroEffects()
     };
   }
 
@@ -86,10 +81,7 @@ export async function runTrustedUberBondSelfMaintenance({
     cleanup: verified.cleanup,
     promotion,
     businessEffectAuthority: 'NONE',
-    externalEffectLedger: {
-      ...ZERO,
-      repositoryBranchesCreated: Number(promotion.repositoryBranchesCreated || 0),
-      repositoryPullRequestsCreated: Number(promotion.repositoryPullRequestsCreated || 0)
-    }
+    externalEffectLedger: zeroEffects(),
+    truthBoundary: 'CANONICAL_EXTERNAL_EFFECT_LEDGER_COVERS_PROVIDER_BUSINESS_SPEND_EFFECTS; REPOSITORY_BRANCH_AND_PR_EFFECTS_ARE_REPORTED_SEPARATELY_IN_PROMOTION'
   };
 }

@@ -161,7 +161,18 @@ test('COUNCIL_MAX executes sealed first passes, responder cross-critiques and di
   assert.equal(out.providerCalls, 0);
   assert.equal(out.receipt.mode, 'COUNCIL_MAX');
   assert.equal(out.receipt.executions.length, 3); // 2 sealed first passes + 1 distinct adjudicator; critiques remain process evidence.
-  assert.equal(out.critiqueExecutions?.length ?? out.receipt.crossCritiqueProfiles?.length, 2);
+  assert.equal(out.critiqueExecutions?.length, 2);
+  assert.equal(out.receipt.critiqueExecutions?.length, 2);
+  const critiqueByProfile = new Map(out.receipt.critiqueExecutions.map(item => [item.profileId, item]));
+  assert.deepEqual([...critiqueByProfile.keys()].sort(), ['google', 'openai']);
+  assert.equal(critiqueByProfile.get('google').observedProvider, 'google');
+  assert.equal(critiqueByProfile.get('google').observedModel, 'gemini-frontier');
+  assert.equal(critiqueByProfile.get('google').observedRevision, 'rev-1');
+  assert.equal(critiqueByProfile.get('google').costCents, 6);
+  assert.equal(critiqueByProfile.get('openai').observedProvider, 'openai');
+  assert.equal(critiqueByProfile.get('openai').observedModel, 'gpt-frontier');
+  assert.equal(critiqueByProfile.get('openai').observedRevision, 'rev-1');
+  assert.equal(critiqueByProfile.get('openai').costCents, 6);
   assert.deepEqual(new Set(out.receipt.crossCritiqueProfiles), new Set(['google', 'openai']));
   assert.deepEqual(new Set(out.receipt.contradictions), new Set(['google contradiction', 'openai contradiction']));
   assert.equal(out.receipt.adjudication.decisionBasis, 'EVIDENCE_WEIGHTED');

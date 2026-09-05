@@ -9,12 +9,7 @@
     "api/admin/health-check.mjs": { "maxDuration": 30 },
     "api/command-center.mjs": {
       "maxDuration": 30,
-      "includeFiles": [
-        "config/frontier-model-candidates.json",
-        "artifacts/perpetual-frontier-implementation-ledger.json",
-        "artifacts/uberbond-*-latest.json",
-        "artifacts/cognitive/*-latest.json"
-      ]
+      "includeFiles": "{config/frontier-model-candidates.json,artifacts/perpetual-frontier-implementation-ledger.json,artifacts/uberbond-*-latest.json,artifacts/cognitive/*-latest.json}"
     }
   },
   "rewrites": [

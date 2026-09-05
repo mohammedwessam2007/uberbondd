@@ -14,12 +14,43 @@ const FEATURE = {
     { path: 'src/d.mjs', category: 'NEEDS_TRIAGE', gate: null, reason: 'unknown role' }
   ],
   readinessCapabilities: [{ id: 'provider-integration', status: 'PARTIAL', externalBlocker: 'No provider configured' }],
-  familyCounts: { 'frontier-intelligence': 5, 'truth-evidence': 1 },
+  familyCounts: { 'frontier-intelligence': 5, 'truth-evidence': 1, 'compute-sovereignty': 1 },
   featureFamilies: [
     { id: 'frontier-intelligence' },
     { id: 'truth-evidence' },
+    { id: 'compute-sovereignty' },
     { id: 'general-runtime' }
   ]
+};
+
+const ATLAS = {
+  ok: true,
+  atlasDigest: 'b'.repeat(64),
+  featureGenomeDigest: FEATURE.genomeDigest,
+  atomCount: 10,
+  classCounts: { exportedCodeFeatures: 4 },
+  classes: {
+    genesisIdeas: [
+      {
+        ordinal: 1,
+        name: 'Unknown-Unknown Engine',
+        maturity: 'PARTIAL_PRIMITIVE',
+        implementationStatus: 'OBSERVED_INTERNAL_RUNTIME_RECEIPT',
+        implementationSources: ['src/perpetual-frontier-genesis.mjs'],
+        implementationTests: ['tests/perpetual-frontier-genesis.test.mjs'],
+        runtimeReceipts: ['artifacts/perpetual-frontier-genesis-latest.json']
+      },
+      {
+        ordinal: 42,
+        name: 'Fixture Source-Only Idea',
+        maturity: 'IMPLEMENTED_PRIMITIVE',
+        implementationStatus: 'SOURCE_AND_TEST_PRESENT',
+        implementationSources: ['src/fixture.mjs'],
+        implementationTests: ['tests/fixture.test.mjs'],
+        runtimeReceipts: []
+      }
+    ]
+  }
 };
 
 const EVENT_HORIZON = {
@@ -38,9 +69,11 @@ const EVENT_HORIZON = {
 test('metacognitive synthesis turns repository blind spots and repeated gates into bounded research, not authority', () => {
   const result = synthesizeUberBondMetacognition({
     featureGenome: FEATURE,
+    featureAtomAtlas: ATLAS,
     eventHorizon: EVENT_HORIZON,
     capabilityGenome: { status: 'CAPABILITY_GENOME_FOUNDATION_HEALTHY', state: { approvedCapabilityCount: 0 } },
     frontierModelTeam: { status: 'FRONTIER_MODEL_TEAM_DOCTOR_READY', roleCoverage: { gaps: ['verifier'] } },
+    computeSovereignty: { status: 'COMPUTE_SOVEREIGNTY_NO_PROVEN_SUPPLY', admissibleOfferCount: 0, rejectedOfferCount: 2, zeroCostTokens: 0 },
     date: new Date('2026-09-05T20:00:00Z')
   });
   assert.equal(result.ok, true, JSON.stringify(result));
@@ -50,6 +83,47 @@ test('metacognitive synthesis turns repository blind spots and repeated gates in
   assert.equal(result.executionAuthority, 'NONE');
   assert.equal(result.promotionAuthority, 'NONE');
   assert.match(result.truthBoundary, /HYPOTHESES/);
+  assert.equal(result.inputs.featureAtomAtlasDigest, ATLAS.atlasDigest);
+  assert.equal(result.inputs.partialGenesisPrimitiveCount, 1);
+  assert.equal(result.inputs.sourceOnlyGenesisCandidateCount, 1);
+  assert.equal(result.inputs.provenComputeOfferCount, 0);
+});
+
+test('partial and source-only GENESIS atoms create research pressure without upgrading maturity', () => {
+  const result = synthesizeUberBondMetacognition({
+    featureGenome: FEATURE,
+    featureAtomAtlas: ATLAS,
+    eventHorizon: EVENT_HORIZON,
+    date: new Date('2026-09-05T20:00:00Z')
+  });
+  assert.equal(result.ok, true, JSON.stringify(result));
+  assert.equal(result.featureAtomPressure.partialGenesis[0].name, 'Unknown-Unknown Engine');
+  assert.equal(result.featureAtomPressure.partialGenesis[0].implementationStatus, 'OBSERVED_INTERNAL_RUNTIME_RECEIPT');
+  assert.equal(result.featureAtomPressure.sourceOnlyGenesis[0].name, 'Fixture Source-Only Idea');
+  const agenda = JSON.stringify(result.unknownAgenda);
+  assert.match(agenda, /smallest missing mechanism/i);
+  assert.match(agenda, /runtime activation would add decision value/i);
+});
+
+test('zero proven compute becomes lawful scarcity research and never bypass permission', () => {
+  const result = synthesizeUberBondMetacognition({
+    featureGenome: FEATURE,
+    featureAtomAtlas: ATLAS,
+    eventHorizon: EVENT_HORIZON,
+    computeSovereignty: {
+      status: 'COMPUTE_SOVEREIGNTY_NO_PROVEN_SUPPLY',
+      admissibleOfferCount: 0,
+      rejectedOfferCount: 4,
+      zeroCostTokens: 0
+    },
+    date: new Date('2026-09-05T20:00:00Z')
+  });
+  assert.equal(result.ok, true, JSON.stringify(result));
+  const agenda = JSON.stringify(result.unknownAgenda);
+  assert.match(agenda, /lawful local\/open runtimes/i);
+  assert.match(agenda, /Do not solve this by quota, identity, credential, billing or terms bypass/i);
+  assert.equal(result.inputs.zeroCostAuthorizedTokens, 0);
+  assert.equal(result.executionAuthority, 'NONE');
 });
 
 test('Mechanism Lab recombinations remain unproven and retain kill conditions', () => {
@@ -72,6 +146,16 @@ test('unknown-unknown work happens before cognitive idea promotion and repeated 
   assert.ok(gateEvent);
   assert.match(gateEvent.event.summary, /never bypass the gate/i);
   assert.equal(gateEvent.event.businessEffectAuthority, 'NONE');
+});
+
+test('atlas mismatch fails closed rather than mixing feature states', () => {
+  const result = synthesizeUberBondMetacognition({
+    featureGenome: FEATURE,
+    featureAtomAtlas: { ...ATLAS, featureGenomeDigest: 'c'.repeat(64) },
+    eventHorizon: EVENT_HORIZON
+  });
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('feature-atom-atlas-must-match-feature-genome'));
 });
 
 test('metacognitive synthesis fails closed without Feature Genome or Event Horizon genes', () => {

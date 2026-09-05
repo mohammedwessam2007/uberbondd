@@ -33,9 +33,6 @@ const store = createStore(config);
 await store.init();
 const queue = new DurableQueue(store, config, console);
 let revenue;
-// See worker.mjs for the OMNIA V9 mode/shadow-hook wiring rationale: defaults to
-// 'off', only ever reaches the non-authoritative shadow observer. The AUTHORITATIVE
-// gate is deliberately not wired -- see docs/INSTANTLY_RECONCILIATION.md Sub-wave B.
 const omniaV9Mode = resolveOmniaV9Mode(process.env);
 const pipeline = new Pipeline(store, config, {
   onProspectComplete: async prospect => revenue?.onProspectComplete(prospect),
@@ -85,23 +82,11 @@ const parseBody = async req => {
   let parsed;
   try { parsed = JSON.parse(content); }
   catch { throw new HttpError(400, 'Malformed JSON body'); }
-  // `null` is valid JSON, and so are a bare number, string, boolean and array.
-  // Every one of the fifteen call sites below reads named fields off the result,
-  // so a body of `null` used to parse cleanly and then throw a TypeError on the
-  // first property access -- surfacing as 500. That is a caller's mistake
-  // reported as a server fault, and a one-word body could produce as many of
-  // them as anyone wanted.
-  //
-  // Refused here rather than at each call site: there is one contract, and it is
-  // the one every caller already assumes.
   if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {
     throw new HttpError(400, 'JSON body must be an object');
   }
   return parsed;
 };
-// Constant-time comparison so a valid admin token cannot be recovered byte-by-byte
-// through response-timing analysis. timingSafeEqual throws on length mismatch, so
-// guard length first (leaking only length, which is standard and negligible here).
 const safeEqual = (a, b) => {
   if (typeof a !== 'string' || typeof b !== 'string') return false;
   const ba = Buffer.from(a);
@@ -112,9 +97,7 @@ const auth = req => {
   if (!config.adminToken) return true;
   const header = req.headers.authorization || '';
   const bearer = header.startsWith('Bearer ') ? header.slice(7) : '';
-  if (safeEqual(bearer, config.adminToken)) return true;
-  const queryToken = new URL(req.url, config.baseUrl).searchParams.get('token') || '';
-  return safeEqual(queryToken, config.adminToken);
+  return safeEqual(bearer, config.adminToken);
 };
 const relayConfigured = () => Boolean(config.agentRelay?.enabled && config.agentRelay?.token);
 const relayAuth = req => {
@@ -123,10 +106,6 @@ const relayAuth = req => {
   const bearer = header.startsWith('Bearer ') ? header.slice(7) : '';
   return safeEqual(bearer, config.agentRelay.token);
 };
-// Bounds a leaked relay token or a runaway/misbehaving poller (see mission
-// incident class "runaway polling"). Sliding one-minute window per caller IP,
-// same shape as RevenueEngine.rateLimit(). Only reached after relayAuth()
-// already passed, so this never gates on caller identity beyond the token.
 const relayHits = new Map();
 const relayRateLimited = req => {
   const minute = Math.floor(Date.now() / 60000);
@@ -140,12 +119,6 @@ const relayRateLimited = req => {
 };
 const pct = (numerator, denominator) => denominator ? Math.round(numerator / denominator * 100) : 0;
 const publicApi = pathname => pathname === '/api/health' || pathname === '/api/public/unsubscribe' || pathname === '/api/public/config' || pathname === '/api/public/audit' || pathname.startsWith('/api/public/report/') || pathname.startsWith('/api/public/artifacts/') || pathname === '/api/public/checkout' || pathname === '/webhooks/lemonsqueezy';
-// Who the caller is, for rate limiting -- so it must not be the caller's choice.
-//
-// Each proxy appends the address it received the connection from, so the last
-// entry was written by the nearest proxy and the leftmost is whatever the client
-// claimed. With N declared trusted hops the trustworthy address is the Nth from
-// the right; with none, the header is ignored entirely and the socket answers.
 const clientIp = req => {
   const hops = Number(config.trustProxyHops) || 0;
   const socketAddress = String(req.socket?.remoteAddress || 'unknown');
@@ -153,8 +126,6 @@ const clientIp = req => {
   const raw = req.headers['x-forwarded-for'];
   const chain = String(Array.isArray(raw) ? raw.join(',') : raw || '')
     .split(',').map(entry => entry.trim()).filter(Boolean);
-  // Fewer entries than declared hops means the chain is not what was declared.
-  // Believing it anyway is how a spoofed header gets treated as a proxy's word.
   if (chain.length < hops) return socketAddress;
   return chain[chain.length - hops] || socketAddress;
 };
@@ -266,12 +237,8 @@ async function staticFile(req, res) {
   } catch { return false; }
 }
 
-
 function errorStatus(error) {
   if (error instanceof HttpError || error instanceof InputError) return error.status;
-  // An error may carry its own status without being one of our error classes --
-  // a module below the HTTP layer should be able to say "this was the caller's
-  // fault" without importing an HTTP type from the server.
   if (Number.isInteger(error?.status) && error.status >= 400 && error.status < 600) return error.status;
   if (error instanceof ConflictError) return 409;
   if (error instanceof StoreError && error.code === 'FOREIGN_KEY') return 422;
@@ -280,16 +247,6 @@ function errorStatus(error) {
   return 500;
 }
 
-// The request handler, named and exported rather than inline.
-//
-// It was an anonymous function passed straight to http.createServer, which meant
-// the only way to reach 87 branches of routing, admission and refusal logic was
-// to bind a port. That is why this file went so long with no gate on it at all.
-//
-// Exporting it does not by itself make importing this module free -- the module
-// scope above still validates config and initializes a store -- but it lets a
-// test drive a request through the real routing without a socket, and it lets
-// the mutation war reach these branches.
 export const requestHandler = async (req, res) => {
   try {
     const url = new URL(req.url, config.baseUrl);
@@ -362,16 +319,6 @@ export const requestHandler = async (req, res) => {
     if (method === 'POST' && url.pathname === '/webhooks/lemonsqueezy') {
       const raw = await bodyText(req);
       const outcome = await revenue.handleLemonWebhook(raw, req.headers['x-signature']);
-      // Acknowledge, do not echo.
-      //
-      // This used to return the whole normalized event, which carries the
-      // provider's `attributes` verbatim -- including `user_email` -- plus a
-      // derived `customerEmail`. The recipient is the provider that sent it, so
-      // this was never disclosure to a third party, but it put a buyer's address
-      // into every delivery log and proxy on the path for no reason, and it
-      // undid the payload minimization the durable side already does.
-      //
-      // A webhook acknowledgement needs to say "received, and whether it was new".
       return json(res, 200, {
         ok: outcome?.ok !== false,
         duplicate: outcome?.duplicate === true,
@@ -643,9 +590,6 @@ export const requestHandler = async (req, res) => {
     return json(res, 404, { error: 'Not found' });
   } catch (error) {
     const status = errorStatus(error);
-    // Always log full detail server-side; never expose raw internal messages on 5xx
-    // (this handler also serves the unauthenticated public API). 4xx messages are
-    // intentional, caller-facing validation text and stay as-is.
     if (status >= 500) console.error(error);
     const message = status === 503
       ? 'Service temporarily unavailable. Please try again shortly.'
@@ -659,10 +603,6 @@ export const requestHandler = async (req, res) => {
 export default requestHandler;
 
 const server = http.createServer(requestHandler);
-
-// Listening, and the signal handlers below, are what make importing this module
-// expensive. They run only when this file IS the program, using the same idiom
-// scripts/run-tests.mjs and scripts/mutation-war.mjs already use.
 const isEntryPoint = import.meta.url === `file://${process.argv[1]}`;
 if (isEntryPoint) {
   server.listen(config.port, () => console.log(`UberBond Revenue Engine running on ${config.baseUrl} using ${config.storeBackend}`));

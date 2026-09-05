@@ -46,13 +46,15 @@ jobs:
           npm run test:genesis
           node --test tests/perpetual-frontier-genesis-tick.test.mjs
           npm run test:whole-brain
-          node --test tests/github-actions-oidc-verifier.test.mjs
+          node --test tests/uberbond-synaptic-map.test.mjs tests/uberbond-synaptic-cycle-binding.test.mjs tests/github-actions-oidc-verifier.test.mjs tests/uberbond-command-center-status.test.mjs
           npm run capabilities:doctor
           npm run genesis:doctor
       - name: Compile repository-complete Feature Genome
         run: node scripts/uberbond-feature-genome.mjs
       - name: Compile addressable Feature Atom Atlas
         run: node scripts/uberbond-feature-atom-atlas.mjs
+      - name: Compile repository-complete Synaptic Map
+        run: node scripts/uberbond-synaptic-map.mjs
       - name: Snapshot frontier model candidate team truth
         run: |
           mkdir -p artifacts/cognitive
@@ -100,13 +102,14 @@ jobs:
         run: node scripts/uberbond-metacognitive-synthesis.mjs
       - name: Reactivate relevant GENESIS ideas from associative memory
         run: node scripts/uberbond-genesis-reactivation.mjs
-      - name: Route all available evidence across the UberBond cognitive graph
+      - name: Route all available evidence across the UberBond cognitive graph and Synaptic Map
         shell: bash
         run: |
           args=(
             --capability-genome artifacts/cognitive/capability-genome-doctor-latest.json
             --event-horizon artifacts/cognitive/event-horizon-doctor-latest.json
             --feature-genome artifacts/uberbond-feature-genome-latest.json
+            --synaptic-map artifacts/uberbond-synaptic-map-latest.json
             --frontier-model-team artifacts/cognitive/frontier-model-team-doctor-latest.json
             --compute-sovereignty artifacts/cognitive/compute-sovereignty-doctor-latest.json
             --metacognitive-synthesis artifacts/uberbond-metacognitive-synthesis-latest.json
@@ -115,7 +118,7 @@ jobs:
           if [ -s artifacts/cognitive/self-maintainer-latest.json ]; then
             args+=(--self-maintenance artifacts/cognitive/self-maintainer-latest.json)
           fi
-          node scripts/uberbond-cognitive-cycle.mjs "${args[@]}"
+          node scripts/uberbond-cognitive-cycle-synaptic.mjs "${args[@]}"
       - name: Save latest whole-brain cognitive memory
         uses: actions/cache/save@v4
         with:
@@ -135,6 +138,7 @@ jobs:
             artifacts/genesis-metabolism-latest.json
             artifacts/uberbond-feature-genome-latest.json
             artifacts/uberbond-feature-atom-atlas-latest.json
+            artifacts/uberbond-synaptic-map-latest.json
             artifacts/uberbond-metacognitive-synthesis-latest.json
             artifacts/uberbond-genesis-reactivation-latest.json
             artifacts/cognitive/frontier-model-team-doctor-latest.json

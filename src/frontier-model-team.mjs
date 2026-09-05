@@ -1,10 +1,10 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const FRONTIER_MODEL_TEAM_POLICY_VERSION = 'uberbond.frontier-model-team-1.0.0';
+export const FRONTIER_MODEL_TEAM_POLICY_VERSION = 'uberbond.frontier-model-team-1.0.1';
 export const FRONTIER_MODEL_CANDIDATE_SCHEMA = 'uberbond.frontier-model-candidates.v1';
 
-const ROLES = Object.freeze(['researcher', 'planner', 'builder', 'critic', 'verifier', 'adjudicator']);
+const ROLES = Object.freeze(['researcher', 'planner', 'builder', 'critic', 'verifier', 'adjudicator', 'general']);
 const REASONING_TIERS = new Set(['FAST', 'STANDARD', 'DEEP', 'FRONTIER_MAX', 'COUNCIL_MAX']);
 
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }

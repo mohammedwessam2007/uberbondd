@@ -161,7 +161,6 @@ test('COUNCIL_MAX executes sealed first passes, responder cross-critiques and di
   assert.equal(out.providerCalls, 0);
   assert.equal(out.receipt.mode, 'COUNCIL_MAX');
   assert.equal(out.receipt.executions.length, 3);
-  assert.equal(out.critiqueExecutions?.length, 2);
   assert.equal(out.receipt.critiqueExecutions?.length, 2);
   const critiqueByProfile = new Map(out.receipt.critiqueExecutions.map(item => [item.profileId, item]));
   assert.deepEqual([...critiqueByProfile.keys()].sort(), ['google', 'openai']);

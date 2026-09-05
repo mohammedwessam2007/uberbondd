@@ -109,18 +109,23 @@ function promotionAuthorityReasons(authority, { repository, baseRevision, now = 
   return reasons;
 }
 
+function cleanupPacket(cleanup) {
+  return {
+    ok: cleanup?.ok === true,
+    receiptRef: text(cleanup?.receiptRef, 500) || null
+  };
+}
+
 /**
  * Run one complete provider-neutral self-maintenance candidate.
  *
- * Important separation:
- *   Avengers / frontier models -> candidateChangeSet (outside sandbox)
- *   this module -> zero-network apply + deterministic verification
- *   optional promotionAdapter -> branch/PR only after exact verified diff
+ * Avengers / frontier models create the candidate outside the write sandbox.
+ * This module applies and verifies it in a zero-network sandbox. An optional
+ * promotion adapter may create a branch/PR only after exact tested-state
+ * binding and only under separate BRANCH_AND_PR_ONLY authority.
  *
- * This function never merges, deploys, spends, messages a customer, changes a
- * credential, or calls a model/provider. Those are separate capabilities with
- * separate authority. A caller may inject a branch/PR promoter, but only with
- * explicit BRANCH_AND_PR_ONLY repository authority.
+ * This function never merges, deploys, spends, messages customers, changes
+ * credentials, or calls a model/provider.
  */
 export async function runUberBondSelfMaintenance({
   task,
@@ -145,13 +150,10 @@ export async function runUberBondSelfMaintenance({
   if (typeof collectChanges !== 'function') return fail(['self-maintenance-change-collector-required']);
 
   let sandbox = null;
+  let result = null;
   let cleanup = { ok: false, receiptRef: null };
-  try {
-    sandbox = await createSandbox({ task, baseRevision: candidateChangeSet.baseRevision });
-    if (!sandbox?.ok || !sandbox.sandboxRoot || !sandbox.isolationReceipt) {
-      return fail(['self-maintenance-verified-sandbox-required'], 'SANDBOX_BLOCKED');
-    }
 
+  async function executeInsideSandbox() {
     const isolationReasons = validateSelfMaintainerIsolation(sandbox.isolationReceipt, sandbox.sandboxRoot);
     if (isolationReasons.length) return fail(isolationReasons, 'SANDBOX_BLOCKED');
 
@@ -244,9 +246,7 @@ export async function runUberBondSelfMaintenance({
       baseRevision: candidateChangeSet.baseRevision,
       now: date instanceof Date ? date : new Date(date || Date.now())
     });
-    if (authorityReasons.length) {
-      return fail(authorityReasons, 'PROMOTION_BLOCKED', { verifiedReceipt });
-    }
+    if (authorityReasons.length) return fail(authorityReasons, 'PROMOTION_BLOCKED', { verifiedReceipt });
 
     const promotion = await promotionAdapter({
       task,
@@ -275,17 +275,41 @@ export async function runUberBondSelfMaintenance({
         repositoryPullRequestsCreated: Number(promotion.repositoryPullRequestsCreated || 0)
       }
     };
-  } finally {
-    if (sandbox) {
-      try {
-        cleanup = await destroySandbox({ sandbox });
-      } catch {
-        cleanup = { ok: false, receiptRef: null };
-      }
-      // The caller receives cleanup evidence only through the durable promotion
-      // or verification receipts produced by the surrounding runtime. A failed
-      // cleanup must be escalated by the host and the workspace quarantined.
-      void cleanup;
-    }
   }
+
+  try {
+    sandbox = await createSandbox({ task, baseRevision: candidateChangeSet.baseRevision });
+    if (!sandbox?.ok || !sandbox.sandboxRoot || !sandbox.isolationReceipt) {
+      result = fail(['self-maintenance-verified-sandbox-required'], 'SANDBOX_BLOCKED');
+    } else {
+      result = await executeInsideSandbox();
+    }
+  } catch (error) {
+    result = fail(['self-maintenance-execution-threw'], 'STOP_REVIEW_REQUIRED', {
+      detail: text(error?.message, 800)
+    });
+  }
+
+  if (sandbox) {
+    try {
+      cleanup = await destroySandbox({ sandbox });
+    } catch {
+      cleanup = { ok: false, receiptRef: null };
+    }
+  } else {
+    cleanup = { ok: true, receiptRef: null };
+  }
+
+  if (!cleanup?.ok) {
+    return fail(['self-maintenance-sandbox-cleanup-failed'], 'STOP_REVIEW_REQUIRED', {
+      priorStatus: result?.status || null,
+      priorOk: result?.ok === true,
+      cleanup: cleanupPacket(cleanup)
+    });
+  }
+
+  return {
+    ...(result || fail(['self-maintenance-result-missing'], 'STOP_REVIEW_REQUIRED')),
+    cleanup: cleanupPacket(cleanup)
+  };
 }

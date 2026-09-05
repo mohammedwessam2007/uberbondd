@@ -5,7 +5,7 @@ import { createVercelAIGatewayExecutor } from '../src/vercel-ai-gateway-executor
 const pricing = { inputUsdPerMillion: 1, outputUsdPerMillion: 2, sourceRef: 'official-gateway-pricing:test', verifiedAt: '2026-09-01T00:00:00Z' };
 const task = () => ({ taskId: 'gateway-test-1', objective: 'Review local code', consequenceClass: 'LOCAL_PREPARATION' });
 const result = () => ({ outcome: 'done', changedArtifacts: [], testsActuallyRun: [], truthTable: [], externalEffectLedger: { providerCalls: 0, messages: 0, purchases: 0, deployments: 0, credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0 }, decision: 'PROCEED', coordination: { action: 'DONE', objective: '', summary: 'done', evidenceRefs: [], contextRefs: [], acceptanceTests: [], requiredOutputs: [], constraints: [], tokenBudget: 1, confidence: 1 }, evidenceRefs: [] });
-const response = (status = 200, body = { id: 'gw-1', model: 'openai/gpt-5-mini', usage: { prompt_tokens: 10, completion_tokens: 5, total_tokens: 15 }, choices: [{ finish_reason: 'stop', message: { content: JSON.stringify(result()) } }] }) => ({ ok: status >= 200 && status < 300, status, async text() { return JSON.stringify(body); } });
+const response = (status = 200, body = { id: 'gw-1', model: 'openai/gpt-5.4', usage: { prompt_tokens: 10, completion_tokens: 5, total_tokens: 15 }, choices: [{ finish_reason: 'stop', message: { content: JSON.stringify(result()) } }] }) => ({ ok: status >= 200 && status < 300, status, async text() { return JSON.stringify(body); } });
 
 test('gateway sends the allowlisted endpoint and provider/model slug', async () => {
   let captured;
@@ -14,6 +14,7 @@ test('gateway sends the allowlisted endpoint and provider/model slug', async () 
   assert.equal(out.ok, true);
   assert.equal(captured.url, 'https://ai-gateway.vercel.sh/v1/chat/completions');
   assert.equal(JSON.parse(captured.init.body).model, 'openai/gpt-5.4');
+  assert.equal(out.model, 'openai/gpt-5.4');
   assert.equal(out.identityVerification, 'OBSERVED');
   assert.equal(JSON.stringify(out).includes('gateway-test-secret'), false);
 });

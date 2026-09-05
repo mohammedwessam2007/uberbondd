@@ -256,11 +256,6 @@
       "gate": "NO_FRONTIER_OPERATOR_HOST",
       "reason": "Records capability claims read from public sources, with provenance. A reading list, not a runtime."
     },
-    "src/frontier-context-spine.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FRONTIER_OPERATOR_HOST",
-      "reason": "Resolves mission context dependencies and fails closed on unresolved ones. Nothing calls it because nothing compiles a mission yet."
-    },
     "src/frontier-loop-proof.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_FRONTIER_OPERATOR_HOST",

@@ -46,6 +46,7 @@ jobs:
           npm run test:genesis
           node --test tests/perpetual-frontier-genesis-tick.test.mjs
           npm run test:whole-brain
+          node --test tests/github-actions-oidc-verifier.test.mjs
           npm run capabilities:doctor
           npm run genesis:doctor
       - name: Compile repository-complete Feature Genome

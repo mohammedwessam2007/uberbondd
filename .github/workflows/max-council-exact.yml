@@ -1,0 +1,122 @@
+name: MAX Council Exact Verification
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/max-council-exact.yml'
+      - 'src/frontier-*.mjs'
+      - 'src/avengers-execution-guard.mjs'
+      - 'src/agent-model-executor-factory.mjs'
+      - 'tests/frontier-*.test.mjs'
+      - 'tests/avengers-frontier-execution-guard.test.mjs'
+      - 'tests/agent-model-executor-factory-reasoning.test.mjs'
+      - 'config/system-readiness-input.json'
+      - 'scripts/system-readiness.mjs'
+      - 'scripts/mutation-war.mjs'
+      - '.vercel-readiness-runner.mjs'
+      - '.vercel-max-council-mutation-war.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: max-council-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  AI_PROVIDER: rules
+  AI_GATEWAY_AGENT_ENABLED: 'false'
+  OUTBOUND_ENABLED: 'false'
+  OUTBOUND_DRY_RUN: 'true'
+  AUTO_EMAIL_REPORTS: 'false'
+  DISCOVERY_ENABLED: 'false'
+  DISCOVERY_DRY_RUN: 'true'
+  ALLOW_TEST_PAYMENT_UNLOCK: 'false'
+  UBERBOND_POSTGRES_MODE: 'off'
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+
+jobs:
+  deterministic:
+    runs-on: ubuntu-slim
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check:syntax
+      - run: npm run test:deterministic
+
+  max-causal-mutations:
+    runs-on: ubuntu-slim
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node .vercel-max-council-mutation-war.mjs
+
+  generic-mutation-war:
+    runs-on: ubuntu-slim
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run test:mutation-war
+
+  focused-council:
+    runs-on: ubuntu-slim
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Run Council topology, provenance, runtime and no-network guards
+        run: >-
+          node --test --test-concurrency=1
+          tests/frontier-cognitive-fabric.test.mjs
+          tests/frontier-council-topology.test.mjs
+          tests/frontier-producer-origin.test.mjs
+          tests/avengers-frontier-execution-guard.test.mjs
+          tests/agent-model-executor-factory-reasoning.test.mjs
+          tests/frontier-cognitive-evidence-provenance-bypass.test.mjs
+          tests/frontier-cognitive-raw-compiler-bypass.test.mjs
+      - run: npm audit --omit=dev
+
+  readiness-closure:
+    runs-on: ubuntu-slim
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Run two-phase canonical closure harness
+        run: node .vercel-readiness-runner.mjs
+      - name: Preserve generated readiness files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: max-council-readiness-${{ github.sha }}
+          if-no-files-found: error
+          path: |
+            config/system-readiness-input.json
+            docs/CURRENT_SYSTEM_STATE.md
+            artifacts/system-readiness.json

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#030914">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>UberBond · Wessam Command Center</title>
+  <link rel="icon" href="./icon.svg">
+  <link rel="stylesheet" href="./uberbond.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div><div class="grid-horizon"></div>
+  <header class="topbar glass">
+    <div class="brand-lockup"><div class="brand-mark"><span></span><span></span><span></span></div><div><strong>UBERBOND</strong><small>WESSAM PROJECT · COMMAND CENTER</small></div></div>
+    <div class="top-status"><span id="connection-dot" class="connection-dot"></span><span id="connection-label">CONNECTING</span><span class="sep">·</span><span id="truth-state">UNKNOWN</span><span class="sep">·</span><span id="clock">--:--:--</span></div>
+    <button id="open-auth" class="ghost-button" type="button">PORTABLE VIEWER</button>
+  </header>
+  <main class="command-shell">
+    <section class="left-rail">
+      <article class="panel glass world-panel"><div class="panel-head"><span>01</span><div><h2>WORLD SENSING</h2><small>source-grounded observability</small></div></div><div class="radar-wrap"><div class="radar"><i></i><i></i><i></i><b></b></div><div class="radar-copy"><strong id="receipt-observed">—</strong><span>receipts observed</span></div></div><div class="truth-grid"><div><b id="receipt-unavailable">—</b><span>unavailable</span></div><div><b id="receipt-stale">—</b><span>stale</span></div><div><b id="receipt-invalid">—</b><span>invalid</span></div></div></article>
+      <article class="panel glass"><div class="panel-head"><span>02</span><div><h2>FEATURE GENOME</h2><small>repository body map</small></div></div><div id="feature-metrics" class="metric-stack"></div></article>
+      <article class="panel glass"><div class="panel-head"><span>03</span><div><h2>GENESIS</h2><small>idea metabolism & reactivation</small></div></div><div id="genesis-metrics" class="metric-stack"></div></article>
+    </section>
+    <section class="brain-stage glass">
+      <div class="stage-header"><div><span class="eyebrow">COGNITIVE TOPOLOGY</span><h1>THE ORGANISM</h1></div><div class="stage-kpis"><span><b id="organ-count">—</b> organs</span><span><b id="relation-count">—</b> relations</span><span><b id="synapse-count">—</b> synapses</span></div></div>
+      <div id="graph-stage" class="graph-stage" aria-label="UberBond cognitive graph"><svg id="graph-lines" class="graph-lines" aria-hidden="true"></svg><div class="core-orbit orbit-3"></div><div class="core-orbit orbit-2"></div><div class="core-orbit orbit-1"></div><button id="uber-core" class="uber-core" type="button"><span class="core-scan"></span><span class="core-label">UBERBOND</span><small>WESSAM PROJECT</small><em id="core-status">SYNCING</em></button><div id="graph-nodes" class="graph-nodes"></div></div>
+      <div class="stage-footer"><div class="legend"><span><i class="legend-dot verified"></i>VERIFIED CURRENT</span><span><i class="legend-dot draft"></i>DRAFT BRANCH</span><span><i class="legend-dot goal"></i>CHAT SPEC / GOAL</span><span><i class="legend-dot donor"></i>HISTORICAL DONOR</span></div><button id="toggle-map" class="ghost-button compact" type="button">COGNITIVE MAP</button></div>
+    </section>
+    <section class="right-rail">
+      <article class="panel glass"><div class="panel-head"><span>04</span><div><h2>FRONTIER TEAM</h2><small>candidate intelligence suppliers</small></div></div><div id="model-roster" class="model-roster"></div></article>
+      <article class="panel glass"><div class="panel-head"><span>05</span><div><h2>COMPUTE SOVEREIGNTY</h2><small>lawful usable intelligence supply</small></div></div><div id="compute-panel" class="metric-stack"></div></article>
+      <article class="panel glass"><div class="panel-head"><span>06</span><div><h2>SELF-MAINTAINER</h2><small>engineering immune system</small></div></div><div id="maintainer-panel" class="metric-stack"></div></article>
+    </section>
+    <section class="bottom-deck">
+      <article class="panel glass activity-panel"><div class="panel-head wide"><span>07</span><div><h2>NEURAL ACTIVITY</h2><small>evidence receipts, not simulated events</small></div><button id="refresh" class="ghost-button compact" type="button">REFRESH</button></div><div id="activity-feed" class="activity-feed"></div></article>
+      <article class="panel glass truth-panel"><div class="panel-head"><span>08</span><div><h2>TRUTH BOUNDARY</h2><small>what the organism can actually prove</small></div></div><div id="truth-copy" class="truth-copy">Loading source truth…</div><div class="runtime-strip"><span>PLATFORM <b id="runtime-platform">—</b></span><span>ENV <b id="runtime-env">—</b></span><span>COMMIT <b id="runtime-commit">—</b></span></div></article>
+    </section>
+  </main>
+  <aside id="node-drawer" class="node-drawer glass" aria-hidden="true"><button id="close-drawer" class="drawer-close" type="button">×</button><span class="eyebrow">COGNITIVE ORGAN</span><h2 id="drawer-title">—</h2><p id="drawer-kind">—</p><div id="drawer-truth" class="drawer-truth">—</div><h3>Connections</h3><div id="drawer-links" class="drawer-links"></div></aside>
+  <div id="auth-modal" class="auth-modal" aria-hidden="true"><form id="auth-form" class="auth-card glass"><div class="brand-mark big"><span></span><span></span><span></span></div><span class="eyebrow">PORTABLE SOURCE VIEWER</span><h2>Wessam Command Center</h2><p>This zero-build viewer contains no private UberBond state and does not accept an owner secret. The richer hosted command center remains behind the canonical deployment boundary.</p><label for="owner-token">No token needed here</label><input id="owner-token" type="password" disabled placeholder="HOSTED OWNER LINK PENDING"><button class="primary-button" type="button" onclick="document.getElementById('auth-modal').classList.remove('open')">RETURN TO UBERBOND</button><small id="auth-error"></small></form></div>
+  <noscript>This command center requires JavaScript.</noscript>
+  <script src="./uberbond-static-data.js"></script><script src="./uberbond.js" defer></script>
+</body></html>

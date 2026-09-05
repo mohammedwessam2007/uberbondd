@@ -54,5 +54,29 @@ jobs:
             uberbond-cognitive-cycle-
       - name: Install exact locked dependencies
         run: npm ci
-      - name: Run one bounded whole-brain self-maintenance tick
-        run: node scripts/uberbond-self-maintainer-tick.mjs
+      - name: Run one bounded whole-brain self-maintenance tick and preserve its truth receipt
+        id: maintenance
+        shell: bash
+        run: |
+          mkdir -p artifacts/cognitive
+          set +e
+          node scripts/uberbond-self-maintainer-tick.mjs > artifacts/cognitive/self-maintainer-latest.json
+          tick_status=$?
+          set -e
+          node -e "const fs=require('node:fs'); const p='artifacts/cognitive/self-maintainer-latest.json'; const v=JSON.parse(fs.readFileSync(p,'utf8')); if(!v || typeof v.status!=='string') process.exit(2)"
+          echo "tick_status=$tick_status" >> "$GITHUB_OUTPUT"
+      - name: Save self-maintenance truth for the next cognitive pulse
+        uses: actions/cache/save@v4
+        with:
+          path: artifacts/cognitive/self-maintainer-latest.json
+          key: uberbond-self-maintenance-${{ github.run_id }}
+      - name: Upload self-maintenance truth receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: uberbond-self-maintenance-${{ github.run_id }}
+          path: artifacts/cognitive/self-maintainer-latest.json
+          retention-days: 14
+          if-no-files-found: error
+      - name: Preserve unsuccessful maintenance as a visible workflow failure after its evidence is saved
+        if: steps.maintenance.outputs.tick_status != '0'
+        run: exit 1

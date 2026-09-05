@@ -73,8 +73,11 @@
     "test:mutation-war:full": "node scripts/with-real-postgres.mjs npm run test:mutation-war",
     "brain": "node scripts/uberbond-brain-bootstrap.mjs",
     "brain:features": "node scripts/uberbond-feature-genome.mjs",
+    "brain:feature-atlas": "node scripts/uberbond-feature-atom-atlas.mjs",
+    "brain:metacognitive": "node scripts/uberbond-metacognitive-synthesis.mjs",
     "models:frontier:doctor": "node scripts/frontier-model-team-doctor.mjs",
-    "test:whole-brain": "node --test tests/uberbond-cognitive-graph.test.mjs tests/uberbond-cognitive-bus.test.mjs tests/uberbond-cognitive-adapters.test.mjs tests/genesis-cognitive-adapters.test.mjs tests/event-horizon-cognitive-adapter.test.mjs tests/wallbreaker-cognitive-reflex.test.mjs tests/uberbond-feature-genome.test.mjs tests/frontier-model-team.test.mjs tests/whole-brain-cognitive-adapters.test.mjs",
+    "compute:doctor": "node scripts/compute-sovereignty-doctor.mjs",
+    "test:whole-brain": "node --test tests/uberbond-cognitive-graph.test.mjs tests/uberbond-cognitive-bus.test.mjs tests/uberbond-cognitive-adapters.test.mjs tests/genesis-cognitive-adapters.test.mjs tests/event-horizon-cognitive-adapter.test.mjs tests/wallbreaker-cognitive-reflex.test.mjs tests/uberbond-feature-genome.test.mjs tests/uberbond-feature-atom-atlas.test.mjs tests/frontier-model-team.test.mjs tests/whole-brain-cognitive-adapters.test.mjs tests/uberbond-metacognitive-synthesis.test.mjs tests/compute-sovereignty.test.mjs",
     "readiness": "node scripts/system-readiness.mjs",
     "wallbreaker": "node scripts/wallbreaker-plan.mjs",
     "test:wallbreaker": "node --test tests/wallbreaker.test.mjs tests/wallbreaker-retry-safety.test.mjs",
@@ -98,7 +101,7 @@
     "test:external-capabilities": "node --test tests/external-capability-control-plane.test.mjs",
     "test:capability-genome-harvest": "node --test tests/capability-genome-harvest.test.mjs tests/capability-genome-doctor-harvest.test.mjs",
     "test:capability-genome-bodies": "node --test tests/capability-genome-body-import.test.mjs tests/capability-genome-body-fetch.test.mjs tests/capability-genome-doctor-body.test.mjs tests/capability-genome-body-normalize.test.mjs tests/capability-genome-doctor-normalized.test.mjs",
-    "test:capability-genome": "node --test tests/capability-genome.test.mjs tests/capability-genome-harvest.test.mjs tests/capability-genome-doctor-harvest.test.mjs tests/capability-genome-body-import.test.mjs tests/capability-genome-body-fetch.test.mjs tests/capability-genome-doctor-body.test.mjs tests/capability-genome-body-normalize.test.mjs tests/capability-genome-doctor-normalized.test.mjs"
+    "test:capability-genome": "node --test tests/capability-genome.test.mjs tests/capability-genome-harvest.test.mjs tests/capability-genome-doctor-harvest.test.mjs tests/capability-genome-body-import.test.mjs tests/capability-genome-body-fetch.test.mjs tests/capability-genome-doctor-body.test.mjs tests/capability-genome-doctor-normalized.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

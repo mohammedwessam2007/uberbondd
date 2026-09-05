@@ -1,0 +1,50 @@
+name: UberBond Self Maintainer
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+    inputs:
+      issueNumber:
+        description: 'Optional existing agent-relay issue number to process'
+        required: false
+        type: string
+
+concurrency:
+  group: uberbond-self-maintainer
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  bounded-maintenance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      UBERBOND_SELF_MAINTAINER_ISSUE_NUMBER: ${{ inputs.issueNumber }}
+      AI_PROVIDER: rules
+      AI_GATEWAY_AGENT_ENABLED: 'false'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+      AUTO_EMAIL_REPORTS: 'false'
+      DISCOVERY_ENABLED: 'false'
+      DISCOVERY_DRY_RUN: 'true'
+      ALLOW_TEST_PAYMENT_UNLOCK: 'false'
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install exact locked dependencies
+        run: npm ci
+      - name: Run one bounded self-maintenance tick
+        run: node scripts/uberbond-self-maintainer-tick.mjs

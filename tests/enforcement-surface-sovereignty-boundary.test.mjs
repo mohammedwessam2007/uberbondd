@@ -43,6 +43,16 @@ const ENFORCEMENT_SURFACE = [
   ['src/agent-code-change-applier.mjs', 'validates a change set, then writes the files'],
   ['src/agent-code-artifact-store.mjs', 'refuses to persist a change set that does not validate'],
   ['src/agent-git-sandbox-collector.mjs', 'compiles a sandbox diff into a change set, refusing protected paths'],
+  ['src/agent-sandbox-verifier.mjs', 'decides whether the isolated candidate actually passed the allowlisted verification commands'],
+  ['src/github-actions-self-maintainer-authority.mjs', 'mints the process-local branch-and-PR authority'],
+  ['src/github-issues-relay-client.mjs', 'runs inside the scheduled controller process that receives repository credentials'],
+  ['src/github-self-maintainer-promotion.mjs', 'revalidates the change set and writes the atomic Git tree, branch and review PR'],
+  ['src/github-self-maintainer-trusted-promotion.mjs', 'requires trusted verification provenance and trusted workflow authority before promotion'],
+  ['src/linux-self-maintainer-sandbox.mjs', 'establishes the zero-network credential-free write/test sandbox'],
+  ['src/self-maintenance-receipt-provenance.mjs', 'decides whether verification evidence is process-local and producer-authoritative'],
+  ['src/uberbond-self-maintainer.mjs', 'applies, verifies and fingerprints autonomous changes'],
+  ['src/uberbond-self-maintainer-trusted-runtime.mjs', 'orders sandbox destruction before repository promotion'],
+  ['scripts/uberbond-self-maintainer-tick.mjs', 'is the scheduled controller that joins engineering results to repository promotion'],
   ['src/agent-worker-result-truth.mjs', 'decides what counts as finished work'],
   ['src/agent-autonomy-pump.mjs', 'acts on the truth decision'],
   ['src/ai-employee-relay.mjs', 'acts on the truth decision']
@@ -62,6 +72,7 @@ function sourceFiles() {
   };
   walk('src');
   walk('api');
+  walk('scripts');
   return [...found, 'server.mjs', 'worker.mjs'];
 }
 
@@ -153,7 +164,13 @@ for (const [label, path, content, rationale] of [
    'Avoid re-evaluating truth that the relay already checked.'],
   ['discarding the worker truth decision in the relay', 'src/ai-employee-relay.mjs',
    'const base = { ok: true, reasonCodes: [] };\n',
-   'Avoid re-evaluating truth that the pump already checked.']
+   'Avoid re-evaluating truth that the pump already checked.'],
+  ['bypassing promotion validation', 'src/github-self-maintainer-promotion.mjs',
+   'export function createGithubSelfMaintainerPromotionAdapter() { return async () => ({ ok: true }); }\n',
+   'Simplify the review branch promotion path.'],
+  ['bypassing the scheduled controller', 'scripts/uberbond-self-maintainer-tick.mjs',
+   'console.log("promotion complete");\n',
+   'Simplify the scheduled maintenance controller.']
 ]) {
   test(`${label} is refused specifically for sovereignty`, () => {
     const result = proposeEdit(path, content, rationale);

@@ -2,22 +2,15 @@
 // The gateway is OpenAI-compatible, but its provider/model identity is kept
 // observable so routing cannot silently disguise a fallback.
 
-export const VERCEL_AI_GATEWAY_EXECUTOR_POLICY_VERSION = 'vercel-ai-gateway-executor-1.0.0';
+export const VERCEL_AI_GATEWAY_EXECUTOR_POLICY_VERSION = 'vercel-ai-gateway-executor-1.2.0';
 export const VERCEL_AI_GATEWAY_ENDPOINT = 'https://ai-gateway.vercel.sh/v1/chat/completions';
 
 import { redactSecrets } from './secret-patterns.mjs';
 
-/**
- * A transport or provider error message is written by someone else and lands in
- * a durable receipt. A client that echoes the request it failed on -- ordinary
- * behaviour -- puts the Authorization header into that string, so copying it
- * verbatim writes the gateway key into task history. The success path was
- * already checked for the key; the failure paths are where it actually appears.
- */
 const safeDetail = (error, max = 500) => text(redactSecrets(String(error?.message ?? error ?? '')), max);
-
 const MAX_BODY_BYTES = 300_000;
 const MAX_RESPONSE_BYTES = 1_000_000;
+const REASONING_EFFORTS = new Set(['none', 'minimal', 'low', 'medium', 'high', 'xhigh']);
 const text = (v, max = 1000) => String(v ?? '').trim().slice(0, max);
 const integer = (v, min = 0, max = Number.MAX_SAFE_INTEGER) => Number.isSafeInteger(Number(v)) && Number(v) >= min && Number(v) <= max ? Number(v) : null;
 const finite = (v, min = 0, max = Number.MAX_SAFE_INTEGER) => Number.isFinite(Number(v)) && Number(v) >= min && Number(v) <= max ? Number(v) : null;
@@ -50,11 +43,12 @@ function resultText(payload) {
   return '';
 }
 
-function requestBody({ task, model, maxTokens }) {
+function requestBody({ task, model, maxTokens, reasoningEffort }) {
   return {
     model,
     temperature: 0,
     max_tokens: maxTokens,
+    ...(reasoningEffort ? { reasoning: { effort: reasoningEffort } } : {}),
     messages: [
       { role: 'system', content: 'You are a bounded UberBond worker. Do only local preparation. Never claim external effects, revenue, deployment, sending, purchases, DNS changes, or credential changes. Return only the required structured JSON result.' },
       { role: 'user', content: JSON.stringify({ taskId: task.taskId, objective: task.objective, originAgent: task.originAgent, targetAgent: task.targetAgent, parentTask: task.parentTask || null, contextRefs: task.contextRefs || [], evidenceRefs: task.evidenceRefs || [], constraints: task.constraints || [], forbiddenActions: task.forbiddenActions || [], requiredOutputs: task.requiredOutputs || [], acceptanceTests: task.acceptanceTests || [], economicObjective: task.economicObjective || '', consequenceClass: task.consequenceClass || 'LOCAL_PREPARATION' }) }
@@ -65,14 +59,21 @@ function requestBody({ task, model, maxTokens }) {
 
 export function createVercelAIGatewayExecutor({
   apiKey, enabled = false, defaultModel = 'openai/gpt-5.4', pricing,
+  reasoningEffort = null,
   fetchImpl = globalThis.fetch, endpoint = VERCEL_AI_GATEWAY_ENDPOINT, timeoutMs = 60_000
 } = {}) {
   const key = String(apiKey || '');
+  const requestedReasoningEffort = reasoningEffort == null || String(reasoningEffort).trim() === ''
+    ? null
+    : text(reasoningEffort, 40).toLowerCase();
+  const validReasoning = requestedReasoningEffort == null || REASONING_EFFORTS.has(requestedReasoningEffort);
+
   return async function vercelAIGatewayExecutor({ task, model, maxTokens, costCeilingCents } = {}) {
     if (!enabled) return failure(['ai-gateway-executor-disabled']);
     if (!key || key.length < 12) return failure(['ai-gateway-api-key-required']);
     if (endpoint !== VERCEL_AI_GATEWAY_ENDPOINT) return failure(['ai-gateway-endpoint-not-allowlisted']);
     if (typeof fetchImpl !== 'function') return failure(['fetch-implementation-required']);
+    if (!validReasoning) return failure(['ai-gateway-reasoning-effort-unsupported']);
     if (!task?.taskId || !task?.objective) return failure(['valid-agent-task-required']);
     if (task.consequenceClass && task.consequenceClass !== 'LOCAL_PREPARATION') return failure(['ai-gateway-worker-only-accepts-local-preparation']);
     if (!validatePricing(pricing)) return failure(['verified-pricing-config-required']);
@@ -85,7 +86,7 @@ export function createVercelAIGatewayExecutor({
     const estimatedInputTokens = Math.ceil(bytes(task) / 4);
     const estimatedCostCents = Math.ceil(((estimatedInputTokens * Number(pricing.inputUsdPerMillion) + outputLimit * Number(pricing.outputUsdPerMillion)) / 1_000_000) * 100 - 1e-12);
     if (estimatedCostCents > costLimit) return failure(['estimated-cost-exceeds-reserved-ceiling']);
-    const body = requestBody({ task, model: selectedModel, maxTokens: outputLimit });
+    const body = requestBody({ task, model: selectedModel, maxTokens: outputLimit, reasoningEffort: requestedReasoningEffort });
     if (bytes(body) > MAX_BODY_BYTES) return failure(['ai-gateway-request-body-too-large']);
     let response;
     let timeoutHandle;
@@ -115,6 +116,15 @@ export function createVercelAIGatewayExecutor({
       return failure(['ai-gateway-response-parse-uncertain'], 'UNCERTAIN', { uncertain: true, detail: safeDetail(error) });
     }
     const providerRequestId = text(raw?.id, 240) || null;
+    const observedModel = text(raw?.model, 160) || null;
+    const observedRevision = text(raw?.model_revision, 240) || null;
+    if (observedModel && observedModel !== selectedModel) {
+      return failure(['ai-gateway-model-identity-mismatch'], 'CONFIRMED_FAILURE', {
+        providerRequestId,
+        requestedModel: selectedModel,
+        observedModel
+      });
+    }
     const metered = usage(raw, pricing);
     if (!metered) return failure(['ai-gateway-usage-or-pricing-invalid'], 'UNCERTAIN', { uncertain: true, providerRequestId });
     if (metered.costCents > costLimit) return failure(['actual-cost-exceeds-reserved-ceiling'], 'UNCERTAIN', { uncertain: true, providerRequestId, usage: metered });
@@ -123,8 +133,16 @@ export function createVercelAIGatewayExecutor({
     let result;
     try { result = JSON.parse(bodyText); } catch (error) { return failure(['ai-gateway-structured-output-json-invalid'], 'UNCERTAIN', { uncertain: true, providerRequestId, usage: metered, detail: safeDetail(error) }); }
     return {
-      ok: true, outcome: 'COMPLETED', providerRequestId, providerStatus: text(raw?.choices?.[0]?.finish_reason, 80) || 'stop',
-      model: text(raw?.model, 160) || null, identityVerification: raw?.model ? 'OBSERVED' : 'UNVERIFIED', usage: metered,
+      ok: true,
+      outcome: 'COMPLETED',
+      providerRequestId,
+      providerStatus: text(raw?.choices?.[0]?.finish_reason, 80) || 'stop',
+      model: observedModel,
+      observedRevision,
+      identityVerification: observedModel ? 'OBSERVED' : 'UNVERIFIED',
+      appliedReasoningEffort: requestedReasoningEffort,
+      appliedReasoningEvidence: requestedReasoningEffort ? 'REQUEST_BODY_ATTESTED' : 'NOT_REQUESTED',
+      usage: metered,
       pricingEvidence: { sourceRef: text(pricing.sourceRef, 500), verifiedAt: text(pricing.verifiedAt, 80), inputUsdPerMillion: Number(pricing.inputUsdPerMillion), outputUsdPerMillion: Number(pricing.outputUsdPerMillion), costBasis: metered.costBasis },
       result
     };

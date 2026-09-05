@@ -2,9 +2,9 @@
 
 **This file is the canonical present-tense software/commercial state.** Historical detail from the pre-checkpoint version is preserved byte-for-byte under `docs/archive/2026-08-30-pre-checkpoint/`. Repository code and newer exact external evidence still outrank this prose.
 
-Last reconciled: **2026-09-04**
-Branch: `debug/avengers`
-Reconciled from current head: `ede4ec192e52faa235f986727a72198c05aac878`
+Last reconciled: **2026-09-05**
+Branch: `gpt/frontier-cognitive-fabric-20260904`
+Reconciled from current head: `b0ad6feba503e95eaf6baf957ef1791e999b0e58`
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
@@ -29,7 +29,7 @@ The source-changing state of this branch was exercised before later documentatio
 
 | Gate | Result |
 |---|---|
-| Syntax | `npm run check:syntax`: 848 files parse (2026-09-04) |
+| Syntax | `npm run check:syntax`: **871 files parse** on exact head `b0ad6feba503e95eaf6baf957ef1791e999b0e58` (Vercel preview, 2026-09-05) |
 | Deterministic | `npm run test:deterministic`: 3623 tests, 3569 pass, **0 fail**, 54 skipped (2026-09-04) |
 | Relay safety | `npm run test:relay-safety`: 150 tests, 150 pass, 0 fail (2026-08-30) |
 | Real PostgreSQL | `OMNIA_V9_TEST_DATABASE_URL=postgres://... npm run test:postgres-real`: 24 suites passed, 187 tests, 187 pass, 0 fail (2026-09-04) |
@@ -37,19 +37,19 @@ The source-changing state of this branch was exercised before later documentatio
 | Browser | `CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npm run test:browser`: 1 test, 1 pass, 0 fail (2026-08-30), against the runner's installed Chromium |
 | Dependency audit | `npm audit --omit=dev`: No vulnerabilities reported in the current integration environment. |
 
-The 52 deterministic skips are environment-dependent suites excluded from that run; real-PostgreSQL behavior has separate evidence above. Hosted GitHub Actions jobs that receive no runner and execute zero steps remain `INFRASTRUCTURE_NON_EVIDENCE`.
+The historical deterministic skip count above is environment-dependent; real-PostgreSQL behavior has separate evidence above. Hosted GitHub Actions jobs that receive no runner and execute zero steps remain `INFRASTRUCTURE_NON_EVIDENCE`. The exact `b0ad6fe...` deterministic Vercel run reached the frontier and broader regression suites with the new frontier tests green, then failed only because this reachability canon still named the pre-frontier 336-module tree; that generated-canon freshness defect is repaired by this reconciliation commit and is not recorded as a green deterministic run.
 
 ## Reachability
 
-**138 of 336 `src` modules have no entry point at all**.
+**138 of 342 `src` modules have no entry point at all**.
 
 | Reachability class | Modules |
 |---|---:|
 | Reachable from production | 143 |
-| Reachable only via an operator script | 55 |
+| Reachable only via an operator script | 61 |
 | **No entry point at all** | **138** |
 
-The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`. The newly merged `src/payment-provider-verifier-dispatch.mjs` is production-reachable through `payment-reconciliation-worker` and increases the production-reachable partition by one without changing the gated partition. The Avengers runtime adds five source modules, all intentionally operator-only through `scripts/avengers-arsenal-doctor.mjs`, `scripts/avengers-arsenal-plan.mjs`, and `scripts/avengers-arsenal-tick.mjs`; it does not create a production scheduler or widen business-effect authority.
+The new `src/payment-operator-attention.mjs` is production-reachable through `founder-command-center -> prometheus-control-tower -> job-handlers`. The newly merged `src/payment-provider-verifier-dispatch.mjs` is production-reachable through `payment-reconciliation-worker` and increases the production-reachable partition by one without changing the gated partition. The earlier Avengers runtime added five source modules, all intentionally operator-only through `scripts/avengers-arsenal-doctor.mjs`, `scripts/avengers-arsenal-plan.mjs`, and `scripts/avengers-arsenal-tick.mjs`. The frontier cognitive fabric adds six more source modules transitively reachable through the same operator-only Avengers execution path; it does not create a production scheduler or widen business-effect authority.
 
 ## PR #251 payment-attention policy
 
@@ -86,7 +86,7 @@ The repository contains a real Claude engineering orchestrator, but a live Claud
 
 The connected Vercel account exposes team `team_A9LnjIuS5PU0rNetsHMu1N0r` and full project `prj_RWUPf14w1xIz9NK92AbNW5z7qDCg` (`uberbondd`).
 
-The previous exact PR-head full-project preview `dpl_5e9AmHsdpxpdikFFfkUbJhzKopa6` was observed actively executing the real deterministic suite. The first account-activation deployment (`dpl_GtFzX8u8VRLL5SJ4jD9jm7dtHw1L`) failed its stale reachability-canon assertion. The next candidate (`dpl_B5Mqc5QJdRCpr9BA2Yy4AFjWk41h`) then exposed a publication packaging error: the readiness JSON was truncated at line 521. The complete artifact was republished and the corrected remote tree was verified. The stale queued full-project build (`dpl_ZusvtM5aWa63JMZ5JyB1TZRxRYV7`) then failed because it referenced a local-only canon SHA. Vercel Create Deployment resolved `main` to `5436eeb111a17f012ea7dc307f295703da391bc6` but refused to create the corrected production build with: `Resource is limited - try again in 24 hours (more than 100, code: "api-deployments-free-per-day").` A deployment state is not treated as business or provider proof. **Exact-current-main production is blocked by this Vercel quota until the platform permits another deployment.**
+The exact PR #388 preview deployment for `b0ad6feba503e95eaf6baf957ef1791e999b0e58` cloned that commit and ran the repository-native `vercel-build` contract. Syntax passed with 871 files. The deterministic tree exercised the new frontier council/provenance/simulation paths successfully and continued through broad core regression coverage, but the build exited 1 at `tests/reachability-ratchet.test.mjs` because this document still claimed 336 source modules while 342 existed. That was a stale generated-canon assertion, not a frontier behavioral failure; this commit reconciles the exact 143 production / 61 operator-only / 138 unreachable split. A deployment state is not treated as business or provider proof.
 
 ## Account activation receipt
 
@@ -116,7 +116,7 @@ Internal software cannot manufacture the following:
 1. Activate exactly one owner-authorized $450 Lead-Path Revenue Leak Evidence Sprint through the existing partner canary packet. Measure cleared payment, accepted delivery, founder minutes, partner margin, and whether the same partner produces a second downstream account.
 2. Keep `gcc-einvoice-exception-evidence` research-only until a qualified provider supplies a safe sample and a stronger payment commitment than the current canary. Official obligations are not demand proof.
 3. Do not build a parallel AI evaluation platform. The strategic acceptance handoff is limited to composing existing task criteria, capability benchmarks, consequence receipts, and payment-acceptance truth into an evidence pack after buyer evidence justifies it.
-4. Re-verify exact-current-main production only when a real deployment is observed. The connected full Vercel project is `live: false`; recent observed full-project deployments are errors and exact-current-main runtime is unproven.
+4. Re-verify exact-current-main production only when a real deployment is observed. The connected full Vercel project remains non-production proof until an exact merged-main deployment is observed.
 5. Preserve the Capability Genome foundation and defer expensive corpus scaling until storage, source access, sandboxing, and economic pull are dependency-satisfied. Catalog size is not the frontier.
 
 Zero customer contact, zero live provider/model execution, zero purchases, zero PayPal account mutation, zero DNS changes, zero money movement, and zero production business mutation were authorized or performed by this checkpoint. The Vercel Gateway secret was configured in the protected project store; its value is intentionally absent from all repository evidence.

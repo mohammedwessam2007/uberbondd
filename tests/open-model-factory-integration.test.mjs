@@ -24,7 +24,7 @@ function openModelEnv(overrides = {}) {
 }
 
 test('factory policy includes first-class open-model runtime without changing legacy providers', () => {
-  assert.equal(AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION, 'agent-model-executor-factory-1.2.0');
+  assert.equal(AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION, 'agent-model-executor-factory-1.3.0');
   const readiness = describeProviderReadiness({ env: openModelEnv() });
   assert.deepEqual(readiness.map(item => item.provider), ['openai', 'anthropic', 'ai-gateway', 'open-model', 'claude-code-sandbox']);
 });

@@ -14,7 +14,7 @@ import {
 } from './genesis-final-frontier.mjs';
 import { compileCognitiveEvent } from './uberbond-cognitive-bus.mjs';
 
-export const UBERBOND_METACOGNITIVE_SYNTHESIS_POLICY_VERSION = 'uberbond-metacognitive-synthesis-1.0.0';
+export const UBERBOND_METACOGNITIVE_SYNTHESIS_POLICY_VERSION = 'uberbond-metacognitive-synthesis-1.1.0';
 
 const ECONOMIC_GENE_ATOM_TYPES = Object.freeze({
   'time-windowed-obligation': 'REGULATION',
@@ -45,6 +45,43 @@ function featureBlindSpots(featureGenome = {}) {
     .slice(0, 64)
     .map(row => `${row.path} is classified ${row.category}: ${text(row.reason, 800) || 'reason unresolved'}`);
   return [...new Set([...fallback, ...triage])].slice(0, 128);
+}
+
+function featureAtomPressure(featureAtomAtlas = {}) {
+  if (!featureAtomAtlas?.ok) return { blindSpots: [], partialGenesis: [], sourceOnlyGenesis: [], exportedFeatureCount: 0 };
+  const ideas = list(featureAtomAtlas?.classes?.genesisIdeas, 512);
+  const partialGenesis = ideas
+    .filter(atom => atom?.maturity === 'PARTIAL_PRIMITIVE')
+    .slice(0, 32)
+    .map(atom => ({ ordinal: atom.ordinal, name: atom.name, implementationStatus: atom.implementationStatus, sources: list(atom.implementationSources, 8), tests: list(atom.implementationTests, 8), runtimeReceipts: list(atom.runtimeReceipts, 8) }));
+  const sourceOnlyGenesis = ideas
+    .filter(atom => atom?.implementationStatus === 'SOURCE_AND_TEST_PRESENT' && list(atom.runtimeReceipts, 8).length === 0)
+    .slice(0, 32)
+    .map(atom => ({ ordinal: atom.ordinal, name: atom.name, maturity: atom.maturity }));
+  const blindSpots = [
+    ...partialGenesis.slice(0, 12).map(atom => `GENESIS idea ${atom.ordinal} ${atom.name} is only PARTIAL_PRIMITIVE; identify the smallest missing mechanism, falsifier or integration edge that would make it materially more useful without inflating its maturity claim.`),
+    ...sourceOnlyGenesis.slice(0, 12).map(atom => `GENESIS idea ${atom.ordinal} ${atom.name} has source+test evidence but no recorded internal runtime receipt at the atlas checkpoint; determine whether runtime activation would add decision value or merely produce another receipt.`)
+  ];
+  return {
+    blindSpots: [...new Set(blindSpots)].slice(0, 24),
+    partialGenesis,
+    sourceOnlyGenesis,
+    exportedFeatureCount: number(featureAtomAtlas?.classCounts?.exportedCodeFeatures, 0)
+  };
+}
+
+function computePressure(computeSovereignty = {}) {
+  if (!computeSovereignty || typeof computeSovereignty !== 'object') return [];
+  const admissible = number(computeSovereignty.admissibleOfferCount, 0);
+  const freeTokens = number(computeSovereignty.zeroCostTokens, 0);
+  const rejected = number(computeSovereignty.rejectedOfferCount, 0);
+  if (admissible === 0) {
+    return [`Compute Sovereignty currently has zero provenanced authorized supply offers and ${rejected} rejected offers. Search for lawful local/open runtimes, official free tiers, sponsored grants, purchased/paid capacity, cache/reuse/compression and task-specific routing. Do not solve this by quota, identity, credential, billing or terms bypass.`];
+  }
+  if (freeTokens === 0) {
+    return ['Compute Sovereignty has admissible supply but zero measured zero-cost authorized tokens in the current receipt. Research lawful zero/near-zero-cost supply and demand-reduction mechanisms while preserving quality/reliability thresholds.'];
+  }
+  return [];
 }
 
 function gatedQuestions(featureGenome = {}) {
@@ -124,7 +161,7 @@ function featureFamilyBlindness(featureGenome = {}) {
   return families.filter(row => row.id !== 'general-runtime').map(row => ({
     id: row.id,
     observability: Math.min(100, Math.round((number(counts[row.id], 0) / maximum) * 100)),
-    consequence: ['sovereignty-governance', 'truth-evidence', 'business-opportunity-economics', 'payment-accounting', 'security-sandbox-egress'].includes(row.id) ? 95 : 70
+    consequence: ['sovereignty-governance', 'truth-evidence', 'business-opportunity-economics', 'payment-accounting', 'security-sandbox-egress', 'compute-sovereignty'].includes(row.id) ? 95 : 70
   }));
 }
 
@@ -202,22 +239,26 @@ function compileIdeaEvents({ recombinations = [], unknownAgenda = {}, missingLaw
 
 export function synthesizeUberBondMetacognition({
   featureGenome,
+  featureAtomAtlas = null,
   genesisEvolution = null,
   genesisOntology = null,
   eventHorizon = null,
   capabilityGenome = null,
   frontierModelTeam = null,
+  computeSovereignty = null,
   date = new Date(),
   synthesisRef = 'artifact:uberbond-metacognitive-synthesis-latest'
 } = {}) {
   const reasons = [];
   if (!featureGenome?.ok || !featureGenome?.genomeDigest) reasons.push('valid-feature-genome-required');
+  if (featureAtomAtlas != null && (!featureAtomAtlas?.ok || featureAtomAtlas?.featureGenomeDigest !== featureGenome?.genomeDigest)) reasons.push('feature-atom-atlas-must-match-feature-genome');
   if (!eventHorizon || !Array.isArray(eventHorizon?.economicGenes)) reasons.push('event-horizon-economic-genes-required');
   if (reasons.length) return fail(reasons);
   const at = date instanceof Date ? date : new Date(date);
   if (!Number.isFinite(at.getTime())) return fail(['valid-date-required']);
 
-  const blindSpots = featureBlindSpots(featureGenome);
+  const atomPressure = featureAtomPressure(featureAtomAtlas || {});
+  const blindSpots = [...featureBlindSpots(featureGenome), ...atomPressure.blindSpots, ...computePressure(computeSovereignty)];
   const gates = gatedQuestions(featureGenome);
   const anomalies = readinessAnomalies(featureGenome);
   const genesis = genesisObservations(genesisEvolution || {}, genesisOntology || {});
@@ -301,12 +342,21 @@ export function synthesizeUberBondMetacognition({
     generatedAt: at.toISOString(),
     inputs: {
       featureGenomeDigest: featureGenome.genomeDigest,
+      featureAtomAtlasDigest: featureAtomAtlas?.atlasDigest || null,
+      featureAtomCount: number(featureAtomAtlas?.atomCount, 0),
+      exportedFeatureCount: atomPressure.exportedFeatureCount,
+      partialGenesisPrimitiveCount: atomPressure.partialGenesis.length,
+      sourceOnlyGenesisCandidateCount: atomPressure.sourceOnlyGenesis.length,
       genesisEvolutionPresent: Boolean(genesisEvolution),
       genesisOntologyPresent: Boolean(genesisOntology),
       eventHorizonVersion: eventHorizon.schemaVersion || null,
       capabilityGenomeStatus: capabilityGenome?.status || null,
-      frontierModelTeamStatus: frontierModelTeam?.status || null
+      frontierModelTeamStatus: frontierModelTeam?.status || null,
+      computeSovereigntyStatus: computeSovereignty?.status || null,
+      provenComputeOfferCount: number(computeSovereignty?.admissibleOfferCount, 0),
+      zeroCostAuthorizedTokens: number(computeSovereignty?.zeroCostTokens, 0)
     },
+    featureAtomPressure: atomPressure,
     unknownAgenda,
     blindnessLedger,
     informationMarket,
@@ -326,11 +376,13 @@ export function synthesizeUberBondMetacognition({
       ideaCandidateCount: recombinations?.candidateCount || 0,
       unknownUnknownCount: unknownAgenda?.agenda?.length || 0,
       missingLawCandidateCount: missingLaws?.candidates?.length || 0,
-      repeatedGateCount: gates.length
+      repeatedGateCount: gates.length,
+      partialGenesisPrimitiveCount: atomPressure.partialGenesis.length,
+      sourceOnlyGenesisCandidateCount: atomPressure.sourceOnlyGenesis.length
     },
     promotionAuthority: 'NONE',
     executionAuthority: 'NONE',
-    truthBoundary: 'THIS IS METACOGNITIVE SEARCH. UNKNOWN-UNKNOWN QUESTIONS, MECHANISM RECOMBINATIONS, MISSING-LAW CANDIDATES, MARKET MECHANISMS, THEORIES AND OBSERVATION DESIGNS ARE HYPOTHESES OR INTERNAL RESEARCH PRIORITIES. THEY ARE NOT MARKET DEMAND, CAUSAL TRUTH, APPROVED CAPABILITIES OR AUTHORITY TO EXECUTE.'
+    truthBoundary: 'THIS IS METACOGNITIVE SEARCH. FEATURE ATOMS AND GENESIS MATURITY ARE INTERNAL ADDRESSABILITY/EVIDENCE SIGNALS, NOT VALUE. UNKNOWN-UNKNOWN QUESTIONS, MECHANISM RECOMBINATIONS, MISSING-LAW CANDIDATES, MARKET MECHANISMS, THEORIES AND OBSERVATION DESIGNS ARE HYPOTHESES OR INTERNAL RESEARCH PRIORITIES. COMPUTE SCARCITY MAY TRIGGER LAWFUL SUPPLY/REUSE SEARCH BUT NEVER QUOTA, IDENTITY, CREDENTIAL, BILLING OR TERMS BYPASS. NONE OF THESE OUTPUTS ARE MARKET DEMAND, CAUSAL TRUTH, APPROVED CAPABILITIES OR AUTHORITY TO EXECUTE.'
   };
   const synthesisDigest = digest(core);
   const events = compileIdeaEvents({ recombinations, unknownAgenda, missingLaws, gateQuestions: gates, synthesisRef, date: at });

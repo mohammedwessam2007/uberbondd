@@ -10,6 +10,7 @@ export const LINUX_SELF_MAINTAINER_SANDBOX_POLICY_VERSION = 'linux-self-maintain
 const MAX_BUFFER = 4_000_000;
 const SAFE_REVISION = /^[A-Za-z0-9][A-Za-z0-9._/-]{0,159}$/;
 const liveSandboxes = new WeakMap();
+const READONLY_SYSTEM_PREFIXES = Object.freeze(['/usr', '/bin', '/lib', '/lib64', '/opt']);
 
 function text(value, max = 1000) {
   return String(value ?? '').trim().slice(0, max);
@@ -75,6 +76,12 @@ async function resolveRevision(repoRoot, revision, runProcess) {
   return result.exitCode === 0 && /^[a-f0-9]{40}$/i.test(sha) ? sha : null;
 }
 
+function nodeRuntimeBin() {
+  const executable = path.resolve(process.execPath);
+  const allowed = READONLY_SYSTEM_PREFIXES.some(prefix => executable === prefix || executable.startsWith(`${prefix}/`));
+  return allowed ? path.dirname(executable) : null;
+}
+
 async function probeKernelIsolation({ unshareExecutable, runProcess, env }) {
   const script = [
     "const fs=require('node:fs');",
@@ -94,13 +101,13 @@ async function probeKernelIsolation({ unshareExecutable, runProcess, env }) {
     ok: true,
     policyVersion: LINUX_SELF_MAINTAINER_SANDBOX_POLICY_VERSION,
     status: 'KERNEL_ISOLATION_PROBE_PASS',
-    evidenceRef: `test:linux-unshare-zero-route:${digest(`${process.platform}:${process.arch}:${process.version}`).slice(0, 24)}`
+    evidenceRef: `test:linux-unshare-zero-route:${digest(`${process.platform}:${process.arch}:${process.version}:${process.execPath}`).slice(0, 24)}`
   };
 }
 
 const CHROOT_SCRIPT = String.raw`
 set -eu
-R="$1"; W="$2"; D="$3"; EXE="$4"; shift 4
+R="$1"; W="$2"; D="$3"; NODEBIN="$4"; EXE="$5"; shift 5
 mount --make-rprivate /
 mount -t tmpfs tmpfs "$R"
 for d in usr bin lib lib64 opt; do
@@ -120,7 +127,7 @@ for dev in null urandom random; do
   mount --bind "/dev/$dev" "$R/dev/$dev"
 done
 /usr/sbin/chroot "$R" /usr/bin/env -i \
-  PATH="/opt/nvm/versions/node/v22.16.0/bin:/usr/local/bin:/usr/bin:/bin" \
+  PATH="$NODEBIN:/usr/local/bin:/usr/bin:/bin" \
   HOME=/tmp USERPROFILE=/tmp XDG_CONFIG_HOME=/tmp/.config \
   npm_config_audit=false npm_config_fund=false \
   "$EXE" "$@"
@@ -142,9 +149,11 @@ export function createLinuxSelfMaintainerSandboxHost({
   env = process.env
 } = {}) {
   const records = new Map();
+  const runtimeBin = nodeRuntimeBin();
 
   async function createSandbox({ baseRevision } = {}) {
     if (process.platform !== 'linux') return fail(['linux-host-required'], 'ISOLATION_UNAVAILABLE');
+    if (!runtimeBin) return fail(['node-runtime-outside-readonly-system-mounts'], 'ISOLATION_UNAVAILABLE');
     if (typeof runProcess !== 'function') return fail(['process-runner-required']);
     const origin = await realDirectory(repoRoot);
     const dependencies = origin ? await realDirectory(path.join(origin, 'node_modules')) : null;
@@ -193,7 +202,7 @@ export function createLinuxSelfMaintainerSandboxHost({
       verificationNetworkEgressMode: 'NONE',
       providerCredentialScope: 'NONE',
       ephemeralHome: home,
-      evidenceRefs: Object.freeze([probe.evidenceRef, `test:git-no-hardlinks:${base}`])
+      evidenceRefs: Object.freeze([probe.evidenceRef, `test:git-no-hardlinks:${base}`, 'audit:chroot-readonly-host-zero-network-candidate-execution'])
     });
     const sandbox = Object.freeze({
       ok: true,
@@ -204,7 +213,7 @@ export function createLinuxSelfMaintainerSandboxHost({
       isolationReceipt: receipt,
       businessEffectAuthority: 'NONE'
     });
-    const record = Object.freeze({ workspace, sandboxRoot, dependencies, receipt, baseRevision: base });
+    const record = Object.freeze({ workspace, sandboxRoot, dependencies, receipt, baseRevision: base, runtimeBin });
     records.set(sandboxRoot, record);
     liveSandboxes.set(sandbox, record);
     return sandbox;
@@ -218,7 +227,7 @@ export function createLinuxSelfMaintainerSandboxHost({
       if (!command) return { exitCode: 127, signal: null, timedOut: false, stdout: '', stderr: 'missing executable', durationMs: 0 };
       const result = await runProcess(unshareExecutable, [
         '-Urnm', shellExecutable, '-c', CHROOT_SCRIPT, '_',
-        mountRoot, record.sandboxRoot, record.dependencies, command,
+        mountRoot, record.sandboxRoot, record.dependencies, record.runtimeBin, command,
         ...(Array.isArray(args) ? args.map(value => String(value)) : [])
       ], {
         env: safeHostEnv(env),
@@ -232,7 +241,8 @@ export function createLinuxSelfMaintainerSandboxHost({
   }
 
   async function verifySandbox(input = {}) {
-    const record = records.get(path.resolve(String(input.sandboxRoot || '')));
+    const resolvedRoot = path.resolve(String(input.sandboxRoot || ''));
+    const record = records.get(resolvedRoot);
     if (!record) return fail(['process-local-sandbox-origin-required']);
     if (input.isolationReceipt?.sandboxRoot !== record.sandboxRoot) return fail(['sandbox-receipt-origin-mismatch']);
     return runSandboxVerification({

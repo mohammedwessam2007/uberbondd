@@ -169,7 +169,7 @@ const hostileGates = [
       'tests/frontier-producer-origin.test.mjs'
     ]
   ),
-  runHostileGate('LOCAL_DEPENDENCY_AUDIT', 'npm', ['run', 'audit:deps'])
+  runHostileGate('DEPENDENCY_AUDIT', 'npm', ['audit', '--omit=dev'])
 ];
 
 const files = ['config/system-readiness-input.json', 'docs/CURRENT_SYSTEM_STATE.md', 'artifacts/system-readiness.json'];

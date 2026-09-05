@@ -1,6 +1,6 @@
 import { compileCognitiveEvent } from './uberbond-cognitive-bus.mjs';
 
-export const UBERBOND_COGNITIVE_ADAPTER_POLICY_VERSION = 'uberbond-cognitive-adapters-1.0.0';
+export const UBERBOND_COGNITIVE_ADAPTER_POLICY_VERSION = 'uberbond-cognitive-adapters-1.1.0';
 
 function text(value, max = 2000) {
   const out = String(value ?? '').trim();
@@ -54,18 +54,24 @@ export function eventFromGenesisArtifact(artifact, { ref = 'artifact:perpetual-f
 export function eventFromCapabilityGenomeResult(result, { ref = 'artifact:capability-genome' } = {}) {
   if (!result || typeof result !== 'object' || Array.isArray(result)) return null;
   const status = text(result.status, 160) || 'UNKNOWN';
-  const candidates = integer(result.candidateCount ?? result.candidates ?? result?.summary?.candidates);
-  const approved = integer(result.approvedCount ?? result.approved ?? result?.summary?.approved);
-  const active = integer(result.activeCount ?? result.active ?? result?.summary?.active);
-  const kind = /gap|missing|blocked/i.test(status) ? 'CAPABILITY_GAP' : 'CAPABILITY_CANDIDATE';
+  const state = result.state && typeof result.state === 'object' && !Array.isArray(result.state) ? result.state : {};
+  const repositoryCandidates = integer(state.worldRepositoryCandidateCount ?? result.worldRepositoryCandidateCount);
+  const skillBodies = integer(state.worldSkillBodyCount ?? result.worldSkillBodyCount);
+  const normalized = integer(state.worldCapabilityRecordsNormalized ?? state.capabilityRecordCount ?? result.capabilityRecordCount);
+  const approved = integer(state.approvedCapabilityCount ?? result.approvedCapabilityCount ?? result.approvedCount);
+  const active = integer(state.activeCapabilityCount ?? result.activeCapabilityCount ?? result.activeCount);
+  const revoked = integer(state.revokedCapabilityCount ?? result.revokedCapabilityCount);
+  const unhealthy = result.ok === false || /UNHEALTHY|GAP|MISSING|BLOCKED|DEGRADED|REVOKED|INVALID|FAILED/i.test(status);
+  const kind = unhealthy ? 'CAPABILITY_GAP' : 'CAPABILITY_CANDIDATE';
   return compileCognitiveEvent({
     kind,
     sourceNodeId: 'capability-genome',
     subjectType: 'CAPABILITY_BATCH',
     subjectId: `capability-genome:${status.toLowerCase()}`,
-    summary: `Capability Genome status ${status}: ${candidates} candidates, ${approved} approved, ${active} active. Route gaps to acquisition/Wallbreaker and candidates to specialist/model selection.`,
+    summary: `Capability Genome status ${status}: ${repositoryCandidates} measured repository candidates, ${skillBodies} imported skill bodies, ${normalized} normalized capability records, ${approved} approved, ${active} active, ${revoked} revoked. ${unhealthy ? 'Route the evidenced gap to acquisition, Wallbreaker and adversarial review.' : 'Route candidates to capability economics, specialist selection and adversarial evaluation without treating discovery or normalization as approval.'}`,
     evidenceRefs: [artifactRef(ref, 'artifact:capability-genome')],
-    truthClass: 'RESEARCH_ASSET'
+    truthClass: result.ok === true ? 'VERIFIED_CURRENT' : 'RESEARCH_ASSET',
+    observedAt: stamp(result.evaluatedAt ?? state.lastRefresh)
   });
 }
 

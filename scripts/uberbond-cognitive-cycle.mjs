@@ -25,6 +25,13 @@ async function readJson(path) {
   catch { return null; }
 }
 const optionalPath = (flag, fallback) => resolve(root, String(args.get(flag) || fallback));
+const selectedPath = flag => args.get(flag) ? resolve(root, String(args.get(flag))) : null;
+function receiptEvents(receipt, name) {
+  if (!receipt) return { ok: true, events: [] };
+  if (!Array.isArray(receipt.events)) return { ok: false, reasonCodes: [`${name}-events-required`] };
+  const invalid = receipt.events.filter(event => event?.ok !== true || event?.status !== 'COGNITIVE_EVENT_READY');
+  return invalid.length ? { ok: false, reasonCodes: [`${name}-contains-invalid-cognitive-event`] } : { ok: true, events: receipt.events };
+}
 
 const paths = {
   gamechanger: optionalPath('--gamechanger', 'artifacts/gamechanger-mesh-latest.json'),
@@ -34,22 +41,26 @@ const paths = {
   ontology: optionalPath('--genesis-ontology', 'artifacts/genesis-ontology-latest.json'),
   metabolism: optionalPath('--genesis-metabolism', 'artifacts/genesis-metabolism-latest.json'),
   lineage: optionalPath('--lineage', 'config/uberbond-cognitive-lineage.json'),
-  capabilityGenome: args.get('--capability-genome') ? resolve(root, String(args.get('--capability-genome'))) : null,
-  eventHorizon: args.get('--event-horizon') ? resolve(root, String(args.get('--event-horizon'))) : null,
-  featureGenome: args.get('--feature-genome') ? resolve(root, String(args.get('--feature-genome'))) : null,
-  frontierModelTeam: args.get('--frontier-model-team') ? resolve(root, String(args.get('--frontier-model-team'))) : null,
-  selfMaintenance: args.get('--self-maintenance') ? resolve(root, String(args.get('--self-maintenance'))) : null,
-  commercialOutcome: args.get('--commercial-outcome') ? resolve(root, String(args.get('--commercial-outcome'))) : null,
+  capabilityGenome: selectedPath('--capability-genome'),
+  eventHorizon: selectedPath('--event-horizon'),
+  featureGenome: selectedPath('--feature-genome'),
+  frontierModelTeam: selectedPath('--frontier-model-team'),
+  metacognitiveSynthesis: selectedPath('--metacognitive-synthesis'),
+  genesisReactivation: selectedPath('--genesis-reactivation'),
+  selfMaintenance: selectedPath('--self-maintenance'),
+  commercialOutcome: selectedPath('--commercial-outcome'),
   output: optionalPath('--output', 'artifacts/uberbond-cognitive-cycle-latest.json')
 };
 
-const [gamechanger, genesis, evolution, scientist, ontology, metabolism, lineage, capabilityGenome, eventHorizon, featureGenome, frontierModelTeam, selfMaintenance, commercialOutcome] = await Promise.all([
+const [gamechanger, genesis, evolution, scientist, ontology, metabolism, lineage, capabilityGenome, eventHorizon, featureGenome, frontierModelTeam, metacognitiveSynthesis, genesisReactivation, selfMaintenance, commercialOutcome] = await Promise.all([
   readJson(paths.gamechanger), readJson(paths.genesis), readJson(paths.evolution), readJson(paths.scientist),
   readJson(paths.ontology), readJson(paths.metabolism), readJson(paths.lineage),
   paths.capabilityGenome ? readJson(paths.capabilityGenome) : null,
   paths.eventHorizon ? readJson(paths.eventHorizon) : null,
   paths.featureGenome ? readJson(paths.featureGenome) : null,
   paths.frontierModelTeam ? readJson(paths.frontierModelTeam) : null,
+  paths.metacognitiveSynthesis ? readJson(paths.metacognitiveSynthesis) : null,
+  paths.genesisReactivation ? readJson(paths.genesisReactivation) : null,
   paths.selfMaintenance ? readJson(paths.selfMaintenance) : null,
   paths.commercialOutcome ? readJson(paths.commercialOutcome) : null
 ]);
@@ -111,12 +122,21 @@ if (frontierModelEvent && !frontierModelEvent.ok) {
   process.stderr.write(`${JSON.stringify(frontierModelEvent, null, 2)}\n`);
   process.exit(2);
 }
+const metaEvents = receiptEvents(metacognitiveSynthesis, 'metacognitive-synthesis');
+const reactivationEvents = receiptEvents(genesisReactivation, 'genesis-reactivation');
+if (!metaEvents.ok || !reactivationEvents.ok) {
+  process.stderr.write(`${JSON.stringify({ ok: false, status: 'COGNITIVE_AUXILIARY_EVENT_RECEIPT_INVALID', reasonCodes: [...(metaEvents.reasonCodes || []), ...(reactivationEvents.reasonCodes || [])] }, null, 2)}\n`);
+  process.exit(2);
+}
+
 const events = [
   ...adapted.events,
   ...genesisLobes.events,
   ...(eventHorizonEvent ? [eventHorizonEvent] : []),
   ...(featureGenomeEvent ? [featureGenomeEvent] : []),
-  ...(frontierModelEvent ? [frontierModelEvent] : [])
+  ...(frontierModelEvent ? [frontierModelEvent] : []),
+  ...metaEvents.events,
+  ...reactivationEvents.events
 ];
 const wallbreaker = compileWallbreakerReflexes(events);
 if (!wallbreaker.ok) {
@@ -152,6 +172,7 @@ const receipt = {
     genesisScientist: Boolean(scientist), genesisOntology: Boolean(ontology), genesisMetabolism: Boolean(metabolism),
     capabilityGenome: Boolean(capabilityGenome), eventHorizon: Boolean(eventHorizon),
     featureGenome: Boolean(featureGenome), frontierModelTeam: Boolean(frontierModelTeam),
+    metacognitiveSynthesis: Boolean(metacognitiveSynthesis), genesisReactivation: Boolean(genesisReactivation),
     selfMaintenance: Boolean(selfMaintenance), commercialOutcome: Boolean(commercialOutcome)
   },
   featureGenome: featureGenome ? {
@@ -170,6 +191,20 @@ const receipt = {
     callableCandidateCount: frontierModelTeam.callableCandidateCount || 0,
     missionDigest: frontierModelTeam?.teamMission?.missionDigest || null
   } : null,
+  metacognition: metacognitiveSynthesis ? {
+    synthesisDigest: metacognitiveSynthesis.synthesisDigest || null,
+    unknownUnknownCount: metacognitiveSynthesis?.hypotheses?.unknownUnknownCount || 0,
+    ideaCandidateCount: metacognitiveSynthesis?.hypotheses?.ideaCandidateCount || 0,
+    missingLawCandidateCount: metacognitiveSynthesis?.hypotheses?.missingLawCandidateCount || 0,
+    repeatedGateCount: metacognitiveSynthesis?.hypotheses?.repeatedGateCount || 0,
+    eventCount: metaEvents.events.length
+  } : null,
+  genesisReactivation: genesisReactivation ? {
+    pressureDigest: genesisReactivation.pressureDigest || null,
+    candidateCount: genesisReactivation.candidateCount || 0,
+    eventCount: reactivationEvents.events.length,
+    topCandidates: Array.isArray(genesisReactivation.candidates) ? genesisReactivation.candidates.slice(0, 8).map(item => ({ ordinal: item.ordinal, name: item.name, score: item.score, maturity: item.maturity, implementationStatus: item.implementationStatus })) : []
+  } : null,
   events,
   activationSummary: { eventCount: cycle.eventCount, activationCount: cycle.activationCount, targetCounts: cycle.targetCounts },
   wallbreaker: {
@@ -181,7 +216,7 @@ const receipt = {
   routes: cycle.routes,
   businessEffectAuthority: 'NONE',
   externalEffectAuthority: 'NONE',
-  truthBoundary: 'THIS RECEIPT IS A COGNITIVE ROUTING, FEATURE-COVERAGE, MODEL-ROSTER, LINEAGE AND RECOVERY-REFLEX MAP. ACTIVATION AND WALLBREAKER COUNTERMOVES ARE ATTENTION/PLANNING ONLY. FEATURE CLASSIFICATION DOES NOT PROVE BEHAVIOR, MODEL CATALOG PRESENCE DOES NOT PROVE CALLABILITY, HISTORICAL DONOR NAMES DO NOT BECOME LIVE RUNTIMES, ALLOCATION SCORES DO NOT BECOME DEMAND, COUNTERFACTUAL GENESIS OUTPUT DOES NOT BECOME EXTERNAL FACT, AND NO EDGE OR RECOVERY REFLEX CREATES EXTERNAL CONSEQUENCE AUTHORITY.'
+  truthBoundary: 'THIS RECEIPT IS A COGNITIVE ROUTING, FEATURE-COVERAGE, MODEL-ROSTER, METACOGNITIVE-SEARCH, ASSOCIATIVE-RECALL, LINEAGE AND RECOVERY-REFLEX MAP. ACTIVATION, IDEA RECOMBINATION, GENESIS REACTIVATION AND WALLBREAKER COUNTERMOVES ARE ATTENTION/RESEARCH/PLANNING ONLY. FEATURE CLASSIFICATION DOES NOT PROVE BEHAVIOR, TOKEN ASSOCIATION DOES NOT PROVE IDEA RELEVANCE, MODEL CATALOG PRESENCE DOES NOT PROVE CALLABILITY, HISTORICAL DONOR NAMES DO NOT BECOME LIVE RUNTIMES, ALLOCATION SCORES DO NOT BECOME DEMAND, COUNTERFACTUAL GENESIS OUTPUT DOES NOT BECOME EXTERNAL FACT, AND NO EDGE OR RECOVERY REFLEX CREATES EXTERNAL CONSEQUENCE AUTHORITY.'
 };
 
 await mkdir(dirname(paths.output), { recursive: true });
@@ -192,6 +227,8 @@ process.stdout.write(`${JSON.stringify({
   donorNames: receipt.lineage.donorNameCount, events: cycle.eventCount, activations: cycle.activationCount,
   featureArtifacts: receipt.featureGenome?.repositoryArtifactCount || 0,
   frontierModelCandidates: receipt.frontierModelTeam?.candidateCount || 0,
+  metacognitiveIdeas: receipt.metacognition?.ideaCandidateCount || 0,
+  reactivatedGenesisIdeas: receipt.genesisReactivation?.candidateCount || 0,
   wallbreakerReflexes: wallbreaker.reflexCount, targetCounts: cycle.targetCounts, output: paths.output,
   businessEffectAuthority: 'NONE'
 }, null, 2)}\n`);

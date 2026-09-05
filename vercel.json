@@ -1,11 +1,15 @@
 {
-  "buildCommand": "npm run check:syntax && npm run test:deterministic",
+  "buildCommand": "node scripts/pr388-readiness-artifact-runner.mjs && npm run check:syntax && npm run test:deterministic",
   "functions": {
     "api/agent-relay.mjs": { "maxDuration": 60 },
     "api/agent-mesh-cron.mjs": { "maxDuration": 60 },
     "api/database-maintenance.mjs": { "maxDuration": 60 },
     "api/webhooks/billing.mjs": { "maxDuration": 30 },
-    "api/admin/health-check.mjs": { "maxDuration": 30 }
+    "api/admin/health-check.mjs": { "maxDuration": 30 },
+    "api/pr388-closure-artifacts.mjs": {
+      "maxDuration": 30,
+      "includeFiles": ["docs/**", "artifacts/**", "config/reachability-classification.json"]
+    }
   },
   "crons": [
     {

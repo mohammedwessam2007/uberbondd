@@ -33,11 +33,43 @@ test('GENESIS batch preserves resurrection pressure as research, not proof', () 
   assert.match(event.event.summary, /3 resurrection-review candidates/);
 });
 
-test('capability gap wakes the acquisition/problem-solving side of the brain', () => {
-  const event = eventFromCapabilityGenomeResult({ status: 'CAPABILITY_GAP', candidateCount: 12, approvedCount: 2, activeCount: 1 });
+test('healthy Capability Genome uses canonical doctor state rather than fake top-level counts', () => {
+  const event = eventFromCapabilityGenomeResult({
+    ok: true,
+    status: 'CAPABILITY_GENOME_FOUNDATION_HEALTHY',
+    evaluatedAt: '2026-09-05T18:02:00.000Z',
+    state: {
+      worldRepositoryCandidateCount: 123,
+      worldSkillBodyCount: 20,
+      worldCapabilityRecordsNormalized: 7,
+      capabilityRecordCount: 7,
+      approvedCapabilityCount: 2,
+      activeCapabilityCount: 1,
+      revokedCapabilityCount: 3
+    }
+  });
+  assert.equal(event.ok, true);
+  assert.equal(event.event.kind, 'CAPABILITY_CANDIDATE');
+  assert.equal(event.event.sourceNodeId, 'capability-genome');
+  assert.equal(event.event.truthClass, 'VERIFIED_CURRENT');
+  assert.match(event.event.summary, /123 measured repository candidates/);
+  assert.match(event.event.summary, /20 imported skill bodies/);
+  assert.match(event.event.summary, /7 normalized capability records/);
+  assert.match(event.event.summary, /2 approved/);
+  assert.match(event.event.summary, /1 active/);
+  assert.match(event.event.summary, /3 revoked/);
+});
+
+test('unhealthy Capability Genome becomes an evidenced capability gap', () => {
+  const event = eventFromCapabilityGenomeResult({
+    ok: false,
+    status: 'CAPABILITY_GENOME_UNHEALTHY',
+    state: { worldRepositoryCandidateCount: 10, worldSkillBodyCount: 2, worldCapabilityRecordsNormalized: 1 }
+  });
   assert.equal(event.ok, true);
   assert.equal(event.event.kind, 'CAPABILITY_GAP');
-  assert.equal(event.event.sourceNodeId, 'capability-genome');
+  assert.equal(event.event.truthClass, 'RESEARCH_ASSET');
+  assert.match(event.event.summary, /Route the evidenced gap/);
 });
 
 test('verified self-maintenance becomes verification evidence while failure becomes blocker evidence', () => {

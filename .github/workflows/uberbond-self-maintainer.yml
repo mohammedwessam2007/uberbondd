@@ -26,6 +26,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       UBERBOND_SELF_MAINTAINER_ISSUE_NUMBER: ${{ inputs.issueNumber }}
+      UBERBOND_COGNITIVE_CYCLE_PATH: artifacts/uberbond-cognitive-cycle-latest.json
       AI_PROVIDER: rules
       AI_GATEWAY_AGENT_ENABLED: 'false'
       OUTBOUND_ENABLED: 'false'
@@ -44,7 +45,14 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - name: Restore latest whole-brain cognitive memory
+        uses: actions/cache/restore@v4
+        with:
+          path: artifacts/uberbond-cognitive-cycle-latest.json
+          key: uberbond-cognitive-cycle-${{ github.run_id }}
+          restore-keys: |
+            uberbond-cognitive-cycle-
       - name: Install exact locked dependencies
         run: npm ci
-      - name: Run one bounded self-maintenance tick
+      - name: Run one bounded whole-brain self-maintenance tick
         run: node scripts/uberbond-self-maintainer-tick.mjs

@@ -82,12 +82,30 @@ function nodeRuntimeBin() {
   return allowed ? path.dirname(executable) : null;
 }
 
+/**
+ * `/proc/net/route` always includes a header row, even in a fresh network
+ * namespace with no routes. Treat only rows after that header as IPv4 routes;
+ * `/proc/net/ipv6_route` has no header and every non-empty row is a route.
+ *
+ * This pure helper is embedded byte-for-byte into the child namespace probe so
+ * tests and production cannot drift onto different parsers.
+ */
+export function hasKernelNetworkRoutes({ ipv4RouteText = '', ipv6RouteText = '' } = {}) {
+  const rows = value => String(value ?? '').split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+  const ipv4Rows = rows(ipv4RouteText);
+  const ipv4Routes = ipv4Rows.length > 0 ? ipv4Rows.slice(1) : [];
+  const ipv6Routes = rows(ipv6RouteText);
+  return ipv4Routes.length > 0 || ipv6Routes.length > 0;
+}
+
 async function probeKernelIsolation({ unshareExecutable, runProcess, env }) {
+  const routeParser = hasKernelNetworkRoutes.toString();
   const script = [
     "const fs=require('node:fs');",
-    "const v4=fs.existsSync('/proc/net/route')?fs.readFileSync('/proc/net/route','utf8').trim():'';",
-    "const v6=fs.existsSync('/proc/net/ipv6_route')?fs.readFileSync('/proc/net/ipv6_route','utf8').trim():'';",
-    "if(v4||v6)process.exit(17);"
+    `const hasKernelNetworkRoutes=${routeParser};`,
+    "const v4=fs.existsSync('/proc/net/route')?fs.readFileSync('/proc/net/route','utf8'):'';",
+    "const v6=fs.existsSync('/proc/net/ipv6_route')?fs.readFileSync('/proc/net/ipv6_route','utf8'):'';",
+    "if(hasKernelNetworkRoutes({ipv4RouteText:v4,ipv6RouteText:v6}))process.exit(17);"
   ].join('');
   const result = await runProcess(unshareExecutable, ['-Urn', '--', process.execPath, '-e', script], {
     env: safeHostEnv(env),

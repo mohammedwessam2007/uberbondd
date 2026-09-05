@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// TEMP execution-only runner. Root placement is intentional: canon freshness treats src/scripts/config/migrations as source and this file must not contaminate that source tree.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { spawnSync, execFileSync } from 'node:child_process';
 

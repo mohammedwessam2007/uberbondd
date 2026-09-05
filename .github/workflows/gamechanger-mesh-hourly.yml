@@ -18,6 +18,8 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -43,7 +45,7 @@ jobs:
           node --test tests/orchestration-frontier.test.mjs tests/orchestration-frontier-tick.test.mjs tests/orchestration-gamechanger-source.test.mjs tests/external-capability-control-plane.test.mjs
           npm run test:genesis
           node --test tests/perpetual-frontier-genesis-tick.test.mjs
-          node --test tests/uberbond-cognitive-graph.test.mjs tests/uberbond-cognitive-bus.test.mjs tests/uberbond-cognitive-adapters.test.mjs tests/genesis-cognitive-adapters.test.mjs tests/event-horizon-cognitive-adapter.test.mjs
+          node --test tests/uberbond-cognitive-graph.test.mjs tests/uberbond-cognitive-bus.test.mjs tests/uberbond-cognitive-adapters.test.mjs tests/genesis-cognitive-adapters.test.mjs tests/event-horizon-cognitive-adapter.test.mjs tests/wallbreaker-cognitive-reflex.test.mjs
           npm run capabilities:doctor
           npm run genesis:doctor
       - name: Snapshot Capability Genome truth for cognitive routing

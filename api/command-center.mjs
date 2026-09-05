@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildUberBondCommandCenterStatus } from '../src/uberbond-command-center-status.mjs';
+import { normalizeUberBondCommandCenterStatus } from '../src/uberbond-command-center-normalizer.mjs';
 
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
@@ -31,6 +32,7 @@ function equalBearer(header, secret) {
 export function createHandler(deps = {}) {
   const env = deps.env || process.env;
   const build = deps.buildUberBondCommandCenterStatus || buildUberBondCommandCenterStatus;
+  const normalize = deps.normalizeUberBondCommandCenterStatus || normalizeUberBondCommandCenterStatus;
   const repositoryRoot = deps.root || root;
   const clock = deps.now || (() => new Date());
   return async function handler(req, res) {
@@ -55,7 +57,8 @@ export function createHandler(deps = {}) {
           adminAuthConfigured: true
         }
       });
-      return send(res, 200, status);
+      const normalized = await normalize(status, { root: repositoryRoot });
+      return send(res, 200, normalized);
     } catch {
       return send(res, 503, { ok: false, status: 'COMMAND_CENTER_STATUS_UNAVAILABLE', reasonCodes: ['status-compilation-failed'] });
     }

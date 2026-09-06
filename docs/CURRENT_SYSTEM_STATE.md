@@ -2,10 +2,13 @@
 
 **Canonical present-tense state. Repository source and newer executable receipts outrank prose.** Historical detail remains recoverable from Git history and `docs/archive/`.
 
-Last reconciled: **2026-09-06 — NIGHT-10 final convergence tribunal**
-Integration branch: `gpt/uberbond-battery-ignition-20260905`
+Last reconciled: **2026-09-06**
+Branch: `gpt/uberbond-battery-ignition-20260905`
+Reconciled from current head: `20923de8830aafea354b7496e853bd8d6e95cbcc`
 Live main before final merge decision: `efb63fddcbc9009594d9869a3e0929629ce7b4be`
-Current source-changing NIGHT-10 integration lineage includes Command Center 2.0 through terminal gate commit `11703b78f36af1d8feb97f9f4e38b26c3259edab`.
+Current source-changing NIGHT-10 integration lineage includes the reachability/readiness anti-drift repair through `20923de8830aafea354b7496e853bd8d6e95cbcc`.
+
+Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
 ## Commercial truth
 
@@ -33,7 +36,7 @@ Command Center 2.0 now includes:
 - iPad/PWA safe-area and touch contracts;
 - governed UI evolution with truth-integrity hard floor, rollback receipt and `REVIEW_PR_ONLY` promotion authority.
 
-The terminal Vercel build script on the branch is configured to regenerate Feature Genome / Atom Atlas / Synaptic Map and then execute focused topology, six overnight foundation suites, Command Center 2 auth/policy suites, syntax, full deterministic, generic Mutation War, whole-brain tests and readiness. No pass is claimed for that enlarged exact-final-head gate until Vercel actually allocates and executes it.
+The terminal Vercel build script on the branch is configured to regenerate Feature Genome / Atom Atlas / Synaptic Map and then execute focused topology, six overnight foundation suites, Command Center 2 auth/policy suites, syntax, full deterministic, generic Mutation War, whole-brain tests and readiness. No pass is claimed for that enlarged exact-final-head gate until a real runner actually allocates and executes it.
 
 ## Strongest executed source evidence
 
@@ -50,6 +53,14 @@ An earlier real Vercel run exposed three Wessam continuity defects rather than h
 
 GitHub Actions remains `INFRASTRUCTURE_NON_EVIDENCE` for current closure because deterministic/postgres/browser jobs repeatedly completed with `runner_id: 0`, `steps: []` and no executable logs.
 
+## Reachability truth
+
+Reachability source: `tests/reachability-ratchet.test.mjs` (LIVE_COMPUTED)
+
+Present-tense reachability counts are deliberately not duplicated in this human canon. `scripts/system-readiness.mjs` now computes the import graph from the exact checked-out tree and overwrites any older recorded reachability packet in `config/system-readiness-input.json`; `scripts/reachability-report.mjs` consumes the same canonical live measurement. This restores the previously learned F19 anti-drift contract while preserving the newer deferred-import reachability hardening.
+
+The T3 structural canon/readiness defect is therefore **source-repaired on the current lineage but not yet exact-head executed**. It does not count as a verified pass until the terminal runner exercises the repaired tree.
+
 ## Known remaining internal blocker
 
 ### P1 — legacy admin privileged bearer transport
@@ -64,6 +75,7 @@ The new Command Center 2.0 does not repeat this defect; its credential is memory
 
 | Item | Classification | Current state |
 |---|---|---|
+| Reachability/readiness anti-drift | `SOFTWARE_DEFECT` | **SOURCE_REPAIRED / EXACT-HEAD PROOF PENDING** |
 | Legacy admin query-token / persistence repair | `SOFTWARE_DEFECT` | **OPEN P1** |
 | Enlarged exact-final-head terminal gate execution | `INFRA_BLOCKER` until a real runner executes | **UNPROVEN** |
 | GitHub Actions runner allocation | `INFRA_BLOCKER` | zero-step / runner_id 0 |
@@ -76,19 +88,19 @@ The new Command Center 2.0 does not repeat this defect; its credential is memory
 
 NIGHT-10 tracks **11 known internal closure obligations**: #401 merge-tail, #402 Wessam continuity, #403 world capability harvester, #404 lifetime context, #405 Command Center 2.0, #406 Compute Sovereignty, #407 organism metabolism, #408 revenue-readiness closure, #409 hostile repair war, #410 final integration/canon, plus the reproduced legacy-admin P1 discovered during the tribunal.
 
-Current evidence-backed status before exact-final-head execution and admin repair: **9 / 11 closed or source-integrated with causal evidence**. The two unresolved obligations are the legacy-admin P1 and final exact-head certification/merge. This is **81.8% of this fixed NIGHT-10 closure denominator**, not a claim that all possible future UberBond software is 81.8% complete.
+Current evidence-backed status before exact-final-head execution and admin repair remains **9 / 11 closed or source-integrated with causal evidence**. The #410 canon lane now has the T3 source repair on the integration branch, but that obligation remains open until exact-head execution and convergence. The two unresolved closure obligations remain the legacy-admin P1 and final exact-head certification/merge. This is **81.8% of this fixed NIGHT-10 closure denominator**, not a claim that all possible future UberBond software is 81.8% complete.
 
 ## App/runtime truth
 
 - The `uberbondd` Vercel project has produced READY previews for the #400 lineage and executed the earlier 562e foundation gate.
-- Command Center 2.0 source is now on #400, but the exact final UI2 + terminal-gate head has not yet been observed executing on Vercel.
+- Command Center 2.0 source is on #400, but the exact current terminal-gate head has not yet been observed executing on Vercel.
 - Production/main remains the pre-#400 main until #400 earns the merge bar.
 - Runtime/model/payment/customer effects remain unproven unless independent receipts say otherwise.
 
 ## Immediate terminal action
 
 1. Reconcile the legacy admin surface onto current #400 with RAM-only privileged credential storage, Authorization-header-only protected operations, authenticated Blob/ObjectURL downloads, authenticated OAuth-start broker, and removal of privileged server query-token fallback while preserving public capability-token routes.
-2. Execute the enlarged exact-final-head terminal gate on a real runner.
+2. Execute the enlarged exact-final-head terminal gate on a real runner, including the repaired live-computed reachability/canon contract.
 3. Only if both are green, merge #400 with expected-head protection, regenerate/record final canon and close superseded overnight PRs/issues.
 
 No customer contact, live payment, purchase, DNS mutation, credential disclosure, quota evasion or fabricated proof was performed by NIGHT-10.

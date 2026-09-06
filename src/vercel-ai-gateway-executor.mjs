@@ -32,7 +32,7 @@ function usage(payload, pricing) {
   const inputRate = finite(pricing?.inputUsdPerMillion, 0, 1_000_000);
   const outputRate = finite(pricing?.outputUsdPerMillion, 0, 1_000_000);
   if (inputRate == null || outputRate == null) return null;
-  const costCents = Math.ceil(((inputTokens * inputRate + outputTokens * outputRate) / 1_000_000) * 100 - 1e-12);
+  const costCents = Math.max(0, Math.ceil(((inputTokens * inputRate + outputTokens * outputRate) / 1_000_000) * 100 - 1e-12));
   return { inputTokens, outputTokens, totalTokens, costCents, costBasis: 'CONFIGURED_CONSERVATIVE_ESTIMATE' };
 }
 
@@ -84,7 +84,7 @@ export function createVercelAIGatewayExecutor({
     const selectedModel = text(model || defaultModel, 160);
     if (!selectedModel || !selectedModel.includes('/')) return failure(['gateway-provider-model-slug-required']);
     const estimatedInputTokens = Math.ceil(bytes(task) / 4);
-    const estimatedCostCents = Math.ceil(((estimatedInputTokens * Number(pricing.inputUsdPerMillion) + outputLimit * Number(pricing.outputUsdPerMillion)) / 1_000_000) * 100 - 1e-12);
+    const estimatedCostCents = Math.max(0, Math.ceil(((estimatedInputTokens * Number(pricing.inputUsdPerMillion) + outputLimit * Number(pricing.outputUsdPerMillion)) / 1_000_000) * 100 - 1e-12));
     if (estimatedCostCents > costLimit) return failure(['estimated-cost-exceeds-reserved-ceiling']);
     const body = requestBody({ task, model: selectedModel, maxTokens: outputLimit, reasoningEffort: requestedReasoningEffort });
     if (bytes(body) > MAX_BODY_BYTES) return failure(['ai-gateway-request-body-too-large']);

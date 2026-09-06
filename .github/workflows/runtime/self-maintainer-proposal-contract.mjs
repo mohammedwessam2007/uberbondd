@@ -1,12 +1,17 @@
 import { compileAgentCodeChangeSet, validateAgentCodeChangeSet } from '../../../src/agent-code-change-contract.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../../../src/effect-ledgers.mjs';
 
-export const SELF_MAINTAINER_PROPOSAL_POLICY_VERSION = 'self-maintainer-proposal-1.0.0';
+export const SELF_MAINTAINER_PROPOSAL_POLICY_VERSION = 'self-maintainer-proposal-1.1.0';
 export const SELF_MAINTAINER_PROPOSAL_PROFILE = 'SELF_MAINTAINER_PROPOSAL';
 
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
 const SHA256 = /^[a-f0-9]{64}$/i;
 const MAX_CONTEXT_ITEMS = 30;
+const PROPOSAL_KEYS = Object.freeze([
+  'decision', 'summary', 'baseRevision', 'changes', 'verification',
+  'evidenceRefs', 'cognitivePrioritiesConsidered'
+]);
+const CHANGE_KEYS = Object.freeze(['operation', 'path', 'beforeSha256', 'content', 'rationale']);
 
 function text(value, max = 2000) {
   return String(value ?? '').trim().slice(0, max);
@@ -88,11 +93,49 @@ export const SELF_MAINTAINER_RAW_PROPOSAL_SCHEMA = Object.freeze({
     evidenceRefs: { type: 'array', maxItems: 50, items: { type: 'string' } },
     cognitivePrioritiesConsidered: { type: 'array', maxItems: MAX_CONTEXT_ITEMS, items: { type: 'string' } }
   },
-  required: [
-    'decision', 'summary', 'baseRevision', 'changes', 'verification',
-    'evidenceRefs', 'cognitivePrioritiesConsidered'
-  ]
+  required: PROPOSAL_KEYS
 });
+
+function closedRawProposalReasons(proposal) {
+  if (!proposal || typeof proposal !== 'object' || Array.isArray(proposal)) return ['proposal-object-required'];
+  const reasons = [];
+  const allowedProposal = new Set(PROPOSAL_KEYS);
+  for (const key of Object.keys(proposal)) {
+    if (!allowedProposal.has(key)) reasons.push(`proposal-unknown-field:${key}`);
+  }
+  for (const key of PROPOSAL_KEYS) {
+    if (!Object.hasOwn(proposal, key)) reasons.push(`proposal-required-field-missing:${key}`);
+  }
+  if (typeof proposal.decision !== 'string') reasons.push('proposal-decision-string-required');
+  if (typeof proposal.summary !== 'string') reasons.push('proposal-summary-string-required');
+  if (typeof proposal.baseRevision !== 'string') reasons.push('proposal-base-revision-string-required');
+  if (!Array.isArray(proposal.changes)) reasons.push('proposal-changes-array-required');
+  if (!Array.isArray(proposal.verification)) reasons.push('proposal-verification-array-required');
+  if (!Array.isArray(proposal.evidenceRefs)) reasons.push('proposal-evidence-refs-array-required');
+  if (!Array.isArray(proposal.cognitivePrioritiesConsidered)) reasons.push('proposal-cognitive-priorities-array-required');
+  if (Array.isArray(proposal.changes) && proposal.changes.length > 20) reasons.push('proposal-change-count-limit');
+  if (Array.isArray(proposal.verification) && proposal.verification.length > 20) reasons.push('proposal-verification-count-limit');
+  if (Array.isArray(proposal.evidenceRefs) && proposal.evidenceRefs.length > 50) reasons.push('proposal-evidence-ref-count-limit');
+  if (Array.isArray(proposal.cognitivePrioritiesConsidered) && proposal.cognitivePrioritiesConsidered.length > MAX_CONTEXT_ITEMS) reasons.push('proposal-cognitive-priority-count-limit');
+
+  const allowedChange = new Set(CHANGE_KEYS);
+  for (const [index, change] of (Array.isArray(proposal.changes) ? proposal.changes : []).entries()) {
+    if (!change || typeof change !== 'object' || Array.isArray(change)) {
+      reasons.push(`proposal-change-${index}-object-required`);
+      continue;
+    }
+    for (const key of Object.keys(change)) {
+      if (!allowedChange.has(key)) reasons.push(`proposal-change-${index}-unknown-field:${key}`);
+    }
+    for (const key of CHANGE_KEYS) {
+      if (!Object.hasOwn(change, key)) reasons.push(`proposal-change-${index}-required-field-missing:${key}`);
+    }
+    for (const key of CHANGE_KEYS) {
+      if (Object.hasOwn(change, key) && typeof change[key] !== 'string') reasons.push(`proposal-change-${index}-${key}-string-required`);
+    }
+  }
+  return reasons;
+}
 
 function normalizeModelChange(change = {}) {
   const operation = text(change.operation, 20).toUpperCase();
@@ -147,7 +190,8 @@ function stopResult(task, proposal, baseRevision) {
 export function compileSelfMaintainerProposalWorkerResult({ task, proposal } = {}) {
   const taskReasons = selfMaintainerProposalTaskReasons(task);
   if (taskReasons.length) return fail(taskReasons, 'TASK_REJECTED');
-  if (!proposal || typeof proposal !== 'object' || Array.isArray(proposal)) return fail(['proposal-object-required']);
+  const shapeReasons = closedRawProposalReasons(proposal);
+  if (shapeReasons.length) return fail(shapeReasons);
 
   const baseRevision = exactTaskBase(task);
   const proposalBase = text(proposal.baseRevision, 80).toLowerCase();
@@ -156,13 +200,13 @@ export function compileSelfMaintainerProposalWorkerResult({ task, proposal } = {
   if (!['PROCEED', 'STOP'].includes(decision)) return fail(['proposal-decision-invalid']);
   if (decision === 'STOP') return stopResult(task, proposal, baseRevision);
 
-  if (!Array.isArray(proposal.changes) || !proposal.changes.length) return fail(['proceed-proposal-requires-changes']);
+  if (!proposal.changes.length) return fail(['proceed-proposal-requires-changes']);
   for (const [index, change] of proposal.changes.entries()) {
-    const operation = text(change?.operation, 20).toUpperCase();
-    const before = text(change?.beforeSha256, 80);
+    const operation = text(change.operation, 20).toUpperCase();
+    const before = text(change.beforeSha256, 80);
     if (operation === 'CREATE' && before) return fail([`proposal-change-${index}-create-before-hash-must-be-empty`]);
     if (['UPDATE', 'DELETE'].includes(operation) && !SHA256.test(before)) return fail([`proposal-change-${index}-before-hash-required`]);
-    if (operation === 'DELETE' && String(change?.content ?? '') !== '') return fail([`proposal-change-${index}-delete-content-must-be-empty`]);
+    if (operation === 'DELETE' && String(change.content ?? '') !== '') return fail([`proposal-change-${index}-delete-content-must-be-empty`]);
   }
 
   const requiredVerification = unique(task.acceptanceTests, 20);
@@ -183,7 +227,7 @@ export function compileSelfMaintainerProposalWorkerResult({ task, proposal } = {
   const validated = validateAgentCodeChangeSet(changeSet);
   if (!validated.ok) return fail(['proposal-canonical-validation-failed', ...(validated.reasonCodes || [])]);
 
-  const evidenceRefs = unique([`github:commit:${baseRevision}`, ...(proposal.evidenceRefs || [])]);
+  const evidenceRefs = unique([`github:commit:${baseRevision}`, ...proposal.evidenceRefs]);
   const result = {
     outcome: `Canonical bounded change set ${changeSet.changeSetId} compiled for isolated verification. No source write or test execution occurred in the proposal stage.`,
     changedArtifacts: changeSet.changes.map(change => change.path),

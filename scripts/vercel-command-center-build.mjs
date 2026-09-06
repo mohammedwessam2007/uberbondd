@@ -24,6 +24,7 @@ const steps = [
     'tests/pre-customer-revenue-readiness.test.mjs'
   ]],
   ['node', ['--test',
+    'tests/admin-ephemeral-client-hostile.test.mjs',
     'tests/command-center-2-auth.test.mjs',
     'tests/command-center-2-policy.test.mjs'
   ]],
@@ -53,5 +54,7 @@ console.log(JSON.stringify({
   ok: true,
   status: 'VERCEL_NIGHT10_TERMINAL_SOURCE_GATE_PASSED',
   ultimateGraphRequired: true,
+  adminEphemeralBearerRequired: true,
+  reachabilityLiveComputedRequired: true,
   externalEffectAuthority: 'NONE'
 }));

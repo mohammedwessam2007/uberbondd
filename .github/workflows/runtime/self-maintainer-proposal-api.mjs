@@ -96,11 +96,6 @@ function readyProviderNames(readiness) {
 
 function workerFor(provider, runtimeEnv) {
   if (provider === 'ai-gateway') {
-    // Deliberately ignore AI_GATEWAY_MODEL and reasoning env overrides. This
-    // OIDC-authenticated self-maintenance lane is allowed to run only the
-    // immutable, officially free profile. A project setting cannot substitute a
-    // paid model or add an unsupported reasoning parameter behind the 0-cent
-    // reservation.
     return {
       provider,
       model: SELF_MAINTAINER_FREE_AI_GATEWAY_PROFILE.model
@@ -120,19 +115,6 @@ function publicReadiness(readiness) {
   }));
 }
 
-/**
- * OIDC-authenticated reasoning endpoint. Exact repository source is selected
- * from and read by the trusted GitHub checkout, not by Vercel. The endpoint may
- * choose context and reason over exact bytes, but source apply, verification,
- * relay submission and review-PR promotion remain in the existing workflow.
- *
- * The AI Gateway lane is source-authorized only for the immutable 0-cost model
- * profile above. This does not create a credential: the canonical provider
- * factory still requires either an existing AI_GATEWAY_API_KEY or Vercel's
- * deployment-scoped VERCEL_OIDC_TOKEN. It also creates no spend authority: both
- * selection and proposal remain under the task's exact cent ceiling, which is
- * currently zero.
- */
 export function createSelfMaintainerProposalApiHandler({
   env = process.env,
   fetchImpl = globalThis.fetch,
@@ -234,8 +216,8 @@ export function createSelfMaintainerProposalApiHandler({
         const wrapped = createSelfMaintainerProposalModelWrapper({ modelExecutor: executor });
         result = await wrapped({
           task,
-          sourceInventory: validatedInventory,
-          sourceContext: validatedSource,
+          sourceInventory: body?.sourceInventory,
+          sourceContext: body?.sourceContext,
           model: worker.model || undefined,
           maxTokens: budget.maxTokens,
           costCeilingCents: budget.maxCostCents,

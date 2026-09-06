@@ -92,14 +92,16 @@ test('provider cannot smuggle a protected-path edit through the wrapper', async 
   assert.ok(out.reasonCodes.some(code => code.includes('protected-path')));
 });
 
-test('provider-reported canonical identifiers are discarded in favor of UberBond compilation', async () => {
+test('provider-injected canonical identifiers or authority are rejected by the closed raw envelope', async () => {
   const wrapped = createSelfMaintainerProposalModelWrapper({
     modelExecutor: async () => providerResult({ ...rawProposal(), changeSetId: 'fake', businessEffectAuthority: 'ALL' })
   });
   const out = await wrapped({ task: task() });
-  assert.equal(out.ok, true);
-  assert.notEqual(out.result.codeChangeSet.changeSetId, 'fake');
-  assert.equal(out.result.codeChangeSet.businessEffectAuthority, 'NONE');
+  assert.equal(out.ok, false);
+  assert.equal(out.outcome, 'CONFIRMED_FAILURE');
+  assert.ok(out.reasonCodes.includes('provider-proposal-rejected'));
+  assert.ok(out.reasonCodes.includes('proposal-unknown-field:changeSetId'));
+  assert.ok(out.reasonCodes.includes('proposal-unknown-field:businessEffectAuthority'));
 });
 
 test('provider uncertainty stays uncertainty and is never converted into a proposal result', async () => {

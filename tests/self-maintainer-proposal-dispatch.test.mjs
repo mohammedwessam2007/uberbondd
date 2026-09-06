@@ -123,13 +123,13 @@ function proposalFetch({ result = canonicalWorkerResult(), status = 200 } = {}) 
     assert.equal(body.expectedSha, BASE);
     assert.equal(body.task.taskId, relayTask().taskId);
     const payload = status === 200
-      ? { ok: true, result, proposalProvider: 'ai-gateway', usage: { costCents: 0 } }
+      ? { ok: true, result, proposalProvider: 'ai-gateway', usage: { costCents: 0, totalTokens: 30 } }
       : { ok: false, reasonCodes: ['provider-blocked'] };
     return new Response(JSON.stringify(payload), { status, headers: { 'content-type': 'application/json' } });
   };
 }
 
-test('dispatch claims the exact task, uses OIDC, submits proposal, and closes the relay issue', async () => {
+test('dispatch claims the exact task, uses OIDC, submits canonical receipt, and closes the relay issue', async () => {
   const { client, created, issues } = await seeded();
   let oidcCalls = 0;
   const out = await runSelfMaintainerProposalDispatch({
@@ -148,6 +148,9 @@ test('dispatch claims the exact task, uses OIDC, submits proposal, and closes th
   assert.equal(read.resultStatus, 'COMPLETED');
   assert.equal(read.result.decision, 'PROCEED');
   assert.deepEqual(read.result.testsActuallyRun, []);
+  assert.deepEqual(read.receipt.cost, { usdCents: 0, tokens: 30 });
+  assert.equal(read.receipt.confidence, 'HIGH');
+  assert.equal(read.receipt.sourceCommit, BASE);
 });
 
 test('dispatch never calls proposal endpoint when exact source identity mismatches', async () => {

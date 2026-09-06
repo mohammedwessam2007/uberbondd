@@ -1,0 +1,54 @@
+name: Exact c708 Cross-Runner Verifier
+
+on:
+  push:
+    branches:
+      - gpt/exact-c708-verifier-20260907
+
+permissions:
+  contents: read
+
+jobs:
+  macos-terminal:
+    runs-on: macos-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout exact certified target
+        uses: actions/checkout@v4
+        with:
+          ref: c70815ac93eeb662ff8f5b2c3bebace81fd4b5f8
+          fetch-depth: 0
+      - name: Setup Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install exact lockfile
+        run: npm ci
+      - name: Focused autonomous proposal siege
+        run: node --test tests/self-maintainer-source-context.test.mjs tests/self-maintainer-source-bound-compiler.test.mjs tests/self-maintainer-proposal-contract.test.mjs tests/self-maintainer-proposal-model-wrapper.test.mjs tests/self-maintainer-proposal-api.test.mjs tests/self-maintainer-proposal-dispatch.test.mjs tests/self-maintainer-proposal-self-protection.test.mjs tests/self-maintainer-free-ai-profile.test.mjs tests/self-maintainer-free-proposal-api.test.mjs tests/self-maintainer-proposal-route.test.mjs tests/self-maintainer-closed-loop-workflow.test.mjs
+      - name: Syntax gate
+        run: npm run check:syntax
+      - name: Deterministic suite
+        run: npm run test:deterministic
+      - name: Full terminal source gate
+        run: node scripts/vercel-command-center-build.mjs
+
+  windows-focused:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout exact certified target
+        uses: actions/checkout@v4
+        with:
+          ref: c70815ac93eeb662ff8f5b2c3bebace81fd4b5f8
+          fetch-depth: 0
+      - name: Setup Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install exact lockfile
+        run: npm ci
+      - name: Focused autonomous proposal siege
+        run: node --test tests/self-maintainer-source-context.test.mjs tests/self-maintainer-source-bound-compiler.test.mjs tests/self-maintainer-proposal-contract.test.mjs tests/self-maintainer-proposal-model-wrapper.test.mjs tests/self-maintainer-proposal-api.test.mjs tests/self-maintainer-proposal-dispatch.test.mjs tests/self-maintainer-proposal-self-protection.test.mjs tests/self-maintainer-free-ai-profile.test.mjs tests/self-maintainer-free-proposal-api.test.mjs tests/self-maintainer-proposal-route.test.mjs tests/self-maintainer-closed-loop-workflow.test.mjs

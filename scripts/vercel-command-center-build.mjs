@@ -30,9 +30,16 @@ const steps = [
   ]],
   ['node', ['scripts/reachability-report.mjs']],
   ['npm', ['run', 'check:syntax']],
+  // Canon freshness is part of the deterministic suite. Refresh present-tense
+  // readiness against this exact checkout before asking that suite to judge it;
+  // otherwise an immutable old receipt can masquerade as current state until
+  // the very last build step and create an avoidable always-red terminal gate.
+  ['npm', ['run', 'readiness']],
   ['npm', ['run', 'test:deterministic']],
   ['npm', ['run', 'test:mutation-war']],
   ['npm', ['run', 'test:whole-brain']],
+  // Re-emit readiness after every proof step so the terminal workspace ends
+  // with a current exact-checkout artifact rather than the pre-proof snapshot.
   ['npm', ['run', 'readiness']]
 ];
 
@@ -56,5 +63,6 @@ console.log(JSON.stringify({
   ultimateGraphRequired: true,
   adminEphemeralBearerRequired: true,
   reachabilityLiveComputedRequired: true,
+  exactCheckoutReadinessBeforeDeterministic: true,
   externalEffectAuthority: 'NONE'
 }));

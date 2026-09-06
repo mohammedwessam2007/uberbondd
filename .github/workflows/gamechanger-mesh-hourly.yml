@@ -46,7 +46,7 @@ jobs:
           npm run test:genesis
           node --test tests/perpetual-frontier-genesis-tick.test.mjs
           npm run test:whole-brain
-          node --test tests/uberbond-synaptic-map.test.mjs tests/uberbond-synaptic-cycle-binding.test.mjs tests/github-actions-oidc-verifier.test.mjs tests/uberbond-command-center-status.test.mjs
+          node --test tests/uberbond-synaptic-map.test.mjs tests/uberbond-synaptic-cycle-binding.test.mjs tests/uberbond-repository-deep-atlas.test.mjs tests/uberbond-ultimate-graph.test.mjs tests/uberbond-ultimate-graph-cycle-binding.test.mjs tests/github-actions-oidc-verifier.test.mjs tests/uberbond-command-center-status.test.mjs
           npm run capabilities:doctor
           npm run genesis:doctor
       - name: Compile repository-complete Feature Genome
@@ -55,6 +55,10 @@ jobs:
         run: node scripts/uberbond-feature-atom-atlas.mjs
       - name: Compile repository-complete Synaptic Map
         run: node scripts/uberbond-synaptic-map.mjs
+      - name: Compile repository-wide Deep Atlas
+        run: node scripts/uberbond-repository-deep-atlas.mjs
+      - name: Compile Ultimate UberBond Graph
+        run: node scripts/uberbond-ultimate-graph.mjs
       - name: Snapshot frontier model candidate team truth
         run: |
           mkdir -p artifacts/cognitive
@@ -102,7 +106,7 @@ jobs:
         run: node scripts/uberbond-metacognitive-synthesis.mjs
       - name: Reactivate relevant GENESIS ideas from associative memory
         run: node scripts/uberbond-genesis-reactivation.mjs
-      - name: Route all available evidence across the UberBond cognitive graph and Synaptic Map
+      - name: Route all available evidence across the UberBond cognitive graph and Ultimate Graph
         shell: bash
         run: |
           args=(
@@ -110,6 +114,7 @@ jobs:
             --event-horizon artifacts/cognitive/event-horizon-doctor-latest.json
             --feature-genome artifacts/uberbond-feature-genome-latest.json
             --synaptic-map artifacts/uberbond-synaptic-map-latest.json
+            --ultimate-graph artifacts/cognitive/uberbond-ultimate-graph-latest.json
             --frontier-model-team artifacts/cognitive/frontier-model-team-doctor-latest.json
             --compute-sovereignty artifacts/cognitive/compute-sovereignty-doctor-latest.json
             --metacognitive-synthesis artifacts/uberbond-metacognitive-synthesis-latest.json
@@ -122,7 +127,10 @@ jobs:
       - name: Save latest whole-brain cognitive memory
         uses: actions/cache/save@v4
         with:
-          path: artifacts/uberbond-cognitive-cycle-latest.json
+          path: |
+            artifacts/uberbond-cognitive-cycle-latest.json
+            artifacts/cognitive/uberbond-repository-deep-atlas-latest.json
+            artifacts/cognitive/uberbond-ultimate-graph-latest.json
           key: uberbond-cognitive-cycle-${{ github.run_id }}
       - name: Upload evidence receipt and state
         uses: actions/upload-artifact@v4
@@ -139,6 +147,8 @@ jobs:
             artifacts/uberbond-feature-genome-latest.json
             artifacts/uberbond-feature-atom-atlas-latest.json
             artifacts/uberbond-synaptic-map-latest.json
+            artifacts/cognitive/uberbond-repository-deep-atlas-latest.json
+            artifacts/cognitive/uberbond-ultimate-graph-latest.json
             artifacts/uberbond-metacognitive-synthesis-latest.json
             artifacts/uberbond-genesis-reactivation-latest.json
             artifacts/cognitive/frontier-model-team-doctor-latest.json

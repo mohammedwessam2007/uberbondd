@@ -1,4 +1,4 @@
-name: Exact c708 NIGHT-10 Terminal macOS Intel
+name: Exact c708 Focused + Terminal Windows x64
 
 on:
   push:
@@ -9,12 +9,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: exact-c708-night10-macos-intel
+  group: exact-c708-night10-windows-x64
   cancel-in-progress: false
 
 jobs:
   terminal:
-    runs-on: macos-13
+    runs-on: windows-2022
     timeout-minutes: 60
     steps:
       - name: Checkout immutable target source
@@ -32,16 +32,19 @@ jobs:
       - name: Install exact dependencies
         run: npm ci
 
-      - name: Hydrate Darwin x64 embedded Postgres fixture when present
+      - name: Hydrate Windows embedded Postgres fixture when present
+        shell: pwsh
         run: |
-          if [ -d node_modules/@embedded-postgres/darwin-x64 ]; then
-            npm rebuild @embedded-postgres/darwin-x64
-          fi
+          if (Test-Path 'node_modules/@embedded-postgres/win32-x64') { npm rebuild @embedded-postgres/win32-x64 }
 
       - name: Prove exact target SHA
+        shell: pwsh
         run: |
-          test "$(git rev-parse HEAD)" = "c70815ac93eeb662ff8f5b2c3bebace81fd4b5f8"
+          if ((git rev-parse HEAD).Trim() -ne 'c70815ac93eeb662ff8f5b2c3bebace81fd4b5f8') { exit 1 }
           git status --short
+
+      - name: Run focused repaired proposal suite
+        run: node --test tests/self-maintainer-proposal-model-wrapper.test.mjs
 
       - name: Run unchanged NIGHT-10 terminal gate
         run: node scripts/vercel-command-center-build.mjs

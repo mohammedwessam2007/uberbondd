@@ -1,4 +1,4 @@
-name: Exact c708 NIGHT-10 Terminal Ubuntu 22.04
+name: Exact c708 NIGHT-10 Terminal Ubuntu 24.04
 
 on:
   push:
@@ -9,12 +9,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: exact-c708-night10-ubuntu2204
+  group: exact-c708-night10-ubuntu2404
   cancel-in-progress: false
 
 jobs:
   terminal:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 60
     steps:
       - name: Checkout immutable target source

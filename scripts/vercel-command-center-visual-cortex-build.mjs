@@ -7,6 +7,7 @@ const steps = [
   ['node', ['scripts/uberbond-repository-deep-atlas.mjs']],
   ['node', ['scripts/uberbond-ultimate-graph.mjs']],
   ['node', ['--check', 'api/ultimate-graph.mjs']],
+  ['node', ['--check', 'public/uberbond.js']],
   ['node', ['--check', 'public/uberbond-graph.js']],
   ['node', ['--test',
     'tests/uberbond-command-center-status.test.mjs',
@@ -18,7 +19,8 @@ const steps = [
     'tests/ultimate-graph-api.test.mjs',
     'tests/command-center-2-auth.test.mjs',
     'tests/command-center-2-policy.test.mjs',
-    'tests/admin-ephemeral-client-hostile.test.mjs'
+    'tests/admin-ephemeral-client-hostile.test.mjs',
+    'tests/command-center-owner-auth-hostile.test.mjs'
   ]]
 ];
 

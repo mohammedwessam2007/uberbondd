@@ -44,7 +44,7 @@ jobs:
       - name: Verify mesh, opportunity allocation, GENESIS and whole-brain contracts
         run: |
           npm run test:gamechanger
-          node --test tests/gamechanger-integration-bridge.test.mjs
+          node --test tests/gamechanger-integration-bridge.test.mjs tests/gamechanger-integration-cognitive.test.mjs
           node --test tests/orchestration-frontier.test.mjs tests/orchestration-frontier-tick.test.mjs tests/orchestration-gamechanger-source.test.mjs tests/external-capability-control-plane.test.mjs
           npm run test:genesis
           node --test tests/perpetual-frontier-genesis-tick.test.mjs
@@ -124,6 +124,8 @@ jobs:
             args+=(--self-maintenance artifacts/cognitive/self-maintainer-latest.json)
           fi
           node scripts/uberbond-cognitive-cycle-synaptic.mjs "${args[@]}"
+      - name: Route governed Gamechanger integration backlog through the same cognitive receipt
+        run: node scripts/gamechanger-integration-cognitive.mjs
       - name: Save latest whole-brain cognitive memory
         uses: actions/cache/save@v4
         with:

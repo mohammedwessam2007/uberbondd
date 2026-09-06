@@ -26,13 +26,14 @@ The terminal Vercel build runs UberBond's own self-model and hostile verificatio
 4. Repository Deep Atlas
 5. Ultimate Graph
 6. focused Command Center / graph / continuity / lifetime-memory / World Capability Harvester / Compute Sovereignty / organism-metabolism / pre-customer revenue suites
-7. syntax gate
-8. full deterministic tree
-9. Mutation War
-10. Whole Brain suite
-11. readiness regeneration
+7. exact reachability reporter
+8. syntax gate
+9. full deterministic tree
+10. Mutation War
+11. Whole Brain suite
+12. readiness regeneration
 
-This means UberBond's repository-wide self-model, cognitive graph, hostile mutation system and readiness law participate directly in proving the final UberBond source.
+This means UberBond's repository-wide self-model, cognitive graph, hostile mutation system and readiness law participate directly in proving the final UberBond source. `scripts/reachability-report.mjs` was added before the deterministic tree specifically so current reachability counts come from the same live import graph the ratchet measures rather than from prose or arithmetic guesses.
 
 ## Strongest exact-head evidence so far
 
@@ -55,7 +56,7 @@ The terminal build then reached the full deterministic tree and exposed four cau
 
 ### T2 — stale reachability classification
 
-`src/payment-renewal-truth.mjs` is now reachable but remains in `config/reachability-classification.json`. Remove only that stale entry. Do not weaken the ratchet or release genuine external/customer/payment/outbound gates.
+`src/payment-renewal-truth.mjs` became reachable but remained in `config/reachability-classification.json`.
 
 ### T3 — CURRENT_SYSTEM_STATE reachability surface drift
 
@@ -63,7 +64,7 @@ The terminal build then reached the full deterministic tree and exposed four cau
 
 ### T4 — Repository Deep Atlas copied secret-shaped fixture text into durable preview
 
-The generated `artifacts/cognitive/uberbond-repository-deep-atlas-latest.json` became an unexpected secret-sweep exemption because `CONTENT_CHUNK.preview` copied source text verbatim. This is a real privacy defect in a generated self-model artifact. Repair by sanitizing/redacting preview material at generation time and add a hostile regression proving secret-shaped source text never survives into Deep Atlas preview. Do **not** exempt the generated artifact from the secret scanner.
+The generated `artifacts/cognitive/uberbond-repository-deep-atlas-latest.json` became an unexpected secret-sweep exemption because `CONTENT_CHUNK.preview` copied source text verbatim. This is a real privacy defect in a generated self-model artifact.
 
 ## Closure progress
 
@@ -77,16 +78,24 @@ Commits `56ae8a2cc230557e9e7b5e262a2a9d3ada27845c` and `a919ce92dbf7ae7748e373bc
 - the test requires the raw fixture value to be absent from serialized Deep Atlas output, requires `[REDACTED]` evidence, and requires hashed content coverage to remain present.
 - T4 is **SOURCE_FIXED / RUNNER_PROOF_PENDING**. No exemption was added to the secret scanner.
 
-Current estimate after this material step: **~97.8% source closure / ~92.5% verified closure**.
+### Step 2B — T2 source repair landed
+
+Commit `8391ab39d6bff3e2c0a5df305924b496ded6777a` removes only the stale `src/payment-renewal-truth.mjs` entry from `config/reachability-classification.json`.
+
+- no reachability gate was weakened;
+- no external/customer/payment/outbound/provider gate was removed;
+- the production graph remains authoritative over classification prose;
+- T2 is **SOURCE_FIXED / RUNNER_PROOF_PENDING**.
+
+Current estimate after this material step: **~98.2% source closure / ~93% verified closure**.
 
 ## Next exact actions
 
 1. Repair T1 mutation registry + sandbox copy law.
-2. Repair T2 stale reachability classification.
-3. Repair T3 machine-readable current-state reachability from measured graph facts.
-4. Obtain runner proof for T4 and the other repairs.
-5. Run the same full terminal Vercel gate on the exact repaired head.
-6. If green, regenerate final canon/receipt and merge #400 with expected-head protection.
+2. Use the next real terminal runner's `UBERBOND_REACHABILITY` receipt to repair T3 with exact current numbers.
+3. Obtain runner proof for T2/T4 and the T1 repair.
+4. Run the same full terminal Vercel gate on the exact repaired head.
+5. If green, regenerate final canon/receipt and merge #400 with expected-head protection.
 
 ## Persistent truth laws
 

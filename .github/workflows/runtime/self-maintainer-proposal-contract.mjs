@@ -1,7 +1,8 @@
+import path from 'node:path';
 import { compileAgentCodeChangeSet, validateAgentCodeChangeSet } from '../../../src/agent-code-change-contract.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../../../src/effect-ledgers.mjs';
 
-export const SELF_MAINTAINER_PROPOSAL_POLICY_VERSION = 'self-maintainer-proposal-1.1.0';
+export const SELF_MAINTAINER_PROPOSAL_POLICY_VERSION = 'self-maintainer-proposal-1.2.0';
 export const SELF_MAINTAINER_PROPOSAL_PROFILE = 'SELF_MAINTAINER_PROPOSAL';
 
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
@@ -12,6 +13,10 @@ const PROPOSAL_KEYS = Object.freeze([
   'evidenceRefs', 'cognitivePrioritiesConsidered'
 ]);
 const CHANGE_KEYS = Object.freeze(['operation', 'path', 'beforeSha256', 'content', 'rationale']);
+const SELF_PROTECTED_PATHS = new Set([
+  'api/self-maintainer-proposal.mjs',
+  'vercel.json'
+]);
 
 function text(value, max = 2000) {
   return String(value ?? '').trim().slice(0, max);
@@ -42,6 +47,19 @@ function exactTaskBase(task) {
     .map(match => match[1].toLowerCase());
   if (!parent || exactConstraints.length !== 1 || parent[1].toLowerCase() !== exactConstraints[0]) return null;
   return exactConstraints[0];
+}
+
+function normalizedProposalPath(value) {
+  const raw = text(value, 1000);
+  if (!raw || path.isAbsolute(raw) || /^[A-Za-z]:[\\/]/.test(raw)) return null;
+  const normalized = path.posix.normalize(raw.replaceAll('\\', '/'));
+  if (!normalized || normalized === '.' || normalized === '..' || normalized.startsWith('../') || normalized.includes('/../') || normalized.startsWith('/')) return null;
+  return normalized;
+}
+
+function selfProtectedPath(value) {
+  const normalized = normalizedProposalPath(value);
+  return normalized ? SELF_PROTECTED_PATHS.has(normalized) : false;
 }
 
 export function selfMaintainerProposalTaskReasons(task) {
@@ -204,6 +222,7 @@ export function compileSelfMaintainerProposalWorkerResult({ task, proposal } = {
   for (const [index, change] of proposal.changes.entries()) {
     const operation = text(change.operation, 20).toUpperCase();
     const before = text(change.beforeSha256, 80);
+    if (selfProtectedPath(change.path)) return fail([`proposal-change-${index}-self-protected-path`]);
     if (operation === 'CREATE' && before) return fail([`proposal-change-${index}-create-before-hash-must-be-empty`]);
     if (['UPDATE', 'DELETE'].includes(operation) && !SHA256.test(before)) return fail([`proposal-change-${index}-before-hash-required`]);
     if (operation === 'DELETE' && String(change.content ?? '') !== '') return fail([`proposal-change-${index}-delete-content-must-be-empty`]);

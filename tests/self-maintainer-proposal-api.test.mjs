@@ -27,13 +27,27 @@ function task(overrides = {}) {
   };
 }
 
-function sourceContext(overrides = {}) {
+function sourceInventory(paths = [SOURCE_PATH]) {
+  const normalized = [...paths].sort();
+  const encoded = JSON.stringify(normalized);
+  return {
+    ok: true,
+    status: 'SOURCE_INVENTORY_READY',
+    sourceSha: BASE,
+    paths: normalized,
+    pathCount: normalized.length,
+    inventoryDigest: contentSha256(encoded),
+    byteLength: Buffer.byteLength(encoded)
+  };
+}
+
+function sourceContext(inventory = sourceInventory(), overrides = {}) {
   return {
     ok: true,
     status: 'EXACT_SOURCE_CONTEXT_READY',
     sourceSha: BASE,
     sourceContextDigest: 'context-digest-test',
-    inventoryDigest: 'inventory-digest-test',
+    inventoryDigest: inventory.inventoryDigest,
     files: [{ path: SOURCE_PATH, sha256: BEFORE, byteLength: Buffer.byteLength(SOURCE_CONTENT), content: SOURCE_CONTENT }],
     ...overrides
   };
@@ -125,7 +139,8 @@ function successDeps({ executor, readiness } = {}) {
 }
 
 function proposalBody(overrides = {}) {
-  return { stage: 'PROPOSE', expectedSha: BASE, task: task(), sourceContext: sourceContext(), ...overrides };
+  const inventory = sourceInventory();
+  return { stage: 'PROPOSE', expectedSha: BASE, task: task(), sourceInventory: inventory, sourceContext: sourceContext(inventory), ...overrides };
 }
 
 test('proposal API refuses requests without the GitHub Actions OIDC bearer before provider execution', async () => {
@@ -161,7 +176,7 @@ test('SELECT_CONTEXT receives only bounded inventory and a zero-cent selection c
   assert.equal(res.payload.stage, 'SELECT_CONTEXT');
 });
 
-test('PROPOSE forwards the exact task budget and returns exact-source-bound canonical change sets', async () => {
+test('PROPOSE forwards exact task budget and returns inventory-plus-context-bound canonical change sets', async () => {
   let observed = null;
   const handler = createSelfMaintainerProposalApiHandler(successDeps({
     executor: async input => { observed = input; return providerResult(); }
@@ -179,22 +194,30 @@ test('PROPOSE forwards the exact task budget and returns exact-source-bound cano
   assert.deepEqual(res.payload.result.testsActuallyRun, []);
 });
 
-test('PROPOSE refuses missing or tampered exact source context before provider execution', async () => {
+test('PROPOSE refuses missing, tampered, or inventory-mismatched source evidence before provider execution', async () => {
   let calls = 0;
   const handler = createSelfMaintainerProposalApiHandler(successDeps({ executor: async () => { calls += 1; return providerResult(); } }));
   const missingRes = responseCapture();
   await handler(request({ stage: 'PROPOSE', expectedSha: BASE, task: task() }), missingRes);
   assert.equal(missingRes.statusCode, 400);
   assert.equal(calls, 0);
-  assert.equal(missingRes.payload.status, 'SOURCE_CONTEXT_REJECTED');
+  assert.equal(missingRes.payload.status, 'SOURCE_INVENTORY_REJECTED');
 
-  const tampered = sourceContext();
+  const inventory = sourceInventory();
+  const tampered = sourceContext(inventory);
   tampered.files[0].content = 'export const value = 999;\n';
   const tamperedRes = responseCapture();
   await handler(request(proposalBody({ sourceContext: tampered })), tamperedRes);
   assert.equal(tamperedRes.statusCode, 400);
   assert.equal(calls, 0);
   assert.ok(tamperedRes.payload.reasonCodes.some(code => code.includes('digest-mismatch')));
+
+  const otherInventory = sourceInventory([SOURCE_PATH, 'src/other.mjs']);
+  const mismatchRes = responseCapture();
+  await handler(request({ stage: 'PROPOSE', expectedSha: BASE, task: task(), sourceInventory: otherInventory, sourceContext: sourceContext(inventory) }), mismatchRes);
+  assert.equal(mismatchRes.statusCode, 409);
+  assert.equal(calls, 0);
+  assert.ok(mismatchRes.payload.reasonCodes.includes('source-context-inventory-digest-mismatch'));
 });
 
 test('proposal API rejects provider attempts to inject canonical authority fields', async () => {

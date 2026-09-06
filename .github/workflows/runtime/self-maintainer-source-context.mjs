@@ -4,7 +4,7 @@ import path from 'node:path';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 
-export const SELF_MAINTAINER_SOURCE_CONTEXT_VERSION = 'self-maintainer-source-context-1.0.0';
+export const SELF_MAINTAINER_SOURCE_CONTEXT_VERSION = 'self-maintainer-source-context-1.1.0';
 
 const execFileAsync = promisify(execFile);
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
@@ -92,6 +92,47 @@ export async function buildLocalSourceInventory({
     pathCount: paths.length,
     inventoryDigest: digest(serialized),
     byteLength: Buffer.byteLength(serialized, 'utf8')
+  };
+}
+
+export function validateSourceInventoryEnvelope(inventory, expectedSha) {
+  const sha = text(expectedSha, 80).toLowerCase();
+  const reasons = [];
+  if (!inventory || typeof inventory !== 'object' || Array.isArray(inventory)) return failure(['source-inventory-object-required'], 'SOURCE_INVENTORY_REJECTED');
+  if (inventory.ok !== true || inventory.status !== 'SOURCE_INVENTORY_READY') reasons.push('source-inventory-ready-envelope-required');
+  if (!EXACT_SHA.test(sha) || text(inventory.sourceSha, 80).toLowerCase() !== sha) reasons.push('source-inventory-sha-mismatch');
+  if (!Array.isArray(inventory.paths) || inventory.paths.length < 1 || inventory.paths.length > MAX_INVENTORY_PATHS) reasons.push('source-inventory-path-count-invalid');
+
+  const normalized = [];
+  for (const [index, raw] of (Array.isArray(inventory.paths) ? inventory.paths : []).entries()) {
+    const sourcePath = normalizeSourcePath(raw);
+    if (!sourcePath) {
+      reasons.push(`source-inventory-path-${index}-invalid`);
+      continue;
+    }
+    if (sourcePath !== raw) reasons.push(`source-inventory-path-${index}-not-canonical`);
+    if (normalized.includes(sourcePath)) reasons.push(`source-inventory-path-${index}-duplicate`);
+    normalized.push(sourcePath);
+  }
+  const sorted = [...normalized].sort();
+  if (normalized.length && JSON.stringify(normalized) !== JSON.stringify(sorted)) reasons.push('source-inventory-path-order-invalid');
+  const serialized = JSON.stringify(normalized);
+  const byteLength = Buffer.byteLength(serialized, 'utf8');
+  if (byteLength > MAX_INVENTORY_BYTES) reasons.push('source-inventory-byte-limit');
+  const expectedDigest = digest(serialized);
+  if (!/^[a-f0-9]{64}$/i.test(String(inventory.inventoryDigest || '')) || String(inventory.inventoryDigest).toLowerCase() !== expectedDigest) reasons.push('source-inventory-digest-mismatch');
+  if (Number(inventory.pathCount) !== normalized.length) reasons.push('source-inventory-path-count-mismatch');
+  if (Number(inventory.byteLength) !== byteLength) reasons.push('source-inventory-byte-length-mismatch');
+  if (reasons.length) return failure(reasons, 'SOURCE_INVENTORY_REJECTED');
+  return {
+    ok: true,
+    policyVersion: SELF_MAINTAINER_SOURCE_CONTEXT_VERSION,
+    status: 'SOURCE_INVENTORY_VALID',
+    sourceSha: sha,
+    paths: normalized,
+    pathCount: normalized.length,
+    inventoryDigest: expectedDigest,
+    byteLength
   };
 }
 

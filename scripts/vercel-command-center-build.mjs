@@ -12,7 +12,8 @@ const steps = [
     'tests/uberbond-synaptic-cycle-binding.test.mjs',
     'tests/uberbond-repository-deep-atlas.test.mjs',
     'tests/uberbond-ultimate-graph.test.mjs',
-    'tests/uberbond-ultimate-graph-cycle-binding.test.mjs'
+    'tests/uberbond-ultimate-graph-cycle-binding.test.mjs',
+    'tests/ultimate-graph-api.test.mjs'
   ]],
   ['node', ['--test',
     'tests/wessam-continuity.test.mjs',

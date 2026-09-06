@@ -3,7 +3,7 @@
 # Runs on GitHub's own infrastructure, so relay tasks are picked up with no
 # founder device and no Claude session involved. Two triggers:
 #   - issues: opened/labeled  -> react promptly when a task actually arrives
-#   - schedule                -> a safety net for anything the event missed
+#   - schedule                -> a frequent recovery net for anything the event missed
 #
 # Permissions are deliberately minimal: issues:write (to claim, comment, and
 # close) and contents:read (to check out the code it verifies). It cannot push,
@@ -19,9 +19,9 @@ on:
   issues:
     types: [opened, labeled, reopened]
   schedule:
-    # Hourly safety net. GitHub may skip or delay scheduled runs on a busy
-    # queue; the issues trigger above is the primary path.
-    - cron: '17 * * * *'
+    # Five-minute recovery net. The event trigger remains the primary fast path;
+    # this closes the old one-hour dead zone after a missed event or abandoned lease.
+    - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
       dryRun:
@@ -57,12 +57,14 @@ jobs:
       - run: npm ci
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
-      - name: Poll, claim, and answer one relay task
+      - name: Poll, claim, and answer a bounded relay batch
         run: node scripts/github-relay-worker.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           RELAY_WORKER_ID: github-actions:${{ github.run_id }}
           RELAY_TARGET_AGENT: claude-code
-          RELAY_MAX_TASKS: '1'
+          # The worker itself caps this at five. Three drains a short backlog
+          # without turning one workflow invocation into an unbounded loop.
+          RELAY_MAX_TASKS: '3'
           RELAY_DRY_RUN: ${{ inputs.dryRun && 'true' || 'false' }}

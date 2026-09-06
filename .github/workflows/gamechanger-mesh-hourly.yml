@@ -28,7 +28,9 @@ jobs:
       - name: Restore and persist mesh memory
         uses: actions/cache@v4
         with:
-          path: .cache/gamechanger-mesh-state.json
+          path: |
+            .cache/gamechanger-mesh-state.json
+            .cache/gamechanger-integration-state.json
           key: gamechanger-mesh-state-${{ github.run_id }}
           restore-keys: |
             gamechanger-mesh-state-
@@ -42,6 +44,7 @@ jobs:
       - name: Verify mesh, opportunity allocation, GENESIS and whole-brain contracts
         run: |
           npm run test:gamechanger
+          node --test tests/gamechanger-integration-bridge.test.mjs
           node --test tests/orchestration-frontier.test.mjs tests/orchestration-frontier-tick.test.mjs tests/orchestration-gamechanger-source.test.mjs tests/external-capability-control-plane.test.mjs
           npm run test:genesis
           node --test tests/perpetual-frontier-genesis-tick.test.mjs
@@ -89,6 +92,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: npm run gamechanger:tick
+      - name: Bind Gamechanger findings into durable governed integration queue
+        run: node scripts/gamechanger-integration-bridge.mjs
       - name: Compile Fable N+1 orchestration candidates
         run: node scripts/orchestration-frontier-tick.mjs
       - name: Run complete GENESIS cognitive cascade
@@ -130,6 +135,7 @@ jobs:
           name: gamechanger-mesh-${{ github.run_id }}
           path: |
             artifacts/gamechanger-mesh-latest.json
+            artifacts/gamechanger-integration-queue-latest.json
             artifacts/orchestration-frontier-candidates-latest.json
             artifacts/perpetual-frontier-genesis-latest.json
             artifacts/genesis-evolution-latest.json
@@ -148,6 +154,7 @@ jobs:
             artifacts/cognitive/self-maintainer-latest.json
             artifacts/uberbond-cognitive-cycle-latest.json
             .cache/gamechanger-mesh-state.json
+            .cache/gamechanger-integration-state.json
           retention-days: 14
           if-no-files-found: warn
       - name: Preserve unhealthy cognitive organs as visible workflow failures after routing their evidence

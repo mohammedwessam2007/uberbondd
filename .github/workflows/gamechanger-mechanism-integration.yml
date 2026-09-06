@@ -1,0 +1,86 @@
+name: UberBond Gamechanger Mechanism Integration
+
+on:
+  workflow_run:
+    workflows: ["UberBond Gamechanger Mesh"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: gamechanger-mechanism-integration
+  cancel-in-progress: false
+
+jobs:
+  integrate-all-mechanisms:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Restore durable integration memory
+        uses: actions/cache@v4
+        with:
+          path: .cache/gamechanger-integration-state.json
+          key: gamechanger-integration-${{ github.run_id }}
+          restore-keys: |
+            gamechanger-integration-
+      - name: Download the completed Gamechanger Mesh evidence artifact
+        if: github.event_name == 'workflow_run'
+        uses: actions/download-artifact@v4
+        with:
+          name: gamechanger-mesh-${{ github.event.workflow_run.id }}
+          path: upstream-gamechanger
+          github-token: ${{ github.token }}
+          run-id: ${{ github.event.workflow_run.id }}
+      - name: Select upstream mesh receipt
+        shell: bash
+        run: |
+          mkdir -p artifacts
+          if [ -f upstream-gamechanger/artifacts/gamechanger-mesh-latest.json ]; then
+            cp upstream-gamechanger/artifacts/gamechanger-mesh-latest.json artifacts/gamechanger-mesh-latest.json
+          elif [ ! -f artifacts/gamechanger-mesh-latest.json ]; then
+            echo 'No Gamechanger Mesh receipt available' >&2
+            exit 2
+          fi
+      - name: Verify research-to-integration bridge and all 25 mechanism primitives
+        run: |
+          node --test tests/gamechanger-integration-bridge.test.mjs
+          node --test tests/gamechanger-mechanism-runtime.test.mjs tests/gamechanger-mechanism-pack.test.mjs
+      - name: Compile durable governed research integration queue
+        run: node scripts/gamechanger-integration-bridge.mjs
+      - name: Compile all mechanisms into existing UberBond organs
+        run: node scripts/gamechanger-mechanism-pack.mjs
+      - name: Assert no idea silently disappeared or gained external authority
+        run: |
+          node - <<'NODE'
+          const fs=require('node:fs');
+          const r=JSON.parse(fs.readFileSync('artifacts/gamechanger-mechanism-pack-latest.json','utf8'));
+          if(!r.ok || r.status!=='ALL_GAMECHANGER_MECHANISMS_INTEGRATED') process.exit(2);
+          if(r.pack.mechanismCount!==25 || r.pack.runtimePrimitiveCount!==25 || r.pack.internallyIntegratedCount!==25) process.exit(3);
+          if(!r.pack.allIdeasOperationalized || !r.pack.allIdeasBoundToExistingOrgans) process.exit(4);
+          if(r.pack.promotionAuthority!=='NONE' || r.pack.executableExternalAuthority!=='NONE' || r.pack.commercialTruthAuthority!=='NONE') process.exit(5);
+          for(const mechanism of r.pack.mechanisms){
+            if(!mechanism.primitive?.implemented || mechanism.integrationState!=='INTERNAL_CONTROL_PLANE_INTEGRATED') process.exit(6);
+            if(mechanism.promotionAuthority!=='NONE' || mechanism.executableExternalAuthority!=='NONE') process.exit(7);
+          }
+          console.log(JSON.stringify({mechanisms:r.pack.mechanismCount,primitives:r.pack.runtimePrimitiveCount,targetOrgans:r.pack.targetOrganCount,engineeringEligible:r.pack.engineeringEligibleCount,authority:'NONE'}));
+          NODE
+      - name: Upload integration receipts
+        uses: actions/upload-artifact@v4
+        with:
+          name: gamechanger-mechanism-integration-${{ github.run_id }}
+          path: |
+            artifacts/gamechanger-integration-queue-latest.json
+            artifacts/gamechanger-mechanism-pack-latest.json
+            .cache/gamechanger-integration-state.json
+          retention-days: 30
+          if-no-files-found: error

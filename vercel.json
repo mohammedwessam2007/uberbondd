@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "node scripts/vercel-command-center-build.mjs",
+  "buildCommand": "node scripts/vercel-command-center-visual-cortex-build.mjs",
   "functions": {
     "api/agent-relay.mjs": { "maxDuration": 60 },
     "api/agent-mesh-cron.mjs": { "maxDuration": 60 },

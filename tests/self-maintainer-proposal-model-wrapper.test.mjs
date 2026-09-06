@@ -5,7 +5,9 @@ import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 import { createSelfMaintainerProposalModelWrapper } from '../.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs';
 
 const BASE = 'c'.repeat(40);
-const BEFORE = contentSha256('export const n = 1;\n');
+const SOURCE_PATH = 'src/example-safe-module.mjs';
+const SOURCE_CONTENT = 'export const n = 1;\n';
+const BEFORE = contentSha256(SOURCE_CONTENT);
 
 function task(overrides = {}) {
   return {
@@ -23,6 +25,17 @@ function task(overrides = {}) {
     budget: { maxTokens: 10000, maxCostCents: 0 },
     consequenceClass: 'LOCAL_PREPARATION',
     ...overrides
+  };
+}
+
+function sourceContext(path = SOURCE_PATH, content = SOURCE_CONTENT) {
+  return {
+    ok: true,
+    status: 'EXACT_SOURCE_CONTEXT_READY',
+    sourceSha: BASE,
+    sourceContextDigest: `ctx_${contentSha256(`${path}:${content}`)}`,
+    inventoryDigest: 'inventory-test',
+    files: [{ path, sha256: contentSha256(content), byteLength: Buffer.byteLength(content), content }]
   };
 }
 
@@ -53,7 +66,7 @@ function rawProposal(overrides = {}) {
     decision: 'PROCEED',
     summary: 'Change one safe source file.',
     baseRevision: BASE,
-    changes: [{ operation: 'UPDATE', path: 'src/example-safe-module.mjs', beforeSha256: BEFORE, content: 'export const n = 2;\n', rationale: 'Bounded repair.' }],
+    changes: [{ operation: 'UPDATE', path: SOURCE_PATH, beforeSha256: '', content: 'export const n = 2;\n', rationale: 'Bounded repair.' }],
     verification: ['npm run check:syntax', 'npm run test:deterministic'],
     evidenceRefs: [`github:commit:${BASE}`],
     cognitivePrioritiesConsidered: ['wallbreaker'],
@@ -61,7 +74,7 @@ function rawProposal(overrides = {}) {
   };
 }
 
-test('wrapper changes the model task into raw-proposal mode but returns canonical codeChangeSet', async () => {
+test('wrapper embeds exact source context and returns a source-bound canonical codeChangeSet', async () => {
   let observedTask = null;
   const wrapped = createSelfMaintainerProposalModelWrapper({
     modelExecutor: async input => {
@@ -69,23 +82,40 @@ test('wrapper changes the model task into raw-proposal mode but returns canonica
       return providerResult(rawProposal());
     }
   });
-  const out = await wrapped({ task: task(), maxTokens: 10000, costCeilingCents: 0 });
-  assert.equal(out.ok, true);
+  const out = await wrapped({ task: task(), sourceContext: sourceContext(), maxTokens: 10000, costCeilingCents: 0 });
+  assert.equal(out.ok, true, JSON.stringify(out));
   assert.match(observedTask.objective, /PROPOSAL STAGE ONLY/);
+  assert.match(observedTask.objective, /Exact source context:/);
+  assert.match(observedTask.objective, /export const n = 1/);
   assert.ok(observedTask.requiredOutputs.includes('selfMaintenanceProposal'));
   assert.equal(observedTask.requiredOutputs.includes('codeChangeSet'), false);
   assert.match(out.result.codeChangeSet.changeSetId, /^agent_changes_[a-f0-9]{24}$/);
   assert.equal(out.result.codeChangeSet.businessEffectAuthority, 'NONE');
+  assert.equal(out.result.codeChangeSet.changes[0].beforeSha256, BEFORE);
   assert.deepEqual(out.result.testsActuallyRun, []);
 });
 
-test('provider cannot smuggle a protected-path edit through the wrapper', async () => {
+test('model-authored before hash is discarded in favor of exact locally observed source hash', async () => {
   const wrapped = createSelfMaintainerProposalModelWrapper({
     modelExecutor: async () => providerResult(rawProposal({
-      changes: [{ ...rawProposal().changes[0], path: '.github/workflows/evil.yml' }]
+      changes: [{ ...rawProposal().changes[0], beforeSha256: 'f'.repeat(64) }]
     }))
   });
-  const out = await wrapped({ task: task() });
+  const out = await wrapped({ task: task(), sourceContext: sourceContext() });
+  assert.equal(out.ok, true, JSON.stringify(out));
+  assert.equal(out.result.codeChangeSet.changes[0].beforeSha256, BEFORE);
+  assert.notEqual(out.result.codeChangeSet.changes[0].beforeSha256, 'f'.repeat(64));
+});
+
+test('provider cannot smuggle a protected-path edit through source binding and canonical compiler', async () => {
+  const protectedPath = '.github/workflows/evil.yml';
+  const protectedContent = 'name: existing\n';
+  const wrapped = createSelfMaintainerProposalModelWrapper({
+    modelExecutor: async () => providerResult(rawProposal({
+      changes: [{ ...rawProposal().changes[0], path: protectedPath, beforeSha256: '' }]
+    }))
+  });
+  const out = await wrapped({ task: task(), sourceContext: sourceContext(protectedPath, protectedContent) });
   assert.equal(out.ok, false);
   assert.equal(out.outcome, 'CONFIRMED_FAILURE');
   assert.ok(out.reasonCodes.includes('provider-proposal-rejected'));
@@ -96,28 +126,46 @@ test('provider-injected canonical identifiers or authority are rejected by the c
   const wrapped = createSelfMaintainerProposalModelWrapper({
     modelExecutor: async () => providerResult({ ...rawProposal(), changeSetId: 'fake', businessEffectAuthority: 'ALL' })
   });
-  const out = await wrapped({ task: task() });
+  const out = await wrapped({ task: task(), sourceContext: sourceContext() });
   assert.equal(out.ok, false);
   assert.equal(out.outcome, 'CONFIRMED_FAILURE');
   assert.ok(out.reasonCodes.includes('provider-proposal-rejected'));
-  assert.ok(out.reasonCodes.includes('proposal-unknown-field:changeSetId'));
-  assert.ok(out.reasonCodes.includes('proposal-unknown-field:businessEffectAuthority'));
+  assert.ok(out.reasonCodes.some(code => code.includes('proposal-unknown-field:changeSetId')));
+  assert.ok(out.reasonCodes.some(code => code.includes('proposal-unknown-field:businessEffectAuthority')));
 });
 
 test('provider uncertainty stays uncertainty and is never converted into a proposal result', async () => {
   const wrapped = createSelfMaintainerProposalModelWrapper({
     modelExecutor: async () => ({ ok: false, outcome: 'UNCERTAIN', uncertain: true, reasonCodes: ['transport-uncertain'] })
   });
-  const out = await wrapped({ task: task() });
+  const out = await wrapped({ task: task(), sourceContext: sourceContext() });
   assert.equal(out.ok, false);
   assert.equal(out.outcome, 'UNCERTAIN');
   assert.equal(out.businessEffectAuthority, 'NONE');
 });
 
+test('missing or tampered exact source context is refused before provider execution', async () => {
+  let called = false;
+  const wrapped = createSelfMaintainerProposalModelWrapper({
+    modelExecutor: async () => { called = true; return providerResult(rawProposal()); }
+  });
+  const missing = await wrapped({ task: task() });
+  assert.equal(missing.ok, false);
+  assert.equal(called, false);
+  assert.ok(missing.reasonCodes.includes('proposal-exact-source-context-required'));
+
+  const tampered = sourceContext();
+  tampered.files[0].content = 'export const n = 999;\n';
+  const rejected = await wrapped({ task: task(), sourceContext: tampered });
+  assert.equal(rejected.ok, false);
+  assert.equal(called, false);
+  assert.ok(rejected.reasonCodes.some(code => code.includes('digest-mismatch')));
+});
+
 test('lookalike non-self-maintainer tasks are refused before the provider is called', async () => {
   let called = false;
   const wrapped = createSelfMaintainerProposalModelWrapper({ modelExecutor: async () => { called = true; return providerResult(rawProposal()); } });
-  const out = await wrapped({ task: task({ originAgent: 'other-controller' }) });
+  const out = await wrapped({ task: task({ originAgent: 'other-controller' }), sourceContext: sourceContext() });
   assert.equal(out.ok, false);
   assert.equal(called, false);
   assert.ok(out.reasonCodes.includes('self-maintainer-origin-required'));

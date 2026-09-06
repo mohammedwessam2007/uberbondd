@@ -1,6 +1,16 @@
 import { spawnSync } from 'node:child_process';
 
+// npm 11 blocks unreviewed dependency lifecycle scripts. embedded-postgres
+// requires its reviewed platform package postinstall to hydrate the PostgreSQL
+// binary tree. Rebuild the pinned Vercel platform fixture up front so Mutation
+// War fails fast on fixture preparation instead of after the full deterministic
+// siege. Other platforms keep their normal local package installation path.
+const fixturePreparation = process.platform === 'linux' && process.arch === 'x64'
+  ? [['npm', ['rebuild', '@embedded-postgres/linux-x64']]]
+  : [];
+
 const steps = [
+  ...fixturePreparation,
   ['node', ['scripts/uberbond-feature-genome.mjs']],
   ['node', ['scripts/uberbond-feature-atom-atlas.mjs']],
   ['node', ['scripts/uberbond-synaptic-map.mjs']],

@@ -40,6 +40,8 @@ test('metabolism reaches sensing, economic, venture, resilience and final-fronti
   assert.deepEqual(result.externalEffectLedger, ZERO_EXTERNAL_EFFECTS);
   assert.equal(result.organs.sensing.status, 'WEAK_SIGNAL_FUSION_READY');
   assert.equal(result.organs.trust.status, 'TRUST_FRICTION_SCAN_READY');
+  assert.equal(result.organs.mechanismAssimilation.status, 'MECHANISM_ASSIMILATION_BATCH_READY');
+  assert.equal(result.organs.mechanismAssimilation.assimilatedCount, 0);
   assert.equal(result.organs.venture.status, 'COMPANY_PHENOTYPE_COMPILED');
   assert.equal(result.organs.shocks.status, 'INFRASTRUCTURE_SHOCK_UNIVERSE_READY');
   assert.equal(result.organs.extinction.status, 'PROVIDER_EXTINCTION_DRILL_READY');
@@ -48,11 +50,44 @@ test('metabolism reaches sensing, economic, venture, resilience and final-fronti
   assert.equal(result.promotionAuthority, 'NONE');
 });
 
+test('Gamechanger changed primitives are metabolized into zero-authority GENESIS mechanism populations', () => {
+  const result = buildGenesisMetabolism({
+    gamechanger: {
+      frontierSignals: [{
+        id: 'continuation-graph',
+        source: 'public-agent-runtime',
+        sourceUrl: 'https://example.test/public-agent-runtime',
+        summary: 'Checkpointed long-horizon agent workflow reliability through dependency graphs and local retry.',
+        mechanism: 'Compile agent workflow goals into dependency nodes, persist checkpoints, and advance only dependency-safe work after verified completion.',
+        changedPrimitives: ['dependency graph', 'checkpoint resume', 'local retry', 'completion event'],
+        domains: ['agent infrastructure', 'workflow reliability', 'research automation'],
+        assumptions: ['one context owns continuity'],
+        failureModes: ['duplicate continuation', 'stale checkpoint'],
+        inputs: ['goal', 'work graph'],
+        outputs: ['runnable frontier', 'checkpoint'],
+        confidence: 95
+      }]
+    }
+  });
+  assert.equal(result.ok, true, JSON.stringify(result));
+  assert.equal(result.inputCounts.mechanismCandidates, 1);
+  assert.equal(result.organs.mechanismAssimilation.ok, true);
+  assert.equal(result.organs.mechanismAssimilation.assimilatedCount, 1);
+  const assimilation = result.organs.mechanismAssimilation.results[0];
+  assert.equal(assimilation.status, 'MECHANISM_ASSIMILATED_NOT_PROMOTED');
+  assert.ok(assimilation.variantCount >= 8);
+  assert.ok(assimilation.variants.some(item => item.mutations.includes('topology-learning')));
+  assert.equal(assimilation.sourceInstructionAuthority, 'NONE');
+  assert.equal(assimilation.executionAuthority, 'NONE');
+  assert.deepEqual(assimilation.externalEffectLedger, ZERO_EXTERNAL_EFFECTS);
+});
+
 test('metabolism fails venture activation closed when upstream evidence has no buyer or mechanism', () => {
   const result = buildGenesisMetabolism({ gamechanger: {}, evolution: {}, scientist: {}, ontology: {} });
   assert.equal(result.ok, true);
   assert.equal(result.organs.venture.ok, false);
   assert.equal(result.organs.venture.status, 'MORPHOGENESIS_BLOCKED');
   assert.equal(result.organs.venture.activationAuthority, 'NONE');
-  assert.match(result.truthBoundary, /CANNOT_CREATE_MARKET_DEMAND/);
+  assert.equal(result.organs.mechanismAssimilation.assimilatedCount, 0);
+  assert.match(result.truthBoundary, /CANNOT CREATE MARKET DEMAND/);
 });

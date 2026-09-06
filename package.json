@@ -77,6 +77,7 @@
     "brain:metacognitive": "node scripts/uberbond-metacognitive-synthesis.mjs",
     "models:frontier:doctor": "node scripts/frontier-model-team-doctor.mjs",
     "compute:doctor": "node scripts/compute-sovereignty-doctor.mjs",
+    "organism:doctor": "node scripts/organism-foundations-doctor.mjs",
     "test:whole-brain": "node --test tests/uberbond-cognitive-graph.test.mjs tests/uberbond-cognitive-bus.test.mjs tests/uberbond-cognitive-adapters.test.mjs tests/genesis-cognitive-adapters.test.mjs tests/event-horizon-cognitive-adapter.test.mjs tests/wallbreaker-cognitive-reflex.test.mjs tests/uberbond-feature-genome.test.mjs tests/uberbond-feature-atom-atlas.test.mjs tests/frontier-model-team.test.mjs tests/whole-brain-cognitive-adapters.test.mjs tests/uberbond-metacognitive-synthesis.test.mjs tests/compute-sovereignty.test.mjs",
     "readiness": "node scripts/system-readiness.mjs",
     "wallbreaker": "node scripts/wallbreaker-plan.mjs",

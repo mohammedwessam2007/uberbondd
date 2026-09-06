@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const LIFETIME_CONTEXT_VERSION = 'uberbond-lifetime-context-1.0.0';
+export const LIFETIME_CONTEXT_VERSION = 'uberbond-lifetime-context-1.0.1';
 const MEMORY_CLASSES = new Set(['EPISODIC', 'SEMANTIC', 'ECONOMIC', 'WESSAM', 'REPOSITORY', 'EVIDENCE', 'SYNTHETIC']);
 const PRIVACY_CLASSES = new Set(['PUBLIC', 'INTERNAL', 'PRIVATE', 'WESSAM_INNERMOST']);
 const TRUTH_CLASSES = new Set(['OBSERVED', 'OFFICIAL_SOURCE', 'VERIFIED_INTERNAL', 'SUPPORTED_INFERENCE', 'HYPOTHESIS', 'SYNTHETIC']);
@@ -84,6 +84,31 @@ function normalizeMemoryItem(item, index) {
     }
   };
 }
+function indexDigest(index) {
+  const { integrityDigest, ...body } = index || {};
+  return digest(body);
+}
+function validateIndex(index) {
+  if (!index || index.schemaVersion !== 'uberbond-lifetime-memory-index-1.0.0') return ['compiled-memory-index-required'];
+  if (!index.integrityDigest || index.integrityDigest !== indexDigest(index)) return ['memory-index-integrity-mismatch'];
+  return [];
+}
+function findSupersessionCycle(items) {
+  const graph = new Map(items.map(item => [item.id, item.supersedes]));
+  const visiting = new Set();
+  const visited = new Set();
+  function visit(id) {
+    if (visiting.has(id)) return true;
+    if (visited.has(id)) return false;
+    visiting.add(id);
+    for (const next of graph.get(id) || []) if (visit(next)) return true;
+    visiting.delete(id);
+    visited.add(id);
+    return false;
+  }
+  for (const id of graph.keys()) if (visit(id)) return true;
+  return false;
+}
 
 export function compileLifetimeMemoryIndex({ items = [], now = new Date().toISOString() } = {}) {
   if (!Array.isArray(items) || items.length > 10_000) return fail(['bounded-memory-array-required']);
@@ -105,10 +130,13 @@ export function compileLifetimeMemoryIndex({ items = [], now = new Date().toISOS
   const lineageErrors = [];
   for (const item of normalized) {
     for (const prior of item.supersedes) {
-      if (!byId.has(prior)) lineageErrors.push(`unknown-superseded-memory:${item.id}:${prior}`);
+      const priorItem = byId.get(prior);
+      if (!priorItem) lineageErrors.push(`unknown-superseded-memory:${item.id}:${prior}`);
       if (prior === item.id) lineageErrors.push(`self-supersede-prohibited:${item.id}`);
+      if (priorItem && Date.parse(item.observedAt) < Date.parse(priorItem.observedAt)) lineageErrors.push(`stale-memory-cannot-supersede-newer:${item.id}:${prior}`);
     }
   }
+  if (findSupersessionCycle(normalized)) lineageErrors.push('supersession-cycle-prohibited');
   if (lineageErrors.length) return fail(lineageErrors);
 
   const superseded = new Set(normalized.flatMap(item => item.supersedes));
@@ -122,7 +150,7 @@ export function compileLifetimeMemoryIndex({ items = [], now = new Date().toISOS
     .filter(([, idsInGroup]) => idsInGroup.filter(id => !superseded.has(id)).length > 1)
     .map(([group, idsInGroup]) => ({ group, activeIds: idsInGroup.filter(id => !superseded.has(id)) }));
 
-  const index = {
+  const body = {
     schemaVersion: 'uberbond-lifetime-memory-index-1.0.0',
     generatedAt: timestamp.toISOString(),
     items: normalized,
@@ -133,6 +161,7 @@ export function compileLifetimeMemoryIndex({ items = [], now = new Date().toISOS
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
+  const index = { ...body, integrityDigest: digest(body) };
   return { ok: true, status: 'LIFETIME_MEMORY_INDEX_COMPILED', index, indexFingerprint: digest(index) };
 }
 
@@ -144,8 +173,7 @@ export function compileTaskContextPacket({
   includeSynthetic = false,
   now = new Date().toISOString()
 } = {}) {
-  const reasons = [];
-  if (!index || index.schemaVersion !== 'uberbond-lifetime-memory-index-1.0.0') reasons.push('compiled-memory-index-required');
+  const reasons = validateIndex(index);
   const normalizedQuery = text(query, 3000);
   if (!normalizedQuery) reasons.push('query-required');
   if (!Number.isInteger(maxItems) || maxItems < 1 || maxItems > 128) reasons.push('bounded-max-items-required');
@@ -175,6 +203,7 @@ export function compileTaskContextPacket({
 
   const packet = {
     schemaVersion: 'uberbond-task-context-packet-1.0.0',
+    sourceIndexIntegrityDigest: index.integrityDigest,
     query: normalizedQuery,
     selected: candidates.map(({ item, score }) => ({
       id: item.id,
@@ -204,7 +233,8 @@ export function compileTaskContextPacket({
 }
 
 export function compileMemoryHealthReceipt({ index, maxContradictions = 0 } = {}) {
-  if (!index || index.schemaVersion !== 'uberbond-lifetime-memory-index-1.0.0') return fail(['compiled-memory-index-required']);
+  const integrityReasons = validateIndex(index);
+  if (integrityReasons.length) return fail(integrityReasons);
   const unresolved = index.unresolvedContradictions?.length || 0;
   const missingProvenance = index.items.filter(item => !Array.isArray(item.provenanceRefs) || item.provenanceRefs.length === 0).map(item => item.id);
   const syntheticObservedConfusion = index.items.filter(item => (item.memoryClass === 'SYNTHETIC') !== (item.truthClass === 'SYNTHETIC')).map(item => item.id);
@@ -212,6 +242,7 @@ export function compileMemoryHealthReceipt({ index, maxContradictions = 0 } = {}
   return {
     ok,
     status: ok ? 'LIFETIME_MEMORY_HEALTHY' : 'LIFETIME_MEMORY_REVIEW_REQUIRED',
+    sourceIndexIntegrityDigest: index.integrityDigest,
     unresolvedContradictions: unresolved,
     missingProvenance,
     syntheticObservedConfusion,

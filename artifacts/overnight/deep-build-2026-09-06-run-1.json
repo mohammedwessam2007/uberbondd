@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.overnight-deep-build-receipt.v1",
-  "observedAt": "2026-09-06T01:20:00Z",
+  "observedAt": "2026-09-06T01:22:00Z",
   "baseIntegrationPr": 400,
   "baseIntegrationHead": "dbabb004fb7c5d98c0aa10b6fd74fd0aee759034",
   "integrationPr": 414,
@@ -45,7 +45,7 @@
       "head": "23ce1833981af86ae647b8ad442c78cc17b09898",
       "classification": "INFRASTRUCTURE_NON_EVIDENCE",
       "reason": "browser/deterministic/postgres jobs completed with runner_id 0 and steps []",
-      "deterministicRerun": "REQUESTED_ONCE__RUNNER_ALLOCATION_PENDING_OR_UNAVAILABLE"
+      "deterministicRerun": "FAILED_WITH_ZERO_STEPS__SAME_INFRASTRUCTURE_NON_EVIDENCE"
     },
     "localCheckout": {
       "classification": "INFRASTRUCTURE_NON_EVIDENCE",

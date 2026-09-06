@@ -5,12 +5,19 @@ const steps = [
   ['node', ['scripts/uberbond-feature-atom-atlas.mjs']],
   ['node', ['scripts/uberbond-synaptic-map.mjs']],
   ['node', ['scripts/uberbond-repository-deep-atlas.mjs']],
+  // The Deep Atlas writes a durable repository self-model. Test that artifact
+  // immediately, before Ultimate Graph composition or the multi-thousand-test
+  // deterministic tree, so a credential/fixture-marker persistence regression
+  // fails at the boundary that created it instead of hours later in the siege.
+  ['node', ['--test',
+    'tests/uberbond-repository-deep-atlas.test.mjs',
+    'tests/secret-leakage-sweep.test.mjs'
+  ]],
   ['node', ['scripts/uberbond-ultimate-graph.mjs']],
   ['node', ['--test',
     'tests/uberbond-command-center-status.test.mjs',
     'tests/uberbond-synaptic-map.test.mjs',
     'tests/uberbond-synaptic-cycle-binding.test.mjs',
-    'tests/uberbond-repository-deep-atlas.test.mjs',
     'tests/uberbond-ultimate-graph.test.mjs',
     'tests/uberbond-ultimate-graph-cycle-binding.test.mjs',
     'tests/ultimate-graph-api.test.mjs'
@@ -61,6 +68,7 @@ console.log(JSON.stringify({
   ok: true,
   status: 'VERCEL_NIGHT10_TERMINAL_SOURCE_GATE_PASSED',
   ultimateGraphRequired: true,
+  deepAtlasPersistencePrivacyRequired: true,
   adminEphemeralBearerRequired: true,
   reachabilityLiveComputedRequired: true,
   exactCheckoutReadinessBeforeDeterministic: true,

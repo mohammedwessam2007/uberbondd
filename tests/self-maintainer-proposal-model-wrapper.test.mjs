@@ -28,13 +28,27 @@ function task(overrides = {}) {
   };
 }
 
-function sourceContext(path = SOURCE_PATH, content = SOURCE_CONTENT) {
+function sourceInventory(paths = [SOURCE_PATH]) {
+  const normalized = [...paths].sort();
+  const encoded = JSON.stringify(normalized);
+  return {
+    ok: true,
+    status: 'SOURCE_INVENTORY_READY',
+    sourceSha: BASE,
+    paths: normalized,
+    pathCount: normalized.length,
+    inventoryDigest: contentSha256(encoded),
+    byteLength: Buffer.byteLength(encoded)
+  };
+}
+
+function sourceContext(path = SOURCE_PATH, content = SOURCE_CONTENT, inventory = sourceInventory([path])) {
   return {
     ok: true,
     status: 'EXACT_SOURCE_CONTEXT_READY',
     sourceSha: BASE,
     sourceContextDigest: `ctx_${contentSha256(`${path}:${content}`)}`,
-    inventoryDigest: 'inventory-test',
+    inventoryDigest: inventory.inventoryDigest,
     files: [{ path, sha256: contentSha256(content), byteLength: Buffer.byteLength(content), content }]
   };
 }
@@ -76,13 +90,14 @@ function rawProposal(overrides = {}) {
 
 test('wrapper embeds exact source context and returns a source-bound canonical codeChangeSet', async () => {
   let observedTask = null;
+  const inventory = sourceInventory();
   const wrapped = createSelfMaintainerProposalModelWrapper({
     modelExecutor: async input => {
       observedTask = input.task;
       return providerResult(rawProposal());
     }
   });
-  const out = await wrapped({ task: task(), sourceContext: sourceContext(), maxTokens: 10000, costCeilingCents: 0 });
+  const out = await wrapped({ task: task(), sourceInventory: inventory, sourceContext: sourceContext(SOURCE_PATH, SOURCE_CONTENT, inventory), maxTokens: 10000, costCeilingCents: 0 });
   assert.equal(out.ok, true, JSON.stringify(out));
   assert.match(observedTask.objective, /PROPOSAL STAGE ONLY/);
   assert.match(observedTask.objective, /Exact source context:/);
@@ -96,26 +111,47 @@ test('wrapper embeds exact source context and returns a source-bound canonical c
 });
 
 test('model-authored before hash is discarded in favor of exact locally observed source hash', async () => {
+  const inventory = sourceInventory();
   const wrapped = createSelfMaintainerProposalModelWrapper({
     modelExecutor: async () => providerResult(rawProposal({
       changes: [{ ...rawProposal().changes[0], beforeSha256: 'f'.repeat(64) }]
     }))
   });
-  const out = await wrapped({ task: task(), sourceContext: sourceContext() });
+  const out = await wrapped({ task: task(), sourceInventory: inventory, sourceContext: sourceContext(SOURCE_PATH, SOURCE_CONTENT, inventory) });
   assert.equal(out.ok, true, JSON.stringify(out));
   assert.equal(out.result.codeChangeSet.changes[0].beforeSha256, BEFORE);
   assert.notEqual(out.result.codeChangeSet.changes[0].beforeSha256, 'f'.repeat(64));
 });
 
+test('CREATE is allowed only when exact tracked inventory proves the target path was absent', async () => {
+  const newPath = 'src/new-safe-module.mjs';
+  const inventory = sourceInventory([SOURCE_PATH]);
+  const wrapped = createSelfMaintainerProposalModelWrapper({
+    modelExecutor: async () => providerResult(rawProposal({
+      changes: [{ operation: 'CREATE', path: newPath, beforeSha256: 'forged', content: 'export const newSafe = true;\n', rationale: 'Add one bounded safe helper.' }]
+    }))
+  });
+  const created = await wrapped({ task: task(), sourceInventory: inventory, sourceContext: sourceContext(SOURCE_PATH, SOURCE_CONTENT, inventory) });
+  assert.equal(created.ok, true, JSON.stringify(created));
+  assert.equal(created.result.codeChangeSet.changes[0].operation, 'CREATE');
+  assert.equal(created.result.codeChangeSet.changes[0].beforeSha256, null);
+
+  const existingInventory = sourceInventory([SOURCE_PATH, newPath]);
+  const refused = await wrapped({ task: task(), sourceInventory: existingInventory, sourceContext: sourceContext(SOURCE_PATH, SOURCE_CONTENT, existingInventory) });
+  assert.equal(refused.ok, false);
+  assert.ok(refused.reasonCodes.some(code => code.includes('create-path-already-exists')));
+});
+
 test('provider cannot smuggle a protected-path edit through source binding and canonical compiler', async () => {
   const protectedPath = '.github/workflows/evil.yml';
   const protectedContent = 'name: existing\n';
+  const inventory = sourceInventory([protectedPath]);
   const wrapped = createSelfMaintainerProposalModelWrapper({
     modelExecutor: async () => providerResult(rawProposal({
       changes: [{ ...rawProposal().changes[0], path: protectedPath, beforeSha256: '' }]
     }))
   });
-  const out = await wrapped({ task: task(), sourceContext: sourceContext(protectedPath, protectedContent) });
+  const out = await wrapped({ task: task(), sourceInventory: inventory, sourceContext: sourceContext(protectedPath, protectedContent, inventory) });
   assert.equal(out.ok, false);
   assert.equal(out.outcome, 'CONFIRMED_FAILURE');
   assert.ok(out.reasonCodes.includes('provider-proposal-rejected'));
@@ -123,10 +159,11 @@ test('provider cannot smuggle a protected-path edit through source binding and c
 });
 
 test('provider-injected canonical identifiers or authority are rejected by the closed raw envelope', async () => {
+  const inventory = sourceInventory();
   const wrapped = createSelfMaintainerProposalModelWrapper({
     modelExecutor: async () => providerResult({ ...rawProposal(), changeSetId: 'fake', businessEffectAuthority: 'ALL' })
   });
-  const out = await wrapped({ task: task(), sourceContext: sourceContext() });
+  const out = await wrapped({ task: task(), sourceInventory: inventory, sourceContext: sourceContext(SOURCE_PATH, SOURCE_CONTENT, inventory) });
   assert.equal(out.ok, false);
   assert.equal(out.outcome, 'CONFIRMED_FAILURE');
   assert.ok(out.reasonCodes.includes('provider-proposal-rejected'));
@@ -135,16 +172,17 @@ test('provider-injected canonical identifiers or authority are rejected by the c
 });
 
 test('provider uncertainty stays uncertainty and is never converted into a proposal result', async () => {
+  const inventory = sourceInventory();
   const wrapped = createSelfMaintainerProposalModelWrapper({
     modelExecutor: async () => ({ ok: false, outcome: 'UNCERTAIN', uncertain: true, reasonCodes: ['transport-uncertain'] })
   });
-  const out = await wrapped({ task: task(), sourceContext: sourceContext() });
+  const out = await wrapped({ task: task(), sourceInventory: inventory, sourceContext: sourceContext(SOURCE_PATH, SOURCE_CONTENT, inventory) });
   assert.equal(out.ok, false);
   assert.equal(out.outcome, 'UNCERTAIN');
   assert.equal(out.businessEffectAuthority, 'NONE');
 });
 
-test('missing or tampered exact source context is refused before provider execution', async () => {
+test('missing, tampered, or mismatched exact source evidence is refused before provider execution', async () => {
   let called = false;
   const wrapped = createSelfMaintainerProposalModelWrapper({
     modelExecutor: async () => { called = true; return providerResult(rawProposal()); }
@@ -152,20 +190,28 @@ test('missing or tampered exact source context is refused before provider execut
   const missing = await wrapped({ task: task() });
   assert.equal(missing.ok, false);
   assert.equal(called, false);
-  assert.ok(missing.reasonCodes.includes('proposal-exact-source-context-required'));
+  assert.ok(missing.reasonCodes.includes('proposal-exact-source-inventory-required'));
 
-  const tampered = sourceContext();
+  const inventory = sourceInventory();
+  const tampered = sourceContext(SOURCE_PATH, SOURCE_CONTENT, inventory);
   tampered.files[0].content = 'export const n = 999;\n';
-  const rejected = await wrapped({ task: task(), sourceContext: tampered });
+  const rejected = await wrapped({ task: task(), sourceInventory: inventory, sourceContext: tampered });
   assert.equal(rejected.ok, false);
   assert.equal(called, false);
   assert.ok(rejected.reasonCodes.some(code => code.includes('digest-mismatch')));
+
+  const otherInventory = sourceInventory([SOURCE_PATH, 'src/other.mjs']);
+  const mismatched = await wrapped({ task: task(), sourceInventory: otherInventory, sourceContext: sourceContext(SOURCE_PATH, SOURCE_CONTENT, inventory) });
+  assert.equal(mismatched.ok, false);
+  assert.equal(called, false);
+  assert.ok(mismatched.reasonCodes.includes('proposal-source-context-inventory-mismatch'));
 });
 
 test('lookalike non-self-maintainer tasks are refused before the provider is called', async () => {
   let called = false;
+  const inventory = sourceInventory();
   const wrapped = createSelfMaintainerProposalModelWrapper({ modelExecutor: async () => { called = true; return providerResult(rawProposal()); } });
-  const out = await wrapped({ task: task({ originAgent: 'other-controller' }), sourceContext: sourceContext() });
+  const out = await wrapped({ task: task({ originAgent: 'other-controller' }), sourceInventory: inventory, sourceContext: sourceContext(SOURCE_PATH, SOURCE_CONTENT, inventory) });
   assert.equal(out.ok, false);
   assert.equal(called, false);
   assert.ok(out.reasonCodes.includes('self-maintainer-origin-required'));

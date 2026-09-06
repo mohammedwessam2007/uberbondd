@@ -4,9 +4,9 @@
 
 Last reconciled: **2026-09-06**
 Branch: `gpt/uberbond-battery-ignition-20260905`
-Reconciled from current head: `20923de8830aafea354b7496e853bd8d6e95cbcc`
+Reconciled from current head: `fa3227c64206fdc202b4cf37940b8e6424a17883`
 Live main before final merge decision: `efb63fddcbc9009594d9869a3e0929629ce7b4be`
-Current source-changing NIGHT-10 integration lineage includes the reachability/readiness anti-drift repair through `20923de8830aafea354b7496e853bd8d6e95cbcc`.
+Current source-changing NIGHT-10 integration lineage includes the reachability/readiness anti-drift repair and explicit legacy-admin hostile terminal gate through `fa3227c64206fdc202b4cf37940b8e6424a17883`.
 
 Machine-readable companion: [`artifacts/system-readiness.json`](../artifacts/system-readiness.json).
 
@@ -36,7 +36,7 @@ Command Center 2.0 now includes:
 - iPad/PWA safe-area and touch contracts;
 - governed UI evolution with truth-integrity hard floor, rollback receipt and `REVIEW_PR_ONLY` promotion authority.
 
-The terminal Vercel build script on the branch is configured to regenerate Feature Genome / Atom Atlas / Synaptic Map and then execute focused topology, six overnight foundation suites, Command Center 2 auth/policy suites, syntax, full deterministic, generic Mutation War, whole-brain tests and readiness. No pass is claimed for that enlarged exact-final-head gate until a real runner actually allocates and executes it.
+The terminal Vercel build script on the branch is configured to regenerate Feature Genome / Atom Atlas / Synaptic Map and then execute focused topology, six overnight foundation suites, the legacy-admin bearer hostile suite, Command Center 2 auth/policy suites, live reachability reporting, syntax, full deterministic, generic Mutation War, whole-brain tests and readiness. No pass is claimed for that enlarged exact-final-head gate until a real runner actually allocates and executes it.
 
 ## Strongest executed source evidence
 
@@ -57,26 +57,28 @@ GitHub Actions remains `INFRASTRUCTURE_NON_EVIDENCE` for current closure because
 
 Reachability source: `tests/reachability-ratchet.test.mjs` (LIVE_COMPUTED)
 
-Present-tense reachability counts are deliberately not duplicated in this human canon. `scripts/system-readiness.mjs` now computes the import graph from the exact checked-out tree and overwrites any older recorded reachability packet in `config/system-readiness-input.json`; `scripts/reachability-report.mjs` consumes the same canonical live measurement. This restores the previously learned F19 anti-drift contract while preserving the newer deferred-import reachability hardening.
+Present-tense reachability counts are deliberately not duplicated in this human canon. `scripts/system-readiness.mjs` computes the import graph from the exact checked-out tree and overwrites any older recorded reachability packet in `config/system-readiness-input.json`; `scripts/reachability-report.mjs` consumes the same canonical live measurement. This restores the previously learned F19 anti-drift contract while preserving the newer deferred-import reachability hardening.
 
-The T3 structural canon/readiness defect is therefore **source-repaired on the current lineage but not yet exact-head executed**. It does not count as a verified pass until the terminal runner exercises the repaired tree.
+The T3 structural canon/readiness defect is **source-repaired on the current lineage but not yet exact-head executed**. It does not count as a verified pass until the terminal runner exercises the repaired tree.
 
-## Known remaining internal blocker
+## Legacy admin privileged-bearer truth
 
-### P1 — legacy admin privileged bearer transport
+The previously reproduced P1 is **source-repaired on the current integration lineage**:
+- `public/admin.js` keeps the privileged bearer only in process memory and clears protected state on page hide;
+- protected exports use Authorization-header fetch plus Blob/ObjectURL download rather than token-bearing navigation;
+- Google OAuth starts through an authenticated `POST /api/admin/oauth/google/start?slot=A|B` broker and the returned provider URL is restricted to HTTPS `accounts.google.com`;
+- `server-core.mjs` privileged `auth()` accepts only the Bearer header;
+- `server.mjs` rejects privileged query-token authentication while preserving public capability-token routes such as unsubscribe/report paths;
+- `tests/admin-ephemeral-client-hostile.test.mjs` asserts those boundaries and is now an explicit focused step in `scripts/vercel-command-center-build.mjs`.
 
-The legacy `public/admin.js` on the current integration lineage still persists the privileged admin bearer in `localStorage`, appends it to protected export URLs and appends it to Google OAuth-start URLs. The current centralized server `auth()` also retains a query-token fallback after checking the Authorization header.
-
-This is a reproduced `SOFTWARE_DEFECT`, not an infrastructure blocker and not an external-proof requirement. A historical repair branch (#393) demonstrates the intended RAM-only/header-only design and isolated causal evidence, but that branch is hundreds of commits behind the current integration lineage and its large server refactor must not be imported wholesale without current-lineage reconciliation. Therefore #400 is **not authorized to merge to main yet**.
-
-The new Command Center 2.0 does not repeat this defect; its credential is memory-only and its API transport is Authorization-header-only. The P1 is confined to the older admin surface/server fallback.
+This closes the known P1 at the source/causal-evidence layer. It is **not yet an exact-current-head executed pass**.
 
 ## Residual truth classes
 
 | Item | Classification | Current state |
 |---|---|---|
 | Reachability/readiness anti-drift | `SOFTWARE_DEFECT` | **SOURCE_REPAIRED / EXACT-HEAD PROOF PENDING** |
-| Legacy admin query-token / persistence repair | `SOFTWARE_DEFECT` | **OPEN P1** |
+| Legacy admin query-token / persistence repair | `SOFTWARE_DEFECT` | **SOURCE_REPAIRED / EXACT-HEAD PROOF PENDING** |
 | Enlarged exact-final-head terminal gate execution | `INFRA_BLOCKER` until a real runner executes | **UNPROVEN** |
 | GitHub Actions runner allocation | `INFRA_BLOCKER` | zero-step / runner_id 0 |
 | Real model/provider callability | `EXTERNAL_PROOF_REQUIRED` | not proven by catalog/config |
@@ -88,7 +90,7 @@ The new Command Center 2.0 does not repeat this defect; its credential is memory
 
 NIGHT-10 tracks **11 known internal closure obligations**: #401 merge-tail, #402 Wessam continuity, #403 world capability harvester, #404 lifetime context, #405 Command Center 2.0, #406 Compute Sovereignty, #407 organism metabolism, #408 revenue-readiness closure, #409 hostile repair war, #410 final integration/canon, plus the reproduced legacy-admin P1 discovered during the tribunal.
 
-Current evidence-backed status before exact-final-head execution and admin repair remains **9 / 11 closed or source-integrated with causal evidence**. The #410 canon lane now has the T3 source repair on the integration branch, but that obligation remains open until exact-head execution and convergence. The two unresolved closure obligations remain the legacy-admin P1 and final exact-head certification/merge. This is **81.8% of this fixed NIGHT-10 closure denominator**, not a claim that all possible future UberBond software is 81.8% complete.
+Current source/causal-evidence status is **10 / 11 closed or source-integrated**. The legacy-admin P1 is source-repaired and its hostile regression is pinned into the terminal gate. The only unresolved NIGHT-10 internal obligation is final exact-head certification/merge. This is **90.9% of the fixed NIGHT-10 closure denominator at the source-evidence layer**, not a claim that all possible future UberBond software is 90.9% complete.
 
 ## App/runtime truth
 
@@ -99,8 +101,8 @@ Current evidence-backed status before exact-final-head execution and admin repai
 
 ## Immediate terminal action
 
-1. Reconcile the legacy admin surface onto current #400 with RAM-only privileged credential storage, Authorization-header-only protected operations, authenticated Blob/ObjectURL downloads, authenticated OAuth-start broker, and removal of privileged server query-token fallback while preserving public capability-token routes.
-2. Execute the enlarged exact-final-head terminal gate on a real runner, including the repaired live-computed reachability/canon contract.
-3. Only if both are green, merge #400 with expected-head protection, regenerate/record final canon and close superseded overnight PRs/issues.
+1. Execute the enlarged exact-current-head terminal gate on a real runner, including live-computed reachability and the explicit legacy-admin hostile suite.
+2. If green, merge #400 with expected-head protection.
+3. Reconcile final main canon/receipt and close or supersede the overnight integration issues/PRs whose terminal conditions are then satisfied.
 
 No customer contact, live payment, purchase, DNS mutation, credential disclosure, quota evasion or fabricated proof was performed by NIGHT-10.

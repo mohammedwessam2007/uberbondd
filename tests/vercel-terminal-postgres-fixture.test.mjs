@@ -1,13 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 
-test('Vercel terminal gate narrowly approves and prepares the pinned embedded Postgres fixture', () => {
-  const npmrc = readFileSync('.npmrc', 'utf8');
+test('terminal gate narrowly approves and prepares the pinned embedded Postgres fixture', () => {
+  const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
   const terminal = readFileSync('scripts/vercel-command-center-build.mjs', 'utf8');
 
-  assert.match(npmrc, /^allow-scripts=@embedded-postgres\/linux-x64@18\.4\.0-beta\.17$/m);
-  assert.doesNotMatch(npmrc, /dangerously-allow-all-scripts|allow-scripts=\*/i);
+  assert.deepEqual(packageJson.allowScripts, {
+    '@embedded-postgres/linux-x64@18.4.0-beta.17': true
+  }, 'project install-script authority must be exactly one reviewed, version-pinned platform fixture');
+  assert.equal(existsSync('.npmrc'), false,
+    'do not carry an ambiguous project .npmrc allow-scripts escape hatch alongside canonical allowScripts policy');
+  assert.doesNotMatch(JSON.stringify(packageJson), /dangerously-allow-all-scripts/i);
 
   const rebuild = terminal.indexOf("['npm', ['rebuild', '@embedded-postgres/linux-x64']]");
   const deterministic = terminal.indexOf("['npm', ['run', 'test:deterministic']]");

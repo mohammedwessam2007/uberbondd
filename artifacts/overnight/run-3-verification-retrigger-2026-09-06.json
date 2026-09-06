@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "uberbond.overnight.verification-retrigger.v1",
+  "observedAt": "2026-09-06T05:00:00Z",
+  "repository": "mohammedwessam2007/uberbondd",
+  "pr": 415,
+  "basePr": 414,
+  "previousExecutableEvidence": {
+    "vercelProject": "uberbondd",
+    "deploymentId": "dpl_46XhrykSxmzqxGXaLMRXm64VFtEn",
+    "testedCommit": "4ee54fb1b447c3bba14bc1c779041235bee99a9b",
+    "runnerTruth": "EXECUTED_REAL_BUILD",
+    "foundationTests": {
+      "total": 48,
+      "passed": 45,
+      "failed": 3
+    },
+    "causalFailures": [
+      "wessam-recovery-capsule-test-required-current-recovery-epoch",
+      "wessam-innermost-export-test-expected-denial-vs-exclusion-semantics",
+      "secret-like-external-task-packet-test-expected-denial-count-vs-exclusion-semantics"
+    ],
+    "classification": "SOURCE_FAILURE_REPRODUCED"
+  },
+  "currentCandidateBeforeThisReceipt": "31ee90ae561816eb89562f09e4e2cc4b96567571",
+  "currentCandidateDelta": {
+    "aheadOfExecutedFailureByCommits": 10,
+    "wessamTestContractUpdated": true,
+    "additionalHostileRepairs": [
+      "revocation-normalization-bypass",
+      "fresh-recovery-authorization",
+      "restore-revocation-preservation",
+      "deep-cycle-external-packet-fail-closed",
+      "lifetime-memory-supersession-cycle",
+      "stale-memory-supersession",
+      "memory-index-integrity",
+      "capability-candidate-digest-recomputation",
+      "compute-pricing-and-transport-freshness",
+      "first-cash-packet-integrity-and-commercial-truth"
+    ]
+  },
+  "retriggerLaw": {
+    "attemptsAuthorizedThisRun": 1,
+    "noRetryStorm": true,
+    "acceptance": "Only an actually executed exact-head build/test result may be used as source evidence. READY packaging without the configured foundation gate is insufficient. Zero-step/no-log GitHub jobs remain INFRASTRUCTURE_NON_EVIDENCE."
+  },
+  "externalEffectAuthority": "NONE",
+  "commercialTruth": {
+    "customers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  }
+}

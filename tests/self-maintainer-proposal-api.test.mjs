@@ -5,7 +5,9 @@ import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 import { createSelfMaintainerProposalApiHandler } from '../.github/workflows/runtime/self-maintainer-proposal-api.mjs';
 
 const BASE = 'd'.repeat(40);
-const BEFORE = contentSha256('export const value = 1;\n');
+const SOURCE_PATH = 'src/proposal-safe-example.mjs';
+const SOURCE_CONTENT = 'export const value = 1;\n';
+const BEFORE = contentSha256(SOURCE_CONTENT);
 
 function task(overrides = {}) {
   return {
@@ -25,6 +27,18 @@ function task(overrides = {}) {
   };
 }
 
+function sourceContext(overrides = {}) {
+  return {
+    ok: true,
+    status: 'EXACT_SOURCE_CONTEXT_READY',
+    sourceSha: BASE,
+    sourceContextDigest: 'context-digest-test',
+    inventoryDigest: 'inventory-digest-test',
+    files: [{ path: SOURCE_PATH, sha256: BEFORE, byteLength: Buffer.byteLength(SOURCE_CONTENT), content: SOURCE_CONTENT }],
+    ...overrides
+  };
+}
+
 function rawProposal(overrides = {}) {
   return {
     decision: 'PROCEED',
@@ -32,8 +46,8 @@ function rawProposal(overrides = {}) {
     baseRevision: BASE,
     changes: [{
       operation: 'UPDATE',
-      path: 'src/proposal-safe-example.mjs',
-      beforeSha256: BEFORE,
+      path: SOURCE_PATH,
+      beforeSha256: '',
       content: 'export const value = 2;\n',
       rationale: 'Improve the bounded fixture.'
     }],
@@ -66,6 +80,28 @@ function providerResult(proposal = rawProposal()) {
   };
 }
 
+function selectionResult(paths = [SOURCE_PATH]) {
+  return {
+    ok: true,
+    outcome: 'COMPLETED',
+    providerRequestId: 'req_select',
+    model: 'openai/test',
+    usage: { inputTokens: 5, outputTokens: 5, totalTokens: 10, costCents: 0 },
+    pricingEvidence: { sourceRef: 'test:zero-cost', verifiedAt: '2026-09-06T00:00:00.000Z' },
+    result: {
+      outcome: 'context selected',
+      changedArtifacts: [],
+      testsActuallyRun: [],
+      truthTable: [],
+      externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS),
+      decision: 'PROCEED',
+      coordination: { action: 'ENGINEERING_REQUIRED', objective: '', summary: '', evidenceRefs: [], contextRefs: [], acceptanceTests: [], requiredOutputs: [], constraints: [], tokenBudget: 1, confidence: 0.5 },
+      evidenceRefs: [],
+      selfMaintenanceContextRequest: { paths }
+    }
+  };
+}
+
 function request(body, token = 'oidc-token') {
   return { method: 'POST', headers: { authorization: `Bearer ${token}` }, body };
 }
@@ -84,15 +120,19 @@ function successDeps({ executor, readiness } = {}) {
     env: { AI_GATEWAY_MODEL: 'openai/test' },
     verifyOidc: async ({ expectedSha }) => ({ ok: true, identity: { sha: expectedSha, workflowRef: 'self-maintainer' } }),
     providerReadiness: readiness || [{ provider: 'ai-gateway', ready: true, blockers: [] }],
-    executorFactory: () => executor || (async () => providerResult())
+    executorFactory: () => executor || (async input => /CONTEXT SELECTION STAGE ONLY/.test(input.task.objective) ? selectionResult() : providerResult())
   };
+}
+
+function proposalBody(overrides = {}) {
+  return { stage: 'PROPOSE', expectedSha: BASE, task: task(), sourceContext: sourceContext(), ...overrides };
 }
 
 test('proposal API refuses requests without the GitHub Actions OIDC bearer before provider execution', async () => {
   let called = false;
   const handler = createSelfMaintainerProposalApiHandler(successDeps({ executor: async () => { called = true; return providerResult(); } }));
   const res = responseCapture();
-  await handler(request({ expectedSha: BASE, task: task() }, ''), res);
+  await handler(request(proposalBody(), ''), res);
   assert.equal(res.statusCode, 401);
   assert.equal(called, false);
   assert.ok(res.payload.reasonCodes.includes('github-actions-oidc-bearer-required'));
@@ -101,25 +141,60 @@ test('proposal API refuses requests without the GitHub Actions OIDC bearer befor
 test('proposal API binds the task to the exact OIDC-attested source SHA', async () => {
   const handler = createSelfMaintainerProposalApiHandler(successDeps());
   const res = responseCapture();
-  await handler(request({ expectedSha: 'e'.repeat(40), task: task() }), res);
+  await handler(request(proposalBody({ expectedSha: 'e'.repeat(40) })), res);
   assert.equal(res.statusCode, 409);
   assert.ok(res.payload.reasonCodes.includes('task-request-sha-mismatch'));
 });
 
-test('proposal API forwards the exact zero-cent budget and returns UberBond-compiled canonical change sets', async () => {
+test('SELECT_CONTEXT receives only bounded inventory and a zero-cent selection ceiling', async () => {
+  let observed = null;
+  const handler = createSelfMaintainerProposalApiHandler(successDeps({
+    executor: async input => { observed = input; return selectionResult(); }
+  }));
+  const res = responseCapture();
+  await handler(request({ stage: 'SELECT_CONTEXT', expectedSha: BASE, task: task(), sourceInventory: [SOURCE_PATH, 'tests/example.test.mjs'] }), res);
+  assert.equal(res.statusCode, 200);
+  assert.equal(observed.costCeilingCents, 0);
+  assert.equal(observed.maxTokens, 6000);
+  assert.match(observed.task.objective, /CONTEXT SELECTION STAGE ONLY/);
+  assert.deepEqual(res.payload.contextPaths, [SOURCE_PATH]);
+  assert.equal(res.payload.stage, 'SELECT_CONTEXT');
+});
+
+test('PROPOSE forwards the exact task budget and returns exact-source-bound canonical change sets', async () => {
   let observed = null;
   const handler = createSelfMaintainerProposalApiHandler(successDeps({
     executor: async input => { observed = input; return providerResult(); }
   }));
   const res = responseCapture();
-  await handler(request({ expectedSha: BASE, task: task() }), res);
-  assert.equal(res.statusCode, 200);
+  await handler(request(proposalBody()), res);
+  assert.equal(res.statusCode, 200, JSON.stringify(res.payload));
   assert.equal(observed.costCeilingCents, 0);
   assert.equal(observed.maxTokens, 12000);
+  assert.match(observed.task.objective, /Exact source context:/);
   assert.equal(res.payload.ok, true);
   assert.match(res.payload.result.codeChangeSet.changeSetId, /^agent_changes_[a-f0-9]{24}$/);
   assert.equal(res.payload.result.codeChangeSet.businessEffectAuthority, 'NONE');
+  assert.equal(res.payload.result.codeChangeSet.changes[0].beforeSha256, BEFORE);
   assert.deepEqual(res.payload.result.testsActuallyRun, []);
+});
+
+test('PROPOSE refuses missing or tampered exact source context before provider execution', async () => {
+  let calls = 0;
+  const handler = createSelfMaintainerProposalApiHandler(successDeps({ executor: async () => { calls += 1; return providerResult(); } }));
+  const missingRes = responseCapture();
+  await handler(request({ stage: 'PROPOSE', expectedSha: BASE, task: task() }), missingRes);
+  assert.equal(missingRes.statusCode, 400);
+  assert.equal(calls, 0);
+  assert.equal(missingRes.payload.status, 'SOURCE_CONTEXT_REJECTED');
+
+  const tampered = sourceContext();
+  tampered.files[0].content = 'export const value = 999;\n';
+  const tamperedRes = responseCapture();
+  await handler(request(proposalBody({ sourceContext: tampered })), tamperedRes);
+  assert.equal(tamperedRes.statusCode, 400);
+  assert.equal(calls, 0);
+  assert.ok(tamperedRes.payload.reasonCodes.some(code => code.includes('digest-mismatch')));
 });
 
 test('proposal API rejects provider attempts to inject canonical authority fields', async () => {
@@ -127,7 +202,7 @@ test('proposal API rejects provider attempts to inject canonical authority field
     executor: async () => providerResult({ ...rawProposal(), changeSetId: 'model-fake', businessEffectAuthority: 'ALL' })
   }));
   const res = responseCapture();
-  await handler(request({ expectedSha: BASE, task: task() }), res);
+  await handler(request(proposalBody()), res);
   assert.equal(res.statusCode, 409);
   assert.equal(res.payload.ok, false);
   assert.equal(res.payload.status, 'PROPOSAL_NOT_PRODUCED');
@@ -149,7 +224,7 @@ test('proposal API stops on an uncertain provider outcome and does not walk into
     }
   });
   const res = responseCapture();
-  await handler(request({ expectedSha: BASE, task: task() }), res);
+  await handler(request(proposalBody()), res);
   assert.equal(res.statusCode, 503);
   assert.deepEqual(calls, ['ai-gateway']);
   assert.equal(res.payload.status, 'PROVIDER_OUTCOME_UNCERTAIN');
@@ -161,7 +236,7 @@ test('proposal API fails closed when no proposal-capable provider is actually re
     { provider: 'open-model', ready: false, blockers: ['runtime-absent'] }
   ] }));
   const res = responseCapture();
-  await handler(request({ expectedSha: BASE, task: task() }), res);
+  await handler(request(proposalBody()), res);
   assert.equal(res.statusCode, 503);
   assert.equal(res.payload.status, 'PROVIDER_BLOCKED');
   assert.equal(res.payload.businessEffectAuthority, 'NONE');

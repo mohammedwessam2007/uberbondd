@@ -52,7 +52,7 @@ The terminal build then reached the full deterministic tree and exposed four cau
 
 ### T1 — stale Mutation War anchors after hardened server split
 
-`MONEY-21`, `IDENT-01`, `SRV-02`, and `SRV-03` still target `server.mjs`, while the mature behavior they attack moved behind the hardened facade into `server-core.mjs`. The registry correctly failed closed with `anchor-not-found`. Repair must retarget the real implementation and ensure the mutation sandbox copies `server-core.mjs`; the anchors must not be deleted or waived.
+`MONEY-21`, `IDENT-01`, `SRV-02`, and `SRV-03` were still targeting `server.mjs`, while the mature behavior they attack moved behind the hardened facade into `server-core.mjs`. The registry correctly failed closed with `anchor-not-found`.
 
 ### T2 — stale reachability classification
 
@@ -87,15 +87,31 @@ Commit `8391ab39d6bff3e2c0a5df305924b496ded6777a` removes only the stale `src/pa
 - the production graph remains authoritative over classification prose;
 - T2 is **SOURCE_FIXED / RUNNER_PROOF_PENDING**.
 
-Current estimate after this material step: **~98.2% source closure / ~93% verified closure**.
+### Step 3 — T1 Mutation War source repair landed
+
+Commit `d263e6298719532b656895139c30579c31bd0067` retargets all four stale server mutations onto the implementation that actually owns those guards:
+
+- `MONEY-21` -> `server-core.mjs`;
+- `IDENT-01` -> `server-core.mjs`;
+- `SRV-02` -> `server-core.mjs`;
+- `SRV-03` -> `server-core.mjs`.
+
+The mutation sandbox now copies `server-core.mjs` alongside `server.mjs` and `worker.mjs`, so a server mutant cannot produce a false red merely because the hardened facade's delegate vanished from the sandbox. `SRV-01` intentionally remains targeted at `server.mjs` because the hardened facade itself owns that security-header guard.
+
+The GitHub commit diff was inspected after the write and contains exactly those intended mutation-target/sandbox changes. No mutation was deleted, waived or counted as killed without execution.
+
+T1 is **SOURCE_FIXED / RUNNER_PROOF_PENDING**.
+
+Current estimate after this material step: **~98.8% source closure / ~94% verified closure**.
 
 ## Next exact actions
 
-1. Repair T1 mutation registry + sandbox copy law.
-2. Use the next real terminal runner's `UBERBOND_REACHABILITY` receipt to repair T3 with exact current numbers.
-3. Obtain runner proof for T2/T4 and the T1 repair.
-4. Run the same full terminal Vercel gate on the exact repaired head.
-5. If green, regenerate final canon/receipt and merge #400 with expected-head protection.
+1. Obtain one real terminal runner execution once the Vercel Hobby build-rate window allows it.
+2. Read the early `UBERBOND_REACHABILITY` receipt from that exact source head.
+3. Use those measured numbers to repair T3 in `docs/CURRENT_SYSTEM_STATE.md` with no arithmetic guessing.
+4. Use the same run to verify T1/T2/T4 focused and deterministic behavior; repair any newly exposed causal family rather than weakening the gate.
+5. Run the full terminal gate again on the exact final repaired head.
+6. If green and no new internally solvable P0/P1/P2 remains, regenerate final canon/receipt and merge #400 with expected-head protection.
 
 ## Persistent truth laws
 

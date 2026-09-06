@@ -63,3 +63,18 @@ test('deep atlas covers every artifact, every text body and structural declarati
   assert.equal(apiChunk.startOffset, 0);
   fs.rmSync(root, { recursive: true, force: true });
 });
+
+test('deep atlas keeps coverage while refusing to replicate secret-shaped source text', () => {
+  const { root, featureGenome } = fixture();
+  const secretFixture = ['sk', 'proj', 'THIS_IS_A_FIXTURE_KEY_1234567890'].join('-');
+  fs.appendFileSync(path.join(root, 'src', 'api.mjs'), `\nconst privateFixture = '${secretFixture}';\n`);
+  const atlas = buildUberBondRepositoryDeepAtlas({ root, featureGenome });
+  assert.equal(atlas.ok, true, JSON.stringify(atlas));
+  const serialized = JSON.stringify(atlas);
+  assert.equal(serialized.includes(secretFixture), false, 'raw credential-shaped text must not survive into durable atlas strings');
+  assert.match(serialized, /\[REDACTED\]/, 'the persisted preview should show that redaction occurred rather than silently dropping coverage');
+  const apiCoverage = atlas.coverage.find(item => item.path === 'src/api.mjs');
+  assert.match(apiCoverage.textDigest, /^[a-f0-9]{64}$/);
+  assert.ok(apiCoverage.contentChunkCount > 0, 'redaction must preserve hashed content coverage');
+  fs.rmSync(root, { recursive: true, force: true });
+});

@@ -48,7 +48,8 @@ test('candidate registry is discovery evidence and cannot self-claim configured'
 test('role coverage exposes gaps instead of inventing a specialist', () => {
   const coverage = frontierRoleCoverage(registry);
   assert.equal(coverage.ok, true);
-  assert.deepEqual(coverage.gaps, []);
+  assert.deepEqual(coverage.gaps, ['general']);
+  assert.deepEqual(coverage.coverage.general, []);
 });
 
 test('observed profile matching associates identity but does not claim callability', () => {

@@ -112,5 +112,8 @@
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.4",
     "embedded-postgres": "^18.4.0-beta.17"
+  },
+  "allowScripts": {
+    "@embedded-postgres/linux-x64@18.4.0-beta.17": true
   }
 }

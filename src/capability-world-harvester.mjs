@@ -3,7 +3,7 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { normalizeDiscoveryArtifact, buildCapabilityProvenance } from './capability-genome-discovery.mjs';
 import { scanCapabilityInstructions } from './capability-genome-admission.mjs';
 
-export const CAPABILITY_WORLD_HARVESTER_VERSION = 'capability-world-harvester-1.0.0';
+export const CAPABILITY_WORLD_HARVESTER_VERSION = 'capability-world-harvester-1.0.1';
 const PERMISSIVE = new Set(['MIT','APACHE-2.0','BSD-2-CLAUSE','BSD-3-CLAUSE','ISC','CC-BY-4.0']);
 const REFERENCE_ONLY = new Set(['GPL-3.0','AGPL-3.0','SSPL-1.0','UNKNOWN','NOASSERTION','']);
 
@@ -82,6 +82,17 @@ export function normalizeWorldCapabilityObservation({
   return { ok:true, status:'WORLD_CAPABILITY_OBSERVATION_NORMALIZED', candidate, candidateDigest:digest(candidate), businessEffectAuthority:'NONE', externalEffectLedger:zeroEffects() };
 }
 
+function validateNormalizedObservation(result) {
+  const reasons=[];
+  if (!result?.ok || !result?.candidate?.artifact?.contentHash) reasons.push('successful-normalized-observation-required');
+  if (!validHash(result?.candidateDigest)) reasons.push('candidate-digest-required');
+  if (result?.candidate && result.candidateDigest !== digest(result.candidate)) reasons.push('candidate-digest-mismatch');
+  if (result?.candidate?.schemaVersion !== 'uberbond.world-capability-observation.v1') reasons.push('candidate-schema-invalid');
+  if (result?.candidate?.trustState !== 'UNTRUSTED_DISCOVERED') reasons.push('candidate-trust-state-invalid');
+  if (result?.candidate?.promotionAuthority !== 'NONE' || result?.candidate?.executableAuthority !== 'NONE') reasons.push('candidate-authority-inflation');
+  return reasons;
+}
+
 export function buildWorldCapabilityAssimilationBatch({ observations=[] }={}) {
   if (!Array.isArray(observations) || observations.length === 0) return fail(['observation-array-required']);
   const accepted=[];
@@ -89,7 +100,8 @@ export function buildWorldCapabilityAssimilationBatch({ observations=[] }={}) {
   const byContent=new Map();
   const duplicateArtifacts=[];
   for (const result of observations) {
-    if (!result?.ok || !result?.candidate?.artifact?.contentHash) return fail(['successful-normalized-observations-required']);
+    const integrityReasons=validateNormalizedObservation(result);
+    if (integrityReasons.length) return fail(integrityReasons);
     const candidate=clone(result.candidate);
     const hash=candidate.artifact.contentHash;
     if (byContent.has(hash)) { duplicateArtifacts.push({ kept:byContent.get(hash).artifact.artifactIdentity, duplicate:candidate.artifact.artifactIdentity, contentHash:hash }); continue; }

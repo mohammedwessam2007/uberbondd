@@ -30,6 +30,29 @@ test('configured profile is not callable without producer-bound live receipt',()
   assert.equal(row.affordable,false);
   assert.equal(row.trustedForTask,false);
   assert.equal(row.state,'CONFIGURED_NOT_LIVE_PROVEN');
+  assert.equal(row.pricingFresh,true);
+  assert.equal(row.transportEvidenceFresh,true);
+});
+
+test('stale profile evidence remains configured but cannot be laundered into fresh economic trust',()=>{
+  const stale={...profile,pricingVerifiedAt:'2026-01-01T00:00:00Z',transportVerifiedAt:'2026-01-01T00:00:00Z'};
+  const result=compileComputeSovereigntyCapacityFrontier({catalogCandidates:catalog,profiles:[stale],benchmarks:[],budgetCents:100,estimatedInputTokens:1000,estimatedOutputTokens:100,now:NOW,profileEvidenceMaxAgeMs:7*24*60*60*1000});
+  const row=result.receipt.models.find(item=>item.model==='frontier-a');
+  assert.equal(row.configured,true);
+  assert.equal(row.pricingFresh,false);
+  assert.equal(row.transportEvidenceFresh,false);
+  assert.equal(row.affordable,false);
+  assert.equal(row.trustedForTask,false);
+  assert.equal(result.receipt.counts.stalePricing,1);
+  assert.equal(result.receipt.counts.staleTransportEvidence,1);
+});
+
+test('future-dated pricing and transport evidence is not fresh',()=>{
+  const future={...profile,pricingVerifiedAt:'2026-09-07T00:00:00Z',transportVerifiedAt:'2026-09-07T00:00:00Z'};
+  const result=compileComputeSovereigntyCapacityFrontier({catalogCandidates:catalog,profiles:[future],benchmarks:[],budgetCents:100,now:NOW});
+  const row=result.receipt.models.find(item=>item.model==='frontier-a');
+  assert.equal(row.pricingFresh,false);
+  assert.equal(row.transportEvidenceFresh,false);
 });
 
 test('synthetic callability receipt can never mint live capacity',()=>{
@@ -57,7 +80,8 @@ test('profile missing from catalog stays configured but is not laundered into di
   assert.equal(result.receipt.models[0].callableNow,false);
 });
 
-test('invalid budgets and token estimates fail closed',()=>{
+test('invalid budgets token estimates and evidence age bounds fail closed',()=>{
   assert.equal(compileComputeSovereigntyCapacityFrontier({catalogCandidates:[],profiles:[],benchmarks:[],budgetCents:-1,now:NOW}).ok,false);
   assert.equal(compileComputeSovereigntyCapacityFrontier({catalogCandidates:[],profiles:[],benchmarks:[],estimatedInputTokens:-2,now:NOW}).ok,false);
+  assert.equal(compileComputeSovereigntyCapacityFrontier({catalogCandidates:[],profiles:[],benchmarks:[],profileEvidenceMaxAgeMs:-1,now:NOW}).ok,false);
 });

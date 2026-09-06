@@ -38,6 +38,30 @@ test('missing first-cash question fails closed instead of overstating readiness'
   assert.ok(result.reasonCodes.includes('first-cash-question-coverage-incomplete'));
 });
 
+test('duplicate or unexpected question ids fail closed',()=>{
+  const duplicate=structuredClone(packet); duplicate.questions.push(structuredClone(duplicate.questions[0]));
+  const result=compilePreCustomerRevenueReadiness({firstCashPacket:duplicate});
+  assert.equal(result.ok,false);
+  assert.ok(result.reasonCodes.includes('first-cash-question-set-must-be-exact-and-unique'));
+});
+
+test('forged nonzero commercial truth can never enter pre-customer readiness',()=>{
+  const forged=structuredClone(packet);
+  forged.commercialTruth.realCustomers=9;
+  forged.commercialTruth.clearedRevenueCents=999999;
+  const result=compilePreCustomerRevenueReadiness({firstCashPacket:forged});
+  assert.equal(result.ok,false);
+  assert.ok(result.reasonCodes.includes('pre-customer-commercial-truth-must-remain-zero'));
+});
+
+test('forged packet id or schema version fails closed',()=>{
+  const forged=structuredClone(packet); forged.packetId='firstcash_forged'; forged.schemaVersion='fake';
+  const result=compilePreCustomerRevenueReadiness({firstCashPacket:forged});
+  assert.equal(result.ok,false);
+  assert.ok(result.reasonCodes.includes('canonical-first-cash-schema-version-required'));
+  assert.ok(result.reasonCodes.includes('first-cash-packet-id-integrity-mismatch'));
+});
+
 test('matrix truth law keeps external activation visibly required today',()=>{
   const result=compilePreCustomerRevenueReadiness({firstCashPacket:packet});
   assert.equal(result.matrix.externalActivationRequired,true);

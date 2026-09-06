@@ -4,10 +4,15 @@ const steps = [
   ['node', ['scripts/uberbond-feature-genome.mjs']],
   ['node', ['scripts/uberbond-feature-atom-atlas.mjs']],
   ['node', ['scripts/uberbond-synaptic-map.mjs']],
+  ['node', ['scripts/uberbond-repository-deep-atlas.mjs']],
+  ['node', ['scripts/uberbond-ultimate-graph.mjs']],
   ['node', ['--test',
     'tests/uberbond-command-center-status.test.mjs',
     'tests/uberbond-synaptic-map.test.mjs',
-    'tests/uberbond-synaptic-cycle-binding.test.mjs'
+    'tests/uberbond-synaptic-cycle-binding.test.mjs',
+    'tests/uberbond-repository-deep-atlas.test.mjs',
+    'tests/uberbond-ultimate-graph.test.mjs',
+    'tests/uberbond-ultimate-graph-cycle-binding.test.mjs'
   ]],
   ['node', ['--test',
     'tests/wessam-continuity.test.mjs',
@@ -45,5 +50,6 @@ for (const [command, args] of steps) {
 console.log(JSON.stringify({
   ok: true,
   status: 'VERCEL_NIGHT10_TERMINAL_SOURCE_GATE_PASSED',
+  ultimateGraphRequired: true,
   externalEffectAuthority: 'NONE'
 }));

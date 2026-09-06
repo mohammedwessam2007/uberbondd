@@ -46,7 +46,10 @@
     for (let i = 0; i < text.length; i += 1) { h ^= text.charCodeAt(i); h = Math.imul(h, 16777619); }
     return h >>> 0;
   };
-  const token = () => sessionStorage.uberbondGraphToken || localStorage.revenueEngineToken || localStorage.nightshiftToken || '';
+  const deploymentProtected = document.documentElement.dataset.uberbondAuthMode === 'deployment-protected';
+  const token = () => deploymentProtected
+    ? 'deployment-protected'
+    : (typeof window.__uberbondOwnerBearer === 'function' ? window.__uberbondOwnerBearer() : '');
 
   function colorFor(node) {
     const cls = String(node?.class || '').toUpperCase();
@@ -88,8 +91,6 @@
     const height = Math.max(480, rect.height);
     const cx = width / 2;
     const cy = height / 2;
-    const degree = degreeMap();
-    const byId = new Map(state.nodes.map(node => [node.id, node]));
     const parentArtifact = new Map();
     const parentOrgan = new Map();
     for (const edge of state.edges) {
@@ -163,15 +164,6 @@
     };
   }
 
-  function screenToWorld(point) {
-    const rect = stage.getBoundingClientRect();
-    const cx = rect.width / 2, cy = rect.height / 2;
-    return {
-      x: (point.x - cx - state.transform.x) / state.transform.scale + cx,
-      y: (point.y - cy - state.transform.y) / state.transform.scale + cy
-    };
-  }
-
   function drawBackground(width, height) {
     ctx.save();
     ctx.translate(width / 2 + state.transform.x, height / 2 + state.transform.y);
@@ -193,7 +185,6 @@
     const width = rect.width, height = rect.height;
     ctx.clearRect(0, 0, width, height);
     drawBackground(width, height);
-    const nodeById = new Map(state.nodes.map(node => [node.id, node]));
     const degree = degreeMap();
     ctx.lineWidth = 1;
     for (let i = 0; i < state.edges.length; i += 1) {
@@ -286,9 +277,10 @@
 
   async function graphApi(params) {
     const owner = token();
-    if (!owner) throw Object.assign(new Error('OWNER_KEY_REQUIRED'), { status: 401 });
+    if (!deploymentProtected && !owner) throw Object.assign(new Error('OWNER_KEY_REQUIRED'), { status: 401 });
     const query = new URLSearchParams(params);
-    const response = await fetch(`/api/ultimate-graph?${query.toString()}`, { headers: { authorization: `Bearer ${owner}` }, cache: 'no-store' });
+    const headers = deploymentProtected ? {} : { authorization: `Bearer ${owner}` };
+    const response = await fetch(`/api/ultimate-graph?${query.toString()}`, { headers, cache: 'no-store' });
     const body = await response.json().catch(() => ({ status: 'INVALID_RESPONSE' }));
     if (!response.ok) throw Object.assign(new Error(body?.reasonCodes?.join(',') || body?.status || 'ULTIMATE_GRAPH_REQUEST_FAILED'), { status: response.status });
     return body;
@@ -473,7 +465,7 @@
   let searchTimer = null;
   $('#graph-search')?.addEventListener('input', event => { clearTimeout(searchTimer); const q = event.target.value.trim(); searchTimer = setTimeout(() => { state.history.length = 0; q ? loadLens('all', q) : loadLens(state.lens); }, 380); });
   $('#graph-search')?.addEventListener('keydown', event => { if (event.key === 'Escape') { event.target.value=''; loadLens('brain'); } });
-  $('#auth-form')?.addEventListener('submit', () => { const value = $('#owner-token')?.value.trim(); if (value) sessionStorage.uberbondGraphToken = value; setTimeout(async () => { await loadSummary(); activate(); }, 450); }, true);
+  $('#auth-form')?.addEventListener('submit', () => { setTimeout(async () => { await loadSummary(); activate(); }, 450); }, true);
 
   window.addEventListener('resize', () => { clearTimeout(window.__uberGraphResize); window.__uberGraphResize = setTimeout(resizeCanvas, 100); });
   document.addEventListener('visibilitychange', () => { if (!document.hidden && state.active && token()) loadSummary(); });

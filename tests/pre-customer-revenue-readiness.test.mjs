@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { compileFirstCashCanaryPacket, FIRST_CASH_QUESTIONS } from '../src/first-cash-canary-packet.mjs';
+import { PAYMENT_RENEWAL_TRUTH_VERSION } from '../src/payment-renewal-truth.mjs';
 import { compilePreCustomerRevenueReadiness } from '../src/pre-customer-revenue-readiness.mjs';
 
 const packet=compileFirstCashCanaryPacket({providers:[],date:new Date('2026-09-06T01:00:00Z')});
@@ -42,4 +43,32 @@ test('matrix truth law keeps external activation visibly required today',()=>{
   assert.equal(result.matrix.externalActivationRequired,true);
   assert.equal(result.matrix.canContact,false);
   assert.ok(result.matrix.stages.some(stage=>stage.status==='EXTERNAL_OR_CONFIGURATION_GATED'));
+});
+
+test('renewal and retention use the canonical payment-renewal truth path but remain external proof',()=>{
+  const result=compilePreCustomerRevenueReadiness({firstCashPacket:packet});
+  const renewal=result.matrix.lifecycleContracts.find(row=>row.stage==='RENEWAL');
+  const retention=result.matrix.lifecycleContracts.find(row=>row.stage==='RETENTION');
+  assert.equal(renewal.softwareStatus,'SOFTWARE_READY');
+  assert.equal(retention.softwareStatus,'SOFTWARE_READY');
+  assert.equal(renewal.canonicalModule,'src/payment-renewal-truth.mjs');
+  assert.equal(retention.canonicalModule,'src/payment-renewal-truth.mjs');
+  assert.equal(renewal.canonicalPolicyVersion,PAYMENT_RENEWAL_TRUTH_VERSION);
+  assert.equal(retention.canonicalPolicyVersion,PAYMENT_RENEWAL_TRUTH_VERSION);
+  assert.equal(renewal.externalTruthStatus,'EXTERNAL_PROOF_REQUIRED');
+  assert.equal(retention.externalTruthStatus,'EXTERNAL_PROOF_REQUIRED');
+  assert.equal(result.matrix.commercialTruth.retainedCustomers,0);
+  assert.match(result.matrix.truthBoundary,/RENEWAL_OR_RETENTION/);
+});
+
+test('stage matrix includes renewal and retention without pretending first-cash questions prove them',()=>{
+  const result=compilePreCustomerRevenueReadiness({firstCashPacket:packet});
+  const renewal=result.matrix.stages.find(row=>row.stage==='RENEWAL');
+  const retention=result.matrix.stages.find(row=>row.stage==='RETENTION');
+  assert.equal(renewal.status,'EXTERNAL_PROOF_GATED');
+  assert.equal(retention.status,'EXTERNAL_PROOF_GATED');
+  assert.equal(renewal.questionCount,0);
+  assert.equal(retention.questionCount,0);
+  assert.equal(renewal.softwareReadyCount,1);
+  assert.equal(retention.softwareReadyCount,1);
 });

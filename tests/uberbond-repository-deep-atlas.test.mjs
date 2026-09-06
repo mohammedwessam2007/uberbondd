@@ -78,3 +78,20 @@ test('deep atlas keeps coverage while refusing to replicate secret-shaped source
   assert.ok(apiCoverage.contentChunkCount > 0, 'redaction must preserve hashed content coverage');
   fs.rmSync(root, { recursive: true, force: true });
 });
+
+test('deep atlas cannot copy the secret-scanner fixture exemption into its own durable output', () => {
+  const { root, featureGenome } = fixture();
+  const fixtureMarker = ['secret-scanner', 'fixtures', 'intentional'].join('-');
+  fs.appendFileSync(path.join(root, 'src', 'api.mjs'), `\n// ${fixtureMarker}\n`);
+  const atlas = buildUberBondRepositoryDeepAtlas({ root, featureGenome });
+  assert.equal(atlas.ok, true, JSON.stringify(atlas));
+  const serialized = JSON.stringify(atlas);
+  assert.equal(serialized.includes(fixtureMarker), false,
+    'generated atlas must not inherit an authority-bearing scanner exemption from observed source');
+  assert.match(serialized, /secret-scanner-fixture-marker-redacted/,
+    'atlas should preserve visible evidence that the authority-bearing marker was sanitized');
+  const apiCoverage = atlas.coverage.find(item => item.path === 'src/api.mjs');
+  assert.match(apiCoverage.textDigest, /^[a-f0-9]{64}$/,
+    'marker sanitization must not destroy exact source coverage evidence');
+  fs.rmSync(root, { recursive: true, force: true });
+});

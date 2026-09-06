@@ -65,23 +65,28 @@ The terminal build then reached the full deterministic tree and exposed four cau
 
 The generated `artifacts/cognitive/uberbond-repository-deep-atlas-latest.json` became an unexpected secret-sweep exemption because `CONTENT_CHUNK.preview` copied source text verbatim. This is a real privacy defect in a generated self-model artifact. Repair by sanitizing/redacting preview material at generation time and add a hostile regression proving secret-shaped source text never survives into Deep Atlas preview. Do **not** exempt the generated artifact from the secret scanner.
 
-## Current closure estimate
+## Closure progress
 
-At this checkpoint:
+### Step 2A — T4 source repair landed
 
-- source/architecture closure: approximately **97%** of the fixed terminal software denominator;
-- verified closure: approximately **92%** because the four terminal defects must be repaired and the exact repaired head must rerun the full gate;
-- the percentage is a mission-progress estimate, not a claim about all software that could ever be added to UberBond.
+Commits `56ae8a2cc230557e9e7b5e262a2a9d3ada27845c` and `a919ce92dbf7ae7748e373bc274493fcd407e4d9` repair the Deep Atlas persistence boundary and add a causal hostile regression.
+
+- `src/uberbond-repository-deep-atlas.mjs` now uses the canonical `redactSecrets` mechanism for persisted normalized strings and advances policy version to `1.2.0`.
+- raw source coverage remains represented by SHA-256 digest, offsets and chunk coverage; the privacy repair does not reduce repository coverage.
+- the hostile test dynamically constructs a credential-shaped fixture so the repository's own secret scanner is not poisoned by a literal fake token in the test source.
+- the test requires the raw fixture value to be absent from serialized Deep Atlas output, requires `[REDACTED]` evidence, and requires hashed content coverage to remain present.
+- T4 is **SOURCE_FIXED / RUNNER_PROOF_PENDING**. No exemption was added to the secret scanner.
+
+Current estimate after this material step: **~97.8% source closure / ~92.5% verified closure**.
 
 ## Next exact actions
 
 1. Repair T1 mutation registry + sandbox copy law.
 2. Repair T2 stale reachability classification.
 3. Repair T3 machine-readable current-state reachability from measured graph facts.
-4. Repair T4 Deep Atlas preview redaction + hostile regression.
-5. Rerun focused causal tests if a real runner is available.
-6. Run the same full terminal Vercel gate on the exact repaired head.
-7. If green, regenerate final canon/receipt and merge #400 with expected-head protection.
+4. Obtain runner proof for T4 and the other repairs.
+5. Run the same full terminal Vercel gate on the exact repaired head.
+6. If green, regenerate final canon/receipt and merge #400 with expected-head protection.
 
 ## Persistent truth laws
 

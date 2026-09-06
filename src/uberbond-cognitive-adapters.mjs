@@ -1,6 +1,6 @@
 import { compileCognitiveEvent } from './uberbond-cognitive-bus.mjs';
 
-export const UBERBOND_COGNITIVE_ADAPTER_POLICY_VERSION = 'uberbond-cognitive-adapters-1.1.0';
+export const UBERBOND_COGNITIVE_ADAPTER_POLICY_VERSION = 'uberbond-cognitive-adapters-1.2.0';
 
 function text(value, max = 2000) {
   const out = String(value ?? '').trim();
@@ -31,6 +31,36 @@ export function eventFromGamechangerArtifact(artifact, { ref = 'artifact:gamecha
     evidenceRefs: [artifactRef(ref, 'artifact:gamechanger-mesh-latest')],
     truthClass: 'RESEARCH_ASSET',
     observedAt: stamp(artifact.generatedAt)
+  });
+}
+
+export function eventFromGamechangerIntegrationQueue(artifact, { ref = 'artifact:gamechanger-integration-queue-latest' } = {}) {
+  if (!artifact || typeof artifact !== 'object' || Array.isArray(artifact)) return null;
+  const queue = artifact.queue && typeof artifact.queue === 'object' && !Array.isArray(artifact.queue) ? artifact.queue : artifact;
+  if (queue.schemaVersion !== 'uberbond.gamechanger-integration-queue.v1' || !Array.isArray(queue.entries)) return compileCognitiveEvent({
+    kind: 'BLOCKER',
+    sourceNodeId: 'gamechanger',
+    subjectType: 'INTEGRATION_QUEUE',
+    subjectId: 'gamechanger-integration:invalid',
+    summary: 'Gamechanger integration queue is present but invalid or unreadable; do not promote research findings until the queue contract is repaired.',
+    evidenceRefs: [artifactRef(ref, 'artifact:gamechanger-integration-queue-latest')],
+    truthClass: 'RESEARCH_ASSET'
+  });
+  const engineeringEligible = queue.entries.filter(entry => entry?.engineeringEligible === true).length;
+  const evidenceRebinding = queue.entries.filter(entry => entry?.queueState === 'PRIMARY_EVIDENCE_REBINDING_REQUIRED').length;
+  const atomization = queue.entries.filter(entry => entry?.queueState === 'ATOMIZATION_REQUIRED').length;
+  const research = queue.entries.filter(entry => entry?.queueState === 'RESEARCH_REQUIRED').length;
+  const possibleAdjacency = queue.entries.filter(entry => Array.isArray(entry?.possibleExistingCapabilityMatches) && entry.possibleExistingCapabilityMatches.length > 0).length;
+  return compileCognitiveEvent({
+    kind: engineeringEligible > 0 ? 'CAPABILITY_CANDIDATE' : 'CAPABILITY_GAP',
+    sourceNodeId: 'gamechanger',
+    subjectType: 'INTEGRATION_QUEUE',
+    subjectId: `gamechanger-integration:${text(queue.generatedAt, 100) || 'latest'}`,
+    summary: `Governed Gamechanger integration queue contains ${queue.entries.length} durable mechanisms: ${engineeringEligible} bounded experiments eligible for proposal, ${evidenceRebinding} awaiting current primary-evidence rebinding, ${atomization} awaiting atomization, ${research} awaiting skeptical research, and ${possibleAdjacency} with possible Capability Genome adjacency. Queue status never grants implementation, promotion, commercial-truth or external-effect authority.`,
+    evidenceRefs: [artifactRef(ref, 'artifact:gamechanger-integration-queue-latest')],
+    payloadRef: artifactRef(ref, 'artifact:gamechanger-integration-queue-latest'),
+    truthClass: 'RESEARCH_ASSET',
+    observedAt: stamp(queue.generatedAt)
   });
 }
 
@@ -109,6 +139,7 @@ export function eventFromCommercialOutcome(outcome, { ref = 'receipt:commercial-
 
 export function compileCognitiveEventsFromArtifacts({
   gamechanger = null,
+  gamechangerIntegration = null,
   genesis = null,
   capabilityGenome = null,
   selfMaintenance = null,
@@ -117,6 +148,7 @@ export function compileCognitiveEventsFromArtifacts({
 } = {}) {
   const events = [
     eventFromGamechangerArtifact(gamechanger, { ref: refs.gamechanger }),
+    eventFromGamechangerIntegrationQueue(gamechangerIntegration, { ref: refs.gamechangerIntegration }),
     eventFromGenesisArtifact(genesis, { ref: refs.genesis }),
     eventFromCapabilityGenomeResult(capabilityGenome, { ref: refs.capabilityGenome }),
     eventFromSelfMaintenanceResult(selfMaintenance, { ref: refs.selfMaintenance }),

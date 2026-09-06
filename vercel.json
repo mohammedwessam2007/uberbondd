@@ -10,6 +10,10 @@
     "api/command-center.mjs": {
       "maxDuration": 30,
       "includeFiles": "{config/frontier-model-candidates.json,artifacts/perpetual-frontier-implementation-ledger.json,artifacts/uberbond-*-latest.json,artifacts/cognitive/*-latest.json}"
+    },
+    "api/ultimate-graph.mjs": {
+      "maxDuration": 30,
+      "includeFiles": "artifacts/cognitive/uberbond-ultimate-graph-latest.json"
     }
   },
   "rewrites": [

@@ -25,6 +25,7 @@ import { execFileSync } from 'node:child_process';
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const MAX_REPOSITORY_PROVEN_LEVEL = 4;
+const PRODUCTION_ENTRY_POINTS = ['server.mjs', 'worker.mjs', 'scripts/agent-mesh-tick.mjs'];
 
 function git(args) {
   try {
@@ -51,8 +52,24 @@ function testFiles() {
   return readdirSync(join(repoRoot, 'tests')).filter(name => name.endsWith('.test.mjs'));
 }
 
+function entryPointsIn(dir, extension = '.mjs') {
+  const found = [];
+  const walk = relative => {
+    let entries;
+    try { entries = readdirSync(join(repoRoot, relative), { withFileTypes: true }); }
+    catch { return; }
+    for (const entry of entries) {
+      const child = `${relative}/${entry.name}`;
+      if (entry.isDirectory()) walk(child);
+      else if (entry.name.endsWith(extension)) found.push(child);
+    }
+  };
+  walk(dir);
+  return found.sort();
+}
+
 /** Modules reachable from a production entry point, by following static imports. */
-export function reachableFromEntryPoints(entryPoints = ['server.mjs', 'worker.mjs', 'scripts/agent-mesh-tick.mjs']) {
+export function reachableFromEntryPoints(entryPoints = PRODUCTION_ENTRY_POINTS) {
   const seen = new Set();
   const stack = [...entryPoints];
   while (stack.length) {
@@ -76,6 +93,47 @@ export function reachableFromEntryPoints(entryPoints = ['server.mjs', 'worker.mj
     }
   }
   return seen;
+}
+
+/**
+ * Reachability is repository structure, not a recorded human measurement.
+ * Compute it from the current tree every time readiness is built so a stale
+ * config packet or prose paragraph can never mint a current reachability fact.
+ */
+export function measureReachability() {
+  const api = entryPointsIn('api');
+  const scripts = entryPointsIn('scripts');
+  const all = entryPointsIn('src');
+  const productionSet = reachableFromEntryPoints([...PRODUCTION_ENTRY_POINTS, ...api]);
+  const anyEntrySet = reachableFromEntryPoints(['server.mjs', 'worker.mjs', ...scripts, ...api]);
+  const production = all.filter(file => productionSet.has(file));
+  const operatorOnly = all.filter(file => !productionSet.has(file) && anyEntrySet.has(file));
+  const unreachable = all.filter(file => !anyEntrySet.has(file));
+
+  let classified = [];
+  try {
+    classified = Object.keys(
+      JSON.parse(readFileSync(join(repoRoot, 'config', 'reachability-classification.json'), 'utf8')).modules || {}
+    );
+  } catch {
+    classified = [];
+  }
+  const classifiedSet = new Set(classified);
+  const unclassified = unreachable.filter(file => !classifiedSet.has(file));
+  const staleClassifications = classified.filter(file => anyEntrySet.has(file));
+
+  return {
+    command: 'node --test tests/reachability-ratchet.test.mjs',
+    measurementMode: 'LIVE_COMPUTED_FROM_IMPORT_GRAPH',
+    srcModules: all.length,
+    reachableFromProduction: production.length,
+    reachableFromOperatorScriptsOnly: operatorOnly.length,
+    noEntryPointAtAll: unreachable.length,
+    partitionExact: production.length + operatorOnly.length + unreachable.length === all.length,
+    allClassified: unclassified.length === 0 && staleClassifications.length === 0,
+    unclassified,
+    staleClassifications
+  };
 }
 
 /**
@@ -116,7 +174,7 @@ export function buildReadiness({ measurements = {}, capabilities = [], now = new
       // checked-out commit remains the only truth source.
       head: process.env.UBERBOND_CANONICAL_HEAD || git(['rev-parse', 'HEAD']),
       // A release candidate is commonly verified on a temporary integration
-      // branch before this exact commit is fast-forwarded to main.  The
+      // branch before this exact commit is fast-forwarded to main. The
       // readiness document describes its intended canonical ref, not the
       // disposable checkout name used to earn the evidence.
       branch: process.env.UBERBOND_CANONICAL_BRANCH || git(['rev-parse', '--abbrev-ref', 'HEAD']),
@@ -124,17 +182,19 @@ export function buildReadiness({ measurements = {}, capabilities = [], now = new
       testSuites: testFiles().length,
       workingTreeClean: git(['status', '--porcelain']) === ''
     },
-    measurements,
+    measurements: {
+      ...measurements,
+      // Deliberately overwrite any recorded reachability packet. Import-graph
+      // structure is measurable from this exact tree and must never be inherited
+      // from an older config/system-readiness-input.json.
+      reachability: measureReachability()
+    },
     capabilities: entries,
     truthBoundary: {
       maxLevelProvableFromRepositoryAlone: MAX_REPOSITORY_PROVEN_LEVEL,
       note: 'Levels 5 and above require evidence from outside this repository. Nothing here can witness the outside world, so nothing here may assert them.'
     }
   };
-}
-
-function measurement(input, id) {
-  return input.measurements?.[id] || {};
 }
 
 function replaceRequired(text, pattern, replacement, label) {
@@ -145,53 +205,23 @@ function replaceRequired(text, pattern, replacement, label) {
 }
 
 /**
- * Refresh only the mechanically measurable portion of the human-facing
- * current-state document. The explanatory sections beneath it are maintained
- * policy text; rewriting them during every test run would turn evidence into
- * churn. Missing markers fail closed instead of silently leaving stale facts.
+ * Refresh only source identity and the executable reachability pointer in the
+ * human-facing current-state document. Historical/executed gate numbers belong
+ * to their receipts; copying them from a readiness input into present-tense
+ * prose caused repeated canon drift and can manufacture a newer-looking proof.
  */
-function refreshCurrentStateDocument({ input, readiness }) {
+function refreshCurrentStateDocument({ readiness }) {
   const path = join(repoRoot, 'docs', 'CURRENT_SYSTEM_STATE.md');
   if (!existsSync(path)) return;
 
-  const syntax = measurement(input, 'check:syntax');
-  const deterministic = measurement(input, 'test:deterministic');
-  const relay = measurement(input, 'test:relay-safety');
-  const postgres = measurement(input, 'test:postgres-real');
-  const audit = measurement(input, 'npm audit');
-  const mutation = measurement(input, 'test:mutation-war');
-  const browser = measurement(input, 'test:browser');
-  const reachability = measurement(input, 'reachability');
   const date = String(readiness.generatedAt).slice(0, 10);
-  const result = (item, fallback) => item.result || item.note || fallback;
-
   let text = readFileSync(path, 'utf8');
   text = replaceRequired(text, /^Last reconciled:.*$/m, `Last reconciled: **${date}**`, 'reconciliation date');
   text = replaceRequired(text, /^Branch:.*$/m, `Branch: \`${readiness.repository.branch}\``, 'canonical branch');
   text = replaceRequired(text, /^Reconciled from (?:main|current head):.*$/m,
     `Reconciled from current head: \`${readiness.repository.head}\``, 'source commit');
-  text = replaceRequired(text, /^\| Syntax \|.*$/m,
-    `| Syntax | \`${syntax.command || 'npm run check:syntax'}\`: ${syntax.filesParsed ?? 'unrecorded'} files parse (${String(syntax.ranAt || date).slice(0, 10)}) |`, 'syntax measurement');
-  text = replaceRequired(text, /^\| Deterministic \|.*$/m,
-    `| Deterministic | \`${deterministic.command || 'npm run test:deterministic'}\`: ${deterministic.tests ?? 'unrecorded'} tests, ${deterministic.pass ?? 'unrecorded'} pass, **${deterministic.fail ?? 'unrecorded'} fail**, ${deterministic.skipped ?? 'unrecorded'} skipped (${String(deterministic.ranAt || date).slice(0, 10)}) |`, 'deterministic measurement');
-  text = replaceRequired(text, /^\| Relay safety \|.*$/m,
-    `| Relay safety | \`${relay.command || 'npm run test:relay-safety'}\`: ${relay.tests ?? 'unrecorded'} tests, ${relay.pass ?? 'unrecorded'} pass, ${relay.fail ?? 'unrecorded'} fail (${String(relay.ranAt || date).slice(0, 10)}) |`, 'relay measurement');
-  text = replaceRequired(text, /^\| Real PostgreSQL \|.*$/m,
-    `| Real PostgreSQL | \`${postgres.command || 'npm run test:postgres-real'}\`: ${result(postgres, 'not recorded')} |`, 'PostgreSQL measurement');
-  text = replaceRequired(text, /^\| Mutation war \|.*$/m,
-    `| Mutation war | \`${mutation.command || 'npm run test:mutation-war'}\`: ${result(mutation, 'not recorded')} |`, 'mutation measurement');
-  text = replaceRequired(text, /^\| Browser \|.*$/m,
-    `| Browser | \`${browser.command || 'npm run test:browser'}\`: ${result(browser, 'not recorded')} |`, 'browser measurement');
-  text = replaceRequired(text, /^\| (?:Dependencies|Dependency audit) \|.*$/m,
-    `| Dependency audit | \`${audit.command || 'npm audit'}\`: ${result(audit, 'not recorded')} |`, 'dependency measurement');
-  text = replaceRequired(text, /^\*\*[0-9]+ of [0-9]+ `src` modules have no entry point at all\*\*\.$/m,
-    `**${reachability.noEntryPointAtAll ?? 'unrecorded'} of ${reachability.srcModules ?? 'unrecorded'} \`src\` modules have no entry point at all**.`, 'reachability prose');
-  text = replaceRequired(text, /^\| Reachable from production \|.*$/m,
-    `| Reachable from production | ${reachability.reachableFromProduction ?? 'unrecorded'} |`, 'production reachability');
-  text = replaceRequired(text, /^\| Reachable only via an operator script \|.*$/m,
-    `| Reachable only via an operator script | ${reachability.reachableFromOperatorScriptsOnly ?? 'unrecorded'} |`, 'operator reachability');
-  text = replaceRequired(text, /^\| \*\*No entry point at all\*\* \|.*$/m,
-    `| **No entry point at all** | **${reachability.noEntryPointAtAll ?? 'unrecorded'}** |`, 'unreachable count');
+  text = replaceRequired(text, /^Reachability source:.*$/m,
+    'Reachability source: `tests/reachability-ratchet.test.mjs` (LIVE_COMPUTED)', 'reachability source');
   writeFileSync(path, text);
 }
 
@@ -206,7 +236,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   mkdirSync(join(repoRoot, 'artifacts'), { recursive: true });
   const out = join(repoRoot, 'artifacts', 'system-readiness.json');
   writeFileSync(out, `${JSON.stringify(readiness, null, 2)}\n`);
-  refreshCurrentStateDocument({ input, readiness });
+  refreshCurrentStateDocument({ readiness });
   const capped = readiness.capabilities.filter(item => item.cappedByMissingExternalEvidence);
   console.log(`system-readiness — ${readiness.capabilities.length} capabilities, ${capped.length} capped for want of external evidence`);
   for (const item of capped) console.log(`  capped ${item.id}: declared ${item.declaredLevel} -> ${item.level}`);

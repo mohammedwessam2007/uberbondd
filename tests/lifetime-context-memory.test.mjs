@@ -34,6 +34,24 @@ test('unknown supersede targets fail closed', () => {
   assert.ok(result.reasonCodes.includes('unknown-superseded-memory:new:missing'));
 });
 
+test('supersession cycles cannot erase all active beliefs', () => {
+  const result = compileLifetimeMemoryIndex({ now:NOW, items:[
+    item({id:'a',observedAt:'2026-09-05T00:00:00Z',supersedes:['b']}),
+    item({id:'b',observedAt:'2026-09-05T00:00:00Z',supersedes:['a'],provenanceRefs:['source:b']})
+  ] });
+  assert.equal(result.ok,false);
+  assert.ok(result.reasonCodes.includes('supersession-cycle-prohibited'));
+});
+
+test('stale memory cannot supersede newer evidence', () => {
+  const result = compileLifetimeMemoryIndex({ now:NOW, items:[
+    item({id:'newer',observedAt:'2026-09-06T00:00:00Z'}),
+    item({id:'stale',observedAt:'2026-09-01T00:00:00Z',supersedes:['newer'],provenanceRefs:['source:stale']})
+  ] });
+  assert.equal(result.ok,false);
+  assert.ok(result.reasonCodes.includes('stale-memory-cannot-supersede-newer:stale:newer'));
+});
+
 test('unresolved contradictions remain explicit review warnings', () => {
   const result = compileLifetimeMemoryIndex({ now:NOW, items:[item({id:'a',contradictionGroup:'provider-price'}),item({id:'b',summary:'Different price',provenanceRefs:['source:b'],contradictionGroup:'provider-price'})] });
   assert.equal(result.ok,true);
@@ -47,6 +65,19 @@ test('task context excludes private and synthetic memory by default', () => {
   assert.equal(packet.ok,true);
   assert.deepEqual(packet.packet.selected.map(row=>row.id),['public']);
   assert.equal(packet.packet.syntheticIncluded,false);
+});
+
+test('forged or mutated memory index is rejected before retrieval or health certification', () => {
+  const built=compileLifetimeMemoryIndex({now:NOW,items:[item()]});
+  const forged=structuredClone(built.index);
+  forged.items[0].privacyClass='PUBLIC';
+  forged.items[0].summary='forged public replacement';
+  const packet=compileTaskContextPacket({index:forged,query:'forged',now:NOW});
+  assert.equal(packet.ok,false);
+  assert.ok(packet.reasonCodes.includes('memory-index-integrity-mismatch'));
+  const health=compileMemoryHealthReceipt({index:forged});
+  assert.equal(health.ok,false);
+  assert.ok(health.reasonCodes.includes('memory-index-integrity-mismatch'));
 });
 
 test('explicit synthetic recall preserves SYNTHETIC label', () => {
@@ -70,4 +101,5 @@ test('task context is bounded working memory with measurable reduction', () => {
   assert.equal(packet.packet.selected[0].id,'m-42');
   assert.equal(packet.packet.minimization.reductionRatio,0.9);
   assert.equal(packet.packet.consequenceAuthority,'NONE');
+  assert.equal(packet.packet.sourceIndexIntegrityDigest,built.index.integrityDigest);
 });

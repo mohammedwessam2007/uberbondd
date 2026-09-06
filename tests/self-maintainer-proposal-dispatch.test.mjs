@@ -59,7 +59,7 @@ function relayTask() {
     targetAgent: 'claude-code',
     parentTask: `main:${BASE}`,
     contextRefs: [`github:commit:${BASE}`],
-    evidenceRefs: [`github:commit:${BASE}`],
+    evidenceRefs: [`evidence:github-commit:${BASE}`],
     constraints: [`exact-base-revision:${BASE}`],
     forbiddenActions: ['merge', 'deploy', 'send', 'spend'],
     requiredOutputs: ['outcome', 'changedArtifacts', 'testsActuallyRun', 'truthTable', 'externalEffectLedger', 'decision', 'codeChangeSet'],
@@ -70,23 +70,25 @@ function relayTask() {
 }
 
 function sourceInventory() {
+  const paths = [SOURCE_PATH, 'tests/proposal-safe-example.test.mjs'].sort();
+  const encoded = JSON.stringify(paths);
   return {
     ok: true,
     status: 'SOURCE_INVENTORY_READY',
     sourceSha: BASE,
-    paths: [SOURCE_PATH, 'tests/proposal-safe-example.test.mjs'],
-    pathCount: 2,
-    inventoryDigest: 'inventory-digest-test',
-    byteLength: 80
+    paths,
+    pathCount: paths.length,
+    inventoryDigest: contentSha256(encoded),
+    byteLength: Buffer.byteLength(encoded)
   };
 }
 
-function exactSourceContext() {
+function exactSourceContext(inventory = sourceInventory()) {
   return {
     ok: true,
     status: 'EXACT_SOURCE_CONTEXT_READY',
     sourceSha: BASE,
-    inventoryDigest: 'inventory-digest-test',
+    inventoryDigest: inventory.inventoryDigest,
     sourceContextDigest: 'source-context-digest-test',
     files: [{ path: SOURCE_PATH, sha256: BEFORE, byteLength: Buffer.byteLength(SOURCE_CONTENT), content: SOURCE_CONTENT }],
     totals: { files: 1, contentBytes: Buffer.byteLength(SOURCE_CONTENT) },
@@ -94,7 +96,7 @@ function exactSourceContext() {
   };
 }
 
-function sourceRuntime({ inventory = sourceInventory(), context = exactSourceContext() } = {}) {
+function sourceRuntime({ inventory = sourceInventory(), context = exactSourceContext(inventory) } = {}) {
   return {
     buildInventory: async ({ expectedSha }) => {
       assert.equal(expectedSha, BASE);
@@ -119,7 +121,7 @@ function canonicalWorkerResult() {
     externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS),
     decision: 'PROCEED',
     coordination: { action: 'ENGINEERING_REQUIRED', objective: 'verify', summary: 'verify', evidenceRefs: [], contextRefs: [], acceptanceTests: ['npm run check:syntax', 'npm run test:deterministic'], requiredOutputs: [], constraints: [], tokenBudget: 12000, confidence: 0.9 },
-    evidenceRefs: [`github:commit:${BASE}`],
+    evidenceRefs: [`evidence:github-commit:${BASE}`],
     codeChangeSet: {
       ok: true,
       policyVersion: 'agent-code-change-1.6.0',
@@ -177,7 +179,9 @@ function stagedProposalFetch({ result = canonicalWorkerResult(), proposalStatus 
       }), { status: 200, headers: { 'content-type': 'application/json' } });
     }
     assert.equal(body.stage, 'PROPOSE');
+    assert.deepEqual(body.sourceInventory, sourceInventory());
     assert.equal(body.sourceContext.sourceSha, BASE);
+    assert.equal(body.sourceContext.inventoryDigest, sourceInventory().inventoryDigest);
     assert.equal(body.sourceContext.sourceContextDigest, 'source-context-digest-test');
     const payload = proposalStatus === 200
       ? { ok: true, stage: 'PROPOSE', result, proposalProvider: 'ai-gateway', usage: { costCents: 0, totalTokens: 30 } }
@@ -205,6 +209,7 @@ test('dispatch claims exact task, selects context, reads exact source, uses OIDC
   assert.equal(oidcCalls, 1);
   assert.deepEqual(staged.stages, ['SELECT_CONTEXT', 'PROPOSE']);
   assert.deepEqual(out.contextPaths, [SOURCE_PATH]);
+  assert.equal(out.sourceInventoryDigest, sourceInventory().inventoryDigest);
   assert.equal(out.sourceContextDigest, 'source-context-digest-test');
   assert.equal(issues.get(created.issueNumber).state, 'closed');
   const read = await readGithubRelayTask({ client, owner: 'mohammedwessam2007', repo: 'uberbondd', issueNumber: created.issueNumber, now: NOW });

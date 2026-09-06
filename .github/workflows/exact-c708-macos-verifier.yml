@@ -1,0 +1,41 @@
+name: Exact c708 macOS Terminal Verifier
+
+on:
+  pull_request:
+    branches:
+      - gpt/uberbond-battery-ignition-20260905
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-terminal-macos:
+    runs-on: macos-latest
+    timeout-minutes: 60
+    env:
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+      AUTO_EMAIL_REPORTS: 'false'
+      DISCOVERY_ENABLED: 'false'
+      DISCOVERY_DRY_RUN: 'true'
+      ALLOW_TEST_PAYMENT_UNLOCK: 'false'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Reset measured source to exact integration head
+        run: |
+          git reset --hard c70815ac93eeb662ff8f5b2c3bebace81fd4b5f8
+          test "$(git rev-parse HEAD)" = "c70815ac93eeb662ff8f5b2c3bebace81fd4b5f8"
+          test -z "$(git status --porcelain)"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install exact locked dependencies
+        run: npm ci
+      - name: Run unchanged terminal source gate
+        run: node scripts/vercel-command-center-build.mjs

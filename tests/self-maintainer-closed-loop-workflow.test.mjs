@@ -31,6 +31,14 @@ test('workflow never hands proposal generation merge, deployment, customer, paym
   assert.match(workflow, /persist-credentials:\s*false/);
 });
 
+test('explicit STOP is the only legacy candidate rejection normalized into a successful no-op', () => {
+  const matches = [...workflow.matchAll(/v\.status==='CANDIDATE_REJECTED'&&Array\.isArray\(v\.reasonCodes\)&&v\.reasonCodes\.includes\('worker-decision-stop'\)/g)];
+  assert.equal(matches.length, 2, 'initial and final pass must use the same narrow STOP condition');
+  assert.doesNotMatch(workflow, /continue-on-error\s*:\s*true/i);
+  assert.doesNotMatch(workflow, /\|\|\s*true/);
+  assert.doesNotMatch(workflow, /tick_status=0[\s\S]{0,160}(?!worker-decision-stop)/i);
+});
+
 test('proposal evidence is persisted alongside initial and final maintenance truth', () => {
   assert.match(workflow, /self-maintainer-initial\.json/);
   assert.match(workflow, /self-maintainer-proposal-dispatch\.json/);

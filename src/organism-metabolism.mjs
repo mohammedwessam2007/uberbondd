@@ -44,17 +44,26 @@ export function compileMetabolismLearningReceipt({metabolism,plan,outcome}={}){
   if(!metabolism?.wallProblem?.ok||!plan?.wallbreaker?.ok)return fail(['compiled-metabolism-and-plan-required']);
   if(!outcome||typeof outcome!=='object'||Array.isArray(outcome))return fail(['outcome-object-required']);
   const selected=plan.wallbreaker.selected?.candidate||null;
+  if(!selected?.id||!selected?.signature)return fail(['selected-candidate-required']);
+  const outcomeCandidateId=text(outcome.candidateId,120);
+  const outcomeSignature=text(outcome.candidateSignature||outcome.selectedSignature,64);
+  const bindingReasons=[];
+  if(!outcomeCandidateId)bindingReasons.push('outcome-candidate-id-required');
+  else if(outcomeCandidateId!==selected.id)bindingReasons.push('outcome-candidate-id-mismatch');
+  if(!outcomeSignature)bindingReasons.push('outcome-candidate-signature-required');
+  else if(outcomeSignature!==selected.signature)bindingReasons.push('outcome-candidate-signature-mismatch');
+  if(bindingReasons.length)return fail(bindingReasons,{selectedCandidateId:selected.id,selectedSignature:selected.signature});
   const succeeded=outcome.succeeded===true;
   const evidenceRefs=list(outcome.evidenceRefs,100,1000);
   if(!evidenceRefs?.length)return fail(['outcome-evidence-required']);
   let failure=null;
   if(!succeeded){
-    failure=classifyWallFailure({...outcome.failure,candidateId:selected?.id,failedSignature:selected?.signature,evidenceRefs});
+    failure=classifyWallFailure({...outcome.failure,candidateId:selected.id,failedSignature:selected.signature,evidenceRefs});
     if(!failure.ok)return fail(failure.reasonCodes||['failure-classification-rejected']);
   }
   const invalidated=[...new Set(failure?.invalidatedAssumptions||[])];
   const discoveredConstraints=[...new Set(failure?.discoveredConstraints||[])];
-  const missingCapabilities=[...new Set([...(failure?.missingCapabilities||[]),...(selected?.requiredCapabilities||[]).filter(cap=>outcome.missingCapability===true)])];
-  const receipt={schemaVersion:'uberbond.organism-metabolism-learning.v1',metabolismDigest:digest(metabolism),wallbreakerReceiptId:plan.wallbreaker.wallbreakerReceiptId,selectedCandidateId:selected?.id||null,selectedSignature:selected?.signature||null,succeeded,evidenceRefs,failureClass:failure?.failureClass||null,invalidatedAssumptions:invalidated,discoveredConstraints,missingCapabilities,retrySameMechanismAllowed:succeeded?false:failure?.safeToRetrySameMechanism===true,capabilityAcquisitionRecommended:missingCapabilities.length>0,nextLearningAction:succeeded?'PRESERVE_MECHANISM_AND_UPDATE_MEASURED_OUTCOMES':failure?.hardStop?'ESCALATE_OR_REFRAME_WITH_PROOF':'REPLAN_WITH_FAILURE_EVIDENCE',authorityDelta:'NONE',businessEffectAuthority:'NONE',externalEffectLedger:zero()};
+  const missingCapabilities=[...new Set([...(failure?.missingCapabilities||[]),...(selected.requiredCapabilities||[]).filter(cap=>outcome.missingCapability===true)])];
+  const receipt={schemaVersion:'uberbond.organism-metabolism-learning.v1',metabolismDigest:digest(metabolism),wallbreakerReceiptId:plan.wallbreaker.wallbreakerReceiptId,selectedCandidateId:selected.id,selectedSignature:selected.signature,outcomeCandidateId,outcomeCandidateSignature:outcomeSignature,succeeded,evidenceRefs,failureClass:failure?.failureClass||null,invalidatedAssumptions:invalidated,discoveredConstraints,missingCapabilities,retrySameMechanismAllowed:succeeded?false:failure?.safeToRetrySameMechanism===true,capabilityAcquisitionRecommended:missingCapabilities.length>0,nextLearningAction:succeeded?'PRESERVE_MECHANISM_AND_UPDATE_MEASURED_OUTCOMES':failure?.hardStop?'ESCALATE_OR_REFRAME_WITH_PROOF':'REPLAN_WITH_FAILURE_EVIDENCE',authorityDelta:'NONE',businessEffectAuthority:'NONE',externalEffectLedger:zero()};
   return{ok:true,status:'METABOLISM_LEARNING_RECEIPT_COMPILED',receipt,receiptDigest:digest(receipt),businessEffectAuthority:'NONE',externalEffectLedger:zero()};
 }

@@ -73,12 +73,20 @@ test('raw model edits become a canonical AgentCodeChangeSet with derived identit
   assert.deepEqual(out.result.externalEffectLedger, { providerCalls: 0, messages: 0, purchases: 0, deployments: 0, credentialChanges: 0, dnsChanges: 0, productionMutations: 0, spendCents: 0 });
 });
 
-test('model cannot forge canonical IDs, hashes, authority or policy fields', () => {
+test('model cannot inject canonical IDs, hashes, authority, policy fields, or unknown nested fields', () => {
   for (const key of ['changeSetId', 'afterSha256', 'policyVersion', 'businessEffectAuthority', 'totals']) assert.equal(Object.hasOwn(SELF_MAINTAINER_RAW_PROPOSAL_SCHEMA.properties, key), false);
-  const out = compileSelfMaintainerProposalWorkerResult({ task: task(), proposal: { ...proposal(), changeSetId: 'forged', policyVersion: 'forged', businessEffectAuthority: 'ALL' } });
-  assert.equal(out.ok, true);
-  assert.notEqual(out.codeChangeSet.changeSetId, 'forged');
-  assert.equal(out.codeChangeSet.businessEffectAuthority, 'NONE');
+  const topLevel = compileSelfMaintainerProposalWorkerResult({ task: task(), proposal: { ...proposal(), changeSetId: 'forged', policyVersion: 'forged', businessEffectAuthority: 'ALL' } });
+  assert.equal(topLevel.ok, false);
+  assert.ok(topLevel.reasonCodes.includes('proposal-unknown-field:changeSetId'));
+  assert.ok(topLevel.reasonCodes.includes('proposal-unknown-field:businessEffectAuthority'));
+
+  const nested = compileSelfMaintainerProposalWorkerResult({
+    task: task(),
+    proposal: proposal({ changes: [{ ...proposal().changes[0], afterSha256: 'f'.repeat(64), authority: 'ALL' }] })
+  });
+  assert.equal(nested.ok, false);
+  assert.ok(nested.reasonCodes.includes('proposal-change-0-unknown-field:afterSha256'));
+  assert.ok(nested.reasonCodes.includes('proposal-change-0-unknown-field:authority'));
 });
 
 test('exact-base mismatch is rejected before compilation', () => {
@@ -111,6 +119,18 @@ test('missing before hash, secret-bearing content and verification weakening fai
   const weakened = compileSelfMaintainerProposalWorkerResult({ task: task(), proposal: proposal({ verification: ['npm run check:syntax'] }) });
   assert.equal(weakened.ok, false);
   assert.ok(weakened.reasonCodes.includes('proposal-required-verification-missing:npm run test:deterministic'));
+});
+
+test('raw proposal shape rejects missing fields and oversized arrays before canonical compilation', () => {
+  const missing = proposal();
+  delete missing.evidenceRefs;
+  const missingOut = compileSelfMaintainerProposalWorkerResult({ task: task(), proposal: missing });
+  assert.equal(missingOut.ok, false);
+  assert.ok(missingOut.reasonCodes.includes('proposal-required-field-missing:evidenceRefs'));
+
+  const tooMany = compileSelfMaintainerProposalWorkerResult({ task: task(), proposal: proposal({ verification: Array.from({ length: 21 }, (_, index) => `test-${index}`) }) });
+  assert.equal(tooMany.ok, false);
+  assert.ok(tooMany.reasonCodes.includes('proposal-verification-count-limit'));
 });
 
 test('STOP path carries no edits and no fake verification claims', () => {

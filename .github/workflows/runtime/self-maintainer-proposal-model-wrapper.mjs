@@ -1,11 +1,12 @@
 import {
   SELF_MAINTAINER_RAW_PROPOSAL_SCHEMA,
-  compileSelfMaintainerProposalWorkerResult,
   selfMaintainerProposalTaskReasons
 } from './self-maintainer-proposal-contract.mjs';
+import { compileSourceBoundSelfMaintainerProposal } from './self-maintainer-source-bound-compiler.mjs';
+import { validateSourceContextEnvelope } from './self-maintainer-source-context.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../../../src/effect-ledgers.mjs';
 
-export const SELF_MAINTAINER_PROPOSAL_MODEL_WRAPPER_VERSION = 'self-maintainer-proposal-model-wrapper-1.0.0';
+export const SELF_MAINTAINER_PROPOSAL_MODEL_WRAPPER_VERSION = 'self-maintainer-proposal-model-wrapper-1.1.0';
 
 function text(value, max = 4000) {
   return String(value ?? '').trim().slice(0, max);
@@ -23,18 +24,35 @@ function failure(reasonCodes, outcome = 'CONFIRMED_FAILURE', extra = {}) {
   };
 }
 
-function modelTask(task) {
+function exactTaskBase(task) {
+  const match = /^main:([a-f0-9]{40})$/i.exec(text(task?.parentTask, 100));
+  return match ? match[1].toLowerCase() : null;
+}
+
+function modelTask(task, sourceContext) {
   const schema = JSON.stringify(SELF_MAINTAINER_RAW_PROPOSAL_SCHEMA);
+  const exactSource = JSON.stringify({
+    sourceSha: sourceContext.sourceSha,
+    sourceContextDigest: sourceContext.sourceContextDigest || null,
+    files: sourceContext.files.map(file => ({
+      path: file.path,
+      sha256: file.sha256,
+      byteLength: file.byteLength,
+      content: file.content
+    }))
+  });
   return {
     ...structuredClone(task),
     objective: [
       text(task.objective, 8000),
       'PROPOSAL STAGE ONLY. Do not claim that tests ran and do not write a canonical AgentCodeChangeSet yourself.',
+      'The exact repository source context below was read from the exact Git checkout named by sourceSha. Ground every UPDATE or DELETE only in those exact files. Do not invent unseen source.',
       'Return the normal bounded worker result plus an additional top-level field named selfMaintenanceProposal.',
-      'selfMaintenanceProposal must contain ONLY raw source facts. UberBond will derive policyVersion, changeSetId, afterSha256, totals and authority itself.',
-      'For UPDATE or DELETE, beforeSha256 must be the exact SHA-256 of the exact base file you inspected. For CREATE it must be the empty string. For DELETE content must be the empty string.',
+      'selfMaintenanceProposal must contain ONLY raw source facts. UberBond derives policyVersion, changeSetId, beforeSha256, afterSha256, totals and authority itself.',
+      'beforeSha256 is a compatibility placeholder in the raw schema: set it to the empty string for every change. UberBond discards it for UPDATE/DELETE and substitutes the exact locally observed SHA-256 before canonical compilation.',
       'Never propose edits to .github/workflows, package.json, package-lock.json, .npmrc, sovereignty paths, credentials, secrets, customer/payment truth guards, or verification machinery.',
-      'If no safe worthwhile bounded edit can be grounded in exact source, set selfMaintenanceProposal.decision=STOP and changes=[].',
+      'If no safe worthwhile bounded edit can be grounded in this exact source, set selfMaintenanceProposal.decision=STOP and changes=[].',
+      `Exact source context: ${exactSource}`,
       `Raw proposal JSON schema: ${schema}`
     ].join(' '),
     requiredOutputs: [
@@ -45,8 +63,9 @@ function modelTask(task) {
 
 /**
  * Wrap any proposal-capable model executor. The provider can reason and return
- * raw edits, but only this protected runtime can turn them into the canonical
- * change set consumed by the self-maintainer.
+ * raw edits, but exact local source bytes are rebound before only the protected
+ * UberBond compiler can turn them into the canonical change set consumed by
+ * the self-maintainer.
  */
 export function createSelfMaintainerProposalModelWrapper({ modelExecutor } = {}) {
   return async function selfMaintainerProposalModelExecutor(input = {}) {
@@ -55,9 +74,15 @@ export function createSelfMaintainerProposalModelWrapper({ modelExecutor } = {})
     const taskReasons = selfMaintainerProposalTaskReasons(task);
     if (taskReasons.length) return failure(taskReasons);
 
+    const baseRevision = exactTaskBase(task);
+    const validatedSource = validateSourceContextEnvelope(input.sourceContext, baseRevision);
+    if (!validatedSource.ok) {
+      return failure(['proposal-exact-source-context-required', ...(validatedSource.reasonCodes || [])]);
+    }
+
     let providerResult;
     try {
-      providerResult = await modelExecutor({ ...input, task: modelTask(task) });
+      providerResult = await modelExecutor({ ...input, task: modelTask(task, validatedSource) });
     } catch (error) {
       return failure(['proposal-model-executor-threw', 'provider-compute-outcome-uncertain'], 'UNCERTAIN', {
         uncertain: true,
@@ -74,7 +99,11 @@ export function createSelfMaintainerProposalModelWrapper({ modelExecutor } = {})
     }
 
     const rawProposal = providerResult?.result?.selfMaintenanceProposal;
-    const compiled = compileSelfMaintainerProposalWorkerResult({ task, proposal: rawProposal });
+    const compiled = compileSourceBoundSelfMaintainerProposal({
+      task,
+      proposal: rawProposal,
+      sourceContext: validatedSource
+    });
     if (!compiled.ok) {
       return failure(['provider-proposal-rejected', ...(compiled.reasonCodes || [])], 'CONFIRMED_FAILURE', {
         providerRequestId: providerResult.providerRequestId || null,
@@ -91,6 +120,7 @@ export function createSelfMaintainerProposalModelWrapper({ modelExecutor } = {})
       policyVersion: SELF_MAINTAINER_PROPOSAL_MODEL_WRAPPER_VERSION,
       result: compiled.result,
       canonicalProposalStatus: compiled.status,
+      sourceContextDigest: compiled.sourceContextDigest || validatedSource.sourceContextDigest || null,
       businessEffectAuthority: 'NONE'
     };
   };

@@ -2,7 +2,9 @@ name: UberBond Gamechanger Mesh
 
 on:
   schedule:
-    - cron: '17 * * * *'
+    # Twice-hourly world/GENESIS/capability sensing feeds the four-per-hour
+    # self-maintainer without changing any consequence authority.
+    - cron: '7,37 * * * *'
   workflow_dispatch:
 
 permissions:

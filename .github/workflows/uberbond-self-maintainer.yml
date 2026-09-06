@@ -65,6 +65,10 @@ jobs:
           tick_status=$?
           set -e
           node -e "const fs=require('node:fs'); const p='artifacts/cognitive/self-maintainer-initial.json'; const v=JSON.parse(fs.readFileSync(p,'utf8')); if(!v || typeof v.status!=='string') process.exit(2); process.stdout.write(String(v.issueNumber || 0))" > /tmp/uberbond-self-maintainer-issue
+          if [ "$tick_status" != '0' ] && node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('artifacts/cognitive/self-maintainer-initial.json','utf8'));process.exit(v.status==='CANDIDATE_REJECTED'&&Array.isArray(v.reasonCodes)&&v.reasonCodes.includes('worker-decision-stop')?0:1)"; then
+            tick_status=0
+            echo 'no_safe_change=true' >> "$GITHUB_OUTPUT"
+          fi
           echo "tick_status=$tick_status" >> "$GITHUB_OUTPUT"
           echo "issue_number=$(cat /tmp/uberbond-self-maintainer-issue)" >> "$GITHUB_OUTPUT"
       - name: Generate and submit canonical proposal when worker result is absent
@@ -92,6 +96,10 @@ jobs:
           tick_status=$?
           set -e
           node -e "const fs=require('node:fs'); const p='artifacts/cognitive/self-maintainer-latest.json'; const v=JSON.parse(fs.readFileSync(p,'utf8')); if(!v || typeof v.status!=='string') process.exit(2)"
+          if [ "$tick_status" != '0' ] && node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('artifacts/cognitive/self-maintainer-latest.json','utf8'));process.exit(v.status==='CANDIDATE_REJECTED'&&Array.isArray(v.reasonCodes)&&v.reasonCodes.includes('worker-decision-stop')?0:1)"; then
+            tick_status=0
+            echo 'no_safe_change=true' >> "$GITHUB_OUTPUT"
+          fi
           echo "tick_status=$tick_status" >> "$GITHUB_OUTPUT"
       - name: Preserve no-issue initial truth as final truth
         if: steps.initial.outputs.issue_number == '0'

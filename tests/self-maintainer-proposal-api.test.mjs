@@ -106,10 +106,10 @@ test('proposal API binds the task to the exact OIDC-attested source SHA', async 
   assert.ok(res.payload.reasonCodes.includes('task-request-sha-mismatch'));
 });
 
-test('proposal API forwards the exact zero-cent budget and returns only UberBond-compiled canonical change sets', async () => {
+test('proposal API forwards the exact zero-cent budget and returns UberBond-compiled canonical change sets', async () => {
   let observed = null;
   const handler = createSelfMaintainerProposalApiHandler(successDeps({
-    executor: async input => { observed = input; return providerResult({ ...rawProposal(), changeSetId: 'model-fake', businessEffectAuthority: 'ALL' }); }
+    executor: async input => { observed = input; return providerResult(); }
   }));
   const res = responseCapture();
   await handler(request({ expectedSha: BASE, task: task() }), res);
@@ -118,9 +118,20 @@ test('proposal API forwards the exact zero-cent budget and returns only UberBond
   assert.equal(observed.maxTokens, 12000);
   assert.equal(res.payload.ok, true);
   assert.match(res.payload.result.codeChangeSet.changeSetId, /^agent_changes_[a-f0-9]{24}$/);
-  assert.notEqual(res.payload.result.codeChangeSet.changeSetId, 'model-fake');
   assert.equal(res.payload.result.codeChangeSet.businessEffectAuthority, 'NONE');
   assert.deepEqual(res.payload.result.testsActuallyRun, []);
+});
+
+test('proposal API rejects provider attempts to inject canonical authority fields', async () => {
+  const handler = createSelfMaintainerProposalApiHandler(successDeps({
+    executor: async () => providerResult({ ...rawProposal(), changeSetId: 'model-fake', businessEffectAuthority: 'ALL' })
+  }));
+  const res = responseCapture();
+  await handler(request({ expectedSha: BASE, task: task() }), res);
+  assert.equal(res.statusCode, 409);
+  assert.equal(res.payload.ok, false);
+  assert.equal(res.payload.status, 'PROPOSAL_NOT_PRODUCED');
+  assert.equal(res.payload.businessEffectAuthority, 'NONE');
 });
 
 test('proposal API stops on an uncertain provider outcome and does not walk into a second provider', async () => {

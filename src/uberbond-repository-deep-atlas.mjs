@@ -2,9 +2,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { redactSecrets } from './secret-patterns.mjs';
 
 export const UBERBOND_REPOSITORY_DEEP_ATLAS_SCHEMA = 'uberbond.repository-deep-atlas.v1';
-export const UBERBOND_REPOSITORY_DEEP_ATLAS_POLICY_VERSION = 'uberbond-repository-deep-atlas-1.1.0';
+export const UBERBOND_REPOSITORY_DEEP_ATLAS_POLICY_VERSION = 'uberbond-repository-deep-atlas-1.2.0';
 
 const MAX_TEXT_BYTES = 8 * 1024 * 1024;
 const MAX_DETAILS_PER_FILE = 20000;
@@ -24,7 +25,7 @@ function stable(value) {
 }
 function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(stable(value))).digest('hex'); }
 function rawDigest(value) { return crypto.createHash('sha256').update(String(value ?? '')).digest('hex'); }
-function clean(value, max = 2000) { return String(value ?? '').replace(/\s+/g, ' ').trim().slice(0, max); }
+function clean(value, max = 2000) { return redactSecrets(String(value ?? '')).replace(/\s+/g, ' ').trim().slice(0, max); }
 function normalizeRel(value) { return String(value || '').replaceAll('\\', '/').replace(/^\.\//, ''); }
 function unique(values) { return [...new Set((values || []).filter(Boolean))]; }
 function detailId(pathname, kind, name, ordinal = 0) {
@@ -250,7 +251,7 @@ export function buildUberBondRepositoryDeepAtlas({ root = process.cwd(), feature
     atlasDigest: digest(core),
     businessEffectAuthority: 'NONE',
     externalEffectLedger: zeroEffects(),
-    truthBoundary: 'EVERY REPOSITORY FILE REMAINS REPRESENTED BY THE FEATURE GENOME. EVERY SUPPORTED TEXT FILE ALSO RECEIVES DIGESTED CONTENT-CHUNK COVERAGE SO TEXT THAT DOES NOT MATCH A KNOWN DECLARATION PATTERN IS STILL ADDRESSABLE. THE DEEP ATLAS ADDS STRUCTURAL DECLARATIONS FROM CODE, TESTS, WORKFLOWS, CONFIG, CANON, MEMORY AND UI SURFACES. PRESENCE AND COVERAGE DO NOT PROVE REACHABILITY, CORRECTNESS, EXTERNAL TRUTH OR CONSEQUENCE AUTHORITY.'
+    truthBoundary: 'EVERY REPOSITORY FILE REMAINS REPRESENTED BY THE FEATURE GENOME. EVERY SUPPORTED TEXT FILE ALSO RECEIVES DIGESTED CONTENT-CHUNK COVERAGE SO TEXT THAT DOES NOT MATCH A KNOWN DECLARATION PATTERN IS STILL ADDRESSABLE. STRING SURFACES PERSISTED BY THE DEEP ATLAS ARE SECRET-REDACTED BEFORE STORAGE; RAW TEXT IS REPRESENTED BY DIGESTS, OFFSETS AND COVERAGE POINTERS RATHER THAN COPIED AS CREDENTIAL-BEARING CONTENT. THE DEEP ATLAS ADDS STRUCTURAL DECLARATIONS FROM CODE, TESTS, WORKFLOWS, CONFIG, CANON, MEMORY AND UI SURFACES. PRESENCE AND COVERAGE DO NOT PROVE REACHABILITY, CORRECTNESS, EXTERNAL TRUTH OR CONSEQUENCE AUTHORITY.'
   };
 }
 

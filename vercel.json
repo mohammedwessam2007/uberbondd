@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "node scripts/uberbond-feature-genome.mjs && node scripts/uberbond-feature-atom-atlas.mjs && node scripts/uberbond-synaptic-map.mjs && node --test tests/uberbond-command-center-status.test.mjs tests/uberbond-synaptic-map.test.mjs tests/uberbond-synaptic-cycle-binding.test.mjs",
+  "buildCommand": "node scripts/vercel-command-center-build.mjs",
   "functions": {
     "api/agent-relay.mjs": { "maxDuration": 60 },
     "api/agent-mesh-cron.mjs": { "maxDuration": 60 },

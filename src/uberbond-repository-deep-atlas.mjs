@@ -5,11 +5,17 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
 
 export const UBERBOND_REPOSITORY_DEEP_ATLAS_SCHEMA = 'uberbond.repository-deep-atlas.v1';
-export const UBERBOND_REPOSITORY_DEEP_ATLAS_POLICY_VERSION = 'uberbond-repository-deep-atlas-1.2.0';
+export const UBERBOND_REPOSITORY_DEEP_ATLAS_POLICY_VERSION = 'uberbond-repository-deep-atlas-1.2.1';
 
 const MAX_TEXT_BYTES = 8 * 1024 * 1024;
 const MAX_DETAILS_PER_FILE = 20000;
 const CONTENT_CHUNK_CHARS = 16 * 1024;
+// This marker grants an intentional-fixture exemption to the repository secret
+// sweep. The atlas may observe files that contain it, but must never replicate
+// the complete authority-bearing marker into a generated artifact or that
+// artifact would falsely exempt itself from the sweep.
+const SECRET_FIXTURE_MARKER = ['secret-scanner', 'fixtures', 'intentional'].join('-');
+const SECRET_FIXTURE_MARKER_REDACTION = 'secret-scanner-fixture-marker-redacted';
 const TEXT_EXTENSIONS = new Set([
   '.mjs', '.js', '.cjs', '.ts', '.tsx', '.jsx', '.json', '.md', '.mdx', '.yml', '.yaml',
   '.html', '.htm', '.css', '.scss', '.sql', '.sh', '.bash', '.py', '.txt', '.toml', '.ini',
@@ -25,7 +31,13 @@ function stable(value) {
 }
 function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(stable(value))).digest('hex'); }
 function rawDigest(value) { return crypto.createHash('sha256').update(String(value ?? '')).digest('hex'); }
-function clean(value, max = 2000) { return redactSecrets(String(value ?? '')).replace(/\s+/g, ' ').trim().slice(0, max); }
+function clean(value, max = 2000) {
+  return redactSecrets(String(value ?? ''))
+    .replaceAll(SECRET_FIXTURE_MARKER, SECRET_FIXTURE_MARKER_REDACTION)
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, max);
+}
 function normalizeRel(value) { return String(value || '').replaceAll('\\', '/').replace(/^\.\//, ''); }
 function unique(values) { return [...new Set((values || []).filter(Boolean))]; }
 function detailId(pathname, kind, name, ordinal = 0) {

@@ -8,8 +8,12 @@ import {
 } from '../../../src/github-relay.mjs';
 import { validResult, ZERO_EFFECTS } from '../../../src/cloud-agent-relay.mjs';
 import { requestGithubActionsOidcToken } from '../../../src/github-actions-oidc-verifier.mjs';
+import {
+  buildLocalSourceContext,
+  buildLocalSourceInventory
+} from './self-maintainer-source-context.mjs';
 
-export const SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION = 'self-maintainer-proposal-dispatch-1.1.0';
+export const SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION = 'self-maintainer-proposal-dispatch-1.2.0';
 
 const MAX_RESPONSE_BYTES = 350_000;
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
@@ -96,14 +100,40 @@ async function boundedJsonResponse(response) {
   return payload;
 }
 
-function relayCost(usage) {
-  const usdCents = Number(usage?.costCents);
-  if (!Number.isSafeInteger(usdCents) || usdCents < 0) return null;
-  const tokens = Number(usage?.totalTokens);
-  return {
-    usdCents,
-    tokens: Number.isSafeInteger(tokens) && tokens >= 0 ? tokens : null
-  };
+async function callProposalEndpoint({ endpointUrl, oidcToken, body, fetchImpl }) {
+  const response = await fetchImpl(endpointUrl, {
+    method: 'POST',
+    headers: {
+      authorization: `Bearer ${oidcToken}`,
+      'content-type': 'application/json',
+      accept: 'application/json',
+      'user-agent': 'UberBond-Self-Maintainer-Proposal-Dispatch'
+    },
+    body: JSON.stringify(body),
+    signal: AbortSignal.timeout(70_000)
+  });
+  return boundedJsonResponse(response);
+}
+
+function relayCost(...usages) {
+  let usdCents = 0;
+  let tokens = 0;
+  let sawCost = false;
+  let sawTokens = false;
+  for (const usage of usages) {
+    const cost = Number(usage?.costCents);
+    if (Number.isSafeInteger(cost) && cost >= 0) {
+      usdCents += cost;
+      sawCost = true;
+    }
+    const count = Number(usage?.totalTokens);
+    if (Number.isSafeInteger(count) && count >= 0) {
+      tokens += count;
+      sawTokens = true;
+    }
+  }
+  if (!sawCost) return null;
+  return { usdCents, tokens: sawTokens ? tokens : null };
 }
 
 export async function runSelfMaintainerProposalDispatch({
@@ -112,7 +142,10 @@ export async function runSelfMaintainerProposalDispatch({
   githubClient = null,
   oidcRequester = requestGithubActionsOidcToken,
   initialReceipt = null,
-  date = new Date()
+  date = new Date(),
+  repoRoot = process.cwd(),
+  buildInventory = buildLocalSourceInventory,
+  buildSourceContext = buildLocalSourceContext
 } = {}) {
   if (typeof fetchImpl !== 'function') return failure(['fetch-implementation-required']);
   const repository = parseRepository(env.GITHUB_REPOSITORY);
@@ -126,6 +159,7 @@ export async function runSelfMaintainerProposalDispatch({
   if (!githubToken && !githubClient) reasons.push('github-token-required');
   if (!baseRevision) reasons.push('exact-main-base-revision-required');
   if (!Number.isSafeInteger(issueNumber) || issueNumber <= 0) reasons.push('self-maintainer-issue-number-required');
+  if (typeof buildInventory !== 'function' || typeof buildSourceContext !== 'function') reasons.push('source-context-runtime-required');
   let endpointUrl = null;
   try {
     endpointUrl = new URL(endpoint);
@@ -171,23 +205,56 @@ export async function runSelfMaintainerProposalDispatch({
   const task = claimed.task;
   if (!task || task.taskId !== current.task.taskId) return failure(['claimed-task-identity-mismatch'], 'RELAY_BLOCKED');
 
+  const inventory = await buildInventory({ repoRoot, expectedSha: baseRevision });
+  if (!inventory?.ok) return failure(['exact-source-inventory-failed', ...(inventory?.reasonCodes || [])], 'SOURCE_CONTEXT_BLOCKED');
+
   const oidc = await oidcRequester({ env, fetchImpl });
   if (!oidc?.ok || !oidc.token) return failure(oidc?.reasonCodes || ['github-actions-oidc-unavailable'], 'OIDC_BLOCKED');
 
+  let selection;
+  try {
+    selection = await callProposalEndpoint({
+      endpointUrl,
+      oidcToken: oidc.token,
+      fetchImpl,
+      body: {
+        stage: 'SELECT_CONTEXT',
+        expectedSha: baseRevision,
+        task,
+        sourceInventory: inventory.paths
+      }
+    });
+  } catch (error) {
+    const providerReasons = Array.isArray(error?.payload?.reasonCodes) ? error.payload.reasonCodes : [];
+    return failure(['context-selection-endpoint-call-failed', ...providerReasons], 'CONTEXT_SELECTION_BLOCKED');
+  }
+  if (!selection?.ok || !Array.isArray(selection?.contextPaths) || !selection.contextPaths.length) {
+    return failure(selection?.reasonCodes || ['context-selection-required'], 'CONTEXT_SELECTION_BLOCKED');
+  }
+
+  const sourceContext = await buildSourceContext({
+    repoRoot,
+    expectedSha: baseRevision,
+    inventory,
+    selectedPaths: selection.contextPaths
+  });
+  if (!sourceContext?.ok) {
+    return failure(['exact-source-context-build-failed', ...(sourceContext?.reasonCodes || [])], 'SOURCE_CONTEXT_BLOCKED');
+  }
+
   let proposal;
   try {
-    const response = await fetchImpl(endpointUrl, {
-      method: 'POST',
-      headers: {
-        authorization: `Bearer ${oidc.token}`,
-        'content-type': 'application/json',
-        accept: 'application/json',
-        'user-agent': 'UberBond-Self-Maintainer-Proposal-Dispatch'
-      },
-      body: JSON.stringify({ expectedSha: baseRevision, task }),
-      signal: AbortSignal.timeout(70_000)
+    proposal = await callProposalEndpoint({
+      endpointUrl,
+      oidcToken: oidc.token,
+      fetchImpl,
+      body: {
+        stage: 'PROPOSE',
+        expectedSha: baseRevision,
+        task,
+        sourceContext
+      }
     });
-    proposal = await boundedJsonResponse(response);
   } catch (error) {
     const providerReasons = Array.isArray(error?.payload?.reasonCodes) ? error.payload.reasonCodes : [];
     return failure(['proposal-endpoint-call-failed', ...providerReasons], 'PROPOSAL_BLOCKED');
@@ -210,9 +277,12 @@ export async function runSelfMaintainerProposalDispatch({
     commands: [],
     tests: [],
     artifacts: [],
-    findings: ['Canonical self-maintainer proposal compiled by UberBond; isolated verification remains pending.'],
+    findings: [
+      `Exact local source context ${sourceContext.sourceContextDigest || 'unidentified'} grounded canonical proposal compilation.`,
+      'Canonical self-maintainer proposal compiled by UberBond; isolated verification remains pending.'
+    ],
     limitations: ['Proposal stage did not execute tests or mutate source.'],
-    cost: relayCost(proposal.usage),
+    cost: relayCost(selection.usage, proposal.usage),
     duration: null,
     now: date
   });
@@ -221,11 +291,14 @@ export async function runSelfMaintainerProposalDispatch({
   return {
     ok: true,
     policyVersion: SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION,
-    status: 'CANONICAL_PROPOSAL_SUBMITTED',
+    status: 'CANONICAL_SOURCE_GROUNDED_PROPOSAL_SUBMITTED',
     issueNumber,
     taskId: task.taskId,
     baseRevision,
+    contextProvider: selection.proposalProvider || null,
     proposalProvider: proposal.proposalProvider || null,
+    contextPaths: selection.contextPaths,
+    sourceContextDigest: sourceContext.sourceContextDigest || null,
     changeSetId: proposal.result?.codeChangeSet?.changeSetId || null,
     submitReceipt: {
       status: submitted.status || null,

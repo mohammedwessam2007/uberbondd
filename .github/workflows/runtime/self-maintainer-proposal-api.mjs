@@ -4,11 +4,14 @@ import { ZERO_EXTERNAL_EFFECTS } from '../../../src/effect-ledgers.mjs';
 import { createSelfMaintainerProposalModelWrapper } from './self-maintainer-proposal-model-wrapper.mjs';
 import { createSelfMaintainerContextSelector } from './self-maintainer-context-selector.mjs';
 import { selfMaintainerProposalTaskReasons } from './self-maintainer-proposal-contract.mjs';
-import { validateSourceContextEnvelope } from './self-maintainer-source-context.mjs';
+import {
+  validateSourceContextEnvelope,
+  validateSourceInventoryEnvelope
+} from './self-maintainer-source-context.mjs';
 
-export const SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION = 'self-maintainer-proposal-api-1.1.0';
+export const SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION = 'self-maintainer-proposal-api-1.2.0';
 
-const MAX_BODY_BYTES = 250_000;
+const MAX_BODY_BYTES = 450_000;
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
 const PROVIDER_ORDER = Object.freeze(['ai-gateway', 'open-model']);
 const STAGES = new Set(['SELECT_CONTEXT', 'PROPOSE']);
@@ -167,10 +170,19 @@ export function createSelfMaintainerProposalApiHandler({
       }));
     }
 
+    let validatedInventory = null;
+    let validatedSource = null;
     if (stage === 'PROPOSE') {
-      const source = validateSourceContextEnvelope(body?.sourceContext, expectedSha);
-      if (!source.ok) {
-        return sendJson(res, 400, failure(['exact-source-context-required', ...(source.reasonCodes || [])], 'SOURCE_CONTEXT_REJECTED'));
+      validatedInventory = validateSourceInventoryEnvelope(body?.sourceInventory, expectedSha);
+      if (!validatedInventory.ok) {
+        return sendJson(res, 400, failure(['exact-source-inventory-required', ...(validatedInventory.reasonCodes || [])], 'SOURCE_INVENTORY_REJECTED'));
+      }
+      validatedSource = validateSourceContextEnvelope(body?.sourceContext, expectedSha);
+      if (!validatedSource.ok) {
+        return sendJson(res, 400, failure(['exact-source-context-required', ...(validatedSource.reasonCodes || [])], 'SOURCE_CONTEXT_REJECTED'));
+      }
+      if (!validatedSource.inventoryDigest || validatedSource.inventoryDigest !== validatedInventory.inventoryDigest) {
+        return sendJson(res, 409, failure(['source-context-inventory-digest-mismatch'], 'SOURCE_CONTEXT_REJECTED'));
       }
     }
 
@@ -202,7 +214,8 @@ export function createSelfMaintainerProposalApiHandler({
         const wrapped = createSelfMaintainerProposalModelWrapper({ modelExecutor: executor });
         result = await wrapped({
           task,
-          sourceContext: body.sourceContext,
+          sourceInventory: validatedInventory,
+          sourceContext: validatedSource,
           model: worker.model || undefined,
           maxTokens: budget.maxTokens,
           costCeilingCents: budget.maxCostCents,

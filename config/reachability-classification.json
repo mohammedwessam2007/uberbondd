@@ -602,11 +602,6 @@
       "gate": "NO_COMMERCIAL_EVENTS",
       "reason": "Compiles an offer from journey findings. There are zero commercial events, so there is no journey to observe."
     },
-    "src/payment-renewal-truth.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PAYMENT_PROVIDER",
-      "reason": "Derives payment-to-renewal economic truth from provider evidence. No payment provider is connected and no provider event has ever arrived, so there is nothing for it to read."
-    },
     "src/pending-relay-reconciliation.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "VERCEL_DEPLOYMENT_GATED",

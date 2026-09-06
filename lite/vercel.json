@@ -1,5 +1,4 @@
 {
-  "buildCommand": "cd .. && node --test tests/organism-metabolism.test.mjs tests/pre-customer-revenue-readiness.test.mjs",
   "headers": [
     {
       "source": "/(.*)",

@@ -1,8 +1,12 @@
 import { compileSelfMaintainerProposalWorkerResult } from './self-maintainer-proposal-contract.mjs';
-import { normalizeSourcePath, validateSourceContextEnvelope } from './self-maintainer-source-context.mjs';
+import {
+  normalizeSourcePath,
+  validateSourceContextEnvelope,
+  validateSourceInventoryEnvelope
+} from './self-maintainer-source-context.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../../../src/effect-ledgers.mjs';
 
-export const SELF_MAINTAINER_SOURCE_BOUND_COMPILER_VERSION = 'self-maintainer-source-bound-compiler-1.0.0';
+export const SELF_MAINTAINER_SOURCE_BOUND_COMPILER_VERSION = 'self-maintainer-source-bound-compiler-1.1.0';
 
 function text(value, max = 1000) {
   return String(value ?? '').trim().slice(0, max);
@@ -27,12 +31,16 @@ function exactTaskBase(task) {
 
 /**
  * Bind model-authored edits to exact locally-read source bytes before they are
- * admitted to the canonical AgentCodeChangeSet compiler. For UPDATE/DELETE the
- * model-provided beforeSha256 is deliberately discarded and replaced with the
- * exact hash from the attested source-context envelope. The model therefore
- * cannot forge the preimage identity of a file it wants UberBond to change.
+ * admitted to the canonical AgentCodeChangeSet compiler. UPDATE/DELETE hashes
+ * come only from exact local context. CREATE is admitted only when the exact
+ * tracked-file inventory proves the path was absent at the same source SHA.
  */
-export function compileSourceBoundSelfMaintainerProposal({ task, proposal, sourceContext } = {}) {
+export function compileSourceBoundSelfMaintainerProposal({
+  task,
+  proposal,
+  sourceContext,
+  sourceInventory
+} = {}) {
   const baseRevision = exactTaskBase(task);
   if (!baseRevision) return failure(['exact-self-maintainer-base-required']);
 
@@ -40,12 +48,26 @@ export function compileSourceBoundSelfMaintainerProposal({ task, proposal, sourc
     return compileSelfMaintainerProposalWorkerResult({ task, proposal });
   }
 
+  const inventory = validateSourceInventoryEnvelope(sourceInventory, baseRevision);
+  if (!inventory.ok) {
+    return failure(['exact-source-inventory-required', ...(inventory.reasonCodes || [])]);
+  }
+
   const validated = validateSourceContextEnvelope(sourceContext, baseRevision);
   if (!validated.ok) {
     return failure(['exact-source-context-required', ...(validated.reasonCodes || [])]);
   }
+  if (!validated.inventoryDigest || validated.inventoryDigest !== inventory.inventoryDigest) {
+    return failure(['source-context-inventory-digest-mismatch']);
+  }
 
-  const contextByPath = new Map(validated.files.map(file => [file.path, file]));
+  const inventoryPaths = new Set(inventory.paths);
+  const contextByPath = new Map();
+  for (const file of validated.files) {
+    if (!inventoryPaths.has(file.path)) return failure([`source-context-file-not-in-exact-inventory:${file.path}`]);
+    contextByPath.set(file.path, file);
+  }
+
   const changes = Array.isArray(proposal?.changes) ? proposal.changes : [];
   const rebound = [];
   const reasons = [];
@@ -73,8 +95,8 @@ export function compileSourceBoundSelfMaintainerProposal({ task, proposal, sourc
     }
 
     if (operation === 'CREATE') {
-      if (contextByPath.has(sourcePath)) {
-        reasons.push(`source-bound-change-${index}-create-path-already-observed`);
+      if (inventoryPaths.has(sourcePath)) {
+        reasons.push(`source-bound-change-${index}-create-path-already-exists`);
         continue;
       }
       rebound.push({
@@ -104,6 +126,7 @@ export function compileSourceBoundSelfMaintainerProposal({ task, proposal, sourc
   return {
     ...compiled,
     policyVersion: SELF_MAINTAINER_SOURCE_BOUND_COMPILER_VERSION,
+    sourceInventoryDigest: inventory.inventoryDigest,
     sourceContextDigest: validated.sourceContextDigest || null,
     sourceContextFiles: validated.files.map(file => ({ path: file.path, sha256: file.sha256, byteLength: file.byteLength })),
     businessEffectAuthority: 'NONE'

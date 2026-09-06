@@ -1,4 +1,4 @@
-name: Exact c708 NIGHT-10 Terminal Ubuntu 24.04
+name: Exact c708 NIGHT-10 Terminal Linux ARM64
 
 on:
   push:
@@ -9,12 +9,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: exact-c708-night10-ubuntu2404
+  group: exact-c708-night10-linux-arm64
   cancel-in-progress: false
 
 jobs:
   terminal:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-24.04-arm
     timeout-minutes: 60
     steps:
       - name: Checkout immutable target source
@@ -31,6 +31,12 @@ jobs:
 
       - name: Install exact dependencies
         run: npm ci
+
+      - name: Hydrate ARM embedded Postgres fixture when present
+        run: |
+          if [ -d node_modules/@embedded-postgres/linux-arm64 ]; then
+            npm rebuild @embedded-postgres/linux-arm64
+          fi
 
       - name: Prove exact target SHA
         run: |

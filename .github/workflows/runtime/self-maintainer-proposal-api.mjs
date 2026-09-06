@@ -1,18 +1,17 @@
 import { verifyGithubActionsOidcToken } from '../../../src/github-actions-oidc-verifier.mjs';
 import { createModelExecutorFactory, describeProviderReadiness } from '../../../src/agent-model-executor-factory.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../../../src/effect-ledgers.mjs';
-import {
-  createSelfMaintainerProposalModelWrapper
-} from './self-maintainer-proposal-model-wrapper.mjs';
-import {
-  selfMaintainerProposalTaskReasons
-} from './self-maintainer-proposal-contract.mjs';
+import { createSelfMaintainerProposalModelWrapper } from './self-maintainer-proposal-model-wrapper.mjs';
+import { createSelfMaintainerContextSelector } from './self-maintainer-context-selector.mjs';
+import { selfMaintainerProposalTaskReasons } from './self-maintainer-proposal-contract.mjs';
+import { validateSourceContextEnvelope } from './self-maintainer-source-context.mjs';
 
-export const SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION = 'self-maintainer-proposal-api-1.0.0';
+export const SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION = 'self-maintainer-proposal-api-1.1.0';
 
 const MAX_BODY_BYTES = 250_000;
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
 const PROVIDER_ORDER = Object.freeze(['ai-gateway', 'open-model']);
+const STAGES = new Set(['SELECT_CONTEXT', 'PROPOSE']);
 const JSON_HEADERS = Object.freeze({
   'content-type': 'application/json; charset=utf-8',
   'cache-control': 'no-store',
@@ -102,10 +101,19 @@ function workerFor(provider, env) {
   };
 }
 
+function publicReadiness(readiness) {
+  return (Array.isArray(readiness) ? readiness : []).map(row => ({
+    provider: row?.provider || null,
+    ready: row?.ready === true,
+    blockers: Array.isArray(row?.blockers) ? row.blockers : []
+  }));
+}
+
 /**
- * OIDC-authenticated proposal endpoint. It performs reasoning only. GitHub
- * claiming/submission, source apply, verification, and review-PR promotion stay
- * in the existing self-maintainer workflow and its separately attested gates.
+ * OIDC-authenticated reasoning endpoint. Exact repository source is selected
+ * from and read by the trusted GitHub checkout, not by Vercel. The endpoint may
+ * choose context and reason over exact bytes, but source apply, verification,
+ * relay submission and review-PR promotion remain in the existing workflow.
  */
 export function createSelfMaintainerProposalApiHandler({
   env = process.env,
@@ -130,6 +138,9 @@ export function createSelfMaintainerProposalApiHandler({
       return sendJson(res, reason === 'request-body-too-large' ? 413 : 400, failure([reason]));
     }
 
+    const stage = text(body?.stage || 'PROPOSE', 40).toUpperCase();
+    if (!STAGES.has(stage)) return sendJson(res, 400, failure(['proposal-stage-invalid']));
+
     const expectedSha = text(body?.expectedSha, 80).toLowerCase();
     if (!EXACT_SHA.test(expectedSha)) return sendJson(res, 400, failure(['exact-request-sha-required']));
     const task = body?.task;
@@ -152,12 +163,15 @@ export function createSelfMaintainerProposalApiHandler({
     const ready = readyProviderNames(readiness);
     if (!ready.size) {
       return sendJson(res, 503, failure(['no-zero-authority-proposal-provider-ready'], 'PROVIDER_BLOCKED', {
-        providerReadiness: (Array.isArray(readiness) ? readiness : []).map(row => ({
-          provider: row?.provider || null,
-          ready: row?.ready === true,
-          blockers: Array.isArray(row?.blockers) ? row.blockers : []
-        }))
+        providerReadiness: publicReadiness(readiness)
       }));
+    }
+
+    if (stage === 'PROPOSE') {
+      const source = validateSourceContextEnvelope(body?.sourceContext, expectedSha);
+      if (!source.ok) {
+        return sendJson(res, 400, failure(['exact-source-context-required', ...(source.reasonCodes || [])], 'SOURCE_CONTEXT_REJECTED'));
+      }
     }
 
     const makeExecutor = executorFactory || createModelExecutorFactory({ env, fetchImpl });
@@ -172,19 +186,36 @@ export function createSelfMaintainerProposalApiHandler({
         attempts.push({ provider, status: 'FACTORY_REFUSED' });
         continue;
       }
-      const wrapped = createSelfMaintainerProposalModelWrapper({ modelExecutor: executor });
-      const result = await wrapped({
-        task,
-        model: worker.model || undefined,
-        maxTokens: budget.maxTokens,
-        costCeilingCents: budget.maxCostCents,
-        idempotencyKey: `self-maintainer-proposal:${task.taskId}`
-      });
+
+      let result;
+      if (stage === 'SELECT_CONTEXT') {
+        const selector = createSelfMaintainerContextSelector({ modelExecutor: executor });
+        result = await selector({
+          task,
+          sourceInventory: body?.sourceInventory,
+          model: worker.model || undefined,
+          maxTokens: Math.min(budget.maxTokens, 6000),
+          costCeilingCents: 0,
+          idempotencyKey: `self-maintainer-context:${task.taskId}`
+        });
+      } else {
+        const wrapped = createSelfMaintainerProposalModelWrapper({ modelExecutor: executor });
+        result = await wrapped({
+          task,
+          sourceContext: body.sourceContext,
+          model: worker.model || undefined,
+          maxTokens: budget.maxTokens,
+          costCeilingCents: budget.maxCostCents,
+          idempotencyKey: `self-maintainer-proposal:${task.taskId}`
+        });
+      }
+
       attempts.push({ provider, status: result?.ok ? 'COMPLETED' : text(result?.outcome || result?.status, 80) || 'FAILED' });
       if (result?.ok) {
         return sendJson(res, 200, {
           ...result,
           policyVersion: SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION,
+          stage,
           proposalProvider: provider,
           oidcIdentity: verified.identity,
           attempts,
@@ -193,11 +224,16 @@ export function createSelfMaintainerProposalApiHandler({
       }
       if (result?.outcome === 'UNCERTAIN' || result?.uncertain === true) {
         return sendJson(res, 503, failure(result.reasonCodes || ['proposal-provider-outcome-uncertain'], 'PROVIDER_OUTCOME_UNCERTAIN', {
+          stage,
           attempts
         }));
       }
     }
 
-    return sendJson(res, 409, failure(['all-ready-proposal-providers-confirmed-failure'], 'PROPOSAL_NOT_PRODUCED', { attempts }));
+    return sendJson(res, 409, failure([
+      stage === 'SELECT_CONTEXT'
+        ? 'all-ready-context-providers-confirmed-failure'
+        : 'all-ready-proposal-providers-confirmed-failure'
+    ], stage === 'SELECT_CONTEXT' ? 'CONTEXT_NOT_SELECTED' : 'PROPOSAL_NOT_PRODUCED', { stage, attempts }));
   };
 }

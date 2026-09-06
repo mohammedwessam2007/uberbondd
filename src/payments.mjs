@@ -2,9 +2,10 @@ import crypto from 'node:crypto';
 
 // Bump when the classification policy changes so past receipts stay
 // attributable to the policy version that produced them.
-export const PAYMENT_TRUTH_POLICY_VERSION = 'payment-truth-1.1.0';
+export const PAYMENT_TRUTH_POLICY_VERSION = 'payment-truth-1.2.0';
 
-export const KNOWN_PRODUCTS = ['full', 'strategy', 'monitoring'];
+export const FIRST_CASH_SPRINT_PRODUCT = 'lead-path-revenue-leak-evidence-sprint-usd-450';
+export const KNOWN_PRODUCTS = ['full', 'strategy', 'monitoring', FIRST_CASH_SPRINT_PRODUCT];
 
 // The real Lemon Squeezy webhook event taxonomy. subscription_updated is
 // metadata-only (plan/card/renewal-date changes) and never implies a new
@@ -51,6 +52,9 @@ function malformedAmount(amountCents) {
 // claim `strategy` and unlock the $299 review for $49. Measured: $49 bought
 // strategy, $0.01 bought monitoring, and a $0.00 order bought strategy.
 const PRODUCT_PRICE_FIELDS = { full: 'fullAuditPrice', strategy: 'strategyAuditPrice', monitoring: 'monitoringPrice' };
+const FIXED_PRODUCT_PRICE_CENTS = Object.freeze({
+  [FIRST_CASH_SPRINT_PRODUCT]: 45_000
+});
 
 // The configured prices are plain numbers with no currency attached, and the
 // environment names them FULL_AUDIT_PRICE_USD and so on. So they are USD, and a
@@ -67,6 +71,7 @@ const PRICE_CURRENCY = 'USD';
 
 function listPriceCents(product, currency, cfg) {
   if (String(currency).toUpperCase() !== PRICE_CURRENCY) return null;
+  if (Number.isSafeInteger(FIXED_PRODUCT_PRICE_CENTS[product])) return FIXED_PRODUCT_PRICE_CENTS[product];
   const configured = cfg?.revenue?.[PRODUCT_PRICE_FIELDS[product]];
   return Number.isFinite(Number(configured)) ? Math.round(Number(configured) * 100) : null;
 }

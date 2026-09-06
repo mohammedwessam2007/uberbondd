@@ -41,7 +41,8 @@ test('owner token field does not opt into browser autofill persistence', () => {
 });
 
 test('deployment-protected mode is explicit and cannot silently grant consequence authority', () => {
-  assert.match(commandCenter, /data\.uberbondAuthMode\s*===\s*'deployment-protected'/);
-  assert.match(graphClient, /data\.uberbondAuthMode\s*===\s*'deployment-protected'/);
+  const explicitDeploymentBoundary = /document\.documentElement\.dataset\.uberbondAuthMode\s*===\s*'deployment-protected'/;
+  assert.match(commandCenter, explicitDeploymentBoundary);
+  assert.match(graphClient, explicitDeploymentBoundary);
   assert.doesNotMatch(combined, /businessEffectAuthority\s*=\s*['"](?:ALLOW|FULL|UNLIMITED)['"]/i);
 });

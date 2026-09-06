@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "uberbond.overnight-deep-build-receipt.v1",
+  "observedAt": "2026-09-06T01:20:00Z",
+  "baseIntegrationPr": 400,
+  "baseIntegrationHead": "dbabb004fb7c5d98c0aa10b6fd74fd0aee759034",
+  "integrationPr": 414,
+  "sourceHeadBeforeReceipt": "9036ee0d3bfb3802b960d94f0f22e970dc3c225e",
+  "supersededPr": 413,
+  "missionIssues": [402, 404, 403, 406, 407, 408],
+  "implementedSlices": [
+    "WESSAM_OWNER_SOVEREIGN_CONTINUITY",
+    "LIFETIME_CONTEXT_MEMORY",
+    "WORLD_CAPABILITY_ASSIMILATION",
+    "COMPUTE_SOVEREIGNTY_CAPACITY_TRUTH",
+    "ORGANISM_METABOLISM_WALLBREAKER_COMPOSITION",
+    "PRE_CUSTOMER_REVENUE_READINESS_CLASSIFICATION"
+  ],
+  "newSourceFiles": [
+    "src/wessam-continuity.mjs",
+    "src/lifetime-context-memory.mjs",
+    "src/capability-world-harvester.mjs",
+    "src/compute-sovereignty-capacity.mjs",
+    "src/organism-metabolism.mjs",
+    "src/pre-customer-revenue-readiness.mjs"
+  ],
+  "newTestFiles": [
+    "tests/wessam-continuity.test.mjs",
+    "tests/lifetime-context-memory.test.mjs",
+    "tests/capability-world-harvester.test.mjs",
+    "tests/compute-sovereignty-capacity.test.mjs",
+    "tests/organism-metabolism.test.mjs",
+    "tests/pre-customer-revenue-readiness.test.mjs"
+  ],
+  "adversarialRepair": {
+    "defect": "Compute capacity live-state matching initially omitted transport identity and accepted label-thin configured profiles",
+    "repairCommits": [
+      "9cbd8d38d563f8c7d47b7236b63346628999e29d",
+      "9036ee0d3bfb3802b960d94f0f22e970dc3c225e"
+    ],
+    "result": "Capacity truth now requires canonical profile evidence and exact observed provider/model/revision/transport identity"
+  },
+  "verification": {
+    "githubActions": {
+      "runId": 34003510704,
+      "head": "23ce1833981af86ae647b8ad442c78cc17b09898",
+      "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+      "reason": "browser/deterministic/postgres jobs completed with runner_id 0 and steps []",
+      "deterministicRerun": "REQUESTED_ONCE__RUNNER_ALLOCATION_PENDING_OR_UNAVAILABLE"
+    },
+    "localCheckout": {
+      "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+      "reason": "execution sandbox could not resolve github.com, so repository checkout and test execution were impossible"
+    },
+    "vercelPriorStack": {
+      "classification": "SOURCE_CONFIG_FAILURE_NOT_TEST_EVIDENCE",
+      "reason": "stale PR 413 deployments failed schema validation before build because buildCommand exceeded 256 characters; current PR 400 lineage contains the shorter build-script repair"
+    },
+    "exactHeadExecutableTests": "NOT_YET_OBSERVED"
+  },
+  "truthBoundary": {
+    "sourceImplemented": true,
+    "sourceMergeableAtObservation": true,
+    "testsExecutedOnExactFinalHead": false,
+    "mergeAuthorizedByEvidence": false,
+    "liveRuntimeProven": false,
+    "liveModelCallabilityProven": false,
+    "commercialProofChanged": false
+  },
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueCents": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  }
+}

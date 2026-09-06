@@ -8,6 +8,14 @@ const steps = [
     'tests/uberbond-command-center-status.test.mjs',
     'tests/uberbond-synaptic-map.test.mjs',
     'tests/uberbond-synaptic-cycle-binding.test.mjs'
+  ]],
+  ['node', ['--test',
+    'tests/wessam-continuity.test.mjs',
+    'tests/lifetime-context-memory.test.mjs',
+    'tests/capability-world-harvester.test.mjs',
+    'tests/compute-sovereignty-capacity.test.mjs',
+    'tests/organism-metabolism.test.mjs',
+    'tests/pre-customer-revenue-readiness.test.mjs'
   ]]
 ];
 
@@ -27,6 +35,6 @@ for (const [command, args] of steps) {
 
 console.log(JSON.stringify({
   ok: true,
-  status: 'VERCEL_COMMAND_CENTER_BUILD_GATE_PASSED',
+  status: 'VERCEL_COMMAND_CENTER_AND_OVERNIGHT_FOUNDATIONS_BUILD_GATE_PASSED',
   externalEffectAuthority: 'NONE'
 }));

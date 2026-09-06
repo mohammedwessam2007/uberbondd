@@ -1,0 +1,98 @@
+{
+  "schemaVersion": "uberbond.overnight-deep-build-receipt.v1",
+  "observedAt": "2026-09-06T03:10:00Z",
+  "missionIssues": [402, 403, 404, 406, 407, 408],
+  "integrationPr": 414,
+  "integrationBasePr": 400,
+  "sourceHeadBeforeRun": "508beef605029fb7514e5cad96176cb74da0e333",
+  "sourceHeadAfterRunBeforeReceiptUpdate": "c2459de1ba7b175d434149af694cd7e6b1e5a058",
+  "causalRepairs": [
+    {
+      "issue": 407,
+      "class": "TRUTH_BINDING_DEFECT",
+      "finding": "A metabolism learning receipt could accept arbitrary evidenceRefs without proving the outcome belonged to the Wallbreaker-selected candidate.",
+      "repair": "Require exact outcome candidateId and selected candidate signature before success or failure learning can be compiled; persist the binding in the receipt.",
+      "source": "src/organism-metabolism.mjs",
+      "tests": "tests/organism-metabolism.test.mjs",
+      "hostileCases": [
+        "foreign candidate id cannot mint success",
+        "stale or forged candidate signature cannot mint success",
+        "unbound outcome with evidence refs is denied"
+      ]
+    },
+    {
+      "issue": 408,
+      "class": "LIFECYCLE_COVERAGE_GAP",
+      "finding": "The pre-customer revenue readiness matrix ended at customer acceptance and therefore omitted the canonical renewal and retained-payment truth path.",
+      "repair": "Reuse src/payment-renewal-truth.mjs as the canonical software contract for RENEWAL and RETENTION while explicitly keeping both external-proof-gated.",
+      "source": "src/pre-customer-revenue-readiness.mjs",
+      "tests": "tests/pre-customer-revenue-readiness.test.mjs",
+      "truthBoundary": "Software path presence never creates a renewal, retained customer, or retained revenue claim."
+    }
+  ],
+  "verificationInfrastructureDelta": {
+    "rootBuildGate": {
+      "source": "scripts/vercel-command-center-build.mjs",
+      "commit": "9ef78e6a413b273483ccae0fa18271c70e968aa3",
+      "change": "Promoted all six overnight foundation test files into the existing root Vercel build gate after the root preview runner resumed allocating compute."
+    },
+    "liteProtection": {
+      "temporaryVerifierCommit": "c0cc163be715c749502304722eb39ae2b2955230",
+      "restoredByCommit": "c2459de1ba7b175d434149af694cd7e6b1e5a058",
+      "finalBlobSha": "8608ade685ce1b6962ba86b8ebde86c492861074",
+      "status": "RESTORED_BYTE_FOR_BYTE_TO_PRIOR_PROTECTED_CONFIG"
+    }
+  },
+  "executionEvidence": {
+    "githubActions": {
+      "head": "6b332547a1115436ccb2764e5fd5c17578b2d2e7",
+      "runId": 34008012635,
+      "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+      "jobs": [
+        {"name": "deterministic", "runnerId": 0, "steps": 0, "conclusion": "failure"},
+        {"name": "browser", "runnerId": 0, "steps": 0, "conclusion": "failure"},
+        {"name": "postgres", "runnerId": 0, "steps": 0, "conclusion": "failure"}
+      ]
+    },
+    "vercelRoot": {
+      "deployment": "dpl_5fuiCZaJFTvEFZ7ArKBEi1cLxPm1",
+      "testedCommit": "d5e701453710efc7ab05d080f09d598d50603731",
+      "classification": "EXECUTED_FOCUSED_CANON_AND_COMMAND_CENTER_PROOF",
+      "observed": {
+        "featureGenome": {"ok": true, "repositoryArtifacts": 1436, "dependencyEdges": 1791, "semanticReviewQueue": 323},
+        "featureAtomAtlas": {"ok": true, "featureAtoms": 3127, "exportedCodeFeatures": 2267},
+        "synapticMap": {"ok": true, "nodes": 4592, "edges": 22623, "orphanArtifacts": 0, "orphanFeatureAtoms": 0, "orphanOrgans": 0},
+        "commandCenterTopologyTests": {"tests": 15, "pass": 15, "fail": 0, "skipped": 0}
+      },
+      "limit": "This deployment predates the two run-2 source repairs and therefore is not proof of their new hostile assertions."
+    },
+    "vercelPostRepair": {
+      "classification": "PENDING_NEW_DEPLOYMENT_OR_RATE_LIMIT",
+      "note": "The existing root build gate now includes all six overnight foundation suites; a subsequent executable preview is required to certify the repaired exact source."
+    },
+    "isolatedLocalClone": {
+      "classification": "INFRA_BLOCKER",
+      "result": "git clone could not resolve github.com from the available container network"
+    }
+  },
+  "generatedCanonPolicy": "Feature Genome, Atom Atlas and Synaptic Map were mechanically regenerated in the root Vercel runner on d5e7014. CURRENT_SYSTEM_STATE/readiness are not hand-edited; exact final-head regeneration remains required after repaired foundation tests execute.",
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueCents": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "productionDeployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  },
+  "nextProof": "Consume the next root Vercel preview that includes 9ef78e6 or later. Require all six overnight foundation suites plus Genome/Atlas/Synaptic/command-center gate green before integration; then regenerate exact-final CURRENT_SYSTEM_STATE/readiness and reconcile #414 into #400."
+}

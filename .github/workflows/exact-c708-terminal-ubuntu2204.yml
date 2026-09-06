@@ -1,0 +1,41 @@
+name: Exact c708 NIGHT-10 Terminal Ubuntu 22.04
+
+on:
+  push:
+    branches:
+      - verify/c708-night10-ubuntu2204
+
+permissions:
+  contents: read
+
+concurrency:
+  group: exact-c708-night10-ubuntu2204
+  cancel-in-progress: false
+
+jobs:
+  terminal:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 60
+    steps:
+      - name: Checkout immutable target source
+        uses: actions/checkout@v4
+        with:
+          ref: c70815ac93eeb662ff8f5b2c3bebace81fd4b5f8
+          fetch-depth: 1
+
+      - name: Set up Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install exact dependencies
+        run: npm ci
+
+      - name: Prove exact target SHA
+        run: |
+          test "$(git rev-parse HEAD)" = "c70815ac93eeb662ff8f5b2c3bebace81fd4b5f8"
+          git status --short
+
+      - name: Run unchanged NIGHT-10 terminal gate
+        run: node scripts/vercel-command-center-build.mjs

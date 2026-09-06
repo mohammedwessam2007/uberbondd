@@ -2,10 +2,15 @@ const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
 const dash = value => value === null || value === undefined || value === '' ? '—' : value;
 const short = (value, length = 12) => value ? String(value).slice(0, length) : '—';
-let token = localStorage.revenueEngineToken || localStorage.nightshiftToken || '';
+const deploymentProtected = document.documentElement.dataset.uberbondAuthMode === 'deployment-protected';
+let token = '';
 let state = null;
 let mapMode = 'cognitive';
 let refreshTimer = null;
+
+// Deliberately process/page-memory only. The bearer is never written to
+// localStorage, sessionStorage, URLs, caches, service workers or DOM attributes.
+window.__uberbondOwnerBearer = () => token;
 
 function clockTick() {
   $('#clock').textContent = new Intl.DateTimeFormat(undefined, { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false }).format(new Date());
@@ -13,7 +18,8 @@ function clockTick() {
 setInterval(clockTick, 1000); clockTick();
 
 async function api(path) {
-  const response = await fetch(path, { headers: { authorization: `Bearer ${token}` }, cache: 'no-store' });
+  const headers = deploymentProtected ? {} : { authorization: `Bearer ${token}` };
+  const response = await fetch(path, { headers, cache: 'no-store' });
   const body = await response.json().catch(() => ({ status: 'INVALID_RESPONSE' }));
   if (!response.ok) {
     const error = new Error(body?.reasonCodes?.join(', ') || body?.error || body?.status || 'Request failed');
@@ -28,9 +34,10 @@ function setConnection(mode, label) {
   $('#connection-label').textContent = label;
 }
 function authOpen(message = '') {
+  if (deploymentProtected) return;
   $('#auth-modal').classList.add('open');
   $('#auth-modal').setAttribute('aria-hidden', 'false');
-  $('#owner-token').value = token;
+  $('#owner-token').value = '';
   $('#auth-error').textContent = message;
   setTimeout(() => $('#owner-token').focus(), 40);
 }
@@ -38,6 +45,7 @@ function authClose() {
   $('#auth-modal').classList.remove('open');
   $('#auth-modal').setAttribute('aria-hidden', 'true');
   $('#auth-error').textContent = '';
+  $('#owner-token').value = '';
 }
 function tone(value) {
   const text = String(value || '').toUpperCase();
@@ -217,7 +225,7 @@ function closeNode() {
 }
 function render(data) {
   state = data;
-  setConnection('live', 'OWNER LINK LIVE');
+  setConnection('live', deploymentProtected ? 'PRIVATE DEPLOYMENT LIVE' : 'OWNER LINK LIVE');
   $('#truth-state').textContent = data.truthState || 'UNKNOWN';
   $('#core-status').textContent = data.truthState || 'UNKNOWN';
   const obs = data.observability || {};
@@ -257,12 +265,13 @@ function scheduleRefresh() {
 
 $('#auth-form').addEventListener('submit', async event => {
   event.preventDefault();
+  if (deploymentProtected) { authClose(); await load(); return; }
   token = $('#owner-token').value.trim();
+  $('#owner-token').value = '';
   if (!token) { $('#auth-error').textContent = 'Owner token required.'; return; }
-  localStorage.revenueEngineToken = token;
   await load();
 });
-$('#open-auth').addEventListener('click', () => authOpen());
+$('#open-auth').addEventListener('click', () => deploymentProtected ? load() : authOpen());
 $('#refresh').addEventListener('click', load);
 $('#toggle-map').addEventListener('click', () => {
   mapMode = mapMode === 'cognitive' ? 'synaptic' : 'cognitive';
@@ -273,6 +282,6 @@ $('#close-drawer').addEventListener('click', closeNode);
 window.addEventListener('resize', () => { clearTimeout(window.__uberResize); window.__uberResize = setTimeout(() => state && renderGraph(state), 120); });
 document.addEventListener('visibilitychange', () => { if (!document.hidden) load(); });
 
-if (!token) authOpen();
+if (!deploymentProtected && !token) authOpen();
 load();
 scheduleRefresh();

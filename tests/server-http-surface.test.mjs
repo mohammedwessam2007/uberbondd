@@ -155,6 +155,22 @@ test('security headers reach the client on public and refused responses alike', 
   }
 });
 
+test('wrapper-owned privileged query-token refusal carries hardening headers', async () => {
+  const response = await fetch(`${base}/api/summary?token=forbidden`);
+  assert.equal(response.status, 401);
+  const expected = {
+    'cache-control': /no-store/,
+    'x-content-type-options': /nosniff/,
+    'x-frame-options': /DENY/,
+    'referrer-policy': /no-referrer/
+  };
+  for (const [header, pattern] of Object.entries(expected)) {
+    const value = response.headers.get(header);
+    assert.ok(value && pattern.test(value),
+      `wrapper-owned refusal is missing or weakening ${header}: ${value}`);
+  }
+});
+
 test('an unknown path is a plain 404 that describes nothing', async () => {
   const response = await fetch(`${base}/definitely-not-a-route`);
   assert.equal(response.status, 404);

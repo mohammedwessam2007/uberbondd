@@ -20,7 +20,12 @@ const steps = [
   ['node', ['--test',
     'tests/command-center-2-auth.test.mjs',
     'tests/command-center-2-policy.test.mjs'
-  ]]
+  ]],
+  ['npm', ['run', 'check:syntax']],
+  ['npm', ['run', 'test:deterministic']],
+  ['npm', ['run', 'test:mutation-war']],
+  ['npm', ['run', 'test:whole-brain']],
+  ['npm', ['run', 'readiness']]
 ];
 
 for (const [command, args] of steps) {
@@ -39,6 +44,6 @@ for (const [command, args] of steps) {
 
 console.log(JSON.stringify({
   ok: true,
-  status: 'VERCEL_COMMAND_CENTER_FOUNDATIONS_AND_UI2_BUILD_GATE_PASSED',
+  status: 'VERCEL_NIGHT10_TERMINAL_SOURCE_GATE_PASSED',
   externalEffectAuthority: 'NONE'
 }));

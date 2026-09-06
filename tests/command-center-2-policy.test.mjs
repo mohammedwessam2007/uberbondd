@@ -6,6 +6,7 @@ import {
   sanitizeCommandCenterSnapshot,
   buildLastGoodCache,
   classifyCachedSnapshot,
+  classifyLiveStatus,
   capSynapticGraph,
   COMMAND_CENTER_GRAPH_LIMITS
 } from '../src/command-center-client-policy.mjs';
@@ -18,19 +19,22 @@ import {
 const root = path.resolve(import.meta.dirname, '..');
 const read = relative => readFile(path.join(root, relative), 'utf8');
 
-test('last-good cache recursively strips credential-like fields', () => {
+test('last-good cache recursively strips credential-like fields and secret-looking values', () => {
   const poisoned = {
     generatedAt: '2026-09-06T00:00:00.000Z',
     token: 'never-store-me',
     nested: { authorization: 'Bearer secret', ok: true, cookie: 'x', apiKey: 'abc' },
+    innocentLabel: 'Bearer abcdefghijklmnopqrstuvwxyz',
     rows: [{ password: 'bad', value: 7 }, { credentialHint: 'bad', label: 'safe' }]
   };
   const cache = buildLastGoodCache(poisoned, { storedAt: Date.parse('2026-09-06T00:00:01.000Z') });
   const serialized = JSON.stringify(cache);
   assert.equal(serialized.includes('never-store-me'), false);
   assert.equal(serialized.includes('Bearer secret'), false);
+  assert.equal(serialized.includes('abcdefghijklmnopqrstuvwxyz'), false);
   assert.equal(serialized.includes('"password"'), false);
   assert.equal(serialized.includes('"apiKey"'), false);
+  assert.equal(cache.payload.innocentLabel, '[REDACTED_SECRET_VALUE]');
   assert.equal(cache.payload.nested.ok, true);
   assert.equal(cache.payload.rows[0].value, 7);
 });
@@ -39,6 +43,19 @@ test('stale last-good cache can never classify as live runtime', () => {
   const cache = buildLastGoodCache({ generatedAt: '2026-09-01T00:00:00.000Z' }, { storedAt: Date.parse('2026-09-01T00:00:00.000Z') });
   const result = classifyCachedSnapshot(cache, { now: Date.parse('2026-09-02T00:00:00.000Z'), maxAgeMs: 60_000 });
   assert.equal(result.state, 'CACHED_STALE');
+});
+
+test('future-timestamped cache is invalid rather than fresh', () => {
+  const cache = buildLastGoodCache({ generatedAt: '2026-09-06T00:00:00.000Z' }, { storedAt: Date.parse('2026-09-07T00:00:00.000Z') });
+  const result = classifyCachedSnapshot(cache, { now: Date.parse('2026-09-06T00:00:00.000Z'), maxFutureSkewMs: 60_000 });
+  assert.equal(result.state, 'INVALID');
+});
+
+test('observed truth older than live window is partial evidence, not a live receipt', () => {
+  const staleObserved = classifyLiveStatus({ ok: true, truthState: 'OBSERVED', generatedAt: '2026-09-06T00:00:00.000Z' }, { now: Date.parse('2026-09-06T01:00:00.000Z'), maxLiveAgeMs: 5 * 60_000 });
+  const freshObserved = classifyLiveStatus({ ok: true, truthState: 'OBSERVED', generatedAt: '2026-09-06T00:59:00.000Z' }, { now: Date.parse('2026-09-06T01:00:00.000Z'), maxLiveAgeMs: 5 * 60_000 });
+  assert.equal(staleObserved, 'RUNTIME_PARTIAL');
+  assert.equal(freshObserved, 'RUNTIME_RECEIPT');
 });
 
 test('oversized and poisoned synaptic graph is bounded and orphan edges disappear', () => {
@@ -77,13 +94,15 @@ test('eligible UI candidate is review-only and carries rollback evidence', () =>
   assert.equal(assertReviewOnlyPromotion(receipt), true);
 });
 
-test('public command center keeps credential memory-only and renders remote text without artifact innerHTML', async () => {
+test('public command center keeps credential memory-only renders remote text safely and redacts secret values before caching', async () => {
   const js = await read('public/command-center.js');
   assert.match(js, /let credential=''/);
   assert.doesNotMatch(js, /localStorage[^\n]*(token|credential|authorization)/i);
   assert.doesNotMatch(js, /sessionStorage[^\n]*(token|credential|authorization)/i);
   assert.doesNotMatch(js, /innerHTML\s*=/);
   assert.match(js, /textContent=/);
+  assert.match(js, /SECRET_VALUE/);
+  assert.match(js, /REDACTED_SECRET_VALUE/);
   assert.match(js, /credential='';/);
 });
 
@@ -94,7 +113,7 @@ test('service worker refuses API and Authorization caching', async () => {
   assert.match(sw, /if\(hasAuthorization\|\|isApi\)return/);
 });
 
-test('iPad shell carries touch viewport, standalone PWA, safe-area and responsive contracts', async () => {
+test('iPad shell carries touch viewport standalone PWA safe-area and responsive contracts', async () => {
   const [html, css, manifest] = await Promise.all([read('public/command-center.html'), read('public/command-center.css'), read('public/command-center.webmanifest')]);
   assert.match(html, /viewport-fit=cover/);
   assert.match(html, /apple-mobile-web-app-capable/);

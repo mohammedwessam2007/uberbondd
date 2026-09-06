@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "uberbond.overnight-deep-build-receipt.v1",
+  "observedAt": "2026-09-06T03:08:00Z",
+  "missionIssues": [402, 403, 404, 406, 407, 408],
+  "integrationPr": 414,
+  "integrationBasePr": 400,
+  "sourceHeadBeforeRun": "508beef605029fb7514e5cad96176cb74da0e333",
+  "sourceHeadAfterRepairsBeforeReceipt": "d5e701453710efc7ab05d080f09d598d50603731",
+  "causalRepairs": [
+    {
+      "issue": 407,
+      "class": "TRUTH_BINDING_DEFECT",
+      "finding": "A metabolism learning receipt could accept arbitrary evidenceRefs without proving the outcome belonged to the Wallbreaker-selected candidate.",
+      "repair": "Require exact outcome candidateId and selected candidate signature before success or failure learning can be compiled; persist the binding in the receipt.",
+      "source": "src/organism-metabolism.mjs",
+      "tests": "tests/organism-metabolism.test.mjs",
+      "hostileCases": [
+        "foreign candidate id cannot mint success",
+        "stale or forged candidate signature cannot mint success",
+        "unbound outcome with evidence refs is denied"
+      ]
+    },
+    {
+      "issue": 408,
+      "class": "LIFECYCLE_COVERAGE_GAP",
+      "finding": "The pre-customer revenue readiness matrix ended at customer acceptance and therefore omitted the canonical renewal and retained-payment truth path.",
+      "repair": "Reuse src/payment-renewal-truth.mjs as the canonical software contract for RENEWAL and RETENTION while explicitly keeping both external-proof-gated.",
+      "source": "src/pre-customer-revenue-readiness.mjs",
+      "tests": "tests/pre-customer-revenue-readiness.test.mjs",
+      "truthBoundary": "Software path presence never creates a renewal, retained customer, or retained revenue claim."
+    }
+  ],
+  "executionEvidence": {
+    "githubActions": {
+      "head": "6b332547a1115436ccb2764e5fd5c17578b2d2e7",
+      "runId": 34008012635,
+      "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+      "jobs": [
+        {"name": "deterministic", "runnerId": 0, "steps": 0, "conclusion": "failure"},
+        {"name": "browser", "runnerId": 0, "steps": 0, "conclusion": "failure"},
+        {"name": "postgres", "runnerId": 0, "steps": 0, "conclusion": "failure"}
+      ]
+    },
+    "vercel": {
+      "latestObservedReadyDeployment": "dpl_CLu1PdrbNPvyu5G3g49f54VntRaE",
+      "testedCommit": "ba0e4c1383543e33c9a9892869a3b7d6e22d329c",
+      "classification": "PACKAGING_ONLY_NOT_TEST_PROOF",
+      "note": "Build cloned and packaged the lite project but executed no repository test gate."
+    },
+    "isolatedLocalClone": {
+      "classification": "INFRA_BLOCKER",
+      "result": "git clone could not resolve github.com from the available container network"
+    }
+  },
+  "generatedCanonPolicy": "CURRENT_SYSTEM_STATE/readiness were not hand-edited because exact-tree generators could not execute; generated facts must be regenerated mechanically on a real exact-head runner.",
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueCents": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  },
+  "nextProof": "Run exact final #414 head focused organism-metabolism + pre-customer-readiness tests before canon regeneration, then strongest exact-head deterministic/reachability/readiness gates."
+}

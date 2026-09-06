@@ -9,6 +9,7 @@
   <title>UberBond · Wessam Command Center</title>
   <link rel="icon" href="/icon.svg">
   <link rel="stylesheet" href="/uberbond.css">
+  <link rel="stylesheet" href="/uberbond-graph.css">
 </head>
 <body>
   <div class="ambient ambient-a"></div>
@@ -67,8 +68,30 @@
         </div>
       </div>
 
-      <div id="graph-stage" class="graph-stage" aria-label="UberBond cognitive graph">
+      <div class="graph-console" aria-label="Ultimate Graph controls">
+        <div class="graph-search-wrap"><input id="graph-search" class="graph-search" type="search" autocomplete="off" spellcheck="false" placeholder="Focus any feature, file, memory, capability, idea…"></div>
+        <div class="graph-lenses" role="group" aria-label="Graph lenses">
+          <button class="graph-lens active" data-graph-lens="brain" type="button">BRAIN</button>
+          <button class="graph-lens" data-graph-lens="software" type="button">SOFTWARE</button>
+          <button class="graph-lens" data-graph-lens="memory" type="button">MEMORY</button>
+          <button class="graph-lens" data-graph-lens="capability" type="button">CAPABILITY</button>
+          <button class="graph-lens" data-graph-lens="economic" type="button">ECONOMIC</button>
+          <button class="graph-lens" data-graph-lens="evolution" type="button">EVOLUTION</button>
+          <button class="graph-lens" data-graph-lens="all" type="button">ALL</button>
+        </div>
+        <div class="graph-actions">
+          <button id="graph-back" class="ghost-button compact" type="button">BACK</button>
+          <button id="graph-reset" class="ghost-button compact" type="button">RESET</button>
+        </div>
+      </div>
+      <div class="projection-strip">
+        <span id="projection-label"><b>—</b> visible / — canonical · <span class="projection-warning">projection only</span></span>
+        <span id="projection-digest" class="projection-digest">ultimate graph awaiting owner link</span>
+      </div>
+
+      <div id="graph-stage" class="graph-stage" aria-label="UberBond cognitive and Ultimate Graph">
         <svg id="graph-lines" class="graph-lines" aria-hidden="true"></svg>
+        <canvas id="ultimate-canvas" class="ultimate-canvas" aria-label="Interactive UberBond Ultimate Graph"></canvas>
         <div class="core-orbit orbit-3"></div>
         <div class="core-orbit orbit-2"></div>
         <div class="core-orbit orbit-1"></div>
@@ -79,6 +102,15 @@
           <em id="core-status">SYNCING</em>
         </button>
         <div id="graph-nodes" class="graph-nodes"></div>
+        <div id="graph-hud" class="graph-hud" aria-hidden="true">
+          <span>LENS <b id="hud-lens">BRAIN</b></span>
+          <span>VISIBLE <b id="hud-visible">—</b></span>
+          <span>CANONICAL <b id="hud-canonical">—</b></span>
+          <span>HIDDEN <b id="hud-hidden">—</b></span>
+          <span class="no-amputation">DELETED <b>0</b></span>
+        </div>
+        <div id="graph-hover-card" class="graph-hover-card"></div>
+        <div id="graph-empty-overlay" class="graph-empty-overlay"><div id="graph-empty-copy"><b>ULTIMATE GRAPH</b>No projection is currently available. Canonical counts will not be fabricated.</div></div>
       </div>
 
       <div class="stage-footer">
@@ -88,8 +120,12 @@
           <span><i class="legend-dot goal"></i>CHAT SPEC / GOAL</span>
           <span><i class="legend-dot donor"></i>HISTORICAL DONOR</span>
         </div>
-        <button id="toggle-map" class="ghost-button compact" type="button">COGNITIVE MAP</button>
+        <div class="graph-actions">
+          <button id="toggle-ultimate" class="ghost-button compact ultimate-toggle" type="button">ULTIMATE GRAPH</button>
+          <button id="toggle-map" class="ghost-button compact" type="button">COGNITIVE MAP</button>
+        </div>
       </div>
+      <div id="visual-law" class="visual-law"><b>NEVER AMPUTATE:</b> the visual layer may cluster, hide, focus and reorganize, but it never deletes canonical graph memory.</div>
     </section>
 
     <section class="right-rail">
@@ -129,7 +165,7 @@
 
   <aside id="node-drawer" class="node-drawer glass" aria-hidden="true">
     <button id="close-drawer" class="drawer-close" type="button">×</button>
-    <span class="eyebrow">COGNITIVE ORGAN</span>
+    <span class="eyebrow">COGNITIVE ORGAN / GRAPH NODE</span>
     <h2 id="drawer-title">—</h2>
     <p id="drawer-kind">—</p>
     <div id="drawer-truth" class="drawer-truth">—</div>
@@ -152,5 +188,6 @@
 
   <noscript>This command center requires JavaScript to render UberBond state.</noscript>
   <script src="/uberbond.js" defer></script>
+  <script src="/uberbond-graph.js" defer></script>
 </body>
 </html>

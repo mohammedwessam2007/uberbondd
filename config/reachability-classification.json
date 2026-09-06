@@ -44,10 +44,6 @@
       "description": "Payment-to-renewal truth derives economics from provider evidence. No payment provider is connected and no provider event has ever arrived.",
       "releasedBy": "A connected payment provider and at least one real provider event in durable storage."
     },
-    "MESH_LIVE_OBSERVATION_REQUIRED": {
-      "description": "Self-upgrade composition is wirable, but wiring the mesh's self-modification path in the same pass that first made the mesh runnable is an unsafe ordering. Recorded in docs/AGENT_MESH_REACHABILITY_TRIAGE.md, not invented here.",
-      "releasedBy": "Durable evidence of the agent mesh completing scheduler cycles in production, reviewed by the owner, before any path that can rewrite this repository is reachable."
-    },
     "NO_AI_ACCESS_EXTERNAL_AUTHORIZATION": {
       "description": "The AI access catalogue's meaningful execution path creates provider accounts, applications and credit claims. Recorded as out of scope by the external-effect ledger in docs/AGENT_MESH_REACHABILITY_TRIAGE.md.",
       "releasedBy": "Separate, explicit owner authorization for provider account creation and application submission, which is not covered by any authorization granted to date."

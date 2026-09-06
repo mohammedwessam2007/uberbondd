@@ -1,5 +1,23 @@
 import { spawnSync } from 'node:child_process';
 
+const TERMINAL_FURNACE_BRANCH = 'gpt/terminal-furnace-c708';
+const terminalFurnaceRequested =
+  process.env.VERCEL_GIT_COMMIT_REF === TERMINAL_FURNACE_BRANCH &&
+  process.env.UBERBOND_TERMINAL_FURNACE_ACTIVE !== '1';
+
+if (terminalFurnaceRequested) {
+  const result = spawnSync('node', ['scripts/vercel-command-center-build.mjs'], {
+    cwd: process.cwd(),
+    env: { ...process.env, UBERBOND_TERMINAL_FURNACE_ACTIVE: '1' },
+    stdio: 'inherit'
+  });
+  if (result.error) {
+    console.error(`terminal furnace failed to start: ${result.error.message}`);
+    process.exit(1);
+  }
+  process.exit(result.status ?? 1);
+}
+
 const steps = [
   ['node', ['scripts/uberbond-feature-genome.mjs']],
   ['node', ['scripts/uberbond-feature-atom-atlas.mjs']],

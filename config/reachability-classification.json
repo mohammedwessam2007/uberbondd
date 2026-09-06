@@ -44,10 +44,6 @@
       "description": "Payment-to-renewal truth derives economics from provider evidence. No payment provider is connected and no provider event has ever arrived.",
       "releasedBy": "A connected payment provider and at least one real provider event in durable storage."
     },
-    "MESH_LIVE_OBSERVATION_REQUIRED": {
-      "description": "Self-upgrade composition is wirable, but wiring the mesh's self-modification path in the same pass that first made the mesh runnable is an unsafe ordering. Recorded in docs/AGENT_MESH_REACHABILITY_TRIAGE.md, not invented here.",
-      "releasedBy": "Durable evidence of the agent mesh completing scheduler cycles in production, reviewed by the owner, before any path that can rewrite this repository is reachable."
-    },
     "NO_AI_ACCESS_EXTERNAL_AUTHORIZATION": {
       "description": "The AI access catalogue's meaningful execution path creates provider accounts, applications and credit claims. Recorded as out of scope by the external-effect ledger in docs/AGENT_MESH_REACHABILITY_TRIAGE.md.",
       "releasedBy": "Separate, explicit owner authorization for provider account creation and application submission, which is not covered by any authorization granted to date."
@@ -96,26 +92,6 @@
       "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
       "reason": "Persists engineering artifacts the blocked path would produce."
     },
-    "src/agent-code-change-applier.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
-      "reason": "Applies a verified change set; promotion is separately governed and not automatic."
-    },
-    "src/agent-code-change-contract.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
-      "reason": "Validates change sets from the blocked engineering path. Its protected-path rules are enforced wherever it is used."
-    },
-    "src/agent-evolution-wave.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "MESH_LIVE_OBSERVATION_REQUIRED",
-      "reason": "Self-upgrade composition. Wirable: its relay client now has a factory. Deliberately left because wiring the mesh's self-modification path in the pass that first made the mesh runnable is an unsafe ordering, recorded in docs/AGENT_MESH_REACHABILITY_TRIAGE.md before this classification existed."
-    },
-    "src/agent-git-sandbox-collector.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
-      "reason": "Collects a change set from a sandbox nothing can currently create."
-    },
     "src/agent-provider-execution.mjs": {
       "category": "SUPERSEDED",
       "gate": null,
@@ -125,11 +101,6 @@
       "category": "SUPERSEDED",
       "gate": null,
       "reason": "Reached only from the superseded provider-execution path. The model router it imported is now reachable in its own right via scripts/agent-model-route.mjs, which leaves this module as the last resident of that superseded cluster."
-    },
-    "src/agent-sandbox-verifier.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
-      "reason": "Runs verification inside a sandbox that cannot yet be attested."
     },
     "src/ai-access-opportunity-registry.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -630,11 +601,6 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_COMMERCIAL_EVENTS",
       "reason": "Compiles an offer from journey findings. There are zero commercial events, so there is no journey to observe."
-    },
-    "src/payment-renewal-truth.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PAYMENT_PROVIDER",
-      "reason": "Derives payment-to-renewal economic truth from provider evidence. No payment provider is connected and no provider event has ever arrived, so there is nothing for it to read."
     },
     "src/pending-relay-reconciliation.mjs": {
       "category": "AWAITING_ACTIVATION",

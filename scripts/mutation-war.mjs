@@ -421,7 +421,7 @@ export const MUTATIONS = [
   },
   {
     id: 'MONEY-21', guard: 'The webhook acknowledgement does not echo the buyer',
-    file: 'server.mjs',
+    file: 'server-core.mjs',
     find: '      const outcome = await revenue.handleLemonWebhook(raw, req.headers[\'x-signature\']);',
     replace: '      const outcome = await revenue.handleLemonWebhook(raw, req.headers[\'x-signature\']); return json(res, 200, outcome);',
     suites: ['tests/webhook-route-truth.test.mjs']
@@ -697,7 +697,7 @@ export const MUTATIONS = [
   // ---- Identity: who a rate limit thinks it is counting -------------------
   {
     id: 'IDENT-01', guard: 'A caller cannot choose the identity a rate limit counts',
-    file: 'server.mjs',
+    file: 'server-core.mjs',
     find: '  const hops = Number(config.trustProxyHops) || 0;',
     replace: "  const hops = Number(config.trustProxyHops) || 0;\n  { const claimed = req.headers['x-forwarded-for']; if (claimed) return String(claimed).split(',')[0].trim(); }",
     suites: ['tests/client-identity-trust.test.mjs']
@@ -718,14 +718,14 @@ export const MUTATIONS = [
   },
   {
     id: 'SRV-02', guard: 'A non-object JSON body is a client error, not a 500',
-    file: 'server.mjs',
+    file: 'server-core.mjs',
     find: "  if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {",
     replace: '  if (false) {',
     suites: ['tests/server-request-handler.test.mjs']
   },
   {
     id: 'SRV-03', guard: 'The request handler stays reachable without a socket',
-    file: 'server.mjs',
+    file: 'server-core.mjs',
     find: 'export const requestHandler = async (req, res) => {',
     replace: 'const requestHandler = async (req, res) => {',
     suites: ['tests/server-request-handler.test.mjs']
@@ -1386,8 +1386,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       cpSync(join(repoRoot, 'api'), join(root, 'api'), { recursive: true });
       // The process entry points, for the same reason as `api`: a suite that
       // spawns server.mjs runs it from the sandbox, so a mutation of it only
-      // means anything if the sandbox has it.
-      for (const entry of ['server.mjs', 'worker.mjs']) {
+      // means anything if the sandbox has it. The hardened facade delegates to
+      // server-core.mjs, so the sandbox must carry both halves of that entry
+      // surface or a server mutant can fail because its implementation vanished.
+      for (const entry of ['server.mjs', 'server-core.mjs', 'worker.mjs']) {
         try { cpSync(join(repoRoot, entry), join(root, entry)); } catch { /* absent in a trimmed tree */ }
       }
       cpSync(join(repoRoot, 'package.json'), join(root, 'package.json'));

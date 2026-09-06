@@ -23,6 +23,7 @@ import { join } from 'node:path';
 
 const ADMIN_TOKEN = 'a-strong-admin-token-value-000000000000';
 let handler;
+let coreHandler;
 let dataDir;
 
 test.before(async () => {
@@ -34,6 +35,7 @@ test.before(async () => {
   process.env.ADMIN_TOKEN = ADMIN_TOKEN;
   process.env.NODE_ENV = 'test';
   ({ requestHandler: handler } = await import('../server.mjs'));
+  ({ requestHandler: coreHandler } = await import('../server-core.mjs'));
 });
 
 test.after(async () => {
@@ -64,6 +66,11 @@ const json = res => { try { return JSON.parse(res.body); } catch { return null; 
 
 test('the handler is exported and usable without binding a port', () => {
   assert.equal(typeof handler, 'function');
+});
+
+test('the core handler remains a named export usable without binding a port', () => {
+  assert.equal(typeof coreHandler, 'function',
+    'server-core.mjs must keep its named requestHandler export; wrapper capture is not a substitute for a directly reachable handler');
 });
 
 test('an authenticated read answers, an unauthenticated one does not', async () => {

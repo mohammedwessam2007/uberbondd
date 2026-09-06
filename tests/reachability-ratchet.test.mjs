@@ -19,41 +19,18 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { reachableFromEntryPoints } from '../scripts/system-readiness.mjs';
+import { measureReachability, reachableFromEntryPoints } from '../scripts/system-readiness.mjs';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const PRODUCTION_ENTRY_POINTS = ['server.mjs', 'worker.mjs', 'scripts/agent-mesh-tick.mjs'];
 
-function filesIn(dir, extension = '.mjs') {
-  try {
-    return readdirSync(join(repoRoot, dir)).filter(name => name.endsWith(extension)).map(name => `${dir}/${name}`);
-  } catch {
-    return [];
-  }
-}
-
 // Entry points have to be found recursively, and this is not a tidiness point.
 //
-// `filesIn` reads one directory level. Every route used to live directly under
-// `api/`, so that was invisibly sufficient -- until `api/webhooks/billing.mjs`
-// and `api/admin/health-check.mjs` landed. Four modules those routes import
-// were then reported as having no entry point at all.
-//
-// The damage is not a red test. It is what a red test of this shape invites: the
-// obvious way to make it green is to add the four modules to the classification
-// file as AWAITING_ACTIVATION behind some gate, which would record, durably and
-// in the canonical place, that production code wired to a live route is waiting
-// on an activation that does not exist. The ratchet exists to stop exactly that
-// kind of false statement, so it must not be the thing that produces one.
-//
-// `src` is now walked recursively too. It was not, and that exemption was never
-// a decision -- it was an accident of a single-level `readdirSync` that left
-// `src/overnight` and `src/omnia-v9` (58 modules, 11,210 lines) entirely outside
-// the ratchet. Six of them are production-reachable, including an outbound
-// admission path; 48 had no entry point and no classification, and nothing would
-// ever have said so. That is precisely the condition this file exists to make
-// impossible, applied to a fifth of the source tree.
+// Every route used to live directly under api/, so a one-level read was
+// invisibly sufficient until nested routes landed. src is walked recursively
+// for the same reason: a nested source tree cannot be allowed to fall outside
+// the reachability ratchet by accident.
 function entryPointsIn(dir, extension = '.mjs') {
   const found = [];
   const walk = relative => {
@@ -67,7 +44,7 @@ function entryPointsIn(dir, extension = '.mjs') {
     }
   };
   walk(dir);
-  return found;
+  return found.sort();
 }
 
 function classification() {
@@ -135,37 +112,38 @@ test('an UNREACHABLE_BUG classification is a defect and fails until it is fixed'
     'a module classified UNREACHABLE_BUG should be wired or reclassified, not left sitting');
 });
 
-test('the reachability split is reported, so a regression is visible in the numbers', () => {
+test('the reachability split is live-computed and production reachability cannot silently fall', () => {
   const { all, production, operatorOnly, unreachable } = partition();
   assert.equal(production.length + operatorOnly.length + unreachable.length, all.length);
 
-  // Production reachability must not silently fall. The previous floor of 103
-  // was not raised after the integrated graph reached 107, leaving four modules
-  // free to become dead without tripping the ratchet.
+  // Production reachability must not silently fall. The floor is intentionally
+  // conservative; live graph totals may increase as capabilities are wired.
   assert.ok(production.length >= 107,
     `production-reachable modules fell to ${production.length}; something was unwired`);
 
-  // CURRENT_SYSTEM_STATE is the human-readable canonical surface. Its static
-  // prose previously stayed at 151/103 after the machine-readable readiness
-  // artifact had moved to 155/107. Bind the prose to the same live graph so a
-  // docs refresh cannot silently leave contradictory reachability truth behind.
+  // The readiness generator is the machine-readable present-tense surface.
+  // Bind it to this same executable partition instead of trusting an older
+  // recorded packet from config/system-readiness-input.json.
+  const measured = measureReachability();
+  assert.equal(measured.measurementMode, 'LIVE_COMPUTED_FROM_IMPORT_GRAPH');
+  assert.equal(measured.srcModules, all.length);
+  assert.equal(measured.reachableFromProduction, production.length);
+  assert.equal(measured.reachableFromOperatorScriptsOnly, operatorOnly.length);
+  assert.equal(measured.noEntryPointAtAll, unreachable.length);
+  assert.equal(measured.partitionExact, true);
+
+  // Do not duplicate volatile live graph counts in prose. That practice failed
+  // repeatedly: CURRENT_SYSTEM_STATE stayed numerically stale while the graph
+  // moved. Human canon identifies the executable authority and leaves counts to
+  // the live-generated readiness/report surfaces.
   const canon = readFileSync(join(repoRoot, 'docs', 'CURRENT_SYSTEM_STATE.md'), 'utf8');
-  const prose = canon.match(/\*\*([0-9]+) of ([0-9]+) `src` modules have no entry point at all\*\*/);
-  const claimedProduction = canon.match(/\| Reachable from production \| ([0-9]+) \|/);
-  const claimedOperatorOnly = canon.match(/\| Reachable only via an operator script \| ([0-9]+) \|/);
-  const claimedUnreachable = canon.match(/\| \*\*No entry point at all\*\* \| \*\*([0-9]+)\*\* \|/);
-  assert.ok(prose && claimedProduction && claimedOperatorOnly && claimedUnreachable,
-    'CURRENT_SYSTEM_STATE reachability claims must remain machine-readable');
-  assert.equal(Number(prose[2]), all.length,
-    `canon claims ${prose[2]} src modules; ${all.length} exist`);
-  assert.equal(Number(prose[1]), unreachable.length,
-    `canon prose claims ${prose[1]} unreachable modules; ${unreachable.length} are unreachable`);
-  assert.equal(Number(claimedProduction[1]), production.length,
-    `canon claims ${claimedProduction[1]} production-reachable modules; ${production.length} are reachable`);
-  assert.equal(Number(claimedOperatorOnly[1]), operatorOnly.length,
-    `canon claims ${claimedOperatorOnly[1]} operator-only modules; ${operatorOnly.length} are operator-only`);
-  assert.equal(Number(claimedUnreachable[1]), unreachable.length,
-    `canon table claims ${claimedUnreachable[1]} unreachable modules; ${unreachable.length} are unreachable`);
+  assert.match(canon,
+    /Reachability source:\s*`tests\/reachability-ratchet\.test\.mjs`\s*\(LIVE_COMPUTED\)/,
+    'CURRENT_SYSTEM_STATE must identify the live-computed reachability gate');
+  assert.doesNotMatch(canon, /\| Reachable from production \|\s*[0-9]+\s*\|/,
+    'human canon must not duplicate a live production-reachability count');
+  assert.doesNotMatch(canon, /\| Reachable only via an operator script \|\s*[0-9]+\s*\|/,
+    'human canon must not duplicate a live operator-only count');
 });
 
 test('the entry points this ratchet trusts actually exist', () => {
@@ -174,16 +152,9 @@ test('the entry points this ratchet trusts actually exist', () => {
   }
 });
 
-// The gate registry. Before it existed, `AWAITING_ACTIVATION` required only
-// that `gate` be truthy -- `gate: "TODO_FIGURE_THIS_OUT_LATER"` passed all
-// seven tests above. That made AWAITING_ACTIVATION a resting state reachable by
-// typing anything, which is precisely the failure the ratchet exists to
-// prevent: a decision that was never made, wearing the shape of one.
-//
-// Now a gate must be declared in config/reachability-classification.json with
-// what it is and what would release it. Minting a new gate is still allowed --
-// it is a reviewable edit to a registry, not a string typed into one module.
-
+// The gate registry. Before it existed, AWAITING_ACTIVATION required only that
+// gate be truthy. Now a gate must be declared with what it is and what observable
+// condition would release it.
 test('every AWAITING_ACTIVATION module names a gate that is actually registered', () => {
   const { modules, gates } = classification();
   assert.ok(gates, 'the classification must declare a gates registry');
@@ -210,7 +181,6 @@ test('every gate states what it is and what would release it', () => {
       `${gate}: description is too thin to explain what is blocked`);
     assert.ok(entry.releasedBy && entry.releasedBy.length > 20,
       `${gate}: must state the observable condition that releases it`);
-    // A release condition that restates the gate name is not a condition.
     assert.notEqual(entry.releasedBy.trim().toUpperCase(), gate,
       `${gate}: releasedBy restates the gate name instead of naming a condition`);
   }

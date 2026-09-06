@@ -1,4 +1,12 @@
 {
+  "buildCommand": "node scripts/build-visual-cortex.mjs",
+  "functions": {
+    "api/command-center.mjs": { "maxDuration": 30 },
+    "api/ultimate-graph.mjs": {
+      "maxDuration": 30,
+      "includeFiles": "data/uberbond-ultimate-graph-latest.json"
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",
@@ -7,7 +15,7 @@
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "DENY" },
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; base-uri 'none'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self' data:; object-src 'none'; script-src 'self'; style-src 'self'" }
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; base-uri 'none'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self' data:; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'" }
       ]
     },
     {
@@ -23,9 +31,38 @@
         { "key": "Cache-Control", "value": "private, no-store, max-age=0" },
         { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
       ]
+    },
+    {
+      "source": "/uberbond",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, no-store, max-age=0" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
+      ]
+    },
+    {
+      "source": "/uberbond.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, no-store, max-age=0" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
+      ]
+    },
+    {
+      "source": "/api/command-center",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, no-store, max-age=0" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
+      ]
+    },
+    {
+      "source": "/api/ultimate-graph",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, no-store, max-age=0" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
+      ]
     }
   ],
   "rewrites": [
-    { "source": "/r/:token", "destination": "/report.html" }
+    { "source": "/r/:token", "destination": "/report.html" },
+    { "source": "/uberbond", "destination": "/uberbond.html" }
   ]
 }

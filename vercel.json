@@ -1,12 +1,26 @@
 {
-  "buildCommand": "npm run check:syntax && npm run test:deterministic",
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "node scripts/vercel-command-center-build.mjs",
   "functions": {
     "api/agent-relay.mjs": { "maxDuration": 60 },
     "api/agent-mesh-cron.mjs": { "maxDuration": 60 },
+    "api/self-maintainer-proposal.mjs": { "maxDuration": 60 },
     "api/database-maintenance.mjs": { "maxDuration": 60 },
     "api/webhooks/billing.mjs": { "maxDuration": 30 },
-    "api/admin/health-check.mjs": { "maxDuration": 30 }
+    "api/admin/health-check.mjs": { "maxDuration": 30 },
+    "api/command-center.mjs": {
+      "maxDuration": 30,
+      "includeFiles": "{config/frontier-model-candidates.json,artifacts/perpetual-frontier-implementation-ledger.json,artifacts/uberbond-*-latest.json,artifacts/cognitive/*-latest.json}"
+    },
+    "api/ultimate-graph.mjs": {
+      "maxDuration": 30,
+      "includeFiles": "artifacts/cognitive/uberbond-ultimate-graph-latest.json"
+    }
   },
+  "rewrites": [
+    { "source": "/", "destination": "/uberbond.html" },
+    { "source": "/uberbond", "destination": "/uberbond.html" }
+  ],
   "crons": [
     {
       "path": "/api/agent-mesh-cron",

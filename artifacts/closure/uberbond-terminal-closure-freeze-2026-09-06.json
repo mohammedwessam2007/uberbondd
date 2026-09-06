@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "uberbond.terminal-closure-freeze.v1",
+  "frozenAt": "2026-09-06T15:08:00Z",
+  "mission": "PRE_CUSTOMER_INTERNAL_SOFTWARE_CLOSURE",
+  "terminalLaw": "Do not declare 100 percent until every known internally solvable P0/P1/P2 at mission end is closed, superseded by stronger verified implementation, or proven non-blocking on the exact final source head.",
+  "knownInternalObligations": 11,
+  "morningTribunalClosed": 9,
+  "subsequentlyClosed": [
+    "LEGACY_ADMIN_PRIVILEGED_BEARER_TRANSPORT_P1"
+  ],
+  "remainingBeforeExactHeadExecution": [
+    "EXACT_FINAL_HEAD_TERMINAL_CERTIFICATION_AND_MERGE"
+  ],
+  "requiredTerminalGate": "scripts/vercel-command-center-build.mjs",
+  "requiredGateFamilies": [
+    "FEATURE_GENOME",
+    "FEATURE_ATOM_ATLAS",
+    "SYNAPTIC_MAP",
+    "REPOSITORY_DEEP_ATLAS",
+    "ULTIMATE_GRAPH",
+    "FOCUSED_WESSAM_CONTINUITY_AND_CONTEXT",
+    "WORLD_CAPABILITY_HARVESTER",
+    "COMPUTE_SOVEREIGNTY",
+    "ORGANISM_METABOLISM",
+    "PRE_CUSTOMER_REVENUE_READINESS",
+    "COMMAND_CENTER_AUTH_AND_POLICY",
+    "SYNTAX",
+    "DETERMINISTIC_TREE",
+    "MUTATION_WAR",
+    "WHOLE_BRAIN",
+    "READINESS"
+  ],
+  "externalCommercialProofIncluded": false,
+  "customerRevenueTruthAuthority": "NONE",
+  "mergeAuthorityCreated": false,
+  "purpose": "Freeze the denominator and trigger a fresh Git-linked exact-head runner attempt without weakening any gate."
+}

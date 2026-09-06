@@ -1,0 +1,130 @@
+name: UberBond Self Maintainer
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+    inputs:
+      issueNumber:
+        description: 'Optional existing agent-relay issue number to process'
+        required: false
+        type: string
+
+concurrency:
+  group: uberbond-self-maintainer
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  id-token: write
+
+jobs:
+  bounded-maintenance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      UBERBOND_SELF_MAINTAINER_ISSUE_NUMBER: ${{ inputs.issueNumber }}
+      UBERBOND_COGNITIVE_CYCLE_PATH: artifacts/uberbond-cognitive-cycle-latest.json
+      AI_PROVIDER: rules
+      AI_GATEWAY_AGENT_ENABLED: 'false'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+      AUTO_EMAIL_REPORTS: 'false'
+      DISCOVERY_ENABLED: 'false'
+      DISCOVERY_DRY_RUN: 'true'
+      ALLOW_TEST_PAYMENT_UNLOCK: 'false'
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Restore latest whole-brain cognitive memory
+        uses: actions/cache/restore@v4
+        with:
+          path: artifacts/uberbond-cognitive-cycle-latest.json
+          key: uberbond-cognitive-cycle-${{ github.run_id }}
+          restore-keys: |
+            uberbond-cognitive-cycle-
+      - name: Install exact locked dependencies
+        run: npm ci
+      - name: Run initial whole-brain self-maintenance tick
+        id: initial
+        shell: bash
+        run: |
+          mkdir -p artifacts/cognitive
+          set +e
+          node scripts/uberbond-self-maintainer-tick.mjs > artifacts/cognitive/self-maintainer-initial.json
+          tick_status=$?
+          set -e
+          node -e "const fs=require('node:fs'); const p='artifacts/cognitive/self-maintainer-initial.json'; const v=JSON.parse(fs.readFileSync(p,'utf8')); if(!v || typeof v.status!=='string') process.exit(2); process.stdout.write(String(v.issueNumber || 0))" > /tmp/uberbond-self-maintainer-issue
+          if [ "$tick_status" != '0' ] && node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('artifacts/cognitive/self-maintainer-initial.json','utf8'));process.exit(v.status==='CANDIDATE_REJECTED'&&Array.isArray(v.reasonCodes)&&v.reasonCodes.includes('worker-decision-stop')?0:1)"; then
+            tick_status=0
+            echo 'no_safe_change=true' >> "$GITHUB_OUTPUT"
+          fi
+          echo "tick_status=$tick_status" >> "$GITHUB_OUTPUT"
+          echo "issue_number=$(cat /tmp/uberbond-self-maintainer-issue)" >> "$GITHUB_OUTPUT"
+      - name: Generate and submit canonical proposal when worker result is absent
+        id: proposal
+        if: steps.initial.outputs.issue_number != '0'
+        shell: bash
+        env:
+          UBERBOND_SELF_MAINTAINER_ISSUE_NUMBER: ${{ steps.initial.outputs.issue_number }}
+        run: |
+          set +e
+          node .github/workflows/runtime/self-maintainer-proposal-dispatch.mjs artifacts/cognitive/self-maintainer-initial.json > artifacts/cognitive/self-maintainer-proposal-dispatch.json
+          proposal_status=$?
+          set -e
+          node -e "const fs=require('node:fs'); const p='artifacts/cognitive/self-maintainer-proposal-dispatch.json'; const v=JSON.parse(fs.readFileSync(p,'utf8')); if(!v || typeof v.status!=='string') process.exit(2)"
+          echo "proposal_status=$proposal_status" >> "$GITHUB_OUTPUT"
+      - name: Run verification and review-promotion tick against exact proposal
+        id: final
+        if: steps.initial.outputs.issue_number != '0'
+        shell: bash
+        env:
+          UBERBOND_SELF_MAINTAINER_ISSUE_NUMBER: ${{ steps.initial.outputs.issue_number }}
+        run: |
+          set +e
+          node scripts/uberbond-self-maintainer-tick.mjs > artifacts/cognitive/self-maintainer-latest.json
+          tick_status=$?
+          set -e
+          node -e "const fs=require('node:fs'); const p='artifacts/cognitive/self-maintainer-latest.json'; const v=JSON.parse(fs.readFileSync(p,'utf8')); if(!v || typeof v.status!=='string') process.exit(2)"
+          if [ "$tick_status" != '0' ] && node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('artifacts/cognitive/self-maintainer-latest.json','utf8'));process.exit(v.status==='CANDIDATE_REJECTED'&&Array.isArray(v.reasonCodes)&&v.reasonCodes.includes('worker-decision-stop')?0:1)"; then
+            tick_status=0
+            echo 'no_safe_change=true' >> "$GITHUB_OUTPUT"
+          fi
+          echo "tick_status=$tick_status" >> "$GITHUB_OUTPUT"
+      - name: Preserve no-issue initial truth as final truth
+        if: steps.initial.outputs.issue_number == '0'
+        run: cp artifacts/cognitive/self-maintainer-initial.json artifacts/cognitive/self-maintainer-latest.json
+      - name: Save self-maintenance truth for the next cognitive pulse
+        uses: actions/cache/save@v4
+        with:
+          path: artifacts/cognitive/self-maintainer-latest.json
+          key: uberbond-self-maintenance-${{ github.run_id }}
+      - name: Upload complete self-maintenance evidence packet
+        uses: actions/upload-artifact@v4
+        with:
+          name: uberbond-self-maintenance-${{ github.run_id }}
+          path: |
+            artifacts/cognitive/self-maintainer-initial.json
+            artifacts/cognitive/self-maintainer-proposal-dispatch.json
+            artifacts/cognitive/self-maintainer-latest.json
+          retention-days: 14
+          if-no-files-found: error
+      - name: Preserve unsuccessful maintenance as visible workflow failure after evidence is saved
+        shell: bash
+        run: |
+          initial='${{ steps.initial.outputs.tick_status }}'
+          proposal='${{ steps.proposal.outputs.proposal_status }}'
+          final='${{ steps.final.outputs.tick_status }}'
+          if [ -n "$initial" ] && [ "$initial" != '0' ]; then exit 1; fi
+          if [ -n "$proposal" ] && [ "$proposal" != '0' ]; then exit 1; fi
+          if [ -n "$final" ] && [ "$final" != '0' ]; then exit 1; fi

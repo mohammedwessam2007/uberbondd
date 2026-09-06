@@ -1,12 +1,34 @@
 const $=s=>document.querySelector(s);
-let token=localStorage.revenueEngineToken||localStorage.nightshiftToken||''; let cache={prospects:[],campaigns:[]};
-$('#token').value=token;
+let token=''; let cache={prospects:[],campaigns:[]};
+$('#token').value='';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const api=async(path,opts={})=>{const headers={authorization:`Bearer ${token}`,...(opts.headers||{})};if(opts.body&&typeof opts.body==='string'&&!headers['content-type'])headers['content-type']='application/json';const res=await fetch(path,{...opts,headers});const type=res.headers.get('content-type')||'';const data=type.includes('json')?await res.json():await res.text();if(!res.ok)throw new Error(data.error||data||'Request failed');return data;};
+const api=async(path,opts={})=>{const headers={authorization:`Bearer ${token}`,...(opts.headers||{})};if(opts.body&&typeof opts.body==='string'&&!headers['content-type'])headers['content-type']='application/json';const res=await fetch(path,{...opts,headers,cache:'no-store'});const type=res.headers.get('content-type')||'';const data=type.includes('json')?await res.json():await res.text();if(!res.ok)throw new Error(data.error||data||'Request failed');return data;};
 const pill=s=>`<span class="pill ${esc(s)}">${esc(s)}</span>`;
 function metric(label,value,sub=''){return `<div class="metric"><b>${esc(value)}</b><span>${esc(label)}</span>${sub?`<small>${esc(sub)}</small>`:''}</div>`}
 function money(v){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(Number(v||0))}
-function download(url){location.href=`${url}${url.includes('?')?'&':'?'}token=${encodeURIComponent(token)}`}
+async function download(url){
+  const res=await fetch(url,{headers:{authorization:`Bearer ${token}`},cache:'no-store'});
+  if(!res.ok){const type=res.headers.get('content-type')||'';const data=type.includes('json')?await res.json():await res.text();throw new Error(data?.error||data||'Download failed');}
+  const blob=await res.blob();
+  const disposition=res.headers.get('content-disposition')||'';
+  const named=/filename="?([^";]+)"?/i.exec(disposition)?.[1];
+  const fallback=url.endsWith('.csv')?'uberbond-opportunities.csv':'uberbond-revenue-engine.json';
+  const objectUrl=URL.createObjectURL(blob);
+  const anchor=document.createElement('a');
+  anchor.href=objectUrl;anchor.download=named||fallback;anchor.rel='noopener';anchor.style.display='none';
+  document.body.appendChild(anchor);anchor.click();anchor.remove();
+  setTimeout(()=>URL.revokeObjectURL(objectUrl),0);
+}
+async function startGoogle(slot){
+  const result=await api(`/api/admin/oauth/google/start?slot=${slot==='B'?'B':'A'}`,{method:'POST'});
+  const authorizationUrl=String(result?.authorizationUrl||'');
+  let parsed;
+  try{parsed=new URL(authorizationUrl);}catch{throw new Error('OAuth authorization URL was invalid');}
+  if(parsed.protocol!=='https:'||parsed.hostname!=='accounts.google.com')throw new Error('OAuth authorization URL was refused');
+  location.assign(parsed.toString());
+}
+function clearProtectedState(){token='';cache={prospects:[],campaigns:[]};const field=$('#token');if(field)field.value='';}
+window.addEventListener('pagehide',clearProtectedState);
 
 async function load(){
   try{
@@ -57,7 +79,7 @@ async function openDossier(id){
   $('#copy-draft')?.addEventListener('click',async()=>{await navigator.clipboard.writeText(p.draft||'');$('#copy-draft').textContent='Copied';});
 }
 $('#close-modal').onclick=()=>{$('#modal').classList.remove('open');$('#modal').setAttribute('aria-hidden','true')};$('#modal').onclick=e=>{if(e.target===$('#modal'))$('#close-modal').click()};
-$('#save-token').onclick=()=>{token=$('#token').value.trim();localStorage.revenueEngineToken=token;load();};
+$('#save-token').onclick=()=>{token=$('#token').value.trim();if(token)load();};
 $('#campaign-form').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.currentTarget);const x=Object.fromEntries(f);x.approved=f.has('approved');x.autoSend=f.has('autoSend');try{const c=await api('/api/campaigns',{method:'POST',body:JSON.stringify(x)});alert(`Campaign created: ${c.name}`);load();}catch(e){alert(e.message)}};
 $('#csv-file').onchange=e=>$('#file-name').textContent=e.target.files[0]?.name||'No file selected';
 $('#import-csv').onclick=async()=>{const file=$('#csv-file').files[0];if(!file)return alert('Choose a CSV file first.');const campaignId=$('#campaign-select').value;if(!campaignId)return alert('Create a campaign first.');try{const r=await api(`/api/prospects/import-csv?campaignId=${encodeURIComponent(campaignId)}`,{method:'POST',body:await file.text(),headers:{'content-type':'text/csv'}});alert(`Imported ${r.added}. Skipped ${r.skipped}.`);load();}catch(e){alert(e.message)}};
@@ -67,6 +89,6 @@ $('#run').onclick=async()=>{try{await api('/api/run',{method:'POST',body:JSON.st
 $('#pause').onclick=async()=>{await api('/api/worker/pause',{method:'POST'});load()};$('#resume').onclick=async()=>{await api('/api/worker/resume',{method:'POST'});load()};
 $('#pause-outbound').onclick=async()=>{await api('/api/outbound/pause',{method:'POST',body:JSON.stringify({reason:'Emergency stop from command center'})});load()};
 $('#resume-outbound').onclick=async()=>{if(confirm('Resume unattended outbound sending?')){await api('/api/outbound/resume',{method:'POST'});load()}};
-$('#refresh').onclick=load;$('#status-filter').onchange=renderProspects;$('#export-csv').onclick=e=>{e.preventDefault();download('/api/export.csv')};$('#export-json').onclick=e=>{e.preventDefault();download('/api/export.json')};
-$('#gmail-a').onclick=e=>{e.preventDefault();location.href=`/oauth/google/start?slot=A&token=${encodeURIComponent(token)}`};$('#gmail-b').onclick=e=>{e.preventDefault();location.href=`/oauth/google/start?slot=B&token=${encodeURIComponent(token)}`};
-load();setInterval(load,12000);
+$('#refresh').onclick=()=>{if(token)load()};$('#status-filter').onchange=renderProspects;$('#export-csv').onclick=async e=>{e.preventDefault();try{await download('/api/export.csv')}catch(error){alert(error.message)}};$('#export-json').onclick=async e=>{e.preventDefault();try{await download('/api/export.json')}catch(error){alert(error.message)}};
+$('#gmail-a').onclick=async e=>{e.preventDefault();try{await startGoogle('A')}catch(error){alert(error.message)}};$('#gmail-b').onclick=async e=>{e.preventDefault();try{await startGoogle('B')}catch(error){alert(error.message)}};
+setInterval(()=>{if(token)load()},12000);

@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "uberbond.night-09-hostile-war.v1",
+  "generatedAt": "2026-09-06T03:42:00Z",
+  "missionIssue": 409,
+  "attackedLineage": {
+    "main": "efb63fddcbc9009594d9869a3e0929629ce7b4be",
+    "pr400Head": "dbabb004fb7c5d98c0aa10b6fd74fd0aee759034",
+    "pr414BaseHead": "7c5fdd307083bf12579301fbf75249c6ad8199cd",
+    "pr412BaseHead": "f70f480fa02c582abac664a45f72f32e0d37bbe2"
+  },
+  "repairPullRequests": [
+    {
+      "number": 415,
+      "head": "799acaa9773bdcbee468c840c8b8656fec5372d9",
+      "base": "work/wessam-context-rebase-20260906",
+      "scope": ["WESSAM_CONTINUITY", "LIFETIME_MEMORY", "CAPABILITY_INGESTION", "COMPUTE_SOVEREIGNTY", "PRE_CUSTOMER_REVENUE_TRUTH"]
+    },
+    {
+      "number": 416,
+      "head": "b058c2d4d20e97d78107677e63b483d3c86a6a22",
+      "base": "gpt/command-center-2-20260906",
+      "scope": ["COMMAND_CENTER_CACHE_PRIVACY", "COMMAND_CENTER_RUNTIME_FRESHNESS"]
+    }
+  ],
+  "defectFamilies": [
+    {
+      "id": "N09-WESSAM-REVOCATION-RECOVERY",
+      "severity": "P1",
+      "reproducedBySourceInspection": true,
+      "repairStatus": "SOURCE_REPAIRED_TEST_ADDED_EXECUTION_PENDING",
+      "findings": [
+        "revoked device/provider target could evade raw-string lookup using whitespace-normalized alias",
+        "recovery authorization did not bind to current recovery epoch",
+        "restore could drop revocations or enable hidden persistence without rejection",
+        "deep/cyclic external task values could bypass the bounded secret scanner or crash serialization"
+      ]
+    },
+    {
+      "id": "N09-MEMORY-INTEGRITY",
+      "severity": "P1",
+      "reproducedBySourceInspection": true,
+      "repairStatus": "SOURCE_REPAIRED_TEST_ADDED_EXECUTION_PENDING",
+      "findings": [
+        "supersession cycles could remove all involved beliefs from active recall",
+        "older memory could supersede newer evidence",
+        "downstream context/health compilers trusted forgeable schema-only index objects"
+      ]
+    },
+    {
+      "id": "N09-CAPABILITY-FORGE",
+      "severity": "P1",
+      "reproducedBySourceInspection": true,
+      "repairStatus": "SOURCE_REPAIRED_TEST_ADDED_EXECUTION_PENDING",
+      "findings": [
+        "assimilation accepted caller-mutated ok=true candidate objects without recomputing candidateDigest",
+        "quarantined discovery could therefore be rewritten into deeper-review state before assimilation"
+      ]
+    },
+    {
+      "id": "N09-COMPUTE-STALE-ECONOMICS",
+      "severity": "P1",
+      "reproducedBySourceInspection": true,
+      "repairStatus": "SOURCE_REPAIRED_TEST_ADDED_EXECUTION_PENDING",
+      "findings": [
+        "pricingVerifiedAt and transportVerifiedAt were required but not freshness-gated",
+        "stale price/transport evidence could participate in affordability or task-trust classification"
+      ]
+    },
+    {
+      "id": "N09-REVENUE-TRUTH-LAUNDERING",
+      "severity": "P1",
+      "reproducedBySourceInspection": true,
+      "repairStatus": "SOURCE_REPAIRED_TEST_ADDED_EXECUTION_PENDING",
+      "findings": [
+        "pre-customer readiness accepted loosely-shaped ok=true first-cash packets",
+        "commercialTruth was copied from input and could be forged nonzero",
+        "duplicate/unexpected question sets were insufficiently bound to canonical packet identity"
+      ]
+    },
+    {
+      "id": "N09-COMMAND-CENTER-CACHE-TRUTH",
+      "severity": "P1",
+      "reproducedBySourceInspection": true,
+      "repairStatus": "SOURCE_REPAIRED_TEST_ADDED_EXECUTION_PENDING_ON_PR416",
+      "findings": [
+        "secret-like values under non-secret field names could enter persistent last-good cache",
+        "future timestamped cache could clamp to age zero",
+        "OBSERVED runtime payload lacked top-level freshness gate before RUNTIME_RECEIPT display"
+      ]
+    }
+  ],
+  "selfMaintainerAuthorityReview": {
+    "classification": "SOURCE_INSPECTED_NO_OBVIOUS_BYPASS_FOUND_EXECUTION_NOT_REPROVEN",
+    "observedControls": [
+      "process-local WeakMap verification receipt",
+      "structuredClone/serialization loses promotion authority",
+      "process-local GitHub Actions authority rooted to exact repository/base and dedicated main workflow",
+      "live authority path additionally requires verified GitHub Actions OIDC identity",
+      "sandbox cleanup required before trusted receipt issuance/promotion",
+      "base branch exact SHA is re-read before atomic review-branch promotion",
+      "promotion adapter exposes branch/PR creation rather than merge authority"
+    ]
+  },
+  "ciEvidence": {
+    "pr414ParentRun": {
+      "runId": 34008223540,
+      "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+      "jobs": ["postgres", "browser", "deterministic"],
+      "steps": null,
+      "logs": null
+    },
+    "pr415Run": {
+      "runId": 34009572561,
+      "head": "799acaa9773bdcbee468c840c8b8656fec5372d9",
+      "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+      "jobs": ["postgres", "browser", "deterministic"],
+      "steps": null,
+      "logs": null
+    },
+    "pr416Run": {
+      "runId": 34009576937,
+      "head": "b058c2d4d20e97d78107677e63b483d3c86a6a22",
+      "classification": "INFRASTRUCTURE_NON_EVIDENCE",
+      "jobs": ["browser", "deterministic", "postgres"],
+      "steps": null,
+      "logs": null
+    }
+  },
+  "mutationWar": {
+    "executedInThisRun": false,
+    "killed": 0,
+    "survived": 0,
+    "invalid": 0,
+    "truthBoundary": "HOSTILE_REGRESSION_TESTS_ADDED_BUT_NO_MUTANT_COUNTS_EXIST_UNTIL_AN_EXECUTABLE_MUTATION_HARNESS_RUNS_EXACT_HEAD"
+  },
+  "residual": {
+    "P0": [],
+    "P1": [
+      "PR415 and PR416 require real exact-head test execution before merge",
+      "stacked PR mergeability/conflict state must be recomputed/reconciled by final integrator after parent branches advance"
+    ],
+    "P2": [
+      "public command-center client and server-side client-policy intentionally duplicate cache/freshness law and should remain parity-tested against drift"
+    ],
+    "infrastructureBlockers": [
+      "GitHub Actions current CI jobs terminate before allocating/executing steps; no logs available"
+    ]
+  },
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  },
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  }
+}

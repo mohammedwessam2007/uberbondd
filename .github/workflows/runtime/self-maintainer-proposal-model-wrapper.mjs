@@ -112,8 +112,8 @@ export function createSelfMaintainerProposalModelWrapper({ modelExecutor } = {})
     const compiled = compileSourceBoundSelfMaintainerProposal({
       task,
       proposal: rawProposal,
-      sourceContext: validatedSource,
-      sourceInventory: validatedInventory
+      sourceContext: input.sourceContext,
+      sourceInventory: input.sourceInventory
     });
     if (!compiled.ok) {
       return failure(['provider-proposal-rejected', ...(compiled.reasonCodes || [])], 'CONFIRMED_FAILURE', {

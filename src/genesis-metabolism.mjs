@@ -4,8 +4,9 @@ import { scanTrustFriction, detectEconomicPhaseChange } from './genesis-economic
 import { detectProblemDarkMatter, compileCompanyMorphogenesis } from './genesis-venture-organism.mjs';
 import { simulateInfrastructureShocks, drillProviderExtinction } from './genesis-world-resilience.mjs';
 import { runTheoryTournament, buildBlindnessLedger } from './genesis-final-frontier.mjs';
+import { buildMechanismAssimilationBatch, mechanismCandidatesFromGamechanger } from './genesis-mechanism-assimilation.mjs';
 
-export const GENESIS_METABOLISM_VERSION = 'uberbond.genesis-metabolism-1.0.0';
+export const GENESIS_METABOLISM_VERSION = 'uberbond.genesis-metabolism-1.1.0';
 
 const envelope = extra => ({
   businessEffectAuthority: 'NONE',
@@ -74,6 +75,23 @@ export function buildGenesisMetabolism({ gamechanger = {}, evolution = {}, scien
     minWindow: 2
   });
 
+  // New mechanisms discovered by Gamechanger are raw genetic material, not
+  // instructions. Only signals that name a changed primitive/mechanism enter
+  // the forge. GENESIS then debrands them, mutates assumptions, composes N+1
+  // variants and emits unproven opportunity shockwaves with zero promotion or
+  // execution authority. Mere announcements remain ordinary frontier signals.
+  const mechanismCandidates = mechanismCandidatesFromGamechanger(gamechanger);
+  const knownConcepts = signals.map((signal, index) => text(
+    signal?.mechanism || signal?.summary || signal?.title || signal?.id || `signal-${index + 1}`
+  )).filter(Boolean).slice(0, 500);
+  const mechanismAssimilation = buildMechanismAssimilationBatch({
+    mechanisms: mechanismCandidates,
+    knownConcepts,
+    maxMechanisms: Math.min(8, mechanismCandidates.length),
+    maxVariantsPerMechanism: 16,
+    maxShockwavePerMechanism: 16
+  });
+
   const hypothesis = hypothesisFromEvolution(evolution);
   const mechanism = text(hypothesis?.mechanismSketch || hypothesis?.mechanism || hypothesis?.summary);
   const buyer = text(hypothesis?.buyer || hypothesis?.buyerType || hypothesis?.targetBuyer);
@@ -113,6 +131,7 @@ export function buildGenesisMetabolism({ gamechanger = {}, evolution = {}, scien
     version: GENESIS_METABOLISM_VERSION,
     inputCounts: {
       frontierSignals: signals.length,
+      mechanismCandidates: mechanismCandidates.length,
       evolutionCycles: list(evolution?.cycles).length,
       scientistLabs: list(scientist?.laboratories).length,
       ontologyCandidates: ontologyCandidates.length
@@ -122,6 +141,7 @@ export function buildGenesisMetabolism({ gamechanger = {}, evolution = {}, scien
       epistemic,
       trust,
       phase,
+      mechanismAssimilation,
       darkMatter,
       venture,
       shocks,
@@ -131,6 +151,6 @@ export function buildGenesisMetabolism({ gamechanger = {}, evolution = {}, scien
     },
     activationAuthority: 'NONE',
     promotionAuthority: 'NONE',
-    truthBoundary: 'METABOLISM_COMPOSES_INTERNAL_EVIDENCE_AND_HYPOTHESES_ONLY; IT_CANNOT_CREATE_MARKET_DEMAND_CUSTOMERS_PAYMENT_ACCEPTANCE_CAUSAL_TRUTH_OR_PRODUCTION_AUTHORITY'
+    truthBoundary: 'METABOLISM_COMPOSES INTERNAL EVIDENCE AND HYPOTHESES ONLY; GAMECHANGER MECHANISMS ARE ASSIMILATED AS ZERO-AUTHORITY GENETIC MATERIAL; IT CANNOT CREATE MARKET DEMAND CUSTOMERS PAYMENT ACCEPTANCE CAUSAL TRUTH PROVIDER ENTITLEMENT OR PRODUCTION AUTHORITY'
   });
 }

@@ -5,11 +5,15 @@ import { createSelfMaintainerProposalModelWrapper } from './self-maintainer-prop
 import { createSelfMaintainerContextSelector } from './self-maintainer-context-selector.mjs';
 import { selfMaintainerProposalTaskReasons } from './self-maintainer-proposal-contract.mjs';
 import {
+  SELF_MAINTAINER_FREE_AI_GATEWAY_PROFILE,
+  selfMaintainerFreeAiRuntimeEnv
+} from './self-maintainer-free-ai-profile.mjs';
+import {
   validateSourceContextEnvelope,
   validateSourceInventoryEnvelope
 } from './self-maintainer-source-context.mjs';
 
-export const SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION = 'self-maintainer-proposal-api-1.2.0';
+export const SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION = 'self-maintainer-proposal-api-1.3.0';
 
 const MAX_BODY_BYTES = 450_000;
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
@@ -90,17 +94,21 @@ function readyProviderNames(readiness) {
     .map(row => String(row.provider)));
 }
 
-function workerFor(provider, env) {
+function workerFor(provider, runtimeEnv) {
   if (provider === 'ai-gateway') {
+    // Deliberately ignore AI_GATEWAY_MODEL and reasoning env overrides. This
+    // OIDC-authenticated self-maintenance lane is allowed to run only the
+    // immutable, officially free profile. A project setting cannot substitute a
+    // paid model or add an unsupported reasoning parameter behind the 0-cent
+    // reservation.
     return {
       provider,
-      model: text(env.AI_GATEWAY_MODEL, 160) || 'openai/gpt-5.4',
-      reasoningEffort: text(env.SELF_MAINTAINER_REASONING_EFFORT, 40).toLowerCase() || 'high'
+      model: SELF_MAINTAINER_FREE_AI_GATEWAY_PROFILE.model
     };
   }
   return {
     provider,
-    model: text(env.OPEN_MODEL_MODEL, 400)
+    model: text(runtimeEnv.OPEN_MODEL_MODEL, 400)
   };
 }
 
@@ -117,6 +125,13 @@ function publicReadiness(readiness) {
  * from and read by the trusted GitHub checkout, not by Vercel. The endpoint may
  * choose context and reason over exact bytes, but source apply, verification,
  * relay submission and review-PR promotion remain in the existing workflow.
+ *
+ * The AI Gateway lane is source-authorized only for the immutable 0-cost model
+ * profile above. This does not create a credential: the canonical provider
+ * factory still requires either an existing AI_GATEWAY_API_KEY or Vercel's
+ * deployment-scoped VERCEL_OIDC_TOKEN. It also creates no spend authority: both
+ * selection and proposal remain under the task's exact cent ceiling, which is
+ * currently zero.
  */
 export function createSelfMaintainerProposalApiHandler({
   env = process.env,
@@ -154,6 +169,9 @@ export function createSelfMaintainerProposalApiHandler({
     }
     const budget = budgetFor(task);
     if (!budget) return sendJson(res, 400, failure(['valid-task-compute-budget-required'], 'TASK_REJECTED'));
+    if (budget.maxCostCents !== SELF_MAINTAINER_FREE_AI_GATEWAY_PROFILE.spendCeilingCents) {
+      return sendJson(res, 409, failure(['self-maintainer-zero-cent-budget-required'], 'TASK_REJECTED'));
+    }
 
     const oidcToken = bearer(req);
     if (!oidcToken) return sendJson(res, 401, failure(['github-actions-oidc-bearer-required'], 'OIDC_REJECTED'));
@@ -162,11 +180,13 @@ export function createSelfMaintainerProposalApiHandler({
       return sendJson(res, 401, failure(verified?.reasonCodes || ['github-actions-oidc-rejected'], 'OIDC_REJECTED'));
     }
 
-    const readiness = providerReadiness || describeProviderReadiness({ env });
+    const runtimeEnv = selfMaintainerFreeAiRuntimeEnv(env);
+    const readiness = providerReadiness || describeProviderReadiness({ env: runtimeEnv });
     const ready = readyProviderNames(readiness);
     if (!ready.size) {
       return sendJson(res, 503, failure(['no-zero-authority-proposal-provider-ready'], 'PROVIDER_BLOCKED', {
-        providerReadiness: publicReadiness(readiness)
+        providerReadiness: publicReadiness(readiness),
+        freeGatewayModel: SELF_MAINTAINER_FREE_AI_GATEWAY_PROFILE.model
       }));
     }
 
@@ -186,11 +206,11 @@ export function createSelfMaintainerProposalApiHandler({
       }
     }
 
-    const makeExecutor = executorFactory || createModelExecutorFactory({ env, fetchImpl });
+    const makeExecutor = executorFactory || createModelExecutorFactory({ env: runtimeEnv, fetchImpl });
     const attempts = [];
     for (const provider of PROVIDER_ORDER) {
       if (!ready.has(provider)) continue;
-      const worker = workerFor(provider, env);
+      const worker = workerFor(provider, runtimeEnv);
       let executor;
       try {
         executor = makeExecutor(worker);
@@ -230,6 +250,7 @@ export function createSelfMaintainerProposalApiHandler({
           policyVersion: SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION,
           stage,
           proposalProvider: provider,
+          proposalModel: worker.model || null,
           oidcIdentity: verified.identity,
           attempts,
           businessEffectAuthority: 'NONE'

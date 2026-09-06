@@ -43,9 +43,9 @@ function buildProposal(date) {
   return compileUpgradeProposal({
     problem: 'Prove the bounded UberBond self-improvement relay and independent-review path without production or business effects.',
     evidenceRefs: [
-      'capability:agent-evolution-wave',
-      'capability:github-issues-relay-client',
-      'capability:agent-relay-adapter-factory',
+      'doc:src/agent-evolution-wave.mjs',
+      'doc:src/github-issues-relay-client.mjs',
+      'doc:src/agent-relay-adapter-factory.mjs',
       'doc:LIVE_BRIDGE_HANDOFF'
     ],
     expectedEconomicEffect: { expectedOwnerMinutesSaved: 15, confidence: 0.5 },

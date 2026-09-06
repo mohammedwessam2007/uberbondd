@@ -10,8 +10,28 @@ import {
 const registry = {
   schemaVersion: 'uberbond.frontier-model-candidates.v1',
   candidates: [
-    { id: 'a', provider: 'openai', canonicalModel: 'alpha', rolePriors: ['planner', 'builder', 'verifier', 'adjudicator'], taskClassPriors: ['coding'], officialEvidenceRefs: ['https://example.com/a'], configured: false },
-    { id: 'b', provider: 'anthropic', canonicalModel: 'beta', rolePriors: ['researcher', 'critic', 'builder', 'adjudicator'], taskClassPriors: ['research'], officialEvidenceRefs: ['https://example.com/b'], configured: false }
+    {
+      id: 'a', provider: 'openai', canonicalModel: 'alpha',
+      rolePriors: ['planner', 'builder', 'verifier', 'adjudicator'], taskClassPriors: ['coding'],
+      officialEvidenceRefs: ['https://example.com/a'], configured: false,
+      gatewayTransport: {
+        transportProvider: 'ai-gateway', transportModel: 'openai/alpha',
+        sourceRef: 'https://vercel.com/ai-gateway/models/openai/alpha',
+        observedAt: '2026-09-06T00:00:00.000Z', evidenceClass: 'OFFICIAL_SOURCE',
+        pricingHintUsdPerMillion: { input: 1, output: 2, truth: 'NOT_PROFILE_PRICING_EVIDENCE' }
+      }
+    },
+    {
+      id: 'b', provider: 'anthropic', canonicalModel: 'beta',
+      rolePriors: ['researcher', 'critic', 'builder', 'adjudicator'], taskClassPriors: ['research'],
+      officialEvidenceRefs: ['https://example.com/b'], configured: false,
+      gatewayTransport: {
+        transportProvider: 'ai-gateway', transportModel: 'anthropic/beta',
+        sourceRef: 'https://vercel.com/ai-gateway/models/anthropic/beta',
+        observedAt: '2026-09-06T00:00:00.000Z', evidenceClass: 'OFFICIAL_SOURCE',
+        pricingHintUsdPerMillion: { input: 1, output: 2, truth: 'NOT_PROFILE_PRICING_EVIDENCE' }
+      }
+    }
   ]
 };
 
@@ -35,7 +55,7 @@ test('observed profile matching associates identity but does not claim callabili
   const matched = matchObservedProfilesToCandidates({
     registry,
     profiles: [
-      { id: 'alpha-live', provider: 'openai', model: 'alpha', revision: 'r1', transportProvider: 'ai-gateway', enabled: true },
+      { id: 'alpha-live', provider: 'openai', model: 'alpha', revision: 'r1', transportProvider: 'ai-gateway', transportModel: 'openai/alpha', enabled: true },
       { id: 'unknown-live', provider: 'google', model: 'gamma', revision: 'r2', enabled: true }
     ]
   });

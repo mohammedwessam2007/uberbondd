@@ -13,7 +13,7 @@ import {
   buildLocalSourceInventory
 } from './self-maintainer-source-context.mjs';
 
-export const SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION = 'self-maintainer-proposal-dispatch-1.2.0';
+export const SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION = 'self-maintainer-proposal-dispatch-1.3.0';
 
 const MAX_RESPONSE_BYTES = 350_000;
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
@@ -252,6 +252,7 @@ export async function runSelfMaintainerProposalDispatch({
         stage: 'PROPOSE',
         expectedSha: baseRevision,
         task,
+        sourceInventory: inventory,
         sourceContext
       }
     });
@@ -278,7 +279,7 @@ export async function runSelfMaintainerProposalDispatch({
     tests: [],
     artifacts: [],
     findings: [
-      `Exact local source context ${sourceContext.sourceContextDigest || 'unidentified'} grounded canonical proposal compilation.`,
+      `Exact local source inventory ${inventory.inventoryDigest || 'unidentified'} and context ${sourceContext.sourceContextDigest || 'unidentified'} grounded canonical proposal compilation.`,
       'Canonical self-maintainer proposal compiled by UberBond; isolated verification remains pending.'
     ],
     limitations: ['Proposal stage did not execute tests or mutate source.'],
@@ -298,6 +299,7 @@ export async function runSelfMaintainerProposalDispatch({
     contextProvider: selection.proposalProvider || null,
     proposalProvider: proposal.proposalProvider || null,
     contextPaths: selection.contextPaths,
+    sourceInventoryDigest: inventory.inventoryDigest || null,
     sourceContextDigest: sourceContext.sourceContextDigest || null,
     changeSetId: proposal.result?.codeChangeSet?.changeSetId || null,
     submitReceipt: {

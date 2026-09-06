@@ -12,6 +12,7 @@ const steps = [
   ['node', ['scripts/uberbond-synaptic-map.mjs']],
   ['node', ['scripts/uberbond-repository-deep-atlas.mjs']],
   ['node', ['scripts/uberbond-ultimate-graph.mjs']],
+  ['node', ['--check', 'public/uberbond.js']],
   ['node', ['--check', 'public/uberbond-graph.js']],
   ['node', ['--test', 'tests/uberbond-repository-deep-atlas.test.mjs', 'tests/uberbond-ultimate-graph.test.mjs', 'tests/ultimate-graph-api.test.mjs']]
 ];
@@ -43,18 +44,6 @@ await writeFile(
   html.replace('<html lang="en">', '<html lang="en" data-uberbond-auth-mode="deployment-protected">'),
   'utf8'
 );
-
-const graphClientPath = path.join(publicDir, 'uberbond-graph.js');
-const graphClient = await readFile(graphClientPath, 'utf8');
-const patchedGraphClient = graphClient.replace(
-  "const token = () => sessionStorage.uberbondGraphToken || localStorage.revenueEngineToken || localStorage.nightshiftToken || '';",
-  "const token = () => document.documentElement.dataset.uberbondAuthMode === 'deployment-protected' ? 'deployment-protected' : (sessionStorage.uberbondGraphToken || localStorage.revenueEngineToken || localStorage.nightshiftToken || '');"
-);
-if (patchedGraphClient === graphClient) {
-  console.error('lite visual-cortex build could not bind deployment-protected graph client');
-  process.exit(2);
-}
-await writeFile(graphClientPath, patchedGraphClient, 'utf8');
 
 const graph = JSON.parse(await readFile(path.join(dataDir, 'uberbond-ultimate-graph-latest.json'), 'utf8'));
 console.log(JSON.stringify({

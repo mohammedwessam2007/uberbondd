@@ -1,4 +1,4 @@
-name: Exact c708 NIGHT-10 Terminal Linux ARM64
+name: Exact c708 NIGHT-10 Terminal macOS Intel
 
 on:
   push:
@@ -9,12 +9,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: exact-c708-night10-linux-arm64
+  group: exact-c708-night10-macos-intel
   cancel-in-progress: false
 
 jobs:
   terminal:
-    runs-on: ubuntu-24.04-arm
+    runs-on: macos-13
     timeout-minutes: 60
     steps:
       - name: Checkout immutable target source
@@ -32,10 +32,10 @@ jobs:
       - name: Install exact dependencies
         run: npm ci
 
-      - name: Hydrate ARM embedded Postgres fixture when present
+      - name: Hydrate Darwin x64 embedded Postgres fixture when present
         run: |
-          if [ -d node_modules/@embedded-postgres/linux-arm64 ]; then
-            npm rebuild @embedded-postgres/linux-arm64
+          if [ -d node_modules/@embedded-postgres/darwin-x64 ]; then
+            npm rebuild @embedded-postgres/darwin-x64
           fi
 
       - name: Prove exact target SHA

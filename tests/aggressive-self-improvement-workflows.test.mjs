@@ -4,6 +4,7 @@ import fs from 'node:fs';
 
 const maintainer = fs.readFileSync('.github/workflows/uberbond-self-maintainer.yml', 'utf8');
 const gamechanger = fs.readFileSync('.github/workflows/gamechanger-mesh-hourly.yml', 'utf8');
+const relayWorker = fs.readFileSync('.github/workflows/agent-relay-worker.yml', 'utf8');
 
 test('self-maintainer runs four bounded pulses per hour without widening real-world authority', () => {
   assert.match(maintainer, /cron:\s*'2,17,32,47 \* \* \* \*'/);
@@ -32,4 +33,14 @@ test('whole-brain sensing runs twice hourly and remains read-only', () => {
   assert.match(gamechanger, /npm run genesis:tick/);
   assert.match(gamechanger, /uberbond-cognitive-cycle-synaptic\.mjs/);
   assert.doesNotMatch(gamechanger, /contents:\s*write/);
+});
+
+test('relay recovery has no one-hour dead zone and drains only a bounded batch', () => {
+  assert.match(relayWorker, /cron:\s*'\*\/5 \* \* \* \*'/);
+  assert.match(relayWorker, /RELAY_MAX_TASKS:\s*'3'/);
+  assert.match(relayWorker, /group:\s*agent-relay-worker/);
+  assert.match(relayWorker, /cancel-in-progress:\s*false/);
+  assert.match(relayWorker, /permissions:\s*\n\s*contents:\s*read\s*\n\s*issues:\s*write/);
+  assert.doesNotMatch(relayWorker, /contents:\s*write/);
+  assert.doesNotMatch(relayWorker, /pull-requests:\s*write/);
 });

@@ -9,7 +9,7 @@ import {
 import { validResult, ZERO_EFFECTS } from '../../../src/cloud-agent-relay.mjs';
 import { requestGithubActionsOidcToken } from '../../../src/github-actions-oidc-verifier.mjs';
 
-export const SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION = 'self-maintainer-proposal-dispatch-1.0.0';
+export const SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION = 'self-maintainer-proposal-dispatch-1.1.0';
 
 const MAX_RESPONSE_BYTES = 350_000;
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
@@ -94,6 +94,16 @@ async function boundedJsonResponse(response) {
     throw error;
   }
   return payload;
+}
+
+function relayCost(usage) {
+  const usdCents = Number(usage?.costCents);
+  if (!Number.isSafeInteger(usdCents) || usdCents < 0) return null;
+  const tokens = Number(usage?.totalTokens);
+  return {
+    usdCents,
+    tokens: Number.isSafeInteger(tokens) && tokens >= 0 ? tokens : null
+  };
 }
 
 export async function runSelfMaintainerProposalDispatch({
@@ -196,13 +206,13 @@ export async function runSelfMaintainerProposalDispatch({
     result: proposal.result,
     taskId: task.taskId,
     sourceCommit: baseRevision,
-    confidence: 0.9,
+    confidence: 'HIGH',
     commands: [],
     tests: [],
     artifacts: [],
     findings: ['Canonical self-maintainer proposal compiled by UberBond; isolated verification remains pending.'],
     limitations: ['Proposal stage did not execute tests or mutate source.'],
-    cost: proposal?.usage?.costCents == null ? null : { cents: proposal.usage.costCents },
+    cost: relayCost(proposal.usage),
     duration: null,
     now: date
   });

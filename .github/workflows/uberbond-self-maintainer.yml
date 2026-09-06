@@ -2,7 +2,10 @@ name: UberBond Self Maintainer
 
 on:
   schedule:
-    - cron: '17 * * * *'
+    # Aggressive but bounded: four pulses per hour. Task identity is still
+    # exact-main-SHA derived, so repeated pulses cannot manufacture duplicate
+    # maintenance missions for the same source revision.
+    - cron: '2,17,32,47 * * * *'
   workflow_dispatch:
     inputs:
       issueNumber:
@@ -23,7 +26,7 @@ permissions:
 jobs:
   bounded-maintenance:
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 55
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       UBERBOND_SELF_MAINTAINER_ISSUE_NUMBER: ${{ inputs.issueNumber }}
@@ -55,16 +58,36 @@ jobs:
             uberbond-cognitive-cycle-
       - name: Install exact locked dependencies
         run: npm ci
-      - name: Run one bounded whole-brain self-maintenance tick and preserve its truth receipt
+      - name: Run bounded aggressive self-maintenance burst and preserve truth receipt
         id: maintenance
         shell: bash
         run: |
           mkdir -p artifacts/cognitive
-          set +e
-          node scripts/uberbond-self-maintainer-tick.mjs > artifacts/cognitive/self-maintainer-latest.json
-          tick_status=$?
-          set -e
-          node -e "const fs=require('node:fs'); const p='artifacts/cognitive/self-maintainer-latest.json'; const v=JSON.parse(fs.readFileSync(p,'utf8')); if(!v || typeof v.status!=='string') process.exit(2)"
+          tick_status=0
+          for attempt in 1 2 3; do
+            set +e
+            node scripts/uberbond-self-maintainer-tick.mjs > artifacts/cognitive/self-maintainer-latest.json
+            tick_status=$?
+            set -e
+
+            status="$(node -e "const fs=require('node:fs'); const p='artifacts/cognitive/self-maintainer-latest.json'; const v=JSON.parse(fs.readFileSync(p,'utf8')); if(!v || typeof v.status!=='string') process.exit(2); process.stdout.write(v.status)")"
+            echo "attempt=$attempt status=$status exit=$tick_status"
+
+            if [ "$tick_status" -ne 0 ]; then
+              break
+            fi
+
+            case "$status" in
+              RELAY_TASK_QUEUED|RELAY_TASK_ALREADY_QUEUED|WAITING_FOR_WORKER_RESULT)
+                if [ "$attempt" -lt 3 ]; then
+                  sleep 120
+                fi
+                ;;
+              *)
+                break
+                ;;
+            esac
+          done
           echo "tick_status=$tick_status" >> "$GITHUB_OUTPUT"
       - name: Save self-maintenance truth for the next cognitive pulse
         uses: actions/cache/save@v4

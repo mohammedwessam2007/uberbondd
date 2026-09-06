@@ -27,6 +27,7 @@ const steps = [
     'tests/command-center-2-auth.test.mjs',
     'tests/command-center-2-policy.test.mjs'
   ]],
+  ['node', ['scripts/reachability-report.mjs']],
   ['npm', ['run', 'check:syntax']],
   ['npm', ['run', 'test:deterministic']],
   ['npm', ['run', 'test:mutation-war']],

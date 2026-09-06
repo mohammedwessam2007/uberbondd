@@ -10,7 +10,9 @@ import { runSelfMaintainerProposalDispatch } from '../.github/workflows/runtime/
 
 const BASE = 'f'.repeat(40);
 const NOW = new Date('2026-09-06T20:00:00.000Z');
-const BEFORE = contentSha256('export const safe = 1;\n');
+const SOURCE_PATH = 'src/proposal-safe-example.mjs';
+const SOURCE_CONTENT = 'export const safe = 1;\n';
+const BEFORE = contentSha256(SOURCE_CONTENT);
 
 function fakeGithub() {
   const issues = new Map();
@@ -67,11 +69,51 @@ function relayTask() {
   };
 }
 
+function sourceInventory() {
+  return {
+    ok: true,
+    status: 'SOURCE_INVENTORY_READY',
+    sourceSha: BASE,
+    paths: [SOURCE_PATH, 'tests/proposal-safe-example.test.mjs'],
+    pathCount: 2,
+    inventoryDigest: 'inventory-digest-test',
+    byteLength: 80
+  };
+}
+
+function exactSourceContext() {
+  return {
+    ok: true,
+    status: 'EXACT_SOURCE_CONTEXT_READY',
+    sourceSha: BASE,
+    inventoryDigest: 'inventory-digest-test',
+    sourceContextDigest: 'source-context-digest-test',
+    files: [{ path: SOURCE_PATH, sha256: BEFORE, byteLength: Buffer.byteLength(SOURCE_CONTENT), content: SOURCE_CONTENT }],
+    totals: { files: 1, contentBytes: Buffer.byteLength(SOURCE_CONTENT) },
+    businessEffectAuthority: 'NONE'
+  };
+}
+
+function sourceRuntime({ inventory = sourceInventory(), context = exactSourceContext() } = {}) {
+  return {
+    buildInventory: async ({ expectedSha }) => {
+      assert.equal(expectedSha, BASE);
+      return inventory;
+    },
+    buildSourceContext: async ({ expectedSha, inventory: observedInventory, selectedPaths }) => {
+      assert.equal(expectedSha, BASE);
+      assert.equal(observedInventory, inventory);
+      assert.deepEqual(selectedPaths, [SOURCE_PATH]);
+      return context;
+    }
+  };
+}
+
 function canonicalWorkerResult() {
   const content = 'export const safe = 2;\n';
   return {
     outcome: 'Canonical proposal prepared; verification pending.',
-    changedArtifacts: ['src/proposal-safe-example.mjs'],
+    changedArtifacts: [SOURCE_PATH],
     testsActuallyRun: [],
     truthTable: [{ claim: 'proposal only', status: 'UNRESOLVED', evidenceRefs: [] }],
     externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS),
@@ -88,7 +130,7 @@ function canonicalWorkerResult() {
       consequenceClass: 'LOCAL_PREPARATION',
       businessEffectAuthority: 'NONE',
       summary: 'safe',
-      changes: [{ operation: 'UPDATE', path: 'src/proposal-safe-example.mjs', beforeSha256: BEFORE, afterSha256: contentSha256(content), content, rationale: 'safe' }],
+      changes: [{ operation: 'UPDATE', path: SOURCE_PATH, beforeSha256: BEFORE, afterSha256: contentSha256(content), content, rationale: 'safe' }],
       verification: ['npm run check:syntax', 'npm run test:deterministic'],
       totals: { files: 1, contentBytes: Buffer.byteLength(content), relaySafeEnvelopeBytes: 180000 }
     },
@@ -115,45 +157,66 @@ async function seeded() {
   return { ...github, created };
 }
 
-function proposalFetch({ result = canonicalWorkerResult(), status = 200 } = {}) {
-  return async (url, options = {}) => {
+function stagedProposalFetch({ result = canonicalWorkerResult(), proposalStatus = 200 } = {}) {
+  const stages = [];
+  const fetchImpl = async (url, options = {}) => {
     assert.equal(String(url), 'https://uberbondd.vercel.app/api/self-maintainer-proposal');
     assert.match(String(options.headers?.authorization || ''), /^Bearer /);
     const body = JSON.parse(options.body);
     assert.equal(body.expectedSha, BASE);
     assert.equal(body.task.taskId, relayTask().taskId);
-    const payload = status === 200
-      ? { ok: true, result, proposalProvider: 'ai-gateway', usage: { costCents: 0, totalTokens: 30 } }
+    stages.push(body.stage);
+    if (body.stage === 'SELECT_CONTEXT') {
+      assert.deepEqual(body.sourceInventory, sourceInventory().paths);
+      return new Response(JSON.stringify({
+        ok: true,
+        stage: 'SELECT_CONTEXT',
+        contextPaths: [SOURCE_PATH],
+        proposalProvider: 'ai-gateway',
+        usage: { costCents: 0, totalTokens: 10 }
+      }), { status: 200, headers: { 'content-type': 'application/json' } });
+    }
+    assert.equal(body.stage, 'PROPOSE');
+    assert.equal(body.sourceContext.sourceSha, BASE);
+    assert.equal(body.sourceContext.sourceContextDigest, 'source-context-digest-test');
+    const payload = proposalStatus === 200
+      ? { ok: true, stage: 'PROPOSE', result, proposalProvider: 'ai-gateway', usage: { costCents: 0, totalTokens: 30 } }
       : { ok: false, reasonCodes: ['provider-blocked'] };
-    return new Response(JSON.stringify(payload), { status, headers: { 'content-type': 'application/json' } });
+    return new Response(JSON.stringify(payload), { status: proposalStatus, headers: { 'content-type': 'application/json' } });
   };
+  return { fetchImpl, stages };
 }
 
-test('dispatch claims the exact task, uses OIDC, submits canonical receipt, and closes the relay issue', async () => {
+test('dispatch claims exact task, selects context, reads exact source, uses OIDC, submits canonical receipt, and closes relay issue', async () => {
   const { client, created, issues } = await seeded();
   let oidcCalls = 0;
+  const staged = stagedProposalFetch();
   const out = await runSelfMaintainerProposalDispatch({
     env: env(),
     githubClient: client,
     initialReceipt: { issueNumber: created.issueNumber },
     oidcRequester: async () => { oidcCalls += 1; return { ok: true, token: 'signed-oidc-token' }; },
-    fetchImpl: proposalFetch(),
-    date: NOW
+    fetchImpl: staged.fetchImpl,
+    date: NOW,
+    ...sourceRuntime()
   });
   assert.equal(out.ok, true, JSON.stringify(out));
-  assert.equal(out.status, 'CANONICAL_PROPOSAL_SUBMITTED');
+  assert.equal(out.status, 'CANONICAL_SOURCE_GROUNDED_PROPOSAL_SUBMITTED');
   assert.equal(oidcCalls, 1);
+  assert.deepEqual(staged.stages, ['SELECT_CONTEXT', 'PROPOSE']);
+  assert.deepEqual(out.contextPaths, [SOURCE_PATH]);
+  assert.equal(out.sourceContextDigest, 'source-context-digest-test');
   assert.equal(issues.get(created.issueNumber).state, 'closed');
   const read = await readGithubRelayTask({ client, owner: 'mohammedwessam2007', repo: 'uberbondd', issueNumber: created.issueNumber, now: NOW });
   assert.equal(read.resultStatus, 'COMPLETED');
   assert.equal(read.result.decision, 'PROCEED');
   assert.deepEqual(read.result.testsActuallyRun, []);
-  assert.deepEqual(read.receipt.cost, { usdCents: 0, tokens: 30 });
+  assert.deepEqual(read.receipt.cost, { usdCents: 0, tokens: 40 });
   assert.equal(read.receipt.confidence, 'HIGH');
   assert.equal(read.receipt.sourceCommit, BASE);
 });
 
-test('dispatch never calls proposal endpoint when exact source identity mismatches', async () => {
+test('dispatch never calls proposal endpoint when exact source identity mismatches relay task', async () => {
   const { client, created } = await seeded();
   let called = false;
   const out = await runSelfMaintainerProposalDispatch({
@@ -169,14 +232,32 @@ test('dispatch never calls proposal endpoint when exact source identity mismatch
   assert.ok(out.reasonCodes.includes('relay-task-base-revision-mismatch'));
 });
 
-test('dispatch fails closed when OIDC acquisition fails and does not submit a fake result', async () => {
+test('exact source inventory failure blocks before OIDC or provider calls', async () => {
+  const { client, created } = await seeded();
+  let called = false;
+  const out = await runSelfMaintainerProposalDispatch({
+    env: env(), githubClient: client, initialReceipt: { issueNumber: created.issueNumber },
+    buildInventory: async () => ({ ok: false, reasonCodes: ['local-checkout-sha-mismatch'] }),
+    buildSourceContext: async () => { called = true; return exactSourceContext(); },
+    oidcRequester: async () => { called = true; return { ok: true, token: 'signed-oidc-token' }; },
+    fetchImpl: async () => { called = true; return new Response('{}'); },
+    date: NOW
+  });
+  assert.equal(out.ok, false);
+  assert.equal(out.status, 'SOURCE_CONTEXT_BLOCKED');
+  assert.equal(called, false);
+  assert.ok(out.reasonCodes.includes('exact-source-inventory-failed'));
+});
+
+test('dispatch fails closed when OIDC acquisition fails after exact inventory and does not submit fake result', async () => {
   const { client, created } = await seeded();
   let endpointCalled = false;
   const out = await runSelfMaintainerProposalDispatch({
     env: env(), githubClient: client, initialReceipt: { issueNumber: created.issueNumber },
     oidcRequester: async () => ({ ok: false, reasonCodes: ['oidc-unavailable'] }),
     fetchImpl: async () => { endpointCalled = true; return new Response('{}'); },
-    date: NOW
+    date: NOW,
+    ...sourceRuntime()
   });
   assert.equal(out.ok, false);
   assert.equal(out.status, 'OIDC_BLOCKED');
@@ -185,33 +266,53 @@ test('dispatch fails closed when OIDC acquisition fails and does not submit a fa
   assert.equal(read.result, null);
 });
 
-test('dispatch is idempotent after a durable relay result exists and never re-calls the model', async () => {
+test('dispatch stops if selected exact source context cannot be built and never reaches proposal stage', async () => {
   const { client, created } = await seeded();
+  const staged = stagedProposalFetch();
+  const out = await runSelfMaintainerProposalDispatch({
+    env: env(), githubClient: client, initialReceipt: { issueNumber: created.issueNumber },
+    oidcRequester: async () => ({ ok: true, token: 'signed-oidc-token' }),
+    fetchImpl: staged.fetchImpl,
+    date: NOW,
+    buildInventory: sourceRuntime().buildInventory,
+    buildSourceContext: async () => ({ ok: false, reasonCodes: ['source-context-read-failed'] })
+  });
+  assert.equal(out.ok, false);
+  assert.equal(out.status, 'SOURCE_CONTEXT_BLOCKED');
+  assert.deepEqual(staged.stages, ['SELECT_CONTEXT']);
+});
+
+test('dispatch is idempotent after durable relay result exists and never re-reads source or re-calls model', async () => {
+  const { client, created } = await seeded();
+  const staged = stagedProposalFetch();
   const first = await runSelfMaintainerProposalDispatch({
     env: env(), githubClient: client, initialReceipt: { issueNumber: created.issueNumber },
     oidcRequester: async () => ({ ok: true, token: 'signed-oidc-token' }),
-    fetchImpl: proposalFetch(), date: NOW
+    fetchImpl: staged.fetchImpl, date: NOW, ...sourceRuntime()
   });
   assert.equal(first.ok, true);
   let called = false;
   const second = await runSelfMaintainerProposalDispatch({
     env: env(), githubClient: client, initialReceipt: { issueNumber: created.issueNumber },
     oidcRequester: async () => { called = true; return { ok: true, token: 'should-not-run' }; },
-    fetchImpl: async () => { called = true; return new Response('{}'); }, date: NOW
+    fetchImpl: async () => { called = true; return new Response('{}'); },
+    buildInventory: async () => { called = true; return sourceInventory(); },
+    buildSourceContext: async () => { called = true; return exactSourceContext(); },
+    date: NOW
   });
   assert.equal(second.ok, true);
   assert.equal(second.status, 'RESULT_ALREADY_PRESENT');
   assert.equal(called, false);
 });
 
-test('dispatch pins the canonical production proposal endpoint and rejects endpoint substitution', async () => {
+test('dispatch pins canonical production proposal endpoint and rejects endpoint substitution', async () => {
   const { client, created } = await seeded();
   const out = await runSelfMaintainerProposalDispatch({
     env: env({ UBERBOND_SELF_MAINTAINER_PROPOSAL_URL: 'https://attacker.example/proposal' }),
     githubClient: client,
     initialReceipt: { issueNumber: created.issueNumber },
     oidcRequester: async () => ({ ok: true, token: 'signed-oidc-token' }),
-    fetchImpl: proposalFetch(), date: NOW
+    fetchImpl: async () => new Response('{}'), date: NOW
   });
   assert.equal(out.ok, false);
   assert.ok(out.reasonCodes.includes('canonical-self-maintainer-proposal-endpoint-required'));

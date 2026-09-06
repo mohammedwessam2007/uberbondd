@@ -1,11 +1,11 @@
 {
   "schemaVersion": "uberbond.overnight-deep-build-receipt.v1",
-  "observedAt": "2026-09-06T03:08:00Z",
+  "observedAt": "2026-09-06T03:10:00Z",
   "missionIssues": [402, 403, 404, 406, 407, 408],
   "integrationPr": 414,
   "integrationBasePr": 400,
   "sourceHeadBeforeRun": "508beef605029fb7514e5cad96176cb74da0e333",
-  "sourceHeadAfterRepairsBeforeReceipt": "d5e701453710efc7ab05d080f09d598d50603731",
+  "sourceHeadAfterRunBeforeReceiptUpdate": "c2459de1ba7b175d434149af694cd7e6b1e5a058",
   "causalRepairs": [
     {
       "issue": 407,
@@ -30,6 +30,19 @@
       "truthBoundary": "Software path presence never creates a renewal, retained customer, or retained revenue claim."
     }
   ],
+  "verificationInfrastructureDelta": {
+    "rootBuildGate": {
+      "source": "scripts/vercel-command-center-build.mjs",
+      "commit": "9ef78e6a413b273483ccae0fa18271c70e968aa3",
+      "change": "Promoted all six overnight foundation test files into the existing root Vercel build gate after the root preview runner resumed allocating compute."
+    },
+    "liteProtection": {
+      "temporaryVerifierCommit": "c0cc163be715c749502304722eb39ae2b2955230",
+      "restoredByCommit": "c2459de1ba7b175d434149af694cd7e6b1e5a058",
+      "finalBlobSha": "8608ade685ce1b6962ba86b8ebde86c492861074",
+      "status": "RESTORED_BYTE_FOR_BYTE_TO_PRIOR_PROTECTED_CONFIG"
+    }
+  },
   "executionEvidence": {
     "githubActions": {
       "head": "6b332547a1115436ccb2764e5fd5c17578b2d2e7",
@@ -41,18 +54,28 @@
         {"name": "postgres", "runnerId": 0, "steps": 0, "conclusion": "failure"}
       ]
     },
-    "vercel": {
-      "latestObservedReadyDeployment": "dpl_CLu1PdrbNPvyu5G3g49f54VntRaE",
-      "testedCommit": "ba0e4c1383543e33c9a9892869a3b7d6e22d329c",
-      "classification": "PACKAGING_ONLY_NOT_TEST_PROOF",
-      "note": "Build cloned and packaged the lite project but executed no repository test gate."
+    "vercelRoot": {
+      "deployment": "dpl_5fuiCZaJFTvEFZ7ArKBEi1cLxPm1",
+      "testedCommit": "d5e701453710efc7ab05d080f09d598d50603731",
+      "classification": "EXECUTED_FOCUSED_CANON_AND_COMMAND_CENTER_PROOF",
+      "observed": {
+        "featureGenome": {"ok": true, "repositoryArtifacts": 1436, "dependencyEdges": 1791, "semanticReviewQueue": 323},
+        "featureAtomAtlas": {"ok": true, "featureAtoms": 3127, "exportedCodeFeatures": 2267},
+        "synapticMap": {"ok": true, "nodes": 4592, "edges": 22623, "orphanArtifacts": 0, "orphanFeatureAtoms": 0, "orphanOrgans": 0},
+        "commandCenterTopologyTests": {"tests": 15, "pass": 15, "fail": 0, "skipped": 0}
+      },
+      "limit": "This deployment predates the two run-2 source repairs and therefore is not proof of their new hostile assertions."
+    },
+    "vercelPostRepair": {
+      "classification": "PENDING_NEW_DEPLOYMENT_OR_RATE_LIMIT",
+      "note": "The existing root build gate now includes all six overnight foundation suites; a subsequent executable preview is required to certify the repaired exact source."
     },
     "isolatedLocalClone": {
       "classification": "INFRA_BLOCKER",
       "result": "git clone could not resolve github.com from the available container network"
     }
   },
-  "generatedCanonPolicy": "CURRENT_SYSTEM_STATE/readiness were not hand-edited because exact-tree generators could not execute; generated facts must be regenerated mechanically on a real exact-head runner.",
+  "generatedCanonPolicy": "Feature Genome, Atom Atlas and Synaptic Map were mechanically regenerated in the root Vercel runner on d5e7014. CURRENT_SYSTEM_STATE/readiness are not hand-edited; exact final-head regeneration remains required after repaired foundation tests execute.",
   "commercialTruth": {
     "realCustomers": 0,
     "clearedRevenueCents": 0,
@@ -65,11 +88,11 @@
     "providerCalls": 0,
     "messages": 0,
     "purchases": 0,
-    "deployments": 0,
+    "productionDeployments": 0,
     "credentialChanges": 0,
     "dnsChanges": 0,
     "productionMutations": 0,
     "spendCents": 0
   },
-  "nextProof": "Run exact final #414 head focused organism-metabolism + pre-customer-readiness tests before canon regeneration, then strongest exact-head deterministic/reachability/readiness gates."
+  "nextProof": "Consume the next root Vercel preview that includes 9ef78e6 or later. Require all six overnight foundation suites plus Genome/Atlas/Synaptic/command-center gate green before integration; then regenerate exact-final CURRENT_SYSTEM_STATE/readiness and reconcile #414 into #400."
 }

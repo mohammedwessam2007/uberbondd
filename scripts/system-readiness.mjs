@@ -61,11 +61,18 @@ export function reachableFromEntryPoints(entryPoints = ['server.mjs', 'worker.mj
     seen.add(file);
     let source = '';
     try { source = readFileSync(join(repoRoot, file), 'utf8'); } catch { continue; }
-    for (const match of source.matchAll(/from\s+['"](\.[^'"]+)['"]/g)) {
-      const target = match[1];
+    const enqueueRelative = target => {
       const base = file.includes('/') ? file.slice(0, file.lastIndexOf('/')) : '.';
       const resolved = join(base, target).replaceAll('\\', '/').replace(/^\.\//, '');
       if (!seen.has(resolved)) stack.push(resolved);
+    };
+    for (const match of source.matchAll(/from\s+['"](\.[^'"]+)['"]/g)) enqueueRelative(match[1]);
+    // A hardened entry point may deliberately defer module evaluation while
+    // still naming a literal module relative to import.meta.url. Treat that
+    // literal edge as real reachability so a security wrapper cannot make its
+    // mature implementation and dependencies look dead to the ratchet.
+    for (const match of source.matchAll(/new\s+URL\(\s*['"](\.[^'"]+\.mjs)['"]\s*,\s*import\.meta\.url\s*\)/g)) {
+      enqueueRelative(match[1]);
     }
   }
   return seen;

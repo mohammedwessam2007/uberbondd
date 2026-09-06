@@ -1,4 +1,12 @@
 {
+  "buildCommand": "node scripts/build-visual-cortex.mjs",
+  "functions": {
+    "api/command-center.mjs": { "maxDuration": 30 },
+    "api/ultimate-graph.mjs": {
+      "maxDuration": 30,
+      "includeFiles": "data/uberbond-ultimate-graph-latest.json"
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",
@@ -40,6 +48,13 @@
     },
     {
       "source": "/api/command-center",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, no-store, max-age=0" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
+      ]
+    },
+    {
+      "source": "/api/ultimate-graph",
       "headers": [
         { "key": "Cache-Control", "value": "private, no-store, max-age=0" },
         { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }

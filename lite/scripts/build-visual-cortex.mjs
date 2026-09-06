@@ -14,7 +14,12 @@ const steps = [
   ['node', ['scripts/uberbond-ultimate-graph.mjs']],
   ['node', ['--check', 'public/uberbond.js']],
   ['node', ['--check', 'public/uberbond-graph.js']],
-  ['node', ['--test', 'tests/uberbond-repository-deep-atlas.test.mjs', 'tests/uberbond-ultimate-graph.test.mjs', 'tests/ultimate-graph-api.test.mjs']]
+  ['node', ['--test',
+    'tests/uberbond-repository-deep-atlas.test.mjs',
+    'tests/uberbond-ultimate-graph.test.mjs',
+    'tests/ultimate-graph-api.test.mjs',
+    'tests/command-center-owner-auth-hostile.test.mjs'
+  ]]
 ];
 
 for (const [command, args] of steps) {

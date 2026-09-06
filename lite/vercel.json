@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node scripts/build-visual-cortex.mjs",
+  "buildCommand": "cd .. && git reset --hard c70815ac93eeb662ff8f5b2c3bebace81fd4b5f8 && npm ci && node scripts/vercel-command-center-build.mjs",
   "functions": {
     "api/command-center.mjs": { "maxDuration": 30 },
     "api/ultimate-graph.mjs": {

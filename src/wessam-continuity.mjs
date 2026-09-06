@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const WESSAM_CONTINUITY_VERSION = 'wessam-continuity-1.0.0';
+export const WESSAM_CONTINUITY_VERSION = 'wessam-continuity-1.0.1';
 export const WESSAM_ROOT_IDENTITY = Object.freeze({
   ownerRole: 'ROOT_OF_TRUST',
   organism: 'UberBond',
@@ -22,9 +22,9 @@ function text(value, max = 1000) {
   return out && out.length <= max ? out : null;
 }
 function inspectSecrets(value, path = '$', depth = 0, seen = new WeakSet()) {
-  if (depth > 10) return [];
+  if (depth > 10) return [`${path}.__depth_limit__`];
   if (value && typeof value === 'object') {
-    if (seen.has(value)) return [];
+    if (seen.has(value)) return [`${path}.__cycle__`];
     seen.add(value);
   }
   const findings = [];
@@ -104,12 +104,18 @@ export function compileRecoveryCapsule({ state, ownerAuthorization, targetBounda
   if (!ownerAuthorization || typeof ownerAuthorization !== 'object') reasons.push('owner-authorization-required');
   const authOwner = text(ownerAuthorization?.ownerId, 200);
   const authorizationDigest = text(ownerAuthorization?.authorizationDigest, 128);
+  const authorizationEpoch = Number(ownerAuthorization?.recoveryEpoch);
   const targetBoundary = text(targetBoundaryId, 200);
+  const normalizedDevice = targetDeviceId == null ? null : text(targetDeviceId, 200);
+  const normalizedProvider = targetProviderId == null ? null : text(targetProviderId, 200);
   if (!targetBoundary) reasons.push('target-boundary-required');
+  if (targetDeviceId != null && !normalizedDevice) reasons.push('target-device-invalid');
+  if (targetProviderId != null && !normalizedProvider) reasons.push('target-provider-invalid');
   if (state && authOwner !== state.ownerId) reasons.push('owner-identity-mismatch');
   if (!authorizationDigest) reasons.push('owner-authorization-digest-required');
-  if (state && targetDeviceId && state.revokedDeviceIds?.includes(targetDeviceId)) reasons.push('target-device-revoked');
-  if (state && targetProviderId && state.revokedProviderIds?.includes(targetProviderId)) reasons.push('target-provider-revoked');
+  if (state && (!Number.isInteger(authorizationEpoch) || authorizationEpoch !== Number(state.recoveryEpoch))) reasons.push('fresh-owner-authorization-epoch-required');
+  if (state && normalizedDevice && state.revokedDeviceIds?.includes(normalizedDevice)) reasons.push('target-device-revoked');
+  if (state && normalizedProvider && state.revokedProviderIds?.includes(normalizedProvider)) reasons.push('target-provider-revoked');
   if (reasons.length) return fail(reasons);
 
   const capsule = {
@@ -120,8 +126,8 @@ export function compileRecoveryCapsule({ state, ownerAuthorization, targetBounda
     stateRootDigest: state.stateRootDigest,
     recoveryEpoch: state.recoveryEpoch,
     targetBoundaryId: targetBoundary,
-    targetDeviceId: targetDeviceId ? text(targetDeviceId, 200) : null,
-    targetProviderId: targetProviderId ? text(targetProviderId, 200) : null,
+    targetDeviceId: normalizedDevice,
+    targetProviderId: normalizedProvider,
     authorizationDigest,
     payloadMode: 'DIGEST_REFERENCES_ONLY',
     plaintextMemoryIncluded: false,
@@ -163,9 +169,18 @@ export function compileExternalTaskPacket({
     if (!key || !privacyClass || !PRIVATE_CLASSES.has(privacyClass)) { excluded.push({ key, reason: 'invalid-metadata' }); continue; }
     if (!requested.has(key)) { excluded.push({ key, reason: 'not-requested' }); continue; }
     if (!allowed.has(privacyClass)) { excluded.push({ key, reason: 'privacy-class-denied' }); continue; }
+    if (privacyClass === 'WESSAM_INNERMOST') { excluded.push({ key, reason: 'wessam-innermost-plaintext-externalization-prohibited' }); continue; }
     const secretPaths = inspectSecrets(value);
-    if (secretPaths.length) { excluded.push({ key, reason: 'secret-like-content-denied' }); continue; }
-    included.push({ key, privacyClass, value: structuredClone(value), provenanceRef: text(item.provenanceRef, 500) });
+    if (secretPaths.length) { excluded.push({ key, reason: 'secret-like-or-unsafe-content-denied' }); continue; }
+    let cloned;
+    try {
+      JSON.stringify(value);
+      cloned = structuredClone(value);
+    } catch {
+      excluded.push({ key, reason: 'non-serializable-content-denied' });
+      continue;
+    }
+    included.push({ key, privacyClass, value: cloned, provenanceRef: text(item.provenanceRef, 500) });
   }
 
   const packet = {
@@ -175,25 +190,34 @@ export function compileExternalTaskPacket({
     included,
     excluded,
     minimizationApplied: true,
-    plaintextWessamInnermostIncluded: included.some(item => item.privacyClass === 'WESSAM_INNERMOST'),
+    plaintextWessamInnermostIncluded: false,
     consequenceAuthority: 'NONE',
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
-  if (packet.plaintextWessamInnermostIncluded) return fail(['wessam-innermost-plaintext-externalization-prohibited'], { excluded });
   return { ok: true, status: 'MINIMUM_SUFFICIENT_EXTERNAL_TASK_PACKET_COMPILED', packet, packetFingerprint: digest(packet) };
 }
 
 export function verifyRestoredWessamState({ sourceState, restoredState, ownerAuthorization } = {}) {
   const reasons = [];
   if (!sourceState || !restoredState) reasons.push('source-and-restored-state-required');
-  if (!ownerAuthorization || ownerAuthorization.ownerId !== sourceState?.ownerId) reasons.push('fresh-owner-authorization-required');
+  const authOwner = text(ownerAuthorization?.ownerId, 200);
+  const authDigest = text(ownerAuthorization?.authorizationDigest, 128);
+  const authEpoch = Number(ownerAuthorization?.recoveryEpoch);
+  if (!ownerAuthorization || authOwner !== sourceState?.ownerId || !authDigest || !Number.isInteger(authEpoch) || authEpoch !== Number(sourceState?.recoveryEpoch)) reasons.push('fresh-owner-authorization-required');
   if (sourceState && restoredState) {
     if (restoredState.ownerId !== sourceState.ownerId) reasons.push('owner-changed-during-restore');
     if (restoredState.memoryRootDigest !== sourceState.memoryRootDigest) reasons.push('memory-root-drift');
     if (restoredState.stateRootDigest !== sourceState.stateRootDigest) reasons.push('state-root-drift');
     if (Number(restoredState.recoveryEpoch) < Number(sourceState.recoveryEpoch)) reasons.push('stale-recovery-epoch');
     if (restoredState.selfAuthorityEscalationAllowed === true) reasons.push('authority-inflation-during-restore');
+    if (restoredState.hiddenPersistenceAllowed === true) reasons.push('hidden-persistence-during-restore');
+    const sourceRevokedDevices = new Set(sourceState.revokedDeviceIds || []);
+    const restoredRevokedDevices = new Set(restoredState.revokedDeviceIds || []);
+    const sourceRevokedProviders = new Set(sourceState.revokedProviderIds || []);
+    const restoredRevokedProviders = new Set(restoredState.revokedProviderIds || []);
+    for (const id of sourceRevokedDevices) if (!restoredRevokedDevices.has(id)) reasons.push('device-revocation-lost-during-restore');
+    for (const id of sourceRevokedProviders) if (!restoredRevokedProviders.has(id)) reasons.push('provider-revocation-lost-during-restore');
   }
   return reasons.length ? fail(reasons) : {
     ok: true,

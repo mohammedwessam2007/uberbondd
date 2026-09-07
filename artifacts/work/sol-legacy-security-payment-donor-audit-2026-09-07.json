@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "uberbond-sol-legacy-security-payment-donor-audit-1.0.0",
+  "status": "VERIFIED_REPOSITORY_TRIAGE__CURRENT_MAIN_COMPARISON",
+  "repository": "mohammedwessam2007/uberbondd",
+  "mainShaAtAudit": "a22e4f099902b6abd2719922a9dd761fb69a6fa6",
+  "findings": [
+    {
+      "pr": 393,
+      "classification": "ABSORBED_SECURITY_BEHAVIOR__LIKELY_SUPERSEDED",
+      "evidence": [
+        "Current main contains tests/admin-ephemeral-client-hostile.test.mjs.",
+        "That current-main hostile test explicitly forbids browser storage of the admin bearer, privileged query-token URLs, query-token fallback in server auth, token-bearing navigation, and Gmail OAuth token serialization.",
+        "Current main server-core auth is required by that test to parse Authorization: Bearer and compare only the bearer with config.adminToken."
+      ],
+      "recommendedAction": "Do not transplant #393 wholesale. Treat as historical security donor unless an exact remaining file diff proves a stronger unabsorbed invariant."
+    },
+    {
+      "pr": 390,
+      "classification": "MIXED_DONOR__PARTLY_ABSORBED_PARTLY_UNABSORBED",
+      "evidence": [
+        "Current main contains src/vercel-ai-gateway-executor.mjs at policy v1.2.0 with observable provider/model identity, conservative cost ceilings, timeout/uncertainty handling, secret redaction, and quota/outage classification.",
+        "Current main does not contain src/cloud-wake-transport.mjs.",
+        "#390 also donated shared-context-cache and delayed cloud-wake concepts, but its ephemeral-admin security concern is now separately enforced on main."
+      ],
+      "recommendedAction": "OMEGA-06/10 should inspect only the unabsorbed cloud-wake/shared-context mechanisms and adapt them to current routing/scheduler architecture. Never reintroduce old admin auth/client code."
+    },
+    {
+      "pr": 381,
+      "classification": "HIGH_VALUE_PAYMENT_READINESS_DONOR__REAL_CURRENT_MAIN_DRIFT",
+      "evidence": [
+        "Current main already contains src/paypal-sandbox-adapter.mjs v1.2.0, proving PayPal Sandbox verifier source exists and is explicitly non-commercial.",
+        "Current main src/payment-rail-doctor.mjs is still v1.0.0 and declares IMPLEMENTED_PAYMENT_RAILS=['lemon_squeezy'] plus PAYPAL_RAIL_NOT_IMPLEMENTED.",
+        "PR #381 payment-rail-doctor v1.1.0 makes the inventory provider-neutral, recognizes PayPal Sandbox as implemented, requires a complete PayPal sandbox credential bundle, forbids partial-fragment readiness, and still prevents PayPal Sandbox from becoming LIVE_READY."
+      ],
+      "defect": "CURRENT_MAIN_PAYMENT_READINESS_DOCTOR_CONTRADICTS_CURRENT_MAIN_PAYPAL_SANDBOX_SOURCE_REALITY",
+      "recommendedAction": "OMEGA-09 should reconcile #381 provider-neutral readiness logic onto current main before relying on payment readiness/owner-action outputs. Re-run founder-absence and payment hostile tests after transplant."
+    },
+    {
+      "pr": 382,
+      "classification": "HIGH_VALUE_PAYPAL_LIVE_TRUTH_DONOR__NOT_ON_MAIN",
+      "evidence": [
+        "Current main does not contain src/paypal-payment-truth-core.mjs.",
+        "#382 defines a provider-origin live PayPal path with order intent, buyer approval, idempotent server capture, signed webhook verification, independent provider lookup, exact binding, canonical payment/revenue witnesses, renewal truth, refund/reversal reduction, and dispute review.",
+        "Its own truth law keeps Sandbox non-commercial and refuses capture responses alone as cleared-payment proof."
+      ],
+      "recommendedAction": "OMEGA-09 should treat #382 as a donor for live PayPal provider-origin truth, reconcile against current payment ledger/reconciliation architecture, and require exact-head syntax/focused/deterministic/mutation/Postgres proof before merge."
+    }
+  ],
+  "newlyConfirmedP0P1": [
+    {
+      "id": "PAYMENT_READINESS_SOURCE_DRIFT",
+      "severity": "P1_INTERNAL_TRUTH_DEFECT",
+      "description": "Main has a PayPal Sandbox adapter while payment-rail-doctor still claims PayPal is unimplemented."
+    },
+    {
+      "id": "PAYPAL_LIVE_TRUTH_UNABSORBED_DONOR",
+      "severity": "P1_ECONOMIC_CAPABILITY_GAP",
+      "description": "Provider-origin PayPal live truth implementation exists only in donor PR #382, not current main."
+    },
+    {
+      "id": "CLOUD_WAKE_TRANSPORT_UNABSORBED",
+      "severity": "P2_RESILIENCE_CAPABILITY_GAP",
+      "description": "#390 cloud wake transport is absent from main while newer AI Gateway routing is already present."
+    }
+  ],
+  "integrationLaw": [
+    "Security donor #393 is not a reason to rewrite current auth because current-main hostile tests already enforce its core invariants.",
+    "Payment donor #381 is different: current main contains contradictory source truth and should be repaired, not merely archived.",
+    "PayPal Sandbox implementation never proves live payment, cleared revenue, customer truth, or commercial readiness.",
+    "PayPal live truth donor #382 must reuse one canonical payment/revenue ledger rather than create a parallel commercial truth system.",
+    "Cloud wake is a replaceable transport layer; durable queue/state remains canonical truth."
+  ],
+  "progress": {
+    "NORTH_STAR_CANON": 99,
+    "ECONOMIC_AUTONOMY_SOFTWARE": 94,
+    "PERSONAL_CIVILIZATION_RUNTIME": 12,
+    "SOVEREIGN_CONTINUUM_RUNTIME": 6,
+    "REALITY_CALIBRATION": 1,
+    "FULL_SYSTEM_REALIZATION": 28,
+    "deltaReason": "A real payment-readiness drift defect and two unabsorbed donors were isolated, but no repaired runtime has yet been verified on main."
+  },
+  "truthBoundary": "This artifact narrows implementation and merge decisions. It does not claim PayPal live readiness, provider success, cleared payment, customer truth, deployment, or runtime verification."
+}

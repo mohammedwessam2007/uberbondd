@@ -1,158 +1,86 @@
 {
-  "schemaVersion": "uberbond-handoff-2.2.0",
-  "activeMission": "UberBond OMEGA: child missions #437-#444 executed across the five merge waves of artifacts/uberbond-omega-parallel-execution-graph.json on work/sovereign-continuum-execution-20260907, with a no-drop coverage matrix over all 1068 canonical concepts. The decision, sovereignty, meta-rationality, calibration, experience and ruin organs are built, tested, mutation-covered and reachable through api/sovereign-control.mjs.",
+  "schemaVersion": "uberbond-handoff-3.0.0",
+  "sourceCommit": "547c4380a7860d3b0bd2ab142c9af339423835a8",
+  "activeBranch": "omega/night-convergence-20260907",
+  "activePullRequest": 458,
+  "activeMission": "Converge the latest verified Sovereign Cognitive Continuum, Personal Civilization, cash-first economic organism, verified-reuse compression, provider-independent deployment donors, and anti-loop self-improvement into one truthfully verified lineage. Build genuine residual organs aggressively, but never count repeated retries, registry labels, simulations, or architecture prose as implementation or reality proof.",
+  "terminalNorthStar": "Sovereign Cognitive Continuum",
+  "terminalLaw": "Mohamed provides will. UberBond provides intelligence. Reality provides feedback.",
+  "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
   "completed": [
-    "OMEGA-00: coverage matrix compiler over 1068 extracted concepts, 1038 rows, 30 alias merges, zero dropped; plus a verified declaration layer that fails the whole compile on a missing file or unknown concept (7452865b, 60628167).",
-    "OMEGA-01: personal-civilization-core private capture/derive/export/delete, founder-authorized, classified DELIBERATELY_UNREACHABLE with a reverse ratchet. PCIV-01..05 KILLED (60628167).",
-    "OMEGA-02/03/04/12/13: sovereignty type ladder with three human-only crossings; option universe merged on causal signature; forecasts refusing a probability without quantitative evidence; five terminal epistemic states; sealed calibration ledger separating decision quality from outcome; read-only control surface giving all four a caller. 23 mutations KILLED (573f48c2).",
-    "OMEGA-05/11: experience compiler keeping presentness and uncopyability outside the arithmetic; ruin firewall screening before expected value with no probability threshold. 9 mutations KILLED (e7bb5f55).",
-    "Repaired four silent validator regressions inherited from the branch base, including requiresMemoryV2 -- a schema bump had switched off memory-index validation with no line deleted and every suite green.",
-    "Coverage triage: SPEC_ONLY 883 -> 339 through five verified terminal states (ENFORCED_BY_CODE, STRUCTURAL_NOT_A_BUILD_TARGET, COVERED_BY_PARENT_ORGAN, REFERENCE_ONLY_BY_CANON, HISTORICAL_DONOR_PRESERVED, ALIAS_OF_CANONICAL_CONCEPT) plus 19 EXTERNAL_BLOCKED from a reviewed gate vocabulary. TERMSTATE-01..09 KILLED.",
-    "OMEGA-06: supplier exit drill actually rehearsed -- 11 durable canon files exported, restored byte-identically into a disposable cell, cut over and rolled back, original unchanged. EXIT-01..06 KILLED.",
-    "Fixed the inert manifest lane field: every row had taken its lane from its concept class, so OMEGA-13 read as an empty lane while the calibration ledger was built.",
-    "Five life organs built, tested and mutation-covered: life-decision-dimensions (no weighted total, ever), reachable-futures (lineage-counted counterfactuals, no council majority), human-capability-genome (a durable limit needs varied evidence), living-self-model (identity compression refused), salience-sovereignty (unlogged omissions recorded as unaccountable). 26 mutations KILLED.",
-    "Four more organ clusters: epistemic-immune-system (ignorance typed, causal rungs enforced, reality veto absolute), memory-sovereignty (opacity enforced at inference, not promised in policy), intent-compiler (compilation stops at permissions), life-autopoiesis (loops not balance, finite time as a constraint). 32 mutations KILLED.",
-    "10 further laws moved to ENFORCED_BY_CODE against verified modules, including 'payment link cannot create cleared payment' and 'sandbox events cannot create real revenue', which the proposal engine already held up and nothing had recorded.",
-    "Six further organ clusters: world-intelligence (Ontogenesis, boundary classification, ontological crisis), life-knowledge-graph (edge provenance, contradictions held open), forecast-stack (hindcast-gated methods, no combined regret figure), constitutional-governance (the system cannot refuse being ended), inter-sovereign (other people are not terrain), embodied-reality (the state a decision was made in, and what language did not carry). 65 mutations KILLED.",
-    "Resolved the flagged mis-typing: truthPriority is an ordered evidence ranking, not six unenforced laws. Its sibling truthClasses was already ONTOLOGY; the extractor now types them alike."
+    "Claude #455 and #456 are on current main: epistemic immunity, memory sovereignty, intent-to-consequence compilation, life autopoiesis, world intelligence, Life Knowledge Graph, forecast stack, constitutional governance, inter-sovereign intelligence and embodied reality. Claude reported 4,331 deterministic tests with 0 failures and 320/320 Mutation War kills at #456 exact head.",
+    "Night convergence PR #458 preserves Claude's stronger overlapping organs and composes the unique cash-first PayPal/payment/fulfilment, Decision Information Theory, Causal Intervention Ladder, Ontological Crisis, Reflexivity, Universal Ignorance Map, Preference Provenance, Meta-Volition, Volitional Integrity, Strategic Reality and Deep Atlas donor mechanisms.",
+    "GPT Work reuse PR #459 was independently reviewed and merged into #458 at 547c4380a7860d3b0bd2ab142c9af339423835a8. Canonical SPEC_ONLY moved 138 -> 123 through 15 evidence-backed reuse mappings, not duplicate facade modules.",
+    "Work portability PR #461 created a provider-neutral Docker/Compose backend, worker/Postgres packaging, PayPal route bridge and preflight doctor. Sol review found and repaired a canonical-auth-facade bypass at commits 8e955eac, 3661349f and 700d4af2; repaired exact-head execution remains unproven.",
+    "Sol child PR #462 implements Constraint Mutation and evidence-triggered self-maintenance: same blocker + same strategy + no new safe evidence cannot become a new attempt because clock time passed. The previous hourly cron is replaced on that child branch by push-to-main evidence triggering plus explicit manual dispatch, with state-gated proposal/final phases and continuation receipts.",
+    "Commercial and life-outcome truth remain deliberately unmanufactured. CUSTOMER_ACCEPTED, real cleared revenue, retention, provider callability and lived-life improvement still require independent external evidence."
   ],
   "blockers": [
-    "INTERNAL AND UNFINISHED: 138 coverage rows remain genuine unbuilt organs. The mission completion condition is NOT met while these stand.",
-    "INTERNAL: the largest remaining clusters are 23 CAPABILITY_DOMAIN, 23 CAPABILITY_ATOM, 18 FORECAST_DIMENSION with no parent organ, 14 GENESIS_MECHANISM, and the far-future economic donors (Reality Fork Engine, Negative-Space Intelligence, Causal Destiny Compiler and the rest).",
-    "INTERNAL: 11 canon laws still have no enforcement declaration.",
-    "EXTERNAL: 19 rows blocked on facts outside this repository -- 10 host runtimes not installed, 7 founder-freedom dimensions needing observed life outcomes, 2 approved optional runtimes.",
-    "EXTERNAL: no real customer, cleared payment, accepted delivery or retained customer exists. Commercial truth remains {realCustomers: 0, clearedRevenueUsd: 0, acceptedPaidDeliveries: 0, retainedCustomers: 0}.",
-    "EXTERNAL: no life-outcome evidence exists for any organ. Every one is internally tested and externally unproven.",
-    "EXTERNAL: founder-absence duration requires observed elapsed unattended operation. ELAPSED_TIME_REQUIRED is 0 because nothing has been declared against that gate."
+    "INTERNAL AND UNFINISHED: canonical coverage on #458 contains 123 genuine SPEC_ONLY rows. This is the current denominator; 138 is stale.",
+    "INTERNAL: Claude issue #460 owns genuine residual construction, beginning with forecast-dimension and GENESIS-mechanism tournaments after aggressive reuse/dedupe. Do not rebuild the 15 rows already compressed by #459.",
+    "INTERNAL VERIFICATION: #458 is mergeable but should not reach main until its latest combined tree has adequate executable evidence or every remaining red is causally proven infrastructure non-evidence.",
+    "PORTABILITY PROOF: #461 repaired source remains unproven on real Postgres + worker + scheduler/background durability + independent secrets/config + PayPal E2E + crash/restart + complete restore/cutover/rollback + authorized independent compute.",
+    "ANTI-LOOP PROOF: #462 is mergeable and source/hostile-test/operator-reachable, but exact-head hosted CI ran zero steps and Vercel hit the daily build cap. Do not convert test presence into a pass.",
+    "EXTERNAL: realCustomers=0, clearedRevenueUsd=0, acceptedPaidDeliveries=0, retainedCustomers=0.",
+    "EXTERNAL: no longitudinal life-outcome evidence or calibrated real-world forecast history exists yet; elapsed reality cannot be synthesized by code."
   ],
   "nextActions": [
-    "138 unbuilt organs remain. The single highest-value act is still not another organ: the calibration ledger has never scored a real forecast, so reality calibration cannot move off 6%.",
-    "The 23 CAPABILITY_ATOM rows are software capability atoms and may already be satisfied by the existing Capability Genome modules -- that has not been checked, and checking is cheaper than building.",
-    "Do not duplicate ChatGPT Sol's truth/audit lane on sol/omega-truth-integration-20260907 (issue #445).",
-    "Regenerate canon with npm run readiness as its own commit after each material tranche."
+    "Claude #460: attack the 123 genuine residual rows by multiplier value, first deduping/building remaining forecast dimensions, then GENESIS mechanisms, then remaining high-leverage Sovereign/life/economic organs. If a required mechanism does not exist and is internally solvable, invent and implement it instead of reporting absence.",
+    "Sol integration lane: keep #458 as the single convergence candidate, review every new Claude/Work tranche for overlap and truth, merge only bounded verified child lanes, and kill causal integration defects before promotion.",
+    "Sol portability lane: hold #461 outside #458 until repaired exact-head behavior executes; when a capable runner/substrate exists, test real Postgres web+worker startup, PayPal portable routes, shutdown/restart and restore/cutover/rollback before granting provider-independent readiness.",
+    "Sol anti-loop lane: hold #462 outside #458 until its focused tests execute. Preserve the new law that clock time is not new evidence and blocked strategies must mutate rather than repeat.",
+    "When any runner becomes available, prefer exact-head focused tests first, then syntax/deterministic/Mutation War/real-Postgres/relay/browser/reachability/readiness as relevant. Zero-step jobs and provider build caps remain infrastructure non-evidence.",
+    "After every meaningful verified tranche, update the six system percentages plus first-dollar, offer-to-fulfilment and deployment readiness with an exact delta reason."
   ],
-  "sourceCommit": "7452865b312582a597732889d1282dbb855dde97",
-  "checkpointedAt": "2026-09-07T14:26:00+03:00",
-  "terminalNorthStar": "Sovereign Cognitive Continuum",
-  "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding Mohamed's sovereign free will. Mohamed provides will; UberBond provides intelligence; reality provides feedback.",
-  "canonicalMerge": {
-    "pr": 435,
-    "mergeCommit": "1083c182a76205d7c0a78fc05725a4eaafa41870",
-    "merged": true,
-    "classification": "VERIFIED_CURRENT_CANON_MERGE"
+  "parallelOwnership": {
+    "claudeIssue460": "genuine residual organ construction; forecast/GENESIS then multiplier-ranked residue",
+    "solPR458": "integration tribunal, donor reconciliation, causal defect killing, merge judgment",
+    "solPR461": "portable backend security and provider-independent proof",
+    "solPR462": "Constraint Mutation and evidence-triggered self-maintenance",
+    "gptWorkPR459": "completed and merged verified-reuse compression"
   },
-  "workSession": {
-    "status": "READY_FOR_WORK_AGENT",
-    "branch": "work/sovereign-continuum-execution-20260907",
-    "baseMainSha": "a22e4f099902b6abd2719922a9dd761fb69a6fa6",
-    "humanBootstrap": "docs/work/WORK_SESSION_BOOTSTRAP_2026-09-07.md",
-    "progressLedger": "artifacts/work-session-progress-baseline-2026-09-07.json",
-    "primaryMission": "Turn the canonical Sovereign Cognitive Continuum into an increasingly executable private reality-coupled system while reconciling and preserving the advanced economic/autonomy organism.",
-    "firstAction": "Refresh live main/PR/runtime truth and regenerate stale current-system/readiness state before trusting any previous completion percentage.",
-    "percentageFooterRequiredAfterEveryMeaningfulStep": true
+  "currentCoverage": {
+    "rows": 1038,
+    "VERIFIED_CURRENT": 262,
+    "PARTIAL_CURRENT": 72,
+    "SPEC_ONLY": 123,
+    "EXTERNAL_BLOCKED": 19,
+    "OWNER_BOUNDARY": 13,
+    "ELAPSED_TIME_REQUIRED": 0,
+    "ENFORCED_BY_CODE": 39,
+    "STRUCTURAL_NOT_A_BUILD_TARGET": 110,
+    "COVERED_BY_PARENT_ORGAN": 124,
+    "REFERENCE_ONLY_BY_CANON": 33,
+    "HISTORICAL_DONOR_PRESERVED": 195,
+    "ALIAS_OF_CANONICAL_CONCEPT": 42
   },
-  "mandatoryNorthStarPaths": [
-    "README.md",
-    "NORTH_STAR.md",
-    "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-    "artifacts/sovereign-cognitive-continuum-total-north-star.json",
-    "docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md",
-    "artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json",
-    "docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md",
-    "artifacts/sovereign-cognitive-continuum-north-star.json",
-    "docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md",
-    "artifacts/sovereign-option-outcome-forecast-engine.json",
-    "docs/NORTH_STAR_PRECEDENCE.md",
-    "artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json",
-    "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-    "artifacts/personal-civilization-engine-north-star.json",
-    "AGENTS.md",
-    "CLAUDE.md",
-    "UBERBOND_CANON.md",
-    "UBERBOND_BOOTSTRAP.json",
-    "docs/UBERBOND_TOTAL_BRAIN.md",
-    "docs/work/WORK_SESSION_BOOTSTRAP_2026-09-07.md",
-    "artifacts/work-session-progress-baseline-2026-09-07.json"
-  ],
-  "noDropRule": "Every unique layer, literal name, and donated purpose in the total North Star and chat-completeness pair remains discoverable unless Mohamed explicitly supersedes it. A newer mechanism may replace implementation, but silence, a short-term mission, a current UI, or a current offer never deletes the donated concept.",
-  "websiteAuditClassification": "SUBORDINATE_HISTORICAL_AND_OPERATIONAL_ECONOMIC_CAPABILITY__NOT_PROJECT_IDENTITY__NOT_DEFAULT_FRESH_CHAT_MISSION__NOT_TERMINAL_NORTH_STAR",
-  "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
-  "currentTruth": {
-    "mainAtWorkBranchCreation": "a22e4f099902b6abd2719922a9dd761fb69a6fa6",
-    "totalNoDropCanonMergedToMain": true,
-    "startupRepairMergedToMain": true,
-    "pr400": {
-      "state": "MERGED",
-      "mergeCommit": "ebcfd64a8d8d155691265bac33ac84d30b116894",
-      "classification": "VERIFIED_CURRENT_LARGE_AUTONOMY_INTEGRATION"
-    },
-    "currentSystemStateDocument": "STALE__LAST_RECONCILED_2026-09-06__DESCRIBES_PR400_AS_PENDING",
-    "systemReadinessArtifact": "HISTORICAL_SNAPSHOT__REGENERATE_ON_EXACT_CURRENT_SOURCE",
-    "personalCivilizationWave1PR432": {
-      "state": "OPEN",
-      "merged": false,
-      "mergeableAtWorkStart": false,
-      "head": "7733e34975991de938f1b6e5c77ac19034ecd8c5",
-      "classification": "DRAFT_BRANCH_DONOR_REQUIRES_CURRENT_MAIN_RECONCILIATION"
-    },
-    "personalCivilizationWave1VerificationPR433": {
-      "state": "OPEN",
-      "merged": false,
-      "mergeableAtWorkStart": false,
-      "head": "e194ec4c29dcd2a0cd8e79e1c9dd68c13ea5c07b",
-      "classification": "DRAFT_VERIFICATION_DONOR_REQUIRES_CURRENT_MAIN_RECONCILIATION"
-    },
-    "personalCivilizationWave1OnMain": false,
-    "commercialProof": "ZERO_CUSTOMER_OR_REVENUE_TRUTH_MAY_BE_INFERRED_FROM_CANON_OR_CODE",
-    "lifeOutcomeProof": "NOT_OBSERVED_FOR_SOVEREIGN_CONTINUUM",
-    "superintelligenceProof": "NOT_CREATED_BY_ARCHITECTURE",
-    "perfectPredictionProof": "NOT_CREATED_BY_ARCHITECTURE"
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0,
+    "ownerSuppliedPayPalDestination": "Sarawessam",
+    "paypalDestinationIsPaymentProof": false
   },
   "provisionalProgress": {
     "NORTH_STAR_CANON": 99,
-    "ECONOMIC_AUTONOMY_SOFTWARE": 94,
-    "PERSONAL_CIVILIZATION_RUNTIME": 12,
-    "SOVEREIGN_CONTINUUM_RUNTIME": 6,
-    "REALITY_CALIBRATION": 1,
-    "FULL_SYSTEM_REALIZATION": 28,
-    "status": "PLANNING_ESTIMATE__PHASE0_MUST_RECALIBRATE__MAY_MOVE_DOWN"
+    "ECONOMIC_AUTONOMY_SOFTWARE": 99,
+    "PERSONAL_CIVILIZATION_RUNTIME": 44,
+    "SOVEREIGN_CONTINUUM_RUNTIME": 53,
+    "REALITY_CALIBRATION": 24,
+    "FULL_SYSTEM_REALIZATION": 83,
+    "FIRST_DOLLAR_INTERNAL_READINESS": 98,
+    "OFFER_PAYMENT_FULFILMENT_SOFTWARE": 99,
+    "DEPLOYMENT_RUNTIME_READINESS": 93,
+    "status": "EVIDENCE_WEIGHTED_ESTIMATE__MAY_MOVE_DOWN_AFTER_AUDIT"
   },
   "startupLaw": [
-    "Refresh current main, open PRs, runtime and verification truth before present-tense claims.",
-    "Read the Work bootstrap and progress ledger before selecting the first mission.",
-    "Regenerate/reconcile stale CURRENT_SYSTEM_STATE and system-readiness before trusting historical percentages.",
-    "Do not auto-select website audit or another historical commercial wedge.",
-    "Do not blindly merge stale or stacked PRs; extract unique donors onto current main when necessary.",
-    "After every meaningful verified step, print all six progress percentages and the exact delta reason.",
-    "North Star presence, code volume, simulation and unexecuted branches do not count as implementation/outcome proof."
+    "Refresh current main, PR #458, Claude #460, portability PR #461 and anti-loop PR #462 before trusting remembered SHAs.",
+    "Read the terminal North Star and machine canon before choosing architecture. The repository North Star is constitutional law, not optional context.",
+    "Search and prove reuse before building duplicate mechanisms. A registry declaration is not behavioral implementation proof.",
+    "If an internally required mechanism is genuinely absent, invent and implement it rather than stopping at a backlog item.",
+    "A blocked path is not a blocked objective. Repeated same-strategy failure must invoke Wallbreaker/Constraint Mutation rather than a clock-based retry.",
+    "No provider, customer, payment, acceptance, retention, forecast-accuracy, life-outcome or elapsed-time truth may be fabricated."
   ],
-  "truthBoundary": "This handoff prepares a Work execution branch and progress protocol. It does not create external authority, customer/payment/provider proof, production activation, superintelligence, perfect prediction, consciousness, or observed life improvement.",
-  "cloudActivationTruth": {
-    "fullProjectExists": true,
-    "privateLiteProjectExists": true,
-    "currentMainExactProductionDeploymentProven": false,
-    "cronRegistrationProven": false,
-    "cronDeliveryProven": false,
-    "contradiction": "The historical account-scope contradiction is preserved, while the currently connected Vercel API resolves both project identities. Exact-current-main production and cron delivery remain unproven because the daily deployment cap rejected both projects before a build executed.",
-    "observations": [
-      {
-        "observedVia": "connected Vercel API",
-        "observedAt": "2026-08-31T13:14:50Z",
-        "detail": "Full project prj_RWUPf14w1xIz9NK92AbNW5z7qDCg exists; its current production deployment remains ERROR at 5cb18b852b29b2c90f66869544e58a10531009e9, while exact-current-main deployment creation was rejected by api-deployments-free-per-day."
-      },
-      {
-        "observedVia": "connected Vercel API and authenticated deployment fetch",
-        "observedAt": "2026-08-31T14:17:36Z",
-        "detail": "Private-lite deployment dpl_BuifQeJmRo6P3gVbbve1jChu1xG1 cloned exact PR head e3dd34fee25503f803da75d128fd529232af9d64, completed its build, reached READY, and returned HTTP 200 with CSP, HSTS, no-sniff, DENY framing, no-referrer, and noindex headers."
-      },
-      {
-        "observedVia": "GitHub commit statuses and connected Vercel API",
-        "observedAt": "2026-08-31T14:18:30Z",
-        "detail": "After PR #261 merged, both full and private-lite exact-main deployment attempts were rejected before build execution by api-deployments-free-per-day. Exact-main production therefore remains unproven; the rejection is provider-capacity non-evidence."
-      }
-    ]
-  },
-  "repositoryPublicationEffects": {
-    "productionDeploymentsAuthorizedOrPerformedByThisLane": 0
-  }
+  "truthBoundary": "This handoff is current repository execution memory. It creates no external authority and proves no customer, cleared payment, accepted delivery, retention, provider callability, production deployment, forecast accuracy or lived-life improvement."
 }

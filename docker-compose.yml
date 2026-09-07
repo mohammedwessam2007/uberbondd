@@ -56,9 +56,11 @@ services:
     environment:
       NODE_ENV: production
       PROCESS_ROLE: worker
+      APP_BASE_URL: ${APP_BASE_URL:?set APP_BASE_URL to the externally reachable HTTPS URL}
       STORE_BACKEND: postgres
       DATABASE_URL: postgres://uberbond:${POSTGRES_PASSWORD}@postgres:5432/uberbond
       DATABASE_SSL: "false"
+      ADMIN_TOKEN: ${ADMIN_TOKEN:?set ADMIN_TOKEN}
       TOKEN_ENCRYPTION_KEY: ${TOKEN_ENCRYPTION_KEY:?set TOKEN_ENCRYPTION_KEY}
     depends_on:
       migrate:

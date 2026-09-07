@@ -12,7 +12,7 @@
     "docs/PORTABLE_BACKEND_DEPLOYMENT.md"
   ],
   "checks": {
-    "doctor": { "status": "READY_FOR_HOST_REHEARSAL", "tests": 2, "passed": 2 },
+    "doctor": { "status": "READY_FOR_HOST_REHEARSAL", "tests": 4, "passed": 4, "productionStartupRoles": ["web", "worker"] },
     "nodeCheck": "PASS",
     "diffCheck": "PASS",
     "jsonBackendHttpHealth": {

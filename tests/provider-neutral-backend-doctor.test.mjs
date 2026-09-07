@@ -23,3 +23,16 @@ test('portable backend doctor refuses missing env and insecure public URL', () =
   assert.ok(report.reasons.includes('deployment-environment-incomplete'));
   assert.ok(report.reasons.includes('APP_BASE_URL-must-use-https'));
 });
+
+test('portable backend doctor rejects password interpolation hazards and short admin tokens', () => {
+  const report = inspectPortableBackend({ env: { ...completeEnv, POSTGRES_PASSWORD: 'has/slash', ADMIN_TOKEN: 'short' } });
+  assert.equal(report.status, 'REFUSED');
+  assert.ok(report.reasons.includes('POSTGRES_PASSWORD-must-be-url-safe'));
+  assert.ok(report.reasons.includes('ADMIN_TOKEN-must-be-at-least-32-characters'));
+  assert.ok(report.reasons.includes('production-startup-contract-failed'));
+});
+
+test('portable backend doctor exercises production startup validation for web and worker', () => {
+  const report = inspectPortableBackend({ env: completeEnv });
+  assert.deepEqual(report.startupFailures, []);
+});

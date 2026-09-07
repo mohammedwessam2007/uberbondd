@@ -11,6 +11,7 @@ import {
   readFileSync,
   realpathSync,
   rmSync,
+  statSync,
   writeFileSync
 } from 'node:fs';
 import os from 'node:os';
@@ -21,6 +22,7 @@ import { prepareEmbeddedPostgresFixture } from '../scripts/prepare-embedded-post
 test('terminal gate narrowly approves and prepares the pinned embedded Postgres fixture at both required boundaries', () => {
   const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
   const terminal = readFileSync('scripts/vercel-command-center-build.mjs', 'utf8');
+  const fixture = readFileSync('scripts/prepare-embedded-postgres-fixture.mjs', 'utf8');
 
   assert.deepEqual(packageJson.allowScripts, {
     '@embedded-postgres/linux-x64@18.4.0-beta.17': true
@@ -44,6 +46,15 @@ test('terminal gate narrowly approves and prepares the pinned embedded Postgres 
     'fixture preparation must be reasserted after deterministic and immediately before Mutation War');
   assert.ok(mutationWar > deterministic, 'Mutation War must remain after the complete deterministic suite');
   assert.match(terminal, /process\.platform === 'linux' && process\.arch === 'x64'/);
+
+  assert.match(fixture, /spawnSync\('id', \['-u', 'postgres'\]/,
+    'root builds must resolve the same postgres uid used by embedded-postgres');
+  assert.match(fixture, /spawnSync\('id', \['-g', 'postgres'\]/,
+    'root builds must resolve the same postgres gid used by embedded-postgres');
+  assert.match(fixture, /uid: identity\.uid, gid: identity\.gid/,
+    'the fixture probe must execute under the resolved child identity rather than only the parent process');
+  assert.match(fixture, /stat\.mode \| 0o001/,
+    'the build-only fixture must restore directory search permission required by the child uid');
 });
 
 test('Linux fixture preparation proves the pinned PostgreSQL executables can actually spawn', {
@@ -54,7 +65,7 @@ test('Linux fixture preparation proves the pinned PostgreSQL executables can act
     encoding: 'utf8'
   });
   assert.equal(run.status, 0, `fixture preparation failed:\n${run.stderr || run.stdout}`);
-  assert.match(run.stdout, /embedded-postgres-fixture — READY 18\.4\.0-beta\.17 (?:PACKAGE_NATIVE|TMP_NATIVE_SYMLINK)/);
+  assert.match(run.stdout, /embedded-postgres-fixture — READY 18\.4\.0-beta\.17 (?:PACKAGE_NATIVE|TMP_NATIVE_SYMLINK) (?:POSTGRES_UID_GID|CURRENT_PROCESS)/);
 
   const binDir = path.resolve('node_modules/@embedded-postgres/linux-x64/native/bin');
   for (const executable of ['initdb', 'pg_ctl', 'postgres']) {
@@ -102,6 +113,38 @@ test('fixture can relocate only the pinned native tree to an executable temp mir
       const probe = spawnSync(path.join(nativePath, 'bin', executable), ['--version'], { encoding: 'utf8' });
       assert.equal(probe.status, 0, `${executable} must execute through the mirror symlink`);
     }
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('fixture restores search permission on a locked package path before child-identity execution', {
+  skip: process.platform !== 'linux' || process.arch !== 'x64'
+}, async () => {
+  const root = mkdtempSync(path.join(os.tmpdir(), 'uberbond-pg-fixture-child-path-'));
+  const locked = path.join(root, 'locked');
+  const packageRoot = path.join(locked, 'platform-package');
+  const binDir = path.join(packageRoot, 'native', 'bin');
+  mkdirSync(binDir, { recursive: true });
+  writeFileSync(path.join(packageRoot, 'package.json'), JSON.stringify({ version: '18.4.0-beta.17' }));
+
+  for (const executable of ['initdb', 'pg_ctl', 'postgres']) {
+    const file = path.join(binDir, executable);
+    writeFileSync(file, '#!/bin/sh\nprintf "fake-postgres-version\\n"\n');
+    chmodSync(file, 0o755);
+  }
+  chmodSync(locked, 0o700);
+
+  try {
+    const identity = typeof process.getuid === 'function' && typeof process.getgid === 'function'
+      ? { uid: process.getuid(), gid: process.getgid() }
+      : null;
+    const result = await prepareEmbeddedPostgresFixture({ packageRoot, probeIdentity: identity });
+    assert.equal(result.status, 'READY');
+    assert.equal(statSync(locked).mode & 0o001, 0o001,
+      'locked build-path ancestor must gain search-only permission for the disposable Postgres child');
+    assert.equal(statSync(path.join(packageRoot, 'native')).mode & 0o001, 0o001,
+      'native tree must remain traversable by the child identity');
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

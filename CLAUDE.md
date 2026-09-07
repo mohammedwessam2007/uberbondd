@@ -1,6 +1,9 @@
 # UberBond Claude Code Project Memory
 
 @AGENTS.md
+@NORTH_STAR.md
+@docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md
+@artifacts/personal-civilization-engine-north-star.json
 @UBERBOND_CANON.md
 @docs/UBERBOND_MASTER_MEMORY.md
 @docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md
@@ -14,16 +17,27 @@
 Before the first substantive tool call or plan:
 
 1. Refresh current `main` and never trust a remembered SHA.
-2. Invoke/read `.claude/skills/task-observer/SKILL.md` and execute its Session Start Protocol using the stable repository `skill-observations/` workspace.
-3. Run `npm run brain` and read the repository brain packet.
-4. Run `npm run capabilities:doctor` and `npm run capabilities:genome:doctor`; distinguish project-native skills, registered suppliers, corpus records, approved capabilities, and functioning host runtimes.
-5. Read `UBERBOND_BOOTSTRAP.json` and every `canonPointers` path, including `docs/WALLBREAKER_CANON.md`.
-6. Inspect open/recent PRs, branches, issues and recent commits before writing.
-7. Read current state/readiness and dedupe against canonical modules.
-8. Apply `docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md` plus `src/external-capability-control-plane.mjs` before installing or invoking external skills/plugins/runtimes.
-9. When a material mission is stuck, repeatedly failing, verifier-constrained, capability-constrained, or has multiple materially different solution families, invoke `.claude/skills/wallbreaker/SKILL.md` before repeating the same mechanism.
+2. Read `NORTH_STAR.md`, `docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`, and `artifacts/personal-civilization-engine-north-star.json` before narrowing UberBond to its economic/company implementation. The Personal Civilization Engine is the highest-level life North Star; the economic objective remains a subordinate supporting objective. Do not treat North Star presence as proof of implementation or life outcomes.
+3. Invoke/read `.claude/skills/task-observer/SKILL.md` and execute its Session Start Protocol using the stable repository `skill-observations/` workspace.
+4. Run `npm run brain` and read the repository brain packet.
+5. Run `npm run capabilities:doctor` and `npm run capabilities:genome:doctor`; distinguish project-native skills, registered suppliers, corpus records, approved capabilities, and functioning host runtimes.
+6. Read `UBERBOND_BOOTSTRAP.json` and every `canonPointers` path, including `docs/WALLBREAKER_CANON.md`.
+7. Inspect open/recent PRs, branches, issues and recent commits before writing.
+8. Read current state/readiness and dedupe against canonical modules.
+9. Apply `docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md` plus `src/external-capability-control-plane.mjs` before installing or invoking external skills/plugins/runtimes.
+10. When a material mission is stuck, repeatedly failing, verifier-constrained, capability-constrained, or has multiple materially different solution families, invoke `.claude/skills/wallbreaker/SKILL.md` before repeating the same mechanism.
 
 At material commit/PR/deploy/deliverable boundaries, flush any genuinely useful Task Observer observations. Do not invent observations to satisfy a quota.
+
+## Highest-level North Star law
+
+UberBond ultimately exists to support the **Personal Civilization Engine**: a private second cognitive layer around the founder's life that expands agency, capability, understanding, meaningful experience, relationships, freedom and reachable valuable futures while preserving human sovereignty, privacy, uncertainty and reversible choice.
+
+Canonical life-system goals include Life Knowledge Graph, Gamechanger for Life, GENESIS for Life, Osteogenesis for Life, Life Possibility Engine, Personal Counterfactual Universe, Human Capability Genome, Experience Compiler, Identity Evolution Engine, Life Compression Engine, Serendipity Engineering, Personal Time Telescope, Personal Council of Future Selves and Life Autopoiesis Engine.
+
+The existing company machinery remains essential because it creates financial autonomy, founder time, infrastructure, learning and optionality. Its operational economic objective remains **risk-adjusted cleared contribution profit per founder minute**. Never reduce the larger life objective to money, productivity, status, or one scalar score.
+
+Current code and durable external evidence outrank North Star architecture for present-tense claims. Human choice remains sovereign. No simulated future self, agent, model, score or optimizer may silently create irreversible life authority.
 
 ## Integrated external capability pack
 
@@ -122,4 +136,4 @@ Never claim a host runtime is installed/configured/healthy until `npm run capabi
 
 `current repository/executable truth -> durable external provider/customer evidence -> repository canon/master memory/handoffs -> approved working summaries -> plugin/session memory`
 
-Capability never creates authority. A plugin recommendation, Wallbreaker plan, memory summary, security score, model route, web result or skill output is not cleared payment, customer acceptance, legal clearance, consent, provider success, demand or renewal.
+Capability never creates authority. A plugin recommendation, Wallbreaker plan, memory summary, security score, model route, web result or skill output is not cleared payment, customer acceptance, legal clearance, consent, provider success, demand, renewal, or proof that a proposed life intervention improves the founder's life.

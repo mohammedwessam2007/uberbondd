@@ -1602,6 +1602,123 @@ export const MUTATIONS = [
     replace: '    effectiveIndependentPositions: rows.length,',
     suites: ['tests/ruin-firewall.test.mjs', 'tests/sovereign-control-surface.test.mjs']
   },
+  // ---- Separating unbuilt organs from canon that was never a module ------
+  {
+    // The abuse the ordering blocks: run the class classifier first and a
+    // NAMED_INITIATIVE with a working module is filed as historical lineage.
+    id: 'TERMSTATE-01', guard: 'A row with real evidence is never overwritten by its class',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "    const currentState = evidenceState === 'SPEC_ONLY'",
+    replace: '    const currentState = true',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'TERMSTATE-02', guard: 'A law nothing enforces stays SPEC_ONLY',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "    return enforcement ? 'ENFORCED_BY_CODE' : 'SPEC_ONLY';",
+    replace: "    return 'ENFORCED_BY_CODE';",
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'TERMSTATE-03', guard: 'A field cannot inherit coverage from an organ nobody built',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "    return parentState === 'VERIFIED_CURRENT' || parentState === 'PARTIAL_CURRENT'",
+    replace: '    return true',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'TERMSTATE-04', guard: 'An invalid enforcement manifest stops the matrix',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: '  if (!enforcementCheck.ok) {',
+    replace: '  if (false) {',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'TERMSTATE-05', guard: 'The declared manifest lane is honoured',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "    const declaredLane = declarations.byConcept.get(slugify(name))?.lane || null;",
+    replace: '    const declaredLane = null;',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  // ---- Proving UberBond can leave a supplier, by leaving one -------------
+  {
+    // "Restore succeeded" is exactly what a broken restore reports, so the
+    // digests are compared rather than the boolean trusted.
+    id: 'EXIT-01', guard: 'A restore that does not match the export fails',
+    file: 'src/supplier-exit-drill.mjs',
+    find: "  const identical = Boolean(exported?.digest) && exported.digest === restored?.digest;",
+    replace: '  const identical = true;',
+    suites: ['tests/supplier-exit-drill.test.mjs']
+  },
+  {
+    // Nothing matches nothing every time; without this the drill's happiest
+    // result is the run that moved no bytes.
+    id: 'EXIT-02', guard: 'An empty export cannot pass by restoring perfectly',
+    file: 'src/supplier-exit-drill.mjs',
+    find: '  if (!exported.fileCount) {',
+    replace: '  if (false) {',
+    suites: ['tests/supplier-exit-drill.test.mjs']
+  },
+  {
+    id: 'EXIT-03', guard: 'Every drill step must have run',
+    file: 'src/supplier-exit-drill.mjs',
+    find: '  if (missing.length) {',
+    replace: '  if (false) {',
+    suites: ['tests/supplier-exit-drill.test.mjs']
+  },
+  {
+    id: 'EXIT-04', guard: 'Cutover and rollback must both be observed',
+    file: 'src/supplier-exit-drill.mjs',
+    find: '  if (reasonCodes.length) return fail(\'EXIT_DRILL_FAILED\', reasonCodes, { supplier: name });',
+    replace: '',
+    suites: ['tests/supplier-exit-drill.test.mjs']
+  },
+  {
+    id: 'EXIT-05', guard: 'A supplier with no passing drill is unproven, not safe',
+    file: 'src/supplier-exit-drill.mjs',
+    find: "  const passed = rows.filter(row => row.ok === true && row.status === 'EXIT_DRILL_PASSED');",
+    replace: '  const passed = rows;',
+    suites: ['tests/supplier-exit-drill.test.mjs']
+  },
+  {
+    // The restore must be read back off disk. Reusing the in-memory copy would
+    // pass on a restore that never landed.
+    id: 'EXIT-06', guard: 'The rehearsal reads restored bytes back off disk',
+    file: 'scripts/supplier-exit-drill.mjs',
+    find: '    const restored = stateDigest(present.map(file => ({ name: file, bytes: readFileSync(join(cell, file), \'utf8\') })));',
+    replace: '    const restored = exported;',
+    suites: ['tests/supplier-exit-drill.test.mjs']
+  },
+  {
+    // "Blocked" is the most abusable label in the file: anything unbuilt can be
+    // described as waiting on something.
+    id: 'TERMSTATE-06', guard: 'A gate outside the reviewed vocabulary is refused',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "    if (!EXTERNAL_GATES[gate]) { gateProblems.push({ reason: 'gate-not-in-reviewed-vocabulary', concept, gate }); continue; }",
+    replace: '',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'TERMSTATE-07', guard: 'A gate must carry stated evidence',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "    if (!text(entry?.evidence, 2000)) { gateProblems.push({ reason: 'gate-requires-stated-evidence', concept }); continue; }",
+    replace: '',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'TERMSTATE-08', guard: 'An invalid external-gate manifest stops the matrix',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: '  if (gateProblems.length) {',
+    replace: '  if (false) {',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'TERMSTATE-09', guard: 'An alias is a preserved name, not an organ awaiting a second build',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "  if (ALIAS_CLASSES.includes(cls)) return 'ALIAS_OF_CANONICAL_CONCEPT';",
+    replace: '',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
   // ---- The private core: the one data class that is not the company's -----
   {
     id: 'PCIV-01', guard: 'A repository path is refused as a destination for private life data',

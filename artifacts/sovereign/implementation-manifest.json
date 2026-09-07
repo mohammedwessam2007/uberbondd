@@ -299,6 +299,17 @@
         "tests/ruin-firewall.test.mjs"
       ],
       "note": "The same single-point-of-failure analysis applied to life domains: identity need not equal one career, income one source, community one group."
+    },
+    {
+      "concept": "Sovereign Compute Cell Fabric",
+      "lane": "OMEGA-06",
+      "sources": [
+        "src/supplier-exit-drill.mjs"
+      ],
+      "tests": [
+        "tests/supplier-exit-drill.test.mjs"
+      ],
+      "note": "judgeExitDrill refuses to pass unless EXPORT, RESTORE, CUTOVER and ROLLBACK each produced evidence: digests are compared rather than a success boolean trusted, and an empty export cannot pass by restoring perfectly. scripts/supplier-exit-drill.mjs runs it for real against 11 durable canon files, restoring into a disposable cell and reading the bytes back off disk. Canon names no 'Supplier Exit Drills' concept -- that is the mission document's phrasing -- so only this row is declared. EXIT-01..06."
     }
   ]
 }

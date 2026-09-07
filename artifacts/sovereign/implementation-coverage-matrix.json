@@ -2,35 +2,44 @@
   "ok": true,
   "status": "COVERAGE_MATRIX_COMPILED",
   "schemaVersion": "uberbond.sovereign-coverage-matrix.v1",
-  "generatedAt": "2026-09-07T14:25:57.314Z",
-  "sourceCommit": "573f48c2e6ebfa3679c796d6735ee812ea38d404",
+  "generatedAt": "2026-09-07T15:01:37.661Z",
+  "sourceCommit": "40bc3ad3f95f6e5f885ded0f589ce49af6bf8470",
   "counts": {
     "extractedConcepts": 1068,
     "rows": 1038,
     "mergedAliasRows": 30,
-    "declaredConcepts": 27,
+    "declaredConcepts": 28,
     "byState": {
-      "VERIFIED_CURRENT": 68,
-      "PARTIAL_CURRENT": 68,
+      "VERIFIED_CURRENT": 70,
+      "PARTIAL_CURRENT": 73,
       "DRAFT_DONOR": 0,
-      "SPEC_ONLY": 883,
-      "EXTERNAL_BLOCKED": 0,
+      "SPEC_ONLY": 339,
+      "EXTERNAL_BLOCKED": 19,
       "OWNER_BOUNDARY": 13,
       "ELAPSED_TIME_REQUIRED": 0,
       "SUPERSEDED_WITH_PRESERVED_DONATION": 0,
-      "UNKNOWN": 6
+      "UNKNOWN": 6,
+      "ENFORCED_BY_CODE": 28,
+      "STRUCTURAL_NOT_A_BUILD_TARGET": 105,
+      "COVERED_BY_PARENT_ORGAN": 112,
+      "REFERENCE_ONLY_BY_CANON": 33,
+      "HISTORICAL_DONOR_PRESERVED": 195,
+      "ALIAS_OF_CANONICAL_CONCEPT": 45
     },
     "byLane": {
-      "OMEGA-14": 482,
-      "OMEGA-01": 25,
-      "OMEGA-09": 166,
-      "OMEGA-03": 18,
-      "OMEGA-04": 83,
-      "OMEGA-02": 147,
-      "OMEGA-13": 10,
+      "OMEGA-14": 450,
+      "OMEGA-03": 22,
+      "OMEGA-01": 28,
+      "OMEGA-04": 87,
+      "OMEGA-12": 2,
+      "OMEGA-02": 148,
+      "OMEGA-13": 14,
+      "OMEGA-11": 4,
+      "OMEGA-05": 9,
+      "OMEGA-09": 165,
+      "OMEGA-06": 12,
       "OMEGA-07": 15,
-      "OMEGA-08": 82,
-      "OMEGA-06": 10
+      "OMEGA-08": 82
     }
   },
   "rows": [
@@ -40,7 +49,7 @@
         "Mohamed provides will"
       ],
       "class": "TERMINAL_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -70,7 +79,7 @@
         "UberBond provides intelligence"
       ],
       "class": "TERMINAL_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -131,7 +140,7 @@
         "Sovereign Self"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -162,7 +171,7 @@
         "Will Kernel"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -192,7 +201,7 @@
         "SOVEREIGN_COGNITIVE_CONTINUUM"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -238,7 +247,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/meta-rational-boundary.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-03",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -257,7 +266,7 @@
         "OPTION_UNIVERSE_AND_OUTCOME_FORECAST_ENGINE"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -288,7 +297,7 @@
         "Personal Singularity"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -387,7 +396,7 @@
         "ECONOMIC_AUTONOMY_ENGINE"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -417,7 +426,7 @@
         "UBERBOND_COMPANY_SOFTWARE_AI_DISTRIBUTION_PAYMENT_DELIVERY_SELF_IMPROVEMENT"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -462,7 +471,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/personal-civilization-core.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -496,7 +505,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/personal-civilization-core.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -770,7 +779,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/sovereignty-type-system.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -804,7 +813,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/sovereignty-type-system.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -1288,7 +1297,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "api/sovereign-control.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-12",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -1352,7 +1361,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/sovereignty-type-system.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -2226,7 +2235,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/meta-rational-boundary.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-03",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -2440,7 +2449,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/meta-rational-boundary.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-03",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -2474,7 +2483,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/meta-rational-boundary.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-03",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -2598,7 +2607,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/sovereign-decision-packet.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-02",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -2632,7 +2641,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/sovereign-decision-packet.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-02",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -2936,7 +2945,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/reality-calibration-ledger.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-13",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -3060,7 +3069,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/reality-calibration-ledger.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-13",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -3094,7 +3103,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/reality-calibration-ledger.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-13",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -3308,7 +3317,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/ruin-firewall.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-11",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -3342,7 +3351,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/ruin-firewall.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-11",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -3406,7 +3415,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/ruin-firewall.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-11",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -3440,7 +3449,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/ruin-firewall.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-11",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -4225,7 +4234,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/experience-compiler.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -4259,7 +4268,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/experience-compiler.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -4323,7 +4332,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/experience-compiler.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -4387,7 +4396,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/experience-compiler.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -4631,7 +4640,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/experience-compiler.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -5127,7 +5136,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "api/sovereign-control.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-12",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -5491,7 +5500,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/experience-compiler.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -5630,7 +5639,7 @@
         "Knowledge Labyrinth / UberGraph"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -5660,7 +5669,7 @@
         "UberMind Cognitive Exchange"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -5690,7 +5699,7 @@
         "UberDNA Software Genome"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -5720,22 +5729,26 @@
         "Sovereign Compute Cell Fabric"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/supplier-exit-drill.mjs"
+        ],
+        "testModules": [
+          "tests/supplier-exit-drill.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Sovereign Compute Cell Fabric",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-09",
+      "targetModule": "src/supplier-exit-drill.mjs",
+      "owningLane": "OMEGA-06",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -5750,7 +5763,7 @@
         "Economic Metabolism"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -5841,7 +5854,7 @@
         "SaaS Cannibal"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -5905,7 +5918,7 @@
         "Gamechanger Intelligence Mesh"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -5940,7 +5953,8 @@
         "sourceModules": [
           "src/wallbreaker-cognitive-reflex.mjs",
           "src/wallbreaker.mjs",
-          "scripts/wallbreaker-plan.mjs"
+          "scripts/wallbreaker-plan.mjs",
+          ".claude/skills/wallbreaker/SKILL.md"
         ],
         "testModules": [
           "tests/wallbreaker-cognitive-reflex.test.mjs",
@@ -5973,7 +5987,7 @@
         "Autonomous Company Compiler"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6003,7 +6017,7 @@
         "Economic Particle Accelerator"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6033,7 +6047,7 @@
         "Market Dark-Matter Detector"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6063,7 +6077,7 @@
         "Business Embryogenesis"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6093,7 +6107,7 @@
         "Internal Prediction Economy"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6123,7 +6137,7 @@
         "Opportunity Shockwave Simulator"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6153,7 +6167,7 @@
         "Economic Theorem Prover"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6183,7 +6197,7 @@
         "Capability Autophagy"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6213,7 +6227,7 @@
         "Synthetic Economic Civilizations"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6243,7 +6257,7 @@
         "Million-Wall Solver"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6273,7 +6287,7 @@
         "Economic Reverse Engineering Engine"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6303,7 +6317,7 @@
         "Capability Teleportation"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6333,7 +6347,7 @@
         "Economic X-Ray Vision"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6363,7 +6377,7 @@
         "Counterfactual Company Generator"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6393,7 +6407,7 @@
         "Missing Institution Detector"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6423,7 +6437,7 @@
         "Economic Immune System"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6453,7 +6467,7 @@
         "World-to-Code Compiler"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6483,7 +6497,7 @@
         "Billion-Hypothesis Engine"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6513,7 +6527,7 @@
         "Economic Memory Inheritance"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6543,7 +6557,7 @@
         "Opportunity Gravitational Field"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6573,7 +6587,7 @@
         "Reality Fork Engine"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6603,7 +6617,7 @@
         "Economic Physics Discovery Engine"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6633,7 +6647,7 @@
         "Negative-Space Intelligence"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6663,7 +6677,7 @@
         "Morphogenetic Software"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6775,7 +6789,7 @@
         "Economic Spores"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6805,7 +6819,7 @@
         "Corporate Phylogenetic Tree"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6835,7 +6849,7 @@
         "Causal Destiny Compiler"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6865,7 +6879,7 @@
         "Causal Sovereignty Engine"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6895,7 +6909,7 @@
         "Possibility-Space Cartography"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6925,7 +6939,7 @@
         "Economic Language Genesis"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6955,7 +6969,7 @@
         "Necessity Generator"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -6985,7 +6999,7 @@
         "Temporal Capability Arbitrage"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7015,7 +7029,7 @@
         "Counterfactual Colonization"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7045,7 +7059,7 @@
         "Self-Referential Intelligence Architecture"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7075,7 +7089,7 @@
         "Economic Autopoiesis"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7105,7 +7119,7 @@
         "Possibility Sovereign"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7135,7 +7149,7 @@
         "EXISTENCE"
       ],
       "class": "ONTOLOGY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7165,7 +7179,7 @@
         "CONSCIOUS_EXPERIENCE"
       ],
       "class": "ONTOLOGY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7195,7 +7209,7 @@
         "WILL"
       ],
       "class": "ONTOLOGY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7225,7 +7239,7 @@
         "VALUE"
       ],
       "class": "ONTOLOGY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7255,7 +7269,7 @@
         "KNOWLEDGE"
       ],
       "class": "ONTOLOGY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7320,7 +7334,7 @@
         "POSSIBILITY"
       ],
       "class": "ONTOLOGY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7392,7 +7406,7 @@
         "OTHER_MINDS"
       ],
       "class": "ONTOLOGY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7422,7 +7436,7 @@
         "TIME_AND_EMBODIMENT"
       ],
       "class": "ONTOLOGY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7452,7 +7466,7 @@
         "BECOMING"
       ],
       "class": "ONTOLOGY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7816,7 +7830,7 @@
         "Personal Big Bang"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7846,7 +7860,7 @@
         "Civilization of Minds"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7876,7 +7890,7 @@
         "Cognitive Recursive Evolution"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7906,7 +7920,7 @@
         "Intelligence as a Vector, Not IQ"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7936,7 +7950,7 @@
         "Infinite Counterfactual Mohamed"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7966,7 +7980,7 @@
         "Total Reality Lattice"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7996,7 +8010,7 @@
         "Reality Compiler"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8026,7 +8040,7 @@
         "Surprise Maximizer"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8056,7 +8070,7 @@
         "Temporal Civilization"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8086,7 +8100,7 @@
         "Free Will Amplification"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8116,7 +8130,7 @@
         "Present Free Will Outranks the Model"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8146,7 +8160,7 @@
         "Will Veto"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8176,7 +8190,7 @@
         "Recursive Cognitive Evolution"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8206,7 +8220,7 @@
         "Thoughtstream"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8236,7 +8250,7 @@
         "Mohamed World Model"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8266,7 +8280,7 @@
         "Personal Singularity Kernel"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8296,7 +8310,7 @@
         "Externalized Superintelligence"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8326,7 +8340,7 @@
         "Universal Ignorance Map"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8356,7 +8370,7 @@
         "Reality Fork Engine"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8386,7 +8400,7 @@
         "Possibility Sovereign"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8416,7 +8430,7 @@
         "Future Optionality Mass"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8446,7 +8460,7 @@
         "Causal Sovereignty Engine"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8476,7 +8490,7 @@
         "Possibility-Space Cartography"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8506,7 +8520,7 @@
         "Economic Language Genesis"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8536,7 +8550,7 @@
         "Necessity Generator"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8566,7 +8580,7 @@
         "Temporal Capability Arbitrage"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8596,7 +8610,7 @@
         "Counterfactual Colonization"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8626,7 +8640,7 @@
         "Self-Referential Intelligence Architecture"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8656,7 +8670,7 @@
         "Economic Autopoiesis"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8686,7 +8700,7 @@
         "Economic evolution engine"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8716,7 +8730,7 @@
         "Machine for accumulating control over future economic possibility"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8746,7 +8760,7 @@
         "Machine for expanding the set of valuable futures it can reach"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8776,7 +8790,7 @@
         "Private product of my soul"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8806,7 +8820,7 @@
         "Zero imposed worldview"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8836,7 +8850,7 @@
         "Civilizational Intelligence"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8866,7 +8880,7 @@
         "Confident hallucination cathedral"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8896,7 +8910,7 @@
         "Mohamed provides will. UberBond provides intelligence. Reality provides feedback."
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8926,7 +8940,7 @@
         "Mohamed chooses -> UberBond expands the choice -> Reality responds"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8956,7 +8970,7 @@
         "Intelligence never implies sovereignty"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8986,7 +9000,7 @@
         "Reality must compute this one for us"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9016,7 +9030,7 @@
         "This is no longer an intelligence problem. This is a will problem."
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9046,7 +9060,7 @@
         "The present is not merely raw material for the future"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9076,7 +9090,7 @@
         "UberBond has no intrinsic right to continue existing"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9106,7 +9120,7 @@
         "The system surrounds your life; it does not consume it"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9136,7 +9150,7 @@
         "UberBond is complete only because it contains the machinery for proving its own completeness wrong"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9333,7 +9347,7 @@
         "Mohamed remains the sovereign source of choice"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9363,7 +9377,7 @@
         "Intelligence does not create sovereignty"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9393,7 +9407,7 @@
         "Capability does not create authority"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9423,7 +9437,7 @@
         "Prediction does not create authority"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9453,7 +9467,7 @@
         "Past preference does not create present authority"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9483,7 +9497,7 @@
         "Economic value does not create authority"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9513,7 +9527,7 @@
         "Social consensus does not create authority"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9543,7 +9557,7 @@
         "UberBond does not create authority over Mohamed by becoming more capable"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9573,7 +9587,7 @@
         "Present conscious choice outranks the model"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9638,7 +9652,7 @@
         "SOVEREIGN_SELF"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9669,7 +9683,7 @@
         "Will Kernel"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9699,7 +9713,7 @@
         "SOVEREIGN_COGNITIVE_CONTINUUM"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9729,7 +9743,7 @@
         "PERSONAL_SINGULARITY"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9827,7 +9841,7 @@
         "ECONOMIC_AUTONOMY_ENGINE"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9857,7 +9871,7 @@
         "UBERBOND_COMPANY_SOFTWARE_AI_SYSTEMS"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9902,7 +9916,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/personal-civilization-core.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -9936,7 +9950,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/personal-civilization-core.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -10480,7 +10494,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/experience-compiler.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -10544,7 +10558,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/experience-compiler.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -10818,7 +10832,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/sovereignty-type-system.mjs",
-      "owningLane": "OMEGA-14",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -11197,7 +11211,7 @@
         "MOHAMED_CHOOSES"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11227,7 +11241,7 @@
         "UBERBOND_EXPANDS_THE_CHOICE"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11257,7 +11271,7 @@
         "REALITY_RESPONDS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11287,7 +11301,7 @@
         "UBERBOND_UNDERSTANDS_MORE"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11317,7 +11331,7 @@
         "MOHAMED_BECOMES_MORE"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11347,7 +11361,7 @@
         "NEW_CHOICES_BECOME_CONCEIVABLE"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11377,7 +11391,7 @@
         "MOHAMED_CHOOSES_AGAIN"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11407,7 +11421,7 @@
         "strongest_obvious_option"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11437,7 +11451,7 @@
         "strongest_non_obvious_option"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11502,7 +11516,7 @@
         "delay_for_information"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11532,7 +11546,7 @@
         "reversible_trial"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11562,7 +11576,7 @@
         "staged_commitment"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11592,7 +11606,7 @@
         "full_commitment"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11622,7 +11636,7 @@
         "hybrid_option"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11652,7 +11666,7 @@
         "exit_or_abandonment"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11682,7 +11696,7 @@
         "delegation"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11712,7 +11726,7 @@
         "capability_building_first"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11742,7 +11756,7 @@
         "environment_change_first"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11772,7 +11786,7 @@
         "resource_acquisition_first"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11802,7 +11816,7 @@
         "relationship_or_network_route"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11832,7 +11846,7 @@
         "tool_or_software_route"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11862,7 +11876,7 @@
         "physical_world_route"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11892,7 +11906,7 @@
         "creative_unconventional_route"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11922,7 +11936,7 @@
         "future_optionality_preserving_route"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11952,7 +11966,7 @@
         "genesis_or_ontogenesis_invented_option"
       ],
       "class": "FORECAST_REQUIREMENT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -11982,7 +11996,7 @@
         "outcome_state_probabilities"
       ],
       "class": "FORECAST_OUTPUT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12012,7 +12026,7 @@
         "expected_or_median_outcome"
       ],
       "class": "FORECAST_OUTPUT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12042,7 +12056,7 @@
         "p10_p50_p90_ranges_when_supported"
       ],
       "class": "FORECAST_OUTPUT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12072,7 +12086,7 @@
         "best_plausible_case"
       ],
       "class": "FORECAST_OUTPUT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12102,7 +12116,7 @@
         "worst_plausible_case"
       ],
       "class": "FORECAST_OUTPUT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12132,7 +12146,7 @@
         "catastrophic_tail_when_relevant"
       ],
       "class": "FORECAST_OUTPUT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12162,7 +12176,7 @@
         "probability_of_no_meaningful_effect"
       ],
       "class": "FORECAST_OUTPUT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12192,7 +12206,7 @@
         "time_to_feedback"
       ],
       "class": "FORECAST_OUTPUT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12222,7 +12236,7 @@
         "path_dependence"
       ],
       "class": "FORECAST_OUTPUT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12252,7 +12266,7 @@
         "irreversibility"
       ],
       "class": "FORECAST_OUTPUT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12282,7 +12296,7 @@
         "key_sensitivities"
       ],
       "class": "FORECAST_OUTPUT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12312,7 +12326,7 @@
         "forecast_update_conditions"
       ],
       "class": "FORECAST_OUTPUT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12342,7 +12356,7 @@
         "reference_classes_and_base_rates"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12404,7 +12418,7 @@
         "personal_longitudinal_evidence"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12434,7 +12448,7 @@
         "fresh_current_world_evidence"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12464,7 +12478,7 @@
         "independent_forecast_ensemble"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12494,7 +12508,7 @@
         "adversarial_forecasting"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12524,7 +12538,7 @@
         "scenario_trees_and_simulation"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12554,7 +12568,7 @@
         "hindcasting_and_backtesting"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12599,7 +12613,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/reality-calibration-ledger.mjs",
-      "owningLane": "OMEGA-02",
+      "owningLane": "OMEGA-13",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -12618,7 +12632,7 @@
         "online_updating"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12648,7 +12662,7 @@
         "missing_data"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12678,7 +12692,7 @@
         "model_uncertainty"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12708,7 +12722,7 @@
         "measurement_error"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12738,7 +12752,7 @@
         "causal_uncertainty"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12768,7 +12782,7 @@
         "hidden_variables"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12798,7 +12812,7 @@
         "strategic_behavior"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12828,7 +12842,7 @@
         "future_regime_change"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12858,7 +12872,7 @@
         "genuine_randomness"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12888,7 +12902,7 @@
         "unknown_unknowns"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12918,7 +12932,7 @@
         "reference_class_quality"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12948,7 +12962,7 @@
         "causal_model_strength"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -12978,7 +12992,7 @@
         "personal_data_relevance"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13008,7 +13022,7 @@
         "freshness"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13038,7 +13052,7 @@
         "sample_size"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13068,7 +13082,7 @@
         "source_independence"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13098,7 +13112,7 @@
         "measurement_quality"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13128,7 +13142,7 @@
         "historical_calibration"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13158,7 +13172,7 @@
         "hindcast_performance"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13188,7 +13202,7 @@
         "model_agreement"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13218,7 +13232,7 @@
         "assumption_sensitivity"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13248,7 +13262,7 @@
         "unknown_unknown_exposure"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13278,7 +13292,7 @@
         "regime_stability_confidence"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13308,7 +13322,7 @@
         "expected_regret"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13338,7 +13352,7 @@
         "maximum_plausible_regret"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13368,7 +13382,7 @@
         "reversibility"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13398,7 +13412,7 @@
         "cost_of_being_wrong"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13428,7 +13442,7 @@
         "cost_of_waiting"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13458,7 +13472,7 @@
         "option_value"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13488,7 +13502,7 @@
         "value_of_information"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13518,7 +13532,7 @@
         "asymmetric_upside"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13548,7 +13562,7 @@
         "asymmetric_downside"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13578,7 +13592,7 @@
         "ruin_or_catastrophic_tail_risk"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13608,7 +13622,7 @@
         "agency"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13672,7 +13686,7 @@
         "capability_gain"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13702,7 +13716,7 @@
         "health_supporting_impact"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13732,7 +13746,7 @@
         "energy"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13762,7 +13776,7 @@
         "time_freedom"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13792,7 +13806,7 @@
         "financial_effect"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13822,7 +13836,7 @@
         "relationships"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13852,7 +13866,7 @@
         "belonging"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13882,7 +13896,7 @@
         "creativity"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13912,7 +13926,7 @@
         "meaning"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13972,7 +13986,7 @@
         "geographic_freedom"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14002,7 +14016,7 @@
         "identity_exploration"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14032,7 +14046,7 @@
         "future_optionality"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14062,7 +14076,7 @@
         "regret_exposure"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14092,7 +14106,7 @@
         "risk"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14122,7 +14136,7 @@
         "downside_severity"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14152,7 +14166,7 @@
         "opportunity_creation"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14182,7 +14196,7 @@
         "mystery_and_spontaneity_preserved"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14212,7 +14226,7 @@
         "founder_interest"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14242,7 +14256,7 @@
         "No probability without a defensible basis"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14272,7 +14286,7 @@
         "No fake decimal precision for inherently unmeasurable states"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14302,7 +14316,7 @@
         "Correlated models do not count as independent consensus"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14332,7 +14346,7 @@
         "Simulation frequency is not real-world probability without validation"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14362,7 +14376,7 @@
         "Historical forecasts may not be rewritten after outcomes are known"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14392,7 +14406,7 @@
         "Low-probability catastrophic outcomes remain visible when consequences matter"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14422,7 +14436,7 @@
         "A forecast is not called strong without appropriate evidence or calibration"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14452,7 +14466,7 @@
         "Unknown is preferred to fabricated precision"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14482,7 +14496,7 @@
         "timestamp"
       ],
       "class": "CALIBRATION_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14512,7 +14526,7 @@
         "information_available_at_forecast_time"
       ],
       "class": "CALIBRATION_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14542,7 +14556,7 @@
         "forecast_probabilities_or_ranges"
       ],
       "class": "CALIBRATION_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14572,7 +14586,7 @@
         "method_and_model_versions"
       ],
       "class": "CALIBRATION_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14602,7 +14616,7 @@
         "causal_assumptions"
       ],
       "class": "CALIBRATION_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14632,7 +14646,7 @@
         "evidence_pointers"
       ],
       "class": "CALIBRATION_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14662,7 +14676,7 @@
         "predicted_update_triggers"
       ],
       "class": "CALIBRATION_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14692,7 +14706,7 @@
         "observed_outcome"
       ],
       "class": "CALIBRATION_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14722,7 +14736,7 @@
         "calibration_error"
       ],
       "class": "CALIBRATION_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14752,7 +14766,7 @@
         "forecast_postmortem"
       ],
       "class": "CALIBRATION_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14782,7 +14796,7 @@
         "decision_definition"
       ],
       "class": "DECISION_PACKET_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14812,7 +14826,7 @@
         "materially_distinct_options"
       ],
       "class": "DECISION_PACKET_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14842,7 +14856,7 @@
         "strongest_recommendation"
       ],
       "class": "DECISION_PACKET_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14872,7 +14886,7 @@
         "outcome_distribution_per_option"
       ],
       "class": "DECISION_PACKET_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14902,7 +14916,7 @@
         "forecast_strength_profile"
       ],
       "class": "DECISION_PACKET_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14932,7 +14946,7 @@
         "best_median_worst_plausible_paths"
       ],
       "class": "DECISION_PACKET_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14962,7 +14976,7 @@
         "key_assumptions"
       ],
       "class": "DECISION_PACKET_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -14992,7 +15006,7 @@
         "failure_modes"
       ],
       "class": "DECISION_PACKET_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15022,7 +15036,7 @@
         "irreversible_consequences"
       ],
       "class": "DECISION_PACKET_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15052,7 +15066,7 @@
         "expected_regret_and_option_value"
       ],
       "class": "DECISION_PACKET_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15082,7 +15096,7 @@
         "unknown_unknowns_and_missing_evidence"
       ],
       "class": "DECISION_PACKET_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15112,7 +15126,7 @@
         "highest_value_information_or_experiment"
       ],
       "class": "DECISION_PACKET_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15142,7 +15156,7 @@
         "recommendation_update_conditions"
       ],
       "class": "DECISION_PACKET_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15172,7 +15186,7 @@
         "explicit_founder_choice_authority"
       ],
       "class": "DECISION_PACKET_FIELD",
-      "currentState": "SPEC_ONLY",
+      "currentState": "COVERED_BY_PARENT_ORGAN",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15202,7 +15216,7 @@
         "MOHAMED_EXPRESSES_WILL"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15232,7 +15246,7 @@
         "DEFINE_REAL_DECISION"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15262,7 +15276,7 @@
         "EXPAND_OPTION_UNIVERSE"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15292,7 +15306,7 @@
         "FORECAST_OUTCOME_DISTRIBUTIONS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15322,7 +15336,7 @@
         "ADVERSARIES_ATTACK_FORECASTS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15352,7 +15366,7 @@
         "SEEK_HIGH_VALUE_INFORMATION"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15382,7 +15396,7 @@
         "PRESENT_SOVEREIGN_DECISION_PACKET"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15412,7 +15426,7 @@
         "MOHAMED_CHOOSES"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15442,7 +15456,7 @@
         "REALITY_RESPONDS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15472,7 +15486,7 @@
         "CALIBRATION_LEDGER_SCORES_FORECAST"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15502,7 +15516,7 @@
         "UBERBOND_LEARNS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15532,7 +15546,7 @@
         "LIVING_MOHAMED_MODEL_UPDATES"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15562,7 +15576,7 @@
         "NEW_OPTIONS_BECOME_CONCEIVABLE"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15592,7 +15606,7 @@
         "MOHAMED_CHOOSES_AGAIN"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15690,7 +15704,7 @@
         "ECONOMIC_AUTONOMY_ENGINE"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15720,7 +15734,7 @@
         "UBERBOND_COMPANY_SOFTWARE_AI_SYSTEMS"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -15975,7 +15989,7 @@
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
       "targetModule": "src/experience-compiler.mjs",
-      "owningLane": "OMEGA-01",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -16264,22 +16278,26 @@
         "Sovereign Compute Cell Fabric"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/supplier-exit-drill.mjs"
+        ],
+        "testModules": [
+          "tests/supplier-exit-drill.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Sovereign Compute Cell Fabric",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/supplier-exit-drill.mjs",
+      "owningLane": "OMEGA-06",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -16324,7 +16342,7 @@
         "Autonomous Company Compiler"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16354,7 +16372,7 @@
         "Economic Particle Accelerator"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16384,7 +16402,7 @@
         "Market Dark-Matter Detector"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16414,7 +16432,7 @@
         "Business Embryogenesis"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16444,7 +16462,7 @@
         "Internal Prediction Economy"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16474,7 +16492,7 @@
         "Opportunity Shockwave Simulator"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16504,7 +16522,7 @@
         "Economic Theorem Prover"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16534,7 +16552,7 @@
         "Capability Autophagy"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16564,7 +16582,7 @@
         "Synthetic Economic Civilizations"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16594,7 +16612,7 @@
         "Million-Wall Solver"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16624,7 +16642,7 @@
         "Economic Reverse Engineering Engine"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16654,7 +16672,7 @@
         "Capability Teleportation"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16684,7 +16702,7 @@
         "Economic X-Ray Vision"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16714,7 +16732,7 @@
         "Counterfactual Company Generator"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16744,7 +16762,7 @@
         "Missing Institution Detector"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16774,7 +16792,7 @@
         "Economic Immune System"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16804,7 +16822,7 @@
         "World-to-Code Compiler"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16834,7 +16852,7 @@
         "Billion-Hypothesis Engine"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16864,7 +16882,7 @@
         "Economic Memory Inheritance"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -16894,7 +16912,7 @@
         "Opportunity Gravitational Field"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -18060,7 +18078,7 @@
         "geographic_freedom"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -18180,7 +18198,7 @@
         "Founder remains sovereign decision-maker"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -18210,7 +18228,7 @@
         "No single metric defines a good life"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -18334,7 +18352,7 @@
         "Rest and joy are legitimate ends"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -18452,7 +18470,7 @@
         "Prefer reversible options under uncertainty"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -18482,7 +18500,7 @@
         "The system should create more life, not more time spent operating the system"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -19574,17 +19592,19 @@
         "SIGNALS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
+        "sourceModules": [
+          ".claude/skills/task-observer/references/signals.md"
+        ],
         "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "SIGNALS",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": ".claude/skills/task-observer/references/signals.md",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -19604,7 +19624,7 @@
         "IGNORANCE_MAP"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -19634,7 +19654,7 @@
         "QUESTIONS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -19664,7 +19684,7 @@
         "THEORIES"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -19694,7 +19714,7 @@
         "MEASUREMENTS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -19724,7 +19744,7 @@
         "CAUSAL_MECHANISMS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -19754,7 +19774,7 @@
         "CONCEPTS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -19816,7 +19836,7 @@
         "ALGORITHMS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -19846,7 +19866,7 @@
         "INSTITUTIONS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -19876,7 +19896,7 @@
         "BUSINESSES"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -19906,7 +19926,7 @@
         "BOUNDED_EXECUTION"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -19936,7 +19956,7 @@
         "ECONOMIC_TRUTH"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -19966,7 +19986,7 @@
         "CAUSAL_MEMORY"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -19996,7 +20016,7 @@
         "CAPITAL_ALLOCATION"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20026,7 +20046,7 @@
         "SELF_IMPROVEMENT"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20056,7 +20076,7 @@
         "EVALUATOR_EVOLUTION"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20086,7 +20106,7 @@
         "SEARCH_ALGORITHM_EVOLUTION"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20116,7 +20136,7 @@
         "ONTOLOGY_EVOLUTION"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20228,7 +20248,7 @@
         "GENESIS_SQUARED"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20258,7 +20278,7 @@
         "ONTOGENESIS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20288,7 +20308,7 @@
         "time sovereignty"
       ],
       "class": "SOVEREIGNTY_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20318,7 +20338,7 @@
         "geographic freedom"
       ],
       "class": "SOVEREIGNTY_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20348,7 +20368,7 @@
         "financial independence"
       ],
       "class": "SOVEREIGNTY_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20417,7 +20437,7 @@
         "artistic freedom"
       ],
       "class": "SOVEREIGNTY_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20447,7 +20467,7 @@
         "intellectual and polymath freedom"
       ],
       "class": "SOVEREIGNTY_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20477,7 +20497,7 @@
         "relationships and human experience"
       ],
       "class": "SOVEREIGNTY_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20507,7 +20527,7 @@
         "reversibility and optionality"
       ],
       "class": "SOVEREIGNTY_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20777,7 +20797,7 @@
         "VERIFIED_CURRENT"
       ],
       "class": "ONTOLOGY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20807,7 +20827,7 @@
         "DRAFT_BRANCH"
       ],
       "class": "ONTOLOGY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20837,7 +20857,7 @@
         "HISTORICAL_DONOR"
       ],
       "class": "ONTOLOGY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20867,7 +20887,7 @@
         "RESEARCH_ASSET"
       ],
       "class": "ONTOLOGY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20897,7 +20917,7 @@
         "EXTERNAL_BLOCKED"
       ],
       "class": "ONTOLOGY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20927,7 +20947,7 @@
         "SUPERSEDED_TRUTH"
       ],
       "class": "ONTOLOGY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20957,7 +20977,7 @@
         "world sensing"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21089,7 +21109,7 @@
         "mechanism understanding"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21119,7 +21139,7 @@
         "offer composition"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21149,7 +21169,7 @@
         "governed distribution"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21179,7 +21199,7 @@
         "buyer conversion"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21209,7 +21229,7 @@
         "cleared payment"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21239,7 +21259,7 @@
         "fulfilment"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21299,7 +21319,7 @@
         "customer acceptance"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21329,7 +21349,7 @@
         "retention"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21394,7 +21414,7 @@
         "economics"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21424,7 +21444,7 @@
         "trusted learning"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21454,7 +21474,7 @@
         "capital reallocation"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21484,7 +21504,7 @@
         "capability acquisition"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21514,7 +21534,7 @@
         "self-improvement"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21619,7 +21639,7 @@
         "RIGHTS"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21649,7 +21669,7 @@
         "CONSENT"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21679,7 +21699,7 @@
         "DELEGATION"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21709,7 +21729,7 @@
         "MISSION_MARKET"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21739,7 +21759,7 @@
         "CELL_COMPILER"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21862,7 +21882,7 @@
         "VALUE"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21892,7 +21912,7 @@
         "QUORUM"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21956,7 +21976,7 @@
         "REVOCATION"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -21986,7 +22006,7 @@
         "Partner Revenue Assurance"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22084,7 +22104,7 @@
         "White-Label Fulfilment"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22114,7 +22134,7 @@
         "GCC Bilingual Operations"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22190,7 +22210,7 @@
         "Agency Revenue Watchtower"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22220,7 +22240,7 @@
         "Lead-Path Transaction Monitor"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22250,7 +22270,7 @@
         "Campaign Assurance"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22280,7 +22300,7 @@
         "AI Reliability Monitor"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22310,7 +22330,7 @@
         "Partner Evidence Portal"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22340,7 +22360,7 @@
         "Portfolio Benchmarking"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22370,7 +22390,7 @@
         "Revenue Incident Timeline"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22400,7 +22420,7 @@
         "Compliance Evidence Vault"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22430,7 +22450,7 @@
         "Reconciliation Exception Monitor"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22460,7 +22480,7 @@
         "Arabic-English Quality Monitor"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22490,7 +22510,7 @@
         "Partner Revenue Assurance Cloud"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22520,7 +22540,7 @@
         "AI Reliability and Acceptance Cloud"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22550,7 +22570,7 @@
         "Evidence Graph and Reconciliation Network"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22580,7 +22600,7 @@
         "White-Label Service Marketplace"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22610,7 +22630,7 @@
         "GCC Bilingual Operations OS"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -23294,7 +23314,8 @@
         "sourceModules": [
           "src/wallbreaker-cognitive-reflex.mjs",
           "src/wallbreaker.mjs",
-          "scripts/wallbreaker-plan.mjs"
+          "scripts/wallbreaker-plan.mjs",
+          ".claude/skills/wallbreaker/SKILL.md"
         ],
         "testModules": [
           "tests/wallbreaker-cognitive-reflex.test.mjs",
@@ -23768,7 +23789,7 @@
         "Apollo"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -23798,7 +23819,7 @@
         "Clay"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -23828,7 +23849,7 @@
         "Instantly"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -23858,7 +23879,7 @@
         "Smartlead"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -23888,7 +23909,7 @@
         "6sense"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -23918,7 +23939,7 @@
         "Common Room"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -23948,7 +23969,7 @@
         "HubSpot"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -23978,7 +23999,7 @@
         "Ocean.io"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24008,7 +24029,7 @@
         "Hunter"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24038,7 +24059,7 @@
         "ZeroBounce"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24068,7 +24089,7 @@
         "Cognism"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24098,7 +24119,7 @@
         "UserGems"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24128,7 +24149,7 @@
         "Bombora"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24158,7 +24179,7 @@
         "RB2B"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24188,7 +24209,7 @@
         "Warmly"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24218,7 +24239,7 @@
         "Vendasta"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24248,7 +24269,7 @@
         "Duda"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24278,7 +24299,7 @@
         "HighLevel"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24308,7 +24329,7 @@
         "ManyRequests"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24338,7 +24359,7 @@
         "AgencyAnalytics"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24368,7 +24389,7 @@
         "WhatConverts"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24398,7 +24419,7 @@
         "Checkly"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24428,7 +24449,7 @@
         "BrowserStack"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24458,7 +24479,7 @@
         "LangSmith"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24488,7 +24509,7 @@
         "Braintrust"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24518,7 +24539,7 @@
         "Langfuse"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24548,7 +24569,7 @@
         "Vanta"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24578,7 +24599,7 @@
         "Drata"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24608,7 +24629,7 @@
         "BlackLine"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24638,7 +24659,7 @@
         "NexHealth"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24668,7 +24689,7 @@
         "Weave"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24698,7 +24719,7 @@
         "Luma Health"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24728,7 +24749,7 @@
         "Zenoti"
       ],
       "class": "REFERENCE_SURFACE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "REFERENCE_ONLY_BY_CANON",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24758,7 +24779,7 @@
         "VLLM"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24788,7 +24809,7 @@
         "SGLANG"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24818,7 +24839,7 @@
         "LLAMA_CPP_GGUF"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24848,7 +24869,7 @@
         "OLLAMA"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24938,7 +24959,7 @@
         "TRANSFORMERS_HTTP"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24968,7 +24989,7 @@
         "DIFFUSERS_HTTP"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24998,7 +25019,7 @@
         "SENTENCE_TRANSFORMERS_HTTP"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25028,7 +25049,7 @@
         "CUSTOM_OPENAI_COMPATIBLE"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25268,7 +25289,7 @@
         "zero-step CI is infrastructure non-evidence"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25328,7 +25349,7 @@
         "capability never creates authority"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25403,7 +25424,7 @@
         "unknown remains unknown"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25562,7 +25583,7 @@
         "founder absence requires real elapsed proof"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25592,7 +25613,7 @@
         "Partner Revenue Assurance"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25690,7 +25711,7 @@
         "White-Label Fulfilment"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25720,7 +25741,7 @@
         "GCC Bilingual Operations"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25796,7 +25817,7 @@
         "Agency Revenue Watchtower"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25826,7 +25847,7 @@
         "Lead-Path Transaction Monitor"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25856,7 +25877,7 @@
         "Campaign Assurance"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25886,7 +25907,7 @@
         "AI Reliability Monitor"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25916,7 +25937,7 @@
         "Partner Evidence Portal"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25946,7 +25967,7 @@
         "Portfolio Benchmarking"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25976,7 +25997,7 @@
         "Revenue Incident Timeline"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26006,7 +26027,7 @@
         "Compliance Evidence Vault"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26036,7 +26057,7 @@
         "Reconciliation Exception Monitor"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26066,7 +26087,7 @@
         "Arabic-English Quality Monitor"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26096,7 +26117,7 @@
         "Partner Revenue Assurance Cloud"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26126,7 +26147,7 @@
         "AI Reliability and Acceptance Cloud"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26156,7 +26177,7 @@
         "Evidence Graph and Reconciliation Network"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26186,7 +26207,7 @@
         "White-Label Service Marketplace"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26216,7 +26237,7 @@
         "GCC Bilingual Operations OS"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26246,7 +26267,7 @@
         "CSP SLA-Credit Evidence Desk"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26276,7 +26297,7 @@
         "Hospital MRF Integrity Evidence"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26306,7 +26327,7 @@
         "Accessibility Acceptance Evidence Pack"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26336,7 +26357,7 @@
         "RFP Compliance-Matrix Backend"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26366,7 +26387,7 @@
         "Appointment Revenue Recovery"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26396,7 +26417,7 @@
         "Missed-Call Recovery"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26426,7 +26447,7 @@
         "Repair-Credit Delivery Network"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26456,7 +26477,7 @@
         "GRC Evidence Collection Backend"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26486,7 +26507,7 @@
         "Finance Reconciliation Exception Desk"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26516,7 +26537,7 @@
         "Arabic-English Healthcare Communications QA"
       ],
       "class": "ECONOMIC_DONOR",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26609,7 +26630,7 @@
         "first lawful cleared payment"
       ],
       "class": "STRATEGIC_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26639,7 +26660,7 @@
         "accepted paid delivery"
       ],
       "class": "STRATEGIC_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26669,7 +26690,7 @@
         "three paid customers or equivalent repeated proof"
       ],
       "class": "STRATEGIC_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26699,7 +26720,7 @@
         "repeat purchases"
       ],
       "class": "STRATEGIC_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26729,7 +26750,7 @@
         "first recurring product"
       ],
       "class": "STRATEGIC_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26759,7 +26780,7 @@
         "first distribution partner"
       ],
       "class": "STRATEGIC_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26789,7 +26810,7 @@
         "ten partners or equivalent leverage"
       ],
       "class": "STRATEGIC_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26819,7 +26840,7 @@
         "$10k MRR evidence stage"
       ],
       "class": "STRATEGIC_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26849,7 +26870,7 @@
         "$25k MRR founder-light evidence stage"
       ],
       "class": "STRATEGIC_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26879,7 +26900,7 @@
         "$1m ARR architecture earned by multi-product recurring proof"
       ],
       "class": "STRATEGIC_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26909,7 +26930,7 @@
         "multi-product partner platform"
       ],
       "class": "STRATEGIC_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26939,7 +26960,7 @@
         "evidence graph / benchmark network / APIs / marketplace"
       ],
       "class": "STRATEGIC_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26969,7 +26990,7 @@
         "founder-independent global asset"
       ],
       "class": "STRATEGIC_STAGE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -27513,7 +27534,16 @@
           "scripts/agent-mesh-tick.mjs",
           "scripts/agent-model-route.mjs",
           "api/agent-mesh-cron.mjs",
-          "api/agent-relay.mjs"
+          "api/agent-relay.mjs",
+          ".claude/skills/agent-reach/SKILL.md",
+          ".claude/skills/agent-reach/references/career.md",
+          ".claude/skills/agent-reach/references/dev.md",
+          ".claude/skills/agent-reach/references/finance.md",
+          ".claude/skills/agent-reach/references/search.md",
+          ".claude/skills/agent-reach/references/social.md",
+          ".claude/skills/agent-reach/references/video.md",
+          ".claude/skills/agent-reach/references/web.md",
+          ".claude/skills/claude-automation-recommender/references/subagent-templates.md"
         ],
         "testModules": [
           "tests/agent-autonomy-role-bound-origin.test.mjs",
@@ -27944,7 +27974,7 @@
         "Persistent Brain"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28006,7 +28036,7 @@
         "Crash-Safe Checkpoints"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28036,7 +28066,7 @@
         "Chat Import Protocol"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28066,7 +28096,7 @@
         "First-Cash Singularity"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28096,7 +28126,7 @@
         "Research Singularity"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28126,7 +28156,7 @@
         "Distribution Singularity"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28156,7 +28186,7 @@
         "Software Singularity"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28186,7 +28216,7 @@
         "Night Singularity"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28216,7 +28246,7 @@
         "World Capability Genome Singularity"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28246,7 +28276,7 @@
         "NIGHTFALL SUPREME / SINGULARITY"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28276,7 +28306,7 @@
         "Everest"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28306,7 +28336,7 @@
         "SUMMIT 100"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28336,7 +28366,7 @@
         "BLACK SKY"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28366,7 +28396,7 @@
         "Reality Activation"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28396,7 +28426,7 @@
         "Kilimanjaro Architecture"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28426,7 +28456,7 @@
         "Final Boss Kilimanjaro"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28456,7 +28486,7 @@
         "Kilimanjaro Overnight Taskforce"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28486,7 +28516,7 @@
         "Kilimanjaro Zero-Gap Overnight"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28516,7 +28546,7 @@
         "Kilimanjaro Vertical Tournament"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28546,7 +28576,7 @@
         "Kilimanjaro Payment to Delivery to Acceptance to Renewal Truth"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28576,7 +28606,7 @@
         "Kilimanjaro Distribution Portfolio"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28606,7 +28636,7 @@
         "Kilimanjaro Commercial Evidence Closure"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28636,7 +28666,7 @@
         "Kilimanjaro Master-Two Capability Frontier"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28666,7 +28696,7 @@
         "Kilimanjaro AI Automation Commercial Truth"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28696,7 +28726,7 @@
         "Ragnarok Execution Packet"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28726,7 +28756,7 @@
         "Ragnarok Final Closure"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28756,7 +28786,7 @@
         "Night Shift"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28786,7 +28816,7 @@
         "Nightfall"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28816,7 +28846,7 @@
         "Nightfall Max"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28846,7 +28876,7 @@
         "Nightfall Supreme"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28876,7 +28906,7 @@
         "Trinity Night Shift"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28906,7 +28936,7 @@
         "Night Runtime"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29009,7 +29039,7 @@
         "Night Postal"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29039,7 +29069,7 @@
         "Night Integration"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29069,7 +29099,7 @@
         "Night Capability Genome / SaaS Cannibal"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29140,7 +29170,7 @@
         "OMNIA Total Automation OS V1"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29285,7 +29315,7 @@
         "OMNIA X100"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29315,7 +29345,7 @@
         "OMNIA X1M Hypercube"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29345,7 +29375,7 @@
         "OMNIA X8M Citadel"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29375,7 +29405,7 @@
         "OMNIA X64M Sovereign Mesh V7"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29405,7 +29435,7 @@
         "OMNIA X512M HELIOS V8"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29435,7 +29465,7 @@
         "OMNIA V9 Policy-Evidence-Execution Admission Kernel"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29465,7 +29495,7 @@
         "Project Prometheus"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29591,7 +29621,7 @@
         "Proven Business Genome"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29621,7 +29651,7 @@
         "Total Commercial Genome"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29757,7 +29787,7 @@
         "Invisible Money Plumbing / Asymmetric Edge"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29787,7 +29817,7 @@
         "AI Money Hunt"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29817,7 +29847,7 @@
         "Total AI Revenue Frontier"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29847,7 +29877,7 @@
         "World Distribution and Company OS"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -29920,7 +29950,7 @@
         "Instantly-style Outbound Engine"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30063,7 +30093,7 @@
         "Automation Capability Acquisition Frontier"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30154,7 +30184,7 @@
         "World Capability Genome"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30184,7 +30214,7 @@
         "SaaS Cannibal"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30214,7 +30244,7 @@
         "Frontier Company OS"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30404,7 +30434,7 @@
         "Gamechanger Intelligence Mesh"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30579,7 +30609,7 @@
         "Elite Duo Apex"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30609,7 +30639,7 @@
         "Fable Fraction"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30639,7 +30669,7 @@
         "AEGIS/JARVIS"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30669,7 +30699,7 @@
         "Offline Revenue Factory"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30699,7 +30729,7 @@
         "Demand Recovery Assurance"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30767,7 +30797,7 @@
         "UberBond First Revenue System / GTM lineage"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30797,7 +30827,7 @@
         "UberBond First-Cash Singularity"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30827,7 +30857,7 @@
         "UberBond Proven Business Genome and Combination Engine"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30857,7 +30887,7 @@
         "UberBond Total Commercial Genome, Offer Universe, and Wealth Engine"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30887,7 +30917,7 @@
         "UberBond Total AI Revenue Frontier"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30917,7 +30947,7 @@
         "UberBond AI Money Hunt"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30947,7 +30977,7 @@
         "UberBond Invisible Money Plumbing / Asymmetric Edge"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -30977,7 +31007,7 @@
         "UberBond World Distribution and Company Operating System"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31007,7 +31037,7 @@
         "Offline Revenue Factory"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31037,7 +31067,7 @@
         "Demand Recovery Assurance"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31067,7 +31097,7 @@
         "Frontier Company OS"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31097,7 +31127,7 @@
         "Elite Duo Apex"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31127,7 +31157,7 @@
         "Fable Fraction V4 / Evidence-Gated V5"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31157,7 +31187,7 @@
         "AEGIS / JARVIS Founder Command"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31187,7 +31217,7 @@
         "OMNIA Total Automation OS V1"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31332,7 +31362,7 @@
         "OMNIA X100"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31362,7 +31392,7 @@
         "OMNIA X1M Hypercube"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31392,7 +31422,7 @@
         "OMNIA X8M Citadel"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31422,7 +31452,7 @@
         "OMNIA X64M Sovereign Mesh V7"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31452,7 +31482,7 @@
         "OMNIA X512M HELIOS V8"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31482,7 +31512,7 @@
         "OMNIA V9 Policy–Evidence–Execution Admission Kernel"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31512,7 +31542,7 @@
         "Project Prometheus"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31637,7 +31667,7 @@
         "UberBond Lead OS / Apollo-style targeting lineage"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31667,7 +31697,7 @@
         "Instantly-style Outbound Engine"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31697,7 +31727,7 @@
         "Evidence-Gated Distribution Control Plane"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31727,7 +31757,7 @@
         "Automation Capability Acquisition Frontier"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31757,7 +31787,7 @@
         "Everest"
       ],
       "class": "NAMED_INITIATIVE",
-      "currentState": "SPEC_ONLY",
+      "currentState": "HISTORICAL_DONOR_PRESERVED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31787,17 +31817,19 @@
         "Find Skills"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
+        "sourceModules": [
+          ".claude/skills/find-skills/SKILL.md"
+        ],
         "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Find Skills",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": ".claude/skills/find-skills/SKILL.md",
       "owningLane": "OMEGA-08",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -31847,17 +31879,25 @@
         "Task Observer"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
+        "sourceModules": [
+          ".claude/skills/task-observer/SKILL.md",
+          ".claude/skills/task-observer/references/environments.md",
+          ".claude/skills/task-observer/references/migration.md",
+          ".claude/skills/task-observer/references/observation-log.md",
+          ".claude/skills/task-observer/references/signals.md",
+          ".claude/skills/task-observer/references/skill-authoring.md",
+          ".claude/skills/task-observer/references/weekly-review.md"
+        ],
         "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Task Observer",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": ".claude/skills/task-observer/SKILL.md",
       "owningLane": "OMEGA-08",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -31883,7 +31923,33 @@
           "src/claude-code-sandbox-executor.mjs",
           "src/claude-code-sandbox-provisioner.mjs",
           "src/claude-engineering-orchestrator.mjs",
-          "src/durable-claude-engineering-executor.mjs"
+          "src/durable-claude-engineering-executor.mjs",
+          ".claude/skills/agent-reach/SKILL.md",
+          ".claude/skills/agent-reach/references/career.md",
+          ".claude/skills/agent-reach/references/dev.md",
+          ".claude/skills/agent-reach/references/finance.md",
+          ".claude/skills/agent-reach/references/search.md",
+          ".claude/skills/agent-reach/references/social.md",
+          ".claude/skills/agent-reach/references/video.md",
+          ".claude/skills/agent-reach/references/web.md",
+          ".claude/skills/claude-automation-recommender/SKILL.md",
+          ".claude/skills/claude-automation-recommender/references/hooks-patterns.md",
+          ".claude/skills/claude-automation-recommender/references/mcp-servers.md",
+          ".claude/skills/claude-automation-recommender/references/plugins-reference.md",
+          ".claude/skills/claude-automation-recommender/references/skills-reference.md",
+          ".claude/skills/claude-automation-recommender/references/subagent-templates.md",
+          ".claude/skills/find-skills/SKILL.md",
+          ".claude/skills/penetration-testing-with-strix/SKILL.md",
+          ".claude/skills/task-observer/SKILL.md",
+          ".claude/skills/task-observer/references/environments.md",
+          ".claude/skills/task-observer/references/migration.md",
+          ".claude/skills/task-observer/references/observation-log.md",
+          ".claude/skills/task-observer/references/signals.md",
+          ".claude/skills/task-observer/references/skill-authoring.md",
+          ".claude/skills/task-observer/references/weekly-review.md",
+          ".claude/skills/uberbond-capability-assimilator/SKILL.md",
+          ".claude/skills/uberbond-orchestrator/SKILL.md",
+          ".claude/skills/wallbreaker/SKILL.md"
         ],
         "testModules": [
           "tests/claude-code-sandbox-executor.test.mjs",
@@ -31918,7 +31984,7 @@
         "Headroom"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31948,7 +32014,7 @@
         "OmniRoute"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31978,17 +32044,19 @@
         "Strix"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
+        "sourceModules": [
+          ".claude/skills/penetration-testing-with-strix/SKILL.md"
+        ],
         "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Strix",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": ".claude/skills/penetration-testing-with-strix/SKILL.md",
       "owningLane": "OMEGA-08",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -32008,17 +32076,26 @@
         "Agent Reach"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
+        "sourceModules": [
+          ".claude/skills/agent-reach/SKILL.md",
+          ".claude/skills/agent-reach/references/career.md",
+          ".claude/skills/agent-reach/references/dev.md",
+          ".claude/skills/agent-reach/references/finance.md",
+          ".claude/skills/agent-reach/references/search.md",
+          ".claude/skills/agent-reach/references/social.md",
+          ".claude/skills/agent-reach/references/video.md",
+          ".claude/skills/agent-reach/references/web.md"
+        ],
         "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Agent Reach",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": ".claude/skills/agent-reach/SKILL.md",
       "owningLane": "OMEGA-08",
       "dependencies": [],
       "authorityClass": "NONE",

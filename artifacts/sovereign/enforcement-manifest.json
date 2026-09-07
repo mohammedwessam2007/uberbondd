@@ -1,0 +1,287 @@
+{
+  "schemaVersion": "uberbond.sovereign-enforcement-manifest.v1",
+  "purpose": "Declares which module and test hold up a canon law. Verified exactly like the implementation manifest: an entry naming a file not in the tree, or a law no source artifact states, fails the whole matrix compile. A law with no entry here stays SPEC_ONLY, which for a law nothing enforces is the correct and alarming answer.",
+  "truthBoundary": "ENFORCED_BY_CODE MEANS A NAMED MODULE AND TEST HOLD THE LAW FOR THE CASES THEY COVER. IT IS NOT PROOF THE LAW HOLDS EVERYWHERE IN THE SYSTEM.",
+  "entries": [
+    {
+      "concept": "Capability does not create authority",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "NOT_AUTHORITY names it explicitly and authorityFor refuses without a founder delegation. SOVTYPE-04."
+    },
+    {
+      "concept": "capability never creates authority",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "The same law in its lowercase canon phrasing; one enforcement, two literal names."
+    },
+    {
+      "concept": "Intelligence does not create sovereignty",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "INTELLIGENCE is in NOT_AUTHORITY, and no rung above RECOMMENDATION is reachable without a human act."
+    },
+    {
+      "concept": "Prediction does not create authority",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "PREDICTION->VALUE is a human-only crossing; a forecast cannot become a value, still less an authority. SOVTYPE-01."
+    },
+    {
+      "concept": "Economic value does not create authority",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "ECONOMIC_VALUE is in NOT_AUTHORITY."
+    },
+    {
+      "concept": "Social consensus does not create authority",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "SOCIAL_CONSENSUS and MODEL_AGREEMENT are both in NOT_AUTHORITY."
+    },
+    {
+      "concept": "Past preference does not create present authority",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "PAST_PREFERENCE is in NOT_AUTHORITY; a delegation must be current and unexpired. SOVTYPE-04."
+    },
+    {
+      "concept": "UberBond does not create authority over Mohamed by becoming more capable",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "CAPABILITY and BENCHMARK_WIN are in NOT_AUTHORITY."
+    },
+    {
+      "concept": "Mohamed remains the sovereign source of choice",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "RECOMMENDATION->CHOICE requires the human act only-the-founder-chooses. SOVTYPE-01."
+    },
+    {
+      "concept": "Founder remains sovereign decision-maker",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "The same crossing, in the Personal Civilization canon phrasing."
+    },
+    {
+      "concept": "Present conscious choice outranks the model",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "No derivation reaches CHOICE without the founder's act, whatever the source evidence."
+    },
+    {
+      "concept": "Mohamed provides will",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "The CHOICE rung is unreachable by inference; will enters the ladder only as a human act."
+    },
+    {
+      "concept": "UberBond provides intelligence",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "Everything below RECOMMENDATION is derivable; nothing above it is."
+    },
+    {
+      "concept": "No fake decimal precision for inherently unmeasurable states",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "confidence is dropped above PREDICTION, where a number pointed at a person is theatre."
+    },
+    {
+      "concept": "No probability without a defensible basis",
+      "sources": [
+        "src/sovereign-decision-packet.mjs"
+      ],
+      "tests": [
+        "tests/sovereign-decision-packet.test.mjs"
+      ],
+      "note": "forecastOption refuses a probability without a quantitative evidence kind. DECIDE-01."
+    },
+    {
+      "concept": "Simulation frequency is not real-world probability without validation",
+      "sources": [
+        "src/sovereign-decision-packet.mjs"
+      ],
+      "tests": [
+        "tests/sovereign-decision-packet.test.mjs"
+      ],
+      "note": "SIMULATION is EVIDENCE_KINDS quantitative:false, so it cannot license a frequency on its own."
+    },
+    {
+      "concept": "A forecast is not called strong without appropriate evidence or calibration",
+      "sources": [
+        "src/sovereign-decision-packet.mjs"
+      ],
+      "tests": [
+        "tests/sovereign-decision-packet.test.mjs"
+      ],
+      "note": "Strength reports evidence rows, quantitative kinds and independent sources rather than one confidence label."
+    },
+    {
+      "concept": "Correlated models do not count as independent consensus",
+      "sources": [
+        "src/meta-rational-boundary.mjs"
+      ],
+      "tests": [
+        "tests/meta-rational-boundary.test.mjs"
+      ],
+      "note": "independentAgreement counts lineages, not votes. METARAT-04."
+    },
+    {
+      "concept": "Unknown is preferred to fabricated precision",
+      "sources": [
+        "src/meta-rational-boundary.mjs"
+      ],
+      "tests": [
+        "tests/meta-rational-boundary.test.mjs"
+      ],
+      "note": "UNKNOWN__MORE_EVIDENCE_REQUIRED is reachable and is the default when methods need absent data. METARAT-02."
+    },
+    {
+      "concept": "unknown remains unknown",
+      "sources": [
+        "src/meta-rational-boundary.mjs"
+      ],
+      "tests": [
+        "tests/meta-rational-boundary.test.mjs"
+      ],
+      "note": "The same law in its canon phrasing."
+    },
+    {
+      "concept": "The system should create more life, not more time spent operating the system",
+      "sources": [
+        "src/meta-rational-boundary.mjs"
+      ],
+      "tests": [
+        "tests/meta-rational-boundary.test.mjs"
+      ],
+      "note": "shouldContinueReasoning stops when cognition, delay and option decay exceed expected improvement. METARAT-03."
+    },
+    {
+      "concept": "Historical forecasts may not be rewritten after outcomes are known",
+      "sources": [
+        "src/reality-calibration-ledger.mjs"
+      ],
+      "tests": [
+        "tests/reality-calibration-ledger.test.mjs"
+      ],
+      "note": "Forecasts are sealed over claim, probabilities and cutoff; a post-outcome edit cannot be scored. CALIB-01."
+    },
+    {
+      "concept": "Low-probability catastrophic outcomes remain visible when consequences matter",
+      "sources": [
+        "src/ruin-firewall.mjs"
+      ],
+      "tests": [
+        "tests/ruin-firewall.test.mjs"
+      ],
+      "note": "screenForRuin applies no probability threshold; an absorbing outcome is reported at any probability. RUIN-01."
+    },
+    {
+      "concept": "Prefer reversible options under uncertainty",
+      "sources": [
+        "src/ruin-firewall.mjs"
+      ],
+      "tests": [
+        "tests/ruin-firewall.test.mjs"
+      ],
+      "note": "Recoverability is classified per outcome and an unclassified one blocks the screen rather than passing as safe. RUIN-02/03."
+    },
+    {
+      "concept": "Rest and joy are legitimate ends",
+      "sources": [
+        "src/experience-compiler.mjs"
+      ],
+      "tests": [
+        "tests/experience-compiler.test.mjs"
+      ],
+      "note": "rest and joy are nameable dimensions, and presentValue removes an experience from the ranking rather than scoring it zero. EXPER-01."
+    },
+    {
+      "concept": "No single metric defines a good life",
+      "sources": [
+        "src/experience-compiler.mjs"
+      ],
+      "tests": [
+        "tests/experience-compiler.test.mjs"
+      ],
+      "note": "The compiler ships no weight vector; ranking is by dimensions touched, never by a scalar. EXPER-02."
+    },
+    {
+      "concept": "zero-step CI is infrastructure non-evidence",
+      "sources": [
+        "scripts/mutation-verdict.mjs"
+      ],
+      "tests": [
+        "tests/mutation-verdict-honesty.test.mjs"
+      ],
+      "note": "classifySuiteRun separates SUITE_DID_NOT_RUN and NO_ASSERTIONS_RAN from a pass, so a suite that executed nothing cannot read as evidence."
+    },
+    {
+      "concept": "founder absence requires real elapsed proof",
+      "sources": [
+        "scripts/founder-absence-doctor.mjs"
+      ],
+      "tests": [
+        "tests/founder-absence-duration-proof.test.mjs"
+      ],
+      "note": "The doctor derives elapsed operation from git and receipts rather than accepting an asserted duration."
+    }
+  ]
+}

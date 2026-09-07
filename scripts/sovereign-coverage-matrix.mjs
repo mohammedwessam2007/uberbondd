@@ -16,6 +16,8 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 // Every canonical source, and which of its lists carry concepts. `class` shapes
 // the state ladder: BOUNDARY, EXTERNAL_GATE and ELAPSED_TIME can never be
 // satisfied by code, so they are never scored as if they could be.
+const FORECAST_ENGINE = 'Sovereign Option & Outcome Forecast Engine';
+
 const SOURCES = [
   ['artifacts/sovereign-cognitive-continuum-total-north-star.json', 'total-north-star', [
     ['terminalTriad', 'TERMINAL_LAW'], ['canonicalHierarchy', 'HIERARCHY'],
@@ -28,11 +30,20 @@ const SOURCES = [
     ['coreOrgans', 'ORGAN'], ['containedPersonalCivilizationSystems', 'PERSONAL_CIVILIZATION_ORGAN'],
     ['canonicalLoop', 'LOOP_STAGE']]],
   ['artifacts/sovereign-option-outcome-forecast-engine.json', 'forecast', [
-    ['optionUniverseRequirements', 'FORECAST_REQUIREMENT'], ['forecastOutputs', 'FORECAST_OUTPUT'],
-    ['forecastStack', 'FORECAST_MECHANISM'], ['uncertaintyDecomposition', 'FORECAST_MECHANISM'],
-    ['forecastStrengthDimensions', 'FORECAST_DIMENSION'], ['decisionRobustnessDimensions', 'FORECAST_DIMENSION'],
-    ['decisionOutcomeDimensions', 'FORECAST_DIMENSION'], ['antiOverconfidenceLaws', 'AUTHORITY_LAW'],
-    ['calibrationLedgerFields', 'CALIBRATION_FIELD'], ['sovereignDecisionPacket', 'DECISION_PACKET_FIELD'],
+    // The third element names the organ a field belongs to. Supplied only where
+    // a real organ exists: the personal-civilization dimensions further down
+    // carry no parent, so they stay SPEC_ONLY rather than inheriting coverage
+    // from an organ nobody built.
+    ['optionUniverseRequirements', 'FORECAST_REQUIREMENT', FORECAST_ENGINE],
+    ['forecastOutputs', 'FORECAST_OUTPUT', FORECAST_ENGINE],
+    ['forecastStack', 'FORECAST_MECHANISM', FORECAST_ENGINE],
+    ['uncertaintyDecomposition', 'FORECAST_MECHANISM', FORECAST_ENGINE],
+    ['forecastStrengthDimensions', 'FORECAST_DIMENSION', FORECAST_ENGINE],
+    ['decisionRobustnessDimensions', 'FORECAST_DIMENSION', FORECAST_ENGINE],
+    ['decisionOutcomeDimensions', 'FORECAST_DIMENSION', FORECAST_ENGINE],
+    ['antiOverconfidenceLaws', 'AUTHORITY_LAW'],
+    ['calibrationLedgerFields', 'CALIBRATION_FIELD', 'Calibration Memory'],
+    ['sovereignDecisionPacket', 'DECISION_PACKET_FIELD', FORECAST_ENGINE],
     ['canonicalLoop', 'LOOP_STAGE']]],
   ['artifacts/personal-civilization-engine-north-star.json', 'personal-civilization', [
     ['hierarchy', 'HIERARCHY'], ['canonicalLifeSystems', 'PERSONAL_CIVILIZATION_ORGAN'],
@@ -105,10 +116,10 @@ export function extractConcepts() {
   for (const [file, source, lists] of SOURCES) {
     if (!existsSync(join(root, file))) { missingSources.push(file); continue; }
     const doc = JSON.parse(readFileSync(join(root, file), 'utf8'));
-    for (const [key, klass] of lists) {
+    for (const [key, klass, parent = null] of lists) {
       for (const entry of (Array.isArray(doc[key]) ? doc[key] : [])) {
         const name = conceptName(entry);
-        if (name) concepts.push({ name, class: klass, source, sourceArtifact: file, sourceList: key });
+        if (name) concepts.push({ name, class: klass, source, sourceArtifact: file, sourceList: key, parent });
       }
     }
   }
@@ -143,7 +154,14 @@ function repoIndex() {
   // made every script-hosted concept read SPEC_ONLY -- Mutation War is a
   // scripts/ module with seven suites and a mutation registry behind it, and it
   // was being reported as an idea nobody had built.
-  const sourceFiles = [...walkFiles('src'), ...walkFiles('scripts'), ...walkFiles('api')];
+  // Project-native skills are an implementation surface too. Indexing only
+  // src/scripts/api reported Find Skills, Task Observer, Strix and Agent Reach
+  // as unbuilt while their skill packages sit in the tree -- and would have
+  // pushed them toward being labelled externally blocked, which they are not.
+  const sourceFiles = [
+    ...walkFiles('src'), ...walkFiles('scripts'), ...walkFiles('api'),
+    ...walkFiles('.claude/skills', '.md')
+  ];
   return {
     sourceFiles,
     testFiles: walkFiles('tests'),
@@ -178,7 +196,27 @@ function main() {
     }
   }
 
-  const matrix = compileCoverageMatrix({ concepts, repoIndex: repoIndex(), laneMap: LANE_BY_CLASS, manifest, sourceCommit });
+  let enforcement = [];
+  const enforcementPath = join(root, 'artifacts/sovereign/enforcement-manifest.json');
+  if (existsSync(enforcementPath)) {
+    try { enforcement = JSON.parse(readFileSync(enforcementPath, 'utf8')).entries || []; }
+    catch (error) {
+      console.error(JSON.stringify({ ok: false, status: 'COVERAGE_ENFORCEMENT_UNREADABLE', detail: error.message }, null, 2));
+      return 2;
+    }
+  }
+
+  let externalGates = [];
+  const gatePath = join(root, 'artifacts/sovereign/external-gate-manifest.json');
+  if (existsSync(gatePath)) {
+    try { externalGates = JSON.parse(readFileSync(gatePath, 'utf8')).entries || []; }
+    catch (error) {
+      console.error(JSON.stringify({ ok: false, status: 'COVERAGE_EXTERNAL_GATES_UNREADABLE', detail: error.message }, null, 2));
+      return 2;
+    }
+  }
+
+  const matrix = compileCoverageMatrix({ concepts, repoIndex: repoIndex(), laneMap: LANE_BY_CLASS, manifest, enforcement, externalGates, sourceCommit });
   if (!matrix.ok) { console.error(JSON.stringify(matrix, null, 2)); return 2; }
 
   const output = join(root, 'artifacts/sovereign/implementation-coverage-matrix.json');

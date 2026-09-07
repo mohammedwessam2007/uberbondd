@@ -6,18 +6,21 @@
     "OMEGA-01: personal-civilization-core private capture/derive/export/delete, founder-authorized, classified DELIBERATELY_UNREACHABLE with a reverse ratchet. PCIV-01..05 KILLED (60628167).",
     "OMEGA-02/03/04/12/13: sovereignty type ladder with three human-only crossings; option universe merged on causal signature; forecasts refusing a probability without quantitative evidence; five terminal epistemic states; sealed calibration ledger separating decision quality from outcome; read-only control surface giving all four a caller. 23 mutations KILLED (573f48c2).",
     "OMEGA-05/11: experience compiler keeping presentness and uncopyability outside the arithmetic; ruin firewall screening before expected value with no probability threshold. 9 mutations KILLED (e7bb5f55).",
-    "Repaired four silent validator regressions inherited from the branch base, including requiresMemoryV2 -- a schema bump had switched off memory-index validation with no line deleted and every suite green."
+    "Repaired four silent validator regressions inherited from the branch base, including requiresMemoryV2 -- a schema bump had switched off memory-index validation with no line deleted and every suite green.",
+    "Coverage triage: SPEC_ONLY 883 -> 339 through five verified terminal states (ENFORCED_BY_CODE, STRUCTURAL_NOT_A_BUILD_TARGET, COVERED_BY_PARENT_ORGAN, REFERENCE_ONLY_BY_CANON, HISTORICAL_DONOR_PRESERVED, ALIAS_OF_CANONICAL_CONCEPT) plus 19 EXTERNAL_BLOCKED from a reviewed gate vocabulary. TERMSTATE-01..09 KILLED.",
+    "OMEGA-06: supplier exit drill actually rehearsed -- 11 durable canon files exported, restored byte-identically into a disposable cell, cut over and rolled back, original unchanged. EXIT-01..06 KILLED.",
+    "Fixed the inert manifest lane field: every row had taken its lane from its concept class, so OMEGA-13 read as an empty lane while the calibration ledger was built."
   ],
   "blockers": [
+    "INTERNAL AND UNFINISHED: 339 coverage rows are genuine unbuilt organs -- 158 CONCEPT, 26 ORGAN, 24 PERSONAL_CIVILIZATION_ORGAN, 14 GENESIS_MECHANISM, 30 laws nothing enforces, 37 forecast dimensions with no parent organ, plus capability domains and atoms. The mission completion condition is NOT met while these stand.",
+    "EXTERNAL: 19 rows are blocked on facts outside this repository -- 10 host runtimes not installed, 7 founder-freedom dimensions needing observed life outcomes, 2 approved optional runtimes.",
     "EXTERNAL: no real customer, cleared payment, accepted delivery or retained customer exists. Commercial truth remains {realCustomers: 0, clearedRevenueUsd: 0, acceptedPaidDeliveries: 0, retainedCustomers: 0}.",
-    "EXTERNAL: founder-absence duration cannot be proven by code; it requires observed elapsed unattended operation.",
-    "EXTERNAL: no life-outcome evidence exists for any Personal Civilization or Sovereign Continuum organ. They are implemented and tested, which is internal evidence only.",
-    "INTERNAL: 883 of 1038 coverage rows remain SPEC_ONLY. The matcher is deliberately conservative and may understate existing implementation; SPEC_ONLY is a lead for a human, not a finding.",
-    "INTERNAL: Preservation of Mystery, Anti-Fragility Map, Irreversibility Atlas and Prediction Half-Life are named in canon and deliberately not declared -- adjacent implementation is not implementation."
+    "EXTERNAL: founder-absence duration cannot be proven by code; it requires observed elapsed unattended operation. ELAPSED_TIME_REQUIRED is 0 because no concept has yet been declared against that gate.",
+    "SCOPE: the exit drill rehearses LOCAL_STATE_PORTABILITY only. An authorized provider cutover needs external infrastructure and is not claimed."
   ],
   "nextActions": [
-    "Select the highest-value dependency-satisfied mission from live truth plus the terminal North Star; do not auto-select a website audit or commercial wedge from historical documentation.",
-    "The sovereign organs have no calibration history yet. The first material forecast recorded through reality-calibration-ledger.mjs is worth more than another organ.",
+    "The 339 unbuilt organs are the remaining work. Highest value among them is not another organ but the first material forecast recorded through reality-calibration-ledger.mjs -- the ledger has nothing to be right or wrong about yet.",
+    "30 canon laws have no enforcement declaration. Each is either a law to enforce in code or a law to admit nothing holds up.",
     "Do not duplicate ChatGPT Sol's truth/audit lane on sol/omega-truth-integration-20260907 (issue #445).",
     "Regenerate canon with npm run readiness as its own commit after each material tranche."
   ],

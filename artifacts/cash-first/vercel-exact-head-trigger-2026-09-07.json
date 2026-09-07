@@ -1,16 +1,18 @@
 {
-  "schemaVersion": "uberbond-vercel-exact-head-trigger-1.0.0",
+  "schemaVersion": "uberbond-vercel-exact-head-trigger-1.1.0",
   "status": "VERIFICATION_TRIGGER__NOT_PROOF",
-  "requestedForBranch": "omega/cash-first-total-readiness-20260907",
-  "sourceHeadBeforeTrigger": "a58a21633a7b0c2384ea04467c70d8d47a980301",
-  "purpose": "Force a fresh Vercel checkout after the handoff/bootstrap compatibility repair and PayPal provider-origin first-cash integration.",
+  "requestedForBranch": "omega/full-system-total-readiness-20260907",
+  "pullRequest": 451,
+  "sourceHeadBeforeTrigger": "cf5ab92021d732952c82845bb8ca7ce6c56eaafe",
+  "purpose": "Force a fresh Vercel preview checkout of the unified current-main OMEGA Sovereign runtime plus cash-first PayPal/payment/fulfilment integration.",
   "requiredTerminalEvidence": [
     "runner checks out this trigger commit or a source-identical descendant",
-    "brain/bootstrap gate passes",
-    "focused PayPal/payment tests execute",
-    "deterministic/syntax gates execute as configured",
+    "brain/bootstrap and Sovereign runtime gates pass",
+    "focused PayPal/payment/first-cash fulfilment tests execute",
+    "pre-customer revenue-readiness v1.5 contract executes",
+    "deterministic and syntax gates execute as configured",
     "any mutation/database/browser gates required by the build execute or are truthfully classified",
-    "final source commit is recorded"
+    "final exact source commit is recorded"
   ],
-  "commercialTruthBoundary": "A green build does not prove a customer, cleared payment, accepted delivery or retention."
+  "commercialTruthBoundary": "A green build does not prove a customer, cleared payment, accepted delivery, retention, lived-life improvement or provider callability."
 }

@@ -1,15 +1,22 @@
 {
-  "schemaVersion": "uberbond-handoff-2.0.0",
+  "schemaVersion": "uberbond-handoff-2.1.0",
   "checkpointedAt": "2026-09-07T13:22:00+03:00",
-  "sourceMainShaAtMissionStart": "9ab05dd81a8b8c331b3d3090ae20140990036076",
-  "activeBranch": "docs/sovereign-total-north-star-20260907",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding Mohamed's sovereign free will. Mohamed provides will; UberBond provides intelligence; reality provides feedback.",
-  "activeMission": "Canonize the complete no-drop Sovereign Cognitive Continuum North Star and repair repository startup surfaces so fresh chats and repository readers reconstruct the full project before selecting work. The historical website-audit / Revenue Engine wedge remains a subordinate economic capability and must never be mistaken for UberBond's identity or terminal mission.",
+  "completedMission": "Canonize the complete no-drop Sovereign Cognitive Continuum North Star and repair repository startup surfaces so fresh chats and repository readers reconstruct the full project before selecting work.",
+  "canonicalMerge": {
+    "pr": 435,
+    "mergeCommit": "1083c182a76205d7c0a78fc05725a4eaafa41870",
+    "merged": true,
+    "classification": "VERIFIED_CURRENT_CANON_MERGE"
+  },
   "mandatoryNorthStarPaths": [
+    "README.md",
     "NORTH_STAR.md",
     "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
     "artifacts/sovereign-cognitive-continuum-total-north-star.json",
+    "docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md",
+    "artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json",
     "docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md",
     "artifacts/sovereign-cognitive-continuum-north-star.json",
     "docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md",
@@ -17,16 +24,32 @@
     "docs/NORTH_STAR_PRECEDENCE.md",
     "artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json",
     "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-    "artifacts/personal-civilization-engine-north-star.json"
+    "artifacts/personal-civilization-engine-north-star.json",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "UBERBOND_CANON.md",
+    "UBERBOND_BOOTSTRAP.json",
+    "docs/UBERBOND_TOTAL_BRAIN.md"
   ],
-  "noDropRule": "Every unique layer and purpose in the total North Star remains discoverable unless the founder explicitly supersedes it. A newer mechanism may replace implementation, but silence or a short-term mission never deletes the donated concept.",
+  "noDropRule": "Every unique layer, literal name, and donated purpose in the total North Star and chat-completeness pair remains discoverable unless the founder explicitly supersedes it. A newer mechanism may replace implementation, but silence, a short-term mission, a current UI, or a current offer never deletes the donated concept.",
   "websiteAuditClassification": "SUBORDINATE_HISTORICAL_AND_OPERATIONAL_ECONOMIC_CAPABILITY__NOT_PROJECT_IDENTITY__NOT_DEFAULT_FRESH_CHAT_MISSION__NOT_TERMINAL_NORTH_STAR",
+  "historicalPreservation": {
+    "revenueEngineReadme": {
+      "path": "docs/history/README_REVENUE_ENGINE_1_4_2026-07.md",
+      "blobSha": "1b37f4e23e1366065efd6b2b3a72611d47ad105b",
+      "bytePreserved": true
+    },
+    "preSovereignHandoff": {
+      "path": "docs/history/CURRENT_HANDOFF_2026-09-04.json",
+      "blobSha": "14d88d797850a8864ef494d5be5a6802ce565ea1",
+      "bytePreserved": true
+    }
+  },
   "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
   "currentTruth": {
-    "mainAtMissionStart": "9ab05dd81a8b8c331b3d3090ae20140990036076",
-    "terminalNorthStarAlreadyOnMainBeforeThisBranch": true,
-    "totalNoDropCanonOnThisBranch": true,
-    "totalNoDropCanonMergedToMain": false,
+    "totalNoDropCanonMergedToMain": true,
+    "startupRepairMergedToMain": true,
+    "websiteAuditRootMisidentificationRepaired": true,
     "personalCivilizationWave1PR432": {
       "state": "OPEN",
       "merged": false,
@@ -40,14 +63,21 @@
       "classification": "DRAFT_BRANCH_VERIFICATION_LANE"
     },
     "personalCivilizationWave1OnMain": false,
+    "canonVerificationTransport": {
+      "vercel": "EXTERNAL_BLOCKED_BUILD_RATE_LIMIT",
+      "githubActions": "EXTERNAL_BLOCKED_ZERO_STEP_JOBS",
+      "sourceFailureObserved": false,
+      "exactDiffClass": "DOCS_CANON_ARTIFACT_HISTORY_ONLY"
+    },
     "commercialProof": "NOT_CREATED_BY_NORTH_STAR_CANON",
     "lifeOutcomeProof": "NOT_CREATED_BY_NORTH_STAR_CANON",
     "superintelligenceProof": "NOT_CREATED_BY_NORTH_STAR_CANON",
-    "perfectPredictionProof": "NOT_CREATED_BY_NORTH_STAR_CANON"
+    "perfectPredictionProof": "NOT_CREATED_BY_NORTH_STAR_CANON",
+    "consciousnessProof": "NOT_CREATED_BY_NORTH_STAR_CANON"
   },
   "startupLaw": [
     "Refresh current main and open/recent PR truth before present-tense claims.",
-    "Read README.md only as an entrypoint, then NORTH_STAR.md and the total no-drop North Star human/machine pair before choosing a mission.",
+    "Read README.md only as an entrypoint, then NORTH_STAR.md, the total no-drop North Star pair, and the chat-completeness alias pair before choosing a mission.",
     "Read AGENTS.md, CLAUDE.md, UBERBOND_CANON.md, UBERBOND_BOOTSTRAP.json, Total Brain, and all required pointers before narrowing scope.",
     "Do not treat a public website, lite app, historical launch guide, website-audit implementation, current commercial wedge, or old handoff as UberBond's identity.",
     "Do not automatically propose or execute a website audit merely because historical code or documentation contains website-audit flows.",
@@ -56,11 +86,10 @@
     "North Star presence is not implementation or outcome proof."
   ],
   "nextActions": [
-    "Merge the no-drop total North Star / startup-repair branch only after confirming its exact diff is documentation/canon-only and preserves historical donor content.",
-    "After merge, verify main README, NORTH_STAR.md, total North Star human/machine pair, and this handoff all resolve to the Sovereign Cognitive Continuum rather than the website-audit wedge.",
-    "Separately resume PR #433 exact-head verification before merging the executable Personal Civilization Engine wave 1. Do not treat this canon mission as evidence that PR #433 passed.",
-    "Only select a commercial website-audit / lead-path sprint when current economic allocation and explicit owner intent make it the highest-value subordinate mission; never because the repository opening page happened to mention it."
+    "Treat the terminal North Star / startup-repair mission as complete on main.",
+    "Separately resume PR #433 exact-head verification before merging the executable Personal Civilization Engine wave 1; do not treat canon as evidence that #433 passed.",
+    "When selecting any new mission, reconstruct the whole Sovereign Continuum plus current repository truth first.",
+    "Only select a commercial website-audit / lead-path sprint when current economic allocation and explicit owner intent make it the highest-value subordinate mission; never because the repository opening page mentions historical audit machinery."
   ],
-  "historicalHandoffPreservationTarget": "docs/history/CURRENT_HANDOFF_2026-09-04.json",
-  "truthBoundary": "This handoff changes project orientation and startup memory. It does not create external authority, provider state, customer evidence, payment evidence, production activation, superintelligence, perfect prediction, or observed life improvement."
+  "truthBoundary": "This handoff records canonical orientation and merged documentation truth. It does not create external authority, provider state, customer evidence, payment evidence, production activation, superintelligence, perfect prediction, consciousness, or observed life improvement."
 }

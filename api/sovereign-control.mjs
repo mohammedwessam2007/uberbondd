@@ -25,6 +25,12 @@ import { futureAncestors, councilOfFutureSelves } from '../src/reachable-futures
 import { findBottleneck, agencyDebt } from '../src/human-capability-genome.mjs';
 import { livingModel, unknownSelfProbes } from '../src/living-self-model.mjs';
 import { salienceLedger, preferenceDrift, attentionBudget } from '../src/salience-sovereignty.mjs';
+import {
+  valueOfInformation,
+  predictionHalfLife,
+  decisionShelfLife,
+  compileDecisionInformation
+} from '../src/decision-information-theory.mjs';
 
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
@@ -83,7 +89,8 @@ export function buildSovereignControlView({
   decision = null, options = [], forecasts = [], scores = [], exit = null, reasoning = null,
   method = null, experiences = [], contact = null, positions = [], lifeOptions = [],
   futures = [], council = null, bottleneck = null, capabilities = [], observations = [],
-  unknown = null, salience = null, drift = null, attention = null, now = new Date()
+  unknown = null, salience = null, drift = null, attention = null, information = null,
+  now = new Date()
 } = {}) {
   const view = {
     ok: true,
@@ -94,6 +101,7 @@ export function buildSovereignControlView({
     // Absent rather than faked when not asked for.
     decisionPacket: null,
     ruinScreen: null,
+    decisionInformation: null,
     exit: exit ? exitReadiness(exit) : null,
     reasoningBudget: reasoning ? shouldContinueReasoning(reasoning) : null,
     methodSelection: method ? selectMethod(method) : null,
@@ -117,6 +125,22 @@ export function buildSovereignControlView({
     founderAuthority: 'THIS SURFACE READS. IT CANNOT CHOOSE, DELEGATE, OR ACT.',
     businessEffectAuthority: 'NONE'
   };
+
+  if (information) {
+    const voi = valueOfInformation(information.voi || information);
+    const prediction = information.prediction
+      ? predictionHalfLife({ ...information.prediction, now })
+      : null;
+    const shelfLife = information.shelfLife
+      ? decisionShelfLife({ ...information.shelfLife, now })
+      : null;
+    view.decisionInformation = compileDecisionInformation({
+      voi,
+      prediction,
+      shelfLife,
+      minimumEvidenceWeight: information.minimumEvidenceWeight ?? null
+    });
+  }
 
   if (decision && Array.isArray(options) && options.length) {
     const universe = compileOptionUniverse(options);

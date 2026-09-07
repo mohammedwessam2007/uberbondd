@@ -7,6 +7,8 @@ import path from 'node:path';
 import { Store } from '../src/store.mjs';
 import { RevenueEngine } from '../src/revenue.mjs';
 import { buildFounderCommandCenter } from '../src/founder-command-center.mjs';
+import { CANONICAL_FIRST_CASH_PAYMENT_METHOD } from '../src/first-cash-canary-packet.mjs';
+import { LEAD_PATH_SPRINT_PRICE, LEAD_PATH_SPRINT_SKU } from '../src/lead-path-sprint-fulfillment.mjs';
 
 const monday = new Date('2026-07-13T10:00:00.000Z');
 
@@ -38,13 +40,30 @@ test('malformed store input is denied cleanly, never throws', async () => {
   assert.equal(result.reason, 'malformed-input-store');
 });
 
-test('an empty store surfaces unconfigured checkout as the top owner action when prices exist', async () => {
+test('legacy static checkout gaps are visible but never consume a founder action for canonical first cash', async () => {
   const store = await tempStore();
-  const config = cfg({ revenue: { fullAuditCheckoutUrl: '' } });
+  const config = cfg({ revenue: { fullAuditCheckoutUrl: '', strategyAuditCheckoutUrl: '', monitoringCheckoutUrl: '', bookingUrl: '' } });
   const result = await buildFounderCommandCenter({ store, cfg: config, date: monday });
   assert.equal(result.ok, true);
-  assert.ok(result.blocked.some(b => b.includes('full')));
-  assert.match(result.ownerActionQueue[0].action, /Configure checkout/);
+  assert.equal(result.blocked.length, 0);
+  assert.equal(result.nonBlockingLegacyCheckoutGaps.length, 4);
+  assert.ok(result.nonBlockingLegacyCheckoutGaps.every(row => row.blocksCanonicalFirstCash === false));
+  assert.doesNotMatch(result.ownerActionQueue[0].action, /Configure checkout/);
+  assert.match(result.ownerActionQueue[0].action, /No binding action required/);
+});
+
+test('the command center names the canonical $450 bound PayPal first-cash path', async () => {
+  const store = await tempStore();
+  const result = await buildFounderCommandCenter({ store, cfg: cfg(), date: monday });
+  assert.equal(result.canonicalFirstCashPath.sku, LEAD_PATH_SPRINT_SKU);
+  assert.equal(result.canonicalFirstCashPath.priceUsd, LEAD_PATH_SPRINT_PRICE.amountCents / 100);
+  assert.equal(result.canonicalFirstCashPath.currency, 'USD');
+  assert.equal(result.canonicalFirstCashPath.paymentMethod, CANONICAL_FIRST_CASH_PAYMENT_METHOD);
+  assert.equal(result.canonicalFirstCashPath.staticCheckoutRequired, false);
+  assert.equal(result.canonicalFirstCashPath.orderEndpoint, 'POST /api/payments/paypal-order');
+  assert.equal(result.canonicalFirstCashPath.requiresProviderOriginPaymentTruth, true);
+  assert.match(result.whatCanMakeMoneyFirst, new RegExp(LEAD_PATH_SPRINT_SKU));
+  assert.match(result.whatCanMakeMoneyFirst, /\$450/);
 });
 
 test('a fully configured system with no issues reports no binding action required', async () => {
@@ -62,6 +81,7 @@ test('the owner action queue never exceeds three actions', async () => {
   await store.log('payment_classification', { classification: 'REVIEW_REQUIRED', reasonCodes: ['unknown-lead'] });
   const result = await buildFounderCommandCenter({ store, cfg: config, date: monday });
   assert.ok(result.ownerActionQueue.length <= 3);
+  assert.match(result.ownerActionQueue[0].action, /Review 1 payment event/);
 });
 
 test('offer readiness reflects real evidence sufficiency for actual prospects', async () => {
@@ -76,7 +96,7 @@ test('offer readiness reflects real evidence sufficiency for actual prospects', 
   const result = await buildFounderCommandCenter({ store, cfg: config, date: monday });
   assert.equal(result.offerReadiness.candidateProspects, 1);
   assert.equal(result.offerReadiness.readyOffersByProduct.full, 1);
-  assert.match(result.whatCanMakeMoneyFirst, /1 prospect/);
+  assert.match(result.whatCanMakeMoneyFirst, /lead-path-revenue-leak-evidence-sprint-usd-450/);
 });
 
 test('review-required payment events surface in both blocked[] and the owner action queue', async () => {
@@ -86,6 +106,7 @@ test('review-required payment events surface in both blocked[] and the owner act
   const result = await buildFounderCommandCenter({ store, cfg: config, date: monday });
   assert.equal(result.paymentTruth.reviewRequiredRecently, 1);
   assert.ok(result.blocked.some(b => b.includes('payment event')));
+  assert.match(result.ownerActionQueue[0].action, /Review 1 payment event/);
 });
 
 test('revenue truth is UNKNOWN, not zero, when no RevenueEngine is supplied', async () => {
@@ -95,19 +116,6 @@ test('revenue truth is UNKNOWN, not zero, when no RevenueEngine is supplied', as
   assert.equal(result.paymentTruth.activeMrr, 'UNKNOWN');
 });
 
-// This test used to reach `paymentTruth.cleared === 49` through
-// `unlockLead(..., { provider: 'test' })` -- a test unlock, which writes a
-// revenue event and no order. It passed because summary() summed every positive
-// revenue event and called the total cleared, so a fabricated payment counted.
-//
-// That contradicted reconcilePaymentRenewalTruthFromStore, which answered
-// REVIEW_REQUIRED and $0 for the same lead. A field named `paymentTruth.cleared`
-// cannot mean one thing on the founder's report and another in the canonical
-// truth, so summary() now requires a provider order to witness a payment before
-// it is cleared.
-//
-// The test is strengthened rather than relaxed: it still proves a real payment
-// reaches this field, and now also proves a fabricated one does not.
 test('revenue truth reflects real cleared/refunded/MRR figures when a RevenueEngine is supplied', async () => {
   const store = await tempStore();
   const config = cfg({ revenue: { lemonWebhookSecret: 'founder-command-center-secret' } });
@@ -167,6 +175,21 @@ test('the exact same reference time produces a byte-identical report on identica
   const resultA = await buildFounderCommandCenter({ store: storeA, cfg: cfg(), date: monday });
   const resultB = await buildFounderCommandCenter({ store: storeB, cfg: cfg(), date: monday });
   assert.deepEqual(resultA.checkoutReadiness, resultB.checkoutReadiness);
+  assert.deepEqual(resultA.canonicalFirstCashPath, resultB.canonicalFirstCashPath);
   assert.deepEqual(resultA.offerReadiness, resultB.offerReadiness);
   assert.equal(resultA.timestamp, resultB.timestamp);
+});
+
+test('command center remains read-only and carries zero business effect authority', async () => {
+  const store = await tempStore();
+  const before = {
+    prospects: await store.list('prospects'),
+    messages: await store.list('messages'),
+    leads: await store.list('leads')
+  };
+  const result = await buildFounderCommandCenter({ store, cfg: cfg(), date: monday });
+  assert.equal(result.businessEffectAuthority, 'NONE');
+  assert.deepEqual(await store.list('prospects'), before.prospects);
+  assert.deepEqual(await store.list('messages'), before.messages);
+  assert.deepEqual(await store.list('leads'), before.leads);
 });

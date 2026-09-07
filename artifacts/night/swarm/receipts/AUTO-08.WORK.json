@@ -1,0 +1,29 @@
+{
+  "schema": "uberbond.night-swarm-receipt.v1",
+  "packetId": "AUTO-08",
+  "agent": "WORK",
+  "baseSha": "047e36c6eb0a27c3deabbba581c05e29ab597f3d",
+  "headSha": "311275220b248b1935dc9b12ecc347d7404abf93",
+  "sourceDelta": [
+    "src/founder-command-center.mjs aligns founder-facing first-cash truth with the canonical $450 Lead-Path Sprint and PAYPAL_BOUND_PROVIDER_ORDER",
+    "src/founder-minute-priority.mjs extracts dependency-free founder-minute ranking",
+    "tests/founder-command-center.test.mjs updates full integration expectations",
+    "tests/founder-minute-priority.test.mjs adds focused hostile ranking coverage"
+  ],
+  "actualTests": [
+    "local exact founder-minute-priority source/test execution: node --test tests/founder-minute-priority.test.mjs => 5 tests, 5 pass, 0 fail",
+    "local command-center source syntax check: node --check => pass",
+    "local exact-source seam assertions => priority organ imported and used; canonical bound-order endpoint present; legacy checkout gaps non-blocking; businessEffectAuthority NONE; no Configure checkout founder action remains",
+    "GitHub Actions run 34161863086 attempted broader deterministic/postgres/browser but all three jobs returned steps:null => INFRASTRUCTURE_NON_EVIDENCE",
+    "Vercel statuses for the child returned build-rate-limit for both full and lite projects => INFRASTRUCTURE_NON_EVIDENCE"
+  ],
+  "mutationEvidence": "No mutation run available on this changed child because both configured hosted runners were non-evidence; focused hostile cases cover malformed/negative counts, expected-pending non-action, payment-vs-recovery priority, legacy checkout non-action and queue bound.",
+  "reachability": "src/founder-command-center.mjs imports deriveFounderMinuteActions from src/founder-minute-priority.mjs and uses it for ownerActionQueue on the founder command-center runtime path",
+  "authorityBoundary": "READ_ONLY_COMMAND_CENTER__BUSINESS_EFFECT_AUTHORITY_NONE__NO_CONTACT_OR_PAYMENT_ACTION",
+  "privacyBoundary": "No new private data source, persistence or network surface added",
+  "blockerClassification": "FOCUSED_CHANGED_LOGIC_VERIFIED__BROADER_HOSTED_GATES_INFRASTRUCTURE_NON_EVIDENCE",
+  "integrationTarget": "PR #458 via SOL merge tribunal",
+  "progressDeltaReason": "Removes a real founder-minute trap: historical static checkout configuration can remain visible but can no longer masquerade as the blocking first-cash action after the system moved to per-lead PayPal provider orders.",
+  "result": "PASS_FOCUSED__BROADER_RUNNERS_INFRA_BLOCKED",
+  "businessEffectAuthority": "NONE"
+}

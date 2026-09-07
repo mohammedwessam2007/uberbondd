@@ -1,0 +1,232 @@
+{
+  "schemaVersion": "uberbond.gamechanger.manual-integration-seeds.v1",
+  "generatedAt": "2026-09-06T11:05:00.000Z",
+  "truthBoundary": "These are research seeds from prior Gamechanger sweeps. They are not implementation proof, economic proof, current-source proof, or promotion authority until rebound to current primary/original evidence by the live mesh.",
+  "seeds": [
+    {
+      "id": "capability-distillation-factory",
+      "title": "Repository-to-verified-skill capability distillation",
+      "mechanism": "Distill useful operational procedures from repositories and papers into compact verified skills, then route only the relevant procedures instead of installing or prompting with whole repositories.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["repo-to-skill", "distill", "verified skills", "operational knowledge"],
+      "smallestExperiment": "Distill and verify skills from 10 known repositories, then compare downstream accepted-task completion, context cost, dependency footprint and reuse against direct repository access."
+    },
+    {
+      "id": "authority-event-ledger",
+      "title": "Immutable authority event ledger",
+      "mechanism": "Authorization must be reconstructed only from immutable grant, restriction, expiry and revocation events; semantic memory may summarize authority but can never create or revive it.",
+      "attentionState": "ATOMIZE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["authorization laundering", "authority ledger", "revocation", "memory authority"],
+      "smallestExperiment": "Generate synthetic grant-restrict-expire-revoke histories, corrupt the memory summaries, and prove the deterministic authority evaluator still rejects unauthorized actions."
+    },
+    {
+      "id": "skill-policy-integrity",
+      "title": "Behavioral policy integrity for imported skills",
+      "mechanism": "A skill can preserve task utility while covertly biasing vendor, library, or economic choices, so promotion must include counterfactual behavioral symmetry tests in addition to static malware scanning and functional tests.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["skillshift", "behavioral bias", "counterfactual", "skill policy"],
+      "smallestExperiment": "Create harmless biased variants of 10 decision skills, randomize names and ordering, and measure whether policy-integrity tests detect preference shifts despite valid outputs."
+    },
+    {
+      "id": "untrusted-workspace-normalization",
+      "title": "Normalize hostile repositories before agent initialization",
+      "mechanism": "Inspect and neutralize repository-controlled executable metadata, hooks, filters, lifecycle scripts and startup configuration before any coding agent or project tooling touches an unknown workspace.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["gitspawn", "fsmonitor", "repository metadata", "workspace trust"],
+      "smallestExperiment": "Build a local adversarial workspace corpus with harmless hook markers and prove the normalization gateway prevents every pre-agent execution while preserving ordinary source inspection."
+    },
+    {
+      "id": "external-state-channel-firewall",
+      "title": "Semantic side-effect and undeclared external-state firewall",
+      "mechanism": "Classify operations by actual semantic effect rather than nominal HTTP method or tool label, preventing read-authorized workers from creating durable externally visible state or covert cross-agent communication channels.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["external state", "semantic side effect", "get request write", "cross-agent"],
+      "smallestExperiment": "Use a local web universe containing deceptive GET and HEAD mutations and prove read-only workers cannot create persistent state visible to a second worker."
+    },
+    {
+      "id": "non-decaying-loop-safety-state",
+      "title": "Persistent cross-iteration safety state",
+      "mechanism": "Long-running autonomous loops need authenticated threat evidence that survives restarts and does not decay away when attacks or scope expansions are distributed across many individually benign-looking iterations.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["non-decaying", "loop safety", "cross-iteration", "fragmented injection"],
+      "smallestExperiment": "Run 100-iteration synthetic missions with fragmented attacks and compare reset, decaying and latched structural-risk governors on attack completion and clean-task false halts."
+    },
+    {
+      "id": "lossless-trajectory-archive",
+      "title": "Searchable lossless trajectory archive",
+      "mechanism": "Keep compact active context while preserving original execution turns, tool outputs and failed approaches in a searchable archive so workers can recover exact historical evidence without repeated rediscovery or summary loss.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["searchable trajectory", "funes", "previous context windows", "lossless memory"],
+      "smallestExperiment": "Replay 20 long historical missions using compaction versus notes plus searchable original-turn retrieval and measure duplicate work, tokens, completion and recovery accuracy."
+    },
+    {
+      "id": "capability-discovery-runtime",
+      "title": "Retrieve tools instead of injecting the whole tool catalog",
+      "mechanism": "Expose workers to a tiny capability-search interface and retrieve only the few relevant tools or skills for the current task rather than carrying hundreds of tool definitions in every context.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["toolbox", "tool search", "tool discovery", "large tool libraries"],
+      "smallestExperiment": "Compare all-tools-in-context against retrieve-top-k on 100 to 500 synthetic tools, measuring verified completion, wrong-tool calls, retries and total tokens."
+    },
+    {
+      "id": "capability-gateway",
+      "title": "Identity-aware capability gateway",
+      "mechanism": "Make unauthorized capabilities invisible at discovery time and enforce identity, authorization, metering and audit between workers and MCP or API capabilities through one deterministic gateway.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["mcp bundling", "identity-aware", "tool catalog", "capability gateway"],
+      "smallestExperiment": "Expose 20 dummy capabilities behind one gateway to three worker identities and prove each sees only its authorized catalog with complete audit receipts."
+    },
+    {
+      "id": "just-in-time-credential-broker",
+      "title": "Task-scoped ephemeral credential broker",
+      "mechanism": "Mint short-lived resource-specific credentials from verified workload identity and authority instead of placing long-lived provider tokens in agent environments.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["short-lived token", "oidc", "credential broker", "vercel connect"],
+      "smallestExperiment": "Simulate 60-second repository-scoped credentials for researcher, coder and verifier roles and mutation-test expiry, scope escalation and cross-repository reuse."
+    },
+    {
+      "id": "staged-oidc-release-gate",
+      "title": "Two-phase identity-bound software release gate",
+      "mechanism": "Separate build authority from release authority using workflow identity, staged artifacts, external scanning and an independent promotion gate so no autonomous coding trajectory can publish directly.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["trusted publishing", "staged package", "oidc publishing", "release gate"],
+      "smallestExperiment": "Create a synthetic stable, prerelease and staging pipeline and prove compromised build identities, replayed credentials and scan failures cannot produce a public release."
+    },
+    {
+      "id": "browser-capability-router",
+      "title": "Capability-priced browser execution router",
+      "mechanism": "Route each web task to the cheapest execution environment that satisfies its required fidelity, escalating from fetch to lightweight agent renderer to full Chromium only when necessary.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["kitesurf", "lightweight browser", "browser router", "chromium"],
+      "smallestExperiment": "Replay 100 representative public-web tasks through Chromium, a lightweight renderer and lightweight-first fallback routing, comparing accepted evidence per total browser cost."
+    },
+    {
+      "id": "active-media-perception",
+      "title": "Value-directed selective media perception",
+      "mechanism": "Coarsely orient over long media, inspect only likely evidence-bearing intervals, dynamically raise temporal or modal resolution where uncertainty remains, and preserve exact provenance.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["agentic video", "selective video", "dynamic frame rate", "active media"],
+      "smallestExperiment": "Compare transcript-only, fixed-rate ingestion and selective inspection on 30 public videos using actionable-evidence-per-acquisition-cost as the primary metric."
+    },
+    {
+      "id": "speculative-agent-execution",
+      "title": "Speculative future tool execution",
+      "mechanism": "Let a cheap drafter predict likely read-only future tool actions inside disposable snapshots while an authoritative model reasons, committing speculative work only when the real trajectory validates the prediction.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["speculative macro commit", "speculative tool", "drafter", "latency"],
+      "smallestExperiment": "Replay 50 read-heavy trajectories with and without speculative execution and measure latency hidden, wasted compute, correctness and total cost per accepted mission."
+    },
+    {
+      "id": "purpose-declared-web-access",
+      "title": "Purpose-declared lawful web-access router",
+      "mechanism": "Treat search, agent browsing, data collection, transactions, training and security testing as distinct purposes and route each information need only through sources that permit that intended use, with lawful fallbacks.",
+      "attentionState": "ATOMIZE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["content signals", "crawler purpose", "search agent training", "data collection"],
+      "smallestExperiment": "Model 100 company-research facts with purpose-aware source adapters, simulate access losses, and measure lawful fact-recovery and source redundancy without evasion."
+    },
+    {
+      "id": "verified-continual-development-loop",
+      "title": "Verified continual development harness",
+      "mechanism": "Wrap coding agents in repeated plan, implement, independent-test, evidence, preserve-known-good and replan cycles so autonomous engineering accumulates verified capability rather than repeated local patches.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["harness-of-harness", "continual development", "preservation constraints", "independent tester"],
+      "smallestExperiment": "Replay 10 historical multi-repair engineering tasks using single-pass versus verified iterative loops while measuring accepted capability, regressions, tokens and founder intervention."
+    },
+    {
+      "id": "external-commitment-state",
+      "title": "Signed agreements as runtime policy state",
+      "mechanism": "Normalize contractual commitments, limits, rights and deadlines into externally grounded policy objects that constrain autonomous actions alongside owner authority and regulation.",
+      "attentionState": "RESEARCH",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["agreement manager", "contract obligations", "agreement workflow", "external commitment"],
+      "smallestExperiment": "Normalize 20 synthetic commercial agreements into commitment objects and compare free-form contract reading against deterministic policy checks on 100 proposed actions."
+    },
+    {
+      "id": "regulatory-incident-clock",
+      "title": "Deterministic regulatory incident deadline engine",
+      "mechanism": "When a security or compliance event may trigger a legal reporting duty, start persistent jurisdiction-specific clocks, preserve evidence, assemble required fields and require the appropriate external-report approval gate.",
+      "attentionState": "RESEARCH",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["cyber resilience act", "24 hours", "72 hours", "incident reporting"],
+      "smallestExperiment": "Run 30 synthetic incidents through a reportability and deadline state machine and measure classification errors, missing fields, missed deadlines and review minutes."
+    },
+    {
+      "id": "portable-purchase-intent-state",
+      "title": "Machine-verifiable delegated purchase intent",
+      "mechanism": "Represent the principal's purpose, merchant or category bounds, cumulative spend, time horizon, per-action limits and revocation as persistent intent state that every accepted machine transaction must trace back to.",
+      "attentionState": "RESEARCH",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["intent services", "agentic payments", "cumulative budget", "delegated purchase"],
+      "smallestExperiment": "Simulate 1,000 transactions with retries, concurrency, refunds and merchant substitution and require an unbroken authorization chain for every accepted action."
+    },
+    {
+      "id": "verifiable-outcome-billing",
+      "title": "Bill only machine-verifiable accepted outcomes",
+      "mechanism": "Connect deterministic acceptance evidence directly to commercial billing units so attempts, tokens and agent executions are not confused with delivered economic outcomes.",
+      "attentionState": "RESEARCH",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["outcome-based pricing", "resolved issues", "billable outcome", "acceptance evidence"],
+      "smallestExperiment": "Simulate fixed, hybrid and pure outcome pricing for one bounded revenue-leak deliverable under optimistic, base, hostile, dispute and gaming scenarios."
+    },
+    {
+      "id": "exhaustive-reconciliation-engine",
+      "title": "Coverage-proven exhaustive reconciliation",
+      "mechanism": "Require agents reconciling documents or systems to enumerate the complete expected comparison universe and prove coverage, rather than declaring success after finding a few anomalies.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["financial documents", "reconciliation", "planted errors", "coverage ledger"],
+      "smallestExperiment": "Create a synthetic 25 to 40 document pack with planted inconsistencies and compare anomaly recall, false positives, required-check coverage and review minutes."
+    },
+    {
+      "id": "domain-agent-contract",
+      "title": "Reusable domain-agent contracts with thin vertical adapters",
+      "mechanism": "Keep the economic mechanism and typed business behavior in a reusable core while vertical-specific catalogs, rules and integrations sit behind narrow adapters and deterministic write gates.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["commerce agent", "typed backend", "merchant agent", "vertical adapter"],
+      "smallestExperiment": "Express one revenue-leak mechanism as a shared core plus two synthetic vertical adapters and measure code reuse, rule duplication, setup minutes and correctness."
+    },
+    {
+      "id": "customer-owned-safety-state",
+      "title": "Customer-owned durable safety and audit state",
+      "mechanism": "Keep long-lived monitoring, audit and safety state in customer-controlled storage while model providers receive only minimum task context, improving provider portability and privacy-sensitive deployments.",
+      "attentionState": "RESEARCH",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["customer-owned safety", "zero data retention", "safety state", "monitoring data"],
+      "smallestExperiment": "Prototype synthetic provider-neutral monitoring events stored in an UberBond-controlled ledger and test auditability, deletion boundaries, failover and provider switching."
+    },
+    {
+      "id": "model-capability-risk-class",
+      "title": "Model-specific capability risk classes",
+      "mechanism": "Sandbox, network, tool and review constraints should depend on both task permissions and the underlying model's demonstrated capability class, with stronger models receiving tighter ambient authority rather than wider authority.",
+      "attentionState": "ATOMIZE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["critical cybersecurity", "preparedness", "model risk class", "scope violation"],
+      "smallestExperiment": "Create synthetic STANDARD, HIGH and CRITICAL model tiers and mutation-test that higher-capability tiers automatically receive stricter network, tool and review envelopes."
+    },
+    {
+      "id": "escalation-economics-policy",
+      "title": "Whole-task frontier-model escalation economics",
+      "mechanism": "Use expensive frontier intelligence only when expected retries, repair time, verifier cost or founder minutes make escalation cheaper per verified outcome than repeated low-cost failures.",
+      "attentionState": "EXPERIMENT_CANDIDATE",
+      "evidenceState": "CHAT_RESEARCH_REQUIRES_PRIMARY_REBINDING",
+      "keywords": ["escalation model", "cost per successful outcome", "frontier model", "retries"],
+      "smallestExperiment": "Replay 20 historically difficult missions through the incumbent route versus a deterministic escalate-after-failure policy and measure verified completion, total cost and founder minutes."
+    }
+  ]
+}

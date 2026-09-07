@@ -1774,6 +1774,134 @@
         "tests/reachability-ratchet.test.mjs"
       ],
       "note": "measureReachability and reachableFromEntryPoints compute live import-graph partitions; ratchet tests classify every unreachable module and reject stale/unclassified entries. Structural reachability only; no provider activation or outcome claim."
+    },
+    {
+      "concept": "http.retry",
+      "lane": "OMEGA-14",
+      "sources": [
+        "src/overpass-throttle.mjs"
+      ],
+      "tests": [
+        "tests/overpass-throttle.test.mjs"
+      ],
+      "note": "fetchOverpassWithPolicy enforces bounded retry/backoff and stops non-retryable errors."
+    },
+    {
+      "concept": "messaging.send-authorized-email",
+      "lane": "OMEGA-14",
+      "sources": [
+        "src/pipeline.mjs",
+        "src/send-safety.mjs",
+        "src/consequence-boundary.mjs",
+        "src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs"
+      ],
+      "tests": [
+        "tests/outbound-send-path-sovereignty-boundary.test.mjs",
+        "tests/omnia-v9-gmail-effect-adapter-contract.test.mjs",
+        "tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs",
+        "tests/outbound-stale-authorization.test.mjs"
+      ],
+      "note": "Consent, suppression, authority and stale authorization gates precede Gmail dispatch."
+    },
+    {
+      "concept": "model.route-request",
+      "lane": "OMEGA-14",
+      "sources": [
+        "src/agent-model-router.mjs",
+        "src/capability-genome-runtime.mjs"
+      ],
+      "tests": [
+        "tests/provider-execution.test.mjs",
+        "tests/agent-model-routing-config.test.mjs"
+      ],
+      "note": "Routing preserves eligible provider/model identity and failover evidence."
+    },
+    {
+      "concept": "memory.recover-session",
+      "lane": "OMEGA-14",
+      "sources": [
+        "src/lifetime-context-memory.mjs",
+        "src/uberbond-memory-reconciliation.mjs"
+      ],
+      "tests": [
+        "tests/lifetime-context-memory.test.mjs",
+        "tests/uberbond-brain-context.test.mjs"
+      ],
+      "note": "Session memory recovery preserves repository truth and bounded context."
+    },
+    {
+      "concept": "sandbox.run-test",
+      "lane": "OMEGA-14",
+      "sources": [
+        "src/agent-sandbox-verifier.mjs",
+        "src/claude-code-sandbox-executor.mjs"
+      ],
+      "tests": [
+        "tests/agent-sandbox-verifier.test.mjs",
+        "tests/claude-code-sandbox-provisioner.test.mjs"
+      ],
+      "note": "Sandbox verification is bounded and isolated with observed effects."
+    },
+    {
+      "concept": "capability.dedupe",
+      "lane": "OMEGA-14",
+      "sources": [
+        "src/capability-genome-admission.mjs",
+        "src/overnight/control/market-capability-registry.mjs"
+      ],
+      "tests": [
+        "tests/capability-genome.test.mjs",
+        "tests/overnight-market-capability.test.mjs"
+      ],
+      "note": "Dedupe resolves identity/family duplicates before admission."
+    },
+    {
+      "concept": "capability.security-admit",
+      "lane": "OMEGA-14",
+      "sources": [
+        "src/capability-genome-admission.mjs"
+      ],
+      "tests": [
+        "tests/capability-genome.test.mjs",
+        "tests/capability-genome-body-normalize.test.mjs"
+      ],
+      "note": "Independent security and authority evidence gates eligibility."
+    },
+    {
+      "concept": "capability.retrieve",
+      "lane": "OMEGA-14",
+      "sources": [
+        "src/capability-genome-runtime.mjs"
+      ],
+      "tests": [
+        "tests/capability-genome.test.mjs",
+        "tests/capability-genome-body-normalize.test.mjs"
+      ],
+      "note": "Retrieval selects minimum compatible bundles and refuses untrusted candidates."
+    },
+    {
+      "concept": "capability.benchmark",
+      "lane": "OMEGA-14",
+      "sources": [
+        "src/capability-genome-runtime.mjs"
+      ],
+      "tests": [
+        "tests/capability-genome.test.mjs"
+      ],
+      "note": "Benchmark evaluation compares candidate capability/model pairs on bounded evidence."
+    },
+    {
+      "concept": "capability.revoke",
+      "lane": "OMEGA-14",
+      "sources": [
+        "src/capability-genome-admission.mjs",
+        "src/capability-genome-runtime.mjs"
+      ],
+      "tests": [
+        "tests/capability-genome.test.mjs",
+        "tests/capability-genome-execution-admission.test.mjs"
+      ],
+      "note": "Revocation is irreversible for selection and retains evidence."
     }
   ]
 }

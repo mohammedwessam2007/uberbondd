@@ -1,22 +1,22 @@
 {
   "schemaVersion": "uberbond.gpt459.reuse-ledger.v1",
   "mission": "Issue #459 capability domain/atom reuse compression",
-  "generatedAt": "2026-09-07T19:14:43.355Z",
-  "sourceCommit": "dcf666a6106baa367992e54efc487ad46cacbcc9",
-  "matrixSourceCommit": "dcf666a6106baa367992e54efc487ad46cacbcc9",
+  "generatedAt": "2026-09-07T19:16:52.007Z",
+  "sourceCommit": "76c05837ff6823a4de9c21e208a8099981d6c521",
+  "matrixSourceCommit": "76c05837ff6823a4de9c21e208a8099981d6c521",
   "rowCount": 71,
   "expectedClasses": {
     "CAPABILITY_DOMAIN": 46,
     "CAPABILITY_ATOM": 25
   },
   "counts": {
-    "VERIFIED_REUSE": 2,
+    "VERIFIED_REUSE": 12,
     "PARTIAL_REUSE": 24,
     "GENUINE_GAP": 0,
     "MISCLASSIFIED_OR_STRUCTURAL": 0,
     "EXTERNAL_OR_ELAPSED": 0
   },
-  "pendingCount": 45,
+  "pendingCount": 35,
   "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
   "truthBoundary": {
     "realCustomers": 0,
@@ -284,6 +284,7 @@
         "scripts/seed.mjs",
         "scripts/agent-mesh-tick.mjs",
         "scripts/perpetual-frontier-genesis-tick.mjs",
+        "src/genesis-evolution-engine.mjs",
         "src/commercial-outcome.mjs",
         "src/frontier-reasoning-runtime.mjs",
         "src/commercial-opportunity-catalog.mjs",
@@ -291,8 +292,7 @@
         "src/uberbond-self-maintainer.mjs",
         "src/genesis-metabolism.mjs",
         "src/genesis-venture-organism.mjs",
-        "src/provider-adapter-contract.mjs",
-        "src/receivables-contract.mjs"
+        "src/provider-adapter-contract.mjs"
       ],
       "sourceModules": [
         "src/opportunity-factory.mjs",
@@ -335,6 +335,7 @@
         "scripts/opportunity-factory-dry-run.mjs",
         "scripts/uberbond-repository-deep-atlas.mjs",
         "scripts/uberbond-cognitive-cycle.mjs",
+        "src/genesis-evolution-engine.mjs",
         "src/sovereign-coverage-matrix.mjs",
         "src/wallbreaker-cognitive-reflex.mjs",
         "src/meta-rational-boundary.mjs",
@@ -342,8 +343,7 @@
         "src/commercial-opportunity-catalog.mjs",
         "src/ai-employee-role-contract.mjs",
         "src/genesis-metabolism.mjs",
-        "src/genesis-venture-organism.mjs",
-        "src/frontier-loop-proof.mjs"
+        "src/genesis-venture-organism.mjs"
       ],
       "sourceModules": [],
       "focusedTests": [],
@@ -432,10 +432,10 @@
         "scripts/uberbond-cognitive-cycle.mjs",
         "scripts/github-relay-worker.mjs",
         "scripts/visual-qa.mjs",
+        "src/genesis-evolution-engine.mjs",
+        "src/reachable-futures.mjs",
         "src/memory-sovereignty.mjs",
-        "src/sovereign-coverage-matrix.mjs",
-        "src/database-hygiene-maintenance.mjs",
-        "src/commercial-outcome.mjs"
+        "src/sovereign-coverage-matrix.mjs"
       ],
       "sourceModules": [],
       "focusedTests": [],
@@ -467,6 +467,7 @@
         "scripts/review-probes.mjs",
         "scripts/orchestration-frontier-tick.mjs",
         "scripts/mutation-war.mjs",
+        "src/genesis-evolution-engine.mjs",
         "src/capability-genome-runtime.mjs",
         "src/frontier-capability-harvest.mjs",
         "src/commercial-opportunity-catalog.mjs",
@@ -480,8 +481,7 @@
         "src/evidence-to-content-compiler.mjs",
         "src/ai-employee-relay.mjs",
         "src/omnichannel-communication-contract.mjs",
-        "src/gamechanger-mesh.mjs",
-        "src/founder-absence-blocker-doctor-core.mjs"
+        "src/gamechanger-mesh.mjs"
       ],
       "sourceModules": [
         "src/distribution-channel.mjs",
@@ -524,6 +524,7 @@
         "scripts/kilimanjaro-manifest.mjs",
         "scripts/outbound-safety-smoke.mjs",
         "scripts/mutation-war.mjs",
+        "tests/prospect-qualification-pipeline.test.mjs",
         "src/domain-mailbox-circuit-breaker.mjs",
         "src/staging-content-repository.mjs",
         "src/provider-adapter-contract.mjs",
@@ -537,8 +538,7 @@
         "src/evidence-to-content-compiler.mjs",
         "src/system-health-repository.mjs",
         "src/live-activation-gate.mjs",
-        "src/lead-operations.mjs",
-        "src/omnichannel-communication-contract.mjs"
+        "tests/omnia-v9-reality-shadow-integration.test.mjs"
       ],
       "sourceModules": [
         "src/lead-generation-benchmark.mjs",
@@ -593,11 +593,11 @@
         "scripts/github-relay-worker.mjs",
         "scripts/agent-mesh-tick.mjs",
         "scripts/github-relay-roundtrip.mjs",
+        "src/genesis-evolution-engine.mjs",
         "src/sovereign-coverage-matrix.mjs",
         "src/frontier-capability-harvest.mjs",
         "src/staging-content-repository.mjs",
-        "src/commercial-opportunity-catalog.mjs",
-        "src/ai-employee-role-contract.mjs"
+        "src/commercial-opportunity-catalog.mjs"
       ],
       "sourceModules": [
         "src/overnight/distribution/partner-fit.mjs"
@@ -637,6 +637,7 @@
         "scripts/genesis-ontology-tick.mjs",
         "scripts/github-relay-roundtrip.mjs",
         "scripts/perpetual-frontier-genesis-tick.mjs",
+        "src/genesis-evolution-engine.mjs",
         "src/database-hygiene-maintenance.mjs",
         "src/payment-renewal-truth.mjs",
         "src/inbound-classify.mjs",
@@ -646,8 +647,7 @@
         "src/commercial-opportunity-catalog.mjs",
         "src/free-first-outreach-router.mjs",
         "src/browser-action-contract.mjs",
-        "src/uberbond-self-maintainer.mjs",
-        "src/claude-code-sandbox-executor.mjs"
+        "src/uberbond-self-maintainer.mjs"
       ],
       "sourceModules": [
         "src/proposal-acceptance-engine.mjs"
@@ -988,16 +988,16 @@
         "src/perpetual-frontier-genesis.mjs",
         "src/wallbreaker.mjs",
         "src/uberbond-cognitive-adapters.mjs",
+        "tests/uberbond-cognitive-bus.test.mjs",
+        "tests/self-maintainer-proposal-api.test.mjs",
+        "tests/uberbond-cognitive-graph.test.mjs",
+        "tests/uberbond-brain-bootstrap.test.mjs",
+        "tests/wallbreaker-retry-safety.test.mjs",
+        "tests/sovereign-coverage-matrix.test.mjs",
         "src/uberbond-command-center-status.mjs",
         "src/uberbond-cognitive-bus.mjs",
         "src/capability-genome-body-normalize.mjs",
-        "src/organism-metabolism.mjs",
-        "tests/uberbond-cognitive-bus.test.mjs",
-        "tests/self-maintainer-proposal-api.test.mjs",
-        "tests/sovereign-coverage-matrix.test.mjs",
-        "tests/uberbond-brain-bootstrap.test.mjs",
-        "tests/wallbreaker-retry-safety.test.mjs",
-        "tests/uberbond-cognitive-graph.test.mjs"
+        "src/organism-metabolism.mjs"
       ],
       "sourceModules": [
         "src/wallbreaker-cognitive-reflex.mjs",
@@ -1391,6 +1391,7 @@
         "scripts/mutation-war.mjs",
         "scripts/genesis-evolution-tick.mjs",
         "scripts/genesis-evolution-doctor.mjs",
+        "src/genesis-evolution-engine.mjs",
         "src/agent-worker-result-truth.mjs",
         "src/founder-absence-readiness.mjs",
         "src/ai-employee-relay-result-admission.mjs",
@@ -1403,11 +1404,10 @@
         "src/genesis-final-frontier.mjs",
         "src/agent-mesh-activation-evidence.mjs",
         "src/experience-compiler.mjs",
+        "tests/omnia-v9-reality-shadow-integration.test.mjs",
         "src/lead-operations.mjs",
         "src/ai-employee-relay.mjs",
-        "src/cloud-agent-relay.mjs",
-        "src/agent-worker-job.mjs",
-        "src/agent-autonomy-relay-adapter.mjs"
+        "src/cloud-agent-relay.mjs"
       ],
       "sourceModules": [
         "src/ai-employee-relay-result-admission.mjs",
@@ -1517,6 +1517,7 @@
         "scripts/github-relay-worker.mjs",
         "scripts/agent-mesh-tick.mjs",
         "scripts/github-relay-roundtrip.mjs",
+        "src/genesis-evolution-engine.mjs",
         "src/memory-sovereignty.mjs",
         "src/database-hygiene-maintenance.mjs",
         "src/commercial-outcome.mjs",
@@ -1526,8 +1527,7 @@
         "src/service-fulfillment.mjs",
         "src/founder-absence-readiness.mjs",
         "src/commercial-opportunity-catalog.mjs",
-        "src/ai-employee-role-contract.mjs",
-        "src/browser-action-contract.mjs"
+        "src/ai-employee-role-contract.mjs"
       ],
       "sourceModules": [],
       "focusedTests": [],
@@ -1821,11 +1821,11 @@
         "scripts/discovery-smoke.mjs",
         "scripts/uberbond-cognitive-cycle.mjs",
         "scripts/agent-mesh-tick.mjs",
+        "src/reachable-futures.mjs",
         "src/memory-sovereignty.mjs",
+        "tests/prospect-qualification-pipeline.test.mjs",
         "src/sovereign-coverage-matrix.mjs",
-        "src/agent-autonomy-occurrence.mjs",
-        "src/commercial-outcome.mjs",
-        "src/frontier-capability-harvest.mjs"
+        "src/agent-autonomy-occurrence.mjs"
       ],
       "sourceModules": [],
       "focusedTests": [],
@@ -2008,6 +2008,7 @@
         "scripts/mutation-war.mjs",
         "scripts/founder-absence-doctor.mjs",
         "scripts/visual-qa.mjs",
+        "tests/prospect-qualification-pipeline.test.mjs",
         "src/sovereign-coverage-matrix.mjs",
         "src/frontier-capability-harvest.mjs",
         "src/payment-renewal-truth.mjs",
@@ -2016,8 +2017,7 @@
         "src/commercial-opportunity-catalog.mjs",
         "src/browser-action-contract.mjs",
         "src/profile-discovery-provenance.mjs",
-        "src/receivables-contract.mjs",
-        "src/config.mjs"
+        "src/receivables-contract.mjs"
       ],
       "sourceModules": [],
       "focusedTests": [],
@@ -2109,7 +2109,7 @@
         "scripts/genesis-evolution-doctor.mjs",
         "scripts/integration-smoke.mjs",
         "scripts/agent-mesh-tick.mjs",
-        "src/domain-mailbox-circuit-breaker.mjs"
+        "src/reachable-futures.mjs"
       ],
       "sourceModules": [],
       "focusedTests": [],
@@ -2425,21 +2425,21 @@
         "src/deliverability-guard.mjs",
         "src/offer-compiler.mjs",
         "src/contacts.mjs",
+        "tests/database-hygiene-postgres-real.test.mjs",
         "src/ai.mjs",
         "src/artifact-storage-contract.mjs",
         "src/browser-crawler.mjs",
         "src/audit-rules.mjs",
         "src/artifacts.mjs",
-        "src/overnight/control/automation-acquisition-loop.mjs",
-        "src/overnight/control/market-capability-registry.mjs",
-        "tests/database-hygiene-postgres-real.test.mjs",
         "tests/lite-p0.test.mjs",
         "tests/lite-flow.test.mjs",
-        "src/open-model-source-coverage.mjs",
         "tests/omega-closure-hostile.test.mjs",
-        "src/open-model-registry-crawler.mjs",
         "tests/production-coverage-ratchet.test.mjs",
-        "tests/lite.test.mjs"
+        "tests/lite.test.mjs",
+        "src/overnight/control/automation-acquisition-loop.mjs",
+        "src/overnight/control/market-capability-registry.mjs",
+        "src/open-model-source-coverage.mjs",
+        "src/open-model-registry-crawler.mjs"
       ],
       "sourceModules": [
         "src/browser-crawler.mjs",
@@ -2472,13 +2472,13 @@
         "src/outbound-operator-summary.mjs",
         "src/frontier-artifact-verifier.mjs",
         "src/cost-aware-public-evidence-tier.mjs",
-        "tests/capability-genome.test.mjs",
         "src/outreach-upgrades.mjs",
+        "tests/capability-genome.test.mjs",
         "tests/outreach-workbench.test.mjs",
         "tests/wallbreaker.test.mjs",
-        "tests/cost-stage-fulfill-learn-spine.test.mjs",
         "tests/command-center-2-policy.test.mjs",
         "tests/frontier-parity-autonomy.test.mjs",
+        "tests/cost-stage-fulfill-learn-spine.test.mjs",
         "src/outreach-workbench.mjs"
       ],
       "sourceModules": [],
@@ -2514,6 +2514,8 @@
         "scripts/uberbond-repository-deep-atlas.mjs",
         "scripts/organism-foundations-doctor.mjs",
         "scripts/github-relay-worker.mjs",
+        "src/genesis-evolution-engine.mjs",
+        "src/reachable-futures.mjs",
         "src/sovereign-coverage-matrix.mjs",
         "src/agent-worker-runtime.mjs",
         "src/uberbond-feature-atom-atlas.mjs",
@@ -2523,9 +2525,7 @@
         "src/frontier-reasoning-runtime.mjs",
         "src/frontier-cognitive-fabric.mjs",
         "src/free-first-outreach-router.mjs",
-        "src/browser-action-contract.mjs",
-        "src/uberbond-self-maintainer.mjs",
-        "src/genesis-metabolism.mjs"
+        "src/browser-action-contract.mjs"
       ],
       "sourceModules": [],
       "focusedTests": [],
@@ -2544,12 +2544,12 @@
         "http.retry"
       ],
       "class": "CAPABILITY_ATOM",
-      "priorState": "SPEC_ONLY",
-      "disposition": null,
-      "priorDisposition": "GENUINE_GAP",
-      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
-      "implementationProof": "metadata-only-or-no-behavioral-source-found",
-      "evidenceGrade": "UNPROVEN_CANDIDATE_NOT_PROOF_OF_ABSENCE",
+      "priorState": "VERIFIED_CURRENT",
+      "disposition": "VERIFIED_REUSE",
+      "priorDisposition": "VERIFIED_REUSE",
+      "auditStatus": "MATRIX_LEAD_REQUIRES_INDEPENDENT_REVIEW",
+      "implementationProof": "matrix-lead-requires-independent-behavioral-review",
+      "evidenceGrade": "MATRIX_LEAD_NOT_BEHAVIORAL_VERIFICATION",
       "absenceClaim": false,
       "repositorySearchMatches": [
         "scripts/uberbond-mcp.mjs",
@@ -2573,16 +2573,20 @@
         "src/relay-preview-runbook.mjs",
         "src/payment-reconciliation-watchdog.mjs"
       ],
-      "sourceModules": [],
-      "focusedTests": [],
-      "reachability": "UNREACHABLE_OR_UNPROVEN",
+      "sourceModules": [
+        "src/overpass-throttle.mjs"
+      ],
+      "focusedTests": [
+        "tests/overpass-throttle.test.mjs"
+      ],
+      "reachability": "PRODUCTION",
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "matchStrength": "NO_MATCH",
-      "matchScope": "NONE",
-      "matchedPhrase": null,
+      "matchStrength": "DECLARED_AND_VERIFIED",
+      "matchScope": "WHOLE_NAME",
+      "matchedPhrase": "http.retry",
       "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME",
-      "rationale": "Capability atom is present in the taxonomy but metadata is not implementation; independent repository search is recorded."
+      "rationale": "Matrix provides a strong source/test/reachability lead; independent behavioral review is still required before promotion."
     },
     {
       "canonicalId": "capability-atoms:contact-validate-email",
@@ -2660,10 +2664,10 @@
         "scripts/organism-foundations-doctor.mjs",
         "scripts/frontier-surface-doctor.mjs",
         "scripts/agent-mesh-tick.mjs",
+        "src/genesis-evolution-engine.mjs",
         "src/memory-sovereignty.mjs",
-        "src/sovereign-coverage-matrix.mjs",
-        "src/agent-autonomy-occurrence.mjs",
-        "src/payment-operator-attention.mjs"
+        "tests/prospect-qualification-pipeline.test.mjs",
+        "src/sovereign-coverage-matrix.mjs"
       ],
       "sourceModules": [],
       "focusedTests": [],
@@ -2709,7 +2713,7 @@
         "scripts/organism-foundations-doctor.mjs",
         "scripts/github-relay-worker.mjs",
         "scripts/perpetual-frontier-genesis-tick.mjs",
-        "src/memory-sovereignty.mjs"
+        "src/genesis-evolution-engine.mjs"
       ],
       "sourceModules": [],
       "focusedTests": [],
@@ -2866,12 +2870,12 @@
         "messaging.send-authorized-email"
       ],
       "class": "CAPABILITY_ATOM",
-      "priorState": "SPEC_ONLY",
-      "disposition": null,
-      "priorDisposition": "GENUINE_GAP",
-      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
-      "implementationProof": "metadata-only-or-no-behavioral-source-found",
-      "evidenceGrade": "UNPROVEN_CANDIDATE_NOT_PROOF_OF_ABSENCE",
+      "priorState": "VERIFIED_CURRENT",
+      "disposition": "VERIFIED_REUSE",
+      "priorDisposition": "VERIFIED_REUSE",
+      "auditStatus": "MATRIX_LEAD_REQUIRES_INDEPENDENT_REVIEW",
+      "implementationProof": "matrix-lead-requires-independent-behavioral-review",
+      "evidenceGrade": "MATRIX_LEAD_NOT_BEHAVIORAL_VERIFICATION",
       "absenceClaim": false,
       "repositorySearchMatches": [
         "scripts/compute-sovereignty-doctor.mjs",
@@ -2891,20 +2895,30 @@
         "scripts/capability-genome-harvest.mjs",
         "scripts/separate-services-smoke.mjs",
         "scripts/integration-smoke.mjs",
+        "tests/prospect-qualification-pipeline.test.mjs",
         "src/capability-genome-runtime.mjs",
-        "src/frontier-capability-harvest.mjs",
-        "src/inbound-classify.mjs"
+        "src/frontier-capability-harvest.mjs"
       ],
-      "sourceModules": [],
-      "focusedTests": [],
-      "reachability": "UNREACHABLE_OR_UNPROVEN",
+      "sourceModules": [
+        "src/pipeline.mjs",
+        "src/send-safety.mjs",
+        "src/consequence-boundary.mjs",
+        "src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs"
+      ],
+      "focusedTests": [
+        "tests/outbound-send-path-sovereignty-boundary.test.mjs",
+        "tests/omnia-v9-gmail-effect-adapter-contract.test.mjs",
+        "tests/omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs",
+        "tests/outbound-stale-authorization.test.mjs"
+      ],
+      "reachability": "PRODUCTION",
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "matchStrength": "NO_MATCH",
-      "matchScope": "NONE",
-      "matchedPhrase": null,
+      "matchStrength": "DECLARED_AND_VERIFIED",
+      "matchScope": "WHOLE_NAME",
+      "matchedPhrase": "messaging.send-authorized-email",
       "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME",
-      "rationale": "Capability atom is present in the taxonomy but metadata is not implementation; independent repository search is recorded."
+      "rationale": "Matrix provides a strong source/test/reachability lead; independent behavioral review is still required before promotion."
     },
     {
       "canonicalId": "capability-atoms:payment-verify-cleared",
@@ -2937,9 +2951,9 @@
         "scripts/founder-absence-doctor.mjs",
         "scripts/separate-services-smoke.mjs",
         "scripts/integration-smoke.mjs",
+        "src/genesis-evolution-engine.mjs",
         "src/sovereign-coverage-matrix.mjs",
-        "src/payment-operator-attention.mjs",
-        "src/database-hygiene-maintenance.mjs"
+        "src/payment-operator-attention.mjs"
       ],
       "sourceModules": [],
       "focusedTests": [],
@@ -3050,12 +3064,12 @@
         "model.route-request"
       ],
       "class": "CAPABILITY_ATOM",
-      "priorState": "SPEC_ONLY",
-      "disposition": null,
-      "priorDisposition": "GENUINE_GAP",
-      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
-      "implementationProof": "metadata-only-or-no-behavioral-source-found",
-      "evidenceGrade": "UNPROVEN_CANDIDATE_NOT_PROOF_OF_ABSENCE",
+      "priorState": "VERIFIED_CURRENT",
+      "disposition": "VERIFIED_REUSE",
+      "priorDisposition": "VERIFIED_REUSE",
+      "auditStatus": "MATRIX_LEAD_REQUIRES_INDEPENDENT_REVIEW",
+      "implementationProof": "matrix-lead-requires-independent-behavioral-review",
+      "evidenceGrade": "MATRIX_LEAD_NOT_BEHAVIORAL_VERIFICATION",
       "absenceClaim": false,
       "repositorySearchMatches": [
         "scripts/overnight-upgrade-plan.mjs",
@@ -3079,16 +3093,22 @@
         "scripts/uberbond-brain-bootstrap.mjs",
         "scripts/model-provider-doctor.mjs"
       ],
-      "sourceModules": [],
-      "focusedTests": [],
-      "reachability": "UNREACHABLE_OR_UNPROVEN",
+      "sourceModules": [
+        "src/agent-model-router.mjs",
+        "src/capability-genome-runtime.mjs"
+      ],
+      "focusedTests": [
+        "tests/provider-execution.test.mjs",
+        "tests/agent-model-routing-config.test.mjs"
+      ],
+      "reachability": "PRODUCTION",
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "matchStrength": "NO_MATCH",
-      "matchScope": "NONE",
-      "matchedPhrase": null,
+      "matchStrength": "DECLARED_AND_VERIFIED",
+      "matchScope": "WHOLE_NAME",
+      "matchedPhrase": "model.route-request",
       "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME",
-      "rationale": "Capability atom is present in the taxonomy but metadata is not implementation; independent repository search is recorded."
+      "rationale": "Matrix provides a strong source/test/reachability lead; independent behavioral review is still required before promotion."
     },
     {
       "canonicalId": "capability-atoms:context-compress-reversible",
@@ -3118,12 +3138,12 @@
         "scripts/mutation-war.mjs",
         "scripts/genesis-ontology-tick.mjs",
         "scripts/organism-foundations-doctor.mjs",
+        "src/genesis-evolution-engine.mjs",
         "src/memory-sovereignty.mjs",
         "src/capability-genome-runtime.mjs",
         "src/database-hygiene-maintenance.mjs",
         "src/frontier-capability-harvest.mjs",
-        "src/meta-rational-boundary.mjs",
-        "src/frontier-cognitive-fabric.mjs"
+        "src/meta-rational-boundary.mjs"
       ],
       "sourceModules": [],
       "focusedTests": [],
@@ -3142,12 +3162,12 @@
         "memory.recover-session"
       ],
       "class": "CAPABILITY_ATOM",
-      "priorState": "SPEC_ONLY",
-      "disposition": null,
-      "priorDisposition": "GENUINE_GAP",
-      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
-      "implementationProof": "metadata-only-or-no-behavioral-source-found",
-      "evidenceGrade": "UNPROVEN_CANDIDATE_NOT_PROOF_OF_ABSENCE",
+      "priorState": "VERIFIED_CURRENT",
+      "disposition": "VERIFIED_REUSE",
+      "priorDisposition": "VERIFIED_REUSE",
+      "auditStatus": "MATRIX_LEAD_REQUIRES_INDEPENDENT_REVIEW",
+      "implementationProof": "matrix-lead-requires-independent-behavioral-review",
+      "evidenceGrade": "MATRIX_LEAD_NOT_BEHAVIORAL_VERIFICATION",
       "absenceClaim": false,
       "repositorySearchMatches": [
         "scripts/sovereign-coverage-matrix.mjs",
@@ -3171,16 +3191,22 @@
         "src/frontier-capability-harvest.mjs",
         "src/wallbreaker-cognitive-reflex.mjs"
       ],
-      "sourceModules": [],
-      "focusedTests": [],
-      "reachability": "UNREACHABLE_OR_UNPROVEN",
+      "sourceModules": [
+        "src/lifetime-context-memory.mjs",
+        "src/uberbond-memory-reconciliation.mjs"
+      ],
+      "focusedTests": [
+        "tests/lifetime-context-memory.test.mjs",
+        "tests/uberbond-brain-context.test.mjs"
+      ],
+      "reachability": "PRODUCTION",
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "matchStrength": "NO_MATCH",
-      "matchScope": "NONE",
-      "matchedPhrase": null,
+      "matchStrength": "DECLARED_AND_VERIFIED",
+      "matchScope": "WHOLE_NAME",
+      "matchedPhrase": "memory.recover-session",
       "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME",
-      "rationale": "Capability atom is present in the taxonomy but metadata is not implementation; independent repository search is recorded."
+      "rationale": "Matrix provides a strong source/test/reachability lead; independent behavioral review is still required before promotion."
     },
     {
       "canonicalId": "capability-atoms:sandbox-run-test",
@@ -3188,12 +3214,12 @@
         "sandbox.run-test"
       ],
       "class": "CAPABILITY_ATOM",
-      "priorState": "SPEC_ONLY",
-      "disposition": null,
-      "priorDisposition": "GENUINE_GAP",
-      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
-      "implementationProof": "metadata-only-or-no-behavioral-source-found",
-      "evidenceGrade": "UNPROVEN_CANDIDATE_NOT_PROOF_OF_ABSENCE",
+      "priorState": "VERIFIED_CURRENT",
+      "disposition": "VERIFIED_REUSE",
+      "priorDisposition": "VERIFIED_REUSE",
+      "auditStatus": "MATRIX_LEAD_REQUIRES_INDEPENDENT_REVIEW",
+      "implementationProof": "matrix-lead-requires-independent-behavioral-review",
+      "evidenceGrade": "MATRIX_LEAD_NOT_BEHAVIORAL_VERIFICATION",
       "absenceClaim": false,
       "repositorySearchMatches": [
         "scripts/uberbond-self-maintainer-tick.mjs",
@@ -3211,22 +3237,28 @@
         "scripts/agent-mesh-tick.mjs",
         "scripts/github-relay-roundtrip.mjs",
         "scripts/visual-qa.mjs",
+        "src/genesis-evolution-engine.mjs",
         "src/paypal-sandbox-adapter.mjs",
         "src/frontier-cognitive-fabric.mjs",
         "src/agent-sandbox-verifier.mjs",
-        "src/uberbond-self-maintainer.mjs",
+        "src/uberbond-self-maintainer.mjs"
+      ],
+      "sourceModules": [
+        "src/agent-sandbox-verifier.mjs",
         "src/claude-code-sandbox-executor.mjs"
       ],
-      "sourceModules": [],
-      "focusedTests": [],
-      "reachability": "UNREACHABLE_OR_UNPROVEN",
+      "focusedTests": [
+        "tests/agent-sandbox-verifier.test.mjs",
+        "tests/claude-code-sandbox-provisioner.test.mjs"
+      ],
+      "reachability": "PRODUCTION",
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "matchStrength": "NO_MATCH",
-      "matchScope": "NONE",
-      "matchedPhrase": null,
+      "matchStrength": "DECLARED_AND_VERIFIED",
+      "matchScope": "WHOLE_NAME",
+      "matchedPhrase": "sandbox.run-test",
       "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME",
-      "rationale": "Capability atom is present in the taxonomy but metadata is not implementation; independent repository search is recorded."
+      "rationale": "Matrix provides a strong source/test/reachability lead; independent behavioral review is still required before promotion."
     },
     {
       "canonicalId": "capability-atoms:code-evaluate-generated",
@@ -3328,12 +3360,12 @@
         "capability.dedupe"
       ],
       "class": "CAPABILITY_ATOM",
-      "priorState": "SPEC_ONLY",
-      "disposition": null,
-      "priorDisposition": "GENUINE_GAP",
-      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
-      "implementationProof": "metadata-only-or-no-behavioral-source-found",
-      "evidenceGrade": "UNPROVEN_CANDIDATE_NOT_PROOF_OF_ABSENCE",
+      "priorState": "VERIFIED_CURRENT",
+      "disposition": "VERIFIED_REUSE",
+      "priorDisposition": "VERIFIED_REUSE",
+      "auditStatus": "MATRIX_LEAD_REQUIRES_INDEPENDENT_REVIEW",
+      "implementationProof": "matrix-lead-requires-independent-behavioral-review",
+      "evidenceGrade": "MATRIX_LEAD_NOT_BEHAVIORAL_VERIFICATION",
       "absenceClaim": false,
       "repositorySearchMatches": [
         "scripts/overnight-upgrade-plan.mjs",
@@ -3357,16 +3389,22 @@
         "scripts/uberbond-feature-genome.mjs",
         "scripts/capability-genome-normalize-bodies.mjs"
       ],
-      "sourceModules": [],
-      "focusedTests": [],
-      "reachability": "UNREACHABLE_OR_UNPROVEN",
+      "sourceModules": [
+        "src/capability-genome-admission.mjs",
+        "src/overnight/control/market-capability-registry.mjs"
+      ],
+      "focusedTests": [
+        "tests/capability-genome.test.mjs",
+        "tests/overnight-market-capability.test.mjs"
+      ],
+      "reachability": "PRODUCTION",
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "matchStrength": "NO_MATCH",
-      "matchScope": "NONE",
-      "matchedPhrase": null,
+      "matchStrength": "DECLARED_AND_VERIFIED",
+      "matchScope": "WHOLE_NAME",
+      "matchedPhrase": "capability.dedupe",
       "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME",
-      "rationale": "Capability atom is present in the taxonomy but metadata is not implementation; independent repository search is recorded."
+      "rationale": "Matrix provides a strong source/test/reachability lead; independent behavioral review is still required before promotion."
     },
     {
       "canonicalId": "capability-atoms:capability-security-admit",
@@ -3374,12 +3412,12 @@
         "capability.security-admit"
       ],
       "class": "CAPABILITY_ATOM",
-      "priorState": "SPEC_ONLY",
-      "disposition": null,
-      "priorDisposition": "GENUINE_GAP",
-      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
-      "implementationProof": "metadata-only-or-no-behavioral-source-found",
-      "evidenceGrade": "UNPROVEN_CANDIDATE_NOT_PROOF_OF_ABSENCE",
+      "priorState": "VERIFIED_CURRENT",
+      "disposition": "VERIFIED_REUSE",
+      "priorDisposition": "VERIFIED_REUSE",
+      "auditStatus": "MATRIX_LEAD_REQUIRES_INDEPENDENT_REVIEW",
+      "implementationProof": "matrix-lead-requires-independent-behavioral-review",
+      "evidenceGrade": "MATRIX_LEAD_NOT_BEHAVIORAL_VERIFICATION",
       "absenceClaim": false,
       "repositorySearchMatches": [
         "scripts/overnight-upgrade-plan.mjs",
@@ -3403,16 +3441,21 @@
         "scripts/uberbond-feature-genome.mjs",
         "scripts/capability-genome-normalize-bodies.mjs"
       ],
-      "sourceModules": [],
-      "focusedTests": [],
-      "reachability": "UNREACHABLE_OR_UNPROVEN",
+      "sourceModules": [
+        "src/capability-genome-admission.mjs"
+      ],
+      "focusedTests": [
+        "tests/capability-genome.test.mjs",
+        "tests/capability-genome-body-normalize.test.mjs"
+      ],
+      "reachability": "PRODUCTION",
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "matchStrength": "NO_MATCH",
-      "matchScope": "NONE",
-      "matchedPhrase": null,
+      "matchStrength": "DECLARED_AND_VERIFIED",
+      "matchScope": "WHOLE_NAME",
+      "matchedPhrase": "capability.security-admit",
       "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME",
-      "rationale": "Capability atom is present in the taxonomy but metadata is not implementation; independent repository search is recorded."
+      "rationale": "Matrix provides a strong source/test/reachability lead; independent behavioral review is still required before promotion."
     },
     {
       "canonicalId": "capability-atoms:capability-retrieve",
@@ -3420,12 +3463,12 @@
         "capability.retrieve"
       ],
       "class": "CAPABILITY_ATOM",
-      "priorState": "SPEC_ONLY",
-      "disposition": null,
-      "priorDisposition": "GENUINE_GAP",
-      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
-      "implementationProof": "metadata-only-or-no-behavioral-source-found",
-      "evidenceGrade": "UNPROVEN_CANDIDATE_NOT_PROOF_OF_ABSENCE",
+      "priorState": "VERIFIED_CURRENT",
+      "disposition": "VERIFIED_REUSE",
+      "priorDisposition": "VERIFIED_REUSE",
+      "auditStatus": "MATRIX_LEAD_REQUIRES_INDEPENDENT_REVIEW",
+      "implementationProof": "matrix-lead-requires-independent-behavioral-review",
+      "evidenceGrade": "MATRIX_LEAD_NOT_BEHAVIORAL_VERIFICATION",
       "absenceClaim": false,
       "repositorySearchMatches": [
         "scripts/overnight-upgrade-plan.mjs",
@@ -3449,16 +3492,21 @@
         "scripts/capability-genome-normalize-bodies.mjs",
         "scripts/capability-genome-harvest.mjs"
       ],
-      "sourceModules": [],
-      "focusedTests": [],
-      "reachability": "UNREACHABLE_OR_UNPROVEN",
+      "sourceModules": [
+        "src/capability-genome-runtime.mjs"
+      ],
+      "focusedTests": [
+        "tests/capability-genome.test.mjs",
+        "tests/capability-genome-body-normalize.test.mjs"
+      ],
+      "reachability": "PRODUCTION",
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "matchStrength": "NO_MATCH",
-      "matchScope": "NONE",
-      "matchedPhrase": null,
+      "matchStrength": "DECLARED_AND_VERIFIED",
+      "matchScope": "WHOLE_NAME",
+      "matchedPhrase": "capability.retrieve",
       "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME",
-      "rationale": "Capability atom is present in the taxonomy but metadata is not implementation; independent repository search is recorded."
+      "rationale": "Matrix provides a strong source/test/reachability lead; independent behavioral review is still required before promotion."
     },
     {
       "canonicalId": "capability-atoms:capability-benchmark",
@@ -3466,12 +3514,12 @@
         "capability.benchmark"
       ],
       "class": "CAPABILITY_ATOM",
-      "priorState": "SPEC_ONLY",
-      "disposition": null,
-      "priorDisposition": "GENUINE_GAP",
-      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
-      "implementationProof": "metadata-only-or-no-behavioral-source-found",
-      "evidenceGrade": "UNPROVEN_CANDIDATE_NOT_PROOF_OF_ABSENCE",
+      "priorState": "VERIFIED_CURRENT",
+      "disposition": "VERIFIED_REUSE",
+      "priorDisposition": "VERIFIED_REUSE",
+      "auditStatus": "MATRIX_LEAD_REQUIRES_INDEPENDENT_REVIEW",
+      "implementationProof": "matrix-lead-requires-independent-behavioral-review",
+      "evidenceGrade": "MATRIX_LEAD_NOT_BEHAVIORAL_VERIFICATION",
       "absenceClaim": false,
       "repositorySearchMatches": [
         "scripts/overnight-upgrade-plan.mjs",
@@ -3495,16 +3543,20 @@
         "scripts/agent-model-route.mjs",
         "scripts/capability-genome-normalize-bodies.mjs"
       ],
-      "sourceModules": [],
-      "focusedTests": [],
-      "reachability": "UNREACHABLE_OR_UNPROVEN",
+      "sourceModules": [
+        "src/capability-genome-runtime.mjs"
+      ],
+      "focusedTests": [
+        "tests/capability-genome.test.mjs"
+      ],
+      "reachability": "PRODUCTION",
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "matchStrength": "NO_MATCH",
-      "matchScope": "NONE",
-      "matchedPhrase": null,
+      "matchStrength": "DECLARED_AND_VERIFIED",
+      "matchScope": "WHOLE_NAME",
+      "matchedPhrase": "capability.benchmark",
       "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME",
-      "rationale": "Capability atom is present in the taxonomy but metadata is not implementation; independent repository search is recorded."
+      "rationale": "Matrix provides a strong source/test/reachability lead; independent behavioral review is still required before promotion."
     },
     {
       "canonicalId": "capability-atoms:capability-revoke",
@@ -3512,12 +3564,12 @@
         "capability.revoke"
       ],
       "class": "CAPABILITY_ATOM",
-      "priorState": "SPEC_ONLY",
-      "disposition": null,
-      "priorDisposition": "GENUINE_GAP",
-      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
-      "implementationProof": "metadata-only-or-no-behavioral-source-found",
-      "evidenceGrade": "UNPROVEN_CANDIDATE_NOT_PROOF_OF_ABSENCE",
+      "priorState": "VERIFIED_CURRENT",
+      "disposition": "VERIFIED_REUSE",
+      "priorDisposition": "VERIFIED_REUSE",
+      "auditStatus": "MATRIX_LEAD_REQUIRES_INDEPENDENT_REVIEW",
+      "implementationProof": "matrix-lead-requires-independent-behavioral-review",
+      "evidenceGrade": "MATRIX_LEAD_NOT_BEHAVIORAL_VERIFICATION",
       "absenceClaim": false,
       "repositorySearchMatches": [
         "scripts/overnight-upgrade-plan.mjs",
@@ -3541,16 +3593,22 @@
         "scripts/uberbond-feature-genome.mjs",
         "scripts/capability-genome-normalize-bodies.mjs"
       ],
-      "sourceModules": [],
-      "focusedTests": [],
-      "reachability": "UNREACHABLE_OR_UNPROVEN",
+      "sourceModules": [
+        "src/capability-genome-admission.mjs",
+        "src/capability-genome-runtime.mjs"
+      ],
+      "focusedTests": [
+        "tests/capability-genome.test.mjs",
+        "tests/capability-genome-execution-admission.test.mjs"
+      ],
+      "reachability": "PRODUCTION",
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "matchStrength": "NO_MATCH",
-      "matchScope": "NONE",
-      "matchedPhrase": null,
+      "matchStrength": "DECLARED_AND_VERIFIED",
+      "matchScope": "WHOLE_NAME",
+      "matchedPhrase": "capability.revoke",
       "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME",
-      "rationale": "Capability atom is present in the taxonomy but metadata is not implementation; independent repository search is recorded."
+      "rationale": "Matrix provides a strong source/test/reachability lead; independent behavioral review is still required before promotion."
     }
   ]
 }

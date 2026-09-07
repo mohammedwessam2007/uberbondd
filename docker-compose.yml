@@ -1,6 +1,7 @@
 services:
   postgres:
     image: postgres:16-alpine
+    restart: unless-stopped
     environment:
       POSTGRES_DB: uberbond
       POSTGRES_USER: uberbond
@@ -28,6 +29,9 @@ services:
 
   web:
     build: .
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 15s
     command: ["node", "portable-server.mjs"]
     environment:
       NODE_ENV: production
@@ -39,6 +43,9 @@ services:
       DATABASE_SSL: "false"
       ADMIN_TOKEN: ${ADMIN_TOKEN:?set ADMIN_TOKEN}
       TOKEN_ENCRYPTION_KEY: ${TOKEN_ENCRYPTION_KEY:?set TOKEN_ENCRYPTION_KEY}
+      PAYPAL_SANDBOX_CLIENT_ID: ${PAYPAL_SANDBOX_CLIENT_ID:-}
+      PAYPAL_SANDBOX_CLIENT_SECRET: ${PAYPAL_SANDBOX_CLIENT_SECRET:-}
+      PAYPAL_SANDBOX_WEBHOOK_ID: ${PAYPAL_SANDBOX_WEBHOOK_ID:-}
     ports:
       - "${PORT:-8080}:8080"
     depends_on:
@@ -52,6 +59,9 @@ services:
 
   worker:
     build: .
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 30s
     command: ["node", "worker.mjs"]
     environment:
       NODE_ENV: production

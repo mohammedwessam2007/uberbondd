@@ -2,7 +2,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildUberBondRepositoryDeepAtlas } from '../src/uberbond-repository-deep-atlas.mjs';
+import { buildUberBondRepositoryDeepAtlas } from '../src/uberbond-repository-deep-atlas-bounded.mjs';
 import { redactSecrets } from '../src/secret-patterns.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -39,6 +39,7 @@ process.stdout.write(`${JSON.stringify({
   artifactOnlyFiles: result.artifactOnlyFileCount,
   deepFeatures: result.deepFeatureCount,
   classCounts: result.classCounts,
+  structurallyBoundedFiles: (result.structuralDetailBoundedFiles || []).length,
   truncatedFiles: result.truncatedFiles.length,
   output,
   businessEffectAuthority: 'NONE'

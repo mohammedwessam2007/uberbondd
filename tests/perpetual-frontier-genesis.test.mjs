@@ -26,11 +26,14 @@ test('GENESIS registry preserves exactly 275 sequential unique ideas', async () 
   assert.equal(result.ideas.at(-1).name, 'UBERBOND ONTOGENESIS');
 });
 
-test('bootstrap remains schema-compatible and makes Perpetual Frontier mandatory startup memory', async () => {
+test('bootstrap remains schema-compatible and makes Perpetual Frontier plus the life North Star mandatory startup memory', async () => {
   const bootstrap = JSON.parse(await readFile(bootstrapUrl, 'utf8'));
   const validated = validateUberBondBootstrap(bootstrap);
   assert.equal(validated.ok, true, JSON.stringify(validated.reasonCodes));
-  assert.equal(bootstrap.schemaVersion, 'uberbond-bootstrap-1.1.0');
+  assert.equal(bootstrap.schemaVersion, 'uberbond-bootstrap-1.2.0');
+  assert.ok(bootstrap.canonPointers.includes('NORTH_STAR.md'));
+  assert.ok(bootstrap.canonPointers.includes('docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md'));
+  assert.ok(bootstrap.canonPointers.includes('artifacts/personal-civilization-engine-north-star.json'));
   assert.ok(bootstrap.canonPointers.includes('docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md'));
   assert.ok(bootstrap.canonPointers.includes('docs/PERPETUAL_FRONTIER_GENESIS_CANON.md'));
   assert.ok(bootstrap.canonPointers.includes('artifacts/perpetual-frontier-genesis.json'));
@@ -87,10 +90,7 @@ test('unknown-unknown agenda preserves anomalies, contradictions, blind spots an
 });
 
 test('frontier latency rejects time travel and reports only observed stages', () => {
-  const invalid = buildFrontierLatencyReceipt({
-    t0: '2026-09-03T10:00:00Z',
-    t1: '2026-09-03T09:00:00Z'
-  });
+  const invalid = buildFrontierLatencyReceipt({ t0: '2026-09-03T10:00:00Z', t1: '2026-09-03T09:00:00Z' });
   assert.equal(invalid.ok, false);
   assert.ok(invalid.reasonCodes.includes('non-monotonic-t1'));
 
@@ -117,10 +117,7 @@ test('GENESIS cycle remains an internal proposal even when all planning lanes ar
     contradictions: [],
     blindSpots: ['real buyer willingness unknown'],
     disagreements: ['economic upside disputed'],
-    timestamps: {
-      t0: '2026-09-03T10:00:00Z',
-      t1: '2026-09-03T10:02:00Z'
-    }
+    timestamps: { t0: '2026-09-03T10:00:00Z', t1: '2026-09-03T10:02:00Z' }
   });
   assert.equal(result.ok, true);
   assert.equal(result.status, 'GENESIS_CYCLE_PLAN_READY');

@@ -11,21 +11,24 @@ if (!inputPath || !fs.existsSync(inputPath)) {
 const primary = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
 const baseRevision = String(primary.baseRevision || process.env.GITHUB_SHA || '');
 const taskId = String(primary.taskId || `uberbond_self_maintain_${baseRevision.slice(0, 24)}`);
+const reasonCodes = Array.isArray(primary.reasonCodes) ? primary.reasonCodes.map(String) : [];
 const evidenceRefs = [
   `self-maintainer-status:${String(primary.status || 'UNKNOWN')}`,
-  ...(Array.isArray(primary.reasonCodes) ? primary.reasonCodes.map(code => `reason:${code}`) : [])
+  ...reasonCodes.map(code => `reason:${code}`)
 ];
 
 const receipt = decideSelfMaintainerContinuation({
   taskId,
   baseRevision,
   relayStatus: primary.status,
+  reasonCodes,
   evidenceRefs
 });
 
 process.stdout.write(`${JSON.stringify({
   schemaVersion: 'uberbond.self-maintainer-continuation-receipt.v1',
   observedPrimaryStatus: primary.status || null,
+  observedReasonCodes: reasonCodes,
   observedTaskId: primary.taskId || null,
   observedIssueNumber: primary.issueNumber || null,
   continuation: receipt,

@@ -1762,6 +1762,18 @@
         "tests/embodied-reality.test.mjs"
       ],
       "note": "Private human texture, explicitly excluded from every optimization input, so continuity of personhood does not depend on the measurable parts of a life. EMBODY-07."
+    },
+    {
+      "concept": "runtime-aware reachability",
+      "lane": "OMEGA-14",
+      "sources": [
+        "scripts/system-readiness.mjs",
+        "scripts/reachability-report.mjs"
+      ],
+      "tests": [
+        "tests/reachability-ratchet.test.mjs"
+      ],
+      "note": "measureReachability and reachableFromEntryPoints compute live import-graph partitions; ratchet tests classify every unreachable module and reject stale/unclassified entries. Structural reachability only; no provider activation or outcome claim."
     }
   ]
 }

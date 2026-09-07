@@ -596,6 +596,380 @@
         "tests/salience-sovereignty.test.mjs"
       ],
       "note": "The same organ from the system's side: it audits its own influence through the salience ledger and the drift question rather than asserting it has none."
+    },
+    {
+      "concept": "Universal Ignorance Map",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "tests": [
+        "tests/epistemic-immune-system.test.mjs"
+      ],
+      "note": "mapClaim gives ignorance a type, and an unstated state resolves to UNKNOWN rather than upward. searchedFor separates 'we looked and found nothing' from 'nobody looked'. EPIST-01."
+    },
+    {
+      "concept": "Epistemic Immune System",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "tests": [
+        "tests/epistemic-immune-system.test.mjs"
+      ],
+      "note": "attackConclusion reports the attacks that ran, not a clean bill. An unattacked conclusion reads UNCHALLENGED, because reporting it as passing is the lie."
+    },
+    {
+      "concept": "Knightian Uncertainty Model",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "tests": [
+        "tests/epistemic-immune-system.test.mjs"
+      ],
+      "note": "Four classes with different correct responses. Treating deep uncertainty as risk licenses optimization over a state space nobody established. EPIST-03."
+    },
+    {
+      "concept": "Causal Intervention Ladder",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "tests": [
+        "tests/epistemic-immune-system.test.mjs"
+      ],
+      "note": "causalClaim refuses an intervention claim from an observational rung -- the most consequential silent upgrade in applied reasoning. EPIST-02."
+    },
+    {
+      "concept": "Counterfactual Evidence Engine",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "tests": [
+        "tests/epistemic-immune-system.test.mjs"
+      ],
+      "note": "The same ladder read the other way: an association says what goes together, only an intervention says what happens when you change it."
+    },
+    {
+      "concept": "Model Ecology",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "tests": [
+        "tests/epistemic-immune-system.test.mjs"
+      ],
+      "note": "modelEcology counts distinct methods, not models. Five models sharing a method are one epistemic position and their agreement is the method agreeing with itself. EPIST-04."
+    },
+    {
+      "concept": "Epistemic Biodiversity",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "tests": [
+        "tests/epistemic-immune-system.test.mjs"
+      ],
+      "note": "The monoculture flag: many models, one way of being wrong."
+    },
+    {
+      "concept": "Reality Veto",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "tests": [
+        "tests/epistemic-immune-system.test.mjs"
+      ],
+      "note": "internalSupportOffsetsObservation is permanently false. Three internal supports against one observation still means the model revises. EPIST-05."
+    },
+    {
+      "concept": "Reality Independence Principle",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "tests": [
+        "tests/epistemic-immune-system.test.mjs"
+      ],
+      "note": "No contradiction yet is reported as not-confirmation, so absence of refutation cannot accumulate into belief."
+    },
+    {
+      "concept": "Abstraction Debt",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "tests": [
+        "tests/epistemic-immune-system.test.mjs"
+      ],
+      "note": "abstractionDebt names what a compression dropped and sends the decision back to the original when it dropped something decisive. EPIST-06."
+    },
+    {
+      "concept": "Reflexivity Engine",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "tests": [
+        "tests/epistemic-immune-system.test.mjs"
+      ],
+      "note": "Records when stating a forecast changes what it forecasts, so the forecast and the act of making it are not treated as separable."
+    },
+    {
+      "concept": "Surprise Engine",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "tests": [
+        "tests/epistemic-immune-system.test.mjs"
+      ],
+      "note": "Repeated surprise in one area is reported as a broken model, a missing variable or a regime change -- never as noise. EPIST-07."
+    },
+    {
+      "concept": "Computational Irreducibility Awareness",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "tests": [
+        "tests/epistemic-immune-system.test.mjs"
+      ],
+      "note": "With no known shortcut and no validated simulation the answer is that reality must compute it, which prevents a precise forecast for a system that admits none. EPIST-08."
+    },
+    {
+      "concept": "Memory Sovereignty",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/memory-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/memory-sovereignty.test.mjs"
+      ],
+      "note": "Five layers, of which only two may inform an inference. Opacity is enforced where inference happens rather than promised in a policy. MEMSOV-01/02."
+    },
+    {
+      "concept": "Strategic Forgetting",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/memory-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/memory-sovereignty.test.mjs"
+      ],
+      "note": "forgetFromUse keeps the record and drops its claim on the present: deleting loses the history that makes a change of mind legible, keeping it active lets the past keep voting."
+    },
+    {
+      "concept": "Rediscovery",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/memory-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/memory-sovereignty.test.mjs"
+      ],
+      "note": "Requires a named trigger, and an opaque record can never be rediscovered back into inference -- the obvious route around opacity. MEMSOV-03."
+    },
+    {
+      "concept": "Cognitive Opacity",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/memory-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/memory-sovereignty.test.mjs"
+      ],
+      "note": "doNotInfer survives promotion between layers. Without that any later process could move an opaque record into the active model and the mark would evaporate."
+    },
+    {
+      "concept": "Right to Remain Unmodeled",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/memory-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/memory-sovereignty.test.mjs"
+      ],
+      "note": "The same right stated from the person's side; retained bytes and modelled state are different things here."
+    },
+    {
+      "concept": "Epistemic Sovereignty",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/memory-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/memory-sovereignty.test.mjs"
+      ],
+      "note": "disclosure honours a standing request not to know and keeps researching privately. Truth is not automatically a gift. MEMSOV-04."
+    },
+    {
+      "concept": "Right Not to Know",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/memory-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/memory-sovereignty.test.mjs"
+      ],
+      "note": "WITHHELD_BY_STANDING_REQUEST, and anything that cannot be unlearned is offered rather than handed over."
+    },
+    {
+      "concept": "Right to Know",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/memory-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/memory-sovereignty.test.mjs"
+      ],
+      "note": "The same function's other branch: asked means told."
+    },
+    {
+      "concept": "Information Hazard Layer",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/memory-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/memory-sovereignty.test.mjs"
+      ],
+      "note": "Five hazard classes independent of whether the information is true, including irreversible-once-learned, which changes the disclosure path."
+    },
+    {
+      "concept": "No-UberBond View",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/memory-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/memory-sovereignty.test.mjs"
+      ],
+      "note": "A prior captured after the recommendation is refused as contaminated: it is a reaction to the framing, not an independent view. MEMSOV-06."
+    },
+    {
+      "concept": "Posthumous Sovereignty",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/memory-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/memory-sovereignty.test.mjs"
+      ],
+      "note": "UNDECIDED is the default and the system never resolves it. An accumulated life does not become someone's dataset by default. MEMSOV-05."
+    },
+    {
+      "concept": "Century-Grade Continuity",
+      "lane": "OMEGA-06",
+      "sources": [
+        "src/memory-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/memory-sovereignty.test.mjs"
+      ],
+      "note": "continuityPosture flags records readable only through a running service -- an expiry date nobody wrote down."
+    },
+    {
+      "concept": "Personal Reality Compiler",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/intent-compiler.mjs"
+      ],
+      "tests": [
+        "tests/intent-compiler.test.mjs"
+      ],
+      "note": "compileIntent walks will to permissions and stops where its inputs run out, naming the stage. A plan that silently assumed a permission is the failure. INTENT-01."
+    },
+    {
+      "concept": "Intent Compiler",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/intent-compiler.mjs"
+      ],
+      "tests": [
+        "tests/intent-compiler.test.mjs"
+      ],
+      "note": "Reaching PERMISSIONS means an authority was presented, not that the module may act; businessEffectAuthority stays NONE on a ready plan. INTENT-02."
+    },
+    {
+      "concept": "Consequence Ledger",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/intent-compiler.mjs"
+      ],
+      "tests": [
+        "tests/intent-compiler.test.mjs"
+      ],
+      "note": "Predicted against observed, with the unpredicted column preserved -- a ledger holding only what was intended is a record of hopes. INTENT-03."
+    },
+    {
+      "concept": "Externality Map",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/intent-compiler.mjs"
+      ],
+      "tests": [
+        "tests/intent-compiler.test.mjs"
+      ],
+      "note": "Names who a decision lands on, which effects lack recorded consent, and which are irreversible on other people. What is owed to them is not a computation. INTENT-04."
+    },
+    {
+      "concept": "Non-Action Engine",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/intent-compiler.mjs"
+      ],
+      "tests": [
+        "tests/intent-compiler.test.mjs"
+      ],
+      "note": "Waiting is priced as an option with a deadline rather than treated as the absence of one."
+    },
+    {
+      "concept": "Intertemporal Sovereignty",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/intent-compiler.mjs"
+      ],
+      "tests": [
+        "tests/intent-compiler.test.mjs"
+      ],
+      "note": "Distinguishes a chosen commitment from an accumulated constraint. Both close futures; only one was decided, and conflating them lets a life narrow with nobody noticing. INTENT-05."
+    },
+    {
+      "concept": "Irreversibility Atlas",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/intent-compiler.mjs"
+      ],
+      "tests": [
+        "tests/intent-compiler.test.mjs"
+      ],
+      "note": "Five reversibility classes carried through lock-in and externality analysis, with the last two treated as absorbing."
+    },
+    {
+      "concept": "Constitution of Becoming",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/intent-compiler.mjs"
+      ],
+      "tests": [
+        "tests/intent-compiler.test.mjs"
+      ],
+      "note": "freedomToBecome asks whether a decision forecloses becoming someone the present self cannot imagine, and asks rather than scores because an unimagined identity cannot be counted."
+    },
+    {
+      "concept": "Freedom to Become",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/intent-compiler.mjs"
+      ],
+      "tests": [
+        "tests/intent-compiler.test.mjs"
+      ],
+      "note": "The same organ under its canon name."
     }
   ]
 }

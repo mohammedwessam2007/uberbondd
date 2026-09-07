@@ -312,6 +312,106 @@
         "tests/life-decision-dimensions.test.mjs"
       ],
       "note": "relationships_and_community is a dimension that is reported and never summed into a total, so no weighting can trade it against anything. LIFEDIM-01/03."
+    },
+    {
+      "concept": "payment link cannot create cleared payment",
+      "sources": [
+        "src/proposal-acceptance-engine.mjs"
+      ],
+      "tests": [
+        "tests/proposal-acceptance-engine.test.mjs"
+      ],
+      "note": "externallyOriginatedPayment requires a provider-origin reference and rejects one carrying a sandbox, synthetic, fixture, fake or test marker. PROPOSAL-01/02."
+    },
+    {
+      "concept": "sandbox events cannot create real revenue",
+      "sources": [
+        "src/proposal-acceptance-engine.mjs"
+      ],
+      "tests": [
+        "tests/proposal-acceptance-engine.test.mjs"
+      ],
+      "note": "The same regex: a sandbox-marked reference is not external payment evidence, so it cannot clear the eligibility gate. PROPOSAL-02."
+    },
+    {
+      "concept": "cleared payment outranks simulation",
+      "sources": [
+        "src/proposal-acceptance-engine.mjs"
+      ],
+      "tests": [
+        "tests/proposal-acceptance-engine.test.mjs"
+      ],
+      "note": "Eligibility blocks on external-payment-evidence-required; no internally generated signal satisfies it. PROPOSAL-01."
+    },
+    {
+      "concept": "silence cannot create customer acceptance",
+      "sources": [
+        "src/proposal-acceptance-engine.mjs"
+      ],
+      "tests": [
+        "tests/proposal-acceptance-engine.test.mjs"
+      ],
+      "note": "Acceptance requires positive external evidence. An absent response leaves the blocker in place rather than resolving it."
+    },
+    {
+      "concept": "OWNER_RECALLED_UNRESOLVED",
+      "sources": [
+        "src/uberbond-brain-context.mjs"
+      ],
+      "tests": [
+        "tests/uberbond-brain-bootstrap.test.mjs"
+      ],
+      "note": "A closed memory-status vocabulary, with unresolved owner-recalled names required to carry a required action and to stay visible rather than being quietly dropped. BRAIN-SCHEMA-01/02."
+    },
+    {
+      "concept": "CHAT_SPEC_GOAL",
+      "sources": [
+        "src/uberbond-brain-context.mjs"
+      ],
+      "tests": [
+        "tests/uberbond-brain-bootstrap.test.mjs"
+      ],
+      "note": "Part of the same closed status set: a chat-only goal keeps its own truth class and cannot be normalized into a current program."
+    },
+    {
+      "concept": "superseded implementation does not erase donated goals",
+      "sources": [
+        "src/sovereign-coverage-matrix.mjs"
+      ],
+      "tests": [
+        "tests/sovereign-coverage-matrix.test.mjs"
+      ],
+      "note": "HISTORICAL_DONOR_PRESERVED keeps lineage discoverable, and the compiler refuses to emit a matrix that dropped any extracted concept. TERMSTATE-01."
+    },
+    {
+      "concept": "Never delete a named historical initiative from memory merely because its branch or implementation was superseded. Preserve what it donated and what replaced it.",
+      "sources": [
+        "src/sovereign-coverage-matrix.mjs"
+      ],
+      "tests": [
+        "tests/sovereign-coverage-matrix.test.mjs"
+      ],
+      "note": "The no-drop compiler accounts for every extracted concept as a row or an alias merge and fails closed on a mismatch."
+    },
+    {
+      "concept": "contradictions are preserved",
+      "sources": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "tests": [
+        "tests/epistemic-immune-system.test.mjs"
+      ],
+      "note": "attackConclusion keeps failed attacks alongside survived ones, modelEcology keeps competing methods, and realityVeto records internal support beside the observation that contradicts it rather than resolving them."
+    },
+    {
+      "concept": "client data is not automatically reusable",
+      "sources": [
+        "src/memory-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/memory-sovereignty.test.mjs"
+      ],
+      "note": "Layer-gated inference: only ACTIVE_MODEL and SEMANTIC may inform an inference, and a do-not-infer mark survives promotion between layers. MEMSOV-01/02."
     }
   ]
 }

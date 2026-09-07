@@ -1883,6 +1883,145 @@ export const MUTATIONS = [
     replace: '  if (false) {',
     suites: ['tests/salience-sovereignty.test.mjs']
   },
+  // ---- What is known, what is not, and which the system can tell apart ---
+  {
+    id: 'EPIST-01', guard: 'An unstated knowledge state resolves to UNKNOWN, never upward',
+    file: 'src/epistemic-immune-system.mjs',
+    find: "  const state = KNOWLEDGE_STATES.includes(input?.state) ? input.state : 'UNKNOWN';",
+    replace: "  const state = KNOWLEDGE_STATES.includes(input?.state) ? input.state : 'SUPPORTED_INFERENCE';",
+    suites: ['tests/epistemic-immune-system.test.mjs']
+  },
+  {
+    // The most consequential silent upgrade in applied reasoning.
+    id: 'EPIST-02', guard: 'An intervention claim requires an intervention rung',
+    file: 'src/epistemic-immune-system.mjs',
+    find: '  if (interventionClaimed && observationalOnly) {',
+    replace: '  if (false) {',
+    suites: ['tests/epistemic-immune-system.test.mjs']
+  },
+  {
+    id: 'EPIST-03', guard: 'Unknown variables make it ignorance, not risk',
+    file: 'src/epistemic-immune-system.mjs',
+    find: "  const uncertaintyClass = !variablesKnown ? 'IGNORANCE'",
+    replace: "  const uncertaintyClass = false ? 'IGNORANCE'",
+    suites: ['tests/epistemic-immune-system.test.mjs']
+  },
+  {
+    id: 'EPIST-04', guard: 'Many models sharing a method are one epistemic position',
+    file: 'src/epistemic-immune-system.mjs',
+    find: '    monoculture: rows.length > 1 && methods.size === 1,',
+    replace: '    monoculture: false,',
+    suites: ['tests/epistemic-immune-system.test.mjs']
+  },
+  {
+    id: 'EPIST-05', guard: 'Internal support never offsets an observation',
+    file: 'src/epistemic-immune-system.mjs',
+    find: '    internalSupportOffsetsObservation: false,',
+    replace: '    internalSupportOffsetsObservation: support.length > contradictions,',
+    suites: ['tests/epistemic-immune-system.test.mjs']
+  },
+  {
+    id: 'EPIST-06', guard: 'A compression dropping what the decision turns on sends you back',
+    file: 'src/epistemic-immune-system.mjs',
+    find: '  const decisive = lost.filter(item => needed.includes(item));',
+    replace: '  const decisive = [];',
+    suites: ['tests/epistemic-immune-system.test.mjs']
+  },
+  {
+    id: 'EPIST-07', guard: 'Repeated surprise in one area is a broken model, not noise',
+    file: 'src/epistemic-immune-system.mjs',
+    find: '  const persistent = [...byArea.entries()].filter(([, count]) => count >= 3).map(([area, count]) => ({ area, count }));',
+    replace: '  const persistent = [];',
+    suites: ['tests/epistemic-immune-system.test.mjs']
+  },
+  {
+    id: 'EPIST-08', guard: 'No shortcut and no validated simulation means reality must compute it',
+    file: 'src/epistemic-immune-system.mjs',
+    find: '  if (!shortcutKnown && !simulationValidated) {',
+    replace: '  if (false) {',
+    suites: ['tests/epistemic-immune-system.test.mjs']
+  },
+  // ---- What is remembered, what is modelled, what is nobody's business ---
+  {
+    // "We have the data but do not infer from it" is a promise no store keeps
+    // by accident.
+    id: 'MEMSOV-01', guard: 'An opaque record cannot sit in an inferable layer',
+    file: 'src/memory-sovereignty.mjs',
+    find: '  if (doNotInfer && INFERABLE_LAYERS.includes(layer)) {',
+    replace: '  if (false) {',
+    suites: ['tests/memory-sovereignty.test.mjs']
+  },
+  {
+    id: 'MEMSOV-02', guard: 'The do-not-infer mark wins over the layer',
+    file: 'src/memory-sovereignty.mjs',
+    find: '  if (record.doNotInfer === true) return false;',
+    replace: '',
+    suites: ['tests/memory-sovereignty.test.mjs']
+  },
+  {
+    id: 'MEMSOV-03', guard: 'An opaque record cannot be rediscovered into inference',
+    file: 'src/memory-sovereignty.mjs',
+    find: '  if (record.doNotInfer === true) {\n    return fail(\'REDISCOVERY_REFUSED\'',
+    replace: '  if (false) {\n    return fail(\'REDISCOVERY_REFUSED\'',
+    suites: ['tests/memory-sovereignty.test.mjs']
+  },
+  {
+    id: 'MEMSOV-04', guard: 'A standing request not to know is honoured',
+    file: 'src/memory-sovereignty.mjs',
+    find: '  if (founderAsked === false) {',
+    replace: '  if (false) {',
+    suites: ['tests/memory-sovereignty.test.mjs']
+  },
+  {
+    id: 'MEMSOV-05', guard: 'Only the founder decides what becomes of an accumulated life',
+    file: 'src/memory-sovereignty.mjs',
+    find: "  if (chosen !== 'UNDECIDED' && !statedByFounder) {",
+    replace: '  if (false) {',
+    suites: ['tests/memory-sovereignty.test.mjs']
+  },
+  {
+    id: 'MEMSOV-06', guard: 'A prior captured after the recommendation is contaminated',
+    file: 'src/memory-sovereignty.mjs',
+    find: '  if (!capturedBeforeRecommendation) {',
+    replace: '  if (false) {',
+    suites: ['tests/memory-sovereignty.test.mjs']
+  },
+  // ---- From a choice to something that happened, and back ----------------
+  {
+    id: 'INTENT-01', guard: 'Compilation stops at permissions without authority',
+    file: 'src/intent-compiler.mjs',
+    find: "    if (!permitted) blockers.push('no-authority');",
+    replace: '    if (false) blockers.push(\'no-authority\');',
+    suites: ['tests/intent-compiler.test.mjs']
+  },
+  {
+    id: 'INTENT-02', guard: 'A ready plan still carries no business effect authority',
+    file: 'src/intent-compiler.mjs',
+    find: "    businessEffectAuthority: 'NONE',\n    boundary: 'REACHING PERMISSIONS MEANS AN AUTHORITY WAS PRESENTED",
+    replace: "    businessEffectAuthority: permitted ? 'DELEGATED' : 'NONE',\n    boundary: 'REACHING PERMISSIONS MEANS AN AUTHORITY WAS PRESENTED",
+    suites: ['tests/intent-compiler.test.mjs']
+  },
+  {
+    id: 'INTENT-03', guard: 'The unpredicted consequence column is preserved',
+    file: 'src/intent-compiler.mjs',
+    find: '  const unpredicted = actual.filter(item => !forecast.includes(item));',
+    replace: '  const unpredicted = [];',
+    suites: ['tests/intent-compiler.test.mjs']
+  },
+  {
+    id: 'INTENT-04', guard: 'Effects on others without recorded consent are named',
+    file: 'src/intent-compiler.mjs',
+    find: '  const withoutConsent = onOthers.filter(row => !row.consented);',
+    replace: '  const withoutConsent = [];',
+    suites: ['tests/intent-compiler.test.mjs']
+  },
+  {
+    id: 'INTENT-05', guard: 'An accumulated constraint is told apart from a chosen commitment',
+    file: 'src/intent-compiler.mjs',
+    find: "    status: absorbing && !chosenDeliberately ? 'ACCIDENTAL_SELF_CAPTURE' : 'LOCK_IN_RECORDED',",
+    replace: "    status: 'LOCK_IN_RECORDED',",
+    suites: ['tests/intent-compiler.test.mjs']
+  },
   // ---- The private core: the one data class that is not the company's -----
   {
     id: 'PCIV-01', guard: 'A repository path is refused as a destination for private life data',

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "uberbond-sovereign-cognitive-continuum-bootstrap-overlay-1.0.0",
+  "schemaVersion": "uberbond-sovereign-cognitive-continuum-bootstrap-overlay-1.1.0",
   "status": "TERMINAL_NORTH_STAR_PRECEDENCE_OVERLAY",
   "appliesToBootstrapSchemas": [
     "uberbond-bootstrap-1.2.0"
@@ -10,6 +10,7 @@
     "SOVEREIGN_SELF",
     "WILL_KERNEL",
     "SOVEREIGN_COGNITIVE_CONTINUUM",
+    "OPTION_UNIVERSE_AND_OUTCOME_FORECAST_ENGINE",
     "PERSONAL_SINGULARITY",
     "PERSONAL_CIVILIZATION_ENGINE",
     "LIFE_SYSTEMS",
@@ -20,11 +21,48 @@
     "NORTH_STAR.md",
     "docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md",
     "artifacts/sovereign-cognitive-continuum-north-star.json",
+    "docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md",
+    "artifacts/sovereign-option-outcome-forecast-engine.json",
     "docs/NORTH_STAR_PRECEDENCE.md",
     "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
     "artifacts/personal-civilization-engine-north-star.json"
   ],
   "supersessionRule": "Any older bootstrap, canon, agent, memory, or documentation wording that calls the Personal Civilization Engine the highest-level or terminal North Star is interpreted as the highest contained life-system layer beneath the Sovereign Cognitive Continuum.",
+  "decisionPredictionLaw": {
+    "required": true,
+    "optionGeneration": "Generate materially distinct options including non-obvious, reversible, staged, delayed, status-quo, exit, capability-building, hybrid and GENESIS/Ontogenesis-created options where relevant.",
+    "predictionTarget": "Strongest calibrated evidence-bound outcome forecasts physically achievable, never confidence theater.",
+    "requiredForecastMethods": [
+      "reference_classes_and_base_rates",
+      "causal_models",
+      "personal_longitudinal_evidence_when_relevant_and_consented",
+      "fresh_current_world_evidence",
+      "independent_forecast_ensemble",
+      "adversarial_forecasting",
+      "scenario_trees",
+      "hindcasting_and_backtesting",
+      "calibration_history",
+      "online_updating"
+    ],
+    "requiredOutputs": [
+      "outcome_distributions",
+      "best_median_worst_plausible_paths",
+      "tail_risks",
+      "time_to_feedback",
+      "irreversibility",
+      "expected_regret",
+      "option_value",
+      "opportunity_cost",
+      "key_sensitivities",
+      "uncertainty_decomposition",
+      "unknown_unknowns",
+      "highest_value_information_or_experiment",
+      "recommendation_update_conditions"
+    ],
+    "calibrationLedgerRequired": true,
+    "unknownPreferredToFabricatedPrecision": true,
+    "predictionCreatesAuthority": false
+  },
   "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
   "authorityLaws": [
     "Mohamed remains the sovereign source of choice",
@@ -41,8 +79,9 @@
     "implementedClaim": false,
     "superintelligenceClaim": false,
     "omniscienceClaim": false,
+    "perfectPredictionClaim": false,
     "lifeOutcomeProofClaim": false,
     "authorityExpansion": false,
-    "note": "This overlay changes terminal objective precedence only. It does not delete or weaken existing bootstrap capabilities, proof gates, memory, economic systems, engineering constraints, consequence controls, or external truth boundaries."
+    "note": "This overlay changes terminal objective precedence and requires option/outcome forecasting as a North Star organ. It does not delete or weaken existing bootstrap capabilities, proof gates, memory, economic systems, engineering constraints, consequence controls, or external truth boundaries."
   }
 }

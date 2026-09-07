@@ -1340,6 +1340,201 @@ export const MUTATIONS = [
     replace: '',
     suites: ['tests/uberbond-brain-bootstrap.test.mjs', 'tests/perpetual-frontier-genesis.test.mjs']
   },
+  // ---- The type ladder between what is observed and what is done ---------
+  {
+    id: 'SOVTYPE-01', guard: 'A prediction cannot be promoted into a value',
+    file: 'src/sovereignty-type-system.mjs',
+    find: "  if (humanAct === crossing) return { allowed: true, reasonCodes: [], humanAct };",
+    replace: '  if (true) return { allowed: true, reasonCodes: [], humanAct };',
+    suites: ['tests/sovereignty-type-system.test.mjs']
+  },
+  {
+    // Without the skip rule the three crossings are decorative: an observation
+    // promoted straight to a recommendation never touches PREDICTION->VALUE.
+    id: 'SOVTYPE-02', guard: 'A human-only crossing cannot be stepped over by skipping a rung',
+    file: 'src/sovereignty-type-system.mjs',
+    find: '  if (to - from > 1) {',
+    replace: '  if (false) {',
+    suites: ['tests/sovereignty-type-system.test.mjs']
+  },
+  {
+    id: 'SOVTYPE-03', guard: 'The highest source rung governs a derivation',
+    file: 'src/sovereignty-type-system.mjs',
+    find: '  const highest = rows.reduce((best, row) => (rungOf(row.type) > rungOf(best.type) ? row : best), rows[0]);',
+    replace: '  const highest = rows[0];',
+    suites: ['tests/sovereignty-type-system.test.mjs']
+  },
+  {
+    id: 'SOVTYPE-04', guard: 'A delegation must expire',
+    file: 'src/sovereignty-type-system.mjs',
+    find: "  if (!expiresAt) return fail('AUTHORITY_DENIED', ['delegation-must-expire'], { action: act });",
+    replace: '',
+    suites: ['tests/sovereignty-type-system.test.mjs']
+  },
+  {
+    // The hard one to see: every hop narrows the action set and looks correct
+    // while the expiry walks forward.
+    id: 'SOVTYPE-05', guard: 'A narrowing delegation chain cannot extend its own expiry',
+    file: 'src/sovereignty-type-system.mjs',
+    find: '  if (Date.parse(wanted) > Date.parse(parent.expiresAt)) {',
+    replace: '  if (false) {',
+    suites: ['tests/sovereignty-type-system.test.mjs']
+  },
+  {
+    id: 'SOVTYPE-06', guard: 'Re-delegation may only attenuate',
+    file: 'src/sovereignty-type-system.mjs',
+    find: "  const widened = requested.filter(action => !parent.delegatedActions.includes(action));",
+    replace: '  const widened = [];',
+    suites: ['tests/sovereignty-type-system.test.mjs']
+  },
+  // ---- The option universe and the forecasts over it ---------------------
+  {
+    id: 'DECIDE-01', guard: 'A probability requires quantitative evidence, not a persuasive story',
+    file: 'src/sovereign-decision-packet.mjs',
+    find: '  } else if (quantitative.length === 0) {',
+    replace: '  } else if (false) {',
+    suites: ['tests/sovereign-decision-packet.test.mjs']
+  },
+  {
+    id: 'DECIDE-02', guard: 'Options that change the same things are one option',
+    file: 'src/sovereign-decision-packet.mjs',
+    find: '    const existing = bySignature.get(signature);',
+    replace: '    const existing = null;',
+    suites: ['tests/sovereign-decision-packet.test.mjs']
+  },
+  {
+    id: 'DECIDE-03', guard: 'Reversibility is part of what makes an option distinct',
+    file: 'src/sovereign-decision-packet.mjs',
+    find: '  return createHash(\'sha256\').update(JSON.stringify([changes, reversible])).digest(\'hex\').slice(0, 32);',
+    replace: '  return createHash(\'sha256\').update(JSON.stringify([changes])).digest(\'hex\').slice(0, 32);',
+    suites: ['tests/sovereign-decision-packet.test.mjs']
+  },
+  {
+    id: 'DECIDE-04', guard: 'A packet whose options were not all forecast is refused',
+    file: 'src/sovereign-decision-packet.mjs',
+    find: '  if (unforecast.length) {',
+    replace: '  if (false) {',
+    suites: ['tests/sovereign-decision-packet.test.mjs']
+  },
+  {
+    id: 'DECIDE-05', guard: 'A value boundary produces no winner',
+    file: 'src/sovereign-decision-packet.mjs',
+    find: '  const recommendation = valueBoundary || quantified.length === 0',
+    replace: '  const recommendation = false',
+    suites: ['tests/sovereign-decision-packet.test.mjs']
+  },
+  {
+    id: 'DECIDE-06', guard: 'Correlated sources are not counted as independent evidence',
+    file: 'src/sovereign-decision-packet.mjs',
+    find: '  const independentSources = new Set(rows.map(row => row.ref).filter(Boolean));',
+    replace: '  const independentSources = rows;',
+    suites: ['tests/sovereign-decision-packet.test.mjs']
+  },
+  // ---- Which reasoning deserves trust, and when to stop ------------------
+  {
+    // Abundant data must not silently convert a value question into a
+    // statistical one, which is how the boundary gets crossed with nobody
+    // deciding to cross it.
+    id: 'METARAT-01', guard: 'The irreducible check runs before evidence, not after it',
+    file: 'src/meta-rational-boundary.mjs',
+    find: '  const irreducible = IRREDUCIBLE_QUESTION_KINDS[kind];',
+    replace: '  const irreducible = data === undefined ? IRREDUCIBLE_QUESTION_KINDS[kind] : null;',
+    suites: ['tests/meta-rational-boundary.test.mjs']
+  },
+  {
+    id: 'METARAT-02', guard: 'A method needing absent data yields UNKNOWN rather than a guess',
+    file: 'src/meta-rational-boundary.mjs',
+    find: '  const usable = candidates.filter(([, spec]) => !spec.needsData || data.size > 0);',
+    replace: '  const usable = candidates;',
+    suites: ['tests/meta-rational-boundary.test.mjs']
+  },
+  {
+    id: 'METARAT-03', guard: 'Delay and option decay count as costs of continuing to reason',
+    file: 'src/meta-rational-boundary.mjs',
+    find: '  const cost = (Number(cognitionCost) || 0) + (Number(delayCost) || 0) + (Number(optionDecay) || 0);',
+    replace: '  const cost = (Number(cognitionCost) || 0);',
+    suites: ['tests/meta-rational-boundary.test.mjs']
+  },
+  {
+    id: 'METARAT-04', guard: 'Sources sharing an ancestor are one observation repeated',
+    file: 'src/meta-rational-boundary.mjs',
+    find: '  const lineages = new Set(rows.map(row => row.ancestry || row.id));',
+    replace: '  const lineages = new Set(rows.map(row => row.id));',
+    suites: ['tests/meta-rational-boundary.test.mjs']
+  },
+  // ---- Forecasts scored against what actually happened -------------------
+  {
+    id: 'CALIB-01', guard: 'A forecast edited after recording cannot be scored',
+    file: 'src/reality-calibration-ledger.mjs',
+    find: '  if (forecast.seal !== sealForecast(forecast)) {',
+    replace: '  if (false) {',
+    suites: ['tests/reality-calibration-ledger.test.mjs']
+  },
+  {
+    id: 'CALIB-02', guard: 'An outcome known at forecast time measures memory, not prediction',
+    file: 'src/reality-calibration-ledger.mjs',
+    find: '  if (Date.parse(at) <= Date.parse(forecast.evidenceCutoff)) {',
+    replace: '  if (false) {',
+    suites: ['tests/reality-calibration-ledger.test.mjs']
+  },
+  {
+    id: 'CALIB-03', guard: 'An outcome outside the forecast state space is a finding, not a score',
+    file: 'src/reality-calibration-ledger.mjs',
+    find: '  if (!Object.hasOwn(forecast.probabilities, observed)) {',
+    replace: '  if (false) {',
+    suites: ['tests/reality-calibration-ledger.test.mjs']
+  },
+  {
+    id: 'CALIB-04', guard: 'A distribution that does not sum to one is refused',
+    file: 'src/reality-calibration-ledger.mjs',
+    find: "  if (outcomes.length && Math.abs(total - 1) > 0.001) reasonCodes.push('probabilities-must-sum-to-one');",
+    replace: '',
+    suites: ['tests/reality-calibration-ledger.test.mjs']
+  },
+  {
+    id: 'CALIB-05', guard: 'Decision quality is judged on what was knowable, not on the outcome',
+    file: 'src/reality-calibration-ledger.mjs',
+    find: "    quality: missed.length === 0 && alternatives.length > 1 ? 'WELL_MADE' : 'IMPROVABLE',",
+    replace: "    quality: score.brierScore < 0.5 ? 'WELL_MADE' : 'IMPROVABLE',",
+    suites: ['tests/reality-calibration-ledger.test.mjs']
+  },
+  {
+    id: 'CALIB-06', guard: 'No scored forecasts means calibration is unknown, not good',
+    file: 'src/reality-calibration-ledger.mjs',
+    find: '  if (rows.length === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/reality-calibration-ledger.test.mjs']
+  },
+  // ---- The founder's read-only view of the sovereign organs --------------
+  {
+    // The seam through which a read surface would become an acting one.
+    id: 'SOVCTRL-01', guard: 'The sovereign control surface is GET-only',
+    file: 'api/sovereign-control.mjs',
+    find: "    if (String(req?.method || '').toUpperCase() !== 'GET') {",
+    replace: '    if (false) {',
+    suites: ['tests/sovereign-control-surface.test.mjs']
+  },
+  {
+    id: 'SOVCTRL-02', guard: 'An unauthenticated read of the sovereign surface is refused',
+    file: 'api/sovereign-control.mjs',
+    find: '    if (!equalBearer(req?.headers?.authorization, env.ADMIN_TOKEN)) {',
+    replace: '    if (false) {',
+    suites: ['tests/sovereign-control-surface.test.mjs']
+  },
+  {
+    id: 'SOVCTRL-03', guard: 'An unconfigured admin token refuses rather than serving open',
+    file: 'api/sovereign-control.mjs',
+    find: '    if (!env.ADMIN_TOKEN) {',
+    replace: '    if (false) {',
+    suites: ['tests/sovereign-control-surface.test.mjs']
+  },
+  {
+    id: 'DECIDE-07', guard: 'Unstated reversibility is unknown, not irreversible',
+    file: 'src/sovereign-decision-packet.mjs',
+    find: '      reversible: option?.reversible === true ? true : (option?.reversible === false ? false : null),',
+    replace: '      reversible: option?.reversible === true,',
+    suites: ['tests/sovereign-decision-packet.test.mjs', 'tests/sovereign-control-surface.test.mjs']
+  },
   // ---- The private core: the one data class that is not the company's -----
   {
     id: 'PCIV-01', guard: 'A repository path is refused as a destination for private life data',

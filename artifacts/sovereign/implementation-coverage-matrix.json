@@ -2,18 +2,18 @@
   "ok": true,
   "status": "COVERAGE_MATRIX_COMPILED",
   "schemaVersion": "uberbond.sovereign-coverage-matrix.v1",
-  "generatedAt": "2026-09-07T13:33:30.083Z",
-  "sourceCommit": "7452865b312582a597732889d1282dbb855dde97",
+  "generatedAt": "2026-09-07T13:55:51.251Z",
+  "sourceCommit": "e61826ee47f21727f35f9878979d9d1af9139aaa",
   "counts": {
     "extractedConcepts": 1068,
     "rows": 1038,
     "mergedAliasRows": 30,
-    "declaredConcepts": 3,
+    "declaredConcepts": 17,
     "byState": {
-      "VERIFIED_CURRENT": 39,
+      "VERIFIED_CURRENT": 55,
       "PARTIAL_CURRENT": 68,
       "DRAFT_DONOR": 0,
-      "SPEC_ONLY": 912,
+      "SPEC_ONLY": 896,
       "EXTERNAL_BLOCKED": 0,
       "OWNER_BOUNDARY": 13,
       "ELAPSED_TIME_REQUIRED": 0,
@@ -223,22 +223,26 @@
         "Meta-Sovereign Rationality"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/meta-rational-boundary.mjs"
+        ],
+        "testModules": [
+          "tests/meta-rational-boundary.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Meta-Sovereign Rationality",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/meta-rational-boundary.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -751,22 +755,26 @@
         "Sovereignty Type System"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/sovereignty-type-system.mjs"
+        ],
+        "testModules": [
+          "tests/sovereignty-type-system.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Sovereignty Type System",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/sovereignty-type-system.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -781,22 +789,26 @@
         "Anti-Capture Kernel"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/sovereignty-type-system.mjs"
+        ],
+        "testModules": [
+          "tests/sovereignty-type-system.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Anti-Capture Kernel",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/sovereignty-type-system.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -1261,22 +1273,26 @@
         "Epistemic Exit"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "api/sovereign-control.mjs"
+        ],
+        "testModules": [
+          "tests/sovereign-control-surface.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Epistemic Exit",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "api/sovereign-control.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -1321,22 +1337,26 @@
         "Right of Exit"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/sovereignty-type-system.mjs"
+        ],
+        "testModules": [
+          "tests/sovereignty-type-system.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Right of Exit",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/sovereignty-type-system.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -2191,22 +2211,26 @@
         "Anti-Correlation Intelligence"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/meta-rational-boundary.mjs"
+        ],
+        "testModules": [
+          "tests/meta-rational-boundary.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Anti-Correlation Intelligence",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/meta-rational-boundary.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -2401,22 +2425,26 @@
         "No Recommendation"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/meta-rational-boundary.mjs"
+        ],
+        "testModules": [
+          "tests/meta-rational-boundary.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "No Recommendation",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/meta-rational-boundary.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -2431,22 +2459,26 @@
         "Enough Stopping Rule"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/meta-rational-boundary.mjs"
+        ],
+        "testModules": [
+          "tests/meta-rational-boundary.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Enough Stopping Rule",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/meta-rational-boundary.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -2551,22 +2583,26 @@
         "Option Universe"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/sovereign-decision-packet.mjs"
+        ],
+        "testModules": [
+          "tests/sovereign-decision-packet.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Option Universe",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/sovereign-decision-packet.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -2581,22 +2617,26 @@
         "Sovereign Option & Outcome Forecast Engine"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/sovereign-decision-packet.mjs"
+        ],
+        "testModules": [
+          "tests/sovereign-decision-packet.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Sovereign Option & Outcome Forecast Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/sovereign-decision-packet.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -2881,22 +2921,26 @@
         "Calibration Memory"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/reality-calibration-ledger.mjs"
+        ],
+        "testModules": [
+          "tests/reality-calibration-ledger.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Calibration Memory",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/reality-calibration-ledger.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -3001,22 +3045,26 @@
         "Counterfactual Accountability"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/reality-calibration-ledger.mjs"
+        ],
+        "testModules": [
+          "tests/reality-calibration-ledger.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Counterfactual Accountability",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/reality-calibration-ledger.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -3031,22 +3079,26 @@
         "Decision-Quality Memory"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/reality-calibration-ledger.mjs"
+        ],
+        "testModules": [
+          "tests/reality-calibration-ledger.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Decision-Quality Memory",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/reality-calibration-ledger.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -5024,22 +5076,26 @@
         "Sovereign Interaction Protocol"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "api/sovereign-control.mjs"
+        ],
+        "testModules": [
+          "tests/sovereign-control-surface.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Sovereign Interaction Protocol",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "api/sovereign-control.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -7391,6 +7447,7 @@
         "sourceModules": [
           "src/compute-sovereignty-capacity.mjs",
           "src/compute-sovereignty.mjs",
+          "src/sovereignty-type-system.mjs",
           "scripts/compute-sovereignty-doctor.mjs"
         ],
         "testModules": [
@@ -7404,7 +7461,8 @@
           "tests/recovery-sovereignty-boundary.test.mjs",
           "tests/relay-adapter-sovereignty-boundary.test.mjs",
           "tests/sovereignty-proof-closure.test.mjs",
-          "tests/sovereignty-self-modification.test.mjs"
+          "tests/sovereignty-self-modification.test.mjs",
+          "tests/sovereignty-type-system.test.mjs"
         ],
         "reachability": "PRODUCTION",
         "matchStrength": "EXACT_SLUG",
@@ -7681,16 +7739,18 @@
         "sourceModules": [
           "src/omnia-v9/integrations/reality-shadow-cedar.mjs",
           "src/omnia-v9/integrations/reality-shadow-dataset.mjs",
-          "src/omnia-v9/integrations/reality-shadow-evaluator.mjs"
+          "src/omnia-v9/integrations/reality-shadow-evaluator.mjs",
+          "src/reality-calibration-ledger.mjs"
         ],
         "testModules": [
           "tests/omnia-v9-reality-shadow-binding-drills.test.mjs",
           "tests/omnia-v9-reality-shadow-cedar.test.mjs",
           "tests/omnia-v9-reality-shadow-dataset.test.mjs",
           "tests/omnia-v9-reality-shadow-failure-drills.test.mjs",
-          "tests/omnia-v9-reality-shadow-integration.test.mjs"
+          "tests/omnia-v9-reality-shadow-integration.test.mjs",
+          "tests/reality-calibration-ledger.test.mjs"
         ],
-        "reachability": "OPERATOR_ONLY",
+        "reachability": "PRODUCTION",
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME",
         "matchedPhrase": "REALITY",
@@ -9196,16 +9256,18 @@
         "sourceModules": [
           "src/omnia-v9/integrations/reality-shadow-cedar.mjs",
           "src/omnia-v9/integrations/reality-shadow-dataset.mjs",
-          "src/omnia-v9/integrations/reality-shadow-evaluator.mjs"
+          "src/omnia-v9/integrations/reality-shadow-evaluator.mjs",
+          "src/reality-calibration-ledger.mjs"
         ],
         "testModules": [
           "tests/omnia-v9-reality-shadow-binding-drills.test.mjs",
           "tests/omnia-v9-reality-shadow-cedar.test.mjs",
           "tests/omnia-v9-reality-shadow-dataset.test.mjs",
           "tests/omnia-v9-reality-shadow-failure-drills.test.mjs",
-          "tests/omnia-v9-reality-shadow-integration.test.mjs"
+          "tests/omnia-v9-reality-shadow-integration.test.mjs",
+          "tests/reality-calibration-ledger.test.mjs"
         ],
-        "reachability": "OPERATOR_ONLY",
+        "reachability": "PRODUCTION",
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME",
         "matchedPhrase": "reality",
@@ -10693,22 +10755,26 @@
         "Anti-Capture Kernel"
       ],
       "class": "ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/sovereignty-type-system.mjs"
+        ],
+        "testModules": [
+          "tests/sovereignty-type-system.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Anti-Capture Kernel",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/sovereignty-type-system.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -12470,22 +12536,26 @@
         "calibration_memory"
       ],
       "class": "FORECAST_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/reality-calibration-ledger.mjs"
+        ],
+        "testModules": [
+          "tests/reality-calibration-ledger.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Calibration Memory",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/reality-calibration-ledger.mjs",
       "owningLane": "OMEGA-02",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,

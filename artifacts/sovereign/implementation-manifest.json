@@ -6,23 +6,189 @@
     {
       "concept": "Thought Ocean",
       "lane": "OMEGA-01",
-      "sources": ["src/personal-civilization-core.mjs"],
-      "tests": ["tests/personal-civilization-core.test.mjs"],
+      "sources": [
+        "src/personal-civilization-core.mjs"
+      ],
+      "tests": [
+        "tests/personal-civilization-core.test.mjs"
+      ],
       "note": "Append-only private capture: normalizePrivateRecord + appendPrivateRecord, content-addressed so the same thought cannot be stored twice, and destination-refused from every repository path."
     },
     {
       "concept": "Living Mohamed Model",
       "lane": "OMEGA-01",
-      "sources": ["src/personal-civilization-core.mjs"],
-      "tests": ["tests/personal-civilization-core.test.mjs"],
+      "sources": [
+        "src/personal-civilization-core.mjs"
+      ],
+      "tests": [
+        "tests/personal-civilization-core.test.mjs"
+      ],
       "note": "deriveLivingModel. Every derived claim cites the records it came from; a claim with no provenance is refused rather than stored, because deletion could never reach it afterwards."
     },
     {
       "concept": "Private life data is minimized and not placed in public repository canon by default",
       "lane": "OMEGA-04",
-      "sources": ["src/personal-civilization-core.mjs"],
-      "tests": ["tests/personal-civilization-core.test.mjs"],
+      "sources": [
+        "src/personal-civilization-core.mjs"
+      ],
+      "tests": [
+        "tests/personal-civilization-core.test.mjs"
+      ],
       "note": "privateDestinationAllowed refuses .git, artifacts, docs, src, tests, config and scripts, and refuses relative paths rather than resolving them against an unknown cwd. PCIV-01 and PCIV-02 hold it."
+    },
+    {
+      "concept": "Sovereignty Type System",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "The OBSERVATION->...->OUTCOME ladder. Three edges are human acts, not inferences: is->ought, recommendation->choice, choice->authority. Rung-skipping is refused too, or those three are decorative. SOVTYPE-01..03."
+    },
+    {
+      "concept": "Anti-Capture Kernel",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "authorityFor plus the explicit NOT_AUTHORITY list. Delegation must originate with the founder, name the action, and expire; attenuate() refuses widening and refuses a chain that outlives its parent. SOVTYPE-04..06."
+    },
+    {
+      "concept": "Right of Exit",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "exitReadiness measures export, deletion, operation-without-the-system and irreplaceable dependencies. A system that optimizes itself into being unleavable will not announce it."
+    },
+    {
+      "concept": "Option Universe",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/sovereign-decision-packet.mjs"
+      ],
+      "tests": [
+        "tests/sovereign-decision-packet.test.mjs"
+      ],
+      "note": "compileOptionUniverse merges on a causal signature, so five wordings of one change are one option and the merge count exposes a generator producing variants. DECIDE-02/03."
+    },
+    {
+      "concept": "Sovereign Option & Outcome Forecast Engine",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/sovereign-decision-packet.mjs"
+      ],
+      "tests": [
+        "tests/sovereign-decision-packet.test.mjs"
+      ],
+      "note": "forecastOption refuses a probability without quantitative evidence and counts distinct sources rather than rows. compileDecisionPacket stops at RECOMMENDATION and declines to pick a winner at a value boundary. DECIDE-01/04/05/06."
+    },
+    {
+      "concept": "Meta-Sovereign Rationality",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/meta-rational-boundary.mjs"
+      ],
+      "tests": [
+        "tests/meta-rational-boundary.test.mjs"
+      ],
+      "note": "selectMethod routes a question to a method that settles its kind, with the irreducible check before evidence so abundant data cannot convert a value question into a statistical one. METARAT-01/02."
+    },
+    {
+      "concept": "No Recommendation",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/meta-rational-boundary.mjs"
+      ],
+      "tests": [
+        "tests/meta-rational-boundary.test.mjs"
+      ],
+      "note": "NO_RECOMMENDATION__VALUE_BOUNDARY_REACHED, reachable from selectMethod and honoured by the decision packet."
+    },
+    {
+      "concept": "Enough Stopping Rule",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/meta-rational-boundary.mjs"
+      ],
+      "tests": [
+        "tests/meta-rational-boundary.test.mjs"
+      ],
+      "note": "shouldContinueReasoning weighs improvement against cognition, delay and option decay. The state most often missing from systems like this, whose absence is why they consume the life they were built to improve. METARAT-03."
+    },
+    {
+      "concept": "Anti-Correlation Intelligence",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/meta-rational-boundary.mjs"
+      ],
+      "tests": [
+        "tests/meta-rational-boundary.test.mjs"
+      ],
+      "note": "independentAgreement counts lineages, not votes. Ten models sharing a corpus are one observation repeated. METARAT-04."
+    },
+    {
+      "concept": "Calibration Memory",
+      "lane": "OMEGA-13",
+      "sources": [
+        "src/reality-calibration-ledger.mjs"
+      ],
+      "tests": [
+        "tests/reality-calibration-ledger.test.mjs"
+      ],
+      "note": "recordForecast seals claim, probabilities and evidence cutoff; scoreForecast refuses a tampered forecast, an outcome predating the cutoff, and an outcome outside the state space. CALIB-01..04/06."
+    },
+    {
+      "concept": "Counterfactual Accountability",
+      "lane": "OMEGA-13",
+      "sources": [
+        "src/reality-calibration-ledger.mjs"
+      ],
+      "tests": [
+        "tests/reality-calibration-ledger.test.mjs"
+      ],
+      "note": "decisionQuality judges on what was knowable, so a lucky bad decision does not become doctrine and an unlucky good one is not mislearned. CALIB-05."
+    },
+    {
+      "concept": "Decision-Quality Memory",
+      "lane": "OMEGA-13",
+      "sources": [
+        "src/reality-calibration-ledger.mjs"
+      ],
+      "tests": [
+        "tests/reality-calibration-ledger.test.mjs"
+      ],
+      "note": "The same separation, held across the ledger: calibrationSummary reports per confidence band because a good mean hides systematic overconfidence in one band."
+    },
+    {
+      "concept": "Sovereign Interaction Protocol",
+      "lane": "OMEGA-12",
+      "sources": [
+        "api/sovereign-control.mjs"
+      ],
+      "tests": [
+        "tests/sovereign-control-surface.test.mjs"
+      ],
+      "note": "api/sovereign-control.mjs is the founder's read-only view of the sovereign organs, and the reason those organs are not dead code. GET-only, admin-token gated, and it does not import the private core -- every entry point here runs without a person present. SOVCTRL-01..03."
+    },
+    {
+      "concept": "Epistemic Exit",
+      "lane": "OMEGA-12",
+      "sources": [
+        "api/sovereign-control.mjs"
+      ],
+      "tests": [
+        "tests/sovereign-control-surface.test.mjs"
+      ],
+      "note": "The surface reads the constitution from the modules that enforce it rather than restating it, so the page cannot claim a safety property the code has stopped holding."
     }
   ]
 }

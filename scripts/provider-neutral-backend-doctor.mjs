@@ -10,6 +10,8 @@ export function inspectPortableBackend({ repoRoot = root, env = process.env } = 
   const missingFiles = requiredFiles.filter(file => !fs.existsSync(path.join(repoRoot, file)));
   const compose = fs.existsSync(path.join(repoRoot, 'docker-compose.yml'))
     ? fs.readFileSync(path.join(repoRoot, 'docker-compose.yml'), 'utf8') : '';
+  const portableServer = fs.existsSync(path.join(repoRoot, 'portable-server.mjs'))
+    ? fs.readFileSync(path.join(repoRoot, 'portable-server.mjs'), 'utf8') : '';
   const missingComposeMarkers = requiredComposeMarkers.filter(marker => !compose.includes(marker));
   const requiredEnv = ['POSTGRES_PASSWORD', 'APP_BASE_URL', 'ADMIN_TOKEN', 'TOKEN_ENCRYPTION_KEY'];
   const missingEnv = requiredEnv.filter(name => !String(env[name] || '').trim());
@@ -20,6 +22,17 @@ export function inspectPortableBackend({ repoRoot = root, env = process.env } = 
   if (String(env.APP_BASE_URL || '').trim() && !String(env.APP_BASE_URL).startsWith('https://')) reasons.push('APP_BASE_URL-must-use-https');
   if (String(env.POSTGRES_PASSWORD || '').trim() && !/^[A-Za-z0-9._~-]+$/.test(String(env.POSTGRES_PASSWORD))) reasons.push('POSTGRES_PASSWORD-must-be-url-safe');
   if (String(env.ADMIN_TOKEN || '').trim() && String(env.ADMIN_TOKEN).length < 32) reasons.push('ADMIN_TOKEN-must-be-at-least-32-characters');
+
+  // The provider-neutral entrypoint is allowed to add route/lifecycle wrappers,
+  // but it may never bypass the canonical external authentication facade. This
+  // pins the security regression found during the night portability review.
+  const portableSecurityFailures = [];
+  if (portableServer) {
+    if (!portableServer.includes("new URL('./server.mjs'")) portableSecurityFailures.push('canonical-server-facade-not-composed');
+    if (portableServer.includes("new URL('./server-core.mjs'")) portableSecurityFailures.push('server-core-direct-entrypoint-bypass');
+  }
+  if (portableSecurityFailures.length) reasons.push('portable-auth-boundary-bypassed');
+
   const startupFailures = [];
   for (const processRole of ['web', 'worker']) {
     try {
@@ -34,6 +47,7 @@ export function inspectPortableBackend({ repoRoot = root, env = process.env } = 
     missingFiles,
     missingComposeMarkers,
     missingEnv,
+    portableSecurityFailures,
     startupFailures,
     runtimeProof: 'NONE',
     businessEffectAuthority: 'NONE',

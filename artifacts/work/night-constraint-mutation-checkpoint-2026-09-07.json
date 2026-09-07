@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "uberbond.night-constraint-mutation-checkpoint.v1",
+  "status": "SOURCE_AND_HOSTILE_TEST_COMPLETE_EXECUTION_PROOF_PENDING",
+  "baseIntegrationHead": "547c4380a7860d3b0bd2ab142c9af339423835a8",
+  "branch": "sol/night-constraint-mutation-20260907",
+  "problem": "Clock time must not convert an unchanged blocked strategy into a fresh engineering attempt or progress claim.",
+  "implemented": [
+    "src/constraint-mutation-engine.mjs",
+    "tests/constraint-mutation-engine.test.mjs",
+    "scripts/constraint-mutation-doctor.mjs",
+    "src/self-maintainer-continuation-policy.mjs",
+    "tests/self-maintainer-continuation-policy.test.mjs",
+    "scripts/self-maintainer-continuation-receipt.mjs",
+    ".github/workflows/uberbond-self-maintainer.yml"
+  ],
+  "behavior": {
+    "sameBlockedStrategy": "STRATEGY_MUTATION_REQUIRED",
+    "sameClockTick": "NOT_NEW_EVIDENCE",
+    "waitingExistingAttempt": "DO_NOT_CREATE_DUPLICATE_TASK",
+    "reviewPending": "DO_NOT_REIMPLEMENT_OR_REPROMOTE",
+    "providerFailureAlternatives": [
+      "switch-provider",
+      "switch-execution-substrate",
+      "self-host-authorized-runtime",
+      "replace-with-open-or-local-capability",
+      "replace-with-deterministic-code"
+    ],
+    "capabilityGapAlternatives": [
+      "query-capability-genome",
+      "compose-existing-capability-atoms",
+      "build-missing-capability",
+      "benchmark-substitutes"
+    ]
+  },
+  "forbidden": [
+    "blind-identical-retry",
+    "quota-evasion",
+    "identity-cycling",
+    "credential-sharing",
+    "access-control-circumvention",
+    "provider-limit-bypass",
+    "impersonate-authority"
+  ],
+  "workflowChange": "hourly schedule removed; self-maintainer becomes push-to-main plus explicit workflow_dispatch",
+  "testsDeclaredButNotYetExecuted": [
+    "tests/constraint-mutation-engine.test.mjs",
+    "tests/self-maintainer-continuation-policy.test.mjs"
+  ],
+  "executionEvidence": "NONE_ON_THIS_HEAD",
+  "executionBlockers": [
+    "GitHub hosted jobs have repeatedly allocated zero steps",
+    "Vercel projects are at daily build cap",
+    "current local sandbox has no outbound GitHub DNS",
+    "no existing UberBond Replit workspace was available as an alternate exact-head runner"
+  ],
+  "businessEffectAuthority": "NONE",
+  "externalTruthClaims": {
+    "customers": false,
+    "clearedRevenue": false,
+    "acceptedDelivery": false,
+    "retention": false,
+    "providerAvailability": false,
+    "lifeOutcome": false
+  }
+}

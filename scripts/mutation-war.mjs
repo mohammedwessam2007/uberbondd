@@ -1535,6 +1535,73 @@ export const MUTATIONS = [
     replace: '      reversible: option?.reversible === true,',
     suites: ['tests/sovereign-decision-packet.test.mjs', 'tests/sovereign-control-surface.test.mjs']
   },
+  // ---- Experiences, and the limits on optimizing them --------------------
+  {
+    // A bonus is a number, and a large enough number elsewhere always outvotes
+    // it. Being outside the ranking is the only version that holds.
+    id: 'EXPER-01', guard: 'Present-value and uncopyable experiences are set apart, not scored',
+    file: 'src/experience-compiler.mjs',
+    find: '    comparable: experience.uncopyable === null && experience.presentValue === false',
+    replace: '    comparable: true',
+    suites: ['tests/experience-compiler.test.mjs', 'tests/sovereign-control-surface.test.mjs']
+  },
+  {
+    id: 'EXPER-02', guard: 'Compound value counts dimensions rather than summing them',
+    file: 'src/experience-compiler.mjs',
+    find: '    ranked: [...comparable].sort((a, b) => b.compound - a.compound || b.magnitude - a.magnitude),',
+    replace: '    ranked: [...comparable].sort((a, b) => b.magnitude - a.magnitude),',
+    suites: ['tests/experience-compiler.test.mjs']
+  },
+  {
+    id: 'EXPER-03', guard: 'A reversible probe beats more modelling',
+    file: 'src/experience-compiler.mjs',
+    find: '  if (reversibleProbeAvailable) {',
+    replace: '  if (false) {',
+    suites: ['tests/experience-compiler.test.mjs', 'tests/sovereign-control-surface.test.mjs']
+  },
+  {
+    id: 'EXPER-04', guard: 'An off-limits domain stays unmodelled however useful modelling would be',
+    file: 'src/experience-compiler.mjs',
+    find: '  if (declaredOffLimits) {',
+    replace: '  if (declaredOffLimits && (Number(usefulnessOfModelling) || 0) < 0.9) {',
+    suites: ['tests/experience-compiler.test.mjs']
+  },
+  // ---- Whether an option can end the ability to choose again -------------
+  {
+    id: 'RUIN-01', guard: 'An absorbing outcome is not cleared at any probability',
+    file: 'src/ruin-firewall.mjs',
+    find: '  const ruinous = rows.filter(row => absorbing(row.recoverability));',
+    replace: '  const ruinous = rows.filter(row => absorbing(row.recoverability) && (row.probability ?? 1) > 0.05);',
+    suites: ['tests/ruin-firewall.test.mjs', 'tests/sovereign-control-surface.test.mjs']
+  },
+  {
+    id: 'RUIN-02', guard: 'An unclassified outcome blocks the screen rather than passing as safe',
+    file: 'src/ruin-firewall.mjs',
+    find: '  if (unclassified.length) {',
+    replace: '  if (false) {',
+    suites: ['tests/ruin-firewall.test.mjs']
+  },
+  {
+    id: 'RUIN-03', guard: 'Practically irreversible counts as absorbing',
+    file: 'src/ruin-firewall.mjs',
+    find: "export const absorbing = level => level === 'PRACTICALLY_IRREVERSIBLE' || level === 'ABSORBING';",
+    replace: "export const absorbing = level => level === 'ABSORBING';",
+    suites: ['tests/ruin-firewall.test.mjs']
+  },
+  {
+    id: 'RUIN-04', guard: 'A recovery plan with no detection step is refused',
+    file: 'src/ruin-firewall.mjs',
+    find: '  if (!steps.detection) {',
+    replace: '  if (false) {',
+    suites: ['tests/ruin-firewall.test.mjs']
+  },
+  {
+    id: 'RUIN-05', guard: 'Positions sharing a dependency are one position',
+    file: 'src/ruin-firewall.mjs',
+    find: '    effectiveIndependentPositions: rows.length - singlePoints.reduce((sum, row) => sum + row.positions.length - 1, 0),',
+    replace: '    effectiveIndependentPositions: rows.length,',
+    suites: ['tests/ruin-firewall.test.mjs', 'tests/sovereign-control-surface.test.mjs']
+  },
   // ---- The private core: the one data class that is not the company's -----
   {
     id: 'PCIV-01', guard: 'A repository path is refused as a destination for private life data',

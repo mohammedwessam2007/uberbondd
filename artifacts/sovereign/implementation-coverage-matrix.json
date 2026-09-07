@@ -2,18 +2,18 @@
   "ok": true,
   "status": "COVERAGE_MATRIX_COMPILED",
   "schemaVersion": "uberbond.sovereign-coverage-matrix.v1",
-  "generatedAt": "2026-09-07T13:55:51.251Z",
-  "sourceCommit": "e61826ee47f21727f35f9878979d9d1af9139aaa",
+  "generatedAt": "2026-09-07T14:25:57.314Z",
+  "sourceCommit": "573f48c2e6ebfa3679c796d6735ee812ea38d404",
   "counts": {
     "extractedConcepts": 1068,
     "rows": 1038,
     "mergedAliasRows": 30,
-    "declaredConcepts": 17,
+    "declaredConcepts": 27,
     "byState": {
-      "VERIFIED_CURRENT": 55,
+      "VERIFIED_CURRENT": 68,
       "PARTIAL_CURRENT": 68,
       "DRAFT_DONOR": 0,
-      "SPEC_ONLY": 896,
+      "SPEC_ONLY": 883,
       "EXTERNAL_BLOCKED": 0,
       "OWNER_BOUNDARY": 13,
       "ELAPSED_TIME_REQUIRED": 0,
@@ -3293,22 +3293,26 @@
         "Ruin Firewall"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/ruin-firewall.mjs"
+        ],
+        "testModules": [
+          "tests/ruin-firewall.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Ruin Firewall",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/ruin-firewall.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -3323,22 +3327,26 @@
         "Recovery Compiler"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/ruin-firewall.mjs"
+        ],
+        "testModules": [
+          "tests/ruin-firewall.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Recovery Compiler",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/ruin-firewall.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -3383,22 +3391,26 @@
         "Existential Redundancy"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/ruin-firewall.mjs"
+        ],
+        "testModules": [
+          "tests/ruin-firewall.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Existential Redundancy",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/ruin-firewall.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -3413,22 +3425,26 @@
         "Life Fault Tolerance"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/ruin-firewall.mjs"
+        ],
+        "testModules": [
+          "tests/ruin-firewall.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Life Fault Tolerance",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/ruin-firewall.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -4194,22 +4210,26 @@
         "Experience Compiler"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/experience-compiler.mjs"
+        ],
+        "testModules": [
+          "tests/experience-compiler.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Experience Compiler",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/experience-compiler.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -4224,22 +4244,26 @@
         "Reality as Experimental Partner"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/experience-compiler.mjs"
+        ],
+        "testModules": [
+          "tests/experience-compiler.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Reality as Experimental Partner",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/experience-compiler.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -4284,22 +4308,26 @@
         "Reality Contact Guarantee"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/experience-compiler.mjs"
+        ],
+        "testModules": [
+          "tests/experience-compiler.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Reality Contact Guarantee",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/experience-compiler.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -4344,22 +4372,26 @@
         "Presentness"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/experience-compiler.mjs"
+        ],
+        "testModules": [
+          "tests/experience-compiler.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Presentness",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/experience-compiler.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -4584,22 +4616,26 @@
         "Uncopyable Experience Detector"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/experience-compiler.mjs"
+        ],
+        "testModules": [
+          "tests/experience-compiler.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Uncopyable Experience Detector",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/experience-compiler.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -5440,22 +5476,26 @@
         "Non-Totalization Principle"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/experience-compiler.mjs"
+        ],
+        "testModules": [
+          "tests/experience-compiler.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Non-Totalization Principle",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/experience-compiler.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -10425,22 +10465,26 @@
         "Experience Compiler"
       ],
       "class": "ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/experience-compiler.mjs"
+        ],
+        "testModules": [
+          "tests/experience-compiler.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Experience Compiler",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/experience-compiler.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -10485,22 +10529,26 @@
         "Reality as Experimental Partner"
       ],
       "class": "ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/experience-compiler.mjs"
+        ],
+        "testModules": [
+          "tests/experience-compiler.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Reality as Experimental Partner",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/experience-compiler.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -15912,22 +15960,26 @@
         "Experience Compiler"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/experience-compiler.mjs"
+        ],
+        "testModules": [
+          "tests/experience-compiler.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Experience Compiler",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/experience-compiler.mjs",
       "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,

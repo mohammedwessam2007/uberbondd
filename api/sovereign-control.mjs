@@ -18,6 +18,8 @@ import { compileOptionUniverse, forecastOption, compileDecisionPacket } from '..
 import { authorityFor, exitReadiness, SOVEREIGNTY_TYPES, HUMAN_ONLY_CROSSINGS, NOT_AUTHORITY } from '../src/sovereignty-type-system.mjs';
 import { selectMethod, shouldContinueReasoning, TERMINAL_EPISTEMIC_STATES } from '../src/meta-rational-boundary.mjs';
 import { calibrationSummary } from '../src/reality-calibration-ledger.mjs';
+import { screenForRuin, correlatedExposure } from '../src/ruin-firewall.mjs';
+import { compileExperiences, realityContact } from '../src/experience-compiler.mjs';
 
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
@@ -72,7 +74,7 @@ const supplyValueBoundary = forecasts =>
  * decision packet is included only when the caller supplied the inputs for one,
  * because an empty packet shaped like a real one is worse than no packet.
  */
-export function buildSovereignControlView({ decision = null, options = [], forecasts = [], scores = [], exit = null, reasoning = null, method = null, now = new Date() } = {}) {
+export function buildSovereignControlView({ decision = null, options = [], forecasts = [], scores = [], exit = null, reasoning = null, method = null, experiences = [], contact = null, positions = [], now = new Date() } = {}) {
   const view = {
     ok: true,
     status: 'SOVEREIGN_CONTROL_VIEW',
@@ -81,9 +83,13 @@ export function buildSovereignControlView({ decision = null, options = [], forec
     calibration: calibrationSummary(scores),
     // Absent rather than faked when not asked for.
     decisionPacket: null,
+    ruinScreen: null,
     exit: exit ? exitReadiness(exit) : null,
     reasoningBudget: reasoning ? shouldContinueReasoning(reasoning) : null,
     methodSelection: method ? selectMethod(method) : null,
+    experiences: Array.isArray(experiences) && experiences.length ? compileExperiences(experiences) : null,
+    realityContact: contact ? realityContact(contact) : null,
+    exposure: Array.isArray(positions) && positions.length ? correlatedExposure(positions) : null,
     highestRung: 'RECOMMENDATION',
     founderAuthority: 'THIS SURFACE READS. IT CANNOT CHOOSE, DELEGATE, OR ACT.',
     businessEffectAuthority: 'NONE'
@@ -102,6 +108,14 @@ export function buildSovereignControlView({ decision = null, options = [], forec
         });
       });
       view.decisionPacket = compileDecisionPacket({ decision, universe, forecasts: rows, valueBoundary: Boolean(supplyValueBoundary(forecasts)), now });
+      // Screened after the packet is built but reported alongside it, never
+      // folded into the ranking: an option that can end the ability to choose
+      // again is not a low-scoring option, it is a different kind of thing.
+      view.ruinScreen = universe.options.map(option => screenForRuin({
+        option: option.name,
+        outcomes: (forecasts.find(f => f?.option === option.name)?.outcomes) || [],
+        correlatedWith: (forecasts.find(f => f?.option === option.name)?.correlatedWith) || []
+      }));
     } else {
       view.decisionPacket = universe;
     }

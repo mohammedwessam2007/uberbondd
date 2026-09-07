@@ -123,6 +123,69 @@ test('a value boundary carried in the request produces no winner', () => {
   assert.equal(view.decisionPacket.recommendation.option, null);
 });
 
+test('the ruin screen is reported alongside the ranking, never folded into it', () => {
+  // An option that can end the ability to choose again is not a low-scoring
+  // option. Folding it into the ranking is how a 97%-good bet with a 3%
+  // absorbing tail comes back as the recommendation.
+  const view = buildSovereignControlView({
+    decision: 'How much to commit',
+    options: [
+      { name: 'All in', family: 'FULL_COMMITMENT', changes: ['capital'], reversible: false },
+      { name: 'Staged', family: 'STAGED_COMMITMENT', changes: ['capital', 'timing'], reversible: true }
+    ],
+    forecasts: [
+      {
+        option: 'All in',
+        evidence: [{ kind: 'REFERENCE_CLASS', detail: 'x', ref: 'ds:a' }],
+        distribution: { probabilities: { good: 0.97, bad: 0.03 } },
+        outcomes: [
+          { outcome: 'it works', recoverability: 'REVERSIBLE', probability: 0.97 },
+          { outcome: 'insolvency with no runway', domain: 'FINANCIAL_SOLVENCY', recoverability: 'ABSORBING', probability: 0.03 }
+        ]
+      },
+      {
+        option: 'Staged',
+        evidence: [{ kind: 'REFERENCE_CLASS', detail: 'y', ref: 'ds:b' }],
+        distribution: { probabilities: { good: 0.6, bad: 0.4 } },
+        outcomes: [{ outcome: 'slower', recoverability: 'COSTLY_TO_REVERSE', probability: 0.4 }]
+      }
+    ],
+    now: new Date('2026-09-07T00:00:00.000Z')
+  });
+
+  const allIn = view.ruinScreen.find(row => row.option === 'All in');
+  assert.equal(allIn.cleared, false, 'the absorbing tail must survive the 97% expected value');
+  assert.equal(view.ruinScreen.find(row => row.option === 'Staged').cleared, true);
+  assert.equal(view.decisionPacket.recommendation.option, 'All in',
+    'the ranking is unchanged -- the screen sits beside it rather than editing it');
+});
+
+test('experiences, reality contact and exposure are absent unless asked for', () => {
+  const view = buildSovereignControlView({ now: new Date('2026-09-07T00:00:00.000Z') });
+  assert.equal(view.experiences, null);
+  assert.equal(view.realityContact, null);
+  assert.equal(view.exposure, null);
+  assert.equal(view.ruinScreen, null);
+});
+
+test('the surface reaches the experience and exposure organs when asked', () => {
+  const view = buildSovereignControlView({
+    experiences: [
+      { name: 'Course', produces: { learning: 0.9 } },
+      { name: 'A summer with his grandfather', produces: { relationships: 0.5 }, uncopyable: 'PERSON_BOUND' }
+    ],
+    contact: { question: 'Would I like it there', reversibleProbeAvailable: true },
+    positions: [
+      { name: 'consulting', dependsOn: ['one client'] },
+      { name: 'retainer', dependsOn: ['one client'] }
+    ],
+    now: new Date('2026-09-07T00:00:00.000Z')
+  });
+  assert.deepEqual(view.experiences.beyondComparison.map(row => row.name), ['A summer with his grandfather']);
+  assert.equal(view.realityContact.status, 'GO_AND_FIND_OUT');
+  assert.equal(view.exposure.effectiveIndependentPositions, 1);
+});
+
 test('an authorized read returns the view with no-store and hardening headers', async () => {
   const { out, res } = response();
   await createHandler({ env: { ADMIN_TOKEN: 't' }, now: () => new Date('2026-09-07T00:00:00.000Z') })(get(), res);

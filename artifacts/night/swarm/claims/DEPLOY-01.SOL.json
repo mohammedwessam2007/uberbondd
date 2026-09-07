@@ -1,0 +1,20 @@
+{
+  "schema": "uberbond.night-swarm-claim.v1",
+  "packetId": "DEPLOY-01",
+  "agent": "SOL",
+  "status": "ACTIVE",
+  "integrationBaseSha": "2b1c80c8a370e4c810c3731baace333a6447e1f9",
+  "childPr": 461,
+  "childBranch": "portable/backend-pr458",
+  "childHeadAtClaim": "6e12804fba6ccda904746edd13b59b643d65085a",
+  "writeSurfaces": [
+    "portable-server.mjs",
+    "docker-compose.yml",
+    "scripts/provider-neutral-backend-doctor.mjs",
+    "tests/provider-neutral-backend-doctor.test.mjs",
+    "docs/PORTABLE_BACKEND_DEPLOYMENT.md",
+    "docs/PORTABLE_BACKEND_CHECKPOINT.json"
+  ],
+  "goal": "Earn exact-head proof for canonical auth composition and continue provider-neutral runtime closure without weakening payment/auth/security boundaries.",
+  "businessEffectAuthority": "NONE"
+}

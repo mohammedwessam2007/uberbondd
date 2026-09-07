@@ -25,6 +25,10 @@ import { futureAncestors, councilOfFutureSelves } from '../src/reachable-futures
 import { findBottleneck, agencyDebt } from '../src/human-capability-genome.mjs';
 import { livingModel, unknownSelfProbes } from '../src/living-self-model.mjs';
 import { salienceLedger, preferenceDrift, attentionBudget } from '../src/salience-sovereignty.mjs';
+import { classifyUncertainty, modelEcology, surpriseLedger } from '../src/epistemic-immune-system.mjs';
+import { continuityPosture, posthumousDisposition } from '../src/memory-sovereignty.mjs';
+import { compileIntent, consequenceLedger } from '../src/intent-compiler.mjs';
+import { findReinforcingLoops, mortalHorizon, exploreExploit } from '../src/life-autopoiesis.mjs';
 
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
@@ -83,7 +87,9 @@ export function buildSovereignControlView({
   decision = null, options = [], forecasts = [], scores = [], exit = null, reasoning = null,
   method = null, experiences = [], contact = null, positions = [], lifeOptions = [],
   futures = [], council = null, bottleneck = null, capabilities = [], observations = [],
-  unknown = null, salience = null, drift = null, attention = null, now = new Date()
+  unknown = null, salience = null, drift = null, attention = null, uncertainty = null,
+  models = [], surprises = [], records = [], posthumous = null, intent = null,
+  consequences = null, lifeEdges = [], horizon = null, lifeDomains = [], now = new Date()
 } = {}) {
   const view = {
     ok: true,
@@ -113,6 +119,16 @@ export function buildSovereignControlView({
     salience: salience ? salienceLedger(salience) : null,
     drift: drift ? preferenceDrift(drift) : null,
     attention: attention ? attentionBudget(attention) : null,
+    uncertainty: uncertainty ? classifyUncertainty(uncertainty) : null,
+    modelEcology: Array.isArray(models) && models.length ? modelEcology(models) : null,
+    surprises: Array.isArray(surprises) && surprises.length ? surpriseLedger(surprises) : null,
+    continuity: Array.isArray(records) && records.length ? continuityPosture({ records }) : null,
+    posthumous: posthumousDisposition(posthumous || {}),
+    intent: intent ? compileIntent(intent) : null,
+    consequences: consequences ? consequenceLedger(consequences) : null,
+    reinforcingLoops: Array.isArray(lifeEdges) && lifeEdges.length ? findReinforcingLoops(lifeEdges) : null,
+    horizon: horizon ? mortalHorizon(horizon) : null,
+    exploreExploit: Array.isArray(lifeDomains) && lifeDomains.length ? exploreExploit(lifeDomains) : null,
     highestRung: 'RECOMMENDATION',
     founderAuthority: 'THIS SURFACE READS. IT CANNOT CHOOSE, DELEGATE, OR ACT.',
     businessEffectAuthority: 'NONE'

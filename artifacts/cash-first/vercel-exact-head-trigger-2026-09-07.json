@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "uberbond-vercel-exact-head-trigger-1.0.0",
+  "status": "VERIFICATION_TRIGGER__NOT_PROOF",
+  "requestedForBranch": "omega/cash-first-total-readiness-20260907",
+  "sourceHeadBeforeTrigger": "a58a21633a7b0c2384ea04467c70d8d47a980301",
+  "purpose": "Force a fresh Vercel checkout after the handoff/bootstrap compatibility repair and PayPal provider-origin first-cash integration.",
+  "requiredTerminalEvidence": [
+    "runner checks out this trigger commit or a source-identical descendant",
+    "brain/bootstrap gate passes",
+    "focused PayPal/payment tests execute",
+    "deterministic/syntax gates execute as configured",
+    "any mutation/database/browser gates required by the build execute or are truthfully classified",
+    "final source commit is recorded"
+  ],
+  "commercialTruthBoundary": "A green build does not prove a customer, cleared payment, accepted delivery or retention."
+}

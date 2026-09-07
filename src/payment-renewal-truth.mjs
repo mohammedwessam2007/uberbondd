@@ -32,6 +32,8 @@ const REVERSAL_CLASSIFICATIONS = new Set([
   'REFUND_OR_DISPUTE'
 ]);
 
+const PAYMENT_WITNESS_PROVIDERS = new Set(['lemonsqueezy', 'paypal']);
+
 function text(value, max = 500) {
   return String(value ?? '').trim().slice(0, max);
 }
@@ -70,6 +72,25 @@ function paymentAuditEntries(auditLog, leadId) {
     );
 }
 
+function unresolvedPaymentRetentionRisks(auditLog, leadId) {
+  const latest = new Map();
+  for (const entry of sorted((Array.isArray(auditLog) ? auditLog : []).map(normalizeAuditEntry).filter(Boolean))) {
+    if (entry?.type !== 'payment_retention_risk') continue;
+    if (leadId && entry?.leadId !== leadId) continue;
+    const key = text(entry?.riskKey, 240);
+    if (!key) continue;
+    latest.set(key, {
+      riskKey: key,
+      provider: text(entry?.provider, 80).toLowerCase() || null,
+      status: text(entry?.status, 80).toUpperCase() || 'OPEN',
+      outcome: text(entry?.outcome, 160).toUpperCase() || null,
+      providerEventId: text(entry?.providerEventId, 240) || null,
+      observedAt: text(entry?.observedAt || entry?.createdAt, 80) || null
+    });
+  }
+  return [...latest.values()].filter(entry => entry.status !== 'RESOLVED');
+}
+
 function classificationIndex(auditLog, leadId, classifications) {
   const index = new Map();
   for (const entry of paymentAuditEntries(auditLog, leadId)) {
@@ -79,6 +100,7 @@ function classificationIndex(auditLog, leadId, classifications) {
     if (!eventName || !eventId) continue;
     index.set(`${eventName}:${eventId}`, {
       providerEventId: `${eventName}:${eventId}`,
+      provider: text(entry?.provider, 80).toLowerCase() || null,
       eventName,
       eventId,
       classification: entry.classification,
@@ -101,7 +123,8 @@ function orderEvidenceIndex(orders, leadId) {
   const index = new Map();
   for (const order of orders) {
     if (leadId && order?.leadId !== leadId) continue;
-    if (order?.provider !== 'lemonsqueezy') continue;
+    const provider = text(order?.provider, 80).toLowerCase();
+    if (!PAYMENT_WITNESS_PROVIDERS.has(provider)) continue;
     const eventName = text(order?.eventName, 120);
     const eventId = text(order?.providerEventId, 200);
     if (!eventName || !eventId) continue;
@@ -121,6 +144,11 @@ function witnessContentMismatches({ event, order, clearing }) {
     .map(value => text(value, 12).toUpperCase())
     .filter(Boolean);
   if (new Set(currencies).size > 1) mismatches.push('provider-payment-witness-currency-mismatch');
+
+  const providers = [event?.provider, order?.provider, clearing?.provider]
+    .map(value => text(value, 80).toLowerCase())
+    .filter(Boolean);
+  if (new Set(providers).size > 1) mismatches.push('provider-payment-witness-provider-mismatch');
 
   for (const [field, code] of [['product', 'provider-payment-witness-product-mismatch'],
     ['prospectId', 'provider-payment-witness-prospect-mismatch'],
@@ -245,6 +273,7 @@ export function reconcilePaymentRenewalTruth({
   const clearedIndex = clearedEvidenceIndex(safeAudit, leadId);
   const reversalIndex = reversalEvidenceIndex(safeAudit, leadId);
   const ordersIndex = orderEvidenceIndex(safeOrders, leadId);
+  const unresolvedRetention = unresolvedPaymentRetentionRisks(safeAudit, leadId);
   const {
     verified, unverified, duplicates, contradicted,
     reversals, unverifiedReversals, duplicateReversals
@@ -319,8 +348,14 @@ export function reconcilePaymentRenewalTruth({
       evidenceRef: renewals.length ? `payment:${renewals[0].event.providerEventId}` : null
     },
     PAYMENT_RETAINED: {
-      status: !firstPayment ? 'NOT_PROVEN' : (reversals.length ? (fullyReversed ? 'REVERSED' : 'PARTIALLY_REVERSED') : 'PROVEN'),
-      evidenceRef: reversals.length ? `refund:${reversals[0].event.providerEventId}` : null
+      status: !firstPayment
+        ? 'NOT_PROVEN'
+        : (unresolvedRetention.length
+          ? 'REVIEW_REQUIRED'
+          : (reversals.length ? (fullyReversed ? 'REVERSED' : 'PARTIALLY_REVERSED') : 'PROVEN')),
+      evidenceRef: unresolvedRetention.length
+        ? `risk:${unresolvedRetention[0].riskKey}`
+        : (reversals.length ? `refund:${reversals[0].event.providerEventId}` : null)
     }
   };
 
@@ -338,6 +373,7 @@ export function reconcilePaymentRenewalTruth({
   if (leadResolved === false) contradictions.push('payment-truth-requested-for-unknown-lead');
   if (fullyReversed && lead?.paymentStatus === 'paid') contradictions.push('lead-marked-paid-after-full-refund');
   if (reversals.length && acceptance.proven) contradictions.push('customer-acceptance-claimed-with-reversed-payment');
+  if (unresolvedRetention.length) contradictions.push('provider-payment-retention-risk-unresolved');
 
   const result = {
     ok: contradictions.length === 0,
@@ -369,13 +405,15 @@ export function reconcilePaymentRenewalTruth({
       unverifiedReversalCents,
       unverifiedReversal: unverifiedReversalCents / 100,
       duplicateReversalRowCount: duplicateReversals.length,
-      contradictedWitnessRowCount: contradicted.length
+      contradictedWitnessRowCount: contradicted.length,
+      unresolvedPaymentRetentionRiskCount: unresolvedRetention.length
     },
     verifiedFirstPaymentProduct,
     verifiedProviderEventRefs: verified.map(item => item.event.providerEventId),
     verifiedReversalEventRefs: reversals.map(item => item.event.providerEventId),
     unverifiedPositiveRevenueEventRefs: unverified.map(item => text(item.providerEventId, 400)).filter(Boolean),
-    contradictions,
+    unresolvedPaymentRetentionRisks: unresolvedRetention,
+    contradictions: [...new Set(contradictions)],
     claimBoundary: {
       leadPaidBoolean: 'NOT_PAYMENT_PROOF',
       revenueEventRow: 'NOT_PAYMENT_PROOF_ALONE',
@@ -385,9 +423,11 @@ export function reconcilePaymentRenewalTruth({
       renewal: renewals.length ? 'PROVIDER_CLEARED_RENEWAL_PROVEN' : 'NOT_PROVEN',
       retainedRevenue: !firstPayment
         ? 'NOT_PROVEN'
-        : (fullyReversed
-          ? 'CLEARED_THEN_FULLY_REVERSED'
-          : (reversals.length ? 'CLEARED_THEN_PARTIALLY_REVERSED' : 'PROVIDER_CLEARED_AND_NOT_REVERSED'))
+        : (unresolvedRetention.length
+          ? 'PROVIDER_RETENTION_RISK_UNRESOLVED'
+          : (fullyReversed
+            ? 'CLEARED_THEN_FULLY_REVERSED'
+            : (reversals.length ? 'CLEARED_THEN_PARTIALLY_REVERSED' : 'PROVIDER_CLEARED_AND_NOT_REVERSED')))
     },
     externalEffectLedger: { ...PAYMENT_TRUTH_EFFECTS }
   };

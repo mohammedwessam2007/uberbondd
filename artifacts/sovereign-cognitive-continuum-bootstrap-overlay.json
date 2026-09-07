@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "uberbond-sovereign-cognitive-continuum-bootstrap-overlay-1.1.0",
+  "schemaVersion": "uberbond-sovereign-cognitive-continuum-bootstrap-overlay-1.2.0",
   "status": "TERMINAL_NORTH_STAR_PRECEDENCE_OVERLAY",
   "appliesToBootstrapSchemas": [
     "uberbond-bootstrap-1.2.0"
@@ -10,6 +10,7 @@
     "SOVEREIGN_SELF",
     "WILL_KERNEL",
     "SOVEREIGN_COGNITIVE_CONTINUUM",
+    "META_SOVEREIGN_RATIONALITY",
     "OPTION_UNIVERSE_AND_OUTCOME_FORECAST_ENGINE",
     "PERSONAL_SINGULARITY",
     "PERSONAL_CIVILIZATION_ENGINE",
@@ -18,19 +19,37 @@
     "UBERBOND_COMPANY_SOFTWARE_AI_SYSTEMS"
   ],
   "requiredTerminalPaths": [
+    "README.md",
     "NORTH_STAR.md",
+    "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+    "artifacts/sovereign-cognitive-continuum-total-north-star.json",
+    "docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md",
+    "artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json",
     "docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md",
     "artifacts/sovereign-cognitive-continuum-north-star.json",
     "docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md",
     "artifacts/sovereign-option-outcome-forecast-engine.json",
     "docs/NORTH_STAR_PRECEDENCE.md",
     "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-    "artifacts/personal-civilization-engine-north-star.json"
+    "artifacts/personal-civilization-engine-north-star.json",
+    "docs/CURRENT_HANDOFF.json"
   ],
-  "supersessionRule": "Any older bootstrap, canon, agent, memory, or documentation wording that calls the Personal Civilization Engine the highest-level or terminal North Star is interpreted as the highest contained life-system layer beneath the Sovereign Cognitive Continuum.",
+  "noDropLaw": "The total North Star human/machine pair is the terminal search-space superset. Literal names in the chat-completeness pair remain searchable even when their mechanisms are merged into stronger canonical organs. Silence, a stale handoff, a current UI, or a current commercial wedge does not delete a donated purpose.",
+  "supersessionRules": [
+    "Any older bootstrap, canon, agent, memory, or documentation wording that calls the Personal Civilization Engine the highest-level or terminal North Star is interpreted as the highest contained life-system layer beneath the Sovereign Cognitive Continuum.",
+    "Any older wording that defines UberBond as a Revenue Engine, website-audit product, outreach tool, SaaS, autonomous company, or one active offer is historical or operational donor context and does not define the project identity or default fresh-chat mission.",
+    "Current repository code and durable external evidence outrank North Star canon for present-tense implementation and outcome claims."
+  ],
+  "startupOrientationLaw": {
+    "readTerminalNorthStarBeforeMissionSelection": true,
+    "websiteAuditIsDefaultMission": false,
+    "historicalRevenueEngineIsProjectIdentity": false,
+    "staleHandoffMayOverrideTerminalNorthStar": false,
+    "currentPublicUiMayDefineProjectIdentity": false
+  },
   "decisionPredictionLaw": {
     "required": true,
-    "optionGeneration": "Generate materially distinct options including non-obvious, reversible, staged, delayed, status-quo, exit, capability-building, hybrid and GENESIS/Ontogenesis-created options where relevant.",
+    "optionGeneration": "Generate materially distinct options including non-obvious, reversible, staged, delayed, status-quo, exit, capability-building, environment-changing, resource-acquisition, relationship/network, hybrid and GENESIS/Ontogenesis-created options where relevant.",
     "predictionTarget": "Strongest calibrated evidence-bound outcome forecasts physically achievable, never confidence theater.",
     "requiredForecastMethods": [
       "reference_classes_and_base_rates",
@@ -63,7 +82,20 @@
     "unknownPreferredToFabricatedPrecision": true,
     "predictionCreatesAuthority": false
   },
+  "metaRationalityLaw": {
+    "methodSelectionRequired": true,
+    "allowedTerminalEpistemicStates": [
+      "NO_MODEL_CURRENTLY_DESERVES_TRUST",
+      "NO_RECOMMENDATION_VALUE_BOUNDARY_REACHED",
+      "UNKNOWN_MORE_EVIDENCE_REQUIRED",
+      "REALITY_MUST_COMPUTE_THIS_OBSERVE_OR_EXPERIMENT",
+      "ENOUGH_MORE_COGNITION_HAS_NEGATIVE_EXPECTED_VALUE"
+    ],
+    "realityVeto": true,
+    "ontologyMayMutateWhenRealityRequiresNewCategory": true
+  },
   "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
+  "websiteAuditClassification": "SUBORDINATE_HISTORICAL_AND_OPERATIONAL_ECONOMIC_CAPABILITY__NOT_PROJECT_IDENTITY__NOT_DEFAULT_FRESH_CHAT_MISSION",
   "authorityLaws": [
     "Mohamed remains the sovereign source of choice",
     "Intelligence does not create sovereignty",
@@ -80,8 +112,10 @@
     "superintelligenceClaim": false,
     "omniscienceClaim": false,
     "perfectPredictionClaim": false,
+    "consciousnessClaim": false,
+    "commercialProofClaim": false,
     "lifeOutcomeProofClaim": false,
     "authorityExpansion": false,
-    "note": "This overlay changes terminal objective precedence and requires option/outcome forecasting as a North Star organ. It does not delete or weaken existing bootstrap capabilities, proof gates, memory, economic systems, engineering constraints, consequence controls, or external truth boundaries."
+    "note": "This overlay repairs terminal objective precedence and startup orientation while requiring the no-drop total North Star and option/outcome forecasting. It does not delete or weaken existing bootstrap capabilities, proof gates, memory, economic systems, engineering constraints, consequence controls, or external truth boundaries."
   }
 }

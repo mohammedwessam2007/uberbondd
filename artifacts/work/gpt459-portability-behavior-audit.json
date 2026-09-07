@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "uberbond.gpt459.portability-behavior-audit.v1",
+  "sourceCommit": "7239a90f02d733492ddfe6ce1124591577189fc8",
+  "scope": "provider-independent local primitives",
+  "audits": [
+    {
+      "capability": "supplier exit / state portability",
+      "sourceModules": [
+        "src/supplier-exit-drill.mjs",
+        "scripts/supplier-exit-drill.mjs"
+      ],
+      "functions": [
+        "stateDigest",
+        "judgeExitDrill",
+        "runExitDrill",
+        "survivalPosture"
+      ],
+      "tests": [
+        "tests/supplier-exit-drill.test.mjs"
+      ],
+      "executed": "25/25 combined tranche tests passed; real export/restore/cutover/rollback exercised",
+      "verifiedBehavior": "Owned local durable state is exported, restored byte-identically, served from restored copy, and original remains reachable.",
+      "limit": "LOCAL_STATE_PORTABILITY only; no replacement provider provisioning or provider cutover proof."
+    },
+    {
+      "capability": "compute sovereignty and reuse",
+      "sourceModules": [
+        "src/compute-sovereignty.mjs"
+      ],
+      "functions": [
+        "normalizeComputeOffer",
+        "compileComputeReusePlan",
+        "allocateSovereignCompute"
+      ],
+      "tests": [
+        "tests/compute-sovereignty.test.mjs"
+      ],
+      "executed": "4/4 passed within combined tranche",
+      "verifiedBehavior": "Rejects unlawful acquisition, requires provenance/rights, prioritizes lawful zero-cost supply, and quantifies reuse without minting quota.",
+      "limit": "No provider quota, account, credit, or paid API callability is created."
+    },
+    {
+      "capability": "capacity frontier / portable transport evidence",
+      "sourceModules": [
+        "src/compute-sovereignty-capacity.mjs"
+      ],
+      "functions": [
+        "compileComputeSovereigntyCapacityFrontier"
+      ],
+      "tests": [
+        "tests/compute-sovereignty-capacity.test.mjs"
+      ],
+      "executed": "9/9 passed within combined tranche",
+      "verifiedBehavior": "Separates discovery, configuration, live callability, fresh pricing/transport, and task trust; synthetic receipts cannot mint live capacity.",
+      "limit": "No actual backend host provisioning or independent self-deployment runtime is present in this audit."
+    }
+  ],
+  "providerIndependenceConclusion": "Verified local portability and provider-neutral policy primitives exist. Missing evidence is authorized replacement-host provisioning, backend deployment execution, and live provider callability; these remain unclaimed external/runtime gaps.",
+  "truthBoundary": {
+    "realCustomers": 0,
+    "clearedRevenue": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  }
+}

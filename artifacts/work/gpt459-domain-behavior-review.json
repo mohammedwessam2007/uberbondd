@@ -1,0 +1,363 @@
+{
+  "schemaVersion": "uberbond.gpt459.domain-behavior-review.v1",
+  "sourceCommit": "474c1e9538183ba071b19c5ff65173f27c273152",
+  "status": "INCOMPLETE_BEHAVIORAL_REVIEW",
+  "rows": [
+    {
+      "canonicalId": "total-brain:world-sensing-and-gamechanger-intelligence",
+      "literalNames": [
+        "world sensing and Gamechanger intelligence"
+      ],
+      "disposition": "VERIFIED_REUSE",
+      "auditStatus": "BEHAVIORALLY_VERIFIED",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "Exact source functions and focused assertions executed in this lane; authority/privacy boundary recorded."
+    },
+    {
+      "canonicalId": "total-brain:public-web-browser-evidence-and-lawful-crawling",
+      "literalNames": [
+        "public-web browser evidence and lawful crawling"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "total-brain:prospect-supply-source-adapters",
+      "literalNames": [
+        "prospect-supply/source adapters"
+      ],
+      "disposition": "VERIFIED_REUSE",
+      "auditStatus": "BEHAVIORALLY_VERIFIED",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "Exact source functions and focused assertions executed in this lane; authority/privacy boundary recorded."
+    },
+    {
+      "canonicalId": "total-brain:business-genome-and-money-model-tournament",
+      "literalNames": [
+        "Business Genome and Money Model Tournament"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "total-brain:mechanism-lab-atom-extraction-and-recombination",
+      "literalNames": [
+        "Mechanism Lab atom extraction and recombination"
+      ],
+      "disposition": "VERIFIED_REUSE",
+      "auditStatus": "BEHAVIORALLY_VERIFIED",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "Exact source functions and focused assertions executed in this lane; authority/privacy boundary recorded."
+    },
+    {
+      "canonicalId": "total-brain:invisible-money-plumbing-and-economic-mechanism-research",
+      "literalNames": [
+        "Invisible Money Plumbing and economic mechanism research"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "total-brain:event-horizon-capital-allocation",
+      "literalNames": [
+        "Event Horizon capital allocation"
+      ],
+      "disposition": "VERIFIED_REUSE",
+      "auditStatus": "BEHAVIORALLY_VERIFIED",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "Exact source functions and focused assertions executed in this lane; authority/privacy boundary recorded."
+    },
+    {
+      "canonicalId": "total-brain:saas-cannibal-and-clean-room-feature-absorption",
+      "literalNames": [
+        "SaaS Cannibal and clean-room feature absorption"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "total-brain:runtime-aware-reachability",
+      "literalNames": [
+        "runtime-aware reachability"
+      ],
+      "disposition": "VERIFIED_REUSE",
+      "auditStatus": "BEHAVIORALLY_VERIFIED",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "Exact source functions and focused assertions executed in this lane; authority/privacy boundary recorded."
+    },
+    {
+      "canonicalId": "total-brain:fulfilment-qa-delivery-acceptance-retention-renewal",
+      "literalNames": [
+        "fulfilment QA delivery acceptance retention renewal"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "total-brain:security-sovereignty-privacy-suppression-revocation",
+      "literalNames": [
+        "security sovereignty privacy suppression revocation"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "memory-index:partner-tenant-buyer-account-and-relationship-graph",
+      "literalNames": [
+        "partner tenant buyer account and relationship graph"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "memory-index:opportunity-market-signal-mechanism-and-evidence-intelligence",
+      "literalNames": [
+        "opportunity market signal mechanism and evidence intelligence"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "memory-index:offer-catalogue-pricing-scope-and-next-best-offer-logic",
+      "literalNames": [
+        "offer catalogue pricing scope and next-best-offer logic"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "memory-index:identity-rights-consent-authority-delegation-and-expiry",
+      "literalNames": [
+        "identity rights consent authority delegation and expiry"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "memory-index:ai-evaluation-deterministic-checks-human-review-and-claim-boundaries",
+      "literalNames": [
+        "AI evaluation deterministic checks human review and claim boundaries"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "memory-index:reconciliation-matching-document-and-exception-engines",
+      "literalNames": [
+        "reconciliation matching document and exception engines"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "memory-index:white-label-packaging-fulfilment-delivery-receipts-acceptance-retest-and-repair-",
+      "literalNames": [
+        "white-label packaging fulfilment delivery receipts acceptance retest and repair handoff"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "memory-index:monitoring-incidents-exception-queues-health-and-observability",
+      "literalNames": [
+        "monitoring incidents exception queues health and observability"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "memory-index:distribution-attribution-outbound-inbound-voice-messaging-booking-social-partner",
+      "literalNames": [
+        "distribution attribution outbound inbound voice messaging booking social partner referral and content channels"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "memory-index:billing-receivables-payment-refund-dispute-renewal-and-accounting-evidence",
+      "literalNames": [
+        "billing receivables payment refund dispute renewal and accounting evidence"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "memory-index:usage-margin-founder-minute-and-partner-economics-metering",
+      "literalNames": [
+        "usage margin founder-minute and partner economics metering"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    },
+    {
+      "canonicalId": "memory-index:security-privacy-retention-deletion-suppression-provenance-audit-and-revocation",
+      "literalNames": [
+        "security privacy retention deletion suppression provenance audit and revocation"
+      ],
+      "disposition": null,
+      "auditStatus": "INCOMPLETE_BEHAVIORAL_REVIEW",
+      "candidateSourceModules": [],
+      "candidateTests": [],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only.",
+      "rationale": "No function-level behavioral review persisted yet; search leads removed to prevent false partial classification."
+    }
+  ],
+  "externalBlockers": [
+    "No pg dependency for genome-dependent test imports in this checkout; this blocks selected tests only."
+  ],
+  "dispositionCounts": {
+    "VERIFIED_REUSE": 5,
+    "PARTIAL_REUSE": 0,
+    "GENUINE_GAP": 0,
+    "MISCLASSIFIED_OR_STRUCTURAL": 0,
+    "EXTERNAL_OR_ELAPSED": 0,
+    "pending": 18
+  }
+}

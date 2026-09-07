@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "uberbond.gpt459.domain-review.v1",
+  "sourceCommit": "d8fdca9f4a26086061d614aa1efd27677b254cdb",
+  "canonicalId": "total-brain:runtime-aware-reachability",
+  "literalNames": [
+    "runtime-aware reachability"
+  ],
+  "disposition": "VERIFIED_REUSE",
+  "auditStatus": "BEHAVIORALLY_VERIFIED",
+  "sourceModules": [
+    "scripts/system-readiness.mjs",
+    "scripts/reachability-report.mjs",
+    "config/reachability-classification.json"
+  ],
+  "functions": [
+    "reachableFromEntryPoints",
+    "measureReachability"
+  ],
+  "focusedTests": [
+    "tests/reachability-ratchet.test.mjs"
+  ],
+  "testExecution": {
+    "command": "node --test tests/reachability-ratchet.test.mjs",
+    "passed": 13,
+    "failed": 0
+  },
+  "reachability": "OPERATOR_ONLY",
+  "authorityClass": "INTERNAL_ONLY",
+  "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+  "behavior": "Live import-graph traversal partitions every src module into production, operator-only, or unreachable; classification gate rejects unclassified/stale entries and enforces entrypoint floor.",
+  "boundary": "Read-only structural reachability measurement; does not prove business outcomes or provider/runtime activation.",
+  "compilerMapping": "No canonical matrix overwrite: current compiler row remains SPEC_ONLY; this independently verified overlay is the minimum truthful mapping pending compiler support.",
+  "next": "Integrate overlay into #459 evidence and consider compiler adapter only after schema-approved mapping."
+}

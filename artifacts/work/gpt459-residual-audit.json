@@ -1,0 +1,918 @@
+{
+  "schemaVersion": "uberbond.gpt459.residual-audit.v1",
+  "sourceCommit": "1ef0ef4099961ad8deeaa99cd83df8e79c072130",
+  "rows": [
+    {
+      "canonicalId": "personal-civilization:life-context-representation",
+      "literalNames": [
+        "life_context_representation"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/vercel-command-center-build.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/overnight-foundations-doctor.mjs",
+        "scripts/pr-reconcile.mjs",
+        "scripts/uberbond-brain-bootstrap.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/organism-foundations-doctor.mjs",
+        "src/open-model-foundry.mjs",
+        "src/pipeline.mjs",
+        "src/capability-graph.mjs",
+        "src/open-model-runtime-executor.mjs",
+        "src/agent-relay.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:possibility-discovery",
+      "literalNames": [
+        "possibility_discovery"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/night-verification-frontier-open-model-mutations.mjs",
+        "scripts/external-capability-doctor.mjs",
+        "scripts/gamechanger-mesh-tick.mjs",
+        "scripts/review-probes.mjs",
+        "scripts/orchestration-frontier-tick.mjs",
+        "scripts/uberbond-brain-bootstrap.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/postgres-smoke.mjs",
+        "scripts/discovery-smoke.mjs",
+        "scripts/avengers-arsenal-doctor.mjs",
+        "src/proposal-acceptance-engine.mjs",
+        "src/frontier-model-team.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:counterfactual-reasoning",
+      "literalNames": [
+        "counterfactual_reasoning"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/epistemic-immune-doctor.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/genesis-scientist-tick.mjs",
+        "scripts/uberbond-cognitive-cycle.mjs",
+        "src/frontier-model-team.mjs",
+        "src/genesis-world-resilience-evidence.mjs",
+        "src/frontier-simulation-executor.mjs",
+        "src/reachable-futures.mjs",
+        "src/sovereign-decision-packet.mjs",
+        "src/genesis-implementation-evidence.mjs",
+        "src/agent-code-change-contract.mjs",
+        "src/genesis-venture-organism-evidence.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:human-capability-modeling",
+      "literalNames": [
+        "human_capability_modeling"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/overnight-upgrade-plan.mjs",
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/vercel-command-center-build.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/overnight-foundations-doctor.mjs",
+        "scripts/mutation-journal.mjs",
+        "scripts/system-readiness.mjs",
+        "scripts/external-capability-doctor.mjs",
+        "scripts/gamechanger-mesh-tick.mjs",
+        "scripts/capability-genome-doctor.mjs",
+        "scripts/capability-genome-body-import.mjs",
+        "scripts/gpt459-reuse-ledger.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:experience-design",
+      "literalNames": [
+        "experience_design"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/mutation-journal.mjs",
+        "scripts/system-readiness.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/genesis-scientist-tick.mjs",
+        "scripts/integration-smoke.mjs",
+        "scripts/github-relay-worker.mjs",
+        "src/genesis-world-resilience-evidence.mjs",
+        "src/capability-graph.mjs",
+        "src/meta-volition-engine.mjs",
+        "src/genome-extraction.mjs",
+        "src/outreach-workbench.mjs",
+        "src/genesis-implementation-evidence.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:identity-flexibility",
+      "literalNames": [
+        "identity_flexibility"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/system-readiness.mjs",
+        "scripts/external-capability-doctor.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/paypal-mutation-war.mjs",
+        "scripts/capability-genome-normalize-bodies.mjs",
+        "scripts/organism-foundations-doctor.mjs",
+        "scripts/agent-mesh-tick.mjs",
+        "src/open-model-foundry.mjs",
+        "src/form-feedback-contract.mjs",
+        "src/frontier-model-admission-proof.mjs",
+        "src/frontier-model-team.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:knowledge-compression",
+      "literalNames": [
+        "knowledge_compression"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/epistemic-immune-doctor.mjs",
+        "scripts/gpt459-reuse-ledger.mjs",
+        "scripts/mutation-war.mjs",
+        "src/personal-civilization-core.mjs",
+        "src/genesis-implementation-evidence.mjs",
+        "src/genesis-venture-organism-evidence.mjs",
+        "src/world-intelligence.mjs",
+        "src/frontier-source-coverage.mjs",
+        "tests/life-knowledge-graph.test.mjs",
+        "src/compute-sovereignty.mjs",
+        "src/epistemic-immune-system.mjs",
+        "src/constitutional-governance.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:serendipity-support",
+      "literalNames": [
+        "serendipity_support"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/uberbond-mcp.mjs",
+        "scripts/universal-ignorance-doctor.mjs",
+        "scripts/epistemic-immune-doctor.mjs",
+        "scripts/review-probes.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/genesis-evolution-tick.mjs",
+        "scripts/github-relay-worker.mjs",
+        "src/proposal-acceptance-engine.mjs",
+        "src/form-feedback-contract.mjs",
+        "src/frontier-model-team.mjs",
+        "src/pipeline.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:temporal-consequence-modeling",
+      "literalNames": [
+        "temporal_consequence_modeling"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/overnight-foundations-doctor.mjs",
+        "scripts/night-verification-frontier-open-model-mutations.mjs",
+        "scripts/kilimanjaro-manifest.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/with-real-postgres.mjs",
+        "scripts/agent-model-route.mjs",
+        "scripts/uberbond-cognitive-cycle.mjs",
+        "scripts/organism-foundations-doctor.mjs",
+        "scripts/github-relay-roundtrip.mjs",
+        "src/inbound-feedback-kernel.mjs",
+        "src/pipeline.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:future-self-perspective-support",
+      "literalNames": [
+        "future_self_perspective_support"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/uberbond-mcp.mjs",
+        "scripts/universal-ignorance-doctor.mjs",
+        "scripts/epistemic-immune-doctor.mjs",
+        "scripts/review-probes.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/genesis-scientist-tick.mjs",
+        "scripts/uberbond-repository-deep-atlas.mjs",
+        "scripts/github-relay-worker.mjs",
+        "src/proposal-acceptance-engine.mjs",
+        "src/open-model-foundry.mjs",
+        "src/form-feedback-contract.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:founder-sovereignty",
+      "literalNames": [
+        "founder_sovereignty"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/overnight-upgrade-plan.mjs",
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/free-first-outreach-doctor.mjs",
+        "scripts/compute-sovereignty-doctor.mjs",
+        "scripts/vercel-command-center-build.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/overnight-foundations-doctor.mjs",
+        "scripts/reflexivity-doctor.mjs",
+        "scripts/universal-ignorance-doctor.mjs",
+        "scripts/epistemic-immune-doctor.mjs",
+        "scripts/ontological-crisis-doctor.mjs",
+        "scripts/causal-intervention-doctor.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:privacy-and-data-minimization",
+      "literalNames": [
+        "privacy_and_data_minimization"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/vercel-command-center-build.mjs",
+        "scripts/gpt459-reuse-ledger.mjs",
+        "scripts/mutation-war.mjs",
+        "src/personal-civilization-core.mjs",
+        "src/inbound-feedback-kernel.mjs",
+        "src/opportunity-registry.mjs",
+        "src/genesis-evolution-engine.mjs",
+        "src/agent-code-change-contract.mjs",
+        "src/lifetime-context-memory.mjs",
+        "src/frontier-source-coverage.mjs",
+        "src/provider-receipt-redaction.mjs",
+        "src/thread-opportunity-universe.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:uncertainty-and-calibration",
+      "literalNames": [
+        "uncertainty_and_calibration"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/epistemic-immune-doctor.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/genesis-ontology-tick.mjs",
+        "src/genesis-world-resilience-evidence.mjs",
+        "src/capability-graph.mjs",
+        "src/autonomous-frontier-intelligence.mjs",
+        "src/reachable-futures.mjs",
+        "src/sovereign-decision-packet.mjs",
+        "src/genesis-implementation-evidence.mjs",
+        "src/claude-engineering-orchestrator.mjs",
+        "src/life-decision-dimensions.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:human-in-the-loop-authority",
+      "literalNames": [
+        "human_in_the_loop_authority"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/uberbond-feature-atom-atlas.mjs",
+        "scripts/vercel-command-center-visual-cortex-build.mjs",
+        "scripts/free-first-outreach-doctor.mjs",
+        "scripts/genesis-metabolism-tick.mjs",
+        "scripts/compute-sovereignty-doctor.mjs",
+        "scripts/vercel-command-center-build.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/overnight-foundations-doctor.mjs",
+        "scripts/perpetual-frontier-genesis-doctor.mjs",
+        "scripts/night-verification-frontier-open-model-mutations.mjs",
+        "scripts/external-capability-doctor.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:economic-autonomy-as-supporting-organ",
+      "literalNames": [
+        "economic_autonomy_as_supporting_organ"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/overnight-upgrade-plan.mjs",
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/system-readiness.mjs",
+        "scripts/gamechanger-mesh-tick.mjs",
+        "scripts/agent-evolution-operator.mjs",
+        "scripts/uberbond-brain-bootstrap.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/uberbond-metacognitive-synthesis.mjs",
+        "scripts/genesis-scientist-tick.mjs",
+        "scripts/genesis-ontology-tick.mjs",
+        "scripts/event-horizon-doctor.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:software-self-improvement-as-supporting-organ",
+      "literalNames": [
+        "software_self_improvement_as_supporting_organ"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/gamechanger-mesh-tick.mjs",
+        "scripts/agent-evolution-operator.mjs",
+        "scripts/uberbond-brain-bootstrap.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/genesis-scientist-tick.mjs",
+        "src/genesis-implementation-evidence.mjs",
+        "src/agent-code-change-contract.mjs",
+        "src/self-upgrade.mjs",
+        "src/life-decision-dimensions.mjs",
+        "src/frontier-source-coverage.mjs",
+        "src/pre-customer-revenue-readiness.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:open-ended-genesis-unknown-unknown-capacity",
+      "literalNames": [
+        "open_ended_genesis_unknown_unknown_capacity"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/overnight-upgrade-plan.mjs",
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/uberbond-feature-atom-atlas.mjs",
+        "scripts/free-first-outreach-doctor.mjs",
+        "scripts/genesis-metabolism-tick.mjs",
+        "scripts/compute-sovereignty-doctor.mjs",
+        "scripts/vercel-command-center-build.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/overnight-foundations-doctor.mjs",
+        "scripts/perpetual-frontier-genesis-doctor.mjs",
+        "scripts/night-verification-frontier-open-model-mutations.mjs",
+        "scripts/uberbond-genesis-reactivation.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "personal-civilization:life-optionality-without-optimization-prison",
+      "literalNames": [
+        "life_optionality_without_optimization_prison"
+      ],
+      "class": "FORECAST_DIMENSION",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/import-json.mjs",
+        "scripts/compute-sovereignty-doctor.mjs",
+        "scripts/mutation-journal.mjs",
+        "scripts/uberbond-mcp.mjs",
+        "scripts/run-real-postgres-tests.mjs",
+        "scripts/universal-ignorance-doctor.mjs",
+        "scripts/agent-evolution-operator.mjs",
+        "scripts/mutation-verdict.mjs",
+        "scripts/ontological-crisis-doctor.mjs",
+        "scripts/relay-status.mjs",
+        "scripts/review-probes.mjs",
+        "scripts/pr-reconcile.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "genesis:zero-day-frontier-radar",
+      "literalNames": [
+        "Zero-Day Frontier Radar"
+      ],
+      "class": "GENESIS_MECHANISM",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/perpetual-frontier-genesis-doctor.mjs",
+        "scripts/night-verification-frontier-open-model-mutations.mjs",
+        "scripts/external-capability-doctor.mjs",
+        "scripts/gamechanger-mesh-tick.mjs",
+        "scripts/orchestration-frontier-tick.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/uberbond-metacognitive-synthesis.mjs",
+        "scripts/genesis-scientist-tick.mjs",
+        "scripts/genesis-evolution-tick.mjs",
+        "scripts/genesis-ontology-tick.mjs",
+        "scripts/frontier-model-team-doctor.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "genesis:future-primitive-extractor",
+      "literalNames": [
+        "Future Primitive Extractor"
+      ],
+      "class": "GENESIS_MECHANISM",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/uberbond-brain-bootstrap.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/uberbond-metacognitive-synthesis.mjs",
+        "scripts/genesis-scientist-tick.mjs",
+        "scripts/genesis-evolution-tick.mjs",
+        "scripts/genesis-ontology-tick.mjs",
+        "scripts/uberbond-repository-deep-atlas.mjs",
+        "scripts/perpetual-frontier-genesis-tick.mjs",
+        "src/open-model-foundry.mjs",
+        "src/form-feedback-contract.mjs",
+        "src/frontier-model-admission-proof.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "genesis:opportunity-shockwave",
+      "literalNames": [
+        "Opportunity Shockwave"
+      ],
+      "class": "GENESIS_MECHANISM",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/gamechanger-mesh-tick.mjs",
+        "scripts/uberbond-brain-bootstrap.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/genesis-scientist-tick.mjs",
+        "scripts/opportunity-factory-dry-run.mjs",
+        "scripts/seed.mjs",
+        "scripts/perpetual-frontier-genesis-tick.mjs",
+        "src/frontier-model-team.mjs",
+        "src/pipeline.mjs",
+        "src/genesis-world-resilience-evidence.mjs",
+        "src/capability-graph.mjs",
+        "src/opportunity-registry.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "genesis:resurrection-engine",
+      "literalNames": [
+        "Resurrection Engine"
+      ],
+      "class": "GENESIS_MECHANISM",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/strategic-reality-doctor.mjs",
+        "scripts/reflexivity-doctor.mjs",
+        "scripts/agent-evolution-operator.mjs",
+        "scripts/volitional-sovereignty-doctor.mjs",
+        "scripts/kilimanjaro-manifest.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/genesis-evolution-tick.mjs",
+        "scripts/seed.mjs",
+        "scripts/genesis-evolution-doctor.mjs",
+        "scripts/perpetual-frontier-genesis-tick.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "genesis:frontier-assimilation-tournament",
+      "literalNames": [
+        "Frontier Assimilation Tournament"
+      ],
+      "class": "GENESIS_MECHANISM",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/overnight-upgrade-plan.mjs",
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/perpetual-frontier-genesis-doctor.mjs",
+        "scripts/night-verification-frontier-open-model-mutations.mjs",
+        "scripts/external-capability-doctor.mjs",
+        "scripts/gamechanger-mesh-tick.mjs",
+        "scripts/orchestration-frontier-tick.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/uberbond-metacognitive-synthesis.mjs",
+        "scripts/genesis-scientist-tick.mjs",
+        "scripts/genesis-evolution-tick.mjs",
+        "scripts/genesis-ontology-tick.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "genesis:frontier-latency-ledger",
+      "literalNames": [
+        "Frontier Latency Ledger"
+      ],
+      "class": "GENESIS_MECHANISM",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/free-first-outreach-doctor.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/overnight-foundations-doctor.mjs",
+        "scripts/perpetual-frontier-genesis-doctor.mjs",
+        "scripts/night-verification-frontier-open-model-mutations.mjs",
+        "scripts/external-capability-doctor.mjs",
+        "scripts/uberbond-mcp.mjs",
+        "scripts/gamechanger-mesh-tick.mjs",
+        "scripts/agent-evolution-operator.mjs",
+        "scripts/capability-genome-body-import.mjs",
+        "scripts/gpt459-reuse-ledger.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "genesis:pre-future-research",
+      "literalNames": [
+        "Pre-Future Research"
+      ],
+      "class": "GENESIS_MECHANISM",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/free-first-outreach-doctor.mjs",
+        "scripts/gamechanger-mesh-tick.mjs",
+        "scripts/review-probes.mjs",
+        "scripts/orchestration-frontier-tick.mjs",
+        "scripts/uberbond-brain-bootstrap.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/genesis-scientist-tick.mjs",
+        "scripts/genesis-ontology-tick.mjs",
+        "scripts/opportunity-factory-dry-run.mjs",
+        "scripts/event-horizon-doctor.mjs",
+        "scripts/uberbond-repository-deep-atlas.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "genesis:anti-uberbond",
+      "literalNames": [
+        "Anti-UberBond"
+      ],
+      "class": "GENESIS_MECHANISM",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/uberbond-feature-atom-atlas.mjs",
+        "scripts/vercel-command-center-visual-cortex-build.mjs",
+        "scripts/free-first-outreach-doctor.mjs",
+        "scripts/genesis-metabolism-tick.mjs",
+        "scripts/compute-sovereignty-doctor.mjs",
+        "scripts/vercel-command-center-build.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/overnight-foundations-doctor.mjs",
+        "scripts/perpetual-frontier-genesis-doctor.mjs",
+        "scripts/system-readiness.mjs",
+        "scripts/night-verification-frontier-open-model-mutations.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "genesis:red-queen-evaluators",
+      "literalNames": [
+        "Red Queen Evaluators"
+      ],
+      "class": "GENESIS_MECHANISM",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "src/uberbond-metacognitive-synthesis.mjs",
+        "src/thread-opportunity-universe.mjs",
+        "src/genesis-final-frontier.mjs",
+        "tests/genesis-final-frontier.test.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "genesis:future-capital-reserve",
+      "literalNames": [
+        "Future Capital Reserve"
+      ],
+      "class": "GENESIS_MECHANISM",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/outbound-probes.mjs",
+        "scripts/gamechanger-mesh-tick.mjs",
+        "scripts/strategic-reality-doctor.mjs",
+        "scripts/outbound-safety-smoke.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/genesis-scientist-tick.mjs",
+        "scripts/postgres-smoke.mjs",
+        "scripts/uberbond-repository-deep-atlas.mjs",
+        "src/open-model-foundry.mjs",
+        "src/form-feedback-contract.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "genesis:competitor-catch-up-radar",
+      "literalNames": [
+        "Competitor Catch-Up Radar"
+      ],
+      "class": "GENESIS_MECHANISM",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "src/genesis-world-resilience-evidence.mjs",
+        "src/genesis-venture-organism-evidence.mjs",
+        "src/world-intelligence.mjs",
+        "src/lead-generation.mjs",
+        "src/genesis-world-resilience.mjs",
+        "src/thread-opportunity-universe.mjs",
+        "src/audit-rules.mjs",
+        "src/genesis-venture-organism.mjs",
+        "src/mechanism-lab.mjs",
+        "tests/genesis-world-resilience.test.mjs",
+        "tests/inter-sovereign.test.mjs",
+        "tests/reflexivity-engine.test.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "genesis:multi-generation-architecture",
+      "literalNames": [
+        "Multi-Generation Architecture"
+      ],
+      "class": "GENESIS_MECHANISM",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/genesis-evolution-tick.mjs",
+        "scripts/genesis-evolution-doctor.mjs",
+        "src/proposal-acceptance-engine.mjs",
+        "src/frontier-model-team.mjs",
+        "src/genesis-world-resilience-evidence.mjs",
+        "src/capability-graph.mjs",
+        "src/genome-extraction.mjs",
+        "src/genesis-evolution-engine.mjs",
+        "src/genesis-implementation-evidence.mjs",
+        "src/prometheus-control-tower.mjs",
+        "src/genesis-sensing-cognition.mjs",
+        "src/uberbond-cognitive-graph.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "genesis:technology-to-money-translation",
+      "literalNames": [
+        "Technology-to-Money Translation"
+      ],
+      "class": "GENESIS_MECHANISM",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "scripts/perpetual-frontier-genesis-tick.mjs",
+        "src/genesis-world-resilience-evidence.mjs",
+        "src/autonomous-frontier-intelligence.mjs",
+        "src/genesis-venture-organism-evidence.mjs",
+        "src/outreach-operator.mjs",
+        "src/lead-generation.mjs",
+        "tests/prospect-enrichment-planner.test.mjs",
+        "tests/perpetual-frontier-genesis-tick.test.mjs",
+        "src/genesis-world-resilience.mjs",
+        "src/thread-opportunity-universe.mjs",
+        "src/life-autopoiesis.mjs",
+        "src/agent-autonomy-store.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    },
+    {
+      "canonicalId": "genesis:artificial-imagination",
+      "literalNames": [
+        "Artificial Imagination"
+      ],
+      "class": "GENESIS_MECHANISM",
+      "priorState": "SPEC_ONLY",
+      "disposition": "UNPROVEN_CANDIDATE",
+      "absenceClaim": false,
+      "sourceModules": [],
+      "testModules": [],
+      "repositorySearchMatches": [
+        "src/genesis-evolution-engine.mjs",
+        "src/genesis-implementation-evidence.mjs",
+        "src/uberbond-cognitive-graph.mjs",
+        "tests/agent-evolution-wave.test.mjs",
+        "src/perpetual-frontier-genesis.mjs",
+        "src/ai-access-opportunity-registry.mjs",
+        "src/lead-generation-benchmark.mjs",
+        "tests/capability-genome-night-routing.test.mjs",
+        "tests/genesis-evolution-engine.test.mjs",
+        "tests/uberbond-feature-atom-atlas.test.mjs"
+      ],
+      "nextOwner": "#460 residual organ/reuse review"
+    }
+  ],
+  "providerIndependenceAudit": {
+    "searchTerms": [
+      "supplier-exit",
+      "compute-sovereignty",
+      "portable",
+      "backend",
+      "provider"
+    ],
+    "sourceModules": [
+      "scripts/compute-sovereignty-doctor.mjs",
+      "scripts/supplier-exit-drill.mjs",
+      "scripts/model-provider-doctor.mjs",
+      "src/outreach-provider-events.mjs",
+      "src/provider-infrastructure-events.mjs",
+      "src/provider-activation-receipt.mjs",
+      "src/compute-sovereignty.mjs",
+      "src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs",
+      "src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs",
+      "src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs",
+      "src/omnia-v9/integrations/providers/postal-effect-adapter.mjs",
+      "src/omnia-v9/integrations/providers/postal-webhook-ledger.mjs",
+      "src/omnia-v9/integrations/providers/email-effect-primitives.mjs",
+      "src/provider-receipt-redaction.mjs",
+      "src/relay-deployment-eligibility.mjs",
+      "src/agent-provider-execution.mjs",
+      "src/supplier-exit-drill.mjs",
+      "src/model-provider-doctor.mjs",
+      "src/agent-compute-store.mjs",
+      "src/provider-http-adapters.mjs",
+      "src/ai-compute-budget.mjs",
+      "src/payment-provider-verifier-dispatch.mjs",
+      "src/agent-provider-worker.mjs",
+      "src/provider-adapter-contract.mjs",
+      "src/relay-deployment-attempt.mjs",
+      "src/compute-sovereignty-capacity.mjs",
+      "tests/provider-payload-minimization.test.mjs",
+      "tests/provider-execution.test.mjs",
+      "tests/payment-provider-scope.test.mjs",
+      "tests/agent-compute-store.test.mjs",
+      "tests/compute-sovereignty.test.mjs",
+      "tests/provider-http-adapters.test.mjs",
+      "tests/supplier-exit-drill.test.mjs",
+      "tests/relay-deployment-eligibility.test.mjs",
+      "tests/agent-compute-store-corruption.test.mjs",
+      "tests/ai-compute-budget-conservation.test.mjs",
+      "tests/provider-worker.test.mjs",
+      "tests/provider-payload-mutation-registration.test.mjs",
+      "tests/provider-payload-minimization-source-guard.test.mjs",
+      "tests/hostile-worker-and-provider-sweep.test.mjs",
+      "tests/outreach-provider-events.test.mjs",
+      "tests/relay-deployment-attempt.test.mjs",
+      "tests/payment-founder-readiness-provider-neutral.test.mjs",
+      "tests/provider-infrastructure-events.test.mjs",
+      "tests/provider-activation-receipt.test.mjs",
+      "tests/compute-sovereignty-capacity.test.mjs"
+    ],
+    "claim": "Repository mechanisms exist as leads; no provider activation or self-deployment outcome is claimed."
+  }
+}

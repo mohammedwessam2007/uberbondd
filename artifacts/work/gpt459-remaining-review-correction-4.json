@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "uberbond.remaining-review-correction.v1",
+  "status": "AUTHORITATIVE_FOR_FOUR_ROWS",
+  "supersedes": "remaining-review.json",
+  "sourceCommit": "7b2a9205a536496eeb9f26ac3b8947d13b609650",
+  "testRun": {
+    "command": "node --test tests/universal-ignorance-map.test.mjs tests/sovereign-control-decision-information.test.mjs tests/causal-intervention-ladder.test.mjs",
+    "outcome": "16 passed, 0 failed"
+  },
+  "findings": [
+    {
+      "canonicalId": "total-north-star:assumption-escape",
+      "disposition": "VERIFIED_REUSE",
+      "source": "src/universal-ignorance-map.mjs:buildIgnoranceMap",
+      "tests": "tests/universal-ignorance-map.test.mjs",
+      "rationale": "Exposes untested assumptions with falsifiers and next probes; tests verify assumptions remain visible and do not become certainty.",
+      "authorityClass": "NONE",
+      "privacyClass": "PRIVATE_OR_INTERNAL_DECISION_CONTEXT",
+      "reachability": "decision/ignorance callers -> buildIgnoranceMap; 16-test focused suite passed."
+    },
+    {
+      "canonicalId": "total-north-star:incompleteness-awareness",
+      "disposition": "VERIFIED_REUSE",
+      "source": "src/universal-ignorance-map.mjs:buildIgnoranceMap",
+      "tests": "tests/universal-ignorance-map.test.mjs",
+      "rationale": "Tracks missing domains, option families, evidence lineage and counterevidence; explicitly refuses to equate no visible gaps with complete knowledge.",
+      "authorityClass": "NONE",
+      "privacyClass": "PRIVATE_OR_INTERNAL_DECISION_CONTEXT",
+      "reachability": "decision/ignorance callers -> buildIgnoranceMap; focused tests passed."
+    },
+    {
+      "canonicalId": "total-north-star:unknown-unknown-mining",
+      "disposition": "VERIFIED_REUSE",
+      "source": "src/universal-ignorance-map.mjs:mineUnknownUnknownProbes,prioritizeIgnoranceProbes",
+      "tests": "tests/universal-ignorance-map.test.mjs",
+      "rationale": "Generates bounded representation-edge probes and labels them candidates; never claims an unknown unknown was found.",
+      "authorityClass": "NONE_QUESTION_ONLY",
+      "privacyClass": "PRIVATE_OR_INTERNAL_DECISION_CONTEXT",
+      "reachability": "ignorance map -> probe miner/prioritizer; focused tests passed."
+    },
+    {
+      "canonicalId": "total-north-star:n-of-1-personal-science",
+      "disposition": "VERIFIED_REUSE",
+      "source": "src/causal-intervention-ladder.mjs:compileNOf1Experiment,nOf1Evidence",
+      "tests": "tests/causal-intervention-ladder.test.mjs",
+      "rationale": "Requires reversible intervention, measurement, windows and stop conditions; limits claims to protocol/controlled personal evidence and requires review for high stakes.",
+      "authorityClass": "FOUNDER_REVIEW_REQUIRED",
+      "privacyClass": "PRIVATE_PERSONAL_LIFE_DATA",
+      "reachability": "life/causal callers -> N-of-1 compiler/evidence; focused tests passed."
+    }
+  ],
+  "fileSha256": {
+    "src/universal-ignorance-map.mjs": "ee19ff0790f586edd210b7ce94e3e1a43209b3448699d9a248823d402ade310a",
+    "src/causal-intervention-ladder.mjs": "71d8a5e31bb047c89babc6911497105ce5a9b0cdc660c149488b83081a6b5513",
+    "src/decision-information-theory.mjs": "279458b2143b34e0adc57ec80cb46785bb5ed961d1650fad5c8ed25a217f1c63"
+  }
+}

@@ -29,3 +29,17 @@ test('portable PayPal bridge delegates unrelated routes to canonical server', as
   await handler({ method: 'GET', url: '/api/health', headers: {} }, {});
   assert.equal(delegated, true);
 });
+
+test('portable PayPal bridge bounds incoming webhook body before handler invocation', async () => {
+  let called = false;
+  const handler = createPortablePayPalBridge({
+    coreHandler: async () => {},
+    handlers: { webhook: async () => { called = true; return new Response('bad'); } }
+  });
+  const res = responseCapture();
+  const raw = Buffer.alloc(1024 * 1024 + 1, 65);
+  await handler({ method: 'POST', url: '/api/webhooks/paypal', headers: {}, [Symbol.asyncIterator]: () => Readable.from(raw)[Symbol.asyncIterator]() }, res);
+  assert.equal(called, false);
+  assert.equal(res.status, 413);
+  assert.match(res.body.toString(), /body-too-large/);
+});

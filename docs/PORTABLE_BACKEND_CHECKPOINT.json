@@ -12,7 +12,7 @@
     "docs/PORTABLE_BACKEND_DEPLOYMENT.md"
   ],
   "checks": {
-    "doctor": { "status": "READY_FOR_HOST_REHEARSAL", "tests": 6, "passed": 6, "productionStartupRoles": ["web", "worker"], "paypalBridge": "raw-body-and-response-contract-tested" },
+    "doctor": { "status": "READY_FOR_HOST_REHEARSAL", "tests": 7, "passed": 7, "productionStartupRoles": ["web", "worker"], "paypalBridge": "raw-body-size-boundary-and-response-contract-tested" },
     "nodeCheck": "PASS",
     "diffCheck": "PASS",
     "jsonBackendHttpHealth": {
@@ -27,7 +27,8 @@
   "unmet": [
     "Docker runtime unavailable in the execution environment",
     "No native Postgres daemon available for a production-store rehearsal",
-    "No provider, payment, customer, or unattended-operation proof"
+    "No provider, payment, customer, or unattended-operation proof",
+    "Portable Postgres lifecycle still needs host rehearsal; no claim is made without Docker/Postgres"
   ],
   "businessEffectAuthority": "NONE",
   "secretsCommitted": false

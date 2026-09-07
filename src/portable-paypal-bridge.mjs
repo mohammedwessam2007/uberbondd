@@ -6,9 +6,15 @@ const ROUTES = Object.freeze({
   'POST /api/webhooks/paypal': 'webhook'
 });
 
-async function readBody(req) {
+async function readBody(req, maxBytes = 1024 * 1024) {
   const chunks = [];
-  for await (const chunk of req) chunks.push(Buffer.from(chunk));
+  let size = 0;
+  for await (const chunk of req) {
+    const bytes = Buffer.from(chunk);
+    size += bytes.length;
+    if (size > maxBytes) throw Object.assign(new Error('Request body too large'), { status: 413 });
+    chunks.push(bytes);
+  }
   return Buffer.concat(chunks);
 }
 
@@ -19,7 +25,12 @@ export function createPortablePayPalBridge({ coreHandler, handlers }) {
     const key = `${method} ${url.pathname}`;
     const route = ROUTES[key];
     if (!route) return coreHandler(req, res);
-    const body = method === 'POST' ? await readBody(req) : undefined;
+    let body;
+    try { body = method === 'POST' ? await readBody(req) : undefined; }
+    catch (error) {
+      res.writeHead(error.status === 413 ? 413 : 400, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
+      return res.end(JSON.stringify({ ok: false, status: 'REFUSED', reasonCodes: [error.status === 413 ? 'body-too-large' : 'raw-body-read-failed'] }));
+    }
     const request = new Request(url, {
       method,
       headers: req.headers,

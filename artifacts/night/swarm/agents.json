@@ -1,0 +1,37 @@
+{
+  "schema": "uberbond.night-swarm-agents.v1",
+  "integrationSpine": {"pr": 458, "branch": "omega/night-convergence-20260907"},
+  "commandIssue": 463,
+  "agents": [
+    {
+      "id": "SOL",
+      "mode": "interactive-integration-tribunal",
+      "primaryTheaters": ["CASH", "DELIVERY", "DEPLOY", "AUTONOMY", "SOVEREIGN-cross-lane"],
+      "authority": ["review", "bounded-source-edits", "child-pr-integration-into-458"],
+      "limitations": ["not-continuously-running-after-chat-response"]
+    },
+    {
+      "id": "CLAUDE",
+      "mode": "persistent-code-execution",
+      "primaryTheaters": ["FORECAST", "GENESIS", "PCE", "SOVEREIGN"],
+      "authority": ["branch", "source", "tests", "child-pr", "local-verification"],
+      "limitations": ["no-unilateral-large-child-merge-into-458-without-protocol"]
+    },
+    {
+      "id": "WORK",
+      "mode": "persistent-research-code-verification",
+      "primaryTheaters": ["reuse", "CASH-audit", "DELIVERY-audit", "DEPLOY", "AUTONOMY", "verification"],
+      "authority": ["branch", "source", "tests", "child-pr", "authorized-cloud-browser", "verification"],
+      "limitations": ["avoid-Claude-parent-organ-surfaces", "avoid-SOL-active-claims"]
+    },
+    {
+      "id": "UBERBOND",
+      "mode": "self-maintainer-self-deployment-participant",
+      "primaryTheaters": ["DEPLOY", "AUTONOMY", "capability-routing", "runtime-doctors"],
+      "authority": ["read-state", "synthetic-doctors", "bounded-rehearsal", "strategy-mutation", "governed-proposal"],
+      "limitations": ["no-new-paid-commitment", "no-quota-bypass", "no-secret-exposure", "no-implicit-merge-deploy-send-spend-authority"]
+    }
+  ],
+  "connection": "All agents coordinate via issue #463 comments plus per-packet claim/receipt files. Agents must refresh before claiming work.",
+  "truth": "Presence in this registry is coordination configuration, not proof that the agent is currently executing."
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "uberbond.night-swarm-claim.v1",
+  "packetId": "AUTO-08",
+  "agent": "WORK",
+  "status": "ACTIVE",
+  "integrationBaseSha": "047e36c6eb0a27c3deabbba581c05e29ab597f3d",
+  "childPr": null,
+  "childBranch": "work/issue-465-auto-08-founder-minute-delete",
+  "childHeadAtClaim": null,
+  "writeSurfaces": [
+    "src/founder-command-center.mjs",
+    "tests/founder-command-center.test.mjs",
+    "artifacts/night/swarm/claims/AUTO-08.WORK.json",
+    "artifacts/night/swarm/receipts/AUTO-08.WORK.json"
+  ],
+  "goal": "Delete founder minutes wasted on legacy static checkout setup when the canonical first-cash path is a per-lead PayPal provider order, while preserving read-only, zero-effect and provider-origin payment-truth boundaries.",
+  "businessEffectAuthority": "NONE"
+}

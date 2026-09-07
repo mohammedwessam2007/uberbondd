@@ -1,23 +1,25 @@
 {
   "schemaVersion": "uberbond-handoff-2.2.0",
-  "activeMission": "UberBond OMEGA: execute child missions #437-#444 through the five merge waves of artifacts/uberbond-omega-parallel-execution-graph.json, on branch work/sovereign-continuum-execution-20260907, keeping a no-drop implementation coverage matrix over all 1068 canonical concepts.",
+  "activeMission": "UberBond OMEGA: child missions #437-#444 executed across the five merge waves of artifacts/uberbond-omega-parallel-execution-graph.json on work/sovereign-continuum-execution-20260907, with a no-drop coverage matrix over all 1068 canonical concepts. The decision, sovereignty, meta-rationality, calibration, experience and ruin organs are built, tested, mutation-covered and reachable through api/sovereign-control.mjs.",
   "completed": [
-    "OMEGA-00: sovereign coverage matrix compiler over 1068 extracted concepts, 1038 rows, 30 alias merges, zero dropped (7452865b).",
-    "OMEGA-00: verified implementation manifest -- a declaration supplies files only and fails the whole compile if it names a missing file or an unknown concept.",
-    "OMEGA-01: personal-civilization-core private capture/derive/export/delete, founder-authorized, 22 focused tests, mutations PCIV-01..05 all KILLED.",
-    "OMEGA-01: private core classified DELIBERATELY_UNREACHABLE with a reverse ratchet that fails if any entry point ever reaches it."
+    "OMEGA-00: coverage matrix compiler over 1068 extracted concepts, 1038 rows, 30 alias merges, zero dropped; plus a verified declaration layer that fails the whole compile on a missing file or unknown concept (7452865b, 60628167).",
+    "OMEGA-01: personal-civilization-core private capture/derive/export/delete, founder-authorized, classified DELIBERATELY_UNREACHABLE with a reverse ratchet. PCIV-01..05 KILLED (60628167).",
+    "OMEGA-02/03/04/12/13: sovereignty type ladder with three human-only crossings; option universe merged on causal signature; forecasts refusing a probability without quantitative evidence; five terminal epistemic states; sealed calibration ledger separating decision quality from outcome; read-only control surface giving all four a caller. 23 mutations KILLED (573f48c2).",
+    "OMEGA-05/11: experience compiler keeping presentness and uncopyability outside the arithmetic; ruin firewall screening before expected value with no probability threshold. 9 mutations KILLED (e7bb5f55).",
+    "Repaired four silent validator regressions inherited from the branch base, including requiresMemoryV2 -- a schema bump had switched off memory-index validation with no line deleted and every suite green."
   ],
   "blockers": [
-    "EXTERNAL: no real customer, cleared payment, accepted delivery or retained customer exists; commercial truth remains {realCustomers: 0, clearedRevenueUsd: 0, acceptedPaidDeliveries: 0, retainedCustomers: 0}.",
+    "EXTERNAL: no real customer, cleared payment, accepted delivery or retained customer exists. Commercial truth remains {realCustomers: 0, clearedRevenueUsd: 0, acceptedPaidDeliveries: 0, retainedCustomers: 0}.",
     "EXTERNAL: founder-absence duration cannot be proven by code; it requires observed elapsed unattended operation.",
-    "INTERNAL: OMEGA waves 2-5 (lanes OMEGA-02..OMEGA-14) are not yet implemented; 912 of 1038 coverage rows remain SPEC_ONLY.",
-    "TRUTH: the coverage matrix matcher is deliberately conservative and may understate existing implementation; SPEC_ONLY is a lead for a human, not a finding."
+    "EXTERNAL: no life-outcome evidence exists for any Personal Civilization or Sovereign Continuum organ. They are implemented and tested, which is internal evidence only.",
+    "INTERNAL: 883 of 1038 coverage rows remain SPEC_ONLY. The matcher is deliberately conservative and may understate existing implementation; SPEC_ONLY is a lead for a human, not a finding.",
+    "INTERNAL: Preservation of Mystery, Anti-Fragility Map, Irreversibility Atlas and Prediction Half-Life are named in canon and deliberately not declared -- adjacent implementation is not implementation."
   ],
   "nextActions": [
-    "Finish OMEGA wave 2: OMEGA-02 decision/forecast, OMEGA-04 sovereignty/anti-capture, OMEGA-06 compute sovereignty, OMEGA-11 security/privacy/resilience.",
-    "Then wave 3 (OMEGA-03, -07, -08, -09, -10), wave 4 (OMEGA-05, -12, -13), wave 5 (OMEGA-14 integration tribunal).",
-    "Regenerate canon with npm run readiness as its own commit after each material tranche.",
-    "Do not duplicate ChatGPT Sol's truth/audit lane on sol/omega-truth-integration-20260907 (issue #445)."
+    "Select the highest-value dependency-satisfied mission from live truth plus the terminal North Star; do not auto-select a website audit or commercial wedge from historical documentation.",
+    "The sovereign organs have no calibration history yet. The first material forecast recorded through reality-calibration-ledger.mjs is worth more than another organ.",
+    "Do not duplicate ChatGPT Sol's truth/audit lane on sol/omega-truth-integration-20260907 (issue #445).",
+    "Regenerate canon with npm run readiness as its own commit after each material tranche."
   ],
   "sourceCommit": "7452865b312582a597732889d1282dbb855dde97",
   "checkpointedAt": "2026-09-07T14:26:00+03:00",

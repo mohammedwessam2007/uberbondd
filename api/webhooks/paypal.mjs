@@ -1,5 +1,7 @@
 import { PostgresStore } from '../../src/store.mjs';
+import { DurableQueue } from '../../src/queue.mjs';
 import { processPayPalWebhook } from '../../src/paypal-payment-truth.mjs';
+import { enqueueFirstCashFulfillment } from '../../src/first-cash-fulfillment-runtime.mjs';
 
 let liveStorePromise = null;
 
@@ -23,6 +25,10 @@ async function defaultStore(env) {
     })();
   }
   return liveStorePromise;
+}
+
+function defaultQueue(store) {
+  return new DurableQueue(store, { queue: { maxAttempts: 3 } });
 }
 
 function responseStatus(result) {
@@ -49,11 +55,19 @@ function reviewRequired(result, reasonCodes) {
   return {
     ok: false,
     status: 'REVIEW_REQUIRED',
-    reasonCodes,
+    reasonCodes: [...new Set((reasonCodes || []).filter(Boolean))],
     commercialTruthEligible: false,
     businessEffectAuthority: 'NONE',
     externalEffectLedger: result?.externalEffectLedger || null
   };
+}
+
+function completedCaptureEventId(raw) {
+  let event;
+  try { event = JSON.parse(raw.toString('utf8')); }
+  catch { return null; }
+  if (text(event?.event_type, 120).toUpperCase() !== 'PAYMENT.CAPTURE.COMPLETED') return null;
+  return text(event?.id, 160) || null;
 }
 
 async function enforceCompletedCaptureTriad({ store, raw, result }) {
@@ -140,10 +154,43 @@ async function enforceCompletedCaptureTriad({ store, raw, result }) {
   return result;
 }
 
+async function attachFirstCashFulfillment({ store, raw, result, queueFactory, enqueueFulfillment }) {
+  if (!result?.ok) return result;
+  if (!['PAYPAL_PROVIDER_CLEARED_WITNESSES_PERSISTED', 'PAYPAL_PAYMENT_ALREADY_RECONCILED'].includes(result.status)) return result;
+  const providerEventId = completedCaptureEventId(raw);
+  if (!providerEventId) return result;
+
+  let queue;
+  let fulfillment;
+  try {
+    queue = await queueFactory(store);
+    fulfillment = await enqueueFulfillment({ store, queue, providerEventId });
+  } catch {
+    return reviewRequired(result, ['first-cash-fulfillment-enqueue-threw']);
+  }
+  if (!fulfillment?.ok) {
+    return reviewRequired(result, ['first-cash-fulfillment-enqueue-failed', ...(fulfillment?.reasonCodes || [])]);
+  }
+
+  return {
+    ...result,
+    firstCashFulfillment: {
+      status: fulfillment.status,
+      sprintId: fulfillment.sprintId,
+      sprintStatus: fulfillment.sprintStatus,
+      jobId: fulfillment.job?.id || null,
+      jobType: fulfillment.job?.type || null,
+      truthBoundary: fulfillment.truthBoundary
+    }
+  };
+}
+
 export function createFetchHandler(deps = {}) {
   const env = deps.env || process.env;
   const storeFactory = deps.getStore || defaultStore;
+  const queueFactory = deps.createQueue || defaultQueue;
   const processWebhook = deps.processPayPalWebhook || processPayPalWebhook;
+  const enqueueFulfillment = deps.enqueueFirstCashFulfillment || enqueueFirstCashFulfillment;
   return async function handler(request) {
     if (request?.method && request.method !== 'POST') return json({ ok: false, status: 'REFUSED', reasonCodes: ['method-not-allowed'] }, 405);
     let raw;
@@ -154,6 +201,7 @@ export function createFetchHandler(deps = {}) {
     try { store = await storeFactory(env); } catch { return json({ ok: false, status: 'REFUSED', reasonCodes: ['payment-store-unavailable'] }, 503); }
     let result = await processWebhook({ store, env, rawBody: raw, headers: request.headers });
     result = await enforceCompletedCaptureTriad({ store, raw, result });
+    result = await attachFirstCashFulfillment({ store, raw, result, queueFactory, enqueueFulfillment });
     // A verified but unresolved reversal/dispute is acknowledged to stop an
     // infinite provider retry storm. The durable payment-retention risk entry
     // keeps commercial truth blocked until independent provider evidence clears it.

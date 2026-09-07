@@ -1,10 +1,11 @@
 import { compileConstraintMutationPlan } from './constraint-mutation-engine.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const SELF_MAINTAINER_CONTINUATION_POLICY_VERSION = 'self-maintainer-continuation-policy-1.0.0';
+export const SELF_MAINTAINER_CONTINUATION_POLICY_VERSION = 'self-maintainer-continuation-policy-1.0.1';
 
 const zeroEffects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
 const text = (value, max = 500) => String(value ?? '').trim().slice(0, max);
+const reasonSet = value => new Set(Array.isArray(value) ? value.map(item => text(item, 200)).filter(Boolean) : []);
 
 function envelope(payload = {}) {
   return {
@@ -15,10 +16,18 @@ function envelope(payload = {}) {
   };
 }
 
-export function decideSelfMaintainerContinuation({ taskId, baseRevision, relayStatus, priorContinuations = [], evidenceRefs = [] } = {}) {
+export function decideSelfMaintainerContinuation({
+  taskId,
+  baseRevision,
+  relayStatus,
+  reasonCodes = [],
+  priorContinuations = [],
+  evidenceRefs = []
+} = {}) {
   const normalizedStatus = text(relayStatus, 80).toUpperCase();
   const objectiveId = text(taskId, 200);
   const base = text(baseRevision, 80);
+  const reasons = reasonSet(reasonCodes);
   if (!objectiveId || !/^[a-f0-9]{40}$/i.test(base)) {
     return envelope({ ok: false, status: 'CONTINUATION_REFUSED', reasonCodes: ['task-id-and-exact-base-required'] });
   }
@@ -40,6 +49,19 @@ export function decideSelfMaintainerContinuation({ taskId, baseRevision, relaySt
       decision: 'DO_NOT_REIMPLEMENT_OR_REPROMOTE',
       taskId: objectiveId,
       truthBoundary: 'A REVIEW-PENDING CHANGESET IS ONE ATTEMPT; CLOCK TIME DOES NOT CREATE A NEW ENGINEERING OBJECTIVE'
+    });
+  }
+
+  if (normalizedStatus === 'CANDIDATE_REJECTED' && reasons.has('worker-decision-stop')) {
+    return envelope({
+      ok: true,
+      status: 'NO_SAFE_CHANGE_THIS_BASE',
+      decision: 'WAIT_FOR_NEW_EVIDENCE_OR_MAIN_CHANGE',
+      taskId: objectiveId,
+      reasonCodes: ['worker-decision-stop'],
+      nextMechanismMustDiffer: false,
+      requiresNewEvidenceOrNewMechanism: true,
+      truthBoundary: 'A PRINCIPLED STOP IS A STOPPING RULE, NOT AN IMPLEMENTATION FAILURE; DO NOT FORCE ACTION MERELY TO KEEP THE LOOP BUSY'
     });
   }
 

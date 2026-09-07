@@ -153,3 +153,124 @@ test('PayPal webhook route forwards raw bytes and headers, and acknowledges revi
   const payload = await response.json();
   assert.equal(payload.status, 'REVIEW_REQUIRED');
 });
+
+function completedCaptureFixture(eventId = 'WH-CLEARED-1') {
+  const product = 'lead-path-revenue-leak-evidence-sprint-usd-450';
+  const event = {
+    id: eventId,
+    event_type: 'PAYMENT.CAPTURE.COMPLETED',
+    resource: {
+      id: 'CAPTURE-1',
+      amount: { value: '450.00', currency_code: 'USD' },
+      custom_id: 'lead-1',
+      invoice_id: 'invoice-1',
+      supplementary_data: { related_ids: { order_id: 'ORDER-1' } }
+    }
+  };
+  const rows = {
+    orders: [{
+      provider: 'paypal', eventName: 'order_created', providerEventId: eventId,
+      providerObjectId: 'CAPTURE-1', providerCaptureId: 'CAPTURE-1', providerOrderId: 'ORDER-1',
+      providerCustomId: 'lead-1', providerInvoiceId: 'invoice-1', amountCents: 45_000, currency: 'USD',
+      leadId: 'lead-1', prospectId: 'prospect-1', product
+    }],
+    auditLog: [{
+      type: 'payment_classification',
+      detail: {
+        provider: 'paypal', eventName: 'order_created', eventId,
+        providerObjectId: 'CAPTURE-1', amountCents: 45_000, currency: 'USD',
+        leadId: 'lead-1', prospectId: 'prospect-1', product
+      }
+    }],
+    revenueEvents: [{
+      provider: 'paypal', providerEventId: `order_created:${eventId}`,
+      amountCents: 45_000, currency: 'USD', leadId: 'lead-1', prospectId: 'prospect-1', product, kind: 'sale'
+    }]
+  };
+  return {
+    raw: JSON.stringify(event),
+    store: { list: async key => structuredClone(rows[key] || []) }
+  };
+}
+
+test('verified completed PayPal capture reaches the first-cash fulfillment queue only after the witness triad matches', async () => {
+  const fixture = completedCaptureFixture();
+  const queue = { id: 'queue-1' };
+  let queueCalls = 0;
+  let fulfillmentCalls = 0;
+  const handler = createWebhookHandler({
+    env: {},
+    getStore: async () => fixture.store,
+    createQueue: async observedStore => {
+      queueCalls += 1;
+      assert.equal(observedStore, fixture.store);
+      return queue;
+    },
+    processPayPalWebhook: async () => ({
+      ok: true,
+      status: 'PAYPAL_PROVIDER_CLEARED_WITNESSES_PERSISTED',
+      commercialTruthEligible: true,
+      externalEffectLedger: { providerCalls: 2 }
+    }),
+    enqueueFirstCashFulfillment: async input => {
+      fulfillmentCalls += 1;
+      assert.equal(input.store, fixture.store);
+      assert.equal(input.queue, queue);
+      assert.equal(input.providerEventId, 'WH-CLEARED-1');
+      return {
+        ok: true,
+        status: 'FIRST_CASH_FULFILLMENT_QUEUED',
+        sprintId: 'sprint-1',
+        sprintStatus: 'INPUT_READY',
+        job: { id: 'job-1', type: 'research.batch' },
+        truthBoundary: 'QUEUED_RESEARCH_IS_NOT_DELIVERY_OR_CUSTOMER_ACCEPTANCE'
+      };
+    }
+  });
+
+  const response = await handler(request('https://app.test/api/webhooks/paypal', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: fixture.raw
+  }));
+  assert.equal(response.status, 200);
+  const payload = await response.json();
+  assert.equal(payload.status, 'PAYPAL_PROVIDER_CLEARED_WITNESSES_PERSISTED');
+  assert.equal(payload.firstCashFulfillment.status, 'FIRST_CASH_FULFILLMENT_QUEUED');
+  assert.equal(payload.firstCashFulfillment.jobId, 'job-1');
+  assert.equal(payload.firstCashFulfillment.sprintStatus, 'INPUT_READY');
+  assert.equal(queueCalls, 1);
+  assert.equal(fulfillmentCalls, 1);
+});
+
+test('cleared payment with failed fulfillment enqueue is acknowledged as REVIEW_REQUIRED instead of silently dropping work', async () => {
+  const fixture = completedCaptureFixture('WH-CLEARED-FAIL');
+  const handler = createWebhookHandler({
+    env: {},
+    getStore: async () => fixture.store,
+    createQueue: async () => ({ id: 'queue-1' }),
+    processPayPalWebhook: async () => ({
+      ok: true,
+      status: 'PAYPAL_PROVIDER_CLEARED_WITNESSES_PERSISTED',
+      commercialTruthEligible: true,
+      externalEffectLedger: { providerCalls: 2 }
+    }),
+    enqueueFirstCashFulfillment: async () => ({
+      ok: false,
+      status: 'FIRST_CASH_FULFILLMENT_BLOCKED',
+      reasonCodes: ['canonical-payment-truth-not-ok']
+    })
+  });
+
+  const response = await handler(request('https://app.test/api/webhooks/paypal', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: fixture.raw
+  }));
+  assert.equal(response.status, 200);
+  const payload = await response.json();
+  assert.equal(payload.status, 'REVIEW_REQUIRED');
+  assert.equal(payload.commercialTruthEligible, false);
+  assert.ok(payload.reasonCodes.includes('first-cash-fulfillment-enqueue-failed'));
+  assert.ok(payload.reasonCodes.includes('canonical-payment-truth-not-ok'));
+});

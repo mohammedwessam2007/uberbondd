@@ -1,0 +1,159 @@
+{
+  "schemaVersion": "uberbond.night-swarm.v1",
+  "status": "ACTIVE",
+  "integrationSpine": {"pr": 458, "branch": "omega/night-convergence-20260907"},
+  "commandIssue": 463,
+  "coordinationBus": {
+    "primary": "GitHub issue #463 comments",
+    "claims": "artifacts/night/swarm/claims/<packet-id>.<agent>.json",
+    "receipts": "artifacts/night/swarm/receipts/<packet-id>.<agent>.json",
+    "rule": "agents refresh #458 head and #463 before claiming new work; claims are append-only per packet/agent; integration happens through verified child PRs into #458"
+  },
+  "agents": {
+    "SOL": {"role": "integration tribunal, defect killing, cash/deployment closure, cross-lane falsification", "mayMergeChildrenInto458": true},
+    "CLAUDE": {"role": "large genuine-organ construction, forecast/genesis/personal-civilization parent mechanisms", "mayMergeChildrenInto458": false},
+    "UBERBOND": {"role": "self-maintainer, self-deployment, capability routing, doctors, runtime receipts", "mayMergeChildrenInto458": false},
+    "WORK": {"role": "reuse compression, audit, evidence mining, bounded verification", "mayMergeChildrenInto458": false}
+  },
+  "laws": {
+    "sameBlockerSameStrategyNoNewEvidence": "STRATEGY_MUTATION_REQUIRED",
+    "clockTimeIsEvidence": false,
+    "duplicateImplementationAllowed": false,
+    "historicalTestCertifiesChangedSource": false,
+    "privateLifeDataPublicByDefault": false,
+    "capabilityCreatesAuthority": false,
+    "sandboxEqualsLiveRevenue": false,
+    "prCountIsGoal": false,
+    "packetThroughputIsGoal": true
+  },
+  "packetPolicy": {
+    "targetPackets": 64,
+    "targetChildPRs": {"min": 20, "stretch": 50, "extreme": 100},
+    "childPRCreationRule": "only create a child PR when the packet has disjoint write surfaces, durable source/test evidence, and independent merge value; otherwise batch related packets under one parent-organ PR",
+    "acceptanceRequired": ["exact source delta", "focused test or doctor", "authority/privacy boundary", "reachability classification", "causal blocker classification", "receipt"],
+    "killConditions": ["duplicate implementation", "same failed strategy repeated", "coverage-only facade", "test weakening", "auth/payment/privacy/provenance weakening", "stale-base work", "provider polling after hard cap"]
+  },
+  "theaters": [
+    {
+      "id": "CASH",
+      "owner": "SOL",
+      "goal": "remove founder minutes and close internally solvable first-dollar transitions",
+      "packets": [
+        "CASH-01 prospect-to-evidence reachability audit",
+        "CASH-02 evidence-to-offer binding",
+        "CASH-03 governed acquisition readiness",
+        "CASH-04 order creation truth",
+        "CASH-05 payment witness triad replay safety",
+        "CASH-06 paid sprint persistence",
+        "CASH-07 research job recovery",
+        "CASH-08 QA-to-delivery-ready persistence"
+      ]
+    },
+    {
+      "id": "DELIVERY",
+      "owner": "SOL",
+      "goal": "close delivery/recovery/acceptance boundaries without faking customer evidence",
+      "packets": [
+        "DELIVERY-01 delivery-ready artifact contract",
+        "DELIVERY-02 delivery transport abstraction",
+        "DELIVERY-03 delivery idempotency",
+        "DELIVERY-04 delivery failure recovery",
+        "DELIVERY-05 acceptance evidence ingestion",
+        "DELIVERY-06 rejection/revision loop",
+        "DELIVERY-07 silence/support-window handling",
+        "DELIVERY-08 retention-renewal handoff"
+      ]
+    },
+    {
+      "id": "DEPLOY",
+      "owner": "SOL+UBERBOND",
+      "goal": "make Vercel optional and prove provider-neutral survivability",
+      "packets": [
+        "DEPLOY-01 portable auth facade proof",
+        "DEPLOY-02 Postgres startup rehearsal",
+        "DEPLOY-03 worker startup against Postgres",
+        "DEPLOY-04 scheduler durability",
+        "DEPLOY-05 PayPal route bridge portable runtime",
+        "DEPLOY-06 graceful shutdown restart proof",
+        "DEPLOY-07 restore-cutover-rollback rehearsal",
+        "DEPLOY-08 alternate authorized substrate discovery"
+      ]
+    },
+    {
+      "id": "FORECAST",
+      "owner": "CLAUDE",
+      "goal": "collapse forecast residuals into reusable calibrated parent organs",
+      "packets": [
+        "FORECAST-01 reference-class/base-rate organ",
+        "FORECAST-02 scenario distribution organ",
+        "FORECAST-03 hindcast/backtest organ",
+        "FORECAST-04 calibration update triggers",
+        "FORECAST-05 recommendation-flip threshold",
+        "FORECAST-06 regret/option-value composition",
+        "FORECAST-07 deep-uncertainty/refusal boundary",
+        "FORECAST-08 adversarial forecaster composition"
+      ]
+    },
+    {
+      "id": "GENESIS",
+      "owner": "CLAUDE",
+      "goal": "turn absence into mechanism invention rather than backlog",
+      "packets": [
+        "GENESIS-01 donor mechanism normalization",
+        "GENESIS-02 primitive decomposition",
+        "GENESIS-03 assumption mutation",
+        "GENESIS-04 N+1 recombination",
+        "GENESIS-05 impossibility-vs-not-found boundary",
+        "GENESIS-06 ontology escalation",
+        "GENESIS-07 bounded experiment compiler",
+        "GENESIS-08 surprise-to-capability-multiplication"
+      ]
+    },
+    {
+      "id": "PCE",
+      "owner": "CLAUDE",
+      "goal": "make the private Personal Civilization loop usable end-to-end",
+      "packets": [
+        "PCE-01 private capture",
+        "PCE-02 living-Mohamed hypothesis update",
+        "PCE-03 life-graph provenance",
+        "PCE-04 possibility portfolio generation",
+        "PCE-05 decision-packet composition",
+        "PCE-06 Osteogenesis capability suggestion",
+        "PCE-07 experience/experiment plan",
+        "PCE-08 outcome/calibration/export-delete loop"
+      ]
+    },
+    {
+      "id": "SOVEREIGN",
+      "owner": "CLAUDE+SOL",
+      "goal": "close high-multiplier sovereignty/runtime gaps without widening authority",
+      "packets": [
+        "SOV-01 present-will veto audit",
+        "SOV-02 preference provenance integration",
+        "SOV-03 meta-volition integration",
+        "SOV-04 cognitive opacity/right-not-to-know",
+        "SOV-05 memory sovereignty/export-delete",
+        "SOV-06 strategic reality/inter-sovereign boundary",
+        "SOV-07 ontological crisis contamination propagation",
+        "SOV-08 epistemic immune/model ecology composition"
+      ]
+    },
+    {
+      "id": "AUTONOMY",
+      "owner": "UBERBOND+SOL",
+      "goal": "make UberBond continue, mutate strategy, route capability, and self-deploy with less Mohamed",
+      "packets": [
+        "AUTO-01 constraint-mutation execution proof",
+        "AUTO-02 self-maintainer event-trigger proof",
+        "AUTO-03 continuation receipt persistence",
+        "AUTO-04 alternate-substrate routing",
+        "AUTO-05 capability-genome missing-skill build path",
+        "AUTO-06 provider failover/supplier-exit drill",
+        "AUTO-07 self-deployment genome integration",
+        "AUTO-08 founder-minute deletion audit"
+      ]
+    }
+  ],
+  "commercialTruth": {"realCustomers": 0, "clearedRevenueUsd": 0, "acceptedPaidDeliveries": 0, "retainedCustomers": 0}
+}

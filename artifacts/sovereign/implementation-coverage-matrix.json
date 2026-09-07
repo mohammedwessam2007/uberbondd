@@ -2,17 +2,18 @@
   "ok": true,
   "status": "COVERAGE_MATRIX_COMPILED",
   "schemaVersion": "uberbond.sovereign-coverage-matrix.v1",
-  "generatedAt": "2026-09-07T13:07:07.524Z",
-  "sourceCommit": "36914483e19df4c446f204ec483ab17fe4231ff6",
+  "generatedAt": "2026-09-07T13:33:30.083Z",
+  "sourceCommit": "7452865b312582a597732889d1282dbb855dde97",
   "counts": {
     "extractedConcepts": 1068,
     "rows": 1038,
     "mergedAliasRows": 30,
+    "declaredConcepts": 3,
     "byState": {
-      "VERIFIED_CURRENT": 34,
-      "PARTIAL_CURRENT": 65,
+      "VERIFIED_CURRENT": 39,
+      "PARTIAL_CURRENT": 68,
       "DRAFT_DONOR": 0,
-      "SPEC_ONLY": 920,
+      "SPEC_ONLY": 912,
       "EXTERNAL_BLOCKED": 0,
       "OWNER_BOUNDARY": 13,
       "ELAPSED_TIME_REQUIRED": 0,
@@ -314,22 +315,26 @@
         "Personal Civilization Engine"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/personal-civilization-core.mjs"
+        ],
+        "testModules": [
+          "tests/personal-civilization-core.test.mjs"
+        ],
+        "reachability": "OPERATOR_ONLY",
+        "matchStrength": "ALL_TOKENS",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "PERSONAL_CIVILIZATION_ENGINE",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/personal-civilization-core.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -438,22 +443,26 @@
         "Thought Ocean"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/personal-civilization-core.mjs"
+        ],
+        "testModules": [
+          "tests/personal-civilization-core.test.mjs"
+        ],
+        "reachability": "OPERATOR_ONLY",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Thought Ocean",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/personal-civilization-core.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -468,22 +477,26 @@
         "Living Mohamed Model"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/personal-civilization-core.mjs"
+        ],
+        "testModules": [
+          "tests/personal-civilization-core.test.mjs"
+        ],
+        "reachability": "OPERATOR_ONLY",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Living Mohamed Model",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/personal-civilization-core.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -9644,22 +9657,26 @@
         "PERSONAL_CIVILIZATION_ENGINE"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/personal-civilization-core.mjs"
+        ],
+        "testModules": [
+          "tests/personal-civilization-core.test.mjs"
+        ],
+        "reachability": "OPERATOR_ONLY",
+        "matchStrength": "ALL_TOKENS",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "PERSONAL_CIVILIZATION_ENGINE",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/personal-civilization-core.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -9768,22 +9785,26 @@
         "Thought Ocean"
       ],
       "class": "ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/personal-civilization-core.mjs"
+        ],
+        "testModules": [
+          "tests/personal-civilization-core.test.mjs"
+        ],
+        "reachability": "OPERATOR_ONLY",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Thought Ocean",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/personal-civilization-core.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -9798,22 +9819,26 @@
         "Living Mohamed Model"
       ],
       "class": "ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/personal-civilization-core.mjs"
+        ],
+        "testModules": [
+          "tests/personal-civilization-core.test.mjs"
+        ],
+        "reachability": "OPERATOR_ONLY",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Living Mohamed Model",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/personal-civilization-core.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -15479,22 +15504,26 @@
         "PERSONAL_CIVILIZATION_ENGINE"
       ],
       "class": "HIERARCHY",
-      "currentState": "SPEC_ONLY",
+      "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/personal-civilization-core.mjs"
+        ],
+        "testModules": [
+          "tests/personal-civilization-core.test.mjs"
+        ],
+        "reachability": "OPERATOR_ONLY",
+        "matchStrength": "ALL_TOKENS",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "PERSONAL_CIVILIZATION_ENGINE",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/personal-civilization-core.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -18119,22 +18148,26 @@
         "Private life data is minimized and not placed in public repository canon by default"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/personal-civilization-core.mjs"
+        ],
+        "testModules": [
+          "tests/personal-civilization-core.test.mjs"
+        ],
+        "reachability": "OPERATOR_ONLY",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Private life data is minimized and not placed in public repository canon by default",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/personal-civilization-core.mjs",
       "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,

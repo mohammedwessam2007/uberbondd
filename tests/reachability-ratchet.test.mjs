@@ -85,6 +85,47 @@ test('no classification describes a module that is actually reachable', () => {
     `these modules are reachable and should be removed from the classification:\n  ${stale.join('\n  ')}`);
 });
 
+test('a deliberately unreachable module becoming reachable is a defect, not a graduation', () => {
+  // The test above says a reachable module should be dropped from the
+  // classification. For every other category that is right -- it got wired, the
+  // note is spent. For this one it is exactly backwards: unreachability is the
+  // property being protected, so a new entry point into it is the failure, and
+  // silently deleting the note would erase the only record that it was ever a
+  // decision.
+  //
+  // src/personal-civilization-core.mjs holds the founder's private life state.
+  // Every entry point here runs without a person present. A path from one of
+  // them to that module means an autonomous lane can read, derive from, or
+  // export private records, which is the whole thing founderAuthorized exists
+  // to stop.
+  const { production, operatorOnly } = partition();
+  const reachable = new Set([...production, ...operatorOnly]);
+  const { modules } = classification();
+
+  const wired = Object.entries(modules)
+    .filter(([, entry]) => entry.category === 'DELIBERATELY_UNREACHABLE')
+    .map(([file]) => file)
+    .filter(file => reachable.has(file));
+
+  assert.deepEqual(wired, [],
+    'these modules are unreachable on purpose and something now reaches them:\n  '
+    + `${wired.join('\n  ')}\n`
+    + 'Remove the entry point. Do not reclassify the module to make this pass.');
+});
+
+test('a deliberately unreachable module names no gate, because nothing releases it', () => {
+  // AWAITING_ACTIVATION entries must name a gate; the danger here is the
+  // opposite one. A gate on this category would read as a to-do list item -- a
+  // condition under which wiring becomes correct -- and there is no such
+  // condition.
+  const { modules } = classification();
+  for (const [file, entry] of Object.entries(modules)) {
+    if (entry.category !== 'DELIBERATELY_UNREACHABLE') continue;
+    assert.equal(entry.gate, undefined,
+      `${file}: a gate implies something would release it into an entry point; nothing does`);
+  }
+});
+
 test('no classification names a module that no longer exists', () => {
   const { all } = partition();
   const present = new Set(all);

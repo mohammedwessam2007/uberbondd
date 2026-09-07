@@ -168,6 +168,79 @@ export function locateEvidence(concept, repoIndex) {
  * exists. A declared boundary always wins over any amount of code, because an
  * owner decision or an absent provider is not something a file can satisfy.
  */
+/**
+ * Checks a declared concept-to-implementation mapping against the actual tree.
+ *
+ * The matcher above finds evidence by filename, which is right for names that
+ * became modules and useless for the many that did not: `personal-civilization-core.mjs`
+ * implements the Thought Ocean and the Life Event ledger without either phrase
+ * appearing in its path. Without a way to say so, every such concept reads
+ * SPEC_ONLY forever and the matrix can never record that anything got built.
+ *
+ * So a declaration is allowed -- and is verified rather than believed. It may
+ * only supply *which files*; `classifyState` still decides what that is worth,
+ * so a declaration with no test file lands on PARTIAL_CURRENT exactly as a
+ * discovered one does. A declaration cannot invent a file, cannot name a
+ * concept no source artifact mentions, and cannot skip the test requirement.
+ *
+ * Every problem fails the whole compile rather than downgrading one row. A
+ * manifest that silently ignored its own rotted entries would be a slower way
+ * of writing the states by hand.
+ */
+export function verifyImplementationManifest({ manifest = [], repoIndex = {}, conceptSlugs = new Set() } = {}) {
+  const problems = [];
+  const byConcept = new Map();
+  const sourceFiles = new Set(repoIndex.sourceFiles || []);
+  const testFiles = new Set(repoIndex.testFiles || []);
+
+  for (const entry of (Array.isArray(manifest) ? manifest : [])) {
+    const concept = text(entry?.concept);
+    if (!concept) { problems.push({ reason: 'manifest-entry-concept-required', entry }); continue; }
+    const slug = slugify(concept);
+
+    // A renamed or removed concept must break loudly. The alternative is a
+    // manifest that keeps asserting coverage for something the canon no longer
+    // contains.
+    if (!conceptSlugs.has(slug)) { problems.push({ reason: 'manifest-names-unknown-concept', concept }); continue; }
+
+    const sources = [...new Set((Array.isArray(entry.sources) ? entry.sources : []).map(file => text(file)).filter(Boolean))];
+    const tests = [...new Set((Array.isArray(entry.tests) ? entry.tests : []).map(file => text(file)).filter(Boolean))];
+    if (sources.length === 0) { problems.push({ reason: 'manifest-entry-requires-source', concept }); continue; }
+
+    const missing = [
+      ...sources.filter(file => !sourceFiles.has(file)),
+      ...tests.filter(file => !testFiles.has(file))
+    ];
+    if (missing.length) { problems.push({ reason: 'manifest-names-missing-files', concept, missing }); continue; }
+
+    byConcept.set(slug, { concept, sources, tests });
+  }
+
+  return { ok: problems.length === 0, problems, byConcept };
+}
+
+/**
+ * Folds a verified declaration into discovered evidence.
+ *
+ * Union rather than replacement: a concept can be both named by a module and
+ * declared by another, and losing either would understate what is there.
+ */
+export function mergeDeclaredEvidence(evidence, declared, repoIndex = {}) {
+  if (!declared) return evidence;
+  const sources = [...new Set([...declared.sources, ...(evidence?.sources || [])])];
+  const tests = [...new Set([...declared.tests, ...(evidence?.tests || [])])];
+  return {
+    sources,
+    tests,
+    reachability: sources.some(file => (repoIndex.productionReachable || []).includes(file)) ? 'PRODUCTION'
+      : sources.some(file => (repoIndex.operatorReachable || []).includes(file)) ? 'OPERATOR_ONLY'
+        : 'CLASSIFIED_OR_UNREACHABLE',
+    matchStrength: 'DECLARED_AND_VERIFIED',
+    matchScope: 'WHOLE_NAME',
+    matchedPhrase: declared.concept
+  };
+}
+
 export function classifyState(concept, evidence) {
   if (concept.declaredState && COVERAGE_STATES.includes(concept.declaredState)) return concept.declaredState;
   if (concept.class === 'BOUNDARY') return 'OWNER_BOUNDARY';
@@ -181,7 +254,8 @@ export function classifyState(concept, evidence) {
   // "Postal/free-first provider mesh and sender infrastructure" says a
   // component exists, not the mesh.
   if (evidence.matchScope !== 'WHOLE_NAME') return 'PARTIAL_CURRENT';
-  if (evidence.matchStrength === 'EXACT_SLUG' && evidence.reachability && evidence.reachability !== 'CLASSIFIED_OR_UNREACHABLE') {
+  const strongMatch = evidence.matchStrength === 'EXACT_SLUG' || evidence.matchStrength === 'DECLARED_AND_VERIFIED';
+  if (strongMatch && evidence.reachability && evidence.reachability !== 'CLASSIFIED_OR_UNREACHABLE') {
     return 'VERIFIED_CURRENT';
   }
   return 'PARTIAL_CURRENT';
@@ -194,10 +268,23 @@ export function classifyState(concept, evidence) {
  * judgement that a later session can improve; the invariant that no input
  * concept leaves without a row is the one that cannot be allowed to soften.
  */
-export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap = {}, generatedAt = new Date().toISOString(), sourceCommit = null } = {}) {
+export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap = {}, manifest = [], generatedAt = new Date().toISOString(), sourceCommit = null } = {}) {
   const reasonCodes = [];
   if (!Array.isArray(concepts) || concepts.length === 0) reasonCodes.push('concepts-required');
   if (reasonCodes.length) return { ok: false, status: 'COVERAGE_MATRIX_BLOCKED', reasonCodes };
+
+  // Verified before any row is built, so a rotted declaration stops the matrix
+  // instead of quietly producing one whose states nobody can trust.
+  const conceptSlugs = new Set(concepts.map(concept => slugify(text(concept?.name))).filter(Boolean));
+  const declarations = verifyImplementationManifest({ manifest, repoIndex, conceptSlugs });
+  if (!declarations.ok) {
+    return {
+      ok: false,
+      status: 'COVERAGE_MANIFEST_INVALID',
+      reasonCodes: [...new Set(declarations.problems.map(problem => problem.reason))],
+      problems: declarations.problems
+    };
+  }
 
   const seen = new Map();
   const rows = [];
@@ -219,7 +306,11 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
       continue;
     }
 
-    const evidence = locateEvidence({ name, ...concept }, repoIndex);
+    const evidence = mergeDeclaredEvidence(
+      locateEvidence({ name, ...concept }, repoIndex),
+      declarations.byConcept.get(slugify(name)),
+      repoIndex
+    );
     const lane = laneMap[concept.class] || laneMap[concept.source] || concept.owningLane || 'OMEGA-14';
 
     const row = {
@@ -290,6 +381,7 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
       extractedConcepts: named,
       rows: rows.length,
       mergedAliasRows: duplicates.length,
+      declaredConcepts: declarations.byConcept.size,
       byState,
       byLane
     },

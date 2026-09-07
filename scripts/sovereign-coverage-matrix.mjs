@@ -165,7 +165,20 @@ function main() {
   let sourceCommit = null;
   try { sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(); } catch { /* no git */ }
 
-  const matrix = compileCoverageMatrix({ concepts, repoIndex: repoIndex(), laneMap: LANE_BY_CLASS, sourceCommit });
+  // Absent is fine; malformed is not. A manifest that fails to parse must not
+  // read as "no declarations", which would silently drop every concept whose
+  // implementation is only discoverable through it.
+  let manifest = [];
+  const manifestPath = join(root, 'artifacts/sovereign/implementation-manifest.json');
+  if (existsSync(manifestPath)) {
+    try { manifest = JSON.parse(readFileSync(manifestPath, 'utf8')).entries || []; }
+    catch (error) {
+      console.error(JSON.stringify({ ok: false, status: 'COVERAGE_MANIFEST_UNREADABLE', detail: error.message }, null, 2));
+      return 2;
+    }
+  }
+
+  const matrix = compileCoverageMatrix({ concepts, repoIndex: repoIndex(), laneMap: LANE_BY_CLASS, manifest, sourceCommit });
   if (!matrix.ok) { console.error(JSON.stringify(matrix, null, 2)); return 2; }
 
   const output = join(root, 'artifacts/sovereign/implementation-coverage-matrix.json');

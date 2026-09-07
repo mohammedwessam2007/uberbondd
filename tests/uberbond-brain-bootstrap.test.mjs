@@ -16,6 +16,7 @@ import {
   WORLD_BRAIN_FIELD_PARTNERS_PATH,
   WORLD_BRAIN_FIELD_CORPUS_PATH
 } from '../scripts/uberbond-brain-bootstrap.mjs';
+import { SUPPORTED_BOOTSTRAP_SCHEMAS } from '../src/uberbond-brain-context.mjs';
 
 const sourceRoot = path.resolve(new URL('..', import.meta.url).pathname);
 const sourceCommit = 'b894a4cfae8acddd6170095f2373f339ff65f15c';
@@ -209,6 +210,32 @@ test('memory reconciliation corruption fails closed through canonical context va
     assert.ok(error.reasonCodes.includes('valid-memory-index-required'));
     return true;
   });
+});
+
+test('a newer bootstrap schema does not shed the memory-v2 requirements', () => {
+  // This is a repair with a guard, not a new feature.
+  //
+  // The requirements were gated on `schemaVersion === '1.1.0'` in three places,
+  // which turned a version bump into a way to disable validation without
+  // deleting it. 1.2.0 landed and the memory index stopped being checked at
+  // all, the canonical memory paths stopped being required, and the chat-import
+  // instruction stopped being enforced -- silently, on main, with every suite
+  // green. The bump was legitimate; the gate was the defect.
+  // The same corruption the reconciliation test above uses, applied under each
+  // schema in turn: emptying unresolvedNames drops the owner-recalled names the
+  // memory index is required to carry.
+  for (const schemaVersion of SUPPORTED_BOOTSTRAP_SCHEMAS.filter(v => v !== 'uberbond-bootstrap-1.0.0')) {
+    const root = buildFixture(({ bootstrap, reconciliation }) => {
+      bootstrap.schemaVersion = schemaVersion;
+      reconciliation.unresolvedNames = [];
+    });
+    assert.throws(() => loadUberBondBrainFromRepository({ rootDir: root, sourceCommit }), error => {
+      assert.equal(error.message, 'project-context-validation-failed', schemaVersion);
+      assert.ok(error.reasonCodes.includes('valid-memory-index-required'),
+        `${schemaVersion} accepted a corrupted memory index; the requirement was shed by the bump`);
+      return true;
+    });
+  }
 });
 
 test('unsafe canon pointers are rejected before filesystem traversal', () => {

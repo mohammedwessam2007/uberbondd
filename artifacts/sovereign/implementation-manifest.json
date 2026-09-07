@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "uberbond.sovereign-implementation-manifest.v1",
+  "purpose": "Declares which module implements a canonical concept whose name never became a filename. Every entry is verified against the tree at compile time: a concept no source artifact names, a file that does not exist, or an entry with no source fails the whole matrix compile. A declaration supplies files only -- the coverage state is still derived, so a declaration with no test file cannot reach VERIFIED_CURRENT.",
+  "truthBoundary": "A DECLARATION PLUS A REAL FILE AND A REAL TEST IS INTERNAL EVIDENCE. IT IS NOT PROOF THE CONCEPT WORKS, IS REACHED AT RUNTIME, OR HAS EXTERNAL EVIDENCE.",
+  "entries": [
+    {
+      "concept": "Thought Ocean",
+      "lane": "OMEGA-01",
+      "sources": ["src/personal-civilization-core.mjs"],
+      "tests": ["tests/personal-civilization-core.test.mjs"],
+      "note": "Append-only private capture: normalizePrivateRecord + appendPrivateRecord, content-addressed so the same thought cannot be stored twice, and destination-refused from every repository path."
+    },
+    {
+      "concept": "Living Mohamed Model",
+      "lane": "OMEGA-01",
+      "sources": ["src/personal-civilization-core.mjs"],
+      "tests": ["tests/personal-civilization-core.test.mjs"],
+      "note": "deriveLivingModel. Every derived claim cites the records it came from; a claim with no provenance is refused rather than stored, because deletion could never reach it afterwards."
+    },
+    {
+      "concept": "Private life data is minimized and not placed in public repository canon by default",
+      "lane": "OMEGA-04",
+      "sources": ["src/personal-civilization-core.mjs"],
+      "tests": ["tests/personal-civilization-core.test.mjs"],
+      "note": "privateDestinationAllowed refuses .git, artifacts, docs, src, tests, config and scripts, and refuses relative paths rather than resolving them against an unknown cwd. PCIV-01 and PCIV-02 hold it."
+    }
+  ]
+}

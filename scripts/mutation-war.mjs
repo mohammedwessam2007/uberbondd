@@ -1300,6 +1300,87 @@ export const MUTATIONS = [
     suites: ['tests/proposal-acceptance-engine.test.mjs']
   },
   {
+    id: 'OMEGA-MATRIX-04', guard: 'A declaration cannot claim a file that is not in the tree',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "    if (missing.length) { problems.push({ reason: 'manifest-names-missing-files', concept, missing }); continue; }",
+    replace: '',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'OMEGA-MATRIX-05', guard: 'A declaration cannot name a concept the canon does not contain',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "    if (!conceptSlugs.has(slug)) { problems.push({ reason: 'manifest-names-unknown-concept', concept }); continue; }",
+    replace: '',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    // Anchored on the refusal to emit, not on the verification itself: the
+    // damage is a matrix that compiles with some declarations silently dropped,
+    // which reads exactly like a complete one.
+    id: 'OMEGA-MATRIX-06', guard: 'An invalid manifest stops the matrix instead of emitting partial rows',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: '  if (!declarations.ok) {',
+    replace: '  if (false) {',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    // The exact defect this replaced: written as an equality check against one
+    // version, a schema bump switched off memory validation without deleting a
+    // line of it.
+    id: 'BRAIN-SCHEMA-01', guard: 'A newer bootstrap schema cannot shed the memory-v2 requirements',
+    file: 'src/uberbond-brain-context.mjs',
+    find: "export const requiresMemoryV2 = schemaVersion => schemaVersion !== 'uberbond-bootstrap-1.0.0';",
+    replace: "export const requiresMemoryV2 = schemaVersion => schemaVersion === 'uberbond-bootstrap-1.1.0';",
+    suites: ['tests/uberbond-brain-bootstrap.test.mjs']
+  },
+  {
+    id: 'BRAIN-SCHEMA-02', guard: 'An unknown bootstrap schema fails closed instead of being half-read',
+    file: 'src/uberbond-brain-context.mjs',
+    find: "  if (!SUPPORTED_BOOTSTRAP_SCHEMAS.includes(schemaVersion)) reasonCodes.push('unsupported-bootstrap-schema');",
+    replace: '',
+    suites: ['tests/uberbond-brain-bootstrap.test.mjs', 'tests/perpetual-frontier-genesis.test.mjs']
+  },
+  // ---- The private core: the one data class that is not the company's -----
+  {
+    id: 'PCIV-01', guard: 'A repository path is refused as a destination for private life data',
+    file: 'src/personal-civilization-core.mjs',
+    find: '  if (forbidden.some(pattern => pattern.test(target))) {',
+    replace: '  if (false) {',
+    suites: ['tests/personal-civilization-core.test.mjs']
+  },
+  {
+    id: 'PCIV-02', guard: 'A private record is destination-checked before it is appended',
+    file: 'src/personal-civilization-core.mjs',
+    find: "  if (normalized.record.privacyClass === 'PRIVATE_LIFE_DATA') {",
+    replace: '  if (false) {',
+    suites: ['tests/personal-civilization-core.test.mjs']
+  },
+  {
+    // Anchored on the fixpoint rather than on the loop body, because a single
+    // pass is the failure that actually happens: one level of cascade looks
+    // correct in every simple case and leaves the owner's data behind as soon
+    // as a model is derived from a model.
+    id: 'PCIV-03', guard: 'Deletion follows derivation transitively, not one level down',
+    file: 'src/personal-civilization-core.mjs',
+    find: '  while (grew) {',
+    replace: '  for (let pass = 0; pass < 1; pass += 1) {',
+    suites: ['tests/personal-civilization-core.test.mjs']
+  },
+  {
+    id: 'PCIV-04', guard: 'A derived claim with no provenance is refused, never stored',
+    file: 'src/personal-civilization-core.mjs',
+    find: "    if (sources.length === 0) { refused.push({ claim, reasonCodes: ['claim-provenance-required'] }); continue; }",
+    replace: '',
+    suites: ['tests/personal-civilization-core.test.mjs']
+  },
+  {
+    id: 'PCIV-05', guard: 'Private state requires the founder grant, not merely the founder subject',
+    file: 'src/personal-civilization-core.mjs',
+    find: "    && authorization.grant === 'PRIVATE_LIFE_STATE'",
+    replace: '',
+    suites: ['tests/personal-civilization-core.test.mjs']
+  },
+  {
     id: 'PROPOSAL-02', guard: 'A sandbox payment reference is not external payment evidence',
     file: 'src/proposal-acceptance-engine.mjs',
     find: "    && !/(?:^|[-_:])(sandbox|synthetic|fixture|fake|test)(?:[-_:]|$)/i.test(ref);",

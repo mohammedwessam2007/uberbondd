@@ -7,10 +7,12 @@
 // from the outside: they both look complete.
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync, existsSync } from 'node:fs';
 
 import {
   compileCoverageMatrix, classifyState, locateEvidence, evidencePhrases,
-  evidenceTokens, canonicalConceptId, COVERAGE_STATES
+  evidenceTokens, canonicalConceptId, verifyImplementationManifest,
+  mergeDeclaredEvidence, COVERAGE_STATES
 } from '../src/sovereign-coverage-matrix.mjs';
 
 const index = {
@@ -109,4 +111,137 @@ test('every row carries a state the schema allows and a boundary on its evidence
 test('a concept id survives rewording that does not change the concept', () => {
   assert.equal(canonicalConceptId('s', 'Thought Ocean'), canonicalConceptId('s', 'thought   ocean'));
   assert.notEqual(canonicalConceptId('s', 'Thought Ocean'), canonicalConceptId('s', 'Thought Oceans'));
+});
+
+// ---- The declaration layer -------------------------------------------------
+//
+// A declaration exists because most canonical names never became filenames:
+// `personal-civilization-core.mjs` implements the Thought Ocean without the
+// phrase appearing in its path. That is also exactly the shape of the abuse --
+// a line of JSON asserting that something is built. So every test below is
+// about what a declaration is *not* allowed to do.
+
+const declared = concept => [{
+  concept, sources: ['src/wallbreaker.mjs'], tests: ['tests/wallbreaker.test.mjs']
+}];
+
+test('a declaration cannot invent a file that does not exist', () => {
+  const matrix = compileCoverageMatrix({
+    concepts: [{ name: 'Thought Ocean', source: 's', class: 'CONCEPT' }],
+    repoIndex: index,
+    manifest: [{ concept: 'Thought Ocean', sources: ['src/does-not-exist.mjs'], tests: [] }]
+  });
+  assert.equal(matrix.ok, false);
+  assert.equal(matrix.status, 'COVERAGE_MANIFEST_INVALID');
+  assert.deepEqual(matrix.reasonCodes, ['manifest-names-missing-files']);
+});
+
+test('a declaration cannot name a test file that does not exist', () => {
+  const matrix = compileCoverageMatrix({
+    concepts: [{ name: 'Thought Ocean', source: 's', class: 'CONCEPT' }],
+    repoIndex: index,
+    manifest: [{ concept: 'Thought Ocean', sources: ['src/wallbreaker.mjs'], tests: ['tests/imaginary.test.mjs'] }]
+  });
+  assert.equal(matrix.ok, false);
+  assert.equal(matrix.status, 'COVERAGE_MANIFEST_INVALID');
+});
+
+test('a declaration for a concept no source artifact names fails the compile', () => {
+  // The rot case. Canon renames a concept, the manifest keeps asserting the old
+  // name, and without this the matrix would go on reporting coverage for
+  // something that is no longer in the canon at all.
+  const matrix = compileCoverageMatrix({
+    concepts: [{ name: 'Thought Ocean', source: 's', class: 'CONCEPT' }],
+    repoIndex: index,
+    manifest: declared('Concept That Canon Never Mentions')
+  });
+  assert.equal(matrix.ok, false);
+  assert.deepEqual(matrix.reasonCodes, ['manifest-names-unknown-concept']);
+});
+
+test('one bad declaration fails the whole matrix, never just its own row', () => {
+  // A manifest that skipped its own broken entries would be a slower way of
+  // writing the states by hand: the rows that still compiled would look
+  // authoritative while the reader had no way to know some were dropped.
+  const matrix = compileCoverageMatrix({
+    concepts: [
+      { name: 'Thought Ocean', source: 's', class: 'CONCEPT' },
+      { name: 'Wallbreaker', source: 's', class: 'CONCEPT' }
+    ],
+    repoIndex: index,
+    manifest: [
+      { concept: 'Thought Ocean', sources: ['src/wallbreaker.mjs'], tests: ['tests/wallbreaker.test.mjs'] },
+      { concept: 'Wallbreaker', sources: ['src/gone.mjs'], tests: [] }
+    ]
+  });
+  assert.equal(matrix.ok, false);
+  assert.equal(matrix.rows, undefined, 'no rows may be emitted from an invalid manifest');
+});
+
+test('a declaration supplies files, and the state is still derived from them', () => {
+  // The load-bearing property. A declared concept with no test file must land
+  // exactly where a discovered one does -- otherwise a declaration would be a
+  // way to write VERIFIED_CURRENT by hand.
+  const matrix = compileCoverageMatrix({
+    concepts: [{ name: 'Thought Ocean', source: 's', class: 'CONCEPT' }],
+    repoIndex: index,
+    manifest: [{ concept: 'Thought Ocean', sources: ['src/wallbreaker.mjs'], tests: [] }]
+  });
+  assert.equal(matrix.ok, true);
+  assert.equal(matrix.rows[0].currentState, 'PARTIAL_CURRENT');
+
+  const withTests = compileCoverageMatrix({
+    concepts: [{ name: 'Thought Ocean', source: 's', class: 'CONCEPT' }],
+    repoIndex: index,
+    manifest: declared('Thought Ocean')
+  });
+  assert.equal(withTests.rows[0].currentState, 'VERIFIED_CURRENT');
+});
+
+test('a declaration for an unreachable module cannot reach VERIFIED_CURRENT', () => {
+  const unreachable = { ...index, productionReachable: [], operatorReachable: [] };
+  const matrix = compileCoverageMatrix({
+    concepts: [{ name: 'Thought Ocean', source: 's', class: 'CONCEPT' }],
+    repoIndex: unreachable,
+    manifest: declared('Thought Ocean')
+  });
+  assert.equal(matrix.rows[0].currentState, 'PARTIAL_CURRENT');
+});
+
+test('a declaration with no source at all is refused', () => {
+  const verdict = verifyImplementationManifest({
+    manifest: [{ concept: 'Thought Ocean', sources: [], tests: ['tests/wallbreaker.test.mjs'] }],
+    repoIndex: index,
+    conceptSlugs: new Set(['thought-ocean'])
+  });
+  assert.equal(verdict.ok, false);
+  assert.equal(verdict.problems[0].reason, 'manifest-entry-requires-source');
+});
+
+test('a declaration adds to discovered evidence rather than replacing it', () => {
+  // A concept can be both named by one module and declared by another. Taking
+  // only one of the two would understate what is actually there.
+  const discovered = locateEvidence({ name: 'Wallbreaker' }, index);
+  const merged = mergeDeclaredEvidence(
+    discovered,
+    { concept: 'Wallbreaker', sources: ['src/event-horizon.mjs'], tests: [] },
+    index
+  );
+  assert.ok(merged.sources.includes('src/wallbreaker.mjs'), 'discovered evidence must survive');
+  assert.ok(merged.sources.includes('src/event-horizon.mjs'), 'declared evidence must be added');
+  assert.deepEqual(merged.tests, discovered.tests);
+});
+
+test('the repository manifest that ships with the matrix actually compiles', () => {
+  // The declarations in artifacts/ are checked against the real tree by the
+  // generator; this asserts the file is wired in rather than sitting unread.
+  const parsed = JSON.parse(readFileSync('artifacts/sovereign/implementation-manifest.json', 'utf8'));
+  assert.ok(Array.isArray(parsed.entries) && parsed.entries.length > 0);
+  for (const entry of parsed.entries) {
+    assert.ok(entry.concept, 'every entry names a concept');
+    assert.ok(entry.sources?.length, `${entry.concept} must name at least one source`);
+    for (const file of [...entry.sources, ...(entry.tests || [])]) {
+      assert.ok(existsSync(file), `${entry.concept} declares ${file}, which is not in the tree`);
+    }
+  }
 });

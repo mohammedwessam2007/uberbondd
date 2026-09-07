@@ -2,11 +2,17 @@ import { spawnSync } from 'node:child_process';
 
 // npm 11 blocks unreviewed dependency lifecycle scripts. embedded-postgres
 // requires its reviewed platform package postinstall to hydrate the PostgreSQL
-// binary tree. Rebuild the pinned Vercel platform fixture up front so Mutation
-// War fails fast on fixture preparation instead of after the full deterministic
-// siege. Other platforms keep their normal local package installation path.
+// binary tree. Rebuild the pinned Vercel platform fixture up front, then make
+// its executable-bit contract explicit. Re-run the same narrow preparation
+// immediately before Mutation War because Vercel has demonstrated that a
+// successful early rebuild alone does not guarantee initdb remains executable
+// at the later disposable-Postgres boundary. Other platforms keep their normal
+// local package installation path.
 const fixturePreparation = process.platform === 'linux' && process.arch === 'x64'
-  ? [['npm', ['rebuild', '@embedded-postgres/linux-x64']]]
+  ? [
+      ['npm', ['rebuild', '@embedded-postgres/linux-x64']],
+      ['node', ['scripts/prepare-embedded-postgres-fixture.mjs']]
+    ]
   : [];
 
 const steps = [
@@ -53,6 +59,10 @@ const steps = [
   // the very last build step and create an avoidable always-red terminal gate.
   ['npm', ['run', 'readiness']],
   ['npm', ['run', 'test:deterministic']],
+  // Reassert the reviewed fixture at the exact consumer boundary. This is not
+  // a skipped or weakened mutation gate; it makes the real PostgreSQL fixture
+  // runnable so the mutation gate can execute rather than die with EACCES.
+  ...fixturePreparation,
   ['npm', ['run', 'test:mutation-war']],
   ['npm', ['run', 'test:whole-brain']],
   // Re-emit readiness after every proof step so the terminal workspace ends

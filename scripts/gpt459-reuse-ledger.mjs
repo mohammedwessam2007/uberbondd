@@ -11,6 +11,17 @@ const matrixPath = 'artifacts/sovereign/implementation-coverage-matrix.json';
 const matrix = JSON.parse(fs.readFileSync(matrixPath, 'utf8'));
 const rows = matrix.rows.filter(row => row.class === 'CAPABILITY_DOMAIN' || row.class === 'CAPABILITY_ATOM');
 const sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+const repositoryFiles = execFileSync('rg', ['--files', 'src', 'scripts', 'tests'], { encoding: 'utf8' }).trim().split('\n').filter(Boolean);
+const contentCache = new Map();
+const contentMatches = row => {
+  const tokens = row.literalNames.flatMap(name => String(name).toLowerCase().split(/[^a-z0-9]+/).filter(token => token.length >= 5));
+  const distinct = [...new Set(tokens)];
+  return repositoryFiles.filter(file => {
+    if (!contentCache.has(file)) { try { contentCache.set(file, fs.readFileSync(file, 'utf8').toLowerCase()); } catch { contentCache.set(file, ''); } }
+    const body = contentCache.get(file);
+    return distinct.length > 0 && distinct.some(token => body.includes(token));
+  }).slice(0, 20);
+};
 const dispositionFor = row => {
   const evidence = row.currentEvidence || {};
   if (row.currentState === 'VERIFIED_CURRENT' && evidence.sourceModules?.length && evidence.testModules?.length && evidence.reachability) return 'VERIFIED_REUSE';
@@ -29,7 +40,10 @@ const ledgerRows = rows.map(row => {
     class: row.class,
     priorState: row.currentState,
     disposition,
-    implementationProof: disposition === 'VERIFIED_REUSE' || disposition === 'PARTIAL_REUSE' ? 'existing-source-and-test-evidence' : metadataOnly ? 'metadata-only-or-no-behavioral-source-found' : 'no-qualifying-behavioral-proof',
+    implementationProof: disposition === 'VERIFIED_REUSE' || disposition === 'PARTIAL_REUSE' ? 'matrix-lead-requires-independent-behavioral-review' : metadataOnly ? 'metadata-only-or-no-behavioral-source-found' : 'no-qualifying-behavioral-proof',
+    evidenceGrade: disposition === 'GENUINE_GAP' ? 'UNPROVEN_CANDIDATE_NOT_PROOF_OF_ABSENCE' : 'MATRIX_LEAD_NOT_BEHAVIORAL_VERIFICATION',
+    absenceClaim: false,
+    repositorySearchMatches: contentMatches(row),
     sourceModules: evidence.sourceModules || [],
     focusedTests: evidence.testModules || [],
     reachability: evidence.reachability || 'UNREACHABLE_OR_UNPROVEN',
@@ -40,12 +54,12 @@ const ledgerRows = rows.map(row => {
     matchedPhrase: evidence.matchedPhrase || null,
     boundary: evidence.boundary || 'NO_BEHAVIORAL_EVIDENCE',
     rationale: disposition === 'VERIFIED_REUSE'
-      ? 'Exact current implementation has source, focused tests, production reachability, and explicit authority/privacy classification.'
+      ? 'Matrix provides a strong source/test/reachability lead; independent behavioral review is still required before promotion.'
       : disposition === 'PARTIAL_REUSE'
-        ? 'Current source and tests cover part of the named capability; the broader contract remains unproven.'
+        ? 'Matrix provides a source/test lead covering part of the named capability; broader behavior remains unproven.'
         : metadataOnly
-          ? 'Capability atom is present in the taxonomy but no behavioral implementation and focused test were found; metadata is not implementation.'
-          : 'No qualifying source plus focused-test proof was found in the current exact-head matrix; preserve as a genuine build target for #460.'
+          ? 'Capability atom is present in the taxonomy but metadata is not implementation; independent repository search is recorded.'
+          : 'No qualifying behavioral proof was found by the matrix lead; this is an unproven candidate for #460, not proof that no implementation exists.'
   };
 });
 const counts = Object.fromEntries(['VERIFIED_REUSE','PARTIAL_REUSE','GENUINE_GAP','MISCLASSIFIED_OR_STRUCTURAL','EXTERNAL_OR_ELAPSED'].map(k => [k, ledgerRows.filter(row => row.disposition === k).length]));

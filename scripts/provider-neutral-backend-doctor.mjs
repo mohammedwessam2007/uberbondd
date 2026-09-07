@@ -3,8 +3,8 @@ import path from 'node:path';
 import { validateStartupConfig } from '../src/config.mjs';
 
 const root = path.resolve(new URL('..', import.meta.url).pathname);
-const requiredFiles = ['Dockerfile', 'server.mjs', 'worker.mjs', 'scripts/migrate.mjs', 'docker-compose.yml'];
-const requiredComposeMarkers = ['postgres:', 'migrate:', 'web:', 'worker:', 'service_completed_successfully', '/api/health'];
+const requiredFiles = ['Dockerfile', 'server.mjs', 'portable-server.mjs', 'worker.mjs', 'scripts/migrate.mjs', 'scripts/provider-neutral-backend-doctor.mjs', 'docker-compose.yml'];
+const requiredComposeMarkers = ['postgres:', 'migrate:', 'web:', 'worker:', 'portable-server.mjs', 'service_completed_successfully', '/api/health'];
 
 export function inspectPortableBackend({ repoRoot = root, env = process.env } = {}) {
   const missingFiles = requiredFiles.filter(file => !fs.existsSync(path.join(repoRoot, file)));

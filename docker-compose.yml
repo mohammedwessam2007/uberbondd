@@ -28,7 +28,7 @@ services:
 
   web:
     build: .
-    command: ["node", "server.mjs"]
+    command: ["node", "portable-server.mjs"]
     environment:
       NODE_ENV: production
       PROCESS_ROLE: web

@@ -8,4 +8,4 @@ Run `node scripts/provider-neutral-backend-doctor.mjs` with `POSTGRES_PASSWORD`,
 
 The bundle has no outbound, discovery, or payment activation flags. Keep those capabilities disabled until their existing authority and external evidence gates are satisfied.
 
-The standalone HTTP server currently exposes the core public/Lemon Squeezy routes; Vercel function routes such as `/api/payments/paypal-order`, `/api/payments/paypal-capture`, and `/api/webhooks/paypal` are not mounted by `server-core.mjs`. PayPal remains an explicit portability follow-up and is not claimed as available through this bundle.
+`portable-server.mjs` adds a thin Node HTTP bridge for the existing PayPal order, capture, and webhook handlers. It preserves the webhook raw body and delegates all payment business logic, binding, replay, and authority checks to those handlers. The canonical `server.mjs` remains the fallback for every unrelated route.

@@ -1809,6 +1809,80 @@ export const MUTATIONS = [
     replace: '      provisional: false',
     suites: ['tests/human-capability-genome.test.mjs']
   },
+  // ---- A model of a person that is not allowed to become a cage ----------
+  {
+    // "He is not a morning person", from a fortnight of bad sleep.
+    id: 'SELFMODEL-01', guard: 'A durable claim from one context is identity compression',
+    file: 'src/living-self-model.mjs',
+    find: '  if (DURABLE_KINDS.includes(kind) && contexts.length < 2) {',
+    replace: '  if (false) {',
+    suites: ['tests/living-self-model.test.mjs']
+  },
+  {
+    id: 'SELFMODEL-02', guard: 'Competing readings of a person are preserved, not resolved',
+    file: 'src/living-self-model.mjs',
+    find: '  const contested = rows.filter(row => (row.alternativeReadings || []).length > 0);',
+    replace: '  const contested = [];',
+    suites: ['tests/living-self-model.test.mjs']
+  },
+  {
+    id: 'SELFMODEL-03', guard: 'An untraced preference reads UNKNOWN, not a flattering origin',
+    file: 'src/living-self-model.mjs',
+    find: "    origins: traced.length ? traced : ['UNKNOWN'],",
+    replace: "    origins: traced.length ? traced : ['REPEATED_REFLECTION'],",
+    suites: ['tests/living-self-model.test.mjs']
+  },
+  {
+    id: 'SELFMODEL-04', guard: 'A want and a wanting-to-want stay distinct',
+    file: 'src/living-self-model.mjs',
+    find: '    conflict: Boolean(second) && second !== first,',
+    replace: '    conflict: false,',
+    suites: ['tests/living-self-model.test.mjs']
+  },
+  {
+    id: 'SELFMODEL-05', guard: 'Probes exclude what reality already exposed',
+    file: 'src/living-self-model.mjs',
+    find: '    .filter(domain => !exposed.has(domain));',
+    replace: '    ;',
+    suites: ['tests/living-self-model.test.mjs']
+  },
+  // ---- What is shown, what is left out, and whether that decided ---------
+  {
+    id: 'SALIENCE-01', guard: 'An omission with no reason is recorded as unexplained',
+    file: 'src/salience-sovereignty.mjs',
+    find: "      reason: OMISSION_REASONS.includes(row?.reason) ? row.reason : 'NONE_GIVEN'",
+    replace: "      reason: OMISSION_REASONS.includes(row?.reason) ? row.reason : 'BELOW_RELEVANCE_THRESHOLD'",
+    suites: ['tests/salience-sovereignty.test.mjs']
+  },
+  {
+    id: 'SALIENCE-02', guard: 'Frame dependence cannot be inferred from one presentation',
+    file: 'src/salience-sovereignty.mjs',
+    find: '  if (!first || !second) {',
+    replace: '  if (false) {',
+    suites: ['tests/salience-sovereignty.test.mjs']
+  },
+  {
+    // A system that resolves ties toward speaking will speak constantly.
+    id: 'SALIENCE-03', guard: 'A tie resolves to silence',
+    file: 'src/salience-sovereignty.mjs',
+    find: '  if (gain > cost) {',
+    replace: '  if (gain >= cost) {',
+    suites: ['tests/salience-sovereignty.test.mjs']
+  },
+  {
+    id: 'SALIENCE-04', guard: 'The displaced mental state counts as a cost',
+    file: 'src/salience-sovereignty.mjs',
+    find: '  const cost = (Number(switchingCost) || 0) + (Number(currentStateValue) || 0);',
+    replace: '  const cost = (Number(switchingCost) || 0);',
+    suites: ['tests/salience-sovereignty.test.mjs']
+  },
+  {
+    id: 'SALIENCE-05', guard: 'Something irreversible if missed interrupts regardless of arithmetic',
+    file: 'src/salience-sovereignty.mjs',
+    find: '  if (irreversibleIfMissed) {',
+    replace: '  if (false) {',
+    suites: ['tests/salience-sovereignty.test.mjs']
+  },
   // ---- The private core: the one data class that is not the company's -----
   {
     id: 'PCIV-01', guard: 'A repository path is refused as a destination for private life data',

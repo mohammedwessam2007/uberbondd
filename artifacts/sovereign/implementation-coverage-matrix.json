@@ -2,24 +2,24 @@
   "ok": true,
   "status": "COVERAGE_MATRIX_COMPILED",
   "schemaVersion": "uberbond.sovereign-coverage-matrix.v1",
-  "generatedAt": "2026-09-07T16:25:23.346Z",
-  "sourceCommit": "6f44609f283b9ae50baa0f01d873b44fdafb8b93",
+  "generatedAt": "2026-09-07T16:33:07.944Z",
+  "sourceCommit": "3fe235dfb64d6a80a6efa3bd1497018afb705b53",
   "counts": {
     "extractedConcepts": 1068,
     "rows": 1038,
     "mergedAliasRows": 30,
-    "declaredConcepts": 42,
+    "declaredConcepts": 54,
     "byState": {
-      "VERIFIED_CURRENT": 97,
+      "VERIFIED_CURRENT": 112,
       "PARTIAL_CURRENT": 73,
       "DRAFT_DONOR": 0,
-      "SPEC_ONLY": 295,
+      "SPEC_ONLY": 277,
       "EXTERNAL_BLOCKED": 19,
       "OWNER_BOUNDARY": 13,
       "ELAPSED_TIME_REQUIRED": 0,
       "SUPERSEDED_WITH_PRESERVED_DONATION": 0,
       "UNKNOWN": 6,
-      "ENFORCED_BY_CODE": 28,
+      "ENFORCED_BY_CODE": 31,
       "STRUCTURAL_NOT_A_BUILD_TARGET": 105,
       "COVERED_BY_PARENT_ORGAN": 129,
       "REFERENCE_ONLY_BY_CANON": 33,
@@ -27,15 +27,15 @@
       "ALIAS_OF_CANONICAL_CONCEPT": 45
     },
     "byLane": {
-      "OMEGA-14": 430,
+      "OMEGA-14": 417,
       "OMEGA-03": 22,
-      "OMEGA-01": 21,
-      "OMEGA-04": 87,
+      "OMEGA-01": 19,
+      "OMEGA-04": 97,
       "OMEGA-12": 2,
       "OMEGA-02": 151,
       "OMEGA-13": 14,
       "OMEGA-11": 4,
-      "OMEGA-05": 33,
+      "OMEGA-05": 38,
       "OMEGA-09": 165,
       "OMEGA-06": 12,
       "OMEGA-07": 15,
@@ -526,22 +526,26 @@
         "Preference Provenance"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/living-self-model.mjs"
+        ],
+        "testModules": [
+          "tests/living-self-model.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Preference Provenance",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/living-self-model.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -586,22 +590,26 @@
         "Meta-Volition Engine"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/living-self-model.mjs"
+        ],
+        "testModules": [
+          "tests/living-self-model.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Meta-Volition Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/living-self-model.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -834,22 +842,26 @@
         "Cognitive Sovereignty Firewall"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/salience-sovereignty.mjs"
+        ],
+        "testModules": [
+          "tests/salience-sovereignty.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Cognitive Sovereignty Firewall",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/salience-sovereignty.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -864,22 +876,26 @@
         "AI-Induced Preference Drift Detection"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/salience-sovereignty.mjs"
+        ],
+        "testModules": [
+          "tests/salience-sovereignty.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "AI-Induced Preference Drift Detection",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/salience-sovereignty.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -894,22 +910,26 @@
         "Salience Sovereignty"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/salience-sovereignty.mjs"
+        ],
+        "testModules": [
+          "tests/salience-sovereignty.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Salience Sovereignty",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/salience-sovereignty.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -924,22 +944,26 @@
         "Salience Ledger"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/salience-sovereignty.mjs"
+        ],
+        "testModules": [
+          "tests/salience-sovereignty.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Salience Ledger",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/salience-sovereignty.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -954,22 +978,26 @@
         "Perspective Randomizer"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/salience-sovereignty.mjs"
+        ],
+        "testModules": [
+          "tests/salience-sovereignty.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Perspective Randomizer",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/salience-sovereignty.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -984,22 +1012,26 @@
         "Unchosen-Universe Check"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/salience-sovereignty.mjs"
+        ],
+        "testModules": [
+          "tests/salience-sovereignty.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Unchosen-Universe Check",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/salience-sovereignty.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -1014,22 +1046,26 @@
         "Attention Constitution"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/salience-sovereignty.mjs"
+        ],
+        "testModules": [
+          "tests/salience-sovereignty.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Attention Constitution",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/salience-sovereignty.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -3885,22 +3921,26 @@
         "Unknown-Self Engine"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/living-self-model.mjs"
+        ],
+        "testModules": [
+          "tests/living-self-model.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Unknown-Self Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/living-self-model.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -4799,22 +4839,26 @@
         "Identity Evolution Engine"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/living-self-model.mjs"
+        ],
+        "testModules": [
+          "tests/living-self-model.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Identity Evolution Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/living-self-model.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -5389,22 +5433,26 @@
         "Attention Opportunity Cost"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/salience-sovereignty.mjs"
+        ],
+        "testModules": [
+          "tests/salience-sovereignty.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Attention Opportunity Cost",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/salience-sovereignty.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -7561,6 +7609,7 @@
         "sourceModules": [
           "src/compute-sovereignty-capacity.mjs",
           "src/compute-sovereignty.mjs",
+          "src/salience-sovereignty.mjs",
           "src/sovereignty-type-system.mjs",
           "scripts/compute-sovereignty-doctor.mjs"
         ],
@@ -7574,6 +7623,7 @@
           "tests/outbound-send-path-sovereignty-boundary.test.mjs",
           "tests/recovery-sovereignty-boundary.test.mjs",
           "tests/relay-adapter-sovereignty-boundary.test.mjs",
+          "tests/salience-sovereignty.test.mjs",
           "tests/sovereignty-proof-closure.test.mjs",
           "tests/sovereignty-self-modification.test.mjs",
           "tests/sovereignty-type-system.test.mjs"
@@ -10497,22 +10547,26 @@
         "Unknown-Self Engine"
       ],
       "class": "ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/living-self-model.mjs"
+        ],
+        "testModules": [
+          "tests/living-self-model.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Unknown-Self Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/living-self-model.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -11177,22 +11231,26 @@
         "Identity Evolution Engine"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/living-self-model.mjs"
+        ],
+        "testModules": [
+          "tests/living-self-model.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Identity Evolution Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-01",
+      "targetModule": "src/living-self-model.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -16112,22 +16170,26 @@
         "Identity Evolution Engine"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/living-self-model.mjs"
+        ],
+        "testModules": [
+          "tests/living-self-model.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Identity Evolution Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-01",
+      "targetModule": "src/living-self-model.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -18374,7 +18436,7 @@
         "Uncertainty remains visible"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -18438,7 +18500,7 @@
         "Identity is not silently converted from temporary state or skill gap into immutable trait"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -18498,7 +18560,7 @@
         "Relationships are not optimization objects"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],

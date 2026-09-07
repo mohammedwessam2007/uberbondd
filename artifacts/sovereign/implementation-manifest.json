@@ -464,6 +464,138 @@
         "tests/human-capability-genome.test.mjs"
       ],
       "note": "findBottleneck returns the single binding constraint, with an absent capability binding harder than a weak one. A ranked list is how effort spreads across dimensions that were not the constraint. CAPGEN-03."
+    },
+    {
+      "concept": "Identity Evolution Engine",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/living-self-model.mjs"
+      ],
+      "tests": [
+        "tests/living-self-model.test.mjs"
+      ],
+      "note": "observe refuses a durable claim from a single context. 'He is not a morning person' from a fortnight of bad sleep is the compression canon forbids, and it behaves identically to the true version today while producing the opposite future. SELFMODEL-01."
+    },
+    {
+      "concept": "Preference Provenance",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/living-self-model.mjs"
+      ],
+      "tests": [
+        "tests/living-self-model.test.mjs"
+      ],
+      "note": "Origin is shown and never judged. Marking socially-pressured wants inauthentic would be the system deciding which of a person's desires count -- the capture it exists to prevent. An untraced preference reads UNKNOWN. SELFMODEL-03."
+    },
+    {
+      "concept": "Meta-Volition Engine",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/living-self-model.mjs"
+      ],
+      "tests": [
+        "tests/living-self-model.test.mjs"
+      ],
+      "note": "A first-order want and a second-order endorsement are separate objects and conflict between them is reported, never resolved. A system that cannot tell them apart optimizes toward whatever someone currently craves. SELFMODEL-04."
+    },
+    {
+      "concept": "Unknown-Self Engine",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/living-self-model.mjs"
+      ],
+      "tests": [
+        "tests/living-self-model.test.mjs"
+      ],
+      "note": "Probes are ranked by what reality has never exposed, not by predicted enjoyment -- predicted enjoyment can only return more of what the past already showed. SELFMODEL-05."
+    },
+    {
+      "concept": "Salience Ledger",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "An omission with no stated reason is recorded as NONE_GIVEN rather than dropped: an unlogged omission is indistinguishable from a decision nobody made. SALIENCE-01."
+    },
+    {
+      "concept": "Salience Sovereignty",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "Position, emphasis and omission are recorded because freedom is bounded by what enters awareness, and a system can be honest in every claim while deciding the outcome by ordering."
+    },
+    {
+      "concept": "Perspective Randomizer",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "frameDependence needs both orderings and refuses to infer from one: without the second the answer is unknown, not clean. SALIENCE-02."
+    },
+    {
+      "concept": "Unchosen-Universe Check",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "Names the option families that never reached the page, and states it cannot enumerate what nobody thought of."
+    },
+    {
+      "concept": "Attention Constitution",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "attentionBudget defaults to silence on a tie and counts the displaced mental state as a cost. Something irreversible if missed interrupts regardless. SALIENCE-03/04/05."
+    },
+    {
+      "concept": "Attention Opportunity Cost",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "The displaced state is the cost that never appears on any ledger, so it is on this one."
+    },
+    {
+      "concept": "AI-Induced Preference Drift Detection",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "preferenceDrift reports convergence as a question. A high agreement rate is equally consistent with the system being right and with the founder having stopped disagreeing, and this does not pretend to tell them apart."
+    },
+    {
+      "concept": "Cognitive Sovereignty Firewall",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "The same organ from the system's side: it audits its own influence through the salience ledger and the drift question rather than asserting it has none."
     }
   ]
 }

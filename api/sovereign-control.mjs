@@ -23,6 +23,8 @@ import { compileExperiences, realityContact } from '../src/experience-compiler.m
 import { compareLifeOptions } from '../src/life-decision-dimensions.mjs';
 import { futureAncestors, councilOfFutureSelves } from '../src/reachable-futures.mjs';
 import { findBottleneck, agencyDebt } from '../src/human-capability-genome.mjs';
+import { livingModel, unknownSelfProbes } from '../src/living-self-model.mjs';
+import { salienceLedger, preferenceDrift, attentionBudget } from '../src/salience-sovereignty.mjs';
 
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
@@ -80,7 +82,8 @@ const supplyValueBoundary = forecasts =>
 export function buildSovereignControlView({
   decision = null, options = [], forecasts = [], scores = [], exit = null, reasoning = null,
   method = null, experiences = [], contact = null, positions = [], lifeOptions = [],
-  futures = [], council = null, bottleneck = null, capabilities = [], now = new Date()
+  futures = [], council = null, bottleneck = null, capabilities = [], observations = [],
+  unknown = null, salience = null, drift = null, attention = null, now = new Date()
 } = {}) {
   const view = {
     ok: true,
@@ -102,6 +105,14 @@ export function buildSovereignControlView({
     council: council ? councilOfFutureSelves(council) : null,
     bottleneck: bottleneck ? findBottleneck(bottleneck) : null,
     agencyDebt: Array.isArray(capabilities) && capabilities.length ? agencyDebt(capabilities) : null,
+    selfModel: Array.isArray(observations) && observations.length ? livingModel({ observations, asOf: now }) : null,
+    unknownSelf: unknown ? unknownSelfProbes(unknown) : null,
+    // The salience ledger describes this very response: what it surfaced and
+    // what it left out. A control surface that audited every decision except
+    // its own presentation would be the one blind spot that matters.
+    salience: salience ? salienceLedger(salience) : null,
+    drift: drift ? preferenceDrift(drift) : null,
+    attention: attention ? attentionBudget(attention) : null,
     highestRung: 'RECOMMENDATION',
     founderAuthority: 'THIS SURFACE READS. IT CANNOT CHOOSE, DELEGATE, OR ACT.',
     businessEffectAuthority: 'NONE'

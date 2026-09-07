@@ -6,6 +6,45 @@ const root = path.resolve(new URL('..', import.meta.url).pathname);
 const requiredFiles = ['Dockerfile', 'server.mjs', 'portable-server.mjs', 'worker.mjs', 'scripts/migrate.mjs', 'scripts/provider-neutral-backend-doctor.mjs', 'docker-compose.yml'];
 const requiredComposeMarkers = ['postgres:', 'migrate:', 'web:', 'worker:', 'portable-server.mjs', 'service_completed_successfully', '/api/health'];
 
+function serviceBlock(compose, service) {
+  const pattern = new RegExp(`(?:^|\\n)  ${service}:\\n([\\s\\S]*?)(?=\\n  [A-Za-z0-9_-]+:\\n|\\nvolumes:\\n|$)`);
+  return pattern.exec(compose)?.[1] || '';
+}
+
+function inspectServiceContracts(compose) {
+  const contracts = {
+    postgres: ['restart: unless-stopped', 'uberbond-postgres:/var/lib/postgresql/data', 'pg_isready'],
+    migrate: ['command: ["node", "scripts/migrate.mjs"]', 'restart: "no"'],
+    web: [
+      'command: ["node", "portable-server.mjs"]',
+      'init: true',
+      'restart: unless-stopped',
+      'stop_grace_period: 15s',
+      'PAYPAL_SANDBOX_CLIENT_ID:',
+      'PAYPAL_SANDBOX_CLIENT_SECRET:',
+      'PAYPAL_SANDBOX_WEBHOOK_ID:'
+    ],
+    worker: [
+      'command: ["node", "worker.mjs"]',
+      'init: true',
+      'restart: unless-stopped',
+      'stop_grace_period: 30s'
+    ]
+  };
+  const failures = [];
+  for (const [service, required] of Object.entries(contracts)) {
+    const block = serviceBlock(compose, service);
+    if (!block) {
+      failures.push(`${service}:service-block-missing`);
+      continue;
+    }
+    for (const marker of required) {
+      if (!block.includes(marker)) failures.push(`${service}:missing:${marker}`);
+    }
+  }
+  return failures;
+}
+
 export function inspectPortableBackend({ repoRoot = root, env = process.env } = {}) {
   const missingFiles = requiredFiles.filter(file => !fs.existsSync(path.join(repoRoot, file)));
   const compose = fs.existsSync(path.join(repoRoot, 'docker-compose.yml'))
@@ -13,11 +52,13 @@ export function inspectPortableBackend({ repoRoot = root, env = process.env } = 
   const portableServer = fs.existsSync(path.join(repoRoot, 'portable-server.mjs'))
     ? fs.readFileSync(path.join(repoRoot, 'portable-server.mjs'), 'utf8') : '';
   const missingComposeMarkers = requiredComposeMarkers.filter(marker => !compose.includes(marker));
+  const serviceContractFailures = inspectServiceContracts(compose);
   const requiredEnv = ['POSTGRES_PASSWORD', 'APP_BASE_URL', 'ADMIN_TOKEN', 'TOKEN_ENCRYPTION_KEY'];
   const missingEnv = requiredEnv.filter(name => !String(env[name] || '').trim());
   const reasons = [];
   if (missingFiles.length) reasons.push('required-runtime-file-missing');
   if (missingComposeMarkers.length) reasons.push('compose-contract-incomplete');
+  if (serviceContractFailures.length) reasons.push('portable-service-contract-incomplete');
   if (missingEnv.length) reasons.push('deployment-environment-incomplete');
   if (String(env.APP_BASE_URL || '').trim() && !String(env.APP_BASE_URL).startsWith('https://')) reasons.push('APP_BASE_URL-must-use-https');
   if (String(env.POSTGRES_PASSWORD || '').trim() && !/^[A-Za-z0-9._~-]+$/.test(String(env.POSTGRES_PASSWORD))) reasons.push('POSTGRES_PASSWORD-must-be-url-safe');
@@ -46,12 +87,13 @@ export function inspectPortableBackend({ repoRoot = root, env = process.env } = 
     reasons,
     missingFiles,
     missingComposeMarkers,
+    serviceContractFailures,
     missingEnv,
     portableSecurityFailures,
     startupFailures,
     runtimeProof: 'NONE',
     businessEffectAuthority: 'NONE',
-    note: 'Static packaging/preflight evidence does not prove host startup, provider validity, customer demand, payment, or unattended operation.'
+    note: 'Static packaging/preflight evidence does not prove host startup, provider validity, customer demand, payment, restart recovery, or unattended operation.'
   };
 }
 

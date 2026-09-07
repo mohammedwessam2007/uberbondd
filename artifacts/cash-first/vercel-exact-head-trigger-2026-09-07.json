@@ -1,15 +1,16 @@
 {
-  "schemaVersion": "uberbond-vercel-exact-head-trigger-1.1.0",
+  "schemaVersion": "uberbond-vercel-exact-head-trigger-1.2.0",
   "status": "VERIFICATION_TRIGGER__NOT_PROOF",
-  "requestedForBranch": "omega/full-system-total-readiness-20260907",
-  "pullRequest": 451,
-  "sourceHeadBeforeTrigger": "cf5ab92021d732952c82845bb8ca7ce6c56eaafe",
-  "purpose": "Force a fresh Vercel preview checkout of the unified current-main OMEGA Sovereign runtime plus cash-first PayPal/payment/fulfilment integration.",
+  "requestedForBranch": "omega/full-system-total-readiness-v2-20260907",
+  "pullRequest": 452,
+  "sourceHeadBeforeTrigger": "deecb1090858cc654809ceb31b08ede43ee332ba",
+  "purpose": "Force a fresh Vercel preview checkout after the Deep Atlas bounded-structural-detail repair on the unified current-main OMEGA + cash-first source.",
   "requiredTerminalEvidence": [
     "runner checks out this trigger commit or a source-identical descendant",
+    "Deep Atlas accepts fully content-covered large generated artifacts while preserving bounded-structure truth",
     "brain/bootstrap and Sovereign runtime gates pass",
     "focused PayPal/payment/first-cash fulfilment tests execute",
-    "pre-customer revenue-readiness v1.5 contract executes",
+    "pre-customer revenue-readiness contract executes",
     "deterministic and syntax gates execute as configured",
     "any mutation/database/browser gates required by the build execute or are truthfully classified",
     "final exact source commit is recorded"

@@ -1,0 +1,17 @@
+{
+  "schema": "uberbond.night-swarm-claim.v1",
+  "packetId": "FORECAST-01",
+  "agent": "CLAUDE",
+  "status": "RESERVED_FOR_AGENT_START",
+  "integrationBaseSha": "d78b500b34a6b2365511328e1a474864de095be9",
+  "childPr": null,
+  "childBranch": null,
+  "writeSurfaces": [
+    "src/forecast-*",
+    "tests/forecast-*",
+    "scripts/*forecast*doctor*.mjs",
+    "artifacts/sovereign/implementation-manifest*.json"
+  ],
+  "goal": "Build/reuse a parent Forecast organ that truthfully closes multiple residual dimensions; Claude must narrow exact file claims before editing.",
+  "businessEffectAuthority": "NONE"
+}

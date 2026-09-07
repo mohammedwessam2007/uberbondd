@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { SOVEREIGNTY_PROTECTED_PATHS, compileAgentCodeChangeSet } from '../src/agent-code-change-contract.mjs';
 import { MUTATIONS } from '../scripts/mutation-war.mjs';
 
@@ -22,6 +23,14 @@ const protectedPaths = new Set(SOVEREIGNTY_PROTECTED_PATHS);
 test('the mutation runner is inside the boundary it verifies', () => {
   assert.ok(protectedPaths.has('scripts/mutation-war.mjs'),
     'the runner that decides whether the guards still guard must not be editable by the path it guards');
+});
+
+test('the reachability gate registry proof remains executable', () => {
+  const text = readFileSync(new URL('./reachability-ratchet.test.mjs', import.meta.url), 'utf8');
+  assert.match(text, /\.filter\(\(\[, entry\]\) => entry\.category === 'AWAITING_ACTIVATION' && !gates\[entry\.gate\]\)/,
+    'registered-gate filtering was removed or bypassed');
+  assert.match(text, /assert\.deepEqual\(unregistered, \[\]/,
+    'unregistered gates are no longer required to be empty');
 });
 
 test('this test is itself protected', () => {

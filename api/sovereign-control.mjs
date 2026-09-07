@@ -25,12 +25,16 @@ import { futureAncestors, councilOfFutureSelves } from '../src/reachable-futures
 import { findBottleneck, agencyDebt } from '../src/human-capability-genome.mjs';
 import { livingModel, unknownSelfProbes } from '../src/living-self-model.mjs';
 import { salienceLedger, preferenceDrift, attentionBudget } from '../src/salience-sovereignty.mjs';
-import {
-  valueOfInformation,
-  predictionHalfLife,
-  decisionShelfLife,
-  compileDecisionInformation
-} from '../src/decision-information-theory.mjs';
+import { classifyUncertainty, modelEcology, surpriseLedger } from '../src/epistemic-immune-system.mjs';
+import { continuityPosture, posthumousDisposition } from '../src/memory-sovereignty.mjs';
+import { compileIntent, consequenceLedger } from '../src/intent-compiler.mjs';
+import { findReinforcingLoops, mortalHorizon, exploreExploit } from '../src/life-autopoiesis.mjs';
+import { composeInstitution, classifyBoundary } from '../src/world-intelligence.mjs';
+import { traverse, contradictions } from '../src/life-knowledge-graph.mjs';
+import { strengthProfile, buildForecast } from '../src/forecast-stack.mjs';
+import { existentialChecksum, toolCompanionBoundary } from '../src/constitutional-governance.mjs';
+import { socialCalibration, strategicReality } from '../src/inter-sovereign.mjs';
+import { embodiedState, errorBudget, cognitiveNutrition } from '../src/embodied-reality.mjs';
 
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
@@ -58,13 +62,6 @@ function equalBearer(header, secret) {
   return actual.length === expected.length && actual.length > 0 && crypto.timingSafeEqual(actual, expected);
 }
 
-/**
- * The constitution as the running code actually holds it.
- *
- * Read from the modules rather than restated here. A hand-written copy of these
- * rules would drift from the enforcement and become a page that says the system
- * is safe while the system stopped being it.
- */
 export function sovereignConstitution() {
   return {
     typeLadder: SOVEREIGNTY_TYPES,
@@ -78,19 +75,17 @@ export function sovereignConstitution() {
 const supplyValueBoundary = forecasts =>
   (Array.isArray(forecasts) ? forecasts : []).some(row => row?.valueBoundary === true);
 
-/**
- * Assembles the read-only view.
- *
- * Every field is derived; nothing here is stored, sent, or acted on. The
- * decision packet is included only when the caller supplied the inputs for one,
- * because an empty packet shaped like a real one is worse than no packet.
- */
 export function buildSovereignControlView({
   decision = null, options = [], forecasts = [], scores = [], exit = null, reasoning = null,
   method = null, experiences = [], contact = null, positions = [], lifeOptions = [],
   futures = [], council = null, bottleneck = null, capabilities = [], observations = [],
-  unknown = null, salience = null, drift = null, attention = null, information = null,
-  now = new Date()
+  unknown = null, salience = null, drift = null, attention = null, uncertainty = null,
+  models = [], surprises = [], records = [], posthumous = null, intent = null,
+  consequences = null, lifeEdges = [], horizon = null, lifeDomains = [],
+  institution = null, boundaryQuestion = null, graphEdges = [], graphFrom = null,
+  forecastStrength = null, forecastClaim = null, forecastMethods = [],
+  checksum = null, companion = null, socialPredictions = [], strategic = null,
+  embodiedContext = null, budget = null, diet = [], now = new Date()
 } = {}) {
   const view = {
     ok: true,
@@ -98,10 +93,8 @@ export function buildSovereignControlView({
     at: new Date(now).toISOString(),
     constitution: sovereignConstitution(),
     calibration: calibrationSummary(scores),
-    // Absent rather than faked when not asked for.
     decisionPacket: null,
     ruinScreen: null,
-    decisionInformation: null,
     exit: exit ? exitReadiness(exit) : null,
     reasoningBudget: reasoning ? shouldContinueReasoning(reasoning) : null,
     methodSelection: method ? selectMethod(method) : null,
@@ -115,32 +108,36 @@ export function buildSovereignControlView({
     agencyDebt: Array.isArray(capabilities) && capabilities.length ? agencyDebt(capabilities) : null,
     selfModel: Array.isArray(observations) && observations.length ? livingModel({ observations, asOf: now }) : null,
     unknownSelf: unknown ? unknownSelfProbes(unknown) : null,
-    // The salience ledger describes this very response: what it surfaced and
-    // what it left out. A control surface that audited every decision except
-    // its own presentation would be the one blind spot that matters.
     salience: salience ? salienceLedger(salience) : null,
     drift: drift ? preferenceDrift(drift) : null,
     attention: attention ? attentionBudget(attention) : null,
+    uncertainty: uncertainty ? classifyUncertainty(uncertainty) : null,
+    modelEcology: Array.isArray(models) && models.length ? modelEcology(models) : null,
+    surprises: Array.isArray(surprises) && surprises.length ? surpriseLedger(surprises) : null,
+    continuity: Array.isArray(records) && records.length ? continuityPosture({ records }) : null,
+    posthumous: posthumousDisposition(posthumous || {}),
+    intent: intent ? compileIntent(intent) : null,
+    consequences: consequences ? consequenceLedger(consequences) : null,
+    reinforcingLoops: Array.isArray(lifeEdges) && lifeEdges.length ? findReinforcingLoops(lifeEdges) : null,
+    horizon: horizon ? mortalHorizon(horizon) : null,
+    exploreExploit: Array.isArray(lifeDomains) && lifeDomains.length ? exploreExploit(lifeDomains) : null,
+    institution: institution ? composeInstitution(institution) : null,
+    boundary: boundaryQuestion ? classifyBoundary(boundaryQuestion) : null,
+    graph: graphEdges.length && graphFrom ? traverse({ edges: graphEdges, from: graphFrom }) : null,
+    graphContradictions: graphEdges.length ? contradictions(graphEdges) : null,
+    forecastStrength: forecastStrength ? strengthProfile(forecastStrength) : null,
+    forecastStack: forecastClaim ? buildForecast({ claim: forecastClaim, methods: forecastMethods }) : null,
+    checksum: existentialChecksum(checksum || {}),
+    toolBoundary: toolCompanionBoundary(companion || {}),
+    socialCalibration: Array.isArray(socialPredictions) && socialPredictions.length ? socialCalibration(socialPredictions) : null,
+    strategic: strategic ? strategicReality(strategic) : null,
+    embodied: embodiedContext ? embodiedState(embodiedContext) : null,
+    errorBudget: budget ? errorBudget(budget) : null,
+    cognitiveDiet: Array.isArray(diet) && diet.length ? cognitiveNutrition(diet) : null,
     highestRung: 'RECOMMENDATION',
     founderAuthority: 'THIS SURFACE READS. IT CANNOT CHOOSE, DELEGATE, OR ACT.',
     businessEffectAuthority: 'NONE'
   };
-
-  if (information) {
-    const voi = valueOfInformation(information.voi || information);
-    const prediction = information.prediction
-      ? predictionHalfLife({ ...information.prediction, now })
-      : null;
-    const shelfLife = information.shelfLife
-      ? decisionShelfLife({ ...information.shelfLife, now })
-      : null;
-    view.decisionInformation = compileDecisionInformation({
-      voi,
-      prediction,
-      shelfLife,
-      minimumEvidenceWeight: information.minimumEvidenceWeight ?? null
-    });
-  }
 
   if (decision && Array.isArray(options) && options.length) {
     const universe = compileOptionUniverse(options);
@@ -149,15 +146,10 @@ export function buildSovereignControlView({
         const supplied = (Array.isArray(forecasts) ? forecasts : []).find(f => f?.option === option.name);
         return forecastOption({
           option, evidence: supplied?.evidence || [], distribution: supplied?.distribution || null,
-          // Only an explicit declaration counts; an unlabelled option is
-          // unknown, not irreversible.
           irreversible: option.reversible === false, now
         });
       });
       view.decisionPacket = compileDecisionPacket({ decision, universe, forecasts: rows, valueBoundary: Boolean(supplyValueBoundary(forecasts)), now });
-      // Screened after the packet is built but reported alongside it, never
-      // folded into the ranking: an option that can end the ability to choose
-      // again is not a low-scoring option, it is a different kind of thing.
       view.ruinScreen = universe.options.map(option => screenForRuin({
         option: option.name,
         outcomes: (forecasts.find(f => f?.option === option.name)?.outcomes) || [],
@@ -176,8 +168,6 @@ export function createHandler(deps = {}) {
   const clock = deps.now || (() => new Date());
 
   return async function handler(req, res) {
-    // GET only. A POST here would be the seam through which a read surface
-    // becomes an acting one, which is the whole thing this route must not be.
     if (String(req?.method || '').toUpperCase() !== 'GET') {
       return send(res, 405, { ok: false, status: 'REFUSED', reasonCodes: ['method-not-allowed'] });
     }

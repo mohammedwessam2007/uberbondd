@@ -2315,6 +2315,65 @@ export const MUTATIONS = [
     replace: '  const wrong = [];',
     suites: ['tests/inter-sovereign.test.mjs']
   },
+  // ---- The body, the room, and what does not survive language ------------
+  {
+    id: 'EMBODY-01', guard: 'A depleted physical state is surfaced beside the decision',
+    file: 'src/embodied-reality.mjs',
+    find: '  const depleted = Object.entries(recorded).filter(([, value]) => value < 0.3).map(([factor]) => factor);',
+    replace: '  const depleted = [];',
+    suites: ['tests/embodied-reality.test.mjs']
+  },
+  {
+    id: 'EMBODY-02', guard: 'A measurement never settles what an experience was like',
+    file: 'src/embodied-reality.mjs',
+    find: '    measurementOverridesReport: false,',
+    replace: '    measurementOverridesReport: Boolean(measured),',
+    suites: ['tests/embodied-reality.test.mjs']
+  },
+  {
+    // Storing an approximation is worse than losing it: the paraphrase reads
+    // as the thing and later inference treats it as the data.
+    id: 'EMBODY-03', guard: 'A partially represented experience is not safe to reason over',
+    file: 'src/embodied-reality.mjs',
+    find: "  const partial = representability !== 'FULLY_REPRESENTED';",
+    replace: '  const partial = false;',
+    suites: ['tests/embodied-reality.test.mjs']
+  },
+  {
+    id: 'EMBODY-04', guard: 'Reasoning depth scales with what being wrong costs',
+    file: 'src/embodied-reality.mjs',
+    find: '    maxReasoningDepth: ERROR_BUDGET_TIERS[tier].maxReasoningDepth,',
+    replace: "    maxReasoningDepth: 'MODERATE',",
+    suites: ['tests/embodied-reality.test.mjs']
+  },
+  {
+    id: 'EMBODY-05', guard: 'Willpower-only interventions are separated from structural ones',
+    file: 'src/embodied-reality.mjs',
+    find: "  const structural = interventions.filter(row => row.kind !== 'WILLPOWER');",
+    replace: '  const structural = interventions;',
+    suites: ['tests/embodied-reality.test.mjs']
+  },
+  {
+    id: 'EMBODY-06', guard: 'A simulation frequency is never a real-world probability',
+    file: 'src/embodied-reality.mjs',
+    find: '    isRealWorldProbability: false,',
+    replace: '    isRealWorldProbability: (Number(runs) || 0) > 1000,',
+    suites: ['tests/embodied-reality.test.mjs']
+  },
+  {
+    id: 'EMBODY-07', guard: 'The soul archive is excluded from optimization inputs',
+    file: 'src/embodied-reality.mjs',
+    find: '    excludedFromOptimization: true,',
+    replace: '    excludedFromOptimization: false,',
+    suites: ['tests/embodied-reality.test.mjs']
+  },
+  {
+    id: 'EMBODY-08', guard: 'A concentrated information diet is surfaced',
+    file: 'src/embodied-reality.mjs',
+    find: '    concentrated: rows.length > 3 && clusters.size === 1,',
+    replace: '    concentrated: false,',
+    suites: ['tests/embodied-reality.test.mjs']
+  },
   // ---- The private core: the one data class that is not the company's -----
   {
     id: 'PCIV-01', guard: 'A repository path is refused as a destination for private life data',

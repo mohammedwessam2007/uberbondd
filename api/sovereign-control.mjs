@@ -34,6 +34,7 @@ import { traverse, contradictions } from '../src/life-knowledge-graph.mjs';
 import { strengthProfile, buildForecast } from '../src/forecast-stack.mjs';
 import { existentialChecksum, toolCompanionBoundary } from '../src/constitutional-governance.mjs';
 import { socialCalibration, strategicReality } from '../src/inter-sovereign.mjs';
+import { embodiedState, errorBudget, cognitiveNutrition } from '../src/embodied-reality.mjs';
 
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
@@ -97,7 +98,8 @@ export function buildSovereignControlView({
   consequences = null, lifeEdges = [], horizon = null, lifeDomains = [],
   institution = null, boundaryQuestion = null, graphEdges = [], graphFrom = null,
   forecastStrength = null, forecastClaim = null, forecastMethods = [],
-  checksum = null, companion = null, socialPredictions = [], strategic = null, now = new Date()
+  checksum = null, companion = null, socialPredictions = [], strategic = null,
+  embodiedContext = null, budget = null, diet = [], now = new Date()
 } = {}) {
   const view = {
     ok: true,
@@ -149,6 +151,9 @@ export function buildSovereignControlView({
     toolBoundary: toolCompanionBoundary(companion || {}),
     socialCalibration: Array.isArray(socialPredictions) && socialPredictions.length ? socialCalibration(socialPredictions) : null,
     strategic: strategic ? strategicReality(strategic) : null,
+    embodied: embodiedContext ? embodiedState(embodiedContext) : null,
+    errorBudget: budget ? errorBudget(budget) : null,
+    cognitiveDiet: Array.isArray(diet) && diet.length ? cognitiveNutrition(diet) : null,
     highestRung: 'RECOMMENDATION',
     founderAuthority: 'THIS SURFACE READS. IT CANNOT CHOOSE, DELEGATE, OR ACT.',
     businessEffectAuthority: 'NONE'

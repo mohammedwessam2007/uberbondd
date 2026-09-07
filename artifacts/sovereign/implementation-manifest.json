@@ -1663,6 +1663,105 @@
         "tests/inter-sovereign.test.mjs"
       ],
       "note": "Environmental influence on a preference is shown and never used to rule it inauthentic. A preference an algorithm touched is still his to endorse or reject."
+    },
+    {
+      "concept": "Embodied Reality Model",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/embodied-reality.mjs"
+      ],
+      "tests": [
+        "tests/embodied-reality.test.mjs"
+      ],
+      "note": "embodiedState records the physical and environmental state a decision was made in. It does not invalidate the decision -- it records what is otherwise unanswerable later, because nobody captured it. EMBODY-01."
+    },
+    {
+      "concept": "Phenomenology Bridge",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/embodied-reality.mjs"
+      ],
+      "tests": [
+        "tests/embodied-reality.test.mjs"
+      ],
+      "note": "A subjective report is its own evidence class and a measurement never settles what an experience was like. Both are kept; neither overrides. EMBODY-02."
+    },
+    {
+      "concept": "Untranslatable Layer",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/embodied-reality.mjs"
+      ],
+      "tests": [
+        "tests/embodied-reality.test.mjs"
+      ],
+      "note": "MEANINGFUL_BUT_NOT_FULLY_REPRESENTABLE marks what language did not carry, and flags the record as unsafe to reason over. Storing an approximation is worse than losing it: the paraphrase reads as the thing. EMBODY-03."
+    },
+    {
+      "concept": "Consciousness Boundary",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/embodied-reality.mjs"
+      ],
+      "tests": [
+        "tests/embodied-reality.test.mjs"
+      ],
+      "note": "Held in constitutional-governance as UNKNOWN, and respected here: a report about inner experience is recorded rather than resolved."
+    },
+    {
+      "concept": "Error Budget for Life Models",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/embodied-reality.mjs"
+      ],
+      "tests": [
+        "tests/embodied-reality.test.mjs"
+      ],
+      "note": "Reasoning depth scales with what being wrong costs. Exhaustive analysis of a trivial choice spends the attention an irreversible one needed. EMBODY-04."
+    },
+    {
+      "concept": "Environment Compiler",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/embodied-reality.mjs"
+      ],
+      "tests": [
+        "tests/embodied-reality.test.mjs"
+      ],
+      "note": "Structural interventions are separated from willpower, because a behaviour requiring sustained effort against its surroundings has an expiry date. EMBODY-05."
+    },
+    {
+      "concept": "Cognitive Nutrition",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/embodied-reality.mjs"
+      ],
+      "tests": [
+        "tests/embodied-reality.test.mjs"
+      ],
+      "note": "Describes the information diet and never curates it. Curating the inputs would be shaping him through the salience channel this system elsewhere audits. EMBODY-08."
+    },
+    {
+      "concept": "Existential Sandboxes",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/embodied-reality.mjs"
+      ],
+      "tests": [
+        "tests/embodied-reality.test.mjs"
+      ],
+      "note": "isRealWorldProbability is permanently false. The moment a simulation frequency is read as a probability, the sandbox has become a forecast nobody validated. EMBODY-06."
+    },
+    {
+      "concept": "Soul Archive",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/embodied-reality.mjs"
+      ],
+      "tests": [
+        "tests/embodied-reality.test.mjs"
+      ],
+      "note": "Private human texture, explicitly excluded from every optimization input, so continuity of personhood does not depend on the measurable parts of a life. EMBODY-07."
     }
   ]
 }

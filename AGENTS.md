@@ -10,16 +10,17 @@ Before proposing or changing UberBond:
 2. Read `UBERBOND_CANON.md`.
 3. Read `UBERBOND_BOOTSTRAP.json`.
 4. Read `docs/UBERBOND_TOTAL_BRAIN.md` and `artifacts/uberbond-total-brain.json` **before narrowing UberBond to the current handoff or latest implementation wave**. These are the no-amputation superset memory: they preserve current, draft/branch, historical-donor, research-asset, chat-spec/goal, externally blocked, superseded-truth and unresolved context without promoting it into present-tense proof.
-5. Read `docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`, `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`, and `artifacts/perpetual-frontier-genesis.json`. These preserve the Perpetual Frontier, Artificial Imagination, Opportunity Shockwave/Resurrection, GENESIS/GENESIS²/ONTOGENESIS, founder-freedom doctrine and the complete 275-idea open-ended search-space registry. The registry is a goal/search-space inventory, not a claim that every idea is implemented or externally proven.
-6. Read `docs/UBERBOND_MASTER_MEMORY.md` and `artifacts/uberbond-memory-index.json` **before narrowing the project to the current handoff**. The master memory preserves the final goal, named-program lineage, portfolio breadth, recurring/platform ladders, historical contradictions, and unresolved owner-recalled names.
-7. Read **every path** listed in the bootstrap `canonPointers` array.
-8. Run/read `npm run genesis:doctor` in a real repository host before relying on the Perpetual Frontier registry or GENESIS execution foundation. Registry health is internal evidence only.
-9. Read `docs/CURRENT_HANDOFF.json` again when resuming unfinished work. A short-term handoff must never erase the long-horizon memory.
-10. Read `docs/CURRENT_SYSTEM_STATE.md` and `artifacts/system-readiness.json` when readiness matters.
-11. For distribution work, read `docs/DISTRIBUTION_OS_CANON.md` and `docs/DISTRIBUTION_VENDOR_MAP.md`.
-12. Inspect open/recent PRs and shared branches before coding so concurrent work is deduped.
-13. Search Total Brain, all overlays, Perpetual Frontier/GENESIS, `namedInitiatives`, lineage/reconciliation artifacts and unresolved names before concluding that an older program, feature, offer family, architecture, Singularity, Kilimanjaro/Ragnarok/Night mission, crawler, idea generator, clone/cannibal mechanism or model capability never existed.
-14. Prefer current repository truth over chat recollection, historical ZIPs, screenshots, generated plans, or stale issue text. Historical/superset memory prevents forgetting; it never overrides current code, exact-head receipts, or durable external evidence.
+5. Read `docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md` and `artifacts/personal-civilization-engine-north-star.json` **before treating the economic company objective as UberBond's final purpose**. They define the highest-level life North Star: a private Personal Civilization Engine that expands founder agency, capability, understanding, meaningful experience, relationships, freedom and reachable valuable futures while preserving human sovereignty. The economic UberBond remains a subordinate supporting organ and its current implementation/commercial truth remains governed by the normal evidence hierarchy.
+6. Read `docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`, `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`, and `artifacts/perpetual-frontier-genesis.json`. These preserve the Perpetual Frontier, Artificial Imagination, Opportunity Shockwave/Resurrection, GENESIS/GENESIS²/ONTOGENESIS, founder-freedom doctrine and the complete 275-idea open-ended search-space registry. The registry is a goal/search-space inventory, not a claim that every idea is implemented or externally proven.
+7. Read `docs/UBERBOND_MASTER_MEMORY.md` and `artifacts/uberbond-memory-index.json` **before narrowing the project to the current handoff**. The master memory preserves the final goal, named-program lineage, portfolio breadth, recurring/platform ladders, historical contradictions, and unresolved owner-recalled names.
+8. Read **every path** listed in the bootstrap `canonPointers` array.
+9. Run/read `npm run genesis:doctor` in a real repository host before relying on the Perpetual Frontier registry or GENESIS execution foundation. Registry health is internal evidence only.
+10. Read `docs/CURRENT_HANDOFF.json` again when resuming unfinished work. A short-term handoff must never erase the long-horizon memory.
+11. Read `docs/CURRENT_SYSTEM_STATE.md` and `artifacts/system-readiness.json` when readiness matters.
+12. For distribution work, read `docs/DISTRIBUTION_OS_CANON.md` and `docs/DISTRIBUTION_VENDOR_MAP.md`.
+13. Inspect open/recent PRs and shared branches before coding so concurrent work is deduped.
+14. Search Total Brain, all overlays, the Personal Civilization Engine North Star, Perpetual Frontier/GENESIS, `namedInitiatives`, lineage/reconciliation artifacts and unresolved names before concluding that an older program, feature, offer family, architecture, Singularity, Kilimanjaro/Ragnarok/Night mission, crawler, idea generator, clone/cannibal mechanism or model capability never existed.
+15. Prefer current repository truth over chat recollection, historical ZIPs, screenshots, generated plans, or stale issue text. Historical/superset memory prevents forgetting; it never overrides current code, exact-head receipts, or durable external evidence.
 
 If the owner says `continue`, `go`, or starts a fresh UberBond chat, resume from those durable artifacts. Do not ask the owner to retell the project merely because prior conversation context is unavailable.
 
@@ -35,12 +36,15 @@ UberBond is the accumulated organism, not the newest offer, PR, branch, model or
 - External/account/customer/payment/legal/time blockers remain explicit rather than being hidden by more architecture.
 - When a materially useful old or new source is recovered, digest it into repository-native Total Brain/memory with provenance, truth class, contradictions and supersession links.
 - The 275 Perpetual Frontier ideas are a durable search-space floor, not a ceiling; GENESIS/GENESIS²/ONTOGENESIS exist to create idea 276+ and new categories without requiring a static 2026 ontology.
+- The Personal Civilization Engine is the highest-level North Star and may not be amputated by narrowing UberBond back into a revenue tool, SaaS, agent swarm or software factory. Economic autonomy, company-building and self-improving software remain supporting organs beneath the life objective.
 
 ## Objective
 
-Optimize **risk-adjusted cleared contribution profit per founder minute** while moving toward a founder-light, globally distributed, cloud-runnable economic operating system that can continuously assimilate future technology, invent new opportunity/business/institution forms, improve its own search/evaluation/ontology mechanisms, and preserve founder freedom.
+Highest-level North Star: build toward the **Personal Civilization Engine** described in `docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`: a private second cognitive layer around the founder's life that expands agency, capability, understanding, meaningful experience, relationships, freedom and the set of valuable futures genuinely reachable, while preserving human sovereignty, privacy, uncertainty and the legitimacy of joy/rest/meaning beyond productivity.
 
-Do not optimize code volume, agent count, send volume, impressions, lead count, vanity dashboards, architecture complexity, historical corpus size, synthetic test-count scale, or synthetic revenue.
+Within that hierarchy, optimize the economic supporting organ for **risk-adjusted cleared contribution profit per founder minute** while moving toward a founder-light, globally distributed, cloud-runnable economic operating system that can continuously assimilate future technology, invent new opportunity/business/institution forms, improve its own search/evaluation/ontology mechanisms, and preserve founder freedom.
+
+Do not optimize code volume, agent count, send volume, impressions, lead count, vanity dashboards, architecture complexity, historical corpus size, synthetic test-count scale, synthetic revenue, or a single numerical definition of a good life.
 
 ## Portfolio law
 
@@ -54,13 +58,15 @@ Dormant/rejected opportunities should preserve explicit blockers and resurrectio
 
 UberBond must seek the earliest lawful public signals of emerging capability, extract the actual changed primitive, minimize frontier latency, propagate material changes through Capability Genome and the opportunity universe, challenge current architectures through N+1/Anti-UberBond mechanisms, preserve evaluator/adversary evolution, and translate newly possible capabilities into bounded economic hypotheses.
 
+At the life level, frontier sensing may also identify changes that materially expand or contract founder capability, learning, geographic freedom, creative possibility, communities, experiences or long-horizon options. Such signals remain hypotheses until grounded and never override human choice.
+
 A frontier signal is not proof. Simulation is not demand. A model release is not permission. Capability never creates authority.
 
 Artificial Imagination may generate distant, low-similarity and counterfactual hypotheses internally. Wild imagination and disciplined real-world execution are separate stages.
 
 ## Truth and authority
 
-Capability never creates authority. Internal code, model output, tests, documents, simulations, vendor claims, opens, clicks, CRM observations, historical research counts, remembered chat text, generated opportunities, frontier signals or synthetic worlds cannot manufacture customer acceptance, cleared payment, legal clearance, provider state, market success, renewal, or founder-absence duration.
+Capability never creates authority. Internal code, model output, tests, documents, simulations, vendor claims, opens, clicks, CRM observations, historical research counts, remembered chat text, generated opportunities, frontier signals or synthetic worlds cannot manufacture customer acceptance, cleared payment, legal clearance, provider state, market success, renewal, life-outcome proof, psychological certainty, or founder-absence duration.
 
 Unknown remains unknown. Contradictions are preserved.
 

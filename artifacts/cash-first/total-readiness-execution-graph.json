@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "uberbond-cash-first-total-readiness-1.0.0",
+  "status": "ACTIVE_EXECUTION_GRAPH",
+  "branch": "omega/cash-first-total-readiness-20260907",
+  "baseMain": "a22e4f099902b6abd2719922a9dd761fb69a6fa6",
+  "terminalNorthStar": "Sovereign Cognitive Continuum",
+  "economicNorthStar": "risk-adjusted cleared contribution profit / founder minute",
+  "priorityLaw": "First-dollar and usable-runtime closure outrank further speculative expansion until internally solvable cash-path blockers are closed.",
+  "lanes": [
+    {"id":"CASH-00","name":"Truth reset","priority":0,"dependsOn":[]},
+    {"id":"CASH-01","name":"Payment truth and first-cash rail","priority":1,"dependsOn":["CASH-00"]},
+    {"id":"CASH-02","name":"Offer to payment path","priority":1,"dependsOn":["CASH-00","CASH-01"]},
+    {"id":"CASH-03","name":"Distribution engine","priority":1,"dependsOn":["CASH-00"]},
+    {"id":"CASH-04","name":"Fulfilment and accepted delivery","priority":1,"dependsOn":["CASH-02"]},
+    {"id":"CASH-05","name":"Deployment and runtime closure","priority":1,"dependsOn":["CASH-00"]},
+    {"id":"CASH-06","name":"Donor harvest and cleanup","priority":2,"dependsOn":["CASH-00"]},
+    {"id":"CASH-07","name":"Economic autonomy organism","priority":3,"dependsOn":["CASH-01","CASH-02","CASH-03","CASH-04","CASH-05"]},
+    {"id":"CASH-08","name":"Sovereign Continuum runtime","priority":4,"dependsOn":["CASH-00"]},
+    {"id":"CASH-09","name":"Whole-brain self-improvement","priority":2,"dependsOn":["CASH-00"]},
+    {"id":"CASH-10","name":"Integration tribunal","priority":0,"dependsOn":["CASH-00"]}
+  ],
+  "criticalDonors": {
+    "381":"provider-neutral payment readiness",
+    "382":"PayPal provider-origin first-cash truth",
+    "430":"Postgres child identity repair if still applicable",
+    "432":"Personal Civilization Wave 1 core",
+    "433":"Personal Civilization verification recipe",
+    "420":"Gamechanger mechanism runtime",
+    "421":"aggressive cadence intent only; adapt to newer self-maintainer",
+    "422":"GENESIS assimilation and Continuation Graph"
+  },
+  "scoreboard": {
+    "NORTH_STAR_CANON": 99,
+    "ECONOMIC_AUTONOMY_SOFTWARE": 92,
+    "PERSONAL_CIVILIZATION_RUNTIME": 12,
+    "SOVEREIGN_CONTINUUM_RUNTIME": 6,
+    "REALITY_CALIBRATION": 1,
+    "FULL_SYSTEM_REALIZATION": 27,
+    "FIRST_DOLLAR_INTERNAL_READINESS": 55,
+    "OFFER_PAYMENT_FULFILMENT_SOFTWARE": 62,
+    "DEPLOYMENT_RUNTIME_READINESS": 58,
+    "status":"PROVISIONAL__RECALIBRATE_AFTER_CASH_00"
+  },
+  "truthBoundary":"Commercial truth remains zero until real external evidence exists. Percentages are engineering/readiness estimates and may decrease after audit."
+}

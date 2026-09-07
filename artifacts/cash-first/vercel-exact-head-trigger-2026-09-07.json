@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "uberbond-vercel-exact-head-trigger-1.2.0",
+  "status": "VERIFICATION_TRIGGER__NOT_PROOF",
+  "requestedForBranch": "omega/full-system-total-readiness-v2-20260907",
+  "pullRequest": 452,
+  "sourceHeadBeforeTrigger": "deecb1090858cc654809ceb31b08ede43ee332ba",
+  "purpose": "Force a fresh Vercel preview checkout after the Deep Atlas bounded-structural-detail repair on the unified current-main OMEGA + cash-first source.",
+  "requiredTerminalEvidence": [
+    "runner checks out this trigger commit or a source-identical descendant",
+    "Deep Atlas accepts fully content-covered large generated artifacts while preserving bounded-structure truth",
+    "brain/bootstrap and Sovereign runtime gates pass",
+    "focused PayPal/payment/first-cash fulfilment tests execute",
+    "pre-customer revenue-readiness contract executes",
+    "deterministic and syntax gates execute as configured",
+    "any mutation/database/browser gates required by the build execute or are truthfully classified",
+    "final exact source commit is recorded"
+  ],
+  "commercialTruthBoundary": "A green build does not prove a customer, cleared payment, accepted delivery, retention, lived-life improvement or provider callability."
+}

@@ -39,7 +39,9 @@ const ledgerRows = rows.map(row => {
     literalNames: row.literalNames,
     class: row.class,
     priorState: row.currentState,
-    disposition,
+    disposition: disposition === 'GENUINE_GAP' ? null : disposition,
+    priorDisposition: disposition,
+    auditStatus: disposition === 'GENUINE_GAP' ? 'INCOMPLETE_BEHAVIORAL_REVIEW' : 'MATRIX_LEAD_REQUIRES_INDEPENDENT_REVIEW',
     implementationProof: disposition === 'VERIFIED_REUSE' || disposition === 'PARTIAL_REUSE' ? 'matrix-lead-requires-independent-behavioral-review' : metadataOnly ? 'metadata-only-or-no-behavioral-source-found' : 'no-qualifying-behavioral-proof',
     evidenceGrade: disposition === 'GENUINE_GAP' ? 'UNPROVEN_CANDIDATE_NOT_PROOF_OF_ABSENCE' : 'MATRIX_LEAD_NOT_BEHAVIORAL_VERIFICATION',
     absenceClaim: false,
@@ -63,6 +65,7 @@ const ledgerRows = rows.map(row => {
   };
 });
 const counts = Object.fromEntries(['VERIFIED_REUSE','PARTIAL_REUSE','GENUINE_GAP','MISCLASSIFIED_OR_STRUCTURAL','EXTERNAL_OR_ELAPSED'].map(k => [k, ledgerRows.filter(row => row.disposition === k).length]));
+const pendingCount = ledgerRows.filter(row => row.disposition == null).length;
 const out = {
   schemaVersion: 'uberbond.gpt459.reuse-ledger.v1',
   mission: 'Issue #459 capability domain/atom reuse compression',
@@ -72,6 +75,8 @@ const out = {
   rowCount: ledgerRows.length,
   expectedClasses: { CAPABILITY_DOMAIN: ledgerRows.filter(r => r.class === 'CAPABILITY_DOMAIN').length, CAPABILITY_ATOM: ledgerRows.filter(r => r.class === 'CAPABILITY_ATOM').length },
   counts,
+  pendingCount,
+  auditStatus: 'INCOMPLETE_BEHAVIORAL_REVIEW',
   truthBoundary: { realCustomers: 0, clearedRevenue: 0, acceptedPaidDeliveries: 0, retainedCustomers: 0 },
   rows: ledgerRows
 };

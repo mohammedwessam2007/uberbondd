@@ -11,7 +11,7 @@ test('#459 ledger has complete current capability-domain/atom denominator', () =
   assert.equal(ledger.expectedClasses.CAPABILITY_DOMAIN, eligible.filter(row => row.class === 'CAPABILITY_DOMAIN').length);
   assert.equal(ledger.expectedClasses.CAPABILITY_ATOM, eligible.filter(row => row.class === 'CAPABILITY_ATOM').length);
   assert.equal(new Set(ledger.rows.map(row => row.canonicalId)).size, ledger.rowCount);
-  assert.equal(Object.values(ledger.counts).reduce((a, b) => a + b, 0), ledger.rowCount);
+  assert.equal(Object.values(ledger.counts).reduce((a, b) => a + b, 0) + ledger.pendingCount, ledger.rowCount);
 });
 
 test('#459 reuse disposition requires behavioral evidence and metadata-only atoms stay gaps', () => {
@@ -24,7 +24,8 @@ test('#459 reuse disposition requires behavioral evidence and metadata-only atom
       assert.notEqual(row.privacyClass, undefined);
     }
     if (row.class === 'CAPABILITY_ATOM' && row.priorState === 'SPEC_ONLY') {
-      assert.equal(row.disposition, 'GENUINE_GAP');
+      assert.equal(row.priorDisposition, 'GENUINE_GAP');
+      assert.equal(row.disposition, null);
       assert.match(row.implementationProof, /metadata|no-behavioral/);
     }
   }

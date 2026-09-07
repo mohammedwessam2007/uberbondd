@@ -1,8 +1,9 @@
 name: UberBond Self Maintainer
 
 on:
-  schedule:
-    - cron: '17 * * * *'
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       issueNumber:
@@ -104,7 +105,18 @@ jobs:
       - name: Preserve no-issue initial truth as final truth
         if: steps.initial.outputs.issue_number == '0'
         run: cp artifacts/cognitive/self-maintainer-initial.json artifacts/cognitive/self-maintainer-latest.json
-      - name: Save self-maintenance truth for the next cognitive pulse
+      - name: Compile non-repeating continuation decision
+        if: always()
+        shell: bash
+        run: |
+          if [ -f artifacts/cognitive/self-maintainer-latest.json ]; then
+            node scripts/self-maintainer-continuation-receipt.mjs artifacts/cognitive/self-maintainer-latest.json > artifacts/cognitive/self-maintainer-continuation.json
+          elif [ -f artifacts/cognitive/self-maintainer-initial.json ]; then
+            node scripts/self-maintainer-continuation-receipt.mjs artifacts/cognitive/self-maintainer-initial.json > artifacts/cognitive/self-maintainer-continuation.json
+          else
+            printf '%s\n' '{"schemaVersion":"uberbond.self-maintainer-continuation-receipt.v1","status":"NO_PRIMARY_RECEIPT","businessEffectAuthority":"NONE"}' > artifacts/cognitive/self-maintainer-continuation.json
+          fi
+      - name: Save self-maintenance truth for the next evidence-triggered pulse
         uses: actions/cache/save@v4
         with:
           path: artifacts/cognitive/self-maintainer-latest.json
@@ -117,6 +129,7 @@ jobs:
             artifacts/cognitive/self-maintainer-initial.json
             artifacts/cognitive/self-maintainer-proposal-dispatch.json
             artifacts/cognitive/self-maintainer-latest.json
+            artifacts/cognitive/self-maintainer-continuation.json
           retention-days: 14
           if-no-files-found: error
       - name: Preserve unsuccessful maintenance as visible workflow failure after evidence is saved

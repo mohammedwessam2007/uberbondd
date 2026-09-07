@@ -16,33 +16,37 @@ Every human or AI evaluating, modifying, rating, resuming, or extending UberBond
 
 1. `docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`
 2. `artifacts/sovereign-cognitive-continuum-total-north-star.json`
-3. `docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`
-4. `artifacts/sovereign-cognitive-continuum-north-star.json`
-5. `docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md`
-6. `artifacts/sovereign-option-outcome-forecast-engine.json`
-7. `docs/NORTH_STAR_PRECEDENCE.md`
-8. `artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json`
-9. `docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`
-10. `artifacts/personal-civilization-engine-north-star.json`
-11. `AGENTS.md`
-12. `CLAUDE.md`
-13. `UBERBOND_CANON.md`
-14. `UBERBOND_BOOTSTRAP.json`
-15. `docs/UBERBOND_TOTAL_BRAIN.md`
-16. `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`
-17. `docs/CURRENT_HANDOFF.json` and current repository/PR truth before selecting implementation work.
+3. `docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md`
+4. `artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json`
+5. `docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`
+6. `artifacts/sovereign-cognitive-continuum-north-star.json`
+7. `docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md`
+8. `artifacts/sovereign-option-outcome-forecast-engine.json`
+9. `docs/NORTH_STAR_PRECEDENCE.md`
+10. `artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json`
+11. `docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`
+12. `artifacts/personal-civilization-engine-north-star.json`
+13. `AGENTS.md`
+14. `CLAUDE.md`
+15. `UBERBOND_CANON.md`
+16. `UBERBOND_BOOTSTRAP.json`
+17. `docs/UBERBOND_TOTAL_BRAIN.md`
+18. `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`
+19. `docs/CURRENT_HANDOFF.json` and current repository/PR truth before selecting implementation work.
 
 ## No-drop superset law
 
 `docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md` and `artifacts/sovereign-cognitive-continuum-total-north-star.json` are the terminal **no-drop superset** for the Sovereign Continuum ideas developed with the founder.
 
-They preserve the full concept space, including the later layers added after the original Sovereign Continuum document: Meta-Sovereign Rationality; Value Genesis; Meta-Volition; Volitional Integrity; Phenomenology Bridge; Embodied Reality Model; Freedom Gradient / Agency Geometry; Sovereign Interaction Protocol; Intent Compiler; Consequence Ledger; Identity Branch-and-Merge; Anti-Narrative Engine; Cognitive Sovereignty Firewall; AI-Induced Preference Drift Detection; Reality Authentication; Personal Scarcity Physics; Window-of-Life Detection; Meaning Archaeology; Regret Intelligence; Life Fault Tolerance; Century-Grade Continuity; Freedom to Become; Preference Provenance; Intertemporal Sovereignty; Irreversibility Atlas; Non-Action Engine; Epistemic Exit; Memory Sovereignty; Reality-to-Self Firewall; Soul Archive; Untranslatable Layer; Impossible Detector; Boundary Discovery Engine; Existential Checksum; Salience Sovereignty; Salience Ledger; Perspective Randomizer; Unchosen-Universe Check; Attention Constitution; Epistemic Sovereignty; Cognitive Opacity; Right to Remain Unmodeled; Right of Exit; Fork Sovereignty; Constitutional Mutation; Constitutional Self-Destruction; Mortal Horizon Model; Presentness; Posthumous Sovereignty; Ontological Crisis Protocol; Ruin Firewall; Strategic Reality Engine; Externality Map; Information Hazard Layer; N-of-1 Personal Science; Counterfactual Accountability; Reality Contact Guarantee; Abstraction Debt; Scale Bridge; Model Ecology; Epistemic Biodiversity; Anti-Correlation Intelligence; Causal Intervention Ladder; Prediction Half-Life; Decision Shelf Life; Agency Debt; Capability Atrophy; Cognitive Nutrition; Environment Compiler; Mutuality Engine; Social Reality Calibration; Uncopyable Experience; Optionality-vs-Depth; Explore/Exploit Life Controller; Nonlinear Threshold Detection; Bottleneck reasoning; Anti-Fragility; Recovery Compiler; No-Model / No-Recommendation / Enough stopping rules; Strategic Forgetting and Rediscovery; Tool-vs-Companion Boundary; Consciousness Boundary; Reality Independence; Non-Totalization; and the twelve-domain terminal ontology.
+`docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md` and `artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json` preserve the literal names and semantic lineage of chat-born concepts whose mechanisms were later merged or renamed. Literal searchability is part of no-drop continuity, not a duplicate-implementation instruction.
+
+Together they preserve the full concept space, including the later layers added after the original Sovereign Continuum document: Meta-Sovereign Rationality; Value Genesis; Meta-Volition; Volitional Integrity; Phenomenology Bridge; Embodied Reality Model; Freedom Gradient / Agency Geometry; Sovereign Interaction Protocol; Intent Compiler; Consequence Ledger; Identity Branch-and-Merge; Anti-Narrative Engine; Cognitive Sovereignty Firewall; AI-Induced Preference Drift Detection; Reality Authentication; Personal Scarcity Physics; Window-of-Life Detection; Meaning Archaeology; Regret Intelligence; Life Fault Tolerance; Century-Grade Continuity; Freedom to Become; Preference Provenance; Intertemporal Sovereignty; Irreversibility Atlas; Non-Action Engine; Epistemic Exit; Memory Sovereignty; Reality-to-Self Firewall; Soul Archive; Untranslatable Layer; Impossible Detector; Boundary Discovery Engine; Existential Checksum; Salience Sovereignty; Salience Ledger; Perspective Randomizer; Unchosen-Universe Check; Attention Constitution; Epistemic Sovereignty; Cognitive Opacity; Right to Remain Unmodeled; Right of Exit; Fork Sovereignty; Constitutional Mutation; Constitutional Self-Destruction; Mortal Horizon Model; Presentness; Posthumous Sovereignty; Ontological Crisis Protocol; Ruin Firewall; Strategic Reality Engine; Externality Map; Information Hazard Layer; N-of-1 Personal Science; Counterfactual Accountability; Reality Contact Guarantee; Abstraction Debt; Scale Bridge; Model Ecology; Epistemic Biodiversity; Anti-Correlation Intelligence; Causal Intervention Ladder; Prediction Half-Life; Decision Shelf Life; Agency Debt; Capability Atrophy; Cognitive Nutrition; Environment Compiler; Mutuality Engine; Social Reality Calibration; Uncopyable Experience; Optionality-vs-Depth; Explore/Exploit Life Controller; Nonlinear Threshold Detection; Bottleneck reasoning; Anti-Fragility; Recovery Compiler; No-Model / No-Recommendation / Enough stopping rules; Strategic Forgetting and Rediscovery; Tool-vs-Companion Boundary; Consciousness Boundary; Reality Independence; Non-Totalization; and the twelve-domain terminal ontology.
 
 A newer concept may replace a mechanism, but it must not silently delete the unique purpose that mechanism contributed.
 
 ## Terminal precedence law
 
-`NORTH_STAR.md`, the total no-drop North Star human/machine pair, the Sovereign Cognitive Continuum human/machine pair, the Sovereign Option & Outcome Forecast Engine, `docs/NORTH_STAR_PRECEDENCE.md`, and `artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json` define the terminal objective layer.
+`NORTH_STAR.md`, the total no-drop North Star human/machine pair, the chat-completeness human/machine pair, the Sovereign Cognitive Continuum human/machine pair, the Sovereign Option & Outcome Forecast Engine, `docs/NORTH_STAR_PRECEDENCE.md`, and `artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json` define the terminal objective layer.
 
 Any older wording anywhere in the repository that calls the **Personal Civilization Engine** the "highest-level North Star", "highest-level destination", or equivalent is historical donor wording and must now be interpreted as referring to the highest **contained life-system layer** beneath the Sovereign Cognitive Continuum.
 

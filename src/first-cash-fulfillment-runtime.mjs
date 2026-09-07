@@ -8,7 +8,7 @@ import {
   LEAD_PATH_SPRINT_SKU
 } from './lead-path-sprint-fulfillment.mjs';
 
-export const FIRST_CASH_FULFILLMENT_RUNTIME_VERSION = 'uberbond.first-cash-fulfillment-runtime.v1.0.0';
+export const FIRST_CASH_FULFILLMENT_RUNTIME_VERSION = 'uberbond.first-cash-fulfillment-runtime.v1.1.0';
 export const FIRST_CASH_FULFILLMENT_JOB_TYPE = 'research.batch';
 
 const cloneEffects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
@@ -39,11 +39,16 @@ function exactlyOne(rows) {
  * the store. Only the exact $450 lead-path SKU with a clean retained-payment
  * boundary can create a sprint.
  *
- * Immediate effects are repository/runtime-local: one durable queue record and
- * one compact audit receipt. The existing research worker may later perform
- * bounded public-site research under its own authority and policy gates. No
- * customer message, delivery, spend, DNS change, credential mutation, or
- * commercial outcome is created here.
+ * The complete INPUT_READY sprint state is persisted on the bound prospect
+ * before enqueue. That makes worker continuation/recovery independent of the
+ * ephemeral webhook call and prevents a generic report-delivery path from
+ * mistaking paid-sprint research for an ordinary public audit.
+ *
+ * Immediate effects are repository/runtime-local: durable state, one durable
+ * queue record and compact audit receipts. The existing research worker may
+ * later perform bounded public-site research under its own authority and policy
+ * gates. No customer message, delivery, spend, DNS change, credential mutation,
+ * or commercial outcome is created here.
  */
 export async function enqueueFirstCashFulfillment({
   store,
@@ -54,7 +59,7 @@ export async function enqueueFirstCashFulfillment({
   createSprint = createLeadPathSprint,
   advanceSprint = advanceLeadPathSprint
 } = {}) {
-  if (!store || typeof store.list !== 'function' || typeof store.get !== 'function' || typeof store.log !== 'function') {
+  if (!store || typeof store.list !== 'function' || typeof store.get !== 'function' || typeof store.log !== 'function' || typeof store.patch !== 'function') {
     return blocked(['store-required']);
   }
   if (!queue || typeof queue.enqueue !== 'function') return blocked(['durable-queue-required']);
@@ -116,6 +121,24 @@ export async function enqueueFirstCashFulfillment({
   if (!/^[a-f0-9]{64}$/.test(truthDigest)) return blocked(['canonical-payment-truth-digest-required']);
   const dedupeKey = `first-cash-fulfillment:${digest(`${leadId}:${truthDigest}`).slice(0, 40)}`;
   const sprint = ready.state;
+
+  const existingSprint = prospect?.firstCashFulfillment;
+  if (existingSprint?.sprintId && existingSprint.sprintId !== sprint.sprintId) {
+    return blocked(['conflicting-first-cash-sprint-already-bound']);
+  }
+
+  await store.patch('prospects', prospectId, {
+    firstCashFulfillment: existingSprint || sprint,
+    paidSprintDeliveryStatus: existingSprint?.status || sprint.status,
+    paidSprintBoundAt: prospect?.paidSprintBoundAt || new Date(date).toISOString()
+  });
+  await store.patch('leads', leadId, {
+    deliveryMode: 'paid-sprint',
+    paidSprintId: sprint.sprintId,
+    paidSprintSku: LEAD_PATH_SPRINT_SKU,
+    paidSprintBoundAt: lead?.paidSprintBoundAt || new Date(date).toISOString()
+  });
+
   const payload = {
     limit: 1,
     reason: 'paid-lead-path-sprint',
@@ -137,7 +160,7 @@ export async function enqueueFirstCashFulfillment({
     maxAttempts: 3,
     recoveryPolicy: 'replay-safe'
   });
-  if (!job?.id) return blocked(['durable-fulfillment-job-not-created']);
+  if (!job?.id) return blocked(['durable-fulfillment-job-not-created'], { sprintPersisted: true, sprintId: sprint.sprintId });
 
   const previousReceipts = (await store.list('auditLog')).filter(row =>
     row?.type === 'first_cash_fulfillment_queued'

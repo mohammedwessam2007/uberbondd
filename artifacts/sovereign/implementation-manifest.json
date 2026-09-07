@@ -1902,6 +1902,31 @@
         "tests/capability-genome-execution-admission.test.mjs"
       ],
       "note": "Revocation is irreversible for selection and retains evidence."
+    },
+    {
+      "concept": "world sensing and Gamechanger intelligence",
+      "sources": [
+        "src/gamechanger-mesh.mjs",
+        "src/gamechanger-search-adapters.mjs"
+      ],
+      "tests": [
+        "tests/gamechanger-mesh.test.mjs",
+        "tests/gamechanger-search-adapters.test.mjs",
+        "tests/orchestration-gamechanger-source.test.mjs"
+      ],
+      "note": "Gamechanger observation normalization, source-tier scoring, dedupe, coverage receipts and research-only escalation execute with zero authority.",
+      "lane": "OMEGA-08"
+    },
+    {
+      "concept": "Event Horizon capital allocation",
+      "sources": [
+        "src/event-horizon.mjs"
+      ],
+      "tests": [
+        "tests/event-horizon.test.mjs"
+      ],
+      "note": "Event Horizon validates and scores candidate records with bounded economics and explicit uncertainty; it does not move money or authorize effects.",
+      "lane": "OMEGA-08"
     }
   ]
 }

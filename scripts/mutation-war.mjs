@@ -1719,6 +1719,96 @@ export const MUTATIONS = [
     replace: '',
     suites: ['tests/sovereign-coverage-matrix.test.mjs']
   },
+  // ---- A life decision described on every dimension, never collapsed -----
+  {
+    // The exchange rate between meaning and money is the value judgment. A
+    // total silently sets one.
+    id: 'LIFEDIM-01', guard: 'Cost dimensions invert, so cheaper is better rather than smaller',
+    file: 'src/life-decision-dimensions.mjs',
+    find: 'const better = (dimension, a, b) => (COST_DIMENSIONS.includes(dimension) ? a < b : a > b);',
+    replace: 'const better = (dimension, a, b) => a > b;',
+    suites: ['tests/life-decision-dimensions.test.mjs']
+  },
+  {
+    id: 'LIFEDIM-03', guard: 'Dominance requires losing on nothing',
+    file: 'src/life-decision-dimensions.mjs',
+    find: '      if (wins.length && losses.length === 0) {',
+    replace: '      if (wins.length >= losses.length) {',
+    suites: ['tests/life-decision-dimensions.test.mjs']
+  },
+  {
+    id: 'LIFEDIM-04', guard: 'An unscored dimension is not a zero',
+    file: 'src/life-decision-dimensions.mjs',
+    find: '    if (Number.isFinite(magnitude) && magnitude >= 0 && magnitude <= 1) scores[dimension] = magnitude;',
+    replace: '    scores[dimension] = Number.isFinite(magnitude) ? magnitude : 0;',
+    suites: ['tests/life-decision-dimensions.test.mjs']
+  },
+  // ---- Futures as counterfactuals, and what they may decide --------------
+  {
+    id: 'FUTURE-01', guard: 'A future with no assumption lineage is refused',
+    file: 'src/reachable-futures.mjs',
+    find: "  if (!lineage) return fail('FUTURE_INVALID', ['assumption-lineage-required'], {",
+    replace: '  if (false) return fail(\'FUTURE_INVALID\', [\'assumption-lineage-required\'], {',
+    suites: ['tests/reachable-futures.test.mjs']
+  },
+  {
+    id: 'FUTURE-02', guard: 'An ancestor must cross independent lineages, not repeat inside one',
+    file: 'src/reachable-futures.mjs',
+    find: '      isAncestor: entry.lineages.size >= 2',
+    replace: '      isAncestor: entry.futures.length >= 2',
+    suites: ['tests/reachable-futures.test.mjs']
+  },
+  {
+    id: 'FUTURE-03', guard: 'Uncertainty may not narrow as the horizon lengthens',
+    file: 'src/reachable-futures.mjs',
+    find: '  if (narrowing.length) {',
+    replace: '  if (false) {',
+    suites: ['tests/reachable-futures.test.mjs']
+  },
+  {
+    id: 'FUTURE-04', guard: 'Only desirable futures contribute ancestors',
+    file: 'src/reachable-futures.mjs',
+    find: '  const desirable = rows.filter(row => row.desirable);',
+    replace: '  const desirable = rows;',
+    suites: ['tests/reachable-futures.test.mjs']
+  },
+  // ---- Capability, and what growing it costs elsewhere -------------------
+  {
+    // The exact moment a system decides someone cannot do something.
+    id: 'CAPGEN-01', guard: 'A durable limit cannot be claimed from thin evidence',
+    file: 'src/human-capability-genome.mjs',
+    find: "  if (explanation === 'DURABLE_LIMIT' && !supportsDurableClaim(basis)) {",
+    replace: '  if (false) {',
+    suites: ['tests/human-capability-genome.test.mjs']
+  },
+  {
+    id: 'CAPGEN-02', guard: 'A thin assessment stays provisional',
+    file: 'src/human-capability-genome.mjs',
+    find: '      provisional: !supportsDurableClaim(basis),',
+    replace: '      provisional: false,',
+    suites: ['tests/human-capability-genome.test.mjs']
+  },
+  {
+    id: 'CAPGEN-03', guard: 'An absent capability binds harder than a weak one',
+    file: 'src/human-capability-genome.mjs',
+    find: "  const bottleneck = missing.length ? { capability: missing[0], reason: 'ABSENT' }",
+    replace: '  const bottleneck = false ? null',
+    suites: ['tests/human-capability-genome.test.mjs']
+  },
+  {
+    id: 'CAPGEN-04', guard: 'Delegation and atrophy are counted separately',
+    file: 'src/human-capability-genome.mjs',
+    find: "    debt: atrophying.length,",
+    replace: '    debt: atrophying.length + delegated.length,',
+    suites: ['tests/human-capability-genome.test.mjs']
+  },
+  {
+    id: 'CAPGEN-05', guard: 'A gap carries its provisional flag into the skeleton',
+    file: 'src/human-capability-genome.mjs',
+    find: '      provisional: have.get(name)?.provisional ?? true',
+    replace: '      provisional: false',
+    suites: ['tests/human-capability-genome.test.mjs']
+  },
   // ---- The private core: the one data class that is not the company's -----
   {
     id: 'PCIV-01', guard: 'A repository path is refused as a destination for private life data',

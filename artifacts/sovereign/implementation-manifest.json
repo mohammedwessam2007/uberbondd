@@ -310,6 +310,160 @@
         "tests/supplier-exit-drill.test.mjs"
       ],
       "note": "judgeExitDrill refuses to pass unless EXPORT, RESTORE, CUTOVER and ROLLBACK each produced evidence: digests are compared rather than a success boolean trusted, and an empty export cannot pass by restoring perfectly. scripts/supplier-exit-drill.mjs runs it for real against 11 durable canon files, restoring into a disposable cell and reading the bytes back off disk. Canon names no 'Supplier Exit Drills' concept -- that is the mission document's phrasing -- so only this row is declared. EXIT-01..06."
+    },
+    {
+      "concept": "Value Pluralism",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/life-decision-dimensions.mjs"
+      ],
+      "tests": [
+        "tests/life-decision-dimensions.test.mjs"
+      ],
+      "note": "compareLifeOptions reports dominance and tradeoffs and produces no weighted total, because the weights would be the value judgment. Cost dimensions invert so cheaper reads as better. LIFEDIM-01/03."
+    },
+    {
+      "concept": "Value Manifold",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/life-decision-dimensions.mjs"
+      ],
+      "tests": [
+        "tests/life-decision-dimensions.test.mjs"
+      ],
+      "note": "The twenty canon life dimensions carried unweighted; an out-of-range score is dropped rather than coerced to zero, which would record an assessment nobody made. LIFEDIM-04."
+    },
+    {
+      "concept": "Anti-Goodhart Intelligence",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/life-decision-dimensions.mjs"
+      ],
+      "tests": [
+        "tests/life-decision-dimensions.test.mjs"
+      ],
+      "note": "goodhartRisk names routes from maximizing a proxy to losing what it stands for, and says that finding no route is not the same as none existing."
+    },
+    {
+      "concept": "Personal Counterfactual Universe",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/reachable-futures.mjs"
+      ],
+      "tests": [
+        "tests/reachable-futures.test.mjs"
+      ],
+      "note": "projectFuture refuses a future with no stated assumption lineage, because futures with no lineage are countable and counting them measures the generator rather than the life. FUTURE-01."
+    },
+    {
+      "concept": "Future-Ancestor Compiler",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/reachable-futures.mjs"
+      ],
+      "tests": [
+        "tests/reachable-futures.test.mjs"
+      ],
+      "note": "futureAncestors requires a requirement to cross independent lineages. Appearing ten times inside one assumption set is a fact about that set. FUTURE-02/04."
+    },
+    {
+      "concept": "Reachable Future Geometry",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/reachable-futures.mjs"
+      ],
+      "tests": [
+        "tests/reachable-futures.test.mjs"
+      ],
+      "note": "reachableGeometry reports opened and closed branches without scoring closure as loss -- a module that did would recommend against every commitment a life is made of."
+    },
+    {
+      "concept": "Personal Time Telescope",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/reachable-futures.mjs"
+      ],
+      "tests": [
+        "tests/reachable-futures.test.mjs"
+      ],
+      "note": "timeTelescope refuses a projection whose uncertainty narrows as the horizon lengthens: false precision exactly where it is least checkable. FUTURE-03."
+    },
+    {
+      "concept": "Personal Council of Future Selves",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/reachable-futures.mjs"
+      ],
+      "tests": [
+        "tests/reachable-futures.test.mjs"
+      ],
+      "note": "councilOfFutureSelves surfaces disagreement and computes no majority. Positions record who holds them, never how many, because a tally is a vote and a vote among simulated selves outnumbers the present one."
+    },
+    {
+      "concept": "Human Capability Genome",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/human-capability-genome.mjs"
+      ],
+      "tests": [
+        "tests/human-capability-genome.test.mjs"
+      ],
+      "note": "capabilityAtom refuses a DURABLE_LIMIT claim unless varied or longitudinal evidence supports it, and keeps a thin assessment provisional. This is the exact moment a system decides someone cannot do something. CAPGEN-01/02."
+    },
+    {
+      "concept": "Osteogenesis",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/human-capability-genome.mjs"
+      ],
+      "tests": [
+        "tests/human-capability-genome.test.mjs"
+      ],
+      "note": "growSkeleton names what a future is missing and carries the provisional flag through, so a thin assessment cannot harden into a verdict inside a skeleton. CAPGEN-05."
+    },
+    {
+      "concept": "Osteogenesis for Life",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/human-capability-genome.mjs"
+      ],
+      "tests": [
+        "tests/human-capability-genome.test.mjs"
+      ],
+      "note": "The same organ under its Personal Civilization name; one implementation, two canon phrasings."
+    },
+    {
+      "concept": "Agency Debt",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/human-capability-genome.mjs"
+      ],
+      "tests": [
+        "tests/human-capability-genome.test.mjs"
+      ],
+      "note": "agencyDebt separates delegation from atrophy: delegating something still practised is not losing it, and merging the two either cries wolf or hides the real losses. CAPGEN-04."
+    },
+    {
+      "concept": "Capability Atrophy Detector",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/human-capability-genome.mjs"
+      ],
+      "tests": [
+        "tests/human-capability-genome.test.mjs"
+      ],
+      "note": "The trajectory vocabulary distinguishes strengthening, maintained, delegated, atrophying and deliberately abandoned, so only unnoticed atrophy counts as debt."
+    },
+    {
+      "concept": "Bottleneck Theorem",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/human-capability-genome.mjs"
+      ],
+      "tests": [
+        "tests/human-capability-genome.test.mjs"
+      ],
+      "note": "findBottleneck returns the single binding constraint, with an absent capability binding harder than a weak one. A ranked list is how effort spreads across dimensions that were not the constraint. CAPGEN-03."
     }
   ]
 }

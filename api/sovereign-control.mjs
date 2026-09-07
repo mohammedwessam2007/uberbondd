@@ -20,6 +20,9 @@ import { selectMethod, shouldContinueReasoning, TERMINAL_EPISTEMIC_STATES } from
 import { calibrationSummary } from '../src/reality-calibration-ledger.mjs';
 import { screenForRuin, correlatedExposure } from '../src/ruin-firewall.mjs';
 import { compileExperiences, realityContact } from '../src/experience-compiler.mjs';
+import { compareLifeOptions } from '../src/life-decision-dimensions.mjs';
+import { futureAncestors, councilOfFutureSelves } from '../src/reachable-futures.mjs';
+import { findBottleneck, agencyDebt } from '../src/human-capability-genome.mjs';
 
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
@@ -74,7 +77,11 @@ const supplyValueBoundary = forecasts =>
  * decision packet is included only when the caller supplied the inputs for one,
  * because an empty packet shaped like a real one is worse than no packet.
  */
-export function buildSovereignControlView({ decision = null, options = [], forecasts = [], scores = [], exit = null, reasoning = null, method = null, experiences = [], contact = null, positions = [], now = new Date() } = {}) {
+export function buildSovereignControlView({
+  decision = null, options = [], forecasts = [], scores = [], exit = null, reasoning = null,
+  method = null, experiences = [], contact = null, positions = [], lifeOptions = [],
+  futures = [], council = null, bottleneck = null, capabilities = [], now = new Date()
+} = {}) {
   const view = {
     ok: true,
     status: 'SOVEREIGN_CONTROL_VIEW',
@@ -90,6 +97,11 @@ export function buildSovereignControlView({ decision = null, options = [], forec
     experiences: Array.isArray(experiences) && experiences.length ? compileExperiences(experiences) : null,
     realityContact: contact ? realityContact(contact) : null,
     exposure: Array.isArray(positions) && positions.length ? correlatedExposure(positions) : null,
+    lifeDimensions: Array.isArray(lifeOptions) && lifeOptions.length > 1 ? compareLifeOptions(lifeOptions) : null,
+    futureAncestors: Array.isArray(futures) && futures.length ? futureAncestors(futures) : null,
+    council: council ? councilOfFutureSelves(council) : null,
+    bottleneck: bottleneck ? findBottleneck(bottleneck) : null,
+    agencyDebt: Array.isArray(capabilities) && capabilities.length ? agencyDebt(capabilities) : null,
     highestRung: 'RECOMMENDATION',
     founderAuthority: 'THIS SURFACE READS. IT CANNOT CHOOSE, DELEGATE, OR ACT.',
     businessEffectAuthority: 'NONE'

@@ -1,0 +1,896 @@
+{
+  "schemaVersion": "uberbond.gpt459.domain-behavior-review.v1",
+  "sourceCommit": "112c01cc009f118ca7ac5475f9ac5745872fe59e",
+  "status": "INCOMPLETE_REVIEW",
+  "rows": [
+    {
+      "canonicalId": "total-brain:world-sensing-and-gamechanger-intelligence",
+      "literalNames": [
+        "world sensing and Gamechanger intelligence"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/genesis-metabolism-tick.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/perpetual-frontier-genesis-doctor.mjs",
+        "scripts/external-capability-doctor.mjs",
+        "scripts/uberbond-genesis-reactivation.mjs",
+        "scripts/gamechanger-mesh-tick.mjs",
+        "scripts/uberbond-ultimate-graph.mjs",
+        "scripts/orchestration-frontier-tick.mjs",
+        "scripts/uberbond-brain-bootstrap.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/uberbond-metacognitive-synthesis.mjs"
+      ],
+      "candidateTests": [
+        "tests/uberbond-ultimate-graph.test.mjs",
+        "tests/perpetual-frontier-genesis-tick.test.mjs",
+        "tests/frontier-cognitive-runtime-e2e.test.mjs",
+        "tests/uberbond-cognitive-adapters.test.mjs",
+        "tests/genesis-cognitive-adapters.test.mjs",
+        "tests/orchestration-frontier.test.mjs",
+        "tests/recovery-war-boundaries.test.mjs",
+        "tests/genesis-chain-refusal.test.mjs",
+        "tests/uberbond-repository-deep-atlas.test.mjs",
+        "tests/uberbond-synaptic-map.test.mjs",
+        "tests/frontier-cognitive-fabric.test.mjs",
+        "tests/wessam-continuity.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "total-brain:public-web-browser-evidence-and-lawful-crawling",
+      "literalNames": [
+        "public-web browser evidence and lawful crawling"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/mutation-journal.mjs",
+        "scripts/outbound-probes.mjs",
+        "scripts/run-tests.mjs",
+        "scripts/postgres-app-smoke.mjs",
+        "scripts/review-probes.mjs",
+        "scripts/outbound-safety-smoke.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/postgres-smoke.mjs",
+        "scripts/paypal-mutation-war.mjs",
+        "scripts/discovery-smoke.mjs",
+        "scripts/separate-services-smoke.mjs",
+        "scripts/integration-smoke.mjs"
+      ],
+      "candidateTests": [
+        "tests/database-hygiene-postgres-real.test.mjs",
+        "tests/paypal-module-replay-identity-hostile.test.mjs",
+        "tests/genome-extraction.test.mjs",
+        "tests/json-import.test.mjs",
+        "tests/volume-quota.test.mjs",
+        "tests/browser-action-contract.test.mjs",
+        "tests/server-request-handler.test.mjs",
+        "tests/audit-agent-five-holes.test.mjs",
+        "tests/discovery.test.mjs",
+        "tests/postal-sender-evidence-consumer.test.mjs",
+        "tests/outbound-stale-authorization.test.mjs",
+        "tests/provider-payload-minimization.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "total-brain:prospect-supply-source-adapters",
+      "literalNames": [
+        "prospect-supply/source adapters"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/overnight-upgrade-plan.mjs",
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/import-json.mjs",
+        "scripts/free-first-outreach-doctor.mjs",
+        "scripts/compute-sovereignty-doctor.mjs",
+        "scripts/vercel-command-center-build.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/system-readiness.mjs",
+        "scripts/night-verification-frontier-open-model-mutations.mjs",
+        "scripts/external-capability-doctor.mjs",
+        "scripts/outbound-probes.mjs",
+        "scripts/gamechanger-mesh-tick.mjs"
+      ],
+      "candidateTests": [
+        "tests/prospect-qualification-pipeline.test.mjs",
+        "tests/genesis-implementation-receipt.test.mjs",
+        "tests/database-hygiene-postgres-real.test.mjs",
+        "tests/agent-evolution-wave.test.mjs",
+        "tests/paypal-module-replay-identity-hostile.test.mjs",
+        "tests/genome-extraction.test.mjs",
+        "tests/omnia-v9-reality-shadow-integration.test.mjs",
+        "tests/durable-claude-engineering-executor.test.mjs",
+        "tests/omnia-v9-external-effect-property.test.mjs",
+        "tests/capability-genome-doctor-normalized.test.mjs",
+        "tests/uberbond-ultimate-graph.test.mjs",
+        "tests/json-import.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "total-brain:business-genome-and-money-model-tournament",
+      "literalNames": [
+        "Business Genome and Money Model Tournament"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/gamechanger-mesh-tick.mjs",
+        "scripts/uberbond-brain-bootstrap.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/genesis-scientist-tick.mjs",
+        "scripts/opportunity-factory-dry-run.mjs",
+        "scripts/seed.mjs",
+        "scripts/perpetual-frontier-genesis-tick.mjs",
+        "src/commercial-outcome.mjs",
+        "src/commercial-opportunity-catalog.mjs",
+        "src/genesis-metabolism.mjs",
+        "src/genesis-venture-organism.mjs",
+        "src/opportunity-factory.mjs"
+      ],
+      "candidateTests": [
+        "tests/genome-extraction.test.mjs",
+        "tests/autonomy-job.test.mjs",
+        "tests/outreach-automation.test.mjs",
+        "tests/lite-p0.test.mjs",
+        "tests/opportunity-registry.test.mjs",
+        "tests/decision-information-theory.test.mjs",
+        "tests/genesis-world-resilience.test.mjs",
+        "tests/uberbond-cognitive-bus.test.mjs",
+        "tests/commercial-experiment.test.mjs",
+        "tests/autonomy-durable-pump.test.mjs",
+        "tests/experience-compiler.test.mjs",
+        "tests/nervous-system-integration.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "total-brain:mechanism-lab-atom-extraction-and-recombination",
+      "literalNames": [
+        "Mechanism Lab atom extraction and recombination"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "src/mechanism-lab.mjs",
+        "src/uberbond-metacognitive-synthesis.mjs",
+        "src/commercial-reconciliation.mjs",
+        "src/job-handlers.mjs",
+        "src/capability-graph.mjs",
+        "src/genome-extraction.mjs"
+      ],
+      "candidateTests": [
+        "tests/genome-extraction.test.mjs",
+        "tests/prometheus-adversarial.test.mjs",
+        "tests/mechanism-lab.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "total-brain:invisible-money-plumbing-and-economic-mechanism-research",
+      "literalNames": [
+        "Invisible Money Plumbing and economic mechanism research"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/overnight-upgrade-plan.mjs",
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/system-readiness.mjs",
+        "scripts/gamechanger-mesh-tick.mjs",
+        "scripts/agent-evolution-operator.mjs",
+        "scripts/mutation-verdict.mjs",
+        "scripts/payment-rail-doctor.mjs",
+        "scripts/kilimanjaro-manifest.mjs",
+        "scripts/uberbond-brain-bootstrap.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/uberbond-metacognitive-synthesis.mjs"
+      ],
+      "candidateTests": [
+        "tests/prospect-qualification-pipeline.test.mjs",
+        "tests/database-hygiene-postgres-real.test.mjs",
+        "tests/agent-evolution-wave.test.mjs",
+        "tests/omnia-v9-external-effect-property.test.mjs",
+        "tests/prospect-enrichment-planner.test.mjs",
+        "tests/browser-action-contract.test.mjs",
+        "tests/audit-agent-five-holes.test.mjs",
+        "tests/agent-model-failover-hostile.test.mjs",
+        "tests/frontier-cognitive-runtime-e2e.test.mjs",
+        "tests/paypal-payment-renewal-truth.test.mjs",
+        "tests/postal-sender-evidence-consumer.test.mjs",
+        "tests/independent-sweep-regressions.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "total-brain:event-horizon-capital-allocation",
+      "literalNames": [
+        "Event Horizon capital allocation"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/uberbond-brain-bootstrap.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/uberbond-metacognitive-synthesis.mjs",
+        "scripts/event-horizon-doctor.mjs",
+        "scripts/uberbond-cognitive-cycle.mjs",
+        "src/sovereign-coverage-matrix.mjs",
+        "src/commercial-opportunity-catalog.mjs",
+        "src/genesis-venture-organism.mjs",
+        "src/genesis-final-frontier-evidence.mjs",
+        "src/genesis-final-frontier.mjs",
+        "src/business-model-fitness.mjs",
+        "src/event-horizon-cognitive-adapter.mjs"
+      ],
+      "candidateTests": [
+        "tests/opportunity-registry.test.mjs",
+        "tests/genesis-world-resilience.test.mjs",
+        "tests/uberbond-cognitive-bus.test.mjs",
+        "tests/commercial-experiment.test.mjs",
+        "tests/uberbond-cognitive-graph.test.mjs",
+        "tests/genesis-final-frontier.test.mjs",
+        "tests/uberbond-brain-bootstrap.test.mjs",
+        "tests/sovereign-coverage-matrix.test.mjs",
+        "tests/adapter-capital.test.mjs",
+        "tests/prometheus-control-tower.test.mjs",
+        "tests/uberbond-metacognitive-synthesis.test.mjs",
+        "tests/capability-graph.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "total-brain:saas-cannibal-and-clean-room-feature-absorption",
+      "literalNames": [
+        "SaaS Cannibal and clean-room feature absorption"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "src/uberbond-cognitive-bus.mjs",
+        "src/uberbond-feature-genome.mjs",
+        "src/uberbond-cognitive-graph.mjs"
+      ],
+      "candidateTests": [
+        "tests/uberbond-cognitive-graph.test.mjs",
+        "tests/uberbond-total-brain.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "total-brain:runtime-aware-reachability",
+      "literalNames": [
+        "runtime-aware reachability"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/free-first-outreach-doctor.mjs",
+        "scripts/vercel-command-center-build.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/overnight-foundations-doctor.mjs",
+        "scripts/system-readiness.mjs",
+        "scripts/night-verification-frontier-open-model-mutations.mjs",
+        "scripts/external-capability-doctor.mjs",
+        "scripts/payment-rail-doctor.mjs",
+        "scripts/gpt459-reuse-ledger.mjs",
+        "scripts/ontological-crisis-doctor.mjs",
+        "scripts/orchestration-frontier-tick.mjs"
+      ],
+      "candidateTests": [
+        "tests/genesis-implementation-receipt.test.mjs",
+        "tests/database-hygiene-postgres-real.test.mjs",
+        "tests/uberbond-ultimate-graph.test.mjs",
+        "tests/perpetual-frontier-genesis-tick.test.mjs",
+        "tests/canon-freshness.test.mjs",
+        "tests/claude-code-sandbox-provisioner.test.mjs",
+        "tests/agent-worker-role-gate.test.mjs",
+        "tests/frontier-cognitive-runtime-e2e.test.mjs",
+        "tests/orchestration-frontier.test.mjs",
+        "tests/sandbox-destroy-ownership.test.mjs",
+        "tests/uberbond-repository-deep-atlas.test.mjs",
+        "tests/capability-genome-night-routing.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "total-brain:fulfilment-qa-delivery-acceptance-retention-renewal",
+      "literalNames": [
+        "fulfilment QA delivery acceptance retention renewal"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/outbound-probes.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/frontier-surface-doctor.mjs",
+        "scripts/agent-mesh-tick.mjs",
+        "src/commercial-outcome.mjs",
+        "src/payment-renewal-truth.mjs",
+        "src/agent-compute-store.mjs",
+        "src/billing-webhook-boundary.mjs",
+        "src/inbound-classify.mjs",
+        "src/service-fulfillment.mjs",
+        "src/founder-absence-readiness.mjs",
+        "src/commercial-opportunity-catalog.mjs"
+      ],
+      "candidateTests": [
+        "tests/agent-mesh-cycle-receipt-concurrency.test.mjs",
+        "tests/paypal-payment-renewal-truth.test.mjs",
+        "tests/independent-sweep-regressions.test.mjs",
+        "tests/agent-mesh-zero-io-canary.test.mjs",
+        "tests/provider-payload-minimization.test.mjs",
+        "tests/founder-absence-deliverability.test.mjs",
+        "tests/revenue.test.mjs",
+        "tests/offer-compiler.test.mjs",
+        "tests/recovery-war-boundaries.test.mjs",
+        "tests/fulfillment-evidence-referent.test.mjs",
+        "tests/founder-command-center.test.mjs",
+        "tests/omega-closure-hostile.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "total-brain:security-sovereignty-privacy-suppression-revocation",
+      "literalNames": [
+        "security sovereignty privacy suppression revocation"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/vercel-command-center-build.mjs",
+        "scripts/system-readiness.mjs",
+        "scripts/gpt459-reuse-ledger.mjs",
+        "scripts/orchestration-frontier-tick.mjs",
+        "scripts/uberbond-brain-bootstrap.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/genesis-scientist-tick.mjs",
+        "scripts/capability-genome-normalize-bodies.mjs",
+        "src/memory-sovereignty.mjs",
+        "src/sovereign-coverage-matrix.mjs",
+        "src/capability-genome-runtime.mjs",
+        "src/database-hygiene-maintenance.mjs"
+      ],
+      "candidateTests": [
+        "tests/database-hygiene-postgres-real.test.mjs",
+        "tests/omnia-v9-reality-shadow-integration.test.mjs",
+        "tests/capability-genome-doctor-normalized.test.mjs",
+        "tests/server-request-handler.test.mjs",
+        "tests/outbound-stale-authorization.test.mjs",
+        "tests/provider-payload-minimization.test.mjs",
+        "tests/omnia-v9-proof-store.test.mjs",
+        "tests/capability-genome-night-routing.test.mjs",
+        "tests/wessam-continuity.test.mjs",
+        "tests/lifetime-context-memory.test.mjs",
+        "tests/nervous-system-integration.test.mjs",
+        "tests/night-frontier-model-admission-proof.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "memory-index:partner-tenant-buyer-account-and-relationship-graph",
+      "literalNames": [
+        "partner tenant buyer account and relationship graph"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/strategic-reality-doctor.mjs",
+        "scripts/uberbond-brain-bootstrap.mjs",
+        "scripts/world-brain-field-mission-doctor.mjs",
+        "src/staging-content-repository.mjs",
+        "src/commercial-opportunity-catalog.mjs",
+        "src/ai-employee-role-contract.mjs",
+        "src/free-first-outreach-router.mjs",
+        "src/genesis-venture-organism.mjs",
+        "src/config.mjs",
+        "src/genesis-economic-physics.mjs",
+        "src/distribution-control-plane.mjs"
+      ],
+      "candidateTests": [
+        "tests/omnia-v9-reality-shadow-integration.test.mjs",
+        "tests/omnia-v9-external-effect-property.test.mjs",
+        "tests/strategic-reality-engine.test.mjs",
+        "tests/omnia-v9-canary-authority-attenuation.test.mjs",
+        "tests/omnia-v9-proof-store.test.mjs",
+        "tests/omnia-v9-integration-outbound.test.mjs",
+        "tests/omnia-v9-null-consequence-adapter.test.mjs",
+        "tests/opportunity-registry.test.mjs",
+        "tests/omnia-v9-canary-crash-recovery.test.mjs",
+        "tests/omnia-v9-canary-failure-drills.test.mjs",
+        "tests/distribution-channel.test.mjs",
+        "tests/omnia-v9.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "memory-index:opportunity-market-signal-mechanism-and-evidence-intelligence",
+      "literalNames": [
+        "opportunity market signal mechanism and evidence intelligence"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/free-first-outreach-doctor.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/system-readiness.mjs",
+        "scripts/night-verification-frontier-open-model-mutations.mjs",
+        "scripts/external-capability-doctor.mjs",
+        "scripts/outbound-probes.mjs",
+        "scripts/gamechanger-mesh-tick.mjs",
+        "scripts/strategic-reality-doctor.mjs",
+        "scripts/reflexivity-doctor.mjs",
+        "scripts/universal-ignorance-doctor.mjs",
+        "scripts/agent-evolution-operator.mjs"
+      ],
+      "candidateTests": [
+        "tests/prospect-qualification-pipeline.test.mjs",
+        "tests/genesis-implementation-receipt.test.mjs",
+        "tests/database-hygiene-postgres-real.test.mjs",
+        "tests/agent-evolution-wave.test.mjs",
+        "tests/genome-extraction.test.mjs",
+        "tests/omnia-v9-reality-shadow-integration.test.mjs",
+        "tests/autonomy-job.test.mjs",
+        "tests/omnia-v9-external-effect-property.test.mjs",
+        "tests/capability-genome-doctor-normalized.test.mjs",
+        "tests/capability-genome-night-freshness.test.mjs",
+        "tests/prospect-enrichment-planner.test.mjs",
+        "tests/perpetual-frontier-genesis-tick.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "memory-index:offer-catalogue-pricing-scope-and-next-best-offer-logic",
+      "literalNames": [
+        "offer catalogue pricing scope and next-best-offer logic"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/compute-sovereignty-doctor.mjs",
+        "scripts/review-probes.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/uberbond-metacognitive-synthesis.mjs",
+        "scripts/seed.mjs",
+        "scripts/discovery-smoke.mjs",
+        "scripts/uberbond-cognitive-cycle.mjs",
+        "scripts/agent-mesh-tick.mjs",
+        "src/memory-sovereignty.mjs",
+        "src/commercial-outcome.mjs",
+        "src/billing-webhook-boundary.mjs"
+      ],
+      "candidateTests": [
+        "tests/prospect-qualification-pipeline.test.mjs",
+        "tests/database-hygiene-postgres-real.test.mjs",
+        "tests/genome-extraction.test.mjs",
+        "tests/prospect-enrichment-planner.test.mjs",
+        "tests/audit-agent-five-holes.test.mjs",
+        "tests/frontier-cognitive-runtime-e2e.test.mjs",
+        "tests/independent-sweep-regressions.test.mjs",
+        "tests/offer-compiler.test.mjs",
+        "tests/founder-command-center.test.mjs",
+        "tests/open-model-factory-integration.test.mjs",
+        "tests/omega-closure-hostile.test.mjs",
+        "tests/frontier-cognitive-fabric.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "memory-index:identity-rights-consent-authority-delegation-and-expiry",
+      "literalNames": [
+        "identity rights consent authority delegation and expiry"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/uberbond-feature-atom-atlas.mjs",
+        "scripts/vercel-command-center-visual-cortex-build.mjs",
+        "scripts/free-first-outreach-doctor.mjs",
+        "scripts/genesis-metabolism-tick.mjs",
+        "scripts/compute-sovereignty-doctor.mjs",
+        "scripts/vercel-command-center-build.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/overnight-foundations-doctor.mjs",
+        "scripts/perpetual-frontier-genesis-doctor.mjs",
+        "scripts/system-readiness.mjs",
+        "scripts/night-verification-frontier-open-model-mutations.mjs"
+      ],
+      "candidateTests": [
+        "tests/prospect-qualification-pipeline.test.mjs",
+        "tests/database-hygiene-postgres-real.test.mjs",
+        "tests/agent-evolution-wave.test.mjs",
+        "tests/paypal-module-replay-identity-hostile.test.mjs",
+        "tests/genome-extraction.test.mjs",
+        "tests/omnia-v9-reality-shadow-integration.test.mjs",
+        "tests/durable-claude-engineering-executor.test.mjs",
+        "tests/omnia-v9-external-effect-property.test.mjs",
+        "tests/prospect-enrichment-planner.test.mjs",
+        "tests/perpetual-frontier-genesis-tick.test.mjs",
+        "tests/volume-quota.test.mjs",
+        "tests/browser-action-contract.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "memory-index:ai-evaluation-deterministic-checks-human-review-and-claim-boundaries",
+      "literalNames": [
+        "AI evaluation deterministic checks human review and claim boundaries"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/sovereign-coverage-matrix.mjs",
+        "scripts/vercel-command-center-build.mjs",
+        "scripts/uberbond-self-maintainer-tick.mjs",
+        "scripts/system-readiness.mjs",
+        "scripts/uberbond-mcp.mjs",
+        "scripts/run-tests.mjs",
+        "scripts/pr-reconcile.mjs",
+        "scripts/kilimanjaro-manifest.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/opportunity-factory-dry-run.mjs",
+        "scripts/github-relay-worker.mjs",
+        "src/frontier-capability-harvest.mjs"
+      ],
+      "candidateTests": [
+        "tests/agent-evolution-wave.test.mjs",
+        "tests/paypal-module-replay-identity-hostile.test.mjs",
+        "tests/omnia-v9-reality-shadow-integration.test.mjs",
+        "tests/autonomy-job.test.mjs",
+        "tests/omnia-v9-external-effect-property.test.mjs",
+        "tests/outreach-automation.test.mjs",
+        "tests/agent-mesh-cycle-receipt-concurrency.test.mjs",
+        "tests/relay-adapter-sovereignty-boundary.test.mjs",
+        "tests/outbound-stale-authorization.test.mjs",
+        "tests/lite-p0.test.mjs",
+        "tests/relay-shadow-binding.test.mjs",
+        "tests/opportunity-registry.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "memory-index:reconciliation-matching-document-and-exception-engines",
+      "literalNames": [
+        "reconciliation matching document and exception engines"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/system-readiness.mjs",
+        "scripts/epistemic-immune-doctor.mjs",
+        "scripts/kilimanjaro-manifest.mjs",
+        "scripts/uberbond-brain-bootstrap.mjs",
+        "scripts/mutation-war.mjs",
+        "src/provider-http-adapters.mjs",
+        "src/gmail.mjs",
+        "src/commercial-opportunity-catalog.mjs",
+        "src/profile-discovery-provenance.mjs",
+        "src/config.mjs",
+        "src/payment-rail-doctor-core.mjs",
+        "src/relay-preview-runbook.mjs"
+      ],
+      "candidateTests": [
+        "tests/prospect-qualification-pipeline.test.mjs",
+        "tests/omnia-v9-reality-shadow-integration.test.mjs",
+        "tests/omnia-v9-external-effect-property.test.mjs",
+        "tests/browser-action-contract.test.mjs",
+        "tests/canon-freshness.test.mjs",
+        "tests/agent-worker-role-gate.test.mjs",
+        "tests/audit-agent-five-holes.test.mjs",
+        "tests/postal-sender-evidence-consumer.test.mjs",
+        "tests/independent-sweep-regressions.test.mjs",
+        "tests/payment-reconciliation-durable-finish.test.mjs",
+        "tests/omnia-v9-integration-outbound.test.mjs",
+        "tests/payment-provider-scope.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "memory-index:white-label-packaging-fulfilment-delivery-receipts-acceptance-retest-and-repair-",
+      "literalNames": [
+        "white-label packaging fulfilment delivery receipts acceptance retest and repair handoff"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/outbound-probes.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/frontier-surface-doctor.mjs",
+        "scripts/agent-mesh-tick.mjs",
+        "src/commercial-outcome.mjs",
+        "src/payment-renewal-truth.mjs",
+        "src/agent-compute-store.mjs",
+        "src/billing-webhook-boundary.mjs",
+        "src/inbound-classify.mjs",
+        "src/service-fulfillment.mjs",
+        "src/founder-absence-readiness.mjs",
+        "src/commercial-opportunity-catalog.mjs"
+      ],
+      "candidateTests": [
+        "tests/agent-mesh-cycle-receipt-concurrency.test.mjs",
+        "tests/paypal-payment-renewal-truth.test.mjs",
+        "tests/independent-sweep-regressions.test.mjs",
+        "tests/agent-mesh-zero-io-canary.test.mjs",
+        "tests/provider-payload-minimization.test.mjs",
+        "tests/founder-absence-deliverability.test.mjs",
+        "tests/revenue.test.mjs",
+        "tests/offer-compiler.test.mjs",
+        "tests/recovery-war-boundaries.test.mjs",
+        "tests/fulfillment-evidence-referent.test.mjs",
+        "tests/founder-command-center.test.mjs",
+        "tests/omega-closure-hostile.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "memory-index:monitoring-incidents-exception-queues-health-and-observability",
+      "literalNames": [
+        "monitoring incidents exception queues health and observability"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/review-probes.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/seed.mjs",
+        "src/commercial-opportunity-catalog.mjs",
+        "src/genesis-metabolism.mjs",
+        "src/config.mjs",
+        "src/payment-rail-doctor-core.mjs",
+        "src/offer-compiler.mjs",
+        "src/creator-ai-automation-service-bundle.mjs",
+        "src/genesis-final-frontier.mjs",
+        "src/programmatic-fulfillment-router.mjs",
+        "src/payments.mjs"
+      ],
+      "candidateTests": [
+        "tests/provider-payload-minimization.test.mjs",
+        "tests/revenue.test.mjs",
+        "tests/offer-compiler.test.mjs",
+        "tests/recovery-war-boundaries.test.mjs",
+        "tests/founder-command-center.test.mjs",
+        "tests/payment-witness-integrity-mutation.test.mjs",
+        "tests/genesis-scientist-tick.test.mjs",
+        "tests/operator-escalation.test.mjs",
+        "tests/genesis-evolution-engine.test.mjs",
+        "tests/prometheus-control-tower.test.mjs",
+        "tests/payment-renewal-truth.test.mjs",
+        "tests/cleared-revenue-truth.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "memory-index:distribution-attribution-outbound-inbound-voice-messaging-booking-social-partner",
+      "literalNames": [
+        "distribution attribution outbound inbound voice messaging booking social partner referral and content channels"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/outbound-probes.mjs",
+        "scripts/uberbond-mcp.mjs",
+        "scripts/gamechanger-mesh-tick.mjs",
+        "scripts/strategic-reality-doctor.mjs",
+        "scripts/kilimanjaro-manifest.mjs",
+        "scripts/outbound-safety-smoke.mjs",
+        "scripts/mutation-war.mjs",
+        "src/frontier-capability-harvest.mjs",
+        "src/domain-mailbox-circuit-breaker.mjs",
+        "src/staging-content-repository.mjs",
+        "src/genesis-venture-organism.mjs",
+        "src/service-sku.mjs"
+      ],
+      "candidateTests": [
+        "tests/prospect-qualification-pipeline.test.mjs",
+        "tests/omnia-v9-reality-shadow-integration.test.mjs",
+        "tests/volume-quota.test.mjs",
+        "tests/audit-agent-five-holes.test.mjs",
+        "tests/strategic-reality-engine.test.mjs",
+        "tests/postal-sender-evidence-consumer.test.mjs",
+        "tests/outbound-stale-authorization.test.mjs",
+        "tests/independent-sweep-regressions.test.mjs",
+        "tests/recovery-war-boundaries.test.mjs",
+        "tests/omnia-v9-integration-outbound.test.mjs",
+        "tests/omnia-v9-null-consequence-adapter.test.mjs",
+        "tests/founder-command-center.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "memory-index:billing-receivables-payment-refund-dispute-renewal-and-accounting-evidence",
+      "literalNames": [
+        "billing receivables payment refund dispute renewal and accounting evidence"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/mutation-war.mjs",
+        "scripts/paypal-mutation-war.mjs",
+        "src/commercial-outcome.mjs",
+        "src/payment-renewal-truth.mjs",
+        "src/billing-webhook-boundary.mjs",
+        "src/provider-http-adapters.mjs",
+        "src/paypal-sandbox-adapter.mjs",
+        "src/receivables-contract.mjs",
+        "src/payment-rail-doctor-core.mjs",
+        "src/payment-reconciliation-watchdog.mjs",
+        "src/lead-path-sprint-fulfillment.mjs",
+        "src/system-health-repository.mjs"
+      ],
+      "candidateTests": [
+        "tests/paypal-module-replay-identity-hostile.test.mjs",
+        "tests/audit-agent-five-holes.test.mjs",
+        "tests/paypal-payment-renewal-truth.test.mjs",
+        "tests/provider-payload-minimization.test.mjs",
+        "tests/payment-reconciliation-durable-finish.test.mjs",
+        "tests/payment-renewal-truth-store-envelope.test.mjs",
+        "tests/payment-provider-scope.test.mjs",
+        "tests/paypal-api-routes.test.mjs",
+        "tests/compute-sovereignty.test.mjs",
+        "tests/payment-witness-integrity-mutation.test.mjs",
+        "tests/uberbond-cognitive-bus.test.mjs",
+        "tests/paypal-replay-identity-hostile.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "memory-index:usage-margin-founder-minute-and-partner-economics-metering",
+      "literalNames": [
+        "usage margin founder-minute and partner economics metering"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/overnight-upgrade-plan.mjs",
+        "scripts/genesis-scientist-tick.mjs",
+        "scripts/paypal-mutation-war.mjs",
+        "scripts/integration-smoke.mjs",
+        "src/commercial-outcome.mjs",
+        "src/payment-renewal-truth.mjs",
+        "src/commercial-opportunity-catalog.mjs",
+        "src/config.mjs",
+        "src/genesis-economic-physics.mjs",
+        "src/distribution-control-plane.mjs",
+        "src/genesis-scientist.mjs",
+        "src/offer-compiler.mjs"
+      ],
+      "candidateTests": [
+        "tests/prospect-qualification-pipeline.test.mjs",
+        "tests/paypal-payment-renewal-truth.test.mjs",
+        "tests/independent-sweep-regressions.test.mjs",
+        "tests/offer-compiler.test.mjs",
+        "tests/payment-renewal-truth-store-envelope.test.mjs",
+        "tests/opportunity-registry.test.mjs",
+        "tests/payment-witness-integrity-mutation.test.mjs",
+        "tests/distribution-channel.test.mjs",
+        "tests/commercial-experiment.test.mjs",
+        "tests/first-cash-prospect-completion.test.mjs",
+        "tests/night-frontier-model-admission-proof.test.mjs",
+        "tests/paypal-replay-identity-hostile.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    },
+    {
+      "canonicalId": "memory-index:security-privacy-retention-deletion-suppression-provenance-audit-and-revocation",
+      "literalNames": [
+        "security privacy retention deletion suppression provenance audit and revocation"
+      ],
+      "disposition": null,
+      "auditStatus": "PENDING_BEHAVIORAL_CONFIRMATION",
+      "candidateSourceModules": [
+        "scripts/vercel-command-center-build.mjs",
+        "scripts/system-readiness.mjs",
+        "scripts/gpt459-reuse-ledger.mjs",
+        "scripts/orchestration-frontier-tick.mjs",
+        "scripts/uberbond-brain-bootstrap.mjs",
+        "scripts/mutation-war.mjs",
+        "scripts/genesis-scientist-tick.mjs",
+        "scripts/paypal-mutation-war.mjs",
+        "scripts/capability-genome-normalize-bodies.mjs",
+        "src/memory-sovereignty.mjs",
+        "src/sovereign-coverage-matrix.mjs",
+        "src/capability-genome-runtime.mjs"
+      ],
+      "candidateTests": [
+        "tests/database-hygiene-postgres-real.test.mjs",
+        "tests/capability-genome-doctor-normalized.test.mjs",
+        "tests/server-request-handler.test.mjs",
+        "tests/audit-agent-five-holes.test.mjs",
+        "tests/paypal-payment-renewal-truth.test.mjs",
+        "tests/provider-payload-minimization.test.mjs",
+        "tests/opportunity-registry.test.mjs",
+        "tests/capability-genome-night-routing.test.mjs",
+        "tests/paypal-api-routes.test.mjs",
+        "tests/wessam-continuity.test.mjs",
+        "tests/lifetime-context-memory.test.mjs",
+        "tests/commercial-experiment.test.mjs"
+      ],
+      "authorityClass": "NONE",
+      "privacyClass": "PUBLIC_REPOSITORY_SAFE",
+      "absenceClaim": false,
+      "reason": "Candidate pointers require manual function-level and execution confirmation; search results are leads only."
+    }
+  ],
+  "externalBlockers": [
+    "No pg dependency for genome-dependent test imports in this checkout; this blocks selected tests only."
+  ]
+}

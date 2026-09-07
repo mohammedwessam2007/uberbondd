@@ -9,18 +9,20 @@
     "Repaired four silent validator regressions inherited from the branch base, including requiresMemoryV2 -- a schema bump had switched off memory-index validation with no line deleted and every suite green.",
     "Coverage triage: SPEC_ONLY 883 -> 339 through five verified terminal states (ENFORCED_BY_CODE, STRUCTURAL_NOT_A_BUILD_TARGET, COVERED_BY_PARENT_ORGAN, REFERENCE_ONLY_BY_CANON, HISTORICAL_DONOR_PRESERVED, ALIAS_OF_CANONICAL_CONCEPT) plus 19 EXTERNAL_BLOCKED from a reviewed gate vocabulary. TERMSTATE-01..09 KILLED.",
     "OMEGA-06: supplier exit drill actually rehearsed -- 11 durable canon files exported, restored byte-identically into a disposable cell, cut over and rolled back, original unchanged. EXIT-01..06 KILLED.",
-    "Fixed the inert manifest lane field: every row had taken its lane from its concept class, so OMEGA-13 read as an empty lane while the calibration ledger was built."
+    "Fixed the inert manifest lane field: every row had taken its lane from its concept class, so OMEGA-13 read as an empty lane while the calibration ledger was built.",
+    "Five life organs built, tested and mutation-covered: life-decision-dimensions (no weighted total, ever), reachable-futures (lineage-counted counterfactuals, no council majority), human-capability-genome (a durable limit needs varied evidence), living-self-model (identity compression refused), salience-sovereignty (unlogged omissions recorded as unaccountable). 26 mutations KILLED."
   ],
   "blockers": [
-    "INTERNAL AND UNFINISHED: 339 coverage rows are genuine unbuilt organs -- 158 CONCEPT, 26 ORGAN, 24 PERSONAL_CIVILIZATION_ORGAN, 14 GENESIS_MECHANISM, 30 laws nothing enforces, 37 forecast dimensions with no parent organ, plus capability domains and atoms. The mission completion condition is NOT met while these stand.",
-    "EXTERNAL: 19 rows are blocked on facts outside this repository -- 10 host runtimes not installed, 7 founder-freedom dimensions needing observed life outcomes, 2 approved optional runtimes.",
+    "INTERNAL AND UNFINISHED: 277 coverage rows are genuine unbuilt organs. The mission completion condition is NOT met while these stand.",
+    "INTERNAL: 27 canon laws still have no enforcement declaration. Each is either a law to hold up in code or a law to admit nothing holds up.",
+    "EXTERNAL: 19 rows blocked on facts outside this repository -- 10 host runtimes not installed, 7 founder-freedom dimensions needing observed life outcomes, 2 approved optional runtimes.",
     "EXTERNAL: no real customer, cleared payment, accepted delivery or retained customer exists. Commercial truth remains {realCustomers: 0, clearedRevenueUsd: 0, acceptedPaidDeliveries: 0, retainedCustomers: 0}.",
-    "EXTERNAL: founder-absence duration cannot be proven by code; it requires observed elapsed unattended operation. ELAPSED_TIME_REQUIRED is 0 because no concept has yet been declared against that gate.",
-    "SCOPE: the exit drill rehearses LOCAL_STATE_PORTABILITY only. An authorized provider cutover needs external infrastructure and is not claimed."
+    "EXTERNAL: no life-outcome evidence exists for any organ. Every life organ here is internally tested and externally unproven.",
+    "EXTERNAL: founder-absence duration requires observed elapsed unattended operation. ELAPSED_TIME_REQUIRED is 0 because nothing has been declared against that gate."
   ],
   "nextActions": [
-    "The 339 unbuilt organs are the remaining work. Highest value among them is not another organ but the first material forecast recorded through reality-calibration-ledger.mjs -- the ledger has nothing to be right or wrong about yet.",
-    "30 canon laws have no enforcement declaration. Each is either a law to enforce in code or a law to admit nothing holds up.",
+    "277 unbuilt organs remain. Among them the highest-value is still not another organ: the calibration ledger has no scored forecast, so reality calibration cannot move.",
+    "27 unenforced laws are the sharpest cluster -- each resolves to code or to an admission.",
     "Do not duplicate ChatGPT Sol's truth/audit lane on sol/omega-truth-integration-20260907 (issue #445).",
     "Regenerate canon with npm run readiness as its own commit after each material tranche."
   ],

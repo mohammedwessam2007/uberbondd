@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-07T16:37:07.237Z",
+  "generatedAt": "2026-09-07T16:41:41.942Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "995a44320150edbf866d0b20683a29cd6e6431b5",
+    "head": "d71d3fca00f7708d63fdaf116a3f9de1c179aa33",
     "branch": "work/sovereign-continuum-execution-20260907",
     "sourceModules": 393,
     "testSuites": 492,
-    "workingTreeClean": true
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {

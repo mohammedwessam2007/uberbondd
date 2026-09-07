@@ -3,6 +3,7 @@ import { compileOfferPacket, OFFER_PRODUCTS } from './offer-compiler.mjs';
 import { summarizePaymentOperatorAttention } from './payment-operator-attention.mjs';
 import { CANONICAL_FIRST_CASH_PAYMENT_METHOD } from './first-cash-canary-packet.mjs';
 import { LEAD_PATH_SPRINT_PRICE, LEAD_PATH_SPRINT_SKU } from './lead-path-sprint-fulfillment.mjs';
+import { deriveFounderMinuteActions } from './founder-minute-priority.mjs';
 
 // Bump when the report's shape or derivation logic changes.
 export const COMMAND_CENTER_POLICY_VERSION = 'founder-command-center-1.2.0';
@@ -67,39 +68,6 @@ async function deliveryReadinessTable({ store }) {
   };
 }
 
-function deriveOwnerActions({ outbound, paymentAttention, revenue }) {
-  const actions = [];
-  if (paymentAttention.attentionRequired > 0) {
-    actions.push({
-      action: `Review ${paymentAttention.attentionRequired} payment event(s) requiring operator attention`,
-      reason: 'REVIEW_REQUIRED events and unexpected pending/unclear payment states need a human decision. Expected free-trial creation remains quiet.',
-      expectedValue: 'Prevents a real payment or anomalous provider state from being silently lost or misattributed', timeRequired: '5-10 minutes',
-      cost: 'None',
-      evidence: `${paymentAttention.reviewRequired} REVIEW_REQUIRED, ${paymentAttention.anomalousPending} anomalous pending, ${paymentAttention.expectedPending} expected pending`,
-      risk: 'A real customer payment or failed charge could go unfulfilled if ignored',
-      completionTest: 'paymentTruth.operatorAttentionRecently returns to zero'
-    });
-  }
-  if (outbound?.staleRecoveryPreview?.wouldRecover > 0 || outbound?.staleRecoveryPreview?.wouldQuarantine > 0) {
-    actions.push({
-      action: 'Run the outbound reservation recovery sweep',
-      reason: 'Stuck reservations are consuming capacity and delaying visibility into real send state.',
-      expectedValue: 'Restores accurate capacity accounting', timeRequired: '<1 minute (automated)', cost: 'None',
-      evidence: `${outbound.staleRecoveryPreview.wouldRecover} recoverable, ${outbound.staleRecoveryPreview.wouldQuarantine} to quarantine`,
-      risk: 'None: the sweep never sends anything', completionTest: 'staleRecoveryPreview counts return to zero'
-    });
-  }
-  if (!actions.length) {
-    actions.push({
-      action: 'No binding action required', reason: `The canonical first-cash path does not require legacy static checkout URLs. Payment anomalies and stuck reservations are clear as of this report. Cleared revenue so far: $${revenue?.clearedRevenue ?? 'UNKNOWN'}.`,
-      expectedValue: 'Avoids founder time spent configuring noncanonical payment paths', timeRequired: 'N/A', cost: 'N/A',
-      evidence: 'See canonicalFirstCashPath, paymentTruth, outbound and nonBlockingLegacyCheckoutGaps', risk: 'External live-rail/contact/legal gates remain outside this report and are not inferred.',
-      completionTest: 'N/A'
-    });
-  }
-  return actions.slice(0, 3);
-}
-
 // Read-only. Never sends, never mutates. Answers the founder's actual
 // questions by composing existing summaries and compilers rather than
 // building a new dashboard data model.
@@ -125,6 +93,7 @@ export async function buildFounderCommandCenter({ store, cfg = {}, revenueEngine
     .map(row => ({ product: row.product, priceUsd: row.priceUsd, blocksCanonicalFirstCash: false }));
   const paymentAttention = summarizePaymentOperatorAttention(recentAudit);
   const revenue = revenueEngine && typeof revenueEngine.summary === 'function' ? await revenueEngine.summary() : null;
+  const safeOutbound = outbound.ok ? outbound : null;
 
   return {
     ok: true,
@@ -146,14 +115,14 @@ export async function buildFounderCommandCenter({ store, cfg = {}, revenueEngine
       anomalousPendingRecently: paymentAttention.anomalousPending,
       operatorAttentionRecently: paymentAttention.attentionRequired
     },
-    outbound: outbound.ok ? {
-      killSwitch: outbound.killSwitch, reservations: outbound.reservations,
-      staleRecoveryPreview: outbound.staleRecoveryPreview, nextSafeAction: outbound.nextSafeAction
+    outbound: safeOutbound ? {
+      killSwitch: safeOutbound.killSwitch, reservations: safeOutbound.reservations,
+      staleRecoveryPreview: safeOutbound.staleRecoveryPreview, nextSafeAction: safeOutbound.nextSafeAction
     } : null,
     blocked: [
       ...(paymentAttention.attentionRequired > 0 ? [`${paymentAttention.attentionRequired} payment event(s) need operator review`] : [])
     ],
-    ownerActionQueue: deriveOwnerActions({ outbound: outbound.ok ? outbound : null, paymentAttention, revenue }),
+    ownerActionQueue: deriveFounderMinuteActions({ outbound: safeOutbound, paymentAttention, revenue }),
     businessEffectAuthority: 'NONE'
   };
 }

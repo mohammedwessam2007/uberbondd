@@ -1,0 +1,32 @@
+{
+  "schema": "uberbond.night-swarm-receipt.v1",
+  "packetId": "AUTO-06",
+  "agent": "WORK",
+  "baseSha": "047e36c6eb0a27c3deabbba581c05e29ab597f3d",
+  "headSha": "54b7160b7f1a644e73d5ac355d343942fafaae2c",
+  "sourceDelta": "NONE_FOR_FAILOVER_MECHANISM__RECEIPT_AND_CLAIM_ONLY",
+  "reuseIdentity": {
+    "historicalExecutedHead": "31e3f2561ebf31138132e8b9384742f10ecf2248",
+    "currentIntegrationHead": "047e36c6eb0a27c3deabbba581c05e29ab597f3d",
+    "identicalBlobs": {
+      "src/supplier-exit-drill.mjs": "a27100866232884b0650a6039f442166d1979cc9",
+      "scripts/supplier-exit-drill.mjs": "26df3c5ab04b81ef43afbfa1db4e8d43f49a0c66",
+      "tests/supplier-exit-drill.test.mjs": "ef752b8087130379e06f7eef3dda0fad732b326c"
+    }
+  },
+  "actualTests": [
+    "Executed PR #450 exact-source deterministic suite: 4144 tests, 4089 pass, 0 fail, 54 skipped",
+    "Executed PR #450 mutation war: 231/231 killed",
+    "Supplier-exit tests execute real export, byte-identical restore, restored-copy cutover, rollback, and unchanged-repeat assertions",
+    "Hostile assertions reject missing rollback, empty export, digest mismatch, fake cutover and unreachable original"
+  ],
+  "mutationEvidence": "231/231 killed on executed head containing byte-identical failover evaluator and rehearsal",
+  "reachability": "Supplier-exit script invokes evaluator directly; deterministic suite invokes the real drill",
+  "authorityBoundary": "LOCAL_STATE_PORTABILITY_VERIFIED__AUTHORIZED_PROVIDER_CUTOVER_NOT_VERIFIED",
+  "privacyBoundary": "No repository state leaves owned local storage during the drill",
+  "blockerClassification": "SUPPLIER_EXIT_REHEARSAL_VERIFIED__REAL_PROVIDER_FAILOVER_REQUIRES_AUTHORIZED_EXTERNAL_SUBSTRATE",
+  "integrationTarget": "PR #458 via SOL merge tribunal",
+  "progressDeltaReason": "AUTO-06 is not a reason to write a second failover module. The existing mechanism proves supplier-exit portability and explicitly distinguishes that from a provider accepting real load; the remaining provider-failover fact is external, not missing code.",
+  "result": "PASS_REUSED_LOCAL_EXIT__PROVIDER_FAILOVER_EXTERNAL",
+  "businessEffectAuthority": "NONE"
+}

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "uberbond-work-session-progress-1.0.0",
+  "status": "PROVISIONAL_BASELINE_REQUIRES_PHASE0_RECALIBRATION",
+  "branch": "work/sovereign-continuum-execution-20260907",
+  "baseMainSha": "a22e4f099902b6abd2719922a9dd761fb69a6fa6",
+  "terminalNorthStar": "Sovereign Cognitive Continuum",
+  "progressDimensions": {
+    "NORTH_STAR_CANON": {
+      "percent": 99,
+      "basis": "Known Sovereign Continuum conversation layers are durably represented in terminal canon and literal-name aliases; architecture remains open under future Ontogenesis and full historical-chat byte completeness is not proven."
+    },
+    "ECONOMIC_AUTONOMY_SOFTWARE": {
+      "percent": 94,
+      "basis": "PR #400 merged the large MAX Council/NIGHT autonomy integration; stale readiness artifacts and unreconciled open donor/repair PRs prevent 100 percent."
+    },
+    "PERSONAL_CIVILIZATION_RUNTIME": {
+      "percent": 12,
+      "basis": "Wave 1 source exists in open #432/#433 donor branches but is not on current main; most life organs remain unimplemented."
+    },
+    "SOVEREIGN_CONTINUUM_RUNTIME": {
+      "percent": 6,
+      "basis": "Terminal canon and broad cognitive/economic foundations exist, but most meta-rational, forecasting, sovereignty, private-life and embodied organs are not executable on main."
+    },
+    "REALITY_CALIBRATION": {
+      "percent": 1,
+      "basis": "Technical evidence machinery exists but essentially no longitudinal lived-life calibration or observed life-outcome proof exists for the Sovereign Continuum."
+    },
+    "FULL_SYSTEM_REALIZATION": {
+      "percent": 28,
+      "basis": "Conservative blended estimate of the terminal architecture as executable and reality-proven, not conceptual completeness."
+    }
+  },
+  "reportingFooter": "Progress: Canon __% | Economic software __% | Personal Civilization runtime __% | Sovereign Continuum runtime __% | Reality calibration __% | Full system __%",
+  "requiredDeltaExplanation": true,
+  "mayDecreaseAfterAudit": true,
+  "phase0Requirement": "Recompute against refreshed live main, exact source/readiness, open PR reconciliation and available external/runtime receipts before treating any percentage as verified current.",
+  "truthBoundary": "Percentages are evidence estimates and must not be promoted by code volume, plans, simulations, synthetic receipts or unexecuted branches."
+}

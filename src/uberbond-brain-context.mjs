@@ -17,6 +17,27 @@ const MAX_GOALS = 160;
 const MAX_GATES = 160;
 const MAX_INITIATIVES = 160;
 const MAX_MEMORY_LIST = 256;
+
+// Adding a version here is a decision that the packet builder understands that
+// schema, not a formality. An unknown schema fails closed on purpose: a bootstrap
+// this code cannot read is not a bootstrap it should half-read.
+export const SUPPORTED_BOOTSTRAP_SCHEMAS = Object.freeze([
+  'uberbond-bootstrap-1.0.0',
+  'uberbond-bootstrap-1.1.0',
+  'uberbond-bootstrap-1.2.0'
+]);
+
+/**
+ * Whether a schema carries the memory-v2 requirements.
+ *
+ * These were written as `=== '1.1.0'` in three places, which made a version bump
+ * a way to switch off validation without deleting it: at 1.2.0 the memory index
+ * stopped being checked at all, the required memory paths stopped being
+ * required, and nothing said so. A requirement introduced by a schema belongs to
+ * every schema after it, so the test is against the one version that predates
+ * them rather than against a list somebody has to remember to extend.
+ */
+export const requiresMemoryV2 = schemaVersion => schemaVersion !== 'uberbond-bootstrap-1.0.0';
 // A closed vocabulary, and the closure is the point: an initiative carrying a
 // status nobody defined is memory nobody can reason about, so normalization
 // refuses the whole index rather than accepting one row it cannot classify.
@@ -283,7 +304,7 @@ export function validateUberBondBootstrap(bootstrap = {}) {
   const memoryIndexPath = bootstrap.memoryIndexPath == null ? null : text(bootstrap.memoryIndexPath, 240);
   const masterMemoryPath = bootstrap.masterMemoryPath == null ? null : text(bootstrap.masterMemoryPath, 240);
   const reasonCodes = [];
-  if (!['uberbond-bootstrap-1.0.0', 'uberbond-bootstrap-1.1.0'].includes(schemaVersion)) reasonCodes.push('unsupported-bootstrap-schema');
+  if (!SUPPORTED_BOOTSTRAP_SCHEMAS.includes(schemaVersion)) reasonCodes.push('unsupported-bootstrap-schema');
   if (project !== 'UberBond') reasonCodes.push('project-must-be-uberbond');
   if (!objective) reasonCodes.push('objective-required');
   if (!generatedAt) reasonCodes.push('generated-at-required');
@@ -293,7 +314,14 @@ export function validateUberBondBootstrap(bootstrap = {}) {
   if (!startupProtocol || startupProtocol.length === 0) reasonCodes.push('startup-protocol-required');
   if (!truthHierarchy || truthHierarchy.length === 0) reasonCodes.push('truth-hierarchy-required');
   if (!productFamilies) reasonCodes.push('bounded-product-family-array-required');
-  if (schemaVersion === 'uberbond-bootstrap-1.1.0') {
+  // Every schema after 1.0.0, not 1.1.0 alone.
+  //
+  // Written as an equality check, a version bump was a way to shed these
+  // requirements without deleting a line: 1.2.0 landed and the canonical memory
+  // paths stopped being checked, silently. The requirement belongs to every
+  // schema that ever declared it, so the condition is "not the one version that
+  // predates it" rather than a list that has to be remembered on each bump.
+  if (requiresMemoryV2(schemaVersion)) {
     if (memoryIndexPath !== 'artifacts/uberbond-memory-index.json') reasonCodes.push('canonical-memory-index-path-required');
     if (masterMemoryPath !== 'docs/UBERBOND_MASTER_MEMORY.md') reasonCodes.push('canonical-master-memory-path-required');
     if (!canonPointers?.includes(memoryIndexPath)) reasonCodes.push('memory-index-must-be-canon-pointer');
@@ -329,7 +357,7 @@ export function validateUberBondBootstrap(bootstrap = {}) {
   if (!normalized.continuity?.handoffPath || !normalized.continuity?.startupInstruction || !normalized.continuity?.updateInstruction) {
     reasonCodes.push('continuity-contract-required');
   }
-  if (schemaVersion === 'uberbond-bootstrap-1.1.0' && !normalized.continuity?.chatImportInstruction) {
+  if (requiresMemoryV2(schemaVersion) && !normalized.continuity?.chatImportInstruction) {
     reasonCodes.push('chat-import-instruction-required');
   }
   return reasonCodes.length
@@ -348,14 +376,14 @@ export function compileUberBondProjectContext({ bootstrap, memoryIndex = null, s
   const pathSet = new Set(availablePaths.map(path => String(path || '').trim()).filter(Boolean));
   const required = [...new Set([
     ...REQUIRED_CANON_PATHS,
-    ...(validated.bootstrap.schemaVersion === 'uberbond-bootstrap-1.1.0' ? MEMORY_V2_REQUIRED_PATHS : []),
+    ...(requiresMemoryV2(validated.bootstrap.schemaVersion) ? MEMORY_V2_REQUIRED_PATHS : []),
     ...validated.bootstrap.canonPointers
   ])];
   const missing = required.filter(path => !pathSet.has(path));
   if (missing.length) return fail(['required-canon-path-missing'], { missingPaths: missing });
 
   let memory = null;
-  if (validated.bootstrap.schemaVersion === 'uberbond-bootstrap-1.1.0') {
+  if (requiresMemoryV2(validated.bootstrap.schemaVersion)) {
     const checkedMemory = validateUberBondMemoryIndex(memoryIndex);
     if (!checkedMemory.ok) return fail(['valid-memory-index-required', ...checkedMemory.reasonCodes], { memoryValidation: checkedMemory });
     if (JSON.stringify(checkedMemory.memoryIndex.productFamilies) !== JSON.stringify(validated.bootstrap.productFamilies)) {

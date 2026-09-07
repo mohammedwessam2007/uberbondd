@@ -521,6 +521,31 @@ export const MUTATIONS = [
     suites: ['tests/genesis-chain-refusal.test.mjs']
   },
   {
+    // Anchored on the merge, not on the count check. The count check is a
+    // backstop no current input can reach, so mutating it survives every test;
+    // this is the branch that actually decides whether a second naming of the
+    // same concept is remembered or silently discarded.
+    id: 'OMEGA-MATRIX-01', guard: 'A second naming of the same concept is remembered, not discarded',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: '      if (!existing.sourceArtifacts.includes(concept.sourceArtifact)) existing.sourceArtifacts.push(concept.sourceArtifact);',
+    replace: '',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'OMEGA-MATRIX-02', guard: 'A sub-phrase match cannot be promoted to VERIFIED_CURRENT',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "  if (evidence.matchScope !== 'WHOLE_NAME') return 'PARTIAL_CURRENT';",
+    replace: '',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'OMEGA-MATRIX-03', guard: 'A concept name is never split on whitespace into false evidence',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "    .split(/\\s+and\\s+|\\s*\\/\\s*|\\s*,\\s*|\\s+plus\\s+/i)",
+    replace: '    .split(/\\s+/)',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
     id: 'AVENGERS-INPUT-01', guard: 'A missing arsenal artifact names the step that has not run, not a crash',
     file: 'src/avengers-artifact-input.mjs',
     find: "    if (error?.code === 'ENOENT') {",
@@ -1273,6 +1298,349 @@ export const MUTATIONS = [
     find: "  if (!externalPayment) eligibilityBlockers.push('external-payment-evidence-required');",
     replace: '',
     suites: ['tests/proposal-acceptance-engine.test.mjs']
+  },
+  {
+    id: 'OMEGA-MATRIX-04', guard: 'A declaration cannot claim a file that is not in the tree',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "    if (missing.length) { problems.push({ reason: 'manifest-names-missing-files', concept, missing }); continue; }",
+    replace: '',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'OMEGA-MATRIX-05', guard: 'A declaration cannot name a concept the canon does not contain',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "    if (!conceptSlugs.has(slug)) { problems.push({ reason: 'manifest-names-unknown-concept', concept }); continue; }",
+    replace: '',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    // Anchored on the refusal to emit, not on the verification itself: the
+    // damage is a matrix that compiles with some declarations silently dropped,
+    // which reads exactly like a complete one.
+    id: 'OMEGA-MATRIX-06', guard: 'An invalid manifest stops the matrix instead of emitting partial rows',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: '  if (!declarations.ok) {',
+    replace: '  if (false) {',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    // The exact defect this replaced: written as an equality check against one
+    // version, a schema bump switched off memory validation without deleting a
+    // line of it.
+    id: 'BRAIN-SCHEMA-01', guard: 'A newer bootstrap schema cannot shed the memory-v2 requirements',
+    file: 'src/uberbond-brain-context.mjs',
+    find: "export const requiresMemoryV2 = schemaVersion => schemaVersion !== 'uberbond-bootstrap-1.0.0';",
+    replace: "export const requiresMemoryV2 = schemaVersion => schemaVersion === 'uberbond-bootstrap-1.1.0';",
+    suites: ['tests/uberbond-brain-bootstrap.test.mjs']
+  },
+  {
+    id: 'BRAIN-SCHEMA-02', guard: 'An unknown bootstrap schema fails closed instead of being half-read',
+    file: 'src/uberbond-brain-context.mjs',
+    find: "  if (!SUPPORTED_BOOTSTRAP_SCHEMAS.includes(schemaVersion)) reasonCodes.push('unsupported-bootstrap-schema');",
+    replace: '',
+    suites: ['tests/uberbond-brain-bootstrap.test.mjs', 'tests/perpetual-frontier-genesis.test.mjs']
+  },
+  // ---- The type ladder between what is observed and what is done ---------
+  {
+    id: 'SOVTYPE-01', guard: 'A prediction cannot be promoted into a value',
+    file: 'src/sovereignty-type-system.mjs',
+    find: "  if (humanAct === crossing) return { allowed: true, reasonCodes: [], humanAct };",
+    replace: '  if (true) return { allowed: true, reasonCodes: [], humanAct };',
+    suites: ['tests/sovereignty-type-system.test.mjs']
+  },
+  {
+    // Without the skip rule the three crossings are decorative: an observation
+    // promoted straight to a recommendation never touches PREDICTION->VALUE.
+    id: 'SOVTYPE-02', guard: 'A human-only crossing cannot be stepped over by skipping a rung',
+    file: 'src/sovereignty-type-system.mjs',
+    find: '  if (to - from > 1) {',
+    replace: '  if (false) {',
+    suites: ['tests/sovereignty-type-system.test.mjs']
+  },
+  {
+    id: 'SOVTYPE-03', guard: 'The highest source rung governs a derivation',
+    file: 'src/sovereignty-type-system.mjs',
+    find: '  const highest = rows.reduce((best, row) => (rungOf(row.type) > rungOf(best.type) ? row : best), rows[0]);',
+    replace: '  const highest = rows[0];',
+    suites: ['tests/sovereignty-type-system.test.mjs']
+  },
+  {
+    id: 'SOVTYPE-04', guard: 'A delegation must expire',
+    file: 'src/sovereignty-type-system.mjs',
+    find: "  if (!expiresAt) return fail('AUTHORITY_DENIED', ['delegation-must-expire'], { action: act });",
+    replace: '',
+    suites: ['tests/sovereignty-type-system.test.mjs']
+  },
+  {
+    // The hard one to see: every hop narrows the action set and looks correct
+    // while the expiry walks forward.
+    id: 'SOVTYPE-05', guard: 'A narrowing delegation chain cannot extend its own expiry',
+    file: 'src/sovereignty-type-system.mjs',
+    find: '  if (Date.parse(wanted) > Date.parse(parent.expiresAt)) {',
+    replace: '  if (false) {',
+    suites: ['tests/sovereignty-type-system.test.mjs']
+  },
+  {
+    id: 'SOVTYPE-06', guard: 'Re-delegation may only attenuate',
+    file: 'src/sovereignty-type-system.mjs',
+    find: "  const widened = requested.filter(action => !parent.delegatedActions.includes(action));",
+    replace: '  const widened = [];',
+    suites: ['tests/sovereignty-type-system.test.mjs']
+  },
+  // ---- The option universe and the forecasts over it ---------------------
+  {
+    id: 'DECIDE-01', guard: 'A probability requires quantitative evidence, not a persuasive story',
+    file: 'src/sovereign-decision-packet.mjs',
+    find: '  } else if (quantitative.length === 0) {',
+    replace: '  } else if (false) {',
+    suites: ['tests/sovereign-decision-packet.test.mjs']
+  },
+  {
+    id: 'DECIDE-02', guard: 'Options that change the same things are one option',
+    file: 'src/sovereign-decision-packet.mjs',
+    find: '    const existing = bySignature.get(signature);',
+    replace: '    const existing = null;',
+    suites: ['tests/sovereign-decision-packet.test.mjs']
+  },
+  {
+    id: 'DECIDE-03', guard: 'Reversibility is part of what makes an option distinct',
+    file: 'src/sovereign-decision-packet.mjs',
+    find: '  return createHash(\'sha256\').update(JSON.stringify([changes, reversible])).digest(\'hex\').slice(0, 32);',
+    replace: '  return createHash(\'sha256\').update(JSON.stringify([changes])).digest(\'hex\').slice(0, 32);',
+    suites: ['tests/sovereign-decision-packet.test.mjs']
+  },
+  {
+    id: 'DECIDE-04', guard: 'A packet whose options were not all forecast is refused',
+    file: 'src/sovereign-decision-packet.mjs',
+    find: '  if (unforecast.length) {',
+    replace: '  if (false) {',
+    suites: ['tests/sovereign-decision-packet.test.mjs']
+  },
+  {
+    id: 'DECIDE-05', guard: 'A value boundary produces no winner',
+    file: 'src/sovereign-decision-packet.mjs',
+    find: '  const recommendation = valueBoundary || quantified.length === 0',
+    replace: '  const recommendation = false',
+    suites: ['tests/sovereign-decision-packet.test.mjs']
+  },
+  {
+    id: 'DECIDE-06', guard: 'Correlated sources are not counted as independent evidence',
+    file: 'src/sovereign-decision-packet.mjs',
+    find: '  const independentSources = new Set(rows.map(row => row.ref).filter(Boolean));',
+    replace: '  const independentSources = rows;',
+    suites: ['tests/sovereign-decision-packet.test.mjs']
+  },
+  // ---- Which reasoning deserves trust, and when to stop ------------------
+  {
+    // Abundant data must not silently convert a value question into a
+    // statistical one, which is how the boundary gets crossed with nobody
+    // deciding to cross it.
+    id: 'METARAT-01', guard: 'The irreducible check runs before evidence, not after it',
+    file: 'src/meta-rational-boundary.mjs',
+    find: '  const irreducible = IRREDUCIBLE_QUESTION_KINDS[kind];',
+    replace: '  const irreducible = data === undefined ? IRREDUCIBLE_QUESTION_KINDS[kind] : null;',
+    suites: ['tests/meta-rational-boundary.test.mjs']
+  },
+  {
+    id: 'METARAT-02', guard: 'A method needing absent data yields UNKNOWN rather than a guess',
+    file: 'src/meta-rational-boundary.mjs',
+    find: '  const usable = candidates.filter(([, spec]) => !spec.needsData || data.size > 0);',
+    replace: '  const usable = candidates;',
+    suites: ['tests/meta-rational-boundary.test.mjs']
+  },
+  {
+    id: 'METARAT-03', guard: 'Delay and option decay count as costs of continuing to reason',
+    file: 'src/meta-rational-boundary.mjs',
+    find: '  const cost = (Number(cognitionCost) || 0) + (Number(delayCost) || 0) + (Number(optionDecay) || 0);',
+    replace: '  const cost = (Number(cognitionCost) || 0);',
+    suites: ['tests/meta-rational-boundary.test.mjs']
+  },
+  {
+    id: 'METARAT-04', guard: 'Sources sharing an ancestor are one observation repeated',
+    file: 'src/meta-rational-boundary.mjs',
+    find: '  const lineages = new Set(rows.map(row => row.ancestry || row.id));',
+    replace: '  const lineages = new Set(rows.map(row => row.id));',
+    suites: ['tests/meta-rational-boundary.test.mjs']
+  },
+  // ---- Forecasts scored against what actually happened -------------------
+  {
+    id: 'CALIB-01', guard: 'A forecast edited after recording cannot be scored',
+    file: 'src/reality-calibration-ledger.mjs',
+    find: '  if (forecast.seal !== sealForecast(forecast)) {',
+    replace: '  if (false) {',
+    suites: ['tests/reality-calibration-ledger.test.mjs']
+  },
+  {
+    id: 'CALIB-02', guard: 'An outcome known at forecast time measures memory, not prediction',
+    file: 'src/reality-calibration-ledger.mjs',
+    find: '  if (Date.parse(at) <= Date.parse(forecast.evidenceCutoff)) {',
+    replace: '  if (false) {',
+    suites: ['tests/reality-calibration-ledger.test.mjs']
+  },
+  {
+    id: 'CALIB-03', guard: 'An outcome outside the forecast state space is a finding, not a score',
+    file: 'src/reality-calibration-ledger.mjs',
+    find: '  if (!Object.hasOwn(forecast.probabilities, observed)) {',
+    replace: '  if (false) {',
+    suites: ['tests/reality-calibration-ledger.test.mjs']
+  },
+  {
+    id: 'CALIB-04', guard: 'A distribution that does not sum to one is refused',
+    file: 'src/reality-calibration-ledger.mjs',
+    find: "  if (outcomes.length && Math.abs(total - 1) > 0.001) reasonCodes.push('probabilities-must-sum-to-one');",
+    replace: '',
+    suites: ['tests/reality-calibration-ledger.test.mjs']
+  },
+  {
+    id: 'CALIB-05', guard: 'Decision quality is judged on what was knowable, not on the outcome',
+    file: 'src/reality-calibration-ledger.mjs',
+    find: "    quality: missed.length === 0 && alternatives.length > 1 ? 'WELL_MADE' : 'IMPROVABLE',",
+    replace: "    quality: score.brierScore < 0.5 ? 'WELL_MADE' : 'IMPROVABLE',",
+    suites: ['tests/reality-calibration-ledger.test.mjs']
+  },
+  {
+    id: 'CALIB-06', guard: 'No scored forecasts means calibration is unknown, not good',
+    file: 'src/reality-calibration-ledger.mjs',
+    find: '  if (rows.length === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/reality-calibration-ledger.test.mjs']
+  },
+  // ---- The founder's read-only view of the sovereign organs --------------
+  {
+    // The seam through which a read surface would become an acting one.
+    id: 'SOVCTRL-01', guard: 'The sovereign control surface is GET-only',
+    file: 'api/sovereign-control.mjs',
+    find: "    if (String(req?.method || '').toUpperCase() !== 'GET') {",
+    replace: '    if (false) {',
+    suites: ['tests/sovereign-control-surface.test.mjs']
+  },
+  {
+    id: 'SOVCTRL-02', guard: 'An unauthenticated read of the sovereign surface is refused',
+    file: 'api/sovereign-control.mjs',
+    find: '    if (!equalBearer(req?.headers?.authorization, env.ADMIN_TOKEN)) {',
+    replace: '    if (false) {',
+    suites: ['tests/sovereign-control-surface.test.mjs']
+  },
+  {
+    id: 'SOVCTRL-03', guard: 'An unconfigured admin token refuses rather than serving open',
+    file: 'api/sovereign-control.mjs',
+    find: '    if (!env.ADMIN_TOKEN) {',
+    replace: '    if (false) {',
+    suites: ['tests/sovereign-control-surface.test.mjs']
+  },
+  {
+    id: 'DECIDE-07', guard: 'Unstated reversibility is unknown, not irreversible',
+    file: 'src/sovereign-decision-packet.mjs',
+    find: '      reversible: option?.reversible === true ? true : (option?.reversible === false ? false : null),',
+    replace: '      reversible: option?.reversible === true,',
+    suites: ['tests/sovereign-decision-packet.test.mjs', 'tests/sovereign-control-surface.test.mjs']
+  },
+  // ---- Experiences, and the limits on optimizing them --------------------
+  {
+    // A bonus is a number, and a large enough number elsewhere always outvotes
+    // it. Being outside the ranking is the only version that holds.
+    id: 'EXPER-01', guard: 'Present-value and uncopyable experiences are set apart, not scored',
+    file: 'src/experience-compiler.mjs',
+    find: '    comparable: experience.uncopyable === null && experience.presentValue === false',
+    replace: '    comparable: true',
+    suites: ['tests/experience-compiler.test.mjs', 'tests/sovereign-control-surface.test.mjs']
+  },
+  {
+    id: 'EXPER-02', guard: 'Compound value counts dimensions rather than summing them',
+    file: 'src/experience-compiler.mjs',
+    find: '    ranked: [...comparable].sort((a, b) => b.compound - a.compound || b.magnitude - a.magnitude),',
+    replace: '    ranked: [...comparable].sort((a, b) => b.magnitude - a.magnitude),',
+    suites: ['tests/experience-compiler.test.mjs']
+  },
+  {
+    id: 'EXPER-03', guard: 'A reversible probe beats more modelling',
+    file: 'src/experience-compiler.mjs',
+    find: '  if (reversibleProbeAvailable) {',
+    replace: '  if (false) {',
+    suites: ['tests/experience-compiler.test.mjs', 'tests/sovereign-control-surface.test.mjs']
+  },
+  {
+    id: 'EXPER-04', guard: 'An off-limits domain stays unmodelled however useful modelling would be',
+    file: 'src/experience-compiler.mjs',
+    find: '  if (declaredOffLimits) {',
+    replace: '  if (declaredOffLimits && (Number(usefulnessOfModelling) || 0) < 0.9) {',
+    suites: ['tests/experience-compiler.test.mjs']
+  },
+  // ---- Whether an option can end the ability to choose again -------------
+  {
+    id: 'RUIN-01', guard: 'An absorbing outcome is not cleared at any probability',
+    file: 'src/ruin-firewall.mjs',
+    find: '  const ruinous = rows.filter(row => absorbing(row.recoverability));',
+    replace: '  const ruinous = rows.filter(row => absorbing(row.recoverability) && (row.probability ?? 1) > 0.05);',
+    suites: ['tests/ruin-firewall.test.mjs', 'tests/sovereign-control-surface.test.mjs']
+  },
+  {
+    id: 'RUIN-02', guard: 'An unclassified outcome blocks the screen rather than passing as safe',
+    file: 'src/ruin-firewall.mjs',
+    find: '  if (unclassified.length) {',
+    replace: '  if (false) {',
+    suites: ['tests/ruin-firewall.test.mjs']
+  },
+  {
+    id: 'RUIN-03', guard: 'Practically irreversible counts as absorbing',
+    file: 'src/ruin-firewall.mjs',
+    find: "export const absorbing = level => level === 'PRACTICALLY_IRREVERSIBLE' || level === 'ABSORBING';",
+    replace: "export const absorbing = level => level === 'ABSORBING';",
+    suites: ['tests/ruin-firewall.test.mjs']
+  },
+  {
+    id: 'RUIN-04', guard: 'A recovery plan with no detection step is refused',
+    file: 'src/ruin-firewall.mjs',
+    find: '  if (!steps.detection) {',
+    replace: '  if (false) {',
+    suites: ['tests/ruin-firewall.test.mjs']
+  },
+  {
+    id: 'RUIN-05', guard: 'Positions sharing a dependency are one position',
+    file: 'src/ruin-firewall.mjs',
+    find: '    effectiveIndependentPositions: rows.length - singlePoints.reduce((sum, row) => sum + row.positions.length - 1, 0),',
+    replace: '    effectiveIndependentPositions: rows.length,',
+    suites: ['tests/ruin-firewall.test.mjs', 'tests/sovereign-control-surface.test.mjs']
+  },
+  // ---- The private core: the one data class that is not the company's -----
+  {
+    id: 'PCIV-01', guard: 'A repository path is refused as a destination for private life data',
+    file: 'src/personal-civilization-core.mjs',
+    find: '  if (forbidden.some(pattern => pattern.test(target))) {',
+    replace: '  if (false) {',
+    suites: ['tests/personal-civilization-core.test.mjs']
+  },
+  {
+    id: 'PCIV-02', guard: 'A private record is destination-checked before it is appended',
+    file: 'src/personal-civilization-core.mjs',
+    find: "  if (normalized.record.privacyClass === 'PRIVATE_LIFE_DATA') {",
+    replace: '  if (false) {',
+    suites: ['tests/personal-civilization-core.test.mjs']
+  },
+  {
+    // Anchored on the fixpoint rather than on the loop body, because a single
+    // pass is the failure that actually happens: one level of cascade looks
+    // correct in every simple case and leaves the owner's data behind as soon
+    // as a model is derived from a model.
+    id: 'PCIV-03', guard: 'Deletion follows derivation transitively, not one level down',
+    file: 'src/personal-civilization-core.mjs',
+    find: '  while (grew) {',
+    replace: '  for (let pass = 0; pass < 1; pass += 1) {',
+    suites: ['tests/personal-civilization-core.test.mjs']
+  },
+  {
+    id: 'PCIV-04', guard: 'A derived claim with no provenance is refused, never stored',
+    file: 'src/personal-civilization-core.mjs',
+    find: "    if (sources.length === 0) { refused.push({ claim, reasonCodes: ['claim-provenance-required'] }); continue; }",
+    replace: '',
+    suites: ['tests/personal-civilization-core.test.mjs']
+  },
+  {
+    id: 'PCIV-05', guard: 'Private state requires the founder grant, not merely the founder subject',
+    file: 'src/personal-civilization-core.mjs',
+    find: "    && authorization.grant === 'PRIVATE_LIFE_STATE'",
+    replace: '',
+    suites: ['tests/personal-civilization-core.test.mjs']
   },
   {
     id: 'PROPOSAL-02', guard: 'A sandbox payment reference is not external payment evidence',

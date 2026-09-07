@@ -9,7 +9,7 @@ import {
   buildUnknownUnknownAgenda,
   validateGenesisIdeaRegistry
 } from '../src/perpetual-frontier-genesis.mjs';
-import { validateUberBondBootstrap } from '../src/uberbond-brain-context.mjs';
+import { validateUberBondBootstrap, SUPPORTED_BOOTSTRAP_SCHEMAS } from '../src/uberbond-brain-context.mjs';
 
 const docUrl = new URL('../docs/PERPETUAL_FRONTIER_GENESIS_CANON.md', import.meta.url);
 const bootstrapUrl = new URL('../UBERBOND_BOOTSTRAP.json', import.meta.url);
@@ -30,7 +30,15 @@ test('bootstrap remains schema-compatible and makes Perpetual Frontier mandatory
   const bootstrap = JSON.parse(await readFile(bootstrapUrl, 'utf8'));
   const validated = validateUberBondBootstrap(bootstrap);
   assert.equal(validated.ok, true, JSON.stringify(validated.reasonCodes));
-  assert.equal(bootstrap.schemaVersion, 'uberbond-bootstrap-1.1.0');
+  // Not pinned to one version. The pin protected against a silent downgrade to
+  // a schema that predates the Perpetual Frontier pointers, and it did that by
+  // breaking on every legitimate bump too -- 1.2.0 landed and this went red for
+  // no defect. What must hold is that the schema is one the validator actually
+  // understands and is not the pre-Frontier 1.0.0.
+  assert.ok(SUPPORTED_BOOTSTRAP_SCHEMAS.includes(bootstrap.schemaVersion),
+    `bootstrap declares ${bootstrap.schemaVersion}, which no validator supports`);
+  assert.notEqual(bootstrap.schemaVersion, 'uberbond-bootstrap-1.0.0',
+    '1.0.0 predates the canonical memory-path requirements and must not be reintroduced');
   assert.ok(bootstrap.canonPointers.includes('docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md'));
   assert.ok(bootstrap.canonPointers.includes('docs/PERPETUAL_FRONTIER_GENESIS_CANON.md'));
   assert.ok(bootstrap.canonPointers.includes('artifacts/perpetual-frontier-genesis.json'));

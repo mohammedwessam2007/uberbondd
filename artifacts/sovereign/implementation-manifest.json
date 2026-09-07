@@ -1,0 +1,304 @@
+{
+  "schemaVersion": "uberbond.sovereign-implementation-manifest.v1",
+  "purpose": "Declares which module implements a canonical concept whose name never became a filename. Every entry is verified against the tree at compile time: a concept no source artifact names, a file that does not exist, or an entry with no source fails the whole matrix compile. A declaration supplies files only -- the coverage state is still derived, so a declaration with no test file cannot reach VERIFIED_CURRENT.",
+  "truthBoundary": "A DECLARATION PLUS A REAL FILE AND A REAL TEST IS INTERNAL EVIDENCE. IT IS NOT PROOF THE CONCEPT WORKS, IS REACHED AT RUNTIME, OR HAS EXTERNAL EVIDENCE.",
+  "entries": [
+    {
+      "concept": "Thought Ocean",
+      "lane": "OMEGA-01",
+      "sources": [
+        "src/personal-civilization-core.mjs"
+      ],
+      "tests": [
+        "tests/personal-civilization-core.test.mjs"
+      ],
+      "note": "Append-only private capture: normalizePrivateRecord + appendPrivateRecord, content-addressed so the same thought cannot be stored twice, and destination-refused from every repository path."
+    },
+    {
+      "concept": "Living Mohamed Model",
+      "lane": "OMEGA-01",
+      "sources": [
+        "src/personal-civilization-core.mjs"
+      ],
+      "tests": [
+        "tests/personal-civilization-core.test.mjs"
+      ],
+      "note": "deriveLivingModel. Every derived claim cites the records it came from; a claim with no provenance is refused rather than stored, because deletion could never reach it afterwards."
+    },
+    {
+      "concept": "Private life data is minimized and not placed in public repository canon by default",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/personal-civilization-core.mjs"
+      ],
+      "tests": [
+        "tests/personal-civilization-core.test.mjs"
+      ],
+      "note": "privateDestinationAllowed refuses .git, artifacts, docs, src, tests, config and scripts, and refuses relative paths rather than resolving them against an unknown cwd. PCIV-01 and PCIV-02 hold it."
+    },
+    {
+      "concept": "Sovereignty Type System",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "The OBSERVATION->...->OUTCOME ladder. Three edges are human acts, not inferences: is->ought, recommendation->choice, choice->authority. Rung-skipping is refused too, or those three are decorative. SOVTYPE-01..03."
+    },
+    {
+      "concept": "Anti-Capture Kernel",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "authorityFor plus the explicit NOT_AUTHORITY list. Delegation must originate with the founder, name the action, and expire; attenuate() refuses widening and refuses a chain that outlives its parent. SOVTYPE-04..06."
+    },
+    {
+      "concept": "Right of Exit",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/sovereignty-type-system.mjs"
+      ],
+      "tests": [
+        "tests/sovereignty-type-system.test.mjs"
+      ],
+      "note": "exitReadiness measures export, deletion, operation-without-the-system and irreplaceable dependencies. A system that optimizes itself into being unleavable will not announce it."
+    },
+    {
+      "concept": "Option Universe",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/sovereign-decision-packet.mjs"
+      ],
+      "tests": [
+        "tests/sovereign-decision-packet.test.mjs"
+      ],
+      "note": "compileOptionUniverse merges on a causal signature, so five wordings of one change are one option and the merge count exposes a generator producing variants. DECIDE-02/03."
+    },
+    {
+      "concept": "Sovereign Option & Outcome Forecast Engine",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/sovereign-decision-packet.mjs"
+      ],
+      "tests": [
+        "tests/sovereign-decision-packet.test.mjs"
+      ],
+      "note": "forecastOption refuses a probability without quantitative evidence and counts distinct sources rather than rows. compileDecisionPacket stops at RECOMMENDATION and declines to pick a winner at a value boundary. DECIDE-01/04/05/06."
+    },
+    {
+      "concept": "Meta-Sovereign Rationality",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/meta-rational-boundary.mjs"
+      ],
+      "tests": [
+        "tests/meta-rational-boundary.test.mjs"
+      ],
+      "note": "selectMethod routes a question to a method that settles its kind, with the irreducible check before evidence so abundant data cannot convert a value question into a statistical one. METARAT-01/02."
+    },
+    {
+      "concept": "No Recommendation",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/meta-rational-boundary.mjs"
+      ],
+      "tests": [
+        "tests/meta-rational-boundary.test.mjs"
+      ],
+      "note": "NO_RECOMMENDATION__VALUE_BOUNDARY_REACHED, reachable from selectMethod and honoured by the decision packet."
+    },
+    {
+      "concept": "Enough Stopping Rule",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/meta-rational-boundary.mjs"
+      ],
+      "tests": [
+        "tests/meta-rational-boundary.test.mjs"
+      ],
+      "note": "shouldContinueReasoning weighs improvement against cognition, delay and option decay. The state most often missing from systems like this, whose absence is why they consume the life they were built to improve. METARAT-03."
+    },
+    {
+      "concept": "Anti-Correlation Intelligence",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/meta-rational-boundary.mjs"
+      ],
+      "tests": [
+        "tests/meta-rational-boundary.test.mjs"
+      ],
+      "note": "independentAgreement counts lineages, not votes. Ten models sharing a corpus are one observation repeated. METARAT-04."
+    },
+    {
+      "concept": "Calibration Memory",
+      "lane": "OMEGA-13",
+      "sources": [
+        "src/reality-calibration-ledger.mjs"
+      ],
+      "tests": [
+        "tests/reality-calibration-ledger.test.mjs"
+      ],
+      "note": "recordForecast seals claim, probabilities and evidence cutoff; scoreForecast refuses a tampered forecast, an outcome predating the cutoff, and an outcome outside the state space. CALIB-01..04/06."
+    },
+    {
+      "concept": "Counterfactual Accountability",
+      "lane": "OMEGA-13",
+      "sources": [
+        "src/reality-calibration-ledger.mjs"
+      ],
+      "tests": [
+        "tests/reality-calibration-ledger.test.mjs"
+      ],
+      "note": "decisionQuality judges on what was knowable, so a lucky bad decision does not become doctrine and an unlucky good one is not mislearned. CALIB-05."
+    },
+    {
+      "concept": "Decision-Quality Memory",
+      "lane": "OMEGA-13",
+      "sources": [
+        "src/reality-calibration-ledger.mjs"
+      ],
+      "tests": [
+        "tests/reality-calibration-ledger.test.mjs"
+      ],
+      "note": "The same separation, held across the ledger: calibrationSummary reports per confidence band because a good mean hides systematic overconfidence in one band."
+    },
+    {
+      "concept": "Sovereign Interaction Protocol",
+      "lane": "OMEGA-12",
+      "sources": [
+        "api/sovereign-control.mjs"
+      ],
+      "tests": [
+        "tests/sovereign-control-surface.test.mjs"
+      ],
+      "note": "api/sovereign-control.mjs is the founder's read-only view of the sovereign organs, and the reason those organs are not dead code. GET-only, admin-token gated, and it does not import the private core -- every entry point here runs without a person present. SOVCTRL-01..03."
+    },
+    {
+      "concept": "Epistemic Exit",
+      "lane": "OMEGA-12",
+      "sources": [
+        "api/sovereign-control.mjs"
+      ],
+      "tests": [
+        "tests/sovereign-control-surface.test.mjs"
+      ],
+      "note": "The surface reads the constitution from the modules that enforce it rather than restating it, so the page cannot claim a safety property the code has stopped holding."
+    },
+    {
+      "concept": "Experience Compiler",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/experience-compiler.mjs"
+      ],
+      "tests": [
+        "tests/experience-compiler.test.mjs"
+      ],
+      "note": "compileExperiences ranks on dimensions touched rather than a sum, because a sum erases the difference between a little of six things and a lot of one. It ships no weighting: a weight vector is a claim about what matters, which is the founder's to make. EXPER-02."
+    },
+    {
+      "concept": "Presentness",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/experience-compiler.mjs"
+      ],
+      "tests": [
+        "tests/experience-compiler.test.mjs"
+      ],
+      "note": "presentValue removes an experience from the ranking entirely rather than scoring it zero. A system that ranks a life by expected return recommends against rest and is internally correct every time. EXPER-01."
+    },
+    {
+      "concept": "Uncopyable Experience Detector",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/experience-compiler.mjs"
+      ],
+      "tests": [
+        "tests/experience-compiler.test.mjs"
+      ],
+      "note": "An age-, person-, place- or moment-bound experience is set apart, not given a bonus: a bonus is a number and a large enough number elsewhere always outvotes it. EXPER-01."
+    },
+    {
+      "concept": "Reality as Experimental Partner",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/experience-compiler.mjs"
+      ],
+      "tests": [
+        "tests/experience-compiler.test.mjs"
+      ],
+      "note": "realityContact prefers a reversible probe over more modelling whatever the model says. A system with unlimited reasoning capacity always prefers to reason, which is how it ends up confident about a life nobody has lived. EXPER-03."
+    },
+    {
+      "concept": "Reality Contact Guarantee",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/experience-compiler.mjs"
+      ],
+      "tests": [
+        "tests/experience-compiler.test.mjs"
+      ],
+      "note": "The same rule stated as a guarantee: with no probe the model stands as a model, and with neither probe nor model the answer is unknown rather than inferred."
+    },
+    {
+      "concept": "Non-Totalization Principle",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/experience-compiler.mjs"
+      ],
+      "tests": [
+        "tests/experience-compiler.test.mjs"
+      ],
+      "note": "nonTotalization keeps a declared off-limits domain unmodelled however useful modelling it would be. The usefulness is recorded precisely so it can be seen not to have won; a rule that yields at a high enough payoff is not a rule. EXPER-04."
+    },
+    {
+      "concept": "Ruin Firewall",
+      "lane": "OMEGA-11",
+      "sources": [
+        "src/ruin-firewall.mjs"
+      ],
+      "tests": [
+        "tests/ruin-firewall.test.mjs"
+      ],
+      "note": "screenForRuin runs before any expected value and no number clears an absorbing outcome. Expected value averages over paths and ruin is the path where there are no further paths. An unclassified outcome blocks rather than passing as safe. RUIN-01..03."
+    },
+    {
+      "concept": "Recovery Compiler",
+      "lane": "OMEGA-11",
+      "sources": [
+        "src/ruin-firewall.mjs"
+      ],
+      "tests": [
+        "tests/ruin-firewall.test.mjs"
+      ],
+      "note": "compileRecovery requires a detection step: without one the time to recovery is unbounded because nothing starts the clock. Containment, fallback and re-entry are reported as missing rather than silently absent. RUIN-04."
+    },
+    {
+      "concept": "Existential Redundancy",
+      "lane": "OMEGA-11",
+      "sources": [
+        "src/ruin-firewall.mjs"
+      ],
+      "tests": [
+        "tests/ruin-firewall.test.mjs"
+      ],
+      "note": "correlatedExposure counts effective independent positions, not names. Five positions sharing one dependency are one position, and the count is exactly the number that makes concentrated exposure look diversified. RUIN-05."
+    },
+    {
+      "concept": "Life Fault Tolerance",
+      "lane": "OMEGA-11",
+      "sources": [
+        "src/ruin-firewall.mjs"
+      ],
+      "tests": [
+        "tests/ruin-firewall.test.mjs"
+      ],
+      "note": "The same single-point-of-failure analysis applied to life domains: identity need not equal one career, income one source, community one group."
+    }
+  ]
+}

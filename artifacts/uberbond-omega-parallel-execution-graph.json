@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "uberbond-omega-parallel-execution-1.0.0",
+  "status": "ACTIVE_EXECUTION_GRAPH",
+  "masterPrompt": "docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md",
+  "terminalNorthStar": "Sovereign Cognitive Continuum",
+  "coordination": {
+    "integrator": "Claude Code",
+    "parallelTruthIntegrator": "ChatGPT Sol",
+    "founderAuthority": "Mohamed",
+    "sharedFilesOwner": "OMEGA-14",
+    "antiWandering": true,
+    "durableCheckpointAfterEveryMilestone": true
+  },
+  "lanes": [
+    {"id":"OMEGA-00","name":"Truth Tribunal","priority":0,"parallelSafe":false,"dependsOn":[],"primarySurfaces":["artifacts/work/","docs/CURRENT_SYSTEM_STATE.md","artifacts/system-readiness.json"]},
+    {"id":"OMEGA-01","name":"Personal Civilization Core","priority":1,"parallelSafe":true,"dependsOn":["OMEGA-00"],"primarySurfaces":["src/personal-*","tests/personal-*","scripts/personal-*"]},
+    {"id":"OMEGA-02","name":"Decision and Forecast Intelligence","priority":1,"parallelSafe":true,"dependsOn":["OMEGA-00"],"primarySurfaces":["src/sovereign-option-*","src/*forecast*","tests/*forecast*"]},
+    {"id":"OMEGA-03","name":"Meta-Rationality and Epistemics","priority":2,"parallelSafe":true,"dependsOn":["OMEGA-00"],"primarySurfaces":["src/meta-rational-*","src/epistemic-*","tests/meta-rational-*","tests/epistemic-*"]},
+    {"id":"OMEGA-04","name":"Sovereignty and Anti-Capture","priority":2,"parallelSafe":true,"dependsOn":["OMEGA-00"],"primarySurfaces":["src/sovereignty-*","src/volition-*","tests/sovereignty-*","tests/volition-*"]},
+    {"id":"OMEGA-05","name":"Embodiment and Reality Contact","priority":3,"parallelSafe":true,"dependsOn":["OMEGA-01","OMEGA-04"],"primarySurfaces":["src/embodied-*","src/experience-*","tests/embodied-*","tests/experience-*"]},
+    {"id":"OMEGA-06","name":"Compute Sovereignty and Self-Deployment","priority":1,"parallelSafe":true,"dependsOn":["OMEGA-00"],"primarySurfaces":["src/compute-*","src/self-deploy-*","src/supplier-*","tests/compute-*","tests/self-deploy-*"]},
+    {"id":"OMEGA-07","name":"World Intelligence GENESIS Gamechanger Ontogenesis","priority":2,"parallelSafe":true,"dependsOn":["OMEGA-00"],"primarySurfaces":["src/gamechanger-*","src/genesis-*","src/ontogenesis-*","tests/gamechanger-*","tests/genesis-*"]},
+    {"id":"OMEGA-08","name":"Capability Genome Skill Immune System SaaS Cannibal","priority":2,"parallelSafe":true,"dependsOn":["OMEGA-00"],"primarySurfaces":["src/*capability*","src/*saas*","tests/*capability*","tests/*saas*"]},
+    {"id":"OMEGA-09","name":"Economic Autonomy Civilization","priority":2,"parallelSafe":true,"dependsOn":["OMEGA-00"],"primarySurfaces":["src/*opportunity*","src/*outbound*","src/*payment*","src/*delivery*","src/*renewal*","tests/*revenue*","tests/*payment*"]},
+    {"id":"OMEGA-10","name":"Whole-Brain Autonomous Engineering","priority":2,"parallelSafe":true,"dependsOn":["OMEGA-00"],"primarySurfaces":["src/*self-maintainer*","src/*wallbreaker*","src/*cognitive*","tests/*self-maintainer*","tests/*wallbreaker*"]},
+    {"id":"OMEGA-11","name":"Security Privacy Resilience","priority":1,"parallelSafe":true,"dependsOn":["OMEGA-00"],"primarySurfaces":["src/*security*","src/*privacy*","src/*recovery*","tests/*security*","tests/*hostile*"]},
+    {"id":"OMEGA-12","name":"Private Control Center","priority":4,"parallelSafe":true,"dependsOn":["OMEGA-01","OMEGA-02","OMEGA-04","OMEGA-06"],"primarySurfaces":["public/sovereign-*","api/sovereign-*","tests/sovereign-control-*"]},
+    {"id":"OMEGA-13","name":"Reality Calibration and Longitudinal Science","priority":4,"parallelSafe":true,"dependsOn":["OMEGA-01","OMEGA-02","OMEGA-05"],"primarySurfaces":["src/*calibration*","src/*outcome*","tests/*calibration*"]},
+    {"id":"OMEGA-14","name":"Integration Tribunal","priority":0,"parallelSafe":false,"dependsOn":["OMEGA-00"],"primarySurfaces":["NORTH_STAR.md","AGENTS.md","CLAUDE.md","UBERBOND_CANON.md","UBERBOND_BOOTSTRAP.json","docs/CURRENT_HANDOFF.json","artifacts/sovereign/implementation-coverage-matrix.json"]}
+  ],
+  "mergeWaves": [
+    ["OMEGA-00"],
+    ["OMEGA-01","OMEGA-02","OMEGA-04","OMEGA-06","OMEGA-11"],
+    ["OMEGA-03","OMEGA-07","OMEGA-08","OMEGA-09","OMEGA-10"],
+    ["OMEGA-05","OMEGA-12","OMEGA-13"],
+    ["OMEGA-14"]
+  ],
+  "progressFooter": "Progress: Canon __% | Economic software __% | Personal Civilization runtime __% | Sovereign Continuum runtime __% | Reality calibration __% | Full system __%",
+  "truthBoundary": "Parallelism does not authorize blind merging, quota evasion, external side effects, private-life publication, or fabricated verification."
+}

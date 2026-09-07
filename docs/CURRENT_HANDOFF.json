@@ -1,14 +1,45 @@
 {
-  "schemaVersion": "uberbond-handoff-2.1.0",
-  "checkpointedAt": "2026-09-07T13:22:00+03:00",
+  "schemaVersion": "uberbond-handoff-2.2.0",
+  "activeMission": "UberBond OMEGA: child missions #437-#444 executed across the five merge waves of artifacts/uberbond-omega-parallel-execution-graph.json on work/sovereign-continuum-execution-20260907, with a no-drop coverage matrix over all 1068 canonical concepts. The decision, sovereignty, meta-rationality, calibration, experience and ruin organs are built, tested, mutation-covered and reachable through api/sovereign-control.mjs.",
+  "completed": [
+    "OMEGA-00: coverage matrix compiler over 1068 extracted concepts, 1038 rows, 30 alias merges, zero dropped; plus a verified declaration layer that fails the whole compile on a missing file or unknown concept (7452865b, 60628167).",
+    "OMEGA-01: personal-civilization-core private capture/derive/export/delete, founder-authorized, classified DELIBERATELY_UNREACHABLE with a reverse ratchet. PCIV-01..05 KILLED (60628167).",
+    "OMEGA-02/03/04/12/13: sovereignty type ladder with three human-only crossings; option universe merged on causal signature; forecasts refusing a probability without quantitative evidence; five terminal epistemic states; sealed calibration ledger separating decision quality from outcome; read-only control surface giving all four a caller. 23 mutations KILLED (573f48c2).",
+    "OMEGA-05/11: experience compiler keeping presentness and uncopyability outside the arithmetic; ruin firewall screening before expected value with no probability threshold. 9 mutations KILLED (e7bb5f55).",
+    "Repaired four silent validator regressions inherited from the branch base, including requiresMemoryV2 -- a schema bump had switched off memory-index validation with no line deleted and every suite green."
+  ],
+  "blockers": [
+    "EXTERNAL: no real customer, cleared payment, accepted delivery or retained customer exists. Commercial truth remains {realCustomers: 0, clearedRevenueUsd: 0, acceptedPaidDeliveries: 0, retainedCustomers: 0}.",
+    "EXTERNAL: founder-absence duration cannot be proven by code; it requires observed elapsed unattended operation.",
+    "EXTERNAL: no life-outcome evidence exists for any Personal Civilization or Sovereign Continuum organ. They are implemented and tested, which is internal evidence only.",
+    "INTERNAL: 883 of 1038 coverage rows remain SPEC_ONLY. The matcher is deliberately conservative and may understate existing implementation; SPEC_ONLY is a lead for a human, not a finding.",
+    "INTERNAL: Preservation of Mystery, Anti-Fragility Map, Irreversibility Atlas and Prediction Half-Life are named in canon and deliberately not declared -- adjacent implementation is not implementation."
+  ],
+  "nextActions": [
+    "Select the highest-value dependency-satisfied mission from live truth plus the terminal North Star; do not auto-select a website audit or commercial wedge from historical documentation.",
+    "The sovereign organs have no calibration history yet. The first material forecast recorded through reality-calibration-ledger.mjs is worth more than another organ.",
+    "Do not duplicate ChatGPT Sol's truth/audit lane on sol/omega-truth-integration-20260907 (issue #445).",
+    "Regenerate canon with npm run readiness as its own commit after each material tranche."
+  ],
+  "sourceCommit": "7452865b312582a597732889d1282dbb855dde97",
+  "checkpointedAt": "2026-09-07T14:26:00+03:00",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding Mohamed's sovereign free will. Mohamed provides will; UberBond provides intelligence; reality provides feedback.",
-  "completedMission": "Canonize the complete no-drop Sovereign Cognitive Continuum North Star and repair repository startup surfaces so fresh chats and repository readers reconstruct the full project before selecting work.",
   "canonicalMerge": {
     "pr": 435,
     "mergeCommit": "1083c182a76205d7c0a78fc05725a4eaafa41870",
     "merged": true,
     "classification": "VERIFIED_CURRENT_CANON_MERGE"
+  },
+  "workSession": {
+    "status": "READY_FOR_WORK_AGENT",
+    "branch": "work/sovereign-continuum-execution-20260907",
+    "baseMainSha": "a22e4f099902b6abd2719922a9dd761fb69a6fa6",
+    "humanBootstrap": "docs/work/WORK_SESSION_BOOTSTRAP_2026-09-07.md",
+    "progressLedger": "artifacts/work-session-progress-baseline-2026-09-07.json",
+    "primaryMission": "Turn the canonical Sovereign Cognitive Continuum into an increasingly executable private reality-coupled system while reconciling and preserving the advanced economic/autonomy organism.",
+    "firstAction": "Refresh live main/PR/runtime truth and regenerate stale current-system/readiness state before trusting any previous completion percentage.",
+    "percentageFooterRequiredAfterEveryMeaningfulStep": true
   },
   "mandatoryNorthStarPaths": [
     "README.md",
@@ -29,67 +60,89 @@
     "CLAUDE.md",
     "UBERBOND_CANON.md",
     "UBERBOND_BOOTSTRAP.json",
-    "docs/UBERBOND_TOTAL_BRAIN.md"
+    "docs/UBERBOND_TOTAL_BRAIN.md",
+    "docs/work/WORK_SESSION_BOOTSTRAP_2026-09-07.md",
+    "artifacts/work-session-progress-baseline-2026-09-07.json"
   ],
-  "noDropRule": "Every unique layer, literal name, and donated purpose in the total North Star and chat-completeness pair remains discoverable unless the founder explicitly supersedes it. A newer mechanism may replace implementation, but silence, a short-term mission, a current UI, or a current offer never deletes the donated concept.",
+  "noDropRule": "Every unique layer, literal name, and donated purpose in the total North Star and chat-completeness pair remains discoverable unless Mohamed explicitly supersedes it. A newer mechanism may replace implementation, but silence, a short-term mission, a current UI, or a current offer never deletes the donated concept.",
   "websiteAuditClassification": "SUBORDINATE_HISTORICAL_AND_OPERATIONAL_ECONOMIC_CAPABILITY__NOT_PROJECT_IDENTITY__NOT_DEFAULT_FRESH_CHAT_MISSION__NOT_TERMINAL_NORTH_STAR",
-  "historicalPreservation": {
-    "revenueEngineReadme": {
-      "path": "docs/history/README_REVENUE_ENGINE_1_4_2026-07.md",
-      "blobSha": "1b37f4e23e1366065efd6b2b3a72611d47ad105b",
-      "bytePreserved": true
-    },
-    "preSovereignHandoff": {
-      "path": "docs/history/CURRENT_HANDOFF_2026-09-04.json",
-      "blobSha": "14d88d797850a8864ef494d5be5a6802ce565ea1",
-      "bytePreserved": true
-    }
-  },
   "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
   "currentTruth": {
+    "mainAtWorkBranchCreation": "a22e4f099902b6abd2719922a9dd761fb69a6fa6",
     "totalNoDropCanonMergedToMain": true,
     "startupRepairMergedToMain": true,
-    "websiteAuditRootMisidentificationRepaired": true,
+    "pr400": {
+      "state": "MERGED",
+      "mergeCommit": "ebcfd64a8d8d155691265bac33ac84d30b116894",
+      "classification": "VERIFIED_CURRENT_LARGE_AUTONOMY_INTEGRATION"
+    },
+    "currentSystemStateDocument": "STALE__LAST_RECONCILED_2026-09-06__DESCRIBES_PR400_AS_PENDING",
+    "systemReadinessArtifact": "HISTORICAL_SNAPSHOT__REGENERATE_ON_EXACT_CURRENT_SOURCE",
     "personalCivilizationWave1PR432": {
       "state": "OPEN",
       "merged": false,
+      "mergeableAtWorkStart": false,
       "head": "7733e34975991de938f1b6e5c77ac19034ecd8c5",
-      "classification": "DRAFT_BRANCH_EXECUTABLE_FOUNDATION"
+      "classification": "DRAFT_BRANCH_DONOR_REQUIRES_CURRENT_MAIN_RECONCILIATION"
     },
     "personalCivilizationWave1VerificationPR433": {
       "state": "OPEN",
       "merged": false,
+      "mergeableAtWorkStart": false,
       "head": "e194ec4c29dcd2a0cd8e79e1c9dd68c13ea5c07b",
-      "classification": "DRAFT_BRANCH_VERIFICATION_LANE"
+      "classification": "DRAFT_VERIFICATION_DONOR_REQUIRES_CURRENT_MAIN_RECONCILIATION"
     },
     "personalCivilizationWave1OnMain": false,
-    "canonVerificationTransport": {
-      "vercel": "EXTERNAL_BLOCKED_BUILD_RATE_LIMIT",
-      "githubActions": "EXTERNAL_BLOCKED_ZERO_STEP_JOBS",
-      "sourceFailureObserved": false,
-      "exactDiffClass": "DOCS_CANON_ARTIFACT_HISTORY_ONLY"
-    },
-    "commercialProof": "NOT_CREATED_BY_NORTH_STAR_CANON",
-    "lifeOutcomeProof": "NOT_CREATED_BY_NORTH_STAR_CANON",
-    "superintelligenceProof": "NOT_CREATED_BY_NORTH_STAR_CANON",
-    "perfectPredictionProof": "NOT_CREATED_BY_NORTH_STAR_CANON",
-    "consciousnessProof": "NOT_CREATED_BY_NORTH_STAR_CANON"
+    "commercialProof": "ZERO_CUSTOMER_OR_REVENUE_TRUTH_MAY_BE_INFERRED_FROM_CANON_OR_CODE",
+    "lifeOutcomeProof": "NOT_OBSERVED_FOR_SOVEREIGN_CONTINUUM",
+    "superintelligenceProof": "NOT_CREATED_BY_ARCHITECTURE",
+    "perfectPredictionProof": "NOT_CREATED_BY_ARCHITECTURE"
+  },
+  "provisionalProgress": {
+    "NORTH_STAR_CANON": 99,
+    "ECONOMIC_AUTONOMY_SOFTWARE": 94,
+    "PERSONAL_CIVILIZATION_RUNTIME": 12,
+    "SOVEREIGN_CONTINUUM_RUNTIME": 6,
+    "REALITY_CALIBRATION": 1,
+    "FULL_SYSTEM_REALIZATION": 28,
+    "status": "PLANNING_ESTIMATE__PHASE0_MUST_RECALIBRATE__MAY_MOVE_DOWN"
   },
   "startupLaw": [
-    "Refresh current main and open/recent PR truth before present-tense claims.",
-    "Read README.md only as an entrypoint, then NORTH_STAR.md, the total no-drop North Star pair, and the chat-completeness alias pair before choosing a mission.",
-    "Read AGENTS.md, CLAUDE.md, UBERBOND_CANON.md, UBERBOND_BOOTSTRAP.json, Total Brain, and all required pointers before narrowing scope.",
-    "Do not treat a public website, lite app, historical launch guide, website-audit implementation, current commercial wedge, or old handoff as UberBond's identity.",
-    "Do not automatically propose or execute a website audit merely because historical code or documentation contains website-audit flows.",
-    "Select work from current truth plus the terminal North Star, not from the oldest visible product documentation.",
-    "Preserve truth classes: VERIFIED_CURRENT, DRAFT_BRANCH, HISTORICAL_DONOR, CHAT_SPEC_GOAL, EXTERNAL_BLOCKED, and observed external truth.",
-    "North Star presence is not implementation or outcome proof."
+    "Refresh current main, open PRs, runtime and verification truth before present-tense claims.",
+    "Read the Work bootstrap and progress ledger before selecting the first mission.",
+    "Regenerate/reconcile stale CURRENT_SYSTEM_STATE and system-readiness before trusting historical percentages.",
+    "Do not auto-select website audit or another historical commercial wedge.",
+    "Do not blindly merge stale or stacked PRs; extract unique donors onto current main when necessary.",
+    "After every meaningful verified step, print all six progress percentages and the exact delta reason.",
+    "North Star presence, code volume, simulation and unexecuted branches do not count as implementation/outcome proof."
   ],
-  "nextActions": [
-    "Treat the terminal North Star / startup-repair mission as complete on main.",
-    "Separately resume PR #433 exact-head verification before merging the executable Personal Civilization Engine wave 1; do not treat canon as evidence that #433 passed.",
-    "When selecting any new mission, reconstruct the whole Sovereign Continuum plus current repository truth first.",
-    "Only select a commercial website-audit / lead-path sprint when current economic allocation and explicit owner intent make it the highest-value subordinate mission; never because the repository opening page mentions historical audit machinery."
-  ],
-  "truthBoundary": "This handoff records canonical orientation and merged documentation truth. It does not create external authority, provider state, customer evidence, payment evidence, production activation, superintelligence, perfect prediction, consciousness, or observed life improvement."
+  "truthBoundary": "This handoff prepares a Work execution branch and progress protocol. It does not create external authority, customer/payment/provider proof, production activation, superintelligence, perfect prediction, consciousness, or observed life improvement.",
+  "cloudActivationTruth": {
+    "fullProjectExists": true,
+    "privateLiteProjectExists": true,
+    "currentMainExactProductionDeploymentProven": false,
+    "cronRegistrationProven": false,
+    "cronDeliveryProven": false,
+    "contradiction": "The historical account-scope contradiction is preserved, while the currently connected Vercel API resolves both project identities. Exact-current-main production and cron delivery remain unproven because the daily deployment cap rejected both projects before a build executed.",
+    "observations": [
+      {
+        "observedVia": "connected Vercel API",
+        "observedAt": "2026-08-31T13:14:50Z",
+        "detail": "Full project prj_RWUPf14w1xIz9NK92AbNW5z7qDCg exists; its current production deployment remains ERROR at 5cb18b852b29b2c90f66869544e58a10531009e9, while exact-current-main deployment creation was rejected by api-deployments-free-per-day."
+      },
+      {
+        "observedVia": "connected Vercel API and authenticated deployment fetch",
+        "observedAt": "2026-08-31T14:17:36Z",
+        "detail": "Private-lite deployment dpl_BuifQeJmRo6P3gVbbve1jChu1xG1 cloned exact PR head e3dd34fee25503f803da75d128fd529232af9d64, completed its build, reached READY, and returned HTTP 200 with CSP, HSTS, no-sniff, DENY framing, no-referrer, and noindex headers."
+      },
+      {
+        "observedVia": "GitHub commit statuses and connected Vercel API",
+        "observedAt": "2026-08-31T14:18:30Z",
+        "detail": "After PR #261 merged, both full and private-lite exact-main deployment attempts were rejected before build execution by api-deployments-free-per-day. Exact-main production therefore remains unproven; the rejection is provider-capacity non-evidence."
+      }
+    ]
+  },
+  "repositoryPublicationEffects": {
+    "productionDeploymentsAuthorizedOrPerformedByThisLane": 0
+  }
 }

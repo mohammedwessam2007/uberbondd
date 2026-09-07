@@ -5,7 +5,8 @@
     "AWAITING_ACTIVATION": "Implemented and gated. Deliberately not wired because wiring it without the named external gate would be unsafe or meaningless.",
     "SUPERSEDED": "Replaced by another module. Kept only until its history is no longer useful.",
     "UNREACHABLE_BUG": "Should be reachable and is not. This is a defect, not a decision.",
-    "NEEDS_TRIAGE": "Nobody has decided yet. Honest placeholder, not a resting state: an entry may sit here while archaeology is pending, but it may not be moved to AWAITING_ACTIVATION without a registered gate that states what would release it."
+    "NEEDS_TRIAGE": "Nobody has decided yet. Honest placeholder, not a resting state: an entry may sit here while archaeology is pending, but it may not be moved to AWAITING_ACTIVATION without a registered gate that states what would release it.",
+    "DELIBERATELY_UNREACHABLE": "Unreachability is the safety property, not a stage before wiring. An entry point reaching this module would itself be the harm, so there is no gate that releases it and no future session should 'finish the job' by connecting it. It is invoked only by an operator command carrying an explicit owner authorization on the call."
   },
   "gates": {
     "SANDBOX_PROVISIONER_EXTERNAL_BLOCK": {
@@ -736,6 +737,10 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
       "reason": "Extraction needs a fetch/render adapter. The contract explicitly refuses CAPTCHA_BYPASS and AUTH_BYPASS, so releasing it does not widen what it may reach."
+    },
+    "src/personal-civilization-core.mjs": {
+      "category": "DELIBERATELY_UNREACHABLE",
+      "reason": "Holds the founder's private life state -- the one data class that is not the company's. Every entry point in this repository is autonomous: the scheduler, the worker and the mesh tick all run without a person present. A path from any of them to this module would mean private life records could be read, derived from, or exported by a lane acting on its own, which is precisely what founderAuthorized exists to prevent. The authorization must be carried on the call by the owner, so the only correct caller is an operator command, and the correct number of production entry points is zero."
     }
   }
 }

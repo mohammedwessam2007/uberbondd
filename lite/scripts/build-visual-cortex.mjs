@@ -15,10 +15,29 @@ const steps = [
   ['node', ['--check', 'public/uberbond.js']],
   ['node', ['--check', 'public/uberbond-graph.js']],
   ['node', ['--test',
+    // Visual Cortex integrity / privacy boundary.
     'tests/uberbond-repository-deep-atlas.test.mjs',
+    'tests/uberbond-repository-deep-atlas-bounded.test.mjs',
     'tests/uberbond-ultimate-graph.test.mjs',
     'tests/ultimate-graph-api.test.mjs',
-    'tests/command-center-owner-auth-hostile.test.mjs'
+    'tests/command-center-owner-auth-hostile.test.mjs',
+
+    // High-ROI Sovereign multiplier invariants. These are deliberately focused
+    // rather than a second copy of the 4k+ deterministic suite: the full Vercel
+    // project remains the terminal siege gate, while the private-lite preview
+    // gives every branch an independently executable proof that the newest
+    // decision/epistemic organs still parse, compose and preserve authority.
+    'tests/decision-information-theory.test.mjs',
+    'tests/sovereign-control-decision-information.test.mjs',
+    'tests/causal-intervention-ladder.test.mjs',
+    'tests/ontological-crisis-protocol.test.mjs',
+    'tests/epistemic-immune-system.test.mjs',
+    'tests/universal-ignorance-map.test.mjs',
+    'tests/reflexivity-engine.test.mjs',
+
+    // Cash-path continuation boundary. A preview may never become green while
+    // paid research can bypass QA or fabricate customer acceptance.
+    'tests/first-cash-prospect-completion.test.mjs'
   ]]
 ];
 

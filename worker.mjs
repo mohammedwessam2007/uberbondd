@@ -9,6 +9,7 @@ import { startScheduler } from './src/scheduler.mjs';
 import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
 import { closeSharedBrowserRuntimes } from './src/browser-runtime-pool.mjs';
+import { routeProspectCompletion } from './src/first-cash-prospect-completion.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -28,7 +29,11 @@ let revenue;
 const omniaV9Mode = resolveOmniaV9Mode(process.env);
 console.log(`OMNIA V9 outbound integration mode: ${omniaV9Mode}`);
 const pipeline = new Pipeline(store, config, {
-  onProspectComplete: prospect => revenue?.onProspectComplete(prospect),
+  // One completion router owns the generic-vs-paid boundary. Public/generic
+  // research delegates to RevenueEngine exactly as before. A persisted paid
+  // first-cash sprint is instead advanced through deterministic QA to
+  // DELIVERY_READY and never enters generic report auto-email delivery.
+  onProspectComplete: prospect => routeProspectCompletion({ store, revenue, prospect }),
   outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store })
 });
 const enqueueResearch = payload => queue.enqueue('research.batch', payload, {

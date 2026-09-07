@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-05T17:18:15.967Z",
+  "generatedAt": "2026-09-07T13:38:53.193Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "219edaf5038e98ba3f3115b7095004308f2ad056",
-    "branch": "gpt/frontier-council-max-clean-closure-20260905",
-    "sourceModules": 342,
-    "testSuites": 422,
+    "head": "60628167f959a0c68bf91f8324e0b44c351e6976",
+    "branch": "work/sovereign-continuum-execution-20260907",
+    "sourceModules": 381,
+    "testSuites": 479,
     "workingTreeClean": true
   },
   "measurements": {
@@ -69,13 +69,15 @@
     },
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
-      "srcModules": 342,
-      "reachableFromProduction": 143,
-      "reachableFromOperatorScriptsOnly": 62,
-      "noEntryPointAtAll": 137,
+      "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
+      "srcModules": 381,
+      "reachableFromProduction": 148,
+      "reachableFromOperatorScriptsOnly": 101,
+      "noEntryPointAtAll": 132,
+      "partitionExact": true,
       "allClassified": true,
-      "ranAt": "2026-09-05T12:08:06Z",
-      "note": "Frontier Cognitive Fabric makes the previously classified frontier-context-spine operator-reachable. Exact graph: 342 src modules = 143 production + 62 operator-only + 137 gated/unreachable."
+      "unclassified": [],
+      "staleClassifications": []
     }
   },
   "capabilities": [
@@ -253,6 +255,7 @@
     {
       "id": "duration-proof",
       "status": "IMPLEMENTED",
+      "level": 3,
       "declaredLevel": 3,
       "cappedByMissingExternalEvidence": false,
       "evidence": [
@@ -718,5 +721,9 @@
       "externalBlocker": null,
       "nextAction": "None internal."
     }
-  ]
+  ],
+  "truthBoundary": {
+    "maxLevelProvableFromRepositoryAlone": 4,
+    "note": "Levels 5 and above require evidence from outside this repository. Nothing here can witness the outside world, so nothing here may assert them."
+  }
 }

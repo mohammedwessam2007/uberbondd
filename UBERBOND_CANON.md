@@ -1,12 +1,28 @@
 # UberBond Canon
 
-This file is the durable cross-chat bootstrap for UberBond. A new ChatGPT/Claude session must read this file, `docs/UBERBOND_TOTAL_BRAIN.md`, `artifacts/uberbond-total-brain.json`, `docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`, `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`, `artifacts/perpetual-frontier-genesis.json`, `docs/CURRENT_SYSTEM_STATE.md`, `artifacts/system-readiness.json`, current `main`, open/draft/recent PRs/issues, and recent merged PRs before proposing or executing work.
+This file is the durable cross-chat bootstrap for UberBond. A new ChatGPT/Claude session must read this file, `NORTH_STAR.md`, `docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`, `artifacts/personal-civilization-engine-north-star.json`, `docs/UBERBOND_TOTAL_BRAIN.md`, `artifacts/uberbond-total-brain.json`, `docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`, `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`, `artifacts/perpetual-frontier-genesis.json`, `docs/CURRENT_SYSTEM_STATE.md`, `artifacts/system-readiness.json`, current `main`, open/draft/recent PRs/issues, and recent merged PRs before proposing or executing work.
+
+## Highest-level North Star
+
+UberBond's ultimate destination is the **Personal Civilization Engine** defined in `docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`.
+
+The system is intended to become a private second cognitive layer around the founder's entire life that expands agency, capability, understanding, meaningful experience, relationships, freedom and the set of valuable futures genuinely reachable, while preserving human sovereignty, privacy, uncertainty, reversible choice, and the legitimacy of joy/rest/meaning beyond productivity.
+
+The economic company is a supporting organ beneath that life objective. It creates time sovereignty, financial resilience, optionality, capabilities, learning, infrastructure and freedom. It does not replace the larger purpose.
+
+The life North Star is a `CHAT_SPEC_GOAL` and architecture/search-space specification until implementation and real outcome evidence exist. Its presence in canon is not proof that the Personal Civilization Engine or any listed life subsystem is currently implemented or validated.
 
 ## Constitutional objective
 
-Build a private, evidence-first economic operating system that lawfully discovers opportunities, understands and recombines their economic mechanisms, registers viable opportunities, assembles/acquires shared capabilities, routes work across deterministic software and replaceable local/cloud intelligence suppliers, runs bounded experiments, creates offers and distribution, prepares delivery, tracks cleared payment/acceptance/retention, learns from verified outcomes, continuously upgrades itself, minimizes founder work, and remains capable of evolving its own sensors, search methods, evaluators, ontologies, institutions and architectures as technology and the world change.
+At the highest level, build toward the Personal Civilization Engine while preserving human sovereignty and increasing valuable reachable futures rather than reducing life to one scalar optimization target.
 
-Optimize **risk-adjusted cleared contribution profit per founder minute**. Do not optimize code volume, agent count, impressions, messages, leads, architecture complexity, skill/model count, historical corpus size, synthetic test-count scale, or synthetic revenue.
+Within that hierarchy, build a private, evidence-first economic operating system that lawfully discovers opportunities, understands and recombines their economic mechanisms, registers viable opportunities, assembles/acquires shared capabilities, routes work across deterministic software and replaceable local/cloud intelligence suppliers, runs bounded experiments, creates offers and distribution, prepares delivery, tracks cleared payment/acceptance/retention, learns from verified outcomes, continuously upgrades itself, minimizes founder work, and remains capable of evolving its own sensors, search methods, evaluators, ontologies, institutions and architectures as technology and the world change.
+
+The canonical economic supporting-objective remains **risk-adjusted cleared contribution profit per founder minute**. Do not optimize code volume, agent count, impressions, messages, leads, architecture complexity, skill/model count, historical corpus size, synthetic test-count scale, synthetic revenue, or a single numerical definition of a good life.
+
+Canonical life loop:
+
+`life context -> evidence -> possibility -> counterfactual/future-path search -> capability and experience design -> human choice -> real action -> lived outcome -> reflection/learning -> updated life context`
 
 Canonical economic loop:
 
@@ -16,15 +32,19 @@ Long-horizon constitutional lineage:
 
 `identity -> rights -> consent -> delegation -> mission market -> cell compiler -> execution -> proof -> value -> quorum -> learning -> revocation`
 
-The second line constrains the first. Capability never creates authority.
+The constitutional line constrains every other line. Capability never creates authority. No simulated future self, model, agent, economic score or automated recommendation creates authority over the founder's life.
 
 ## No-amputation continuity law
 
-`docs/UBERBOND_TOTAL_BRAIN.md` and `artifacts/uberbond-total-brain.json` are the long-horizon **superset memory**. `docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`, `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`, and `artifacts/perpetual-frontier-genesis.json` extend that superset with the Perpetual Frontier / GENESIS doctrine and the complete 275-idea open-ended search-space registry. They preserve the entire accumulated UberBond organism across live current capability, draft/branch work, historical donors, chat-only specs/goals, research assets, external blockers, superseded truth and unresolved names.
+`docs/UBERBOND_TOTAL_BRAIN.md` and `artifacts/uberbond-total-brain.json` are the long-horizon **superset memory**. `docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`, `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`, and `artifacts/perpetual-frontier-genesis.json` extend that superset with the Perpetual Frontier / GENESIS doctrine and the complete 275-idea open-ended search-space registry. `docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md` and `artifacts/personal-civilization-engine-north-star.json` add the highest-level life destination and preserve the life-system, cognitive, technical, economic-invention and far-future conceptual donors that support it.
+
+They preserve the entire accumulated UberBond organism across live current capability, draft/branch work, historical donors, chat-only specs/goals, research assets, external blockers, superseded truth and unresolved names.
 
 A newer mission does not erase an older mission. A superseded implementation may be removed, but its unique goal, mechanism, constraint, experiment, failure lesson, opportunity asset or capability donation must remain discoverable until deliberately reconciled.
 
-Silence is not deletion. Before saying a feature/program never existed, search Total Brain, all Total Brain overlays, Perpetual Frontier/GENESIS, Master Memory, memory reconciliation, historical lineage, open/draft/closed/merged PRs, branches/issues, imported chat/artifact sources and relevant code/docs.
+The Personal Civilization Engine may not be amputated by narrowing UberBond back into a revenue tool, SaaS, agent swarm, study app, software factory, autonomous company or economic optimizer. Those may remain valuable organs inside the larger organism.
+
+Silence is not deletion. Before saying a feature/program never existed, search North Star, Total Brain, all Total Brain overlays, Personal Civilization Engine artifacts, Perpetual Frontier/GENESIS, Master Memory, memory reconciliation, historical lineage, open/draft/closed/merged PRs, branches/issues, imported chat/artifact sources and relevant code/docs.
 
 Current repository/external truth always outranks superset memory for present-tense claims.
 
@@ -36,7 +56,7 @@ Every fresh session must:
 
 1. refresh `main` and never assume an old SHA;
 2. inspect open/draft/recent/merged PRs and shared branches before coding;
-3. read this canon plus Total Brain and its overlays before narrowing to the current handoff;
+3. read this canon, `NORTH_STAR.md`, the Personal Civilization Engine North Star, Total Brain and its overlays before narrowing to the current handoff;
 4. read current system/readiness truth;
 5. reconcile the requested mission against already-merged capability before adding code;
 6. preserve unresolved external gates rather than inventing completion;
@@ -47,6 +67,10 @@ A session ending because of context length is not a project reset. The next sess
 ## Product dream, unified
 
 UberBond should behave as one machine rather than a pile of SaaS clones. External products are reference surfaces for capabilities and UX, not separate truth stores or automatic code-vendoring targets.
+
+At the life level, the intended organism ultimately includes Life Knowledge Graph, Gamechanger for Life, GENESIS for Life, Osteogenesis for Life, Life Possibility Engine, Personal Counterfactual Universe, Human Capability Genome, Experience Compiler, Identity Evolution Engine, Life Compression Engine, Serendipity Engineering, Personal Time Telescope, Personal Council of Future Selves and Life Autopoiesis Engine. These remain goals until implemented and validated.
+
+The larger North Star also preserves Knowledge Labyrinth/UberGraph, UberMind Cognitive Exchange, UberDNA Software Genome, Sovereign Compute Cell Fabric, Economic Metabolism, Autonomous Company Compiler, Economic Particle Accelerator, Market Dark-Matter Detector, Business Embryogenesis, Internal Prediction Economy, Opportunity Shockwave Simulator, Economic Theorem Prover, Capability Autophagy, Synthetic Economic Civilizations, Million-Wall Solver, Economic Reverse Engineering, Capability Teleportation, Economic X-Ray Vision, Counterfactual Company Generator, Missing Institution Detector, Economic Immune System, World-to-Code Compiler, Billion-Hypothesis Engine, Economic Memory Inheritance, Opportunity Gravitational Field, Reality Fork Engine, Economic Physics Discovery, Negative-Space Intelligence, Future-Ancestor Compiler, Morphogenetic Software, Protocol Genesis, Economic Spores, Reality Compression, Corporate Phylogenetic Tree, Causal Destiny Compiler, Causal Sovereignty, Possibility-Space Cartography, Economic Language Genesis, Necessity Generator, Temporal Capability Arbitrage, Counterfactual Colonization, Self-Referential Intelligence Architecture, Unknown-Unknown Mining, Economic Autopoiesis and Possibility Sovereign as conceptual donors/search-space memory. Their presence does not imply implementation.
 
 ### Opportunity, idea generation and market intelligence
 - lawful opportunity discovery across public/authorized sources;
@@ -74,6 +98,7 @@ Permanent requirements include:
 - maintain competing theories of reality and design observations/experiments capable of distinguishing them;
 - translate scientific/technical advances into provider-neutral capability primitives and bounded economic hypotheses;
 - preserve GENESIS, GENESIS² and ONTOGENESIS so today's 275-idea registry is a seed rather than a ceiling;
+- extend GENESIS upward into life possibility creation while keeping human choice sovereign;
 - keep models, providers, protocols, languages and even today's definition of UberBond replaceable.
 
 The 275 ideas are durable `CHAT_SPEC_GOAL` / search-space memory. Their presence in canon is not evidence that all 275 are implemented, viable, safe, profitable or externally proven.
@@ -106,6 +131,8 @@ Distribution breadth must never bypass law, consent, suppression, platform terms
 - treat Apollo/Clay/Instantly/etc. as mechanism reference surfaces, never proprietary-code sources;
 - benchmark candidates and promote only when independently earned;
 - keep suppliers replaceable and minimize the sufficient capability bundle.
+
+At the life level, Human Capability Genome is a separate conceptual layer for decomposing trainable human abilities and their dependencies. It must not be confused with software Capability Genome, and it must not silently convert temporary states or skill gaps into fixed identity claims.
 
 ### Open Model Universe / local and hosted models
 - continuously discover open/local/hosted model suppliers rather than keeping a finite hand-maintained list;
@@ -151,12 +178,15 @@ Preserve the OMNIA V1 -> X10 -> X100 -> X1M -> X8M -> X64M -> X512M -> V9 lineag
 - at most a small, exact owner-action queue with time/cost/evidence/default;
 - alerts/escalation only for meaningful exceptions;
 - founder-absence readiness proven by observed durable operation, never asserted from architecture;
-- long-horizon portfolio allocation should increase founder time sovereignty, geographic freedom, financial independence, artistic/intellectual freedom and reversible optionality rather than maximize money by turning the founder into a permanent operator.
+- long-horizon portfolio allocation should increase founder time sovereignty, geographic freedom, financial independence, artistic/intellectual freedom and reversible optionality rather than maximize money by turning the founder into a permanent operator;
+- the Personal Civilization Engine should create more life rather than more time spent operating an optimization dashboard;
+- meaningful rest, joy, relationships, creativity and experience remain legitimate ends and may not be treated merely as productivity inputs.
 
 ## Named-program lineage is part of canon memory
 
 At minimum keep discoverable:
 
+- Personal Civilization Engine / Life Knowledge Graph / Life Possibility Engine / Personal Counterfactual Universe / Human Capability Genome / Experience Compiler / Identity Evolution Engine / Life Compression Engine / Serendipity Engineering / Personal Time Telescope / Personal Council of Future Selves / Life Autopoiesis Engine / Osteogenesis for Life;
 - Brain / Whole Chat Continuity, Persistent Brain, Context Spine;
 - First Revenue System and First-Cash Singularity;
 - Research Singularity, Distribution Singularity, Software/Night Singularity, World Capability Genome Singularity, NIGHTFALL SUPREME / SINGULARITY;
@@ -169,7 +199,8 @@ At minimum keep discoverable:
 - World Distribution OS / Lead OS / Instantly-style outbound / Distribution Control Plane / Postal / Proposal Acceptance;
 - Offline Revenue Factory / Demand Recovery Assurance;
 - Automation Capability Acquisition Frontier / Capability Genome / SaaS Cannibal / Frontier Company OS / Frontier Engine / Frontier Operator / Autonomous Frontier Intelligence / Gamechanger Mesh / Open Model Universe / Wallbreaker / Mutation War / AEGIS-JARVIS / Elite Duo / Fable;
-- Perpetual Frontier / Artificial Imagination / Zero-Day Frontier Radar / Future Primitive Extractor / Opportunity Shockwave / Resurrection Engine / Anti-UberBond / N+1 / Red Queen Evaluators / GENESIS / GENESIS² / ONTOGENESIS and the 275-idea frontier registry.
+- Perpetual Frontier / Artificial Imagination / Zero-Day Frontier Radar / Future Primitive Extractor / Opportunity Shockwave / Resurrection Engine / Anti-UberBond / N+1 / Red Queen Evaluators / GENESIS / GENESIS² / ONTOGENESIS and the 275-idea frontier registry;
+- Knowledge Labyrinth / UberGraph / UberMind Cognitive Exchange / UberDNA / Sovereign Compute Cell Fabric / Autonomous Company Compiler / Economic Particle Accelerator / Market Dark-Matter Detector / Million-Wall Solver / Reality Fork Engine / Future-Ancestor Compiler / Morphogenetic Software / Protocol Genesis / Unknown-Unknown Mining / Possibility Sovereign and all other conceptual donors enumerated in `docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`.
 
 This list is a floor. Future source-backed names are appended rather than forced into an existing label.
 
@@ -196,24 +227,38 @@ The allocator may narrow authorized actions. It may never manufacture permission
 ## Evidence hierarchy
 
 Prefer, in order:
-1. durable provider/payment/delivery/customer receipts;
+1. durable provider/payment/delivery/customer receipts for external economic claims and direct observed human outcomes for life claims;
 2. canonical internal receipts derived from validated external evidence;
 3. official/current public evidence;
 4. bounded experiments with explicit provenance;
 5. creator/vendor claims labelled as claims;
 6. hypotheses.
 
-Unknown remains unknown. Contradictions are preserved. No customer/revenue/ROI claim is promoted without the required evidence chain.
+Unknown remains unknown. Contradictions are preserved. No customer/revenue/ROI claim is promoted without the required evidence chain. No life-improvement claim is promoted merely because a simulation, model, plan or self-report prediction says it should work.
 
 ## External-effect charter
 
 Without explicit owner authorization, do not perform customer messages/outbound, provider/model calls, spend/purchases, deployments, DNS/credential changes, KYC/payment-account changes, or production/customer mutations. Tests use fakes/stubs and exact zero-effect ledgers.
 
-Perpetual Frontier discovery and GENESIS intelligence never create consequence authority merely because a new capability appears promising.
+Perpetual Frontier discovery, GENESIS intelligence and Personal Civilization Engine reasoning never create consequence authority merely because a new capability or life path appears promising.
+
+## Human sovereignty charter
+
+- The founder remains the sovereign decision-maker.
+- No simulated future self, model, agent, score or optimizer may make irreversible life commitments on the founder's behalf without explicit authority.
+- No single metric defines a good life.
+- Private life data must be minimized and protected; public repository canon should preserve architecture without leaking sensitive personal details.
+- Relationships are not optimization objects.
+- Rest and joy are legitimate ends.
+- Health-related reasoning requires appropriate evidence and caution and must be distinguished from personal medical care.
+- Under uncertainty, prefer reversible options when they preserve valuable futures.
+- The Personal Civilization Engine should minimize its own operational burden and create more time for actual life.
 
 ## Current commercial truth boundary
 
 Architecture and readiness are not revenue. Unless current canonical receipts prove otherwise, do not infer verified customers, cleared revenue, accepted deliveries or retained customers from code, screenshots, vendor claims, research catalogs, payment links, sandbox events, model output, generated opportunities, frontier signals or simulations.
+
+Likewise, North Star architecture is not proof of better life outcomes.
 
 ## Engineering closure law
 
@@ -232,6 +277,6 @@ Before declaring an internal increment complete:
 
 When a user says `continue`, `go`, or starts a new UberBond chat, interpret it as:
 
-> Refresh live `main`; read `AGENTS.md`, `UBERBOND_CANON.md`, `UBERBOND_BOOTSTRAP.json`, `docs/UBERBOND_TOTAL_BRAIN.md`, all Total Brain overlays, `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`, `artifacts/perpetual-frontier-genesis.json`, Master Memory/reconciliation/checkpoints, current system/readiness, and current/open/draft/recent PRs/issues; run/read the relevant capability and GENESIS doctors before relying on those layers; reconstruct the whole UberBond organism before narrowing to the short-term frontier; reconcile shared work; select the highest-value unfinished dependency-satisfied mission that advances risk-adjusted cleared contribution profit per founder minute; execute it within the authority charter; test/review/PR/merge when justified; report verified facts only.
+> Refresh live `main`; read `AGENTS.md`, `NORTH_STAR.md`, `docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`, `artifacts/personal-civilization-engine-north-star.json`, `UBERBOND_CANON.md`, `UBERBOND_BOOTSTRAP.json`, `docs/UBERBOND_TOTAL_BRAIN.md`, all Total Brain overlays, `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`, `artifacts/perpetual-frontier-genesis.json`, Master Memory/reconciliation/checkpoints, current system/readiness, and current/open/draft/recent PRs/issues; run/read the relevant capability and GENESIS doctors before relying on those layers; reconstruct the whole UberBond organism and its life-level North Star before narrowing to the short-term frontier; reconcile shared work; select the highest-value unfinished dependency-satisfied mission that advances the Personal Civilization Engine while using risk-adjusted cleared contribution profit per founder minute as the economic sub-objective; execute it within the authority charter; test/review/PR/merge when justified; report verified facts only.
 
 Do not ask the owner to restate the project merely because the previous conversation ended.

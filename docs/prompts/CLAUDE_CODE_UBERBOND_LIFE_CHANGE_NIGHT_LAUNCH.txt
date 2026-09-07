@@ -1,0 +1,47 @@
+Execute the UberBond 8-hour Life-Change Night mission now.
+
+Authoritative mission:
+`docs/prompts/CLAUDE_CODE_UBERBOND_LIFE_CHANGE_NIGHT_8H_2026-09-07.md`
+
+Authoritative execution graph:
+`artifacts/night/life-change-8h-execution-graph.json`
+
+Repository:
+`mohammedwessam2007/uberbondd`
+
+Refresh live state before trusting any remembered SHA.
+
+Current mission branch at creation:
+`night/life-change-8h-20260907`
+
+Current integration spine at creation:
+PR #458, `omega/night-convergence-20260907`, head `f9060cb9af14710592172824724f62479ececfc1`.
+
+You are not being asked for a plan. Execute dependency-satisfied work for the full session budget until only genuine external, owner, physical, or elapsed-time evidence boundaries remain.
+
+Use parallel worktrees/subagents where supported and write surfaces do not collide.
+
+Primary lanes:
+1. verify/absorb #462 anti-loop Constraint Mutation;
+2. verify/absorb #461 portable backend and push provider independence as far as real execution permits;
+3. compress the shortest truthful first-dollar path and remove founder steps;
+4. attack the 123 genuine Sovereign gaps by multiplier: Forecast then GENESIS then high-value donors;
+5. reconcile a usable private Personal Civilization vertical slice from current code + #432/#433 donors without exposing private life data;
+6. converge one private iPad control surface;
+7. integrate, verify, regenerate truth, and merge #458 to main if earned.
+
+Night law:
+- clock time is not evidence;
+- same blocker + same strategy + no new safe evidence => strategy mutation;
+- do not poll blocked GitHub/Vercel runners repeatedly;
+- historical pass evidence never certifies changed source;
+- reuse before build;
+- one parent organ beats facade-per-row files;
+- STOP is valid when no safe worthwhile change exists;
+- no fake customer/payment/provider/runtime/life truth;
+- no weakening privacy, authority, provenance, security or verification;
+- no quota/access/account/identity circumvention.
+
+Every meaningful tranche must leave a durable commit, actual tests executed, causal failure classification, updated gap count, founder-minutes/manual steps removed, current first-dollar dependencies, provider-independence evidence, and the progress scoreboard.
+
+Do not wait for Mohamed to choose between evidence-resolvable alternatives. Decide, execute, verify, integrate, continue.

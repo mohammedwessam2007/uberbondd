@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "uberbond.life-change-night.v1",
+  "status": "ACTIVE_EXECUTION_GRAPH",
+  "integrationSpine": {
+    "pullRequest": 458,
+    "branch": "omega/night-convergence-20260907",
+    "headAtMissionCreation": "f9060cb9af14710592172824724f62479ececfc1"
+  },
+  "terminalObjective": "Permanently reduce founder minutes, existential provider dependence, genuine Sovereign implementation gaps, and distance to lawful real-world value.",
+  "laws": [
+    "clock-time-is-not-evidence",
+    "same-blocker-same-strategy-no-new-evidence-forbids-identical-retry",
+    "stop-is-valid-when-no-safe-worthwhile-change-exists",
+    "reuse-before-build",
+    "one-parent-organ-over-facade-per-row",
+    "historical-proof-never-certifies-changed-source",
+    "no-fake-external-truth",
+    "no-authority-or-provider-control-circumvention"
+  ],
+  "lanes": [
+    {
+      "id": "NIGHT-00",
+      "name": "Truth Reset and Lane Lock",
+      "owner": "integration-judge",
+      "dependencies": [],
+      "priority": 1,
+      "success": "live main/PR/coverage truth refreshed and write surfaces locked"
+    },
+    {
+      "id": "NIGHT-01",
+      "name": "Constraint Mutation and Self-Maintainer Proof",
+      "owner": "sol",
+      "dependencies": ["NIGHT-00"],
+      "donorPRs": [462],
+      "priority": 2,
+      "success": "exact-head anti-loop proof earned and donor absorbed or explicitly proof-blocked"
+    },
+    {
+      "id": "NIGHT-02",
+      "name": "Provider-Neutral Backend and Survival",
+      "owner": "sol",
+      "dependencies": ["NIGHT-00"],
+      "donorPRs": [461],
+      "priority": 2,
+      "success": "portable backend exact-head proof plus strongest available independent-host rehearsal"
+    },
+    {
+      "id": "NIGHT-03",
+      "name": "First-Dollar Founder-Minute Compression",
+      "owner": "economic-lane",
+      "dependencies": ["NIGHT-00"],
+      "priority": 1,
+      "success": "machine-readable shortest lawful prospect-to-delivery-ready path with every remaining external dependency named"
+    },
+    {
+      "id": "NIGHT-04",
+      "name": "Forecast and Decision Multiplier",
+      "owner": "claude-a",
+      "dependencies": ["NIGHT-00"],
+      "priority": 3,
+      "success": "remaining parentless forecast dimensions reduced through verified reuse or high-leverage parent organs"
+    },
+    {
+      "id": "NIGHT-05",
+      "name": "GENESIS and Unknown-Unknown Multiplier",
+      "owner": "claude-b",
+      "dependencies": ["NIGHT-00"],
+      "donorPRs": [420, 422],
+      "priority": 3,
+      "success": "genuine GENESIS mechanism gaps reduced without duplicate donor facades"
+    },
+    {
+      "id": "NIGHT-06",
+      "name": "Personal Civilization Usable Vertical Slice",
+      "owner": "claude-c",
+      "dependencies": ["NIGHT-00"],
+      "donorPRs": [432, 433],
+      "priority": 4,
+      "success": "private input-to-decision/capability/experience/export-delete loop is coherent and synthetically reachable"
+    },
+    {
+      "id": "NIGHT-07",
+      "name": "Private iPad Control Center Convergence",
+      "owner": "control-surface-lane",
+      "dependencies": ["NIGHT-01", "NIGHT-03", "NIGHT-06"],
+      "priority": 6,
+      "success": "one truthful private surface exposes opportunities, actions, blockers, strategy mutation, evidence and launch readiness"
+    },
+    {
+      "id": "NIGHT-08",
+      "name": "Morning Integration Tribunal",
+      "owner": "integration-judge",
+      "dependencies": ["NIGHT-01", "NIGHT-02", "NIGHT-03", "NIGHT-04", "NIGHT-05", "NIGHT-06"],
+      "priority": 1,
+      "success": "verified children absorbed, coverage/readiness/reachability/handoff regenerated, main merged if earned"
+    }
+  ],
+  "waves": [
+    ["NIGHT-00"],
+    ["NIGHT-01", "NIGHT-02", "NIGHT-03", "NIGHT-04", "NIGHT-05", "NIGHT-06"],
+    ["NIGHT-07"],
+    ["NIGHT-08"]
+  ],
+  "morningEvidenceTargets": {
+    "specOnlyBaseline": 123,
+    "specOnlyDirection": "DOWN_ONLY_IF_BEHAVIORALLY_EARNED",
+    "commercialTruth": {
+      "realCustomers": 0,
+      "clearedRevenueUsd": 0,
+      "acceptedPaidDeliveries": 0,
+      "retainedCustomers": 0,
+      "rule": "may change only from real external evidence"
+    },
+    "desiredQualitativeChanges": [
+      "shorter first-dollar path",
+      "fewer founder interventions",
+      "fewer existential provider dependencies",
+      "verified anti-loop continuation",
+      "smaller genuine Sovereign gap denominator",
+      "usable private Personal Civilization loop",
+      "one converged integration lineage"
+    ]
+  }
+}

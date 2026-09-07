@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-09-07**
 Branch: `work/sovereign-continuum-execution-20260907`
-Reconciled from current head: `d71d3fca00f7708d63fdaf116a3f9de1c179aa33`
+Reconciled from current head: `191cc56ccc39aa4187dfc712bea04b67ba966854`
 Live main before final merge decision: `efb63fddcbc9009594d9869a3e0929629ce7b4be`
 Current source-changing NIGHT-10 integration lineage includes reachability/readiness anti-drift, legacy-admin bearer hardening and exact-checkout canon regeneration before deterministic verification through `4eb65740fce52759f75f874b6df15070d314eddb`.
 

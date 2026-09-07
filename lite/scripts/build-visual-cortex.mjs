@@ -12,6 +12,8 @@ const steps = [
   ['node', ['scripts/uberbond-synaptic-map.mjs']],
   ['node', ['scripts/uberbond-repository-deep-atlas.mjs']],
   ['node', ['scripts/uberbond-ultimate-graph.mjs']],
+  ['node', ['scripts/personal-civilization-doctor.mjs']],
+  ['node', ['scripts/personal-civilization-organs-doctor.mjs']],
   ['node', ['--check', 'public/uberbond.js']],
   ['node', ['--check', 'public/uberbond-graph.js']],
   ['node', ['--test',
@@ -19,6 +21,18 @@ const steps = [
     'tests/uberbond-ultimate-graph.test.mjs',
     'tests/ultimate-graph-api.test.mjs',
     'tests/command-center-owner-auth-hostile.test.mjs'
+  ]],
+  ['node', ['--test',
+    'tests/personal-civilization-kernel.test.mjs',
+    'tests/personal-civilization-doctor.test.mjs',
+    'tests/personal-civilization-integrity.test.mjs',
+    'tests/personal-civilization-organs.test.mjs',
+    'tests/personal-civilization-organs-doctor.test.mjs',
+    'tests/personal-civilization-bootstrap-v12.test.mjs',
+    'tests/perpetual-frontier-genesis.test.mjs',
+    'tests/uberbond-brain-context.test.mjs',
+    'tests/uberbond-brain-bootstrap.test.mjs',
+    'tests/reachability-ratchet.test.mjs'
   ]]
 ];
 
@@ -61,5 +75,6 @@ console.log(JSON.stringify({
   nodeCount: graph?.nodeCount ?? null,
   edgeCount: graph?.edgeCount ?? null,
   orphanNodeCount: Array.isArray(graph?.orphanNodes) ? graph.orphanNodes.length : null,
+  personalCivilizationVerification: 'KERNEL_ORGANS_BOOTSTRAP_REACHABILITY_BRAIN_TESTS_EXECUTED',
   externalEffectAuthority: 'NONE'
 }));

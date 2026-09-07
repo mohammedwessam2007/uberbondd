@@ -2,18 +2,18 @@
   "ok": true,
   "status": "COVERAGE_MATRIX_COMPILED",
   "schemaVersion": "uberbond.sovereign-coverage-matrix.v1",
-  "generatedAt": "2026-09-07T17:21:51.669Z",
-  "sourceCommit": "541ca01ea36a4adcb848a9055854a3be521682ea",
+  "generatedAt": "2026-09-07T17:28:26.026Z",
+  "sourceCommit": "f9a9fa7056b93901357d1184902ce4a20e398ec2",
   "counts": {
     "extractedConcepts": 1068,
     "rows": 1038,
     "mergedAliasRows": 30,
-    "declaredConcepts": 88,
+    "declaredConcepts": 98,
     "byState": {
-      "VERIFIED_CURRENT": 150,
+      "VERIFIED_CURRENT": 166,
       "PARTIAL_CURRENT": 72,
       "DRAFT_DONOR": 0,
-      "SPEC_ONLY": 231,
+      "SPEC_ONLY": 215,
       "EXTERNAL_BLOCKED": 19,
       "OWNER_BOUNDARY": 13,
       "ELAPSED_TIME_REQUIRED": 0,
@@ -27,15 +27,15 @@
       "ALIAS_OF_CANONICAL_CONCEPT": 44
     },
     "byLane": {
-      "OMEGA-14": 379,
+      "OMEGA-14": 367,
       "OMEGA-03": 38,
-      "OMEGA-01": 19,
+      "OMEGA-01": 16,
       "OMEGA-04": 112,
       "OMEGA-12": 2,
-      "OMEGA-02": 151,
+      "OMEGA-02": 150,
       "OMEGA-13": 14,
       "OMEGA-11": 4,
-      "OMEGA-05": 44,
+      "OMEGA-05": 60,
       "OMEGA-06": 13,
       "OMEGA-09": 165,
       "OMEGA-07": 15,
@@ -365,10 +365,12 @@
       "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
         "sourceModules": [
+          "src/life-autopoiesis.mjs",
           "src/life-decision-dimensions.mjs",
           "src/lifetime-context-memory.mjs"
         ],
         "testModules": [
+          "tests/life-autopoiesis.test.mjs",
           "tests/life-decision-dimensions.test.mjs",
           "tests/lifetime-context-memory.test.mjs"
         ],
@@ -378,7 +380,7 @@
         "matchedPhrase": "LIFE_SYSTEMS",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": "src/life-decision-dimensions.mjs",
+      "targetModule": "src/life-autopoiesis.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -3780,22 +3782,26 @@
         "Optionality vs Depth Dial"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Optionality vs Depth Dial",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -3810,22 +3816,26 @@
         "Explore / Exploit Life Controller"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Explore / Exploit Life Controller",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -4537,22 +4547,26 @@
         "Preservation of Mystery"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Preservation of Mystery",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -4601,22 +4615,26 @@
         "Serendipity Engineering"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Serendipity Engineering",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -4729,22 +4747,26 @@
         "Personal Scarcity Physics"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Personal Scarcity Physics",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -4759,22 +4781,26 @@
         "Mortal Horizon Model"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Mortal Horizon Model",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -4789,22 +4815,26 @@
         "Window-of-Life Detection"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Window-of-Life Detection",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -4853,22 +4883,26 @@
         "Meaning Archaeology"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Meaning Archaeology",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -5037,22 +5071,26 @@
         "Life Autopoiesis Engine"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Life Autopoiesis Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -10060,10 +10098,12 @@
       "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
         "sourceModules": [
+          "src/life-autopoiesis.mjs",
           "src/life-decision-dimensions.mjs",
           "src/lifetime-context-memory.mjs"
         ],
         "testModules": [
+          "tests/life-autopoiesis.test.mjs",
           "tests/life-decision-dimensions.test.mjs",
           "tests/lifetime-context-memory.test.mjs"
         ],
@@ -10073,7 +10113,7 @@
         "matchedPhrase": "LIFE_SYSTEMS",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": "src/life-decision-dimensions.mjs",
+      "targetModule": "src/life-autopoiesis.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -10725,22 +10765,26 @@
         "Serendipity Engineering"
       ],
       "class": "ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Serendipity Engineering",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -10921,22 +10965,26 @@
         "Life Autopoiesis"
       ],
       "class": "ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Life Autopoiesis",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -10951,22 +10999,26 @@
         "Preservation of Mystery"
       ],
       "class": "ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Preservation of Mystery",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -11481,22 +11533,26 @@
         "Life Autopoiesis Engine"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Life Autopoiesis Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-01",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -15973,10 +16029,12 @@
       "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
         "sourceModules": [
+          "src/life-autopoiesis.mjs",
           "src/life-decision-dimensions.mjs",
           "src/lifetime-context-memory.mjs"
         ],
         "testModules": [
+          "tests/life-autopoiesis.test.mjs",
           "tests/life-decision-dimensions.test.mjs",
           "tests/lifetime-context-memory.test.mjs"
         ],
@@ -15986,7 +16044,7 @@
         "matchedPhrase": "LIFE_SYSTEMS",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": "src/life-decision-dimensions.mjs",
+      "targetModule": "src/life-autopoiesis.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -16386,22 +16444,26 @@
         "Serendipity Engineering"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Serendipity Engineering",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-01",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -16484,22 +16546,26 @@
         "Life Autopoiesis Engine"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Life Autopoiesis Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-01",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -19160,22 +19226,26 @@
         "life_autopoiesis"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-autopoiesis.mjs"
+        ],
+        "testModules": [
+          "tests/life-autopoiesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Life Autopoiesis",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-02",
+      "targetModule": "src/life-autopoiesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,

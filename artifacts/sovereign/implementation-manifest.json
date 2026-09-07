@@ -970,6 +970,116 @@
         "tests/intent-compiler.test.mjs"
       ],
       "note": "The same organ under its canon name."
+    },
+    {
+      "concept": "Life Autopoiesis Engine",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-autopoiesis.mjs"
+      ],
+      "tests": [
+        "tests/life-autopoiesis.test.mjs"
+      ],
+      "note": "findReinforcingLoops returns the specific compounding chain rather than a score -- a number saying a life is 0.7 autopoietic is unactionable. One cycle is reported once, not once per entry point. AUTOPOI-01."
+    },
+    {
+      "concept": "Life Autopoiesis",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-autopoiesis.mjs"
+      ],
+      "tests": [
+        "tests/life-autopoiesis.test.mjs"
+      ],
+      "note": "The same organ under its shorter canon name; the question is not how to balance domains but how each strengthens the others."
+    },
+    {
+      "concept": "Window-of-Life Detection",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-autopoiesis.mjs"
+      ],
+      "tests": [
+        "tests/life-autopoiesis.test.mjs"
+      ],
+      "note": "windowOfLife separates real scarcity from urgency. RECURRING is in the vocabulary so 'this comes round again' is sayable, because treating it as scarce spends a window that was not closing. AUTOPOI-02."
+    },
+    {
+      "concept": "Personal Scarcity Physics",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-autopoiesis.mjs"
+      ],
+      "tests": [
+        "tests/life-autopoiesis.test.mjs"
+      ],
+      "note": "Time, youth and opportunity windows are irreplaceable whatever the caller passes. Pricing them in the same currency as money makes the trade look acceptable every time. AUTOPOI-03."
+    },
+    {
+      "concept": "Mortal Horizon Model",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-autopoiesis.mjs"
+      ],
+      "tests": [
+        "tests/life-autopoiesis.test.mjs"
+      ],
+      "note": "mortalHorizon surfaces preparation consuming the life it was preparing for -- the failure a lifetime optimizer is most likely to cause and least likely to notice, because every individual deferral is defensible. AUTOPOI-04."
+    },
+    {
+      "concept": "Preservation of Mystery",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-autopoiesis.mjs"
+      ],
+      "tests": [
+        "tests/life-autopoiesis.test.mjs"
+      ],
+      "note": "preserveMystery returns LEAVE_THIS_ALONE when further optimization would remove what makes something valuable, and says that finding no cost is not the same as there being none. AUTOPOI-08."
+    },
+    {
+      "concept": "Serendipity Engineering",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-autopoiesis.mjs"
+      ],
+      "tests": [
+        "tests/life-autopoiesis.test.mjs"
+      ],
+      "note": "serendipitySurface reports field heterogeneity and refuses to predict the discovery, since predicting it would be choosing it in advance. Twenty contexts in one field is one context twenty times. AUTOPOI-05."
+    },
+    {
+      "concept": "Explore / Exploit Life Controller",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-autopoiesis.mjs"
+      ],
+      "tests": [
+        "tests/life-autopoiesis.test.mjs"
+      ],
+      "note": "Recorded per domain, never as one dial for a life -- a single setting would be the scalar canon forbids. A domain in one mode for years is surfaced. AUTOPOI-06."
+    },
+    {
+      "concept": "Optionality vs Depth Dial",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-autopoiesis.mjs"
+      ],
+      "tests": [
+        "tests/life-autopoiesis.test.mjs"
+      ],
+      "note": "The same per-domain treatment: breadth and depth sit at different points in different parts of a life."
+    },
+    {
+      "concept": "Meaning Archaeology",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-autopoiesis.mjs"
+      ],
+      "tests": [
+        "tests/life-autopoiesis.test.mjs"
+      ],
+      "note": "meaningArchaeology surfaces durable, faded and grown-in-meaning experiences from the founder's own evidence, with no view on what should have mattered. The grown group is the one nobody looks for. AUTOPOI-07."
     }
   ]
 }

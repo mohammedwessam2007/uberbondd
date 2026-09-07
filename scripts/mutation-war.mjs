@@ -2022,6 +2022,66 @@ export const MUTATIONS = [
     replace: "    status: 'LOCK_IN_RECORDED',",
     suites: ['tests/intent-compiler.test.mjs']
   },
+  // ---- Where the parts of a life feed each other, and what it costs ------
+  {
+    id: 'AUTOPOI-01', guard: 'One cycle is reported once, not once per entry point',
+    file: 'src/life-autopoiesis.mjs',
+    find: '        if (!seen.has(key)) { seen.add(key); loops.push(key.split(\'->\')); }',
+    replace: '        loops.push(key.split(\'->\'));',
+    suites: ['tests/life-autopoiesis.test.mjs']
+  },
+  {
+    // Treating something that comes round again as scarce spends a window
+    // that was not closing.
+    id: 'AUTOPOI-02', guard: 'A recurring opportunity is important, not scarce',
+    file: 'src/life-autopoiesis.mjs',
+    find: "  const recurring = cause === 'RECURRING';",
+    replace: '  const recurring = false;',
+    suites: ['tests/life-autopoiesis.test.mjs']
+  },
+  {
+    id: 'AUTOPOI-03', guard: 'Time and youth are irreplaceable whatever the caller says',
+    file: 'src/life-autopoiesis.mjs',
+    find: "    || ['TIME', 'YOUTH', 'OPPORTUNITY_WINDOWS'].includes(resource);",
+    replace: '    ;',
+    suites: ['tests/life-autopoiesis.test.mjs']
+  },
+  {
+    id: 'AUTOPOI-04', guard: 'Preparation consuming the life is surfaced',
+    file: 'src/life-autopoiesis.mjs',
+    find: "    status: ratio !== null && ratio > 0.5 ? 'PREPARATION_IS_CONSUMING_THE_LIFE' : 'HORIZON_RECORDED',",
+    replace: "    status: 'HORIZON_RECORDED',",
+    suites: ['tests/life-autopoiesis.test.mjs']
+  },
+  {
+    id: 'AUTOPOI-05', guard: 'A homogeneous serendipity surface is reported as one context repeated',
+    file: 'src/life-autopoiesis.mjs',
+    find: "    status: fields.size > 1 ? 'HETEROGENEOUS_SURFACE' : 'HOMOGENEOUS_SURFACE',",
+    replace: "    status: 'HETEROGENEOUS_SURFACE',",
+    suites: ['tests/life-autopoiesis.test.mjs']
+  },
+  {
+    id: 'AUTOPOI-06', guard: 'A domain stuck in one mode for years is surfaced',
+    file: 'src/life-autopoiesis.mjs',
+    find: "  const stuck = rows.filter(row => row.yearsInMode !== null && row.yearsInMode > 5 && row.mode !== 'MIXED');",
+    replace: '  const stuck = [];',
+    suites: ['tests/life-autopoiesis.test.mjs']
+  },
+  {
+    // The group nobody looks for: it did not feel like much and it lasted.
+    id: 'AUTOPOI-07', guard: 'Experiences that grew in meaning are surfaced separately',
+    file: 'src/life-autopoiesis.mjs',
+    find: '  const grew = rows.filter(row => row.mattersNow > row.matteredAtTime);',
+    replace: '  const grew = [];',
+    suites: ['tests/life-autopoiesis.test.mjs']
+  },
+  {
+    id: 'AUTOPOI-08', guard: 'An optimization cost that was identified says leave it alone',
+    file: 'src/life-autopoiesis.mjs',
+    find: "    status: wouldLose.length ? 'LEAVE_THIS_ALONE' : 'OPTIMIZATION_HAS_NO_IDENTIFIED_COST_HERE',",
+    replace: "    status: 'OPTIMIZATION_HAS_NO_IDENTIFIED_COST_HERE',",
+    suites: ['tests/life-autopoiesis.test.mjs']
+  },
   // ---- The private core: the one data class that is not the company's -----
   {
     id: 'PCIV-01', guard: 'A repository path is refused as a destination for private life data',

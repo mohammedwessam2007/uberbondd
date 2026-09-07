@@ -28,6 +28,7 @@ import { salienceLedger, preferenceDrift, attentionBudget } from '../src/salienc
 import { classifyUncertainty, modelEcology, surpriseLedger } from '../src/epistemic-immune-system.mjs';
 import { continuityPosture, posthumousDisposition } from '../src/memory-sovereignty.mjs';
 import { compileIntent, consequenceLedger } from '../src/intent-compiler.mjs';
+import { findReinforcingLoops, mortalHorizon, exploreExploit } from '../src/life-autopoiesis.mjs';
 
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
@@ -88,7 +89,7 @@ export function buildSovereignControlView({
   futures = [], council = null, bottleneck = null, capabilities = [], observations = [],
   unknown = null, salience = null, drift = null, attention = null, uncertainty = null,
   models = [], surprises = [], records = [], posthumous = null, intent = null,
-  consequences = null, now = new Date()
+  consequences = null, lifeEdges = [], horizon = null, lifeDomains = [], now = new Date()
 } = {}) {
   const view = {
     ok: true,
@@ -125,6 +126,9 @@ export function buildSovereignControlView({
     posthumous: posthumousDisposition(posthumous || {}),
     intent: intent ? compileIntent(intent) : null,
     consequences: consequences ? consequenceLedger(consequences) : null,
+    reinforcingLoops: Array.isArray(lifeEdges) && lifeEdges.length ? findReinforcingLoops(lifeEdges) : null,
+    horizon: horizon ? mortalHorizon(horizon) : null,
+    exploreExploit: Array.isArray(lifeDomains) && lifeDomains.length ? exploreExploit(lifeDomains) : null,
     highestRung: 'RECOMMENDATION',
     founderAuthority: 'THIS SURFACE READS. IT CANNOT CHOOSE, DELEGATE, OR ACT.',
     businessEffectAuthority: 'NONE'

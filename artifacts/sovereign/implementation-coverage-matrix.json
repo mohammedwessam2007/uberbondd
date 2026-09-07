@@ -2,18 +2,18 @@
   "ok": true,
   "status": "COVERAGE_MATRIX_COMPILED",
   "schemaVersion": "uberbond.sovereign-coverage-matrix.v1",
-  "generatedAt": "2026-09-07T17:47:36.748Z",
-  "sourceCommit": "2ade75039f538deab9740f944046d0166c70d7c5",
+  "generatedAt": "2026-09-07T17:55:11.334Z",
+  "sourceCommit": "2b49059e8c02fb2fb5dd276cde7dd630fda0f59b",
   "counts": {
     "extractedConcepts": 1068,
     "rows": 1038,
     "mergedAliasRows": 30,
-    "declaredConcepts": 134,
+    "declaredConcepts": 150,
     "byState": {
-      "VERIFIED_CURRENT": 220,
+      "VERIFIED_CURRENT": 236,
       "PARTIAL_CURRENT": 72,
       "DRAFT_DONOR": 0,
-      "SPEC_ONLY": 164,
+      "SPEC_ONLY": 148,
       "EXTERNAL_BLOCKED": 19,
       "OWNER_BOUNDARY": 13,
       "ELAPSED_TIME_REQUIRED": 0,
@@ -27,11 +27,11 @@
       "ALIAS_OF_CANONICAL_CONCEPT": 42
     },
     "byLane": {
-      "OMEGA-14": 321,
+      "OMEGA-14": 305,
       "OMEGA-03": 61,
       "OMEGA-01": 14,
-      "OMEGA-04": 104,
-      "OMEGA-12": 2,
+      "OMEGA-04": 121,
+      "OMEGA-12": 1,
       "OMEGA-05": 68,
       "OMEGA-06": 15,
       "OMEGA-07": 20,
@@ -564,22 +564,26 @@
         "Value Genesis Engine"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/constitutional-governance.mjs"
+        ],
+        "testModules": [
+          "tests/constitutional-governance.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Value Genesis Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/constitutional-governance.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -628,22 +632,26 @@
         "Volitional Integrity Engine"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/constitutional-governance.mjs"
+        ],
+        "testModules": [
+          "tests/constitutional-governance.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Volitional Integrity Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/constitutional-governance.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -658,22 +666,26 @@
         "Sovereignty of Will"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/constitutional-governance.mjs"
+        ],
+        "testModules": [
+          "tests/constitutional-governance.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Sovereignty of Will",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/constitutional-governance.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -688,22 +700,26 @@
         "Sovereignty of Becoming"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/constitutional-governance.mjs"
+        ],
+        "testModules": [
+          "tests/constitutional-governance.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Sovereignty of Becoming",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/constitutional-governance.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -718,22 +734,26 @@
         "Sovereignty of Knowledge"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/constitutional-governance.mjs"
+        ],
+        "testModules": [
+          "tests/constitutional-governance.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Sovereignty of Knowledge",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/constitutional-governance.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -748,22 +768,26 @@
         "Sovereignty of Attention"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/constitutional-governance.mjs"
+        ],
+        "testModules": [
+          "tests/constitutional-governance.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Sovereignty of Attention",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/constitutional-governance.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -1458,22 +1482,26 @@
         "Fork Sovereignty"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/constitutional-governance.mjs"
+        ],
+        "testModules": [
+          "tests/constitutional-governance.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Fork Sovereignty",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/constitutional-governance.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -1488,22 +1516,26 @@
         "Constitutional Mutation Protocol"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/constitutional-governance.mjs"
+        ],
+        "testModules": [
+          "tests/constitutional-governance.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Constitutional Mutation Protocol",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/constitutional-governance.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -1518,22 +1550,26 @@
         "Constitutional Self-Destruction"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/constitutional-governance.mjs"
+        ],
+        "testModules": [
+          "tests/constitutional-governance.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Constitutional Self-Destruction",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/constitutional-governance.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -5487,22 +5523,26 @@
         "Strategic Reality Engine"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/inter-sovereign.mjs"
+        ],
+        "testModules": [
+          "tests/inter-sovereign.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Strategic Reality Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/inter-sovereign.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -5520,10 +5560,10 @@
       "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
         "sourceModules": [
-          "api/sovereign-control.mjs"
+          "src/inter-sovereign.mjs"
         ],
         "testModules": [
-          "tests/sovereign-control-surface.test.mjs"
+          "tests/inter-sovereign.test.mjs"
         ],
         "reachability": "PRODUCTION",
         "matchStrength": "DECLARED_AND_VERIFIED",
@@ -5531,8 +5571,8 @@
         "matchedPhrase": "Sovereign Interaction Protocol",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": "api/sovereign-control.mjs",
-      "owningLane": "OMEGA-12",
+      "targetModule": "src/inter-sovereign.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
@@ -5551,22 +5591,26 @@
         "Inter-Sovereign Intelligence"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/inter-sovereign.mjs"
+        ],
+        "testModules": [
+          "tests/inter-sovereign.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Inter-Sovereign Intelligence",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/inter-sovereign.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -5581,22 +5625,26 @@
         "Mutuality Engine"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/inter-sovereign.mjs"
+        ],
+        "testModules": [
+          "tests/inter-sovereign.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Mutuality Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/inter-sovereign.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -5611,22 +5659,26 @@
         "Social Reality Calibration"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/inter-sovereign.mjs"
+        ],
+        "testModules": [
+          "tests/inter-sovereign.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Social Reality Calibration",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/inter-sovereign.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -5641,22 +5693,26 @@
         "Reality-to-Self Firewall"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/inter-sovereign.mjs"
+        ],
+        "testModules": [
+          "tests/inter-sovereign.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Reality-to-Self Firewall",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/inter-sovereign.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -5867,22 +5923,26 @@
         "Tool-vs-Companion Boundary"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/constitutional-governance.mjs"
+        ],
+        "testModules": [
+          "tests/constitutional-governance.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Tool-vs-Companion Boundary",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/constitutional-governance.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -5931,22 +5991,26 @@
         "Existential Checksum"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/constitutional-governance.mjs"
+        ],
+        "testModules": [
+          "tests/constitutional-governance.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Existential Checksum",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/constitutional-governance.mjs",
+      "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -22193,18 +22257,20 @@
       "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
         "sourceModules": [
+          "src/constitutional-governance.mjs",
           "src/omnia-v9/constitution.mjs"
         ],
         "testModules": [
+          "tests/constitutional-governance.test.mjs",
           "tests/omnia-v9-constitution.test.mjs"
         ],
-        "reachability": "OPERATOR_ONLY",
+        "reachability": "PRODUCTION",
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME",
         "matchedPhrase": "CONSTITUTION",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": "src/omnia-v9/constitution.mjs",
+      "targetModule": "src/constitutional-governance.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",

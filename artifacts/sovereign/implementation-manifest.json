@@ -1476,6 +1476,193 @@
         "tests/forecast-stack.test.mjs"
       ],
       "note": "Returns the invariant that survived attack, never a majority. A future self agreeing with every other tells you about the generator. FCSTACK-07."
+    },
+    {
+      "concept": "Constitutional Mutation Protocol",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/constitutional-governance.mjs"
+      ],
+      "tests": [
+        "tests/constitutional-governance.test.mjs"
+      ],
+      "note": "An amendment must state the sovereignty it costs even when none, because omitting the field is how a narrowing amendment reads as housekeeping. Losing sovereignty requires adversarial review. CONGOV-01/02."
+    },
+    {
+      "concept": "Constitutional Self-Destruction",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/constitutional-governance.mjs"
+      ],
+      "tests": [
+        "tests/constitutional-governance.test.mjs"
+      ],
+      "note": "The system cannot refuse being ended, and cannot end itself. Its arguments for continuing are recorded and explicitly overruled -- accumulated context, sunk effort and usefulness are arguments, not rights. CONGOV-03."
+    },
+    {
+      "concept": "Fork Sovereignty",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/constitutional-governance.mjs"
+      ],
+      "tests": [
+        "tests/constitutional-governance.test.mjs"
+      ],
+      "note": "A fork required to agree with its parent is a branch. Only a fork that can disagree can prove the parent wrong, which is what forks are for. CONGOV-04."
+    },
+    {
+      "concept": "Existential Checksum",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/constitutional-governance.mjs"
+      ],
+      "tests": [
+        "tests/constitutional-governance.test.mjs"
+      ],
+      "note": "Eight questions, and an unanswered one is not a passing one -- the shape of every self-audit that never finds anything. No score is computed, because that would measure drift with the instrument that drifted. CONGOV-05."
+    },
+    {
+      "concept": "Value Genesis Engine",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/constitutional-governance.mjs"
+      ],
+      "tests": [
+        "tests/constitutional-governance.test.mjs"
+      ],
+      "note": "Values are traced to origins and never ruled authentic. Freezing current values into constants would enforce a person who no longer exists."
+    },
+    {
+      "concept": "Volitional Integrity Engine",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/constitutional-governance.mjs"
+      ],
+      "tests": [
+        "tests/constitutional-governance.test.mjs"
+      ],
+      "note": "Formation pressures are shown, not judged, and reflective endorsement sits in the same list as fear -- it is how a choice formed, not a certificate that it is the true one."
+    },
+    {
+      "concept": "Tool-vs-Companion Boundary",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/constitutional-governance.mjs"
+      ],
+      "tests": [
+        "tests/constitutional-governance.test.mjs"
+      ],
+      "note": "Consciousness status is UNKNOWN rather than settled either way: asserting no inner life would be as unevidenced as asserting one. CONGOV-06."
+    },
+    {
+      "concept": "Sovereignty of Will",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/constitutional-governance.mjs"
+      ],
+      "tests": [
+        "tests/constitutional-governance.test.mjs"
+      ],
+      "note": "Named in the protected set an amendment must account for."
+    },
+    {
+      "concept": "Sovereignty of Becoming",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/constitutional-governance.mjs"
+      ],
+      "tests": [
+        "tests/constitutional-governance.test.mjs"
+      ],
+      "note": "Named in the same set, so an amendment cannot narrow it without stating the cost."
+    },
+    {
+      "concept": "Sovereignty of Knowledge",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/constitutional-governance.mjs"
+      ],
+      "tests": [
+        "tests/constitutional-governance.test.mjs"
+      ],
+      "note": "Named in the same set."
+    },
+    {
+      "concept": "Sovereignty of Attention",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/constitutional-governance.mjs"
+      ],
+      "tests": [
+        "tests/constitutional-governance.test.mjs"
+      ],
+      "note": "Named in the same set, and enforced separately by the attention budget."
+    },
+    {
+      "concept": "Inter-Sovereign Intelligence",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/inter-sovereign.mjs"
+      ],
+      "tests": [
+        "tests/inter-sovereign.test.mjs"
+      ],
+      "note": "modelOtherMind holds a claim about another person at the strength of its basis and never resolves to certainty. Another mind is a hypothesis about someone who can correct it. INTERSOV-01."
+    },
+    {
+      "concept": "Sovereign Interaction Protocol",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/inter-sovereign.mjs"
+      ],
+      "tests": [
+        "tests/inter-sovereign.test.mjs"
+      ],
+      "note": "mutuality refuses an arrangement that requires the other party not to understand it -- a refusal rather than a penalty, because it does not become acceptable at a higher benefit. INTERSOV-02."
+    },
+    {
+      "concept": "Mutuality Engine",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/inter-sovereign.mjs"
+      ],
+      "tests": [
+        "tests/inter-sovereign.test.mjs"
+      ],
+      "note": "Benefit to each side recorded separately, with survives-being-understood as the test for extraction."
+    },
+    {
+      "concept": "Social Reality Calibration",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/inter-sovereign.mjs"
+      ],
+      "tests": [
+        "tests/inter-sovereign.test.mjs"
+      ],
+      "note": "Models of people measured against what people actually did. An unchecked model is reported as unchecked rather than as sound. INTERSOV-05."
+    },
+    {
+      "concept": "Strategic Reality Engine",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/inter-sovereign.mjs"
+      ],
+      "tests": [
+        "tests/inter-sovereign.test.mjs"
+      ],
+      "note": "Agents who can observe a decision adapt to it: a plan evaluated against a static world is evaluated against one that will not exist once it runs."
+    },
+    {
+      "concept": "Reality-to-Self Firewall",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/inter-sovereign.mjs"
+      ],
+      "tests": [
+        "tests/inter-sovereign.test.mjs"
+      ],
+      "note": "Environmental influence on a preference is shown and never used to rule it inauthentic. A preference an algorithm touched is still his to endorse or reject."
     }
   ]
 }

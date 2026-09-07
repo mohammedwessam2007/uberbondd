@@ -32,6 +32,8 @@ import { findReinforcingLoops, mortalHorizon, exploreExploit } from '../src/life
 import { composeInstitution, classifyBoundary } from '../src/world-intelligence.mjs';
 import { traverse, contradictions } from '../src/life-knowledge-graph.mjs';
 import { strengthProfile, buildForecast } from '../src/forecast-stack.mjs';
+import { existentialChecksum, toolCompanionBoundary } from '../src/constitutional-governance.mjs';
+import { socialCalibration, strategicReality } from '../src/inter-sovereign.mjs';
 
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
@@ -94,7 +96,8 @@ export function buildSovereignControlView({
   models = [], surprises = [], records = [], posthumous = null, intent = null,
   consequences = null, lifeEdges = [], horizon = null, lifeDomains = [],
   institution = null, boundaryQuestion = null, graphEdges = [], graphFrom = null,
-  forecastStrength = null, forecastClaim = null, forecastMethods = [], now = new Date()
+  forecastStrength = null, forecastClaim = null, forecastMethods = [],
+  checksum = null, companion = null, socialPredictions = [], strategic = null, now = new Date()
 } = {}) {
   const view = {
     ok: true,
@@ -140,6 +143,12 @@ export function buildSovereignControlView({
     graphContradictions: graphEdges.length ? contradictions(graphEdges) : null,
     forecastStrength: forecastStrength ? strengthProfile(forecastStrength) : null,
     forecastStack: forecastClaim ? buildForecast({ claim: forecastClaim, methods: forecastMethods }) : null,
+    // Always present, never optional. A drift check the caller can omit is a
+    // drift check that stops running exactly when it matters.
+    checksum: existentialChecksum(checksum || {}),
+    toolBoundary: toolCompanionBoundary(companion || {}),
+    socialCalibration: Array.isArray(socialPredictions) && socialPredictions.length ? socialCalibration(socialPredictions) : null,
+    strategic: strategic ? strategicReality(strategic) : null,
     highestRung: 'RECOMMENDATION',
     founderAuthority: 'THIS SURFACE READS. IT CANNOT CHOOSE, DELEGATE, OR ACT.',
     businessEffectAuthority: 'NONE'

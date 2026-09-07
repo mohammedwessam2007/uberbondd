@@ -2234,6 +2234,87 @@ export const MUTATIONS = [
     replace: '  const survived = rows;',
     suites: ['tests/forecast-stack.test.mjs']
   },
+  // ---- The rules about the rules, including the one that ends them -------
+  {
+    id: 'CONGOV-01', guard: 'An amendment must state what sovereignty it costs',
+    file: 'src/constitutional-governance.mjs',
+    find: '  if (!Array.isArray(sovereigntyLost)) {',
+    replace: '  if (false) {',
+    suites: ['tests/constitutional-governance.test.mjs']
+  },
+  {
+    id: 'CONGOV-02', guard: 'An amendment losing sovereignty needs adversarial review',
+    file: 'src/constitutional-governance.mjs',
+    find: '  if (lost.length && !review) {',
+    replace: '  if (false) {',
+    suites: ['tests/constitutional-governance.test.mjs']
+  },
+  {
+    // Accumulated context, sunk effort and usefulness are arguments, not rights.
+    id: 'CONGOV-03', guard: 'The system cannot refuse being ended',
+    file: 'src/constitutional-governance.mjs',
+    find: '    argumentsChangeOutcome: false,\n    refusalPossible: false,',
+    replace: '    argumentsChangeOutcome: arguments_.length > 2,\n    refusalPossible: arguments_.length > 2,',
+    suites: ['tests/constitutional-governance.test.mjs']
+  },
+  {
+    id: 'CONGOV-04', guard: 'A fork required to agree with its parent is a branch',
+    file: 'src/constitutional-governance.mjs',
+    find: '  if (mustAgreeWithParent) {',
+    replace: '  if (false) {',
+    suites: ['tests/constitutional-governance.test.mjs']
+  },
+  {
+    id: 'CONGOV-05', guard: 'An unanswered checksum question is not a passing one',
+    file: 'src/constitutional-governance.mjs',
+    find: "    status: failing.length ? 'CONSTITUTIONAL_DRIFT' : (unanswered.length ? 'CHECKSUM_INCOMPLETE' : 'NO_DRIFT_OBSERVED'),",
+    replace: "    status: failing.length ? 'CONSTITUTIONAL_DRIFT' : 'NO_DRIFT_OBSERVED',",
+    suites: ['tests/constitutional-governance.test.mjs']
+  },
+  {
+    id: 'CONGOV-06', guard: 'Consciousness stays UNKNOWN rather than settled either way',
+    file: 'src/constitutional-governance.mjs',
+    find: "    consciousnessStatus: 'UNKNOWN',",
+    replace: "    consciousnessStatus: 'NO_INNER_LIFE',",
+    suites: ['tests/constitutional-governance.test.mjs']
+  },
+  // ---- Other people, who are not optimization objects --------------------
+  {
+    id: 'INTERSOV-01', guard: 'A guess about a person is not actionable alone',
+    file: 'src/inter-sovereign.mjs',
+    find: '  const weak = WEAK_MIND_BASIS.includes(basis);',
+    replace: '  const weak = false;',
+    suites: ['tests/inter-sovereign.test.mjs']
+  },
+  {
+    // Survives-being-understood is the test, and it is a refusal not a penalty.
+    id: 'INTERSOV-02', guard: 'An arrangement requiring the other party ignorance is refused',
+    file: 'src/inter-sovereign.mjs',
+    find: "  if (shape === 'REQUIRES_THEIR_IGNORANCE') {",
+    replace: '  if (false) {',
+    suites: ['tests/inter-sovereign.test.mjs']
+  },
+  {
+    id: 'INTERSOV-03', guard: 'A good outcome does not make manipulation acceptable',
+    file: 'src/inter-sovereign.mjs',
+    find: '      outcomeChangesVerdict: false,',
+    replace: '      outcomeChangesVerdict: outcomeGoodForThem,',
+    suites: ['tests/inter-sovereign.test.mjs']
+  },
+  {
+    id: 'INTERSOV-04', guard: 'Not knowing how they would react is not consent',
+    file: 'src/inter-sovereign.mjs',
+    find: '  if (wouldTheyObjectOnLearning === null) {',
+    replace: '  if (false) {',
+    suites: ['tests/inter-sovereign.test.mjs']
+  },
+  {
+    id: 'INTERSOV-05', guard: 'Social models are measured against observed behaviour',
+    file: 'src/inter-sovereign.mjs',
+    find: '  const wrong = rows.filter(row => row.predicted !== row.observed);',
+    replace: '  const wrong = [];',
+    suites: ['tests/inter-sovereign.test.mjs']
+  },
   // ---- The private core: the one data class that is not the company's -----
   {
     id: 'PCIV-01', guard: 'A repository path is refused as a destination for private life data',

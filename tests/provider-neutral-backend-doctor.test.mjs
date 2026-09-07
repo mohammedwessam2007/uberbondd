@@ -1,5 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { inspectPortableBackend } from '../scripts/provider-neutral-backend-doctor.mjs';
 
 const completeEnv = {
@@ -14,6 +17,7 @@ test('portable backend doctor recognizes the compose contract with complete depl
   assert.equal(report.status, 'READY_FOR_HOST_REHEARSAL');
   assert.deepEqual(report.missingFiles, []);
   assert.deepEqual(report.missingComposeMarkers, []);
+  assert.deepEqual(report.portableSecurityFailures, []);
   assert.equal(report.runtimeProof, 'NONE');
 });
 
@@ -35,4 +39,23 @@ test('portable backend doctor rejects password interpolation hazards and short a
 test('portable backend doctor exercises production startup validation for web and worker', () => {
   const report = inspectPortableBackend({ env: completeEnv });
   assert.deepEqual(report.startupFailures, []);
+});
+
+test('portable backend doctor fails closed if a portable entrypoint bypasses server.mjs hardening', () => {
+  const repoRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'uberbond-portable-doctor-'));
+  try {
+    for (const file of ['Dockerfile', 'server.mjs', 'worker.mjs']) fs.writeFileSync(path.join(repoRoot, file), 'fixture');
+    fs.mkdirSync(path.join(repoRoot, 'scripts'), { recursive: true });
+    fs.writeFileSync(path.join(repoRoot, 'scripts/migrate.mjs'), 'fixture');
+    fs.writeFileSync(path.join(repoRoot, 'scripts/provider-neutral-backend-doctor.mjs'), 'fixture');
+    fs.writeFileSync(path.join(repoRoot, 'portable-server.mjs'), "const coreUrl = new URL('./server-core.mjs', import.meta.url);\n");
+    fs.writeFileSync(path.join(repoRoot, 'docker-compose.yml'), 'postgres:\nmigrate:\nweb:\nworker:\nportable-server.mjs\nservice_completed_successfully\n/api/health\n');
+    const report = inspectPortableBackend({ repoRoot, env: completeEnv });
+    assert.equal(report.status, 'REFUSED');
+    assert.ok(report.reasons.includes('portable-auth-boundary-bypassed'));
+    assert.ok(report.portableSecurityFailures.includes('canonical-server-facade-not-composed'));
+    assert.ok(report.portableSecurityFailures.includes('server-core-direct-entrypoint-bypass'));
+  } finally {
+    fs.rmSync(repoRoot, { recursive: true, force: true });
+  }
 });

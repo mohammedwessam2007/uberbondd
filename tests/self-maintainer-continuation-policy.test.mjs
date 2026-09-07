@@ -3,11 +3,12 @@ import assert from 'node:assert/strict';
 import { decideSelfMaintainerContinuation } from '../src/self-maintainer-continuation-policy.mjs';
 
 const BASE = 'a'.repeat(40);
-const task = status => decideSelfMaintainerContinuation({
+const task = (status, reasonCodes = []) => decideSelfMaintainerContinuation({
   taskId: 'uberbond_self_maintain_aaaaaaaaaaaaaaaaaaaaaaaa',
   baseRevision: BASE,
   relayStatus: status,
-  evidenceRefs: [`test:${status.toLowerCase()}`]
+  reasonCodes,
+  evidenceRefs: [`test:${status.toLowerCase()}`, ...reasonCodes.map(code => `reason:${code}`)]
 });
 
 test('waiting for the existing worker never creates a duplicate attempt', () => {
@@ -25,7 +26,7 @@ test('review pending never reimplements or repromotes because an hour elapsed', 
   assert.match(result.truthBoundary, /CLOCK TIME DOES NOT CREATE/);
 });
 
-for (const blocked of ['WORKER_REPAIR_REQUIRED', 'RELAY_UNAVAILABLE', 'PROMOTION_BLOCKED', 'RUNTIME_BLOCKED', 'CANDIDATE_REJECTED']) {
+for (const blocked of ['WORKER_REPAIR_REQUIRED', 'RELAY_UNAVAILABLE', 'PROMOTION_BLOCKED', 'RUNTIME_BLOCKED']) {
   test(`${blocked} requires strategy mutation instead of another clock retry`, () => {
     const result = task(blocked);
     assert.equal(result.ok, true);
@@ -38,6 +39,24 @@ for (const blocked of ['WORKER_REPAIR_REQUIRED', 'RELAY_UNAVAILABLE', 'PROMOTION
     assert.equal(result.businessEffectAuthority, 'NONE');
   });
 }
+
+test('malformed or unsafe candidate rejection mutates the candidate-generation strategy', () => {
+  const result = task('CANDIDATE_REJECTED', ['candidate-required-verification-missing']);
+  assert.equal(result.status, 'STRATEGY_MUTATION_REQUIRED');
+  assert.equal(result.nextMechanismMustDiffer, true);
+  assert.equal(result.mutationPlan.identicalRetryAllowed, false);
+});
+
+test('principled worker STOP is preserved as a stopping rule instead of forced mutation', () => {
+  const result = task('CANDIDATE_REJECTED', ['worker-decision-stop']);
+  assert.equal(result.ok, true);
+  assert.equal(result.status, 'NO_SAFE_CHANGE_THIS_BASE');
+  assert.equal(result.decision, 'WAIT_FOR_NEW_EVIDENCE_OR_MAIN_CHANGE');
+  assert.equal(result.nextMechanismMustDiffer, false);
+  assert.equal(result.requiresNewEvidenceOrNewMechanism, true);
+  assert.match(result.truthBoundary, /PRINCIPLED STOP IS A STOPPING RULE/);
+  assert.equal(result.businessEffectAuthority, 'NONE');
+});
 
 test('authority/promotion block never recommends circumvention', () => {
   const result = task('PROMOTION_BLOCKED');

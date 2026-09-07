@@ -1719,6 +1719,170 @@ export const MUTATIONS = [
     replace: '',
     suites: ['tests/sovereign-coverage-matrix.test.mjs']
   },
+  // ---- A life decision described on every dimension, never collapsed -----
+  {
+    // The exchange rate between meaning and money is the value judgment. A
+    // total silently sets one.
+    id: 'LIFEDIM-01', guard: 'Cost dimensions invert, so cheaper is better rather than smaller',
+    file: 'src/life-decision-dimensions.mjs',
+    find: 'const better = (dimension, a, b) => (COST_DIMENSIONS.includes(dimension) ? a < b : a > b);',
+    replace: 'const better = (dimension, a, b) => a > b;',
+    suites: ['tests/life-decision-dimensions.test.mjs']
+  },
+  {
+    id: 'LIFEDIM-03', guard: 'Dominance requires losing on nothing',
+    file: 'src/life-decision-dimensions.mjs',
+    find: '      if (wins.length && losses.length === 0) {',
+    replace: '      if (wins.length >= losses.length) {',
+    suites: ['tests/life-decision-dimensions.test.mjs']
+  },
+  {
+    id: 'LIFEDIM-04', guard: 'An unscored dimension is not a zero',
+    file: 'src/life-decision-dimensions.mjs',
+    find: '    if (Number.isFinite(magnitude) && magnitude >= 0 && magnitude <= 1) scores[dimension] = magnitude;',
+    replace: '    scores[dimension] = Number.isFinite(magnitude) ? magnitude : 0;',
+    suites: ['tests/life-decision-dimensions.test.mjs']
+  },
+  // ---- Futures as counterfactuals, and what they may decide --------------
+  {
+    id: 'FUTURE-01', guard: 'A future with no assumption lineage is refused',
+    file: 'src/reachable-futures.mjs',
+    find: "  if (!lineage) return fail('FUTURE_INVALID', ['assumption-lineage-required'], {",
+    replace: '  if (false) return fail(\'FUTURE_INVALID\', [\'assumption-lineage-required\'], {',
+    suites: ['tests/reachable-futures.test.mjs']
+  },
+  {
+    id: 'FUTURE-02', guard: 'An ancestor must cross independent lineages, not repeat inside one',
+    file: 'src/reachable-futures.mjs',
+    find: '      isAncestor: entry.lineages.size >= 2',
+    replace: '      isAncestor: entry.futures.length >= 2',
+    suites: ['tests/reachable-futures.test.mjs']
+  },
+  {
+    id: 'FUTURE-03', guard: 'Uncertainty may not narrow as the horizon lengthens',
+    file: 'src/reachable-futures.mjs',
+    find: '  if (narrowing.length) {',
+    replace: '  if (false) {',
+    suites: ['tests/reachable-futures.test.mjs']
+  },
+  {
+    id: 'FUTURE-04', guard: 'Only desirable futures contribute ancestors',
+    file: 'src/reachable-futures.mjs',
+    find: '  const desirable = rows.filter(row => row.desirable);',
+    replace: '  const desirable = rows;',
+    suites: ['tests/reachable-futures.test.mjs']
+  },
+  // ---- Capability, and what growing it costs elsewhere -------------------
+  {
+    // The exact moment a system decides someone cannot do something.
+    id: 'CAPGEN-01', guard: 'A durable limit cannot be claimed from thin evidence',
+    file: 'src/human-capability-genome.mjs',
+    find: "  if (explanation === 'DURABLE_LIMIT' && !supportsDurableClaim(basis)) {",
+    replace: '  if (false) {',
+    suites: ['tests/human-capability-genome.test.mjs']
+  },
+  {
+    id: 'CAPGEN-02', guard: 'A thin assessment stays provisional',
+    file: 'src/human-capability-genome.mjs',
+    find: '      provisional: !supportsDurableClaim(basis),',
+    replace: '      provisional: false,',
+    suites: ['tests/human-capability-genome.test.mjs']
+  },
+  {
+    id: 'CAPGEN-03', guard: 'An absent capability binds harder than a weak one',
+    file: 'src/human-capability-genome.mjs',
+    find: "  const bottleneck = missing.length ? { capability: missing[0], reason: 'ABSENT' }",
+    replace: '  const bottleneck = false ? null',
+    suites: ['tests/human-capability-genome.test.mjs']
+  },
+  {
+    id: 'CAPGEN-04', guard: 'Delegation and atrophy are counted separately',
+    file: 'src/human-capability-genome.mjs',
+    find: "    debt: atrophying.length,",
+    replace: '    debt: atrophying.length + delegated.length,',
+    suites: ['tests/human-capability-genome.test.mjs']
+  },
+  {
+    id: 'CAPGEN-05', guard: 'A gap carries its provisional flag into the skeleton',
+    file: 'src/human-capability-genome.mjs',
+    find: '      provisional: have.get(name)?.provisional ?? true',
+    replace: '      provisional: false',
+    suites: ['tests/human-capability-genome.test.mjs']
+  },
+  // ---- A model of a person that is not allowed to become a cage ----------
+  {
+    // "He is not a morning person", from a fortnight of bad sleep.
+    id: 'SELFMODEL-01', guard: 'A durable claim from one context is identity compression',
+    file: 'src/living-self-model.mjs',
+    find: '  if (DURABLE_KINDS.includes(kind) && contexts.length < 2) {',
+    replace: '  if (false) {',
+    suites: ['tests/living-self-model.test.mjs']
+  },
+  {
+    id: 'SELFMODEL-02', guard: 'Competing readings of a person are preserved, not resolved',
+    file: 'src/living-self-model.mjs',
+    find: '  const contested = rows.filter(row => (row.alternativeReadings || []).length > 0);',
+    replace: '  const contested = [];',
+    suites: ['tests/living-self-model.test.mjs']
+  },
+  {
+    id: 'SELFMODEL-03', guard: 'An untraced preference reads UNKNOWN, not a flattering origin',
+    file: 'src/living-self-model.mjs',
+    find: "    origins: traced.length ? traced : ['UNKNOWN'],",
+    replace: "    origins: traced.length ? traced : ['REPEATED_REFLECTION'],",
+    suites: ['tests/living-self-model.test.mjs']
+  },
+  {
+    id: 'SELFMODEL-04', guard: 'A want and a wanting-to-want stay distinct',
+    file: 'src/living-self-model.mjs',
+    find: '    conflict: Boolean(second) && second !== first,',
+    replace: '    conflict: false,',
+    suites: ['tests/living-self-model.test.mjs']
+  },
+  {
+    id: 'SELFMODEL-05', guard: 'Probes exclude what reality already exposed',
+    file: 'src/living-self-model.mjs',
+    find: '    .filter(domain => !exposed.has(domain));',
+    replace: '    ;',
+    suites: ['tests/living-self-model.test.mjs']
+  },
+  // ---- What is shown, what is left out, and whether that decided ---------
+  {
+    id: 'SALIENCE-01', guard: 'An omission with no reason is recorded as unexplained',
+    file: 'src/salience-sovereignty.mjs',
+    find: "      reason: OMISSION_REASONS.includes(row?.reason) ? row.reason : 'NONE_GIVEN'",
+    replace: "      reason: OMISSION_REASONS.includes(row?.reason) ? row.reason : 'BELOW_RELEVANCE_THRESHOLD'",
+    suites: ['tests/salience-sovereignty.test.mjs']
+  },
+  {
+    id: 'SALIENCE-02', guard: 'Frame dependence cannot be inferred from one presentation',
+    file: 'src/salience-sovereignty.mjs',
+    find: '  if (!first || !second) {',
+    replace: '  if (false) {',
+    suites: ['tests/salience-sovereignty.test.mjs']
+  },
+  {
+    // A system that resolves ties toward speaking will speak constantly.
+    id: 'SALIENCE-03', guard: 'A tie resolves to silence',
+    file: 'src/salience-sovereignty.mjs',
+    find: '  if (gain > cost) {',
+    replace: '  if (gain >= cost) {',
+    suites: ['tests/salience-sovereignty.test.mjs']
+  },
+  {
+    id: 'SALIENCE-04', guard: 'The displaced mental state counts as a cost',
+    file: 'src/salience-sovereignty.mjs',
+    find: '  const cost = (Number(switchingCost) || 0) + (Number(currentStateValue) || 0);',
+    replace: '  const cost = (Number(switchingCost) || 0);',
+    suites: ['tests/salience-sovereignty.test.mjs']
+  },
+  {
+    id: 'SALIENCE-05', guard: 'Something irreversible if missed interrupts regardless of arithmetic',
+    file: 'src/salience-sovereignty.mjs',
+    find: '  if (irreversibleIfMissed) {',
+    replace: '  if (false) {',
+    suites: ['tests/salience-sovereignty.test.mjs']
+  },
   // ---- The private core: the one data class that is not the company's -----
   {
     id: 'PCIV-01', guard: 'A repository path is refused as a destination for private life data',

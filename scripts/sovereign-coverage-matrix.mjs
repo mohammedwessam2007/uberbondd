@@ -48,7 +48,11 @@ const SOURCES = [
   ['artifacts/personal-civilization-engine-north-star.json', 'personal-civilization', [
     ['hierarchy', 'HIERARCHY'], ['canonicalLifeSystems', 'PERSONAL_CIVILIZATION_ORGAN'],
     ['supportingCognitiveTechnicalSystems', 'CONCEPT'], ['economicInventionSystems', 'ECONOMIC_DONOR'],
-    ['farFutureConceptualDonors', 'CONCEPT'], ['lifeDecisionDimensions', 'FORECAST_DIMENSION'],
+    ['farFutureConceptualDonors', 'CONCEPT'],
+    // Parented now that an organ produces them. evaluationDimensions below
+    // stays parentless on purpose: those are criteria for a human reviewing
+    // UberBond, not outputs any module computes.
+    ['lifeDecisionDimensions', 'FORECAST_DIMENSION', 'Value Manifold'],
     ['humanSovereigntyLaws', 'AUTHORITY_LAW'], ['evaluationDimensions', 'FORECAST_DIMENSION']]],
   ['artifacts/perpetual-frontier-genesis.json', 'genesis', [
     ['frontierMechanisms', 'GENESIS_MECHANISM'], ['coreLoop', 'LOOP_STAGE'],

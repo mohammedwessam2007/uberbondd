@@ -310,6 +310,292 @@
         "tests/supplier-exit-drill.test.mjs"
       ],
       "note": "judgeExitDrill refuses to pass unless EXPORT, RESTORE, CUTOVER and ROLLBACK each produced evidence: digests are compared rather than a success boolean trusted, and an empty export cannot pass by restoring perfectly. scripts/supplier-exit-drill.mjs runs it for real against 11 durable canon files, restoring into a disposable cell and reading the bytes back off disk. Canon names no 'Supplier Exit Drills' concept -- that is the mission document's phrasing -- so only this row is declared. EXIT-01..06."
+    },
+    {
+      "concept": "Value Pluralism",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/life-decision-dimensions.mjs"
+      ],
+      "tests": [
+        "tests/life-decision-dimensions.test.mjs"
+      ],
+      "note": "compareLifeOptions reports dominance and tradeoffs and produces no weighted total, because the weights would be the value judgment. Cost dimensions invert so cheaper reads as better. LIFEDIM-01/03."
+    },
+    {
+      "concept": "Value Manifold",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/life-decision-dimensions.mjs"
+      ],
+      "tests": [
+        "tests/life-decision-dimensions.test.mjs"
+      ],
+      "note": "The twenty canon life dimensions carried unweighted; an out-of-range score is dropped rather than coerced to zero, which would record an assessment nobody made. LIFEDIM-04."
+    },
+    {
+      "concept": "Anti-Goodhart Intelligence",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/life-decision-dimensions.mjs"
+      ],
+      "tests": [
+        "tests/life-decision-dimensions.test.mjs"
+      ],
+      "note": "goodhartRisk names routes from maximizing a proxy to losing what it stands for, and says that finding no route is not the same as none existing."
+    },
+    {
+      "concept": "Personal Counterfactual Universe",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/reachable-futures.mjs"
+      ],
+      "tests": [
+        "tests/reachable-futures.test.mjs"
+      ],
+      "note": "projectFuture refuses a future with no stated assumption lineage, because futures with no lineage are countable and counting them measures the generator rather than the life. FUTURE-01."
+    },
+    {
+      "concept": "Future-Ancestor Compiler",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/reachable-futures.mjs"
+      ],
+      "tests": [
+        "tests/reachable-futures.test.mjs"
+      ],
+      "note": "futureAncestors requires a requirement to cross independent lineages. Appearing ten times inside one assumption set is a fact about that set. FUTURE-02/04."
+    },
+    {
+      "concept": "Reachable Future Geometry",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/reachable-futures.mjs"
+      ],
+      "tests": [
+        "tests/reachable-futures.test.mjs"
+      ],
+      "note": "reachableGeometry reports opened and closed branches without scoring closure as loss -- a module that did would recommend against every commitment a life is made of."
+    },
+    {
+      "concept": "Personal Time Telescope",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/reachable-futures.mjs"
+      ],
+      "tests": [
+        "tests/reachable-futures.test.mjs"
+      ],
+      "note": "timeTelescope refuses a projection whose uncertainty narrows as the horizon lengthens: false precision exactly where it is least checkable. FUTURE-03."
+    },
+    {
+      "concept": "Personal Council of Future Selves",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/reachable-futures.mjs"
+      ],
+      "tests": [
+        "tests/reachable-futures.test.mjs"
+      ],
+      "note": "councilOfFutureSelves surfaces disagreement and computes no majority. Positions record who holds them, never how many, because a tally is a vote and a vote among simulated selves outnumbers the present one."
+    },
+    {
+      "concept": "Human Capability Genome",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/human-capability-genome.mjs"
+      ],
+      "tests": [
+        "tests/human-capability-genome.test.mjs"
+      ],
+      "note": "capabilityAtom refuses a DURABLE_LIMIT claim unless varied or longitudinal evidence supports it, and keeps a thin assessment provisional. This is the exact moment a system decides someone cannot do something. CAPGEN-01/02."
+    },
+    {
+      "concept": "Osteogenesis",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/human-capability-genome.mjs"
+      ],
+      "tests": [
+        "tests/human-capability-genome.test.mjs"
+      ],
+      "note": "growSkeleton names what a future is missing and carries the provisional flag through, so a thin assessment cannot harden into a verdict inside a skeleton. CAPGEN-05."
+    },
+    {
+      "concept": "Osteogenesis for Life",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/human-capability-genome.mjs"
+      ],
+      "tests": [
+        "tests/human-capability-genome.test.mjs"
+      ],
+      "note": "The same organ under its Personal Civilization name; one implementation, two canon phrasings."
+    },
+    {
+      "concept": "Agency Debt",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/human-capability-genome.mjs"
+      ],
+      "tests": [
+        "tests/human-capability-genome.test.mjs"
+      ],
+      "note": "agencyDebt separates delegation from atrophy: delegating something still practised is not losing it, and merging the two either cries wolf or hides the real losses. CAPGEN-04."
+    },
+    {
+      "concept": "Capability Atrophy Detector",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/human-capability-genome.mjs"
+      ],
+      "tests": [
+        "tests/human-capability-genome.test.mjs"
+      ],
+      "note": "The trajectory vocabulary distinguishes strengthening, maintained, delegated, atrophying and deliberately abandoned, so only unnoticed atrophy counts as debt."
+    },
+    {
+      "concept": "Bottleneck Theorem",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/human-capability-genome.mjs"
+      ],
+      "tests": [
+        "tests/human-capability-genome.test.mjs"
+      ],
+      "note": "findBottleneck returns the single binding constraint, with an absent capability binding harder than a weak one. A ranked list is how effort spreads across dimensions that were not the constraint. CAPGEN-03."
+    },
+    {
+      "concept": "Identity Evolution Engine",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/living-self-model.mjs"
+      ],
+      "tests": [
+        "tests/living-self-model.test.mjs"
+      ],
+      "note": "observe refuses a durable claim from a single context. 'He is not a morning person' from a fortnight of bad sleep is the compression canon forbids, and it behaves identically to the true version today while producing the opposite future. SELFMODEL-01."
+    },
+    {
+      "concept": "Preference Provenance",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/living-self-model.mjs"
+      ],
+      "tests": [
+        "tests/living-self-model.test.mjs"
+      ],
+      "note": "Origin is shown and never judged. Marking socially-pressured wants inauthentic would be the system deciding which of a person's desires count -- the capture it exists to prevent. An untraced preference reads UNKNOWN. SELFMODEL-03."
+    },
+    {
+      "concept": "Meta-Volition Engine",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/living-self-model.mjs"
+      ],
+      "tests": [
+        "tests/living-self-model.test.mjs"
+      ],
+      "note": "A first-order want and a second-order endorsement are separate objects and conflict between them is reported, never resolved. A system that cannot tell them apart optimizes toward whatever someone currently craves. SELFMODEL-04."
+    },
+    {
+      "concept": "Unknown-Self Engine",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/living-self-model.mjs"
+      ],
+      "tests": [
+        "tests/living-self-model.test.mjs"
+      ],
+      "note": "Probes are ranked by what reality has never exposed, not by predicted enjoyment -- predicted enjoyment can only return more of what the past already showed. SELFMODEL-05."
+    },
+    {
+      "concept": "Salience Ledger",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "An omission with no stated reason is recorded as NONE_GIVEN rather than dropped: an unlogged omission is indistinguishable from a decision nobody made. SALIENCE-01."
+    },
+    {
+      "concept": "Salience Sovereignty",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "Position, emphasis and omission are recorded because freedom is bounded by what enters awareness, and a system can be honest in every claim while deciding the outcome by ordering."
+    },
+    {
+      "concept": "Perspective Randomizer",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "frameDependence needs both orderings and refuses to infer from one: without the second the answer is unknown, not clean. SALIENCE-02."
+    },
+    {
+      "concept": "Unchosen-Universe Check",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "Names the option families that never reached the page, and states it cannot enumerate what nobody thought of."
+    },
+    {
+      "concept": "Attention Constitution",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "attentionBudget defaults to silence on a tie and counts the displaced mental state as a cost. Something irreversible if missed interrupts regardless. SALIENCE-03/04/05."
+    },
+    {
+      "concept": "Attention Opportunity Cost",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "The displaced state is the cost that never appears on any ledger, so it is on this one."
+    },
+    {
+      "concept": "AI-Induced Preference Drift Detection",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "preferenceDrift reports convergence as a question. A high agreement rate is equally consistent with the system being right and with the founder having stopped disagreeing, and this does not pretend to tell them apart."
+    },
+    {
+      "concept": "Cognitive Sovereignty Firewall",
+      "lane": "OMEGA-04",
+      "sources": [
+        "src/salience-sovereignty.mjs"
+      ],
+      "tests": [
+        "tests/salience-sovereignty.test.mjs"
+      ],
+      "note": "The same organ from the system's side: it audits its own influence through the salience ledger and the drift question rather than asserting it has none."
     }
   ]
 }

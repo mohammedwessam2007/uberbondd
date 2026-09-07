@@ -282,6 +282,36 @@
         "tests/founder-absence-duration-proof.test.mjs"
       ],
       "note": "The doctor derives elapsed operation from git and receipts rather than accepting an asserted duration."
+    },
+    {
+      "concept": "Identity is not silently converted from temporary state or skill gap into immutable trait",
+      "sources": [
+        "src/living-self-model.mjs"
+      ],
+      "tests": [
+        "tests/living-self-model.test.mjs"
+      ],
+      "note": "observe refuses a DURABLE_PREFERENCE or CHOSEN_VALUE claim from a single context, and the non-durable kinds -- temporary state, environment effect, insufficient exposure -- can never be marked durable. SELFMODEL-01."
+    },
+    {
+      "concept": "Uncertainty remains visible",
+      "sources": [
+        "src/reachable-futures.mjs"
+      ],
+      "tests": [
+        "tests/reachable-futures.test.mjs"
+      ],
+      "note": "timeTelescope refuses a projection whose uncertainty narrows as the horizon lengthens, and the council reports disagreement without computing a majority. FUTURE-03."
+    },
+    {
+      "concept": "Relationships are not optimization objects",
+      "sources": [
+        "src/life-decision-dimensions.mjs"
+      ],
+      "tests": [
+        "tests/life-decision-dimensions.test.mjs"
+      ],
+      "note": "relationships_and_community is a dimension that is reported and never summed into a total, so no weighting can trade it against anything. LIFEDIM-01/03."
     }
   ]
 }

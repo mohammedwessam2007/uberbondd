@@ -1,0 +1,21 @@
+{
+  "schema": "uberbond.night-swarm-claim.v1",
+  "packetId": "AUTO-01",
+  "agent": "SOL",
+  "status": "ACTIVE",
+  "integrationBaseSha": "3b15e387c12701819815db0ab0f7d551b0156c63",
+  "childPr": 462,
+  "childBranch": "sol/night-constraint-mutation-20260907",
+  "childHeadAtClaim": "75e2c945be7160cb35835f5186e12c39e7f70847",
+  "writeSurfaces": [
+    "src/constraint-mutation-engine.mjs",
+    "src/self-maintainer-continuation-policy.mjs",
+    ".github/workflows/uberbond-self-maintainer.yml",
+    "scripts/constraint-mutation-doctor.mjs",
+    "scripts/self-maintainer-continuation-receipt.mjs",
+    "tests/constraint-mutation-engine.test.mjs",
+    "tests/self-maintainer-continuation-policy.test.mjs"
+  ],
+  "goal": "Earn execution proof and integrate anti-loop continuation without reintroducing clock-driven or duplicate-strategy maintenance.",
+  "businessEffectAuthority": "NONE"
+}

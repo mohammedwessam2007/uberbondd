@@ -6,6 +6,8 @@
 // unique provider approval URL only after an authenticated, lead/prospect/SKU-
 // bound PayPal order is created. Capture still is not cleared-payment proof.
 
+import crypto from 'node:crypto';
+
 export * from './first-cash-canary-packet-core.mjs';
 
 import * as core from './first-cash-canary-packet-core.mjs';
@@ -17,6 +19,7 @@ export const LEGACY_FIRST_CASH_PAYMENT_LINK_CLASSIFICATION = 'HISTORICAL_NONCANO
 export const CANONICAL_PAYMENT_TRUTH_BOUNDARY = 'APPROVAL_URL_AND_CAPTURE_RESPONSE_ARE_NOT_CLEARED_PAYMENT_PROOF__SIGNED_PROVIDER_ORIGIN_RECONCILIATION_REQUIRED';
 
 const clone = value => structuredClone(value);
+const digest = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 
 function replaceQuestion(questions, id, replacement) {
   return (Array.isArray(questions) ? questions : []).map(row => row?.question === id ? { ...row, ...replacement } : row);
@@ -58,10 +61,15 @@ export function compileFirstCashCanaryPacket(args = {}) {
     module: 'src/paypal-payment-truth.mjs'
   });
 
+  const packetId = report?.generatedAt && report?.gates
+    ? `firstcash_${digest({ version: FIRST_CASH_CANARY_PACKET_VERSION, atIso: report.generatedAt, gates: report.gates }).slice(0, 24)}`
+    : report?.packetId || null;
+
   return {
     ...report,
     policyVersion: FIRST_CASH_CANARY_PACKET_VERSION,
     schemaVersion: 'uberbond-first-cash-canary-packet-1.5.0',
+    packetId,
     questions,
     paymentMethod: CANONICAL_FIRST_CASH_PAYMENT_METHOD,
     paymentLink: null,

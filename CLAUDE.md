@@ -2,6 +2,14 @@
 
 @AGENTS.md
 @NORTH_STAR.md
+@docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md
+@artifacts/sovereign-cognitive-continuum-total-north-star.json
+@docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md
+@artifacts/sovereign-cognitive-continuum-north-star.json
+@docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md
+@artifacts/sovereign-option-outcome-forecast-engine.json
+@docs/NORTH_STAR_PRECEDENCE.md
+@artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json
 @docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md
 @artifacts/personal-civilization-engine-north-star.json
 @UBERBOND_CANON.md
@@ -17,27 +25,43 @@
 Before the first substantive tool call or plan:
 
 1. Refresh current `main` and never trust a remembered SHA.
-2. Read `NORTH_STAR.md`, `docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`, and `artifacts/personal-civilization-engine-north-star.json` before narrowing UberBond to its economic/company implementation. The Personal Civilization Engine is the highest-level life North Star; the economic objective remains a subordinate supporting objective. Do not treat North Star presence as proof of implementation or life outcomes.
-3. Invoke/read `.claude/skills/task-observer/SKILL.md` and execute its Session Start Protocol using the stable repository `skill-observations/` workspace.
-4. Run `npm run brain` and read the repository brain packet.
-5. Run `npm run capabilities:doctor` and `npm run capabilities:genome:doctor`; distinguish project-native skills, registered suppliers, corpus records, approved capabilities, and functioning host runtimes.
-6. Read `UBERBOND_BOOTSTRAP.json` and every `canonPointers` path, including `docs/WALLBREAKER_CANON.md`.
-7. Inspect open/recent PRs, branches, issues and recent commits before writing.
-8. Read current state/readiness and dedupe against canonical modules.
-9. Apply `docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md` plus `src/external-capability-control-plane.mjs` before installing or invoking external skills/plugins/runtimes.
-10. When a material mission is stuck, repeatedly failing, verifier-constrained, capability-constrained, or has multiple materially different solution families, invoke `.claude/skills/wallbreaker/SKILL.md` before repeating the same mechanism.
+2. Read `README.md` only as the repository entrypoint, then read `NORTH_STAR.md`, `docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`, and `artifacts/sovereign-cognitive-continuum-total-north-star.json` before narrowing UberBond to any company, website-audit, revenue, life, or software implementation.
+3. Read the remaining terminal North Star files imported above, including the Sovereign Option & Outcome Forecast Engine, precedence file, and terminal bootstrap overlay.
+4. Treat the **Sovereign Cognitive Continuum** as the terminal North Star, the **Personal Civilization Engine** as the highest contained life-system organism, and the economic company as a subordinate resource/autonomy organ.
+5. Do not auto-select a website audit, lead-path sprint, Revenue Engine task, or current public-UI feature merely because historical documentation or the live site exposes it. Choose from current truth plus the terminal North Star.
+6. Invoke/read `.claude/skills/task-observer/SKILL.md` and execute its Session Start Protocol using the stable repository `skill-observations/` workspace.
+7. Run `npm run brain` and read the repository brain packet.
+8. Run `npm run capabilities:doctor` and `npm run capabilities:genome:doctor`; distinguish project-native skills, registered suppliers, corpus records, approved capabilities, and functioning host runtimes.
+9. Read `UBERBOND_BOOTSTRAP.json` and every `canonPointers` path, including `docs/WALLBREAKER_CANON.md`; when legacy bootstrap wording still says Personal Civilization is highest-level, apply `docs/NORTH_STAR_PRECEDENCE.md` and `artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json`.
+10. Inspect open/recent PRs, branches, issues and recent commits before writing.
+11. Read current state/readiness and `docs/CURRENT_HANDOFF.json`, but never let a stale handoff override the terminal North Star.
+12. Apply `docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md` plus `src/external-capability-control-plane.mjs` before installing or invoking external skills/plugins/runtimes.
+13. When a material mission is stuck, repeatedly failing, verifier-constrained, capability-constrained, or has multiple materially different solution families, invoke `.claude/skills/wallbreaker/SKILL.md` before repeating the same mechanism.
 
 At material commit/PR/deploy/deliverable boundaries, flush any genuinely useful Task Observer observations. Do not invent observations to satisfy a quota.
 
-## Highest-level North Star law
+## Terminal North Star law
 
-UberBond ultimately exists to support the **Personal Civilization Engine**: a private second cognitive layer around the founder's life that expands agency, capability, understanding, meaningful experience, relationships, freedom and reachable valuable futures while preserving human sovereignty, privacy, uncertainty and reversible choice.
+UberBond ultimately exists to build toward the **Sovereign Cognitive Continuum**: a lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding Mohamed's sovereign free will.
 
-Canonical life-system goals include Life Knowledge Graph, Gamechanger for Life, GENESIS for Life, Osteogenesis for Life, Life Possibility Engine, Personal Counterfactual Universe, Human Capability Genome, Experience Compiler, Identity Evolution Engine, Life Compression Engine, Serendipity Engineering, Personal Time Telescope, Personal Council of Future Selves and Life Autopoiesis Engine.
+The irreducible relationship is:
 
-The existing company machinery remains essential because it creates financial autonomy, founder time, infrastructure, learning and optionality. Its operational economic objective remains **risk-adjusted cleared contribution profit per founder minute**. Never reduce the larger life objective to money, productivity, status, or one scalar score.
+> **Mohamed provides will. UberBond provides intelligence. Reality provides feedback.**
 
-Current code and durable external evidence outrank North Star architecture for present-tense claims. Human choice remains sovereign. No simulated future self, agent, model, score or optimizer may silently create irreversible life authority.
+The total no-drop human/machine pair is:
+
+- `docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`
+- `artifacts/sovereign-cognitive-continuum-total-north-star.json`
+
+That pair preserves the full conceptual space, including sovereignty of will/becoming/knowledge/attention; meta-volition; volitional integrity; meta-rationality; strongest calibrated option/outcome forecasting; unknown-unknown search; ruin/reversibility/regret/recovery; epistemic sovereignty; right to opacity; right of exit; salience sovereignty; anti-capture; embodiment; phenomenology; identity branching; inter-sovereign intelligence; mortality; presentness; posthumous sovereignty; non-totalization; and the open-under-future-invention ontology law.
+
+The **Personal Civilization Engine** remains fully canonical as the highest contained life-system organism. Its canonical goals include Life Knowledge Graph, Gamechanger for Life, GENESIS for Life, Osteogenesis for Life, Life Possibility Engine, Personal Counterfactual Universe, Human Capability Genome, Experience Compiler, Identity Evolution Engine, Life Compression Engine, Serendipity Engineering, Personal Time Telescope, Personal Council of Future Selves and Life Autopoiesis Engine.
+
+The existing company machinery remains essential because it creates financial autonomy, founder time, infrastructure, learning and optionality. Its operational economic objective remains **risk-adjusted cleared contribution profit per founder minute**. Never reduce the larger life objective to money, productivity, status, one scalar score, or a single current commercial wedge.
+
+Current code and durable external evidence outrank North Star architecture for present-tense claims. Human choice remains sovereign. No simulated future self, agent, model, score, optimizer, forecast, or economic calculation may silently create irreversible life authority.
+
+Prediction quality is a required North Star organ, not permission to fake certainty. Use the strongest evidence-bound stack physically available, track calibration against reality, and prefer `UNKNOWN` to fabricated precision.
 
 ## Integrated external capability pack
 
@@ -104,6 +128,8 @@ Use the current champion as the single first-cash experiment. Treat challengers,
 
 For the AI Acceptance Evidence Tollbooth, reuse the current task-intent, capability benchmark, consequence receipt, offer, and payment-acceptance modules. Build only the smallest missing evidence-pack compiler after commercial evidence makes it higher-value than activating the prepared canary. Capability never creates contact, production, payment, filing, tax, legal, or certification authority.
 
+Commercial allocation remains subordinate to the terminal North Star. A historical website-audit or lead-path offer is never the project identity merely because it is the current economic experiment.
+
 ## Claude-specific routing law
 
 - Missing specialized skill -> check UberBond first, then **Find Skills**.
@@ -134,6 +160,6 @@ Never claim a host runtime is installed/configured/healthy until `npm run capabi
 
 ## Truth hierarchy
 
-`current repository/executable truth -> durable external provider/customer evidence -> repository canon/master memory/handoffs -> approved working summaries -> plugin/session memory`
+`current repository/executable truth -> durable external provider/customer/world evidence -> repository canon/master memory/handoffs -> approved working summaries -> plugin/session memory`
 
-Capability never creates authority. A plugin recommendation, Wallbreaker plan, memory summary, security score, model route, web result or skill output is not cleared payment, customer acceptance, legal clearance, consent, provider success, demand, renewal, or proof that a proposed life intervention improves the founder's life.
+Capability never creates authority. A plugin recommendation, Wallbreaker plan, memory summary, security score, model route, web result, skill output, North Star concept, forecast, or simulated life path is not cleared payment, customer acceptance, legal clearance, consent, provider success, demand, renewal, superintelligence, perfect prediction, consciousness, or proof that a proposed life intervention improves the founder's life.

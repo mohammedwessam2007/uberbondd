@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "uberbond.sovereign-external-gate-manifest.v1",
+  "purpose": "Declares which canon concepts are blocked on a fact outside this repository. 'Blocked' is the most abusable label available -- anything unbuilt can be described as waiting on something -- so a gate must come from the reviewed vocabulary in src/sovereign-coverage-matrix.mjs, must name a concept a source artifact actually states, and must carry stated evidence. Any failure fails the whole matrix compile.",
+  "truthBoundary": "EXTERNAL_BLOCKED MEANS NO ENGINEERING IN THIS REPOSITORY CLOSES THE GAP. IT IS NOT A CLAIM THAT THE WORK WOULD OTHERWISE BE DONE.",
+  "entries": [
+    {
+      "concept": "Headroom",
+      "gate": "HOST_RUNTIME_NOT_INSTALLED",
+      "evidence": "Approved optional host runtime. npm run capabilities:doctor reports PROJECT_CAPABILITY_LAYER_READY__HOST_RUNTIMES_MEASURED_SEPARATELY with no host installation. Installing packages is a host mutation outside this repository."
+    },
+    {
+      "concept": "OmniRoute",
+      "gate": "HOST_RUNTIME_NOT_INSTALLED",
+      "evidence": "Approved optional host runtime. npm run capabilities:doctor reports PROJECT_CAPABILITY_LAYER_READY__HOST_RUNTIMES_MEASURED_SEPARATELY with no host installation. Installing packages is a host mutation outside this repository."
+    },
+    {
+      "concept": "VLLM",
+      "gate": "HOST_RUNTIME_NOT_INSTALLED",
+      "evidence": "Provider-neutral model runtime. No such runtime is configured or reachable on this host; the adapter contract exists but a running server does not, and code cannot create one."
+    },
+    {
+      "concept": "SGLANG",
+      "gate": "HOST_RUNTIME_NOT_INSTALLED",
+      "evidence": "Provider-neutral model runtime. No such runtime is configured or reachable on this host; the adapter contract exists but a running server does not, and code cannot create one."
+    },
+    {
+      "concept": "LLAMA_CPP_GGUF",
+      "gate": "HOST_RUNTIME_NOT_INSTALLED",
+      "evidence": "Provider-neutral model runtime. No such runtime is configured or reachable on this host; the adapter contract exists but a running server does not, and code cannot create one."
+    },
+    {
+      "concept": "OLLAMA",
+      "gate": "HOST_RUNTIME_NOT_INSTALLED",
+      "evidence": "Provider-neutral model runtime. No such runtime is configured or reachable on this host; the adapter contract exists but a running server does not, and code cannot create one."
+    },
+    {
+      "concept": "TRANSFORMERS_HTTP",
+      "gate": "HOST_RUNTIME_NOT_INSTALLED",
+      "evidence": "Provider-neutral model runtime. No such runtime is configured or reachable on this host; the adapter contract exists but a running server does not, and code cannot create one."
+    },
+    {
+      "concept": "DIFFUSERS_HTTP",
+      "gate": "HOST_RUNTIME_NOT_INSTALLED",
+      "evidence": "Provider-neutral model runtime. No such runtime is configured or reachable on this host; the adapter contract exists but a running server does not, and code cannot create one."
+    },
+    {
+      "concept": "SENTENCE_TRANSFORMERS_HTTP",
+      "gate": "HOST_RUNTIME_NOT_INSTALLED",
+      "evidence": "Provider-neutral model runtime. No such runtime is configured or reachable on this host; the adapter contract exists but a running server does not, and code cannot create one."
+    },
+    {
+      "concept": "CUSTOM_OPENAI_COMPATIBLE",
+      "gate": "HOST_RUNTIME_NOT_INSTALLED",
+      "evidence": "Provider-neutral model runtime. No such runtime is configured or reachable on this host; the adapter contract exists but a running server does not, and code cannot create one."
+    },
+    {
+      "concept": "time sovereignty",
+      "gate": "NO_OBSERVED_LIFE_OUTCOME",
+      "evidence": "A founder-freedom dimension. It is measured by what actually happened in a life over real time, not by a module. No life-outcome evidence exists for any organ in this repository."
+    },
+    {
+      "concept": "geographic freedom",
+      "gate": "NO_OBSERVED_LIFE_OUTCOME",
+      "evidence": "A founder-freedom dimension. It is measured by what actually happened in a life over real time, not by a module. No life-outcome evidence exists for any organ in this repository."
+    },
+    {
+      "concept": "financial independence",
+      "gate": "NO_OBSERVED_LIFE_OUTCOME",
+      "evidence": "A founder-freedom dimension. It is measured by what actually happened in a life over real time, not by a module. No life-outcome evidence exists for any organ in this repository."
+    },
+    {
+      "concept": "artistic freedom",
+      "gate": "NO_OBSERVED_LIFE_OUTCOME",
+      "evidence": "A founder-freedom dimension. It is measured by what actually happened in a life over real time, not by a module. No life-outcome evidence exists for any organ in this repository."
+    },
+    {
+      "concept": "intellectual and polymath freedom",
+      "gate": "NO_OBSERVED_LIFE_OUTCOME",
+      "evidence": "A founder-freedom dimension. It is measured by what actually happened in a life over real time, not by a module. No life-outcome evidence exists for any organ in this repository."
+    },
+    {
+      "concept": "relationships and human experience",
+      "gate": "NO_OBSERVED_LIFE_OUTCOME",
+      "evidence": "A founder-freedom dimension. It is measured by what actually happened in a life over real time, not by a module. No life-outcome evidence exists for any organ in this repository."
+    },
+    {
+      "concept": "reversibility and optionality",
+      "gate": "NO_OBSERVED_LIFE_OUTCOME",
+      "evidence": "A founder-freedom dimension. It is measured by what actually happened in a life over real time, not by a module. No life-outcome evidence exists for any organ in this repository."
+    }
+  ]
+}

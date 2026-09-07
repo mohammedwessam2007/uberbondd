@@ -1689,6 +1689,36 @@ export const MUTATIONS = [
     replace: '    const restored = exported;',
     suites: ['tests/supplier-exit-drill.test.mjs']
   },
+  {
+    // "Blocked" is the most abusable label in the file: anything unbuilt can be
+    // described as waiting on something.
+    id: 'TERMSTATE-06', guard: 'A gate outside the reviewed vocabulary is refused',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "    if (!EXTERNAL_GATES[gate]) { gateProblems.push({ reason: 'gate-not-in-reviewed-vocabulary', concept, gate }); continue; }",
+    replace: '',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'TERMSTATE-07', guard: 'A gate must carry stated evidence',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "    if (!text(entry?.evidence, 2000)) { gateProblems.push({ reason: 'gate-requires-stated-evidence', concept }); continue; }",
+    replace: '',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'TERMSTATE-08', guard: 'An invalid external-gate manifest stops the matrix',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: '  if (gateProblems.length) {',
+    replace: '  if (false) {',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'TERMSTATE-09', guard: 'An alias is a preserved name, not an organ awaiting a second build',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "  if (ALIAS_CLASSES.includes(cls)) return 'ALIAS_OF_CANONICAL_CONCEPT';",
+    replace: '',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
   // ---- The private core: the one data class that is not the company's -----
   {
     id: 'PCIV-01', guard: 'A repository path is refused as a destination for private life data',

@@ -13,7 +13,8 @@ import {
   compileCoverageMatrix, classifyState, locateEvidence, evidencePhrases,
   evidenceTokens, canonicalConceptId, verifyImplementationManifest,
   mergeDeclaredEvidence, classifyTerminalState, COVERAGE_STATES,
-  STRUCTURAL_CLASSES, FIELD_CLASSES, DONOR_CLASSES, LAW_CLASSES
+  STRUCTURAL_CLASSES, FIELD_CLASSES, DONOR_CLASSES, LAW_CLASSES,
+  ALIAS_CLASSES, EXTERNAL_GATES
 } from '../src/sovereign-coverage-matrix.mjs';
 
 const index = {
@@ -370,4 +371,81 @@ test('the declared lane wins, so the manifest lane field is not decoration', () 
     manifest: [{ concept: 'Wallbreaker', lane: 'OMEGA-10', sources: ['src/wallbreaker.mjs'], tests: ['tests/wallbreaker.test.mjs'] }]
   });
   assert.equal(matrix.rows[0].owningLane, 'OMEGA-10');
+});
+
+// ---- External gates ---------------------------------------------------------
+//
+// "Blocked" is the most abusable label in this file: anything unbuilt can be
+// described as waiting on something, and a system that can call its own
+// unfinished work externally blocked will report itself finished. So a gate is
+// verified three ways before it is granted, and each of those is tested here.
+
+const gated = { name: 'OMNIROUTE', class: 'COMPUTE_RUNTIME', source: 's' };
+
+test('a gate outside the reviewed vocabulary fails the whole compile', () => {
+  const matrix = compileCoverageMatrix({
+    concepts: [gated], repoIndex: index,
+    externalGates: [{ concept: 'OMNIROUTE', gate: 'FEELS_HARD', evidence: 'it is difficult' }]
+  });
+  assert.equal(matrix.ok, false);
+  assert.equal(matrix.status, 'COVERAGE_EXTERNAL_GATES_INVALID');
+  assert.deepEqual(matrix.reasonCodes, ['gate-not-in-reviewed-vocabulary']);
+});
+
+test('a gate naming a concept no artifact states fails the compile', () => {
+  const matrix = compileCoverageMatrix({
+    concepts: [gated], repoIndex: index,
+    externalGates: [{ concept: 'Something Nobody Wrote Down', gate: 'HOST_RUNTIME_NOT_INSTALLED', evidence: 'x' }]
+  });
+  assert.equal(matrix.ok, false);
+  assert.deepEqual(matrix.reasonCodes, ['gate-names-unknown-concept']);
+});
+
+test('a gate with no stated evidence is refused', () => {
+  // Without this the manifest becomes a list of assertions, and the whole
+  // point is that a blocker names the fact outside the repository.
+  const matrix = compileCoverageMatrix({
+    concepts: [gated], repoIndex: index,
+    externalGates: [{ concept: 'OMNIROUTE', gate: 'HOST_RUNTIME_NOT_INSTALLED' }]
+  });
+  assert.equal(matrix.ok, false);
+  assert.deepEqual(matrix.reasonCodes, ['gate-requires-stated-evidence']);
+});
+
+test('a valid gate produces the state its vocabulary entry names', () => {
+  const matrix = compileCoverageMatrix({
+    concepts: [gated], repoIndex: index,
+    externalGates: [{ concept: 'OMNIROUTE', gate: 'HOST_RUNTIME_NOT_INSTALLED', evidence: 'doctor reports no host installation' }]
+  });
+  assert.equal(matrix.rows[0].currentState, 'EXTERNAL_BLOCKED');
+  assert.equal(EXTERNAL_GATES.ELAPSED_TIME_NOT_YET_OBSERVED, 'ELAPSED_TIME_REQUIRED');
+});
+
+test('a gate cannot mark something blocked that is actually built', () => {
+  // The ordering again. Evidence classification runs first, so declaring a gate
+  // on a working module cannot hide it -- which is the shape of the abuse where
+  // finished work gets parked as blocked to avoid maintaining it.
+  const matrix = compileCoverageMatrix({
+    concepts: [{ name: 'Wallbreaker', source: 's', class: 'CONCEPT' }],
+    repoIndex: index,
+    manifest: [{ concept: 'Wallbreaker', sources: ['src/wallbreaker.mjs'], tests: ['tests/wallbreaker.test.mjs'] }],
+    externalGates: [{ concept: 'Wallbreaker', gate: 'NO_CUSTOMER_EVIDENCE', evidence: 'no customers exist' }]
+  });
+  assert.equal(matrix.rows[0].currentState, 'VERIFIED_CURRENT');
+});
+
+test('every reviewed gate maps to a state the schema allows', () => {
+  for (const [gate, state] of Object.entries(EXTERNAL_GATES)) {
+    assert.ok(COVERAGE_STATES.includes(state), `${gate} maps to unknown state ${state}`);
+    assert.ok(state === 'EXTERNAL_BLOCKED' || state === 'ELAPSED_TIME_REQUIRED',
+      `${gate} must not map a blocker to a current state`);
+  }
+});
+
+test('an alias is a preserved name, not an organ awaiting a second build', () => {
+  // Canon keeps chat-born names for literal searchability and says in as many
+  // words that this is "not a duplicate-implementation instruction". Recording
+  // 45 of them as unbuilt invited exactly the duplicate build canon forbids.
+  assert.equal(classifyTerminalState({ name: 'Personal Big Bang', class: 'ALIAS' }, {}), 'ALIAS_OF_CANONICAL_CONCEPT');
+  assert.deepEqual(ALIAS_CLASSES, ['ALIAS']);
 });

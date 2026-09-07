@@ -154,7 +154,14 @@ function repoIndex() {
   // made every script-hosted concept read SPEC_ONLY -- Mutation War is a
   // scripts/ module with seven suites and a mutation registry behind it, and it
   // was being reported as an idea nobody had built.
-  const sourceFiles = [...walkFiles('src'), ...walkFiles('scripts'), ...walkFiles('api')];
+  // Project-native skills are an implementation surface too. Indexing only
+  // src/scripts/api reported Find Skills, Task Observer, Strix and Agent Reach
+  // as unbuilt while their skill packages sit in the tree -- and would have
+  // pushed them toward being labelled externally blocked, which they are not.
+  const sourceFiles = [
+    ...walkFiles('src'), ...walkFiles('scripts'), ...walkFiles('api'),
+    ...walkFiles('.claude/skills', '.md')
+  ];
   return {
     sourceFiles,
     testFiles: walkFiles('tests'),
@@ -199,7 +206,17 @@ function main() {
     }
   }
 
-  const matrix = compileCoverageMatrix({ concepts, repoIndex: repoIndex(), laneMap: LANE_BY_CLASS, manifest, enforcement, sourceCommit });
+  let externalGates = [];
+  const gatePath = join(root, 'artifacts/sovereign/external-gate-manifest.json');
+  if (existsSync(gatePath)) {
+    try { externalGates = JSON.parse(readFileSync(gatePath, 'utf8')).entries || []; }
+    catch (error) {
+      console.error(JSON.stringify({ ok: false, status: 'COVERAGE_EXTERNAL_GATES_UNREADABLE', detail: error.message }, null, 2));
+      return 2;
+    }
+  }
+
+  const matrix = compileCoverageMatrix({ concepts, repoIndex: repoIndex(), laneMap: LANE_BY_CLASS, manifest, enforcement, externalGates, sourceCommit });
   if (!matrix.ok) { console.error(JSON.stringify(matrix, null, 2)); return 2; }
 
   const output = join(root, 'artifacts/sovereign/implementation-coverage-matrix.json');

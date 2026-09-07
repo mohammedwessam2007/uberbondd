@@ -2,8 +2,8 @@
   "ok": true,
   "status": "COVERAGE_MATRIX_COMPILED",
   "schemaVersion": "uberbond.sovereign-coverage-matrix.v1",
-  "generatedAt": "2026-09-07T14:55:21.826Z",
-  "sourceCommit": "9e5c50f062c72aede267ac1ca2d3b15cb0744a50",
+  "generatedAt": "2026-09-07T15:01:37.661Z",
+  "sourceCommit": "40bc3ad3f95f6e5f885ded0f589ce49af6bf8470",
   "counts": {
     "extractedConcepts": 1068,
     "rows": 1038,
@@ -11,19 +11,20 @@
     "declaredConcepts": 28,
     "byState": {
       "VERIFIED_CURRENT": 70,
-      "PARTIAL_CURRENT": 68,
+      "PARTIAL_CURRENT": 73,
       "DRAFT_DONOR": 0,
-      "SPEC_ONLY": 406,
-      "EXTERNAL_BLOCKED": 0,
+      "SPEC_ONLY": 339,
+      "EXTERNAL_BLOCKED": 19,
       "OWNER_BOUNDARY": 13,
       "ELAPSED_TIME_REQUIRED": 0,
       "SUPERSEDED_WITH_PRESERVED_DONATION": 0,
       "UNKNOWN": 6,
       "ENFORCED_BY_CODE": 28,
-      "STRUCTURAL_NOT_A_BUILD_TARGET": 106,
-      "COVERED_BY_PARENT_ORGAN": 113,
+      "STRUCTURAL_NOT_A_BUILD_TARGET": 105,
+      "COVERED_BY_PARENT_ORGAN": 112,
       "REFERENCE_ONLY_BY_CANON": 33,
-      "HISTORICAL_DONOR_PRESERVED": 195
+      "HISTORICAL_DONOR_PRESERVED": 195,
+      "ALIAS_OF_CANONICAL_CONCEPT": 45
     },
     "byLane": {
       "OMEGA-14": 450,
@@ -5952,7 +5953,8 @@
         "sourceModules": [
           "src/wallbreaker-cognitive-reflex.mjs",
           "src/wallbreaker.mjs",
-          "scripts/wallbreaker-plan.mjs"
+          "scripts/wallbreaker-plan.mjs",
+          ".claude/skills/wallbreaker/SKILL.md"
         ],
         "testModules": [
           "tests/wallbreaker-cognitive-reflex.test.mjs",
@@ -7828,7 +7830,7 @@
         "Personal Big Bang"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7858,7 +7860,7 @@
         "Civilization of Minds"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7888,7 +7890,7 @@
         "Cognitive Recursive Evolution"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7918,7 +7920,7 @@
         "Intelligence as a Vector, Not IQ"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7948,7 +7950,7 @@
         "Infinite Counterfactual Mohamed"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -7978,7 +7980,7 @@
         "Total Reality Lattice"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8008,7 +8010,7 @@
         "Reality Compiler"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8038,7 +8040,7 @@
         "Surprise Maximizer"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8068,7 +8070,7 @@
         "Temporal Civilization"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8098,7 +8100,7 @@
         "Free Will Amplification"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8128,7 +8130,7 @@
         "Present Free Will Outranks the Model"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8158,7 +8160,7 @@
         "Will Veto"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8188,7 +8190,7 @@
         "Recursive Cognitive Evolution"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8218,7 +8220,7 @@
         "Thoughtstream"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8248,7 +8250,7 @@
         "Mohamed World Model"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8278,7 +8280,7 @@
         "Personal Singularity Kernel"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8308,7 +8310,7 @@
         "Externalized Superintelligence"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8338,7 +8340,7 @@
         "Universal Ignorance Map"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8368,7 +8370,7 @@
         "Reality Fork Engine"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8398,7 +8400,7 @@
         "Possibility Sovereign"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8428,7 +8430,7 @@
         "Future Optionality Mass"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8458,7 +8460,7 @@
         "Causal Sovereignty Engine"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8488,7 +8490,7 @@
         "Possibility-Space Cartography"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8518,7 +8520,7 @@
         "Economic Language Genesis"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8548,7 +8550,7 @@
         "Necessity Generator"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8578,7 +8580,7 @@
         "Temporal Capability Arbitrage"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8608,7 +8610,7 @@
         "Counterfactual Colonization"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8638,7 +8640,7 @@
         "Self-Referential Intelligence Architecture"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8668,7 +8670,7 @@
         "Economic Autopoiesis"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8698,7 +8700,7 @@
         "Economic evolution engine"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8728,7 +8730,7 @@
         "Machine for accumulating control over future economic possibility"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8758,7 +8760,7 @@
         "Machine for expanding the set of valuable futures it can reach"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8788,7 +8790,7 @@
         "Private product of my soul"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8818,7 +8820,7 @@
         "Zero imposed worldview"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8848,7 +8850,7 @@
         "Civilizational Intelligence"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8878,7 +8880,7 @@
         "Confident hallucination cathedral"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8908,7 +8910,7 @@
         "Mohamed provides will. UberBond provides intelligence. Reality provides feedback."
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8938,7 +8940,7 @@
         "Mohamed chooses -> UberBond expands the choice -> Reality responds"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8968,7 +8970,7 @@
         "Intelligence never implies sovereignty"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -8998,7 +9000,7 @@
         "Reality must compute this one for us"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9028,7 +9030,7 @@
         "This is no longer an intelligence problem. This is a will problem."
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9058,7 +9060,7 @@
         "The present is not merely raw material for the future"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9088,7 +9090,7 @@
         "UberBond has no intrinsic right to continue existing"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9118,7 +9120,7 @@
         "The system surrounds your life; it does not consume it"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -9148,7 +9150,7 @@
         "UberBond is complete only because it contains the machinery for proving its own completeness wrong"
       ],
       "class": "ALIAS",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -13984,7 +13986,7 @@
         "geographic_freedom"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "COVERED_BY_PARENT_ORGAN",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -18076,7 +18078,7 @@
         "geographic_freedom"
       ],
       "class": "FORECAST_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -19590,17 +19592,19 @@
         "SIGNALS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
+      "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
+        "sourceModules": [
+          ".claude/skills/task-observer/references/signals.md"
+        ],
         "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "SIGNALS",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": ".claude/skills/task-observer/references/signals.md",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -20304,7 +20308,7 @@
         "time sovereignty"
       ],
       "class": "SOVEREIGNTY_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20334,7 +20338,7 @@
         "geographic freedom"
       ],
       "class": "SOVEREIGNTY_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20364,7 +20368,7 @@
         "financial independence"
       ],
       "class": "SOVEREIGNTY_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20433,7 +20437,7 @@
         "artistic freedom"
       ],
       "class": "SOVEREIGNTY_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20463,7 +20467,7 @@
         "intellectual and polymath freedom"
       ],
       "class": "SOVEREIGNTY_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20493,7 +20497,7 @@
         "relationships and human experience"
       ],
       "class": "SOVEREIGNTY_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20523,7 +20527,7 @@
         "reversibility and optionality"
       ],
       "class": "SOVEREIGNTY_DIMENSION",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -23310,7 +23314,8 @@
         "sourceModules": [
           "src/wallbreaker-cognitive-reflex.mjs",
           "src/wallbreaker.mjs",
-          "scripts/wallbreaker-plan.mjs"
+          "scripts/wallbreaker-plan.mjs",
+          ".claude/skills/wallbreaker/SKILL.md"
         ],
         "testModules": [
           "tests/wallbreaker-cognitive-reflex.test.mjs",
@@ -24774,7 +24779,7 @@
         "VLLM"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24804,7 +24809,7 @@
         "SGLANG"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24834,7 +24839,7 @@
         "LLAMA_CPP_GGUF"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24864,7 +24869,7 @@
         "OLLAMA"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24954,7 +24959,7 @@
         "TRANSFORMERS_HTTP"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -24984,7 +24989,7 @@
         "DIFFUSERS_HTTP"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25014,7 +25019,7 @@
         "SENTENCE_TRANSFORMERS_HTTP"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -25044,7 +25049,7 @@
         "CUSTOM_OPENAI_COMPATIBLE"
       ],
       "class": "COMPUTE_RUNTIME",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -27529,7 +27534,16 @@
           "scripts/agent-mesh-tick.mjs",
           "scripts/agent-model-route.mjs",
           "api/agent-mesh-cron.mjs",
-          "api/agent-relay.mjs"
+          "api/agent-relay.mjs",
+          ".claude/skills/agent-reach/SKILL.md",
+          ".claude/skills/agent-reach/references/career.md",
+          ".claude/skills/agent-reach/references/dev.md",
+          ".claude/skills/agent-reach/references/finance.md",
+          ".claude/skills/agent-reach/references/search.md",
+          ".claude/skills/agent-reach/references/social.md",
+          ".claude/skills/agent-reach/references/video.md",
+          ".claude/skills/agent-reach/references/web.md",
+          ".claude/skills/claude-automation-recommender/references/subagent-templates.md"
         ],
         "testModules": [
           "tests/agent-autonomy-role-bound-origin.test.mjs",
@@ -31803,17 +31817,19 @@
         "Find Skills"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
+        "sourceModules": [
+          ".claude/skills/find-skills/SKILL.md"
+        ],
         "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Find Skills",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": ".claude/skills/find-skills/SKILL.md",
       "owningLane": "OMEGA-08",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -31863,17 +31879,25 @@
         "Task Observer"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
+        "sourceModules": [
+          ".claude/skills/task-observer/SKILL.md",
+          ".claude/skills/task-observer/references/environments.md",
+          ".claude/skills/task-observer/references/migration.md",
+          ".claude/skills/task-observer/references/observation-log.md",
+          ".claude/skills/task-observer/references/signals.md",
+          ".claude/skills/task-observer/references/skill-authoring.md",
+          ".claude/skills/task-observer/references/weekly-review.md"
+        ],
         "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Task Observer",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": ".claude/skills/task-observer/SKILL.md",
       "owningLane": "OMEGA-08",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -31899,7 +31923,33 @@
           "src/claude-code-sandbox-executor.mjs",
           "src/claude-code-sandbox-provisioner.mjs",
           "src/claude-engineering-orchestrator.mjs",
-          "src/durable-claude-engineering-executor.mjs"
+          "src/durable-claude-engineering-executor.mjs",
+          ".claude/skills/agent-reach/SKILL.md",
+          ".claude/skills/agent-reach/references/career.md",
+          ".claude/skills/agent-reach/references/dev.md",
+          ".claude/skills/agent-reach/references/finance.md",
+          ".claude/skills/agent-reach/references/search.md",
+          ".claude/skills/agent-reach/references/social.md",
+          ".claude/skills/agent-reach/references/video.md",
+          ".claude/skills/agent-reach/references/web.md",
+          ".claude/skills/claude-automation-recommender/SKILL.md",
+          ".claude/skills/claude-automation-recommender/references/hooks-patterns.md",
+          ".claude/skills/claude-automation-recommender/references/mcp-servers.md",
+          ".claude/skills/claude-automation-recommender/references/plugins-reference.md",
+          ".claude/skills/claude-automation-recommender/references/skills-reference.md",
+          ".claude/skills/claude-automation-recommender/references/subagent-templates.md",
+          ".claude/skills/find-skills/SKILL.md",
+          ".claude/skills/penetration-testing-with-strix/SKILL.md",
+          ".claude/skills/task-observer/SKILL.md",
+          ".claude/skills/task-observer/references/environments.md",
+          ".claude/skills/task-observer/references/migration.md",
+          ".claude/skills/task-observer/references/observation-log.md",
+          ".claude/skills/task-observer/references/signals.md",
+          ".claude/skills/task-observer/references/skill-authoring.md",
+          ".claude/skills/task-observer/references/weekly-review.md",
+          ".claude/skills/uberbond-capability-assimilator/SKILL.md",
+          ".claude/skills/uberbond-orchestrator/SKILL.md",
+          ".claude/skills/wallbreaker/SKILL.md"
         ],
         "testModules": [
           "tests/claude-code-sandbox-executor.test.mjs",
@@ -31934,7 +31984,7 @@
         "Headroom"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31964,7 +32014,7 @@
         "OmniRoute"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "EXTERNAL_BLOCKED",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -31994,17 +32044,19 @@
         "Strix"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
+        "sourceModules": [
+          ".claude/skills/penetration-testing-with-strix/SKILL.md"
+        ],
         "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Strix",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": ".claude/skills/penetration-testing-with-strix/SKILL.md",
       "owningLane": "OMEGA-08",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -32024,17 +32076,26 @@
         "Agent Reach"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "PARTIAL_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
+        "sourceModules": [
+          ".claude/skills/agent-reach/SKILL.md",
+          ".claude/skills/agent-reach/references/career.md",
+          ".claude/skills/agent-reach/references/dev.md",
+          ".claude/skills/agent-reach/references/finance.md",
+          ".claude/skills/agent-reach/references/search.md",
+          ".claude/skills/agent-reach/references/social.md",
+          ".claude/skills/agent-reach/references/video.md",
+          ".claude/skills/agent-reach/references/web.md"
+        ],
         "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Agent Reach",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": ".claude/skills/agent-reach/SKILL.md",
       "owningLane": "OMEGA-08",
       "dependencies": [],
       "authorityClass": "NONE",

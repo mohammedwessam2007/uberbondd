@@ -44,8 +44,35 @@ export const COVERAGE_STATES = Object.freeze([
   'STRUCTURAL_NOT_A_BUILD_TARGET',
   'COVERED_BY_PARENT_ORGAN',
   'REFERENCE_ONLY_BY_CANON',
-  'HISTORICAL_DONOR_PRESERVED'
+  'HISTORICAL_DONOR_PRESERVED',
+  'ALIAS_OF_CANONICAL_CONCEPT'
 ]);
+
+/**
+ * Chat-born names whose mechanism was later merged or renamed.
+ *
+ * Canon is explicit that these exist for literal searchability and are "not a
+ * duplicate-implementation instruction". Recording them as unbuilt organs
+ * invited exactly the duplicate build canon forbids -- 45 rows asking to be
+ * implemented twice.
+ */
+export const ALIAS_CLASSES = Object.freeze(['ALIAS']);
+
+/**
+ * External gates, and which terminal state each produces.
+ *
+ * Reviewed and closed, because "blocked" is the most abusable label available:
+ * anything unbuilt can be described as waiting on something. Every gate here
+ * names a fact outside this repository that no amount of engineering closes.
+ */
+export const EXTERNAL_GATES = Object.freeze({
+  HOST_RUNTIME_NOT_INSTALLED: 'EXTERNAL_BLOCKED',
+  NO_PROVIDER_CREDENTIAL: 'EXTERNAL_BLOCKED',
+  NO_CUSTOMER_EVIDENCE: 'EXTERNAL_BLOCKED',
+  NO_CLEARED_PAYMENT: 'EXTERNAL_BLOCKED',
+  NO_OBSERVED_LIFE_OUTCOME: 'EXTERNAL_BLOCKED',
+  ELAPSED_TIME_NOT_YET_OBSERVED: 'ELAPSED_TIME_REQUIRED'
+});
 
 /**
  * Classes that are canon scaffolding rather than implementable units.
@@ -304,7 +331,7 @@ export function mergeDeclaredEvidence(evidence, declared, repoIndex = {}) {
  * `enforcement` and `parentStates` are supplied by the compiler from verified
  * facts, not by the concept describing itself.
  */
-export function classifyTerminalState(concept, { enforcement = null, parentState = null } = {}) {
+export function classifyTerminalState(concept, { enforcement = null, parentState = null, externalGate = null } = {}) {
   const cls = concept?.class;
 
   // A law is only enforced if something enforces it. The declaration names a
@@ -315,6 +342,12 @@ export function classifyTerminalState(concept, { enforcement = null, parentState
     return enforcement ? 'ENFORCED_BY_CODE' : 'SPEC_ONLY';
   }
 
+  // A declared external gate, verified against the reviewed vocabulary before
+  // it reaches here. Checked ahead of the class tables so a genuinely blocked
+  // organ reports why rather than reporting as unbuilt work.
+  if (externalGate && EXTERNAL_GATES[externalGate]) return EXTERNAL_GATES[externalGate];
+
+  if (ALIAS_CLASSES.includes(cls)) return 'ALIAS_OF_CANONICAL_CONCEPT';
   if (STRUCTURAL_CLASSES.includes(cls)) return 'STRUCTURAL_NOT_A_BUILD_TARGET';
   if (REFERENCE_CLASSES.includes(cls)) return 'REFERENCE_ONLY_BY_CANON';
   if (DONOR_CLASSES.includes(cls)) return 'HISTORICAL_DONOR_PRESERVED';
@@ -361,7 +394,7 @@ export function classifyState(concept, evidence) {
  * judgement that a later session can improve; the invariant that no input
  * concept leaves without a row is the one that cannot be allowed to soften.
  */
-export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap = {}, manifest = [], enforcement = [], generatedAt = new Date().toISOString(), sourceCommit = null } = {}) {
+export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap = {}, manifest = [], enforcement = [], externalGates = [], generatedAt = new Date().toISOString(), sourceCommit = null } = {}) {
   const reasonCodes = [];
   if (!Array.isArray(concepts) || concepts.length === 0) reasonCodes.push('concepts-required');
   if (reasonCodes.length) return { ok: false, status: 'COVERAGE_MATRIX_BLOCKED', reasonCodes };
@@ -392,6 +425,30 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
     };
   }
   const enforcementByConcept = enforcementCheck.byConcept;
+
+  // External-gate declarations. "Blocked" is the most abusable label available
+  // -- anything unbuilt can be described as waiting on something -- so a gate
+  // must come from the reviewed vocabulary and must name a concept some source
+  // artifact actually states. Both are checked before any row is built.
+  const gateByConcept = new Map();
+  const gateProblems = [];
+  for (const entry of (Array.isArray(externalGates) ? externalGates : [])) {
+    const concept = text(entry?.concept);
+    const gate = text(entry?.gate, 80);
+    if (!concept) { gateProblems.push({ reason: 'gate-entry-concept-required', entry }); continue; }
+    if (!conceptSlugs.has(slugify(concept))) { gateProblems.push({ reason: 'gate-names-unknown-concept', concept }); continue; }
+    if (!EXTERNAL_GATES[gate]) { gateProblems.push({ reason: 'gate-not-in-reviewed-vocabulary', concept, gate }); continue; }
+    if (!text(entry?.evidence, 2000)) { gateProblems.push({ reason: 'gate-requires-stated-evidence', concept }); continue; }
+    gateByConcept.set(slugify(concept), gate);
+  }
+  if (gateProblems.length) {
+    return {
+      ok: false,
+      status: 'COVERAGE_EXTERNAL_GATES_INVALID',
+      reasonCodes: [...new Set(gateProblems.map(problem => problem.reason))],
+      problems: gateProblems
+    };
+  }
 
   // First pass over evidence alone, so a field's parent state is a computed
   // fact rather than something the field asserts about itself.
@@ -446,7 +503,8 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
     const currentState = evidenceState === 'SPEC_ONLY'
       ? classifyTerminalState({ name, ...concept }, {
         enforcement: enforcementByConcept.get(slugify(name)) || null,
-        parentState: concept.parent ? parentStates.get(slugify(concept.parent)) || null : null
+        parentState: concept.parent ? parentStates.get(slugify(concept.parent)) || null : null,
+        externalGate: gateByConcept.get(slugify(name)) || null
       })
       : evidenceState;
 

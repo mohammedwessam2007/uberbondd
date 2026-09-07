@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const UBERBOND_BRAIN_CONTEXT_POLICY_VERSION = 'uberbond-brain-context-1.1.0';
+export const UBERBOND_BRAIN_CONTEXT_POLICY_VERSION = 'uberbond-brain-context-1.2.0';
 export const REQUIRED_CANON_PATHS = Object.freeze([
   'UBERBOND_CANON.md',
   'UBERBOND_BOOTSTRAP.json',
@@ -11,27 +11,17 @@ export const MEMORY_V2_REQUIRED_PATHS = Object.freeze([
   'docs/UBERBOND_MASTER_MEMORY.md',
   'artifacts/uberbond-memory-index.json'
 ]);
+export const LIFE_NORTH_STAR_REQUIRED_PATHS = Object.freeze([
+  'NORTH_STAR.md',
+  'docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md',
+  'artifacts/personal-civilization-engine-north-star.json'
+]);
 
 const MAX_POINTERS = 160;
 const MAX_GOALS = 160;
 const MAX_GATES = 160;
 const MAX_INITIATIVES = 160;
 const MAX_MEMORY_LIST = 256;
-// A closed vocabulary, and the closure is the point: an initiative carrying a
-// status nobody defined is memory nobody can reason about, so normalization
-// refuses the whole index rather than accepting one row it cannot classify.
-//
-// That strictness is also how it failed. An owner-doctrine record was added to
-// the reconciliation overlay with status CURRENT_OWNER_DOCTRINE, which was not
-// in this set, so the entire memory index refused to normalize and `npm run
-// brain` -- the mandatory first command of every session, on main -- returned
-// UBERBOND_BRAIN_BOOTSTRAP_FAILED. One unrecognised string took the company
-// brain offline for every worker.
-//
-// The status is added rather than the record relabelled. Owner doctrine is
-// genuinely not a program, a donor, a generated artifact or an unresolved name,
-// and squeezing it into CURRENT_PROGRAM to satisfy a validator would have
-// recorded something the owner did not say.
 const MEMORY_STATUSES = new Set([
   'CURRENT_PROGRAM',
   'CURRENT_OWNER_DOCTRINE',
@@ -178,11 +168,10 @@ function normalizeUnresolvedNames(value) {
   }
   return out;
 }
+const memoryBackedBootstrap = (schemaVersion) => ['uberbond-bootstrap-1.1.0', 'uberbond-bootstrap-1.2.0'].includes(schemaVersion);
 
 export function validateUberBondMemoryIndex(memoryIndex = {}) {
-  if (!memoryIndex || typeof memoryIndex !== 'object' || Array.isArray(memoryIndex)) {
-    return fail(['memory-index-object-required']);
-  }
+  if (!memoryIndex || typeof memoryIndex !== 'object' || Array.isArray(memoryIndex)) return fail(['memory-index-object-required']);
   const schemaVersion = text(memoryIndex.schemaVersion, 80);
   const project = text(memoryIndex.project, 80);
   const generatedAt = iso(memoryIndex.generatedAt);
@@ -222,12 +211,7 @@ export function validateUberBondMemoryIndex(memoryIndex = {}) {
   if (secrets.length) reasonCodes.push('secret-like-memory-content-prohibited');
 
   const normalized = {
-    schemaVersion,
-    project,
-    generatedAt,
-    purpose,
-    truthRule,
-    finalGoal,
+    schemaVersion, project, generatedAt, purpose, truthRule, finalGoal,
     historicalCorpusSnapshots: historicalCorpusSnapshots || [],
     namedInitiatives: namedInitiatives || [],
     productFamilies: productFamilies || [],
@@ -250,40 +234,28 @@ export function validateUberBondMemoryIndex(memoryIndex = {}) {
     if (orphaned.length) reasonCodes.push('unresolved-name-missing-owner-recalled-initiative');
   }
 
-  if (reasonCodes.length) {
-    return fail(reasonCodes, { prohibitedSecretPaths: secrets, memoryIndex: normalized });
-  }
+  if (reasonCodes.length) return fail(reasonCodes, { prohibitedSecretPaths: secrets, memoryIndex: normalized });
   const identity = clone(normalized);
   const memoryDigest = digest(identity);
-  return {
-    ok: true,
-    policyVersion: UBERBOND_BRAIN_CONTEXT_POLICY_VERSION,
-    status: 'PROJECT_MEMORY_READY',
-    memoryIndex: normalized,
-    memoryDigest,
-    businessEffectAuthority: 'NONE',
-    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
-  };
+  return { ok: true, policyVersion: UBERBOND_BRAIN_CONTEXT_POLICY_VERSION, status: 'PROJECT_MEMORY_READY', memoryIndex: normalized, memoryDigest, businessEffectAuthority: 'NONE', externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS } };
 }
 
 export function validateUberBondBootstrap(bootstrap = {}) {
-  if (!bootstrap || typeof bootstrap !== 'object' || Array.isArray(bootstrap)) {
-    return fail(['bootstrap-object-required']);
-  }
+  if (!bootstrap || typeof bootstrap !== 'object' || Array.isArray(bootstrap)) return fail(['bootstrap-object-required']);
   const schemaVersion = text(bootstrap.schemaVersion, 80);
   const project = text(bootstrap.project, 80);
-  const objective = text(bootstrap.objective, 1000);
+  const objective = text(bootstrap.objective, 2400);
   const generatedAt = iso(bootstrap.generatedAt);
   const canonPointers = uniqueStrings(bootstrap.canonPointers, MAX_POINTERS, 240);
-  const goals = uniqueStrings(bootstrap.goals, MAX_GOALS, 500);
-  const externalProofGates = uniqueStrings(bootstrap.externalProofGates, MAX_GATES, 500);
-  const startupProtocol = uniqueStrings(bootstrap.startupProtocol, 40, 500);
+  const goals = uniqueStrings(bootstrap.goals, MAX_GOALS, 1800);
+  const externalProofGates = uniqueStrings(bootstrap.externalProofGates, MAX_GATES, 1200);
+  const startupProtocol = uniqueStrings(bootstrap.startupProtocol, 40, 1800);
   const truthHierarchy = uniqueStrings(bootstrap.truthHierarchy, 32, 300);
   const productFamilies = uniqueStrings(bootstrap.productFamilies || [], 64, 240);
   const memoryIndexPath = bootstrap.memoryIndexPath == null ? null : text(bootstrap.memoryIndexPath, 240);
   const masterMemoryPath = bootstrap.masterMemoryPath == null ? null : text(bootstrap.masterMemoryPath, 240);
   const reasonCodes = [];
-  if (!['uberbond-bootstrap-1.0.0', 'uberbond-bootstrap-1.1.0'].includes(schemaVersion)) reasonCodes.push('unsupported-bootstrap-schema');
+  if (!['uberbond-bootstrap-1.0.0', 'uberbond-bootstrap-1.1.0', 'uberbond-bootstrap-1.2.0'].includes(schemaVersion)) reasonCodes.push('unsupported-bootstrap-schema');
   if (project !== 'UberBond') reasonCodes.push('project-must-be-uberbond');
   if (!objective) reasonCodes.push('objective-required');
   if (!generatedAt) reasonCodes.push('generated-at-required');
@@ -293,26 +265,27 @@ export function validateUberBondBootstrap(bootstrap = {}) {
   if (!startupProtocol || startupProtocol.length === 0) reasonCodes.push('startup-protocol-required');
   if (!truthHierarchy || truthHierarchy.length === 0) reasonCodes.push('truth-hierarchy-required');
   if (!productFamilies) reasonCodes.push('bounded-product-family-array-required');
-  if (schemaVersion === 'uberbond-bootstrap-1.1.0') {
+  if (memoryBackedBootstrap(schemaVersion)) {
     if (memoryIndexPath !== 'artifacts/uberbond-memory-index.json') reasonCodes.push('canonical-memory-index-path-required');
     if (masterMemoryPath !== 'docs/UBERBOND_MASTER_MEMORY.md') reasonCodes.push('canonical-master-memory-path-required');
     if (!canonPointers?.includes(memoryIndexPath)) reasonCodes.push('memory-index-must-be-canon-pointer');
     if (!canonPointers?.includes(masterMemoryPath)) reasonCodes.push('master-memory-must-be-canon-pointer');
   }
+  if (schemaVersion === 'uberbond-bootstrap-1.2.0') {
+    const missingLifeNorthStarPaths = LIFE_NORTH_STAR_REQUIRED_PATHS.filter((path) => !canonPointers?.includes(path));
+    if (missingLifeNorthStarPaths.length) reasonCodes.push('life-north-star-canon-pointers-required');
+  }
   const secrets = inspectSecrets(bootstrap);
   if (secrets.length) reasonCodes.push('secret-like-bootstrap-content-prohibited');
   const normalized = {
-    schemaVersion,
-    project,
-    objective,
-    generatedAt,
+    schemaVersion, project, objective, generatedAt,
     canonPointers: canonPointers || [],
     goals: goals || [],
     externalProofGates: externalProofGates || [],
     startupProtocol: startupProtocol || [],
     truthHierarchy: truthHierarchy || [],
     architectureSpine: uniqueStrings(bootstrap.architectureSpine || [], 64, 300) || [],
-    capabilityFamilies: uniqueStrings(bootstrap.capabilityFamilies || [], 128, 240) || [],
+    capabilityFamilies: uniqueStrings(bootstrap.capabilityFamilies || [], 128, 1200) || [],
     productFamilies: productFamilies || [],
     protectedPaths: uniqueStrings(bootstrap.protectedPaths || [], 64, 240) || [],
     memoryIndexPath,
@@ -320,18 +293,14 @@ export function validateUberBondBootstrap(bootstrap = {}) {
     continuity: bootstrap.continuity && typeof bootstrap.continuity === 'object'
       ? {
           handoffPath: text(bootstrap.continuity.handoffPath, 240),
-          startupInstruction: text(bootstrap.continuity.startupInstruction, 500),
-          updateInstruction: text(bootstrap.continuity.updateInstruction, 500),
-          chatImportInstruction: bootstrap.continuity.chatImportInstruction == null ? null : text(bootstrap.continuity.chatImportInstruction, 800)
+          startupInstruction: text(bootstrap.continuity.startupInstruction, 1800),
+          updateInstruction: text(bootstrap.continuity.updateInstruction, 1800),
+          chatImportInstruction: bootstrap.continuity.chatImportInstruction == null ? null : text(bootstrap.continuity.chatImportInstruction, 1800)
         }
       : null
   };
-  if (!normalized.continuity?.handoffPath || !normalized.continuity?.startupInstruction || !normalized.continuity?.updateInstruction) {
-    reasonCodes.push('continuity-contract-required');
-  }
-  if (schemaVersion === 'uberbond-bootstrap-1.1.0' && !normalized.continuity?.chatImportInstruction) {
-    reasonCodes.push('chat-import-instruction-required');
-  }
+  if (!normalized.continuity?.handoffPath || !normalized.continuity?.startupInstruction || !normalized.continuity?.updateInstruction) reasonCodes.push('continuity-contract-required');
+  if (memoryBackedBootstrap(schemaVersion) && !normalized.continuity?.chatImportInstruction) reasonCodes.push('chat-import-instruction-required');
   return reasonCodes.length
     ? fail(reasonCodes, { prohibitedSecretPaths: secrets, bootstrap: normalized })
     : { ok: true, policyVersion: UBERBOND_BRAIN_CONTEXT_POLICY_VERSION, bootstrap: normalized };
@@ -348,19 +317,18 @@ export function compileUberBondProjectContext({ bootstrap, memoryIndex = null, s
   const pathSet = new Set(availablePaths.map(path => String(path || '').trim()).filter(Boolean));
   const required = [...new Set([
     ...REQUIRED_CANON_PATHS,
-    ...(validated.bootstrap.schemaVersion === 'uberbond-bootstrap-1.1.0' ? MEMORY_V2_REQUIRED_PATHS : []),
+    ...(memoryBackedBootstrap(validated.bootstrap.schemaVersion) ? MEMORY_V2_REQUIRED_PATHS : []),
+    ...(validated.bootstrap.schemaVersion === 'uberbond-bootstrap-1.2.0' ? LIFE_NORTH_STAR_REQUIRED_PATHS : []),
     ...validated.bootstrap.canonPointers
   ])];
   const missing = required.filter(path => !pathSet.has(path));
   if (missing.length) return fail(['required-canon-path-missing'], { missingPaths: missing });
 
   let memory = null;
-  if (validated.bootstrap.schemaVersion === 'uberbond-bootstrap-1.1.0') {
+  if (memoryBackedBootstrap(validated.bootstrap.schemaVersion)) {
     const checkedMemory = validateUberBondMemoryIndex(memoryIndex);
     if (!checkedMemory.ok) return fail(['valid-memory-index-required', ...checkedMemory.reasonCodes], { memoryValidation: checkedMemory });
-    if (JSON.stringify(checkedMemory.memoryIndex.productFamilies) !== JSON.stringify(validated.bootstrap.productFamilies)) {
-      return fail(['bootstrap-memory-product-family-mismatch']);
-    }
+    if (JSON.stringify(checkedMemory.memoryIndex.productFamilies) !== JSON.stringify(validated.bootstrap.productFamilies)) return fail(['bootstrap-memory-product-family-mismatch']);
     memory = checkedMemory;
   } else if (memoryIndex != null) {
     const checkedMemory = validateUberBondMemoryIndex(memoryIndex);
@@ -369,7 +337,7 @@ export function compileUberBondProjectContext({ bootstrap, memoryIndex = null, s
   }
 
   const context = {
-    schemaVersion: memory ? 'uberbond-project-context-1.1.0' : 'uberbond-project-context-1.0.0',
+    schemaVersion: validated.bootstrap.schemaVersion === 'uberbond-bootstrap-1.2.0' ? 'uberbond-project-context-1.2.0' : memory ? 'uberbond-project-context-1.1.0' : 'uberbond-project-context-1.0.0',
     project: 'UberBond',
     sourceCommit: commit.toLowerCase(),
     compiledAt: timestamp,
@@ -394,6 +362,9 @@ export function compileUberBondProjectContext({ bootstrap, memoryIndex = null, s
     sharedOperatingSystemDomains: memory ? clone(memory.memoryIndex.sharedOperatingSystemDomains) : [],
     antiForgettingRules: memory ? clone(memory.memoryIndex.antiForgettingRules) : [],
     unresolvedNames: memory ? clone(memory.memoryIndex.unresolvedNames) : [],
+    lifeNorthStar: validated.bootstrap.schemaVersion === 'uberbond-bootstrap-1.2.0'
+      ? { status: 'CANONICAL_NORTH_STAR', requiredPaths: [...LIFE_NORTH_STAR_REQUIRED_PATHS], authority: 'GUIDANCE_NOT_AUTONOMOUS_LIFE_DECISION' }
+      : null,
     continuityLaw: 'REPOSITORY_CANON_OUTRANKS_CHAT_MEMORY_AND_EVERY_MATERIAL_SESSION_MUST_LEAVE_A_DURABLE_HANDOFF',
     memoryLaw: 'HISTORICAL_MEMORY_PREVENTS_FORGETTING_BUT_NEVER_PROMOTES_ITSELF_ABOVE_CURRENT_CODE_RECEIPTS_OR_EXTERNAL_TRUTH',
     externalTruthLaw: 'INTERNAL_CODE_MODEL_OR_DOCUMENT_OUTPUT_CANNOT_SYNTHESIZE_CUSTOMER_PAYMENT_ACCEPTANCE_LEGAL_PROVIDER_OR_MARKET_TRUTH',
@@ -403,15 +374,7 @@ export function compileUberBondProjectContext({ bootstrap, memoryIndex = null, s
   const identity = { ...context };
   delete identity.compiledAt;
   context.contextDigest = digest(identity);
-  return {
-    ok: true,
-    policyVersion: UBERBOND_BRAIN_CONTEXT_POLICY_VERSION,
-    status: 'PROJECT_CONTEXT_READY',
-    context,
-    startupProtocol: clone(validated.bootstrap.startupProtocol),
-    businessEffectAuthority: 'NONE',
-    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
-  };
+  return { ok: true, policyVersion: UBERBOND_BRAIN_CONTEXT_POLICY_VERSION, status: 'PROJECT_CONTEXT_READY', context, startupProtocol: clone(validated.bootstrap.startupProtocol), businessEffectAuthority: 'NONE', externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS } };
 }
 
 export function compileUberBondHandoff({ projectContext, activeMission, completed = [], blockers = [], nextActions = [] } = {}) {

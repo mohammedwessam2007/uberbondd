@@ -35,6 +35,14 @@ const steps = [
     'tests/universal-ignorance-map.test.mjs',
     'tests/reflexivity-engine.test.mjs',
 
+    // Volitional anti-capture + adaptive-agent sovereignty. A private control
+    // build must not be green if behavior can become endorsement, AI influence
+    // can mint authority, or another actor's consent/exit is averaged away.
+    'tests/preference-provenance.test.mjs',
+    'tests/meta-volition-engine.test.mjs',
+    'tests/volitional-integrity-engine.test.mjs',
+    'tests/strategic-reality-engine.test.mjs',
+
     // Cash-path continuation boundary. A preview may never become green while
     // paid research can bypass QA or fabricate customer acceptance.
     'tests/first-cash-prospect-completion.test.mjs'

@@ -13,12 +13,14 @@ A human or AI opening this repository must read, in this order:
 1. [`NORTH_STAR.md`](NORTH_STAR.md)
 2. [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`](docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md)
 3. [`artifacts/sovereign-cognitive-continuum-total-north-star.json`](artifacts/sovereign-cognitive-continuum-total-north-star.json)
-4. [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`](docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md)
-5. [`docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md`](docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md)
-6. [`docs/NORTH_STAR_PRECEDENCE.md`](docs/NORTH_STAR_PRECEDENCE.md)
-7. [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md)
-8. [`AGENTS.md`](AGENTS.md), [`CLAUDE.md`](CLAUDE.md), [`UBERBOND_CANON.md`](UBERBOND_CANON.md), and [`UBERBOND_BOOTSTRAP.json`](UBERBOND_BOOTSTRAP.json)
-9. [`docs/UBERBOND_TOTAL_BRAIN.md`](docs/UBERBOND_TOTAL_BRAIN.md) and the current handoff/state artifacts before selecting implementation work.
+4. [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md`](docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md)
+5. [`artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json`](artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json)
+6. [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`](docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md)
+7. [`docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md`](docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md)
+8. [`docs/NORTH_STAR_PRECEDENCE.md`](docs/NORTH_STAR_PRECEDENCE.md)
+9. [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md)
+10. [`AGENTS.md`](AGENTS.md), [`CLAUDE.md`](CLAUDE.md), [`UBERBOND_CANON.md`](UBERBOND_CANON.md), and [`UBERBOND_BOOTSTRAP.json`](UBERBOND_BOOTSTRAP.json)
+11. [`docs/UBERBOND_TOTAL_BRAIN.md`](docs/UBERBOND_TOTAL_BRAIN.md) and the current handoff/state artifacts before selecting implementation work.
 
 Do **not** infer UberBond's identity from the public UI, the current commercial experiment, the `lite/` app, a single active PR, a historical launch guide, or the current revenue wedge.
 
@@ -57,6 +59,8 @@ Use that historical document when you specifically need the July Revenue Engine 
 
 The total North Star canon preserves every major layer developed in the founder conversation, including sovereignty, will, values, attention, memory, epistemics, meta-rationality, option generation, strongest calibrated forecasting, causality, uncertainty, unknown-unknown search, future geometry, capability growth, embodiment, experience, identity, relationships, mortality, becoming, anti-capture, right of exit, non-totalization, and the open-under-future-invention law.
 
+The chat-completeness appendix separately preserves literal names and phrases whose mechanisms were later merged or renamed, so concepts such as `Personal Big Bang`, `Civilization of Minds`, `Temporal Civilization`, `Free Will Amplification`, `Present Free Will Outranks the Model`, `Will Veto`, `Reality Compiler`, and `Surprise Maximizer` remain searchable and recoverable.
+
 A new feature may refine or supersede a mechanism, but it must not silently amputate the purpose the mechanism contributed.
 
 ## Truth boundary
@@ -79,7 +83,7 @@ UberBond must never claim superintelligence, omniscience, perfect prediction, co
 The repository should be understandable from the top down:
 
 ```text
-README -> NORTH STAR -> TOTAL NORTH STAR -> CANON / BOOTSTRAP -> TOTAL BRAIN -> CURRENT HANDOFF -> IMPLEMENTATION
+README -> NORTH STAR -> TOTAL NORTH STAR -> CHAT COMPLETENESS -> CANON / BOOTSTRAP -> TOTAL BRAIN -> CURRENT HANDOFF -> IMPLEMENTATION
 ```
 
 If a fresh session starts by proposing "do a website audit" merely because the repository root used to describe that product, the startup sequence has failed.

@@ -1,19 +1,19 @@
-Yªηx-®ιάjΧΆλiΊΪ+§j[h‘ιάΆινίΝ7σή;Ϋί4o+^²‰Ά¶Χ{
+Yªηx-®ιάjΧΆλiΊΪ+§j[h‘ιάΆινίΝ9γή;ί­΄o+^²‰Ά¶Χ{
   "ok": true,
   "status": "COVERAGE_MATRIX_COMPILED",
   "schemaVersion": "uberbond.sovereign-coverage-matrix.v1",
-  "generatedAt": "2026-09-07T19:18:43.607Z",
-  "sourceCommit": "f160cb810d619b07dc75c08ec89705baf88b0214",
+  "generatedAt": "2026-09-07T19:20:13.955Z",
+  "sourceCommit": "776988514faa2d8537b7300785725ce234c9467e",
   "counts": {
     "extractedConcepts": 1068,
     "rows": 1038,
     "mergedAliasRows": 30,
-    "declaredConcepts": 172,
+    "declaredConcepts": 174,
     "byState": {
-      "VERIFIED_CURRENT": 260,
+      "VERIFIED_CURRENT": 262,
       "PARTIAL_CURRENT": 72,
       "DRAFT_DONOR": 0,
-      "SPEC_ONLY": 125,
+      "SPEC_ONLY": 123,
       "EXTERNAL_BLOCKED": 19,
       "OWNER_BOUNDARY": 13,
       "ELAPSED_TIME_REQUIRED": 0,

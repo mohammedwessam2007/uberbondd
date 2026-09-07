@@ -1927,6 +1927,30 @@
       ],
       "note": "Event Horizon validates and scores candidate records with bounded economics and explicit uncertainty; it does not move money or authorize effects.",
       "lane": "OMEGA-08"
+    },
+    {
+      "concept": "Mechanism Lab atom extraction and recombination",
+      "sources": [
+        "src/mechanism-lab.mjs"
+      ],
+      "tests": [
+        "tests/mechanism-lab.test.mjs"
+      ],
+      "note": "compileMechanismAtom/extractMechanismAtoms/recombineMechanismAtoms/redTeamMechanismCandidate enforce typed evidence, bounded hypotheses and review-only promotion.",
+      "lane": "OMEGA-08"
+    },
+    {
+      "concept": "prospect-supply/source adapters",
+      "sources": [
+        "src/prospect-import.mjs",
+        "src/prospect-identity-ledger.mjs"
+      ],
+      "tests": [
+        "tests/prospect-import.test.mjs",
+        "tests/prospect-qualification-pipeline.test.mjs"
+      ],
+      "note": "Import adapters normalize licensed contact provenance and feed qualification with suppression/evidence gates; no outbound authority is granted.",
+      "lane": "OMEGA-08"
     }
   ]
 }

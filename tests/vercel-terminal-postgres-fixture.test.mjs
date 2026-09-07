@@ -1,8 +1,22 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { accessSync, constants, existsSync, readFileSync } from 'node:fs';
+import {
+  accessSync,
+  chmodSync,
+  constants,
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  realpathSync,
+  rmSync,
+  writeFileSync
+} from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { prepareEmbeddedPostgresFixture } from '../scripts/prepare-embedded-postgres-fixture.mjs';
 
 test('terminal gate narrowly approves and prepares the pinned embedded Postgres fixture at both required boundaries', () => {
   const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
@@ -32,7 +46,7 @@ test('terminal gate narrowly approves and prepares the pinned embedded Postgres 
   assert.match(terminal, /process\.platform === 'linux' && process\.arch === 'x64'/);
 });
 
-test('Linux fixture preparation leaves the pinned PostgreSQL executables runnable', {
+test('Linux fixture preparation proves the pinned PostgreSQL executables can actually spawn', {
   skip: process.platform !== 'linux' || process.arch !== 'x64'
 }, () => {
   const run = spawnSync(process.execPath, ['scripts/prepare-embedded-postgres-fixture.mjs'], {
@@ -40,11 +54,55 @@ test('Linux fixture preparation leaves the pinned PostgreSQL executables runnabl
     encoding: 'utf8'
   });
   assert.equal(run.status, 0, `fixture preparation failed:\n${run.stderr || run.stdout}`);
-  assert.match(run.stdout, /embedded-postgres-fixture — READY 18\.4\.0-beta\.17/);
+  assert.match(run.stdout, /embedded-postgres-fixture — READY 18\.4\.0-beta\.17 (?:PACKAGE_NATIVE|TMP_NATIVE_SYMLINK)/);
 
   const binDir = path.resolve('node_modules/@embedded-postgres/linux-x64/native/bin');
   for (const executable of ['initdb', 'pg_ctl', 'postgres']) {
-    assert.doesNotThrow(() => accessSync(path.join(binDir, executable), constants.X_OK),
+    const file = path.join(binDir, executable);
+    assert.doesNotThrow(() => accessSync(file, constants.X_OK),
       `${executable} must be executable after fixture preparation`);
+    const probe = spawnSync(file, ['--version'], { encoding: 'utf8' });
+    assert.equal(probe.status, 0, `${executable} must be spawnable, not merely marked executable: ${probe.error?.message || probe.stderr}`);
+  }
+});
+
+test('fixture can relocate only the pinned native tree to an executable temp mirror', {
+  skip: process.platform !== 'linux' || process.arch !== 'x64'
+}, async () => {
+  const root = mkdtempSync(path.join(os.tmpdir(), 'uberbond-pg-fixture-mirror-test-'));
+  const packageRoot = path.join(root, 'platform-package');
+  const binDir = path.join(packageRoot, 'native', 'bin');
+  mkdirSync(binDir, { recursive: true });
+  writeFileSync(path.join(packageRoot, 'package.json'), JSON.stringify({ version: '18.4.0-beta.17' }));
+
+  for (const executable of ['initdb', 'pg_ctl', 'postgres']) {
+    const file = path.join(binDir, executable);
+    writeFileSync(file, '#!/bin/sh\nprintf "fake-postgres-version\\n"\n');
+    chmodSync(file, 0o755);
+  }
+
+  try {
+    const result = await prepareEmbeddedPostgresFixture({
+      packageRoot,
+      mirrorBaseDir: root,
+      forceMirror: true
+    });
+    assert.equal(result.status, 'READY');
+    assert.equal(result.executionProbe, 'PASSED');
+    assert.equal(result.executionMode, 'TMP_NATIVE_SYMLINK');
+
+    const nativePath = path.join(packageRoot, 'native');
+    assert.equal(lstatSync(nativePath).isSymbolicLink(), true,
+      'package native tree must become a symlink only after the temp mirror passes execution probes');
+    const resolvedNative = realpathSync(nativePath);
+    assert.equal(resolvedNative.startsWith(`${root}${path.sep}`), true,
+      'forced mirror must remain inside the supplied bounded temp root');
+
+    for (const executable of ['initdb', 'pg_ctl', 'postgres']) {
+      const probe = spawnSync(path.join(nativePath, 'bin', executable), ['--version'], { encoding: 'utf8' });
+      assert.equal(probe.status, 0, `${executable} must execute through the mirror symlink`);
+    }
+  } finally {
+    rmSync(root, { recursive: true, force: true });
   }
 });

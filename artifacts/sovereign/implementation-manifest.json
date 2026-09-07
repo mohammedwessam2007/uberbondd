@@ -1080,6 +1080,402 @@
         "tests/life-autopoiesis.test.mjs"
       ],
       "note": "meaningArchaeology surfaces durable, faded and grown-in-meaning experiences from the founder's own evidence, with no view on what should have mattered. The grown group is the one nobody looks for. AUTOPOI-07."
+    },
+    {
+      "concept": "Civilizational Intelligence",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/world-intelligence.mjs"
+      ],
+      "tests": [
+        "tests/world-intelligence.test.mjs"
+      ],
+      "note": "composeInstitution assembles the smallest sufficient set of substrates and roles, and refuses a consequential question with no falsifying role -- generators and synthesizers alone produce a well-written answer with nothing standing against it. WORLDINT-01."
+    },
+    {
+      "concept": "Substrate-Agnostic Cognition",
+      "lane": "OMEGA-06",
+      "sources": [
+        "src/world-intelligence.mjs"
+      ],
+      "tests": [
+        "tests/world-intelligence.test.mjs"
+      ],
+      "note": "Eleven substrates, none of them the system's identity. substrateIndependence reports a monoculture, because a system that always routes to one substrate has become it and stops noticing what it is bad at."
+    },
+    {
+      "concept": "Intelligence Reinvention",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/world-intelligence.mjs"
+      ],
+      "tests": [
+        "tests/world-intelligence.test.mjs"
+      ],
+      "note": "The routing and role composition are inputs rather than fixed architecture, so the assembly can change without the module changing."
+    },
+    {
+      "concept": "Ontogenesis",
+      "lane": "OMEGA-07",
+      "sources": [
+        "src/world-intelligence.mjs"
+      ],
+      "tests": [
+        "tests/world-intelligence.test.mjs"
+      ],
+      "note": "proposeConcept requires repeated explanatory failure and a falsification condition. Inventing a primitive because the vocabulary is inelegant produces jargon; a concept nothing could falsify explains everything and constrains nothing. WORLDINT-02/03/04."
+    },
+    {
+      "concept": "Ontological Crisis Protocol",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/world-intelligence.mjs"
+      ],
+      "tests": [
+        "tests/world-intelligence.test.mjs"
+      ],
+      "note": "When a foundational concept breaks, every derived belief, forecast and decision is invalidated. The expensive half is not noticing the break but the conclusions that quietly keep their standing."
+    },
+    {
+      "concept": "Reality Compression Engine",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/world-intelligence.mjs"
+      ],
+      "tests": [
+        "tests/world-intelligence.test.mjs"
+      ],
+      "note": "A theory carrying unexplained exceptions is reported incomplete rather than elegant: compression that drops a decisive exception is a shorter way of being wrong."
+    },
+    {
+      "concept": "Scale Bridge",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/world-intelligence.mjs"
+      ],
+      "tests": [
+        "tests/world-intelligence.test.mjs"
+      ],
+      "note": "scaleBridge flags effects that change sign across scales -- good for a day and bad for a decade, which a single-scale verdict misses by construction. WORLDINT-07."
+    },
+    {
+      "concept": "Boundary Discovery Engine",
+      "lane": "OMEGA-07",
+      "sources": [
+        "src/world-intelligence.mjs"
+      ],
+      "tests": [
+        "tests/world-intelligence.test.mjs"
+      ],
+      "note": "classifyBoundary separates social convention, economic constraint and technological block from the two boundaries that never move."
+    },
+    {
+      "concept": "Impossible Detector",
+      "lane": "OMEGA-07",
+      "sources": [
+        "src/world-intelligence.mjs"
+      ],
+      "tests": [
+        "tests/world-intelligence.test.mjs"
+      ],
+      "note": "NO_MECHANISM_FOUND_YET is distinct from PHYSICALLY_IMPOSSIBLE. Conflating them closes futures nobody established were closed. WORLDINT-05."
+    },
+    {
+      "concept": "Self-Alienating Intelligence",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/world-intelligence.mjs"
+      ],
+      "tests": [
+        "tests/world-intelligence.test.mjs"
+      ],
+      "note": "A challenger sharing every assumption is refused: it explores the same blind spot from a different chair. WORLDINT-06."
+    },
+    {
+      "concept": "Nonlinear Threshold Detector",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/world-intelligence.mjs"
+      ],
+      "tests": [
+        "tests/world-intelligence.test.mjs"
+      ],
+      "note": "No visible progress in a known threshold system is reported as below-threshold, not as failing -- assuming linear returns is how someone concludes they cannot learn a language six weeks before they could. WORLDINT-08."
+    },
+    {
+      "concept": "Recursive Cognitive Evolution",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/world-intelligence.mjs"
+      ],
+      "tests": [
+        "tests/world-intelligence.test.mjs"
+      ],
+      "note": "The concept-proposal and crisis loops are how the architecture revises its own vocabulary; both fail closed rather than self-promoting."
+    },
+    {
+      "concept": "Life Knowledge Graph",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-knowledge-graph.mjs"
+      ],
+      "tests": [
+        "tests/life-knowledge-graph.test.mjs"
+      ],
+      "note": "Every edge carries how it was established. An edge with no basis enters the graph looking like every other edge and every later query inherits its confidence. LKG-01."
+    },
+    {
+      "concept": "Reality Lattice",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-knowledge-graph.mjs"
+      ],
+      "tests": [
+        "tests/life-knowledge-graph.test.mjs"
+      ],
+      "note": "The same graph under its canon name; traversal refuses weak edges by default because a path crossing one anecdote is an anecdote. LKG-02/03."
+    },
+    {
+      "concept": "Life Knowledge Graph / Reality Lattice",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-knowledge-graph.mjs"
+      ],
+      "tests": [
+        "tests/life-knowledge-graph.test.mjs"
+      ],
+      "note": "The merged canon phrasing; one implementation."
+    },
+    {
+      "concept": "Reality Authentication Layer",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-knowledge-graph.mjs"
+      ],
+      "tests": [
+        "tests/life-knowledge-graph.test.mjs"
+      ],
+      "note": "authenticate records origin and corroboration. An unattributed claim is untraceable rather than false -- it reads identically to a primary observation as text. LKG-05."
+    },
+    {
+      "concept": "Identity Branch-and-Merge",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-knowledge-graph.mjs"
+      ],
+      "tests": [
+        "tests/life-knowledge-graph.test.mjs"
+      ],
+      "note": "Identities coexist and no field names a primary. Asking which life is the real one is premature until something establishes only one can be."
+    },
+    {
+      "concept": "Anti-Narrative Engine",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/life-knowledge-graph.mjs"
+      ],
+      "tests": [
+        "tests/life-knowledge-graph.test.mjs"
+      ],
+      "note": "A story claimed as a mechanism needs evidence beyond the story: a narrative may be true as meaning and false as mechanism. LKG-06."
+    },
+    {
+      "concept": "Reference Classes and Base Rates",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "A forecast method whose validation record is separate from its plausibility. FCSTACK-01."
+    },
+    {
+      "concept": "Causal Forecasting",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "Present as a method, and unproven until hindcast like every other."
+    },
+    {
+      "concept": "Personal Longitudinal Forecasting",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "Same treatment: the founder's own history is a method, not an exemption from validation."
+    },
+    {
+      "concept": "Current-World Evidence Forecasting",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "Freshness is a strength dimension rather than an implicit assumption."
+    },
+    {
+      "concept": "Independent Forecast Ensemble",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "An ensemble is a method in the stack; its independence is measured elsewhere rather than assumed here."
+    },
+    {
+      "concept": "Adversarial Forecasting",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "A method whose job is to make the dominant forecast wrong."
+    },
+    {
+      "concept": "Scenario Trees",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "A qualitative method, and one that cannot on its own license a probability."
+    },
+    {
+      "concept": "Hindcasting",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "hindcastRuns is the load-bearing field: a method never asked to predict something already known has no track record. FCSTACK-01."
+    },
+    {
+      "concept": "Backtesting",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "The same validation gate; a stack with no validated method refuses to produce an estimate. FCSTACK-02."
+    },
+    {
+      "concept": "Online Updating",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "A method in the stack, and the reason a forecast carries invalidation triggers."
+    },
+    {
+      "concept": "Darwinian Forecasting",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "Influence follows measured hindcast accuracy rather than argument -- the weighting field says so explicitly."
+    },
+    {
+      "concept": "Prediction Half-Life",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "A forecast nothing could invalidate cannot be noticed going stale, and a stale forecast still being acted on is the quiet failure. FCSTACK-04."
+    },
+    {
+      "concept": "Decision Information Theory",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "valueOfInformation refuses information that cannot change the choice: research that cannot flip a decision is procrastination with a reading list. FCSTACK-05."
+    },
+    {
+      "concept": "Value of Information",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "The same function under its canon name."
+    },
+    {
+      "concept": "Decision Shelf Life",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "Availability states separate urgency from importance, which most planners conflate."
+    },
+    {
+      "concept": "Regret Geometry",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "Expected value, worst case, recovery time and anticipated regret stay separate. combinedScore is permanently null, because a combined figure is how a catastrophic tail gets erased by a good average. FCSTACK-06."
+    },
+    {
+      "concept": "Regret Intelligence",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "The same shape: anticipated regret is recorded beside the numbers rather than folded into them."
+    },
+    {
+      "concept": "Adversarial Future Selves",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/forecast-stack.mjs"
+      ],
+      "tests": [
+        "tests/forecast-stack.test.mjs"
+      ],
+      "note": "Returns the invariant that survived attack, never a majority. A future self agreeing with every other tells you about the generator. FCSTACK-07."
     }
   ]
 }

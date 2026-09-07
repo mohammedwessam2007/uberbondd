@@ -2,18 +2,18 @@
   "ok": true,
   "status": "COVERAGE_MATRIX_COMPILED",
   "schemaVersion": "uberbond.sovereign-coverage-matrix.v1",
-  "generatedAt": "2026-09-07T20:16:27.982Z",
-  "sourceCommit": "599b2f870c414748cf336adb8c3b3fd3e165a0d9",
+  "generatedAt": "2026-09-07T20:52:34.662Z",
+  "sourceCommit": "c182ac0e44a721cd9d7adba24b36228a07e76091",
   "counts": {
     "extractedConcepts": 1068,
     "rows": 1038,
     "mergedAliasRows": 30,
-    "declaredConcepts": 159,
+    "declaredConcepts": 161,
     "byState": {
-      "VERIFIED_CURRENT": 241,
+      "VERIFIED_CURRENT": 250,
       "PARTIAL_CURRENT": 61,
       "DRAFT_DONOR": 0,
-      "SPEC_ONLY": 126,
+      "SPEC_ONLY": 117,
       "EXTERNAL_BLOCKED": 19,
       "OWNER_BOUNDARY": 13,
       "ELAPSED_TIME_REQUIRED": 0,
@@ -27,7 +27,7 @@
       "ALIAS_OF_CANONICAL_CONCEPT": 45
     },
     "byLane": {
-      "OMEGA-14": 295,
+      "OMEGA-14": 293,
       "OMEGA-03": 61,
       "OMEGA-01": 14,
       "OMEGA-04": 121,
@@ -35,7 +35,7 @@
       "OMEGA-05": 78,
       "OMEGA-06": 15,
       "OMEGA-07": 20,
-      "OMEGA-02": 168,
+      "OMEGA-02": 170,
       "OMEGA-13": 14,
       "OMEGA-11": 4,
       "OMEGA-09": 165,
@@ -2138,22 +2138,26 @@
         "Assumption Escape"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/assumption-escape.mjs"
+        ],
+        "testModules": [
+          "tests/assumption-escape.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Assumption Escape",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/assumption-escape.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -2168,22 +2172,26 @@
         "Incompleteness Awareness"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/assumption-escape.mjs"
+        ],
+        "testModules": [
+          "tests/assumption-escape.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Incompleteness Awareness",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/assumption-escape.mjs",
+      "owningLane": "OMEGA-02",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -2300,22 +2308,26 @@
         "Unknown-Unknown Mining"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/unknown-unknown-mining.mjs"
+        ],
+        "testModules": [
+          "tests/unknown-unknown-mining.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Unknown-Unknown Mining",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/unknown-unknown-mining.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -2534,22 +2546,26 @@
         "N-of-1 Personal Science"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/n-of-1-personal-science.mjs"
+        ],
+        "testModules": [
+          "tests/n-of-1-personal-science.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "N-of-1 Personal Science",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/n-of-1-personal-science.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -3682,22 +3698,26 @@
         "Anti-Fragility Map"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/anti-fragility-map.mjs"
+        ],
+        "testModules": [
+          "tests/anti-fragility-map.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Anti-Fragility Map",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/anti-fragility-map.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -3882,22 +3902,26 @@
         "Freedom Gradient"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/freedom-gradient.mjs"
+        ],
+        "testModules": [
+          "tests/freedom-gradient.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Freedom Gradient",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/freedom-gradient.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -3912,22 +3936,26 @@
         "Agency Geometry"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/freedom-gradient.mjs"
+        ],
+        "testModules": [
+          "tests/freedom-gradient.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Agency Geometry",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/freedom-gradient.mjs",
+      "owningLane": "OMEGA-02",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -10769,22 +10797,26 @@
         "Unknown-Unknown Mining"
       ],
       "class": "ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/unknown-unknown-mining.mjs"
+        ],
+        "testModules": [
+          "tests/unknown-unknown-mining.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Unknown-Unknown Mining",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/unknown-unknown-mining.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -18322,22 +18354,26 @@
         "Unknown-Unknown Mining"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/unknown-unknown-mining.mjs"
+        ],
+        "testModules": [
+          "tests/unknown-unknown-mining.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Unknown-Unknown Mining",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/unknown-unknown-mining.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,

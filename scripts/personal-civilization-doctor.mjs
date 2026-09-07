@@ -21,6 +21,8 @@ import { branch, evaluateDecision, inventoryBreadth, crossFutureValue } from '..
 import { fact, compress, compressionDebt } from '../src/life-compression-engine.mjs';
 import { classifySignal, ground, windowVersusImportance, attentionBudget } from '../src/gamechanger-for-life.mjs';
 import { generatePath, generateBatch, unknownSelfProbes } from '../src/genesis-for-life.mjs';
+import { gateOption, freedomGradient, agencyGeometry } from '../src/freedom-gradient.mjs';
+import { dependency, mapRedundancy, classify } from '../src/anti-fragility-map.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = new Map();
@@ -67,6 +69,17 @@ const FIXTURE = {
       wouldHaveToBeTrue: ['I meet the qualification bar', 'an institution will sponsor']
     }
   ],
+  options: [
+    { name: 'stay in the current post', gates: { PERCEIVED: true, UNDERSTOOD: true, REACHABLE: true, RESOURCED: true, REVERSIBLE: true, UNCOERCED: true, SELF_ENDORSED: true } },
+    { name: 'the research post abroad', gates: { PERCEIVED: true, UNDERSTOOD: true, REACHABLE: true, RESOURCED: false, REVERSIBLE: true, UNCOERCED: true, SELF_ENDORSED: true } },
+    { name: 'the family-expected route', gates: { PERCEIVED: true, UNDERSTOOD: true, REACHABLE: true, RESOURCED: true, REVERSIBLE: true, UNCOERCED: false, SELF_ENDORSED: false } }
+  ],
+  dependencies: [
+    { name: 'the hospital salary', domain: 'INCOME', failureModes: ['the post ends'], maintenanceCostPerMonth: 0 },
+    { name: 'the locum work', domain: 'INCOME', failureModes: ['the post ends'], maintenanceCostPerMonth: 0 },
+    { name: 'notes in one cloud provider', domain: 'MEMORY', failureModes: ['the provider shuts down'], maintenanceCostPerMonth: 8 }
+  ],
+  stresses: [{ event: 'a month of illness', degraded: true, recovered: true }],
   testedDimensions: ['CAREER', 'KNOWLEDGE', 'EDUCATION'],
   paths: [
     { name: 'a more prestigious version of the current track', identityDistance: 'CONTINUATION', dimensions: ['CAREER'] },
@@ -126,6 +139,25 @@ const paths = (Array.isArray(situation.paths) ? situation.paths : []).map(genera
 const batch = paths.length ? generateBatch(paths) : null;
 const probes = unknownSelfProbes({ testedDimensions: situation.testedDimensions || [], paths });
 
+// Freedom: how many of the nominal options are effectively free, and where the
+// rest are lost.
+const gatedOptions = (Array.isArray(situation.options) ? situation.options : []).map(gateOption)
+  .filter(row => row.ok).map(row => row.option);
+const gradient = freedomGradient(gatedOptions);
+// The same funnel with the constrained options removed, which is the shape the
+// life would have if the resource and coercion gates were cleared. Compared
+// against the real one so a rising option count cannot read as rising freedom.
+const ifCleared = freedomGradient(gatedOptions.map(option => option.effectivelyFree
+  ? option
+  : { ...option, gates: Object.fromEntries(Object.keys(option.gates).map(gate => [gate, true])), effectivelyFree: true }));
+const geometry = agencyGeometry({ before: gradient, after: ifCleared });
+
+// Fragility: which domains depend on one thing not failing.
+const dependencies = (Array.isArray(situation.dependencies) ? situation.dependencies : []).map(dependency)
+  .filter(row => row.ok).map(row => row.dependency);
+const redundancy = mapRedundancy(dependencies);
+const fragility = classify({ system: 'the life system', stressesObserved: situation.stresses || [] });
+
 const report = {
   ok: true,
   status: 'PERSONAL_CIVILIZATION_DOCTOR_COMPLETE',
@@ -158,6 +190,18 @@ const report = {
     deferredCount: budget.ok ? budget.deferredCount : 0,
     groundingOutcomes: grounded.map(row => ({ signal: row.signal, state: row.state, status: row.status })),
     urgencyAndImportance: windows.map(row => ({ signal: row.signal, reading: row.reading }))
+  },
+  freedom: {
+    nominalOptions: gradient.nominalOptions,
+    effectivelyFree: gradient.effectivelyFree,
+    narrowestGate: gradient.narrowestGate,
+    ifConstraintsCleared: { effectiveDelta: geometry.effectiveDelta, reading: geometry.reading }
+  },
+  fragility: {
+    singlePointOfFailureDomains: redundancy.domains.filter(row => row.singlePointOfFailure).map(row => row.domain),
+    unmappedDomains: redundancy.domainsWithNoRecordedDependency,
+    maintenanceCostPerMonth: redundancy.maintenanceCostPerMonth,
+    observedClass: fragility.observedClass
   },
   genesis: {
     generated: paths.length,

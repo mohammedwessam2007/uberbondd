@@ -2621,6 +2621,195 @@ export const MUTATIONS = [
     replace: "  if (false) return 'ALIAS_OF_CANONICAL_CONCEPT';",
     suites: ['tests/sovereign-coverage-matrix.test.mjs']
   },
+  // ---- Questions nobody knew to ask, and the blind spot doing the asking --
+  {
+    id: 'UUMINE-01', guard: 'Repeated surprise from one source is a fact about that source',
+    file: 'src/unknown-unknown-mining.mjs',
+    find: '    if (entry.sources.size >= 2) questions.push(record);',
+    replace: '    if (entry.sources.size >= 1) questions.push(record);',
+    suites: ['tests/unknown-unknown-mining.test.mjs']
+  },
+  {
+    id: 'UUMINE-02', guard: 'Observations an existing model explains are excluded',
+    file: 'src/unknown-unknown-mining.mjs',
+    find: "  const resistant = rows.filter(row => row.verdict === 'RESISTS_EXPLANATION');",
+    replace: '  const resistant = rows;',
+    suites: ['tests/unknown-unknown-mining.test.mjs']
+  },
+  {
+    id: 'UUMINE-03', guard: 'An expectation must predate the gap it explains',
+    file: 'src/unknown-unknown-mining.mjs',
+    find: "  if (!declaredAt) return fail('EXPECTATION_INVALID', ['declared-at-required'], {",
+    replace: "  if (false) return fail('EXPECTATION_INVALID', ['declared-at-required'], {",
+    suites: ['tests/unknown-unknown-mining.test.mjs']
+  },
+  {
+    id: 'UUMINE-04', guard: 'Silence in an unobserved domain is a limit of the search',
+    file: 'src/unknown-unknown-mining.mjs',
+    find: '    .map(item => text(item, 120)).filter(item => item && !covered.has(item)))].sort();',
+    replace: '    .map(item => text(item, 120)).filter(item => item && covered.has(item)))].sort();',
+    suites: ['tests/unknown-unknown-mining.test.mjs']
+  },
+  {
+    id: 'UUMINE-05', guard: 'Claiming the ontology fails requires naming the distortion',
+    file: 'src/unknown-unknown-mining.mjs',
+    find: '  if (!distortion) {',
+    replace: '  if (false) {',
+    suites: ['tests/unknown-unknown-mining.test.mjs']
+  },
+  // ---- Effective freedom, which is not the number of options -------------
+  {
+    id: 'FREEDOM-01', guard: 'An unanswered gate is not a pass',
+    file: 'src/freedom-gradient.mjs',
+    find: '  if (unanswered.length > 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/freedom-gradient.test.mjs']
+  },
+  {
+    id: 'FREEDOM-02', guard: 'Coercion disqualifies however many other gates pass',
+    file: 'src/freedom-gradient.mjs',
+    find: '  const failed = FREEDOM_GATES.filter(gate => gates[gate] === false);',
+    replace: '  const failed = FREEDOM_GATES.filter(gate => gates[gate] === false && !DISQUALIFYING_GATES.includes(gate));',
+    suites: ['tests/freedom-gradient.test.mjs']
+  },
+  {
+    id: 'FREEDOM-03', guard: 'An option is attributed to the first gate it failed',
+    file: 'src/freedom-gradient.mjs',
+    find: '    const first = FREEDOM_GATES.find(gate => row.gates[gate] === false);',
+    replace: '    const first = [...FREEDOM_GATES].reverse().find(gate => row.gates[gate] === false);',
+    suites: ['tests/freedom-gradient.test.mjs']
+  },
+  {
+    id: 'FREEDOM-04', guard: 'A rising option count is not evidence of rising freedom',
+    file: 'src/freedom-gradient.mjs',
+    find: '  const divergent = nominalDelta > 0 && effectiveDelta < 0;',
+    replace: '  const divergent = false;',
+    suites: ['tests/freedom-gradient.test.mjs']
+  },
+  // ---- One subject who does not hold still -------------------------------
+  {
+    id: 'NOF1-01', guard: 'A series crossing a regime change is not pooled',
+    file: 'src/n-of-1-personal-science.mjs',
+    find: '    while (pending.length && row.at >= pending[0].at) {',
+    replace: '    while (false) {',
+    suites: ['tests/n-of-1-personal-science.test.mjs']
+  },
+  {
+    id: 'NOF1-02', guard: 'Length does not promote a before-and-after design',
+    file: 'src/n-of-1-personal-science.mjs',
+    find: "  if (kind === 'ANECDOTE' || kind === 'BEFORE_AFTER') {",
+    replace: "  if ((kind === 'ANECDOTE' || kind === 'BEFORE_AFTER') && n < 100) {",
+    suites: ['tests/n-of-1-personal-science.test.mjs']
+  },
+  {
+    id: 'NOF1-03', guard: 'A design that named no confounders has not looked for any',
+    file: 'src/n-of-1-personal-science.mjs',
+    find: '  if (named.length === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/n-of-1-personal-science.test.mjs']
+  },
+  {
+    id: 'NOF1-04', guard: 'A named but uncontrolled confounder blocks the causal claim',
+    file: 'src/n-of-1-personal-science.mjs',
+    find: '  if (uncontrolled.length > 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/n-of-1-personal-science.test.mjs']
+  },
+  {
+    // Number(null) is 0. A bare isFinite check turns a missing instrument error
+    // into a claimed zero-error instrument.
+    id: 'NOF1-05', guard: 'Absence never becomes a number',
+    file: 'src/n-of-1-personal-science.mjs',
+    find: "  if (value === null || value === undefined || value === '') return null;",
+    replace: '  if (false) return null;',
+    suites: ['tests/n-of-1-personal-science.test.mjs']
+  },
+  {
+    id: 'NOF1-06', guard: 'A population result with no transfer assumption is a wish',
+    file: 'src/n-of-1-personal-science.mjs',
+    find: "  if (!assumption) return fail('PRIOR_INVALID', ['transfer-assumption-required'], {",
+    replace: "  if (false) return fail('PRIOR_INVALID', ['transfer-assumption-required'], {",
+    suites: ['tests/n-of-1-personal-science.test.mjs']
+  },
+  // ---- Redundancy that survives contact with reality ---------------------
+  {
+    id: 'ANTIFRAG-01', guard: 'A dependency listing no failure mode is refused',
+    file: 'src/anti-fragility-map.mjs',
+    find: '  if (modes.length === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/anti-fragility-map.test.mjs']
+  },
+  {
+    id: 'ANTIFRAG-02', guard: 'Redundancy is counted in independent failure modes, not instances',
+    file: 'src/anti-fragility-map.mjs',
+    find: '    const singlePointOfFailure = entry.instances.length > 0 && shared.length > 0;',
+    replace: '    const singlePointOfFailure = entry.instances.length <= 1;',
+    suites: ['tests/anti-fragility-map.test.mjs']
+  },
+  {
+    id: 'ANTIFRAG-03', guard: 'A mode shared by every instance takes the domain down at once',
+    file: 'src/anti-fragility-map.mjs',
+    find: '    const shared = [...entry.modeSets[0]].filter(mode => entry.modeSets.every(set => set.has(mode))).sort();',
+    replace: '    const shared = [...entry.modeSets[0]].filter(mode => entry.modeSets.some(set => set.has(mode)) && entry.modeSets.length === 1).sort();',
+    suites: ['tests/anti-fragility-map.test.mjs']
+  },
+  {
+    id: 'ANTIFRAG-04', guard: 'A system nobody shook has an unknown class',
+    file: 'src/anti-fragility-map.mjs',
+    find: '  if (stresses.length === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/anti-fragility-map.test.mjs']
+  },
+  {
+    id: 'ANTIFRAG-05', guard: 'A prediction is held apart from the observation',
+    file: 'src/anti-fragility-map.mjs',
+    find: "    predictionHeld: predicted ? (predicted === observed ? 'PREDICTION_MATCHED' : 'PREDICTION_MISSED') : 'NO_PREDICTION_MADE',",
+    replace: "    predictionHeld: 'PREDICTION_MATCHED',",
+    suites: ['tests/anti-fragility-map.test.mjs']
+  },
+  // ---- Questions the assumptions already answered ------------------------
+  {
+    id: 'ASSUMESC-01', guard: 'A load-bearing assumption outside the set means the set is incomplete',
+    file: 'src/assumption-escape.mjs',
+    find: '  if (unknownAssumptions.length > 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/assumption-escape.test.mjs']
+  },
+  {
+    id: 'ASSUMESC-02', guard: 'A question whose answer flips is assumption-determined',
+    file: 'src/assumption-escape.mjs',
+    find: '  const determined = load.length > 0;',
+    replace: '  const determined = false;',
+    suites: ['tests/assumption-escape.test.mjs']
+  },
+  {
+    id: 'ASSUMESC-03', guard: 'A foundation predicting identically is a notation change',
+    file: 'src/assumption-escape.mjs',
+    find: '    if (disagreements.length > 0) genuine.push({ name, disagreesOn: disagreements, predicts });',
+    replace: '    if (true) genuine.push({ name, disagreesOn: disagreements, predicts });',
+    suites: ['tests/assumption-escape.test.mjs']
+  },
+  {
+    id: 'ASSUMESC-04', guard: 'An observation every foundation expects distinguishes nothing',
+    file: 'src/assumption-escape.mjs',
+    find: '    if (new Set(answers).size < 2) continue; // every foundation expects the same thing',
+    replace: '    if (false) continue;',
+    suites: ['tests/assumption-escape.test.mjs']
+  },
+  {
+    id: 'ASSUMESC-05', guard: 'An unreachable observation does not settle the question',
+    file: 'src/assumption-escape.mjs',
+    find: '    if (available.has(observable)) discriminating.push(record);',
+    replace: '    if (true) discriminating.push(record);',
+    suites: ['tests/assumption-escape.test.mjs']
+  },
+  {
+    id: 'ASSUMESC-06', guard: 'Undecidable is returned rather than a plausibility ranking',
+    file: 'src/assumption-escape.mjs',
+    find: '  if (discriminating.length === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/assumption-escape.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

@@ -106,7 +106,9 @@
     "test:capability-genome": "node --test tests/capability-genome.test.mjs tests/capability-genome-harvest.test.mjs tests/capability-genome-doctor-harvest.test.mjs tests/capability-genome-body-import.test.mjs tests/capability-genome-body-fetch.test.mjs tests/capability-genome-doctor-body.test.mjs tests/capability-genome-doctor-normalized.test.mjs",
     "sovereign:coverage": "node scripts/sovereign-coverage-matrix.mjs",
     "test:sovereign-coverage": "node --test tests/sovereign-coverage-matrix.test.mjs",
-    "test:personal-civilization": "node --test tests/life-possibility-engine.test.mjs tests/life-compression-engine.test.mjs tests/gamechanger-for-life.test.mjs tests/genesis-for-life.test.mjs tests/personal-civilization-doctor.test.mjs"
+    "test:personal-civilization": "node --test tests/life-possibility-engine.test.mjs tests/life-compression-engine.test.mjs tests/gamechanger-for-life.test.mjs tests/genesis-for-life.test.mjs tests/freedom-gradient.test.mjs tests/anti-fragility-map.test.mjs tests/personal-civilization-doctor.test.mjs",
+    "reasoning:doctor": "node scripts/reasoning-quality-doctor.mjs",
+    "test:reasoning-quality": "node --test tests/unknown-unknown-mining.test.mjs tests/assumption-escape.test.mjs tests/n-of-1-personal-science.test.mjs tests/reasoning-quality-doctor.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

@@ -1762,6 +1762,28 @@
         "tests/embodied-reality.test.mjs"
       ],
       "note": "Private human texture, explicitly excluded from every optimization input, so continuity of personhood does not depend on the measurable parts of a life. EMBODY-07."
+    },
+    {
+      "concept": "Agency Geometry",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/freedom-gradient.mjs"
+      ],
+      "tests": [
+        "tests/freedom-gradient.test.mjs"
+      ],
+      "note": "agencyGeometry. The same freedom funnel measured twice: a rising nominal option count with a falling effective count is reported as AGENCY_DIVERGENCE, which is invisible to anything tracking only one of the two numbers."
+    },
+    {
+      "concept": "Incompleteness Awareness",
+      "lane": "OMEGA-02",
+      "sources": [
+        "src/assumption-escape.mjs"
+      ],
+      "tests": [
+        "tests/assumption-escape.test.mjs"
+      ],
+      "note": "distinguishingObservation returns UNDECIDABLE_WITHIN_AVAILABLE_EVIDENCE and withholds any plausibility ranking when no available observation separates the foundations, rather than picking and inheriting the same status with more conviction."
     }
   ]
 }

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "uberbond-first-cash-inbound-route-research-1.0.0",
+  "status": "RESEARCH_ASSET__NOT_ACTIVATION__NOT_SEND_AUTHORITY__NOT_REVENUE_PROOF",
+  "observedAt": "2026-09-07",
+  "instructionAuthority": "NONE",
+  "purpose": "Identify lawful inbound distribution candidates that do not depend on cold-email transport for UberBond's first-cash offer.",
+  "candidates": [
+    {
+      "id": "contra-free-inbound",
+      "channel": "MARKETPLACE_INBOUND",
+      "provider": "Contra",
+      "evidenceClass": "OFFICIAL_PROVIDER_PUBLIC_DOCUMENTATION",
+      "observedClaims": [
+        "Contractors can create a profile, set up payments, send proposals, receive payments and find work on a free plan.",
+        "Free plan has standard discoverability and limited job opportunities.",
+        "Client-side/payment fees exist and current official Contra pages present materially different fee schedules."
+      ],
+      "evidenceRefs": [
+        "https://contra.com/pricing",
+        "https://contra.com/commission-free",
+        "https://contra.com/features/find-freelance-jobs",
+        "https://client-help.contra.com/en/articles/9708235-understanding-contra-s-fees-as-a-client"
+      ],
+      "contradictions": [
+        "Official Contra pricing/help surfaces observed on 2026-09-07 disagree on exact client platform/contract fee amounts; do not hard-code fee economics until re-verified at activation/checkout time."
+      ],
+      "activationState": "NOT_PROVEN",
+      "listingState": "NOT_CREATED",
+      "customerDemandState": "NOT_PROVEN",
+      "paymentState": "NOT_PROVEN"
+    },
+    {
+      "id": "upwork-project-catalog-inbound",
+      "channel": "MARKETPLACE_INBOUND",
+      "provider": "Upwork Project Catalog",
+      "evidenceClass": "OFFICIAL_PROVIDER_PUBLIC_DOCUMENTATION",
+      "observedClaims": [
+        "Accepted freelancers can create a Project Catalog project.",
+        "Project Catalog listings are searchable/browsable by clients and can be purchased directly from the listing.",
+        "Project listings are reviewed before publication."
+      ],
+      "evidenceRefs": [
+        "https://support.upwork.com/hc/en-us/articles/360058234233-How-to-get-started-with-Project-Catalog-as-a-freelancer",
+        "https://support.upwork.com/hc/en-us/articles/10408677826963-What-is-Project-Catalog-on-Upwork"
+      ],
+      "contradictions": [],
+      "activationState": "ACCOUNT_ACCEPTANCE_NOT_PROVEN",
+      "listingState": "NOT_CREATED_OR_REVIEWED",
+      "customerDemandState": "NOT_PROVEN",
+      "paymentState": "NOT_PROVEN"
+    }
+  ],
+  "selectionPolicy": {
+    "preferredReason": "These channels can create inbound buyer discovery without requiring a cold-email sender domain or a free cold-B2B email provider.",
+    "mustNotInfer": [
+      "eligibility",
+      "account acceptance",
+      "listing approval",
+      "market demand",
+      "customer purchase",
+      "cleared payment",
+      "legal or tax clearance"
+    ]
+  },
+  "commercialTruth": {
+    "realCustomers": 0,
+    "clearedRevenueCents": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
+  }
+}

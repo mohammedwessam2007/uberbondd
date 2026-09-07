@@ -2,7 +2,7 @@
   "schema": "uberbond.night-swarm-claim.v1",
   "packetId": "AUTO-06",
   "agent": "WORK",
-  "status": "ACTIVE",
+  "status": "RELEASED",
   "integrationBaseSha": "047e36c6eb0a27c3deabbba581c05e29ab597f3d",
   "childPr": 468,
   "childBranch": "work/issue-465-deploy-07-exit-drill-proof",
@@ -17,5 +17,7 @@
     "tests/supplier-exit-drill.test.mjs"
   ],
   "goal": "Classify and verify provider-failover/supplier-exit readiness without duplicating the existing exit-drill organ or pretending local portability is a real external provider cutover.",
+  "releaseResult": "PASS_REUSED_LOCAL_EXIT__PROVIDER_FAILOVER_EXTERNAL",
+  "receipt": "artifacts/night/swarm/receipts/AUTO-06.WORK.json",
   "businessEffectAuthority": "NONE"
 }

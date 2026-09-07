@@ -1,0 +1,68 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: uberbond
+      POSTGRES_USER: uberbond
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+    volumes:
+      - uberbond-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U uberbond -d uberbond"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  migrate:
+    build: .
+    command: ["node", "scripts/migrate.mjs"]
+    environment:
+      NODE_ENV: production
+      STORE_BACKEND: postgres
+      DATABASE_URL: postgres://uberbond:${POSTGRES_PASSWORD}@postgres:5432/uberbond
+      DATABASE_SSL: "false"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  web:
+    build: .
+    command: ["node", "server.mjs"]
+    environment:
+      NODE_ENV: production
+      PROCESS_ROLE: web
+      PORT: "8080"
+      APP_BASE_URL: ${APP_BASE_URL:?set APP_BASE_URL to the externally reachable HTTPS URL}
+      STORE_BACKEND: postgres
+      DATABASE_URL: postgres://uberbond:${POSTGRES_PASSWORD}@postgres:5432/uberbond
+      DATABASE_SSL: "false"
+      ADMIN_TOKEN: ${ADMIN_TOKEN:?set ADMIN_TOKEN}
+      TOKEN_ENCRYPTION_KEY: ${TOKEN_ENCRYPTION_KEY:?set TOKEN_ENCRYPTION_KEY}
+    ports:
+      - "${PORT:-8080}:8080"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  worker:
+    build: .
+    command: ["node", "worker.mjs"]
+    environment:
+      NODE_ENV: production
+      PROCESS_ROLE: worker
+      STORE_BACKEND: postgres
+      DATABASE_URL: postgres://uberbond:${POSTGRES_PASSWORD}@postgres:5432/uberbond
+      DATABASE_SSL: "false"
+      TOKEN_ENCRYPTION_KEY: ${TOKEN_ENCRYPTION_KEY:?set TOKEN_ENCRYPTION_KEY}
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+volumes:
+  uberbond-postgres:

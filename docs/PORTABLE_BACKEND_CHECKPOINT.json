@@ -1,0 +1,34 @@
+{
+  "schema": "uberbond.portable-backend.checkpoint.v1",
+  "observedAt": "2026-09-07T19:14:05Z",
+  "source": {
+    "base": "origin/pr-458",
+    "head": "6469c893d7ee0b0ed8d682839e4420edb1cb33bd"
+  },
+  "changes": [
+    "docker-compose.yml",
+    "scripts/provider-neutral-backend-doctor.mjs",
+    "tests/provider-neutral-backend-doctor.test.mjs",
+    "docs/PORTABLE_BACKEND_DEPLOYMENT.md"
+  ],
+  "checks": {
+    "doctor": { "status": "READY_FOR_HOST_REHEARSAL", "tests": 2, "passed": 2 },
+    "nodeCheck": "PASS",
+    "diffCheck": "PASS",
+    "jsonBackendHttpHealth": {
+      "status": "PASS",
+      "httpStatus": 200,
+      "storeBackend": "json",
+      "processRole": "all",
+      "workerOnline": true,
+      "authority": "LOCAL_RUNTIME_ONLY"
+    }
+  },
+  "unmet": [
+    "Docker runtime unavailable in the execution environment",
+    "No native Postgres daemon available for a production-store rehearsal",
+    "No provider, payment, customer, or unattended-operation proof"
+  ],
+  "businessEffectAuthority": "NONE",
+  "secretsCommitted": false
+}

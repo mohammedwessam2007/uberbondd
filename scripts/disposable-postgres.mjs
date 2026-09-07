@@ -15,6 +15,7 @@ import EmbeddedPostgres from 'embedded-postgres';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import { prepareEmbeddedPostgresFixture } from './prepare-embedded-postgres-fixture.mjs';
 
 /**
  * Starts a private server and hands its URL to `body`.
@@ -24,6 +25,13 @@ import path from 'node:path';
  * picks a different random port and never notices it is there.
  */
 export async function withDisposablePostgres(body) {
+  // Vercel has demonstrated that the embedded Postgres platform package can
+  // lose executable bits after an earlier successful preparation. Reassert the
+  // pinned fixture at the exact consumer boundary immediately before
+  // EmbeddedPostgres may spawn initdb. This preserves the real PostgreSQL gate
+  // rather than skipping or substituting it.
+  await prepareEmbeddedPostgresFixture();
+
   const root = await fs.mkdtemp(path.join(os.tmpdir(), 'uberbond-mutation-pg-'));
   await fs.chmod(root, 0o777);
   const databaseDir = path.join(root, 'db');

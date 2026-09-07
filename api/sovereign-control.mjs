@@ -62,6 +62,13 @@ function equalBearer(header, secret) {
   return actual.length === expected.length && actual.length > 0 && crypto.timingSafeEqual(actual, expected);
 }
 
+/**
+ * The constitution as the running code actually holds it.
+ *
+ * Read from the modules rather than restated here. A hand-written copy of these
+ * rules would drift from the enforcement and become a page that says the system
+ * is safe while the system stopped being it.
+ */
 export function sovereignConstitution() {
   return {
     typeLadder: SOVEREIGNTY_TYPES,
@@ -75,6 +82,13 @@ export function sovereignConstitution() {
 const supplyValueBoundary = forecasts =>
   (Array.isArray(forecasts) ? forecasts : []).some(row => row?.valueBoundary === true);
 
+/**
+ * Assembles the read-only view.
+ *
+ * Every field is derived; nothing here is stored, sent, or acted on. The
+ * decision packet is included only when the caller supplied the inputs for one,
+ * because an empty packet shaped like a real one is worse than no packet.
+ */
 export function buildSovereignControlView({
   decision = null, options = [], forecasts = [], scores = [], exit = null, reasoning = null,
   method = null, experiences = [], contact = null, positions = [], lifeOptions = [],
@@ -93,6 +107,7 @@ export function buildSovereignControlView({
     at: new Date(now).toISOString(),
     constitution: sovereignConstitution(),
     calibration: calibrationSummary(scores),
+    // Absent rather than faked when not asked for.
     decisionPacket: null,
     ruinScreen: null,
     exit: exit ? exitReadiness(exit) : null,
@@ -108,6 +123,9 @@ export function buildSovereignControlView({
     agencyDebt: Array.isArray(capabilities) && capabilities.length ? agencyDebt(capabilities) : null,
     selfModel: Array.isArray(observations) && observations.length ? livingModel({ observations, asOf: now }) : null,
     unknownSelf: unknown ? unknownSelfProbes(unknown) : null,
+    // The salience ledger describes this very response: what it surfaced and
+    // what it left out. A control surface that audited every decision except
+    // its own presentation would be the one blind spot that matters.
     salience: salience ? salienceLedger(salience) : null,
     drift: drift ? preferenceDrift(drift) : null,
     attention: attention ? attentionBudget(attention) : null,
@@ -127,6 +145,8 @@ export function buildSovereignControlView({
     graphContradictions: graphEdges.length ? contradictions(graphEdges) : null,
     forecastStrength: forecastStrength ? strengthProfile(forecastStrength) : null,
     forecastStack: forecastClaim ? buildForecast({ claim: forecastClaim, methods: forecastMethods }) : null,
+    // Always present, never optional. A drift check the caller can omit is a
+    // drift check that stops running exactly when it matters.
     checksum: existentialChecksum(checksum || {}),
     toolBoundary: toolCompanionBoundary(companion || {}),
     socialCalibration: Array.isArray(socialPredictions) && socialPredictions.length ? socialCalibration(socialPredictions) : null,
@@ -146,10 +166,15 @@ export function buildSovereignControlView({
         const supplied = (Array.isArray(forecasts) ? forecasts : []).find(f => f?.option === option.name);
         return forecastOption({
           option, evidence: supplied?.evidence || [], distribution: supplied?.distribution || null,
+          // Only an explicit declaration counts; an unlabelled option is
+          // unknown, not irreversible.
           irreversible: option.reversible === false, now
         });
       });
       view.decisionPacket = compileDecisionPacket({ decision, universe, forecasts: rows, valueBoundary: Boolean(supplyValueBoundary(forecasts)), now });
+      // Screened after the packet is built but reported alongside it, never
+      // folded into the ranking: an option that can end the ability to choose
+      // again is not a low-scoring option, it is a different kind of thing.
       view.ruinScreen = universe.options.map(option => screenForRuin({
         option: option.name,
         outcomes: (forecasts.find(f => f?.option === option.name)?.outcomes) || [],
@@ -168,6 +193,8 @@ export function createHandler(deps = {}) {
   const clock = deps.now || (() => new Date());
 
   return async function handler(req, res) {
+    // GET only. A POST here would be the seam through which a read surface
+    // becomes an acting one, which is the whole thing this route must not be.
     if (String(req?.method || '').toUpperCase() !== 'GET') {
       return send(res, 405, { ok: false, status: 'REFUSED', reasonCodes: ['method-not-allowed'] });
     }

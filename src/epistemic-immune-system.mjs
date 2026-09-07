@@ -1,183 +1,342 @@
-// Epistemic Immune System + Model Ecology.
+// What is known, what is not, and which of those the system can tell apart.
 //
-// An ensemble is not independent because its rows have different model names,
-// and a large evidence set is not strong because it has many citations. This
-// module audits ancestry, leakage, selection and benchmark contamination before
-// a conclusion is allowed to call its support diverse.
+// A reasoning system's most dangerous output is not a wrong answer. It is a
+// confident answer whose confidence came from somewhere other than evidence --
+// from model agreement, from a compression that dropped the decisive exception,
+// from a correlation nobody tested against an intervention. Each of those
+// produces a claim shaped exactly like a good one.
+//
+// So this module's job is to keep the failure modes nameable. Ignorance gets a
+// type. Agreement gets an ancestry. Causal claims get a rung. And the whole
+// thing is subordinate to one rule that outranks every internal signal:
+//
+//   MODEL < REALITY
+//
+// No amount of coherence, elegance, consensus or desire makes a claim true, and
+// repeated contradiction by the world forces revision rather than explanation.
 export const EPISTEMIC_IMMUNE_SYSTEM_VERSION = 'uberbond.epistemic-immune-system.v1';
 
-export const EPISTEMIC_RISKS = Object.freeze([
-  'CONFIRMATION_BIAS', 'SURVIVORSHIP_BIAS', 'SELECTION_BIAS', 'PUBLICATION_BIAS',
-  'MOTIVATED_REASONING', 'BASE_RATE_NEGLECT', 'CORRELATED_SOURCES', 'DATA_LEAKAGE',
-  'HINDSIGHT_BIAS', 'NARRATIVE_FALLACY', 'BENCHMARK_GAMING', 'MODEL_COLLUSION',
-  'CONSENSUS_MASQUERADING_AS_INDEPENDENCE'
+/** What is known about a claim, weakest first. Everything below is not knowledge. */
+export const KNOWLEDGE_STATES = Object.freeze([
+  'UNKNOWABLE_FROM_AVAILABLE_EVIDENCE', 'CURRENTLY_UNMEASURABLE', 'UNKNOWN',
+  'STALE', 'SIMULATED', 'HYPOTHETICAL', 'WEAK_SIGNAL', 'CONTESTED',
+  'SUPPORTED_INFERENCE', 'STRONGLY_SUPPORTED', 'REPLICATED', 'DIRECTLY_OBSERVED'
 ]);
 
-const text = (value, max = 500) => {
+/** Uncertainty is not one thing, and the right response differs for each. */
+export const UNCERTAINTY_CLASSES = Object.freeze({
+  RISK: 'Probabilities are reasonably estimable. Expected-value reasoning applies.',
+  UNCERTAINTY: 'Probabilities are weak. Prefer robustness over optimization.',
+  DEEP_UNCERTAINTY: 'The state space itself is unclear. Prefer reversibility and information.',
+  IGNORANCE: 'Important variables may be unknown. Prefer small bets and surprise-seeking.'
+});
+
+/**
+ * Pearl's rungs, as evidence strength.
+ *
+ * Ordered so that "we noticed X and Y together" cannot be silently reported at
+ * the same strength as "we changed X and Y moved".
+ */
+export const CAUSAL_RUNGS = Object.freeze([
+  'CORRELATION', 'TEMPORAL_ASSOCIATION', 'MECHANISTIC_PLAUSIBILITY',
+  'NATURAL_EXPERIMENT', 'CONTROLLED_INTERVENTION', 'REPLICATION', 'PERSONAL_REPLICATION'
+]);
+
+/** Biases that manufacture confidence out of the shape of the evidence. */
+export const BIAS_ATTACKS = Object.freeze([
+  'CONFIRMATION', 'SURVIVORSHIP', 'SELECTION', 'PUBLICATION', 'MOTIVATED_REASONING',
+  'BASE_RATE_NEGLECT', 'CORRELATED_SOURCES', 'DATA_LEAKAGE', 'HINDSIGHT',
+  'NARRATIVE_FALLACY', 'BENCHMARK_GAMING', 'CONSENSUS_AS_EVIDENCE'
+]);
+
+const text = (value, max = 2000) => {
   const out = String(value ?? '').trim();
   return out && out.length <= max ? out : null;
 };
-const fail = (reasonCodes, extra = {}) => ({
-  ok: false,
-  status: 'EPISTEMIC_IMMUNE_REFUSED',
-  reasonCodes: [...new Set((reasonCodes || []).filter(Boolean))],
-  businessEffectAuthority: 'NONE',
-  ...extra
+
+const fail = (status, reasonCodes, extra = {}) => ({
+  ok: false, status, reasonCodes: [...new Set(reasonCodes.filter(Boolean))],
+  businessEffectAuthority: 'NONE', ...extra
 });
 
-function normalizeEvidence(row, index) {
+export const isKnowledge = state => KNOWLEDGE_STATES.indexOf(state) >= KNOWLEDGE_STATES.indexOf('SUPPORTED_INFERENCE');
+
+/**
+ * A claim with its knowledge state, so ignorance is searchable rather than absent.
+ *
+ * An unstated state resolves to UNKNOWN rather than to anything more flattering.
+ * The whole point of the map is that not-knowing has a shape; defaulting upward
+ * would erase exactly the entries worth reading.
+ */
+export function mapClaim(input = {}) {
+  const claim = text(input?.claim, 2000);
+  if (!claim) return fail('CLAIM_INVALID', ['claim-required']);
+
+  const state = KNOWLEDGE_STATES.includes(input?.state) ? input.state : 'UNKNOWN';
   return {
-    id: text(row?.id, 160) || `evidence-${index + 1}`,
-    lineage: text(row?.lineage, 240),
-    origin: text(row?.origin, 160),
-    kind: text(row?.kind, 120)?.toUpperCase(),
-    direction: text(row?.direction, 40)?.toUpperCase() || 'UNKNOWN',
-    selectedAfterOutcome: row?.selectedAfterOutcome === true,
-    trainingContamination: row?.trainingContamination === true,
-    benchmarkKnownToModel: row?.benchmarkKnownToModel === true,
-    publicationOnly: row?.publicationOnly === true,
-    survivedSelection: row?.survivedSelection === true,
-    counterevidenceSearched: row?.counterevidenceSearched === true,
-    ref: text(row?.ref || row?.evidenceRef, 300)
+    ok: true,
+    status: 'CLAIM_MAPPED',
+    claim,
+    state,
+    isKnowledge: isKnowledge(state),
+    // Recorded so a reader can tell "we looked and found nothing" from "nobody
+    // looked" -- two states that read identically without it.
+    searchedFor: input?.searchedFor === true,
+    businessEffectAuthority: 'NONE'
   };
 }
 
 /**
- * Audit an evidence set before it is allowed to support a conclusion.
+ * Which class of uncertainty this is, because the right move differs.
  *
- * Explicit leakage/hindsight/benchmark contamination is quarantined. Other
- * risks remain visible warnings because the module cannot infer a study's
- * hidden sampling process from a few fields. Missing ancestry is itself a
- * warning rather than silently treating every row as independent.
+ * Treating deep uncertainty as risk is the most common expensive error: it
+ * licenses optimization over a state space nobody has established.
  */
-export function auditEvidenceSet({
-  claim,
-  evidence = [],
-  claimKind = 'GENERAL',
-  baseRateRef = null,
-  selectionProcessDeclared = false,
-  motivatedStakeDeclared = false
-} = {}) {
-  const namedClaim = text(claim, 1000);
-  if (!namedClaim) return fail(['claim-required']);
-  const raw = Array.isArray(evidence) ? evidence : [];
-  if (!raw.length) return fail(['evidence-required']);
-  const rows = raw.map(normalizeEvidence);
-  if (rows.some(row => !row.ref)) return fail(['every-evidence-row-needs-ref']);
-
-  const risks = new Set();
-  const quarantine = new Set();
-  const lineages = new Map();
-  for (const row of rows) {
-    const lineage = row.lineage || `UNKNOWN:${row.id}`;
-    if (!row.lineage) risks.add('CORRELATED_SOURCES');
-    if (!lineages.has(lineage)) lineages.set(lineage, []);
-    lineages.get(lineage).push(row.id);
-
-    if (row.selectedAfterOutcome) { risks.add('HINDSIGHT_BIAS'); quarantine.add(row.id); }
-    if (row.trainingContamination) { risks.add('DATA_LEAKAGE'); quarantine.add(row.id); }
-    if (row.benchmarkKnownToModel) { risks.add('BENCHMARK_GAMING'); quarantine.add(row.id); }
-    if (row.publicationOnly) risks.add('PUBLICATION_BIAS');
-    if (row.survivedSelection) risks.add('SURVIVORSHIP_BIAS');
-    if (!row.counterevidenceSearched && row.direction === 'SUPPORTS') risks.add('CONFIRMATION_BIAS');
-  }
-  if ([...lineages.values()].some(ids => ids.length > 1)) {
-    risks.add('CORRELATED_SOURCES');
-    risks.add('CONSENSUS_MASQUERADING_AS_INDEPENDENCE');
-  }
-  if (!selectionProcessDeclared) risks.add('SELECTION_BIAS');
-  if (motivatedStakeDeclared) risks.add('MOTIVATED_REASONING');
-  if (String(claimKind).toUpperCase() === 'FREQUENCY' && !text(baseRateRef, 300)) risks.add('BASE_RATE_NEGLECT');
-
-  const usable = rows.filter(row => !quarantine.has(row.id));
-  const usableLineages = new Set(usable.map(row => row.lineage || `UNKNOWN:${row.id}`));
-  const supportLineages = new Set(usable.filter(row => row.direction === 'SUPPORTS').map(row => row.lineage || `UNKNOWN:${row.id}`));
-  const opposeLineages = new Set(usable.filter(row => row.direction === 'OPPOSES').map(row => row.lineage || `UNKNOWN:${row.id}`));
+export function classifyUncertainty({ probabilitiesEstimable = false, stateSpaceKnown = false, variablesKnown = false } = {}) {
+  const uncertaintyClass = !variablesKnown ? 'IGNORANCE'
+    : !stateSpaceKnown ? 'DEEP_UNCERTAINTY'
+      : !probabilitiesEstimable ? 'UNCERTAINTY'
+        : 'RISK';
 
   return {
     ok: true,
-    status: quarantine.size ? 'EPISTEMIC_REVIEW_REQUIRED' : risks.size ? 'EVIDENCE_USABLE_WITH_VISIBLE_RISKS' : 'EVIDENCE_SET_CLEAN_ON_DECLARED_FIELDS',
-    claim: namedClaim,
-    evidenceCount: rows.length,
-    usableEvidenceCount: usable.length,
-    independentUsableLineages: usableLineages.size,
-    supportLineages: supportLineages.size,
-    opposeLineages: opposeLineages.size,
-    risks: [...risks].sort(),
-    quarantinedEvidenceIds: [...quarantine],
-    lineageClusters: [...lineages.entries()].map(([lineage, ids]) => ({ lineage, evidenceIds: ids })),
-    baseRateRef: text(baseRateRef, 300),
-    businessEffectAuthority: 'NONE',
-    truthBoundary: 'AN_EPISTEMIC_AUDIT_CAN_DOWNGRADE_SUPPORT_OR_REQUIRE_REVIEW__IT_CANNOT_DECLARE_THE_CLAIM_TRUE'
+    status: 'UNCERTAINTY_CLASSIFIED',
+    uncertaintyClass,
+    response: UNCERTAINTY_CLASSES[uncertaintyClass],
+    law: 'TREATING_DEEP_UNCERTAINTY_AS_RISK_LICENSES_OPTIMIZATION_OVER_A_STATE_SPACE_NOBODY_ESTABLISHED',
+    businessEffectAuthority: 'NONE'
   };
 }
 
 /**
- * Model Ecology: diversity by failure lineage, not by vendor/model count.
+ * A causal claim at the rung its evidence actually reaches.
+ *
+ * The refusal: an intervention claim cannot be made from observational rungs.
+ * "Doing X causes Y" from correlation is the single most consequential silent
+ * upgrade in applied reasoning.
+ */
+export function causalClaim({ claim = null, rung = null, interventionClaimed = false } = {}) {
+  const body = text(claim, 2000);
+  if (!body) return fail('CAUSAL_CLAIM_INVALID', ['claim-required']);
+  if (!CAUSAL_RUNGS.includes(rung)) return fail('CAUSAL_CLAIM_INVALID', ['valid-causal-rung-required']);
+
+  const observationalOnly = CAUSAL_RUNGS.indexOf(rung) < CAUSAL_RUNGS.indexOf('NATURAL_EXPERIMENT');
+  if (interventionClaimed && observationalOnly) {
+    return fail('CAUSAL_UPGRADE_REFUSED', ['intervention-claim-requires-an-intervention-rung'], {
+      claim: body, rung,
+      note: 'An association says what goes together. Only an intervention says what happens when you change it.'
+    });
+  }
+
+  return {
+    ok: true,
+    status: 'CAUSAL_CLAIM_RECORDED',
+    claim: body,
+    rung,
+    supportsIntervention: !observationalOnly,
+    businessEffectAuthority: 'NONE'
+  };
+}
+
+/**
+ * Attacks a conclusion with the biases that could have produced it.
+ *
+ * Returns the attacks that were *run*, not a clean bill. A conclusion nobody
+ * attacked is not a robust one, and reporting it as unchallenged rather than
+ * as passing is the difference.
+ */
+export function attackConclusion({ conclusion = null, attacksRun = [], survived = [] } = {}) {
+  const body = text(conclusion, 2000);
+  if (!body) return fail('ATTACK_INVALID', ['conclusion-required']);
+
+  const run = (Array.isArray(attacksRun) ? attacksRun : []).filter(attack => BIAS_ATTACKS.includes(attack));
+  const held = (Array.isArray(survived) ? survived : []).filter(attack => run.includes(attack));
+  const notRun = BIAS_ATTACKS.filter(attack => !run.includes(attack));
+
+  return {
+    ok: true,
+    status: run.length === 0 ? 'UNCHALLENGED' : 'ATTACKED',
+    conclusion: body,
+    attacksRun: run,
+    survived: held,
+    failed: run.filter(attack => !held.includes(attack)),
+    notRun,
+    // Said plainly because the alternative reads as a pass.
+    boundary: run.length === 0
+      ? 'NOBODY ATTACKED THIS. THAT IS NOT THE SAME AS IT HAVING HELD UP.'
+      : 'SURVIVING THE ATTACKS THAT WERE RUN SAYS NOTHING ABOUT THE ONES THAT WERE NOT.',
+    businessEffectAuthority: 'NONE'
+  };
+}
+
+/**
+ * Whether a set of models is a genuine ecology or one model wearing hats.
+ *
+ * Method diversity, not count. Five statistical models trained on one dataset
+ * are one epistemic position, and their agreement is the dataset agreeing with
+ * itself.
  */
 export function modelEcology(models = []) {
-  const rows = (Array.isArray(models) ? models : []).map((row, index) => ({
-    id: text(row?.id, 160) || `model-${index + 1}`,
-    provider: text(row?.provider, 160) || 'UNKNOWN',
-    lineage: text(row?.lineage, 240),
-    trainingFamily: text(row?.trainingFamily, 240),
-    toolchain: text(row?.toolchain, 240),
-    position: text(row?.position, 120)
-  }));
-  if (!rows.length) return fail(['models-required']);
+  const rows = (Array.isArray(models) ? models : [])
+    .map(row => ({
+      name: text(row?.name, 240),
+      method: text(row?.method, 120),
+      assumptions: text(row?.assumptions, 500) || null
+    }))
+    .filter(row => row.name && row.method);
 
-  // A failure lineage is explicit ancestry when supplied; otherwise use the
-  // strongest known shared substrate rather than pretending ignorance means
-  // independence.
-  const failureLineage = row => row.lineage
-    || (row.trainingFamily ? `training:${row.trainingFamily}` : null)
-    || (row.provider ? `provider:${row.provider}` : `unknown:${row.id}`);
-  const clusters = new Map();
-  for (const row of rows) {
-    const lineage = failureLineage(row);
-    if (!clusters.has(lineage)) clusters.set(lineage, []);
-    clusters.get(lineage).push(row.id);
-  }
-  const providers = new Set(rows.map(row => row.provider));
-  const trainingFamilies = new Set(rows.map(row => row.trainingFamily).filter(Boolean));
-  const independentLineages = clusters.size;
+  const methods = new Set(rows.map(row => row.method));
+  const assumptionSets = new Set(rows.map(row => row.assumptions || row.method));
 
   return {
     ok: true,
-    status: 'MODEL_ECOLOGY_ASSESSED',
+    status: 'ECOLOGY_ASSESSED',
     modelCount: rows.length,
-    providerCount: providers.size,
-    trainingFamilyCount: trainingFamilies.size,
-    independentFailureLineages: independentLineages,
-    apparentDiversityInflation: rows.length - independentLineages,
-    lineageClusters: [...clusters.entries()].map(([lineage, modelIds]) => ({ lineage, modelIds })),
-    epistemicBiodiversity: independentLineages === 1 && rows.length > 1 ? 'LOW__APPARENT_ENSEMBLE_IS_ONE_FAILURE_LINEAGE' : 'VISIBLE_AS_LINEAGES__NOT_A_SCALAR_QUALITY_SCORE',
-    businessEffectAuthority: 'NONE',
-    truthBoundary: 'MODEL_COUNT_AND_PROVIDER_COUNT_DO_NOT_PROVE_INDEPENDENT_REASONING'
+    distinctMethods: methods.size,
+    distinctAssumptionSets: assumptionSets.size,
+    // Monoculture is the failure this names: many models, one way of being wrong.
+    monoculture: rows.length > 1 && methods.size === 1,
+    law: 'AGREEMENT_AMONG_MODELS_SHARING_A_METHOD_IS_ONE_EPISTEMIC_POSITION_REPEATED',
+    businessEffectAuthority: 'NONE'
   };
 }
 
 /**
- * Require an attacked conclusion to preserve counterevidence and ancestry.
+ * The veto reality holds over every internal signal.
+ *
+ * Coherence, elegance, consensus and confidence are all listed as things that
+ * do not survive contact with repeated contradiction. The list is explicit
+ * because each of them has, at some point, been mistaken for evidence.
  */
-export function immuneVerdict({ audit, ecology = null } = {}) {
-  if (!audit?.ok) return fail(['valid-evidence-audit-required']);
-  if (ecology && !ecology.ok) return fail(['valid-model-ecology-required']);
-  const severe = new Set(['DATA_LEAKAGE', 'HINDSIGHT_BIAS', 'BENCHMARK_GAMING']);
-  const severePresent = audit.risks.some(risk => severe.has(risk));
-  const oneLineageEnsemble = ecology && ecology.modelCount > 1 && ecology.independentFailureLineages === 1;
-  const status = severePresent || oneLineageEnsemble
-    ? 'CONCLUSION_REQUIRES_REBUILD_OR_INDEPENDENT_EVIDENCE'
-    : audit.opposeLineages > 0
-      ? 'CONCLUSION_MUST_PRESERVE_LIVE_COUNTEREVIDENCE'
-      : 'CONCLUSION_MAY_PROCEED_WITH_DECLARED_RISKS';
+export function realityVeto({ claim = null, internalSupport = [], contradictedByObservation = 0 } = {}) {
+  const body = text(claim, 2000);
+  if (!body) return fail('REALITY_VETO_INVALID', ['claim-required']);
+
+  const contradictions = Number(contradictedByObservation) || 0;
+  const support = (Array.isArray(internalSupport) ? internalSupport : []).map(item => text(item, 240)).filter(Boolean);
+
   return {
     ok: true,
-    status,
-    severeContamination: severePresent,
-    oneLineageEnsemble: Boolean(oneLineageEnsemble),
-    risks: audit.risks,
-    quarantinedEvidenceIds: audit.quarantinedEvidenceIds,
+    status: contradictions > 0 ? 'MODEL_MUST_BE_REVISED' : 'NO_CONTRADICTION_OBSERVED',
+    claim: body,
+    internalSupport: support,
+    contradictedByObservation: contradictions,
+    // The whole hierarchy in one field: internal support does not offset a
+    // single observation, however much of it there is.
+    verdict: contradictions > 0
+      ? 'MODEL < REALITY. REPEATED CONTRADICTION FORCES REVISION, NOT EXPLANATION.'
+      : 'NO CONTRADICTION YET, WHICH IS NOT CONFIRMATION.',
+    internalSupportOffsetsObservation: false,
+    businessEffectAuthority: 'NONE'
+  };
+}
+
+/**
+ * What a compression dropped, so the decision can go back for it.
+ *
+ * Every summary, embedding, score and ontology loses information. The debt is
+ * not the loss -- it is losing it without recording that you did.
+ */
+export function abstractionDebt({ compressed = null, dropped = [], decisionDependsOn = [] } = {}) {
+  const what = text(compressed, 500);
+  if (!what) return fail('ABSTRACTION_DEBT_INVALID', ['compressed-thing-required']);
+
+  const lost = (Array.isArray(dropped) ? dropped : []).map(item => text(item, 500)).filter(Boolean);
+  const needed = (Array.isArray(decisionDependsOn) ? decisionDependsOn : []).map(item => text(item, 500)).filter(Boolean);
+  const decisive = lost.filter(item => needed.includes(item));
+
+  return {
+    ok: true,
+    status: decisive.length ? 'RETURN_TO_RAW_EVIDENCE' : 'COMPRESSION_ACCEPTABLE_FOR_THIS_DECISION',
+    compressed: what,
+    dropped: lost,
+    decisiveOmissions: decisive,
+    why: decisive.length
+      ? 'The compression dropped something this decision turns on. Go back to the original.'
+      : 'Nothing this decision turns on was dropped, as far as anyone recorded.',
+    businessEffectAuthority: 'NONE'
+  };
+}
+
+/**
+ * Whether stating a forecast changes what it forecasts.
+ *
+ * Reflexive systems are not edge cases in a life: telling someone their
+ * probability of finishing changes it, and a system that ignores this is
+ * measuring a world its own output has already left.
+ */
+export function reflexivity({ forecast = null, revealedTo = [], couldChangeBehaviour = false } = {}) {
+  const body = text(forecast, 2000);
+  if (!body) return fail('REFLEXIVITY_INVALID', ['forecast-required']);
+
+  const audiences = (Array.isArray(revealedTo) ? revealedTo : []).map(item => text(item, 240)).filter(Boolean);
+  const reflexive = couldChangeBehaviour === true && audiences.length > 0;
+
+  return {
+    ok: true,
+    status: reflexive ? 'FORECAST_IS_REFLEXIVE' : 'NO_REFLEXIVE_PATH_IDENTIFIED',
+    forecast: body,
+    revealedTo: audiences,
+    note: reflexive
+      ? 'Stating this changes the system it describes, so the forecast and the act of making it are not separable.'
+      : 'No route from stating this to changing it was identified, which is not proof there is none.',
+    businessEffectAuthority: 'NONE'
+  };
+}
+
+/**
+ * Where the model was wrong in a way nobody expected.
+ *
+ * Surprise is the cheapest signal a long-running system gets and the easiest to
+ * explain away. Persistent surprise in one area is reported as a candidate
+ * broken model rather than as noise.
+ */
+export function surpriseLedger(surprises = []) {
+  const rows = (Array.isArray(surprises) ? surprises : [])
+    .map(row => ({ area: text(row?.area, 240), expected: text(row?.expected, 500), observed: text(row?.observed, 500) }))
+    .filter(row => row.area && row.observed);
+
+  const byArea = new Map();
+  for (const row of rows) byArea.set(row.area, (byArea.get(row.area) || 0) + 1);
+  const persistent = [...byArea.entries()].filter(([, count]) => count >= 3).map(([area, count]) => ({ area, count }));
+
+  return {
+    ok: true,
+    status: persistent.length ? 'PERSISTENT_SURPRISE' : 'SURPRISES_RECORDED',
+    surprises: rows.length,
+    byArea: [...byArea.entries()].map(([area, count]) => ({ area, count })),
+    persistent,
+    meaning: persistent.length
+      ? 'Repeated surprise in one area is a broken model, a missing variable or a regime change -- not noise.'
+      : 'No area has surprised repeatedly yet.',
+    businessEffectAuthority: 'NONE'
+  };
+}
+
+/**
+ * Questions where reasoning has no shortcut and reality must run.
+ *
+ * Naming this prevents the most confident kind of nonsense: a precise forecast
+ * for a system that admits no predictive shortcut.
+ */
+export function computationalIrreducibility({ question = null, shortcutKnown = false, simulationValidated = false } = {}) {
+  const asked = text(question, 2000);
+  if (!asked) return fail('IRREDUCIBILITY_INVALID', ['question-required']);
+
+  if (!shortcutKnown && !simulationValidated) {
+    return {
+      ok: true,
+      status: 'REALITY_MUST_COMPUTE_THIS__OBSERVE_OR_EXPERIMENT',
+      question: asked,
+      why: 'No predictive shortcut is known and no simulation has been validated. A precise forecast here would be invented.',
+      businessEffectAuthority: 'NONE'
+    };
+  }
+  return {
+    ok: true,
+    status: 'SHORTCUT_AVAILABLE',
+    question: asked,
+    basis: shortcutKnown ? 'KNOWN_SHORTCUT' : 'VALIDATED_SIMULATION',
     businessEffectAuthority: 'NONE'
   };
 }

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "uberbond.personal-civilization.verification-trigger.v1",
+  "mission": "Personal Civilization Engine wave-1 executable foundation",
+  "sourceHead": "7733e34975991de938f1b6e5c77ac19034ecd8c5",
+  "purpose": "Source-neutral first-push trigger for a fresh cloud verification branch after the original preview remained pinned to the branch's first commit.",
+  "claims": {
+    "testsGreen": false,
+    "mergeApproved": false,
+    "productionActivated": false,
+    "lifeOutcomeImproved": false
+  },
+  "externalEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "uberbond.night-to-midday-assault.v1",
+  "status": "ACTIVE_EXECUTION_COMMAND",
+  "integrationSpine": {"pr": 458, "branch": "omega/night-convergence-20260907"},
+  "commandIssue": 463,
+  "terminalObjective": "By midday, drive UberBond as close as truthfully possible to a live, privately usable, provider-replaceable, first-dollar-ready Sovereign Continuum.",
+  "laws": {
+    "terminal": "Mohamed provides WILL. UberBond provides INTELLIGENCE. Reality provides FEEDBACK.",
+    "antiLoop": "SAME_BLOCKER + SAME_STRATEGY + NO_NEW_SAFE_EVIDENCE => STRATEGY_MUTATION_REQUIRED",
+    "clockTimeIsEvidence": false,
+    "historicalTestsCertifyChangedSource": false,
+    "fakeExternalTruthAllowed": false
+  },
+  "priorityOrder": [
+    "exact-truth-and-merge-geometry",
+    "first-dollar-founder-minute-war",
+    "123-gap-parent-organ-compression",
+    "personal-civilization-vertical-slice",
+    "provider-independent-survival",
+    "private-ipad-command-center",
+    "night-integration-tribunal",
+    "morning-to-midday-launch"
+  ],
+  "stretchTargets": {
+    "canon": 100,
+    "economicSoftware": 100,
+    "personalCivilizationRuntime": {"min": 80, "max": 90},
+    "sovereignContinuumRuntime": {"min": 90, "max": 96},
+    "realityCalibration": {"min": 40, "max": 50},
+    "fullSystem": {"min": 97, "max": 99},
+    "firstDollarInternalReadiness": 100,
+    "offerPaymentFulfilment": 100,
+    "deploymentRuntimeReadiness": {"min": 99, "max": 100}
+  },
+  "liveDefinition": [
+    "private-control-surface-reachable",
+    "canonical-auth-hardening-preserved",
+    "persistent-store-initializes",
+    "web-process-healthy",
+    "worker-starts-and-drains-synthetic-job",
+    "scheduler-runs-without-duplicate-execution",
+    "payment-provider-path-configured-when-real-credentials-exist",
+    "sandbox-never-equals-live-revenue",
+    "first-cash-path-intact-through-delivery-ready",
+    "paid-qa-cannot-be-bypassed",
+    "customer-accepted-requires-external-evidence",
+    "production-test-payment-unlock-impossible",
+    "current-state-artifacts-match-exact-head",
+    "rollback-or-recovery-rehearsed-as-far-as-authorized-substrate-allows",
+    "private-founder-life-state-not-publicly-exposed",
+    "no-known-internally-solvable-p0-p1-source-defect"
+  ],
+  "externalBoundaryClasses": [
+    "OWNER_AUTHORITY_REQUIRED",
+    "PROVIDER_CREDENTIAL_REQUIRED",
+    "PROVIDER_KYC_REQUIRED",
+    "DNS_MAILBOX_REPUTATION_EXTERNAL",
+    "REAL_CUSTOMER_REQUIRED",
+    "REAL_PAYMENT_REQUIRED",
+    "CUSTOMER_ACCEPTANCE_REQUIRED",
+    "ELAPSED_TIME_REQUIRED",
+    "AUTHORIZED_COMPUTE_REQUIRED"
+  ],
+  "genuineGapBaseline": 123,
+  "genuineGapStretch": {"good": 40, "extreme": 20},
+  "ownerQueueMaxItems": 3,
+  "ownerQueueFields": ["action", "exactScreenOrAccount", "whyOwnerOnly", "expectedMinutes", "cost", "evidenceToReturn"],
+  "commercialTruth": {"realCustomers": 0, "clearedRevenueUsd": 0, "acceptedPaidDeliveries": 0, "retainedCustomers": 0}
+}

@@ -29,6 +29,12 @@ import { classifyUncertainty, modelEcology, surpriseLedger } from '../src/episte
 import { continuityPosture, posthumousDisposition } from '../src/memory-sovereignty.mjs';
 import { compileIntent, consequenceLedger } from '../src/intent-compiler.mjs';
 import { findReinforcingLoops, mortalHorizon, exploreExploit } from '../src/life-autopoiesis.mjs';
+import { composeInstitution, classifyBoundary } from '../src/world-intelligence.mjs';
+import { traverse, contradictions } from '../src/life-knowledge-graph.mjs';
+import { strengthProfile, buildForecast } from '../src/forecast-stack.mjs';
+import { existentialChecksum, toolCompanionBoundary } from '../src/constitutional-governance.mjs';
+import { socialCalibration, strategicReality } from '../src/inter-sovereign.mjs';
+import { embodiedState, errorBudget, cognitiveNutrition } from '../src/embodied-reality.mjs';
 
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
@@ -89,7 +95,11 @@ export function buildSovereignControlView({
   futures = [], council = null, bottleneck = null, capabilities = [], observations = [],
   unknown = null, salience = null, drift = null, attention = null, uncertainty = null,
   models = [], surprises = [], records = [], posthumous = null, intent = null,
-  consequences = null, lifeEdges = [], horizon = null, lifeDomains = [], now = new Date()
+  consequences = null, lifeEdges = [], horizon = null, lifeDomains = [],
+  institution = null, boundaryQuestion = null, graphEdges = [], graphFrom = null,
+  forecastStrength = null, forecastClaim = null, forecastMethods = [],
+  checksum = null, companion = null, socialPredictions = [], strategic = null,
+  embodiedContext = null, budget = null, diet = [], now = new Date()
 } = {}) {
   const view = {
     ok: true,
@@ -129,6 +139,21 @@ export function buildSovereignControlView({
     reinforcingLoops: Array.isArray(lifeEdges) && lifeEdges.length ? findReinforcingLoops(lifeEdges) : null,
     horizon: horizon ? mortalHorizon(horizon) : null,
     exploreExploit: Array.isArray(lifeDomains) && lifeDomains.length ? exploreExploit(lifeDomains) : null,
+    institution: institution ? composeInstitution(institution) : null,
+    boundary: boundaryQuestion ? classifyBoundary(boundaryQuestion) : null,
+    graph: graphEdges.length && graphFrom ? traverse({ edges: graphEdges, from: graphFrom }) : null,
+    graphContradictions: graphEdges.length ? contradictions(graphEdges) : null,
+    forecastStrength: forecastStrength ? strengthProfile(forecastStrength) : null,
+    forecastStack: forecastClaim ? buildForecast({ claim: forecastClaim, methods: forecastMethods }) : null,
+    // Always present, never optional. A drift check the caller can omit is a
+    // drift check that stops running exactly when it matters.
+    checksum: existentialChecksum(checksum || {}),
+    toolBoundary: toolCompanionBoundary(companion || {}),
+    socialCalibration: Array.isArray(socialPredictions) && socialPredictions.length ? socialCalibration(socialPredictions) : null,
+    strategic: strategic ? strategicReality(strategic) : null,
+    embodied: embodiedContext ? embodiedState(embodiedContext) : null,
+    errorBudget: budget ? errorBudget(budget) : null,
+    cognitiveDiet: Array.isArray(diet) && diet.length ? cognitiveNutrition(diet) : null,
     highestRung: 'RECOMMENDATION',
     founderAuthority: 'THIS SURFACE READS. IT CANNOT CHOOSE, DELEGATE, OR ACT.',
     businessEffectAuthority: 'NONE'

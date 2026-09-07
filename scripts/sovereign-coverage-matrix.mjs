@@ -53,12 +53,20 @@ const SOURCES = [
     // stays parentless on purpose: those are criteria for a human reviewing
     // UberBond, not outputs any module computes.
     ['lifeDecisionDimensions', 'FORECAST_DIMENSION', 'Value Manifold'],
-    ['humanSovereigntyLaws', 'AUTHORITY_LAW'], ['evaluationDimensions', 'FORECAST_DIMENSION']]],
+    ['humanSovereigntyLaws', 'AUTHORITY_LAW'],
+    // evaluationDimensions are criteria for a human reviewing UberBond, not
+    // outputs a module computes -- deliberately parentless.
+    ['evaluationDimensions', 'FORECAST_DIMENSION']]],
   ['artifacts/perpetual-frontier-genesis.json', 'genesis', [
     ['frontierMechanisms', 'GENESIS_MECHANISM'], ['coreLoop', 'LOOP_STAGE'],
     ['founderFreedomDimensions', 'SOVEREIGNTY_DIMENSION']]],
   ['artifacts/uberbond-total-brain.json', 'total-brain', [
-    ['truthPriority', 'AUTHORITY_LAW'], ['truthClasses', 'ONTOLOGY'], ['economicLoop', 'LOOP_STAGE'],
+    // truthPriority is an ordered evidence ranking, not a set of rules --
+    // "HYPOTHESIS" and "DRAFT_BRANCH_EVIDENCE" are rungs, and asking what
+    // module enforces a rung is a category error. Its sibling truthClasses was
+    // already typed ONTOLOGY; this was measuring the same thing as six
+    // unenforced laws.
+    ['truthPriority', 'ONTOLOGY'], ['truthClasses', 'ONTOLOGY'], ['economicLoop', 'LOOP_STAGE'],
     ['constitutionalSpine', 'HIERARCHY'], ['productFamilies', 'ECONOMIC_DONOR'],
     ['recurringProductLineage', 'ECONOMIC_DONOR'], ['platformDestinations', 'ECONOMIC_DONOR'],
     ['capabilityDomains', 'CAPABILITY_DOMAIN'], ['softwareReferenceSurfaces', 'REFERENCE_SURFACE'],

@@ -12,19 +12,22 @@
     "Fixed the inert manifest lane field: every row had taken its lane from its concept class, so OMEGA-13 read as an empty lane while the calibration ledger was built.",
     "Five life organs built, tested and mutation-covered: life-decision-dimensions (no weighted total, ever), reachable-futures (lineage-counted counterfactuals, no council majority), human-capability-genome (a durable limit needs varied evidence), living-self-model (identity compression refused), salience-sovereignty (unlogged omissions recorded as unaccountable). 26 mutations KILLED.",
     "Four more organ clusters: epistemic-immune-system (ignorance typed, causal rungs enforced, reality veto absolute), memory-sovereignty (opacity enforced at inference, not promised in policy), intent-compiler (compilation stops at permissions), life-autopoiesis (loops not balance, finite time as a constraint). 32 mutations KILLED.",
-    "10 further laws moved to ENFORCED_BY_CODE against verified modules, including 'payment link cannot create cleared payment' and 'sandbox events cannot create real revenue', which the proposal engine already held up and nothing had recorded."
+    "10 further laws moved to ENFORCED_BY_CODE against verified modules, including 'payment link cannot create cleared payment' and 'sandbox events cannot create real revenue', which the proposal engine already held up and nothing had recorded.",
+    "Six further organ clusters: world-intelligence (Ontogenesis, boundary classification, ontological crisis), life-knowledge-graph (edge provenance, contradictions held open), forecast-stack (hindcast-gated methods, no combined regret figure), constitutional-governance (the system cannot refuse being ended), inter-sovereign (other people are not terrain), embodied-reality (the state a decision was made in, and what language did not carry). 65 mutations KILLED.",
+    "Resolved the flagged mis-typing: truthPriority is an ordered evidence ranking, not six unenforced laws. Its sibling truthClasses was already ONTOLOGY; the extractor now types them alike."
   ],
   "blockers": [
-    "INTERNAL AND UNFINISHED: 215 coverage rows are genuine unbuilt organs. The mission completion condition is NOT met while these stand.",
-    "INTERNAL: 18 canon laws still have no enforcement declaration. Several of them -- the truth-hierarchy evidence classes -- are arguably misclassified as laws by the extractor rather than genuinely unenforced; that has not been investigated.",
+    "INTERNAL AND UNFINISHED: 138 coverage rows remain genuine unbuilt organs. The mission completion condition is NOT met while these stand.",
+    "INTERNAL: the largest remaining clusters are 23 CAPABILITY_DOMAIN, 23 CAPABILITY_ATOM, 18 FORECAST_DIMENSION with no parent organ, 14 GENESIS_MECHANISM, and the far-future economic donors (Reality Fork Engine, Negative-Space Intelligence, Causal Destiny Compiler and the rest).",
+    "INTERNAL: 11 canon laws still have no enforcement declaration.",
     "EXTERNAL: 19 rows blocked on facts outside this repository -- 10 host runtimes not installed, 7 founder-freedom dimensions needing observed life outcomes, 2 approved optional runtimes.",
     "EXTERNAL: no real customer, cleared payment, accepted delivery or retained customer exists. Commercial truth remains {realCustomers: 0, clearedRevenueUsd: 0, acceptedPaidDeliveries: 0, retainedCustomers: 0}.",
-    "EXTERNAL: no life-outcome evidence exists for any organ. Every life organ is internally tested and externally unproven.",
+    "EXTERNAL: no life-outcome evidence exists for any organ. Every one is internally tested and externally unproven.",
     "EXTERNAL: founder-absence duration requires observed elapsed unattended operation. ELAPSED_TIME_REQUIRED is 0 because nothing has been declared against that gate."
   ],
   "nextActions": [
-    "215 unbuilt organs remain. The highest-value single act is still not another organ: the calibration ledger has no scored forecast, so reality calibration cannot move off 6%.",
-    "Investigate whether the 9 truth-hierarchy evidence classes (CURRENT_REPOSITORY_AND_EXACT_HEAD_RECEIPTS, HYPOTHESIS and the rest) are laws at all, or a taxonomy the extractor mis-typed as AUTHORITY_LAW.",
+    "138 unbuilt organs remain. The single highest-value act is still not another organ: the calibration ledger has never scored a real forecast, so reality calibration cannot move off 6%.",
+    "The 23 CAPABILITY_ATOM rows are software capability atoms and may already be satisfied by the existing Capability Genome modules -- that has not been checked, and checking is cheaper than building.",
     "Do not duplicate ChatGPT Sol's truth/audit lane on sol/omega-truth-integration-20260907 (issue #445).",
     "Regenerate canon with npm run readiness as its own commit after each material tranche."
   ],

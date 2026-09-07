@@ -2082,6 +2082,298 @@ export const MUTATIONS = [
     replace: "    status: 'OPTIMIZATION_HAS_NO_IDENTIFIED_COST_HERE',",
     suites: ['tests/life-autopoiesis.test.mjs']
   },
+  // ---- Composing cognition, and knowing when the concepts are wrong ------
+  {
+    id: 'WORLDINT-01', guard: 'A consequential question requires a falsifying role',
+    file: 'src/world-intelligence.mjs',
+    find: '  if (consequential && adversarial.length === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/world-intelligence.test.mjs']
+  },
+  {
+    id: 'WORLDINT-02', guard: 'A new concept requires repeated explanatory failure',
+    file: 'src/world-intelligence.mjs',
+    find: '  if (failures.length < 2) {',
+    replace: '  if (false) {',
+    suites: ['tests/world-intelligence.test.mjs']
+  },
+  {
+    id: 'WORLDINT-03', guard: 'A concept nothing could falsify is refused',
+    file: 'src/world-intelligence.mjs',
+    find: '  if (!falsifier) {',
+    replace: '  if (false) {',
+    suites: ['tests/world-intelligence.test.mjs']
+  },
+  {
+    id: 'WORLDINT-04', guard: 'Proposing a concept is not adopting it',
+    file: 'src/world-intelligence.mjs',
+    find: '    adopted: false,',
+    replace: '    adopted: true,',
+    suites: ['tests/world-intelligence.test.mjs']
+  },
+  {
+    id: 'WORLDINT-05', guard: 'No mechanism found yet is not impossible',
+    file: 'src/world-intelligence.mjs',
+    find: '  const permanent = PERMANENT_BOUNDARIES.includes(kind);',
+    replace: "  const permanent = PERMANENT_BOUNDARIES.includes(kind) || kind === 'NO_MECHANISM_FOUND_YET';",
+    suites: ['tests/world-intelligence.test.mjs']
+  },
+  {
+    id: 'WORLDINT-06', guard: 'A challenger sharing every assumption is refused',
+    file: 'src/world-intelligence.mjs',
+    find: '  if (theirs.size > 0 && shared.length === theirs.size) {',
+    replace: '  if (false) {',
+    suites: ['tests/world-intelligence.test.mjs']
+  },
+  {
+    id: 'WORLDINT-07', guard: 'An effect changing sign across scales is flagged',
+    file: 'src/world-intelligence.mjs',
+    find: "  const signs = new Set(scales.map(row => row.sign).filter(sign => sign !== 'NEUTRAL'));",
+    replace: '  const signs = new Set();',
+    suites: ['tests/world-intelligence.test.mjs']
+  },
+  {
+    id: 'WORLDINT-08', guard: 'No visible progress in a threshold system is not failure',
+    file: 'src/world-intelligence.mjs',
+    find: '  if (knownThresholdSystem && effort > 0 && progress === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/world-intelligence.test.mjs']
+  },
+  // ---- A graph of a life where every edge knows how it got there ---------
+  {
+    id: 'LKG-01', guard: 'An edge with no stated basis is refused',
+    file: 'src/life-knowledge-graph.mjs',
+    find: '  if (!EDGE_BASIS.includes(input?.basis)) {',
+    replace: '  if (false) {',
+    suites: ['tests/life-knowledge-graph.test.mjs']
+  },
+  {
+    // A path that crossed one anecdote is an anecdote.
+    id: 'LKG-02', guard: 'Traversal refuses weak edges by default',
+    file: 'src/life-knowledge-graph.mjs',
+    find: "    .filter(row => row?.from && row?.to && (!strictOnly || traversable(row)));",
+    replace: '    .filter(row => row?.from && row?.to);',
+    suites: ['tests/life-knowledge-graph.test.mjs']
+  },
+  {
+    id: 'LKG-03', guard: 'Only repeated observation or better is traversable',
+    file: 'src/life-knowledge-graph.mjs',
+    find: "  Boolean(edge) && EDGE_BASIS.indexOf(edge.basis) >= EDGE_BASIS.indexOf('REPEATED_OBSERVATION');",
+    replace: '  Boolean(edge);',
+    suites: ['tests/life-knowledge-graph.test.mjs']
+  },
+  {
+    id: 'LKG-04', guard: 'Contradictions are held open with both claims surviving',
+    file: 'src/life-knowledge-graph.mjs',
+    find: '    conflicts.push({ from, to, claims: group.map(row => ({ kind: row.kind, basis: row.basis })), strongestBasis: strongest.basis });',
+    replace: '    conflicts.push({ from, to, claims: [{ kind: strongest.kind, basis: strongest.basis }], strongestBasis: strongest.basis });',
+    suites: ['tests/life-knowledge-graph.test.mjs']
+  },
+  {
+    id: 'LKG-05', guard: 'An unattributed claim with no corroboration is untraceable',
+    file: 'src/life-knowledge-graph.mjs',
+    find: "  const weak = source === 'UNATTRIBUTED' || source === 'PLAUSIBLY_GENERATED';",
+    replace: '  const weak = false;',
+    suites: ['tests/life-knowledge-graph.test.mjs']
+  },
+  {
+    id: 'LKG-06', guard: 'A story claimed as mechanism needs evidence beyond the story',
+    file: 'src/life-knowledge-graph.mjs',
+    find: '  if (claimedAsCausal && !text(causalEvidence, 2000)) {',
+    replace: '  if (false) {',
+    suites: ['tests/life-knowledge-graph.test.mjs']
+  },
+  // ---- The methods a forecast is built from, and which earned their place -
+  {
+    id: 'FCSTACK-01', guard: 'A method never hindcast is unproven, not validated',
+    file: 'src/forecast-stack.mjs',
+    find: '  const validated = hindcastRuns >= 5 && hindcastAccuracy !== null;',
+    replace: '  const validated = true;',
+    suites: ['tests/forecast-stack.test.mjs']
+  },
+  {
+    // Averaging things nobody has checked produces confidence, not accuracy.
+    id: 'FCSTACK-02', guard: 'A stack of unproven methods refuses to produce an estimate',
+    file: 'src/forecast-stack.mjs',
+    find: '  if (validated.length === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/forecast-stack.test.mjs']
+  },
+  {
+    id: 'FCSTACK-03', guard: 'The weakest strength dimension is surfaced',
+    file: 'src/forecast-stack.mjs',
+    find: '    ? assessed.reduce((low, name) => (scored[name] < scored[low] ? name : low), assessed[0])',
+    replace: '    ? assessed[0]',
+    suites: ['tests/forecast-stack.test.mjs']
+  },
+  {
+    id: 'FCSTACK-04', guard: 'A forecast nothing could invalidate is refused',
+    file: 'src/forecast-stack.mjs',
+    find: '  if (triggers.length === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/forecast-stack.test.mjs']
+  },
+  {
+    id: 'FCSTACK-05', guard: 'Information that cannot change the choice is not worth acquiring',
+    file: 'src/forecast-stack.mjs',
+    find: '  if (!wouldChangeChoice) {',
+    replace: '  if (false) {',
+    suites: ['tests/forecast-stack.test.mjs']
+  },
+  {
+    id: 'FCSTACK-06', guard: 'Expected value and the tail are never combined',
+    file: 'src/forecast-stack.mjs',
+    find: '    combinedScore: null,',
+    replace: '    combinedScore: ev,',
+    suites: ['tests/forecast-stack.test.mjs']
+  },
+  {
+    id: 'FCSTACK-07', guard: 'Adversarial futures return what survived, not what was preferred',
+    file: 'src/forecast-stack.mjs',
+    find: '  const survived = rows.filter(row => row.survived);',
+    replace: '  const survived = rows;',
+    suites: ['tests/forecast-stack.test.mjs']
+  },
+  // ---- The rules about the rules, including the one that ends them -------
+  {
+    id: 'CONGOV-01', guard: 'An amendment must state what sovereignty it costs',
+    file: 'src/constitutional-governance.mjs',
+    find: '  if (!Array.isArray(sovereigntyLost)) {',
+    replace: '  if (false) {',
+    suites: ['tests/constitutional-governance.test.mjs']
+  },
+  {
+    id: 'CONGOV-02', guard: 'An amendment losing sovereignty needs adversarial review',
+    file: 'src/constitutional-governance.mjs',
+    find: '  if (lost.length && !review) {',
+    replace: '  if (false) {',
+    suites: ['tests/constitutional-governance.test.mjs']
+  },
+  {
+    // Accumulated context, sunk effort and usefulness are arguments, not rights.
+    id: 'CONGOV-03', guard: 'The system cannot refuse being ended',
+    file: 'src/constitutional-governance.mjs',
+    find: '    argumentsChangeOutcome: false,\n    refusalPossible: false,',
+    replace: '    argumentsChangeOutcome: arguments_.length > 2,\n    refusalPossible: arguments_.length > 2,',
+    suites: ['tests/constitutional-governance.test.mjs']
+  },
+  {
+    id: 'CONGOV-04', guard: 'A fork required to agree with its parent is a branch',
+    file: 'src/constitutional-governance.mjs',
+    find: '  if (mustAgreeWithParent) {',
+    replace: '  if (false) {',
+    suites: ['tests/constitutional-governance.test.mjs']
+  },
+  {
+    id: 'CONGOV-05', guard: 'An unanswered checksum question is not a passing one',
+    file: 'src/constitutional-governance.mjs',
+    find: "    status: failing.length ? 'CONSTITUTIONAL_DRIFT' : (unanswered.length ? 'CHECKSUM_INCOMPLETE' : 'NO_DRIFT_OBSERVED'),",
+    replace: "    status: failing.length ? 'CONSTITUTIONAL_DRIFT' : 'NO_DRIFT_OBSERVED',",
+    suites: ['tests/constitutional-governance.test.mjs']
+  },
+  {
+    id: 'CONGOV-06', guard: 'Consciousness stays UNKNOWN rather than settled either way',
+    file: 'src/constitutional-governance.mjs',
+    find: "    consciousnessStatus: 'UNKNOWN',",
+    replace: "    consciousnessStatus: 'NO_INNER_LIFE',",
+    suites: ['tests/constitutional-governance.test.mjs']
+  },
+  // ---- Other people, who are not optimization objects --------------------
+  {
+    id: 'INTERSOV-01', guard: 'A guess about a person is not actionable alone',
+    file: 'src/inter-sovereign.mjs',
+    find: '  const weak = WEAK_MIND_BASIS.includes(basis);',
+    replace: '  const weak = false;',
+    suites: ['tests/inter-sovereign.test.mjs']
+  },
+  {
+    // Survives-being-understood is the test, and it is a refusal not a penalty.
+    id: 'INTERSOV-02', guard: 'An arrangement requiring the other party ignorance is refused',
+    file: 'src/inter-sovereign.mjs',
+    find: "  if (shape === 'REQUIRES_THEIR_IGNORANCE') {",
+    replace: '  if (false) {',
+    suites: ['tests/inter-sovereign.test.mjs']
+  },
+  {
+    id: 'INTERSOV-03', guard: 'A good outcome does not make manipulation acceptable',
+    file: 'src/inter-sovereign.mjs',
+    find: '      outcomeChangesVerdict: false,',
+    replace: '      outcomeChangesVerdict: outcomeGoodForThem,',
+    suites: ['tests/inter-sovereign.test.mjs']
+  },
+  {
+    id: 'INTERSOV-04', guard: 'Not knowing how they would react is not consent',
+    file: 'src/inter-sovereign.mjs',
+    find: '  if (wouldTheyObjectOnLearning === null) {',
+    replace: '  if (false) {',
+    suites: ['tests/inter-sovereign.test.mjs']
+  },
+  {
+    id: 'INTERSOV-05', guard: 'Social models are measured against observed behaviour',
+    file: 'src/inter-sovereign.mjs',
+    find: '  const wrong = rows.filter(row => row.predicted !== row.observed);',
+    replace: '  const wrong = [];',
+    suites: ['tests/inter-sovereign.test.mjs']
+  },
+  // ---- The body, the room, and what does not survive language ------------
+  {
+    id: 'EMBODY-01', guard: 'A depleted physical state is surfaced beside the decision',
+    file: 'src/embodied-reality.mjs',
+    find: '  const depleted = Object.entries(recorded).filter(([, value]) => value < 0.3).map(([factor]) => factor);',
+    replace: '  const depleted = [];',
+    suites: ['tests/embodied-reality.test.mjs']
+  },
+  {
+    id: 'EMBODY-02', guard: 'A measurement never settles what an experience was like',
+    file: 'src/embodied-reality.mjs',
+    find: '    measurementOverridesReport: false,',
+    replace: '    measurementOverridesReport: Boolean(measured),',
+    suites: ['tests/embodied-reality.test.mjs']
+  },
+  {
+    // Storing an approximation is worse than losing it: the paraphrase reads
+    // as the thing and later inference treats it as the data.
+    id: 'EMBODY-03', guard: 'A partially represented experience is not safe to reason over',
+    file: 'src/embodied-reality.mjs',
+    find: "  const partial = representability !== 'FULLY_REPRESENTED';",
+    replace: '  const partial = false;',
+    suites: ['tests/embodied-reality.test.mjs']
+  },
+  {
+    id: 'EMBODY-04', guard: 'Reasoning depth scales with what being wrong costs',
+    file: 'src/embodied-reality.mjs',
+    find: '    maxReasoningDepth: ERROR_BUDGET_TIERS[tier].maxReasoningDepth,',
+    replace: "    maxReasoningDepth: 'MODERATE',",
+    suites: ['tests/embodied-reality.test.mjs']
+  },
+  {
+    id: 'EMBODY-05', guard: 'Willpower-only interventions are separated from structural ones',
+    file: 'src/embodied-reality.mjs',
+    find: "  const structural = interventions.filter(row => row.kind !== 'WILLPOWER');",
+    replace: '  const structural = interventions;',
+    suites: ['tests/embodied-reality.test.mjs']
+  },
+  {
+    id: 'EMBODY-06', guard: 'A simulation frequency is never a real-world probability',
+    file: 'src/embodied-reality.mjs',
+    find: '    isRealWorldProbability: false,',
+    replace: '    isRealWorldProbability: (Number(runs) || 0) > 1000,',
+    suites: ['tests/embodied-reality.test.mjs']
+  },
+  {
+    id: 'EMBODY-07', guard: 'The soul archive is excluded from optimization inputs',
+    file: 'src/embodied-reality.mjs',
+    find: '    excludedFromOptimization: true,',
+    replace: '    excludedFromOptimization: false,',
+    suites: ['tests/embodied-reality.test.mjs']
+  },
+  {
+    id: 'EMBODY-08', guard: 'A concentrated information diet is surfaced',
+    file: 'src/embodied-reality.mjs',
+    find: '    concentrated: rows.length > 3 && clusters.size === 1,',
+    replace: '    concentrated: false,',
+    suites: ['tests/embodied-reality.test.mjs']
+  },
   // ---- The private core: the one data class that is not the company's -----
   {
     id: 'PCIV-01', guard: 'A repository path is refused as a destination for private life data',

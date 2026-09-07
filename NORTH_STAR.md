@@ -17,6 +17,7 @@ Every human or AI evaluating, modifying, rating, resuming or extending UberBond 
 - `docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`
 - `artifacts/sovereign-cognitive-continuum-north-star.json`
 - `docs/NORTH_STAR_PRECEDENCE.md`
+- `artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json`
 - `docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`
 - `artifacts/personal-civilization-engine-north-star.json`
 - `AGENTS.md`
@@ -28,7 +29,7 @@ Every human or AI evaluating, modifying, rating, resuming or extending UberBond 
 
 ## Terminal precedence law
 
-`NORTH_STAR.md`, `docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`, `artifacts/sovereign-cognitive-continuum-north-star.json`, and `docs/NORTH_STAR_PRECEDENCE.md` define the terminal objective layer.
+`NORTH_STAR.md`, `docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`, `artifacts/sovereign-cognitive-continuum-north-star.json`, `docs/NORTH_STAR_PRECEDENCE.md`, and `artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json` define the terminal objective layer.
 
 Any older wording anywhere in the repository that calls the **Personal Civilization Engine** the "highest-level North Star", "highest-level destination", or equivalent is retained as historical donor wording and must now be interpreted as referring to the highest **life-system layer** beneath the Sovereign Cognitive Continuum. It does not supersede this terminal North Star.
 

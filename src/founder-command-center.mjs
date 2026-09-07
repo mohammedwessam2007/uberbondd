@@ -1,21 +1,46 @@
 import { buildOutboundOperatorSummary } from './outbound-operator-summary.mjs';
 import { compileOfferPacket, OFFER_PRODUCTS } from './offer-compiler.mjs';
 import { summarizePaymentOperatorAttention } from './payment-operator-attention.mjs';
+import { CANONICAL_FIRST_CASH_PAYMENT_METHOD } from './first-cash-canary-packet.mjs';
+import { LEAD_PATH_SPRINT_PRICE, LEAD_PATH_SPRINT_SKU } from './lead-path-sprint-fulfillment.mjs';
 
 // Bump when the report's shape or derivation logic changes.
-export const COMMAND_CENTER_POLICY_VERSION = 'founder-command-center-1.1.0';
+export const COMMAND_CENTER_POLICY_VERSION = 'founder-command-center-1.2.0';
 
 const SELF_SERVE_PRODUCTS = ['full', 'strategy', 'monitoring'];
 
 function checkoutReadinessTable(cfg) {
   return SELF_SERVE_PRODUCTS.map(product => {
     const packet = compileOfferPacket({ prospect: { id: 'probe', issue: { title: 't', evidenceUrl: 'https://x', evidenceExcerpt: 'x', confidence: 1 } }, campaign: { approved: true }, cfg, product, date: new Date(0) });
-    return { product, configured: packet.paymentRequirement?.checkoutReadiness?.configured || false, priceUsd: packet.price?.amountUsd ?? null };
+    return {
+      product,
+      configured: packet.paymentRequirement?.checkoutReadiness?.configured || false,
+      priceUsd: packet.price?.amountUsd ?? null,
+      canonicalFirstCash: false,
+      blocksCanonicalFirstCash: false
+    };
   }).concat([{
     product: 'implementation',
     configured: Boolean(String(cfg.revenue?.bookingUrl || '').trim()),
-    priceUsd: Number.isFinite(Number(cfg.revenue?.implementationFrom)) ? Number(cfg.revenue.implementationFrom) : null
+    priceUsd: Number.isFinite(Number(cfg.revenue?.implementationFrom)) ? Number(cfg.revenue.implementationFrom) : null,
+    canonicalFirstCash: false,
+    blocksCanonicalFirstCash: false
   }]);
+}
+
+function canonicalFirstCashPath() {
+  return {
+    sku: LEAD_PATH_SPRINT_SKU,
+    priceUsd: LEAD_PATH_SPRINT_PRICE.amountCents / 100,
+    currency: LEAD_PATH_SPRINT_PRICE.currency,
+    paymentMethod: CANONICAL_FIRST_CASH_PAYMENT_METHOD,
+    orderEndpoint: 'POST /api/payments/paypal-order',
+    staticCheckoutRequired: false,
+    approvalUrlPrecomputed: false,
+    requiresProviderOriginPaymentTruth: true,
+    status: 'CANONICAL_PATH_DECLARED__EXTERNAL_GATES_NOT_INFERRED',
+    businessEffectAuthority: 'NONE'
+  };
 }
 
 async function offerReadinessTable({ store, cfg, referenceDate }) {
@@ -42,18 +67,8 @@ async function deliveryReadinessTable({ store }) {
   };
 }
 
-function deriveOwnerActions({ checkoutTable, outbound, paymentAttention, revenue }) {
+function deriveOwnerActions({ outbound, paymentAttention, revenue }) {
   const actions = [];
-  const unconfiguredPriced = checkoutTable.filter(row => row.priceUsd != null && !row.configured);
-  if (unconfiguredPriced.length) {
-    actions.push({
-      action: `Configure checkout for: ${unconfiguredPriced.map(r => r.product).join(', ')}`,
-      reason: 'A priced offer with no working checkout path cannot convert any buyer, regardless of how good the evidence is.',
-      expectedValue: 'Unblocks the entire first-payment path', timeRequired: '15-30 minutes per provider', cost: 'Free to configure (provider fees apply per transaction)',
-      evidence: `${unconfiguredPriced.length} product(s) priced but not checkout-ready`, risk: 'None to configure; risk is zero revenue while unconfigured',
-      completionTest: 'checkoutReadinessTable reports configured:true for each listed product'
-    });
-  }
   if (paymentAttention.attentionRequired > 0) {
     actions.push({
       action: `Review ${paymentAttention.attentionRequired} payment event(s) requiring operator attention`,
@@ -76,8 +91,9 @@ function deriveOwnerActions({ checkoutTable, outbound, paymentAttention, revenue
   }
   if (!actions.length) {
     actions.push({
-      action: 'No binding action required', reason: `Checkout, offers, and payment classification all show a clean state as of this report. Cleared revenue so far: $${revenue?.clearedRevenue ?? 'UNKNOWN'}.`,
-      expectedValue: 'N/A', timeRequired: 'N/A', cost: 'N/A', evidence: 'See checkoutReadiness/offerReadiness/paymentTruth tables', risk: 'N/A',
+      action: 'No binding action required', reason: `The canonical first-cash path does not require legacy static checkout URLs. Payment anomalies and stuck reservations are clear as of this report. Cleared revenue so far: $${revenue?.clearedRevenue ?? 'UNKNOWN'}.`,
+      expectedValue: 'Avoids founder time spent configuring noncanonical payment paths', timeRequired: 'N/A', cost: 'N/A',
+      evidence: 'See canonicalFirstCashPath, paymentTruth, outbound and nonBlockingLegacyCheckoutGaps', risk: 'External live-rail/contact/legal gates remain outside this report and are not inferred.',
       completionTest: 'N/A'
     });
   }
@@ -103,6 +119,10 @@ export async function buildFounderCommandCenter({ store, cfg = {}, revenueEngine
   ]);
 
   const checkoutTable = checkoutReadinessTable(cfg);
+  const firstCashPath = canonicalFirstCashPath();
+  const legacyCheckoutGaps = checkoutTable
+    .filter(row => row.priceUsd != null && !row.configured)
+    .map(row => ({ product: row.product, priceUsd: row.priceUsd, blocksCanonicalFirstCash: false }));
   const paymentAttention = summarizePaymentOperatorAttention(recentAudit);
   const revenue = revenueEngine && typeof revenueEngine.summary === 'function' ? await revenueEngine.summary() : null;
 
@@ -110,10 +130,10 @@ export async function buildFounderCommandCenter({ store, cfg = {}, revenueEngine
     ok: true,
     policyVersion: COMMAND_CENTER_POLICY_VERSION,
     timestamp,
-    whatCanMakeMoneyFirst: offers.readyOffersByProduct.full > 0
-      ? `${offers.readyOffersByProduct.full} prospect(s) have a ready-to-offer full audit ($${checkoutTable.find(r => r.product === 'full')?.priceUsd ?? 'UNKNOWN'})`
-      : 'No prospect currently has a ready-to-offer diagnostic; evidence or checkout configuration is the blocker',
+    whatCanMakeMoneyFirst: `${LEAD_PATH_SPRINT_SKU} ($${firstCashPath.priceUsd}) via ${CANONICAL_FIRST_CASH_PAYMENT_METHOD}; real contact/payment still requires external gates and provider-origin reconciliation`,
+    canonicalFirstCashPath: firstCashPath,
     checkoutReadiness: checkoutTable,
+    nonBlockingLegacyCheckoutGaps: legacyCheckoutGaps,
     offerReadiness: offers,
     deliveryReadiness: delivery,
     paymentTruth: {
@@ -131,9 +151,9 @@ export async function buildFounderCommandCenter({ store, cfg = {}, revenueEngine
       staleRecoveryPreview: outbound.staleRecoveryPreview, nextSafeAction: outbound.nextSafeAction
     } : null,
     blocked: [
-      ...(checkoutTable.filter(row => row.priceUsd != null && !row.configured).map(row => `checkout not configured: ${row.product}`)),
       ...(paymentAttention.attentionRequired > 0 ? [`${paymentAttention.attentionRequired} payment event(s) need operator review`] : [])
     ],
-    ownerActionQueue: deriveOwnerActions({ checkoutTable, outbound: outbound.ok ? outbound : null, paymentAttention, revenue })
+    ownerActionQueue: deriveOwnerActions({ outbound: outbound.ok ? outbound : null, paymentAttention, revenue }),
+    businessEffectAuthority: 'NONE'
   };
 }

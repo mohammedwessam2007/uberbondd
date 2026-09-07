@@ -15,6 +15,7 @@ import EmbeddedPostgres from 'embedded-postgres';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import { prepareEmbeddedPostgresFixture } from './prepare-embedded-postgres-fixture.mjs';
 
 /**
  * Starts a private server and hands its URL to `body`.
@@ -24,6 +25,14 @@ import path from 'node:path';
  * picks a different random port and never notices it is there.
  */
 export async function withDisposablePostgres(body) {
+  // Vercel has demonstrated that the platform package can be runnable at gate
+  // startup yet refuse execution by the time Mutation War reaches its first
+  // database-backed mutant. Re-probe at the exact consumer boundary. The
+  // helper performs a real spawn probe and, only if the kernel returns EACCES,
+  // moves the already version-pinned native tree to executable temporary
+  // storage and re-probes it before EmbeddedPostgres may call initdb.
+  await prepareEmbeddedPostgresFixture();
+
   const root = await fs.mkdtemp(path.join(os.tmpdir(), 'uberbond-mutation-pg-'));
   await fs.chmod(root, 0o777);
   const databaseDir = path.join(root, 'db');

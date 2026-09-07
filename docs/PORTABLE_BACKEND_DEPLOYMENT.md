@@ -7,3 +7,5 @@ Run `node scripts/provider-neutral-backend-doctor.mjs` with `POSTGRES_PASSWORD`,
 `POSTGRES_PASSWORD` must contain only URL safe characters (`A-Z`, `a-z`, digits, `.`, `_`, `~`, or `-`) because the existing migration/runtime contract receives it through a composed database URL. Both web and worker receive the production required `APP_BASE_URL` and `ADMIN_TOKEN` values and are checked through the existing startup validator.
 
 The bundle has no outbound, discovery, or payment activation flags. Keep those capabilities disabled until their existing authority and external evidence gates are satisfied.
+
+The standalone HTTP server currently exposes the core public/Lemon Squeezy routes; Vercel function routes such as `/api/payments/paypal-order`, `/api/payments/paypal-capture`, and `/api/webhooks/paypal` are not mounted by `server-core.mjs`. PayPal remains an explicit portability follow-up and is not claimed as available through this bundle.

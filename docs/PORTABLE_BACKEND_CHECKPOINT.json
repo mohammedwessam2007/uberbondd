@@ -27,6 +27,7 @@
   "unmet": [
     "Docker runtime unavailable in the execution environment",
     "No native Postgres daemon available for a production-store rehearsal",
+    "Standalone server does not mount Vercel PayPal function routes",
     "No provider, payment, customer, or unattended-operation proof"
   ],
   "businessEffectAuthority": "NONE",

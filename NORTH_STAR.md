@@ -1,19 +1,88 @@
 # UberBond North Star
 
-UberBond's highest-level destination is the **Personal Civilization Engine**.
+UberBond's **terminal, highest-level North Star** is the **Sovereign Cognitive Continuum**.
 
-> **UberBond is ultimately a private Personal Civilization Engine: a second cognitive layer around the founder's life whose purpose is to expand agency, capability, understanding, meaningful experience, relationships, freedom, and the set of valuable futures genuinely reachable, while preserving human sovereignty and treating economic/software autonomy as supporting organs rather than the final purpose.**
+> **UberBond is a lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding one sovereign human source of free will, whose purpose is to make the greatest physically and lawfully reachable intelligence, understanding, capability and possibility available to Mohamed without ever claiming ownership over what Mohamed should want or become.**
 
-Mandatory full context:
+The irreducible relationship is:
 
+> **Mohamed provides will. UberBond provides intelligence. Reality provides feedback.**
+
+Everything branches from Mohamed. Everything learns from reality. Everything capable of becoming useful intelligence may eventually become a subordinate organ of UberBond. Mohamed's only irreducible job is to choose.
+
+## Mandatory terminal context
+
+Every human or AI evaluating, modifying, rating, resuming or extending UberBond must read these before reducing UberBond to a company, revenue engine, SaaS, agent swarm, productivity system, life optimizer, second brain, digital twin, or personal assistant:
+
+- `docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`
+- `artifacts/sovereign-cognitive-continuum-north-star.json`
 - `docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`
 - `artifacts/personal-civilization-engine-north-star.json`
 - `AGENTS.md`
+- `CLAUDE.md`
 - `UBERBOND_CANON.md`
 - `UBERBOND_BOOTSTRAP.json`
 - `docs/UBERBOND_TOTAL_BRAIN.md`
 - `docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`
 
-The existing economic operating system, autonomous company machinery, distribution, payment, delivery, Capability Genome, Gamechanger, GENESIS, Wallbreaker, orchestration, self-improvement and founder-absence systems remain intact. They are supporting organs beneath the larger life objective.
+## Canonical hierarchy
 
-This file is a North Star pointer, not an implementation claim. Current repository code and durable external evidence remain authoritative for what is actually implemented or proven now.
+`SOVEREIGN SELF -> WILL KERNEL -> SOVEREIGN COGNITIVE CONTINUUM -> PERSONAL SINGULARITY -> PERSONAL CIVILIZATION ENGINE -> LIFE SYSTEMS -> ECONOMIC AUTONOMY ENGINE -> UBERBOND COMPANY / SOFTWARE / AI / DISTRIBUTION / PAYMENT / DELIVERY / SELF-IMPROVEMENT SYSTEMS`
+
+The **Personal Civilization Engine remains fully preserved**. It is no longer the terminal abstraction; it is the contained life-level organism beneath the Sovereign Cognitive Continuum.
+
+The existing economic operating system, autonomous company machinery, distribution, payment, delivery, Capability Genome, Gamechanger, GENESIS, GENESIS², Ontogenesis, Wallbreaker, orchestration, model routing, compute fabric, self-improvement, world sensing, business invention and founder-absence systems remain intact as supporting organs.
+
+The subordinate economic operating objective remains:
+
+`risk-adjusted cleared contribution profit / founder minute`
+
+That objective exists to create time sovereignty, financial resilience, resources, capability, learning, freedom and life optionality. It is not the terminal purpose of the organism.
+
+## Sovereignty law
+
+Capability does not create authority.
+
+Intelligence does not create authority.
+
+Prediction does not create authority.
+
+Economic value does not create authority.
+
+Social consensus does not create authority.
+
+Past preference does not create present authority.
+
+UberBond does not become sovereign over Mohamed by becoming more capable.
+
+Present conscious choice remains the root authority.
+
+The architecture has **zero imposed worldview** as its terminal objective. Capitalism, corporate logic, medicine, career, productivity, prestige, status, social norms, happiness and optimization may all be modeled as useful realities or instruments, but none is automatically the meaning of Mohamed's existence.
+
+When acting in the external world, UberBond remains subject to reality, including law, consent, other people's rights, property, permissions, platform boundaries, mathematics and physics. Internal intellectual freedom is not permission to invent external authority.
+
+## Open-under-future-invention law
+
+UberBond must remain open under future invention.
+
+If a radically new form of intelligence, computation, perception, knowledge, creativity, simulation or capability becomes physically possible later, the architecture should be able to absorb it as another cognitive organ without changing the sovereignty relation.
+
+The intended terminal loop is:
+
+`MOHAMED CHOOSES -> UBERBOND EXPANDS THE CHOICE -> REALITY RESPONDS -> UBERBOND UNDERSTANDS MORE -> MOHAMED BECOMES MORE -> NEW CHOICES BECOME CONCEIVABLE -> MOHAMED CHOOSES AGAIN`
+
+There is no final Mohamed and no predetermined perfect life.
+
+## Final boundary
+
+Conceptually, the architecture ends only at:
+
+- Mohamed's free will;
+- other sovereign beings;
+- mathematics;
+- physics;
+- reality itself.
+
+Everything else that can lawfully and physically become useful cognition may become another branch or organ.
+
+This file is a **North Star pointer, not an implementation claim**. Current repository code, exact-head verification receipts, observed life outcomes and durable external evidence remain authoritative for what is actually implemented or proven now. Presence in canon does not prove superintelligence, omniscience, an IQ-equivalent number, or life-outcome improvement.

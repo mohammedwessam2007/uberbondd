@@ -89,6 +89,42 @@ test('a declared boundary outranks any amount of code', () => {
   }
 });
 
+test('a category cannot be implemented by a file that happens to share a word', () => {
+  // The real regression this guards: "Possibility" is one of the twelve terminal
+  // ontology domains, and it read VERIFIED_CURRENT because a module was named
+  // life-possibility-engine.mjs. "Action" did the same off browser-action-contract,
+  // "Knowledge" off life-knowledge-graph. Twenty-nine rows were claiming
+  // implementation of things that are categories, while the artifact advertised
+  // that it never overstates.
+  for (const klass of STRUCTURAL_CLASSES) {
+    const state = classifyState({ name: 'Wallbreaker', class: klass }, locateEvidence({ name: 'Wallbreaker' }, index));
+    assert.equal(state, 'STRUCTURAL_NOT_A_BUILD_TARGET', `${klass} was promoted by source evidence`);
+  }
+  for (const klass of ALIAS_CLASSES) {
+    const state = classifyState({ name: 'Wallbreaker', class: klass }, locateEvidence({ name: 'Wallbreaker' }, index));
+    assert.equal(state, 'ALIAS_OF_CANONICAL_CONCEPT', `${klass} was promoted by source evidence`);
+  }
+});
+
+test('a genuine organ is still promoted by the same evidence a category is refused', () => {
+  // The guard must be about the class, not about weakening the matcher. The
+  // identical evidence that leaves an ONTOLOGY row structural still promotes an
+  // ORGAN row, or the fix would have bought truth by going blind.
+  const evidence = locateEvidence({ name: 'Wallbreaker' }, index);
+  assert.equal(classifyState({ name: 'Wallbreaker', class: 'ORGAN' }, evidence), 'VERIFIED_CURRENT');
+  assert.equal(classifyState({ name: 'Wallbreaker', class: 'ONTOLOGY' }, evidence), 'STRUCTURAL_NOT_A_BUILD_TARGET');
+});
+
+test('a historical donor with real code is not flattened by the category guard', () => {
+  // NAMED_INITIATIVE and ECONOMIC_DONOR are deliberately outside the guard: a
+  // named programme genuinely can have an implementation, and forcing those to
+  // HISTORICAL_DONOR_PRESERVED would buy consistency by deleting real signal.
+  const evidence = locateEvidence({ name: 'Wallbreaker' }, index);
+  for (const klass of DONOR_CLASSES) {
+    assert.equal(classifyState({ name: 'Wallbreaker', class: klass }, evidence), 'VERIFIED_CURRENT');
+  }
+});
+
 test('common vocabulary cannot become evidence', () => {
   // Without this, every concept containing "system" collects every module with
   // "system" in its name, and the matrix goes green on nothing.

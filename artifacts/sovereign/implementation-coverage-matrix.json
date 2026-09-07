@@ -2,29 +2,29 @@
   "ok": true,
   "status": "COVERAGE_MATRIX_COMPILED",
   "schemaVersion": "uberbond.sovereign-coverage-matrix.v1",
-  "generatedAt": "2026-09-07T18:06:33.902Z",
-  "sourceCommit": "7b2a9205a536496eeb9f26ac3b8947d13b609650",
+  "generatedAt": "2026-09-07T20:16:27.982Z",
+  "sourceCommit": "599b2f870c414748cf336adb8c3b3fd3e165a0d9",
   "counts": {
     "extractedConcepts": 1068,
     "rows": 1038,
     "mergedAliasRows": 30,
     "declaredConcepts": 159,
     "byState": {
-      "VERIFIED_CURRENT": 246,
-      "PARTIAL_CURRENT": 72,
+      "VERIFIED_CURRENT": 241,
+      "PARTIAL_CURRENT": 61,
       "DRAFT_DONOR": 0,
-      "SPEC_ONLY": 138,
+      "SPEC_ONLY": 126,
       "EXTERNAL_BLOCKED": 19,
       "OWNER_BOUNDARY": 13,
       "ELAPSED_TIME_REQUIRED": 0,
       "SUPERSEDED_WITH_PRESERVED_DONATION": 0,
-      "UNKNOWN": 6,
+      "UNKNOWN": 5,
       "ENFORCED_BY_CODE": 39,
-      "STRUCTURAL_NOT_A_BUILD_TARGET": 111,
+      "STRUCTURAL_NOT_A_BUILD_TARGET": 137,
       "COVERED_BY_PARENT_ORGAN": 124,
       "REFERENCE_ONLY_BY_CANON": 33,
       "HISTORICAL_DONOR_PRESERVED": 195,
-      "ALIAS_OF_CANONICAL_CONCEPT": 42
+      "ALIAS_OF_CANONICAL_CONCEPT": 45
     },
     "byLane": {
       "OMEGA-14": 295,
@@ -232,7 +232,7 @@
         "Meta-Sovereign Rationality"
       ],
       "class": "HIERARCHY",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/meta-rational-boundary.mjs"
@@ -328,15 +328,17 @@
         "Personal Civilization Engine"
       ],
       "class": "HIERARCHY",
-      "currentState": "PARTIAL_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
-          "src/personal-civilization-core.mjs"
+          "src/personal-civilization-core.mjs",
+          "scripts/personal-civilization-doctor.mjs"
         ],
         "testModules": [
-          "tests/personal-civilization-core.test.mjs"
+          "tests/personal-civilization-core.test.mjs",
+          "tests/personal-civilization-doctor.test.mjs"
         ],
-        "reachability": "OPERATOR_ONLY",
+        "reachability": "PRODUCTION",
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME",
         "matchedPhrase": "PERSONAL_CIVILIZATION_ENGINE",
@@ -362,18 +364,26 @@
         "LIFE_SYSTEMS"
       ],
       "class": "HIERARCHY",
-      "currentState": "PARTIAL_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
+          "src/gamechanger-for-life.mjs",
+          "src/genesis-for-life.mjs",
           "src/life-autopoiesis.mjs",
+          "src/life-compression-engine.mjs",
           "src/life-decision-dimensions.mjs",
           "src/life-knowledge-graph.mjs",
+          "src/life-possibility-engine.mjs",
           "src/lifetime-context-memory.mjs"
         ],
         "testModules": [
+          "tests/gamechanger-for-life.test.mjs",
+          "tests/genesis-for-life.test.mjs",
           "tests/life-autopoiesis.test.mjs",
+          "tests/life-compression-engine.test.mjs",
           "tests/life-decision-dimensions.test.mjs",
           "tests/life-knowledge-graph.test.mjs",
+          "tests/life-possibility-engine.test.mjs",
           "tests/lifetime-context-memory.test.mjs"
         ],
         "reachability": "PRODUCTION",
@@ -382,7 +392,7 @@
         "matchedPhrase": "LIFE_SYSTEMS",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": "src/life-autopoiesis.mjs",
+      "targetModule": "src/gamechanger-for-life.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -4003,11 +4013,13 @@
       "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
         "sourceModules": [
+          "src/gamechanger-for-life.mjs",
           "src/gamechanger-mesh.mjs",
           "src/gamechanger-search-adapters.mjs",
           "scripts/gamechanger-mesh-tick.mjs"
         ],
         "testModules": [
+          "tests/gamechanger-for-life.test.mjs",
           "tests/gamechanger-mesh.test.mjs",
           "tests/gamechanger-search-adapters.test.mjs",
           "tests/orchestration-gamechanger-source.test.mjs"
@@ -4018,7 +4030,7 @@
         "matchedPhrase": "Gamechanger",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": "src/gamechanger-mesh.mjs",
+      "targetModule": "src/gamechanger-for-life.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -4116,6 +4128,7 @@
           "src/genesis-evolution-engine.mjs",
           "src/genesis-final-frontier-evidence.mjs",
           "src/genesis-final-frontier.mjs",
+          "src/genesis-for-life.mjs",
           "src/genesis-implementation-evidence-v2.mjs",
           "src/genesis-implementation-evidence.mjs",
           "src/genesis-metabolism.mjs",
@@ -4148,6 +4161,7 @@
           "tests/genesis-evolution-engine.test.mjs",
           "tests/genesis-evolution-tick.test.mjs",
           "tests/genesis-final-frontier.test.mjs",
+          "tests/genesis-for-life.test.mjs",
           "tests/genesis-implementation-receipt.test.mjs",
           "tests/genesis-metabolism-tick.test.mjs",
           "tests/genesis-metabolism.test.mjs",
@@ -5243,22 +5257,26 @@
         "Life Possibility Engine"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-possibility-engine.mjs"
+        ],
+        "testModules": [
+          "tests/life-possibility-engine.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Life Possibility Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/life-possibility-engine.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -5341,22 +5359,26 @@
         "Life Compression Engine"
       ],
       "class": "CONCEPT",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-compression-engine.mjs"
+        ],
+        "testModules": [
+          "tests/life-compression-engine.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Life Compression Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/life-compression-engine.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -6061,22 +6083,26 @@
         "Gamechanger for Life"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/gamechanger-for-life.mjs"
+        ],
+        "testModules": [
+          "tests/gamechanger-for-life.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Gamechanger for Life",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/gamechanger-for-life.mjs",
       "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -6091,22 +6117,26 @@
         "GENESIS for Life"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/genesis-for-life.mjs"
+        ],
+        "testModules": [
+          "tests/genesis-for-life.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "GENESIS for Life",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/genesis-for-life.mjs",
       "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -7234,6 +7264,7 @@
           "src/genesis-evolution-engine.mjs",
           "src/genesis-final-frontier-evidence.mjs",
           "src/genesis-final-frontier.mjs",
+          "src/genesis-for-life.mjs",
           "src/genesis-implementation-evidence-v2.mjs",
           "src/genesis-implementation-evidence.mjs",
           "src/genesis-metabolism.mjs",
@@ -7266,6 +7297,7 @@
           "tests/genesis-evolution-engine.test.mjs",
           "tests/genesis-evolution-tick.test.mjs",
           "tests/genesis-final-frontier.test.mjs",
+          "tests/genesis-for-life.test.mjs",
           "tests/genesis-implementation-receipt.test.mjs",
           "tests/genesis-metabolism-tick.test.mjs",
           "tests/genesis-metabolism.test.mjs",
@@ -7787,7 +7819,7 @@
         "KNOWLEDGE"
       ],
       "class": "ONTOLOGY",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/life-knowledge-graph.mjs"
@@ -7821,7 +7853,7 @@
         "INTELLIGENCE"
       ],
       "class": "ONTOLOGY",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/autonomous-frontier-intelligence.mjs",
@@ -7860,20 +7892,24 @@
       "class": "ONTOLOGY",
       "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-possibility-engine.mjs"
+        ],
+        "testModules": [
+          "tests/life-possibility-engine.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "POSSIBILITY",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/life-possibility-engine.mjs",
       "owningLane": "OMEGA-03",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -7888,7 +7924,7 @@
         "ACTION"
       ],
       "class": "ONTOLOGY",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/browser-action-contract.mjs",
@@ -8020,7 +8056,7 @@
         "SOVEREIGNTY"
       ],
       "class": "ONTOLOGY",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/compute-sovereignty-capacity.mjs",
@@ -8720,7 +8756,7 @@
         "Recursive Cognitive Evolution"
       ],
       "class": "ALIAS",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [
           "src/world-intelligence.mjs"
@@ -8874,7 +8910,7 @@
         "Universal Ignorance Map"
       ],
       "class": "ALIAS",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [
           "src/epistemic-immune-system.mjs"
@@ -9388,7 +9424,7 @@
         "Civilizational Intelligence"
       ],
       "class": "ALIAS",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
         "sourceModules": [
           "src/world-intelligence.mjs"
@@ -10317,15 +10353,17 @@
         "PERSONAL_CIVILIZATION_ENGINE"
       ],
       "class": "HIERARCHY",
-      "currentState": "PARTIAL_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
-          "src/personal-civilization-core.mjs"
+          "src/personal-civilization-core.mjs",
+          "scripts/personal-civilization-doctor.mjs"
         ],
         "testModules": [
-          "tests/personal-civilization-core.test.mjs"
+          "tests/personal-civilization-core.test.mjs",
+          "tests/personal-civilization-doctor.test.mjs"
         ],
-        "reachability": "OPERATOR_ONLY",
+        "reachability": "PRODUCTION",
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME",
         "matchedPhrase": "PERSONAL_CIVILIZATION_ENGINE",
@@ -10351,18 +10389,26 @@
         "LIFE_SYSTEMS"
       ],
       "class": "HIERARCHY",
-      "currentState": "PARTIAL_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
+          "src/gamechanger-for-life.mjs",
+          "src/genesis-for-life.mjs",
           "src/life-autopoiesis.mjs",
+          "src/life-compression-engine.mjs",
           "src/life-decision-dimensions.mjs",
           "src/life-knowledge-graph.mjs",
+          "src/life-possibility-engine.mjs",
           "src/lifetime-context-memory.mjs"
         ],
         "testModules": [
+          "tests/gamechanger-for-life.test.mjs",
+          "tests/genesis-for-life.test.mjs",
           "tests/life-autopoiesis.test.mjs",
+          "tests/life-compression-engine.test.mjs",
           "tests/life-decision-dimensions.test.mjs",
           "tests/life-knowledge-graph.test.mjs",
+          "tests/life-possibility-engine.test.mjs",
           "tests/lifetime-context-memory.test.mjs"
         ],
         "reachability": "PRODUCTION",
@@ -10371,7 +10417,7 @@
         "matchedPhrase": "LIFE_SYSTEMS",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": "src/life-autopoiesis.mjs",
+      "targetModule": "src/gamechanger-for-life.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -10756,11 +10802,13 @@
       "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
         "sourceModules": [
+          "src/gamechanger-for-life.mjs",
           "src/gamechanger-mesh.mjs",
           "src/gamechanger-search-adapters.mjs",
           "scripts/gamechanger-mesh-tick.mjs"
         ],
         "testModules": [
+          "tests/gamechanger-for-life.test.mjs",
           "tests/gamechanger-mesh.test.mjs",
           "tests/gamechanger-search-adapters.test.mjs",
           "tests/orchestration-gamechanger-source.test.mjs"
@@ -10771,7 +10819,7 @@
         "matchedPhrase": "Gamechanger",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": "src/gamechanger-mesh.mjs",
+      "targetModule": "src/gamechanger-for-life.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -10800,6 +10848,7 @@
           "src/genesis-evolution-engine.mjs",
           "src/genesis-final-frontier-evidence.mjs",
           "src/genesis-final-frontier.mjs",
+          "src/genesis-for-life.mjs",
           "src/genesis-implementation-evidence-v2.mjs",
           "src/genesis-implementation-evidence.mjs",
           "src/genesis-metabolism.mjs",
@@ -10832,6 +10881,7 @@
           "tests/genesis-evolution-engine.test.mjs",
           "tests/genesis-evolution-tick.test.mjs",
           "tests/genesis-final-frontier.test.mjs",
+          "tests/genesis-for-life.test.mjs",
           "tests/genesis-implementation-receipt.test.mjs",
           "tests/genesis-metabolism-tick.test.mjs",
           "tests/genesis-metabolism.test.mjs",
@@ -11643,22 +11693,26 @@
         "Gamechanger for Life"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/gamechanger-for-life.mjs"
+        ],
+        "testModules": [
+          "tests/gamechanger-for-life.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Gamechanger for Life",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/gamechanger-for-life.mjs",
       "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -11673,22 +11727,26 @@
         "GENESIS for Life"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/genesis-for-life.mjs"
+        ],
+        "testModules": [
+          "tests/genesis-for-life.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "GENESIS for Life",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/genesis-for-life.mjs",
       "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -11703,22 +11761,26 @@
         "Life Possibility Engine"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-possibility-engine.mjs"
+        ],
+        "testModules": [
+          "tests/life-possibility-engine.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Life Possibility Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/life-possibility-engine.mjs",
       "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -11767,22 +11829,26 @@
         "Life Compression Engine"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-compression-engine.mjs"
+        ],
+        "testModules": [
+          "tests/life-compression-engine.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Life Compression Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/life-compression-engine.mjs",
       "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -16310,15 +16376,17 @@
         "PERSONAL_CIVILIZATION_ENGINE"
       ],
       "class": "HIERARCHY",
-      "currentState": "PARTIAL_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
-          "src/personal-civilization-core.mjs"
+          "src/personal-civilization-core.mjs",
+          "scripts/personal-civilization-doctor.mjs"
         ],
         "testModules": [
-          "tests/personal-civilization-core.test.mjs"
+          "tests/personal-civilization-core.test.mjs",
+          "tests/personal-civilization-doctor.test.mjs"
         ],
-        "reachability": "OPERATOR_ONLY",
+        "reachability": "PRODUCTION",
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME",
         "matchedPhrase": "PERSONAL_CIVILIZATION_ENGINE",
@@ -16344,18 +16412,26 @@
         "LIFE_SYSTEMS"
       ],
       "class": "HIERARCHY",
-      "currentState": "PARTIAL_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
+          "src/gamechanger-for-life.mjs",
+          "src/genesis-for-life.mjs",
           "src/life-autopoiesis.mjs",
+          "src/life-compression-engine.mjs",
           "src/life-decision-dimensions.mjs",
           "src/life-knowledge-graph.mjs",
+          "src/life-possibility-engine.mjs",
           "src/lifetime-context-memory.mjs"
         ],
         "testModules": [
+          "tests/gamechanger-for-life.test.mjs",
+          "tests/genesis-for-life.test.mjs",
           "tests/life-autopoiesis.test.mjs",
+          "tests/life-compression-engine.test.mjs",
           "tests/life-decision-dimensions.test.mjs",
           "tests/life-knowledge-graph.test.mjs",
+          "tests/life-possibility-engine.test.mjs",
           "tests/lifetime-context-memory.test.mjs"
         ],
         "reachability": "PRODUCTION",
@@ -16364,7 +16440,7 @@
         "matchedPhrase": "LIFE_SYSTEMS",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": "src/life-autopoiesis.mjs",
+      "targetModule": "src/gamechanger-for-life.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
@@ -16478,22 +16554,26 @@
         "Gamechanger for Life"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/gamechanger-for-life.mjs"
+        ],
+        "testModules": [
+          "tests/gamechanger-for-life.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Gamechanger for Life",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/gamechanger-for-life.mjs",
       "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -16508,22 +16588,26 @@
         "GENESIS for Life"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/genesis-for-life.mjs"
+        ],
+        "testModules": [
+          "tests/genesis-for-life.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "GENESIS for Life",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/genesis-for-life.mjs",
       "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -16572,22 +16656,26 @@
         "Life Possibility Engine"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-possibility-engine.mjs"
+        ],
+        "testModules": [
+          "tests/life-possibility-engine.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Life Possibility Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/life-possibility-engine.mjs",
       "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -16738,22 +16826,26 @@
         "Life Compression Engine"
       ],
       "class": "PERSONAL_CIVILIZATION_ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/life-compression-engine.mjs"
+        ],
+        "testModules": [
+          "tests/life-compression-engine.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Life Compression Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/life-compression-engine.mjs",
       "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -17821,6 +17913,7 @@
           "src/genesis-evolution-engine.mjs",
           "src/genesis-final-frontier-evidence.mjs",
           "src/genesis-final-frontier.mjs",
+          "src/genesis-for-life.mjs",
           "src/genesis-implementation-evidence-v2.mjs",
           "src/genesis-implementation-evidence.mjs",
           "src/genesis-metabolism.mjs",
@@ -17853,6 +17946,7 @@
           "tests/genesis-evolution-engine.test.mjs",
           "tests/genesis-evolution-tick.test.mjs",
           "tests/genesis-final-frontier.test.mjs",
+          "tests/genesis-for-life.test.mjs",
           "tests/genesis-implementation-receipt.test.mjs",
           "tests/genesis-metabolism-tick.test.mjs",
           "tests/genesis-metabolism.test.mjs",
@@ -20280,7 +20374,7 @@
         "WORLD"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/capability-world-harvester.mjs",
@@ -20322,7 +20416,7 @@
         "SIGNALS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "PARTIAL_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           ".claude/skills/task-observer/references/signals.md"
@@ -20534,7 +20628,7 @@
         "CAPABILITIES"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "PARTIAL_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "scripts/bootstrap-external-capabilities.mjs"
@@ -20896,7 +20990,7 @@
         "GENESIS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/genesis-cognitive-adapters.mjs",
@@ -20905,6 +20999,7 @@
           "src/genesis-evolution-engine.mjs",
           "src/genesis-final-frontier-evidence.mjs",
           "src/genesis-final-frontier.mjs",
+          "src/genesis-for-life.mjs",
           "src/genesis-implementation-evidence-v2.mjs",
           "src/genesis-implementation-evidence.mjs",
           "src/genesis-metabolism.mjs",
@@ -20937,6 +21032,7 @@
           "tests/genesis-evolution-engine.test.mjs",
           "tests/genesis-evolution-tick.test.mjs",
           "tests/genesis-final-frontier.test.mjs",
+          "tests/genesis-for-life.test.mjs",
           "tests/genesis-implementation-receipt.test.mjs",
           "tests/genesis-metabolism-tick.test.mjs",
           "tests/genesis-metabolism.test.mjs",
@@ -21008,7 +21104,7 @@
         "ONTOGENESIS"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/world-intelligence.mjs"
@@ -21741,7 +21837,7 @@
         "evidence"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/agent-mesh-activation-evidence.mjs",
@@ -21799,7 +21895,7 @@
         "opportunity"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/ai-access-opportunity-registry.mjs",
@@ -22023,7 +22119,7 @@
         "QA"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "UNKNOWN",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -22113,7 +22209,7 @@
         "renewal/expansion"
       ],
       "class": "LOOP_STAGE",
-      "currentState": "PARTIAL_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/payment-renewal-truth.mjs"
@@ -22298,7 +22394,7 @@
         "CONSTITUTION"
       ],
       "class": "HIERARCHY",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/constitutional-governance.mjs",
@@ -22334,7 +22430,7 @@
         "IDENTITY"
       ],
       "class": "HIERARCHY",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/ai-employee-terminal-identity.mjs",
@@ -22525,7 +22621,7 @@
         "EXECUTION"
       ],
       "class": "HIERARCHY",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/agent-provider-execution.mjs",
@@ -22570,7 +22666,7 @@
         "PROOF_DAG"
       ],
       "class": "HIERARCHY",
-      "currentState": "PARTIAL_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/frontier-absorption-proof.mjs",
@@ -22678,7 +22774,7 @@
         "LEARNING"
       ],
       "class": "HIERARCHY",
-      "currentState": "VERIFIED_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/commercial-learning.mjs"
@@ -27305,7 +27401,7 @@
         "legal/payment/identity gates"
       ],
       "class": "STRATEGIC_STAGE",
-      "currentState": "PARTIAL_CURRENT",
+      "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
         "sourceModules": [
           "src/commercial-first-payment-packet.mjs",

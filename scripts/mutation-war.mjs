@@ -2420,7 +2420,207 @@ export const MUTATIONS = [
     find: "    && !/(?:^|[-_:])(sandbox|synthetic|fixture|fake|test)(?:[-_:]|$)/i.test(ref);",
     replace: '    ;',
     suites: ['tests/proposal-acceptance-engine.test.mjs']
-  }
+  },
+  // ---- The branch inventory, and what a decision does to it -------------
+  {
+    // A scalar here is the number that argues against every commitment.
+    id: 'LIFEPOSS-01', guard: 'A closure with no stated kind cannot be counted',
+    file: 'src/life-possibility-engine.mjs',
+    find: '    if (!kind || !CLOSURE_KINDS.includes(kind)) {',
+    replace: '    if (false) {',
+    suites: ['tests/life-possibility-engine.test.mjs']
+  },
+  {
+    id: 'LIFEPOSS-02', guard: 'A deliberate commitment must name what it bought',
+    file: 'src/life-possibility-engine.mjs',
+    find: "    if (kind === 'DELIBERATE_COMMITMENT' && !inExchangeFor) {",
+    replace: '    if (false) {',
+    suites: ['tests/life-possibility-engine.test.mjs']
+  },
+  {
+    id: 'LIFEPOSS-03', guard: 'No single optionality score is emitted',
+    file: 'src/life-possibility-engine.mjs',
+    find: "    scoreWithheld: 'NO_SINGLE_OPTIONALITY_SCORE",
+    replace: "    score: opened.length + preserved.length - costly.length,\n    scoreWithheld: 'NO_SINGLE_OPTIONALITY_SCORE",
+    suites: ['tests/life-possibility-engine.test.mjs']
+  },
+  {
+    id: 'LIFEPOSS-04', guard: 'Breadth is dimensions represented, not branch count',
+    file: 'src/life-possibility-engine.mjs',
+    find: '  const concentrated = Boolean(dominant && valued.length >= 3 && dominant.count * 2 > valued.length);',
+    replace: '  const concentrated = false;',
+    suites: ['tests/life-possibility-engine.test.mjs']
+  },
+  {
+    id: 'LIFEPOSS-05', guard: 'A requirement inside one dimension is not cross-future value',
+    file: 'src/life-possibility-engine.mjs',
+    find: '    if (entry.dimensions.size >= min) highValue.push(record);',
+    replace: '    if (entry.dimensions.size >= 1) highValue.push(record);',
+    suites: ['tests/life-possibility-engine.test.mjs']
+  },
+  // ---- Compression, and the exceptions it is tempted to eat --------------
+  {
+    id: 'LIFECOMP-01', guard: 'A principle nobody attacked is unfalsified, not compressed',
+    file: 'src/life-compression-engine.mjs',
+    find: "      state: 'UNFALSIFIED_NOT_PROVEN',",
+    replace: "      state: 'COMPRESSED',",
+    suites: ['tests/life-compression-engine.test.mjs']
+  },
+  {
+    id: 'LIFECOMP-02', guard: 'Explanatory reach never outranks a decisive counterexample',
+    file: 'src/life-compression-engine.mjs',
+    find: '  if (decisive.length > 0) {',
+    replace: '  if (decisive.length > facts.length) {',
+    suites: ['tests/life-compression-engine.test.mjs']
+  },
+  {
+    id: 'LIFECOMP-03', guard: 'A boundary invented to fit one counterexample is not a boundary',
+    file: 'src/life-compression-engine.mjs',
+    find: '      if (!bounds.includes(boundary)) {',
+    replace: '      if (false) {',
+    suites: ['tests/life-compression-engine.test.mjs']
+  },
+  {
+    id: 'LIFECOMP-04', guard: 'A fact must stay addressable, so compression is never the only copy',
+    file: 'src/life-compression-engine.mjs',
+    find: "  if (!ref) return fail('FACT_INVALID', ['fact-source-ref-required'], {",
+    replace: "  if (false) return fail('FACT_INVALID', ['fact-source-ref-required'], {",
+    suites: ['tests/life-compression-engine.test.mjs']
+  },
+  {
+    id: 'LIFECOMP-05', guard: 'Dropping what a decision needs blocks use of the compression',
+    file: 'src/life-compression-engine.mjs',
+    find: '  const loadBearing = lost.filter(item => needed.includes(item)).sort();',
+    replace: '  const loadBearing = [];',
+    suites: ['tests/life-compression-engine.test.mjs']
+  },
+  // ---- World signals, and the difference between novelty and geometry ----
+  {
+    id: 'GAMELIFE-01', guard: 'A signal naming no life dimension is novelty',
+    file: 'src/gamechanger-for-life.mjs',
+    find: '  if (changes.length === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/gamechanger-for-life.test.mjs']
+  },
+  {
+    id: 'GAMELIFE-02', guard: 'A claimed geometry change must state a checkable condition',
+    file: 'src/gamechanger-for-life.mjs',
+    find: '  if (wouldHaveToBeTrue.length === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/gamechanger-for-life.test.mjs']
+  },
+  {
+    id: 'GAMELIFE-03', guard: 'The world describing itself cannot ground a personal reach claim',
+    file: 'src/gamechanger-for-life.mjs',
+    find: "  if (kind !== 'PERSONALLY_TESTED') {",
+    replace: '  if (false) {',
+    suites: ['tests/gamechanger-for-life.test.mjs']
+  },
+  {
+    id: 'GAMELIFE-04', guard: 'Unmet grounding conditions block grounding',
+    file: 'src/gamechanger-for-life.mjs',
+    find: '  if (outstanding.length > 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/gamechanger-for-life.test.mjs']
+  },
+  {
+    id: 'GAMELIFE-05', guard: 'Urgency and importance are not blended into one priority',
+    file: 'src/gamechanger-for-life.mjs',
+    find: '  const important = moved.length >= 2;',
+    replace: "  const important = moved.length >= 2 || cause !== 'NONE_KNOWN';",
+    suites: ['tests/gamechanger-for-life.test.mjs']
+  },
+  {
+    id: 'GAMELIFE-06', guard: 'The attention budget is bounded',
+    file: 'src/gamechanger-for-life.mjs',
+    find: '  if (!Number.isSafeInteger(cap) || cap < 1 || cap > 50) {',
+    replace: '  if (false) {',
+    suites: ['tests/gamechanger-for-life.test.mjs']
+  },
+  {
+    id: 'GAMELIFE-07', guard: 'Novelty is dropped before the attention budget is spent',
+    file: 'src/gamechanger-for-life.mjs',
+    find: "  const candidates = rows.filter(row => row.state !== 'NOVELTY_NOT_GEOMETRY_CHANGE');",
+    replace: '  const candidates = rows;',
+    suites: ['tests/gamechanger-for-life.test.mjs']
+  },
+  // ---- Generated lives, the cage, and the vote they must not acquire -----
+  {
+    // A 40-character cap once discarded REQUIRES_ANOTHER_PERSONS_CONSENT_NOT_GIVEN,
+    // which is 42 characters. A dropped safety constraint is a typo becoming permission.
+    id: 'GENLIFE-01', guard: 'An unrecognised hard constraint is refused, never dropped',
+    file: 'src/genesis-for-life.mjs',
+    find: '  if (unrecognised.length > 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/genesis-for-life.test.mjs']
+  },
+  {
+    id: 'GENLIFE-02', guard: 'A hard constraint refuses a path at construction',
+    file: 'src/genesis-for-life.mjs',
+    find: '  if (blocking.length > 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/genesis-for-life.test.mjs']
+  },
+  {
+    id: 'GENLIFE-03', guard: 'An irreversible untested path needs a reversible probe',
+    file: 'src/genesis-for-life.mjs',
+    find: "  const blocking = violated.filter(item => item !== 'IRREVERSIBLE_AND_UNTESTED' || !reversibleProbe);",
+    replace: "  const blocking = violated.filter(item => item !== 'IRREVERSIBLE_AND_UNTESTED');",
+    suites: ['tests/genesis-for-life.test.mjs']
+  },
+  {
+    id: 'GENLIFE-04', guard: 'A batch where nothing departs is a cage, not a generation result',
+    file: 'src/genesis-for-life.mjs',
+    find: '  const caged = departures.length === 0;',
+    replace: '  const caged = false;',
+    suites: ['tests/genesis-for-life.test.mjs']
+  },
+  {
+    id: 'GENLIFE-05', guard: 'An adjacent path does not count as a departure',
+    file: 'src/genesis-for-life.mjs',
+    find: "  const departures = rows.filter(row => row.identityDistance === 'DEPARTURE' || row.identityDistance === 'UNKNOWN_SELF');",
+    replace: "  const departures = rows.filter(row => row.identityDistance !== 'CONTINUATION');",
+    suites: ['tests/genesis-for-life.test.mjs']
+  },
+  {
+    id: 'GENLIFE-06', guard: 'No ranked list of lives is emitted',
+    file: 'src/genesis-for-life.mjs',
+    find: "    rankingWithheld: 'A_RANKED_LIST_OF_LIVES",
+    replace: "    ranked: rows.map(row => row.name),\n    rankingWithheld: 'A_RANKED_LIST_OF_LIVES",
+    suites: ['tests/genesis-for-life.test.mjs']
+  },
+  {
+    id: 'GENLIFE-07', guard: 'A path that lost its hypothesis status is named',
+    file: 'src/genesis-for-life.mjs',
+    find: "  const unstatused = rows.filter(row => row.evidenceStatus !== 'HYPOTHESIS').map(row => row.name).sort();",
+    replace: '  const unstatused = [];',
+    suites: ['tests/genesis-for-life.test.mjs']
+  },
+  {
+    id: 'GENLIFE-08', guard: 'Only paths touching untested dimensions are informative',
+    file: 'src/genesis-for-life.mjs',
+    find: '    .filter(row => row.untestedDimensions.length > 0)',
+    replace: '    .filter(() => true)',
+    suites: ['tests/genesis-for-life.test.mjs']
+  },
+  // ---- The coverage matrix, and the promise that it never overstates -----
+  {
+    // "Possibility" is an ontology domain. It read VERIFIED_CURRENT because a
+    // module was named life-possibility-engine.mjs. Twenty-nine rows were
+    // claiming implementation of things that are categories.
+    id: 'COVERAGE-CAT-01', guard: 'A structural category cannot be implemented by a file',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "  if (STRUCTURAL_CLASSES.includes(concept.class)) return 'STRUCTURAL_NOT_A_BUILD_TARGET';",
+    replace: "  if (false) return 'STRUCTURAL_NOT_A_BUILD_TARGET';",
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'COVERAGE-CAT-02', guard: 'An alias carries no implementation state of its own',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "  if (ALIAS_CLASSES.includes(concept.class)) return 'ALIAS_OF_CANONICAL_CONCEPT';",
+    replace: "  if (false) return 'ALIAS_OF_CANONICAL_CONCEPT';",
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

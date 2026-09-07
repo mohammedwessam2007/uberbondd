@@ -78,6 +78,7 @@
     "models:frontier:doctor": "node scripts/frontier-model-team-doctor.mjs",
     "compute:doctor": "node scripts/compute-sovereignty-doctor.mjs",
     "organism:doctor": "node scripts/organism-foundations-doctor.mjs",
+    "life:doctor": "node scripts/personal-civilization-doctor.mjs",
     "test:whole-brain": "node --test tests/uberbond-cognitive-graph.test.mjs tests/uberbond-cognitive-bus.test.mjs tests/uberbond-cognitive-adapters.test.mjs tests/genesis-cognitive-adapters.test.mjs tests/event-horizon-cognitive-adapter.test.mjs tests/wallbreaker-cognitive-reflex.test.mjs tests/uberbond-feature-genome.test.mjs tests/uberbond-feature-atom-atlas.test.mjs tests/frontier-model-team.test.mjs tests/whole-brain-cognitive-adapters.test.mjs tests/uberbond-metacognitive-synthesis.test.mjs tests/compute-sovereignty.test.mjs",
     "readiness": "node scripts/system-readiness.mjs",
     "wallbreaker": "node scripts/wallbreaker-plan.mjs",
@@ -104,7 +105,8 @@
     "test:capability-genome-bodies": "node --test tests/capability-genome-body-import.test.mjs tests/capability-genome-body-fetch.test.mjs tests/capability-genome-doctor-body.test.mjs tests/capability-genome-body-normalize.test.mjs tests/capability-genome-doctor-normalized.test.mjs",
     "test:capability-genome": "node --test tests/capability-genome.test.mjs tests/capability-genome-harvest.test.mjs tests/capability-genome-doctor-harvest.test.mjs tests/capability-genome-body-import.test.mjs tests/capability-genome-body-fetch.test.mjs tests/capability-genome-doctor-body.test.mjs tests/capability-genome-doctor-normalized.test.mjs",
     "sovereign:coverage": "node scripts/sovereign-coverage-matrix.mjs",
-    "test:sovereign-coverage": "node --test tests/sovereign-coverage-matrix.test.mjs"
+    "test:sovereign-coverage": "node --test tests/sovereign-coverage-matrix.test.mjs",
+    "test:personal-civilization": "node --test tests/life-possibility-engine.test.mjs tests/life-compression-engine.test.mjs tests/gamechanger-for-life.test.mjs tests/genesis-for-life.test.mjs tests/personal-civilization-doctor.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

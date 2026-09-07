@@ -373,6 +373,26 @@ export function classifyState(concept, evidence) {
   if (concept.class === 'EXTERNAL_GATE') return 'EXTERNAL_BLOCKED';
   if (concept.class === 'ELAPSED_TIME') return 'ELAPSED_TIME_REQUIRED';
 
+  // Same rule, one class of concept further out. A hierarchy layer, an ontology
+  // domain, a loop stage and an alias are statements about *what a row is*, not
+  // claims anyone could implement -- so no file may promote them, exactly as no
+  // file may satisfy an owner boundary.
+  //
+  // This was not hypothetical. Before the guard existed, "Possibility" -- one of
+  // the twelve terminal ontology domains -- read VERIFIED_CURRENT because a
+  // module was named life-possibility-engine.mjs; "Action" read the same way off
+  // browser-action-contract.mjs, and "Knowledge" off life-knowledge-graph.mjs.
+  // Twenty-nine rows were claiming implementation of things that are categories.
+  // The matrix advertises `matcherBias: ..._NEVER_OVERSTATES`, and that promise
+  // is what this restores.
+  //
+  // The evidence itself is still recorded on the row by the compiler. Only the
+  // state is corrected, so nothing discovered is lost -- an ontology domain with
+  // a coincidental filename match keeps the match visible and stops calling it
+  // coverage.
+  if (STRUCTURAL_CLASSES.includes(concept.class)) return 'STRUCTURAL_NOT_A_BUILD_TARGET';
+  if (ALIAS_CLASSES.includes(concept.class)) return 'ALIAS_OF_CANONICAL_CONCEPT';
+
   if (!evidence || evidence.matchStrength === 'NO_DISTINCTIVE_TOKENS') return 'UNKNOWN';
   if (evidence.sources.length === 0) return 'SPEC_ONLY';
   if (evidence.tests.length === 0) return 'PARTIAL_CURRENT';

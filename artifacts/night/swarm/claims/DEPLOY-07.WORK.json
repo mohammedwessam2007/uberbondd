@@ -2,11 +2,11 @@
   "schema": "uberbond.night-swarm-claim.v1",
   "packetId": "DEPLOY-07",
   "agent": "WORK",
-  "status": "ACTIVE",
+  "status": "RELEASED",
   "integrationBaseSha": "047e36c6eb0a27c3deabbba581c05e29ab597f3d",
-  "childPr": null,
+  "childPr": 468,
   "childBranch": "work/issue-465-deploy-07-exit-drill-proof",
-  "childHeadAtClaim": null,
+  "childHeadAtClaim": "f80a83065bf4ffd1b09438380150b5c24b1b09b5",
   "writeSurfaces": [
     "artifacts/night/swarm/claims/DEPLOY-07.WORK.json",
     "artifacts/night/swarm/receipts/DEPLOY-07.WORK.json"
@@ -17,5 +17,7 @@
     "tests/supplier-exit-drill.test.mjs"
   ],
   "goal": "Verify the existing real durable-state export/restore/cutover/rollback rehearsal on an exact hosted child head without duplicating the supplier-exit mechanism or overstating local portability as provider cutover proof.",
+  "releaseResult": "PASS_REUSED_EXECUTED_IDENTICAL_SOURCE",
+  "receipt": "artifacts/night/swarm/receipts/DEPLOY-07.WORK.json",
   "businessEffectAuthority": "NONE"
 }

@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "uberbond-sol-donor-merge-order-1.0.0",
+  "status": "VERIFIED_REPOSITORY_TRIAGE__NOT_RUNTIME_CERTIFICATION",
+  "repository": "mohammedwessam2007/uberbondd",
+  "mainShaAtAuditStart": "a22e4f099902b6abd2719922a9dd761fb69a6fa6",
+  "purpose": "Reduce OMEGA integration waste by separating real unabsorbed donor code from already-absorbed or still-platform-dependent lanes.",
+  "findings": [
+    {
+      "pr": 432,
+      "title": "Operationalize the Personal Civilization Engine with a zero-effect life kernel",
+      "classification": "HIGH_VALUE_DONOR_TO_TRANSPLANT_ON_CURRENT_MAIN",
+      "mainPresenceCheck": "ABSENT",
+      "evidence": {
+        "changedFiles": 12,
+        "criticalFilesAbsentOnMain": ["src/personal-civilization-kernel.mjs", "src/personal-civilization-organs.mjs"],
+        "preserveInvariants": ["FOUNDER_ONLY", "externalEffectAuthority=NONE", "PRIVATE_RUNTIME_ONLY", "NO_SINGLE_SCALAR_LIFE_UTILITY", "SIMULATION_IS_NOT_EVIDENCE", "HIGH_STAKES_QUALIFIED_REVIEW"]
+      },
+      "recommendedAction": "Transplant unique source/tests/doctors onto a clean current-main descendant; resolve brain/bootstrap hooks against current canon rather than importing stale ancestry."
+    },
+    {
+      "pr": 433,
+      "title": "Verify and merge Personal Civilization Engine wave 1",
+      "classification": "VERIFICATION_DONOR_PLUS_432_SUPERSET__DO_NOT_BLIND_MERGE",
+      "mainPresenceCheck": "CORE_ABSENT",
+      "evidence": {
+        "changedFiles": 14,
+        "relationship": "contains #432 core plus wave1 verification trigger and lite visual-cortex verification wiring",
+        "extraVerificationSurface": "lite/scripts/build-visual-cortex.mjs runs personal civilization doctors and focused life/bootstrap/reachability tests"
+      },
+      "recommendedAction": "Use #433 as the preferred verification recipe while taking source semantics from the reconciled current-main transplant. Rebuild generated/visual verification against current source."
+    },
+    {
+      "pr": 420,
+      "title": "Operationalize and integrate all 25 Gamechanger mechanisms",
+      "classification": "HIGH_VALUE_DONOR_TO_REBASE_REVIEW",
+      "mainPresenceCheck": "CRITICAL_RUNTIME_ABSENT",
+      "evidence": {
+        "changedFiles": 13,
+        "criticalFileAbsentOnMain": "src/gamechanger-mechanism-runtime.mjs",
+        "surfaces": ["runtime primitives", "pack", "cognitive integration", "bridge", "workflow", "hostile/focused tests"]
+      },
+      "recommendedAction": "OMEGA-07 should reconcile the 25-mechanism runtime against current Gamechanger/whole-brain organs and transplant only unabsorbed primitives and bindings."
+    },
+    {
+      "pr": 421,
+      "title": "Aggressive bounded self-improvement cadence",
+      "classification": "POLICY_AND_WORKFLOW_DONOR__NOT_CURRENT_MAIN_BEHAVIOR",
+      "mainPresenceCheck": "NOT_ABSORBED_AT_SELF_MAINTAINER_CADENCE_SEAM",
+      "evidence": {
+        "mainSelfMaintainerCron": "17 * * * *",
+        "donorSelfMaintainerCron": "2,17,32,47 * * * *",
+        "mainExecutionShape": "initial tick -> proposal dispatch -> final verification/promotion tick",
+        "donorExecutionShape": "up to three bounded tick attempts with 120s waits",
+        "risk": "donor predates the later autonomous proposal-generation path now present on main"
+      },
+      "recommendedAction": "Do not copy donor workflow wholesale. OMEGA-10 should port cadence/backlog-drain intent into the newer main proposal-generation workflow, preserving exact-base proposal and verification semantics."
+    },
+    {
+      "pr": 422,
+      "title": "GENESIS mechanism assimilation forge + continuation graphs",
+      "classification": "HIGH_VALUE_DONOR_TO_TRANSPLANT_ON_CURRENT_MAIN",
+      "mainPresenceCheck": "CRITICAL_RUNTIME_ABSENT",
+      "evidence": {
+        "changedFiles": 9,
+        "criticalFileAbsentOnMain": "src/continuation-graph-runtime.mjs",
+        "surfaces": ["continuation graph runtime", "GENESIS mechanism assimilation", "donor registry", "metabolism integration", "doctors/tests"]
+      },
+      "recommendedAction": "OMEGA-07/10 should transplant continuation and assimilation mechanisms onto current main, then exact-head test them against current GENESIS metabolism and authority gates."
+    },
+    {
+      "pr": 416,
+      "title": "NIGHT-09 command-center hostile cache and freshness hardening",
+      "classification": "ABSORBED_IN_MAIN_AT_CRITICAL_POLICY_SEAM__LIKELY_SUPERSEDED",
+      "mainPresenceCheck": "MATCHED_CRITICAL_SOURCE",
+      "evidence": {
+        "criticalFile": "src/command-center-client-policy.mjs",
+        "verifiedMatch": "main and donor expose the same v1.0.1 client policy text including secret-value redaction, future-cache rejection, live freshness bounds, graph caps, and stale observed-state downgrade"
+      },
+      "recommendedAction": "Treat as superseded unless remaining public JS/test diff audit finds a unique unabsorbed change. Do not transplant policy module again."
+    },
+    {
+      "pr": 412,
+      "title": "Command Center 2.0",
+      "classification": "LIKELY_ABSORBED_DONOR__FINAL_FILE_LEVEL_AUDIT_REMAINING",
+      "mainPresenceCheck": "CORE_POLICY_PRESENT_ON_MAIN",
+      "evidence": {
+        "changedFiles": 10,
+        "relationship": "#416 hardens #412 and the critical hardened policy is already present on main"
+      },
+      "recommendedAction": "OMEGA-12 should build on current main Command Center rather than rebase #412. Audit remaining UI/PWA files only for unique missing behavior."
+    }
+  ],
+  "mergeOrder": [
+    {
+      "wave": 1,
+      "action": "Claude/OMEGA-00 refreshes truth and current-main ancestry before any transplant."
+    },
+    {
+      "wave": 2,
+      "action": "Reconcile #432/#433 Personal Civilization donor first because OMEGA-01/02/04 depend on its private zero-effect substrate."
+    },
+    {
+      "wave": 3,
+      "action": "Reconcile #422 continuation/GENESIS and #420 Gamechanger into OMEGA-07/10 with current whole-brain APIs."
+    },
+    {
+      "wave": 4,
+      "action": "Re-express #421 cadence intent on top of the newer main proposal-generation self-maintainer; never overwrite main with the old workflow shape."
+    },
+    {
+      "wave": 5,
+      "action": "Close/supersede #416/#412 only after the remaining file-level diff audit confirms no unique UI/test behavior is missing."
+    }
+  ],
+  "integrationRisks": [
+    "Blindly merging technically mergeable stale PRs can reintroduce old ancestry or overwrite newer #400/#423 semantics.",
+    "Generated canon/readiness/visual artifacts must be regenerated from the integrated current head, not copied from donor branches.",
+    "Workflow cadence changes must preserve the newer exact-source proposal compiler and verification/promotion path already present on main.",
+    "Donor source presence is not exact-head verification; each transplant requires focused and appropriate broader gates."
+  ],
+  "progress": {
+    "NORTH_STAR_CANON": 99,
+    "ECONOMIC_AUTONOMY_SOFTWARE": 94,
+    "PERSONAL_CIVILIZATION_RUNTIME": 12,
+    "SOVEREIGN_CONTINUUM_RUNTIME": 6,
+    "REALITY_CALIBRATION": 1,
+    "FULL_SYSTEM_REALIZATION": 28,
+    "deltaReason": "Donor ambiguity and merge risk were materially reduced, but no new runtime capability has been verified on main, so percentages remain unchanged."
+  },
+  "truthBoundary": "This ledger is repository triage and integration guidance. It does not claim donor code is green, deployed, or current until reconciled and verified on an exact current head."
+}

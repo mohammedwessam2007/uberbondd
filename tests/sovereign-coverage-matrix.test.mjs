@@ -12,7 +12,8 @@ import { readFileSync, existsSync } from 'node:fs';
 import {
   compileCoverageMatrix, classifyState, locateEvidence, evidencePhrases,
   evidenceTokens, canonicalConceptId, verifyImplementationManifest,
-  mergeDeclaredEvidence, COVERAGE_STATES
+  mergeDeclaredEvidence, classifyTerminalState, COVERAGE_STATES,
+  STRUCTURAL_CLASSES, FIELD_CLASSES, DONOR_CLASSES, LAW_CLASSES
 } from '../src/sovereign-coverage-matrix.mjs';
 
 const index = {
@@ -244,4 +245,129 @@ test('the repository manifest that ships with the matrix actually compiles', () 
       assert.ok(existsSync(file), `${entry.concept} declares ${file}, which is not in the tree`);
     }
   }
+});
+
+// ---- The terminal classifier ------------------------------------------------
+//
+// SPEC_ONLY was doing two jobs: "nobody built this organ" and "this is a line
+// of canon that was never a module". Separating them is right, and it is also
+// the single most abusable change in this file -- a triage that can relabel
+// inconvenient rows is a way to make a number go away. Every test below is
+// about a relabel that must not be possible.
+
+const lawConcept = { name: 'Capability does not create authority', class: 'AUTHORITY_LAW', source: 's' };
+
+test('a law nothing enforces stays SPEC_ONLY, which is the alarming answer', () => {
+  assert.equal(classifyTerminalState(lawConcept, { enforcement: null }), 'SPEC_ONLY');
+  assert.equal(
+    classifyTerminalState(lawConcept, { enforcement: { sources: ['src/wallbreaker.mjs'], tests: ['tests/wallbreaker.test.mjs'] } }),
+    'ENFORCED_BY_CODE'
+  );
+});
+
+test('an enforcement declaration naming a missing file fails the whole compile', () => {
+  const matrix = compileCoverageMatrix({
+    concepts: [lawConcept],
+    repoIndex: index,
+    enforcement: [{ concept: 'Capability does not create authority', sources: ['src/not-here.mjs'], tests: [] }]
+  });
+  assert.equal(matrix.ok, false);
+  assert.equal(matrix.status, 'COVERAGE_ENFORCEMENT_INVALID');
+  assert.equal(matrix.rows, undefined, 'no rows may be emitted from an invalid enforcement manifest');
+});
+
+test('an enforcement entry for a law no artifact states fails the compile', () => {
+  const matrix = compileCoverageMatrix({
+    concepts: [lawConcept],
+    repoIndex: index,
+    enforcement: [{ concept: 'A law nobody wrote down', sources: ['src/wallbreaker.mjs'], tests: [] }]
+  });
+  assert.equal(matrix.ok, false);
+  assert.deepEqual(matrix.reasonCodes, ['manifest-names-unknown-concept']);
+});
+
+test('a field cannot inherit coverage from an organ nobody built', () => {
+  // The abuse this blocks: declare a parent, never build it, and 113 field
+  // rows go green behind it.
+  const field = { name: 'expected_regret', class: 'FORECAST_DIMENSION', source: 's' };
+  assert.equal(classifyTerminalState(field, { parentState: 'SPEC_ONLY' }), 'SPEC_ONLY');
+  assert.equal(classifyTerminalState(field, { parentState: null }), 'SPEC_ONLY');
+  assert.equal(classifyTerminalState(field, { parentState: 'VERIFIED_CURRENT' }), 'COVERED_BY_PARENT_ORGAN');
+  assert.equal(classifyTerminalState(field, { parentState: 'PARTIAL_CURRENT' }), 'COVERED_BY_PARENT_ORGAN');
+});
+
+test('the parent state is computed from the tree, not asserted by the field', () => {
+  // Both concepts are compiled together; the field's state must follow what
+  // the compile actually found for the parent.
+  const withRealParent = compileCoverageMatrix({
+    concepts: [
+      { name: 'Wallbreaker', source: 's', class: 'CONCEPT' },
+      { name: 'expected_regret', source: 's', class: 'FORECAST_DIMENSION', parent: 'Wallbreaker' }
+    ],
+    repoIndex: index
+  });
+  const field = withRealParent.rows.find(row => row.literalNames[0] === 'expected_regret');
+  assert.equal(field.currentState, 'COVERED_BY_PARENT_ORGAN');
+
+  const withUnbuiltParent = compileCoverageMatrix({
+    concepts: [
+      { name: 'Organ Nobody Built', source: 's', class: 'CONCEPT' },
+      { name: 'some_field', source: 's', class: 'FORECAST_DIMENSION', parent: 'Organ Nobody Built' }
+    ],
+    repoIndex: index
+  });
+  assert.equal(withUnbuiltParent.rows.find(row => row.literalNames[0] === 'some_field').currentState, 'SPEC_ONLY');
+});
+
+test('a row with real evidence is never overwritten by its class', () => {
+  // The ordering is the safeguard. If the terminal classifier ran first, a
+  // NAMED_INITIATIVE with a working module would be filed as historical
+  // lineage and its implementation would vanish from the count.
+  const matrix = compileCoverageMatrix({
+    concepts: [{ name: 'Wallbreaker', source: 's', class: 'NAMED_INITIATIVE' }],
+    repoIndex: index,
+    manifest: [{ concept: 'Wallbreaker', sources: ['src/wallbreaker.mjs'], tests: ['tests/wallbreaker.test.mjs'] }]
+  });
+  assert.equal(matrix.rows[0].currentState, 'VERIFIED_CURRENT');
+});
+
+test('the unbuilt residue cannot be shrunk by the classifier', () => {
+  // The classes that carry genuine unbuilt organs must fall through to
+  // SPEC_ONLY, or the triage becomes a way to report zero work remaining.
+  for (const cls of ['CONCEPT', 'ORGAN', 'PERSONAL_CIVILIZATION_ORGAN', 'CAPABILITY_ATOM', 'GENESIS_MECHANISM', 'SOVEREIGNTY_DIMENSION']) {
+    assert.equal(classifyTerminalState({ name: 'x', class: cls }, {}), 'SPEC_ONLY',
+      `${cls} carries unbuilt organs and must not be reclassified`);
+  }
+});
+
+test('the reviewed class tables are disjoint, so no class has two terminal meanings', () => {
+  const tables = { STRUCTURAL_CLASSES, FIELD_CLASSES, DONOR_CLASSES, LAW_CLASSES };
+  const seen = new Map();
+  for (const [table, classes] of Object.entries(tables)) {
+    for (const cls of classes) {
+      assert.equal(seen.has(cls), false, `${cls} is in both ${seen.get(cls)} and ${table}`);
+      seen.set(cls, table);
+    }
+  }
+});
+
+test('every terminal state the classifier can return is in the schema', () => {
+  const reachable = [
+    'SPEC_ONLY', 'ENFORCED_BY_CODE', 'STRUCTURAL_NOT_A_BUILD_TARGET',
+    'COVERED_BY_PARENT_ORGAN', 'REFERENCE_ONLY_BY_CANON', 'HISTORICAL_DONOR_PRESERVED'
+  ];
+  for (const state of reachable) assert.ok(COVERAGE_STATES.includes(state), `${state} missing from the schema`);
+});
+
+test('the declared lane wins, so the manifest lane field is not decoration', () => {
+  // It was decoration: every row took its lane from its concept class, so the
+  // calibration ledger reported under OMEGA-14 and OMEGA-13 read as an empty
+  // lane while its organ was built and mutation-covered.
+  const matrix = compileCoverageMatrix({
+    concepts: [{ name: 'Wallbreaker', source: 's', class: 'CONCEPT' }],
+    repoIndex: index,
+    laneMap: { CONCEPT: 'OMEGA-14' },
+    manifest: [{ concept: 'Wallbreaker', lane: 'OMEGA-10', sources: ['src/wallbreaker.mjs'], tests: ['tests/wallbreaker.test.mjs'] }]
+  });
+  assert.equal(matrix.rows[0].owningLane, 'OMEGA-10');
 });

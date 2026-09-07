@@ -35,6 +35,12 @@ import { strengthProfile, buildForecast } from '../src/forecast-stack.mjs';
 import { existentialChecksum, toolCompanionBoundary } from '../src/constitutional-governance.mjs';
 import { socialCalibration, strategicReality } from '../src/inter-sovereign.mjs';
 import { embodiedState, errorBudget, cognitiveNutrition } from '../src/embodied-reality.mjs';
+import {
+  valueOfInformation,
+  predictionHalfLife,
+  decisionShelfLife,
+  compileDecisionInformation
+} from '../src/decision-information-theory.mjs';
 
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
@@ -99,7 +105,7 @@ export function buildSovereignControlView({
   institution = null, boundaryQuestion = null, graphEdges = [], graphFrom = null,
   forecastStrength = null, forecastClaim = null, forecastMethods = [],
   checksum = null, companion = null, socialPredictions = [], strategic = null,
-  embodiedContext = null, budget = null, diet = [], now = new Date()
+  embodiedContext = null, budget = null, diet = [], information = null, now = new Date()
 } = {}) {
   const view = {
     ok: true,
@@ -110,6 +116,7 @@ export function buildSovereignControlView({
     // Absent rather than faked when not asked for.
     decisionPacket: null,
     ruinScreen: null,
+    decisionInformation: null,
     exit: exit ? exitReadiness(exit) : null,
     reasoningBudget: reasoning ? shouldContinueReasoning(reasoning) : null,
     methodSelection: method ? selectMethod(method) : null,
@@ -158,6 +165,22 @@ export function buildSovereignControlView({
     founderAuthority: 'THIS SURFACE READS. IT CANNOT CHOOSE, DELEGATE, OR ACT.',
     businessEffectAuthority: 'NONE'
   };
+
+  if (information) {
+    const voi = valueOfInformation(information.voi || information);
+    const prediction = information.prediction
+      ? predictionHalfLife({ ...information.prediction, now })
+      : null;
+    const shelfLife = information.shelfLife
+      ? decisionShelfLife({ ...information.shelfLife, now })
+      : null;
+    view.decisionInformation = compileDecisionInformation({
+      voi,
+      prediction,
+      shelfLife,
+      minimumEvidenceWeight: information.minimumEvidenceWeight ?? null
+    });
+  }
 
   if (decision && Array.isArray(options) && options.length) {
     const universe = compileOptionUniverse(options);

@@ -521,6 +521,31 @@ export const MUTATIONS = [
     suites: ['tests/genesis-chain-refusal.test.mjs']
   },
   {
+    // Anchored on the merge, not on the count check. The count check is a
+    // backstop no current input can reach, so mutating it survives every test;
+    // this is the branch that actually decides whether a second naming of the
+    // same concept is remembered or silently discarded.
+    id: 'OMEGA-MATRIX-01', guard: 'A second naming of the same concept is remembered, not discarded',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: '      if (!existing.sourceArtifacts.includes(concept.sourceArtifact)) existing.sourceArtifacts.push(concept.sourceArtifact);',
+    replace: '',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'OMEGA-MATRIX-02', guard: 'A sub-phrase match cannot be promoted to VERIFIED_CURRENT',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "  if (evidence.matchScope !== 'WHOLE_NAME') return 'PARTIAL_CURRENT';",
+    replace: '',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
+    id: 'OMEGA-MATRIX-03', guard: 'A concept name is never split on whitespace into false evidence',
+    file: 'src/sovereign-coverage-matrix.mjs',
+    find: "    .split(/\\s+and\\s+|\\s*\\/\\s*|\\s*,\\s*|\\s+plus\\s+/i)",
+    replace: '    .split(/\\s+/)',
+    suites: ['tests/sovereign-coverage-matrix.test.mjs']
+  },
+  {
     id: 'AVENGERS-INPUT-01', guard: 'A missing arsenal artifact names the step that has not run, not a crash',
     file: 'src/avengers-artifact-input.mjs',
     find: "    if (error?.code === 'ENOENT') {",

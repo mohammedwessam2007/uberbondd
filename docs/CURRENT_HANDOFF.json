@@ -141,11 +141,11 @@
     "productionDeploymentsAuthorizedOrPerformedByThisLane": 0
   },
   "latestOrchestrationCheckpoint": {
-    "id": "C05",
+    "id": "C06",
     "state": "artifacts/work/astra-orchestrator-state-2026-09-08.json",
     "prompt": "docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md",
-    "observedMain": "ea3a695fffef80ab49a4a7812cd8a1ee736189a0",
+    "observedMain": "f4553f8995c7b7546d74b9f5b60c36aaec37c4a2",
     "mode": "ORCHESTRATION_ONLY",
-    "note": "Final compact entrypoint unifies C02 release, C03 intelligence and C04 life experiments through c05Continuation. No new runtime or worker launched. Read one selected packet progressively; do not repeat historical plans."
+    "note": "C06 prioritizes self-hosting/self-deployment/workflow automation through existing C02 DEPLOY packets. Read c06SelfHosting contracts first; optional C03/C04 paused. Planning only, no deployed or unattended claim."
   }
 }

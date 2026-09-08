@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-astra-orchestrator-state-1.0.0",
-  "status": "C05_FINAL_ORCHESTRATION_HANDOFF__NOT_RUNNING",
+  "status": "C06_SELF_HOSTING_AND_WORKFLOW_AUTOMATION_PLAN__NOT_DEPLOYED",
   "createdFromMain": "799107519beca7e1dd6d56013dd937ab99b780af",
   "orchestratorBranch": "work/astra-swarm-reconciliation-20260908",
   "authoritativePrompt": "docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md",
@@ -114,13 +114,13 @@
   },
   "mandatoryFinalMinute": "Astra must stop coding and write a durable checkpoint with exact main/PR heads, ownership, packet dispositions, tests, blockers, merge order, next worker prompts and percentage deltas before model limits arrive.",
   "checkpoint": {
-    "id": "C05",
+    "id": "C06",
     "date": "2026-09-08",
-    "observedMain": "ea3a695fffef80ab49a4a7812cd8a1ee736189a0",
+    "observedMain": "f4553f8995c7b7546d74b9f5b60c36aaec37c4a2",
     "mode": "ORCHESTRATION_ONLY",
     "implementationLaunched": false,
     "workerAcknowledgements": [],
-    "nextAction": "Execution-authorized cheap verifier: refresh #482/#483 ownership and heads, identify an executing host, run the first focused proof packet. If no host is available, produce a minimal host-capability blocker and continue one independent deterministic probe."
+    "nextAction": "Cheap execution-authorized worker inventories current portable donors and available authorized host; verifies #482/#483 current heads; executes DEPLOY-01/04/06 proof sequence using the C06 acceptance contracts. No host purchase inferred."
   },
   "closedTribunal": [
     {
@@ -418,6 +418,15 @@
       "implementationLaunched": false,
       "workerAcknowledgements": [],
       "nextAction": "Keep C02 release priority. When a cheap research slot is available, reproduce C04-01 before any new life-planning architecture."
+    },
+    {
+      "id": "C05",
+      "date": "2026-09-08",
+      "observedMain": "ea3a695fffef80ab49a4a7812cd8a1ee736189a0",
+      "mode": "ORCHESTRATION_ONLY",
+      "implementationLaunched": false,
+      "workerAcknowledgements": [],
+      "nextAction": "Execution-authorized cheap verifier: refresh #482/#483 ownership and heads, identify an executing host, run the first focused proof packet. If no host is available, produce a minimal host-capability blocker and continue one independent deterministic probe."
     }
   ],
   "c03Research": {
@@ -711,5 +720,163 @@
       "Actual integrated/reachable/runtime evidence reported separately from plans and outcomes."
     ],
     "claimBoundary": "No guarantee of AGI, everything unlocked, uniqueness, wealth, life improvement, continuous execution or 100% whole-system completion. This supplies a falsifiable operating strategy. Publication earns zero runtime progress."
+  },
+  "c06SelfHosting": {
+    "classification": "ORCHESTRATION_ONLY__PREPARED_NOT_DISPATCHED",
+    "priorityOverride": "Within C02 prioritize VERIFY-482, VERIFY-483 and DEPLOY-01/04/06. Pause optional C03/C04 research while completing this operational proof path. Do not create duplicate deployment packets.",
+    "sourceObservations": {
+      "main": "f4553f8995c7b7546d74b9f5b60c36aaec37c4a2",
+      "docker": "Dockerfile starts node server.mjs on port 8080; this alone does not establish worker/scheduler supervision, persistent storage or host availability.",
+      "scheduler": "src/scheduler.mjs uses setInterval plus initial enqueue with time-bucket dedupe keys. Durable queue constraints and missed-occurrence semantics require caller/storage verification.",
+      "maintainer": ".github/workflows/uberbond-self-maintainer.yml on inspected main retains hourly cron. #483 replacement needs current executing proof and integration.",
+      "portable": "Earlier named portable cash-stack branch was not resolved in this pass; failed connector path lookup is not evidence it is absent. Discover branch/PR via supported listing and inspect before reuse."
+    },
+    "target": "One provider-neutral, recoverable private runtime with independently recoverable deployment control; automate routine authorized work and escalate only well-classified exceptions.",
+    "contracts": [
+      {
+        "id": "HOST-INVENTORY",
+        "mapsTo": [
+          "DEPLOY-01"
+        ],
+        "acceptance": [
+          "Inventory actual authorized compute, CPU/RAM/disk, container support, network ingress/egress, persistent volume, Postgres, secret injection, backup destination and cost ceiling.",
+          "Separate available, configured, reachable and rehearsed. Provider names or a Dockerfile never establish capacity.",
+          "Reuse existing portable donor and current host before considering new purchases. No new paid commitment authorized by this plan."
+        ],
+        "receipt": "Named host identity or concrete EXTERNAL_HOST_UNAVAILABLE; no secret values."
+      },
+      {
+        "id": "RELEASE-IDENTITY",
+        "mapsTo": [
+          "DEPLOY-01"
+        ],
+        "acceptance": [
+          "One immutable candidate binds commit, dependency lock, built image digest, configuration schema and migration version.",
+          "Build/test once on an executing host, promote the same artifact; do not deploy a mutable branch name as identity.",
+          "Application runtime cannot rewrite its release acceptance gates. Existing authorized deploy controller validates expected source and scope before switching."
+        ],
+        "receipt": "Candidate digest -> executed proof -> admitted release, with explicit rollback candidate."
+      },
+      {
+        "id": "PERSISTENT-RUNTIME",
+        "mapsTo": [
+          "DEPLOY-01",
+          "DEPLOY-04"
+        ],
+        "acceptance": [
+          "Separate web, worker and scheduling roles logically; separate processes where existing deployment supports it. Postgres and required artifacts survive container recreation.",
+          "Canonical authentication works outside provider-specific middleware; unauthenticated access denied; private-life autonomous reachability remains restricted.",
+          "Health distinguishes process alive, database ready and useful workload ready. Liveness checks must not restart-loop merely because an external provider is unavailable.",
+          "Secrets injected through protected host configuration, not image/repository/logs; actual PayPal environment contract validated without money movement."
+        ],
+        "receipt": "Real test DB write -> process/container replacement -> authenticated read, plus denied unauthenticated access."
+      },
+      {
+        "id": "DURABLE-OCCURRENCES",
+        "mapsTo": [
+          "DEPLOY-04"
+        ],
+        "acceptance": [
+          "Persist schedule identity, scheduled-for time, next due time and bounded missed-run policy. Restart covers intended backlog without a catch-up storm.",
+          "Transactional claim/uniqueness and leases prevent concurrent dispatch of the same logical occurrence; expired lease recovery is tested.",
+          "Business timezone/DST semantics, clock skew and manual-trigger idempotency explicit; schedule edits cannot silently resurrect old effects.",
+          "Effectful jobs keep their own authority gates. At-least-once processing plus provider idempotency/reconciliation is not called universal exactly-once."
+        ],
+        "receipt": "Duplicate wake + concurrent scheduler + crash-before/after-enqueue matrix with expected job identities."
+      },
+      {
+        "id": "SURVIVAL-AND-RESTORE",
+        "mapsTo": [
+          "DEPLOY-06"
+        ],
+        "acceptance": [
+          "Drain new work, persist/checkpoint leases, terminate, restart and reconcile unfinished work; crash during an uncertain external effect does not blindly retry.",
+          "Encrypted backup with protected restore credentials stored outside the app failure domain; restore rehearsal required, not just backup creation.",
+          "Predeclare recovery time and maximum tolerable data loss for this host, measure both. Scope targets as operator choices, not invented guarantees.",
+          "Schema evolution supports previous app during rollback or has an explicit forward-repair/data-restore plan. Never blindly roll back an incompatible database.",
+          "An independently recoverable host supervisor or authorized controller can restart the app; controller failure has a documented minimal recovery path."
+        ],
+        "receipt": "Kill/restart + backup/restore + incompatible-schema refusal + measured recovery intervals, named source/data versions."
+      },
+      {
+        "id": "SELF-DEPLOYMENT",
+        "mapsTo": [
+          "DEPLOY-01",
+          "DEPLOY-06",
+          "DEPLOY-08"
+        ],
+        "acceptance": [
+          "Reconcile desired admitted release against observed image/config/state. No speculative rebuild every tick.",
+          "Preflight -> candidate start -> migrate under verified policy -> auth and bounded workload smoke -> route switch -> observe -> retain rollback.",
+          "Bad auth, migration, persistence or workload health blocks promotion or triggers safe rollback; limit failed rollout attempts and open a circuit breaker.",
+          "No app permission to approve its own patch, widen access, change secrets or spend. Controller authority remains scoped and separately verifiable.",
+          "DEPLOY-08 only closes when a named authorized alternate host serves restored state and a bounded workload; local rehearsal stays local evidence."
+        ],
+        "receipt": "Actual deployment state transitions tied to immutable release; simulation clearly labelled."
+      },
+      {
+        "id": "WORKFLOW-AUTOMATION",
+        "mapsTo": [
+          "VERIFY-483",
+          "AUTO-05",
+          "DEPLOY-04"
+        ],
+        "acceptance": [
+          "Reuse existing event/queue/admission/continuation machinery for intent -> dedupe -> authorize -> execute -> verify -> reconcile -> checkpoint.",
+          "Inventory each existing workflow trigger, owner, data/effects, budget, idempotency, retry/compensation, evidence and escalation boundary.",
+          "Prioritize backup verification, provider health, stalled-job recovery, bounded maintenance and receipt compilation. Customer/payment/private-life effects retain separate authority.",
+          "New evidence wakes a blocked strategy; read-only observation of a bound task does not create another task. Unknown effect outcomes require reconciliation.",
+          "Model quota failure routes only through configured eligible suppliers. If none remains, deterministic duties continue and model-dependent tasks wait explicitly."
+        ],
+        "receipt": "One existing workflow completes across restart with no duplicate consequence; no new generic workflow engine."
+      },
+      {
+        "id": "OWNER-ABSENCE",
+        "mapsTo": [
+          "DEPLOY-06",
+          "DEPLOY-08"
+        ],
+        "acceptance": [
+          "Exception queue groups by causal blocker, max three actionable owner items with exact screen/action/time/cost/evidence; routine resolved events do not interrupt.",
+          "External monitoring or supervisor can detect total app failure; app-only telemetry is insufficient for its own death.",
+          "Keep alert severity and dedupe meaningful; do not hide incidents to lower founder minutes.",
+          "Observe actual unattended duration with real timestamps. Replayed logs, accelerated clocks and synthetic tests do not prove elapsed autonomy.",
+          "Report interventions, recovery success, unresolved effects and useful completed workflows. Retained uptime is not proof of customers, income or life outcomes."
+        ],
+        "receipt": "Named observed interval and actual interventions; no duration claimed before it elapses."
+      }
+    ],
+    "workflowTierPolicy": {
+      "automatic": "Only already-authorized bounded deterministic housekeeping and recovery with tested invariants.",
+      "reviewBeforePromotion": "New code/model/skill candidate; independent proof then existing release authority.",
+      "explicitHumanChoice": "Unscoped spend, new accounts, irreversible life commitments and effects lacking applicable consent/authority.",
+      "principle": "Reduce repeated operator decisions by encoding existing scope, not by assuming permission for everything."
+    },
+    "workOrder": [
+      "Refresh refs, ownership and actual host inventory.",
+      "Execute #482/#483 verification; resolve portable interfaces from current ancestry.",
+      "DEPLOY-01 + real test Postgres + web/auth/worker rehearsal.",
+      "DEPLOY-04 durable scheduling and workflow occurrence proof.",
+      "DEPLOY-06 kill/restore/rollback and independent recovery proof.",
+      "Integrate earned exact-head changes, then named-host deployment only under execution-session authority.",
+      "Observe actual unattended interval and report limited, evidenced automation."
+    ],
+    "cheapWorkerPrompt": "Refresh C06/main/current children and applicable instructions. Resolve HOST-INVENTORY without exposing secrets. Reuse current portable donor; map acceptance contracts onto existing DEPLOY-01/04/06, do not create duplicates. Execute only your assigned bounded packet under current session authority. Return exact source/image/config/data versions, commands/exits, restart/restore evidence, actual effects, unresolved gate and next single action. No new paid purchase or blanket consequence authority. Checkpoint before host/model changes and at material results.",
+    "budget": "User reports 20% session usage remaining; actual tokens/provider budgets unmeasured. Use deterministic probes first; cheapest capable worker; one implementation lane plus verifier, no speculative parallel swarm. Astra remains orchestration-only.",
+    "completionLabels": [
+      "PLAN_ONLY",
+      "LOCAL_REHEARSAL_PASSED",
+      "NAMED_HOST_DEPLOYED",
+      "RECOVERY_REHEARSED",
+      "OBSERVED_UNATTENDED_INTERVAL"
+    ],
+    "stopRules": [
+      "No actual host: classify external host gap and finish independent source/local proof; never label deployed.",
+      "No executing verifier: preserve unverified status; do not weaken gates.",
+      "Repeated same blocker with no new evidence: change feasible strategy or stop that lane.",
+      "Restore/rollback unsafe: keep prior admitted release and repair recovery before promotion."
+    ],
+    "checkpoint": "Five-minute/material-result checkpoints retain current release digest, actual host, DB/migration/backup references, claims, pending effects, next action; all public references secret-free. Existing source is git-backed; no duplicate repository backup to file storage.",
+    "claimBoundary": "No deployment, workflow implementation, account change, worker launch, new spend, customer message or autonomy-duration evidence produced in this orchestration session."
   }
 }

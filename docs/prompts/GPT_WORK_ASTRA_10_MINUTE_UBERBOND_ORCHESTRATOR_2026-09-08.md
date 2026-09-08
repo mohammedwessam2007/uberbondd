@@ -1,4 +1,4 @@
-# UberBond Astra C05 — compact continuation entrypoint
+# UberBond Astra C06 — self-hosting continuation entrypoint
 
 Mode: ORCHESTRATION_ONLY. Published plans do not launch workers.
 State: `artifacts/work/astra-orchestrator-state-2026-09-08.json`
@@ -59,3 +59,16 @@ Keep implementation, reachability, persistence, recovery, integration, runtime a
 
 The prepared queues are sufficient to begin. Expand them only after a result reveals a new binding constraint or the owner explicitly requests more orchestration.
 Success is a verified useful change that survives a handoff—not more plans, PRs, agents or claimed intelligence.
+
+
+## C06 priority override — recoverable self-hosting and workflow automation
+
+Read c06SelfHosting in the state artifact first. Keep C02 packet identities; pause optional C03/C04. Sequence: actual host inventory -> #482/#483 proof -> portable web/auth/Postgres/worker -> durable scheduler -> kill/restore/rollback -> admitted immutable release on named authorized host -> observed unattended interval.
+
+Eight dense acceptance contracts cover host availability, release identity, persistent runtime, durable occurrences, survival/restore, self-deployment, workflow automation and owner absence. They are specifications, not implemented capabilities.
+
+Critical distinction: app and deploy-controller failure domains. The app must not be its own only rescuer or approve its own upgrades. Persist occurrence identities and uncertain effects; independent supervisor/monitoring plus tested backup restoration matter more than another cron. Promote the exact tested artifact, protect schema rollback compatibility, bound failed rollout attempts.
+
+Next worker: read cheapWorkerPrompt in c06SelfHosting. Resolve available authorized host and portable donor before editing. No new paid commitment. Cheapest capable execution; deterministic first; exact evidence. No duplicate workflow framework. No customer/payment/private-life authority inferred. If host unavailable, finish independent proof and name the external gap.
+
+Checkpoint after each material step or five minutes, including release/host/state/recovery identity and next action. No secrets in git. Report PLAN_ONLY, LOCAL_REHEARSAL_PASSED, NAMED_HOST_DEPLOYED, RECOVERY_REHEARSED and actual OBSERVED_UNATTENDED_INTERVAL separately. This publication launches nothing.

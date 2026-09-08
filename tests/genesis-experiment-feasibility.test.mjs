@@ -7,6 +7,7 @@ const baseProbe = (over = {}) => ({
   costCents: 0,
   timeMinutes: 10,
   measure: 'classification error rate',
+  decisionRule: 'support only if error rate exceeds the predeclared tolerance; falsify otherwise',
   supportsHypothesis: 'error rate is materially higher under the candidate defect',
   falsifiesHypothesis: 'error rate is unchanged within the predeclared tolerance',
   ...over
@@ -33,15 +34,19 @@ test('a hypothesis and falsifier with no actual probe cannot be called runnable'
 test('caller-written discriminating=true is not discrimination evidence', () => {
   const result = compileFeasibleBoundedExperiment({
     hypothesis: 'x', falsifier: 'y', costCeilingCents: 0, timeCeilingMinutes: 10,
-    probes: [{
-      description: 'look at one fixture', costCents: 0, timeMinutes: 5,
-      discriminating: true
-    }]
+    probes: [{ description: 'look at one fixture', costCents: 0, timeMinutes: 5, discriminating: true }]
   });
   assert.equal(result.ok, false);
   assert.ok(result.reasonCodes.includes('probe-measure-required'));
+  assert.ok(result.reasonCodes.includes('probe-decision-rule-required'));
   assert.ok(result.reasonCodes.includes('probe-supporting-observation-required'));
   assert.ok(result.reasonCodes.includes('probe-falsifying-observation-required'));
+});
+
+test('a measure without an explicit decision rule is not yet discriminating', () => {
+  const result = compile({ probes: [baseProbe({ decisionRule: '' })] });
+  assert.equal(result.ok, false);
+  assert.deepEqual(result.reasonCodes, ['probe-decision-rule-required']);
 });
 
 test('supporting and falsifying observations must actually differ', () => {
@@ -57,9 +62,7 @@ test('supporting and falsifying observations must actually differ', () => {
 
 test('selected probe cost and time must fit the declared top-level ceilings', () => {
   const result = compileFeasibleBoundedExperiment({
-    hypothesis: 'x', falsifier: 'y',
-    costCeilingCents: 100,
-    timeCeilingMinutes: 20,
+    hypothesis: 'x', falsifier: 'y', costCeilingCents: 100, timeCeilingMinutes: 20,
     probes: [
       baseProbe({ description: 'too expensive', costCents: 101, timeMinutes: 5 }),
       baseProbe({ description: 'too slow', costCents: 0, timeMinutes: 21 })
@@ -86,6 +89,7 @@ test('an over-budget probe is discarded while the smallest bounded discriminatin
   assert.equal(result.probe.description, 'small local batch');
   assert.equal(result.feasibility.costFits, true);
   assert.equal(result.feasibility.timeFits, true);
+  assert.equal(result.feasibility.hasExplicitDecisionRule, true);
   assert.equal(result.feasibility.discardedProbes.length, 1);
   assert.equal(result.feasibility.empiricallyValidatedDiscrimination, false);
 });
@@ -98,6 +102,22 @@ test('probe cost cannot understate a separately declared spend', () => {
   });
   assert.equal(result.ok, false);
   assert.deepEqual(result.reasonCodes, ['selected-probe-cost-understates-declared-spend']);
+});
+
+test('malformed numeric effects fail closed instead of falling through to zero authority', () => {
+  const negativeSpend = compile({ effects: { spendCents: -1 } });
+  assert.equal(negativeSpend.ok, false);
+  assert.deepEqual(negativeSpend.reasonCodes, ['spendCents-must-be-a-non-negative-safe-integer']);
+
+  const badCalls = compile({ effects: { providerCalls: 'many' } });
+  assert.equal(badCalls.ok, false);
+  assert.deepEqual(badCalls.reasonCodes, ['providerCalls-must-be-a-non-negative-safe-integer']);
+});
+
+test('probe-level reversibility typos fail closed rather than silently becoming the top-level default', () => {
+  const result = compile({ probes: [baseProbe({ reversibility: 'PRACTICALLY_IRREVERSIBL' })] });
+  assert.equal(result.ok, false);
+  assert.deepEqual(result.reasonCodes, ['probe-recognized-reversibility-required']);
 });
 
 test('mature authority law is preserved: structurally feasible customer experiment is still not runnable', () => {
@@ -113,6 +133,7 @@ test('mature authority law is preserved: structurally feasible customer experime
       costCents: 0,
       timeMinutes: 30,
       measure: 'held-out reply rate',
+      decisionRule: 'support only if the short-pack lift exceeds the predeclared margin',
       supportsHypothesis: 'short-pack reply rate exceeds long-pack reply rate by the predeclared margin',
       falsifiesHypothesis: 'the reply-rate difference is below the predeclared margin'
     })]
@@ -130,6 +151,7 @@ test('a local bounded probe carries explicit structural discrimination without c
   assert.equal(result.ok, true);
   assert.equal(result.runnable, true);
   assert.equal(result.probe.measure, 'classification error rate');
+  assert.match(result.probe.decisionRule, /predeclared tolerance/);
   assert.match(result.probe.structuralDiscrimination, /NOT_EMPIRICALLY_VALIDATED/);
   assert.match(result.truthBoundary, /DO_NOT_PROVE/);
   assert.equal(result.businessEffectAuthority, 'NONE');

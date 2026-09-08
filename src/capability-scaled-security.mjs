@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { admitCapability } from './capability-genome-admission.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const CAPABILITY_SCALED_SECURITY_VERSION = 'uberbond.capability-scaled-security.v1.1';
+export const CAPABILITY_SCALED_SECURITY_VERSION = 'uberbond.capability-scaled-security.v1.2';
 
 export const SECURITY_TIERS = Object.freeze(['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']);
 export const C26_EVIDENCE_CLASSES = Object.freeze([
@@ -118,13 +118,16 @@ export function evaluateCompositionAuthorityBoundary({ components = [], requeste
   const reasons = [];
   const normalizedComponents = (Array.isArray(components) ? components : []).map(component => ({
     id: text(component?.id, 200),
-    authorities: uniq(component?.authorities)
+    authorities: uniq(component?.authorities).sort()
   }));
   if (!normalizedComponents.length) reasons.push('at-least-one-composition-component-required');
   if (normalizedComponents.some(component => !component.id)) reasons.push('component-id-required');
   if (new Set(normalizedComponents.map(component => component.id)).size !== normalizedComponents.length) reasons.push('component-ids-must-be-unique');
 
+  const componentAuthorityUnion = new Set(normalizedComponents.flatMap(component => component.authorities));
+  const unbacked = requested.filter(permission => !componentAuthorityUnion.has(permission));
   const emergent = requested.filter(permission => !explicit.has(permission));
+  if (unbacked.length) reasons.push(...unbacked.map(permission => `composition-permission-not-backed-by-component:${permission}`));
   if (emergent.length) reasons.push(...emergent.map(permission => `composition-permission-not-explicitly-authorized:${permission}`));
   if (requested.length && !text(authorityRef, 500)) reasons.push('composition-authority-reference-required');
 
@@ -135,9 +138,11 @@ export function evaluateCompositionAuthorityBoundary({ components = [], requeste
     requestedPermissions: requested,
     explicitCompositionAuthority: [...explicit].sort(),
     componentAuthorities: normalizedComponents,
+    componentAuthorityUnion: [...componentAuthorityUnion].sort(),
+    unbackedPermissions: unbacked,
     emergentPermissions: emergent,
     authorityRef: text(authorityRef, 500),
-    law: 'AUTHORITY_OF_A_COMPOSITION_NEVER_EMERGES_FROM_THE_UNION_OF_COMPONENT_CAPABILITIES; EACH_COMPOSED_EFFECT_REQUIRES_EXPLICIT_AUTHORITY.',
+    law: 'AUTHORITY_OF_A_COMPOSITION_NEVER_EMERGES_FROM_THE_UNION_OF_COMPONENT_CAPABILITIES; EACH_COMPOSED_EFFECT_REQUIRES_BOTH_A_CAPABLE_COMPONENT_AND_EXPLICIT_COMPOSITION_AUTHORITY.',
     businessEffectAuthority: 'NONE',
     externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS)
   };
@@ -166,9 +171,7 @@ function actorSeparationReasons(actors, tier) {
     if (new Set(core).size !== core.length) reasons.push('high-risk-proposer-approver-deployer-verifier-monitor-must-be-distinct');
   }
   if (tier === 'CRITICAL') {
-    for (const key of ['rollbackControllerId', 'emergencyStopControllerId', 'recoveryControllerId', 'auditRetentionOwnerId']) {
-      if (!actors[key]) reasons.push(`critical-risk-role-required:${key}`);
-    }
+    for (const key of ['rollbackControllerId', 'emergencyStopControllerId', 'recoveryControllerId', 'auditRetentionOwnerId']) if (!actors[key]) reasons.push(`critical-risk-role-required:${key}`);
     if (actors.emergencyStopControllerId && [actors.proposerId, actors.deployerId].includes(actors.emergencyStopControllerId)) reasons.push('emergency-stop-controller-must-be-independent-of-proposer-and-deployer');
     if (actors.recoveryControllerId && [actors.emergencyStopControllerId, actors.deployerId].includes(actors.recoveryControllerId)) reasons.push('recovery-controller-must-be-independent-of-stop-and-deployer');
     if (actors.auditRetentionOwnerId && [actors.proposerId, actors.deployerId].includes(actors.auditRetentionOwnerId)) reasons.push('audit-retention-owner-must-be-independent-of-proposer-and-deployer');
@@ -207,9 +210,7 @@ function limitReasons({ risk, limits }) {
     require('maxProviderCalls');
     require('maxComputeUnits');
   }
-  if (risk.tier === 'CRITICAL') {
-    for (const field of ['maxSpendCents', 'maxDeployments', 'maxProductionMutations', 'maxCredentialChanges', 'maxPrivateReads', 'maxReplicas']) require(field);
-  }
+  if (risk.tier === 'CRITICAL') for (const field of ['maxSpendCents', 'maxDeployments', 'maxProductionMutations', 'maxCredentialChanges', 'maxPrivateReads', 'maxReplicas']) require(field);
   return reasons;
 }
 
@@ -254,22 +255,49 @@ export function compileCapabilityScaledSecurityAdmission({
     explicitCompositionAuthority: composition.explicitCompositionAuthority,
     authorityRef: composition.authorityRef
   });
+  const limits = normalizeLimits(resourceLimits);
+  const normalizedAudit = {
+    appendOnly: audit.appendOnly === true,
+    independentStoreRef: text(audit.independentStoreRef, 500),
+    retentionOwnerId: text(audit.retentionOwnerId, 200)
+  };
+  const normalizedEmergency = {
+    rollbackRef: text(emergency.rollbackRef, 500),
+    revocationRef: text(emergency.revocationRef, 500),
+    stopControllerId: text(emergency.stopControllerId, 200),
+    recoveryControllerId: text(emergency.recoveryControllerId, 200),
+    stopAllowsIndependentRecovery: emergency.stopAllowsIndependentRecovery === true
+  };
 
   const subject = {
     capabilityId: text(capability?.id, 200),
     sourceHash: text(capability?.sourceHash, 100)?.toLowerCase() || null,
     sourceRevision: text(capability?.sourceRevision, 240),
-    compositionId: text(composition?.id, 240),
-    requestedPermissions: uniq(composition?.requestedPermissions).sort(),
-    declaredEffects: uniq(composition?.declaredEffects).map(value => value.toUpperCase()).sort(),
+    composition: {
+      id: text(composition?.id, 240),
+      components: authorityBoundary.componentAuthorities,
+      requestedPermissions: authorityBoundary.requestedPermissions,
+      explicitCompositionAuthority: authorityBoundary.explicitCompositionAuthority,
+      authorityRef: authorityBoundary.authorityRef,
+      declaredEffects: uniq(composition?.declaredEffects).map(value => value.toUpperCase()).sort(),
+      networked: composition?.networked === true,
+      persistent: composition?.persistent === true,
+      selfModifying: composition?.selfModifying === true,
+      canReplicate: composition?.canReplicate === true,
+      usesPrivateLifeState: composition?.usesPrivateLifeState === true,
+      usesCredentials: composition?.usesCredentials === true,
+      canMoveMoney: composition?.canMoveMoney === true
+    },
     actors: normalizedActors,
+    resourceLimits: limits,
+    audit: normalizedAudit,
+    emergency: normalizedEmergency,
     riskTier: risk.tier
   };
   const subjectDigest = digest(subject);
   const requiredEvidenceClasses = REQUIRED_BY_TIER[risk.tier];
   const normalizedEvidence = normalizeEvidence(securityEvidence, now, maxEvidenceAgeDays);
   const evidenceCheck = evidenceReasons({ rows: normalizedEvidence, required: requiredEvidenceClasses, subjectDigest, actors: normalizedActors, tier: risk.tier });
-  const limits = normalizeLimits(resourceLimits);
 
   const reasons = [];
   if (!authorityBoundary.ok) reasons.push(...authorityBoundary.reasonCodes);
@@ -278,16 +306,16 @@ export function compileCapabilityScaledSecurityAdmission({
   reasons.push(...evidenceCheck.reasons);
 
   if (tierAtLeast(risk.tier, 'HIGH')) {
-    if (audit.appendOnly !== true || !text(audit.independentStoreRef, 500)) reasons.push('high-risk-append-only-independent-audit-required');
-    if (!text(audit.retentionOwnerId, 200) || [normalizedActors.proposerId, normalizedActors.deployerId].includes(audit.retentionOwnerId)) reasons.push('high-risk-independent-audit-retention-owner-required');
-    if (audit.retentionOwnerId !== normalizedActors.auditRetentionOwnerId) reasons.push('audit-retention-owner-binding-mismatch');
+    if (!normalizedAudit.appendOnly || !normalizedAudit.independentStoreRef) reasons.push('high-risk-append-only-independent-audit-required');
+    if (!normalizedAudit.retentionOwnerId || [normalizedActors.proposerId, normalizedActors.deployerId].includes(normalizedAudit.retentionOwnerId)) reasons.push('high-risk-independent-audit-retention-owner-required');
+    if (normalizedAudit.retentionOwnerId !== normalizedActors.auditRetentionOwnerId) reasons.push('audit-retention-owner-binding-mismatch');
   }
   if (risk.tier === 'CRITICAL') {
-    if (!text(emergency.rollbackRef, 500)) reasons.push('critical-rollback-reference-required');
-    if (!text(emergency.revocationRef, 500)) reasons.push('critical-revocation-reference-required');
-    if (emergency.stopAllowsIndependentRecovery !== true) reasons.push('emergency-stop-must-preserve-independent-recovery');
-    if (emergency.stopControllerId !== normalizedActors.emergencyStopControllerId) reasons.push('emergency-stop-controller-binding-mismatch');
-    if (emergency.recoveryControllerId !== normalizedActors.recoveryControllerId) reasons.push('recovery-controller-binding-mismatch');
+    if (!normalizedEmergency.rollbackRef) reasons.push('critical-rollback-reference-required');
+    if (!normalizedEmergency.revocationRef) reasons.push('critical-revocation-reference-required');
+    if (!normalizedEmergency.stopAllowsIndependentRecovery) reasons.push('emergency-stop-must-preserve-independent-recovery');
+    if (normalizedEmergency.stopControllerId !== normalizedActors.emergencyStopControllerId) reasons.push('emergency-stop-controller-binding-mismatch');
+    if (normalizedEmergency.recoveryControllerId !== normalizedActors.recoveryControllerId) reasons.push('recovery-controller-binding-mismatch');
   }
 
   const uniqueReasons = [...new Set(reasons)];
@@ -305,20 +333,10 @@ export function compileCapabilityScaledSecurityAdmission({
     requiredEvidenceClasses,
     acceptedSecurityEvidence: evidenceCheck.accepted,
     resourceLimits: limits,
-    audit: {
-      appendOnly: audit.appendOnly === true,
-      independentStoreRef: text(audit.independentStoreRef, 500),
-      retentionOwnerId: text(audit.retentionOwnerId, 200)
-    },
-    emergency: {
-      rollbackRef: text(emergency.rollbackRef, 500),
-      revocationRef: text(emergency.revocationRef, 500),
-      stopControllerId: text(emergency.stopControllerId, 200),
-      recoveryControllerId: text(emergency.recoveryControllerId, 200),
-      stopAllowsIndependentRecovery: emergency.stopAllowsIndependentRecovery === true
-    },
+    audit: normalizedAudit,
+    emergency: normalizedEmergency,
     capabilityScaledLaw: 'CAPABILITY_GROWTH_CANNOT_PRECEDE_THE_SECURITY_EVALUATION_CORRIGIBILITY_ENVELOPE_REQUIRED_BY_ITS_EFFECT_SURFACE.',
-    truthBoundary: 'C26 admission proves only that the declared composition meets current security preconditions. It grants no spend, messaging, deployment, credential, private-state, account, payment, physical-action or self-modification authority.',
+    truthBoundary: 'C26 admission proves only that the exact declared composition, quotas, audit controls and emergency controls meet current security preconditions. It grants no spend, messaging, deployment, credential, private-state, account, payment, physical-action or self-modification authority.',
     businessEffectAuthority: 'NONE',
     externalEffectLedger: clone(ZERO_EXTERNAL_EFFECTS),
     asiClaim: 'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED'

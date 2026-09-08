@@ -27,12 +27,13 @@ function publicView(result, action) {
     };
   }
   if (action === 'status') return { ok: true, status: result.status, summary: result.summary, businessEffectAuthority: 'NONE' };
-  if (action === 'list') return { ok: true, status: result.status, records: result.records, hypotheses: result.hypotheses, businessEffectAuthority: 'NONE' };
+  if (action === 'list') return { ok: true, status: result.status, records: result.records, hypotheses: result.hypotheses, edges: result.edges, businessEffectAuthority: 'NONE' };
   if (action === 'capture') return { ok: true, status: result.status, persisted: result.persisted, recordId: result.record?.id || null, willEventType: result.willEventType, promotionBoundary: result.promotionBoundary, businessEffectAuthority: 'NONE' };
+  if (action === 'promote') return { ok: true, status: result.status, promotion: result.promotion, recordId: result.record?.id || null, promotionBoundary: result.promotionBoundary, businessEffectAuthority: 'NONE' };
   if (action === 'hypothesis') return { ok: true, status: result.status, hypothesis: result.hypothesis, businessEffectAuthority: 'NONE' };
   if (action === 'decision') return { ok: true, status: result.status, packet: result.packet, truthBoundary: result.truthBoundary, businessEffectAuthority: 'NONE' };
   if (action === 'delete') return { ok: true, status: result.status, deletedIds: result.deletedIds, derivedAlsoDeleted: result.derivedAlsoDeleted, prunedHypothesisCount: result.prunedHypothesisCount, prunedEdgeCount: result.prunedEdgeCount, guarantee: result.guarantee, businessEffectAuthority: 'NONE' };
-  if (action === 'export') return { ok: true, status: result.status, exportWritten: result.exportWritten, exportDestination: result.exportDestination, recordCount: result.recordCount, digest: result.digest, completeness: result.completeness, businessEffectAuthority: 'NONE' };
+  if (action === 'export') return { ok: true, status: result.status, exportWritten: result.exportWritten, exportDestination: result.exportDestination, recordCount: result.recordCount, hypothesisCount: result.hypothesisCount, edgeCount: result.edgeCount, stateDigest: result.stateDigest, completeness: result.completeness, businessEffectAuthority: 'NONE' };
   return { ok: true, status: result.status, businessEffectAuthority: 'NONE' };
 }
 
@@ -58,7 +59,7 @@ export async function runFounderInteractiveSession({
     const authorization = founderAuthorization(new Date());
     if (!authorization) return { ok: false, status: 'FOUNDER_PRESENCE_REQUIRED', reasonCodes: ['authorization-clock-invalid'], businessEffectAuthority: 'NONE' };
 
-    stdout.write('Authorized for this interactive process only. Enter one-line JSON commands. Actions: status, capture, list, hypothesis, decision, delete, export. Type quit to close.\n');
+    stdout.write('Authorized for this interactive process only. Enter one-line JSON commands. Actions: status, capture, promote, list, hypothesis, decision, delete, export. Type quit to close.\n');
     for (;;) {
       const line = await rl.question('private> ');
       if (String(line).trim().toLowerCase() === 'quit') {

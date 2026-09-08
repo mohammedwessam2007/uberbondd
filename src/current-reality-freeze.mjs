@@ -178,7 +178,7 @@ export function compileCurrentRealityFreeze({
       workingTreeClean: typeof workingTreeClean === 'boolean' ? workingTreeClean : null
     },
     handoff: {
-      presentTenseMainClaims,
+      presentTenseMainClaims: presentTenseClaims,
       stalePresentTenseClaims,
       documentSourceCommit: handoffDocumentSourceCommit,
       planningObservedMain,

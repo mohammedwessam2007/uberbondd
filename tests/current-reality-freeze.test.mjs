@@ -22,6 +22,10 @@ const current = (over = {}) => ({
   readiness: { repository: { head: HEAD } },
   coverage: { sourceCommit: HEAD },
   orchestrator: { checkpoint: { observedMain: OLD } },
+  sourceChangedByPresentClaim: {
+    'currentTruth.main': false,
+    'activeMission.currentMain': false
+  },
   sourceChangedByArtifact: {
     'system-readiness': false,
     'sovereign-coverage': false
@@ -48,22 +52,53 @@ test('a planning observation may be historical without becoming a present-tense 
   assert.equal(out.handoff.stalePresentTenseClaims.length, 0);
 });
 
-test('stale currentTruth.main refuses the freeze', () => {
+test('truth-only commits may advance HEAD while older current-main claims remain source-equivalent', () => {
+  const input = current({
+    handoff: {
+      activeMission: `FULL REALIZATION from exact current main ${OLD}`,
+      sourceCommit: OLD,
+      currentTruth: { main: OLD },
+      latestOrchestrationCheckpoint: { observedMain: OLD }
+    },
+    sourceChangedByPresentClaim: {
+      'currentTruth.main': false,
+      'activeMission.currentMain': false
+    }
+  });
+  const out = compileCurrentRealityFreeze(input);
+  assert.equal(out.ok, true);
+  assert.equal(out.status, 'CURRENT_REALITY_FROZEN');
+  assert.ok(out.handoff.presentTenseMainClaims.every(row => row.status === 'CURRENT_SOURCE_EQUIVALENT'));
+});
+
+test('stale currentTruth.main refuses only when relevant source changed after its claim', () => {
   const input = current();
   input.handoff.currentTruth.main = OLD;
+  input.sourceChangedByPresentClaim['currentTruth.main'] = true;
   const out = compileCurrentRealityFreeze(input);
   assert.equal(out.ok, false);
-  assert.equal(out.status, 'CURRENT_REALITY_REFUSED__PRESENT_TENSE_CONTRADICTION');
-  assert.ok(out.reasonCodes.includes('handoff-present-tense-main-contradicts-head'));
+  assert.equal(out.status, 'CURRENT_REALITY_REFUSED__PRESENT_TENSE_SOURCE_CHANGED');
+  assert.ok(out.reasonCodes.includes('handoff-present-tense-source-changed-since-claim'));
   assert.ok(out.handoff.stalePresentTenseClaims.some(row => row.pointer === 'currentTruth.main'));
 });
 
-test('stale current-main language in activeMission is independently caught', () => {
+test('stale current-main language in activeMission is independently caught after relevant source changes', () => {
   const input = current();
   input.handoff.activeMission = `continue from exact current main ${OLD}`;
+  input.sourceChangedByPresentClaim['activeMission.currentMain'] = true;
   const out = compileCurrentRealityFreeze(input);
   assert.equal(out.ok, false);
   assert.ok(out.handoff.stalePresentTenseClaims.some(row => row.pointer === 'activeMission.currentMain'));
+});
+
+test('unreadable history for a non-head present-tense claim stays unknown', () => {
+  const input = current();
+  input.handoff.currentTruth.main = OLD;
+  input.sourceChangedByPresentClaim['currentTruth.main'] = null;
+  const out = compileCurrentRealityFreeze(input);
+  assert.equal(out.ok, true);
+  assert.equal(out.status, 'CURRENT_REALITY_FROZEN__PRESENT_TENSE_FRESHNESS_UNKNOWN');
+  assert.equal(out.handoff.unknownPresentTenseClaims.length, 1);
 });
 
 test('old generated artifact is accepted only when repository history proves relevant source unchanged', () => {
@@ -96,7 +131,7 @@ test('old generated artifact with relevant source changes is explicitly stale, n
   assert.equal(out.closureBoundary.generatedTruth, 'STALE_REGENERATION_REQUIRED');
 });
 
-test('unreadable history stays unknown rather than pretending freshness', () => {
+test('unreadable artifact history stays unknown rather than pretending freshness', () => {
   const input = current({
     readiness: { repository: { head: OLD } },
     coverage: { sourceCommit: OLD },

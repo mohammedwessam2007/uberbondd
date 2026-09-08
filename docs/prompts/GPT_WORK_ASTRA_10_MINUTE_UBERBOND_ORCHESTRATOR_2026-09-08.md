@@ -1,6 +1,6 @@
 # GPT WORK ASTRA — 10-MINUTE UBERBOND COMMAND SWARM
 
-Status: `C02 / ORCHESTRATION_ONLY / PREPARED_NOT_DISPATCHED`
+Status: `C03 / ORCHESTRATION_ONLY / PREPARED_NOT_DISPATCHED`
 
 Repository: `mohammedwessam2007/uberbondd`
 
@@ -228,3 +228,20 @@ Worker prompt template: Refresh current main and this packet head. Read applicab
 Checkpoint after each material decision or at most five minutes of unsaved active work, and before context/model switches. Update the existing state artifact; retain historical facts with their dates. Save the last available minute. Do not post repetitive messages or create ceremonial PRs.
 
 Completion is a gate vector: implementation, intended reachability, durable state, recovery, integration, observed runtime, external outcome. The 64-packet map is not the whole project denominator. A finite scoped internal release may reach 100% only with all defined gates evidenced; the open-ended Sovereign Cognitive Continuum and months of real outcomes cannot inherit that percentage. No runtime progress is earned by this checkpoint.
+
+
+## C03 — transferable intelligence with falsifiable improvement
+
+Read c03Research in the existing state artifact. C02 remains the release queue; this is a bounded research lane, not a replacement architecture. All six experiments are PREPARED_NOT_DISPATCHED.
+
+Sequence: semantic identity and bounded experiment admission -> matched-budget cross-domain transfer -> independent evaluation -> fresh-context retention and revocation -> useful observation/deferral allocation.
+
+First worker prompt: On refreshed current source, inspect C03-01 and C03-02. Reproduce the named counterexamples using existing exports in focused fake-only tests. Do not infer defects from comments. If reproduced, return the minimal failing case and smallest canonical-seam repair specification; implement only under your execution session's authority. Otherwise cite the enforcing path and close as verified reuse. Record exact model, source, commands, outputs and limitations. No model calls are needed for these first probes.
+
+Core high-leverage question: Can one small learned mechanism improve unfamiliar task families with the same base model and compute budget, survive a context reset, and preserve prior capability? If not, more modules or agents have not established the claimed improvement.
+
+An AGI ambition is not an AGI result. This finite campaign measures bounded transfer, adaptation, calibration and retention. No claim of being unique in history can be established here. Benchmark wins do not prove life outcomes, business viability or unrestricted autonomy.
+
+Keep evaluator-held-out answers out of generator context, record exposure, predeclare thresholds and preserve failures. Candidate cannot rewrite its judge. If independent evaluation is unavailable, label the limitation. Stop mechanisms that cannot beat a matched-budget baseline; checkpoint null results so another worker does not repeat the same failed theory.
+
+Checkpoint C03 persists in the existing state and CURRENT_HANDOFF pointer. Save after each result, changed assumption or five minutes of unsaved active work; retain last-minute reserve. No new runtime, workflow, authority, customer message or worker launch is created by publishing this plan.

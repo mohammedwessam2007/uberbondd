@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "uberbond.work.astra-orchestration-phase0.v1",
+  "status": "DURABLE_CHECKPOINT",
+  "createdFor": "GPT Work Astra 10-minute orchestration mode",
+  "sourceMain": "799107519beca7e1dd6d56013dd937ab99b780af",
+  "branch": "work/astra-orchestrator-current-main-20260908",
+  "truth": {
+    "mainRefVerified": true,
+    "legacySwarmControlPlaneOnMain": false,
+    "legacySwarmControlPlaneDonorRef": "047e36c6eb0a27c3deabbba581c05e29ab597f3d",
+    "currentOpenExecutionChildren": [481, 482, 483],
+    "computeSovereigntyPresentOnMain": true
+  },
+  "orchestrationLaw": {
+    "astraRole": "ORCHESTRATE_ONLY",
+    "scarceWindow": "approximately 10 minutes per user-described availability window",
+    "firstDuty": "refresh exact repository truth and immediately allocate disjoint work",
+    "bulkImplementation": "delegate to lower-cost/currently-available coding agents or bounded child lanes",
+    "durability": "no progress counts until pushed repository evidence exists",
+    "sameBlockerSameStrategyNoNewEvidence": "STRATEGY_MUTATION_REQUIRED",
+    "staleBranchAsIntegrationTarget": false,
+    "providerQuotaEvasionAllowed": false,
+    "capabilityCreatesAuthority": false
+  },
+  "next": [
+    "reconcile all 64 logical packets against current main and current children",
+    "create current-main orchestration ledger",
+    "create 10-minute Astra launch prompt",
+    "leave exact continuation queue with no stale #458 dependency"
+  ],
+  "businessEffectAuthority": "NONE"
+}

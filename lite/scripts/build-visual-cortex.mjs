@@ -16,6 +16,7 @@ const steps = [
   ['node', ['--check', 'public/uberbond-graph.js']],
   ['node', ['--test',
     'tests/uberbond-repository-deep-atlas.test.mjs',
+    'tests/uberbond-repository-deep-atlas-growth-safe.test.mjs',
     'tests/uberbond-ultimate-graph.test.mjs',
     'tests/ultimate-graph-api.test.mjs',
     'tests/command-center-owner-auth-hostile.test.mjs'

@@ -8,7 +8,7 @@ function tone(el, value) {
   if (!el) return;
   el.classList.remove('good', 'warn', 'bad');
   const s = String(value || '').toUpperCase();
-  if (/READY|LIVE|ENABLED|PRESENT|NONE|FORBIDDEN/.test(s) && !/NOT|UNAVAILABLE|DISABLED/.test(s)) el.classList.add('good');
+  if (/READY|LIVE|ENABLED|PRESENT|NONE|FORBIDDEN|CLEAR/.test(s) && !/NOT|UNAVAILABLE|DISABLED/.test(s)) el.classList.add('good');
   else if (/BLOCK|FAIL|ERROR|REQUIRED|DISABLED|UNAVAILABLE/.test(s)) el.classList.add('bad');
   else el.classList.add('warn');
 }
@@ -67,12 +67,17 @@ function renderOps(view) {
   text('first-price', path.priceUsd);
   text('first-sku', path.sku);
   const launchEl = $('launch-state');
-  launchEl.textContent = launch.liveLaunchConfigurationReady ? 'CONFIGURATION GATES PRESENT' : 'EXTERNAL GATES REMAIN';
-  launchEl.classList.toggle('ready', launch.liveLaunchConfigurationReady === true);
+  launchEl.textContent = launch.localConfigurationGatesClear ? 'LOCAL GATES CLEAR · NOT LAUNCH PROOF' : 'LOCAL / EXTERNAL GATES REMAIN';
+  launchEl.classList.toggle('ready', launch.localConfigurationGatesClear === true);
   const blockers = $('launch-blockers'); blockers.replaceChildren();
   const rows = Array.isArray(launch.externalActivationBlockers) ? launch.externalActivationBlockers : [];
-  if (!rows.length) { const s = document.createElement('span'); s.textContent = 'No configuration blocker reported. External reality still required.'; blockers.append(s); }
-  else for (const row of rows) { const s = document.createElement('span'); s.textContent = String(row).replaceAll('-', ' '); blockers.append(s); }
+  if (!rows.length) {
+    const s = document.createElement('span');
+    s.textContent = launch.launchNowWhyNotProven || 'Local blockers clear; external reality remains unproven.';
+    blockers.append(s);
+  } else {
+    for (const row of rows) { const s = document.createElement('span'); s.textContent = String(row).replaceAll('-', ' '); blockers.append(s); }
+  }
 
   text('payments', launch.externalReality?.clearedPaymentCount ?? operations.money?.clearedPaymentCount);
   text('revenue', money(launch.externalReality?.clearedRevenueCents ?? operations.money?.clearedRevenueCents));
@@ -93,7 +98,7 @@ function renderOps(view) {
   text('distribution-execution', operations.distribution?.externalExecution);
   text('distribution-spend', money(operations.distribution?.spendCents ?? 0));
   text('kill-switch', compact(operations.distribution?.outbound?.killSwitch));
-  text('next-safe', compact(operations.distribution?.outbound?.nextSafeAction));
+  text('next-safe', launch.nextSafeOutboundAction || compact(operations.distribution?.outbound?.nextSafeAction));
 
   renderActions(view?.owner?.actionQueue);
   text('private-state', view?.privacy?.rawPersonalCivilizationReachable === false ? 'OFF NETWORK' : 'UNKNOWN');

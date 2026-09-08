@@ -141,11 +141,11 @@
     "productionDeploymentsAuthorizedOrPerformedByThisLane": 0
   },
   "latestOrchestrationCheckpoint": {
-    "id": "C03",
+    "id": "C04",
     "state": "artifacts/work/astra-orchestrator-state-2026-09-08.json",
     "prompt": "docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md",
-    "observedMain": "c4bad89ed0db9123ed0fe2d10fa2ef35072a71d0",
+    "observedMain": "e9a4df08da1ec89a6721416f3af823d57642addc",
     "mode": "ORCHESTRATION_ONLY",
-    "note": "C03 adds six bounded intelligence experiments; source-backed hypotheses, no execution. C02 release queue retained. Read c03Research; no AGI or whole-system percentage claim."
+    "note": "C04 adds a bounded life-option experiment chain. Read c04LifeOptions. C02 release and C03 research retained; no implementation, private data or outcome credit."
   }
 }

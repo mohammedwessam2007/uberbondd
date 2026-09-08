@@ -165,3 +165,10 @@ This file and every North Star artifact are **direction and search-space canon, 
 Current repository code, exact-head verification receipts, observed life outcomes, and durable external evidence remain authoritative for what is actually implemented or proven now.
 
 Presence in canon does not prove superintelligence, omniscience, an IQ-equivalent number, perfect prediction, commercial success, consciousness, or life-outcome improvement.
+
+
+## Aspirational intelligence objective: system-level sovereign superintelligence
+
+Build a sovereign cognitive civilization whose compound intelligence can continually discover, acquire, invent, test and retain capabilities until its effective problem-solving performance becomes broadly superhuman, while remaining reality-calibrated, corrigible, self-deployable, provider-independent and subordinate to Mohamed's will.
+
+ASI is a research/engineering North Star, never a self-declared status. Sovereign Cognitive Continuum remains terminal identity; Personal Civilization Engine remains contained. See the ASI aspiration addendum in `docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`, `asiResearchNorthStar` in its machine pair, and C21 in orchestration state. Current evidence state: `SYSTEM_LEVEL_ASI_NOT_ESTABLISHED`. No restricted model is an existential dependency. Capability never creates authority.

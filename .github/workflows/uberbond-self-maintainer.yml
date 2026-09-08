@@ -70,11 +70,17 @@ jobs:
           mkdir -p artifacts/cognitive .cache
           node scripts/self-maintainer-pulse-preflight.mjs .cache/uberbond-self-maintainer-continuation.json > artifacts/cognitive/self-maintainer-preflight.json
           run_tick=$(node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('artifacts/cognitive/self-maintainer-preflight.json','utf8'));process.stdout.write(v.runPrimaryTick===true?'true':'false')")
+          resume_issue_number=$(node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('artifacts/cognitive/self-maintainer-preflight.json','utf8'));const n=Number(v.resumeIssueNumber||0);process.stdout.write(Number.isSafeInteger(n)&&n>0?String(n):'')")
+          resume_only=$(node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('artifacts/cognitive/self-maintainer-preflight.json','utf8'));process.stdout.write(v.resumeExistingAttemptOnly===true?'true':'false')")
           echo "run_tick=$run_tick" >> "$GITHUB_OUTPUT"
+          echo "resume_issue_number=$resume_issue_number" >> "$GITHUB_OUTPUT"
+          echo "resume_only=$resume_only" >> "$GITHUB_OUTPUT"
       - name: Run initial whole-brain self-maintenance tick
         id: initial
         if: steps.preflight.outputs.run_tick == 'true'
         shell: bash
+        env:
+          UBERBOND_SELF_MAINTAINER_ISSUE_NUMBER: ${{ steps.preflight.outputs.resume_issue_number || inputs.issueNumber }}
         run: |
           mkdir -p artifacts/cognitive
           set +e
@@ -90,6 +96,11 @@ jobs:
           echo "tick_status=$tick_status" >> "$GITHUB_OUTPUT"
           echo "issue_number=$(cat /tmp/uberbond-self-maintainer-issue)" >> "$GITHUB_OUTPUT"
           echo "primary_status=$(cat /tmp/uberbond-self-maintainer-status)" >> "$GITHUB_OUTPUT"
+      - name: Verify resume-only pulse stayed on the exact existing task
+        if: steps.preflight.outputs.resume_only == 'true' && steps.initial.outputs.issue_number != steps.preflight.outputs.resume_issue_number
+        run: |
+          echo 'resume-only pulse escaped its bound relay issue' >&2
+          exit 1
       - name: Generate and submit canonical proposal only when proposal work is actually pending
         id: proposal
         if: >-

@@ -1,0 +1,28 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { compilePersonalScientificExperiment } from '../src/personal-civilization-scientific-experiment.mjs';
+
+const selection={chosenByFounder:true,possibility:'explore a different working environment',selectedAt:'2026-09-08T20:00:00.000Z',evidenceRef:'private:will:synthetic-1'};
+const experience={uncertainty:'whether the environment improves deep work',smallestReversibleExperience:'work for one hour in the alternate environment using the same task',wouldReveal:'whether focus and friction materially change',wouldFalsify:'no meaningful difference under matched task conditions',reversible:true,cost:'none',time:'one hour',costCents:0,timeMinutes:60,effects:[]};
+const hypotheses=[{id:'environment-matters',predictedObservations:['focus improves','friction falls']},{id:'environment-does-not-matter',predictedObservations:['focus unchanged','friction unchanged']}];
+const budget={maxCostCents:0,maxTimeMinutes:90,maxDeclaredEffects:0};
+const voi={unit:'decision-loss-points',budgetUnits:10,currentEvidenceSufficient:false,observe:{canChangeDecision:true,discriminating:true,informationValueUnits:9,costUnits:1,delayCostUnits:1,optionDecayUnits:0,requiresExternalEffect:false},defer:{informationGainUnits:1,delayCostUnits:1,optionDecayUnits:1,windowRemainsOpen:true}};
+const base={founderSelection:selection,requiredCapabilities:['deep work'],capabilities:[],experience,hypotheses,budget,voi};
+
+test('founder-selected zero-effect reversible experience compiles into a scientific dossier without execution authority',()=>{const r=compilePersonalScientificExperiment(base);assert.equal(r.ok,true);assert.equal(r.status,'PCE_REVERSIBLE_EXPERIMENT_READY_FOR_FOUNDER_DECISION');assert.equal(r.experimentDossier.chosenByFounder,true);assert.equal(r.experimentDossier.runnableByThisModule,false);assert.equal(r.businessEffectAuthority,'NONE');assert.equal(r.boundedExperiment.businessEffectAuthority,'NONE');});
+
+test('AI-selected or provenance-free possibility is refused before life modeling',()=>{for(const founderSelection of [{...selection,chosenByFounder:false},{...selection,evidenceRef:null}]){const r=compilePersonalScientificExperiment({...base,founderSelection});assert.equal(r.ok,false);assert.equal(r.status,'PCE_EXPERIMENT_FOUNDER_SELECTION_REQUIRED');}});
+
+test('non-reversible life experience is refused by existing possibility organ',()=>{const r=compilePersonalScientificExperiment({...base,experience:{...experience,reversible:false}});assert.equal(r.ok,false);assert.equal(r.status,'PCE_EXPERIMENT_EXPERIENCE_REFUSED');});
+
+test('spend cannot run on private-life authority alone',()=>{const spend={...experience,involvesSpend:true,cost:'$1',costCents:100,authorization:{subject:'FOUNDER',grant:'LIFE_EXPERIENCE_COMMITMENT',issuedAt:'2026-09-08T20:00:00.000Z'}};const r=compilePersonalScientificExperiment({...base,experience:spend,budget:{...budget,maxCostCents:100},effectAuthority:null});assert.equal(r.ok,false);assert.equal(r.status,'PCE_EXPERIMENT_FEASIBILITY_REFUSED');assert.ok(r.reasonCodes.includes('existing-intent-compiler-did-not-reach-permissions'));});
+
+test('spend needs both life-experience authority and separate effect authority, and still remains non-executing',()=>{const spend={...experience,involvesSpend:true,cost:'$1',costCents:100,authorization:{subject:'FOUNDER',grant:'LIFE_EXPERIENCE_COMMITMENT',issuedAt:'2026-09-08T20:00:00.000Z'}};const r=compilePersonalScientificExperiment({...base,experience:spend,budget:{...budget,maxCostCents:100},effectAuthority:{ok:true,ref:'synthetic-effect-grant'}});assert.equal(r.ok,true);assert.equal(r.boundedExperiment.permissionCompilation.status,'READY_FOR_ACTION');assert.equal(r.businessEffectAuthority,'NONE');assert.equal(r.experimentDossier.runnableByThisModule,false);});
+
+test('third-party involvement without life-experience commitment grant is refused before generic effect authority can help',()=>{const withPerson={...experience,involvesThirdParty:true,effects:[{party:'OTHER_PEOPLE',effect:'participate in one bounded conversation',reversibility:'REVERSIBLE',consented:true}],authorization:null};const r=compilePersonalScientificExperiment({...base,experience:withPerson,budget:{...budget,maxDeclaredEffects:1},effectAuthority:{ok:true}});assert.equal(r.ok,false);assert.equal(r.status,'PCE_EXPERIMENT_LIFE_AUTHORITY_REQUIRED');});
+
+test('non-discriminating rival hypotheses are refused',()=>{const same=[{id:'h1',predictedObservations:['same']},{id:'h2',predictedObservations:['same']}];const r=compilePersonalScientificExperiment({...base,hypotheses:same});assert.equal(r.ok,false);assert.equal(r.status,'PCE_EXPERIMENT_FEASIBILITY_REFUSED');assert.ok(r.reasonCodes.includes('rival-hypotheses-predict-identical-observations'));});
+
+test('VOI can say the experiment is feasible but not worth doing now',()=>{const lowVoi={...voi,observe:{...voi.observe,informationValueUnits:1,costUnits:1,delayCostUnits:1,optionDecayUnits:1},defer:{informationGainUnits:5,delayCostUnits:1,optionDecayUnits:0,windowRemainsOpen:true}};const r=compilePersonalScientificExperiment({...base,voi:lowVoi});assert.equal(r.ok,true);assert.equal(r.status,'PCE_EXPERIMENT_NOT_CURRENTLY_INFORMATION_WORTHWHILE');assert.equal(r.valueOfInformation.status,'DEFER_JUSTIFIED');});
+
+test('capability gap is framed as a possibility-relative skeleton, not a defect in the founder',()=>{const r=compilePersonalScientificExperiment(base);assert.equal(r.ok,true);assert.ok(Array.isArray(r.capabilityAnalysis.gaps));assert.match(r.sovereigntyBoundary,/FOUNDER SELECTED/);});

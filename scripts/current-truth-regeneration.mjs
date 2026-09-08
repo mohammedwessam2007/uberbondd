@@ -8,9 +8,10 @@ import { verifyCurrentTruthRegeneration } from '../src/current-truth-regeneratio
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
-function git(args) {
+function git(args, { trim = true } = {}) {
   try {
-    return execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim();
+    const output = execFileSync('git', args, { cwd: root, encoding: 'utf8' }).replace(/\r/g, '');
+    return trim ? output.trim() : output;
   } catch {
     return null;
   }
@@ -41,14 +42,22 @@ function run(command, args) {
   };
 }
 
-function dirtyPaths() {
-  const porcelain = git(['status', '--porcelain']);
-  if (porcelain === null) return null;
-  return porcelain.split('\n').filter(Boolean).map(line => {
+export function parseGitPorcelainPaths(porcelain = '') {
+  return String(porcelain).split('\n').filter(Boolean).map(line => {
+    // `git status --porcelain` reserves columns 0-1 for XY status and column 2
+    // for the separator. Do not trim the whole command output first: a first
+    // line beginning with " M" would lose its leading status column and the
+    // path parser would amputate the first filename character.
     const path = line.slice(3).trim();
     const rename = path.includes(' -> ') ? path.split(' -> ').at(-1) : path;
     return rename;
   }).filter(Boolean);
+}
+
+function dirtyPaths() {
+  const porcelain = git(['status', '--porcelain'], { trim: false });
+  if (porcelain === null) return null;
+  return parseGitPorcelainPaths(porcelain);
 }
 
 export function executeCurrentTruthRegeneration() {

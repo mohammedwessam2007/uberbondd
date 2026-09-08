@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import * as core from './genesis-mechanism-compiler-core.mjs';
 
-export const GENESIS_MECHANISM_COMPILER_VERSION = 'uberbond.genesis-mechanism-compiler.v1.1';
+export const GENESIS_MECHANISM_COMPILER_VERSION = 'uberbond.genesis-mechanism-compiler.v1.2';
 export const EVIDENCE_CLASSES = core.EVIDENCE_CLASSES;
 export const SOURCE_KINDS = core.SOURCE_KINDS;
 export const MUTATION_OPERATORS = core.MUTATION_OPERATORS;
@@ -53,6 +53,7 @@ const counts = tokens => {
   return [...map.entries()].sort(([a], [b]) => a.localeCompare(b));
 };
 const phraseBag = tokens => bag(tokens).join(' ');
+const lexicalCanonical = value => phraseBag(tokensOf(value));
 const nearestContent = (tokens, start, direction) => {
   for (let i = start; i >= 0 && i < tokens.length; i += direction) {
     if (!STOPWORDS.has(tokens[i]) && !TEMPORAL.has(tokens[i])) return tokens[i];
@@ -109,18 +110,17 @@ function directionalVerbFrames(tokens) {
 function needsConservativeOrder(tokens, frames) {
   if (frames.length) return false;
   if (tokens.some(token => STATE_VERBS.has(token))) return false;
-  const content = contentTokens(tokens);
-  if (content.length < 3) return false;
-  return content.some(token => DIRECTIONAL_VERBS[token]
-    || /(?:ed|ing)$/.test(token)
-    || (token.endsWith('s') && token.length > 3));
+  // False negatives in dedupe are cheaper than false semantic merges. If a
+  // statement contains three or more content tokens and we do not understand
+  // its causal grammar, preserve order rather than guessing equivalence.
+  return contentTokens(tokens).length >= 3;
 }
 
 /**
  * Identity used for novelty/dedupe. Unlike the former sorted Set, this keeps
  * multiplicity and causal role/direction. It is deliberately conservative:
- * when an action-like statement has no frame we know how to normalize safely,
- * token order stays in the identity instead of being guessed equivalent.
+ * when a statement has no causal frame we know how to normalize safely, token
+ * order stays in the identity instead of being guessed equivalent.
  */
 export function semanticStatementIdentity(value) {
   const tokens = tokensOf(value);
@@ -154,6 +154,25 @@ export function normalizeDonorMechanism(input = {}) {
   return core.normalizeDonorMechanism(input);
 }
 
+function buildPrimitive(mechanism, role, statement, economicRole = null) {
+  return {
+    primitiveId: semanticPrimitiveId(role, statement),
+    role,
+    statement,
+    // Preserve the mature public field for compatibility while adding a
+    // stronger machine identity alongside it.
+    canonicalStatement: lexicalCanonical(statement),
+    semanticIdentity: semanticStatementIdentity(statement),
+    economicRole,
+    donorId: mechanism.mechanismId,
+    donorDomain: mechanism.domain,
+    exploits: mechanism.exploits,
+    evidenceClass: mechanism.evidenceClass,
+    provenance: mechanism.provenance,
+    businessEffectAuthority: 'NONE'
+  };
+}
+
 function hardenPrimitive(primitive) {
   if (!primitive?.role || !primitive?.statement) return primitive;
   return {
@@ -164,13 +183,27 @@ function hardenPrimitive(primitive) {
 }
 
 export function decomposeToPrimitives(args = {}) {
-  const base = core.decomposeToPrimitives(args);
-  if (!base?.ok || !Array.isArray(base.primitives)) return base;
+  // Reuse the mature core as the validity authority, but DO NOT consume its
+  // primitive list: the old core dedupes on the lossy identity we are repairing.
+  const validation = core.decomposeToPrimitives(args);
+  if (!validation?.ok) return validation;
+  const mechanism = args?.mechanism;
+  const primitives = [
+    buildPrimitive(mechanism, 'CONSTRAINT', mechanism.exploits),
+    buildPrimitive(mechanism, 'ACTION', mechanism.does),
+    ...(mechanism.preconditions || []).map(entry => buildPrimitive(mechanism, 'PRECONDITION', entry.statement, entry.economicRole)),
+    ...(mechanism.effects || []).map(entry => buildPrimitive(mechanism, 'EFFECT', entry.statement, entry.economicRole))
+  ];
   const unique = [];
-  for (const row of base.primitives.map(hardenPrimitive)) {
+  for (const row of primitives) {
     if (!unique.some(item => item.primitiveId === row.primitiveId)) unique.push(row);
   }
-  return { ...base, version: GENESIS_MECHANISM_COMPILER_VERSION, primitiveCount: unique.length, primitives: unique };
+  return {
+    ...validation,
+    version: GENESIS_MECHANISM_COMPILER_VERSION,
+    primitiveCount: unique.length,
+    primitives: unique
+  };
 }
 
 export function mutateAssumptions(args = {}) {

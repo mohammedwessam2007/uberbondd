@@ -3,8 +3,6 @@ import { buildPrometheusControlTower } from './prometheus-control-tower.mjs';
 
 export const FOUNDER_OPS_VIEW_VERSION = 'uberbond.founder-ops-view.v1';
 
-const truth = value => value === true;
-
 function providerPosture(env = {}) {
   const paypalEnvironment = String(env.PAYPAL_ENVIRONMENT || '').trim().toUpperCase() || 'UNSPECIFIED';
   const liveMode = paypalEnvironment === 'LIVE';
@@ -32,6 +30,12 @@ function launchability({ commandCenter, provider, prometheus }) {
   if (!provider.outboundEnabled) reasons.push('outbound-disabled-or-not-configured');
   if (provider.outboundDryRun) reasons.push('outbound-dry-run');
 
+  const outbound = commandCenter?.outbound || {};
+  if (outbound?.killSwitch?.globalOutboundPaused === true) reasons.push('outbound-globally-paused');
+  if (Number(outbound?.reservations?.unknownOutcome || 0) > 0) reasons.push('outbound-provider-outcome-reconciliation-required');
+  if (Number(outbound?.staleRecoveryPreview?.wouldRecover || 0) > 0) reasons.push('stale-outbound-reservation-recovery-required');
+  if (Number(outbound?.staleRecoveryPreview?.wouldQuarantine || 0) > 0) reasons.push('outbound-quarantine-review-required');
+
   const money = prometheus?.money || {};
   const externalReality = {
     clearedPaymentCount: Number.isFinite(Number(money.clearedPaymentCount)) ? Number(money.clearedPaymentCount) : 0,
@@ -39,6 +43,7 @@ function launchability({ commandCenter, provider, prometheus }) {
     acceptedDeliveries: prometheus?.businesses?.acceptedDeliveries ?? 'UNKNOWN',
     customers: prometheus?.businesses?.customers ?? 'UNKNOWN'
   };
+  const localConfigurationGatesClear = reasons.length === 0;
 
   return {
     internalSoftwarePathDeclared: Boolean(commandCenter?.canonicalFirstCashPath?.sku),
@@ -46,11 +51,14 @@ function launchability({ commandCenter, provider, prometheus }) {
     canonicalPriceUsd: commandCenter?.canonicalFirstCashPath?.priceUsd ?? null,
     canonicalPaymentMethod: commandCenter?.canonicalFirstCashPath?.paymentMethod || null,
     externalActivationBlockers: reasons,
-    liveLaunchConfigurationReady: reasons.length === 0,
+    localConfigurationGatesClear,
+    launchNowProven: false,
+    launchNowWhyNotProven: 'Sender/DNS/legal/provider-callability/customer reality are external evidence and are never inferred from environment configuration or an empty local blocker list.',
     externalReality,
-    note: reasons.length
-      ? 'Software is present but at least one external/provider/operator launch gate is not currently proven configured.'
-      : 'Configuration gates appear present. This does not prove a customer, cleared payment, delivery, acceptance, or retention.',
+    nextSafeOutboundAction: outbound?.nextSafeAction || null,
+    note: localConfigurationGatesClear
+      ? 'Local configuration and currently observable local blockers are clear. This is NOT launch proof and does not prove provider callability, sender/DNS/legal readiness, a customer, payment, delivery, acceptance, or retention.'
+      : 'Software is present but at least one local/provider/operator gate is not currently clear.',
     businessEffectAuthority: 'NONE'
   };
 }
@@ -137,7 +145,7 @@ export async function buildFounderOpsView({
       founderInteractivePrivateRuntimeExists: true,
       note: 'This network surface never imports or reads the Personal Civilization private vault. Founder-private state remains founder-interactive only.'
     },
-    truthBoundary: 'READ-ONLY LIVE OPERATIONAL SUMMARY. CONFIGURATION PRESENCE IS NOT PROVIDER CALLABILITY. PREPARATION IS NOT CUSTOMER TRUTH. DELIVERY_READY IS NOT CUSTOMER_ACCEPTED. NO PRIVATE LIFE PAYLOAD IS READ OR RETURNED.',
+    truthBoundary: 'READ-ONLY LIVE OPERATIONAL SUMMARY. CONFIGURATION PRESENCE IS NOT PROVIDER CALLABILITY OR LAUNCH PROOF. PREPARATION IS NOT CUSTOMER TRUTH. DELIVERY_READY IS NOT CUSTOMER_ACCEPTED. NO PRIVATE LIFE PAYLOAD IS READ OR RETURNED.',
     businessEffectAuthority: 'NONE'
   };
 }

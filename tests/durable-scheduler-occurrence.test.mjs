@@ -97,6 +97,20 @@ test('long downtime has bounded catchup rather than an unbounded replay storm', 
   assert.equal(fx.jobsByDedupe.size, 3);
 });
 
+test('fractional catchup budget is normalized to whole occurrence buckets', async () => {
+  const fx = fixture();
+  await reconcileScheduledOccurrence({ queue: fx.queue, type: 'discovery.run', intervalMs: 1000, nowMs: 1_100 });
+  const result = await reconcileScheduledOccurrence({
+    queue: fx.queue,
+    type: 'discovery.run',
+    intervalMs: 1000,
+    nowMs: 5_100,
+    maxCatchUpBuckets: 1.9
+  });
+  assert.deepEqual(result.enqueuedBuckets, [5]);
+  assert.ok(result.enqueuedBuckets.every(Number.isSafeInteger));
+});
+
 test('invalid queue/store/time contracts fail closed', async () => {
   const fx = fixture();
   await assert.rejects(reconcileScheduledOccurrence({ type: 'x', intervalMs: 1000 }), /queue-required/);

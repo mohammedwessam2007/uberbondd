@@ -1,8 +1,9 @@
 name: UberBond Self Maintainer
 
 on:
-  schedule:
-    - cron: '17 * * * *'
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       issueNumber:
@@ -53,11 +54,33 @@ jobs:
           key: uberbond-cognitive-cycle-${{ github.run_id }}
           restore-keys: |
             uberbond-cognitive-cycle-
+      - name: Restore prior self-maintainer continuation memory
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache/uberbond-self-maintainer-continuation.json
+          key: uberbond-self-maintenance-continuation-${{ github.run_id }}
+          restore-keys: |
+            uberbond-self-maintenance-continuation-
       - name: Install exact locked dependencies
         run: npm ci
+      - name: Enforce prior continuation before same-base reentry
+        id: preflight
+        shell: bash
+        run: |
+          mkdir -p artifacts/cognitive .cache
+          node scripts/self-maintainer-pulse-preflight.mjs .cache/uberbond-self-maintainer-continuation.json > artifacts/cognitive/self-maintainer-preflight.json
+          run_tick=$(node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('artifacts/cognitive/self-maintainer-preflight.json','utf8'));process.stdout.write(v.runPrimaryTick===true?'true':'false')")
+          resume_issue_number=$(node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('artifacts/cognitive/self-maintainer-preflight.json','utf8'));const n=Number(v.resumeIssueNumber||0);process.stdout.write(Number.isSafeInteger(n)&&n>0?String(n):'')")
+          resume_only=$(node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('artifacts/cognitive/self-maintainer-preflight.json','utf8'));process.stdout.write(v.resumeExistingAttemptOnly===true?'true':'false')")
+          echo "run_tick=$run_tick" >> "$GITHUB_OUTPUT"
+          echo "resume_issue_number=$resume_issue_number" >> "$GITHUB_OUTPUT"
+          echo "resume_only=$resume_only" >> "$GITHUB_OUTPUT"
       - name: Run initial whole-brain self-maintenance tick
         id: initial
+        if: steps.preflight.outputs.run_tick == 'true'
         shell: bash
+        env:
+          UBERBOND_SELF_MAINTAINER_ISSUE_NUMBER: ${{ steps.preflight.outputs.resume_issue_number || inputs.issueNumber }}
         run: |
           mkdir -p artifacts/cognitive
           set +e
@@ -65,15 +88,26 @@ jobs:
           tick_status=$?
           set -e
           node -e "const fs=require('node:fs'); const p='artifacts/cognitive/self-maintainer-initial.json'; const v=JSON.parse(fs.readFileSync(p,'utf8')); if(!v || typeof v.status!=='string') process.exit(2); process.stdout.write(String(v.issueNumber || 0))" > /tmp/uberbond-self-maintainer-issue
+          node -e "const fs=require('node:fs'); const v=JSON.parse(fs.readFileSync('artifacts/cognitive/self-maintainer-initial.json','utf8')); process.stdout.write(String(v.status || 'UNKNOWN'))" > /tmp/uberbond-self-maintainer-status
           if [ "$tick_status" != '0' ] && node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('artifacts/cognitive/self-maintainer-initial.json','utf8'));process.exit(v.status==='CANDIDATE_REJECTED'&&Array.isArray(v.reasonCodes)&&v.reasonCodes.includes('worker-decision-stop')?0:1)"; then
             tick_status=0
             echo 'no_safe_change=true' >> "$GITHUB_OUTPUT"
           fi
           echo "tick_status=$tick_status" >> "$GITHUB_OUTPUT"
           echo "issue_number=$(cat /tmp/uberbond-self-maintainer-issue)" >> "$GITHUB_OUTPUT"
-      - name: Generate and submit canonical proposal when worker result is absent
+          echo "primary_status=$(cat /tmp/uberbond-self-maintainer-status)" >> "$GITHUB_OUTPUT"
+      - name: Verify resume-only pulse stayed on the exact existing task
+        if: steps.preflight.outputs.resume_only == 'true' && steps.initial.outputs.issue_number != steps.preflight.outputs.resume_issue_number
+        run: |
+          echo 'resume-only pulse escaped its bound relay issue' >&2
+          exit 1
+      - name: Generate and submit canonical proposal only when proposal work is actually pending
         id: proposal
-        if: steps.initial.outputs.issue_number != '0'
+        if: >-
+          steps.initial.outputs.issue_number != '0' &&
+          (steps.initial.outputs.primary_status == 'RELAY_TASK_QUEUED' ||
+           steps.initial.outputs.primary_status == 'RELAY_TASK_ALREADY_QUEUED' ||
+           steps.initial.outputs.primary_status == 'WAITING_FOR_WORKER_RESULT')
         shell: bash
         env:
           UBERBOND_SELF_MAINTAINER_ISSUE_NUMBER: ${{ steps.initial.outputs.issue_number }}
@@ -84,9 +118,9 @@ jobs:
           set -e
           node -e "const fs=require('node:fs'); const p='artifacts/cognitive/self-maintainer-proposal-dispatch.json'; const v=JSON.parse(fs.readFileSync(p,'utf8')); if(!v || typeof v.status!=='string') process.exit(2)"
           echo "proposal_status=$proposal_status" >> "$GITHUB_OUTPUT"
-      - name: Run verification and review-promotion tick against exact proposal
+      - name: Run verification and review-promotion tick only after successful proposal dispatch
         id: final
-        if: steps.initial.outputs.issue_number != '0'
+        if: steps.proposal.outputs.proposal_status == '0'
         shell: bash
         env:
           UBERBOND_SELF_MAINTAINER_ISSUE_NUMBER: ${{ steps.initial.outputs.issue_number }}
@@ -101,22 +135,47 @@ jobs:
             echo 'no_safe_change=true' >> "$GITHUB_OUTPUT"
           fi
           echo "tick_status=$tick_status" >> "$GITHUB_OUTPUT"
-      - name: Preserve no-issue initial truth as final truth
-        if: steps.initial.outputs.issue_number == '0'
-        run: cp artifacts/cognitive/self-maintainer-initial.json artifacts/cognitive/self-maintainer-latest.json
-      - name: Save self-maintenance truth for the next cognitive pulse
+      - name: Preserve initial truth whenever no second tick was justified
+        if: always()
+        shell: bash
+        run: |
+          if [ ! -f artifacts/cognitive/self-maintainer-latest.json ] && [ -f artifacts/cognitive/self-maintainer-initial.json ]; then
+            cp artifacts/cognitive/self-maintainer-initial.json artifacts/cognitive/self-maintainer-latest.json
+          fi
+      - name: Compile or preserve non-repeating continuation decision
+        if: always()
+        shell: bash
+        run: |
+          if [ '${{ steps.preflight.outputs.run_tick }}' = 'false' ] && [ -f .cache/uberbond-self-maintainer-continuation.json ]; then
+            cp .cache/uberbond-self-maintainer-continuation.json artifacts/cognitive/self-maintainer-continuation.json
+          elif [ -f artifacts/cognitive/self-maintainer-latest.json ]; then
+            node scripts/self-maintainer-continuation-receipt.mjs artifacts/cognitive/self-maintainer-latest.json > artifacts/cognitive/self-maintainer-continuation.json
+          elif [ -f artifacts/cognitive/self-maintainer-initial.json ]; then
+            node scripts/self-maintainer-continuation-receipt.mjs artifacts/cognitive/self-maintainer-initial.json > artifacts/cognitive/self-maintainer-continuation.json
+          else
+            printf '%s\n' '{"schemaVersion":"uberbond.self-maintainer-continuation-receipt.v1","status":"NO_PRIMARY_RECEIPT","businessEffectAuthority":"NONE"}' > artifacts/cognitive/self-maintainer-continuation.json
+          fi
+          cp artifacts/cognitive/self-maintainer-continuation.json .cache/uberbond-self-maintainer-continuation.json
+      - name: Save self-maintenance truth for the next evidence-triggered pulse
         uses: actions/cache/save@v4
         with:
           path: artifacts/cognitive/self-maintainer-latest.json
           key: uberbond-self-maintenance-${{ github.run_id }}
+      - name: Save continuation guard for the next pulse
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/uberbond-self-maintainer-continuation.json
+          key: uberbond-self-maintenance-continuation-${{ github.run_id }}
       - name: Upload complete self-maintenance evidence packet
         uses: actions/upload-artifact@v4
         with:
           name: uberbond-self-maintenance-${{ github.run_id }}
           path: |
+            artifacts/cognitive/self-maintainer-preflight.json
             artifacts/cognitive/self-maintainer-initial.json
             artifacts/cognitive/self-maintainer-proposal-dispatch.json
             artifacts/cognitive/self-maintainer-latest.json
+            artifacts/cognitive/self-maintainer-continuation.json
           retention-days: 14
           if-no-files-found: error
       - name: Preserve unsuccessful maintenance as visible workflow failure after evidence is saved

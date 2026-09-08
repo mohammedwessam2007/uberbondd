@@ -1,30 +1,17 @@
 // Human capability as a dependency graph, and what growing it costs elsewhere.
-//
-// The canon warning this is built against is specific: never silently convert a
-// temporary state or a skill gap into a fixed trait. "Bad at X" and
-// "inexperienced at X under these conditions" produce identical behaviour today
-// and opposite futures, and a system that records the first has decided
-// something about a person that the evidence did not support.
-//
-// So a capability here carries how it was assessed, and an assessment from a
-// single observation cannot become a trait however low the score. The other
-// half is the cost nobody counts: delegating a capability saves time now and
-// atrophies it over years, which is a real trade and not a free one.
-export const HUMAN_CAPABILITY_GENOME_VERSION = 'uberbond.human-capability-genome.v1.1';
+// Low scores remain evidence-relative observations, never silent trait verdicts.
+export const HUMAN_CAPABILITY_GENOME_VERSION = 'uberbond.human-capability-genome.v1.2';
 
-/** How a capability level was arrived at. Ordered weakest first. */
 export const ASSESSMENT_BASIS = Object.freeze([
   'SINGLE_OBSERVATION', 'SELF_REPORT', 'REPEATED_OBSERVATION',
   'VARIED_CONDITIONS', 'LONGITUDINAL'
 ]);
 
-/** What a low score may mean. Only the last is a claim about the person. */
 export const LOW_SCORE_EXPLANATIONS = Object.freeze([
   'INSUFFICIENT_EXPOSURE', 'ENVIRONMENT_EFFECT', 'TEMPORARY_STATE',
   'SKILL_GAP', 'DURABLE_LIMIT'
 ]);
 
-/** What is happening to a capability over time. */
 export const CAPABILITY_TRAJECTORY = Object.freeze([
   'STRENGTHENING', 'MAINTAINED', 'DELEGATED', 'ATROPHYING', 'ABANDONED_ON_PURPOSE'
 ]);
@@ -35,26 +22,20 @@ const text = (value, max = 2000) => {
 };
 
 const fail = (status, reasonCodes, extra = {}) => ({
-  ok: false, status, reasonCodes: [...new Set(reasonCodes.filter(Boolean))],
-  businessEffectAuthority: 'NONE', ...extra
+  ok: false,
+  status,
+  reasonCodes: [...new Set(reasonCodes.filter(Boolean))],
+  businessEffectAuthority: 'NONE',
+  ...extra
 });
 
 const uniqueText = (values, max = 80) => [...new Set(
   (Array.isArray(values) ? values : []).map(value => text(value, 240)).filter(Boolean)
 )].slice(0, max);
 
-/** Whether an assessment is strong enough to support a claim about the person. */
 export const supportsDurableClaim = basis =>
   ASSESSMENT_BASIS.indexOf(basis) >= ASSESSMENT_BASIS.indexOf('VARIED_CONDITIONS');
 
-/**
- * One capability atom.
- *
- * A DURABLE_LIMIT explanation is refused unless the assessment actually
- * supports it. This is the load-bearing refusal: it is the exact moment where
- * a system decides someone cannot do something, and the cost of being wrong is
- * borne by the person for years.
- */
 export function capabilityAtom(input = {}) {
   const name = text(input?.name, 240);
   if (!name) return fail('CAPABILITY_INVALID', ['capability-name-required']);
@@ -65,12 +46,15 @@ export function capabilityAtom(input = {}) {
   });
 
   const level = Number(input?.level);
-  if (!Number.isFinite(level) || level < 0 || level > 1) return fail('CAPABILITY_INVALID', ['level-must-be-zero-to-one']);
+  if (!Number.isFinite(level) || level < 0 || level > 1) {
+    return fail('CAPABILITY_INVALID', ['level-must-be-zero-to-one']);
+  }
 
   const explanation = LOW_SCORE_EXPLANATIONS.includes(input?.explanation) ? input.explanation : null;
   if (explanation === 'DURABLE_LIMIT' && !supportsDurableClaim(basis)) {
     return fail('CAPABILITY_CLAIM_REFUSED', ['durable-limit-requires-varied-or-longitudinal-evidence'], {
-      capability: name, basis,
+      capability: name,
+      basis,
       note: 'Inexperience under one set of conditions is not a limit. Recording it as one decides something about a person the evidence does not support.'
     });
   }
@@ -227,21 +211,25 @@ function dependencyConstraints({ root, requirement, have, goal }) {
   return constraints;
 }
 
+function routeSeverity(route) {
+  if (!route.dependencies.length) return route.thresholdSatisfied ? 0 : 1;
+  const worst = [...route.dependencies].sort(compareRank)[0];
+  return 10 + rankClass(worst.reason);
+}
+
+function compareAlternativeRoutes(a, b) {
+  const severityDelta = routeSeverity(a) - routeSeverity(b);
+  if (severityDelta !== 0) return severityDelta;
+  if (a.dependencies.length !== b.dependencies.length) return a.dependencies.length - b.dependencies.length;
+  if (a.row.level !== b.row.level) return b.row.level - a.row.level;
+  return a.row.name.localeCompare(b.row.name);
+}
+
 /**
- * The binding constraint, and what improving it would unlock.
- *
- * Required entries may stay simple strings for the historical API or become
- * explicit goal contracts:
- *   { capability, substitutes, minimumLevel, criticality }
- *   { anyOf: [...], minimumLevel, criticality }
- *   { allOf: [...], minimumLevel, criticality }
- *
- * The function no longer equates "lowest raw score" with "binding" when the
- * goal supplies stronger causal structure. Alternatives are treated as routes,
- * joint prerequisites remain joint, and dependencies are followed before a
- * present top-level capability is called reachable. If two independent missing
- * requirements are causally indistinguishable, the result is UNDERDETERMINED
- * rather than silently choosing the first array element.
+ * Find the goal-relative binding constraint. Simple string requirements retain
+ * the historical API. Structured contracts add substitutes, ANY_OF routes,
+ * ALL_OF joint prerequisites, goal thresholds, criticality and dependency
+ * traversal. Array order is never allowed to become causal evidence.
  */
 export function findBottleneck({ goal = null, capabilities = [], required = [] } = {}) {
   const target = text(goal, 500);
@@ -268,9 +256,8 @@ export function findBottleneck({ goal = null, capabilities = [], required = [] }
 
   for (const requirement of requirements) {
     if (requirement.mode === 'ANY_OF') {
-      const present = requirement.members.map(name => have.get(name)).filter(Boolean).sort((a, b) => b.level - a.level);
-      const chosen = present[0] || null;
-      if (!chosen) {
+      const present = requirement.members.map(name => have.get(name)).filter(Boolean);
+      if (!present.length) {
         constraints.push({
           capability: requirement.members.length === 1 ? requirement.members[0] : requirement.label,
           reason: requirement.members.length === 1 ? 'ABSENT' : 'ALTERNATIVE_SET_ABSENT',
@@ -284,10 +271,21 @@ export function findBottleneck({ goal = null, capabilities = [], required = [] }
         continue;
       }
 
+      // Evaluate every available route before choosing one. A high score on a
+      // route with a broken dependency is not evidence that it is the best path.
+      const routes = present.map(row => ({
+        row,
+        dependencies: dependencyConstraints({ root: row.name, requirement, have, goal: target }),
+        thresholdSatisfied: requirement.minimumLevel === null || row.level >= requirement.minimumLevel
+      })).sort(compareAlternativeRoutes);
+      const chosenRoute = routes[0];
+      const chosen = chosenRoute.row;
+
       if (requirement.members.length > 1 && chosen.name !== requirement.members[0]) {
         substitutionsUsed.push({ requirementId: requirement.id, requested: requirement.members[0], used: chosen.name });
       }
-      if (requirement.minimumLevel !== null && chosen.level < requirement.minimumLevel) {
+
+      if (!chosenRoute.thresholdSatisfied) {
         constraints.push({
           capability: chosen.name,
           reason: 'GOAL_THRESHOLD_DEFICIT',
@@ -300,17 +298,26 @@ export function findBottleneck({ goal = null, capabilities = [], required = [] }
           goalUnlock: uniqueText(chosen.unlocks).includes(target),
           requirementId: requirement.id
         });
-      } else {
+      } else if (!chosenRoute.dependencies.length) {
         fallback.push({ ...chosen, requirementId: requirement.id, criticality: requirement.criticality });
       }
-      constraints.push(...dependencyConstraints({ root: chosen.name, requirement, have, goal: target }));
+
+      constraints.push(...chosenRoute.dependencies);
       analysis.push({
         requirementId: requirement.id,
         mode: requirement.mode,
-        status: requirement.minimumLevel !== null && chosen.level < requirement.minimumLevel ? 'BELOW_THRESHOLD' : 'ROUTE_SATISFIED',
+        status: !chosenRoute.dependencies.length && chosenRoute.thresholdSatisfied
+          ? 'ROUTE_SATISFIED'
+          : chosenRoute.dependencies.length ? 'ROUTE_DEPENDENCY_BLOCKED' : 'BELOW_THRESHOLD',
         chosen: chosen.name,
         alternatives: requirement.members,
-        minimumLevel: requirement.minimumLevel
+        minimumLevel: requirement.minimumLevel,
+        evaluatedRoutes: routes.map(route => ({
+          capability: route.row.name,
+          level: route.row.level,
+          thresholdSatisfied: route.thresholdSatisfied,
+          dependencyBlockers: route.dependencies.map(entry => entry.reason)
+        }))
       });
       continue;
     }
@@ -351,12 +358,11 @@ export function findBottleneck({ goal = null, capabilities = [], required = [] }
     }
 
     for (const { name, row } of memberState) {
-      if (row) {
-        if (requirement.minimumLevel === null || row.level >= requirement.minimumLevel) {
-          fallback.push({ ...row, requirementId: requirement.id, criticality: requirement.criticality });
-        }
-        constraints.push(...dependencyConstraints({ root: name, requirement, have, goal: target }));
+      if (!row) continue;
+      if (requirement.minimumLevel === null || row.level >= requirement.minimumLevel) {
+        fallback.push({ ...row, requirementId: requirement.id, criticality: requirement.criticality });
       }
+      constraints.push(...dependencyConstraints({ root: name, requirement, have, goal: target }));
     }
     analysis.push({
       requirementId: requirement.id,
@@ -435,13 +441,6 @@ export function findBottleneck({ goal = null, capabilities = [], required = [] }
   };
 }
 
-/**
- * The cost of delegation that no ledger records.
- *
- * Automation buys time and spends capability. Reported as a trade rather than a
- * warning, because sometimes it is the right trade -- but never as nothing,
- * which is how it is usually recorded.
- */
 export function agencyDebt(capabilities = []) {
   const rows = (Array.isArray(capabilities) ? capabilities : []).filter(row => row?.name);
   const atrophying = rows.filter(row => row.trajectory === 'ATROPHYING');
@@ -460,13 +459,6 @@ export function agencyDebt(capabilities = []) {
   };
 }
 
-/**
- * The minimum capability skeleton a future needs -- Osteogenesis.
- *
- * Grows toward reachability rather than optimizing one path, and never proposes
- * changing the person: it returns what is missing, and the founder decides
- * whether that future is worth the growing.
- */
 export function growSkeleton({ future = null, required = [], capabilities = [] } = {}) {
   const target = text(future, 500);
   if (!target) return fail('SKELETON_INVALID', ['future-required']);

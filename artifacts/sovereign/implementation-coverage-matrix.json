@@ -2,18 +2,18 @@
   "ok": true,
   "status": "COVERAGE_MATRIX_COMPILED",
   "schemaVersion": "uberbond.sovereign-coverage-matrix.v1",
-  "generatedAt": "2026-09-08T05:57:38.665Z",
-  "sourceCommit": "7d9e0cc15a32dcea9c6096b341ca1a8ab3b44804",
+  "generatedAt": "2026-09-08T06:06:50.147Z",
+  "sourceCommit": "5030e7749bc3812b4f322d2ba9b690a9c9cbae9c",
   "counts": {
     "extractedConcepts": 1068,
     "rows": 1038,
     "mergedAliasRows": 30,
-    "declaredConcepts": 167,
+    "declaredConcepts": 171,
     "byState": {
-      "VERIFIED_CURRENT": 258,
+      "VERIFIED_CURRENT": 262,
       "PARTIAL_CURRENT": 61,
       "DRAFT_DONOR": 0,
-      "SPEC_ONLY": 97,
+      "SPEC_ONLY": 93,
       "EXTERNAL_BLOCKED": 19,
       "OWNER_BOUNDARY": 13,
       "ELAPSED_TIME_REQUIRED": 0,
@@ -36,10 +36,10 @@
       "OMEGA-06": 15,
       "OMEGA-07": 15,
       "OMEGA-02": 170,
-      "OMEGA-13": 14,
+      "OMEGA-13": 18,
       "OMEGA-11": 4,
       "OMEGA-09": 165,
-      "OMEGA-08": 82
+      "OMEGA-08": 78
     }
   },
   "rows": [
@@ -32789,22 +32789,27 @@
         "Claude Code Setup"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/external-capability-control-plane.mjs",
+          ".claude/skills/claude-automation-recommender/SKILL.md"
+        ],
+        "testModules": [
+          "tests/external-capability-control-plane.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Claude Code Setup",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-08",
+      "targetModule": "src/external-capability-control-plane.mjs",
+      "owningLane": "OMEGA-13",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -33055,22 +33060,27 @@
         "Fable Orchestrator"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/external-capability-control-plane.mjs",
+          ".claude/skills/uberbond-orchestrator/SKILL.md"
+        ],
+        "testModules": [
+          "tests/external-capability-control-plane.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Fable Orchestrator",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-08",
+      "targetModule": "src/external-capability-control-plane.mjs",
+      "owningLane": "OMEGA-13",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -33085,22 +33095,27 @@
         "Metaswarm"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/external-capability-control-plane.mjs",
+          ".claude/skills/uberbond-orchestrator/SKILL.md"
+        ],
+        "testModules": [
+          "tests/external-capability-control-plane.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Metaswarm",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-08",
+      "targetModule": "src/external-capability-control-plane.mjs",
+      "owningLane": "OMEGA-13",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -33115,22 +33130,27 @@
         "Superpowers"
       ],
       "class": "EXTERNAL_SUPPLIER",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/external-capability-control-plane.mjs",
+          ".claude/skills/uberbond-orchestrator/SKILL.md"
+        ],
+        "testModules": [
+          "tests/external-capability-control-plane.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Superpowers",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-08",
+      "targetModule": "src/external-capability-control-plane.mjs",
+      "owningLane": "OMEGA-13",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,

@@ -1,38 +1,33 @@
 {
   "schemaVersion": "uberbond-handoff-2.2.0",
-  "activeMission": "UberBond OMEGA: child missions #437-#444 executed across the five merge waves of artifacts/uberbond-omega-parallel-execution-graph.json on work/sovereign-continuum-execution-20260907, with a no-drop coverage matrix over all 1068 canonical concepts. The decision, sovereignty, meta-rationality, calibration, experience and ruin organs are built, tested, mutation-covered and reachable through api/sovereign-control.mjs.",
+  "activeMission": "UberBond Sovereign Singularity Night on claude/uberbond-sovereign-build-fyge0k, from main 599b2f87. Twelve life/reasoning/sovereignty organs built and mutation-covered, eleven authority laws moved from prose into enforced code, and a truth defect repaired in the coverage matcher itself. Genuine SPEC_ONLY residue 138 -> 93.",
   "completed": [
-    "OMEGA-00: coverage matrix compiler over 1068 extracted concepts, 1038 rows, 30 alias merges, zero dropped; plus a verified declaration layer that fails the whole compile on a missing file or unknown concept (7452865b, 60628167).",
-    "OMEGA-01: personal-civilization-core private capture/derive/export/delete, founder-authorized, classified DELIBERATELY_UNREACHABLE with a reverse ratchet. PCIV-01..05 KILLED (60628167).",
-    "OMEGA-02/03/04/12/13: sovereignty type ladder with three human-only crossings; option universe merged on causal signature; forecasts refusing a probability without quantitative evidence; five terminal epistemic states; sealed calibration ledger separating decision quality from outcome; read-only control surface giving all four a caller. 23 mutations KILLED (573f48c2).",
-    "OMEGA-05/11: experience compiler keeping presentness and uncopyability outside the arithmetic; ruin firewall screening before expected value with no probability threshold. 9 mutations KILLED (e7bb5f55).",
-    "Repaired four silent validator regressions inherited from the branch base, including requiresMemoryV2 -- a schema bump had switched off memory-index validation with no line deleted and every suite green.",
-    "Coverage triage: SPEC_ONLY 883 -> 339 through five verified terminal states (ENFORCED_BY_CODE, STRUCTURAL_NOT_A_BUILD_TARGET, COVERED_BY_PARENT_ORGAN, REFERENCE_ONLY_BY_CANON, HISTORICAL_DONOR_PRESERVED, ALIAS_OF_CANONICAL_CONCEPT) plus 19 EXTERNAL_BLOCKED from a reviewed gate vocabulary. TERMSTATE-01..09 KILLED.",
-    "OMEGA-06: supplier exit drill actually rehearsed -- 11 durable canon files exported, restored byte-identically into a disposable cell, cut over and rolled back, original unchanged. EXIT-01..06 KILLED.",
-    "Fixed the inert manifest lane field: every row had taken its lane from its concept class, so OMEGA-13 read as an empty lane while the calibration ledger was built.",
-    "Five life organs built, tested and mutation-covered: life-decision-dimensions (no weighted total, ever), reachable-futures (lineage-counted counterfactuals, no council majority), human-capability-genome (a durable limit needs varied evidence), living-self-model (identity compression refused), salience-sovereignty (unlogged omissions recorded as unaccountable). 26 mutations KILLED.",
-    "Four more organ clusters: epistemic-immune-system (ignorance typed, causal rungs enforced, reality veto absolute), memory-sovereignty (opacity enforced at inference, not promised in policy), intent-compiler (compilation stops at permissions), life-autopoiesis (loops not balance, finite time as a constraint). 32 mutations KILLED.",
-    "10 further laws moved to ENFORCED_BY_CODE against verified modules, including 'payment link cannot create cleared payment' and 'sandbox events cannot create real revenue', which the proposal engine already held up and nothing had recorded.",
-    "Six further organ clusters: world-intelligence (Ontogenesis, boundary classification, ontological crisis), life-knowledge-graph (edge provenance, contradictions held open), forecast-stack (hindcast-gated methods, no combined regret figure), constitutional-governance (the system cannot refuse being ended), inter-sovereign (other people are not terrain), embodied-reality (the state a decision was made in, and what language did not carry). 65 mutations KILLED.",
-    "Resolved the flagged mis-typing: truthPriority is an ordered evidence ranking, not six unenforced laws. Its sibling truthClasses was already ONTOLOGY; the extractor now types them alike."
+    "Four Personal Civilization organs: Life Possibility Engine (no net optionality scalar, so nothing argues against a deliberate commitment), Life Compression Engine (a principle nobody attacked is UNFALSIFIED_NOT_PROVEN), Gamechanger for Life (a market score is not life relevance), GENESIS for Life (twelve continuations is CAGE_NOT_GENESIS). 25 mutations KILLED (c182ac0e).",
+    "Matcher truth repair: STRUCTURAL and ALIAS classes now outrank evidence in classifyState, as BOUNDARY and EXTERNAL_GATE already did. 'Possibility' had read VERIFIED_CURRENT off life-possibility-engine.mjs, 'Action' off browser-action-contract, 'Knowledge' off life-knowledge-graph -- 29 rows claiming implementation of categories while the artifact advertised matcherBias NEVER_OVERSTATES. NAMED_INITIATIVE and ECONOMIC_DONOR deliberately left outside the guard. VERIFIED_CURRENT fell by 18 as a result (c182ac0e).",
+    "Five Tier A reasoning organs: Unknown-Unknown Mining (cross-source structure, declared absence, concept pressure; a domain no source covers is a limit of the search), Assumption Escape / Incompleteness Awareness (UNDECIDABLE_WITHIN_AVAILABLE_EVIDENCE with no plausibility ranking), N-of-1 Personal Science (a series crossing a regime change is split, not pooled), Anti-Fragility Map (redundancy counted in independent failure modes), Freedom Gradient / Agency Geometry (seven gates; coercion disqualifies). 26 mutations KILLED (a006cafd).",
+    "Memory Truth Boundary kernel enforcing the seven memory-index laws that no code enforced: only a COMMERCIAL_RECEIPT answers a commercial question, absence resolves to NOT_FOUND_IN_SEARCHED_SOURCES with the sources named, an unresolved owner-recalled name stays unresolved, the active experiment is never the portfolio, and current truth wins the present tense without deleting what it superseded. 9 mutations KILLED (7d9e0cc1).",
+    "Five GENESIS mechanisms and four authority laws found already implemented and undeclared -- Opportunity Shockwave, Resurrection Engine, Frontier Latency Ledger, Anti-UberBond, Red Queen Evaluators; realityVeto, acceptanceTruth, the renewal filter and classifySuiteRun. Declared through the verified manifests, not rebuilt (7d9e0cc1).",
+    "Three sovereign-relation organs: Present Free Will Outranks the Model (rank decides, evidence strength never promotes a rung; deferralDrift counts the accumulation), Free Will Amplification (a sharper chooser, not a longer menu; an ungrounded cycle would be self-certifying), Temporal Civilization (persistence across eras is the only thing earning the present tense). 15 mutations KILLED (5030e774).",
+    "Four external suppliers declared -- Claude Code Setup, Fable Orchestrator, Metaswarm, Superpowers -- all genuinely governed by src/external-capability-control-plane.mjs with per-supplier admission branches and asserted routing. Governance is implemented; no host runtime is claimed installed.",
+    "Four operator doctors give every new organ a real caller: personal-civilization-doctor, reasoning-quality-doctor, memory-truth-doctor (which runs against the repository's own artifacts, not a fixture) and sovereign-relation-doctor. All read-only, synthetic fixtures, zero external-effect ledgers.",
+    "Three defects found by the new tests and fixed at the source: a 40-character cap silently discarding REQUIRES_ANOTHER_PERSONS_CONSENT_NOT_GIVEN (42 characters), so a typo became permission; Number(null) turning an unstated instrument error into a claimed zero-error instrument; and the memory doctor reading a preserved OWNER_RECALLED_UNRESOLVED pointer as a found thing."
   ],
   "blockers": [
-    "INTERNAL AND UNFINISHED: 138 coverage rows remain genuine unbuilt organs. The mission completion condition is NOT met while these stand.",
-    "INTERNAL: the largest remaining clusters are 23 CAPABILITY_DOMAIN, 23 CAPABILITY_ATOM, 18 FORECAST_DIMENSION with no parent organ, 14 GENESIS_MECHANISM, and the far-future economic donors (Reality Fork Engine, Negative-Space Intelligence, Causal Destiny Compiler and the rest).",
-    "INTERNAL: 11 canon laws still have no enforcement declaration.",
-    "EXTERNAL: 19 rows blocked on facts outside this repository -- 10 host runtimes not installed, 7 founder-freedom dimensions needing observed life outcomes, 2 approved optional runtimes.",
-    "EXTERNAL: no real customer, cleared payment, accepted delivery or retained customer exists. Commercial truth remains {realCustomers: 0, clearedRevenueUsd: 0, acceptedPaidDeliveries: 0, retainedCustomers: 0}.",
-    "EXTERNAL: no life-outcome evidence exists for any organ. Every one is internally tested and externally unproven.",
-    "EXTERNAL: founder-absence duration requires observed elapsed unattended operation. ELAPSED_TIME_REQUIRED is 0 because nothing has been declared against that gate."
+    "EXTERNAL: realCustomers, clearedRevenueUsd, acceptedPaidDeliveries and retainedCustomers all remain zero. No code closes these.",
+    "EXTERNAL: PR #458 (omega/night-convergence-20260907) carries byte-corrupted sovereign artifacts -- 41.6% non-ASCII in implementation-coverage-matrix.json, and implementation-manifest.json and enforcement-manifest.json fail to parse entirely. This session did not build on that branch. Someone should regenerate them there with the canonical generators before that PR merges.",
+    "NOT A GAP: the 18 evaluationDimensions rows read SPEC_ONLY because they are deliberately parentless -- criteria for a human reviewing UberBond, not outputs any module computes. SPEC_ONLY overstates the residue there, which is the safe direction. Do not shrink them by inventing a parent.",
+    "REAL RESIDUE: 23 CAPABILITY_DOMAIN rows are compound domains spanning many modules. Several have substantial partial coverage, and declaring one VERIFIED because a few named components exist would repeat exactly the overstatement repaired in c182ac0e. Each needs per-domain evidence before declaration.",
+    "REAL RESIDUE: 9 GENESIS mechanisms (Zero-Day Frontier Radar, Future Primitive Extractor, Artificial Imagination and others) exist in the tree only as strings inside a frozen lane array. A lane label is not an implementation.",
+    "REAL RESIDUE: 23 CAPABILITY_ATOM rows and 20 far-future CONCEPT donors remain genuinely unbuilt."
   ],
   "nextActions": [
-    "138 unbuilt organs remain. The single highest-value act is still not another organ: the calibration ledger has never scored a real forecast, so reality calibration cannot move off 6%.",
-    "The 23 CAPABILITY_ATOM rows are software capability atoms and may already be satisfied by the existing Capability Genome modules -- that has not been checked, and checking is cheaper than building.",
-    "Do not duplicate ChatGPT Sol's truth/audit lane on sol/omega-truth-integration-20260907 (issue #445).",
-    "Regenerate canon with npm run readiness as its own commit after each material tranche."
+    "Work the 23 CAPABILITY_DOMAIN rows one at a time with real per-domain evidence: enumerate the modules and tests that cover each, and declare only where the whole domain is covered rather than a component of it.",
+    "Build the 9 genuine GENESIS mechanisms, highest multiplier first. Future Primitive Extractor and Artificial Imagination feed the rest.",
+    "Regenerate the corrupted sovereign artifacts on omega/night-convergence-20260907 before that branch merges.",
+    "The economic frontier is untouched by this session and remains the subordinate objective: offer -> distribution -> cleared payment -> accepted delivery is where the external blockers actually live."
   ],
-  "sourceCommit": "7452865b312582a597732889d1282dbb855dde97",
-  "checkpointedAt": "2026-09-07T14:26:00+03:00",
+  "sourceCommit": "5030e7749bc3812b4f322d2ba9b690a9c9cbae9c",
+  "checkpointedAt": "2026-09-08",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding Mohamed's sovereign free will. Mohamed provides will; UberBond provides intelligence; reality provides feedback.",
   "canonicalMerge": {
@@ -41,16 +36,7 @@
     "merged": true,
     "classification": "VERIFIED_CURRENT_CANON_MERGE"
   },
-  "workSession": {
-    "status": "READY_FOR_WORK_AGENT",
-    "branch": "work/sovereign-continuum-execution-20260907",
-    "baseMainSha": "a22e4f099902b6abd2719922a9dd761fb69a6fa6",
-    "humanBootstrap": "docs/work/WORK_SESSION_BOOTSTRAP_2026-09-07.md",
-    "progressLedger": "artifacts/work-session-progress-baseline-2026-09-07.json",
-    "primaryMission": "Turn the canonical Sovereign Cognitive Continuum into an increasingly executable private reality-coupled system while reconciling and preserving the advanced economic/autonomy organism.",
-    "firstAction": "Refresh live main/PR/runtime truth and regenerate stale current-system/readiness state before trusting any previous completion percentage.",
-    "percentageFooterRequiredAfterEveryMeaningfulStep": true
-  },
+  "workSession": "claude/uberbond-sovereign-build-fyge0k, four tranches from main 599b2f87. check:syntax 1080 files parse; test:deterministic 4569 tests 4515 pass 0 fail 54 skipped; test:mutation-war 397 mutations 397 killed (320 on main); test:relay-safety 150 pass 0 fail; reachability ratchet and canon freshness green; readiness regenerated with the canonical generator.",
   "mandatoryNorthStarPaths": [
     "README.md",
     "NORTH_STAR.md",
@@ -109,13 +95,11 @@
     "perfectPredictionProof": "NOT_CREATED_BY_ARCHITECTURE"
   },
   "provisionalProgress": {
-    "NORTH_STAR_CANON": 99,
-    "ECONOMIC_AUTONOMY_SOFTWARE": 94,
-    "PERSONAL_CIVILIZATION_RUNTIME": 12,
-    "SOVEREIGN_CONTINUUM_RUNTIME": 6,
-    "REALITY_CALIBRATION": 1,
-    "FULL_SYSTEM_REALIZATION": 28,
-    "status": "PLANNING_ESTIMATE__PHASE0_MUST_RECALIBRATE__MAY_MOVE_DOWN"
+    "coverageSpecOnly": "138 -> 93",
+    "coverageVerifiedCurrent": "246 -> 262, net of 18 category claims removed by the matcher repair",
+    "coverageEnforcedByCode": "39 -> 51",
+    "mutationRegistry": "320 -> 397, all killed",
+    "boundary": "These are internal coverage and verification counts. They are not customers, revenue, accepted delivery, retention, or evidence that any life outcome improved."
   },
   "startupLaw": [
     "Refresh current main, open PRs, runtime and verification truth before present-tense claims.",

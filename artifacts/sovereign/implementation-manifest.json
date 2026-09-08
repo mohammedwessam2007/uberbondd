@@ -1850,6 +1850,54 @@
         "tests/present-free-will.test.mjs"
       ],
       "note": "AUTHORITY_RUNGS is a frozen ordering with present conscious choice first; resolve decides by rank and never by evidence strength, so a prediction with a hundred corroborations still loses. deferralDrift counts the accumulation the canon warns about, and returns it to Mohamed rather than correcting for it."
+    },
+    {
+      "concept": "Claude Code Setup",
+      "lane": "OMEGA-13",
+      "sources": [
+        "src/external-capability-control-plane.mjs",
+        ".claude/skills/claude-automation-recommender/SKILL.md"
+      ],
+      "tests": [
+        "tests/external-capability-control-plane.test.mjs"
+      ],
+      "note": "Registered as CANONICAL_METHOD and routed by defaultCapabilityForTask('automation-audit'); the project-local read-only recommender is .claude/skills/claude-automation-recommender/. Governance is implemented and tested. No host runtime is claimed installed \u2014 that remains npm run capabilities:doctor's question."
+    },
+    {
+      "concept": "Fable Orchestrator",
+      "lane": "OMEGA-13",
+      "sources": [
+        "src/external-capability-control-plane.mjs",
+        ".claude/skills/uberbond-orchestrator/SKILL.md"
+      ],
+      "tests": [
+        "tests/external-capability-control-plane.test.mjs"
+      ],
+      "note": "Routed by defaultCapabilityForTask('orchestration-planning') with its own admission branch in the control plane. The upstream orchestrator remains a replaceable optional runtime donor and is not claimed installed."
+    },
+    {
+      "concept": "Metaswarm",
+      "lane": "OMEGA-13",
+      "sources": [
+        "src/external-capability-control-plane.mjs",
+        ".claude/skills/uberbond-orchestrator/SKILL.md"
+      ],
+      "tests": [
+        "tests/external-capability-control-plane.test.mjs"
+      ],
+      "note": "CANONICAL_METHOD sharing an admission branch with Superpowers in the control plane. Adopted as a discipline rather than a runtime; nothing is installed or invoked."
+    },
+    {
+      "concept": "Superpowers",
+      "lane": "OMEGA-13",
+      "sources": [
+        "src/external-capability-control-plane.mjs",
+        ".claude/skills/uberbond-orchestrator/SKILL.md"
+      ],
+      "tests": [
+        "tests/external-capability-control-plane.test.mjs"
+      ],
+      "note": "CANONICAL_METHOD. Its TDD and systematic-debugging disciplines are adopted where they improve falsifiability, and UberBond test and Mutation War law wins conflicts."
     }
   ]
 }

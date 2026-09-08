@@ -1,0 +1,77 @@
+{
+  "schema": "uberbond.portable-backend.checkpoint.v2",
+  "status": "CURRENT_SOURCE_HARDENED__EXACT_EXECUTION_PENDING",
+  "observedAt": "2026-09-07T20:15:00Z",
+  "source": {
+    "baseIntegrationBranch": "omega/night-convergence-20260907",
+    "branch": "portable/backend-pr458",
+    "currentHeadAtCheckpoint": "8956d0239fcb6719a8e7d5d42f0adbb459d9d171"
+  },
+  "changes": [
+    "docker-compose.yml",
+    "portable-server.mjs",
+    "src/portable-paypal-bridge.mjs",
+    "scripts/provider-neutral-backend-doctor.mjs",
+    "tests/portable-paypal-bridge.test.mjs",
+    "tests/provider-neutral-backend-doctor.test.mjs",
+    "docs/PORTABLE_BACKEND_DEPLOYMENT.md"
+  ],
+  "currentSourceContracts": {
+    "canonicalAuthFacadeComposed": true,
+    "directServerCoreEntrypointForbidden": true,
+    "paypalRoutesBridged": true,
+    "paypalWebhookBodyBoundedBytes": 1048576,
+    "paypalEnvPassedToWebContainer": [
+      "PAYPAL_SANDBOX_CLIENT_ID",
+      "PAYPAL_SANDBOX_CLIENT_SECRET",
+      "PAYPAL_SANDBOX_WEBHOOK_ID"
+    ],
+    "longLivedRestartPolicy": "unless-stopped",
+    "webInit": true,
+    "workerInit": true,
+    "webStopGracePeriod": "15s",
+    "workerStopGracePeriod": "30s",
+    "serviceContractsFailClosedInDoctor": true
+  },
+  "historicalExecutedEvidence": {
+    "sourceHead": "6469c893d7ee0b0ed8d682839e4420edb1cb33bd",
+    "doctor": {
+      "status": "READY_FOR_HOST_REHEARSAL",
+      "focusedTestsPassed": 7,
+      "focusedTestsFailed": 0
+    },
+    "jsonBackendHttpHealth": {
+      "status": "PASS",
+      "httpStatus": 200,
+      "storeBackend": "json",
+      "processRole": "all",
+      "workerOnline": true,
+      "authority": "LOCAL_RUNTIME_ONLY"
+    },
+    "boundary": "THIS EVIDENCE PREDATES THE LATEST AUTH/PAYPAL/RESTART HARDENING AND CANNOT VERIFY CURRENT HEAD"
+  },
+  "currentHeadExecutionEvidence": "NONE",
+  "currentHeadTestsDeclaredButNotExecuted": [
+    "tests/portable-paypal-bridge.test.mjs",
+    "tests/provider-neutral-backend-doctor.test.mjs"
+  ],
+  "unmet": [
+    "Execute current exact head after canonical-auth composition and service-contract hardening",
+    "Real PostgreSQL migration and startup",
+    "Full worker startup against PostgreSQL",
+    "Durable scheduler/background execution on independent host",
+    "Secure secrets/config injection on independent host",
+    "PayPal end-to-end through portable runtime with real authorized provider evidence",
+    "Crash/restart recovery rehearsal",
+    "Complete backend restore -> cutover -> rollback rehearsal",
+    "Real deployment on independent authorized compute",
+    "No customer, cleared payment, accepted delivery, retention, provider callability or unattended-operation proof"
+  ],
+  "runnerBlockers": [
+    "GitHub hosted jobs repeatedly allocate zero steps",
+    "Vercel projects are at daily build cap",
+    "current local ChatGPT sandbox lacks outbound GitHub DNS"
+  ],
+  "businessEffectAuthority": "NONE",
+  "secretsCommitted": false
+}

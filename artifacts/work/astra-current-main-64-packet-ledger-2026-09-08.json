@@ -1,0 +1,127 @@
+{
+  "schemaVersion": "uberbond.work.astra-64-packet-ledger.v1",
+  "status": "CURRENT_MAIN_RECONCILIATION",
+  "sourceMain": "799107519beca7e1dd6d56013dd937ab99b780af",
+  "legacyControlPlaneDonor": "047e36c6eb0a27c3deabbba581c05e29ab597f3d",
+  "integrationLaw": "The old 64-packet graph remains a logical decomposition only. PR #458 and its branch are not integration targets. All new work starts from current main or a fresh current-main child.",
+  "currentChildren": {
+    "481": {"state":"OPEN_CURRENT_CHILD","purpose":"Deep Atlas growth-safe build unblocker","head":"607f92a37f6f76efa6ca49a0b88b790b665b0c2d"},
+    "482": {"state":"OPEN_CURRENT_CHILD","purpose":"cash artery: PayPal provider truth -> durable paid sprint -> QA delivery-ready","head":"836ddec05e1b8e90ce5515401ea854fa1bf40ea8"},
+    "483": {"state":"OPEN_CURRENT_CHILD","purpose":"constraint mutation and evidence-triggered self-maintenance","head":"2fef57240fc63173dca1a816568e524e03f1091d"}
+  },
+  "staleDonors": {
+    "461": "portable backend compose/auth/paypal bridge donor; rebase/transplant only after current-main comparison",
+    "462": "constraint-mutation donor superseded by fresh current-main PR #483",
+    "458": "historical integration donor only; never merge wholesale"
+  },
+  "stateDefinitions": {
+    "VERIFIED_CURRENT": "packet scope is represented on current main by merged source and repository evidence",
+    "VERIFIED_REUSE": "current main already contains the mechanism; use it rather than duplicate it; exact execution proof may be inherited where byte identity was previously established",
+    "OPEN_CURRENT_CHILD": "fresh child of current main owns the remaining delta",
+    "CURRENT_REUSE_NEEDS_EXACT_PROOF": "mechanism is present on current main but packet-specific exact-head execution/receipt is still worth producing",
+    "AUDIT_REQUIRED": "current main likely contains substantial machinery, but packet closure has not been proven and should be audited before building",
+    "BUILD_REQUIRED": "a concrete behavioral gap is visible and deserves a fresh current-main child if still highest value",
+    "STALE_DONOR_REBASE_REQUIRED": "useful code exists only on a stale donor; transplant minimum delta onto current main, never merge donor wholesale",
+    "EXTERNAL_EVIDENCE_REQUIRED": "software can prepare or test locally, but the packet terminal claim requires an authorized external substrate/reality event"
+  },
+  "theaters": {
+    "CASH": [
+      {"id":"CASH-01","name":"prospect-to-evidence reachability audit","state":"AUDIT_REQUIRED","next":"Map current prospect, evidence, and safeForOutreach paths before adding code."},
+      {"id":"CASH-02","name":"evidence-to-offer binding","state":"AUDIT_REQUIRED","next":"Audit current offer compiler and lead/customer/SKU binding; build only the missing binding."},
+      {"id":"CASH-03","name":"governed acquisition readiness","state":"AUDIT_REQUIRED","next":"Audit current outreach/governance readiness against canonical first-cash path."},
+      {"id":"CASH-04","name":"order creation truth","state":"OPEN_CURRENT_CHILD","ownerPr":482},
+      {"id":"CASH-05","name":"payment witness triad replay safety","state":"OPEN_CURRENT_CHILD","ownerPr":482},
+      {"id":"CASH-06","name":"paid sprint persistence","state":"OPEN_CURRENT_CHILD","ownerPr":482},
+      {"id":"CASH-07","name":"research job recovery","state":"OPEN_CURRENT_CHILD","ownerPr":482},
+      {"id":"CASH-08","name":"QA-to-delivery-ready persistence","state":"OPEN_CURRENT_CHILD","ownerPr":482}
+    ],
+    "DELIVERY": [
+      {"id":"DELIVERY-01","name":"delivery-ready artifact contract","state":"OPEN_CURRENT_CHILD","ownerPr":482,"evidence":"current main already has DELIVERY_READY state; #482 binds paid-sprint worker/QA persistence to it"},
+      {"id":"DELIVERY-02","name":"delivery transport abstraction","state":"AUDIT_REQUIRED","next":"Search current delivery/service-fulfillment transports before creating a new abstraction."},
+      {"id":"DELIVERY-03","name":"delivery idempotency","state":"AUDIT_REQUIRED","next":"Prove event/replay idempotency in current service-fulfillment and transport path."},
+      {"id":"DELIVERY-04","name":"delivery failure recovery","state":"AUDIT_REQUIRED","next":"Audit worker/job recovery and delivery retry semantics; distinguish transport retry from duplicate delivery."},
+      {"id":"DELIVERY-05","name":"acceptance evidence ingestion","state":"VERIFIED_REUSE","evidence":"src/lead-path-sprint-fulfillment.mjs requires customer-bound EXTERNAL_CUSTOMER evidence for acceptance/rejection"},
+      {"id":"DELIVERY-06","name":"rejection/revision loop","state":"BUILD_REQUIRED","evidence":"current lead-path sprint state machine makes CUSTOMER_REJECTED terminal; no revision transition is exposed"},
+      {"id":"DELIVERY-07","name":"silence/support-window handling","state":"BUILD_REQUIRED","evidence":"current lead-path sprint state machine makes CUSTOMER_SILENT terminal rather than entering an explicit support/closure policy"},
+      {"id":"DELIVERY-08","name":"retention-renewal handoff","state":"AUDIT_REQUIRED","next":"Compose payment-renewal truth and fulfillment completion; do not invent retained-customer evidence."}
+    ],
+    "DEPLOY": [
+      {"id":"DEPLOY-01","name":"portable auth facade proof","state":"STALE_DONOR_REBASE_REQUIRED","donorPr":461,"next":"Compare donor files against current main and transplant minimum portable auth/server delta."},
+      {"id":"DEPLOY-02","name":"Postgres startup rehearsal","state":"CURRENT_REUSE_NEEDS_EXACT_PROOF","evidence":"current main contains production Postgres config and separate-services smoke path"},
+      {"id":"DEPLOY-03","name":"worker startup against Postgres","state":"CURRENT_REUSE_NEEDS_EXACT_PROOF","evidence":"current main requires separate PROCESS_ROLE web/worker and contains shared-DATABASE_URL smoke path"},
+      {"id":"DEPLOY-04","name":"scheduler durability","state":"AUDIT_REQUIRED","next":"Prove crash/restart-safe scheduler state on current main rather than assuming cron existence equals durability."},
+      {"id":"DEPLOY-05","name":"PayPal route bridge portable runtime","state":"OPEN_CURRENT_CHILD","ownerPr":482,"donorPr":461,"next":"Prefer #482 current-main PayPal routes; use #461 only for portable-runtime glue absent from #482."},
+      {"id":"DEPLOY-06","name":"graceful shutdown restart proof","state":"AUDIT_REQUIRED","next":"Find process signal/shutdown semantics and add a proof only if current main lacks one."},
+      {"id":"DEPLOY-07","name":"restore-cutover-rollback rehearsal","state":"VERIFIED_REUSE","evidence":"current main contains supplier-exit drill with EXPORT -> RESTORE -> CUTOVER -> ROLLBACK and hostile tests; historical exact execution established local-state portability"},
+      {"id":"DEPLOY-08","name":"alternate authorized substrate discovery","state":"EXTERNAL_EVIDENCE_REQUIRED","next":"Software may rank eligible substrates; terminal proof requires an owned/authorized alternate substrate actually accepting/restoring/serving state."}
+    ],
+    "FORECAST": [
+      {"id":"FORECAST-01","state":"VERIFIED_CURRENT","source":"src/forecast-parent-organ.mjs"},
+      {"id":"FORECAST-02","state":"VERIFIED_CURRENT","source":"src/forecast-parent-organ.mjs"},
+      {"id":"FORECAST-03","state":"VERIFIED_CURRENT","source":"src/forecast-parent-organ.mjs"},
+      {"id":"FORECAST-04","state":"VERIFIED_CURRENT","source":"src/forecast-parent-organ.mjs"},
+      {"id":"FORECAST-05","state":"VERIFIED_CURRENT","source":"src/forecast-decision-boundary.mjs"},
+      {"id":"FORECAST-06","state":"VERIFIED_CURRENT","source":"src/forecast-decision-boundary.mjs"},
+      {"id":"FORECAST-07","state":"VERIFIED_CURRENT","source":"src/forecast-decision-boundary.mjs"},
+      {"id":"FORECAST-08","state":"VERIFIED_CURRENT","source":"src/forecast-adversarial-ensemble.mjs"}
+    ],
+    "GENESIS": [
+      {"id":"GENESIS-01","state":"VERIFIED_CURRENT","source":"src/genesis-mechanism-compiler.mjs"},
+      {"id":"GENESIS-02","state":"VERIFIED_CURRENT","source":"src/genesis-mechanism-compiler.mjs"},
+      {"id":"GENESIS-03","state":"VERIFIED_CURRENT","source":"src/genesis-mechanism-compiler.mjs"},
+      {"id":"GENESIS-04","state":"VERIFIED_CURRENT","source":"src/genesis-mechanism-compiler.mjs","scopeNote":"current recombination is pairwise; higher arity remains an extension, not hidden closure"},
+      {"id":"GENESIS-05","state":"VERIFIED_CURRENT","source":"src/genesis-boundary-experiment.mjs"},
+      {"id":"GENESIS-06","state":"VERIFIED_CURRENT","source":"src/genesis-boundary-experiment.mjs"},
+      {"id":"GENESIS-07","state":"VERIFIED_CURRENT","source":"src/genesis-boundary-experiment.mjs"},
+      {"id":"GENESIS-08","state":"VERIFIED_CURRENT","source":"src/genesis-boundary-experiment.mjs","scopeNote":"recurrence count is caller-supplied; durable surprise ledger remains a separate extension"}
+    ],
+    "PCE": [
+      {"id":"PCE-01","state":"VERIFIED_CURRENT","source":"src/personal-civilization-capture.mjs","scopeNote":"capture/consent is present; durable private persistence remains separate and must not move into the public repo"},
+      {"id":"PCE-02","state":"VERIFIED_CURRENT","source":"src/personal-civilization-model-graph.mjs"},
+      {"id":"PCE-03","state":"VERIFIED_CURRENT","source":"src/personal-civilization-model-graph.mjs"},
+      {"id":"PCE-04","state":"VERIFIED_CURRENT","source":"src/personal-civilization-possibility.mjs"},
+      {"id":"PCE-05","state":"VERIFIED_CURRENT","source":"src/personal-civilization-decision-loop.mjs"},
+      {"id":"PCE-06","state":"VERIFIED_CURRENT","source":"src/personal-civilization-possibility.mjs"},
+      {"id":"PCE-07","state":"VERIFIED_CURRENT","source":"src/personal-civilization-possibility.mjs"},
+      {"id":"PCE-08","state":"VERIFIED_CURRENT","source":"src/personal-civilization-decision-loop.mjs"}
+    ],
+    "SOVEREIGN": [
+      {"id":"SOV-01","name":"present-will veto audit","state":"VERIFIED_REUSE","evidence":"src/present-free-will.mjs plus sovereign enforcement manifest"},
+      {"id":"SOV-02","name":"preference provenance integration","state":"VERIFIED_REUSE","evidence":"src/living-self-model.mjs and tests/living-self-model.test.mjs"},
+      {"id":"SOV-03","name":"meta-volition integration","state":"VERIFIED_REUSE","evidence":"src/living-self-model.mjs and tests/living-self-model.test.mjs"},
+      {"id":"SOV-04","name":"cognitive opacity/right-not-to-know","state":"VERIFIED_REUSE","evidence":"src/memory-sovereignty.mjs plus src/personal-civilization-capture.mjs"},
+      {"id":"SOV-05","name":"memory sovereignty/export-delete","state":"VERIFIED_REUSE","evidence":"src/memory-sovereignty.mjs and private-life deletion/export composition"},
+      {"id":"SOV-06","name":"strategic reality/inter-sovereign boundary","state":"AUDIT_REQUIRED","next":"Map current inter-sovereign/strategic-reality module and consequence authority before claiming closure."},
+      {"id":"SOV-07","name":"ontological crisis contamination propagation","state":"VERIFIED_REUSE","evidence":"src/world-intelligence.mjs ontologicalCrisis plus tests/world-intelligence.test.mjs"},
+      {"id":"SOV-08","name":"epistemic immune/model ecology composition","state":"VERIFIED_REUSE","evidence":"src/epistemic-immune-system.mjs plus forecast adversarial ensemble and sovereign-control wiring"}
+    ],
+    "AUTONOMY": [
+      {"id":"AUTO-01","name":"constraint-mutation execution proof","state":"OPEN_CURRENT_CHILD","ownerPr":483},
+      {"id":"AUTO-02","name":"self-maintainer event-trigger proof","state":"OPEN_CURRENT_CHILD","ownerPr":483},
+      {"id":"AUTO-03","name":"continuation receipt persistence","state":"OPEN_CURRENT_CHILD","ownerPr":483},
+      {"id":"AUTO-04","name":"alternate-substrate routing","state":"AUDIT_REQUIRED","evidence":"current compute-sovereignty allocator routes authorized compute supply; deployment substrate routing still needs packet-specific proof"},
+      {"id":"AUTO-05","name":"capability-genome missing-skill build path","state":"VERIFIED_REUSE","evidence":"current capability assimilation skill/control-plane follows missing capability -> search reuse -> evaluate/build path"},
+      {"id":"AUTO-06","name":"provider failover/supplier-exit drill","state":"VERIFIED_REUSE","evidence":"src/supplier-exit-drill.mjs and tests/supplier-exit-drill.test.mjs; external alternate-provider service remains reality evidence"},
+      {"id":"AUTO-07","name":"self-deployment genome integration","state":"BUILD_REQUIRED","evidence":"Self-Deployment Genome is canonical and supplier-exit/compute-sovereignty primitives exist, but no current-main self-deploy runtime module was found in the current-main search"},
+      {"id":"AUTO-08","name":"founder-minute deletion audit","state":"VERIFIED_CURRENT","evidence":"current main already contains canonical first-cash founder command-center path; stale PR #467 was correctly closed rather than merged"}
+    ]
+  },
+  "astraPriorityQueue": [
+    "P0: inspect exact-head checks/diffs for #481, #482, #483 and merge only after source evidence is trustworthy",
+    "P0: if #481 clears the Vercel/Deep Atlas build blocker, follow the next causal failure instead of stopping at green local code",
+    "P0: reconcile #461 portable backend donor onto current main only if its portability delta is still absent after #482",
+    "P1: close DELIVERY-06 rejection/revision and DELIVERY-07 silence/support policy if audit confirms the visible terminal-state gaps",
+    "P1: implement AUTO-07 as a thin Self-Deployment Genome composer over Compute Sovereignty + supplier-exit + portable runtime, not a second deployment stack",
+    "P1: produce exact-current receipts for DEPLOY-02/03 and audit DEPLOY-04/06",
+    "P2: audit remaining CASH-01..03, DELIVERY-02..04/08, SOV-06, AUTO-04 before any new implementation"
+  ],
+  "truthBoundaries": [
+    "Commercial truth remains zero until external provider/customer/payment/acceptance evidence changes it.",
+    "Private founder-life data must not be persisted in the public repository.",
+    "Capability never creates authority.",
+    "No provider quota/access bypass, identity cycling, credential sharing, or paid commitment without authority.",
+    "Historical execution never certifies changed current source unless byte identity is explicitly established.",
+    "No progress is credited to unpushed local/cloud state."
+  ],
+  "businessEffectAuthority": "NONE"
+}

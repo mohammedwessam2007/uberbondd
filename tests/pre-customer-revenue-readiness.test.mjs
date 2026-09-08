@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compileFirstCashCanaryPacket, FIRST_CASH_QUESTIONS } from '../src/first-cash-canary-packet.mjs';
+import { compileFirstCashCanaryPacket, FIRST_CASH_QUESTIONS, FIRST_CASH_CANARY_PACKET_SCHEMA_VERSION } from '../src/first-cash-canary-packet.mjs';
 import { PAYMENT_RENEWAL_TRUTH_VERSION } from '../src/payment-renewal-truth.mjs';
 import { compilePreCustomerRevenueReadiness } from '../src/pre-customer-revenue-readiness.mjs';
 
@@ -9,6 +9,8 @@ const packet=compileFirstCashCanaryPacket({providers:[],date:new Date('2026-09-0
 test('readiness matrix covers every canonical first-cash question without moving commercial truth',()=>{
   const result=compilePreCustomerRevenueReadiness({firstCashPacket:packet});
   assert.equal(result.ok,true,JSON.stringify(result));
+  assert.equal(packet.schemaVersion,FIRST_CASH_CANARY_PACKET_SCHEMA_VERSION);
+  assert.equal(result.matrix.sourceSchemaVersion,FIRST_CASH_CANARY_PACKET_SCHEMA_VERSION);
   assert.equal(result.matrix.questions.length,FIRST_CASH_QUESTIONS.length);
   assert.deepEqual(result.matrix.commercialTruth,{realCustomers:0,clearedRevenueCents:0,acceptedPaidDeliveries:0,retainedCustomers:0});
   assert.equal(result.matrix.businessEffectAuthority,'NONE');
@@ -60,6 +62,13 @@ test('forged packet id or schema version fails closed',()=>{
   assert.equal(result.ok,false);
   assert.ok(result.reasonCodes.includes('canonical-first-cash-schema-version-required'));
   assert.ok(result.reasonCodes.includes('first-cash-packet-id-integrity-mismatch'));
+});
+
+test('historical 1.4 schema cannot masquerade as the current canonical packet',()=>{
+  const historical=structuredClone(packet); historical.schemaVersion='uberbond-first-cash-canary-packet-1.4.0';
+  const result=compilePreCustomerRevenueReadiness({firstCashPacket:historical});
+  assert.equal(result.ok,false);
+  assert.ok(result.reasonCodes.includes('canonical-first-cash-schema-version-required'));
 });
 
 test('matrix truth law keeps external activation visibly required today',()=>{

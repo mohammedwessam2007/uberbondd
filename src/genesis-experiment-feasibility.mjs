@@ -1,9 +1,23 @@
+import crypto from 'node:crypto';
+import { compileBoundedExperiment as compileCanonicalBoundedExperiment } from './bounded-experiment-compiler.mjs';
 import {
-  compileBoundedExperiment,
-  REVERSIBILITY_CLASSES
+  REVERSIBILITY_CLASSES,
+  BLAST_RADII
 } from './genesis-boundary-experiment.mjs';
 
-export const GENESIS_EXPERIMENT_FEASIBILITY_VERSION = 'uberbond.genesis-experiment-feasibility.v1.2';
+export const GENESIS_EXPERIMENT_FEASIBILITY_VERSION = 'uberbond.genesis-experiment-feasibility.v2';
+export const GENESIS_EXPERIMENT_POLICY_CORE = 'uberbond.bounded-experiment-compiler.v1';
+
+const ZERO_EFFECTS = Object.freeze({
+  customerMessages: 0,
+  providerCalls: 0,
+  spendCents: 0,
+  deployments: 0,
+  dnsChanges: 0,
+  credentialChanges: 0,
+  paymentMutations: 0,
+  productionMutations: 0
+});
 
 const text = (value, max = 4000) => {
   const out = String(value ?? '').trim();
@@ -16,12 +30,14 @@ const count = (value, max) => {
 };
 
 const canonical = value => String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+const digest = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex').slice(0, 20);
 
 const fail = (reasonCodes, extra = {}) => ({
   ok: false,
   status: 'EXPERIMENT_FEASIBILITY_INVALID',
   reasonCodes: [...new Set(reasonCodes.filter(Boolean))],
   businessEffectAuthority: 'NONE',
+  externalEffectLedger: { ...ZERO_EFFECTS },
   ...extra
 });
 
@@ -67,34 +83,79 @@ function normalizeProbe(raw, defaults) {
   };
 }
 
-function validateEffects(effects = {}) {
+function normalizeEffects(effects = {}) {
   if (!effects || typeof effects !== 'object' || Array.isArray(effects)) {
     return fail(['effects-object-required']);
   }
+  const normalized = {
+    spendCents: 0,
+    providerCalls: 0,
+    customerContact: false,
+    deployment: false,
+    credentialChange: false,
+    dnsChange: false,
+    productionMutation: false
+  };
   for (const [field, max] of [['spendCents', 1e12], ['providerCalls', 1e9]]) {
     if (effects[field] === undefined || effects[field] === null) continue;
-    if (count(effects[field], max) === null) return fail([`${field}-must-be-a-non-negative-safe-integer`]);
+    const value = count(effects[field], max);
+    if (value === null) return fail([`${field}-must-be-a-non-negative-safe-integer`]);
+    normalized[field] = value;
   }
-  for (const field of [
-    'customerContact', 'deployment', 'credentialChange', 'dnsChange', 'productionMutation'
-  ]) {
+  for (const field of ['customerContact', 'deployment', 'credentialChange', 'dnsChange', 'productionMutation']) {
     if (effects[field] === undefined || effects[field] === null) continue;
     if (typeof effects[field] !== 'boolean') return fail([`${field}-must-be-boolean`]);
+    normalized[field] = effects[field];
   }
-  return { ok: true };
+  return { ok: true, effects: normalized };
+}
+
+function authorityFor(effects, reversibility, blastRadius) {
+  const scopes = [];
+  if (effects.spendCents > 0) scopes.push('SPEND');
+  if (effects.customerContact) scopes.push('CUSTOMER_CONTACT');
+  if (effects.providerCalls > 0) scopes.push('PROVIDER_CALL');
+  if (effects.deployment) scopes.push('DEPLOYMENT');
+  if (effects.credentialChange) scopes.push('CREDENTIAL_CHANGE');
+  if (effects.dnsChange) scopes.push('DNS_CHANGE');
+  if (effects.productionMutation) scopes.push('PRODUCTION_MUTATION');
+  if (reversibility !== 'REVERSIBLE') scopes.push('IRREVERSIBLE_ACTION');
+  if (blastRadius !== 'LOCAL_ONLY' && blastRadius !== 'REPOSITORY') scopes.push('BLAST_RADIUS_BEYOND_LOCAL');
+  return [...new Set(scopes)];
+}
+
+function chooseSmallestProbe(feasible) {
+  return [...feasible].sort((a, b) => (
+    (a.reversibility === 'REVERSIBLE' ? 0 : 1) - (b.reversibility === 'REVERSIBLE' ? 0 : 1)
+    || a.costCents - b.costCents
+    || a.timeMinutes - b.timeMinutes
+    || a.description.localeCompare(b.description)
+  ))[0];
 }
 
 /**
- * Hardened feasibility adapter over the mature GENESIS boundary compiler.
+ * GENESIS-specific adapter over the single canonical bounded-experiment policy.
  *
- * The mature core remains authority for reversibility, blast radius and effect
- * scopes. This adapter makes feasibility inspectable before core compilation:
- * an actual probe is required; cost/time must fit; a probe needs a measure,
- * decision rule and distinct competing outcomes; malformed effect fields and
- * reversibility typos fail closed. A caller-written `discriminating: true`
- * flag carries no evidence by itself.
+ * Canonical core ownership:
+ * - rival-hypothesis discrimination;
+ * - budget and time bounds;
+ * - probe reversibility;
+ * - generic Intent Compiler permission boundary.
+ *
+ * GENESIS ownership here is intentionally narrower:
+ * - measure / decision-rule evidence required before a probe counts as structurally discriminating;
+ * - legacy blast-radius and effect-scope classification is retained as a STRICTER NON-GRANTING boundary;
+ * - GENESIS never turns that classification into authority or execution.
+ *
+ * `genesis-boundary-experiment.mjs` still owns possibility/ontology/surprise semantics,
+ * but its legacy experiment compiler is no longer the production feasibility policy path.
  */
 export function compileFeasibleBoundedExperiment(input = {}) {
+  const hypothesis = text(input?.hypothesis, 4000);
+  const falsifier = text(input?.falsifier, 4000);
+  if (!hypothesis) return fail(['hypothesis-required']);
+  if (!falsifier) return fail(['falsifier-required']);
+
   const probes = input?.probes;
   if (!Array.isArray(probes) || probes.length === 0 || probes.length > 256) {
     return fail(['at-least-one-bounded-probe-required'], {
@@ -115,7 +176,14 @@ export function compileFeasibleBoundedExperiment(input = {}) {
     return fail(['recognized-reversibility-class-required']);
   }
 
-  const effectCheck = validateEffects(input?.effects ?? {});
+  const blastRadius = input?.blastRadius === undefined || input?.blastRadius === null
+    ? 'LOCAL_ONLY'
+    : String(input.blastRadius);
+  if (!BLAST_RADII.includes(blastRadius)) {
+    return fail(['recognized-blast-radius-required']);
+  }
+
+  const effectCheck = normalizeEffects(input?.effects ?? {});
   if (!effectCheck.ok) return effectCheck;
 
   const normalized = [];
@@ -156,29 +224,8 @@ export function compileFeasibleBoundedExperiment(input = {}) {
     });
   }
 
-  const core = compileBoundedExperiment({
-    ...input,
-    reversibility,
-    costCeilingCents: costCeiling,
-    timeCeilingMinutes: timeCeiling,
-    probes: feasible.map(probe => ({
-      description: probe.description,
-      costCents: probe.costCents,
-      timeMinutes: probe.timeMinutes,
-      reversibility: probe.reversibility,
-      discriminating: true
-    }))
-  });
-  if (!core?.ok) return { ...core, feasibilityAdapter: GENESIS_EXPERIMENT_FEASIBILITY_VERSION };
-
-  const selected = feasible.find(probe =>
-    probe.description === core.probe?.description
-    && probe.costCents === core.probe?.costCents
-    && probe.timeMinutes === core.probe?.timeMinutes
-  );
-  if (!selected) return fail(['core-selected-probe-could-not-be-bound-to-feasibility-evidence']);
-
-  const declaredSpend = count(input?.effects?.spendCents ?? 0, 1e12) ?? 0;
+  const selected = chooseSmallestProbe(feasible);
+  const declaredSpend = effectCheck.effects.spendCents;
   if (selected.costCents < declaredSpend) {
     return fail(['selected-probe-cost-understates-declared-spend'], {
       selectedProbeCostCents: selected.costCents,
@@ -186,17 +233,76 @@ export function compileFeasibleBoundedExperiment(input = {}) {
     });
   }
 
-  return {
-    ...core,
-    status: core.runnable ? 'FEASIBLE_EXPERIMENT_COMPILED' : 'FEASIBLE_EXPERIMENT_REQUIRES_EXPLICIT_AUTHORITY',
+  const requiredAuthority = authorityFor(effectCheck.effects, selected.reversibility, blastRadius);
+  const canonicalCore = compileCanonicalBoundedExperiment({
+    mission: input?.mission || hypothesis,
+    hypotheses: [
+      { id: 'HYPOTHESIS_SUPPORTED', predictedObservations: [selected.supportsHypothesis] },
+      { id: 'HYPOTHESIS_FALSIFIED', predictedObservations: [selected.falsifiesHypothesis] }
+    ],
     probe: {
-      ...core.probe,
+      description: selected.description,
+      costCents: selected.costCents,
+      timeMinutes: selected.timeMinutes,
+      reversibility: selected.reversibility,
+      effects: [],
+      declaredEffectCount: 0
+    },
+    budget: {
+      maxCostCents: Math.min(costCeiling, 1_000_000_000),
+      maxTimeMinutes: Math.min(timeCeiling, 60 * 24 * 365),
+      maxDeclaredEffects: 0
+    },
+    capabilities: selected.costCents > 0 ? ['genesis-bounded-probe'] : [],
+    resources: selected.costCents > 0 ? ['declared-bounded-resources'] : [],
+    authority: input?.authority ?? null
+  });
+
+  const canonicalAuthorityStop = canonicalCore?.status === 'EXPERIMENT_AUTHORITY_REQUIRED';
+  if (!canonicalCore?.ok && !canonicalAuthorityStop) {
+    return fail(canonicalCore?.reasonCodes || ['canonical-bounded-experiment-core-refused'], {
+      canonicalBoundedExperiment: canonicalCore,
+      policyCore: GENESIS_EXPERIMENT_POLICY_CORE
+    });
+  }
+
+  const genericEffectBoundary = canonicalAuthorityStop
+    || canonicalCore?.status === 'BOUNDED_EXPERIMENT_FEASIBLE__SEPARATE_EXECUTOR_REQUIRED';
+  const runnable = requiredAuthority.length === 0
+    && !genericEffectBoundary
+    && canonicalCore?.status === 'BOUNDED_ZERO_EFFECT_EXPERIMENT_FEASIBLE';
+
+  return {
+    ok: true,
+    status: runnable ? 'FEASIBLE_EXPERIMENT_COMPILED' : 'FEASIBLE_EXPERIMENT_REQUIRES_EXPLICIT_AUTHORITY',
+    experimentId: `exp_genesis_${digest({ hypothesis, falsifier, selected, blastRadius })}`,
+    hypothesis,
+    falsifier,
+    probe: {
+      description: selected.description,
+      costCents: selected.costCents,
+      timeMinutes: selected.timeMinutes,
+      reversibility: selected.reversibility,
+      declaredEffectCount: 0,
+      effects: [],
       measure: selected.measure,
       decisionRule: selected.decisionRule,
       supportsHypothesis: selected.supportsHypothesis,
       falsifiesHypothesis: selected.falsifiesHypothesis,
       structuralDiscrimination: selected.structuralDiscrimination
     },
+    discardedProbes,
+    costCeilingCents: costCeiling,
+    timeCeilingMinutes: timeCeiling,
+    reversibility: selected.reversibility,
+    blastRadius,
+    declaredEffects: effectCheck.effects,
+    requiredAuthority,
+    runnable,
+    canonicalBoundedExperiment: canonicalCore,
+    policyCore: GENESIS_EXPERIMENT_POLICY_CORE,
+    policyComposition: 'GENERIC_BOUNDED_EXPERIMENT_CORE__GENESIS_MEASURE_EVIDENCE_AND_NON_GRANTING_BLAST_RADIUS_CLASSIFICATION',
+    authorityRule: 'CAPABILITY_NEVER_CREATES_AUTHORITY__GENESIS_EFFECT_CLASSIFICATION_CAN_ONLY_ADD_BLOCKERS',
     feasibility: {
       adapterVersion: GENESIS_EXPERIMENT_FEASIBILITY_VERSION,
       costFits: selected.costCents <= costCeiling,
@@ -208,7 +314,8 @@ export function compileFeasibleBoundedExperiment(input = {}) {
       empiricallyValidatedDiscrimination: false,
       discardedProbes
     },
-    truthBoundary: 'STRUCTURAL_DISCRIMINATION_AND_BUDGET_FIT_DO_NOT_PROVE_THE_EXPERIMENT_WILL_BE_INFORMATIVE_IN_REALITY.',
-    businessEffectAuthority: 'NONE'
+    truthBoundary: 'STRUCTURAL_DISCRIMINATION_AND_BUDGET_FIT_DO_NOT_PROVE_THE_EXPERIMENT_WILL_BE_INFORMATIVE_IN_REALITY. EFFECT_CLASSIFICATION_NEVER_GRANTS_AUTHORITY.',
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EFFECTS }
   };
 }

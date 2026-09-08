@@ -1,21 +1,22 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const SOVEREIGN_ROOT_RECOVERY_VERSION = 'uberbond.sovereign-root-recovery.v1';
+export const SOVEREIGN_ROOT_RECOVERY_VERSION = 'uberbond.sovereign-root-recovery.v1.1';
 
 const FACTOR_TYPES = Object.freeze([
   'HARDWARE_KEY',
   'OFFLINE_RECOVERY_CODE',
   'OWNER_HELD_SIGNING_KEY',
   'INDEPENDENT_ACCOUNT_ATTESTATION',
+  'OWNER_LIVENESS_ATTESTATION',
   'TRUSTED_HUMAN_ATTESTATION'
 ]);
+const IDENTITY_BOUND_FACTORS = new Set(['OWNER_LIVENESS_ATTESTATION', 'TRUSTED_HUMAN_ATTESTATION']);
 
 const text = (value, max = 500) => {
   const out = String(value ?? '').trim();
   return out && out.length <= max ? out : null;
 };
-const uniq = values => [...new Set((Array.isArray(values) ? values : []).map(v => text(v, 500)).filter(Boolean))];
 const stable = value => Array.isArray(value)
   ? value.map(stable)
   : value && typeof value === 'object'
@@ -68,15 +69,18 @@ export function compileSovereignRecoveryCharter(input = {}) {
     if (!factor.evidenceRef) reasons.push(`factor-evidence-reference-required:${factor.factorId || 'unknown'}`);
     if (factor.secretMaterialIncluded) reasons.push(`secret-material-must-not-enter-recovery-charter:${factor.factorId || 'unknown'}`);
     if (factor.revoked) reasons.push(`revoked-factor-cannot-enter-active-charter:${factor.factorId || 'unknown'}`);
-    if (!factor.ownerControlled && factor.factorType !== 'TRUSTED_HUMAN_ATTESTATION') reasons.push(`recovery-factor-must-be-owner-controlled:${factor.factorId || 'unknown'}`);
+    if (!factor.ownerControlled && !IDENTITY_BOUND_FACTORS.has(factor.factorType)) reasons.push(`recovery-factor-must-be-owner-controlled:${factor.factorId || 'unknown'}`);
     if (factor.factorType === 'TRUSTED_HUMAN_ATTESTATION' && !factor.thirdPartyConsentRef) reasons.push(`trusted-human-factor-requires-consent-reference:${factor.factorId || 'unknown'}`);
   }
 
   const custodyDomains = new Set(factors.map(row => row.custodyDomain).filter(Boolean));
   const providerDomains = new Set(factors.map(row => row.providerDomain).filter(Boolean));
+  const factorTypes = new Set(factors.map(row => row.factorType).filter(Boolean));
   if (Number.isSafeInteger(minFactors) && custodyDomains.size < minFactors) reasons.push('threshold-factors-must-span-independent-custody-domains');
   if (Number.isSafeInteger(minFactors) && providerDomains.size < Math.min(minFactors, 2)) reasons.push('recovery-cannot-depend-on-one-provider-domain');
   if (Number.isSafeInteger(minFactors) && minFactors > factors.length) reasons.push('recovery-threshold-exceeds-factor-count');
+  if (factorTypes.size < 2) reasons.push('recovery-requires-factor-type-diversity');
+  if (!factors.some(row => IDENTITY_BOUND_FACTORS.has(row.factorType))) reasons.push('identity-bound-recovery-factor-required');
 
   const charter = {
     version: SOVEREIGN_ROOT_RECOVERY_VERSION,
@@ -106,10 +110,13 @@ function normalizeObservation(raw = {}) {
   return {
     factorId: text(raw.factorId, 200),
     evidenceRef: text(raw.evidenceRef, 500),
+    factorStateRef: text(raw.factorStateRef, 500),
     verifierId: text(raw.verifierId, 200),
     observedAt: text(raw.observedAt, 80),
     charterDigest: text(raw.charterDigest, 100)?.toLowerCase() || null,
     passed: raw.passed === true,
+    factorStillActive: raw.factorStillActive === true,
+    identityMatch: raw.identityMatch === true,
     secretMaterialPersisted: raw.secretMaterialPersisted === true
   };
 }
@@ -137,7 +144,9 @@ export function admitSovereignRecovery({
   const seenFactors = new Set();
   const seenVerifiers = new Set();
   const observedCustody = new Set();
+  const observedTypes = new Set();
   const valid = [];
+  let identityBoundProof = false;
 
   for (const raw of Array.isArray(observations) ? observations : []) {
     const row = normalizeObservation(raw);
@@ -146,20 +155,26 @@ export function admitSovereignRecovery({
     if (seenFactors.has(row.factorId)) { reasons.push(`duplicate-recovery-factor-observation:${row.factorId}`); continue; }
     seenFactors.add(row.factorId);
     if (!row.passed) { reasons.push(`recovery-factor-did-not-pass:${row.factorId}`); continue; }
-    if (!row.evidenceRef || !row.verifierId) { reasons.push(`recovery-factor-evidence-and-verifier-required:${row.factorId}`); continue; }
+    if (!row.evidenceRef || !row.verifierId || !row.factorStateRef) { reasons.push(`recovery-factor-evidence-state-and-verifier-required:${row.factorId}`); continue; }
+    if (!row.factorStillActive) { reasons.push(`recovery-factor-no-longer-active:${row.factorId}`); continue; }
     if (row.charterDigest !== charterResult.charterDigest) { reasons.push(`recovery-factor-charter-binding-mismatch:${row.factorId}`); continue; }
     if (row.secretMaterialPersisted) { reasons.push(`recovery-verification-must-not-persist-secret-material:${row.factorId}`); continue; }
+    if (IDENTITY_BOUND_FACTORS.has(factor.factorType) && !row.identityMatch) { reasons.push(`identity-bound-factor-did-not-match-sovereign:${row.factorId}`); continue; }
     const observedMs = new Date(row.observedAt || '').getTime();
     const ageMinutes = Number.isFinite(observedMs) && Number.isFinite(nowMs) ? (nowMs - observedMs) / 60000 : Number.POSITIVE_INFINITY;
     if (ageMinutes < 0 || ageMinutes > limit) { reasons.push(`recovery-factor-observation-stale:${row.factorId}`); continue; }
     if (seenVerifiers.has(row.verifierId)) { reasons.push('threshold-recovery-requires-independent-verifiers'); continue; }
     seenVerifiers.add(row.verifierId);
     observedCustody.add(factor.custodyDomain);
+    observedTypes.add(factor.factorType);
+    if (IDENTITY_BOUND_FACTORS.has(factor.factorType)) identityBoundProof = true;
     valid.push(row);
   }
 
   if (valid.length < charter.minFactors) reasons.push('recovery-threshold-not-met');
   if (observedCustody.size < charter.minFactors) reasons.push('recovery-threshold-must-span-independent-custody-domains');
+  if (observedTypes.size < 2) reasons.push('recovery-threshold-must-use-diverse-factor-types');
+  if (!identityBoundProof) reasons.push('fresh-identity-bound-recovery-proof-required');
   if (reasons.length) return fail('SOVEREIGN_RECOVERY_REFUSED', reasons, { validFactorCount: valid.length });
 
   const receipt = {
@@ -168,6 +183,7 @@ export function admitSovereignRecovery({
     authorityEpoch: charter.authorityEpoch,
     charterDigest: charterResult.charterDigest,
     factorIds: valid.map(row => row.factorId).sort(),
+    factorTypes: [...observedTypes].sort(),
     verifierIds: valid.map(row => row.verifierId).sort(),
     admittedAt: new Date(nowMs).toISOString(),
     nextGate: 'SEPARATE_CREDENTIAL_ROTATION_AND_ACCOUNT_RECOVERY_AUTHORITY',
@@ -182,6 +198,6 @@ export function admitSovereignRecovery({
     receiptDigest: digest(receipt),
     businessEffectAuthority: 'NONE',
     externalEffectLedger: zero(),
-    truthBoundary: 'Threshold identity recovery restores eligibility to recover the SAME sovereign identity. It does not rotate credentials, log into providers, decrypt private state, appoint a successor, alter posthumous disposition, spend, deploy or create any other external effect.'
+    truthBoundary: 'Threshold identity recovery restores eligibility to recover the SAME sovereign identity after fresh diverse-factor and identity-bound proof. It does not rotate credentials, log into providers, decrypt private state, appoint a successor, alter posthumous disposition, spend, deploy or create any other external effect.'
   };
 }

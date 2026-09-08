@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "uberbond-night-swarm-receipt-1.0.0",
+  "agent": "WORK",
+  "packet": "DEPLOY-03",
+  "status": "PASS_REUSED_EXECUTED_IDENTICAL_SOURCE",
+  "currentMain": "799107519beca7e1dd6d56013dd937ab99b780af",
+  "mechanism": "scripts/separate-services-smoke.mjs",
+  "currentBlobSha": "e6331c3c3ffb5067211cf823663c931cc6f80f13",
+  "executedDonor": {
+    "pr": 450,
+    "head": "31e3f2561ebf31138132e8b9384742f10ecf2248",
+    "blobSha": "e6331c3c3ffb5067211cf823663c931cc6f80f13"
+  },
+  "behaviorProvedByMechanism": [
+    "start embedded PostgreSQL",
+    "start the web process and separate worker process",
+    "give both processes the same DATABASE_URL",
+    "wait for HTTP health",
+    "submit/observe durable queued work",
+    "wait for queued job terminal state",
+    "require worker health to be online or explicitly degraded",
+    "terminate web and worker processes in cleanup",
+    "stop PostgreSQL in cleanup"
+  ],
+  "executedEvidence": {
+    "deterministic": "4144 tests; 4089 pass; 0 fail; 54 skipped",
+    "mutationWar": "231/231 killed",
+    "realPostgres": "24 suites",
+    "relaySafety": "150/150",
+    "browser": "1/1"
+  },
+  "businessEffectAuthority": "NONE",
+  "truthBoundary": "Exact current source is byte-identical to source that actually executed on PR #450. This certifies a separate API/worker process rehearsal sharing real PostgreSQL, not durable operation on an external cloud host."
+}

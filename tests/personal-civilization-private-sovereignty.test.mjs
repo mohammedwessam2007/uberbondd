@@ -5,13 +5,19 @@ import os from 'node:os';
 import path from 'node:path';
 
 import { runPrivateCommand } from '../src/personal-civilization-private-operator.mjs';
+import { decryptJson } from '../src/crypto.mjs';
 
 const OWNER = { subject: 'FOUNDER', grant: 'PRIVATE_LIFE_STATE', issuedAt: '2026-09-08T18:10:00.000Z' };
 const REPO = path.resolve(process.cwd());
+const KEY = '22'.repeat(32);
 
 function fixture() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'uberbond-private-sovereignty-'));
   return { dir, file: path.join(dir, 'life-state.json'), exportFile: path.join(dir, 'complete-export.json') };
+}
+function opened(file) {
+  const envelope = JSON.parse(fs.readFileSync(file, 'utf8'));
+  return decryptJson({ iv: envelope.iv, tag: envelope.tag, data: envelope.data }, KEY);
 }
 
 test('a thought cannot become a commitment without new founder-stated words', () => {
@@ -20,6 +26,7 @@ test('a thought cannot become a commitment without new founder-stated words', ()
     const capture = runPrivateCommand({
       filePath: tmp.file,
       repoRoot: REPO,
+      privateKey: KEY,
       authorization: OWNER,
       command: { action: 'capture', utterance: 'I keep thinking about building a clinic', willEventType: 'CURIOSITY' },
       now: new Date('2026-09-08T18:10:00.000Z')
@@ -29,6 +36,7 @@ test('a thought cannot become a commitment without new founder-stated words', ()
     const refused = runPrivateCommand({
       filePath: tmp.file,
       repoRoot: REPO,
+      privateKey: KEY,
       authorization: OWNER,
       command: { action: 'promote', captureId: capture.record.id, target: 'COMMITMENT', commitmentBody: '' },
       now: new Date('2026-09-08T18:11:00.000Z')
@@ -39,6 +47,7 @@ test('a thought cannot become a commitment without new founder-stated words', ()
     const promoted = runPrivateCommand({
       filePath: tmp.file,
       repoRoot: REPO,
+      privateKey: KEY,
       authorization: OWNER,
       command: {
         action: 'promote',
@@ -58,19 +67,22 @@ test('a thought cannot become a commitment without new founder-stated words', ()
   } finally { fs.rmSync(tmp.dir, { recursive: true, force: true }); }
 });
 
-test('private export contains derived hypothesis state as well as raw records', () => {
+test('private export contains derived hypothesis state as well as raw records, but only inside ciphertext', () => {
   const tmp = fixture();
   try {
+    const sourceText = 'I felt energized after explaining a difficult idea';
     const capture = runPrivateCommand({
       filePath: tmp.file,
       repoRoot: REPO,
+      privateKey: KEY,
       authorization: OWNER,
-      command: { action: 'capture', utterance: 'I felt energized after explaining a difficult idea', willEventType: 'RAW_THOUGHT' },
+      command: { action: 'capture', utterance: sourceText, willEventType: 'RAW_THOUGHT' },
       now: new Date('2026-09-08T18:10:00.000Z')
     });
     const hypothesis = runPrivateCommand({
       filePath: tmp.file,
       repoRoot: REPO,
+      privateKey: KEY,
       authorization: OWNER,
       command: {
         action: 'hypothesis',
@@ -87,6 +99,7 @@ test('private export contains derived hypothesis state as well as raw records', 
     const exported = runPrivateCommand({
       filePath: tmp.file,
       repoRoot: REPO,
+      privateKey: KEY,
       authorization: OWNER,
       command: { action: 'export', destination: tmp.exportFile },
       now: new Date('2026-09-08T18:12:00.000Z')
@@ -95,9 +108,11 @@ test('private export contains derived hypothesis state as well as raw records', 
     assert.equal(exported.hypothesisCount, 1);
     assert.equal(typeof exported.stateDigest, 'string');
     assert.equal(exported.stateDigest.length, 64);
-    const body = JSON.parse(fs.readFileSync(tmp.exportFile, 'utf8'));
-    assert.equal(body.records.length, 2, 'source and derived model records must both export');
-    assert.equal(body.hypotheses.length, 1, 'hypothesis metadata must not be stranded behind the export boundary');
-    assert.equal(body.completeness.completePrivateOperatorState, true);
+    assert.equal(fs.readFileSync(tmp.exportFile, 'utf8').includes(sourceText), false);
+    const body = opened(tmp.exportFile);
+    assert.equal(body.purpose, 'PRIVATE_LIFE_EXPORT');
+    assert.equal(body.value.records.length, 2, 'source and derived model records must both export');
+    assert.equal(body.value.hypotheses.length, 1, 'hypothesis metadata must not be stranded behind the export boundary');
+    assert.equal(body.value.completeness.completePrivateOperatorState, true);
   } finally { fs.rmSync(tmp.dir, { recursive: true, force: true }); }
 });

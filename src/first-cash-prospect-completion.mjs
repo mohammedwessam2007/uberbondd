@@ -3,7 +3,7 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { advanceLeadPathSprint, LEAD_PATH_SPRINT_SKU } from './lead-path-sprint-fulfillment.mjs';
 
-export const FIRST_CASH_PROSPECT_COMPLETION_VERSION = 'uberbond.first-cash-prospect-completion.v1.0.0';
+export const FIRST_CASH_PROSPECT_COMPLETION_VERSION = 'uberbond.first-cash-prospect-completion.v1.0.1';
 
 const effects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
 const text = (value, max = 500) => String(value ?? '').trim().slice(0, max);
@@ -77,6 +77,9 @@ async function notifyOnce(store, { type, leadId, prospectId, title, detail }) {
  * Generic/public-audit prospects keep the existing RevenueEngine path.
  * Paid first-cash prospects never enter generic auto-report delivery: their
  * persisted sprint is advanced through work-complete and deterministic QA only.
+ * A QA_REQUIRED state is intentionally re-enterable so newly persisted research
+ * evidence can be checked again after an earlier QA miss without replaying work
+ * transitions or falling through to generic delivery.
  * The terminal internal state is DELIVERY_READY. DELIVERED and
  * CUSTOMER_ACCEPTED remain separate boundaries and CUSTOMER_ACCEPTED still
  * requires customer-bound external evidence in lead-path-sprint-fulfillment.
@@ -122,14 +125,18 @@ export async function routeProspectCompletion({ store, revenue, prospect, date =
       truthBoundary: 'DELIVERY_READY_IS_NOT_DELIVERED_OR_CUSTOMER_ACCEPTED'
     };
   }
-  if (state.status !== 'INPUT_READY') return blocked([`unexpected-paid-sprint-state:${text(state.status, 80)}`]);
+  if (!['INPUT_READY', 'QA_REQUIRED'].includes(state.status)) {
+    return blocked([`unexpected-paid-sprint-state:${text(state.status, 80)}`]);
+  }
 
   const at = iso(date);
   let current = state;
-  for (const target of ['ANALYSIS_RUNNING', 'QA_REQUIRED']) {
-    const moved = advanceLeadPathSprint({ state: current, to: target, at });
-    if (!moved?.ok || !moved?.state) return blocked([`paid-sprint-transition-failed:${target}`, ...(moved?.reasonCodes || [])]);
-    current = moved.state;
+  if (current.status === 'INPUT_READY') {
+    for (const target of ['ANALYSIS_RUNNING', 'QA_REQUIRED']) {
+      const moved = advanceLeadPathSprint({ state: current, to: target, at });
+      if (!moved?.ok || !moved?.state) return blocked([`paid-sprint-transition-failed:${target}`, ...(moved?.reasonCodes || [])]);
+      current = moved.state;
+    }
   }
 
   const qa = qaEvidence(prospect);
@@ -198,6 +205,7 @@ export async function routeProspectCompletion({ store, revenue, prospect, date =
     firstCashFulfillment: current,
     paidSprintDeliveryStatus: 'DELIVERY_READY',
     paidSprintQaDigest: qa.qaDigest,
+    paidSprintQaReasonCodes: [],
     paidSprintQaCheckedAt: at,
     paidSprintArtifactRefs: artifactRefs,
     paidSprintDeliveryReadyAt: at

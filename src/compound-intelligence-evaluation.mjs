@@ -71,7 +71,8 @@ function normalizeBaseline(input = {}) {
   const selectedBaselineId = text(input.selectedBaselineId, 200);
   const selectedRevision = text(input.selectedRevision, 300);
   const selectionEvidenceRef = text(input.selectionEvidenceRef, 500);
-  if (!selectedBaselineId || !selectedRevision || !selectionEvidenceRef || input.frozenBeforeEvaluation !== true) return null;
+  const selectionOwner = text(input.selectionOwner, 80)?.toUpperCase();
+  if (!selectedBaselineId || !selectedRevision || !selectionEvidenceRef || selectionOwner !== 'EVALUATOR_PREDECLARED' || input.frozenBeforeEvaluation !== true) return null;
   const alternatives = [];
   for (const raw of Array.isArray(input.alternatives) ? input.alternatives : []) {
     const id = text(raw?.id, 200);
@@ -89,7 +90,7 @@ function normalizeBaseline(input = {}) {
     });
   }
   if (!alternatives.length || new Set(alternatives.map(row => `${row.id}@${row.revision}`)).size !== alternatives.length) return null;
-  return { selectedBaselineId, selectedRevision, selectionEvidenceRef, alternatives };
+  return { selectedBaselineId, selectedRevision, selectionEvidenceRef, selectionOwner, alternatives };
 }
 
 function normalizeArm(input = {}) {
@@ -107,8 +108,10 @@ function normalizeArm(input = {}) {
 function normalizeRevocationSnapshot(input = {}) {
   const snapshotRef = text(input.snapshotRef, 500);
   const verifiedAt = text(input.verifiedAt, 100);
+  const verifierId = text(input.verifierId, 200);
+  const verifierLineageRef = text(input.verifierLineageRef, 500);
   const timestamp = verifiedAt ? Date.parse(verifiedAt) : NaN;
-  if (!snapshotRef || !Number.isFinite(timestamp)) return null;
+  if (!snapshotRef || !verifierId || !verifierLineageRef || !Number.isFinite(timestamp)) return null;
   const components = [];
   for (const raw of Array.isArray(input.components) ? input.components : []) {
     const componentId = text(raw?.componentId, 200);
@@ -118,7 +121,7 @@ function normalizeRevocationSnapshot(input = {}) {
     components.push({ componentId, revision, evidenceRef, revoked: raw?.revoked === true });
   }
   if (!components.length) return null;
-  return { snapshotRef, verifiedAt: new Date(timestamp).toISOString(), components };
+  return { snapshotRef, verifiedAt: new Date(timestamp).toISOString(), verifierId, verifierLineageRef, components };
 }
 
 /**
@@ -129,7 +132,8 @@ function normalizeRevocationSnapshot(input = {}) {
  * to one exact composition and adds the missing system-level anti-gaming laws:
  * exact component identity, lineage-aware vote counting, strongest accessible
  * predeclared baseline, matched wall-time/cost/human-assistance budgets,
- * uncertainty intervals, revocation freshness and explicit abstention.
+ * uncertainty intervals, fresh independently verified revocation state and
+ * explicit abstention.
  *
  * A pass is evidence for this declared task population only. It never promotes
  * the composition, grants effects, or establishes AGI/ASI.
@@ -149,6 +153,8 @@ export function evaluateCompoundIntelligence({
   families = [],
   freshContextRetention = null,
   revocationSnapshot = null,
+  observedAt = null,
+  maxRevocationAgeMs = 3_600_000,
   decisionPolicy = null
 } = {}) {
   const id = text(compositionId, 200);
@@ -158,8 +164,11 @@ export function evaluateCompoundIntelligence({
   const minGain = number(minimumMeaningfulGain, 0, 1);
   const maxRegression = number(maxAllowedRegression, 0, 1);
   const claimedVotes = integer(claimedIndependentVotes, 0, 10_000);
-  if (!id || !revision || !currentId || !currentRevision || minGain === null || maxRegression === null || claimedVotes === null) {
-    return fail('COMPOUND_INTELLIGENCE_PROTOCOL_INVALID', ['composition-current-system-and-thresholds-required']);
+  const observedText = text(observedAt, 100);
+  const observedMs = observedText ? Date.parse(observedText) : NaN;
+  const revocationAgeLimit = integer(maxRevocationAgeMs, 1, 31_536_000_000);
+  if (!id || !revision || !currentId || !currentRevision || minGain === null || maxRegression === null || claimedVotes === null || !Number.isFinite(observedMs) || revocationAgeLimit === null) {
+    return fail('COMPOUND_INTELLIGENCE_PROTOCOL_INVALID', ['composition-current-system-thresholds-and-observation-time-required']);
   }
 
   const normalizedComponents = [];
@@ -195,11 +204,16 @@ export function evaluateCompoundIntelligence({
   if (independentEvaluation?.generatorId !== id || independentEvaluation?.generatorLineageRef !== `composition:${compositionDigest}`) {
     return fail('EVALUATION_BINDING_REFUSED', ['evaluator-protocol-must-name-exact-composition-and-digest']);
   }
+  const componentIds = new Set(normalizedComponents.map(row => row.componentId));
+  const componentLineages = new Set(normalizedComponents.map(row => row.lineageRef));
+  if (componentIds.has(independentEvaluation?.evaluatorId) || componentLineages.has(independentEvaluation?.evaluatorLineageRef)) {
+    return fail('EVALUATION_BINDING_REFUSED', ['evaluator-must-be-independent-of-every-composition-component']);
+  }
   const evaluation = compileIndependentEvaluation(independentEvaluation || {});
   if (!evaluation.ok) return fail('EVALUATION_BINDING_REFUSED', ['independent-evaluation-protocol-required', ...(evaluation.reasonCodes || [])], { evaluation });
 
   const baseline = normalizeBaseline(baselineSelection || {});
-  if (!baseline) return fail('BASELINE_SELECTION_INVALID', ['predeclared-baseline-selection-required']);
+  if (!baseline) return fail('BASELINE_SELECTION_INVALID', ['evaluator-predeclared-baseline-selection-required']);
   const eligibleAccessible = baseline.alternatives.filter(row => row.accessible && row.eligible);
   const selected = eligibleAccessible.find(row => row.id === baseline.selectedBaselineId && row.revision === baseline.selectedRevision);
   if (!selected) return fail('BASELINE_SELECTION_REFUSED', ['selected-baseline-must-be-accessible-and-eligible']);
@@ -282,7 +296,15 @@ export function evaluateCompoundIntelligence({
   if (!retention.ok) return fail('RETENTION_BINDING_REFUSED', ['fresh-context-retention-required', ...(retention.reasonCodes || [])], { retention });
 
   const revocation = normalizeRevocationSnapshot(revocationSnapshot || {});
-  if (!revocation) return fail('REVOCATION_SNAPSHOT_INVALID', ['independently-evidenced-revocation-snapshot-required']);
+  if (!revocation) return fail('REVOCATION_SNAPSHOT_INVALID', ['fresh-independently-evidenced-revocation-snapshot-required']);
+  if (componentIds.has(revocation.verifierId) || componentLineages.has(revocation.verifierLineageRef) || revocation.verifierId === independentEvaluation.evaluatorId || revocation.verifierLineageRef === independentEvaluation.evaluatorLineageRef) {
+    return fail('REVOCATION_SNAPSHOT_REFUSED', ['revocation-verifier-must-be-independent-of-components-and-evaluator']);
+  }
+  const revocationMs = Date.parse(revocation.verifiedAt);
+  const ageMs = observedMs - revocationMs;
+  if (ageMs < 0) return fail('REVOCATION_SNAPSHOT_REFUSED', ['future-dated-revocation-snapshot-refused']);
+  if (ageMs > revocationAgeLimit) return fail('REVOCATION_SNAPSHOT_REFUSED', ['stale-revocation-snapshot-refused'], { ageMs, maxRevocationAgeMs: revocationAgeLimit });
+
   const expectedKeys = normalizedComponents.map(row => `${row.componentId}@${row.revision}`).sort();
   const actualKeys = revocation.components.map(row => `${row.componentId}@${row.revision}`).sort();
   if (JSON.stringify(expectedKeys) !== JSON.stringify(actualKeys)) {
@@ -314,6 +336,9 @@ export function evaluateCompoundIntelligence({
     transferReceiptHash: transfer.receiptHash,
     retentionReceiptHash: retention.receiptHash,
     revocationSnapshotRef: revocation.snapshotRef,
+    revocationVerifier: { id: revocation.verifierId, lineageRef: revocation.verifierLineageRef },
+    observedAt: new Date(observedMs).toISOString(),
+    revocationEvidenceAgeMs: ageMs,
     minimumMeaningfulGain: minGain,
     maxAllowedRegression: maxRegression,
     robustImprovedFamilies: robustImproved,

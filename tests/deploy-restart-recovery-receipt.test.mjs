@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { compileRestartRecoveryReceipt } from '../src/deploy-restart-recovery-receipt.mjs';
+const good={sourceCommit:'abc123',environment:'postgres',crashExitCode:91,replaySafeRecovered:1,replacementClaimCount:1,reconcileDeadLettered:true,reconcileReplacementClaimCount:0,cleanupOk:true,commands:['node scripts/deploy-restart-recovery-drill.mjs']};
+test('only exact real-postgres restart evidence earns PASS',()=>{ const r=compileRestartRecoveryReceipt(good); assert.equal(r.ok,true); assert.equal(r.status,'RESTART_RECOVERY_REHEARSAL_PASSED'); });
+test('two replacement claims refuses duplicate-work proof',()=>{ const r=compileRestartRecoveryReceipt({...good,replacementClaimCount:2}); assert.equal(r.ok,false); assert.ok(r.reasonCodes.includes('exactly-one-replacement-claim-required')); });
+test('reconcile job replay refuses safety claim',()=>{ const r=compileRestartRecoveryReceipt({...good,reconcileReplacementClaimCount:1}); assert.equal(r.ok,false); assert.ok(r.reasonCodes.includes('uncertain-reconcile-work-must-not-replay')); });
+test('graceful in-process stop is not accepted as abrupt restart rehearsal',()=>{ const r=compileRestartRecoveryReceipt({...good,crashExitCode:0}); assert.equal(r.ok,false); assert.ok(r.reasonCodes.includes('abrupt-worker-termination-not-observed')); });
+test('non-Postgres fixture cannot masquerade as deployment proof',()=>{ const r=compileRestartRecoveryReceipt({...good,environment:'json'}); assert.equal(r.ok,false); assert.ok(r.reasonCodes.includes('real-postgres-environment-required')); });
+test('cleanup and command provenance are required',()=>{ const r=compileRestartRecoveryReceipt({...good,cleanupOk:false,commands:[]}); assert.equal(r.ok,false); assert.ok(r.reasonCodes.includes('synthetic-rehearsal-cleanup-required')); assert.ok(r.reasonCodes.includes('executed-command-receipt-required')); });

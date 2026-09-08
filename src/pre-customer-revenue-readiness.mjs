@@ -1,9 +1,13 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
-import { FIRST_CASH_QUESTIONS, FIRST_CASH_CANARY_PACKET_VERSION } from './first-cash-canary-packet.mjs';
+import {
+  FIRST_CASH_QUESTIONS,
+  FIRST_CASH_CANARY_PACKET_VERSION,
+  FIRST_CASH_CANARY_PACKET_SCHEMA_VERSION
+} from './first-cash-canary-packet.mjs';
 import { PAYMENT_RENEWAL_TRUTH_VERSION } from './payment-renewal-truth.mjs';
 
-export const PRE_CUSTOMER_REVENUE_READINESS_VERSION='uberbond.pre-customer-revenue-readiness.v1.0.1';
+export const PRE_CUSTOMER_REVENUE_READINESS_VERSION='uberbond.pre-customer-revenue-readiness.v1.0.2';
 const zero=()=>structuredClone(ZERO_EXTERNAL_EFFECTS);
 const digest=v=>crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex');
 function fail(reasonCodes,extra={}){return{ok:false,status:'PRE_CUSTOMER_READINESS_DENIED',reasonCodes:[...new Set(reasonCodes.filter(Boolean))],businessEffectAuthority:'NONE',externalEffectLedger:zero(),...extra};}
@@ -34,7 +38,7 @@ function expectedPacketId(packet){
 function validateFirstCashPacket(packet){
   const reasons=[];
   if(!packet?.ok||!Array.isArray(packet.questions))reasons.push('valid-first-cash-packet-required');
-  if(packet?.schemaVersion!=='uberbond-first-cash-canary-packet-1.4.0'||packet?.policyVersion!==FIRST_CASH_CANARY_PACKET_VERSION)reasons.push('canonical-first-cash-schema-version-required');
+  if(packet?.schemaVersion!==FIRST_CASH_CANARY_PACKET_SCHEMA_VERSION||packet?.policyVersion!==FIRST_CASH_CANARY_PACKET_VERSION)reasons.push('canonical-first-cash-schema-version-required');
   if(packet?.packetId!==expectedPacketId(packet))reasons.push('first-cash-packet-id-integrity-mismatch');
   const ids=Array.isArray(packet?.questions)?packet.questions.map(q=>q?.question):[];
   const unique=new Set(ids);
@@ -86,6 +90,6 @@ export function compilePreCustomerRevenueReadiness({firstCashPacket}={}){
     stageRows.push({stage:contract.stage,status:'EXTERNAL_PROOF_GATED',questionCount:0,softwareReadyCount:1,blockers:[{question:null,classification:'EXTERNAL_PROOF_REQUIRED',reasonCodes:[contract.requiredExternalProof]}],canonicalModule:contract.canonicalModule,canonicalPolicyVersion:contract.canonicalPolicyVersion});
   }
   const counts=rows.reduce((acc,row)=>{acc[row.classification]=(acc[row.classification]||0)+1;return acc;},{});
-  const matrix={schemaVersion:PRE_CUSTOMER_REVENUE_READINESS_VERSION,sourcePacketId:firstCashPacket.packetId,sourcePolicyVersion:firstCashPacket.policyVersion,canContact:firstCashPacket.canContact===true,commercialTruth:{realCustomers:0,clearedRevenueCents:0,acceptedPaidDeliveries:0,retainedCustomers:0},counts,stages:stageRows,lifecycleContracts:lifecycle,questions:rows,softwareCompleteForKnownInternalQuestions:rows.every(row=>row.classification!=='UNCLASSIFIED')&&lifecycle.every(item=>item.softwareStatus==='SOFTWARE_READY'),externalActivationRequired:rows.some(row=>row.classification!=='SOFTWARE_READY_OR_PREPARED')||lifecycle.some(item=>item.externalTruthStatus==='EXTERNAL_PROOF_REQUIRED'),truthBoundary:'SOFTWARE_READINESS_NEVER_CREATES_CUSTOMERS_CLEARED_REVENUE_ACCEPTED_DELIVERY_RENEWAL_OR_RETENTION;_EXTERNAL_STATES_REQUIRE_INDEPENDENT_EVIDENCE',businessEffectAuthority:'NONE',externalEffectLedger:zero()};
+  const matrix={schemaVersion:PRE_CUSTOMER_REVENUE_READINESS_VERSION,sourcePacketId:firstCashPacket.packetId,sourcePolicyVersion:firstCashPacket.policyVersion,sourceSchemaVersion:firstCashPacket.schemaVersion,canContact:firstCashPacket.canContact===true,commercialTruth:{realCustomers:0,clearedRevenueCents:0,acceptedPaidDeliveries:0,retainedCustomers:0},counts,stages:stageRows,lifecycleContracts:lifecycle,questions:rows,softwareCompleteForKnownInternalQuestions:rows.every(row=>row.classification!=='UNCLASSIFIED')&&lifecycle.every(item=>item.softwareStatus==='SOFTWARE_READY'),externalActivationRequired:rows.some(row=>row.classification!=='SOFTWARE_READY_OR_PREPARED')||lifecycle.some(item=>item.externalTruthStatus==='EXTERNAL_PROOF_REQUIRED'),truthBoundary:'SOFTWARE_READINESS_NEVER_CREATES_CUSTOMERS_CLEARED_REVENUE_ACCEPTED_DELIVERY_RENEWAL_OR_RETENTION;_EXTERNAL_STATES_REQUIRE_INDEPENDENT_EVIDENCE',businessEffectAuthority:'NONE',externalEffectLedger:zero()};
   return{ok:true,status:'PRE_CUSTOMER_REVENUE_READINESS_COMPILED',matrix,matrixDigest:digest(matrix),businessEffectAuthority:'NONE',externalEffectLedger:zero()};
 }

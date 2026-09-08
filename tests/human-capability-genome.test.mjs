@@ -34,8 +34,6 @@ test('a durable limit is allowed once the evidence supports it', () => {
 });
 
 test('a low level from thin evidence stays provisional', () => {
-  // The quiet version of the same error: no explanation is claimed, but the
-  // number gets treated as settled anyway.
   assert.equal(atom('negotiation', { basis: 'SELF_REPORT' }).provisional, true);
   assert.equal(atom('negotiation', { basis: 'VARIED_CONDITIONS' }).provisional, false);
   assert.equal(supportsDurableClaim('SINGLE_OBSERVATION'), false);
@@ -59,7 +57,6 @@ test('the explanations distinguish exposure and environment from a limit', () =>
 // ---- Bottleneck -------------------------------------------------------------
 
 test('an absent capability binds harder than a weak one', () => {
-  // No amount of improving what exists reaches a capability nobody has.
   const found = findBottleneck({
     goal: 'run the workshop',
     required: ['facilitation', 'arabic'],
@@ -69,7 +66,7 @@ test('an absent capability binds harder than a weak one', () => {
   assert.equal(found.bottleneck.reason, 'ABSENT');
 });
 
-test('with everything present the weakest is the constraint', () => {
+test('with everything present and no stronger causal evidence the weakest remains the fallback constraint', () => {
   const found = findBottleneck({
     goal: 'x',
     required: ['a', 'b'],
@@ -79,9 +76,7 @@ test('with everything present the weakest is the constraint', () => {
   assert.equal(found.bottleneck.reason, 'WEAKEST_PRESENT');
 });
 
-test('one bottleneck is returned rather than a ranked list of everything', () => {
-  // A ranked list is how effort gets spread across dimensions that were not
-  // the constraint, which feels productive and moves nothing.
+test('one resolved bottleneck is returned rather than a ranked list of everything', () => {
   const found = findBottleneck({
     goal: 'x', required: ['a', 'b', 'c'],
     capabilities: [atom('a', { level: 0.1 }), atom('b', { level: 0.2 }), atom('c', { level: 0.3 })]
@@ -91,11 +86,149 @@ test('one bottleneck is returned rather than a ranked list of everything', () =>
   assert.match(found.law, /FEELS_PRODUCTIVE_AND_MOVES_NOTHING/);
 });
 
+test('goal-specific thresholds outrank raw weakest-score theater', () => {
+  const found = findBottleneck({
+    goal: 'ship the product',
+    required: [
+      { capability: 'coding', minimumLevel: 0.3 },
+      { capability: 'sales', minimumLevel: 0.8 }
+    ],
+    capabilities: [
+      atom('coding', { level: 0.4 }),
+      atom('sales', { level: 0.6 })
+    ]
+  });
+  assert.equal(found.status, 'BOTTLENECK_IDENTIFIED');
+  assert.equal(found.bottleneck.capability, 'sales');
+  assert.equal(found.bottleneck.reason, 'GOAL_THRESHOLD_DEFICIT');
+  assert.equal(found.bottleneck.minimumLevel, 0.8);
+  assert.ok(Math.abs(found.bottleneck.deficit - 0.2) < 1e-9);
+});
+
+test('a real substitute prevents a false absence verdict', () => {
+  const found = findBottleneck({
+    goal: 'run the workshop',
+    required: [
+      { capability: 'spanish', substitutes: ['arabic'] },
+      'facilitation'
+    ],
+    capabilities: [
+      atom('arabic', { level: 0.8 }),
+      atom('facilitation', { level: 0.2 })
+    ]
+  });
+  assert.equal(found.status, 'BOTTLENECK_IDENTIFIED');
+  assert.equal(found.bottleneck.capability, 'facilitation');
+  assert.equal(found.bottleneck.reason, 'WEAKEST_PRESENT');
+  assert.deepEqual(found.substitutionsUsed, [
+    { requirementId: 'required:0:spanish|arabic', requested: 'spanish', used: 'arabic' }
+  ]);
+  assert.equal(found.missing.includes('spanish'), false, 'a satisfied substitute route must not remain missing');
+});
+
+test('a hidden missing dependency binds before the strong top-level capability', () => {
+  const shipping = atom('shipping', { level: 0.9, dependsOn: ['database'] });
+  const found = findBottleneck({
+    goal: 'serve customers reliably',
+    required: ['shipping'],
+    capabilities: [shipping]
+  });
+  assert.equal(found.status, 'BOTTLENECK_IDENTIFIED');
+  assert.equal(found.bottleneck.capability, 'database');
+  assert.equal(found.bottleneck.reason, 'DEPENDENCY_ABSENT');
+  assert.equal(found.bottleneck.blockedCapability, 'shipping');
+  assert.deepEqual(found.bottleneck.dependencyPath, ['shipping', 'database']);
+});
+
+test('joint prerequisites stay joint instead of pretending one arbitrary member is the whole bottleneck', () => {
+  const found = findBottleneck({
+    goal: 'practice independently',
+    required: [{
+      id: 'independent-practice',
+      label: 'independent-practice',
+      allOf: ['licensure', 'clinical judgment'],
+      minimumLevel: 0.5
+    }],
+    capabilities: []
+  });
+  assert.equal(found.status, 'BOTTLENECK_IDENTIFIED');
+  assert.equal(found.bottleneck.reason, 'JOINT_PREREQUISITE_SET');
+  assert.equal(found.bottleneck.capability, 'independent-practice');
+  assert.deepEqual(found.bottleneck.members.map(row => row.capability).sort(), ['clinical judgment', 'licensure']);
+});
+
+test('one missing member of a joint prerequisite is named without discarding the joint requirement', () => {
+  const found = findBottleneck({
+    goal: 'practice independently',
+    required: [{
+      label: 'independent-practice',
+      allOf: ['licensure', 'clinical judgment'],
+      minimumLevel: 0.5
+    }],
+    capabilities: [atom('clinical judgment', { level: 0.8 })]
+  });
+  assert.equal(found.bottleneck.capability, 'licensure');
+  assert.equal(found.bottleneck.reason, 'JOINT_PREREQUISITE_MEMBER_ABSENT');
+  assert.equal(found.bottleneck.jointRequirement, 'independent-practice');
+});
+
+test('equally evidenced independent missing requirements are underdetermined, not array-order destiny', () => {
+  const forward = findBottleneck({ goal: 'x', required: ['a', 'b'], capabilities: [] });
+  const reverse = findBottleneck({ goal: 'x', required: ['b', 'a'], capabilities: [] });
+  for (const found of [forward, reverse]) {
+    assert.equal(found.ok, true);
+    assert.equal(found.status, 'BOTTLENECK_UNDERDETERMINED');
+    assert.equal(found.bottleneck, null);
+    assert.equal(found.competingConstraints.length, 2);
+    assert.match(found.nextEvidenceRequired, /Array order is not evidence/);
+  }
+  assert.deepEqual(
+    forward.competingConstraints.map(row => row.capability).sort(),
+    reverse.competingConstraints.map(row => row.capability).sort()
+  );
+});
+
+test('dependency cycles are surfaced as a causal defect rather than recursed forever', () => {
+  const a = atom('a', { level: 0.9, dependsOn: ['b'] });
+  const b = atom('b', { level: 0.9, dependsOn: ['a'] });
+  const found = findBottleneck({ goal: 'x', required: ['a'], capabilities: [a, b] });
+  assert.equal(found.status, 'BOTTLENECK_IDENTIFIED');
+  assert.equal(found.bottleneck.reason, 'DEPENDENCY_CYCLE');
+  assert.ok(found.bottleneck.dependencyPath.length >= 3);
+});
+
+test('malformed requirement contracts fail closed instead of being guessed into meaning', () => {
+  const mixed = findBottleneck({
+    goal: 'x',
+    required: [{ capability: 'a', anyOf: ['b'] }],
+    capabilities: [atom('a'), atom('b')]
+  });
+  assert.equal(mixed.ok, false);
+  assert.deepEqual(mixed.reasonCodes, ['required-capability-contract-invalid']);
+
+  const invalidThreshold = findBottleneck({
+    goal: 'x',
+    required: [{ capability: 'a', minimumLevel: 2 }],
+    capabilities: [atom('a')]
+  });
+  assert.equal(invalidThreshold.ok, false);
+  assert.deepEqual(invalidThreshold.reasonCodes, ['required-capability-contract-invalid']);
+});
+
+test('a bottleneck remains a goal-relative causal claim, not a trait verdict', () => {
+  const found = findBottleneck({
+    goal: 'x',
+    required: [{ capability: 'a', minimumLevel: 0.8 }],
+    capabilities: [atom('a', { level: 0.4, basis: 'SINGLE_OBSERVATION' })]
+  });
+  assert.equal(found.bottleneck.capability, 'a');
+  assert.match(found.truthBoundary, /GOAL-AND-EVIDENCE-RELATIVE/);
+  assert.equal(found.businessEffectAuthority, 'NONE');
+});
+
 // ---- Agency debt ------------------------------------------------------------
 
 test('delegation and atrophy are counted separately', () => {
-  // Delegating something you still practise is not losing it. Merging the two
-  // either cries wolf or hides the real losses.
   const debt = agencyDebt([
     atom('mental arithmetic', { trajectory: 'ATROPHYING' }),
     atom('scheduling', { trajectory: 'DELEGATED' }),

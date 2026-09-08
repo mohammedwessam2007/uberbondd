@@ -61,7 +61,7 @@ export async function reconcileScheduledOccurrence({
   const reference = Number(nowMs);
   if (!Number.isFinite(reference) || reference < 0) throw new Error('durable-scheduler-valid-clock-required');
 
-  const catchup = Math.max(1, Math.min(64, Number(maxCatchUpBuckets) || DEFAULT_MAX_CATCHUP_BUCKETS));
+  const catchup = Math.max(1, Math.min(64, Math.floor(Number(maxCatchUpBuckets) || DEFAULT_MAX_CATCHUP_BUCKETS)));
   const currentBucket = bucketFor(reference, interval);
   const key = stateKey(normalizedType);
   const settings = await store.getSettings();

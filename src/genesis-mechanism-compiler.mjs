@@ -76,6 +76,40 @@ export const MUTATION_OPERATORS = Object.freeze(['NEGATE', 'RELAX', 'INVERT']);
 
 export const PRIMITIVE_ROLES = Object.freeze(['CONSTRAINT', 'PRECONDITION', 'ACTION', 'EFFECT']);
 
+/**
+ * The argument slots a typed causal relation can bind.
+ *
+ * Canonicalization below reduces a statement to a sorted bag of content words,
+ * which is what lets "sells the empty return leg at marginal cost" and "at
+ * marginal cost, sells the empty return leg" collapse into one mechanism. The
+ * same reduction destroys direction: "the platform funds the supplier" and "the
+ * supplier funds the platform" produce an identical bag, and the second is not
+ * a rewording of the first -- it is a different mechanism with the money moving
+ * the other way. Roles exist so the binding of entity to slot survives the
+ * reduction that the bag deliberately performs.
+ */
+export const CAUSAL_ARGUMENT_ROLES = Object.freeze([
+  'AGENT', 'PATIENT', 'INSTRUMENT', 'BENEFICIARY', 'SOURCE', 'TARGET'
+]);
+
+/** Multiplicity is part of the claim: one buyer paying many suppliers is not
+ *  many buyers paying one supplier. Today those two survive canonicalization
+ *  only because English happens to pluralize the nouns, which is an accident of
+ *  wording rather than a property of the identity. */
+export const CAUSAL_QUANTITIES = Object.freeze(['ONE', 'MANY', 'UNSPECIFIED']);
+
+/**
+ * What a given identity actually rests on.
+ *
+ * TYPED_RELATION means the caller supplied structure and two records that
+ * differ in direction, role binding, multiplicity or order are held apart on
+ * that structure. LEXICAL_BAG_UNVERIFIED means identity rests on the sorted
+ * word bag alone -- still useful for collapsing rewording, but not evidence
+ * that two records are the same mechanism. A sorted-word hash is not a causal
+ * model and this label is what stops it being read as one.
+ */
+export const IDENTITY_BASES = Object.freeze(['TYPED_RELATION', 'LEXICAL_BAG_UNVERIFIED']);
+
 /** Reused from mechanism-lab so a primitive that is a business atom is tagged
  *  in that organ's vocabulary instead of a private parallel one. */
 export const ECONOMIC_ROLES = MECHANISM_ATOM_TYPES;
@@ -96,17 +130,24 @@ const text = (value, max = 800) => {
   return out ? out.slice(0, max) : null;
 };
 
-const list = (values, max = 40) => {
+const list = (values, max = 40, reasons = []) => {
   if (!Array.isArray(values)) return [];
   const out = [];
   for (const value of values) {
     const statement = text(typeof value === 'object' && value !== null ? value.statement ?? value.value : value, 400);
+    // A malformed relation is collected rather than dropped, so the donor that
+    // carries it is refused instead of quietly falling back to bag identity.
+    const { relation, reasons: relationReasons } = normalizeCausalRelation(
+      typeof value === 'object' && value !== null ? value.relation : null
+    );
+    if (relationReasons.length) { reasons.push(...relationReasons); continue; }
     if (statement && !out.some(entry => entry.statement === statement)) {
       out.push({
         statement,
         economicRole: ECONOMIC_ROLES.includes(String(value?.economicRole || '').toUpperCase())
           ? String(value.economicRole).toUpperCase()
-          : null
+          : null,
+        relation
       });
     }
     if (out.length >= max) break;
@@ -123,6 +164,86 @@ const canonical = value => [...new Set(
   String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().split(' ')
     .filter(token => token && !STOPWORDS.has(token))
 )].sort().join(' ');
+
+/**
+ * A statement's causal structure, when the caller supplies it.
+ *
+ * This is deliberately not a parser. Nothing here reads "the platform funds the
+ * supplier" and works out who pays whom; a caller that knows the structure
+ * declares it, and a caller that does not gets bag identity plus an honest
+ * label saying so. Guessing the structure would be worse than not having it,
+ * because a wrong binding is indistinguishable from a right one downstream.
+ *
+ * Malformed structure is refused rather than dropped. A relation that silently
+ * failed to normalize would hand back bag identity while the caller believed
+ * direction was being preserved, which is the one failure mode this function
+ * exists to prevent.
+ */
+export function normalizeCausalRelation(input) {
+  if (input === null || input === undefined) return { relation: null, reasons: [] };
+  if (typeof input !== 'object' || Array.isArray(input)) {
+    return { relation: null, reasons: ['causal-relation-object-required'] };
+  }
+
+  const reasons = [];
+  const predicate = canonical(text(input.predicate, 160));
+  if (!predicate) reasons.push('causal-relation-predicate-required');
+
+  const rawArguments = Array.isArray(input.arguments) ? input.arguments : [];
+  const bound = [];
+  for (const entry of rawArguments.slice(0, 12)) {
+    const role = String(entry?.role ?? '').toUpperCase();
+    const entity = canonical(text(entry?.entity, 160));
+    const quantity = String(entry?.quantity ?? 'UNSPECIFIED').toUpperCase();
+    if (!CAUSAL_ARGUMENT_ROLES.includes(role)) { reasons.push('known-causal-argument-role-required'); continue; }
+    if (!entity) { reasons.push('causal-argument-entity-required'); continue; }
+    if (!CAUSAL_QUANTITIES.includes(quantity)) { reasons.push('known-causal-quantity-required'); continue; }
+    // Two entities in the same slot is not a richer relation, it is an
+    // ambiguous one, and ambiguity here reintroduces exactly the collapse.
+    if (bound.some(existing => existing.role === role)) { reasons.push('duplicate-causal-argument-role'); continue; }
+    bound.push({ role, entity, quantity });
+  }
+
+  const rawSequence = Array.isArray(input.sequence) ? input.sequence : [];
+  const sequence = rawSequence.slice(0, 12).map(step => canonical(text(step, 160))).filter(Boolean);
+  if (rawSequence.length && sequence.length !== Math.min(rawSequence.length, 12)) {
+    reasons.push('causal-sequence-step-required');
+  }
+
+  // A predicate alone binds nothing, so it cannot distinguish anything either.
+  if (!bound.length && !sequence.length) reasons.push('causal-arguments-or-sequence-required');
+
+  if (reasons.length) return { relation: null, reasons: [...new Set(reasons)] };
+  return {
+    relation: Object.freeze({
+      predicate,
+      arguments: Object.freeze(bound),
+      sequence: Object.freeze(sequence)
+    }),
+    reasons: []
+  };
+}
+
+/**
+ * The order-sensitive half of identity.
+ *
+ * Arguments are sorted by ROLE, never by entity: listing the same bindings in a
+ * different order is a presentation difference and must collapse, while moving
+ * an entity from AGENT to PATIENT is a different mechanism and must not. The
+ * sequence is not sorted at all, because with an ordered claim the order is the
+ * claim -- verifying before delivery and verifying after it are the two things
+ * a bag of the same four words cannot tell apart.
+ */
+export function relationSignature(relation) {
+  if (!relation) return null;
+  return hash({
+    predicate: relation.predicate,
+    arguments: [...relation.arguments]
+      .sort((left, right) => (left.role < right.role ? -1 : left.role > right.role ? 1 : 0))
+      .map(entry => `${entry.role}:${entry.quantity}:${entry.entity}`),
+    sequence: [...relation.sequence]
+  });
+}
 
 const fail = (status, reasonCodes) => ({
   ok: false,
@@ -156,12 +277,23 @@ const weakest = (...classes) => classes
  * prose out of the key is what makes a reworded restatement collapse into the
  * candidate it restates instead of inflating the candidate count.
  */
-export function causalSignature({ primitiveIds = [], exploits = [], mutatedAssumptions = [] } = {}) {
-  return hash({
+export function causalSignature({
+  primitiveIds = [], exploits = [], mutatedAssumptions = [], relationSignatures = []
+} = {}) {
+  const base = {
     primitiveIds: [...new Set(primitiveIds.map(id => String(id)))].sort(),
     exploits: [...new Set(exploits.map(canonical).filter(Boolean))].sort(),
     mutatedAssumptions: [...new Set(mutatedAssumptions.map(canonical).filter(Boolean))].sort()
-  });
+  };
+  // The `exploits` line above canonicalizes, so a constraint stated in the
+  // reverse direction lands on the same key. The relation signatures carry the
+  // direction that line drops. Sorting them is safe because each signature
+  // already has the ordering baked inside it; what is being deduped here is the
+  // set of structures present, not their order of arrival.
+  const relations = [...new Set(relationSignatures.filter(Boolean).map(String))].sort();
+  // Omitted entirely when absent, so every identity computed before typed
+  // relations existed keeps the exact key it had.
+  return hash(relations.length ? { ...base, relationSignatures: relations } : base);
 }
 
 /**
@@ -186,7 +318,17 @@ export function normalizeDonorMechanism(input = {}) {
   const claimed = EVIDENCE_CLASSES.includes(String(input?.evidenceClass || '').toUpperCase())
     ? String(input.evidenceClass).toUpperCase() : null;
 
-  const reasons = [];
+  // Typed structure for the two identity-bearing statements. `does` is what the
+  // mechanism performs and `exploits` is the constraint it runs on; those are
+  // the two strings every later stage keys on, so those are the two that need
+  // structure available to them.
+  const doesRelation = normalizeCausalRelation(input?.relation);
+  const exploitsRelation = normalizeCausalRelation(input?.exploitsRelation);
+  const relationReasons = [...doesRelation.reasons, ...exploitsRelation.reasons];
+  const preconditions = list(input?.preconditions, 40, relationReasons);
+  const effects = list(input?.effects, 40, relationReasons);
+
+  const reasons = [...relationReasons];
   if (!mechanismId) reasons.push('mechanism-id-required');
   if (!domain) reasons.push('donor-domain-required');
   if (!does) reasons.push('mechanism-effect-required');
@@ -205,8 +347,14 @@ export function normalizeDonorMechanism(input = {}) {
     domain,
     does,
     exploits,
-    preconditions: list(input?.preconditions),
-    effects: list(input?.effects),
+    relation: doesRelation.relation,
+    exploitsRelation: exploitsRelation.relation,
+    // Identity for this donor rests on structure only when both key statements
+    // carry it. One typed half still leaves the other collapsing on words.
+    identityBasis: doesRelation.relation && exploitsRelation.relation
+      ? 'TYPED_RELATION' : 'LEXICAL_BAG_UNVERIFIED',
+    preconditions,
+    effects,
     assumptions: list(input?.assumptions).map(entry => entry.statement),
     evidenceClass,
     provenance: Object.freeze({
@@ -235,25 +383,36 @@ export function decomposeToPrimitives({ mechanism } = {}) {
     return fail('DECOMPOSITION_REFUSED', ['normalized-donor-required']);
   }
 
-  const build = (role, statement, economicRole = null) => ({
-    primitiveId: `primitive_${hash({ role, canonical: canonical(statement) }).slice(0, 24)}`,
-    role,
-    statement,
-    canonicalStatement: canonical(statement),
-    economicRole,
-    donorId: mechanism.mechanismId,
-    donorDomain: mechanism.domain,
-    exploits: mechanism.exploits,
-    evidenceClass: mechanism.evidenceClass,
-    provenance: mechanism.provenance,
-    businessEffectAuthority: 'NONE'
-  });
+  const build = (role, statement, economicRole = null, relation = null) => {
+    const signature = relationSignature(relation);
+    return {
+      // The relation is mixed into the key only when one was supplied, so a
+      // primitive built without structure keeps the exact id it had before
+      // typed relations existed and nothing downstream is renumbered.
+      primitiveId: `primitive_${hash(signature
+        ? { role, canonical: canonical(statement), relation: signature }
+        : { role, canonical: canonical(statement) }).slice(0, 24)}`,
+      role,
+      statement,
+      canonicalStatement: canonical(statement),
+      relation,
+      relationSignature: signature,
+      identityBasis: signature ? 'TYPED_RELATION' : 'LEXICAL_BAG_UNVERIFIED',
+      economicRole,
+      donorId: mechanism.mechanismId,
+      donorDomain: mechanism.domain,
+      exploits: mechanism.exploits,
+      evidenceClass: mechanism.evidenceClass,
+      provenance: mechanism.provenance,
+      businessEffectAuthority: 'NONE'
+    };
+  };
 
   const primitives = [
-    build('CONSTRAINT', mechanism.exploits),
-    build('ACTION', mechanism.does),
-    ...mechanism.preconditions.map(entry => build('PRECONDITION', entry.statement, entry.economicRole)),
-    ...mechanism.effects.map(entry => build('EFFECT', entry.statement, entry.economicRole))
+    build('CONSTRAINT', mechanism.exploits, null, mechanism.exploitsRelation ?? null),
+    build('ACTION', mechanism.does, null, mechanism.relation ?? null),
+    ...mechanism.preconditions.map(entry => build('PRECONDITION', entry.statement, entry.economicRole, entry.relation ?? null)),
+    ...mechanism.effects.map(entry => build('EFFECT', entry.statement, entry.economicRole, entry.relation ?? null))
   ];
 
   const unique = [];
@@ -299,10 +458,14 @@ export function mutateAssumptions({ mechanism, maxVariants = 60 } = {}) {
       if (variants.length >= limit) break;
       const restated = `${operator}: ${assumption}`;
       const mutatedAssumptions = assumptions.map(entry => (entry === assumption ? restated : entry));
+      const exploitsSignature = relationSignature(mechanism.exploitsRelation ?? null);
       const signature = causalSignature({
-        primitiveIds: [`primitive_${hash({ role: 'CONSTRAINT', canonical: canonical(mechanism.exploits) }).slice(0, 24)}`],
+        primitiveIds: [`primitive_${hash(exploitsSignature
+          ? { role: 'CONSTRAINT', canonical: canonical(mechanism.exploits), relation: exploitsSignature }
+          : { role: 'CONSTRAINT', canonical: canonical(mechanism.exploits) }).slice(0, 24)}`],
         exploits: [mechanism.exploits],
-        mutatedAssumptions
+        mutatedAssumptions,
+        relationSignatures: [exploitsSignature]
       });
       variants.push({
         variantId: `variant_${signature.slice(0, 24)}`,
@@ -367,13 +530,19 @@ export function recombineAcrossDonors({ primitives = [], maxCandidates = 50 } = 
       const pair = [left, right];
       const signature = causalSignature({
         primitiveIds: pair.map(entry => entry.primitiveId),
-        exploits: pair.map(entry => entry.exploits)
+        exploits: pair.map(entry => entry.exploits),
+        relationSignatures: pair.map(entry => entry.relationSignature)
       });
 
       const existing = bySignature.get(signature);
       if (existing) {
-        // Same causal structure reached a second way. It is one mechanism.
+        // Same causal structure reached a second way. It is one mechanism --
+        // but only when structure is what matched. Where both primitives rest
+        // on the word bag alone, the collapse is a guess that two records say
+        // the same thing, and it is counted separately so a caller can see how
+        // much of the dedupe is actually justified.
         existing.collapsedVariants += 1;
+        if (existing.identityBasis !== 'TYPED_RELATION') existing.unverifiedCollapses += 1;
         continue;
       }
 
@@ -405,6 +574,9 @@ export function recombineAcrossDonors({ primitives = [], maxCandidates = 50 } = 
           'mechanism is unlawful, non-consensual, or platform-prohibited'
         ],
         collapsedVariants: 0,
+        unverifiedCollapses: 0,
+        identityBasis: pair.every(entry => entry.identityBasis === 'TYPED_RELATION')
+          ? 'TYPED_RELATION' : 'LEXICAL_BAG_UNVERIFIED',
         businessEffectAuthority: 'NONE'
       });
     }
@@ -415,6 +587,10 @@ export function recombineAcrossDonors({ primitives = [], maxCandidates = 50 } = 
     pairsConsidered,
     candidateCount: candidates.length,
     duplicateCount: candidates.reduce((sum, candidate) => sum + candidate.collapsedVariants, 0),
+    // How much of duplicateCount is a sorted-word guess rather than a matched
+    // structure. Reported rather than folded in, because a dedupe count that
+    // hides its own basis is how a lexical hash gets read as a causal model.
+    unverifiedCollapseCount: candidates.reduce((sum, candidate) => sum + candidate.unverifiedCollapses, 0),
     candidates,
     truthBoundary: TRUTH_BOUNDARY
   });

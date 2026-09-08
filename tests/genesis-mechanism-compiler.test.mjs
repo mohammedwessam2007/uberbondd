@@ -3,7 +3,9 @@ import assert from 'node:assert/strict';
 import {
   normalizeDonorMechanism, decomposeToPrimitives, mutateAssumptions,
   recombineAcrossDonors, compileGenesisMechanisms, causalSignature,
-  EVIDENCE_CLASSES, SOURCE_KINDS, MUTATION_OPERATORS, ECONOMIC_ROLES
+  normalizeCausalRelation, relationSignature,
+  EVIDENCE_CLASSES, SOURCE_KINDS, MUTATION_OPERATORS, ECONOMIC_ROLES,
+  CAUSAL_ARGUMENT_ROLES, CAUSAL_QUANTITIES, IDENTITY_BASES
 } from '../src/genesis-mechanism-compiler.mjs';
 
 // The cheap way to fake GENESIS is to restate a competitor's mechanism in fresh
@@ -330,4 +332,206 @@ test('the full compile runs all four stages and refuses a bad donor set', () => 
   assert.equal(partial.ok, false);
   assert.ok(partial.reasonCodes.includes('donor-normalization-failed'));
   assert.ok(partial.reasonCodes.includes('exploited-constraint-required'));
+});
+
+
+// ---------------------------------------------------------------------------
+// C03-01. Canonicalization reduces a statement to a sorted bag of content
+// words, which is what makes rewording collapse. The same reduction destroys
+// direction, role binding, order and multiplicity: "the platform funds the
+// supplier" and "the supplier funds the platform" produce an identical bag and
+// were, before this guard, literally the same mechanism. These tests hold the
+// two apart without giving up the collapse that canonicalization exists for.
+// ---------------------------------------------------------------------------
+
+const typed = (mechanismId, does, relation) => normalizeDonorMechanism({
+  mechanismId,
+  domain: 'payments',
+  does,
+  exploits: does,
+  relation,
+  exploitsRelation: relation,
+  assumptions: ['the counterparty settles'],
+  evidenceClass: 'VERIFIED_FACT',
+  source: { kind: 'OBSERVED_SYSTEM', ref: 'evidence:ledger', observedAt: '2026-06-01T00:00:00.000Z' }
+});
+
+const action = mechanism => decomposeToPrimitives({ mechanism }).primitives.find(entry => entry.role === 'ACTION');
+
+test('a reversed causal relation is a different mechanism, not a rewording', () => {
+  const forward = { predicate: 'funds', arguments: [
+    { role: 'AGENT', entity: 'platform' }, { role: 'PATIENT', entity: 'supplier' }] };
+  const reverse = { predicate: 'funds', arguments: [
+    { role: 'AGENT', entity: 'supplier' }, { role: 'PATIENT', entity: 'platform' }] };
+
+  // Identical word bag: this is precisely the collapse being prevented.
+  const a = action(typed('a', 'the platform funds the supplier', forward));
+  const b = action(typed('b', 'the supplier funds the platform', reverse));
+  assert.equal(a.canonicalStatement, b.canonicalStatement);
+  assert.notEqual(a.primitiveId, b.primitiveId);
+  assert.equal(a.identityBasis, 'TYPED_RELATION');
+});
+
+test('role binding, temporal order and multiplicity each survive canonicalization', () => {
+  const refundOut = action(typed('r1', 'the payer refunds the seller', { predicate: 'refunds',
+    arguments: [{ role: 'AGENT', entity: 'payer' }, { role: 'BENEFICIARY', entity: 'seller' }] }));
+  const refundIn = action(typed('r2', 'the seller refunds the payer', { predicate: 'refunds',
+    arguments: [{ role: 'AGENT', entity: 'seller' }, { role: 'BENEFICIARY', entity: 'payer' }] }));
+  assert.notEqual(refundOut.primitiveId, refundIn.primitiveId);
+
+  // With an ordered claim the order is the claim, so the sequence is never sorted.
+  const before = action(typed('t1', 'verify payment before delivery',
+    { predicate: 'settles', sequence: ['verify payment', 'deliver'] }));
+  const after = action(typed('t2', 'delivery before verify payment',
+    { predicate: 'settles', sequence: ['deliver', 'verify payment'] }));
+  assert.equal(before.canonicalStatement, after.canonicalStatement);
+  assert.notEqual(before.primitiveId, after.primitiveId);
+
+  // One buyer paying many suppliers is not many buyers paying one supplier,
+  // and here the wording is byte-identical so nothing but quantity separates them.
+  const oneToMany = action(typed('m1', 'buyer pays supplier', { predicate: 'pays',
+    arguments: [{ role: 'AGENT', entity: 'buyer', quantity: 'ONE' }, { role: 'PATIENT', entity: 'supplier', quantity: 'MANY' }] }));
+  const manyToOne = action(typed('m2', 'buyer pays supplier', { predicate: 'pays',
+    arguments: [{ role: 'AGENT', entity: 'buyer', quantity: 'MANY' }, { role: 'PATIENT', entity: 'supplier', quantity: 'ONE' }] }));
+  assert.notEqual(oneToMany.primitiveId, manyToOne.primitiveId);
+});
+
+test('listing the same bindings in another order is still one mechanism', () => {
+  // The guard must not overshoot into treating presentation as structure.
+  const first = action(typed('o1', 'the platform funds the supplier', { predicate: 'funds',
+    arguments: [{ role: 'AGENT', entity: 'platform' }, { role: 'PATIENT', entity: 'supplier' }] }));
+  const second = action(typed('o2', 'the platform funds the supplier', { predicate: 'funds',
+    arguments: [{ role: 'PATIENT', entity: 'supplier' }, { role: 'AGENT', entity: 'platform' }] }));
+  assert.equal(first.primitiveId, second.primitiveId);
+
+  // And rewording with no relation at all still collapses, as it always did.
+  const worded = action(donor());
+  const reworded = action(normalizeDonorMechanism({
+    mechanismId: 'freight-backhaul-restated', domain: 'logistics',
+    does: 'at marginal cost, sells the empty return leg',
+    exploits: 'trucks return empty after delivery',
+    assumptions: ['return legs stay empty'], evidenceClass: 'VERIFIED_FACT',
+    source: { kind: 'OBSERVED_SYSTEM', ref: 'evidence:fleet-telemetry-2026', observedAt: '2026-06-01T00:00:00.000Z' }
+  }));
+  assert.equal(worded.primitiveId, reworded.primitiveId);
+});
+
+test('identity that rests on the word bag alone says so, and its collapses are counted apart', () => {
+  // A sorted-word hash is not a causal model. Untyped records still dedupe --
+  // that is the point of canonicalization -- but the result is labelled as a
+  // guess rather than presented as a matched structure.
+  const untyped = action(donor());
+  assert.equal(untyped.identityBasis, 'LEXICAL_BAG_UNVERIFIED');
+  assert.ok(IDENTITY_BASES.includes(untyped.identityBasis));
+  assert.equal(untyped.relationSignature, null);
+
+  // The same fixture that produces real collapses above, so this assertion is
+  // about collapses that actually happen rather than an empty set.
+  const recombined = recombineAcrossDonors({ primitives: [
+    primitiveOf(donor(), 'CONSTRAINT'),
+    primitiveOf(hotel('idle capacity becomes billable revenue'), 'EFFECT'),
+    primitiveOf(hotel('revenue from idle capacity becomes billable'), 'EFFECT'),
+    primitiveOf(clinic(), 'CONSTRAINT')
+  ] });
+  assert.equal(recombined.ok, true);
+  assert.equal(recombined.duplicateCount, 2, 'the fixture must actually collapse something');
+  // Nothing here was matched on structure, so every one of those collapses is
+  // a sorted-word guess and none may be reported as structurally justified.
+  assert.equal(recombined.unverifiedCollapseCount, 2);
+  assert.ok(recombined.candidates.every(entry => entry.identityBasis === 'LEXICAL_BAG_UNVERIFIED'));
+  assert.ok(recombined.candidates.every(entry => entry.businessEffectAuthority === 'NONE'));
+});
+
+test('a malformed relation refuses the donor instead of falling back to bag identity', () => {
+  // Silent fallback is the dangerous case: the caller believes direction is
+  // being preserved while identity has quietly reverted to sorted words.
+  const cases = [
+    [{ predicate: 'funds', arguments: [{ role: 'OWNER', entity: 'platform' }] }, 'known-causal-argument-role-required'],
+    [{ predicate: 'funds', arguments: [{ role: 'AGENT', entity: '   ' }] }, 'causal-argument-entity-required'],
+    // An entity that is nothing but a stopword canonicalizes to empty, and an
+    // empty binding distinguishes nothing, so it is refused rather than kept.
+    [{ predicate: 'funds', arguments: [{ role: 'AGENT', entity: 'the' }] }, 'causal-argument-entity-required'],
+    [{ predicate: 'funds', arguments: [{ role: 'AGENT', entity: 'platform', quantity: 'SOME' }] }, 'known-causal-quantity-required'],
+    [{ predicate: '', arguments: [{ role: 'AGENT', entity: 'platform' }] }, 'causal-relation-predicate-required'],
+    [{ predicate: 'funds' }, 'causal-arguments-or-sequence-required'],
+    [{ predicate: 'funds', arguments: [{ role: 'AGENT', entity: 'platform' }, { role: 'AGENT', entity: 'supplier' }] }, 'duplicate-causal-argument-role'],
+    ['not-an-object', 'causal-relation-object-required']
+  ];
+  for (const [relation, reason] of cases) {
+    assert.deepEqual(normalizeCausalRelation(relation).relation, null, `${reason} should yield no relation`);
+    assert.ok(normalizeCausalRelation(relation).reasons.includes(reason), reason);
+
+    const refused = normalizeDonorMechanism({
+      mechanismId: 'bad', domain: 'payments', does: 'x pays y', exploits: 'x pays y',
+      relation, evidenceClass: 'VERIFIED_FACT',
+      source: { kind: 'OBSERVED_SYSTEM', ref: 'evidence:x', observedAt: '2026-01-01T00:00:00.000Z' }
+    });
+    assert.equal(refused.ok, false, `${reason} must refuse the donor`);
+    assert.ok(refused.reasonCodes.includes(reason));
+  }
+
+  // A malformed relation buried in a precondition refuses the donor too.
+  const nested = normalizeDonorMechanism({
+    mechanismId: 'nested', domain: 'payments', does: 'x pays y', exploits: 'x pays y',
+    preconditions: [{ statement: 'the account exists', relation: { predicate: 'holds', arguments: [{ role: 'NOBODY', entity: 'a' }] } }],
+    evidenceClass: 'VERIFIED_FACT',
+    source: { kind: 'OBSERVED_SYSTEM', ref: 'evidence:x', observedAt: '2026-01-01T00:00:00.000Z' }
+  });
+  assert.equal(nested.ok, false);
+  assert.ok(nested.reasonCodes.includes('known-causal-argument-role-required'));
+
+  // Absent is not malformed.
+  assert.deepEqual(normalizeCausalRelation(undefined), { relation: null, reasons: [] });
+  assert.deepEqual(normalizeCausalRelation(null), { relation: null, reasons: [] });
+  assert.equal(relationSignature(null), null);
+});
+
+test('a typed donor reports typed identity and reversed donors stay two candidates', () => {
+  const forward = typed('d1', 'the platform funds the supplier', { predicate: 'funds',
+    arguments: [{ role: 'AGENT', entity: 'platform' }, { role: 'PATIENT', entity: 'supplier' }] });
+  const reverse = typed('d2', 'the supplier funds the platform', { predicate: 'funds',
+    arguments: [{ role: 'AGENT', entity: 'supplier' }, { role: 'PATIENT', entity: 'platform' }] });
+  assert.equal(forward.identityBasis, 'TYPED_RELATION');
+
+  const primitives = [
+    ...decomposeToPrimitives({ mechanism: forward }).primitives,
+    ...decomposeToPrimitives({ mechanism: reverse }).primitives
+  ];
+  const recombined = recombineAcrossDonors({ primitives });
+  // Every cross-donor pair here is structurally distinct, so nothing collapses
+  // and nothing is collapsed on an unverified basis.
+  assert.equal(recombined.duplicateCount, 0);
+  assert.equal(recombined.unverifiedCollapseCount, 0);
+  assert.ok(recombined.candidates.every(entry => entry.identityBasis === 'TYPED_RELATION'));
+
+  // Mutation variants inherit the distinction rather than merging on the bag.
+  const forwardVariants = mutateAssumptions({ mechanism: forward });
+  const reverseVariants = mutateAssumptions({ mechanism: reverse });
+  assert.equal(forwardVariants.ok, true);
+  const forwardSignatures = new Set(forwardVariants.variants.map(entry => entry.causalSignature));
+  assert.ok(reverseVariants.variants.every(entry => !forwardSignatures.has(entry.causalSignature)));
+
+  // The vocabularies stay closed sets a caller cannot widen by assertion.
+  assert.ok(CAUSAL_ARGUMENT_ROLES.includes('AGENT') && Object.isFrozen(CAUSAL_ARGUMENT_ROLES));
+  assert.ok(CAUSAL_QUANTITIES.includes('MANY') && Object.isFrozen(CAUSAL_QUANTITIES));
+});
+
+test('a relation cannot smuggle evidence, authority or an effect into a candidate', () => {
+  // Structure decides identity and nothing else. The source ceiling still
+  // dominates, and no relation field creates permission to act.
+  const vendor = normalizeDonorMechanism({
+    mechanismId: 'vendor-claim', domain: 'payments',
+    does: 'the platform funds the supplier', exploits: 'the platform funds the supplier',
+    relation: { predicate: 'funds', arguments: [{ role: 'AGENT', entity: 'platform' }, { role: 'PATIENT', entity: 'supplier' }] },
+    exploitsRelation: { predicate: 'funds', arguments: [{ role: 'AGENT', entity: 'platform' }, { role: 'PATIENT', entity: 'supplier' }] },
+    assumptions: ['the supplier accepts'],
+    evidenceClass: 'VERIFIED_FACT',
+    source: { kind: 'VENDOR_MATERIAL', ref: 'evidence:landing-page', observedAt: '2026-06-01T00:00:00.000Z' }
+  });
+  assert.equal(vendor.ok, true);
+  assert.equal(vendor.evidenceClass, 'VENDOR_CLAIM');
+  assert.equal(vendor.provenance.downgraded, true);
+  assert.equal(vendor.businessEffectAuthority, 'NONE');
+  assert.equal(action(vendor).evidenceClass, 'VENDOR_CLAIM');
+  assert.equal(action(vendor).businessEffectAuthority, 'NONE');
 });

@@ -10,18 +10,19 @@
     "Three sovereign-relation organs: Present Free Will Outranks the Model (rank decides, evidence strength never promotes a rung; deferralDrift counts the accumulation), Free Will Amplification (a sharper chooser, not a longer menu; an ungrounded cycle would be self-certifying), Temporal Civilization (persistence across eras is the only thing earning the present tense). 15 mutations KILLED (5030e774).",
     "Four external suppliers declared -- Claude Code Setup, Fable Orchestrator, Metaswarm, Superpowers -- all genuinely governed by src/external-capability-control-plane.mjs with per-supplier admission branches and asserted routing. Governance is implemented; no host runtime is claimed installed.",
     "Four operator doctors give every new organ a real caller: personal-civilization-doctor, reasoning-quality-doctor, memory-truth-doctor (which runs against the repository's own artifacts, not a fixture) and sovereign-relation-doctor. All read-only, synthetic fixtures, zero external-effect ledgers.",
-    "Three defects found by the new tests and fixed at the source: a 40-character cap silently discarding REQUIRES_ANOTHER_PERSONS_CONSENT_NOT_GIVEN (42 characters), so a typo became permission; Number(null) turning an unstated instrument error into a claimed zero-error instrument; and the memory doctor reading a preserved OWNER_RECALLED_UNRESOLVED pointer as a found thing."
+    "Three defects found by the new tests and fixed at the source: a 40-character cap silently discarding REQUIRES_ANOTHER_PERSONS_CONSENT_NOT_GIVEN (42 characters), so a typo became permission; Number(null) turning an unstated instrument error into a claimed zero-error instrument; and the memory doctor reading a preserved OWNER_RECALLED_UNRESOLVED pointer as a found thing.",
+    "Ten capability domains verified and declared with named modules and tests: world sensing/Gamechanger, opportunity-market-signal-mechanism, Business Genome and Money Model Tournament, Event Horizon capital allocation, prospect-supply/source adapters, runtime-aware reachability, fulfilment-acceptance-renewal, billing-receivables-refund-accounting, monitoring-escalation-queues-health, and security-sovereignty-suppression-revocation. Each declaration names the modules and the tests that carry it, rather than counting filename tokens."
   ],
   "blockers": [
     "EXTERNAL: realCustomers, clearedRevenueUsd, acceptedPaidDeliveries and retainedCustomers all remain zero. No code closes these.",
-    "EXTERNAL: PR #458 (omega/night-convergence-20260907) carries byte-corrupted sovereign artifacts -- 41.6% non-ASCII in implementation-coverage-matrix.json, and implementation-manifest.json and enforcement-manifest.json fail to parse entirely. This session did not build on that branch. Someone should regenerate them there with the canonical generators before that PR merges.",
+    "EXTERNAL: PR #458 (omega/night-convergence-20260907) carries byte-corrupted sovereign artifacts -- 41.6% non-ASCII in implementation-coverage-matrix.json, and implementation-manifest.json and enforcement-manifest.json fail to parse entirely. This session did not build on that branch. Regenerate them with the canonical generators before it merges.",
     "NOT A GAP: the 18 evaluationDimensions rows read SPEC_ONLY because they are deliberately parentless -- criteria for a human reviewing UberBond, not outputs any module computes. SPEC_ONLY overstates the residue there, which is the safe direction. Do not shrink them by inventing a parent.",
-    "REAL RESIDUE: 23 CAPABILITY_DOMAIN rows are compound domains spanning many modules. Several have substantial partial coverage, and declaring one VERIFIED because a few named components exist would repeat exactly the overstatement repaired in c182ac0e. Each needs per-domain evidence before declaration.",
+    "REAL RESIDUE: 13 CAPABILITY_DOMAIN rows remain. The ten declared here each named their modules and tests; the remaining thirteen (SaaS Cannibal, Invisible Money Plumbing, white-label packaging, reconciliation-matching-document-exception, identity-rights-consent-delegation-expiry, offer-catalogue-pricing-scope, partner-tenant-buyer graph, AI-evaluation claim boundaries, public-web lawful crawling, distribution-attribution channels, usage-margin-founder-minute metering, security-privacy-retention-deletion-audit, and Mechanism Lab recombination) have partial coverage that has not been evidenced end to end. Declaring one off a few components would repeat the overstatement repaired in c182ac0e.",
     "REAL RESIDUE: 9 GENESIS mechanisms (Zero-Day Frontier Radar, Future Primitive Extractor, Artificial Imagination and others) exist in the tree only as strings inside a frozen lane array. A lane label is not an implementation.",
-    "REAL RESIDUE: 23 CAPABILITY_ATOM rows and 20 far-future CONCEPT donors remain genuinely unbuilt."
+    "REAL RESIDUE: 23 CAPABILITY_ATOM rows and 20 far-future CONCEPT donors remain genuinely unbuilt. The concept donors are open-ended research directions the canon itself classifies as search space, not a build queue."
   ],
   "nextActions": [
-    "Work the 23 CAPABILITY_DOMAIN rows one at a time with real per-domain evidence: enumerate the modules and tests that cover each, and declare only where the whole domain is covered rather than a component of it.",
+    "Evidence the remaining 13 capability domains the same way the ten here were done: name the modules and the tests, and declare only where the whole domain is carried rather than a component of it.",
     "Build the 9 genuine GENESIS mechanisms, highest multiplier first. Future Primitive Extractor and Artificial Imagination feed the rest.",
     "Regenerate the corrupted sovereign artifacts on omega/night-convergence-20260907 before that branch merges.",
     "The economic frontier is untouched by this session and remains the subordinate objective: offer -> distribution -> cleared payment -> accepted delivery is where the external blockers actually live."
@@ -95,8 +96,8 @@
     "perfectPredictionProof": "NOT_CREATED_BY_ARCHITECTURE"
   },
   "provisionalProgress": {
-    "coverageSpecOnly": "138 -> 93",
-    "coverageVerifiedCurrent": "246 -> 262, net of 18 category claims removed by the matcher repair",
+    "coverageSpecOnly": "138 -> 83",
+    "coverageVerifiedCurrent": "246 -> 272, net of 18 category claims removed by the matcher repair",
     "coverageEnforcedByCode": "39 -> 51",
     "mutationRegistry": "320 -> 397, all killed",
     "boundary": "These are internal coverage and verification counts. They are not customers, revenue, accepted delivery, retention, or evidence that any life outcome improved."

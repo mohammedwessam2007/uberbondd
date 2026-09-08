@@ -1898,6 +1898,189 @@
         "tests/external-capability-control-plane.test.mjs"
       ],
       "note": "CANONICAL_METHOD. Its TDD and systematic-debugging disciplines are adopted where they improve falsifiability, and UberBond test and Mutation War law wins conflicts."
+    },
+    {
+      "concept": "world sensing and Gamechanger intelligence",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/world-intelligence.mjs",
+        "src/world-brain-field-mission.mjs",
+        "src/gamechanger-mesh.mjs",
+        "src/gamechanger-search-adapters.mjs",
+        "src/frontier-source-coverage.mjs"
+      ],
+      "tests": [
+        "tests/world-intelligence.test.mjs",
+        "tests/world-brain-field-mission.test.mjs",
+        "tests/gamechanger-mesh.test.mjs",
+        "tests/gamechanger-search-adapters.test.mjs",
+        "tests/frontier-source-coverage.test.mjs"
+      ],
+      "note": "Signal normalization, fingerprint dedupe, source-tier trust, attention classification and a coverage receipt that reports domain gaps rather than averaging over them. Escalation authority stays RESEARCH_AND_PROPOSAL_ONLY."
+    },
+    {
+      "concept": "opportunity market signal mechanism and evidence intelligence",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/opportunity-factory.mjs",
+        "src/opportunity-registry.mjs",
+        "src/market-signal.mjs",
+        "src/market-signal-registry.mjs",
+        "src/mechanism-lab.mjs",
+        "src/commercial-opportunity-catalog.mjs"
+      ],
+      "tests": [
+        "tests/opportunity-factory.test.mjs",
+        "tests/market-signal.test.mjs",
+        "tests/market-signal-registry.test.mjs",
+        "tests/mechanism-lab.test.mjs",
+        "tests/commercial-opportunity-catalog.test.mjs",
+        "tests/ai-access-opportunity-registry.test.mjs"
+      ],
+      "note": "Signal to opportunity to mechanism to catalogue, with the registry holding hypotheses rather than offers. Catalogue counts are inventory and cannot answer a commercial question -- enforced separately in src/memory-truth-boundary.mjs."
+    },
+    {
+      "concept": "Business Genome and Money Model Tournament",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/genome-extraction.mjs",
+        "src/business-model-fitness.mjs",
+        "src/opportunity-tournament.mjs"
+      ],
+      "tests": [
+        "tests/genome-extraction.test.mjs",
+        "tests/business-model-fitness.test.mjs",
+        "tests/opportunity-tournament.test.mjs"
+      ],
+      "note": "Mechanism extraction into a business genome, money-model fitness scoring, and a tournament that ranks candidates. Ranking is an internal prior and is labelled as one, never demand."
+    },
+    {
+      "concept": "Event Horizon capital allocation",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/event-horizon.mjs",
+        "src/event-horizon-cognitive-adapter.mjs",
+        "scripts/event-horizon-doctor.mjs"
+      ],
+      "tests": [
+        "tests/event-horizon.test.mjs",
+        "tests/event-horizon-cognitive-adapter.test.mjs"
+      ],
+      "note": "Champion/challenger allocation with the doctor reachable as npm run event-horizon:doctor. Challengers and decision indices stay hypotheses until buyer commitment or cleared payment supplies the stronger evidence class."
+    },
+    {
+      "concept": "prospect-supply/source adapters",
+      "lane": "OMEGA-06",
+      "sources": [
+        "src/prospect-import.mjs",
+        "src/prospect-qualification-gate.mjs",
+        "src/prospect-enrichment-planner.mjs",
+        "src/prospect-enrichment-budget-gate.mjs",
+        "src/prospect-evidence-reconciliation.mjs",
+        "src/prospect-identity-ledger.mjs",
+        "src/gamechanger-search-adapters.mjs"
+      ],
+      "tests": [
+        "tests/prospect-import.test.mjs",
+        "tests/prospect-qualification-gate.test.mjs",
+        "tests/prospect-enrichment-planner.test.mjs",
+        "tests/prospect-enrichment-budget-gate.test.mjs",
+        "tests/prospect-evidence-reconciliation.test.mjs",
+        "tests/prospect-suppression-dominance.test.mjs"
+      ],
+      "note": "Import, qualification, enrichment planning under a budget gate, evidence reconciliation and a stable identity ledger. Suppression dominates enrichment and qualification, tested by prospect-suppression-dominance."
+    },
+    {
+      "concept": "runtime-aware reachability",
+      "lane": "OMEGA-09",
+      "sources": [
+        "scripts/reachability-report.mjs",
+        "scripts/system-readiness.mjs"
+      ],
+      "tests": [
+        "tests/reachability-ratchet.test.mjs",
+        "tests/genesis-deterministic-reachability.test.mjs"
+      ],
+      "note": "measureReachability walks imports from the real production and operator entry points. Every unreached src module must carry a written reason in config/reachability-classification.json, so a new dead module fails a test instead of waiting to be noticed."
+    },
+    {
+      "concept": "fulfilment QA delivery acceptance retention renewal",
+      "lane": "OMEGA-07",
+      "sources": [
+        "src/service-fulfillment.mjs",
+        "src/programmatic-fulfillment-router.mjs",
+        "src/lead-path-sprint-fulfillment.mjs",
+        "src/proposal-acceptance-engine.mjs",
+        "src/payment-renewal-truth.mjs"
+      ],
+      "tests": [
+        "tests/fulfillment-evidence-referent.test.mjs",
+        "tests/fulfillment-forward-time.test.mjs",
+        "tests/fulfillment-sovereignty-boundary.test.mjs",
+        "tests/proposal-acceptance-engine.test.mjs",
+        "tests/payment-renewal-truth.test.mjs"
+      ],
+      "note": "Delivery through acceptance to renewal, with acceptance requiring an EXTERNAL_CUSTOMER event rather than an accepted boolean, and renewal counted only from subscription_payment_success with matching provider evidence."
+    },
+    {
+      "concept": "billing receivables payment refund dispute renewal and accounting evidence",
+      "lane": "OMEGA-07",
+      "sources": [
+        "src/billing-webhook-boundary.mjs",
+        "src/billing-webhook-repository.mjs",
+        "src/receivables-contract.mjs",
+        "src/payment-renewal-truth.mjs",
+        "src/accounting-ledger-export-contract.mjs"
+      ],
+      "tests": [
+        "tests/billing-backlog-visibility.test.mjs",
+        "tests/receivables-contract.test.mjs",
+        "tests/payment-renewal-truth.test.mjs",
+        "tests/accounting-ledger-export-contract.test.mjs"
+      ],
+      "note": "Provider webhook boundary, receivables, reversal and refund accounting inside payment-renewal-truth, and an export contract that refuses to export cleared economics that do not exist. Cleared revenue remains zero and no module can change that."
+    },
+    {
+      "concept": "monitoring incidents exception queues health and observability",
+      "lane": "OMEGA-09",
+      "sources": [
+        "src/system-health-matrix.mjs",
+        "src/system-health-repository.mjs",
+        "src/operator-health-snapshot.mjs",
+        "src/egress-health-pool.mjs",
+        "src/operator-escalation.mjs",
+        "src/operator-escalation-transport.mjs",
+        "src/queue.mjs"
+      ],
+      "tests": [
+        "tests/operator-health-snapshot.test.mjs",
+        "tests/admin-health-route.test.mjs",
+        "tests/operator-escalation.test.mjs",
+        "tests/operator-escalation-episodes.test.mjs",
+        "tests/queue.test.mjs"
+      ],
+      "note": "Health matrix and snapshot, egress pool health, a bounded queue, and operator escalation with its own transport. Escalation episodes are tested for delivery semantics rather than assumed."
+    },
+    {
+      "concept": "security sovereignty privacy suppression revocation",
+      "lane": "OMEGA-10",
+      "sources": [
+        "src/security.mjs",
+        "src/secret-patterns.mjs",
+        "src/sovereignty-type-system.mjs",
+        "src/memory-sovereignty.mjs",
+        "src/salience-sovereignty.mjs",
+        "src/capability-genome-admission.mjs"
+      ],
+      "tests": [
+        "tests/secret-leakage-sweep.test.mjs",
+        "tests/secret-format-coverage.test.mjs",
+        "tests/prospect-suppression-dominance.test.mjs",
+        "tests/sovereignty-type-system.test.mjs",
+        "tests/memory-sovereignty.test.mjs",
+        "tests/capability-genome-body-security-screening.test.mjs"
+      ],
+      "note": "Secret pattern sweep and format coverage, suppression dominance, the sovereignty type ladder with human-only crossings, memory and salience sovereignty, and capability revocation in genome admission where a revoked record is never selectable."
     }
   ]
 }

@@ -17,6 +17,13 @@ const fixturePreparation = process.platform === 'linux' && process.arch === 'x64
 
 const steps = [
   ...fixturePreparation,
+  // C11-B must execute before the rest of this build writes repository-derived
+  // atlases. It requires a clean exact checkout, runs the canonical readiness
+  // and Sovereign coverage generators, cross-checks both against git HEAD and
+  // C11-A, and refuses any mutation outside the three declared truth outputs.
+  // This is source/canon truth only: it creates no named-runtime, customer,
+  // commercial, life-outcome or ASI evidence.
+  ['node', ['scripts/current-truth-regeneration.mjs']],
   ['node', ['scripts/uberbond-feature-genome.mjs']],
   ['node', ['scripts/uberbond-feature-atom-atlas.mjs']],
   ['node', ['scripts/uberbond-synaptic-map.mjs']],
@@ -87,6 +94,8 @@ for (const [command, args] of steps) {
 console.log(JSON.stringify({
   ok: true,
   status: 'VERCEL_NIGHT10_TERMINAL_SOURCE_GATE_PASSED',
+  exactHeadTruthRegenerationRequired: true,
+  sovereignCoverageDenominatorRequired: true,
   ultimateGraphRequired: true,
   deepAtlasPersistencePrivacyRequired: true,
   adminEphemeralBearerRequired: true,

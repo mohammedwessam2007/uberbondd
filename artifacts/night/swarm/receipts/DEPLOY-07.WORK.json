@@ -1,0 +1,36 @@
+{
+  "schema": "uberbond.night-swarm-receipt.v1",
+  "packetId": "DEPLOY-07",
+  "agent": "WORK",
+  "baseSha": "047e36c6eb0a27c3deabbba581c05e29ab597f3d",
+  "headSha": "f80a83065bf4ffd1b09438380150b5c24b1b09b5",
+  "sourceDelta": "NONE_FOR_REHEARSAL_MECHANISM__RECEIPT_AND_CLAIM_ONLY",
+  "reuseIdentity": {
+    "historicalExecutedHead": "31e3f2561ebf31138132e8b9384742f10ecf2248",
+    "currentIntegrationHead": "047e36c6eb0a27c3deabbba581c05e29ab597f3d",
+    "identicalBlobs": {
+      "src/supplier-exit-drill.mjs": "a27100866232884b0650a6039f442166d1979cc9",
+      "scripts/supplier-exit-drill.mjs": "26df3c5ab04b81ef43afbfa1db4e8d43f49a0c66",
+      "tests/supplier-exit-drill.test.mjs": "ef752b8087130379e06f7eef3dda0fad732b326c"
+    }
+  },
+  "actualTests": [
+    "PR #450 exact-head check:syntax: 1016 files parse",
+    "PR #450 exact-head test:deterministic: 4144 tests, 4089 pass, 0 fail, 54 skipped",
+    "PR #450 exact-head mutation-war: 231 mutations, 231 killed, 0 not killed, 0 skipped",
+    "PR #450 exact-head test:postgres-real: 24 suites",
+    "PR #450 exact-head test:relay-safety: 150/150",
+    "PR #450 exact-head test:browser: 1/1",
+    "PR #450 exact-head npm audit --omit=dev: 0 vulnerabilities",
+    "supplier-exit suite includes real export -> disposable restore -> restored-copy cutover -> rollback and repeat-run unchanged-state assertions"
+  ],
+  "mutationEvidence": "231/231 killed on the executed head containing the byte-identical supplier-exit mechanism",
+  "reachability": "scripts/supplier-exit-drill.mjs executes src/supplier-exit-drill.mjs directly; tests/supplier-exit-drill.test.mjs executes runExitDrill",
+  "authorityBoundary": "LOCAL_STATE_PORTABILITY_ONLY__AUTHORIZED_PROVIDER_CUTOVER_NOT_CLAIMED",
+  "privacyBoundary": "Owned repository canon/state bytes are copied only into a disposable local cell; no network transfer is performed by the drill",
+  "blockerClassification": "AUTHORIZED_PROVIDER_CUTOVER_REMAINS_EXTERNAL_AUTHORIZED_SUBSTRATE_EVIDENCE__LOCAL_RESTORE_CUTOVER_ROLLBACK_VERIFIED",
+  "integrationTarget": "PR #458 via SOL merge tribunal",
+  "progressDeltaReason": "DEPLOY-07 required a real restore/cutover/rollback rehearsal. UberBond already had one, and current source/test blobs are byte-identical to the exact head whose runner executed the rehearsal and hostile suite, so duplicate implementation would reduce rather than increase truth.",
+  "result": "PASS_REUSED_EXECUTED_IDENTICAL_SOURCE",
+  "businessEffectAuthority": "NONE"
+}

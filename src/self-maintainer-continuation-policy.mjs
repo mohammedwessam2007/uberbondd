@@ -1,7 +1,7 @@
 import { compileConstraintMutationPlan } from './constraint-mutation-engine.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const SELF_MAINTAINER_CONTINUATION_POLICY_VERSION = 'self-maintainer-continuation-policy-1.1.0';
+export const SELF_MAINTAINER_CONTINUATION_POLICY_VERSION = 'self-maintainer-continuation-policy-1.2.0';
 
 const zeroEffects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
 const text = (value, max = 500) => String(value ?? '').trim().slice(0, max);
@@ -118,9 +118,10 @@ export function decideSelfMaintainerContinuation({
 /**
  * Enforce a prior continuation receipt before another same-base pulse.
  * A changed main SHA is new repository evidence and may be evaluated normally.
- * On the exact same base, waiting/review/STOP/mutation states block the ordinary
- * self-maintainer tick so a manual rerun cannot silently become an identical
- * retry. This gate does not execute a mutation and grants no new authority.
+ * On the exact same base, WAIT may resume the already-bound relay issue so the
+ * system can observe a worker result, but may not create a fresh task. Review,
+ * STOP and strategy-mutation states still block ordinary same-base re-entry.
+ * This gate executes no mutation and grants no new authority.
  */
 export function gateSelfMaintainerPulse({ currentBaseRevision, priorReceipt = null } = {}) {
   const currentBase = text(currentBaseRevision, 80).toLowerCase();
@@ -132,6 +133,7 @@ export function gateSelfMaintainerPulse({ currentBaseRevision, priorReceipt = nu
       ok: true,
       status: 'PULSE_ALLOWED_NO_PRIOR_CONTINUATION',
       runPrimaryTick: true,
+      resumeExistingAttemptOnly: false,
       currentBaseRevision: currentBase,
       truthBoundary: 'NO PRIOR CONTINUATION RECEIPT WAS AVAILABLE; THIS DOES NOT IMPLY THE BASE IS NOVEL OUTSIDE THIS WORKFLOW'
     });
@@ -143,6 +145,7 @@ export function gateSelfMaintainerPulse({ currentBaseRevision, priorReceipt = nu
       ok: true,
       status: 'PULSE_ALLOWED_UNUSABLE_PRIOR_RECEIPT',
       runPrimaryTick: true,
+      resumeExistingAttemptOnly: false,
       currentBaseRevision: currentBase,
       reasonCodes: ['prior-receipt-exact-base-unavailable'],
       truthBoundary: 'AN UNBOUND HISTORICAL RECEIPT CANNOT BLOCK A CURRENT BASE'
@@ -153,6 +156,7 @@ export function gateSelfMaintainerPulse({ currentBaseRevision, priorReceipt = nu
       ok: true,
       status: 'PULSE_ALLOWED_NEW_BASE_EVIDENCE',
       runPrimaryTick: true,
+      resumeExistingAttemptOnly: false,
       currentBaseRevision: currentBase,
       priorBaseRevision: observedBase,
       truthBoundary: 'A DIFFERENT MAIN SHA IS NEW REPOSITORY EVIDENCE; PREVIOUS SAME-BASE STOPPING RULES DO NOT AUTOMATICALLY VETO REEVALUATION'
@@ -163,8 +167,35 @@ export function gateSelfMaintainerPulse({ currentBaseRevision, priorReceipt = nu
     ? priorReceipt.continuation
     : {};
   const priorStatus = text(priorContinuation.status, 120).toUpperCase();
+
+  if (priorStatus === 'WAIT_FOR_EXISTING_ATTEMPT') {
+    const issueNumber = Number(priorReceipt.observedIssueNumber);
+    if (!Number.isSafeInteger(issueNumber) || issueNumber <= 0) {
+      return envelope({
+        ok: true,
+        status: 'CURRENT_BASE_WAIT_WITHOUT_BOUND_ATTEMPT_BLOCKED',
+        runPrimaryTick: false,
+        resumeExistingAttemptOnly: false,
+        currentBaseRevision: currentBase,
+        priorContinuationStatus: priorStatus,
+        reasonCodes: ['waiting-continuation-requires-existing-issue-binding'],
+        truthBoundary: 'WAIT MAY RESUME ONLY THE EXACT EXISTING RELAY ATTEMPT; WITHOUT ITS ISSUE ID A NEW SAME-BASE ATTEMPT IS REFUSED'
+      });
+    }
+    return envelope({
+      ok: true,
+      status: 'CURRENT_BASE_EXISTING_ATTEMPT_RESUME_ONLY',
+      runPrimaryTick: true,
+      resumeExistingAttemptOnly: true,
+      resumeIssueNumber: issueNumber,
+      currentBaseRevision: currentBase,
+      priorContinuationStatus: priorStatus,
+      requiredDecision: 'READ_OR_ADVANCE_EXISTING_ATTEMPT_ONLY',
+      truthBoundary: 'THE SAME-BASE PULSE MAY OBSERVE OR ADVANCE THE EXACT EXISTING RELAY ISSUE; IT MAY NOT CREATE A SECOND TASK OR COUNT WAITING AS PROGRESS'
+    });
+  }
+
   const blocking = new Set([
-    'WAIT_FOR_EXISTING_ATTEMPT',
     'REVIEW_PENDING',
     'NO_SAFE_CHANGE_THIS_BASE',
     'STRATEGY_MUTATION_REQUIRED'
@@ -174,6 +205,7 @@ export function gateSelfMaintainerPulse({ currentBaseRevision, priorReceipt = nu
       ok: true,
       status: 'CURRENT_BASE_REENTRY_BLOCKED',
       runPrimaryTick: false,
+      resumeExistingAttemptOnly: false,
       currentBaseRevision: currentBase,
       priorContinuationStatus: priorStatus,
       requiredDecision: priorStatus === 'STRATEGY_MUTATION_REQUIRED'
@@ -187,8 +219,9 @@ export function gateSelfMaintainerPulse({ currentBaseRevision, priorReceipt = nu
     ok: true,
     status: 'PULSE_ALLOWED_PRIOR_CONTINUATION_NONBLOCKING',
     runPrimaryTick: true,
+    resumeExistingAttemptOnly: false,
     currentBaseRevision: currentBase,
     priorContinuationStatus: priorStatus || null,
-    truthBoundary: 'THE PRIOR RECEIPT DID NOT REQUIRE WAIT, STOP, REVIEW HOLD, OR STRATEGY MUTATION'
+    truthBoundary: 'THE PRIOR RECEIPT DID NOT REQUIRE STOP, REVIEW HOLD, OR STRATEGY MUTATION'
   });
 }

@@ -19,19 +19,15 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { measureReachability, reachableFromEntryPoints } from '../scripts/system-readiness.mjs';
+import {
+  measureReachability,
+  reachableFromEntryPoints,
+  FOUNDER_INTERACTIVE_ENTRY_POINTS
+} from '../scripts/system-readiness.mjs';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const PRODUCTION_ENTRY_POINTS = ['server.mjs', 'worker.mjs', 'scripts/agent-mesh-tick.mjs'];
-
-// Private life state is different from ordinary operator tooling. An ordinary
-// script may be started by an unattended maintainer or scheduled shell. The
-// founder-interactive entry point refuses non-TTY invocation and requires an
-// explicit presence phrase before it constructs PRIVATE_LIFE_STATE authority.
-// Only these exact entry points may make a DELIBERATELY_UNREACHABLE private-life
-// module callable. They are removed from the unattended operator graph below.
-const FOUNDER_INTERACTIVE_ENTRY_POINTS = ['scripts/personal-civilization-private.mjs'];
 
 // Entry points have to be found recursively, and this is not a tidiness point.
 //
@@ -62,19 +58,18 @@ function classification() {
 function partition() {
   const api = entryPointsIn('api');
   const scripts = entryPointsIn('scripts');
-  const autonomousScripts = scripts.filter(file => !FOUNDER_INTERACTIVE_ENTRY_POINTS.includes(file));
+  const unattendedScripts = scripts.filter(file => !FOUNDER_INTERACTIVE_ENTRY_POINTS.includes(file));
   const production = reachableFromEntryPoints([...PRODUCTION_ENTRY_POINTS, ...api]);
-  const unattended = reachableFromEntryPoints([...PRODUCTION_ENTRY_POINTS, ...api, ...autonomousScripts]);
+  const unattended = reachableFromEntryPoints([...PRODUCTION_ENTRY_POINTS, ...api, ...unattendedScripts]);
   const founderInteractive = reachableFromEntryPoints(FOUNDER_INTERACTIVE_ENTRY_POINTS);
-  const anyEntry = reachableFromEntryPoints(['server.mjs', 'worker.mjs', ...scripts, ...api]);
   const all = entryPointsIn('src');
   return {
     all,
     production: all.filter(file => production.has(file)),
-    operatorOnly: all.filter(file => !production.has(file) && anyEntry.has(file)),
-    founderInteractiveOnly: all.filter(file => founderInteractive.has(file) && !unattended.has(file)),
+    operatorOnly: all.filter(file => !production.has(file) && unattended.has(file)),
+    founderInteractiveOnly: all.filter(file => !unattended.has(file) && founderInteractive.has(file)),
     unattended: all.filter(file => unattended.has(file)),
-    unreachable: all.filter(file => !anyEntry.has(file))
+    unreachable: all.filter(file => !unattended.has(file) && !founderInteractive.has(file))
   };
 }
 
@@ -88,24 +83,25 @@ test('every unreachable src module is classified with a reason', () => {
     + 'Add them to config/reachability-classification.json, or wire them.');
 });
 
-test('no classification describes a module that is actually reachable except founder-interactive private state', () => {
+test('no classification describes an unattended reachable module; founder-interactive private state is the only reachable exception', () => {
   const { production, operatorOnly, founderInteractiveOnly } = partition();
-  const reachable = new Set([...production, ...operatorOnly]);
+  const unattendedReachable = new Set([...production, ...operatorOnly]);
   const founderOnly = new Set(founderInteractiveOnly);
   const { modules } = classification();
 
   const stale = Object.keys(modules).filter(file => {
-    if (!reachable.has(file)) return false;
-    return !(modules[file].category === 'DELIBERATELY_UNREACHABLE' && founderOnly.has(file));
+    if (unattendedReachable.has(file)) return true;
+    if (founderOnly.has(file)) return modules[file].category !== 'DELIBERATELY_UNREACHABLE';
+    return false;
   });
   assert.deepEqual(stale, [],
-    `these modules are reachable and should be removed from the classification unless they are explicitly founder-interactive private state:\n  ${stale.join('\n  ')}`);
+    `these classifications conflict with live reachability:\n  ${stale.join('\n  ')}`);
 });
 
 test('a deliberately unreachable private module is unreachable from every unattended entry point', () => {
   // DELIBERATELY_UNREACHABLE means unreachable from unattended execution. The
-  // only exception is the exact founder-interactive command above, where a
-  // person must be present and explicitly authorize PRIVATE_LIFE_STATE for that
+  // only exception is the exact founder-interactive command, where a person
+  // must be present and explicitly authorize PRIVATE_LIFE_STATE for that
   // process. Production HTTP, workers, API routes and every other script remain
   // forbidden from reaching these modules.
   const { unattended, founderInteractiveOnly } = partition();
@@ -167,9 +163,9 @@ test('an UNREACHABLE_BUG classification is a defect and fails until it is fixed'
     'a module classified UNREACHABLE_BUG should be wired or reclassified, not left sitting');
 });
 
-test('the reachability split is live-computed and production reachability cannot silently fall', () => {
-  const { all, production, operatorOnly, unreachable } = partition();
-  assert.equal(production.length + operatorOnly.length + unreachable.length, all.length);
+test('the reachability split is live-computed, mutually exclusive and production reachability cannot silently fall', () => {
+  const { all, production, operatorOnly, founderInteractiveOnly, unreachable } = partition();
+  assert.equal(production.length + operatorOnly.length + founderInteractiveOnly.length + unreachable.length, all.length);
 
   // Production reachability must not silently fall. The floor is intentionally
   // conservative; live graph totals may increase as capabilities are wired.
@@ -183,8 +179,13 @@ test('the reachability split is live-computed and production reachability cannot
   assert.equal(measured.measurementMode, 'LIVE_COMPUTED_FROM_IMPORT_GRAPH');
   assert.equal(measured.srcModules, all.length);
   assert.equal(measured.reachableFromProduction, production.length);
-  assert.equal(measured.reachableFromOperatorScriptsOnly, operatorOnly.length);
+  assert.equal(measured.reachableFromUnattendedOperatorScriptsOnly, operatorOnly.length);
+  assert.equal(measured.reachableFromOperatorScriptsOnly, operatorOnly.length,
+    'legacy operator-only alias must exclude founder-interactive private state');
+  assert.equal(measured.reachableFromFounderInteractiveOnly, founderInteractiveOnly.length);
   assert.equal(measured.noEntryPointAtAll, unreachable.length);
+  assert.deepEqual(measured.founderInteractiveEntryPoints, [...FOUNDER_INTERACTIVE_ENTRY_POINTS]);
+  assert.deepEqual(measured.founderInteractiveClassificationViolations, []);
   assert.equal(measured.partitionExact, true);
 
   // Do not duplicate volatile live graph counts in prose. That practice failed
@@ -201,7 +202,9 @@ test('the reachability split is live-computed and production reachability cannot
     'human canon must not duplicate a live operator-only count');
 });
 
-test('the entry points this ratchet trusts actually exist', () => {
+test('the entry points this ratchet trusts actually exist and founder-interactive entrypoints stay a tiny explicit allowlist', () => {
+  assert.deepEqual([...FOUNDER_INTERACTIVE_ENTRY_POINTS], ['scripts/personal-civilization-private.mjs'],
+    'private-life authority may not expand through a directory convention or unnoticed second entry point');
   for (const entry of [...PRODUCTION_ENTRY_POINTS, ...FOUNDER_INTERACTIVE_ENTRY_POINTS]) {
     assert.ok(readFileSync(join(repoRoot, entry), 'utf8').length > 0, `${entry} is missing`);
   }

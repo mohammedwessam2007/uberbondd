@@ -1,6 +1,6 @@
 # GPT WORK ASTRA — 10-MINUTE UBERBOND COMMAND SWARM
 
-Status: `SCARCE_FRONTIER_ORCHESTRATOR / DO_NOT_BULK_CODE / FAN_OUT_IMMEDIATELY`
+Status: `C02 / ORCHESTRATION_ONLY / PREPARED_NOT_DISPATCHED`
 
 Repository: `mohammedwessam2007/uberbondd`
 
@@ -107,7 +107,7 @@ Astra may direct:
 - UberBond/self-maintainer to run doctors, capability routing, bounded self-deployment rehearsal and receipt generation;
 - lightweight workers to perform search, test expansion, static audits, mutation probes and docs/receipt updates.
 
-Astra itself should edit code only when a tiny high-leverage control-plane defect blocks all workers and no delegation path is faster.
+Astra does not implement. Return a bounded repair specification to the cheapest capable worker in an execution-authorized session.
 
 ### T+8:15 to T+9:00 — final reassignment
 Assume Astra is about to disappear.
@@ -209,3 +209,22 @@ A perfect Astra run is not one where Astra writes the most code. It is one where
 - blocked lanes have mutated strategy;
 - all state is durable;
 - the next ordinary model can continue without rediscovering the mission.
+
+
+## C02 — current owner override and efficient closure campaign
+
+This section supersedes earlier immediate fan-out/timing/percentage directions where they conflict. The owner requests Astra orchestration and publication to main; no implementation in this session. Prepared tasks are not running agents. Read the state artifact's executionPackets and checkpoint before historical opening queues.
+
+#481 is merged at observed main 576b8b7349b359809b314fe7af733e6e472f97d3. #482 is draft at 6e34e42e8c2dce3ef5ae9a59ae1aee6a20562b5b; #483 is draft at ce1fb71239ac092c913b44ec166931bbcb1a0266. Refresh before execution. #488 contains a verification request, not a completion receipt in the comments inspected for C02.
+
+A later execution-authorized session starts with current ownership and VERIFY-482 / VERIFY-483 on a real runner. Serialize shared write surfaces. Follow the six existing residual packets instead of creating a second queue. PCE private admission is an additional read-only boundary audit, not permission to make deliberately unreachable private organs autonomous.
+
+Model policy: cheapest configured capable model for retrieval, implementation, tests and reconciliation; smallest stronger tier only for a concrete failure or consequential uncertainty; Astra for creativity and architecture. Preserve actual model/cost evidence. A named model is not proof of cheapest pricing. No repeated broad logs or whole-history prompts.
+
+Leverage: prove shared persistence/authority/replay/recovery transitions at existing seams. Do not build a new generic framework merely to unify them. Split observation from new action so WAIT can observe a bound task without duplicating it. Treat changed repository SHA as reevaluation evidence, not proof that unrelated external capacity recovered.
+
+Worker prompt template: Refresh current main and this packet head. Read applicable canon and current ownership. Resolve exact allowed paths before claiming. Search existing mechanisms and donors. Perform only the packet's bounded objective under the execution session's authority. Run its falsifying acceptance cases. Return head, actual commands/exits, evidence paths, known limitations, effects and next dependency. Do not merge unless assigned integration authority. After one informed revision fails, return the minimal counterexample for a different strategy.
+
+Checkpoint after each material decision or at most five minutes of unsaved active work, and before context/model switches. Update the existing state artifact; retain historical facts with their dates. Save the last available minute. Do not post repetitive messages or create ceremonial PRs.
+
+Completion is a gate vector: implementation, intended reachability, durable state, recovery, integration, observed runtime, external outcome. The 64-packet map is not the whole project denominator. A finite scoped internal release may reach 100% only with all defined gates evidenced; the open-ended Sovereign Cognitive Continuum and months of real outcomes cannot inherit that percentage. No runtime progress is earned by this checkpoint.

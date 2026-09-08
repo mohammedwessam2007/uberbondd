@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-astra-orchestrator-state-1.0.0",
-  "status": "READY_FOR_10_MINUTE_ASTRA_FANOUT",
+  "status": "ORCHESTRATION_CHECKPOINT_C02__WORKER_PACKETS_PREPARED_NOT_DISPATCHED",
   "createdFromMain": "799107519beca7e1dd6d56013dd937ab99b780af",
   "orchestratorBranch": "work/astra-swarm-reconciliation-20260908",
   "authoritativePrompt": "docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md",
@@ -22,17 +22,59 @@
     "ambiguous": 0
   },
   "openingInternalQueue": [
-    {"packet":"DELIVERY-02","goal":"provider-neutral delivery transport contract","acceptance":"attempt != delivered != accepted; provider-neutral transport receipt; idempotency; failure classification","recommendedWorker":"Claude/coding worker"},
-    {"packet":"DELIVERY-07","goal":"customer silence and support-window semantics","acceptance":"no silence->acceptance inference; bounded follow-up/support terminal states; deterministic time evidence","recommendedWorker":"Claude/coding worker"},
-    {"packet":"DEPLOY-01","goal":"portable auth/backend facade on current main","donor":"#461","acceptance":"current-main descendant; auth works without Vercel-specific identity; no stale #458 overwrite; preflight/health receipt","recommendedWorker":"SOL or coding worker + SOL tribunal"},
-    {"packet":"DEPLOY-04","goal":"scheduler durability","acceptance":"scheduled occurrence survives restart/duplicate wake and does not duplicate work; in-process timer presence alone does not count","recommendedWorker":"coding worker"},
-    {"packet":"DEPLOY-06","goal":"graceful shutdown restart proof","acceptance":"terminate -> restart -> queue/state recovery -> no duplicate side effect; explicit rollback/recovery receipt","recommendedWorker":"coding worker"},
-    {"packet":"AUTO-05","goal":"missing-capability build path","acceptance":"one real gap -> atoms -> approved supplier/build candidate -> bounded implementation handoff; registry prose alone is insufficient","recommendedWorker":"Claude/Capability Genome worker"}
+    {
+      "packet": "DELIVERY-02",
+      "goal": "provider-neutral delivery transport contract",
+      "acceptance": "attempt != delivered != accepted; provider-neutral transport receipt; idempotency; failure classification",
+      "recommendedWorker": "Claude/coding worker"
+    },
+    {
+      "packet": "DELIVERY-07",
+      "goal": "customer silence and support-window semantics",
+      "acceptance": "no silence->acceptance inference; bounded follow-up/support terminal states; deterministic time evidence",
+      "recommendedWorker": "Claude/coding worker"
+    },
+    {
+      "packet": "DEPLOY-01",
+      "goal": "portable auth/backend facade on current main",
+      "donor": "#461",
+      "acceptance": "current-main descendant; auth works without Vercel-specific identity; no stale #458 overwrite; preflight/health receipt",
+      "recommendedWorker": "SOL or coding worker + SOL tribunal"
+    },
+    {
+      "packet": "DEPLOY-04",
+      "goal": "scheduler durability",
+      "acceptance": "scheduled occurrence survives restart/duplicate wake and does not duplicate work; in-process timer presence alone does not count",
+      "recommendedWorker": "coding worker"
+    },
+    {
+      "packet": "DEPLOY-06",
+      "goal": "graceful shutdown restart proof",
+      "acceptance": "terminate -> restart -> queue/state recovery -> no duplicate side effect; explicit rollback/recovery receipt",
+      "recommendedWorker": "coding worker"
+    },
+    {
+      "packet": "AUTO-05",
+      "goal": "missing-capability build path",
+      "acceptance": "one real gap -> atoms -> approved supplier/build candidate -> bounded implementation handoff; registry prose alone is insufficient",
+      "recommendedWorker": "Claude/Capability Genome worker"
+    }
   ],
   "freshCurrentTribunal": [
-    {"pr":481,"goal":"Deep Atlas growth false-red repair"},
-    {"pr":482,"goal":"cash artery PayPal provider truth to paid sprint QA delivery-ready"},
-    {"pr":483,"goal":"constraint mutation and evidence-triggered self-maintenance"}
+    {
+      "branch": "sol/cash-artery-main-20260908",
+      "draft": true,
+      "head": "6e34e42e8c2dce3ef5ae9a59ae1aee6a20562b5b",
+      "pr": 482,
+      "state": "open"
+    },
+    {
+      "branch": "sol/constraint-mutation-main-20260908",
+      "draft": true,
+      "head": "ce1fb71239ac092c913b44ec166931bbcb1a0266",
+      "pr": 483,
+      "state": "open"
+    }
   ],
   "certifiedWorkReceipts": [
     "artifacts/night/swarm/receipts/DEPLOY-02.WORK-CURRENT.json",
@@ -48,27 +90,304 @@
     "AUTO-08 founder-minute priority on current main"
   ],
   "externalOnly": [
-    {"packet":"DEPLOY-08","gate":"named owned/authorized alternate substrate actually serves restored state and a verified bounded workload"}
+    {
+      "packet": "DEPLOY-08",
+      "gate": "named owned/authorized alternate substrate actually serves restored state and a verified bounded workload"
+    }
   ],
   "knownHostedRunnerTruth": {
-    "githubActions":"historically produced zero-step runner-allocation failures for many swarm children; classify causally before treating red as source evidence",
-    "vercel":"daily deployment cap has occurred; latest historical PR #458 bot state showed lite-private ready and root project error, but this is not a substitute for exact-current-head proof",
-    "rule":"same blocker + same strategy + no new safe evidence => strategy mutation"
+    "githubActions": "historically produced zero-step runner-allocation failures for many swarm children; classify causally before treating red as source evidence",
+    "vercel": "daily deployment cap has occurred; latest historical PR #458 bot state showed lite-private ready and root project error, but this is not a substitute for exact-current-head proof",
+    "rule": "same blocker + same strategy + no new safe evidence => strategy mutation"
   },
   "commercialTruth": {
-    "realCustomers":0,
-    "clearedRevenueUsd":0,
-    "acceptedPaidDeliveries":0,
-    "retainedCustomers":0
+    "realCustomers": 0,
+    "clearedRevenueUsd": 0,
+    "acceptedPaidDeliveries": 0,
+    "retainedCustomers": 0
   },
   "scoreboard": {
-    "canonPercent":99,
-    "economicSoftwarePercent":99,
-    "personalCivilizationRuntimePercentFloor":44,
-    "sovereignContinuumRuntimePercentFloor":53,
-    "realityCalibrationPercentFloor":24,
-    "fullSystemPercentFloor":83,
-    "note":"floors reflect last evidence-bounded scoreboard plus known current-main convergence; regenerate canonical readiness before sharpening these values"
+    "status": "NOT_REMEASURED",
+    "percentage": null,
+    "reason": "No defensible current whole-system denominator; orchestration earns zero runtime or outcome credit.",
+    "historicalValues": "historicalScoreboard"
   },
-  "mandatoryFinalMinute":"Astra must stop coding and write a durable checkpoint with exact main/PR heads, ownership, packet dispositions, tests, blockers, merge order, next worker prompts and percentage deltas before model limits arrive."
+  "mandatoryFinalMinute": "Astra must stop coding and write a durable checkpoint with exact main/PR heads, ownership, packet dispositions, tests, blockers, merge order, next worker prompts and percentage deltas before model limits arrive.",
+  "checkpoint": {
+    "id": "C02",
+    "date": "2026-09-08",
+    "observedMain": "576b8b7349b359809b314fe7af733e6e472f97d3",
+    "mode": "ORCHESTRATION_ONLY",
+    "publicationAuthority": "Owner explicitly requested orchestration pushed to main.",
+    "implementationLaunched": false,
+    "workerAcknowledgements": [],
+    "readScope": "Current refs, existing Astra artifacts, #463/#488 and #482/#483 comments, core canon. Not a full source audit.",
+    "nextAction": "A later execution-authorized worker refreshes refs and ownership, then verifies #482/#483 on an executing host."
+  },
+  "closedTribunal": [
+    {
+      "pr": 481,
+      "state": "MERGED",
+      "evidence": "576b8b7349b359809b314fe7af733e6e472f97d3"
+    }
+  ],
+  "packetAccountingNote": "Inherited #486 classification of 64 historical packets; not whole-project completeness or newly executed verification.",
+  "historicalScoreboard": {
+    "canonPercent": 99,
+    "economicSoftwarePercent": 99,
+    "personalCivilizationRuntimePercentFloor": 44,
+    "sovereignContinuumRuntimePercentFloor": 53,
+    "realityCalibrationPercentFloor": 24,
+    "fullSystemPercentFloor": 83,
+    "note": "floors reflect last evidence-bounded scoreboard plus known current-main convergence; regenerate canonical readiness before sharpening these values"
+  },
+  "modelRouting": {
+    "selection": "Cheapest configured model meeting task capability/privacy/risk requirements; verify actual account prices and quotas, do not assume names establish cost.",
+    "default": "Cheap implementation tier; Luna candidate if available and suitable.",
+    "escalation": "Smallest stronger capable model after a minimal reproducible counterexample or consequential uncertainty.",
+    "astra": "Creativity, dependency compression, novel strategy; no implementation.",
+    "contextBudget": "Pass relevant files and evidence delta, never repeated whole-repository dumps.",
+    "attemptBudget": "Initial attempt plus one materially informed revision before strategy/capability escalation; no identical no-runner retries."
+  },
+  "checkpointPolicy": {
+    "cadence": "After every material decision or at most five minutes of unsaved active work; before model/context/host changes.",
+    "finalReserve": "Last available minute for durable checkpoint.",
+    "fields": [
+      "observedMain",
+      "packetHead",
+      "ownerAcknowledgement",
+      "claimExpiry",
+      "writeSurfaces",
+      "evidence",
+      "commandsAndExitCodes",
+      "blockerFingerprint",
+      "nextSingleAction",
+      "modelIdentity",
+      "budgetIfKnown"
+    ],
+    "secretFree": true,
+    "backgroundExecutionClaim": false
+  },
+  "executionPackets": [
+    {
+      "id": "VERIFY-482",
+      "status": "PREPARED_NOT_DISPATCHED",
+      "owner": null,
+      "dependsOn": [],
+      "writeSurfaces": [
+        "#482 existing source/tests; discover exact paths from current PR"
+      ],
+      "acceptance": [
+        "Forged/mismatched payment rejected; replay with different order/capture refused.",
+        "Incomplete durable witness triad fails closed; identical complete replay idempotent.",
+        "QA_REQUIRED remains blocked on bad evidence and recovers on new valid durable evidence without duplicate notification.",
+        "No DELIVERY_READY -> customer acceptance inference."
+      ],
+      "model": "Cheapest capable verifier; escalate payment ambiguity.",
+      "notes": "#482 exact current head before proposed merge; existing issue/worker ownership first."
+    },
+    {
+      "id": "VERIFY-483",
+      "status": "PREPARED_NOT_DISPATCHED",
+      "owner": null,
+      "dependsOn": [],
+      "writeSurfaces": [
+        "#483 existing source/tests/workflow; respect #488 ownership"
+      ],
+      "acceptance": [
+        "WAIT resumes only exact observedIssueNumber; missing binding refuses.",
+        "STOP/REVIEW/MUTATION survive restart and same-base re-entry; no second task.",
+        "Adversarial hypothesis: unrelated doc-only main changes must not be treated as proof a provider blocker vanished.",
+        "Read-only observation remains possible without granting effect authority."
+      ],
+      "model": "Cheapest capable verifier; Astra only if a new mechanism is needed.",
+      "notes": "#488 latest acknowledgement required; issue mention alone is not running-worker proof."
+    },
+    {
+      "id": "DELIVERY-02",
+      "status": "PREPARED_NOT_DISPATCHED",
+      "owner": null,
+      "dependsOn": [
+        "VERIFY-482"
+      ],
+      "writeSurfaces": [
+        "Existing delivery transport seam; worker must resolve and claim exact paths"
+      ],
+      "acceptance": [
+        "Attempt, provider-confirmed delivery and customer acceptance remain distinct.",
+        "Timeout after possible provider effect enters reconciliation, never blind resend.",
+        "Duplicate receipt is idempotent; mismatched tenant/order/artifact rejected.",
+        "Focused fake-provider tests only; no customer messages."
+      ],
+      "model": "Cheap implementation tier.",
+      "notes": "Prefer existing service-fulfillment mechanism; do not create a second delivery framework."
+    },
+    {
+      "id": "DELIVERY-07",
+      "status": "PREPARED_NOT_DISPATCHED",
+      "owner": null,
+      "dependsOn": [
+        "DELIVERY-02"
+      ],
+      "writeSurfaces": [
+        "Existing delivery/support state machine; serialize with DELIVERY-02 if shared"
+      ],
+      "acceptance": [
+        "Silence/time expiry cannot imply acceptance.",
+        "Follow-up/support windows use explicit clock evidence, bounded attempts and suppression.",
+        "Late authentic reply enters appropriate existing transition without duplicate effects."
+      ],
+      "model": "Cheap implementation tier.",
+      "notes": "Can share one coherent PR with DELIVERY-02 when surfaces overlap."
+    },
+    {
+      "id": "DEPLOY-01",
+      "status": "PREPARED_NOT_DISPATCHED",
+      "owner": null,
+      "dependsOn": [
+        "VERIFY-482"
+      ],
+      "writeSurfaces": [
+        "Existing portable backend/auth/config donor; resolve current stack before edits"
+      ],
+      "acceptance": [
+        "Canonical auth allow/deny outside Vercel.",
+        "Canonical PayPal environment/credential contract agrees across bridge and runtime; mismatch fails closed.",
+        "No secret values in logs/receipts; current-main ancestry."
+      ],
+      "model": "Cheap implementation tier; stronger security review if needed.",
+      "notes": "#461 reference-only donor; inspect newer portable stack before transplant."
+    },
+    {
+      "id": "DEPLOY-04",
+      "status": "PREPARED_NOT_DISPATCHED",
+      "owner": null,
+      "dependsOn": [
+        "DEPLOY-01"
+      ],
+      "writeSurfaces": [
+        "Existing durable scheduler/occurrence store; claim exact paths"
+      ],
+      "acceptance": [
+        "Restart catches pending occurrence; duplicate/concurrent wake produces one logical job.",
+        "Persist-before-dispatch and crash-between-dispatch-and-ack both recover.",
+        "Lease expiry and clock boundary tested; timer presence alone is insufficient."
+      ],
+      "model": "Cheap implementation tier.",
+      "notes": "No fabricated exactly-once external effects: require provider idempotency or reconciliation."
+    },
+    {
+      "id": "DEPLOY-06",
+      "status": "PREPARED_NOT_DISPATCHED",
+      "owner": null,
+      "dependsOn": [
+        "DEPLOY-04"
+      ],
+      "writeSurfaces": [
+        "Existing shutdown/recovery harness; avoid parallel scheduler edits"
+      ],
+      "acceptance": [
+        "Terminate and restart against real test Postgres with pending work.",
+        "Recover leases and queued state; no duplicate effect; rollback retains correct state.",
+        "Receipt names source head, environment, commands and actual results."
+      ],
+      "model": "Cheap implementation tier.",
+      "notes": "Execute supported local rehearsal first; alternate-host proof remains distinct."
+    },
+    {
+      "id": "AUTO-05",
+      "status": "PREPARED_NOT_DISPATCHED",
+      "owner": null,
+      "dependsOn": [
+        "VERIFY-483"
+      ],
+      "writeSurfaces": [
+        "Existing Capability Genome/Wallbreaker handoff seam"
+      ],
+      "acceptance": [
+        "One genuine gap maps to verified atom IDs; reuse searched first.",
+        "Revoked/unlicensed/incompatible candidates refused.",
+        "Approved supplier or bounded build candidate yields executable handoff with inputs, acceptance and rollback.",
+        "No automatic authority expansion or registry-only success."
+      ],
+      "model": "Cheap implementation tier.",
+      "notes": "Use one of the verified current six gaps as fixture to avoid synthetic duplicate infrastructure."
+    },
+    {
+      "id": "PCE-PRIVATE-ADMISSION",
+      "status": "PREPARED_NOT_DISPATCHED",
+      "owner": null,
+      "dependsOn": [],
+      "writeSurfaces": [
+        "Read-only audit of existing PCE reachability and explicit private interaction policy"
+      ],
+      "acceptance": [
+        "Preserve DELIBERATELY_UNREACHABLE boundary for autonomous doctors.",
+        "Distinguish explicit founder invocation from unattended network/worker access.",
+        "Identify smallest existing private entry/persistence seam; no live life payload or public exposure."
+      ],
+      "model": "Cheap read-only analyst.",
+      "notes": "Design acceptance first; implementation only under applicable private-path authority and current execution session."
+    },
+    {
+      "id": "INTEGRATION",
+      "status": "PREPARED_NOT_DISPATCHED",
+      "owner": null,
+      "dependsOn": [
+        "VERIFY-482",
+        "VERIFY-483"
+      ],
+      "writeSurfaces": [
+        "Integration-owned shared canon/readiness/handoff only after accepted children"
+      ],
+      "acceptance": [
+        "Refresh main and child heads; inspect combined changed behavior.",
+        "Syntax, focused hostile gates and required integration tests actually execute.",
+        "Regenerate metadata from source; preserve unmet gates and archived history.",
+        "Merge only appropriate exact-head evidence; no old #458 bulk merge."
+      ],
+      "model": "Cheapest capable integrator with independent consequential review.",
+      "notes": "Integrate each earned tranche, not wait for every optional packet."
+    },
+    {
+      "id": "CLOSURE-LEDGER",
+      "status": "PREPARED_NOT_DISPATCHED",
+      "owner": null,
+      "dependsOn": [
+        "INTEGRATION"
+      ],
+      "writeSurfaces": [
+        "Canonical existing coverage/readiness generators and ledger"
+      ],
+      "acceptance": [
+        "Each actual requirement has scope, source, callable path, persistence/recovery and evidence class.",
+        "Separate internal, provider, commercial and elapsed-time gates.",
+        "Structural aliases/research aspirations do not become implementation work or inflated completion.",
+        "Explicitly report unknown and untested, never infer 100% from six gaps closed."
+      ],
+      "model": "Cheap reconciliation tier.",
+      "notes": "Whole-project residuals must be regenerated; 64-packet map is only one bounded mission."
+    }
+  ],
+  "dispatchPolicy": {
+    "workInProgress": 2,
+    "plusReadOnlyVerifier": 1,
+    "scaleWhen": "Exact surfaces disjoint, acknowledged workers, available budget.",
+    "sharedFiles": "Integration lane only; planning labels are not executable path claims.",
+    "implementationAuthority": "This checkpoint does not launch workers. A later execution-authorized session uses these packets under its current instructions and existing consequence gates."
+  },
+  "closureDefinition": {
+    "internal": "100% may describe only a dated finite requirement set with all important internally solvable behavior proven; no unknown critical coverage and no unresolved P0/P1.",
+    "wholeSystem": "No global percentage inferred; open-ended North Star and longitudinal outcomes have distinct evidence requirements.",
+    "gateVector": [
+      "source implemented",
+      "reachable under intended authority",
+      "state persists",
+      "recovery exercised",
+      "current-head integrated",
+      "runtime observed",
+      "external outcome observed"
+    ],
+    "progressCreditThisCheckpoint": 0
+  }
 }

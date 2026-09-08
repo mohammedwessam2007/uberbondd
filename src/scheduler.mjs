@@ -1,15 +1,18 @@
+import { reconcileScheduledOccurrence } from './durable-scheduler-occurrence.mjs';
+
 const MINUTE = 60000;
 const HOUR = 60 * MINUTE;
-
-function bucket(intervalMs) { return Math.floor(Date.now() / intervalMs); }
 
 export function startScheduler(queue, cfg, log = console) {
   const timers = [];
   const safe = (label, fn) => Promise.resolve().then(fn).catch(error => log.error(label, error));
-  const schedule = (type, intervalMs, payload = {}, options = {}) => queue.enqueue(type, payload, {
-    ...options,
-    dedupeKey: `${type}:${bucket(intervalMs)}`,
-    singletonKey: type === 'research.batch' ? null : `singleton:${type}`
+  const schedule = (type, intervalMs, payload = {}, options = {}) => reconcileScheduledOccurrence({
+    queue,
+    type,
+    intervalMs,
+    payload,
+    options,
+    maxCatchUpBuckets: 2
   });
 
   if (cfg.autopilot) {

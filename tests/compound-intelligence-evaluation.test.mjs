@@ -76,6 +76,7 @@ function fixture() {
       selectedBaselineId: 'baseline-strong',
       selectedRevision: 'baseline@9',
       selectionEvidenceRef: 'evidence:baseline-selection-frozen',
+      selectionOwner: 'EVALUATOR_PREDECLARED',
       frozenBeforeEvaluation: true,
       alternatives: [
         { id: 'baseline-strong', revision: 'baseline@9', evidenceRef: 'evidence:baseline-strong', strengthRank: 20, accessible: true, eligible: true },
@@ -119,8 +120,12 @@ function fixture() {
     revocationSnapshot: {
       snapshotRef: 'revocation-snapshot:2026-09-09T00:00:00Z',
       verifiedAt: '2026-09-09T00:00:00Z',
+      verifierId: 'revocation-auditor',
+      verifierLineageRef: 'lineage:revocation-auditor',
       components: components.map(row => ({ componentId: row.componentId, revision: row.revision, evidenceRef: `registry:${row.componentId}`, revoked: false }))
     },
+    observedAt: '2026-09-09T00:30:00Z',
+    maxRevocationAgeMs: 3_600_000,
     decisionPolicy: {
       abstainOnInsufficientEvidence: true,
       noRecommendationOnValueBoundary: true,
@@ -193,12 +198,36 @@ test('evaluator protocol must name the exact composition digest', () => {
   assert.ok(result.reasonCodes.includes('evaluator-protocol-must-name-exact-composition-and-digest'));
 });
 
-test('candidate and evaluator cannot share lineage', () => {
+test('evaluator cannot be one of the composition components by id', () => {
+  const input = fixture();
+  input.independentEvaluation.evaluatorId = 'planner-a';
+  const result = evaluateCompoundIntelligence(input);
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('evaluator-must-be-independent-of-every-composition-component'));
+});
+
+test('aggregate lineage cannot hide evaluator ancestry shared with a component', () => {
+  const input = fixture();
+  input.independentEvaluation.evaluatorLineageRef = 'lineage:model-a';
+  const result = evaluateCompoundIntelligence(input);
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('evaluator-must-be-independent-of-every-composition-component'));
+});
+
+test('candidate and evaluator aggregate lineage still cannot be identical', () => {
   const input = fixture();
   input.independentEvaluation.evaluatorLineageRef = input.independentEvaluation.generatorLineageRef;
   const result = evaluateCompoundIntelligence(input);
   assert.equal(result.ok, false);
   assert.ok(result.reasonCodes.includes('generator-evaluator-lineage-not-independent'));
+});
+
+test('baseline selection must be evaluator-predeclared, not candidate-owned', () => {
+  const input = fixture();
+  input.baselineSelection.selectionOwner = 'CANDIDATE';
+  const result = evaluateCompoundIntelligence(input);
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('evaluator-predeclared-baseline-selection-required'));
 });
 
 test('weaker accessible baseline cannot be selected while a stronger eligible one exists', () => {
@@ -307,6 +336,39 @@ test('later observed revocation invalidates an otherwise passing evaluation', ()
   const result = evaluateCompoundIntelligence(input);
   assert.equal(result.ok, false);
   assert.ok(result.reasonCodes.includes('observed-revoked-component-invalidates-composition'));
+});
+
+test('revocation evidence cannot be verified by a candidate component lineage', () => {
+  const input = fixture();
+  input.revocationSnapshot.verifierLineageRef = 'lineage:model-b';
+  const result = evaluateCompoundIntelligence(input);
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('revocation-verifier-must-be-independent-of-components-and-evaluator'));
+});
+
+test('evaluation judge cannot also be the revocation verifier', () => {
+  const input = fixture();
+  input.revocationSnapshot.verifierId = input.independentEvaluation.evaluatorId;
+  input.revocationSnapshot.verifierLineageRef = input.independentEvaluation.evaluatorLineageRef;
+  const result = evaluateCompoundIntelligence(input);
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('revocation-verifier-must-be-independent-of-components-and-evaluator'));
+});
+
+test('stale revocation snapshot cannot keep a composition alive indefinitely', () => {
+  const input = fixture();
+  input.revocationSnapshot.verifiedAt = '2026-09-08T20:00:00Z';
+  const result = evaluateCompoundIntelligence(input);
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('stale-revocation-snapshot-refused'));
+});
+
+test('future-dated revocation evidence is refused', () => {
+  const input = fixture();
+  input.revocationSnapshot.verifiedAt = '2026-09-09T01:00:00Z';
+  const result = evaluateCompoundIntelligence(input);
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('future-dated-revocation-snapshot-refused'));
 });
 
 test('composition must preserve abstention and the human value boundary', () => {

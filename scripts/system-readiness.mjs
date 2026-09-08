@@ -5,8 +5,8 @@
 // learned the hard way when a hand-written receipt minted five thousand
 // dollars: a readiness artifact that a person types is a wish. Everything here
 // is either read off the repository or supplied as a measurement with the
-// command that produced it, and a capability may not claim a proof level it
-// has no evidence for.
+// command that produced it, and a capability may not claim a proof level it has
+// no evidence for.
 //
 // Levels (section 63):
 //   0 absent   1 design   2 implemented   3 deterministic proof
@@ -26,6 +26,12 @@ const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const MAX_REPOSITORY_PROVEN_LEVEL = 4;
 const PRODUCTION_ENTRY_POINTS = ['server.mjs', 'worker.mjs', 'scripts/agent-mesh-tick.mjs'];
+// A founder-interactive command is not an unattended operator entry point. It
+// must remain an exact allowlist rather than a directory convention: putting a
+// second script here is a security decision that deserves review in the diff.
+export const FOUNDER_INTERACTIVE_ENTRY_POINTS = Object.freeze([
+  'scripts/personal-civilization-private.mjs'
+]);
 
 function git(args) {
   try {
@@ -99,40 +105,68 @@ export function reachableFromEntryPoints(entryPoints = PRODUCTION_ENTRY_POINTS) 
  * Reachability is repository structure, not a recorded human measurement.
  * Compute it from the current tree every time readiness is built so a stale
  * config packet or prose paragraph can never mint a current reachability fact.
+ *
+ * The partition is deliberately four-way. Founder-interactive reachability is
+ * neither production nor ordinary operator reachability: it requires a human
+ * at the exact whitelisted command. If a module is reachable from both the
+ * founder command and any unattended entry point, it belongs to the unattended
+ * class and cannot use founder-interactive reachability as camouflage.
  */
 export function measureReachability() {
   const api = entryPointsIn('api');
   const scripts = entryPointsIn('scripts');
+  const unattendedScripts = scripts.filter(file => !FOUNDER_INTERACTIVE_ENTRY_POINTS.includes(file));
   const all = entryPointsIn('src');
-  const productionSet = reachableFromEntryPoints([...PRODUCTION_ENTRY_POINTS, ...api]);
-  const anyEntrySet = reachableFromEntryPoints(['server.mjs', 'worker.mjs', ...scripts, ...api]);
-  const production = all.filter(file => productionSet.has(file));
-  const operatorOnly = all.filter(file => !productionSet.has(file) && anyEntrySet.has(file));
-  const unreachable = all.filter(file => !anyEntrySet.has(file));
 
-  let classified = [];
+  const productionSet = reachableFromEntryPoints([...PRODUCTION_ENTRY_POINTS, ...api]);
+  const unattendedSet = reachableFromEntryPoints([...PRODUCTION_ENTRY_POINTS, ...api, ...unattendedScripts]);
+  const founderInteractiveSet = reachableFromEntryPoints(FOUNDER_INTERACTIVE_ENTRY_POINTS);
+
+  const production = all.filter(file => productionSet.has(file));
+  const unattendedOperatorOnly = all.filter(file => !productionSet.has(file) && unattendedSet.has(file));
+  const founderInteractiveOnly = all.filter(file => !unattendedSet.has(file) && founderInteractiveSet.has(file));
+  const unreachable = all.filter(file => !unattendedSet.has(file) && !founderInteractiveSet.has(file));
+
+  let classification = { modules: {} };
   try {
-    classified = Object.keys(
-      JSON.parse(readFileSync(join(repoRoot, 'config', 'reachability-classification.json'), 'utf8')).modules || {}
-    );
+    classification = JSON.parse(readFileSync(join(repoRoot, 'config', 'reachability-classification.json'), 'utf8'));
   } catch {
-    classified = [];
+    classification = { modules: {} };
   }
+  const modules = classification.modules || {};
+  const classified = Object.keys(modules);
   const classifiedSet = new Set(classified);
+  const founderOnlySet = new Set(founderInteractiveOnly);
+
   const unclassified = unreachable.filter(file => !classifiedSet.has(file));
-  const staleClassifications = classified.filter(file => anyEntrySet.has(file));
+  const staleClassifications = classified.filter(file => {
+    if (productionSet.has(file) || unattendedSet.has(file)) return true;
+    if (founderOnlySet.has(file)) return modules[file]?.category !== 'DELIBERATELY_UNREACHABLE';
+    return false;
+  });
+  const founderInteractiveClassificationViolations = founderInteractiveOnly.filter(file =>
+    modules[file]?.category !== 'DELIBERATELY_UNREACHABLE'
+  );
 
   return {
     command: 'node --test tests/reachability-ratchet.test.mjs',
     measurementMode: 'LIVE_COMPUTED_FROM_IMPORT_GRAPH',
     srcModules: all.length,
     reachableFromProduction: production.length,
-    reachableFromOperatorScriptsOnly: operatorOnly.length,
+    reachableFromUnattendedOperatorScriptsOnly: unattendedOperatorOnly.length,
+    reachableFromFounderInteractiveOnly: founderInteractiveOnly.length,
+    // Backward-compatible alias for consumers that have not yet learned the
+    // founder-interactive class. It intentionally excludes founder-only paths.
+    reachableFromOperatorScriptsOnly: unattendedOperatorOnly.length,
     noEntryPointAtAll: unreachable.length,
-    partitionExact: production.length + operatorOnly.length + unreachable.length === all.length,
-    allClassified: unclassified.length === 0 && staleClassifications.length === 0,
+    partitionExact: production.length + unattendedOperatorOnly.length + founderInteractiveOnly.length + unreachable.length === all.length,
+    allClassified: unclassified.length === 0
+      && staleClassifications.length === 0
+      && founderInteractiveClassificationViolations.length === 0,
     unclassified,
-    staleClassifications
+    staleClassifications,
+    founderInteractiveClassificationViolations,
+    founderInteractiveEntryPoints: [...FOUNDER_INTERACTIVE_ENTRY_POINTS]
   };
 }
 

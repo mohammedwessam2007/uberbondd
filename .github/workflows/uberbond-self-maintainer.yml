@@ -54,10 +54,26 @@ jobs:
           key: uberbond-cognitive-cycle-${{ github.run_id }}
           restore-keys: |
             uberbond-cognitive-cycle-
+      - name: Restore prior self-maintainer continuation memory
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache/uberbond-self-maintainer-continuation.json
+          key: uberbond-self-maintenance-continuation-${{ github.run_id }}
+          restore-keys: |
+            uberbond-self-maintenance-continuation-
       - name: Install exact locked dependencies
         run: npm ci
+      - name: Enforce prior continuation before same-base reentry
+        id: preflight
+        shell: bash
+        run: |
+          mkdir -p artifacts/cognitive .cache
+          node scripts/self-maintainer-pulse-preflight.mjs .cache/uberbond-self-maintainer-continuation.json > artifacts/cognitive/self-maintainer-preflight.json
+          run_tick=$(node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('artifacts/cognitive/self-maintainer-preflight.json','utf8'));process.stdout.write(v.runPrimaryTick===true?'true':'false')")
+          echo "run_tick=$run_tick" >> "$GITHUB_OUTPUT"
       - name: Run initial whole-brain self-maintenance tick
         id: initial
+        if: steps.preflight.outputs.run_tick == 'true'
         shell: bash
         run: |
           mkdir -p artifacts/cognitive
@@ -115,27 +131,36 @@ jobs:
           if [ ! -f artifacts/cognitive/self-maintainer-latest.json ] && [ -f artifacts/cognitive/self-maintainer-initial.json ]; then
             cp artifacts/cognitive/self-maintainer-initial.json artifacts/cognitive/self-maintainer-latest.json
           fi
-      - name: Compile non-repeating continuation decision
+      - name: Compile or preserve non-repeating continuation decision
         if: always()
         shell: bash
         run: |
-          if [ -f artifacts/cognitive/self-maintainer-latest.json ]; then
+          if [ '${{ steps.preflight.outputs.run_tick }}' = 'false' ] && [ -f .cache/uberbond-self-maintainer-continuation.json ]; then
+            cp .cache/uberbond-self-maintainer-continuation.json artifacts/cognitive/self-maintainer-continuation.json
+          elif [ -f artifacts/cognitive/self-maintainer-latest.json ]; then
             node scripts/self-maintainer-continuation-receipt.mjs artifacts/cognitive/self-maintainer-latest.json > artifacts/cognitive/self-maintainer-continuation.json
           elif [ -f artifacts/cognitive/self-maintainer-initial.json ]; then
             node scripts/self-maintainer-continuation-receipt.mjs artifacts/cognitive/self-maintainer-initial.json > artifacts/cognitive/self-maintainer-continuation.json
           else
             printf '%s\n' '{"schemaVersion":"uberbond.self-maintainer-continuation-receipt.v1","status":"NO_PRIMARY_RECEIPT","businessEffectAuthority":"NONE"}' > artifacts/cognitive/self-maintainer-continuation.json
           fi
+          cp artifacts/cognitive/self-maintainer-continuation.json .cache/uberbond-self-maintainer-continuation.json
       - name: Save self-maintenance truth for the next evidence-triggered pulse
         uses: actions/cache/save@v4
         with:
           path: artifacts/cognitive/self-maintainer-latest.json
           key: uberbond-self-maintenance-${{ github.run_id }}
+      - name: Save continuation guard for the next pulse
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/uberbond-self-maintainer-continuation.json
+          key: uberbond-self-maintenance-continuation-${{ github.run_id }}
       - name: Upload complete self-maintenance evidence packet
         uses: actions/upload-artifact@v4
         with:
           name: uberbond-self-maintenance-${{ github.run_id }}
           path: |
+            artifacts/cognitive/self-maintainer-preflight.json
             artifacts/cognitive/self-maintainer-initial.json
             artifacts/cognitive/self-maintainer-proposal-dispatch.json
             artifacts/cognitive/self-maintainer-latest.json

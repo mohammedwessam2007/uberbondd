@@ -3,7 +3,7 @@ import {
   REVERSIBILITY_CLASSES
 } from './genesis-boundary-experiment.mjs';
 
-export const GENESIS_EXPERIMENT_FEASIBILITY_VERSION = 'uberbond.genesis-experiment-feasibility.v1.1';
+export const GENESIS_EXPERIMENT_FEASIBILITY_VERSION = 'uberbond.genesis-experiment-feasibility.v1.2';
 
 const text = (value, max = 4000) => {
   const out = String(value ?? '').trim();
@@ -75,6 +75,12 @@ function validateEffects(effects = {}) {
     if (effects[field] === undefined || effects[field] === null) continue;
     if (count(effects[field], max) === null) return fail([`${field}-must-be-a-non-negative-safe-integer`]);
   }
+  for (const field of [
+    'customerContact', 'deployment', 'credentialChange', 'dnsChange', 'productionMutation'
+  ]) {
+    if (effects[field] === undefined || effects[field] === null) continue;
+    if (typeof effects[field] !== 'boolean') return fail([`${field}-must-be-boolean`]);
+  }
   return { ok: true };
 }
 
@@ -84,7 +90,7 @@ function validateEffects(effects = {}) {
  * The mature core remains authority for reversibility, blast radius and effect
  * scopes. This adapter makes feasibility inspectable before core compilation:
  * an actual probe is required; cost/time must fit; a probe needs a measure,
- * decision rule and distinct competing outcomes; malformed effect counts and
+ * decision rule and distinct competing outcomes; malformed effect fields and
  * reversibility typos fail closed. A caller-written `discriminating: true`
  * flag carries no evidence by itself.
  */
@@ -160,8 +166,6 @@ export function compileFeasibleBoundedExperiment(input = {}) {
       costCents: probe.costCents,
       timeMinutes: probe.timeMinutes,
       reversibility: probe.reversibility,
-      // The mature core consumes this only after the adapter has established
-      // the explicit measure/rule/outcome contract above.
       discriminating: true
     }))
   });

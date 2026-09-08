@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-astra-orchestrator-state-1.0.0",
-  "status": "C07_FIFTEEN_CAPABILITIES_RECONCILED__PLAN_ONLY",
+  "status": "C10_CLOSURE_ORCHESTRATION__PREPARED_NOT_RUNNING",
   "createdFromMain": "799107519beca7e1dd6d56013dd937ab99b780af",
   "orchestratorBranch": "work/astra-swarm-reconciliation-20260908",
   "authoritativePrompt": "docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md",
@@ -60,22 +60,7 @@
       "recommendedWorker": "Claude/Capability Genome worker"
     }
   ],
-  "freshCurrentTribunal": [
-    {
-      "draft": true,
-      "head": "6e34e42e8c2dce3ef5ae9a59ae1aee6a20562b5b",
-      "merged": false,
-      "pr": 482,
-      "state": "open"
-    },
-    {
-      "draft": true,
-      "head": "ce1fb71239ac092c913b44ec166931bbcb1a0266",
-      "merged": false,
-      "pr": 483,
-      "state": "open"
-    }
-  ],
+  "freshCurrentTribunal": [],
   "certifiedWorkReceipts": [
     "artifacts/night/swarm/receipts/DEPLOY-02.WORK-CURRENT.json",
     "artifacts/night/swarm/receipts/DEPLOY-03.WORK-CURRENT.json",
@@ -114,13 +99,13 @@
   },
   "mandatoryFinalMinute": "Astra must stop coding and write a durable checkpoint with exact main/PR heads, ownership, packet dispositions, tests, blockers, merge order, next worker prompts and percentage deltas before model limits arrive.",
   "checkpoint": {
-    "id": "C07",
+    "id": "C10",
     "date": "2026-09-08",
-    "observedMain": "84a8bb37fe435ad8e9eb27820a43a525ad103aa1",
+    "observedMain": "353a6d7a67cc8a5e3d6e4d7f586e192429820ed1",
     "mode": "ORCHESTRATION_ONLY",
     "implementationLaunched": false,
     "workerAcknowledgements": [],
-    "nextAction": "Keep C06 operational priority. Cheap worker verifies reuse map for one selected context/retrieval/router seam; execute only in an execution-authorized session."
+    "nextAction": "Execution-authorized worker starts V1 from c09ExecutionPlan. Old #482/#483/C06 build queue is superseded by merged source; current proof remains the task."
   },
   "closedTribunal": [
     {
@@ -129,7 +114,7 @@
       "evidence": "576b8b7349b359809b314fe7af733e6e472f97d3"
     }
   ],
-  "packetAccountingNote": "Inherited #486 classification of 64 historical packets; not whole-project completeness or newly executed verification.",
+  "packetAccountingNote": "Historical 64-packet snapshot; C08 supersedes stale dispatch. Do not infer current coverage from these counts.",
   "historicalScoreboard": {
     "canonPercent": 99,
     "economicSoftwarePercent": 99,
@@ -436,6 +421,27 @@
       "implementationLaunched": false,
       "workerAcknowledgements": [],
       "nextAction": "Cheap execution-authorized worker inventories current portable donors and available authorized host; verifies #482/#483 current heads; executes DEPLOY-01/04/06 proof sequence using the C06 acceptance contracts. No host purchase inferred."
+    },
+    {
+      "id": "C07",
+      "date": "2026-09-08",
+      "observedMain": "84a8bb37fe435ad8e9eb27820a43a525ad103aa1",
+      "mode": "ORCHESTRATION_ONLY",
+      "implementationLaunched": false,
+      "workerAcknowledgements": [],
+      "nextAction": "Keep C06 operational priority. Cheap worker verifies reuse map for one selected context/retrieval/router seam; execute only in an execution-authorized session."
+    },
+    {
+      "id": "C08",
+      "observedMain": "353a6d7a67cc8a5e3d6e4d7f586e192429820ed1",
+      "mode": "ORCHESTRATION_ONLY",
+      "stateField": "c08TruthReset"
+    },
+    {
+      "id": "C09",
+      "observedMain": "353a6d7a67cc8a5e3d6e4d7f586e192429820ed1",
+      "mode": "ORCHESTRATION_ONLY",
+      "stateField": "c09ExecutionPlan"
     }
   ],
   "c03Research": {
@@ -1078,5 +1084,312 @@
     ],
     "modelPolicy": "Cheapest capable worker; deterministic tests first. Astra only to design a new mechanism after a concrete counterexample. Do not spend scarce session quota on massive new scaffolds.",
     "claimBoundary": "Planning cannot establish AGI, new capabilities, provider configuration, security, benchmark gains or life improvement. No implementation/worker launch/training/deployment in this session."
-  }
+  },
+  "c08TruthReset": {
+    "id": "C08",
+    "mode": "ORCHESTRATION_ONLY",
+    "observedMain": "353a6d7a67cc8a5e3d6e4d7f586e192429820ed1",
+    "prMetadata": [
+      {
+        "head": "6e34e42e8c2dce3ef5ae9a59ae1aee6a20562b5b",
+        "mergeCommit": "62202f48366a0fac217e99b3a6c1d277a54dd3b7",
+        "merged": true,
+        "pr": 482,
+        "state": "closed"
+      },
+      {
+        "head": "ce1fb71239ac092c913b44ec166931bbcb1a0266",
+        "mergeCommit": null,
+        "merged": false,
+        "pr": 483,
+        "state": "closed"
+      },
+      {
+        "head": "4b74bed88d45f67c31d13494eadf748f04689dd8",
+        "mergeCommit": "b904b2fa07789f14b69990b80b971f32d9c342bc",
+        "merged": true,
+        "pr": 500,
+        "state": "closed"
+      },
+      {
+        "head": "f31b5e6432f1ae76e37840bf0e4b17f036a6c5a4",
+        "mergeCommit": "782efd4e764b4e6487aa79c03f294c4f26299ee3",
+        "merged": true,
+        "pr": 502,
+        "state": "closed"
+      },
+      {
+        "head": "869f7c1190434f5bd9534e38461109b04d082dd3",
+        "mergeCommit": "c9439ec5d3410f07147d36564503428c1fd845c7",
+        "merged": true,
+        "pr": 503,
+        "state": "closed"
+      },
+      {
+        "head": "493f34e4d00df5b5299bc149f80be5c1aa04c6ff",
+        "mergeCommit": "609d8a876125db1f9873b71d17a379236f0bbb57",
+        "merged": true,
+        "pr": 504,
+        "state": "closed"
+      },
+      {
+        "head": "004368d206962d803970d74db4c90ff9e8cef1d0",
+        "mergeCommit": "85b31bb224acdce03d07d9496159ef69dd37802f",
+        "merged": true,
+        "pr": 505,
+        "state": "closed"
+      },
+      {
+        "head": "77e45816bd1fd3ac475ab5c5e24e22219725afd9",
+        "mergeCommit": "b520f6f69e690378f08e6a021d6b297ac077125c",
+        "merged": true,
+        "pr": 506,
+        "state": "closed"
+      },
+      {
+        "head": "d826db5a19f16e2b951bbdf0ece7211f6544577c",
+        "mergeCommit": "e87757e520f4717c017cf1827404c933944923e8",
+        "merged": true,
+        "pr": 507,
+        "state": "closed"
+      }
+    ],
+    "scope": "Metadata verified live; source behavior and current-head runtime not independently executed this session.",
+    "supersession": "C02/C06 construction queue is historical: #482/#500/#502/#503/#504/#505/#506/#507 merged; #483 closed unmerged and replacement #505 merged. Do not redispatch completed source packets.",
+    "nextAction": "Read current handoff, inspect changed source and receipts, execute exact-current private-vault/reachability proof and canonical coverage/readiness generation on an available runner.",
+    "unknowns": [
+      "Exact-current readiness and coverage denominator",
+      "Current private runtime executed proof",
+      "Independent named-host restoration/workload/recovery",
+      "Commercial provider/customer truth",
+      "Longitudinal calibration/life outcomes"
+    ],
+    "rule": "New source defect from verification reopens only the affected bounded packet; merge metadata never counts as executing proof."
+  },
+  "c09ExecutionPlan": {
+    "id": "C09",
+    "mode": "ORCHESTRATION_ONLY",
+    "status": "PREPARED_NOT_DISPATCHED",
+    "priority": "Verification and activation evidence, not another build wave.",
+    "packets": [
+      {
+        "id": "V1",
+        "dependsOn": [],
+        "goal": "Current-head truth and private runtime proof",
+        "worker": "Cheapest capable executing verifier",
+        "acceptance": "Refresh exact main and relevant AGENTS/canon; install locked dependencies; run actual private-vault/reachability/syntax suites. Regenerate canonical readiness/coverage using existing generators, discover commands from package.json. Record actual commands/exits/source. Zero-step checks remain unexecuted. Failures yield minimal counterexamples, not weakened expectations.",
+        "next": "If a source defect is reproduced, repair only under execution-session authority on an owned branch; otherwise publish evidence."
+      },
+      {
+        "id": "V2",
+        "dependsOn": [
+          "V1"
+        ],
+        "goal": "Residual requirement reconciliation",
+        "worker": "Cheap read-only reconciliation worker",
+        "acceptance": "Map every canonical in-scope requirement to source, caller, state/recovery, test and runtime/outcome evidence. Distinguish structural categories, aliases, research goals, superseded donors and unknowns. Preserve all C07 proposals without auto-building them. Compile a finite dated release scope plus separate open-ended goals; no denominator deletion to hit 100%.",
+        "next": "Only actual missing behaviors become bounded worker packets with dependencies, exact paths, falsifier and authority."
+      },
+      {
+        "id": "V3",
+        "dependsOn": [
+          "V1"
+        ],
+        "goal": "Named-host recovery and deployment proof",
+        "worker": "Cheap deployment/test worker",
+        "acceptance": "Use C06 acceptance contracts on current merged portable source: actual authorized host, immutable image, protected configuration, real Postgres, auth denial/allow, worker, durable occurrences, crash/restart, restored backup, safe rollout/rollback. Verify host and budget; no inferred purchase authority. Restore credentials remain available outside app failure domain.",
+        "next": "No host -> explicit external gate, continue independent proof. Named deployment and recovery claims require actual receipts."
+      },
+      {
+        "id": "V4",
+        "dependsOn": [
+          "V1"
+        ],
+        "goal": "iPad-first safe control surface",
+        "worker": "Cheap UI worker with independent privacy verifier",
+        "acceptance": "Inspect existing surface before coding. Expose current status, receipts, bounded decisions and max-three exceptions. Follow merged private vault boundary: no unattended API/network access to raw life records. Resolve how explicit founder interaction can safely use existing vault before implementation. Verify auth, stale-data labels, intended read/write/export/delete behavior and interruption burden.",
+        "next": "Do not substitute a public dashboard for private runtime; unavailable secure interaction remains explicit."
+      },
+      {
+        "id": "V5",
+        "dependsOn": [
+          "V2",
+          "V3"
+        ],
+        "goal": "Workflow automation and scoped reality activation",
+        "worker": "Cheap workflow/provider verifier",
+        "acceptance": "Exercise already-authorized maintenance/recovery workflows with durable identities, reconciliation and stop/escalation semantics. Inspect sender/payment/provider readiness without creating external effects. Customer contact, spend and real-money actions require applicable session authority. External receipts, not internal flags, establish payment/delivery/acceptance.",
+        "next": "Classify outstanding external gates with exact action/cost/evidence; routine safe operations stay automated."
+      },
+      {
+        "id": "V6",
+        "dependsOn": [
+          "V2"
+        ],
+        "goal": "Bounded intelligence and life experiments",
+        "worker": "One optional cheap research slot",
+        "acceptance": "Choose one C03/C04/C07 experiment justified by a genuine bottleneck. Reuse existing modules, matched-budget baselines and held-out evaluation; no 15-engine rebuild, blanket consensus truth or premature LoRA. Private lived probes require explicit participation.",
+        "next": "Stop or reject if no measured benefit; preserve negative results."
+      },
+      {
+        "id": "V7",
+        "dependsOn": [
+          "V3",
+          "V4",
+          "V5"
+        ],
+        "goal": "Integration and observed autonomy",
+        "worker": "Assigned integration verifier",
+        "acceptance": "Refresh all heads, test affected combined behavior, regenerate truth and integrate earned source changes. Observe real unattended interval with independent health evidence, interventions, missed/duplicate work and recovery. Never accelerate clocks to claim elapsed operation.",
+        "next": "Release within defined proven scope; keep unproven external and long-horizon claims separate."
+      }
+    ],
+    "dispatch": "Owner acknowledgement + exact paths before edits. One implementation lane plus independent verifier; one optional research slot only when budget permits. No worker is launched by this artifact.",
+    "failurePolicy": "Minimal counterexample -> different feasible strategy -> bounded repair -> independent evidence. Existing consequence gates remain binding.",
+    "resume": "Load latest checkpoint and one selected packet; refresh differences only after required startup. Persist at material results/five-minute unsaved boundaries."
+  },
+  "c10ClosureTribunal": {
+    "id": "C10",
+    "mode": "ORCHESTRATION_ONLY",
+    "purpose": "A defensible completion claim for a dated finite scope, without pretending an open-ended life system is finished.",
+    "dimensionContracts": [
+      {
+        "dimension": "Canon",
+        "evidence": "All in-scope requirements and historical goals retained with provenance, contradictions, supersession and current truth class. Link integrity and generated-source agreement.",
+        "limit": "Documentation completeness does not establish behavior."
+      },
+      {
+        "dimension": "Economic software",
+        "evidence": "Defined offer/order/payment/fulfillment/refund/replay/QA/acceptance boundaries implemented and executed on current source; real effects not fabricated.",
+        "limit": "Internal paths can complete while customers and revenue remain zero."
+      },
+      {
+        "dimension": "Personal Civilization runtime",
+        "evidence": "Explicit private interaction, persistence, permission, decisions, deletion/export and recovery exercised under approved boundaries.",
+        "limit": "Working life software is not proof of beneficial lived outcomes."
+      },
+      {
+        "dimension": "Sovereign Continuum runtime",
+        "evidence": "Defined reasoning/capability/admission/revocation/uncertainty/continuity paths have intended callers and current proof; unresolved source gaps remain visible.",
+        "limit": "A finite release is not the terminal open-ended North Star."
+      },
+      {
+        "dimension": "Reality calibration",
+        "evidence": "Pre-recorded predictions and observed outcomes, defined cohorts/horizons and valid error/calibration analysis; exposure and uncertainty disclosed.",
+        "limit": "No numerical maturity credit from merely adding a calibration ledger; future observations cannot be precomputed."
+      },
+      {
+        "dimension": "Full system",
+        "evidence": "Defined release dependencies and all required source/runtime/security/recovery gates pass together on one lineage.",
+        "limit": "Do not invent an aggregate percentage across unlike dimensions or label unknowns complete."
+      },
+      {
+        "dimension": "First-dollar readiness",
+        "evidence": "Current scoped provider/account/sender/offer/intake/payment/delivery prerequisites verified with internal/external separation.",
+        "limit": "Readiness is not first revenue."
+      },
+      {
+        "dimension": "Offer-to-payment-to-fulfilment",
+        "evidence": "Current contract and replay-safe journey proven; real provider/customer states only through authentic receipts.",
+        "limit": "Sandbox success is sandbox evidence."
+      },
+      {
+        "dimension": "Deployment/runtime",
+        "evidence": "Named host, immutable release, auth, durable worker/schedule, independent observation, backup restore and rollback tested.",
+        "limit": "Packaging or host listing is not deployment."
+      }
+    ],
+    "percentageRule": "Before reporting a percentage, publish dimension scope/version, requirement IDs, predeclared weights if any, numerator, denominator, evidence dates and treatment of unknowns. Unknown required gates count as not proven. Show critical gates separately; no average can hide a failed payment/privacy/recovery boundary. Use NOT_MEASURED where denominator is not defensible. Do not force Reality calibration or Full system to 100%.",
+    "releaseStates": [
+      "SOURCE_MERGED",
+      "EXACT_SOURCE_EXECUTED",
+      "SCOPED_INTERNAL_RELEASE_VERIFIED",
+      "NAMED_RUNTIME_VERIFIED",
+      "OBSERVED_OPERATION",
+      "EXTERNAL_OUTCOME_VERIFIED"
+    ],
+    "closureReceipt": [
+      "scopeVersion",
+      "mainSHA",
+      "releaseDigest",
+      "hostIdentity",
+      "requirementEvidenceMap",
+      "actualCommandsAndResults",
+      "criticalGateState",
+      "unknowns",
+      "externalOrElapsedBoundaries",
+      "ownerExceptions",
+      "rollbackReceipt",
+      "nextAction"
+    ],
+    "stop": "A scoped release may be complete; unattended operation and real-world learning continue. Whole-system perfection, AGI, revenue and life improvement are not manufactured by orchestration.",
+    "checkpointPolicy": "C08/C09/C10 persist together in one atomic git checkpoint; retain earlier decisions in checkpointHistory and packet records. Final minute reserved for durable publication. Source repo is the backup; no duplicate repository copy needed.",
+    "claimBoundary": "No implementation, test execution, deployment, worker dispatch, money movement, customer contact or longitudinal observation occurred in this planning session."
+  },
+  "currentSourceReconciliation": [
+    {
+      "head": "6e34e42e8c2dce3ef5ae9a59ae1aee6a20562b5b",
+      "mergeCommit": "62202f48366a0fac217e99b3a6c1d277a54dd3b7",
+      "merged": true,
+      "pr": 482,
+      "state": "closed"
+    },
+    {
+      "head": "ce1fb71239ac092c913b44ec166931bbcb1a0266",
+      "mergeCommit": null,
+      "merged": false,
+      "pr": 483,
+      "state": "closed"
+    },
+    {
+      "head": "4b74bed88d45f67c31d13494eadf748f04689dd8",
+      "mergeCommit": "b904b2fa07789f14b69990b80b971f32d9c342bc",
+      "merged": true,
+      "pr": 500,
+      "state": "closed"
+    },
+    {
+      "head": "f31b5e6432f1ae76e37840bf0e4b17f036a6c5a4",
+      "mergeCommit": "782efd4e764b4e6487aa79c03f294c4f26299ee3",
+      "merged": true,
+      "pr": 502,
+      "state": "closed"
+    },
+    {
+      "head": "869f7c1190434f5bd9534e38461109b04d082dd3",
+      "mergeCommit": "c9439ec5d3410f07147d36564503428c1fd845c7",
+      "merged": true,
+      "pr": 503,
+      "state": "closed"
+    },
+    {
+      "head": "493f34e4d00df5b5299bc149f80be5c1aa04c6ff",
+      "mergeCommit": "609d8a876125db1f9873b71d17a379236f0bbb57",
+      "merged": true,
+      "pr": 504,
+      "state": "closed"
+    },
+    {
+      "head": "004368d206962d803970d74db4c90ff9e8cef1d0",
+      "mergeCommit": "85b31bb224acdce03d07d9496159ef69dd37802f",
+      "merged": true,
+      "pr": 505,
+      "state": "closed"
+    },
+    {
+      "head": "77e45816bd1fd3ac475ab5c5e24e22219725afd9",
+      "mergeCommit": "b520f6f69e690378f08e6a021d6b297ac077125c",
+      "merged": true,
+      "pr": 506,
+      "state": "closed"
+    },
+    {
+      "head": "d826db5a19f16e2b951bbdf0ece7211f6544577c",
+      "mergeCommit": "e87757e520f4717c017cf1827404c933944923e8",
+      "merged": true,
+      "pr": 507,
+      "state": "closed"
+    }
+  ],
+  "executionPacketsHistorical": true
 }
